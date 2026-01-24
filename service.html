@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Santis Club | Hizmet Detayı</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="data:,">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      color: #202124;
+      background: #fff;
+    }
+    .hero {
+      position: relative;
+      text-align: center;
+      color: white;
+      background-size: cover;
+      background-position: center;
+      padding: 120px 20px;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.45);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .hero p {
+      font-size: 18px;
+      color: #f1f3f4;
+      max-width: 600px;
+      margin: 0 auto;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .service-container {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .service-info {
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .service-info h2 {
+      color: #1a73e8;
+      margin-top: 0;
+    }
+    .service-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 15px 0;
+      font-size: 15px;
+      color: #5f6368;
+    }
+    .service-meta span {
+      background: #e8f0fe;
+      color: #1a73e8;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .service-description {
+      margin-top: 20px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+    }
+    .service-actions {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .service-actions button {
+      background: #1a73e8;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 24px;
+      margin: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    .service-actions button:hover {
+      background: #1557b0;
+    }
+    .btn-whatsapp {
+      background-color: #25d366 !important;
+    }
+    .btn-whatsapp:hover {
+      background-color: #128c7e !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <section class="hero" id="serviceHero">
+    <div class="hero-content">
+      <h1 id="serviceName"></h1>
+      <p id="hotelName"></p>
+    </div>
+  </section>
+
+  <div class="service-container">
+    <div class="service-info">
+      <h2 id="serviceTitle"></h2>
+      <div class="service-meta">
+        <span id="serviceDuration"></span>
+        <span id="servicePrice"></span>
+      </div>
+      <p class="service-description" id="serviceDesc"></p>
+    </div>
+
+    <div class="service-actions">
+      <button id="btnBookWhatsApp" class="btn-whatsapp"></button>
+      <button id="btnBookOnline"></button>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+
+  <script>
+    async function includeComponent(id, file) {
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const html = await res.text();
+        const el = document.getElementById(id);
+        el.innerHTML = html;
+        
+        // Scriptleri çalıştır
+        const scripts = el.querySelectorAll("script");
+        scripts.forEach(oldScript => {
+          const newScript = document.createElement("script");
+          Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+          newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+          oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+      } catch (e) {
+        console.warn("Component load failed:", file, e);
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = `<div style="color:#721c24;background:#f8d7da;padding:10px;border:1px solid #f5c6cb;margin:10px">⚠️ <b>Failed to load ${file}</b><br><small>Please use a local web server (e.g. VS Code Live Server).</small></div>`;
+      }
+    }
+    includeComponent("navbar", "./components/navbar.html");
+    includeComponent("footer", "./components/footer.html");
+
+    function getParams() {
+      const url = new URL(window.location.href);
+      return {
+        hotel: url.searchParams.get("hotel") || "alba-resort",
+        service: url.searchParams.get("service") || "",
+        lang: url.searchParams.get("lang") || "tr"
+      };
+    }
+
+    async function loadService() {
+      const { hotel, service, lang } = getParams();
+      const res = await fetch("santis-hotels.json");
+      const data = await res.json();
+      
+      const h = data.hotels.find(h => h.slug === hotel);
+      if (!h) return; // Otel bulunamadıysa işlem yapma (veya 404 sayfasına yönlendir)
+
+      const s = data.services[service];
+      if (!s) return; // Hizmet bulunamadıysa işlem yapma
+
+      const ht = h.translations[lang] || h.translations.tr;
+      const sName = s.name[lang] || s.name.en;
+      const sDesc = s.desc[lang] || s.desc.en;
+
+      document.title = `Santis Club | ${sName}`;
+      document.getElementById("hotelName").textContent = ht.name;
+      document.getElementById("serviceName").textContent = sName;
+      document.getElementById("serviceTitle").textContent = sName;
+      document.getElementById("serviceDesc").textContent = sDesc;
+      document.getElementById("serviceDuration").textContent = `⏱ ${s.durationMin} min`;
+      document.getElementById("servicePrice").textContent = `💰 ${s.price} ${s.currency}`;
+
+      const hero = document.getElementById("serviceHero");
+      // Hizmet görseli yoksa otel görselini kullan
+      hero.style.backgroundImage = `url(${h.hero_image})`;
+
+      const t = {
+        tr: { wa: "WhatsApp ile Rezervasyon", online: "Online Rezervasyon" },
+        en: { wa: "Book via WhatsApp", online: "Book Online" },
+        de: { wa: "Über WhatsApp buchen", online: "Online buchen" },
+        fr: { wa: "Réserver via WhatsApp", online: "Réservation en ligne" },
+        ru: { wa: "Забронировать через WhatsApp", online: "Онлайн бронирование" }
+      }[lang] || { wa: "Book via WhatsApp", online: "Book Online" };
+
+      const btnWa = document.getElementById("btnBookWhatsApp");
+      const btnOnline = document.getElementById("btnBookOnline");
+
+      btnWa.textContent = t.wa;
+      btnOnline.textContent = t.online;
+
+      btnWa.onclick = () => {
+        const msg = `Merhaba, ${ht.name} otelinde ${sName} için rezervasyon yapmak istiyorum.`;
+        window.open(`https://wa.me/905348350169?text=${encodeURIComponent(msg)}`, '_blank');
+      };
+
+      btnOnline.onclick = () => {
+        window.location.href = `booking.html?hotel=${hotel}&lang=${lang}`;
+      };
+    }
+
+    loadService();
+  </script>
+</body>
+</html>

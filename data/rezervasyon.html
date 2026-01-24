@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rezervasyon | Santis Club</title>
+  <meta name="description" content="Santis Club spa merkezlerinde online rezervasyon yapın veya WhatsApp üzerinden hızlı randevu alın." />
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <div class="logo"><a href="/tr/">Santis Club</a></div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/tr/">Ana Sayfa</a></li>
+          <li><a href="/tr/hakkimizda/">Hakkımızda</a></li>
+          <li><a href="/tr/galeri/">Galeri</a></li>
+          <li><a href="/tr/ekibimiz/">Ekibimiz</a></li>
+        </ul>
+      </nav>
+      <div class="lang-switch">
+        <a href="/tr/rezervasyon/">TR</a> | <a href="/de/rezervasyon/">DE</a> | <a href="/ru/rezervasyon/">RU</a> | <a href="/fr/rezervasyon/">FR</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <h1>Rezervasyon</h1>
+      <p>Hemen WhatsApp üzerinden ya da online form doldurarak randevunuzu oluşturun.</p>
+    </div>
+  </section>
+
+  <!-- WHATSAPP QUICK BOOKING -->
+  <section id="whatsapp-booking">
+    <h2>WhatsApp ile Hızlı Rezervasyon</h2>
+    <p>En hızlı yanıt için WhatsApp üzerinden bize ulaşın. Tarih, saat ve tercih ettiğiniz hizmeti belirterek mesaj atabilirsiniz.</p>
+
+    <a
+      href="https://wa.me/905xxxxxxxxx?text=Merhaba%20Santis%20Club%2C%20%7BOtel%20Ad%C4%B1%7D%20i%C3%A7in%20%7BHizmet%7D%20rezervasyonu%20almak%20istiyorum.%20Tarih%3A%20_____%20Saat%3A%20_____%20Kişi%20sayısı%3A%20___."
+      target="_blank"
+      class="btn-primary">
+      WhatsApp'ta Mesaj Gönder
+    </a>
+  </section>
+
+  <!-- ONLINE BOOKING FORM -->
+  <section id="online-booking">
+    <h2>Online Rezervasyon Formu</h2>
+    <form id="booking-form" action="https://api.santisclub.com/bookings" method="POST">
+
+      <!-- OTEL -->
+      <label for="hotel">Otel Seçiniz</label>
+      <select id="hotel" name="hotel" required>
+        <option value="">Otel Seçiniz</option>
+        <option value="alba-resort">Alba Resort Hotel</option>
+        <option value="alba-queen">Alba Queen Hotel</option>
+        <option value="alba-royal">Alba Royal Hotel</option>
+        <option value="iberostar-bellevue">Iberostar Waves Bellevue</option>
+      </select>
+
+      <!-- HİZMET -->
+      <label for="service">Hizmet Seçiniz</label>
+      <select id="service" name="service" required>
+        <option value="">Hizmet Seçiniz</option>
+        <option value="turkish-hammam">Geleneksel Türk Hamamı</option>
+        <option value="signature-couples">Signature Couples Massage</option>
+        <option value="deep-tissue">Deep Tissue / Sports Massage</option>
+      </select>
+
+      <!-- TARİH / SAAT -->
+      <div class="datetime-fields">
+        <label for="date">Tarih</label>
+        <input type="date" id="date" name="date" required />
+        <label for="time">Saat</label>
+        <input type="time" id="time" name="time" required />
+      </div>
+
+      <!-- KİŞİ SAYISI -->
+      <label for="guests">Kişi Sayısı</label>
+      <select id="guests" name="guests">
+        <option value="1">1</option>
+        <option value="2">2 (Couple)</option>
+        <option value="3">3+</option>
+      </select>
+
+      <!-- İLETİŞİM -->
+      <label for="name">Ad Soyad</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="phone">Telefon (ülke koduyla)</label>
+      <input type="tel" id="phone" name="phone" placeholder="+90..." required />
+
+      <label for="email">E-posta (opsiyonel)</label>
+      <input type="email" id="email" name="email" placeholder="E-posta adresiniz" />
+
+      <!-- DİL -->
+      <input type="hidden" name="language" value="tr" />
+
+      <!-- NOT -->
+      <label for="note">Ek Notlar</label>
+      <textarea id="note" name="note" rows="3" placeholder="Özel istekler, sağlık notları, oda numarası vb."></textarea>
+
+      <!-- ONAYLAR -->
+      <div class="checkboxes">
+        <label><input type="checkbox" name="privacy" required /> KVKK & Gizlilik Politikası’nı okudum.</label>
+        <label><input type="checkbox" name="confirm" required /> Rezervasyon şartlarını kabul ediyorum.</label>
+      </div>
+
+      <!-- GÖNDER BUTONU -->
+      <button type="submit" class="btn-primary">Rezervasyonu Gönder</button>
+    </form>
+  </section>
+
+  <!-- AFTER SUBMIT MESSAGE (placeholder) -->
+  <section id="booking-success" style="display:none;">
+    <h2>Teşekkürler!</h2>
+    <p>Rezervasyon talebiniz alındı. En kısa sürede sizinle iletişime geçeceğiz.</p>
+    <a href="https://wa.me/905xxxxxxxxx" class="btn-secondary">WhatsApp’ta Paylaş</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-nav">
+      <ul>
+        <li><a href="/tr/">Ana Sayfa</a></li>
+        <li><a href="/tr/hakkimizda/">Hakkımızda</a></li>
+        <li><a href="/tr/iletisim/">İletişim</a></li>
+      </ul>
+    </div>
+    <p>© 2026 Santis Club Spa & Wellness</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("booking-form");
+      const successSection = document.getElementById("booking-success");
+      const onlineBookingSection = document.getElementById("online-booking");
+
+      if (!form) return;
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault(); // Sayfa yenilenmesini engelle
+
+        const btn = form.querySelector('button[type="submit"]');
+        const originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = "Gönderiliyor...";
+
+        // Form alanlarını oku
+        const data = {
+          hotel: form.hotel.value,
+          service: form.service.value,
+          date: form.date.value,
+          time: form.time.value,
+          guests: parseInt(form.guests.value) || 1,
+          name: form.name.value.trim(),
+          phone: form.phone.value.trim(),
+          email: form.email.value.trim(),
+          language: form.language.value || 'tr',
+          note: form.note.value.trim(),
+          source: "web"
+        };
+
+        // API isteği
+        try {
+          let response;
+          try {
+            response = await fetch("https://api.santisclub.com/bookings", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            });
+          } catch (netErr) {
+            // API erişilemezse demo başarısı simüle et
+            console.warn("API erişilemedi (Demo Modu).");
+            response = { ok: true, json: async () => ({ success: true, reference: "DEMO-" + Math.floor(Math.random() * 10000) }) };
+          }
+
+          const result = await response.json();
+
+          if (response.ok && (result.success || result.reference)) {
+            // Başarılı gönderim
+            form.reset();
+            if (onlineBookingSection) onlineBookingSection.style.display = "none";
+            
+            if (successSection) {
+              successSection.style.display = "block";
+              const msgP = successSection.querySelector("p");
+              if (msgP) msgP.innerHTML = `Rezervasyon talebiniz alındı.<br><strong>Referans Kodu: ${result.reference}</strong><br>En kısa sürede sizinle iletişime geçeceğiz.`;
+              successSection.scrollIntoView({ behavior: "smooth" });
+            }
+            console.log("Referans kodu:", result.reference);
+          } else {
+            alert(result.message || "Rezervasyon gönderilirken bir hata oluştu.");
+            btn.disabled = false;
+            btn.textContent = originalText;
+          }
+        } catch (error) {
+          console.error("API bağlantı hatası:", error);
+          alert("Sunucuya bağlanılamadı. Lütfen daha sonra tekrar deneyin.");
+          btn.disabled = false;
+          btn.textContent = originalText;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

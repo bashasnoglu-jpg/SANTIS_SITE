@@ -1,0 +1,236 @@
+<!-- hotel.html — Otel Detay ve Hizmet Listesi -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Santis Club | Hotels</title>
+  <!-- Açıklama: Her otel için dinamik bilgiler (isim, açıklama, öne çıkan hizmetler) -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="data:,">
+
+  <style>
+    :root {
+      --primary: #1a73e8;
+      --border: #dadce0;
+      --radius: 8px;
+      --gray: #5f6368;
+      --bg: #fff;
+      --error: #d93025;
+    }
+    body {
+      font-family: "Roboto", Arial, sans-serif;
+      margin: 0;
+      color: #202124;
+      background: var(--bg);
+    }
+    /* Hero */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 100px 20px 80px;
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.45);
+      z-index: 1;
+    }
+    .hero h1, .hero p { position: relative; z-index: 2; }
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 6px rgba(0,0,0,.4);
+    }
+    .hero p {
+      font-size: 18px;
+      color: #f1f3f4;
+      max-width: 600px;
+      margin: 0 auto;
+      text-shadow: 0 2px 6px rgba(0,0,0,.4);
+    }
+
+    /* Featured grid */
+    .featured {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    .featured h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 28px;
+      color: #202124;
+    }
+    .services-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    .service-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform .25s ease;
+    }
+    .service-card:hover { transform: translateY(-3px); }
+    .service-card h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      color: #1a73e8;
+    }
+    .service-card p {
+      margin: 0;
+      color: #5f6368;
+      font-size: 14px;
+    }
+    .cta-btn {
+      margin-top: 10px;
+      display: inline-block;
+      padding: 8px 14px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 6px;
+      font-size: 14px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <section class="hero">
+    <h1 id="hotelName"></h1>
+    <p id="hotelDesc"></p>
+  </section>
+
+  <section class="featured">
+    <h2 id="featuredTitle"></h2>
+    <div class="services-grid" id="featuredList"></div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script>
+    async function loadHotels(){
+      // Helper to load components and execute scripts
+      async function loadComp(id, file) {
+        try {
+          const res = await fetch(file);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const el = document.getElementById(id);
+          el.innerHTML = await res.text();
+          el.querySelectorAll("script").forEach(s => {
+            const ns = document.createElement("script");
+            ns.text = s.innerHTML;
+            s.parentNode.replaceChild(ns, s);
+          });
+        } catch (e) {
+          console.warn("Component load failed:", file, e);
+          const el = document.getElementById(id);
+          if (el) el.innerHTML = `<div style="color:#721c24;background:#f8d7da;padding:10px;border:1px solid #f5c6cb;margin:10px">⚠️ <b>Failed to load ${file}</b><br><small>Please use a local web server (e.g. VS Code Live Server).</small></div>`;
+        }
+      }
+
+      // Bileşenleri yükle
+      await loadComp("navbar", "./components/navbar.html");
+      await loadComp("footer", "./components/footer.html");
+
+      // Hotel Select'i navbar içine enjekte et
+      const selectors = document.querySelector(".selectors");
+      const hSel = document.createElement("select");
+      hSel.id = "hotelSelect";
+      selectors.insertBefore(hSel, selectors.firstChild);
+
+      const res=await fetch("santis-hotels.json");
+      const data=await res.json();
+      initHotel(data);
+    }
+    function getParams(){
+      const p=new URLSearchParams(window.location.search);
+      return{hotel:p.get("hotel")||"alba-resort",lang:p.get("lang")||"tr"};
+    }
+
+    function initHotel(data){
+      const hotels = data.hotels;
+      const services = data.services;
+      let {hotel:selectedHotel,lang}=getParams();
+
+      const hSel=document.getElementById("hotelSelect");
+      const lSel=document.getElementById("langSelect");
+      const hero=document.querySelector(".hero");
+      const hName=document.getElementById("hotelName");
+      const hDesc=document.getElementById("hotelDesc");
+      const featuredList=document.getElementById("featuredList");
+      const featuredTitle=document.getElementById("featuredTitle");
+
+      // populate hotel dropdown
+      hotels.forEach(h=>{
+        const opt=document.createElement("option");
+        opt.value=h.slug;
+        opt.textContent=h.translations.tr.name;
+        hSel.appendChild(opt);
+      });
+      hSel.value=selectedHotel; lSel.value=lang;
+
+      function translateTitle(){
+        return lang==="tr"?"Öne Çıkan Hizmetler":
+               lang==="en"?"Featured Services":
+               lang==="de"?"Empfohlene Anwendungen":
+               lang==="fr"?"Soins à la Une":
+               "Рекомендуемые услуги";
+      }
+
+      function renderHotel(){
+        const h=hotels.find(x=>x.slug===selectedHotel);
+        const t=h.translations[lang]||h.translations.tr;
+        hero.style.backgroundImage=`url(${h.hero_image})`;
+        hName.textContent=t.name;
+        hDesc.textContent=t.description;
+        renderFeatured(h,lang);
+      }
+
+      function renderFeatured(hotel,lang){
+        featuredList.innerHTML="";
+        featuredTitle.textContent=translateTitle();
+        
+        // Limit to 6 items
+        hotel.featuredServices.slice(0,6).forEach(srvId=>{
+          const srv = services[srvId];
+          if(!srv) return;
+
+          const name = srv.name[lang] || srv.name.en;
+          const duration = srv.durationMin + " min"; // Simple formatting
+
+          const card=document.createElement("div");
+          card.className="service-card";
+          card.innerHTML=`
+            <h3>${name}</h3>
+            <p>⏱ ${duration} • ${srv.price} ${srv.currency}</p>
+            <a class="cta-btn" href="booking.html?hotel=${hotel.slug}&lang=${lang}">
+              ${lang==="tr"?"Detay":lang==="en"?"More Info":
+                lang==="de"?"Details":lang==="fr"?"Détails":"Подробнее"}
+            </a>`;
+          featuredList.appendChild(card);
+        });
+      }
+
+      hSel.addEventListener("change",e=>{selectedHotel=e.target.value;renderHotel();});
+      lSel.addEventListener("change",e=>{lang=e.target.value;renderHotel();});
+
+      renderHotel();
+    }
+
+    loadHotels();
+  </script>
+  <script src="test-runner-schema.js"></script>
+</body>
+</html>

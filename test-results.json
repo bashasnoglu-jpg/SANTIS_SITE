@@ -1,0 +1,431 @@
+{
+  "date": "2026-01-23T14:44:05.720Z",
+  "stats": {
+    "ok": 70,
+    "fail": 0,
+    "warn": 0,
+    "total": 70
+  },
+  "results": [
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-resort&lang=tr",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=turkish-hammam&lang=tr",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=signature-couples&lang=tr",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=deep-tissue&lang=tr",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-resort&lang=tr",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-resort&lang=en",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=turkish-hammam&lang=en",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=signature-couples&lang=en",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=deep-tissue&lang=en",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-resort&lang=en",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-resort&lang=de",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=turkish-hammam&lang=de",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=signature-couples&lang=de",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=deep-tissue&lang=de",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-resort&lang=de",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-resort&lang=fr",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=turkish-hammam&lang=fr",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=signature-couples&lang=fr",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=deep-tissue&lang=fr",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-resort&lang=fr",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-resort&lang=ru",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=turkish-hammam&lang=ru",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=signature-couples&lang=ru",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-resort&service=deep-tissue&lang=ru",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-resort&lang=ru",
+      "hotel": "Alba Resort Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-queen&lang=tr",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-queen&service=ayurveda-ritual&lang=tr",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-queen&lang=tr",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-queen&lang=en",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-queen&service=ayurveda-ritual&lang=en",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-queen&lang=en",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-queen&lang=de",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-queen&service=ayurveda-ritual&lang=de",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-queen&lang=de",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-queen&lang=fr",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-queen&service=ayurveda-ritual&lang=fr",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-queen&lang=fr",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-queen&lang=ru",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-queen&service=ayurveda-ritual&lang=ru",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-queen&lang=ru",
+      "hotel": "Alba Queen Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-royal&lang=tr",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-royal&service=foam-hammam&lang=tr",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-royal&lang=tr",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-royal&lang=en",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-royal&service=foam-hammam&lang=en",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-royal&lang=en",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-royal&lang=de",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-royal&service=foam-hammam&lang=de",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-royal&lang=de",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-royal&lang=fr",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-royal&service=foam-hammam&lang=fr",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-royal&lang=fr",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=alba-royal&lang=ru",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=alba-royal&service=foam-hammam&lang=ru",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=alba-royal&lang=ru",
+      "hotel": "Alba Royal Hotel",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=iberostar-bellevue&lang=tr",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=iberostar-bellevue&service=face-sothys-hydration&lang=tr",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=iberostar-bellevue&lang=tr",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=iberostar-bellevue&lang=en",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=iberostar-bellevue&service=face-sothys-hydration&lang=en",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=iberostar-bellevue&lang=en",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=iberostar-bellevue&lang=de",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=iberostar-bellevue&service=face-sothys-hydration&lang=de",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=iberostar-bellevue&lang=de",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=iberostar-bellevue&lang=fr",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=iberostar-bellevue&service=face-sothys-hydration&lang=fr",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=iberostar-bellevue&lang=fr",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "hotel.html?hotel=iberostar-bellevue&lang=ru",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service.html?hotel=iberostar-bellevue&service=face-sothys-hydration&lang=ru",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "booking.html?hotel=iberostar-bellevue&lang=ru",
+      "hotel": "Iberostar Waves Bellevue",
+      "code": 200
+    }
+  ]
+}
