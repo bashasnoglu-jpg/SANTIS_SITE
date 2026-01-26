@@ -10,9 +10,13 @@
   <link rel="apple-touch-icon" href="images/icon-192.png">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/reviews.css"> <!-- Reviews Style -->
+  <link rel="stylesheet" href="assets/css/moods.css"> <!-- MOOD SYSTEM -->
+  <link rel="stylesheet" href="assets/css/booking-wizard.css"> <!-- Wizard Style -->
+  <link rel="stylesheet" href="assets/css/animations.css"> <!-- Cinematic Motions -->
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet">
+  <script src="assets/js/animations.js"></script>
   <script src="assets/js/slug.js"></script>
   <style>
     /* Styling for Booking Modal */
@@ -344,6 +348,26 @@
     });
   </script>
   <script src="assets/js/reviews.js"></script>
+  <script src="assets/js/santis-core.js"></script>
+  <script src="assets/js/booking-wizard.js"></script>
+  <script src="assets/js/scroller.js"></script>
+  <script src="assets/js/seo-schema.js"></script> <!-- SEO Engine -->
+  <script>
+    // Trigger Wizard Init
+    document.addEventListener('DOMContentLoaded', () => {
+      BOOKING_WIZARD.init();
+
+      // Override Navbar Reservation Button (Optional)
+      // We can do this cleanly via event delegation or direct selection
+      const navBtn = document.querySelector('.reservation-cta');
+      if (navBtn) {
+        navBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          BOOKING_WIZARD.open();
+        });
+      }
+    });
+  </script>
 </body>
 
 </html>

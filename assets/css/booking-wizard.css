@@ -1,0 +1,215 @@
+/* BOOKING WIZARD STYLES */
+
+#wizardModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#wizardModal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.wizard-content {
+    background: var(--bg-card);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    color: var(--text-main);
+    position: relative;
+    animation: slideUp 0.4s ease;
+}
+
+/* Header */
+.wizard-header {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wizard-title {
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+}
+
+.wizard-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Progress Bar */
+.wizard-progress-track {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    width: 100%;
+}
+
+.wizard-progress-fill {
+    height: 100%;
+    background: var(--gold);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* Body */
+.wizard-body {
+    padding: 30px;
+    min-height: 350px;
+}
+
+.step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* Service Options (Cards) */
+.wizard-services-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.wizard-option input {
+    display: none;
+}
+
+.wiz-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.wiz-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--gold);
+}
+
+.wizard-option input:checked+.wiz-card {
+    background: rgba(212, 175, 55, 0.1);
+    /* Gold tint */
+    border-color: var(--gold);
+}
+
+.wiz-icon {
+    font-size: 24px;
+}
+
+.wiz-info h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.wiz-info p {
+    margin: 2px 0 0;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.wiz-check {
+    margin-left: auto;
+    color: var(--gold);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.2s;
+}
+
+.wizard-option input:checked+.wiz-card .wiz-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Form Styles */
+.wiz-form-group {
+    margin-bottom: 20px;
+}
+
+.wiz-form-group label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.wiz-input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: inherit;
+}
+
+.wiz-input:focus {
+    border-color: var(--gold);
+    outline: none;
+}
+
+/* Footer Actions */
+.wizard-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-wiz-secondary {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.btn-wiz-primary {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
