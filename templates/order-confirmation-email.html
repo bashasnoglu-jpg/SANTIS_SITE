@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sipariş Onayı - Santis Club</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .email-header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .email-logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 12px;
+        }
+
+        .email-tagline {
+            color: #b0b0b0;
+            font-size: 14px;
+        }
+
+        .email-body {
+            padding: 40px 30px;
+        }
+
+        .email-greeting {
+            font-size: 18px;
+            font-weight: 600;
+            color: #202124;
+            margin-bottom: 16px;
+        }
+
+        .email-message {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #5f6368;
+            margin-bottom: 32px;
+        }
+
+        .order-summary {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .order-summary-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #202124;
+        }
+
+        .order-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            font-size: 14px;
+        }
+
+        .order-detail:last-child {
+            border-bottom: none;
+        }
+
+        .order-detail-label {
+            color: #5f6368;
+        }
+
+        .order-detail-value {
+            font-weight: 600;
+            color: #202124;
+        }
+
+        .order-items {
+            margin: 24px 0;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .order-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+            background: #f5f5f5;
+        }
+
+        .order-item-details {
+            flex: 1;
+        }
+
+        .order-item-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: #202124;
+            margin-bottom: 4px;
+        }
+
+        .order-item-meta {
+            font-size: 13px;
+            color: #5f6368;
+        }
+
+        .order-item-price {
+            font-weight: 700;
+            color: #202124;
+            text-align: right;
+        }
+
+        .order-total {
+            background: rgba(212, 175, 55, 0.08);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+
+        .order-total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: 700;
+            color: #202124;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37 0%, #c49a2d 100%);
+            color: white;
+            padding: 14px 32px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            margin: 8px 0;
+        }
+
+        .delivery-info {
+            background: #fff8e6;
+            border-left: 4px solid #d4af37;
+            padding: 16px 20px;
+            margin: 24px 0;
+        }
+
+        .delivery-info-title {
+            font-weight: 600;
+            color: #202124;
+            margin-bottom: 8px;
+        }
+
+        .delivery-info-text {
+            font-size: 14px;
+            color: #5f6368;
+            line-height: 1.5;
+        }
+
+        .email-footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            font-size: 13px;
+            color: #5f6368;
+        }
+
+        .email-footer a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        .social-links {
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 8px;
+            color: #5f6368;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="email-header">
+            <div class="email-logo">SANTIS CLUB</div>
+            <div class="email-tagline">Premium Spa & Wellness</div>
+        </div>
+
+        <!-- Body -->
+        <div class="email-body">
+            <div class="email-greeting">Merhaba {{CUSTOMER_NAME}},</div>
+
+            <div class="email-message">
+                Siparişiniz için teşekkür ederiz! Siparişiniz başarıyla alındı ve hazırlanıyor.
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <div class="order-summary-title">Sipariş Özeti</div>
+
+                <div class="order-detail">
+                    <span class="order-detail-label">Sipariş No:</span>
+                    <span class="order-detail-value">{{ORDER_ID}}</span>
+                </div>
+
+                <div class="order-detail">
+                    <span class="order-detail-label">Tarih:</span>
+                    <span class="order-detail-value">{{ORDER_DATE}}</span>
+                </div>
+
+                <div class="order-detail">
+                    <span class="order-detail-label">Ödeme:</span>
+                    <span class="order-detail-value">{{PAYMENT_METHOD}}</span>
+                </div>
+            </div>
+
+            <!-- Order Items -->
+            <div class="order-items">
+                {{ORDER_ITEMS}}
+                <!-- Example item (replace with actual loop):
+                <div class="order-item">
+                    <img src="{{ITEM_IMAGE}}" class="order-item-image" alt="{{ITEM_NAME}}">
+                    <div class="order-item-details">
+                        <div class="order-item-name">{{ITEM_NAME}}</div>
+                        <div class="order-item-meta">Adet: {{ITEM_QTY}}</div>
+                    </div>
+                    <div class="order-item-price">{{ITEM_PRICE}}€</div>
+                </div>
+                -->
+            </div>
+
+            <!-- Total -->
+            <div class="order-total">
+                <div class="order-total-row">
+                    <span>Toplam:</span>
+                    <span>{{TOTAL_AMOUNT}}€</span>
+                </div>
+            </div>
+
+            <!-- Delivery Info -->
+            <div class="delivery-info">
+                <div class="delivery-info-title">📦 Teslimat Bilgisi</div>
+                <div class="delivery-info-text">
+                    {{DELIVERY_INFO}}
+                    <!-- Example for hotel_in:
+                    Oda: 1206<br>
+                    Teslim Noktası: Oda<br>
+                    Tahmini Süre: 30-60 dakika
+                    -->
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align: center; margin: 32px 0;">
+                <a href="{{ORDER_TRACKING_URL}}" class="cta-button">
+                    Siparişimi Takip Et
+                </a>
+            </div>
+
+            <div class="email-message" style="font-size: 13px; margin-top: 32px;">
+                Herhangi bir sorunuz mu var?<br>
+                WhatsApp: <a href="https://wa.me/905348350169" style="color: #d4af37;">+90 534 835 01 69</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="email-footer">
+            <div class="social-links">
+                <a href="#">Instagram</a> •
+                <a href="#">Facebook</a> •
+                <a href="#">Website</a>
+            </div>
+
+            <p>
+                © 2026 Santis Club. Tüm hakları saklıdır.<br>
+                Bu e-posta {{CUSTOMER_EMAIL}} adresine gönderilmiştir.
+            </p>
+
+            <p style="font-size: 11px; color: #999; margin-top: 16px;">
+                Bu otomatik bir mesajdır, lütfen yanıtlamayın.<br>
+                Destek için: <a href="mailto:info@santisclub.com">info@santisclub.com</a>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
