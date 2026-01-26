@@ -10,31 +10,39 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="data:,">
 
+  <link rel="stylesheet" href="assets/css/style.css">
   <style>
     :root {
-      --primary: #1a73e8;
-      --border: #dadce0;
-      --radius: 8px;
-      --gray: #5f6368;
-      --bg: #fff;
-      --error: #d93025;
+      --gold: #d4af37;
+      --gold-light: rgba(212, 175, 55, 0.1);
+      --gold-border: rgba(212, 175, 55, 0.2);
+      --text-primary: #202124;
+      --text-secondary: #5f6368;
+      --bg-white: #ffffff;
+      --bg-light: #f8f9fa;
+      --border-light: rgba(0, 0, 0, 0.08);
+      --radius: 12px;
     }
 
     body {
-      font-family: "Roboto", Arial, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       margin: 0;
-      color: #202124;
-      background: var(--bg);
+      color: var(--text-primary);
+      background: var(--bg-white);
     }
 
-    /* Hero */
+    /* Hero Section - Premium Design */
     .hero {
       position: relative;
-      text-align: center;
-      padding: 100px 20px 80px;
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 20px 80px;
       background-size: cover;
       background-position: center;
       color: #fff;
+      overflow: hidden;
     }
 
     .hero::before {
@@ -44,84 +52,153 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.45);
+      background: linear-gradient(135deg, rgba(26, 26, 26, 0.7) 0%, rgba(45, 45, 45, 0.5) 100%);
+      backdrop-filter: blur(1px);
       z-index: 1;
     }
 
-    .hero h1,
-    .hero p {
+    .hero-content {
       position: relative;
       z-index: 2;
+      max-width: 800px;
+      text-align: center;
     }
 
     .hero h1 {
-      font-size: 36px;
-      margin-bottom: 12px;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, .4);
+      font-size: clamp(32px, 6vw, 56px);
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
     }
 
     .hero p {
-      font-size: 18px;
-      color: #f1f3f4;
+      font-size: clamp(16px, 2vw, 20px);
+      color: rgba(255, 255, 255, 0.95);
       max-width: 600px;
-      margin: 0 auto;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, .4);
+      margin: 0 auto 32px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      line-height: 1.6;
     }
 
-    /* Featured grid */
+    .hero-cta {
+      display: inline-block;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, var(--gold) 0%, #c49a2d 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(212, 175, 55, 0.5);
+    }
+
+    /* Featured Services Section */
     .featured {
-      max-width: 1100px;
-      margin: 60px auto;
-      padding: 0 20px;
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 0 32px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
     }
 
     .featured h2 {
-      text-align: center;
-      margin-bottom: 24px;
-      font-size: 28px;
-      color: #202124;
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+      letter-spacing: -0.02em;
     }
 
     .services-grid {
       display: grid;
-      gap: 20px;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     }
 
     .service-card {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-      transition: transform .25s ease;
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
     .service-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      border-color: var(--gold-border);
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
     }
 
     .service-card h3 {
-      margin: 0 0 6px;
-      font-size: 18px;
-      color: #1a73e8;
+      margin: 0 0 8px;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
     }
 
     .service-card p {
-      margin: 0;
-      color: #5f6368;
-      font-size: 14px;
+      margin: 0 0 16px;
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.6;
     }
 
     .cta-btn {
-      margin-top: 10px;
       display: inline-block;
-      padding: 8px 14px;
-      background: var(--primary);
-      color: #fff;
-      border-radius: 6px;
+      padding: 10px 20px;
+      background: var(--gold-light);
+      color: var(--gold);
+      border: 1px solid var(--gold-border);
+      border-radius: 8px;
       font-size: 14px;
+      font-weight: 600;
       text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .cta-btn:hover {
+      background: var(--gold);
+      color: white;
+      transform: translateX(2px);
     }
 
     .sr-only {
@@ -173,13 +250,19 @@
   <div id="notices" class="notices" aria-live="polite"></div>
 
   <section class="hero" role="img" aria-labelledby="hotelName" aria-describedby="hotelDesc">
-    <h1 id="hotelName"></h1>
-    <p id="hotelDesc"></p>
+    <div class="hero-content">
+      <h1 id="hotelName"></h1>
+      <p id="hotelDesc"></p>
+      <a href="booking.html" class="hero-cta" id="heroCta">Rezervasyon Yap</a>
+    </div>
     <span class="sr-only" id="heroAlt">Otel görseli</span>
   </section>
 
   <section class="featured">
-    <h2 id="featuredTitle"></h2>
+    <div class="section-header">
+      <div class="section-subtitle">Hizmetlerimiz</div>
+      <h2 id="featuredTitle"></h2>
+    </div>
     <div class="services-grid" id="featuredList"></div>
   </section>
 
