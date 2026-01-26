@@ -699,27 +699,32 @@
             });
 
             // Update lang button
-            document.querySelector('.lang-current').textContent = lang.toUpperCase();
+            const langCurrentEl = document.querySelector('.lang-current');
+            if (langCurrentEl) {
+                langCurrentEl.textContent = lang.toUpperCase();
+            }
             document.querySelectorAll('.lang-option').forEach(opt => {
                 opt.classList.toggle('active', opt.dataset.lang === lang);
             });
         }
 
-        // Language handling
-        const currentLang = getParam('lang') || localStorage.getItem('santis_lang') || 'tr';
-        localStorage.setItem('santis_lang', currentLang);
-        updateUI(currentLang);
+        // Language handling - ensure DOM is ready
+        setTimeout(() => {
+            const currentLang = getParam('lang') || localStorage.getItem('santis_lang') || 'tr';
+            localStorage.setItem('santis_lang', currentLang);
+            updateUI(currentLang);
 
-        document.querySelectorAll('.lang-option').forEach(opt => {
-            opt.addEventListener('click', e => {
-                e.preventDefault();
-                const newLang = e.currentTarget.dataset.lang;
-                const url = new URL(window.location.href);
-                url.searchParams.set('lang', newLang);
-                localStorage.setItem('santis_lang', newLang);
-                window.location.href = url.toString();
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.addEventListener('click', e => {
+                    e.preventDefault();
+                    const newLang = e.currentTarget.dataset.lang;
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('lang', newLang);
+                    localStorage.setItem('santis_lang', newLang);
+                    window.location.href = url.toString();
+                });
             });
-        });
+        }, 200);
 
         // =================== SCROLL BEHAVIOR ===================
         const navbar = document.getElementById('nv-main-nav');
