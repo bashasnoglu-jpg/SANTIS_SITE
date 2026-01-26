@@ -1,0 +1,2727 @@
+﻿﻿/* ==========================================================================
+   SANTIS CLUB V2.0 - CINEMATIC CORE (LIQUID AURA EDITION)
+   Designed for "Sessiz Lüks" Experience
+   ========================================================================== */
+
+:root {
+  --bg-dark: #0a0c10;
+  --text-main: #f0f2f5;
+  --text-muted: #8b9bb4;
+  --accent-gold: #d4af37;
+  --accent-amber: #e5c555;
+  --surface: #0f141d;
+  --surface-2: #131a26;
+  --card-bg: var(--surface);
+  --border: rgba(255, 255, 255, 0.10);
+  --nav-h: 64px;
+  --nav-height: var(--nav-h);
+  --nav-bg: rgba(10, 12, 16, 0.55);
+  --nav-bg-solid: rgba(10, 12, 16, 0.85);
+  --nav-bg-scrolled: rgba(10, 12, 16, 0.85);
+  --nav-border: rgba(255, 255, 255, 0.08);
+  --nav-blur: 10px;
+  --nav-radius: 14px;
+  --nav-underline-h: 1px;
+  --nav-sheet-w: min(360px, 86vw);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.35);
+  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.4);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --focus-outline: 2px solid var(--accent-gold);
+  --focus-offset: 3px;
+  --placeholder-card: url("../../images/placeholders/service-card.svg");
+  --placeholder-hero: url("../../images/placeholders/service-hero.svg");
+  --placeholder-category: url("../../images/placeholders/category-hero.svg");
+  /* Lüks Altın Dokunuş */
+  --glass-bg: rgba(10, 12, 16, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* 1. SCROLLBAR (Gizli ve Şık) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+/* 2. BASE STYLES */
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  margin: 0;
+  overflow-x: hidden;
+  /* Yan taşmaları engelle */
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 10002;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(10, 12, 16, 0.92);
+  border: 1px solid var(--nav-border);
+  color: var(--text-main);
+  text-decoration: none;
+  box-shadow: var(--shadow-soft);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 12px;
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+}
+
+/* NAV — Lux Compact (global containers) */
+#navbar-container nav,
+#navbar nav {
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-border);
+  backdrop-filter: blur(var(--nav-blur));
+  -webkit-backdrop-filter: blur(var(--nav-blur));
+}
+
+/* Scroll state */
+#navbar-container nav.is-scrolled,
+#navbar nav.is-scrolled {
+  background: var(--nav-bg-scrolled);
+}
+
+/* Link states */
+#navbar-container nav a,
+#navbar nav a {
+  color: var(--text-main);
+  text-decoration: none;
+  position: relative;
+}
+
+#navbar-container nav a:hover,
+#navbar nav a:hover {
+  color: var(--text-main);
+}
+
+#navbar-container nav a:focus-visible,
+#navbar nav a:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+}
+
+/* Gold underline */
+#navbar-container nav a::after,
+#navbar nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: var(--nav-underline-h);
+  background: var(--accent-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.22s ease;
+  opacity: 0.9;
+}
+
+#navbar-container nav a:hover::after,
+#navbar nav a:hover::after,
+#navbar-container nav a:focus-visible::after,
+#navbar nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Active/current link */
+#navbar-container nav a[aria-current="page"],
+#navbar nav a[aria-current="page"] {
+  color: var(--accent-gold);
+}
+
+/* Dropdown surface */
+#navbar-container nav ul ul,
+#navbar nav ul ul {
+  /* Patch 8.2: Lookbook Style Dropdown */
+  background: rgba(10, 12, 16, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--nav-radius);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  padding: 12px;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 65vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+#navbar-container nav ul ul a,
+#navbar nav ul ul a {
+  display: block;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  transition: all 0.2s ease;
+  border-left: 2px solid transparent;
+}
+
+#navbar-container nav ul ul a:hover,
+#navbar nav ul ul a:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-main);
+  padding-left: 18px;
+  border-left-color: var(--accent-gold);
+}
+
+/* Scrollbar styling for dropdown */
+#navbar-container nav ul ul::-webkit-scrollbar {
+  width: 4px;
+}
+
+#navbar-container nav ul ul::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#navbar-container nav ul ul::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+/* Mobile sheet prep */
+.nv-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10001;
+}
+
+.nv-nav-sheet {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: var(--nav-sheet-w);
+  background: rgba(10, 12, 16, 0.94);
+  border-left: 1px solid var(--nav-border);
+  box-shadow: var(--shadow-card);
+  transform: translateX(110%);
+  transition: transform 0.22s ease;
+  z-index: 10002;
+  padding: 18px;
+  overflow-y: auto;
+}
+
+.nv-nav-sheet.is-open {
+  transform: translateX(0);
+}
+
+.nv-nav-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Menü listesi compact ritim */
+.nv-nav-sheet .nv-nav-list a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+.nv-nav-sheet .nv-nav-list a:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.nv-nav-sheet .nv-nav-list a:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+}
+
+/* Placeholder görsel standardı */
+.lux-card-surface {
+  background-image: var(--placeholder-card);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: soft-light;
+  box-shadow: var(--shadow-card);
+}
+
+.lux-hero-fallback {
+  background-image: var(--placeholder-hero);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.lux-hero-fallback::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 12, 16, 0.7) 0%, rgba(10, 12, 16, 0.2) 60%, rgba(10, 12, 16, 0.8) 100%);
+  pointer-events: none;
+}
+
+/* Tipografi yardımcıları */
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Focus görünürlüğü */
+a:focus-visible,
+button:focus-visible,
+select:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+}
+
+/* Reduced motion desteği */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 3. PRELOADER (Sinematik Giriş) */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.preloader.hidden {
+  transform: translateY(-100%);
+  pointer-events: none;
+  display: none !important;
+  /* GARANTİ ÇÖZÜM */
+}
+
+.preloader-logo {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  letter-spacing: 5px;
+  color: #fff;
+  opacity: 0;
+  animation: pulseLogo 2s infinite;
+}
+
+@keyframes pulseLogo {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  }
+
+  100% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+}
+
+/* ==========================================================================
+   THE MODERN HEADER (Logo + Yatay Menü)
+   ========================================================================== */
+.ghost-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 14px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  background: linear-gradient(to bottom, var(--nav-bg), transparent);
+  backdrop-filter: blur(var(--nav-blur));
+  -webkit-backdrop-filter: blur(var(--nav-blur));
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.ghost-header.scrolled {
+  background: var(--nav-bg-solid);
+  backdrop-filter: blur(var(--nav-blur));
+  -webkit-backdrop-filter: blur(var(--nav-blur));
+  border-bottom: 1px solid var(--glass-border);
+  padding: 10px 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 6px;
+}
+
+.brand-logo {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.ghost-header.scrolled .brand-logo {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+/* YATAY MENÜ (Sadece Desktop/Tablet) */
+.header-nav {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* Sığmazsa alta geçsin */
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  padding: 6px 4px;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.nav-link:hover {
+  color: #fff;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -4px;
+  left: 50%;
+  background-color: var(--accent-gold);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 3px;
+  color: #fff;
+}
+
+/* Mobile sheet & overlay */
+@media (max-width: 768px) {
+  .ghost-header {
+    padding: 12px 0;
+  }
+
+  .nav-sheet {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(360px, 90vw);
+    background: var(--nav-bg-solid);
+    backdrop-filter: blur(var(--nav-blur));
+    -webkit-backdrop-filter: blur(var(--nav-blur));
+    border-left: 1px solid var(--glass-border);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1200;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-sheet.open {
+    transform: translateX(0);
+  }
+
+  .nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 1100;
+  }
+
+  .nav-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-sheet a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    padding: 8px 0;
+  }
+}
+
+/* Mobilde Üst Menüyü Gizle (Alttaki Dock Yeterli) */
+@media (max-width: 768px) {
+  .header-nav {
+    display: none;
+  }
+
+  .brand-logo {
+    margin-bottom: 0;
+    font-size: 24px;
+  }
+
+  .ghost-header {
+    padding: 15px 0;
+  }
+}
+
+/* Eski Mega Menü Stillerini Temizleme (Boşluk Bırak) */
+.nav-visual-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  /* Mouse'u engelleme */
+}
+
+.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity 0.8s ease, transform 1.5s ease;
+  filter: brightness(0.4) blur(3px);
+  /* Karanlık ve hafif bulanık */
+}
+
+.bg-image.active {
+  opacity: 1;
+  transform: scale(1);
+  filter: brightness(0.6) blur(0px);
+  /* Netleşir */
+}
+
+/* ==========================================================================
+   MAGNETIC BOOKING ORB (Sihirli Buton)
+   ========================================================================== */
+.magic-orb {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  background: var(--text-main);
+  color: var(--bg-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 1100;
+  /* En üstte */
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-decoration: none;
+  animation: floatOrb 4s ease-in-out infinite;
+}
+
+.magic-orb:hover {
+  transform: scale(1.2);
+  background: var(--accent-gold);
+  box-shadow: 0 0 50px rgba(212, 175, 55, 0.6);
+}
+
+@keyframes floatOrb {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ==========================================================================
+   DİĞER BÖLÜMLER (Uyumluluk için korundu)
+   ========================================================================== */
+.hero-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://placehold.co/1920x1080/1a1a1a/ffffff?text=Cinematic+Spa');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  /* Parallax */
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: 5vw;
+  margin-bottom: 20px;
+  animation: fadeInUp 1s ease-out;
+}
+
+/* Basit Grid Yapısı (Eski bölümler için) */
+.section-container {
+  padding: 80px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  scroll-margin-top: 120px;
+  /* Header Payı */
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 36px;
+  margin-bottom: 40px;
+  border-left: 4px solid var(--accent-gold);
+  padding-left: 20px;
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+/* Kart Stili (Minimal) */
+.card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent-gold);
+  box-shadow: var(--shadow-soft);
+}
+
+.card-img-wrap {
+  height: 250px;
+  overflow: hidden;
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.5s;
+}
+
+.card:hover img {
+  transform: scale(1.1);
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 20px;
+  margin-top: 0;
+}
+
+.card-title.clamp-2 {
+  line-height: 1.3;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.card:focus-within,
+.card:focus-visible {
+  border-color: var(--accent-gold);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-4px);
+}
+
+.card-footer .card-cta,
+.card-footer span:last-child {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.9;
+  font-size: 12px;
+}
+
+/* Mobil Uyum */
+@media (max-width: 768px) {
+  .mega-link {
+    font-size: 40px;
+  }
+
+  .ghost-header {
+    padding: 20px;
+  }
+
+  .nav-links-area {
+    padding-left: 20px;
+  }
+
+  .magic-orb {
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    font-size: 10px;
+  }
+}
+
+/* ==========================================================================
+   THE ORBITAL DOCK (Yörünge Menüsü)
+   ========================================================================== */
+.orbital-dock {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 25px;
+  background: rgba(20, 20, 25, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  z-index: 9990;
+  /* Mega Menü'nün altında, içeriğin üstünde */
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.dock-item {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.dock-item:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dock-item.active {
+  color: var(--bg-dark);
+  background: var(--text-main);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Lang Wheel (Dil Çarkı) */
+.lang-wheel {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  margin-left: 10px;
+  padding-left: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.current-lang {
+  color: var(--accent-gold);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .orbital-dock {
+    bottom: 20px;
+    width: 90%;
+    justify-content: space-between;
+    padding: 12px 15px;
+    gap: 5px;
+  }
+
+  .dock-item {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+
+  .lang-wheel {
+    margin-left: 5px;
+    padding-left: 5px;
+    border: none;
+  }
+
+  /* Mobilde Magic Orb'u biraz yukarı iteriz dock çakışmasın diye */
+  .magic-orb {
+    bottom: 100px;
+    right: 20px;
+  }
+}
+
+/* Sprint 7.1 — Performance (safe) */
+.section-container {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
+
+.detail-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 520px;
+}
+
+/* Sprint 6 — LUX Controls (service list) */
+.lux-controls {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-5);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.lux-controls-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.lux-label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.lux-input,
+.lux-select {
+  height: 44px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+  padding: 0 var(--space-4);
+  outline: none;
+}
+
+.lux-input::placeholder {
+  color: rgba(240, 242, 245, 0.45);
+}
+
+.lux-chip-row {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-3);
+}
+
+.lux-chip {
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-main);
+  padding: 8px 12px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.lux-chip[aria-pressed="true"] {
+  border-color: var(--accent-gold);
+  box-shadow: var(--shadow-soft);
+}
+
+.lux-count {
+  margin: var(--space-3) 0 0 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* Sprint 6.3 — Empty state (lux compact) */
+.lux-empty {
+  max-width: 1100px;
+  margin: var(--space-4) auto 0 auto;
+  padding: var(--space-5);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.lux-empty-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-2);
+}
+
+.lux-empty-sub {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-4);
+  font-size: 14px;
+}
+
+.lux-empty-btn {
+  height: 44px;
+  padding: 0 var(--space-5);
+  border-radius: 999px;
+  border: 1px solid var(--accent-gold);
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.lux-empty-btn:hover {
+  box-shadow: var(--shadow-soft);
+}
+
+@media (max-width: 720px) {
+  .lux-controls-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Patch 8.1 — Navbar "global butonları" LUX utility rail yap */
+.nv-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Otel seç / Rezervasyon gibi sağ üst kontroller */
+.nv-controls>button,
+.nv-controls>a {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: var(--text-main);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+/* Emoji ikonları kaldır: daha premium */
+.nv-controls .chip-icon {
+  display: none;
+}
+
+/* Otel seçici: tiny chevron (markup'a dokunmadan) */
+#hotel-toggle::after {
+  content: "▾";
+  opacity: 0.7;
+  font-size: 12px;
+  transform: translateY(-1px);
+}
+
+/* Hover/focus: sessiz altın vurgusu */
+.nv-controls>button:hover,
+.nv-controls>a:hover,
+.nv-controls>button:focus-visible,
+.nv-controls>a:focus-visible {
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
+}
+
+/* Rezervasyon: son linki "gold glass" CTA yap (sarı dolu gibi bağırmasın) */
+.nv-controls>a:last-child {
+  background: rgba(212, 175, 55, 0.14);
+  border-color: rgba(212, 175, 55, 0.55);
+}
+
+.nv-controls>a:last-child:hover,
+.nv-controls>a:last-child:focus-visible {
+  background: rgba(212, 175, 55, 0.18);
+}
+
+/* Sprint 8.1 — No-scroll Mega Preview (Lux Compact) */
+.nv-mega {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  width: min(980px, calc(100vw - 48px));
+  padding: var(--space-4);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.has-sub.mega:hover>.nv-mega,
+.has-sub.mega:focus-within>.nv-mega,
+.has-sub.mega.open>.nv-mega {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Scroll’u öldür: menü katalog olmayacak */
+.nv-dropdown {
+  max-height: none;
+  overflow: visible;
+}
+
+@media (max-width: 920px) {
+  .nv-mega {
+    grid-template-columns: 1fr;
+  }
+}
+
+.nv-mega-title {
+  font-family: var(--font-heading);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.nv-mega-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  text-decoration: none;
+}
+
+.nv-mega-item:hover,
+.nv-mega-item:focus-visible {
+  border-color: var(--accent-gold);
+  box-shadow: var(--shadow-soft);
+}
+
+.nv-mega-name {
+  color: var(--text-main);
+  font-size: 13px;
+}
+
+.nv-mega-meta {
+  color: var(--text-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.nv-mega-all {
+  display: inline-block;
+  margin-top: var(--space-3);
+  color: var(--accent-gold);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.nv-mega-all:hover {
+  text-decoration: underline;
+}
+
+/* Patch 8.2 — Index category CTA (lux compact) */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.lux-section-cta {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 var(--space-4);
+  border-radius: 999px;
+  border: 1px solid var(--accent-gold);
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.lux-section-cta:hover {
+  box-shadow: var(--shadow-soft);
+}
+
+/* Patch 8.3 — Anchor jump kalite (sticky nav offset) */
+#sec-hammam,
+#sec-massages,
+#sec-face {
+  scroll-margin-top: 92px;
+  /* nav yüksekliği + nefes */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Patch 8.5 — Nav active underline (page + section) */
+#nv-main-nav a,
+#nvNavSheet a {
+  position: relative;
+}
+
+#nv-main-nav a[aria-current="page"],
+#nvNavSheet a[aria-current="page"],
+#nv-main-nav a.is-active,
+#nvNavSheet a.is-active {
+  color: var(--text-main);
+}
+
+#nv-main-nav a[aria-current="page"]::after,
+#nvNavSheet a[aria-current="page"]::after,
+#nv-main-nav a.is-active::after,
+#nvNavSheet a.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 2px;
+  background: var(--accent-gold);
+  opacity: 0.9;
+  border-radius: 2px;
+}
+
+/* Sheet’te underline biraz daha yakın dursun */
+#nvNavSheet a[aria-current="page"]::after,
+#nvNavSheet a.is-active::after {
+  bottom: -6px;
+  opacity: 0.85;
+}
+
+/* Sprint 8 — Desktop dropdown: Lux Compact (no scroll) */
+.nv-dropdown,
+.nv-mega {
+  overflow: visible !important;
+  /* iç scroll'u öldür */
+  max-height: none !important;
+}
+
+/* Compact “quick panel” */
+.nv-quick {
+  width: min(920px, calc(100vw - 48px));
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-card);
+}
+
+.nv-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+@media (max-width: 980px) {
+  .nv-quick-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.nv-quick-col-title {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 var(--space-3) 0;
+}
+
+.nv-quick-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-main);
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.nv-quick-link:hover {
+  border-color: var(--accent-gold);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
+}
+
+.nv-quick-meta {
+  color: var(--text-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.nv-quick-all {
+  margin-top: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-gold);
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.nv-quick-all:hover {
+  box-shadow: var(--shadow-soft);
+}
+
+/* Sprint 8.3 — service.html deep-link anchor (sticky nav offset) */
+.svc-anchor {
+  display: block;
+  height: 1px;
+  margin-top: -1px;
+  scroll-margin-top: 96px;
+  /* navbar ~64px + nefes */
+}
+
+/* Patch 8.1 — Global nav: Lux Compact (dropdownsuz IA) */
+:where(a.nv-nav-link, button.nv-nav-link) {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 var(--space-4);
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--text-main);
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+:where(a.nv-nav-link, button.nv-nav-link):hover {
+  border-color: var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Active state zaten varsa bozmuyoruz; yoksa nazik altın vurgu */
+:where(a.nv-nav-link[aria-current="page"], button.nv-nav-link[aria-current="page"]) {
+  border-color: rgba(212, 175, 55, 0.35);
+  background: rgba(212, 175, 55, 0.08);
+}
+
+/* Sağ kontrol grubu: hotel/rezervasyon daha compact */
+.nv-controls :where(.chip, a, button) {
+  height: 40px;
+  padding: 0 var(--space-4);
+  border-radius: 999px;
+}
+
+/* Büyük CTA hissini yumuşat (silmeden) */
+.nv-controls :where(a, .cta, .nv-cta) {
+  background: rgba(212, 175, 55, 0.10);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.nv-controls :where(a, .cta, .nv-cta):hover {
+  box-shadow: var(--shadow-soft);
+}
+
+/* Patch 8.1 — Dropdown taşma kontrolü (scroll “kötü” hissini azaltır) */
+.nv-dropdown {
+  max-height: calc(100vh - 96px);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+/* Scrollbar görünümü (abartısız) */
+.nv-dropdown {
+  scrollbar-width: thin;
+}
+
+.nv-dropdown::-webkit-scrollbar {
+  width: 10px;
+}
+
+.nv-dropdown::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+/* Sprint 8.2 — Aktif bölüm göstergesi (kalıcı underline) */
+#nv-main-nav .nv-nav-link[aria-current="location"],
+#nv-main-nav .nv-nav-link[aria-current="page"],
+#nvNavSheet .nv-nav-link[aria-current="location"],
+#nvNavSheet .nv-nav-link[aria-current="page"] {
+  position: relative;
+}
+
+#nv-main-nav .nv-nav-link[aria-current="location"]::after,
+#nv-main-nav .nv-nav-link[aria-current="page"]::after,
+#nvNavSheet .nv-nav-link[aria-current="location"]::after,
+#nvNavSheet .nv-nav-link[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent-gold) 35%, var(--accent-gold) 65%, transparent 100%);
+  opacity: 0.85;
+}
+
+/* Anchor hedefi navbar altına otursun */
+#hammam,
+#masaj,
+#cilt,
+#extra {
+  scroll-margin-top: 96px;
+}
+
+/* Sprint 8 — Mega Menü: nested scroll kaldır + premium footer */
+
+/* Panel: gerekirse tek scroll (panelin kendisi), kolonlarda scroll yok */
+.nv-dropdown,
+.nv-mega {
+  max-height: min(70vh, 520px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+}
+
+/* Kolonlar asla scroll etmesin (nested scroll fix) */
+.nv-dropdown .nv-col,
+.nv-mega .nv-col,
+.nv-dropdown .nv-col ul,
+.nv-mega .nv-col ul {
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+/* Eski kolon aksiyonları (Bölüme Git / Tümünü Gör) artık kullanılmayacak */
+.nv-col-actions {
+  display: none !important;
+}
+
+/* Panel footer: tek aksiyon bar (sticky) */
+.nv-dd-footer {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--glass-border);
+  background: linear-gradient(180deg,
+      rgba(10, 12, 16, 0.0) 0%,
+      rgba(10, 12, 16, 0.75) 30%,
+      rgba(10, 12, 16, 0.92) 100%);
+  backdrop-filter: blur(10px);
+}
+
+.nv-dd-action {
+  height: 40px;
+  padding: 0 var(--space-4);
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-main);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1;
+  font-size: 13px;
+}
+
+.nv-dd-action:hover {
+  border-color: var(--accent-gold);
+  box-shadow: var(--shadow-soft);
+}
+
+.nv-dd-action--gold {
+  border-color: rgba(212, 175, 55, 0.55);
+  background: rgba(212, 175, 55, 0.10);
+}
+
+/* Patch 8.3 — Mega menu scroll-free (küratörlü) */
+.nv-mega-list>li:nth-child(n+7) {
+  display: none;
+}
+
+/* Dropdown alt aksiyonları: lux chip görünümü */
+.nv-mega-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.nv-mega-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  padding: 0 var(--space-4);
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+}
+
+.nv-mega-cta:hover {
+  border-color: var(--accent-gold);
+  box-shadow: var(--shadow-soft);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Sprint 8.1 — Global Mega Menu (No-scroll, Lux Compact) */
+:root {
+  --nv-mega-maxw: 1100px;
+  --nv-mega-gap: 16px;
+  --nv-mega-cut: 7;
+  /* sadece doküman: gerçek cut data-nv-cut ile */
+}
+
+/* Mega panel yüzeyi */
+.nv-mega,
+.nv-dropdown-panel.nv-mega {
+  max-width: var(--nv-mega-maxw);
+  margin: 0 auto;
+  padding: 18px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-card);
+}
+
+/* 3 kolon grid */
+.nv-mega-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--nv-mega-gap);
+}
+
+@media (max-width: 980px) {
+  .nv-mega-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Kolon kartı */
+.nv-mega-col {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  overflow: hidden;
+  /* taşma yok */
+}
+
+.nv-mega-col:focus-within,
+.nv-mega-col:hover {
+  border-color: var(--accent-gold);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Başlık (kategori) */
+.nv-mega-title {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.68);
+  margin: 2px 0 10px 0;
+}
+
+/* Liste: scroll yok — cut ile sabit yükseklik hissi */
+.nv-mega-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* data-nv-cut="7" → 8. elemandan sonrası gizlenir */
+.nv-mega-list[data-nv-cut="7"]>li:nth-child(n+8) {
+  display: none;
+}
+
+.nv-mega-list[data-nv-cut="6"]>li:nth-child(n+7) {
+  display: none;
+}
+
+/* Link satırı */
+.nv-mega-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.nv-mega-link:hover {
+  border-color: rgba(212, 175, 55, 0.55);
+}
+
+.nv-mega-link:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+}
+
+.nv-mega-meta {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* Kolon altı aksiyonlar */
+.nv-mega-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.nv-mega-btn {
+  flex: 1;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.nv-mega-btn--gold {
+  border-color: rgba(212, 175, 55, 0.65);
+  background: rgba(212, 175, 55, 0.10);
+}
+
+.nv-mega-btn:hover {
+  box-shadow: var(--shadow-soft);
+}
+
+/* Sprint 8 — Desktop mega dropdown kapalı (kategori-jump IA) */
+#nv-main-nav .nv-dropdown {
+  display: none !important;
+}
+
+/* Patch 8.2 — Desktop dropdown: scroll yok, küratörlü liste */
+@media (min-width: 960px) {
+  .nv-dropdown-menu .nv-dropdown-list {
+    max-height: none !important;
+    overflow: hidden !important;
+    /* scroll yok */
+  }
+
+  /* Her sütunda ilk 7 madde; geri kalanı CTA ile */
+  .nv-dropdown-menu .nv-dropdown-list>li:nth-child(n+8) {
+    display: none !important;
+  }
+
+  /* İçeride yanlışlıkla overflow atanmış alt bloklar varsa, taşmayı engelle */
+  .nv-dropdown-menu [style*="overflow"] {
+    overflow: hidden !important;
+  }
+}
+
+/* Sprint 9.1 — Desktop Mega Panel (scroll hijack fix) */
+:root {
+  --nv-h: 64px;
+  --nv-mega-w: 1120px;
+}
+
+html {
+  scroll-padding-top: calc(var(--nv-h) + 16px);
+}
+
+/* Nav yüksekliği stabil (CLS de iyileşir) */
+#nv-main-nav {
+  min-height: var(--nv-h);
+}
+
+/* Mega dropdown’u sayfadan bağımsızlaştır */
+#nv-main-nav :is(.nv-dropdown, .nv-mega, .nv-dropdown-panel) {
+  position: fixed;
+  top: calc(var(--nv-h) + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(var(--nv-mega-w), calc(100vw - 24px));
+  max-height: calc(100vh - var(--nv-h) - 24px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Scrollbar (abartısız) */
+#nv-main-nav :is(.nv-dropdown, .nv-mega, .nv-dropdown-panel)::-webkit-scrollbar {
+  width: 10px;
+}
+
+#nv-main-nav :is(.nv-dropdown, .nv-mega, .nv-dropdown-panel)::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+/* Overlay’i desktop’ta da “cam perde” gibi kullan */
+#nvNavOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+
+/* JS Patch 9.3 bunu ekleyecek (html class) */
+html.nv-mega-open #nvNavOverlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #nvNavOverlay {
+    transition: none;
+  }
+
+  #nv-main-nav :is(.nv-dropdown, .nv-mega, .nv-dropdown-panel) {
+    transition: none;
+  }
+}
+
+/* Sprint 9.2 — Mega panel footer (taşmayı bitir) */
+#nv-main-nav .nv-mega-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, rgba(10, 12, 16, 0.00) 0%, rgba(10, 12, 16, 0.55) 35%, rgba(10, 12, 16, 0.78) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+#nv-main-nav .nv-mega-jump {
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+#nv-main-nav .nv-mega-jump:hover {
+  color: var(--text-main);
+}
+
+#nv-main-nav .nv-mega-all {
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--space-4);
+  border-radius: 999px;
+  border: 1px solid var(--accent-gold);
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+#nv-main-nav .nv-mega-all:hover {
+  box-shadow: var(--shadow-soft);
+}
+
+/* Patch 9.3 — Desktop mega “lux sheet” */
+.nv-mega-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+  z-index: 900;
+}
+
+.nv-mega-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Mega panel: tek scroll yüzeyi, taşma kontrolü */
+#nv-main-nav .nv-mega-item {
+  position: relative;
+}
+
+#nv-main-nav .nv-mega-panel {
+  max-height: calc(100vh - 96px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Patch 9.4 — Scroll “fade” (CSS-only, premium) */
+@supports (background-attachment: local) {
+  #nv-main-nav .nv-mega-panel {
+    /* Scroll shadow tekniği: üst/alt yumuşak fade */
+    background:
+      linear-gradient(var(--glass-bg) 30%, rgba(0, 0, 0, 0)) 0 0 / 100% 22px,
+      linear-gradient(rgba(0, 0, 0, 0), var(--glass-bg) 70%) 0 100% / 100% 22px,
+      radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0)) 0 0 / 100% 14px,
+      radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0)) 0 100% / 100% 14px,
+      var(--glass-bg);
+    background-repeat: no-repeat;
+    background-attachment: local, local, scroll, scroll, scroll;
+  }
+}
+
+/* Patch 9.5 — Sticky Mini Header */
+.nv-mega-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(10, 12, 16, 0.90);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin: -1px -1px 0 -1px;
+  /* Border overlap */
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.nv-sticky-title {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  color: var(--accent-gold);
+  letter-spacing: 0.05em;
+}
+
+.nv-sticky-link {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+.nv-sticky-link:hover {
+  color: var(--text-main);
+}
+
+/* Patch 9.6 — Cinematic Mega Menu Transitions */
+#nv-main-nav :is(.nv-dropdown, .nv-mega, .nv-dropdown-panel) {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-12px) scale(0.98);
+  transform-origin: top center;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0s linear 0.2s;
+}
+
+#nv-main-nav .nv-mega-item.is-open> :is(.nv-dropdown, .nv-mega, .nv-dropdown-panel) {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0) scale(1);
+  transition:
+    opacity 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #nv-main-nav :is(.nv-dropdown, .nv-mega, .nv-dropdown-panel) {
+    transition: none !important;
+  }
+}
+
+/* Açık state: (mevcut hover CSS’in üzerine ek güvenlik) */
+#nv-main-nav .nv-mega-item.is-open>.nv-mega-panel {
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+@media (max-width: 959px) {
+  .nv-mega-overlay {
+    display: none;
+  }
+}
+
+/* Patch 8.4 — Mega dropdown (no inner scroll) + lux compact */
+#nv-main-nav .nv-dropdown {
+  /* mevcut dropdown stillerini kırmadan: daha spesifik selector */
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 18px;
+  padding: 12px;
+  min-width: 340px;
+  max-width: 560px;
+
+  /* İç scroll’u kapat (kötü his) */
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* “Bölüme Git” / “Tümünü Gör” satırları tek satırı kaplasın */
+#nv-main-nav .nv-dropdown>li.nv-dd-meta,
+#nv-main-nav .nv-dropdown>li.nv-dd-all {
+  grid-column: 1 / -1;
+}
+
+#nv-main-nav .nv-dropdown>li.nv-dd-meta a,
+#nv-main-nav .nv-dropdown>li.nv-dd-all a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  text-decoration: none;
+}
+
+#nv-main-nav .nv-dropdown>li.nv-dd-all a {
+  border-color: rgba(212, 175, 55, 0.35);
+  background: rgba(212, 175, 55, 0.06);
+}
+
+/* Dropdown linkleri compact */
+#nv-main-nav .nv-dropdown a {
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+/* Hover/Focus: altın underline hissi (abartısız) */
+#nv-main-nav .nv-dropdown a:hover,
+#nv-main-nav .nv-dropdown a:focus-visible {
+  outline: none;
+  box-shadow: none;
+  border-color: rgba(212, 175, 55, 0.45);
+}
+
+/* Dar ekran: tek kolon (yine scroll yok) */
+@media (max-width: 920px) {
+  #nv-main-nav .nv-dropdown {
+    grid-template-columns: 1fr;
+    min-width: 280px;
+    max-width: 520px;
+  }
+}
+
+/* Mobil sheet: dropdown “hover panel” değil, inline liste gibi aksın */
+#nvNavSheet .nv-dropdown {
+  position: static !important;
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 6px !important;
+  padding: 8px 0 0 0 !important;
+  margin: 0 0 10px 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#nvNavSheet .nv-dropdown a {
+  padding-left: 18px;
+  /* indent */
+  opacity: 0.95;
+}
+
+/* Patch 8.5 — Global action pills (chip) */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-main);
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.chip-icon {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+}
+
+.chip-label {
+  line-height: 1;
+}
+
+.chip:hover {
+  transform: translateY(-1px);
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: var(--shadow-soft);
+}
+
+.chip--primary {
+  border-color: rgba(212, 175, 55, 0.45);
+  background: rgba(212, 175, 55, 0.10);
+}
+
+.chip--primary:hover {
+  background: rgba(212, 175, 55, 0.14);
+}
+
+/* Patch 8.6 — Split nav item: section + category list */
+.nv-split {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nv-mini {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(1px);
+  transition: opacity 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+}
+
+/* Desktop: mini link sadece hover/focus ile görünsün */
+.nv-split:hover .nv-mini,
+.nv-split:focus-within .nv-mini {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+/* Mobile sheet: mini link her zaman görünür (daha net IA) */
+.nv-nav-sheet .nv-mini {
+  opacity: 1;
+  transform: none;
+}
+
+/* Sticky navbar anchor offset (navbar üstüne binmesin) */
+main [id] {
+  scroll-margin-top: 88px;
+}
+
+/* Patch 8.7 — Dynamic Section Pill (:target interaction) */
+.lux-section-cta {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.2s ease;
+  pointer-events: none;
+  /* Gizliyken tıklanmasın */
+}
+
+/* Hover veya Target durumunda görünür yap */
+.section-container:hover .lux-section-cta,
+.section-container:target .lux-section-cta {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.section-container:target .lux-section-cta {
+  animation: pulseGold 1s ease 0.2s;
+}
+
+@keyframes pulseGold {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6);
+  }
+
+  70% {
+    box-shadow: 0 0 0 12px rgba(212, 175, 55, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+  }
+}
+
+/* Patch 9.0 — Mobile Accordion Animation */
+@media (max-width: 1024px) {
+  #nvNavSheet .has-sub .dropdown-menu {
+    display: block !important;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease, visibility 0s linear 0.4s;
+  }
+
+  #nvNavSheet .has-sub.open .dropdown-menu {
+    max-height: 100vh;
+    opacity: 1;
+    visibility: visible;
+    transition: max-height 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease, visibility 0s linear 0s;
+  }
+}
+
+/* Patch 9.9 — Gallery Lightbox */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.lightbox-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  display: block;
+  transform-origin: center center;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #fff;
+  font-size: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10001;
+  line-height: 1;
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.2s;
+  z-index: 10001;
+}
+
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.lightbox-prev {
+  left: 20px;
+}
+
+.lightbox-next {
+  right: 20px;
+}
+
+@media (max-width: 768px) {
+  .lightbox-close {
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+  }
+
+  .lightbox-nav {
+    padding: 8px 12px;
+    font-size: 20px;
+  }
+
+  .lightbox-prev {
+    left: 10px;
+  }
+
+  .lightbox-next {
+    right: 10px;
+  }
+}
+
+/* Gallery Filters */
+.gallery-filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--accent-gold);
+  color: #000;
+  border-color: var(--accent-gold);
+}
+
+/* Patch 9.10 — Gallery Skeleton & Hover */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 12px;
+  min-height: 250px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-caption {
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  transform: translateY(10px);
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-caption {
+  transform: translateY(0);
+}
+
+/* A11y helper: görünmez label (tasarımı bozmaz) */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Patch 9.11 — Masonry Layout (Pinterest Style) */
+.gallery-grid {
+  column-count: 4;
+  column-gap: 20px;
+  min-height: 200px;
+}
+
+@media (max-width: 1200px) {
+  .gallery-grid {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 800px) {
+  .gallery-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 500px) {
+  .gallery-grid {
+    column-count: 1;
+  }
+}
+
+.gallery-item {
+  display: inline-block;
+  /* Sütun içinde bütün kalması için */
+  width: 100%;
+  margin-bottom: 20px;
+  break-inside: avoid;
+}
+
+.gallery-item img {
+  height: auto !important;
+  /* Grid'den kalan height:100% ezilmeli */
+}
+
+/* Patch 9.12 — Gallery Filtering Animation */
+.gallery-item {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform-origin: center center;
+}
+
+.gallery-item.fade-out {
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+}
+
+.gallery-item.hide {
+  display: none;
+}
+
+/* Patch 9.13 — Gallery Share Buttons */
+.lightbox-actions {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  gap: 10px;
+  z-index: 10002;
+}
+
+.share-btn {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.share-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+  transform: scale(1.1);
+}
+
+.share-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Patch 9.1 — Desktop Mega Panel (Fixed & Scroll Fix) */
+:root {
+  --nv-h: 64px;
+  --nv-mega-w: 1120px;
+}
+
+html {
+  scroll-padding-top: calc(var(--nv-h) + 16px);
+}
+
+#nv-main-nav {
+  min-height: var(--nv-h);
+}
+
+/* Mega dropdown’u sayfadan bağımsızlaştır (Fixed) */
+#nv-main-nav :is(.nv-dropdown, .nv-mega, .nv-dropdown-panel) {
+  position: fixed !important;
+  top: calc(var(--nv-h) + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(var(--nv-mega-w), calc(100vw - 24px));
+  max-height: calc(100vh - var(--nv-h) - 24px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 9999;
+}
+
+/* Scrollbar (abartısız) */
+#nv-main-nav :is(.nv-dropdown, .nv-mega, .nv-dropdown-panel)::-webkit-scrollbar {
+  width: 10px;
+}
+
+#nv-main-nav :is(.nv-dropdown, .nv-mega, .nv-dropdown-panel)::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+/* Overlay’i desktop’ta da “cam perde” gibi kullan */
+#nvNavOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+  z-index: 9998;
+}
+
+html.nv-mega-open #nvNavOverlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #nvNavOverlay {
+    transition: none;
+  }
+
+  #nv-main-nav :is(.nv-dropdown, .nv-mega, .nv-dropdown-panel) {
+    transition: none;
+  }
+}
+
+/* Patch 8.6 — Sticky navbar anchor offset */
+main [id] {
+  scroll-margin-top: 96px;
+}
+
+/* Patch 8.6 (Addendum) — Split nav item: section + category list */
+.nv-split {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nv-mini {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(1px);
+  transition: opacity 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+}
+
+/* Desktop: mini link sadece hover/focus ile görünsün */
+.nv-split:hover .nv-mini,
+.nv-split:focus-within .nv-mini {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+/* Mobile sheet: mini link her zaman görünür (daha net IA) */
+.nv-nav-sheet .nv-mini {
+  opacity: 1;
+  transform: none;
+}
+
+/* Patch 8.7 — Dynamic Section Pill (:target interaction) */
+.lux-section-cta {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.2s ease;
+  pointer-events: none;
+}
+
+.section-container:hover .lux-section-cta,
+.section-container:target .lux-section-cta {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.section-container:target .lux-section-cta {
+  animation: pulseGold 1s ease 0.2s;
+}
+
+@keyframes pulseGold {
+  0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6); }
+  70% { box-shadow: 0 0 0 12px rgba(212, 175, 55, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}
+
+/* ==========================================================================
+   PRODUCTS PAGE STYLES
+   ========================================================================== */
+.product-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent-gold);
+    box-shadow: var(--shadow-card);
+}
+
+.product-img-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #1a1a1a;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+}
+
+.product-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.product-card:hover .product-img-wrap img {
+    transform: scale(1.08);
+}
+
+.product-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    margin: 0 0 8px 0;
+    color: var(--text-main);
+    letter-spacing: 0.5px;
+}
+
+.product-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 15px;
+    margin-top: auto;
+}
+
+.product-price {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent-gold);
+    font-family: var(--font-body);
+}
+
+.product-btn {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-main);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 8px 20px;
+    border-radius: 50px;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+.product-btn:hover {
+    background: var(--accent-gold);
+    color: #000;
+    border-color: var(--accent-gold);
+    font-weight: 600;
+}
+
+
+.products-hero-subtitle {
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: 10px;
+    animation: fadeInUp 1.2s ease-out;
+}
+
+
+/* SHOPPING CART STYLES */
+.shop-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 64px;
+    height: 64px;
+    background: var(--surface-2);
+    border: 1px solid var(--accent-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-gold);
+    cursor: pointer;
+    z-index: 10010;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.shop-fab:hover {
+    transform: scale(1.1);
+    background: var(--accent-gold);
+    color: #000;
+}
+
+.shop-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #e74c3c;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    min-width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--bg-dark);
+}
+
+.shop-drawer {
+    right: 0 !important; /* Force right side */
+    display: flex;
+    flex-direction: column;
+}
+
+#shop-overlay {
+    z-index: 10004;
+}
+

@@ -2,13 +2,28 @@
   "hotels": [
     {
       "slug": "alba-resort",
-      "hero_image": "https://placehold.co/1920x800/1a73e8/ffffff?text=Alba+Resort+Hotel",
+      "hero_image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1920&auto=format&fit=crop",
       "translations": {
-        "tr": { "name": "Alba Resort Hotel", "description": "Side sahilinde, dinlenme odaklı spa ritüelleri ve masaj terapileriyle yenilenme deneyimi." },
-        "en": { "name": "Alba Resort Hotel", "description": "A rejuvenating spa experience on the Side coast with rituals and therapeutic massages." },
-        "de": { "name": "Alba Resort Hotel", "description": "Ein erholsames Spa-Erlebnis an der Küste von Side mit Ritualen und therapeutischen Massagen." },
-        "fr": { "name": "Alba Resort Hotel", "description": "Une expérience spa régénérante sur la côte de Side avec rituels et massages thérapeutiques." },
-        "ru": { "name": "Alba Resort Hotel", "description": "Оздоровительный спа-опыт на побережье Сиде с ритуалами и терапевтическими массажами." }
+        "tr": {
+          "name": "Alba Resort Hotel",
+          "description": "Side sahilinde, dinlenme odaklı spa ritüelleri ve masaj terapileriyle yenilenme deneyimi."
+        },
+        "en": {
+          "name": "Alba Resort Hotel",
+          "description": "A rejuvenating spa experience on the Side coast with rituals and therapeutic massages."
+        },
+        "de": {
+          "name": "Alba Resort Hotel",
+          "description": "Ein erholsames Spa-Erlebnis an der Küste von Side mit Ritualen und therapeutischen Massagen."
+        },
+        "fr": {
+          "name": "Alba Resort Hotel",
+          "description": "Une expérience spa régénérante sur la côte de Side avec rituels et massages thérapeutiques."
+        },
+        "ru": {
+          "name": "Alba Resort Hotel",
+          "description": "Оздоровительный спа-опыт на побережье Сиде с ритуалами и терапевтическими массажами."
+        }
       },
       "featuredServices": [
         "hammam_traditional_ritual",
@@ -18,13 +33,28 @@
     },
     {
       "slug": "alba-queen",
-      "hero_image": "https://placehold.co/1920x800/1a73e8/ffffff?text=Alba+Queen+Hotel",
+      "hero_image": "https://images.unsplash.com/photo-1571896349842-6e5c48dc52e3?q=80&w=1920&auto=format&fit=crop",
       "translations": {
-        "tr": { "name": "Alba Queen Hotel", "description": "Premium otel spa konseptinde, kişiselleştirilmiş masajlar ve imza ritüellerle üst düzey bakım." },
-        "en": { "name": "Alba Queen Hotel", "description": "Premium hotel spa concept with personalized massages and signature rituals." },
-        "de": { "name": "Alba Queen Hotel", "description": "Premium-Spa-Konzept mit personalisierten Massagen und Signature-Ritualen." },
-        "fr": { "name": "Alba Queen Hotel", "description": "Concept spa haut de gamme avec massages personnalisés et rituels signature." },
-        "ru": { "name": "Alba Queen Hotel", "description": "Премиум-спа с индивидуальными массажами и фирменными ритуалами." }
+        "tr": {
+          "name": "Alba Queen Hotel",
+          "description": "Premium otel spa konseptinde, kişiselleştirilmiş masajlar ve imza ritüellerle üst düzey bakım."
+        },
+        "en": {
+          "name": "Alba Queen Hotel",
+          "description": "Premium hotel spa concept with personalized massages and signature rituals."
+        },
+        "de": {
+          "name": "Alba Queen Hotel",
+          "description": "Premium-Spa-Konzept mit personalisierten Massagen und Signature-Ritualen."
+        },
+        "fr": {
+          "name": "Alba Queen Hotel",
+          "description": "Concept spa haut de gamme avec massages personnalisés et rituels signature."
+        },
+        "ru": {
+          "name": "Alba Queen Hotel",
+          "description": "Премиум-спа с индивидуальными массажами и фирменными ритуалами."
+        }
       },
       "featuredServices": [
         "santis_signature",
@@ -34,13 +64,28 @@
     },
     {
       "slug": "alba-royal",
-      "hero_image": "https://placehold.co/1920x800/1a73e8/ffffff?text=Alba+Royal+Hotel",
+      "hero_image": "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=1920&auto=format&fit=crop",
       "translations": {
-        "tr": { "name": "Alba Royal Hotel", "description": "Sakin ve konfor odaklı spa atmosferinde, hamam ritüelleri ve terapi masajlarıyla tam arınma." },
-        "en": { "name": "Alba Royal Hotel", "description": "Serene and comfort-focused spa with hammam rituals and therapy massages." },
-        "de": { "name": "Alba Royal Hotel", "description": "Ruhiges, komfortorientiertes Spa mit Hammam-Ritualen und Therapiemassagen." },
-        "fr": { "name": "Alba Royal Hotel", "description": "Un spa calme et confortable avec rituels hammam et massages thérapeutiques." },
-        "ru": { "name": "Alba Royal Hotel", "description": "Спокойный спа с хаммамом и терапевтическими массажами." }
+        "tr": {
+          "name": "Alba Royal Hotel",
+          "description": "Sakin ve konfor odaklı spa atmosferinde, hamam ritüelleri ve terapi masajlarıyla tam arınma."
+        },
+        "en": {
+          "name": "Alba Royal Hotel",
+          "description": "Serene and comfort-focused spa with hammam rituals and therapy massages."
+        },
+        "de": {
+          "name": "Alba Royal Hotel",
+          "description": "Ruhiges, komfortorientiertes Spa mit Hammam-Ritualen und Therapiemassagen."
+        },
+        "fr": {
+          "name": "Alba Royal Hotel",
+          "description": "Un spa calme et confortable avec rituels hammam et massages thérapeutiques."
+        },
+        "ru": {
+          "name": "Alba Royal Hotel",
+          "description": "Спокойный спа с хаммамом и терапевтическими массажами."
+        }
       },
       "featuredServices": [
         "hammam_foam",
@@ -50,13 +95,28 @@
     },
     {
       "slug": "iberostar-bellevue",
-      "hero_image": "https://placehold.co/1920x800/1a73e8/ffffff?text=Iberostar+Waves+Bellevue",
+      "hero_image": "https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=1920&auto=format&fit=crop",
       "translations": {
-        "tr": { "name": "Iberostar Waves Bellevue", "description": "Adriyatik kıyısında, tatil ritmini tamamlayan spa bakımları ve yenileyici masajlar." },
-        "en": { "name": "Iberostar Waves Bellevue", "description": "Seaside spa experience with relaxing treatments and massages." },
-        "de": { "name": "Iberostar Waves Bellevue", "description": "Spa-Erlebnis am Meer mit entspannenden Behandlungen und Massagen." },
-        "fr": { "name": "Iberostar Waves Bellevue", "description": "Expérience spa en bord de mer avec soins relaxants et massages." },
-        "ru": { "name": "Iberostar Waves Bellevue", "description": "Спа на берегу Адриатики с расслабляющими процедурами и массажами." }
+        "tr": {
+          "name": "Iberostar Waves Bellevue",
+          "description": "Adriyatik kıyısında, tatil ritmini tamamlayan spa bakımları ve yenileyici masajlar."
+        },
+        "en": {
+          "name": "Iberostar Waves Bellevue",
+          "description": "Seaside spa experience with relaxing treatments and massages."
+        },
+        "de": {
+          "name": "Iberostar Waves Bellevue",
+          "description": "Spa-Erlebnis am Meer mit entspannenden Behandlungen und Massagen."
+        },
+        "fr": {
+          "name": "Iberostar Waves Bellevue",
+          "description": "Expérience spa en bord de mer avec soins relaxants et massages."
+        },
+        "ru": {
+          "name": "Iberostar Waves Bellevue",
+          "description": "Спа на берегу Адриатики с расслабляющими процедурами и массажами."
+        }
       },
       "featuredServices": [
         "balinese",
@@ -68,6 +128,7 @@
   "services": {
     "hammam_traditional_ritual": {
       "categoryId": "hammam",
+      "hero_image": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Geleneksel Hamam Ritüeli",
         "en": "Traditional Hammam Ritual",
@@ -92,6 +153,7 @@
     },
     "hammam_foam": {
       "categoryId": "hammam",
+      "hero_image": "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Köpük Masajı (Hamam)",
         "en": "Foam Massage (Hammam)",
@@ -113,8 +175,27 @@
         "alba-royal"
       ]
     },
+    "hammam_detox": {
+      "categoryId": "hammam",
+      "hero_image": "https://images.unsplash.com/photo-1552693673-1bf958298935?q=80&w=1920&auto=format&fit=crop",
+      "name": {
+        "tr": "Derin Arınma Ritüeli",
+        "en": "Deep Detox Ritual",
+        "de": "Tiefen-Detox-Ritual",
+        "fr": "Rituel Détox Profond",
+        "ru": "Глубокий детокс-ритуал"
+      },
+      "desc": {
+        "tr": "Toksinlerden arındıran yoğun kese ve kil maskesi uygulaması.",
+        "en": "Intense exfoliation and clay mask application for detoxification."
+      },
+      "durationMin": 80,
+      "price": 130,
+      "currency": "EUR"
+    },
     "relax_aroma": {
       "categoryId": "classicMassages",
+      "hero_image": "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Aromaterapi Rahatlama Masajı",
         "en": "Aromatherapy Relax Massage",
@@ -137,8 +218,27 @@
         "iberostar-bellevue"
       ]
     },
+    "anti_stress": {
+      "categoryId": "classicMassages",
+      "hero_image": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=1920&auto=format&fit=crop",
+      "name": {
+        "tr": "Anti-Stres Masajı",
+        "en": "Anti-Stress Massage",
+        "de": "Anti-Stress-Massage",
+        "fr": "Massage Anti-Stress",
+        "ru": "Антистресс массаж"
+      },
+      "desc": {
+        "tr": "Yavaş ve ritmik hareketlerle stresi azaltan özel masaj.",
+        "en": "Special massage reducing stress with slow and rhythmic movements."
+      },
+      "durationMin": 50,
+      "price": 110,
+      "currency": "EUR"
+    },
     "swedish_classic": {
       "categoryId": "classicMassages",
+      "hero_image": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Klasik İsveç Masajı",
         "en": "Classic Swedish Massage",
@@ -163,6 +263,7 @@
     },
     "deep_tissue": {
       "categoryId": "sportsTherapy",
+      "hero_image": "https://images.unsplash.com/photo-1519824145371-296894a0daa9?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Derin Doku (Deep Tissue) Masajı",
         "en": "Deep Tissue Massage",
@@ -185,8 +286,27 @@
         "iberostar-bellevue"
       ]
     },
+    "back_neck": {
+      "categoryId": "sportsTherapy",
+      "hero_image": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=1920&auto=format&fit=crop",
+      "name": {
+        "tr": "Sırt & Boyun Masajı",
+        "en": "Back & Neck Massage",
+        "de": "Rücken- & Nackenmassage",
+        "fr": "Massage Dos & Nuque",
+        "ru": "Массаж спины и шеи"
+      },
+      "desc": {
+        "tr": "Bölgesel ağrılara odaklanan yoğun terapi.",
+        "en": "Intense therapy focusing on regional pain."
+      },
+      "durationMin": 40,
+      "price": 75,
+      "currency": "EUR"
+    },
     "sports_recovery": {
       "categoryId": "sportsTherapy",
+      "hero_image": "https://images.unsplash.com/photo-1574680096141-1cddd32e04ca?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Spor Recovery Masajı",
         "en": "Sports Recovery Massage",
@@ -210,6 +330,7 @@
     },
     "thai_traditional": {
       "categoryId": "asianMassages",
+      "hero_image": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Geleneksel Thai Masajı",
         "en": "Traditional Thai Massage",
@@ -233,6 +354,7 @@
     },
     "balinese": {
       "categoryId": "asianMassages",
+      "hero_image": "https://images.unsplash.com/photo-1591343395082-e21b64b55d4b?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Bali Masajı",
         "en": "Balinese Massage",
@@ -256,6 +378,7 @@
     },
     "ayurveda_abhyanga": {
       "categoryId": "ayurveda",
+      "hero_image": "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Abhyanga Ayurveda Masajı",
         "en": "Abhyanga Ayurveda Massage",
@@ -279,6 +402,7 @@
     },
     "shirodhara": {
       "categoryId": "ayurveda",
+      "hero_image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Shirodhara Ritüeli",
         "en": "Shirodhara Ritual",
@@ -302,6 +426,7 @@
     },
     "couples_signature": {
       "categoryId": "signatureCouples",
+      "hero_image": "https://images.unsplash.com/photo-1591343395082-e21b64b55d4b?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Signature Couples Masajı",
         "en": "Signature Couples Massage",
@@ -326,6 +451,7 @@
     },
     "santis_signature": {
       "categoryId": "signatureCouples",
+      "hero_image": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Santis Signature Masajı",
         "en": "Santis Signature Massage",
@@ -350,6 +476,7 @@
     },
     "kids_choco_massage": {
       "categoryId": "kidsFamily",
+      "hero_image": "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Kids Çikolata Masajı",
         "en": "Kids Chocolate Massage",
@@ -372,8 +499,27 @@
         "alba-queen"
       ]
     },
+    "family_spa": {
+      "categoryId": "kidsFamily",
+      "hero_image": "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?q=80&w=1920&auto=format&fit=crop",
+      "name": {
+        "tr": "Family Spa Deneyimi",
+        "en": "Family Spa Experience",
+        "de": "Familien-Spa-Erlebnis",
+        "fr": "Expérience Spa en Famille",
+        "ru": "Семейный спа-опыт"
+      },
+      "desc": {
+        "tr": "Tüm aile için özel süitte rahatlama keyfi.",
+        "en": "Relaxation joy for the whole family in a private suite."
+      },
+      "durationMin": 90,
+      "price": 250,
+      "currency": "EUR"
+    },
     "face_sothys_hydra": {
       "categoryId": "faceSothys",
+      "hero_image": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Sothys Nem Terapisi (Yüz)",
         "en": "Sothys Hydra Facial",
@@ -398,6 +544,7 @@
     },
     "face_sothys_glow": {
       "categoryId": "faceSothys",
+      "hero_image": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=1920&auto=format&fit=crop",
       "name": {
         "tr": "Sothys Glow Bakımı (Yüz)",
         "en": "Sothys Glow Facial",
@@ -418,6 +565,278 @@
       "hotelSlugs": [
         "alba-queen"
       ]
+    },
+    "face_sothys_antiage": {
+      "categoryId": "faceSothys",
+      "hero_image": "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1920&auto=format&fit=crop",
+      "name": {
+        "tr": "Anti-Aging Bakım (Sothys)",
+        "en": "Anti-Aging Care (Sothys)",
+        "de": "Anti-Aging-Pflege (Sothys)",
+        "fr": "Soin Anti-Âge (Sothys)",
+        "ru": "Антивозрастной уход (Sothys)"
+      },
+      "desc": {
+        "tr": "Gençleştirici ve sıkılaştırıcı yoğun bakım.",
+        "en": "Rejuvenating and firming intensive care."
+      },
+      "durationMin": 60,
+      "price": 145,
+      "currency": "EUR"
+    },
+    "product_oils": {
+      "categoryId": "products",
+      "name": {
+        "tr": "Masaj Yağları",
+        "en": "Massage Oils",
+        "de": "Massageöle",
+        "fr": "Huiles de Massage",
+        "ru": "Массажные масла"
+      },
+      "desc": {
+        "tr": "Doğal ve aromatik spa yağları.",
+        "en": "Natural and aromatic spa oils."
+      },
+      "durationMin": 0,
+      "price": 25,
+      "currency": "EUR"
+    },
+    "product_scrub": {
+      "categoryId": "products",
+      "name": {
+        "tr": "Vücut Peelingleri",
+        "en": "Body Scrubs",
+        "de": "Körperpeelings",
+        "fr": "Gommages Corporels",
+        "ru": "Скрабы для тела"
+      },
+      "desc": {
+        "tr": "Cildi yenileyen özel karışım scrublar.",
+        "en": "Special blend scrubs that renew the skin."
+      },
+      "durationMin": 0,
+      "price": 30,
+      "currency": "EUR"
+    },
+    "sothys_organics_radiance": {
+      "categoryId": "skincare",
+      "durationMin": 30,
+      "price": 0,
+      "currency": "EUR",
+      "name": {
+        "tr": "Sothys Organics® Işıltı Bakımı",
+        "en": "Sothys Organics® Organic Certified Radiance Treatment",
+        "de": "Sothys Organics® Bio-Radiance Behandlung",
+        "fr": "Sothys Organics® Soin éclat certifié bio",
+        "ru": "Sothys Organics® Органический уход «Сияние»"
+      },
+      "desc": {
+        "tr": "Anında ışıltı. Tüm cilt tipleri (hassas dahil).",
+        "en": "Instant radiance. All skin types (even sensitive).",
+        "de": "Sofortiger Glow. Für alle Hauttypen (auch sensibel).",
+        "fr": "Éclat immédiat. Tous types de peau (même sensibles).",
+        "ru": "Мгновенное сияние. Для всех типов кожи (включая чувствительную)."
+      }
+    },
+    "sothys_seasonal_oxygen": {
+      "categoryId": "skincare",
+      "durationMin": 45,
+      "price": 0,
+      "currency": "EUR",
+      "name": {
+        "tr": "Sothys Seasonal Oksijenlendirici Bakım",
+        "en": "Sothys Seasonal Oxygenating Treatment",
+        "de": "Sothys Seasonal Oxygenating Behandlung",
+        "fr": "Sothys Soin saisonnier oxygénant",
+        "ru": "Sothys Сезонный кислородный уход"
+      },
+      "desc": {
+        "tr": "Mevsimsel canlandırma: peeling + maske + rahatlatıcı modelaj.",
+        "en": "Seasonal boost: exfoliation + mask + relaxing modelling.",
+        "de": "Saisonaler Boost: Peeling + Maske + entspannende Modellage.",
+        "fr": "Boost saisonnier : gommage + masque + modelage relaxant.",
+        "ru": "Сезонное обновление: пилинг + маска + расслабляющий массаж."
+      }
+    },
+    "sothys_spa_thermal_water": {
+      "categoryId": "skincare",
+      "durationMin": 50,
+      "price": 0,
+      "currency": "EUR",
+      "name": {
+        "tr": "Spa™ Termal Su ile Yatıştırıcı Bakım",
+        "en": "Soothing Professional Treatment with Spa™ Thermal Water",
+        "de": "Beruhigende Profi-Behandlung mit Spa™ Thermalwasser",
+        "fr": "Soin professionnel apaisant à l’Eau Thermale Spa™",
+        "ru": "Успокаивающий профессиональный уход со Spa™ термальной водой"
+      },
+      "desc": {
+        "tr": "Konfor ve sakinlik odaklı; hassasiyete nazik yaklaşım.",
+        "en": "Comfort & calm—gentle care for sensitive skin.",
+        "de": "Komfort & Ruhe—sanfte Pflege für sensible Haut.",
+        "fr": "Confort & apaisement—pour peaux sensibles.",
+        "ru": "Комфорт и успокоение — деликатный уход для чувствительной кожи."
+      }
+    },
+    "sothys_cryo_eye": {
+      "categoryId": "skincare",
+      "durationMin": 45,
+      "price": 0,
+      "currency": "EUR",
+      "name": {
+        "tr": "Sothys Cryo Eye Profesyonel Göz Bakımı",
+        "en": "Sothys Cryo Eye Professional Treatment",
+        "de": "Sothys Cryo Eye Profi-Augenbehandlung",
+        "fr": "Sothys Soin professionnel Cryo Yeux",
+        "ru": "Sothys Профессиональный Cryo-уход для глаз"
+      },
+      "desc": {
+        "tr": "Göz çevresinde ferahlık ve daha dinlenmiş görünüm.",
+        "en": "Refreshing eye contour for a rested look.",
+        "de": "Erfrischte Augenpartie für einen wachen Blick.",
+        "fr": "Contour des yeux rafraîchi, regard reposé.",
+        "ru": "Освежает область вокруг глаз для отдохнувшего вида."
+      }
+    },
+    "sothys_hydra_acid4": {
+      "categoryId": "skincare",
+      "durationMin": 75,
+      "price": 0,
+      "currency": "EUR",
+      "name": {
+        "tr": "Hydra Hyaluronic Acid4 (Yoğun Nem Bakımı)",
+        "en": "Hydrating Intensive Treatment (Hydra Hyaluronic Acid4)",
+        "de": "Hydrating Intensive Behandlung (Hydra Hyaluronic Acid4)",
+        "fr": "Soin intensif hydratant (Hydra Hyaluronic Acid4)",
+        "ru": "Интенсивное увлажнение (Hydra Hyaluronic Acid4)"
+      },
+      "desc": {
+        "tr": "6 aşamalı yoğun nem; dolgunluk ve tazelik hissi.",
+        "en": "6-step intensive hydration; plumped, fresh-feeling skin.",
+        "de": "6 Schritte intensive Hydration; pralle, frische Haut.",
+        "fr": "Hydratation intensive en 6 étapes; peau repulpée.",
+        "ru": "6 этапов интенсивного увлажнения; ощущение наполненности."
+      }
+    },
+    "sothys_detox_energie": {
+      "categoryId": "skincare",
+      "durationMin": 75,
+      "price": 0,
+      "currency": "EUR",
+      "name": {
+        "tr": "Detox Energie™ Yoğun Bakım",
+        "en": "Detox Energie™ Intensive Treatment",
+        "de": "Detox Energie™ Intensive Behandlung",
+        "fr": "Soin intensif Detox Energie™",
+        "ru": "Detox Energie™ Интенсивный уход"
+      },
+      "desc": {
+        "tr": "Enerji desteği ve ‘depolluted’ görünüm odağı.",
+        "en": "Energy boost with a ‘depolluted’ looking complexion focus.",
+        "de": "Energie-Boost mit Fokus auf ein ‘entlastet’ wirkendes Hautbild.",
+        "fr": "Coup d’énergie avec focus ‘teint dépollué’.",
+        "ru": "Энергия и акцент на «очищенный» вид кожи."
+      }
+    },
+    "sothys_glow_defense": {
+      "categoryId": "skincare",
+      "durationMin": 75,
+      "price": 0,
+      "currency": "EUR",
+      "name": {
+        "tr": "Glow Defense Yoğun Bakım",
+        "en": "Glow Defense Intensive Treatment",
+        "de": "Glow Defense Intensive Behandlung",
+        "fr": "Soin intensif Glow Defense",
+        "ru": "Glow Defense Интенсивный уход"
+      },
+      "desc": {
+        "tr": "Işıltı ve koruma odağı; şehir temposuna karşı bakım hissi.",
+        "en": "Glow + defense focus—ideal for urban life stressors.",
+        "de": "Glow + Schutz—ideal gegen urbane Stressfaktoren.",
+        "fr": "Éclat + protection—idéal face au stress urbain.",
+        "ru": "Сияние + защита — идеально при городской нагрузке."
+      }
+    },
+    "sothys_youth_intensive": {
+      "categoryId": "skincare",
+      "durationMin": 75,
+      "price": 0,
+      "currency": "EUR",
+      "name": {
+        "tr": "Youth Intensive (Gençlik Yoğun Bakım)",
+        "en": "Youth Intensive Treatment",
+        "de": "Youth Intensive Behandlung",
+        "fr": "Soin intensif Jeunesse",
+        "ru": "Youth Intensive — Интенсивный уход"
+      },
+      "desc": {
+        "tr": "Daha genç görünüm ve sıkılık hissi odaklı protokol.",
+        "en": "Expert protocol focused on a visibly younger look & firmness feel.",
+        "de": "Expertenprotokoll für sichtbar jüngeren Look & Festigkeit.",
+        "fr": "Protocole expert pour un effet jeunesse & fermeté.",
+        "ru": "Эксперт-протокол для более молодого вида и упругости."
+      }
+    },
+    "sothys_double_peel": {
+      "categoryId": "skincare",
+      "durationMin": 45,
+      "price": 0,
+      "currency": "EUR",
+      "name": {
+        "tr": "Dermo_Booster Double Peel (Çift Peeling)",
+        "en": "Dermo_Booster Double Peel Professional Treatment",
+        "de": "Dermo_Booster Double Peel Profi-Behandlung",
+        "fr": "Dermo_Booster Double Peel — Soin professionnel",
+        "ru": "Dermo_Booster Double Peel — Профессиональный уход"
+      },
+      "desc": {
+        "tr": "Enzim + asit peeling kombinasyonu (AHA/BHA/PHA).",
+        "en": "Enzymatic peel + acid peel combination (AHA/BHA/PHA).",
+        "de": "Enzympeeling + Säurepeeling (AHA/BHA/PHA).",
+        "fr": "Peeling enzymatique + peeling acide (AHA/BHA/PHA).",
+        "ru": "Ферментный + кислотный пилинг (AHA/BHA/PHA)."
+      }
+    },
+    "sothys_glysalac_peel": {
+      "categoryId": "skincare",
+      "durationMin": 45,
+      "price": 0,
+      "currency": "EUR",
+      "name": {
+        "tr": "Glysalac Pro Peel",
+        "en": "Glysalac Pro Peel Treatment",
+        "de": "Glysalac Pro Peel Behandlung",
+        "fr": "Glysalac Pro Peel",
+        "ru": "Glysalac Pro Peel"
+      },
+      "desc": {
+        "tr": "Daha pürüzsüz doku ve daha aydınlık görünüm (normal/karma).",
+        "en": "Refines texture & brightens (normal/combination skin).",
+        "de": "Verfeinert & hellt auf (normale/mischhaut).",
+        "fr": "Affiner & illuminer (peau normale/mixte).",
+        "ru": "Выравнивает текстуру и придает сияние (норм./комб.)."
+      }
+    },
+    "sothys_resurfacing_peel": {
+      "categoryId": "skincare",
+      "durationMin": 60,
+      "price": 0,
+      "currency": "EUR",
+      "name": {
+        "tr": "Professional Resurfacing Peel (Yenileyici Peeling)",
+        "en": "Professional Resurfacing Peel Treatment",
+        "de": "Professional Resurfacing Peel Behandlung",
+        "fr": "Soin peeling resurfaçant professionnel",
+        "ru": "Профессиональный Resurfacing Peel"
+      },
+      "desc": {
+        "tr": "Peel + mikrodermabrazyon yaklaşımı; daha net ve aydınlık görünüm.",
+        "en": "Peel + microdermabrasion approach for renewed-looking skin.",
+        "de": "Peel + Mikrodermabrasion für erneuert wirkende Haut.",
+        "fr": "Peeling + microdermabrasion pour une peau renouvelée.",
+        "ru": "Пилинг + микродермабразия для обновленного вида кожи."
+      }
     }
   },
   "booking": {
@@ -538,5 +957,47 @@
         "whatsapp_template": "Здравствуйте, хочу забронировать {service} в {hotel}. Дата: {date}, Время: {time}, Гости: {guests}. Имя: {name}."
       }
     }
-  }
+  },
+  "gallery": [
+    {
+      "src": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=600&auto=format&fit=crop",
+      "alt": "Geleneksel Hamam",
+      "category": "hammam"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=600&auto=format&fit=crop",
+      "alt": "Relax Masajı",
+      "category": "massage"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=600&auto=format&fit=crop",
+      "alt": "Sauna Keyfi",
+      "category": "spa"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=600&auto=format&fit=crop",
+      "alt": "Cilt Bakımı",
+      "category": "skincare"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=600&auto=format&fit=crop",
+      "alt": "Kapalı Havuz",
+      "category": "pool"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=600&auto=format&fit=crop",
+      "alt": "Thai Terapi",
+      "category": "massage"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1591343395082-e21b64b55d4b?q=80&w=600&auto=format&fit=crop",
+      "alt": "Çift Odası",
+      "category": "massage"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?q=80&w=600&auto=format&fit=crop",
+      "alt": "Dinlenme Alanı",
+      "category": "spa"
+    }
+  ]
 }

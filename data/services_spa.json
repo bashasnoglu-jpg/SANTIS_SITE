@@ -1,0 +1,1450 @@
+{
+  "hammam": [
+    {
+      "id": "peeling_kopuk",
+      "slug": "peeling-kopuk-masaji",
+      "duration": 30,
+      "badge": "popular",
+      "name": {
+        "tr": "Peeling ve Köpük Masajı"
+      },
+      "desc": {
+        "tr": "Klasik hamam keyfi: arınma + köpük rahatlığı."
+      },
+      "content": {
+        "tr": {
+          "intro": "Peeling ve Köpük Masajı mermer sıcaklığı, yumuşak buhar ve ince köpükle zihni yavaşlatıp bedeni arındıran sessiz bir ritüel.",
+          "highlights": [
+            "Isınan mermerde nazik kese ve arınma",
+            "Bol köpükle hafif akış ve nefes eşleşmesi",
+            "Serinletici durulama ve bitki çayı molası"
+          ],
+          "flow": [
+            "Karşılama, ritüel ve basınç tercihi paylaşımı",
+            "Isı, kese ve köpük adımları",
+            "Durulama, serinletme ve sessiz dinlenme"
+          ],
+          "ideal": [
+            "Hamam atmosferinde arınmak isteyenler",
+            "Hamam atmosferinde arınmak isteyenler",
+            "Hamam atmosferinde arınmak isteyenler",
+            "Hamam atmosferinde arınmak isteyenler",
+            "Hamam atmosferinde arınmak isteyenler",
+            "Hamam atmosferinde arınmak isteyenler",
+            "Hamam atmosferinde arınmak isteyenler",
+            "Hamam atmosferinde arınmak isteyenler",
+            "Uçuş veya uzun yol sonrası toparlanma",
+            "Kas yorgunluğunu hafifletmek isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "sothys-organics-radiance"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-body-scrub"
+      ]
+    },
+    {
+      "id": "kopuk_masaji",
+      "slug": "kopuk-masaji",
+      "duration": 30,
+      "name": {
+        "tr": "Köpük Masajı"
+      },
+      "desc": {
+        "tr": "Yumuşak köpük dokunuşlarıyla rahatlama."
+      },
+      "content": {
+        "tr": {
+          "intro": "Köpük Masajı mermer sıcaklığı, yumuşak buhar ve ince köpükle zihni yavaşlatıp bedeni arındıran sessiz bir ritüel.",
+          "highlights": [
+            "Isınan mermerde nazik kese ve arınma",
+            "Bol köpükle hafif akış ve nefes eşleşmesi",
+            "Serinletici durulama ve bitki çayı molası"
+          ],
+          "flow": [
+            "Karşılama, ritüel ve basınç tercihi paylaşımı",
+            "Isı, kese ve köpük adımları",
+            "Durulama, serinletme ve sessiz dinlenme"
+          ],
+          "ideal": [
+            "Hamam atmosferinde arınmak isteyenler",
+            "Uçuş veya uzun yol sonrası toparlanma",
+            "Kas yorgunluğunu hafifletmek isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "sothys-organics-radiance"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-body-scrub"
+      ]
+    },
+    {
+      "id": "kahve_peelingi",
+      "slug": "kahve-peelingi",
+      "duration": 30,
+      "name": {
+        "tr": "Kahve Peelingi"
+      },
+      "desc": {
+        "tr": "Canlandırıcı peeling ile pürüzsüz his."
+      },
+      "content": {
+        "tr": {
+          "intro": "Kahve Peelingi mermer sıcaklığı, yumuşak buhar ve ince köpükle zihni yavaşlatıp bedeni arındıran sessiz bir ritüel.",
+          "highlights": [
+            "Isınan mermerde nazik kese ve arınma",
+            "Bol köpükle hafif akış ve nefes eşleşmesi",
+            "Serinletici durulama ve bitki çayı molası"
+          ],
+          "flow": [
+            "Karşılama, ritüel ve basınç tercihi paylaşımı",
+            "Isı, kese ve köpük adımları",
+            "Durulama, serinletme ve sessiz dinlenme"
+          ],
+          "ideal": [
+            "Hamam atmosferinde arınmak isteyenler",
+            "Uçuş veya uzun yol sonrası toparlanma",
+            "Kas yorgunluğunu hafifletmek isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "sothys-organics-radiance"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-body-scrub"
+      ]
+    },
+    {
+      "id": "deniz_tuzu_peelingi",
+      "slug": "deniz-tuzu-peelingi",
+      "duration": 30,
+      "name": {
+        "tr": "Deniz Tuzu Peelingi"
+      },
+      "desc": {
+        "tr": "Mineralli peeling ile tazelik."
+      },
+      "content": {
+        "tr": {
+          "intro": "Deniz Tuzu Peelingi mermer sıcaklığı, yumuşak buhar ve ince köpükle zihni yavaşlatıp bedeni arındıran sessiz bir ritüel.",
+          "highlights": [
+            "Isınan mermerde nazik kese ve arınma",
+            "Bol köpükle hafif akış ve nefes eşleşmesi",
+            "Serinletici durulama ve bitki çayı molası"
+          ],
+          "flow": [
+            "Karşılama, ritüel ve basınç tercihi paylaşımı",
+            "Isı, kese ve köpük adımları",
+            "Durulama, serinletme ve sessiz dinlenme"
+          ],
+          "ideal": [
+            "Hamam atmosferinde arınmak isteyenler",
+            "Uçuş veya uzun yol sonrası toparlanma",
+            "Kas yorgunluğunu hafifletmek isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "sothys-organics-radiance"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-body-scrub"
+      ]
+    },
+    {
+      "id": "bal_bakimi",
+      "slug": "bal-bakimi",
+      "duration": 30,
+      "badge": "natural",
+      "name": {
+        "tr": "Bal Bakımı"
+      },
+      "desc": {
+        "tr": "Yumuşak dokunuşlu bakım ve konfor."
+      },
+      "content": {
+        "tr": {
+          "intro": "Bal Bakımı mermer sıcaklığı, yumuşak buhar ve ince köpükle zihni yavaşlatıp bedeni arındıran sessiz bir ritüel.",
+          "highlights": [
+            "Isınan mermerde nazik kese ve arınma",
+            "Bol köpükle hafif akış ve nefes eşleşmesi",
+            "Serinletici durulama ve bitki çayı molası"
+          ],
+          "flow": [
+            "Karşılama, ritüel ve basınç tercihi paylaşımı",
+            "Isı, kese ve köpük adımları",
+            "Durulama, serinletme ve sessiz dinlenme"
+          ],
+          "ideal": [
+            "Hamam atmosferinde arınmak isteyenler",
+            "Uçuş veya uzun yol sonrası toparlanma",
+            "Kas yorgunluğunu hafifletmek isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "sothys-organics-radiance"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-body-scrub"
+      ]
+    },
+    {
+      "id": "cikolata_bakimi",
+      "slug": "cikolata-bakimi",
+      "duration": 30,
+      "name": {
+        "tr": "Çikolata Bakımı"
+      },
+      "desc": {
+        "tr": "Tatlı bir SPA ritüeli: bakım & keyif."
+      },
+      "content": {
+        "tr": {
+          "intro": "Çikolata Bakımı mermer sıcaklığı, yumuşak buhar ve ince köpükle zihni yavaşlatıp bedeni arındıran sessiz bir ritüel.",
+          "highlights": [
+            "Isınan mermerde nazik kese ve arınma",
+            "Bol köpükle hafif akış ve nefes eşleşmesi",
+            "Serinletici durulama ve bitki çayı molası"
+          ],
+          "flow": [
+            "Karşılama, ritüel ve basınç tercihi paylaşımı",
+            "Isı, kese ve köpük adımları",
+            "Durulama, serinletme ve sessiz dinlenme"
+          ],
+          "ideal": [
+            "Hamam atmosferinde arınmak isteyenler",
+            "Uçuş veya uzun yol sonrası toparlanma",
+            "Kas yorgunluğunu hafifletmek isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "sothys-organics-radiance"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-body-scrub"
+      ]
+    },
+    {
+      "id": "alg_bakimi",
+      "slug": "alg-bakimi",
+      "duration": 30,
+      "name": {
+        "tr": "Alg Bakımı"
+      },
+      "desc": {
+        "tr": "SPA bakımıyla yenilenmiş his."
+      },
+      "content": {
+        "tr": {
+          "intro": "Alg Bakımı mermer sıcaklığı, yumuşak buhar ve ince köpükle zihni yavaşlatıp bedeni arındıran sessiz bir ritüel.",
+          "highlights": [
+            "Isınan mermerde nazik kese ve arınma",
+            "Bol köpükle hafif akış ve nefes eşleşmesi",
+            "Serinletici durulama ve bitki çayı molası"
+          ],
+          "flow": [
+            "Karşılama, ritüel ve basınç tercihi paylaşımı",
+            "Isı, kese ve köpük adımları",
+            "Durulama, serinletme ve sessiz dinlenme"
+          ],
+          "ideal": [
+            "Hamam atmosferinde arınmak isteyenler",
+            "Uçuş veya uzun yol sonrası toparlanma",
+            "Kas yorgunluğunu hafifletmek isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "sothys-organics-radiance"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-body-scrub"
+      ]
+    },
+    {
+      "id": "osmanli_ritual",
+      "slug": "osmanli-hamam-ritueli",
+      "duration": 50,
+      "badge": "vip",
+      "name": {
+        "tr": "Osmanlı Hamam Ritüeli"
+      },
+      "desc": {
+        "tr": "Geleneksel hamamın en kapsamlı deneyimi."
+      },
+      "content": {
+        "tr": {
+          "intro": "Osmanlı Hamam Ritüeli mermer sıcaklığı, yumuşak buhar ve ince köpükle zihni yavaşlatıp bedeni arındıran sessiz bir ritüel.",
+          "highlights": [
+            "Isınan mermerde nazik kese ve arınma",
+            "Bol köpükle hafif akış ve nefes eşleşmesi",
+            "Serinletici durulama ve bitki çayı molası"
+          ],
+          "flow": [
+            "Karşılama, ritüel ve basınç tercihi paylaşımı",
+            "Isı, kese ve köpük adımları",
+            "Durulama, serinletme ve sessiz dinlenme"
+          ],
+          "ideal": [
+            "Hamam atmosferinde arınmak isteyenler",
+            "Uçuş veya uzun yol sonrası toparlanma",
+            "Kas yorgunluğunu hafifletmek isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "sothys-organics-radiance"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-body-scrub"
+      ]
+    }
+  ],
+  "classicMassages": [
+    {
+      "id": "klasik_30",
+      "slug": "klasik-tum-vucut-30",
+      "duration": 30,
+      "badge": "express",
+      "name": {
+        "tr": "Klasik Tüm Vücut Masajı"
+      },
+      "desc": {
+        "tr": "Kısa sürede tüm vücut rahatlığı."
+      },
+      "content": {
+        "tr": {
+          "intro": "Klasik Tüm Vücut Masajı dengeli basınç ve akışla bedeni toparlayıp zihni sakinleştiren rafine bir masaj.",
+          "highlights": [
+            "Isınmış yağlar ve dengeli basınç",
+            "Nefes ritmine uyumlanan akışkan hareketler",
+            "Sessiz kapanışta hafif germe"
+          ],
+          "flow": [
+            "Kısa danışma, hedef bölgeler",
+            "Yağ uygulaması ve akışkan masaj",
+            "Hafif germe, derin nefes ve kapanış"
+          ],
+          "ideal": [
+            "Omuz-boyun gerginliği yaşayanlar",
+            "Günlük stres yükü taşıyanlar",
+            "Yolculuk sonrası toparlanma arayanlar"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "peeling-kopuk-masaji",
+            "lokal-derin-doku-30"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-massage-oil"
+      ]
+    },
+    {
+      "id": "ayak_refleks",
+      "slug": "ayak-refleksoloji-30",
+      "duration": 30,
+      "name": {
+        "tr": "Ayak Refleksoloji Masajı"
+      },
+      "desc": {
+        "tr": "Ayak odaklı rahatlama ve hafiflik hissi."
+      },
+      "content": {
+        "tr": {
+          "intro": "Ayak Refleksoloji Masajı dengeli basınç ve akışla bedeni toparlayıp zihni sakinleştiren rafine bir masaj.",
+          "highlights": [
+            "Isınmış yağlar ve dengeli basınç",
+            "Nefes ritmine uyumlanan akışkan hareketler",
+            "Sessiz kapanışta hafif germe"
+          ],
+          "flow": [
+            "Kısa danışma, hedef bölgeler",
+            "Yağ uygulaması ve akışkan masaj",
+            "Hafif germe, derin nefes ve kapanış"
+          ],
+          "ideal": [
+            "Omuz-boyun gerginliği yaşayanlar",
+            "Günlük stres yükü taşıyanlar",
+            "Yolculuk sonrası toparlanma arayanlar"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "peeling-kopuk-masaji",
+            "lokal-derin-doku-30"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-massage-oil"
+      ]
+    },
+    {
+      "id": "sirt_masaji",
+      "slug": "sirt-masaji-30",
+      "duration": 30,
+      "name": {
+        "tr": "Sırt Masajı"
+      },
+      "desc": {
+        "tr": "Omuz–boyun–sırt odaklı hızlı rahatlama."
+      },
+      "content": {
+        "tr": {
+          "intro": "Sırt Masajı dengeli basınç ve akışla bedeni toparlayıp zihni sakinleştiren rafine bir masaj.",
+          "highlights": [
+            "Isınmış yağlar ve dengeli basınç",
+            "Nefes ritmine uyumlanan akışkan hareketler",
+            "Sessiz kapanışta hafif germe"
+          ],
+          "flow": [
+            "Kısa danışma, hedef bölgeler",
+            "Yağ uygulaması ve akışkan masaj",
+            "Hafif germe, derin nefes ve kapanış"
+          ],
+          "ideal": [
+            "Omuz-boyun gerginliği yaşayanlar",
+            "Günlük stres yükü taşıyanlar",
+            "Yolculuk sonrası toparlanma arayanlar"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "peeling-kopuk-masaji",
+            "lokal-derin-doku-30"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-massage-oil"
+      ]
+    },
+    {
+      "id": "klasik_50",
+      "slug": "klasik-masaj-50",
+      "duration": 50,
+      "badge": "popular",
+      "name": {
+        "tr": "Klasik Masaj"
+      },
+      "desc": {
+        "tr": "Klasik dokunuşlarla dengeli rahatlama."
+      },
+      "content": {
+        "tr": {
+          "intro": "Klasik Masaj dengeli basınç ve akışla bedeni toparlayıp zihni sakinleştiren rafine bir masaj.",
+          "highlights": [
+            "Isınmış yağlar ve dengeli basınç",
+            "Nefes ritmine uyumlanan akışkan hareketler",
+            "Sessiz kapanışta hafif germe"
+          ],
+          "flow": [
+            "Kısa danışma, hedef bölgeler",
+            "Yağ uygulaması ve akışkan masaj",
+            "Hafif germe, derin nefes ve kapanış"
+          ],
+          "ideal": [
+            "Omuz-boyun gerginliği yaşayanlar",
+            "Günlük stres yükü taşıyanlar",
+            "Yolculuk sonrası toparlanma arayanlar"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "peeling-kopuk-masaji",
+            "lokal-derin-doku-30"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-massage-oil"
+      ]
+    },
+    {
+      "id": "anti_stres",
+      "slug": "anti-stres-masaji-50",
+      "duration": 50,
+      "badge": "popular",
+      "name": {
+        "tr": "Anti-Stres Masajı"
+      },
+      "desc": {
+        "tr": "Zihni boşaltan, rahatlatıcı seans."
+      },
+      "content": {
+        "tr": {
+          "intro": "Anti-Stres Masajı dengeli basınç ve akışla bedeni toparlayıp zihni sakinleştiren rafine bir masaj.",
+          "highlights": [
+            "Isınmış yağlar ve dengeli basınç",
+            "Nefes ritmine uyumlanan akışkan hareketler",
+            "Sessiz kapanışta hafif germe"
+          ],
+          "flow": [
+            "Kısa danışma, hedef bölgeler",
+            "Yağ uygulaması ve akışkan masaj",
+            "Hafif germe, derin nefes ve kapanış"
+          ],
+          "ideal": [
+            "Omuz-boyun gerginliği yaşayanlar",
+            "Günlük stres yükü taşıyanlar",
+            "Yolculuk sonrası toparlanma arayanlar"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "peeling-kopuk-masaji",
+            "lokal-derin-doku-30"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-massage-oil"
+      ]
+    },
+    {
+      "id": "aroma_50",
+      "slug": "aroma-masaji-50",
+      "duration": 50,
+      "name": {
+        "tr": "Aroma Masajı"
+      },
+      "desc": {
+        "tr": "Aromatik yağlarla daha özel bir masaj deneyimi."
+      },
+      "content": {
+        "tr": {
+          "intro": "Aroma Masajı dengeli basınç ve akışla bedeni toparlayıp zihni sakinleştiren rafine bir masaj.",
+          "highlights": [
+            "Isınmış yağlar ve dengeli basınç",
+            "Nefes ritmine uyumlanan akışkan hareketler",
+            "Sessiz kapanışta hafif germe"
+          ],
+          "flow": [
+            "Kısa danışma, hedef bölgeler",
+            "Yağ uygulaması ve akışkan masaj",
+            "Hafif germe, derin nefes ve kapanış"
+          ],
+          "ideal": [
+            "Omuz-boyun gerginliği yaşayanlar",
+            "Günlük stres yükü taşıyanlar",
+            "Yolculuk sonrası toparlanma arayanlar"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "peeling-kopuk-masaji",
+            "lokal-derin-doku-30"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-massage-oil"
+      ]
+    },
+    {
+      "id": "bronz_50",
+      "slug": "bronzlastirici-masaj-50",
+      "duration": 50,
+      "name": {
+        "tr": "Bronzlaştırıcı Masaj"
+      },
+      "desc": {
+        "tr": "Bakım hissi yüksek, ışıltı odaklı seans."
+      },
+      "content": {
+        "tr": {
+          "intro": "Bronzlaştırıcı Masaj dengeli basınç ve akışla bedeni toparlayıp zihni sakinleştiren rafine bir masaj.",
+          "highlights": [
+            "Isınmış yağlar ve dengeli basınç",
+            "Nefes ritmine uyumlanan akışkan hareketler",
+            "Sessiz kapanışta hafif germe"
+          ],
+          "flow": [
+            "Kısa danışma, hedef bölgeler",
+            "Yağ uygulaması ve akışkan masaj",
+            "Hafif germe, derin nefes ve kapanış"
+          ],
+          "ideal": [
+            "Omuz-boyun gerginliği yaşayanlar",
+            "Günlük stres yükü taşıyanlar",
+            "Yolculuk sonrası toparlanma arayanlar"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "peeling-kopuk-masaji",
+            "lokal-derin-doku-30"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-massage-oil"
+      ]
+    },
+    {
+      "id": "spor_50",
+      "slug": "spor-masaji-50",
+      "duration": 50,
+      "name": {
+        "tr": "Spor Masajı"
+      },
+      "desc": {
+        "tr": "Aktif yaşam için toparlanma odaklı masaj."
+      },
+      "content": {
+        "tr": {
+          "intro": "Spor Masajı dengeli basınç ve akışla bedeni toparlayıp zihni sakinleştiren rafine bir masaj.",
+          "highlights": [
+            "Isınmış yağlar ve dengeli basınç",
+            "Nefes ritmine uyumlanan akışkan hareketler",
+            "Sessiz kapanışta hafif germe"
+          ],
+          "flow": [
+            "Kısa danışma, hedef bölgeler",
+            "Yağ uygulaması ve akışkan masaj",
+            "Hafif germe, derin nefes ve kapanış"
+          ],
+          "ideal": [
+            "Omuz-boyun gerginliği yaşayanlar",
+            "Günlük stres yükü taşıyanlar",
+            "Yolculuk sonrası toparlanma arayanlar"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "peeling-kopuk-masaji",
+            "lokal-derin-doku-30"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-massage-oil"
+      ]
+    },
+    {
+      "id": "anti_selulit",
+      "slug": "anti-selulit-masaji-50",
+      "duration": 50,
+      "name": {
+        "tr": "Anti-Selülit Masajı"
+      },
+      "desc": {
+        "tr": "Şekillendirme hissi odaklı, daha yoğun seans."
+      },
+      "content": {
+        "tr": {
+          "intro": "Anti-Selülit Masajı dengeli basınç ve akışla bedeni toparlayıp zihni sakinleştiren rafine bir masaj.",
+          "highlights": [
+            "Isınmış yağlar ve dengeli basınç",
+            "Nefes ritmine uyumlanan akışkan hareketler",
+            "Sessiz kapanışta hafif germe"
+          ],
+          "flow": [
+            "Kısa danışma, hedef bölgeler",
+            "Yağ uygulaması ve akışkan masaj",
+            "Hafif germe, derin nefes ve kapanış"
+          ],
+          "ideal": [
+            "Omuz-boyun gerginliği yaşayanlar",
+            "Günlük stres yükü taşıyanlar",
+            "Yolculuk sonrası toparlanma arayanlar"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "peeling-kopuk-masaji",
+            "lokal-derin-doku-30"
+          ]
+        }
+      },
+      "relatedProducts": [
+        "sothys-massage-oil"
+      ]
+    }
+  ],
+  "extraEffective": [
+    {
+      "id": "lokal_derin",
+      "slug": "lokal-derin-doku-30",
+      "duration": 30,
+      "name": {
+        "tr": "Lokal Derin Doku Masajı"
+      },
+      "desc": {
+        "tr": "Tek bölgeye odaklı yoğun rahatlama."
+      },
+      "content": {
+        "tr": {
+          "intro": "Lokal Derin Doku Masajı odaklı dokunuşlarla kasları rahatlatan, tempolu fakat nazik bir seans.",
+          "highlights": [
+            "Hedef kaslara derinleşen basınç",
+            "Isınma + nokta çalışması dengesi",
+            "Seans sonunda yumuşak gevşeme"
+          ],
+          "flow": [
+            "Kısa durum değerlendirmesi",
+            "Odaklı teknikler ve nefes yönlendirme",
+            "Yavaşlatma, germe ve kapanış"
+          ],
+          "ideal": [
+            "Spor sonrası toparlanma",
+            "Spor sonrası toparlanma",
+            "Spor sonrası toparlanma",
+            "Spor sonrası toparlanma",
+            "Spor sonrası toparlanma",
+            "Spor sonrası toparlanma",
+            "Spor sonrası toparlanma",
+            "Spor sonrası toparlanma",
+            "Spor sonrası toparlanma",
+            "Lokal gerginlik hissedenler",
+            "Daha derin dokunuş isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "peeling-kopuk-masaji"
+          ]
+        }
+      }
+    },
+    {
+      "id": "lokal_sicak_tas",
+      "slug": "lokal-sicak-tas-30",
+      "duration": 30,
+      "name": {
+        "tr": "Lokal Sıcak Taş Masajı"
+      },
+      "desc": {
+        "tr": "Sıcak taşla tek bölgeye konfor."
+      },
+      "content": {
+        "tr": {
+          "intro": "Lokal Sıcak Taş Masajı odaklı dokunuşlarla kasları rahatlatan, tempolu fakat nazik bir seans.",
+          "highlights": [
+            "Hedef kaslara derinleşen basınç",
+            "Isınma + nokta çalışması dengesi",
+            "Seans sonunda yumuşak gevşeme"
+          ],
+          "flow": [
+            "Kısa durum değerlendirmesi",
+            "Odaklı teknikler ve nefes yönlendirme",
+            "Yavaşlatma, germe ve kapanış"
+          ],
+          "ideal": [
+            "Spor sonrası toparlanma",
+            "Lokal gerginlik hissedenler",
+            "Daha derin dokunuş isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "peeling-kopuk-masaji"
+          ]
+        }
+      }
+    },
+    {
+      "id": "manuel_30",
+      "slug": "manuel-masaj-30",
+      "duration": 30,
+      "name": {
+        "tr": "Manuel Masaj"
+      },
+      "desc": {
+        "tr": "Terapistin özel dokunuşlarıyla hedefli seans."
+      },
+      "content": {
+        "tr": {
+          "intro": "Manuel Masaj odaklı dokunuşlarla kasları rahatlatan, tempolu fakat nazik bir seans.",
+          "highlights": [
+            "Hedef kaslara derinleşen basınç",
+            "Isınma + nokta çalışması dengesi",
+            "Seans sonunda yumuşak gevşeme"
+          ],
+          "flow": [
+            "Kısa durum değerlendirmesi",
+            "Odaklı teknikler ve nefes yönlendirme",
+            "Yavaşlatma, germe ve kapanış"
+          ],
+          "ideal": [
+            "Spor sonrası toparlanma",
+            "Lokal gerginlik hissedenler",
+            "Daha derin dokunuş isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "peeling-kopuk-masaji"
+          ]
+        }
+      }
+    },
+    {
+      "id": "sicak_tas_50",
+      "slug": "sicak-tas-masaji-50",
+      "duration": 50,
+      "badge": "popular",
+      "name": {
+        "tr": "Sıcak Taş Masajı"
+      },
+      "desc": {
+        "tr": "Sıcak taşla derin gevşeme hissi."
+      },
+      "content": {
+        "tr": {
+          "intro": "Sıcak Taş Masajı odaklı dokunuşlarla kasları rahatlatan, tempolu fakat nazik bir seans.",
+          "highlights": [
+            "Hedef kaslara derinleşen basınç",
+            "Isınma + nokta çalışması dengesi",
+            "Seans sonunda yumuşak gevşeme"
+          ],
+          "flow": [
+            "Kısa durum değerlendirmesi",
+            "Odaklı teknikler ve nefes yönlendirme",
+            "Yavaşlatma, germe ve kapanış"
+          ],
+          "ideal": [
+            "Spor sonrası toparlanma",
+            "Lokal gerginlik hissedenler",
+            "Daha derin dokunuş isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "peeling-kopuk-masaji"
+          ]
+        }
+      }
+    },
+    {
+      "id": "derin_doku_50",
+      "slug": "derin-doku-masaji-50",
+      "duration": 50,
+      "name": {
+        "tr": "Derin Doku Masajı"
+      },
+      "desc": {
+        "tr": "Terapötik hissi yüksek, yoğun masaj."
+      },
+      "content": {
+        "tr": {
+          "intro": "Derin Doku Masajı odaklı dokunuşlarla kasları rahatlatan, tempolu fakat nazik bir seans.",
+          "highlights": [
+            "Hedef kaslara derinleşen basınç",
+            "Isınma + nokta çalışması dengesi",
+            "Seans sonunda yumuşak gevşeme"
+          ],
+          "flow": [
+            "Kısa durum değerlendirmesi",
+            "Odaklı teknikler ve nefes yönlendirme",
+            "Yavaşlatma, germe ve kapanış"
+          ],
+          "ideal": [
+            "Spor sonrası toparlanma",
+            "Lokal gerginlik hissedenler",
+            "Daha derin dokunuş isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "peeling-kopuk-masaji"
+          ]
+        }
+      }
+    },
+    {
+      "id": "lenf_drenaj",
+      "slug": "lenf-drenaj-masaji-50",
+      "duration": 50,
+      "name": {
+        "tr": "Lenf Drenaj Masajı"
+      },
+      "desc": {
+        "tr": "Hafif dokunuşlarla rahatlatıcı bakım seansı."
+      },
+      "content": {
+        "tr": {
+          "intro": "Lenf Drenaj Masajı odaklı dokunuşlarla kasları rahatlatan, tempolu fakat nazik bir seans.",
+          "highlights": [
+            "Hedef kaslara derinleşen basınç",
+            "Isınma + nokta çalışması dengesi",
+            "Seans sonunda yumuşak gevşeme"
+          ],
+          "flow": [
+            "Kısa durum değerlendirmesi",
+            "Odaklı teknikler ve nefes yönlendirme",
+            "Yavaşlatma, germe ve kapanış"
+          ],
+          "ideal": [
+            "Spor sonrası toparlanma",
+            "Lokal gerginlik hissedenler",
+            "Daha derin dokunuş isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "peeling-kopuk-masaji"
+          ]
+        }
+      }
+    },
+    {
+      "id": "kombine_50",
+      "slug": "kombine-masaj-50",
+      "duration": 50,
+      "name": {
+        "tr": "Kombine Masaj"
+      },
+      "desc": {
+        "tr": "Tek seansta birden fazla tekniğin dengesi."
+      },
+      "content": {
+        "tr": {
+          "intro": "Kombine Masaj odaklı dokunuşlarla kasları rahatlatan, tempolu fakat nazik bir seans.",
+          "highlights": [
+            "Hedef kaslara derinleşen basınç",
+            "Isınma + nokta çalışması dengesi",
+            "Seans sonunda yumuşak gevşeme"
+          ],
+          "flow": [
+            "Kısa durum değerlendirmesi",
+            "Odaklı teknikler ve nefes yönlendirme",
+            "Yavaşlatma, germe ve kapanış"
+          ],
+          "ideal": [
+            "Spor sonrası toparlanma",
+            "Lokal gerginlik hissedenler",
+            "Daha derin dokunuş isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "peeling-kopuk-masaji"
+          ]
+        }
+      }
+    },
+    {
+      "id": "kombi_90",
+      "slug": "kombinasyon-masaji-tum-vucut-90",
+      "duration": 90,
+      "badge": "vip",
+      "name": {
+        "tr": "Kombinasyon Masajı"
+      },
+      "desc": {
+        "tr": "90 dakikalık tam kapsam: premium rahatlama."
+      },
+      "content": {
+        "tr": {
+          "intro": "Kombinasyon Masajı odaklı dokunuşlarla kasları rahatlatan, tempolu fakat nazik bir seans.",
+          "highlights": [
+            "Hedef kaslara derinleşen basınç",
+            "Isınma + nokta çalışması dengesi",
+            "Seans sonunda yumuşak gevşeme"
+          ],
+          "flow": [
+            "Kısa durum değerlendirmesi",
+            "Odaklı teknikler ve nefes yönlendirme",
+            "Yavaşlatma, germe ve kapanış"
+          ],
+          "ideal": [
+            "Spor sonrası toparlanma",
+            "Lokal gerginlik hissedenler",
+            "Daha derin dokunuş isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "peeling-kopuk-masaji"
+          ]
+        }
+      }
+    },
+    {
+      "id": "mix_manuel_90",
+      "slug": "mix-manuel-terapi-90",
+      "duration": 90,
+      "badge": "premium",
+      "name": {
+        "tr": "Mix Manuel Terapi"
+      },
+      "desc": {
+        "tr": "En premium terapi: kişiye özel 90 dk."
+      },
+      "content": {
+        "tr": {
+          "intro": "Mix Manuel Terapi odaklı dokunuşlarla kasları rahatlatan, tempolu fakat nazik bir seans.",
+          "highlights": [
+            "Hedef kaslara derinleşen basınç",
+            "Isınma + nokta çalışması dengesi",
+            "Seans sonunda yumuşak gevşeme"
+          ],
+          "flow": [
+            "Kısa durum değerlendirmesi",
+            "Odaklı teknikler ve nefes yönlendirme",
+            "Yavaşlatma, germe ve kapanış"
+          ],
+          "ideal": [
+            "Spor sonrası toparlanma",
+            "Lokal gerginlik hissedenler",
+            "Daha derin dokunuş isteyenler"
+          ],
+          "note": "Hamilelik, hassasiyet veya özel durumlar için işlem öncesi terapiste bilgi verin.",
+          "combos": [
+            "klasik-tum-vucut-30",
+            "peeling-kopuk-masaji"
+          ]
+        }
+      }
+    }
+  ],
+  "faceSothys": [
+    {
+      "id": "401",
+      "slug": "401",
+      "duration": 30,
+      "name": {
+        "tr": "Sothys Organics® Işıltı Bakımı",
+        "en": "Sothys Organics® Organic Certified Radiance Treatment",
+        "de": "Sothys Organics® Bio-Radiance Behandlung",
+        "fr": "Sothys Organics® Soin éclat certifié bio",
+        "ru": "Sothys Organics® Органический уход «Сияние»"
+      },
+      "desc": {
+        "tr": "Anında ışıltı. Tüm cilt tipleri (hassas dahil)."
+      },
+      "content": {
+        "tr": {
+          "intro": "Anında ışıltı. Tüm cilt tipleri (hassas dahil).",
+          "highlights": [
+            "Dengeli bakım",
+            "Sothys uzmanlığı",
+            "Işıltı ve ferahlık"
+          ],
+          "flow": [
+            "Karşılama",
+            "Bakım ritüeli",
+            "Kapanış"
+          ],
+          "ideal": [
+            "Işıltı arayanlar",
+            "Hassas ciltler"
+          ],
+          "note": "Rezervasyon sırasında lütfen hassasiyetlerinizi belirtin."
+        }
+      },
+      "relatedProducts": [
+        "sothys-hydra-serum",
+        "sothys-youth-cream"
+      ]
+    },
+    {
+      "id": "402",
+      "slug": "402",
+      "duration": 45,
+      "name": {
+        "tr": "Sothys Seasonal Oksijenlendirici Bakım",
+        "en": "Sothys Seasonal Oxygenating Treatment",
+        "de": "Sothys Seasonal Oxygenating Behandlung",
+        "fr": "Sothys Soin saisonnier oxygénant",
+        "ru": "Sothys Сезонный кислородный уход"
+      },
+      "desc": {
+        "tr": "Mevsimsel canlandırma: peeling + maske + rahatlatıcı modelaj."
+      },
+      "content": {
+        "tr": {
+          "intro": "Mevsimsel canlandırma: peeling + maske + rahatlatıcı modelaj.",
+          "highlights": [
+            "Dengeli bakım",
+            "Sothys uzmanlığı",
+            "Işıltı ve ferahlık"
+          ],
+          "flow": [
+            "Karşılama",
+            "Bakım ritüeli",
+            "Kapanış"
+          ],
+          "ideal": [
+            "Işıltı arayanlar",
+            "Hassas ciltler"
+          ],
+          "note": "Rezervasyon sırasında lütfen hassasiyetlerinizi belirtin."
+        }
+      },
+      "relatedProducts": [
+        "sothys-hydra-serum",
+        "sothys-youth-cream"
+      ]
+    },
+    {
+      "id": "403",
+      "slug": "403",
+      "duration": 50,
+      "name": {
+        "tr": "Spa™ Termal Su ile Yatıştırıcı Bakım",
+        "en": "Soothing Professional Treatment with Spa™ Thermal Water",
+        "de": "Beruhigende Profi-Behandlung mit Spa™ Thermalwasser",
+        "fr": "Soin professionnel apaisant à l’Eau Thermale Spa™",
+        "ru": "Успокаивающий профессиональный уход со Spa™ термальной водой"
+      },
+      "desc": {
+        "tr": "Konfor ve sakinlik odaklı; hassasiyete nazik yaklaşım."
+      },
+      "content": {
+        "tr": {
+          "intro": "Konfor ve sakinlik odaklı; hassasiyete nazik yaklaşım.",
+          "highlights": [
+            "Dengeli bakım",
+            "Sothys uzmanlığı",
+            "Işıltı ve ferahlık"
+          ],
+          "flow": [
+            "Karşılama",
+            "Bakım ritüeli",
+            "Kapanış"
+          ],
+          "ideal": [
+            "Işıltı arayanlar",
+            "Hassas ciltler"
+          ],
+          "note": "Rezervasyon sırasında lütfen hassasiyetlerinizi belirtin."
+        }
+      },
+      "relatedProducts": [
+        "sothys-hydra-serum",
+        "sothys-youth-cream"
+      ]
+    },
+    {
+      "id": "404",
+      "slug": "404",
+      "duration": 45,
+      "name": {
+        "tr": "Sothys Cryo Eye Profesyonel Göz Bakımı",
+        "en": "Sothys Cryo Eye Professional Treatment",
+        "de": "Sothys Cryo Eye Profi-Augenbehandlung",
+        "fr": "Sothys Soin professionnel Cryo Yeux",
+        "ru": "Sothys Профессиональный Cryo-уход для глаз"
+      },
+      "desc": {
+        "tr": "Göz çevresinde ferahlık ve daha dinlenmiş görünüm."
+      },
+      "content": {
+        "tr": {
+          "intro": "Göz çevresinde ferahlık ve daha dinlenmiş görünüm.",
+          "highlights": [
+            "Dengeli bakım",
+            "Sothys uzmanlığı",
+            "Işıltı ve ferahlık"
+          ],
+          "flow": [
+            "Karşılama",
+            "Bakım ritüeli",
+            "Kapanış"
+          ],
+          "ideal": [
+            "Işıltı arayanlar",
+            "Hassas ciltler"
+          ],
+          "note": "Rezervasyon sırasında lütfen hassasiyetlerinizi belirtin."
+        }
+      },
+      "relatedProducts": [
+        "sothys-hydra-serum",
+        "sothys-youth-cream"
+      ]
+    },
+    {
+      "id": "405",
+      "slug": "405",
+      "duration": 75,
+      "name": {
+        "tr": "Hydra Hyaluronic Acid4 (Yoğun Nem Bakımı)",
+        "en": "Hydrating Intensive Treatment (Hydra Hyaluronic Acid4)",
+        "de": "Hydrating Intensive Behandlung (Hydra Hyaluronic Acid4)",
+        "fr": "Soin intensif hydratant (Hydra Hyaluronic Acid4)",
+        "ru": "Интенсивное увлажнение (Hydra Hyaluronic Acid4)"
+      },
+      "desc": {
+        "tr": "6 aşamalı yoğun nem; dolgunluk ve tazelik hissi."
+      },
+      "content": {
+        "tr": {
+          "intro": "6 aşamalı yoğun nem; dolgunluk ve tazelik hissi.",
+          "highlights": [
+            "Dengeli bakım",
+            "Sothys uzmanlığı",
+            "Işıltı ve ferahlık"
+          ],
+          "flow": [
+            "Karşılama",
+            "Bakım ritüeli",
+            "Kapanış"
+          ],
+          "ideal": [
+            "Işıltı arayanlar",
+            "Hassas ciltler"
+          ],
+          "note": "Rezervasyon sırasında lütfen hassasiyetlerinizi belirtin."
+        }
+      },
+      "relatedProducts": [
+        "sothys-hydra-serum",
+        "sothys-youth-cream"
+      ]
+    },
+    {
+      "id": "406",
+      "slug": "406",
+      "duration": 75,
+      "name": {
+        "tr": "Detox Energie™ Yoğun Bakım",
+        "en": "Detox Energie™ Intensive Treatment",
+        "de": "Detox Energie™ Intensive Behandlung",
+        "fr": "Soin intensif Detox Energie™",
+        "ru": "Detox Energie™ Интенсивный уход"
+      },
+      "desc": {
+        "tr": "Enerji desteği ve ‘depolluted’ görünüm odağı."
+      },
+      "content": {
+        "tr": {
+          "intro": "Enerji desteği ve ‘depolluted’ görünüm odağı.",
+          "highlights": [
+            "Dengeli bakım",
+            "Sothys uzmanlığı",
+            "Işıltı ve ferahlık"
+          ],
+          "flow": [
+            "Karşılama",
+            "Bakım ritüeli",
+            "Kapanış"
+          ],
+          "ideal": [
+            "Işıltı arayanlar",
+            "Hassas ciltler"
+          ],
+          "note": "Rezervasyon sırasında lütfen hassasiyetlerinizi belirtin."
+        }
+      },
+      "relatedProducts": [
+        "sothys-hydra-serum",
+        "sothys-youth-cream"
+      ]
+    },
+    {
+      "id": "407",
+      "slug": "407",
+      "duration": 75,
+      "name": {
+        "tr": "Glow Defense Yoğun Bakım",
+        "en": "Glow Defense Intensive Treatment",
+        "de": "Glow Defense Intensive Behandlung",
+        "fr": "Soin intensif Glow Defense",
+        "ru": "Glow Defense Интенсивный уход"
+      },
+      "desc": {
+        "tr": "Işıltı ve koruma odağı; şehir temposuna karşı bakım hissi."
+      },
+      "content": {
+        "tr": {
+          "intro": "Işıltı ve koruma odağı; şehir temposuna karşı bakım hissi.",
+          "highlights": [
+            "Dengeli bakım",
+            "Sothys uzmanlığı",
+            "Işıltı ve ferahlık"
+          ],
+          "flow": [
+            "Karşılama",
+            "Bakım ritüeli",
+            "Kapanış"
+          ],
+          "ideal": [
+            "Işıltı arayanlar",
+            "Hassas ciltler"
+          ],
+          "note": "Rezervasyon sırasında lütfen hassasiyetlerinizi belirtin."
+        }
+      },
+      "relatedProducts": [
+        "sothys-hydra-serum",
+        "sothys-youth-cream"
+      ]
+    },
+    {
+      "id": "408",
+      "slug": "408",
+      "duration": 75,
+      "name": {
+        "tr": "Youth Intensive (Gençlik Yoğun Bakım)",
+        "en": "Youth Intensive Treatment",
+        "de": "Youth Intensive Behandlung",
+        "fr": "Soin intensif Jeunesse",
+        "ru": "Youth Intensive — Интенсивный уход"
+      },
+      "desc": {
+        "tr": "Daha genç görünüm ve sıkılık hissi odaklı protokol."
+      },
+      "content": {
+        "tr": {
+          "intro": "Daha genç görünüm ve sıkılık hissi odaklı protokol.",
+          "highlights": [
+            "Dengeli bakım",
+            "Sothys uzmanlığı",
+            "Işıltı ve ferahlık"
+          ],
+          "flow": [
+            "Karşılama",
+            "Bakım ritüeli",
+            "Kapanış"
+          ],
+          "ideal": [
+            "Işıltı arayanlar",
+            "Hassas ciltler"
+          ],
+          "note": "Rezervasyon sırasında lütfen hassasiyetlerinizi belirtin."
+        }
+      },
+      "relatedProducts": [
+        "sothys-hydra-serum",
+        "sothys-youth-cream"
+      ]
+    },
+    {
+      "id": "409",
+      "slug": "409",
+      "duration": 45,
+      "name": {
+        "tr": "Dermo_Booster Double Peel (Çift Peeling)",
+        "en": "Dermo_Booster Double Peel Professional Treatment",
+        "de": "Dermo_Booster Double Peel Profi-Behandlung",
+        "fr": "Dermo_Booster Double Peel — Soin professionnel",
+        "ru": "Dermo_Booster Double Peel — Профессиональный уход"
+      },
+      "desc": {
+        "tr": "Enzim + asit peeling kombinasyonu (AHA/BHA/PHA)."
+      },
+      "content": {
+        "tr": {
+          "intro": "Enzim + asit peeling kombinasyonu (AHA/BHA/PHA).",
+          "highlights": [
+            "Dengeli bakım",
+            "Sothys uzmanlığı",
+            "Işıltı ve ferahlık"
+          ],
+          "flow": [
+            "Karşılama",
+            "Bakım ritüeli",
+            "Kapanış"
+          ],
+          "ideal": [
+            "Işıltı arayanlar",
+            "Hassas ciltler"
+          ],
+          "note": "Rezervasyon sırasında lütfen hassasiyetlerinizi belirtin."
+        }
+      },
+      "relatedProducts": [
+        "sothys-hydra-serum",
+        "sothys-youth-cream"
+      ]
+    },
+    {
+      "id": "410",
+      "slug": "410",
+      "duration": 45,
+      "name": {
+        "tr": "Glysalac Pro Peel",
+        "en": "Glysalac Pro Peel Treatment",
+        "de": "Glysalac Pro Peel Behandlung",
+        "fr": "Glysalac Pro Peel",
+        "ru": "Glysalac Pro Peel"
+      },
+      "desc": {
+        "tr": "Daha pürüzsüz doku ve daha aydınlık görünüm (normal/karma)."
+      },
+      "content": {
+        "tr": {
+          "intro": "Daha pürüzsüz doku ve daha aydınlık görünüm (normal/karma).",
+          "highlights": [
+            "Dengeli bakım",
+            "Sothys uzmanlığı",
+            "Işıltı ve ferahlık"
+          ],
+          "flow": [
+            "Karşılama",
+            "Bakım ritüeli",
+            "Kapanış"
+          ],
+          "ideal": [
+            "Işıltı arayanlar",
+            "Hassas ciltler"
+          ],
+          "note": "Rezervasyon sırasında lütfen hassasiyetlerinizi belirtin."
+        }
+      },
+      "relatedProducts": [
+        "sothys-hydra-serum",
+        "sothys-youth-cream"
+      ]
+    },
+    {
+      "id": "411",
+      "slug": "411",
+      "duration": 60,
+      "name": {
+        "tr": "Professional Resurfacing Peel (Yenileyici Peeling)",
+        "en": "Professional Resurfacing Peel Treatment",
+        "de": "Professional Resurfacing Peel Behandlung",
+        "fr": "Soin peeling resurfaçant professionnel",
+        "ru": "Профессиональный Resurfacing Peel"
+      },
+      "desc": {
+        "tr": "Peel + mikrodermabrazyon yaklaşımı; daha net ve aydınlık görünüm."
+      },
+      "content": {
+        "tr": {
+          "intro": "Peel + mikrodermabrazyon yaklaşımı; daha net ve aydınlık görünüm.",
+          "highlights": [
+            "Dengeli bakım",
+            "Sothys uzmanlığı",
+            "Işıltı ve ferahlık"
+          ],
+          "flow": [
+            "Karşılama",
+            "Bakım ritüeli",
+            "Kapanış"
+          ],
+          "ideal": [
+            "Işıltı arayanlar",
+            "Hassas ciltler"
+          ],
+          "note": "Rezervasyon sırasında lütfen hassasiyetlerinizi belirtin."
+        }
+      },
+      "relatedProducts": [
+        "sothys-hydra-serum",
+        "sothys-youth-cream"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c1018"/>
+      <stop offset="50%" stop-color="#132134"/>
+      <stop offset="100%" stop-color="#0c1018"/>
+    </linearGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.08"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g)"/>
+  <rect width="1600" height="900" filter="url(#grain)" opacity="0.32"/>
+  <text x="50%" y="50%" text-anchor="middle" fill="#f5f5f5" opacity="0.08" font-family="Playfair Display, serif" font-size="90" letter-spacing="9">
+    Sinematik Spa
+  </text>
+</svg>

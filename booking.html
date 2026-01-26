@@ -1,425 +1,474 @@
-<!-- booking.html — Rezervasyon Formu ve WhatsApp Entegrasyonu -->
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Santis Club | Booking</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="data:,">
-  <!-- Açıklama: Form alanları, doğrulama, toast bildirimi ve WhatsApp entegrasyonu içerir. -->
-
-  <style>
-    :root {
-      --primary: #1a73e8;
-      --border: #dadce0;
-      --radius: 8px;
-      --gray: #5f6368;
-      --error: #d93025;
-    }
-    body {
-      font-family: 'Roboto', Arial, sans-serif;
-      background-color: #fff;
-      color: #202124;
-      margin: 0;
-    }
-
-    /* Hero */
-    .hero {
-      position: relative;
-      text-align: center;
-      padding: 100px 20px 80px;
-      background-size: cover;
-      background-position: center;
-      color: #fff;
-    }
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.45);
-      z-index: 1;
-    }
-    .hero h1, .hero p {
-      position: relative;
-      z-index: 2;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
-    }
-
-    .back-btn {
-      position: absolute;
-      top: 20px; right: 20px;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.4);
-      color: #fff;
-      padding: 8px 14px;
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: background 0.3s;
-      z-index: 3;
-    }
-    .back-btn:hover { background: rgba(255,255,255,0.35); }
-
-    /* Form */
-    form {
-      max-width: 800px;
-      margin: 40px auto;
-      display: grid;
-      gap: 20px;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      padding: 0 20px;
-    }
-    label {
-      font-size: 14px;
-      color: var(--gray);
-      display: block;
-      margin-bottom: 6px;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 15px;
-      transition: border-color 0.3s;
-    }
-    input.error, select.error, textarea.error {
-      border-color: var(--error);
-      background-color: #fdecea;
-    }
-
-    .error-msg {
-      color: var(--error);
-      font-size: 13px;
-      margin-top: 4px;
-      opacity: 0;
-      transform: translateY(-5px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-    .error-msg.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    button {
-      grid-column: 1 / -1;
-      background-color: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 14px;
-      border-radius: var(--radius);
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    button:hover { background-color: #1557b0; }
-
-    /* Toast */
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: #323232;
-      color: #fff;
-      padding: 14px 22px;
-      border-radius: 6px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.4s ease;
-      z-index: 10;
-    }
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
-</head>
-
-<body>
-  <div id="navbar"></div>
-
-  <section class="hero">
-    <button class="back-btn" id="backBtn">← Hotel Sayfasına Dön</button>
-    <h1 id="hotelName"></h1>
-    <p id="hotelDesc"></p>
-  </section>
-
-  <form id="bookingForm" novalidate>
-    <div>
+﻿<!-- booking.html — Rezervasyon Formu ve WhatsApp Entegrasyonu -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="assets/js/perf-head.js"></script>
+  <title>Santis Club | Booking</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="data:,">
+  <!-- Açıklama: Form alanları, doğrulama, toast bildirimi ve WhatsApp entegrasyonu içerir. -->
+
+  <style>
+    :root {
+      --primary: #1a73e8;
+      --border: #dadce0;
+      --radius: 8px;
+      --gray: #5f6368;
+      --error: #d93025;
+    }
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #fff;
+      color: #202124;
+      margin: 0;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 100px 20px 80px;
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.45);
+      z-index: 1;
+    }
+    .hero h1, .hero p {
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 3;
+    }
+    .back-btn:hover { background: rgba(255,255,255,0.35); }
+
+    /* Form */
+    form {
+      max-width: 800px;
+      margin: 40px auto;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      padding: 0 20px;
+    }
+    label {
+      font-size: 14px;
+      color: var(--gray);
+      display: block;
+      margin-bottom: 6px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 15px;
+      transition: border-color 0.3s;
+    }
+    input.error, select.error, textarea.error {
+      border-color: var(--error);
+      background-color: #fdecea;
+    }
+
+    .error-msg {
+      color: var(--error);
+      font-size: 13px;
+      margin-top: 4px;
+      opacity: 0;
+      transform: translateY(-5px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .error-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    button {
+      grid-column: 1 / -1;
+      background-color: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: var(--radius);
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover { background-color: #1557b0; }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #323232;
+      color: #fff;
+      padding: 14px 22px;
+      border-radius: 6px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+      z-index: 10;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <section class="hero">
+    <button class="back-btn" id="backBtn">← Hotel Sayfasına Dön</button>
+    <h1 id="hotelName"></h1>
+    <p id="hotelDesc"></p>
+  </section>
+
+  <form id="bookingForm" novalidate>
+    <div>
       <label id="lblService"></label>
       <select id="service"></select>
       <div class="error-msg" id="errService"></div>
-    </div>
-    <div>
-      <label id="lblDate"></label>
-      <input type="date" id="date" />
-      <div class="error-msg" id="errDate"></div>
-    </div>
-    <div>
-      <label id="lblTime"></label>
-      <input type="time" id="time" />
-      <div class="error-msg" id="errTime"></div>
-    </div>
-    <div>
-      <label id="lblName"></label>
-      <input type="text" id="name" />
-      <div class="error-msg" id="errName"></div>
-    </div>
-    <div>
-      <label id="lblGuests"></label>
-      <select id="guests"><option value="1">1</option><option value="2">2</option></select>
-    </div>
-    <div>
-      <label id="lblRoom"></label>
-      <input type="text" id="room" />
-    </div>
-    <div>
-      <label id="lblNotes"></label>
-      <textarea id="notes" rows="3"></textarea>
-    </div>
+    </div>
+    <div>
+      <label id="lblDate"></label>
+      <input type="date" id="date" />
+      <div class="error-msg" id="errDate"></div>
+    </div>
+    <div>
+      <label id="lblTime"></label>
+      <input type="time" id="time" />
+      <div class="error-msg" id="errTime"></div>
+    </div>
+    <div>
+      <label id="lblName"></label>
+      <input type="text" id="name" />
+      <div class="error-msg" id="errName"></div>
+    </div>
+    <div>
+      <label id="lblGuests"></label>
+      <select id="guests"><option value="1">1</option><option value="2">2</option></select>
+    </div>
+    <div>
+      <label id="lblRoom"></label>
+      <input type="text" id="room" />
+    </div>
+    <div>
+      <label id="lblNotes"></label>
+      <textarea id="notes" rows="3"></textarea>
+    </div>
     <button type="submit" id="btnSubmit"></button>
-  </form>
-
-  <div class="toast" id="toast"></div>
-  <div id="footer"></div>
-
-  <script>
-    async function loadHotels() {
-      // Helper to load components and execute scripts
-      async function loadComp(id, file) {
-        try {
-          const res = await fetch(file);
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          const el = document.getElementById(id);
-          el.innerHTML = await res.text();
-          el.querySelectorAll("script").forEach(s => {
-            const ns = document.createElement("script");
-            ns.text = s.innerHTML;
-            s.parentNode.replaceChild(ns, s);
-          });
-        } catch (e) {
-          console.warn("Component load failed:", file, e);
-          const el = document.getElementById(id);
-          if (el) el.innerHTML = `<div style="color:#721c24;background:#f8d7da;padding:10px;border:1px solid #f5c6cb;margin:10px">⚠️ <b>Failed to load ${file}</b><br><small>Please use a local web server (e.g. VS Code Live Server).</small></div>`;
-        }
-      }
-
-      // Bileşenleri yükle
-      await loadComp("navbar", "./components/navbar.html");
-      await loadComp("footer", "./components/footer.html");
-
-      // ✅ Navbar içinde selectors alanı yoksa oluştur
-      const navbarHost = document.getElementById("navbar");
-      let selectors = navbarHost.querySelector(".selectors") || document.querySelector(".selectors");
-      if (!selectors) {
-        selectors = document.createElement("div");
-        selectors.className = "selectors";
-        // navbar'ın en başına koy
-        navbarHost.prepend(selectors);
-      }
-
-      // ✅ Hotel select yoksa oluştur
-      let hotelSelect = document.getElementById("hotelSelect");
-      if (!hotelSelect) {
-        hotelSelect = document.createElement("select");
-        hotelSelect.id = "hotelSelect";
-        selectors.prepend(hotelSelect);
-      }
-
-      // ✅ Lang select yoksa oluştur
-      let langSelect = document.getElementById("langSelect");
-      if (!langSelect) {
-        langSelect = document.createElement("select");
-        langSelect.id = "langSelect";
-        ["tr","en","de","fr","ru"].forEach(code => {
-          const o = document.createElement("option");
-          o.value = code;
-          o.textContent = code.toUpperCase();
-          langSelect.appendChild(o);
-        });
-        selectors.appendChild(langSelect);
-      }
-
-      const res = await fetch("./santis-hotels.json");
-      const data = await res.json();
-      initBooking(data);
-    }
-
-    function getParams() {
-      const params = new URLSearchParams(window.location.search);
-      return { hotel: params.get("hotel") || "alba-resort", lang: params.get("lang") || "tr" };
-    }
-
-    function initBooking(data) {
-      let { hotel: selectedHotel, lang } = getParams();
-      const hotels = data.hotels;
-      const services = (data && data.services && typeof data.services === "object") ? data.services : null;
-
-      const hotelSelect = document.getElementById("hotelSelect");
-      const langSelect = document.getElementById("langSelect");
-      const backBtn = document.getElementById("backBtn");
-      const toast = document.getElementById("toast");
-
-      // Tarih kısıtlaması (Bugün ve sonrası)
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById("date").setAttribute('min', today);
-
-      hotels.forEach(h => {
-        const opt = document.createElement("option");
-        opt.value = h.slug;
-        opt.textContent = h.translations.tr.name;
-        hotelSelect.appendChild(opt);
-      });
-      hotelSelect.value = selectedHotel;
-      langSelect.value = lang;
-
-      const hero = document.querySelector(".hero");
-      const hName = document.getElementById("hotelName");
-      const hDesc = document.getElementById("hotelDesc");
-
-      const bookingTranslations = {
-        tr: { back:"← Hotel Sayfasına Dön", toast:"Rezervasyon talebiniz iletildi ✅", required:"Bu alan zorunludur",
-          form:{service:"Hizmet",selectService:"Hizmet Seçiniz...",date:"Tarih",time:"Saat",name:"Ad Soyad",guests:"Kişi Sayısı",room:"Oda No",notes:"Notlar",submit:"WhatsApp ile Gönder"} },
-        en: { back:"← Back to Hotel Page", toast:"Your booking request has been sent ✅", required:"This field is required",
-          form:{service:"Service",selectService:"Select Service...",date:"Date",time:"Time",name:"Full Name",guests:"Guests",room:"Room No",notes:"Notes",submit:"Send via WhatsApp"} },
-        de: { back:"← Zur Hotelseite", toast:"Ihre Reservierungsanfrage wurde gesendet ✅", required:"Pflichtfeld",
-          form:{service:"Dienstleistung",selectService:"Service wählen...",date:"Datum",time:"Uhrzeit",name:"Name",guests:"Personen",room:"Zimmernr.",notes:"Notizen",submit:"Über WhatsApp senden"} },
-        fr: { back:"← Retour à la page de l’hôtel", toast:"Votre demande de réservation a été envoyée ✅", required:"Ce champ est obligatoire",
-          form:{service:"Service",selectService:"Choisir un service...",date:"Date",time:"Heure",name:"Nom complet",guests:"Personnes",room:"Numéro de chambre",notes:"Remarques",submit:"Envoyer via WhatsApp"} },
-        ru: { back:"← Вернуться на страницу отеля", toast:"Ваш запрос на бронирование отправлен ✅", required:"Обязательное поле",
-          form:{service:"Услуга",selectService:"Выберите услугу...",date:"Дата",time:"Время",name:"Имя",guests:"Гостей",room:"Номер комнаты",notes:"Примечания",submit:"Отправить через WhatsApp"} }
-      };
-
-      function getServicesForHotel(hotelSlug) {
-        // 1) global services varsa onu kullan
-        if (services) {
-          return Object.keys(services)
-            .map(k => services[k])
-            .filter(svc => svc?.hotelSlugs?.includes(hotelSlug));
-        }
-
-        // 2) yoksa hotels[].featuredServices'ten topla
-        const hotel = (data.hotels || []).find(h => h.slug === hotelSlug);
-        return (hotel?.featuredServices || []).map(svc => ({
-          // booking tarafının beklediği şekle yaklaştırıyoruz
-          price: svc.price ?? "",
-          currency: svc.currency ?? "",
-          name: svc.translations
-            ? Object.fromEntries(Object.entries(svc.translations).map(([lang, t]) => [lang, t.name]))
-            : (svc.name || {}),
-        }));
-      }
-
-      function showToast(msg) {
-        toast.textContent = msg;
-        toast.classList.add("show");
-        setTimeout(() => toast.classList.remove("show"), 3000);
-      }
-
-      function showError(id, message) {
-        const err = document.getElementById("err" + id.charAt(0).toUpperCase() + id.slice(1));
-        err.textContent = message;
-        err.classList.add("show");
-      }
-      function clearError(id) {
-        const err = document.getElementById("err" + id.charAt(0).toUpperCase() + id.slice(1));
-        err.classList.remove("show");
-      }
-
-      function validateForm() {
-        const required = bookingTranslations[lang].required;
+  </form>
+
+  <div class="toast" id="formAlert" role="alert"></div>
+  <div class="toast" id="toast"></div>
+  <div id="footer"></div>
+
+  <script>
+    async function loadHotels() {
+      // Helper to load components and execute scripts
+      async function loadComp(id, file) {
+        try {
+          const res = await fetch(file);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const el = document.getElementById(id);
+          el.innerHTML = await res.text();
+          el.querySelectorAll("script").forEach(s => {
+            const ns = document.createElement("script");
+            ns.text = s.innerHTML;
+            s.parentNode.replaceChild(ns, s);
+          });
+        } catch (e) {
+          console.warn("Component load failed:", file, e);
+          const el = document.getElementById(id);
+          if (el) el.innerHTML = `<div style="color:#721c24;background:#f8d7da;padding:10px;border:1px solid #f5c6cb;margin:10px">⚠️ <b>Failed to load ${file}</b><br><small>Please use a local web server (e.g. VS Code Live Server).</small></div>`;
+        }
+      }
+
+      // Bileşenleri yükle
+      await loadComp("navbar", "./components/navbar.html");
+      await loadComp("footer", "./components/footer.html");
+
+      // ✅ Navbar içinde selectors alanı yoksa oluştur
+      const navbarHost = document.getElementById("navbar");
+      let selectors = navbarHost.querySelector(".selectors") || document.querySelector(".selectors");
+      if (!selectors) {
+        selectors = document.createElement("div");
+        selectors.className = "selectors";
+        // navbar'ın en başına koy
+        navbarHost.prepend(selectors);
+      }
+
+      // ✅ Hotel select yoksa oluştur
+      let hotelSelect = document.getElementById("hotelSelect");
+      if (!hotelSelect) {
+        hotelSelect = document.createElement("select");
+        hotelSelect.id = "hotelSelect";
+        selectors.prepend(hotelSelect);
+      }
+
+      // ✅ Lang select yoksa oluştur
+      let langSelect = document.getElementById("langSelect");
+      if (!langSelect) {
+        langSelect = document.createElement("select");
+        langSelect.id = "langSelect";
+        ["tr","en","de","fr","ru"].forEach(code => {
+          const o = document.createElement("option");
+          o.value = code;
+          o.textContent = code.toUpperCase();
+          langSelect.appendChild(o);
+        });
+        selectors.appendChild(langSelect);
+      }
+
+      const res = await fetch("./santis-hotels.json");
+      const data = await res.json();
+      initBooking(data);
+    }
+
+    function getParams() {
+      const params = new URLSearchParams(window.location.search);
+      return { hotel: params.get("hotel") || "alba-resort", lang: params.get("lang") || "tr" };
+    }
+
+    function initBooking(data) {
+      let { hotel: selectedHotel, lang } = getParams();
+      const hotels = data.hotels;
+      const services = (data && data.services && typeof data.services === "object") ? data.services : null;
+
+      const hotelSelect = document.getElementById("hotelSelect");
+      const langSelect = document.getElementById("langSelect");
+      const backBtn = document.getElementById("backBtn");
+      const toast = document.getElementById("toast");
+
+      // Tarih kısıtlaması (Bugün ve sonrası)
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById("date").setAttribute('min', today);
+
+      hotels.forEach(h => {
+        const opt = document.createElement("option");
+        opt.value = h.slug;
+        opt.textContent = h.translations.tr.name;
+        hotelSelect.appendChild(opt);
+      });
+      hotelSelect.value = selectedHotel;
+      langSelect.value = lang;
+
+      const hero = document.querySelector(".hero");
+      const hName = document.getElementById("hotelName");
+      const hDesc = document.getElementById("hotelDesc");
+
+      const bookingTranslations = {
+        tr: { back:"← Hotel Sayfasına Dön", toast:"Rezervasyon talebiniz iletildi ✅", required:"Bu alan zorunludur",
+          form:{service:"Hizmet",selectService:"Hizmet Seçiniz...",date:"Tarih",time:"Saat",name:"Ad Soyad",guests:"Kişi Sayısı",room:"Oda No",notes:"Notlar",submit:"WhatsApp ile Gönder"} },
+        en: { back:"← Back to Hotel Page", toast:"Your booking request has been sent ✅", required:"This field is required",
+          form:{service:"Service",selectService:"Select Service...",date:"Date",time:"Time",name:"Full Name",guests:"Guests",room:"Room No",notes:"Notes",submit:"Send via WhatsApp"} },
+        de: { back:"← Zur Hotelseite", toast:"Ihre Reservierungsanfrage wurde gesendet ✅", required:"Pflichtfeld",
+          form:{service:"Dienstleistung",selectService:"Service wählen...",date:"Datum",time:"Uhrzeit",name:"Name",guests:"Personen",room:"Zimmernr.",notes:"Notizen",submit:"Über WhatsApp senden"} },
+        fr: { back:"← Retour à la page de l’hôtel", toast:"Votre demande de réservation a été envoyée ✅", required:"Ce champ est obligatoire",
+          form:{service:"Service",selectService:"Choisir un service...",date:"Date",time:"Heure",name:"Nom complet",guests:"Personnes",room:"Numéro de chambre",notes:"Remarques",submit:"Envoyer via WhatsApp"} },
+        ru: { back:"← Вернуться на страницу отеля", toast:"Ваш запрос на бронирование отправлен ✅", required:"Обязательное поле",
+          form:{service:"Услуга",selectService:"Выберите услугу...",date:"Дата",time:"Время",name:"Имя",guests:"Гостей",room:"Номер комнаты",notes:"Примечания",submit:"Отправить через WhatsApp"} }
+      };
+
+      function getServicesForHotel(hotelSlug) {
+        // 1) global services varsa onu kullan
+        if (services) {
+          return Object.keys(services)
+            .map(k => services[k])
+            .filter(svc => svc?.hotelSlugs?.includes(hotelSlug));
+        }
+
+        // 2) yoksa hotels[].featuredServices'ten topla
+        const hotel = (data.hotels || []).find(h => h.slug === hotelSlug);
+        return (hotel?.featuredServices || []).map(svc => ({
+          // booking tarafının beklediği şekle yaklaştırıyoruz
+          price: svc.price ?? "",
+          currency: svc.currency ?? "",
+          name: svc.translations
+            ? Object.fromEntries(Object.entries(svc.translations).map(([lang, t]) => [lang, t.name]))
+            : (svc.name || {}),
+        }));
+      }
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3000);
+      }
+
+      function showFormAlert(message) {
+        const alertBox = document.getElementById("formAlert");
+        if (!alertBox) return;
+        alertBox.textContent = message;
+        alertBox.classList.add("show");
+      }
+
+      function hideFormAlert() {
+        const alertBox = document.getElementById("formAlert");
+        if (!alertBox) return;
+        alertBox.textContent = "";
+        alertBox.classList.remove("show");
+      }
+
+      function showError(id, message) {
+        const err = document.getElementById("err" + id.charAt(0).toUpperCase() + id.slice(1));
+        err.textContent = message;
+        err.classList.add("show");
+      }
+      function clearError(id) {
+        const err = document.getElementById("err" + id.charAt(0).toUpperCase() + id.slice(1));
+        err.classList.remove("show");
+      }
+
+      function validateForm() {
+        const required = bookingTranslations[lang].required;
+        hideFormAlert();
         const fields = ["service","date","time","name"];
-        let valid = true;
-        fields.forEach(id => {
-          const input = document.getElementById(id);
-          if (!input.value.trim()) {
-            input.classList.add("error");
-            showError(id, required);
-            valid = false;
-          } else {
-            input.classList.remove("error");
-            clearError(id);
-          }
-        });
-        return valid;
-      }
-
-      function renderHero() {
-        const hotel = hotels.find(h => h.slug === selectedHotel);
-        const t = hotel.translations[lang] || hotel.translations.tr;
-        hero.style.backgroundImage = `url(${hotel.hero_image})`;
-        hName.innerText = t.name;
-        hDesc.innerText = t.description;
-        backBtn.textContent = bookingTranslations[lang].back;
-      }
-
-      function renderServices() {
+        let valid = true;
+        fields.forEach(id => {
+          const input = document.getElementById(id);
+          if (!input.value.trim()) {
+            input.classList.add("error");
+            showError(id, required);
+            valid = false;
+          } else {
+            input.classList.remove("error");
+            clearError(id);
+          }
+        });
+        if (!valid) showFormAlert(required);
+        return valid;
+      }
+
+      function formatWaMessage(template, fields) {
+        // JSON'daki farkli dillerdeki degisken isimlerini (placeholder) standartlastirir
+        return template
+          .replace(/{otel}|{hotel}/gi, fields.hotel)
+          .replace(/{hizmet}|{service}|{dienstleistung}|{услуга}/gi, fields.service)
+          .replace(/{tarih}|{date}|{datum}|{дата}/gi, fields.date)
+          .replace(/{saat}|{time}|{uhrzeit}|{heure}|{время}/gi, fields.time)
+          .replace(/{kisi}|{guests}|{personen}|{personnes}|{гости}/gi, fields.guests)
+          .replace(/{isim}|{name}|{nom}|{имя}/gi, fields.name);
+      }
+
+      function renderHero() {
+        const hotel = hotels.find(h => h.slug === selectedHotel);
+        const t = hotel.translations[lang] || hotel.translations.tr;
+        // GitHub Pages için dosya yolu düzeltmesi
+        const safeImg = hotel.hero_image.startsWith('/') ? hotel.hero_image.substring(1) : hotel.hero_image;
+        hero.style.backgroundImage = `url(${safeImg})`;
+        hName.innerText = t.name;
+        hDesc.innerText = t.description;
+        backBtn.textContent = bookingTranslations[lang].back;
+      }
+
+      function renderServices() {
         const serviceSelect = document.getElementById("service");
-        serviceSelect.innerHTML = "";
-        const defOpt = document.createElement("option");
-        defOpt.value = "";
-        defOpt.textContent = bookingTranslations[lang].form.selectService;
-        serviceSelect.appendChild(defOpt);
-
-        const list = getServicesForHotel(selectedHotel);
-        if (!list || list.length === 0) return;
-
-        list.forEach(svc => {
-          const name = svc?.name?.[lang] || svc?.name?.tr || "Service";
-          const priceText = (svc.price && svc.currency) ? ` (${svc.price} ${svc.currency})` : "";
-          const opt = document.createElement("option");
-          opt.value = name;
-          opt.textContent = name + priceText;
-          serviceSelect.appendChild(opt);
-        });
-      }
-
-      function applyTranslations() {
-        const f = bookingTranslations[lang].form;
-        document.getElementById("lblService").innerText = f.service;
-        document.getElementById("lblDate").innerText = f.date;
-        document.getElementById("lblTime").innerText = f.time;
-        document.getElementById("lblName").innerText = f.name;
-        document.getElementById("lblGuests").innerText = f.guests;
-        document.getElementById("lblRoom").innerText = f.room;
-        document.getElementById("lblNotes").innerText = f.notes;
+        serviceSelect.innerHTML = "";
+        const defOpt = document.createElement("option");
+        defOpt.value = "";
+        defOpt.textContent = bookingTranslations[lang].form.selectService;
+        serviceSelect.appendChild(defOpt);
+
+        const list = getServicesForHotel(selectedHotel);
+        if (!list || list.length === 0) return;
+
+        list.forEach(svc => {
+          const name = svc?.name?.[lang] || svc?.name?.tr || "Service";
+          const priceText = (svc.price && svc.currency) ? ` (${svc.price} ${svc.currency})` : "";
+          const opt = document.createElement("option");
+          opt.value = name;
+          opt.textContent = name + priceText;
+          serviceSelect.appendChild(opt);
+        });
+      }
+
+      function applyTranslations() {
+        const f = bookingTranslations[lang].form;
+        document.getElementById("lblService").innerText = f.service;
+        document.getElementById("lblDate").innerText = f.date;
+        document.getElementById("lblTime").innerText = f.time;
+        document.getElementById("lblName").innerText = f.name;
+        document.getElementById("lblGuests").innerText = f.guests;
+        document.getElementById("lblRoom").innerText = f.room;
+        document.getElementById("lblNotes").innerText = f.notes;
         document.getElementById("btnSubmit").innerText = f.submit;
-      }
+      }
+
+      renderHero();
+      applyTranslations();
+      renderServices();
+
+      backBtn.addEventListener("click", () => {
+        window.location.href = `hotel.html?hotel=${selectedHotel}&lang=${lang}`;
+      });
+
+      langSelect.addEventListener("change", e => {
+        lang = e.target.value;
+        applyTranslations();
+        renderHero();
+        renderServices();
+      });
+
+      hotelSelect.addEventListener("change", e => {
+        selectedHotel = e.target.value;
+        renderHero();
+        renderServices();
+      });
+
+      document.getElementById("bookingForm").addEventListener("submit", e => {
+        e.preventDefault();
+        if (!validateForm()) return;
+        
+        showToast(bookingTranslations[lang].toast);
+
+        // JSON'dan dinamik sablonu al
+        const template = data.booking.translations[lang].whatsapp_template || data.booking.translations['en'].whatsapp_template;
+        
+        const fieldData = {
+          hotel: hotelSelect.options[hotelSelect.selectedIndex].text,
+          service: document.getElementById("service").value,
+          date: document.getElementById("date").value,
+          time: document.getElementById("time").value,
+          guests: document.getElementById("guests").value,
+          name: document.getElementById("name").value
+        };
+
+        const msg = formatWaMessage(template, fieldData);
+        window.open("https://wa.me/905348350169?text=" + encodeURIComponent(msg));
+      });
+    }
+
+    loadHotels();
+  </script>
+
+  <!-- 🧪 TEST SCRIPT (Geliştirme aşamasında açık, canlıda kaldırılabilir) -->
+  <script src="test-runner-schema.js"></script>
+  <!-- Perf metrics (Sprint 8.1) -->
+  <script src="assets/js/perf-metrics.js" defer></script>
+</body>
+</html>
 
-      renderHero();
-      applyTranslations();
-      renderServices();
-
-      backBtn.addEventListener("click", () => {
-        window.location.href = `hotel.html?hotel=${selectedHotel}&lang=${lang}`;
-      });
-
-      langSelect.addEventListener("change", e => {
-        lang = e.target.value;
-        applyTranslations();
-        renderHero();
-        renderServices();
-      });
-
-      hotelSelect.addEventListener("change", e => {
-        selectedHotel = e.target.value;
-        renderHero();
-        renderServices();
-      });
-
-      document.getElementById("bookingForm").addEventListener("submit", e => {
-        e.preventDefault();
-        if (!validateForm()) return;
-        showToast(bookingTranslations[lang].toast);
-        window.open("https://wa.me/905348350169?text=" + encodeURIComponent("Booking confirmed"));
-      });
-    }
-
-    loadHotels();
-  </script>
-
-  <!-- 🧪 TEST SCRIPT (Geliştirme aşamasında açık, canlıda kaldırılabilir) -->
-  <script src="test-runner-schema.js"></script>
-</body>
-</html>

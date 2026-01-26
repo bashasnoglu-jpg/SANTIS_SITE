@@ -26,7 +26,7 @@ test('booking form validation (empty submit)', async ({ page }) => {
   await page.goto(baseURL + '/booking.html?hotel=alba-resort&lang=tr', { waitUntil: 'domcontentloaded' });
 
   // Formun hazır olmasını bekle (servisler yüklenince option oluşur)
-  await page.waitForSelector('#service option');
+  await page.waitForSelector('#service option', { state: 'attached' });
 
   // Boş form gönder
   await page.click('#btnSubmit');

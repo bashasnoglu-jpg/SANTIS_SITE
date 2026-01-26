@@ -1,4 +1,4 @@
-# Kapsamlı Web Sitesi Eksiklik Raporu
+﻿# Kapsamlı Web Sitesi Eksiklik Raporu
 
 **Denetçi:** Kıdemli Web Denetçisi
 **Tarih:** 23 Ocak 2026

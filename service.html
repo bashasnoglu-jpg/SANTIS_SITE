@@ -1,227 +1,742 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+
 <html lang="tr">
+
+
+
 <head>
-  <meta charset="UTF-8" />
+
+  <meta charset="UTF-8">
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Santis Club | Hizmet Detayı</title>
+
   <link rel="manifest" href="manifest.json">
+
   <link rel="icon" href="data:,">
+
   <style>
     body {
+
       font-family: 'Roboto', sans-serif;
+
       margin: 0;
+
       color: #202124;
+
       background: #fff;
+
     }
+
+
+
     .hero {
+
       position: relative;
+
       text-align: center;
+
       color: white;
+
       background-size: cover;
+
       background-position: center;
+
       padding: 120px 20px;
+
     }
+
+
+
     .hero::before {
+
       content: "";
+
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.45);
+
+      top: 0;
+
+      left: 0;
+
+      width: 100%;
+
+      height: 100%;
+
+      background: rgba(0, 0, 0, 0.45);
+
       z-index: 1;
+
     }
+
+
+
     .hero-content {
+
       position: relative;
+
       z-index: 2;
+
     }
+
+
+
     .hero h1 {
+
       font-size: 36px;
+
       margin-bottom: 10px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
     }
+
+
+
     .hero p {
+
       font-size: 18px;
+
       color: #f1f3f4;
+
       max-width: 600px;
+
       margin: 0 auto;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
     }
+
+
+
     .service-container {
+
       max-width: 960px;
+
       margin: 40px auto;
+
       padding: 0 20px;
+
     }
+
+
+
     .service-info {
+
       background: #f8f9fa;
+
       padding: 30px;
+
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
     }
+
+
+
     .service-info h2 {
+
       color: #1a73e8;
+
       margin-top: 0;
+
     }
+
+
+
     .service-meta {
+
       display: flex;
+
       flex-wrap: wrap;
+
       gap: 15px;
+
       margin: 15px 0;
+
       font-size: 15px;
+
       color: #5f6368;
+
     }
+
+
+
     .service-meta span {
+
       background: #e8f0fe;
+
       color: #1a73e8;
+
       padding: 6px 12px;
+
       border-radius: 20px;
+
       font-weight: 500;
+
     }
+
+
+
     .service-description {
+
       margin-top: 20px;
+
       font-size: 16px;
+
       line-height: 1.6;
+
       color: #333;
+
     }
+
+
+
     .service-actions {
+
       text-align: center;
+
       margin-top: 40px;
+
     }
+
+
+
     .service-actions button {
+
       background: #1a73e8;
+
       color: #fff;
+
       border: none;
+
       border-radius: 8px;
+
       padding: 14px 24px;
+
       margin: 10px;
+
       cursor: pointer;
+
       font-size: 16px;
+
       transition: background 0.3s;
+
     }
+
+
+
     .service-actions button:hover {
+
       background: #1557b0;
+
     }
+
+
+
     .btn-whatsapp {
+
       background-color: #25d366 !important;
+
     }
+
+
+
     .btn-whatsapp:hover {
+
       background-color: #128c7e !important;
+
     }
   </style>
+
 </head>
+
+
+
 <body>
+
   <div id="navbar"></div>
 
+
+
   <section class="hero" id="serviceHero">
+
     <div class="hero-content">
+
       <h1 id="serviceName"></h1>
+
       <p id="hotelName"></p>
+
     </div>
+
   </section>
 
+
+
   <div class="service-container">
+
     <div class="service-info">
+
       <h2 id="serviceTitle"></h2>
+
       <div class="service-meta">
+
         <span id="serviceDuration"></span>
+
         <span id="servicePrice"></span>
+
       </div>
+
       <p class="service-description" id="serviceDesc"></p>
+
     </div>
 
+
+
     <div class="service-actions">
+
       <button id="btnBookWhatsApp" class="btn-whatsapp"></button>
+
       <button id="btnBookOnline"></button>
+
     </div>
+
   </div>
+
+
+
+  <!-- LIST VIEW (Hidden by default, shown if no specific service selected) -->
+
+  <div id="serviceListView" class="service-container" style="display:none;">
+
+    <div class="grid-cards" id="listGrid"></div>
+
+  </div>
+
+
 
   <div id="footer"></div>
 
+
+
   <script>
+
     async function includeComponent(id, file) {
+
       try {
+
         const res = await fetch(file);
+
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
         const html = await res.text();
+
         const el = document.getElementById(id);
+
         el.innerHTML = html;
-        
+
+
+
         // Scriptleri çalıştır
+
         const scripts = el.querySelectorAll("script");
+
         scripts.forEach(oldScript => {
+
           const newScript = document.createElement("script");
+
           Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+
           newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+
           oldScript.parentNode.replaceChild(newScript, oldScript);
+
         });
+
       } catch (e) {
+
         console.warn("Component load failed:", file, e);
+
         const el = document.getElementById(id);
+
         if (el) el.innerHTML = `<div style="color:#721c24;background:#f8d7da;padding:10px;border:1px solid #f5c6cb;margin:10px">⚠️ <b>Failed to load ${file}</b><br><small>Please use a local web server (e.g. VS Code Live Server).</small></div>`;
+
       }
+
     }
+
     includeComponent("navbar", "./components/navbar.html");
+
     includeComponent("footer", "./components/footer.html");
 
+
+
     function getParams() {
+
       const url = new URL(window.location.href);
+
       return {
+
         hotel: url.searchParams.get("hotel") || "alba-resort",
+
         service: url.searchParams.get("service") || "",
+
         lang: url.searchParams.get("lang") || "tr"
+
       };
+
     }
+
+
 
     async function loadService() {
+
       const { hotel, service, lang } = getParams();
-      const res = await fetch("santis-hotels.json");
-      const data = await res.json();
-      
+
+      let data;
+
+      try {
+
+        const res = await fetch("santis-hotels.json");
+
+        if (!res.ok) throw new Error("HTTP " + res.status);
+
+        const text = await res.text();
+        data = JSON.parse(text.charCodeAt(0) === 0xFEFF ? text.slice(1) : text);
+
+      } catch (e) {
+
+        console.warn("Data load failed:", e);
+
+        document.querySelector(".hero-content").innerHTML = "<h1>⚠️ Veri Yüklenemedi</h1>";
+
+        return;
+
+      }
+
+
+
+      // MODE: LISTING (Eğer spesifik bir servis seçilmediyse kategori listesi göster)
+
+      if (!service) {
+
+        // Detay elementlerini gizle
+
+        document.querySelector(".service-info").style.display = "none";
+
+        document.querySelector(".service-actions").style.display = "none";
+
+
+
+        // Liste elementini göster
+
+        const listView = document.getElementById("serviceListView");
+
+        listView.style.display = "block";
+
+
+
+        // Hash'ten kategoriyi al (örn: #hammam -> hammam)
+
+        const hash = window.location.hash.replace('#', '');
+
+        const categoryId = hash || 'hammam'; // Varsayılan
+
+
+
+        // Başlığı güncelle
+
+        let catName = "Hizmetler";
+
+        if (data.categories && data[lang] && data[lang].nav) {
+
+          const catDef = data.categories.find(c => c.id === categoryId);
+
+          if (catDef) {
+
+            const keyParts = catDef.navKey.split('.');
+
+            catName = data[lang][keyParts[0]][keyParts[1]] || categoryId;
+
+          }
+
+        } else if (data[lang] && data[lang].nav && data[lang].nav[categoryId]) {
+
+          // Yedek: direkt nav anahtarından bak
+
+          catName = data[lang].nav[categoryId];
+
+        }
+
+
+
+        document.getElementById("serviceName").textContent = catName;
+
+        document.getElementById("hotelName").textContent = "Santis Club Spa & Wellness";
+
+
+
+        // Kartları oluştur
+
+        const listGrid = document.getElementById("listGrid");
+
+        listGrid.innerHTML = "";
+
+
+
+        Object.entries(data.services).forEach(([key, item]) => {
+
+          if (item.categoryId !== categoryId) return;
+
+
+
+          const sName = item.name[lang] || item.name.en;
+
+          const sDesc = item.desc[lang] || item.desc.en;
+
+          const sPrice = item.price ? `${item.price} ${item.currency}` : "";
+
+          const sDur = item.durationMin ? `${item.durationMin} dk` : "";
+
+
+
+          const card = document.createElement('div');
+
+          card.className = 'card';
+
+          card.onclick = () => window.location.href = `service.html?service=${key}&lang=${lang}&hotel=${hotel}`;
+
+          card.innerHTML = `<div class="card-content"><h3 class="card-title">${sName}</h3><p style="font-size:14px; color:#666; margin-bottom:10px;">${sDesc}</p><div class="card-footer"><span>${sDur}</span><span class="card-cta">İncele &rarr;</span></div></div>`;
+
+          listGrid.appendChild(card);
+
+        });
+
+        return;
+
+      }
+
+
+
       const h = data.hotels.find(h => h.slug === hotel);
+
       if (!h) return; // Otel bulunamadıysa işlem yapma (veya 404 sayfasına yönlendir)
 
+
+
       const s = data.services[service];
+
       if (!s) return; // Hizmet bulunamadıysa işlem yapma
 
+
+
       const ht = h.translations[lang] || h.translations.tr;
+
       const sName = s.name[lang] || s.name.en;
+
       const sDesc = s.desc[lang] || s.desc.en;
 
+
+
       document.title = `Santis Club | ${sName}`;
+
       document.getElementById("hotelName").textContent = ht.name;
+
       document.getElementById("serviceName").textContent = sName;
+
       document.getElementById("serviceTitle").textContent = sName;
+
       document.getElementById("serviceDesc").textContent = sDesc;
+
       document.getElementById("serviceDuration").textContent = `⏱ ${s.durationMin} min`;
+
       document.getElementById("servicePrice").textContent = `💰 ${s.price} ${s.currency}`;
 
+
+
       const hero = document.getElementById("serviceHero");
+
       // Hizmet görseli yoksa otel görselini kullan
-      hero.style.backgroundImage = `url(${h.hero_image})`;
+
+      // GitHub Pages için dosya yolu düzeltmesi
+
+      const placeholderHero = "images/placeholders/service-hero.svg";
+
+      const safeImg = h.hero_image ? (h.hero_image.startsWith('/') ? h.hero_image.substring(1) : h.hero_image) : "";
+
+
+
+      // LCP helper: hero görselini yüksek öncelikle ısıt (DOM'a basmadan)
+
+      if (safeImg) {
+
+        try {
+
+          const pre = new Image();
+
+          pre.decoding = "async";
+
+          try { pre.fetchPriority = "high"; } catch { }
+
+          pre.src = safeImg;
+
+        } catch { }
+
+      }
+
+
+
+      hero.style.backgroundImage = safeImg ? `url(${safeImg})` : `url(${placeholderHero})`;
+
+      if (!safeImg) hero.classList.add("lux-hero-fallback");
+
+
 
       const t = {
+
         tr: { wa: "WhatsApp ile Rezervasyon", online: "Online Rezervasyon" },
+
         en: { wa: "Book via WhatsApp", online: "Book Online" },
+
         de: { wa: "Über WhatsApp buchen", online: "Online buchen" },
+
         fr: { wa: "Réserver via WhatsApp", online: "Réservation en ligne" },
+
         ru: { wa: "Забронировать через WhatsApp", online: "Онлайн бронирование" }
+
       }[lang] || { wa: "Book via WhatsApp", online: "Book Online" };
 
+
+
       const btnWa = document.getElementById("btnBookWhatsApp");
+
       const btnOnline = document.getElementById("btnBookOnline");
 
+
+
       btnWa.textContent = t.wa;
+
       btnOnline.textContent = t.online;
 
+
+
       btnWa.onclick = () => {
+
         const msg = `Merhaba, ${ht.name} otelinde ${sName} için rezervasyon yapmak istiyorum.`;
+
         window.open(`https://wa.me/905348350169?text=${encodeURIComponent(msg)}`, '_blank');
+
       };
+
+
 
       btnOnline.onclick = () => {
+
         window.location.href = `booking.html?hotel=${hotel}&lang=${lang}`;
+
       };
+
     }
 
+
+
     loadService();
+
   </script>
+
+  <script>
+
+    (function initServiceListControls() {
+
+      // Patch 8.3: Lookbook Deep-Link Helper
+
+      function ensureCategoryAnchors() {
+
+        const ids = ["hammam", "classicMassages", "extraEffective", "faceSothys"];
+
+        if (ids.some(id => document.getElementById(id))) return;
+
+
+
+        const candidates = Array.from(document.querySelectorAll(
+
+          "h1,h2,h3,h4,.section-title,.category-title"
+
+        ));
+
+
+
+        const map = [
+
+          { id: "hammam", rx: /Türk\s*Hamam|Hamam/i },
+
+          { id: "classicMassages", rx: /Klasik\s*Masaj/i },
+
+          { id: "extraEffective", rx: /Extra\s*&\s*Etkili|Extra\s*&|Etkili/i },
+
+          { id: "faceSothys", rx: /Sothys|Cilt\s*Bakım/i },
+
+        ];
+
+
+
+        map.forEach(({ id, rx }) => {
+
+          if (document.getElementById(id)) return;
+
+          const h = candidates.find(el => rx.test((el.textContent || "").trim()));
+
+          if (!h || !h.parentNode) return;
+
+          const a = document.createElement("span");
+
+          a.id = id;
+
+          a.className = "svc-anchor";
+
+          a.setAttribute("aria-hidden", "true");
+
+          h.parentNode.insertBefore(a, h);
+
+        });
+
+      }
+
+
+
+      function applyDeepLinkIfAny() {
+
+        const hash = (location.hash || "").replace("#", "").trim();
+
+        if (!hash) return;
+
+        const target = document.getElementById(hash);
+
+        if (!target) return;
+
+        try { target.scrollIntoView(); } catch { }
+
+      }
+
+
+
+      // Try immediately and after a delay to catch dynamic content
+
+      ensureCategoryAnchors();
+
+      applyDeepLinkIfAny();
+
+      setTimeout(() => { ensureCategoryAnchors(); applyDeepLinkIfAny(); }, 800);
+
+    })();
+
+  </script>
+
 </body>
+
+
+
 </html>

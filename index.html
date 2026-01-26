@@ -1,371 +1,305 @@
-﻿﻿<!-- index.html — Santis Club Ana Sayfa (Landing) -->
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Santis Club | Ana Sayfa</title>
-  <!-- Açıklama: Ana sayfa, otel seçimi ve genel yönlendirmeler burada yapılır. -->
+  <title>Santis Club • Spa & Wellness</title>
+  <script src="assets/js/perf-head.js"></script>
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="data:,">
-  <meta name="description" content="Santis Club Spa & Wellness – Online veya WhatsApp üzerinden masaj ve hamam rezervasyonu yapın.">
-
-  <link rel="alternate" hreflang="tr" href="https://santisclub.com/tr/rezervasyon/">
-  <link rel="alternate" hreflang="en" href="https://santisclub.com/en/booking/">
-  <link rel="alternate" hreflang="de" href="https://santisclub.com/de/reservierung/">
-  <link rel="alternate" hreflang="fr" href="https://santisclub.com/fr/reservation/">
-  <link rel="alternate" hreflang="ru" href="https://santisclub.com/ru/bronirovanie/">
-  
+  <link rel="apple-touch-icon" href="images/icon-192.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <script src="assets/js/slug.js"></script>
   <style>
-    body { font-family: 'Roboto', sans-serif; margin: 0; background: #fff; color: #202124; }
-    .hero { text-align: center; padding: 100px 20px 60px; background: #f5f8ff; }
-    .hero h1 { margin-bottom: 10px; color: #1a73e8; }
-    .hero p { max-width: 600px; margin: 0 auto 30px; color: #5f6368; }
-    .cta-buttons button { margin: 10px; padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; background: #1a73e8; color: white; font-size: 16px; transition: background 0.3s; }
-    .cta-buttons button:hover { background: #1557b0; }
-    
-    .hotel-selector { text-align: center; margin: 40px 20px; }
-    .hotel-selector label { font-weight: 500; margin-right: 10px; }
-    .hotel-selector select { padding: 10px; font-size: 16px; border-radius: 6px; border: 1px solid #dadce0; min-width: 200px; }
-    
-    .featured-hotels { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 20px 40px; max-width: 1200px; margin: 0 auto; }
-    .hotel-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.3s ease; text-align: center; display: flex; flex-direction: column; }
-    .hotel-card:hover { transform: translateY(-5px); }
-    .hotel-card img { width: 100%; height: 200px; object-fit: cover; }
-    .hotel-card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-    .hotel-card h3 { margin: 0 0 10px; color: #1a73e8; font-size: 20px; }
-    .hotel-card p { font-size: 14px; color: #5f6368; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
-    .hotel-card button { background: #1a73e8; color: #fff; border: none; border-radius: 6px; padding: 10px 20px; cursor: pointer; font-weight: 500; transition: background 0.2s; }
-    .hotel-card button:hover { background: #1557b0; }
+    /* Styling for Booking Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
-    /* Form Section Styles (Mevcut stillerle uyumlu) */
-    #online-form { max-width: 800px; margin: 60px auto; padding: 0 20px; }
-    #online-form h2 { text-align: center; color: #202124; margin-bottom: 30px; }
-    #online-form form { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e0e0e0; }
-    #online-form label { font-size: 14px; color: #5f6368; display: block; margin-bottom: 6px; }
-    #online-form input, #online-form select, #online-form textarea { width: 100%; padding: 10px; border: 1px solid #dadce0; border-radius: 8px; font-size: 15px; box-sizing: border-box; }
-    #online-form button { grid-column: 1 / -1; background-color: #1a73e8; color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 16px; cursor: pointer; transition: background 0.3s; }
-    #online-form button:hover { background-color: #1557b0; }
-    .confirm { grid-column: 1 / -1; font-size: 14px; color: #5f6368; }
-    
-    #whatsapp { text-align: center; padding: 60px 20px; background: #e8f5e9; margin-top: 40px; }
-    #whatsapp h2 { color: #2e7d32; }
-    #whatsapp a { display: inline-block; background: #25d366; color: white; padding: 12px 24px; border-radius: 30px; text-decoration: none; font-weight: bold; margin-top: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.2s; }
-    #whatsapp a:hover { transform: scale(1.05); }
-    
-    .top3 { margin-top: 15px; background: #f8f9fa; border-radius: 8px; padding: 12px; width: 100%; box-sizing: border-box; }
-    .top3 h4 { margin: 0 0 8px; font-size: 14px; color: #1a73e8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-    .top3 ul { margin: 0; padding: 0; list-style: none; font-size: 13px; color: #5f6368; text-align: left; }
-    .top3 li { padding: 4px 0; border-bottom: 1px dotted #e0e0e0; }
-    .top3 li:last-child { border-bottom: none; }
-    .top3 li a { color: #5f6368; text-decoration: none; transition: color 0.2s; display: block; }
-    .top3 li a:hover { color: #1a73e8; }
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content {
+      background: #111;
+      padding: 25px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      max-width: 500px;
+      width: 90%;
+      color: #fff;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #333;
+      color: #fff;
+      border-radius: 6px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      background: #d4af37;
+      color: #000;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 6px;
+    }
   </style>
 </head>
+
 <body>
-  <div id="navbar"></div>
+  <!-- PRELOADER -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-logo">Santis Club</div>
+  </div>
 
-  <section class="hero">
-    <h1 id="heroTitle">Hotel Spa Ritüelleri & Masaj Terapileri</h1>
-    <p id="heroSubtitle">Antalya • Side’den Montenegro’ya, seçkin otel spalarında.</p>
-    <div class="cta-buttons">
-      <button onclick="document.getElementById('whatsapp').scrollIntoView({behavior: 'smooth'})" id="btnHeroWa">WhatsApp ile Hızlı Rezervasyon</button>
-      <button onclick="document.getElementById('online-form').scrollIntoView({behavior: 'smooth'})" id="btnHeroOnline">Online Rezervasyon</button>
+  <!-- NAVBAR (Component'tan yükleniyor) -->
+  <div id="navbar-container"></div>
+
+  <!-- MAIN CONTENT -->
+  <main id="nv-main">
+
+    <!-- HERO -->
+    <section class="hero-section">
+      <h1 class="hero-title" id="heroTitle">Timeless Sanctuary</h1>
+      <p style="font-size: 18px; letter-spacing: 2px;" id="heroSubtitle">ADULTS ONLY SPA</p>
+    </section>
+
+    <!-- SECTIONS -->
+    <div class="section-container" id="brand">
+      <h2 class="section-title">The Art of Wellness</h2>
+      <p style="max-width:800px; margin:0 auto; font-size:18px; line-height:1.6; color:var(--text-muted);">
+        Santis Club, geleneksel hamam ritüellerini ve modern spa terapilerini benzersiz bir "Sessiz Lüks" anlayışıyla
+        sunar.
+      </p>
     </div>
-  </section>
 
-  <section class="hotel-selector">
-    <label for="hotelSelectHero" id="hotelSelectLabel">Otel Seçiniz:</label>
-    <select id="hotelSelectHero"></select>
-  </section>
+    <div class="section-container" id="hammam" data-section="hammam">
+      <h2 class="section-title">Hammam Rituals</h2>
+      <div class="grid-cards" id="grid-hammam"></div>
+    </div>
 
-  <section class="featured-hotels" id="featuredHotels"></section>
+    <div class="section-container" id="masaj" data-section="massage">
+      <h2 class="section-title">Massage Therapies</h2>
+      <div class="grid-cards" id="grid-massages"></div>
+    </div>
 
-  <main id="booking-section">
-    <section id="whatsapp">
-      <h2 id="waTitle">WhatsApp ile Hızlı Rezervasyon</h2>
-      <p id="waDesc">Aşağıdaki butona tıklayarak doğrudan WhatsApp üzerinden talep oluşturabilirsiniz.</p>
-      <a href="https://wa.me/905348350169" target="_blank" id="waBtn">WhatsApp'ta Mesaj Gönder</a>
-    </section>
+    <div class="section-container" id="extra" data-section="extra">
+      <h2 class="section-title">Extra & Effective</h2>
+      <div class="grid-cards" id="grid-extra"></div>
+    </div>
 
-    <section id="online-form">
-      <h2 id="formTitle">Online Rezervasyon Formu</h2>
-      <form id="bookingForm">
-        <label id="lblHotel">Otel:</label>
-        <select id="hotelSelect" required>
-          <option id="optSelectHotel">Otel Seçiniz</option>
-          <option>Alba Resort</option>
-          <option>Alba Queen</option>
-          <option>Alba Royal</option>
-          <option>Iberostar Waves Bellevue</option>
-        </select>
+    <div class="section-container" id="cilt" data-section="skincare">
+      <h2 class="section-title">Skin Care</h2>
+      <div class="grid-cards" id="grid-skincare"></div>
+    </div>
 
-        <label id="lblService">Hizmet:</label>
-        <select id="inpService" required></select>
+    <!-- GALLERY -->
+    <div class="section-container" id="galeri" data-section="gallery">
+      <h2 class="section-title">Gallery</h2>
+      <div class="gallery-grid" id="gallery-grid"
+        style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+        <img src="https://placehold.co/600x400/222/fff?text=Gallery+1" alt="Gallery image 1" loading="lazy"
+          decoding="async" width="600" height="400" />
+        <img src="https://placehold.co/600x400/222/fff?text=Gallery+2" alt="Gallery image 2" loading="lazy"
+          decoding="async" width="600" height="400" />
+        <img src="https://placehold.co/600x400/222/fff?text=Gallery+3" alt="Gallery image 3" loading="lazy"
+          decoding="async" width="600" height="400" />
+        <img src="https://placehold.co/600x400/222/fff?text=Gallery+4" alt="Gallery image 4" loading="lazy"
+          decoding="async" width="600" height="400" />
+      </div>
+    </div>
 
-        <label id="lblDate">Tarih:</label>
-        <input type="date" id="inpDate" required>
-
-        <label id="lblTime">Saat:</label>
-        <input type="time" id="inpTime" required>
-
-        <label id="lblGuests">Kişi Sayısı:</label>
-        <select id="inpGuests">
-          <option>1 Kişi</option>
-          <option>Çift</option>
-          <option>Aile</option>
-        </select>
-
-        <label id="lblName">Ad Soyad:</label>
-        <input type="text" id="inpName" required>
-
-        <label id="lblPhone">Telefon:</label>
-        <input type="tel" id="inpPhone" placeholder="+90..." required>
-
-        <label id="lblEmail">E-posta (isteğe bağlı):</label>
-        <input type="email" id="inpEmail">
-
-        <label id="lblRoom">Oda Numarası (isteğe bağlı):</label>
-        <input type="text" id="inpRoom">
-
-        <label id="lblNotes">Notlar:</label>
-        <textarea id="inpNotes" rows="3"></textarea>
-
-        <div class="confirm">
-          <label><input type="checkbox" required> <span id="lblPrivacy">Gizlilik politikasını kabul ediyorum.</span></label><br>
-          <label><input type="checkbox" required> <span id="lblCancel">İptal koşullarını okudum.</span></label>
-        </div>
-
-        <button type="submit" id="btnSubmit">Rezervasyonu Gönder</button>
-      </form>
-    </section>
   </main>
 
-  <div id="footer"></div>
+  <!-- FOOTER -->
+  <div id="footer-container"></div>
+
+  <!-- BOOKING MODAL (REPLACES PROMPT) -->
+  <div class="modal-overlay" id="bookingModal" aria-hidden="true">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeBookingModal()">×</button>
+      <h2 id="bookingModalTitle">Reservation</h2>
+      <p id="bookingModalSub" style="color: #d4af37; margin-bottom: 20px;"></p>
+
+      <div class="form-group">
+        <label id="lblBookHotel">Hotel</label>
+        <select id="bookHotel"></select>
+      </div>
+      <div class="form-group">
+        <label id="lblBookService">Service</label>
+        <select id="bookService"></select>
+      </div>
+      <div class="form-group">
+        <label id="lblBookDate">Date</label>
+        <input type="date" id="bookDate">
+      </div>
+      <div class="form-group">
+        <label id="lblBookTime">Time</label>
+        <input type="time" id="bookTime">
+      </div>
+      <div class="form-group">
+        <label id="lblFullName">Name</label>
+        <input type="text" id="bookName" placeholder="Your Name">
+      </div>
+
+      <button class="btn-submit" id="whatsappBtn"
+        style="display:flex; align-items:center; justify-content:center; gap:10px;">
+        <span style="font-size:18px">📱</span>
+        Book via WhatsApp
+      </button>
+
+      <!-- Hidden elements for machinery -->
+      <input type="hidden" id="waPreview">
+      <select id="bookPeople" style="display:none;">
+        <option value="1">1</option>
+      </select>
+      <input type="text" id="bookRoom" style="display:none;">
+      <textarea id="bookNotes" style="display:none;"></textarea>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <!-- 1. Database -->
+  <script src="assets/js/db.js"></script>
+  <!-- 2. Main Logic -->
+  <script src="assets/js/app.js?v=2.1"></script>
 
   <script>
-    async function includeComponent(id, file) {
-      try {
-        const res = await fetch(file);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const html = await res.text();
-        const el = document.getElementById(id);
-        el.innerHTML = html;
-        
-        // Scriptleri çalıştır
-        const scripts = el.querySelectorAll("script");
-        scripts.forEach(oldScript => {
-          const newScript = document.createElement("script");
-          Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-          newScript.appendChild(document.createTextNode(oldScript.innerHTML));
-          oldScript.parentNode.replaceChild(newScript, oldScript);
-        });
-      } catch (e) {
-        console.warn("Component load failed:", file, e);
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = `<div style="color:#721c24;background:#f8d7da;padding:10px;border:1px solid #f5c6cb;margin:10px">⚠️ <b>Failed to load ${file}</b><br><small>If running locally, please use a local web server (e.g. VS Code Live Server) instead of opening files directly.</small></div>`;
-      }
-    }
-    includeComponent("navbar", "./components/navbar.html");
-    includeComponent("footer", "./components/footer.html");
-
-    // İçerik Yükleme ve Çeviri
-    async function loadContent() {
-      const params = new URLSearchParams(window.location.search);
-      const lang = params.get("lang") || "tr";
-
-      const res = await fetch("santis-hotels.json");
-      const data = await res.json();
-      const t = data.booking.translations[lang] || data.booking.translations.tr;
-      const hotels = data.hotels;
-      const services = data.services;
-
-      // Hero Çevirileri (Basitçe burada tanımlıyoruz, JSON'a da taşınabilir)
-      const heroTexts = {
-        tr: { title: "Hotel Spa Ritüelleri & Masaj Terapileri", subtitle: "Antalya • Side’den Montenegro’ya, seçkin otel spalarında.", wa: "WhatsApp ile Hızlı Rezervasyon", online: "Online Rezervasyon", selectHotel: "Otel Seçiniz:", viewSpa: "Spa Sayfasını Gör" },
-        en: { title: "Hotel Spa Rituals & Massage Therapies", subtitle: "From Antalya • Side to Montenegro, in exclusive hotel spas.", wa: "Quick Booking via WhatsApp", online: "Online Booking", selectHotel: "Select Hotel:", viewSpa: "View Spa Page" },
-        de: { title: "Hotel Spa Rituale & Massage Therapien", subtitle: "Von Antalya • Side bis Montenegro, in exklusiven Hotel-Spas.", wa: "Schnellbuchung über WhatsApp", online: "Online-Buchung", selectHotel: "Hotel auswählen:", viewSpa: "Spa-Seite ansehen" },
-        fr: { title: "Rituels Spa & Massages Thérapeutiques", subtitle: "D'Antalya • Side au Monténégro, dans des spas d'hôtels exclusifs.", wa: "Réservation rapide via WhatsApp", online: "Réservation en ligne", selectHotel: "Sélectionnez un hôtel :", viewSpa: "Voir la page Spa" },
-        ru: { title: "Спа-ритуалы и массажная терапия", subtitle: "От Анталии • Сиде до Черногории, в эксклюзивных спа-отелях.", wa: "Быстрое бронирование через WhatsApp", online: "Онлайн-бронирование", selectHotel: "Выберите отель:", viewSpa: "Посмотреть спа-страницу" }
-      };
-      const ht = heroTexts[lang] || heroTexts.tr;
-
-      document.getElementById("heroTitle").textContent = ht.title;
-      document.getElementById("heroSubtitle").textContent = ht.subtitle;
-      document.getElementById("btnHeroWa").textContent = ht.wa;
-      document.getElementById("btnHeroOnline").textContent = ht.online;
-      document.getElementById("hotelSelectLabel").textContent = ht.selectHotel;
-
-      // Otel Kartlarını Oluştur
-      const container = document.getElementById("featuredHotels");
-      container.innerHTML = "";
-      hotels.forEach(hotel => {
-        const th = hotel.translations[lang] || hotel.translations.tr;
-        
-        // Top 3 Hizmetleri Hazırla
-        let top3HTML = "";
-        if (hotel.featuredServices && hotel.featuredServices.length > 0) {
-          const top3Title = {
-            tr: "Öne Çıkan Hizmetler", en: "Top 3 Services", de: "Top 3 Behandlungen", 
-            fr: "Top 3 Soins", ru: "Популярные услуги"
-          }[lang] || "Top 3 Services";
-
-          const listItems = hotel.featuredServices.slice(0, 3).map(sid => {
-            const sName = services[sid]?.name[lang] || services[sid]?.name.en || sid;
-            return `<li><a href="service.html?hotel=${hotel.slug}&service=${sid}&lang=${lang}">${sName}</a></li>`;
-          }).join("");
-          top3HTML = `<div class="top3"><h4>${top3Title}</h4><ul>${listItems}</ul></div>`;
+    // Init Application
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load Standard Components
+      async function loadComp(id, file) {
+        // file:// protokolü kontrolü: Fetch hatasını önlemek için
+        if (window.location.protocol === 'file:') {
+          const el = document.getElementById(id);
+          if (el) el.innerHTML = `<div style="text-align:center;padding:10px;background:#1a1a1a;color:#888;font-size:12px;border-bottom:1px solid #333;">⚠️ Yerel Mod: ${file} yüklenemedi (CORS). Lütfen Live Server kullanın.</div>`;
+          return;
         }
 
-        const card = document.createElement("div");
-        card.className = "hotel-card";
-        card.innerHTML = `
-          <img src="${hotel.hero_image}" alt="${th.name}">
-          <div class="hotel-card-content">
-            <h3>${th.name}</h3>
-            <p>${th.description}</p>
-            ${top3HTML}
-            <button onclick="window.location.href='hotel.html?hotel=${hotel.slug}&lang=${lang}'">
-              ${ht.viewSpa}
-            </button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-
-      // Hero Otel Seçimi
-      const heroSelect = document.getElementById("hotelSelectHero");
-      heroSelect.innerHTML = `<option value="">${ht.selectHotel}</option>`;
-      hotels.forEach(h => {
-        const opt = document.createElement("option");
-        opt.value = h.slug;
-        opt.textContent = h.translations[lang]?.name || h.translations.tr.name;
-        heroSelect.appendChild(opt);
-      });
-      heroSelect.addEventListener("change", e => {
-        if(e.target.value) window.location.href = `hotel.html?hotel=${e.target.value}&lang=${lang}`;
-      });
-
-      // WhatsApp Bölümü
-      document.getElementById("waTitle").textContent = t.buttons.whatsapp;
-      // Basit bir açıklama çevirisi olmadığı için statik kalabilir veya JSON'a eklenebilir.
-      // Şimdilik buton metnini güncelliyoruz.
-      document.getElementById("waBtn").textContent = t.buttons.whatsapp;
-
-      // Form Bölümü
-      document.getElementById("formTitle").textContent = t.title;
-      
-      // Form Etiketleri
-      const f = t.fields;
-      document.getElementById("lblHotel").textContent = f.hotel;
-      document.getElementById("optSelectHotel").textContent = f.hotel;
-      document.getElementById("lblService").textContent = f.service;
-      document.getElementById("lblDate").textContent = f.date;
-      document.getElementById("lblTime").textContent = f.time;
-      document.getElementById("lblGuests").textContent = f.guests;
-      document.getElementById("lblName").textContent = f.name;
-      document.getElementById("lblPhone").textContent = f.phone;
-      document.getElementById("lblEmail").textContent = f.email;
-      document.getElementById("lblRoom").textContent = f.room;
-      document.getElementById("lblNotes").textContent = f.notes;
-      document.getElementById("lblPrivacy").textContent = f.agree_privacy;
-      document.getElementById("lblCancel").textContent = f.agree_cancel;
-      document.getElementById("btnSubmit").textContent = t.buttons.submit;
-    }
-    
-    // Otel ve Hizmet Dinamik Doldurma
-    async function initDynamicForm() {
-      const res = await fetch("santis-hotels.json");
-      const data = await res.json();
-      const hotels = data.hotels;
-      const services = data.services;
-      
-      const hotelSelect = document.getElementById("hotelSelect");
-      const serviceSelect = document.getElementById("inpService");
-      const params = new URLSearchParams(window.location.search);
-      const lang = params.get("lang") || "tr";
-
-      // Otel listesini temizle ve doldur
-      // İlk seçenek (placeholder) korunabilir veya yeniden eklenebilir, burada temizleyip yeniden ekliyoruz
-      const defaultHotelText = document.getElementById("optSelectHotel").textContent;
-      hotelSelect.innerHTML = `<option value="">${defaultHotelText}</option>`;
-      
-      hotels.forEach(h => {
-        const opt = document.createElement("option");
-        opt.value = h.slug;
-        opt.textContent = h.translations[lang]?.name || h.translations.tr.name;
-        hotelSelect.appendChild(opt);
-      });
-
-      // Hizmetleri otele göre filtrele
-      function updateServices() {
-        const selectedHotel = hotelSelect.value;
-        serviceSelect.innerHTML = '<option value="">' + (lang === 'tr' ? 'Hizmet Seçiniz' : 'Select Service') + '</option>';
-        
-        if (!selectedHotel) return;
-
-        Object.values(services).forEach(svc => {
-          if (svc.hotelSlugs && svc.hotelSlugs.includes(selectedHotel)) {
-            const opt = document.createElement("option");
-            const sName = svc.name[lang] || svc.name.en;
-            opt.value = sName;
-            opt.textContent = `${sName} (${svc.durationMin} min)`;
-            serviceSelect.appendChild(opt);
+        try {
+          const res = await fetch(file);
+          if (res.ok) {
+            const el = document.getElementById(id);
+            el.innerHTML = await res.text();
+            el.querySelectorAll("script").forEach(s => {
+              const ns = document.createElement("script");
+              ns.text = s.innerHTML;
+              s.parentNode.replaceChild(ns, s);
+            });
           }
-        });
+        } catch (e) { console.error("Component load failed", e); }
+      }
+      loadComp("navbar-container", "components/navbar.html");
+      loadComp("footer-container", "components/footer.html");
+
+      // Preloader
+      setTimeout(() => {
+        const p = document.getElementById('preloader');
+        if (p) p.classList.add('hidden');
+      }, 1000);
+
+      // Bind Booking Modal Buttons specific to this layout
+      const waBtn = document.getElementById('whatsappBtn');
+      if (waBtn) {
+        waBtn.onclick = (e) => {
+          e.preventDefault();
+          const preview = document.getElementById('waPreview').value;
+          if (!preview) return alert('Please select a hotel and service.');
+          // 905348350169 is from app.js analysis
+          window.open(`https://wa.me/905348350169?text=${encodeURIComponent(preview)}`, '_blank');
+        };
       }
 
-      hotelSelect.addEventListener("change", updateServices);
-    }
+      // Manual Trigger for app.js init if needed, usually app.js might need a kickstart
+      if (typeof init === 'function') init();
+      if (typeof renderAll === 'function') renderAll();
 
-    // Form Gönderimi ve WhatsApp Yönlendirme
-    function initFormSubmission() {
-      const form = document.getElementById("bookingForm");
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        
-        const params = new URLSearchParams(window.location.search);
-        const lang = params.get("lang") || "tr";
-
-        const res = await fetch("santis-hotels.json");
-        const data = await res.json();
-        const t = data.booking.translations[lang] || data.booking.translations.tr;
-        let msg = t.whatsapp_template;
-
-        const hotelSelect = document.getElementById("hotelSelect");
-        const serviceSelect = document.getElementById("inpService");
-        const dateInput = document.getElementById("inpDate");
-        const timeInput = document.getElementById("inpTime");
-        const guestsSelect = document.getElementById("inpGuests");
-        const nameInput = document.getElementById("inpName");
-        const notesInput = document.getElementById("inpNotes");
-
-        const hotelName = hotelSelect.options[hotelSelect.selectedIndex]?.text || "";
-        const serviceName = serviceSelect.value;
-        const dateVal = dateInput.value;
-        const timeVal = timeInput.value;
-        const guestsVal = guestsSelect.value;
-        const nameVal = nameInput.value;
-        const notesVal = notesInput.value;
-
-        msg = msg.replace(/{otel}|{hotel}/g, hotelName)
-                 .replace(/{hizmet}|{service}/g, serviceName)
-                 .replace(/{tarih}|{date}/g, dateVal)
-                 .replace(/{saat}|{time}/g, timeVal)
-                 .replace(/{kisi}|{guests}/g, guestsVal)
-                 .replace(/{isim}|{name}/g, nameVal);
-        
-        if (notesVal) msg += ` (Not: ${notesVal})`;
-
-        window.open(`https://wa.me/905348350169?text=${encodeURIComponent(msg)}`, '_blank');
-      });
-    }
-
-    loadContent();
-    initDynamicForm();
-    initFormSubmission();
+      // Render initial sections directly from db.js data since app.js might be purely reactive
+      // We ensure data is visible even if app.js complexity fails
+      if (typeof renderSection === 'function') {
+        renderSection('hammam', 'grid-hammam');
+        renderSection('massage', 'grid-massages');
+        renderSection('extra', 'grid-extra');
+        renderSection('skincare', 'grid-skincare');
+      } else {
+        // Fallback render if app.js functions aren't globally exposed or named differently
+        // (Based on db.js review, renderSection was in the OLD index.html inline script, not app.js)
+        // CRITICAL: We need to port that simple render logic here or move it to a helper, 
+        // because app.js seemed to have a 'renderServiceResults' but dependent on state.
+        // Let's add a robust fallback renderer here to guarantee visuals.
+        const fallbackRender = (cat, id) => {
+          const grid = document.getElementById(id);
+          if (!grid || !window.servicesDB) return;
+          const items = window.servicesDB.filter(s => s.cat === cat);
+          grid.innerHTML = items.map(item => `
+                    <div class="card" onclick="window.location.href='service-detail.html?id=${item.id}'">
+                        <div class="card-img-wrap">
+                            <img src="https://placehold.co/600x400/222/fff?text=${encodeURIComponent(item.name.en)}" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">${item.name.tr}</h3> <!-- Defaults to TR for safety -->
+                            <div class="card-footer">
+                                <span>${item.time} min / ${item.price}€</span>
+                                <span>İncele &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                 `).join('');
+        };
+        fallbackRender('hammam', 'grid-hammam');
+        fallbackRender('massage', 'grid-massages');
+        fallbackRender('extra', 'grid-extra');
+        fallbackRender('skincare', 'grid-skincare');
+      }
+    });
   </script>
-  <script src="test-runner.js"></script>
-  <script src="test-runner-schema.js"></script>
 </body>
+
 </html>

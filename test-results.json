@@ -1,430 +1,810 @@
 {
-  "date": "2026-01-23T14:44:05.720Z",
+  "date": "2026-01-25T19:17:24.863Z",
   "stats": {
-    "ok": 70,
+    "ok": 100,
     "fail": 0,
     "warn": 0,
-    "total": 70
+    "total": 100
   },
   "results": [
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-resort&lang=tr",
       "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=turkish-hammam&lang=tr",
-      "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=signature-couples&lang=tr",
-      "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=deep-tissue&lang=tr",
-      "hotel": "Alba Resort Hotel",
+      "lang": "tr",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-resort&lang=tr",
       "hotel": "Alba Resort Hotel",
+      "lang": "tr",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=hammam_traditional_ritual&lang=tr",
+      "hotel": "Alba Resort Hotel",
+      "lang": "tr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=relax_aroma&lang=tr",
+      "hotel": "Alba Resort Hotel",
+      "lang": "tr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=couples_signature&lang=tr",
+      "hotel": "Alba Resort Hotel",
+      "lang": "tr",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-resort&lang=en",
       "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=turkish-hammam&lang=en",
-      "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=signature-couples&lang=en",
-      "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=deep-tissue&lang=en",
-      "hotel": "Alba Resort Hotel",
+      "lang": "en",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-resort&lang=en",
       "hotel": "Alba Resort Hotel",
+      "lang": "en",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=hammam_traditional_ritual&lang=en",
+      "hotel": "Alba Resort Hotel",
+      "lang": "en",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=relax_aroma&lang=en",
+      "hotel": "Alba Resort Hotel",
+      "lang": "en",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=couples_signature&lang=en",
+      "hotel": "Alba Resort Hotel",
+      "lang": "en",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-resort&lang=de",
       "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=turkish-hammam&lang=de",
-      "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=signature-couples&lang=de",
-      "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=deep-tissue&lang=de",
-      "hotel": "Alba Resort Hotel",
+      "lang": "de",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-resort&lang=de",
       "hotel": "Alba Resort Hotel",
+      "lang": "de",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=hammam_traditional_ritual&lang=de",
+      "hotel": "Alba Resort Hotel",
+      "lang": "de",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=relax_aroma&lang=de",
+      "hotel": "Alba Resort Hotel",
+      "lang": "de",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=couples_signature&lang=de",
+      "hotel": "Alba Resort Hotel",
+      "lang": "de",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-resort&lang=fr",
       "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=turkish-hammam&lang=fr",
-      "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=signature-couples&lang=fr",
-      "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=deep-tissue&lang=fr",
-      "hotel": "Alba Resort Hotel",
+      "lang": "fr",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-resort&lang=fr",
       "hotel": "Alba Resort Hotel",
+      "lang": "fr",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=hammam_traditional_ritual&lang=fr",
+      "hotel": "Alba Resort Hotel",
+      "lang": "fr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=relax_aroma&lang=fr",
+      "hotel": "Alba Resort Hotel",
+      "lang": "fr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=couples_signature&lang=fr",
+      "hotel": "Alba Resort Hotel",
+      "lang": "fr",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-resort&lang=ru",
       "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=turkish-hammam&lang=ru",
-      "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=signature-couples&lang=ru",
-      "hotel": "Alba Resort Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-resort&service=deep-tissue&lang=ru",
-      "hotel": "Alba Resort Hotel",
+      "lang": "ru",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-resort&lang=ru",
       "hotel": "Alba Resort Hotel",
+      "lang": "ru",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=hammam_traditional_ritual&lang=ru",
+      "hotel": "Alba Resort Hotel",
+      "lang": "ru",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=relax_aroma&lang=ru",
+      "hotel": "Alba Resort Hotel",
+      "lang": "ru",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=couples_signature&lang=ru",
+      "hotel": "Alba Resort Hotel",
+      "lang": "ru",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-queen&lang=tr",
       "hotel": "Alba Queen Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-queen&service=ayurveda-ritual&lang=tr",
-      "hotel": "Alba Queen Hotel",
+      "lang": "tr",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-queen&lang=tr",
       "hotel": "Alba Queen Hotel",
+      "lang": "tr",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=santis_signature&lang=tr",
+      "hotel": "Alba Queen Hotel",
+      "lang": "tr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=deep_tissue&lang=tr",
+      "hotel": "Alba Queen Hotel",
+      "lang": "tr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=face_sothys_glow&lang=tr",
+      "hotel": "Alba Queen Hotel",
+      "lang": "tr",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-queen&lang=en",
       "hotel": "Alba Queen Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-queen&service=ayurveda-ritual&lang=en",
-      "hotel": "Alba Queen Hotel",
+      "lang": "en",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-queen&lang=en",
       "hotel": "Alba Queen Hotel",
+      "lang": "en",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=santis_signature&lang=en",
+      "hotel": "Alba Queen Hotel",
+      "lang": "en",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=deep_tissue&lang=en",
+      "hotel": "Alba Queen Hotel",
+      "lang": "en",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=face_sothys_glow&lang=en",
+      "hotel": "Alba Queen Hotel",
+      "lang": "en",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-queen&lang=de",
       "hotel": "Alba Queen Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-queen&service=ayurveda-ritual&lang=de",
-      "hotel": "Alba Queen Hotel",
+      "lang": "de",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-queen&lang=de",
       "hotel": "Alba Queen Hotel",
+      "lang": "de",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=santis_signature&lang=de",
+      "hotel": "Alba Queen Hotel",
+      "lang": "de",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=deep_tissue&lang=de",
+      "hotel": "Alba Queen Hotel",
+      "lang": "de",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=face_sothys_glow&lang=de",
+      "hotel": "Alba Queen Hotel",
+      "lang": "de",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-queen&lang=fr",
       "hotel": "Alba Queen Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-queen&service=ayurveda-ritual&lang=fr",
-      "hotel": "Alba Queen Hotel",
+      "lang": "fr",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-queen&lang=fr",
       "hotel": "Alba Queen Hotel",
+      "lang": "fr",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=santis_signature&lang=fr",
+      "hotel": "Alba Queen Hotel",
+      "lang": "fr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=deep_tissue&lang=fr",
+      "hotel": "Alba Queen Hotel",
+      "lang": "fr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=face_sothys_glow&lang=fr",
+      "hotel": "Alba Queen Hotel",
+      "lang": "fr",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-queen&lang=ru",
       "hotel": "Alba Queen Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-queen&service=ayurveda-ritual&lang=ru",
-      "hotel": "Alba Queen Hotel",
+      "lang": "ru",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-queen&lang=ru",
       "hotel": "Alba Queen Hotel",
+      "lang": "ru",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=santis_signature&lang=ru",
+      "hotel": "Alba Queen Hotel",
+      "lang": "ru",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=deep_tissue&lang=ru",
+      "hotel": "Alba Queen Hotel",
+      "lang": "ru",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=face_sothys_glow&lang=ru",
+      "hotel": "Alba Queen Hotel",
+      "lang": "ru",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-royal&lang=tr",
       "hotel": "Alba Royal Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-royal&service=foam-hammam&lang=tr",
-      "hotel": "Alba Royal Hotel",
+      "lang": "tr",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-royal&lang=tr",
       "hotel": "Alba Royal Hotel",
+      "lang": "tr",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=hammam_foam&lang=tr",
+      "hotel": "Alba Royal Hotel",
+      "lang": "tr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=sports_recovery&lang=tr",
+      "hotel": "Alba Royal Hotel",
+      "lang": "tr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=shirodhara&lang=tr",
+      "hotel": "Alba Royal Hotel",
+      "lang": "tr",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-royal&lang=en",
       "hotel": "Alba Royal Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-royal&service=foam-hammam&lang=en",
-      "hotel": "Alba Royal Hotel",
+      "lang": "en",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-royal&lang=en",
       "hotel": "Alba Royal Hotel",
+      "lang": "en",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=hammam_foam&lang=en",
+      "hotel": "Alba Royal Hotel",
+      "lang": "en",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=sports_recovery&lang=en",
+      "hotel": "Alba Royal Hotel",
+      "lang": "en",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=shirodhara&lang=en",
+      "hotel": "Alba Royal Hotel",
+      "lang": "en",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-royal&lang=de",
       "hotel": "Alba Royal Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-royal&service=foam-hammam&lang=de",
-      "hotel": "Alba Royal Hotel",
+      "lang": "de",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-royal&lang=de",
       "hotel": "Alba Royal Hotel",
+      "lang": "de",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=hammam_foam&lang=de",
+      "hotel": "Alba Royal Hotel",
+      "lang": "de",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=sports_recovery&lang=de",
+      "hotel": "Alba Royal Hotel",
+      "lang": "de",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=shirodhara&lang=de",
+      "hotel": "Alba Royal Hotel",
+      "lang": "de",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-royal&lang=fr",
       "hotel": "Alba Royal Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-royal&service=foam-hammam&lang=fr",
-      "hotel": "Alba Royal Hotel",
+      "lang": "fr",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-royal&lang=fr",
       "hotel": "Alba Royal Hotel",
+      "lang": "fr",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=hammam_foam&lang=fr",
+      "hotel": "Alba Royal Hotel",
+      "lang": "fr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=sports_recovery&lang=fr",
+      "hotel": "Alba Royal Hotel",
+      "lang": "fr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=shirodhara&lang=fr",
+      "hotel": "Alba Royal Hotel",
+      "lang": "fr",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=alba-royal&lang=ru",
       "hotel": "Alba Royal Hotel",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=alba-royal&service=foam-hammam&lang=ru",
-      "hotel": "Alba Royal Hotel",
+      "lang": "ru",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=alba-royal&lang=ru",
       "hotel": "Alba Royal Hotel",
+      "lang": "ru",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=hammam_foam&lang=ru",
+      "hotel": "Alba Royal Hotel",
+      "lang": "ru",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=sports_recovery&lang=ru",
+      "hotel": "Alba Royal Hotel",
+      "lang": "ru",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=shirodhara&lang=ru",
+      "hotel": "Alba Royal Hotel",
+      "lang": "ru",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=iberostar-bellevue&lang=tr",
       "hotel": "Iberostar Waves Bellevue",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=iberostar-bellevue&service=face-sothys-hydration&lang=tr",
-      "hotel": "Iberostar Waves Bellevue",
+      "lang": "tr",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=iberostar-bellevue&lang=tr",
       "hotel": "Iberostar Waves Bellevue",
+      "lang": "tr",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=balinese&lang=tr",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "tr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=deep_tissue&lang=tr",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "tr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=face_sothys_hydra&lang=tr",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "tr",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=iberostar-bellevue&lang=en",
       "hotel": "Iberostar Waves Bellevue",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=iberostar-bellevue&service=face-sothys-hydration&lang=en",
-      "hotel": "Iberostar Waves Bellevue",
+      "lang": "en",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=iberostar-bellevue&lang=en",
       "hotel": "Iberostar Waves Bellevue",
+      "lang": "en",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=balinese&lang=en",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "en",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=deep_tissue&lang=en",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "en",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=face_sothys_hydra&lang=en",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "en",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=iberostar-bellevue&lang=de",
       "hotel": "Iberostar Waves Bellevue",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=iberostar-bellevue&service=face-sothys-hydration&lang=de",
-      "hotel": "Iberostar Waves Bellevue",
+      "lang": "de",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=iberostar-bellevue&lang=de",
       "hotel": "Iberostar Waves Bellevue",
+      "lang": "de",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=balinese&lang=de",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "de",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=deep_tissue&lang=de",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "de",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=face_sothys_hydra&lang=de",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "de",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=iberostar-bellevue&lang=fr",
       "hotel": "Iberostar Waves Bellevue",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=iberostar-bellevue&service=face-sothys-hydration&lang=fr",
-      "hotel": "Iberostar Waves Bellevue",
+      "lang": "fr",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=iberostar-bellevue&lang=fr",
       "hotel": "Iberostar Waves Bellevue",
+      "lang": "fr",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=balinese&lang=fr",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "fr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=deep_tissue&lang=fr",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "fr",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=face_sothys_hydra&lang=fr",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "fr",
+      "type": "Service",
       "code": 200
     },
     {
       "status": "ok",
       "url": "hotel.html?hotel=iberostar-bellevue&lang=ru",
       "hotel": "Iberostar Waves Bellevue",
-      "code": 200
-    },
-    {
-      "status": "ok",
-      "url": "service.html?hotel=iberostar-bellevue&service=face-sothys-hydration&lang=ru",
-      "hotel": "Iberostar Waves Bellevue",
+      "lang": "ru",
+      "type": "Hotel",
       "code": 200
     },
     {
       "status": "ok",
       "url": "booking.html?hotel=iberostar-bellevue&lang=ru",
       "hotel": "Iberostar Waves Bellevue",
+      "lang": "ru",
+      "type": "Booking",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=balinese&lang=ru",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "ru",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=deep_tissue&lang=ru",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "ru",
+      "type": "Service",
+      "code": 200
+    },
+    {
+      "status": "ok",
+      "url": "service-detail.html?slug=face_sothys_hydra&lang=ru",
+      "hotel": "Iberostar Waves Bellevue",
+      "lang": "ru",
+      "type": "Service",
       "code": 200
     }
   ]

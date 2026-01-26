@@ -1,0 +1,836 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="assets/js/perf-head.js"></script>
+    <title>Hizmet Detayı — Santis Club</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="apple-touch-icon" href="images/icon-192.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script src="assets/js/slug.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --accent: #d4af37;
+            --text: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* DETAIL CONTAINER */
+        .detail-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 24px 60px;
+        }
+
+        /* BACK LINK */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        /* HEADER */
+        .detail-header {
+            margin-bottom: 40px;
+        }
+
+        .detail-visual {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 18px;
+            overflow: hidden;
+            background: var(--card-bg);
+            background-image: var(--placeholder-hero, url('images/placeholders/service-hero.svg'));
+            background-size: cover;
+            background-position: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 14px 38px rgba(0, 0, 0, 0.35);
+            margin-bottom: 24px;
+        }
+
+        .detail-visual::after {
+            content: "Sinematik Spa";
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(26px, 4vw, 40px);
+            letter-spacing: 6px;
+            color: rgba(255, 255, 255, 0.08);
+            text-transform: uppercase;
+        }
+
+        .detail-badges {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-duration {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+        }
+
+        .badge-popular {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--accent);
+        }
+
+        .badge-vip {
+            background: rgba(138, 43, 226, 0.2);
+            color: #b388ff;
+        }
+
+        .badge-premium {
+            background: rgba(0, 191, 255, 0.2);
+            color: #00bfff;
+        }
+
+        .badge-express {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .badge-natural {
+            background: rgba(76, 175, 80, 0.2);
+            color: #81c784;
+        }
+
+        .badge-hydration {
+            background: rgba(33, 150, 243, 0.2);
+            color: #64b5f6;
+        }
+
+        .badge-antiage {
+            background: rgba(156, 39, 176, 0.2);
+            color: #ce93d8;
+        }
+
+        .detail-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .detail-desc {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* SECTIONS */
+        .detail-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+
+        .section-list {
+            list-style: none;
+        }
+
+        .section-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .section-list li:last-child {
+            border-bottom: none;
+        }
+
+        .section-list li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* FLOW */
+        .flow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: var(--accent);
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        /* NOTE */
+        .note-box {
+            background: rgba(212, 175, 55, 0.08);
+            border-left: 3px solid var(--accent);
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 24px;
+        }
+
+        .note-box p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* COMBOS */
+        .combo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .combo-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .combo-card:hover {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .combo-name {
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .combo-duration {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--accent);
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            padding: 16px 36px;
+            border-radius: 12px;
+            transition: all 0.2s;
+            box-shadow: 0 10px 28px rgba(212, 175, 55, 0.28);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 36px rgba(212, 175, 55, 0.35);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .detail-container {
+                padding: 100px 16px 40px;
+            }
+
+            .detail-title {
+                font-size: 1.8rem;
+            }
+
+            .detail-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <div id="navbar-container"></div>
+
+    <!-- DETAIL CONTENT -->
+    <div class="detail-container" id="serviceDetail">
+        <!-- Content loaded by JS -->
+        <div style="text-align:center; padding:60px;">
+            <p style="color:var(--text-muted)">Yükleniyor...</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div id="footer-container"></div>
+
+    <script>
+        // Load navbar component
+        async function loadComp(id, file) {
+            try {
+                const res = await fetch(file);
+                if (res.ok) {
+                    document.getElementById(id).innerHTML = await res.text();
+                }
+            } catch (e) { console.log('Component load error:', e); }
+        }
+        loadComp('navbar-container', 'components/navbar.html');
+        loadComp('footer-container', 'components/footer.html');
+
+        // Get service slug from URL (hard-stop if missing/undefined)
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('slug') || params.get('id');
+        if (!slug || slug === 'undefined') {
+            document.getElementById('serviceDetail').innerHTML = `
+                <div class="detail-section" style="text-align:center; padding:40px;">
+                    <h2 style="color:var(--accent); margin-bottom:12px;">Hata: Hizmet bulunamadı</h2>
+                    <p style="color:var(--text-muted); margin-bottom:20px;">Geçerli bir slug parametresi gönderilmedi.</p>
+                    <a href="service.html" style="color:var(--accent); text-decoration:underline;">Hizmet listesine dön</a>
+                </div>`;
+            console.error("Slug parametresi yok veya undefined:", slug);
+            throw new Error("Slug parametresi yok");
+        }
+        const langParam = params.get('lang');
+        const supportedLangs = ['tr', 'en', 'de', 'fr', 'ru'];
+        const lang = supportedLangs.includes(langParam) ? langParam : 'tr';
+
+        // Load services data
+        async function loadServiceDetail() {
+            try {
+                const res = await fetch('data/services_spa.json');
+                const data = await res.json();
+
+                // Find service by slug
+                let service = null;
+                let category = null;
+
+                for (const [cat, services] of Object.entries(data)) {
+                    const found = services.find(s => s.slug === slug);
+                    if (found) {
+                        service = found;
+                        category = cat;
+                        break;
+                    }
+                }
+
+                if (!service) {
+                    renderNotFound();
+                    return;
+                }
+
+                renderService(service, category, data);
+
+            } catch (e) {
+                console.error('Error loading service:', e);
+                renderNotFound();
+            }
+        }
+
+        function renderService(service, category, allData) {
+            const badgeIcons = {
+                popular: '⭐ Popüler',
+                vip: '👑 VIP',
+                premium: '💎 Premium',
+                express: '⚡ Express',
+                natural: '🌿 Doğal',
+                hydration: '💧 Nem',
+                antiage: '👑 Anti-Age'
+            };
+
+            const categoryNames = {
+                hammam: 'Türk Hamamı',
+                classicMassages: 'Klasik Masajlar',
+                extraEffective: 'Extra & Etkili',
+                faceSothys: 'Cilt Bakımı – Sothys'
+            };
+
+            const sectionSlugs = {
+                hammam: 'hamam-rituelleri',
+                classicMassages: 'masajlar',
+                extraEffective: 'masajlar',
+                faceSothys: 'face-sothys'
+            };
+
+            const safeSlug = (s) => {
+                if (s) return s;
+                const name = service.name?.tr || '';
+                if (typeof window.slugifyTR === 'function') return window.slugifyTR(name);
+                return name.toLowerCase().replace(/[çÇğĞıİöÖşŞüÜ]/g, c => ({
+                    'ç': 'c', 'Ç': 'c', 'ğ': 'g', 'Ğ': 'g', 'ı': 'i', 'İ': 'i', 'ö': 'o', 'Ö': 'o', 'ş': 's', 'Ş': 's', 'ü': 'u', 'Ü': 'u'
+                }[c] || c)).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+            };
+
+            const serviceSlug = safeSlug(service.slug);
+            const section = sectionSlugs[category] || 'spa';
+            const currentLang = lang || 'tr';
+
+            const content = (service.content && service.content.tr) ? service.content.tr : {};
+
+            const fallbackIntro = "Bu seans, sakin bir ritimle konfor ve yenilenme hissi sunar.";
+            const fallbackHighlights = [
+                "Yumuşak ritim ve dengeli dokunuş",
+                "Sessiz, loş atmosferde derin gevşeme",
+                "Kapanışta hafif ferahlama hissi"
+            ];
+            const fallbackFlow = [
+                "Karşılama ve beklenti paylaşımı",
+                "Odak uygulama ve nefes eşleşmesi",
+                "Yumuşak kapanış ve kısa dinlenme"
+            ];
+            const fallbackIdeal = [
+                "Sessiz ve yavaş bir seans arayanlar",
+                "Günlük gerilimi hafifletmek isteyenler",
+                "Yolculuk sonrası toparlanma ihtiyacı olanlar"
+            ];
+            const fallbackNote =
+                "Hassasiyet, hamilelik veya özel durumlar için seans öncesinde terapiste bilgi verin; ritim size göre ayarlansın.";
+
+            const highlights = (Array.isArray(content.highlights) && content.highlights.length === 3) ? content.highlights : fallbackHighlights;
+            const flow = (Array.isArray(content.flow) && content.flow.length === 3) ? content.flow : fallbackFlow;
+            const ideal = (Array.isArray(content.ideal) && content.ideal.length === 3) ? content.ideal : fallbackIdeal;
+            const intro = content.intro || fallbackIntro;
+            const note = content.note || fallbackNote;
+
+            const detail = document.getElementById('serviceDetail');
+            if (!detail) return;
+            detail.replaceChildren();
+
+            // Breadcrumb
+            const breadcrumb = document.createElement('nav');
+            breadcrumb.setAttribute('aria-label', 'breadcrumb');
+            breadcrumb.className = 'breadcrumb';
+            const ol = document.createElement('ol');
+            ol.className = 'breadcrumb-list';
+
+            const items = [
+                { text: 'Ana Sayfa', href: 'index.html' },
+                { text: categoryNames[category] || 'Kategori', href: `index.html#${category || ''}` },
+                { text: service.name?.tr || 'Hizmet', href: null }
+            ];
+
+            items.forEach((item, idx) => {
+                const li = document.createElement('li');
+                li.className = 'breadcrumb-item';
+                if (idx > 0) {
+                    const sep = document.createElement('span');
+                    sep.className = 'breadcrumb-sep';
+                    sep.textContent = '›';
+                    li.appendChild(sep);
+                }
+                if (item.href) {
+                    const a = document.createElement('a');
+                    a.href = item.href;
+                    a.textContent = item.text;
+                    li.appendChild(a);
+                } else {
+                    const strong = document.createElement('strong');
+                    strong.textContent = item.text;
+                    li.appendChild(strong);
+                }
+                ol.appendChild(li);
+            });
+            breadcrumb.appendChild(ol);
+            detail.appendChild(breadcrumb);
+
+            const header = document.createElement('div');
+            header.className = 'detail-header';
+
+            const visual = document.createElement('div');
+            visual.className = 'detail-visual';
+            visual.setAttribute('aria-label', `${service.name?.tr || 'Hizmet'} – Santis Club`);
+            header.appendChild(visual);
+
+            const badges = document.createElement('div');
+            badges.className = 'detail-badges';
+
+            const durBadge = document.createElement('span');
+            durBadge.className = 'badge badge-duration';
+            durBadge.textContent = `${service.duration || service.durationMin || ''} dk`.trim();
+            badges.appendChild(durBadge);
+
+            if (service.badge) {
+                const b = document.createElement('span');
+                b.className = `badge badge-${service.badge}`;
+                b.textContent = badgeIcons[service.badge] || service.badge;
+                badges.appendChild(b);
+            }
+            header.appendChild(badges);
+
+            const title = document.createElement('h1');
+            title.className = 'detail-title';
+            title.textContent = service.name?.tr || 'Hizmet';
+            header.appendChild(title);
+
+            const desc = document.createElement('p');
+            desc.className = 'detail-desc';
+            desc.textContent = service.desc?.tr || '';
+            header.appendChild(desc);
+
+            detail.appendChild(header);
+
+            function buildSection(titleText, bodyBuilder) {
+                const sec = document.createElement('div');
+                sec.className = 'detail-section';
+                const h = document.createElement('h3');
+                h.className = 'section-title';
+                h.textContent = titleText;
+                sec.appendChild(h);
+                bodyBuilder(sec);
+                detail.appendChild(sec);
+            }
+
+            buildSection('Deneyimin Özeti', (sec) => {
+                const p = document.createElement('p');
+                p.className = 'detail-desc';
+                p.textContent = intro;
+                sec.appendChild(p);
+            });
+
+            buildSection('İmza Dokunuşlar', (sec) => {
+                const ul = document.createElement('ul');
+                ul.className = 'section-list';
+                highlights.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    ul.appendChild(li);
+                });
+                sec.appendChild(ul);
+            });
+
+            buildSection('Adım Adım', (sec) => {
+                const flowWrap = document.createElement('div');
+                flowWrap.className = 'flow-steps';
+                flow.forEach((item, idx) => {
+                    const step = document.createElement('div');
+                    step.className = 'flow-step';
+                    const num = document.createElement('span');
+                    num.className = 'step-number';
+                    num.textContent = String(idx + 1);
+                    const text = document.createElement('span');
+                    text.className = 'step-text';
+                    text.textContent = item;
+                    step.append(num, text);
+                    flowWrap.appendChild(step);
+                });
+                sec.appendChild(flowWrap);
+            });
+
+            buildSection('Kimlere Uygun?', (sec) => {
+                const ul = document.createElement('ul');
+                ul.className = 'section-list';
+                ideal.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    ul.appendChild(li);
+                });
+                sec.appendChild(ul);
+            });
+
+            buildSection('Nazik Not', (sec) => {
+                const noteBox = document.createElement('div');
+                noteBox.className = 'note-box';
+                const p = document.createElement('p');
+                p.textContent = note;
+                noteBox.appendChild(p);
+                sec.appendChild(noteBox);
+            });
+
+            const comboSlugs = Array.isArray(content.combos) ? content.combos : [];
+            const randomCombos = [];
+            if (comboSlugs.length === 0) {
+                for (const [cat, services] of Object.entries(allData || {})) {
+                    if (cat !== category && Array.isArray(services) && services.length) {
+                        randomCombos.push(services[Math.floor(Math.random() * services.length)]);
+                    }
+                }
+            }
+
+            const findBySlug = (slug) => {
+                for (const list of Object.values(allData || {})) {
+                    if (!Array.isArray(list)) continue;
+                    const found = list.find(s => s.slug === slug);
+                    if (found) return found;
+                }
+                return null;
+            };
+
+            buildSection('Mükemmel Eşleşmeler', (sec) => {
+                const grid = document.createElement('div');
+                grid.className = 'combo-grid';
+
+                if (comboSlugs.length) {
+                    comboSlugs.slice(0, 2).forEach(slug => {
+                        const found = findBySlug(slug);
+                        if (!found) return;
+                        const card = document.createElement('a');
+                        card.className = 'combo-card';
+                        card.href = `service-detail.html?slug=${encodeURIComponent(slug)}`;
+                        card.setAttribute('aria-label', `${found.name?.tr || 'Hizmet'} – Santis Club`);
+
+                        const name = document.createElement('div');
+                        name.className = 'combo-name';
+                        name.textContent = found.name?.tr || 'Hizmet';
+
+                        const d = document.createElement('div');
+                        d.className = 'combo-duration';
+                        d.textContent = `${found.duration || found.durationMin || ''} dk`.trim();
+
+                        card.append(name, d);
+                        grid.appendChild(card);
+                    });
+                } else {
+                    randomCombos.slice(0, 2).forEach(found => {
+                        if (!found || !found.slug) return;
+                        const card = document.createElement('a');
+                        card.className = 'combo-card';
+                        card.href = `service-detail.html?slug=${encodeURIComponent(found.slug)}`;
+                        card.setAttribute('aria-label', `${found.name?.tr || 'Hizmet'} – Santis Club`);
+
+                        const name = document.createElement('div');
+                        name.className = 'combo-name';
+                        name.textContent = found.name?.tr || 'Hizmet';
+
+                        const d = document.createElement('div');
+                        d.className = 'combo-duration';
+                        d.textContent = `${found.duration || found.durationMin || ''} dk`.trim();
+
+                        card.append(name, d);
+                        grid.appendChild(card);
+                    });
+                }
+
+                if (!grid.childElementCount) {
+                    const p = document.createElement('p');
+                    p.className = 'detail-desc';
+                    p.style.margin = "0";
+                    p.textContent = "Bu seans sonrasında uyumlu öneriler çok yakında.";
+                    grid.appendChild(p);
+                }
+
+                sec.appendChild(grid);
+            });
+
+            const ctaSection = document.createElement('div');
+            ctaSection.className = 'cta-section';
+            const cta = document.createElement('a');
+            cta.className = 'cta-button';
+            cta.href = `index.html#booking`;
+            cta.textContent = '📱 Rezervasyon Yap';
+            cta.onclick = () => sessionStorage.setItem('selectedService', service.name?.tr || '');
+            ctaSection.appendChild(cta);
+            detail.appendChild(ctaSection);
+
+            document.title = `${service.name?.tr || 'Hizmet'} — Santis Club Spa`;
+
+            // Canonical
+            const setCanonical = () => {
+                const head = document.head;
+                if (!head || head.querySelector('link[rel="canonical"]')) return;
+                let path = '';
+                try {
+                    if (typeof window.canonicalPath === 'function') {
+                        path = window.canonicalPath(currentLang, section, serviceSlug);
+                    } else {
+                        path = `/${currentLang || 'tr'}/${section}/${serviceSlug || ''}/`;
+                    }
+                } catch (_) {
+                    path = `/${currentLang || 'tr'}/${section}/${serviceSlug || ''}/`;
+                }
+                try {
+                    const fullUrl = new URL(path, window.location.origin).toString();
+                    const link = document.createElement('link');
+                    link.rel = 'canonical';
+                    link.href = fullUrl;
+                    head.appendChild(link);
+                } catch (_) {
+                    // skip silently
+                }
+            };
+
+            setCanonical();
+        }
+
+        function renderNotFound() {
+            document.getElementById('serviceDetail').innerHTML = `
+        <div style="text-align:center; padding:60px;">
+          <h2 style="color:var(--accent); margin-bottom:16px;">Hizmet Bulunamadı</h2>
+          <p style="color:var(--text-muted); margin-bottom:24px;">Aradığınız hizmet mevcut değil.</p>
+          <a href="index.html" style="color:var(--accent);">← Ana Sayfaya Dön</a>
+        </div>
+      `;
+        }
+
+        // --- RELATED PRODUCTS LOGIC ---
+        function renderRelatedProducts(productIds, container) {
+            if (typeof window.productsDB === 'undefined') {
+                const script = document.createElement('script');
+                script.src = 'assets/js/db.js';
+                script.onload = () => doRenderProducts(productIds, container);
+                document.body.appendChild(script);
+            } else {
+                doRenderProducts(productIds, container);
+            }
+        }
+
+        function doRenderProducts(ids, container) {
+            if (!ids || !ids.length || !window.productsDB) return;
+
+            const relevant = window.productsDB.filter(p => ids.includes(p.id));
+            if (!relevant.length) return;
+
+            const wrap = document.createElement('div');
+            wrap.className = 'detail-section';
+
+            const h = document.createElement('h3');
+            h.className = 'section-title';
+            h.textContent = 'Önerilen Ev Bakımı';
+            wrap.appendChild(h);
+
+            const grid = document.createElement('div');
+            grid.className = 'combo-grid';
+
+            relevant.forEach(p => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const currentLang = urlParams.get('lang') || 'tr';
+                const name = p.name?.[currentLang] || p.name?.tr;
+
+                const card = document.createElement('a');
+                card.className = 'combo-card';
+                card.href = `products.html?lang=${currentLang}`;
+                card.style.display = 'flex';
+                card.style.flexDirection = 'column';
+                card.style.gap = '8px';
+
+                if (p.img && !p.img.includes('placehold.co')) {
+                    const img = document.createElement('img');
+                    img.src = p.img;
+                    img.style.width = '100%';
+                    img.style.height = '120px';
+                    img.style.objectFit = 'cover';
+                    img.style.borderRadius = '8px';
+                    card.appendChild(img);
+                }
+
+                const title = document.createElement('div');
+                title.className = 'combo-name';
+                title.textContent = name;
+
+                const price = document.createElement('div');
+                price.className = 'combo-duration';
+                price.style.color = 'var(--accent)';
+                price.textContent = `${p.price}€`;
+
+                card.appendChild(title);
+                card.appendChild(price);
+                grid.appendChild(card);
+            });
+
+            wrap.appendChild(grid);
+
+            const cta = container.querySelector('.cta-section');
+            if (cta) {
+                container.insertBefore(wrap, cta);
+            } else {
+                container.appendChild(wrap);
+            }
+        }
+
+        const originalRender = renderService;
+        renderService = function (service, category, allData) {
+            originalRender(service, category, allData);
+            if (service.relatedProducts && service.relatedProducts.length) {
+                renderRelatedProducts(service.relatedProducts, document.getElementById('serviceDetail'));
+            }
+        };
+
+        // Init
+        if (slug) {
+            loadServiceDetail();
+        } else {
+            renderNotFound();
+        }
+    </script>
+    <!-- Perf metrics (Sprint 8.1) -->
+    <script src="assets/js/perf-metrics.js" defer></script>
+</body>
+
+</html>

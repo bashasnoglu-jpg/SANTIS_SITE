@@ -1,15 +1,10 @@
-/**
- * 🌐 Santis Club Ultra Test Runner (JSON Çıktılı)
- * UTF-8 no BOM
- */
+﻿/**
+* 🌐 Santis Club Ultra Test Runner (JSON Çıktılı)
+* UTF-8 no BOM
+*/
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-
-// ESM uyumlu __dirname alternatifi
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const fs = require("fs");
+const path = require("path");
 
 (async function santisFullReport() {
   console.log("🚀 Santis Club Test Runner (JSON Output) başlatılıyor...");
@@ -21,11 +16,15 @@ const __dirname = path.dirname(__filename);
   try {
     const jsonPath = path.join(__dirname, 'santis-hotels.json');
     if (!fs.existsSync(jsonPath)) {
-        throw new Error(`Kritik Hata: 'santis-hotels.json' dosyası bulunamadı. Dosya yolu: ${jsonPath}`);
+      throw new Error(`Kritik Hata: 'santis-hotels.json' dosyası bulunamadı. Dosya yolu: ${jsonPath}`);
     }
-    const jsonContent = fs.readFileSync(jsonPath, 'utf8');
+    let jsonContent = fs.readFileSync(jsonPath, 'utf8');
+    if (jsonContent.charCodeAt(0) === 0xFEFF) {
+      jsonContent = jsonContent.slice(1);
+    }
     const data = JSON.parse(jsonContent);
     const hotels = data.hotels;
+    const services = data.services || {};
 
     for (const hotel of hotels) {
       const hName = hotel.translations.tr.name;
@@ -37,7 +36,16 @@ const __dirname = path.dirname(__filename);
         await testURL(bookingURL, "Booking", hName, lang);
 
         for (const srv of hotel.featuredServices || []) {
-          const sURL = `service.html?hotel=${hotel.slug}&service=${srv.slug}&lang=${lang}`;
+          const srvId = typeof srv === 'object' ? srv.slug : srv;
+
+          // Mantıksal Kontrol: Servis ID veritabanında var mı?
+          if (!services[srvId]) {
+            console.log(`❌ [Data] Servis ID bulunamadı: ${srvId} (Otel: ${hName})`);
+            fail++;
+            results.push({ status: "fail", url: `DATA_INTEGRITY: ${srvId}`, hotel: hName, lang, type: "ServiceData", code: 404 });
+          }
+
+          const sURL = `service-detail.html?slug=${srvId}&lang=${lang}`;
           await testURL(sURL, "Service", hName, lang);
         }
       }

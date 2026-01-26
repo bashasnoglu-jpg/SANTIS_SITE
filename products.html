@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Santis Club • Products</title>
+
+    <script src="assets/js/perf-head.js"></script>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="images/icon-192.png">
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+    <!-- PRELOADER (istersen kalsın) -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-logo">Santis Club</div>
+    </div>
+
+    <!-- NAVBAR -->
+    <div id="navbar-container"></div>
+
+    <main id="nv-main">
+        <section class="hero-section products-hero">
+            <h1 class="hero-title">Products</h1>
+            <p class="products-hero-subtitle">HOME SPA COLLECTION</p>
+        </section>
+
+        <div class="section-container" id="products">
+            <div class="section-head">
+                <h2 class="section-title">Ürünler</h2>
+            </div>
+
+            <div class="grid-cards" id="grid-products"></div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <div id="footer-container"></div>
+
+    <!-- SCRIPTS -->
+    <script src="assets/js/db.js"></script>
+    <script src="assets/js/app.js?v=2.1"></script>
+    <script src="assets/js/perf-metrics.js" defer></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            async function loadComp(id, file) {
+                if (window.location.protocol === 'file:') {
+                    const el = document.getElementById(id);
+                    if (el) el.innerHTML = `<div style="text-align:center;padding:10px;background:#1a1a1a;color:#888;font-size:12px;border-bottom:1px solid #333;">⚠️ Yerel Mod: ${file} yüklenemedi (CORS). Lütfen Live Server kullanın.</div>`;
+                    return;
+                }
+                try {
+                    const res = await fetch(file);
+                    if (res.ok) {
+                        const el = document.getElementById(id);
+                        el.innerHTML = await res.text();
+                        // Execute scripts in injected content
+                        el.querySelectorAll("script").forEach(s => {
+                            const ns = document.createElement("script");
+                            ns.text = s.innerHTML;
+                            s.parentNode.replaceChild(ns, s);
+                        });
+                    }
+                } catch (e) { console.warn("Component load failed", e); }
+            }
+
+            loadComp("navbar-container", "components/navbar.html");
+            loadComp("footer-container", "components/footer.html");
+
+            // Preloader
+            setTimeout(() => {
+                const p = document.getElementById('preloader');
+                if (p) p.classList.add('hidden');
+            }, 600);
+
+            // Category Definitions (Maps to db.js 'cat' field)
+            const categories = [
+                { id: 'all', label: { tr: 'Tümü', en: 'All' } },
+                { id: 'hammam', label: { tr: 'Hamam Ritüeli', en: 'Hammam Ritual' } },
+                { id: 'aroma', label: { tr: 'Aromaterapi', en: 'Aromatherapy' } },
+                { id: 'body', label: { tr: 'Vücut Bakımı', en: 'Body Care' } },
+                { id: 'textile', label: { tr: 'Tekstil & Bornoz', en: 'Textiles & Robes' } },
+                { id: 'gift', label: { tr: 'Hediye Setleri', en: 'Gift Sets' } },
+                { id: 'boutique', label: { tr: 'Sothys Butik', en: 'Sothys Boutique' } }
+            ];
+
+            // Render Tabs
+            const productsContainer = document.getElementById('products');
+            const grid = document.getElementById("grid-products");
+
+            // Insert Tabs HTML before grid if not exists
+            if (!document.getElementById('product-tabs')) {
+                const tabsEl = document.createElement('div');
+                tabsEl.id = 'product-tabs';
+                tabsEl.className = 'lux-chip-row';
+                tabsEl.style.justifyContent = 'center';
+                tabsEl.style.marginBottom = '40px';
+
+                // Get current lang for labels
+                const urlParams = new URLSearchParams(window.location.search);
+                const currentLang = urlParams.get('lang') || localStorage.getItem('santis_hotel_lang') || 'tr';
+
+                tabsEl.innerHTML = categories.map(c => `
+                    <button class="lux-chip ${c.id === 'all' ? 'active' : ''}" 
+                            onclick="filterProducts('${c.id}', this)"
+                            style="${c.id === 'all' ? 'background:rgba(212,175,55,0.2); border-color:#d4af37;' : ''}">
+                        ${c.label[currentLang] || c.label.en}
+                    </button>
+                `).join('');
+
+                productsContainer.insertBefore(tabsEl, grid);
+            }
+
+            // Global Filter Function
+            window.filterProducts = (catId, btnElement) => {
+                // Update active state
+                document.querySelectorAll('#product-tabs .lux-chip').forEach(b => {
+                    b.style.background = 'rgba(255,255,255,0.03)';
+                    b.style.borderColor = 'rgba(255,255,255,0.1)';
+                });
+                if (btnElement) {
+                    btnElement.style.background = 'rgba(212,175,55,0.2)';
+                    btnElement.style.borderColor = '#d4af37';
+                }
+
+                renderProducts(catId);
+            };
+
+            // Main Render Function
+            function renderProducts(filterCat = 'all') {
+                const items = window.productsDB || [];
+                const urlParams = new URLSearchParams(window.location.search);
+                const currentLang = urlParams.get('lang') || localStorage.getItem('santis_hotel_lang') || 'tr';
+
+                // Translation for Button
+                const btnLabel = {
+                    tr: "SEPETE EKLE", en: "ADD TO BAG", de: "IN DEN WARENKORB",
+                    fr: "AJOUTER", ru: "В КОРЗИНУ"
+                };
+                const label = btnLabel[currentLang] || btnLabel.en;
+
+                if (!items.length) {
+                    grid.innerHTML = `<div style="opacity:.7; padding:40px; text-align:center;">No products data.</div>`;
+                    return;
+                }
+
+                // Filter
+                const filtered = filterCat === 'all'
+                    ? items
+                    : items.filter(i => i.cat === filterCat);
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = `<div style="opacity:.5; padding:40px; text-align:center; width:100%;">Bu kategoride ürün bulunamadı.</div>`;
+                    return;
+                }
+
+                grid.innerHTML = filtered.map(p => {
+                    const name = p.name?.[currentLang] || p.name?.tr || "Product";
+                    // Fallback to EN if TR desc is missing? Or just empty
+                    const desc = p.desc?.[currentLang] || p.desc?.en || "";
+
+                    return `
+                    <div class="product-card reveal-on-scroll">
+                      <div class="product-img-wrap">
+                        <img src="${p.img}" alt="${name}" loading="lazy" decoding="async" width="600" height="600" />
+                      </div>
+                      <div class="product-content">
+                        <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:0.5rem;">
+                            <h3 class="product-title" style="margin:0; font-size:1.1rem;">${name}</h3>
+                        </div>
+                        <p class="product-desc" style="min-height:40px;">${desc}</p>
+                        <div class="product-footer">
+                          <span class="product-price">${p.price}€</span>
+                          <button onclick='SHOP.addToCart(${JSON.stringify(p).replace(/'/g, "&#39;")})' 
+                                  class="product-btn" style="cursor:pointer; font-size:0.8rem; padding:8px 16px;">
+                             ${label}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }).join('');
+            }
+
+            // Initial Render
+            setTimeout(() => {
+                renderProducts('all');
+            }, 100);
+        });
+    </script>
+    <script src="assets/js/shop.js"></script>
+</body>
+
+</html>

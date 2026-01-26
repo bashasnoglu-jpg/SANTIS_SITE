@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 🧩 Santis Club – UTF-8 Doğrulama ve Düzeltme Testi
  * Bu script, proje dosyalarının UTF-8 (no BOM) kodlamayla kaydedilip kaydedilmediğini kontrol eder.
  * BOM tespit edilirse otomatik olarak temizler.
@@ -14,11 +14,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Kontrol edilecek dosyalar:
 const files = [
-  "../index.html",
-  "../hotel.html",
-  "../booking.html",
-  "../santis-hotels.json",
-  "./ultra-test.js"
+  "index.html",
+  "hotel.html",
+  "booking.html",
+  "gallery.html",
+  "santis-hotels.json",
+  "ultra-test.js"
 ];
 
 // UTF-8 BOM bayt dizisi
@@ -46,7 +47,7 @@ files.forEach((file) => {
     }
 
     let buffer = fs.readFileSync(fullPath);
-    
+
     // BOM Kontrolü ve Düzeltme
     if (hasBOM(buffer)) {
       console.log(`⚠️  BOM tespit edildi: ${path.basename(file)} -> Temizleniyor...`);
@@ -64,3 +65,4 @@ files.forEach((file) => {
 });
 
 console.log("\n🔍 Kontrol tamamlandı.\n");
+

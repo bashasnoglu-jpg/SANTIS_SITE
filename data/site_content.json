@@ -65,19 +65,19 @@
                 "key": "signatureCouples",
                 "route": "signature",
                 "sectionKey": "services",
-                        "categoryId": "signatureCouples"
+                "categoryId": "signatureCouples"
             },
             {
                 "key": "kidsFamily",
                 "route": "kids",
                 "sectionKey": "services",
-                        "categoryId": "kidsFamily"
+                "categoryId": "kidsFamily"
             },
             {
                 "key": "faceSothys",
                 "route": "face",
                 "sectionKey": "services",
-                        "categoryId": "faceSothys"
+                "categoryId": "faceSothys"
             },
             {
                 "key": "products",
@@ -110,34 +110,58 @@
                         "name": "Alba Resort Hotel",
                         "location": "Çolaklı / Side, Antalya",
                         "description": "Side sahilinde geleneksel hamam ritüelleri, terapi masajları ve yenileyici bakım deneyimi.",
-                        "top3": ["Geleneksel Türk Hamamı", "Çiftler için Signature Masajı", "Derin Doku / Spor Masajı"]
+                        "top3": [
+                            "Geleneksel Türk Hamamı",
+                            "Çiftler için Signature Masajı",
+                            "Derin Doku / Spor Masajı"
+                        ]
                     },
                     "en": {
                         "name": "Alba Resort Hotel",
                         "location": "Çolaklı / Side, Antalya",
                         "description": "Experience authentic Turkish bath rituals, therapy massages, and rejuvenating care on the Side coast.",
-                        "top3": ["Traditional Turkish Hammam", "Signature Couples Massage", "Deep Tissue / Sports Massage"]
+                        "top3": [
+                            "Traditional Turkish Hammam",
+                            "Signature Couples Massage",
+                            "Deep Tissue / Sports Massage"
+                        ]
                     },
                     "de": {
                         "name": "Alba Resort Hotel",
                         "location": "Çolaklı / Side, Antalya",
                         "description": "Authentische türkische Hammam-Rituale, therapeutische Massagen und regenerierende Behandlungen an der Küste von Side.",
-                        "top3": ["Traditionelles Türkisches Hammam", "Signature Paarmassage", "Tiefengewebs- / Sportmassage"]
+                        "top3": [
+                            "Traditionelles Türkisches Hammam",
+                            "Signature Paarmassage",
+                            "Tiefengewebs- / Sportmassage"
+                        ]
                     },
                     "fr": {
                         "name": "Alba Resort Hotel",
                         "location": "Çolaklı / Side, Antalya",
                         "description": "Rituels de hammam turc, massages thérapeutiques et soins revitalisants sur la côte de Side.",
-                        "top3": ["Hammam turc traditionnel", "Massage Signature en couple", "Massage profond / sportif"]
+                        "top3": [
+                            "Hammam turc traditionnel",
+                            "Massage Signature en couple",
+                            "Massage profond / sportif"
+                        ]
                     },
                     "ru": {
                         "name": "Alba Resort Hotel",
                         "location": "Чолаклы / Сиде, Анталья",
                         "description": "Традиционные хаммам-ритуалы, терапевтические массажи и омолаживающие процедуры на побережье Сиде.",
-                        "top3": ["Традиционный турецкий хаммам", "Парный массаж Signature", "Глубокотканный / спортивный массаж"]
+                        "top3": [
+                            "Традиционный турецкий хаммам",
+                            "Парный массаж Signature",
+                            "Глубокотканный / спортивный массаж"
+                        ]
                     }
                 },
-                "featuredServices": ["hammam_traditional_ritual", "couples_signature", "deep_tissue"]
+                "featuredServices": [
+                    "hammam_traditional_ritual",
+                    "couples_signature",
+                    "deep_tissue"
+                ]
             },
             {
                 "slug": "alba-queen",
@@ -147,34 +171,58 @@
                         "name": "Alba Queen Hotel",
                         "location": "Çolaklı / Side, Antalya",
                         "description": "Premium spa konseptinde kişiselleştirilmiş masajlar ve rahatlatıcı hamam deneyimi.",
-                        "top3": ["Geleneksel Türk Hamamı", "Çiftler için Signature Masajı", "Derin Doku / Spor Masajı"]
+                        "top3": [
+                            "Geleneksel Türk Hamamı",
+                            "Çiftler için Signature Masajı",
+                            "Derin Doku / Spor Masajı"
+                        ]
                     },
                     "en": {
                         "name": "Alba Queen Hotel",
                         "location": "Çolaklı / Side, Antalya",
                         "description": "Premium spa concept offering personalized massages and relaxing hammam experiences.",
-                        "top3": ["Traditional Turkish Hammam", "Signature Couples Massage", "Deep Tissue / Sports Massage"]
+                        "top3": [
+                            "Traditional Turkish Hammam",
+                            "Signature Couples Massage",
+                            "Deep Tissue / Sports Massage"
+                        ]
                     },
                     "de": {
                         "name": "Alba Queen Hotel",
                         "location": "Çolaklı / Side, Antalya",
                         "description": "Premium-Spa-Konzept mit personalisierten Massagen und entspannenden Hammam-Erlebnissen.",
-                        "top3": ["Traditionelles Türkisches Hammam", "Signature Paarmassage", "Tiefengewebs- / Sportmassage"]
+                        "top3": [
+                            "Traditionelles Türkisches Hammam",
+                            "Signature Paarmassage",
+                            "Tiefengewebs- / Sportmassage"
+                        ]
                     },
                     "fr": {
                         "name": "Alba Queen Hotel",
                         "location": "Çolaklı / Side, Antalya",
                         "description": "Concept spa premium avec massages personnalisés et expérience hammam relaxante.",
-                        "top3": ["Hammam turc traditionnel", "Massage Signature en couple", "Massage profond / sportif"]
+                        "top3": [
+                            "Hammam turc traditionnel",
+                            "Massage Signature en couple",
+                            "Massage profond / sportif"
+                        ]
                     },
                     "ru": {
                         "name": "Alba Queen Hotel",
                         "location": "Чолаклы / Сиде, Анталья",
                         "description": "Премиум SPA-концепция с индивидуальными массажами и расслабляющим опытом хаммама.",
-                        "top3": ["Традиционный турецкий хаммам", "Парный массаж Signature", "Глубокотканный / спортивный массаж"]
+                        "top3": [
+                            "Традиционный турецкий хаммам",
+                            "Парный массаж Signature",
+                            "Глубокотканный / спортивный массаж"
+                        ]
                     }
                 },
-                "featuredServices": ["hammam_traditional_ritual", "couples_signature", "deep_tissue"]
+                "featuredServices": [
+                    "hammam_traditional_ritual",
+                    "couples_signature",
+                    "deep_tissue"
+                ]
             },
             {
                 "slug": "alba-royal",
@@ -184,34 +232,58 @@
                         "name": "Alba Royal Hotel",
                         "location": "Çolaklı / Side, Antalya",
                         "description": "Sakin atmosferiyle hamam, masaj ve yüz bakımlarında huzurlu bir spa deneyimi.",
-                        "top3": ["Geleneksel Türk Hamamı", "Çiftler için Signature Masajı", "Derin Doku / Spor Masajı"]
+                        "top3": [
+                            "Geleneksel Türk Hamamı",
+                            "Çiftler için Signature Masajı",
+                            "Derin Doku / Spor Masajı"
+                        ]
                     },
                     "en": {
                         "name": "Alba Royal Hotel",
                         "location": "Çolaklı / Side, Antalya",
                         "description": "Calm atmosphere offering hammam, massage, and facial care for a peaceful spa experience.",
-                        "top3": ["Traditional Turkish Hammam", "Signature Couples Massage", "Deep Tissue / Sports Massage"]
+                        "top3": [
+                            "Traditional Turkish Hammam",
+                            "Signature Couples Massage",
+                            "Deep Tissue / Sports Massage"
+                        ]
                     },
                     "de": {
                         "name": "Alba Royal Hotel",
                         "location": "Çolaklı / Side, Antalya",
                         "description": "Ruhige Atmosphäre mit Hammam, Massage und Gesichtsbehandlungen für ein entspanntes Spa-Erlebnis.",
-                        "top3": ["Traditionelles Türkisches Hammam", "Signature Paarmassage", "Tiefengewebs- / Sportmassage"]
+                        "top3": [
+                            "Traditionelles Türkisches Hammam",
+                            "Signature Paarmassage",
+                            "Tiefengewebs- / Sportmassage"
+                        ]
                     },
                     "fr": {
                         "name": "Alba Royal Hotel",
                         "location": "Çolaklı / Side, Antalya",
                         "description": "Ambiance apaisante offrant hammam, massages et soins du visage pour une expérience spa sereine.",
-                        "top3": ["Hammam turc traditionnel", "Massage Signature en couple", "Massage profond / sportif"]
+                        "top3": [
+                            "Hammam turc traditionnel",
+                            "Massage Signature en couple",
+                            "Massage profond / sportif"
+                        ]
                     },
                     "ru": {
                         "name": "Alba Royal Hotel",
                         "location": "Чолаклы / Сиде, Анталья",
                         "description": "Спокойная атмосфера, хаммам, массаж и уход за лицом для полного релакса.",
-                        "top3": ["Традиционный турецкий хаммам", "Парный массаж Signature", "Глубокотканный / спортивный массаж"]
+                        "top3": [
+                            "Традиционный турецкий хаммам",
+                            "Парный массаж Signature",
+                            "Глубокотканный / спортивный массаж"
+                        ]
                     }
                 },
-                "featuredServices": ["hammam_traditional_ritual", "couples_signature", "deep_tissue"]
+                "featuredServices": [
+                    "hammam_traditional_ritual",
+                    "couples_signature",
+                    "deep_tissue"
+                ]
             },
             {
                 "slug": "iberostar-bellevue",
@@ -221,34 +293,58 @@
                         "name": "Iberostar Waves Bellevue",
                         "location": "Bečići / Budva, Karadağ",
                         "description": "Adriyatik kıyısında, tatilin ritmini tamamlayan spa ritüelleri ve masajlarla iyi hissetme deneyimi.",
-                        "top3": ["Geleneksel Türk Hamamı", "Çiftler için Signature Masajı", "Derin Doku / Spor Masajı"]
+                        "top3": [
+                            "Geleneksel Türk Hamamı",
+                            "Çiftler için Signature Masajı",
+                            "Derin Doku / Spor Masajı"
+                        ]
                     },
                     "en": {
                         "name": "Iberostar Waves Bellevue",
                         "location": "Bečići / Budva, Montenegro",
                         "description": "On the Adriatic coast, enjoy spa rituals and massages that complete your holiday rhythm.",
-                        "top3": ["Traditional Turkish Hammam", "Signature Couples Massage", "Deep Tissue / Sports Massage"]
+                        "top3": [
+                            "Traditional Turkish Hammam",
+                            "Signature Couples Massage",
+                            "Deep Tissue / Sports Massage"
+                        ]
                     },
                     "de": {
                         "name": "Iberostar Waves Bellevue",
                         "location": "Bečići / Budva, Montenegro",
                         "description": "An der Adriaküste – Spa-Rituale und Massagen, die Ihren Urlaub perfekt ergänzen.",
-                        "top3": ["Traditionelles Türkisches Hammam", "Signature Paarmassage", "Tiefengewebs- / Sportmassage"]
+                        "top3": [
+                            "Traditionelles Türkisches Hammam",
+                            "Signature Paarmassage",
+                            "Tiefengewebs- / Sportmassage"
+                        ]
                     },
                     "fr": {
                         "name": "Iberostar Waves Bellevue",
                         "location": "Bečići / Budva, Monténégro",
                         "description": "Sur la côte adriatique, rituels spa et massages pour compléter le rythme de vos vacances.",
-                        "top3": ["Hammam turc traditionnel", "Massage Signature en couple", "Massage profond / sportif"]
+                        "top3": [
+                            "Hammam turc traditionnel",
+                            "Massage Signature en couple",
+                            "Massage profond / sportif"
+                        ]
                     },
                     "ru": {
                         "name": "Iberostar Waves Bellevue",
                         "location": "Бечичи / Будва, Черногория",
                         "description": "На побережье Адриатики — спа-ритуалы и массажи, которые завершают ваш отдых.",
-                        "top3": ["Традиционный турецкий хаммам", "Парный массаж Signature", "Глубокотканный / спортивный массаж"]
+                        "top3": [
+                            "Традиционный турецкий хаммам",
+                            "Парный массаж Signature",
+                            "Глубокотканный / спортивный массаж"
+                        ]
                     }
                 },
-                "featuredServices": ["hammam_traditional_ritual", "couples_signature", "deep_tissue"]
+                "featuredServices": [
+                    "hammam_traditional_ritual",
+                    "couples_signature",
+                    "deep_tissue"
+                ]
             }
         ],
         "categories": [
@@ -333,7 +429,10 @@
                 "durationMin": 60,
                 "price": 110,
                 "currency": "EUR",
-                "hotelSlugs": ["alba-resort", "alba-royal"]
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-royal"
+                ]
             },
             "hammam_foam": {
                 "categoryId": "hammam",
@@ -354,7 +453,9 @@
                 "durationMin": 45,
                 "price": 85,
                 "currency": "EUR",
-                "hotelSlugs": ["alba-royal"]
+                "hotelSlugs": [
+                    "alba-royal"
+                ]
             },
             "relax_aroma": {
                 "categoryId": "classicMassages",
@@ -375,7 +476,10 @@
                 "durationMin": 60,
                 "price": 120,
                 "currency": "EUR",
-                "hotelSlugs": ["alba-resort", "iberostar-bellevue"]
+                "hotelSlugs": [
+                    "alba-resort",
+                    "iberostar-bellevue"
+                ]
             },
             "swedish_classic": {
                 "categoryId": "classicMassages",
@@ -396,7 +500,10 @@
                 "durationMin": 50,
                 "price": 105,
                 "currency": "EUR",
-                "hotelSlugs": ["alba-resort", "alba-royal"]
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-royal"
+                ]
             },
             "deep_tissue": {
                 "categoryId": "sportsTherapy",
@@ -417,7 +524,10 @@
                 "durationMin": 60,
                 "price": 140,
                 "currency": "EUR",
-                "hotelSlugs": ["alba-queen", "iberostar-bellevue"]
+                "hotelSlugs": [
+                    "alba-queen",
+                    "iberostar-bellevue"
+                ]
             },
             "sports_recovery": {
                 "categoryId": "sportsTherapy",
@@ -438,7 +548,9 @@
                 "durationMin": 60,
                 "price": 135,
                 "currency": "EUR",
-                "hotelSlugs": ["alba-royal"]
+                "hotelSlugs": [
+                    "alba-royal"
+                ]
             },
             "thai_traditional": {
                 "categoryId": "asianMassages",
@@ -459,7 +571,9 @@
                 "durationMin": 60,
                 "price": 130,
                 "currency": "EUR",
-                "hotelSlugs": ["alba-queen"]
+                "hotelSlugs": [
+                    "alba-queen"
+                ]
             },
             "balinese": {
                 "categoryId": "asianMassages",
@@ -480,7 +594,9 @@
                 "durationMin": 60,
                 "price": 125,
                 "currency": "EUR",
-                "hotelSlugs": ["iberostar-bellevue"]
+                "hotelSlugs": [
+                    "iberostar-bellevue"
+                ]
             },
             "ayurveda_abhyanga": {
                 "categoryId": "ayurveda",
@@ -501,7 +617,9 @@
                 "durationMin": 75,
                 "price": 160,
                 "currency": "EUR",
-                "hotelSlugs": ["alba-royal"]
+                "hotelSlugs": [
+                    "alba-royal"
+                ]
             },
             "shirodhara": {
                 "categoryId": "ayurveda",
@@ -522,7 +640,9 @@
                 "durationMin": 60,
                 "price": 170,
                 "currency": "EUR",
-                "hotelSlugs": ["alba-royal"]
+                "hotelSlugs": [
+                    "alba-royal"
+                ]
             },
             "couples_signature": {
                 "categoryId": "signatureCouples",
@@ -543,7 +663,10 @@
                 "durationMin": 60,
                 "price": 180,
                 "currency": "EUR",
-                "hotelSlugs": ["alba-resort", "alba-queen"]
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-queen"
+                ]
             },
             "santis_signature": {
                 "categoryId": "signatureCouples",
@@ -564,7 +687,10 @@
                 "durationMin": 60,
                 "price": 150,
                 "currency": "EUR",
-                "hotelSlugs": ["alba-queen", "iberostar-bellevue"]
+                "hotelSlugs": [
+                    "alba-queen",
+                    "iberostar-bellevue"
+                ]
             },
             "kids_choco_massage": {
                 "categoryId": "kidsFamily",
@@ -585,7 +711,10 @@
                 "durationMin": 30,
                 "price": 65,
                 "currency": "EUR",
-                "hotelSlugs": ["alba-resort", "alba-queen"]
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-queen"
+                ]
             },
             "face_sothys_hydra": {
                 "categoryId": "faceSothys",
@@ -606,7 +735,10 @@
                 "durationMin": 50,
                 "price": 125,
                 "currency": "EUR",
-                "hotelSlugs": ["alba-resort", "iberostar-bellevue"]
+                "hotelSlugs": [
+                    "alba-resort",
+                    "iberostar-bellevue"
+                ]
             },
             "face_sothys_glow": {
                 "categoryId": "faceSothys",
@@ -627,7 +759,329 @@
                 "durationMin": 50,
                 "price": 135,
                 "currency": "EUR",
-                "hotelSlugs": ["alba-queen"]
+                "hotelSlugs": [
+                    "alba-queen"
+                ]
+            },
+            "sothys_radiance": {
+                "id": "sothys_radiance",
+                "slug": "sothys-organics-radiance",
+                "duration": 30,
+                "badge": "express",
+                "name": {
+                    "tr": "Sothys Organics® Işıltı Bakımı",
+                    "en": "Sothys Organics® Organic Certified Radiance Treatment",
+                    "de": "Sothys Organics® Bio-Radiance Behandlung",
+                    "fr": "Sothys Organics® Soin éclat certifié bio",
+                    "ru": "Sothys Organics® Органический уход «Сияние»"
+                },
+                "desc": {
+                    "tr": "Anında ışıltı. Tüm cilt tipleri (hassas dahil).",
+                    "en": "Instant radiance. All skin types (even sensitive).",
+                    "de": "Sofortiger Glow. Für alle Hauttypen (auch sensibel).",
+                    "fr": "Éclat immédiat. Tous types de peau (même sensibles).",
+                    "ru": "Мгновенное сияние. Для всех типов кожи (включая чувствительную)."
+                },
+                "content": {},
+                "categoryId": "faceSothys",
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-royal",
+                    "alba-queen",
+                    "iberostar-bellevue"
+                ],
+                "price": 0,
+                "currency": "EUR"
+            },
+            "sothys_seasonal": {
+                "id": "sothys_seasonal",
+                "slug": "sothys-seasonal",
+                "duration": 45,
+                "name": {
+                    "tr": "Sothys Seasonal Oksijenlendirici Bakım",
+                    "en": "Sothys Seasonal Oxygenating Treatment",
+                    "de": "Sothys Seasonal Oxygenating Behandlung",
+                    "fr": "Sothys Soin saisonnier oxygénant",
+                    "ru": "Sothys Сезонный кислородный уход"
+                },
+                "desc": {
+                    "tr": "Mevsimsel canlandırma: peeling + maske + rahatlatıcı modelaj.",
+                    "en": "Seasonal boost: exfoliation + mask + relaxing modelling.",
+                    "de": "Saisonaler Boost: Peeling + Maske + entspannende Modellage.",
+                    "fr": "Boost saisonnier : gommage + masque + modelage relaxant.",
+                    "ru": "Сезонное обновление: пилинг + маска + расслабляющий массаж."
+                },
+                "content": {},
+                "categoryId": "faceSothys",
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-royal",
+                    "alba-queen",
+                    "iberostar-bellevue"
+                ],
+                "price": 0,
+                "currency": "EUR"
+            },
+            "sothys_soothing_spa": {
+                "id": "sothys_soothing_spa",
+                "slug": "sothys-soothing",
+                "duration": 50,
+                "name": {
+                    "tr": "Spa™ Termal Su ile Yatıştırıcı Bakım",
+                    "en": "Soothing Professional Treatment with Spa™ Thermal Water",
+                    "de": "Beruhigende Profi-Behandlung mit Spa™ Thermalwasser",
+                    "fr": "Soin professionnel apaisant à l’Eau Thermale Spa™",
+                    "ru": "Успокаивающий профессиональный уход со Spa™ термальной водой"
+                },
+                "desc": {
+                    "tr": "Konfor ve sakinlik odaklı; hassasiyete nazik yaklaşım.",
+                    "en": "Comfort & calm—gentle care for sensitive skin.",
+                    "de": "Komfort & Ruhe—sanfte Pflege für sensible Haut.",
+                    "fr": "Confort & apaisement—pour peaux sensibles.",
+                    "ru": "Комфорт и успокоение — деликатный уход для чувствительной кожи."
+                },
+                "content": {},
+                "categoryId": "faceSothys",
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-royal",
+                    "alba-queen",
+                    "iberostar-bellevue"
+                ],
+                "price": 0,
+                "currency": "EUR"
+            },
+            "sothys_cryo_eye": {
+                "id": "sothys_cryo_eye",
+                "slug": "sothys-cryo-eye",
+                "duration": 45,
+                "name": {
+                    "tr": "Sothys Cryo Eye Profesyonel Göz Bakımı",
+                    "en": "Sothys Cryo Eye Professional Treatment",
+                    "de": "Sothys Cryo Eye Profi-Augenbehandlung",
+                    "fr": "Sothys Soin professionnel Cryo Yeux",
+                    "ru": "Sothys Профессиональный Cryo-уход для глаз"
+                },
+                "desc": {
+                    "tr": "Göz çevresinde ferahlık ve daha dinlenmiş görünüm.",
+                    "en": "Refreshing eye contour for a rested look.",
+                    "de": "Erfrischte Augenpartie für einen wachen Blick.",
+                    "fr": "Contour des yeux rafraîchi, regard reposé.",
+                    "ru": "Освежает область вокруг глаз для отдохнувшего вида."
+                },
+                "content": {},
+                "categoryId": "faceSothys",
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-royal",
+                    "alba-queen",
+                    "iberostar-bellevue"
+                ],
+                "price": 0,
+                "currency": "EUR"
+            },
+            "sothys_hydra_new": {
+                "id": "sothys_hydra_new",
+                "slug": "sothys-hydra-ha4",
+                "duration": 75,
+                "name": {
+                    "tr": "Hydra Hyaluronic Acid4 (Yoğun Nem Bakımı)",
+                    "en": "Hydrating Intensive Treatment (Hydra Hyaluronic Acid4)",
+                    "de": "Hydrating Intensive Behandlung (Hydra Hyaluronic Acid4)",
+                    "fr": "Soin intensif hydratant (Hydra Hyaluronic Acid4)",
+                    "ru": "Интенсивное увлажнение (Hydra Hyaluronic Acid4)"
+                },
+                "desc": {
+                    "tr": "6 aşamalı yoğun nem; dolgunluk ve tazelik hissi.",
+                    "en": "6-step intensive hydration; plumped, fresh-feeling skin.",
+                    "de": "6 Schritte intensive Hydration; pralle, frische Haut.",
+                    "fr": "Hydratation intensive en 6 étapes; peau repulpée.",
+                    "ru": "6 этапов интенсивного увлажнения; ощущение наполненности."
+                },
+                "content": {},
+                "categoryId": "faceSothys",
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-royal",
+                    "alba-queen",
+                    "iberostar-bellevue"
+                ],
+                "price": 0,
+                "currency": "EUR"
+            },
+            "sothys_detox_new": {
+                "id": "sothys_detox_new",
+                "slug": "sothys-detox-energie",
+                "duration": 75,
+                "name": {
+                    "tr": "Detox Energie™ Yoğun Bakım",
+                    "en": "Detox Energie™ Intensive Treatment",
+                    "de": "Detox Energie™ Intensive Behandlung",
+                    "fr": "Soin intensif Detox Energie™",
+                    "ru": "Detox Energie™ Интенсивный уход"
+                },
+                "desc": {
+                    "tr": "Enerji desteği ve ‘depolluted’ görünüm odağı.",
+                    "en": "Energy boost with a ‘depolluted’ looking complexion focus.",
+                    "de": "Energie-Boost mit Fokus auf ein ‘entlastet’ wirkendes Hautbild.",
+                    "fr": "Coup d’énergie avec focus ‘teint dépollué’.",
+                    "ru": "Энергия и акцент на «очищенный» вид кожи."
+                },
+                "content": {},
+                "categoryId": "faceSothys",
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-royal",
+                    "alba-queen",
+                    "iberostar-bellevue"
+                ],
+                "price": 0,
+                "currency": "EUR"
+            },
+            "sothys_glow_defense": {
+                "id": "sothys_glow_defense",
+                "slug": "sothys-glow-defense",
+                "duration": 75,
+                "name": {
+                    "tr": "Glow Defense Yoğun Bakım",
+                    "en": "Glow Defense Intensive Treatment",
+                    "de": "Glow Defense Intensive Behandlung",
+                    "fr": "Soin intensif Glow Defense",
+                    "ru": "Glow Defense Интенсивный уход"
+                },
+                "desc": {
+                    "tr": "Işıltı ve koruma odağı; şehir temposuna karşı bakım hissi.",
+                    "en": "Glow + defense focus—ideal for urban life stressors.",
+                    "de": "Glow + Schutz—ideal gegen urbane Stressfaktoren.",
+                    "fr": "Éclat + protection—idéal face au stress urbain.",
+                    "ru": "Сияние + защита — идеально при городской нагрузке."
+                },
+                "content": {},
+                "categoryId": "faceSothys",
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-royal",
+                    "alba-queen",
+                    "iberostar-bellevue"
+                ],
+                "price": 0,
+                "currency": "EUR"
+            },
+            "sothys_youth_intensive": {
+                "id": "sothys_youth_intensive",
+                "slug": "sothys-youth-intensive",
+                "duration": 75,
+                "name": {
+                    "tr": "Youth Intensive (Gençlik Yoğun Bakım)",
+                    "en": "Youth Intensive Treatment",
+                    "de": "Youth Intensive Behandlung",
+                    "fr": "Soin intensif Jeunesse",
+                    "ru": "Youth Intensive — Интенсивный уход"
+                },
+                "desc": {
+                    "tr": "Daha genç görünüm ve sıkılık hissi odaklı protokol.",
+                    "en": "Expert protocol focused on a visibly younger look & firmness feel.",
+                    "de": "Expertenprotokoll für sichtbar jüngeren Look & Festigkeit.",
+                    "fr": "Protocole expert pour un effet jeunesse & fermeté.",
+                    "ru": "Эксперт-протокол для более молодого вида и упругости."
+                },
+                "content": {},
+                "categoryId": "faceSothys",
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-royal",
+                    "alba-queen",
+                    "iberostar-bellevue"
+                ],
+                "price": 0,
+                "currency": "EUR"
+            },
+            "sothys_dermo_booster": {
+                "id": "sothys_dermo_booster",
+                "slug": "sothys-dermo-booster",
+                "duration": 45,
+                "name": {
+                    "tr": "Dermo_Booster Double Peel (Çift Peeling)",
+                    "en": "Dermo_Booster Double Peel Professional Treatment",
+                    "de": "Dermo_Booster Double Peel Profi-Behandlung",
+                    "fr": "Dermo_Booster Double Peel — Soin professionnel",
+                    "ru": "Dermo_Booster Double Peel — Профессиональный уход"
+                },
+                "desc": {
+                    "tr": "Enzim + asit peeling kombinasyonu (AHA/BHA/PHA).",
+                    "en": "Enzymatic peel + acid peel combination (AHA/BHA/PHA).",
+                    "de": "Enzympeeling + Säurepeeling (AHA/BHA/PHA).",
+                    "fr": "Peeling enzymatique + peeling acide (AHA/BHA/PHA).",
+                    "ru": "Ферментный + кислотный пилинг (AHA/BHA/PHA)."
+                },
+                "content": {},
+                "categoryId": "faceSothys",
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-royal",
+                    "alba-queen",
+                    "iberostar-bellevue"
+                ],
+                "price": 0,
+                "currency": "EUR"
+            },
+            "sothys_glysalac": {
+                "id": "sothys_glysalac",
+                "slug": "sothys-glysalac",
+                "duration": 45,
+                "name": {
+                    "tr": "Glysalac Pro Peel",
+                    "en": "Glysalac Pro Peel Treatment",
+                    "de": "Glysalac Pro Peel Behandlung",
+                    "fr": "Glysalac Pro Peel",
+                    "ru": "Glysalac Pro Peel"
+                },
+                "desc": {
+                    "tr": "Daha pürüzsüz doku ve daha aydınlık görünüm (normal/karma).",
+                    "en": "Refines texture & brightens (normal/combination skin).",
+                    "de": "Verfeinert & hellt auf (normale/mischhaut).",
+                    "fr": "Affiner & illuminer (peau normale/mixte).",
+                    "ru": "Выравнивает текстуру и придает сияние (норм./комб.)."
+                },
+                "content": {},
+                "categoryId": "faceSothys",
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-royal",
+                    "alba-queen",
+                    "iberostar-bellevue"
+                ],
+                "price": 0,
+                "currency": "EUR"
+            },
+            "sothys_resurfacing": {
+                "id": "sothys_resurfacing",
+                "slug": "sothys-resurfacing",
+                "duration": 60,
+                "name": {
+                    "tr": "Professional Resurfacing Peel (Yenileyici Peeling)",
+                    "en": "Professional Resurfacing Peel Treatment",
+                    "de": "Professional Resurfacing Peel Behandlung",
+                    "fr": "Soin peeling resurfaçant professionnel",
+                    "ru": "Профессиональный Resurfacing Peel"
+                },
+                "desc": {
+                    "tr": "Peel + mikrodermabrazyon yaklaşımı; daha net ve aydınlık görünüm.",
+                    "en": "Peel + microdermabrasion approach for renewed-looking skin.",
+                    "de": "Peel + Mikrodermabrasion für erneuert wirkende Haut.",
+                    "fr": "Peeling + microdermabrasion pour une peau renouvelée.",
+                    "ru": "Пилинг + микродермабразия для обновленного вида кожи."
+                },
+                "content": {},
+                "categoryId": "faceSothys",
+                "hotelSlugs": [
+                    "alba-resort",
+                    "alba-royal",
+                    "alba-queen",
+                    "iberostar-bellevue"
+                ],
+                "price": 0,
+                "currency": "EUR"
             }
         },
         "booking": {

@@ -1,26 +1,39 @@
-/**
- * 🧩 Santis Club – UTF-8 Kontrol & Otomatik Düzeltme
- * 
- * Bu script tüm proje dosyalarını tarar, UTF-8 (no BOM) değilse
- * otomatik olarak düzeltir ve yeniden kaydeder.
- * 
- * Kullanım:
- *    node test/utf8-fix.js
- */
+﻿/**
+* 🧩 Santis Club – UTF-8 Kontrol & Otomatik Düzeltme
+* 
+* Bu script tüm proje dosyalarını tarar, UTF-8 (no BOM) değilse
+* otomatik olarak düzeltir ve yeniden kaydeder.
+* 
+* Kullanım:
+*    node test/utf8-fix.js
+*/
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const fs = require("fs");
+const path = require("path");
 
 // Kontrol edilecek dosyalar
 const files = [
-  "../index.html",
-  "../hotel.html",
-  "../booking.html",
-  "../santis-hotels.json",
-  "./ultra-test.js"
+  "index.html",
+  "hotel.html",
+  "booking.html",
+  "service.html",
+  "service-detail.html",
+  "gallery.html",
+  "test-report.html",
+  "santis-hotels.json",
+  "data/site_content.json",
+  "data/services_spa.json",
+  "components/navbar.html",
+  "components/footer.html",
+  "assets/css/style.css",
+  "assets/js/app.js",
+  "assets/js/db.js",
+  "assets/js/perf-head.js",
+  "test-runner-schema.js",
+  "test-runner.js",
+  "test-runner-advanced.js",
+  "test-runner-report.js",
+  "ultra-test.js"
 ];
 
 // UTF-8 BOM bayt dizisi
@@ -41,7 +54,7 @@ let stats = {
 files.forEach((filePath) => {
   const fullPath = path.join(__dirname, filePath);
   stats.checked++;
-  
+
   try {
     if (!fs.existsSync(fullPath)) {
       console.log(`❌ ${path.basename(filePath)} bulunamadı.`);
