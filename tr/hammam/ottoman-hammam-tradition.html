@@ -24,15 +24,16 @@
             height: 100vh;
             width: 100%;
             overflow: hidden;
+            background: #050505;
         }
 
         .visual-pane {
             position: relative;
             height: 100%;
-            background: #111;
             display: flex;
             align-items: flex-end;
             padding: 60px;
+            overflow: hidden;
         }
 
         .visual-img {
@@ -42,7 +43,18 @@
             background-position: center;
             opacity: 0.6;
             filter: grayscale(1) contrast(1.2);
-            /* Dramatic BW */
+            transition: opacity 1s ease;
+        }
+
+        .visual-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            filter: grayscale(0.5) contrast(1.1);
+            z-index: 1;
         }
 
         .content-pane {
@@ -50,16 +62,55 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(10, 10, 10, 0.4);
+            backdrop-filter: blur(10px);
         }
 
-        /* Typography Override */
+        /* Typography & Animation */
         h1.drama-title {
             font-size: 80px;
             line-height: 0.9;
             margin-bottom: 40px;
             position: relative;
             z-index: 2;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: textReveal 1.2s cubic-bezier(0.2, 1, 0.3, 1) forwards 0.3s;
+        }
+
+        .reveal-delay-1 {
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.6s;
+        }
+
+        .reveal-delay-2 {
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.8s;
+        }
+
+        .reveal-delay-3 {
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 1.0s;
+        }
+
+        @keyframes textReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media(max-width: 1024px) {
@@ -69,7 +120,7 @@
             }
 
             .visual-pane {
-                height: 50vh;
+                height: 60vh;
                 padding: 30px;
             }
 
@@ -97,14 +148,17 @@
     </nav>
 
     <div class="editorial-split">
-        <!-- Left: Dramatic Visual -->
+        <!-- Left: Cinematic Visual -->
         <div class="visual-pane">
-            <div class="visual-img"
-                style="background-image: url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200');">
-            </div>
+            <!-- Video Background -->
+            <video class="visual-video" autoplay muted loop playsinline
+                poster="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200">
+                <source src="https://cdn.coverr.co/videos/coverr-steam-rising-from-a-hot-spring-5226/1080p.mp4"
+                    type="video/mp4">
+            </video>
 
             <div style="position:relative; z-index:2;">
-                <span class="nv-kicker" id="h-subtitle">RITUAL</span>
+                <span class="nv-kicker reveal-delay-1" id="h-subtitle">RITUAL</span>
                 <!-- Giant Title -->
                 <h1 class="drama-title" id="h-title">Loading...</h1>
             </div>
@@ -112,33 +166,36 @@
 
         <!-- Right: Minimal Content -->
         <div class="content-pane">
-            <div class="obsidian-meta"
-                style="opacity:1; transform:none; margin-bottom:40px; justify-content:flex-start; gap:30px; font-size:12px;">
+            <div class="obsidian-meta reveal-delay-1"
+                style="transform:none; margin-bottom:40px; justify-content:flex-start; gap:30px; font-size:12px;">
                 <span id="h-duration">-- min</span>
                 <span id="h-price" style="color:var(--gold);">-- EUR</span>
             </div>
 
-            <p style="font-size:18px; line-height:1.6; color:#ccc; margin-bottom:40px; font-family:'Cormorant Garamond'; font-style:italic;"
+            <p class="reveal-delay-2"
+                style="font-size:18px; line-height:1.6; color:#ccc; margin-bottom:40px; font-family:'Cormorant Garamond'; font-style:italic;"
                 id="h-desc">
                 <!-- Desc here -->
             </p>
 
-            <h3
-                style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:20px;">
-                The Experience</h3>
-            <ul class="includes-list" id="h-includes" style="margin-bottom:60px;">
-                <!-- List here -->
-            </ul>
+            <div class="reveal-delay-3">
+                <h3
+                    style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:20px;">
+                    The Experience</h3>
+                <ul class="includes-list" id="h-includes" style="margin-bottom:60px;">
+                    <!-- List here -->
+                </ul>
 
-            <div class="nv-actions">
-                <button id="btn-add-cart-detail" class="nv-btn nv-btn-primary" data-add-to-cart="1"
-                    style="width:100%; padding:20px 0; font-size:14px; letter-spacing:2px;">
-                    ADD TO BAG
-                </button>
-                <a id="btn-whatsapp" href="#" target="_blank" class="nv-btn nv-btn-ghost"
-                    style="width:100%; margin-top:20px; border:none; text-align:center; font-size:11px; opacity:0.6;">
-                    ASK CONCIERGE
-                </a>
+                <div class="nv-actions">
+                    <button id="btn-add-cart-detail" class="nv-btn nv-btn-primary" data-add-to-cart="1"
+                        style="width:100%; padding:20px 0; font-size:14px; letter-spacing:2px;">
+                        ADD TO BAG
+                    </button>
+                    <a id="btn-whatsapp" href="#" target="_blank" class="nv-btn nv-btn-ghost"
+                        style="width:100%; margin-top:20px; border:none; text-align:center; font-size:11px; opacity:0.6;">
+                        ASK CONCIERGE
+                    </a>
+                </div>
             </div>
         </div>
     </div>
