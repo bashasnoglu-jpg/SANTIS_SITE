@@ -86,7 +86,11 @@
         populateCategories() {
             if (typeof ALL_PRODUCTS === 'undefined') return;
 
-            const categories = [...new Set(ALL_PRODUCTS.map(p => p.category?.tr).filter(Boolean))];
+            // Extract unique categories (prefer subcat for Sothys collections)
+            const categories = [...new Set(ALL_PRODUCTS.map(p => {
+                return p.subcat || p.cat || (p.category ? p.category.tr : null);
+            }).filter(Boolean))];
+
             const container = document.getElementById('filter-categories');
 
             container.innerHTML = categories.map(cat => `
