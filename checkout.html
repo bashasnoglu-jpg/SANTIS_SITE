@@ -525,7 +525,7 @@
                 itemsTotal += item.price * item.qty;
                 return `
                     <div class="order-item">
-                        <img src="${item.img}" class="order-item-image" alt="${item.name.tr}">
+                        <img src="${item.img}" class="order-item-image" alt="${item.name.tr}" loading="lazy" decoding="async">
                         <div class="order-item-details">
                             <div class="order-item-name">${item.name.tr}</div>
                             <div class="order-item-meta">Adet: ${item.qty}</div>
