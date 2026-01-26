@@ -1,42 +1,145 @@
-<!-- components/navbar.html -->
+<!-- components/navbar.html v2.0 - Full UX Upgrade -->
 <nav class="navbar" id="nv-main-nav">
-    <div class="logo">Santis Club</div>
+    <!-- Logo with Icon -->
+    <div class="logo">
+        <svg class="logo-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </svg>
+        <span class="logo-text">Santis Club</span>
+    </div>
+
+    <!-- Search Icon (Desktop) -->
+    <button class="search-btn desktop-only" id="searchBtn" aria-label="Search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
+        </svg>
+    </button>
 
     <!-- Mobile CTA -->
     <a href="https://wa.me/905348350169" class="mobile-cta" target="_blank" rel="noopener">WhatsApp</a>
 
     <!-- Hamburger -->
-    <button class="hamburger" id="hamburger" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
-        ☰
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
     </button>
 
+    <!-- Nav Links -->
     <ul class="nav-links" id="navLinks">
-        <li><a data-key="home" href="index.html">Ana Sayfa</a></li>
-        <li><a class="nv-nav-link" href="service.html#hammam">Hamam</a></li>
-        <li><a class="nv-nav-link" href="service.html#classicMassages">Masajlar</a></li>
-        <li><a class="nv-nav-link" href="service.html#faceSothys">Cilt Bakımı</a></li>
-        <li><a data-key="products" href="products.html">Ürünler</a></li>
-        <li><a data-key="gallery" href="gallery.html">Galeri</a></li>
-        <li><a data-key="hotel" href="hotel.html">Oteller</a></li>
-        <li><a data-key="booking" href="booking.html">Rezervasyon</a></li>
-        <li><a data-key="contact" href="https://wa.me/905348350169" target="_blank" rel="noopener">İletişim</a></li>
+        <li><a data-key="home" href="index.html" class="nav-link">Ana Sayfa</a></li>
+
+        <!-- Services Mega Menu -->
+        <li class="has-dropdown">
+            <a data-key="services" href="service.html" class="nav-link">
+                Hizmetler
+                <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </a>
+            <div class="mega-menu">
+                <div class="mega-menu-grid">
+                    <a href="service.html#hammam" class="mega-item">
+                        <div class="mega-icon">🧖</div>
+                        <div class="mega-content">
+                            <h4 data-key="hammam">Hamam</h4>
+                            <p data-key="hammam_desc">Geleneksel Türk hamamı deneyimi</p>
+                        </div>
+                    </a>
+                    <a href="service.html#classicMassages" class="mega-item">
+                        <div class="mega-icon">💆</div>
+                        <div class="mega-content">
+                            <h4 data-key="massage">Masajlar</h4>
+                            <p data-key="massage_desc">Uzman terapistler eşliğinde</p>
+                        </div>
+                    </a>
+                    <a href="service.html#faceSothys" class="mega-item">
+                        <div class="mega-icon">✨</div>
+                        <div class="mega-content">
+                            <h4 data-key="skincare">Cilt Bakımı</h4>
+                            <p data-key="skincare_desc">Sothys Paris premium ürünler</p>
+                        </div>
+                    </a>
+                    <a href="service.html#kids" class="mega-item">
+                        <div class="mega-icon">👶</div>
+                        <div class="mega-content">
+                            <h4 data-key="kids">Çocuklar</h4>
+                            <p data-key="kids_desc">Aile için özel hizmetler</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </li>
+
+        <li><a data-key="products" href="products.html" class="nav-link">Ürünler</a></li>
+        <li><a data-key="gallery" href="gallery.html" class="nav-link">Galeri</a></li>
+        <li><a data-key="contact" href="https://wa.me/905348350169" target="_blank" class="nav-link">İletişim</a></li>
     </ul>
-    <div class="selectors">
-        <select id="langSelect">
-            <option value="tr">🇹🇷 TR</option>
-            <option value="en">🇬🇧 EN</option>
-            <option value="de">🇩🇪 DE</option>
-            <option value="fr">🇫🇷 FR</option>
-            <option value="ru">🇷🇺 RU</option>
-        </select>
+
+    <!-- Right Actions -->
+    <div class="nav-actions">
+        <!-- Language Selector (Enhanced) -->
+        <div class="lang-selector" id="langSelector">
+            <button class="lang-btn" id="langBtn" aria-label="Language">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path
+                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+                <span class="lang-current">TR</span>
+            </button>
+            <div class="lang-dropdown" id="langDropdown">
+                <a href="#" data-lang="tr" class="lang-option active">🇹🇷 Türkçe</a>
+                <a href="#" data-lang="en" class="lang-option">🇬🇧 English</a>
+                <a href="#" data-lang="de" class="lang-option">🇩🇪 Deutsch</a>
+                <a href="#" data-lang="fr" class="lang-option">🇫🇷 Français</a>
+                <a href="#" data-lang="ru" class="lang-option">🇷🇺 Русский</a>
+            </div>
+        </div>
+
+        <!-- Cart Button -->
+        <button class="cart-btn" id="cartBtn" onclick="SHOP.toggleCart()" aria-label="Shopping Cart">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1" />
+                <circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg>
+            <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+
+        <!-- Reservation CTA -->
+        <a href="booking.html" class="reservation-cta desktop-only" data-key="booking">
+            Rezervasyon
+        </a>
     </div>
 </nav>
 
+<!-- Sticky Cart Summary (appears on scroll) -->
+<div class="sticky-cart" id="stickyCart" style="display:none;">
+    <div class="sticky-cart-content">
+        <span class="sticky-cart-info">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="9" cy="21" r="1" />
+                <circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg>
+            <span id="stickyCartCount">0</span> ürün | <strong id="stickyCartTotal">0</strong>€
+        </span>
+        <button onclick="SHOP.toggleCart()" class="sticky-cart-btn">Sepete Git</button>
+    </div>
+</div>
+
 <style>
-    /* ==== GENEL NAVBAR ==== */
+    /* =================== NAVBAR V2.0 =================== */
     html {
-        /* sticky navbar anchor’ları kesmesin */
-        scroll-padding-top: 92px;
+        scroll-padding-top: 80px;
     }
 
     .navbar {
@@ -46,118 +149,435 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 14px 28px;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.22);
-        background: rgba(255, 255, 255, 0.82);
-        backdrop-filter: blur(10px);
-        transition: all 0.3s ease;
+        padding: 12px 32px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(12px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .navbar.scrolled {
-        padding: 10px 28px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-        background: rgba(255, 255, 255, 0.92);
-        backdrop-filter: blur(12px);
+        padding: 8px 32px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        background: rgba(255, 255, 255, 0.95);
     }
 
+    .navbar.compact {
+        padding: 6px 32px;
+    }
+
+    /* =================== LOGO =================== */
     .logo {
-        font-size: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 18px;
         font-weight: 600;
-        color: rgba(212, 175, 55, 0.95);
-        letter-spacing: 0.04em;
+        color: #d4af37;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+        transition: opacity 0.2s;
     }
 
+    .logo:hover {
+        opacity: 0.8;
+    }
+
+    .logo-icon {
+        color: #d4af37;
+        flex-shrink: 0;
+    }
+
+    .logo-text {
+        white-space: nowrap;
+    }
+
+    /* =================== SEARCH BUTTON =================== */
+    .search-btn {
+        background: rgba(212, 175, 55, 0.08);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 8px;
+        padding: 8px 12px;
+        color: #202124;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-right: auto;
+        margin-left: 24px;
+    }
+
+    .search-btn:hover {
+        background: rgba(212, 175, 55, 0.15);
+        border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    /* =================== NAV LINKS =================== */
     .nav-links {
         list-style: none;
         display: flex;
-        gap: 20px;
+        gap: 8px;
         margin: 0;
         padding: 0;
+        flex: 1;
+        justify-content: center;
     }
 
-    .nav-links a {
+    .nav-link {
         text-decoration: none;
         color: #202124;
         font-weight: 500;
-        transition: color 0.2s;
-        padding: 10px 12px;
-        border-radius: 999px;
+        font-size: 14px;
+        padding: 10px 16px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        white-space: nowrap;
+    }
+
+    .nav-link:hover {
+        background: rgba(212, 175, 55, 0.08);
+        border-color: rgba(212, 175, 55, 0.2);
+    }
+
+    .nav-link.active {
+        background: rgba(212, 175, 55, 0.12);
+        border-color: rgba(212, 175, 55, 0.35);
+        font-weight: 600;
+    }
+
+    /* =================== MEGA MENU =================== */
+    .has-dropdown {
+        position: relative;
+    }
+
+    .dropdown-icon {
+        transition: transform 0.2s;
+    }
+
+    .has-dropdown:hover .dropdown-icon {
+        transform: rotate(180deg);
+    }
+
+    .mega-menu {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.98);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 12px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(12px);
+        padding: 16px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        min-width: 520px;
+    }
+
+    .has-dropdown:hover .mega-menu {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .mega-menu-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .mega-item {
+        display: flex;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: #202124;
+        transition: all 0.2s;
         border: 1px solid transparent;
     }
 
-    .nav-links a:hover {
-        color: #111;
-        background: rgba(212, 175, 55, 0.1);
-        border-color: rgba(212, 175, 55, 0.28);
+    .mega-item:hover {
+        background: rgba(212, 175, 55, 0.06);
+        border-color: rgba(212, 175, 55, 0.15);
     }
 
-    .nav-links a:focus-visible {
-        outline: 2px solid rgba(212, 175, 55, 0.55);
-        outline-offset: 2px;
+    .mega-icon {
+        font-size: 24px;
+        flex-shrink: 0;
     }
 
-    .selectors {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-    }
-
-    #langSelect,
-    #hotelSelect {
-        padding: 6px;
-        border-radius: 6px;
-        border: 1px solid rgba(212, 175, 55, 0.22);
-        background: rgba(255, 255, 255, 0.72);
+    .mega-content h4 {
+        margin: 0 0 4px 0;
+        font-size: 14px;
+        font-weight: 600;
         color: #202124;
     }
 
-    /* ==== MOBILE CTA ==== */
-    .mobile-cta {
-        display: none;
-        background: #25d366;
-        color: white;
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 13px;
-        font-weight: 600;
-        text-decoration: none;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    .mega-content p {
+        margin: 0;
+        font-size: 12px;
+        color: #5f6368;
     }
 
-    /* ==== HAMBURGER ==== */
+    /* =================== NAV ACTIONS =================== */
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    /* =================== LANGUAGE SELECTOR =================== */
+    .lang-selector {
+        position: relative;
+    }
+
+    .lang-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 12px;
+        background: rgba(212, 175, 55, 0.08);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 8px;
+        color: #202124;
+        font-weight: 500;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .lang-btn:hover {
+        background: rgba(212, 175, 55, 0.15);
+    }
+
+    .lang-dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        background: rgba(255, 255, 255, 0.98);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        backdrop-filter: blur(12px);
+        padding: 8px;
+        min-width: 160px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s;
+    }
+
+    .lang-selector:hover .lang-dropdown,
+    .lang-dropdown:hover {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .lang-option {
+        display: block;
+        padding: 8px 12px;
+        color: #202124;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: background 0.2s;
+    }
+
+    .lang-option:hover {
+        background: rgba(212, 175, 55, 0.1);
+    }
+
+    .lang-option.active {
+        background: rgba(212, 175, 55, 0.15);
+        font-weight: 600;
+    }
+
+    /* =================== CART BUTTON =================== */
+    .cart-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        background: rgba(212, 175, 55, 0.08);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: #202124;
+    }
+
+    .cart-btn:hover {
+        background: rgba(212, 175, 55, 0.15);
+        transform: translateY(-1px);
+    }
+
+    .cart-badge {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        background: #d4af37;
+        color: white;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 10px;
+        min-width: 18px;
+        text-align: center;
+    }
+
+    /* =================== RESERVATION CTA =================== */
+    .reservation-cta {
+        background: linear-gradient(135deg, #d4af37 0%, #c49a2d 100%);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+        transition: all 0.2s;
+        white-space: nowrap;
+    }
+
+    .reservation-cta:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+    }
+
+    /* =================== STICKY CART =================== */
+    .sticky-cart {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 998;
+        background: rgba(32, 33, 36, 0.95);
+        border-radius: 12px;
+        padding: 12px 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(12px);
+        animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(100px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .sticky-cart-content {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: white;
+        font-size: 14px;
+    }
+
+    .sticky-cart-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .sticky-cart-btn {
+        background: #d4af37;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .sticky-cart-btn:hover {
+        background: #c49a2d;
+    }
+
+    /* =================== MOBILE =================== */
+    .mobile-cta {
+        display: none;
+    }
+
     .hamburger {
         display: none;
-        font-size: 24px;
+        flex-direction: column;
+        gap: 4px;
         background: none;
         border: none;
         cursor: pointer;
-        color: #202124;
+        padding: 8px;
     }
 
-    /* ==== MOBİL ==== */
+    .hamburger span {
+        width: 24px;
+        height: 2px;
+        background: #202124;
+        border-radius: 2px;
+        transition: all 0.3s;
+    }
+
+    .desktop-only {
+        display: flex;
+    }
+
+    @media (max-width: 1024px) {
+        .navbar {
+            padding: 10px 20px;
+        }
+
+        .search-btn {
+            margin-left: 12px;
+        }
+
+        .mega-menu {
+            min-width: 400px;
+        }
+    }
+
     @media (max-width: 768px) {
+        .desktop-only {
+            display: none !important;
+        }
+
         .mobile-cta {
             display: inline-block;
+            background: #25d366;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
             margin-left: auto;
-            /* Push to right, next to selectors */
             margin-right: 8px;
         }
 
         .hamburger {
-            display: block;
+            display: flex;
         }
 
         .nav-links {
             display: none;
-            position: absolute;
-            top: 100%;
+            position: fixed;
+            top: 60px;
             left: 0;
             width: 100%;
+            height: calc(100vh - 60px);
             flex-direction: column;
-            background: rgba(255, 255, 255, 0.96);
-            border-top: 1px solid rgba(212, 175, 55, 0.18);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
-            max-height: calc(100vh - 72px);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 20px;
+            gap: 0;
             overflow-y: auto;
         }
 
@@ -166,98 +586,203 @@
         }
 
         .nav-links li {
+            width: 100%;
             padding: 12px 0;
-            text-align: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        /* Adjust selectors for mobile flow */
-        .selectors {
+        .nav-link {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .mega-menu {
             position: static;
-            margin-right: 8px;
+            transform: none;
+            opacity: 1;
+            visibility: visible;
+            box-shadow: none;
+            border: none;
+            margin-top: 12px;
+            min-width: auto;
+        }
+
+        .mega-menu-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .nav-actions {
+            gap: 8px;
+        }
+
+        .sticky-cart {
+            bottom: 80px;
+            right: 10px;
+            left: 10px;
+        }
+
+        .sticky-cart-content {
+            flex-direction: column;
+            gap: 12px;
         }
     }
 </style>
 
 <script>
     (function () {
-        // 🌍 Çok dilli metinler
-        const navTexts = {
-            tr: { home: "Ana Sayfa", products: "Ürünler", gallery: "Galeri", hotel: "Oteller", booking: "Rezervasyon", contact: "İletişim" },
-            en: { home: "Home", products: "Products", gallery: "Gallery", hotel: "Hotels", booking: "Booking", contact: "Contact" },
-            de: { home: "Startseite", products: "Produkte", gallery: "Galerie", hotel: "Hotels", booking: "Reservierung", contact: "Kontakt" },
-            fr: { home: "Accueil", products: "Produits", gallery: "Galerie", hotel: "Hôtels", booking: "Réservation", contact: "Contact" },
-            ru: { home: "Главная", products: "Продукты", gallery: "Галерея", hotel: "Отели", booking: "Бронирование", contact: "Контакт" }
+        // =================== I18N ===================
+        const i18n = {
+            tr: {
+                home: "Ana Sayfa", services: "Hizmetler", products: "Ürünler",
+                gallery: "Galeri", contact: "İletişim", booking: "Rezervasyon",
+                hammam: "Hamam", massage: "Masajlar", skincare: "Cilt Bakımı", kids: "Çocuklar",
+                hammam_desc: "Geleneksel Türk hamamı", massage_desc: "Uzman terapistler",
+                skincare_desc: "Sothys Paris", kids_desc: "Aile hizmetleri"
+            },
+            en: {
+                home: "Home", services: "Services", products: "Products",
+                gallery: "Gallery", contact: "Contact", booking: "Booking",
+                hammam: "Hammam", massage: "Massage", skincare: "Skincare", kids: "Kids",
+                hammam_desc: "Traditional Turkish bath", massage_desc: "Expert therapists",
+                skincare_desc: "Sothys Paris", kids_desc: "Family services"
+            },
+            de: {
+                home: "Startseite", services: "Dienstleistungen", products: "Produkte",
+                gallery: "Galerie", contact: "Kontakt", booking: "Buchung",
+                hammam: "Hamam", massage: "Massage", skincare: "Hautpflege", kids: "Kinder",
+                hammam_desc: "Traditionelles türkisches Bad", massage_desc: "Fachtherapeutен",
+                skincare_desc: "Sothys Paris", kids_desc: "Familiendienste"
+            },
+            fr: {
+                home: "Accueil", services: "Services", products: "Produits",
+                gallery: "Galerie", contact: "Contact", booking: "Réservation",
+                hammam: "Hammam", massage: "Massage", skincare: "Soins", kids: "Enfants",
+                hammam_desc: "Bain turc traditionnel", massage_desc: "Thérapeutes experts",
+                skincare_desc: "Sothys Paris", kids_desc: "Services familiaux"
+            },
+            ru: {
+                home: "Главная", services: "Услуги", products: "Продукция",
+                gallery: "Галерея", contact: "Контакты", booking: "Бронирование",
+                hammam: "Хаммам", massage: "Массаж", skincare: "Уход за кожей", kids: "Детям",
+                hammam_desc: "Традиционная турецкая баня", massage_desc: "Профессиональные терапевты",
+                skincare_desc: "Sothys Paris", kids_desc: "Семейные услуги"
+            }
         };
 
         function getParam(name) {
-            const url = new URL(window.location.href);
-            return url.searchParams.get(name);
+            return new URL(window.location.href).searchParams.get(name);
         }
 
-        function updateLang(lang) {
-            const links = document.querySelectorAll("#navLinks a");
-            links.forEach(a => {
-                const key = a.dataset.key;
-                if (key) {
-                    if (navTexts[lang] && navTexts[lang][key]) {
-                        a.textContent = navTexts[lang][key];
-                    }
-                    // Linkleri güncelle
-                    if (key === "contact") {
-                        a.href = `https://wa.me/905348350169?lang=${lang}`;
-                    } else {
-                        a.href = `${key === "home" ? "index" : key}.html?lang=${lang}`;
-                    }
-                } else {
-                    // Data-key olmayan linkler (örn: split linkler) için sadece lang parametresini güncelle
-                    try {
-                        const url = new URL(a.href, window.location.origin);
-                        url.searchParams.set("lang", lang);
-                        a.href = url.toString();
-                    } catch (e) { }
+        function updateUI(lang) {
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.dataset.key;
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.textContent = i18n[lang][key];
                 }
             });
+
+            // Update links
+            document.querySelectorAll('.nav-link[data-key]').forEach(a => {
+                if (a.dataset.key !== 'contact') {
+                    const href = a.dataset.key === 'home' ? 'index.html' : `${a.dataset.key}.html`;
+                    a.href = `${href}?lang=${lang}`;
+                }
+            });
+
+            // Update active state
+            const currentPage = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(currentPage)) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Update lang button
+            document.querySelector('.lang-current').textContent = lang.toUpperCase();
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.lang === lang);
+            });
         }
 
-        const currentLang = getParam("lang") || "tr";
-        const langSelect = document.getElementById("langSelect");
-        if (langSelect) {
-            langSelect.value = currentLang;
-            langSelect.addEventListener("change", e => {
-                const newLang = e.target.value;
+        // Language handling
+        const currentLang = getParam('lang') || localStorage.getItem('santis_lang') || 'tr';
+        localStorage.setItem('santis_lang', currentLang);
+        updateUI(currentLang);
+
+        document.querySelectorAll('.lang-option').forEach(opt => {
+            opt.addEventListener('click', e => {
+                e.preventDefault();
+                const newLang = e.currentTarget.dataset.lang;
                 const url = new URL(window.location.href);
-                url.searchParams.set("lang", newLang);
+                url.searchParams.set('lang', newLang);
+                localStorage.setItem('santis_lang', newLang);
                 window.location.href = url.toString();
             });
-        }
-        updateLang(currentLang);
+        });
 
-        // 🎯 Scroll davranışı — Sticky Navbar efekti
-        const navbar = document.getElementById("nv-main-nav");
-        if (navbar) { // Null check
-            window.addEventListener("scroll", () => {
-                if (window.scrollY > 40) navbar.classList.add("scrolled");
-                else navbar.classList.remove("scrolled");
+        // =================== SCROLL BEHAVIOR ===================
+        const navbar = document.getElementById('nv-main-nav');
+        const stickyCart = document.getElementById('stickyCart');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY;
+
+            if (currentScroll > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            if (currentScroll > 300) {
+                navbar.classList.add('compact');
+            } else {
+                navbar.classList.remove('compact');
+            }
+
+            // Sticky cart visibility
+            const cartCount = parseInt(document.getElementById('cartBadge').textContent || '0');
+            if (currentScroll > 400 && cartCount > 0) {
+                stickyCart.style.display = 'block';
+            } else {
+                stickyCart.style.display = 'none';
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // =================== HAMBURGER MENU ===================
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger?.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+            hamburger.classList.toggle('active');
+        });
+
+        navLinks?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('show');
+                hamburger.classList.remove('active');
             });
+        });
+
+        // =================== CART BADGE UPDATE ===================
+        function updateCartDisplay() {
+            if (typeof SHOP !== 'undefined' && SHOP.cart) {
+                const count = SHOP.cart.reduce((sum, item) => sum + item.qty, 0);
+                const total = SHOP.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+                document.getElementById('cartBadge').textContent = count;
+                document.getElementById('stickyCartCount').textContent = count;
+                document.getElementById('stickyCartTotal').textContent = total.toFixed(0);
+            }
         }
 
-        // 🍔 Hamburger menü kontrolü
-        const hamburger = document.getElementById("hamburger");
-        const navLinks = document.getElementById("navLinks");
+        // Poll for cart updates
+        setInterval(updateCartDisplay, 500);
+        updateCartDisplay();
 
-        if (hamburger && navLinks) {
-            hamburger.addEventListener("click", () => {
-                navLinks.classList.toggle("show");
-                hamburger.setAttribute("aria-expanded", navLinks.classList.contains("show") ? "true" : "false");
-            });
-
-            // Menüden tıklanınca otomatik kapanma
-            navLinks.querySelectorAll("a").forEach(link => {
-                link.addEventListener("click", () => {
-                    navLinks.classList.remove("show");
-                    hamburger.setAttribute("aria-expanded", "false");
-                });
-            });
-        }
     })();
 </script>
