@@ -1,988 +1,818 @@
-Aşağıdaki yapı, tam istediğin gibi **panel menü ağacı** formatında: `id / parentId / slug / sort / visibleIn / labels(5 dil)`. `visibleIn`: `all | hotel_in | hotel_out | eu_only | tr_only` (senin panel kural motoruna göre değiştirebilirsin). > Not: Bu ağaç **site navigasyonu değil**; **sipariş sistemi/panel modülleri** menü ağacı. (Checkout, shipping, payment, WhatsApp templates, compliance) ```json [
+Buradayım. 👍
+İstediğin şeyi **iki parçaya** ayırıp “panel-ready” şekilde güncelliyorum:
+
+1. **Cilt Bakımı (Sothys) sayfa mimarisi + daha zarif UI (Quiet Luxury)**
+2. **Sothys ürün koleksiyonu (tek tek ürün + her ürün için ayrı detay sayfası mantığı)**
+
+---
+
+## 1) Cilt Bakımı (Sothys) bölümünü daha zarif hale getirelim
+
+Sende zaten doğru iskelet var: “Klinik Cilt Bakımı – Sothys Paris” girişi + “Nem & Bariyer / Glow & Şehir Detoks / Youth Anti-Age / Prestige / Men” gibi ihtiyaç temelli pill’ler. 
+Bunu **daha premium** hale getirmek için:
+
+### A) Bilgi mimarisi (site akışı)
+
+* **Brand Hub (Sothys)**: “Cilt Analizi → Ritüel Seçimi → Ev Bakımı Ürünleri”
+* **Ritüeller (Hizmet)**: Hydra / Detox / Sensitive / Pigmentation / Prestige / Men
+* **Ev Bakımı (Ürün)**: Aynı koleksiyon ağacı (kafa karışmaz)
+* **Setler (Concierge önerisi)**: “Serum + Krem + Maske” paketleri
+
+Senin mevcut “paket kartı” yaklaşımın da doğru (konsültasyon + hydra + detox gibi). 
+
+### B) Quiet Luxury UI kuralları (çok fark ettirir)
+
+* **Üst bölüm (hero)**: 1 cümle değer önerisi + 3 “trust chip”
+
+  * “Cilt analizi”, “İhtiyaca göre protokol”, “Concierge ile kişisel takip”
+* **Koleksiyon filtreleri (pill)**: 5–6 adet, scrollable, aktif state belirgin
+* **Kartlar**:
+
+  * Üst: ürün/hizmet adı
+  * Alt: 1 satır fayda (abartısız)
+  * Sağ alt: fiyat/başlangıç
+  * CTA’lar: **Detay** (ghost) + **Sepete Ekle** (primary)
+
+> Ürün kartı yaklaşımını daha önce “Premium Üçlü” bölümünde zaten kurmuşsun (nv-product-card + data-wa + “Sepete Ekle”). 
+
+---
+
+## 2) “Her ürün tek kart → yeni detay sayfası” standardı
+
+**Liste sayfası (Collection Page)**
+
+* Grid: 3–4 kolon (desktop),
+2 kolon (tablet),
+1 kolon (mobile)
+* Kart CTA:
+
+  * **Detayları Gör** → `/shop/sothys/<slug>`
+  * **Sepete Ekle** → global cart
+
+**Detay sayfası (Product Detail Page) bileşenleri**
+
+* Breadcrumb: Cilt Bakımı → Sothys → Koleksiyon → Ürün
+* Galeri (1 ana + 2 yakın plan)
+* “Kime uygun?” (3 madde)
+* “Nasıl kullanılır?” (2 madde)
+* “Öne çıkan aktifler” (maks 4)
+* Quantity selector
+* CTA: **Sepete Ekle** + **WhatsApp ile Sipariş**
+* Cross-sell: “Bu ritüelde iyi gider: …”
+
+> Not: WhatsApp linklerini **doğrudan** yazmak yerine `data-wa` / `#nv-wa` standardını koru; aksi halde wa-linker tag/context ekleyemez (dokümantasyonda risk olarak geçiyor).  
+
+---
+
+## 3) SOTHYS “Cilt Bakımı” koleksiyonu (derin araştırma ile önerilen menü)
+
+Aşağıdaki koleksiyonlar hem **spa ritüelleriyle** hem de **ev bakımı** ile net eşleşiyor:
+
+* **Hydra Hyaluronic Acid4 (Hydration)**: “4 kaynak hyaluronik asit” yaklaşımı. ([Sothys Deutschland & Österreich
+][
+    1
+])
+* **Sensitive – Spa™ Thermal Water (Sensitive)**: hassas cilt odaklı, parfümsüz/hypoallergenic çizgi. ([sothys.fr
+][
+    2
+])
+* **Pigmentation Management (Focus Taches)**: leke odaklı serum/krem. ([sothys.fr
+][
+    3
+])
+* **Detox Energie (Anti-pollution / Glow)**: çevresel stres/anti-pollution ritüeli + ev bakım ürünleri. ([sothys.fr
+][
+    4
+])
+* **Secrets de Sothys (Prestige)**: La Crème 128 + premium youth cream + eye/lip. ([sothys.be
+][
+    5
+])
+* **Sothys Homme (Men)**: multi-oil + youth fluid + eau fraîche. ([Sothys Deutschland & Österreich
+][
+    6
+])
+
+---
+
+## 4) Panel-ready “menu ağacı” (ID/slug/sort/visibleIn/labels 5 dil)
+
+```json
+[
     {
-        "id": "m_100",
-        "parentId": null,
-        "slug": "order-system",
+        "id": "2000",
+        "slug": "skincare",
         "sort": 10,
-        "visibleIn": "all",
+        "visibleIn": [
+            "site",
+            "panel"
+        ],
         "labels": {
-            "tr": "Sipariş Sistemi",
-            "en": "Order System",
-            "de": "Bestellsystem",
-            "fr": "Système de commande",
-            "ru": "Система заказов"
+            "tr": "Cilt Bakımı",
+            "en": "Skincare",
+            "de": "Hautpflege",
+            "fr": "Soin du visage",
+            "ru": "Уход за кожей"
+        },
+        "roleRequired": "editor",
+        "routes": {
+            "site": "/{lang}/shop/skincare",
+            "admin": "/admin/catalog/skincare"
+        },
+        "featureFlags": {
+            "EU": true
+        },
+        "children": [
+            {
+                "id": "2100",
+                "slug": "sothys",
+                "sort": 10,
+                "visibleIn": [
+                    "site",
+                    "panel"
+                ],
+                "labels": {
+                    "tr": "Sothys Paris",
+                    "en": "Sothys Paris",
+                    "de": "Sothys Paris",
+                    "fr": "Sothys Paris",
+                    "ru": "Sothys Paris"
+                },
+                "roleRequired": "editor",
+                "routes": {
+                    "site": "/{lang}/shop/skincare/sothys",
+                    "admin": "/admin/brands/sothys"
+                },
+                "children": [
+                    {
+                        "id": "2110",
+                        "slug": "hydra-ha4",
+                        "sort": 10,
+                        "visibleIn": [
+                            "site",
+                            "panel"
+                        ],
+                        "labels": {
+                            "tr": "Hydra (Hyaluronic Acid4)",
+                            "en": "Hydra (Hyaluronic Acid4)",
+                            "de": "Hydra (Hyaluronic Acid4)",
+                            "fr": "Hydra (Acide Hyaluronique4)",
+                            "ru": "Hydra (Гиалуроновая кислота 4)"
+                        },
+                        "roleRequired": "editor",
+                        "routes": {
+                            "site": "/{lang}/shop/skincare/sothys/hydra-ha4",
+                            "admin": "/admin/collections/hydra-ha4"
+                        }
+                    },
+                    {
+                        "id": "2120",
+                        "slug": "sensitive-spa-water",
+                        "sort": 20,
+                        "visibleIn": [
+                            "site",
+                            "panel"
+                        ],
+                        "labels": {
+                            "tr": "Hassas Cilt (Spa™ Thermal Water)",
+                            "en": "Sensitive (Spa™ Thermal Water)",
+                            "de": "Sensible Haut (Spa™ Thermal Water)",
+                            "fr": "Peaux sensibles (Eau thermale Spa™)",
+                            "ru": "Чувствительная кожа (Spa™)"
+                        },
+                        "roleRequired": "editor",
+                        "routes": {
+                            "site": "/{lang}/shop/skincare/sothys/sensitive-spa-water",
+                            "admin": "/admin/collections/sensitive-spa-water"
+                        }
+                    },
+                    {
+                        "id": "2130",
+                        "slug": "focus-taches",
+                        "sort": 30,
+                        "visibleIn": [
+                            "site",
+                            "panel"
+                        ],
+                        "labels": {
+                            "tr": "Leke (Focus Taches)",
+                            "en": "Dark Spots (Focus Taches)",
+                            "de": "Pigmentflecken (Focus Taches)",
+                            "fr": "Taches (Focus Taches)",
+                            "ru": "Пигментация (Focus Taches)"
+                        },
+                        "roleRequired": "editor",
+                        "routes": {
+                            "site": "/{lang}/shop/skincare/sothys/focus-taches",
+                            "admin": "/admin/collections/focus-taches"
+                        }
+                    },
+                    {
+                        "id": "2140",
+                        "slug": "detox-energie",
+                        "sort": 40,
+                        "visibleIn": [
+                            "site",
+                            "panel"
+                        ],
+                        "labels": {
+                            "tr": "Glow & Şehir Detoks (Detox Energie)",
+                            "en": "Glow & City Detox (Detox Energie)",
+                            "de": "Glow & City Detox (Detox Energie)",
+                            "fr": "Éclat & Détox urbaine (Detox Energie)",
+                            "ru": "Сияние и детокс (Detox Energie)"
+                        },
+                        "roleRequired": "editor",
+                        "routes": {
+                            "site": "/{lang}/shop/skincare/sothys/detox-energie",
+                            "admin": "/admin/collections/detox-energie"
+                        }
+                    },
+                    {
+                        "id": "2150",
+                        "slug": "secrets-de-sothys",
+                        "sort": 50,
+                        "visibleIn": [
+                            "site",
+                            "panel"
+                        ],
+                        "labels": {
+                            "tr": "Prestige (Secrets de Sothys)",
+                            "en": "Prestige (Secrets de Sothys)",
+                            "de": "Prestige (Secrets de Sothys)",
+                            "fr": "Prestige (Secrets de Sothys)",
+                            "ru": "Премиум (Secrets de Sothys)"
+                        },
+                        "roleRequired": "editor",
+                        "routes": {
+                            "site": "/{lang}/shop/skincare/sothys/secrets-de-sothys",
+                            "admin": "/admin/collections/secrets-de-sothys"
+                        }
+                    },
+                    {
+                        "id": "2160",
+                        "slug": "sothys-homme",
+                        "sort": 60,
+                        "visibleIn": [
+                            "site",
+                            "panel"
+                        ],
+                        "labels": {
+                            "tr": "Erkek Bakımı (Sothys Homme)",
+                            "en": "Men (Sothys Homme)",
+                            "de": "Männer (Sothys Homme)",
+                            "fr": "Homme (Sothys Homme)",
+                            "ru": "Для мужчин (Sothys Homme)"
+                        },
+                        "roleRequired": "editor",
+                        "routes": {
+                            "site": "/{lang}/shop/skincare/sothys/sothys-homme",
+                            "admin": "/admin/collections/sothys-homme"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]
+```
+
+---
+
+## 5) Sothys ürünlerini “tek tek” yeniden oluşturuyorum (çekirdek katalog)
+
+Aşağıdaki liste **başlangıçta premium görünen**, koleksiyonları net ayıran, “Concierge E-Ticaret” için en doğru set. Ürün adı marka diliyle kalır; alt açıklama 5 dil.
+
+> Kaynaklar: Hydrating Intensive Serum ([sothys.nl
+][
+    7
+]), Nutri-soothing mask ([sothys.fr
+][
+    2
+]), Soothing velvet cream ([sothys.org
+][
+    8
+]), Sérum Focus Taches ([sothys.fr
+][
+    3
+]), Detox Energie set içeriği (Crème jeunesse dépolluante + Sérum énergisant intégral) ([sothys.fr
+][
+    4
+]), La Crème 128 ([sothys.be
+][
+    5
+]), Premium youth cream ([sothys.nl
+][
+    9
+]), Eye & lip youth cream ([sothys.fr
+][
+    10
+]), Homme ürünleri ([Sothys Deutschland & Österreich
+][
+    6
+]), Eau de parfum ([Sothys Deutschland & Österreich
+][
+    11
+]).
+
+```json
+[
+    {
+        "sku": "SOTHYS-HYDRA-INTENSIVE-SERUM",
+        "slug": "hydrating-intensive-serum",
+        "brand": "Sothys",
+        "collection": "Hydra Hyaluronic Acid4",
+        "type": "Serum",
+        "size": null,
+        "labels": {
+            "tr": {
+                "title": "Hydrating Intensive Serum",
+                "subtitle": "Hafif dokuda yoğun nem desteği"
+            },
+            "en": {
+                "title": "Hydrating Intensive Serum",
+                "subtitle": "Lightweight intensive hydration"
+            },
+            "de": {
+                "title": "Hydrating Intensive Serum",
+                "subtitle": "Intensive Feuchtigkeit, leichte Textur"
+            },
+            "fr": {
+                "title": "Sérum intensif hydratant",
+                "subtitle": "Hydratation intensive, texture légère"
+            },
+            "ru": {
+                "title": "Hydrating Intensive Serum",
+                "subtitle": "Интенсивное увлажнение, легкая текстура"
+            }
         }
     },
     {
-        "id": "m_110",
-        "parentId": "m_100",
-        "slug": "checkout-fields",
-        "sort": 10,
-        "visibleIn": "all",
+        "sku": "SOTHYS-HYDRA-YOUTH-CREAM",
+        "slug": "hydra-creme-jeunesse",
+        "brand": "Sothys",
+        "collection": "Hydra Hyaluronic Acid4",
+        "type": "Cream",
+        "size": null,
         "labels": {
-            "tr": "Checkout Alanları",
-            "en": "Checkout Fields",
-            "de": "Checkout-Felder",
-            "fr": "Champs de paiement",
-            "ru": "Поля оформления"
+            "tr": {
+                "title": "Hydra Crème jeunesse (Hydration)",
+                "subtitle": "Günlük nem + dolgun görünüm"
+            },
+            "en": {
+                "title": "Hydra Youth Cream (Hydration)",
+                "subtitle": "Daily hydration, plumper look"
+            },
+            "de": {
+                "title": "Hydra Crème jeunesse",
+                "subtitle": "Tägliche Feuchtigkeit, praller Look"
+            },
+            "fr": {
+                "title": "Crème jeunesse hydratation",
+                "subtitle": "Hydratation quotidienne, peau repulpée"
+            },
+            "ru": {
+                "title": "Hydra Youth Cream",
+                "subtitle": "Ежедневное увлажнение, более упругая кожа"
+            }
         }
     },
     {
-        "id": "m_111",
-        "parentId": "m_110",
-        "slug": "checkout-common",
-        "sort": 10,
-        "visibleIn": "all",
+        "sku": "SOTHYS-SENSITIVE-NUTRISOOTHING-MASK",
+        "slug": "nutri-soothing-mask",
+        "brand": "Sothys",
+        "collection": "Sensitive – Spa Thermal Water",
+        "type": "Mask",
+        "size": null,
         "labels": {
-            "tr": "Ortak Alanlar",
-            "en": "Common Fields",
-            "de": "Gemeinsame Felder",
-            "fr": "Champs communs",
-            "ru": "Общие поля"
+            "tr": {
+                "title": "Nutri-Soothing Mask",
+                "subtitle": "Hassas ciltte konfor ve denge"
+            },
+            "en": {
+                "title": "Nutri-Soothing Mask",
+                "subtitle": "Comfort + balance for sensitive skin"
+            },
+            "de": {
+                "title": "Nutri-Soothing Maske",
+                "subtitle": "Beruhigung und Balance"
+            },
+            "fr": {
+                "title": "Masque nutri-apaisant",
+                "subtitle": "Confort & équilibre"
+            },
+            "ru": {
+                "title": "Nutri-Soothing Mask",
+                "subtitle": "Комфорт и баланс для чувствительной кожи"
+            }
         }
     },
     {
-        "id": "m_112",
-        "parentId": "m_110",
-        "slug": "checkout-hotel-in",
-        "sort": 20,
-        "visibleIn": "hotel_in",
+        "sku": "SOTHYS-SENSITIVE-SOOTHING-VELVET-CREAM",
+        "slug": "soothing-velvet-cream",
+        "brand": "Sothys",
+        "collection": "Sensitive – Spa Thermal Water",
+        "type": "Cream",
+        "size": null,
         "labels": {
-            "tr": "Otel İçi Alanlar",
-            "en": "Hotel-In Fields",
-            "de": "Hotel-intern",
-            "fr": "Sur place (hôtel)",
-            "ru": "В отеле"
+            "tr": {
+                "title": "Soothing Velvet Cream",
+                "subtitle": "Hassas cilt için günlük koruma"
+            },
+            "en": {
+                "title": "Soothing Velvet Cream",
+                "subtitle": "Daily protection for sensitive skin"
+            },
+            "de": {
+                "title": "Beruhigende Samtcreme",
+                "subtitle": "Täglicher Schutz"
+            },
+            "fr": {
+                "title": "Crème velours apaisante",
+                "subtitle": "Protection au quotidien"
+            },
+            "ru": {
+                "title": "Soothing Velvet Cream",
+                "subtitle": "Ежедневная защита для чувствительной кожи"
+            }
         }
     },
     {
-        "id": "m_113",
-        "parentId": "m_110",
-        "slug": "checkout-hotel-out",
-        "sort": 30,
-        "visibleIn": "hotel_out",
+        "sku": "SOTHYS-FOCUS-TACHES-SERUM",
+        "slug": "serum-focus-taches",
+        "brand": "Sothys",
+        "collection": "Focus Taches",
+        "type": "Serum",
+        "size": null,
         "labels": {
-            "tr": "Otel Dışı Alanlar",
-            "en": "Hotel-Out Fields",
-            "de": "Außerhalb des Hotels",
-            "fr": "Hors hôtel",
-            "ru": "Вне отеля"
+            "tr": {
+                "title": "Sérum Focus Taches",
+                "subtitle": "Leke görünümünü hedefleyen bakım"
+            },
+            "en": {
+                "title": "Focus Taches Serum",
+                "subtitle": "Targets the appearance of dark spots"
+            },
+            "de": {
+                "title": "Focus Taches Serum",
+                "subtitle": "Zielt auf Pigmentflecken ab"
+            },
+            "fr": {
+                "title": "Sérum Focus Taches",
+                "subtitle": "Cible l’apparence des taches"
+            },
+            "ru": {
+                "title": "Focus Taches Serum",
+                "subtitle": "Нацелен на пигментацию"
+            }
         }
     },
     {
-        "id": "m_120",
-        "parentId": "m_100",
-        "slug": "pricing-totals",
-        "sort": 20,
-        "visibleIn": "all",
+        "sku": "SOTHYS-FOCUS-TACHES-CREAM",
+        "slug": "creme-focus-taches",
+        "brand": "Sothys",
+        "collection": "Focus Taches",
+        "type": "Cream",
+        "size": null,
         "labels": {
-            "tr": "Toplam Hesabı",
-            "en": "Totals Calculation",
-            "de": "Gesamtsumme",
-            "fr": "Calcul du total",
-            "ru": "Расчет итогов"
+            "tr": {
+                "title": "Crème Focus Taches",
+                "subtitle": "Günlük kullanım: leke + ışıltı"
+            },
+            "en": {
+                "title": "Focus Taches Cream",
+                "subtitle": "Daily: spots + radiance"
+            },
+            "de": {
+                "title": "Focus Taches Creme",
+                "subtitle": "Täglich: Flecken + Glow"
+            },
+            "fr": {
+                "title": "Crème Focus Taches",
+                "subtitle": "Quotidien: taches + éclat"
+            },
+            "ru": {
+                "title": "Focus Taches Cream",
+                "subtitle": "Ежедневно: пигментация + сияние"
+            }
         }
     },
     {
-        "id": "m_121",
-        "parentId": "m_120",
-        "slug": "items-subtotal",
-        "sort": 10,
-        "visibleIn": "all",
+        "sku": "SOTHYS-DETOX-CREME-JEUNESSE-DEPOLLUANTE",
+        "slug": "creme-jeunesse-depolluante",
+        "brand": "Sothys",
+        "collection": "Detox Energie",
+        "type": "Cream",
+        "size": "50 ml",
         "labels": {
-            "tr": "Ürünler Ara Toplamı",
-            "en": "Items Subtotal",
-            "de": "Zwischensumme (Artikel)",
-            "fr": "Sous-total articles",
-            "ru": "Подытог товаров"
+            "tr": {
+                "title": "Crème jeunesse dépolluante",
+                "subtitle": "Şehir stresine karşı günlük denge"
+            },
+            "en": {
+                "title": "Depolluting Youth Cream",
+                "subtitle": "Daily balance against urban stress"
+            },
+            "de": {
+                "title": "Depolluting Youth Creme",
+                "subtitle": "Tägliche Balance gegen Stadtstress"
+            },
+            "fr": {
+                "title": "Crème jeunesse dépolluante",
+                "subtitle": "Équilibre quotidien anti-pollution"
+            },
+            "ru": {
+                "title": "Depolluting Youth Cream",
+                "subtitle": "Ежедневный баланс против городского стресса"
+            }
         }
     },
     {
-        "id": "m_122",
-        "parentId": "m_120",
-        "slug": "shipping-total",
-        "sort": 20,
-        "visibleIn": "all",
+        "sku": "SOTHYS-DETOX-SERUM-ENERGISANT-INTEGRAL",
+        "slug": "serum-energisant-integral",
+        "brand": "Sothys",
+        "collection": "Detox Energie",
+        "type": "Serum",
+        "size": "30 ml",
         "labels": {
-            "tr": "Kargo Ücreti",
-            "en": "Shipping Total",
-            "de": "Versandkosten",
-            "fr": "Frais de livraison",
-            "ru": "Стоимость доставки"
+            "tr": {
+                "title": "Sérum énergisant intégral",
+                "subtitle": "Detoks & enerji hissi, hafif doku"
+            },
+            "en": {
+                "title": "Integral Energizing Serum",
+                "subtitle": "Detox & energizing feel, light texture"
+            },
+            "de": {
+                "title": "Energizing Serum",
+                "subtitle": "Detox & Energie, leichte Textur"
+            },
+            "fr": {
+                "title": "Sérum énergisant intégral",
+                "subtitle": "Détox & énergie, texture légère"
+            },
+            "ru": {
+                "title": "Energizing Serum",
+                "subtitle": "Детокс и энергия, легкая текстура"
+            }
         }
     },
     {
-        "id": "m_123",
-        "parentId": "m_120",
-        "slug": "tax-total",
-        "sort": 30,
-        "visibleIn": "eu_only",
+        "sku": "SOTHYS-PRESTIGE-LA-CREME-128",
+        "slug": "la-creme-128",
+        "brand": "Sothys",
+        "collection": "Secrets de Sothys",
+        "type": "Cream",
+        "size": null,
         "labels": {
-            "tr": "Vergi (VAT)",
-            "en": "Tax (VAT)",
-            "de": "Steuer (MwSt.)",
-            "fr": "Taxe (TVA)",
-            "ru": "НДС"
+            "tr": {
+                "title": "La Crème 128",
+                "subtitle": "Prestige youth krem (ikon ürün)"
+            },
+            "en": {
+                "title": "La Crème 128",
+                "subtitle": "Iconic prestige youth cream"
+            },
+            "de": {
+                "title": "La Crème 128",
+                "subtitle": "Ikonische Prestige-Creme"
+            },
+            "fr": {
+                "title": "La Crème 128",
+                "subtitle": "Crème jeunesse prestige iconique"
+            },
+            "ru": {
+                "title": "La Crème 128",
+                "subtitle": "Икона премиум-ухода"
+            }
         }
     },
     {
-        "id": "m_124",
-        "parentId": "m_120",
-        "slug": "duties-fees",
-        "sort": 40,
-        "visibleIn": "eu_only",
+        "sku": "SOTHYS-PRESTIGE-LA-CREME-PREMIUM-YOUTH",
+        "slug": "la-creme-premium-youth-cream",
+        "brand": "Sothys",
+        "collection": "Secrets de Sothys",
+        "type": "Cream",
+        "size": null,
         "labels": {
-            "tr": "Gümrük / Harçlar",
-            "en": "Duties / Fees",
-            "de": "Zölle / Gebühren",
-            "fr": "Droits / frais",
-            "ru": "Пошлины / сборы"
+            "tr": {
+                "title": "La crème – Premium youth cream",
+                "subtitle": "Günlük pro-youth bakım"
+            },
+            "en": {
+                "title": "La crème – Premium youth cream",
+                "subtitle": "Daily pro-youth care"
+            },
+            "de": {
+                "title": "La crème – Premium youth cream",
+                "subtitle": "Tägliche Pro-Youth Pflege"
+            },
+            "fr": {
+                "title": "La crème – Crème jeunesse premium",
+                "subtitle": "Soin pro-jeunesse quotidien"
+            },
+            "ru": {
+                "title": "Premium youth cream",
+                "subtitle": "Ежедневный pro-youth уход"
+            }
         }
     },
     {
-        "id": "m_130",
-        "parentId": "m_100",
-        "slug": "shipping-rules",
-        "sort": 30,
-        "visibleIn": "all",
+        "sku": "SOTHYS-PRESTIGE-EYE-LIP-YOUTH-CREAM",
+        "slug": "eye-and-lip-youth-cream",
+        "brand": "Sothys",
+        "collection": "Secrets de Sothys",
+        "type": "Eye Care",
+        "size": null,
         "labels": {
-            "tr": "Kargo Kuralları",
-            "en": "Shipping Rules",
-            "de": "Versandregeln",
-            "fr": "Règles de livraison",
-            "ru": "Правила доставки"
+            "tr": {
+                "title": "La crème yeux-lèvres",
+                "subtitle": "Göz + dudak çevresi bakımı"
+            },
+            "en": {
+                "title": "Eye & lip youth cream",
+                "subtitle": "Eye + lip contour care"
+            },
+            "de": {
+                "title": "Augen- & Lippenpflege",
+                "subtitle": "Kontur bakımı"
+            },
+            "fr": {
+                "title": "Crème yeux-lèvres",
+                "subtitle": "Soin contour yeux & lèvres"
+            },
+            "ru": {
+                "title": "Eye & lip cream",
+                "subtitle": "Уход за контуром глаз и губ"
+            }
         }
     },
     {
-        "id": "m_131",
-        "parentId": "m_130",
-        "slug": "eu-zones",
-        "sort": 10,
-        "visibleIn": "eu_only",
+        "sku": "SOTHYS-PRESTIGE-EAU-DE-PARFUM",
+        "slug": "secrets-de-sothys-eau-de-parfum",
+        "brand": "Sothys",
+        "collection": "Secrets de Sothys",
+        "type": "Fragrance",
+        "size": "50 ml",
         "labels": {
-            "tr": "EU Zone Tablosu",
-            "en": "EU Zone Table",
-            "de": "EU-Zonen",
-            "fr": "Zones UE",
-            "ru": "Зоны ЕС"
+            "tr": {
+                "title": "Secrets de Sothys – Eau de parfum",
+                "subtitle": "Koleksiyonun imza kokusu"
+            },
+            "en": {
+                "title": "Secrets de Sothys – Eau de parfum",
+                "subtitle": "Signature scent of the collection"
+            },
+            "de": {
+                "title": "Eau de parfum",
+                "subtitle": "Signature-Duft"
+            },
+            "fr": {
+                "title": "Eau de parfum",
+                "subtitle": "Parfum signature"
+            },
+            "ru": {
+                "title": "Eau de parfum",
+                "subtitle": "Фирменный аромат"
+            }
         }
     },
     {
-        "id": "m_132",
-        "parentId": "m_130",
-        "slug": "service-levels",
-        "sort": 20,
-        "visibleIn": "all",
+        "sku": "SOTHYS-HOMME-MULTI-OIL",
+        "slug": "sothys-homme-multi-oil",
+        "brand": "Sothys",
+        "collection": "Sothys Homme",
+        "type": "Oil",
+        "size": "100 ml",
         "labels": {
-            "tr": "Servis Seviyeleri",
-            "en": "Service Levels",
-            "de": "Service-Level",
-            "fr": "Niveaux de service",
-            "ru": "Уровни сервиса"
+            "tr": {
+                "title": "Sothys Homme – Multi-Oil",
+                "subtitle": "Tıraş + sakal + yüz/beden çok amaçlı"
+            },
+            "en": {
+                "title": "Sothys Homme – Multi-Oil",
+                "subtitle": "Multi-use: shave/beard/face/body"
+            },
+            "de": {
+                "title": "Sothys Homme – Multi-Öl",
+                "subtitle": "Multi-Use Pflege"
+            },
+            "fr": {
+                "title": "Huile multi-usages",
+                "subtitle": "Soin multi-usages"
+            },
+            "ru": {
+                "title": "Homme Multi-Oil",
+                "subtitle": "Мульти-уход: бритьё/борода/лицо/тело"
+            }
         }
     },
     {
-        "id": "m_133",
-        "parentId": "m_130",
-        "slug": "free-shipping",
-        "sort": 30,
-        "visibleIn": "all",
+        "sku": "SOTHYS-HOMME-HYDRATING-YOUTH-FLUID",
+        "slug": "sothys-homme-hydrating-youth-fluid",
+        "brand": "Sothys",
+        "collection": "Sothys Homme",
+        "type": "Fluid",
+        "size": "125 ml",
         "labels": {
-            "tr": "Ücretsiz Kargo Kuralı",
-            "en": "Free Shipping Rule",
-            "de": "Kostenloser Versand",
-            "fr": "Livraison gratuite",
-            "ru": "Бесплатная доставка"
+            "tr": {
+                "title": "Sothys Homme – Hydrating Youth Fluid",
+                "subtitle": "Nem + anti-age tek adım"
+            },
+            "en": {
+                "title": "Sothys Homme – Hydrating Youth Fluid",
+                "subtitle": "Hydration + anti-age in one step"
+            },
+            "de": {
+                "title": "Feuchtigkeits-Fluid jeunesse",
+                "subtitle": "Feuchtigkeit + Anti-Age"
+            },
+            "fr": {
+                "title": "Fluide hydratant jeunesse",
+                "subtitle": "Hydratation + anti-âge"
+            },
+            "ru": {
+                "title": "Hydrating Youth Fluid",
+                "subtitle": "Увлажнение + anti-age одним шагом"
+            }
         }
     },
     {
-        "id": "m_140",
-        "parentId": "m_100",
-        "slug": "product-logistics",
-        "sort": 40,
-        "visibleIn": "all",
+        "sku": "SOTHYS-HOMME-EAU-FRAICHE",
+        "slug": "sothys-homme-eau-fraiche",
+        "brand": "Sothys",
+        "collection": "Sothys Homme",
+        "type": "Body & Hair Mist",
+        "size": "50 ml",
         "labels": {
-            "tr": "Ürün Lojistik Alanları",
-            "en": "Product Logistics Fields",
-            "de": "Produkt-Logistikfelder",
-            "fr": "Champs logistiques produit",
-            "ru": "Логистика товара"
-        }
-    },
-    {
-        "id": "m_141",
-        "parentId": "m_140",
-        "slug": "weights-dimensions",
-        "sort": 10,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Ağırlık / Hacim",
-            "en": "Weight / Dimensions",
-            "de": "Gewicht / Maße",
-            "fr": "Poids / Dimensions",
-            "ru": "Вес / Габариты"
-        }
-    },
-    {
-        "id": "m_142",
-        "parentId": "m_140",
-        "slug": "handling-flags",
-        "sort": 20,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Taşıma Bayrakları",
-            "en": "Handling Flags",
-            "de": "Handling-Flags",
-            "fr": "Indicateurs de manutention",
-            "ru": "Флаги обработки"
-        }
-    },
-    {
-        "id": "m_150",
-        "parentId": "m_100",
-        "slug": "payments",
-        "sort": 50,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Ödemeler",
-            "en": "Payments",
-            "de": "Zahlungen",
-            "fr": "Paiements",
-            "ru": "Платежи"
-        }
-    },
-    {
-        "id": "m_151",
-        "parentId": "m_150",
-        "slug": "stripe-checkout",
-        "sort": 10,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Stripe Checkout",
-            "en": "Stripe Checkout",
-            "de": "Stripe Checkout",
-            "fr": "Stripe Checkout",
-            "ru": "Stripe Checkout"
-        }
-    },
-    {
-        "id": "m_152",
-        "parentId": "m_150",
-        "slug": "mollie-checkout",
-        "sort": 20,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "Mollie Checkout",
-            "en": "Mollie Checkout",
-            "de": "Mollie Checkout",
-            "fr": "Mollie Checkout",
-            "ru": "Mollie Checkout"
-        }
-    },
-    {
-        "id": "m_153",
-        "parentId": "m_150",
-        "slug": "webhooks",
-        "sort": 30,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Webhook’lar",
-            "en": "Webhooks",
-            "de": "Webhooks",
-            "fr": "Webhooks",
-            "ru": "Webhook’и"
-        }
-    },
-    {
-        "id": "m_160",
-        "parentId": "m_100",
-        "slug": "whatsapp-templates",
-        "sort": 60,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "WhatsApp Şablonları",
-            "en": "WhatsApp Templates",
-            "de": "WhatsApp-Vorlagen",
-            "fr": "Modèles WhatsApp",
-            "ru": "Шаблоны WhatsApp"
-        }
-    },
-    {
-        "id": "m_161",
-        "parentId": "m_160",
-        "slug": "wa-order-receipt",
-        "sort": 10,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Sipariş Fişi",
-            "en": "Order Receipt",
-            "de": "Bestellbeleg",
-            "fr": "Reçu de commande",
-            "ru": "Квитанция заказа"
-        }
-    },
-    {
-        "id": "m_162",
-        "parentId": "m_160",
-        "slug": "wa-paid",
-        "sort": 20,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Ödeme Alındı",
-            "en": "Payment Received",
-            "de": "Zahlung erhalten",
-            "fr": "Paiement reçu",
-            "ru": "Платеж получен"
-        }
-    },
-    {
-        "id": "m_163",
-        "parentId": "m_160",
-        "slug": "wa-shipped",
-        "sort": 30,
-        "visibleIn": "hotel_out",
-        "labels": {
-            "tr": "Kargoya Verildi",
-            "en": "Shipped",
-            "de": "Versandt",
-            "fr": "Expédié",
-            "ru": "Отправлено"
-        }
-    },
-    {
-        "id": "m_164",
-        "parentId": "m_160",
-        "slug": "wa-delivered",
-        "sort": 40,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Teslim Edildi",
-            "en": "Delivered",
-            "de": "Zugestellt",
-            "fr": "Livré",
-            "ru": "Доставлено"
-        }
-    },
-    {
-        "id": "m_170",
-        "parentId": "m_100",
-        "slug": "eu-compliance",
-        "sort": 70,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "EU Uyum",
-            "en": "EU Compliance",
-            "de": "EU-Compliance",
-            "fr": "Conformité UE",
-            "ru": "Соответствие ЕС"
-        }
-    },
-    {
-        "id": "m_171",
-        "parentId": "m_170",
-        "slug": "responsible-person",
-        "sort": 10,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "Responsible Person",
-            "en": "Responsible Person",
-            "de": "Verantwortliche Person",
-            "fr": "Personne responsable",
-            "ru": "Ответственное лицо"
-        }
-    },
-    {
-        "id": "m_172",
-        "parentId": "m_170",
-        "slug": "cpnp",
-        "sort": 20,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "CPNP Bildirimi",
-            "en": "CPNP Notification",
-            "de": "CPNP-Meldung",
-            "fr": "Notification CPNP",
-            "ru": "Уведомление CPNP"
-        }
-    },
-    {
-        "id": "m_173",
-        "parentId": "m_170",
-        "slug": "pif-safety",
-        "sort": 30,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "PIF & Güvenlik",
-            "en": "PIF & Safety",
-            "de": "PIF & Sicherheit",
-            "fr": "PIF & sécurité",
-            "ru": "PIF и безопасность"
-        }
-    },
-    {
-        "id": "m_174",
-        "parentId": "m_170",
-        "slug": "gmp-iso22716",
-        "sort": 40,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "GMP / ISO 22716",
-            "en": "GMP / ISO 22716",
-            "de": "GMP / ISO 22716",
-            "fr": "GMP / ISO 22716",
-            "ru": "GMP / ISO 22716"
+            "tr": {
+                "title": "Sothys Homme – Eau fraîche",
+                "subtitle": "Vücut & saç için ferah koku suyu"
+            },
+            "en": {
+                "title": "Sothys Homme – Eau fraîche",
+                "subtitle": "Refreshing body & hair water"
+            },
+            "de": {
+                "title": "Eau fraîche",
+                "subtitle": "Erfrischendes Duftwasser"
+            },
+            "fr": {
+                "title": "Eau fraîche",
+                "subtitle": "Eau parfumée fraîche"
+            },
+            "ru": {
+                "title": "Eau fraîche",
+                "subtitle": "Освежающая вода для тела и волос"
+            }
         }
     }
-] ``` ```json [
-    {
-        "id": "m_100",
-        "parentId": null,
-        "slug": "order-system",
-        "sort": 10,
-        "visibleIn": "all",
-        "roleRequired": "editor",
-        "route": "/admin/order-system",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Sipariş Sistemi",
-            "en": "Order System",
-            "de": "Bestellsystem",
-            "fr": "Système de commande",
-            "ru": "Система заказов"
-        }
-    },
-    {
-        "id": "m_110",
-        "parentId": "m_100",
-        "slug": "checkout-fields",
-        "sort": 10,
-        "visibleIn": "all",
-        "roleRequired": "editor",
-        "route": "/admin/checkout/fields",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Checkout Alanları",
-            "en": "Checkout Fields",
-            "de": "Checkout-Felder",
-            "fr": "Champs de paiement",
-            "ru": "Поля оформления"
-        }
-    },
-    {
-        "id": "m_111",
-        "parentId": "m_110",
-        "slug": "checkout-common",
-        "sort": 10,
-        "visibleIn": "all",
-        "roleRequired": "editor",
-        "route": "/admin/checkout/fields/common",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Ortak Alanlar",
-            "en": "Common Fields",
-            "de": "Gemeinsame Felder",
-            "fr": "Champs communs",
-            "ru": "Общие поля"
-        }
-    },
-    {
-        "id": "m_112",
-        "parentId": "m_110",
-        "slug": "checkout-hotel-in",
-        "sort": 20,
-        "visibleIn": "hotel_in",
-        "roleRequired": "editor",
-        "route": "/admin/checkout/fields/hotel-in",
-        "featureFlags": [
-            "HOTEL_IN"
-        ],
-        "labels": {
-            "tr": "Otel İçi Alanlar",
-            "en": "Hotel-In Fields",
-            "de": "Hotel-intern",
-            "fr": "Sur place (hôtel)",
-            "ru": "В отеле"
-        }
-    },
-    {
-        "id": "m_113",
-        "parentId": "m_110",
-        "slug": "checkout-hotel-out",
-        "sort": 30,
-        "visibleIn": "hotel_out",
-        "roleRequired": "editor",
-        "route": "/admin/checkout/fields/hotel-out",
-        "featureFlags": [
-            "HOTEL_OUT"
-        ],
-        "labels": {
-            "tr": "Otel Dışı Alanlar",
-            "en": "Hotel-Out Fields",
-            "de": "Außerhalb des Hotels",
-            "fr": "Hors hôtel",
-            "ru": "Вне отеля"
-        }
-    },
-    {
-        "id": "m_120",
-        "parentId": "m_100",
-        "slug": "pricing-totals",
-        "sort": 20,
-        "visibleIn": "all",
-        "roleRequired": "admin",
-        "route": "/admin/pricing/totals",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Toplam Hesabı",
-            "en": "Totals Calculation",
-            "de": "Gesamtsumme",
-            "fr": "Calcul du total",
-            "ru": "Расчет итогов"
-        }
-    },
-    {
-        "id": "m_121",
-        "parentId": "m_120",
-        "slug": "items-subtotal",
-        "sort": 10,
-        "visibleIn": "all",
-        "roleRequired": "admin",
-        "route": "/admin/pricing/totals/items",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Ürünler Ara Toplamı",
-            "en": "Items Subtotal",
-            "de": "Zwischensumme (Artikel)",
-            "fr": "Sous-total articles",
-            "ru": "Подытог товаров"
-        }
-    },
-    {
-        "id": "m_122",
-        "parentId": "m_120",
-        "slug": "shipping-total",
-        "sort": 20,
-        "visibleIn": "all",
-        "roleRequired": "admin",
-        "route": "/admin/pricing/totals/shipping",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Kargo Ücreti",
-            "en": "Shipping Total",
-            "de": "Versandkosten",
-            "fr": "Frais de livraison",
-            "ru": "Стоимость доставки"
-        }
-    },
-    {
-        "id": "m_123",
-        "parentId": "m_120",
-        "slug": "tax-total",
-        "sort": 30,
-        "visibleIn": "eu_only",
-        "roleRequired": "admin",
-        "route": "/admin/pricing/totals/tax",
-        "featureFlags": [
-            "EU"
-        ],
-        "labels": {
-            "tr": "Vergi (VAT)",
-            "en": "Tax (VAT)",
-            "de": "Steuer (MwSt.)",
-            "fr": "Taxe (TVA)",
-            "ru": "НДС"
-        }
-    },
-    {
-        "id": "m_124",
-        "parentId": "m_120",
-        "slug": "duties-fees",
-        "sort": 40,
-        "visibleIn": "eu_only",
-        "roleRequired": "admin",
-        "route": "/admin/pricing/totals/duties-fees",
-        "featureFlags": [
-            "EU"
-        ],
-        "labels": {
-            "tr": "Gümrük / Harçlar",
-            "en": "Duties / Fees",
-            "de": "Zölle / Gebühren",
-            "fr": "Droits / frais",
-            "ru": "Пошлины / сборы"
-        }
-    },
-    {
-        "id": "m_130",
-        "parentId": "m_100",
-        "slug": "shipping-rules",
-        "sort": 30,
-        "visibleIn": "all",
-        "roleRequired": "admin",
-        "route": "/admin/shipping",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Kargo Kuralları",
-            "en": "Shipping Rules",
-            "de": "Versandregeln",
-            "fr": "Règles de livraison",
-            "ru": "Правила доставки"
-        }
-    },
-    {
-        "id": "m_131",
-        "parentId": "m_130",
-        "slug": "eu-zones",
-        "sort": 10,
-        "visibleIn": "eu_only",
-        "roleRequired": "admin",
-        "route": "/admin/shipping/zones",
-        "featureFlags": [
-            "EU"
-        ],
-        "labels": {
-            "tr": "EU Zone Tablosu",
-            "en": "EU Zone Table",
-            "de": "EU-Zonen",
-            "fr": "Zones UE",
-            "ru": "Зоны ЕС"
-        }
-    },
-    {
-        "id": "m_132",
-        "parentId": "m_130",
-        "slug": "service-levels",
-        "sort": 20,
-        "visibleIn": "all",
-        "roleRequired": "admin",
-        "route": "/admin/shipping/service-levels",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Servis Seviyeleri",
-            "en": "Service Levels",
-            "de": "Service-Level",
-            "fr": "Niveaux de service",
-            "ru": "Уровни сервиса"
-        }
-    },
-    {
-        "id": "m_133",
-        "parentId": "m_130",
-        "slug": "free-shipping",
-        "sort": 30,
-        "visibleIn": "all",
-        "roleRequired": "admin",
-        "route": "/admin/shipping/free-shipping",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Ücretsiz Kargo Kuralı",
-            "en": "Free Shipping Rule",
-            "de": "Kostenloser Versand",
-            "fr": "Livraison gratuite",
-            "ru": "Бесплатная доставка"
-        }
-    },
-    {
-        "id": "m_140",
-        "parentId": "m_100",
-        "slug": "product-logistics",
-        "sort": 40,
-        "visibleIn": "all",
-        "roleRequired": "editor",
-        "route": "/admin/products/logistics",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Ürün Lojistik Alanları",
-            "en": "Product Logistics Fields",
-            "de": "Produkt-Logistikfelder",
-            "fr": "Champs logistiques produit",
-            "ru": "Логистика товара"
-        }
-    },
-    {
-        "id": "m_141",
-        "parentId": "m_140",
-        "slug": "weights-dimensions",
-        "sort": 10,
-        "visibleIn": "all",
-        "roleRequired": "editor",
-        "route": "/admin/products/logistics/weights",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Ağırlık / Hacim",
-            "en": "Weight / Dimensions",
-            "de": "Gewicht / Maße",
-            "fr": "Poids / Dimensions",
-            "ru": "Вес / Габариты"
-        }
-    },
-    {
-        "id": "m_142",
-        "parentId": "m_140",
-        "slug": "handling-flags",
-        "sort": 20,
-        "visibleIn": "all",
-        "roleRequired": "editor",
-        "route": "/admin/products/logistics/handling",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Taşıma Bayrakları",
-            "en": "Handling Flags",
-            "de": "Handling-Flags",
-            "fr": "Indicateurs de manutention",
-            "ru": "Флаги обработки"
-        }
-    },
-    {
-        "id": "m_150",
-        "parentId": "m_100",
-        "slug": "payments",
-        "sort": 50,
-        "visibleIn": "all",
-        "roleRequired": "admin",
-        "route": "/admin/payments",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Ödemeler",
-            "en": "Payments",
-            "de": "Zahlungen",
-            "fr": "Paiements",
-            "ru": "Платежи"
-        }
-    },
-    {
-        "id": "m_151",
-        "parentId": "m_150",
-        "slug": "stripe-checkout",
-        "sort": 10,
-        "visibleIn": "all",
-        "roleRequired": "admin",
-        "route": "/admin/payments/stripe",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Stripe Checkout",
-            "en": "Stripe Checkout",
-            "de": "Stripe Checkout",
-            "fr": "Stripe Checkout",
-            "ru": "Stripe Checkout"
-        }
-    },
-    {
-        "id": "m_152",
-        "parentId": "m_150",
-        "slug": "mollie-checkout",
-        "sort": 20,
-        "visibleIn": "eu_only",
-        "roleRequired": "admin",
-        "route": "/admin/payments/mollie",
-        "featureFlags": [
-            "EU"
-        ],
-        "labels": {
-            "tr": "Mollie Checkout",
-            "en": "Mollie Checkout",
-            "de": "Mollie Checkout",
-            "fr": "Mollie Checkout",
-            "ru": "Mollie Checkout"
-        }
-    },
-    {
-        "id": "m_153",
-        "parentId": "m_150",
-        "slug": "webhooks",
-        "sort": 30,
-        "visibleIn": "all",
-        "roleRequired": "admin",
-        "route": "/admin/payments/webhooks",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Webhook’lar",
-            "en": "Webhooks",
-            "de": "Webhooks",
-            "fr": "Webhooks",
-            "ru": "Webhook’и"
-        }
-    },
-    {
-        "id": "m_160",
-        "parentId": "m_100",
-        "slug": "whatsapp-templates",
-        "sort": 60,
-        "visibleIn": "all",
-        "roleRequired": "concierge",
-        "route": "/admin/whatsapp",
-        "featureFlags": [],
-        "labels": {
-            "tr": "WhatsApp Şablonları",
-            "en": "WhatsApp Templates",
-            "de": "WhatsApp-Vorlagen",
-            "fr": "Modèles WhatsApp",
-            "ru": "Шаблоны WhatsApp"
-        }
-    },
-    {
-        "id": "m_161",
-        "parentId": "m_160",
-        "slug": "wa-order-receipt",
-        "sort": 10,
-        "visibleIn": "all",
-        "roleRequired": "concierge",
-        "route": "/admin/whatsapp/templates/order-receipt",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Sipariş Fişi",
-            "en": "Order Receipt",
-            "de": "Bestellbeleg",
-            "fr": "Reçu de commande",
-            "ru": "Квитанция заказа"
-        }
-    },
-    {
-        "id": "m_162",
-        "parentId": "m_160",
-        "slug": "wa-paid",
-        "sort": 20,
-        "visibleIn": "all",
-        "roleRequired": "concierge",
-        "route": "/admin/whatsapp/templates/paid",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Ödeme Alındı",
-            "en": "Payment Received",
-            "de": "Zahlung erhalten",
-            "fr": "Paiement reçu",
-            "ru": "Платеж получен"
-        }
-    },
-    {
-        "id": "m_163",
-        "parentId": "m_160",
-        "slug": "wa-shipped",
-        "sort": 30,
-        "visibleIn": "hotel_out",
-        "roleRequired": "concierge",
-        "route": "/admin/whatsapp/templates/shipped",
-        "featureFlags": [
-            "HOTEL_OUT"
-        ],
-        "labels": {
-            "tr": "Kargoya Verildi",
-            "en": "Shipped",
-            "de": "Versandt",
-            "fr": "Expédié",
-            "ru": "Отправлено"
-        }
-    },
-    {
-        "id": "m_164",
-        "parentId": "m_160",
-        "slug": "wa-delivered",
-        "sort": 40,
-        "visibleIn": "all",
-        "roleRequired": "concierge",
-        "route": "/admin/whatsapp/templates/delivered",
-        "featureFlags": [],
-        "labels": {
-            "tr": "Teslim Edildi",
-            "en": "Delivered",
-            "de": "Zugestellt",
-            "fr": "Livré",
-            "ru": "Доставлено"
-        }
-    },
-    {
-        "id": "m_170",
-        "parentId": "m_100",
-        "slug": "eu-compliance",
-        "sort": 70,
-        "visibleIn": "eu_only",
-        "roleRequired": "admin",
-        "route": "/admin/eu/compliance",
-        "featureFlags": [
-            "EU"
-        ],
-        "labels": {
-            "tr": "EU Uyum",
-            "en": "EU Compliance",
-            "de": "EU-Compliance",
-            "fr": "Conformité UE",
-            "ru": "Соответствие ЕС"
-        }
-    },
-    {
-        "id": "m_171",
-        "parentId": "m_170",
-        "slug": "responsible-person",
-        "sort": 10,
-        "visibleIn": "eu_only",
-        "roleRequired": "admin",
-        "route": "/admin/eu/compliance/responsible-person",
-        "featureFlags": [
-            "EU"
-        ],
-        "labels": {
-            "tr": "Responsible Person",
-            "en": "Responsible Person",
-            "de": "Verantwortliche Person",
-            "fr": "Personne responsable",
-            "ru": "Ответственное лицо"
-        }
-    },
-    {
-        "id": "m_172",
-        "parentId": "m_170",
-        "slug": "cpnp",
-        "sort": 20,
-        "visibleIn": "eu_only",
-        "roleRequired": "admin",
-        "route": "/admin/eu/compliance/cpnp",
-        "featureFlags": [
-            "EU"
-        ],
-        "labels": {
-            "tr": "CPNP Bildirimi",
-            "en": "CPNP Notification",
-            "de": "CPNP-Meldung",
-            "fr": "Notification CPNP",
-            "ru": "Уведомление CPNP"
-        }
-    },
-    {
-        "id": "m_173",
-        "parentId": "m_170",
-        "slug": "pif-safety",
-        "sort": 30,
-        "visibleIn": "eu_only",
-        "roleRequired": "admin",
-        "route": "/admin/eu/compliance/pif-safety",
-        "featureFlags": [
-            "EU"
-        ],
-        "labels": {
-            "tr": "PIF & Güvenlik",
-            "en": "PIF & Safety",
-            "de": "PIF & Sicherheit",
-            "fr": "PIF & sécurité",
-            "ru": "PIF и безопасность"
-        }
-    },
-    {
-        "id": "m_174",
-        "parentId": "m_170",
-        "slug": "gmp-iso22716",
-        "sort": 40,
-        "visibleIn": "eu_only",
-        "roleRequired": "admin",
-        "route": "/admin/eu/compliance/gmp-iso22716",
-        "featureFlags": [
-            "EU"
-        ],
-        "labels": {
-            "tr": "GMP / ISO 22716",
-            "en": "GMP / ISO 22716",
-            "de": "GMP / ISO 22716",
-            "fr": "GMP / ISO 22716",
-            "ru": "GMP / ISO 22716"
-        }
-    }
-] ```
+]
+```
+
+---
+
+## Sonraki adım (sormadan net önerim)
+
+İstersen ben bunu direkt **senin mevcut yapına uyarlayacak şekilde** “sayfa seti” olarak böleyim:
+
+* `/shop/skincare/sothys` (brand hub)
+* `/shop/skincare/sothys/<collection>` (collection grid)
+* `/shop/sothys/<slug>` (product detail – tek ürün sayfası)
+* Global cart + badge + “WhatsApp sepetini gönder” (wa-linker standardıyla)
+
+Sadece şunu yaz: **“Ürün fiyatlarını EUR bazında girelim mi, yoksa şimdilik boş mu kalsın?”** (ben boş bırakıp panelden doldurulacak şekilde de kurgularım).
+
+[
+    1
+]: https: //sothys.de/products/feuchtigkeitsspendende-intensivbehandlung-hydra-hyaluronic-acid4?utm_source=chatgpt.com "Feuchtigkeitsspendende Intensivbehandlung Hydra Hyaluronic Acid4"
+[
+    2
+]: https: //www.sothys.fr/en/products/face/maintain-your-skin-type/nutri-soothing-mask?utm_source=chatgpt.com "Sothys - Nutri-soothing mask"
+[
+    3
+]: https: //www.sothys.fr/fr/produits/visage/serums/serum-focus-taches?utm_source=chatgpt.com "Sothys - Sérum focus taches"
+[
+    4
+]: https: //www.sothys.fr/fr/nouveautes/noel-2023-sothys-paris?utm_source=chatgpt.com "Sothys"
+[
+    5
+]: https: //www.sothys.be/fr/produits/prestige/prestige/la-crme-128?utm_source=chatgpt.com "Sothys - La Crème 128"
+[
+    6
+]: https: //sothys.de/products/sothys-homme-homme-multi-ol?utm_source=chatgpt.com "Sothys Homme Multi-Öl"
+[
+    7
+]: https: //www.sothys.nl/en/products/face/serums/hydrating-intensive-serum?utm_source=chatgpt.com "Sothys - Hydrating Intensive serum"
+[
+    8
+]: https: //www.sothys.org/en/products/face/maintain-your-skin-type/soothing-velvet-cream?utm_source=chatgpt.com "Sothys - Soothing velvet cream."
+[
+    9
+]: https: //www.sothys.nl/en/products/prestige/prestige/la-crme-premium-youth-cream?utm_source=chatgpt.com "Sothys - La crème - Premium youth cream"
+[
+    10
+]: https: //www.sothys.fr/en/products/prestige/prestige/la-creme-yeux-levres-eye-and-lip-youth-cream?utm_source=chatgpt.com "Sothys - La crème yeux-lèvres - Eye and lip youth cream"
+[
+    11
+]: https: //sothys.de/products/secrets-de-sothys-eau-de-parfum?utm_source=chatgpt.com "Secrets de Sothys - Eau de parfum"
