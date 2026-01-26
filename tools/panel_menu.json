@@ -1,0 +1,23 @@
+{
+    "note": "Admin Panel Menu Tree - Order System Modules",
+    "version": "1.0",
+    "menu": [
+        {
+            "id": "m_100",
+            "parentId": null,
+            "slug": "order-system",
+            "sort": 10,
+            "visibleIn": "all",
+            "roleRequired": "editor",
+            "route": "/admin/order-system",
+            "featureFlags": [],
+            "labels": {
+                "tr": "Sipariş Sistemi",
+                "en": "Order System",
+                "de": "Bestellsystem",
+                "fr": "Système de commande",
+                "ru": "Система заказов"
+            }
+        }
+    ]
+}

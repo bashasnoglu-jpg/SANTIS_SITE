@@ -1,201 +1,988 @@
-Evet, buradayım. “Bu proje” için **sayısal metrikler + grafikler + görsel dil** nasıl olmalı sorusunu iki parçaya böldüm:
-
-1. **Yönetim/operasyon paneli & performans dashboard’ı** (grafik/KPI ağırlıklı)
-2. **Storefront görsel dili** (Quiet Luxury + çok dilli)
-
-Aşağıdaki yapı, e-ticaret analitiğinde standartlaşmış metrikleri (funnel/AOV/CR vb.) temel alıyor. ([Shopify Help Center
-][
-    1
-])
-
----
-
-## 1) Dashboard sayfaları (panelde “6 ekran” ile tam kontrol)
-
-### A) Executive Overview (tek bakış)
-
-**Üst KPI kartları (8–10 adet):**
-
-* Revenue / Gross Sales
-* Orders
-* **Conversion Rate** (session→order) ([Shopify Help Center
-][
-    2
-])
-* **AOV** (ortalama sipariş değeri) ([Shopify Help Center
-][
-    2
-])
-* Add-to-Cart Rate (ATC)
-* Checkout Start Rate
-* Paid Rate (Payment success / initiated)
-* Shipping per Order (avg)
-* Refund/Cancel rate
-* Concierge SLA (median first response time)
-
-**Grafikler:**
-
-* 30 gün trend (line): Revenue, Orders, CR, AOV (toggle ile tek grafikte)
-* Kanal kırılımı (stacked bar): **Hotel-in vs Hotel-out**
-* Ülke/zone kırılımı (bar): en çok sipariş veren ülkeler / zone’lar
-
-### B) Funnel (dönüşüm hunisi) — en kritik ekran
-
-Shopify’nin standart funnel adımlarına benzer mantıkla kur: **Sessions → Add to cart → Reached checkout → Completed checkout**. ([Shopify Help Center
-][
-    1
-])
-Sizde “Concierge/WhatsApp” da olduğu için iki yol var:
-
-**Funnel v1 (Ödeme odaklı):**
-
-* Product view → Add to bag → Checkout opened → Payment started → Payment success
-
-**Funnel v2 (Concierge odaklı):**
-
-* Product view → Add to bag → Checkout opened → WhatsApp sent → Confirmed → Delivered/Shipped
-
-> Shopify “open vs closed funnel” ayrımını da uygula: kullanıcı checkout’a direkt girebilir. ([Shopify Help Center
-][
-    1
-])
-
-**Grafik tipi:** Funnel chart + her step’te “drop-off %”.
-
-### C) Shipping & EU (kargo maliyeti / sürprizleri yakalama)
-
-**KPI’lar:**
-
-* Avg shipping fee
-* Shipping fee / items_total oranı
-* Free shipping threshold hit rate (varsa)
-* Weight bands dağılımı (0–0.5kg / 0.5–1kg / 1–2kg…)
-
-**Grafikler:**
-
-* Zone bazlı dağılım (bar)
-* “Sepet değeri vs shipping” scatter (yüksek shipping → abandonment riski)
-* “Checkout drop-off” ile shipping fee korelasyonu (heatmap)
-
-**EU uyum metriği (operasyon):**
-
-* **≤ €150 sipariş oranı** (IOSS stratejisi için)
-* IOSS kullanımı / VAT hesaplanan sipariş oranı
-  IOSS’nin €150’ye kadar düşük değerli ithalatta VAT toplama kolaylığı sağladığını AB resmi sayfası açıkça belirtir. ([VAT e-Commerce - One Stop Shop
-][
-    3
-])
-
-### D) Products & Bundles (ürün/kit performansı)
-
-**KPI’lar:**
-
-* Top products (units, revenue)
-* Attach rate: “kese + savon noir” birlikte alma oranı
-* Bundle share: setlerin toplam sipariş içindeki payı
-* Stock status: limited / made-to-order oranı
-
-**Grafikler:**
-
-* Pareto bar (top 20 SKU)
-* “Frequently bought together” matrix (basit tablo)
-* Category performance (bar)
-
-### E) Localization (TR/EN/DE/FR/RU çeviri & içerik kalitesi)
-
-**KPI’lar:**
-
-* Translation coverage % (ürün adı/açıklama/etiket)
-* API error rate, retry rate
-* Cache hit rate (varsa)
-* Dil bazlı CR/AOV farkı
-
-**Grafikler:**
-
-* Dil bazlı funnel compare (small multiples)
-* Coverage trend (line)
-
-### F) Concierge Ops (otel içi teslimatın kalbi)
-
-**KPI’lar:**
-
-* First response time (median/p95)
-* Confirmed rate
-* Time-to-deliver (otel içi)
-* Cancellation reasons (top 5)
-
-**Grafikler:**
-
-* Saat/gün ısı haritası (peak saatler)
-* SLA histogram (dağılım)
-
----
-
-## 2) Grafik tasarım kuralları (panel “premium” görünür, yanlış yönlendirme yapmaz)
-
-Bu tür dashboard’larda en sık hata: “gösterişli ama okunmaz” grafikler.
-Özellikle:
-
-* **3D chart kullanma** (değerleri çarpıtır, okumayı zorlaştırır) ([Yellowfin BI
-][
-    4
-])
-* Ağır gölgeler/efektlerden kaçın (veriye değil dekorasyona dikkat çeker) ([Yellowfin BI
-][
-    4
-])
-* Funnel/line/bar dışında nadiren başka şeye ihtiyaç var
-
-**Quiet Luxury panel estetiği (pratik):**
-
-* Beyaz/ekru zemin, ince border, az gölge
-* Renk sadece “durum” için: OK / Warning / Risk
-* Çok küçük font değil; okunabilirlik lüks hissi kadar önemli
-
----
-
-## 3) Haftalık rapor görsel paketi (1 sayfa)
-
-Her hafta tek sayfada şu 4 görsel yeterli:
-
-1. **KPI şeridi**: Revenue, Orders, CR, AOV, Paid Rate
-2. **Trend line (4 metrik toggle)**
-3. **Funnel** (hotel_in/hotel_out split) ([Shopify Help Center
-][
-    1
-])
-4. **Shipping zone bar** + “shipping sürprizi” uyarı listesi (en yüksek drop-off yapan ülkeler)
-
----
-
-## 4) Storefront görsel dili (kısaca)
-
-* Ürün foto: büyük, temiz arka plan, az metin
-* Kategori sayısı az (6–8), derinlik filtre/tag ile
-* Sepet/checkout: tek CTA, sürpriz yok (kargo ücretini checkout’ta erken göster → abandonment düşer; bu dashboard’da da takip edilir) ([X-Byte Analytics
-][
-    5
-])
-
----
-
-İstersen bir sonraki adımda ben bunu **Figma sayfa şeması** gibi “wireframe” olarak da yazayım:
-
-* Dashboard grid (12 kolon), her kartın ölçüsü, her sayfanın bileşen listesi
-* Üstüne de **event tracking planı** (hangi event’ler funnel’ı besleyecek: view_item, add_to_cart, begin_checkout, payment_started, payment_succeeded, whatsapp_sent vs.)
-
-[
-    1
-]: https: //help.shopify.com/en/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports?utm_source=chatgpt.com "Shopify Help Center | Behavior reports"
-[
-    2
-]: https: //help.shopify.com/en/manual/promoting-marketing/analyze-marketing/marketing-performance?utm_source=chatgpt.com "Shopify Help Center | Measuring marketing performance"
-[
-    3
-]: https: //vat-one-stop-shop.ec.europa.eu/index_en?utm_source=chatgpt.com "VAT One Stop Shop - VAT e-Commerce - One Stop Shop - European Commission"
-[
-    4
-]: https: //yellowfin.co.jp/best-practice-guide/charts-visualizations/usability-best-practices?utm_source=chatgpt.com "Usability best practices | Yellowfin BI"
-[
-    5
-]: https: //www.xbyteanalytics.com/power-bi-ecommerce-dashboard-full-funnel-analytics/?utm_source=chatgpt.com "Power BI Ecommerce Dashboard: Full-Funnel Analytics Guide"
+Aşağıdaki yapı, tam istediğin gibi **panel menü ağacı** formatında: `id / parentId / slug / sort / visibleIn / labels(5 dil)`. `visibleIn`: `all | hotel_in | hotel_out | eu_only | tr_only` (senin panel kural motoruna göre değiştirebilirsin). > Not: Bu ağaç **site navigasyonu değil**; **sipariş sistemi/panel modülleri** menü ağacı. (Checkout, shipping, payment, WhatsApp templates, compliance) ```json [
+    {
+        "id": "m_100",
+        "parentId": null,
+        "slug": "order-system",
+        "sort": 10,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Sipariş Sistemi",
+            "en": "Order System",
+            "de": "Bestellsystem",
+            "fr": "Système de commande",
+            "ru": "Система заказов"
+        }
+    },
+    {
+        "id": "m_110",
+        "parentId": "m_100",
+        "slug": "checkout-fields",
+        "sort": 10,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Checkout Alanları",
+            "en": "Checkout Fields",
+            "de": "Checkout-Felder",
+            "fr": "Champs de paiement",
+            "ru": "Поля оформления"
+        }
+    },
+    {
+        "id": "m_111",
+        "parentId": "m_110",
+        "slug": "checkout-common",
+        "sort": 10,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Ortak Alanlar",
+            "en": "Common Fields",
+            "de": "Gemeinsame Felder",
+            "fr": "Champs communs",
+            "ru": "Общие поля"
+        }
+    },
+    {
+        "id": "m_112",
+        "parentId": "m_110",
+        "slug": "checkout-hotel-in",
+        "sort": 20,
+        "visibleIn": "hotel_in",
+        "labels": {
+            "tr": "Otel İçi Alanlar",
+            "en": "Hotel-In Fields",
+            "de": "Hotel-intern",
+            "fr": "Sur place (hôtel)",
+            "ru": "В отеле"
+        }
+    },
+    {
+        "id": "m_113",
+        "parentId": "m_110",
+        "slug": "checkout-hotel-out",
+        "sort": 30,
+        "visibleIn": "hotel_out",
+        "labels": {
+            "tr": "Otel Dışı Alanlar",
+            "en": "Hotel-Out Fields",
+            "de": "Außerhalb des Hotels",
+            "fr": "Hors hôtel",
+            "ru": "Вне отеля"
+        }
+    },
+    {
+        "id": "m_120",
+        "parentId": "m_100",
+        "slug": "pricing-totals",
+        "sort": 20,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Toplam Hesabı",
+            "en": "Totals Calculation",
+            "de": "Gesamtsumme",
+            "fr": "Calcul du total",
+            "ru": "Расчет итогов"
+        }
+    },
+    {
+        "id": "m_121",
+        "parentId": "m_120",
+        "slug": "items-subtotal",
+        "sort": 10,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Ürünler Ara Toplamı",
+            "en": "Items Subtotal",
+            "de": "Zwischensumme (Artikel)",
+            "fr": "Sous-total articles",
+            "ru": "Подытог товаров"
+        }
+    },
+    {
+        "id": "m_122",
+        "parentId": "m_120",
+        "slug": "shipping-total",
+        "sort": 20,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Kargo Ücreti",
+            "en": "Shipping Total",
+            "de": "Versandkosten",
+            "fr": "Frais de livraison",
+            "ru": "Стоимость доставки"
+        }
+    },
+    {
+        "id": "m_123",
+        "parentId": "m_120",
+        "slug": "tax-total",
+        "sort": 30,
+        "visibleIn": "eu_only",
+        "labels": {
+            "tr": "Vergi (VAT)",
+            "en": "Tax (VAT)",
+            "de": "Steuer (MwSt.)",
+            "fr": "Taxe (TVA)",
+            "ru": "НДС"
+        }
+    },
+    {
+        "id": "m_124",
+        "parentId": "m_120",
+        "slug": "duties-fees",
+        "sort": 40,
+        "visibleIn": "eu_only",
+        "labels": {
+            "tr": "Gümrük / Harçlar",
+            "en": "Duties / Fees",
+            "de": "Zölle / Gebühren",
+            "fr": "Droits / frais",
+            "ru": "Пошлины / сборы"
+        }
+    },
+    {
+        "id": "m_130",
+        "parentId": "m_100",
+        "slug": "shipping-rules",
+        "sort": 30,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Kargo Kuralları",
+            "en": "Shipping Rules",
+            "de": "Versandregeln",
+            "fr": "Règles de livraison",
+            "ru": "Правила доставки"
+        }
+    },
+    {
+        "id": "m_131",
+        "parentId": "m_130",
+        "slug": "eu-zones",
+        "sort": 10,
+        "visibleIn": "eu_only",
+        "labels": {
+            "tr": "EU Zone Tablosu",
+            "en": "EU Zone Table",
+            "de": "EU-Zonen",
+            "fr": "Zones UE",
+            "ru": "Зоны ЕС"
+        }
+    },
+    {
+        "id": "m_132",
+        "parentId": "m_130",
+        "slug": "service-levels",
+        "sort": 20,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Servis Seviyeleri",
+            "en": "Service Levels",
+            "de": "Service-Level",
+            "fr": "Niveaux de service",
+            "ru": "Уровни сервиса"
+        }
+    },
+    {
+        "id": "m_133",
+        "parentId": "m_130",
+        "slug": "free-shipping",
+        "sort": 30,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Ücretsiz Kargo Kuralı",
+            "en": "Free Shipping Rule",
+            "de": "Kostenloser Versand",
+            "fr": "Livraison gratuite",
+            "ru": "Бесплатная доставка"
+        }
+    },
+    {
+        "id": "m_140",
+        "parentId": "m_100",
+        "slug": "product-logistics",
+        "sort": 40,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Ürün Lojistik Alanları",
+            "en": "Product Logistics Fields",
+            "de": "Produkt-Logistikfelder",
+            "fr": "Champs logistiques produit",
+            "ru": "Логистика товара"
+        }
+    },
+    {
+        "id": "m_141",
+        "parentId": "m_140",
+        "slug": "weights-dimensions",
+        "sort": 10,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Ağırlık / Hacim",
+            "en": "Weight / Dimensions",
+            "de": "Gewicht / Maße",
+            "fr": "Poids / Dimensions",
+            "ru": "Вес / Габариты"
+        }
+    },
+    {
+        "id": "m_142",
+        "parentId": "m_140",
+        "slug": "handling-flags",
+        "sort": 20,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Taşıma Bayrakları",
+            "en": "Handling Flags",
+            "de": "Handling-Flags",
+            "fr": "Indicateurs de manutention",
+            "ru": "Флаги обработки"
+        }
+    },
+    {
+        "id": "m_150",
+        "parentId": "m_100",
+        "slug": "payments",
+        "sort": 50,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Ödemeler",
+            "en": "Payments",
+            "de": "Zahlungen",
+            "fr": "Paiements",
+            "ru": "Платежи"
+        }
+    },
+    {
+        "id": "m_151",
+        "parentId": "m_150",
+        "slug": "stripe-checkout",
+        "sort": 10,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Stripe Checkout",
+            "en": "Stripe Checkout",
+            "de": "Stripe Checkout",
+            "fr": "Stripe Checkout",
+            "ru": "Stripe Checkout"
+        }
+    },
+    {
+        "id": "m_152",
+        "parentId": "m_150",
+        "slug": "mollie-checkout",
+        "sort": 20,
+        "visibleIn": "eu_only",
+        "labels": {
+            "tr": "Mollie Checkout",
+            "en": "Mollie Checkout",
+            "de": "Mollie Checkout",
+            "fr": "Mollie Checkout",
+            "ru": "Mollie Checkout"
+        }
+    },
+    {
+        "id": "m_153",
+        "parentId": "m_150",
+        "slug": "webhooks",
+        "sort": 30,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Webhook’lar",
+            "en": "Webhooks",
+            "de": "Webhooks",
+            "fr": "Webhooks",
+            "ru": "Webhook’и"
+        }
+    },
+    {
+        "id": "m_160",
+        "parentId": "m_100",
+        "slug": "whatsapp-templates",
+        "sort": 60,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "WhatsApp Şablonları",
+            "en": "WhatsApp Templates",
+            "de": "WhatsApp-Vorlagen",
+            "fr": "Modèles WhatsApp",
+            "ru": "Шаблоны WhatsApp"
+        }
+    },
+    {
+        "id": "m_161",
+        "parentId": "m_160",
+        "slug": "wa-order-receipt",
+        "sort": 10,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Sipariş Fişi",
+            "en": "Order Receipt",
+            "de": "Bestellbeleg",
+            "fr": "Reçu de commande",
+            "ru": "Квитанция заказа"
+        }
+    },
+    {
+        "id": "m_162",
+        "parentId": "m_160",
+        "slug": "wa-paid",
+        "sort": 20,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Ödeme Alındı",
+            "en": "Payment Received",
+            "de": "Zahlung erhalten",
+            "fr": "Paiement reçu",
+            "ru": "Платеж получен"
+        }
+    },
+    {
+        "id": "m_163",
+        "parentId": "m_160",
+        "slug": "wa-shipped",
+        "sort": 30,
+        "visibleIn": "hotel_out",
+        "labels": {
+            "tr": "Kargoya Verildi",
+            "en": "Shipped",
+            "de": "Versandt",
+            "fr": "Expédié",
+            "ru": "Отправлено"
+        }
+    },
+    {
+        "id": "m_164",
+        "parentId": "m_160",
+        "slug": "wa-delivered",
+        "sort": 40,
+        "visibleIn": "all",
+        "labels": {
+            "tr": "Teslim Edildi",
+            "en": "Delivered",
+            "de": "Zugestellt",
+            "fr": "Livré",
+            "ru": "Доставлено"
+        }
+    },
+    {
+        "id": "m_170",
+        "parentId": "m_100",
+        "slug": "eu-compliance",
+        "sort": 70,
+        "visibleIn": "eu_only",
+        "labels": {
+            "tr": "EU Uyum",
+            "en": "EU Compliance",
+            "de": "EU-Compliance",
+            "fr": "Conformité UE",
+            "ru": "Соответствие ЕС"
+        }
+    },
+    {
+        "id": "m_171",
+        "parentId": "m_170",
+        "slug": "responsible-person",
+        "sort": 10,
+        "visibleIn": "eu_only",
+        "labels": {
+            "tr": "Responsible Person",
+            "en": "Responsible Person",
+            "de": "Verantwortliche Person",
+            "fr": "Personne responsable",
+            "ru": "Ответственное лицо"
+        }
+    },
+    {
+        "id": "m_172",
+        "parentId": "m_170",
+        "slug": "cpnp",
+        "sort": 20,
+        "visibleIn": "eu_only",
+        "labels": {
+            "tr": "CPNP Bildirimi",
+            "en": "CPNP Notification",
+            "de": "CPNP-Meldung",
+            "fr": "Notification CPNP",
+            "ru": "Уведомление CPNP"
+        }
+    },
+    {
+        "id": "m_173",
+        "parentId": "m_170",
+        "slug": "pif-safety",
+        "sort": 30,
+        "visibleIn": "eu_only",
+        "labels": {
+            "tr": "PIF & Güvenlik",
+            "en": "PIF & Safety",
+            "de": "PIF & Sicherheit",
+            "fr": "PIF & sécurité",
+            "ru": "PIF и безопасность"
+        }
+    },
+    {
+        "id": "m_174",
+        "parentId": "m_170",
+        "slug": "gmp-iso22716",
+        "sort": 40,
+        "visibleIn": "eu_only",
+        "labels": {
+            "tr": "GMP / ISO 22716",
+            "en": "GMP / ISO 22716",
+            "de": "GMP / ISO 22716",
+            "fr": "GMP / ISO 22716",
+            "ru": "GMP / ISO 22716"
+        }
+    }
+] ``` ```json [
+    {
+        "id": "m_100",
+        "parentId": null,
+        "slug": "order-system",
+        "sort": 10,
+        "visibleIn": "all",
+        "roleRequired": "editor",
+        "route": "/admin/order-system",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Sipariş Sistemi",
+            "en": "Order System",
+            "de": "Bestellsystem",
+            "fr": "Système de commande",
+            "ru": "Система заказов"
+        }
+    },
+    {
+        "id": "m_110",
+        "parentId": "m_100",
+        "slug": "checkout-fields",
+        "sort": 10,
+        "visibleIn": "all",
+        "roleRequired": "editor",
+        "route": "/admin/checkout/fields",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Checkout Alanları",
+            "en": "Checkout Fields",
+            "de": "Checkout-Felder",
+            "fr": "Champs de paiement",
+            "ru": "Поля оформления"
+        }
+    },
+    {
+        "id": "m_111",
+        "parentId": "m_110",
+        "slug": "checkout-common",
+        "sort": 10,
+        "visibleIn": "all",
+        "roleRequired": "editor",
+        "route": "/admin/checkout/fields/common",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Ortak Alanlar",
+            "en": "Common Fields",
+            "de": "Gemeinsame Felder",
+            "fr": "Champs communs",
+            "ru": "Общие поля"
+        }
+    },
+    {
+        "id": "m_112",
+        "parentId": "m_110",
+        "slug": "checkout-hotel-in",
+        "sort": 20,
+        "visibleIn": "hotel_in",
+        "roleRequired": "editor",
+        "route": "/admin/checkout/fields/hotel-in",
+        "featureFlags": [
+            "HOTEL_IN"
+        ],
+        "labels": {
+            "tr": "Otel İçi Alanlar",
+            "en": "Hotel-In Fields",
+            "de": "Hotel-intern",
+            "fr": "Sur place (hôtel)",
+            "ru": "В отеле"
+        }
+    },
+    {
+        "id": "m_113",
+        "parentId": "m_110",
+        "slug": "checkout-hotel-out",
+        "sort": 30,
+        "visibleIn": "hotel_out",
+        "roleRequired": "editor",
+        "route": "/admin/checkout/fields/hotel-out",
+        "featureFlags": [
+            "HOTEL_OUT"
+        ],
+        "labels": {
+            "tr": "Otel Dışı Alanlar",
+            "en": "Hotel-Out Fields",
+            "de": "Außerhalb des Hotels",
+            "fr": "Hors hôtel",
+            "ru": "Вне отеля"
+        }
+    },
+    {
+        "id": "m_120",
+        "parentId": "m_100",
+        "slug": "pricing-totals",
+        "sort": 20,
+        "visibleIn": "all",
+        "roleRequired": "admin",
+        "route": "/admin/pricing/totals",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Toplam Hesabı",
+            "en": "Totals Calculation",
+            "de": "Gesamtsumme",
+            "fr": "Calcul du total",
+            "ru": "Расчет итогов"
+        }
+    },
+    {
+        "id": "m_121",
+        "parentId": "m_120",
+        "slug": "items-subtotal",
+        "sort": 10,
+        "visibleIn": "all",
+        "roleRequired": "admin",
+        "route": "/admin/pricing/totals/items",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Ürünler Ara Toplamı",
+            "en": "Items Subtotal",
+            "de": "Zwischensumme (Artikel)",
+            "fr": "Sous-total articles",
+            "ru": "Подытог товаров"
+        }
+    },
+    {
+        "id": "m_122",
+        "parentId": "m_120",
+        "slug": "shipping-total",
+        "sort": 20,
+        "visibleIn": "all",
+        "roleRequired": "admin",
+        "route": "/admin/pricing/totals/shipping",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Kargo Ücreti",
+            "en": "Shipping Total",
+            "de": "Versandkosten",
+            "fr": "Frais de livraison",
+            "ru": "Стоимость доставки"
+        }
+    },
+    {
+        "id": "m_123",
+        "parentId": "m_120",
+        "slug": "tax-total",
+        "sort": 30,
+        "visibleIn": "eu_only",
+        "roleRequired": "admin",
+        "route": "/admin/pricing/totals/tax",
+        "featureFlags": [
+            "EU"
+        ],
+        "labels": {
+            "tr": "Vergi (VAT)",
+            "en": "Tax (VAT)",
+            "de": "Steuer (MwSt.)",
+            "fr": "Taxe (TVA)",
+            "ru": "НДС"
+        }
+    },
+    {
+        "id": "m_124",
+        "parentId": "m_120",
+        "slug": "duties-fees",
+        "sort": 40,
+        "visibleIn": "eu_only",
+        "roleRequired": "admin",
+        "route": "/admin/pricing/totals/duties-fees",
+        "featureFlags": [
+            "EU"
+        ],
+        "labels": {
+            "tr": "Gümrük / Harçlar",
+            "en": "Duties / Fees",
+            "de": "Zölle / Gebühren",
+            "fr": "Droits / frais",
+            "ru": "Пошлины / сборы"
+        }
+    },
+    {
+        "id": "m_130",
+        "parentId": "m_100",
+        "slug": "shipping-rules",
+        "sort": 30,
+        "visibleIn": "all",
+        "roleRequired": "admin",
+        "route": "/admin/shipping",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Kargo Kuralları",
+            "en": "Shipping Rules",
+            "de": "Versandregeln",
+            "fr": "Règles de livraison",
+            "ru": "Правила доставки"
+        }
+    },
+    {
+        "id": "m_131",
+        "parentId": "m_130",
+        "slug": "eu-zones",
+        "sort": 10,
+        "visibleIn": "eu_only",
+        "roleRequired": "admin",
+        "route": "/admin/shipping/zones",
+        "featureFlags": [
+            "EU"
+        ],
+        "labels": {
+            "tr": "EU Zone Tablosu",
+            "en": "EU Zone Table",
+            "de": "EU-Zonen",
+            "fr": "Zones UE",
+            "ru": "Зоны ЕС"
+        }
+    },
+    {
+        "id": "m_132",
+        "parentId": "m_130",
+        "slug": "service-levels",
+        "sort": 20,
+        "visibleIn": "all",
+        "roleRequired": "admin",
+        "route": "/admin/shipping/service-levels",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Servis Seviyeleri",
+            "en": "Service Levels",
+            "de": "Service-Level",
+            "fr": "Niveaux de service",
+            "ru": "Уровни сервиса"
+        }
+    },
+    {
+        "id": "m_133",
+        "parentId": "m_130",
+        "slug": "free-shipping",
+        "sort": 30,
+        "visibleIn": "all",
+        "roleRequired": "admin",
+        "route": "/admin/shipping/free-shipping",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Ücretsiz Kargo Kuralı",
+            "en": "Free Shipping Rule",
+            "de": "Kostenloser Versand",
+            "fr": "Livraison gratuite",
+            "ru": "Бесплатная доставка"
+        }
+    },
+    {
+        "id": "m_140",
+        "parentId": "m_100",
+        "slug": "product-logistics",
+        "sort": 40,
+        "visibleIn": "all",
+        "roleRequired": "editor",
+        "route": "/admin/products/logistics",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Ürün Lojistik Alanları",
+            "en": "Product Logistics Fields",
+            "de": "Produkt-Logistikfelder",
+            "fr": "Champs logistiques produit",
+            "ru": "Логистика товара"
+        }
+    },
+    {
+        "id": "m_141",
+        "parentId": "m_140",
+        "slug": "weights-dimensions",
+        "sort": 10,
+        "visibleIn": "all",
+        "roleRequired": "editor",
+        "route": "/admin/products/logistics/weights",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Ağırlık / Hacim",
+            "en": "Weight / Dimensions",
+            "de": "Gewicht / Maße",
+            "fr": "Poids / Dimensions",
+            "ru": "Вес / Габариты"
+        }
+    },
+    {
+        "id": "m_142",
+        "parentId": "m_140",
+        "slug": "handling-flags",
+        "sort": 20,
+        "visibleIn": "all",
+        "roleRequired": "editor",
+        "route": "/admin/products/logistics/handling",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Taşıma Bayrakları",
+            "en": "Handling Flags",
+            "de": "Handling-Flags",
+            "fr": "Indicateurs de manutention",
+            "ru": "Флаги обработки"
+        }
+    },
+    {
+        "id": "m_150",
+        "parentId": "m_100",
+        "slug": "payments",
+        "sort": 50,
+        "visibleIn": "all",
+        "roleRequired": "admin",
+        "route": "/admin/payments",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Ödemeler",
+            "en": "Payments",
+            "de": "Zahlungen",
+            "fr": "Paiements",
+            "ru": "Платежи"
+        }
+    },
+    {
+        "id": "m_151",
+        "parentId": "m_150",
+        "slug": "stripe-checkout",
+        "sort": 10,
+        "visibleIn": "all",
+        "roleRequired": "admin",
+        "route": "/admin/payments/stripe",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Stripe Checkout",
+            "en": "Stripe Checkout",
+            "de": "Stripe Checkout",
+            "fr": "Stripe Checkout",
+            "ru": "Stripe Checkout"
+        }
+    },
+    {
+        "id": "m_152",
+        "parentId": "m_150",
+        "slug": "mollie-checkout",
+        "sort": 20,
+        "visibleIn": "eu_only",
+        "roleRequired": "admin",
+        "route": "/admin/payments/mollie",
+        "featureFlags": [
+            "EU"
+        ],
+        "labels": {
+            "tr": "Mollie Checkout",
+            "en": "Mollie Checkout",
+            "de": "Mollie Checkout",
+            "fr": "Mollie Checkout",
+            "ru": "Mollie Checkout"
+        }
+    },
+    {
+        "id": "m_153",
+        "parentId": "m_150",
+        "slug": "webhooks",
+        "sort": 30,
+        "visibleIn": "all",
+        "roleRequired": "admin",
+        "route": "/admin/payments/webhooks",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Webhook’lar",
+            "en": "Webhooks",
+            "de": "Webhooks",
+            "fr": "Webhooks",
+            "ru": "Webhook’и"
+        }
+    },
+    {
+        "id": "m_160",
+        "parentId": "m_100",
+        "slug": "whatsapp-templates",
+        "sort": 60,
+        "visibleIn": "all",
+        "roleRequired": "concierge",
+        "route": "/admin/whatsapp",
+        "featureFlags": [],
+        "labels": {
+            "tr": "WhatsApp Şablonları",
+            "en": "WhatsApp Templates",
+            "de": "WhatsApp-Vorlagen",
+            "fr": "Modèles WhatsApp",
+            "ru": "Шаблоны WhatsApp"
+        }
+    },
+    {
+        "id": "m_161",
+        "parentId": "m_160",
+        "slug": "wa-order-receipt",
+        "sort": 10,
+        "visibleIn": "all",
+        "roleRequired": "concierge",
+        "route": "/admin/whatsapp/templates/order-receipt",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Sipariş Fişi",
+            "en": "Order Receipt",
+            "de": "Bestellbeleg",
+            "fr": "Reçu de commande",
+            "ru": "Квитанция заказа"
+        }
+    },
+    {
+        "id": "m_162",
+        "parentId": "m_160",
+        "slug": "wa-paid",
+        "sort": 20,
+        "visibleIn": "all",
+        "roleRequired": "concierge",
+        "route": "/admin/whatsapp/templates/paid",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Ödeme Alındı",
+            "en": "Payment Received",
+            "de": "Zahlung erhalten",
+            "fr": "Paiement reçu",
+            "ru": "Платеж получен"
+        }
+    },
+    {
+        "id": "m_163",
+        "parentId": "m_160",
+        "slug": "wa-shipped",
+        "sort": 30,
+        "visibleIn": "hotel_out",
+        "roleRequired": "concierge",
+        "route": "/admin/whatsapp/templates/shipped",
+        "featureFlags": [
+            "HOTEL_OUT"
+        ],
+        "labels": {
+            "tr": "Kargoya Verildi",
+            "en": "Shipped",
+            "de": "Versandt",
+            "fr": "Expédié",
+            "ru": "Отправлено"
+        }
+    },
+    {
+        "id": "m_164",
+        "parentId": "m_160",
+        "slug": "wa-delivered",
+        "sort": 40,
+        "visibleIn": "all",
+        "roleRequired": "concierge",
+        "route": "/admin/whatsapp/templates/delivered",
+        "featureFlags": [],
+        "labels": {
+            "tr": "Teslim Edildi",
+            "en": "Delivered",
+            "de": "Zugestellt",
+            "fr": "Livré",
+            "ru": "Доставлено"
+        }
+    },
+    {
+        "id": "m_170",
+        "parentId": "m_100",
+        "slug": "eu-compliance",
+        "sort": 70,
+        "visibleIn": "eu_only",
+        "roleRequired": "admin",
+        "route": "/admin/eu/compliance",
+        "featureFlags": [
+            "EU"
+        ],
+        "labels": {
+            "tr": "EU Uyum",
+            "en": "EU Compliance",
+            "de": "EU-Compliance",
+            "fr": "Conformité UE",
+            "ru": "Соответствие ЕС"
+        }
+    },
+    {
+        "id": "m_171",
+        "parentId": "m_170",
+        "slug": "responsible-person",
+        "sort": 10,
+        "visibleIn": "eu_only",
+        "roleRequired": "admin",
+        "route": "/admin/eu/compliance/responsible-person",
+        "featureFlags": [
+            "EU"
+        ],
+        "labels": {
+            "tr": "Responsible Person",
+            "en": "Responsible Person",
+            "de": "Verantwortliche Person",
+            "fr": "Personne responsable",
+            "ru": "Ответственное лицо"
+        }
+    },
+    {
+        "id": "m_172",
+        "parentId": "m_170",
+        "slug": "cpnp",
+        "sort": 20,
+        "visibleIn": "eu_only",
+        "roleRequired": "admin",
+        "route": "/admin/eu/compliance/cpnp",
+        "featureFlags": [
+            "EU"
+        ],
+        "labels": {
+            "tr": "CPNP Bildirimi",
+            "en": "CPNP Notification",
+            "de": "CPNP-Meldung",
+            "fr": "Notification CPNP",
+            "ru": "Уведомление CPNP"
+        }
+    },
+    {
+        "id": "m_173",
+        "parentId": "m_170",
+        "slug": "pif-safety",
+        "sort": 30,
+        "visibleIn": "eu_only",
+        "roleRequired": "admin",
+        "route": "/admin/eu/compliance/pif-safety",
+        "featureFlags": [
+            "EU"
+        ],
+        "labels": {
+            "tr": "PIF & Güvenlik",
+            "en": "PIF & Safety",
+            "de": "PIF & Sicherheit",
+            "fr": "PIF & sécurité",
+            "ru": "PIF и безопасность"
+        }
+    },
+    {
+        "id": "m_174",
+        "parentId": "m_170",
+        "slug": "gmp-iso22716",
+        "sort": 40,
+        "visibleIn": "eu_only",
+        "roleRequired": "admin",
+        "route": "/admin/eu/compliance/gmp-iso22716",
+        "featureFlags": [
+            "EU"
+        ],
+        "labels": {
+            "tr": "GMP / ISO 22716",
+            "en": "GMP / ISO 22716",
+            "de": "GMP / ISO 22716",
+            "fr": "GMP / ISO 22716",
+            "ru": "GMP / ISO 22716"
+        }
+    }
+] ```
