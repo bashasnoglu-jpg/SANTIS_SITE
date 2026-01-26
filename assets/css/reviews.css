@@ -1,0 +1,92 @@
+/* REVIEWS SECTION STYLES */
+.reviews-section {
+    padding: 60px 20px;
+    background: #f9f9f9;
+    text-align: center;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.review-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    transition: transform 0.2s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+}
+
+.review-stars {
+    color: #d4af37;
+    /* Gold */
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.review-date {
+    float: right;
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+}
+
+.review-text {
+    margin: 15px 0;
+    color: #555;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.review-author {
+    font-weight: 600;
+    color: #222;
+    text-align: right;
+}
+
+.reviews-actions {
+    margin-top: 40px;
+}
+
+.btn-primary {
+    background: #d4af37;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: #c3a02f;
+}
+
+/* Modal Styles override/addition */
+#reviewModal textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+#reviewModal select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+}

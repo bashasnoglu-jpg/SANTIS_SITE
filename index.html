@@ -9,6 +9,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="images/icon-192.png">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/reviews.css"> <!-- Reviews Style -->
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet">
@@ -156,6 +157,48 @@
       </div>
     </div>
 
+    <!-- REVIEWS SECTION -->
+    <div class="section-container reviews-section" id="reviews">
+      <div class="section-head">
+        <h2 class="section-title">Misafir Deneyimleri</h2>
+        <p class="section-subtitle">Santis Club anları</p>
+      </div>
+
+      <div class="reviews-grid" id="reviewsGrid">
+        <!-- Reviews will be loaded here -->
+      </div>
+
+      <div class="reviews-actions">
+        <button class="btn btn-primary" onclick="REVIEWS.openModal()">Yorum Yap</button>
+      </div>
+    </div>
+
+    <!-- REVIEW MODAL -->
+    <div id="reviewModal" class="modal-overlay">
+      <div class="modal-content review-modal-content" style="max-width: 500px;">
+        <button class="modal-close" onclick="REVIEWS.closeModal()">×</button>
+        <h3 style="margin-bottom: 20px;">Deneyiminizi Paylaşın</h3>
+        <form id="reviewForm" onsubmit="REVIEWS.submit(event)">
+          <div class="form-group">
+            <label>Adınız</label>
+            <input type="text" required id="revName" placeholder="Ziyaretçi Adı">
+          </div>
+          <div class="form-group">
+            <label>Puanınız</label>
+            <select id="revRating">
+              <option value="5">⭐⭐⭐⭐⭐ (Mükemmel)</option>
+              <option value="4">⭐⭐⭐⭐ (Çok İyi)</option>
+              <option value="3">⭐⭐⭐ (İyi)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Yorumunuz</label>
+            <textarea required id="revText" rows="4" placeholder="Deneyiminizi buraya yazın..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Yorumu Gönder</button>
+        </form>
+      </div>
+    </div>
   </main>
 
   <!-- FOOTER -->
@@ -300,6 +343,7 @@
       }
     });
   </script>
+  <script src="assets/js/reviews.js"></script>
 </body>
 
 </html>
