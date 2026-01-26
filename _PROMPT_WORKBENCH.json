@@ -1,2 +1,201 @@
-# GEMİNI API TEST NOTLARI
-# API Key güvenli şekilde .env dosyasına taşındı
+Evet, buradayım. “Bu proje” için **sayısal metrikler + grafikler + görsel dil** nasıl olmalı sorusunu iki parçaya böldüm:
+
+1. **Yönetim/operasyon paneli & performans dashboard’ı** (grafik/KPI ağırlıklı)
+2. **Storefront görsel dili** (Quiet Luxury + çok dilli)
+
+Aşağıdaki yapı, e-ticaret analitiğinde standartlaşmış metrikleri (funnel/AOV/CR vb.) temel alıyor. ([Shopify Help Center
+][
+    1
+])
+
+---
+
+## 1) Dashboard sayfaları (panelde “6 ekran” ile tam kontrol)
+
+### A) Executive Overview (tek bakış)
+
+**Üst KPI kartları (8–10 adet):**
+
+* Revenue / Gross Sales
+* Orders
+* **Conversion Rate** (session→order) ([Shopify Help Center
+][
+    2
+])
+* **AOV** (ortalama sipariş değeri) ([Shopify Help Center
+][
+    2
+])
+* Add-to-Cart Rate (ATC)
+* Checkout Start Rate
+* Paid Rate (Payment success / initiated)
+* Shipping per Order (avg)
+* Refund/Cancel rate
+* Concierge SLA (median first response time)
+
+**Grafikler:**
+
+* 30 gün trend (line): Revenue, Orders, CR, AOV (toggle ile tek grafikte)
+* Kanal kırılımı (stacked bar): **Hotel-in vs Hotel-out**
+* Ülke/zone kırılımı (bar): en çok sipariş veren ülkeler / zone’lar
+
+### B) Funnel (dönüşüm hunisi) — en kritik ekran
+
+Shopify’nin standart funnel adımlarına benzer mantıkla kur: **Sessions → Add to cart → Reached checkout → Completed checkout**. ([Shopify Help Center
+][
+    1
+])
+Sizde “Concierge/WhatsApp” da olduğu için iki yol var:
+
+**Funnel v1 (Ödeme odaklı):**
+
+* Product view → Add to bag → Checkout opened → Payment started → Payment success
+
+**Funnel v2 (Concierge odaklı):**
+
+* Product view → Add to bag → Checkout opened → WhatsApp sent → Confirmed → Delivered/Shipped
+
+> Shopify “open vs closed funnel” ayrımını da uygula: kullanıcı checkout’a direkt girebilir. ([Shopify Help Center
+][
+    1
+])
+
+**Grafik tipi:** Funnel chart + her step’te “drop-off %”.
+
+### C) Shipping & EU (kargo maliyeti / sürprizleri yakalama)
+
+**KPI’lar:**
+
+* Avg shipping fee
+* Shipping fee / items_total oranı
+* Free shipping threshold hit rate (varsa)
+* Weight bands dağılımı (0–0.5kg / 0.5–1kg / 1–2kg…)
+
+**Grafikler:**
+
+* Zone bazlı dağılım (bar)
+* “Sepet değeri vs shipping” scatter (yüksek shipping → abandonment riski)
+* “Checkout drop-off” ile shipping fee korelasyonu (heatmap)
+
+**EU uyum metriği (operasyon):**
+
+* **≤ €150 sipariş oranı** (IOSS stratejisi için)
+* IOSS kullanımı / VAT hesaplanan sipariş oranı
+  IOSS’nin €150’ye kadar düşük değerli ithalatta VAT toplama kolaylığı sağladığını AB resmi sayfası açıkça belirtir. ([VAT e-Commerce - One Stop Shop
+][
+    3
+])
+
+### D) Products & Bundles (ürün/kit performansı)
+
+**KPI’lar:**
+
+* Top products (units, revenue)
+* Attach rate: “kese + savon noir” birlikte alma oranı
+* Bundle share: setlerin toplam sipariş içindeki payı
+* Stock status: limited / made-to-order oranı
+
+**Grafikler:**
+
+* Pareto bar (top 20 SKU)
+* “Frequently bought together” matrix (basit tablo)
+* Category performance (bar)
+
+### E) Localization (TR/EN/DE/FR/RU çeviri & içerik kalitesi)
+
+**KPI’lar:**
+
+* Translation coverage % (ürün adı/açıklama/etiket)
+* API error rate, retry rate
+* Cache hit rate (varsa)
+* Dil bazlı CR/AOV farkı
+
+**Grafikler:**
+
+* Dil bazlı funnel compare (small multiples)
+* Coverage trend (line)
+
+### F) Concierge Ops (otel içi teslimatın kalbi)
+
+**KPI’lar:**
+
+* First response time (median/p95)
+* Confirmed rate
+* Time-to-deliver (otel içi)
+* Cancellation reasons (top 5)
+
+**Grafikler:**
+
+* Saat/gün ısı haritası (peak saatler)
+* SLA histogram (dağılım)
+
+---
+
+## 2) Grafik tasarım kuralları (panel “premium” görünür, yanlış yönlendirme yapmaz)
+
+Bu tür dashboard’larda en sık hata: “gösterişli ama okunmaz” grafikler.
+Özellikle:
+
+* **3D chart kullanma** (değerleri çarpıtır, okumayı zorlaştırır) ([Yellowfin BI
+][
+    4
+])
+* Ağır gölgeler/efektlerden kaçın (veriye değil dekorasyona dikkat çeker) ([Yellowfin BI
+][
+    4
+])
+* Funnel/line/bar dışında nadiren başka şeye ihtiyaç var
+
+**Quiet Luxury panel estetiği (pratik):**
+
+* Beyaz/ekru zemin, ince border, az gölge
+* Renk sadece “durum” için: OK / Warning / Risk
+* Çok küçük font değil; okunabilirlik lüks hissi kadar önemli
+
+---
+
+## 3) Haftalık rapor görsel paketi (1 sayfa)
+
+Her hafta tek sayfada şu 4 görsel yeterli:
+
+1. **KPI şeridi**: Revenue, Orders, CR, AOV, Paid Rate
+2. **Trend line (4 metrik toggle)**
+3. **Funnel** (hotel_in/hotel_out split) ([Shopify Help Center
+][
+    1
+])
+4. **Shipping zone bar** + “shipping sürprizi” uyarı listesi (en yüksek drop-off yapan ülkeler)
+
+---
+
+## 4) Storefront görsel dili (kısaca)
+
+* Ürün foto: büyük, temiz arka plan, az metin
+* Kategori sayısı az (6–8), derinlik filtre/tag ile
+* Sepet/checkout: tek CTA, sürpriz yok (kargo ücretini checkout’ta erken göster → abandonment düşer; bu dashboard’da da takip edilir) ([X-Byte Analytics
+][
+    5
+])
+
+---
+
+İstersen bir sonraki adımda ben bunu **Figma sayfa şeması** gibi “wireframe” olarak da yazayım:
+
+* Dashboard grid (12 kolon), her kartın ölçüsü, her sayfanın bileşen listesi
+* Üstüne de **event tracking planı** (hangi event’ler funnel’ı besleyecek: view_item, add_to_cart, begin_checkout, payment_started, payment_succeeded, whatsapp_sent vs.)
+
+[
+    1
+]: https: //help.shopify.com/en/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports?utm_source=chatgpt.com "Shopify Help Center | Behavior reports"
+[
+    2
+]: https: //help.shopify.com/en/manual/promoting-marketing/analyze-marketing/marketing-performance?utm_source=chatgpt.com "Shopify Help Center | Measuring marketing performance"
+[
+    3
+]: https: //vat-one-stop-shop.ec.europa.eu/index_en?utm_source=chatgpt.com "VAT One Stop Shop - VAT e-Commerce - One Stop Shop - European Commission"
+[
+    4
+]: https: //yellowfin.co.jp/best-practice-guide/charts-visualizations/usability-best-practices?utm_source=chatgpt.com "Usability best practices | Yellowfin BI"
+[
+    5
+]: https: //www.xbyteanalytics.com/power-bi-ecommerce-dashboard-full-funnel-analytics/?utm_source=chatgpt.com "Power BI Ecommerce Dashboard: Full-Funnel Analytics Guide"
