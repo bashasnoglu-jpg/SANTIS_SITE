@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamam Ritüelleri | Santis Club</title>
+    <!-- Base Styles -->
+    <base href="../../"> <!-- Go up 2 levels for assets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/moods.css">
+    <link rel="stylesheet" href="assets/css/components.css"> <!-- New Components -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="mood-relax"> <!-- Default Mood -->
+
+    <!-- Navbar Wrapper (simplified for subpage) -->
+    <nav class="navbar-container" style="background:var(--nav-bg);">
+        <div class="navbar-inner">
+            <a href="index.html" class="logo-text">SANTIS</a>
+            <div class="nav-actions">
+                <a href="index.html" class="nav-link">Ana Sayfa</a>
+                <span class="cart-icon">Sepet (<span class="cart-count" style="display:none">0</span>)</span>
+            </div>
+        </div>
+    </nav>
+
+    <main id="nv-main" style="padding-top:120px; padding-bottom:80px;">
+        <div class="nv-container">
+
+            <!-- Header -->
+            <header style="text-align:center; margin-bottom:60px;">
+                <span class="nv-kicker" style="font-size:14px;">SPA & WELLNESS</span>
+                <h1 style="font-family:'Playfair Display'; font-size:48px; margin:10px 0;">Hamam Ritüelleri</h1>
+                <p style="color:var(--text-muted); max-width:600px; margin:0 auto;">
+                    Geleneksel Türk hamamının arındırıcı gücünü modern dokunuşlarla keşfedin.
+                </p>
+            </header>
+
+            <!-- Grid -->
+            <div id="hammamIndexGrid" class="nv-grid-12">
+                <!-- JS will render cards here -->
+            </div>
+
+        </div>
+    </main>
+
+    <footer
+        style="border-top:1px solid rgba(255,255,255,0.1); padding:40px 0; text-align:center; color:var(--text-muted);">
+        <p>&copy; 2024 Santis Club. Quiet Luxury Spa.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/santis-core.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/hammam_render.js"></script>
+
+</body>
+
+</html>

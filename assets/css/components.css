@@ -1,0 +1,191 @@
+/* QUIET LUXURY TOKENS & COMPONENTS */
+
+/* --- TOKENS (Extend existing style.css) --- */
+:root {
+    --gap-sm: 8px;
+    --gap-md: 16px;
+    --gap-lg: 24px;
+    --gap-xl: 40px;
+
+    --radius-card: 24px;
+    --radius-btn: 100px;
+
+    --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 20px 50px -10px rgba(0, 0, 0, 0.5);
+
+    --transition-fast: 0.2s ease;
+    --transition-smooth: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* --- GRID SYSTEM --- */
+.nv-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nv-grid-12 {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--gap-md);
+}
+
+/* --- PREMIUM CARD (Hammam) --- */
+.nv-card {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    /* Subtle border */
+    border-radius: var(--radius-card);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 280px;
+    /* Consistent height */
+    transition: var(--transition-smooth);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.nv-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(212, 175, 55, 0.3);
+    /* Gold hint */
+    box-shadow: var(--shadow-hover);
+}
+
+/* Clickable Overlay Link */
+.nv-card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* Card Content */
+.nv-kicker {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.nv-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    /* Desktop standard */
+    line-height: 1.2;
+    margin: 0 0 10px 0;
+    color: var(--text-main);
+}
+
+.nv-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1;
+    /* Push meta down */
+}
+
+/* Meta Chips */
+.nv-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.nv-chip {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nv-chip.gold {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--gold);
+    border-color: rgba(212, 175, 55, 0.2);
+}
+
+/* Helper Class for Badges */
+.nv-chip[data-badge="Signature"] {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.nv-chip[data-badge="Detox"] {
+    border-color: #81c784;
+    color: #81c784;
+}
+
+
+/* Actions Row */
+.nv-actions {
+    display: flex;
+    gap: 12px;
+    position: relative;
+    z-index: 2;
+    /* Above link overlay */
+}
+
+/* Buttons */
+.nv-btn {
+    padding: 10px 20px;
+    border-radius: var(--radius-btn);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.nv-btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-main);
+}
+
+.nv-btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--text-main);
+}
+
+.nv-btn-primary {
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    color: #000;
+    /* Contrast */
+    flex-grow: 1;
+    /* Make primary button expand */
+}
+
+.nv-btn-primary:hover {
+    background: #fff;
+    border-color: #fff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .nv-grid-12 {
+        display: flex;
+        flex-direction: column;
+        /* Stack on mobile */
+    }
+
+    .nv-card {
+        min-height: auto;
+    }
+}

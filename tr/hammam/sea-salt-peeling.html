@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamam Detay | Santis Club</title>
+    <!-- Base Styles -->
+    <base href="../../">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/moods.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Detail Specific Styles */
+        .detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .detail-visual {
+            height: 500px;
+            background: #111;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .detail-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 18px;
+            color: var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .includes-list {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+        }
+
+        .includes-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .includes-list li:before {
+            content: '•';
+            color: var(--gold);
+            font-size: 20px;
+        }
+
+        @media(max-width:768px) {
+            .detail-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-visual {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body class="mood-relax">
+
+    <nav class="navbar-container" style="background:var(--nav-bg);">
+        <div class="navbar-inner">
+            <a href="index.html" class="logo-text">SANTIS</a>
+            <div class="nav-actions">
+                <a href="tr/hammam/index.html" class="nav-link">← Geri Dön</a>
+                <span class="cart-icon">Sepet (<span class="cart-count">0</span>)</span>
+            </div>
+        </div>
+    </nav>
+
+    <main id="nv-main" style="padding-top:140px; padding-bottom:100px;">
+        <div class="nv-container">
+
+            <div class="detail-layout">
+                <!-- Left: Info -->
+                <div class="detail-info">
+                    <span class="nv-kicker" id="h-subtitle">RITUAL</span>
+                    <h1 style="font-family:'Playfair Display'; font-size:48px; margin:10px 0 20px 0;" id="h-title">
+                        Yükleniyor...</h1>
+
+                    <div class="detail-meta">
+                        <span id="h-duration">-- dk</span> | <span id="h-price">--€</span>
+                    </div>
+
+                    <p style="font-size:16px; line-height:1.6; color:var(--text-main);" id="h-desc">
+                        <!-- Desc here -->
+                    </p>
+
+                    <h3 style="margin-top:40px; font-size:18px; font-weight:400; color:var(--gold);">Ritüel İçeriği</h3>
+                    <ul class="includes-list" id="h-includes">
+                        <!-- List here -->
+                    </ul>
+
+                    <div class="nv-actions" style="margin-top:40px;">
+                        <a id="btn-whatsapp" href="#" target="_blank" class="nv-btn nv-btn-ghost"
+                            style="padding:15px 30px;">
+                            WhatsApp ile Sor
+                        </a>
+                        <button id="btn-add-cart-detail" class="nv-btn nv-btn-primary" data-add-to-cart="1"
+                            style="padding:15px 40px;">
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Visual (Placeholder) -->
+                <div class="detail-visual">
+                    <!-- Image would go here -->
+                    <span style="opacity:0.2; font-size:40px;">Visual</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        // CRITICAL: Define Slug before loading render engine
+        window.HAMMAM_SLUG = "sea-salt-peeling";
+    </script>
+    <script src="assets/js/santis-core.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/hammam_render.js"></script>
+
+</body>
+
+</html>

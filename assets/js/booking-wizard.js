@@ -1,6 +1,7 @@
 /**
- * SANTIS CONCIERGE WIZARD v1.0
+ * SANTIS CONCIERGE WIZARD v1.1
  * Smart Booking Flow based on User Mood
+ * Refined with Specific Service Mappings
  */
 
 const BOOKING_WIZARD = {
@@ -13,11 +14,33 @@ const BOOKING_WIZARD = {
         name: null
     },
 
-    // MOOD -> SERVICE MAPPING
+    // MOOD -> SERVICE MAPPING (From Workbench)
+    // Keys match santis-core.js mood IDs
     recommendations: {
-        'relax': ['classic-massage', 'aromatherapy', 'deep-tissue'],
-        'detox': ['hammam-classic', 'coffee-peeling', 'lymph-drainage'],
-        'glow': ['sothys-hydra', 'sothys-detox-energy', 'face-massage']
+        'fatigued': [
+            { slug: 'hammam-ottoman', name: 'Osmanlı Hamam Geleneği', desc: 'Sıcak taş ve köpük ile tam arınma', url: 'service.html#hammam' },
+            { slug: 'hammam-peeling', name: 'Peeling + Köpük', desc: 'Hızlı ve etkili yenilenme', url: 'service.html#hammam' },
+            { slug: 'massage-deep', name: 'Derin Doku Masajı', desc: 'Kas gerginliği için', url: 'service.html#classicMassages' }
+        ],
+        'stressed': [
+            { slug: 'massage-foam', name: 'Köpük Masajı', desc: 'Nazik ve rahatlatıcı', url: 'service.html#hammam' },
+            { slug: 'massage-aroma', name: 'Aromaterapi Masajı', desc: 'Kokularla zihinsel dinginlik', url: 'service.html#classicMassages' },
+            { slug: 'massage-head', name: 'Hint Baş Masajı', desc: 'Zihni boşaltmak için', url: 'service.html#classicMassages' },
+            { slug: 'facial-sensitive', name: 'Sothys Hassas Bakım', desc: 'Cildi yatıştırır', url: 'service.html#faceSothys' }
+        ],
+        'drained': [
+            { slug: 'hammam-coffee', name: 'Kahve Peeling', desc: 'Canlandırıcı etki', url: 'service.html#hammam' },
+            { slug: 'massage-detox', name: 'Detox Masajı', desc: 'Toksin atımı ve enerji', url: 'service.html#classicMassages' },
+            { slug: 'sothys-glow', name: 'Sothys Glow & Detox', desc: 'Cilde ışıltı verir', url: 'service.html#faceSothys' }
+        ],
+        'sensitive': [
+            { slug: 'facial-calm', name: 'Sothys Yatıştırıcı Bakım', desc: 'Kızarıklık karşıtı', url: 'service.html#faceSothys' },
+            { slug: 'massage-soft', name: 'Relax Masajı', desc: 'Yumuşak dokunuşlar', url: 'service.html#classicMassages' }
+        ],
+        'care': [
+            { slug: 'sothys-hydra', name: 'Sothys Hydra 4Ha', desc: 'Yoğun nem desteği', url: 'service.html#faceSothys' },
+            { slug: 'sothys-antiage', name: 'Sothys Gençlik Bakımı', desc: 'Premium anti-aging', url: 'service.html#faceSothys' }
+        ]
     },
 
     init() {
@@ -32,7 +55,7 @@ const BOOKING_WIZARD = {
         if (!modal) return;
 
         // 1. Get current mood from Core
-        this.selections.mood = window.SANTIS_CORE?.state?.currentMood || 'relax';
+        this.selections.mood = window.SANTIS_CORE?.state?.currentMood || 'fatigued'; // Default to fatigued
 
         // 2. Reset Step
         this.currentStep = 1;
@@ -50,7 +73,6 @@ const BOOKING_WIZARD = {
     },
 
     next() {
-        // Validation logic can go here
         this.currentStep++;
         this.renderStep();
     },
@@ -89,23 +111,20 @@ const BOOKING_WIZARD = {
 
         // Filter services based on Mood
         const mood = this.selections.mood;
-        const recs = this.recommendations[mood] || [];
+        const recs = this.recommendations[mood] || this.recommendations['fatigued'];
 
-        // Normally we'd fetch from DB, here pseudo-code for demo
-        // Ideally we read from window.servicesDB
         let html = '';
 
-        recs.forEach(slug => {
-            // Find service details from DB lookup (Mock for now)
-            const name = slug.replace(/-/g, ' ').toUpperCase();
+        recs.forEach(item => {
             html += `
                 <label class="wizard-option">
-                    <input type="radio" name="wiz-service" value="${slug}" onchange="BOOKING_WIZARD.selectService('${name}')">
+                    <input type="radio" name="wiz-service" value="${item.slug}" onchange="BOOKING_WIZARD.selectService('${item.name}')">
                     <div class="wiz-card">
-                        <span class="wiz-icon">💆</span>
+                        <span class="wiz-icon">💎</span>
                         <div class="wiz-info">
-                            <h4>${name}</h4>
-                            <p>Önerilen Bakım</p>
+                            <h4>${item.name}</h4>
+                            <p>${item.desc}</p>
+                            <a href="${item.url}" class="wiz-link" target="_blank" onclick="event.stopPropagation()">Detay</a>
                         </div>
                         <span class="wiz-check">✔</span>
                     </div>
@@ -132,17 +151,12 @@ const BOOKING_WIZARD = {
 
     selectService(name) {
         this.selections.service = name;
-        // Auto advance after selection
         setTimeout(() => this.next(), 300);
     },
 
     finish() {
-        // Collect Data
-        this.selections.name = document.getElementById('wizName').value;
-        this.selections.date = document.getElementById('wizDate').value;
-        this.selections.time = document.getElementById('wizTime').value;
-
-        if (!this.selections.name) return alert("Lütfen adınızı giriniz.");
+        const nameInput = document.getElementById('wizName');
+        this.selections.name = nameInput ? nameInput.value : '';
 
         // Generate WhatsApp
         const phone = "905348350169";
@@ -150,8 +164,7 @@ const BOOKING_WIZARD = {
             `Ben *${this.selections.name}*. \n` +
             `Modum: *${this.selections.mood.toUpperCase()}*\n` +
             `Tercihim: *${this.selections.service}*\n` +
-            `Tarih: ${this.selections.date || 'Bugün'} - ${this.selections.time || 'Müsaitlik soruyorum'}\n\n` +
-            `Rezervasyon için yardımcı olur musunuz?`;
+            `Yardımcı olur musunuz?`;
 
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         this.close();
