@@ -1,6 +1,6 @@
 /**
- * HAMMAM RENDER ENGINE v1.1 (Editorial Edition)
- * Renders Obsidian Cards for High-Fashion Layout
+ * HAMMAM RENDER ENGINE v1.2 (Cinematic 3D Tilt Edition)
+ * Adds Video Hover and Mouse-Tracking 3D Tilt.
  */
 
 const HAMMAM_RENDER = {
@@ -26,19 +26,29 @@ const HAMMAM_RENDER = {
         if (window.HAMMAM_SLUG) {
             this.renderDetail(window.HAMMAM_SLUG);
         }
+
+        // INIT 3D TILT
+        this.initTiltEffect();
     },
 
-    // --- OBSIDIAN CARD TEMPLATE ---
+    // --- OBSIDIAN CARD TEMPLATE (With Video) ---
     getCardHTML(item, extraClass = '') {
-        // Fallback image (random abstract for demo)
         const bgImage = `assets/img/hammam/${item.slug}.jpg`;
-        // Note: Ideally check if image exists, or use a consistent placeholder
         const placeholder = `https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=800&auto=format&fit=crop`;
+
+        // Placeholder Video (Steam rising)
+        const videoUrl = "https://cdn.coverr.co/videos/coverr-steam-rising-from-a-hot-spring-5226/1080p.mp4";
 
         return `
             <article class="obsidian-card ${extraClass}" onclick="window.location.href='tr/hammam/${item.slug}.html'">
+                
+                <!-- Background Image -->
                 <div class="obsidian-bg" style="background-image: url('${placeholder}');"></div>
                 
+                <!-- Silent Loop Video -->
+                <video class="obsidian-video" src="${videoUrl}" muted loop playsinline></video>
+
+                <!-- Floating Chip -->
                 <div class="obsidian-chip">
                     <span class="nv-kicker" style="color:var(--gold);">HAMMAM RITUAL</span>
                     <h3 class="obsidian-title">${item.title}</h3>
@@ -48,23 +58,12 @@ const HAMMAM_RENDER = {
                         <span>İNCELE &rarr;</span>
                     </div>
                 </div>
-
-                <!-- Hidden Actions for Cart Logic (if needed globally) -->
-                 <button class="nv-btn nv-btn-primary" data-add-to-cart="1" data-sku="${item.id}" 
-                         style="position:absolute; top:20px; right:20px; width:40px; height:40px; padding:0; border-radius:50%; opacity:0; pointer-events:none;">
-                    +
-                </button>
             </article>
         `;
     },
 
+    // --- RENDERERS ---
     renderFeatured(container) {
-        // Broken Grid Mapping
-        // Item 1: Ottoman (Hero) -> .item-1
-        // Item 2: Peeling -> .item-2
-        // Item 3: Sea Salt -> .item-3
-        // Item 4: Honey -> .item-4
-
         const targetSlugs = [
             { slug: 'ottoman-hammam-tradition', class: 'item-1' },
             { slug: 'peeling-foam-massage', class: 'item-2' },
@@ -79,17 +78,16 @@ const HAMMAM_RENDER = {
                 html += this.getCardHTML(item, target.class);
             }
         });
-
         container.innerHTML = html;
+        this.initTiltEffect(); // Re-init listeners
     },
 
     renderIndex(container) {
-        // Standard Grid for Index Page
         container.innerHTML = this.data.map(item => this.getCardHTML(item)).join('');
+        this.initTiltEffect();
     },
 
     renderDetail(slug) {
-        // Same logic as v1.0, just data binding
         const item = this.data.find(i => i.slug === slug);
         if (!item) return;
 
@@ -108,8 +106,46 @@ const HAMMAM_RENDER = {
         if (incList) {
             incList.innerHTML = item.includes.map(i => `<li>${i}</li>`).join('');
         }
-
         document.title = `${item.title} | Santis Editorial`;
+    },
+
+    // --- 3D TILT LOGIC (Vanilla JS) ---
+    initTiltEffect() {
+        // Wait slightly for DOM
+        setTimeout(() => {
+            const cards = document.querySelectorAll('.obsidian-card');
+
+            cards.forEach(card => {
+                const video = card.querySelector('video');
+
+                // Mouse Move
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    // Rotate Calculation (-15deg to 15deg)
+                    const xPct = x / rect.width;
+                    const yPct = y / rect.height;
+                    const rX = (0.5 - yPct) * 20;
+                    const rY = (xPct - 0.5) * 20;
+
+                    card.style.transform = `rotateX(${rX}deg) rotateY(${rY}deg)`;
+
+                    // Video Play on Hover
+                    if (video && video.paused) video.play();
+                });
+
+                // Mouse Leave (Reset)
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+                    if (video) {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                });
+            });
+        }, 500);
     }
 };
 

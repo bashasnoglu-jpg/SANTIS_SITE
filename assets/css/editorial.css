@@ -22,6 +22,8 @@ body.editorial-mode {
     background-color: #050505;
     background-image: var(--noise-url);
     color: #e0e0e0;
+    perspective: 2000px;
+    /* Global perspective */
 }
 
 h1,
@@ -48,7 +50,10 @@ h3,
     overflow: hidden;
     cursor: pointer;
     border: 1px solid var(--obsidian-border);
-    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: transform 0.1s ease-out;
+    /* Super fast for tilt */
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
 .obsidian-bg {
@@ -58,6 +63,22 @@ h3,
     background-position: center;
     transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
     filter: brightness(0.7) grayscale(0.2);
+    transform: translateZ(0px) scale(1.1);
+}
+
+.obsidian-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    z-index: 1;
+    filter: grayscale(0.2) contrast(1.1);
+    transform: translateZ(10px);
+    /* Slightly forward */
+    pointer-events: none;
 }
 
 /* Glass Overlay Chip */
@@ -71,9 +92,10 @@ h3,
     -webkit-backdrop-filter: blur(20px);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: 25px;
-    transform: translateY(20px);
+    transform: translateY(20px) translateZ(20px);
     opacity: 0.9;
     transition: all 0.6s ease;
+    z-index: 2;
 }
 
 .obsidian-title {
@@ -98,19 +120,26 @@ h3,
 
 /* 3. ALIVE INTERACTION (Hover) */
 .obsidian-card:hover {
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.7);
+    z-index: 10;
 }
 
 .obsidian-card:hover .obsidian-bg {
-    transform: scale(1.1);
-    filter: brightness(0.9) grayscale(0);
-    /* Light up */
+    transform: scale(1) translateZ(-20px);
+    opacity: 0;
+    /* Fade out for video */
+}
+
+.obsidian-card:hover .obsidian-video {
+    opacity: 1;
 }
 
 .obsidian-card:hover .obsidian-chip {
-    background: rgba(20, 20, 20, 0.7);
-    transform: translateY(0);
+    background: rgba(10, 10, 10, 0.8);
+    transform: translateY(0) translateZ(40px);
+    /* Push forward 3D */
+    border-color: var(--gold);
 }
 
 .obsidian-card:hover .obsidian-meta {
@@ -150,4 +179,34 @@ h3,
     grid-column: 1 / 13;
     grid-row: 3 / 4;
     height: 400px;
+}
+
+/* 5. NAVBAR OVERRIDES (Vogue Mode) */
+body.editorial-mode .navbar {
+    border-bottom: none;
+}
+
+body.editorial-mode .brand-name {
+    font-family: var(--font-modern) !important;
+    letter-spacing: 6px !important;
+    font-size: 24px !important;
+}
+
+body.editorial-mode .brand-sub {
+    font-family: var(--font-heading) !important;
+    font-style: italic;
+    letter-spacing: 2px !important;
+    font-size: 12px !important;
+}
+
+body.editorial-mode .nav-link {
+    font-family: var(--font-modern) !important;
+    font-size: 10px !important;
+    letter-spacing: 2px !important;
+    color: #ccc;
+}
+
+body.editorial-mode .nav-link:hover {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
