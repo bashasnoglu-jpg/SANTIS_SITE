@@ -359,6 +359,31 @@
   <script>
     // Trigger Wizard Init
     document.addEventListener('DOMContentLoaded', () => {
+      // 1. Load Navbar
+      fetch('components/navbar.html')
+        .then(res => res.text())
+        .then(html => {
+          const container = document.getElementById('navbar-container');
+          container.innerHTML = html;
+
+          // Execute Scripts in Navbar
+          const scripts = container.querySelectorAll('script');
+          scripts.forEach(oldScript => {
+            const newScript = document.createElement('script');
+            Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+            newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+            oldScript.parentNode.replaceChild(newScript, oldScript);
+          });
+
+          // Make Transparent initially for Editorial Look
+          const nav = document.getElementById('nv-main-nav');
+          if (nav) {
+            nav.style.background = 'transparent';
+            nav.style.borderBottom = 'none';
+          }
+        });
+
+      // 2. Init Wizard and other logic...
       BOOKING_WIZARD.init();
 
       // Override Navbar Reservation Button (Optional)
