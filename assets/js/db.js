@@ -895,195 +895,292 @@ window.productsDB = [
     desc: { tr: 'Greyfurt özlü canlandırıcı temizleme sütü.', en: 'Revitalizing cleansing milk with grapefruit extract.' }
   }
 ,
-  // --- 2. SOTHYS PARIS SKINCARE COLLECTION (2026 UPDATE) ---
+  // --- 2. SOTHYS PARIS SKINCARE COLLECTION (REFRESHED) ---
+,
   {
-    id: 'SOTHYS-HYDRA-INTENSIVE-SERUM',
-    brand: 'Sothys',
-    cat: 'skincare',
-    subcat: 'Hydra Hyaluronic Acid4',
-    name: {
-      tr: 'Hydrating Intensive Serum',
-      en: 'Hydrating Intensive Serum',
-      de: 'Hydrating Intensive Serum',
-      fr: 'Sérum intensif hydratant',
-      ru: 'Hydrating Intensive Serum'
+    "id": "SOTHYS-HYDRA-INTENSIVE-SERUM",
+    "cat": "skincare",
+    "subcat": "Hydra Hyaluronic Acid4",
+    "brand": "Sothys",
+    "type": "Serum",
+    "size": null,
+    "name": {
+      "tr": "Hydrating Intensive Serum",
+      "en": "Hydrating Intensive Serum"
     },
-    price: 95,
-    img: 'images/sothys/hydra-serum.jpg',
-    desc: {
-      tr: 'Hafif dokuda yoğun nem desteği. Cildin su tutma kapasitesini artırır.',
-      en: 'Lightweight intensive hydration. Boosts skin water retention.'
+    "desc": {
+      "tr": "Hafif dokuda yoğun nem desteği",
+      "en": "Lightweight intensive hydration"
     },
-    labels: { tr: { subtitle: "Hafif dokuda yoğun nem desteği" } },
-    slug: 'hydrating-intensive-serum'
+    "price": 0,
+    "slug": "hydrating-intensive-serum",
+    "img": "images/sothys/hydrating-intensive-serum.jpg"
   },
   {
-    id: 'SOTHYS-HYDRA-YOUTH-CREAM',
-    brand: 'Sothys',
-    cat: 'skincare',
-    subcat: 'Hydra Hyaluronic Acid4',
-    name: {
-      tr: 'Hydra Crème jeunesse',
-      en: 'Hydra Youth Cream',
-      de: 'Hydra Crème jeunesse',
-      fr: 'Crème jeunesse hydratation',
-      ru: 'Hydra Youth Cream'
+    "id": "SOTHYS-HYDRA-YOUTH-CREAM",
+    "cat": "skincare",
+    "subcat": "Hydra Hyaluronic Acid4",
+    "brand": "Sothys",
+    "type": "Cream",
+    "size": null,
+    "name": {
+      "tr": "Hydra Crème jeunesse (Hydration)",
+      "en": "Hydra Youth Cream (Hydration)"
     },
-    price: 85,
-    img: 'images/sothys/hydra-cream.jpg',
-    desc: {
-      tr: 'Günlük nem ve dolgun görünüm sağlayan gençlik kremi.',
-      en: 'Daily hydration and plumping youth cream.'
+    "desc": {
+      "tr": "Günlük nem + dolgun görünüm",
+      "en": "Daily hydration, plumper look"
     },
-    labels: { tr: { subtitle: "Günlük nem + dolgun görünüm" } },
-    slug: 'hydra-creme-jeunesse'
+    "price": 0,
+    "slug": "hydra-creme-jeunesse",
+    "img": "images/sothys/hydra-creme-jeunesse.jpg"
   },
   {
-    id: 'SOTHYS-SENSITIVE-NUTRISOOTHING-MASK',
-    brand: 'Sothys',
-    cat: 'skincare',
-    subcat: 'Sensitive',
-    name: {
-      tr: 'Nutri-Soothing Mask',
-      en: 'Nutri-Soothing Mask',
-      de: 'Nutri-Soothing Maske',
-      fr: 'Masque nutri-apaisant',
-      ru: 'Nutri-Soothing Mask'
+    "id": "SOTHYS-SENSITIVE-NUTRISOOTHING-MASK",
+    "cat": "skincare",
+    "subcat": "Sensitive – Spa Thermal Water",
+    "brand": "Sothys",
+    "type": "Mask",
+    "size": null,
+    "name": {
+      "tr": "Nutri-Soothing Mask",
+      "en": "Nutri-Soothing Mask"
     },
-    price: 65,
-    img: 'images/sothys/sensitive-mask.jpg',
-    desc: {
-      tr: 'Hassas ciltte konfor ve denge sağlayan besleyici maske.',
-      en: 'Nutritious mask providing comfort and balance for sensitive skin.'
+    "desc": {
+      "tr": "Hassas ciltte konfor ve denge",
+      "en": "Comfort + balance for sensitive skin"
     },
-    labels: { tr: { subtitle: "Hassas ciltte konfor ve denge" } },
-    slug: 'nutri-soothing-mask'
+    "price": 0,
+    "slug": "nutri-soothing-mask",
+    "img": "images/sothys/nutri-soothing-mask.jpg"
   },
   {
-    id: 'SOTHYS-SENSITIVE-SOOTHING-VELVET-CREAM',
-    brand: 'Sothys',
-    cat: 'skincare',
-    subcat: 'Sensitive',
-    name: {
-      tr: 'Soothing Velvet Cream',
-      en: 'Soothing Velvet Cream',
-      de: 'Beruhigende Samtcreme',
-      fr: 'Crème velours apaisante',
-      ru: 'Soothing Velvet Cream'
+    "id": "SOTHYS-SENSITIVE-SOOTHING-VELVET-CREAM",
+    "cat": "skincare",
+    "subcat": "Sensitive – Spa Thermal Water",
+    "brand": "Sothys",
+    "type": "Cream",
+    "size": null,
+    "name": {
+      "tr": "Soothing Velvet Cream",
+      "en": "Soothing Velvet Cream"
     },
-    price: 75,
-    img: 'images/sothys/sensitive-cream.jpg',
-    desc: {
-      tr: 'Hassas cilt için günlük koruma sağlayan kadifemsi krem.',
-      en: 'Velvety cream providing daily protection for sensitive skin.'
+    "desc": {
+      "tr": "Hassas cilt için günlük koruma",
+      "en": "Daily protection for sensitive skin"
     },
-    labels: { tr: { subtitle: "Hassas cilt için günlük koruma" } },
-    slug: 'soothing-velvet-cream'
+    "price": 0,
+    "slug": "soothing-velvet-cream",
+    "img": "images/sothys/soothing-velvet-cream.jpg"
   },
   {
-    id: 'SOTHYS-FOCUS-TACHES-SERUM',
-    brand: 'Sothys',
-    cat: 'skincare',
-    subcat: 'Focus Taches',
-    name: {
-      tr: 'Sérum Focus Taches',
-      en: 'Focus Taches Serum',
-      de: 'Focus Taches Serum',
-      fr: 'Sérum Focus Taches',
-      ru: 'Focus Taches Serum'
+    "id": "SOTHYS-FOCUS-TACHES-SERUM",
+    "cat": "skincare",
+    "subcat": "Focus Taches",
+    "brand": "Sothys",
+    "type": "Serum",
+    "size": null,
+    "name": {
+      "tr": "Sérum Focus Taches",
+      "en": "Focus Taches Serum"
     },
-    price: 110,
-    img: 'images/sothys/focus-serum.jpg',
-    desc: {
-      tr: 'Leke görünümünü hedefleyen yoğun bakım serumu.',
-      en: 'Intensive serum targeting the appearance of dark spots.'
+    "desc": {
+      "tr": "Leke görünümünü hedefleyen bakım",
+      "en": "Targets the appearance of dark spots"
     },
-    labels: { tr: { subtitle: "Leke görünümünü hedefleyen bakım" } },
-    slug: 'serum-focus-taches'
+    "price": 0,
+    "slug": "serum-focus-taches",
+    "img": "images/sothys/serum-focus-taches.jpg"
   },
   {
-    id: 'SOTHYS-FOCUS-TACHES-CREAM',
-    brand: 'Sothys',
-    cat: 'skincare',
-    subcat: 'Focus Taches',
-    name: {
-      tr: 'Crème Focus Taches',
-      en: 'Focus Taches Cream',
-      de: 'Focus Taches Creme',
-      fr: 'Crème Focus Taches',
-      ru: 'Focus Taches Cream'
+    "id": "SOTHYS-FOCUS-TACHES-CREAM",
+    "cat": "skincare",
+    "subcat": "Focus Taches",
+    "brand": "Sothys",
+    "type": "Cream",
+    "size": null,
+    "name": {
+      "tr": "Crème Focus Taches",
+      "en": "Focus Taches Cream"
     },
-    price: 95,
-    img: 'images/sothys/focus-cream.jpg',
-    desc: {
-      tr: 'Günlük kullanım için leke karşıtı ve ışıltı verici krem.',
-      en: 'Daily anti-spot and radiance cream.'
+    "desc": {
+      "tr": "Günlük kullanım: leke + ışıltı",
+      "en": "Daily: spots + radiance"
     },
-    labels: { tr: { subtitle: "Günlük kullanım: leke + ışıltı" } },
-    slug: 'creme-focus-taches'
+    "price": 0,
+    "slug": "creme-focus-taches",
+    "img": "images/sothys/creme-focus-taches.jpg"
   },
   {
-    id: 'SOTHYS-DETOX-SERUM',
-    brand: 'Sothys',
-    cat: 'skincare',
-    subcat: 'Detox Energie',
-    name: {
-      tr: 'Sérum énergisant intégral',
-      en: 'Integral Energizing Serum',
-      de: 'Energizing Serum',
-      fr: 'Sérum énergisant intégral',
-      ru: 'Energizing Serum'
+    "id": "SOTHYS-DETOX-CREME-JEUNESSE-DEPOLLUANTE",
+    "cat": "skincare",
+    "subcat": "Detox Energie",
+    "brand": "Sothys",
+    "type": "Cream",
+    "size": "50 ml",
+    "name": {
+      "tr": "Crème jeunesse dépolluante",
+      "en": "Depolluting Youth Cream"
     },
-    price: 105,
-    img: 'images/sothys/detox-serum.jpg',
-    desc: {
-      tr: 'Detoks etkili, enerji veren hafif yapılı serum.',
-      en: 'Detoxifying, energizing lightweight serum.'
+    "desc": {
+      "tr": "Şehir stresine karşı günlük denge",
+      "en": "Daily balance against urban stress"
     },
-    labels: { tr: { subtitle: "Detoks & enerji hissi, hafif doku" } },
-    slug: 'serum-energisant-integral'
+    "price": 0,
+    "slug": "creme-jeunesse-depolluante",
+    "img": "images/sothys/creme-jeunesse-depolluante.jpg"
   },
   {
-    id: 'SOTHYS-PRESTIGE-LA-CREME-128',
-    brand: 'Sothys',
-    cat: 'skincare',
-    subcat: 'Secrets de Sothys',
-    name: {
-      tr: 'La Crème 128',
-      en: 'La Crème 128',
-      de: 'La Crème 128',
-      fr: 'La Crème 128',
-      ru: 'La Crème 128'
+    "id": "SOTHYS-DETOX-SERUM-ENERGISANT-INTEGRAL",
+    "cat": "skincare",
+    "subcat": "Detox Energie",
+    "brand": "Sothys",
+    "type": "Serum",
+    "size": "30 ml",
+    "name": {
+      "tr": "Sérum énergisant intégral",
+      "en": "Integral Energizing Serum"
     },
-    price: 550,
-    img: 'images/sothys/la-creme-128.jpg',
-    desc: {
-      tr: 'Sothys’in en prestijli ikonik gençlik kremi. Porselen kavanozda sunulur.',
-      en: 'Sothys' most prestigious iconic youth cream. Presented in a porcelain jar.'
+    "desc": {
+      "tr": "Detoks & enerji hissi, hafif doku",
+      "en": "Detox & energizing feel, light texture"
     },
-    labels: { tr: { subtitle: "Prestige youth krem (ikon ürün)" } },
-    slug: 'la-creme-128'
+    "price": 0,
+    "slug": "serum-energisant-integral",
+    "img": "images/sothys/serum-energisant-integral.jpg"
   },
   {
-    id: 'SOTHYS-HOMME-MULTI-OIL',
-    brand: 'Sothys',
-    cat: 'skincare',
-    subcat: 'Homme',
-    name: {
-      tr: 'Sothys Homme – Multi-Oil',
-      en: 'Sothys Homme – Multi-Oil',
-      de: 'Sothys Homme – Multi-Öl',
-      fr: 'Huile multi-usages',
-      ru: 'Homme Multi-Oil'
+    "id": "SOTHYS-PRESTIGE-LA-CREME-128",
+    "cat": "skincare",
+    "subcat": "Secrets de Sothys",
+    "brand": "Sothys",
+    "type": "Cream",
+    "size": null,
+    "name": {
+      "tr": "La Crème 128",
+      "en": "La Crème 128"
     },
-    price: 55,
-    img: 'images/sothys/homme-oil.jpg',
-    desc: {
-      tr: 'Tıraş, sakal, yüz ve vücut için çok amaçlı bakım yağı.',
-      en: 'Multi-purpose care oil for shave, beard, face, and body.'
+    "desc": {
+      "tr": "Prestige youth krem (ikon ürün)",
+      "en": "Iconic prestige youth cream"
     },
-    labels: { tr: { subtitle: "Tıraş + sakal + yüz/beden çok amaçlı" } },
-    slug: 'sothys-homme-multi-oil'
+    "price": 0,
+    "slug": "la-creme-128",
+    "img": "images/sothys/la-creme-128.jpg"
+  },
+  {
+    "id": "SOTHYS-PRESTIGE-LA-CREME-PREMIUM-YOUTH",
+    "cat": "skincare",
+    "subcat": "Secrets de Sothys",
+    "brand": "Sothys",
+    "type": "Cream",
+    "size": null,
+    "name": {
+      "tr": "La crème – Premium youth cream",
+      "en": "La crème – Premium youth cream"
+    },
+    "desc": {
+      "tr": "Günlük pro-youth bakım",
+      "en": "Daily pro-youth care"
+    },
+    "price": 0,
+    "slug": "la-creme-premium-youth-cream",
+    "img": "images/sothys/la-creme-premium-youth-cream.jpg"
+  },
+  {
+    "id": "SOTHYS-PRESTIGE-EYE-LIP-YOUTH-CREAM",
+    "cat": "skincare",
+    "subcat": "Secrets de Sothys",
+    "brand": "Sothys",
+    "type": "Eye Care",
+    "size": null,
+    "name": {
+      "tr": "La crème yeux-lèvres",
+      "en": "Eye & lip youth cream"
+    },
+    "desc": {
+      "tr": "Göz + dudak çevresi bakımı",
+      "en": "Eye + lip contour care"
+    },
+    "price": 0,
+    "slug": "eye-and-lip-youth-cream",
+    "img": "images/sothys/eye-and-lip-youth-cream.jpg"
+  },
+  {
+    "id": "SOTHYS-PRESTIGE-EAU-DE-PARFUM",
+    "cat": "skincare",
+    "subcat": "Secrets de Sothys",
+    "brand": "Sothys",
+    "type": "Fragrance",
+    "size": "50 ml",
+    "name": {
+      "tr": "Secrets de Sothys – Eau de parfum",
+      "en": "Secrets de Sothys – Eau de parfum"
+    },
+    "desc": {
+      "tr": "Koleksiyonun imza kokusu",
+      "en": "Signature scent of the collection"
+    },
+    "price": 0,
+    "slug": "secrets-de-sothys-eau-de-parfum",
+    "img": "images/sothys/secrets-de-sothys-eau-de-parfum.jpg"
+  },
+  {
+    "id": "SOTHYS-HOMME-MULTI-OIL",
+    "cat": "skincare",
+    "subcat": "Sothys Homme",
+    "brand": "Sothys",
+    "type": "Oil",
+    "size": "100 ml",
+    "name": {
+      "tr": "Sothys Homme – Multi-Oil",
+      "en": "Sothys Homme – Multi-Oil"
+    },
+    "desc": {
+      "tr": "Tıraş + sakal + yüz/beden çok amaçlı",
+      "en": "Multi-use: shave/beard/face/body"
+    },
+    "price": 0,
+    "slug": "sothys-homme-multi-oil",
+    "img": "images/sothys/sothys-homme-multi-oil.jpg"
+  },
+  {
+    "id": "SOTHYS-HOMME-HYDRATING-YOUTH-FLUID",
+    "cat": "skincare",
+    "subcat": "Sothys Homme",
+    "brand": "Sothys",
+    "type": "Fluid",
+    "size": "125 ml",
+    "name": {
+      "tr": "Sothys Homme – Hydrating Youth Fluid",
+      "en": "Sothys Homme – Hydrating Youth Fluid"
+    },
+    "desc": {
+      "tr": "Nem + anti-age tek adım",
+      "en": "Hydration + anti-age in one step"
+    },
+    "price": 0,
+    "slug": "sothys-homme-hydrating-youth-fluid",
+    "img": "images/sothys/sothys-homme-hydrating-youth-fluid.jpg"
+  },
+  {
+    "id": "SOTHYS-HOMME-EAU-FRAICHE",
+    "cat": "skincare",
+    "subcat": "Sothys Homme",
+    "brand": "Sothys",
+    "type": "Body & Hair Mist",
+    "size": "50 ml",
+    "name": {
+      "tr": "Sothys Homme – Eau fraîche",
+      "en": "Sothys Homme – Eau fraîche"
+    },
+    "desc": {
+      "tr": "Vücut & saç için ferah koku suyu",
+      "en": "Refreshing body & hair water"
+    },
+    "price": 0,
+    "slug": "sothys-homme-eau-fraiche",
+    "img": "images/sothys/sothys-homme-eau-fraiche.jpg"
   }
 
 ];

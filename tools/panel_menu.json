@@ -1,436 +1,93 @@
 [
     {
-        "id": "m_100",
-        "parentId": null,
-        "slug": "order-system",
+        "id": "2000",
+        "slug": "skincare",
         "sort": 10,
-        "visibleIn": "all",
+        "visibleIn": [
+            "site",
+            "panel"
+        ],
         "labels": {
-            "tr": "Sipariş Sistemi",
-            "en": "Order System",
-            "de": "Bestellsystem",
-            "fr": "Système de commande",
-            "ru": "Система заказов"
-        }
-    },
-    {
-        "id": "m_110",
-        "parentId": "m_100",
-        "slug": "checkout-fields",
-        "sort": 10,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Checkout Alanları",
-            "en": "Checkout Fields",
-            "de": "Checkout-Felder",
-            "fr": "Champs de paiement",
-            "ru": "Поля оформления"
-        }
-    },
-    {
-        "id": "m_111",
-        "parentId": "m_110",
-        "slug": "checkout-common",
-        "sort": 10,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Ortak Alanlar",
-            "en": "Common Fields",
-            "de": "Gemeinsame Felder",
-            "fr": "Champs communs",
-            "ru": "Общие поля"
-        }
-    },
-    {
-        "id": "m_112",
-        "parentId": "m_110",
-        "slug": "checkout-hotel-in",
-        "sort": 20,
-        "visibleIn": "hotel_in",
-        "labels": {
-            "tr": "Otel İçi Alanlar",
-            "en": "Hotel-In Fields",
-            "de": "Hotel-intern",
-            "fr": "Sur place (hôtel)",
-            "ru": "В отеле"
-        }
-    },
-    {
-        "id": "m_113",
-        "parentId": "m_110",
-        "slug": "checkout-hotel-out",
-        "sort": 30,
-        "visibleIn": "hotel_out",
-        "labels": {
-            "tr": "Otel Dışı Alanlar",
-            "en": "Hotel-Out Fields",
-            "de": "Außerhalb des Hotels",
-            "fr": "Hors hôtel",
-            "ru": "Вне отеля"
-        }
-    },
-    {
-        "id": "m_120",
-        "parentId": "m_100",
-        "slug": "pricing-totals",
-        "sort": 20,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Toplam Hesabı",
-            "en": "Totals Calculation",
-            "de": "Gesamtsumme",
-            "fr": "Calcul du total",
-            "ru": "Расчет итогов"
-        }
-    },
-    {
-        "id": "m_121",
-        "parentId": "m_120",
-        "slug": "items-subtotal",
-        "sort": 10,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Ürünler Ara Toplamı",
-            "en": "Items Subtotal",
-            "de": "Zwischensumme (Artikel)",
-            "fr": "Sous-total articles",
-            "ru": "Подытог товаров"
-        }
-    },
-    {
-        "id": "m_122",
-        "parentId": "m_120",
-        "slug": "shipping-total",
-        "sort": 20,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Kargo Ücreti",
-            "en": "Shipping Total",
-            "de": "Versandkosten",
-            "fr": "Frais de livraison",
-            "ru": "Стоимость доставки"
-        }
-    },
-    {
-        "id": "m_123",
-        "parentId": "m_120",
-        "slug": "tax-total",
-        "sort": 30,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "Vergi (VAT)",
-            "en": "Tax (VAT)",
-            "de": "Steuer (MwSt.)",
-            "fr": "Taxe (TVA)",
-            "ru": "НДС"
-        }
-    },
-    {
-        "id": "m_124",
-        "parentId": "m_120",
-        "slug": "duties-fees",
-        "sort": 40,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "Gümrük / Harçlar",
-            "en": "Duties / Fees",
-            "de": "Zölle / Gebühren",
-            "fr": "Droits / frais",
-            "ru": "Пошлины / сборы"
-        }
-    },
-    {
-        "id": "m_130",
-        "parentId": "m_100",
-        "slug": "shipping-rules",
-        "sort": 30,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Kargo Kuralları",
-            "en": "Shipping Rules",
-            "de": "Versandregeln",
-            "fr": "Règles de livraison",
-            "ru": "Правила доставки"
-        }
-    },
-    {
-        "id": "m_131",
-        "parentId": "m_130",
-        "slug": "eu-zones",
-        "sort": 10,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "EU Zone Tablosu",
-            "en": "EU Zone Table",
-            "de": "EU-Zonen",
-            "fr": "Zones UE",
-            "ru": "Зоны ЕС"
-        }
-    },
-    {
-        "id": "m_132",
-        "parentId": "m_130",
-        "slug": "service-levels",
-        "sort": 20,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Servis Seviyeleri",
-            "en": "Service Levels",
-            "de": "Service-Level",
-            "fr": "Niveaux de service",
-            "ru": "Уровни сервиса"
-        }
-    },
-    {
-        "id": "m_133",
-        "parentId": "m_130",
-        "slug": "free-shipping",
-        "sort": 30,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Ücretsiz Kargo Kuralı",
-            "en": "Free Shipping Rule",
-            "de": "Kostenloser Versand",
-            "fr": "Livraison gratuite",
-            "ru": "Бесплатная доставка"
-        }
-    },
-    {
-        "id": "m_140",
-        "parentId": "m_100",
-        "slug": "product-logistics",
-        "sort": 40,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Ürün Lojistik Alanları",
-            "en": "Product Logistics Fields",
-            "de": "Produkt-Logistikfelder",
-            "fr": "Champs logistiques produit",
-            "ru": "Логистика товара"
-        }
-    },
-    {
-        "id": "m_141",
-        "parentId": "m_140",
-        "slug": "weights-dimensions",
-        "sort": 10,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Ağırlık / Hacim",
-            "en": "Weight / Dimensions",
-            "de": "Gewicht / Maße",
-            "fr": "Poids / Dimensions",
-            "ru": "Вес / Габариты"
-        }
-    },
-    {
-        "id": "m_142",
-        "parentId": "m_140",
-        "slug": "handling-flags",
-        "sort": 20,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Taşıma Bayrakları",
-            "en": "Handling Flags",
-            "de": "Handling-Flags",
-            "fr": "Indicateurs de manutention",
-            "ru": "Флаги обработки"
-        }
-    },
-    {
-        "id": "m_150",
-        "parentId": "m_100",
-        "slug": "payments",
-        "sort": 50,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Ödemeler",
-            "en": "Payments",
-            "de": "Zahlungen",
-            "fr": "Paiements",
-            "ru": "Платежи"
-        }
-    },
-    {
-        "id": "m_151",
-        "parentId": "m_150",
-        "slug": "stripe-checkout",
-        "sort": 10,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Stripe Checkout",
-            "en": "Stripe Checkout",
-            "de": "Stripe Checkout",
-            "fr": "Stripe Checkout",
-            "ru": "Stripe Checkout"
-        }
-    },
-    {
-        "id": "m_152",
-        "parentId": "m_150",
-        "slug": "mollie-checkout",
-        "sort": 20,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "Mollie Checkout",
-            "en": "Mollie Checkout",
-            "de": "Mollie Checkout",
-            "fr": "Mollie Checkout",
-            "ru": "Mollie Checkout"
-        }
-    },
-    {
-        "id": "m_153",
-        "parentId": "m_150",
-        "slug": "webhooks",
-        "sort": 30,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Webhook’lar",
-            "en": "Webhooks",
-            "de": "Webhooks",
-            "fr": "Webhooks",
-            "ru": "Webhook’и"
-        }
-    },
-    {
-        "id": "m_160",
-        "parentId": "m_100",
-        "slug": "whatsapp-templates",
-        "sort": 60,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "WhatsApp Şablonları",
-            "en": "WhatsApp Templates",
-            "de": "WhatsApp-Vorlagen",
-            "fr": "Modèles WhatsApp",
-            "ru": "Шаблоны WhatsApp"
-        }
-    },
-    {
-        "id": "m_161",
-        "parentId": "m_160",
-        "slug": "wa-order-receipt",
-        "sort": 10,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Sipariş Fişi",
-            "en": "Order Receipt",
-            "de": "Bestellbeleg",
-            "fr": "Reçu de commande",
-            "ru": "Квитанция заказа"
-        }
-    },
-    {
-        "id": "m_162",
-        "parentId": "m_160",
-        "slug": "wa-paid",
-        "sort": 20,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Ödeme Alındı",
-            "en": "Payment Received",
-            "de": "Zahlung erhalten",
-            "fr": "Paiement reçu",
-            "ru": "Платеж получен"
-        }
-    },
-    {
-        "id": "m_163",
-        "parentId": "m_160",
-        "slug": "wa-shipped",
-        "sort": 30,
-        "visibleIn": "hotel_out",
-        "labels": {
-            "tr": "Kargoya Verildi",
-            "en": "Shipped",
-            "de": "Versandt",
-            "fr": "Expédié",
-            "ru": "Отправлено"
-        }
-    },
-    {
-        "id": "m_164",
-        "parentId": "m_160",
-        "slug": "wa-delivered",
-        "sort": 40,
-        "visibleIn": "all",
-        "labels": {
-            "tr": "Teslim Edildi",
-            "en": "Delivered",
-            "de": "Zugestellt",
-            "fr": "Livré",
-            "ru": "Доставлено"
-        }
-    },
-    {
-        "id": "m_170",
-        "parentId": "m_100",
-        "slug": "eu-compliance",
-        "sort": 70,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "EU Uyum",
-            "en": "EU Compliance",
-            "de": "EU-Compliance",
-            "fr": "Conformité UE",
-            "ru": "Соответствие ЕС"
-        }
-    },
-    {
-        "id": "m_171",
-        "parentId": "m_170",
-        "slug": "responsible-person",
-        "sort": 10,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "Responsible Person",
-            "en": "Responsible Person",
-            "de": "Verantwortliche Person",
-            "fr": "Personne responsable",
-            "ru": "Ответственное лицо"
-        }
-    },
-    {
-        "id": "m_172",
-        "parentId": "m_170",
-        "slug": "cpnp",
-        "sort": 20,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "CPNP Bildirimi",
-            "en": "CPNP Notification",
-            "de": "CPNP-Meldung",
-            "fr": "Notification CPNP",
-            "ru": "Уведомление CPNP"
-        }
-    },
-    {
-        "id": "m_173",
-        "parentId": "m_170",
-        "slug": "pif-safety",
-        "sort": 30,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "PIF & Güvenlik",
-            "en": "PIF & Safety",
-            "de": "PIF & Sicherheit",
-            "fr": "PIF & sécurité",
-            "ru": "PIF и безопасность"
-        }
-    },
-    {
-        "id": "m_174",
-        "parentId": "m_170",
-        "slug": "gmp-iso22716",
-        "sort": 40,
-        "visibleIn": "eu_only",
-        "labels": {
-            "tr": "GMP / ISO 22716",
-            "en": "GMP / ISO 22716",
-            "de": "GMP / ISO 22716",
-            "fr": "GMP / ISO 22716",
-            "ru": "GMP / ISO 22716"
-        }
+            "tr": "Cilt Bakımı",
+            "en": "Skincare",
+            "de": "Hautpflege",
+            "fr": "Soin du visage",
+            "ru": "Уход за кожей"
+        },
+        "roleRequired": "editor",
+        "routes": {
+            "site": "/{lang}/shop/skincare",
+            "admin": "/admin/catalog/skincare"
+        },
+        "featureFlags": {
+            "EU": true
+        },
+        "children": [
+            {
+                "id": "2100",
+                "slug": "sothys",
+                "sort": 10,
+                "visibleIn": [
+                    "site",
+                    "panel"
+                ],
+                "labels": {
+                    "tr": "Sothys Paris",
+                    "en": "Sothys Paris",
+                    "de": "Sothys Paris",
+                    "fr": "Sothys Paris",
+                    "ru": "Sothys Paris"
+                },
+                "roleRequired": "editor",
+                "routes": {
+                    "site": "/{lang}/shop/skincare/sothys",
+                    "admin": "/admin/brands/sothys"
+                },
+                "children": [
+                    {
+                        "id": "2110",
+                        "slug": "hydra-ha4",
+                        "sort": 10,
+                        "visibleIn": [
+                            "site",
+                            "panel"
+                        ],
+                        "labels": {
+                            "tr": "Hydra (Hyaluronic Acid4)",
+                            "en": "Hydra (Hyaluronic Acid4)",
+                            "de": "Hydra (Hyaluronic Acid4)",
+                            "fr": "Hydra (Acide Hyaluronique4)",
+                            "ru": "Hydra (Гиалуроновая кислота 4)"
+                        },
+                        "roleRequired": "editor",
+                        "routes": {
+                            "site": "/{lang}/shop/skincare/sothys/hydra-ha4",
+                            "admin": "/admin/collections/hydra-ha4"
+                        }
+                    },
+                    {
+                        "id": "2120",
+                        "slug": "sensitive-spa-water",
+                        "sort": 20,
+                        "visibleIn": [
+                            "site",
+                            "panel"
+                        ],
+                        "labels": {
+                            "tr": "Hassas Cilt (Spa™ Thermal Water)",
+                            "en": "Sensitive (Spa™ Thermal Water)",
+                            "de": "Sensible Haut (Spa™ Thermal Water)",
+                            "fr": "Peaux sensibles (Eau thermale Spa™)",
+                            "ru": "Чувствительная кожа (Spa™)"
+                        },
+                        "roleRequired": "editor",
+                        "routes": {
+                            "site": "/{lang}/shop/skincare/sothys/sensitive-spa-water",
+                            "admin": "/admin/collections/sensitive-spa-water"
+                        }
+                    }
+                ]
+            }
+        ]
     }
 ]
