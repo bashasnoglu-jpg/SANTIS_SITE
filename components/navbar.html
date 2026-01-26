@@ -84,25 +84,8 @@
 
     <!-- Right Actions -->
     <div class="nav-actions">
-        <!-- Language Selector (Enhanced) -->
-        <div class="lang-selector" id="langSelector">
-            <button class="lang-btn" id="langBtn" aria-label="Language">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="2" y1="12" x2="22" y2="12" />
-                    <path
-                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                </svg>
-                <span class="lang-current">TR</span>
-            </button>
-            <div class="lang-dropdown" id="langDropdown">
-                <a href="#" data-lang="tr" class="lang-option active">🇹🇷 Türkçe</a>
-                <a href="#" data-lang="en" class="lang-option">🇬🇧 English</a>
-                <a href="#" data-lang="de" class="lang-option">🇩🇪 Deutsch</a>
-                <a href="#" data-lang="fr" class="lang-option">🇫🇷 Français</a>
-                <a href="#" data-lang="ru" class="lang-option">🇷🇺 Русский</a>
-            </div>
-        </div>
+        <!-- Google Translate Widget -->
+        <div id="google_translate_element"></div>
 
         <!-- Cart Button -->
         <button class="cart-btn" id="cartBtn" onclick="SHOP.toggleCart()" aria-label="Shopping Cart">
@@ -137,10 +120,48 @@
 </div>
 
 <style>
-    /* =================== NAVBAR V2.0 =================== */
+    /* Google Translate Clean Style */
+    #google_translate_element {
+        margin-right: 10px;
+    }
+
+    .goog-te-gadget-simple {
+        background-color: rgba(212, 175, 55, 0.08) !important;
+        border: 1px solid rgba(212, 175, 55, 0.2) !important;
+        border-radius: 8px !important;
+        padding: 6px 10px !important;
+        font-family: 'Inter', sans-serif !important;
+    }
+
+    .goog-te-gadget-simple img {
+        display: none !important;
+        /* Hide Google icon */
+    }
+
+    .goog-te-menu-value span {
+        color: #202124 !important;
+        font-weight: 500 !important;
+        font-size: 13px !important;
+        border-left: none !important;
+    }
+
+    .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+        /* Hide floating top banner */
+    }
+
+    body {
+        top: 0px !important;
+        /* Fix body shift */
+    }
+
+    /* Rest of Navbar Styles */
     html {
         scroll-padding-top: 80px;
     }
+
+    /* ... (Existing css continues below, logic removed) */
+
 
     .navbar {
         position: sticky;
@@ -629,102 +650,27 @@
 </style>
 
 <script>
+    // Google Translate Init
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'tr',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
     (function () {
-        // =================== I18N ===================
-        const i18n = {
-            tr: {
-                home: "Ana Sayfa", services: "Hizmetler", products: "Ürünler",
-                gallery: "Galeri", contact: "İletişim", booking: "Rezervasyon",
-                hammam: "Hamam", massage: "Masajlar", skincare: "Cilt Bakımı", kids: "Çocuklar",
-                hammam_desc: "Geleneksel Türk hamamı", massage_desc: "Uzman terapistler",
-                skincare_desc: "Sothys Paris", kids_desc: "Aile hizmetleri"
-            },
-            en: {
-                home: "Home", services: "Services", products: "Products",
-                gallery: "Gallery", contact: "Contact", booking: "Booking",
-                hammam: "Hammam", massage: "Massage", skincare: "Skincare", kids: "Kids",
-                hammam_desc: "Traditional Turkish bath", massage_desc: "Expert therapists",
-                skincare_desc: "Sothys Paris", kids_desc: "Family services"
-            },
-            de: {
-                home: "Startseite", services: "Dienstleistungen", products: "Produkte",
-                gallery: "Galerie", contact: "Kontakt", booking: "Buchung",
-                hammam: "Hamam", massage: "Massage", skincare: "Hautpflege", kids: "Kinder",
-                hammam_desc: "Traditionelles türkisches Bad", massage_desc: "Fachtherapeutен",
-                skincare_desc: "Sothys Paris", kids_desc: "Familiendienste"
-            },
-            fr: {
-                home: "Accueil", services: "Services", products: "Produits",
-                gallery: "Galerie", contact: "Contact", booking: "Réservation",
-                hammam: "Hammam", massage: "Massage", skincare: "Soins", kids: "Enfants",
-                hammam_desc: "Bain turc traditionnel", massage_desc: "Thérapeutes experts",
-                skincare_desc: "Sothys Paris", kids_desc: "Services familiaux"
-            },
-            ru: {
-                home: "Главная", services: "Услуги", products: "Продукция",
-                gallery: "Галерея", contact: "Контакты", booking: "Бронирование",
-                hammam: "Хаммам", massage: "Массаж", skincare: "Уход за кожей", kids: "Детям",
-                hammam_desc: "Традиционная турецкая баня", massage_desc: "Профессиональные терапевты",
-                skincare_desc: "Sothys Paris", kids_desc: "Семейные услуги"
+        // Active state update only (removed i18n logic)
+        const currentPage = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(currentPage)) {
+                link.classList.add('active');
             }
-        };
-
-        function getParam(name) {
-            return new URL(window.location.href).searchParams.get(name);
-        }
-
-        function updateUI(lang) {
-            document.querySelectorAll('[data-key]').forEach(el => {
-                const key = el.dataset.key;
-                if (i18n[lang] && i18n[lang][key]) {
-                    el.textContent = i18n[lang][key];
-                }
-            });
-
-            // Update links
-            document.querySelectorAll('.nav-link[data-key]').forEach(a => {
-                if (a.dataset.key !== 'contact') {
-                    const href = a.dataset.key === 'home' ? 'index.html' : `${a.dataset.key}.html`;
-                    a.href = `${href}?lang=${lang}`;
-                }
-            });
-
-            // Update active state
-            const currentPage = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(currentPage)) {
-                    link.classList.add('active');
-                }
-            });
-
-            // Update lang button
-            const langCurrentEl = document.querySelector('.lang-current');
-            if (langCurrentEl) {
-                langCurrentEl.textContent = lang.toUpperCase();
-            }
-            document.querySelectorAll('.lang-option').forEach(opt => {
-                opt.classList.toggle('active', opt.dataset.lang === lang);
-            });
-        }
-
-        // Language handling - ensure DOM is ready
-        setTimeout(() => {
-            const currentLang = getParam('lang') || localStorage.getItem('santis_lang') || 'tr';
-            localStorage.setItem('santis_lang', currentLang);
-            updateUI(currentLang);
-
-            document.querySelectorAll('.lang-option').forEach(opt => {
-                opt.addEventListener('click', e => {
-                    e.preventDefault();
-                    const newLang = e.currentTarget.dataset.lang;
-                    const url = new URL(window.location.href);
-                    url.searchParams.set('lang', newLang);
-                    localStorage.setItem('santis_lang', newLang);
-                    window.location.href = url.toString();
-                });
-            });
-        }, 200);
+        });
 
         // =================== SCROLL BEHAVIOR ===================
         const navbar = document.getElementById('nv-main-nav');

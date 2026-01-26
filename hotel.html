@@ -327,17 +327,11 @@
 
       const { hSel, lSel } = initNavbarBindingsSafely();
 
-      const minuteLabelMap = { tr: "dk", en: "min", de: "min", fr: "min", ru: "мин" };
-      const ctaLabel = (lang) => {
-        return lang === "tr" ? "Detay" : lang === "en" ? "More Info" :
-          lang === "de" ? "Details" : lang === "fr" ? "Détails" : "Подробнее";
-      };
+      const minuteLabelMap = { tr: "dk" };
+      const ctaLabel = () => "Detay";
 
       function createHotelSelect(container) {
-        if (!container) {
-          console.warn("Hotel select için container (.selectors) bulunamadı; otel seçimi devre dışı.");
-          return null;
-        }
+        if (!container) return null;
         const sel = document.createElement("select");
         sel.id = "hotelSelect";
         container.insertBefore(sel, container.firstChild);
@@ -346,22 +340,13 @@
 
       function initNavbarBindingsSafely() {
         const selectors = document.querySelector(".selectors");
-        if (!selectors) {
-          console.warn("Navbar .selectors bulunamadı; otel/dil seçimleri devre dışı.");
-          return { hSel: null, lSel: null };
-        }
+        if (!selectors) return { hSel: null };
         const hSel = createHotelSelect(selectors);
-        const lSel = selectors.querySelector("#langSelect") || document.getElementById("langSelect");
-        if (!lSel) console.warn("Dil seçici (#langSelect) bulunamadı; dil seçimi devre dışı.");
-        return { hSel, lSel };
+        return { hSel };
       }
 
       function translateTitle() {
-        return state.lang === "tr" ? "Öne Çıkan Hizmetler" :
-          state.lang === "en" ? "Featured Services" :
-            state.lang === "de" ? "Empfohlene Anwendungen" :
-              state.lang === "fr" ? "Soins à la Une" :
-                "Рекомендуемые услуги";
+        return "Öne Çıkan Hizmetler";
       }
 
       async function loadData() {
@@ -369,22 +354,18 @@
           const res = await fetch("santis-hotels.json");
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
           const text = await res.text();
-          // Remove BOM if present
           const data = JSON.parse(text.charCodeAt(0) === 0xFEFF ? text.slice(1) : text);
-          if (!Array.isArray(data.hotels) || typeof data.services !== "object") {
-            throw new Error("Geçersiz JSON şeması");
-          }
           state.hotels = data.hotels;
           state.services = data.services;
         } catch (err) {
           console.error("Hotel data load failed", err);
-          pushNotice("error", "Şu an otel listesine erişemiyoruz. Sayfayı yenileyin; sorun sürerse bize bildirin.");
+          pushNotice("error", "Şu an otel listesine erişemiyoruz.");
         }
       }
 
       function selectInitialState() {
         const params = getParams();
-        state.lang = supportedLangs.includes(params.lang) ? params.lang : "tr";
+        state.lang = "tr"; // Always TR source for Google Translate
         state.selectedHotel = params.hotel;
       }
 
