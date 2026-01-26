@@ -1,6 +1,6 @@
 /**
- * HAMMAM RENDER ENGINE v1.0
- * Handles rendering of Featured Cards, Index List, and Detail Pages.
+ * HAMMAM RENDER ENGINE v1.1 (Editorial Edition)
+ * Renders Obsidian Cards for High-Fashion Layout
  */
 
 const HAMMAM_RENDER = {
@@ -10,8 +10,6 @@ const HAMMAM_RENDER = {
         try {
             const response = await fetch('assets/js/hammam_tr.json');
             this.data = await response.json();
-
-            // Dispatch Ready Event
             this.runPageLogic();
         } catch (error) {
             console.error("Failed to load Hammam Data:", error);
@@ -19,82 +17,81 @@ const HAMMAM_RENDER = {
     },
 
     runPageLogic() {
-        // 1. Featured Section (Homepage)
         const featuredContainer = document.getElementById('hammamFeaturedGrid');
         if (featuredContainer) this.renderFeatured(featuredContainer);
 
-        // 2. Index Page
         const indexContainer = document.getElementById('hammamIndexGrid');
         if (indexContainer) this.renderIndex(indexContainer);
 
-        // 3. Detail Page
-        // We detect detail page via explicit variable or URL slug
-        // Assuming current page sets: window.HAMMAM_SLUG = 'ottoman-...'
         if (window.HAMMAM_SLUG) {
             this.renderDetail(window.HAMMAM_SLUG);
         }
     },
 
-    // --- TEMPLATES ---
-    getCardHTML(item) {
-        // Generate Badges HTML
-        const badges = item.badges.map(b => `<span class="nv-chip" data-badge="${b}">${b}</span>`).join('');
+    // --- OBSIDIAN CARD TEMPLATE ---
+    getCardHTML(item, extraClass = '') {
+        // Fallback image (random abstract for demo)
+        const bgImage = `assets/img/hammam/${item.slug}.jpg`;
+        // Note: Ideally check if image exists, or use a consistent placeholder
+        const placeholder = `https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=800&auto=format&fit=crop`;
 
         return `
-            <article class="nv-card" data-id="${item.id}">
-                <a class="nv-card-link" href="tr/hammam/${item.slug}.html" aria-label="İncele: ${item.title}"></a>
-
-                <div class="nv-kicker">HAMMAM RITUAL</div>
-                <h3 class="nv-title">${item.title}</h3>
-                <p class="nv-subtitle">${item.subtitle}</p>
-
-                <div class="nv-meta-row">
-                    <span class="nv-chip">${item.duration_min} dk</span>
-                    <span class="nv-chip gold">${item.price_eur}€</span>
-                    ${badges}
+            <article class="obsidian-card ${extraClass}" onclick="window.location.href='tr/hammam/${item.slug}.html'">
+                <div class="obsidian-bg" style="background-image: url('${placeholder}');"></div>
+                
+                <div class="obsidian-chip">
+                    <span class="nv-kicker" style="color:var(--gold);">HAMMAM RITUAL</span>
+                    <h3 class="obsidian-title">${item.title}</h3>
+                    
+                    <div class="obsidian-meta">
+                        <span>${item.duration_min} DK • ${item.price_eur}€</span>
+                        <span>İNCELE &rarr;</span>
+                    </div>
                 </div>
 
-                <div class="nv-actions">
-                    <a class="nv-btn nv-btn-ghost" href="tr/hammam/${item.slug}.html">İncele</a>
-                    <button class="nv-btn nv-btn-primary" data-add-to-cart="1" data-sku="${item.id}">
-                        Sepete Ekle
-                    </button>
-                </div>
+                <!-- Hidden Actions for Cart Logic (if needed globally) -->
+                 <button class="nv-btn nv-btn-primary" data-add-to-cart="1" data-sku="${item.id}" 
+                         style="position:absolute; top:20px; right:20px; width:40px; height:40px; padding:0; border-radius:50%; opacity:0; pointer-events:none;">
+                    +
+                </button>
             </article>
         `;
     },
 
-    // --- RENDERERS ---
-
     renderFeatured(container) {
-        // Logic: Get first 4 items (or filter by 'featured' if we had that field)
-        // For now, take index 0, 1, 3, 5 based on user brief order preference
-        // Brief: Ottoman, Peeling+Foam, Sea Salt, Honey
-        const targets = [
-            'ottoman-hammam-tradition',
-            'peeling-foam-massage',
-            'sea-salt-peeling',
-            'honey-ritual'
+        // Broken Grid Mapping
+        // Item 1: Ottoman (Hero) -> .item-1
+        // Item 2: Peeling -> .item-2
+        // Item 3: Sea Salt -> .item-3
+        // Item 4: Honey -> .item-4
+
+        const targetSlugs = [
+            { slug: 'ottoman-hammam-tradition', class: 'item-1' },
+            { slug: 'peeling-foam-massage', class: 'item-2' },
+            { slug: 'sea-salt-peeling', class: 'item-3' },
+            { slug: 'honey-ritual', class: 'item-4' }
         ];
 
-        const filtered = this.data.filter(i => targets.includes(i.slug));
-        // Sort to match target order
-        filtered.sort((a, b) => targets.indexOf(a.slug) - targets.indexOf(b.slug));
+        let html = '';
+        targetSlugs.forEach(target => {
+            const item = this.data.find(i => i.slug === target.slug);
+            if (item) {
+                html += this.getCardHTML(item, target.class);
+            }
+        });
 
-        container.innerHTML = filtered.map(item => this.getCardHTML(item)).join('');
+        container.innerHTML = html;
     },
 
     renderIndex(container) {
-        // Render ALL items
+        // Standard Grid for Index Page
         container.innerHTML = this.data.map(item => this.getCardHTML(item)).join('');
     },
 
     renderDetail(slug) {
+        // Same logic as v1.0, just data binding
         const item = this.data.find(i => i.slug === slug);
-        if (!item) return console.error("Ritüel bulunamadı: " + slug);
-
-        // Bind Data to DOM Elements by ID
-        // Expected IDs: h-title, h-subtitle, h-price, h-duration, h-desc, h-includes
+        if (!item) return;
 
         const setTxt = (id, txt) => {
             const el = document.getElementById(id);
@@ -107,32 +104,15 @@ const HAMMAM_RENDER = {
         setTxt('h-duration', `${item.duration_min} dk`);
         setTxt('h-desc', item.desc_short);
 
-        // Render Includes List
         const incList = document.getElementById('h-includes');
         if (incList) {
             incList.innerHTML = item.includes.map(i => `<li>${i}</li>`).join('');
         }
 
-        // WhatsApp Button
-        const waBtn = document.getElementById('btn-whatsapp');
-        if (waBtn) {
-            const msg = `Merhaba, *${item.title}* (${item.price_eur}€) hakkında bilgi almak istiyorum.`;
-            waBtn.href = `https://wa.me/905348350169?text=${encodeURIComponent(msg)}`;
-        }
-
-        // Add to Cart Button (Detail Page)
-        const cartBtn = document.getElementById('btn-add-cart-detail');
-        if (cartBtn) {
-            cartBtn.dataset.sku = item.id;
-            cartBtn.dataset.addItem = "1"; // Just marker
-        }
-
-        // Update Page Title
-        document.title = `${item.title} - Santis Club Hamam`;
+        document.title = `${item.title} | Santis Editorial`;
     }
 };
 
-// Auto Init
 document.addEventListener('DOMContentLoaded', () => {
     HAMMAM_RENDER.init();
 });

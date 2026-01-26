@@ -4,136 +4,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamam Detay | Santis Club</title>
+    <title>Hamam Detay | Santis Editorial</title>
     <!-- Base Styles -->
     <base href="../../">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/moods.css">
     <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/editorial.css"> <!-- VOGUE MODE -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Syncopate:wght@400;700&display=swap"
         rel="stylesheet">
 
     <style>
-        /* Detail Specific Styles */
-        .detail-layout {
+        /* Editorial Detail Layout */
+        .editorial-split {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
+            grid-template-columns: 1.2fr 0.8fr;
+            /* Image wider */
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
         }
 
-        .detail-visual {
-            height: 500px;
+        .visual-pane {
+            position: relative;
+            height: 100%;
             background: #111;
-            border-radius: 24px;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
+            padding: 60px;
+        }
+
+        .visual-img {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;
+            filter: grayscale(1) contrast(1.2);
+            /* Dramatic BW */
+        }
+
+        .content-pane {
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            color: #333;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .detail-meta {
-            display: flex;
-            gap: 20px;
-            font-size: 18px;
-            color: var(--gold);
-            margin-bottom: 30px;
+        /* Typography Override */
+        h1.drama-title {
+            font-size: 80px;
+            line-height: 0.9;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
         }
 
-        .includes-list {
-            list-style: none;
-            padding: 0;
-            margin: 30px 0;
-        }
-
-        .includes-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .includes-list li:before {
-            content: '•';
-            color: var(--gold);
-            font-size: 20px;
-        }
-
-        @media(max-width:768px) {
-            .detail-layout {
+        @media(max-width: 1024px) {
+            .editorial-split {
                 grid-template-columns: 1fr;
+                height: auto;
             }
 
-            .detail-visual {
-                height: 300px;
+            .visual-pane {
+                height: 50vh;
+                padding: 30px;
+            }
+
+            .content-pane {
+                padding: 40px 20px;
+            }
+
+            h1.drama-title {
+                font-size: 48px;
             }
         }
     </style>
 </head>
 
-<body class="mood-relax">
+<body class="editorial-mode">
 
-    <nav class="navbar-container" style="background:var(--nav-bg);">
+    <nav class="navbar-container" style="background:transparent; position:absolute; top:0; w-100; z-index:100;">
         <div class="navbar-inner">
             <a href="index.html" class="logo-text">SANTIS</a>
             <div class="nav-actions">
-                <a href="tr/hammam/index.html" class="nav-link">← Geri Dön</a>
-                <span class="cart-icon">Sepet (<span class="cart-count">0</span>)</span>
+                <a href="tr/hammam/index.html" class="nav-link">← BACK TO COLLECTION</a>
+                <span class="cart-icon">BAG (<span class="cart-count">0</span>)</span>
             </div>
         </div>
     </nav>
 
-    <main id="nv-main" style="padding-top:140px; padding-bottom:100px;">
-        <div class="nv-container">
-
-            <div class="detail-layout">
-                <!-- Left: Info -->
-                <div class="detail-info">
-                    <span class="nv-kicker" id="h-subtitle">RITUAL</span>
-                    <h1 style="font-family:'Playfair Display'; font-size:48px; margin:10px 0 20px 0;" id="h-title">
-                        Yükleniyor...</h1>
-
-                    <div class="detail-meta">
-                        <span id="h-duration">-- dk</span> | <span id="h-price">--€</span>
-                    </div>
-
-                    <p style="font-size:16px; line-height:1.6; color:var(--text-main);" id="h-desc">
-                        <!-- Desc here -->
-                    </p>
-
-                    <h3 style="margin-top:40px; font-size:18px; font-weight:400; color:var(--gold);">Ritüel İçeriği</h3>
-                    <ul class="includes-list" id="h-includes">
-                        <!-- List here -->
-                    </ul>
-
-                    <div class="nv-actions" style="margin-top:40px;">
-                        <a id="btn-whatsapp" href="#" target="_blank" class="nv-btn nv-btn-ghost"
-                            style="padding:15px 30px;">
-                            WhatsApp ile Sor
-                        </a>
-                        <button id="btn-add-cart-detail" class="nv-btn nv-btn-primary" data-add-to-cart="1"
-                            style="padding:15px 40px;">
-                            Sepete Ekle
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Right: Visual (Placeholder) -->
-                <div class="detail-visual">
-                    <!-- Image would go here -->
-                    <span style="opacity:0.2; font-size:40px;">Visual</span>
-                </div>
+    <div class="editorial-split">
+        <!-- Left: Dramatic Visual -->
+        <div class="visual-pane">
+            <div class="visual-img"
+                style="background-image: url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200');">
             </div>
 
+            <div style="position:relative; z-index:2;">
+                <span class="nv-kicker" id="h-subtitle">RITUAL</span>
+                <!-- Giant Title -->
+                <h1 class="drama-title" id="h-title">Loading...</h1>
+            </div>
         </div>
-    </main>
+
+        <!-- Right: Minimal Content -->
+        <div class="content-pane">
+            <div class="obsidian-meta"
+                style="opacity:1; transform:none; margin-bottom:40px; justify-content:flex-start; gap:30px; font-size:12px;">
+                <span id="h-duration">-- min</span>
+                <span id="h-price" style="color:var(--gold);">-- EUR</span>
+            </div>
+
+            <p style="font-size:18px; line-height:1.6; color:#ccc; margin-bottom:40px; font-family:'Cormorant Garamond'; font-style:italic;"
+                id="h-desc">
+                <!-- Desc here -->
+            </p>
+
+            <h3
+                style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:20px;">
+                The Experience</h3>
+            <ul class="includes-list" id="h-includes" style="margin-bottom:60px;">
+                <!-- List here -->
+            </ul>
+
+            <div class="nv-actions">
+                <button id="btn-add-cart-detail" class="nv-btn nv-btn-primary" data-add-to-cart="1"
+                    style="width:100%; padding:20px 0; font-size:14px; letter-spacing:2px;">
+                    ADD TO BAG
+                </button>
+                <a id="btn-whatsapp" href="#" target="_blank" class="nv-btn nv-btn-ghost"
+                    style="width:100%; margin-top:20px; border:none; text-align:center; font-size:11px; opacity:0.6;">
+                    ASK CONCIERGE
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script>
-        // CRITICAL: Define Slug before loading render engine
         window.HAMMAM_SLUG = "sea-salt-peeling";
     </script>
     <script src="assets/js/santis-core.js"></script>

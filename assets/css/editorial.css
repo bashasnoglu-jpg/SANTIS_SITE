@@ -1,0 +1,153 @@
+/* OBSIDIAN EDITORIAL SYSTEM 
+   Theme: High Fashion, Broken Grid, Atmospheric Depth
+   Font: Cormorant Garamond (Serif) + Syncopate (Modern Sans)
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Syncopate:wght@400;700&display=swap');
+
+:root {
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-modern: 'Syncopate', sans-serif;
+
+    --obsidian-border: rgba(255, 255, 255, 0.08);
+    --obsidian-glow: rgba(212, 175, 55, 0.4);
+    /* Gold Light */
+    --obsidian-surface: rgba(10, 10, 10, 0.6);
+
+    --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* 1. ATMOSPHERIC BASE */
+body.editorial-mode {
+    background-color: #050505;
+    background-image: var(--noise-url);
+    color: #e0e0e0;
+}
+
+h1,
+h2,
+h3,
+.nv-title {
+    font-family: var(--font-heading) !important;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+}
+
+.nv-kicker {
+    font-family: var(--font-modern) !important;
+    letter-spacing: 4px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* 2. THE OBSIDIAN CARD (Replaces .nv-card) */
+.obsidian-card {
+    position: relative;
+    height: 600px;
+    /* Tall editorial look */
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--obsidian-border);
+    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.obsidian-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+    filter: brightness(0.7) grayscale(0.2);
+}
+
+/* Glass Overlay Chip */
+.obsidian-chip {
+    position: absolute;
+    bottom: 40px;
+    left: 30px;
+    right: 30px;
+    background: rgba(20, 20, 20, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    transform: translateY(20px);
+    opacity: 0.9;
+    transition: all 0.6s ease;
+}
+
+.obsidian-title {
+    font-size: 32px;
+    color: #fff;
+    margin: 0;
+    line-height: 1;
+}
+
+.obsidian-meta {
+    font-family: var(--font-modern);
+    font-size: 10px;
+    color: var(--gold);
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    opacity: 0;
+    /* Hidden default */
+    transform: translateY(10px);
+    transition: all 0.4s ease 0.1s;
+}
+
+/* 3. ALIVE INTERACTION (Hover) */
+.obsidian-card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.5);
+}
+
+.obsidian-card:hover .obsidian-bg {
+    transform: scale(1.1);
+    filter: brightness(0.9) grayscale(0);
+    /* Light up */
+}
+
+.obsidian-card:hover .obsidian-chip {
+    background: rgba(20, 20, 20, 0.7);
+    transform: translateY(0);
+}
+
+.obsidian-card:hover .obsidian-meta {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 4. BROKEN GRID (Asymmetry) for Featured Section */
+.editorial-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 300px;
+    gap: 20px;
+}
+
+/* Item 1: Massive Hero (Left) */
+.editorial-grid .item-1 {
+    grid-column: 1 / 8;
+    grid-row: 1 / 3;
+    /* Tall */
+}
+
+/* Item 2: Square (Right Top) */
+.editorial-grid .item-2 {
+    grid-column: 8 / 13;
+    grid-row: 1 / 2;
+}
+
+/* Item 3: Wide Low (Right Bottom) */
+.editorial-grid .item-3 {
+    grid-column: 8 / 13;
+    grid-row: 2 / 3;
+}
+
+/* Item 4: Full Width Strip */
+.editorial-grid .item-4 {
+    grid-column: 1 / 13;
+    grid-row: 3 / 4;
+    height: 400px;
+}
