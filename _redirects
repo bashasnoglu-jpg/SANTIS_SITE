@@ -1,5 +1,0 @@
-/tr/masajlar.html   /tr/masajlar/index.html   301!
-/tr/masajlar        /tr/masajlar/index.html   301!
-/tr/hammam          /tr/hamam/index.html      301!
-/tr/hammam/*        /tr/hamam/:splat          301!
-/tr/hamam.html      /tr/hamam/index.html      301!

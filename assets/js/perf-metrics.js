@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
   try {
     if (typeof PerformanceObserver !== "function") return;
 

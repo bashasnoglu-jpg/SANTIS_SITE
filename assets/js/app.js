@@ -1,4 +1,4 @@
-﻿// ===== Santis: TR-only mode (single source of truth) =====
+// ===== Santis: TR-only mode (single source of truth) =====
 const SITE_LANG = "tr";
 window.SITE_LANG = SITE_LANG;
 

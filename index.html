@@ -1,4 +1,4 @@
-﻿<!-- Cache Bust: 2026-01-26 21:55 -->
+<!-- Cache Bust: 2026-01-26 21:55 -->
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -152,7 +152,7 @@
         </div>
       </div>
       <div style="text-align:center; margin-top:40px;">
-        <a href="tr/hamam/index.html" class="nv-btn nv-btn-ghost">TÜM RİTÜLLERİ GÖR</a>
+        <a href="/tr/hamam/index.html" class="nv-btn nv-btn-ghost">TÜM RİTÜELLERİ GÖR</a>
       </div>
     </div>
 
@@ -160,21 +160,21 @@
       <h2 class="section-title">Masaj Terapileri</h2>
       <div class="grid-cards" id="grid-massages"></div>
       <div style="text-align:center; margin-top:40px;">
-        <a href="tr/masajlar/index.html" class="nv-btn nv-btn-ghost">TÜM MASAJLARI GÖR</a>
+        <a href="/tr/masajlar/index.html" class="nv-btn nv-btn-ghost">TÜM MASAJLARI GÖR</a>
       </div>
-    </div>
-
-    <div class="section-container" id="extra" data-section="extra">
-      <h2 class="section-title">Ekstra & Etkili</h2>
-      <div class="grid-cards" id="grid-extra"></div>
     </div>
 
     <div class="section-container" id="cilt" data-section="skincare">
       <h2 class="section-title">Cilt Bakımı</h2>
       <div class="grid-cards" id="grid-skincare"></div>
       <div style="text-align:center; margin-top:40px;">
-        <a href="tr/cilt-bakimi/index.html" class="nv-btn nv-btn-ghost">TÜM CİLT BAKIMINI GÖR</a>
+        <a href="/tr/cilt-bakimi/index.html" class="nv-btn nv-btn-ghost">TÜM CİLT BAKIMINI GÖR</a>
       </div>
+    </div>
+
+    <div class="section-container" id="extra" data-section="extra">
+      <h2 class="section-title">Ekstra & Etkili</h2>
+      <div class="grid-cards" id="grid-extra"></div>
     </div>
 
     <!-- GALLERY -->
@@ -322,8 +322,8 @@
     // Init Application
     document.addEventListener('DOMContentLoaded', () => {
       // Load Standard Components
-      loadComp("components/navbar.html", "navbar-container");
-      loadComp("components/footer.html", "footer-container");
+      loadComp("/components/navbar.html", "navbar-container");
+      loadComp("/components/footer.html", "footer-container");
 
       // Preloader
       // Preloader Patch: Ensure display:none
@@ -379,7 +379,7 @@
 
       // --- FALLBACK FOR OTHER SECTIONS (Hammam, Extra) ---
       if (typeof renderSection === 'function') {
-        renderSection('hammam', 'grid-hammam');
+        // renderSection('hammam', 'grid-hammam'); // Manuel kart var
         renderSection('extra', 'grid-extra');
       }
     });

@@ -1,2 +1,0 @@
-$latest = Get-ChildItem "$PSScriptRoot\..\logs\test-*.json" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
-if ($latest) { notepad $latest.FullName } else { Write-Host "No logs found" }

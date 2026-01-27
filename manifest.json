@@ -1,8 +1,0 @@
-﻿{
-  "name": "Santis Club",
-  "short_name": "Santis",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#1a73e8"
-}

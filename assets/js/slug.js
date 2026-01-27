@@ -1,4 +1,4 @@
-﻿// slug.js — TR slug helper (minimal, no dependencies)
+// slug.js — TR slug helper (minimal, no dependencies)
 (function (global) {
   const map = {
     'ç': 'c', 'Ç': 'c',

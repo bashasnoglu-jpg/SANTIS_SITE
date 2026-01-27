@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
   try {
     const head = document.head;
     if (!head) return;

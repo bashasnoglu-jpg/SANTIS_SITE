@@ -1,1 +1,0 @@
-{"name":"santis-site","version":"1.0.0","scripts":{"dev":"npx http-server . -p 8080 -c-1 -o","start":"npx http-server . -p 8080 -c-1","test":"npx playwright test","test:headed":"npx playwright test --headed","report":"npx playwright show-report"},"license":"ISC","devDependencies":{"canvas":"^3.2.1"}}

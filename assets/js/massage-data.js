@@ -252,4 +252,7 @@
         return !price ? "Fiyat sorunuz" : `${price}€`;
     };
 
+    // Back-compat alias (home + ui expects NV_MASSAGES)
+    window.NV_MASSAGES = window.NV_MASSAGE;
+
 })();

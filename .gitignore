@@ -49,3 +49,5 @@ build/
 *.sql
 *.sqlite
 *.db
+# --- QUARANTINE ZONE ---
+_KARANTINA_NEUROVA/

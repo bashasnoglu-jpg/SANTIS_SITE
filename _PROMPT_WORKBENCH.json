@@ -1,87 +1,29 @@
-Süper — bu şu demek:
+@workspace /execute
 
-✅ **Gerçek “Masajlar” yolu:**
-`/tr/masajlar/index.html`
-(127.0.0.1 sadece lokal; sitede kullanacağımız link bu path olacak.)
+# ROLE: Recovery Specialist
 
-Şu an açılmama sorununun %99 nedeni: Navbar / ana sayfada hâlâ **`/tr/masajlar.html`** gibi eski linkler var.
+# MISSION: UNHIDE QUARANTINE & RESTORE FILES
+The user needs to access the `_KARANTINA_NEUROVA` folder because some active project files might have been moved there by mistake, or they need to retrieve assets.
 
----
+## ACTION PLAN:
 
-## 1) Navbar’daki Masaj linkini düzelt
+### 1. UNHIDE THE FOLDER (REVERSE VISIBILITY)
+- **Target:** `.vscode/settings.json`
+- **Action:** REMOVE the lines that exclude `_KARANTINA_NEUROVA` from `files.exclude` and `search.exclude`.
+- **Result:** The folder must reappear in the VS Code file explorer sidebar immediately.
 
-Senin navbar’da şu var:
+### 2. RESTORE CRITICAL FILES (RESCUE MISSION)
+- **Check:** Look inside `_KARANTINA_NEUROVA`.
+- **Action:** If you find any of the following files inside the quarantine, **MOVE THEM BACK TO ROOT (./)** immediately:
+    - `index.html`
+    - `styles.css`
+    - `script.js`
+    - `santis-hotels.json`
+    - `README.md`
+    - `.gitignore`
 
-```html
-<a href="/tr/masajlar.html#classicMassages" class="mega-item">
-```
+### 3. VERIFICATION
+- List the files currently in the root directory to confirm the "Santis Club" project is active again.
 
-Bunu şöyle yap:
-
-```html
-<a href="/tr/masajlar/index.html" class="mega-item">
-```
-
-> Not: `#classicMassages` zaten senin yeni UI’da anchor olarak çalışmıyor (chip sistemi var). O yüzden şimdilik hash’siz en temiz.
-
----
-
-## 2) Ana sayfadaki “Masajlar” kart / buton linkini de düzelt
-
-`index.html` içinde arat:
-
-* `tr/masajlar.html`
-* `tr/masajlar.html#`
-* `masajlar.html`
-
-Hepsini şuna çevir:
-
-```html
-href="/tr/masajlar/index.html"
-```
-
----
-
-## 3) Kırılmasın diye opsiyonel redirect (çok öneririm)
-
-Eski linklere tıklayan varsa 404 olmasın diye `_redirects` içine ekle:
-
-```txt
-/tr/masajlar.html   /tr/masajlar/index.html   301!
-/tr/masajlar        /tr/masajlar/index.html   301!
-```
-
----
-
-## 4) Navbar active (highlight) için küçük iyileştirme
-
-`navbar.js` içinde masaj için de “nested match” ekle (cilt-bakımı/hamam gibi):
-
-```js
-else if (normHref.includes('/tr/masajlar/') && normPath.includes('/tr/masajlar/')) {
-  isActive = true;
-}
-```
-
----
-
-## 5) Hamam tarafını da aynı standartta kuralım
-
-Masajlar artık klasör yapısında:
-`/tr/masajlar/index.html`
-
-Hamam için de aynı düzen en temiz olan:
-
-✅ **Önerilen hamam yolu:**
-`/tr/hamam/index.html`
-
-Böylece navbar + ana sayfa kartında da:
-
-```html
-href="/tr/hamam/index.html"
-```
-
----
-
-İstersen bir sonraki adım:
-**Ana sayfadaki “Hizmetler” kartlarının HTML bloğunu** (sadece o section) buraya yapıştır; ben sana **Hamam kartını aynı stil yapısında** %100 uyumlu şekilde “nereye eklenecek” diye nokta atışı göstereyim.
+# GOAL:
+Make the quarantine folder visible again and restore the main project files if they were accidentally archived.
