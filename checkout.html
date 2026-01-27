@@ -593,6 +593,18 @@
             setInterval(renderOrderSummary, 1000);
         });
     </script>
+    <!-- Scripts -->
+    <script src="assets/js/loader.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof loadComp === "function") {
+                loadComp("components/navbar.html", "navbar-container");
+                if (document.getElementById("footer-container")) loadComp("components/footer.html", "footer-container");
+            } else {
+                console.warn("loader.js yüklenmedi: loadComp bulunamadı");
+            }
+        });
+    </script>
 </body>
 
 </html>

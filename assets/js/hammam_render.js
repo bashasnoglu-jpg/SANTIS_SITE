@@ -1,161 +1,179 @@
-/**
- * HAMMAM RENDER ENGINE v1.2 (Cinematic 3D Tilt + ZigZag Editorial)
- */
+/* ==========================================================================
+   SANTIS CLUB - HAMMAM RENDER LOGIC (v2)
+   - Fallback: NV_HAMAM_RITUALS yoksa santis-hotels.json -> categoryId=hammam
+   - Discover: top 6
+   - ZigZag: all
+   ========================================================================== */
 
-const HAMMAM_RENDER = {
-    data: [],
+(function () {
+    if (window.__NV_HAMAM_INIT__) return;
+    window.__NV_HAMAM_INIT__ = true;
 
-    async init() {
-        try {
-            const response = await fetch('assets/js/hammam_tr.json');
-            this.data = await response.json();
-            this.runPageLogic();
-        } catch (error) {
-            console.error("Failed to load Hammam Data:", error);
-        }
-    },
+    const DEFAULT_CATEGORY_ID = "hammam";
+    const FALLBACK_IMG =
+        "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1400";
 
-    runPageLogic() {
-        // Homepage Feature
-        const featuredContainer = document.getElementById('hammamFeaturedGrid');
-        if (featuredContainer) this.renderFeatured(featuredContainer);
+    function resolveLang() {
+        const qs = new URLSearchParams(location.search);
+        return qs.get("lang") || document.documentElement.lang || "tr";
+    }
 
-        // Index Page List
-        const indexContainer = document.getElementById('hammamIndexGrid');
-        if (indexContainer) this.renderIndex(indexContainer);
-
-        // Detail Page
-        if (window.HAMMAM_SLUG) {
-            this.renderDetail(window.HAMMAM_SLUG);
-        }
-
-        // Init Interactions
-        this.initTiltEffect();
-    },
-
-    // --- TEMPLATE 1: OBSIDIAN CARD (Home & Index fallback) ---
-    getCardHTML(item, extraClass = '') {
-        const placeholder = `https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=800&auto=format&fit=crop`;
-        const videoUrl = "https://cdn.coverr.co/videos/coverr-steam-rising-from-a-hot-spring-5226/1080p.mp4";
-
-        return `
-            <article class="obsidian-card ${extraClass}" onclick="window.location.href='tr/hammam/${item.slug}.html'">
-                <div class="obsidian-bg" style="background-image: url('${placeholder}');"></div>
-                <video class="obsidian-video" src="${videoUrl}" muted loop playsinline></video>
-                <div class="obsidian-chip">
-                    <span class="nv-kicker" style="color:var(--gold);">HAMMAM RITUAL</span>
-                    <h3 class="obsidian-title">${item.title}</h3>
-                    <div class="obsidian-meta">
-                        <span>${item.duration_min} DK • ${item.price_eur}€</span>
-                        <span>İNCELE &rarr;</span>
-                    </div>
-                </div>
-            </article>
-        `;
-    },
-
-    // --- TEMPLATE 2: ZIGZAG EDITORIAL (Index Page) ---
-    getZigZagHTML(item) {
-        // High-Res Placeholder for wide layout
-        const placeholder = `https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200&auto=format&fit=crop`;
-
-        return `
-            <article class="zigzag-item">
-                <div class="z-visual">
-                    <img src="${placeholder}" class="z-img" alt="${item.title}">
-                </div>
-                <div class="z-content">
-                    <span class="z-kicker">${item.duration_min} MIN • ${item.price_eur} EUR</span>
-                    <h2 class="z-title">${item.title}</h2>
-                    <p class="z-desc">${item.desc_short || 'Geleneksel arınma ve modern lüksün eşsiz birleşimi.'}</p>
-                    <div class="nv-actions" style="display:flex; gap:20px; align-items:center;">
-                        <a href="tr/hammam/${item.slug}.html" class="nv-btn-underline">RITUELI INCELE</a>
-                        <button class="nv-btn-underline" style="border:none; background:none; cursor:pointer;" onclick="SHOP.addItem('${item.id}'); event.stopPropagation();">
-                            SEPETE EKLE +
-                        </button>
-                    </div>
-                </div>
-            </article>
-        `;
-    },
-
-    // --- RENDERERS ---
-    renderFeatured(container) {
-        // Helper to map broken grid slots
-        const targetSlugs = [
-            { slug: 'ottoman-hammam-tradition', class: 'item-1' },
-            { slug: 'peeling-foam-massage', class: 'item-2' },
-            { slug: 'sea-salt-peeling', class: 'item-3' },
-            { slug: 'honey-ritual', class: 'item-4' }
+    async function fetchJSONSmart() {
+        // Hem root hem relative ihtimalleri dene (local dev klasörlerine göre)
+        const candidates = [
+            "/santis-hotels.json",
+            "santis-hotels.json",
+            "../santis-hotels.json",
+            "../../santis-hotels.json",
         ];
 
-        let html = '';
-        targetSlugs.forEach(target => {
-            const item = this.data.find(i => i.slug === target.slug);
-            if (item) html += this.getCardHTML(item, target.class);
-        });
-        container.innerHTML = html;
-        this.initTiltEffect();
-    },
-
-    renderIndex(container) {
-        // Check if we should use Grid or ZigZag based on container class
-        if (container.classList.contains('editorial-zigzag-list')) {
-            container.innerHTML = this.data.map(item => this.getZigZagHTML(item)).join('');
-        } else {
-            container.innerHTML = this.data.map(item => this.getCardHTML(item)).join('');
-        }
-    },
-
-    renderDetail(slug) {
-        // ... (Existing Detail Logic) ...
-        const item = this.data.find(i => i.slug === slug);
-        if (!item) return;
-
-        const setTxt = (id, txt) => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = txt;
-        };
-
-        setTxt('h-title', item.title);
-        setTxt('h-subtitle', item.subtitle);
-        setTxt('h-price', `${item.price_eur}€`);
-        setTxt('h-duration', `${item.duration_min} dk`);
-        setTxt('h-desc', item.desc_short);
-
-        const incList = document.getElementById('h-includes');
-        if (incList) {
-            incList.innerHTML = item.includes.map(i => `<li>${i}</li>`).join('');
-        }
-    },
-
-    // --- 3D TILT ---
-    initTiltEffect() {
-        setTimeout(() => {
-            const cards = document.querySelectorAll('.obsidian-card');
-            cards.forEach(card => {
-                const video = card.querySelector('video');
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const rX = (0.5 - y / rect.height) * 20;
-                    const rY = (x / rect.width - 0.5) * 20;
-                    card.style.transform = `rotateX(${rX}deg) rotateY(${rY}deg)`;
-                    if (video && video.paused) video.play();
+        for (const url of candidates) {
+            try {
+                const res = await fetch(url, {
+                    cache: "no-store"
                 });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = `rotateX(0deg) rotateY(0deg)`;
-                    if (video) {
-                        video.pause();
-                        video.currentTime = 0;
-                    }
-                });
-            });
-        }, 500);
+                if (res.ok) return await res.json();
+            } catch (_) { }
+        }
+        return null;
     }
-};
 
-document.addEventListener('DOMContentLoaded', () => {
-    HAMMAM_RENDER.init();
-});
+    async function getRituals() {
+        // 1) Direkt global data varsa onu kullan
+        if (Array.isArray(window.NV_HAMAM_RITUALS) && window.NV_HAMAM_RITUALS.length) {
+            return window.NV_HAMAM_RITUALS;
+        }
+        // 2) Yoksa JSON'dan üret
+        const data = await fetchJSONSmart();
+        if (!data || !data.services) return [];
+
+        const lang = resolveLang();
+
+        const services = Object.entries(data.services)
+            .map(([key, s]) => ({
+                key,
+                s
+            }))
+            .filter(({
+                s
+            }) => s && s.categoryId === DEFAULT_CATEGORY_ID);
+
+        return services.map(({
+            key,
+            s
+        }) => {
+            const title = s.name?.[lang] || s.name?.en || key;
+            const desc = s.desc?.[lang] || s.desc?.en || "";
+            const duration = s.durationMin ? `${s.durationMin} DK` : (s.duration || "");
+            const tier = (s.tier || s.collection || "Signature").toString();
+            const price = s.price != null ? `${s.price} ${s.currency || ""}`.trim() : "";
+
+            return {
+                id: key,
+                href: `/service.html?service=${encodeURIComponent(key)}&lang=${encodeURIComponent(
+                    lang
+                )}#${DEFAULT_CATEGORY_ID}`,
+                img: s.img || FALLBACK_IMG,
+                title,
+                desc,
+                duration,
+                tier,
+                price,
+                cart: {
+                    id: key,
+                    name: title,
+                    price: s.price ?? 0,
+                    cat: "Hamam",
+                },
+            };
+        });
+    }
+
+    async function renderDiscover(container) {
+        if (!container) return;
+        const data = await getRituals();
+        const top = data.slice(0, 6);
+
+        container.innerHTML = top
+            .map(
+                (item) => `
+        <div class="nv-pin" onclick="window.location.href='${item.href}'">
+          <img src="${item.img}" alt="${item.title}" class="nv-pin-img" loading="lazy">
+          <div class="nv-pin-content">
+            <div class="nv-pin-meta">${item.duration} • ${item.tier}</div>
+            <h3 class="nv-pin-title">${item.title}</h3>
+          </div>
+        </div>
+      `
+            )
+            .join("");
+    }
+
+    async function renderZigZag(container) {
+        if (!container) return;
+        const data = await getRituals();
+
+        container.innerHTML = data
+            .map(
+                (item) => `
+        <article class="nv-z-item">
+          <div class="nv-z-visual">
+            <img src="${item.img}" alt="${item.title}" class="nv-z-img" loading="lazy">
+          </div>
+
+          <div class="nv-z-content">
+            <span class="nv-z-badge">${item.tier} COLLECTION</span>
+            <h2 class="nv-z-title">${item.title}</h2>
+            <p class="nv-z-desc">${item.desc}</p>
+
+            <div class="nv-z-specs">
+              <div class="nv-spec-item">SÜRE<span class="nv-spec-val">${item.duration}</span></div>
+              <div class="nv-spec-item">FİYAT<span class="nv-spec-val">${item.price || "-"}</span></div>
+              <div class="nv-spec-item">YOĞUNLUK<span class="nv-spec-val">Orta-Sert</span></div>
+            </div>
+
+            <div class="nv-z-actions">
+              <a href="${item.href}" class="btn-ed-secondary">HİKAYEYİ OKU</a>
+              <button class="btn-ed-primary" onclick="handleAddToCart('${item.id}', event)">
+                SEPETE EKLE +
+              </button>
+            </div>
+          </div>
+        </article>
+      `
+            )
+            .join("");
+    }
+    // Global Handler for Add to Cart (safe)
+    window.handleAddToCart = async function (id, ev) {
+        ev?.stopPropagation?.();
+
+        const data = await getRituals();
+        const item = data.find((i) => i.id === id);
+
+        if (!item) return console.error("Cart: item not found", id);
+        if (!window.SHOP?.addToCart) return console.error("Cart: SHOP.addToCart missing");
+
+        window.SHOP.addToCart({
+            id: item.cart?.id || item.id,
+            name: item.cart?.name || item.title,
+            price: item.cart?.price ?? 0,
+            img: item.img,
+            cat: item.cart?.cat || "Hamam",
+        });
+    };
+
+    async function initHammamList() {
+        const discoverContainer = document.getElementById("hammamDiscover");
+        const zigZagContainer = document.getElementById("hammamZigZag");
+
+        await renderDiscover(discoverContainer);
+        await renderZigZag(zigZagContainer);
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initHammamList);
+    } else {
+        initHammamList();
+    }
+})();

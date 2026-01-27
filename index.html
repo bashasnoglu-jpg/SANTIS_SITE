@@ -1,10 +1,15 @@
-﻿<!DOCTYPE html>
+﻿<!-- Cache Bust: 2026-01-26 21:55 -->
+<!DOCTYPE html>
 <html lang="tr">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Santis Club • Spa & Wellness</title>
+  <meta name="description"
+    content="Santis Club - Yalnızca yetişkinlere özel lüks spa, hamam ve masaj terapileri. Antalya'nın en seçkin well-being noktası.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="assets/js/perf-head.js"></script>
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="images/icon-192.png">
@@ -15,6 +20,7 @@
   <link rel="stylesheet" href="assets/css/animations.css"> <!-- Cinematic Motions -->
   <link rel="stylesheet" href="assets/css/components.css"> <!-- Hammam/Card Comp -->
   <link rel="stylesheet" href="assets/css/editorial.css"> <!-- VOGUE MODE -->
+  <link rel="stylesheet" href="assets/css/intro.css"> <!-- Santis Intro -->
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet">
@@ -114,51 +120,75 @@
 
     <!-- HERO -->
     <section class="hero-section">
-      <h1 class="hero-title" id="heroTitle">Timeless Sanctuary</h1>
-      <p style="font-size: 18px; letter-spacing: 2px;" id="heroSubtitle">ADULTS ONLY SPA</p>
+      <h1 class="hero-title" id="heroTitle">Zamansız Sığınak</h1>
+      <p style="font-size: 18px; letter-spacing: 2px;" id="heroSubtitle">YALNIZCA YETİŞKİNLERE ÖZEL SPA</p>
     </section>
 
     <!-- SECTIONS -->
     <div class="section-container" id="brand">
-      <h2 class="section-title">The Art of Wellness</h2>
+      <h2 class="section-title">İyi Oluş Sanatı</h2>
       <p style="max-width:800px; margin:0 auto; font-size:18px; line-height:1.6; color:var(--text-muted);">
         Santis Club, geleneksel hamam ritüellerini ve modern spa terapilerini benzersiz bir "Sessiz Lüks" anlayışıyla
         sunar.
       </p>
     </div>
 
+    <!-- HAMMAM SECTION (Simpler Card) -->
     <div class="section-container" id="hammam" data-section="hammam">
-      <h2 class="section-title">Hammam Rituals</h2>
-      <div class="grid-cards" id="grid-hammam"></div>
+      <h2 class="section-title">Hamam Ritüelleri</h2>
+      <div class="grid-cards" id="grid-hammam">
+        <div class="card" onclick="window.location.href='/tr/hamam/index.html'">
+          <div class="card-img-wrap">
+            <img src="assets/img/cards/hamam.webp" alt="Hamam Ritüelleri" loading="lazy" decoding="async" width="600"
+              height="400">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Hamam Ritüelleri</h3>
+            <div class="card-footer">
+              <span>Geleneksel & Modern Arınma</span>
+              <span>İncele &rarr;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:40px;">
+        <a href="tr/hamam/index.html" class="nv-btn nv-btn-ghost">TÜM RİTÜLLERİ GÖR</a>
+      </div>
     </div>
 
     <div class="section-container" id="masaj" data-section="massage">
-      <h2 class="section-title">Massage Therapies</h2>
+      <h2 class="section-title">Masaj Terapileri</h2>
       <div class="grid-cards" id="grid-massages"></div>
+      <div style="text-align:center; margin-top:40px;">
+        <a href="tr/masajlar/index.html" class="nv-btn nv-btn-ghost">TÜM MASAJLARI GÖR</a>
+      </div>
     </div>
 
     <div class="section-container" id="extra" data-section="extra">
-      <h2 class="section-title">Extra & Effective</h2>
+      <h2 class="section-title">Ekstra & Etkili</h2>
       <div class="grid-cards" id="grid-extra"></div>
     </div>
 
     <div class="section-container" id="cilt" data-section="skincare">
-      <h2 class="section-title">Skin Care</h2>
+      <h2 class="section-title">Cilt Bakımı</h2>
       <div class="grid-cards" id="grid-skincare"></div>
+      <div style="text-align:center; margin-top:40px;">
+        <a href="tr/cilt-bakimi/index.html" class="nv-btn nv-btn-ghost">TÜM CİLT BAKIMINI GÖR</a>
+      </div>
     </div>
 
     <!-- GALLERY -->
     <div class="section-container" id="galeri" data-section="gallery">
-      <h2 class="section-title">Gallery</h2>
+      <h2 class="section-title">Galeri</h2>
       <div class="gallery-grid" id="gallery-grid"
         style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-        <img src="https://placehold.co/600x400/222/fff?text=Gallery+1" alt="Gallery image 1" loading="lazy"
+        <img src="https://placehold.co/600x400/222/fff?text=Galeri+1" alt="Galeri resim 1" loading="lazy"
           decoding="async" width="600" height="400" />
-        <img src="https://placehold.co/600x400/222/fff?text=Gallery+2" alt="Gallery image 2" loading="lazy"
+        <img src="https://placehold.co/600x400/222/fff?text=Galeri+2" alt="Galeri resim 2" loading="lazy"
           decoding="async" width="600" height="400" />
-        <img src="https://placehold.co/600x400/222/fff?text=Gallery+3" alt="Gallery image 3" loading="lazy"
+        <img src="https://placehold.co/600x400/222/fff?text=Galeri+3" alt="Galeri resim 3" loading="lazy"
           decoding="async" width="600" height="400" />
-        <img src="https://placehold.co/600x400/222/fff?text=Gallery+4" alt="Gallery image 4" loading="lazy"
+        <img src="https://placehold.co/600x400/222/fff?text=Galeri+4" alt="Galeri resim 4" loading="lazy"
           decoding="async" width="600" height="400" />
       </div>
     </div>
@@ -207,41 +237,62 @@
     </div>
   </main>
 
+  <!-- SANTIS INTRO OVERLAY (MOOD SELECTOR) -->
+  <div id="santisIntro" class="santis-intro" aria-hidden="true">
+    <div class="intro-panel" role="dialog" aria-modal="true" aria-label="Mood seçimi">
+      <div class="intro-head">
+        <div class="intro-brand">
+          <span class="intro-sync">SANTIS</span>
+          <span class="intro-sub">CLUB</span>
+        </div>
+
+        <div class="intro-actions">
+          <button type="button" class="intro-btn" data-intro-skip>SKIP</button>
+          <button type="button" class="intro-btn" data-intro-close aria-label="Kapat">✕</button>
+        </div>
+      </div>
+
+      <p class="intro-copy">Bugün nasıl hissediyorsun? Mood seç, temayı buna göre ayarlayalım.</p>
+
+      <div class="mood-grid"></div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <div id="footer-container"></div>
 
   <!-- BOOKING MODAL (REPLACES PROMPT) -->
-  <div class="modal-overlay" id="bookingModal" aria-hidden="true">
+  <div class="modal-overlay" id="bookingModal" hidden>
     <div class="modal-content">
       <button class="modal-close" onclick="closeBookingModal()">×</button>
-      <h2 id="bookingModalTitle">Reservation</h2>
+      <h2 id="bookingModalTitle">Rezervasyon</h2>
       <p id="bookingModalSub" style="color: #d4af37; margin-bottom: 20px;"></p>
 
       <div class="form-group">
-        <label id="lblBookHotel">Hotel</label>
+        <label id="lblBookHotel">Otel</label>
         <select id="bookHotel"></select>
       </div>
       <div class="form-group">
-        <label id="lblBookService">Service</label>
+        <label id="lblBookService">Hizmet</label>
         <select id="bookService"></select>
       </div>
       <div class="form-group">
-        <label id="lblBookDate">Date</label>
+        <label id="lblBookDate">Tarih</label>
         <input type="date" id="bookDate">
       </div>
       <div class="form-group">
-        <label id="lblBookTime">Time</label>
+        <label id="lblBookTime">Saat</label>
         <input type="time" id="bookTime">
       </div>
       <div class="form-group">
-        <label id="lblFullName">Name</label>
-        <input type="text" id="bookName" placeholder="Your Name">
+        <label id="lblFullName">Ad Soyad</label>
+        <input type="text" id="bookName" placeholder="Adınız Soyadınız">
       </div>
 
       <button class="btn-submit" id="whatsappBtn"
         style="display:flex; align-items:center; justify-content:center; gap:10px;">
         <span style="font-size:18px">📱</span>
-        Book via WhatsApp
+        WhatsApp ile Rezervasyon Yap
       </button>
 
       <!-- Hidden elements for machinery -->
@@ -257,41 +308,31 @@
   <!-- SCRIPTS -->
   <!-- 1. Database -->
   <script src="assets/js/db.js"></script>
+
+  <script src="assets/js/massage-data.js"></script>
+  <script src="assets/js/skincare-data.js"></script>
+
+  <!-- 3. Hammam Render Engine -->
+  <script src="assets/js/hammam_render.js"></script>
   <!-- 2. Main Logic -->
+  <script src="assets/js/loader.js"></script> <!-- Robust Loader -->
   <script src="assets/js/app.js?v=2.1"></script>
 
   <script>
     // Init Application
     document.addEventListener('DOMContentLoaded', () => {
       // Load Standard Components
-      async function loadComp(id, file) {
-        // file:// protokolü kontrolü: Fetch hatasını önlemek için
-        if (window.location.protocol === 'file:') {
-          const el = document.getElementById(id);
-          if (el) el.innerHTML = `<div style="text-align:center;padding:10px;background:#1a1a1a;color:#888;font-size:12px;border-bottom:1px solid #333;">⚠️ Yerel Mod: ${file} yüklenemedi (CORS). Lütfen Live Server kullanın.</div>`;
-          return;
-        }
-
-        try {
-          const res = await fetch(file);
-          if (res.ok) {
-            const el = document.getElementById(id);
-            el.innerHTML = await res.text();
-            el.querySelectorAll("script").forEach(s => {
-              const ns = document.createElement("script");
-              ns.text = s.innerHTML;
-              s.parentNode.replaceChild(ns, s);
-            });
-          }
-        } catch (e) { console.error("Component load failed", e); }
-      }
-      loadComp("navbar-container", "components/navbar.html");
-      loadComp("footer-container", "components/footer.html");
+      loadComp("components/navbar.html", "navbar-container");
+      loadComp("components/footer.html", "footer-container");
 
       // Preloader
+      // Preloader Patch: Ensure display:none
       setTimeout(() => {
         const p = document.getElementById('preloader');
-        if (p) p.classList.add('hidden');
+        if (p) {
+          p.classList.add('hidden');
+          setTimeout(() => { p.style.display = "none"; }, 400); // Patch 2: display none
+        }
       }, 1000);
 
       // Bind Booking Modal Buttons specific to this layout
@@ -300,52 +341,46 @@
         waBtn.onclick = (e) => {
           e.preventDefault();
           const preview = document.getElementById('waPreview').value;
-          if (!preview) return alert('Please select a hotel and service.');
-          // 905348350169 is from app.js analysis
+          if (!preview) return alert('Lütfen otel ve hizmet seçin.');
           window.open(`https://wa.me/905348350169?text=${encodeURIComponent(preview)}`, '_blank');
         };
       }
 
-      // Manual Trigger for app.js init if needed, usually app.js might need a kickstart
+      // Manual Trigger for app.js init if needed
       if (typeof init === 'function') init();
       if (typeof renderAll === 'function') renderAll();
 
-      // Render initial sections directly from db.js data since app.js might be purely reactive
-      // We ensure data is visible even if app.js complexity fails
+      // --- NEW RENDERER FOR MASSAGES & SKINCARE ---
+      const priceLabel = (price) => (!price ? "Fiyat sorunuz" : `${price}€`);
+
+      const renderNVGrid = (items, gridId, max = 6) => {
+        const grid = document.getElementById(gridId);
+        if (!grid || !Array.isArray(items)) return;
+
+        grid.innerHTML = items.slice(0, max).map(item => `
+          <div class="card" onclick="window.location.href='${item.href || ("/service-detail.html?slug=" + encodeURIComponent(item.slug || item.id))}'">
+            <div class="card-img-wrap">
+              <img src="${item.img}" alt="${item.title}" loading="lazy" decoding="async">
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">${item.title}</h3>
+              <div class="card-footer">
+                <span>${item.duration} / ${priceLabel(item.price)}</span>
+                <span>İncele &rarr;</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      };
+
+      // Home grids (ilk 6 item gösterir)
+      if (window.NV_MASSAGES) renderNVGrid(window.NV_MASSAGES, 'grid-massages', 6);
+      if (window.NV_SKINCARE) renderNVGrid(window.NV_SKINCARE, 'grid-skincare', 6);
+
+      // --- FALLBACK FOR OTHER SECTIONS (Hammam, Extra) ---
       if (typeof renderSection === 'function') {
         renderSection('hammam', 'grid-hammam');
-        renderSection('massage', 'grid-massages');
         renderSection('extra', 'grid-extra');
-        renderSection('skincare', 'grid-skincare');
-      } else {
-        // Fallback render if app.js functions aren't globally exposed or named differently
-        // (Based on db.js review, renderSection was in the OLD index.html inline script, not app.js)
-        // CRITICAL: We need to port that simple render logic here or move it to a helper, 
-        // because app.js seemed to have a 'renderServiceResults' but dependent on state.
-        // Let's add a robust fallback renderer here to guarantee visuals.
-        const fallbackRender = (cat, id) => {
-          const grid = document.getElementById(id);
-          if (!grid || !window.servicesDB) return;
-          const items = window.servicesDB.filter(s => s.cat === cat);
-          grid.innerHTML = items.map(item => `
-                    <div class="card" onclick="window.location.href='service-detail.html?id=${item.id}'">
-                        <div class="card-img-wrap">
-                            <img src="https://placehold.co/600x400/222/fff?text=${encodeURIComponent(item.name.en)}" loading="lazy">
-                        </div>
-                        <div class="card-content">
-                            <h3 class="card-title">${item.name.tr}</h3> <!-- Defaults to TR for safety -->
-                            <div class="card-footer">
-                                <span>${item.time} min / ${item.price}€</span>
-                                <span>İncele &rarr;</span>
-                            </div>
-                        </div>
-                    </div>
-                 `).join('');
-        };
-        fallbackRender('hammam', 'grid-hammam');
-        fallbackRender('massage', 'grid-massages');
-        fallbackRender('extra', 'grid-extra');
-        fallbackRender('skincare', 'grid-skincare');
       }
     });
   </script>
@@ -355,46 +390,33 @@
   <script src="assets/js/scroller.js"></script>
   <script src="assets/js/seo-schema.js"></script>
   <script src="assets/js/cart.js"></script> <!-- New Cart -->
-  <script src="assets/js/hammam_render.js"></script> <!-- Hammam Engine -->
   <script>
-    // Trigger Wizard Init
+    // Trigger Wizard Init & Other Logic
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Load Navbar
-      fetch('components/navbar.html')
-        .then(res => res.text())
-        .then(html => {
-          const container = document.getElementById('navbar-container');
-          container.innerHTML = html;
-
-          // Execute Scripts in Navbar
-          const scripts = container.querySelectorAll('script');
-          scripts.forEach(oldScript => {
-            const newScript = document.createElement('script');
-            Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-            newScript.appendChild(document.createTextNode(oldScript.innerHTML));
-            oldScript.parentNode.replaceChild(newScript, oldScript);
-          });
-
-          // Make Transparent initially for Editorial Look
-          const nav = document.getElementById('nv-main-nav');
-          if (nav) {
-            nav.style.background = 'transparent';
-            nav.style.borderBottom = 'none';
-          }
-        });
-
-      // 2. Init Wizard and other logic...
-      BOOKING_WIZARD.init();
-
-      // Override Navbar Reservation Button (Optional)
-      // We can do this cleanly via event delegation or direct selection
-      const navBtn = document.querySelector('.reservation-cta');
-      if (navBtn) {
-        navBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          BOOKING_WIZARD.open();
-        });
+      // 1. Wizard
+      if (typeof BOOKING_WIZARD !== 'undefined') {
+        BOOKING_WIZARD.init();
       }
+
+      // 2. Navbar Post-Load Logic (Wait for loadComp to finish)
+      // Since loadComp is async, we can check for the navbar element periodically or just use a timeout/event
+      // For simplicity in this structure:
+      setTimeout(() => {
+        const nav = document.getElementById('nv-main-nav');
+        if (nav) {
+          nav.style.background = 'transparent';
+          nav.style.borderBottom = 'none';
+        }
+
+        // Override Navbar Reservation Button
+        const navBtn = document.querySelector('.reservation-cta');
+        if (navBtn) {
+          navBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (typeof BOOKING_WIZARD !== 'undefined') BOOKING_WIZARD.open();
+          });
+        }
+      }, 500); // Wait for loadComp
     });
   </script>
 </body>

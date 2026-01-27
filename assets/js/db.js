@@ -894,9 +894,9 @@ window.productsDB = [
     img: 'https://placehold.co/600x600/1a1a1a/d4af37?text=Sothys+Cleanser',
     desc: { tr: 'Greyfurt özlü canlandırıcı temizleme sütü.', en: 'Revitalizing cleansing milk with grapefruit extract.' }
   }
-,
+  ,
   // --- 2. SOTHYS PARIS SKINCARE COLLECTION (REFRESHED) ---
-,
+  ,
   {
     "id": "SOTHYS-HYDRA-INTENSIVE-SERUM",
     "cat": "skincare",
@@ -914,7 +914,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "hydrating-intensive-serum",
-    "img": "images/sothys/hydrating-intensive-serum.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=Sothys+Intensive+Serum"
   },
   {
     "id": "SOTHYS-HYDRA-YOUTH-CREAM",
@@ -933,7 +933,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "hydra-creme-jeunesse",
-    "img": "images/sothys/hydra-creme-jeunesse.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=Sothys+Hydra+Cream"
   },
   {
     "id": "SOTHYS-SENSITIVE-NUTRISOOTHING-MASK",
@@ -952,7 +952,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "nutri-soothing-mask",
-    "img": "images/sothys/nutri-soothing-mask.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=Nutri+Soothing+Mask"
   },
   {
     "id": "SOTHYS-SENSITIVE-SOOTHING-VELVET-CREAM",
@@ -971,7 +971,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "soothing-velvet-cream",
-    "img": "images/sothys/soothing-velvet-cream.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=Soothing+Velvet+Cream"
   },
   {
     "id": "SOTHYS-FOCUS-TACHES-SERUM",
@@ -990,7 +990,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "serum-focus-taches",
-    "img": "images/sothys/serum-focus-taches.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=Focus+Taches+Serum"
   },
   {
     "id": "SOTHYS-FOCUS-TACHES-CREAM",
@@ -1009,7 +1009,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "creme-focus-taches",
-    "img": "images/sothys/creme-focus-taches.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=Focus+Taches+Cream"
   },
   {
     "id": "SOTHYS-DETOX-CREME-JEUNESSE-DEPOLLUANTE",
@@ -1028,7 +1028,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "creme-jeunesse-depolluante",
-    "img": "images/sothys/creme-jeunesse-depolluante.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=Depolluting+Youth+Cream"
   },
   {
     "id": "SOTHYS-DETOX-SERUM-ENERGISANT-INTEGRAL",
@@ -1047,7 +1047,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "serum-energisant-integral",
-    "img": "images/sothys/serum-energisant-integral.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=Energizing+Serum"
   },
   {
     "id": "SOTHYS-PRESTIGE-LA-CREME-128",
@@ -1066,7 +1066,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "la-creme-128",
-    "img": "images/sothys/la-creme-128.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=La+Creme+128"
   },
   {
     "id": "SOTHYS-PRESTIGE-LA-CREME-PREMIUM-YOUTH",
@@ -1085,7 +1085,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "la-creme-premium-youth-cream",
-    "img": "images/sothys/la-creme-premium-youth-cream.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=La+Creme+Youth"
   },
   {
     "id": "SOTHYS-PRESTIGE-EYE-LIP-YOUTH-CREAM",
@@ -1104,7 +1104,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "eye-and-lip-youth-cream",
-    "img": "images/sothys/eye-and-lip-youth-cream.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=Eye+Lip+Cream"
   },
   {
     "id": "SOTHYS-PRESTIGE-EAU-DE-PARFUM",
@@ -1123,7 +1123,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "secrets-de-sothys-eau-de-parfum",
-    "img": "images/sothys/secrets-de-sothys-eau-de-parfum.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=Secrets+Parfum"
   },
   {
     "id": "SOTHYS-HOMME-MULTI-OIL",
@@ -1142,7 +1142,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "sothys-homme-multi-oil",
-    "img": "images/sothys/sothys-homme-multi-oil.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=Sothys+Homme+Oil"
   },
   {
     "id": "SOTHYS-HOMME-HYDRATING-YOUTH-FLUID",
@@ -1161,7 +1161,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "sothys-homme-hydrating-youth-fluid",
-    "img": "images/sothys/sothys-homme-hydrating-youth-fluid.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=Hydrating+Fluid"
   },
   {
     "id": "SOTHYS-HOMME-EAU-FRAICHE",
@@ -1180,7 +1180,7 @@ window.productsDB = [
     },
     "price": 0,
     "slug": "sothys-homme-eau-fraiche",
-    "img": "images/sothys/sothys-homme-eau-fraiche.jpg"
+    "img": "https://placehold.co/600x600/1a1a1a/d4af37?text=Sothys+Eau+Fraiche"
   }
 
 ];

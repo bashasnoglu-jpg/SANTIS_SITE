@@ -1,4 +1,114 @@
 {
+  "tr": {
+    "hammam": {
+      "title": "Hamam Ritüelleri"
+    },
+    "massage": {
+      "classic": "Klasik Masajlar",
+      "sports": "Spor & Terapi",
+      "asian": "Asya Masajları",
+      "ayurveda": "Ayurveda",
+      "signature": "İmza Terapiler"
+    },
+    "family": {
+      "bubs": "Aile & Çocuk"
+    },
+    "face": {
+      "sothys": "Sothys Yüz Bakımı",
+      "skincare": "Cilt Bakımı"
+    },
+    "products": {
+      "title": "Ev Devam Ürünleri"
+    }
+  },
+  "en": {
+    "hammam": {
+      "title": "Hammam Rituals"
+    },
+    "massage": {
+      "classic": "Classic Massages",
+      "sports": "Sports & Therapy",
+      "asian": "Asian Massages",
+      "ayurveda": "Ayurveda",
+      "signature": "Signature Therapies"
+    },
+    "family": {
+      "bubs": "Family & Kids"
+    },
+    "face": {
+      "sothys": "Sothys Face Care",
+      "skincare": "Skincare"
+    },
+    "products": {
+      "title": "Home Care Products"
+    }
+  },
+  "de": {
+    "hammam": {
+      "title": "Hammam-Rituale"
+    },
+    "massage": {
+      "classic": "Klassische Massagen",
+      "sports": "Sport & Therapie",
+      "asian": "Asiatische Massagen",
+      "ayurveda": "Ayurveda",
+      "signature": "Signatur-Therapien"
+    },
+    "family": {
+      "bubs": "Familie & Kinder"
+    },
+    "face": {
+      "sothys": "Sothys Gesichtspflege",
+      "skincare": "Hautpflege"
+    },
+    "products": {
+      "title": "Pflegeprodukte"
+    }
+  },
+  "fr": {
+    "hammam": {
+      "title": "Rituels Hammam"
+    },
+    "massage": {
+      "classic": "Massages Classiques",
+      "sports": "Sports & Thérapie",
+      "asian": "Massages Asiatiques",
+      "ayurveda": "Ayurvéda",
+      "signature": "Thérapies Signature"
+    },
+    "family": {
+      "bubs": "Famille & Enfants"
+    },
+    "face": {
+      "sothys": "Soins Visage Sothys",
+      "skincare": "Soins de la Peau"
+    },
+    "products": {
+      "title": "Produits de Soin"
+    }
+  },
+  "ru": {
+    "hammam": {
+      "title": "Ритуалы Хаммама"
+    },
+    "massage": {
+      "classic": "Классические Массажи",
+      "sports": "Спорт и Терапия",
+      "asian": "Азиатские Массажи",
+      "ayurveda": "Аюрведа",
+      "signature": "Авторские Терапии"
+    },
+    "family": {
+      "bubs": "Семья и Дети"
+    },
+    "face": {
+      "sothys": "Уход за Лицом Sothys",
+      "skincare": "Уход за Кожей"
+    },
+    "products": {
+      "title": "Продукты для Ухода"
+    }
+  },
   "hotels": [
     {
       "slug": "alba-resort",
@@ -33,7 +143,7 @@
     },
     {
       "slug": "alba-queen",
-      "hero_image": "https://images.unsplash.com/photo-1571896349842-6e5c48dc52e3?q=80&w=1920&auto=format&fit=crop",
+      "hero_image": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1920&auto=format&fit=crop",
       "translations": {
         "tr": {
           "name": "Alba Queen Hotel",
@@ -123,6 +233,48 @@
         "deep_tissue",
         "face_sothys_hydra"
       ]
+    }
+  ],
+  "categories": [
+    {
+      "id": "hammam",
+      "navKey": "hammam.title"
+    },
+    {
+      "id": "classicMassages",
+      "navKey": "massage.classic"
+    },
+    {
+      "id": "sportsTherapy",
+      "navKey": "massage.sports"
+    },
+    {
+      "id": "asianMassages",
+      "navKey": "massage.asian"
+    },
+    {
+      "id": "ayurveda",
+      "navKey": "massage.ayurveda"
+    },
+    {
+      "id": "signatureCouples",
+      "navKey": "massage.signature"
+    },
+    {
+      "id": "kidsFamily",
+      "navKey": "family.bubs"
+    },
+    {
+      "id": "faceSothys",
+      "navKey": "face.sothys"
+    },
+    {
+      "id": "skincare",
+      "navKey": "face.skincare"
+    },
+    {
+      "id": "products",
+      "navKey": "products.title"
     }
   ],
   "services": {
@@ -621,8 +773,14 @@
     "sothys_organics_radiance": {
       "categoryId": "skincare",
       "durationMin": 30,
-      "price": 0,
+      "price": 135,
       "currency": "EUR",
+      "hotelSlugs": [
+        "alba-resort",
+        "alba-queen",
+        "alba-royal",
+        "iberostar-bellevue"
+      ],
       "name": {
         "tr": "Sothys Organics® Işıltı Bakımı",
         "en": "Sothys Organics® Organic Certified Radiance Treatment",
@@ -641,8 +799,14 @@
     "sothys_seasonal_oxygen": {
       "categoryId": "skincare",
       "durationMin": 45,
-      "price": 0,
+      "price": 135,
       "currency": "EUR",
+      "hotelSlugs": [
+        "alba-resort",
+        "alba-queen",
+        "alba-royal",
+        "iberostar-bellevue"
+      ],
       "name": {
         "tr": "Sothys Seasonal Oksijenlendirici Bakım",
         "en": "Sothys Seasonal Oxygenating Treatment",
@@ -661,8 +825,14 @@
     "sothys_spa_thermal_water": {
       "categoryId": "skincare",
       "durationMin": 50,
-      "price": 0,
+      "price": 135,
       "currency": "EUR",
+      "hotelSlugs": [
+        "alba-resort",
+        "alba-queen",
+        "alba-royal",
+        "iberostar-bellevue"
+      ],
       "name": {
         "tr": "Spa™ Termal Su ile Yatıştırıcı Bakım",
         "en": "Soothing Professional Treatment with Spa™ Thermal Water",
@@ -681,8 +851,14 @@
     "sothys_cryo_eye": {
       "categoryId": "skincare",
       "durationMin": 45,
-      "price": 0,
+      "price": 135,
       "currency": "EUR",
+      "hotelSlugs": [
+        "alba-resort",
+        "alba-queen",
+        "alba-royal",
+        "iberostar-bellevue"
+      ],
       "name": {
         "tr": "Sothys Cryo Eye Profesyonel Göz Bakımı",
         "en": "Sothys Cryo Eye Professional Treatment",
@@ -701,8 +877,14 @@
     "sothys_hydra_acid4": {
       "categoryId": "skincare",
       "durationMin": 75,
-      "price": 0,
+      "price": 135,
       "currency": "EUR",
+      "hotelSlugs": [
+        "alba-resort",
+        "alba-queen",
+        "alba-royal",
+        "iberostar-bellevue"
+      ],
       "name": {
         "tr": "Hydra Hyaluronic Acid4 (Yoğun Nem Bakımı)",
         "en": "Hydrating Intensive Treatment (Hydra Hyaluronic Acid4)",
@@ -721,8 +903,14 @@
     "sothys_detox_energie": {
       "categoryId": "skincare",
       "durationMin": 75,
-      "price": 0,
+      "price": 135,
       "currency": "EUR",
+      "hotelSlugs": [
+        "alba-resort",
+        "alba-queen",
+        "alba-royal",
+        "iberostar-bellevue"
+      ],
       "name": {
         "tr": "Detox Energie™ Yoğun Bakım",
         "en": "Detox Energie™ Intensive Treatment",
@@ -741,8 +929,14 @@
     "sothys_glow_defense": {
       "categoryId": "skincare",
       "durationMin": 75,
-      "price": 0,
+      "price": 135,
       "currency": "EUR",
+      "hotelSlugs": [
+        "alba-resort",
+        "alba-queen",
+        "alba-royal",
+        "iberostar-bellevue"
+      ],
       "name": {
         "tr": "Glow Defense Yoğun Bakım",
         "en": "Glow Defense Intensive Treatment",
@@ -761,8 +955,14 @@
     "sothys_youth_intensive": {
       "categoryId": "skincare",
       "durationMin": 75,
-      "price": 0,
+      "price": 135,
       "currency": "EUR",
+      "hotelSlugs": [
+        "alba-resort",
+        "alba-queen",
+        "alba-royal",
+        "iberostar-bellevue"
+      ],
       "name": {
         "tr": "Youth Intensive (Gençlik Yoğun Bakım)",
         "en": "Youth Intensive Treatment",
@@ -781,8 +981,14 @@
     "sothys_double_peel": {
       "categoryId": "skincare",
       "durationMin": 45,
-      "price": 0,
+      "price": 135,
       "currency": "EUR",
+      "hotelSlugs": [
+        "alba-resort",
+        "alba-queen",
+        "alba-royal",
+        "iberostar-bellevue"
+      ],
       "name": {
         "tr": "Dermo_Booster Double Peel (Çift Peeling)",
         "en": "Dermo_Booster Double Peel Professional Treatment",
@@ -801,8 +1007,14 @@
     "sothys_glysalac_peel": {
       "categoryId": "skincare",
       "durationMin": 45,
-      "price": 0,
+      "price": 135,
       "currency": "EUR",
+      "hotelSlugs": [
+        "alba-resort",
+        "alba-queen",
+        "alba-royal",
+        "iberostar-bellevue"
+      ],
       "name": {
         "tr": "Glysalac Pro Peel",
         "en": "Glysalac Pro Peel Treatment",
@@ -821,8 +1033,14 @@
     "sothys_resurfacing_peel": {
       "categoryId": "skincare",
       "durationMin": 60,
-      "price": 0,
+      "price": 135,
       "currency": "EUR",
+      "hotelSlugs": [
+        "alba-resort",
+        "alba-queen",
+        "alba-royal",
+        "iberostar-bellevue"
+      ],
       "name": {
         "tr": "Professional Resurfacing Peel (Yenileyici Peeling)",
         "en": "Professional Resurfacing Peel Treatment",

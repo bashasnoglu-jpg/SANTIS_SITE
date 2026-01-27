@@ -1,0 +1,124 @@
+/* assets/css/intro.css */
+/* Santis Intro Overlay Styles (v1.0) */
+
+.santis-intro {
+    position: fixed;
+    inset: 0;
+    display: none;
+    place-items: center;
+    background: rgba(0, 0, 0, .72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 9999;
+}
+
+.santis-intro.active {
+    display: grid;
+}
+
+.intro-panel {
+    width: min(920px, calc(100vw - 40px));
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 18px;
+    background: rgba(10, 10, 10, .86);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .55);
+    padding: 22px 22px 26px;
+}
+
+.intro-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.intro-brand {
+    display: flex;
+    flex-direction: column;
+}
+
+.intro-sync {
+    font-family: "Syncopate", sans-serif;
+    letter-spacing: .22em;
+    font-size: 14px;
+    color: rgba(255, 255, 255, .86);
+}
+
+.intro-sub {
+    display: block;
+    font-size: 10px;
+    letter-spacing: .35em;
+    color: rgba(255, 255, 255, .45);
+    margin-top: 4px;
+}
+
+.intro-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.intro-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, .18);
+    color: rgba(255, 255, 255, .8);
+    border-radius: 10px;
+    padding: 8px 10px;
+    cursor: pointer;
+    letter-spacing: .14em;
+    font-size: 11px;
+}
+
+.intro-btn:hover {
+    border-color: rgba(255, 255, 255, .35);
+}
+
+.intro-copy {
+    margin: 14px 0 18px;
+    color: rgba(255, 255, 255, .7);
+    font-size: 13px;
+    letter-spacing: .04em;
+}
+
+.mood-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.mood-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 14px 14px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, .10);
+    background: rgba(255, 255, 255, .03);
+    cursor: pointer;
+    text-align: left;
+}
+
+.mood-card:hover {
+    border-color: rgba(255, 255, 255, .22);
+}
+
+.mood-card:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, .65);
+    outline-offset: 2px;
+}
+
+.mood-icon {
+    font-size: 18px;
+}
+
+.mood-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 18px;
+    color: rgba(255, 255, 255, .92);
+}
+
+.mood-sub {
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, .55);
+}

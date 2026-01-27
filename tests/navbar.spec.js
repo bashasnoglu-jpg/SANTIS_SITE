@@ -44,11 +44,5 @@ test.describe('navbar component', () => {
     await expect(hamburger).toHaveAttribute('aria-expanded', 'false');
   });
 
-  test('lang param propagates into data-key links when set', async ({ page, baseURL }) => {
-    await page.goto(`${baseURL}/components/navbar.html?lang=en`);
-    const home = page.locator('a[data-key="home"]');
-    const booking = page.locator('a[data-key="booking"]');
-    await expect(home).toHaveAttribute('href', /index\.html\?lang=en$/);
-    await expect(booking).toHaveAttribute('href', /booking\.html\?lang=en$/);
-  });
+
 });

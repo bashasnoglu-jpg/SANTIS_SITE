@@ -1,103 +1,171 @@
-﻿window.DEMO_MODE = false;
+﻿// ===== Santis: TR-only mode (single source of truth) =====
+const SITE_LANG = "tr";
+window.SITE_LANG = SITE_LANG;
 
+// URL'deki ?lang=... paramını kırmadan kaldır (back button bozulmasın)
+(function normalizeLangParam() {
+  try {
+    const url = new URL(window.location.href);
+    if (url.searchParams.has("lang")) {
+      url.searchParams.delete("lang");
+      history.replaceState({}, "", url.toString());
+    }
+  } catch (_) { }
+})();
 
+// db migrate (opsiyonel ama çok faydalı)
+(function migrateDBtoTurkishOnly() {
+  // Wait for window load or just check if DB exists (it might load after app.js if script order varies, 
+  // but usually db.js loads before or after. safer to run this when accessed or try now if available)
+  // Since db.js is often loaded before app.js, this should work.
+  if (!Array.isArray(window.servicesDB)) return;
+
+  window.servicesDB = window.servicesDB.map((s) => ({
+    ...s,
+    name: trText(s.name),
+    desc: trText(s.desc),
+  }));
+})();
+
+// Safe getter already exists below as trText, but we ensure it's global
+window.trText = trText;
+
+// Modal Helpers (Unified & Robust)
+let __bookingLastFocus = null;
+
+function openBookingModal() {
+  const modal = document.getElementById("bookingModal");
+  if (!modal) return;
+
+  __bookingLastFocus = document.activeElement;
+
+  // hidden attribute => görünür yap
+  modal.hidden = false;
+
+  // CSS'inle eşleşsin: .active kullanıyorsun
+  modal.classList.add("active");
+
+  // arka plan kilit
+  document.body.style.overflow = "hidden";
+
+  // arka planı inert yap (destek varsa)
+  const main = document.getElementById("nv-main") || document.querySelector("main");
+  if (main) main.setAttribute("inert", "");
+
+  // Hide older specific alerts if they exist
+  if (typeof hideAlert === 'function') {
+    hideAlert("bookingAlert");
+    hideAlert("formAlert");
+  }
+
+  // If these functions exist, run them
+  if (typeof renderBookingUI === 'function') renderBookingUI();
+  if (typeof updateWhatsappPreview === 'function') updateWhatsappPreview();
+
+  // fokus
+  setTimeout(() => {
+    const focusEl =
+      document.getElementById("bookHotel") ||
+      modal.querySelector(".modal-close") ||
+      modal.querySelector("button, [href], input, select, textarea");
+    if (focusEl && typeof focusEl.focus === 'function') focusEl.focus();
+  }, 0);
+
+  window.addEventListener("keydown", escCloseOnce);
+}
+
+function closeBookingModal() {
+  const modal = document.getElementById("bookingModal");
+  if (!modal) return;
+
+  modal.classList.remove("active");
+  modal.hidden = true;
+
+  document.body.style.overflow = "";
+
+  const main = document.getElementById("nv-main") || document.querySelector("main");
+  if (main) main.removeAttribute("inert");
+
+  window.removeEventListener("keydown", escCloseOnce);
+
+  // focus geri ver
+  if (__bookingLastFocus && typeof __bookingLastFocus.focus === 'function') {
+    __bookingLastFocus.focus();
+  }
+}
+
+function escCloseOnce(e) {
+  if (e.key === "Escape") closeBookingModal();
+}
+
+// dışarı tıkla kapat
+document.addEventListener("mousedown", (e) => {
+  const modal = document.getElementById("bookingModal");
+  if (modal && !modal.hidden && e.target === modal) closeBookingModal();
+});
 
 const state = {
-
   lang: "tr",
-
   hotel: "",
-
   selectedServiceId: "",
-
   hotelFilter: "all",
-
   hotelSearch: "",
-
   activeCategoryId: "",
-
   serviceSearch: "",
-
   serviceSort: "relevance",
-
   onlyToday: false,
-
   durationQuick: "all",
-
   svcOpen: false,
-
   categoryView: "all"
-
 };
-
-
 
 let CONTENT = null;
 
-function ensureSlug(svc) {
+// Helper to safely get Turkish text from legacy bilingual objects or new string fields
+function trText(v) {
+  if (!v) return "";
+  if (typeof v === "string") return v;
+  return v.tr || v.en || "";
+}
 
+function ensureSlug(svc) {
   if (!svc || svc.slug) return svc?.slug;
 
-  const name = svc.name?.[state?.lang || "tr"] || svc.name?.tr || svc.name?.en || "";
+  const name = trText(svc.name) || String(svc.id || "");
 
   if (typeof window.slugifyTR === "function") {
-
-    const s = window.slugifyTR(name || svc.id || "");
-
+    const s = window.slugifyTR(name);
     if (s) svc.slug = s;
-
   }
 
   if (!svc.slug && svc.id) svc.slug = String(svc.id);
-
   return svc.slug;
-
 }
 
-
-
 /* Core Helpers */
-
 function t(path) {
-
+  // If we have a global dictionary, look it up. 
+  // We assume CONTENT is still loaded. If we flatten CONTENT later, this might simplify further.
   if (path.startsWith("booking.")) {
-
     const parts = path.split(".");
-
-    let cur = CONTENT?.global?.booking?.translations?.[state.lang];
-
+    let cur = CONTENT?.global?.booking?.translations?.tr; // Force TR
     for (let i = 1; i < parts.length; i++) cur = cur?.[parts[i]];
-
     if (cur !== undefined) return cur;
-
   }
 
   const parts = String(path || "").split(".");
-
-  let cur = CONTENT?.[state.lang];
-
+  let cur = CONTENT?.tr; // Force TR
   for (const p of parts) cur = cur?.[p];
-
   return cur ?? path;
-
 }
-
-
 
 function getHotels() {
-
   return CONTENT?.global?.hotels || [];
-
 }
 
-
-
 function getSelectedHotel() {
-
   if (!state.hotel) return null;
-
   return getHotels().find(h => h.slug === state.hotel) || null;
-
 }
 
 
@@ -399,17 +467,11 @@ function renderUITexts() {
 
 
   if (ctx) {
-
     if (!selectedHotel) ctx.textContent = "Santis Club";
-
     else {
-
-      const name = selectedHotel.translations?.[state.lang]?.name || selectedHotel.translations?.tr?.name || state.hotel;
-
+      const name = selectedHotel.translations?.tr?.name || state.hotel;
       ctx.textContent = name;
-
     }
-
   }
 
 
@@ -421,23 +483,14 @@ function renderUITexts() {
 
 
   const heroSubtitleEl = document.getElementById("heroSubtitle");
-
   if (heroSubtitleEl) {
-
     if (selectedHotel) {
-
-      heroSubtitleEl.textContent = selectedHotel.translations?.[state.lang]?.description || selectedHotel.translations?.tr?.description || "";
-
+      heroSubtitleEl.textContent = selectedHotel.translations?.tr?.description || "";
     } else {
-
       const subtitleTpl = t("hero.subtitle");
-
       const locDefault = t("hero.locationDefault");
-
       heroSubtitleEl.textContent = subtitleTpl.replace("{location}", locDefault);
-
     }
-
   }
 
 
@@ -470,7 +523,7 @@ function renderUITexts() {
 
 
 
-  if (catPill) catPill.textContent = selectedHotel ? (selectedHotel.name?.[state.lang] || selectedHotel.name?.tr) : "Santis Club";
+  if (catPill) catPill.textContent = selectedHotel ? (selectedHotel.translations?.tr?.name || selectedHotel.slug) : "Santis Club";
 
   if (catSubtitle) catSubtitle.textContent = catSub;
 
@@ -559,15 +612,10 @@ function renderHotelSelect() {
 
 
   for (const h of getHotels()) {
-
     const opt = document.createElement("option");
-
     opt.value = h.slug;
-
-    opt.textContent = h.translations?.[state.lang]?.name || h.translations?.tr?.name || h.slug;
-
+    opt.textContent = h.translations?.tr?.name || h.slug;
     sel.appendChild(opt);
-
   }
 
   sel.value = state.hotel;
@@ -862,73 +910,34 @@ function renderServiceResults() {
     card.className = "card";
 
     const name = svc.name?.[state.lang] || svc.name?.tr || svc.id;
-
     const desc = svc.desc?.[state.lang] || svc.desc?.tr || "";
 
 
-
-    const price = svc.price;
-
-    const cur = svc.currency || "EUR";
-
-    const dur = svc.durationMin || svc.duration;
-
-
-
+    // 3. Render Card
+    const card = document.createElement("div");
+    card.className = "svc-card lux-card-surface";
     card.innerHTML = `
-
-        <div class="card-body">
-
-            <div class="result-row">
-
-              <div style="min-width:0;">
-
-                <div class="card-title">${name}</div>
-
-                ${desc ? `<div class="card-desc">${desc}</div>` : ``}
-
-                <div class="result-meta">
-
-                   ${dur ? `<span class="kv">⏱ ${dur} dk</span>` : ``}
-
-                   ${price != null ? `<span class="kv">💶 ${price} ${cur}</span>` : ``}
-
-                </div>
-
-              </div>
-
-              <div style="flex:0 0 auto;">
-
-                <button class="btn-sm" type="button" data-book>Book</button>
-
-              </div>
-
-            </div>
-
+      <div class="svc-card-content">
+        <div class="svc-card-title">${trText(svc.name)}</div>
+        <div class="svc-card-desc" style="color:var(--text-muted); font-size:14px; margin-bottom:10px;">
+           ${trText(svc.desc)}
         </div>
+        <div class="svc-card-meta">
+          <span>⏱ ${svc.duration} dk</span>
+          ${svc.price ? `<span>• ${svc.price}€</span>` : ""}
+        </div>
+      </div>
+      <div class="svc-card-action">
+         <button class="btn-sm" type="button" data-book>Rezervasyon</button>
+      </div>
+    `;
 
-      `;
-
-
-
-    card.querySelector("[data-book]").onclick = (e) => {
-
+    // Event
+    const btn = card.querySelector("[data-book]");
+    if (btn) btn.onclick = (e) => {
       e.stopPropagation();
-
       state.selectedServiceId = svc.id;
-
       openBookingModal();
-
-    };
-
-    card.onclick = () => {
-
-      // Navigate to service detail (guard missing slug/id)
-      const targetSlug = svc.slug || svc.id;
-      if (!targetSlug) {
-        console.warn("Service slug/id missing for card", svc);
-        return;
-      }
       window.location.href = `service-detail.html?slug=${encodeURIComponent(targetSlug)}`;
 
     };
@@ -1476,21 +1485,14 @@ function openServiceDrawer(id) {
   const svc = CONTENT?.global?.services?.[id];
 
   if (svc) {
-
-    document.getElementById("svcDrawerTitle").textContent = svc.name?.[state.lang] || svc.name?.tr;
-
-    document.getElementById("svcDrawerDesc").textContent = svc.desc?.[state.lang] || svc.desc?.tr;
+    document.getElementById("svcDrawerTitle").textContent = trText(svc.name);
+    document.getElementById("svcDrawerDesc").textContent = trText(svc.desc);
 
     const bookBtn = document.getElementById("svcDrawerBook");
-
     if (bookBtn) bookBtn.onclick = () => {
-
       state.selectedServiceId = id;
-
       openBookingModal();
-
     };
-
   }
 
 }
@@ -1608,9 +1610,8 @@ function renderHomeSections() {
 
 
 
-      const name = svc.name?.[state.lang] || svc.name?.tr || svc.name?.en || svc.id;
-
-      const desc = svc.desc?.[state.lang] || svc.desc?.tr || "";
+      const name = trText(svc.name) || svc.id;
+      const desc = trText(svc.desc);
 
       const dur = svc.duration || 50;
 
@@ -1671,15 +1672,10 @@ const FALLBACK_DATA = {
   "global": {
 
     "navModel": [
-
-      { "key": "hammam", "route": "hammam", "label": "Hammam" },
-
-      { "key": "massages", "route": "massages", "label": "Massages" },
-
-      { "key": "skincare", "route": "skincare", "label": "Skin Care" },
-
-      { "key": "gallery", "route": "gallery", "label": "Gallery" }
-
+      { "key": "hammam", "route": "hammam", "label": "Hamam" },
+      { "key": "massages", "route": "massages", "label": "Masajlar" },
+      { "key": "skincare", "route": "skincare", "label": "Cilt Bakımı" },
+      { "key": "gallery", "route": "gallery", "label": "Galeri" }
     ],
 
     "categories": [
@@ -1913,8 +1909,7 @@ async function init() {
 
 
   // 1. Language & Hotel from URL
-
-  state.lang = params.get("lang") || "tr";
+  state.lang = "tr";
 
 
 

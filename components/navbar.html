@@ -2,7 +2,7 @@
 <nav class="navbar" id="nv-main-nav">
     <div class="navbar-container">
         <!-- 1. LEFT: Brand / Logo -->
-        <a href="index.html" class="logo">
+        <a href="/index.html" class="logo">
             <div class="logo-symbol">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
                     <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
@@ -22,40 +22,41 @@
         <!-- 2. CENTER: Navigation (Desktop) -->
         <div class="nav-center desktop-only">
             <ul class="nav-links">
-                <li><a href="index.html" class="nav-link">ANA SAYFA</a></li>
+                <li><a href="/index.html" class="nav-link">ANA SAYFA</a></li>
                 <li class="has-dropdown">
-                    <a href="service.html" class="nav-link">HİZMETLER</a>
-                    <div class="dropdown">
-                        <div class="dropdown-content">
-                            <a href="tr/hammam/index.html" class="dropdown-item"> <!-- NEW LINK -->
+                    <a href="/service.html" class="nav-link">HİZMETLER</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-inner">
+                            <a href="/tr/hamam/index.html" class="mega-item"> <!-- Updated -->
                                 <span class="mega-title">Hamam Ritüelleri</span>
                                 <span class="mega-desc">Geleneksel Arınma</span>
                             </a>
-                            <a href="service.html#classicMassages" class="dropdown-item">
+                            <a href="/tr/masajlar/index.html" class="mega-item">
                                 <span class="mega-title">Masaj Terapileri</span>
                                 <span class="mega-desc">Klasik & Uzak Doğu</span>
                             </a>
-                            <a href="service.html#faceSothys" class="dropdown-item">
+                            <a href="/tr/cilt-bakimi/index.html" class="mega-item">
                                 <span class="mega-title">Cilt Bakımı</span>
                                 <span class="mega-desc">Sothys Paris</span>
                             </a>
-                            <a href="service.html#kids" class="mega-item">
+                            <a href="/service.html#kidsFamily" class="mega-item">
                                 <span class="mega-title">Aile & Çocuk</span>
                                 <span class="mega-desc">Özel Bakımlar</span>
                             </a>
                         </div>
                     </div>
                 </li>
-                <li><a href="products.html" class="nav-link">ÜRÜNLER</a></li>
-                <li><a href="gallery.html" class="nav-link">GALERİ</a></li>
-                <li><a href="booking.html" class="nav-link">REZERVASYON</a></li>
+                <li><a href="/products.html" class="nav-link">ÜRÜNLER</a></li>
+                <li><a href="/gallery.html" class="nav-link">GALERİ</a></li>
+                <li><a href="/booking.html" class="nav-link">REZERVASYON</a></li>
             </ul>
         </div>
 
         <!-- 3. RIGHT: Actions -->
         <div class="nav-actions">
             <!-- Search (Toggle) -->
-            <button class="icon-btn" onclick="SEARCH.open()" aria-label="Ara">
+            <!-- Search (Toggle) -->
+            <button class="icon-btn" data-action="search" aria-label="Ara">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                     <circle cx="11" cy="11" r="8" />
                     <path d="M21 21l-4.35-4.35" />
@@ -63,10 +64,9 @@
             </button>
 
             <!-- Google Translate Container -->
-            <div id="google_translate_element" class="desktop-only"></div>
-
             <!-- Cart -->
-            <button class="icon-btn cart-btn-wrap" onclick="SHOP.toggleCart()" aria-label="Sepet">
+            <!-- Cart -->
+            <button class="icon-btn cart-btn-wrap" data-action="cart" aria-label="Sepet">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                     <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                     <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -86,12 +86,11 @@
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-inner">
-            <a href="index.html" class="mobile-link">Ana Sayfa</a>
-            <a href="service.html" class="mobile-link">Hizmetler</a>
-            <a href="products.html" class="mobile-link">Ürünler</a>
-            <a href="gallery.html" class="mobile-link">Galeri</a>
-            <a href="booking.html" class="mobile-link highlight">Rezervasyon</a>
-            <div id="google_translate_mobile" style="margin-top:20px;"></div>
+            <a href="/index.html" class="mobile-link">Ana Sayfa</a>
+            <a href="/service.html" class="mobile-link">Hizmetler</a>
+            <a href="/products.html" class="mobile-link">Ürünler</a>
+            <a href="/gallery.html" class="mobile-link">Galeri</a>
+            <a href="/booking.html" class="mobile-link highlight">Rezervasyon</a>
         </div>
     </div>
 </nav>
@@ -322,33 +321,7 @@
         font-weight: 700;
     }
 
-    /* Google Translate Override */
-    #google_translate_element {
-        overflow: hidden;
-        height: 28px;
-        border-radius: 4px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
 
-    .goog-te-gadget-simple {
-        background: transparent !important;
-        border: none !important;
-        padding: 4px 8px !important;
-    }
-
-    .goog-te-gadget-simple span {
-        color: var(--text-muted) !important;
-        font-family: 'Inter', sans-serif !important;
-        font-size: 11px !important;
-    }
-
-    .goog-te-gadget-simple:hover span {
-        color: var(--gold) !important;
-    }
-
-    .goog-te-gadget-icon {
-        display: none !important;
-    }
 
     /* Mobile */
     .mobile-only {
@@ -390,6 +363,7 @@
         height: calc(100vh - var(--nav-height));
         background: rgba(10, 10, 10, 0.98);
         backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         transform: translateX(100%);
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -437,34 +411,4 @@
     }
 </style>
 
-<script>
-    // Navbar Logic
-    document.addEventListener('DOMContentLoaded', () => {
-        // 1. Scroll Effect
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('nv-main-nav');
-            if (window.scrollY > 50) nav.classList.add('scrolled');
-            else nav.classList.remove('scrolled');
-        });
-
-        // 2. Mobile Menu
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
-        let isMenuOpen = false;
-
-        if (hamburger) {
-            hamburger.addEventListener('click', () => {
-                isMenuOpen = !isMenuOpen;
-                mobileMenu.classList.toggle('active', isMenuOpen);
-
-                // Move Translate Widget for Mobile
-                if (isMenuOpen) {
-                    const widget = document.getElementById('google_translate_element');
-                    const mobileTarget = document.getElementById('google_translate_mobile');
-                    if (widget && mobileTarget) mobileTarget.appendChild(widget);
-                    widget.classList.remove('desktop-only');
-                }
-            });
-        }
-    });
-</script>
+<script src="/assets/js/navbar.js"></script>

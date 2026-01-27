@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cilt Bakımı Detay</title>
+
+    <!-- Ortak site stilleri -->
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <!-- Sayfa stilleri -->
+    <link rel="stylesheet" href="../../assets/css/santis-cards.css" />
+</head>
+
+<body>
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-logo">Santis Club</div>
+    </div>
+
+    <!-- NAVBAR -->
+    <div id="navbar-container"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="nv-page" id="nv-main">
+        <div id="nvDetail"></div>
+    </main>
+
+    <!-- FOOTER -->
+    <div id="footer-container"></div>
+
+    <!-- DATA + UI -->
+    <script src="../../assets/js/skincare-data.js"></script>
+    <script src="../../assets/js/skincare-detail.js"></script>
+
+    <!-- COMPONENT LOADER -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            async function loadComp(id, file) {
+                if (window.location.protocol === "file:") return;
+                try {
+                    const res = await fetch(file);
+                    if (!res.ok) return;
+                    const el = document.getElementById(id);
+                    if (!el) return;
+                    el.innerHTML = await res.text();
+                    el.querySelectorAll("script").forEach(s => {
+                        const ns = document.createElement("script");
+                        for (const a of s.attributes) ns.setAttribute(a.name, a.value);
+                        ns.text = s.textContent || "";
+                        s.parentNode.replaceChild(ns, s);
+                    });
+                } catch (e) {
+                    console.warn("Component load failed:", file, e);
+                }
+            }
+            loadComp("navbar-container", "../../components/navbar.html");
+            loadComp("footer-container", "../../components/footer.html");
+            setTimeout(() => {
+                const p = document.getElementById("preloader");
+                if (p) p.classList.add("hidden");
+            }, 600);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,3 +1,4 @@
+<!-- Cache Bust: 2026-01-26 22:15 -->
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -23,8 +24,8 @@
 
     <main id="nv-main">
         <section class="hero-section products-hero">
-            <h1 class="hero-title">Products</h1>
-            <p class="products-hero-subtitle">HOME SPA COLLECTION</p>
+            <h1 class="hero-title">Ürünler</h1>
+            <p class="products-hero-subtitle">EV SPA KOLEKSİYONU</p>
         </section>
 
         <div class="section-container" id="products">
@@ -40,35 +41,16 @@
     <div id="footer-container"></div>
 
     <!-- SCRIPTS -->
+    <script src="assets/js/loader.js"></script>
     <script src="assets/js/db.js"></script>
     <script src="assets/js/app.js?v=2.1"></script>
     <script src="assets/js/perf-metrics.js" defer></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            async function loadComp(id, file) {
-                if (window.location.protocol === 'file:') {
-                    const el = document.getElementById(id);
-                    if (el) el.innerHTML = `<div style="text-align:center;padding:10px;background:#1a1a1a;color:#888;font-size:12px;border-bottom:1px solid #333;">⚠️ Yerel Mod: ${file} yüklenemedi (CORS). Lütfen Live Server kullanın.</div>`;
-                    return;
-                }
-                try {
-                    const res = await fetch(file);
-                    if (res.ok) {
-                        const el = document.getElementById(id);
-                        el.innerHTML = await res.text();
-                        // Execute scripts in injected content
-                        el.querySelectorAll("script").forEach(s => {
-                            const ns = document.createElement("script");
-                            ns.text = s.innerHTML;
-                            s.parentNode.replaceChild(ns, s);
-                        });
-                    }
-                } catch (e) { console.warn("Component load failed", e); }
-            }
-
-            loadComp("navbar-container", "components/navbar.html");
-            loadComp("footer-container", "components/footer.html");
+            // loadComp provided by assets/js/loader.js
+            loadComp("components/navbar.html", "navbar-container");
+            loadComp("components/footer.html", "footer-container");
 
             // Preloader
             setTimeout(() => {
@@ -78,13 +60,13 @@
 
             // Category Definitions (Maps to db.js 'cat' field)
             const categories = [
-                { id: 'all', label: { tr: 'Tümü', en: 'All' } },
-                { id: 'hammam', label: { tr: 'Hamam Ritüeli', en: 'Hammam Ritual' } },
-                { id: 'aroma', label: { tr: 'Aromaterapi', en: 'Aromatherapy' } },
-                { id: 'body', label: { tr: 'Vücut Bakımı', en: 'Body Care' } },
-                { id: 'textile', label: { tr: 'Tekstil & Bornoz', en: 'Textiles & Robes' } },
-                { id: 'gift', label: { tr: 'Hediye Setleri', en: 'Gift Sets' } },
-                { id: 'boutique', label: { tr: 'Sothys Butik', en: 'Sothys Boutique' } }
+                { id: 'all', label: 'Tümü' },
+                { id: 'hammam', label: 'Hamam Ritüeli' },
+                { id: 'aroma', label: 'Aromaterapi' },
+                { id: 'body', label: 'Vücut Bakımı' },
+                { id: 'textile', label: 'Tekstil & Bornoz' },
+                { id: 'gift', label: 'Hediye Setleri' },
+                { id: 'boutique', label: 'Sothys Butik' }
             ];
 
             // Render Tabs
@@ -100,14 +82,13 @@
                 tabsEl.style.marginBottom = '40px';
 
                 // Get current lang for labels
-                const urlParams = new URLSearchParams(window.location.search);
-                const currentLang = urlParams.get('lang') || localStorage.getItem('santis_hotel_lang') || 'tr';
+                const currentLang = 'tr';
 
                 tabsEl.innerHTML = categories.map(c => `
                     <button class="lux-chip ${c.id === 'all' ? 'active' : ''}" 
                             onclick="filterProducts('${c.id}', this)"
                             style="${c.id === 'all' ? 'background:rgba(212,175,55,0.2); border-color:#d4af37;' : ''}">
-                        ${c.label[currentLang] || c.label.en}
+                        ${c.label}
                     </button>
                 `).join('');
 
@@ -132,18 +113,13 @@
             // Main Render Function
             function renderProducts(filterCat = 'all') {
                 const items = window.productsDB || [];
-                const urlParams = new URLSearchParams(window.location.search);
-                const currentLang = urlParams.get('lang') || localStorage.getItem('santis_hotel_lang') || 'tr';
+                const currentLang = 'tr';
 
                 // Translation for Button
-                const btnLabel = {
-                    tr: "SEPETE EKLE", en: "ADD TO BAG", de: "IN DEN WARENKORB",
-                    fr: "AJOUTER", ru: "В КОРЗИНУ"
-                };
-                const label = btnLabel[currentLang] || btnLabel.en;
+                const label = "SEPETE EKLE";
 
                 if (!items.length) {
-                    grid.innerHTML = `<div style="opacity:.7; padding:40px; text-align:center;">No products data.</div>`;
+                    grid.innerHTML = `<div style="opacity:.7; padding:40px; text-align:center;">Ürün verisi yok.</div>`;
                     return;
                 }
 
@@ -158,7 +134,7 @@
                 }
 
                 grid.innerHTML = filtered.map(p => {
-                    const name = p.name?.[currentLang] || p.name?.tr || "Product";
+                    const name = p.name?.[currentLang] || p.name?.tr || "Ürün";
                     // Fallback to EN if TR desc is missing? Or just empty
                     const desc = p.desc?.[currentLang] || p.desc?.en || "";
 

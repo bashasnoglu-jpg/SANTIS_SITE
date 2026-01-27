@@ -82,11 +82,30 @@ const SHOP = {
 
     updateCount() {
         const count = this.state.cart.reduce((sum, item) => sum + item.qty, 0);
-        const badge = document.getElementById('shop-badge');
-        if (badge) {
-            badge.textContent = count;
-            badge.style.display = count > 0 ? 'flex' : 'none';
-        }
+
+        // Target all possible badges (Navbar, Mobile, FAB)
+        const badges = document.querySelectorAll('.cart-badge, .shop-badge, #cartBadge, #shop-badge');
+
+        badges.forEach(badge => {
+            if (badge) {
+                badge.textContent = count;
+                // Only hide if it's the FAB badge (logic specific to FAB), 
+                // but usually we want to show 0 or hide. 
+                // Let's keep existing logic: show if > 0 (or always show 0 if preferred, but existing was hide)
+                // Actually, navbar badge usually stays visible. Let's make it conditional based on class.
+                if (badge.id === 'shop-badge') {
+                    badge.style.display = count > 0 ? 'flex' : 'none';
+                } else {
+                    // Navbar badge: often we just update text. 
+                    // If user wants it hidden when 0:
+                    // badge.style.display = count > 0 ? 'flex' : 'none';
+
+                    // Current navbar.html default is 0. existing shop.js logic hid it. 
+                    // Let's stick to hiding if 0 for cleaner look, valid for 'Quiet Luxury'
+                    badge.style.display = count > 0 ? 'flex' : 'none';
+                }
+            }
+        });
     },
 
     shakeFab() {
@@ -433,6 +452,7 @@ const SHOP = {
     },
 
     checkout() {
+        if (this.state.cart.length === 0) return;
         this.openCheckoutModal();
         this.updateCheckoutTotal();
     },

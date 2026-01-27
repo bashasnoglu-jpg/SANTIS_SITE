@@ -1,5 +1,6 @@
 ﻿<!-- booking.html — Rezervasyon Formu ve WhatsApp Entegrasyonu -->
 
+<!-- Cache Bust: 2026-01-26 22:15 -->
 <!DOCTYPE html>
 
 <html lang="tr">
@@ -16,6 +17,7 @@
 
   <link rel="manifest" href="manifest.json">
 
+
   <link rel="icon" href="data:,">
 
   <!-- Açıklama: Form alanları, doğrulama, toast bildirimi ve WhatsApp entegrasyonu içerir. -->
@@ -23,7 +25,6 @@
 
 
   <style>
-
     :root {
 
       --primary: #1a73e8;
@@ -76,23 +77,26 @@
 
       position: absolute;
 
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
 
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
 
-      background: rgba(0,0,0,0.45);
+      background: rgba(0, 0, 0, 0.45);
 
       z-index: 1;
 
     }
 
-    .hero h1, .hero p {
+    .hero h1,
+    .hero p {
 
       position: relative;
 
       z-index: 2;
 
-      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 
     }
 
@@ -102,11 +106,12 @@
 
       position: absolute;
 
-      top: 20px; right: 20px;
+      top: 20px;
+      right: 20px;
 
-      background: rgba(255,255,255,0.15);
+      background: rgba(255, 255, 255, 0.15);
 
-      border: 1px solid rgba(255,255,255,0.4);
+      border: 1px solid rgba(255, 255, 255, 0.4);
 
       color: #fff;
 
@@ -122,7 +127,9 @@
 
     }
 
-    .back-btn:hover { background: rgba(255,255,255,0.35); }
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
 
 
 
@@ -156,7 +163,9 @@
 
     }
 
-    input, select, textarea {
+    input,
+    select,
+    textarea {
 
       width: 100%;
 
@@ -172,7 +181,9 @@
 
     }
 
-    input.error, select.error, textarea.error {
+    input.error,
+    select.error,
+    textarea.error {
 
       border-color: var(--error);
 
@@ -230,7 +241,9 @@
 
     }
 
-    button:hover { background-color: #1557b0; }
+    button:hover {
+      background-color: #1557b0;
+    }
 
 
 
@@ -269,7 +282,6 @@
       transform: translateY(0);
 
     }
-
   </style>
 
 </head>
@@ -337,7 +349,10 @@
 
       <label id="lblGuests"></label>
 
-      <select id="guests"><option value="1">1</option><option value="2">2</option></select>
+      <select id="guests">
+        <option value="1">1</option>
+        <option value="2">2</option>
+      </select>
 
     </div>
 
@@ -370,53 +385,16 @@
 
 
 
+  <script src="assets/js/loader.js"></script>
   <script>
 
     async function loadHotels() {
 
       // Helper to load components and execute scripts
 
-      async function loadComp(id, file) {
-
-        try {
-
-          const res = await fetch(file);
-
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-          const el = document.getElementById(id);
-
-          el.innerHTML = await res.text();
-
-          el.querySelectorAll("script").forEach(s => {
-
-            const ns = document.createElement("script");
-
-            ns.text = s.innerHTML;
-
-            s.parentNode.replaceChild(ns, s);
-
-          });
-
-        } catch (e) {
-
-          console.warn("Component load failed:", file, e);
-
-          const el = document.getElementById(id);
-
-          if (el) el.innerHTML = `<div style="color:#721c24;background:#f8d7da;padding:10px;border:1px solid #f5c6cb;margin:10px">⚠️ <b>Failed to load ${file}</b><br><small>Please use a local web server (e.g. VS Code Live Server).</small></div>`;
-
-        }
-
-      }
-
-
-
       // Bileşenleri yükle
-
-      await loadComp("navbar", "./components/navbar.html");
-
-      await loadComp("footer", "./components/footer.html");
+      await loadComp("./components/navbar.html", "navbar");
+      await loadComp("./components/footer.html", "footer");
 
 
 
@@ -466,7 +444,7 @@
 
         langSelect.id = "langSelect";
 
-        ["tr","en","de","fr","ru"].forEach(code => {
+        ["tr", "en", "de", "fr", "ru"].forEach(code => {
 
           const o = document.createElement("option");
 
@@ -498,7 +476,7 @@
 
       const params = new URLSearchParams(window.location.search);
 
-      return { hotel: params.get("hotel") || "alba-resort", lang: params.get("lang") || "tr" };
+      return { hotel: params.get("hotel") || "alba-resort", lang: "tr" };
 
     }
 
@@ -559,27 +537,20 @@
 
 
       const bookingTranslations = {
-
-        tr: { back:"← Hotel Sayfasına Dön", toast:"Rezervasyon talebiniz iletildi ✅", required:"Bu alan zorunludur",
-
-          form:{service:"Hizmet",selectService:"Hizmet Seçiniz...",date:"Tarih",time:"Saat",name:"Ad Soyad",guests:"Kişi Sayısı",room:"Oda No",notes:"Notlar",submit:"WhatsApp ile Gönder"} },
-
-        en: { back:"← Back to Hotel Page", toast:"Your booking request has been sent ✅", required:"This field is required",
-
-          form:{service:"Service",selectService:"Select Service...",date:"Date",time:"Time",name:"Full Name",guests:"Guests",room:"Room No",notes:"Notes",submit:"Send via WhatsApp"} },
-
-        de: { back:"← Zur Hotelseite", toast:"Ihre Reservierungsanfrage wurde gesendet ✅", required:"Pflichtfeld",
-
-          form:{service:"Dienstleistung",selectService:"Service wählen...",date:"Datum",time:"Uhrzeit",name:"Name",guests:"Personen",room:"Zimmernr.",notes:"Notizen",submit:"Über WhatsApp senden"} },
-
-        fr: { back:"← Retour à la page de l’hôtel", toast:"Votre demande de réservation a été envoyée ✅", required:"Ce champ est obligatoire",
-
-          form:{service:"Service",selectService:"Choisir un service...",date:"Date",time:"Heure",name:"Nom complet",guests:"Personnes",room:"Numéro de chambre",notes:"Remarques",submit:"Envoyer via WhatsApp"} },
-
-        ru: { back:"← Вернуться на страницу отеля", toast:"Ваш запрос на бронирование отправлен ✅", required:"Обязательное поле",
-
-          form:{service:"Услуга",selectService:"Выберите услугу...",date:"Дата",time:"Время",name:"Имя",guests:"Гостей",room:"Номер комнаты",notes:"Примечания",submit:"Отправить через WhatsApp"} }
-
+        back: "← Hotel Sayfasına Dön",
+        toast: "Rezervasyon talebiniz iletildi ✅",
+        required: "Bu alan zorunludur",
+        form: {
+          service: "Hizmet",
+          selectService: "Hizmet Seçiniz...",
+          date: "Tarih",
+          time: "Saat",
+          name: "Ad Soyad",
+          guests: "Kişi Sayısı",
+          room: "Oda No",
+          notes: "Notlar",
+          submit: "WhatsApp ile Gönder"
+        }
       };
 
 
@@ -686,11 +657,11 @@
 
       function validateForm() {
 
-        const required = bookingTranslations[lang].required;
+        const required = bookingTranslations.required;
 
         hideFormAlert();
 
-        const fields = ["service","date","time","name"];
+        const fields = ["service", "date", "time", "name"];
         let valid = true;
 
         fields.forEach(id => {
@@ -715,7 +686,7 @@
 
         });
 
-        if (!valid) showFormAlert(required);
+        if (!valid) showFormAlert(bookingTranslations.required);
 
         return valid;
 
@@ -749,7 +720,7 @@
 
         const hotel = hotels.find(h => h.slug === selectedHotel);
 
-        const t = hotel.translations[lang] || hotel.translations.tr;
+        const t = hotel.translations.tr;
 
         // GitHub Pages için dosya yolu düzeltmesi
 
@@ -761,7 +732,7 @@
 
         hDesc.innerText = t.description;
 
-        backBtn.textContent = bookingTranslations[lang].back;
+        backBtn.textContent = bookingTranslations.back;
 
       }
 
@@ -776,7 +747,7 @@
 
         defOpt.value = "";
 
-        defOpt.textContent = bookingTranslations[lang].form.selectService;
+        defOpt.textContent = bookingTranslations.form.selectService;
 
         serviceSelect.appendChild(defOpt);
 
@@ -879,7 +850,7 @@
 
         if (!validateForm()) return;
 
-        
+
 
         showToast(bookingTranslations[lang].toast);
 
@@ -889,7 +860,7 @@
 
         const template = data.booking.translations[lang].whatsapp_template || data.booking.translations['en'].whatsapp_template;
 
-        
+
 
         const fieldData = {
 
@@ -935,5 +906,3 @@
 </body>
 
 </html>
-
-

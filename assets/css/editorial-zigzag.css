@@ -1,0 +1,510 @@
+/* ==========================================================================
+   SANTIS CLUB - EDITORIAL ZIGZAG & DISCOVER WALL
+   Quiet Luxury / Editorial Design System
+   ========================================================================== */
+
+:root {
+    --ed-ink: #111111;
+    --ed-muted: #666666;
+    --ed-line: rgba(255, 255, 255, 0.1);
+    --ed-card: rgba(255, 255, 255, 0.02);
+    --ed-radius: 8px;
+    --ed-gold: #d4af37;
+    --ed-font-heading: 'Cinzel', serif;
+    --ed-font-body: 'Manrope', sans-serif;
+}
+
+/* --- NOISE OVERLAY --- */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+}
+
+/* --- HERO ENHANCEMENT --- */
+.nv-ed-hero-title {
+    display: inline-block;
+    position: relative;
+    z-index: 10;
+}
+
+.nv-grain {
+    position: relative;
+}
+
+.nv-eyebrow {
+    font-family: var(--ed-font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--ed-gold);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+    text-align: center;
+}
+
+.nv-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- SECTION: DISCOVER WALL (MASONRY) --- */
+.nv-discover-wall {
+    padding: 80px 0;
+    background: var(--ed-ink);
+}
+
+.nv-pins {
+    column-count: 3;
+    column-gap: 20px;
+}
+
+.nv-pin {
+    break-inside: avoid;
+    margin-bottom: 20px;
+    background: var(--ed-card);
+    border: 1px solid var(--ed-line);
+    border-radius: var(--ed-radius);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+}
+
+.nv-pin:hover {
+    transform: translateY(-5px);
+    border-color: rgba(212, 175, 55, 0.3);
+}
+
+.nv-pin-img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    filter: grayscale(20%);
+    transition: filter 0.3s ease;
+}
+
+.nv-pin:hover .nv-pin-img {
+    filter: grayscale(0%);
+}
+
+.nv-pin-content {
+    padding: 15px;
+}
+
+.nv-pin-meta {
+    font-size: 0.7rem;
+    color: var(--ed-gold);
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.nv-pin-title {
+    font-family: var(--ed-font-heading);
+    font-size: 1rem;
+    color: #fff;
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* Responsive Masonry */
+@media (max-width: 1024px) {
+    .nv-pins {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 640px) {
+    .nv-pins {
+        column-count: 1;
+    }
+}
+
+/* --- SECTION: EDITORIAL ZIGZAG (STORIES) --- */
+.nv-editorial-zigzag {
+    padding: 100px 0;
+    background: #0a0a0a;
+    /* Slightly darker than ink */
+}
+
+.nv-zigzag-list {
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+}
+
+.nv-z-item {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 80px;
+    align-items: center;
+}
+
+/* Alternating Layout */
+.nv-z-item.is-right {
+    grid-template-columns: 0.85fr 1.15fr;
+}
+
+.nv-z-item.is-right .nv-z-content {
+    order: 1;
+    /* Content left */
+}
+
+.nv-z-item.is-right .nv-z-visual {
+    order: 2;
+    /* Image right */
+}
+
+/* Visual Side */
+.nv-z-visual {
+    position: relative;
+}
+
+.nv-z-img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: var(--ed-radius);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    filter: brightness(0.9);
+}
+
+/* Content Side */
+.nv-z-content {
+    padding: 20px;
+}
+
+.nv-z-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid var(--ed-line);
+    color: var(--ed-gold);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    border-radius: 100px;
+}
+
+.nv-z-title {
+    font-family: var(--ed-font-heading);
+    font-size: 2.5rem;
+    color: #fff;
+    margin: 0 0 20px 0;
+    line-height: 1.1;
+}
+
+.nv-z-desc {
+    font-family: var(--ed-font-body);
+    color: #ccc;
+    line-height: 1.6;
+    font-size: 1.05rem;
+    margin-bottom: 30px;
+    max-width: 450px;
+}
+
+.nv-z-specs {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    border-top: 1px solid var(--ed-line);
+    padding-top: 20px;
+}
+
+.nv-spec-item {
+    font-size: 0.8rem;
+    color: var(--ed-muted);
+}
+
+.nv-spec-val {
+    display: block;
+    color: #fff;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+/* Actions */
+.nv-z-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-ed-primary,
+.btn-ed-secondary {
+    padding: 14px 28px;
+    border-radius: var(--ed-radius);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-ed-primary {
+    background: var(--ed-gold);
+    color: #000;
+    border: 1px solid var(--ed-gold);
+}
+
+.btn-ed-primary:hover {
+    background: #b5932a;
+}
+
+.btn-ed-secondary {
+    background: transparent;
+    color: #fff;
+    border: 1px solid var(--ed-line);
+}
+
+.btn-ed-secondary:hover {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+    .nv-z-item {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .nv-z-item:nth-child(even) .nv-z-content {
+        order: unset;
+    }
+
+    .nv-z-item:nth-child(even) .nv-z-visual {
+        order: unset;
+    }
+
+    .nv-z-title {
+        font-size: 2rem;
+    }
+
+
+    /* --- SECTION: SPLIT-SCREEN EDITORIAL (ADVANCED) --- */
+    .nv-split-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+        max-width: 1600px;
+        /* Wider for magazine feel */
+        margin: 0 auto;
+        padding: 0 40px 120px 40px;
+        gap: 60px;
+    }
+
+    .nv-chapter-side {
+        width: 35%;
+        position: sticky;
+        top: 120px;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-right: 40px;
+        border-right: 1px solid var(--ed-line);
+    }
+
+    .nv-rituals-side {
+        width: 60%;
+        /* Ensure it takes remaining space properly */
+        flex: 1;
+    }
+
+    /* Chapter Typography */
+    .nv-chapter-num {
+        font-family: var(--ed-font-heading);
+        font-size: 8rem;
+        /* Massive */
+        color: rgba(255, 255, 255, 0.05);
+        /* Ghostly */
+        line-height: 0.8;
+    }
+
+    .nv-chapter-title {
+        font-family: var(--ed-font-heading);
+        font-size: 3rem;
+        color: var(--ed-gold);
+        margin: 20px 0;
+        line-height: 1.1;
+    }
+
+    .nv-chapter-desc {
+        font-family: var(--ed-font-body);
+        font-size: 1.1rem;
+        color: #999;
+        max-width: 300px;
+        line-height: 1.6;
+    }
+
+    /* VOGUE CARD (CINEMATIC) */
+    .nv-vogue-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    .nv-vogue-card {
+        position: relative;
+        aspect-ratio: 2/3;
+        /* Portrait Poster */
+        overflow: hidden;
+        cursor: none;
+        /* We will use custom cursor if possible, or just default */
+        cursor: pointer;
+    }
+
+    .nv-vogue-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .nv-vogue-card:hover .nv-vogue-img {
+        transform: scale(1.1);
+    }
+
+    .nv-vogue-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%);
+        opacity: 0.6;
+        transition: opacity 0.5s ease;
+    }
+
+    .nv-vogue-card:hover .nv-vogue-overlay {
+        opacity: 0.8;
+    }
+
+    /* Card Content & Animations */
+    .nv-vogue-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 30px;
+        z-index: 2;
+        transform: translateY(20px);
+        transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .nv-vogue-card:hover .nv-vogue-content {
+        transform: translateY(0);
+    }
+
+    .nv-vogue-tier {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-family: var(--ed-font-body);
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 5px 10px;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        z-index: 2;
+    }
+
+    .nv-vogue-duration {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-family: var(--ed-font-body);
+        font-size: 0.8rem;
+        color: var(--ed-gold);
+        z-index: 2;
+    }
+
+    .nv-vogue-title {
+        font-family: var(--ed-font-heading);
+        font-size: 1.8rem;
+        color: #fff;
+        margin: 0 0 10px 0;
+        line-height: 1.1;
+    }
+
+    .nv-vogue-desc {
+        font-family: var(--ed-font-body);
+        font-size: 0.95rem;
+        color: #ccc;
+        line-height: 1.5;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.5s ease 0.1s;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .nv-vogue-card:hover .nv-vogue-desc {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Draw Border Animation */
+    .nv-vogue-card::after {
+        content: '';
+        position: absolute;
+        inset: 15px;
+        border: 1px solid var(--ed-gold);
+        opacity: 0;
+        transform: scale(0.95);
+        transition: all 0.5s ease;
+        pointer-events: none;
+        z-index: 3;
+    }
+
+    .nv-vogue-card:hover::after {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .nv-split-wrapper {
+            flex-direction: column;
+            padding: 40px 20px;
+        }
+
+        .nv-chapter-side,
+        .nv-rituals-side {
+            width: 100%;
+            border-right: none;
+        }
+
+        .nv-chapter-side {
+            position: relative;
+            top: 0;
+            margin-bottom: 40px;
+            padding-right: 0;
+            text-align: center;
+            align-items: center;
+        }
+
+        .nv-vogue-grid {
+            gap: 20px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .nv-vogue-grid {
+            grid-template-columns: 1fr;
+        }
+    }

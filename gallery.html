@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<!-- Cache Bust: 2026-01-26 22:05 -->
+<!DOCTYPE html>
 <html lang="tr">
 
 <head>
@@ -33,7 +34,7 @@
     <div id="footer-container"></div>
 
     <!-- Lightbox -->
-    <div id="lightbox" class="lightbox-overlay" aria-hidden="true">
+    <div id="lightbox" class="lightbox-overlay" hidden>
         <button class="lightbox-close" aria-label="Kapat">&times;</button>
         <button class="lightbox-nav lightbox-prev" aria-label="Önceki">&#10094;</button>
         <button class="lightbox-nav lightbox-next" aria-label="Sonraki">&#10095;</button>
@@ -56,23 +57,11 @@
         </div>
     </div>
 
+    <script src="assets/js/loader.js"></script>
     <script>
-        async function loadComp(id, file) {
-            try {
-                const res = await fetch(file);
-                if (res.ok) {
-                    const el = document.getElementById(id);
-                    el.innerHTML = await res.text();
-                    el.querySelectorAll("script").forEach(s => {
-                        const ns = document.createElement("script");
-                        ns.text = s.innerHTML;
-                        s.parentNode.replaceChild(ns, s);
-                    });
-                }
-            } catch (e) { console.warn("Component load failed", e); }
-        }
-        loadComp("navbar-container", "components/navbar.html");
-        loadComp("footer-container", "components/footer.html");
+        // loadComp provided by assets/js/loader.js
+        loadComp("components/navbar.html", "navbar-container");
+        loadComp("components/footer.html", "footer-container");
 
         // Lightbox & Data Logic
         async function initGallery() {
@@ -194,14 +183,16 @@
                 lightboxImg.src = item.src;
                 lightboxImg.alt = item.alt;
                 resetZoom();
+
+                lightbox.hidden = false;
                 lightbox.classList.add('active');
-                lightbox.setAttribute('aria-hidden', 'false');
+
                 document.body.style.overflow = 'hidden';
                 updateShareLinks();
             }
             function closeLightbox() {
                 lightbox.classList.remove('active');
-                lightbox.setAttribute('aria-hidden', 'true');
+                lightbox.hidden = true;
                 document.body.style.overflow = '';
             }
 
