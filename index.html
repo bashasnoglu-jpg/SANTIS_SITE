@@ -18,6 +18,7 @@
 
   <!-- SEO & Analytics -->
   <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/assets/img/icons/icon-192x192.png">
   <script src="assets/js/perf-head.js"></script>
 
   <!-- UNIFIED MASTER STYLE (v5.0) -->
@@ -82,7 +83,8 @@
         <a href="service-detail.html?slug=osmanli-ritueli" class="nv-btn nv-btn-primary">RİTÜELİ İNCELE</a>
       </div>
       <div class="nv-visual-col curtain-reveal">
-        <img src="assets/img/cards/hammam.png" alt="Osmanlı Saray Ritüeli" class="w-100 img-rounded">
+        <img src="assets/img/cards/hammam.png" alt="Osmanlı Saray Ritüeli" class="w-100 img-rounded" width="800"
+          height="533" loading="lazy" decoding="async">
       </div>
     </section>
 
@@ -220,7 +222,7 @@
 
       grid.innerHTML = images.map((img, i) => `
             <a href="gallery.html" class="nv-masonry-item curtain-reveal" style="animation-delay: ${i * 0.15}s; display:block;">
-                <img src="${img.src}" alt="${img.alt}" loading="lazy">
+                <img src="${img.src}" alt="${img.alt}" loading="lazy" decoding="async" width="600" height="400">
             </a>
         `).join('');
     }
@@ -244,7 +246,7 @@
           return `
              <a href="${itemLink}" class="nv-card-product curtain-reveal" style="animation-delay: ${index * 0.1}s; display:block; text-decoration:none;">
                 <div class="nv-product-img-box">
-                    <img src="${item.img}" alt="${item.title}" class="nv-product-img" loading="lazy">
+                    <img src="${item.img}" alt="${item.title}" class="nv-product-img" loading="lazy" decoding="async" width="300" height="300">
                 </div>
                 <h3 class="nv-title" style="font-size:16px; margin-bottom:5px; color:var(--text-main);">${item.title}</h3>
                 <span class="nv-kicker">${item.price ? item.price + '€' : 'Keşfet'}</span>
@@ -256,7 +258,7 @@
         return `
             <article class="nv-card curtain-reveal" style="animation-delay: ${index * 0.1}s">
                 <div class="nv-card-img-box">
-                    <img src="${item.img}" alt="${item.title}" class="nv-card-img" loading="lazy">
+                    <img src="${item.img}" alt="${item.title}" class="nv-card-img" loading="lazy" decoding="async" width="600" height="400">
                 </div>
                 <div class="nv-card-body">
                     <span class="nv-kicker">${item.tier || 'RİTÜEL'}</span>

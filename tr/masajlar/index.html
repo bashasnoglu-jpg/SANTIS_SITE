@@ -130,7 +130,7 @@
                 return `
                     <article class="nv-card curtain-reveal" style="animation-delay: ${index * 0.08}s">
                         <div class="nv-card-img-box">
-                            <img src="${item.img || '/assets/img/cards/massage.png'}" alt="${item.title}" class="nv-card-img" loading="lazy">
+                            <img src="${item.img || '/assets/img/cards/massage.png'}" alt="${item.title}" class="nv-card-img" loading="lazy" decoding="async" width="600" height="400">
                         </div>
                         <div class="nv-card-body">
                             <span class="nv-kicker">${item.tier || item.category || 'MASAJ'}</span>
