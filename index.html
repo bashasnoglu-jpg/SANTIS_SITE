@@ -1,4 +1,4 @@
-<!-- Cache Bust: 2026-01-26 21:55 -->
+﻿<!-- Cache Bust: 2026-01-29 20:45 -->
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -8,252 +8,172 @@
   <title>Santis Club • Spa & Wellness</title>
   <meta name="description"
     content="Santis Club - Yalnızca yetişkinlere özel lüks spa, hamam ve masaj terapileri. Antalya'nın en seçkin well-being noktası.">
+
+  <!-- Preconnect & Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <script src="assets/js/perf-head.js"></script>
-  <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="images/icon-192.png">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/reviews.css"> <!-- Reviews Style -->
-  <link rel="stylesheet" href="assets/css/moods.css"> <!-- MOOD SYSTEM -->
-  <link rel="stylesheet" href="assets/css/booking-wizard.css"> <!-- Wizard Style -->
-  <link rel="stylesheet" href="assets/css/animations.css"> <!-- Cinematic Motions -->
-  <link rel="stylesheet" href="assets/css/components.css"> <!-- Hammam/Card Comp -->
-  <link rel="stylesheet" href="assets/css/editorial.css"> <!-- VOGUE MODE -->
-  <link rel="stylesheet" href="assets/css/intro.css"> <!-- Santis Intro -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet">
-  <script src="assets/js/animations.js"></script>
-  <script src="assets/js/slug.js"></script>
-  <style>
-    /* Styling for Booking Modal */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(5px);
-      z-index: 1000;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
 
-    .modal-overlay.active {
-      display: flex;
-      opacity: 1;
-    }
+  <!-- SEO & Analytics -->
+  <link rel="manifest" href="/manifest.json">
+  <script src="assets/js/perf-head.js"></script>
 
-    .modal-content {
-      background: #111;
-      padding: 25px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      max-width: 500px;
-      width: 90%;
-      color: #fff;
-      position: relative;
-    }
+  <!-- UNIFIED MASTER STYLE (v5.0) -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/card-effects.css">
+  <link rel="stylesheet" href="assets/css/video-hero.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
 
-    .modal-close {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 20px;
-      cursor: pointer;
-    }
+  <!-- Modules -->
+  <link rel="stylesheet" href="assets/css/moods.css">
+  <link rel="stylesheet" href="assets/css/booking-wizard.css">
+  <link rel="stylesheet" href="assets/css/intro.css">
 
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      color: #aaa;
-      font-size: 14px;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid #333;
-      color: #fff;
-      border-radius: 6px;
-    }
-
-    .btn-submit {
-      width: 100%;
-      padding: 12px;
-      background: #d4af37;
-      color: #000;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 6px;
-    }
-  </style>
+  <script src="/assets/js/routes.js"></script>
+  <script src="/assets/js/url-normalizer.js"></script>
+  <script src="/assets/js/language-switcher.js"></script>
+  <script src="/assets/js/seo-engine.js"></script>
+  <script src="/assets/js/seo-meta.js"></script>
+  <script src="/assets/js/animations.js"></script>
+  <script src="/assets/js/slug.js"></script>
 </head>
 
 <body class="editorial-mode">
+
   <!-- PRELOADER -->
   <div class="preloader" id="preloader">
     <div class="preloader-logo">Santis Club</div>
   </div>
 
-  <!-- NAVBAR (Component'tan yükleniyor) -->
+  <!-- NAVBAR -->
   <div id="navbar-container"></div>
 
-  <!-- MAIN CONTENT -->
   <main id="nv-main">
 
-    <!-- HERO -->
-    <section class="hero-section">
-      <h1 class="hero-title" id="heroTitle">Zamansız Sığınak</h1>
-      <p style="font-size: 18px; letter-spacing: 2px;" id="heroSubtitle">YALNIZCA YETİŞKİNLERE ÖZEL SPA</p>
+    <!-- TIER 1: CINEMATIC VIDEO HERO -->
+    <section class="nv-hero-video">
+      <div class="nv-video-wrapper">
+        <!-- LIGHTHOUSE TEST: Video devre dışı
+        <iframe class="nv-yt-video" title="Santis Club Spa Atmosferi"
+          src="https://www.youtube.com/embed/lE6RYpe9IT0?autoplay=1&mute=1&loop=1&playlist=lE6RYpe9IT0&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+          frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+        </iframe>
+        -->
+        <div class="nv-video-overlay"></div>
+      </div>
+      <div class="nv-hero-content">
+        <h1 class="nv-hero-title">Zamansız Sığınak</h1>
+        <span class="nv-kicker">YALNIZCA YETİŞKİNLERE ÖZEL SPA</span>
+      </div>
+      <span class="nv-scroll-indicator">Keşfet</span>
     </section>
 
-    <!-- SECTIONS -->
-    <div class="section-container" id="brand">
-      <h2 class="section-title">İyi Oluş Sanatı</h2>
-      <p style="max-width:800px; margin:0 auto; font-size:18px; line-height:1.6; color:var(--text-muted);">
-        Santis Club, geleneksel hamam ritüellerini ve modern spa terapilerini benzersiz bir "Sessiz Lüks" anlayışıyla
+    <!-- SIGNATURE SPOTLIGHT (Editorial Tier 1) -->
+    <section class="nv-detail-layout nv-spotlight">
+      <div class="nv-content-col">
+        <span class="nv-kicker">SIGNATURE EXPERIENCE</span>
+        <h2 class="nv-editorial-title fs-56 mb-30">Osmanlı Saray Ritüeli</h2>
+        <p class="fs-18 lh-16 text-muted mb-40">
+          Sultanlara layık bir arınma. Geleneksel kese ve köpüğün ötesinde, altı duyuya hitap eden bir seremoni.
+          Sıcaklığın şifası ve suyun dinginliği sizi bekliyor.
+        </p>
+        <a href="service-detail.html?slug=osmanli-ritueli" class="nv-btn nv-btn-primary">RİTÜELİ İNCELE</a>
+      </div>
+      <div class="nv-visual-col curtain-reveal">
+        <img src="assets/img/cards/hammam.png" alt="Osmanlı Saray Ritüeli" class="w-100 img-rounded">
+      </div>
+    </section>
+
+    <!-- BRAND STORY -->
+    <div class="nv-container nv-brand-story">
+      <span class="nv-kicker">İYİ OLUŞ SANATI</span>
+      <h2 class="nv-title">Sessiz Lüksü Keşfedin</h2>
+      <p>
+        Santis Club, geleneksel hamam ritüellerini ve modern spa terapilerini benzersiz bir modern lüks anlayışıyla
         sunar.
+        Burada zaman yavaşlar, beden hatırlamaya başlar.
       </p>
     </div>
 
-    <!-- HAMMAM SECTION (Simpler Card) -->
-    <div class="section-container" id="hammam" data-section="hammam">
-      <h2 class="section-title">Hamam Ritüelleri</h2>
-      <div class="grid-cards" id="grid-hammam">
-        <div class="card" onclick="window.location.href='/tr/hamam/index.html'">
-          <div class="card-img-wrap">
-            <img src="assets/img/cards/hamam.webp" alt="Hamam Ritüelleri" loading="lazy" decoding="async" width="600"
-              height="400">
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">Hamam Ritüelleri</h3>
-            <div class="card-footer">
-              <span>Geleneksel & Modern Arınma</span>
-              <span>İncele &rarr;</span>
-            </div>
-          </div>
-        </div>
+    <!-- TIER 2: HAMMAM RITUALS -->
+    <div class="nv-container" id="hammam" data-section="hammam">
+      <div class="nv-section-header">
+        <h2 class="nv-title">Hamam Ritüelleri</h2>
       </div>
-      <div style="text-align:center; margin-top:40px;">
-        <a href="/tr/hamam/index.html" class="nv-btn nv-btn-ghost">TÜM RİTÜELLERİ GÖR</a>
+
+      <div class="nv-card-grid" id="grid-hammam"></div>
+
+      <div class="nv-cta-container">
+        <a href="/tr/hamam/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
       </div>
     </div>
 
-    <div class="section-container" id="masaj" data-section="massage">
-      <h2 class="section-title">Masaj Terapileri</h2>
-      <div class="grid-cards" id="grid-massages"></div>
-      <div style="text-align:center; margin-top:40px;">
-        <a href="/tr/masajlar/index.html" class="nv-btn nv-btn-ghost">TÜM MASAJLARI GÖR</a>
+    <!-- TIER 2: MASSAGE THERAPIES -->
+    <div class="nv-container nv-section" id="masaj" data-section="massage">
+      <div class="nv-section-header">
+        <h2 class="nv-title">Masaj Terapileri</h2>
+      </div>
+
+      <div class="nv-card-grid" id="grid-massages"></div>
+
+      <div class="nv-cta-container">
+        <a href="/tr/masajlar/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
       </div>
     </div>
 
-    <div class="section-container" id="cilt" data-section="skincare">
-      <h2 class="section-title">Cilt Bakımı</h2>
-      <div class="grid-cards" id="grid-skincare"></div>
-      <div style="text-align:center; margin-top:40px;">
-        <a href="/tr/cilt-bakimi/index.html" class="nv-btn nv-btn-ghost">TÜM CİLT BAKIMINI GÖR</a>
+    <!-- TIER 2: SKINCARE -->
+    <div class="nv-container nv-section" id="cilt" data-section="skincare">
+      <div class="nv-section-header">
+        <h2 class="nv-title">Cilt Bakımı</h2>
+      </div>
+
+      <div class="nv-card-grid" id="grid-skincare"></div>
+
+      <div class="nv-cta-container">
+        <a href="/tr/cilt-bakimi/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
       </div>
     </div>
 
-    <div class="section-container" id="extra" data-section="extra">
-      <h2 class="section-title">Ekstra & Etkili</h2>
-      <div class="grid-cards" id="grid-extra"></div>
-    </div>
+    <!-- TIER 3: PRODUCTS (Digital Atelier) -->
+    <div class="nv-container nv-section-last" id="products">
+      <div class="nv-atelier-header">
+        <h2 class="nv-editorial-title">The Digital Atelier</h2>
+        <p class="nv-kicker">EVE GÖTÜRÜLEBİLİR LÜKS</p>
+      </div>
 
-    <!-- GALLERY -->
-    <div class="section-container" id="galeri" data-section="gallery">
-      <h2 class="section-title">Galeri</h2>
-      <div class="gallery-grid" id="gallery-grid"
-        style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-        <img src="https://placehold.co/600x400/222/fff?text=Galeri+1" alt="Galeri resim 1" loading="lazy"
-          decoding="async" width="600" height="400" />
-        <img src="https://placehold.co/600x400/222/fff?text=Galeri+2" alt="Galeri resim 2" loading="lazy"
-          decoding="async" width="600" height="400" />
-        <img src="https://placehold.co/600x400/222/fff?text=Galeri+3" alt="Galeri resim 3" loading="lazy"
-          decoding="async" width="600" height="400" />
-        <img src="https://placehold.co/600x400/222/fff?text=Galeri+4" alt="Galeri resim 4" loading="lazy"
-          decoding="async" width="600" height="400" />
+      <!-- Product Grid (Assuming 4 items) -->
+      <div class="nv-card-grid nv-product-grid" id="productsGrid">
+      </div>
+
+      <div class="nv-cta-container">
+        <a href="/products.html" class="nv-btn nv-btn-outline">TÜM KOLEKSİYONU İNCELE</a>
       </div>
     </div>
 
-    <!-- REVIEWS SECTION -->
-    <div class="section-container reviews-section" id="reviews">
-      <div class="section-head">
-        <h2 class="section-title">Misafir Deneyimleri</h2>
-        <p class="section-subtitle">Santis Club anları</p>
+    <!-- GALLERY (Tier 1 Masonry) -->
+    <div class="nv-container nv-section-last" id="galeri" data-section="gallery">
+      <h2 class="nv-title mb-40">Galeri</h2>
+      <div class="nv-masonry-grid" id="gallery-grid">
+        <!-- Rendered by JS -->
       </div>
 
-      <div class="reviews-grid" id="reviewsGrid">
-        <!-- Reviews will be loaded here -->
-      </div>
-
-      <div class="reviews-actions">
-        <button class="btn btn-primary" onclick="REVIEWS.openModal()">Yorum Yap</button>
+      <div class="nv-cta-container">
+        <a href="gallery.html" class="nv-btn nv-btn-outline">TÜM KOLEKSİYONU KEŞFET</a>
       </div>
     </div>
 
-    <!-- REVIEW MODAL -->
-    <div id="reviewModal" class="modal-overlay">
-      <div class="modal-content review-modal-content" style="max-width: 500px;">
-        <button class="modal-close" onclick="REVIEWS.closeModal()">×</button>
-        <h3 style="margin-bottom: 20px;">Deneyiminizi Paylaşın</h3>
-        <form id="reviewForm" onsubmit="REVIEWS.submit(event)">
-          <div class="form-group">
-            <label>Adınız</label>
-            <input type="text" required id="revName" placeholder="Ziyaretçi Adı">
-          </div>
-          <div class="form-group">
-            <label>Puanınız</label>
-            <select id="revRating">
-              <option value="5">⭐⭐⭐⭐⭐ (Mükemmel)</option>
-              <option value="4">⭐⭐⭐⭐ (Çok İyi)</option>
-              <option value="3">⭐⭐⭐ (İyi)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Yorumunuz</label>
-            <textarea required id="revText" rows="4" placeholder="Deneyiminizi buraya yazın..."></textarea>
-          </div>
-          <button type="submit" class="btn-submit">Yorumu Gönder</button>
-        </form>
-      </div>
-    </div>
   </main>
 
-  <!-- SANTIS INTRO OVERLAY (MOOD SELECTOR) -->
+  <!-- MOOD INTRO (Overlay) -->
   <div id="santisIntro" class="santis-intro" aria-hidden="true">
-    <div class="intro-panel" role="dialog" aria-modal="true" aria-label="Mood seçimi">
+    <div class="intro-panel">
       <div class="intro-head">
-        <div class="intro-brand">
-          <span class="intro-sync">SANTIS</span>
-          <span class="intro-sub">CLUB</span>
-        </div>
-
-        <div class="intro-actions">
-          <button type="button" class="intro-btn" data-intro-skip>SKIP</button>
-          <button type="button" class="intro-btn" data-intro-close aria-label="Kapat">✕</button>
-        </div>
+        <span class="intro-brand">SANTIS CLUB</span>
+        <button type="button" class="intro-btn" data-intro-close>✕</button>
       </div>
-
-      <p class="intro-copy">Bugün nasıl hissediyorsun? Mood seç, temayı buna göre ayarlayalım.</p>
-
+      <p class="intro-copy">Ruh halinizi seçin, atmosferi size göre ayarlayalım.</p>
       <div class="mood-grid"></div>
     </div>
   </div>
@@ -261,164 +181,122 @@
   <!-- FOOTER -->
   <div id="footer-container"></div>
 
-  <!-- BOOKING MODAL (REPLACES PROMPT) -->
+  <!-- BOOKING WIZARD MODAL -->
   <div class="modal-overlay" id="bookingModal" hidden>
-    <div class="modal-content">
-      <button class="modal-close" onclick="closeBookingModal()">×</button>
-      <h2 id="bookingModalTitle">Rezervasyon</h2>
-      <p id="bookingModalSub" style="color: #d4af37; margin-bottom: 20px;"></p>
-
-      <div class="form-group">
-        <label id="lblBookHotel">Otel</label>
-        <select id="bookHotel"></select>
-      </div>
-      <div class="form-group">
-        <label id="lblBookService">Hizmet</label>
-        <select id="bookService"></select>
-      </div>
-      <div class="form-group">
-        <label id="lblBookDate">Tarih</label>
-        <input type="date" id="bookDate">
-      </div>
-      <div class="form-group">
-        <label id="lblBookTime">Saat</label>
-        <input type="time" id="bookTime">
-      </div>
-      <div class="form-group">
-        <label id="lblFullName">Ad Soyad</label>
-        <input type="text" id="bookName" placeholder="Adınız Soyadınız">
-      </div>
-
-      <button class="btn-submit" id="whatsappBtn"
-        style="display:flex; align-items:center; justify-content:center; gap:10px;">
-        <span style="font-size:18px">📱</span>
-        WhatsApp ile Rezervasyon Yap
-      </button>
-
-      <!-- Hidden elements for machinery -->
-      <input type="hidden" id="waPreview">
-      <select id="bookPeople" style="display:none;">
-        <option value="1">1</option>
-      </select>
-      <input type="text" id="bookRoom" style="display:none;">
-      <textarea id="bookNotes" style="display:none;"></textarea>
-    </div>
+    <!-- Content populated by booking-wizard.js -->
   </div>
 
   <!-- SCRIPTS -->
-  <!-- 1. Database -->
-  <script src="assets/js/db.js"></script>
+  <!-- 1. Data Layer -->
+  <script src="/assets/js/hammam-data.js"></script>
+  <script src="/assets/js/massage-data.js"></script>
+  <script src="/assets/js/skincare-data.js"></script>
+  <script src="/assets/js/products-data.js"></script>
 
-  <script src="assets/js/massage-data.js"></script>
-  <script src="assets/js/skincare-data.js"></script>
+  <!-- 2. Logic -->
+  <script src="/assets/js/loader.js"></script>
+  <script src="/assets/js/booking-wizard.js"></script>
+  <script src="/assets/js/seo-schema.js"></script>
 
-  <!-- 3. Hammam Render Engine -->
-  <script src="assets/js/hammam_render.js"></script>
-  <!-- 2. Main Logic -->
-  <script src="assets/js/loader.js"></script> <!-- Robust Loader -->
-  <script src="assets/js/app.js?v=2.1"></script>
+  <!-- 3. Premium Card Effects -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <script src="/assets/js/card-effects.js"></script>
 
   <script>
-    // Init Application
+    /* SANTIS UNIFIED RENDER ENGINE v5.0 */
+    function renderGallery() {
+      const grid = document.getElementById('gallery-grid');
+      if (!grid) return;
+
+      // Curated List (Simulated from existing assets to avoid placeholders)
+      const images = [
+        { src: 'assets/img/cards/hammam.png', alt: 'Hammam Atmosphere' },
+        { src: 'assets/img/cards/massage.png', alt: 'Relaxing Massage' },
+        { src: 'assets/img/cards/skincare.png', alt: 'Deep Skincare' },
+        { src: 'assets/img/cards/hammam.png', alt: 'Steam Ritual' }, // Reusing for demo
+        { src: 'assets/img/cards/massage.png', alt: 'Therapy Room' },
+        { src: 'assets/img/cards/skincare.png', alt: 'Products Display' }
+      ];
+
+      grid.innerHTML = images.map((img, i) => `
+            <a href="gallery.html" class="nv-masonry-item curtain-reveal" style="animation-delay: ${i * 0.15}s; display:block;">
+                <img src="${img.src}" alt="${img.alt}" loading="lazy">
+            </a>
+        `).join('');
+    }
+
+    function renderNVGrid(data, targetId, limit) {
+      const grid = document.getElementById(targetId);
+      if (!grid || !data) return;
+
+      let list = Array.isArray(data) ? data : (data.services ? Object.values(data.services) : []);
+      if (limit) list = list.slice(0, limit);
+
+      grid.innerHTML = list.map((item, index) => {
+        // Dynamic Link Logic
+        // Product cards go to products.html, services go to detail engine
+        let itemLink = item.category && (item.category === 'home-spa' || item.category === 'skincare') && !item.slug
+          ? '/products.html'
+          : "/service-detail.html?slug=" + encodeURIComponent(item.slug || item.id);
+
+        // Use Product HTML structure if it's a product
+        if (item.tier === 'ÜRÜN') {
+          return `
+             <a href="${itemLink}" class="nv-card-product curtain-reveal" style="animation-delay: ${index * 0.1}s; display:block; text-decoration:none;">
+                <div class="nv-product-img-box">
+                    <img src="${item.img}" alt="${item.title}" class="nv-product-img" loading="lazy">
+                </div>
+                <h3 class="nv-title" style="font-size:16px; margin-bottom:5px; color:var(--text-main);">${item.title}</h3>
+                <span class="nv-kicker">${item.price ? item.price + '€' : 'Keşfet'}</span>
+             </a>
+             `;
+        }
+
+        // Standard Service Card (Tier 2)
+        return `
+            <article class="nv-card curtain-reveal" style="animation-delay: ${index * 0.1}s">
+                <div class="nv-card-img-box">
+                    <img src="${item.img}" alt="${item.title}" class="nv-card-img" loading="lazy">
+                </div>
+                <div class="nv-card-body">
+                    <span class="nv-kicker">${item.tier || 'RİTÜEL'}</span>
+                    <h3 class="nv-title" style="font-size: 20px;">${item.title}</h3>
+                    <div class="nv-card-price">${item.price ? item.price + '€' : 'İncele'}</div>
+                </div>
+                <a href="${itemLink}" class="nv-card-link" aria-label="${item.title}"></a>
+            </article>
+        `;
+      }).join('');
+    }
+
+    // Init
     document.addEventListener('DOMContentLoaded', () => {
-      // Load Standard Components
+      // Load Components
       loadComp("/components/navbar.html", "navbar-container");
       loadComp("/components/footer.html", "footer-container");
 
-      // Preloader
-      // Preloader Patch: Ensure display:none
-      setTimeout(() => {
-        const p = document.getElementById('preloader');
-        if (p) {
-          p.classList.add('hidden');
-          setTimeout(() => { p.style.display = "none"; }, 400); // Patch 2: display none
-        }
-      }, 1000);
+      // Wizard Init
+      if (typeof BOOKING_WIZARD !== 'undefined') BOOKING_WIZARD.init();
 
-      // Bind Booking Modal Buttons specific to this layout
-      const waBtn = document.getElementById('whatsappBtn');
-      if (waBtn) {
-        waBtn.onclick = (e) => {
-          e.preventDefault();
-          const preview = document.getElementById('waPreview').value;
-          if (!preview) return alert('Lütfen otel ve hizmet seçin.');
-          window.open(`https://wa.me/905348350169?text=${encodeURIComponent(preview)}`, '_blank');
-        };
+      // Render Grids
+      if (window.NV_HAMMAM) renderNVGrid(window.NV_HAMMAM, 'grid-hammam', 3);
+      if (window.NV_MASSAGES) renderNVGrid(window.NV_MASSAGES, 'grid-massages', 3);
+      if (window.NV_SKINCARE) renderNVGrid(window.NV_SKINCARE, 'grid-skincare', 3);
+
+      // Render Products
+      if (window.NV_PRODUCTS) {
+        const productData = window.NV_PRODUCTS.map(p => ({
+          ...p,
+          tier: 'ÜRÜN'
+        }));
+        renderNVGrid(productData, 'productsGrid', 4);
       }
 
-      // Manual Trigger for app.js init if needed
-      if (typeof init === 'function') init();
-      if (typeof renderAll === 'function') renderAll();
-
-      // --- NEW RENDERER FOR MASSAGES & SKINCARE ---
-      const priceLabel = (price) => (!price ? "Fiyat sorunuz" : `${price}€`);
-
-      const renderNVGrid = (items, gridId, max = 6) => {
-        const grid = document.getElementById(gridId);
-        if (!grid || !Array.isArray(items)) return;
-
-        grid.innerHTML = items.slice(0, max).map(item => `
-          <div class="card" onclick="window.location.href='${item.href || ("/service-detail.html?slug=" + encodeURIComponent(item.slug || item.id))}'">
-            <div class="card-img-wrap">
-              <img src="${item.img}" alt="${item.title}" loading="lazy" decoding="async">
-            </div>
-            <div class="card-content">
-              <h3 class="card-title">${item.title}</h3>
-              <div class="card-footer">
-                <span>${item.duration} / ${priceLabel(item.price)}</span>
-                <span>İncele &rarr;</span>
-              </div>
-            </div>
-          </div>
-        `).join('');
-      };
-
-      // Home grids (ilk 6 item gösterir)
-      if (window.NV_MASSAGES) renderNVGrid(window.NV_MASSAGES, 'grid-massages', 6);
-      if (window.NV_SKINCARE) renderNVGrid(window.NV_SKINCARE, 'grid-skincare', 6);
-
-      // --- FALLBACK FOR OTHER SECTIONS (Hammam, Extra) ---
-      if (typeof renderSection === 'function') {
-        // renderSection('hammam', 'grid-hammam'); // Manuel kart var
-        renderSection('extra', 'grid-extra');
-      }
+      // Render Gallery
+      renderGallery();
     });
   </script>
-  <script src="assets/js/reviews.js"></script>
-  <script src="assets/js/santis-core.js"></script>
-  <script src="assets/js/booking-wizard.js"></script>
-  <script src="assets/js/scroller.js"></script>
-  <script src="assets/js/seo-schema.js"></script>
-  <script src="assets/js/cart.js"></script> <!-- New Cart -->
-  <script>
-    // Trigger Wizard Init & Other Logic
-    document.addEventListener('DOMContentLoaded', () => {
-      // 1. Wizard
-      if (typeof BOOKING_WIZARD !== 'undefined') {
-        BOOKING_WIZARD.init();
-      }
 
-      // 2. Navbar Post-Load Logic (Wait for loadComp to finish)
-      // Since loadComp is async, we can check for the navbar element periodically or just use a timeout/event
-      // For simplicity in this structure:
-      setTimeout(() => {
-        const nav = document.getElementById('nv-main-nav');
-        if (nav) {
-          nav.style.background = 'transparent';
-          nav.style.borderBottom = 'none';
-        }
-
-        // Override Navbar Reservation Button
-        const navBtn = document.querySelector('.reservation-cta');
-        if (navBtn) {
-          navBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (typeof BOOKING_WIZARD !== 'undefined') BOOKING_WIZARD.open();
-          });
-        }
-      }, 500); // Wait for loadComp
-    });
-  </script>
 </body>
 
 </html>

@@ -4,71 +4,239 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Masajlar</title>
+    <title>Masajlar • Santis Club</title>
+    <meta name="description"
+        content="Santis Club Masaj Terapileri: Geleneksel teknikler ve modern dokunuşlarla bedeninizi ve ruhunuzu yenileyin. Uzman terapistler eşliğinde eşsiz bir rahatlama deneyimi." />
 
-    <!-- Ortak site stilleri -->
-    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <!-- Preconnect & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 
-    <!-- Kart/List UI stilleri (Skincare ile ortak) -->
-    <link rel="stylesheet" href="../../assets/css/santis-cards.css" />
-    <style>
-        .preloader.hidden {
-            opacity: 0;
-            pointer-events: none !important;
-            visibility: hidden;
-        }
-    </style>
+    <!-- UNIFIED MASTER STYLE -->
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/card-effects.css" />
+    <link rel="stylesheet" href="/assets/css/video-hero.css" />
+    <link rel="stylesheet" href="/assets/css/animations.css" />
+
+    <script src="/assets/js/animations.js" defer></script>
+    <script src="/assets/js/language-switcher.js"></script>
 </head>
 
-<body>
+<body class="editorial-mode">
+
     <!-- PRELOADER -->
     <div class="preloader" id="preloader">
-        <div class="preloader-logo">Santis Club</div>
+        <div class="preloader-logo">Santis Masaj</div>
     </div>
 
     <!-- NAVBAR -->
     <div id="navbar-container"></div>
 
-    <main class="nv-page" id="nv-main">
-        <header class="nv-header">
-            <h1 class="nv-title">Masajlar</h1>
+    <main id="nv-main">
 
-            <div class="nv-controls">
-                <label for="nvSearch" class="sr-only">Masaj ara</label>
-                <input id="nvSearch" class="nv-search" type="search" placeholder="Masaj ara (ör. bel, thai, aroma)..."
-                    autocomplete="off" />
-                <div id="nvChips" class="nv-chips" aria-label="Kategoriler"></div>
+        <!-- VIDEO HERO -->
+        <section class="nv-hero-video">
+            <div class="nv-video-wrapper">
+                <!-- LIGHTHOUSE TEST: Video devre dışı
+                <iframe class="nv-yt-video" title="Masaj Atmosferi"
+                    src="https://www.youtube.com/embed/lFcSrYw-ARY?autoplay=1&mute=1&loop=1&playlist=lFcSrYw-ARY&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+                </iframe>
+                -->
+                <div class="nv-video-overlay"></div>
             </div>
-        </header>
+            <div class="nv-hero-content">
+                <span class="nv-kicker">BEDEN VE RUHUN UYUMU</span>
+                <h1 class="nv-hero-title">Masaj Terapileri</h1>
+                <p class="nv-hero-subtitle">Geleneksel teknikler ve modern dokunuşlarla bedeninizi ve ruhunuzu
+                    yenileyin.</p>
+            </div>
+            <span class="nv-scroll-indicator">Keşfet</span>
+        </section>
 
-        <div id="nvList" class="nv-list" aria-live="polite"></div>
+        <!-- BRAND INTRO -->
+        <div class="nv-container nv-brand-story">
+            <span class="nv-kicker">THERAPIES</span>
+            <h2 class="nv-title">Dokunuşun Şifa Gücü</h2>
+            <p>
+                Geleneksel İsveç tekniklerinden Uzak Doğu ritüellerine, derin doku masajından aromaterapi seanslarına
+                uzanan geniş repertuvarımızla bedeninizin ihtiyaç duyduğu bakımı sunuyoruz.
+            </p>
+        </div>
+
+        <!-- FILTER CHIPS -->
+        <div class="nv-container" style="padding-bottom: 0;">
+            <div id="nvChips" class="nv-chips"
+                style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                <button class="nv-chip is-active" data-filter="all">Tümü</button>
+                <button class="nv-chip" data-filter="classicMassages">Klasik</button>
+                <button class="nv-chip" data-filter="asianMassages">Uzak Doğu</button>
+                <button class="nv-chip" data-filter="sportsTherapy">Spor & Terapötik</button>
+                <button class="nv-chip" data-filter="signatureCouples">Premium</button>
+                <button class="nv-chip" data-filter="kidsFamily">Aile</button>
+            </div>
+        </div>
+
+        <!-- MASSAGE GRID -->
+        <div class="nv-container nv-section" id="massages" data-section="massage">
+            <div class="nv-card-grid" id="grid-massages">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+
     </main>
 
     <!-- FOOTER -->
     <div id="footer-container"></div>
 
-    <!-- DATA + UI -->
-    <script src="../../assets/js/massage-data.js"></script>
-    <script src="../../assets/js/massage-ui.js"></script>
+    <!-- SCRIPTS -->
+    <!-- 1. Data Layer -->
+    <script src="/assets/js/core_data_loader.js"></script>
 
-    <!-- COMPONENT LOADER -->
+    <!-- 2. Loader -->
     <script src="/assets/js/loader.js"></script>
+
+    <!-- 3. Premium Card Effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    <script src="/assets/js/card-effects.js"></script>
+
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            if (typeof loadComp === "function") {
-                loadComp("/components/navbar.html", "navbar-container");
-                loadComp("/components/footer.html", "footer-container");
-            } else {
-                console.warn("loader.js yüklenmedi");
+        /* SANTIS MASSAGE PAGE RENDER ENGINE */
+
+        function renderMassageGrid(data, targetId, filterCategory = null) {
+            const grid = document.getElementById(targetId);
+            if (!grid || !data) return;
+
+            let list = Array.isArray(data) ? data : [];
+
+            // Filter by category if specified
+            if (filterCategory && filterCategory !== 'all') {
+                list = list.filter(item => item.category === filterCategory);
             }
 
-            // Preloader kapat
-            setTimeout(() => {
-                const p = document.getElementById("preloader");
-                if (p) p.classList.add("hidden");
-            }, 600);
+            // Sort: Signature first, then by price
+            list = [...list].sort((a, b) => {
+                if (a.tier === 'SIGNATURE') return -1;
+                if (b.tier === 'SIGNATURE') return 1;
+                return (b.price || 0) - (a.price || 0);
+            });
+
+            grid.innerHTML = list.map((item, index) => {
+                const itemLink = `/service-detail.html?slug=${encodeURIComponent(item.slug || item.id)}`;
+
+                return `
+                    <article class="nv-card curtain-reveal" style="animation-delay: ${index * 0.08}s">
+                        <div class="nv-card-img-box">
+                            <img src="${item.img || '/assets/img/cards/massage.png'}" alt="${item.title}" class="nv-card-img" loading="lazy">
+                        </div>
+                        <div class="nv-card-body">
+                            <span class="nv-kicker">${item.tier || item.category || 'MASAJ'}</span>
+                            <h3 class="nv-title" style="font-size: 20px;">${item.title}</h3>
+                            <p class="nv-card-desc" style="font-size: 14px; color: var(--text-muted); margin: 8px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                ${item.desc || ''}
+                            </p>
+                            <div class="nv-card-meta" style="display: flex; gap: 12px; margin-top: 12px;">
+                                ${item.duration ? `<span style="font-size: 13px; color: var(--text-muted);">⏱ ${item.duration}</span>` : ''}
+                                <span class="nv-card-price" style="color: var(--gold-primary, #D4AF37); font-weight: 500;">${item.price ? item.price + '€' : 'İncele'}</span>
+                            </div>
+                        </div>
+                        <a href="${itemLink}" class="nv-card-link" aria-label="${item.title}"></a>
+                    </article>
+                `;
+            }).join('');
+
+            // Show message if no results
+            if (list.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 40px;">Bu kategoride henüz hizmet bulunmuyor.</p>';
+            }
+        }
+
+        function initChipFilters() {
+            const chips = document.querySelectorAll('.nv-chip');
+
+            chips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    // Update active state
+                    chips.forEach(c => c.classList.remove('is-active'));
+                    chip.classList.add('is-active');
+
+                    // Re-render grid with filter
+                    const filter = chip.dataset.filter;
+                    renderMassageGrid(window.NV_MASSAGES, 'grid-massages', filter);
+                });
+            });
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Wait for data
+            if (window.NV_DATA_READY_PROMISE) {
+                await window.NV_DATA_READY_PROMISE;
+            }
+            // Load Components
+            if (typeof loadComp === 'function') {
+                loadComp("/components/navbar.html", "navbar-container");
+                loadComp("/components/footer.html", "footer-container");
+            }
+
+            // Render Massage Grid
+            if (window.NV_MASSAGES && window.NV_MASSAGES.length > 0) {
+                console.log('✅ Loaded', window.NV_MASSAGES.length, 'massages');
+                renderMassageGrid(window.NV_MASSAGES, 'grid-massages');
+            } else {
+                console.error('❌ NV_MASSAGES not found');
+            }
+
+            // Init Chip Filters
+            initChipFilters();
         });
     </script>
+
+    <style>
+        /* Chip Styles (matching homepage) */
+        .nv-chips {
+            margin-bottom: 2rem;
+        }
+
+        .nv-chip {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            color: var(--text-muted, #888);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nv-chip:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-main, #fff);
+        }
+
+        .nv-chip.is-active {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold-primary, #D4AF37);
+            color: var(--gold-primary, #D4AF37);
+        }
+
+        /* Card Description */
+        .nv-card-desc {
+            line-height: 1.5;
+        }
+
+        /* Hero adjustment for category pages */
+        .nv-hero-card {
+            min-height: 50vh;
+        }
+    </style>
+
 </body>
 
 </html>

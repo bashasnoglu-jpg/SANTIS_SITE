@@ -1,8 +1,15 @@
-﻿{
+{
   "name": "Santis Club",
   "short_name": "Santis",
   "start_url": "./index.html",
   "display": "standalone",
+  "icons": [
+    {
+      "src": "/assets/img/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
   "background_color": "#ffffff",
   "theme_color": "#1a73e8"
 }

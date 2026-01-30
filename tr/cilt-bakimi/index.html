@@ -1,67 +1,108 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="tr">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Cilt Bakımı</title>
+    <title>Cilt Bakımı • Santis Club</title>
+    <meta name="description"
+        content="Santis Club Cilt Bakımı: Sothys ürünleri ve uzman estetiyenler ile kişiye özel cilt bakım protokolleri. Nemlendirme, anti-aging ve ışıltı bakımları." />
 
-    <!-- Ortak site stilleri (navbar/footer varsa gerekli) -->
+    <!-- Master Style -->
     <link rel="stylesheet" href="../../assets/css/style.css" />
-
-    <!-- Bu sayfanın kart/list UI stilleri -->
     <link rel="stylesheet" href="../../assets/css/santis-cards.css" />
+    <link rel="stylesheet" href="../../assets/css/card-effects.css" />
+    <link rel="stylesheet" href="../../assets/css/video-hero.css" />
+    <link rel="stylesheet" href="../../assets/css/animations.css" />
+
+    <script src="../../assets/js/animations.js" defer></script>
+    <script src="../../assets/js/language-switcher.js"></script>
 </head>
 
-<body>
-    <!-- PRELOADER (opsiyonel) -->
+<body class="editorial-mode">
+    <!-- PRELOADER -->
     <div class="preloader" id="preloader">
-        <div class="preloader-logo">Santis Club</div>
+        <div class="preloader-logo">Santis Cilt</div>
     </div>
 
     <!-- NAVBAR -->
     <div id="navbar-container"></div>
 
-    <!-- SAYFA (mevcut yapın aynen duruyor) -->
-    <main class="nv-page" id="nv-main">
-        <header class="nv-header">
-            <h1 class="nv-title">Cilt Bakımı</h1>
+    <main id="nv-main" class="nv-category-main">
 
-            <div class="nv-controls">
-                <label for="nvSearch" class="sr-only">Program ara</label>
-                <input id="nvSearch" class="nv-search" type="search" placeholder="Program ara (ör. nem, leke, detox)..."
-                    autocomplete="off" />
-                <div id="nvChips" class="nv-chips" aria-label="Kategoriler"></div>
+        <!-- VIDEO HERO (YouTube Embed) -->
+        <section class="nv-hero-video">
+            <div class="nv-video-wrapper">
+                <!-- LIGHTHOUSE TEST: Video devre dışı
+                <iframe class="nv-yt-video" title="Cilt Bakımı Arka Plan Videosu"
+                    src="https://www.youtube.com/embed/hlWiI4xVXKY?autoplay=1&mute=1&loop=1&playlist=hlWiI4xVXKY&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                -->
+                <div class="nv-video-overlay"></div>
             </div>
-        </header>
 
-        <div id="nvList" class="nv-list" aria-live="polite"></div>
+            <div class="nv-hero-content">
+                <span class="nv-kicker">SOTHYS PARIS</span>
+                <h1 class="nv-hero-title">Cilt Bakımı</h1>
+                <p class="nv-hero-subtitle">Kişiye özel cilt bakım protokolleri. Nemlendirme, anti-aging ve ışıltı
+                    bakımları.</p>
+            </div>
+
+            <span class="nv-scroll-indicator">Keşfet</span>
+
+            <!-- Video kontrol butonu - video eklendiğinde aktif edilecek
+            <button class="nv-video-control" id="videoControl" aria-label="Video kontrolü">
+                <svg viewBox="0 0 24 24">
+                    <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
+                </svg>
+            </button>
+            -->
+        </section>
+
+        <!-- SEARCH & CHIPS -->
+        <div class="nv-container nv-category-header">
+            <div class="nv-controls reveal-on-scroll reveal-delay-1">
+                <input id="nvSearch" class="nv-search" type="search"
+                    placeholder="Bakım ara (ör. nem, leke, anti-aging)..." autocomplete="off">
+
+                <div id="nvChips" class="nv-chips">
+                    <!-- Rendered by Engine -->
+                </div>
+            </div>
+        </div>
+
+        <!-- LIST CONTAINER -->
+        <div class="nv-container">
+            <div id="nvList" class="nv-list reveal-on-scroll reveal-delay-2">
+                <!-- Rendered by Category Engine -->
+            </div>
+        </div>
+
     </main>
 
     <!-- FOOTER -->
     <div id="footer-container"></div>
 
-    <!-- DATA + UI -->
-    <script src="../../assets/js/skincare-data.js"></script>
-    <script src="../../assets/js/skincare-ui.js"></script>
+    <!-- DATA + ENGINE -->
+    <script src="../../assets/js/core_data_loader.js"></script>
+    <script src="../../assets/js/category-engine.js"></script>
 
-    <!-- COMPONENT LOADER (nested path uyumlu) -->
-    <script src="/assets/js/loader.js"></script>
+    <!-- LOADER -->
+    <script src="../../assets/js/loader.js"></script>
+
+    <!-- PREMIUM CARD EFFECTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    <script src="../../assets/js/card-effects.js"></script>
+
+    <!-- VIDEO HERO CONTROLLER -->
+    <script src="../../assets/js/video-hero.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // loadComp loader.js tarafından sağlanır
             if (typeof loadComp === "function") {
-                loadComp("/components/navbar.html", "navbar-container");
-                loadComp("/components/footer.html", "footer-container");
-            } else {
-                console.warn("loader.js yüklenmedi");
+                loadComp("../../components/navbar.html", "navbar-container");
+                loadComp("../../components/footer.html", "footer-container");
             }
-
-            // Preloader kapat
-            setTimeout(() => {
-                const p = document.getElementById("preloader");
-                if (p) p.classList.add("hidden");
-            }, 600);
         });
     </script>
 </body>

@@ -1,0 +1,5 @@
+﻿"URL","StatusCode"
+"https://google.com","200"
+"https://github.com","200"
+"https://site.com/page1","404"
+"https://site.com/page2","404"

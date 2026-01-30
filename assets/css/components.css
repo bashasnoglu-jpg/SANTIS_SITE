@@ -151,13 +151,13 @@
     white-space: nowrap;
 }
 
-.nv-btn-ghost {
+.nv-btn-outline {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: var(--text-main);
 }
 
-.nv-btn-ghost:hover {
+.nv-btn-outline:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--text-main);
 }
@@ -189,6 +189,7 @@
         min-height: auto;
     }
 }
+
 /* --- GOOGLE TRANSLATE LUXURY --- */
 .goog-te-gadget-simple {
     background-color: transparent !important;
@@ -197,19 +198,52 @@
     border-radius: 4px !important;
     font-family: 'Inter', sans-serif !important;
 }
+
 .goog-te-gadget-simple img,
 .goog-te-gadget-icon {
     display: none !important;
 }
+
 .goog-te-menu-value span {
     color: var(--text-muted, #888) !important;
     font-size: 13px !important;
     border-left: none !important;
 }
+
 .goog-te-banner-frame.skiptranslate {
     display: none !important;
 }
+
 body {
     top: 0px !important;
 }
 
+/* --- ASYMMETRIC VOGUE GRID --- */
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+}
+
+/* Her 3 kartta bir asimetrik ritim oluştur (Vogue Style) */
+.nv-card {
+    grid-column: span 4;
+    height: 500px;
+}
+
+.nv-card:nth-child(3n+1) {
+    grid-column: span 8;
+}
+
+.nv-card:nth-child(3n+2) {
+    grid-column: span 4;
+}
+
+@media (max-width: 1024px) {
+
+    .nv-card,
+    .nv-card:nth-child(3n+1) {
+        grid-column: span 12;
+        height: 400px;
+    }
+}

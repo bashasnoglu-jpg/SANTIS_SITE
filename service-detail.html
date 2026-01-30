@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Club | Spa Ritual</title>
+
+    <!-- Unified Master Style -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/animations.css">
+    <link rel="stylesheet" href="/assets/css/booking-wizard.css">
+    <link rel="stylesheet" href="/assets/css/intro.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <script src="/assets/js/language-switcher.js"></script>
+</head>
+
+<body class="editorial-mode">
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-logo">Santis Club</div>
+    </div>
+
+    <!-- Navbar -->
+    <div id="navbar-container"></div>
+
+    <main id="santis-detail-root">
+        <!-- TIER 4: Editorial Hero -->
+        <header class="nv-hero-card" style="height: 60vh;">
+            <img id="dynamic-bg" class="nv-hero-bg" src="/assets/img/cards/hammam.png" alt="Card Background">
+            <div class="nv-hero-content">
+                <span id="dynamic-kicker" class="nv-kicker mask-reveal">RITUAL</span>
+                <h1 id="dynamic-title" class="nv-hero-title mask-reveal">Yükleniyor...</h1>
+            </div>
+        </header>
+
+        <!-- TIER 4: Editorial Split Layout -->
+        <section class="nv-detail-layout">
+
+            <!-- LEFT: Narrative Column -->
+            <div class="main-col">
+                <p id="dynamic-long-desc"
+                    style="font-size: 20px; line-height: 1.8; color: var(--text-main); font-family: var(--font-editorial); margin-bottom: 40px;">
+                    <!-- Description injected here by Engine -->
+                </p>
+
+                <!-- Whisper Share Area -->
+                <div class="whisper-share-area" id="whisper-area"
+                    style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-light);">
+                    <span class="nv-kicker" style="opacity: 0.5; margin-bottom: 10px;">FISILDA & PAYLAŞ</span>
+                    <div style="display: flex; gap: 20px;">
+                        <button class="nv-btn nv-btn-outline" id="share-whatsapp">WhatsApp</button>
+                        <button class="nv-btn nv-btn-outline" id="share-copy">Bağlantıyı Kopyala</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Functional Sidebar (Sticky) -->
+            <aside class="nv-sticky-aside">
+                <div style="margin-bottom: 30px;">
+                    <span class="nv-kicker" style="color: var(--text-muted);">SÜRE</span>
+                    <div id="dynamic-duration" style="font-size: 24px; font-family: var(--font-editorial);">--</div>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <span class="nv-kicker" style="color: var(--text-muted);">YATIRIM</span>
+                    <div id="dynamic-price"
+                        style="font-size: 36px; color: var(--gold); font-family: var(--font-editorial);">--</div>
+                </div>
+
+                <button class="nv-btn nv-btn-primary" id="booking-trigger" style="width: 100%; margin-bottom: 15px;">
+                    YERİNİZİ AYIRIN
+                </button>
+
+                <p style="font-size: 12px; color: var(--text-muted); text-align: center; line-height: 1.5;">
+                    Bu ritüel için kapasite sınırlıdır.<br>Erken rezervasyon önerilir.
+                </p>
+            </aside>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Booking Modal -->
+    <div class="modal-overlay" id="bookingModal" hidden></div>
+
+    <!-- SCRIPTS -->
+    <script src="/assets/js/loader.js"></script>
+    <script src="/assets/js/hammam-data.js"></script>
+    <script src="/assets/js/massage-data.js"></script>
+    <script src="/assets/js/skincare-data.js"></script>
+
+    <script src="/assets/js/booking-wizard.js"></script>
+    <script src="/assets/js/detail-engine.js"></script> <!-- Updating next -->
+
+    <script>
+        // Init Components
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof loadComp === 'function') {
+                loadComp("/components/navbar.html", "navbar-container");
+                loadComp("/components/footer.html", "footer-container");
+            }
+            if (typeof BOOKING_WIZARD !== 'undefined') {
+                BOOKING_WIZARD.init();
+            }
+        });
+    </script>
+</body>
+
+</html>

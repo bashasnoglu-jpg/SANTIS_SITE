@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sıcaklığın Şifası | Santis Journal</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/editorial.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,400&family=Inter:wght@300;500;600&display=swap"
+        rel="stylesheet">
+    <meta name="description"
+        content="Geleneksel Türk Hamamının bedene 4 mucizevi etkisi. Santis Club'da detoks, serotonin ve bağışıklık güçlendirici ritüelleri keşfedin.">
+</head>
+
+<body class="editorial-mode">
+    <!-- Component Loader -->
+    <div id="navbar-container"></div>
+
+    <main id="blog-root" style="padding-top: var(--nav-height);">
+        <!-- Hero Section -->
+        <header class="blog-hero"
+            style="height: 60vh; position: relative; display: flex; align-items: flex-end; padding-bottom: 60px;">
+            <div class="visual-img"
+                style="position: absolute; top:0; left:0; width: 100%; height: 100%; background-image: url('assets/img/hamam/hamam-hero.webp'); background-size: cover; background-position: center; opacity: 0.4; z-index: -1;">
+            </div>
+            <div class="nv-container" style="position: relative; z-index: 2;">
+                <span class="nv-kicker" style="color: var(--gold-ratio-color);">SANTIS JOURNAL • WELLNESS</span>
+                <h1 class="drama-title" style="font-size: clamp(32px, 5vw, 64px); max-width: 900px; margin: 20px 0;">
+                    Sıcaklığın Şifası: Hamam Ritüelinin Bilinmeyen 3 Etkisi</h1>
+                <div class="blog-meta" style="color: var(--text-muted); font-size: 14px; letter-spacing: 1px;">
+                    OKUMA SÜRESİ: 3 DAKİKA
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Section -->
+        <article class="nv-container blog-body" style="max-width: 800px; margin: 80px auto; padding: 0 20px;">
+            <div class="blog-content"
+                style="font-family: 'Inter', sans-serif; line-height: 1.8; color: #ccc; font-size: 1.1rem;">
+                <p class="lead-text" style="font-size: 1.3rem; margin-bottom: 40px; color: #fff;">Antalya'nın güneşi
+                    ruhunuzu ısıtırken, bedeninizi derinlemesine arındırmanın en köklü yolu yüzyıllardır değişmedi:
+                    <strong>Türk Hamamı.</strong> Santis Club olarak, bu geleneği sadece bir temizlik değil, bir
+                    "yeniden doğuş" ritüeli olarak sunuyoruz. Peki, mermerin sıcaklığı bedeninize tam olarak ne yapıyor?
+                </p>
+
+                <h3
+                    style="color: var(--gold-ratio-color); margin-top: 50px; font-family: 'Cormorant Garamond', serif; font-size: 2rem;">
+                    1. Toksinlere Elveda (Detoks Etkisi)</h3>
+                <p>Sıcaklık ve yüksek nem, gözeneklerinizi sonuna kadar açar. Santis Club'ın özel kese teknikleriyle
+                    birleştiğinde, cildinizde biriken ölü deri ve toksinler anında atılır. Bu, en pahalı kremlerin bile
+                    yapamayacağı biyolojik bir temizliktir.</p>
+
+                <h3
+                    style="color: var(--gold-ratio-color); margin-top: 40px; font-family: 'Cormorant Garamond', serif; font-size: 2rem;">
+                    2. "Mutluluk Hormonu" Serotonin</h3>
+                <p>Isınan kaslar gevşer ve beyne "tehlike geçti, dinlen" sinyali gider. Hamam ritüeli sonrası
+                    hissettiğiniz o tarif edilemez hafiflik, vücudunuzun salgıladığı serotonin ve endorfin
+                    hormonlarından kaynaklanır.</p>
+
+                <div class="pull-quote"
+                    style="border-left: 3px solid var(--gold-ratio-color); padding-left: 30px; margin: 50px 0; font-style: italic; font-size: 1.4rem; color: #fff; font-family: 'Cormorant Garamond', serif;">
+                    "Hamam, suyun ve ısının dansıdır. Bedeni yıkarken, zihni de arındırır."
+                </div>
+
+                <h3
+                    style="color: var(--gold-ratio-color); margin-top: 40px; font-family: 'Cormorant Garamond', serif; font-size: 2rem;">
+                    3. Bağışıklık Sistemi Güçlenir</h3>
+                <p>Vücut ısısının yapay olarak yükselmesi (hipertermi), bağışıklık sistemini tetikler. Düzenli hamam
+                    ritüelleri, mevsim geçişlerinde hastalıklara karşı direncinizi artırır.</p>
+
+                <p style="margin-top: 40px;">Siz de bu kadim şifayı, modern lüksün dokunuşlarıyla deneyimlemek
+                    isterseniz, <strong>Osmanlı Saray Ritüeli</strong>'mizi inceleyebilirsiniz.</p>
+            </div>
+
+            <div
+                style="margin-top: 80px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 60px;">
+                <p
+                    style="margin-bottom: 30px; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; color: var(--gold-ratio-color);">
+                    BU DENEYİMİ YAŞAYIN</p>
+                <a href="/service-detail.html?slug=osmanli-ritueli" class="nv-btn nv-btn-primary">RİTÜELİ KEŞFET</a>
+            </div>
+        </article>
+    </main>
+
+    <div id="footer-container"></div>
+    <!-- Simple Component Loader -->
+    <script>
+        fetch('components/navbar.html').then(r => r.text()).then(h => {
+            document.getElementById('navbar-container').innerHTML = h;
+            // Re-init navbar script if needed
+            const script = document.createElement('script');
+            script.src = 'assets/js/navbar.js';
+            document.body.appendChild(script);
+        });
+        fetch('components/footer.html').then(r => r.text()).then(h => document.getElementById('footer-container').innerHTML = h);
+    </script>
+</body>
+
+</html>

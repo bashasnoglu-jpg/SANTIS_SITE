@@ -21,10 +21,10 @@
     async function fetchJSONSmart() {
         // Hem root hem relative ihtimalleri dene (local dev klasörlerine göre)
         const candidates = [
-            "/santis-hotels.json",
-            "santis-hotels.json",
-            "../santis-hotels.json",
-            "../../santis-hotels.json",
+            "/data/santis-hotels.json",
+            "data/santis-hotels.json",
+            "../data/santis-hotels.json",
+            "../../data/santis-hotels.json",
         ];
 
         for (const url of candidates) {
@@ -66,7 +66,7 @@
             const desc = s.desc?.[lang] || s.desc?.en || "";
             const duration = s.durationMin ? `${s.durationMin} DK` : (s.duration || "");
             const tier = (s.tier || s.collection || "Signature").toString();
-            const price = s.price != null ? `${s.price} ${s.currency || ""}`.trim() : "";
+            const price = s.price != null ? `${s.price} ${s.currency || ""}`.trim() : null;
 
             return {
                 id: key,
@@ -128,7 +128,7 @@
 
             <div class="nv-z-specs">
               <div class="nv-spec-item">SÜRE<span class="nv-spec-val">${item.duration}</span></div>
-              <div class="nv-spec-item">FİYAT<span class="nv-spec-val">${item.price || "-"}</span></div>
+              <div class="nv-spec-item">FİYAT<span class="nv-spec-val">${item.price || "Fiyat sorunuz"}</span></div>
               <div class="nv-spec-item">YOĞUNLUK<span class="nv-spec-val">Orta-Sert</span></div>
             </div>
 

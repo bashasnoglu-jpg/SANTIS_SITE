@@ -4,23 +4,33 @@
  * Handles scroll-triggered animations and reveals.
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+// Global Observer Reference
+let globalObserver;
+
+window.NV_InitAnimations = function () {
     const observerOptions = {
         root: null,
         rootMargin: '0px',
         threshold: 0.1
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                // Optional: Unobserve after reveal if you want it to happen only once
-                // observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
+    if (!globalObserver) {
+        globalObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    globalObserver.unobserve(entry.target); // Play once per session
+                }
+            });
+        }, observerOptions);
+    }
 
-    const revealElements = document.querySelectorAll('.reveal-on-scroll');
-    revealElements.forEach(el => observer.observe(el));
+    const revealElements = document.querySelectorAll('.reveal-on-scroll:not(.visible)');
+    revealElements.forEach(el => globalObserver.observe(el));
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    window.NV_InitAnimations();
+    // Re-check after small delay for lazy rendered items
+    setTimeout(window.NV_InitAnimations, 500);
 });

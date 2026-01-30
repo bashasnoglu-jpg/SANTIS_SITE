@@ -1,1 +1,213 @@
-file: ///C:/Users/tourg/Desktop/SANTIS_SITE/index.html
+{
+    "project": "Santis Club Spa & Wellness",
+    "version": "2.1",
+    "lastUpdated": "2026-01-30",
+    "description": "Prompt workbench for managing AI-assisted development tasks",
+    "siteInfo": {
+        "domain": "santisclub.com",
+        "localDevUrl": "http://127.0.0.1:5500",
+        "languages": [
+            "tr",
+            "en"
+        ],
+        "primaryLanguage": "tr",
+        "designLanguage": "Quiet Luxury",
+        "colorPalette": {
+            "primary": "#2C2C2C",
+            "accent": "#B8860B",
+            "background": "#F5F5F0",
+            "text": "#1A1A1A"
+        }
+    },
+    "activeTask": null,
+    "pendingTasks": [
+        {
+            "id": "pending_001",
+            "title": "Hero Image Generation",
+            "priority": "high",
+            "category": "creative"
+        },
+        {
+            "id": "pending_002",
+            "title": "Phase 2 Enhancements",
+            "priority": "medium",
+            "category": "development"
+        }
+    ],
+    "completedTasks": [
+        {
+            "id": "task_001",
+            "title": "Navbar Language Fixes",
+            "status": "completed",
+            "date": "2026-01-30"
+        },
+        {
+            "id": "task_002",
+            "title": "AI Image Generation Setup",
+            "status": "completed",
+            "date": "2026-01-30"
+        },
+        {
+            "id": "task_003",
+            "title": "Video Background Strategy",
+            "status": "completed",
+            "date": "2026-01-30"
+        },
+        {
+            "id": "task_004",
+            "title": "Site-wide 200 OK Verification",
+            "status": "completed",
+            "date": "2026-01-30"
+        },
+        {
+            "id": "task_005",
+            "title": "Massage Categories Expansion",
+            "status": "completed",
+            "date": "2026-01-29"
+        }
+    ],
+    "imagePrompts": {
+        "masterTemplate": "NEUROVA quiet luxury spa photography, premium editorial, minimal, calm, refined. Scene: {SCENE} Key objects: {OBJECTS} Materials: dark warm-gray stone, brushed metal, soft linen, subtle steam, marble accents. Lighting: soft diffused, cinematic, low contrast, gentle highlights, no harsh shadows. Color grade: smoky warm gray palette, low saturation, elegant, clean. Composition: negative space for UI overlays, {COMPOSITION_NOTES} Camera: {LENS_NOTES}, shallow depth of field, ultra sharp details where needed. Output: photorealistic, high resolution, {ASPECT_RATIO}. Constraints: no text, no logo, no watermark, no UI elements, no signage, no brand marks. People (optional): anonymous model only, no recognizable face, no nudity, tasteful spa setting.",
+        "negativePrompt": "typography, letters, numbers, logos, watermarks, cheap spa look, oversaturated colors, neon lights, messy background, plastic props, cartoon/anime, AI artifacts, distorted hands, extra fingers, unrealistic skin, aggressive sharpening, HDR look",
+        "slots": {
+            "indexHero": {
+                "id": "nv_index_hero_16x9_v1",
+                "aspectRatio": "16:9",
+                "scene": "Dark, warm-gray luxury spa interior",
+                "status": "pending"
+            },
+            "hamamCard": {
+                "id": "nv_index_card_hamam_1x1_v1",
+                "aspectRatio": "1:1",
+                "scene": "Marble kurna and gobek tasi still life",
+                "status": "pending"
+            },
+            "massageCard": {
+                "id": "nv_index_card_massage_1x1_v1",
+                "aspectRatio": "1:1",
+                "scene": "Hot stones and essential oils arrangement",
+                "status": "pending"
+            },
+            "skincareCard": {
+                "id": "nv_index_card_skincare_1x1_v1",
+                "aspectRatio": "1:1",
+                "scene": "Sothys products with soft linen",
+                "status": "pending"
+            },
+            "familyCard": {
+                "id": "nv_index_card_family_1x1_v1",
+                "aspectRatio": "1:1",
+                "scene": "Warm family spa atmosphere",
+                "status": "pending"
+            }
+        }
+    },
+    "siteStructure": {
+        "pages": {
+            "root": [
+                "index.html",
+                "hotel.html",
+                "gallery.html",
+                "booking.html",
+                "products.html",
+                "service-detail.html"
+            ],
+            "tr": {
+                "hamam": [
+                    "index.html"
+                ],
+                "masajlar": [
+                    "index.html"
+                ],
+                "cilt-bakimi": [
+                    "index.html"
+                ]
+            }
+        },
+        "assets": {
+            "css": [
+                "style.css",
+                "variables.css",
+                "booking-wizard.css",
+                "gallery.css"
+            ],
+            "js": [
+                "app.js",
+                "language-switcher.js",
+                "booking-wizard.js",
+                "gallery.js",
+                "loader.js"
+            ],
+            "data": [
+                "massage-data.js",
+                "hamam-data.js",
+                "skincare-data.js",
+                "site_content.json"
+            ]
+        }
+    },
+    "commands": {
+        "CSS_EKLE": {
+            "description": "Mevcut kurallara dokunmadan yeni CSS kuralları ekle",
+            "example": "CSS_EKLE: .new-class { ... }"
+        },
+        "HTML_METIN_DUZELT": {
+            "description": "HTML içerik metnini düzelt",
+            "example": "HTML_METIN_DUZELT: element seçici, yeni metin"
+        },
+        "TR_EN_SYNC": {
+            "description": "TR sayfasını EN'e birebir senkronize et",
+            "trigger": "NEUROVA_TR_EN_BIREBIR_SYNC v1.0"
+        },
+        "SITE_AUDIT": {
+            "description": "10 kategorili kapsamlı site denetimi",
+            "categories": [
+                "Brand",
+                "UX",
+                "UI",
+                "Navigation",
+                "Content",
+                "Media",
+                "Performance",
+                "SEO",
+                "Weaknesses",
+                "Priority Summary"
+            ]
+        }
+    },
+    "qualityChecklist": {
+        "accessibility": [
+            "alt attributes",
+            "ARIA labels",
+            "keyboard navigation",
+            "color contrast"
+        ],
+        "performance": [
+            "lazy loading",
+            "image optimization",
+            "minification",
+            "caching"
+        ],
+        "seo": [
+            "meta tags",
+            "structured data",
+            "sitemap",
+            "canonical URLs"
+        ],
+        "responsive": [
+            "mobile first",
+            "breakpoints tested",
+            "touch targets"
+        ]
+    },
+    "notes": [
+        {
+            "date": "2026-01-30",
+            "content": "Site ~65% maturity. Phase 2 ready for enrichment."
+        },
+        {
+            "date": "2026-01-30",
+            "content": "All pages returning 200 OK - full accessibility verified."
+        }
+    ]
+}

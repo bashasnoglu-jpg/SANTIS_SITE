@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezervasyon • Santis Club</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="assets/js/perf-head.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Page Specific Form Styles - Using Global Variables */
+        .booking-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-gold);
+            outline: none;
+        }
+    </style>
+    <script src="/assets/js/language-switcher.js"></script>
+</head>
+
+<body class="editorial-mode">
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-logo">Santis Club</div>
+    </div>
+
+    <div id="navbar-container"></div>
+
+    <main id="nv-main" style="padding-top: 120px; min-height: 80vh;">
+        <div class="section-container">
+            <h1 class="section-title" style="font-size: 40px; margin-bottom: 10px; text-align: center;">Rezervasyon</h1>
+            <p style="text-align:center; color:var(--text-muted); margin-bottom:40px;">Size özel bir deneyim için
+                rezervasyon yapın.
+            </p>
+
+            <div class="booking-container">
+                <form id="bookingForm" onsubmit="handleBooking(event)">
+                    <div class="form-group">
+                        <label for="bookHotel">Otel / Şube</label>
+                        <select id="bookHotel" class="form-control">
+                            <option value="" disabled selected>Seçiniz</option>
+                            <option value="Santis Club (Genel)">Santis Club (Genel)</option>
+                            <option value="Porto Bello Hotel">Porto Bello Hotel (Konyaaltı)</option>
+                            <option value="Sealife Family">Sealife Family (Konyaaltı)</option>
+                            <option value="Puding Marina">Puding Marina (Kaleiçi)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookService">Hizmet</label>
+                        <select id="bookService" class="form-control">
+                            <option value="" disabled selected>Seçiniz</option>
+                            <option value="Hamam Ritüeli">Hamam Ritüeli</option>
+                            <option value="Klasik Masaj">Klasik Masaj</option>
+                            <option value="Derin Doku Masajı">Derin Doku Masajı</option>
+                            <option value="Aromaterapi">Aromaterapi</option>
+                            <option value="Cilt Bakımı">Cilt Bakımı</option>
+                            <option value="Diğer">Diğer / Kararsızım</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookDate">Tarih</label>
+                        <input type="date" id="bookDate" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookName">Ad Soyad</label>
+                        <input type="text" id="bookName" placeholder="Adınız Soyadınız" class="form-control" required>
+                    </div>
+
+                    <button type="submit" class="nv-btn nv-btn-primary">WHATSAPP İLE GÖNDER</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="assets/js/loader.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof loadComp === "function") {
+                loadComp("components/navbar.html", "navbar-container");
+                loadComp("components/footer.html", "footer-container");
+            }
+            setTimeout(() => {
+                const p = document.getElementById('preloader');
+                if (p) p.classList.add('hidden');
+            }, 500);
+
+            // Set min date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('bookDate').min = today;
+        });
+
+        function handleBooking(e) {
+            e.preventDefault();
+
+            const hotel = document.getElementById('bookHotel').value || 'Belirtilmedi';
+            const service = document.getElementById('bookService').value || 'Belirtilmedi';
+            const date = document.getElementById('bookDate').value || 'Müsaitlik sorulacak';
+            const name = document.getElementById('bookName').value;
+
+            const phone = "905348350169";
+            const msg = `Merhaba, Santis Club Concierge.\n\n` +
+                `🗓 Rezervasyon Talebi:\n` +
+                `👤 İsim: *${name}*\n` +
+                `🏨 Otel: *${hotel}*\n` +
+                `💆 Hizmet: *${service}*\n` +
+                `📅 Tarih: *${date}*\n\n` +
+                `Müsaitlik durumu nedir?`;
+
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+    </script>
+</body>
+
+</html>

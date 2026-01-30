@@ -7,9 +7,9 @@
     <title>Cilt Bakımı Detay</title>
 
     <!-- Ortak site stilleri -->
-    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
     <!-- Sayfa stilleri -->
-    <link rel="stylesheet" href="../../assets/css/santis-cards.css" />
+    <link rel="stylesheet" href="/assets/css/santis-cards.css" />
 </head>
 
 <body>
@@ -30,8 +30,8 @@
     <div id="footer-container"></div>
 
     <!-- DATA + UI -->
-    <script src="../../assets/js/skincare-data.js"></script>
-    <script src="../../assets/js/skincare-detail.js"></script>
+    <script src="/assets/js/skincare-data.js"></script>
+    <script src="/assets/js/skincare-detail.js"></script>
 
     <!-- COMPONENT LOADER -->
     <script>
@@ -54,8 +54,8 @@
                     console.warn("Component load failed:", file, e);
                 }
             }
-            loadComp("navbar-container", "../../components/navbar.html");
-            loadComp("footer-container", "../../components/footer.html");
+            loadComp("navbar-container", "/components/navbar.html");
+            loadComp("footer-container", "/components/footer.html");
             setTimeout(() => {
                 const p = document.getElementById("preloader");
                 if (p) p.classList.add("hidden");

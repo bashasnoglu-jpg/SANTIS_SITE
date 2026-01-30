@@ -1,0 +1,642 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   SANTIS CLUB — LUXURY CARD SYSTEM v2.0
+   Inspired by: Aman Resorts (Minimal) + Four Seasons (Functional)
+   Design: Quiet Luxury, Dark Theme, Glassmorphism
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   DESIGN TOKENS
+   ───────────────────────────────────────────────────────────────────────────── */
+:root {
+    /* Colors - Quiet Luxury Palette */
+    --card-bg: rgba(26, 24, 22, 0.95);
+    --card-bg-hover: rgba(32, 30, 28, 0.98);
+    --card-border: rgba(255, 255, 255, 0.06);
+    --card-border-hover: rgba(212, 175, 55, 0.25);
+    --card-glow: rgba(212, 175, 55, 0.08);
+    --card-shadow: rgba(0, 0, 0, 0.4);
+
+    /* Gold Accents */
+    --gold-primary: #D4AF37;
+    --gold-light: #F4E4BC;
+    --gold-dark: #8B7355;
+
+    /* Text Colors */
+    --text-primary: #F5F0E8;
+    --text-secondary: #A8A8A8;
+    --text-muted: #6A6A6A;
+
+    /* Spacing */
+    --card-radius: 20px;
+    --card-radius-lg: 28px;
+    --card-padding: 24px;
+    --card-gap: 24px;
+
+    /* Transitions */
+    --ease-luxury: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --duration-fast: 300ms;
+    --duration-normal: 400ms;
+    --duration-slow: 600ms;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   GRID SYSTEM (Bento Layout)
+   ───────────────────────────────────────────────────────────────────────────── */
+.luxury-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--card-gap);
+    padding: 2rem 0;
+}
+
+.luxury-grid--bento {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(280px, auto);
+}
+
+/* Bento Sizes */
+.card--xl {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.card--lg {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.card--md {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.card--sm {
+    grid-column: span 1;
+    grid-row: span 1;
+    min-height: 200px;
+}
+
+/* Responsive Grid */
+@media (max-width: 1024px) {
+    .luxury-grid--bento {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card--xl {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+
+    .card--lg {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 640px) {
+    .luxury-grid--bento {
+        grid-template-columns: 1fr;
+    }
+
+    .card--xl,
+    .card--lg,
+    .card--md,
+    .card--sm {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   BASE CARD (Glassmorphism Foundation)
+   ───────────────────────────────────────────────────────────────────────────── */
+.luxury-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--card-radius);
+
+    /* Glassmorphism */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    /* Shadows */
+    box-shadow:
+        0 4px 24px var(--card-shadow),
+        0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+
+    /* Transition */
+    transition:
+        transform var(--duration-normal) var(--ease-luxury),
+        box-shadow var(--duration-normal) var(--ease-luxury),
+        border-color var(--duration-fast) var(--ease-luxury);
+
+    will-change: transform;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   HOVER STATE (Multi-Layer Animation)
+   ───────────────────────────────────────────────────────────────────────────── */
+.luxury-card:hover {
+    transform: translateY(-12px) scale(1.01);
+    border-color: var(--card-border-hover);
+
+    box-shadow:
+        0 24px 48px var(--card-shadow),
+        0 0 80px var(--card-glow),
+        0 0 0 1px rgba(212, 175, 55, 0.1) inset;
+}
+
+.luxury-card:hover .card__image {
+    transform: scale(1.08);
+    filter: brightness(1.1);
+}
+
+.luxury-card:hover .card__content {
+    transform: translateY(-8px);
+}
+
+.luxury-card:hover .card__cta {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+    letter-spacing: 0.12em;
+}
+
+.luxury-card:hover .card__badge--signature {
+    animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CARD IMAGE
+   ───────────────────────────────────────────────────────────────────────────── */
+.card__image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+}
+
+.card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition:
+        transform var(--duration-slow) var(--ease-luxury),
+        filter var(--duration-normal) var(--ease-luxury);
+}
+
+/* Gradient Overlay */
+.card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(10, 10, 10, 0.95) 0%,
+            rgba(10, 10, 10, 0.6) 40%,
+            transparent 70%);
+    opacity: 0;
+    transition: opacity var(--duration-normal) var(--ease-luxury);
+}
+
+.luxury-card:hover .card__overlay {
+    opacity: 1;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   BADGE SYSTEM
+   ───────────────────────────────────────────────────────────────────────────── */
+.card__badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 6px 14px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    border-radius: 100px;
+    z-index: 10;
+
+    transition: all var(--duration-fast) var(--ease-luxury);
+}
+
+/* Signature Badge (Gold Shimmer) */
+.card__badge--signature {
+    background: linear-gradient(90deg,
+            var(--gold-dark) 0%,
+            var(--gold-primary) 25%,
+            var(--gold-light) 50%,
+            var(--gold-primary) 75%,
+            var(--gold-dark) 100%);
+    background-size: 200% 100%;
+    color: #0a0a0a;
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+}
+
+/* Popular Badge */
+.card__badge--popular {
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid var(--gold-primary);
+    color: var(--gold-primary);
+}
+
+/* New Badge */
+.card__badge--new {
+    background: rgba(76, 175, 80, 0.9);
+    color: #fff;
+    animation: badge-pulse 2s ease-in-out infinite;
+}
+
+/* Express Badge */
+.card__badge--express {
+    background: rgba(255, 193, 7, 0.15);
+    border: 1px solid #FFC107;
+    color: #FFC107;
+}
+
+/* Premium Badge */
+.card__badge--premium {
+    background: rgba(147, 112, 219, 0.2);
+    border: 1px solid #9370DB;
+    color: #9370DB;
+}
+
+/* Tier Badges */
+.card__badge--tier {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CARD CONTENT
+   ───────────────────────────────────────────────────────────────────────────── */
+.card__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: var(--card-padding);
+    transition: transform var(--duration-normal) var(--ease-luxury);
+}
+
+.card__title {
+    margin: 0 0 8px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+.card__description {
+    margin: 0 0 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text-secondary);
+
+    /* Line clamp */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   META PILLS (Duration, Price, Rating)
+   ───────────────────────────────────────────────────────────────────────────── */
+.card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 16px;
+}
+
+.card__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 100px;
+    color: var(--text-secondary);
+}
+
+.card__pill--price {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: rgba(212, 175, 55, 0.2);
+    color: var(--gold-primary);
+    font-weight: 600;
+}
+
+.card__pill-icon {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CTA BUTTON
+   ───────────────────────────────────────────────────────────────────────────── */
+.card__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    margin-top: 20px;
+    padding: 14px 24px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 100px;
+    color: var(--text-primary);
+
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-luxury);
+}
+
+.card__cta:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: var(--gold-primary);
+    color: var(--gold-primary);
+}
+
+.card__cta-arrow {
+    transition: transform var(--duration-fast) var(--ease-luxury);
+}
+
+.card__cta:hover .card__cta-arrow {
+    transform: translateX(4px);
+}
+
+/* Primary CTA (Gold) */
+.card__cta--primary {
+    background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+    border: none;
+    color: #0a0a0a;
+    font-weight: 600;
+}
+
+.card__cta--primary:hover {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+    color: #0a0a0a;
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CARD VARIANTS
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Editorial Card (Aman Style - Image-focused) */
+.luxury-card--editorial {
+    min-height: 400px;
+}
+
+.luxury-card--editorial .card__image-wrapper {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: unset;
+}
+
+.luxury-card--editorial .card__content {
+    position: relative;
+    z-index: 5;
+    margin-top: auto;
+    padding: 32px;
+    background: linear-gradient(to top,
+            rgba(10, 10, 10, 0.98) 0%,
+            rgba(10, 10, 10, 0.8) 50%,
+            transparent 100%);
+}
+
+.luxury-card--editorial .card__title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+/* Split Card (Four Seasons Style) */
+.luxury-card--split {
+    flex-direction: row;
+}
+
+.luxury-card--split .card__image-wrapper {
+    width: 45%;
+    aspect-ratio: unset;
+}
+
+.luxury-card--split .card__content {
+    width: 55%;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .luxury-card--split {
+        flex-direction: column;
+    }
+
+    .luxury-card--split .card__image-wrapper,
+    .luxury-card--split .card__content {
+        width: 100%;
+    }
+}
+
+/* Compact Card (Express Services) */
+.luxury-card--compact {
+    padding: 16px;
+}
+
+.luxury-card--compact .card__image-wrapper {
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+}
+
+.luxury-card--compact .card__content {
+    padding: 16px 0 0;
+}
+
+.luxury-card--compact .card__title {
+    font-size: 1.1rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   ANIMATIONS
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Shimmer Effect */
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Badge Pulse */
+@keyframes badge-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+}
+
+/* Stagger Entry (for JS control) */
+.luxury-card[data-animate="entry"] {
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.luxury-card[data-animate="entry"].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+        opacity var(--duration-slow) var(--ease-luxury),
+        transform var(--duration-slow) var(--ease-luxury);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   QUICK ACTION (Favorite Button)
+   ───────────────────────────────────────────────────────────────────────────── */
+.card__action {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+
+    color: var(--text-secondary);
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0.8);
+
+    transition: all var(--duration-fast) var(--ease-bounce);
+    z-index: 10;
+}
+
+.luxury-card:hover .card__action {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.card__action:hover {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: var(--gold-primary);
+    color: var(--gold-primary);
+}
+
+.card__action.is-active {
+    background: var(--gold-primary);
+    color: #0a0a0a;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CHIP FILTERS
+   ───────────────────────────────────────────────────────────────────────────── */
+.chip-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 1.5rem 0;
+}
+
+.chip-filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    color: var(--text-secondary);
+
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-luxury);
+}
+
+.chip-filter:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+}
+
+.chip-filter.is-active {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: var(--gold-primary);
+    color: var(--gold-primary);
+}
+
+.chip-filter__icon {
+    font-size: 15px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   LOADING SKELETON
+   ───────────────────────────────────────────────────────────────────────────── */
+.luxury-card--skeleton .card__image-wrapper,
+.luxury-card--skeleton .card__title,
+.luxury-card--skeleton .card__description,
+.luxury-card--skeleton .card__pill {
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.03) 0%,
+            rgba(255, 255, 255, 0.06) 50%,
+            rgba(255, 255, 255, 0.03) 100%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: 8px;
+}
+
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

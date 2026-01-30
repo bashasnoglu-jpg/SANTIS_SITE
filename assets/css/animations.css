@@ -1,76 +1,117 @@
-/* CINEMATIC ANIMATIONS (High Performance) */
+/* ==========================================================================
+   SANTIS MOTION DESIGN v1.0 (The Soul)
+   - Parallax, Mask Reveals, Curtains, Smooth Transitions
+   ========================================================================== */
 
-/* Base Class */
-.reveal-on-scroll {
+/* --- 1. MASK REVEAL (Text rising from water) --- */
+.mask-reveal {
+    overflow: hidden;
+    position: relative;
+    display: block;
+}
+
+.mask-reveal>span,
+.mask-reveal>.nv-kicker {
+    display: block;
+    transform: translateY(110%);
     opacity: 0;
-    transform: translateY(40px);
-    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-    will-change: transform, opacity;
+    animation: revealUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Modifier: Fade Only */
-.reveal-fade {
-    transform: translateY(0);
-}
-
-/* Modifier: Side Slide (e.g. for text) */
-.reveal-left {
-    transform: translateX(-40px);
-}
-
-.reveal-right {
-    transform: translateX(40px);
-}
-
-/* ACTIVE STATE (Triggered by JS) */
-.reveal-on-scroll.visible {
-    opacity: 1;
-    transform: translate(0, 0);
-}
-
-/* Stagger Delays (for lists/grids) */
-.reveal-delay-1 {
-    transition-delay: 0.1s;
-}
-
-.reveal-delay-2 {
-    transition-delay: 0.2s;
-}
-
-.reveal-delay-3 {
-    transition-delay: 0.3s;
-}
-
-.reveal-delay-4 {
-    transition-delay: 0.4s;
-}
-
-/* Micro-Interactions (Hover) */
-.card {
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.card:hover {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important;
-    /* Force override for mood variations */
-}
-
-/* Button Pulse (Subtle) */
-@keyframes pulse-gold {
-    0% {
-        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+@keyframes revealUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
     }
+}
 
-    70% {
-        box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+/* --- 2. CURTAIN REVEAL (Image Entrance) --- */
+.curtain-reveal {
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 0.1s forwards 0.5s;
+    /* Wait for curtain */
+}
+
+/* The Curtain Element */
+.curtain-reveal::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    /* Curtain Color */
+    transform: translateX(0);
+    z-index: 2;
+    animation: curtainSlide 1.4s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+@keyframes curtainSlide {
+    0% {
+        transform: translateX(0);
     }
 
     100% {
-        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+        transform: translateX(101%);
+    }
+
+    /* Move right */
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
     }
 }
 
-.btn-pulse:hover {
-    animation: pulse-gold 2s infinite;
+/* --- 3. SCROLL REVEAL (Standard Fade) --- */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- 4. PAGE TRANSITIONS (SPA Feel) --- */
+body {
+    opacity: 0;
+    animation: pageFadeIn 0.8s ease-out forwards;
+}
+
+@keyframes pageFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+body.fade-out {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+/* --- 5. PARALLAX UTILS --- */
+.parallax-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.parallax-img {
+    will-change: transform;
+    /* JS will handle transform: translateY */
+}
+
+/* --- 6. HOVER MAGNETICS (Buttons) --- */
+.nv-btn {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nv-btn:active {
+    transform: scale(0.95);
 }

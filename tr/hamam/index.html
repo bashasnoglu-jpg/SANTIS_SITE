@@ -4,69 +4,89 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Hamam Ritüelleri</title>
+    <title>Hamam Ritüelleri • Santis Club</title>
 
-    <!-- Ortak site stilleri -->
-    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <!-- Master Style -->
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/santis-cards.css" />
+    <link rel="stylesheet" href="/assets/css/card-effects.css" />
+    <link rel="stylesheet" href="/assets/css/video-hero.css" />
+    <link rel="stylesheet" href="/assets/css/animations.css" />
 
-    <!-- Kart/List UI stilleri (Skincare ile ortak) -->
-    <link rel="stylesheet" href="../../assets/css/santis-cards.css" />
-    <style>
-        .preloader.hidden {
-            opacity: 0;
-            pointer-events: none !important;
-            visibility: hidden;
-        }
-    </style>
+    <script src="/assets/js/animations.js" defer></script>
+    <script src="/assets/js/language-switcher.js"></script>
 </head>
 
-<body>
+<body class="editorial-mode">
     <!-- PRELOADER -->
     <div class="preloader" id="preloader">
-        <div class="preloader-logo">Santis Club</div>
+        <div class="preloader-logo">Santis Hamam</div>
     </div>
 
     <!-- NAVBAR -->
     <div id="navbar-container"></div>
 
-    <main class="nv-page" id="nv-main">
-        <header class="nv-header">
-            <h1 class="nv-title">Hamam Ritüelleri</h1>
+    <main id="nv-main" class="nv-category-main">
 
-            <div class="nv-controls">
-                <label for="nvSearch" class="sr-only">Ritüel ara</label>
-                <input id="nvSearch" class="nv-search" type="search"
-                    placeholder="Ritüel ara (ör. köpük, kese, osmanlı)..." autocomplete="off" />
-                <div id="nvChips" class="nv-chips" aria-label="Kategoriler"></div>
+        <!-- VIDEO HERO -->
+        <section class="nv-hero-video">
+            <div class="nv-video-wrapper">
+                <!-- LIGHTHOUSE TEST: Video devre dışı
+                <iframe class="nv-yt-video" title="Hamam Atmosferi"
+                    src="https://www.youtube.com/embed/L_LUpnjgPso?autoplay=1&mute=1&loop=1&playlist=L_LUpnjgPso&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+                </iframe>
+                -->
+                <div class="nv-video-overlay"></div>
             </div>
-        </header>
+            <div class="nv-hero-content">
+                <span class="nv-kicker">TRADITIONAL</span>
+                <h1 class="nv-hero-title">Hamam Ritüelleri</h1>
+                <p class="nv-hero-subtitle">Osmanlı geleneğinden ilham alan arınma ve yenilenme ritüelleri.</p>
+            </div>
+            <span class="nv-scroll-indicator">Keşfet</span>
+        </section>
 
-        <div id="nvList" class="nv-list" aria-live="polite"></div>
+        <!-- SEARCH & CHIPS -->
+        <div class="nv-container nv-category-header">
+            <div class="nv-controls reveal-on-scroll reveal-delay-1">
+                <input id="nvSearch" class="nv-search" type="search" placeholder="Ritüel ara..." autocomplete="off">
+
+                <div id="nvChips" class="nv-chips">
+                    <!-- Rendered by Engine -->
+                </div>
+            </div>
+        </div>
+
+        <!-- LIST CONTAINER -->
+        <div class="nv-container">
+            <div id="nvList" class="nv-list reveal-on-scroll reveal-delay-2">
+                <!-- Rendered by Category Engine -->
+            </div>
+        </div>
+
     </main>
 
     <!-- FOOTER -->
     <div id="footer-container"></div>
 
-    <!-- DATA + UI -->
-    <script src="../../assets/js/hammam-data.js"></script>
-    <script src="../../assets/js/hammam-ui.js"></script>
+    <!-- DATA + ENGINE -->
+    <script src="/assets/js/core_data_loader.js"></script>
+    <script src="/assets/js/category-engine.js"></script>
 
-    <!-- COMPONENT LOADER -->
+    <!-- LOADER -->
     <script src="/assets/js/loader.js"></script>
+
+    <!-- PREMIUM CARD EFFECTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    <script src="/assets/js/card-effects.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             if (typeof loadComp === "function") {
                 loadComp("/components/navbar.html", "navbar-container");
                 loadComp("/components/footer.html", "footer-container");
-            } else {
-                console.warn("loader.js yüklenmedi");
             }
-
-            // Preloader kapat
-            setTimeout(() => {
-                const p = document.getElementById("preloader");
-                if (p) p.classList.add("hidden");
-            }, 600);
         });
     </script>
 </body>

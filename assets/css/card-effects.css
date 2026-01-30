@@ -1,0 +1,273 @@
+/* =========================================
+   SANTIS PREMIUM CARD EFFECTS v1.0
+   Features: Glassmorphism, Gold Glow, 3D Tilt, Spotlight
+   ========================================= */
+
+/* --- 1. CSS CUSTOM PROPERTIES --- */
+:root {
+    --gold-primary: #D4AF37;
+    --gold-soft: rgba(212, 175, 55, 0.15);
+    --gold-glow: rgba(212, 175, 55, 0.4);
+    --gold-border: rgba(212, 175, 55, 0.3);
+    --glass-bg: rgba(15, 20, 29, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-border-hover: rgba(255, 255, 255, 0.15);
+    --spotlight-size: 250px;
+}
+
+/* --- 2. GLASSMORPHISM BASE --- */
+.nv-card,
+.nv-card-service,
+.nv-card-product {
+    position: relative;
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition:
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.4s ease,
+        border-color 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+/* --- 3. GOLD GLOW ON HOVER --- */
+.nv-card:hover,
+.nv-card-service:hover,
+.nv-card-product:hover {
+    border-color: var(--gold-border);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 0 1px var(--gold-border),
+        0 0 40px var(--gold-soft),
+        0 0 80px rgba(212, 175, 55, 0.1);
+    transform: translateY(-8px) scale(1.02);
+}
+
+/* --- 4. SPOTLIGHT EFFECT (Mouse Follow) --- */
+.nv-card::before,
+.nv-card-service::before,
+.nv-card-product::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(var(--spotlight-size) circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            var(--gold-soft) 0%,
+            transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.nv-card:hover::before,
+.nv-card-service:hover::before,
+.nv-card-product:hover::before {
+    opacity: 1;
+}
+
+/* --- 5. SHIMMER EFFECT --- */
+.nv-card::after,
+.nv-card-service::after,
+.nv-card-product::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.05),
+            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0.05),
+            transparent);
+    transform: skewX(-20deg);
+    transition: left 0.8s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.nv-card:hover::after,
+.nv-card-service:hover::after,
+.nv-card-product:hover::after {
+    left: 150%;
+}
+
+/* --- 6. INNER CONTENT Z-INDEX FIX --- */
+.nv-card>*,
+.nv-card-service>*,
+.nv-card-product>* {
+    position: relative;
+    z-index: 3;
+}
+
+/* --- 7. IMAGE ENHANCEMENT --- */
+.nv-card-img-box,
+.nv-service-img-box,
+.nv-product-img-box {
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+}
+
+.nv-card-img-box img,
+.nv-service-img-box img,
+.nv-product-img-box img {
+    transition:
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.4s ease;
+    filter: brightness(0.9) saturate(1.1);
+}
+
+.nv-card:hover .nv-card-img-box img,
+.nv-card-service:hover .nv-service-img-box img,
+.nv-card-product:hover .nv-product-img-box img {
+    transform: scale(1.08);
+    filter: brightness(1) saturate(1.2);
+}
+
+/* --- 8. 3D TILT SUPPORT (via vanilla-tilt.js) --- */
+.nv-card[data-tilt],
+.nv-card-service[data-tilt],
+.nv-card-product[data-tilt] {
+    transform-style: preserve-3d;
+}
+
+/* Glare overlay style from vanilla-tilt */
+.js-tilt-glare {
+    border-radius: 20px;
+}
+
+/* --- 9. TITLE & CONTENT PARALLAX DEPTH --- */
+.nv-card .nv-title,
+.nv-card-service .nv-title,
+.nv-card .nv-kicker {
+    transform: translateZ(30px);
+    transition: transform 0.4s ease;
+}
+
+.nv-card:hover .nv-title,
+.nv-card-service:hover .nv-title {
+    transform: translateZ(50px);
+}
+
+/* --- 10. TIER BADGE ENHANCEMENT --- */
+.nv-tier-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 6px 14px;
+    background: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold-primary);
+    z-index: 10;
+}
+
+/* --- 11. PRICE TAG GLOW --- */
+.nv-card-price,
+.nv-price {
+    color: var(--gold-primary);
+    font-weight: 600;
+    text-shadow: 0 0 20px var(--gold-soft);
+}
+
+/* --- 12. CTA BUTTON ENHANCEMENT --- */
+.nv-card .nv-btn,
+.nv-card-service .nv-btn {
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    border: 1px solid var(--gold-primary);
+    color: var(--gold-primary);
+    padding: 12px 28px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: all 0.3s ease;
+}
+
+.nv-card .nv-btn::before,
+.nv-card-service .nv-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    z-index: -1;
+}
+
+.nv-card .nv-btn:hover,
+.nv-card-service .nv-btn:hover {
+    color: #0a0c10;
+    border-color: var(--gold-primary);
+}
+
+.nv-card .nv-btn:hover::before,
+.nv-card-service .nv-btn:hover::before {
+    transform: scaleX(1);
+}
+
+/* --- 13. ACCESSIBILITY: REDUCED MOTION --- */
+@media (prefers-reduced-motion: reduce) {
+
+    .nv-card,
+    .nv-card-service,
+    .nv-card-product,
+    .nv-card::before,
+    .nv-card::after,
+    .nv-card-service::before,
+    .nv-card-service::after,
+    .nv-card img {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* --- 14. MOBILE OPTIMIZATION --- */
+@media (max-width: 768px) {
+
+    .nv-card:hover,
+    .nv-card-service:hover,
+    .nv-card-product:hover {
+        transform: translateY(-4px) scale(1.01);
+    }
+
+    .nv-card::before,
+    .nv-card-service::before,
+    .nv-card-product::before {
+        display: none;
+        /* Spotlight disabled on mobile */
+    }
+
+    :root {
+        --spotlight-size: 150px;
+    }
+}
+
+/* --- 15. CARD GRID ENHANCEMENT --- */
+.nv-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 32px;
+    padding: 20px 0;
+}
+
+@media (max-width: 768px) {
+    .nv-card-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
