@@ -10,20 +10,20 @@ const SANTIS_ROUTES = {
     // ═══════════════════════════════════════════════════════════════
     // ANA SAYFALAR
     // ═══════════════════════════════════════════════════════════════
-    HOME: "/index.html",
-    GALLERY: "/gallery.html",
-    PRODUCTS: "/products.html",
-    BOOKING: "/booking.html",
-    HOTEL: "/hotel.html",
-    BLOG_DETAIL: "/blog-detail.html",
+    HOME: "index.html",
+    GALLERY: "gallery.html",
+    PRODUCTS: "products.html",
+    BOOKING: "booking.html",
+    HOTEL: "hotel.html",
+    BLOG_DETAIL: "blog-detail.html",
 
     // ═══════════════════════════════════════════════════════════════
     // KATEGORİ SAYFALARI
     // ═══════════════════════════════════════════════════════════════
     CATEGORY: {
-        HAMAM: "/tr/hamam/index.html",
-        MASSAGE: "/tr/masajlar/index.html",
-        SKINCARE: "/tr/cilt-bakimi/index.html"
+        HAMAM: "tr/hamam/index.html",
+        MASSAGE: "tr/masajlar/index.html",
+        SKINCARE: "tr/cilt-bakimi/index.html"
     },
 
     // ═══════════════════════════════════════════════════════════════
@@ -40,7 +40,7 @@ const SANTIS_ROUTES = {
             console.warn("[ROUTES] serviceDetail: slug parametresi boş!");
             return SANTIS_ROUTES.HOME;
         }
-        return `/service-detail.html?slug=${encodeURIComponent(slug)}`;
+        return `service-detail.html?slug=${encodeURIComponent(slug)}`;
     },
 
     /**

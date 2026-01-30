@@ -19,12 +19,12 @@
   <!-- Optimization: Preload & Prefetch -->
   <link rel="preload" as="style"
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap">
-  <link rel="prefetch" href="/booking.html">
-  <link rel="prefetch" href="/tr/hamam/index.html">
+  <link rel="prefetch" href="booking.html">
+  <link rel="prefetch" href="tr/hamam/index.html">
 
   <!-- SEO & Analytics -->
-  <link rel="manifest" href="/manifest.json">
-  <link rel="apple-touch-icon" href="/assets/img/icons/icon-192x192.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="assets/img/icons/icon-192x192.png">
   <script src="assets/js/perf-head.js"></script>
 
   <!-- UNIFIED MASTER STYLE (v5.0) -->
@@ -39,13 +39,13 @@
   <!-- <link rel="stylesheet" href="assets/css/booking-wizard.css"> -->
   <!-- <link rel="stylesheet" href="assets/css/intro.css"> -->
 
-  <script src="/assets/js/routes.js" defer></script>
-  <script src="/assets/js/url-normalizer.js" defer></script>
-  <script src="/assets/js/language-switcher.js" defer></script>
-  <script src="/assets/js/seo-engine.js" defer></script>
-  <script src="/assets/js/seo-meta.js" defer></script>
-  <script src="/assets/js/animations.js" defer></script>
-  <script src="/assets/js/slug.js" defer></script>
+  <script src="assets/js/routes.js" defer></script>
+  <script src="assets/js/url-normalizer.js" defer></script>
+  <script src="assets/js/language-switcher.js" defer></script>
+  <script src="assets/js/seo-engine.js" defer></script>
+  <script src="assets/js/seo-meta.js" defer></script>
+  <script src="assets/js/animations.js" defer></script>
+  <script src="assets/js/slug.js" defer></script>
 </head>
 
 <body class="editorial-mode">
@@ -115,7 +115,7 @@
       <div class="nv-card-grid" id="grid-hammam"></div>
 
       <div class="nv-cta-container">
-        <a href="/tr/hamam/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
+        <a href="tr/hamam/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
       </div>
     </div>
 
@@ -128,7 +128,7 @@
       <div class="nv-card-grid" id="grid-massages"></div>
 
       <div class="nv-cta-container">
-        <a href="/tr/masajlar/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
+        <a href="tr/masajlar/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
       </div>
     </div>
 
@@ -141,7 +141,7 @@
       <div class="nv-card-grid" id="grid-skincare"></div>
 
       <div class="nv-cta-container">
-        <a href="/tr/cilt-bakimi/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
+        <a href="tr/cilt-bakimi/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
       </div>
     </div>
 
@@ -157,7 +157,7 @@
       </div>
 
       <div class="nv-cta-container">
-        <a href="/products.html" class="nv-btn nv-btn-outline">TÜM KOLEKSİYONU İNCELE</a>
+        <a href="products.html" class="nv-btn nv-btn-outline">TÜM KOLEKSİYONU İNCELE</a>
       </div>
     </div>
 
@@ -197,19 +197,19 @@
 
   <!-- SCRIPTS -->
   <!-- 1. Data Layer -->
-  <script src="/assets/js/hammam-data.js"></script>
-  <script src="/assets/js/massage-data.js"></script>
-  <script src="/assets/js/skincare-data.js"></script>
-  <script src="/assets/js/products-data.js"></script>
+  <script src="assets/js/hammam-data.js"></script>
+  <script src="assets/js/massage-data.js"></script>
+  <script src="assets/js/skincare-data.js"></script>
+  <script src="assets/js/products-data.js"></script>
 
   <!-- 2. Logic -->
-  <script src="/assets/js/loader.js"></script>
-  <script src="/assets/js/booking-wizard.js"></script>
-  <script src="/assets/js/seo-schema.js"></script>
+  <script src="assets/js/loader.js"></script>
+  <script src="assets/js/booking-wizard.js"></script>
+  <script src="assets/js/seo-schema.js"></script>
 
   <!-- 3. Premium Card Effects -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-  <script src="/assets/js/card-effects.js"></script>
+  <script src="assets/js/card-effects.js"></script>
 
   <script>
     /* SANTIS UNIFIED RENDER ENGINE v5.0 */
@@ -245,8 +245,8 @@
         // Dynamic Link Logic
         // Product cards go to products.html, services go to detail engine
         let itemLink = item.category && (item.category === 'home-spa' || item.category === 'skincare') && !item.slug
-          ? '/products.html'
-          : "/service-detail.html?slug=" + encodeURIComponent(item.slug || item.id);
+          ? 'products.html'
+          : "service-detail.html?slug=" + encodeURIComponent(item.slug || item.id);
 
         // Use Product HTML structure if it's a product
         if (item.tier === 'ÜRÜN') {
@@ -281,8 +281,8 @@
     // Init
     document.addEventListener('DOMContentLoaded', () => {
       // Load Components
-      loadComp("/components/navbar.html", "navbar-container");
-      loadComp("/components/footer.html", "footer-container");
+      loadComp("components/navbar.html", "navbar-container");
+      loadComp("components/footer.html", "footer-container");
 
       // Wizard Init
       if (typeof BOOKING_WIZARD !== 'undefined') BOOKING_WIZARD.init();

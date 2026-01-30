@@ -20,11 +20,11 @@
         // Bu map, JavaScript devre dışı kaldığında fallback olarak kalır
 
         // Eski root URL'ler (ileride kullanılabilir)
-        "/hamam.html": "/tr/hamam/index.html",
-        "/massage.html": "/tr/masajlar/index.html",
-        "/skincare.html": "/tr/cilt-bakimi/index.html",
-        "/masaj.html": "/tr/masajlar/index.html",
-        "/cilt-bakimi.html": "/tr/cilt-bakimi/index.html"
+        "/hamam.html": "tr/hamam/index.html",
+        "/massage.html": "tr/masajlar/index.html",
+        "/skincare.html": "tr/cilt-bakimi/index.html",
+        "/masaj.html": "tr/masajlar/index.html",
+        "/cilt-bakimi.html": "tr/cilt-bakimi/index.html"
     };
 
     // ═══════════════════════════════════════════════════════════════

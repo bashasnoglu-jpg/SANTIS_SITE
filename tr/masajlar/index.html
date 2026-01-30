@@ -14,16 +14,16 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="prefetch" href="/booking.html">
+    <link rel="prefetch" href="../../booking.html">
 
     <!-- UNIFIED MASTER STYLE -->
-    <link rel="stylesheet" href="/assets/css/style.css" />
-    <link rel="stylesheet" href="/assets/css/card-effects.css" />
-    <link rel="stylesheet" href="/assets/css/video-hero.css" />
-    <link rel="stylesheet" href="/assets/css/animations.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <link rel="stylesheet" href="../../assets/css/card-effects.css" />
+    <link rel="stylesheet" href="../../assets/css/video-hero.css" />
+    <link rel="stylesheet" href="../../assets/css/animations.css" />
 
-    <script src="/assets/js/animations.js" defer></script>
-    <script src="/assets/js/language-switcher.js" defer></script>
+    <script src="../../assets/js/animations.js" defer></script>
+    <script src="../../assets/js/language-switcher.js" defer></script>
 </head>
 
 <body class="editorial-mode">
@@ -95,14 +95,14 @@
 
     <!-- SCRIPTS -->
     <!-- 1. Data Layer -->
-    <script src="/assets/js/core_data_loader.js"></script>
+    <script src="../../assets/js/core_data_loader.js"></script>
 
     <!-- 2. Loader -->
-    <script src="/assets/js/loader.js"></script>
+    <script src="../../assets/js/loader.js"></script>
 
     <!-- 3. Premium Card Effects -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-    <script src="/assets/js/card-effects.js"></script>
+    <script src="../../assets/js/card-effects.js"></script>
 
     <script>
         /* SANTIS MASSAGE PAGE RENDER ENGINE */
@@ -126,12 +126,12 @@
             });
 
             grid.innerHTML = list.map((item, index) => {
-                const itemLink = `/service-detail.html?slug=${encodeURIComponent(item.slug || item.id)}`;
+                const itemLink = `../../service-detail.html?slug=${encodeURIComponent(item.slug || item.id)}`;
 
                 return `
                     <article class="nv-card curtain-reveal" style="animation-delay: ${index * 0.08}s">
                         <div class="nv-card-img-box">
-                            <img src="${item.img || '/assets/img/cards/massage.png'}" alt="${item.title}" class="nv-card-img" loading="lazy" decoding="async" width="600" height="400">
+                            <img src="${item.img ? '../../' + item.img : '../../assets/img/cards/massage.png'}" alt="${item.title}" class="nv-card-img" loading="lazy" decoding="async" width="600" height="400">
                         </div>
                         <div class="nv-card-body">
                             <span class="nv-kicker">${item.tier || item.category || 'MASAJ'}</span>
@@ -179,8 +179,8 @@
             }
             // Load Components
             if (typeof loadComp === 'function') {
-                loadComp("/components/navbar.html", "navbar-container");
-                loadComp("/components/footer.html", "footer-container");
+                loadComp("../../components/navbar.html", "navbar-container");
+                loadComp("../../components/footer.html", "footer-container");
             }
 
             // Render Massage Grid

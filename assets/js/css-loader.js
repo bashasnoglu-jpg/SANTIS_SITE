@@ -15,32 +15,32 @@
     const CSS_FILES = {
         // Kritik - Hemen yükle
         critical: [
-            '/assets/css/style.css'
+            'assets/css/style.css'
         ],
 
         // Core - Sayfa yağlamada yükle
         core: [
-            '/assets/css/components.css',
-            '/assets/css/card-effects.css'
+            'assets/css/components.css',
+            'assets/css/card-effects.css'
         ],
 
         // Lazy - Kullanıldığında yükle (defer)
         lazy: [
-            '/assets/css/animations.css',
-            '/assets/css/video-hero.css',
-            '/assets/css/moods.css',
-            '/assets/css/intro.css',
-            '/assets/css/booking-wizard.css'
+            'assets/css/animations.css',
+            'assets/css/video-hero.css',
+            'assets/css/moods.css',
+            'assets/css/intro.css',
+            'assets/css/booking-wizard.css'
         ],
 
         // Legacy - Geriye dönük uyumluluk (kaldırılabilir)
         legacy: [
-            '/assets/css/editorial.css',
-            '/assets/css/editorial-zigzag.css',
-            '/assets/css/luxury-cards.css',
-            '/assets/css/santis-cards.css',
-            '/assets/css/detail-split.css',
-            '/assets/css/reviews.css'
+            'assets/css/editorial.css',
+            'assets/css/editorial-zigzag.css',
+            'assets/css/luxury-cards.css',
+            'assets/css/santis-cards.css',
+            'assets/css/detail-split.css',
+            'assets/css/reviews.css'
         ]
     };
 
@@ -90,17 +90,17 @@
 
         // Detay sayfası
         if (path.includes('service-detail') || path.includes('detail')) {
-            loadCSS('/assets/css/detail-split.css');
+            loadCSS('assets/css/detail-split.css');
         }
 
         // Kategori sayfaları
         if (path.includes('/tr/hamam') || path.includes('/tr/masaj') || path.includes('/tr/cilt')) {
-            loadCSS('/assets/css/editorial-zigzag.css');
+            loadCSS('assets/css/editorial-zigzag.css');
         }
 
         // Booking
         if (path.includes('booking')) {
-            loadCSS('/assets/css/booking-wizard.css');
+            loadCSS('assets/css/booking-wizard.css');
         }
     }
 

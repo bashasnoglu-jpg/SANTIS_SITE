@@ -18,8 +18,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="manifest" href="/manifest.json">
-    <script src="/assets/js/language-switcher.js"></script>
+    <link rel="manifest" href="manifest.json">
+    <script src="assets/js/language-switcher.js"></script>
 </head>
 
 <body class="editorial-mode">
@@ -73,8 +73,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Components Init
             if (typeof loadComp === "function") {
-                loadComp("/components/navbar.html", "navbar-container");
-                loadComp("/components/footer.html", "footer-container");
+                loadComp("components/navbar.html", "navbar-container");
+                loadComp("components/footer.html", "footer-container");
             }
         });
     </script>
