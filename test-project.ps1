@@ -13,7 +13,8 @@ function Test-Dosya {
     param($Yol)
     if (Test-Path $Yol) {
         Write-Host "[OK] Bulundu: $Yol" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Host "[HATA] Eksik: $Yol" -ForegroundColor Red
     }
 }
@@ -24,7 +25,8 @@ function Test-Icerik {
     $content = Get-Content $Yol -Raw -ErrorAction SilentlyContinue
     if ($content -like "*$Metin*") {
         Write-Host "[OK] '$Yol' içinde bulundu: '$Metin'" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Host "[HATA] '$Yol' içinde EKSİK: '$Metin'" -ForegroundColor Red
     }
 }
@@ -36,11 +38,28 @@ Write-Host "1. Dosya Yapısı Kontrol ediliyor..." -ForegroundColor Yellow
 Test-Dosya "index.html"
 Test-Dosya "assets\css\style.css"
 Test-Dosya "assets\js\app.js"
+Test-Dosya "assets\js\core_data_loader.js"
 Test-Dosya "tr"
 Test-Dosya "en"
 
-# 2. İçerik ve Standartlar
-Write-Host "`n2. İçerik ve Standartlar taranıyor..." -ForegroundColor Yellow
+# 2. Legacy Dosya Kontrolü (Olulmamalı)
+Write-Host "`n2. Eski Dosyalar Kontrol ediliyor..." -ForegroundColor Yellow
+$legacyFiles = @(
+    "assets\js\hammam-data.js",
+    "assets\js\massage-data.js",
+    "assets\js\skincare-data.js"
+)
+foreach ($file in $legacyFiles) {
+    if (Test-Path "$root\$file") {
+        Write-Host "[UYARI] Eski dosya silinmemiş: $file" -ForegroundColor Yellow
+    }
+    else {
+        Write-Host "[OK] Eski dosya temizlendi: $file" -ForegroundColor Green
+    }
+}
+
+# 3. İçerik ve Standartlar
+Write-Host "`n3. İçerik ve Standartlar taranıyor..." -ForegroundColor Yellow
 Test-Icerik "index.html" 'id="nv-header"'
 Test-Icerik "index.html" 'id="nv-main"'
 Test-Icerik "assets\js\app.js" 'NEUROVA – GLOBAL NAVIGATION v1.0'
@@ -81,27 +100,30 @@ if ($Server) {
                 $ext = [IO.Path]::GetExtension($localPath).ToLower()
                 switch ($ext) {
                     ".html" { $response.ContentType = "text/html; charset=utf-8" }
-                    ".css"  { $response.ContentType = "text/css" }
-                    ".js"   { $response.ContentType = "application/javascript" }
+                    ".css" { $response.ContentType = "text/css" }
+                    ".js" { $response.ContentType = "application/javascript" }
                     ".json" { $response.ContentType = "application/json" }
-                    ".jpg"  { $response.ContentType = "image/jpeg" }
-                    ".png"  { $response.ContentType = "image/png" }
-                    ".svg"  { $response.ContentType = "image/svg+xml" }
+                    ".jpg" { $response.ContentType = "image/jpeg" }
+                    ".png" { $response.ContentType = "image/png" }
+                    ".svg" { $response.ContentType = "image/svg+xml" }
                     Default { $response.ContentType = "application/octet-stream" }
                 }
                 
                 $response.OutputStream.Write($bytes, 0, $bytes.Length)
                 $response.StatusCode = 200
-            } else {
+            }
+            else {
                 $response.StatusCode = 404
             }
             $response.Close()
         }
-    } catch {
-         Write-Host "Sunucu hatası: $_" -ForegroundColor Red
-         Write-Host "İpucu: PowerShell'i Yönetici olarak çalıştırmanız gerekebilir veya port meşgul." -ForegroundColor Gray
     }
-} else {
+    catch {
+        Write-Host "Sunucu hatası: $_" -ForegroundColor Red
+        Write-Host "İpucu: PowerShell'i Yönetici olarak çalıştırmanız gerekebilir veya port meşgul." -ForegroundColor Gray
+    }
+}
+else {
     Write-Host "`n[BİLGİ] Siteyi tarayıcıda açmak için şu komutu kullanın:" -ForegroundColor Cyan
     Write-Host ".\test-project.ps1 -Server" -ForegroundColor White
 }
