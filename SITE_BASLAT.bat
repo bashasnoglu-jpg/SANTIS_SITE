@@ -1,0 +1,6 @@
+@echo off
+echo NEUROVA Site Onizleme Baslatiliyor...
+echo.
+echo Lutfen bekleyin...
+powershell -ExecutionPolicy Bypass -File ".\test-project.ps1" -Server
+pause
