@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamam Detay | Santis Editorial</title>
+    <!-- Base Styles -->
+    <base href="../../">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/moods.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/editorial.css"> <!-- MAGAZINE COVER STYLE -->
+    <link rel="stylesheet" href="../../assets/css/editorial-zigzag.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="editorial-mode">
+
+    <!-- Navbar Wrapper -->
+    <nav class="navbar-container" style="background:transparent; position:absolute; top:0; width:100%; z-index:100;">
+        <div class="navbar-inner">
+            <a href="index.html" class="logo-text">SANTIS</a>
+            <div class="nav-actions">
+                <a href="tr/hammam/index.html" class="nav-link">← KOLEKSİYONA DÖN</a>
+                <span class="cart-icon">SEPET (<span class="cart-count">0</span>)</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. MAGAZINE HERO -->
+    <header class="detail-hero">
+        <div class="z-visual" style="position:absolute; inset:0; z-index:0;">
+            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200" alt="Jet Lag Recovery"
+                style="width:100%; height:100%; object-fit:cover; opacity:0.6; filter:grayscale(1) contrast(1.1);">
+            <div style="position:absolute; inset:0; background:linear-gradient(to top, #050505 10%, transparent);">
+            </div>
+        </div>
+
+        <div class="nv-container detail-hero-content">
+            <span class="nv-kicker">RECOVERY RITUAL • 50 MIN</span>
+            <h1 class="z-title" style="margin-left:0; font-size:clamp(60px,8vw,120px);"><span
+                    class="nv-ed-hero-title">Jet Lag<br>Recovery</span></h1>
+            <p class="z-desc" style="font-size:24px; color:#fff; max-width:600px;">
+                Uzun seyahatlerin izlerini silin. Ödem atıcı ve canlandırıcı etkili bu özel ritüel ile biyolojik
+                saatinizi yeniden ayarlayın ve güne enerjik başlayın.
+            </p>
+        </div>
+    </header>
+
+    <!-- 2. CONTENT GRID (2-COL) -->
+    <section class="nv-container detail-grid" style="margin-bottom:120px;">
+
+        <!-- Left: Story & Flow -->
+        <div class="main-col">
+            <h3 class="nv-kicker" style="color:#888; margin-bottom:20px;">RİTÜELİN ÖZÜ</h3>
+            <p class="z-desc">
+                Uçak yolculuklarının yarattığı şişkinlik ve yorgunluk hissine son. Lenfatik drenaj etkili hafif masaj ve
+                okaliptüs aromalı köpük terapisi, dolaşım sisteminizi uyararak vücuttaki durgunluğu atar. Zihni açar,
+                bedeni hafifletir.
+            </p>
+
+            <div class="pull-quote">
+                "Bulutların üzerinden yeryüzüne yumuşak bir iniş yapın."
+            </div>
+
+            <h3 class="nv-kicker" style="color:#888; margin:60px 0 20px;">AKIŞ (50 DK)</h3>
+            <ul class="editorial-list"
+                style="list-style:none; padding:0; color:#ccc; font-family:'Inter',sans-serif; font-size:16px; line-height:2;">
+                <li style="border-bottom:1px solid rgba(255,255,255,0.1); padding:10px 0;">1. Buhar Odası & Mentol (10
+                    dk)</li>
+                <li style="border-bottom:1px solid rgba(255,255,255,0.1); padding:10px 0;">2. Canlandırıcı Kese (15 dk)
+                </li>
+                <li style="border-bottom:1px solid rgba(255,255,255,0.1); padding:10px 0;">3. Aromaterapik Köpük Masajı
+                    (25 dk)</li>
+            </ul>
+        </div>
+
+        <!-- Right: Meta & Action -->
+        <aside class="aside-col" style="position:sticky; top:120px; align-self:start;">
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); padding:40px;">
+                <div style="margin-bottom:30px;">
+                    <span class="nv-kicker" style="display:block; margin-bottom:5px;">SÜRE</span>
+                    <span style="font-family:var(--nv-font-editorial); font-size:32px;">50 dk</span>
+                </div>
+                <div style="margin-bottom:30px;">
+                    <span class="nv-kicker" style="display:block; margin-bottom:5px;">FİYAT</span>
+                    <span style="font-family:var(--nv-font-editorial); font-size:32px; color:var(--nv-gold);">70
+                        €</span>
+                </div>
+                <div style="margin-bottom:40px;">
+                    <span class="nv-kicker" style="display:block; margin-bottom:5px;">ODAK</span>
+                    <span style="font-family:'Inter',sans-serif; color:#ccc;">Canlanma • Ödem Atma</span>
+                </div>
+
+                <button class="nv-btn nv-btn-primary" onclick="SHOP.addItem('svc_hammam_jetlag')"
+                    style="width:100%; margin-bottom:15px;">
+                    SEPETE EKLE
+                </button>
+                <a href="https://wa.me/905348350169" target="_blank" class="nv-btn nv-btn-ghost"
+                    style="width:100%; text-align:center; display:block;">
+                    CONCIERGE İLE GÖRÜŞ
+                </a>
+            </div>
+        </aside>
+
+    </section>
+
+    <!-- 3. UP NEXT (Mini ZigZag) -->
+    <section class="nv-container"
+        style="padding-bottom:120px; border-top:1px solid rgba(255,255,255,0.1); padding-top:80px;">
+        <h3 class="nv-kicker" style="text-align:center; margin-bottom:60px;">SIRADAKİ RİTÜEL</h3>
+        <div class="editorial-zigzag-list">
+            <article class="zigzag-item">
+                <div class="z-visual">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=800" class="z-img"
+                        alt="Next">
+                </div>
+                <div class="z-content">
+                    <span class="z-kicker">BESTSELLER • 30 DK</span>
+                    <h2 class="z-title" style="font-size:48px;">Peeling & Foam</h2>
+                    <a href="tr/hammam/peeling-foam-massage.html" class="nv-btn-underline">KEŞFET</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+        style="border-top:1px solid rgba(255,255,255,0.1); padding:40px 0; text-align:center; color:#666; font-size:11px; letter-spacing:1px;">
+        &copy; 2024 SANTIS CLUB. QUIET LUXURY.
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/santis-core.js"></script>
+    <script src="assets/js/cart.js"></script>
+
+</body>
+
+</html>

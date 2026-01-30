@@ -905,22 +905,21 @@ function renderServiceResults() {
 
   for (const svc of services) {
 
-    const card = document.createElement("div");
-
-    card.className = "card";
-
-    const name = svc.name?.[state.lang] || svc.name?.tr || svc.id;
-    const desc = svc.desc?.[state.lang] || svc.desc?.tr || "";
-
-
     // 3. Render Card
-    const card = document.createElement("div");
-    card.className = "svc-card lux-card-surface";
-    card.innerHTML = `
+    // 3. Render Card
+    const serviceCard = document.createElement("div");
+    serviceCard.className = "svc-card lux-card-surface";
+    const name = trText(svc.name);
+    const desc = trText(svc.desc);
+
+    // Ensure slug
+    const targetSlug = ensureSlug(svc);
+
+    serviceCard.innerHTML = `
       <div class="svc-card-content">
-        <div class="svc-card-title">${trText(svc.name)}</div>
+        <div class="svc-card-title">${name}</div>
         <div class="svc-card-desc" style="color:var(--text-muted); font-size:14px; margin-bottom:10px;">
-           ${trText(svc.desc)}
+           ${desc}
         </div>
         <div class="svc-card-meta">
           <span>⏱ ${svc.duration} dk</span>
@@ -933,16 +932,17 @@ function renderServiceResults() {
     `;
 
     // Event
-    const btn = card.querySelector("[data-book]");
+    const btn = serviceCard.querySelector("[data-book]");
     if (btn) btn.onclick = (e) => {
       e.stopPropagation();
       state.selectedServiceId = svc.id;
       openBookingModal();
-      window.location.href = `service-detail.html?slug=${encodeURIComponent(targetSlug)}`;
-
+      // Optional: Redirect if needed, or just open modal
+      // window.location.href = `service-detail.html?slug=${encodeURIComponent(targetSlug)}`;
     };
 
-    grid.appendChild(card);
+    // Append
+    if (listEl) listEl.appendChild(serviceCard); // Use listEl instead of grid which was undefined in this scope if copied from rendering logic elsewhere
 
   }
 
