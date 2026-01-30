@@ -42,58 +42,56 @@
 
     async function loadData() {
         try {
+            // Absolute path to ensure it works from subdirectories
             const resp = await fetch('/data/site_content.json');
             if (!resp.ok) throw new Error("JSON Fetch Failed: " + resp.status);
             const data = await resp.json();
 
-            if (data.catalogs) {
-                // HAMMAM
-                if (data.catalogs.hammam) {
-                    window.NV_HAMMAM = data.catalogs.hammam.items || [];
-                    window.NV_HAMMAM_CATEGORIES = data.catalogs.hammam.categories || {};
-                    window.NV_HAMMAM_TIERS = data.catalogs.hammam.tiers || {};
-                    console.log("✅ NV_HAMMAM Hydrated (" + window.NV_HAMMAM.length + " items)");
-                    // Placeholder Guard
-                    window.NV_HAMMAM.forEach(item => {
-                        const img = new Image();
-                        img.onerror = () => item.img = "/assets/img/luxury-placeholder.webp";
-                        img.src = item.img;
-                    });
-                }
+            // Handle structure: data.global.services (Object) -> Arrays
+            // or data.global.hammam (Array), etc. if mixed.
 
-                // MASSAGES
-                if (data.catalogs.massages) {
-                    window.NV_MASSAGES = data.catalogs.massages.items || [];
-                    window.NV_MASSAGE_CATEGORIES = data.catalogs.massages.categories || {};
-                    window.NV_MASSAGE_TIERS = data.catalogs.massages.tiers || {};
-                    console.log("✅ NV_MASSAGES Hydrated (" + window.NV_MASSAGES.length + " items)");
-                    // Placeholder Guard
-                    window.NV_MASSAGES.forEach(item => {
-                        const img = new Image();
-                        img.onerror = () => item.img = "/assets/img/luxury-placeholder.webp";
-                        img.src = item.img;
-                    });
-                }
+            // We'll focus on data.global.services which seems to be the source of truth in site_content.json
+            const globalData = data.global || {};
+            const servicesObj = globalData.services || {};
 
-                // SKINCARE
-                if (data.catalogs.skincare) {
-                    window.NV_SKINCARE = data.catalogs.skincare.items || [];
-                    window.NV_SKINCARE_CATEGORY_LABELS = data.catalogs.skincare.categories || {};
-                    window.NV_SKINCARE_CATEGORY_ORDER = data.catalogs.skincare.order || [];
-                    window.NV_SKINCARE_PRICE_LABEL = function (price) {
-                        return !price ? "Fiyat sorunuz" : `${price}€`;
-                    };
-                    console.log("✅ NV_SKINCARE Hydrated (" + window.NV_SKINCARE.length + " items)");
-                    // Placeholder Guard
-                    window.NV_SKINCARE.forEach(item => {
-                        const img = new Image();
-                        img.onerror = () => item.img = "/assets/img/luxury-placeholder.webp";
-                        img.src = item.img;
-                    });
-                }
-            }
+            // Helper to get TR text
+            const tr = (val) => (val && val.tr) ? val.tr : (typeof val === 'string' ? val : "");
 
-            // Dispatch Event to notify Engines that wait for this event
+            const allServices = Object.values(servicesObj).map(svc => ({
+                id: svc.id || svc.slug,
+                slug: svc.slug || svc.id,
+                title: tr(svc.name),
+                desc: tr(svc.desc),
+                img: svc.img || "/assets/img/luxury-placeholder.webp", // Fallback
+                price: svc.price,
+                duration: svc.durationMin ? svc.durationMin + " dk" : "",
+                category: svc.categoryId,
+                tier: svc.badge || "", // Mapping badge to tier for UI chips? Or just use categoryId
+                tags: [] // Todo if tags exist
+            }));
+
+            // 1. HAMMAM
+            window.NV_HAMMAM = allServices.filter(s => s.category === 'hammam');
+            window.NV_HAMMAM_CATEGORIES = {}; // Todo if needed
+            console.log("✅ NV_HAMMAM Hydrated (" + window.NV_HAMMAM.length + " items)");
+
+            // 2. MASSAGES (Classic, Sports, Asian, Signature, Kids)
+            // Categories in site_content.json: classicMassages, sportsTherapy, asianMassages, ayurveda, signatureCouples, kidsFamily
+            const massageCats = ['classicMassages', 'sportsTherapy', 'asianMassages', 'ayurveda', 'signatureCouples', 'kidsFamily'];
+            window.NV_MASSAGES = allServices.filter(s => massageCats.includes(s.category));
+            console.log("✅ NV_MASSAGES Hydrated (" + window.NV_MASSAGES.length + " items)");
+
+            // 3. SKINCARE (faceSothys)
+            window.NV_SKINCARE = allServices.filter(s => s.category === 'faceSothys');
+            window.NV_SKINCARE_PRICE_LABEL = (p) => !p ? "Fiyat sorunuz" : `${p}€`;
+            console.log("✅ NV_SKINCARE Hydrated (" + window.NV_SKINCARE.length + " items)");
+
+            // Global Fallback Image handler for anything we missed
+            [...window.NV_HAMMAM, ...window.NV_MASSAGES, ...window.NV_SKINCARE].forEach(item => {
+                if (!item.img) item.img = "/assets/img/luxury-placeholder.webp";
+            });
+
+            // Dispatch Event
             window.dispatchEvent(new Event('NV_DATA_READY'));
 
         } catch (e) {

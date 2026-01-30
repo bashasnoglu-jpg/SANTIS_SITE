@@ -1720,7 +1720,7 @@ async function loadContent() {
 
 
 
-    const res = await fetch("data/site_content.json");
+    const res = await fetch("/data/site_content.json");
 
     // If fetch fails, jump to catch
 
