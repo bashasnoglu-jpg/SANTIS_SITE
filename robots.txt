@@ -1,23 +1,4 @@
-# Santis Club - Robots.txt
-# Updated: 2026-01-30
-
 User-agent: *
 Allow: /
 
-# CSS ve JS dosyalarına erişime izin ver (Googlebot rendering için gerekli)
-Allow: /assets/css/
-Allow: /assets/js/
-
-# Private/Admin alanlarını engelle
-Disallow: /backup/
-Disallow: /_KARANTINA_NEUROVA/
-Disallow: /scripts/
-Disallow: /tools/
-Disallow: /logs/
-
-# Dinamik parametre tekrarlarını engelle
-Disallow: /*?lang=
-Disallow: /*?hotel=*&lang=
-
-# Sitemap
 Sitemap: https://santisclub.com/sitemap.xml

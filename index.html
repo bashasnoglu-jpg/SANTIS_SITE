@@ -1,64 +1,38 @@
-﻿<!-- Cache Bust: 2026-01-29 20:45 -->
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Santis Club • Spa & Wellness</title>
-  <meta name="description"
-    content="Santis Club - Yalnızca yetişkinlere özel lüks spa, hamam ve masaj terapileri. Antalya'nın en seçkin well-being noktası.">
+  <meta name="description" content="Santis Club - Yalnızca yetişkinlere özel lüks spa, hamam ve masaj terapileri. Antalya'nın en seçkin well-being noktası.">
 
-  <!-- Preconnect & Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Optimization: Preload & Prefetch -->
-  <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap">
   <link rel="prefetch" href="booking.html">
   <link rel="prefetch" href="tr/hamam/index.html">
 
-  <!-- SEO & Analytics -->
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="assets/img/icons/icon-192x192.png">
   <script src="assets/js/perf-head.js"></script>
 
-  <!-- UNIFIED MASTER STYLE (v5.0) -->
   <link rel="stylesheet" href="assets/css/style.css">
-
-  <!-- Modules -->
-  <!-- Modules (Merged into style.css) -->
-  <!-- <link rel="stylesheet" href="assets/css/moods.css"> -->
-  <!-- <link rel="stylesheet" href="assets/css/booking-wizard.css"> -->
-  <!-- <link rel="stylesheet" href="assets/css/intro.css"> -->
-
 </head>
 
 <body class="editorial-mode">
 
-  <!-- PRELOADER -->
-  <div class="preloader" id="preloader">
+  <div class="preloader" id="preloader" style="display: none !important;">
     <div class="preloader-logo">Santis Club</div>
   </div>
 
-  <!-- NAVBAR -->
   <div id="navbar-container"></div>
 
   <main id="nv-main">
-
-    <!-- TIER 1: CINEMATIC VIDEO HERO -->
     <section class="nv-hero-video">
       <div class="nv-video-wrapper">
-        <!-- LIGHTHOUSE TEST: Video devre dışı
-        <iframe class="nv-yt-video" title="Santis Club Spa Atmosferi"
-          src="https://www.youtube.com/embed/lE6RYpe9IT0?autoplay=1&mute=1&loop=1&playlist=lE6RYpe9IT0&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
-          frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-        </iframe>
-        -->
+         <img src="assets/img/hero-general.webp" alt="Santis Club Spa" class="nv-hero-bg-img" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top:0; left:0; z-index: -1;">
         <div class="nv-video-overlay"></div>
       </div>
       <div class="nv-hero-content">
@@ -68,7 +42,6 @@
       <span class="nv-scroll-indicator">Keşfet</span>
     </section>
 
-    <!-- SIGNATURE SPOTLIGHT (Editorial Tier 1) -->
     <section class="nv-detail-layout nv-spotlight">
       <div class="nv-content-col">
         <span class="nv-kicker">SIGNATURE EXPERIENCE</span>
@@ -80,92 +53,69 @@
         <a href="service-detail.html?slug=osmanli-ritueli" class="nv-btn">RİTÜELİ İNCELE</a>
       </div>
       <div class="nv-visual-col curtain-reveal">
-        <img src="assets/img/cards/hammam.png" alt="Osmanlı Saray Ritüeli" class="w-100 img-rounded" width="800"
-          height="533" loading="lazy" decoding="async">
+        <img src="assets/img/cards/hammam.png" alt="Osmanlı Saray Ritüeli" class="w-100 img-rounded" width="800" height="533" loading="lazy" decoding="async">
       </div>
     </section>
 
-    <!-- BRAND STORY -->
     <div class="nv-container nv-brand-story">
       <span class="nv-kicker">İYİ OLUŞ SANATI</span>
       <h2 class="nv-title">Sessiz Lüksü Keşfedin</h2>
       <p>
-        Santis Club, geleneksel hamam ritüellerini ve modern spa terapilerini benzersiz bir modern lüks anlayışıyla
-        sunar.
+        Santis Club, geleneksel hamam ritüellerini ve modern spa terapilerini benzersiz bir modern lüks anlayışıyla sunar.
         Burada zaman yavaşlar, beden hatırlamaya başlar.
       </p>
     </div>
 
-    <!-- TIER 2: HAMMAM RITUALS -->
     <div class="nv-container" id="hammam" data-section="hammam">
       <div class="nv-section-header">
         <h2 class="nv-title">Hamam Ritüelleri</h2>
       </div>
-
       <div class="nv-card-grid" id="grid-hammam"></div>
-
       <div class="nv-cta-container">
         <a href="tr/hamam/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
       </div>
     </div>
 
-    <!-- TIER 2: MASSAGE THERAPIES -->
     <div class="nv-container nv-section" id="masaj" data-section="massage">
       <div class="nv-section-header">
         <h2 class="nv-title">Masaj Terapileri</h2>
       </div>
-
       <div class="nv-card-grid" id="grid-massages"></div>
-
       <div class="nv-cta-container">
         <a href="tr/masajlar/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
       </div>
     </div>
 
-    <!-- TIER 2: SKINCARE -->
     <div class="nv-container nv-section" id="cilt" data-section="skincare">
       <div class="nv-section-header">
         <h2 class="nv-title">Cilt Bakımı</h2>
       </div>
-
       <div class="nv-card-grid" id="grid-skincare"></div>
-
       <div class="nv-cta-container">
         <a href="tr/cilt-bakimi/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
       </div>
     </div>
 
-    <!-- TIER 3: PRODUCTS (Digital Atelier) -->
     <div class="nv-container nv-section-last" id="products">
       <div class="nv-atelier-header">
         <h2 class="nv-editorial-title">The Digital Atelier</h2>
         <p class="nv-kicker">EVE GÖTÜRÜLEBİLİR LÜKS</p>
       </div>
-
-      <!-- Product Grid (Assuming 4 items) -->
-      <div class="nv-card-grid nv-product-grid" id="productsGrid">
-      </div>
-
+      <div class="nv-card-grid nv-product-grid" id="productsGrid"></div>
       <div class="nv-cta-container">
         <a href="products.html" class="nv-btn nv-btn-outline">TÜM KOLEKSİYONU İNCELE</a>
       </div>
     </div>
 
-    <!-- GALLERY (Tier 1 Masonry) -->
     <div class="nv-container nv-section-last" id="galeri" data-section="gallery">
       <h2 class="nv-title mb-40">Galeri</h2>
-      <div class="nv-masonry-grid" id="gallery-grid">
-        <!-- Rendered by JS -->
-      </div>
-
+      <div class="nv-masonry-grid" id="gallery-grid"></div>
       <div class="nv-cta-container">
         <a href="gallery.html" class="nv-btn nv-btn-outline">TÜM KOLEKSİYONU KEŞFET</a>
       </div>
     </div>
-
   </main>
 
-  <!-- MOOD INTRO (Overlay) -->
   <div id="santisIntro" class="santis-intro" aria-hidden="true">
     <div class="intro-panel">
       <div class="intro-head">
@@ -177,15 +127,10 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
   <div id="footer-container"></div>
 
-  <!-- BOOKING WIZARD MODAL -->
-  <div class="modal-overlay" id="bookingModal" hidden>
-    <!-- Content populated by booking-wizard.js -->
-  </div>
+  <div class="modal-overlay" id="bookingModal" hidden></div>
 
-  <!-- SCRIPTS -->
   <script src="assets/js/fallback_data.js"></script>
   <script src="assets/js/loader.js"></script>
   <script src="assets/js/url-normalizer.js"></script>
@@ -195,14 +140,10 @@
   <script src="assets/js/products-data.js"></script>
   <script src="assets/js/booking-wizard.js"></script>
   <script src="assets/js/card-effects.js"></script>
+  <script src="assets/js/santis-nav.js"></script>
+  <script src="assets/js/santis-booking.js"></script>
   <script src="assets/js/app.js"></script>
 
-  <!-- TEST: Booking Wizard Trigger -->
-  <button type="button" class="btn-book-wizard"
-    style="position: fixed; bottom: 20px; left: 20px; z-index: 10000; padding: 10px 20px; background: #d4af37; border: none; color: #000; font-weight: bold; cursor: pointer;">
-    WIZARD TEST
-  </button>
 
 </body>
-
 </html>

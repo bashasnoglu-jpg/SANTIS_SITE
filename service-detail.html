@@ -1,117 +1,158 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
+    <base href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santis Club | Spa Ritual</title>
-
-    <!-- Unified Master Style -->
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <!-- Fonts -->
+    <title>Santis Club • Hizmet Detayı</title>
+    
+    <!-- FONTS & CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
-
-    <!-- Manifest -->
-    <link rel="manifest" href="manifest.json">
-    <script src="assets/js/language-switcher.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="favicon.ico">
 </head>
-
 <body class="editorial-mode">
 
-    <!-- Preloader -->
-    <div class="preloader" id="preloader">
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader" style="display:none;">
         <div class="preloader-logo">Santis Club</div>
     </div>
 
-    <!-- Navbar -->
+    <!-- NAVBAR -->
     <div id="navbar-container"></div>
 
-    <main id="santis-detail-root">
-        <!-- TIER 4: Editorial Hero -->
-        <header class="nv-hero-card" style="height: 60vh;">
-            <img id="dynamic-bg" class="nv-hero-bg" src="assets/img/cards/hammam.png" alt="Card Background">
-            <div class="nv-hero-content">
-                <span id="dynamic-kicker" class="nv-kicker mask-reveal">RITUAL</span>
-                <h1 id="dynamic-title" class="nv-hero-title mask-reveal">Yükleniyor...</h1>
+    <main id="nv-main">
+        <!-- HERO SECTION -->
+        <section class="nv-hero-small">
+            <img id="detail-hero-img" src="assets/img/hero-general.webp" alt="Hero" class="nv-hero-bg-img">
+            <div class="nv-video-overlay"></div>
+            <div class="nv-hero-content text-center">
+                <span class="nv-kicker" id="detail-category">HİZMET DETAYI</span>
+                <h1 class="nv-hero-title" id="detail-title">Yükleniyor...</h1>
             </div>
-        </header>
+        </section>
 
-        <!-- TIER 4: Editorial Split Layout -->
-        <section class="nv-detail-layout">
+        <!-- CONTENT SECTION -->
+        <div class="nv-container nv-section">
+            <div class="nv-detail-layout">
+                <!-- Left: Text -->
+                <div class="nv-content-col">
+                    <h2 class="nv-editorial-title mb-30" id="detail-subtitle"></h2>
+                    <p class="fs-18 lh-16 text-muted mb-40" id="detail-desc"></p>
+                    
+                    <div class="nv-meta-grid mb-40">
+                        <div class="meta-item">
+                            <span class="d-block text-gold fs-12 uppercase tracking-2">SÜRE</span>
+                            <span class="d-block fs-18" id="detail-duration">-- dk</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="d-block text-gold fs-12 uppercase tracking-2">FİYAT</span>
+                            <span class="d-block fs-18" id="detail-price">-- €</span>
+                        </div>
+                    </div>
 
-            <!-- LEFT: Narrative Column -->
-            <div class="main-col">
-                <p id="dynamic-long-desc"
-                    style="font-size: 20px; line-height: 1.8; color: var(--text-main); font-family: var(--font-editorial); margin-bottom: 40px;">
-                    <!-- Description injected here by Engine -->
-                </p>
-
-                <!-- Whisper Share Area -->
-                <div class="whisper-share-area" id="whisper-area"
-                    style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-light);">
-                    <span class="nv-kicker" style="opacity: 0.5; margin-bottom: 10px;">FISILDA & PAYLAŞ</span>
-                    <div style="display: flex; gap: 20px;">
-                        <button class="nv-btn nv-btn-outline" id="share-whatsapp">WhatsApp</button>
-                        <button class="nv-btn nv-btn-outline" id="share-copy">Bağlantıyı Kopyala</button>
+                    <div class="nv-actions">
+                        <button onclick="window.location.href='booking.html'" class="nv-btn">REZERVASYON YAP</button>
+                        <a href="index.html" class="nv-btn nv-btn-outline ml-20">ANA SAYFAYA DÖN</a>
                     </div>
                 </div>
+
+                <!-- Right: Image -->
+                <div class="nv-visual-col curtain-reveal">
+                    <img id="detail-card-img" src="" alt="" class="w-100 img-rounded shadow-2">
+                </div>
             </div>
-
-            <!-- RIGHT: Functional Sidebar (Sticky) -->
-            <aside class="nv-sticky-aside">
-                <div style="margin-bottom: 30px;">
-                    <span class="nv-kicker" style="color: var(--text-muted);">SÜRE</span>
-                    <div id="dynamic-duration" style="font-size: 24px; font-family: var(--font-editorial);">--</div>
-                </div>
-
-                <div style="margin-bottom: 40px;">
-                    <span class="nv-kicker" style="color: var(--text-muted);">YATIRIM</span>
-                    <div id="dynamic-price"
-                        style="font-size: 36px; color: var(--gold); font-family: var(--font-editorial);">--</div>
-                </div>
-
-                <button class="nv-btn nv-btn-primary" id="booking-trigger" style="width: 100%; margin-bottom: 15px;">
-                    YERİNİZİ AYIRIN
-                </button>
-
-                <p style="font-size: 12px; color: var(--text-muted); text-align: center; line-height: 1.5;">
-                    Bu ritüel için kapasite sınırlıdır.<br>Erken rezervasyon önerilir.
-                </p>
-            </aside>
-
-        </section>
+        </div>
     </main>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <div id="footer-container"></div>
 
-    <!-- Booking Modal -->
-    <div class="modal-overlay" id="bookingModal" hidden></div>
-
     <!-- SCRIPTS -->
-    <script src="assets/js/fallback_data.js"></script><script src="assets/js/loader.js"></script>
-    <script src="assets/js/core_data_loader.js"></script>
+    <script src="assets/js/fallback_data.js" defer></script>
+    <script src="assets/js/loader.js" defer></script>
+    <script src="assets/js/url-normalizer.js" defer></script>
+    <script src="assets/js/santis-nav.js" defer></script>
+    <script src="assets/js/santis-booking.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
 
-    <script src="assets/js/booking-wizard.js"></script>
-    <script src="assets/js/detail-engine.js"></script> <!-- Updating next -->
-
-    <script>
-        // Init Components
+    <!-- INLINE LOGIC TO POPULATE DATA -->
+    <script defer>
         document.addEventListener('DOMContentLoaded', () => {
-            if (typeof loadComp === 'function') {
-                loadComp("components/navbar.html", "navbar-container");
-                loadComp("components/footer.html", "footer-container");
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
+
+            if (!slug) {
+                document.getElementById('detail-title').innerText = "Hizmet Bulunamadı";
+                return;
             }
-            if (typeof BOOKING_WIZARD !== 'undefined') {
-                BOOKING_WIZARD.init();
+
+            // FIND SERVICE IN FALLBACK DATA
+            const data = window.SANTIS_FALLBACK || {};
+            let service = null;
+            let categoryLabel = "SANTIS CLUB";
+
+            // Search in Services Object (Preferred)
+            if (data.services && data.services[slug]) {
+                 // Format 2: services object keys are slugs (approx) or keys mapping to service
+                // Actually fallback data structure in Step 501 suggests: services: { "hammam_traditional_ritual": ... }
+                // We need to match slug to keys or slug property inside keys
+                const foundKey = Object.keys(data.services).find(k => k === slug || data.services[k].slug === slug);
+                if(foundKey) service = data.services[foundKey];
+            }
+
+            // Search in Arrays if not found (Massages, Skincare arrays shown in Step 594)
+            // It seems "site_content.json" has mixed structure. Let's look everywhere.
+            if (!service) {
+                const arrays = [data.massages?.items, data.skincare?.items, data.hammam?.items];
+                for (const arr of arrays) {
+                    if (Array.isArray(arr)) {
+                        const found = arr.find(s => s.slug === slug || s.id === slug);
+                        if (found) { 
+                            service = found; 
+                            break; 
+                        }
+                    }
+                }
+            }
+            
+            // Hard Fallback for 'kese-kopuk' if missing in JSON
+            if(!service && slug === 'kese-kopuk') {
+                service = {
+                    title: "Kese & Köpük Ritüeli",
+                    desc: "Geleneksel Türk hamamının olmazsa olmazı. Ölü derilerden arınma ve köpükle gelen derin temizlik.",
+                    duration: "45 dk",
+                    price: 85,
+                    img: "assets/img/cards/santis_card_hammam_v1.png"
+                };
+            }
+
+            if (service) {
+                // Populate UI
+                const title = service.name ? (service.name.tr || service.name) : (service.title || "");
+                const desc = service.desc ? (service.desc.tr || service.desc) : "";
+                const price = service.price || "--";
+                const dur = service.durationMin || service.duration || "--";
+                const img = service.img || "assets/img/hero-general.webp";
+
+                document.getElementById('detail-title').innerText = title;
+                document.getElementById('detail-subtitle').innerText = title;
+                document.getElementById('detail-desc').innerText = desc;
+                document.getElementById('detail-price').innerText = price + " €";
+                document.getElementById('detail-duration').innerText = typeof dur === 'number' ? dur + " dk" : dur;
+                
+                document.getElementById('detail-hero-img').src = img;
+                document.getElementById('detail-card-img').src = img;
+                
+                document.title = "Santis Club • " + title;
+            } else {
+                document.getElementById('detail-title').innerText = "Hizmet Bulunamadı";
+                document.getElementById('detail-desc').innerText = "Aradığınız hizmet (" + slug + ") veri tabanımızda bulunamadı.";
             }
         });
     </script>
-</body>
 
+</body>
 </html>

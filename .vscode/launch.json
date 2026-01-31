@@ -1,72 +1,45 @@
 {
-    // Olası öznitelikler hakkında bilgi edinmek için IntelliSense kullanın.
-    // Mevcut özniteliklerin açıklamalarını görüntülemek için üzerine gelin.
-    // Daha fazla bilgi için şu adresi ziyaret edin: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Chrome",
-            "request": "launch",
+            "name": "📌 Santis: Launch Index (File)",
             "type": "chrome",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
-        },
-        
-        {
-            "name": "Launch Chrome",
             "request": "launch",
-            "type": "chrome",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
+            "file": "${workspaceFolder}/index.html"
         },
         {
-            "name": "Launch Chrome",
-            "request": "launch",
+            "name": "🌐 Santis: Launch Chrome (5500)",
             "type": "chrome",
-            "url": "http://localhost:8080",
+            "request": "launch",
+            "url": "http://127.0.0.1:5500/index.html",
             "webRoot": "${workspaceFolder}"
         },
         {
-            "name": "Launch Chrome",
+            "name": "🌐 Santis: Launch Edge (5500)",
+            "type": "msedge",
             "request": "launch",
-            "type": "chrome",
-            "url": "http://localhost:8080",
+            "url": "http://127.0.0.1:5500/index.html",
             "webRoot": "${workspaceFolder}"
         },
         {
-            "name": "Launch Chrome",
-            "request": "launch",
+            "name": "🔌 Santis: Attach to Chrome (9222)",
             "type": "chrome",
-            "url": "http://localhost:8080",
+            "request": "attach",
+            "port": 9222,
             "webRoot": "${workspaceFolder}"
         },
         {
-            "name": "PowerShell: Binary Module Pester Tests",
-            "type": "PowerShell",
-            "request": "launch",
-            "script": "Invoke-Pester",
-            "createTemporaryIntegratedConsole": true,
-            "attachDotnetDebugger": true
-        },
-        {
-            "name": "Launch Chrome",
-            "request": "launch",
+            "name": "🌐 Santis: Launch Localhost (8080)",
             "type": "chrome",
+            "request": "launch",
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}"
         },
         {
-            "name": "Launch Chrome",
-            "request": "launch",
-            "type": "chrome",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
+            "name": "🔧 Debug Current File",
             "type": "chrome",
             "request": "launch",
-            "name": "Open reservation-modal.html",
-            "file": "c:\\Users\\tourg\\Desktop\\SANTIS_SITE\\includes\\reservation-modal.html"
+            "file": "${file}"
         }
     ]
 }

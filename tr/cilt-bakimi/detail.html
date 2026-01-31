@@ -2,6 +2,7 @@
 <html lang="tr">
 
 <head>
+    <base href="/">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Cilt Bakımı Detay</title>
@@ -14,7 +15,7 @@
 
 <body>
     <!-- PRELOADER -->
-    <div class="preloader" id="preloader">
+    <div class="preloader" id="preloader" style="display:none;">
         <div class="preloader-logo">Santis Club</div>
     </div>
 
@@ -30,11 +31,11 @@
     <div id="footer-container"></div>
 
     <!-- DATA + UI -->
-    <script src="/assets/js/skincare-data.js"></script>
-    <script src="/assets/js/skincare-detail.js"></script>
+    <script src="/assets/js/skincare-data.js" defer></script>
+    <script src="/assets/js/skincare-detail.js" defer></script>
 
     <!-- COMPONENT LOADER -->
-    <script>
+    <script defer>
         document.addEventListener("DOMContentLoaded", () => {
             async function loadComp(id, file) {
                 if (window.location.protocol === "file:") return;

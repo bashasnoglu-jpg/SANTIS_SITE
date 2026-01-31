@@ -1,8 +1,8 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="tr">
 
 <head>
-    <meta charset="utf-8" />
+    <base href="/">
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Masajlar • Santis Club</title>
     <meta name="description"
@@ -14,25 +14,24 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="prefetch" href="../../booking.html">
+    <link rel="prefetch" href="/booking.html">
 
     <!-- UNIFIED MASTER STYLE -->
-    <link rel="stylesheet" href="../../assets/css/style.css" />
-    <link rel="stylesheet" href="../../assets/css/card-effects.css" />
-    <link rel="stylesheet" href="../../assets/css/video-hero.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/card-effects.css" />
+    <link rel="stylesheet" href="/assets/css/video-hero.css" />
 
-    <script src="../../assets/js/perf-head.js"></script>
+    <script src="/assets/js/perf-head.js"></script>
 
-    <script src="../../assets/js/animations.js" defer></script>
-    <script src="../../assets/js/language-switcher.js" defer></script>
+    <script src="/assets/js/animations.js" defer></script>
+    <script src="/assets/js/language-switcher.js" defer></script>
 </head>
 
 <body class="editorial-mode">
+    <h1 style="position:fixed; top:0; left:0; z-index:999999; color:red; background:white; font-size:50px; padding:20px;">BURADAYIM: tr/masajlar/index.html</h1>
 
     <!-- PRELOADER -->
-    <div class="preloader" id="preloader">
-        <div class="preloader-logo">Santis Masaj</div>
-    </div>
+
 
     <!-- NAVBAR -->
     <div id="navbar-container"></div>
@@ -97,15 +96,15 @@
     <!-- SCRIPTS -->
     <!-- 1. Data Layer -->
     <!-- 1. Data Layer -->
-    <script src="../../assets/js/fallback_data.js"></script>
-    <script src="../../assets/js/core_data_loader.js"></script>
+    <script src="/assets/js/fallback_data.js"></script>
+    <script src="/assets/js/core_data_loader.js"></script>
 
     <!-- 2. Loader -->
-    <script src="../../assets/js/loader.js"></script>
+    <script src="/assets/js/loader.js"></script>
 
     <!-- 3. Premium Card Effects -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-    <script src="../../assets/js/card-effects.js"></script>
+    <script src="/assets/js/card-effects.js"></script>
 
     <script>
         /* SANTIS MASSAGE PAGE RENDER ENGINE */
@@ -129,12 +128,12 @@
             });
 
             grid.innerHTML = list.map((item, index) => {
-                const itemLink = `../../service-detail.html?slug=${encodeURIComponent(item.slug || item.id)}`;
+                const itemLink = `/service-detail.html?slug=${encodeURIComponent(item.slug || item.id)}`;
 
                 return `
                     <article class="nv-card curtain-reveal" style="animation-delay: ${index * 0.08}s">
                         <div class="nv-card-img-box">
-                            <img src="${item.img ? '../../' + item.img : '../../assets/img/cards/massage.png'}" alt="${item.title}" class="nv-card-img" loading="lazy" decoding="async" width="600" height="400">
+                            <img src="${item.img ? '/' + item.img : '/assets/img/cards/massage.png'}" alt="${item.title}" class="nv-card-img" loading="lazy" decoding="async" width="600" height="400">
                         </div>
                         <div class="nv-card-body">
                             <span class="nv-kicker">${item.tier || item.category || 'MASAJ'}</span>
@@ -182,8 +181,8 @@
             }
             // Load Components
             if (typeof loadComp === 'function') {
-                loadComp("../../components/navbar.html", "navbar-container");
-                loadComp("../../components/footer.html", "footer-container");
+                loadComp("/components/navbar.html", "navbar-container");
+                loadComp("/components/footer.html", "footer-container");
             }
 
             // Render Massage Grid
@@ -241,6 +240,21 @@
         }
     </style>
 
+    <!-- 4. Global App Logic (Added to fix Black Screen) -->
+    <script src="/assets/js/app.js" defer></script>
+
+    <!-- FAILSAFE: Preloader Guard -->
+    <script>
+        setTimeout(function() {
+            var p = document.getElementById('preloader');
+            if (p) {
+                console.warn("🛡️ Preloader Failsafe Triggered: Forcing unlock.");
+                p.style.opacity = '0';
+                p.style.pointerEvents = 'none';
+                setTimeout(function(){ p.style.display = 'none'; }, 500);
+            }
+        }, 4000);
+    </script>
 </body>
 
 </html>

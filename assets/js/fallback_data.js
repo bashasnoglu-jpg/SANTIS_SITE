@@ -528,7 +528,7 @@
                 "durationMin": 60,
                 "price": 140,
                 "currency": "EUR",
-                "img": "assets/img/cards/santis_card_deeptissue_v1.png",
+                "img": "assets/img/cards/santis_card_massage_v1.png",
                 "hotelSlugs": [
                     "alba-queen",
                     "iberostar-bellevue"
@@ -553,7 +553,7 @@
                 "durationMin": 60,
                 "price": 135,
                 "currency": "EUR",
-                "img": "assets/img/cards/santis_card_deeptissue_v1.png",
+                "img": "assets/img/cards/santis_card_massage_v1.png",
                 "hotelSlugs": [
                     "alba-royal"
                 ]
@@ -577,7 +577,7 @@
                 "durationMin": 60,
                 "price": 130,
                 "currency": "EUR",
-                "img": "assets/img/cards/santis_card_thai_v1.png",
+                "img": "assets/img/cards/santis_card_massage_v1.png",
                 "hotelSlugs": [
                     "alba-queen"
                 ]
@@ -625,7 +625,7 @@
                 "durationMin": 75,
                 "price": 160,
                 "currency": "EUR",
-                "img": "assets/img/cards/santis_card_shirodhara_v1.png",
+                "img": "assets/img/cards/santis_card_massage_v1.png",
                 "hotelSlugs": [
                     "alba-royal"
                 ]
@@ -649,7 +649,7 @@
                 "durationMin": 60,
                 "price": 170,
                 "currency": "EUR",
-                "img": "assets/img/cards/santis_card_shirodhara_v1.png",
+                "img": "assets/img/cards/santis_card_massage_v1.png",
                 "hotelSlugs": [
                     "alba-royal"
                 ]
@@ -723,7 +723,7 @@
                 "durationMin": 30,
                 "price": 65,
                 "currency": "EUR",
-                "img": "assets/img/cards/santis_card_kids_v1.png",
+                "img": "assets/img/cards/santis_card_massage_v1.png",
                 "hotelSlugs": [
                     "alba-resort",
                     "alba-queen"
@@ -3195,4 +3195,5 @@
             ]
         }
     }
-};
+}
+;

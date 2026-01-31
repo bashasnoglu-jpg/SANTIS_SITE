@@ -1,15 +1,21 @@
 {
-  "name": "Santis Club",
-  "short_name": "Santis",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "icons": [
-    {
-      "src": "/assets/img/logo.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    }
-  ],
-  "background_color": "#ffffff",
-  "theme_color": "#1a73e8"
+    "name": "Santis Club Spa & Wellness",
+    "short_name": "Santis Club",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#0a0c10",
+    "theme_color": "#0a0c10",
+    "description": "Antalya's quiet luxury spa experience.",
+    "icons": [
+        {
+            "src": "assets/img/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/img/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
 }

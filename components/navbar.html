@@ -65,10 +65,15 @@
 </div>
 
 <div id="google_translate_element" style="display:none;"></div>
-<script src="assets/js/language-switcher.js"></script>
+<script src="/assets/js/language-switcher.js"></script>
+<script>
+    if (window.SANTIS_LANG && window.SANTIS_LANG.refresh) {
+        window.SANTIS_LANG.refresh();
+    }
+</script>
 
 <!-- STICKY CART REMOVED -->
 
 
 
-<script src="assets/js/navbar.js"></script>
+<script src="/assets/js/navbar.js"></script>

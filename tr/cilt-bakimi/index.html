@@ -2,6 +2,7 @@
 <html lang="tr">
 
 <head>
+    <base href="/">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Cilt Bakımı • Santis Club</title>
@@ -9,19 +10,19 @@
         content="Santis Club Cilt Bakımı: Sothys ürünleri ve uzman estetiyenler ile kişiye özel cilt bakım protokolleri. Nemlendirme, anti-aging ve ışıltı bakımları." />
 
     <!-- Master Style -->
-    <link rel="stylesheet" href="../../assets/css/style.css" />
-    <link rel="stylesheet" href="../../assets/css/card-effects.css" />
-    <link rel="stylesheet" href="../../assets/css/video-hero.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/card-effects.css" />
+    <link rel="stylesheet" href="/assets/css/video-hero.css" />
 
-    <script src="../../assets/js/perf-head.js"></script>
+    <script src="/assets/js/perf-head.js"></script>
 
-    <script src="../../assets/js/animations.js" defer></script>
-    <script src="../../assets/js/language-switcher.js"></script>
+    <script src="/assets/js/animations.js" defer></script>
+    <script src="/assets/js/language-switcher.js" defer></script>
 </head>
 
 <body class="editorial-mode">
     <!-- PRELOADER -->
-    <div class="preloader" id="preloader">
+    <div class="preloader" id="preloader" style="display:none;">
         <div class="preloader-logo">Santis Cilt</div>
     </div>
 
@@ -85,28 +86,29 @@
 
     <!-- DATA + ENGINE -->
     <!-- 1. Data Layer -->
-    <script src="../../assets/js/fallback_data.js"></script>
-    <script src="../../assets/js/core_data_loader.js"></script>
-    <script src="../../assets/js/category-engine.js"></script>
+    <script src="/assets/js/fallback_data.js" defer></script>
+    <script src="/assets/js/core_data_loader.js" defer></script>
+    <script src="/assets/js/category-engine.js" defer></script>
 
     <!-- LOADER -->
-    <script src="../../assets/js/loader.js"></script>
+    <script src="/assets/js/loader.js" defer></script>
 
     <!-- PREMIUM CARD EFFECTS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-    <script src="../../assets/js/card-effects.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js" defer></script>
+    <script src="/assets/js/card-effects.js" defer></script>
 
     <!-- VIDEO HERO CONTROLLER -->
-    <script src="../../assets/js/video-hero.js"></script>
+    <script src="/assets/js/video-hero.js" defer></script>
 
-    <script>
+    <script defer>
         document.addEventListener("DOMContentLoaded", () => {
             if (typeof loadComp === "function") {
-                loadComp("../../components/navbar.html", "navbar-container");
-                loadComp("../../components/footer.html", "footer-container");
+                loadComp("/components/navbar.html", "navbar-container");
+                loadComp("/components/footer.html", "footer-container");
             }
         });
     </script>
+
 </body>
 
 </html>

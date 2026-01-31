@@ -1,9 +1,0 @@
-hero-general.jpg:1  Failed to load resource: net::ERR_FILE_NOT_FOUND
-app.js:1715 ⚠️ Dosya sistemi (file://) algılandı. Tarayıcı güvenliği (CORS) nedeniyle dış JSON dosyası yüklenemiyor.
-👉 Site çalışmaya devam etmesi için 'FALLBACK_DATA' (Demo Verisi) kullanılıyor.
-💡 Çözüm: Tam deneyim için VS Code  gibi bir yerel sunucu kullanın.
-loadContent @ app.js:1715
-app.js:2063 🏆 Santis Club: 10/10 Mükemmellik Mührü Uygulandı.
-favicon.ico:1  Failed to load resource: net::ERR_FILE_NOT_FOUND
-blog.html:1 Unsafe attempt to load URL file:///C:/Users/tourg/Desktop/SANTIS_SITE/blog.html from frame with URL file:///C:/Users/tourg/Desktop/SANTIS_SITE/blog.html. 'file:' URLs are treated as unique security origins.
-

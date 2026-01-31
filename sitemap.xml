@@ -1,134 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-  <!-- Ana Sayfalar -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://santisclub.com/</loc>
-    <lastmod>2026-01-30</lastmod>
+    <priority>1.0</priority>
     <changefreq>weekly</changefreq>
-    <priority>1.00</priority>
   </url>
-  
+  <url>
+    <loc>https://santisclub.com/tr/hamam/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://santisclub.com/tr/masajlar/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://santisclub.com/tr/cilt-bakimi/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
   <url>
     <loc>https://santisclub.com/booking.html</loc>
-    <lastmod>2026-01-30</lastmod>
+    <priority>0.9</priority>
     <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
   </url>
-  
-  <!-- Kategori Sayfaları -->
-  <url>
-    <loc>https://santisclub.com/tr/hamam/index.html</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  
-  <url>
-    <loc>https://santisclub.com/tr/masajlar/index.html</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  
-  <url>
-    <loc>https://santisclub.com/tr/cilt-bakimi/index.html</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-
-  <!-- Hamam Ritüelleri -->
-  <url>
-    <loc>https://santisclub.com/service-detail.html?slug=kese-kopuk</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://santisclub.com/service-detail.html?slug=osmanli-ritueli</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://santisclub.com/service-detail.html?slug=kahve-detox</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://santisclub.com/service-detail.html?slug=santis-pasa</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Masaj Terapileri -->
-  <url>
-    <loc>https://santisclub.com/service-detail.html?slug=klasik-rahatlama</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://santisclub.com/service-detail.html?slug=bali</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://santisclub.com/service-detail.html?slug=thai</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://santisclub.com/service-detail.html?slug=signature-rituel</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Cilt Bakımı -->
-  <url>
-    <loc>https://santisclub.com/service-detail.html?slug=classic-facial</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://santisclub.com/service-detail.html?slug=glass-skin</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://santisclub.com/service-detail.html?slug=collagen-lift</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-
-  <!-- Diğer Sayfalar -->
   <url>
     <loc>https://santisclub.com/gallery.html</loc>
-    <lastmod>2026-01-30</lastmod>
+    <priority>0.7</priority>
     <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://santisclub.com/hotel.html</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://santisclub.com/products.html</loc>
-    <lastmod>2026-01-30</lastmod>
+    <priority>0.7</priority>
     <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
   </url>
-  
 </urlset>
