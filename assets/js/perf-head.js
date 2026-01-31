@@ -52,10 +52,10 @@
         placeholderMap[pageName] ||
         (datasetFlag === "true"
           ? [
-              "/images/placeholders/service-hero.svg",
-              "/images/placeholders/service-card.svg",
-              "/images/placeholders/category-hero.svg",
-            ]
+            "/images/placeholders/service-hero.svg",
+            "/images/placeholders/service-card.svg",
+            "/images/placeholders/category-hero.svg",
+          ]
           : []);
 
       list.forEach((href) => {
@@ -86,4 +86,19 @@
   } catch (e) {
     console.warn("perf-head init failed", e);
   }
+})();
+
+// 🌊 UNIVERSAL PRELOADER KILLER (Fail-safe for all pages)
+(function () {
+  const liftVeil = () => {
+    const p = document.getElementById('preloader');
+    if (p && !p.classList.contains('hidden')) {
+      p.classList.add('hidden');
+      setTimeout(() => { if (p) p.style.display = 'none'; }, 800);
+      console.log("🌊 Santis: Preloader veil lifted.");
+    }
+  };
+  window.addEventListener('load', () => setTimeout(liftVeil, 1000));
+  document.addEventListener('DOMContentLoaded', () => setTimeout(liftVeil, 2000));
+  setTimeout(liftVeil, 3000); // hard fallback
 })();

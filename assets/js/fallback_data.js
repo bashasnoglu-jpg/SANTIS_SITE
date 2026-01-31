@@ -1,4 +1,4 @@
-{
+﻿window.SANTIS_FALLBACK = {
     "global": {
         "defaultCurrency": "EUR",
         "routes": {
@@ -3195,4 +3195,4 @@
             ]
         }
     }
-}
+};

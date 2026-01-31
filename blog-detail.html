@@ -23,7 +23,7 @@
         <header class="blog-hero"
             style="height: 60vh; position: relative; display: flex; align-items: flex-end; padding-bottom: 60px;">
             <div class="visual-img"
-                style="position: absolute; top:0; left:0; width: 100%; height: 100%; background-image: url('assets/img/hamam/hamam-hero.webp'); background-size: cover; background-position: center; opacity: 0.4; z-index: -1;">
+                style="position: absolute; top:0; left:0; width: 100%; height: 100%; background-image: url('assets/img/cards/hammam.png'); background-size: cover; background-position: center; opacity: 0.4; z-index: -1;">
             </div>
             <div class="nv-container" style="position: relative; z-index: 2;">
                 <span class="nv-kicker" style="color: var(--gold-ratio-color);">SANTIS JOURNAL • WELLNESS</span>
@@ -85,16 +85,15 @@
     </main>
 
     <div id="footer-container"></div>
-    <!-- Simple Component Loader -->
+
+    <script src="assets/js/fallback_data.js"></script><script src="assets/js/loader.js"></script>
     <script>
-        fetch('components/navbar.html').then(r => r.text()).then(h => {
-            document.getElementById('navbar-container').innerHTML = h;
-            // Re-init navbar script if needed
-            const script = document.createElement('script');
-            script.src = 'assets/js/navbar.js';
-            document.body.appendChild(script);
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof loadComp === "function") {
+                loadComp("components/navbar.html", "navbar-container");
+                loadComp("components/footer.html", "footer-container");
+            }
         });
-        fetch('components/footer.html').then(r => r.text()).then(h => document.getElementById('footer-container').innerHTML = h);
     </script>
 </body>
 

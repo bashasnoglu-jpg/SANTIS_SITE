@@ -60,7 +60,7 @@
         </div>
     </div>
 
-    <script src="assets/js/loader.js"></script>
+    <script src="assets/js/fallback_data.js"></script><script src="assets/js/loader.js"></script>
     <script>
         // loadComp provided by assets/js/loader.js
         loadComp("components/navbar.html", "navbar-container");
@@ -81,6 +81,12 @@
             // 1. Veriyi Çek
             // Skeleton göster
             grid.innerHTML = Array(6).fill('<div class="skeleton"></div>').join('');
+
+            // CORS Guard
+            if (window.location.protocol === 'file:') {
+                grid.innerHTML = '<div style="grid-column:1/-1; padding:20px; text-align:center; border:1px dashed red; color:red;">⚠️ Dosya sistemi (file://) üzerinden veri çekilemez.<br>Lütfen sunucu kullanın.</div>';
+                return;
+            }
 
             let galleryData = [];
             try {

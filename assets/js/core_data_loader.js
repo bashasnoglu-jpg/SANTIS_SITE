@@ -42,10 +42,24 @@
 
     async function loadData() {
         try {
-            // Absolute path to ensure it works from subdirectories
-            const resp = await fetch('/data/site_content.json');
-            if (!resp.ok) throw new Error("JSON Fetch Failed: " + resp.status);
-            const data = await resp.json();
+            // Find base path (relative detection)
+            const cs = document.currentScript;
+            const baseUrl = cs && cs.src ? new URL("../..", cs.src).pathname : "/";
+            const dataUrl = baseUrl.endsWith("/") ? baseUrl + "data/site_content.json" : baseUrl + "/data/site_content.json";
+
+            let data;
+
+            // 1. Try Global Fallback first (Fastest & Local Safe)
+            if (window.SANTIS_FALLBACK) {
+                console.log("⚡ [Data Loader] Using Fallback Data (Fast Mode)");
+                data = window.SANTIS_FALLBACK;
+            } else {
+                // 2. Try Fetch (Server Mode)
+                console.log("📂 [Data Loader] Fetching from:", dataUrl);
+                const resp = await fetch(dataUrl);
+                if (!resp.ok) throw new Error(`JSON Fetch Failed (${resp.status}): ${dataUrl}`);
+                data = await resp.json();
+            }
 
             // Handle structure: data.global.services (Object) -> Arrays
             // or data.global.hammam (Array), etc. if mixed.

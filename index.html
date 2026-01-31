@@ -29,9 +29,6 @@
 
   <!-- UNIFIED MASTER STYLE (v5.0) -->
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/card-effects.css">
-  <link rel="stylesheet" href="assets/css/video-hero.css">
-  <link rel="stylesheet" href="assets/css/animations.css">
 
   <!-- Modules -->
   <!-- Modules (Merged into style.css) -->
@@ -39,13 +36,6 @@
   <!-- <link rel="stylesheet" href="assets/css/booking-wizard.css"> -->
   <!-- <link rel="stylesheet" href="assets/css/intro.css"> -->
 
-  <script src="assets/js/routes.js" defer></script>
-  <script src="assets/js/url-normalizer.js" defer></script>
-  <script src="assets/js/language-switcher.js" defer></script>
-  <script src="assets/js/seo-engine.js" defer></script>
-  <script src="assets/js/seo-meta.js" defer></script>
-  <script src="assets/js/animations.js" defer></script>
-  <script src="assets/js/slug.js" defer></script>
 </head>
 
 <body class="editorial-mode">
@@ -87,7 +77,7 @@
           Sultanlara layık bir arınma. Geleneksel kese ve köpüğün ötesinde, altı duyuya hitap eden bir seremoni.
           Sıcaklığın şifası ve suyun dinginliği sizi bekliyor.
         </p>
-        <a href="service-detail.html?slug=osmanli-ritueli" class="nv-btn nv-btn-primary">RİTÜELİ İNCELE</a>
+        <a href="service-detail.html?slug=osmanli-ritueli" class="nv-btn">RİTÜELİ İNCELE</a>
       </div>
       <div class="nv-visual-col curtain-reveal">
         <img src="assets/img/cards/hammam.png" alt="Osmanlı Saray Ritüeli" class="w-100 img-rounded" width="800"
@@ -196,115 +186,22 @@
   </div>
 
   <!-- SCRIPTS -->
-  <!-- 1. Data Layer -->
-  <script src="assets/js/hammam-data.js"></script>
-  <script src="assets/js/massage-data.js"></script>
-  <script src="assets/js/skincare-data.js"></script>
-  <script src="assets/js/products-data.js"></script>
-
-  <!-- 2. Logic -->
+  <script src="assets/js/fallback_data.js"></script>
   <script src="assets/js/loader.js"></script>
+  <script src="assets/js/url-normalizer.js"></script>
+  <script src="assets/js/routes.js"></script>
+  <script src="assets/js/language-switcher.js"></script>
+  <script src="assets/js/slug.js"></script>
+  <script src="assets/js/products-data.js"></script>
   <script src="assets/js/booking-wizard.js"></script>
-  <script src="assets/js/seo-schema.js"></script>
-
-  <!-- 3. Premium Card Effects -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
   <script src="assets/js/card-effects.js"></script>
+  <script src="assets/js/app.js"></script>
 
-  <script>
-    /* SANTIS UNIFIED RENDER ENGINE v5.0 */
-    function renderGallery() {
-      const grid = document.getElementById('gallery-grid');
-      if (!grid) return;
-
-      // Curated List (Simulated from existing assets to avoid placeholders)
-      const images = [
-        { src: 'assets/img/cards/hammam.png', alt: 'Hammam Atmosphere' },
-        { src: 'assets/img/cards/massage.png', alt: 'Relaxing Massage' },
-        { src: 'assets/img/cards/skincare.png', alt: 'Deep Skincare' },
-        { src: 'assets/img/cards/hammam.png', alt: 'Steam Ritual' }, // Reusing for demo
-        { src: 'assets/img/cards/massage.png', alt: 'Therapy Room' },
-        { src: 'assets/img/cards/skincare.png', alt: 'Products Display' }
-      ];
-
-      grid.innerHTML = images.map((img, i) => `
-            <a href="gallery.html" class="nv-masonry-item curtain-reveal" style="animation-delay: ${i * 0.15}s; display:block;">
-                <img src="${img.src}" alt="${img.alt}" loading="lazy" decoding="async" width="600" height="400">
-            </a>
-        `).join('');
-    }
-
-    function renderNVGrid(data, targetId, limit) {
-      const grid = document.getElementById(targetId);
-      if (!grid || !data) return;
-
-      let list = Array.isArray(data) ? data : (data.services ? Object.values(data.services) : []);
-      if (limit) list = list.slice(0, limit);
-
-      grid.innerHTML = list.map((item, index) => {
-        // Dynamic Link Logic
-        // Product cards go to products.html, services go to detail engine
-        let itemLink = item.category && (item.category === 'home-spa' || item.category === 'skincare') && !item.slug
-          ? 'products.html'
-          : "service-detail.html?slug=" + encodeURIComponent(item.slug || item.id);
-
-        // Use Product HTML structure if it's a product
-        if (item.tier === 'ÜRÜN') {
-          return `
-             <a href="${itemLink}" class="nv-card-product curtain-reveal" style="animation-delay: ${index * 0.1}s; display:block; text-decoration:none;">
-                <div class="nv-product-img-box">
-                    <img src="${item.img}" alt="${item.title}" class="nv-product-img" loading="lazy" decoding="async" width="300" height="300">
-                </div>
-                <h3 class="nv-title" style="font-size:16px; margin-bottom:5px; color:var(--text-main);">${item.title}</h3>
-                <span class="nv-kicker">${item.price ? item.price + '€' : 'Keşfet'}</span>
-             </a>
-             `;
-        }
-
-        // Standard Service Card (Tier 2)
-        return `
-            <article class="nv-card curtain-reveal" style="animation-delay: ${index * 0.1}s">
-                <div class="nv-card-img-box">
-                    <img src="${item.img}" alt="${item.title}" class="nv-card-img" loading="lazy" decoding="async" width="600" height="400">
-                </div>
-                <div class="nv-card-body">
-                    <span class="nv-kicker">${item.tier || 'RİTÜEL'}</span>
-                    <h3 class="nv-title" style="font-size: 20px;">${item.title}</h3>
-                    <div class="nv-card-price">${item.price ? item.price + '€' : 'İncele'}</div>
-                </div>
-                <a href="${itemLink}" class="nv-card-link" aria-label="${item.title}"></a>
-            </article>
-        `;
-      }).join('');
-    }
-
-    // Init
-    document.addEventListener('DOMContentLoaded', () => {
-      // Load Components
-      loadComp("components/navbar.html", "navbar-container");
-      loadComp("components/footer.html", "footer-container");
-
-      // Wizard Init
-      if (typeof BOOKING_WIZARD !== 'undefined') BOOKING_WIZARD.init();
-
-      // Render Grids
-      if (window.NV_HAMMAM) renderNVGrid(window.NV_HAMMAM, 'grid-hammam', 3);
-      if (window.NV_MASSAGES) renderNVGrid(window.NV_MASSAGES, 'grid-massages', 3);
-      if (window.NV_SKINCARE) renderNVGrid(window.NV_SKINCARE, 'grid-skincare', 3);
-
-      // Render Products
-      if (window.NV_PRODUCTS) {
-        const productData = window.NV_PRODUCTS.map(p => ({
-          ...p,
-          tier: 'ÜRÜN'
-        }));
-        renderNVGrid(productData, 'productsGrid', 4);
-      }
-
-      // Render Gallery
-      renderGallery();
-    });
-  </script>
+  <!-- TEST: Booking Wizard Trigger -->
+  <button type="button" class="btn-book-wizard"
+    style="position: fixed; bottom: 20px; left: 20px; z-index: 10000; padding: 10px 20px; background: #d4af37; border: none; color: #000; font-weight: bold; cursor: pointer;">
+    WIZARD TEST
+  </button>
 
 </body>
 

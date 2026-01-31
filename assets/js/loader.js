@@ -1,3 +1,11 @@
+/**
+ * SANTIS CORE LOADER v2.1
+ * - Component Loading (Navbar/Footer)
+ * - Cache Busting
+ * - Retry Logic
+ * - Preloader Management
+ */
+
 // Global state for retries
 const __NV_LOADCOMP_RETRY = new Map();
 
@@ -35,6 +43,20 @@ async function loadComp(url, target, opts = {}) {
 
     if (!url || !targetEl) {
         console.warn("[loadComp] invalid args or target not found:", { url, target: targetId });
+        return;
+    }
+
+    // 2.1 Protocol Check (CORS Guard)
+    if (window.location.protocol === 'file:') {
+        console.error(`[loadComp] CORS Error: Cannot fetch '${url}' via file:// protocol.`);
+        if (targetEl) {
+            targetEl.innerHTML = `
+                <div style="padding:20px; text-align:center; border:1px dashed #ccc; color:#888; font-family:sans-serif; font-size:12px;">
+                    ⚠️ <strong>Component Load Failed</strong><br>
+                    Browsers block 'fetch' on local files (CORS).<br>
+                    Please run this project using a Local Server (e.g. <code>test-project.ps1</code>).
+                </div>`;
+        }
         return;
     }
 
@@ -82,6 +104,26 @@ async function loadComp(url, target, opts = {}) {
         setTimeout(() => loadComp(url, target, opts), retryDelay);
     }
 }
+
+// Fail-safe Preloader Removal (Independent of app.js)
+(function () {
+    const hidePreloader = () => {
+        const p = document.getElementById('preloader');
+        if (p) {
+            p.classList.add('hidden');
+            setTimeout(() => {
+                if (p) p.style.display = 'none';
+            }, 600); // Wait for transition
+            console.log("🌊 [Loader] Preloader forced to hide.");
+        }
+    };
+
+    // Attempt standard DomContentLoaded
+    window.addEventListener('DOMContentLoaded', () => setTimeout(hidePreloader, 1500));
+
+    // Backup: window.load
+    window.addEventListener('load', () => setTimeout(hidePreloader, 2500));
+})();
 
 // Expose globally
 window.loadComp = loadComp;

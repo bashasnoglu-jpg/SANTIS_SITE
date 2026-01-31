@@ -18,28 +18,28 @@ const BOOKING_WIZARD = {
     // Keys match santis-core.js mood IDs
     recommendations: {
         'fatigued': [
-            { slug: 'hammam-ottoman', name: 'Osmanlı Hamam Geleneği', desc: 'Sıcak taş ve köpük ile tam arınma', url: 'service.html#hammam' },
-            { slug: 'hammam-peeling', name: 'Peeling + Köpük', desc: 'Hızlı ve etkili yenilenme', url: 'service.html#hammam' },
-            { slug: 'massage-deep', name: 'Derin Doku Masajı', desc: 'Kas gerginliği için', url: 'service.html#classicMassages' }
+            { slug: 'hammam-ottoman', name: 'Osmanlı Hamam Geleneği', desc: 'Sıcak taş ve köpük ile tam arınma', url: 'service-detail.html?slug=osmanli-ritueli' },
+            { slug: 'hammam-peeling', name: 'Peeling + Köpük', desc: 'Hızlı ve etkili yenilenme', url: 'service-detail.html?slug=kese-kopuk' },
+            { slug: 'massage-deep', name: 'Derin Doku Masajı', desc: 'Kas gerginliği için', url: 'service-detail.html?slug=derin-doku' }
         ],
         'stressed': [
-            { slug: 'massage-foam', name: 'Köpük Masajı', desc: 'Nazik ve rahatlatıcı', url: 'service.html#hammam' },
-            { slug: 'massage-aroma', name: 'Aromaterapi Masajı', desc: 'Kokularla zihinsel dinginlik', url: 'service.html#classicMassages' },
-            { slug: 'massage-head', name: 'Hint Baş Masajı', desc: 'Zihni boşaltmak için', url: 'service.html#classicMassages' },
-            { slug: 'facial-sensitive', name: 'Sothys Hassas Bakım', desc: 'Cildi yatıştırır', url: 'service.html#faceSothys' }
+            { slug: 'massage-foam', name: 'Köpük Masajı', desc: 'Nazik ve rahatlatıcı', url: 'service-detail.html?slug=kopuk-masaji' },
+            { slug: 'massage-aroma', name: 'Aromaterapi Masajı', desc: 'Kokularla zihinsel dinginlik', url: 'service-detail.html?slug=aromaterapi' },
+            { slug: 'massage-head', name: 'Hint Baş Masajı', desc: 'Zihni boşaltmak için', url: 'service-detail.html?slug=bas-boyun-omuz' },
+            { slug: 'facial-sensitive', name: 'Sothys Hassas Bakım', desc: 'Cildi yatıştırır', url: 'service-detail.html?slug=sensitive-soothe' }
         ],
         'drained': [
-            { slug: 'hammam-coffee', name: 'Kahve Peeling', desc: 'Canlandırıcı etki', url: 'service.html#hammam' },
-            { slug: 'massage-detox', name: 'Detox Masajı', desc: 'Toksin atımı ve enerji', url: 'service.html#classicMassages' },
-            { slug: 'sothys-glow', name: 'Sothys Glow & Detox', desc: 'Cilde ışıltı verir', url: 'service.html#faceSothys' }
+            { slug: 'hammam-coffee', name: 'Kahve Peeling', desc: 'Canlandırıcı etki', url: 'service-detail.html?slug=kahve-detox' },
+            { slug: 'massage-detox', name: 'Detox Masajı', desc: 'Toksin atımı ve enerji', url: 'service-detail.html?slug=lenf-drenaj' },
+            { slug: 'sothys-glow', name: 'Sothys Glow & Detox', desc: 'Cilde ışıltı verir', url: 'service-detail.html?slug=vitamin-c-glow' }
         ],
         'sensitive': [
-            { slug: 'facial-calm', name: 'Sothys Yatıştırıcı Bakım', desc: 'Kızarıklık karşıtı', url: 'service.html#faceSothys' },
-            { slug: 'massage-soft', name: 'Relax Masajı', desc: 'Yumuşak dokunuşlar', url: 'service.html#classicMassages' }
+            { slug: 'facial-calm', name: 'Sothys Yatıştırıcı Bakım', desc: 'Kızarıklık karşıtı', url: 'service-detail.html?slug=sensitive-soothe' },
+            { slug: 'massage-soft', name: 'Relax Masajı', desc: 'Yumuşak dokunuşlar', url: 'service-detail.html?slug=klasik-rahatlama' }
         ],
         'care': [
-            { slug: 'sothys-hydra', name: 'Sothys Hydra 4Ha', desc: 'Yoğun nem desteği', url: 'service.html#faceSothys' },
-            { slug: 'sothys-antiage', name: 'Sothys Gençlik Bakımı', desc: 'Premium anti-aging', url: 'service.html#faceSothys' }
+            { slug: 'sothys-hydra', name: 'Sothys Hydra 4Ha', desc: 'Yoğun nem desteği', url: 'service-detail.html?slug=hyaluron-hydrate' },
+            { slug: 'sothys-antiage', name: 'Sothys Gençlik Bakımı', desc: 'Premium anti-aging', url: 'service-detail.html?slug=anti-aging-pro' }
         ]
     },
 
@@ -51,7 +51,7 @@ const BOOKING_WIZARD = {
     },
 
     open() {
-        const modal = document.getElementById('wizardModal');
+        const modal = document.getElementById('wizardModal') || document.getElementById('bookingModal');
         if (!modal) return;
 
         // 1. Get current mood from Core
@@ -67,7 +67,7 @@ const BOOKING_WIZARD = {
     },
 
     close() {
-        const modal = document.getElementById('wizardModal');
+        const modal = document.getElementById('wizardModal') || document.getElementById('bookingModal');
         if (modal) modal.classList.remove('active');
         document.body.style.overflow = '';
     },

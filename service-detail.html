@@ -7,10 +7,7 @@
     <title>Santis Club | Spa Ritual</title>
 
     <!-- Unified Master Style -->
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/animations.css">
-    <link rel="stylesheet" href="/assets/css/booking-wizard.css">
-    <link rel="stylesheet" href="/assets/css/intro.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,8 +17,8 @@
         rel="stylesheet">
 
     <!-- Manifest -->
-    <link rel="manifest" href="/manifest.json">
-    <script src="/assets/js/language-switcher.js"></script>
+    <link rel="manifest" href="manifest.json">
+    <script src="assets/js/language-switcher.js"></script>
 </head>
 
 <body class="editorial-mode">
@@ -37,7 +34,7 @@
     <main id="santis-detail-root">
         <!-- TIER 4: Editorial Hero -->
         <header class="nv-hero-card" style="height: 60vh;">
-            <img id="dynamic-bg" class="nv-hero-bg" src="/assets/img/cards/hammam.png" alt="Card Background">
+            <img id="dynamic-bg" class="nv-hero-bg" src="assets/img/cards/hammam.png" alt="Card Background">
             <div class="nv-hero-content">
                 <span id="dynamic-kicker" class="nv-kicker mask-reveal">RITUAL</span>
                 <h1 id="dynamic-title" class="nv-hero-title mask-reveal">Yükleniyor...</h1>
@@ -97,20 +94,18 @@
     <div class="modal-overlay" id="bookingModal" hidden></div>
 
     <!-- SCRIPTS -->
-    <script src="/assets/js/loader.js"></script>
-    <script src="/assets/js/hammam-data.js"></script>
-    <script src="/assets/js/massage-data.js"></script>
-    <script src="/assets/js/skincare-data.js"></script>
+    <script src="assets/js/fallback_data.js"></script><script src="assets/js/loader.js"></script>
+    <script src="assets/js/core_data_loader.js"></script>
 
-    <script src="/assets/js/booking-wizard.js"></script>
-    <script src="/assets/js/detail-engine.js"></script> <!-- Updating next -->
+    <script src="assets/js/booking-wizard.js"></script>
+    <script src="assets/js/detail-engine.js"></script> <!-- Updating next -->
 
     <script>
         // Init Components
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof loadComp === 'function') {
-                loadComp("/components/navbar.html", "navbar-container");
-                loadComp("/components/footer.html", "footer-container");
+                loadComp("components/navbar.html", "navbar-container");
+                loadComp("components/footer.html", "footer-container");
             }
             if (typeof BOOKING_WIZARD !== 'undefined') {
                 BOOKING_WIZARD.init();

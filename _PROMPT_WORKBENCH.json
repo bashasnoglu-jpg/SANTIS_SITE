@@ -7,8 +7,7 @@
         "domain": "santisclub.com",
         "localDevUrl": "http://127.0.0.1:5500",
         "languages": [
-            "tr",
-            "en"
+            "tr"
         ],
         "primaryLanguage": "tr",
         "designLanguage": "Quiet Luxury",
@@ -32,9 +31,27 @@
             "title": "Phase 2 Enhancements",
             "priority": "medium",
             "category": "development"
+        },
+        {
+            "id": "fix_001",
+            "title": "Create Missing Core Files (booking-wizard.js)",
+            "priority": "critical",
+            "category": "bugfix"
+        },
+        {
+            "id": "task_webp_conversion",
+            "title": "Convert Images to WebP",
+            "priority": "high",
+            "category": "optimization"
         }
     ],
     "completedTasks": [
+        {
+            "id": "fix_002",
+            "title": "Resolve Modal ID Conflict (bookingModal vs wizardModal)",
+            "status": "completed",
+            "date": "2026-01-30"
+        },
         {
             "id": "task_001",
             "title": "Navbar Language Fixes",
@@ -71,36 +88,58 @@
         "negativePrompt": "typography, letters, numbers, logos, watermarks, cheap spa look, oversaturated colors, neon lights, messy background, plastic props, cartoon/anime, AI artifacts, distorted hands, extra fingers, unrealistic skin, aggressive sharpening, HDR look",
         "slots": {
             "indexHero": {
-                "id": "nv_index_hero_16x9_v1",
+                "id": "santis_hero_main_v1",
                 "aspectRatio": "16:9",
-                "scene": "Dark, warm-gray luxury spa interior",
+                "scene": "Dark, warm-gray luxury spa interior with negative space for text",
+                "prompt": "SANTIS CLUB quiet luxury spa photography. Scene: Dark, warm-gray luxury spa interior with negative space for text on left. Key objects: Lounge chairs, soft steam. Lighting: Cinematic, moody. Output: 16:9.",
                 "status": "pending"
             },
             "hamamCard": {
-                "id": "nv_index_card_hamam_1x1_v1",
+                "id": "santis_card_hammam_v1",
                 "aspectRatio": "1:1",
-                "scene": "Marble kurna and gobek tasi still life",
+                "scene": "Traditional Turkish hammam detail",
+                "prompt": "SANTIS CLUB quiet luxury spa photography. Scene: Traditional Turkish hammam detail. Key objects: Marble kurna, copper bowl, white soap foam on grey stone. Lighting: Soft diffused steam. Output: 1:1.",
                 "status": "pending"
             },
             "massageCard": {
-                "id": "nv_index_card_massage_1x1_v1",
+                "id": "santis_card_massage_v1",
                 "aspectRatio": "1:1",
-                "scene": "Hot stones and essential oils arrangement",
+                "scene": "Massage therapy setup",
+                "prompt": "SANTIS CLUB quiet luxury spa photography. Scene: Massage therapy setup. Key objects: Hot basalt stones arranged on beige linen, amber oil bottle. Lighting: Candlelight, warm glow. Output: 1:1.",
                 "status": "pending"
             },
             "skincareCard": {
-                "id": "nv_index_card_skincare_1x1_v1",
+                "id": "santis_card_skincare_v1",
                 "aspectRatio": "1:1",
-                "scene": "Sothys products with soft linen",
+                "scene": "Premium skincare ritual",
+                "prompt": "SANTIS CLUB quiet luxury spa photography. Scene: Premium skincare ritual. Key objects: White orchid flower, clear water bowl, Sothys cream texture smear. Composition: Macro detail. Output: 1:1.",
                 "status": "pending"
             },
-            "familyCard": {
-                "id": "nv_index_card_family_1x1_v1",
+            "couplesCard": {
+                "id": "santis_card_couple_v1",
                 "aspectRatio": "1:1",
-                "scene": "Warm family spa atmosphere",
+                "scene": "Private couples spa suite",
+                "prompt": "SANTIS CLUB quiet luxury spa photography. Scene: Private couples spa suite. Key objects: Two massage beds side-by-side, rose petals on floor. Lighting: Romantic, dim. Output: 1:1.",
+                "status": "pending"
+            },
+            "productsCard": {
+                "id": "santis_card_products_v1",
+                "aspectRatio": "1:1",
+                "scene": "Spa boutique display",
+                "prompt": "SANTIS CLUB quiet luxury spa photography. Scene: Spa boutique display. Key objects: Row of amber glass bottles on dark wooden shelf, dried lavender bundle. Output: 1:1.",
                 "status": "pending"
             }
-        }
+        },
+        "drafts": [
+            {
+                "id": "new_prompt_1",
+                "text": "BURAYA YAZIN..."
+            },
+            {
+                "id": "new_prompt_2",
+                "text": "BURAYA YAZIN..."
+            }
+        ]
     },
     "siteStructure": {
         "pages": {
@@ -154,10 +193,6 @@
         "HTML_METIN_DUZELT": {
             "description": "HTML içerik metnini düzelt",
             "example": "HTML_METIN_DUZELT: element seçici, yeni metin"
-        },
-        "TR_EN_SYNC": {
-            "description": "TR sayfasını EN'e birebir senkronize et",
-            "trigger": "NEUROVA_TR_EN_BIREBIR_SYNC v1.0"
         },
         "SITE_AUDIT": {
             "description": "10 kategorili kapsamlı site denetimi",

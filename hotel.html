@@ -1,4 +1,4 @@
-﻿<!-- Cache Bust: 2026-01-26 22:15 -->
+<!-- Cache Bust: 2026-01-26 22:15 -->
 <!DOCTYPE html>
 <!-- hotel.html — Otel Detay ve Hizmet Listesi -->
 <html lang="tr">
@@ -263,7 +263,7 @@
     <div class="hero-content">
       <h1 id="hotelName"></h1>
       <p id="hotelDesc"></p>
-      <a href="booking.html" class="hero-cta" id="heroCta">Rezervasyon Yap</a>
+      <button type="button" class="hero-cta btn-book-wizard" id="heroCta">Rezervasyon Yap</button>
     </div>
     <span class="sr-only" id="heroAlt">Otel görseli</span>
   </section>
@@ -278,7 +278,7 @@
 
   <div id="footer"></div>
 
-  <script src="assets/js/loader.js"></script>
+  <script src="assets/js/fallback_data.js"></script><script src="assets/js/loader.js"></script>
   <script>
     const state = { hotels: [], services: {}, selectedHotel: "", lang: "tr" };
 
@@ -350,6 +350,12 @@
       }
 
       async function loadData() {
+        // CORS Guard for local testing
+        if (window.location.protocol === 'file:') {
+          pushNotice("error", "Local dosya sistemi (file://) üzerinden JSON verisi çekilemez. Lütfen sunucu kullanın.");
+          return;
+        }
+
         try {
           const res = await fetch("data/santis-hotels.json");
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
