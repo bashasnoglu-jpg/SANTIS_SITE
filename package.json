@@ -1,0 +1,10 @@
+{
+    "name": "santis-site",
+    "version": "1.0.0",
+    "description": "Santis Club Website",
+    "scripts": {
+        "dev": "npx live-server --port=5500 --entry-file=index.html"
+    },
+    "author": "",
+    "license": "ISC"
+}
