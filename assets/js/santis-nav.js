@@ -10,7 +10,7 @@ function getNavModel() {
 }
 
 function buildPrefix() {
-    return "";
+    return "/";
 }
 
 function buildUrl(routeKey, sectionKey) {

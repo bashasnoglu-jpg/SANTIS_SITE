@@ -3,19 +3,20 @@
         "defaultCurrency": "EUR",
         "routes": {
             "home": "index.html",
-            "hammam": "hamam-rituelleri/",
-            "massages": "masajlar/",
-            "classic": "masajlar/klasik-masajlar/",
-            "sports": "masajlar/spor-terapi-masajlari/",
-            "asian": "masajlar/asya-masajlari/",
-            "ayurveda": "masajlar/ayurveda-rituelleri/",
-            "signature": "signature-couples/",
-            "kids": "kids-family/",
-            "face": "face-sothys/",
-            "products": "urunler/",
-            "about": "hakkimizda/",
-            "team": "ekibimiz/",
-            "booking": "rezervasyon/"
+            "hammam": "tr/hamam/",
+            "massages": "tr/masajlar/",
+            "classic": "tr/masajlar/",
+            "sports": "tr/masajlar/",
+            "asian": "tr/masajlar/",
+            "ayurveda": "tr/masajlar/",
+            "signature": "tr/masajlar/",
+            "kids": "tr/masajlar/",
+            "face": "tr/cilt-bakimi/",
+            "products": "tr/urunler/",
+            "gallery": "tr/galeri/",
+            "about": "tr/hakkimizda/",
+            "team": "tr/ekibimiz/",
+            "booking": "tr/rezervasyon/"
         },
         "navModel": [
             {
@@ -84,6 +85,11 @@
                 "route": "products",
                 "sectionKey": "products",
                 "categoryId": "products"
+            },
+            {
+                "key": "gallery",
+                "route": "gallery",
+                "sectionKey": "gallery"
             },
             {
                 "key": "about",
@@ -3194,6 +3200,24 @@
                 "miniPrograms"
             ]
         }
+    },
+    "tr": {
+        "nav": {
+            "home": "ANA SAYFA",
+            "hammam": "HAMAM",
+            "massages": "MASAJLAR",
+            "classicMassages": "KLASİK",
+            "sportsTherapy": "SPOR",
+            "asianMassages": "UZAK DOĞU",
+            "ayurveda": "AYURVEDA",
+            "signatureCouples": "PREMIUM",
+            "kidsFamily": "AİLE",
+            "faceSothys": "CİLT BAKIMI",
+            "products": "ÜRÜNLER",
+            "gallery": "GALERİ",
+            "about": "HAKKIMIZDA",
+            "team": "EKİBİMİZ",
+            "bookingWhatsapp": "HEMEN REZERVASYON"
+        }
     }
-}
-;
+};

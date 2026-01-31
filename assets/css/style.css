@@ -1696,3 +1696,10 @@ body.fade-out {
   opacity: 0;
   transition: opacity 0.4s ease;
 }
+/* --- NAV DROPDOWN SUPPORT --- */
+.nav-item { position: relative; display: flex; align-items: center; }
+.submenu { position: absolute; top: 100%; left: 0; min-width: 200px; background: rgba(10, 12, 16, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--border-light); border-radius: 8px; padding: 10px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1001; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; flex-direction: column; gap: 0; }
+.nav-item:hover .submenu { opacity: 1; visibility: visible; transform: translateY(0); }
+.submenu a { display: block; padding: 12px 20px; color: var(--text-muted); text-decoration: none; font-size: 13px; transition: all 0.2s; white-space: nowrap; }
+.submenu a:hover { color: var(--gold); background: rgba(255,255,255,0.03); }
+.has-sub > a::after { content: ' ▾'; font-size: 0.8em; margin-left: 5px; opacity: 0.5; }

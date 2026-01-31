@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <base href="/">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Rezervasyon • Santis Club</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="assets/js/santis-nav.js" defer></script>
+    <script src="assets/js/santis-booking.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+    <script src="assets/js/loader.js" defer></script>
+</head>
+<body class="editorial-mode">
+    <div id="navbar-container"></div>
+    <main style="padding-top: 150px; text-align: center;">
+        <h1>Rezervasyon</h1>
+        <p>Online rezervasyon sistemi yükleniyor...</p>
+        <button onclick="openBookingModal()" class="nv-btn">Formu Aç</button>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+             if (typeof loadComp === "function") loadComp("components/navbar.html", "navbar-container");
+             // Auto open modal
+             setTimeout(openBookingModal, 1000);
+        });
+    </script>
+</body>
+</html>

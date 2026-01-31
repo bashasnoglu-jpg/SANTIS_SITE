@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <base href="/">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Galeri • Santis Club</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="assets/js/santis-nav.js" defer></script>
+    <script src="assets/js/santis-booking.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+    <script src="assets/js/loader.js" defer></script>
+</head>
+<body class="editorial-mode">
+    <div id="navbar-container"></div>
+    <main style="padding-top: 150px; text-align: center;">
+        <h1>Galeri</h1>
+        <p>Yapım aşamasında...</p>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+             if (typeof loadComp === "function") loadComp("components/navbar.html", "navbar-container");
+        });
+    </script>
+</body>
+</html>
