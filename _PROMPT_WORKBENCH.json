@@ -1,57 +1,28 @@
-SANTIS PROJESİ ACİL DÜZELTME:
-Aşağıdaki HTML kodumda "Siyah Ekran" sorunu yaşıyorum. Lütfen kodu analiz et ve bana TEK PARÇA halinde, kopyalayıp yapıştıracağım DÜZELTİLMİŞ kodu ver.
-
-YAPMAN GEREKEN DÜZELTMELER:
-1. Content-Security-Policy (CSP) meta etiketini TAMAMEN SİL. (Eval hatası veriyor).
-2. Tüm CSS ve JS dosya yollarının başına "/" (slash) ekle. (Örn: "assets/css/style.css" -> "/assets/css/style.css" olsun).
-3. Eğer kodda "preloader" veya "loader-wrapper" varsa, o div'i sil veya 'display: none' ekle.
-4. Script etiketlerine 'defer' ekle.
-
-Soru sorma, sadece düzeltilmiş HTML kodunu ver.
-
-KODUM: [BURAYA KODUNU YAPIŞTIR
-]Profesyonellerin bu sorunu nasıl çözdüğünü "Ultra Mega" bir araştırma ile senin için analiz ettim.
-
-Bir Senior Developer (Kıdemli Yazılımcı) bu ekranı gördüğünde **asla tahmin yürütmez**. Sadece **kanıt (log)** arar. Senin yaşadığın süreçte aslında sorunu **Console'daki kırmızı yazı** ile bulduk.
-
-İşte profesyonel dünyada bu **"Siyah Ekran" (White Screen / Black Screen of Death)** sorununun çözüm protokolü:
-
-### 1. Profesyonel Teşhis Yöntemi: "Console First"
-
-Profesyoneller sayfayı açtığında siyah ekran görürse, refleks olarak **F12**'ye basar ve **Console** sekmesine bakar.
-
-* **Senin Durumun:** Console'da `Content Security Policy ... blocks 'eval'` yazıyordu.
-* **Anlamı:** "Kapıdaki güvenlik görevlisi (Tarayıcı), içeri girmeye çalışan işçiyi (JavaScript kodunu) tanımadı ve içeri almadı."
-* **Profesyonel Karar:** Kod bozuk değil, **engelleniyor**.
-
-### 2. Profesyonel Çözüm: "Hotfix" (Acil Müdahale)
-
-Profesyonel bir yazılımcı, `eval` hatası veren bir projede yerel ortamda (Localhost) çalışıyorsa, güvenlik duvarını geçici olarak indirir.
-
-**Profesyonelin uyguladığı "Altın Kod" şudur:**
-`index.html` dosyasının `<head>` kısmına şu iki sihirli satırı eklerler. Bu satırlar hem **yol sorununu** hem de **güvenlik sorununu** aynı anda çözer.
-
-#### 🛠️ "Ultra Çözüm" Kod Bloğu
-
-Aşağıdaki kodu kopyala ve `index.html` dosyanın `<head>` etiketinin hemen altına yapıştır. (Varsa eski `<base>` veya `<meta ... CSP>` etiketlerini sil).
-
-```html
-<base href="/">
-
-<meta http-equiv="Content-Security-Policy" 
-      content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
-
-```
-
-### 3. Neden Böyle Çözüldü? (Teknik Açıklama)
-
-* **`<base href="/">`:** Sen şu an `/tr/masajlar/` klasörünün içindesin. Tarayıcı `style.css` ararken o klasöre bakıyor. Bu kod tarayıcıya "Nerede olursam olayım, dosyaları hep ana kapıdan (kök dizinden) aramaya başla" emrini verir. Böylece `../../` hesabı yapmana gerek kalmaz.
-* **`unsafe-eval`:** Senin kullandığın bazı JavaScript kütüphaneleri (muhtemelen eski bir slider veya animasyon eklentisi), kod üretmek için `eval()` fonksiyonunu kullanıyor. Modern tarayıcılar bunu "virüs olabilir" diye engeller. Eklediğimiz `meta` etiketi,
-"Bu geliştirme ortamı, izin ver" diyerek kilidi açar.
-
-### 🚀 Profesyonel Sonuç
-
-Profesyoneller PowerShell scripti yazmakla vakit kaybetmez; **sorunun kaynağını (CSP) loglardan okur, HTML Header'a doğru izni ekler ve devam eder.**
-
-**Şimdi Sıra Sende:**
-Yukarıdaki 2 parça kodu `index.html` dosyanın en tepesine (head içine) ekle ve sayfayı yenile. Siyah ekranın yok olduğunu göreceksin.
+{
+    "description": "SANTIS_SITE Prompt Workbench - Geçici notlar ve çalışma alanı",
+    "last_updated": "2026-01-31",
+    "notes": [],
+    "resolved_issues": [
+        {
+            "file": "admin/style-admin.css",
+            "line": 230,
+            "issue": "backdrop-filter Safari uyumluluk uyarısı",
+            "fix": "-webkit-backdrop-filter prefix eklendi",
+            "resolved_at": "2026-01-31T23:17"
+        },
+        {
+            "file": "assets/css/card-effects.css",
+            "line": 79,
+            "issue": "backdrop-filter Safari uyumluluk uyarısı (.qv-overlay)",
+            "fix": "-webkit-backdrop-filter prefix eklendi",
+            "resolved_at": "2026-01-31T23:19"
+        },
+        {
+            "file": "assets/css/style.css",
+            "line": 1729,
+            "issue": "backdrop-filter Safari uyumluluk uyarısı (.submenu)",
+            "fix": "-webkit-backdrop-filter prefix eklendi",
+            "resolved_at": "2026-01-31T23:20"
+        }
+    ]
+}

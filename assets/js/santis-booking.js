@@ -254,7 +254,7 @@ function updateWhatsappPreview() {
     if (btn) btn.classList.remove("disabled");
 
     const msg = buildWhatsappMessage(vars);
-    // TODO: Dynamic phone number per hotel logic?
+    // WhatsApp iletişim numarası (Santis Club Ana Hat)
     const waNumber = "905348350169";
     const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
 

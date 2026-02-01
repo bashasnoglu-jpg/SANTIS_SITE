@@ -1,19 +1,16 @@
-Sen Dünyanın en iyi Front-End Geliştiricisisin.
-Şu an VS Code Live Server üzerinde çalışan bir projede "SİYAH EKRAN" (Black Screen) sorunu yaşıyorum.
-
-TEŞHİS RAPORU (Sorunun Sebepleri):
-1. GÜVENLİK ENGELİ: Kodumda "Content-Security-Policy" (CSP) var ve bu politika tarayıcının JavaScript'i çalıştırmasını engelliyor (Console'da 'eval' hatası veriyor).
-2. DOSYA YOLU HATASI: HTML dosyam "/tr/masajlar/" klasöründe ama CSS/JS dosyalarım ana dizinde. Tarayıcı dosyaları bulamıyor.
-
-GÖREVİN (Bunu Yap):
-Aşağıdaki HTML kodumu al ve şu düzeltmeleri yaparak bana TEK PARÇA halinde, kopyalayıp yapıştırabileceğim ÇALIŞAN KODU ver:
-
-1. <meta http-equiv="Content-Security-Policy"...> satırını TAMAMEN SİL.
-2. <head> etiketinin en üstüne <base href="/"> satırını EKLE (Böylece dosya yolları düzelir).
-3. Tüm script (<script>) etiketlerine 'defer' özelliği EKLE.
-4. Eğer kodda "preloader" veya "loading" div'i varsa, onu sil veya 'display:none' yap.
-
-Lütfen açıklama yapma, sadece düzeltilmiş ve çalışmaya hazır HTML kodunu ver.
-
-İŞTE BOZUK KODUM:
-[BURAYA KODUNU YAPIŞTIR]
+language-switcher.js:406 🌐 Santis Language Switcher v2.0 aktif (bar yok!)
+core_data_loader.js:2 📥 [Core Data Loader] Initializing...
+core_data_loader.js:54 ⚡ [Data Loader] Using Fallback Data (Fast Mode)
+core_data_loader.js:90 ✅ NV_HAMMAM Hydrated (2 items)
+core_data_loader.js:96 ✅ NV_MASSAGES Hydrated (11 items)
+core_data_loader.js:101 ✅ NV_SKINCARE Hydrated (13 items)
+category-engine.js:18 🎬 Category Engine Init: SKINCARE
+card-effects.js:24 🎨 Santis Card Effects v1.0: Initializing...
+card-effects.js:34 ✅ Found 13 cards
+card-effects.js:52 🏆 Card effects initialized!
+app.js:4441 🏆 Santis Club: 10/10 Mükemmellik Mührü Uygulandı.
+app.js:4446 ⚓ Auto-Loading Navbar...
+luxury-placeholder.webp:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+loader.js:120 🌊 [Loader] Preloader forced to hide.
+luxury-placeholder.webp:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+loader.js:120 🌊 [Loader] Preloader forced to hide.

@@ -117,8 +117,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof loadComp === "function") {
-                loadComp("components/navbar.html", "navbar-container");
-                loadComp("components/footer.html", "footer-container");
+                loadComp("/components/navbar.html", "navbar-container");
+                loadComp("/components/footer.html", "footer-container");
             }
             setTimeout(() => {
                 const p = document.getElementById('preloader');

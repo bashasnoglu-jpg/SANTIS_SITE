@@ -7,7 +7,10 @@
  */
 
 // Global state for retries
-const __NV_LOADCOMP_RETRY = new Map();
+// Global state for retries (Singleton Pattern)
+if (typeof __NV_LOADCOMP_RETRY === 'undefined') {
+    window.__NV_LOADCOMP_RETRY = new Map();
+}
 
 // Helper for cache busting
 function withCacheBust(url, enabled = true) {

@@ -2,7 +2,8 @@
 <html lang="tr">
 
 <head>
-    <base href="/">
+    <base href="../../">
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Masajlar • Santis Club</title>
     <meta name="description"
@@ -17,18 +18,18 @@
     <link rel="prefetch" href="/booking.html">
 
     <!-- UNIFIED MASTER STYLE -->
-    <link rel="stylesheet" href="/assets/css/style.css" />
-    <link rel="stylesheet" href="/assets/css/card-effects.css" />
-    <link rel="stylesheet" href="/assets/css/video-hero.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/master-cards.css" />
+    <link rel="stylesheet" href="assets/css/video-hero.css" />
 
-    <script src="/assets/js/perf-head.js"></script>
+    <script src="assets/js/perf-head.js"></script>
 
-    <script src="/assets/js/animations.js" defer></script>
-    <script src="/assets/js/language-switcher.js" defer></script>
+    <script src="assets/js/animations.js" defer></script>
+    <script src="assets/js/language-switcher.js?v=2.3" defer></script>
 </head>
 
 <body class="editorial-mode">
-    <h1 style="position:fixed; top:0; left:0; z-index:999999; color:red; background:white; font-size:50px; padding:20px;">BURADAYIM: tr/masajlar/index.html</h1>
+
 
     <!-- PRELOADER -->
 
@@ -83,7 +84,7 @@
 
         <!-- MASSAGE GRID -->
         <div class="nv-container nv-section" id="massages" data-section="massage">
-            <div class="nv-card-grid" id="grid-massages">
+            <div class="product-grid-v2" id="nvList">
                 <!-- Rendered by JS -->
             </div>
         </div>
@@ -96,107 +97,19 @@
     <!-- SCRIPTS -->
     <!-- 1. Data Layer -->
     <!-- 1. Data Layer -->
-    <script src="/assets/js/fallback_data.js"></script>
-    <script src="/assets/js/core_data_loader.js"></script>
+    <!-- 1. Data Layer -->
+    <script src="assets/js/settings-data.js"></script>
+    <script src="assets/js/services-data.js"></script>
+    <script src="assets/js/fallback_data.js"></script>
+    <script src="assets/js/core_data_loader.js"></script>
 
     <!-- 2. Loader -->
-    <script src="/assets/js/loader.js"></script>
+    <script src="assets/js/loader.js"></script>
 
-    <!-- 3. Premium Card Effects -->
+    <!-- 3. Premium Card Effects & Engine -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-    <script src="/assets/js/card-effects.js"></script>
-
-    <script>
-        /* SANTIS MASSAGE PAGE RENDER ENGINE */
-
-        function renderMassageGrid(data, targetId, filterCategory = null) {
-            const grid = document.getElementById(targetId);
-            if (!grid || !data) return;
-
-            let list = Array.isArray(data) ? data : [];
-
-            // Filter by category if specified
-            if (filterCategory && filterCategory !== 'all') {
-                list = list.filter(item => item.category === filterCategory);
-            }
-
-            // Sort: Signature first, then by price
-            list = [...list].sort((a, b) => {
-                if (a.tier === 'SIGNATURE') return -1;
-                if (b.tier === 'SIGNATURE') return 1;
-                return (b.price || 0) - (a.price || 0);
-            });
-
-            grid.innerHTML = list.map((item, index) => {
-                const itemLink = `/service-detail.html?slug=${encodeURIComponent(item.slug || item.id)}`;
-
-                return `
-                    <article class="nv-card curtain-reveal" style="animation-delay: ${index * 0.08}s">
-                        <div class="nv-card-img-box">
-                            <img src="${item.img ? '/' + item.img : '/assets/img/cards/massage.png'}" alt="${item.title}" class="nv-card-img" loading="lazy" decoding="async" width="600" height="400">
-                        </div>
-                        <div class="nv-card-body">
-                            <span class="nv-kicker">${item.tier || item.category || 'MASAJ'}</span>
-                            <h3 class="nv-title" style="font-size: 20px;">${item.title}</h3>
-                            <p class="nv-card-desc" style="font-size: 14px; color: var(--text-muted); margin: 8px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                                ${item.desc || ''}
-                            </p>
-                            <div class="nv-card-meta" style="display: flex; gap: 12px; margin-top: 12px;">
-                                ${item.duration ? `<span style="font-size: 13px; color: var(--text-muted);">⏱ ${item.duration}</span>` : ''}
-                                <span class="nv-card-price" style="color: var(--gold-primary, #D4AF37); font-weight: 500;">${item.price ? item.price + '€' : 'İncele'}</span>
-                            </div>
-                        </div>
-                        <a href="${itemLink}" class="nv-card-link" aria-label="${item.title}"></a>
-                    </article>
-                `;
-            }).join('');
-
-            // Show message if no results
-            if (list.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 40px;">Bu kategoride henüz hizmet bulunmuyor.</p>';
-            }
-        }
-
-        function initChipFilters() {
-            const chips = document.querySelectorAll('.nv-chip');
-
-            chips.forEach(chip => {
-                chip.addEventListener('click', () => {
-                    // Update active state
-                    chips.forEach(c => c.classList.remove('is-active'));
-                    chip.classList.add('is-active');
-
-                    // Re-render grid with filter
-                    const filter = chip.dataset.filter;
-                    renderMassageGrid(window.NV_MASSAGES, 'grid-massages', filter);
-                });
-            });
-        }
-
-        // Init
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Wait for data
-            if (window.NV_DATA_READY_PROMISE) {
-                await window.NV_DATA_READY_PROMISE;
-            }
-            // Load Components
-            if (typeof loadComp === 'function') {
-                loadComp("/components/navbar.html", "navbar-container");
-                loadComp("/components/footer.html", "footer-container");
-            }
-
-            // Render Massage Grid
-            if (window.NV_MASSAGES && window.NV_MASSAGES.length > 0) {
-                console.log('✅ Loaded', window.NV_MASSAGES.length, 'massages');
-                renderMassageGrid(window.NV_MASSAGES, 'grid-massages');
-            } else {
-                console.error('❌ NV_MASSAGES not found');
-            }
-
-            // Init Chip Filters
-            initChipFilters();
-        });
-    </script>
+    <script src="assets/js/card-manager.js" defer></script>
+    <script src="assets/js/category-engine.js" defer></script>
 
     <style>
         /* Chip Styles (matching homepage) */
@@ -241,9 +154,9 @@
     </style>
 
     <!-- 4. Global App Logic (Added to fix Black Screen) -->
-    <script src="/assets/js/santis-nav.js" defer></script>
-    <script src="/assets/js/santis-booking.js" defer></script>
-    <script src="/assets/js/app.js" defer></script>
+    <script src="assets/js/santis-nav.js" defer></script>
+    <script src="assets/js/santis-booking.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
 
     <!-- FAILSAFE: Preloader Guard -->
     <script>

@@ -11,25 +11,27 @@
 (function () {
     'use strict';
 
+    // 🛑 SINGLETON KORUMASI: Script zaten çalıştıysa tekrar çalışma
+    if (window.SANTIS_LANG_ACTIVE) return;
+    window.SANTIS_LANG_ACTIVE = true;
+
     // ═══════════════════════════════════════════════════════════════
     // YAPILANDIRMA
     // ═══════════════════════════════════════════════════════════════
 
     const CONFIG = {
+        // Popüler Diller (Dropdown'da görünür)
         languages: [
             { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
             { code: 'en', name: 'English', flag: '🇬🇧' },
             { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
             { code: 'ru', name: 'Русский', flag: '🇷🇺' },
             { code: 'ar', name: 'العربية', flag: '🇸🇦', rtl: true },
-            { code: 'zh-CN', name: '中文', flag: '🇨🇳' },
-            { code: 'ja', name: '日本語', flag: '🇯🇵' },
-            { code: 'ko', name: '한국어', flag: '🇰🇷' },
             { code: 'fr', name: 'Français', flag: '🇫🇷' },
             { code: 'es', name: 'Español', flag: '🇪🇸' },
             { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-            { code: 'pt', name: 'Português', flag: '🇵🇹' },
-            { code: 'nl', name: 'Nederlands', flag: '🇳🇱' }
+            { code: 'zh-CN', name: '中文', flag: '🇨🇳' },
+            { code: 'ja', name: '日本語', flag: '🇯🇵' }
         ],
         defaultLang: 'tr',
         cookieName: 'santis_lang'
@@ -43,31 +45,57 @@
         // Body henüz yüklenmediyse çık
         if (!document.body) return;
 
-        // 1. Inline style ile body düzelt
-        document.body.style.cssText += 'top: 0 !important; position: static !important; margin-top: 0 !important;';
+        // TEHLİKELİ KOD KALDIRILDI: document.body.style.cssText müdahalesi iptal.
+        // CSS enjeksiyonu zaten bu işi yapıyor.
 
-        // 2. HTML top düzelt
-        document.documentElement.style.cssText += 'top: 0 !important; margin-top: 0 !important;';
-
-        // 3. Tüm Google Translate elementlerini DOM'dan SİL
+        // 3. Tüm Google Translate elementlerini DOM'dan SİL (Güvenli Mod: Gizle)
         const selectors = [
-            '.skiptranslate',
             'iframe.goog-te-banner-frame',
             '.goog-te-banner-frame',
             '#goog-gt-tt',
             '.goog-te-balloon-frame',
-            'body > .skiptranslate',
             'iframe[src*="translate.google"]'
         ];
 
         selectors.forEach(sel => {
             document.querySelectorAll(sel).forEach(el => {
-                // Bizim dropdown değilse sil
-                if (!el.classList.contains('santis-lang-dropdown')) {
-                    el.remove();
-                }
+                el.style.display = 'none';
+                el.style.visibility = 'hidden';
+                el.style.pointerEvents = 'none';
             });
         });
+    }
+
+    // ... (injectKillerCSS vb. aynı kalıyor) ...
+
+    function init() {
+        // 1. CSS enjekte et (Hemen çalışsın, zararı yok)
+        injectKillerCSS();
+
+        // 2. Bar öldürücüyü sürekli çalıştır
+        setInterval(killGoogleBar, 500);
+
+        // 3. MutationObserver
+        const observer = new MutationObserver(killGoogleBar);
+        observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style', 'class']
+        });
+
+        // 4. KRİTİK DEĞİŞİKLİK: Google Translate'i GECİKMELİ yükle
+        // Sayfa tamamen açıldıktan 3 saniye sonra.
+        const startTranslate = () => {
+            console.log('⏳ Google Translate yükleniyor...');
+            setTimeout(onReady, 2000); // 2 saniye rölanti
+        };
+
+        if (document.readyState === 'complete') {
+            startTranslate();
+        } else {
+            window.addEventListener('load', startTranslate);
+        }
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -80,14 +108,11 @@
         style.textContent = `
             /* GOOGLE TRANSLATE - MUTLAK GİZLEME */
             .goog-te-banner-frame,
-            .skiptranslate:not(.santis-lang-dropdown),
             iframe.goog-te-banner-frame,
             #goog-gt-tt,
             .goog-te-balloon-frame,
             .goog-te-gadget,
-            body > .skiptranslate,
-            iframe[src*="translate.google"],
-            [class*="goog-te-"] {
+            iframe[src*="translate.google"] {
                 display: none !important;
                 visibility: hidden !important;
                 height: 0 !important;
@@ -112,6 +137,9 @@
             html.translated-rtl body {
                 top: 0 !important;
                 margin-top: 0 !important;
+                position: static !important;
+                min-height: 100% !important;
+                transform: none !important;
             }
             
             /* GOOGLE TRANSLATE ELEMENT - GİZLİ */
@@ -230,7 +258,7 @@
         window.googleTranslateElementInit = function () {
             new google.translate.TranslateElement({
                 pageLanguage: 'tr',
-                includedLanguages: CONFIG.languages.map(l => l.code).join(','),
+                // includedLanguages parametresi kaldırılarak TÜM diller aktif edildi (100+)
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
                 autoDisplay: false
             }, 'google_translate_element');
@@ -304,28 +332,39 @@
     }
 
     function insertDropdown() {
+        // Zaten varsa ekleme!
+        if (document.querySelector('.santis-lang-dropdown')) return;
+
         const dropdown = createDropdown();
 
-        // Navbar'a ekle
+        // 1. Navbar'daki placeholder'a ekle (Yeni Standart)
+        const placeholder = document.getElementById('santis-language-root');
+        if (placeholder) {
+            placeholder.innerHTML = ''; // Temizle
+            placeholder.appendChild(dropdown);
+            return;
+        }
+
+        // 2. Fallback: Navbar actions
         const navActions = document.querySelector('.nav-actions, .navbar-actions, header nav');
         if (navActions) {
             navActions.appendChild(dropdown);
             return;
         }
 
-        // Header'a ekle
+        // 3. Fallback: Header
         const header = document.querySelector('header, nav');
         if (header) {
+            header.style.position = 'relative';
             dropdown.style.position = 'absolute';
             dropdown.style.right = '20px';
             dropdown.style.top = '50%';
             dropdown.style.transform = 'translateY(-50%)';
-            header.style.position = 'relative';
             header.appendChild(dropdown);
             return;
         }
 
-        // Body'ye fixed ekle
+        // 4. Last Resort: Body Fixed
         dropdown.style.position = 'fixed';
         dropdown.style.right = '20px';
         dropdown.style.top = '20px';

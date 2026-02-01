@@ -1,4 +1,4 @@
-﻿window.SANTIS_FALLBACK = window.SANTIS_FALLBACK || {
+﻿{
     "global": {
         "defaultCurrency": "EUR",
         "routes": {
@@ -13,7 +13,6 @@
             "kids": "tr/masajlar/index.html",
             "face": "tr/cilt-bakimi/index.html",
             "products": "tr/urunler/index.html",
-            "gallery": "tr/galeri/index.html",
             "about": "tr/hakkimizda/index.html",
             "team": "tr/ekibimiz/index.html",
             "booking": "booking.html"
@@ -85,11 +84,6 @@
                 "route": "products",
                 "sectionKey": "products",
                 "categoryId": "products"
-            },
-            {
-                "key": "gallery",
-                "route": "gallery",
-                "sectionKey": "gallery"
             },
             {
                 "key": "about",
@@ -3200,24 +3194,5 @@
                 "miniPrograms"
             ]
         }
-    },
-    "tr": {
-        "nav": {
-            "home": "ANA SAYFA",
-            "hammam": "HAMAM",
-            "massages": "MASAJLAR",
-            "classicMassages": "KLASİK",
-            "sportsTherapy": "SPOR",
-            "asianMassages": "UZAK DOĞU",
-            "ayurveda": "AYURVEDA",
-            "signatureCouples": "PREMIUM",
-            "kidsFamily": "AİLE",
-            "faceSothys": "CİLT BAKIMI",
-            "products": "ÜRÜNLER",
-            "gallery": "GALERİ",
-            "about": "HAKKIMIZDA",
-            "team": "EKİBİMİZ",
-            "bookingWhatsapp": "HEMEN REZERVASYON"
-        }
     }
-};
+}

@@ -216,7 +216,7 @@
                 <div class="card__image-wrapper">
                     <img 
                         class="card__image" 
-                        src="${data.img || '/assets/img/luxury-placeholder.webp'}" 
+                        src="${data.img || '/assets/img/luxury-placeholder.png'}" 
                         alt="${data.title}"
                         loading="lazy"
                         decoding="async"

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="tr">
+
+<head>
+    <base href="/">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Hakkımızda • Santis Club</title>
+    <meta name="description" content="Santis Club'ın hikayesi, felsefesi ve Karadağ'daki eşsiz konumu hakkında bilgi edinin.">
+
+    <!-- MASTER STYLE -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/editorial.css" />
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <script src="assets/js/perf-head.js"></script>
+    <script src="assets/js/animations.js" defer></script>
+</head>
+
+<body class="editorial-mode">
+    
+    <!-- NAVBAR -->
+    <div id="navbar-container"></div>
+
+    <main id="nv-main">
+
+        <!-- HEADER -->
+        <header class="nv-editorial-header">
+            <div class="nv-container">
+                <span class="nv-kicker">THE STORY</span>
+                <h1 class="nv-editorial-title">Santis Hikayesi</h1>
+                <div class="nv-divider"></div>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <article class="nv-editorial-body">
+            <div class="nv-container nv-narrow">
+                
+                <p class="nv-lead">
+                    Adriyatik'in incisi Karadağ'da, beden ve ruh bütünlüğünü hedefleyen, yüzyıllık spa geleneklerini modern dokunuşlarla harmanlayan bir kaçış noktası.
+                </p>
+
+                <p>
+                    Santis Club, sadece bir spa merkezi değil, aynı zamanda bir yaşam felsefesidir. "Su ile gelen sağlık" (Salus Per Aquam - SPA) ilkesinden yola çıkarak tasarladığımız mekanımızda, misafirlerimize şehrin karmaşasından uzak, zamanın yavaşladığı bir atmosfer sunuyoruz.
+                </p>
+
+                <figure class="nv-figure full-width">
+                    <img src="assets/img/hero-general.webp" alt="Santis Club Atmosferi" loading="lazy">
+                    <figcaption>Budva'nın kalbinde, Iberostar Waves Bellevue.</figcaption>
+                </figure>
+
+                <h3>Felsefemiz</h3>
+                <p>
+                    Bizim için lüks, abartılı dekorasyonlar değil; dinginlik, saflık ve özenli hizmettir. "Quiet Luxury" (Sessiz Lüks) anlayışımızla, her detayda sadeliği ve kaliteyi ön planda tutuyoruz. Kullandığımız yağlardan havluların dokusuna kadar her şey, duyularınızı harekete geçirmek için özenle seçilmiştir.
+                </p>
+
+                <h3>Konumumuz</h3>
+                <p>
+                    Bečići sahilinin eşsiz manzarasına karşı konumlanan merkezimiz, doğanın iyileştirici gücünü mimarisine yansıtır. Deniz kokusu ve kuş sesleri eşliğinde, uzman terapistlerimizin sihirli dokunuşlarıyla yenilenmeye davetlisiniz.
+                </p>
+
+            </div>
+        </article>
+
+    </main>
+
+    <!-- FOOTER -->
+    <div id="footer-container"></div>
+
+    <!-- SCRIPTS -->
+    <script src="/assets/js/santis-nav.js?v=2" defer></script>
+    <script src="/assets/js/santis-booking.js?v=2" defer></script>
+    <script src="/assets/js/app.js?v=3" defer></script>
+    <script src="/assets/js/loader.js?v=2" defer></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof loadComp === "function") {
+                loadComp("/components/navbar.html", "navbar-container");
+                loadComp("/components/footer.html", "footer-container");
+            }
+        });
+    </script>
+</body>
+</html>

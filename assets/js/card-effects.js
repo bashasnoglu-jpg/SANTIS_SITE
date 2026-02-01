@@ -24,7 +24,7 @@
         console.log('🎨 Santis Card Effects v1.0: Initializing...');
 
         // Get all premium cards
-        const cards = document.querySelectorAll('.nv-card, .nv-card-service, .nv-card-product, article.nv-card');
+        const cards = document.querySelectorAll('.nv-card, .nv-card-service, .nv-card-product, article.nv-card, .prod-card-v2');
 
         if (cards.length === 0) {
             console.log('⚠️ No cards found');

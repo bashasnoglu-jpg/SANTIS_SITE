@@ -1,26 +1,247 @@
 <!doctype html>
 <html lang="tr">
+
 <head>
     <base href="/">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Galeri • Santis Club</title>
+    <meta name="description" content="Santis Club'ın büyüleyici atmosferini, huzur dolu hamam ve masaj alanlarını keşfedin.">
+
+    <!-- MASTER STYLE -->
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/card-effects.css" />
+    <link rel="stylesheet" href="assets/css/gallery.css" />
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <script src="assets/js/perf-head.js"></script>
+    <script src="assets/js/animations.js" defer></script>
+    <script src="assets/js/language-switcher.js?v=2.3" defer></script>
+</head>
+
+<body class="editorial-mode">
+    
+    <!-- NAVBAR -->
+    <div id="navbar-container"></div>
+
+    <main id="nv-main">
+
+        <!-- HERO SECTION -->
+        <section class="nv-hero-small" style="padding-top: 160px; padding-bottom: 60px; text-align: center;">
+            <div class="nv-container">
+                <span class="nv-kicker">VISUAL JOURNEY</span>
+                <h1 class="nv-hero-title" style="font-size: 48px; margin-bottom: 20px;">Santis Atmosferi</h1>
+                <p class="nv-hero-subtitle" style="max-width: 600px; margin: 0 auto; color: var(--text-muted);">
+                    Huzurun, dinginliğin ve lüksün görsel hikayesi.
+                </p>
+            </div>
+        </section>
+
+        <!-- FILTERS -->
+        <div class="nv-container" style="margin-bottom: 40px;">
+            <div class="nv-chips" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                <button class="nv-chip is-active" data-filter="all">Tümü</button>
+                <button class="nv-chip" data-filter="hamam">Hamam</button>
+                <button class="nv-chip" data-filter="massage">Masaj</button>
+                <button class="nv-chip" data-filter="skincare">Cilt Bakımı</button>
+                <button class="nv-chip" data-filter="ambiance">Mekan & Detay</button>
+            </div>
+        </div>
+
+        <!-- GALLERY GRID -->
+        <div class="nv-container">
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Hamam -->
+                <div class="gallery-item" data-category="hamam">
+                    <img src="assets/img/cards/santis_card_hammam_v1.png" alt="Geleneksel Hamam" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Geleneksel Hamam</span>
+                    </div>
+                </div>
+                <!-- Massage (Couple) -->
+                <div class="gallery-item" data-category="massage">
+                    <img src="assets/img/cards/santis_card_couple_v1.png" alt="Çift Masajı" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Signature Couple</span>
+                    </div>
+                </div>
+                <!-- Skincare -->
+                <div class="gallery-item" data-category="skincare">
+                    <img src="assets/img/cards/santis_card_skincare_v1.png" alt="Cilt Bakımı" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Sothys Cilt Bakımı</span>
+                    </div>
+                </div>
+                <!-- Massage (Deep Tissue) -->
+                <div class="gallery-item" data-category="massage">
+                    <img src="assets/img/cards/santis_card_deeptissue_v1.png" alt="Derin Doku Masajı" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Deep Tissue</span>
+                    </div>
+                </div>
+                <!-- Ambiance / Hero -->
+                <div class="gallery-item wide" data-category="ambiance">
+                    <img src="assets/img/hero-general.webp" alt="Santis Genel Atmosfer" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Santis Lounge</span>
+                    </div>
+                </div>
+                <!-- Hamam Detail -->
+                <div class="gallery-item" data-category="hamam">
+                    <img src="assets/img/cards/hammam.png" alt="Kurna Detayı" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Mermer & Su</span>
+                    </div>
+                </div>
+                <!-- Thai -->
+                <div class="gallery-item" data-category="massage">
+                    <img src="assets/img/cards/santis_card_thai_v1.png" alt="Thai Masajı" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Thai Ritüeli</span>
+                    </div>
+                </div>
+                <!-- Kids -->
+                <div class="gallery-item" data-category="massage">
+                    <img src="assets/img/cards/santis_card_kids_v1.png" alt="Çocuk Masajı" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Kids Spa</span>
+                    </div>
+                </div>
+                 <!-- Products -->
+                 <div class="gallery-item" data-category="ambiance">
+                    <img src="assets/img/cards/product-oil.png" alt="Aromaterapi Yağları" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Aromaterapi</span>
+                    </div>
+                </div>
+                <!-- Reflexology -->
+                <div class="gallery-item" data-category="massage">
+                    <img src="assets/img/cards/santis_card_reflexology_v1.png" alt="Refleksoloji" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Refleksoloji</span>
+                    </div>
+                </div>
+                <!-- Shirodhara -->
+                <div class="gallery-item" data-category="massage">
+                    <img src="assets/img/cards/santis_card_shirodhara_v1.png" alt="Shirodhara" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Shirodhara</span>
+                    </div>
+                </div>
+                <!-- General Massage -->
+                <div class="gallery-item" data-category="massage">
+                    <img src="assets/img/cards/santis_card_massage_v1.png" alt="Klasik Masaj" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Klasik Masaj</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <div id="footer-container"></div>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightboxImg">
+        <div id="caption"></div>
+    </div>
+
+    <!-- SCRIPTS -->
     <script src="assets/js/santis-nav.js" defer></script>
     <script src="assets/js/santis-booking.js" defer></script>
     <script src="assets/js/app.js" defer></script>
     <script src="assets/js/loader.js" defer></script>
-</head>
-<body class="editorial-mode">
-    <div id="navbar-container"></div>
-    <main style="padding-top: 150px; text-align: center;">
-        <h1>Galeri</h1>
-        <p>Yapım aşamasında...</p>
-    </main>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-             if (typeof loadComp === "function") loadComp("components/navbar.html", "navbar-container");
+            if (typeof loadComp === "function") {
+                loadComp("/components/navbar.html", "navbar-container");
+                loadComp("/components/footer.html", "footer-container");
+            }
+
+            // FILTER LOGIC
+            const chips = document.querySelectorAll('.nv-chip');
+            const items = document.querySelectorAll('.gallery-item');
+
+            chips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    // Update active chip
+                    chips.forEach(c => c.classList.remove('is-active'));
+                    chip.classList.add('is-active');
+
+                    const filter = chip.getAttribute('data-filter');
+
+                    items.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                            setTimeout(() => item.style.opacity = '1', 50);
+                        } else {
+                            item.style.opacity = '0';
+                            setTimeout(() => item.style.display = 'none', 300);
+                        }
+                    });
+                });
+            });
+
+            // LIGHTBOX LOGIC
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const captionText = document.getElementById('caption');
+            const closeBtn = document.querySelector('.lightbox-close');
+
+            document.querySelectorAll('.gallery-item img').forEach(img => {
+                img.addEventListener('click', () => {
+                   lightbox.style.display = "block";
+                   lightboxImg.src = img.src;
+                   captionText.innerHTML = img.alt;
+                   document.body.style.overflow = "hidden"; // Prevent scrolling
+                });
+            });
+
+            const closeLightbox = () => {
+                lightbox.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+
+            closeBtn.addEventListener('click', closeLightbox);
+            
+            lightbox.addEventListener('click', (e) => {
+                if(e.target === lightbox) closeLightbox();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if(e.key === "Escape") closeLightbox();
+            });
         });
     </script>
+
+    <style>
+        /* CHIPS (Reused from Masajlar) */
+        .nv-chip {
+            padding: 10px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nv-chip:hover, .nv-chip.is-active {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+    </style>
 </body>
 </html>

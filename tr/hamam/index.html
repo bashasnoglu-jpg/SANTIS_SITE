@@ -10,14 +10,14 @@
         content="Geleneksel Türk Hamamı ritüelleriyle arının. Osmanlı saray geleneğinden ilham alan kese, köpük ve bakım terapileriyle yenilenin.">
 
     <!-- Master Style -->
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/card-effects.css" />
-    <link rel="stylesheet" href="assets/css/video-hero.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/master-cards.css" />
+    <link rel="stylesheet" href="/assets/css/video-hero.css" />
 
     <script src="assets/js/perf-head.js"></script>
 
-    <script src="assets/js/animations.js" defer></script>
-    <script src="assets/js/language-switcher.js"></script>
+    <script src="/assets/js/animations.js" defer></script>
+    <script src="assets/js/language-switcher.js?v=2.3" defer></script>
 </head>
 
 <body class="editorial-mode">
@@ -63,7 +63,7 @@
 
         <!-- LIST CONTAINER -->
         <div class="nv-container">
-            <div id="nvList" class="nv-list reveal-on-scroll reveal-delay-2">
+            <div id="nvList" class="product-grid-v2 reveal-on-scroll reveal-delay-2">
                 <!-- Rendered by Category Engine -->
             </div>
         </div>
@@ -76,26 +76,27 @@
     <!-- DATA + ENGINE -->
     <!-- DATA + ENGINE -->
     <!-- 1. Data Layer -->
-    <script src="assets/js/fallback_data.js"></script>
-    <script src="assets/js/core_data_loader.js"></script>
+    <script src="/assets/js/services-data.js"></script>
+    <script src="/assets/js/fallback_data.js"></script>
+    <script src="/assets/js/core_data_loader.js"></script>
     <script src="assets/js/category-engine.js"></script>
     
-    <script src="assets/js/santis-nav.js"></script>
-    <script src="assets/js/santis-booking.js"></script>
-    <script src="assets/js/app.js"></script>
+    <script src="/assets/js/santis-nav.js"></script>
+    <script src="/assets/js/santis-booking.js"></script>
+    <script src="/assets/js/app.js"></script>
 
     <!-- LOADER -->
     <script src="assets/js/loader.js"></script>
 
     <!-- PREMIUM CARD EFFECTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-    <script src="assets/js/card-effects.js"></script>
+    <script src="assets/js/card-manager.js" defer></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             if (typeof loadComp === "function") {
-                loadComp("components/navbar.html", "navbar-container");
-                loadComp("components/footer.html", "footer-container");
+                loadComp("/components/navbar.html", "navbar-container");
+                loadComp("/components/footer.html", "footer-container");
             }
         });
     </script>

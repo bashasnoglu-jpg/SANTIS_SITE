@@ -21,7 +21,20 @@
     </div>
 
     <!-- NAVBAR -->
+    <!-- NAVBAR -->
     <div id="navbar-container"></div>
+    <!-- Script will load components/navbar.html here -->
+    <div class="mobile-menu-overlay" id="mobileMenu" style="z-index: 999998;">
+        <div class="mobile-menu-content">
+            <a href="index.html" class="mobile-link">ANA SAYFA</a>
+            <a href="tr/hamam/index.html" class="mobile-link">HAMAM RİTÜELLERİ</a>
+            <a href="tr/masajlar/index.html" class="mobile-link">DÜNYA MASAJLARI</a>
+            <a href="tr/cilt-bakimi/index.html" class="mobile-link">CİLT BAKIMI</a>
+            <a href="tr/urunler/index.html" class="mobile-link">ÜRÜNLER</a>
+            <a href="tr/galeri/index.html" class="mobile-link">GALERİ</a>
+            <a href="booking.html" class="mobile-link">REZERVASYON</a>
+        </div>
+    </div>
 
     <main id="nv-main">
         <!-- HERO SECTION -->
@@ -71,12 +84,15 @@
     <div id="footer-container"></div>
 
     <!-- SCRIPTS -->
+    <script src="assets/js/settings-data.js" defer></script>
     <script src="assets/js/fallback_data.js" defer></script>
+    <script src="assets/js/core_data_loader.js" defer></script>
     <script src="assets/js/loader.js" defer></script>
     <script src="assets/js/url-normalizer.js" defer></script>
     <script src="assets/js/santis-nav.js" defer></script>
     <script src="assets/js/santis-booking.js" defer></script>
     <script src="assets/js/app.js" defer></script>
+    <script src="assets/js/language-switcher.js?v=2.3" defer></script>
 
     <!-- INLINE LOGIC TO POPULATE DATA -->
     <script defer>
@@ -84,23 +100,82 @@
             const params = new URLSearchParams(window.location.search);
             const slug = params.get('slug');
 
+            if (typeof loadComp === "function") {
+                loadComp("/components/navbar.html", "navbar-container");
+                loadComp("/components/footer.html", "footer-container");
+            }
             if (!slug) {
-                document.getElementById('detail-title').innerText = "Hizmet Bulunamadı";
+                // Redirect to homepage automatically in production
+                // But for now, let's show a friendly message or redirect
+                console.warn("⚠️ No slug provided. Redirecting to home...");
+                window.location.replace("index.html");
                 return;
             }
 
             // FIND SERVICE IN FALLBACK DATA
-            const data = window.SANTIS_FALLBACK || {};
-            let service = null;
-            let categoryLabel = "SANTIS CLUB";
+            // FIND SERVICE IN DATA (Unified)
+            // Wait for data if utilizing core_data_loader
+            const findService = () => {
+                const data = window.CONTENT || window.SANTIS_FALLBACK || {};
+                let service = null;
+                
+                // 1. Helper to search
+                const search = (collection) => {
+                    if(!collection) return null;
+                    if(Array.isArray(collection)) return collection.find(s => s.id == slug || s.slug == slug);
+                    return Object.values(collection).find(s => s.id == slug || s.slug == slug);
+                };
 
-            // Search in Services Object (Preferred)
-            if (data.services && data.services[slug]) {
-                 // Format 2: services object keys are slugs (approx) or keys mapping to service
-                // Actually fallback data structure in Step 501 suggests: services: { "hammam_traditional_ritual": ... }
-                // We need to match slug to keys or slug property inside keys
-                const foundKey = Object.keys(data.services).find(k => k === slug || data.services[k].slug === slug);
-                if(foundKey) service = data.services[foundKey];
+                // 2. Try Global Arrays first (if hydrated)
+                if(window.NV_HAMMAM) service = search(window.NV_HAMMAM);
+                if(!service && window.NV_MASSAGES) service = search(window.NV_MASSAGES);
+                if(!service && window.NV_SKINCARE) service = search(window.NV_SKINCARE);
+
+                // 3. Try Raw Content
+                if(!service && data.global) {
+                    if(data.global.services) service = search(data.global.services);
+                    if(!service && data.global.hammam) service = search(data.global.hammam);
+                }
+
+                return service;
+            };
+
+            const renderPage = () => {
+                const service = findService();
+                if (!service) {
+                    console.warn("Service not found:", slug);
+                     // Optional: Show 404 or redirect
+                    return;
+                }
+                
+                // Populate UI
+                // ... (existing logic adaptation)
+                document.title = (service.name?.tr || service.title || "Hizmet") + " • Santis Club";
+                document.getElementById('detail-title').textContent = service.name?.tr || service.title;
+                document.getElementById('detail-desc').innerHTML = service.desc?.tr || service.desc;
+                document.getElementById('detail-price').textContent = service.price ? service.price + " €" : "Bilgi Al";
+                document.getElementById('detail-duration').textContent = (service.duration || service.durationMin || "--") + " dk";
+                
+                if(service.img) {
+                    const imgPath = service.img.startsWith('/') ? service.img.substring(1) : service.img;
+                    const imgPathSafe = imgPath.startsWith('assets') ? imgPath : `assets/img/cards/${imgPath}`;
+                    document.getElementById('detail-hero-img').src = imgPathSafe;
+                }
+                
+                // WhatsApp Button
+                const btn = document.getElementById('bookBtn');
+                if(btn) {
+                    const msg = encodeURIComponent(`${service.name?.tr || service.title} hakkında bilgi almak istiyorum.`);
+                    btn.href = `https://wa.me/905348350169?text=${msg}`;
+                }
+            };
+
+            // Init
+            if(window.NV_DATA_READY_PROMISE) {
+                window.NV_DATA_READY_PROMISE.then(renderPage);
+            } else {
+                setTimeout(renderPage, 500); // Fallback wait
+            }
             }
 
             // Search in Arrays if not found (Massages, Skincare arrays shown in Step 594)

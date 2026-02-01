@@ -61,6 +61,12 @@
                 data = await resp.json();
             }
 
+            // CRITICAL FIX: Expose data globally for santis-nav.js
+            window.CONTENT = data;
+            if (data.global && data.global.navModel) {
+                window.NAV_MODEL = data.global.navModel;
+            }
+
             // Handle structure: data.global.services (Object) -> Arrays
             // or data.global.hammam (Array), etc. if mixed.
 
@@ -71,28 +77,37 @@
             // Helper to get TR text
             const tr = (val) => (val && val.tr) ? val.tr : (typeof val === 'string' ? val : "");
 
-            const allServices = Object.values(servicesObj).map(svc => ({
-                id: svc.id || svc.slug,
-                slug: svc.slug || svc.id,
+            const allServices = Object.entries(servicesObj).map(([key, svc]) => ({
+                id: svc.id || key,
+                slug: svc.slug || key, // Use key as slug if missing
                 title: tr(svc.name),
                 desc: tr(svc.desc),
-                img: svc.img || "/assets/img/luxury-placeholder.webp", // Fallback
+                img: svc.img || "/assets/img/luxury-placeholder.png",
                 price: svc.price,
                 duration: svc.durationMin ? svc.durationMin + " dk" : "",
                 category: svc.categoryId,
-                tier: svc.badge || "", // Mapping badge to tier for UI chips? Or just use categoryId
-                tags: [] // Todo if tags exist
+                tier: svc.badge || "",
+                tags: []
             }));
 
             // 1. HAMMAM
             window.NV_HAMMAM = allServices.filter(s => s.category === 'hammam');
-            window.NV_HAMMAM_CATEGORIES = {}; // Todo if needed
+            window.NV_HAMMAM_CATEGORIES = {}; // Kategori filtreleme için boş obje
             console.log("✅ NV_HAMMAM Hydrated (" + window.NV_HAMMAM.length + " items)");
 
             // 2. MASSAGES (Classic, Sports, Asian, Signature, Kids)
             // Categories in site_content.json: classicMassages, sportsTherapy, asianMassages, ayurveda, signatureCouples, kidsFamily
             const massageCats = ['classicMassages', 'sportsTherapy', 'asianMassages', 'ayurveda', 'signatureCouples', 'kidsFamily'];
             window.NV_MASSAGES = allServices.filter(s => massageCats.includes(s.category));
+            window.NV_MASSAGES_CATEGORY_ORDER = ['all', 'classicMassages', 'asianMassages', 'sportsTherapy', 'signatureCouples', 'kidsFamily'];
+            window.NV_MASSAGES_CATEGORY_LABELS = {
+                'all': 'Tümü',
+                'classicMassages': 'Klasik',
+                'asianMassages': 'Uzak Doğu',
+                'sportsTherapy': 'Spor & Terapötik',
+                'signatureCouples': 'Premium',
+                'kidsFamily': 'Aile'
+            };
             console.log("✅ NV_MASSAGES Hydrated (" + window.NV_MASSAGES.length + " items)");
 
             // 3. SKINCARE (faceSothys)
@@ -102,7 +117,7 @@
 
             // Global Fallback Image handler for anything we missed
             [...window.NV_HAMMAM, ...window.NV_MASSAGES, ...window.NV_SKINCARE].forEach(item => {
-                if (!item.img) item.img = "/assets/img/luxury-placeholder.webp";
+                if (!item.img) item.img = "/assets/img/luxury-placeholder.png";
             });
 
             // Dispatch Event

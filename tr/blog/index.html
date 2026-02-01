@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & Haberler • Santis Club</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/card-effects.css">
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Tenor+Sans&display=swap" rel="stylesheet">
+    
+    <base href="../../">
+
+    <!-- DATA -->
+    <script src="assets/js/settings-data.js"></script>
+    <script src="assets/js/blog-data.js"></script>
+    <script src="assets/js/loader.js"></script>
+    <script src="assets/js/app.js" defer></script>
+</head>
+<body>
+
+    <!-- NAVBAR CONTAINER -->
+    <div id="navbar-container"></div>
+
+    <main id="nv-main" style="padding-top: 120px; padding-bottom: 80px;">
+        <div class="container">
+            <header class="page-header" style="text-align:center; margin-bottom:50px;">
+                <h1 style="font-family:'Marcellus', serif; font-size:3rem; margin-bottom:10px;">Blog & Haberler</h1>
+                <p style="color:var(--text-light);">Santis dünyasından en son gelişmeler ve ipuçları.</p>
+            </header>
+
+            <div id="blog-grid" class="services-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap:30px;">
+                <!-- JS WILL RENDER BLOG POSTS HERE -->
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER CONTAINER -->
+    <div id="footer-container"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // LOAD COMPONENTS
+            if (typeof loadComp === "function") {
+                loadComp("/components/navbar.html", "navbar-container");
+                loadComp("/components/footer.html", "footer-container");
+            }
+
+            // RENDER BLOG POSTS
+            const grid = document.getElementById('blog-grid');
+            
+            if (typeof blogCatalog !== 'undefined' && blogCatalog.length > 0) {
+                // Sort Newest First
+                const sorted = [...blogCatalog].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                sorted.forEach(post => {
+                    const html = `
+                        <article class="service-card" style="opacity:1; transform:none;">
+                            <div class="card-image">
+                                <img src="assets/img/blog/${post.img}" alt="${post.title}" 
+                                     onerror="this.src='https://placehold.co/600x400?text=Santis+Blog'">
+                            </div>
+                            <div class="card-content">
+                                <span class="badge" style="background:var(--gold); color:#000; padding:4px 8px; font-size:10px; border-radius:4px;">${post.category}</span>
+                                <span class="date" style="font-size:11px; color:#888; margin-left:10px;">${post.date}</span>
+                                <h3 style="margin:10px 0; font-size:1.2rem;">${post.title}</h3>
+                                <p style="font-size:0.9rem; color:#aaa; line-height:1.5;">${post.summary}</p>
+                                <a href="#" onclick="alert('Detay sayfası yapım aşamasında: ' + ${post.id})" class="btn-text" style="margin-top:15px; display:inline-block; color:var(--gold);">Devamını Oku &rarr;</a>
+                            </div>
+                        </article>
+                    `;
+                    grid.innerHTML += html;
+                });
+            } else {
+                grid.innerHTML = '<p style="text-align:center; grid-column:1/-1;">Henüz blog yazısı eklenmemiş.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -135,7 +135,7 @@
         },
 
         bindMagneticCards() {
-            const cards = this.container.querySelectorAll('.nv-card-service');
+            const cards = this.container.querySelectorAll('.prod-card-v2');
 
             cards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
@@ -164,30 +164,36 @@
         },
 
         buildCard(item, index) {
-            // Tier 2: Cinematic Service Card
-            const slug = item.slug || item.id; // Fallback to id if slug missing
+            // UNIFIED CARD V2 (Compatible with master-cards.css)
+            const slug = item.slug || item.id || 'home';
             const href = `/service-detail.html?slug=${slug}`;
-            const delay = (index % 5) * 0.1; // Stagger
+            const delay = (index % 5) * 0.1;
+            const badge = item.tier || ""; // Assuming tier holds badge info like 'NEW'
+
+            let badgeHTML = "";
+            if (badge === 'NEW' || badge === 'BEST' || badge === 'VIP') {
+                badgeHTML = `<span class="badge ${badge === 'NEW' ? 'new' : 'best'}">${badge}</span>`;
+            }
 
             return `
-            <a href="${href}" class="nv-card-service curtain-reveal" style="animation-delay: ${delay}s; display:block; text-decoration:none;">
-                <div class="nv-service-img-box">
+            <div class="prod-card-v2 curtain-reveal" data-id="${item.id}" style="animation-delay: ${delay}s;">
+                <div class="prod-img-box">
+                    ${badgeHTML}
                     <img src="${item.img}" alt="${item.title}" loading="lazy">
-                    <div class="nv-service-overlay">
-                        <span class="nv-btn nv-btn-sm nv-btn-outline">Ritüeli İncele</span>
+                    <div class="quick-actions">
+                        <button class="qa-btn">Hızlı Bakış</button>
                     </div>
                 </div>
-                <div class="nv-service-info">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                        <span style="font-size:12px; letter-spacing:1px; color:var(--gold); text-transform:uppercase;">${item.tier || 'SANTIS'}</span>
-                        <span style="font-size:12px; color:rgba(255,255,255,0.6);">${item.duration}</span>
+                <div class="prod-details">
+                    <span class="prod-cat">${item.tier || 'SANTIS'}</span>
+                    <h4>${item.title}</h4>
+                    <p class="prod-desc">${item.desc}</p>
+                    <div class="prod-bottom">
+                        <span class="prod-price">${item.price ? item.price + ' €' : 'Bilgi Al'}</span>
+                        <a href="${href}" class="prod-btn">İncele</a>
                     </div>
-                    <h3 class="nv-title" style="font-size:22px; margin-bottom:10px;">${item.title}</h3>
-                    <p class="nv-text" style="font-size:14px; line-height:1.6; color:rgba(255,255,255,0.7); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
-                        ${item.desc}
-                    </p>
                 </div>
-            </a>
+            </div>
             `;
         } // End buildCard
 

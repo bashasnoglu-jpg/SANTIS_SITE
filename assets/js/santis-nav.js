@@ -1,145 +1,118 @@
 /**
- * SANTIS NAVIGATION MODULE
- * Extracted from app.js for modularity.
+ * SANTIS NAVIGATION MODULE v2.0 (Simplified)
+ * Replaces dynamic rendering with reliable Static HTML injection.
  */
 
-function getNavModel() {
-    return CONTENT?.global?.navModel && Array.isArray(CONTENT.global.navModel)
-        ? CONTENT.global.navModel
-        : (window.NAV_MODEL || []);
-}
+/**
+ * FAILSAFE: Inject Navbar HTML Manually
+ * Used when 'loadComp' fails or file:// protocol blocks external HTML loading.
+ * This ensures the menu ALWAYS appears.
+ */
+function injectNavbar() {
+    // console.log("🛡️ Navbar Failsafe: Injecting Static HTML...");
+    const container = document.getElementById("navbar-container");
+    if (!container) return;
 
-function buildPrefix() {
-    return "/";
-}
+    // Direct HTML Injection (Matches components/navbar.html)
+    container.innerHTML = `
+    <nav id="nv-main-nav" class="navbar" style="z-index: 999999;">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">
+                <div class="logo-symbol">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="brand-name">SANTIS</span>
+                    <span class="brand-sub">CLUB</span>
+                </div>
+            </a>
 
-function buildUrl(routeKey, sectionKey) {
-    if (window.DEMO_MODE) {
-        return "#" + (sectionKey || routeKey);
+            <!-- Desktop Links -->
+            <div id="navRoot" class="nav-links nav-center">
+                <div class="nav-item"><a class="nav-link" href="index.html">ANA SAYFA</a></div>
+                <div class="nav-item"><a class="nav-link" href="tr/hamam/index.html">HAMAM</a></div>
+                <div class="nav-item"><a class="nav-link" href="tr/masajlar/index.html">MASAJLAR</a></div>
+                <div class="nav-item"><a class="nav-link" href="tr/cilt-bakimi/index.html">CİLT BAKIMI</a></div>
+                <div class="nav-item"><a class="nav-link" href="tr/urunler/index.html">ÜRÜNLER</a></div>
+                <div class="nav-item"><a class="nav-link" href="tr/galeri/index.html">GALERİ</a></div>
+            </div>
+
+            <div class="nav-actions">
+                <a href="https://wa.me/905348350169" target="_blank" class="nv-btn nv-btn-sm nv-btn-primary mobile-hide">REZERVASYON</a>
+                
+                <!-- Language Placeholder -->
+                <div id="santis-language-root" class="lang-wrapper notranslate"></div>
+
+                <div class="hamburger-btn" id="hamburger" aria-label="Menü">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-menu-overlay" id="mobileMenu" style="z-index: 999998;">
+        <div class="mobile-menu-content">
+            <a href="index.html" class="mobile-link">ANA SAYFA</a>
+            <a href="tr/hamam/index.html" class="mobile-link">HAMAM RİTÜELLERİ</a>
+            <a href="tr/masajlar/index.html" class="mobile-link">DÜNYA MASAJLARI</a>
+            <a href="tr/cilt-bakimi/index.html" class="mobile-link">CİLT BAKIMI</a>
+            <a href="tr/urunler/index.html" class="mobile-link">ÜRÜNLER</a>
+            <a href="tr/galeri/index.html" class="mobile-link">GALERİ</a>
+            <a href="booking.html" class="mobile-link">REZERVASYON</a>
+        </div>
+    </div>
+    `;
+
+    // Initialize Interactions (Hamburger)
+    initNavbarInteractions();
+
+    // Refresh language switcher if exists
+    if (window.SANTIS_LANG && window.SANTIS_LANG.refresh) {
+        window.SANTIS_LANG.refresh();
     }
-
-    const routes = CONTENT?.global?.routes || {};
-    if (routes[routeKey]) return buildPrefix() + routes[routeKey];
-
-    // Dynamic Routing (Query Params)
-    if (sectionKey === 'booking') return "?section=booking";
-    return "?view=" + routeKey;
 }
 
-function scrollToSection(sectionKey) {
-    const target = document.querySelector(`[data-section="${sectionKey}"]`) || document.getElementById(sectionKey);
-    if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-}
+function initNavbarInteractions() {
+    setTimeout(() => {
+        const ham = document.getElementById('hamburger');
+        const menu = document.getElementById('mobileMenu');
+        if (ham && menu) {
+            // Remove old listeners to prevent duplicates
+            const newHam = ham.cloneNode(true);
+            ham.parentNode.replaceChild(newHam, ham);
 
-function scrollToId(id) {
-    scrollToSection(id);
-}
+            newHam.addEventListener('click', () => {
+                newHam.classList.toggle('active');
+                menu.classList.toggle('active');
+                document.body.classList.toggle('no-scroll');
+            });
 
-function setActiveCategoryFromRoute(routeKey) {
-    const map = {
-        hammam: "hammam",
-        massages: "",
-        classic: "classicMassages",
-        sports: "sportsTherapy",
-        asian: "asianMassages",
-        ayurveda: "ayurveda",
-        signature: "signatureCouples",
-        kids: "kidsFamily",
-        face: "faceSothys",
-        products: "products"
-    };
-
-    const nextCat = map[routeKey];
-    const catId = (nextCat !== undefined) ? nextCat : routeKey;
-
-    if (!catId) return false;
-
-    state.activeCategoryId = catId;
-    return true;
-}
-
-function handleNavDemoClick(item) {
-    if (item.categoryId) {
-        state.activeCategoryId = item.categoryId;
-        if (typeof renderCategoryToolbar === "function") renderCategoryToolbar();
-        if (typeof renderCategories === "function") renderCategories();
-        if (typeof renderServiceResults === "function") renderServiceResults();
-    }
-    const target = item.sectionKey || item.route;
-    scrollToSection(target);
-    history.replaceState(null, "", "#" + target);
-}
-
-/* Render Nav (New Version) */
-function renderNav() {
-    const root = document.getElementById("navRoot");
-    if (!root) return;
-
-    root.innerHTML = "";
-
-    const model = getNavModel();
-
-    for (const item of model) {
-        if (item.enabled === false) continue;
-
-        const div = document.createElement("div");
-        const hasChildren = Array.isArray(item.children) && item.children.length > 0;
-        div.className = "nav-item" + (hasChildren ? " has-sub" : "");
-
-        const a = document.createElement("a");
-        a.className = "nav-link";
-
-        const sectionKey = item.sectionKey || item.route;
-        a.href = buildUrl(item.route, sectionKey);
-        a.textContent = t(`nav.${item.key}`) || item.label || item.key;
-
-        if (window.DEMO_MODE) {
-            a.onclick = (e) => {
-                e.preventDefault();
-                handleNavDemoClick(item);
-            };
+            // Close on link click
+            menu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    newHam.classList.remove('active');
+                    menu.classList.remove('active');
+                    document.body.classList.remove('no-scroll');
+                });
+            });
         }
-
-        div.appendChild(a);
-
-        if (hasChildren) {
-            const menu = document.createElement("div");
-            menu.className = "submenu";
-
-            for (const ch of item.children) {
-                const ca = document.createElement("a");
-                const chSectionKey = ch.sectionKey || ch.route;
-                ca.href = buildUrl(ch.route, chSectionKey);
-                ca.textContent = t(`nav.${ch.key}`) || ch.label || ch.key;
-
-                if (window.DEMO_MODE) {
-                    ca.onclick = (e) => {
-                        e.preventDefault();
-                        handleNavDemoClick(ch);
-                    };
-                }
-                menu.appendChild(ca);
-            }
-            div.appendChild(menu);
-        }
-        root.appendChild(div);
-    }
-
-    // CTA
-    const cta = document.getElementById("ctaBooking");
-    if (cta) {
-        cta.textContent = t("nav.bookingWhatsapp");
-        const ctaSectionKey = "booking";
-        cta.href = buildUrl("booking", ctaSectionKey);
-
-        if (window.DEMO_MODE) {
-            cta.onclick = (e) => {
-                e.preventDefault();
-                scrollToSection(ctaSectionKey);
-                openBookingModal();
-            };
-        }
-    }
+    }, 100);
 }
+
+// Auto-run on load if container is empty behavior
+document.addEventListener("DOMContentLoaded", () => {
+    // Wait for loader.js to try first
+    setTimeout(() => {
+        const c = document.getElementById("navbar-container");
+        if (c && c.innerHTML.trim() === "") {
+            injectNavbar();
+        } else {
+            // Even if loaded via HTML include, we need interactions
+            initNavbarInteractions();
+        }
+    }, 300);
+});

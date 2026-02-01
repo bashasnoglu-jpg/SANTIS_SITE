@@ -1,6 +1,8 @@
 // ===== Santis: TR-only mode (Strict) =====
-const SITE_LANG = "tr";
-window.SITE_LANG = SITE_LANG;
+if (typeof SITE_LANG === 'undefined') {
+  var SITE_LANG = "tr";
+  window.SITE_LANG = SITE_LANG;
+}
 
 // URL'deki ?lang=... parametresini temizle
 (function normalizeLangParam() {
@@ -29,7 +31,33 @@ document.addEventListener("mousedown", (e) => {
   if (modal && !modal.hidden && e.target === modal) closeBookingModal();
 });
 
-const state = {
+// --- ADMIN PANEL ENTEGRASYONU (SETTINGS) ---
+function applySiteSettings() {
+  if (typeof SITE_SETTINGS === 'undefined') return;
+
+  // 1. WhatsApp Numarası Güncelle
+  if (SITE_SETTINGS.contact && SITE_SETTINGS.contact.whatsapp) {
+    window.NV_CONCIERGE_NUMBER = SITE_SETTINGS.contact.whatsapp;
+
+    // Sitedeki tüm WhatsApp linklerini bul ve güncelle
+    document.querySelectorAll('a[href*="wa.me"]').forEach(el => {
+      // Eski numarayı temizle ve yenisini koy
+      let href = el.href;
+      href = href.replace(/wa\.me\/[0-9]+/, `wa.me/${SITE_SETTINGS.contact.whatsapp}`);
+      el.href = href;
+    });
+  }
+
+  // 2. Sosyal Medya Linkleri
+  if (SITE_SETTINGS.social) {
+    // İlerde footer/navbar ID'leri eklendiğinde burası aktifleşecek
+    // console.log("Sosyal medya ayarları yüklendi:", SITE_SETTINGS.social);
+  }
+}
+document.addEventListener('DOMContentLoaded', applySiteSettings);
+// -------------------------------------------
+
+var state = window.state || {
   lang: "tr",
   hotel: "",
   selectedServiceId: "",
@@ -43,16 +71,27 @@ const state = {
   svcOpen: false,
   categoryView: "all"
 };
+window.state = state;
 
-let CONTENT = null;
-
-// Helper to safely get Turkish text from legacy bilingual objects or new string fields
-function trText(v) {
-  if (!v) return "";
-  if (typeof v === "string") return v;
-  return v.tr || v.en || "";
+// Prevent double execution check - MOVED TO WINDOW
+if (window.__APP_JS_LOADED) {
+  console.warn("App.js already loaded - skipping re-initialization");
+} else {
+  window.__APP_JS_LOADED = true;
 }
 
+var CONTENT = window.CONTENT || null;
+
+// Helper to safely get Turkish text...
+// (trText is already defined above, removing duplicate)
+
+// PHASE 1 INTEGRATION: Load Settings from Admin Panel
+// (applySiteSettings is already defined above, removing duplicate)
+
+/* 
+ * NEUROVA – GLOBAL NAVIGATION v1.0 
+ * (Navigation Logic Below)
+ */
 function ensureSlug(svc) {
   if (!svc || svc.slug) return svc?.slug;
 
@@ -660,7 +699,7 @@ function renderAll() {
 
   renderHotelSelect();
 
-  renderNav();
+  // renderNav(); // Static HTML is used instead
 
   renderUITexts();
 
@@ -685,16 +724,9 @@ function renderAll() {
 function renderHomeSections() {
 
   const mapping = {
-
     "hammam": "grid-hammam",
-
     "classicMassages": "grid-massages",
-
-    "extraEffective": "grid-extra",
-
-    "faceSothys": "grid-skincare",
-    "skincare": "grid-skincare"
-
+    "faceSothys": "grid-skincare"
   };
 
 
@@ -736,65 +768,50 @@ function renderHomeSections() {
 
 
     show.forEach((svc, index) => {
-
       const card = document.createElement("div");
 
-      // Add reveal-on-scroll
-
-      card.className = "card reveal-on-scroll stagger-" + ((index % 3) + 1);
-
-
+      // Use Unified Card Style
+      card.className = "prod-card-v2 reveal-on-scroll stagger-" + ((index % 3) + 1);
+      card.dataset.id = svc.id;
 
       const name = trText(svc.name) || svc.id;
       const desc = trText(svc.desc);
+      const imgPath = svc.img ? (svc.img.startsWith('/') ? svc.img.substring(1) : svc.img) : 'assets/img/luxury-placeholder.png';
+      const targetSlug = svc.slug || svc.id;
+      const href = targetSlug ? `/service-detail.html?slug=${encodeURIComponent(targetSlug)}` : '#';
 
-      const dur = svc.duration || 50;
-
-
+      const badge = svc.tier || "";
+      let badgeHTML = "";
+      if (badge === 'NEW' || badge === 'BEST' || badge === 'VIP') {
+        badgeHTML = `<span class="badge ${badge === 'NEW' ? 'new' : 'best'}">${badge}</span>`;
+      }
 
       card.innerHTML = `
+        <div class="prod-img-box">
+             ${badgeHTML}
+             <img src="${imgPath}" alt="${name}" loading="lazy">
+             <div class="quick-actions">
+                 <button class="qa-btn">Hızlı Bakış</button>
+             </div>
+        </div>
+        <div class="prod-details">
+             <span class="prod-cat">${badge || 'SANTIS'}</span>
+             <h4>${name}</h4>
+             <p class="prod-desc">${desc}</p>
+             <div class="prod-bottom">
+                 <span class="prod-price">${svc.price ? svc.price + ' €' : 'Bilgi Al'}</span>
+                 <a href="${href}" class="prod-btn">İncele</a>
+             </div>
+        </div>
+      `;
 
-            <div class="card-img-wrap lux-card-surface">
-
-            </div>
-
-            <div class="card-content">
-
-               <div class="card-title clamp-2">${name}</div>
-
-               <div class="card-desc clamp-2" style="font-size:14px; color:var(--text-muted); margin-bottom:12px;">${desc}</div>
-
-               <div class="card-footer">
-
-                  <span>⏱ ${dur} dk</span>
-
-                  <span class="card-cta">İncele &rarr;</span>
-
-               </div>
-
-            </div>
-
-          `;
-
-
-
-      card.onclick = () => {
-
-        // Navigate to service detail (guard missing slug/id)
-        const targetSlug = svc.slug || svc.id;
-        if (!targetSlug) {
-          console.warn("Service slug/id missing for card", svc);
-          return;
-        }
-        window.location.href = `/service-detail.html?slug=${encodeURIComponent(targetSlug)}`;
-
-      };
-
-
+      // Quick View is handled by card-manager.js (delegation)
+      // Link click handled by <a href>
 
       grid.appendChild(card);
-
     });
+
+
 
   });
 
@@ -802,24 +819,24 @@ function renderHomeSections() {
 
 
 
-const FALLBACK_DATA = {
+const FALLBACK_DATA = window.SANTIS_FALLBACK || {
   "global": {
     "defaultCurrency": "EUR",
     "routes": {
       "home": "index.html",
       "hammam": "hamam-rituelleri/",
-      "massages": "masajlar/",
-      "classic": "masajlar/klasik-masajlar/",
-      "sports": "masajlar/spor-terapi-masajlari/",
-      "asian": "masajlar/asya-masajlari/",
-      "ayurveda": "masajlar/ayurveda-rituelleri/",
-      "signature": "signature-couples/",
-      "kids": "kids-family/",
-      "face": "face-sothys/",
-      "products": "urunler/",
-      "about": "hakkimizda/",
-      "team": "ekibimiz/",
-      "booking": "rezervasyon/"
+      "massages": "tr/masajlar/index.html",
+      "classic": "tr/masajlar/index.html",
+      "sports": "tr/masajlar/index.html",
+      "asian": "tr/masajlar/index.html",
+      "ayurveda": "tr/masajlar/index.html",
+      "signature": "tr/masajlar/index.html",
+      "hammam": "tr/hamam/index.html",
+      "massages": "tr/masajlar/index.html",
+      "skincare": "tr/cilt-bakimi/index.html",
+      "products": "tr/urunler/index.html",
+      "gallery": "tr/galeri/index.html",
+      "booking": "booking.html"
     },
     "navModel": [
       {
@@ -4048,7 +4065,7 @@ const FALLBACK_DATA = {
 async function loadContent() {
 
   try {
-    const FALLBACK_DATA = window.SANTIS_FALLBACK || {};
+    const localFallbackData = window.SANTIS_FALLBACK || {};
 
     // If opened directly via file://, CORS will block the fetch; rely on fallback.
 
@@ -4075,9 +4092,9 @@ async function loadContent() {
 
     // FILL MISSING DATA IF NOT PRESENT IN JSON
 
-    if (!base.global.navModel) base.global.navModel = FALLBACK_DATA.global.navModel;
+    if (!base.global.navModel) base.global.navModel = localFallbackData.global.navModel;
 
-    if (!base.global.categories) base.global.categories = FALLBACK_DATA.global.categories;
+    if (!base.global.categories) base.global.categories = localFallbackData.global.categories;
 
 
 
@@ -4123,7 +4140,7 @@ async function loadContent() {
 
     console.warn("Using Fallback Data:", e);
 
-    return FALLBACK_DATA;
+    return localFallbackData;
 
   }
 
@@ -4304,6 +4321,8 @@ async function init() {
 
   renderHomeSections();
 
+  renderHomeGallery();
+
 
 
   // Cinematic Intro & Scroll
@@ -4358,6 +4377,34 @@ async function init() {
 
 
 
+// Gallery Renderer
+function renderHomeGallery() {
+  const grid = document.getElementById('gallery-grid');
+  if (!grid) return;
+
+  const sources = [...(window.NV_HAMMAM || []), ...(window.NV_MASSAGES || []), ...(window.NV_SKINCARE || [])];
+
+  // Create unique pool of items (not just images)
+  const seenImgs = new Set();
+  const pool = sources.filter(s => {
+    const img = s.img;
+    if (!img || img.includes('placeholder') || seenImgs.has(img)) return false;
+    seenImgs.add(img);
+    return true;
+  });
+
+  const show = pool.sort(() => 0.5 - Math.random()).slice(0, 6);
+
+  grid.innerHTML = show.map(item => `
+    <div class="gallery-item">
+        <img src="${item.img}" alt="${item.title}" loading="lazy">
+        <div class="gallery-overlay">
+            <span>${item.title || 'Santis Club'}</span>
+        </div>
+    </div>
+  `).join('');
+}
+
 // Start the app
 
 init();
@@ -4406,7 +4453,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (navCont && navCont.innerHTML.trim() === "") {
     console.log("⚓ Auto-Loading Navbar...");
     if (typeof loadComp === 'function') {
-      loadComp("components/navbar.html", "navbar-container", { runScripts: true });
+      loadComp("/components/navbar.html", "navbar-container", { runScripts: true });
     }
   }
 
@@ -4414,7 +4461,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const footCont = document.getElementById('footer-container');
   if (footCont && footCont.innerHTML.trim() === "") {
     if (typeof loadComp === 'function') {
-      loadComp("components/footer.html", "footer-container"); // Footer dosyamız henüz yoksa bu 404 verebilir ama denesin
+      loadComp("/components/footer.html", "footer-container"); // Footer dosyamız henüz yoksa bu 404 verebilir ama denesin
     }
   }
 });
@@ -4448,10 +4495,10 @@ window.getSantisData = function () {
 document.addEventListener('error', function (e) {
   if (e.target.tagName.toLowerCase() === 'img') {
     // Prevent infinite loops if placeholder is also missing
-    if (e.target.src.includes('luxury-placeholder.webp')) return;
+    if (e.target.src.includes('luxury-placeholder.png')) return;
 
     console.log("Görsel kurtarılıyor: " + e.target.src);
-    e.target.src = "assets/img/luxury-placeholder.webp"; // Veya şık bir logo
+    e.target.src = "assets/img/luxury-placeholder.png"; // Veya şık bir logo
     e.target.style.filter = "grayscale(1) opacity(0.5)";
   }
 }, true);

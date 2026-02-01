@@ -1,4 +1,4 @@
-﻿<nav id="nv-main-nav" class="navbar">
+﻿<nav id="nv-main-nav" class="navbar" style="z-index: 999999;">
     <div class="navbar-container">
 
         <a href="index.html" class="logo">
@@ -18,8 +18,15 @@
             </div>
         </a>
 
-        <!-- Desktop Links (Dynamic) -->
-        <div id="navRoot" class="nav-links nav-center"></div>
+        <!-- Desktop Links (Static & Hardcoded) -->
+        <div id="navRoot" class="nav-links nav-center">
+             <div class="nav-item"><a class="nav-link" href="index.html">ANA SAYFA</a></div>
+             <div class="nav-item"><a class="nav-link" href="tr/hamam/index.html">HAMAM</a></div>
+             <div class="nav-item"><a class="nav-link" href="tr/masajlar/index.html">MASAJLAR</a></div>
+             <div class="nav-item"><a class="nav-link" href="tr/cilt-bakimi/index.html">CİLT BAKIMI</a></div>
+             <div class="nav-item"><a class="nav-link" href="tr/urunler/index.html">ÜRÜNLER</a></div>
+             <div class="nav-item"><a class="nav-link" href="tr/galeri/index.html">GALERİ</a></div>
+        </div>
 
         <div class="nav-actions">
 
@@ -27,15 +34,8 @@
                 REZERVASYON
             </a>
 
-            <div class="lang-wrapper notranslate">
-                <div class="current-lang">TR <span style="font-size: 10px;">▼</span></div>
-                <div class="lang-dropdown">
-                    <a href="javascript:void(0)" onclick="changeLanguage('tr')" class="lang-option">TR</a>
-                    <a href="javascript:void(0)" onclick="changeLanguage('en')" class="lang-option">EN</a>
-                    <a href="javascript:void(0)" onclick="changeLanguage('ru')" class="lang-option">RU</a>
-                    <a href="javascript:void(0)" onclick="changeLanguage('de')" class="lang-option">DE</a>
-                </div>
-            </div>
+            <!-- Language Switcher Placeholder -->
+            <div id="santis-language-root" class="lang-wrapper notranslate"></div>
 
             <div class="hamburger-btn" id="hamburger" aria-label="Menüyü Aç/Kapat" role="button" tabindex="0">
                 <span class="bar"></span>

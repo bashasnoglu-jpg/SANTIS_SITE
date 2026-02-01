@@ -19,6 +19,9 @@
   <script src="assets/js/perf-head.js"></script>
 
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/master-cards.css" />
+  <link rel="stylesheet" href="assets/css/gallery.css" />
+  <link rel="stylesheet" href="assets/css/video-hero.css" />
 </head>
 
 <body class="editorial-mode">
@@ -27,7 +30,55 @@
     <div class="preloader-logo">Santis Club</div>
   </div>
 
-  <div id="navbar-container"></div>
+  <!-- HARDCODED NAVBAR (No JS Dependency) -->
+  <nav id="nv-main-nav" class="navbar" style="z-index: 999999;">
+      <div class="navbar-container">
+          <a href="index.html" class="logo">
+              <div class="logo-symbol">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+              </div>
+              <div class="logo-text">
+                  <span class="brand-name">SANTIS</span>
+                  <span class="brand-sub">CLUB</span>
+              </div>
+          </a>
+
+          <!-- Desktop Links -->
+          <div id="navRoot" class="nav-links nav-center">
+              <div class="nav-item"><a class="nav-link" href="index.html">ANA SAYFA</a></div>
+              <div class="nav-item"><a class="nav-link" href="tr/hamam/index.html">HAMAM</a></div>
+              <div class="nav-item"><a class="nav-link" href="tr/masajlar/index.html">MASAJLAR</a></div>
+              <div class="nav-item"><a class="nav-link" href="tr/cilt-bakimi/index.html">CİLT BAKIMI</a></div>
+              <div class="nav-item"><a class="nav-link" href="tr/urunler/index.html">ÜRÜNLER</a></div>
+              <div class="nav-item"><a class="nav-link" href="tr/galeri/index.html">GALERİ</a></div>
+          </div>
+
+          <div class="nav-actions">
+              <a href="https://wa.me/905348350169" target="_blank" class="nv-btn nv-btn-sm nv-btn-primary mobile-hide">REZERVASYON</a>
+              <!-- Language Placeholder -->
+              <div id="santis-language-root" class="lang-wrapper notranslate"></div>
+              <div class="hamburger-btn" id="hamburger" aria-label="Menü">
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+              </div>
+          </div>
+      </div>
+  </nav>
+  <div class="mobile-menu-overlay" id="mobileMenu" style="z-index: 999998;">
+      <div class="mobile-menu-content">
+          <a href="index.html" class="mobile-link">ANA SAYFA</a>
+          <a href="tr/hamam/index.html" class="mobile-link">HAMAM RİTÜELLERİ</a>
+          <a href="tr/masajlar/index.html" class="mobile-link">DÜNYA MASAJLARI</a>
+          <a href="tr/cilt-bakimi/index.html" class="mobile-link">CİLT BAKIMI</a>
+          <a href="tr/urunler/index.html" class="mobile-link">ÜRÜNLER</a>
+          <a href="tr/galeri/index.html" class="mobile-link">GALERİ</a>
+          <a href="booking.html" class="mobile-link">REZERVASYON</a>
+      </div>
+  </div>
 
   <main id="nv-main">
     <section class="nv-hero-video">
@@ -70,7 +121,7 @@
       <div class="nv-section-header">
         <h2 class="nv-title">Hamam Ritüelleri</h2>
       </div>
-      <div class="nv-card-grid" id="grid-hammam"></div>
+      <div class="product-grid-v2" id="grid-hammam"></div>
       <div class="nv-cta-container">
         <a href="tr/hamam/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
       </div>
@@ -80,7 +131,7 @@
       <div class="nv-section-header">
         <h2 class="nv-title">Masaj Terapileri</h2>
       </div>
-      <div class="nv-card-grid" id="grid-massages"></div>
+      <div class="product-grid-v2" id="grid-massages"></div>
       <div class="nv-cta-container">
         <a href="tr/masajlar/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
       </div>
@@ -90,7 +141,7 @@
       <div class="nv-section-header">
         <h2 class="nv-title">Cilt Bakımı</h2>
       </div>
-      <div class="nv-card-grid" id="grid-skincare"></div>
+      <div class="product-grid-v2" id="grid-skincare"></div>
       <div class="nv-cta-container">
         <a href="tr/cilt-bakimi/index.html" class="nv-btn nv-btn-outline">TÜMÜNÜ GÖR</a>
       </div>
@@ -103,7 +154,7 @@
       </div>
       <div class="nv-card-grid nv-product-grid" id="productsGrid"></div>
       <div class="nv-cta-container">
-        <a href="products.html" class="nv-btn nv-btn-outline">TÜM KOLEKSİYONU İNCELE</a>
+        <a href="tr/urunler/index.html" class="nv-btn nv-btn-outline">TÜM KOLEKSİYONU İNCELE</a>
       </div>
     </div>
 
@@ -111,7 +162,7 @@
       <h2 class="nv-title mb-40">Galeri</h2>
       <div class="nv-masonry-grid" id="gallery-grid"></div>
       <div class="nv-cta-container">
-        <a href="gallery.html" class="nv-btn nv-btn-outline">TÜM KOLEKSİYONU KEŞFET</a>
+        <a href="tr/galeri/index.html" class="nv-btn nv-btn-outline">TÜM KOLEKSİYONU KEŞFET</a>
       </div>
     </div>
   </main>
@@ -127,18 +178,23 @@
     </div>
   </div>
 
-  <div id="footer-container"></div>
+  <script>
+    // Navbar is hardcoded.
+  </script>
 
   <div class="modal-overlay" id="bookingModal" hidden></div>
 
   <script src="assets/js/fallback_data.js"></script>
+  <script src="assets/js/core_data_loader.js"></script>
   <script src="assets/js/loader.js"></script>
   <script src="assets/js/url-normalizer.js"></script>
   <script src="assets/js/routes.js"></script>
-  <script src="assets/js/language-switcher.js"></script>
+  <script src="assets/js/language-switcher.js?v=2.3"></script>
   <script src="assets/js/slug.js"></script>
-  <script src="assets/js/products-data.js"></script>
+  <script src="assets/js/product-data.js"></script>
+  <script src="assets/js/home-products.js"></script>
   <script src="assets/js/booking-wizard.js"></script>
+  <script src="assets/js/card-manager.js" defer></script>
   <script src="assets/js/card-effects.js"></script>
   <script src="assets/js/santis-nav.js"></script>
   <script src="assets/js/santis-booking.js"></script>
