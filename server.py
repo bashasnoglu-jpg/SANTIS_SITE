@@ -18,6 +18,13 @@ BASE_DIR = Path(__file__).resolve().parent
 # 📌 2️⃣ FastAPI Setup
 app = FastAPI(title="Santis Club API", version="3.0")
 
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from app.core.limiter import limiter
+
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
 from app.api.v1.endpoints import auth, users, tenants, bookings
 app.include_router(
     auth.router,

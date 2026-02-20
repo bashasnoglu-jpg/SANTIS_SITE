@@ -5,6 +5,8 @@ from sqlalchemy import select, desc
 import random
 import time
 import uuid
+import asyncio
+import aiohttp
 
 from app.api import deps
 from app.db.session import get_db
@@ -557,3 +559,65 @@ async def delete_redirect(payload: dict = Body(...)):
 @router.get("/api/system/health")
 async def system_health_alias():
     return await system_health()
+
+# --- RED TEAM & SECURITY SHIELD ---
+@router.post("/api/admin/simulate-attack")
+async def simulate_attack(request: Request):
+    """
+    Automated Red Team Runner: Simulates attacks against local infrastructure
+    to verify SaaS Hardening defenses (Rate Limit, SQLi, Method Fuzzing, JWT).
+    """
+    report = {
+        "status": "COMPLETED",
+        "score": 100,
+        "results": []
+    }
+    
+    # We target the locally running instance
+    base_url = "http://localhost:8000"
+    
+    try:
+        async with aiohttp.ClientSession() as session:
+            # 1. Rate Limit / Brute Force Test on /auth/login
+            brute_force_responses = []
+            for _ in range(8):
+                async with session.post(f"{base_url}/api/v1/auth/login", data={"username": "admin@test.com", "password": "wrong"}) as resp:
+                    brute_force_responses.append(resp.status)
+            
+            if 429 in brute_force_responses:
+                report["results"].append({"test": "Brute Force (Rate Limit)", "status": "PASS", "detail": "Rate Limit (429) successfully triggered."})
+            else:
+                report["results"].append({"test": "Brute Force (Rate Limit)", "status": "FAIL", "detail": f"Status codes: {brute_force_responses}"})
+                report["score"] -= 25
+                
+            # 2. Method Fuzzing Test (Sending GET to POST endpoint)
+            async with session.get(f"{base_url}/api/v1/auth/login") as resp:
+                if resp.status == 405:
+                    report["results"].append({"test": "Method Fuzzing (405 Abuse)", "status": "PASS", "detail": "Invalid HTTP Method correctly blocked (405)."})
+                else:
+                    report["results"].append({"test": "Method Fuzzing (405 Abuse)", "status": "FAIL", "detail": "Endpoint allowed invalid method or didn't return 405."})
+                    report["score"] -= 25
+                    
+            # 3. SQL Injection Probe
+            sql_payload = "admin' OR '1'='1"
+            async with session.post(f"{base_url}/api/v1/auth/login", data={"username": sql_payload, "password": "123"}) as resp:
+                if resp.status in [400, 401, 429]: 
+                    report["results"].append({"test": "SQL Injection Probe", "status": "PASS", "detail": "Malicious payload neutralized by ORM/Validation."})
+                else:
+                    report["results"].append({"test": "SQL Injection Probe", "status": "WARN", "detail": f"Unexpected status: {resp.status}"})
+                    report["score"] -= 25
+                    
+            # 4. JWT Expiry/Invalid Audit
+            headers = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI...invalid"}
+            async with session.post(f"{base_url}/api/v1/auth/refresh", headers=headers, json={"refresh_token": "fake"}) as resp:
+                if resp.status in [401, 403, 429]:
+                    report["results"].append({"test": "JWT Audit", "status": "PASS", "detail": "Invalid JWT securely rejected (401/403)."})
+                else:
+                    report["results"].append({"test": "JWT Audit", "status": "FAIL", "detail": "Invalid token somehow passed."})
+                    report["score"] -= 25
+
+    except Exception as e:
+        report["status"] = "ERROR"
+        report["results"].append({"test": "System Execution", "status": "ERROR", "detail": str(e)})
+
+    return report

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="tr">
 <head>
@@ -217,6 +217,10 @@
 <div class="os-nav-item" id="tab-flight">
 <span class="icon" style="color:#00ff88; text-shadow:0 0 10px rgba(0,255,136,0.3);">🛡️</span>
 <span class="label" style="color:#00ff88; font-weight:bold;">Flight Check</span>
+</div>
+<div class="os-nav-item" id="tab-redteam">
+<span class="icon" style="color:#ff4444; text-shadow:0 0 10px rgba(255,68,68,0.3);">⚔️</span>
+<span class="label" style="color:#ff4444; font-weight:bold;">Red Team</span>
 </div>
 <div style="margin-top: auto; width: 100%; padding: 20px;">
 <button class="btn-os primary" data-action="trigger-build" style="width:100%; margin-bottom:10px;">🚀 YAYINLA</button>
@@ -1611,6 +1615,40 @@
         <tbody id="i18n-route-body"></tbody>
     </table>
 </div>
+</div>
+
+<!-- VIEW: RED TEAM & SECURITY SHIELD -->
+<div class="content-layer" id="view-redteam">
+    <header class="os-header" style="border-bottom: 2px solid #ff4444;">
+        <div>
+            <h1 class="os-title" style="color:#ff4444; text-shadow:0 0 15px rgba(255,68,68,0.4);">Red Team & Security Shield</h1>
+            <p style="color:#666; margin:0;">Automated SaaS Hardening & Attack Simulation</p>
+        </div>
+        <button class="btn-os" data-action="run-red-team" style="background: rgba(255,68,68,0.1); border-color: #ff4444; color: #ff4444;">🔴 SIMULATE ATTACK</button>
+    </header>
+    
+    <div class="os-grid-2">
+        <div class="os-card">
+            <h3 style="color:#eee; border-bottom:1px solid #333; padding-bottom:10px; margin-bottom:15px;">Attack Vectors (Hardening)</h3>
+            <ul style="color:#888; line-height:1.6; padding-left:20px;">
+                <li><strong>Brute Force (Rate Limit):</strong> Floods authentication endpoints (SlowAPI Validation).</li>
+                <li><strong>Method Fuzzing:</strong> Tests 405 Method Not Allowed abuses.</li>
+                <li><strong>SQL Injection:</strong> Probes authentication inputs with malicious ORM payloads.</li>
+                <li><strong>JWT Audit:</strong> Attempts privilege escalation using invalid tokens.</li>
+            </ul>
+            <div id="redteam-score" style="margin-top:20px; font-size:48px; font-weight:bold; color:#ff4444; text-align:center;">
+                --
+            </div>
+            <div style="text-align:center; color:#666; font-size:12px;">Security Score</div>
+        </div>
+        
+        <div class="os-card">
+            <h3 style="color:#eee; border-bottom:1px solid #333; padding-bottom:10px; margin-bottom:15px;">Simulation Audit Log</h3>
+            <div id="redteam-log" style="background:#0a0a0a; padding:15px; border-radius:8px; border:1px solid #333; font-family:monospace; color:#00ff88; height:300px; overflow-y:auto; font-size:13px;">
+                > System Ready.<br>> Waiting for Director authorization...
+            </div>
+        </div>
+    </div>
 </div>
 
 

@@ -38,7 +38,8 @@
                 'health': 'loadHealthPanel',
                 'tgov': 'loadTemplateGovernance',
                 'flight': 'loadFlightCheck',
-                'oracle': 'loadOracleDashboard'
+                'oracle': 'loadOracleDashboard',
+                'redteam': 'loadRedTeamPanel'
             };
 
             var fn = loadMap[tabId];
@@ -86,6 +87,7 @@
                 'load-flight-check': 'loadFlightCheck',
                 'load-health-panel': function () { if (typeof loadHealthPanel === 'function') loadHealthPanel(); },
                 'load-redirects-panel': function () { if (typeof loadRedirectsPanel === 'function') loadRedirectsPanel(); },
+                'run-red-team': 'runRedTeamSimulation',
                 'scan-city': 'scanCity',
                 'refresh-fleet-status': 'refreshFleetStatus',
                 'add-bio-link': 'addBioLink',

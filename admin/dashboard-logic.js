@@ -1074,3 +1074,61 @@ document.addEventListener('DOMContentLoaded', () => {
         initGodModeSimulators();
     }
 });
+
+// --- RED TEAM & SECURITY SHIELD (FAZ 10) ---
+window.loadRedTeamPanel = function () {
+    console.log("🛡️ Red Team panel yüklendi");
+};
+
+window.runRedTeamSimulation = async function () {
+    const logBox = document.getElementById("redteam-log");
+    const scoreBox = document.getElementById("redteam-score");
+    if (!logBox) return;
+
+    logBox.innerHTML = "> 🔴 AUTHORIZATION RECEIVED.<br>> EXECUTING ATTACK VECTORS...<br><br>";
+    scoreBox.textContent = "--";
+    scoreBox.style.color = "#ff4444";
+
+    try {
+        const res = await fetch("http://127.0.0.1:8000/api/admin/simulate-attack", { method: 'POST' });
+        const data = await res.json();
+
+        if (data.error || data.status === "ERROR") {
+            logBox.innerHTML += `<div style='color:red;'>[FATAL] Simulation failed: ${data.detail || 'Internal Backend Error'}</div>`;
+            return;
+        }
+
+        let html = `> 🎯 MISSION STATUS: <b style="color:#00ff88">${data.status}</b><br><br>`;
+
+        data.results.forEach(item => {
+            let color = "#fff";
+            if (item.status === "PASS") color = "#00ff88";
+            else if (item.status === "WARN") color = "#ffcc00";
+            else if (item.status === "FAIL") color = "#ff4444";
+
+            html += `<span style="color:${color}">[${item.status}] ${item.test}</span><br>`;
+            html += `<span style="color:#888;">   ↳ ${item.detail}</span><br><br>`;
+        });
+
+        html += `> 📡 SIMULATION COMPLETE.`;
+        logBox.innerHTML = html;
+
+        // Animate score counting
+        let currentScore = 0;
+        const targetScore = data.score;
+        let scoreColor = targetScore >= 90 ? "#00ff88" : (targetScore >= 70 ? "#ffcc00" : "#ff4444");
+
+        const timer = setInterval(() => {
+            currentScore += 2;
+            if (currentScore >= targetScore) {
+                currentScore = targetScore;
+                clearInterval(timer);
+            }
+            scoreBox.style.color = scoreColor;
+            scoreBox.textContent = currentScore;
+        }, 20);
+
+    } catch (e) {
+        logBox.innerHTML += `<div style='color:red;'>[FATAL] Network error connecting to simulation node: ${e.message}</div>`;
+    }
+};

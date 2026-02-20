@@ -1,10 +1,11 @@
 from datetime import timedelta
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
 from app.core import security
+from app.core.limiter import limiter
 from app.schemas import auth as schemas
 from app.db.session import get_db
 from app.db.models.user import User
@@ -13,7 +14,9 @@ router = APIRouter()
 
 
 @router.post("/login", response_model=schemas.Token)
+@limiter.limit("5/minute")
 async def login_access_token(
+    request: Request,
     db: AsyncSession = Depends(get_db),
     form_data: OAuth2PasswordRequestForm = Depends(),
 ):
@@ -59,7 +62,9 @@ async def login_access_token(
     }
 
 @router.post("/register", response_model=schemas.UserOut)
+@limiter.limit("5/minute")
 async def register_user(
+    request: Request,
     user_in: schemas.UserCreate,
     db: AsyncSession = Depends(get_db),
 ):
@@ -91,7 +96,9 @@ async def register_user(
     return user
 
 @router.post("/refresh", response_model=schemas.Token)
+@limiter.limit("10/minute")
 async def refresh_token(
+    request: Request,
     refresh_token: schemas.RefreshToken,
     db: AsyncSession = Depends(get_db),
 ):
