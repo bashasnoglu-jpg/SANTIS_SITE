@@ -21,9 +21,44 @@ app = FastAPI(title="Santis Club API", version="3.0")
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from app.core.limiter import limiter
+from app.core.security_logger import security_logger
+from fastapi.responses import JSONResponse
+from fastapi import Request
 
 app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+# Override SlowAPI handler to inject logging (Detect Layer)
+@app.exception_handler(RateLimitExceeded)
+async def custom_rate_limit_handler(request: Request, exc: RateLimitExceeded):
+    client_ip = request.client.host if request.client else "unknown"
+    security_logger.log_event(
+        event_type="RATE_LIMIT",
+        severity="WARN",
+        ip=client_ip,
+        username="unknown",
+        description=f"Rate limit exceeded on {request.url.path}"
+    )
+    return JSONResponse(
+        {"detail": f"Rate limit exceeded: {exc.detail}"},
+        status_code=429,
+    )
+
+# Global HTTP Exception Handler for Auth/Forbidden (Detect Layer)
+@app.exception_handler(HTTPException)
+async def custom_http_exception_handler(request: Request, exc: HTTPException):
+    if exc.status_code in [401, 403]:
+        client_ip = request.client.host if request.client else "unknown"
+        security_logger.log_event(
+            event_type="AUTH_FAILURE",
+            severity="INFO" if exc.status_code == 401 else "WARN",
+            ip=client_ip,
+            username="unknown",
+            description=f"Blocked {exc.status_code} on {request.url.path}: {exc.detail}"
+        )
+    return JSONResponse(
+        {"detail": exc.detail},
+        status_code=exc.status_code,
+    )
 
 from app.api.v1.endpoints import auth, users, tenants, bookings
 app.include_router(
@@ -60,7 +95,6 @@ app.include_router(
     tags=["admin"],
 )
 
-from fastapi.responses import JSONResponse
 import traceback
 
 @app.exception_handler(Exception)

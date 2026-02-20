@@ -5,6 +5,8 @@ services:
     build: .
     container_name: santis-core-api
     restart: unless-stopped
+    cap_drop:
+      - ALL
     ports:
       - "8000:8000"
     volumes:

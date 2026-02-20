@@ -1,0 +1,56 @@
+[
+  {
+    "id": "evt_1771621371189",
+    "timestamp": "2026-02-20T21:02:51.189112Z",
+    "type": "RATE_LIMIT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "Rate limit exceeded on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771621371171",
+    "timestamp": "2026-02-20T21:02:51.171333Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "admin@santis.com",
+    "description": "Invalid password. Remaining attempts: 0"
+  },
+  {
+    "id": "evt_1771621370910",
+    "timestamp": "2026-02-20T21:02:50.910397Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "admin@santis.com",
+    "description": "Invalid password. Remaining attempts: 1"
+  },
+  {
+    "id": "evt_1771621370715",
+    "timestamp": "2026-02-20T21:02:50.715649Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "admin@santis.com",
+    "description": "Invalid password. Remaining attempts: 2"
+  },
+  {
+    "id": "evt_1771621370513",
+    "timestamp": "2026-02-20T21:02:50.513952Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "admin@santis.com",
+    "description": "Invalid password. Remaining attempts: 3"
+  },
+  {
+    "id": "evt_1771621370240",
+    "timestamp": "2026-02-20T21:02:50.240788Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "admin@santis.com",
+    "description": "Invalid password. Remaining attempts: 4"
+  }
+]
