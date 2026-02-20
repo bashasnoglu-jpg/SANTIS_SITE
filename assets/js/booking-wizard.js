@@ -277,3 +277,5 @@ const BOOKING_WIZARD = {
         this.close();
     }
 };
+
+window.BOOKING_WIZARD = BOOKING_WIZARD;
