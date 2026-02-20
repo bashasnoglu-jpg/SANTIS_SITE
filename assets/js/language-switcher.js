@@ -195,18 +195,31 @@
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // DİL DEĞİŞTİRME
+    // DİL DEĞİŞTİRME (Omni-Language Protocol'e Bağlandı)
     // ═══════════════════════════════════════════════════════════════
 
     function changeLanguage(langCode) {
-        document.cookie = `googtrans=/tr/${langCode}; path=/`;
-        document.cookie = `googtrans=/tr/${langCode}; path=/; domain=${location.hostname}`;
-        location.reload();
+        // Eski Google Translate cookie'si yerine SantisOmniLang kullanıyoruz
+        if (typeof window.setLang === 'function') {
+            window.setLang(langCode);
+        } else {
+            console.warn('⚠️ [Santis Lang] setLang function not found. Falling back to simple cookie reload.');
+            document.cookie = `googtrans=/tr/${langCode}; path=/`;
+            document.cookie = `googtrans=/tr/${langCode}; path=/; domain=${location.hostname}`;
+            location.reload();
+        }
+
+        // Dropdown UI'ı yenile (Aktif dili güncellemek için)
+        insertDropdown();
     }
 
     function getCurrentLang() {
+        if (window.SantisOmniLang) {
+            return window.SantisOmniLang.currentLang;
+        }
+        // Fallback or initialization
         const match = document.cookie.match(/googtrans=\/tr\/(\w+)/);
-        return match ? match[1] : 'tr';
+        return localStorage.getItem('santis_lang') || (match ? match[1] : 'tr');
     }
 
     // ═══════════════════════════════════════════════════════════════

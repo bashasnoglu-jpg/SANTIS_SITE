@@ -46,7 +46,7 @@
 
             var payload = { path: path, content: content };
 
-            var res = await fetch('/api/bridge/save', {
+            var res = await fetch('http://127.0.0.1:8000/api/bridge/save', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -73,7 +73,7 @@
      */
     window.bridgeSave = async function (path, jsonString) {
         try {
-            var res = await fetch('/api/bridge/save', {
+            var res = await fetch('http://127.0.0.1:8000/api/bridge/save', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ path: path, content: jsonString })

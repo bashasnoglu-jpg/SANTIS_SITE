@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="tr" data-lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Club | Bio Links</title>
+    
+    <!-- SEO & Performance -->
+    <meta name="description" content="Santis Club resmi bağlantıları, rezervasyon ve iletişim kanalları.">
+    <meta name="theme-color" content="#0a0a0a">
+    
+    <!-- Master CSS (Quiet Luxury) -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        /* ================================
+           SANTIS LINKTREE KILLER 
+           (Ultra Minimal & Quiet Luxury)
+           ================================ */
+        body.nv-bio-body {
+            background-color: #0a0a0a;
+            color: #dcdcdc;
+            font-family: 'Inter', 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Particles / Liquid Starlight Base */
+        .bio-background {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at center, rgba(30,30,30,1) 0%, rgba(10,10,10,1) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .bio-container {
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            z-index: 1;
+            animation: fadeIn 1.2s ease-out forwards;
+        }
+
+        /* Brand Header */
+        .bio-logo-container {
+            margin-bottom: 30px;
+        }
+        
+        .bio-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .bio-title {
+            font-size: 24px;
+            letter-spacing: 4px;
+            font-weight: 300;
+            margin: 0 0 5px 0;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .bio-subtitle {
+            font-size: 13px;
+            color: #888;
+            font-weight: 300;
+            margin: 0 0 30px 0;
+            letter-spacing: 1px;
+        }
+
+        /* Links Matrix */
+        .bio-links-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .bio-link-btn {
+            display: block;
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .bio-link-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .bio-link-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .bio-link-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Social Media Icons Box (Footer) */
+        .bio-social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .bio-social-icon {
+            color: #666;
+            text-decoration: none;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .bio-social-icon:hover {
+            color: #d4af37; /* Santis Gold */
+        }
+
+        .bio-footer {
+            margin-top: 40px;
+            font-size: 10px;
+            color: #444;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Loading State Skeleton */
+        .skeleton-btn {
+            height: 54px;
+            width: 100%;
+            background: linear-gradient(90deg, #111 25%, #222 50%, #111 75%);
+            background-size: 200% 100%;
+            animation: pulse-skeleton 1.5s infinite;
+            border-radius: 8px;
+            border: 1px solid #222;
+        }
+
+        @keyframes pulse-skeleton {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body class="nv-bio-body">
+    <!-- Liquid Background Minimal -->
+    <div class="bio-background" id="canvas-container"></div>
+
+    <main class="bio-container">
+        <!-- Logo & Brand Header -->
+        <div class="bio-logo-container">
+            <img src="assets/img/og-santis.jpg" alt="Santis Club" class="bio-logo" decoding="async" fetchpriority="high" width="80" height="80">
+            <h1 class="bio-title">SANTIS</h1>
+            <p class="bio-subtitle">Exclusive Wellness & Spa</p>
+        </div>
+
+        <!-- Dynamic Links Matrix -->
+        <div class="bio-links-wrapper" id="bio-links-matrix">
+            <!-- Loading Skeletons -->
+            <div class="skeleton-btn"></div>
+            <div class="skeleton-btn"></div>
+            <div class="skeleton-btn"></div>
+        </div>
+
+        <!-- Social Icons Bottom -->
+        <div class="bio-social-icons" id="bio-social-matrix">
+            <!-- Rendered via JS -->
+        </div>
+
+        <!-- Footer -->
+        <div class="bio-footer">
+            &copy; <span id="year"></span> SANTIS CLUB. All Rights Reserved.
+        </div>
+    </main>
+
+    <!-- Bio Logic & Meta Pixel Trigger Engine -->
+    <script src="assets/js/santis-pixel-engine.js"></script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // [CORE ENGINE] Medya Üssü Verisini Çek ve UTM Enjekte Et
+        async function initBioMatrix() {
+            const matrix = document.getElementById('bio-links-matrix');
+            const socialMatrix = document.getElementById('bio-social-matrix');
+
+            try {
+                // Santis File Bridge/API Data Fetch
+                // Data comes from statically generated assets (for Cloudflare Pages support)
+                const response = await fetch('assets/data/social.json', { cache: 'no-cache' });
+                
+                if (!response.ok) throw new Error('Network Error');
+                
+                const data = await response.json();
+                
+                matrix.innerHTML = ''; // Clear skeletons
+                socialMatrix.innerHTML = ''; 
+
+                // 1. Render Bio Links (Hızlı Linkler)
+                if (data.biolinks && data.biolinks.length > 0) {
+                    data.biolinks.forEach(link => {
+                        // UTM Optimization (Reklam Takibi)
+                        let finalUrl = link.url;
+                        if(finalUrl.includes('santisclub.com') || finalUrl.startsWith('/')) {
+                            const separator = finalUrl.includes('?') ? '&' : '?';
+                            finalUrl += `${separator}utm_source=instagram_bio&utm_medium=social&utm_campaign=linktree_killer`;
+                        }
+
+                        const a = document.createElement('a');
+                        a.href = finalUrl;
+                        a.className = 'bio-link-btn';
+                        a.textContent = link.label;
+                        
+                        // Pixel Lead Trigger (Click Event)
+                        a.addEventListener('click', () => {
+                            if(typeof fbq === 'function') {
+                                fbq('track', 'Contact'); // WhatsApp or Reservation clicks
+                            }
+                        });
+
+                        matrix.appendChild(a);
+                    });
+                } else {
+                    // Fallback
+                    matrix.innerHTML = '<a href="/" class="bio-link-btn">Santis Club Ana Sayfa</a><a href="/contact.html" class="bio-link-btn">Reservasyon (WhatsApp)</a>';
+                }
+
+                // 2. Render Social Platforms (Iconlar)
+                if (data.platforms) {
+                    // Map keys to simple text or external SVG icons (Currently using text/emoji for simplicity, can be mapped to FontAwesome/SVG)
+                    const iconMap = {
+                        'instagram': 'IG',
+                        'facebook': 'FB',
+                        'youtube': 'YT',
+                        'twitter': 'X'
+                    };
+
+                    for (const [key, url] of Object.entries(data.platforms)) {
+                        if (url) {
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.className = 'bio-social-icon';
+                            a.textContent = iconMap[key] || key.substring(0,2).toUpperCase();
+                            a.target = '_blank';
+                            socialMatrix.appendChild(a);
+                        }
+                    }
+                }
+
+            } catch (error) {
+                console.error('Bio Engine Error:', error);
+                // Fallback UI if API fails
+                matrix.innerHTML = `
+                    <a href="/" class="bio-link-btn">Ana Sayfa</a>
+                    <a href="/contact.html" class="bio-link-btn">İletişim & Rezervasyon</a>
+                `;
+            }
+        }
+
+        // Boot
+        document.addEventListener('DOMContentLoaded', initBioMatrix);
+    </script>
+</body>
+</html>

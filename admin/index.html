@@ -63,6 +63,10 @@
 <span class="icon">📝</span>
 <span class="label">Yazar (Blog)</span>
 </div>
+<div class="os-nav-item" id="tab-content" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+<span class="icon" style="color:#ff007f; text-shadow:0 0 10px rgba(255,0,127,0.3);">⚡</span>
+<span class="label" style="color:#ff007f; font-weight:bold;">İçerik Stüdyosu</span>
+</div>
 <div class="os-nav-item" id="tab-social">
 <span class="icon">📢</span>
 <span class="label">Medya (Social)</span>
@@ -313,19 +317,84 @@
 </div>
 <button class="btn-os" data-action="load-stats">🔄 Yenile</button>
 </header>
-<div class="os-grid-3">
-<div class="os-stat-box">
-<div style="font-size:12px; color:#888;">GÜNLÜK ZİYARETÇİ (24S)</div>
-<div class="os-stat-number" id="stat-visits" style="color:#fff;">-</div>
+<div class="os-grid-3" style="margin-bottom: 30px;">
+    <!-- LIVE TRAFFIC WIDGET -->
+    <div class="os-stat-box" style="position:relative; overflow:hidden; border-color: rgba(0, 170, 255, 0.3);">
+        <div style="font-size:11px; color:#00aaff; letter-spacing:1px; margin-bottom:5px; text-transform:uppercase;">Canlı Trafik (Simulasyon)</div>
+        <div class="os-stat-number" id="stat-live-traffic" style="color:#00aaff; font-size:3rem; text-shadow:0 0 15px rgba(0,170,255,0.4);">
+            <span class="live-dot" style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#00aaff; margin-right:10px; animation: pulse 1.5s infinite;"></span>
+            0
+        </div>
+        <div style="font-size:10px; color:#666; margin-top:10px; display:flex; justify-content:space-between;">
+            <span>Hedef: /tr/index.html</span>
+            <span style="color:#00aaff;">Online</span>
+        </div>
+        <!-- Pulse Animation CSS Injection -->
+        <style>
+            @keyframes pulse {
+                0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 170, 255, 0.7); }
+                70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 170, 255, 0); }
+                100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 170, 255, 0); }
+            }
+        </style>
+    </div>
+
+    <!-- SYSTEM HEALTH WIDGET -->
+    <div class="os-stat-box" style="position:relative; border-color: rgba(0, 255, 136, 0.3);">
+        <div style="font-size:11px; color:#00ff88; letter-spacing:1px; margin-bottom:5px; text-transform:uppercase;">Sistem Sağlığı (API & DB)</div>
+        <div class="os-stat-number" id="stat-health-score" style="color:#00ff88; font-size:3rem; text-shadow:0 0 15px rgba(0,255,136,0.4);">%100</div>
+        
+        <div style="margin-top:15px; display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; justify-content:space-between; font-size:11px; color:#aaa;">
+                <span>Santis API</span> <span style="color:#00ff88;">OK (23ms)</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:11px; color:#aaa;">
+                <span>City OS Sensörleri</span> <span style="color:#00ff88;">Senkronize</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:11px; color:#aaa;">
+                <span>404 Log Taraması</span> <span style="color:#00ff88;">Temiz</span>
+            </div>
+        </div>
+        <div style="width:100%; height:2px; background:rgba(255,255,255,0.1); margin-top:12px; position:relative;">
+            <div style="position:absolute; left:0; top:0; height:100%; width:100%; background:#00ff88; box-shadow:0 0 5px #00ff88;"></div>
+        </div>
+    </div>
+
+    <!-- DAILY VISITS WIDGET -->
+    <div class="os-stat-box">
+        <div style="font-size:11px; color:#888; letter-spacing:1px; margin-bottom:5px; text-transform:uppercase;">Aylık Oturum Hedefi</div>
+        <div class="os-stat-number" id="stat-actions" style="color:#fff; font-size:3rem;">12.5K</div>
+        <div style="font-size:10px; color:#666; margin-top:10px;">
+            <span style="color:#00ff88;">▲ %14.2</span> geçen aya göre artış
+        </div>
+    </div>
 </div>
-<div class="os-stat-box">
-<div style="font-size:12px; color:#888;">TOPLAM İŞLEM</div>
-<div class="os-stat-number" id="stat-actions" style="color:#00aaff;">-</div>
-</div>
-<div class="os-stat-box">
-<div style="font-size:12px; color:#888;">SİSTEM SAĞLIĞI</div>
-<div class="os-stat-number" id="stat-health" style="color:#00ff88;">-</div>
-</div>
+
+<!-- LATEST AUDIT EVENTS (Console Log Reader Simulation) -->
+<div class="os-card" style="margin-top:20px; background: rgba(10, 12, 16, 0.8);">
+    <h3 style="font-size:13px; color:#00d9ff; margin-bottom:15px; border-bottom:1px solid rgba(0, 217, 255, 0.2); padding-bottom:10px;">🛡️ SON SİSTEM LOGLARI (Santis Tracer V3)</h3>
+    <div id="live-audit-log" style="font-family:'Consolas', monospace; font-size:11px; color:#aaa; display:flex; flex-direction:column; gap:8px; height:150px; overflow-y:auto;">
+        <div style="display:flex; gap:15px;">
+            <span style="color:#666;">[18:35:10]</span>
+            <span style="color:#00ff88;">[OK]</span>
+            <span>santis-language-sync.js: TR/EN geçişi doğrulandı.</span>
+        </div>
+        <div style="display:flex; gap:15px;">
+            <span style="color:#666;">[18:34:45]</span>
+            <span style="color:#00aaff;">[INFO]</span>
+            <span>Yeni Oturum: Istanbul_TR (Santis World Landing Page)</span>
+        </div>
+        <div style="display:flex; gap:15px;">
+            <span style="color:#666;">[18:32:00]</span>
+            <span style="color:#00ff88;">[OK]</span>
+            <span>Santis Pixel Engine v1.0 başlatıldı.</span>
+        </div>
+        <div style="display:flex; gap:15px;">
+            <span style="color:#666;">[18:30:15]</span>
+            <span style="color:#00ff88;">[OK]</span>
+            <span>DataBridge: social.json başarıyla çekildi (Cache: HIT).</span>
+        </div>
+    </div>
 </div>
 </div>
 <!-- VIEW: HOME (Page Builder Mode) -->
@@ -414,6 +483,34 @@
 </table>
 </div>
 </div>
+
+<!-- VIEW: CONTENT STUDIO (JSON Editor) -->
+<div class="content-layer" id="view-content">
+<header class="os-header">
+<div>
+<h1 class="os-title">İçerik Stüdyosu (Master JSON)</h1>
+<p style="color:#666; margin:0;">Hizmet & Ürün Veritabanı (Masajlar, Sothys, Fiyatlar)</p>
+</div>
+<div>
+<button class="btn-os primary" data-action="save-master-json">💾 Değişiklikleri Uygula</button>
+</div>
+</header>
+<div class="os-grid-2">
+    <!-- Left: File Selector -->
+    <div class="os-card" style="display:flex; flex-direction:column; gap:10px;">
+        <h3 style="font-size:13px; color:#d4af37; border-bottom:1px solid rgba(212,175,55,0.2); padding-bottom:10px;">Veri Kaynakları</h3>
+        <button class="btn-os" style="text-align:left; border-color:#333;" onclick="document.getElementById('json-editor-title').innerText='assets/data/product-data.json'; document.getElementById('json-editor').value='{\n  // Ürün Verisi Yüklenecek\n}';">📦 Kozmetik (product-data.json)</button>
+        <button class="btn-os" style="text-align:left; border-color:#333;" onclick="document.getElementById('json-editor-title').innerText='assets/data/services.json'; document.getElementById('json-editor').value='{\n  // Masaj Verisi Yüklenecek\n}';">💆 Masajlar (services.json)</button>
+        <button class="btn-os" style="text-align:left; border-color:#333;" onclick="document.getElementById('json-editor-title').innerText='assets/data/site_content.json'; document.getElementById('json-editor').value='{\n  // Site Metinleri Yüklenecek\n}';">🌍 Global Metinler (site_content.json)</button>
+    </div>
+    
+    <!-- Right: The Editor -->
+    <div class="os-card" style="display:flex; flex-direction:column; padding:0; overflow:hidden;">
+        <div style="background:#111; padding:10px 15px; font-family:monospace; font-size:11px; color:#00ff88; border-bottom:1px solid #222;" id="json-editor-title">Dosya Seçiniz...</div>
+        <textarea id="json-editor" spellcheck="false" style="width:100%; height:400px; background:#0a0c0e; color:#ccc; border:none; padding:15px; font-family:'Consolas', monospace; font-size:12px; resize:none; outline:none;" placeholder="{...}"></textarea>
+    </div>
+</div>
+</div>
 <!-- VIEW: SERVICES -->
 <div class="content-layer" id="view-services">
 <header class="os-header">
@@ -483,7 +580,21 @@
 <!-- JS Fills This -->
 </div>
 </div>
-<!-- 2. CONCIERGE & BIOLINKS -->
+<!-- 2. ADS & PIXEL TRACKING -->
+<div class="os-card" style="margin-bottom:20px;">
+<h3>📈 Reklam ve Pixel Yönetimi</h3>
+<p style="font-size:12px; color:#aaa; margin-bottom:15px;">Site genelinde (ve Native Bio sayfasında) otomatik çalışacak reklam izleme ID'lerini girin.</p>
+<div class="form-group">
+<label>Meta Pixel ID (fbq)</label>
+<input class="os-input" id="meta-pixel-id" placeholder="Örn: 10143105655xxxx" type="text"/>
+</div>
+<div class="form-group" style="margin-top:10px;">
+<label>Google Tag Manager/Analytics ID (gtag)</label>
+<input class="os-input" id="google-gtag-id" placeholder="Örn: G-XXXXXXXXXX veya GTM-XXXXXXX" type="text"/>
+</div>
+</div>
+
+<!-- 3. CONCIERGE & BIOLINKS -->
 <div style="display:flex; flex-direction:column; gap:20px;">
 <div class="os-card">
 <h3>🤖 Digital Concierge (Asistan)</h3>

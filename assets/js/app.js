@@ -411,6 +411,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log("🏆 Santis Club: 10/10 Mükemmellik Mührü Uygulandı.");
 
+  // 4. Medya Üssü (Digital Concierge AI) Yükleyici
+  console.log("🤖 Loading Digital Concierge AI...");
+  const aiScript = document.createElement('script');
+  const rootPath = (typeof getSantisRootPath === 'function' ? getSantisRootPath() : '');
+  const normalizedRoot = rootPath ? (rootPath.endsWith('/') ? rootPath : rootPath + '/') : '/';
+
+  // 4.5 Omni-Language Protocol (TR/EN Sync)
+  console.log("🌍 Loading Omni-Language Protocol...");
+  const langScript = document.createElement('script');
+  langScript.src = normalizedRoot + 'assets/js/santis-language-sync.js';
+  langScript.defer = false; // Load early
+  document.head.appendChild(langScript);
+
+  aiScript.src = normalizedRoot + 'assets/js/santis-ai-chatbot.js';
+  aiScript.defer = true;
+  document.body.appendChild(aiScript);
+
+  // 5. Medya Üssü (Reklam Pixel İzleme) Yükleyici
+  console.log("🎯 Loading Santis Pixel Engine...");
+  const pixelScript = document.createElement('script');
+  pixelScript.src = normalizedRoot + 'assets/js/santis-pixel-engine.js';
+  pixelScript.defer = true;
+  document.head.appendChild(pixelScript);
+
   // AUTO-LOAD NAVBAR (DISABLED - Handled by santis-nav.js)
 
   /*

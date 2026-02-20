@@ -13,10 +13,75 @@ function escapeAttr(value) {
         .replace(/>/g, '&gt;');
 }
 
+// --- GOD MODE SIMULATORS (Phase 6) ---
+let liveTrafficInterval = null;
+function initGodModeSimulators() {
+    // 1. Live Traffic Number
+    const trafficEl = document.getElementById('stat-live-traffic');
+    if (trafficEl) {
+        let currentTraffic = Math.floor(Math.random() * 5) + 2; // Baseline 2-6 users
+
+        if (liveTrafficInterval) clearInterval(liveTrafficInterval);
+        liveTrafficInterval = setInterval(() => {
+            // Randomly fluctuate online users (-1 to +2)
+            const change = Math.floor(Math.random() * 4) - 1;
+            currentTraffic = Math.max(1, currentTraffic + change); // Keep at least 1
+
+            // Keep the pulse dot HTML and just change the text
+            const dotHtml = `<span class="live-dot" style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#00aaff; margin-right:10px; animation: pulse 1.5s infinite;"></span>`;
+            trafficEl.innerHTML = `${dotHtml}${currentTraffic}`;
+        }, 3500); // Update every 3.5 seconds
+    }
+
+    // 2. Live Audit Logs Injection
+    const logContainer = document.getElementById('live-audit-log');
+    if (logContainer) {
+        const dummyLogs = [
+            { source: 'Santis Security', msg: 'Admin Panel Access Authorized (Istanbul).', color: '#00ff88', type: '[OK]' },
+            { source: 'DataBridge', msg: 'catalog.json served from Edge Cache (12ms).', color: '#00ff88', type: '[OK]' },
+            { source: 'PixelEngine', msg: 'Ads tracking blocked (User Consent: False).', color: '#ffcc00', type: '[WARN]' },
+            { source: 'City OS', msg: 'Weather sensor updated (Antalya, 24°C).', color: '#00aaff', type: '[INFO]' },
+            { source: 'OmniLang', msg: 'Auto-switched to /en/ (Client pref: English).', color: '#00aaff', type: '[INFO]' }
+        ];
+
+        setInterval(() => {
+            // Only add a log 30% of the time to keep it realistic
+            if (Math.random() > 0.3) return;
+
+            const now = new Date();
+            const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+            const logEntry = dummyLogs[Math.floor(Math.random() * dummyLogs.length)];
+
+            const newLog = document.createElement('div');
+            newLog.style.cssText = 'display:flex; gap:15px; animation: fadeDown 0.5s ease;';
+            newLog.innerHTML = `
+                <span style="color:#666;">[${timeStr}]</span>
+                <span style="color:${logEntry.color};">${logEntry.type}</span>
+                <span>${logEntry.source}: ${logEntry.msg}</span>
+            `;
+
+            logContainer.prepend(newLog); // Add to top
+
+            // Keep max 7 logs
+            if (logContainer.children.length > 7) {
+                logContainer.lastElementChild.remove();
+            }
+        }, 2000); // Check every 2 seconds
+
+        // Add animation class if not exists
+        if (!document.getElementById('sim-styles')) {
+            const style = document.createElement('style');
+            style.id = 'sim-styles';
+            style.innerHTML = `@keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }`;
+            document.head.appendChild(style);
+        }
+    }
+}
+
 // --- TONE HEALTH HUD (Phase 38.7) ---
 async function updateToneHealth() {
     try {
-        const res = await fetch('/api/admin/tone-health');
+        const res = await fetch('http://127.0.0.1:8000/api/admin/tone-health');
         const data = await res.json();
 
         if (data.status === "NO_DATA") return;
@@ -72,7 +137,7 @@ setInterval(() => {
 async function loadOracleDashboard() {
     try {
         // 1. Live Status
-        const res = await fetch('/api/oracle/status');
+        const res = await fetch('http://127.0.0.1:8000/api/oracle/status');
         const data = await res.json();
 
         const moodEl = document.getElementById('oracle-mood');
@@ -174,7 +239,7 @@ async function runDeepAudit() {
 
     // 1. START
     try {
-        const startRes = await fetch("/admin/deep-audit/start");
+        const startRes = await fetch("http://127.0.0.1:8000/admin/deep-audit/start");
         const startData = await startRes.json();
 
         if (startData.error) {
@@ -190,7 +255,7 @@ async function runDeepAudit() {
         // 2. POLL STATUS
         auditInterval = setInterval(async () => {
             try {
-                const statusRes = await fetch("/admin/deep-audit/status");
+                const statusRes = await fetch("http://127.0.0.1:8000/admin/deep-audit/status");
                 const statusData = await statusRes.json();
 
                 // Update Live Counters
@@ -227,7 +292,7 @@ async function runDeepAudit() {
 
 async function fetchAndShowReport(logElement) {
     try {
-        const res = await fetch("/admin/deep-audit/report");
+        const res = await fetch("http://127.0.0.1:8000/admin/deep-audit/report");
         const data = await res.json();
 
         // Append full report below the status box
@@ -406,7 +471,7 @@ async function runAutoFix(type, target = null, btnElement = null) {
     if (resBox) resBox.innerHTML = "⏳ İşlem yapılıyor...";
 
     try {
-        const res = await fetch(`/admin/deep-audit/fix/${type}`);
+        const res = await fetch(`http://127.0.0.1:8000/admin/deep-audit/fix/${type}`);
         const data = await res.json();
 
         if (resBox) {
@@ -444,7 +509,7 @@ async function applyAiFix(fixId, target, btnElement) {
     }
 
     try {
-        const res = await fetch("/api/admin/auto-fix", {
+        const res = await fetch("http://127.0.0.1:8000/api/admin/auto-fix", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ fix_id: fixId, target: target })
@@ -490,7 +555,7 @@ async function runVisualAudit() {
         try {
             resBox.innerHTML += `<br>📸 Taranıyor: ${page}...`;
 
-            const res = await fetch("/admin/visual-audit", {
+            const res = await fetch("http://127.0.0.1:8000/admin/visual-audit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ url: page })
@@ -531,7 +596,7 @@ async function runPerformanceAudit() {
         try {
             resBox.innerHTML += `<br>🏎️ Ölçülüyor: ${page}...`;
 
-            const res = await fetch("/admin/performance-audit", {
+            const res = await fetch("http://127.0.0.1:8000/admin/performance-audit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ url: page })
@@ -576,7 +641,7 @@ async function runSecurityAudit() {
     resBox.innerHTML = "🛡️ <b>Güvenlik Taraması Başladı...</b><br>Header ve Dosya Taraması yapılıyor...";
 
     try {
-        const res = await fetch("/admin/security-audit", {
+        const res = await fetch("http://127.0.0.1:8000/admin/security-audit", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ url: "/" }) // Scan root
@@ -637,7 +702,7 @@ async function runAIFixSuggestions() {
     resBox.innerHTML = "🧠 <b>Santis Brain Düşünüyor...</b><br>Security ve Performance verileri analiz ediliyor...";
 
     try {
-        const res = await fetch("/admin/ai-fix-suggestions");
+        const res = await fetch("http://127.0.0.1:8000/admin/ai-fix-suggestions");
         const data = await res.json();
 
         if (data.error) {
@@ -681,7 +746,7 @@ async function runSecurityPatch() {
     if (resBox) resBox.innerHTML = "⏳ Güvenlik yamaları kontrol ediliyor...";
 
     try {
-        const res = await fetch("/admin/auto-security-patch");
+        const res = await fetch("http://127.0.0.1:8000/admin/auto-security-patch");
         const data = await res.json();
 
         if (resBox) resBox.innerHTML = `
@@ -703,7 +768,7 @@ async function runAttackSim() {
     resBox.innerHTML = "⚔️ <b>Saldırı Başlatıldı...</b><br>Red Team operasyonu sürüyor...";
 
     try {
-        const res = await fetch("/admin/attack-simulator", { method: "POST" });
+        const res = await fetch("http://127.0.0.1:8000/admin/attack-simulator", { method: "POST" });
         const data = await res.json();
 
         if (data.error) {
@@ -744,6 +809,69 @@ async function runAttackSim() {
 }
 
 // --- SOCIAL MEDIA DATA (Medya Üssü) ---
+async function loadSocialData() {
+    try {
+        const res = await fetch("http://127.0.0.1:8000/api/admin/social");
+        const data = await res.json();
+
+        // 1. Platforms
+        const pContainer = document.getElementById('social-platforms-container');
+        if (pContainer) {
+            pContainer.innerHTML = '';
+            const defaults = ['instagram', 'facebook', 'youtube', 'linkedin', 'tripadvisor'];
+            defaults.forEach(key => {
+                const val = (data.platforms && data.platforms[key]) || '';
+                pContainer.innerHTML += `
+                    <div class="form-group" style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                        <span style="display:inline-block; width:80px; text-transform:uppercase; font-size:11px; color:#888;">${key}</span>
+                        <input type="text" id="${key}" data-platform="${key}" class="os-input" value="${val}" style="flex:1;" placeholder="https://..." />
+                    </div>
+                `;
+            });
+        }
+
+        // 2. Concierge
+        if (data.concierge) {
+            const act = document.getElementById('concierge-active');
+            if (act) act.checked = data.concierge.active || false;
+
+            const txt = document.getElementById('concierge-title');
+            if (txt) txt.value = data.concierge.title || '';
+
+            const msg = document.getElementById('concierge-welcome');
+            if (msg) msg.value = data.concierge.welcome || '';
+        }
+
+        // 2.5 Pixels
+        if (data.pixels) {
+            const fbq = document.getElementById('meta-pixel-id');
+            if (fbq) fbq.value = data.pixels.fbq || '';
+
+            const gtag = document.getElementById('google-gtag-id');
+            if (gtag) gtag.value = data.pixels.gtag || '';
+        }
+
+        // 3. Biolinks
+        const bContainer = document.getElementById('biolinks-container');
+        if (bContainer && data.biolinks) {
+            bContainer.innerHTML = '';
+            data.biolinks.forEach(link => {
+                const row = document.createElement('div');
+                row.className = 'biolink-row';
+                row.style.cssText = 'display:flex; gap:8px; margin-bottom:8px; align-items:center;';
+                row.innerHTML = `
+                    <input class="os-input biolink-label" placeholder="Etiket" style="flex:1;" value="${link.label || ''}" />
+                    <input class="os-input biolink-url" placeholder="https://..." style="flex:2;" value="${link.url || ''}" />
+                    <button class="btn-os sm" data-action="dashboard-biolink-remove" title="Kaldır">✕</button>
+                `;
+                bContainer.appendChild(row);
+            });
+        }
+    } catch (e) {
+        console.error("Failed to load social data:", e);
+    }
+}
+
 async function saveSocialData() {
     const platforms = {};
     document.querySelectorAll('#social-platforms-container .os-input').forEach(input => {
@@ -759,6 +887,11 @@ async function saveSocialData() {
         welcome: document.getElementById('concierge-welcome')?.value || ''
     };
 
+    const pixels = {
+        fbq: document.getElementById('meta-pixel-id')?.value.trim() || '',
+        gtag: document.getElementById('google-gtag-id')?.value.trim() || ''
+    };
+
     const biolinks = [];
     document.querySelectorAll('#biolinks-container .biolink-row').forEach(row => {
         const label = row.querySelector('.biolink-label')?.value;
@@ -766,10 +899,10 @@ async function saveSocialData() {
         if (label && url) biolinks.push({ label, url });
     });
 
-    const payload = { platforms, concierge, biolinks };
+    const payload = { platforms, concierge, pixels, biolinks };
 
     try {
-        const res = await fetch('/api/admin/social', {
+        const res = await fetch("http://127.0.0.1:8000/api/admin/social", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -804,6 +937,30 @@ function addBioLink() {
 
 // Initialization hooks
 document.addEventListener('DOMContentLoaded', () => {
+    // View switching
+    document.querySelectorAll('.os-nav-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const targetId = btn.id.replace('tab-', 'view-');
+            const targetView = document.getElementById(targetId);
+
+            if (targetView) {
+                // Remove active from all tabs
+                document.querySelectorAll('.os-nav-item').forEach(t => t.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Remove active from all views
+                document.querySelectorAll('.content-layer').forEach(v => v.classList.remove('active'));
+                targetView.classList.add('active');
+
+                // Specific View Triggers
+                if (targetId === 'view-dashboard') document.querySelector('[data-action="load-stats"]')?.click();
+                if (targetId === 'view-intelligence') updateToneHealth();
+                if (targetId === 'view-oracle') loadOracleDashboard();
+                if (targetId === 'view-social') loadSocialData();
+            }
+        });
+    });
+
     document.addEventListener('click', (event) => {
         const el = event.target.closest('[data-action]');
         if (!el) return;
@@ -844,16 +1001,76 @@ document.addEventListener('DOMContentLoaded', () => {
         if (action === 'dashboard-biolink-remove') {
             const row = el.closest('.biolink-row');
             if (row) row.remove();
+            return;
+        }
+        if (action === 'save-master-json') {
+            saveMasterJson();
+            return;
         }
     });
+
+    // Content Studio Helper Functions (Phase 6)
+    window.loadJsonFile = async function (filePath) {
+        document.getElementById('json-editor-title').innerText = "Yükleniyor...";
+        try {
+            const res = await fetch(`http://127.0.0.1:8000/api/admin/raw-file?path=${encodeURIComponent(filePath)}`);
+            if (res.ok) {
+                const data = await res.json();
+                document.getElementById('json-editor').value = JSON.stringify(data.content, null, 2);
+                document.getElementById('json-editor-title').innerText = filePath;
+            } else {
+                alert("Dosya yüklenemedi: " + res.statusText);
+                document.getElementById('json-editor-title').innerText = "Hata oluştu.";
+            }
+        } catch (e) {
+            alert("Bağlantı hatası: " + e.message);
+        }
+    };
+
+    window.saveMasterJson = async function () {
+        const filePath = document.getElementById('json-editor-title').innerText;
+        if (!filePath || filePath.includes("Seçiniz") || filePath.includes("Yükleniyor") || filePath.includes("Hata")) {
+            alert("Lütfen önce soldaki veritabanlarından birini seçin.");
+            return;
+        }
+
+        try {
+            const updatedContent = JSON.parse(document.getElementById('json-editor').value);
+
+            const res = await fetch(`http://127.0.0.1:8000/api/admin/raw-file`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ path: filePath, content: updatedContent })
+            });
+
+            if (res.ok) {
+                alert(`✅ Düzenlemeler ${filePath.split("/").pop()} dosyasına uygulandı.`);
+            } else {
+                alert("❌ Kayıt edilemedi: " + res.statusText);
+            }
+        } catch (e) {
+            alert("❌ Hatali JSON Formatı: Lütfen eksik virgül veya süslü parantez olmadığını kontrol edin.\n" + e.message);
+        }
+    };
 
     // Hook into switchTab
     const tabOracle = document.getElementById('tab-oracle');
     if (tabOracle) tabOracle.addEventListener('click', loadOracleDashboard);
 
+    const tabSocial = document.getElementById('tab-social');
+    if (tabSocial) tabSocial.addEventListener('click', loadSocialData);
+
+    // Auto-load social data in background so it's ready
+    loadSocialData();
+
     // Auto-Start View Intelligence poll (handled in setInterval above)
     // Initial calls if active
     if (document.getElementById('view-intelligence') && document.getElementById('view-intelligence').classList.contains('active')) {
         updateToneHealth();
+    }
+
+    // Phase 6: Initialize Admin God Mode Simulators
+    if (typeof initGodModeSimulators === 'function') {
+        initGodModeSimulators();
     }
 });

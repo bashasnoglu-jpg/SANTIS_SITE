@@ -6,7 +6,7 @@ async function scanCity() {
     logToTerminal("INITIATING DEEP CITY SCAN...", "info");
 
     try {
-        const res = await fetch("/admin/city/scan");
+        const res = await fetch("http://127.0.0.1:8000/admin/city/scan");
         const report = await res.json();
 
         if (report.status === "error") {
@@ -33,7 +33,7 @@ async function executeProtocol(protocolId) {
     document.getElementById("terminal-status").style.color = "#00d9ff";
 
     try {
-        const res = await fetch(`/admin/city/execute/${protocolId}`, { method: "POST" });
+        const res = await fetch(`http://127.0.0.1:8000/admin/city/execute/${protocolId}`, { method: "POST" });
         const data = await res.json();
 
         if (data.status === "started") {
@@ -54,7 +54,7 @@ function startLogStream() {
 
     logInterval = setInterval(async () => {
         try {
-            const res = await fetch("/admin/city/logs");
+            const res = await fetch("http://127.0.0.1:8000/admin/city/logs");
             const data = await res.json();
 
             // Clear and render last 50 lines

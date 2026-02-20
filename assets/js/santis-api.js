@@ -4,7 +4,7 @@
  * Connects Frontend to Python/FastAPI Backbone.
  */
 (function () {
-    const API_ROOT = '/api/v1';
+    const API_ROOT = 'http://127.0.0.1:8000/api/v1';
 
     const SantisAPI = {
         /**

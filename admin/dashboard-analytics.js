@@ -132,7 +132,7 @@ if (typeof AdminAnalytics === 'undefined') {
 
         async fetchData() {
             try {
-                const res = await fetch('/api/admin/analytics/dashboard');
+                const res = await fetch('http://127.0.0.1:8000/api/admin/analytics/dashboard');
                 if (res.ok) {
                     const data = await res.json();
                     this.render(data);

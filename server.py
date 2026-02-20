@@ -1,9 +1,10 @@
 import sys
 import asyncio
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Body
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from pathlib import Path
 import json
 import uvicorn
@@ -167,6 +168,47 @@ async def get_health_history():
 @app.get("/api/config")
 async def get_config():
     return {"animation_level": "high", "env": "dev"}
+
+# 📌 5.5️⃣ Admin Master JSON Editor (Content Studio)
+@app.get("/api/admin/raw-file")
+async def get_raw_file(path: str):
+    """Fetches a raw JSON file for the Admin Master Editor."""
+    # Security constraint: only allow fetching files within assets/data
+    if ".." in path or not path.startswith("assets/data/"):
+        raise HTTPException(status_code=403, detail="Erişim reddedildi. Yalnızca data/ klasörü okunabilir.")
+        
+    full_path = BASE_DIR / path
+    if not full_path.exists() or not full_path.is_file():
+        raise HTTPException(status_code=404, detail="Dosya bulunamadı.")
+        
+    with open(full_path, "r", encoding="utf-8") as f:
+        try:
+            content = json.load(f)
+            return {"status": "success", "content": content}
+        except json.JSONDecodeError:
+            raise HTTPException(status_code=500, detail="Dosya geçerli bir JSON formatında değil.")
+
+class RawFilePayload(BaseModel):
+    path: str
+    content: dict
+
+@app.post("/api/admin/raw-file")
+async def save_raw_file(payload: RawFilePayload):
+    """Saves edited JSON content securely back to disk."""
+    path = payload.path
+    if ".." in path or not path.startswith("assets/data/"):
+        raise HTTPException(status_code=403, detail="Erişim reddedildi. Yalnızca data/ klasörüne yazılabilir.")
+        
+    full_path = BASE_DIR / path
+    if not full_path.exists():
+        raise HTTPException(status_code=404, detail="Güncellenecek dosya bulunamadı.")
+        
+    try:
+        with open(full_path, "w", encoding="utf-8") as f:
+            json.dump(payload.content, f, ensure_ascii=False, indent=2)
+        return {"status": "success", "message": f"{path} güncellendi."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 # 📌 6️⃣ HTML Route (TR Pages & Home)
 @app.get("/")

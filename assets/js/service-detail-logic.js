@@ -182,6 +182,9 @@ document.addEventListener("DOMContentLoaded", function () {
         setText('bread-cat', catName);
 
         // --- SOUL NOTE (Phase 16) ---
+        var existingSoul = document.querySelector('.cin-soul-note');
+        if (existingSoul) existingSoul.remove();
+
         if (soulNote) {
             var titleEl = document.getElementById('cin-desc');
             var soulEl = document.createElement('div');
@@ -264,18 +267,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Rich Content
+        var existingRich = document.querySelector('.cin-rich-container');
+        if (existingRich) existingRich.remove();
+
         if (steps.length > 0 || effects) {
             var richHtml = '';
             if (steps.length > 0) {
-                richHtml += '<div class="cin-rich-section"><h3 class="cin-rich-title">Ritüel Adımları</h3><ul class="cin-rich-steps">' +
+                richHtml += '<div class="cin-rich-section"><h3 class="cin-rich-title">' + (lang === 'tr' ? 'Ritüel Adımları' : 'Ritual Steps') + '</h3><ul class="cin-rich-steps">' +
                     steps.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ul></div>';
             }
             if (effects) {
-                richHtml += '<div class="cin-rich-section"><h3 class="cin-rich-title">Etkileri</h3><p class="cin-rich-text">' + effects + '</p></div>';
+                richHtml += '<div class="cin-rich-section"><h3 class="cin-rich-title">' + (lang === 'tr' ? 'Etkileri' : 'Effects') + '</h3><p class="cin-rich-text">' + effects + '</p></div>';
             }
             var metaGrid = document.querySelector('.cin-meta-grid');
             var contentStage = document.querySelector('.cin-content-stage');
-            if (richHtml && metaGrid && contentStage && !document.querySelector('.cin-rich-container')) {
+            if (richHtml && metaGrid && contentStage) {
                 var container = document.createElement('div');
                 container.className = 'cin-rich-container';
                 container.innerHTML = richHtml;
@@ -301,6 +307,17 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!resolved) { resolved = true; initDetailPage(); }
         }, 5000);
     }
+
+    // ═══════════════════════════════════════════════════
+    // OMNI-LANGUAGE INTEGRATION (Phase 5)
+    // ═══════════════════════════════════════════════════
+    window.addEventListener('santis:lang-changed', function (e) {
+        if (window.productCatalog && window.productCatalog.length > 0) {
+            console.log("🔄 [Service Detail] OmniLang triggered re-render for: " + e.detail.lang);
+            initDetailPage();
+        }
+    });
+
 });
 
 function setText(id, text) {

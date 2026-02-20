@@ -403,9 +403,53 @@ async def intelligence_scan():
     return {"status": "COMPLETED", "threats_found": 0}
 
 # --- SOCIAL ---
+import os, json
+
+SOCIAL_DATA_PATH = os.path.join(os.getcwd(), 'admin', 'data', 'social.json')
+SOCIAL_ASSETS_PATH = os.path.join(os.getcwd(), 'assets', 'data', 'social.json')
+
+@router.get("/api/admin/social")
+async def get_social():
+    print(f"Reading from {SOCIAL_DATA_PATH}")
+    if os.path.exists(SOCIAL_DATA_PATH):
+        try:
+            with open(SOCIAL_DATA_PATH, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            return {"error": str(e)}
+    return {"platforms": {}, "concierge": {"active": False, "title": "", "welcome": ""}, "biolinks": []}
+
 @router.post("/api/admin/social")
 async def save_social(payload: dict = Body(...)):
-    return {"status": "success"}
+    print(f"Saving to {SOCIAL_DATA_PATH} & {SOCIAL_ASSETS_PATH}")
+    os.makedirs(os.path.dirname(SOCIAL_DATA_PATH), exist_ok=True)
+    os.makedirs(os.path.dirname(SOCIAL_ASSETS_PATH), exist_ok=True)
+    try:
+        with open(SOCIAL_DATA_PATH, 'w', encoding='utf-8') as f:
+            json.dump(payload, f, indent=4, ensure_ascii=False)
+            
+        with open(SOCIAL_ASSETS_PATH, 'w', encoding='utf-8') as f2:
+            json.dump(payload, f2, indent=4, ensure_ascii=False)
+            
+        return {"status": "success", "message": "Media Settings Saved globally"}
+    except Exception as e:
+        return {"error": str(e)}
+
+@router.post("/api/concierge/chat")
+async def concierge_chat(payload: dict = Body(...)):
+    message = payload.get("message", "").lower()
+    
+    # Very basic AI logic matching for demonstration of the Ultra Mega Concept (Phase 1)
+    if "rezervasyon" in message or "fiyat" in message or "ücret" in message:
+        reply = "Harika! Santis Club deneyimine adım attığınız için mutluyum. Hızlıca fiyat bilgisi alıp yer ayırtmak için doğrudan <a href='/contact.html' style='color:#d4af37; text-decoration:underline;'>WhatsApp Concierge</a> hattımıza bağlanabilirsiniz."
+    elif "hamam" in message or "sıcak" in message:
+        reply = "Santis'in imza Hamam ritüelleri, bedeni ve zihni toksinlerden arındırmak için özel tasarlanmıştır. Çiftlere özel alanlarımız mevcuttur. Detaylı bilgi için size yardımcı olmamı ister misiniz?"
+    elif "masaj" in message or "rahatla" in message:
+        reply = "Uzman Bali ve Thai terapistlerimiz ile sunduğumuz Deep Relax masajımız, günün tüm yorgunluğunu alır. Hafta sonu müsaitliğimiz hakkında bilgi almak için <a href='/contact.html' style='color:#d4af37; text-decoration:underline;'>Tıklayıp</a> ekibimize ulaşabilirsiniz."
+    else:
+        reply = "Size en iyi şekilde yardımcı olabilmek adına uzmanlarımızdan destek almanızı öneririm. Seçkin hizmetlerimizle ilgili tüm sorularınız için <a href='/contact.html' style='color:#d4af37; text-decoration:underline;'>bizimle iletişime geçin</a>."
+        
+    return {"reply": reply}
 
 # --- CSRF ---
 @router.get("/api/csrf-token")
