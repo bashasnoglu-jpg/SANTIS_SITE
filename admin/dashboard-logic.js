@@ -1075,9 +1075,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- RED TEAM & SECURITY SHIELD (FAZ 10) ---
-window.loadRedTeamPanel = function () {
-    console.log("🛡️ Red Team panel yüklendi");
+// --- RED TEAM & SECURITY SHIELD (FAZ 10 & 10-A.2) ---
+window.loadRedTeamPanel = async function () {
+    console.log("🛡️ Red Team panel yüklendi. Security Health verileri çekiliyor...");
+
+    // 1. Fetch Lockouts
+    try {
+        const lockoutRes = await fetch("http://127.0.0.1:8000/api/admin/security/lockouts");
+        const lockoutData = await lockoutRes.json();
+
+        const tbody = document.getElementById("security-lockout-tbody");
+        if (tbody) {
+            tbody.innerHTML = "";
+            let hasLockouts = false;
+
+            if (lockoutData.lockouts) {
+                for (const [key, details] of Object.entries(lockoutData.lockouts)) {
+                    hasLockouts = true;
+                    const attempts = details[0];
+                    const expiry = new Date(details[1] * 1000).toLocaleTimeString();
+                    const tr = document.createElement("tr");
+                    tr.style.color = "#ff4444";
+                    tr.innerHTML = `
+                        <td>${key}</td>
+                        <td style="text-align:center; font-weight:bold;">${attempts}</td>
+                        <td>${expiry}</td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            }
+            if (!hasLockouts) {
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#888;">No active lockouts. System is clear.</td></tr>`;
+            }
+        }
+    } catch (e) {
+        console.error("Lockout fetch error:", e);
+    }
+
+    // 2. Fetch Audit Logs
+    try {
+        const logRes = await fetch("http://127.0.0.1:8000/api/admin/security/logs");
+        const logData = await logRes.json();
+
+        const streamContainer = document.getElementById("security-audit-stream");
+        if (streamContainer) {
+            streamContainer.innerHTML = "";
+            if (logData.logs && logData.logs.length > 0) {
+                // Show last 50 logs, newest first
+                const recentLogs = logData.logs.slice().reverse().slice(0, 50);
+                recentLogs.forEach(log => {
+                    const timeStr = new Date(log.timestamp).toLocaleTimeString();
+                    let color = "#888";
+                    if (log.severity === "WARN") color = "#ffcc00";
+                    if (log.severity === "CRITICAL") color = "#ff4444";
+                    if (log.severity === "INFO") color = "#00ff88";
+
+                    const div = document.createElement("div");
+                    div.style.marginBottom = "5px";
+                    div.style.borderBottom = "1px solid #222";
+                    div.style.paddingBottom = "5px";
+                    div.innerHTML = `<span style="color:#555;">[${timeStr}]</span> <strong style="color:${color};">${log.type}</strong> <span style="color:#00ffff;">${log.ip}</span>: <span style="color:#ccc;">${log.description}</span>`;
+                    streamContainer.appendChild(div);
+                });
+            } else {
+                streamContainer.innerHTML = `<div style="color:#888;">No security anomalies detected yet.</div>`;
+            }
+        }
+    } catch (e) {
+        console.error("Audit log fetch error:", e);
+    }
 };
 
 window.runRedTeamSimulation = async function () {

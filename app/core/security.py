@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 from typing import Any, Union, Optional
 from jose import jwt, JWTError
+from fastapi import HTTPException
+from app.core.security_logger import security_logger
 from passlib.context import CryptContext
 from app.core.config import settings
 
@@ -42,12 +44,27 @@ def create_refresh_token(
     encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
     return encoded_jwt
 
-def decode_token(token: str) -> Optional[dict]:
+def decode_token(token: str) -> dict:
     try:
-        decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        decoded_token = jwt.decode(
+            token, 
+            settings.SECRET_KEY, 
+            algorithms=["HS256"],
+            options={
+                "verify_exp": True,
+                "require_exp": True
+            }
+        )
         return decoded_token
-    except JWTError:
-        return None
+    except JWTError as e:
+        security_logger.log_event(
+            event_type="INTRUSION_ATTEMPT",
+            severity="CRITICAL",
+            ip="unknown",
+            username="unknown",
+            description=f"JWT manipulation or invalid token: {str(e)}"
+        )
+        raise HTTPException(status_code=401, detail="Invalid token")
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)

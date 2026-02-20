@@ -1650,6 +1650,38 @@
             </div>
         </div>
     </div>
+    
+    <!-- PHASE 10-A.2 SECURITY HEALTH DASHBOARD -->
+    <div style="margin-top:30px;">
+        <h2 style="color:#fff; border-bottom:2px solid #333; padding-bottom:10px;">🛡️ Security Health Dashboard</h2>
+        <div class="os-grid-2" style="margin-top:20px;">
+            <div class="os-card">
+                <h3 style="color:#eee; margin-top:0;">🛑 Active Lockouts</h3>
+                <p style="color:#888; font-size:13px; margin-bottom:15px;">IPs or accounts currently sealed by the Block engine.</p>
+                <div style="max-height: 250px; overflow-y: auto;">
+                    <table class="os-table">
+                        <thead>
+                            <tr>
+                                <th>Target (IP:User)</th>
+                                <th>Attempts</th>
+                                <th>Expiry Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="security-lockout-tbody">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="os-card">
+                <h3 style="color:#eee; margin-top:0;">📡 Live Audit Stream</h3>
+                <p style="color:#888; font-size:13px; margin-bottom:15px;">Recent anomalies, 401s, 403s, and Intrusion attempts.</p>
+                <div style="max-height: 250px; overflow-y: auto; background:#111; border:1px solid #333; padding:10px; border-radius:4px;" id="security-audit-stream">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </main>

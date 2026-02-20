@@ -1,5 +1,104 @@
 [
   {
+    "id": "evt_1771621504680",
+    "timestamp": "2026-02-20T21:05:04.680325Z",
+    "type": "AUTH_FAILURE",
+    "severity": "INFO",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "Blocked 401 on /api/v1/auth/refresh: Invalid refresh token"
+  },
+  {
+    "id": "evt_1771621504669",
+    "timestamp": "2026-02-20T21:05:04.669023Z",
+    "type": "INVALID_JWT",
+    "severity": "CRITICAL",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "Attempt to use invalid or manipulated refresh token."
+  },
+  {
+    "id": "evt_1771621504654",
+    "timestamp": "2026-02-20T21:05:04.654227Z",
+    "type": "RATE_LIMIT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "Rate limit exceeded on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771621504634",
+    "timestamp": "2026-02-20T21:05:04.634900Z",
+    "type": "RATE_LIMIT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "Rate limit exceeded on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771621504618",
+    "timestamp": "2026-02-20T21:05:04.618926Z",
+    "type": "RATE_LIMIT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "Rate limit exceeded on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771621504607",
+    "timestamp": "2026-02-20T21:05:04.607123Z",
+    "type": "RATE_LIMIT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "Rate limit exceeded on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771621504594",
+    "timestamp": "2026-02-20T21:05:04.594405Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "admin@test.com",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771621504579",
+    "timestamp": "2026-02-20T21:05:04.579420Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "admin@test.com",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771621504564",
+    "timestamp": "2026-02-20T21:05:04.564837Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "admin@test.com",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771621504549",
+    "timestamp": "2026-02-20T21:05:04.549515Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "admin@test.com",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771621504534",
+    "timestamp": "2026-02-20T21:05:04.534873Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "admin@test.com",
+    "description": "User not found."
+  },
+  {
     "id": "evt_1771621371189",
     "timestamp": "2026-02-20T21:02:51.189112Z",
     "type": "RATE_LIMIT",

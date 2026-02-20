@@ -23,14 +23,12 @@ async def get_current_user(
     token: str = Depends(reusable_oauth2)
 ) -> models.User:
     try:
-        payload = jwt.decode(
-            token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
-        )
+        payload = security.decode_token(token)
         token_data = schemas.TokenPayload(**payload)
-    except (JWTError, ValidationError):
+    except ValidationError:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Could not validate credentials",
+            detail="Could not validate credentials structure",
         )
         
     import uuid

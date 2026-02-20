@@ -100,6 +100,36 @@ async def analytics_dashboard():
         "mood_distribution": {"dawn": 300, "zen": 500, "sunset": 300, "midnight": 150}
     }
 
+# --- SECURITY DASHBOARD (FAZ 10-A.2) ---
+from pathlib import Path
+import json
+
+@router.get("/api/admin/security/logs")
+async def get_security_logs():
+    base_dir = Path(__file__).resolve().parent.parent.parent.parent.parent
+    log_file = base_dir / "assets" / "data" / "security_audit_trail.json"
+    if not log_file.exists():
+        return {"logs": []}
+    try:
+        with open(log_file, "r", encoding="utf-8") as f:
+            return {"logs": json.load(f)}
+    except Exception:
+        return {"logs": []}
+
+@router.get("/api/admin/security/lockouts")
+async def get_security_lockouts():
+    base_dir = Path(__file__).resolve().parent.parent.parent.parent.parent
+    lockout_file = base_dir / "assets" / "data" / "lockouts.json"
+    if not lockout_file.exists():
+        return {"lockouts": {}}
+    try:
+        with open(lockout_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            # dict format: { "ip:email": [attempts, expiry_timestamp] } 
+            return {"lockouts": data}
+    except Exception:
+        return {"lockouts": {}}
+
 # --- CITY OS & SENTINEL ---
 @router.get("/admin/city/scan")
 async def city_scan():
