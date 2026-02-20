@@ -1,0 +1,381 @@
+/* 
+   SANTIS ULTRA - MINIMALIST LUXURY v4.1 (Force Update)
+   Concept: "Breathing Room"
+   Focus: Negative Space, Soft Motion, Anti-Fatigue UI
+*/
+
+/* WRAPPER - More subtle background */
+#cinematic-wrapper {
+    background: #fcfcfc;
+    /* Cleaner white */
+    color: #333;
+    font-family: 'Outfit', sans-serif;
+}
+
+@media (min-width: 1024px) {
+    #cinematic-wrapper {
+        flex-direction: row;
+        display: flex;
+    }
+}
+
+/* LEFT: VISUAL STAGE - Cleaner Frame */
+.cin-visual-stage {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    background: #f0f0f0;
+    overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+    .cin-visual-stage {
+        width: 45%;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 1;
+    }
+}
+
+.cin-visual-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    filter: brightness(1.05) contrast(0.95);
+    /* Softer image */
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cin-visual-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    /* Very light overlay */
+    pointer-events: none;
+}
+
+/* RIGHT: NARRATIVE STAGE - Massive Whitespace */
+.cin-content-stage {
+    width: 100%;
+    padding: 80px 30px 150px;
+    background: #fcfcfc;
+    position: relative;
+    z-index: 2;
+}
+
+@media (min-width: 1024px) {
+    .cin-content-stage {
+        width: 55%;
+        margin-left: 45%;
+        padding: 120px 100px 200px;
+        /* Huge padding */
+        min-height: 100vh;
+    }
+}
+
+/* TYPOGRAPHY - Lighter, Airier */
+.cin-breadcrumb {
+    font-size: 0.7rem;
+    color: #aaa;
+    margin-bottom: 60px;
+    /* More space */
+    letter-spacing: 2px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.cin-breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.cin-title {
+    font-family: 'Cinzel', serif;
+    font-size: 4rem;
+    /* Bigger but thinner */
+    font-weight: 300;
+    margin: 0 0 20px;
+    color: #111;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.cin-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: #d4af37;
+    margin-bottom: 60px;
+    letter-spacing: 4px;
+    font-weight: 600;
+    opacity: 0.8;
+    text-transform: uppercase;
+}
+
+.cin-desc {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 2;
+    /* Very loose leading */
+    margin-bottom: 60px;
+    font-weight: 300;
+    max-width: 650px;
+}
+
+.cin-quote {
+    font-size: 1.8rem;
+    color: #111;
+    line-height: 1.4;
+    margin: 80px 0;
+    padding: 0;
+    border: none;
+    font-style: normal;
+    font-family: 'Cinzel', serif;
+    text-align: center;
+    /* Center quote for impact */
+    opacity: 0.9;
+}
+
+/* INLINE VISUALS - Floating Effect */
+.cin-inline-visual {
+    margin: 100px 0;
+    /* More separation */
+    position: relative;
+    width: 100%;
+}
+
+.cin-inline-visual.portrait {
+    width: 60%;
+    margin-left: 40%;
+    aspect-ratio: 3/4;
+}
+
+.cin-inline-visual.landscape {
+    width: 100%;
+    aspect-ratio: 16/9;
+}
+
+.cin-inline-visual.square {
+    width: 50%;
+    aspect-ratio: 1/1;
+}
+
+.cin-inline-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+    /* Soft float */
+    transition: transform 0.5s ease;
+    cursor: zoom-in;
+}
+
+.cin-inline-img:hover {
+    transform: translateY(-5px);
+}
+
+.cin-caption {
+    margin-top: 15px;
+    color: #999;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: right;
+}
+
+/* META GRID - Clean & Floating */
+.cin-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px 40px;
+    margin: 80px 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+
+.cin-meta-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.cin-meta-box .cin-label {
+    font-size: 0.65rem;
+    color: #bbb;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.cin-meta-box .cin-value {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #111;
+    font-family: 'Cinzel', serif;
+}
+
+/* ACCORDION - Invisible Lines */
+.nv-accordion {
+    margin: 100px 0;
+    border: none;
+}
+
+.nv-accordion-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.nv-accordion-header {
+    padding: 30px 0;
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: #222;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Cinzel', serif;
+}
+
+.nv-accordion-header:hover {
+    color: #d4af37;
+}
+
+.nv-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding-bottom: 0;
+}
+
+.nv-accordion-item.is-active .nv-accordion-content {
+    max-height: 500px;
+    padding-bottom: 30px;
+}
+
+.acc-icon {
+    font-weight: 200;
+    font-size: 1.5rem;
+    color: #d4af37;
+}
+
+.cin-rich-steps li {
+    margin-bottom: 15px;
+    padding-left: 0;
+    list-style: none;
+    font-size: 1rem;
+    color: #666;
+    font-weight: 300;
+}
+
+.cin-rich-steps li::before {
+    content: "— ";
+    color: #d4af37;
+    margin-right: 10px;
+}
+
+/* ACTIONS - Minimal Buttons */
+.cin-actions {
+    margin-top: 100px;
+    gap: 40px;
+    display: flex;
+}
+
+.cin-btn {
+    padding: 15px 0;
+    /* Text link style mostly */
+    border: none;
+    border-bottom: 1px solid #111;
+    min-width: auto;
+    background: transparent !important;
+    color: #111 !important;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity 0.3s;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+}
+
+.cin-btn:hover {
+    opacity: 0.5;
+}
+
+/* LIGHTBOX */
+#cin-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.98);
+    /* White lightbox for minimalist feel? No, keep dark for contrast */
+    background: rgba(10, 10, 10, 0.95);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+}
+
+#cin-lightbox.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+#cin-lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    box-shadow: 0 20px 100px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .cin-title {
+        font-size: 2.8rem;
+    }
+
+    .cin-content-stage {
+        padding: 60px 24px 100px;
+    }
+
+    .cin-inline-visual.portrait {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .cin-inline-visual.square {
+        width: 100%;
+    }
+
+    .cin-meta-grid {
+        gap: 40px 20px;
+    }
+}
+
+/* --- JS REVEAL ANIMATIONS --- */
+.cin-reveal-init {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cin-reveal-active {
+    opacity: 1;
+    transform: translateY(0);
+}

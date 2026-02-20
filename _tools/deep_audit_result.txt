@@ -1,0 +1,42 @@
+﻿=== TR vs EN DOSYA KARSILASTIRMASI ===
+TR: 21 | EN: 21
+Ortak: 21
+
+=== EN SAYFA YAPISI ===
+  acne-balance: 4.9KB 110L | Nav:False Ft:False Hero:False WA:True Ed:False
+  anti-aging-pro: 4.9KB 110L | Nav:False Ft:False Hero:False WA:True Ed:False
+  barrier-repair: 4.9KB 110L | Nav:False Ft:False Hero:False WA:True Ed:False
+
+=== INDEX SAYFA LINK ANALIZI ===
+Schema.org ItemList: 20 slug
+Tum Hizmetlerimiz linkleri: 17 slug
+Dosya var ama Tum listede YOK: ['anti-aging-pro', 'deep-cleanse', 'hyaluron-hydrate']
+
+=== ICERIK KALITESI DETAY ===
+Benzersiz fayda seti: 1 adet
+  [20 sayfa] -> ['Cilt bariyerini güçlendirir', 'Nem dengesini optimize eder']...
+
+Benzersiz adim seti: 1 adet
+  [20 sayfa] -> ['Cilt Analizi:', 'Temizleme:', 'Uygulama:', 'Koruma:']
+
+Benzersiz intro: 20 adet
+  [1 sayfa] "Arındırma + dengeleme — yağlı/karma ciltler için h..."
+  [1 sayfa] "İnce çizgi görünümü hedefleyen kapsamlı protokol —..."
+  [1 sayfa] "Kuruluk ve gerginlik için destek — cilt bariyerini..."
+  [1 sayfa] "Ton eşitleme odaklı — daha homojen bir görünüm içi..."
+  [1 sayfa] "Temizleme + tonik + maske — cildi dengeler, canlıl..."
+  [1 sayfa] "Sıkılık hissi ve toparlanma — yorgun görünümü azal..."
+  [1 sayfa] "Gözenek odaklı arındırma — siyah nokta ve sebum de..."
+  [1 sayfa] "Şehir yorgunluğuna karşı arındırma — matlığı azalt..."
+  [1 sayfa] "Nazik yenileme — pürüzsüz görünüm ve ışıltı için c..."
+  [1 sayfa] "Göz çevresine yoğun nem ve rahatlama — daha canlı ..."
+  [1 sayfa] "Katmanlı nem + maske — cam gibi parlak, pürüzsüz b..."
+  [1 sayfa] "Lüks maske + masaj — ışıl ışıl, dinlenmiş görünüm...."
+  [1 sayfa] "Yoğun nem + dolgun görünüm — bariyeri destekler, c..."
+  [1 sayfa] "Işık desteğiyle bakım rutini — cilt görünümünü den..."
+  [1 sayfa] "Yumuşatma + bakım — pürüzsüz ve dolgun görünüm his..."
+  [1 sayfa] "Tıraş sonrası hassasiyete uygun — temiz, dengeli v..."
+  [1 sayfa] "Cilt yüzeyini pürüzsüzleştiren bakım — daha canlı ..."
+  [1 sayfa] "Canlandırıcı etki — daha dinlenmiş ve parlak bir g..."
+  [1 sayfa] "Kızarıklık ve hassasiyet hissini azaltmaya yönelik..."
+  [1 sayfa] "Aydınlık ve taze görünüm — ışıltıyı artıran premiu..."

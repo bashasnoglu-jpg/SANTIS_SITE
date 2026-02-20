@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SantisOS • Command Center</title>
+<!-- ULTRA STYLE -->
+<link href="dist/admin.bundle.css?v=8.1" rel="stylesheet"/>
+<!-- FONTS -->
+<link href="/assets/css/fonts.css" rel="stylesheet"/>
+<!-- DATA LOADING (Bridge) -->
+<script src="../assets/js/loaders/data-bridge.js?v=8.1"></script>
+<script src="../assets/data/settings-data.js?v=8.1"></script>
+<script src="../assets/js/blog-data.js?v=8.1"></script>
+<script src="../assets/data/social-data.js?v=8.1"></script>
+<!-- bundled: page-builder.js?v=8.1 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- bundled: /admin/health-score.js?v= -->
+<!-- bundled: /admin/audit-history-api. -->
+
+<!-- bundled: /admin/city-os.js?v=8.1 -->
+<!-- bundled: /admin/city-intelligence. -->
+<!-- Bridge styles moved to style-v2.css during Phase 1 Stabilization (2026.02.14) -->
+<meta content="SantisOS • Command Center - Professional Spa &amp; Wellness services. panel details." name="description"/>
+<link href="https://santis-club.com/admin/index.html" rel="canonical"/>
+</head>
+<body>
+<!-- SANTIS ATMOSPHERE (Soul Engine Auto-Load) -->
+<script defer="" src="../assets/js/reflex/atmos.js?v=8.1"></script>
+<script defer="" src="../assets/js/reflex/soul.js?v=8.1"></script>
+<script defer="" src="../assets/js/santis-scheduler.js?v=8.1"></script>
+<!-- Soul Engine automatically initializes itself on DOMContentLoaded -->
+<!-- 1. LEFT COMMAND STRIP (Sidebar) -->
+<nav class="os-sidebar">
+<div class="os-logo">S</div>
+<div class="os-nav-item" id="tab-sentinel-fleet" style="margin-bottom: 20px;">
+<span class="icon" style="color:#00ff88; text-shadow:0 0 10px rgba(0,255,136,0.3);">🌍</span>
+<span class="label" style="color:#00ff88; font-weight:bold;">Sentinel</span>
+</div>
+<div class="os-nav-item" data-action="navigate-world-table" style="margin-bottom: 20px; cursor: pointer;">
+<span class="icon" style="color:#00aaff; text-shadow:0 0 10px rgba(0,170,255,0.3);">🗺️</span>
+<span class="label" style="color:#00aaff; font-weight:bold;">World Table</span>
+</div>
+<div class="os-nav-item active" id="tab-home">
+<span class="icon">🏠</span>
+<span class="label">Sahne (Home)</span>
+</div>
+<div class="os-nav-item" id="tab-cosmetics">
+<span class="icon">⚗️</span>
+<span class="label">Kozmetik (Bio-Lab)</span>
+</div>
+<div class="os-nav-item" id="tab-atelier">
+<span class="icon">🧶</span>
+<span class="label">Atölye (Atelier)</span>
+</div>
+<div class="os-nav-item" id="tab-services">
+<span class="icon">💆</span>
+<span class="label">Hizmetler</span>
+</div>
+<div class="os-nav-item" id="tab-blog">
+<span class="icon">📝</span>
+<span class="label">Yazar (Blog)</span>
+</div>
+<div class="os-nav-item" id="tab-social">
+<span class="icon">📢</span>
+<span class="label">Medya (Social)</span>
+</div>
+    <!-- 1. LEFT COMMAND STRIP (Sidebar) -->
+    <div class="os-nav-item" id="tab-media">
+        <span class="icon">🖼️</span>
+        <span class="label">Medya (Galeri)</span>
+    </div>
+    <div class="os-nav-item" id="tab-settings">
+        <span class="icon">⚙️</span>
+        <span class="label">Sistem (Audit)</span>
+    </div>
+    <div class="os-nav-item" id="tab-i18n">
+        <span class="icon" style="color:#00d9ff; text-shadow:0 0 10px rgba(0,217,255,0.3);">🌐</span>
+        <span class="label" style="color:#00d9ff; font-weight:bold;">i18n Mirror</span>
+    </div>
+
+    <!-- VIEW: MEDIA LIBRARY -->
+    <div class="content-layer" id="view-media">
+        <header class="os-header">
+            <div>
+                <h1 class="os-title">Media Library</h1>
+                <p style="color:#666; margin:0;">Görsel Yönetim Merkezi</p>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <input type="text" id="new-media-path" placeholder="Yeni Görsel Yolu (assets/...)" class="os-input" style="width:250px;">
+                <button class="btn-os primary" data-action="media-register-new">+ Ekle</button>
+            </div>
+        </header>
+        <div class="os-card">
+            <div id="media-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap:15px;">
+                <!-- JS Fills This -->
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT MODAL (Enhanced) -->
+    <div class="os-modal-overlay" id="product-modal">
+        <div class="os-modal">
+            <header class="os-modal-header">
+                <h3 id="modal-title">Ürün Ekle / Düzenle</h3>
+                <button class="os-close" data-action="close-modal">✕</button>
+            </header>
+            <div class="os-modal-body">
+                <input id="inp-id" type="hidden"/>
+                
+                <label style="font-size:11px; color:#888;">Kategori / Seri</label>
+                <select class="os-input" id="inp-category">
+                    <!-- JS Populates This -->
+                </select>
+
+                <label style="font-size:11px; color:#888;">Ürün Adı</label>
+                <input class="os-input" id="inp-name" placeholder="Ürün Adı" type="text"/>
+
+                <div style="display:flex; gap:10px;">
+                    <div style="flex:1;">
+                        <label style="font-size:11px; color:#888;">Fiyat (€)</label>
+                        <input class="os-input" id="inp-price" placeholder="90" type="number" step="0.01"/>
+                    </div>
+                    <div style="flex:1;">
+                        <label style="font-size:11px; color:#888;">Etiket / Varyant</label>
+                        <input class="os-input" id="inp-badge" placeholder="Badge (NEW)" type="text"/>
+                    </div>
+                </div>
+
+                <!-- AI SECTION REMOVED FOR BREVITY IN REF --- KEPT SEPARATE IF NEEDED, BUT HERE IS COMPACT -->
+                <label style="font-size:11px; color:#888; margin-top:10px; display:block;">Açıklama</label>
+                <textarea class="os-input" id="inp-desc" rows="3"></textarea>
+
+                <!-- IMAGE SECTION -->
+                <label style="font-size:11px; color:#888; margin-top:10px; display:block;">Görsel</label>
+                <div style="display:flex; gap:15px; align-items:flex-start;">
+                    <div style="width:80px; height:80px; background:#222; border-radius:6px; overflow:hidden; border:1px solid #444;">
+                        <img id="preview-img" src="../assets/img/placeholder.png" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div style="flex:1;">
+                        <div style="display:flex; gap:5px;">
+                            <input class="os-input" id="inp-img" placeholder="assets/img/..." type="text"/>
+                            <button class="btn-os" data-action="open-media-from-modal" title="Galeriden Seç">🖼️</button>
+                        </div>
+                        <p style="font-size:10px; color:#666; margin-top:5px;">Galeri butonuna basarak kütüphaneden seçebilirsiniz.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="os-modal-footer">
+                <button class="btn-os" data-action="close-modal">İptal</button>
+                <button class="btn-os primary" data-action="save-item">Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SANTIS OS v5.0 — Production Bundle (Phase 4) -->
+    <script src="dist/admin.bundle.js?v=8.1"></script>
+
+
+
+<div class="os-nav-item" id="tab-city">
+<span class="icon">🌃</span>
+<span class="label">City OS</span>
+</div>
+<div class="os-nav-item" id="tab-intelligence">
+<span class="icon">🕵️‍♂️</span>
+<span class="label">Intelligence</span>
+</div>
+<div class="os-nav-item" id="tab-oracle">
+<span class="icon">🔮</span>
+<span class="label">Oracle</span>
+</div>
+<div class="os-nav-item" id="tab-codex">
+<span class="icon">📜</span>
+<span class="label">Codex</span>
+</div>
+<div class="os-nav-item">
+<a href="/admin/audit-history.html" style="display:flex; align-items:center; gap:8px; color:inherit; text-decoration:none;">
+<span class="icon">📊</span>
+<span class="label">Trendler</span>
+</a>
+</div>
+<div class="os-nav-item" id="tab-activity">
+<span class="icon" style="color:#ffaa00; text-shadow:0 0 10px rgba(255,170,0,0.3);">📋</span>
+<span class="label" style="color:#ffaa00; font-weight:bold;">Activity Log</span>
+</div>
+<div class="os-nav-item" id="tab-redirects">
+<span class="icon" style="color:#ffd166; text-shadow:0 0 10px rgba(255,209,102,0.3);">🔗</span>
+<span class="label" style="color:#ffd166; font-weight:bold;">Redirects</span>
+</div>
+<div class="os-nav-item" id="tab-health">
+<span class="icon" style="color:#00ff88; text-shadow:0 0 10px rgba(0,255,136,0.3);">🖥️</span>
+<span class="label" style="color:#00ff88; font-weight:bold;">System Health</span>
+</div>
+<div class="os-nav-item" id="tab-i18n-routes">
+<span class="icon" style="color:#00d9ff; text-shadow:0 0 10px rgba(0,217,255,0.3);">🌐</span>
+<span class="label" style="color:#00d9ff; font-weight:bold;">i18n Routes</span>
+</div>
+<div class="os-nav-item" id="tab-tgov">
+<span class="icon" style="color:#e040fb; text-shadow:0 0 10px rgba(224,64,251,0.3);">🧬</span>
+<span class="label" style="color:#e040fb; font-weight:bold;">Template Gov</span>
+</div>
+<div class="os-nav-item" id="tab-flight">
+<span class="icon" style="color:#00ff88; text-shadow:0 0 10px rgba(0,255,136,0.3);">🛡️</span>
+<span class="label" style="color:#00ff88; font-weight:bold;">Flight Check</span>
+</div>
+<div style="margin-top: auto; width: 100%; padding: 20px;">
+<button class="btn-os primary" data-action="trigger-build" style="width:100%; margin-bottom:10px;">🚀 YAYINLA</button>
+<button class="btn-os" data-action="trigger-backup" style="width:100%; margin-bottom:10px; border-color:#2196f3; color:#2196f3;">🛡️ YEDEK AL</button>
+<button class="btn-os" data-action="shutdown-system" style="width:100%; margin-bottom:10px; border-color:#ff4444; color:#ff4444;">🔴 SİSTEMİ KAPAT</button>
+<button class="btn-os" data-action="toggle-theme" style="width:100%; display:flex; justify-content:center; gap:5px;">🌙 Mod Değiştir</button>
+</div>
+</nav>
+<!-- 2. MAIN VIEWPORT (Content) -->
+<main class="os-viewport">
+<!-- VIEW: DASHBOARD (Analytics) -->
+<!-- VIEW: SENTINEL FLEET (Phase 20) -->
+<div class="content-layer" id="view-sentinel-fleet">
+<header class="os-header">
+<div>
+<h1 class="os-title">Sentinel Fleet Command</h1>
+<p style="color:#666; margin:0;">Multi-Site Ecosystem Monitor</p>
+</div>
+<button class="btn-os primary" data-action="refresh-fleet-status">🔄 Refresh Fleet</button>
+</header>
+<div id="fleet-grid" class="os-grid-3">
+<div style="padding:20px; text-align:center; color:#666; width:100%;">Loading Fleet Data...</div>
+</div>
+</div>
+<!-- VIEW: CITY OS DASHBOARD (V300) -->
+<div class="content-layer" id="view-city">
+    <header class="os-header" style="border-bottom: 2px solid #00d9ff;">
+        <div>
+            <h1 class="os-title" style="color:#00d9ff; text-shadow:0 0 15px rgba(0,217,255,0.4);">City Operating System</h1>
+            <p style="color:#666; margin:0;">System-Wide Optimization & Maintenance Protocols</p>
+        </div>
+        <button class="btn-os primary" data-action="scan-city" style="background: rgba(0,217,255,0.1); border-color: #00d9ff; color: #00d9ff;">📡 SCAN CITY STATUS</button>
+    </header>
+
+    <div class="os-grid-2">
+        <!-- 1. PROTOCOL CONTROLS -->
+        <div class="os-card">
+            <h3 style="color:#eee; border-bottom:1px solid #333; padding-bottom:10px; margin-bottom:15px;">Active Protocols</h3>
+            
+            <div class="protocol-item" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; background:#1a1a1a; padding:15px; border-radius:8px; border:1px solid #333;">
+                <div>
+                    <h4 style="margin:0; color:#fff;">👻 Ghost Hunter V3</h4>
+                    <p style="margin:5px 0 0 0; font-size:12px; color:#888;">DOM Cleanup & Layer Zoning</p>
+                </div>
+                <button class="btn-os" data-action="exec-protocol-ghosts">EXECUTE</button>
+            </div>
+
+            <div class="protocol-item" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; background:#1a1a1a; padding:15px; border-radius:8px; border:1px solid #333;">
+                <div>
+                    <h4 style="margin:0; color:#fff;">🔤 UTF-8 Matrix</h4>
+                    <p style="margin:5px 0 0 0; font-size:12px; color:#888;">Encoding Fixer & Sanitizer</p>
+                </div>
+                <button class="btn-os" data-action="exec-protocol-utf8">EXECUTE</button>
+            </div>
+
+            <div class="protocol-item" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; background:#1a1a1a; padding:15px; border-radius:8px; border:1px solid #333;">
+                <div>
+                    <h4 style="margin:0; color:#fff;">📦 Asset Molecularizer</h4>
+                    <p style="margin:5px 0 0 0; font-size:12px; color:#888;">Image Optimization & Dead Links</p>
+                </div>
+                <button class="btn-os" data-action="exec-protocol-assets">EXECUTE</button>
+            </div>
+
+            <!-- NEW V100 MODULES -->
+             <div class="protocol-item" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; background:#1a1a1a; padding:15px; border-radius:8px; border:1px solid #333;">
+                <div>
+                    <h4 style="margin:0; color:#fff;">📞 Phone Standardizer</h4>
+                    <p style="margin:5px 0 0 0; font-size:12px; color:#888;">+90 5XX Format Enforcement</p>
+                </div>
+                <button class="btn-os" data-action="exec-protocol-phone">EXECUTE</button>
+            </div>
+             <div class="protocol-item" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; background:#1a1a1a; padding:15px; border-radius:8px; border:1px solid #333;">
+                <div>
+                    <h4 style="margin:0; color:#fff;">💗 External Pulse</h4>
+                    <p style="margin:5px 0 0 0; font-size:12px; color:#888;">Social Link Health Check</p>
+                </div>
+                <button class="btn-os" data-action="exec-protocol-pulse">EXECUTE</button>
+            </div>
+        </div>
+
+        <!-- 2. TERMINAL OUTPUT -->
+        <div class="os-card" style="display:flex; flex-direction:column; height:400px; padding:0; overflow:hidden;">
+            <div style="background:#111; padding:10px; border-bottom:1px solid #333; display:flex; justify-content:space-between;">
+                <span style="font-family:monospace; color:#00ff88;">>_ SYSTEM TERMINAL</span>
+                <span id="terminal-status" style="font-size:10px; color:#666;">IDLE</span>
+            </div>
+            <div id="city-terminal" style="flex:1; background:#000; padding:15px; font-family:'Consolas', monospace; font-size:13px; color:#ccc; overflow-y:auto; scroll-behavior:smooth;">
+                <div style="color:#444;">Ready for command...</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-layer active" id="view-dashboard">
+<header class="os-header">
+<div>
+<h1 class="os-title">Genel Bakış</h1>
+<p style="color:#666; margin:0;">Santis V5 Ultra Mega CMS</p>
+</div>
+<button class="btn-os" data-action="load-stats">🔄 Yenile</button>
+</header>
+<div class="os-grid-3">
+<div class="os-stat-box">
+<div style="font-size:12px; color:#888;">GÜNLÜK ZİYARETÇİ (24S)</div>
+<div class="os-stat-number" id="stat-visits" style="color:#fff;">-</div>
+</div>
+<div class="os-stat-box">
+<div style="font-size:12px; color:#888;">TOPLAM İŞLEM</div>
+<div class="os-stat-number" id="stat-actions" style="color:#00aaff;">-</div>
+</div>
+<div class="os-stat-box">
+<div style="font-size:12px; color:#888;">SİSTEM SAĞLIĞI</div>
+<div class="os-stat-number" id="stat-health" style="color:#00ff88;">-</div>
+</div>
+</div>
+</div>
+<!-- VIEW: HOME (Page Builder Mode) -->
+<div class="content-layer" id="view-home">
+<header class="os-header">
+<div>
+<h1 class="os-title">Sahne Yönetimi (Page Builder)</h1>
+<p style="color:#666; margin:0;">Anasayfa Akış Kontrolü</p>
+</div>
+<button class="btn-os primary" id="btn-save-pb" data-action="pb-save">💾 Sahneye Koy (Save)</button>
+</header>
+<div class="os-card">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid #333; padding-bottom:15px;">
+<h3>Bloklar</h3>
+<div style="display:flex; gap:5px;">
+<button class="btn-os" data-action="pb-add-hero">+ Hero</button>
+<button class="btn-os" data-action="pb-add-text">+ Metin</button>
+<button class="btn-os" data-action="pb-add-services">+ Hizmetler</button>
+<button class="btn-os" data-action="pb-add-gallery">+ Galeri</button>
+</div>
+</div>
+<div id="pb-container" style="min-height: 200px;">
+<!-- JS Renders Blocks Here -->
+<div style="text-align:center; padding:40px; color:#444;">Bloklar yükleniyor...</div>
+</div>
+</div>
+</div>
+<!-- VIEW: APOTHECARY (Sothys) -->
+<div class="content-layer" id="view-cosmetics">
+<header class="os-header">
+<div>
+<h1 class="os-title">Santis Kozmetik (Bio-Lab)</h1>
+<p style="color:#666; margin:0;">Sothys & Cilt Bakım Yönetimi</p>
+</div>
+<div>
+<button class="btn-os primary" data-action="open-modal-cosmetics">+ Yeni Formül</button>
+<button class="btn-os" data-action="export-cosmetics">💾 İndir</button>
+</div>
+</header>
+<div class="os-card" style="padding: 0;">
+<table class="os-table" id="table-apothecary">
+<thead>
+<tr>
+<th>Görsel</th>
+<th>Formül Adı</th>
+<th>Seri (Line)</th>
+<th>Fiyat</th>
+<th>Hacim</th>
+<th>İşlem</th>
+</tr>
+</thead>
+<tbody id="tbody-cosmetics">
+<!-- JS Fills This -->
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- VIEW: ATELIER (Home/Hamam) -->
+<div class="content-layer" id="view-atelier">
+<header class="os-header">
+<div>
+<h1 class="os-title">Santis Atölyesi</h1>
+<p style="color:#666; margin:0;">Hamam, Tekstil & Ev Koleksiyonu</p>
+</div>
+<div>
+<button class="btn-os primary" data-action="open-modal-atelier">+ Yeni Eser</button>
+<button class="btn-os" data-action="export-atelier">💾 İndir</button>
+</div>
+</header>
+<div class="os-card" style="padding: 0;">
+<table class="os-table" id="table-atelier">
+<thead>
+<tr>
+<th>Görsel</th>
+<th>Ürün Adı</th>
+<th>Kategori</th>
+<th>Fiyat</th>
+<th>Varyant</th>
+<th>İşlem</th>
+</tr>
+</thead>
+<tbody id="tbody-atelier">
+<!-- JS Fills This -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- VIEW: SERVICES -->
+<div class="content-layer" id="view-services">
+<header class="os-header">
+<div>
+<h1 class="os-title">Ritüeller</h1>
+<p style="color:#666; margin:0;">Hamam &amp; Masaj &amp; Bakım</p>
+</div>
+<button class="btn-os primary" data-action="open-service-modal">+ Yeni Hizmet</button>
+</header>
+<div class="os-card" style="padding: 0;">
+<table class="os-table" id="service-table">
+<thead>
+<tr>
+<th>Tür</th>
+<th>Hizmet Adı</th>
+<th>Süre / Fiyat</th>
+<th>Özel Durum</th>
+<th>İşlem</th>
+</tr>
+</thead>
+<tbody id="service-table-body">
+<!-- JS Fills This -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- VIEW: BLOG -->
+<div class="content-layer" id="view-blog">
+<header class="os-header">
+<div>
+<h1 class="os-title">Journal</h1>
+<p style="color:#666; margin:0;">Blog &amp; Haber Akışı</p>
+</div>
+<button class="btn-os primary" data-action="open-blog-modal">+ Yeni Yazı</button>
+</header>
+<div class="os-card" style="padding: 0;">
+<table class="os-table" id="blog-table">
+<thead>
+<tr>
+<th>Görsel</th>
+<th>Başlık</th>
+<th>Kategori</th>
+<th>Tarih</th>
+<th>İşlem</th>
+</tr>
+</thead>
+<tbody id="blog-table-body">
+<!-- JS Fills This -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- VIEW: SOCIAL MEDIA -->
+<div class="content-layer" id="view-social">
+<header class="os-header">
+<div>
+<h1 class="os-title">Medya Üssü</h1>
+<p style="color:#666; margin:0;">Sosyal Bağlantılar &amp; Digital Concierge</p>
+</div>
+<button class="btn-os primary" data-action="save-social-data">💾 Medya Ayarlarını Kaydet</button>
+</header>
+<div class="os-grid-2">
+<!-- 1. PLATFORMS -->
+<div class="os-card">
+<h3>🌐 Platform Bağlantıları</h3>
+<div id="social-platforms-container">
+<!-- JS Fills This -->
+</div>
+</div>
+<!-- 2. CONCIERGE & BIOLINKS -->
+<div style="display:flex; flex-direction:column; gap:20px;">
+<div class="os-card">
+<h3>🤖 Digital Concierge (Asistan)</h3>
+<div class="form-group" style="display:flex; justify-content:space-between; align-items:center;">
+<label>Aktif Durum</label>
+<label class="switch">
+<input id="concierge-active" type="checkbox"/>
+<span class="slider round"></span>
+</label>
+</div>
+<input class="os-input" id="concierge-title" placeholder="Başlık (Santis Digital Concierge)" type="text"/>
+<textarea class="os-input" id="concierge-welcome" placeholder="Karşılama Mesajı" rows="3"></textarea>
+</div>
+<div class="os-card">
+<div style="display:flex; justify-content:space-between;">
+<h3>🔗 Hızlı Linkler (Bio)</h3>
+<button class="btn-os sm" data-action="add-bio-link">+ Ekle</button>
+</div>
+<div id="biolinks-container" style="max-height: 200px; overflow-y:auto; margin-top:10px;">
+<!-- JS Fills This -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- VIEW: SETTINGS & AUDIT -->
+<div class="content-layer" id="view-settings">
+<header class="os-header">
+<div>
+<h1 class="os-title">System Guard</h1>
+<p style="color:#666; margin:0;">Site Sağlığı ve Yapılandırma</p>
+</div>
+</header>
+<div class="os-card" style="border: 1px solid var(--os-accent);">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+<h3 style="margin:0; color: var(--os-accent);">🧠 Gelişmiş Site Sağlık Kontrolü</h3>
+<button class="btn-os" id="runDeepAudit" data-action="run-deep-audit" style="background: var(--os-accent); color: #000; font-weight: bold;">🕷️ DEEP AUDIT V2 BAŞLAT</button>
+</div>
+<div class="audit-dashboard" id="auditResult" style="margin-top:20px; font-family:monospace; color:#ccc; white-space:pre-wrap;"></div>
+<div class="audit-dashboard" id="auditDashboard" style="display:none;">
+<div class="os-grid-3">
+<div class="os-stat-box">
+<h4>Taranan</h4>
+<div class="os-stat-number" id="audit-stat-pages">0</div>
+</div>
+<div class="os-stat-box">
+<h4>Assetler</h4>
+<div class="os-stat-number" id="audit-stat-assets">0</div>
+</div>
+<div class="os-stat-box">
+<h4>Hatalar</h4>
+<div class="os-stat-number" id="audit-stat-errors" style="color: var(--os-danger);">0</div>
+</div>
+</div>
+<!-- Results Table -->
+<div style="margin-top: 20px; max-height: 250px; overflow-y: auto;">
+<table class="os-table">
+<tbody id="audit-results-body"></tbody>
+</table>
+</div>
+</div>
+<!-- ULTRA ACTIONS (Master Clean Modules) -->
+<div class="os-card" style="margin-top: 20px; border-top: 1px solid var(--os-glass-border);">
+<h3 style="margin-bottom: 15px;">🛠️ Active Repair Modules (V100 Fixers)</h3>
+<div class="os-grid-2" style="display:grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+<!-- MODULE 1: GHOST HUNTER -->
+<div class="fixer-module">
+<div style="display:flex; align-items:center; justify-content:space-between;">
+<div>
+<h4 style="margin:0;">👻 Ghost Layer Hunter</h4>
+<p style="font-size:11px; color:#666; margin:0;">Remove invisible z-index blockers</p>
+</div>
+<button class="btn-os" id="btn-fix-ghost" data-action="trigger-fix-ghost">EXECUTE</button>
+</div>
+<div class="progress-bar-mini" id="prog-ghost"></div>
+</div>
+<!-- MODULE 2: UTF-8 NORMALIZER -->
+<div class="fixer-module">
+<div style="display:flex; align-items:center; justify-content:space-between;">
+<div>
+<h4 style="margin:0;">🧹 UTF-8 Sanitizer</h4>
+<p style="font-size:11px; color:#666; margin:0;">Fix encoding (ü -&gt; ü)</p>
+</div>
+<button class="btn-os" id="btn-fix-utf8" data-action="trigger-fix-utf8">EXECUTE</button>
+</div>
+</div>
+<!-- MODULE 3: ASSET OPTIMIZER -->
+<div class="fixer-module">
+<div style="display:flex; align-items:center; justify-content:space-between;">
+<div>
+<h4 style="margin:0;">🖼️ Asset Intelligence</h4>
+<p style="font-size:11px; color:#666; margin:0;">Compress &gt;500KB Images (WebP)</p>
+</div>
+<button class="btn-os" id="btn-fix-optimize" data-action="trigger-fix-optimize">SCAN ONLY</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="os-card">
+<h3>Diğer Ayarlar</h3>
+<div class="form-group">
+<label>WhatsApp</label>
+<input class="os-input" id="set-whatsapp" type="text"/>
+</div>
+<div class="form-group" style="display: flex; align-items: center; justify-content: space-between; margin-top: 15px; border-top: 1px solid #333; padding-top: 15px;">
+<label style="margin:0;">✨ Liquid Starlight (Arka Plan Animasyonu)</label>
+<label class="switch">
+<input checked="" id="chk-soul-engine" type="checkbox"/>
+<span class="slider round"></span>
+</label>
+</div>
+<button class="btn-os primary" data-action="save-settings">💾 Ayarları Kaydet</button>
+</div>
+<div class="os-card" style="margin-top:20px;">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
+<h3 style="margin:0;">🔎 Hızlı Kırık Link Tarama</h3>
+<button class="btn-os" id="runLinkAudit">CSV Rapor Oluştur</button>
+</div>
+<p style="margin:0 0 10px; color:#777;">PowerShell tabanlı tarama çalışır, raporu /reports/fixed_links_report.csv dosyasına yazar.</p>
+<div style="display:flex; gap:10px; margin-bottom:10px; align-items:center;">
+<button class="btn-os ghost" id="downloadReportBtn">CSV İndir</button>
+<button class="btn-os" id="runSiteAuditFix">Site Tarama &amp; Fix</button>
+<button class="btn-os ghost" id="openHtmlReport">HTML Raporu Aç</button>
+<button class="btn-os ghost" id="runDomAudit">Headless Tarama</button>
+<label style="display:flex; align-items:center; gap:6px; font-size:12px; color:#aaa;">
+<input id="filterBrokenOnly" type="checkbox"/> Sadece kırıklar
+                    </label>
+<label style="display:flex; align-items:center; gap:6px; font-size:12px; color:#aaa;">
+<input id="filterSlowOnly" type="checkbox"/> Yavaş (&gt;2s)
+                    </label>
+<span id="auditStatus" style="color:#888; font-size:12px;"></span>
+</div>
+<pre id="linkAuditOutput" style="background:#0f0f0f; border:1px solid #222; padding:10px; border-radius:10px; min-height:60px; color:#aaa; white-space:pre-wrap;"></pre>
+<div style="display:flex; gap:16px; margin-top:12px;">
+<div style="flex:1; min-width:0;">
+<div style="font-size:12px; color:#aaa; margin-bottom:6px;">Ana Sayfalar</div>
+<div style="max-height: 260px; overflow-y: auto;">
+<table id="homePagesTable" style="width:100%; border-collapse:collapse; font-size:12px;">
+<thead>
+<tr>
+<th style="text-align:left; border-bottom:1px solid #333; padding:6px; background:#171717; color:#cfcfcf;">Dosya</th>
+<th style="text-align:left; border-bottom:1px solid #333; padding:6px; background:#171717; color:#cfcfcf;">Link</th>
+<th style="text-align:left; border-bottom:1px solid #333; padding:6px; background:#171717; color:#cfcfcf;">Status</th>
+<th style="text-align:left; border-bottom:1px solid #333; padding:6px; background:#171717; color:#cfcfcf;">Islem</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+</div>
+<div style="flex:1; min-width:0;">
+<div style="font-size:12px; color:#aaa; margin-bottom:6px;">Detay Sayfaları</div>
+<div style="max-height: 260px; overflow-y: auto;">
+<table id="detailPagesTable" style="width:100%; border-collapse:collapse; font-size:12px;">
+<thead>
+<tr>
+<th style="text-align:left; border-bottom:1px solid #333; padding:6px; background:#171717; color:#cfcfcf;">Dosya</th>
+<th style="text-align:left; border-bottom:1px solid #333; padding:6px; background:#171717; color:#cfcfcf;">Link</th>
+<th style="text-align:left; border-bottom:1px solid #333; padding:6px; background:#171717; color:#cfcfcf;">Status</th>
+<th style="text-align:left; border-bottom:1px solid #333; padding:6px; background:#171717; color:#cfcfcf;">Islem</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="os-card" style="margin-top:20px;">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+<h3 style="margin:0;">📊 Tarama Trendleri</h3>
+<span style="color:#888; font-size:12px;">Son 20 tarama</span>
+</div>
+<div style="height:300px;">
+<canvas id="auditTrendChart"></canvas>
+</div>
+<div id="auditTrendMeta" style="margin-top:12px; font-size:12px; color:#aaa;"></div>
+</div>
+<div class="os-card" style="margin-top:20px;">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+<h3 style="margin:0;">🧠 SEO Quality Score</h3>
+<div style="display:flex; gap:8px;">
+<button class="btn-os ghost sm" data-action="run-seo-audit">SEO Audit</button>
+<button class="btn-os ghost sm" data-action="run-seo-ai">AI Öneri</button>
+</div>
+</div>
+<div id="seoScore" style="font-size:22px; margin-bottom:10px;">Yükleniyor...</div>
+<div style="font-size:12px; color:#888;">Başlık/desc uzunluğu, H1, alt text, canonical, hreflang, schema, kelime ve iç link sayılarıyla hesaplanır.</div>
+<div id="aiSuggestions" style="margin-top:12px; font-size:13px;"></div>
+</div>
+</div>
+<!-- VIEW: CITY INTELLIGENCE (V300) -->
+<div class="content-layer" id="view-intelligence">
+    <header class="os-header" style="border-bottom: 2px solid #9b59b6;">
+        <div>
+            <h1 class="os-title" style="color:#dcd0ff; text-shadow:0 0 15px rgba(155,89,182,0.4);">City Intelligence Agency</h1>
+            <p style="color:#888; margin:0;">Ultra Deep Research & Semantic Analysis</p>
+        </div>
+        <button class="btn-os primary" data-action="run-intelligence-scan" style="background: rgba(155,89,182,0.1); border-color: #9b59b6; color: #dcd0ff;">🕵️‍♂️ START DEEP SCAN</button>
+    </header>
+    
+    <!-- SCORECARD -->
+    <div class="os-grid-4" style="margin-bottom:20px;">
+        <div class="os-stat-box" style="border-color:#9b59b6;">
+            <div style="font-size:12px; color:#888;">INTELLIGENCE SCORE</div>
+            <div class="os-stat-number" id="intel-score" style="color:#dcd0ff;">-</div>
+        </div>
+        <div class="os-stat-box">
+            <div style="font-size:12px; color:#888;">SCANNED PAGES</div>
+            <div class="os-stat-number" id="intel-pages">-</div>
+        </div>
+        <div class="os-stat-box">
+            <div style="font-size:12px; color:#888;">TONE VIOLATIONS</div>
+            <div class="os-stat-number" id="intel-tone" style="color:#ffcc00;">-</div>
+        </div>
+        <div class="os-stat-box">
+            <div style="font-size:12px; color:#888;">BROKEN LINKS</div>
+            <div class="os-stat-number" id="intel-broken" style="color:#ff4444;">-</div>
+        </div>
+        <div class="os-stat-box">
+            <div style="font-size:12px; color:#888;">BROKEN LINKS</div>
+            <div class="os-stat-number" id="intel-broken" style="color:#ff4444;">-</div>
+        </div>
+    </div>
+
+    <!-- TONE HEALTH HUD (Phase 38.7) -->
+    <div class="os-card" style="margin-bottom: 20px; border: 1px solid #333; background: #0a0a0a;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div>
+                <h3 style="margin:0; color:#d4af37; font-size:14px; text-transform:uppercase; letter-spacing:1px;">Tone Health Indicator</h3>
+                <p style="margin:5px 0 0 0; font-size:11px; color:#666;">Real-time Brand Voice Analysis</p>
+            </div>
+            <div id="tone-badge" style="padding:4px 8px; border-radius:4px; font-size:10px; font-weight:bold; background:#222; color:#666;">
+                CALCULATING...
+            </div>
+        </div>
+        
+        <div style="display:flex; align-items:center; gap:20px; margin-top:20px;">
+            <!-- Score Circle -->
+            <div style="position:relative; width:80px; height:80px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:4px solid #333;">
+                <div id="tone-score" style="font-size:24px; font-weight:bold; color:#fff;">-</div>
+                <svg style="position:absolute; top:-4px; left:-4px; width:80px; height:80px; transform:rotate(-90deg);">
+                    <circle cx="40" cy="40" r="36" stroke-width="4" fill="none" stroke="#d4af37" stroke-dasharray="226" stroke-dashoffset="226" id="tone-progress"></circle>
+                </svg>
+            </div>
+
+            <!-- Stats -->
+            <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <div style="font-size:11px; color:#888;">TOP LUXURY KEYWORDS</div>
+                    <div id="tone-keywords" style="font-size:11px; color:#00ff88; text-align:right;">-</div>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                    <div style="font-size:11px; color:#888;">DETECTED DRIFTS</div>
+                    <div id="tone-violations" style="font-size:11px; color:#ff4444; text-align:right;">-</div>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+    <div class="os-grid-2">
+        <!-- 1. SEMANTIC ISSUES -->
+        <div class="os-card">
+            <h3 style="color:#dcd0ff; border-bottom:1px solid #333; padding-bottom:10px;">🧠 Semantic Cortex Report</h3>
+            <div id="semantic-list" style="height:300px; overflow-y:auto;">
+                <div style="color:#666; text-align:center; padding:20px;">Waiting for scan data...</div>
+            </div>
+        </div>
+
+        <!-- 2. TECHNICAL ISSUES -->
+        <div class="os-card">
+            <h3 style="color:#00d9ff; border-bottom:1px solid #333; padding-bottom:10px;">🕸️ Quantum Crawler Report</h3>
+            <div id="crawler-list" style="height:300px; overflow-y:auto;">
+                 <div style="color:#666; text-align:center; padding:20px;">Waiting for scan data...</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- VIEW: ORACLE (Phase 24) -->
+<div class="content-layer" id="view-oracle">
+    <header class="os-header" style="border-bottom: 2px solid #D4AF37;">
+        <div>
+            <h1 class="os-title" style="color:#D4AF37; text-shadow:0 0 15px rgba(212, 175, 55, 0.4);">The Oracle</h1>
+            <p style="color:#888; margin:0;">Predictive Analytics & Living Atmosphere</p>
+        </div>
+        <div class="os-status-badge" style="border-color:#D4AF37; color:#D4AF37;">
+            <span class="dot" style="background:#D4AF37;"></span> ONLINE
+        </div>
+    </header>
+
+    <!-- LIVE ORABOARD -->
+    <div class="os-grid-4" style="margin-bottom:30px;">
+        <div class="os-stat-box" style="border-color:#D4AF37;">
+            <div style="font-size:12px; color:#888;">CURRENT MOOD</div>
+            <div class="os-stat-number" id="oracle-mood" style="color:#FFF; text-transform:uppercase;">-</div>
+        </div>
+        <div class="os-stat-box">
+            <div style="font-size:12px; color:#888;">ENERGY PREDICTION</div>
+            <div class="os-stat-number" id="oracle-energy" style="color:#ccc;">-</div>
+        </div>
+        <div class="os-stat-box" style="grid-column: span 2;">
+            <div style="font-size:12px; color:#888;">ACTIVE SUGGESTION</div>
+            <div class="os-stat-number" id="oracle-suggestion" style="font-size:18px; color:#D4AF37;">-</div>
+        </div>
+    </div>
+
+    <!-- HOLOGRAPHIC VISUALIZATION (Placeholder for V300 UI) -->
+    <div class="os-card" style="height: 400px; display:flex; align-items:center; justify-content:center; background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, rgba(0,0,0,0) 70%);">
+        <div style="text-align:center;">
+            <div style="font-size:64px; animation: float 3s infinite ease-in-out;">🔮</div>
+            <p style="color:#666; margin-top:20px;">NEURAL LINK ESTABLISHED</p>
+            <p style="color:#444; font-size:12px;">Real-time User Behavior Analysis Active</p>
+        </div>
+    </div>
+
+    <!-- WORLD TABLE (THE MIRROR) -->
+    <div class="os-grid-2">
+        <div class="os-card">
+            <h3 style="color:#D4AF37; border-bottom:1px solid #333; padding-bottom:10px;">🌍 Global Activity</h3>
+            <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-size:12px; color:#888;">
+                <span>TOTAL CITIZENS: <b style="color:#fff;" id="wt-total">-</b></span>
+                <span>ACTIVE NOW: <b style="color:#00ff88;" id="wt-active">-</b></span>
+            </div>
+            <table style="width:100%; font-size:12px; border-collapse:collapse;">
+                <thead>
+                    <tr style="text-align:left; color:#666;">
+                        <th style="padding:5px;">REGION</th>
+                        <th style="padding:5px;">VISITS</th>
+                        <th style="padding:5px;">STATUS</th>
+                    </tr>
+                </thead>
+                <tbody id="wt-regions-body">
+                    <!-- Dynamic Rows -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="os-card">
+            <h3 style="color:#D4AF37; border-bottom:1px solid #333; padding-bottom:10px;">🧠 Mood Consciousness</h3>
+            <div id="wt-mood-bars" style="padding-top:10px;">
+                <!-- Dynamic Bars -->
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- VIEW: CODEX (Docs) -->
+<div class="content-layer" id="view-codex">
+<header class="os-header">
+<div>
+<h1 class="os-title">Santis Codex</h1>
+<p style="color:#666; margin:0;">Proje Standartları &amp; Dokümantasyon</p>
+</div>
+</header>
+<div class="os-card">
+<h3>📜 V5 Master Standards</h3>
+<div style="background:#111; padding:20px; border-radius:8px; font-family:'Courier New', monospace; color:#ccc; max-height:400px; overflow-y:auto;">
+<p>&gt; <strong>SantisOS Core:</strong> V5.1 (Neural-Ready)</p>
+<p>&gt; <strong>UI Philosophy:</strong> Quiet Luxury (Sessiz Lüks)</p>
+<p>&gt; <strong>Atmosphere:</strong> Liquid Starlight &amp; Soul Engine</p>
+<p>&gt; <strong>Data:</strong> JSON-First (No SQL Dependency)</p>
+<hr style="border-color:#333; margin:10px 0;"/>
+<p style="color:var(--os-gold);">[SYSTEM MANIFESTO]</p>
+<p>1. <strong>Görünmezlik:</strong> Teknoloji hissedilmeli, görülmemeli.</p>
+<p>2. <strong>Akışkanlık:</strong> Geçişler su gibi olmalı (Lenis Smooth Scroll).</p>
+<p>3. <strong>Atmosfer:</strong> Site nefes almalı (Soul Engine).</p>
+<p>4. <strong>Stabilite:</strong> Hata yoksa, huzur vardır.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Command Palette -->
+<div class="cmdk-overlay" id="cmdk-overlay" data-action="close-command-palette">
+<div class="cmdk-panel" data-action="stop-propagation">
+<input autocomplete="off" class="cmdk-input" id="cmdk-input" placeholder="Komut ara... (Ctrl/Cmd + K)" type="text"/>
+<div class="cmdk-list" id="cmdk-list"></div>
+</div>
+</div>
+<!-- Toast Stack -->
+<div class="toast-stack" id="toast-stack"></div>
+<!-- ================= MODALS (Redesigned) ================= -->
+<!-- PRODUCT MODAL -->
+<div class="os-modal-overlay" id="product-modal">
+<div class="os-modal">
+<header class="os-modal-header">
+<h3>Ürün Ekle / Düzenle</h3>
+<button class="os-close" data-action="close-modal">✕</button>
+</header>
+<div class="os-modal-body">
+<input id="inp-id" type="hidden"/>
+<select class="os-input" id="inp-category">
+<option value="skincare">Cilt Bakımı</option>
+<option value="massage">Masaj Yağı</option>
+<option value="home">Home &amp; Fragrance</option>
+</select>
+<input class="os-input" id="inp-name" placeholder="Ürün Adı" type="text"/>
+<div style="display:flex; gap:10px;">
+<input class="os-input" id="inp-price" placeholder="Fiyat (90 €)" type="text"/>
+<input class="os-input" id="inp-badge" placeholder="Badge (NEW)" type="text"/>
+</div>
+<!-- AI SECTION -->
+<div style="border: 1px solid var(--os-gold); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+<div style="display:flex; justify-content:space-between; margin-bottom: 10px; align-items:center;">
+<label style="color: var(--os-gold); font-weight:bold;">Açıklama</label>
+<div style="display:flex; gap:5px; align-items:center;">
+<select class="os-input" id="ai-tone-prod" style="width:auto; height:26px; padding:0 5px; font-size:11px;">
+<option value="luxury">Lüks</option>
+<option value="warm">Sıcak</option>
+<option value="minimal">Minimal</option>
+<option value="marketing">Pazarlama</option>
+</select>
+<select class="os-input" id="ai-len-prod" style="width:auto; height:26px; padding:0 5px; font-size:11px;">
+<option value="medium">Orta</option>
+<option value="short">Kısa</option>
+<option value="long">Uzun</option>
+</select>
+<button class="btn-magic" data-action="ai-gen-product-desc">✨ AI ile Yaz</button>
+</div>
+</div>
+<textarea class="os-input" id="inp-desc" rows="4"></textarea>
+</div>
+<input class="os-input" id="inp-img" placeholder="Görsel (img.jpg)" type="text"/>
+</div>
+<div class="os-modal-footer">
+<button class="btn-os" data-action="close-modal">İptal</button>
+<button class="btn-os primary" data-action="save-product">Kaydet</button>
+</div>
+</div>
+</div>
+<!-- SERVICE MODAL -->
+<div class="os-modal-overlay" id="service-modal">
+<div class="os-modal">
+<header class="os-modal-header">
+<h3>Hizmet Ekle</h3>
+<button class="os-close" data-action="close-service-modal">✕</button>
+</header>
+<div class="os-modal-body">
+<input id="svc-id" type="hidden"/>
+<select class="os-input" id="svc-type">
+<option value="hammam">Hamam</option>
+<option value="massage">Masaj</option>
+<option value="skincare">Cilt</option>
+</select>
+<input class="os-input" id="svc-title" placeholder="Hizmet Adı" type="text"/>
+<input class="os-input" id="svc-duration" placeholder="Süre (90 dk)" type="text"/>
+<input class="os-input" id="svc-price" placeholder="Fiyat (120 €)" type="text"/>
+<!-- AI SECTION -->
+<div style="border: 1px solid var(--os-gold); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+<div style="display:flex; justify-content:space-between; margin-bottom: 10px; align-items:center;">
+<label style="color: var(--os-gold); font-weight:bold;">Açıklama</label>
+<div style="display:flex; gap:5px; align-items:center;">
+<select class="os-input" id="ai-tone-svc" style="width:auto; height:26px; padding:0 5px; font-size:11px;">
+<option value="luxury">Lüks</option>
+<option value="warm">Sıcak</option>
+<option value="minimal">Minimal</option>
+<option value="clinical">Klinik</option>
+</select>
+<select class="os-input" id="ai-len-svc" style="width:auto; height:26px; padding:0 5px; font-size:11px;">
+<option value="medium">Orta</option>
+<option value="short">Kısa</option>
+<option value="long">Uzun</option>
+</select>
+<button class="btn-magic" data-action="ai-gen-svc-desc">✨ AI ile Yaz</button>
+</div>
+</div>
+<textarea class="os-input" id="svc-desc" rows="4"></textarea>
+</div>
+</div>
+<div class="os-modal-footer">
+<button class="btn-os" data-action="close-service-modal">İptal</button>
+<button class="btn-os primary" data-action="save-service">Kaydet</button>
+</div>
+</div>
+</div>
+<!-- BLOG MODAL -->
+<div class="os-modal-overlay" id="blog-modal">
+<div class="os-modal">
+<header class="os-modal-header">
+<h3>Blog Yazısı</h3>
+<button class="os-close" data-action="close-blog-modal">✕</button>
+</header>
+<div class="os-modal-body">
+<input id="blog-id" type="hidden"/>
+<input class="os-input" id="blog-title" placeholder="Başlık" type="text"/>
+<select class="os-input" id="blog-cat"><option>Duyuru</option><option>Etkinlik</option></select>
+<input class="os-input" id="blog-date" type="date"/>
+<!-- AI SUMMARY -->
+<div style="margin-bottom: 15px;">
+<div style="display:flex; justify-content:space-between;">
+<label>Özet</label>
+<button class="btn-magic" data-action="ai-gen-blog-summary">✨ Özetle</button>
+</div>
+<textarea class="os-input" id="blog-summary" rows="2"></textarea>
+</div>
+<!-- AI CONTENT -->
+<div>
+<div style="display:flex; justify-content:space-between; align-items:center;">
+<label>İçerik</label>
+<div style="display:flex; gap:5px; align-items:center;">
+<select class="os-input" id="ai-tone-blog" style="width:auto; height:26px; padding:0 5px; font-size:11px;">
+<option value="luxury">Lüks</option>
+<option value="marketing">Metin Yazarı</option>
+<option value="warm">Blog</option>
+</select>
+<select class="os-input" id="ai-len-blog" style="width:auto; height:26px; padding:0 5px; font-size:11px;">
+<option value="long">Uzun</option>
+<option value="medium">Orta</option>
+</select>
+<button class="btn-magic" data-action="ai-gen-blog-content">✨ AI ile Yaz</button>
+</div>
+</div>
+<textarea class="os-input" id="blog-content" rows="6"></textarea>
+</div>
+</div>
+<div class="os-modal-footer">
+<button class="btn-os" data-action="close-blog-modal">İptal</button>
+<button class="btn-os primary" data-action="save-blog">Kaydet</button>
+</div>
+</div>
+</div>
+<!-- DUPLICATE SCRIPTS REMOVED (already loaded at lines 156-160) -->
+
+<!-- VIEW: SYSTEM HEALTH MONITOR -->
+<div class="content-layer" id="view-health">
+<header class="os-header" style="border-bottom: 2px solid #00ff88;">
+    <div>
+        <h1 class="os-title" style="color:#00ff88; text-shadow:0 0 15px rgba(0,255,136,0.4);">System Health</h1>
+        <p style="color:#666; margin:0;">Canlı Sistem Metrikleri</p>
+    </div>
+    <div style="display:flex; gap:10px; align-items:center;">
+        <span id="health-status-dot" style="width:10px; height:10px; border-radius:50%; background:#00ff88; display:inline-block;"></span>
+        <span id="health-status-text" style="color:#00ff88; font-size:12px;">Canlı</span>
+        <button class="btn-os primary" data-action="load-health-panel" style="background: rgba(0,255,136,0.1); border-color: #00ff88; color: #00ff88;">🔄 Yenile</button>
+    </div>
+</header>
+
+<!-- GAUGES ROW -->
+<div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; margin-bottom:20px;">
+    <!-- CPU -->
+    <div class="os-card" style="text-align:center; padding:20px;">
+        <div style="font-size:11px; color:#888; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">CPU</div>
+        <div class="health-gauge">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+                <circle id="gauge-cpu" cx="50" cy="50" r="42" fill="none" stroke="#00ff88" stroke-width="8" stroke-dasharray="264" stroke-dashoffset="264" stroke-linecap="round"/>
+            </svg>
+            <div class="health-gauge-label" id="gauge-cpu-text">0%</div>
+        </div>
+        <div style="font-size:11px; color:#555; margin-top:8px;" id="cpu-detail">- core / - MHz</div>
+    </div>
+    <!-- RAM -->
+    <div class="os-card" style="text-align:center; padding:20px;">
+        <div style="font-size:11px; color:#888; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">RAM</div>
+        <div class="health-gauge">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+                <circle id="gauge-ram" cx="50" cy="50" r="42" fill="none" stroke="#00d9ff" stroke-width="8" stroke-dasharray="264" stroke-dashoffset="264" stroke-linecap="round"/>
+            </svg>
+            <div class="health-gauge-label" id="gauge-ram-text">0%</div>
+        </div>
+        <div style="font-size:11px; color:#555; margin-top:8px;" id="ram-detail">- / - GB</div>
+    </div>
+    <!-- DISK -->
+    <div class="os-card" style="text-align:center; padding:20px;">
+        <div style="font-size:11px; color:#888; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">DISK</div>
+        <div class="health-gauge">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+                <circle id="gauge-disk" cx="50" cy="50" r="42" fill="none" stroke="#ffd166" stroke-width="8" stroke-dasharray="264" stroke-dashoffset="264" stroke-linecap="round"/>
+            </svg>
+            <div class="health-gauge-label" id="gauge-disk-text">0%</div>
+        </div>
+        <div style="font-size:11px; color:#555; margin-top:8px;" id="disk-detail">- / - GB</div>
+    </div>
+    <!-- PROCESS -->
+    <div class="os-card" style="text-align:center; padding:20px;">
+        <div style="font-size:11px; color:#888; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">SERVER</div>
+        <div style="font-size:36px; font-weight:700; color:#fff; margin:15px 0;" id="server-uptime">-</div>
+        <div style="font-size:11px; color:#555;">dakika çalışma süresi</div>
+        <div style="font-size:11px; color:#555; margin-top:8px;" id="server-detail">PID: - | RAM: - MB | Threads: -</div>
+    </div>
+</div>
+
+<!-- DETAILS ROW -->
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+    <!-- Network -->
+    <div class="os-card">
+        <h3 style="color:#eee; margin-top:0; border-bottom:1px solid #333; padding-bottom:10px;">🌐 Ağ Trafiği</h3>
+        <div class="health-metric">
+            <span class="health-metric-label">⬆️ Gönderilen</span>
+            <span class="health-metric-value" id="net-sent">- MB</span>
+        </div>
+        <div class="health-metric">
+            <span class="health-metric-label">⬇️ Alınan</span>
+            <span class="health-metric-value" id="net-recv">- MB</span>
+        </div>
+    </div>
+    <!-- Alarms -->
+    <div class="os-card">
+        <h3 style="color:#eee; margin-top:0; border-bottom:1px solid #333; padding-bottom:10px;">🚨 Alarm Durumu</h3>
+        <div id="health-alarms">
+            <div style="color:#00ff88; font-size:13px;">✅ Tüm metrikler normal sınırlarda</div>
+        </div>
+        <div style="font-size:11px; color:#555; margin-top:12px;">Son güncelleme: <span id="health-last-update">-</span></div>
+    </div>
+</div>
+</div>
+
+<!-- VIEW: REDIRECT MANAGER -->
+<div class="content-layer" id="view-redirects">
+<header class="os-header" style="border-bottom: 2px solid #ffd166;">
+    <div>
+        <h1 class="os-title" style="color:#ffd166; text-shadow:0 0 15px rgba(255,209,102,0.4);">Redirect Manager</h1>
+        <p style="color:#666; margin:0;">5 Dil URL Yönlendirme Yönetimi (301/302)</p>
+    </div>
+    <button class="btn-os primary" data-action="load-redirects-panel" style="background: rgba(255,209,102,0.1); border-color: #ffd166; color: #ffd166;">🔄 Yenile</button>
+</header>
+
+<!-- STATS -->
+<div style="display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:16px;">
+    <div class="os-stat-box" style="border-color:#ffd166;">
+        <div style="font-size:11px; color:#888;">TOPLAM</div>
+        <div class="os-stat-number" id="redirect-stat-total" style="color:#fff; font-size:26px;">-</div>
+    </div>
+    <div class="os-stat-box">
+        <div style="font-size:11px; color:#888;">301 (Kalıcı)</div>
+        <div class="os-stat-number" id="redirect-stat-301" style="color:#00ff88; font-size:26px;">-</div>
+    </div>
+    <div class="os-stat-box">
+        <div style="font-size:11px; color:#888;">302 (Geçici)</div>
+        <div class="os-stat-number" id="redirect-stat-302" style="color:#ffaa00; font-size:26px;">-</div>
+    </div>
+    <div class="os-stat-box">
+        <div style="font-size:11px; color:#888;">DİL DAĞILIMI</div>
+        <div id="redirect-lang-dist" style="margin-top:4px; font-size:11px; line-height:1.6;">-</div>
+    </div>
+    <div class="os-stat-box">
+        <div style="font-size:11px; color:#888;">DİLSİZ</div>
+        <div class="os-stat-number" id="redirect-stat-other" style="color:#888; font-size:26px;">-</div>
+    </div>
+</div>
+
+<!-- LANGUAGE FILTER -->
+<div style="display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap; align-items:center;">
+    <span style="font-size:11px; color:#666; margin-right:4px;">Dil Filtresi:</span>
+    <button class="activity-filter-btn active" data-rfilter="all" data-action="redirect-filter-all">Tümü</button>
+    <button class="activity-filter-btn" data-rfilter="tr" data-action="redirect-filter-tr" style="border-color:#e53935;">🇹🇷 TR</button>
+    <button class="activity-filter-btn" data-rfilter="en" data-action="redirect-filter-en" style="border-color:#1976d2;">🇬🇧 EN</button>
+    <button class="activity-filter-btn" data-rfilter="de" data-action="redirect-filter-de" style="border-color:#ffd166;">🇩🇪 DE</button>
+    <button class="activity-filter-btn" data-rfilter="ru" data-action="redirect-filter-ru" style="border-color:#7986cb;">🇷🇺 RU</button>
+    <button class="activity-filter-btn" data-rfilter="ar" data-action="redirect-filter-ar" style="border-color:#66bb6a;">🇸🇦 AR</button>
+    <button class="activity-filter-btn" data-rfilter="other" data-action="redirect-filter-other">⚪ Diğer</button>
+</div>
+
+<!-- ADD FORM -->
+<div class="os-card" style="margin-bottom:20px;">
+    <h3 style="color:#eee; margin-top:0; border-bottom:1px solid #333; padding-bottom:10px;">Yeni Yönlendirme Ekle</h3>
+    <div style="display:grid; grid-template-columns:1fr 1fr auto auto; gap:10px; align-items:end;">
+        <div>
+            <label style="font-size:11px; color:#888; display:block; margin-bottom:4px;">Eski URL (from)</label>
+            <input id="redir-from" type="text" placeholder="/tr/masajlar/eski-slug" style="width:100%; padding:8px; border-radius:6px; border:1px solid #333; background:#111; color:#eee; font-size:13px;">
+        </div>
+        <div>
+            <label style="font-size:11px; color:#888; display:block; margin-bottom:4px;">Yeni URL (to)</label>
+            <input id="redir-to" type="text" placeholder="/tr/masajlar/yeni-slug" style="width:100%; padding:8px; border-radius:6px; border:1px solid #333; background:#111; color:#eee; font-size:13px;">
+        </div>
+        <div>
+            <label style="font-size:11px; color:#888; display:block; margin-bottom:4px;">Tip</label>
+            <select id="redir-type" style="padding:8px; border-radius:6px; border:1px solid #333; background:#111; color:#eee; font-size:13px;">
+                <option value="301">301</option>
+                <option value="302">302</option>
+            </select>
+        </div>
+        <button class="btn-os primary" data-action="add-redirect-entry" style="padding:8px 16px; height:38px;">➕ Ekle</button>
+    </div>
+    <!-- MULTI-LANG TOGGLE -->
+    <div style="margin-top:12px; padding:10px 14px; background:rgba(255,209,102,0.05); border:1px solid #333; border-radius:8px; display:flex; align-items:center; gap:12px;">
+        <input type="checkbox" id="redir-multi-lang" style="width:18px; height:18px; accent-color:#ffd166; cursor:pointer;">
+        <div>
+            <label for="redir-multi-lang" style="font-size:13px; color:#ddd; font-weight:500; cursor:pointer;">🌐 Tüm 5 dile uygula</label>
+            <div style="font-size:11px; color:#666;">URL'nin /tr/ prefix'i algılanır → /en/, /de/, /ru/, /ar/ versiyonları da oluşturulur</div>
+        </div>
+    </div>
+    <div id="redir-loop-warning" style="display:none; margin-top:10px; padding:8px 12px; background:rgba(255,68,68,0.1); border:1px solid #ff4444; border-radius:6px; color:#ff4444; font-size:12px;"></div>
+    <div id="redir-multi-preview" style="display:none; margin-top:10px; padding:8px 12px; background:rgba(0,217,255,0.05); border:1px solid #333; border-radius:6px; font-size:12px; color:#9ad;"></div>
+</div>
+
+<!-- TABLE -->
+<div class="os-card" style="padding:0; max-height:500px; overflow-y:auto;">
+    <table style="width:100%; border-collapse:collapse;">
+        <thead style="position:sticky; top:0; background:#1a1a1a; z-index:1;">
+            <tr>
+                <th style="padding:8px 10px; text-align:center; color:#888; font-size:10px; text-transform:uppercase; letter-spacing:1px; width:45px;">Dil</th>
+                <th style="padding:8px 10px; text-align:left; color:#888; font-size:10px; text-transform:uppercase; letter-spacing:1px;">Eski URL</th>
+                <th style="padding:8px 10px; text-align:left; color:#888; font-size:10px; text-transform:uppercase; letter-spacing:1px;">Yeni URL</th>
+                <th style="padding:8px 10px; text-align:center; color:#888; font-size:10px; text-transform:uppercase; letter-spacing:1px; width:45px;">Tip</th>
+                <th style="padding:8px 10px; text-align:center; color:#888; font-size:10px; text-transform:uppercase; letter-spacing:1px; width:55px;">İşlem</th>
+            </tr>
+        </thead>
+        <tbody id="redirect-tbody"></tbody>
+    </table>
+    <div id="redirect-empty" style="display:none; text-align:center; padding:40px; color:#666;">
+        <div style="font-size:48px; margin-bottom:15px;">🔗</div>
+        <p>Henüz yönlendirme yok</p>
+        <p style="font-size:12px; color:#555;">URL değiştiğinde buradan 301 redirect tanımlayın.<br>5 dile aynı anda uygulayabilirsiniz.</p>
+    </div>
+</div>
+</div>
+
+<!-- VIEW: ACTIVITY LOG -->
+<div class="content-layer" id="view-activity">
+<header class="os-header" style="border-bottom: 2px solid #ffaa00;">
+    <div>
+        <h1 class="os-title" style="color:#ffaa00; text-shadow:0 0 15px rgba(255,170,0,0.4);">Activity Log</h1>
+        <p style="color:#666; margin:0;">Admin İşlem Geçmişi</p>
+    </div>
+    <button class="btn-os primary" data-action="load-activity-log" style="background: rgba(255,170,0,0.1); border-color: #ffaa00; color: #ffaa00;">🔄 Yenile</button>
+</header>
+
+<!-- STATS -->
+<div class="os-grid-4" style="margin-bottom:20px;">
+    <div class="os-stat-box" style="border-color:#ffaa00;">
+        <div style="font-size:12px; color:#888;">TOPLAM İŞLEM</div>
+        <div class="os-stat-number" id="activity-stat-total" style="color:#fff;">-</div>
+    </div>
+    <div class="os-stat-box">
+        <div style="font-size:12px; color:#888;">BUGÜN</div>
+        <div class="os-stat-number" id="activity-stat-today" style="color:#00ff88;">-</div>
+    </div>
+    <div class="os-stat-box">
+        <div style="font-size:12px; color:#888;">SON İŞLEM</div>
+        <div class="os-stat-number" id="activity-stat-last" style="color:#00d9ff; font-size:16px;">-</div>
+    </div>
+    <div class="os-stat-box">
+        <div style="font-size:12px; color:#888;">EN SIK İŞLEMLER</div>
+        <div id="activity-top-labels" style="margin-top:5px;">-</div>
+    </div>
+</div>
+
+<!-- FILTERS -->
+<div style="display:flex; gap:6px; margin-bottom:15px; flex-wrap:wrap;">
+    <button class="activity-filter-btn active" data-filter="all" data-action="activity-filter-all">Tümü</button>
+    <button class="activity-filter-btn" data-filter="Dosya" data-action="activity-filter-dosya">📝 Dosya</button>
+    <button class="activity-filter-btn" data-filter="Hizmet" data-action="activity-filter-hizmet">💆 Hizmet</button>
+    <button class="activity-filter-btn" data-filter="Audit" data-action="activity-filter-audit">🔍 Audit</button>
+    <button class="activity-filter-btn" data-filter="Düzeltme" data-action="activity-filter-duzeltme">🔧 Fix</button>
+    <button class="activity-filter-btn" data-filter="City" data-action="activity-filter-city">🌃 City</button>
+</div>
+
+<!-- FEED -->
+<div class="os-card" style="max-height: 600px; overflow-y: auto; padding: 0;">
+    <div id="activity-feed">
+        <div style="text-align:center; padding:40px; color:#666;">
+            📋 Activity Log tab'a girince otomatik yüklenecek...
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- VIEW: TEMPLATE GOVERNANCE -->
+<div class="content-layer" id="view-tgov">
+<header class="os-header" style="border-bottom: 2px solid #e040fb;">
+    <div>
+        <h1 class="os-title" style="color:#e040fb; text-shadow:0 0 15px rgba(224,64,251,0.4);">🧬 Template Governance</h1>
+        <p style="color:#666; margin:0;">Tasarım Bütünlüğü & Çok Dilli Uyum Merkezi</p>
+    </div>
+    <button class="btn-os primary" data-action="reload-template-governance" style="background: rgba(224,64,251,0.1); border-color: #e040fb; color: #e040fb;">🔄 Tara</button>
+</header>
+
+<!-- Compliance Score Gauge -->
+<div style="display:flex; justify-content:center; margin:30px 0;">
+    <div id="tgov-gauge" style="position:relative; width:160px; height:160px;">
+        <svg viewBox="0 0 120 120" style="width:160px; height:160px;">
+            <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="10"/>
+            <circle id="tgov-gauge-arc" cx="60" cy="60" r="52" fill="none" stroke="#e040fb" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 327" transform="rotate(-90 60 60)" style="transition: stroke-dasharray 1s ease;"/>
+        </svg>
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <span id="tgov-score" style="font-size:36px; font-weight:700; color:#e040fb;">—</span>
+            <span style="font-size:11px; color:#888;">Compliance</span>
+        </div>
+    </div>
+</div>
+
+<!-- 4-Stat Row -->
+<div class="os-grid-3" style="grid-template-columns: repeat(4, 1fr); margin-bottom:24px;">
+    <div class="os-stat-box">
+        <div style="font-size:11px; color:#888; text-transform:uppercase;">Toplam Sayfa</div>
+        <div id="tgov-stat-pages" class="os-stat-number" style="color:#e040fb;">—</div>
+    </div>
+    <div class="os-stat-box">
+        <div style="font-size:11px; color:#888; text-transform:uppercase;">İhlal</div>
+        <div id="tgov-stat-violations" class="os-stat-number" style="color:#ff4444;">—</div>
+    </div>
+    <div class="os-stat-box">
+        <div style="font-size:11px; color:#888; text-transform:uppercase;">Inline Style</div>
+        <div id="tgov-stat-inline" class="os-stat-number" style="color:#ffaa00;">—</div>
+    </div>
+    <div class="os-stat-box">
+        <div style="font-size:11px; color:#888; text-transform:uppercase;">DOM Fark</div>
+        <div id="tgov-stat-dom" class="os-stat-number" style="color:#00d9ff;">—</div>
+    </div>
+</div>
+
+<!-- Language Coverage Matrix -->
+<div class="os-card" style="margin-bottom:24px;">
+    <h3 style="margin:0 0 16px 0; font-size:14px; color:#e040fb;">🌍 Dil Kapsama Matrisi</h3>
+    <div id="tgov-lang-matrix" style="display:grid; grid-template-columns: repeat(6, 1fr); gap:8px;">
+        <div style="text-align:center; color:#666; font-size:11px;">Yükleniyor...</div>
+    </div>
+</div>
+
+<!-- Auto-Fix Controls -->
+<div class="os-card" style="margin-bottom:24px; border:1px solid rgba(224,64,251,0.2);">
+    <h3 style="margin:0 0 16px 0; font-size:14px; color:#e040fb;">🔧 Auto-Fix Engine</h3>
+    <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+        <button class="btn-os" data-action="tgov-fix-all-inline" id="tgov-fix-btn" style="border-color:#ffaa00; color:#ffaa00; font-size:12px;">🎨 Tüm Inline Style'ları Temizle</button>
+        <span id="tgov-fix-status" style="color:#888; font-size:12px;"></span>
+    </div>
+    <div id="tgov-fix-progress" style="display:none; margin-top:12px;">
+        <div style="height:6px; background:rgba(255,255,255,0.06); border-radius:3px; overflow:hidden;">
+            <div id="tgov-fix-bar" style="height:100%; width:0%; background:linear-gradient(90deg,#e040fb,#00ff88); border-radius:3px; transition:width 0.3s;"></div>
+        </div>
+        <div id="tgov-fix-log" style="margin-top:8px; font-size:11px; color:#888; max-height:120px; overflow-y:auto;"></div>
+    </div>
+</div>
+
+<!-- Violations Table -->
+<div class="os-card">
+    <h3 style="margin:0 0 16px 0; font-size:14px; color:#ff4444;">⚠️ İhlaller</h3>
+    <div style="max-height:400px; overflow-y:auto;">
+        <table class="os-table" id="tgov-violations-table">
+            <thead><tr>
+                <th>Tip</th><th>Dosya</th><th>Satır</th><th>Detay</th>
+            </tr></thead>
+            <tbody id="tgov-violations-body">
+                <tr><td colspan="4" style="color:#666;">Tarama bekleniyor...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</div>
+
+<!-- VIEW: FLIGHT CHECK (Pre-Deploy Safety Gate) -->
+<div class="content-layer" id="view-flight">
+<header class="os-header" style="border-bottom: 2px solid #00ff88;">
+    <div>
+        <h1 class="os-title" style="color:#00ff88; text-shadow:0 0 15px rgba(0,255,136,0.4);">🛡️ Flight Check</h1>
+        <p style="color:#666; margin:0;">Pre-Deploy Safety Gate — GO / NO-GO</p>
+    </div>
+    <button class="btn-os primary" id="fc-scan-btn" data-action="load-flight-check" style="background: rgba(0,255,136,0.1); border-color: #00ff88; color: #00ff88;">🚀 Tara</button>
+</header>
+
+<!-- Verdict Gauge -->
+<div style="display:flex; justify-content:center; align-items:center; gap:40px; padding:30px 0; flex-wrap:wrap;">
+    <div style="position:relative; width:140px; height:140px;">
+        <svg viewBox="0 0 120 120" style="width:140px; height:140px; transform:rotate(-90deg);">
+            <circle cx="60" cy="60" r="52" fill="none" stroke="#222" stroke-width="10"/>
+            <circle id="fc-gauge-arc" cx="60" cy="60" r="52" fill="none" stroke="#333" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 326.73"/>
+        </svg>
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center;">
+            <div id="fc-verdict" style="font-size:16px; font-weight:900; color:#666;">—</div>
+            <div id="fc-score" style="font-size:28px; font-weight:900; color:#fff;">—</div>
+        </div>
+    </div>
+    <div style="text-align:left;">
+        <div style="margin-bottom:8px;"><span style="color:#ff4444; font-weight:bold; font-size:24px;" id="fc-critical">—</span> <span style="color:#888;">Critical</span></div>
+        <div style="margin-bottom:8px;"><span style="color:#ffaa00; font-weight:bold; font-size:24px;" id="fc-warning">—</span> <span style="color:#888;">Warning</span></div>
+        <div><span style="color:#00d9ff; font-weight:bold; font-size:24px;" id="fc-info">—</span> <span style="color:#888;">Info</span></div>
+    </div>
+</div>
+
+<!-- Module Cards -->
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:16px; padding:0 20px 20px;">
+    <div class="os-card" id="fc-mod-redirects" style="cursor:pointer;" data-action="fc-toggle-redirects">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:14px; font-weight:700; color:#eee;">🔀 Redirects</span>
+            <span id="fc-badge-redirects" style="padding:3px 10px; border-radius:12px; font-size:11px; font-weight:bold;">—</span>
+        </div>
+        <div id="fc-count-redirects" style="font-size:11px; color:#888; margin-top:6px;">—</div>
+    </div>
+    <div class="os-card" id="fc-mod-hreflang" style="cursor:pointer;" data-action="fc-toggle-hreflang">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:14px; font-weight:700; color:#eee;">🌐 Hreflang</span>
+            <span id="fc-badge-hreflang" style="padding:3px 10px; border-radius:12px; font-size:11px; font-weight:bold;">—</span>
+        </div>
+        <div id="fc-count-hreflang" style="font-size:11px; color:#888; margin-top:6px;">—</div>
+    </div>
+    <div class="os-card" id="fc-mod-canonical" style="cursor:pointer;" data-action="fc-toggle-canonical">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:14px; font-weight:700; color:#eee;">📌 Canonical</span>
+            <span id="fc-badge-canonical" style="padding:3px 10px; border-radius:12px; font-size:11px; font-weight:bold;">—</span>
+        </div>
+        <div id="fc-count-canonical" style="font-size:11px; color:#888; margin-top:6px;">—</div>
+    </div>
+    <div class="os-card" id="fc-mod-template" style="cursor:pointer;" data-action="fc-toggle-template">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:14px; font-weight:700; color:#eee;">🧬 Template</span>
+            <span id="fc-badge-template" style="padding:3px 10px; border-radius:12px; font-size:11px; font-weight:bold;">—</span>
+        </div>
+        <div id="fc-count-template" style="font-size:11px; color:#888; margin-top:6px;">—</div>
+    </div>
+    <div class="os-card" id="fc-mod-links" style="cursor:pointer;" data-action="fc-toggle-links">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:14px; font-weight:700; color:#eee;">🔗 Links</span>
+            <span id="fc-badge-links" style="padding:3px 10px; border-radius:12px; font-size:11px; font-weight:bold;">—</span>
+        </div>
+        <div id="fc-count-links" style="font-size:11px; color:#888; margin-top:6px;">—</div>
+    </div>
+</div>
+
+<!-- Issue Accordion -->
+<div id="fc-issues" style="padding:0 20px 20px; display:none;"></div>
+
+<!-- Timestamp -->
+<div style="text-align:center; padding:10px; color:#555; font-size:11px;" id="fc-timestamp">Henüz taranmadı</div>
+</div>
+
+<!-- VIEW: i18n MIRROR (Language Asset Management) -->
+<div class="content-layer" id="view-i18n">
+<header class="os-header" style="border-bottom: 2px solid #00d9ff;">
+    <div>
+        <h1 class="os-title" style="color:#00d9ff; text-shadow:0 0 15px rgba(0,217,255,0.4);">i18n Mirror</h1>
+        <p style="color:#666; margin:0;">Dil Varlık Yönetim Merkezi</p>
+    </div>
+    <button class="btn-os primary" data-action="load-i18n-dashboard" style="background: rgba(0,217,255,0.1); border-color: #00d9ff; color: #00d9ff;">🔄 Yenile</button>
+</header>
+
+<!-- STATS -->
+<div class="os-grid-4" style="margin-bottom:20px;">
+    <div class="os-stat-box" style="border-color:#00d9ff;">
+        <div style="font-size:12px; color:#888;">TOPLAM SAYFA</div>
+        <div class="os-stat-number" id="i18n-stat-total" style="color:#fff;">-</div>
+    </div>
+    <div class="os-stat-box">
+        <div style="font-size:12px; color:#888;">TAM KAPSAMA (5 DİL)</div>
+        <div class="os-stat-number" id="i18n-stat-full" style="color:#00ff88;">-</div>
+    </div>
+    <div class="os-stat-box">
+        <div style="font-size:12px; color:#888;">KISMİ KAPSAMA</div>
+        <div class="os-stat-number" id="i18n-stat-partial" style="color:#ffcc00;">-</div>
+    </div>
+    <div class="os-stat-box">
+        <div style="font-size:12px; color:#888;">TR-YALNIZ</div>
+        <div class="os-stat-number" id="i18n-stat-tronly" style="color:#4488ff;">-</div>
+    </div>
+</div>
+
+<!-- SEO COVERAGE -->
+<div class="os-card" style="margin-bottom:20px; display:flex; align-items:center; gap:20px;">
+    <div>
+        <div style="font-size:11px; color:#888; text-transform:uppercase; letter-spacing:1px;">SEO Coverage Score</div>
+        <div id="i18n-seo-score" style="font-size:42px; font-weight:700; margin:5px 0;">-</div>
+    </div>
+    <div style="flex:1; font-size:12px; color:#666;">
+        <p style="margin:0;">Tam 5 dil kapsaması olan sayfaların oranı. Google, tüm dillerde mevcut olan sayfalara daha fazla güvenir.</p>
+        <p style="margin:5px 0 0; color:#00ff88;">✅ Hreflang injector v2.0 aktif — sadece VAR OLAN sayfalar için hreflang üretilir</p>
+    </div>
+</div>
+
+<!-- SEO RISK ALERTS (JS populates) -->
+<div id="i18n-risk-alerts" style="margin-bottom:20px;"></div>
+
+<!-- PAGE MATRIX -->
+<div class="os-card" style="margin-bottom:20px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <div>
+            <h3 style="margin:0; color:#00d9ff;">📊 Sayfa Dil Matrisi</h3>
+            <span id="i18n-matrix-count" style="font-size:11px; color:#666;"></span>
+        </div>
+        <div style="display:flex; gap:5px;">
+            <button class="btn-os i18n-filter-btn" data-filter="all" data-action="i18n-filter-all" style="font-size:11px; background:rgba(212,175,55,0.2); border-color:#d4af37; color:#d4af37;">Tümü</button>
+            <button class="btn-os i18n-filter-btn" data-filter="missing" data-action="i18n-filter-missing" style="font-size:11px;">⚠ Eksik</button>
+            <button class="btn-os i18n-filter-btn" data-filter="tr-only" data-action="i18n-filter-tr-only" style="font-size:11px;">🔵 TR-Only</button>
+            <button class="btn-os i18n-filter-btn" data-filter="full" data-action="i18n-filter-full" style="font-size:11px;">✅ Tam</button>
+        </div>
+    </div>
+    <div id="i18n-loading" style="text-align:center; padding:20px; color:#666;">Veriler yükleniyor...</div>
+    <div style="max-height:400px; overflow-y:auto;">
+        <table class="os-table">
+            <thead>
+                <tr>
+                    <th>Canonical Path</th>
+                    <th style="text-align:center;">🇹🇷 TR</th>
+                    <th style="text-align:center;">🇬🇧 EN</th>
+                    <th style="text-align:center;">🇩🇪 DE</th>
+                    <th style="text-align:center;">🇫🇷 FR</th>
+                    <th style="text-align:center;">🇷🇺 RU</th>
+                    <th>Durum</th>
+                </tr>
+            </thead>
+            <tbody id="i18n-matrix-body"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ROUTE MAP -->
+<div class="os-card">
+    <h3 style="margin:0 0 15px; color:#d4af37;">🗺️ Route Çeviri Haritası</h3>
+    <table class="os-table">
+        <thead>
+            <tr>
+                <th>Route Key</th>
+                <th>🇹🇷 TR</th>
+                <th>🇬🇧 EN</th>
+                <th>🇩🇪 DE</th>
+                <th>🇫🇷 FR</th>
+                <th>🇷🇺 RU</th>
+            </tr>
+        </thead>
+        <tbody id="i18n-route-body"></tbody>
+    </table>
+</div>
+</div>
+
+
+    
+    
+</body>
+</html>

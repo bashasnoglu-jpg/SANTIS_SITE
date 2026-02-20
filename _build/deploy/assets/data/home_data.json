@@ -1,0 +1,31 @@
+{
+    "sections": {
+        "hero": {
+            "items": []
+        },
+        "grid-hammam": {
+            "title": "Hamam Ritüelleri",
+            "items": []
+        },
+        "grid-massages": {
+            "title": "Masaj Terapileri",
+            "items": []
+        },
+        "grid-skincare": {
+            "title": "Vücut & Cilt Bakımı",
+            "items": [
+                {
+                    "title": "Nem Terapisi (Hydration)",
+                    "subtitle": "Derinlemesine Nem & Canlılık",
+                    "image": "/assets/img/cards/santis_card_hydration_lux.png",
+                    "link": "/tr/urunler/detay.html?id=hydration-therapy",
+                    "badge": "YENİ"
+                }
+            ]
+        }
+    },
+    "meta": {
+        "last_updated": 1770300061671,
+        "status": "OK"
+    }
+}

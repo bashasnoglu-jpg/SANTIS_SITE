@@ -1,0 +1,1502 @@
+[
+    {
+        "id": "hamam-peeling-schaum",
+        "categoryId": "ritual-hammam",
+        "name": "Peeling und Schaum Massage",
+        "duration": 30,
+        "price": {
+            "amount": 45,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_hammam_lux.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Kese ve Köpük Masajı",
+                "shortDesc": "Geleneksel arınma ve rahatlama ritüeli.",
+                "fullDesc": "Ölü derilerden arındıran kese uygulaması ve ardından geleneksel köpük masajı.",
+                "tagline": "Derinlemesine Arınma & İpeksi Dokunuş",
+                "heroTitle": "Osmanlı Arınma Sanatı",
+                "intro": "Su, sıcaklık ve dokunuşun yenilenme ritüeline dönüştüğü yüzyıllık bir geleneğe adım atın. Bu klasik uygulama, bedeni toksinlerden arındırır ve ruhu dinginleştirir.",
+                "steps": [
+                    "Göbek taşında kasları gevşeten ön ısınma",
+                    "Geleneksel kese ile derinlemesine ölü deri temizliği",
+                    "Doğal zeytinyağı sabunu ile yapılan rahatlatıcı köpük masajı",
+                    "Dinlenme alanında tazeleyici çay ikramı"
+                ],
+                "effects": "Kese uygulaması kan dolaşımını hızlandırır ve gözenekleri açar. Köpük masajı ise kasları gevşeterek derin bir rahatlama sağlar. Cildiniz tazelenmiş ve ipek gibi yumuşak olur.",
+                "idealFor": "Hamam deneyimine yeni başlayanlar ve tam kapsamlı bir arınma arayanlar için idealdir.",
+                "signature": "Santis, geleneksel hamam kültürünü modern bir lüks deneyimine dönüştürüyor."
+            },
+            "de": {
+                "title": "Peeling & Schaum Massage",
+                "shortDesc": "Das Herzstück der Hamam-Tradition. Eine tiefenreinigende Anwendung, die Ihre Haut atmen lässt und Geist und Körper harmonisiert.",
+                "tagline": "Tiefenreinigung & seidig weiche Haut",
+                "heroTitle": "Die Kunst der osmanischen Reinigung",
+                "intro": "Tauchen Sie ein in Jahrhunderte alte Traditionen, in denen Wasser, Wärme und Berührung zu einem Ritual der Erneuerung verschmelzen. Diese klassische Anwendung befreit den Körper von Altlasten und bereitet ihn perfekt auf weitere Pflegerituale vor.",
+                "steps": [
+                    "Warme Marmorliege zur Entspannung der Muskulatur",
+                    "Traditionelles Kese-Peeling zur gründlichen Tiefenreinigung",
+                    "Entspannende Schaumwaschung mit natürlicher Olivenseife",
+                    "Nachruhe mit Tee-Service in unserer Lounge"
+                ],
+                "effects": "Das Peeling fördert die Durchblutung und entfernt abgestorbene Hautschüppchen, während der warme Schaum die Muskeln lockert und eine tiefe Entspannung einleitet. Ihre Haut fühlt sich danach jugendlich frisch und samtig weich an.",
+                "idealFor": "Ideal für Hamam-Einsteiger und alle, die sich eine gründliche Reinigung und schnelle Regeneration wünschen.",
+                "signature": "Santis verwandelt traditionelle Hamam-Kultur in ein modernes Luxuserlebnis."
+            }
+        },
+        "slug": "kese-ve-kopuk-masaji",
+        "tags": [
+            "CLASSIC"
+        ]
+    },
+    {
+        "id": "hamam-schaum",
+        "categoryId": "ritual-hammam",
+        "name": "Schaum Massage",
+        "duration": 30,
+        "price": {
+            "amount": 45,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_foam_lux.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Köpük Masajı",
+                "shortDesc": "Sadece köpükle yapılan yumuşak dokunuşlu masaj.",
+                "fullDesc": "Doğal sabun köpükleri eşliğinde yapılan rahatlatıcı masaj.",
+                "tagline": "Bulutların Üzerinde Hafiflik",
+                "heroTitle": "Köpüklerin İpeksi Dokunuşu",
+                "intro": "Sizi sarmalayan yumuşak ve sıcak köpük dağlarının içinde kaybolun. Bu ritüel, sabun baloncuklarının hafifliğiyle taşınan meditatif bir kaçış sunar.",
+                "steps": [
+                    "Vücudun ılık su ile ritüele hazırlanması",
+                    "Tüm bedenin zengin bir köpük bulutuyla kaplanması",
+                    "Köpük eşliğinde yapılan nazik ve akıcı masaj hareketleri",
+                    "Canlandırıcı durulama ve dinlenme faslı"
+                ],
+                "effects": "Sıcaklık ve yumuşak baskı, sinir sistemini yatıştırır. Köpük, cildi nazikçe temizler ve saf bir temizlik hissi bırakır.",
+                "idealFor": "Hassas cilde sahip olanlar veya güneş sonrası nazik bir bakım arayanlar için mükemmeldir.",
+                "signature": "Santis, geleneksel hamam kültürünü modern bir lüks deneyimine dönüştürüyor."
+            },
+            "de": {
+                "title": "Schaum Massage",
+                "shortDesc": "Wie auf Wolken gebettet. Eine sanfte, umhüllende Massage mit duftendem Seifenschaum, die reine Entspannung schenkt.",
+                "tagline": "Schwerelosigkeit & sanfte Berührung",
+                "heroTitle": "Das Gefühl der Schwerelosigkeit",
+                "intro": "Lassen Sie sich von Bergen aus weichem, warmem Schaum umhüllen. Dieses Ritual ist eine Hommage an die Sanftheit und bietet eine meditative Auszeit vom Alltag, getragen von der Leichtigkeit der Seifenblasen.",
+                "steps": [
+                    "Aufguss mit warmem Wasser zur Vorbereitung",
+                    "Bedeckung des Körpers mit einer reichhaltigen Schaumwolke",
+                    "Sanfte, fließende Massagegriffe durch den Schaum",
+                    "Vitalisierende Abspülung und Ruhephase"
+                ],
+                "effects": "Die Wärme und der sanfte Druck wirken beruhigend auf das Nervensystem. Der Schaum reinigt die Poren sanft, ohne zu reizen, und hinterlässt ein Gefühl absoluter Reinheit.",
+                "idealFor": "Perfekt für Gäste mit empfindlicher Haut oder diejenigen, die nach einem intensiven Sonnenbad eine sanfte Pflege suchen.",
+                "signature": "Santis verwandelt traditionelle Hamam-Kultur in ein modernes Luxuserlebnis."
+            }
+        },
+        "slug": "kopuk-masaji",
+        "tags": []
+    },
+    {
+        "id": "hamam-kaffee",
+        "categoryId": "ritual-hammam",
+        "name": "Kaffee Peeling",
+        "duration": 30,
+        "price": {
+            "amount": 50,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_hamam_scrub_v2.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Kahve Peeling",
+                "shortDesc": "Canlandırıcı ve selülit karşıtı kahve bakımı.",
+                "fullDesc": "Taze kahve çekirdekleri ile yapılan, kan dolaşımını hızlandıran özel bir peeling.",
+                "tagline": "Canlandırıcı Enerji & Sıkılaşma",
+                "heroTitle": "Kahve ile Duyusal Uyanış",
+                "intro": "Enerji ve aroma dolu bir ritüel. Kahvenin antioksidan gücü, hamamın rahatlatıcı sıcaklığıyla buluşarak bedeni ve zihni canlandırır. Yorgunluğu anında silen bir şölen.",
+                "steps": [
+                    "Gözeneklerin açılması için göbek taşında ısınma",
+                    "Aromatik kahve telvesi ile tüm vücut peelingi",
+                    "Peeling taneciklerinin nazikçe arındırılması",
+                    "Cildi nemlendiren kısa bakım aşaması"
+                ],
+                "effects": "Kafein, kan dolaşımını güçlü bir şekilde uyarır ve ödem atılmasına yardımcı olur. Cilt anında daha sıkı, canlı ve pürüzsüz görünür.",
+                "idealFor": "Yorgunluk, jetlag veya vücut sıkılaştırma (anti-selülit) desteği arayanlar için önerilir.",
+                "signature": "Santis, geleneksel hamam kültürünü modern bir lüks deneyimine dönüştürüyor."
+            },
+            "de": {
+                "title": "Kaffee Peeling Ritual",
+                "shortDesc": "Belebende Energie für Ihre Haut. Die anregende Kraft von frisch gemahlenem Kaffee weckt die Sinne und strafft die Konturen.",
+                "tagline": "Vitalität & straffende Energie",
+                "heroTitle": "Erweckung der Sinne mit Kaffee",
+                "intro": "Ein Ritual voller Energie und Aroma. Die antioxidative Kraft des Kaffees trifft auf die entspannende Wärme des Hamams, um Körper und Geist zu beleben. Ein Fest für die Sinne, das Müdigkeit sofort vertreibt.",
+                "steps": [
+                    "Warme Marmorliege zur Öffnung der Poren",
+                    "Ganzkörper-Peeling mit aromatischem Kaffeesatz",
+                    "Sanfte Reinigung zur Entfernung der Peelingkörner",
+                    "Kurze hydratisierende Pflegephase"
+                ],
+                "effects": "Koffein fördert intensiv die Durchblutung und unterstützt den Abbau von Wassereinlagerungen. Das Hautbild wirkt sofort straffer, rosiger und vitaler.",
+                "idealFor": "Empfohlen bei Müdigkeit, Jetlag oder als unterstützende Maßnahme zur Körperstraffung (Anti-Cellulite).",
+                "signature": "Santis verwandelt traditionelle Hamam-Kultur in ein modernes Luxuserlebnis."
+            }
+        },
+        "slug": "kahve-detox",
+        "tags": []
+    },
+    {
+        "id": "hamam-meersalz",
+        "categoryId": "ritual-hammam",
+        "name": "Meersalz Peeling",
+        "duration": 30,
+        "price": {
+            "amount": 50,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_hamam_scrub_v2.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Deniz Tuzu Peeling",
+                "shortDesc": "Mineralli deniz tuzu ile derinlemesine arınma.",
+                "fullDesc": "Deniz tuzu kristalleri ile cildi pürüzsüzleştiren ve mineral desteği sağlayan bakım.",
+                "tagline": "Detoks & Mineral Tazeliği",
+                "heroTitle": "Denizin Arındırıcı Gücü",
+                "intro": "Saf deniz tuzunun cildinizdeki canlandırıcı etkisini hissedin. Bu ritüel, derinlemesine arındırmayı okyanusun mineral zenginliğiyle birleştirerek ışıltılı bir cilt sunar.",
+                "steps": [
+                    "Göbek taşında ön ısınma",
+                    "Doğal deniz tuzu ile güçlü peeling uygulaması",
+                    "Ilık su ile rahatlatıcı durulama",
+                    "Su veya çay eşliğinde dinlenme"
+                ],
+                "effects": "Tuz, güçlü bir detoks etkisi yaratır. Ciltteki pürüzleri giderir, minerallerle besler ve gözenekleri derinlemesine temizler.",
+                "idealFor": "Yağlı/karma ciltler veya masaj öncesi hazırlık detoksu için idealdir.",
+                "signature": "Santis, geleneksel hamam kültürünü modern bir lüks deneyimine dönüştürüyor."
+            },
+            "de": {
+                "title": "Meersalz Peeling",
+                "shortDesc": "Die reine Kraft des Ozeans. Mineralreiches Meersalz befreit die Haut und schenkt ihr neue Leuchtkraft und Frische.",
+                "tagline": "Detox & mineralische Frische",
+                "heroTitle": "Die reinigende Kraft des Meeres",
+                "intro": "Spüren Sie die vitalisierende Wirkung von reinem Meersalz auf Ihrer Haut. Dieses Ritual verbindet gründliche Exfoliation mit der remineralisierenden Kraft des Ozeans für ein strahlendes Hautbild.",
+                "steps": [
+                    "Vorwärmen auf dem Nabelstein",
+                    "Kräftiges Peeling mit naturbelassenem Meersalz",
+                    "Beruhigende Abspülung mit warmem Wasser",
+                    "Entspannung bei einem Glas Wasser oder Tee"
+                ],
+                "effects": "Das Salz wirkt stark entgiftend und antibakteriell. Es entfernt Unreinheiten, versorgt die Haut mit wichtigen Mineralien und hinterlässt sie porentief rein.",
+                "idealFor": "Ideal für ölige Mischhaut oder als vorbereitende Detox-Behandlung vor weiteren Massagen.",
+                "signature": "Santis verwandelt traditionelle Hamam-Kultur in ein modernes Luxuserlebnis."
+            }
+        },
+        "slug": "deniz-tuzu-peeling",
+        "tags": []
+    },
+    {
+        "id": "hamam-honig",
+        "categoryId": "ritual-hammam",
+        "name": "Honig Ritual",
+        "duration": 30,
+        "price": {
+            "amount": 55,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_hammam_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Bal Masajı",
+                "shortDesc": "Doğal bal ile cildi besleyen tatlı dokunuş.",
+                "fullDesc": "Cildi besleyen ve yumuşatan organik bal uygulaması.",
+                "tagline": "Doğal Şifa & Altın Işıltısı",
+                "heroTitle": "Doğanın Altın Özü",
+                "intro": "Bal, antik çağlardan beri şifa kaynağıdır. Hamamın sıcak atmosferinde etkisini tam olarak gösterir, gözeneklere nüfuz eder ve cilde doğal elastikiyetini geri kazandırır.",
+                "steps": [
+                    "Sıcaklık ile cildin nazikçe hazırlanması",
+                    "Yüksek kaliteli doğal balın vücuda uygulanması",
+                    "Emilim için hafif masaj hareketleriyle bekleme süresi",
+                    "Bal fazlalığının nazikçe arındırılması"
+                ],
+                "effects": "Bal, doğal bir nem kaynağıdır ve cildi yatıştırır. Cilt derinlemesine beslenir ve sağlıklı, karşı konulamaz bir ışıltı kazanır.",
+                "idealFor": "Kuru, yıpranmış ciltler veya yoğun güneş sonrası bakım için özellikle tavsiye edilir.",
+                "signature": "Santis, geleneksel hamam kültürünü modern bir lüks deneyimine dönüştürüyor."
+            },
+            "de": {
+                "title": "Honig Ritual",
+                "shortDesc": "Flüssiges Gold für Ihre Haut. Eine nährende Anwendung, die tiefenwirksame Feuchtigkeit spendet und natürlich heilt.",
+                "tagline": "Naturheilung & goldener Glanz",
+                "heroTitle": "Die goldene Essenz der Natur",
+                "intro": "Honig ist seit der Antike als Heilmittel bekannt. Im warmen Klima des Hamams entfaltet er seine volle Wirkung, dringt tief in die Poren ein und schenkt der Haut ihre natürliche Elastizität zurück.",
+                "steps": [
+                    "Sanfte Vorbereitung der Haut durch Wärme",
+                    "Auftragen von hochwertigem, natürlichem Honig auf den Körper",
+                    "Einwirkzeit mit leichten Massagegriffen zur Absorption",
+                    "Sanfte Reinigung, um den Honigüberschuss zu entfernen"
+                ],
+                "effects": "Honig wirkt entzündungshemmend und ist ein starker Feuchtigkeitsspender. Die Haut wird intensiv genährt, beruhigt und erhält einen unwiderstehlichen, gesunden „Glow“.",
+                "idealFor": "Besonders empfehlenswert bei trockener, strapazierter Haut oder nach intensiver Sonnenexposition.",
+                "signature": "Santis verwandelt traditionelle Hamam-Kultur in ein modernes Luxuserlebnis."
+            }
+        },
+        "slug": "bal-masaji",
+        "tags": []
+    },
+    {
+        "id": "hamam-schokolade",
+        "categoryId": "ritual-hammam",
+        "name": "Schokolade Ritual",
+        "duration": 30,
+        "price": {
+            "amount": 55,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_kids_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Çikolata Bakımı",
+                "shortDesc": "Mutluluk hormonu salgılayan aromatik bakım.",
+                "fullDesc": "Kakao yağı ve çikolatanın antioksidan etkisiyle yapılan lüks bakım.",
+                "tagline": "Mutluluk Hormonu & Duyusal Bakım",
+                "heroTitle": "Duyular İçin Bir Şölen",
+                "intro": "Baştan çıkarıcı lüksün en tatlı hali. Sıcak çikolata kokusu sizi sararken, değerli kakao yağı cildinizi besler. Sadece bedeni değil, ruhu da okşayan bir ritüel.",
+                "steps": [
+                    "Hamam sıcaklığında gevşeme",
+                    "Sıcak çikolata maskesi ile tüm vücut uygulaması",
+                    "Kakao yağının emilmesi için dinlenme süresi",
+                    "Nazikçe yıkama ve sonrasında dinlenme"
+                ],
+                "effects": "Kakao, serbest radikallere karşı savaşan antioksidanlarca zengindir. Kokusu endorfin salgılanmasını tetikler ve derin bir mutluluk hissi yaratır.",
+                "idealFor": "Kendini şımartmak isteyenler ve çikolata tutkunları için.",
+                "signature": "Santis, geleneksel hamam kültürünü modern bir lüks deneyimine dönüştürüyor."
+            },
+            "de": {
+                "title": "Schokolade Ritual",
+                "shortDesc": "Eine süße Versuchung ohne Reue. Kakao-Antioxidantien verwöhnen die Haut und heben die Stimmung.",
+                "tagline": "Glückshormone & sinnliche Pflege",
+                "heroTitle": "Ein Fest für die Sinne",
+                "intro": "Erleben Sie die luxuriöseste Form der Verführung. Der Duft von warmer Schokolade hüllt Sie ein, während wertvolle Kakaobutter Ihre Haut pflegt. Ein Ritual, das nicht nur den Körper pflegt, sondern auch die Seele streichelt.",
+                "steps": [
+                    "Entspannung in der Wärme des Hamams",
+                    "Ganzkörperanwendung mit warmer Schokoladenmaske",
+                    "Ruhephase, damit die Kakaobutter einziehen kann",
+                    "Sanftes Abwaschen und Nachruhe"
+                ],
+                "effects": "Kakao ist reich an Antioxidantien, die gegen freie Radikale wirken und die Hautalterung verlangsamen. Der Duft stimuliert die Ausschüttung von Endorphinen und sorgt für tiefe Zufriedenheit.",
+                "idealFor": "Für Genießer, die sich etwas Außergewöhnliches gönnen möchten, und für alle Schokoladenliebhaber.",
+                "signature": "Santis verwandelt traditionelle Hamam-Kultur in ein modernes Luxuserlebnis."
+            }
+        },
+        "slug": "cikolata-bakimi",
+        "tags": []
+    },
+    {
+        "id": "hamam-algen",
+        "categoryId": "ritual-hammam",
+        "name": "Algen Ritual",
+        "duration": 30,
+        "price": {
+            "amount": 55,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_skincare_clay_v2.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Yosun Bakımı (Algae)",
+                "shortDesc": "Detoks etkili deniz yosunu sargılama.",
+                "fullDesc": "Metabolizmayı hızlandıran ve toksin attıran yosun maskesi.",
+                "tagline": "Metabolizma Desteği & Derin Temizlik",
+                "heroTitle": "Okyanusun Derinliğinden Gelen Yenilenme",
+                "intro": "Deniz yosunlarının gücünü sağlığınız için kullanın. Bu uygulama, vücudun toksinlerden arınmasına ve yeniden enerji kazanmasına aktif olarak destek olur.",
+                "steps": [
+                    "Hamam buharı ile gözeneklerin açılması",
+                    "Mineral zengini yosun maskesinin uygulanması",
+                    "Metabolizmayı hızlandırmak için bekleme süresi",
+                    "Derinlemesine temizlik ve canlanma"
+                ],
+                "effects": "Yosunlar hücre metabolizmasını uyarır ve toksin atılımını destekler. Cilt nem kazanır, dokular sıkılaşmış ve toparlanmış hissedilir.",
+                "idealFor": "Detoks kürleri, diyet destekleyici bakım veya sadece 'arınma' ve yeni bir başlangıç için idealdir.",
+                "signature": "Santis, geleneksel hamam kültürünü modern bir lüks deneyimine dönüştürüyor."
+            },
+            "de": {
+                "title": "Algen Detox Ritual",
+                "shortDesc": "Die grüne Kraft des Meeres. Eine intensive Thalasso-Anwendung im Hamam zur Entgiftung und Straffung des Gewebes.",
+                "tagline": "Stoffwechsel-Boost & Tiefenreinigung",
+                "heroTitle": "Erneuerung aus der Tiefe des Ozeans",
+                "intro": "Nutzen Sie die geballte Kraft von Meeresalgen für Ihre Gesundheit. Diese Anwendung unterstützt den Körper aktiv dabei, Ballast abzuwerfen und neue Energie zu tanken.",
+                "steps": [
+                    "Öffnung der Poren durch Hamam-Dampf",
+                    "Auftragen einer mineralstoffreichen Algenpackung",
+                    "Einwirkzeit zur Förderung des Stoffwechsels",
+                    "Gründliche Reinigung und Vitalisierung"
+                ],
+                "effects": "Algen regen den Zellstoffwechsel an und unterstützen den Abtransport von Toxinen. Die Haut wird mit Feuchtigkeit versorgt und das Gewebe wirkt gefestigt und straffer.",
+                "idealFor": "Perfekt für Detox-Kuren, zur Unterstützung bei Diäten oder einfach zum \"Entschlacken\" und Neubeginnen.",
+                "signature": "Santis verwandelt traditionelle Hamam-Kultur in ein modernes Luxuserlebnis."
+            }
+        },
+        "slug": "yosun-bakimi",
+        "tags": [
+            "DETOX"
+        ]
+    },
+    {
+        "id": "hamam-osmanische",
+        "categoryId": "ritual-hammam",
+        "name": "Osmanische Hamam-Tradition",
+        "duration": 50,
+        "price": {
+            "amount": 90,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_hammam_lux.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Osmanlı Hamam Geleneği",
+                "shortDesc": "Sultanlara layık tam kapsamlı hamam ritüeli.",
+                "fullDesc": "Kese, köpük ve özel bakımları içeren uzun ve keyifli bir gelenek."
+            }
+        },
+        "slug": "osmanli-hamam-gelenegi",
+        "tags": [
+            "SIGNATURE"
+        ]
+    },
+    {
+        "id": "mass-classic-ganz",
+        "categoryId": "massage-classic",
+        "name": "Klassische Ganzkörper massage",
+        "duration": 30,
+        "price": {
+            "amount": 50,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_massage_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Klasik Tüm Vücut Masajı",
+                "shortDesc": "Bedenin doğal akışını geri kazandıran klasik terapi.",
+                "fullDesc": "Kan dolaşımını hızlandıran, kasları gevşeten ve bedeni canlandıran bütünsel bir dokunuş.",
+                "tagline": "Canlılık & Bütünsel Akış",
+                "heroTitle": "Bedeni Uyandıran Klasik Dokunuş",
+                "intro": "Zamanın durduğu bir an... Geleneksel masaj tekniklerinin modern bir huzur anlayışıyla harmanlandığı bu ritüel, bedeninizi günlük yaşamın ağırlığından arındırır.",
+                "steps": [
+                    "Aromatik yağların kokusuyla başlayan karşılama",
+                    "Kan dolaşımını hızlandıran ritmik sıvazlama hareketleri",
+                    "Kas gerginliklerini çözen orta şiddette baskılar",
+                    "Tüm bedene yayılan derin bir rahatlama hissi"
+                ],
+                "effects": "Kan dolaşımını düzenler, kaslardaki oksijen miktarını artırır ve sinir sistemini dengeler. Seanstan zihinsel ve bedensel olarak yenilenmiş ayrılırsınız.",
+                "idealFor": "İlk kez masaj yaptıracaklar veya genel bir rahatlama arayanlar için mükemmel bir başlangıçtır.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "klasik-tum-vucut-masaji",
+        "tags": []
+    },
+    {
+        "id": "mass-fuss",
+        "categoryId": "massage-classic",
+        "name": "Fußreflexzonen massage",
+        "duration": 30,
+        "price": {
+            "amount": 50,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_massage_oil_v2.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Ayak Refleksoloji",
+                "shortDesc": "Ayak tabanından tüm vücuda yayılan denge.",
+                "fullDesc": "Ayaklardaki refleks noktalarına baskı uygulanarak yapılan, tüm organları dengeleyen kadim terapi.",
+                "tagline": "Enerji Dengesi & İçsel Huzur",
+                "heroTitle": "Dengeye Giden Adımlar",
+                "intro": "Ayaklarınız, tüm bedeninizin haritasını taşır. Bu özel terapi, refleks noktalarına yapılan bilinçli dokunuşlarla vücudun kendi kendini iyileştirme gücünü harekete geçirir.",
+                "steps": [
+                    "Ayakları rahatlatan sıcak havlu kompresi",
+                    "Refleks noktalarının tespiti ve özel baskı teknikleri",
+                    "Enerji blokajlarının parmak uçlarıyla çözülmesi",
+                    "Hafifleyen adımlarla tamamlanan seans"
+                ],
+                "effects": "Vücudun enerji akışını düzenler, organ fonksiyonlarını destekler ve derin bir hafiflik hissi yaratır. Zihinsel yorgunluğu alır.",
+                "idealFor": "Gün boyu ayakta kalanlar ve içsel denge arayışında olanlar için.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "ayak-refleksoloji",
+        "tags": []
+    },
+    {
+        "id": "mass-rucken",
+        "categoryId": "massage-classic",
+        "name": "Rücken massage",
+        "duration": 30,
+        "price": {
+            "amount": 55,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_deeptissue_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Sırt Masajı",
+                "shortDesc": "Stresin biriktiği omuz ve sırt yüklerini hafifletin.",
+                "fullDesc": "Sırt, boyun ve omuz bölgesindeki gerginliği hedefleyen odaklanmış rahatlama.",
+                "tagline": "Yüklerden Arınma & Hafiflik",
+                "heroTitle": "Omuzlarınızdaki Yükü Bırakın",
+                "intro": "Günlük hayatın stresi en çok sırtımızda birikir. Bu odaklanmış seans, düğümlenen kasları çözer ve duruşunuza yeniden esneklik kazandırır.",
+                "steps": [
+                    "Sırt ve boyun bölgesini ısıtan hazırlık masajı",
+                    "Kürek kemikleri ve omuz hattına özel gevşetme teknikleri",
+                    "Omurga çevresindeki kasların rahatlatılması",
+                    "Duruşu iyileştiren son dokunuşlar"
+                ],
+                "effects": "Bölgesel ağrıları dindirir, baş ağrısını hafifletir ve duruş bozukluğundan kaynaklanan gerginliği alır. Anında rahatlama sağlar.",
+                "idealFor": "Masa başı çalışanlar ve boyun/sırt ağrısı çekenler için hızlı ve etkili bir çözüm.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "sirt-terapi-masaji",
+        "tags": []
+    },
+    {
+        "id": "mass-classic-50",
+        "categoryId": "massage-classic",
+        "name": "Klassische Massage",
+        "duration": 50,
+        "price": {
+            "amount": 80,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_massage_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Klasik Masaj (50dk)",
+                "shortDesc": "Zamanı yavaşlatan uzun süreli bir kaçış.",
+                "fullDesc": "Tüm vücudu kapsayan, İsveç tekniği temelli derinlemesine rahatlatıcı masaj.",
+                "tagline": "Derin Gevşeme & Zamansızlık",
+                "heroTitle": "Huzurun Klasik Yorumu",
+                "intro": "Klasik masajın en zarif hali. Uzun ve akıcı hareketlerle kaslarınızdaki son gerginlik kırıntısına kadar ulaşan, bedeni şımartan bir saatlik bir huzur molası.",
+                "steps": [
+                    "Vücudun ısınmasını sağlayan effleurage hareketleri",
+                    "Kas gruplarına yönelik yoğurma teknikleri",
+                    "Kan dolaşımını canlandıran friksiyon uygulamaları",
+                    "Derin bir uykuya dalma isteği uyandıran final"
+                ],
+                "effects": "Toksinlerin atılmasına yardımcı olur, uyku kalitesini artırır ve kronik yorgunluğu giderir.",
+                "idealFor": "Kendine tam bir saat ayırıp dünyadan kopmak isteyenler için.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "klasik-masaj",
+        "tags": [
+            "POPULAR"
+        ]
+    },
+    {
+        "id": "mass-antistress",
+        "categoryId": "massage-classic",
+        "name": "Anti-Stress-Massage",
+        "duration": 50,
+        "price": {
+            "amount": 80,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_massage_oil_v2.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Anti-Stress Masajı",
+                "shortDesc": "Zihni susturan, ruhu dinlendiren yumuşak terapi.",
+                "fullDesc": "Yavaş, ritmik ve nazik hareketlerle sinir sistemini yatıştıran özel bir seans.",
+                "tagline": "Zihinsel Durgunluk & Dinginlik",
+                "heroTitle": "Zihnin Sessizliğe Kavuşması",
+                "intro": "Modern yaşamın hızlı temposuna bir \"dur\" deyin. Bu masaj, kaslardan ziyade sinir sistemini hedefler; sizi meditatif bir dinginliğe davet eder.",
+                "steps": [
+                    "Baş ve boyun bölgesine odaklanan sakinleştirici başlangıç",
+                    "Sinir uçlarını yatıştıran uzun ve yumuşak sıvazlamalar",
+                    "Ritmik hareketlerle bedenin uyku moduna geçişi",
+                    "Tamamen dinginleşmiş bir zihinle uyanış"
+                ],
+                "effects": "Kortizol (stres) seviyesini düşürür, anksiyeteyi hafifletir ve derin bir huzur hissi verir. Uykusuzluk çekenler için birebirdir.",
+                "idealFor": "Yoğun stres altında çalışanlar ve zihinsel yorgunluk hissedenler.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "anti-stress-masaji",
+        "tags": [
+            "RELAX"
+        ]
+    },
+    {
+        "id": "mass-aroma",
+        "categoryId": "massage-classic",
+        "name": "Aroma-Massage",
+        "duration": 50,
+        "price": {
+            "amount": 80,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "product-oil.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Aromaterapi Masajı",
+                "shortDesc": "Kokuların iyileştirici gücüyle duyusal yolculuk.",
+                "fullDesc": "Ruh halinize göre seçilen esansiyel yağlarla yapılan, nefes ve dokunuşun dansı.",
+                "tagline": "Duyusal Uyanış & Botanik Şifa",
+                "heroTitle": "Doğanın Özüyle Sarmalanın",
+                "intro": "Lavanta, okaliptüs veya portakal çiçeği... Ruhunuzun o an ihtiyaç duyduğu koku hangisi? Bitkilerin özü, terapistin ellerinde şifalı bir yolculuğa dönüşüyor.",
+                "steps": [
+                    "Kişisel ihtiyaca göre (canlandırıcı/rahatlatıcı) yağ seçimi",
+                    "Kokunun derin nefeslerle içselleştirilmesi",
+                    "Yağların cilde nüfuz etmesini sağlayan nazik masaj",
+                    "Kokunun bıraktığı, saatlerce süren huzur etkisi"
+                ],
+                "effects": "Esansiyel yağlar limbik sistemi (duygusal beyin) etkileyerek ruh halini iyileştirir. Hem cildi besler hem de duygusal denge sağlar.",
+                "idealFor": "Duyusal deneyimlere önem verenler ve duygusal denge arayanlar.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "aromaterapi-masaji",
+        "tags": []
+    },
+    {
+        "id": "mass-bronze",
+        "categoryId": "massage-classic",
+        "name": "Bronze massage",
+        "duration": 50,
+        "price": {
+            "amount": 80,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_massage_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Bronz Masajı",
+                "shortDesc": "Güneşin ışıltısını cildinize mühürleyin.",
+                "fullDesc": "Kakao ve havuç yağı içeren özel karışımla bronzluğu koruyan ve cildi nemlendiren bakım.",
+                "tagline": "Işıltılı Koruma & Nem Terapisi",
+                "heroTitle": "Yaz Işıltısını Sonsuza Taşıyın",
+                "intro": "Güneş banyosu sonrası cildin en çok ihtiyaç duyduğu şey nemdir. Bu özel masaj, bronzluğunuzun kalıcılığını artırırken cildinizi ipek gibi yumuşatır.",
+                "steps": [
+                    "Cildi serinleten ve yatıştıran ön hazırlık",
+                    "Kakao ve havuç yağı karışımının cömertçe uygulanması",
+                    "Yağın emilimi için yapılan nazik ve yavaş masaj",
+                    "Ciltte bırakılan koruyucu nem tabakası"
+                ],
+                "effects": "Cildin kurumasını ve soyulmasını önler. Bronzluğun ömrünü uzatır ve cilde sağlıklı, parlak bir görünüm kazandırır.",
+                "idealFor": "Güneş tatili sonrası cildini şımartmak ve rengini korumak isteyenler.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "bronz-masaji",
+        "tags": [
+            "SUMMER"
+        ]
+    },
+    {
+        "id": "mass-sport",
+        "categoryId": "massage-classic",
+        "name": "Sport massage",
+        "duration": 50,
+        "price": {
+            "amount": 90,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_deeptissue_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Spor Masajı",
+                "shortDesc": "Aktif bedenler için güçlü toparlanma.",
+                "fullDesc": "Kas derinliklerine inen, laktik asidi dağıtan ve esnekliği artıran dinamik terapi.",
+                "tagline": "Güçlü Yenilenme & Performans",
+                "heroTitle": "Gücünüzü Yeniden Kazanın",
+                "intro": "Spor veya yoğun fiziksel aktivite sonrası yorgun düşen kasların ilacı. Güçlü, hızlı ve derin manevralarla bedeninizi bir sonraki performansa hazırlar.",
+                "steps": [
+                    "Kasları ısıtan hızlı sürtünme hareketleri",
+                    "Laktik asit birikimini dağıtan derin baskılar",
+                    "Eklem hareket açıklığını artıran germe (stretching) teknikleri",
+                    "Kasların rahatlamasıyla gelen hafiflik hissi"
+                ],
+                "effects": "Kas ağrılarını (hamlamayı) azaltır, sakatlık riskini düşürür ve vücut esnekliğini artırır. Enerji seviyesini yükseltir.",
+                "idealFor": "Sporcular, yoğun fiziksel aktivite yapanlar ve sert masaj sevenler.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "spor-terapi",
+        "tags": [
+            "STRONG"
+        ]
+    },
+    {
+        "id": "mass-anticellulite",
+        "categoryId": "massage-classic",
+        "name": "Anti-Cellulite-Massage",
+        "duration": 50,
+        "price": {
+            "amount": 90,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_skincare_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Selülit Masajı",
+                "shortDesc": "Pürüzsüz bir siluet için dinamik dokunuş.",
+                "fullDesc": "Kan dolaşımını hızlandırarak doku görünümünü iyileştiren, sıkılaştırıcı masaj.",
+                "tagline": "Sıkılaşma & Pürüzsüz Doku",
+                "heroTitle": "Cildin Işıltılı Dönüşümü",
+                "intro": "Dolaşım sistemini harekete geçiren özel tekniklerle cildinize yeniden form kazandırın. Bu masaj, sadece estetik değil, doku sağlığı için de canlandırıcıdır.",
+                "steps": [
+                    "Sorunlu bölgelere odaklanan ısınma hareketleri",
+                    "Kan akışını hızlandıran yoğurma ve yuvarlama teknikleri",
+                    "Lenfatik akışı destekleyen yönlendirilmiş baskılar",
+                    "Canlanmış ve ısınmış doku hissi"
+                ],
+                "effects": "Dokulardaki ödemin atılmasına yardımcı olur, portakal kabuğu görünümünü hafifletir ve cildin daha sıkı, elastik görünmesini sağlar.",
+                "idealFor": "Vücut sıkılaştırma programında olanlar ve bölgesel incelme hedefleyenler.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "selulit-masaji",
+        "tags": []
+    },
+    {
+        "id": "extra-local-deep",
+        "categoryId": "massage-extra",
+        "name": "Lokale Tiefengewebs massage",
+        "duration": 30,
+        "price": {
+            "amount": 55,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_deeptissue_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Lokal Derin Doku Masajı",
+                "shortDesc": "Bölgesel ağrılar için derin baskılı terapi.",
+                "fullDesc": "Sorunlu bölgeye odaklanan, kas düğümlerini açan derin doku çalışması.",
+                "tagline": "Ağrı Noktasına Odak & Çözülme",
+                "heroTitle": "Düğümlerin Çözüldüğü An",
+                "intro": "Bazen tüm bedenin değil, sadece o inatçı ağrı noktasının iyileşmeye ihtiyacı vardır. Dokuların derinlerine inen bu teknik, kronikleşmiş gerginlikleri hedef alır.",
+                "steps": [
+                    "Ağrı noktasının (tetik nokta) tespiti",
+                    "Derin dokulara ulaşan yavaş ve güçlü baskılar",
+                    "Nefes teknikleriyle desteklenen gevşeme",
+                    "Bölgesel rahatlama ve hareket kabiliyetinde artış"
+                ],
+                "effects": "Kulunçları (fibrozitleri) çözer, kronik ağrıları hafifletir ve bölgesel kan akışını maksimuma çıkarır.",
+                "idealFor": "Kronik boyun/sırt ağrısı çekenler ve 'kulunçlarını' hissettirenler.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "lokal-derin-doku",
+        "tags": []
+    },
+    {
+        "id": "extra-local-hotstone",
+        "categoryId": "massage-extra",
+        "name": "Lokale Hot-Stone-Massage",
+        "duration": 30,
+        "price": {
+            "amount": 55,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_massage_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Lokal Sıcak Taş Masajı",
+                "shortDesc": "Sıcak volkanik taşlarla bölgesel rahatlama.",
+                "fullDesc": "Sırt veya bacak bölgesine uygulanan sıcak taş terapisi.",
+                "tagline": "Volkanik Isı & Bölgesel Şifa",
+                "heroTitle": "Isının Bölgesel Gücü",
+                "intro": "Volkanik taşların sakladığı kadim ısı enerjisini, vücudunuzun en çok ihtiyaç duyduğu bölgeye yönlendirin. Kaslar ısı ile yumuşarken, zihin sakinleşir.",
+                "steps": [
+                    "Taşların ideal sıcaklığa getirilmesi",
+                    "Hedef bölgeye (örneğin sırt) taşların yerleştirilmesi",
+                    "Sıcak taşlar eşliğinde yapılan derinlemesine masaj",
+                    "Isının kaslara nüfuz etmesiyle gelen hafiflik"
+                ],
+                "effects": "Isı, kaslardaki sertliği anında yumuşatır ve kan dolaşımını hızlandırır. Bölgesel olarak derin bir gevşeme sağlar.",
+                "idealFor": "Soğuk havalarda kasılanlar ve bölgesel sıcaklık terapisi sevenler.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "lokal-sicak-tas",
+        "tags": []
+    },
+    {
+        "id": "extra-manual",
+        "categoryId": "massage-extra",
+        "name": "Manuelle Massage",
+        "duration": 30,
+        "price": {
+            "amount": 70,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_massage_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Manuel Terapi Masajı",
+                "shortDesc": "Eklemleri ve omurgayı rahatlatan teknik.",
+                "fullDesc": "Fizyoterapi tekniklerini içeren, hareket kabiliyetini artıran özel masaj.",
+                "tagline": "Hareket Özgürlüğü & Yapısal Denge",
+                "heroTitle": "Bedenin Mekaniğini İyileştirin",
+                "intro": "Bu bir masajdan fazlası; bedenin iskelet ve kas yapısına yapılan bilinçli bir dokunuş. Eklemlerin hareket açıklığını artırarak bedeni doğal hizasına kavuşturur.",
+                "steps": [
+                    "Postür (duruş) ve hareket açıklığı analizi",
+                    "Eklemlere yönelik mobilizasyon teknikleri",
+                    "Kas fasyalarının (zarlarının) gevşetilmesi",
+                    "Daha esnek ve özgür bir beden hissi"
+                ],
+                "effects": "Eklem kısıtlılıklarını açar, duruş bozukluklarını düzeltmeye yardımcı olur ve ağrısız hareket imkanı sağlar.",
+                "idealFor": "Hareket kısıtlılığı yaşayanlar ve duruş bozukluğu olanlar.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "manuel-terapi",
+        "tags": [
+            "THERAPY"
+        ]
+    },
+    {
+        "id": "extra-hotstone",
+        "categoryId": "massage-extra",
+        "name": "Hot Stone Massage",
+        "duration": 50,
+        "price": {
+            "amount": 90,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_massage_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Sıcak Taş Masajı (50dk)",
+                "shortDesc": "Volkanik ısının derinlemesine gevşetici etkisi.",
+                "fullDesc": "Isıtılmış bazalt taşlarıyla yapılan, stresi alan ve enerji veren ritüel.",
+                "tagline": "Toprağın Enerjisi & Derin Isı",
+                "heroTitle": "Volkanik Taşların Dansı",
+                "intro": "Doğanın elementleri bedeninizle buluşuyor. Pürüzsüz, sıcak volkanik taşların vücudunuzda kayarken yarattığı his, sizi derin bir meditatif duruma taşır.",
+                "steps": [
+                    "Çakralara ve enerji noktalarına taşların yerleştirilmesi",
+                    "Sıcak taşlarla yapılan akıcı masaj manevraları",
+                    "Isının kasların en derinine işlemesi",
+                    "Negatif enerjinin atılması ve dengelenme"
+                ],
+                "effects": "Kan dolaşımını ve metabolizmayı hızlandırır. Kas ağrılarını dindirir ve ruhsal olarak 'topraklanma' (grounding) hissi verir.",
+                "idealFor": "Üşüyen bedenler ve ruhsal denge arayanlar için kış aylarının favorisidir.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "sicak-tas-masaji",
+        "tags": []
+    },
+    {
+        "id": "extra-deep",
+        "categoryId": "massage-extra",
+        "name": "Tiefengewebs massage",
+        "duration": 50,
+        "price": {
+            "amount": 90,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_deeptissue_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Derin Doku Masajı (Deep Tissue)",
+                "shortDesc": "Kronik ağrılar için güçlü baskı.",
+                "fullDesc": "Kasların en alt katmanlarına ulaşan, sert ve etkili bir masaj.",
+                "tagline": "Güçlü Baskı & Derin Çözülme",
+                "heroTitle": "Derinlerdeki Gerilimi Serbest Bırakın",
+                "intro": "Yüzeysel bir rahatlamadan fazlasını arayanlar için. Kas liflerinin derinliklerine inen bu teknik, yıllardır taşıdığınız gerginlikleri serbest bırakır.",
+                "steps": [
+                    "Kasları ısıtarak derin çalışmaya hazırlık",
+                    "Dirsek ve ön kol kullanımıyla güçlü baskı teknikleri",
+                    "Fasya (kas zarı) dokusunun gevşetilmesi",
+                    "Derin bir hafiflik ve hareket özgürlüğü"
+                ],
+                "effects": "Kronik kas ağrılarını çözer, duruşu iyileştirir ve vücuttaki toksinlerin atılımını hızlandırır.",
+                "idealFor": "Sert masaj sevenler ve kronik kas sertliği yaşayanlar.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "derin-doku-masaji",
+        "tags": [
+            "INTENSE"
+        ]
+    },
+    {
+        "id": "extra-lymph",
+        "categoryId": "massage-extra",
+        "name": "Lymphdrainage-Massage",
+        "duration": 50,
+        "price": {
+            "amount": 90,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_massage_oil_v2.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Lenf Drenaj Masajı",
+                "shortDesc": "Ödem attırıcı hafif ve ritmik masaj.",
+                "fullDesc": "Lenf sistemini uyaran, vücuttaki şişkinliği ve toksinleri atmaya yarayan nazik teknik.",
+                "tagline": "Hafiflik & Detoks Akışı",
+                "heroTitle": "Bedenin Arınma Ritmi",
+                "intro": "Tüy kadar hafif, ritmik ve sistematik dokunuşlar. Bu masaj, vücudun lenfatik sistemini manuel olarak pompalayarak ödemin atılmasını sağlar.",
+                "steps": [
+                    "Lenf düğümlerinin nazikçe uyarılması",
+                    "Aşağıdan yukarıya doğru ritmik pompalama hareketleri",
+                    "Vücut sıvılarının akışının düzenlenmesi",
+                    "Seanstan hemen sonra hissedilen hafiflik"
+                ],
+                "effects": "Vücuttaki ödemi ve toksinleri atar, bağışıklık sistemini güçlendirir ve selülit tedavisini destekler. Şişkinlik hissini yok eder.",
+                "idealFor": "Ödem problemi olanlar, detoks yapanlar ve ameliyat sonrası iyileşme sürecindekiler.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "lenf-drenaj",
+        "tags": [
+            "DETOX"
+        ]
+    },
+    {
+        "id": "extra-combined",
+        "categoryId": "massage-extra",
+        "name": "Kombinierte Massage",
+        "duration": 50,
+        "price": {
+            "amount": 100,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_couple_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Kombine Masaj (50dk)",
+                "shortDesc": "Farklı tekniklerin harmanlandığı özel seans.",
+                "fullDesc": "İhtiyaca göre Klasik, Thai veya Shiatsu tekniklerinin karıştırıldığı kişisel terapi.",
+                "tagline": "Sentez Teknikler & Kişisel Terapi",
+                "heroTitle": "Size Özel Bir Masaj Sentezi",
+                "intro": "Tek bir tarza bağlı kalmak zorunda değilsiniz. Terapistiniz, bedeninizin o günkü ihtiyacına göre en etkili teknikleri harmanlayarak size özel bir reçete oluşturur.",
+                "steps": [
+                    "Terapist ile ihtiyaç analizi ve odak bölge belirleme",
+                    "Farklı masaj disiplinlerinin (Klasik, Thai, Shiatsu vb.) entegrasyonu",
+                    "Germe ve baskı tekniklerinin dengeli kullanımı",
+                    "Kişiye özel, nokta atışı bir rahatlama"
+                ],
+                "effects": "Birden fazla soruna aynı anda çözüm sunar. Hem esnetir, hem gevşetir, hem de canlandırır.",
+                "idealFor": "Ne istediğine karar veremeyenler ve \"hepsinden biraz\" isteyenler.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "kombine-masaj",
+        "tags": [
+            "MIX"
+        ]
+    },
+    {
+        "id": "extra-combo-ganz",
+        "categoryId": "massage-extra",
+        "name": "Kombinations massage (Ganzkörper)",
+        "duration": 90,
+        "price": {
+            "amount": 130,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_couple_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Kombine Masaj (90dk)",
+                "shortDesc": "Uzun süreli bütünsel terapi.",
+                "fullDesc": "90 dakika boyunca tepeden tırnağa yenilenme sağlayan geniş kapsamlı mix masaj.",
+                "tagline": "Tam Kapsamlı Yenilenme",
+                "heroTitle": "Zamanın Ötesinde Bir Deneyim",
+                "intro": "Acele etmeden, sindirerek, derinlemesine... 90 dakikalık bu uzun ritüel, terapistin tüm hünerlerini sergilediği ve bedeninizi tamamen şifalandırdığı bir başyapıttır.",
+                "steps": [
+                    "Detaylı bir vücut analizi ve teknik seçimi",
+                    "Tüm kas gruplarının tek tek, sabırla işlenmesi",
+                    "Farklı tekniklerin (Thai germe, derin doku vb.) akıcı geçişleri",
+                    "Tamamen hafiflemiş, yeni bir bedende uyanış hissi"
+                ],
+                "effects": "Kısa masajlarda çözülemeyen derin blokajları açar. Bedensel ve zihinsel olarak tam bir 'reset' (sıfırlama) sağlar.",
+                "idealFor": "Kronik yorgunluğu olanlar ve kendini şımartmanın zirvesini arayanlar.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "kombine-masaj-90",
+        "tags": [
+            "PREMIUM"
+        ]
+    },
+    {
+        "id": "extra-mix-manuel",
+        "categoryId": "massage-extra",
+        "name": "Mix Manuel Therapie",
+        "duration": 90,
+        "price": {
+            "amount": 180,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_massage_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Mix Manuel Terapi",
+                "shortDesc": "En kapsamlı manuel tedavi seansı.",
+                "fullDesc": "Uzman terapist eşliğinde, vücuttaki blokajları çözen ileri seviye manuel terapi.",
+                "tagline": "VIP Terapi & İleri Teknik",
+                "heroTitle": "Terapistin Ustalık Eseri",
+                "intro": "Santis'in en üst düzey terapisi. Manuel terapi, osteopati teknikleri ve masajın birleştiği bu seans, sadece rahatlama değil, yapısal bir iyileşme hedefler.",
+                "steps": [
+                    "Kapsamlı postür ve ağrı analizi",
+                    "İskelet sistemi ve kas sistemi üzerine kombine çalışmalar",
+                    "Blokajlı enerji noktalarının açılması",
+                    "Bedensel farkındalığın ve hareket kapasitesinin artması"
+                ],
+                "effects": "Uzun süreli ağrıları giderir, duruşu düzeltir ve vücuda maksimum kapasitesini geri kazandırır.",
+                "idealFor": "Ciddi kas-iskelet problemleri yaşayanlar ve en üst düzey hizmeti arayanlar.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "mix-manuel-terapi",
+        "tags": [
+            "VIP"
+        ]
+    },
+    {
+        "id": "skin-hydra-boost",
+        "categoryId": "skin-care",
+        "name": "Hydra Boost Facial",
+        "duration": 50,
+        "price": {
+            "amount": 75,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_skincare_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Hydra Boost Cilt Bakımı",
+                "shortDesc": "Yoğun nem, ışıltı ve anında dolgunluk.",
+                "fullDesc": "Hyaluronik asit ve deniz kolajeni ile cildi derinlemesine nemlendirir, ışıltı kazandırır.",
+                "tagline": "Derin Nem & Canlılık",
+                "heroTitle": "Işıltılı Nem Bombası",
+                "intro": "Susuz kalmış ciltler için hızlı kurtarıcı. Yoğun nem veren serumlar ve oksijenleme tekniğiyle cilt dolgunlaşır.",
+                "steps": [
+                    "Cilt analizi ve nazik temizleme",
+                    "Enzim peeling ile arındırma",
+                    "Hyaluronik asit serum infüzyonu",
+                    "Soğuk maske ile yatıştırma"
+                ],
+                "effects": "Cilt anında daha dolgun, aydınlık ve pürüzsüz görünür.",
+                "idealFor": "Kuruluk, matlık yaşayan ve hızlı ışıltı isteyen herkes."
+            }
+        },
+        "slug": "hydra-boost",
+        "tags": [
+            "SKIN",
+            "HYDRATION"
+        ]
+    },
+    {
+        "id": "skin-glow-vitc",
+        "categoryId": "skin-care",
+        "name": "Vitamin C Glow",
+        "duration": 55,
+        "price": {
+            "amount": 85,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_skincare_clay_v2.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Vitamin C Işıltı Bakımı",
+                "shortDesc": "Leke görünümünü azaltır, parlaklık verir.",
+                "fullDesc": "Stabil C vitamini, niasinamid ve peptitlerle cildi aydınlatır, tonu eşitler.",
+                "tagline": "Aydınlatma & Ton Eşitleme",
+                "heroTitle": "C Vitamini Gücü",
+                "intro": "Yorgun, donuk ciltler için antioksidan yüklemesi. Leke görünümünü azaltmaya yardımcı olur.",
+                "steps": [
+                    "Mikro-peeling ile yüzey arındırma",
+                    "Yüksek doz C vitamini ampul",
+                    "LED ışık terapisi ile aktivasyon",
+                    "Nem kilitleyici maske"
+                ],
+                "effects": "Cilt tonu daha parlak ve eşit görünür, canlılık artar.",
+                "idealFor": "Mat ve lekeli cilt görünümünü hedefleyenler."
+            }
+        },
+        "slug": "vitamin-c-glow",
+        "tags": [
+            "SKIN",
+            "BRIGHTENING"
+        ]
+    },
+    {
+        "id": "skin-lift-firm",
+        "categoryId": "skin-care",
+        "name": "Lift & Firm",
+        "duration": 60,
+        "price": {
+            "amount": 95,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_skincare_v1.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Lift & Firm Sıkılaştırma",
+                "shortDesc": "Peptit ve kolajen destekli, toparlayıcı bakım.",
+                "fullDesc": "Mikro-akım masajı ve peptit maskesi ile kontur belirginliği artırılır, elastikiyet desteklenir.",
+                "tagline": "Toparlanma & Elastikiyet",
+                "heroTitle": "Anında Sıkı Görünüm",
+                "intro": "Yüz hatlarını toparlayan, peptit zengini bir protokol. Yorgunluk izlerini azaltır.",
+                "steps": [
+                    "Lenfatik drenaj masajı",
+                    "Mikro-akım lifting seansı",
+                    "Kolajen-peptit yoğun maske",
+                    "Soğuk taşlarla sakinleştirme"
+                ],
+                "effects": "Cilt daha gergin ve toparlanmış görünür.",
+                "idealFor": "Elastikiyet kaybı ve sarkma eğilimi olan ciltler."
+            }
+        },
+        "slug": "lift-firm",
+        "tags": [
+            "SKIN",
+            "LIFT"
+        ]
+    },
+    {
+        "id": "skin-detox-clay",
+        "categoryId": "skin-care",
+        "name": "Detox Clay Ritual",
+        "duration": 50,
+        "price": {
+            "amount": 70,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_skincare_clay_v2.png"
+        },
+        "content": {
+            "tr": {
+                "title": "Detox Kil Ritüeli",
+                "shortDesc": "Gözenek arındırma ve yağ dengesi.",
+                "fullDesc": "Aktif kömür ve kil maskesi ile derin arındırma; probiyotik serumla bariyer desteği.",
+                "tagline": "Arınma & Denge",
+                "heroTitle": "Temiz ve Dengeli Cilt",
+                "intro": "Karma/yağlı ciltler için gözenek temizleyici protokol. Parlamayı azaltır, dokuyu pürüzsüzleştirir.",
+                "steps": [
+                    "Enzim peeling ile arındırma",
+                    "Vakumlu gözenek temizliği (non-invasive)",
+                    "Aktif kömür + kil maskesi",
+                    "Probiyotik serum uygulaması"
+                ],
+                "effects": "Gözenek görünümü azalır, sebum dengelenir, cilt ferahlar.",
+                "idealFor": "Karma ve yağlı cilt, siyah nokta eğilimi olanlar."
+            }
+        },
+        "slug": "detox-clay",
+        "tags": [
+            "SKIN",
+            "DETOX"
+        ]
+    },
+    {
+        "id": "mass-thai",
+        "categoryId": "massage-asian",
+        "name": "Thai Massage",
+        "duration": 60,
+        "price": {
+            "amount": 90,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_massage_v1.webp"
+        },
+        "img": "/assets/img/cards/santis_card_massage_v1.webp",
+        "content": {
+            "tr": {
+                "title": "Thai Masajı",
+                "shortDesc": "Pasif yoga hareketleriyle esneklik kazandıran kadim ritüel.",
+                "fullDesc": "Enerji hatları üzerinde baskı ve germe hareketleriyle bedeni esneten, yağsız uygulanan geleneksel terapi.",
+                "tagline": "Esneklik & Enerji Akışı",
+                "heroTitle": "Bedeni Özgürleştiren Dokunuş",
+                "intro": "Bedenin sınırlarını nazikçe genişleten bir deneyim. Thai masajı, pasif yoga hareketleri ve ritmik baskılarla kasları uzatır, eklemleri açar ve enerji akışını düzenler.",
+                "steps": [
+                    "Geleneksel kıyafetler eşliğinde yağsız uygulama",
+                    "Enerji hatları (Sen çizgileri) boyunca ritmik baskılar",
+                    "Terapist eşliğinde yapılan pasif germe hareketleri",
+                    "Bedenin hafiflediği ve esnediği final"
+                ],
+                "effects": "Eklem hareket açıklığını artırır, kas gerginliğini azaltır ve vücuda enerji verir. Duruş bozukluklarını düzeltmeye yardımcı olur.",
+                "idealFor": "Esneklik kazanmak isteyenler ve sporcular için mükemmeldir.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "thai-masaji",
+        "tags": []
+    },
+    {
+        "id": "mass-bali",
+        "categoryId": "massage-asian",
+        "name": "Bali Massage",
+        "duration": 50,
+        "price": {
+            "amount": 80,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_massage_v1.webp"
+        },
+        "img": "/assets/img/cards/santis_card_massage_v1.webp",
+        "content": {
+            "tr": {
+                "title": "Bali Masajı",
+                "shortDesc": "Derin baskı ve esnetme hareketleriyle egzotik bir rahatlama.",
+                "fullDesc": "Endonezya kökenli, kan dolaşımını hızlandıran ve kasları derinlemesine gevşeten aromatik masaj.",
+                "tagline": "Egzotik Rahatlama & Derin Denge",
+                "heroTitle": "Tropikal Bir Huzur Yolculuğu",
+                "intro": "Bali'nin mistik atmosferini hissedin. Bu masaj, güçlü parmak baskıları ve uzun sıvazlama hareketlerini birleştirerek kasların en derin katmanlarına ulaşır.",
+                "steps": [
+                    "Isıtılmış aromatik yağlarla başlangıç",
+                    "Akupresür noktalarına uygulanan derin baskılar",
+                    "Kasları uzatan ve gevşeten germe teknikleri",
+                    "Zihinsel ve bedensel dengelenme"
+                ],
+                "effects": "Kan dolaşımını hızlandırır, kas ağrılarını hafifletir ve derin bir gevşeme sağlar. Zihni sakinleştirir.",
+                "idealFor": "Derin kas gevşemesi arayanlar ve yoğun stres altındakiler.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "bali-terapi",
+        "tags": []
+    },
+    {
+        "id": "mass-shiatsu",
+        "categoryId": "massage-asian",
+        "name": "Shiatsu Massage",
+        "duration": 50,
+        "price": {
+            "amount": 85,
+            "currency": "€"
+        },
+        "media": {
+            "hero": "santis_card_massage_v1.webp"
+        },
+        "img": "/assets/img/cards/santis_card_massage_v1.webp",
+        "content": {
+            "tr": {
+                "title": "Shiatsu Masajı",
+                "shortDesc": "Parmak baskısıyla enerji akışını dengeleyen Japon terapisi.",
+                "fullDesc": "Vücudun enerji meridyenleri üzerinde parmak ve avuç içi baskılarıyla yapılan iyileştirici masaj.",
+                "tagline": "Parmak Baskısı & Enerji Dengesi",
+                "heroTitle": "İçsel Dengenizi Keşfedin",
+                "intro": "Japonca 'parmak baskısı' anlamına gelen Shiatsu, bedenin kendi kendini iyileştirme gücünü harekete geçirir. Enerji blokajlarını çözerek bütünsel bir sağlık hali sunar.",
+                "steps": [
+                    "Meridyen hatları boyunca ritmik parmak baskıları",
+                    "Avuç içi ve dirsek kullanımıyla derin dokunuşlar",
+                    "Eklemleri rahatlatan mobilizasyon teknikleri",
+                    "Enerji akışının dengelendiği huzurlu son"
+                ],
+                "effects": "Sinir sistemini dengeler, yorgunluğu giderir ve bağışıklık sistemini güçlendirir. Zihinsel berraklık sağlar.",
+                "idealFor": "Kronik yorgunluk hissedenler ve enerji düşüklüğü yaşayanlar.",
+                "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+            }
+        },
+        "slug": "shiatsu-terapi",
+        "tags": []
+    },
+    {
+        "id": "sothys-jeunesse-initiale",
+        "categoryId": "sothys-antiage",
+        "name": "Rituel Jeunesse Initiale",
+        "tier": "gold",
+        "application_type": "professional_cabin_only",
+        "sensory_dna": {
+            "dimension": "gold",
+            "color": "#D4AF37",
+            "light_mode": "golden_hour",
+            "sound_profile": "classical_strings",
+            "particle_intensity": 0.15
+        },
+        "price": {
+            "amount": 130,
+            "currency": "€"
+        },
+        "duration": 75,
+        "content": {
+            "tr": {
+                "title": "Rituel Jeunesse Initiale",
+                "shortDesc": "İlk yaşlanma belirtilerine karşı canlandırıcı bakım.",
+                "heroTitle": "Gençlik Işıltısı",
+                "tagline": "Koruma & Canlılık",
+                "intro": "Cildin gençlik rezervlerini koruyan ve ilk yaşlanma belirtilerini hedef alan canlandırıcı bakım.",
+                "steps": [
+                    "Vitality Masajı",
+                    "Micro-Dermabrazyon",
+                    "Enerji Serumu",
+                    "Koruyucu Maske"
+                ],
+                "signature": "Sothys Paris Youth Intensive βP3 serisi ile uygulanır."
+            }
+        },
+        "slug": "rituel-jeunesse-initiale",
+        "media": {
+            "hero": "santis_card_skincare_detail_v2.webp"
+        },
+        "tags": []
+    },
+    {
+        "id": "sothys-jeunesse-supreme",
+        "categoryId": "sothys-antiage",
+        "name": "Rituel Jeunesse Suprême",
+        "tier": "signature",
+        "application_type": "professional_cabin_only",
+        "sensory_dna": {
+            "dimension": "gold",
+            "color": "#D4AF37",
+            "light_mode": "golden_hour",
+            "sound_profile": "classical_strings",
+            "particle_intensity": 0.25
+        },
+        "price": {
+            "amount": 160,
+            "currency": "€"
+        },
+        "duration": 90,
+        "content": {
+            "tr": {
+                "title": "Rituel Jeunesse Suprême",
+                "shortDesc": "Cildi daha pürüzsüz ve aydınlık gösteren yoğun anti-age ritüel.",
+                "heroTitle": "Jeunesse Absolue",
+                "tagline": "Zamana Karşı Güç",
+                "intro": "Lifting masaj ve yoğun aktif içerikler. Cilt daha pürüzsüz, daha sıkı ve daha aydınlık bir görünüme kavuşur.",
+                "steps": [
+                    "Multi-Zoning Masajı",
+                    "Exfoliasyon",
+                    "Sıkılaştırıcı Serumlar",
+                    "Kolajen Maskesi"
+                ],
+                "signature": "Sothys Paris Youth Intensive βP3 serisi ile uygulanır."
+            }
+        },
+        "slug": "rituel-jeunesse-supreme",
+        "media": {
+            "hero": "santis_card_skincare_detail_v2.webp"
+        },
+        "tags": []
+    },
+    {
+        "id": "sothys-diamant-eternel",
+        "categoryId": "sothys-antiage",
+        "name": "Rituel Diamant Éternel",
+        "tier": "ultra",
+        "application_type": "professional_cabin_only",
+        "sensory_dna": {
+            "dimension": "gold",
+            "color": "#D4AF37",
+            "light_mode": "golden_hour",
+            "sound_profile": "classical_strings",
+            "particle_intensity": 0.4
+        },
+        "price": {
+            "amount": 250,
+            "currency": "€"
+        },
+        "duration": 105,
+        "content": {
+            "tr": {
+                "title": "Rituel Diamant Éternel",
+                "shortDesc": "Özel günler için tasarlanmış, ışıltı veren üst seviye bakım.",
+                "heroTitle": "Elmas Sonsuzluğu",
+                "tagline": "Sonsuz Lüks & Işıltı",
+                "intro": "En üst seviye anti-age seremoni. Özel günler öncesi cilde ışıltı ve zarif bir gençlik görünümü kazandırır.",
+                "steps": [
+                    "Kraliyet Karşılaması",
+                    "Değerli Taş Masajı",
+                    "Global Anti-Age Serum",
+                    "Altın Işıltı Maskesi",
+                    "Havyar Özü"
+                ],
+                "signature": "Sothys Paris Secrets de Sothys® serisi ile uygulanır."
+            }
+        },
+        "slug": "rituel-diamant-eternel",
+        "media": {
+            "hero": "santis_card_skincare_detail_v2.webp"
+        },
+        "tags": []
+    },
+    {
+        "id": "sothys-homme-classique",
+        "categoryId": "sothys-men",
+        "name": "Rituel Homme Classique",
+        "tier": "silver",
+        "application_type": "professional_cabin_only",
+        "sensory_dna": {
+            "dimension": "slate",
+            "color": "#2C3E50",
+            "light_mode": "midnight",
+            "sound_profile": "deep_bass",
+            "particle_intensity": 0.1
+        },
+        "price": {
+            "amount": 90,
+            "currency": "€"
+        },
+        "duration": 60,
+        "content": {
+            "tr": {
+                "title": "Rituel Homme Classique",
+                "shortDesc": "Erkek cildi için temizleyici ve dengeleyici bakım.",
+                "heroTitle": "Erkek Bakımı: Klasik",
+                "tagline": "Temizlik & Denge",
+                "intro": "Erkek cildinin yapısına özel, derinlemesine temizlik ve denge sağlayan bakım.",
+                "steps": [
+                    "Temizleme",
+                    "Buhar",
+                    "Siyah Nokta Temizliği",
+                    "Dengeleyici"
+                ],
+                "signature": "Sothys Homme serisi ile uygulanır."
+            }
+        },
+        "slug": "rituel-homme-classique",
+        "media": {
+            "hero": "santis_card_skincare_v1.webp"
+        },
+        "tags": []
+    },
+    {
+        "id": "sothys-homme-equilibre",
+        "categoryId": "sothys-men",
+        "name": "Rituel Homme Équilibre",
+        "tier": "gold",
+        "application_type": "professional_cabin_only",
+        "sensory_dna": {
+            "dimension": "slate",
+            "color": "#2C3E50",
+            "light_mode": "midnight",
+            "sound_profile": "deep_bass",
+            "particle_intensity": 0.15
+        },
+        "price": {
+            "amount": 110,
+            "currency": "€"
+        },
+        "duration": 75,
+        "content": {
+            "tr": {
+                "title": "Rituel Homme Équilibre",
+                "shortDesc": "Arındırma ve yatıştırma sağlayan rahatlatıcı erkek ritüeli.",
+                "heroTitle": "Erkek Bakımı: Denge",
+                "tagline": "Yatıştırma & Konfor",
+                "intro": "Tıraş sonrası hassasiyeti yatıştıran, omuz masajı ile desteklenen dengeleyici erkek ritüeli.",
+                "steps": [
+                    "Sırt Masajı",
+                    "Yüz Temizliği",
+                    "Yatıştırıcı Serum",
+                    "Nemlendirme"
+                ],
+                "signature": "Sothys Homme serisi ile uygulanır."
+            }
+        },
+        "slug": "rituel-homme-equilibre",
+        "media": {
+            "hero": "santis_card_skincare_v1.webp"
+        },
+        "tags": []
+    },
+    {
+        "id": "sothys-homme-force",
+        "categoryId": "sothys-men",
+        "name": "Rituel Homme Force & Calme",
+        "tier": "signature",
+        "application_type": "professional_cabin_only",
+        "sensory_dna": {
+            "dimension": "slate",
+            "color": "#2C3E50",
+            "light_mode": "midnight",
+            "sound_profile": "deep_bass",
+            "particle_intensity": 0.2
+        },
+        "price": {
+            "amount": 140,
+            "currency": "€"
+        },
+        "duration": 90,
+        "content": {
+            "tr": {
+                "title": "Rituel Homme Force & Calme",
+                "shortDesc": "Detoks, gevşeme ve enerji dengeleme sunan premium erkek bakımı.",
+                "heroTitle": "Güç ve Sükunet",
+                "tagline": "Detoks & Enerji",
+                "intro": "Detoks etkisi, enerji veren masaj ve stres azaltıcı bakım kombinasyonu. Modern erkeğin yenilenme ritüeli.",
+                "steps": [
+                    "Hoşgeldin Masajı",
+                    "Derin Temizlik",
+                    "Magma Maskesi",
+                    "Enerji Noktası Masajı"
+                ],
+                "signature": "Sothys Homme serisi ile uygulanır."
+            }
+        },
+        "slug": "rituel-homme-force-calme",
+        "media": {
+            "hero": "santis_card_skincare_v1.webp"
+        },
+        "tags": []
+    }
+]

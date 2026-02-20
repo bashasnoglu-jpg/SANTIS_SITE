@@ -1,0 +1,1733 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-02-15",
+    "description": "Multi-language service translations for Build Pipeline"
+  },
+  "kese-kopuk": {
+    "title": {
+      "tr": "Geleneksel Kese & Köpük",
+      "en": "Traditional Body Scrub & Foam",
+      "de": "Traditionelles Körperpeeling & Schaum",
+      "fr": "Gommage corporel & mousse traditionnels",
+      "ru": "Традиционный пилинг и пена"
+    },
+    "desc": {
+      "tr": "Klasik hamam deneyimi; kese ile derin arınma, ardından yoğun köpük masajı.",
+      "en": "Classic hammam experience; deep cleansing with exfoliation mitt, followed by rich foam massage.",
+      "de": "Klassisches Hammam-Erlebnis; Tiefenreinigung mit Peeling-Handschuh, gefolgt von reichhaltiger Schaummassage.",
+      "fr": "Expérience hammam classique ; nettoyage en profondeur au gant de gommage, suivi d'un massage à la mousse riche.",
+      "ru": "Классический опыт хаммама; глубокое очищение рукавицей, затем массаж густой пеной."
+    },
+    "benefits": {
+      "en": [
+        "Deep pore cleansing",
+        "Dead skin cell removal",
+        "Improved blood circulation",
+        "Skin softening and renewal"
+      ],
+      "de": [
+        "Tiefe Porenreinigung",
+        "Entfernung abgestorbener Hautzellen",
+        "Verbesserte Durchblutung",
+        "Hauterweichung und -erneuerung"
+      ],
+      "fr": [
+        "Nettoyage en profondeur des pores",
+        "Élimination des cellules mortes",
+        "Amélioration de la circulation sanguine",
+        "Adoucissement et renouvellement de la peau"
+      ],
+      "ru": [
+        "Глубокое очищение пор",
+        "Удаление мёртвых клеток кожи",
+        "Улучшение кровообращения",
+        "Смягчение и обновление кожи"
+      ]
+    }
+  },
+  "kopuk-masaji": {
+    "title": {
+      "tr": "Köpük Masajı",
+      "en": "Foam Massage",
+      "de": "Schaummassage",
+      "fr": "Massage à la mousse",
+      "ru": "Пенный массаж"
+    },
+    "desc": {
+      "tr": "Yoğun, kadifemsi köpükle yapılan rahatlatıcı masaj deneyimi.",
+      "en": "Relaxing massage experience with dense, velvety foam.",
+      "de": "Entspannende Massageerfahrung mit dichtem, samtigem Schaum.",
+      "fr": "Expérience de massage relaxante avec une mousse dense et veloutée.",
+      "ru": "Расслабляющий массаж густой бархатистой пеной."
+    },
+    "benefits": {
+      "en": [
+        "Deep relaxation",
+        "Skin moisturizing",
+        "Stress relief",
+        "Improved circulation"
+      ],
+      "de": [
+        "Tiefenentspannung",
+        "Hautbefeuchtung",
+        "Stressabbau",
+        "Verbesserte Durchblutung"
+      ],
+      "fr": [
+        "Relaxation profonde",
+        "Hydratation de la peau",
+        "Soulagement du stress",
+        "Circulation améliorée"
+      ],
+      "ru": [
+        "Глубокое расслабление",
+        "Увлажнение кожи",
+        "Снятие стресса",
+        "Улучшение кровообращения"
+      ]
+    }
+  },
+  "tuz-peeling": {
+    "title": {
+      "tr": "Tuz Peeling",
+      "en": "Salt Scrub Exfoliation",
+      "de": "Salzpeeling",
+      "fr": "Gommage au sel",
+      "ru": "Солевой пилинг"
+    },
+    "desc": {
+      "tr": "Deniz tuzu ile derin arınma ve cilt yenilenmesi.",
+      "en": "Deep cleansing and skin renewal with sea salt.",
+      "de": "Tiefenreinigung und Hauterneuerung mit Meersalz.",
+      "fr": "Nettoyage en profondeur et renouvellement de la peau au sel marin.",
+      "ru": "Глубокое очищение и обновление кожи морской солью."
+    },
+    "benefits": {
+      "en": [
+        "Intense exfoliation",
+        "Mineral nourishment",
+        "Skin detoxification",
+        "Silky smooth texture"
+      ],
+      "de": [
+        "Intensives Peeling",
+        "Mineralische Nährstoffe",
+        "Hautentgiftung",
+        "Seidig glatte Textur"
+      ],
+      "fr": [
+        "Exfoliation intense",
+        "Nourriture minérale",
+        "Détoxification de la peau",
+        "Texture soyeuse et lisse"
+      ],
+      "ru": [
+        "Интенсивное отшелушивание",
+        "Минеральное питание",
+        "Детоксикация кожи",
+        "Шелковистая гладкость"
+      ]
+    }
+  },
+  "kahve-detox": {
+    "title": {
+      "tr": "Kahve Detox",
+      "en": "Coffee Detox Ritual",
+      "de": "Kaffee-Detox-Ritual",
+      "fr": "Rituel détox au café",
+      "ru": "Кофейный детокс-ритуал"
+    },
+    "desc": {
+      "tr": "Kahve peelingi ile detoks ve cilt sıkılaştırma ritüeli.",
+      "en": "Detox and skin firming ritual with coffee scrub.",
+      "de": "Detox- und Hautstraffungsritual mit Kaffee-Peeling.",
+      "fr": "Rituel détox et raffermissant au gommage au café.",
+      "ru": "Детокс и ритуал укрепления кожи с кофейным скрабом."
+    },
+    "benefits": {
+      "en": [
+        "Cellulite reduction",
+        "Skin tightening",
+        "Antioxidant boost",
+        "Energizing effect"
+      ],
+      "de": [
+        "Cellulite-Reduktion",
+        "Hautstraffung",
+        "Antioxidantien-Boost",
+        "Energetisierende Wirkung"
+      ],
+      "fr": [
+        "Réduction de la cellulite",
+        "Raffermissement de la peau",
+        "Boost antioxydant",
+        "Effet énergisant"
+      ],
+      "ru": [
+        "Уменьшение целлюлита",
+        "Подтяжка кожи",
+        "Антиоксидантный заряд",
+        "Энергизирующий эффект"
+      ]
+    }
+  },
+  "osmanli-ritueli": {
+    "title": {
+      "tr": "Osmanlı Ritüeli",
+      "en": "Ottoman Royal Ritual",
+      "de": "Osmanisches Königsritual",
+      "fr": "Rituel royal ottoman",
+      "ru": "Османский королевский ритуал"
+    },
+    "desc": {
+      "tr": "Saray geleneğinden esinlenen, kapsamlı hamam deneyimi.",
+      "en": "Comprehensive hammam experience inspired by palace tradition.",
+      "de": "Umfassendes Hammam-Erlebnis inspiriert von der Palaststradition.",
+      "fr": "Expérience hammam complète inspirée de la tradition du palais.",
+      "ru": "Комплексный хаммам-ритуал, вдохновлённый дворцовой традицией."
+    },
+    "benefits": {
+      "en": [
+        "Full body purification",
+        "Royal treatment experience",
+        "Deep muscle relaxation",
+        "Skin rejuvenation"
+      ],
+      "de": [
+        "Ganzkörperreinigung",
+        "Königliches Behandlungserlebnis",
+        "Tiefe Muskelentspannung",
+        "Hautverjüngung"
+      ],
+      "fr": [
+        "Purification complète du corps",
+        "Expérience de soin royal",
+        "Relaxation musculaire profonde",
+        "Rajeunissement de la peau"
+      ],
+      "ru": [
+        "Полное очищение тела",
+        "Королевский уход",
+        "Глубокое расслабление мышц",
+        "Омоложение кожи"
+      ]
+    }
+  },
+  "santis-pasa": {
+    "title": {
+      "tr": "Santis Paşa Ritüeli",
+      "en": "Santis Pasha Ritual",
+      "de": "Santis Pascha-Ritual",
+      "fr": "Rituel Santis Pacha",
+      "ru": "Ритуал Santis Паша"
+    },
+    "desc": {
+      "tr": "Santis Club'un en kapsamlı premium hamam deneyimi.",
+      "en": "The most comprehensive premium hammam experience at Santis Club.",
+      "de": "Das umfassendste Premium-Hammam-Erlebnis im Santis Club.",
+      "fr": "L'expérience hammam premium la plus complète du Santis Club.",
+      "ru": "Самый полный премиальный хаммам-ритуал в Santis Club."
+    },
+    "benefits": {
+      "en": [
+        "VIP treatment",
+        "Extended duration",
+        "Premium products",
+        "Complete body renewal"
+      ],
+      "de": [
+        "VIP-Behandlung",
+        "Verlängerte Dauer",
+        "Premium-Produkte",
+        "Komplette Körpererneuerung"
+      ],
+      "fr": [
+        "Soin VIP",
+        "Durée prolongée",
+        "Produits premium",
+        "Renouvellement complet du corps"
+      ],
+      "ru": [
+        "VIP-уход",
+        "Увеличенная продолжительность",
+        "Премиальные продукты",
+        "Полное обновление тела"
+      ]
+    }
+  },
+  "gelin-hamami": {
+    "title": {
+      "tr": "Gelin Hamamı",
+      "en": "Bridal Hammam Ceremony",
+      "de": "Braut-Hammam-Zeremonie",
+      "fr": "Cérémonie hammam de la mariée",
+      "ru": "Свадебная церемония хаммама"
+    },
+    "desc": {
+      "tr": "Geleneksel gelin hamamı ritüeli; arınma, güzellik ve kutlama.",
+      "en": "Traditional bridal hammam ritual; purification, beauty and celebration.",
+      "de": "Traditionelles Braut-Hammam-Ritual; Reinigung, Schönheit und Feier.",
+      "fr": "Rituel hammam nuptial traditionnel ; purification, beauté et célébration.",
+      "ru": "Традиционный свадебный ритуал хаммама; очищение, красота и празднование."
+    },
+    "benefits": {
+      "en": [
+        "Bridal skin preparation",
+        "Deep cleansing ritual",
+        "Celebration atmosphere",
+        "Full body glow"
+      ],
+      "de": [
+        "Hautvorbereitung für die Braut",
+        "Tiefenreinigungsritual",
+        "Festliche Atmosphäre",
+        "Ganzkörper-Glow"
+      ],
+      "fr": [
+        "Préparation de la peau de la mariée",
+        "Rituel de nettoyage profond",
+        "Atmosphère de fête",
+        "Éclat du corps entier"
+      ],
+      "ru": [
+        "Подготовка кожи невесты",
+        "Ритуал глубокого очищения",
+        "Праздничная атмосфера",
+        "Сияние всего тела"
+      ]
+    }
+  },
+  "klasik-rahatlama": {
+    "title": {
+      "tr": "Klasik Rahatlama Masajı",
+      "en": "Classic Relaxation Massage",
+      "de": "Klassische Entspannungsmassage",
+      "fr": "Massage relaxant classique",
+      "ru": "Классический расслабляющий массаж"
+    },
+    "desc": {
+      "tr": "İsveç tekniğiyle uygulanan, kasları gevşeten orta baskılı terapi.",
+      "en": "Medium-pressure therapy using Swedish technique to release muscle tension.",
+      "de": "Mitteldrucktherapie mit schwedischer Technik zur Lösung von Muskelverspannungen.",
+      "fr": "Thérapie à pression moyenne avec technique suédoise pour relâcher les tensions musculaires.",
+      "ru": "Терапия средним давлением по шведской методике для снятия мышечного напряжения."
+    },
+    "longDesc": {
+      "en": "Long, flowing strokes provide total body relaxation. Effleurage, petrissage and friction techniques release muscle fibres. Blood circulation accelerates and stress hormones decrease.",
+      "de": "Lange, fließende Bewegungen sorgen für eine Ganzkörperentspannung. Effleurage-, Petrissage- und Friktionstechniken lösen Muskelfasern. Die Durchblutung wird beschleunigt und Stresshormone sinken.",
+      "fr": "De longs mouvements fluides procurent une relaxation totale du corps. Les techniques d'effleurage, pétrissage et friction libèrent les fibres musculaires. La circulation sanguine s'accélère et les hormones de stress diminuent.",
+      "ru": "Длинные плавные движения обеспечивают полное расслабление тела. Техники эфлёража, петриссажа и фрикции расслабляют мышечные волокна. Кровообращение ускоряется, уровень гормонов стресса снижается."
+    },
+    "benefits": {
+      "en": [
+        "Reduces muscle tension",
+        "Accelerates blood circulation",
+        "Lowers stress hormones",
+        "Improves sleep quality"
+      ],
+      "de": [
+        "Reduziert Muskelverspannungen",
+        "Beschleunigt die Durchblutung",
+        "Senkt Stresshormone",
+        "Verbessert die Schlafqualität"
+      ],
+      "fr": [
+        "Réduit les tensions musculaires",
+        "Accélère la circulation sanguine",
+        "Diminue les hormones du stress",
+        "Améliore la qualité du sommeil"
+      ],
+      "ru": [
+        "Снимает мышечное напряжение",
+        "Ускоряет кровообращение",
+        "Снижает гормоны стресса",
+        "Улучшает качество сна"
+      ]
+    }
+  },
+  "anti-stress": {
+    "title": {
+      "tr": "Anti-Stress Masajı",
+      "en": "Anti-Stress Massage",
+      "de": "Anti-Stress-Massage",
+      "fr": "Massage anti-stress",
+      "ru": "Антистресс-массаж"
+    },
+    "desc": {
+      "tr": "Modern yaşamın gerilimini hedefleyen, zihin-beden dengesini yeniden kuran rahatlatıcı terapi.",
+      "en": "Relaxing therapy targeting modern life tensions, restoring mind-body balance.",
+      "de": "Entspannende Therapie gegen Spannungen des modernen Lebens, stellt das Gleichgewicht von Körper und Geist wieder her.",
+      "fr": "Thérapie relaxante ciblant les tensions de la vie moderne, rétablissant l'équilibre corps-esprit.",
+      "ru": "Расслабляющая терапия, нацеленная на снятие напряжённости современной жизни, восстанавливающая баланс тела и разума."
+    },
+    "benefits": {
+      "en": [
+        "Lowers cortisol levels",
+        "Increases endorphin release",
+        "Mental clarity",
+        "Emotional balance"
+      ],
+      "de": [
+        "Senkt den Cortisolspiegel",
+        "Steigert die Endorphinausschüttung",
+        "Geistige Klarheit",
+        "Emotionales Gleichgewicht"
+      ],
+      "fr": [
+        "Diminue le cortisol",
+        "Augmente la libération d'endorphines",
+        "Clarté mentale",
+        "Équilibre émotionnel"
+      ],
+      "ru": [
+        "Снижает уровень кортизола",
+        "Увеличивает выработку эндорфинов",
+        "Ясность мышления",
+        "Эмоциональный баланс"
+      ]
+    }
+  },
+  "aromaterapi": {
+    "title": {
+      "tr": "Aromaterapi Masajı",
+      "en": "Aromatherapy Massage",
+      "de": "Aromatherapie-Massage",
+      "fr": "Massage aromathérapie",
+      "ru": "Ароматерапевтический массаж"
+    },
+    "desc": {
+      "tr": "Doğal uçucu yağlarla yapılan, duyuları dengeleyen ve derin rahatlama sağlayan ritüel.",
+      "en": "A ritual with natural essential oils, balancing the senses and providing deep relaxation.",
+      "de": "Ein Ritual mit natürlichen ätherischen Ölen, das die Sinne ausgleicht und tiefe Entspannung bietet.",
+      "fr": "Un rituel aux huiles essentielles naturelles, équilibrant les sens et offrant une relaxation profonde.",
+      "ru": "Ритуал с натуральными эфирными маслами, балансирующий чувства и дарящий глубокое расслабление."
+    },
+    "longDesc": {
+      "en": "Massage has been used for centuries for relaxation and pain relief. In aromatherapy massage, the relaxing effect is enhanced with pleasant scents. Stress and muscle tension are resolved through inhalation and skin absorption of essential oils.",
+      "de": "Massage wird seit Jahrhunderten zur Entspannung und Schmerzlinderung eingesetzt. Bei der Aromatherapie-Massage wird die entspannende Wirkung durch angenehme Düfte verstärkt. Stress und Muskelverspannungen werden durch das Einatmen und die Aufnahme ätherischer Öle über die Haut gelöst.",
+      "fr": "Le massage est utilisé depuis des siècles pour la relaxation et le soulagement de la douleur. En massage aromathérapie, l'effet relaxant est amplifié par des fragrances agréables. Le stress et les tensions musculaires se dissipent par l'inhalation et l'absorption cutanée des huiles essentielles.",
+      "ru": "Массаж используется веками для расслабления и снятия боли. В ароматерапевтическом массаже расслабляющий эффект усиливается приятными ароматами. Стресс и мышечное напряжение снимаются через вдыхание и впитывание кожей эфирных масел."
+    },
+    "benefits": {
+      "en": [
+        "Mental calm",
+        "Sensory balance",
+        "Headache relief",
+        "Deep sleep support"
+      ],
+      "de": [
+        "Geistige Ruhe",
+        "Sensorisches Gleichgewicht",
+        "Kopfschmerzlinderung",
+        "Tiefschlafunterstützung"
+      ],
+      "fr": [
+        "Calme mental",
+        "Équilibre sensoriel",
+        "Soulagement des maux de tête",
+        "Soutien du sommeil profond"
+      ],
+      "ru": [
+        "Умственное спокойствие",
+        "Сенсорный баланс",
+        "Облегчение головной боли",
+        "Поддержка глубокого сна"
+      ]
+    },
+    "process_steps": {
+      "tr": [
+        {
+          "title": "Ön Görüşme",
+          "text": "Terapistiniz, kişisel sağlık durumunuzu ve tercihlerinizi değerlendirir."
+        },
+        {
+          "title": "Ortam Hazırlığı",
+          "text": "Terapi odası, tercih edeceğiniz ışık ve müzik eşliğinde hazırlanır."
+        },
+        {
+          "title": "Uygulama",
+          "text": "Profesyonel tekniklerle, odak bölgelerinize yönelik terapi uygulanır."
+        },
+        {
+          "title": "Tamamlama",
+          "text": "Bitkisel çay eşliğinde rahatlama ve terapist önerileri."
+        }
+      ],
+      "en": [
+        {
+          "title": "Consultation",
+          "text": "Your therapist evaluates your personal health condition and preferences."
+        },
+        {
+          "title": "Room Preparation",
+          "text": "The therapy room is prepared with your preferred lighting and music."
+        },
+        {
+          "title": "Treatment",
+          "text": "Professional techniques are applied targeting your focus areas."
+        },
+        {
+          "title": "Completion",
+          "text": "Relaxation with herbal tea and therapist recommendations."
+        }
+      ],
+      "de": [
+        {
+          "title": "Beratung",
+          "text": "Ihr Therapeut bewertet Ihren persönlichen Gesundheitszustand und Ihre Wünsche."
+        },
+        {
+          "title": "Raumvorbereitung",
+          "text": "Der Therapieraum wird mit Ihrer bevorzugten Beleuchtung und Musik vorbereitet."
+        },
+        {
+          "title": "Behandlung",
+          "text": "Professionelle Techniken werden gezielt auf Ihre Schwerpunktbereiche angewendet."
+        },
+        {
+          "title": "Abschluss",
+          "text": "Entspannung mit Kräutertee und Therapeutenempfehlungen."
+        }
+      ],
+      "fr": [
+        {
+          "title": "Consultation",
+          "text": "Votre thérapeute évalue votre état de santé personnel et vos préférences."
+        },
+        {
+          "title": "Préparation",
+          "text": "La salle de soin est préparée avec l'éclairage et la musique de votre choix."
+        },
+        {
+          "title": "Soin",
+          "text": "Des techniques professionnelles sont appliquées sur vos zones ciblées."
+        },
+        {
+          "title": "Conclusion",
+          "text": "Relaxation avec tisane et recommandations du thérapeute."
+        }
+      ],
+      "ru": [
+        {
+          "title": "Консультация",
+          "text": "Ваш терапевт оценивает ваше состояние здоровья и предпочтения."
+        },
+        {
+          "title": "Подготовка",
+          "text": "Комната для процедур готовится с выбранным вами освещением и музыкой."
+        },
+        {
+          "title": "Процедура",
+          "text": "Профессиональные техники применяются на ваших целевых зонах."
+        },
+        {
+          "title": "Завершение",
+          "text": "Расслабление с травяным чаем и рекомендации терапевта."
+        }
+      ]
+    }
+  },
+  "sicak-tas": {
+    "title": {
+      "tr": "Sıcak Taş Masajı",
+      "en": "Hot Stone Massage",
+      "de": "Heißsteinmassage",
+      "fr": "Massage aux pierres chaudes",
+      "ru": "Массаж горячими камнями"
+    },
+    "desc": {
+      "tr": "Volkanik bazalt taşları ile derin ısı terapisi ve kas gevşetme.",
+      "en": "Deep heat therapy and muscle relaxation with volcanic basalt stones.",
+      "de": "Tiefenwärmetherapie und Muskelentspannung mit vulkanischen Basaltsteinen.",
+      "fr": "Thérapie par chaleur profonde et relaxation musculaire avec des pierres de basalte volcanique.",
+      "ru": "Глубокая теплотерапия и расслабление мышц вулканическими базальтовыми камнями."
+    },
+    "benefits": {
+      "en": [
+        "Deep muscle relaxation",
+        "Improved circulation",
+        "Chronic pain relief",
+        "Mental calm"
+      ],
+      "de": [
+        "Tiefe Muskelentspannung",
+        "Verbesserte Durchblutung",
+        "Linderung chronischer Schmerzen",
+        "Geistige Ruhe"
+      ],
+      "fr": [
+        "Relaxation musculaire profonde",
+        "Circulation améliorée",
+        "Soulagement de la douleur chronique",
+        "Calme mental"
+      ],
+      "ru": [
+        "Глубокое расслабление мышц",
+        "Улучшение кровообращения",
+        "Облегчение хронической боли",
+        "Душевное спокойствие"
+      ]
+    }
+  },
+  "klasik-sirt": {
+    "title": {
+      "tr": "Klasik Sırt Masajı",
+      "en": "Classic Back Massage",
+      "de": "Klassische Rückenmassage",
+      "fr": "Massage classique du dos",
+      "ru": "Классический массаж спины"
+    },
+    "desc": {
+      "tr": "Sırt, bel ve omuz bölgesine odaklanan rahatlatıcı terapi.",
+      "en": "Relaxing therapy focusing on back, lower back and shoulder area.",
+      "de": "Entspannende Therapie mit Fokus auf Rücken, Lendenwirbel und Schulterbereich.",
+      "fr": "Thérapie relaxante ciblant le dos, les lombaires et les épaules.",
+      "ru": "Расслабляющая терапия с акцентом на спину, поясницу и плечи."
+    },
+    "benefits": {
+      "en": [
+        "Targeted back relief",
+        "Posture improvement",
+        "Tension release",
+        "Quick recovery"
+      ],
+      "de": [
+        "Gezielte Rückenentlastung",
+        "Haltungsverbesserung",
+        "Verspannungslösung",
+        "Schnelle Erholung"
+      ],
+      "fr": [
+        "Soulagement ciblé du dos",
+        "Amélioration de la posture",
+        "Relâchement des tensions",
+        "Récupération rapide"
+      ],
+      "ru": [
+        "Целевое облегчение спины",
+        "Улучшение осанки",
+        "Снятие напряжения",
+        "Быстрое восстановление"
+      ]
+    }
+  },
+  "bas-boyun-omuz": {
+    "title": {
+      "tr": "Baş, Boyun & Omuz Masajı",
+      "en": "Head, Neck & Shoulder Massage",
+      "de": "Kopf-, Nacken- & Schultermassage",
+      "fr": "Massage tête, nuque & épaules",
+      "ru": "Массаж головы, шеи и плеч"
+    },
+    "desc": {
+      "tr": "Üst vücut gerilimini çözen, baş ağrısına iyi gelen odaklı terapi.",
+      "en": "Focused therapy relieving upper body tension and headaches.",
+      "de": "Fokussierte Therapie zur Linderung von Oberkörperverspannungen und Kopfschmerzen.",
+      "fr": "Thérapie ciblée soulageant les tensions du haut du corps et les maux de tête.",
+      "ru": "Целевая терапия, снимающая напряжение верхней части тела и головную боль."
+    },
+    "benefits": {
+      "en": [
+        "Migraine relief",
+        "Neck tension release",
+        "Eye fatigue reduction",
+        "Improved concentration"
+      ],
+      "de": [
+        "Migränelinderung",
+        "Nackenverspannungslösung",
+        "Augenermüdungsreduzierung",
+        "Verbesserte Konzentration"
+      ],
+      "fr": [
+        "Soulagement de la migraine",
+        "Relâchement des tensions cervicales",
+        "Réduction de la fatigue oculaire",
+        "Concentration améliorée"
+      ],
+      "ru": [
+        "Облегчение мигрени",
+        "Снятие напряжения шеи",
+        "Уменьшение усталости глаз",
+        "Улучшение концентрации"
+      ]
+    }
+  },
+  "isvec-full-body": {
+    "title": {
+      "tr": "İsveç Full Body Masajı",
+      "en": "Swedish Full Body Massage",
+      "de": "Schwedische Ganzkörpermassage",
+      "fr": "Massage suédois corps entier",
+      "ru": "Шведский массаж всего тела"
+    },
+    "desc": {
+      "tr": "Tüm vücudu kapsayan, İsveç tekniğiyle rahatlatma.",
+      "en": "Full body relaxation with Swedish technique.",
+      "de": "Ganzkörperentspannung mit schwedischer Technik.",
+      "fr": "Relaxation du corps entier avec technique suédoise.",
+      "ru": "Расслабление всего тела по шведской методике."
+    },
+    "benefits": {
+      "en": [
+        "Full body relaxation",
+        "Circulation boost",
+        "Flexibility improvement",
+        "Overall wellness"
+      ],
+      "de": [
+        "Ganzkörperentspannung",
+        "Durchblutungsförderung",
+        "Flexibilitätsverbesserung",
+        "Allgemeines Wohlbefinden"
+      ],
+      "fr": [
+        "Relaxation du corps entier",
+        "Stimulation de la circulation",
+        "Amélioration de la souplesse",
+        "Bien-être général"
+      ],
+      "ru": [
+        "Расслабление всего тела",
+        "Стимуляция кровообращения",
+        "Улучшение гибкости",
+        "Общее оздоровление"
+      ]
+    }
+  },
+  "refleksoloji": {
+    "title": {
+      "tr": "Refleksoloji",
+      "en": "Reflexology",
+      "de": "Reflexologie",
+      "fr": "Réflexologie",
+      "ru": "Рефлексология"
+    },
+    "desc": {
+      "tr": "Ayak tabanındaki refleks noktalarına basınç uygulayarak tüm vücudu dengeleyen terapi.",
+      "en": "Therapy balancing the whole body by applying pressure to reflex points on the feet.",
+      "de": "Therapie, die den ganzen Körper durch Druck auf Reflexzonen der Füße ausgleicht.",
+      "fr": "Thérapie équilibrant tout le corps par pression sur les zones réflexes des pieds.",
+      "ru": "Терапия, балансирующая всё тело через давление на рефлексные точки стоп."
+    },
+    "benefits": {
+      "en": [
+        "Organ function balance",
+        "Stress reduction",
+        "Improved sleep",
+        "Natural healing support"
+      ],
+      "de": [
+        "Organfunktionsbalance",
+        "Stressabbau",
+        "Verbesserter Schlaf",
+        "Natürliche Heilungsunterstützung"
+      ],
+      "fr": [
+        "Équilibre des fonctions organiques",
+        "Réduction du stress",
+        "Sommeil amélioré",
+        "Soutien de la guérison naturelle"
+      ],
+      "ru": [
+        "Баланс функций органов",
+        "Снижение стресса",
+        "Улучшение сна",
+        "Поддержка естественного исцеления"
+      ]
+    }
+  },
+  "lenf-drenaj": {
+    "title": {
+      "tr": "Lenf Drenaj Masajı",
+      "en": "Lymphatic Drainage Massage",
+      "de": "Lymphdrainage-Massage",
+      "fr": "Massage drainage lymphatique",
+      "ru": "Лимфодренажный массаж"
+    },
+    "desc": {
+      "tr": "Lenf dolaşımını hızlandıran, ödem giderici hafif basınçlı terapi.",
+      "en": "Light-pressure therapy accelerating lymph circulation and reducing edema.",
+      "de": "Leichtdrucktherapie zur Beschleunigung des Lymphkreislaufs und Ödemreduzierung.",
+      "fr": "Thérapie à pression légère accélérant la circulation lymphatique et réduisant les œdèmes.",
+      "ru": "Терапия лёгким давлением для ускорения лимфотока и снятия отёков."
+    },
+    "benefits": {
+      "en": [
+        "Edema reduction",
+        "Immune system boost",
+        "Detoxification",
+        "Post-surgery recovery"
+      ],
+      "de": [
+        "Ödemreduzierung",
+        "Immunsystem-Stärkung",
+        "Entgiftung",
+        "Post-OP-Erholung"
+      ],
+      "fr": [
+        "Réduction des œdèmes",
+        "Stimulation immunitaire",
+        "Détoxification",
+        "Récupération post-opératoire"
+      ],
+      "ru": [
+        "Снятие отёков",
+        "Укрепление иммунитета",
+        "Детоксикация",
+        "Восстановление после операций"
+      ]
+    }
+  },
+  "anti-selulit": {
+    "title": {
+      "tr": "Anti-Selülit Masajı",
+      "en": "Anti-Cellulite Massage",
+      "de": "Anti-Cellulite-Massage",
+      "fr": "Massage anti-cellulite",
+      "ru": "Антицеллюлитный массаж"
+    },
+    "desc": {
+      "tr": "Selülit görünümünü azaltan, cilt altı dolaşımı hızlandıran yoğun terapi.",
+      "en": "Intensive therapy reducing cellulite appearance and boosting subcutaneous circulation.",
+      "de": "Intensive Therapie zur Reduzierung von Cellulite und Förderung der subkutanen Durchblutung.",
+      "fr": "Thérapie intensive réduisant l'apparence de la cellulite et stimulant la circulation sous-cutanée.",
+      "ru": "Интенсивная терапия, уменьшающая проявления целлюлита и стимулирующая подкожное кровообращение."
+    },
+    "benefits": {
+      "en": [
+        "Cellulite reduction",
+        "Skin smoothing",
+        "Fat metabolism boost",
+        "Body contouring"
+      ],
+      "de": [
+        "Cellulite-Reduktion",
+        "Hautglättung",
+        "Fettstoffwechsel-Anregung",
+        "Körperkonturierung"
+      ],
+      "fr": [
+        "Réduction de la cellulite",
+        "Lissage de la peau",
+        "Stimulation du métabolisme des graisses",
+        "Sculpture du corps"
+      ],
+      "ru": [
+        "Уменьшение целлюлита",
+        "Разглаживание кожи",
+        "Ускорение жирового обмена",
+        "Моделирование тела"
+      ]
+    }
+  },
+  "shiatsu": {
+    "title": {
+      "tr": "Shiatsu Masajı",
+      "en": "Shiatsu Massage",
+      "de": "Shiatsu-Massage",
+      "fr": "Massage shiatsu",
+      "ru": "Массаж шиацу"
+    },
+    "desc": {
+      "tr": "Japon parmak basınçlı teknikleriyle enerji meridyenlerini dengeleyen terapi.",
+      "en": "Japanese finger-pressure therapy balancing energy meridians.",
+      "de": "Japanische Fingerdrucktherapie zum Ausgleich der Energiemeridiane.",
+      "fr": "Thérapie japonaise par pression des doigts équilibrant les méridiens énergétiques.",
+      "ru": "Японская терапия пальцевым давлением для балансировки энергетических меридианов."
+    },
+    "benefits": {
+      "en": [
+        "Energy flow balance",
+        "Joint flexibility",
+        "Deep relaxation",
+        "Stress relief"
+      ],
+      "de": [
+        "Energiefluss-Balance",
+        "Gelenkflexibilität",
+        "Tiefenentspannung",
+        "Stressabbau"
+      ],
+      "fr": [
+        "Équilibre du flux énergétique",
+        "Souplesse articulaire",
+        "Relaxation profonde",
+        "Soulagement du stress"
+      ],
+      "ru": [
+        "Баланс энергетического потока",
+        "Гибкость суставов",
+        "Глубокое расслабление",
+        "Снятие стресса"
+      ]
+    }
+  },
+  "thai": {
+    "title": {
+      "tr": "Thai Masajı",
+      "en": "Thai Massage",
+      "de": "Thai-Massage",
+      "fr": "Massage thaï",
+      "ru": "Тайский массаж"
+    },
+    "desc": {
+      "tr": "Gerilme, basınç ve yoga benzeri pozisyonlarla uygulanan geleneksel Tayland masajı.",
+      "en": "Traditional Thai massage with stretching, pressure and yoga-like postures.",
+      "de": "Traditionelle Thai-Massage mit Dehnungen, Druck und yogaähnlichen Haltungen.",
+      "fr": "Massage thaï traditionnel avec étirements, pressions et postures de type yoga.",
+      "ru": "Традиционный тайский массаж с растяжкой, давлением и позами, подобными йоге."
+    },
+    "benefits": {
+      "en": [
+        "Increased flexibility",
+        "Energy enhancement",
+        "Full body stretching",
+        "Stress elimination"
+      ],
+      "de": [
+        "Erhöhte Flexibilität",
+        "Energiesteigerung",
+        "Ganzkörperdehnung",
+        "Stressbeseitigung"
+      ],
+      "fr": [
+        "Souplesse accrue",
+        "Recharge énergétique",
+        "Étirement du corps entier",
+        "Élimination du stress"
+      ],
+      "ru": [
+        "Повышение гибкости",
+        "Прилив энергии",
+        "Растяжка всего тела",
+        "Устранение стресса"
+      ]
+    }
+  },
+  "bali": {
+    "title": {
+      "tr": "Bali Masajı",
+      "en": "Balinese Massage",
+      "de": "Balinesische Massage",
+      "fr": "Massage balinais",
+      "ru": "Балийский массаж"
+    },
+    "desc": {
+      "tr": "Endonezya'nın geleneksel akupresür ve aromaterapi kombinasyonu.",
+      "en": "Traditional Indonesian combination of acupressure and aromatherapy.",
+      "de": "Traditionelle indonesische Kombination aus Akupressur und Aromatherapie.",
+      "fr": "Combinaison indonésienne traditionnelle d'acupression et d'aromathérapie.",
+      "ru": "Традиционная индонезийская комбинация акупрессуры и ароматерапии."
+    },
+    "benefits": {
+      "en": [
+        "Deep tissue work",
+        "Aromatic healing",
+        "Flexibility boost",
+        "Total relaxation"
+      ],
+      "de": [
+        "Tiefengewebsarbeit",
+        "Aromatische Heilung",
+        "Flexibilitätssteigerung",
+        "Totale Entspannung"
+      ],
+      "fr": [
+        "Travail en profondeur",
+        "Guérison aromatique",
+        "Souplesse améliorée",
+        "Relaxation totale"
+      ],
+      "ru": [
+        "Глубокая проработка тканей",
+        "Ароматическое исцеление",
+        "Улучшение гибкости",
+        "Полное расслабление"
+      ]
+    }
+  },
+  "derin-doku": {
+    "title": {
+      "tr": "Derin Doku Masajı",
+      "en": "Deep Tissue Massage",
+      "de": "Tiefengewebsmassage",
+      "fr": "Massage des tissus profonds",
+      "ru": "Глубокотканевый массаж"
+    },
+    "desc": {
+      "tr": "Derin kas katmanlarını hedefleyen yoğun basınçlı terapi.",
+      "en": "Intensive pressure therapy targeting deep muscle layers.",
+      "de": "Intensive Drucktherapie für tiefe Muskelschichten.",
+      "fr": "Thérapie intensive par pression ciblant les couches musculaires profondes.",
+      "ru": "Интенсивная терапия давлением, нацеленная на глубокие мышечные слои."
+    },
+    "benefits": {
+      "en": [
+        "Chronic pain relief",
+        "Muscle knot release",
+        "Posture correction",
+        "Athletic recovery"
+      ],
+      "de": [
+        "Linderung chronischer Schmerzen",
+        "Lösung von Muskelverhärtungen",
+        "Haltungskorrektur",
+        "Sportliche Erholung"
+      ],
+      "fr": [
+        "Soulagement douleurs chroniques",
+        "Dénouer les nœuds musculaires",
+        "Correction posturale",
+        "Récupération sportive"
+      ],
+      "ru": [
+        "Облегчение хронической боли",
+        "Устранение мышечных узлов",
+        "Коррекция осанки",
+        "Спортивное восстановление"
+      ]
+    }
+  },
+  "spor-terapi": {
+    "title": {
+      "tr": "Spor Masajı",
+      "en": "Sports Massage",
+      "de": "Sportmassage",
+      "fr": "Massage sportif",
+      "ru": "Спортивный массаж"
+    },
+    "desc": {
+      "tr": "Sporculara yönelik, performansı artıran ve toparlanmayı hızlandıran terapi.",
+      "en": "Athlete-focused therapy enhancing performance and accelerating recovery.",
+      "de": "Sportlerorientierte Therapie zur Leistungssteigerung und beschleunigten Erholung.",
+      "fr": "Thérapie orientée athlète améliorant la performance et accélérant la récupération.",
+      "ru": "Терапия для спортсменов, повышающая результативность и ускоряющая восстановление."
+    },
+    "benefits": {
+      "en": [
+        "Performance enhancement",
+        "Injury prevention",
+        "Fast recovery",
+        "Flexibility increase"
+      ],
+      "de": [
+        "Leistungssteigerung",
+        "Verletzungsprävention",
+        "Schnelle Erholung",
+        "Flexibilitätssteigerung"
+      ],
+      "fr": [
+        "Amélioration des performances",
+        "Prévention des blessures",
+        "Récupération rapide",
+        "Souplesse accrue"
+      ],
+      "ru": [
+        "Повышение результативности",
+        "Профилактика травм",
+        "Быстрое восстановление",
+        "Увеличение гибкости"
+      ]
+    }
+  },
+  "sirt-terapi": {
+    "title": {
+      "tr": "Sırt Terapi Masajı",
+      "en": "Back Therapy Massage",
+      "de": "Rückentherapie-Massage",
+      "fr": "Massage thérapeutique du dos",
+      "ru": "Терапевтический массаж спины"
+    },
+    "desc": {
+      "tr": "Kronik sırt ağrılarını hedefleyen, terapötik derin doku çalışması.",
+      "en": "Therapeutic deep tissue work targeting chronic back pain.",
+      "de": "Therapeutische Tiefengewebsarbeit bei chronischen Rückenschmerzen.",
+      "fr": "Travail thérapeutique des tissus profonds ciblant les douleurs dorsales chroniques.",
+      "ru": "Терапевтическая глубокотканевая работа при хронической боли в спине."
+    },
+    "benefits": {
+      "en": [
+        "Chronic pain management",
+        "Spinal alignment",
+        "Sciatica relief",
+        "Mobility restoration"
+      ],
+      "de": [
+        "Chronische Schmerzbehandlung",
+        "Wirbelsäulenausrichtung",
+        "Ischiaslinderung",
+        "Mobilitätswiederherstellung"
+      ],
+      "fr": [
+        "Gestion de la douleur chronique",
+        "Alignement vertébral",
+        "Soulagement sciatique",
+        "Restauration mobilité"
+      ],
+      "ru": [
+        "Управление хронической болью",
+        "Выравнивание позвоночника",
+        "Облегчение ишиаса",
+        "Восстановление подвижности"
+      ]
+    }
+  },
+  "tetik-nokta": {
+    "title": {
+      "tr": "Tetik Nokta Terapisi",
+      "en": "Trigger Point Therapy",
+      "de": "Triggerpunkt-Therapie",
+      "fr": "Thérapie des points gâchettes",
+      "ru": "Терапия триггерных точек"
+    },
+    "desc": {
+      "tr": "Kas düğümlerine (tetik nokta) odaklanan, ağrı giderici hassas terapi.",
+      "en": "Precise pain-relief therapy focusing on muscle knots (trigger points).",
+      "de": "Präzise schmerzlindernde Therapie mit Fokus auf Muskelverhärtungen (Triggerpunkte).",
+      "fr": "Thérapie antidouleur précise ciblant les nœuds musculaires (points gâchettes).",
+      "ru": "Точная обезболивающая терапия, нацеленная на мышечные узлы (триггерные точки)."
+    },
+    "benefits": {
+      "en": [
+        "Pinpoint pain relief",
+        "Referred pain resolution",
+        "Range of motion increase",
+        "Chronic tension release"
+      ],
+      "de": [
+        "Gezielte Schmerzlinderung",
+        "Lösung übertragener Schmerzen",
+        "Bewegungsradius-Erweiterung",
+        "Lösung chronischer Verspannungen"
+      ],
+      "fr": [
+        "Soulagement ciblé de la douleur",
+        "Résolution des douleurs référées",
+        "Amplitude de mouvement accrue",
+        "Libération tensions chroniques"
+      ],
+      "ru": [
+        "Точечное обезболивание",
+        "Устранение отражённой боли",
+        "Увеличение амплитуды движений",
+        "Снятие хронического напряжения"
+      ]
+    }
+  },
+  "myofascial-release": {
+    "title": {
+      "tr": "Miyofasyal Gevşetme",
+      "en": "Myofascial Release",
+      "de": "Myofasziale Entspannung",
+      "fr": "Relâchement myofascial",
+      "ru": "Миофасциальный релиз"
+    },
+    "desc": {
+      "tr": "Fasya dokusunu hedefleyen, yapışıklıkları çözen ileri düzey terapi.",
+      "en": "Advanced therapy targeting fascia tissue and releasing adhesions.",
+      "de": "Fortgeschrittene Therapie zur Bearbeitung des Fasziengewebes und Lösung von Verklebungen.",
+      "fr": "Thérapie avancée ciblant le tissu fascial et libérant les adhérences.",
+      "ru": "Продвинутая терапия, нацеленная на фасциальную ткань и устранение спаек."
+    },
+    "benefits": {
+      "en": [
+        "Fascia flexibility",
+        "Pain pattern breaking",
+        "Structural alignment",
+        "Movement freedom"
+      ],
+      "de": [
+        "Faszienflexibilität",
+        "Durchbrechen von Schmerzmustern",
+        "Strukturelle Ausrichtung",
+        "Bewegungsfreiheit"
+      ],
+      "fr": [
+        "Souplesse fasciale",
+        "Rupture des schémas douloureux",
+        "Alignement structurel",
+        "Liberté de mouvement"
+      ],
+      "ru": [
+        "Гибкость фасций",
+        "Разрушение болевых паттернов",
+        "Структурное выравнивание",
+        "Свобода движений"
+      ]
+    }
+  },
+  "kranyo-sakral": {
+    "title": {
+      "tr": "Kranyo-Sakral Terapi",
+      "en": "Craniosacral Therapy",
+      "de": "Kraniosakrale Therapie",
+      "fr": "Thérapie crânio-sacrée",
+      "ru": "Краниосакральная терапия"
+    },
+    "desc": {
+      "tr": "Kafa ve omurga arasındaki serebrospinal sıvı akışını dengeleyen nazik terapi.",
+      "en": "Gentle therapy balancing cerebrospinal fluid flow between skull and spine.",
+      "de": "Sanfte Therapie zum Ausgleich des Liquorflusses zwischen Schädel und Wirbelsäule.",
+      "fr": "Thérapie douce équilibrant le flux du liquide cérébrospinal entre crâne et colonne vertébrale.",
+      "ru": "Мягкая терапия, балансирующая поток спинномозговой жидкости между черепом и позвоночником."
+    },
+    "benefits": {
+      "en": [
+        "Nervous system calming",
+        "Migraine relief",
+        "TMJ improvement",
+        "Deep relaxation"
+      ],
+      "de": [
+        "Beruhigung des Nervensystems",
+        "Migränelinderung",
+        "TMJ-Verbesserung",
+        "Tiefenentspannung"
+      ],
+      "fr": [
+        "Apaisement du système nerveux",
+        "Soulagement des migraines",
+        "Amélioration ATM",
+        "Relaxation profonde"
+      ],
+      "ru": [
+        "Успокоение нервной системы",
+        "Облегчение мигрени",
+        "Улучшение ВНЧС",
+        "Глубокое расслабление"
+      ]
+    }
+  },
+  "signature-rituel": {
+    "title": {
+      "tr": "Signature Ritüel",
+      "en": "Signature Ritual",
+      "de": "Signature-Ritual",
+      "fr": "Rituel signature",
+      "ru": "Фирменный ритуал"
+    },
+    "desc": {
+      "tr": "Santis Club'un imza terapisi; çok teknikli, kişiye özel premium deneyim.",
+      "en": "Santis Club's signature therapy; multi-technique, personalised premium experience.",
+      "de": "Santis Clubs Signature-Therapie; multi-technische, personalisierte Premium-Erfahrung.",
+      "fr": "Thérapie signature du Santis Club ; multi-technique, expérience premium personnalisée.",
+      "ru": "Фирменная терапия Santis Club; мультитехничный, персонализированный премиальный опыт."
+    },
+    "benefits": {
+      "en": [
+        "Personalised treatment",
+        "Multi-technique fusion",
+        "Premium product selection",
+        "Full sensory journey"
+      ],
+      "de": [
+        "Personalisierte Behandlung",
+        "Multi-Technik-Fusion",
+        "Premium-Produktauswahl",
+        "Vollständige Sinnesreise"
+      ],
+      "fr": [
+        "Soin personnalisé",
+        "Fusion multi-technique",
+        "Sélection de produits premium",
+        "Voyage sensoriel complet"
+      ],
+      "ru": [
+        "Персонализированный уход",
+        "Мультитехничная фузия",
+        "Подбор премиальных продуктов",
+        "Полное сенсорное путешествие"
+      ]
+    }
+  },
+  "cift-senkron": {
+    "title": {
+      "tr": "Çift Senkron Masajı",
+      "en": "Couples Synchronised Massage",
+      "de": "Paar-Synchronmassage",
+      "fr": "Massage synchronisé pour couples",
+      "ru": "Синхронный массаж для пар"
+    },
+    "desc": {
+      "tr": "İki terapist eşliğinde, çiftlere özel simultane masaj deneyimi.",
+      "en": "Simultaneous massage experience for couples with two therapists.",
+      "de": "Simultane Massageerfahrung für Paare mit zwei Therapeuten.",
+      "fr": "Expérience de massage simultané pour couples avec deux thérapeutes.",
+      "ru": "Одновременный массаж для пар с двумя терапевтами."
+    },
+    "benefits": {
+      "en": [
+        "Shared relaxation",
+        "Intimate experience",
+        "Personalised intensity",
+        "VIP private room"
+      ],
+      "de": [
+        "Gemeinsame Entspannung",
+        "Intimes Erlebnis",
+        "Personalisierte Intensität",
+        "VIP-Privatraum"
+      ],
+      "fr": [
+        "Relaxation partagée",
+        "Expérience intime",
+        "Intensité personnalisée",
+        "Salle VIP privée"
+      ],
+      "ru": [
+        "Совместное расслабление",
+        "Интимный опыт",
+        "Персональная интенсивность",
+        "VIP-приватная комната"
+      ]
+    }
+  },
+  "cift-rituel": {
+    "title": {
+      "tr": "Çift Ritüel Paketi",
+      "en": "Couples Ritual Package",
+      "de": "Paar-Ritual-Paket",
+      "fr": "Forfait rituel pour couples",
+      "ru": "Ритуал-пакет для пар"
+    },
+    "desc": {
+      "tr": "Hamam + masaj + bakım kombinasyonu; çiftler için kapsamlı wellness paketi.",
+      "en": "Hammam + massage + care combination; comprehensive wellness package for couples.",
+      "de": "Hammam + Massage + Pflege Kombination; umfassendes Wellnesspaket für Paare.",
+      "fr": "Combinaison hammam + massage + soin ; forfait bien-être complet pour couples.",
+      "ru": "Комбинация хаммам + массаж + уход; комплексный велнес-пакет для пар."
+    },
+    "benefits": {
+      "en": [
+        "Complete spa journey",
+        "Multi-treatment value",
+        "Quality time together",
+        "Full-day experience"
+      ],
+      "de": [
+        "Komplettes Spa-Erlebnis",
+        "Multi-Behandlungs-Wert",
+        "Gemeinsame Quality Time",
+        "Ganztages-Erlebnis"
+      ],
+      "fr": [
+        "Parcours spa complet",
+        "Multi-soins avantageux",
+        "Moment privilégié à deux",
+        "Expérience journée complète"
+      ],
+      "ru": [
+        "Полный спа-маршрут",
+        "Комплексный уход",
+        "Качественное время вдвоём",
+        "Впечатление на целый день"
+      ]
+    }
+  },
+  "kids-nazik": {
+    "title": {
+      "tr": "Çocuk Nazik Masajı",
+      "en": "Kids Gentle Massage",
+      "de": "Kinder-Sanftmassage",
+      "fr": "Massage doux pour enfants",
+      "ru": "Нежный детский массаж"
+    },
+    "desc": {
+      "tr": "6-12 yaş çocuklar için hafif basınçlı, rahatlatıcı masaj.",
+      "en": "Light-pressure relaxing massage for children aged 6-12.",
+      "de": "Leichtdruck-Entspannungsmassage für Kinder von 6-12 Jahren.",
+      "fr": "Massage relaxant à pression légère pour enfants de 6 à 12 ans.",
+      "ru": "Расслабляющий массаж лёгким давлением для детей 6-12 лет."
+    },
+    "benefits": {
+      "en": [
+        "Child-safe techniques",
+        "Calming effect",
+        "Sleep improvement",
+        "Growth support"
+      ],
+      "de": [
+        "Kindersichere Techniken",
+        "Beruhigende Wirkung",
+        "Schlafverbesserung",
+        "Wachstumsunterstützung"
+      ],
+      "fr": [
+        "Techniques adaptées aux enfants",
+        "Effet apaisant",
+        "Amélioration du sommeil",
+        "Soutien à la croissance"
+      ],
+      "ru": [
+        "Безопасные для детей техники",
+        "Успокаивающий эффект",
+        "Улучшение сна",
+        "Поддержка роста"
+      ]
+    }
+  },
+  "anne-cocuk": {
+    "title": {
+      "tr": "Anne-Çocuk Masajı",
+      "en": "Mother-Child Massage",
+      "de": "Mutter-Kind-Massage",
+      "fr": "Massage mère-enfant",
+      "ru": "Массаж «Мама и ребёнок»"
+    },
+    "desc": {
+      "tr": "Anne ve çocuk için eş zamanlı, bağ güçlendirici masaj deneyimi.",
+      "en": "Simultaneous bonding massage experience for mother and child.",
+      "de": "Gleichzeitige Bindungsmassage für Mutter und Kind.",
+      "fr": "Expérience de massage en duo renforçant le lien mère-enfant.",
+      "ru": "Одновременный массаж для укрепления связи матери и ребёнка."
+    },
+    "benefits": {
+      "en": [
+        "Mother-child bonding",
+        "Shared relaxation",
+        "Age-appropriate care",
+        "Family wellness"
+      ],
+      "de": [
+        "Mutter-Kind-Bindung",
+        "Gemeinsame Entspannung",
+        "Altersgerechte Pflege",
+        "Familien-Wellness"
+      ],
+      "fr": [
+        "Lien mère-enfant",
+        "Relaxation partagée",
+        "Soin adapté à l'âge",
+        "Bien-être familial"
+      ],
+      "ru": [
+        "Укрепление связи",
+        "Совместное расслабление",
+        "Уход по возрасту",
+        "Семейный велнес"
+      ]
+    }
+  },
+  "classic-facial": {
+    "title": {
+      "tr": "Klasik Cilt Bakımı",
+      "en": "Classic Facial",
+      "de": "Klassische Gesichtspflege",
+      "fr": "Soin Visage Classique",
+      "ru": "Классический уход за лицом"
+    },
+    "desc": {
+      "tr": "Temizleme + tonik + maske — cildi dengeler, canlılık verir.",
+      "en": "Cleansing + toner + mask — balances and revitalizes the skin.",
+      "de": "Reinigung + Toner + Maske — gleicht die Haut aus und belebt sie.",
+      "fr": "Nettoyage + tonique + masque — équilibre et revitalise la peau.",
+      "ru": "Очищение + тоник + маска — балансирует и оживляет кожу."
+    }
+  },
+  "deep-cleanse": {
+    "title": {
+      "tr": "Derin Temizleme Bakımı",
+      "en": "Deep Cleansing Facial",
+      "de": "Tiefenreinigende Gesichtspflege",
+      "fr": "Soin Nettoyage Profond",
+      "ru": "Глубокое очищение лица"
+    },
+    "desc": {
+      "tr": "Gözenek temizliği + buhar + serum — derin arınma sağlar.",
+      "en": "Pore cleansing + steam + serum — provides deep purification.",
+      "de": "Porenreinigung + Dampf + Serum — für tiefe Reinigung.",
+      "fr": "Nettoyage des pores + vapeur + sérum — purification profonde.",
+      "ru": "Очищение пор + пар + сыворотка — глубокое очищение."
+    }
+  },
+  "enzyme-peel": {
+    "title": {
+      "tr": "Enzim Peeling Bakımı",
+      "en": "Enzyme Peel Treatment",
+      "de": "Enzym-Peeling-Behandlung",
+      "fr": "Soin Peeling Enzymatique",
+      "ru": "Энзимный пилинг"
+    },
+    "desc": {
+      "tr": "Enzim bazlı peeling ile ölü hücreleri nazikçe uzaklaştırır.",
+      "en": "Gently removes dead cells with enzyme-based peeling.",
+      "de": "Entfernt sanft abgestorbene Zellen mit enzymbasiertem Peeling.",
+      "fr": "Élimine en douceur les cellules mortes avec un peeling enzymatique.",
+      "ru": "Нежно удаляет мёртвые клетки с помощью энзимного пилинга."
+    }
+  },
+  "detox-charcoal": {
+    "title": {
+      "tr": "Detox Kömür Maske",
+      "en": "Detox Charcoal Mask",
+      "de": "Detox-Kohle-Maske",
+      "fr": "Masque Détox au Charbon",
+      "ru": "Детокс-маска с углём"
+    },
+    "desc": {
+      "tr": "Aktif kömür ile toksinleri çeker, cildi derinlemesine arındırır.",
+      "en": "Draws out toxins with activated charcoal for deep purification.",
+      "de": "Zieht Giftstoffe mit Aktivkohle heraus für tiefe Reinigung.",
+      "fr": "Élimine les toxines avec du charbon actif pour une purification profonde.",
+      "ru": "Выводит токсины активированным углём для глубокого очищения."
+    }
+  },
+  "hyaluron-hydrate": {
+    "title": {
+      "tr": "Hyaluron Nem Terapisi",
+      "en": "Hyaluronic Hydration Therapy",
+      "de": "Hyaluron-Feuchtigkeitstherapie",
+      "fr": "Thérapie Hydratante à l'Acide Hyaluronique",
+      "ru": "Гиалуроновая увлажняющая терапия"
+    },
+    "desc": {
+      "tr": "Hyalüronik asit ile derin nem takviyesi, dolgunluk ve ışıltı.",
+      "en": "Deep hydration with hyaluronic acid for plumpness and glow.",
+      "de": "Tiefe Feuchtigkeitszufuhr mit Hyaluronsäure für Fülle und Glanz.",
+      "fr": "Hydratation profonde à l'acide hyaluronique pour éclat et volume.",
+      "ru": "Глубокое увлажнение гиалуроновой кислотой для упругости и сияния."
+    }
+  },
+  "vitamin-c-glow": {
+    "title": {
+      "tr": "Vitamin C Glow",
+      "en": "Vitamin C Glow Treatment",
+      "de": "Vitamin C Glow Behandlung",
+      "fr": "Soin Éclat Vitamine C",
+      "ru": "Сияние с витамином C"
+    },
+    "desc": {
+      "tr": "C vitamini serumu ile aydınlatma, leke giderme ve enerji.",
+      "en": "Brightening, spot reduction and energy with vitamin C serum.",
+      "de": "Aufhellung, Fleckenreduzierung und Energie mit Vitamin-C-Serum.",
+      "fr": "Éclaircissement, réduction des taches et énergie avec sérum vitamine C.",
+      "ru": "Осветление, устранение пигментации и энергия с сывороткой витамина C."
+    }
+  },
+  "oxygen-boost": {
+    "title": {
+      "tr": "Oksijen Boost Bakımı",
+      "en": "Oxygen Boost Facial",
+      "de": "Sauerstoff-Boost-Gesichtspflege",
+      "fr": "Soin Visage Boost Oxygène",
+      "ru": "Кислородный буст для лица"
+    },
+    "desc": {
+      "tr": "Oksijen infüzyonu ile hücre yenilenmesini hızlandırır.",
+      "en": "Accelerates cell renewal with oxygen infusion.",
+      "de": "Beschleunigt die Zellerneuerung mit Sauerstoffinfusion.",
+      "fr": "Accélère le renouvellement cellulaire avec une infusion d'oxygène.",
+      "ru": "Ускоряет обновление клеток с помощью кислородной инфузии."
+    }
+  },
+  "glass-skin": {
+    "title": {
+      "tr": "Glass Skin Ritüeli",
+      "en": "Glass Skin Ritual",
+      "de": "Glass Skin Ritual",
+      "fr": "Rituel Glass Skin",
+      "ru": "Ритуал Glass Skin"
+    },
+    "desc": {
+      "tr": "Kore ilhamli çok katmanlı nemlendirme — cam gibi pürüzsüz cilt.",
+      "en": "Korean-inspired multi-layer hydration — glass-smooth skin.",
+      "de": "Koreanisch inspirierte Mehrschicht-Hydratation — glatte Haut wie Glas.",
+      "fr": "Hydratation multicouche d'inspiration coréenne — peau lisse comme du verre.",
+      "ru": "Многослойное увлажнение в корейском стиле — гладкая, как стекло, кожа."
+    }
+  },
+  "collagen-lift": {
+    "title": {
+      "tr": "Kolajen Lifting Bakımı",
+      "en": "Collagen Lift Treatment",
+      "de": "Kollagen-Lifting-Behandlung",
+      "fr": "Soin Lifting au Collagène",
+      "ru": "Коллагеновый лифтинг"
+    },
+    "desc": {
+      "tr": "Kolajen destekli sıkılaştırma — elastikiyet ve gençlik.",
+      "en": "Collagen-supported firming — elasticity and youthfulness.",
+      "de": "Kollagengestützte Straffung — Elastizität und Jugendlichkeit.",
+      "fr": "Raffermissement au collagène — élasticité et jeunesse.",
+      "ru": "Укрепление коллагеном — эластичность и молодость."
+    }
+  },
+  "anti-aging-pro": {
+    "title": {
+      "tr": "Anti-Aging Pro Bakım",
+      "en": "Anti-Aging Pro Treatment",
+      "de": "Anti-Aging Pro Behandlung",
+      "fr": "Soin Anti-Âge Pro",
+      "ru": "Анти-эйдж Про уход"
+    },
+    "desc": {
+      "tr": "Gelişmiş anti-aging formülleri ile kırışıklık azaltma ve yenileme.",
+      "en": "Advanced anti-aging formulas for wrinkle reduction and renewal.",
+      "de": "Fortschrittliche Anti-Aging-Formeln zur Faltenreduzierung und Erneuerung.",
+      "fr": "Formules anti-âge avancées pour réduction des rides et renouvellement.",
+      "ru": "Передовые антивозрастные формулы для уменьшения морщин и обновления."
+    }
+  },
+  "led-rejuvenation": {
+    "title": {
+      "tr": "LED Rejuvenation",
+      "en": "LED Rejuvenation Therapy",
+      "de": "LED Verjüngungstherapie",
+      "fr": "Thérapie LED Rajeunissante",
+      "ru": "LED омолаживающая терапия"
+    },
+    "desc": {
+      "tr": "LED ışık terapisi ile kolajen üretimini artırır, cildi yeniler.",
+      "en": "Boosts collagen production and renews skin with LED light therapy.",
+      "de": "Steigert die Kollagenproduktion und erneuert die Haut mit LED-Lichttherapie.",
+      "fr": "Stimule la production de collagène et renouvelle la peau avec la thérapie LED.",
+      "ru": "Стимулирует выработку коллагена и обновляет кожу LED-терапией."
+    }
+  },
+  "brightening-spot": {
+    "title": {
+      "tr": "Leke Karşıtı Aydınlatıcı Bakım",
+      "en": "Brightening & Spot Treatment",
+      "de": "Aufhellende & Fleckenbehandlung",
+      "fr": "Soin Éclaircissant & Anti-Taches",
+      "ru": "Осветляющий уход от пигментации"
+    },
+    "desc": {
+      "tr": "Leke hedefli bakım — eşit ton, aydınlık ve berrak cilt.",
+      "en": "Spot-targeting care — even tone, brightness and clear skin.",
+      "de": "Gezielte Fleckenbehandlung — ebenmäßiger Ton, Helligkeit und klare Haut.",
+      "fr": "Soin ciblé anti-taches — teint uniforme, lumineux et clair.",
+      "ru": "Целенаправленный уход от пятен — ровный тон, яркость и чистая кожа."
+    }
+  },
+  "acne-balance": {
+    "title": {
+      "tr": "Akne & Sebum Denge Bakımı",
+      "en": "Acne & Sebum Balance Treatment",
+      "de": "Akne- & Sebum-Balance-Behandlung",
+      "fr": "Soin Équilibrant Acné & Sébum",
+      "ru": "Уход для баланса акне и себума"
+    },
+    "desc": {
+      "tr": "Yağ dengesi + antibakteriyel bakım — temiz ve mat cilt.",
+      "en": "Oil balance + antibacterial care — clean and matte skin.",
+      "de": "Ölbalance + antibakterielle Pflege — saubere und matte Haut.",
+      "fr": "Équilibre du sébum + soin antibactérien — peau nette et mate.",
+      "ru": "Баланс жирности + антибактериальный уход — чистая матовая кожа."
+    }
+  },
+  "sensitive-soothe": {
+    "title": {
+      "tr": "Hassas Cilt Sakinleştirici Bakım",
+      "en": "Sensitive Skin Soothing Treatment",
+      "de": "Beruhigende Behandlung für empfindliche Haut",
+      "fr": "Soin Apaisant Peau Sensible",
+      "ru": "Успокаивающий уход для чувствительной кожи"
+    },
+    "desc": {
+      "tr": "Aloe vera ve papatya ile kızarıklık azaltma ve yatıştırma.",
+      "en": "Redness reduction and soothing with aloe vera and chamomile.",
+      "de": "Rötungsreduzierung und Beruhigung mit Aloe Vera und Kamille.",
+      "fr": "Réduction des rougeurs et apaisement avec aloe vera et camomille.",
+      "ru": "Снижение покраснений и успокоение с алоэ вера и ромашкой."
+    }
+  },
+  "barrier-repair": {
+    "title": {
+      "tr": "Bariyer Onarıcı Bakım",
+      "en": "Skin Barrier Repair Treatment",
+      "de": "Hautbarriere-Reparatur-Behandlung",
+      "fr": "Soin Réparateur de Barrière Cutanée",
+      "ru": "Восстановление кожного барьера"
+    },
+    "desc": {
+      "tr": "Ceramid ve peptid ile cilt bariyerini güçlendirir ve onarır.",
+      "en": "Strengthens and repairs the skin barrier with ceramides and peptides.",
+      "de": "Stärkt und repariert die Hautbarriere mit Ceramiden und Peptiden.",
+      "fr": "Renforce et répare la barrière cutanée avec céramides et peptides.",
+      "ru": "Укрепляет и восстанавливает кожный барьер керамидами и пептидами."
+    }
+  },
+  "micro-polish": {
+    "title": {
+      "tr": "Micro Polish Bakımı",
+      "en": "Micro Polish Treatment",
+      "de": "Micro-Polish-Behandlung",
+      "fr": "Soin Micro Polish",
+      "ru": "Микрополировка лица"
+    },
+    "desc": {
+      "tr": "Mikro kristal peeling — pürüzsüz, ışıltılı ve yenilenmiş cilt.",
+      "en": "Micro-crystal peeling — smooth, radiant and renewed skin.",
+      "de": "Mikrokristall-Peeling — glatte, strahlende und erneuerte Haut.",
+      "fr": "Peeling micro-cristal — peau lisse, radieuse et renouvelée.",
+      "ru": "Микрокристаллический пилинг — гладкая, сияющая и обновлённая кожа."
+    }
+  },
+  "gold-mask-ritual": {
+    "title": {
+      "tr": "Gold Mask Ritüeli",
+      "en": "Gold Mask Ritual",
+      "de": "Gold Maske Ritual",
+      "fr": "Rituel Masque Or",
+      "ru": "Ритуал золотой маски"
+    },
+    "desc": {
+      "tr": "24K altın maske — lüks anti-aging, sıkılaştırma ve ışıltı.",
+      "en": "24K gold mask — luxury anti-aging, firming and radiance.",
+      "de": "24K Goldmaske — luxuriöses Anti-Aging, Straffung und Strahlkraft.",
+      "fr": "Masque or 24K — anti-âge luxueux, raffermissement et éclat.",
+      "ru": "Маска из золота 24К — роскошный антивозрастной, подтягивающий и сияющий уход."
+    }
+  },
+  "eye-contour": {
+    "title": {
+      "tr": "Göz Çevresi Bakımı",
+      "en": "Eye Contour Treatment",
+      "de": "Augenkontur-Behandlung",
+      "fr": "Soin Contour des Yeux",
+      "ru": "Уход за контуром глаз"
+    },
+    "desc": {
+      "tr": "Göz çevresi için özel bakım — koyu halka ve şişlik azaltma.",
+      "en": "Specialized eye area care — reduces dark circles and puffiness.",
+      "de": "Spezialpflege für die Augenpartie — reduziert dunkle Ringe und Schwellungen.",
+      "fr": "Soin spécialisé contour des yeux — réduit cernes et poches.",
+      "ru": "Специализированный уход за зоной вокруг глаз — уменьшение тёмных кругов и отёков."
+    }
+  },
+  "lip-care": {
+    "title": {
+      "tr": "Dudak Bakımı",
+      "en": "Lip Care Treatment",
+      "de": "Lippenpflege-Behandlung",
+      "fr": "Soin des Lèvres",
+      "ru": "Уход за губами"
+    },
+    "desc": {
+      "tr": "Dudak için özel nemlendirme ve hacim bakımı.",
+      "en": "Specialized lip moisturizing and volume treatment.",
+      "de": "Spezielle Lippen-Feuchtigkeits- und Volumenbehandlung.",
+      "fr": "Soin spécial hydratation et volume des lèvres.",
+      "ru": "Специальный увлажняющий и объёмный уход для губ."
+    }
+  },
+  "men-facial": {
+    "title": {
+      "tr": "Erkek Cilt Bakımı",
+      "en": "Men's Facial Treatment",
+      "de": "Männer-Gesichtspflege",
+      "fr": "Soin Visage Homme",
+      "ru": "Мужской уход за лицом"
+    },
+    "desc": {
+      "tr": "Erkek cildine özel — tıraş sonrası onarım ve nemlendirme.",
+      "en": "Tailored for men's skin — post-shave repair and hydration.",
+      "de": "Speziell für Männerhaut — Reparatur und Feuchtigkeit nach der Rasur.",
+      "fr": "Adapté à la peau masculine — réparation et hydratation après-rasage.",
+      "ru": "Специально для мужской кожи — восстановление и увлажнение после бритья."
+    }
+  }
+}

@@ -1,0 +1,125 @@
+/* 
+
+ * SANTIS 3D SCROLL ENGINE V1.0
+
+ * "Depth is Luxury"
+
+ */
+
+
+
+/* Enable Perspective on Main Container */
+
+/* Enable Perspective on Main Container (Disabled to prevent Scroll Locking)
+
+body {
+
+    overflow-x: hidden;
+
+    overflow-y: auto;
+
+    perspective: 1px;
+
+    transform-style: preserve-3d;
+
+}
+
+*/
+
+body {
+
+    /* Standard Scroll behavior */
+
+    overflow-x: hidden;
+
+}
+
+
+
+/* Base style for 3D sections */
+
+.parallax-group {
+
+    position: relative;
+
+    height: 100vh;
+
+    transform-style: preserve-3d;
+
+}
+
+
+
+/* Layer Speeds (Z-Axis) */
+
+/* Normal (Base) */
+
+.layer-base {
+
+    transform: translateZ(0);
+
+}
+
+
+
+/* Deep Background (Moves Slower) */
+
+.layer-deep {
+
+    transform: translateZ(-1px) scale(2);
+
+    z-index: -1;
+
+}
+
+
+
+/* Floating Elements (Moves Faster) */
+
+.layer-close {
+
+    transform: translateZ(0.5px) scale(0.5);
+
+    z-index: 2;
+
+}
+
+
+
+/* --- SCROLL-DRIVEN ANIMATIONS (Modern CSS) --- */
+
+/* Requires Chrome 115+ (Scroll-timeline) or JS fallback */
+
+
+
+@keyframes subtle-tilt {
+
+    from {
+
+        transform: rotateX(2deg);
+
+    }
+
+
+
+    to {
+
+        transform: rotateX(-2deg);
+
+    }
+
+}
+
+
+
+/* Fallback: Standard Parallax Class */
+
+.parallax-item {
+
+    transition: transform 0.1s cubic-bezier(0, 0, 0, 1);
+
+    /* Smooth lerp */
+
+    will-change: transform;
+
+}

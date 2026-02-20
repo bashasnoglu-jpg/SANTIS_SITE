@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/><meta content="noindex, nofollow" name="robots"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>[DRAFT] Santis Apothecary | Cilt &amp; Kozmetik Laboratuvarı</title>
+<link href="../../assets/css/style.css" rel="stylesheet"/>
+<style>
+        /* APOTHECARY SPECIFIC STYLES (THE LAB AESTHETIC) */
+        :root {
+            --lab-bg: #f4f4f4;
+            --lab-text: #1a1a1a;
+            --lab-accent: #2c3e50;
+        }
+
+        body.apothecary-mode {
+            background-color: #0B0D0F; /* Keep dark mode base for consistency, but modify sections */
+        }
+
+        .apothecary-header {
+            padding: 160px 0 80px;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(30, 35, 40, 0.8), #0B0D0F);
+        }
+
+        .filter-chip {
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #888;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: transparent;
+        }
+
+        .filter-chip.active, .filter-chip:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .product-card-lab {
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card-lab:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .lab-img {
+            height: 220px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+
+        .lab-line {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .lab-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            margin-bottom: 5px;
+        }
+
+        .lab-desc {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            max-width: 90%;
+        }
+
+        .lab-price {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: 'Inter', sans-serif;
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+        
+        /* Diagnosis Section */
+        .diagnosis-box {
+            background: rgba(255,255,255,0.03);
+            padding: 60px;
+            text-align: center;
+            margin: 60px 0;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+    </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/tr/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mağaza",
+      "item": "https://santis-club.com/tr/magaza/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Santis Bio-Lab",
+      "item": "https://santis-club.com/tr/magaza/kozmetik.html"
+    }
+  ]
+}
+</script>
+<!-- Open Graph -->
+<meta content="Cildiniz için bilimsel çözümler. 
+                Sothys Paris formülleri ve profesyonel bakım." name="description"/>
+<meta content="[DRAFT] Santis Apothecary" property="og:title"/>
+<meta content="Cildiniz için bilimsel çözümler. 
+                Sothys Paris formülleri ve profesyonel bakım." property="og:description"/>
+<meta content="https://santis-club.com/assets/img/og-standard.jpg" property="og:image"/>
+<meta content="https://santis-club.com/fr/shop/kozmetik.html" property="og:url"/>
+<meta content="website" property="og:type"/>
+<link href="https://santis-club.com/fr/shop/kozmetik.html" rel="canonical"/>
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<link href="https://santis-club.com/de/shop/kozmetik.html" hreflang="de" rel="alternate">
+<link href="https://santis-club.com/en/shop/kozmetik.html" hreflang="en" rel="alternate">
+<link href="https://santis-club.com/fr/shop/kozmetik.html" hreflang="fr" rel="alternate"/>
+<link href="https://santis-club.com/ru/shop/kozmetik.html" hreflang="ru" rel="alternate"/>
+<link href="https://santis-club.com/tr/magaza/kozmetik.html" hreflang="tr" rel="alternate"/>
+<link href="https://santis-club.com/en/shop/kozmetik.html" hreflang="x-default" rel="alternate"/>
+</link></link><meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="[DRAFT] Santis Apothecary | Cilt &amp; Kozmetik Laboratuvarı" name="twitter:title"/><meta content="Cildiniz için bilimsel çözümler. 
+                Sothys Paris formülleri ve profesyonel bakım." name="twitter:description"/><meta content="https://santisclub.com/assets/img/logo-santis.png" name="twitter:image"/></head>
+<body class="apothecary-mode">
+<noscript>
+<nav class="nv-noscript-nav">
+<a class="nv-ns-home" href="/index.html">ANA SAYFA</a>
+<a href="/tr/hamam/index.html">HAMAM</a>
+<a href="/tr/masajlar/index.html">MASAJLAR</a>
+<a href="/tr/cilt-bakimi/index.html">CİLT BAKIMI</a>
+<a href="/tr/galeri/index.html">GALERİ</a>
+</nav>
+</noscript>
+<!-- NAV -->
+<div id="nv-navbar-target"></div>
+<!-- HERO -->
+<header class="apothecary-header">
+<div class="nv-container">
+<span class="nv-kicker">SANTIS BIO-LAB v4.0</span>
+<h1 class="nv-title">Santis Bio-Lab</h1>
+<p style="color:#aaa; max-width:500px; margin:10px auto">
+                Cildiniz için bilimsel çözümler. 
+                Sothys Paris formülleri ve profesyonel bakım.
+            </p>
+</div>
+</header>
+<!-- FILTER SYSTEM -->
+<section class="nv-section" style="padding:60px 0;">
+<div class="nv-container">
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;">
+<button class="filter-chip active" data-filter="all">Tümü</button>
+<button class="filter-chip" data-filter="hydra">Nem (Hydra)</button>
+<button class="filter-chip" data-filter="jeunesse">Gençlik (Youth)</button>
+<button class="filter-chip" data-filter="detox">Arınma (Detox)</button>
+<button class="filter-chip" data-filter="sun">Güneş (Sun)</button>
+</div>
+<!-- PRODUCT GRID -->
+<div class="product-grid-v2" id="apothecary-grid">
+<!-- JS WILL RENDER CARDS HERE -->
+</div>
+</div>
+</section>
+<!-- CONSULTATION CTA -->
+<section class="nv-container">
+<div class="diagnosis-box">
+<h2 style="font-size:1.5rem; color:#e0e0e0; margin-bottom:10px">Uzman Görüşü</h2>
+<p style="color:#aaa; max-width:500px; margin:10px auto">Cilt analizi ve doğru ürün seçimi için uzmanlarımızla görüşün.</p>
+<a class="nv-btn" href="https://wa.me/905348350169?text=Cilt%20analizi%20ve%20ürünler%20hakkında%20bilgi%20almak%20istiyorum">UZMANA DANIŞ (WhatsApp)</a>
+</div>
+</section>
+<!-- FOOTER -->
+<div id="nv-footer-target"></div>
+<script src="../../assets/js/i18n-routes.js"></script>
+<script defer="" src="../../assets/js/hreflang-injector.js"></script>
+<script src="../../assets/js/loader.js"></script>
+<script src="../../assets/js/shop.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load Nav/Footer
+            fetch('../../components/navbar.html').then(r=>r.text()).then(h=>{document.getElementById('nv-navbar-target').innerHTML=h});
+            fetch('../../components/footer.html').then(r=>r.text()).then(h=>{document.getElementById('nv-footer-target').innerHTML=h});
+
+            // Init Shop Page
+            if(window.SHOP) {
+                SHOP.initAtelierPage();
+            } else {
+                console.error("SHOP engine not loaded");
+            }
+        });
+    </script>
+</body></html>

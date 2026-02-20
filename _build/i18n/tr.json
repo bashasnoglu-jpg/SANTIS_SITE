@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "lang": "tr",
+    "title": "Santis Club • Spa & Wellness",
+    "description": "Santis Club – Antalya'da özel lüks spa, hamam ritüelleri ve terapötik wellness deneyimi.",
+    "og_title": "Santis Club – Spa & Wellness",
+    "breadcrumb_name": "Ana Sayfa"
+  },
+  "nav": {
+    "home": "ANA SAYFA",
+    "hammam": "HAMAM",
+    "massage": "MASAJLAR",
+    "skin": "CİLT BAKIM",
+    "shop": "MAĞAZA",
+    "gallery": "GALERİ",
+    "about": "HAKKIMIZDA"
+  },
+  "hero": {
+    "caption": "SESSİZLİĞİN SESİ",
+    "title": "Hiçbir şey yapmamanın<br>lüksünü keşfedin.",
+    "desc": "Telefon yok. Zaman yok. Gürültü yok.<br>Sadece siz ve an.<br>Santis, modern dünyanın gürültüsüne karşı bir isyan.",
+    "scroll": "Deneyiminizi Planlayın"
+  },
+  "signature": {
+    "kicker": "İMZA DENEYİMLER",
+    "title": "Dört Element, Tek Felsefe",
+    "subtitle": "Yüzyılların bilgeliğiyle şekillenen özel koleksiyonlar.",
+    "hammam": "Hamam Ritüelleri",
+    "hammam_desc": "Osmanlı geleneğinin zarif dokunuşu",
+    "hammam_alt": "Hamam – mermer göbek taşı ve köpük ritüeli",
+    "massage": "Masaj Terapileri",
+    "massage_desc": "Beden ve zihin için derin dinlenme",
+    "massage_alt": "Masaj – sıcak taş ve aromaterapi",
+    "skin": "Cilt Bakımı",
+    "skin_desc": "Bilim ve doğanın mükemmel sentezi",
+    "skin_alt": "Cilt Bakımı – profesyonel Sothys bakım uygulaması",
+    "atelier": "Atölye",
+    "atelier_desc": "Yanınızda taşıyacağınız lüks",
+    "atelier_alt": "Atölye – lüks spa bakım ürünleri",
+    "cta": "Koleksiyonu Keşfet →"
+  },
+  "philosophy": {
+    "kicker": "İYİ OLMA SANATI",
+    "title": "Bedeninizi Dinleyin.<br>Sessizliği Biz Sunuyoruz.",
+    "text1": "Santis Club, geleneksel hamam ritüellerini ve modern spa terapilerini eşsiz bir anlayışla buluşturur. Burada zaman yavaşlar, beden dinlenir, zihin berraklaşır.",
+    "text2": "Her ritüel, yüzyılların bilgeliğiyle tasarlanmış bir iyi olma yolculuğudur. Sessizlik burada lüks değil — bir yaşam biçimi.",
+    "cta": "Hikâyemizi Keşfedin"
+  },
+  "global": {
+    "kicker": "KÜRESEL İLHAM",
+    "title": "Dünyanın Dört Bir Yanından Ritüeller",
+    "asia_label": "KÜRESEL RİTÜEL • ASYA",
+    "thai_label": "KÜRESEL RİTÜEL • TAYLAND",
+    "italy_label": "KÜRESEL RİTÜEL • İTALYA",
+    "beauty_label": "SAF GÜZELLİK • DOĞA",
+    "t1_title": "Wabi-Sabi Estetiği",
+    "t1_desc": "Kusursuzluğun güzelliği.",
+    "t2_title": "Wat Pho Bilgeliği",
+    "t2_desc": "Kadim şifa mirası.",
+    "t3_title": "Roma Termal Kültürü",
+    "t4_title": "Bilimsel Cilt Bakımı",
+    "t4_desc": "İleri dermatolojik çözümler."
+  },
+  "testimonials": {
+    "kicker": "MİSAFİR DENEYİMLERİ",
+    "title": "Huzurun Yankıları",
+    "t1": "Hayatımın en huzurlu 2 saatiydi. Osmanlı Hamam ritüeli eşsiz bir deneyimdi.",
+    "t2": "Aromaterapi masajından sonra vücudum yeniden doğmuş gibi hissetti. Çok profesyonel.",
+    "t3": "Sothys cilt bakım seansı muhteşemdi. Cildim hiç bu kadar parlak ve sağlıklı olmamıştı.",
+    "loc": "Moskova"
+  },
+  "booking": {
+    "kicker": "RİTÜELİNİZİ PLANLAYIN",
+    "title": "Huzur sadece bir arama uzağınızda",
+    "desc": "Uzmanlarımız sizin için mükemmel ritüeli planlasın.",
+    "wa": "WhatsApp ile Rezervasyon",
+    "call": "Bizi Arayın"
+  },
+  "sticky": {
+    "text": "Ritüelinizi planlayın",
+    "btn": "Rezervasyon"
+  },
+  "faq": [
+    {
+      "q": "Masaj seansı ne kadar sürer?",
+      "a": "Masaj seanslarımız 30 ile 90 dakika arasında sürer. Süre seçilen terapiye bağlıdır."
+    },
+    {
+      "q": "Masaj öncesi ne yapmalıyım?",
+      "a": "Bir saat önce ağır yemek yememenizi ve bol su içmenizi öneririz. Lütfen 15 dakika erken gelin."
+    },
+    {
+      "q": "Bana hangi masaj türü uygun?",
+      "a": "Terapistlerimiz ilk görüşmede ihtiyaçlarınızı değerlendirir ve en uygun masajı önerir."
+    }
+  ],
+  "PATH_HAMMAM": "hamam",
+  "PATH_MASSAGES": "masajlar",
+  "PATH_SKINCARE": "cilt-bakimi",
+  "PATH_PRODUCTS": "urunler",
+  "PATH_ABOUT_FULL": "tr/hakkimizda/index.html",
+  "PATH_GALLERY_FULL": "tr/galeri/index.html"
+}

@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    container_name: santis-db
+    environment:
+      POSTGRES_USER: santis
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: santis_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U santis" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  santis-web:
+    build: .
+    container_name: santis-web
+    expose:
+      - "8000"
+    environment:
+      - ENV=production
+      - DATABASE_URL=postgresql+asyncpg://santis:password@db:5432/santis_db
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: santis-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - santis-web
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

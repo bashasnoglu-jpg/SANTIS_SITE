@@ -1,0 +1,67 @@
+[
+    {
+        "id": "welcome_offer",
+        "priority": 10,
+        "rules": {
+            "min_visits": 0,
+            "max_visits": 2,
+            "segment": "new_visitor"
+        },
+        "content": {
+            "type": "discount",
+            "title": "Santis Dünyasına Hoşgeldiniz",
+            "text": "İlk ziyaretinize özel, %10 tanışma indirimi kazandınız.",
+            "action": "KODU ÜRETİLİYOR...",
+            "image": "santis_card_hammam_lux.png",
+            "promo_config": {
+                "prefix": "MERHABA",
+                "amount": 10
+            }
+        }
+    },
+    {
+        "id": "massage_lover_promo",
+        "priority": 50,
+        "rules": {
+            "interest": "massage",
+            "min_visits": 3
+        },
+        "content": {
+            "type": "slide-in",
+            "title": "Masaj Tutkunlarına Özel",
+            "text": "Sizin için seçtiğimiz Aroma Terapi masajında 2. kişi %50 indirimli.",
+            "action": "RANDEVU AL",
+            "image": "santis_card_massage_v1.png"
+        }
+    },
+    {
+        "id": "hammam_detox_offer",
+        "priority": 50,
+        "rules": {
+            "interest": "hammam",
+            "min_visits": 3
+        },
+        "content": {
+            "type": "center-modal",
+            "title": "Arınma Zamanı Geldi",
+            "text": "Geleneksel Kese & Köpük ritüelinde kahve peeling hediyemizdir.",
+            "action": "DETAYLARI GÖR",
+            "image": "santis_card_hammam_v1.png"
+        }
+    },
+    {
+        "id": "vip_access",
+        "priority": 100,
+        "rules": {
+            "segment": "loyal_citizen",
+            "min_visits": 10
+        },
+        "content": {
+            "type": "golden-ticket",
+            "title": "VIP Üyelik Daveti",
+            "text": "Santis Club'a sadakatiniz için teşekkürler. Size özel VIP kartınız hazır.",
+            "action": "KARTINIZI OLUŞTURUN",
+            "image": "santis_card_luxury.png"
+        }
+    }
+]

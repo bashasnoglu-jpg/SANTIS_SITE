@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Club • Wellness & Spa</title>
+    <meta name="description" content="Santis Club - Premium Spa & Wellness. Select your language to begin.">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --dark: #0a0a0a;
+            --text: #e0e0e0;
+            --overlay: rgba(0, 0, 0, 0.75);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('assets/img/hero-general.webp');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Overlay */
+        .gateway-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay);
+            z-index: 1;
+            backdrop-filter: blur(8px); /* Glassmorphism */
+        }
+
+        /* Content Container */
+        .gateway-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        /* Logo Area */
+        .gateway-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            letter-spacing: 0.15em;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .gateway-subtitle {
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 3rem;
+        }
+
+        /* Language List */
+        .lang-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 1s ease-out 0.6s forwards;
+            padding: 0;
+            margin: 0;
+            align-items: center;
+        }
+
+        .lang-item a {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            position: relative;
+            transition: all 0.4s ease;
+            padding: 0.5rem 1rem;
+            display: block;
+        }
+
+        .lang-item a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: all 0.4s ease;
+            transform: translateX(-50%);
+            opacity: 0;
+        }
+
+        .lang-item a:hover {
+            color: var(--gold);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .lang-item a:hover::after {
+            width: 100%;
+            opacity: 1;
+        }
+
+        /* Footer */
+        .gateway-footer {
+            position: absolute;
+            bottom: 2rem;
+            z-index: 2;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.2s forwards;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .lang-list {
+                flex-direction: row; /* Horizontal on desktop */
+                gap: 3rem;
+            }
+
+            .gateway-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gateway-overlay"></div>
+
+    <div class="gateway-content">
+        <div class="gateway-header">
+            <!-- Optional Logo Image if needed -->
+            <!-- <img src="assets/img/logo.webp" alt="Santis Club Logo" width="100" height="100"> -->
+            <h1 class="gateway-title">SANTIS CLUB</h1>
+            <div class="gateway-subtitle">Wellness & Spa</div>
+        </div>
+
+        <ul class="lang-list">
+            <li class="lang-item"><a href="/tr/index.html">TÜRKÇE</a></li>
+            <li class="lang-item"><a href="/en/index.html">ENGLISH</a></li>
+            <li class="lang-item"><a href="/de/index.html">DEUTSCH</a></li>
+            <li class="lang-item"><a href="/fr/index.html">FRANÇAIS</a></li>
+            <li class="lang-item"><a href="/ru/index.html">PYCCKИЙ</a></li>
+        </ul>
+    </div>
+
+    <div class="gateway-footer">
+        &copy; 2026 Santis Club
+    </div>
+
+    <script>
+        // Language Persistence Logic
+        document.querySelectorAll('.lang-item a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                // Extract lang code: /tr/index.html -> tr
+                const match = href.match(/^\/(\w+)\//);
+                if (match && match[1]) {
+                    const lang = match[1];
+                    
+                    // 1. Save to LocalStorage (Persist)
+                    localStorage.setItem('santis_lang', lang);
+                    
+                    // 2. Set Cookie for language-switcher.js (System)
+                    document.cookie = `googtrans=/tr/${lang}; path=/; domain=${location.hostname}`;
+                    document.cookie = `santis_lang=${lang}; path=/; max-age=31536000`; // 1 Year
+                }
+            });
+        });
+
+        // Optional: Auto-redirect if returning user? 
+        // For now, we allow them to see the Premium Gateway (it's a brand experience).
+    </script>
+</body>
+</html>

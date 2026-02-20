@@ -1,0 +1,2 @@
+DEBUG: get_bookings called for user 5e4dc1de-2bbf-47ec-b556-89c6b3a3e175 tenant 11111111-1111-1111-1111-111111111111
+DEBUG: Range 2025-01-01 00:00:00 type <class 'datetime.datetime'> to 2027-01-01 00:00:00 type <class 'datetime.datetime'>

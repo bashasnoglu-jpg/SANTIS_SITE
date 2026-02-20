@@ -1,0 +1,42 @@
+[
+    {
+        "id": "atl-pestemal-white",
+        "name": "Klasik Pamuklu Peştemal",
+        "line": "textile",
+        "category": "hamam",
+        "price": 35,
+        "variant": "Beyaz / Gold",
+        "image": "/assets/img/products/pestemal_white.png",
+        "desc": "%100 organik pamuktan dokunmuş, yüksek emiş gücüne sahip geleneksel Türk hamam peştemali."
+    },
+    {
+        "id": "atl-kese-silk",
+        "name": "İpek Yüz Kesesi",
+        "line": "access",
+        "category": "hamam",
+        "price": 15,
+        "variant": "Saf İpek",
+        "image": "/assets/img/products/kese_silk.png",
+        "desc": "Cildi tahriş etmeden ölü derilerden arındıran, hassas ciltler için uygun %100 saf ipek kese."
+    },
+    {
+        "id": "atl-soap-olive",
+        "name": "Artisan Zeytinyağı Sabunu",
+        "line": "soap",
+        "category": "hamam",
+        "price": 12,
+        "variant": "Zeytinyağı & Defne",
+        "image": "/assets/img/products/soap_olive.png",
+        "desc": "Geleneksel yöntemlerle üretilmiş, E vitamini deposu doğal zeytinyağı sabunu."
+    },
+    {
+        "id": "atl-robe-linen",
+        "name": "Santis Signature Bornoz",
+        "line": "textile",
+        "category": "home",
+        "price": 120,
+        "variant": "Keten / Pamuk",
+        "image": "/assets/img/products/robe_linen.png",
+        "desc": "Spa deneyimini eve taşıyan, hafif ve nefes alan özel tasarım keten karışımlı bornoz."
+    }
+]

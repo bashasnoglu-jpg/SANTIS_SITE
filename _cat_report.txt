@@ -1,0 +1,7 @@
+massage-classic (9) -> klasik-tum-vucut-masaji, ayak-refleksoloji, sirt-masaji, klasik-masaj, anti-stress-masaji, aromaterapi-masaji, bronz-masaji, spor-masaji, selulit-masaji
+massage-extra (9) -> lokal-derin-doku, lokal-sicak-tas, manuel-terapi, sicak-tas-masaji, derin-doku-masaji, lenf-drenaj, kombine-masaj, kombine-masaj-90, mix-manuel-terapi
+ritual-hammam (8) -> kese-ve-kopuk-masaji, kopuk-masaji, kahve-peeling, deniz-tuzu-peeling, bal-masaji, cikolata-bakimi, yosun-bakimi, osmanli-hamam-gelenegi
+sothys-antiage (3) -> rituel-jeunesse-initiale, rituel-jeunesse-supreme, rituel-diamant-eternel
+sothys-hydra (3) -> rituel-hydra-source, rituel-hydra-confort, rituel-hydra-sublime
+sothys-men (3) -> rituel-homme-classique, rituel-homme-equilibre, rituel-homme-force-calme
+sothys-purifying (3) -> rituel-purete-classique, rituel-detox-lumiere, rituel-purete-profonde

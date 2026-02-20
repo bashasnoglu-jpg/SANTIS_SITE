@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<title>Santis | Eski URL Yönlendirmeleri</title>
+<link href="/assets/css/fonts.css" rel="stylesheet"/>
+<style>
+        body { background:#0f0f0f; color:#eee; font-family: 'Inter', sans-serif; margin:0; padding:30px; }
+        h2 { margin-top:0; color:#ffd166; }
+        .card { background:#181818; border:1px solid #222; border-radius:10px; padding:20px; max-width:900px; }
+        input { width:100%; padding:10px; margin:5px 0 10px; border-radius:6px; border:1px solid #333; background:#111; color:#eee; }
+        button { background:#ffd166; color:#111; border:none; padding:10px 16px; border-radius:6px; cursor:pointer; font-weight:600; }
+        button.danger { background:#ff6666; color:#111; }
+        table { width:100%; border-collapse:collapse; margin-top:20px; }
+        th, td { padding:10px; border-bottom:1px solid #222; text-align:left; }
+        tr:hover { background:#141414; }
+        .pill { display:inline-block; padding:2px 8px; border-radius:999px; background:#222; color:#aaa; font-size:12px; }
+        #status { margin-top:10px; color:#7dd87d; font-size:14px; }
+    </style>
+<meta content="Santis | Eski URL Yönlendirmeleri - Professional Spa &amp; Wellness services. redirects details." name="description"/><link href="https://santis-club.com/admin/redirects.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Redirects", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script></head>
+<body><h1>Redirects</h1>
+<div class="card">
+<h2>🔁 Eski URL Yönlendirmeleri</h2>
+<p style="color:#aaa; margin-top:-8px;">Oluşan 301 kayıtlarını görüntüle, manuel ekle veya sil.</p>
+<form id="redirectForm">
+<label>Eski URL (from)</label>
+<input id="from" placeholder="/tr/masajlar/eski-slug" required="" type="text"/>
+<label>Yeni URL (to)</label>
+<input id="to" placeholder="/tr/masajlar/yeni-slug" required="" type="text"/>
+<button type="submit">Ekle</button>
+<span id="status"></span>
+</form>
+<table id="redirectTable">
+<thead>
+<tr>
+<th>Eski URL</th>
+<th>Yeni URL</th>
+<th>Kod</th>
+<th>İşlem</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+<script>
+    async function loadRedirects() {
+        const res = await fetch("/admin/redirects");
+        const data = await res.json();
+        const tbody = document.querySelector("#redirectTable tbody");
+        tbody.innerHTML = "";
+        (data.redirects || []).forEach(r => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${r.from}</td>
+                <td>${r.to}</td>
+                <td><span class="pill">${r.type || 301}</span></td>
+                <td><button class="danger" data-action="delete-redirect" data-from="${String(r.from || '').replace(/"/g, '&quot;')}" data-to="${String(r.to || '').replace(/"/g, '&quot;')}">Sil</button></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    document.querySelector("#redirectTable tbody").addEventListener("click", async (e) => {
+        const btn = e.target.closest('[data-action="delete-redirect"]');
+        if (!btn) return;
+        await deleteRedirect(btn.getAttribute("data-from") || "", btn.getAttribute("data-to") || "");
+    });
+
+    document.getElementById("redirectForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const from = document.getElementById("from").value.trim();
+        const to = document.getElementById("to").value.trim();
+        const status = document.getElementById("status");
+        status.textContent = "Kaydediliyor...";
+        await fetch("/admin/redirects/add", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ from, to })
+        });
+        status.textContent = "Eklendi";
+        loadRedirects();
+        e.target.reset();
+        setTimeout(()=> status.textContent="",1500);
+    });
+
+    async function deleteRedirect(from, to) {
+        await fetch("/admin/redirects/delete", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ from, to })
+        });
+        loadRedirects();
+    }
+
+    loadRedirects();
+    </script>
+</body>
+</html>

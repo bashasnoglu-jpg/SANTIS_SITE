@@ -1,0 +1,36 @@
+[
+    {
+        "id": "prod_001",
+        "type": "massage",
+        "slug": "aromaterapi-masaji",
+        "title": "Aromaterapi Masajı",
+        "short_description": "Bitkisel öz yağlarla yapılan hafif ve rahatlatıcı masaj.",
+        "long_description": "<p>Özel bitkisel yağların iyileştirici gücüyle bedeni ve ruhu dinlendiren, hafif basınçlı bir masaj deneyimi.</p>",
+        "duration": 60,
+        "price": {
+            "amount": 2500,
+            "currency": "TRY"
+        },
+        "category": "cat_massage",
+        "tags": [
+            "relax",
+            "light-pressure",
+            "scnt_lavender"
+        ],
+        "moods": [
+            "calm",
+            "stress-relief"
+        ],
+        "media": {
+            "cover": "/assets/img/hero/massage-bg.jpg",
+            "gallery": []
+        },
+        "seo": {
+            "title": "Aromaterapi Masajı | Santis Club",
+            "description": "Rahatlatıcı aromaterapi masajı ile stresten arının."
+        },
+        "status": "published",
+        "created_at": "2026-02-06T12:00:00Z",
+        "updated_at": "2026-02-06T12:00:00Z"
+    }
+]

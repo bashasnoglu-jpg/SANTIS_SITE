@@ -1,0 +1,647 @@
+{
+  "massages": {
+    "data_context": "masaj",
+    "grid_id": "massages",
+    "body_class": "editorial-mode",
+    "page_init_js": "massages-page-init.js",
+    "chip_filter_js": "massages-chip-filter.js",
+    "preloader_js": "massages-preloader-failsafe.js",
+    "hero": {
+      "kicker": {
+        "tr": "BEDEN VE RUHUN UYUMU",
+        "en": "BODY & SOUL HARMONY",
+        "de": "HARMONIE VON KÖRPER & SEELE",
+        "fr": "HARMONIE DU CORPS & DE L'ÂME",
+        "ru": "ГАРМОНИЯ ТЕЛА И ДУШИ"
+      },
+      "title": {
+        "tr": "Bedensel Ritüeller",
+        "en": "Body Rituals",
+        "de": "Körperrituale",
+        "fr": "Rituels Corporels",
+        "ru": "Телесные Ритуалы"
+      },
+      "intro": {
+        "tr": "Santis Club masaj koleksiyonu, dünya terapilerinden ilham alarak bedeninizi ve zihninizi yeniden dengeleyen profesyonel dokunuş ritüelleri sunar. Klasik İsveç masajından derin doku terapisine, Thai masajdan Bali ritüeline kadar geniş bir yelpazede, uzman terapistlerimiz kişiselleştirilmiş bir deneyim tasarlar.",
+        "en": "The Santis Club massage collection offers professional touch rituals inspired by world therapies to rebalance your body and mind. From classic Swedish massage to deep tissue therapy, from Thai massage to Balinese ritual, our expert therapists design a personalised experience.",
+        "de": "Die Santis Club Massage-Kollektion bietet professionelle Berührungsrituale, inspiriert von Welttherapien, um Körper und Geist neu auszubalancieren. Von klassischer schwedischer Massage bis hin zur Tiefengewebetherapie, von Thai-Massage bis zum balinesischen Ritual gestalten unsere erfahrenen Therapeuten ein individuelles Erlebnis.",
+        "fr": "La collection de massages du Santis Club propose des rituels de toucher professionnel inspirés des thérapies du monde entier pour rééquilibrer votre corps et votre esprit. Du massage suédois classique à la thérapie des tissus profonds, du massage thaï au rituel balinais, nos thérapeutes experts conçoivent une expérience personnalisée.",
+        "ru": "Массажная коллекция Santis Club предлагает профессиональные ритуалы прикосновения, вдохновлённые мировыми терапиями, для восстановления баланса тела и разума. От классического шведского массажа до глубокотканевой терапии, от тайского массажа до балийского ритуала — наши опытные терапевты создают индивидуальный опыт."
+      },
+      "subtitle": {
+        "tr": "Dokunuşun şifa olduğu an. Geleneksel tekniklerin ötesinde bir yolculuk.",
+        "en": "Where touch becomes healing. A journey beyond traditional techniques.",
+        "de": "Wenn Berührung zur Heilung wird. Eine Reise jenseits traditioneller Techniken.",
+        "fr": "Quand le toucher devient guérison. Un voyage au-delà des techniques traditionnelles.",
+        "ru": "Когда прикосновение становится исцелением. Путешествие за пределы традиционных техник."
+      },
+      "scroll_target": "massages",
+      "spa_menu_link": true
+    },
+    "brand_story": {
+      "kicker": {
+        "tr": "THERAPIES",
+        "en": "THERAPIES",
+        "de": "THERAPIEN",
+        "fr": "THÉRAPIES",
+        "ru": "ТЕРАПИИ"
+      },
+      "title": {
+        "tr": "Dokunuşun Şifa Gücü",
+        "en": "The Healing Power of Touch",
+        "de": "Die heilende Kraft der Berührung",
+        "fr": "Le pouvoir guérisseur du toucher",
+        "ru": "Целительная сила прикосновения"
+      },
+      "text": {
+        "tr": "Geleneksel İsveç tekniklerinden Uzak Doğu ritüellerine, derin doku masajından aromaterapi seanslarına uzanan geniş repertuvarımızla bedeninizin ihtiyaç duyduğu bakımı sunuyoruz.",
+        "en": "From traditional Swedish techniques to Far Eastern rituals, from deep tissue massage to aromatherapy sessions, we offer the care your body needs through our wide repertoire.",
+        "de": "Von traditionellen schwedischen Techniken bis zu fernöstlichen Ritualen, von Tiefengewebemassage bis zu Aromatherapie-Sitzungen bieten wir Ihrem Körper die Pflege, die er braucht.",
+        "fr": "Des techniques suédoises traditionnelles aux rituels d'Extrême-Orient, du massage des tissus profonds aux séances d'aromathérapie, nous offrons à votre corps les soins dont il a besoin.",
+        "ru": "От традиционных шведских техник до дальневосточных ритуалов, от глубокотканевого массажа до ароматерапии — мы предлагаем вашему телу необходимый уход."
+      }
+    },
+    "chips": [
+      {
+        "key": "all",
+        "label": {
+          "tr": "Tümü",
+          "en": "All",
+          "de": "Alle",
+          "fr": "Tous",
+          "ru": "Все"
+        }
+      },
+      {
+        "key": "massage-relaxation",
+        "emoji": "🤲",
+        "label": {
+          "tr": "Klasik",
+          "en": "Classic",
+          "de": "Klassisch",
+          "fr": "Classique",
+          "ru": "Классический"
+        }
+      },
+      {
+        "key": "massage-sports",
+        "emoji": "💪",
+        "label": {
+          "tr": "Spor & Derin Doku",
+          "en": "Sports & Deep Tissue",
+          "de": "Sport & Tiefengewebe",
+          "fr": "Sport & Tissus profonds",
+          "ru": "Спорт и глубокие ткани"
+        }
+      },
+      {
+        "key": "massage-asian",
+        "emoji": "🌏",
+        "label": {
+          "tr": "Asya",
+          "en": "Asian",
+          "de": "Asiatisch",
+          "fr": "Asiatique",
+          "ru": "Азиатский"
+        }
+      },
+      {
+        "key": "massage-medical",
+        "emoji": "🩺",
+        "label": {
+          "tr": "Medikal",
+          "en": "Medical",
+          "de": "Medizinisch",
+          "fr": "Médical",
+          "ru": "Медицинский"
+        }
+      },
+      {
+        "key": "massage-regional",
+        "emoji": "🎯",
+        "label": {
+          "tr": "Bölgesel",
+          "en": "Regional",
+          "de": "Regional",
+          "fr": "Régional",
+          "ru": "Региональный"
+        }
+      },
+      {
+        "key": "massage-premium",
+        "emoji": "✨",
+        "label": {
+          "tr": "Premium",
+          "en": "Premium",
+          "de": "Premium",
+          "fr": "Premium",
+          "ru": "Премиум"
+        }
+      },
+      {
+        "key": "massage-couples",
+        "emoji": "💑",
+        "label": {
+          "tr": "Çift",
+          "en": "Couples",
+          "de": "Paare",
+          "fr": "Couples",
+          "ru": "Для пар"
+        }
+      },
+      {
+        "key": "massage-kids",
+        "emoji": "👨‍👩‍👧",
+        "label": {
+          "tr": "Kids & Aile",
+          "en": "Kids & Family",
+          "de": "Kinder & Familie",
+          "fr": "Enfants & Famille",
+          "ru": "Дети и семья"
+        }
+      }
+    ],
+    "faq": {
+      "tr": [
+        {
+          "q": "Masaj randevusunu nasıl alabilirim?",
+          "a": "WhatsApp üzerinden +90 534 835 01 69 numarasına mesaj atarak veya web sitemiz üzerinden online rezervasyon yapabilirsiniz."
+        },
+        {
+          "q": "En popüler masaj türünüz hangisi?",
+          "a": "Aromaterapi masajı ve derin doku masajı en çok tercih edilen terapilerimizdir. Uzman terapistimiz ilk görüşmede size en uygun terapiyi önerecektir."
+        },
+        {
+          "q": "Çift masajı mümkün mü?",
+          "a": "Evet, özel çift masajı odamızda eşiniz veya partnerinizle birlikte eş zamanlı masaj deneyimi yaşayabilirsiniz."
+        }
+      ],
+      "en": [
+        {
+          "q": "How can I book a massage?",
+          "a": "You can book via WhatsApp at +90 534 835 01 69 or through online reservation on our website."
+        },
+        {
+          "q": "What is your most popular massage?",
+          "a": "Aromatherapy massage and deep tissue massage are our most preferred therapies. Our expert therapist will recommend the most suitable therapy during your first consultation."
+        },
+        {
+          "q": "Is couples massage available?",
+          "a": "Yes, you can enjoy a synchronised massage experience with your partner in our private couples suite."
+        }
+      ],
+      "de": [
+        {
+          "q": "Wie kann ich eine Massage buchen?",
+          "a": "Sie können über WhatsApp unter +90 534 835 01 69 oder über die Online-Reservierung auf unserer Website buchen."
+        },
+        {
+          "q": "Was ist Ihre beliebteste Massage?",
+          "a": "Aromatherapie-Massage und Tiefengewebemassage sind unsere meistgewählten Therapien. Unser Therapeut empfiehlt Ihnen die passende Therapie beim Erstgespräch."
+        },
+        {
+          "q": "Ist Paarmassage möglich?",
+          "a": "Ja, in unserer privaten Paar-Suite können Sie gemeinsam mit Ihrem Partner eine synchrone Massage erleben."
+        }
+      ],
+      "fr": [
+        {
+          "q": "Comment réserver un massage ?",
+          "a": "Vous pouvez réserver via WhatsApp au +90 534 835 01 69 ou par réservation en ligne sur notre site web."
+        },
+        {
+          "q": "Quel est votre massage le plus populaire ?",
+          "a": "Le massage aromathérapie et le massage des tissus profonds sont nos thérapies les plus demandées. Notre thérapeute expert vous recommandera la thérapie la plus adaptée lors de votre première consultation."
+        },
+        {
+          "q": "Le massage en couple est-il possible ?",
+          "a": "Oui, vous pouvez profiter d'une expérience de massage synchronisé avec votre partenaire dans notre suite privée pour couples."
+        }
+      ],
+      "ru": [
+        {
+          "q": "Как записаться на массаж?",
+          "a": "Вы можете записаться через WhatsApp по номеру +90 534 835 01 69 или через онлайн-бронирование на нашем сайте."
+        },
+        {
+          "q": "Какой массаж у вас самый популярный?",
+          "a": "Ароматерапевтический массаж и глубокотканевый массаж — наши самые востребованные терапии. Наш терапевт порекомендует наиболее подходящую терапию на первой консультации."
+        },
+        {
+          "q": "Доступен ли массаж для пар?",
+          "a": "Да, вы можете насладиться синхронным массажем с вашим партнёром в нашем приватном номере для пар."
+        }
+      ]
+    },
+    "seo_bottom": {
+      "tr": "Antalya masaj merkezi olarak Santis Club, 20'den fazla masaj terapisi sunmaktadır. Stres giderme, kas gevşetme, ağrı yönetimi ve genel iyilik hali için uzman terapistlerimiz tarafından uygulanan profesyonel masaj hizmetlerinden faydalanın. Tüm masajlarımız özel terapi odalarında, kişiselleştirilmiş aromatik yağlarla uygulanır.",
+      "en": "As a leading Antalya massage centre, Santis Club offers more than 20 massage therapies. Benefit from professional massage services provided by our expert therapists for stress relief, muscle relaxation, pain management and overall wellness. All massages are performed in private therapy rooms with personalised aromatic oils.",
+      "de": "Als führendes Massagezentrum in Antalya bietet der Santis Club über 20 Massagetherapien an. Profitieren Sie von professionellen Massageleistungen unserer erfahrenen Therapeuten für Stressabbau, Muskelentspannung, Schmerzmanagement und allgemeines Wohlbefinden.",
+      "fr": "En tant que centre de massage de premier plan à Antalya, le Santis Club propose plus de 20 thérapies de massage. Bénéficiez de services de massage professionnels dispensés par nos thérapeutes experts pour la gestion du stress, la relaxation musculaire et le bien-être général.",
+      "ru": "Santis Club — ведущий массажный центр Анталии, предлагающий более 20 видов массажных терапий. Воспользуйтесь профессиональными массажными услугами наших опытных терапевтов для снятия стресса, расслабления мышц и общего оздоровления."
+    },
+    "meta": {
+      "title": {
+        "tr": "Masajlar",
+        "en": "Massages",
+        "de": "Massagen",
+        "fr": "Massages",
+        "ru": "Массаж"
+      },
+      "description": {
+        "tr": "Santis Club Masaj Terapileri: Geleneksel teknikler ve modern dokunuşlarla bedeninizi ve ruhunuzu yenileyin. Uzman terapistler eşliğinde eşsiz bir rahatlama deneyimi.",
+        "en": "Santis Club Massage Therapies: Renew your body and soul with traditional techniques and modern touch. A unique relaxation experience with expert therapists.",
+        "de": "Santis Club Massagetherapien: Erneuern Sie Körper und Seele mit traditionellen Techniken und moderner Berührung. Ein einzigartiges Entspannungserlebnis mit erfahrenen Therapeuten.",
+        "fr": "Thérapies de massage Santis Club : Renouvelez votre corps et votre âme avec des techniques traditionnelles et un toucher moderne. Une expérience de relaxation unique avec des thérapeutes experts.",
+        "ru": "Массажные терапии Santis Club: Обновите тело и душу с помощью традиционных техник и современного прикосновения. Уникальный опыт расслабления с опытными терапевтами."
+      }
+    }
+  },
+  "hammam": {
+    "data_context": "hamam",
+    "grid_id": "hamam-list",
+    "body_class": "editorial-mode world-hydro",
+    "page_init_js": "hammam-page-init.js",
+    "chip_filter_js": null,
+    "preloader_js": null,
+    "hero": {
+      "kicker": {
+        "tr": "HYDRO-HERITAGE",
+        "en": "HYDRO-HERITAGE",
+        "de": "HYDRO-HERITAGE",
+        "fr": "HYDRO-HÉRITAGE",
+        "ru": "ГИДРО-НАСЛЕДИЕ"
+      },
+      "title": {
+        "tr": "Hamam Ritüelleri",
+        "en": "Hammam Rituals",
+        "de": "Hammam-Rituale",
+        "fr": "Rituels Hammam",
+        "ru": "Ритуалы хаммама"
+      },
+      "intro": {
+        "tr": "Yüzyıllık Osmanlı hamam geleneğini modern konforla buluşturan Santis Club hamamı, geleneksel kese ve köpükten saray ritüellerine kadar eşsiz bir arınma deneyimi sunar. Her ritüel, doğal malzemeler ve uzman ellerle gerçekleştirilen bir yenilenme yolculuğudur.",
+        "en": "Uniting centuries-old Ottoman bath tradition with modern comfort, Santis Club hammam offers a unique purification experience from traditional body scrub and foam to palace rituals. Each ritual is a journey of renewal performed with natural materials and expert hands.",
+        "de": "Das Santis Club Hammam vereint die jahrhundertealte osmanische Badetra­dition mit modernem Komfort und bietet ein einzigartiges Reinigungserlebnis — vom traditionellen Körperpeeling und Schaum bis hin zu Palast-Ritualen. Jedes Ritual ist eine Erneuerungsreise mit natürlichen Materialien und erfahrenen Händen.",
+        "fr": "Alliant la tradition séculaire du bain ottoman au confort moderne, le hammam du Santis Club offre une expérience de purification unique, du gommage corporel traditionnel et de la mousse aux rituels de palais. Chaque rituel est un voyage de renouveau réalisé avec des matériaux naturels et des mains expertes.",
+        "ru": "Объединяя многовековую традицию османской бани с современным комфортом, хаммам Santis Club предлагает уникальный опыт очищения — от традиционного пилинга тела и пены до дворцовых ритуалов. Каждый ритуал — это путешествие обновления с натуральными материалами и опытными руками."
+      },
+      "subtitle": {
+        "tr": "Mermer, su ve buharın dansı. Osmanlı saraylarından günümüze uzanan arınma sanatı.",
+        "en": "The dance of marble, water and steam. The art of purification from Ottoman palaces to today.",
+        "de": "Der Tanz von Marmor, Wasser und Dampf. Die Reinigungskunst von den osmanischen Palästen bis heute.",
+        "fr": "La danse du marbre, de l'eau et de la vapeur. L'art de la purification des palais ottomans à nos jours.",
+        "ru": "Танец мрамора, воды и пара. Искусство очищения от османских дворцов до наших дней."
+      },
+      "hero_image": "../../assets/img/cards/santis_card_hammam_v1.webp",
+      "scroll_target": "hamam-list",
+      "spa_menu_link": false
+    },
+    "brand_story": {
+      "kicker": {
+        "tr": "THE RITUAL",
+        "en": "THE RITUAL",
+        "de": "DAS RITUAL",
+        "fr": "LE RITUEL",
+        "ru": "РИТУАЛ"
+      },
+      "title": {
+        "tr": "Arınma Sanatı",
+        "en": "The Art of Purification",
+        "de": "Die Kunst der Reinigung",
+        "fr": "L'art de la purification",
+        "ru": "Искусство очищения"
+      },
+      "text": {
+        "tr": "Sıcak mermerin (Göbektaşı) üzerinde gevşeyen kaslar, ipek kenenin dokunuşuyla tazelenen cilt ve doğal zeytinyağı sabununun yumuşacık köpüğü. Bu sadece bir banyo değil, ruhsal bir arınmadır.",
+        "en": "Muscles relaxing on warm marble (Göbektaşı), skin renewed by the touch of the silk scrub mitt, and the softest foam of natural olive oil soap. This is not just a bath — it is a spiritual purification.",
+        "de": "Muskeln, die sich auf warmem Marmor (Göbektaşı) entspannen, Haut, die durch die Berührung des seidenen Peelinghandschuhs erneuert wird, und der weichste Schaum der natürlichen Olivenölseife. Dies ist nicht nur ein Bad — es ist eine spirituelle Reinigung.",
+        "fr": "Des muscles qui se détendent sur le marbre chaud (Göbektaşı), une peau renouvelée par le toucher du gant de gommage en soie et la mousse la plus douce du savon naturel à l'huile d'olive. Ce n'est pas juste un bain — c'est une purification spirituelle.",
+        "ru": "Мышцы расслабляются на тёплом мраморе (Гёбекташи), кожа обновляется прикосновением шёлковой рукавицы для пилинга, и нежнейшая пена натурального оливкового мыла. Это не просто купание — это духовное очищение."
+      }
+    },
+    "chips": [],
+    "faq": {
+      "tr": [
+        {
+          "q": "Hamam seansına ne getirmem gerekiyor?",
+          "a": "Hiçbir şey getirmenize gerek yoktur. Peştemal, kese, doğal sabun ve tüm malzemeler tesisimiz tarafından sağlanır."
+        },
+        {
+          "q": "Hamam ilk kez deneyenler için uygun mu?",
+          "a": "Kesinlikle! Terapistlerimiz süreci adım adım anlatır ve konforu esas alarak uygulama yapar. İlk deneyim için kese & köpük masajı idealdir."
+        },
+        {
+          "q": "Hamam sonrası ne yapmalıyım?",
+          "a": "Bol su içmenizi ve 2-3 saat güneşten kaçınmanızı öneririz. Cildiniz yenilenmiş olacağından SPF koruması kullanın."
+        }
+      ],
+      "en": [
+        {
+          "q": "What should I bring to the hammam?",
+          "a": "You don't need to bring anything. Peştemal (towel wrap), scrub mitt, natural soap and all materials are provided by our facility."
+        },
+        {
+          "q": "Is the hammam suitable for first-timers?",
+          "a": "Absolutely! Our therapists explain the process step by step and adjust the treatment for your comfort. The traditional body scrub & foam is ideal for a first experience."
+        },
+        {
+          "q": "What should I do after the hammam?",
+          "a": "We recommend drinking plenty of water and avoiding sun exposure for 2-3 hours. Since your skin will be renewed, use SPF protection."
+        }
+      ],
+      "de": [
+        {
+          "q": "Was soll ich zum Hammam mitbringen?",
+          "a": "Sie müssen nichts mitbringen. Peştemal (Tuchwickel), Peelinghandschuh, Naturseife und alle Materialien werden von unserem Haus bereitgestellt."
+        },
+        {
+          "q": "Ist das Hammam für Erstbesucher geeignet?",
+          "a": "Auf jeden Fall! Unsere Therapeuten erklären den Ablauf Schritt für Schritt und passen die Behandlung an Ihren Komfort an."
+        },
+        {
+          "q": "Was sollte ich nach dem Hammam tun?",
+          "a": "Wir empfehlen viel Wasser zu trinken und 2-3 Stunden Sonneneinstrahlung zu vermeiden. Da Ihre Haut erneuert wird, verwenden Sie Sonnenschutz."
+        }
+      ],
+      "fr": [
+        {
+          "q": "Que dois-je apporter au hammam ?",
+          "a": "Vous n'avez rien à apporter. Peştemal (serviette), gant de gommage, savon naturel et tous les matériaux sont fournis par notre établissement."
+        },
+        {
+          "q": "Le hammam convient-il aux débutants ?",
+          "a": "Absolument ! Nos thérapeutes expliquent le processus étape par étape et adaptent le soin à votre confort."
+        },
+        {
+          "q": "Que faire après le hammam ?",
+          "a": "Nous recommandons de boire beaucoup d'eau et d'éviter l'exposition au soleil pendant 2-3 heures. Votre peau étant renouvelée, utilisez une protection SPF."
+        }
+      ],
+      "ru": [
+        {
+          "q": "Что взять с собой в хаммам?",
+          "a": "Вам не нужно ничего брать с собой. Пештемаль (полотенце), рукавица для пилинга, натуральное мыло и все материалы предоставляются нашим заведением."
+        },
+        {
+          "q": "Подходит ли хаммам для новичков?",
+          "a": "Безусловно! Наши терапевты объясняют процесс шаг за шагом и адаптируют процедуру под ваш комфорт."
+        },
+        {
+          "q": "Что делать после хаммама?",
+          "a": "Мы рекомендуем пить много воды и избегать пребывания на солнце 2-3 часа. Поскольку ваша кожа обновлена, используйте SPF-защиту."
+        }
+      ]
+    },
+    "seo_bottom": {
+      "tr": "Antalya hamam deneyimi arayanlar için Santis Club, otantik Türk hamamı ritüelleri sunmaktadır. Osmanlı saray hamamı, kese-köpük masajı, kahve detox arınma ve gelin hamamı gibi özel ritüellerimizle cildinizi yeniler, bedeninizi arındırır ve ruhunuzu dinlendirirsiniz.",
+      "en": "For those seeking an authentic Antalya hammam experience, Santis Club offers genuine Turkish bath rituals. With our special rituals including Ottoman palace hammam, body scrub & foam massage, coffee detox cleansing and bridal hammam, renew your skin, purify your body and rest your soul.",
+      "de": "Für alle, die ein authentisches Hammam-Erlebnis in Antalya suchen, bietet der Santis Club echte türkische Baderituale. Mit unseren besonderen Ritualen — osmanisches Palast-Hammam, Körperpeeling & Schaummassage, Kaffee-Detox-Reinigung und Braut-Hammam — erneuern Sie Ihre Haut und reinigen Ihren Körper.",
+      "fr": "Pour ceux qui recherchent une expérience authentique de hammam à Antalya, le Santis Club propose de véritables rituels de bain turc. Avec nos rituels spéciaux comprenant le hammam de palais ottoman, le gommage & massage mousse, le nettoyage détox au café et le hammam nuptial.",
+      "ru": "Для тех, кто ищет аутентичный хаммам в Анталии, Santis Club предлагает настоящие турецкие банные ритуалы. С нашими особыми ритуалами — османский дворцовый хаммам, пилинг и пенный массаж, кофейный детокс и свадебный хаммам — обновите кожу и очистите тело."
+    },
+    "meta": {
+      "title": {
+        "tr": "Hamam Ritüelleri",
+        "en": "Hammam Rituals",
+        "de": "Hammam-Rituale",
+        "fr": "Rituels Hammam",
+        "ru": "Ритуалы хаммама"
+      },
+      "description": {
+        "tr": "Geleneksel Türk Hamamı ritüelleriyle arının. Osmanlı saray geleneğinden ilham alan kese, köpük ve bakım terapileriyle yenilenin.",
+        "en": "Purify with traditional Turkish Hammam rituals. Renew with body scrub, foam and care therapies inspired by Ottoman palace tradition.",
+        "de": "Reinigen Sie sich mit traditionellen türkischen Hammam-Ritualen. Erneuern Sie sich mit Körperpeeling, Schaum und Pflegetherapien, inspiriert von der osmanischen Palasttradition.",
+        "fr": "Purifiez-vous avec les rituels traditionnels du Hammam turc. Renouvelez-vous avec le gommage, la mousse et les soins inspirés de la tradition du palais ottoman.",
+        "ru": "Очиститесь с помощью традиционных ритуалов турецкого хаммама. Обновитесь с пилингом, пеной и процедурами ухода, вдохновлёнными традицией османского дворца."
+      }
+    }
+  },
+  "skincare": {
+    "body_class": "editorial-mode",
+    "data_context": "skincare",
+    "grid_id": "skincare",
+    "page_init_js": "assets/js/skincare-detail.js",
+    "chip_filter_js": "assets/js/chip-filter.js",
+    "preloader_js": "assets/js/nuclear-preloader.js",
+    "hero": {
+      "kicker": {
+        "tr": "SANTIS CLUB",
+        "en": "SANTIS CLUB",
+        "de": "SANTIS CLUB",
+        "fr": "SANTIS CLUB",
+        "ru": "SANTIS CLUB"
+      },
+      "title": {
+        "tr": "Cilt Bakımı",
+        "en": "Skincare",
+        "de": "Hautpflege",
+        "fr": "Soins du Visage",
+        "ru": "Уход за лицом"
+      },
+      "intro": {
+        "tr": "Bilimsel formüller ve doğal aktif maddelerle güçlendirilmiş profesyonel cilt bakım ritüelleri.",
+        "en": "Professional skincare rituals powered by scientific formulas and natural active ingredients.",
+        "de": "Professionelle Hautpflegerituale mit wissenschaftlichen Formeln und natürlichen Wirkstoffen.",
+        "fr": "Rituels de soins professionnels enrichis de formules scientifiques et d'ingrédients actifs naturels.",
+        "ru": "Профессиональные ритуалы ухода за кожей с научными формулами и натуральными активными ингредиентами."
+      },
+      "subtitle": {
+        "tr": "Cilt Ritüelleri",
+        "en": "Skin Rituals",
+        "de": "Hautrituale",
+        "fr": "Rituels de la Peau",
+        "ru": "Ритуалы кожи"
+      },
+      "hero_image": "/assets/img/cards/santis_hero_skincare_lux.webp",
+      "scroll_target": "#skincare-grid",
+      "spa_menu_link": false
+    },
+    "brand_story": {
+      "kicker": {
+        "tr": "SOTHYS PARİS İLE",
+        "en": "WITH SOTHYS PARIS",
+        "de": "MIT SOTHYS PARIS",
+        "fr": "AVEC SOTHYS PARIS",
+        "ru": "С SOTHYS PARIS"
+      },
+      "title": {
+        "tr": "Bilimsel Güzellik, Doğal Zarafet",
+        "en": "Scientific Beauty, Natural Elegance",
+        "de": "Wissenschaftliche Schönheit, Natürliche Eleganz",
+        "fr": "Beauté Scientifique, Élégance Naturelle",
+        "ru": "Научная красота, Природная элегантность"
+      },
+      "text": {
+        "tr": "Her cilt bakım seansı, Sothys Paris'in 75 yıllık uzmanlığı ve Santis Club'un premium hizmet anlayışıyla buluşur. Dijital cilt analizi ile başlayan kişiselleştirilmiş protokoller, cildinizin gerçek ihtiyaçlarını hedefler.",
+        "en": "Every skincare session meets Sothys Paris' 75 years of expertise with Santis Club's premium service philosophy. Personalized protocols beginning with digital skin analysis target your skin's true needs.",
+        "de": "Jede Hautpflegesitzung vereint die 75-jährige Expertise von Sothys Paris mit der Premium-Service-Philosophie des Santis Club. Personalisierte Protokolle, die mit digitaler Hautanalyse beginnen, zielen auf die wahren Bedürfnisse Ihrer Haut ab.",
+        "fr": "Chaque séance de soins allie les 75 ans d'expertise de Sothys Paris à la philosophie de service premium du Santis Club. Des protocoles personnalisés commençant par une analyse digitale de la peau ciblent les vrais besoins de votre peau.",
+        "ru": "Каждый сеанс ухода за кожей объединяет 75-летний опыт Sothys Paris с философией премиум-сервиса Santis Club. Персонализированные протоколы, начинающиеся с цифрового анализа кожи, нацелены на истинные потребности вашей кожи."
+      }
+    },
+    "chips": [
+      {
+        "key": "classicFacials",
+        "emoji": "🧖",
+        "label": {
+          "tr": "Klasik Bakımlar",
+          "en": "Classic Facials",
+          "de": "Klassische Pflege",
+          "fr": "Soins Classiques",
+          "ru": "Классический уход"
+        }
+      },
+      {
+        "key": "hydrationGlow",
+        "emoji": "💧",
+        "label": {
+          "tr": "Nem & Işıltı",
+          "en": "Hydration & Glow",
+          "de": "Feuchtigkeit & Glow",
+          "fr": "Hydratation & Éclat",
+          "ru": "Увлажнение и сияние"
+        }
+      },
+      {
+        "key": "antiAgingLift",
+        "emoji": "✨",
+        "label": {
+          "tr": "Anti-Aging",
+          "en": "Anti-Aging",
+          "de": "Anti-Aging",
+          "fr": "Anti-Âge",
+          "ru": "Антивозрастной"
+        }
+      },
+      {
+        "key": "targetedCare",
+        "emoji": "🎯",
+        "label": {
+          "tr": "Hedefli Bakım",
+          "en": "Targeted Care",
+          "de": "Gezielte Pflege",
+          "fr": "Soins Ciblés",
+          "ru": "Целевой уход"
+        }
+      },
+      {
+        "key": "advancedAesthetics",
+        "emoji": "💎",
+        "label": {
+          "tr": "İleri Estetik",
+          "en": "Advanced Aesthetics",
+          "de": "Fortgeschrittene Ästhetik",
+          "fr": "Esthétique Avancée",
+          "ru": "Продвинутая эстетика"
+        }
+      },
+      {
+        "key": "miniPrograms",
+        "emoji": "⚡",
+        "label": {
+          "tr": "Mini Programlar",
+          "en": "Mini Programs",
+          "de": "Mini-Programme",
+          "fr": "Mini Programmes",
+          "ru": "Мини-программы"
+        }
+      }
+    ],
+    "faq": {
+      "tr": [
+        {
+          "q": "Cilt bakımı seansı ne kadar sürer?",
+          "a": "Bakım türüne göre 20 dakika ile 80 dakika arasında değişir. Dijital cilt analizi seans öncesi yapılır."
+        },
+        {
+          "q": "Hangi ürünler kullanılıyor?",
+          "a": "Santis Club, Sothys Paris'in profesyonel cilt bakım ürünlerini kullanmaktadır. Tüm ürünler dermatolojik olarak test edilmiştir."
+        },
+        {
+          "q": "Hassas ciltler için uygun mu?",
+          "a": "Evet, hassas ciltler için özel formülasyonlar mevcuttur. Cilt analizi sonrası en uygun protokol belirlenir."
+        }
+      ],
+      "en": [
+        {
+          "q": "How long does a skincare session last?",
+          "a": "Sessions range from 20 to 80 minutes depending on the treatment type. Digital skin analysis is performed before the session."
+        },
+        {
+          "q": "Which products are used?",
+          "a": "Santis Club uses Sothys Paris professional skincare products. All products are dermatologically tested."
+        },
+        {
+          "q": "Is it suitable for sensitive skin?",
+          "a": "Yes, special formulations are available for sensitive skin. The most suitable protocol is determined after skin analysis."
+        }
+      ],
+      "de": [
+        {
+          "q": "Wie lange dauert eine Hautpflegesitzung?",
+          "a": "Die Sitzungen dauern je nach Behandlungstyp zwischen 20 und 80 Minuten. Vor der Sitzung wird eine digitale Hautanalyse durchgeführt."
+        },
+        {
+          "q": "Welche Produkte werden verwendet?",
+          "a": "Santis Club verwendet professionelle Hautpflegeprodukte von Sothys Paris. Alle Produkte sind dermatologisch getestet."
+        },
+        {
+          "q": "Ist es für empfindliche Haut geeignet?",
+          "a": "Ja, spezielle Formulierungen für empfindliche Haut sind verfügbar. Das geeignetste Protokoll wird nach der Hautanalyse bestimmt."
+        }
+      ],
+      "fr": [
+        {
+          "q": "Combien de temps dure une séance de soins ?",
+          "a": "Les séances durent entre 20 et 80 minutes selon le type de soin. Une analyse digitale de la peau est effectuée avant la séance."
+        },
+        {
+          "q": "Quels produits sont utilisés ?",
+          "a": "Santis Club utilise les produits professionnels de soins Sothys Paris. Tous les produits sont testés dermatologiquement."
+        },
+        {
+          "q": "Est-ce adapté aux peaux sensibles ?",
+          "a": "Oui, des formulations spéciales pour peaux sensibles sont disponibles. Le protocole le plus adapté est déterminé après l'analyse de la peau."
+        }
+      ],
+      "ru": [
+        {
+          "q": "Сколько длится сеанс ухода за кожей?",
+          "a": "Сеансы длятся от 20 до 80 минут в зависимости от типа процедуры. Перед сеансом проводится цифровой анализ кожи."
+        },
+        {
+          "q": "Какие продукты используются?",
+          "a": "Santis Club использует профессиональные средства по уходу за кожей Sothys Paris. Все продукты дерматологически протестированы."
+        },
+        {
+          "q": "Подходит ли это для чувствительной кожи?",
+          "a": "Да, доступны специальные формулы для чувствительной кожи. Наиболее подходящий протокол определяется после анализа кожи."
+        }
+      ]
+    },
+    "seo_bottom": {
+      "tr": "Santis Club'un profesyonel cilt bakım merkezi, Sothys Paris ürünleri ile klasik yüz bakımından anti-aging tedavilere, enzim peelingden gold mask ritüeline kadar geniş bir yelpazede hizmet sunar. Dijital cilt analizi ile kişiselleştirilmiş protokoller.",
+      "en": "Santis Club's professional skincare center offers a wide range of treatments with Sothys Paris products, from classic facials to anti-aging treatments, enzyme peeling to gold mask rituals. Personalized protocols with digital skin analysis.",
+      "de": "Das professionelle Hautpflegezentrum des Santis Club bietet mit Sothys Paris Produkten eine breite Palette von Behandlungen, von klassischen Gesichtspflegen bis zu Anti-Aging-Behandlungen, Enzym-Peeling bis zum Goldmasken-Ritual. Personalisierte Protokolle mit digitaler Hautanalyse.",
+      "fr": "Le centre de soins professionnel du Santis Club propose une large gamme de traitements avec les produits Sothys Paris, des soins classiques aux traitements anti-âge, du peeling enzymatique au rituel masque or. Protocoles personnalisés avec analyse digitale de la peau.",
+      "ru": "Профессиональный центр ухода за кожей Santis Club предлагает широкий спектр процедур с продуктами Sothys Paris, от классических процедур до антивозрастных процедур, от энзимного пилинга до ритуала золотой маски. Персонализированные протоколы с цифровым анализом кожи."
+    },
+    "meta": {
+      "title": {
+        "tr": "Cilt Bakımı | Santis Club Spa & Wellness",
+        "en": "Skincare | Santis Club Spa & Wellness",
+        "de": "Hautpflege | Santis Club Spa & Wellness",
+        "fr": "Soins du Visage | Santis Club Spa & Wellness",
+        "ru": "Уход за лицом | Santis Club Spa & Wellness"
+      },
+      "description": {
+        "tr": "Sothys Paris ürünleri ile profesyonel cilt bakım ritüelleri. Klasik bakım, anti-aging, glass skin ve daha fazlası.",
+        "en": "Professional skincare rituals with Sothys Paris products. Classic facials, anti-aging, glass skin and more.",
+        "de": "Professionelle Hautpflegerituale mit Sothys Paris Produkten. Klassische Pflege, Anti-Aging, Glass Skin und mehr.",
+        "fr": "Rituels de soins professionnels avec les produits Sothys Paris. Soins classiques, anti-âge, glass skin et plus.",
+        "ru": "Профессиональные ритуалы ухода за кожей с продуктами Sothys Paris. Классический уход, антивозрастной, glass skin и другое."
+      }
+    }
+  }
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Santis Club • Detay</title>
+<meta content="Yükleniyor... at Santis Club. Lütfen bekleyin, terapi detayları yükleniyor..." name="description"/>
+<!-- FONTS -->
+<link href="/assets/css/fonts.css" rel="stylesheet"/>
+<link href="/assets/css/fonts.css" rel="stylesheet"/>
+<!-- STYLES -->
+<link href="/assets/css/service-detail.css" rel="stylesheet"/>
+<link href="/assets/css/style.css" rel="stylesheet"/> <!-- Master for Nav/Footer -->
+<script src="/assets/js/perf-head.js"></script>
+<script>window.SITE_ROOT = '/';</script>
+<meta content="/assets/img/og-standard.jpg" property="og:image"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ana Sayfa",
+      "item": "https://santisclub.com/tr/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "_Legacy_Archive",
+      "item": "https://santisclub.com/tr/_legacy_archive"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Tr",
+      "item": "https://santisclub.com/tr/_legacy_archive/tr"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Masaj Terapileri",
+      "item": "https://santisclub.com/tr/_legacy_archive/tr/masajlar"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "name": "Detay",
+      "item": "https://santisclub.com/tr/_legacy_archive/tr/masajlar/detay.html"
+    }
+  ]
+}
+</script></head>
+<body class="cinematic-mode">
+<!-- NAVBAR CONTAINER -->
+<div id="navbar-container" style="position:fixed; width:100%; z-index:99;"></div>
+<main id="cinematic-wrapper">
+<!-- LEFT: VISUAL -->
+<div class="cin-visual-stage">
+<div class="cin-visual-overlay"></div>
+<img alt="Service Visual" class="cin-visual-img" src=""/>
+</div>
+<!-- RIGHT: CONTENT -->
+<div class="cin-content-stage">
+<div class="cin-breadcrumb">
+<a href="/tr/masajlar/index.html">Masajlar</a> / <span id="bread-cat">Kategori</span>
+</div>
+<h1 class="cin-title">Yükleniyor...</h1>
+<h2 class="cin-subtitle">Santis Collection</h2>
+<p class="cin-desc">
+
+                Lütfen bekleyin, terapi detayları yükleniyor...
+
+            </p>
+<!-- META GRID -->
+<div class="cin-meta-grid">
+<div class="cin-meta-box">
+<span class="cin-label">Faydaları</span>
+<span class="cin-value" id="val-benefit">--</span>
+</div>
+<div class="cin-meta-box">
+<span class="cin-label">Ritüel</span>
+<span class="cin-value" id="val-usage">--</span>
+</div>
+<div class="cin-meta-box">
+<span class="cin-label">Süre</span>
+<span class="cin-value" id="val-duration">50 / 80 Dk</span>
+</div>
+<div class="cin-meta-box">
+<span class="cin-label">Lokasyon</span>
+<span class="cin-value">Privateroom</span>
+</div>
+</div>
+<!-- ACTIONS -->
+<div class="cin-actions">
+<a class="cin-btn primary" href="javascript:void(0)" id="btn-whatsapp">Rezervasyon Yap</a>
+<a class="cin-btn" href="/tr/masajlar/index.html">Koleksiyona Dön</a>
+</div>
+</div>
+</main>
+<!-- FOOTER CONTAINER -->
+<div id="footer-container"></div>
+<!-- DATA & LOGIC -->
+<script src="/assets/js/loaders/data-bridge.js?v=5.5"></script>
+<script src="/assets/js/service-loader.js"></script>
+<!-- CORE NAV -->
+<script src="/assets/js/loader.js"></script>
+<script src="/assets/js/santis-nav.js"></script>
+<script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+             if (typeof loadComp === "function") {
+
+                if(document.getElementById("navbar-container")) loadComp("/components/navbar.html", "navbar-container");
+
+             }
+
+        });
+
+    </script>
+<!-- LENIS SMOOTH (Optional for Content Side) -->
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+<script>
+
+        const lenis = new Lenis({ duration: 1.2, smoothTouch: true });
+
+        function raf(time) {
+
+            lenis.raf(time);
+
+            requestAnimationFrame(raf);
+
+        }
+
+        requestAnimationFrame(raf);
+
+    </script>
+</body>
+</html>

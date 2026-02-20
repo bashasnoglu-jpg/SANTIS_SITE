@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI-CORE: Ultra Derin Simülasyon (V6.0)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0b0c10; color: #c5c6c7; overflow-x: hidden; }
+        .santis-card { background: rgba(31, 40, 51, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(69, 162, 158, 0.4); border-radius: 12px; }
+        .santis-btn { background: #66fcf1; color: #0b0c10; font-weight: 600; padding: 0.5rem 1.5rem; border-radius: 6px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+        .santis-btn:hover { background: #45a29e; box-shadow: 0 0 20px rgba(102, 252, 241, 0.6); transform: translateY(-2px); }
+        .glow-text { color: #66fcf1; text-shadow: 0 0 10px rgba(102, 252, 241, 0.4); }
+        .text-sunset { color: #ffb347; text-shadow: 0 0 10px rgba(255, 179, 71, 0.4); }
+        
+        /* Simülasyon Animasyonları */
+        .pulse-ring { animation: ripple 2s infinite ease-out; border-radius: 50%; border: 2px solid #66fcf1; }
+        @keyframes ripple { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
+        
+        .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #45a29e, #66fcf1); transition: width 1.5s ease-in-out; }
+        
+        .log-line { font-family: monospace; font-size: 0.85rem; opacity: 0; transform: translateY(10px); animation: fadeUp 0.3s forwards; }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: #66fcf1; cursor: pointer; margin-top: -6px; box-shadow: 0 0 10px #66fcf1; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: rgba(69, 162, 158, 0.3); border-radius: 2px; }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen flex flex-col items-center">
+
+    <!-- Header -->
+    <header class="mb-10 w-full max-w-7xl flex flex-col md:flex-row justify-between items-center gap-4">
+        <div>
+            <h1 class="text-3xl md:text-4xl font-bold text-white tracking-tight flex items-center gap-3">
+                <div class="w-4 h-4 rounded-full bg-[#66fcf1] shadow-[0_0_15px_#66fcf1] relative">
+                    <div class="absolute inset-0 pulse-ring"></div>
+                </div>
+                OMNI-CORE <span class="glow-text">GOD MODE (V6.0)</span>
+            </h1>
+            <p class="text-sm opacity-70 mt-1 uppercase tracking-widest">Santis Club Interactive Dashboard Simulation</p>
+        </div>
+        <button id="deployOmniBtn" class="santis-btn text-lg" onclick="triggerOmniscience()">Deploy Omniscience ⚡</button>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Sol Kolon: Etkileşimli Modüller -->
+        <div class="lg:col-span-2 space-y-6">
+            
+            <!-- Modül 1: Sentinel SEO -->
+            <div class="santis-card p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-white">1. Sentinel Self-Healing</h2>
+                    <span class="text-xs bg-[#45a29e]/20 text-[#66fcf1] px-2 py-1 rounded-full border border-[#45a29e]">Otonom (Aktif)</span>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-sm opacity-80 mb-2">404 hatalarını ve index kayıplarını kuantum hızında tarar ve onarır.</p>
+                        <button class="bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded text-sm transition" onclick="simulate404Fix()">Simüle Et: Kasten 404 Yarat</button>
+                    </div>
+                    <div class="flex items-center justify-center p-4 bg-black/40 rounded-lg relative overflow-hidden">
+                        <div class="text-center z-10 w-full relative">
+                            <div class="text-sm opacity-70 mb-1">SEO Health Score</div>
+                            <div id="seoScoreText" class="text-3xl font-bold glow-text">100%</div>
+                        </div>
+                        <div id="seoAlertScreen" class="absolute inset-0 bg-red-900/40 opacity-0 transition-opacity flex items-center justify-center z-20">
+                            <span class="text-red-400 font-mono text-sm uppercase">Threat Detected: Broken Link</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modül 2: Churn Management -->
+            <div class="santis-card p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-white">2. Predictive Churn (AI CRM)</h2>
+                    <span class="text-xs bg-[#ffb347]/20 text-[#ffb347] px-2 py-1 rounded-full border border-[#ffb347]">Onay Bekliyor</span>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <p class="text-sm opacity-80">Ziyaret sıklığı düşen müşterilere özel görünmez değer teklifleri üretir.</p>
+                    <div class="bg-black/40 p-4 rounded-lg flex items-center justify-between border border-white/10">
+                        <div>
+                            <div class="text-white font-semibold flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-[#ffb347] animate-pulse"></span>
+                                Risk Alarmı: 3 Müşteri Kopmak Üzere
+                            </div>
+                            <div class="text-xs opacity-60 mt-1">Öneri: Özel Derin Doku + 15 Dk Ekstra Terapi (Ücretsiz Algısı)</div>
+                        </div>
+                        <button id="crmApproveBtn" class="bg-[#ffb347] hover:bg-[#ffb347]/80 text-black px-4 py-2 text-sm font-bold rounded transition" onclick="approveCrm()">Kampanyayı Ateşle</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modül 3: Atmosfer (IoT) -->
+            <div class="santis-card p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-white">3. Brand Aura & IoT (Sunset Mode)</h2>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Sıcaklık (Thermal Logic)</span>
+                            <span id="tempVal">23.5°C</span>
+                        </div>
+                        <input type="range" id="tempSlider" min="18" max="28" step="0.5" value="23.5" oninput="document.getElementById('tempVal').innerText = this.value + '°C'">
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Aydınlatma Spektrumu (RGB-W)</span>
+                            <span id="lightVal" class="text-sunset">Kehribar - %60</span>
+                        </div>
+                        <input type="range" id="lightSlider" min="0" max="100" value="60" oninput="updateLight(this.value)">
+                    </div>
+                    <div class="text-xs opacity-60 mt-2">* Panodaki değişimler doğrudan Odayı (IoT donanımlarını) tetikler.</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sağ Kolon: Terminal & KPI -->
+        <div class="space-y-6">
+            
+            <!-- Terminal Log -->
+            <div class="santis-card p-4 min-h-[300px] flex flex-col font-mono">
+                <h3 class="text-[#66fcf1] border-b border-[#45a29e]/30 pb-2 mb-3 text-sm">C:\OMNI-CORE\sentinel.log</h3>
+                <div id="terminalBody" class="flex-1 overflow-y-auto space-y-2 max-h-[250px] scrollbar-hide text-xs text-[#c5c6c7]">
+                    <div class="log-line text-green-400">[SYSTEM] Connection secure via WSS.</div>
+                    <div class="log-line">[DB] PostgreSQL Sync: Active.</div>
+                    <div class="log-line">[IOT] Room 3, 4, 5 Ambient mode: Sunrise.</div>
+                </div>
+            </div>
+
+            <!-- Global Revenue KPI -->
+            <div class="santis-card p-6 text-center">
+                <h3 class="text-sm opacity-70 mb-2 uppercase tracking-wide">Live Yield (Günlük Ciro Tahmini)</h3>
+                <div id="revenueKpi" class="text-4xl font-bold text-white mb-4">€4,200</div>
+                <div class="h-2 w-full bg-black/50 rounded-full overflow-hidden">
+                    <div id="revenueBar" class="progress-bar-fill" style="width: 65%;"></div>
+                </div>
+                <div class="flex justify-between text-xs opacity-60 mt-2">
+                    <span>Hedef: €6,000</span>
+                    <span class="text-green-400">Yolunda (+%12)</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Terminal log ekleme basiti
+        function addLog(message, type = "info") {
+            const terminal = document.getElementById('terminalBody');
+            const line = document.createElement('div');
+            line.className = 'log-line';
+            
+            const time = new Date().toLocaleTimeString().split(' ')[0];
+            let color = "text-[#c5c6c7]";
+            if(type === 'error') color = "text-red-400";
+            else if(type === 'success') color = "text-green-400";
+            else if(type === 'omni') color = "text-[#ffb347] drop-shadow-[0_0_5px_rgba(255,179,71,0.5)] font-bold";
+
+            line.innerHTML = `<span class="opacity-50">[${time}]</span> <span class="${color}">${message}</span>`;
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        // Modül 1 Simülasyonu
+        function simulate404Fix() {
+            addLog("WARN: Manual 404 intrusion detected in /tr/kese-kopuk.", "error");
+            document.getElementById('seoAlertScreen').style.opacity = '1';
+            document.getElementById('seoScoreText').innerText = "ERROR";
+            document.getElementById('seoScoreText').className = "text-3xl font-bold text-red-500 animate-pulse";
+            
+            setTimeout(() => {
+                addLog("SENTINEL: Deploying Auto-Fix Routine...");
+                setTimeout(() => {
+                    addLog("SUCCESS: URI restored via NLP mapping. DB Synced.", "success");
+                    document.getElementById('seoAlertScreen').style.opacity = '0';
+                    document.getElementById('seoScoreText').innerText = "100%";
+                    document.getElementById('seoScoreText').className = "text-3xl font-bold glow-text";
+                }, 1500);
+            }, 800);
+        }
+
+        // Modül 2 Simülasyonu
+        function approveCrm() {
+            const btn = document.getElementById('crmApproveBtn');
+            btn.innerText = "Gönderiliyor...";
+            btn.classList.add('opacity-50', 'pointer-events-none');
+            
+            addLog("CRM: Triggered Silent Offer Protocol for 3 entities.");
+            
+            setTimeout(() => {
+                btn.innerText = "Kampanya İletildi ✅";
+                btn.classList.replace('bg-[#ffb347]', 'bg-green-500');
+                btn.classList.replace('text-black', 'text-white');
+                addLog("SUCCESS: Engagement links sent via AES-256 WhatsApp tunnel.", "success");
+                
+                // Müşteri geri dönünce ciro artsın :)
+                setTimeout(() => {
+                    document.getElementById('revenueKpi').innerText = "€4,450";
+                    document.getElementById('revenueBar').style.width = "72%";
+                    addLog("YIELD: Predictive conversion success! Revenue updated.", "omni");
+                }, 2000);
+
+            }, 1000);
+        }
+
+        // Modül 3 Simülasyonu
+        function updateLight(val) {
+            const label = document.getElementById('lightVal');
+            if (val < 30) {
+                label.innerText = `Lounge Purple - %${val}`;
+                label.className = "text-purple-400";
+            } else if (val < 70) {
+                label.innerText = `Kehribar - %${val}`;
+                label.className = "text-sunset";
+            } else {
+                label.innerText = `Daylight White - %${val}`;
+                label.className = "text-yellow-100";
+            }
+        }
+
+        // God Mode (Ana Düğme) Simülasyonu
+        function triggerOmniscience() {
+            const btn = document.getElementById('deployOmniBtn');
+            btn.innerText = "⚡ SYSTEM OVERRIDDEN ⚡";
+            btn.className = "bg-[#ffb347] text-black font-bold px-6 py-3 rounded-lg shadow-[0_0_30px_#ffb347] transition";
+            
+            addLog("OMNI-CORE: GOD MODE ENGAGED.", "omni");
+            addLog("SAEE (Sentient Empati Motoru) is calculating micro-expressions...");
+            
+            setTimeout(() => {
+                addLog("SAEE: VIP Guest 'Turgut Büyükbaba' detected via local Wi-Fi.");
+            }, 1000);
+            
+            setTimeout(() => {
+                addLog("OMNI-CORE: Executing Auto-Greet Protocol. Temperature set to 24°C in Lounge.", "omni");
+                document.getElementById('tempSlider').value = 24;
+                document.getElementById('tempVal').innerText = "24°C";
+            }, 2500);
+            
+            setTimeout(() => {
+                btn.innerText = "Deploy Omniscience ⚡";
+                btn.className = "santis-btn text-lg";
+            }, 5000);
+        }
+
+    </script>
+</body>
+</html>

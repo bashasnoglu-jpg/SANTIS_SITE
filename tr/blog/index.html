@@ -1,82 +1,307 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog & Haberler • Santis Club</title>
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/card-effects.css">
-    <!-- FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Tenor+Sans&display=swap" rel="stylesheet">
-    
-    <base href="../../">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Santis Journal • Blog &amp; Haberler</title>
+<meta content="Santis Club dünyasından en son haberler, wellness trendleri ve bakım ipuçları." name="description"/>
+<!-- CORE STYLES -->
+<!-- MASTER STYLE -->
+<link href="../../assets/css/style.css" rel="stylesheet"/>
+<link href="../../assets/css/modules/cards.css" rel="stylesheet"/>
+<link href="../../assets/css/card-effects.css" rel="stylesheet"/>
+<link href="../../assets/css/hero-slider.css" rel="stylesheet"/>
+<!-- FONTS -->
+<link href="/assets/css/fonts.css" rel="stylesheet"/>
+<!-- PERFORMANCE -->
+<script src="../../assets/js/perf-head.js"></script>
+<!-- DATA SOURCES -->
+<script src="../../assets/js/fallback_data.js"></script> <!-- Fallback for File Protocol -->
+<script src="../../assets/data/settings-data.js"></script>
+<script src="../../assets/js/blog-data.js"></script> <!-- ADMIN PANEL SOURCE -->
+<!-- ENGINE -->
+<script src="../../assets/js/i18n-routes.js"></script>
+<script defer="" src="../../assets/js/hreflang-injector.js"></script>
+<script defer="" src="../../assets/js/loader.js"></script>
+<script defer="" src="../../assets/js/app-core.js"></script>
+<script defer="" src="../../assets/js/app.js"></script>
+<meta content="/assets/img/og-standard.jpg" property="og:image"/>
+<link href="https://santis-club.com/tr/blog/index.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Index", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/tr/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Journal",
+      "item": "https://santis-club.com/tr/blog/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Santis Journal",
+      "item": "https://santis-club.com/tr/blog/index.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Masaj seansı ne kadar sürer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Masaj seanslarımız 30 ile 90 dakika arasında değişmektedir. Tercih edeceğiniz terapiye göre süre belirlenir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Masaj öncesi ne yapmalıyım?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Seansınızdan 1 saat önce ağır yemek yememenizi ve bol su içmenizi öneririz. 15 dakika önce gelmeniz yeterlidir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hangi masaj türü bana uygun?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Uzman terapistlerimiz ilk görüşmede ihtiyaçlarınızı değerlendirir ve size en uygun masaj türünü önerir."
+      }
+    }
+  ]
+}
+</script>
+<!-- Open Graph -->
+<meta content="Santis Journal" property="og:title"/>
+<meta content="Santis Club dünyasından en son haberler, wellness trendleri ve bakım ipuçları." property="og:description"/>
+<meta content="https://santis-club.com/tr/blog/index.html" property="og:url"/>
+<meta content="website" property="og:type"/>
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<link href="https://santis-club.com/de/blog/index.html" hreflang="de" rel="alternate"/>
+<link href="https://santis-club.com/en/blog/index.html" hreflang="en" rel="alternate"/>
+<link href="https://santis-club.com/fr/blog/index.html" hreflang="fr" rel="alternate"/>
+<link href="https://santis-club.com/ru/blog/index.html" hreflang="ru" rel="alternate"/>
+<link href="https://santis-club.com/tr/blog/index.html" hreflang="tr" rel="alternate"/>
+<link href="https://santis-club.com/en/blog/index.html" hreflang="x-default" rel="alternate"/>
+<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Santis Journal • Blog &amp; Haberler" name="twitter:title"/><meta content="Santis Club dünyasından en son haberler, wellness trendleri ve bakım ipuçları." name="twitter:description"/><meta content="https://santisclub.com/assets/img/logo-santis.png" name="twitter:image"/></head>
+<body class="editorial-mode">
+<noscript>
+<nav class="nv-noscript-nav">
+<a class="nv-ns-home" href="/index.html">ANA SAYFA</a>
+<a href="/tr/hamam/index.html">HAMAM</a>
+<a href="/tr/masajlar/index.html">MASAJLAR</a>
+<a href="/tr/cilt-bakimi/index.html">CİLT BAKIMI</a>
+<a href="/tr/galeri/index.html">GALERİ</a>
+</nav>
+</noscript>
+<h1>Santis Journal</h1>
+<div class="page-intro-seo"><p>Wellness, güzellik ve iyi yaşam dünyasından ilham veren yazılar. Uzman terapistlerimizin önerileri, mevsimsel bakım rutinleri ve Santis Club'un felsefesini keşfedin.</p></div>
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+<div class="preloader-logo">Santis Journal</div>
+</div>
+<!-- NAVBAR -->
+<div id="navbar-container"></div>
+<main id="nv-main">
+<!-- CINEMATIC HERO -->
+<section class="nv-hero-campaign">
+<div class="nv-hero-overlay"></div>
+<div class="nv-campaign-slide active">
+<div class="nv-hero-content-dynamic">
+<span class="nv-hero-caption">SANTIS JOURNAL</span>
+<h2 class="nv-hero-title-dynamic">İyi Oluş Sanatı</h2>
+<p class="nv-hero-desc">Wellness trendleri, terapi ritüelleri ve kulüp haberleri.</p>
+</div>
+</div>
+</section>
+<!-- BLOG GRID SECTION -->
+<div class="nv-container nv-section">
+<div class="nv-section-header">
+<span class="nv-kicker">EDİTÖRÜN SEÇİMLERİ</span>
+<h2 class="nv-title">Son Yazılar</h2>
+</div>
+<!-- DYNAMIC GRID -->
+<div class="product-grid-v2" id="blog-grid">
+<!-- Javascript will render posts here -->
+<div class="nv-loading-state">
+<span>Journal Yükleniyor...</span>
+</div>
+</div>
+</div>
+<section class="related-services">
+<h2>İlgili Hizmetler</h2>
+<ul>
+<li><a href="/tr/masajlar/klasik-rahatlama.html">Klasik Rahatlama Masajı</a></li>
+<li><a href="/tr/masajlar/aromaterapi.html">Aromaterapi Masajı</a></li>
+<li><a href="/tr/masajlar/derin-doku.html">Derin Doku Masajı</a></li>
+</ul>
+</section>
+<section class="seo-bottom-block">
+<p style="color:#aaa; max-width:500px; margin:10px auto">Santis Club Journal — spa, hamam, masaj terapileri ve cilt bakımı hakkında uzman makaleler. Wellness trendleri, bakım ipuçları ve doğal güzellik rehberleri.</p>
+</section>
+</main>
+<!-- FOOTER -->
+<div id="footer-container"></div>
+<!-- PAGE LOGIC -->
+<script>
 
-    <!-- DATA -->
-    <script src="assets/js/settings-data.js"></script>
-    <script src="assets/js/blog-data.js"></script>
-    <script src="assets/js/loader.js"></script>
-    <script src="assets/js/app.js" defer></script>
-</head>
-<body>
+        // Set Site Root for Components
 
-    <!-- NAVBAR CONTAINER -->
-    <div id="navbar-container"></div>
+        window.SITE_ROOT = '../../';
 
-    <main id="nv-main" style="padding-top: 120px; padding-bottom: 80px;">
-        <div class="container">
-            <header class="page-header" style="text-align:center; margin-bottom:50px;">
-                <h1 style="font-family:'Marcellus', serif; font-size:3rem; margin-bottom:10px;">Blog & Haberler</h1>
-                <p style="color:var(--text-light);">Santis dünyasından en son gelişmeler ve ipuçları.</p>
-            </header>
-
-            <div id="blog-grid" class="services-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap:30px;">
-                <!-- JS WILL RENDER BLOG POSTS HERE -->
-            </div>
-        </div>
-    </main>
-
-    <!-- FOOTER CONTAINER -->
-    <div id="footer-container"></div>
-
-    <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // LOAD COMPONENTS
+
+            // 1. Load Components
+
             if (typeof loadComp === "function") {
-                loadComp("/components/navbar.html", "navbar-container");
-                loadComp("/components/footer.html", "footer-container");
+
+                loadComp("../../components/navbar.html", "navbar-container");
+
+                loadComp("../../components/footer.html", "footer-container");
+
             }
 
-            // RENDER BLOG POSTS
-            const grid = document.getElementById('blog-grid');
-            
-            if (typeof blogCatalog !== 'undefined' && blogCatalog.length > 0) {
-                // Sort Newest First
-                const sorted = [...blogCatalog].sort((a, b) => new Date(b.date) - new Date(a.date));
+            // 2. Render Blog Posts
 
-                sorted.forEach(post => {
-                    const html = `
-                        <article class="service-card" style="opacity:1; transform:none;">
-                            <div class="card-image">
-                                <img src="assets/img/blog/${post.img}" alt="${post.title}" 
-                                     onerror="this.src='https://placehold.co/600x400?text=Santis+Blog'">
-                            </div>
-                            <div class="card-content">
-                                <span class="badge" style="background:var(--gold); color:#000; padding:4px 8px; font-size:10px; border-radius:4px;">${post.category}</span>
-                                <span class="date" style="font-size:11px; color:#888; margin-left:10px;">${post.date}</span>
-                                <h3 style="margin:10px 0; font-size:1.2rem;">${post.title}</h3>
-                                <p style="font-size:0.9rem; color:#aaa; line-height:1.5;">${post.summary}</p>
-                                <a href="#" onclick="alert('Detay sayfası yapım aşamasında: ' + ${post.id})" class="btn-text" style="margin-top:15px; display:inline-block; color:var(--gold);">Devamını Oku &rarr;</a>
-                            </div>
-                        </article>
-                    `;
-                    grid.innerHTML += html;
-                });
-            } else {
-                grid.innerHTML = '<p style="text-align:center; grid-column:1/-1;">Henüz blog yazısı eklenmemiş.</p>';
-            }
+            renderBlog();
+
         });
+
+        function renderBlog() {
+
+            const grid = document.getElementById('blog-grid');
+
+            if (!grid) return;
+
+            // Check Data
+
+            if (typeof blogCatalog === 'undefined' || !blogCatalog || blogCatalog.length === 0) {
+
+                grid.innerHTML = `
+
+                    <div class="nv-empty-state">
+
+                        <h3 class="nv-title">Henüz yazı bulunmuyor.</h3>
+
+                        <p>Çok yakında buradayız.</p>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+            // Clear & Render
+
+            grid.innerHTML = "";
+
+            // Sort by Date (Newest First)
+
+            const posts = [...blogCatalog].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            posts.forEach(post => {
+
+                // Card HTML Construction (Quiet Luxury Style)
+
+                const articleHTML = `
+
+                    <article class="prod-card-v2" onclick="openBlogDetail(${post.id})">
+
+                        <div class="pc-image-wrap">
+
+                            <span class="pc-badge">${post.category || 'Genel'}</span>
+
+                            <img src="../../assets/img/blog/${post.img}" 
+
+                                 alt="${post.title}" 
+
+                                 class="pc-img"
+
+                                 loading="lazy"
+
+                                 onerror="this.src='https://placehold.co/600x800/1a1a1a/444?text=Santis+Journal'">
+
+                            <div class="pc-overlay">
+
+                                <span class="pc-btn">OKUMAYA BAŞLA</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="pc-info">
+
+                            <div class="pc-meta">
+
+                                ${formatDate(post.date)}
+
+                            </div>
+
+                            <h3 class="pc-title">${post.title}</h3>
+
+                            <p class="pc-desc">
+
+                                ${post.summary}
+
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+                grid.innerHTML += articleHTML;
+
+            });
+
+        }
+
+        function formatDate(dateString) {
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+            return new Date(dateString).toLocaleDateString('tr-TR', options);
+
+        }
+
+        function openBlogDetail(id) {
+
+            // Future: Navigate to detail page
+
+            // window.location.href = `detay.html?id=${id}`;
+
+            alert("Detay sayfası yakında eklenecek. ID: " + id);
+
+        }
+
     </script>
 </body>
 </html>

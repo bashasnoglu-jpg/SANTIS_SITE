@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "lang": "en",
+    "title": "Santis Club • Spa & Wellness",
+    "description": "Santis Club – Exclusive luxury spa, hammam rituals and therapeutic wellness in Antalya.",
+    "og_title": "Santis Club – Spa & Wellness",
+    "breadcrumb_name": "Home"
+  },
+  "nav": {
+    "home": "HOME",
+    "hammam": "HAMMAM",
+    "massage": "MASSAGES",
+    "skin": "SKINCARE",
+    "shop": "SHOP",
+    "gallery": "GALLERY",
+    "about": "ABOUT"
+  },
+  "hero": {
+    "caption": "THE SOUND OF SILENCE",
+    "title": "Discover the luxury<br>of doing nothing.",
+    "desc": "No phones. No time. No noise.<br>Just you and the moment itself.<br>Santis is a rebellion against the noise of the modern world.",
+    "scroll": "Plan Your Experience"
+  },
+  "signature": {
+    "kicker": "SIGNATURE EXPERIENCES",
+    "title": "Four Elements, One Philosophy",
+    "subtitle": "Exclusive collections shaped by centuries of wisdom.",
+    "hammam": "Hammam Rituals",
+    "hammam_desc": "The elegant touch of Ottoman tradition",
+    "hammam_alt": "Hammam – marble navel stone and foam ritual",
+    "massage": "Massage Therapies",
+    "massage_desc": "Deep rest for body and mind",
+    "massage_alt": "Massage – hot stone and aromatherapy",
+    "skin": "Skincare",
+    "skin_desc": "The perfect synthesis of science and nature",
+    "skin_alt": "Skincare – Sothys professional facial treatment",
+    "atelier": "The Atelier",
+    "atelier_desc": "Luxury to take home",
+    "atelier_alt": "Atelier – luxury spa care products",
+    "cta": "Explore Collection →"
+  },
+  "philosophy": {
+    "kicker": "THE ART OF WELL-BEING",
+    "title": "Listen to Your Body.<br>We Offer Silence.",
+    "text1": "Santis Club unites traditional hammam rituals and modern spa therapies with a unique understanding. Here, time slows down, the body rests, the mind clears.",
+    "text2": "Every ritual is a journey of well-being crafted with the wisdom of centuries. Silence is not a luxury here — it is a way of life.",
+    "cta": "Discover Our Story"
+  },
+  "global": {
+    "kicker": "GLOBAL INSPIRATION",
+    "title": "Rituals From Around the World",
+    "asia_label": "GLOBAL RITUAL • ASIA PACIFIC",
+    "thai_label": "GLOBAL RITUAL • THAILAND",
+    "italy_label": "GLOBAL RITUAL • ITALY",
+    "beauty_label": "PURE BEAUTY • NATURE",
+    "t1_title": "Wabi-Sabi Aesthetics",
+    "t1_desc": "The beauty of imperfection.",
+    "t2_title": "Wat Pho Wisdom",
+    "t2_desc": "Ancient healing heritage.",
+    "t3_title": "Roman Thermal Culture",
+    "t4_title": "Scientific Skincare",
+    "t4_desc": "Advanced dermatological solutions."
+  },
+  "testimonials": {
+    "kicker": "GUEST EXPERIENCES",
+    "title": "Echoes of Serenity",
+    "t1": "The most peaceful 2 hours of my life at Santis. The Ottoman Hammam ritual was a unique experience.",
+    "t2": "After the aromatherapy massage, my body felt reborn. The staff was extremely professional.",
+    "t3": "The Sothys skincare session was magnificent. My skin has never been so radiant and healthy.",
+    "loc": "Moscow"
+  },
+  "booking": {
+    "kicker": "PLAN YOUR RITUAL",
+    "title": "Serenity is just one call away",
+    "desc": "Let our experts plan the perfect ritual for you.",
+    "wa": "Book via WhatsApp",
+    "call": "Call Us"
+  },
+  "sticky": {
+    "text": "Plan your ritual",
+    "btn": "Book Now"
+  },
+  "faq": [
+    {
+      "q": "How long does a massage session last?",
+      "a": "Our massage sessions last between 30 and 90 minutes. Duration depends on the chosen therapy."
+    },
+    {
+      "q": "What should I do before the massage?",
+      "a": "We recommend not having a heavy meal one hour before and drinking plenty of water. Please arrive 15 minutes early."
+    },
+    {
+      "q": "Which type of massage is right for me?",
+      "a": "Our therapists assess your needs during the initial consultation and recommend the most suitable massage."
+    }
+  ],
+  "PATH_HAMMAM": "hammam",
+  "PATH_MASSAGES": "massages",
+  "PATH_SKINCARE": "services",
+  "PATH_PRODUCTS": "products",
+  "PATH_ABOUT_FULL": "tr/hakkimizda/index.html",
+  "PATH_GALLERY_FULL": "tr/galeri/index.html"
+}

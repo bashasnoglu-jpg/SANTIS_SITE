@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>SANTIS CARD DEBUG</title>
+<style>
+body { background:#111; color:#eee; font-family:monospace; padding:20px; }
+.ok { color:#0f0; } .fail { color:#f44; } .warn { color:#ff0; }
+pre { background:#222; padding:10px; border-radius:8px; overflow-x:auto; }
+button { padding:8px 16px; margin:4px; cursor:pointer; }
+</style>
+</head>
+<body>
+<h1>🔍 SANTIS KART DEBUG PANELI</h1>
+<div id="log"></div>
+
+<script>
+const log = document.getElementById('log');
+function add(cls, msg) {
+    log.innerHTML += `<p class="${cls}">${msg}</p>`;
+}
+
+async function runDiagnostic() {
+    add('', '━━━ 1. services.json KONTROLÜ ━━━');
+    try {
+        const r = await fetch('/assets/data/services.json?t=' + Date.now());
+        if (!r.ok) { add('fail', `❌ services.json HATA: ${r.status}`); return; }
+        const data = await r.json();
+        add('ok', `✅ services.json OK — ${data.length} item`);
+        
+        // Category distribution
+        const cats = {};
+        data.forEach(x => {
+            const c = x.categoryId || '?';
+            cats[c] = (cats[c]||0) + 1;
+        });
+        add('', '<pre>' + JSON.stringify(cats, null, 2) + '</pre>');
+        
+        // Slug list
+        add('', '━━━ 2. SLUG LİSTESİ ━━━');
+        data.forEach(x => {
+            add('', `  [${x.categoryId}] id=${x.id} slug=${x.slug}`);
+        });
+    } catch(e) {
+        add('fail', `❌ services.json FETCH HATA: ${e.message}`);
+    }
+    
+    add('', '━━━ 3. data-bridge.js DAĞITIM TESTİ ━━━');
+    // Simulate data-bridge distribution
+    try {
+        const r = await fetch('/assets/data/services.json?t=' + Date.now());
+        const items = await r.json();
+        
+        const NV_MASSAGES = [];
+        const NV_HAMMAM = [];
+        const NV_SKINCARE = [];
+        const NV_PRODUCTS = [];
+        
+        items.forEach(item => {
+            const cat = (item.categoryId || '').toLowerCase();
+            if (cat.includes('massage')) {
+                NV_MASSAGES.push(item);
+            } else if (cat.includes('hammam') || cat.includes('hamam')) {
+                NV_HAMMAM.push(item);
+            } else if (cat.includes('facial') || cat.includes('skin') || cat.includes('sothys') || cat.includes('face')) {
+                NV_SKINCARE.push(item);
+            } else {
+                NV_PRODUCTS.push(item);
+            }
+        });
+        
+        add(NV_HAMMAM.length > 0 ? 'ok' : 'fail', `HAMAM: ${NV_HAMMAM.length} items`);
+        add(NV_MASSAGES.length > 0 ? 'ok' : 'fail', `MASSAGE: ${NV_MASSAGES.length} items`);
+        add(NV_SKINCARE.length > 0 ? 'ok' : 'fail', `SKINCARE: ${NV_SKINCARE.length} items`);
+        add(NV_PRODUCTS.length > 0 ? 'warn' : 'ok', `PRODUCTS (fallback): ${NV_PRODUCTS.length} items`);
+        
+        if (NV_MASSAGES.length > 0) {
+            add('', '<b>İlk 3 masaj slug:</b>');
+            NV_MASSAGES.slice(0,3).forEach(m => add('', `  → ${m.slug} (id: ${m.id})`));
+        }
+        if (NV_SKINCARE.length > 0) {
+            add('', '<b>İlk 3 skincare slug:</b>');
+            NV_SKINCARE.slice(0,3).forEach(m => add('', `  → ${m.slug} (id: ${m.id})`));
+        }
+        
+        add('', '━━━ 4. service-detail.html EŞLEŞME TESTİ ━━━');
+        // Test each slug against lookup
+        let matchOk = 0, matchFail = 0;
+        items.forEach(item => {
+            const searchId = item.slug || item.id;
+            const found = items.find(p => p.id === searchId || p.slug === searchId);
+            if (found) matchOk++;
+            else { matchFail++; add('fail', `❌ SLUG BULUNAMADI: ${searchId}`); }
+        });
+        add(matchFail === 0 ? 'ok' : 'fail', `Slug eşleşme: ${matchOk}/${items.length} OK, ${matchFail} FAIL`);
+        
+    } catch(e) {
+        add('fail', `❌ Distribution test failed: ${e.message}`);
+    }
+    
+    add('', '━━━ 5. service-detail.html ERİŞİM TESTİ ━━━');
+    try {
+        const r = await fetch('/service-detail.html?t=' + Date.now());
+        add(r.ok ? 'ok' : 'fail', `service-detail.html: ${r.status} ${r.statusText}`);
+    } catch(e) {
+        add('fail', `❌ service-detail.html erişim: ${e.message}`);
+    }
+    
+    add('', '━━━ 6. KART TIKLAMA SİMÜLASYONU ━━━');
+    try {
+        const r = await fetch('/assets/data/services.json');
+        const items = await r.json();
+        const test = items.find(x => x.categoryId && x.categoryId.includes('massage'));
+        if (test) {
+            const slug = test.slug || test.id;
+            const url = `/service-detail.html?slug=${slug}`;
+            add('ok', `Test URL: <a href="${url}" target="_blank" style="color:cyan">${url}</a>`);
+            add('', `→ Yukarıdaki linke tıklayıp detay sayfası açılıyor mu kontrol et!`);
+        }
+    } catch(e) {}
+    
+    add('', '━━━ 7. SONUÇ ━━━');
+    add('warn', '⚠️ Bu sayfayı Live Server ile açtıysan sonuçlar doğru.');
+    add('warn', '⚠️ Masajlar sayfasını kontrol etmek için: <a href="/tr/masajlar/index.html" style="color:cyan">/tr/masajlar/index.html</a>');
+}
+
+runDiagnostic();
+</script>
+</body>
+</html>

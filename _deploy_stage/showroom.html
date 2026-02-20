@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="tr" data-page-type="showroom" data-page-mood="MIDNIGHT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Club - Digital Spa Showroom</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@200;300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        .showroom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .showroom-section {
+            padding: 60px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .show-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #666;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .test-box {
+            padding: 40px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Gravity & Light Lab",
+      "item": "https://santis-club.com/showroom.html"
+    }
+  ]
+}
+</script>
+
+<!-- Open Graph -->
+<meta name="description" content="Depth Hierarchy Validation (v1.0)"/>
+<meta property="og:title" content="Santis Club - Digital Spa Showroom"/>
+<meta property="og:description" content="Depth Hierarchy Validation (v1.0)"/>
+<meta property="og:image" content="https://santis-club.com//assets/img/cards/santis_card_hammam_v1.webp"/>
+<meta property="og:url" content="https://santis-club.com/showroom.html"/>
+<meta property="og:type" content="website"/>
+</head>
+<body class="mode-midnight"> <!-- Defaulting to Midnight for best Light/Shadow test -->
+
+    <nav id="nv-header" class="navbar">
+        <div class="nv-container">
+            <h3 style="color:var(--text-main); margin:0;">SHOWROOM</h3>
+        </div>
+    </nav>
+
+    <div class="nv-container" style="padding-top: 120px;">
+        
+        <header class="nv-section-header">
+            <span class="nv-kicker">Digital Spa Architecture</span>
+            <h1 class="nv-title">Gravity & Light Lab</h1>
+            <p>Depth Hierarchy Validation (v1.0)</p>
+        </header>
+
+        <!-- DEPTH 1: TEXT & PANELS -->
+        <section class="showroom-section">
+            <span class="show-label">Depth 1: Base Content (Info Panels)</span>
+            <div class="showroom-grid">
+                
+                <div class="depth-1 test-box">
+                    <h3>Atmosferik Panel</h3>
+                    <p>Bu panel yerden yükselmez. Arka plandan sadece ton farkıyla ayrılır. Bilgi okumak içindir.</p>
+                </div>
+
+                <div class="depth-1 test-box">
+                    <h3>Minimal Yapı</h3>
+                    <p>Hover durumunda sadece çok hafif bir ışık değişimi olur (%2). Dikkat dağıtmaz.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- DEPTH 1.5: ART GALLERY -->
+        <section class="showroom-section">
+            <span class="show-label">Depth 1.5: Art Gallery (Images)</span>
+            <div class="showroom-grid">
+                
+                <div class="depth-1-5" style="height: 300px;">
+                    <img src="assets/img/cards/santis_card_hammam_v1.webp" style="width:100%; height:100%; object-fit:cover;" alt="Hamam">
+                </div>
+
+                <div class="depth-1-5" style="height: 300px;">
+                    <img src="assets/img/cards/santis_card_massage_v1.webp" style="width:100%; height:100%; object-fit:cover;" alt="Masaj">
+                </div>
+
+            </div>
+            <p style="margin-top:20px; font-size:12px; color:#888;">* Hover yapınca görsel büyümez, sadece üzerine vuran ışık artar (Ambient Lift).</p>
+        </section>
+
+        <!-- DEPTH 2: OBJECTS (CARDS) -->
+        <section class="showroom-section">
+            <span class="show-label">Depth 2: Physical Objects (Cards)</span>
+            <div class="showroom-grid">
+                
+                <div class="depth-2 test-box">
+                    <span class="nv-kicker">Hizmet</span>
+                    <h3>Classic Massage</h3>
+                    <p style="margin-bottom:20px;">Masa üzerindeki fiziksel bir kartvizit gibi hissettirmeli.</p>
+                    <button class="nv-btn">İncele</button>
+                </div>
+
+                <div class="depth-2 test-box">
+                    <span class="nv-kicker">Ürün</span>
+                    <h3>Sothys Cream</h3>
+                    <p style="margin-bottom:20px;">Hover anında kütlesiyle çok hafif yükselir (1.005x) ve ışığı artar.</p>
+                    <button class="nv-btn">Detay</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- DEPTH 3: LEVITATION (CALLOUTS) -->
+        <section class="showroom-section">
+            <span class="show-label">Depth 3: Levitating Surfaces (Callouts)</span>
+            <div class="depth-3 test-box" style="text-align:center; max-width:600px; margin:0 auto;">
+                <h2 style="color:var(--gold);">Özel Teklif Alanı</h2>
+                <p>Bu alan ortamdan tamamen kopuktur. Kendi ışık halesi (Bloom Halo) vardır ve havada asılı durur.</p>
+                <div style="margin-top:20px;">
+                    <input type="text" placeholder="Form Input (Reactive)" style="width:100%; margin-bottom:10px;">
+                    <button class="nv-btn" style="background:var(--gold); color:#000; border:none; box-shadow:0 0 20px rgba(212,175,55,0.3);">Action</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODAL TRIGGER -->
+        <section class="showroom-section" style="text-align:center; padding-bottom:100px;">
+             <span class="show-label">Modal Test</span>
+             <button class="nv-btn" onclick="document.getElementById('demo-modal').classList.add('active')">Levitasyon Modalını Aç</button>
+        </section>
+
+    </div>
+
+    <!-- DEMO MODAL -->
+    <div id="demo-modal" class="os-modal-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; 9; display:flex; align-items:center; justify-content:center; pointer-events:none;">
+        <div class="depth-3 test-box os-modal" style="width:500px; pointer-events:auto; position:relative;">
+            <button onclick="document.getElementById('demo-modal').classList.remove('active')" style="position:absolute; top:20px; right:20px; background:none; border:none; color:#fff; cursor:pointer;">X</button>
+            <h3>Levitating Modal</h3>
+            <p>Ekrana yapışmaz. Ortam sisinin içinden yükselir. Arkadaki bloom efektine dikkat edin.</p>
+            <br>
+            <input type="text" placeholder="Focus me for Ambient Light">
+        </div>
+    </div>
+
+    <script src="assets/js/reflex/soul.js"></script>
+    <script src="assets/js/reflex/atmos.js"></script>
+    
+<script src="/assets/js/page-init.js"></script>
+</body>
+</html>

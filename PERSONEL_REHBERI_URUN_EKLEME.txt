@@ -1,37 +1,37 @@
-# PERSONEL İÇİN: YENİ ÜRÜN EKLEME REHBERİ
-
-Santis Boutique kataloğuna yeni bir ürün eklemek için sadece 2 adım yeterlidir. Kod bilmenize gerek yoktur.
-
----
-
-## ADIM 1: Görseli Yükleyin
-Ürün görselini bilgisayarınızdan şu klasöre kopyalayın:
-`SANTIS_SITE / assets / img / cards /`
-
-*Önemli: Dosya adı Türkçe karakter ve boşluk içermesin. (Örnek: `yeni-krem.png`)*
-
----
-
-## ADIM 2: Ürün Bilgisini Girin
-`assets/js/product-data.js` dosyasını açın. En alta gidin ve şu şablonu kopyalayıp yapıştırın:
-
-```javascript
-    {
-        id: 99,  // Buraya benzersiz bir sayı verin (Sıradaki numara)
-        name: "YENİ ÜRÜN ADI",
-        cat: "face-youth", // Kategori (face-youth, face-monitor, body-care, home-fragrance)
-        price: "Bilgi Al",
-        img: "yeni-krem.png", // ADIM 1'deki dosya adı
-        badge: "NEW", // "NEW" (Yeni) veya "BEST" (Çok Satan) yazabilirsiniz. Boş bırakırsanız etiket çıkmaz.
-        desc: "Ürünün kısa açıklaması buraya gelecek.",
-        benefit: "Bu ürün cildinize ne fayda sağlar?",
-        usage: "Sabah ve akşam kullanın."
-    },
-```
-
-Bu işlemi yapıp kaydettiğinizde, ürün otomatik olarak:
-1.  Listeleme sayfasına,
-2.  Filtreleme sistemine,
-3.  Detay sayfasına,
-4.  Arama sonuçlarına
-**ANINDA EKLENİR.** Başka hiçbir ayar yapmanıza gerek yoktur.
+# PERSONEL İÇİN: YENİ ÜRÜN EKLEME REHBERİ
+
+Santis Boutique kataloğuna yeni bir ürün eklemek için sadece 2 adım yeterlidir. Kod bilmenize gerek yoktur.
+
+---
+
+## ADIM 1: Görseli Yükleyin
+Ürün görselini bilgisayarınızdan şu klasöre kopyalayın:
+`SANTIS_SITE / assets / img / cards /`
+
+*Önemli: Dosya adı Türkçe karakter ve boşluk içermesin. (Örnek: `yeni-krem.png`)*
+
+---
+
+## ADIM 2: Ürün Bilgisini Girin
+`assets/js/product-data.js` dosyasını açın. En alta gidin ve şu şablonu kopyalayıp yapıştırın:
+
+```javascript
+    {
+        id: 99,  // Buraya benzersiz bir sayı verin (Sıradaki numara)
+        name: "YENİ ÜRÜN ADI",
+        cat: "face-youth", // Kategori (face-youth, face-monitor, body-care, home-fragrance)
+        price: "Bilgi Al",
+        img: "yeni-krem.png", // ADIM 1'deki dosya adı
+        badge: "NEW", // "NEW" (Yeni) veya "BEST" (Çok Satan) yazabilirsiniz. Boş bırakırsanız etiket çıkmaz.
+        desc: "Ürünün kısa açıklaması buraya gelecek.",
+        benefit: "Bu ürün cildinize ne fayda sağlar?",
+        usage: "Sabah ve akşam kullanın."
+    },
+```
+
+Bu işlemi yapıp kaydettiğinizde, ürün otomatik olarak:
+1.  Listeleme sayfasına,
+2.  Filtreleme sistemine,
+3.  Detay sayfasına,
+4.  Arama sonuçlarına
+**ANINDA EKLENİR.** Başka hiçbir ayar yapmanıza gerek yoktur.

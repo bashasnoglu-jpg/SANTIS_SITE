@@ -1,0 +1,67 @@
+/* SANTIS CINEMATIC PRELOADER v1.0 */
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0b0d11;
+    /* Dark Luxury Background */
+    z-index: 9999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+    /* Ease In Out Quart */
+    overflow: hidden;
+}
+
+#preloader.cinema-exit {
+    transform: translateY(-100%);
+    /* Curtain up effect */
+}
+
+/* LOGO CONTAINER */
+.preloader-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: #d4af37;
+    /* Santis Gold */
+    text-transform: uppercase;
+    opacity: 0;
+    transform: scale(0.9);
+    filter: blur(5px);
+    transition: all 1.2s ease-out;
+}
+
+/* LOGO ACTIVE STATE */
+#preloader.logo-reveal .preloader-logo {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+}
+
+/* PROGRESS BAR (Optional) */
+.preloader-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: #d4af37;
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+/* REVEAL LAYER (Arka plan maskesi) */
+.loader-curtain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0b0d11;
+    z-index: -1;
+}

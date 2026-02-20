@@ -1,0 +1,17 @@
+{
+  "pages_scanned": 8,
+  "assets_checked": 254,
+  "broken_links": [
+    "https://tumblr.com/santisclub (404 - External) - Found on: http://127.0.0.1:8000",
+    "https://tumblr.com/santisclub (404 - External) - Found on: http://127.0.0.1:8000/index.html",
+    "https://tumblr.com/santisclub (404 - External) - Found on: http://127.0.0.1:8000/tr/hamam/index.html",
+    "https://tumblr.com/santisclub (404 - External) - Found on: http://127.0.0.1:8000/tr/masajlar/index.html",
+    "http://127.0.0.1:8000/assets/js/santis-core-v6.js (404 - Asset) - Found on: http://127.0.0.1:8000/tr/masajlar/index.html",
+    "https://tumblr.com/santisclub (404 - External) - Found on: http://127.0.0.1:8000/tr/cilt-bakimi/index.html",
+    "https://tumblr.com/santisclub (404 - External) - Found on: http://127.0.0.1:8000/tr/urunler/index.html",
+    "http://127.0.0.1:8000/assets/js/santis-core-v6.js (404 - Asset) - Found on: http://127.0.0.1:8000/tr/urunler/index.html",
+    "https://tumblr.com/santisclub (404 - External) - Found on: http://127.0.0.1:8000/tr/blog/index.html",
+    "https://tumblr.com/santisclub (404 - External) - Found on: http://127.0.0.1:8000/tr/galeri/index.html",
+    "http://127.0.0.1:8000/assets/js/santis-core-v6.js (404 - Asset) - Found on: http://127.0.0.1:8000/tr/galeri/index.html"
+  ]
+}

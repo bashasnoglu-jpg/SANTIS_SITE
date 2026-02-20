@@ -1,16 +1,118 @@
-language-switcher.js:406 🌐 Santis Language Switcher v2.0 aktif (bar yok!)
-core_data_loader.js:2 📥 [Core Data Loader] Initializing...
-core_data_loader.js:54 ⚡ [Data Loader] Using Fallback Data (Fast Mode)
-core_data_loader.js:90 ✅ NV_HAMMAM Hydrated (2 items)
-core_data_loader.js:96 ✅ NV_MASSAGES Hydrated (11 items)
-core_data_loader.js:101 ✅ NV_SKINCARE Hydrated (13 items)
-category-engine.js:18 🎬 Category Engine Init: SKINCARE
-card-effects.js:24 🎨 Santis Card Effects v1.0: Initializing...
-card-effects.js:34 ✅ Found 13 cards
-card-effects.js:52 🏆 Card effects initialized!
-app.js:4441 🏆 Santis Club: 10/10 Mükemmellik Mührü Uygulandı.
-app.js:4446 ⚓ Auto-Loading Navbar...
-luxury-placeholder.webp:1  Failed to load resource: the server responded with a status of 404 (Not Found)
-loader.js:120 🌊 [Loader] Preloader forced to hide.
-luxury-placeholder.webp:1  Failed to load resource: the server responded with a status of 404 (Not Found)
-loader.js:120 🌊 [Loader] Preloader forced to hide.
+data-bridge.js?v=8.1:12 🌉 [DataBridge] Initializing V5.5 Protocol...
+blog-data.js?v=8.1:63 📜 [Wisdom Records] Archives Loaded.
+santis-api.js?v=1.0:61 🦅 Santis OS API Client Initialized
+page-builder.js?v=DEBUG:5 🧱 PageBuilder Override Loaded
+data-bridge.js?v=8.1:67 🦅 [DataBridge] Fetching from Santis OS API...
+page-builder.js?v=DEBUG:27 🧱 PageBuilder Init Triggered (Override)
+page-builder.js?v=DEBUG:28    - Container: <div id=​"pb-container" style=​"min-height:​ 200px;​" data-pb-bound=​"1">​…​</div>​
+page-builder.js?v=DEBUG:22 🧱 PageBuilder already initialized. Skipping.
+init @ page-builder.js?v=DEBUG:22
+event-bindings.js?v=DEBUG:308 🔗 [Event Bindings] CSP-compliant handlers loaded (79 migrated)
+atmos.js?v=8.1:10 ⚡ [Reflex] Atmosphere Online
+page-builder.js?v=DEBUG:44 🧱 Loaded 1 blocks for home
+data-bridge.js?v=8.1:48 🌉 [DataBridge] Distribution Complete. Total: 114 | Journeys: 6 | Massages: 36 | Hammam: 8
+santis-scheduler.js?v=8.1:20 🕰️ [Time Lord] Connected to Circadian Rhythm.
+santis-scheduler.js?v=8.1:57 🕰️ [Time Lord] Shifting Atmosphere: MIST (Hour: 10)
+atmos.js?v=8.1:25 ⚡ [Reflex] Atmosphere syncing to: mist
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <span class=​"label">​Sistem (Audit)​</span>​
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os" id=​"runDeepAudit" data-action=​"run-deep-audit" style=​"background:​ var(--os-accent)​;​ color:​ #000;​ font-weight:​ bold;​">​🕷️ DEEP AUDIT V2 BAŞLAT​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: run-deep-audit
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os" id=​"runDeepAudit" data-action=​"run-deep-audit" style=​"background:​ var(--os-accent)​;​ color:​ #000;​ font-weight:​ bold;​">​🕷️ DEEP AUDIT V2 BAŞLAT​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: run-deep-audit
+atmos.js?v=8.1:25 ⚡ [Reflex] Atmosphere syncing to: zen
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os" id=​"btn-fix-ghost" data-action=​"trigger-fix-ghost" disabled>​⏳...​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: trigger-fix-ghost
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button data-action=​"dashboard-run-autofix" data-type=​"sitemap" class=​"btn-os" style=​"background:​#00aaff;​ color:​#fff;​ font-size:​12px;​">​🗺️ Sitemap.xml Oluştur​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: dashboard-run-autofix
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button data-action=​"dashboard-run-autofix" data-type=​"images" class=​"btn-os" style=​"background:​#ffaa00;​ color:​#000;​ font-size:​12px;​">​🖼️ Eksik Resimleri Onar​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: dashboard-run-autofix
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button data-action=​"dashboard-run-visual-audit" class=​"btn-os" style=​"background:​#00aaff;​ color:​#000;​">​📸 GÖRSEL TARAMA BAŞLAT​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: dashboard-run-visual-audit
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button data-action=​"dashboard-run-performance-audit" class=​"btn-os" style=​"background:​#ffcc00;​ color:​#000;​">​🏎️ HIZ TESTİ BAŞLAT​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: dashboard-run-performance-audit
+atmos.js?v=8.1:25 ⚡ [Reflex] Atmosphere syncing to: mist
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button data-action=​"dashboard-run-security-audit" class=​"btn-os" style=​"background:​#ff4444;​ color:​#fff;​">​🛡️ GÜVENLİK TARAMASI BAŞLAT​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: dashboard-run-security-audit
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button data-action=​"dashboard-run-ai-fix-suggestions" class=​"btn-os" style=​"background:​#aa00ff;​ color:​#fff;​">​🧠 AKILLI ÖNERİLERİ GETİR​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: dashboard-run-ai-fix-suggestions
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os" id=​"runSiteAuditFix">​Site Tarama & Fix​</button>​
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os ghost sm" data-action=​"run-seo-ai">​AI Öneri​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: run-seo-ai
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os ghost sm" data-action=​"run-seo-audit">​SEO Audit​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: run-seo-audit
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os" id=​"btn-fix-ghost" data-action=​"trigger-fix-ghost" disabled>​⏳...​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: trigger-fix-ghost
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os" id=​"btn-fix-optimize" data-action=​"trigger-fix-optimize" disabled>​⏳...​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: trigger-fix-optimize
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button data-action=​"dashboard-run-performance-audit" class=​"btn-os" style=​"background:​#ffcc00;​ color:​#000;​">​🏎️ HIZ TESTİ BAŞLAT​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: dashboard-run-performance-audit
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os" id=​"runDeepAudit" data-action=​"run-deep-audit" style=​"background:​ var(--os-accent)​;​ color:​ #000;​ font-weight:​ bold;​">​🕷️ DEEP AUDIT V2 BAŞLAT​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: run-deep-audit
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <span class=​"label">​Kozmetik (Bio-Lab)​</span>​
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <span class=​"label">​Medya (Social)​</span>​
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os primary" data-action=​"save-social-data">​💾 Medya Ayarlarını Kaydet​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: save-social-data
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <span class=​"label">​City OS​</span>​
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os primary" data-action=​"scan-city" style=​"background:​ rgba(0,217,255,0.1)​;​ border-color:​ #00d9ff;​ color:​ #00d9ff;​">​📡 SCAN CITY STATUS​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: scan-city
+admin.bundle.js?v=8.1:70  GET http://localhost:8000/admin/city/scan 404 (Not Found)
+window.fetch @ admin.bundle.js?v=8.1:70
+scanCity @ admin.bundle.js?v=8.1:42
+(anonim) @ admin.bundle.js?v=8.1:350
+admin.bundle.js?v=8.1:70  GET http://localhost:8000/admin/city/scan 404 (Not Found)
+window.fetch @ admin.bundle.js?v=8.1:70
+scanCity @ admin.bundle.js?v=8.1:42
+(anonim) @ event-bindings.js?v=DEBUG:104
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os" data-action=​"exec-protocol-ghosts">​EXECUTE​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: exec-protocol-ghosts
+admin.bundle.js?v=8.1:70  POST http://localhost:8000/admin/city/execute/protocol_ghosts 405 (Method Not Allowed)
+window.fetch @ admin.bundle.js?v=8.1:70
+executeProtocol @ admin.bundle.js?v=8.1:43
+(anonim) @ admin.bundle.js?v=8.1:350
+admin.bundle.js?v=8.1:70  POST http://localhost:8000/admin/city/execute/protocol_ghosts 405 (Method Not Allowed)
+window.fetch @ admin.bundle.js?v=8.1:70
+executeProtocol @ admin.bundle.js?v=8.1:43
+(anonim) @ event-bindings.js?v=DEBUG:224
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os" data-action=​"exec-protocol-utf8">​EXECUTE​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: exec-protocol-utf8
+admin.bundle.js?v=8.1:70  POST http://localhost:8000/admin/city/execute/protocol_utf8 405 (Method Not Allowed)
+window.fetch @ admin.bundle.js?v=8.1:70
+executeProtocol @ admin.bundle.js?v=8.1:43
+(anonim) @ admin.bundle.js?v=8.1:350
+admin.bundle.js?v=8.1:70  POST http://localhost:8000/admin/city/execute/protocol_utf8 405 (Method Not Allowed)
+window.fetch @ admin.bundle.js?v=8.1:70
+executeProtocol @ admin.bundle.js?v=8.1:43
+(anonim) @ event-bindings.js?v=DEBUG:224
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os" data-action=​"exec-protocol-assets">​EXECUTE​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: exec-protocol-assets
+admin.bundle.js?v=8.1:70  POST http://localhost:8000/admin/city/execute/protocol_assets 405 (Method Not Allowed)
+window.fetch @ admin.bundle.js?v=8.1:70
+executeProtocol @ admin.bundle.js?v=8.1:43
+(anonim) @ admin.bundle.js?v=8.1:350
+admin.bundle.js?v=8.1:70  POST http://localhost:8000/admin/city/execute/protocol_assets 405 (Method Not Allowed)
+window.fetch @ admin.bundle.js?v=8.1:70
+executeProtocol @ admin.bundle.js?v=8.1:43
+(anonim) @ event-bindings.js?v=DEBUG:224
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os" data-action=​"exec-protocol-phone">​EXECUTE​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: exec-protocol-phone
+admin.bundle.js?v=8.1:70  POST http://localhost:8000/admin/city/execute/protocol_phone 405 (Method Not Allowed)
+window.fetch @ admin.bundle.js?v=8.1:70
+executeProtocol @ admin.bundle.js?v=8.1:43
+(anonim) @ admin.bundle.js?v=8.1:350
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os" data-action=​"exec-protocol-pulse">​EXECUTE​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: exec-protocol-pulse
+admin.bundle.js?v=8.1:70  POST http://localhost:8000/admin/city/execute/protocol_pulse 405 (Method Not Allowed)
+window.fetch @ admin.bundle.js?v=8.1:70
+executeProtocol @ admin.bundle.js?v=8.1:43
+(anonim) @ admin.bundle.js?v=8.1:350
+admin.bundle.js?v=8.1:70  POST http://localhost:8000/admin/city/execute/protocol_pulse 405 (Method Not Allowed)
+window.fetch @ admin.bundle.js?v=8.1:70
+executeProtocol @ admin.bundle.js?v=8.1:43
+(anonim) @ event-bindings.js?v=DEBUG:224
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <span class=​"label" style=​"color:​#ffaa00;​ font-weight:​bold;​">​Activity Log​</span>​
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <div class=​"analytics-card card-gold span-2">​…​</div>​
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <div class=​"analytics-card card-purple">​…​</div>​
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <button class=​"btn-os primary" data-action=​"load-activity-log" style=​"background:​ rgba(255,170,0,0.1)​;​ border-color:​ #ffaa00;​ color:​ #ffaa00;​">​🔄 Yenile​</button>​
+event-bindings.js?v=DEBUG:59 ⚡ Action Triggered: load-activity-log
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <span class=​"label" style=​"color:​#00d9ff;​ font-weight:​bold;​">​i18n Routes​</span>​
+event-bindings.js?v=DEBUG:55 🖱️ Click detected: <span class=​"label" style=​"color:​#e040fb;​ font-weight:​bold;​">​Template Gov​</span>​

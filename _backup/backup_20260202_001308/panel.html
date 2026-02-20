@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+  <meta name=\"robots\" content=\"noindex, nofollow\"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Santis Control Center • Yönetim Paneli</title>
+<meta content="Ürün Kataloğu at Santis Club. Versiyon 1.2.5 (Auto-Shutdown)" name="description"/>
+<link href="style-admin.css?v=1.2.2" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@600&amp;display=swap" rel="stylesheet"/>
+<!-- LOAD REAL DATA -->
+<!-- LOAD REAL DATA (LOCAL ADMIN COPY) -->
+<script src="product-data.js?v=1.2.2"></script>
+<script src="settings-data.js?v=1.2.2"></script>
+<script src="blog-data.js?v=1.2.2"></script>
+<script src="services-data.js?v=1.2.2"></script>
+<script src="social-data.js?v=1.0"></script>
+<style>
+        :root {
+            --bg-dark: #111;
+            --bg-panel: #1a1a1a;
+            --text-main: #eee;
+            --text-muted: #888;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* LIGHT MODE OVERRIDES */
+        body.light-mode {
+            --bg-dark: #f4f4f4;
+            --bg-panel: #ffffff;
+            --text-main: #222;
+            --text-muted: #666;
+            --border-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background: var(--bg-dark);
+            color: var(--text-main);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .settings-card, .sidebar, .stat-card, .form-group, .modal-window {
+            background-color: var(--bg-panel) !important;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+        
+        .sidebar-footer button {
+            color: var(--text-main);
+            border-color: var(--border-color);
+        }
+
+        .sortable-ghost {
+            opacity: 0.4;
+            border: 2px dashed #d4af37;
+            background: #222;
+        }
+    </style>
+<script src="gallery-data.js?v=1.0"></script>
+<meta content="/assets/img/og-standard.jpg" property="og:image"/>
+<link href="https://santis.club/backup/backup_20260202_001308/panel.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Panel", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script></head>
+<body>
+<div class="admin-layout">
+<!-- SIDEBAR -->
+<aside class="sidebar">
+<div class="brand">
+<div class="logo">S</div>
+<div class="text">
+<h2>SANTIS</h2>
+<span>CONTROL CENTER</span>
+</div>
+</div>
+<div class="status-indicator" id="bridge-status">
+<span class="icon">🔴</span>
+<span class="text">Statik Mod (Offline)</span>
+</div>
+<div class="sidebar-footer">
+<button class="btn btn-outline" onclick="triggerBackup()" style="width:100%; margin-bottom:10px; border-color:#2196f3; color:#2196f3;">
+                    🛡️ YEDEK AL (SENTINEL)
+                </button>
+<button class="btn btn-outline" onclick="shutdownSystem()" style="width:100%; margin-bottom:10px; border-color:#ff4444; color:#ff4444;">
+                    🔴 SİSTEMİ KAPAT
+                </button>
+<button class="btn btn-outline" onclick="toggleTheme()" style="width:100%; margin-bottom:10px; display:flex; align-items:center; justify-content:center; gap:8px;">
+<span id="theme-icon">🌙</span> <span id="theme-text">Karanlık Mod</span>
+</button>
+<p>Versiyon 1.2.5 (Auto-Shutdown)</p>
+</div>
+<nav class="menu">
+<a class="active" href="#" id="tab-products" onclick="switchTab('products')">
+                    📦 Ürün Yönetimi
+                </a>
+<a href="#" id="tab-services" onclick="switchTab('services')">
+                    💆 Hizmetler (Hamam/Masaj)
+                </a>
+<a href="#" id="tab-settings" onclick="switchTab('settings')">
+                    ⚙️ Sistem Ayarları
+                </a>
+<a href="#" id="tab-blog" onclick="switchTab('blog')">
+                    📝 Blog &amp; Haberler
+                </a>
+<a href="#" id="tab-social" onclick="switchTab('social')">
+                    📢 Medya Üssü
+                </a>
+<a href="#" id="tab-gallery" onclick="switchTab('gallery')">
+                    🖼️ Galeri &amp; Fotoğraflar
+                </a>
+<hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:10px 0;"/>
+<a href="#" id="btn-connect" onclick="connectProjectFolder()" style="color:#d4af37; font-weight:bold;">
+                    📂 Klasörü Bağla (Otomasyon)
+                </a>
+</nav>
+</aside>
+<!-- MAIN CONTENT: PRODUCTS -->
+<main class="content" id="view-products">
+<header class="top-bar">
+<h1>Ürün Kataloğu</h1>
+<div class="actions">
+<button class="btn btn-outline" onclick="exportData()">💾 Değişiklikleri İndir</button>
+<button class="btn btn-primary" onclick="openModal()">+ Yeni Ürün Ekle</button>
+<button class="btn btn-outline" onclick="startGlobalTranslation()" style="border-color:#d4af37; color:#d4af37;">
+                        🌍 Global Çeviri (Beta)
+                    </button>
+</div>
+<div id="translation-progress" style="display:none; margin-top:10px; background:#333; padding:10px; border-radius:6px; font-size:12px;">
+<div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+<span>Çevriliyor: <b id="trans-current">0</b> / <b id="trans-total">0</b></span>
+<span id="trans-percent">0%</span>
+</div>
+<div style="width:100%; height:8px; background:#222; border-radius:4px; overflow:hidden;">
+<div id="trans-bar" style="width:0%; height:100%; background:linear-gradient(90deg, #d4af37, #f8f5e6); transition:width 0.3s;"></div>
+</div>
+</div>
+</header>
+<div class="dashboard-stats">
+<div class="stat-card">
+<h3>Toplam Ürün</h3>
+<strong id="total-count">-</strong>
+</div>
+<div class="stat-card">
+<h3>Kategoriler</h3>
+<strong id="cat-count">-</strong>
+</div>
+</div>
+<div class="table-container">
+<table id="product-table">
+<thead>
+<tr>
+<th width="80">Görsel</th>
+<th>Ürün Adı</th>
+<th>Kategori</th>
+<th>Fiyat</th>
+<th>Etiket</th>
+<th width="100">İşlemler</th>
+</tr>
+</thead>
+<tbody id="table-body">
+<!-- JS WILL FILL HERE -->
+</tbody>
+</table>
+</div>
+</main>
+<!-- MAIN CONTENT: SERVICES -->
+<main class="content hidden" id="view-services">
+<header class="top-bar">
+<h1>Hizmet Yönetimi (Hamam/Masaj)</h1>
+<div class="actions">
+<button class="btn btn-outline" onclick="exportServiceData()">💾 Hizmet Verisini İndir</button>
+<button class="btn btn-primary" onclick="openServiceModal()">+ Yeni Hizmet Ekle</button>
+</div>
+</header>
+<div class="filter-bar" style="margin-bottom:20px;">
+<button class="btn btn-sm btn-primary" onclick="renderServiceTable('all', this)">Tümü</button>
+<button class="btn btn-sm btn-outline" onclick="renderServiceTable('hammam', this)">Hamam</button>
+<button class="btn btn-sm btn-outline" onclick="renderServiceTable('massage', this)">Masaj</button>
+<button class="btn btn-sm btn-outline" onclick="renderServiceTable('skincare', this)">Cilt</button>
+</div>
+<div class="table-container">
+<table id="service-table">
+<thead>
+<tr>
+<th width="80">Tür</th>
+<th>Hizmet Adı</th>
+<th>Süre / Fiyat</th>
+<th>Özel Durum</th>
+<th width="120">İşlemler</th>
+</tr>
+</thead>
+<tbody id="service-table-body">
+<!-- JS WILL FILL HERE -->
+</tbody>
+</table>
+</div>
+</main>
+<!-- MAIN CONTENT: BLOG -->
+<main class="content hidden" id="view-blog">
+<header class="top-bar">
+<h1>Blog &amp; Haber Yönetimi</h1>
+<div class="actions">
+<button class="btn btn-outline" onclick="exportBlogData()">💾 Blog Verisini İndir</button>
+<button class="btn btn-primary" onclick="openBlogModal()">+ Yeni Yazı Ekle</button>
+</div>
+</header>
+<div class="table-container" style="padding-top:20px;">
+<table id="blog-table">
+<thead>
+<tr>
+<th width="80">Görsel</th>
+<th>Başlık</th>
+<th>Kategori</th>
+<th>Tarih</th>
+<th width="100">İşlemler</th>
+</tr>
+</thead>
+<tbody id="blog-table-body">
+<!-- JS WILL FILL HERE -->
+</tbody>
+</table>
+</div>
+</main>
+<!-- SETTINGS VIEW (Hidden by default) -->
+<main class="content hidden" id="view-settings">
+<header class="top-bar">
+<h1>Sistem Ayarları</h1>
+<div class="actions">
+<button class="btn btn-primary" onclick="saveSettings()">💾 Ayarları İndir (settings-data.js)</button>
+</div>
+</header>
+<div class="settings-container" style="padding: 30px; overflow-y: auto;">
+<div class="settings-card">
+<h3>📞 İletişim Bilgileri</h3>
+<div class="row">
+<div class="form-group half">
+<label>WhatsApp Numarası (90...)</label>
+<input id="set-whatsapp" type="text"/>
+</div>
+<div class="form-group half">
+<label>Telefon Görünümü</label>
+<input id="set-phone" type="text"/>
+</div>
+</div>
+<div class="form-group">
+<label>E-posta Adresi</label>
+<input id="set-email" type="text"/>
+</div>
+</div>
+<div class="settings-card" style="margin-top: 20px;">
+<h3>🔗 Sosyal Medya</h3>
+<div class="row">
+<div class="form-group half">
+<label>Instagram Kullanıcı Adı</label>
+<input id="set-instagram" type="text"/>
+</div>
+<div class="form-group half">
+<label>Facebook Kullanıcı Adı</label>
+<input id="set-facebook" type="text"/>
+</div>
+</div>
+</div>
+<div class="settings-card" style="margin-top: 20px;">
+<h3>🚨 Sistem Kontrolü</h3>
+<div class="form-group">
+<label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+<input id="set-maintenance" style="width:auto;" type="checkbox"/>
+<span><strong>Bakım Modu (Maintenance)</strong> - Siteyi ziyarete kapatır.</span>
+</label>
+</div>
+<div class="form-group">
+<label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+<input id="set-price" style="width:auto;" type="checkbox"/>
+<span><strong>Fiyatları Göster</strong> - İşaret kaldırılırsa fiyatlar gizlenir.</span>
+</label>
+</div>
+</div>
+</div>
+</main>
+<!-- SOCIAL MEDIA VIEW (New Phase 1) -->
+<main class="content hidden" id="view-social">
+<header class="top-bar">
+<h1>📢 Medya Üssü (Social Manager)</h1>
+<div class="actions">
+<button class="btn btn-outline" onclick="exportSocialData()">💾 Medya Planını Kaydet</button>
+<button class="btn btn-primary" onclick="triggerUpload('social')">+ Medya Yükle (Video/Resim)</button>
+</div>
+</header>
+<div style="flex:1; overflow-y:auto; padding:30px; padding-top:0;">
+<!-- PHASE 9: GLOBAL TREND RADAR -->
+<div class="settings-card" id="global-radar" style="margin-bottom:20px; border:1px solid #d4af37; background: linear-gradient(45deg, #1a1a1a 0%, #222 100%);">
+<!-- JS Fills Here -->
+</div>
+<div class="dashboard-stats">
+<div class="stat-card">
+<h3>Bağlı Hesaplar</h3>
+<strong id="social-count">-</strong>
+</div>
+<div class="stat-card">
+<h3>Taslak Postlar</h3>
+<strong id="draft-count">-</strong>
+</div>
+<div class="stat-card">
+<h3>Erişim (Aylık)</h3>
+<strong id="social-reach">-</strong>
+</div>
+<div class="stat-card">
+<h3>Etkileşim</h3>
+<strong id="social-eng">-</strong>
+</div>
+<div class="stat-card">
+<h3>Büyüme</h3>
+<strong id="social-growth">-</strong>
+</div>
+</div>
+<!-- 1. PLATFORM MANAGER -->
+<div class="settings-card" style="margin-top:20px;">
+<h3>🌐 Platform Bağlantıları</h3>
+<p style="color:#888; font-size:13px; margin-bottom:15px;">Sosyal medya hesaplarınızın linklerini buradan düzenleyebilirsiniz.</p>
+<div class="row" id="platform-list">
+<!-- JS will render switches here -->
+</div>
+</div>
+<!-- 1.5 DIGITAL CONCIERGE (PHASE 5) -->
+<div class="settings-card" style="margin-top:20px; border-left:4px solid #d4af37;">
+<div style="display:flex; justify-content:space-between; align-items:center;">
+<div>
+<h3>🛎️ Digital Concierge (Sinematik Karşılama)</h3>
+<p style="color:#888; font-size:13px;">Web sitesinde "Canlı Video Resepsiyon" modunu açar.</p>
+</div>
+<label class="switch">
+<input id="concierge-active-switch" onchange="toggleConcierge()" type="checkbox"/>
+<span class="slider round"></span>
+</label>
+</div>
+<div id="concierge-settings" style="margin-top:15px; display:none;">
+<button class="btn btn-outline" onclick="triggerUpload('social')">📹 Resepsiyon Videosu Yükle</button>
+<small id="concierge-video-name" style="color:#666; margin-left:10px;">reception_loop.mp4</small>
+</div>
+</div>
+<!-- 2. BIOLINK MANAGER (PHASE 2) -->
+<div class="settings-card" style="margin-top:20px;">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+<div>
+<h3>🔗 BioLink (Concierge Bağlantıları)</h3>
+<p style="color:#888; font-size:13px;">Footer'daki hızlı linkler ve iletişim butonları.</p>
+</div>
+<button class="btn btn-outline" onclick="addBioLink()" style="font-size:12px;">+ Link Ekle</button>
+</div>
+<div id="biolink-container">
+<!-- JS will render items here -->
+</div>
+</div>
+<!-- 3. CREATIVE STUDIO (PHASE 3: SMART DROP ZONE) -->
+<div class="settings-card" style="margin-top:20px;">
+<div style="display:flex; justify-content:space-between; align-items:center;">
+<h3>🎨 Creative Studio (Taslak Masası)</h3>
+<span style="font-size:12px; color:#888;">Instagram 3xN Grid Simülasyonu</span>
+</div>
+<!-- SMART DROP ZONE -->
+<div class="drop-zone" id="drop-zone-social" style="margin:15px 0; border:2px dashed #444; padding:30px; text-align:center; border-radius:12px; transition:0.3s;">
+<i class="fas fa-cloud-upload-alt" style="font-size:32px; color:#666; mb-2"></i>
+<p style="margin:10px 0; color:#ccc;">Medyayı Buraya Sürükleyin</p>
+<small style="color:#666; display:block;">.jpg, .png veya .mp4 (Otomatik Algılanır)</small>
+<button class="btn btn-outline" onclick="triggerUpload('social')" style="margin-top:10px;">Dosya Seç</button>
+<!-- Hidden Input -->
+<input id="inp-social-upload" onchange="handleSocialSelect(this)" style="display:none;" type="file"/>
+</div>
+<!-- THE GRID (INSTAGRAM PREVIEW) -->
+<div id="social-grid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:20px;">
+<!-- JS will render items here -->
+</div>
+</div>
+</div>
+</main>
+<!-- GALLERY VIEW (Module 4) -->
+<main class="content hidden" id="view-gallery">
+<header class="top-bar">
+<h1>🖼️ Galeri Yönetimi</h1>
+<div class="actions">
+<button class="btn btn-outline" onclick="exportGalleryData()">💾 Galeri Verisini Kaydet</button>
+<button class="btn btn-primary" onclick="triggerUpload('gallery')">+ Yeni Fotoğraf Yükle</button>
+</div>
+</header>
+<div style="flex:1; overflow-y:auto; padding:30px; padding-top:0;">
+<!-- DROP ZONE -->
+<div class="drop-zone" id="drop-zone-gallery" onclick="triggerUpload('gallery')" style="margin:20px 0; padding:40px; border:2px dashed #444; text-align:center; border-radius:12px; cursor:pointer;">
+<i class="fas fa-images" style="font-size:48px; color:#666; margin-bottom:15px;"></i>
+<h3 style="color:#ccc; margin:0;">Fotoğrafları Buraya Sürükleyin</h3>
+<p style="color:#888; font-size:13px; margin-top:5px;">veya tıklayarak seçin (JPG, PNG, WEBP)</p>
+</div>
+<!-- GALLERY GRID -->
+<div class="settings-card">
+<div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+<h3>Mevcut Fotoğraflar</h3>
+<span id="gallery-count" style="color:#888; font-size:12px;">0 öğe</span>
+</div>
+<div id="gallery-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:15px;">
+<!-- JS renders items here -->
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="modal">
+<div class="modal-window">
+<div class="modal-header">
+<h2 id="modal-title">Ürün Düzenle</h2>
+<button class="close-btn" onclick="closeModal()">×</button>
+</div>
+<div class="modal-body">
+<input id="edit-id" type="hidden"/>
+<div class="form-group">
+<label>Ürün Adı</label>
+<input id="inp-name" placeholder="Örn: Hydra3Ha Serum" type="text"/>
+</div>
+<div class="row">
+<div class="form-group half">
+<label>Kategori</label>
+<select id="inp-cat">
+<option value="face-youth">Yüz / Gençlik</option>
+<option value="face-hydra">Yüz / Nem</option>
+<option value="face-detox">Yüz / Detox</option>
+<option value="face-men">Erkek Bakımı</option>
+<option value="body-slim">Vücut / İncelme</option>
+<option value="body-care">Vücut Bakımı</option>
+<option value="sun-care">Güneş Serisi</option>
+<option value="organics">Organik Seri</option>
+<option value="home-textile">Santis Home</option>
+<option value="home-aroma">Aromaterapi</option>
+<option value="home-gift">Hediye</option>
+<option value="campaign">🔥 Fırsat / Kampanya</option>
+<option value="accessory">👜 Aksesuar / Diğer</option>
+</select>
+</div>
+<div class="form-group half">
+<label>Fiyat Bilgisi</label>
+<input id="inp-price" placeholder="Örn: Bilgi Al" type="text"/>
+</div>
+</div>
+<div class="row">
+<div class="form-group half">
+<label>Görsel Dosya Adı</label>
+<input id="inp-img" placeholder="Örn: cream.png" type="text"/>
+<div class="drop-zone hidden" id="drop-zone-product" onclick="triggerUpload('product')">
+                            📂 Resim Yükle (veya Sürükle)
+                        </div>
+<small id="img-hint">Resmi assets/img/cards/ klasörüne atmayı unutmayın.</small>
+</div>
+<div class="form-group half">
+<label>Etiket (Opsiyonel)</label>
+<select id="inp-badge">
+<option value="">(Yok)</option>
+<option value="NEW">NEW (Yeni)</option>
+<option value="BEST">BEST SELLER</option>
+<option value="PRESTIGE">PRESTIGE</option>
+<option value="SUMMER">SUMMER</option>
+</select>
+</div>
+</div>
+<div class="form-group">
+<label style="display:flex; justify-content:space-between; align-items:center;">
+                        Açıklama 
+                        <button class="btn btn-sm btn-outline" onclick="generateDescription()" style="font-size:11px; border-color:#d4af37; color:#d4af37;">
+                             ✨ AI ile Yaz (Santis Yazar)
+                        </button>
+</label>
+<textarea id="inp-desc" placeholder="Ürün adını üstte yazın ve AI butonuna basın..." rows="3"></textarea>
+</div>
+<div class="row">
+<div class="form-group half">
+<label>Fayda (Kısa)</label>
+<input id="inp-benefit" type="text"/>
+</div>
+<div class="form-group half">
+<label>Kullanım (Kısa)</label>
+<input id="inp-usage" type="text"/>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-outline" onclick="closeModal()">İptal</button>
+<button class="btn btn-primary" onclick="saveProduct()">Kaydet</button>
+</div>
+</div>
+</div>
+<!-- SERVICE EDIT MODAL -->
+<div class="modal-overlay" id="service-modal">
+<div class="modal-window">
+<div class="modal-header">
+<h2 id="service-modal-title">Hizmet Ekle</h2>
+<button class="close-btn" onclick="closeServiceModal()">×</button>
+</div>
+<div class="modal-body">
+<input id="svc-id" type="hidden"/>
+<div class="form-group">
+<label>Hizmet Tipi</label>
+<select id="svc-type">
+<option value="hammam">Hamam</option>
+<option value="massage">Masaj</option>
+<option value="skincare">Cilt Bakımı</option>
+</select>
+</div>
+<div class="form-group">
+<label>Hizmet Adı</label>
+<input id="svc-title" type="text"/>
+</div>
+<div class="row">
+<div class="form-group half">
+<label>Süre</label>
+<input id="svc-duration" placeholder="Örn: 50 dk" type="text"/>
+</div>
+<div class="form-group half">
+<label>Fiyat</label>
+<input id="svc-price" placeholder="Örn: 90 €" type="text"/>
+</div>
+</div>
+<div class="form-group">
+<label>Açıklama</label>
+<textarea id="svc-desc" rows="3"></textarea>
+</div>
+<div class="form-group">
+<label>Görsel Dosya Adı</label>
+<input id="svc-img" placeholder="Örn: massage-1.jpg" type="text"/>
+<div class="drop-zone hidden" id="drop-zone-service" onclick="triggerUpload('service')">
+                        📂 Resim Yükle (veya Sürükle)
+                    </div>
+</div>
+<div class="form-group" style="background:#fff3cd; padding:10px; border-radius:6px;">
+<label style="display:flex; align-items:center;">
+<input id="svc-special" style="width:auto; margin-right:10px;" type="checkbox"/>
+                        🔥 GÜNÜN FIRSATI OLSUN
+                    </label>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-outline" onclick="closeServiceModal()">İptal</button>
+<button class="btn btn-primary" onclick="saveService()">Kaydet</button>
+</div>
+</div>
+</div>
+<!-- BLOG EDIT MODAL -->
+<div class="modal-overlay" id="blog-modal">
+<div class="modal-window">
+<div class="modal-header">
+<h2 id="blog-modal-title">Haber Ekle</h2>
+<button class="close-btn" onclick="closeBlogModal()">×</button>
+</div>
+<div class="modal-body">
+<input id="blog-id" type="hidden"/>
+<div class="form-group">
+<label>Başlık</label>
+<input id="blog-title" placeholder="Haber başlığı..." type="text"/>
+</div>
+<div class="row">
+<div class="form-group half">
+<label>Kategori</label>
+<select id="blog-cat">
+<option value="Duyuru">Duyuru</option>
+<option value="Etkinlik">Etkinlik</option>
+<option value="İpucu">İpucu / Blog</option>
+<option value="Basın">Basın</option>
+</select>
+</div>
+<div class="form-group half">
+<label>Tarih</label>
+<input id="blog-date" type="date"/>
+</div>
+</div>
+<div class="form-group">
+<label>Görsel Dosya Adı</label>
+<input id="blog-img" placeholder="Örn: news-1.jpg" type="text"/>
+<div class="drop-zone hidden" id="drop-zone-blog" onclick="triggerUpload('blog')">
+                        📂 Resim Yükle (veya Sürükle)
+                    </div>
+</div>
+<div class="form-group">
+<label>Kısa Özet (Ana Sayfa İçin)</label>
+<textarea id="blog-summary" rows="2"></textarea>
+</div>
+<div class="form-group">
+<label>İçerik (Detay)</label>
+<textarea id="blog-content" rows="6"></textarea>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-outline" onclick="closeBlogModal()">İptal</button>
+<button class="btn btn-primary" onclick="saveBlog()">Kaydet</button>
+</div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<script src="app-admin.js?v=1.2.4"></script>
+</body>
+</html>

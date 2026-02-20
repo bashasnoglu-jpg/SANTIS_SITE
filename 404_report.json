@@ -1,0 +1,14 @@
+﻿[
+    {
+        "URL":  "http://127.0.0.1:8000/index.html",
+        "Status":  200
+    },
+    {
+        "URL":  "http://127.0.0.1:8000/tr/hamam/index.html",
+        "Status":  200
+    },
+    {
+        "URL":  "http://127.0.0.1:8000/tr/masajlar/index.html",
+        "Status":  200
+    }
+]

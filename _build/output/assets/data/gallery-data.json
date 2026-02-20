@@ -1,0 +1,86 @@
+[
+    {
+        "file": "santis_card_hammam_v1.webp",
+        "category": "hamam",
+        "caption": "Geleneksel Türk Hamamı",
+        "mood": "mystic",
+        "audio": "water_steam.mp3"
+    },
+    {
+        "file": "Hammamda köpük masajı huzuru.webp",
+        "category": "hamam",
+        "caption": "Köpük Masajı Ritüeli",
+        "mood": "calm",
+        "audio": "water_steam.mp3"
+    },
+    {
+        "file": "santis_card_couple_v1.webp",
+        "category": "massage",
+        "caption": "Çift Masajı (Couple Suite)",
+        "mood": "romantic",
+        "audio": "soft_piano.mp3"
+    },
+    {
+        "file": "Altın yağı ve ellerin zarafeti.webp",
+        "category": "massage",
+        "caption": "Altın Yağı Masajı",
+        "mood": "luxury",
+        "audio": "soft_piano.mp3"
+    },
+    {
+        "file": "Şirodhara terapi anı.webp",
+        "category": "massage",
+        "caption": "Şirodhara Terapi",
+        "mood": "zen",
+        "audio": "zen_bells.mp3"
+    },
+    {
+        "file": "santis_card_skincare_v1.webp",
+        "category": "skincare",
+        "caption": "Sothys Cilt Bakımı",
+        "mood": "clean",
+        "audio": "silence.mp3"
+    },
+    {
+        "file": "Santis-face-mask-4x5-1080x1350.webp",
+        "category": "skincare",
+        "caption": "Yüz Maskesi Ritüeli",
+        "mood": "clean",
+        "audio": "silence.mp3"
+    },
+    {
+        "file": "hero-general.webp",
+        "category": "ambiance",
+        "caption": "Santis Lounge & Relax",
+        "mood": "calm",
+        "audio": "lounge_jazz.mp3"
+    },
+    {
+        "file": "Anjali Mudra with soft lighting.webp",
+        "category": "ambiance",
+        "caption": "Anjali Mudra — Huzur Anı",
+        "mood": "zen",
+        "audio": "zen_bells.mp3"
+    },
+    {
+        "file": "Namaste elleri ve tütsü dumanı.webp",
+        "category": "ambiance",
+        "caption": "Namaste & Tütsü Ritüeli",
+        "mood": "mystic",
+        "audio": "incense.mp3"
+    },
+    {
+        "file": "Gemini_Generated_Image_jq8hzwjq8hzwjq8h.webp",
+        "category": "ambiance",
+        "caption": "Santis Atmosfer",
+        "mood": "luxury",
+        "audio": "lounge_jazz.mp3"
+    },
+    {
+        "file": "Gemini_Generated_Image_gw02fdgw02fdgw02.webp",
+        "category": "ambiance",
+        "caption": "Huzurun Yansıması",
+        "mood": "calm",
+        "audio": "nature_rain.mp3"
+    }
+]

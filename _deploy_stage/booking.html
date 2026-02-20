@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html lang="tr" data-page-type="booking">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rezervasyon • Santis Club</title>
+<meta content="Online spa rezervasyonu yapın. Hamam, masaj ve cilt bakımı için randevunuzu hemen oluşturun. Concierge hizmetiyle kişiye özel planlama." name="description"/>
+<link href="/assets/css/fonts.css" rel="stylesheet"/>
+<script src="assets/js/perf-head.js"></script>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="/assets/css/fonts.css" rel="stylesheet"/>
+<style>
+
+        /* Page Specific Form Styles - Using Global Variables */
+
+        .booking-container {
+
+            max-width: 600px;
+
+            margin: 0 auto;
+
+            padding: 40px 20px;
+
+        }
+
+        .form-group {
+
+            margin-bottom: 20px;
+
+        }
+
+        .form-group label {
+
+            display: block;
+
+            color: var(--accent-gold);
+
+            margin-bottom: 8px;
+
+            font-family: var(--font-body);
+
+            font-size: 14px;
+
+            letter-spacing: 1px;
+
+        }
+
+        .form-control {
+
+            width: 100%;
+
+            padding: 15px;
+
+            background: rgba(255, 255, 255, 0.03);
+
+            border: 1px solid var(--border);
+
+            color: var(--text-main);
+
+            border-radius: 4px;
+
+            font-size: 16px;
+
+            transition: border-color 0.3s;
+
+        }
+
+        .form-control:focus {
+
+            border-color: var(--accent-gold);
+
+            outline: none;
+
+        }
+
+    </style>
+<script src="assets/js/language-switcher.js"></script>
+<meta content="/assets/img/og-standard.jpg" property="og:image"/>
+<link href="https://santis-club.com/booking.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Booking", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Rezervasyon",
+      "item": "https://santis-club.com/booking.html"
+    }
+  ]
+}
+</script>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Rezervasyon"/>
+<meta property="og:description" content="Online spa rezervasyonu yapın. Hamam, masaj ve cilt bakımı için randevunuzu hemen oluşturun. Concierge hizmetiyle kişiye özel planlama."/>
+<meta property="og:url" content="https://santis-club.com/booking.html"/>
+<meta property="og:type" content="website"/>
+    <link rel="alternate" hreflang="tr" href="https://santis-club.com/booking.html" data-static-hreflang="self">
+    <link rel="alternate" hreflang="x-default" href="https://santis-club.com/booking.html" data-static-hreflang="default">
+</head>
+<body class="editorial-mode">
+<noscript>
+<nav style="background:#0a0c10;padding:12px 20px;text-align:center;border-bottom:1px solid rgba(212,175,55,0.15);">
+<a href="/index.html" style="color:#d4af37;margin:0 12px;text-decoration:none;font-size:13px;">ANA SAYFA</a>
+<a href="/tr/hamam/index.html" style="color:#ccc;margin:0 12px;text-decoration:none;font-size:13px;">HAMAM</a>
+<a href="/tr/masajlar/index.html" style="color:#ccc;margin:0 12px;text-decoration:none;font-size:13px;">MASAJLAR</a>
+<a href="/tr/cilt-bakimi/index.html" style="color:#ccc;margin:0 12px;text-decoration:none;font-size:13px;">CİLT BAKIMI</a>
+<a href="/tr/galeri/index.html" style="color:#ccc;margin:0 12px;text-decoration:none;font-size:13px;">GALERİ</a>
+</nav>
+</noscript>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+<div class="preloader-logo">Santis Club</div>
+</div>
+<div id="navbar-container"></div>
+<main id="nv-main" style="padding-top: 120px; min-height: 80vh;">
+<div class="section-container">
+<h1 class="section-title" style="font-size: 40px; margin-bottom: 10px; text-align: center;">Rezervasyon</h1>
+<p style="text-align:center; color:var(--text-muted); margin-bottom:40px;">Size özel bir deneyim için
+
+                rezervasyon yapın.
+
+            </p>
+<div class="booking-container">
+<form id="bookingForm" onsubmit="handleBooking(event)">
+<div class="form-group">
+<label for="bookHotel">Otel / Şube</label>
+<select class="form-control" id="bookHotel">
+<option disabled="" selected="" value="">Seçiniz</option>
+<option value="Santis Club (Genel)">Santis Club (Genel)</option>
+<option value="Porto Bello Hotel">Porto Bello Hotel (Konyaaltı)</option>
+<option value="Sealife Family">Sealife Family (Konyaaltı)</option>
+<option value="Puding Marina">Puding Marina (Kaleiçi)</option>
+</select>
+</div>
+<div class="form-group">
+<label for="bookService">Hizmet</label>
+<select class="form-control" id="bookService">
+<option disabled="" selected="" value="">Seçiniz</option>
+<option value="Hamam Ritüeli">Hamam Ritüeli</option>
+<option value="Klasik Masaj">Klasik Masaj</option>
+<option value="Derin Doku Masajı">Derin Doku Masajı</option>
+<option value="Aromaterapi">Aromaterapi</option>
+<option value="Cilt Bakımı">Cilt Bakımı</option>
+<option value="Diğer">Diğer / Kararsızım</option>
+</select>
+</div>
+<div class="form-group">
+<label for="bookDate">Tarih</label>
+<input class="form-control" id="bookDate" type="date"/>
+</div>
+<div class="form-group">
+<label for="bookName">Ad Soyad</label>
+<input class="form-control" id="bookName" placeholder="Adınız Soyadınız" required="" type="text"/>
+</div>
+<button class="nv-btn nv-btn" type="submit">WHATSAPP İLE GÖNDER</button>
+</form>
+</div>
+</div>
+
+<section class="related-services">
+<h2>İlgili Hizmetler</h2>
+<ul>
+<li><a href="/tr/masajlar/klasik-rahatlama.html">Klasik Rahatlama Masajı</a></li>
+<li><a href="/tr/masajlar/aromaterapi.html">Aromaterapi Masajı</a></li>
+<li><a href="/tr/masajlar/derin-doku.html">Derin Doku Masajı</a></li>
+</ul>
+</section>
+</main>
+<div id="footer-container"></div>
+<script src="assets/js/fallback_data.js"></script>
+<script src="assets/js/i18n-routes.js"></script>
+    <script src="assets/js/hreflang-injector.js" defer></script>
+<script src="assets/js/loader.js"></script>
+
+<script src="/assets/js/page-init.js"></script>
+</body>
+</html>

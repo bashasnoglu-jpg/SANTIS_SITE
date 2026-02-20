@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta name=\"robots\" content=\"noindex, nofollow\"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paketler & Setler | Santis Club</title>
+    <meta name="description" content="Santis Club özel paketleri — Evde Hamam Seti, kurumsal hediyeler ve özel koleksiyonlar. Sessiz lüksü evinize taşıyın.">
+    <link rel="stylesheet" href="../../assets/css/fonts.css">
+    <link rel="stylesheet" href="../../assets/css/style.css?v=8.1">
+    <link rel="stylesheet" href="../../assets/css/editorial.css?v=8.1">
+    <style>
+        .paket-hero {
+            padding: 180px 0 100px;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(10,12,16,0.95)),
+                        url('../../assets/img/cards/atelier.webp');
+            background-size: cover;
+            background-position: center;
+        }
+        .paket-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        .paket-hero p {
+            max-width: 520px;
+            margin: 0 auto;
+            color: #bbb;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        .paket-section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .paket-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .paket-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .paket-card:hover {
+            border-color: var(--gold, #D4AF37);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        .paket-img-wrap {
+            height: 280px;
+            overflow: hidden;
+        }
+        .paket-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .paket-card:hover .paket-img-wrap img {
+            transform: scale(1.05);
+        }
+        .paket-content {
+            padding: 30px;
+        }
+        .paket-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold, #D4AF37);
+            border: 1px solid rgba(212,175,55,0.3);
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        .paket-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+        .paket-content p {
+            color: #999;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .paket-includes {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 25px 0;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 15px;
+        }
+        .paket-includes li {
+            color: #bbb;
+            font-size: 0.85rem;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .paket-includes li::before {
+            content: '✦ ';
+            color: var(--gold, #D4AF37);
+        }
+        .paket-cta {
+            display: inline-block;
+            padding: 12px 28px;
+            border: 1px solid var(--gold, #D4AF37);
+            color: var(--gold, #D4AF37);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        .paket-cta:hover {
+            background: var(--gold, #D4AF37);
+            color: #000;
+        }
+        @media (max-width: 768px) {
+            .paket-hero h1 { font-size: 2.2rem; }
+        }
+    </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/tr/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mağaza",
+      "item": "https://santis-club.com/tr/magaza/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Paketler & Setler",
+      "item": "https://santis-club.com/tr/magaza/paketler.html"
+    }
+  ]
+}
+</script>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Paketler & Setler"/>
+<meta property="og:description" content="Santis Club özel paketleri — Evde Hamam Seti, kurumsal hediyeler ve özel koleksiyonlar. Sessiz lüksü evinize taşıyın."/>
+<meta property="og:image" content="https://santis-club.com/tr/magaza/../../assets/img/cards/santis_card_hammam_v1.webp"/>
+<meta property="og:url" content="https://santis-club.com/tr/magaza/paketler.html"/>
+<meta property="og:type" content="website"/>
+    
+    
+<link href="https://santis-club.com/tr/magaza/paketler.html" rel="canonical"/>
+</head>
+<body>
+<noscript>
+<nav class="nv-noscript-nav">
+<a href="/index.html" class="nv-ns-home">ANA SAYFA</a>
+<a href="/tr/hamam/index.html" >HAMAM</a>
+<a href="/tr/masajlar/index.html" >MASAJLAR</a>
+<a href="/tr/cilt-bakimi/index.html" >CİLT BAKIMI</a>
+<a href="/tr/galeri/index.html" >GALERİ</a>
+</nav>
+</noscript>
+
+
+    <header id="nv-header"></header>
+
+    <section class="paket-hero">
+        <div class="nv-container">
+            <span class="nv-kicker">SANTIS ATELIER</span>
+            <h1>Paketler & Setler</h1>
+            <p>
+                Hamam geleneğini evinize taşıyan özel koleksiyonlar.
+                Kendinize veya sevdiklerinize anlamlı bir hediye.
+            </p>
+        </div>
+    </section>
+
+    <main>
+        <section class="paket-section">
+            <div class="nv-section-header">
+                <span class="nv-kicker">KOLEKSİYON</span>
+                <h2 class="nv-title">Özel Setler</h2>
+            </div>
+
+            <div class="paket-grid">
+                <!-- SET 1: EVDE HAMAM -->
+                <div class="paket-card">
+                    <div class="paket-img-wrap">
+                        <img 
+                            src="../../assets/img/cards/santis_card_hammam_v1.webp" 
+                            alt="Santis Evde Hamam Seti – geleneksel hamam ürünleri" 
+                            loading="lazy" 
+                            decoding="async"
+                            width="640" 
+                            height="400"
+                        >
+                    </div>
+                    <div class="paket-content">
+                        <span class="paket-badge">En Sevilen</span>
+                        <h3>Evde Hamam Seti</h3>
+                        <p>Geleneksel hamam deneyimini evinize taşıyan özenle seçilmiş ürünler.</p>
+                        <ul class="paket-includes">
+                            <li>El Yapımı Bakır Hamam Tası</li>
+                            <li>%100 Organik Kese</li>
+                            <li>Doğal Zeytinyağı Sabunu</li>
+                            <li>Premium Peştemal</li>
+                            <li>Santis Oda Kokusu (Mini)</li>
+                        </ul>
+                        <a href="https://wa.me/905348350169?text=Merhaba,%20Evde%20Hamam%20Seti%20sipari%C5%9F%20vermek%20istiyorum"
+                           target="_blank" rel="noopener noreferrer" class="paket-cta">
+                            SİPARİŞ VER
+                        </a>
+                    </div>
+                </div>
+
+                <!-- SET 2: KURUMSAL -->
+                <div class="paket-card">
+                    <div class="paket-img-wrap">
+                        <img 
+                            src="../../assets/img/cards/santis_card_skincare_v1.webp" 
+                            alt="Santis Kurumsal Hediye Seti – premium spa ürünleri" 
+                            loading="lazy" 
+                            decoding="async"
+                            width="640" 
+                            height="400"
+                        >
+                    </div>
+                    <div class="paket-content">
+                        <span class="paket-badge">Kurumsal</span>
+                        <h3>Kurumsal Hediye Seti</h3>
+                        <p>İş ortaklarınıza ve ekibinize anlamlı bir jest. Özel markalamalı seçenekler mevcuttur.</p>
+                        <ul class="paket-includes">
+                            <li>Sothys Paris Cilt Bakım Seti</li>
+                            <li>Premium Bornoz</li>
+                            <li>Santis Hediye Kartı</li>
+                            <li>Özel Markalama Seçeneği</li>
+                            <li>10+ adet toptan fiyatlandırma</li>
+                        </ul>
+                        <a href="https://wa.me/905348350169?text=Merhaba,%20Kurumsal%20Hediye%20Seti%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum"
+                           target="_blank" rel="noopener noreferrer" class="paket-cta">
+                            TEKLİF İSTE
+                        </a>
+                    </div>
+                </div>
+
+                <!-- SET 3: RELAX KIT -->
+                <div class="paket-card">
+                    <div class="paket-img-wrap">
+                        <img 
+                            src="../../assets/img/cards/santis_card_massage_v1.webp" 
+                            alt="Santis Relax Kit – seçkin rahatlama ürünleri" 
+                            loading="lazy" 
+                            decoding="async"
+                            width="640" 
+                            height="400"
+                        >
+                    </div>
+                    <div class="paket-content">
+                        <span class="paket-badge">Yeni</span>
+                        <h3>Santis Relax Kit</h3>
+                        <p>Romantik bir akşam veya kişisel rahatlama anları için küratörlü set.</p>
+                        <ul class="paket-includes">
+                            <li>Aromaterapi Masaj Yağı</li>
+                            <li>Lavanta Yastık Spreyi</li>
+                            <li>Doğal Soya Mumu</li>
+                            <li>Bamboo Peştemal</li>
+                        </ul>
+                        <a href="https://wa.me/905348350169?text=Merhaba,%20Relax%20Kit%20sipari%C5%9F%20vermek%20istiyorum"
+                           target="_blank" rel="noopener noreferrer" class="paket-cta">
+                            SİPARİŞ VER
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+<section class="related-services">
+<h2>Keşfedebileceğiniz Diğer Deneyimler</h2>
+<ul>
+<li><a href="/tr/magaza/atelier.html">Dokuma & Taş</a></li>
+<li><a href="/tr/magaza/kozmetik.html">Santis Bio-Lab</a></li>
+<li><a href="/tr/cilt-bakimi/acne-balance.html">Akne &amp; Sebum Denge Bakımı</a></li>
+<li><a href="/tr/hamam/cikolata-bakimi.html">Çikolata Bakımı</a></li>
+</ul>
+</section>
+</main>
+
+    <div id="footer-container"></div>
+
+    <script src="../../assets/js/i18n-routes.js"></script>
+    <script src="../../assets/js/hreflang-injector.js" defer></script>
+<script defer src="../../assets/js/loader.js?v=8.1"></script>
+    <script defer src="../../assets/js/santis-nav.js?v=8.1"></script>
+    <script defer src="../../assets/js/language-switcher.js?v=8.1"></script>
+    <script defer src="../../assets/js/app.js?v=8.1"></script>
+</body>
+</html>

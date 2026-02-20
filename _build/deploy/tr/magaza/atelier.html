@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Atelier | Dokuma & Taş</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    
+    <style>
+        /* ATELIER SPECIFIC STYLES */
+        :root {
+            --atelier-stone: #3a3632;
+            --atelier-linen: #f5efe6;
+            --atelier-gold: #d4af37;
+        }
+
+        body.atelier-mode {
+            background-color: #0B0D0F;
+        }
+
+        .atelier-header {
+            padding: 160px 0 80px;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(58, 54, 50, 0.4), #0B0D0F);
+        }
+
+        .category-sidebar {
+            width: 200px;
+            flex-shrink: 0;
+        }
+
+        .cat-link {
+            padding: 12px 16px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 2px solid transparent;
+            font-size: 13px;
+        }
+
+        .cat-link:hover, .cat-link.active {
+            color: var(--gold);
+            border-left-color: var(--gold);
+        }
+
+        .product-grid-v2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            flex: 1;
+        }
+
+        .product-card {
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        .product-price {
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .material-tag {
+            display: inline-block;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .category-sidebar {
+                width: 100%;
+            }
+        }
+    </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/tr/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mağaza",
+      "item": "https://santis-club.com/tr/magaza/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Santis Atelier",
+      "item": "https://santis-club.com/tr/magaza/atelier.html"
+    }
+  ]
+}
+</script>
+
+<!-- Open Graph -->
+<meta name="description" content="Hamam geleneğini evinize taşıyan zanaatkar dokunuşlar. %100 Organik Pamuk, Keten ve Mermer."/>
+<meta property="og:title" content="Santis Atelier | Dokuma & Taş"/>
+<meta property="og:description" content="Hamam geleneğini evinize taşıyan zanaatkar dokunuşlar. %100 Organik Pamuk, Keten ve Mermer."/>
+<meta property="og:image" content="https://santis-club.com/assets/img/og-standard.jpg"/>
+<meta property="og:url" content="https://santis-club.com/tr/magaza/atelier.html"/>
+<meta property="og:type" content="website"/>
+    <link rel="alternate" hreflang="tr" href="https://santis-club.com/tr/magaza/atelier.html" data-static-hreflang="self">
+    <link rel="alternate" hreflang="x-default" href="https://santis-club.com/tr/magaza/atelier.html" data-static-hreflang="default">
+<link href="https://santis-club.com/tr/magaza/atelier.html" rel="canonical"/>
+</head>
+<body class="atelier-mode">
+<noscript>
+<nav class="nv-noscript-nav">
+<a href="/index.html" class="nv-ns-home">ANA SAYFA</a>
+<a href="/tr/hamam/index.html" >HAMAM</a>
+<a href="/tr/masajlar/index.html" >MASAJLAR</a>
+<a href="/tr/cilt-bakimi/index.html" >CİLT BAKIMI</a>
+<a href="/tr/galeri/index.html" >GALERİ</a>
+</nav>
+</noscript>
+
+
+    <div id="nv-navbar-target"></div>
+
+    <header class="atelier-header">
+        <div class="nv-container">
+            <span class="nv-kicker">SANTIS ATELIER</span>
+            <h1 class="nv-title">Dokuma & Taş</h1>
+            <p style="color:#aaa;max-width:500px;margin:10px auto;" style="max-width: 500px; margin: 20px auto">
+                Hamam geleneğini evinize taşıyan zanaatkar dokunuşlar.
+                %100 Organik Pamuk, Keten ve Mermer.
+            </p>
+        </div>
+    </header>
+
+    <div class="nv-container" style="display: flex; padding: 80px 20px; gap: 50px;">
+        <!-- SIDEBAR -->
+        <aside class="category-sidebar">
+            <div class="cat-link active" data-cat="all">Tüm Koleksiyon</div>
+            <div class="cat-link" data-cat="textile">Tekstil & Bornoz</div>
+            <div class="cat-link" data-cat="hamam">Hamam Serisi</div>
+            <div class="cat-link" data-cat="home">Ev & Atmosfer</div>
+            <div class="cat-link" data-cat="stone">Taş & Mermer</div>
+        </aside>
+
+        <!-- PRODUCT GRID -->
+        <div class="product-grid-v2" id="atelier-grid">
+            <!-- JS WILL RENDER CARDS HERE -->
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div id="nv-footer-target"></div>
+
+    <script src="../../assets/js/i18n-routes.js"></script>
+    <script src="../../assets/js/hreflang-injector.js" defer></script>
+<script src="../../assets/js/loader.js"></script>
+    <script src="../../assets/js/shop.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load Nav/Footer
+            fetch('../../components/navbar.html').then(r=>r.text()).then(h=>{document.getElementById('nv-navbar-target').innerHTML=h});
+            fetch('../../components/footer.html').then(r=>r.text()).then(h=>{document.getElementById('nv-footer-target').innerHTML=h});
+
+            // Init Shop (cart drawer, FAB button, badge)
+            function bootShop() {
+                if (window.SHOP) {
+                    SHOP.init();
+                    console.log('🛍️ [Atelier] SHOP engine loaded.');
+                } else {
+                    console.warn('🛍️ [Atelier] SHOP not ready, retrying...');
+                    setTimeout(bootShop, 200);
+                }
+            }
+            bootShop();
+        });
+    </script>
+</body>
+</html>
+

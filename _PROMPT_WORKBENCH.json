@@ -1,28 +1,28 @@
-{
-    "description": "SANTIS_SITE Prompt Workbench - Geçici notlar ve çalışma alanı",
-    "last_updated": "2026-01-31",
-    "notes": [],
-    "resolved_issues": [
-        {
-            "file": "admin/style-admin.css",
-            "line": 230,
-            "issue": "backdrop-filter Safari uyumluluk uyarısı",
-            "fix": "-webkit-backdrop-filter prefix eklendi",
-            "resolved_at": "2026-01-31T23:17"
-        },
-        {
-            "file": "assets/css/card-effects.css",
-            "line": 79,
-            "issue": "backdrop-filter Safari uyumluluk uyarısı (.qv-overlay)",
-            "fix": "-webkit-backdrop-filter prefix eklendi",
-            "resolved_at": "2026-01-31T23:19"
-        },
-        {
-            "file": "assets/css/style.css",
-            "line": 1729,
-            "issue": "backdrop-filter Safari uyumluluk uyarısı (.submenu)",
-            "fix": "-webkit-backdrop-filter prefix eklendi",
-            "resolved_at": "2026-01-31T23:20"
-        }
-    ]
+{
+    "description": "SANTIS_SITE Prompt Workbench - Geçici notlar ve çalışma alanı",
+    "last_updated": "2026-01-31",
+    "notes": [],
+    "resolved_issues": [
+        {
+            "file": "admin/style-admin.css",
+            "line": 230,
+            "issue": "backdrop-filter Safari uyumluluk uyarısı",
+            "fix": "-webkit-backdrop-filter prefix eklendi",
+            "resolved_at": "2026-01-31T23:17"
+        },
+        {
+            "file": "assets/css/card-effects.css",
+            "line": 79,
+            "issue": "backdrop-filter Safari uyumluluk uyarısı (.qv-overlay)",
+            "fix": "-webkit-backdrop-filter prefix eklendi",
+            "resolved_at": "2026-01-31T23:19"
+        },
+        {
+            "file": "assets/css/style.css",
+            "line": 1729,
+            "issue": "backdrop-filter Safari uyumluluk uyarısı (.submenu)",
+            "fix": "-webkit-backdrop-filter prefix eklendi",
+            "resolved_at": "2026-01-31T23:20"
+        }
+    ]
 }

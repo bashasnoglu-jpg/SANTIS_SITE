@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>{{ meta_title }} • Santis Club</title>
+<meta content="{{ meta_description }}" name="description"/>
+<meta name="google-site-verification" content="J2Dz8MONVqKFcNonNa8dOuNYYNBAhGvHDHT5niVo0ro" />
+<!-- Fonts -->
+<link href="/assets/css/fonts.css" rel="stylesheet"/>
+<!-- Master Styles -->
+<link href="/assets/css/style.css?v=2.5" rel="stylesheet"/>
+<link href="/assets/css/modules/cards.css?v=2.5" rel="stylesheet"/>
+<link href="/assets/css/video-hero.css?v=2.5" rel="stylesheet"/>
+<link href="/assets/css/bento-grid.css?v=2.5" rel="stylesheet"/>
+<link href="/assets/css/category-listing.css?v=1.0" rel="stylesheet"/>
+<link href="/favicon.ico" rel="icon" sizes="any"/>
+<script src="/assets/js/perf-head.js?v=2.5"></script>
+<script defer src="/assets/js/language-switcher.js?v=2.5"></script>
+<meta content="https://santis.club/assets/img/og-standard.jpg" property="og:image"/>
+<link href="{{ canonical_url }}" rel="canonical"/>
+
+<!-- Schema: BreadcrumbList -->
+<script type="application/ld+json">
+{{ schema_breadcrumb }}
+</script>
+
+<!-- Schema: FAQPage -->
+{% if faq_items %}
+<script type="application/ld+json">
+{{ schema_faq }}
+</script>
+{% endif %}
+
+<!-- Schema: ItemList -->
+<script type="application/ld+json">
+{{ schema_itemlist }}
+</script>
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{ meta_title }}"/>
+<meta property="og:description" content="{{ meta_description }}"/>
+<meta property="og:url" content="{{ canonical_url }}"/>
+<meta property="og:type" content="website"/>
+
+<!-- Hreflang -->
+{% for link in hreflang_links %}
+<link rel="alternate" hreflang="{{ link.lang }}" href="{{ link.href }}" />
+{% endfor %}
+</head>
+<body class="{{ body_class }}">
+<noscript>
+<nav class="nv-noscript-nav">
+{% for item in noscript_nav %}
+<a href="{{ item.href }}"{% if item.cls %} class="{{ item.cls }}"{% endif %}>{{ item.label }}</a>
+{% endfor %}
+</nav>
+</noscript>
+
+<!-- NAVBAR -->
+<div id="navbar-container"></div>
+<main id="nv-main">
+<!-- VIDEO HERO -->
+<section class="nv-hero-video">
+<div class="nv-video-wrapper">
+{% if hero_image %}
+<img src="{{ hero_image }}" alt="{{ meta_title }}" decoding="async" fetchpriority="high"/>
+{% endif %}
+<div class="nv-video-overlay"></div>
+</div>
+<div class="nv-hero-content">
+<span class="nv-kicker">{{ hero_kicker }}</span>
+<h1 class="nv-hero-title">{{ hero_title }}</h1>
+<div class="page-intro-seo"><p>{{ hero_intro }}</p></div>
+<p class="nv-hero-subtitle">{{ hero_subtitle }}</p>
+<div class="nv-hero-actions">
+<span class="nv-scroll-indicator" data-scroll-target="{{ scroll_target }}">{{ ui.scroll_label }}</span>
+{% if spa_menu_link %}
+<a class="nv-btn nv-btn-secondary" href="/assets/docs/santis-spa-menu.pdf" target="_blank">{{ ui.spa_menu_label }}</a>
+{% endif %}
+</div>
+</div>
+</section>
+
+<!-- BRAND INTRO -->
+<div class="nv-container nv-brand-story">
+<span class="nv-kicker">{{ brand_kicker }}</span>
+<h2 class="nv-title">{{ brand_title }}</h2>
+<p>{{ brand_text }}</p>
+</div>
+
+<!-- FEATURED SERVICE HIGHLIGHT -->
+{% if featured_service %}
+<section class="nv-container nv-featured-highlight">
+<span class="nv-kicker nv-featured-kicker">{{ ui.featured_label }}</span>
+<div class="nv-featured-card">
+<div class="nv-featured-body">
+<h3 class="nv-featured-title">{{ featured_service.name }}</h3>
+<p class="nv-featured-desc">{{ featured_service.desc }}</p>
+<span class="nv-featured-meta">{{ featured_service.duration }} · €{{ featured_service.price }}</span>
+</div>
+<a href="{{ featured_service.href }}" class="nv-btn nv-btn-primary nv-featured-cta">{{ ui.explore_label }}</a>
+</div>
+</section>
+{% endif %}
+
+<!-- CATEGORY CHIPS (Sticky Filters) -->
+{% if chips %}
+<div class="nv-container" style="position:relative; z-index:200;">
+<div class="nv-chips" id="nvChips">
+{% for chip in chips %}
+<button class="nv-chip{% if loop.first %} is-active{% endif %}" data-target="{{ chip.key }}">{% if chip.emoji %}{{ chip.emoji }} {% endif %}{{ chip.label }}</button>
+{% endfor %}
+</div>
+</div>
+{% endif %}
+
+<!-- CARD GRID (JS-Driven, data-bridge renders cards) -->
+<div class="nv-container nv-section" data-section="{{ data_context }}" id="{{ grid_id }}">
+<div class="product-grid-v2 nv-product-grid" data-context="{{ data_context }}"></div>
+</div>
+
+<!-- ALL SERVICES LINK LIST -->
+<section class="category-all-services">
+<h2>{{ ui.all_services_title }}</h2>
+<ul class="service-link-list">
+{% for svc in all_services %}
+<li><a href="{{ svc.href }}">{{ svc.name }}</a></li>
+{% endfor %}
+</ul>
+</section>
+
+<!-- FAQ SECTION -->
+{% if faq_items %}
+<section class="page-faq">
+<h2>{{ ui.faq_title }}</h2>
+{% for item in faq_items %}
+<details class="faq-item">
+<summary>{{ item.q }}</summary>
+<p>{{ item.a }}</p>
+</details>
+{% endfor %}
+</section>
+{% endif %}
+
+<!-- SEO BOTTOM BLOCK -->
+{% if seo_bottom %}
+<section class="seo-bottom-block">
+<p style="color:#aaa; max-width:500px; margin:10px auto">{{ seo_bottom }}</p>
+</section>
+{% endif %}
+
+</main>
+<!-- FOOTER -->
+<div id="footer-container"></div>
+<!-- SCRIPTS -->
+<script src="/assets/js/fallback_data.js"></script>
+<script src="/assets/js/i18n-routes.js"></script>
+<script src="/assets/js/hreflang-injector.js" defer></script>
+<script src="/assets/js/loader.js"></script>
+<script src="/assets/js/santis-nav.js"></script>
+<!-- TRINITY STACK -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+<!-- DATA & ENGINE -->
+<script defer src="/assets/js/loaders/data-bridge.js?v=5.5"></script>
+<script defer src="/assets/js/home-products.js?v=5.6"></script>
+<script defer src="/assets/js/nuclear-cards.js?v=1.0"></script>
+<script defer src="/assets/js/card-effects.js?v=5.1"></script>
+<script src="/assets/js/pages/{{ page_init_js }}?v=20260215a"></script>
+{% if chip_filter_js %}
+<script src="/assets/js/pages/{{ chip_filter_js }}?v=20260215a"></script>
+{% endif %}
+{% if preloader_js %}
+<script src="/assets/js/pages/{{ preloader_js }}?v=20260215a"></script>
+{% endif %}
+<!-- BOOKING & APP -->
+<script defer src="/assets/js/santis-booking.js"></script>
+<script defer src="/assets/js/app-core.js?v=20260215a"></script>
+<script defer src="/assets/js/app.js?v=20260215a"></script>
+</body>
+</html>

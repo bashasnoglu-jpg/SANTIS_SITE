@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "lang": "de",
+    "title": "Santis Club • Spa & Wellness",
+    "description": "Santis Club – Exklusives Luxus-Spa, Hammam-Rituale und therapeutisches Wohlbefinden in Antalya.",
+    "og_title": "Santis Club – Spa & Wellness",
+    "breadcrumb_name": "Startseite"
+  },
+  "nav": {
+    "home": "STARTSEITE",
+    "hammam": "HAMMAM",
+    "massage": "MASSAGEN",
+    "skin": "HAUTPFLEGE",
+    "shop": "SHOP",
+    "gallery": "GALERIE",
+    "about": "ÜBER UNS"
+  },
+  "hero": {
+    "caption": "DIE STIMME DER STILLE",
+    "title": "Entdecken Sie den Luxus<br>des Nichtstuns.",
+    "desc": "Kein Telefon. Keine Zeit. Kein Lärm.<br>Nur Sie und der Moment.<br>Santis ist eine Rebellion gegen den Lärm der modernen Welt.",
+    "scroll": "Erlebnis Planen"
+  },
+  "signature": {
+    "kicker": "SIGNATURE ERLEBNISSE",
+    "title": "Vier Elemente, Eine Philosophie",
+    "subtitle": "Exklusive Kollektionen, geprägt von jahrhundertealter Weisheit.",
+    "hammam": "Hammam-Rituale",
+    "hammam_desc": "Die elegante Berührung der osmanischen Tradition",
+    "hammam_alt": "Hammam – Marmor und Schaumritual",
+    "massage": "Massage-Therapien",
+    "massage_desc": "Tiefe Ruhe für Körper und Geist",
+    "massage_alt": "Massage – Heißstein und Aromatherapie",
+    "skin": "Hautpflege",
+    "skin_desc": "Die perfekte Synthese aus Wissenschaft und Natur",
+    "skin_alt": "Hautpflege – professionelle Gesichtsbehandlung",
+    "atelier": "Das Atelier",
+    "atelier_desc": "Luxus zum Mitnehmen",
+    "atelier_alt": "Atelier – Luxus-Pflegeprodukte",
+    "cta": "Kollektion Entdecken →"
+  },
+  "philosophy": {
+    "kicker": "DIE KUNST DES WOHLBEFINDENS",
+    "title": "Hören Sie auf Ihren Körper.<br>Wir bieten Stille.",
+    "text1": "Santis Club vereint traditionelle Hammam-Rituale und moderne Spa-Therapien. Hier verlangsamt sich die Zeit, der Körper ruht, der Geist wird klar.",
+    "text2": "Jedes Ritual ist eine Reise des Wohlbefindens. Stille ist hier kein Luxus — sie ist eine Lebensphilosophie.",
+    "cta": "Unsere Geschichte Entdecken"
+  },
+  "global": {
+    "kicker": "GLOBALE INSPIRATION",
+    "title": "Rituale aus aller Welt",
+    "asia_label": "GLOBALES RITUAL • ASIEN",
+    "thai_label": "GLOBALES RITUAL • THAILAND",
+    "italy_label": "GLOBALES RITUAL • ITALIEN",
+    "beauty_label": "PURE BEAUTY • NATUR",
+    "t1_title": "Wabi-Sabi Ästhetik",
+    "t1_desc": "Die Schönheit der Unvollkommenheit.",
+    "t2_title": "Wat Pho Weisheit",
+    "t2_desc": "Uraltes Heilungserbe.",
+    "t3_title": "Römische Thermalkultur",
+    "t4_title": "Wissenschaftliche Hautpflege",
+    "t4_desc": "Fortschrittliche dermatologische Lösungen."
+  },
+  "testimonials": {
+    "kicker": "GÄSTEERFAHRUNGEN",
+    "title": "Echos der Gelassenheit",
+    "t1": "Die friedlichsten 2 Stunden meines Lebens. Das Hammam-Ritual war einzigartig.",
+    "t2": "Nach der Aromatherapie fühlte ich mich wie neugeboren. Sehr professionell.",
+    "t3": "Die Sothys-Pflege war großartig. Meine Haut war noch nie so strahlend.",
+    "loc": "Moskau"
+  },
+  "booking": {
+    "kicker": "PLANEN SIE IHR RITUAL",
+    "title": "Gelassenheit ist nur einen Anruf entfernt",
+    "desc": "Lassen Sie unsere Experten das perfekte Ritual für Sie planen.",
+    "wa": "Über WhatsApp Buchen",
+    "call": "Rufen Sie Uns An"
+  },
+  "sticky": {
+    "text": "Ritual planen",
+    "btn": "Jetzt Buchen"
+  },
+  "faq": [
+    {
+      "q": "Wie lange dauert eine Massagesitzung?",
+      "a": "Unsere Massagesitzungen dauern zwischen 30 und 90 Minuten. Die Dauer hängt von der gewählten Therapie ab."
+    },
+    {
+      "q": "Was sollte ich vor der Massage tun?",
+      "a": "Wir empfehlen, eine Stunde vorher keine schwere Mahlzeit einzunehmen und viel Wasser zu trinken. Bitte kommen Sie 15 Minuten früher."
+    },
+    {
+      "q": "Welche Massageart passt zu mir?",
+      "a": "Unsere Therapeuten beurteilen Ihre Bedürfnisse bei der Erstberatung und empfehlen die am besten geeignete Massage."
+    }
+  ],
+  "PATH_HAMMAM": "hammam",
+  "PATH_MASSAGES": "massagen",
+  "PATH_SKINCARE": "services",
+  "PATH_PRODUCTS": "urunler",
+  "PATH_ABOUT_FULL": "tr/hakkimizda/index.html",
+  "PATH_GALLERY_FULL": "tr/galeri/index.html"
+}

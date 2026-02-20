@@ -1,0 +1,142 @@
+/* PRINT SPECIFIC STYLES */
+
+/* 1. RESET for PAPER */
+@page {
+    size: A4;
+    margin: 0;
+    /* Full bleed or controlled by body */
+}
+
+@media print {
+
+    body,
+    html {
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 210mm;
+        height: 297mm;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .page.a4 {
+        box-shadow: none !important;
+        margin: 0 !important;
+        page-break-after: always;
+    }
+}
+
+/* 2. THE SHEET (Screen Preview Mode) */
+.page.a4 {
+    background: white;
+    width: 210mm;
+    min-height: 297mm;
+    /* Allow growth if content overflows, but standard is single sheet */
+    padding: 15mm;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    box-sizing: border-box;
+    font-family: 'Playfair Display', serif;
+    /* Luxury Serif */
+    color: #111;
+}
+
+/* 3. HEADER */
+.print-header {
+    text-align: center;
+    border-bottom: 1px solid #000;
+    padding-bottom: 5mm;
+    margin-bottom: 10mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.print-logo {
+    height: 15mm;
+    filter: grayscale(100%) brightness(0);
+    /* Force black logo */
+}
+
+.print-meta h1 {
+    font-size: 14pt;
+    margin: 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.season-tag {
+    font-size: 8pt;
+    font-family: 'Inter', sans-serif;
+    color: #666;
+    margin: 0;
+}
+
+/* 4. GRID LAYOUT */
+.print-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10mm;
+    font-family: 'Inter', sans-serif;
+}
+
+.print-category {
+    break-inside: avoid;
+    margin-bottom: 5mm;
+}
+
+.cat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 12pt;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 3mm;
+    padding-bottom: 1mm;
+}
+
+.print-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 9pt;
+    margin-bottom: 2mm;
+    break-inside: avoid;
+}
+
+.item-name {
+    font-weight: 500;
+}
+
+.item-price {
+    font-weight: bold;
+}
+
+.item-desc {
+    display: block;
+    font-size: 7pt;
+    color: #666;
+    margin-top: 0.5mm;
+    max-width: 90%;
+}
+
+/* 5. FOOTER */
+.print-footer {
+    position: absolute;
+    bottom: 10mm;
+    left: 15mm;
+    right: 15mm;
+    border-top: 1px solid #000;
+    padding-top: 3mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8pt;
+}
+
+.qr-box {
+    width: 15mm;
+    height: 15mm;
+    background: #eee;
+    /* Placeholder for QR */
+}

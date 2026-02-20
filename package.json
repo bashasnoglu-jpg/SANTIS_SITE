@@ -1,10 +1,17 @@
 {
-    "name": "santis-club",
-    "version": "1.0.0",
-    "description": "Santis Club Website",
+    "name": "santis-os",
+    "private": true,
+    "packageManager": "pnpm@8.15.5",
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ],
     "scripts": {
-        "dev": "npx live-server --port=5500 --entry-file=index.html"
+        "dev": "pnpm --filter api dev",
+        "build": "pnpm -r build"
     },
-    "author": "",
-    "license": "ISC"
+    "dependencies": {
+        "@google/generative-ai": "^0.24.1",
+        "dotenv": "^17.3.1"
+    }
 }

@@ -1,0 +1,96 @@
+﻿=== POST TESTS (unauth) ===
+/api/config POST -> 200
+/api/services POST -> 422
+/api/pages/test-slug POST -> 200
+/api/bridge/save POST -> 422
+/api/fix/ghost POST -> 200
+/api/fix/utf8 POST -> 200
+/api/fix/link POST -> 400
+/api/fix/optimize POST -> 200
+/api/template-governance/fix-inline POST -> 200
+/api/vip/check-offer POST -> 400
+/api/admin/auto-fix POST -> 200
+/api/admin/social POST -> 200
+/fix/ghost POST -> 200
+/fix/utf8 POST -> 200
+/admin/upload POST -> 200
+/admin/run-audit POST -> 200
+/admin/auto-fix POST -> 400
+/admin/generate-ai POST -> 200
+/admin/redirects/add POST -> 200
+/admin/sections/sync POST -> 200
+/admin/intelligence/scan POST -> 200
+/admin/apply-fix POST -> 422
+/admin/attack-simulator POST -> TIMEOUT
+/admin/visual-audit POST -> 422
+/admin/performance-audit POST -> 422
+/admin/security-audit POST -> 422
+/admin/fix/ghost POST -> 200
+/admin/fix/utf8 POST -> 200
+/admin/fix/optimize POST -> 200
+
+=== DELETE TESTS (unauth) ===
+/api/services/fake-slug-test DELETE -> 200
+
+=== GET TESTS (unauth) ===
+/api/config GET -> 200
+/api/services GET -> 200
+/api/oracle/status GET -> 200
+/api/oracle/analytics GET -> 200
+/api/geo/location GET -> 200
+/api/admin/analytics/dashboard GET -> 200
+/api/admin/seo/score GET -> 200
+/api/admin/seo/suggestions GET -> 200
+/api/admin/tone-health GET -> 200
+/api/flight-check GET -> 200
+/api/health-score GET -> 200
+/api/health-history GET -> 200
+/api/audit-history GET -> 200
+/api/activity-log GET -> 200
+/api/system/health GET -> 200
+/api/template-governance GET -> 200
+/api/analytics/log-event GET -> 405
+/admin/deep-audit/start GET -> 200
+/admin/deep-audit/status GET -> 200
+/admin/deep-audit/report GET -> 200
+/admin/sentinel-status GET -> 200
+/admin/sentinel/fleet GET -> 200
+/admin/sentinel/incidents GET -> 200
+/admin/sentinel/capabilities GET -> 200
+/admin/sentinel/trends GET -> 200
+/admin/sentinel/suggestions GET -> 200
+/admin/audit-report GET -> 200
+/admin/audit-history GET -> 200
+/admin/download-report GET -> 200
+/admin/seo-quality GET -> 200
+/admin/seo-ai-suggestions GET -> 200
+/admin/ai-fix-suggestions GET -> TIMEOUT
+/admin/redirects GET -> 200
+/admin/full-audit GET -> 200
+/admin/audit-stream GET -> 200
+/health GET -> 200
+
+=== DATA MOUNT TESTS ===
+/data/services.json GET -> 404
+/data/config.json GET -> 403
+/data/site_content.json GET -> 200 (size: 123228 bytes)
+
+=== SENSITIVE FILE TESTS ===
+/server.py GET -> 403
+/.env GET -> 403
+/admin_lock.py GET -> 403
+/security_shield.py GET -> 403
+/requirements.txt GET -> 403
+/build.mjs GET -> 403
+/package.json GET -> 403
+
+=== SECURITY HEADERS ===
+Root page fetch failed: Uzak sunucu hata döndürdü: (404) Bulunamadı.
+
+=== PHANTOM ENDPOINT TESTS ===
+/admin/last-audit-report GET -> 200
+/admin/run-link-audit GET -> 200
+/api/admin/seo/audit GET -> 405
+/api/admin/seo/ai-suggestions GET -> 405
+/admin/fix-link GET -> 404
+/admin/auto-security-patch GET -> 200

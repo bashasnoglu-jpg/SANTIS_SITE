@@ -1,0 +1,65 @@
+/* 
+   🌌 SANTIS MOTION ENGINE (Ultra Mega Polish)
+   Physics-based animations, Text Staggers, and Breathing cues.
+*/
+
+/* --- 1. TEXT STAGGER (Raindrop Effect) --- */
+.reveal-text {
+    opacity: 1;
+    /* Container is visible, children are hidden */
+    overflow: hidden;
+    /* For clean entry */
+}
+
+.reveal-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(30px) skewY(5deg);
+    will-change: transform, opacity;
+    transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 1s ease;
+}
+
+.reveal-word.active {
+    opacity: 1;
+    transform: translateY(0) skewY(0);
+}
+
+/* --- 2. BREATHING IMAGES (Sub-perceptual Zoom) --- */
+.reveal-breath {
+    will-change: transform;
+    opacity: 0;
+    transition: opacity 1.5s ease-out;
+}
+
+.reveal-breath.active {
+    opacity: 1;
+    animation: santis-breath 24s infinite alternate ease-in-out;
+}
+
+@keyframes santis-breath {
+    0% {
+        transform: scale(1.0);
+    }
+
+    100% {
+        transform: scale(1.04);
+    }
+}
+
+/* --- 3. UI MICRO-INTERACTIONS --- */
+/* Liquid Ripple (Handled via JS, but base styles here) */
+.santis-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(0);
+    animation: ripple-spread 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple-spread {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}

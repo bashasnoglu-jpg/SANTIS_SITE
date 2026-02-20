@@ -1,0 +1,107 @@
+/* ==========================================================================
+   TESTIMONIALS MODULE (Quiet Luxury)
+   Santis Club – Misafir Deneyimleri
+   ========================================================================== */
+
+.nv-testimonials {
+    padding: 80px 0 60px;
+    background: linear-gradient(180deg, rgba(10, 12, 16, 0) 0%, rgba(10, 12, 16, 0.4) 100%);
+}
+
+/* Grid Layout */
+.nv-testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Card Base */
+.nv-testimonial-card {
+    background: rgba(20, 20, 20, 0.5);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.nv-testimonial-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(198, 165, 92, 0.2);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Stars */
+.nv-testimonial-stars {
+    color: var(--gold, #C6A55C);
+    font-size: 16px;
+    letter-spacing: 3px;
+}
+
+/* Quote */
+.nv-testimonial-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/* Author */
+.nv-testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.nv-testimonial-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.nv-testimonial-location {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nv-testimonial-location::before {
+    content: '•';
+    margin-right: 8px;
+    color: var(--gold, #C6A55C);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .nv-testimonials {
+        padding: 60px 0 40px;
+    }
+
+    .nv-testimonial-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .nv-testimonial-card {
+        padding: 28px;
+    }
+
+    .nv-testimonial-quote {
+        font-size: 1.05rem;
+    }
+}

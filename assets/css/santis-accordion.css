@@ -1,0 +1,113 @@
+/* SANTIS ACCORDION ENGINE v1.0 [Ultra Luxury Style] */
+/* Theme: Quiet Luxury / Minimalist Interaction */
+
+.nv-accordion {
+    width: 100%;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    /* Çok hafif çizgi */
+}
+
+.nv-accordion-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background 0.4s ease;
+}
+
+.nv-accordion-item:hover {
+    background: rgba(255, 255, 255, 0.02);
+    /* Hover'da çok hafif aydınlanma */
+}
+
+/* HEADER BOLUMU */
+.nv-accordion-header {
+    padding: 24px 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    -webkit-user-select: none;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+}
+
+/* BAŞLIK (Tipografi) */
+.nv-accordion-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #e0e0e0;
+    letter-spacing: 0.5px;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* KON (Minimalist Arrow) */
+.nv-accordion-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    opacity: 0.6;
+}
+
+.nv-accordion-icon::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-right: 1.5px solid #fff;
+    border-bottom: 1.5px solid #fff;
+    transform: rotate(45deg);
+    display: block;
+    margin-top: -4px;
+    /* Optik dengeleme */
+}
+
+/* ICERIK ALANI (Animasyonlu) */
+.nv-accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+    /* Aşağıdan yukarı efekt */
+    transition:
+        max-height 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+        opacity 0.6s ease,
+        transform 0.6s ease;
+}
+
+.nv-accordion-content {
+    padding: 0 10px 40px 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #a0a0a0;
+    /* Muted text for luxury feel */
+}
+
+/* --- ACTIVE STATE --- */
+
+.nv-accordion-item.is-active .nv-accordion-header .nv-accordion-title {
+    color: var(--os-gold, #D4AF37);
+    /* Altın dokunuş */
+    padding-left: 10px;
+    /* Hafif sağa kayma */
+}
+
+.nv-accordion-item.is-active .nv-accordion-header .nv-accordion-icon {
+    transform: rotate(180deg);
+    opacity: 1;
+    border-color: var(--os-gold, #D4AF37);
+}
+
+.nv-accordion-item.is-active .nv-accordion-header .nv-accordion-icon::after {
+    border-color: var(--os-gold, #D4AF37);
+}
+
+.nv-accordion-item.is-active .nv-accordion-body {
+    max-height: 800px;
+    /* İçeriğe göre JS ile de set edilebilir ama CSS fallback */
+    opacity: 1;
+    transform: translateY(0);
+}

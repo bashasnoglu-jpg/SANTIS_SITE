@@ -1,0 +1,92 @@
+{
+    "sections": {
+        "grid-hammam": {
+            "items": [
+                {
+                    "image": "assets/img/cards/santis_card_hamam_kese_v2.webp",
+                    "title": "Kese Ritüeli",
+                    "link": "tr/hamam/",
+                    "badge": "",
+                    "subtitle": "Geleneksel Türk hamamı kese uygulaması",
+                    "layout_class": "gallery-item"
+                },
+                {
+                    "image": "assets/img/cards/santis_card_hamam_scrub_v2.webp",
+                    "title": "Vücut Peeling",
+                    "link": "tr/hamam/",
+                    "badge": "",
+                    "subtitle": "Vücut peeling uygulaması bacak detayı",
+                    "layout_class": "gallery-item"
+                }
+            ]
+        },
+        "grid-massages": {
+            "items": [
+                {
+                    "image": "assets/img/cards/santis_card_massage_oil_v2.webp",
+                    "title": "Aroma Terapi",
+                    "link": "tr/masajlar/",
+                    "badge": "",
+                    "subtitle": "Sıcak yağ masajı detayı, lüks spa",
+                    "layout_class": "gallery-item"
+                },
+                {
+                    "image": "assets/img/cards/santis_card_deep_relax_v2.webp",
+                    "title": "Deep Relax",
+                    "link": "tr/masajlar/",
+                    "badge": "",
+                    "subtitle": "Masaj dokusu detay, havlu ve cilt",
+                    "layout_class": "gallery-item"
+                }
+            ]
+        },
+        "grid-skincare": {
+            "items": [
+                {
+                    "image": "assets/img/cards/santis_card_skincare_clay_v2.webp",
+                    "title": "Kil Bakımı",
+                    "link": "tr/cilt-bakimi/",
+                    "badge": "",
+                    "subtitle": "Kil maskesi uygulanan kişi, üstten görünüm",
+                    "layout_class": "gallery-item"
+                },
+                {
+                    "image": "assets/img/cards/santis_card_skincare_detail_v2.webp",
+                    "title": "Detox Maske",
+                    "link": "tr/cilt-bakimi/",
+                    "badge": "",
+                    "subtitle": "Kil maskesi detay profil görünümü",
+                    "layout_class": "gallery-item"
+                },
+                {
+                    "image": "assets/img/cards/santis_card_detox_brush_v2.webp",
+                    "title": "Kuru Fırçalama",
+                    "link": "tr/vucut-bakimi/",
+                    "badge": "",
+                    "subtitle": "Doğal at kılı fırçası ile kuru fırçalama detayı",
+                    "layout_class": "gallery-item"
+                },
+                {
+                    "image": "assets/img/cards/santis_card_recovery_lotion_v2.webp",
+                    "title": "Nemlendirme",
+                    "link": "tr/vucut-bakimi/",
+                    "badge": "",
+                    "subtitle": "Nemlendirici losyon uygulaması, parlak cilt",
+                    "layout_class": "gallery-item"
+                }
+            ]
+        },
+        "hero": {
+            "items": [
+                {
+                    "image": "assets/img/hero/santis_hero_main_v2.webphttp://localhost:8000/assets/img/cards/santis_card_skincare_detail_v2.webp",
+                    "title": "Santis Club Spa",
+                    "link": "index.html",
+                    "badge": "",
+                    "subtitle": "Lüks spa salonu, dinlenme alanı, geniş açı",
+                    "layout_class": "g-wide"
+                }
+            ]
+        }
+    }
+}

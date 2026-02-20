@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>{{title}} | Santis Club</title>
+<meta content="{{meta_description}}" name="description"/>
+<!-- Canonical -->
+<link href="{{canonical_url}}" rel="canonical"/>
+<!-- Hreflang -->
+    {{hreflang_tags}}
+
+    <!-- Open Graph -->
+<meta content="{{title}}" property="og:title"/>
+<meta content="{{meta_description}}" property="og:description"/>
+<meta content="service" property="og:type"/>
+<meta content="{{canonical_url}}" property="og:url"/>
+<meta content="{{hero_image_url}}" property="og:image"/>
+<!-- Schema.org Service -->
+    {{schema_json}}
+
+    <!-- Styles -->
+<link href="../../assets/css/style.css" rel="stylesheet"/>
+<link href="../../assets/css/service-detail.css" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ana Sayfa",
+      "item": "https://santisclub.com/tr/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Templates",
+      "item": "https://santisclub.com/tr/templates"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Service Detail",
+      "item": "https://santisclub.com/tr/templates/service-detail.html"
+    }
+  ]
+}
+</script><link href="https://santisclub.com/templates/service-detail.html" hreflang="tr" rel="alternate"/><meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="{{title}} | Santis Club" name="twitter:title"/><meta content="{{meta_description}}" name="twitter:description"/><meta content="https://santisclub.com/assets/img/logo-santis.png" name="twitter:image"/></head>
+<body>
+<header id="nv-header">
+<div class="nv-container">
+<h1>{{title}}</h1>
+</div>
+</header>
+<main class="service-detail nv-container">
+<section class="service-intro">
+<p>{{intro_paragraph}}</p>
+</section>
+<section class="service-benefits">
+<h2>{{header_benefits}}</h2>
+<ul>
+            {{benefits_list}}
+        </ul>
+</section>
+<section class="service-process">
+<h2>{{header_process}}</h2>
+<p>{{process_description}}</p>
+</section>
+<section class="service-duration">
+<h2>{{header_duration}}</h2>
+<p>{{duration_info}}</p>
+</section>
+<!-- Dahili Linkler -->
+<section class="related-services">
+<h2>{{header_related}}</h2>
+<ul>
+<li><a href="/tr/masajlar/klasik-rahatlama.html">Klasik Masaj</a></li>
+<li><a href="/tr/hamam/kese-kopuk.html">Hamam Kese &amp; Köpük</a></li>
+<li><a href="/tr/cilt-bakimi/deep-cleanse.html">Cilt Bakımı</a></li>
+</ul>
+</section>
+<section class="booking-cta">
+<a class="btn-primary" href="/tr/rezervasyon/index.html">Rezervasyon Yap</a>
+</section>
+</main>
+<footer>
+<p>© 2026 Santis Club</p>
+</footer>
+<!-- Scripts -->
+<script defer="" src="../../assets/js/app-core.js"></script>
+<script defer="" src="../../assets/js/app.js"></script>
+</body>
+</html>

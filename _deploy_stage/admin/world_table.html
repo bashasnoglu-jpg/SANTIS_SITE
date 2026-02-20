@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANTIS • The World Table</title>
+    
+    <!-- CORE ADMIN STYLES -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style-admin.css">
+    
+    <!-- WORLD VIEW STYLES -->
+    <style>
+        :root {
+            --void-bg: #050505;
+            --orbit-color: rgba(255, 255, 255, 0.05);
+            --orb-calm: #4ff;
+            --orb-stress: #f44;
+            --orb-focus: #fff;
+        }
+
+        body {
+            background-color: var(--void-bg);
+            color: #eee;
+            overflow: hidden; /* Space is infinite but screen is not */
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* HUD OVERLAY */
+        #hud-layer {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .hud-stat {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 10px;
+        }
+
+        .hud-value { font-size: 2rem; font-weight: 300; }
+        .hud-label { font-size: 0.8rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* THE GALAXY (Map Container) */
+        #galaxy-stage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            transform: translate(-50%, -50%);
+            /* radial gradient for depth */
+            background: radial-gradient(circle at center, #111 0%, #000 70%);
+        }
+
+        /* SECTORS (Visual Zones) */
+        .sector {
+            position: absolute;
+            border: 1px dashed var(--orbit-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.2);
+            pointer-events: none;
+        }
+
+        .sector-home { width: 200px; height: 200px; top: 50%; left: 50%; transform: translate(-50%, -50%); border-color: rgba(255,255,255,0.1); }
+        .sector-spa { width: 500px; height: 500px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .sector-services { width: 800px; height: 800px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+        /* SOUL ORBS */
+        .soul-orb {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 0 10px 2px rgba(255,255,255,0.5);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .soul-orb.mood-calm { background: var(--orb-calm); box-shadow: 0 0 15px var(--orb-calm); }
+        .soul-orb.mood-stress { background: var(--orb-stress); box-shadow: 0 0 15px var(--orb-stress); }
+        .soul-orb.mood-focus { background: var(--orb-focus); box-shadow: 0 0 15px var(--orb-focus); }
+        
+        /* Tooltip */
+        .soul-tooltip {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: auto; /* Enable clicks */
+            white-space: nowrap;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+        }
+        .soul-orb:hover { z-index: 100; }
+        .soul-orb:hover .soul-tooltip { opacity: 1; }
+
+        .soul-actions { display: flex; gap: 4px; }
+        .soul-actions button {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .soul-actions button:hover { background: white; color: black; }
+
+        /* STATUS */
+        #connection-status {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 12px;
+            color: #4f4;
+            opacity: 0.5;
+        }
+        #connection-status.offline { color: #f44; }
+
+    </style>
+</head>
+<body>
+
+    <!-- HUD -->
+    <div id="hud-layer">
+        <div class="hud-stat">
+            <div class="hud-value" id="active-count">0</div>
+            <div class="hud-label">Active Souls</div>
+        </div>
+        <div class="hud-stat">
+            <div class="hud-value" id="stress-level">0%</div>
+            <div class="hud-label">Avg. Stress</div>
+        </div>
+    </div>
+
+    <!-- STAGE -->
+    <div id="galaxy-stage">
+        <!-- Background Sectors -->
+        <div class="sector sector-home">LOBBY (HOME)</div>
+        <div class="sector sector-spa">SPA ZONES</div>
+        <div class="sector sector-services">SERVICES & RITUALS</div>
+
+        <!-- Orbs will be injected here -->
+        <div id="orbs-container"></div>
+    </div>
+
+    <!-- CONNECTION INDICATOR -->
+    <div id="connection-status">● SYSTEM ONLINE</div>
+
+    <!-- LOGIC -->
+    <script src="../assets/js/santis-brain.js"></script> <!-- WebSocket Link -->
+    <script src="../assets/js/admin/world-engine.js"></script> <!-- Visualization Logic -->
+
+</body>
+</html>

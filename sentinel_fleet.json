@@ -1,0 +1,18 @@
+{
+    "projects": [
+        {
+            "id": "santis_main",
+            "name": "Santis Club Main",
+            "root": "./",
+            "config": "sentinel_config.json",
+            "active": true
+        },
+        {
+            "id": "neurova_mock",
+            "name": "Neurova V1 (Mock)",
+            "root": "../NEUROVA-Site",
+            "config": "sentinel_config.json",
+            "active": false
+        }
+    ]
+}

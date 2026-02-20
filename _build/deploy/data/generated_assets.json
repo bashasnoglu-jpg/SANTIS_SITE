@@ -1,0 +1,69 @@
+{
+
+    "homepage": [
+
+        {
+
+            "id": "hero-main",
+
+            "title": "Santis Hero Experience",
+
+            "type": "hero",
+
+            "image": "../assets/img/hero/santis_hero_main_v2.webp",
+
+            "link": "#booking"
+
+        },
+
+        {
+
+            "id": "trend-hammam",
+
+            "title": "Traditional Hammam Rituals",
+
+            "type": "trend",
+
+            "image": "../assets/img/cards/santis_card_hammam_v1.webp",
+
+            "link": "/tr/hamam/index.html"
+
+        },
+
+        {
+
+            "id": "trend-massage",
+
+            "title": "Signature Massages",
+
+            "type": "trend",
+
+            "image": "../assets/img/cards/santis_card_massage_v1.webp",
+
+            "link": "/tr/masajlar/index.html"
+
+        }
+
+    ],
+
+    "products": [
+
+        {
+
+            "id": 101,
+
+            "name": "Santis Signature Oil",
+
+            "price": "850 TL",
+
+            "category": "Body Care",
+
+            "img": "product-oil.png"
+
+        }
+
+    ],
+
+    "gallery": []
+
+}

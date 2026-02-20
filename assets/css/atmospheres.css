@@ -1,0 +1,154 @@
+/* 
+   SANTIS SOUL V2 - ATMOSPHERES 
+   Powered by The Oracle
+*/
+
+/* DEFAULT (ZEN) - Already defined in style.css, but enforcing variables */
+:root {
+    --soul-color: 255, 255, 255;
+    --soul-bg: #0a0a0a;
+}
+
+/* 🌅 DAWN (06:00 - 11:00) - Awakening, Energy */
+body.mode-dawn {
+    --soul-bg: #0f1012;
+    /* Slightly lighter, morning mist gray */
+    --soul-color: 255, 240, 230;
+    /* Lighter, warmer white */
+}
+
+body.mode-dawn .soul-nebula {
+    /* Top-down sunrise glow */
+    background: radial-gradient(circle at 50% 0%,
+            rgba(255, 230, 200, 0.12) 0%,
+            rgba(255, 200, 180, 0.05) 40%,
+            transparent 80%);
+    transition: background 3s ease-in-out;
+}
+
+body.mode-dawn .hero-title {
+    text-shadow: 0 0 40px rgba(255, 220, 180, 0.2);
+}
+
+/* 🌇 SUNSET (17:00 - 22:00) - Unwind, Golden Hour */
+body.mode-sunset {
+    --soul-bg: #120f0d;
+    /* Slightly warmer dark base */
+    --soul-color: 255, 200, 180;
+    /* Soft Peach/Gold */
+}
+
+body.mode-sunset .soul-nebula {
+    /* Horizon glow */
+    background: radial-gradient(circle at 50% 80%,
+            rgba(255, 140, 80, 0.08) 0%,
+            rgba(100, 60, 50, 0.04) 50%,
+            transparent 90%);
+    transition: background 3s ease-in-out;
+}
+
+body.mode-sunset .hero-subtitle {
+    color: #e6cba8;
+}
+
+/* 🌌 MIDNIGHT (22:00 - 06:00) - Dream, Deep, Mystery */
+body.mode-midnight {
+    --soul-bg: #050508;
+    /* Deep Navy Black */
+    --soul-color: 200, 210, 255;
+    /* Silvery Moon */
+}
+
+body.mode-midnight .soul-nebula {
+    /* Moonlight from top */
+    background: radial-gradient(circle at 50% 15%,
+            rgba(80, 100, 255, 0.05) 0%,
+            rgba(20, 20, 50, 0.08) 50%,
+            transparent 100%);
+    transition: background 3s ease-in-out;
+}
+
+body.mode-midnight h1,
+body.mode-midnight h2 {
+    opacity: 0.85;
+    /* Reduce glare in dark mode */
+    text-shadow: 0 0 30px rgba(100, 120, 255, 0.15);
+}
+
+/* =========================================
+   SENSORY DNA INTEGRATION (Sothys)
+   ========================================= */
+
+/* SAGE (Purifying) -> Mist */
+body.atmos-mist {
+    --soul-bg: #e8eae8;
+    /* Very Light Sage/Grey - Clinical yet soft */
+    --soul-color: 44, 62, 80;
+    /* Dark text for contrast */
+    --atmos-accent: #B7C4B8;
+}
+
+body.atmos-mist .soul-nebula {
+    background: radial-gradient(circle at 50% 0%, rgba(183, 196, 184, 0.4) 0%, transparent 70%);
+}
+
+body.atmos-mist .cin-title {
+    color: #2c3e50;
+    text-shadow: none;
+}
+
+body.atmos-mist .cin-subtitle {
+    color: #5d6d7e;
+}
+
+body.atmos-mist .cin-desc {
+    color: #34495e;
+}
+
+/* ICE (Hydra) -> Underwater */
+body.atmos-underwater {
+    --soul-bg: #081018;
+    /* Deep Ocean */
+    --soul-color: 224, 247, 250;
+    /* Ice White */
+    --atmos-accent: #E0F7FA;
+}
+
+body.atmos-underwater .soul-nebula {
+    background: radial-gradient(circle at 50% 100%, rgba(50, 150, 200, 0.15) 0%, transparent 80%);
+}
+
+body.atmos-underwater .cin-visual-img {
+    filter: brightness(0.9) contrast(1.1) saturate(1.2);
+    /* Wet look */
+}
+
+/* GOLD (Anti-Age) -> Golden Hour */
+body.atmos-golden_hour {
+    --soul-bg: #14100c;
+    /* Warm Dark Brown/Black */
+    --soul-color: 245, 230, 200;
+    /* Warm Cream */
+    --atmos-accent: #D4AF37;
+}
+
+body.atmos-golden_hour .soul-nebula {
+    background: radial-gradient(circle at 90% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 60%);
+}
+
+body.atmos-golden_hour .cin-title {
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+}
+
+/* SLATE (Men) -> Midnight (Override/Alias) */
+body.atmos-midnight {
+    --soul-bg: #0b0d10;
+    /* Void Black */
+    --soul-color: 200, 210, 220;
+    /* Cool Grey */
+    --atmos-accent: #2C3E50;
+}
+
+body.atmos-midnight .soul-nebula {
+    background: radial-gradient(circle at 10% 10%, rgba(44, 62, 80, 0.2) 0%, transparent 50%);
+}

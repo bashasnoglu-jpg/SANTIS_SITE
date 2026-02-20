@@ -1,0 +1,1142 @@
+[
+  {
+    "id": "SRV_HAMMAM_HAMMAM_TRA_01",
+    "slug": "hammam-traditional-ritual",
+    "category": "hammam_ritual",
+    "type": "physical_service",
+    "defaultDuration": 60,
+    "i18n": {
+      "tr": {
+        "title": "Geleneksel Hamam Ritüeli",
+        "desc": "Arınma, ısı ve kese ile yenilenme."
+      },
+      "en": {
+        "title": "Traditional Hammam Ritual",
+        "desc": "Purify and renew with heat and exfoliation."
+      },
+      "de": {
+        "title": "Traditionelles Hammam-Ritual",
+        "desc": "Reinigung und Erneuerung mit Wärme und Peeling."
+      },
+      "fr": {
+        "title": "Rituel traditionnel du hammam",
+        "desc": "Purification et renouveau par chaleur et gommage."
+      },
+      "ru": {
+        "title": "Традиционный ритуал хаммама",
+        "desc": "Очищение и обновление с теплом и пилингом."
+      }
+    },
+    "config": {
+      "hasWetArea": true,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_HAMMAM_HAMMAM_FOA_01",
+    "slug": "hammam-foam",
+    "category": "hammam_ritual",
+    "type": "physical_service",
+    "defaultDuration": 45,
+    "i18n": {
+      "tr": {
+        "title": "Köpük Masajı (Hamam)",
+        "desc": "Geleneksel köpükle rahatlatıcı masaj."
+      },
+      "en": {
+        "title": "Foam Massage (Hammam)",
+        "desc": "Relaxing massage with traditional foam."
+      },
+      "de": {
+        "title": "Schaummassage (Hammam)",
+        "desc": "Entspannende Massage mit traditionellem Schaum."
+      },
+      "fr": {
+        "title": "Massage à la mousse (hammam)",
+        "desc": "Massage relaxant à la mousse traditionnelle."
+      },
+      "ru": {
+        "title": "Пенный массаж (хаммам)",
+        "desc": "Расслабляющий массаж с традиционной пеной."
+      }
+    },
+    "config": {
+      "hasWetArea": true,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_MASSAGE_RELAX_AROM_01",
+    "slug": "relax-aroma",
+    "category": "massage",
+    "type": "physical_service",
+    "defaultDuration": 60,
+    "i18n": {
+      "tr": {
+        "title": "Aromaterapi Rahatlama Masajı",
+        "desc": "Seçili aromalarla zihni ve bedeni sakinleştirir."
+      },
+      "en": {
+        "title": "Aromatherapy Relax Massage",
+        "desc": "Calms body and mind with selected aromas."
+      },
+      "de": {
+        "title": "Aromatherapie-Entspannungsmassage",
+        "desc": "Beruhigt Körper und Geist mit ausgewählten Aromen."
+      },
+      "fr": {
+        "title": "Massage relaxation aromathérapie",
+        "desc": "Apaise le corps et l’esprit avec des arômes choisis."
+      },
+      "ru": {
+        "title": "Расслабляющий аромамассаж",
+        "desc": "Успокаивает тело и ум с выбранными ароматами."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_MASSAGE_SWEDISH_CL_01",
+    "slug": "swedish-classic",
+    "category": "massage",
+    "type": "physical_service",
+    "defaultDuration": 50,
+    "i18n": {
+      "tr": {
+        "title": "Klasik İsveç Masajı",
+        "desc": "Klasik tekniklerle genel rahatlama."
+      },
+      "en": {
+        "title": "Classic Swedish Massage",
+        "desc": "Overall relaxation with classic techniques."
+      },
+      "de": {
+        "title": "Klassische Schwedische Massage",
+        "desc": "Ganzkörper-Entspannung mit klassischen Techniken."
+      },
+      "fr": {
+        "title": "Massage suédois classique",
+        "desc": "Relaxation générale avec techniques classiques."
+      },
+      "ru": {
+        "title": "Классический шведский массаж",
+        "desc": "Общее расслабление классическими техниками."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_MASSAGE_DEEP_TISSU_01",
+    "slug": "deep-tissue",
+    "category": "massage",
+    "type": "physical_service",
+    "defaultDuration": 60,
+    "i18n": {
+      "tr": {
+        "title": "Derin Doku (Deep Tissue) Masajı",
+        "desc": "Kas gerginliğini azaltmaya odaklı terapi."
+      },
+      "en": {
+        "title": "Deep Tissue Massage",
+        "desc": "Therapy-focused for reducing muscle tension."
+      },
+      "de": {
+        "title": "Tiefengewebsmassage",
+        "desc": "Therapie zur Reduzierung von Muskelverspannungen."
+      },
+      "fr": {
+        "title": "Massage des tissus profonds",
+        "desc": "Thérapie ciblée pour réduire les tensions musculaires."
+      },
+      "ru": {
+        "title": "Глубокотканный массаж",
+        "desc": "Терапия для снятия мышечного напряжения."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_MASSAGE_SPORTS_REC_01",
+    "slug": "sports-recovery",
+    "category": "massage",
+    "type": "physical_service",
+    "defaultDuration": 60,
+    "i18n": {
+      "tr": {
+        "title": "Spor Recovery Masajı",
+        "desc": "Antrenman sonrası toparlanmaya yardımcı olur."
+      },
+      "en": {
+        "title": "Sports Recovery Massage",
+        "desc": "Supports post-workout recovery."
+      },
+      "de": {
+        "title": "Sport-Recovery-Massage",
+        "desc": "Unterstützt die Regeneration nach dem Training."
+      },
+      "fr": {
+        "title": "Massage de récupération sportive",
+        "desc": "Aide à la récupération après l’effort."
+      },
+      "ru": {
+        "title": "Спортивный восстановительный массаж",
+        "desc": "Помогает восстановлению после нагрузки."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_MASSAGE_THAI_TRADI_01",
+    "slug": "thai-masaji",
+    "category": "massage",
+    "type": "physical_service",
+    "defaultDuration": 60,
+    "i18n": {
+      "tr": {
+        "title": "Geleneksel Thai Masajı",
+        "desc": "Esneme ve baskı teknikleriyle enerji dengesi."
+      },
+      "en": {
+        "title": "Traditional Thai Massage",
+        "desc": "Balance energy with stretches and pressure techniques."
+      },
+      "de": {
+        "title": "Traditionelle Thai-Massage",
+        "desc": "Energieausgleich durch Dehnung und Drucktechniken."
+      },
+      "fr": {
+        "title": "Massage thaï traditionnel",
+        "desc": "Équilibre énergétique par étirements et pressions."
+      },
+      "ru": {
+        "title": "Традиционный тайский массаж",
+        "desc": "Баланс энергии через растяжку и давление."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_MASSAGE_BALINESE_01",
+    "slug": "balinese",
+    "category": "massage",
+    "type": "physical_service",
+    "defaultDuration": 60,
+    "i18n": {
+      "tr": {
+        "title": "Bali Masajı",
+        "desc": "Rahatlatıcı ritim ve akışkan dokunuşlar."
+      },
+      "en": {
+        "title": "Balinese Massage",
+        "desc": "Relaxing rhythm with flowing techniques."
+      },
+      "de": {
+        "title": "Balinesische Massage",
+        "desc": "Entspannender Rhythmus mit fließenden Techniken."
+      },
+      "fr": {
+        "title": "Massage balinais",
+        "desc": "Rythme relaxant et gestes fluides."
+      },
+      "ru": {
+        "title": "Балийский массаж",
+        "desc": "Расслабляющий ритм и плавные техники."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_WELL_AYURVEDA_A_01",
+    "slug": "ayurveda-abhyanga",
+    "category": "wellness_program",
+    "type": "physical_service",
+    "defaultDuration": 75,
+    "i18n": {
+      "tr": {
+        "title": "Abhyanga Ayurveda Masajı",
+        "desc": "Sıcak yağlarla bütünsel denge ve rahatlama."
+      },
+      "en": {
+        "title": "Abhyanga Ayurveda Massage",
+        "desc": "Holistic balance and relaxation with warm oils."
+      },
+      "de": {
+        "title": "Abhyanga Ayurveda-Massage",
+        "desc": "Ganzheitliche Balance und Entspannung mit warmen Ölen."
+      },
+      "fr": {
+        "title": "Massage ayurvédique Abhyanga",
+        "desc": "Équilibre et détente holistiques avec huiles chaudes."
+      },
+      "ru": {
+        "title": "Аюрведический массаж Абхьянга",
+        "desc": "Целостный баланс и расслабление с тёплыми маслами."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_WELL_SHIRODHARA_01",
+    "slug": "shirodhara",
+    "category": "wellness_program",
+    "type": "physical_service",
+    "defaultDuration": 60,
+    "i18n": {
+      "tr": {
+        "title": "Shirodhara Ritüeli",
+        "desc": "Zihni sakinleştiren özel Ayurveda ritüeli."
+      },
+      "en": {
+        "title": "Shirodhara Ritual",
+        "desc": "A signature Ayurveda ritual to calm the mind."
+      },
+      "de": {
+        "title": "Shirodhara-Ritual",
+        "desc": "Ein Ayurveda-Signaturritual zur Beruhigung des Geistes."
+      },
+      "fr": {
+        "title": "Rituel Shirodhara",
+        "desc": "Un rituel ayurvédique signature pour apaiser l’esprit."
+      },
+      "ru": {
+        "title": "Ритуал Широдхара",
+        "desc": "Фирменный аюрведический ритуал для спокойствия ума."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_PKG_COUPLES_SI_01",
+    "slug": "couples-signature",
+    "category": "packages_couples",
+    "type": "physical_service",
+    "defaultDuration": 60,
+    "i18n": {
+      "tr": {
+        "title": "Signature Couples Masajı",
+        "desc": "Çiftlere özel senkronize imza deneyimi."
+      },
+      "en": {
+        "title": "Signature Couples Massage",
+        "desc": "A synchronized signature experience for couples."
+      },
+      "de": {
+        "title": "Signature-Paarmassage",
+        "desc": "Ein synchrones Signature-Erlebnis für Paare."
+      },
+      "fr": {
+        "title": "Massage signature en duo",
+        "desc": "Une expérience signature synchronisée pour les couples."
+      },
+      "ru": {
+        "title": "Авторский массаж для пары",
+        "desc": "Синхронный фирменный опыт для пар."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_PKG_SANTIS_SIG_01",
+    "slug": "santis-signature",
+    "category": "packages_couples",
+    "type": "physical_service",
+    "defaultDuration": 60,
+    "i18n": {
+      "tr": {
+        "title": "Santis Signature Masajı",
+        "desc": "Santis dokunuşuyla ritimli, premium masaj."
+      },
+      "en": {
+        "title": "Santis Signature Massage",
+        "desc": "Premium, rhythmic massage with the Santis touch."
+      },
+      "de": {
+        "title": "Santis Signature-Massage",
+        "desc": "Premium-Rhythmusmassage mit Santis-Touch."
+      },
+      "fr": {
+        "title": "Massage signature Santis",
+        "desc": "Massage premium et rythmé avec la touche Santis."
+      },
+      "ru": {
+        "title": "Фирменный массаж Santis",
+        "desc": "Премиальный ритмичный массаж с почерком Santis."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_KIDS_KIDS_CHOCO_01",
+    "slug": "kids-choco-massage",
+    "category": "kids_family",
+    "type": "physical_service",
+    "defaultDuration": 30,
+    "i18n": {
+      "tr": {
+        "title": "Kids Çikolata Masajı",
+        "desc": "Çocuklara uygun, hafif ve eğlenceli masaj."
+      },
+      "en": {
+        "title": "Kids Chocolate Massage",
+        "desc": "A gentle, fun massage designed for kids."
+      },
+      "de": {
+        "title": "Kinder-Schokoladenmassage",
+        "desc": "Sanfte, spielerische Massage für Kinder."
+      },
+      "fr": {
+        "title": "Massage chocolat pour enfants",
+        "desc": "Massage doux et ludique pour enfants."
+      },
+      "ru": {
+        "title": "Детский шоколадный массаж",
+        "desc": "Мягкий и приятный массаж для детей."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_FACIAL_FACE_SOTHY_01",
+    "slug": "face-sothys-hydra",
+    "category": "facial",
+    "type": "physical_service",
+    "defaultDuration": 50,
+    "i18n": {
+      "tr": {
+        "title": "Sothys Nem Terapisi (Yüz)",
+        "desc": "Yoğun nem ve tazelik etkisi."
+      },
+      "en": {
+        "title": "Sothys Hydra Facial",
+        "desc": "Intense hydration and freshness."
+      },
+      "de": {
+        "title": "Sothys Hydra-Gesichtsbehandlung",
+        "desc": "Intensive Feuchtigkeit und Frische."
+      },
+      "fr": {
+        "title": "Soin visage hydratant Sothys",
+        "desc": "Hydratation intense et fraîcheur."
+      },
+      "ru": {
+        "title": "Увлажняющий уход Sothys",
+        "desc": "Интенсивное увлажнение и свежесть."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_FACIAL_FACE_SOTHY_01",
+    "slug": "face-sothys-glow",
+    "category": "facial",
+    "type": "physical_service",
+    "defaultDuration": 50,
+    "i18n": {
+      "tr": {
+        "title": "Sothys Glow Bakımı (Yüz)",
+        "desc": "Işıltı ve canlı görünüm için profesyonel bakım."
+      },
+      "en": {
+        "title": "Sothys Glow Facial",
+        "desc": "A professional treatment for radiance and vitality."
+      },
+      "de": {
+        "title": "Sothys Glow-Gesichtsbehandlung",
+        "desc": "Professionelle Behandlung für Ausstrahlung und Vitalität."
+      },
+      "fr": {
+        "title": "Soin éclat Sothys",
+        "desc": "Soin professionnel pour l’éclat et la vitalité."
+      },
+      "ru": {
+        "title": "Сияющий уход Sothys",
+        "desc": "Профессиональный уход для сияния и тонуса."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_FACIAL_SOTHYS_RAD_01",
+    "slug": "sothys-organics-radiance",
+    "category": "facial",
+    "type": "physical_service",
+    "defaultDuration": 30,
+    "i18n": {
+      "tr": {
+        "title": "Sothys Organics® Işıltı Bakımı",
+        "desc": "Anında ışıltı. Tüm cilt tipleri (hassas dahil)."
+      },
+      "en": {
+        "title": "Sothys Organics® Organic Certified Radiance Treatment",
+        "desc": "Instant radiance. All skin types (even sensitive)."
+      },
+      "de": {
+        "title": "Sothys Organics® Bio-Radiance Behandlung",
+        "desc": "Sofortiger Glow. Für alle Hauttypen (auch sensibel)."
+      },
+      "fr": {
+        "title": "Sothys Organics® Soin éclat certifié bio",
+        "desc": "Éclat immédiat. Tous types de peau (même sensibles)."
+      },
+      "ru": {
+        "title": "Sothys Organics® Органический уход «Сияние»",
+        "desc": "Мгновенное сияние. Для всех типов кожи (включая чувствительную)."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_FACIAL_SOTHYS_SEA_01",
+    "slug": "sothys-seasonal",
+    "category": "facial",
+    "type": "physical_service",
+    "defaultDuration": 45,
+    "i18n": {
+      "tr": {
+        "title": "Sothys Seasonal Oksijenlendirici Bakım",
+        "desc": "Mevsimsel canlandırma: peeling + maske + rahatlatıcı modelaj."
+      },
+      "en": {
+        "title": "Sothys Seasonal Oxygenating Treatment",
+        "desc": "Seasonal boost: exfoliation + mask + relaxing modelling."
+      },
+      "de": {
+        "title": "Sothys Seasonal Oxygenating Behandlung",
+        "desc": "Saisonaler Boost: Peeling + Maske + entspannende Modellage."
+      },
+      "fr": {
+        "title": "Sothys Soin saisonnier oxygénant",
+        "desc": "Boost saisonnier : gommage + masque + modelage relaxant."
+      },
+      "ru": {
+        "title": "Sothys Сезонный кислородный уход",
+        "desc": "Сезонное обновление: пилинг + маска + расслабляющий массаж."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_FACIAL_SOTHYS_SOO_01",
+    "slug": "sothys-soothing",
+    "category": "facial",
+    "type": "physical_service",
+    "defaultDuration": 50,
+    "i18n": {
+      "tr": {
+        "title": "Spa™ Termal Su ile Yatıştırıcı Bakım",
+        "desc": "Konfor ve sakinlik odaklı; hassasiyete nazik yaklaşım."
+      },
+      "en": {
+        "title": "Soothing Professional Treatment with Spa™ Thermal Water",
+        "desc": "Comfort & calm—gentle care for sensitive skin."
+      },
+      "de": {
+        "title": "Beruhigende Profi-Behandlung mit Spa™ Thermalwasser",
+        "desc": "Komfort & Ruhe—sanfte Pflege für sensible Haut."
+      },
+      "fr": {
+        "title": "Soin professionnel apaisant à l’Eau Thermale Spa™",
+        "desc": "Confort & apaisement—pour peaux sensibles."
+      },
+      "ru": {
+        "title": "Успокаивающий профессиональный уход со Spa™ термальной водой",
+        "desc": "Комфорт и успокоение — деликатный уход для чувствительной кожи."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_FACIAL_SOTHYS_CRY_01",
+    "slug": "sothys-cryo-eye",
+    "category": "facial",
+    "type": "physical_service",
+    "defaultDuration": 45,
+    "i18n": {
+      "tr": {
+        "title": "Sothys Cryo Eye Profesyonel Göz Bakımı",
+        "desc": "Göz çevresinde ferahlık ve daha dinlenmiş görünüm."
+      },
+      "en": {
+        "title": "Sothys Cryo Eye Professional Treatment",
+        "desc": "Refreshing eye contour for a rested look."
+      },
+      "de": {
+        "title": "Sothys Cryo Eye Profi-Augenbehandlung",
+        "desc": "Erfrischte Augenpartie für einen wachen Blick."
+      },
+      "fr": {
+        "title": "Sothys Soin professionnel Cryo Yeux",
+        "desc": "Contour des yeux rafraîchi, regard reposé."
+      },
+      "ru": {
+        "title": "Sothys Профессиональный Cryo-уход для глаз",
+        "desc": "Освежает область вокруг глаз для отдохнувшего вида."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_FACIAL_SOTHYS_HYD_01",
+    "slug": "sothys-hydra-ha4",
+    "category": "facial",
+    "type": "physical_service",
+    "defaultDuration": 75,
+    "i18n": {
+      "tr": {
+        "title": "Hydra Hyaluronic Acid4 (Yoğun Nem Bakımı)",
+        "desc": "6 aşamalı yoğun nem; dolgunluk ve tazelik hissi."
+      },
+      "en": {
+        "title": "Hydrating Intensive Treatment (Hydra Hyaluronic Acid4)",
+        "desc": "6-step intensive hydration; plumped, fresh-feeling skin."
+      },
+      "de": {
+        "title": "Hydrating Intensive Behandlung (Hydra Hyaluronic Acid4)",
+        "desc": "6 Schritte intensive Hydration; pralle, frische Haut."
+      },
+      "fr": {
+        "title": "Soin intensif hydratant (Hydra Hyaluronic Acid4)",
+        "desc": "Hydratation intensive en 6 étapes; peau repulpée."
+      },
+      "ru": {
+        "title": "Интенсивное увлажнение (Hydra Hyaluronic Acid4)",
+        "desc": "6 этапов интенсивного увлажнения; ощущение наполненности."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_FACIAL_SOTHYS_DET_01",
+    "slug": "sothys-detox-energie",
+    "category": "facial",
+    "type": "physical_service",
+    "defaultDuration": 75,
+    "i18n": {
+      "tr": {
+        "title": "Detox Energie™ Yoğun Bakım",
+        "desc": "Enerji desteği ve ‘depolluted’ görünüm odağı."
+      },
+      "en": {
+        "title": "Detox Energie™ Intensive Treatment",
+        "desc": "Energy boost with a ‘depolluted’ looking complexion focus."
+      },
+      "de": {
+        "title": "Detox Energie™ Intensive Behandlung",
+        "desc": "Energie-Boost mit Fokus auf ein ‘entlastet’ wirkendes Hautbild."
+      },
+      "fr": {
+        "title": "Soin intensif Detox Energie™",
+        "desc": "Coup d’énergie avec focus ‘teint dépollué’."
+      },
+      "ru": {
+        "title": "Detox Energie™ Интенсивный уход",
+        "desc": "Энергия и акцент на «очищенный» вид кожи."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_FACIAL_SOTHYS_GLO_01",
+    "slug": "sothys-glow-defense",
+    "category": "facial",
+    "type": "physical_service",
+    "defaultDuration": 75,
+    "i18n": {
+      "tr": {
+        "title": "Glow Defense Yoğun Bakım",
+        "desc": "Işıltı ve koruma odağı; şehir temposuna karşı bakım hissi."
+      },
+      "en": {
+        "title": "Glow Defense Intensive Treatment",
+        "desc": "Glow + defense focus—ideal for urban life stressors."
+      },
+      "de": {
+        "title": "Glow Defense Intensive Behandlung",
+        "desc": "Glow + Schutz—ideal gegen urbane Stressfaktoren."
+      },
+      "fr": {
+        "title": "Soin intensif Glow Defense",
+        "desc": "Éclat + protection—idéal face au stress urbain."
+      },
+      "ru": {
+        "title": "Glow Defense Интенсивный уход",
+        "desc": "Сияние + защита — идеально при городской нагрузке."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_FACIAL_SOTHYS_YOU_01",
+    "slug": "sothys-youth-intensive",
+    "category": "facial",
+    "type": "physical_service",
+    "defaultDuration": 75,
+    "i18n": {
+      "tr": {
+        "title": "Youth Intensive (Gençlik Yoğun Bakım)",
+        "desc": "Daha genç görünüm ve sıkılık hissi odaklı protokol."
+      },
+      "en": {
+        "title": "Youth Intensive Treatment",
+        "desc": "Expert protocol focused on a visibly younger look & firmness feel."
+      },
+      "de": {
+        "title": "Youth Intensive Behandlung",
+        "desc": "Expertenprotokoll für sichtbar jüngeren Look & Festigkeit."
+      },
+      "fr": {
+        "title": "Soin intensif Jeunesse",
+        "desc": "Protocole expert pour un effet jeunesse & fermeté."
+      },
+      "ru": {
+        "title": "Youth Intensive — Интенсивный уход",
+        "desc": "Эксперт-протокол для более молодого вида и упругости."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_FACIAL_SOTHYS_DER_01",
+    "slug": "sothys-dermo-booster",
+    "category": "facial",
+    "type": "physical_service",
+    "defaultDuration": 45,
+    "i18n": {
+      "tr": {
+        "title": "Dermo_Booster Double Peel (Çift Peeling)",
+        "desc": "Enzim + asit peeling kombinasyonu (AHA/BHA/PHA)."
+      },
+      "en": {
+        "title": "Dermo_Booster Double Peel Professional Treatment",
+        "desc": "Enzymatic peel + acid peel combination (AHA/BHA/PHA)."
+      },
+      "de": {
+        "title": "Dermo_Booster Double Peel Profi-Behandlung",
+        "desc": "Enzympeeling + Säurepeeling (AHA/BHA/PHA)."
+      },
+      "fr": {
+        "title": "Dermo_Booster Double Peel — Soin professionnel",
+        "desc": "Peeling enzymatique + peeling acide (AHA/BHA/PHA)."
+      },
+      "ru": {
+        "title": "Dermo_Booster Double Peel — Профессиональный уход",
+        "desc": "Ферментный + кислотный пилинг (AHA/BHA/PHA)."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_FACIAL_SOTHYS_GLY_01",
+    "slug": "sothys-glysalac",
+    "category": "facial",
+    "type": "physical_service",
+    "defaultDuration": 45,
+    "i18n": {
+      "tr": {
+        "title": "Glysalac Pro Peel",
+        "desc": "Daha pürüzsüz doku ve daha aydınlık görünüm (normal/karma)."
+      },
+      "en": {
+        "title": "Glysalac Pro Peel Treatment",
+        "desc": "Refines texture & brightens (normal/combination skin)."
+      },
+      "de": {
+        "title": "Glysalac Pro Peel Behandlung",
+        "desc": "Verfeinert & hellt auf (normale/mischhaut)."
+      },
+      "fr": {
+        "title": "Glysalac Pro Peel",
+        "desc": "Affiner & illuminer (peau normale/mixte)."
+      },
+      "ru": {
+        "title": "Glysalac Pro Peel",
+        "desc": "Выравнивает текстуру и придает сияние (норм./комб.)."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_FACIAL_SOTHYS_RES_01",
+    "slug": "sothys-resurfacing",
+    "category": "facial",
+    "type": "physical_service",
+    "defaultDuration": 60,
+    "i18n": {
+      "tr": {
+        "title": "Professional Resurfacing Peel (Yenileyici Peeling)",
+        "desc": "Peel + mikrodermabrazyon yaklaşımı; daha net ve aydınlık görünüm."
+      },
+      "en": {
+        "title": "Professional Resurfacing Peel Treatment",
+        "desc": "Peel + microdermabrasion approach for renewed-looking skin."
+      },
+      "de": {
+        "title": "Professional Resurfacing Peel Behandlung",
+        "desc": "Peel + Mikrodermabrasion für erneuert wirkende Haut."
+      },
+      "fr": {
+        "title": "Soin peeling resurfaçant professionnel",
+        "desc": "Peeling + microdermabrasion pour une peau renouvelée."
+      },
+      "ru": {
+        "title": "Профессиональный Resurfacing Peel",
+        "desc": "Пилинг + микродермабразия для обновленного вида кожи."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_MASSAGE_HAMMAM_HON_01",
+    "slug": "bal-masaji",
+    "category": "massage",
+    "type": "physical_service",
+    "defaultDuration": 50,
+    "i18n": {
+      "tr": {
+        "title": "Bal Masajı (Honey Detox)",
+        "desc": "Doğal bal ile yapılan toksin atıcı ve besleyici masaj."
+      },
+      "en": {
+        "title": "Honey Detox Massage",
+        "desc": "Toxin-releasing and nourishing massage with natural honey."
+      },
+      "de": {
+        "title": "Honig-Detox-Massage",
+        "desc": "Entgiftende und pflegende Massage mit natürlichem Honig."
+      },
+      "fr": {
+        "title": "Massage au miel détox",
+        "desc": "Massage détoxifiant et nourrissant au miel naturel."
+      },
+      "ru": {
+        "title": "Медовый детокс-массаж",
+        "desc": "Выводящий токсины и питательный массаж с натуральным медом."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_BODY_BODY_ALGAE_01",
+    "slug": "yosun-bakimi",
+    "category": "body_ritual",
+    "type": "physical_service",
+    "defaultDuration": 45,
+    "i18n": {
+      "tr": {
+        "title": "Yosun Bakımı (Seaweed Wrap)",
+        "desc": "Metabolizmayı hızlandıran ve sıkılaştıran deniz yosunu sargısı."
+      },
+      "en": {
+        "title": "Seaweed Wrap",
+        "desc": "Seaweed wrap to boost metabolism and firm the skin."
+      },
+      "de": {
+        "title": "Algenpackung",
+        "desc": "Algenwickel zur Stoffwechselanregung und Straffung."
+      },
+      "fr": {
+        "title": "Enveloppement aux algues",
+        "desc": "Enveloppement d'algues pour stimuler le métabolisme et raffermir."
+      },
+      "ru": {
+        "title": "Обертывание водорослями",
+        "desc": "Обертывание морскими водорослями для ускорения метаболизма и упругости."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_BODY_BODY_CHOCO_01",
+    "slug": "cikolata-bakimi",
+    "category": "body_ritual",
+    "type": "physical_service",
+    "defaultDuration": 50,
+    "i18n": {
+      "tr": {
+        "title": "Çikolata Masajı & Bakımı",
+        "desc": "Kakao yağı ile yapılan aromatik ve nemlendirici bakım."
+      },
+      "en": {
+        "title": "Chocolate Massage & Care",
+        "desc": "Aromatic and moisturizing care with cocoa butter."
+      },
+      "de": {
+        "title": "Schokoladenmassage & Pflege",
+        "desc": "Aromatische und feuchtigkeitsspendende Pflege mit Kakaobutter."
+      },
+      "fr": {
+        "title": "Massage & Soin au Chocolat",
+        "desc": "Soin aromatique et hydratant au beurre de cacao."
+      },
+      "ru": {
+        "title": "Шоколадный массаж и уход",
+        "desc": "Ароматный и увлажняющий уход с маслом какао."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_MASSAGE_MYOFASCIAL_01",
+    "slug": "myofascial-release",
+    "category": "massage",
+    "type": "physical_service",
+    "defaultDuration": 60,
+    "i18n": {
+      "tr": {
+        "title": "Myofascial Release (Derin Kas Terapisi)",
+        "desc": "Kronik ağrılar ve kas gerginliği için derin bağ dokusu masajı."
+      },
+      "en": {
+        "title": "Myofascial Release Therapy",
+        "desc": "Deep connective tissue massage for chronic pain and muscle tension."
+      },
+      "de": {
+        "title": "Myofasziale Entspannungstherapie",
+        "desc": "Tiefe Bindegewebsmassage bei chronischen Schmerzen und Verspannungen."
+      },
+      "fr": {
+        "title": "Thérapie de relâchement myofascial",
+        "desc": "Massage profond du tissu conjonctif pour les douleurs chroniques."
+      },
+      "ru": {
+        "title": "Миофасциальная терапия",
+        "desc": "Глубокий массаж соединительной ткани при хронических болях."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-02-17T13:52:32.139Z",
+      "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  }
+]

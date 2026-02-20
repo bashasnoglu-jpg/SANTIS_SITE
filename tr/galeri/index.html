@@ -1,247 +1,172 @@
-<!doctype html>
+﻿<!DOCTYPE html>
+
 <html lang="tr">
-
 <head>
-    <base href="/">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Galeri • Santis Club</title>
-    <meta name="description" content="Santis Club'ın büyüleyici atmosferini, huzur dolu hamam ve masaj alanlarını keşfedin.">
-
-    <!-- MASTER STYLE -->
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/card-effects.css" />
-    <link rel="stylesheet" href="assets/css/gallery.css" />
-
-    <!-- FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <script src="assets/js/perf-head.js"></script>
-    <script src="assets/js/animations.js" defer></script>
-    <script src="assets/js/language-switcher.js?v=2.3" defer></script>
-</head>
-
+<!-- BASE TAG REQUIRED FOR RELATIVE ASSETS IN HEAD -->
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Galeri • Santis Club</title>
+<meta content="Santis Club'ın büyüleyici atmosferini, huzur dolu hamam ve masaj alanlarını keşfedin." name="description"/>
+<!-- MASTER STYLE -->
+<link href="../../assets/css/style.css?v=8.1" rel="stylesheet"/>
+<link href="../../assets/css/modules/cards.css?v=8.1" rel="stylesheet"/>
+<link href="../../assets/css/gallery.css?v=8.1" rel="stylesheet"/>
+<!-- FONTS -->
+<link href="/assets/css/fonts.css" rel="stylesheet"/>
+<script src="../../assets/js/perf-head.js?v=8.1"></script>
+<script defer="" src="../../assets/js/language-switcher.js?v=8.1"></script>
+<meta content="/assets/img/og-standard.jpg" property="og:image"/>
+<link href="https://santis-club.com/tr/galeri/index.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Index", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/tr/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Galeri",
+      "item": "https://santis-club.com/tr/galeri/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Santis Atmosferi",
+      "item": "https://santis-club.com/tr/galeri/index.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Masaj seansı ne kadar sürer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Masaj seanslarımız 30 ile 90 dakika arasında değişmektedir. Tercih edeceğiniz terapiye göre süre belirlenir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Masaj öncesi ne yapmalıyım?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Seansınızdan 1 saat önce ağır yemek yememenizi ve bol su içmenizi öneririz. 15 dakika önce gelmeniz yeterlidir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hangi masaj türü bana uygun?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Uzman terapistlerimiz ilk görüşmede ihtiyaçlarınızı değerlendirir ve size en uygun masaj türünü önerir."
+      }
+    }
+  ]
+}
+</script>
+<!-- Open Graph -->
+<meta content="Galeri" property="og:title"/>
+<meta content="Santis Club" property="og:description"/>
+<meta content="https://santis-club.com/tr/galeri/index.html" property="og:url"/>
+<meta content="website" property="og:type"/>
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<link href="https://santis-club.com/de/gallery/index.html" hreflang="de" rel="alternate"/>
+<link href="https://santis-club.com/en/gallery/index.html" hreflang="en" rel="alternate"/>
+<link href="https://santis-club.com/fr/gallery/index.html" hreflang="fr" rel="alternate"/>
+<link href="https://santis-club.com/ru/gallery/index.html" hreflang="ru" rel="alternate"/>
+<link href="https://santis-club.com/tr/galeri/index.html" hreflang="tr" rel="alternate"/>
+<link href="https://santis-club.com/en/gallery/index.html" hreflang="x-default" rel="alternate"/>
+<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Galeri • Santis Club" name="twitter:title"/><meta content="Santis Club'ın büyüleyici atmosferini, huzur dolu hamam ve masaj alanlarını keşfedin." name="twitter:description"/><meta content="https://santisclub.com/assets/img/logo-santis.png" name="twitter:image"/></head>
 <body class="editorial-mode">
-    
-    <!-- NAVBAR -->
-    <div id="navbar-container"></div>
+<!-- NAVBAR -->
+<div id="navbar-container"></div>
+<!-- MAIN CONTENT (SANTIS V5.0 STRUCTURE) -->
+<main id="nv-main">
+<!-- HEADER -->
+<header class="text-center mb-80 reveal-on-scroll">
+<span class="nv-kicker">Visual Journey</span>
+<h1 class="fs-56 mb-20 text-white">Santis Atmosferi</h1>
+<div class="page-intro-seo"><p>Santis Club'un eşsiz atmosferini ve premium spa deneyimini görsellerle keşfedin. Hamam ritüellerinden masaj terapilerine, cilt bakımı seanslarından mimari detaylara kadar mekânımızın her köşesini yakından tanıyın.</p></div>
+<p class="text-muted fs-18 max-w-700 mx-auto lh-16">
 
-    <main id="nv-main">
+                Huzurun, dinginliğin ve lüksün görsel hikayesi.
 
-        <!-- HERO SECTION -->
-        <section class="nv-hero-small" style="padding-top: 160px; padding-bottom: 60px; text-align: center;">
-            <div class="nv-container">
-                <span class="nv-kicker">VISUAL JOURNEY</span>
-                <h1 class="nv-hero-title" style="font-size: 48px; margin-bottom: 20px;">Santis Atmosferi</h1>
-                <p class="nv-hero-subtitle" style="max-width: 600px; margin: 0 auto; color: var(--text-muted);">
-                    Huzurun, dinginliğin ve lüksün görsel hikayesi.
-                </p>
-            </div>
-        </section>
+            </p>
+</header>
+<!-- FILTER BAR (Visual Only for now) -->
+<!-- FILTER BAR (Smart) -->
+<div class="filter-bar reveal-on-scroll">
+<!-- Injected by JS -->
+</div>
+<!-- GALLERY GRID (UNBREAKABLE V5.0) -->
+<div id="gallery-grid">
+<!-- Items injected by assets/js/gallery-loader.js -->
+<!-- Semantic Fallback -->
+<noscript>
+<div>
 
-        <!-- FILTERS -->
-        <div class="nv-container" style="margin-bottom: 40px;">
-            <div class="nv-chips" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-                <button class="nv-chip is-active" data-filter="all">Tümü</button>
-                <button class="nv-chip" data-filter="hamam">Hamam</button>
-                <button class="nv-chip" data-filter="massage">Masaj</button>
-                <button class="nv-chip" data-filter="skincare">Cilt Bakımı</button>
-                <button class="nv-chip" data-filter="ambiance">Mekan & Detay</button>
-            </div>
-        </div>
+                    Galeri için JavaScript gereklidir.
 
-        <!-- GALLERY GRID -->
-        <div class="nv-container">
-            <div class="gallery-grid" id="galleryGrid">
-                <!-- Hamam -->
-                <div class="gallery-item" data-category="hamam">
-                    <img src="assets/img/cards/santis_card_hammam_v1.png" alt="Geleneksel Hamam" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Geleneksel Hamam</span>
-                    </div>
                 </div>
-                <!-- Massage (Couple) -->
-                <div class="gallery-item" data-category="massage">
-                    <img src="assets/img/cards/santis_card_couple_v1.png" alt="Çift Masajı" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Signature Couple</span>
-                    </div>
-                </div>
-                <!-- Skincare -->
-                <div class="gallery-item" data-category="skincare">
-                    <img src="assets/img/cards/santis_card_skincare_v1.png" alt="Cilt Bakımı" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Sothys Cilt Bakımı</span>
-                    </div>
-                </div>
-                <!-- Massage (Deep Tissue) -->
-                <div class="gallery-item" data-category="massage">
-                    <img src="assets/img/cards/santis_card_deeptissue_v1.png" alt="Derin Doku Masajı" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Deep Tissue</span>
-                    </div>
-                </div>
-                <!-- Ambiance / Hero -->
-                <div class="gallery-item wide" data-category="ambiance">
-                    <img src="assets/img/hero-general.webp" alt="Santis Genel Atmosfer" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Santis Lounge</span>
-                    </div>
-                </div>
-                <!-- Hamam Detail -->
-                <div class="gallery-item" data-category="hamam">
-                    <img src="assets/img/cards/hammam.png" alt="Kurna Detayı" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Mermer & Su</span>
-                    </div>
-                </div>
-                <!-- Thai -->
-                <div class="gallery-item" data-category="massage">
-                    <img src="assets/img/cards/santis_card_thai_v1.png" alt="Thai Masajı" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Thai Ritüeli</span>
-                    </div>
-                </div>
-                <!-- Kids -->
-                <div class="gallery-item" data-category="massage">
-                    <img src="assets/img/cards/santis_card_kids_v1.png" alt="Çocuk Masajı" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Kids Spa</span>
-                    </div>
-                </div>
-                 <!-- Products -->
-                 <div class="gallery-item" data-category="ambiance">
-                    <img src="assets/img/cards/product-oil.png" alt="Aromaterapi Yağları" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Aromaterapi</span>
-                    </div>
-                </div>
-                <!-- Reflexology -->
-                <div class="gallery-item" data-category="massage">
-                    <img src="assets/img/cards/santis_card_reflexology_v1.png" alt="Refleksoloji" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Refleksoloji</span>
-                    </div>
-                </div>
-                <!-- Shirodhara -->
-                <div class="gallery-item" data-category="massage">
-                    <img src="assets/img/cards/santis_card_shirodhara_v1.png" alt="Shirodhara" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Shirodhara</span>
-                    </div>
-                </div>
-                <!-- General Massage -->
-                <div class="gallery-item" data-category="massage">
-                    <img src="assets/img/cards/santis_card_massage_v1.png" alt="Klasik Masaj" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Klasik Masaj</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- FOOTER -->
-    <div id="footer-container"></div>
-
-    <!-- LIGHTBOX MODAL -->
-    <div id="lightbox" class="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <img class="lightbox-content" id="lightboxImg">
-        <div id="caption"></div>
-    </div>
-
-    <!-- SCRIPTS -->
-    <script src="assets/js/santis-nav.js" defer></script>
-    <script src="assets/js/santis-booking.js" defer></script>
-    <script src="assets/js/app.js" defer></script>
-    <script src="assets/js/loader.js" defer></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            if (typeof loadComp === "function") {
-                loadComp("/components/navbar.html", "navbar-container");
-                loadComp("/components/footer.html", "footer-container");
-            }
-
-            // FILTER LOGIC
-            const chips = document.querySelectorAll('.nv-chip');
-            const items = document.querySelectorAll('.gallery-item');
-
-            chips.forEach(chip => {
-                chip.addEventListener('click', () => {
-                    // Update active chip
-                    chips.forEach(c => c.classList.remove('is-active'));
-                    chip.classList.add('is-active');
-
-                    const filter = chip.getAttribute('data-filter');
-
-                    items.forEach(item => {
-                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                            item.style.display = 'block';
-                            setTimeout(() => item.style.opacity = '1', 50);
-                        } else {
-                            item.style.opacity = '0';
-                            setTimeout(() => item.style.display = 'none', 300);
-                        }
-                    });
-                });
-            });
-
-            // LIGHTBOX LOGIC
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightboxImg');
-            const captionText = document.getElementById('caption');
-            const closeBtn = document.querySelector('.lightbox-close');
-
-            document.querySelectorAll('.gallery-item img').forEach(img => {
-                img.addEventListener('click', () => {
-                   lightbox.style.display = "block";
-                   lightboxImg.src = img.src;
-                   captionText.innerHTML = img.alt;
-                   document.body.style.overflow = "hidden"; // Prevent scrolling
-                });
-            });
-
-            const closeLightbox = () => {
-                lightbox.style.display = "none";
-                document.body.style.overflow = "auto";
-            }
-
-            closeBtn.addEventListener('click', closeLightbox);
-            
-            lightbox.addEventListener('click', (e) => {
-                if(e.target === lightbox) closeLightbox();
-            });
-
-            document.addEventListener('keydown', (e) => {
-                if(e.key === "Escape") closeLightbox();
-            });
-        });
-    </script>
-
-    <style>
-        /* CHIPS (Reused from Masajlar) */
-        .nv-chip {
-            padding: 10px 24px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 100px;
-            color: var(--text-muted);
-            font-family: var(--font-body);
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .nv-chip:hover, .nv-chip.is-active {
-            background: rgba(212, 175, 55, 0.15);
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-    </style>
+</noscript>
+</div>
+<section class="related-services">
+<h2>İlgili Hizmetler</h2>
+<ul>
+<li><a href="/tr/masajlar/klasik-rahatlama.html">Klasik Rahatlama Masajı</a></li>
+<li><a href="/tr/masajlar/aromaterapi.html">Aromaterapi Masajı</a></li>
+<li><a href="/tr/masajlar/derin-doku.html">Derin Doku Masajı</a></li>
+</ul>
+</section>
+<section class="seo-bottom-block">
+<p style="color:#aaa; max-width:500px; margin:10px auto">Santis Club Antalya spa galerisi — lüks hamam, masaj odaları, cilt bakımı alanları ve dinlenme mekanlarımızın fotoğraflarını inceleyin. Premium spa deneyimimizi görsel olarak keşfedin.</p>
+</section>
+</main>
+<!-- FOOTER -->
+<div id="footer-container"></div>
+<!-- LIGHTBOX MODAL -->
+<div class="lightbox" id="lightbox">
+<span class="lightbox-close">×</span>
+<img class="lightbox-content" id="lightboxImg"/>
+<video class="lightbox-content" controls="" id="lightboxVideo"></video>
+<div id="caption"></div>
+</div>
+<script src="../../assets/js/gallery-init.js"></script>
+<!-- LOAD DATA DYNAMICALLY -->
+<!-- LOAD DATA DYNAMICALLY -->
+<script src="../../assets/js/fallback_data.js"></script> <!-- Fallback for File Protocol -->
+<script src="../../assets/js/gallery-data.js"></script>
+<!-- CORE UTILS -->
+<script src="../../assets/js/i18n-routes.js"></script>
+<script defer="" src="../../assets/js/hreflang-injector.js"></script>
+<script src="../../assets/js/loader.js"></script>
+<!-- TRINITY ENGINE (Three.js + GSAP + Lenis) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+<!-- ENGINES -->
+<script src="../../assets/js/gallery-loader.js"></script> <!-- Data Binder -->
+<script src="../../assets/js/santis-nav.js"></script> <!-- Nav Logic -->
 </body>
 </html>

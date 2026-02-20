@@ -1,0 +1,121 @@
+/* 
+ * SANTIS SOUL ENGINE: ELEMENTAL LAYERS V1.0
+ * Pure CSS Atmospheric Effects
+ */
+
+/* --- SHARED CONTAINER --- */
+.soul-element {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    /* Sit on top of video (z:0) and overlay (z:1), below Nav (z:100) */
+    opacity: 0;
+    transition: opacity 2s ease;
+    mix-blend-mode: screen;
+    /* Light additives */
+    overflow: hidden;
+}
+
+/* Activate via JS: document.body.classList.add('mode-rain') */
+.mode-rain .element-rain,
+.mode-mist .element-mist,
+.mode-dawn .element-dawn,
+.mode-deep .element-water {
+    opacity: 1;
+}
+
+/* --- 1. BOSPHORUS RAIN (Rain on Glass) --- */
+.element-rain {
+    background:
+        /* Drops Layer 1 (Small/Fast) */
+        linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 100%),
+        /* Drops Layer 2 (Large/Slow) */
+        linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+    background-size: 2px 30vh, 4px 40vh;
+    animation: rainDrop 0.8s linear infinite;
+}
+
+@keyframes rainDrop {
+    0% {
+        background-position: 10% 0, 90% 0;
+    }
+
+    100% {
+        background-position: 10% 100vh, 90% 100vh;
+    }
+}
+
+/* --- 2. HAMMAM STEAM (Rising Mist) --- */
+.element-mist::before,
+.element-mist::after {
+    content: "";
+    position: absolute;
+    width: 300%;
+    height: 300%;
+    top: -100%;
+    left: -100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+    filter: blur(60px);
+    animation: mistDrift 20s linear infinite;
+}
+
+.element-mist::after {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    animation-duration: 35s;
+    animation-direction: reverse;
+}
+
+@keyframes mistDrift {
+    0% {
+        transform: rotate(0deg) translate(0, 0);
+    }
+
+    100% {
+        transform: rotate(360deg) translate(50px, 50px);
+    }
+}
+
+/* --- 3. CAPPADOCIA DAWN (Dust Motes) --- */
+.element-dawn {
+    background-image:
+        radial-gradient(circle at 50% 50%, rgba(255, 215, 100, 0.1), transparent),
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(white 1px, transparent 1px);
+    background-size: 100% 100%, 600px 600px, 400px 400px;
+    background-position: 0 0, 0 0, 0 0;
+    animation: dustFloat 60s linear infinite;
+}
+
+@keyframes dustFloat {
+    0% {
+        background-position: 0 0, 0 0, 0 0;
+    }
+
+    100% {
+        background-position: 0 0, 50px -50px, -30px -80px;
+    }
+}
+
+/* --- 4. UNDERCURRENT (Caustics/Water - CLEANED) --- */
+.element-water {
+    /* Baklava pattern removed. Now simple deep glow. */
+    background: radial-gradient(circle at 50% 120%, rgba(0, 50, 100, 0.05), transparent 70%);
+    filter: blur(2px);
+    animation: waterFlow 10s ease-in-out infinite alternate;
+}
+
+@keyframes waterFlow {
+    0% {
+        transform: scale(1.0);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}

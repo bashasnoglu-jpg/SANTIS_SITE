@@ -1,0 +1,26 @@
+# Root Redirect (Removed for Language Gateway)
+# / /tr/index.html 301
+
+# Force HTTPS
+# http://* https://santis-club.pages.dev/:splat 301
+# http://* https://santis-club.com/:splat 301
+
+# Clean URLs (Canonical)
+/tr/hamam/kese-kopuk /tr/hamam/kese-kopuk.html 200
+/tr/hamam/osmanli-ritueli /tr/hamam/osmanli-ritueli.html 200
+/tr/hamam/santis-pasa /tr/hamam/santis-pasa.html 200
+/tr/hamam/kahve-detox /tr/hamam/kahve-detox.html 200
+/tr/hamam/tuz-peeling /tr/hamam/tuz-peeling.html 200
+/tr/hamam/kopuk-masaji /tr/hamam/kopuk-masaji.html 200
+/tr/hamam/kopuk-masaji /tr/hamam/kopuk-masaji.html 200
+/tr/hamam/cikolata-bakimi /tr/hamam/cikolata-bakimi.html 200
+
+# Fix 403 Error for Audit Report
+/audit-report.html /audit_report.pdf 301
+
+# Massage slug fallback
+/tr/masajlar/aromaterapi-masaji /tr/masajlar/aromaterapi.html 301
+/tr/masajlar/derin-doku-masaji /tr/masajlar/derin-doku.html 301
+/tr/masajlar/klasik-masaj /tr/masajlar/klasik-rahatlama.html 301
+/tr/masajlar/klasik-tum-vucut-masaji /tr/masajlar/klasik-rahatlama.html 301
+/tr/masajlar/anti-stress-masaji /tr/masajlar/anti-stress.html 301

@@ -1,0 +1,34 @@
+[
+    {
+        "id": "cat_massage",
+        "name": "Masajlar",
+        "slug": "masajlar",
+        "description": "Dünyanın en seçkin masaj teknikleri.",
+        "type": "service",
+        "active": true
+    },
+    {
+        "id": "cat_ritual",
+        "name": "Ritüeller",
+        "slug": "ritueller",
+        "description": "Bütünsel arınma ve yenilenme yolculukları.",
+        "type": "service",
+        "active": true
+    },
+    {
+        "id": "cat_hamam",
+        "name": "Hamam",
+        "slug": "hamam",
+        "description": "Geleneksel Türk Hamamı deneyimleri.",
+        "type": "service",
+        "active": true
+    },
+    {
+        "id": "cat_skincare",
+        "name": "Cilt Bakımı",
+        "slug": "cilt-bakimi",
+        "description": "Profesyonel cilt ve vücut bakımları.",
+        "type": "service",
+        "active": true
+    }
+]

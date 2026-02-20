@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Santis Club • Roman (Italy)</title>
+<!-- CORE STYLES -->
+<link href="../assets/css/fonts.css" rel="stylesheet"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="../assets/css/editorial.css" rel="stylesheet"/>
+<link href="../assets/css/atmospheres.css" rel="stylesheet"/>
+<!-- PAGE SPECIFIC: ROMAN -->
+<style>
+        :root {
+            --soul-color: #00BFFF; /* Deep Sky Blue */
+            --soul-bg: #0a1014; /* Deep Ocean */
+        }
+        body { background-color: var(--soul-bg); color: #fff; }
+        
+        .trend-hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .trend-hero-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+        }
+        .trend-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: var(--soul-color);
+        }
+    </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Trends",
+      "item": "https://santis-club.com/trends/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Salus Per Aquam",
+      "item": "https://santis-club.com/trends/roman.html"
+    }
+  ]
+}
+</script>
+<!-- Open Graph -->
+<meta content="Sudan gelen sağlık." name="description"/>
+<meta content="Santis Club" property="og:title"/>
+<meta content="Sudan gelen sağlık." property="og:description"/>
+<meta content="https://santis-club.com/trends/../assets/img/hero-general.webp" property="og:image"/>
+<meta content="https://santis-club.com/trends/roman.html" property="og:url"/>
+<meta content="website" property="og:type"/>
+<link href="https://santisclub.com/trends/roman.html" rel="canonical"/><link href="https://santisclub.com/trends/roman.html" hreflang="tr" rel="alternate"/><meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Santis Club • Roman (Italy)" name="twitter:title"/><meta content="Sudan gelen sağlık." name="twitter:description"/><meta content="https://santisclub.com/../assets/img/cards/5091624-hd_1920_1080_24fps.mp4" name="twitter:image"/></head>
+<body class="world-ice">
+<div id="navbar-container"></div>
+<main>
+<!-- HERO -->
+<section class="trend-hero">
+<img alt="Roman Water" class="trend-hero-bg" onerror="this.src='../assets/img/hero-general.webp'" src="../assets/img/cards/5091624-hd_1920_1080_24fps.mp4"/>
+<!-- Note: Video used as img source might fail in simple img tag if not handled, sticking to fallback logic or using video tag if proper -->
+<!-- Using video tag actually for water effect -->
+<video autoplay="" class="trend-hero-bg" loop="" muted="" playsinline="">
+<source src="../assets/img/cards/5091624-hd_1920_1080_24fps.mp4" type="video/mp4"/>
+</video>
+<div class="trend-content" style="position:relative; z-index:2; text-align:center;">
+<div class="trend-meta" style="color:var(--soul-color);">REGION: MEDITERRANEAN</div>
+<h1 class="trend-title">Salus Per Aquam</h1>
+<p class="trend-desc">
+                    Sudan gelen sağlık. <br/>
+                    Roma hamamlarının sosyal ve iyileştirici gücü.
+                </p>
+</div>
+</section>
+<!-- SERVICES GRID -->
+<section id="roman-services" style="padding: 10vh 5vw; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+</section>
+</main>
+<div id="footer-container"></div>
+<script src="../assets/js/loaders/data-bridge.js"></script>
+<script src="../assets/js/i18n-routes.js"></script>
+<script src="../assets/js/loader.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if(window.loadComp) {
+                loadComp("../components/navbar.html", "navbar-container");
+                loadComp("../components/footer.html", "footer-container");
+            }
+
+            setTimeout(() => {
+                const container = document.getElementById('roman-services');
+                if(window.productCatalog) {
+                    const items = window.productCatalog.filter(i => {
+                        const txt = JSON.stringify(i).toLowerCase();
+                        return txt.includes('water') || txt.includes('hammam') || txt.includes('thalasso') || txt.includes('foam');
+                    });
+
+                    items.forEach(item => {
+                        container.innerHTML += `
+                            <a href="../service-detail.html?id=${item.id}" style="display:block; background:rgba(0, 191, 255, 0.05); padding:30px; border:1px solid rgba(0, 191, 255, 0.2); color:white; text-decoration:none;">
+                                <h3 style="font-family:'Playfair Display', serif; font-size:1.5rem; margin-bottom:10px; color:var(--soul-color);">${item.name}</h3>
+                                <p style="font-size:0.9rem; opacity:0.8;">${item.shortDesc || item.desc || ''}</p>
+                            </a>
+                        `;
+                    });
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

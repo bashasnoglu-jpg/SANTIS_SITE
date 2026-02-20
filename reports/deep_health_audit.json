@@ -1,0 +1,640 @@
+{
+  "missing_refs": [
+    {
+      "file": "components\\navbar-en.html",
+      "ref": "index.html",
+      "resolved": "components\\index.html"
+    },
+    {
+      "file": "components\\navbar.html",
+      "ref": "index.html",
+      "resolved": "components\\index.html"
+    },
+    {
+      "file": "components\\navbar.html",
+      "ref": "index.html",
+      "resolved": "components\\index.html"
+    },
+    {
+      "file": "components\\navbar.html",
+      "ref": "tr/hamam/index.html",
+      "resolved": "components\\tr\\hamam\\index.html"
+    },
+    {
+      "file": "components\\navbar.html",
+      "ref": "tr/masajlar/index.html",
+      "resolved": "components\\tr\\masajlar\\index.html"
+    },
+    {
+      "file": "components\\navbar.html",
+      "ref": "tr/cilt-bakimi/index.html",
+      "resolved": "components\\tr\\cilt-bakimi\\index.html"
+    },
+    {
+      "file": "components\\navbar.html",
+      "ref": "tr/urunler/index.html",
+      "resolved": "components\\tr\\urunler\\index.html"
+    },
+    {
+      "file": "components\\navbar.html",
+      "ref": "tr/blog/index.html",
+      "resolved": "components\\tr\\blog\\index.html"
+    },
+    {
+      "file": "components\\navbar.html",
+      "ref": "tr/galeri/index.html",
+      "resolved": "components\\tr\\galeri\\index.html"
+    },
+    {
+      "file": "templates\\service-detail.html",
+      "ref": "{{canonical_url}}",
+      "resolved": "templates\\{{canonical_url}}"
+    },
+    {
+      "file": "templates\\service-detail.html",
+      "ref": "../../assets/css/style.css",
+      "resolved": "templates\\..\\..\\assets\\css\\style.css"
+    },
+    {
+      "file": "templates\\service-detail.html",
+      "ref": "../../assets/css/service-detail.css",
+      "resolved": "templates\\..\\..\\assets\\css\\service-detail.css"
+    },
+    {
+      "file": "templates\\service-detail.html",
+      "ref": "../../assets/js/app.js",
+      "resolved": "templates\\..\\..\\assets\\js\\app.js"
+    },
+    {
+      "file": "tr\\code-of-silence.html",
+      "ref": "/assets/js/santis-soul.js",
+      "resolved": "assets\\js\\santis-soul.js"
+    },
+    {
+      "file": "trends\\japan.html",
+      "ref": "../assets/img/cards/santis_card_zen.webp",
+      "resolved": "trends\\..\\assets\\img\\cards\\santis_card_zen.webp"
+    },
+    {
+      "file": "venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\vite\\recorder\\index.html",
+      "ref": "/playwright-logo.svg",
+      "resolved": "playwright-logo.svg"
+    },
+    {
+      "file": "venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\vite\\recorder\\index.html",
+      "ref": "/assets/index-BhTWtUlo.js",
+      "resolved": "assets\\index-BhTWtUlo.js"
+    },
+    {
+      "file": "venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\vite\\recorder\\index.html",
+      "ref": "/assets/index-BSjZa4pk.css",
+      "resolved": "assets\\index-BSjZa4pk.css"
+    },
+    {
+      "file": "venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\vite\\traceViewer\\snapshot.html",
+      "ref": "about:blank",
+      "resolved": "venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\vite\\traceViewer\\about:blank"
+    },
+    {
+      "file": "tr\\blog\\index.html",
+      "ref": "../../assets/img/blog/${post.img}",
+      "resolved": "tr\\blog\\..\\..\\assets\\img\\blog\\${post.img}"
+    },
+    {
+      "file": "tr\\hamam\\cikolata-bakimi.html",
+      "ref": "/tr/hamam/kahve-peeling.html",
+      "resolved": "tr\\hamam\\kahve-peeling.html"
+    },
+    {
+      "file": "tr\\hamam\\cikolata-bakimi.html",
+      "ref": "/tr/hamam/bal-masaji.html",
+      "resolved": "tr\\hamam\\bal-masaji.html"
+    },
+    {
+      "file": "tr\\hamam\\cikolata-bakimi.html",
+      "ref": "/tr/hamam/yosun-bakimi.html",
+      "resolved": "tr\\hamam\\yosun-bakimi.html"
+    },
+    {
+      "file": "sr\\masaze\\abhyanga-masaza\\index.html",
+      "ref": "../../../sr/untitled/",
+      "resolved": "sr\\masaze\\abhyanga-masaza\\..\\..\\..\\sr\\untitled"
+    },
+    {
+      "file": "sr\\masaze\\brazilska-maderoterapija\\index.html",
+      "ref": "../../../sr/untitled/",
+      "resolved": "sr\\masaze\\brazilska-maderoterapija\\..\\..\\..\\sr\\untitled"
+    },
+    {
+      "file": "sr\\masaze\\g5-vibro-skulpturiranje\\index.html",
+      "ref": "../../../sr/untitled/",
+      "resolved": "sr\\masaze\\g5-vibro-skulpturiranje\\..\\..\\..\\sr\\untitled"
+    },
+    {
+      "file": "sr\\masaze\\shirodhara-tok-uma\\index.html",
+      "ref": "../../../sr/untitled/",
+      "resolved": "sr\\masaze\\shirodhara-tok-uma\\..\\..\\..\\sr\\untitled"
+    },
+    {
+      "file": "ru\\hammam\\gelin-hamami.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\hammam\\kahve-detox.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\hammam\\kese-kopuk.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\hammam\\kopuk-masaji.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\hammam\\osmanli-ritueli.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\hammam\\santis-pasa.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\hammam\\tuz-peeling.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\anne-cocuk.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\anti-selulit.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\anti-stress.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\aromaterapi.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\bali.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\bas-boyun-omuz.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\cift-rituel.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\cift-senkron.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\derin-doku.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\isvec-full-body.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\kids-nazik.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\klasik-rahatlama.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\klasik-sirt.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\kranyo-sakral.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\lenf-drenaj.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    },
+    {
+      "file": "ru\\massages\\myofascial-release.html",
+      "ref": "/ru/booking.html",
+      "resolved": "ru\\booking.html"
+    }
+  ],
+  "js_issues": [
+    {
+      "file": "assets\\js\\app.js",
+      "count": 10,
+      "type": "relative_path"
+    },
+    {
+      "file": "assets\\js\\concierge-engine.js",
+      "count": 4,
+      "type": "relative_path"
+    },
+    {
+      "file": "assets\\js\\core_data_loader.js",
+      "count": 1,
+      "type": "relative_path"
+    },
+    {
+      "file": "assets\\js\\css-loader.js",
+      "count": 17,
+      "type": "relative_path"
+    },
+    {
+      "file": "assets\\js\\gallery-loader.js",
+      "count": 4,
+      "type": "relative_path"
+    },
+    {
+      "file": "assets\\js\\home-products.js",
+      "count": 1,
+      "type": "relative_path"
+    },
+    {
+      "file": "assets\\js\\image-checker.js",
+      "count": 1,
+      "type": "relative_path"
+    },
+    {
+      "file": "assets\\js\\product-loader.js",
+      "count": 1,
+      "type": "relative_path"
+    },
+    {
+      "file": "assets\\js\\santis-live-test.js",
+      "count": 1,
+      "type": "relative_path"
+    },
+    {
+      "file": "assets\\js\\santis-nav.js",
+      "count": 1,
+      "type": "relative_path"
+    },
+    {
+      "file": "assets\\js\\service-detail-loader.js",
+      "count": 1,
+      "type": "relative_path"
+    },
+    {
+      "file": "assets\\js\\services-data.js",
+      "count": 3,
+      "type": "relative_path"
+    },
+    {
+      "file": "assets\\js\\shop.js",
+      "count": 2,
+      "type": "relative_path"
+    }
+  ],
+  "json_issues": [
+    {
+      "file": "data\\site_content.json",
+      "issue": "Invalid JSON: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)",
+      "severity": "critical"
+    }
+  ],
+  "lang_issues": [
+    {
+      "lang": "en",
+      "issue": "Still references non-existent santis-core.js",
+      "severity": "high"
+    },
+    {
+      "lang": "de",
+      "issue": "Still references non-existent santis-core.js",
+      "severity": "high"
+    },
+    {
+      "lang": "fr",
+      "issue": "Still references non-existent santis-core.js",
+      "severity": "high"
+    },
+    {
+      "lang": "ru",
+      "issue": "Still references non-existent santis-core.js",
+      "severity": "high"
+    },
+    {
+      "lang": "sr",
+      "issue": "Still references non-existent santis-core.js",
+      "severity": "high"
+    }
+  ],
+  "endpoint_issues": [
+    {
+      "endpoint": "/admin/fix-link",
+      "issue": "Called by frontend but not defined in server.py"
+    },
+    {
+      "endpoint": "/api/admin/social",
+      "issue": "Called by frontend but not defined in server.py"
+    },
+    {
+      "endpoint": "/api/pages/home",
+      "issue": "Called by frontend but not defined in server.py"
+    },
+    {
+      "endpoint": "/assets/data/products-atelier.json",
+      "issue": "Called by frontend but not defined in server.py"
+    },
+    {
+      "endpoint": "/assets/data/products-sothys.json",
+      "issue": "Called by frontend but not defined in server.py"
+    },
+    {
+      "endpoint": "/assets/data/services.json",
+      "issue": "Called by frontend but not defined in server.py"
+    }
+  ],
+  "import_issues": [
+    {
+      "module": "Path",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "load_dotenv",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "FastAPI",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "JSONResponse",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "CORSMiddleware",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sentinel_manager",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "BeautifulSoup",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "urljoin",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "StaticFiles",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "reportlab",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "reportlab",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "canvas",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "reportlab",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "black",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "reportlab",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "colors",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "BaseModel",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "List",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "concurrent",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "ThreadPoolExecutor",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AuditEngine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "VisualAuditEngine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "PerformanceAuditEngine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "SecurityAuditEngine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AutoFixer",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AttackSimulatorEngine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "generate_suggestions",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "CitizenRegistry",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "GeoBridge",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "OracleEngine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "DeepAuditEngine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "CityIntelligence",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "BaseHTTPMiddleware",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Response",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "security_shield",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "RateLimitMiddleware",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AdminLockMiddleware",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Oracle",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "cookie",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "CitizenRegistry",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "frontend",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "JSON",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AISuggestionsEngine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AutoOptimizer",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AutoOptimizer",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AutoOptimizer",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "the",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Counter",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "MasterCleaner",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AssetOptimizer",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "new",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AutoFixer",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "auto_fixer_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AutoFixer",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "VIPEngine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "VisualAuditEngine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "PerformanceAuditEngine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "SecurityAuditEngine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "failed",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AttackSimulatorEngine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "auto_fixer_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AutoFixer",
+      "issue": "Imported in server.py but file not found"
+    }
+  ],
+  "summary": {
+    "total_issues": 402,
+    "critical": 70,
+    "html_scanned": 396
+  }
+}

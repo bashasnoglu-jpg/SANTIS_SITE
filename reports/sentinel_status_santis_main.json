@@ -1,0 +1,57 @@
+{
+  "project_id": "santis_main",
+  "state": "IDLE",
+  "last_scan": "2026-02-08T20:25:38.963970",
+  "next_scan": "2026-02-18T20:37:06.997520",
+  "actions_today": [
+    {
+      "time": "2026-02-08T20:25:38.955267",
+      "issue": "MIME Sniffing Korumas\u0131 Eksik",
+      "action": "add_security_header",
+      "result": "skipped"
+    },
+    {
+      "time": "2026-02-08T20:25:38.946098",
+      "issue": "HSTS Eksik (Strict-Transport-Security)",
+      "action": "add_security_header",
+      "result": "skipped"
+    },
+    {
+      "time": "2026-02-08T20:25:38.929024",
+      "issue": "Clickjacking Korumas\u0131 Yok (X-Frame-Options)",
+      "action": "add_security_header",
+      "result": "skipped"
+    },
+    {
+      "time": "2026-02-08T20:25:38.920313",
+      "issue": "Content-Security-Policy (CSP) Eksik",
+      "action": "add_security_header",
+      "result": "skipped"
+    },
+    {
+      "time": "2026-02-08T19:17:59.051154",
+      "issue": "MIME Sniffing Korumas\u0131 Eksik",
+      "action": "add_security_header",
+      "result": "skipped"
+    },
+    {
+      "time": "2026-02-08T19:17:59.038497",
+      "issue": "HSTS Eksik (Strict-Transport-Security)",
+      "action": "add_security_header",
+      "result": "skipped"
+    },
+    {
+      "time": "2026-02-08T19:17:59.017500",
+      "issue": "Clickjacking Korumas\u0131 Yok (X-Frame-Options)",
+      "action": "add_security_header",
+      "result": "skipped"
+    },
+    {
+      "time": "2026-02-08T19:17:59.007346",
+      "issue": "Content-Security-Policy (CSP) Eksik",
+      "action": "add_security_header",
+      "result": "skipped"
+    }
+  ],
+  "health": "99.7/100"
+}

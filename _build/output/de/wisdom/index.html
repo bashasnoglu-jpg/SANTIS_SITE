@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html lang="de"><head>
+    <meta charset="utf-8"><meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[DRAFT] Bilgelik Kayıtları • Santis Club</title>
+    <meta name="description" content="Sessizlik, su ve beden üzerine felsefi kayıtlar. Santis Club bilgelik arşivi.">
+    
+    <!-- FONTS -->
+    <link href="/assets/css/fonts.css" rel="stylesheet">
+    <link href="/assets/css/style.css?v=8.1" rel="stylesheet">
+    
+    <style>
+        /* MONK TONE JOURNAL STYLES */
+        body.journal-mode {
+            background-color: #f4f1ea; /* Papyrus / Old Paper */
+            color: #2c2a25; /* Ink Black */
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .journal-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 120px 20px;
+        }
+
+        .journal-header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .journal-kicker {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #8b7355;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .journal-title {
+            font-size: 3.5rem;
+            font-weight: 400;
+            line-height: 1.1;
+            margin: 0;
+            letter-spacing: -0.02em;
+            color: #1a1a1a;
+        }
+
+        .journal-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* ENTRY CARDS */
+        .journal-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        .journal-card {
+            display: block;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 60px;
+            transition: opacity 0.3s ease;
+        }
+
+        .journal-card:hover { opacity: 0.7; }
+
+        .entry-meta {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .entry-title {
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin: 0 0 15px 0;
+            color: #1a1a1a;
+        }
+
+        .entry-summary {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #444;
+            max-width: 600px;
+        }
+
+        .read-more {
+            display: inline-block;
+            margin-top: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #d4af37;
+            border-bottom: 1px solid #d4af37;
+        }
+
+        /* DARK MODE OVERRIDE FOR JOURNAL (Optional, but Monk tone prefers light paper) */
+        @media (prefers-color-scheme: dark) {
+            body.journal-mode {
+                background-color: #1a1a1a;
+                color: #e0e0e0;
+            }
+            .journal-title, .entry-title { color: #f0f0f0; }
+            .entry-summary { color: #aaa; }
+            .journal-card { border-bottom-color: rgba(255,255,255,0.1); }
+        }
+    </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/tr/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Bilgelik Köşesi",
+      "item": "https://santis-club.com/tr/bilgelik/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Bilgelik Kayıtları",
+      "item": "https://santis-club.com/tr/bilgelik/index.html"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Masaj seansı ne kadar sürer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Masaj seanslarımız 30 ile 90 dakika arasında değişmektedir. Tercih edeceğiniz terapiye göre süre belirlenir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Masaj öncesi ne yapmalıyım?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Seansınızdan 1 saat önce ağır yemek yememenizi ve bol su içmenizi öneririz. 15 dakika önce gelmeniz yeterlidir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hangi masaj türü bana uygun?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Uzman terapistlerimiz ilk görüşmede ihtiyaçlarınızı değerlendirir ve size en uygun masaj türünü önerir."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Open Graph -->
+<meta property="og:title" content="[DRAFT] Bilgelik Kayıtları">
+<meta property="og:description" content="Sessizlik, su ve beden üzerine felsefi kayıtlar. Santis Club bilgelik arşivi.">
+<meta property="og:image" content="https://santis-club.com/assets/img/og-standard.jpg">
+<meta property="og:url" content="https://santis-club.com/de/wisdom/index.html">
+<meta property="og:type" content="website">
+    <script src="../../assets/js/i18n-routes.js"></script>
+    <script src="../../assets/js/hreflang-injector.js" defer=""></script>
+
+<link href="https://santis-club.com/de/wisdom/index.html" rel="canonical">
+
+    <!-- HREFLANG CLUSTER SYNC -->
+
+    <!-- HREFLANG CLUSTER SYNC -->
+
+    <!-- HREFLANG CLUSTER SYNC -->
+
+
+    <!-- HREFLANG CLUSTER SYNC -->
+    <link rel="alternate" hreflang="de" href="https://santis-club.com/de/wisdom/index.html" />
+    <link rel="alternate" hreflang="en" href="https://santis-club.com/en/wisdom/index.html" />
+    <link rel="alternate" hreflang="fr" href="https://santis-club.com/fr/wisdom/index.html" />
+    <link rel="alternate" hreflang="ru" href="https://santis-club.com/ru/wisdom/index.html" />
+    <link rel="alternate" hreflang="tr" href="https://santis-club.com/tr/bilgelik/index.html" />
+    <link rel="alternate" hreflang="x-default" href="https://santis-club.com/en/wisdom/index.html" />
+</head>
+<body class="journal-mode">
+<noscript>
+<nav class="nv-noscript-nav">
+<a href="/index.html" class="nv-ns-home">ANA SAYFA</a>
+<a href="/tr/hamam/index.html">HAMAM</a>
+<a href="/tr/masajlar/index.html">MASAJLAR</a>
+<a href="/tr/cilt-bakimi/index.html">CİLT BAKIMI</a>
+<a href="/tr/galeri/index.html">GALERİ</a>
+</nav>
+</noscript>
+
+    <!-- NAVBAR CONTAINER -->
+    <div id="navbar-container"></div>
+
+    <main class="journal-container">
+        <header class="journal-header">
+            <span class="journal-kicker">WISDOM RECORDS</span>
+            <h1 class="journal-title">Bilgelik Kayıtları</h1>
+<div class="page-intro-seo"><p>Antik şifa bilgeliğinden modern wellness bilimlerine uzanan bir keşif yolculuğu. Hamam geleneğinin kökleri, masaj terapilerinin tarihi ve iyi oluş sanatının felsefi temelleri hakkında derinlemesine okumalar.</p></div>
+            <p class="journal-subtitle">Sessizliğin ve suyun öğrettikleri üzerine notlar.</p>
+        </header>
+
+        <div class="journal-grid" id="journal-feed">
+            <!-- Rendered via JS -->
+            <div>Arşiv taranıyor...</div>
+        </div>
+    
+<section class="related-services">
+<h2>İlgili Hizmetler</h2>
+<ul>
+<li><a href="/tr/masajlar/klasik-rahatlama.html">Klasik Rahatlama Masajı</a></li>
+<li><a href="/tr/masajlar/aromaterapi.html">Aromaterapi Masajı</a></li>
+<li><a href="/tr/masajlar/derin-doku.html">Derin Doku Masajı</a></li>
+</ul>
+</section>
+
+<section class="seo-bottom-block">
+<p style="color:#aaa; max-width:500px; margin:10px auto">Santis Club Bilgelik Köşesi — wellness felsefesi, hamam tarihi, masaj terapileri bilimi ve iyi oluş sanatı üzerine derinlemesine içerikler.</p>
+</section>
+</main>
+
+    <!-- FOOTER -->
+    <div id="footer-container"></div>
+
+    <!-- SCRIPTS -->
+    <script src="/assets/js/santis-nav.js"></script>
+    <script src="/assets/js/loaders/data-bridge.js?v=8.1"></script>
+    <script src="/assets/js/blog-data.js"></script>
+    
+    <script>
+        // JOURNAL RENDERER
+        document.addEventListener('DOMContentLoaded', () => {
+             // Load Nav & Footer
+             if(typeof loadComp === "function") {
+                loadComp('/components/navbar.html', "navbar-container");
+                loadComp('/components/footer.html', "footer-container");
+             }
+
+             // Render Info
+             setTimeout(() => {
+                 const feed = document.getElementById('journal-feed');
+                 if(window.blogCatalog && window.blogCatalog.length > 0) {
+                     feed.innerHTML = window.blogCatalog.map(item => `
+                        <a href="#" onclick="openEntry(${item.id}); return false;" class="journal-card">
+                            <div class="entry-meta">${item.date} — ${item.category}</div>
+                            <h2 class="entry-title">${item.title}</h2>
+                            <p class="entry-summary">${item.summary}</p>
+                            <span class="read-more">Kaydı Oku</span>
+                        </a>
+                     `).join('');
+                 } else {
+                     feed.innerHTML = "<p>Henüz kayıt bulunmuyor.</p>";
+                 }
+             }, 500);
+        });
+
+        // Simple Modal Reader (MVP)
+        function openEntry(id) {
+            const entry = window.blogCatalog.find(e => e.id === id);
+            if(!entry) return;
+            
+            // Create a modal on the fly for reading
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top:0; left:0; width:100%; height:100%; 
+                background: inherit;  overflow-y: auto;
+                padding: 100px 20px; animation: fadeIn 0.5s ease;
+            `;
+            modal.innerHTML = `
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;">
+                <button onclick="this.parentElement.parentElement.remove()">×</button>
+                    
+                    <span>
+                        ${entry.category} • ${entry.date}
+                    </span>
+                    
+                    <h2 style="font-size:1.5rem; color:#e0e0e0; margin-bottom:10px">${entry.title}</h2>
+                    
+                    <div>
+                        ${entry.content}
+                    </div>
+
+                    <div>
+                        "Sessizlik en büyük cevaptır." <br>— Santis
+                    </div>
+                </div>
+            `;
+            
+            // Append to body (handling dark mode inheritance)
+            if(document.body.classList.contains('dark-mode')) {
+                modal.style.backgroundColor = "#1a1a1a";
+                modal.style.color = "#e0e0e0";
+            } else {
+                modal.style.backgroundColor = "#f4f1ea";
+                modal.style.color = "#2c2a25";
+            }
+            
+            document.body.appendChild(modal);
+        }
+    </script>
+
+</body></html>
+

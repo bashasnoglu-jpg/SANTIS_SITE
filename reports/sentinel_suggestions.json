@@ -1,0 +1,16 @@
+[
+  {
+    "id": "opt_rollback_test",
+    "title": "Enable Gzip",
+    "action_key": "performance.enable_gzip",
+    "proposed_value": true,
+    "status": "validated",
+    "confidence": 0.9,
+    "problem": "Test",
+    "suggestion": "Test",
+    "expected_impact": "High",
+    "previous_value": false,
+    "applied_at": "2020-01-01T00:00:00",
+    "impact_result": "NEGATIVE"
+  }
+]

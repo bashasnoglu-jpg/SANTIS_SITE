@@ -1,0 +1,11 @@
+
+ ⛅️ wrangler 4.65.0
+───────────────────
+Uploading... (324/324)
+✨ Success! Uploaded 0 files (324 already uploaded) (0.15 sec)
+
+✨ Uploading _headers
+✨ Uploading _redirects
+🌎 Deploying...
+✨ Deployment complete! Take a peek over at https://03a5dcea.santis-club.pages.dev
+✨ Deployment alias URL: https://production.santis-club.pages.dev

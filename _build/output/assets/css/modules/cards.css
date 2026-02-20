@@ -1,0 +1,455 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   SANTIS CLUB — UNIFIED CARD ARCHITECTURE V3.1 (Stabilization Patch)
+   Merged from: luxury-cards.css, master-cards.css, card-effects.css
+   Date: 02.02.2026
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   1. CORE TOKENS (Scoped)
+   ───────────────────────────────────────────────────────────────────────────── */
+:root {
+    /* Luxury Base */
+    --card-bg: rgba(26, 24, 22, 0.95);
+    --card-bg-hover: rgba(32, 30, 28, 0.98);
+    --card-border: rgba(255, 255, 255, 0.06);
+    --card-border-hover: rgba(212, 175, 55, 0.25);
+    --card-shadow: rgba(0, 0, 0, 0.4);
+
+    /* Effects */
+    --gold-glow: rgba(212, 175, 55, 0.4);
+    --gold-soft: rgba(212, 175, 55, 0.15);
+
+    /* Spacing */
+    --card-radius: 16px;
+    --card-padding: 24px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   2. GRID SYSTEMS
+   ───────────────────────────────────────────────────────────────────────────── */
+/* Standard Bento Grid (Luxury) */
+.luxury-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 2rem 0;
+}
+
+/* Product Grid V2 (Master) */
+.product-grid-v2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    justify-content: center;
+    width: 100%;
+    min-height: 420px;
+    position: relative;
+}
+
+/* Stability fix: ensure cards never disappear after scroll/drag */
+.product-grid-v2 .prod-card-v2 {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateZ(0) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   3. BASE CARD COMPONENTS
+   ───────────────────────────────────────────────────────────────────────────── */
+/* A. LUXURY CARD (High Tier) */
+.luxury-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--card-radius);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    transition: transform 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)), box-shadow 0.4s ease;
+
+    /* STABILITY FIX */
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateZ(0);
+    /* Hardware accel */
+}
+
+.luxury-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--card-border-hover);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* B. PRODUCT CARD V2 (Mid Tier) */
+.prod-card-v2 {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    width: 100%;
+
+    /* STABILITY FIX */
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateZ(0);
+}
+
+.prod-card-v2:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   4. CARD ELEMENTS
+   ───────────────────────────────────────────────────────────────────────────── */
+/* Image Wrapper */
+.card__image-wrapper,
+.prod-img-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #111;
+}
+
+.card__image,
+.prod-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.luxury-card:hover .card__image,
+.prod-card-v2:hover .prod-img-box img {
+    transform: scale(1.05);
+}
+
+/* Badges */
+.card__badge,
+.badge,
+.nv-tier-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 6px 14px;
+    background: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #fff;
+    z-index: 2;
+}
+
+.badge.best,
+.card__badge--signature {
+    border-color: #d4af37;
+    color: #d4af37;
+}
+
+/* Content */
+.card__content,
+.prod-details {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card__title,
+.prod-details h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: #f0f2f5;
+    margin-bottom: 8px;
+}
+
+.card__description,
+.prod-desc {
+    font-size: 14px;
+    color: #8b9bb4;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* CTA Buttons */
+.card__cta,
+.prod-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s;
+    background: transparent;
+    cursor: pointer;
+    margin-top: auto;
+}
+
+.card__cta:hover,
+.prod-btn:hover {
+    border-color: #d4af37;
+    color: #d4af37;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   5. SPECIAL EFFECTS (From card-effects.css)
+   ───────────────────────────────────────────────────────────────────────────── */
+/* Spotlight */
+.luxury-card::before,
+.prod-card-v2::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(250px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212, 175, 55, 0.1) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.luxury-card:hover::before,
+.prod-card-v2:hover::before {
+    opacity: 1;
+}
+
+/* Shimmer */
+.luxury-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.8s ease;
+    pointer-events: none;
+}
+
+.luxury-card:hover::after {
+    left: 150%;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   6. QUICK VIEW MODAL (From master-cards.css)
+   ───────────────────────────────────────────────────────────────────────────── */
+.qv-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    z-index: 20000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: 20px;
+}
+
+.qv-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.qv-modal {
+    background: #1a1a1a;
+    width: 100%;
+    max-width: 900px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.qv-content {
+    display: flex;
+    width: 100%;
+}
+
+.qv-image {
+    width: 50%;
+    background: #000;
+}
+
+.qv-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.qv-details {
+    width: 50%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.qv-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Mobile Responsive */
+@media(max-width: 768px) {
+    .qv-content {
+        flex-direction: column;
+    }
+
+    .qv-modal {
+        overflow-y: auto;
+        max-height: 90vh;
+    }
+
+    .qv-image {
+        width: 100%;
+        height: 250px;
+    }
+
+    .qv-details {
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   7. TAROT RITUAL CARDS (Phase 17)
+   ───────────────────────────────────────────────────────────────────────────── */
+.nv-card-tarot {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 2/3;
+    /* Tarot Ratio */
+    background: var(--card-bg);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    /* Gold/Bronze Thin Border */
+    border-radius: 8px;
+    /* Sharper corners */
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+    /* Anchor link fix */
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.nv-card-tarot:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: #d4af37;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+.nv-card-tarot .card__image-wrapper {
+    aspect-ratio: auto;
+    height: 65%;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.nv-card-tarot .card__content {
+    background: linear-gradient(to bottom, rgba(20, 20, 20, 0.95), rgba(10, 10, 10, 1));
+    justify-content: space-between;
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nv-card-tarot .card__title {
+    font-family: 'Cinzel', serif;
+    /* Monk Tone Type */
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    color: #e0e0e0;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.nv-card-tarot .card__meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.nv-card-tarot .card__desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: #aaa;
+    font-style: italic;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.nv-card-tarot .card__action {
+    align-self: flex-start;
+    margin-top: auto;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #d4af37;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+}
+
+.nv-card-tarot .card__action::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #d4af37;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+}
+
+.nv-card-tarot:hover .card__action::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}

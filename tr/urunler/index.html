@@ -1,728 +1,266 @@
-﻿<!doctype html>
-<html lang="tr">
+﻿<!DOCTYPE html>
 
+<html data-site-root="/" lang="tr">
 <head>
-    <base href="../../">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Santis Boutique • Online Mağaza</title>
-    <meta name="description" content="Sothys profesyonel cilt bakımı ve Santis Home spa koleksiyonu.">
-
-    <!-- MASTER STYLE -->
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/card-effects.css" />
-
-
-    <!-- FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <script src="assets/js/perf-head.js"></script>
-    <script src="assets/js/animations.js" defer></script>
-    <script src="assets/js/settings-data.js"></script>
-    <script src="assets/js/product-data.js" defer></script> <!-- SHARED DATA -->
-</head>
-
-<body class="editorial-mode shop-layout">
-    
-    <!-- NAVBAR -->
-    <!-- NAVBAR -->
-    <div id="navbar-container"></div>
-    <!-- Script will load components/navbar.html here -->
-    <!-- ... (body content continues) ... -->
-
-    <!-- SCRIPTS -->
-    <script src="assets/js/santis-nav.js" defer></script>
-    <script src="assets/js/santis-booking.js" defer></script>
-    <script src="assets/js/app.js" defer></script>
-    <script src="assets/js/loader.js" defer></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            if (typeof loadComp === "function") {
-                loadComp("/components/navbar.html", "navbar-container");
-                // loadComp("/components/footer.html", "footer-container");
-            }
-            
-            // Wait for data load
-            setTimeout(() => {
-                if(typeof productCatalog !== 'undefined') {
-                    renderProducts();
-                    setupFilters();
-                }
-            }, 50);
-
-            // Mobile Filter Logic
-            // ... (keep existing mobile logic) ...
-            const filterToggle = document.getElementById('filter-toggle');
-            const sidebar = document.querySelector('.shop-sidebar');
-            
-            if(filterToggle && sidebar) {
-                filterToggle.addEventListener('click', () => {
-                    sidebar.classList.toggle('active');
-                    if(sidebar.classList.contains('active')) {
-                        document.body.style.overflow = 'hidden'; // Prevent scroll
-                    } else {
-                        document.body.style.overflow = '';
-                    }
-                });
-
-                // Close sidebar when clicking outside (on overlay)
-                sidebar.addEventListener('click', (e) => {
-                    if (e.target === sidebar) {
-                        sidebar.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
-                });
-            }
-
-            // QUICK VIEW LOGIC (Keep existing but update data source in click handler)
-            const qvOverlay = document.getElementById('qv-overlay');
-            const qvClose = document.getElementById('qv-close');
-
-            const closeQv = () => {
-                qvOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            };
-
-            if(qvClose) qvClose.addEventListener('click', closeQv);
-            if(qvOverlay) qvOverlay.addEventListener('click', (e) => {
-                if(e.target === qvOverlay) closeQv();
-            });
-
-            document.getElementById('product-grid').addEventListener('click', (e) => {
-                if(e.target.classList.contains('qa-btn')) {
-                    const card = e.target.closest('.prod-card-v2');
-                    const pid = card.dataset.id;
-                    const product = productCatalog.find(p => p.id == pid); // USE GLOBAL CATALOG
-                    
-                    if(product) {
-                        openQv(product);
-                    }
-                }
-            });
-
-            function openQv(p) {
-                document.getElementById('qv-img').src = `assets/img/cards/${p.img}`;
-                document.getElementById('qv-title').innerText = p.name;
-                document.getElementById('qv-cat').innerText = getCatName(p.cat);
-                document.getElementById('qv-desc').innerText = p.desc;
-                document.getElementById('qv-price').innerText = p.price;
-                
-                document.getElementById('qv-benefit').innerText = p.benefit || '-';
-                document.getElementById('qv-use').innerText = p.usage || '-';
-
-                const badgeEl = document.getElementById('qv-badge');
-                if(p.badge) {
-                    badgeEl.innerText = p.badge;
-                    badgeEl.className = `badge ${p.badge === 'NEW' ? 'new' : 'best'}`;
-                    badgeEl.style.display = 'block';
-                } else {
-                    badgeEl.style.display = 'none';
-                }
-
-                const btn = document.getElementById('qv-btn');
-                btn.href = `https://wa.me/905348350169?text=${encodeURIComponent(p.name + ' hakkında detaylı bilgi almak istiyorum.')}`;
-
-                qvOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        });
-
-        // REMOVED LOCAL 'products' CONST. USING 'productCatalog' FROM EXTERNAL FILE.
-
-        function renderProducts(filterCat = null) {
-            const grid = document.getElementById('product-grid');
-            if(!grid) return;
-            grid.innerHTML = '';
-
-            if(typeof productCatalog === 'undefined') return;
-
-            let filtered = productCatalog;
-            if (filterCat && filterCat !== 'face-all') {
-                filtered = productCatalog.filter(p => p.cat === filterCat);
-            } else if (filterCat === 'face-all') {
-                filtered = productCatalog.filter(p => p.cat.startsWith('face-'));
-            }
-
-            document.getElementById('result-count').innerText = `${filtered.length} Ürün Gösteriliyor`;
-
-            filtered.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'prod-card-v2';
-                card.dataset.id = p.id;
-                
-                let badgeHTML = p.badge ? `<span class="badge ${p.badge === 'NEW' ? 'new' : 'best'}">${p.badge}</span>` : '';
-                
-                card.innerHTML = `
-                    <div class="prod-img-box">
-                        ${badgeHTML}
-                        <img src="assets/img/cards/${p.img}" alt="${p.name}" loading="lazy">
-                        <div class="quick-actions">
-                            <button class="qa-btn">Hızlı Bakış</button>
-                        </div>
-                    </div>
-                    <div class="prod-details">
-                        <span class="prod-cat">${getCatName(p.cat)}</span>
-                        <h4>${p.name}</h4>
-                        <p class="prod-desc">${p.desc}</p>
-                        <div class="prod-bottom">
-                            <span class="prod-price">${p.price}</span>
-                            <!-- LINK TO DETAIL PAGE -->
-                            <a href="tr/urunler/detay.html?id=${p.id}" class="prod-btn">İncele</a>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // ADDED MISSING FUNCTION
-        function setupFilters() {
-            const checkboxes = document.querySelectorAll('.filter-list input[type="checkbox"]');
-            checkboxes.forEach(cb => {
-                cb.addEventListener('change', (e) => {
-                    // Uncheck others in same group if we want single select, 
-                    // or just re-render. User request didn't specify, likely multi or single.
-                    // For simplicity, let's treat "all" as reset.
-                    
-                    const cat = e.target.dataset.cat;
-                    
-                    // If "face-all" is checked, uncheck specifics
-                    if (cat === 'face-all' && e.target.checked) {
-                        document.querySelectorAll('#filter-face input').forEach(i => {
-                            if(i !== e.target) i.checked = false;
-                        });
-                    }
-                    
-                    // Render based on active check. 
-                    // Logic: Find the first checked one and filter by it. 
-                    // (Simple version for fixing the error)
-                    if (e.target.checked) {
-                         // Uncheck others to keep it simple single-filter for now
-                         checkboxes.forEach(c => {
-                             if(c !== e.target) c.checked = false;
-                         });
-                         renderProducts(cat);
-                    } else {
-                        renderProducts(null); // Show all
-                    }
-                });
-            });
-        }
+<!-- EXPLICIT RELATIVE PATH STRATEGY -->
+<!-- Base tag removed to prevent conflict with relative asset paths -->
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Santis Boutique • Online Mağaza</title>
+<meta content="Sothys profesyonel cilt bakımı ve Santis Home spa koleksiyonu." name="description"/>
+<link href="/favicon.ico" rel="icon" sizes="any"/>
+<!-- MASTER STYLE -->
+<link href="/assets/css/style.css" rel="stylesheet"/>
+<link href="/assets/css/modules/cards.css" rel="stylesheet"/>
+<link href="/assets/css/bento-grid.css" rel="stylesheet"/>
+<!-- FONTS -->
+<link href="/assets/css/fonts.css" rel="stylesheet"/>
+<script src="/assets/js/page-config.js"></script>
+<script src="/assets/js/perf-head.js"></script>
+<script defer="" src="/assets/js/language-switcher.js"></script>
+<script src="/assets/js/fallback_data.js"></script> <!-- Fallback for File Protocol -->
+<script src="/assets/data/settings-data.js"></script>
+<meta content="/assets/img/og-standard.jpg" property="og:image"/>
+<link href="https://santis-club.com/tr/urunler/index.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Index", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/tr/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Ürünler",
+      "item": "https://santis-club.com/tr/urunler/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Ritüellerin Sanatı",
+      "item": "https://santis-club.com/tr/urunler/index.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Masaj seansı ne kadar sürer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Masaj seanslarımız 30 ile 90 dakika arasında değişmektedir. Tercih edeceğiniz terapiye göre süre belirlenir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Masaj öncesi ne yapmalıyım?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Seansınızdan 1 saat önce ağır yemek yememenizi ve bol su içmenizi öneririz. 15 dakika önce gelmeniz yeterlidir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hangi masaj türü bana uygun?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Uzman terapistlerimiz ilk görüşmede ihtiyaçlarınızı değerlendirir ve size en uygun masaj türünü önerir."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Detay",
+      "url": "https://santis-club.com/tr/urunler/detay.html"
+    }
+  ]
+}
+</script>
+<!-- Open Graph -->
+<meta content="Santis Boutique" property="og:title"/>
+<meta content="Sothys profesyonel cilt bakımı ve Santis Home spa koleksiyonu." property="og:description"/>
+<meta content="https://santis-club.com/tr/urunler/index.html" property="og:url"/>
+<meta content="website" property="og:type"/>
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- SCHEMA SYNC -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HealthAndBeautyBusiness",
+  "name": "Santis Club Spa & Wellness",
+  "url": "https://santis-club.com",
+  "telephone": "+905348350169",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Çolaklı Mah.",
+    "addressLocality": "Manavgat",
+    "addressRegion": "Antalya",
+    "postalCode": "07600",
+    "addressCountry": "TR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "36.7633",
+    "longitude": "31.3864"
+  },
+  "priceRange": "€€€",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "09:00",
+    "closes": "22:00"
+  }
+}
     </script>
+<!-- /SCHEMA SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<link href="https://santis-club.com/de/urunler/index.html" hreflang="de" rel="alternate"/>
+<link href="https://santis-club.com/en/products/index.html" hreflang="en" rel="alternate"/>
+<link href="https://santis-club.com/tr/urunler/index.html" hreflang="tr" rel="alternate"/>
+<link href="https://santis-club.com/en/products/index.html" hreflang="x-default" rel="alternate"/>
+<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Santis Boutique • Online Mağaza" name="twitter:title"/><meta content="Sothys profesyonel cilt bakımı ve Santis Home spa koleksiyonu." name="twitter:description"/><meta content="https://santisclub.com/assets/img/hero/santis_hero_main_v2.webp" name="twitter:image"/></head>
+<body class="editorial-mode shop-layout">
+<noscript>
+<nav class="nv-noscript-nav">
+<a class="nv-ns-home" href="/index.html">ANA SAYFA</a>
+<a href="/tr/hamam/index.html">HAMAM</a>
+<a href="/tr/masajlar/index.html">MASAJLAR</a>
+<a href="/tr/cilt-bakimi/index.html">CİLT BAKIMI</a>
+<a href="/tr/galeri/index.html">GALERİ</a>
+</nav>
+</noscript>
+<!-- NAVBAR -->
+<div id="navbar-container"></div>
+<main id="nv-main">
+<!-- CINEMATIC HERO (Video Background) -->
+<section class="cinematic-hero">
+<!-- VIDEO CONTAINER -->
+<div class="hero-video-container">
+<video autoplay="" class="hero-video" loop="" muted="" playsinline="" poster="/assets/img/hero/santis_hero_main_v2.webp">
+<!-- Placeholder Abstract Spa Video (Water/Flow) -->
+<source src="https://videos.pexels.com/video-files/5091624/5091624-hd_1920_1080_24fps.mp4" type="video/mp4"/>
+</video>
+<img alt="Santis Spa Atmosphere" class="hero-fallback-img" decoding="async" fetchpriority="high" height="1024" src="/assets/img/hero/santis_hero_main_v2.webp" width="1024"/>
+</div>
+<!-- ATMOSPHERE -->
+<div class="santis-grain-overlay"></div>
+<div class="hero-gradient-overlay"></div>
+<!-- CONTENT -->
+<div class="nv-container hero-content">
+<span class="nv-kicker slide-up-1">SOTHYS PARIS &amp; SANTIS HOME</span>
+<h1 class="hero-title slide-up-2">Ritüellerin <br/>Sanatı</h1>
+<div class="page-intro-seo"><p>Santis Club'un özenle seçilmiş ürün koleksiyonunu keşfedin. Ev spa deneyiminizi zenginleştirecek profesyonel bakım ürünleri, geleneksel hamam aksesuarları ve doğal güzellik ürünleri.</p></div>
+<p class="hero-subtitle slide-up-3">
 
-    <main id="nv-main">
+                    Zamanın yavaşladığı, bedenin ve ruhun yeniden doğduğu yer.
 
-        <!-- SHOP HERO -->
-        <section class="shop-hero">
-            <div class="nv-container">
-                <span class="nv-kicker">OFFICIAL PARTNER</span>
-                <h1 class="shop-title">Sothys Paris & Santis Home</h1>
-                <p class="shop-subtitle">
-                    Profesyonel enstitü bakımı ve eviniz için lüks spa ritüelleri.
                 </p>
-            </div>
-        </section>
+</div>
+<!-- SCROLL INDICATOR -->
+<div class="scroll-indicator">
+<span class="mouse-icon"></span>
+</div>
+</section>
+<!-- BENTO GRID SYSTEM -->
+<section class="nv-section">
+<div class="nv-container">
+<!-- FILTER TABS (Category Engine Auto-Populates this if needed, or we hardcode) -->
+<!-- Ideally, Category Engine will inject filters if configured, but for now we provide the container -->
+<!-- FILTER TABS (Category Engine Auto-Populates this) -->
+<div class="category-filters" id="nvChips"></div>
+<!-- THE GRID -->
+<!-- THE GRID (Universal Renderer) -->
+<div class="product-grid-v2 nv-product-grid" data-context="product"></div>
+</div>
+</section>
+<section class="related-services">
+<h2>İlgili Hizmetler</h2>
+<ul>
+<li><a href="/tr/masajlar/klasik-rahatlama.html">Klasik Rahatlama Masajı</a></li>
+<li><a href="/tr/masajlar/aromaterapi.html">Aromaterapi Masajı</a></li>
+<li><a href="/tr/masajlar/derin-doku.html">Derin Doku Masajı</a></li>
+</ul>
+</section>
+<section class="category-all-services">
+<h2>Tüm Hizmetlerimiz</h2>
+<ul class="service-link-list">
+<li><a href="/tr/urunler/detay.html">Detay</a></li>
+</ul>
+</section>
+<section class="seo-bottom-block">
+<p style="color:#aaa; max-width:500px; margin:10px auto">Santis Club online mağaza — Sothys Paris kozmetik, peştemal, doğal sabun, hamam seti, aroma yağları ve premium spa aksesuarları. Evde lüks spa deneyimi için ihtiyacınız olan her şey.</p>
+</section>
+</main>
+<!-- FOOTER -->
+<div id="footer-container"></div>
+<!-- CORE SCRIPTS -->
+<script src="../../assets/js/i18n-routes.js"></script>
+<script defer="" src="../../assets/js/hreflang-injector.js"></script>
+<script src="/assets/js/loader.js"></script>
+<script src="/assets/js/santis-nav.js"></script>
+<!-- THE TRINITY STACK -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+<!-- ENGINES -->
+<!-- ENGINES (V5.5 Data Bridge Stack) -->
+<script defer="" src="/assets/js/loaders/data-bridge.js?v=8.1"></script>
+<script defer="" src="/assets/js/home-products.js?v=8.1"></script>
+<script defer="" src="/assets/js/nuclear-cards.js?v=8.1"></script>
+<script defer="" src="/assets/js/card-effects.js?v=8.1"></script>
+<script defer="" src="/assets/js/app-core.js"></script>
+<script defer="" src="/assets/js/app.js"></script> <!-- Master App Logic -->
+<script defer="" src="/assets/js/pages/products-page-init.js"></script>
+<style>
 
-        <!-- SHOP LAYOUT -->
-        <div class="nv-container shop-container">
-            
-            <!-- SIDEBAR FILTERS -->
-            <aside class="shop-sidebar">
-                
-                <!-- Category Group: FACE -->
-                <div class="filter-group">
-                    <h3>Yüz Bakımı (Sothys)</h3>
-                    <ul class="filter-list" id="filter-face">
-                        <li><label><input type="checkbox" data-cat="face-all"> Tümü</label></li>
-                        <li><label><input type="checkbox" data-cat="face-youth"> Youth (Gençlik)</label></li>
-                        <li><label><input type="checkbox" data-cat="face-hydra"> Hydra3Ha™ (Nem)</label></li>
-                        <li><label><input type="checkbox" data-cat="face-detox"> Detox Energie™</label></li>
-                        <li><label><input type="checkbox" data-cat="face-eye"> Göz & Dudak</label></li>
-                        <li><label><input type="checkbox" data-cat="face-men"> Sothys Homme (Erkek)</label></li>
-                    </ul>
-                </div>
+        /* Cinematic Hero styles are loaded from assets/css/editorial.css */
 
-                <!-- Category Group: BODY & SUN -->
-                <div class="filter-group">
-                    <h3>Vücut & Güneş</h3>
-                    <ul class="filter-list" id="filter-body">
-                        <li><label><input type="checkbox" data-cat="body-care"> Vücut Ritüelleri</label></li>
-                        <li><label><input type="checkbox" data-cat="body-slim"> Slimming (İnceltme)</label></li>
-                        <li><label><input type="checkbox" data-cat="sun-care"> Güneş & Bronzluk</label></li>
-                        <li><label><input type="checkbox" data-cat="organics"> Sothys Organics®</label></li>
-                    </ul>
-                </div>
+        /* Ensure Bento Grid has top margin if filters are hidden */
 
-                <!-- Category Group: HOME -->
-                <div class="filter-group">
-                    <h3>Santis Home</h3>
-                    <ul class="filter-list" id="filter-home">
-                        <li><label><input type="checkbox" data-cat="home-textile"> Bornoz & Havlu</label></li>
-                        <li><label><input type="checkbox" data-cat="home-aroma"> Aromaterapi</label></li>
-                        <li><label><input type="checkbox" data-cat="home-gift"> Hediye Kartları</label></li>
-                    </ul>
-                </div>
+        #bento-grid {
 
-            </aside>
-
-            <!-- PRODUCT GRID AREA -->
-            <div class="shop-content">
-                
-                <!-- TOOLBAR -->
-                <div class="shop-toolbar">
-                    <button class="filter-toggle" id="filter-toggle">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
-                        Filtreler
-                    </button>
-                    <span class="result-count" id="result-count">Tüm Koleksiyon Gösteriliyor</span>
-                    <div class="sort-dropdown">
-                        <select id="sort-select">
-                            <option value="rec">Sıralama: Önerilen</option>
-                            <option value="new">En Yeniler</option>
-                            <option value="name">İsim (A-Z)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- GRID -->
-                <div class="product-grid-v2" id="product-grid">
-                    <!-- Products will be injected via JS -->
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- QUICK VIEW MODAL HTML -->
-    <div id="qv-overlay" class="qv-overlay">
-        <div class="qv-modal">
-            <button class="qv-close" id="qv-close">&times;</button>
-            <div class="qv-content">
-                <div class="qv-image">
-                    <img id="qv-img" src="" alt="">
-                    <span id="qv-badge" class="badge"></span>
-                </div>
-                <div class="qv-details">
-                    <span class="prod-cat" id="qv-cat">CATEGORY</span>
-                    <h2 id="qv-title">Product Title</h2>
-                    <p class="qv-desc" id="qv-desc">Description goes here...</p>
-                    
-                    <div class="qv-meta">
-                        <div class="qv-benefit">
-                            <strong>Fayda:</strong> <span id="qv-benefit">Cildi derinlemesine nemlendirir.</span>
-                        </div>
-                        <div class="qv-use">
-                            <strong>Kullanım:</strong> <span id="qv-use">Sabah ve akşam temiz cilde uygulayın.</span>
-                        </div>
-                    </div>
-
-                    <div class="prod-bottom">
-                        <span class="prod-price" id="qv-price">Bilgi Al</span>
-                         <a id="qv-btn" href="#" target="_blank" class="nv-btn nv-btn-primary">WhatsApp Sipariş</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
-    <div id="footer-container"></div>
-
-
-
-    <style>
-        /* INHERITING SKELETON FROM PREVIOUS, ADDING SPECIFICS */
-        .shop-hero {
-            padding-top: 160px;
-            padding-bottom: 60px;
-            text-align: center;
-            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.2));
-        }
-
-        .shop-title {
-            font-size: 48px;
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 10px;
-        }
-
-        .shop-subtitle {
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .shop-container {
-            display: grid;
-            grid-template-columns: 240px 1fr; /* Sidebar width */
-            gap: 40px;
-            padding-bottom: 100px;
-            position: relative;
-        }
-
-        .filter-toggle { display: none; } /* Hidden on desktop */
-
-        @media(max-width: 900px) {
-            .shop-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .shop-sidebar {
-                display: block; /* Force block but hidden via transform */
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.95);
-                backdrop-filter: blur(10px);
-                z-index: 10000;
-                padding: 80px 30px;
-                overflow-y: auto;
-                transform: translateX(-100%);
-                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-            
-            .shop-sidebar.active {
-                transform: translateX(0);
-            }
-
-            .filter-toggle {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                background: transparent;
-                border: 1px solid rgba(255,255,255,0.2);
-                color: #fff;
-                padding: 8px 16px;
-                border-radius: 4px;
-                font-size: 13px;
-                cursor: pointer;
-            }
-        }
-
-        /* SIDEBAR STYLES */
-        .shop-sidebar h3 {
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--gold);
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 8px;
-        }
-
-        .filter-group {
-            margin-bottom: 30px;
-        }
-
-        .filter-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .filter-list li {
-            margin-bottom: 10px;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-        
-        .filter-list label {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            transition: color 0.2s;
-        }
-
-        .filter-list label:hover {
-            color: #fff;
-        }
-
-        .filter-list input {
-            margin-right: 10px;
-            accent-color: var(--gold);
-        }
-
-        /* QUICK VIEW MODAL CSS */
-        .qv-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(8px);
-            z-index: 10001;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            padding: 20px;
-        }
-
-        .qv-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .qv-modal {
-            background: #1a1a1a;
-            width: 100%;
-            max-width: 900px;
-            height: auto;
-            max-height: 90vh;
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .qv-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 10;
-        }
-
-        .qv-content {
-            display: flex;
-            width: 100%;
-        }
-
-        .qv-image {
-            width: 50%;
-            position: relative;
-            background: #000;
-        }
-
-        .qv-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.9;
-        }
-
-        .qv-details {
-            width: 50%;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .qv-details h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .qv-meta {
-            margin: 20px 0;
-            font-size: 14px;
-            color: #ccc;
-            line-height: 1.6;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding: 15px 0;
-        }
-        
-        .qv-meta div { margin-bottom: 8px; }
-        .qv-meta strong { color: var(--gold); }
-
-        .qv-desc {
-            color: #aaa;
-            line-height: 1.6;
-        }
-
-        .qv-btn {
-            display: inline-block;
             margin-top: 20px;
-        }
-        
-        @media(max-width: 768px) {
-            .qv-content { flex-direction: column; }
-            .qv-image { width: 100%; height: 250px; }
-            .qv-details { width: 100%; padding: 20px; }
-            .qv-details h2 { font-size: 24px; }
-            .qv-modal { overflow-y: auto; }
-        }
 
-        /* GRID AND CARDS */
-        .product-grid-v2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 25px;
-        }
+            min-height: 600px; /* Prevent collapse during load */
 
-        .prod-card-v2 {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
-            overflow: hidden;
-            transition: all 0.3s;
         }
-
-        .prod-card-v2:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .prod-img-box {
-            position: relative;
-            height: 280px;
-            overflow: hidden;
-            background: #111;
-        }
-
-        .prod-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-            opacity: 0.9;
-        }
-
-        .prod-card-v2:hover .prod-img-box img {
-            transform: scale(1.05);
-            opacity: 1;
-        }
-
-        .badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 3px 8px;
-            font-size: 9px;
-            font-weight: bold;
-            color: #000;
-            z-index: 2;
-            text-transform: uppercase;
-        }
-        .badge.new { background: #fff; }
-        .badge.best { background: var(--gold); }
-        .badge.start { background: #000; color:var(--gold); border:1px solid var(--gold); }
-
-        .quick-actions {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 10px;
-            background: rgba(0,0,0,0.8);
-            transform: translateY(100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: center;
-        }
-
-        .prod-card-v2:hover .quick-actions {
-            transform: translateY(0);
-        }
-
-        .qa-btn {
-            background: transparent;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 6px 12px;
-            font-size: 11px;
-            text-transform: uppercase;
-            cursor: pointer;
-            width: 100%;
-        }
-        .qa-btn:hover { border-color: #fff; }
-
-        .prod-details {
-            padding: 15px;
-        }
-
-        .prod-cat {
-            font-size: 10px;
-            text-transform: uppercase;
-            color: var(--gold);
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .prod-details h4 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 18px;
-            color: #eee;
-            margin-bottom: 6px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .prod-desc {
-            font-size: 13px;
-            color: #888;
-            line-height: 1.4;
-            height: 38px;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            margin-bottom: 12px;
-        }
-
-        .prod-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 10px;
-        }
-
-        .prod-price {
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 500;
-            color: #aaa;
-        }
-
-        .prod-btn {
-            color: #fff;
-            text-decoration: none;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .prod-btn:hover {
-            color: var(--gold);
-        }
-
-        .shop-toolbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            font-size: 13px;
-            color: #666;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 15px;
-        }
-
-        select {
-            background: transparent;
-            color: #ccc;
-            border: none;
-            outline: none;
-            cursor: pointer;
-        }
-        select option { background: #111; }
 
     </style>
 </body>

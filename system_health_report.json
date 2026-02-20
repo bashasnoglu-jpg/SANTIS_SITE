@@ -1,0 +1,27 @@
+{
+  "audit": {
+    "scanned": 137,
+    "assets": 1876,
+    "errors": [
+      {
+        "file": "admin\\audit-button.html",
+        "issue": "Missing <title> tag",
+        "level": "warning"
+      },
+      {
+        "file": "santis-audit\\admin\\audit-button.html",
+        "issue": "Missing <title> tag",
+        "level": "warning"
+      }
+    ]
+  },
+  "ghosts": {
+    "scanned": 137,
+    "issues": [],
+    "fixed": 0
+  },
+  "utf8": {
+    "scanned": 137,
+    "issues": []
+  }
+}

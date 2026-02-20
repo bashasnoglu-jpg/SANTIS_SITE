@@ -1,0 +1,5 @@
+404 DETECTED:
+  URL: ../../assets/js/santis-booking.js
+  Clean: ../../assets/js/santis-booking.js
+  Context: /tr/masajlar/index.html
+  Tried: ['C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\../../assets/js/santis-booking.js', 'C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\/tr/masajlar\\../../assets/js/santis-booking.js']

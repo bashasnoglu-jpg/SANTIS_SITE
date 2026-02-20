@@ -1,0 +1,43 @@
+--- SETUP TEST DATA FOR PHASE C ---
+C:\Users\tourg\Desktop\SANTIS_SITE\tools\verify_phase_c.py:142: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  start_time=datetime.utcnow(),
+C:\Users\tourg\Desktop\SANTIS_SITE\tools\verify_phase_c.py:143: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  end_time=datetime.utcnow() + timedelta(minutes=60),
+C:\Users\tourg\Desktop\SANTIS_SITE\tools\verify_phase_c.py:167: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  start_time=datetime.utcnow(),
+C:\Users\tourg\Desktop\SANTIS_SITE\tools\verify_phase_c.py:168: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  end_time=datetime.utcnow() + timedelta(minutes=60),
+--- DATA CREATED ---
+--- Session Closed, Starting API Tests ---
+
+--- 1. USERS LIST SCOPING ---
+TEST: Manager T1 View (ID Check)
+   Response: 200 - [{"id":"b2dcab16-72a5-4fb0-8223-6c754d7ef2ab","email":"super_phase_c_test@santis.com","is_active":true,"is_superuser":true,"role":"OWNER","tenant_id":"bd373e2f-045b-4d4d-bcca-54a952ab72f5","created_at
+✅ PASS: IDs match exactly
+TEST: Manager T2 View (ID Check)
+   Response: 200 - [{"id":"a0bacc1a-2b47-4ae4-a02b-4e881905ad94","email":"manager_t2_phase_c_test@santis.com","is_active":true,"is_superuser":false,"role":"MANAGER","tenant_id":"c2a26d0d-51ed-49b4-b988-f15beaf16fcc","cr
+✅ PASS: IDs match exactly
+TEST: Superuser View (Bypass) (ID Check)
+   Response: 200 - [{"id":"7c93d62c-5b55-46cf-9d44-9d04a3eb6d9d","email":"admin@santis.com","is_active":true,"is_superuser":true,"role":"OWNER","tenant_id":"29464513-30b9-4a0e-b6e1-04e610cb3b67","created_at":"2026-02-19
+⚠️ PASS (Loose): All expected found, but extras present: {'a1072eda-76a3-4a0a-a79c-aab1393b75de', '7c93d62c-5b55-46cf-9d44-9d04a3eb6d9d', 'f40ae551-27a8-49cc-9510-e988b6bb4816', '86df6576-a2a8-4b57-bdcc-388944f85caf', '45153787-a23c-4200-922a-d5bc4e13bd32', 'dc085d94-dc6a-473e-b7ed-b1dc3f412241'} (Might be other test data)
+
+--- 2. BOOKINGS LIST SCOPING ---
+TEST: Manager T1 Bookings (ID Check)
+C:\Users\tourg\Desktop\SANTIS_SITE\tools\verify_phase_c.py:224: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "start_date": (datetime.utcnow() - timedelta(days=1)).isoformat(),
+C:\Users\tourg\Desktop\SANTIS_SITE\tools\verify_phase_c.py:225: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "end_date": (datetime.utcnow() + timedelta(days=1)).isoformat()
+   Response: 200 - [{"service_id":"9c4301ae-53a2-4f41-8571-2124cd481aa9","staff_id":null,"room_id":null,"start_time":"2026-02-20T06:34:41.363788","customer_name":null,"customer_phone":null,"customer_id":null,"id":"e0250
+✅ PASS: IDs match exactly
+TEST: Manager T2 Bookings (ID Check)
+   Response: 200 - [{"service_id":"2ffb9b9c-0a26-4e9e-b1bc-f79139e69605","staff_id":null,"room_id":null,"start_time":"2026-02-20T06:34:41.363898","customer_name":null,"customer_phone":null,"customer_id":null,"id":"3abce
+✅ PASS: IDs match exactly
+
+--- 3. SOFT DELETE FILTERING ---
+Soft deleted Manager T2
+TEST: Superuser View after Soft Delete
+   Response: 200 - [{"id":"7c93d62c-5b55-46cf-9d44-9d04a3eb6d9d","email":"admin@santis.com","is_active":true,"is_superuser":true,"role":"OWNER","tenant_id":"29464513-30b9-4a0e-b6e1-04e610cb3b67","created_at":"2026-02-19
+❌ FAIL Superuser View after Soft Delete: Got 10 (Expected 4)
+   IDs returned: ['7c93d62c-5b55-46cf-9d44-9d04a3eb6d9d', '86df6576-a2a8-4b57-bdcc-388944f85caf', '45153787-a23c-4200-922a-d5bc4e13bd32', 'dc085d94-dc6a-473e-b7ed-b1dc3f412241', 'a1072eda-76a3-4a0a-a79c-aab1393b75de', 'f40ae551-27a8-49cc-9510-e988b6bb4816', 'b2dcab16-72a5-4fb0-8223-6c754d7ef2ab', '904ae19b-bbac-487b-8ce8-4137e6f9ca3a', 'e2b18f8f-ec51-4f51-ae3d-5b8ec6725296', 'e281e4f1-e2d8-4d94-adc1-6b2ffa43e1a8']
+
+--- PHASE C VERIFICATION COMPLETE ---

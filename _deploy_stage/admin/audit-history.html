@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<title>Santis • Site Sağlık Trendleri</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    body { font-family: Arial, sans-serif; background:#0f172a; color:white; padding:30px; }
+    .card { background:#1e293b; padding:20px; border-radius:12px; margin-bottom:20px; box-shadow:0 10px 30px rgba(0,0,0,0.2);}
+    h1 { margin-bottom:20px;}
+    canvas { background:white; border-radius:10px; padding:10px; }
+    .meta { color:#a5b4fc; font-size:13px; margin-bottom:10px; }
+  </style>
+<meta content="Santis • Site Sağlık Trendleri - Professional Spa &amp; Wellness services. audit-history details." name="description"/><link href="https://santis-club.com/admin/audit-history.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Audit History", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script></head>
+<body>
+<h1>📊 Site Sağlık Trendleri</h1>
+<div class="meta" id="metaText">Veri yükleniyor...</div>
+<div id="alertBox" style="
+  display:none;
+  background:#7f1d1d;
+  color:white;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+  font-weight:bold;">
+🚨 UYARI: Kırık link sayısında ani artış tespit edildi!
+</div>
+<div class="card">
+<h3>Kırık &amp; Yavaş URL</h3>
+<canvas id="brokenChart"></canvas>
+</div>
+<div class="card">
+<h3>Ortalama Yanıt Süresi (ms)</h3>
+<canvas id="speedChart"></canvas>
+</div>
+<div class="card">
+<h3>Taranan URL Kapsamı</h3>
+<canvas id="coverageChart"></canvas>
+</div>
+<script>
+async function loadHistory() {
+  const meta = document.getElementById("metaText");
+  const alertBox = document.getElementById("alertBox");
+  try {
+    const res = await fetch("/api/audit-history");
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const resp = await res.json();
+    const data = resp.data || resp || [];
+    const alert = resp.alert || false;
+
+    if (!data.length) {
+      meta.textContent = "Kayıt yok. Önce tarama çalıştırın.";
+      return;
+    }
+    if (alert) alertBox.style.display = "block";
+
+    const labels = data.map(d => d.date || d.ts || "");
+    const broken = data.map(d => d.broken_count ?? d.broken ?? 0);
+    const speed = data.map(d => d.avg_response_time ?? d.avg_ms ?? 0);
+    const total = data.map(d => d.total_urls ?? d.checked ?? 0);
+    const score = data.map(d => d.health_score ?? null);
+
+    new Chart(document.getElementById("brokenChart"), {
+      type: "line",
+      data: { labels, datasets: [{ label: "Broken URL", data: broken, borderColor:"#ef4444", tension:0.3 }] }
+    });
+
+    new Chart(document.getElementById("speedChart"), {
+      type: "line",
+      data: { labels, datasets: [{ label: "Ortalama Yanıt Süresi (ms)", data: speed, borderColor:"#22c55e", tension:0.3 }] }
+    });
+
+    new Chart(document.getElementById("coverageChart"), {
+      type: "line",
+      data: { labels, datasets: [{ label: "Taranan Toplam URL", data: total, borderColor:"#3b82f6", tension:0.3 }] }
+    });
+
+    meta.textContent = `Toplam ${data.length} kayıt | Son run broken: ${broken.at(-1) || 0}`;
+    if (score.at(-1) != null) meta.textContent += ` | Sağlık Skoru: ${score.at(-1)}`;
+  } catch (e) {
+    meta.textContent = "Veri yüklenemedi: " + e.message;
+    alertBox.style.display = "none";
+  }
+}
+loadHistory();
+</script>
+</body>
+</html>

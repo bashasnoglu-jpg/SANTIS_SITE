@@ -1,0 +1,22 @@
+﻿<button class="btn btn-primary" id="run-audit">Siteyi Tara</button>
+<span id="auditStatus" style="margin-left:10px;"></span>
+<script>
+document.getElementById('run-audit').addEventListener('click', async () => {
+    const status = document.getElementById('auditStatus');
+    status.textContent = 'Tarama baslatiliyor...';
+
+    try {
+        const response = await fetch('/admin/run-audit', { method: 'POST' });
+        const data = await response.json();
+        if (data && data.report) {
+            status.textContent = 'Tamamlandi. Rapor indiriliyor...';
+            window.location.href = '/admin/download-report';
+        } else {
+            status.textContent = 'Hata: ' + (data && data.detail ? data.detail : 'Bilinmeyen');
+        }
+    } catch (err) {
+        status.textContent = 'Hata: ' + err;
+    }
+});
+</script>
+

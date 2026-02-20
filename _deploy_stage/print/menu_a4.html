@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Santis Club - A4 Menu</title>
+    
+    <!-- CORE STYLES -->
+    <link rel="stylesheet" href="../assets/css/style.css"> 
+    <!-- PRINT SPECIFIC -->
+    <link rel="stylesheet" href="../assets/css/print.css">
+
+    <!-- QR LIB (Simple CDN or local fallback) -->
+    <!-- using a lightweight qr gen script if available, or just placeholder for now -->
+    
+    <style>
+        /* INLINE OVERRIDES FOR PREVIEW */
+        body {
+            background: #e0e0e0; /* Gray background for preview to see paper */
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- A4 PAPER SHEET -->
+    <div class="page a4">
+        
+        <!-- HEADER -->
+        <header class="print-header">
+            <img src="../assets/img/logo.png" alt="Santis Club" class="print-logo">
+            <div class="print-meta">
+                <h1>MENU & RITUALS</h1>
+                <p class="season-tag">2026 COLLECTION</p>
+            </div>
+        </header>
+
+        <!-- CONTENT GRID -->
+        <div id="print-content" class="print-grid">
+            <!-- Content Injected by JS -->
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="print-footer">
+            <div class="contact-info">
+                <span>santis.club</span>
+                <span>•</span>
+                <span>+90 +90 +90 +90 +90 532 000 00 00</span>
+            </div>
+            <div class="qr-area">
+                <span>Scan for Digital Experience</span>
+                <div id="master-qr"></div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- LOGIC -->
+    <script src="../assets/js/print/menu-renderer.js"></script>
+
+</body>
+</html>

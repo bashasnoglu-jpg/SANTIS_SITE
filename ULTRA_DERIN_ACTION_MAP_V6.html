@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI-CORE: Ultra Derin Admin Panel Action Map (V6.0)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0b0c10; color: #c5c6c7; }
+        .santis-card { background: #1f2833; border: 1px solid #45a29e; border-radius: 12px; }
+        .santis-btn { background: #66fcf1; color: #0b0c10; font-weight: 600; padding: 0.5rem 1rem; border-radius: 6px; transition: all 0.3s; }
+        .santis-btn:hover { background: #45a29e; box-shadow: 0 0 15px rgba(102, 252, 241, 0.4); }
+        .glow-text { color: #66fcf1; text-shadow: 0 0 10px rgba(102, 252, 241, 0.3); }
+        .feature-row { display: grid; grid-template-columns: 1fr 2fr 1.5fr 1fr; gap: 1rem; align-items: start; padding: 1rem; border-bottom: 1px solid rgba(69, 162, 158, 0.2); }
+        .badge { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+        .badge-live { background: rgba(102, 252, 241, 0.1); color: #66fcf1; border: 1px solid #66fcf1; }
+        .badge-auto { background: rgba(255, 179, 71, 0.1); color: #ffb347; border: 1px solid #ffb347; }
+        .badge-kpi { background: rgba(197, 198, 199, 0.1); color: #c5c6c7; border: 1px solid #c5c6c7; }
+    </style>
+</head>
+<body class="p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl font-bold text-white mb-2 tracking-tight">OMNI-CORE <span class="glow-text">GOD MODE</span> ACTION MAP</h1>
+            <p class="text-lg opacity-80">Santis Club V6.0 - Veri Noktaları, Yapay Zeka Otomasyonları ve KPI Etkileşim Matrisi</p>
+        </header>
+
+        <!-- Stratejik Kontrol Paneli -->
+        <div class="santis-card p-6 mb-8 shadow-[0_0_20px_rgba(69,162,158,0.1)]">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold glow-text">⚡ Core Modules & Interactivity</h2>
+                <button class="santis-btn">Deploy Omniscience (V6.0)</button>
+            </div>
+            
+            <div class="bg-[#0b0c10] rounded-lg border border-[#45a29e]/30 overflow-hidden">
+                <!-- Header -->
+                <div class="feature-row bg-[rgba(102,252,241,0.05)] font-bold text-[#66fcf1]">
+                    <div>UI Bileşeni (Düğme / Veri)</div>
+                    <div>AI Otomasyonu (Arka Plan Olayı)</div>
+                    <div>KPI (Etki Alanı)</div>
+                    <div>Durum</div>
+                </div>
+
+                <!-- Modül 1 -->
+                <div class="feature-row hover:bg-white/5 transition-colors">
+                    <div>
+                        <span class="block text-white font-semibold">"Sistem Analizi" Butonu</span>
+                        <span class="text-xs opacity-70">Görsel UI: System Pulse Grafiği</span>
+                    </div>
+                    <div>
+                        <strong class="text-white block text-sm">Sentinel Self-Healing (Aktif)</strong>
+                        <p class="text-sm opacity-80 mt-1">404 hatalarını, Canonical/Hreflang uyuşmazlıklarını ve yetim sayfaları izler. Tespit ederse otomatik `seo_fixer.py` çalıştırır.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="badge badge-kpi">Sıfır Index Kaybı</span>
+                        <span class="badge badge-kpi">%100 SEO Skoru</span>
+                    </div>
+                    <div><span class="badge badge-live">Otonom Tetik</span></div>
+                </div>
+
+                <!-- Modül 2 -->
+                <div class="feature-row hover:bg-white/5 transition-colors">
+                    <div>
+                        <span class="block text-white font-semibold">"Müşteri Segmentasyonu" Paneli</span>
+                        <span class="text-xs opacity-70">Görsel UI: Risk Sinyali / Heatmap</span>
+                    </div>
+                    <div>
+                        <strong class="text-[#ffb347] block text-sm">Predictive Churn Management</strong>
+                        <p class="text-sm opacity-80 mt-1">Ziyaret sıklığı düşeni tespit eder. "3 Churn Riski Var" uyarısı verir. Admin onaylarsa kişiye özel SMS/E-mail kampanyası FastApi üzerinden ateşlenir.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="badge badge-kpi">Müşteri Sadakati (LTV)</span>
+                        <span class="badge badge-kpi">Ciro Koruma</span>
+                    </div>
+                    <div><span class="badge badge-auto">AI Destekli Onay</span></div>
+                </div>
+
+                <!-- Modül 3 -->
+                <div class="feature-row hover:bg-white/5 transition-colors">
+                    <div>
+                        <span class="block text-white font-semibold">"Atmosfer Modu: Sunset" Togglı</span>
+                        <span class="text-xs opacity-70">Görsel UI: Sensör Kontrol Kadranları</span>
+                    </div>
+                    <div>
+                        <strong class="text-[#c5c6c7] block text-sm">Brand Aura & IoT Sekronizasyonu</strong>
+                        <p class="text-sm opacity-80 mt-1">Odadaki termal sıcaklığı, nemi, RBG spektrumunu ve arka plan müziğini `oracle.status` üzerinden ayarlar. Lüks hissini sabitler.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="badge badge-kpi">Brand Perception (98+)</span>
+                        <span class="badge badge-kpi">Quiet Luxury Standardı</span>
+                    </div>
+                    <div><span class="badge badge-live">Donanım Entegre</span></div>
+                </div>
+
+                <!-- Modül 4 -->
+                <div class="feature-row hover:bg-white/5 transition-colors">
+                    <div>
+                        <span class="block text-white font-semibold">"Randevu / Booking" Takvimi</span>
+                        <span class="text-xs opacity-70">Görsel UI: Drag & Drop Çizelge</span>
+                    </div>
+                    <div>
+                        <strong class="text-[#ffb347] block text-sm">SAEE (Sentient Empati Motoru)</strong>
+                        <p class="text-sm opacity-80 mt-1">Gelen misafirin geçmiş terapisini analiz eder. NLP ile chatbota(WhatsApp) en uygun saati/terapiyi sunar. Takvime otomatik ekler ve boş saat için Dinamik Fiyat önerir.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="badge badge-kpi">Dinamik Ciro (Yield)</span>
+                        <span class="badge badge-kpi">Personel Verimliliği</span>
+                    </div>
+                    <div><span class="badge badge-auto">Otonom Öneri (RAG)</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <p class="text-sm text-[#45a29e] opacity-70">Tasarlanan mimari, "Santis Club Omni-Intelligence" felsefesiyle V6.0 için kodlanmıştır.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

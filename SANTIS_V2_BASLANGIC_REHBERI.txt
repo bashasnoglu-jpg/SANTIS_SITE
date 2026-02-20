@@ -1,0 +1,92 @@
+================================================================
+
+SANTIS NEURAL BRIDGE (V2.1) - BAŞLANGIÇ REHBERİ
+
+================================================================
+
+
+
+Santis Club web sitesinin yeni "Yapay Zeka" ve "Canlı Bağlantı" özelliklerini
+
+kullanabilmek için bu yeni sunucu sistemini (Neural Bridge) başlatmanız gerekir.
+
+
+
+ADIM 1: DOSYAYI BULUN
+
+---------------------
+
+Masaüstündeki "SANTIS_SITE" klasörünüzün içine bakın.
+
+Burada şu isimde bir dosya göreceksiniz:
+
+👉 BASLAT_NEURAL.bat
+
+
+
+ADIM 2: ÇİFT TIKLAYIN
+
+---------------------
+
+Bu dosyaya (BASLAT_NEURAL.bat) farenizle ÇİFT TIKLAYIN.
+
+
+
+ADIM 3: SİYAH PENCEREYİ İZLEYİN
+
+-------------------------------
+
+Karşınıza siyah bir pencere (Terminal) açılacak ve sırasıyla şunları yapacak:
+
+1. "Temizlik Yapılıyor..." -> Eski sunucuları kapatır.
+
+2. "Bağımlılıklar Kontrol Ediliyor..." -> Gerekli dosyaları kontrol eder.
+
+3. "Neural Bridge Başlatılıyor..." -> Ve sunucuyu açar.
+
+
+
+En sonda yeşil veya beyaz harflerle şu yazıyı görmelisiniz:
+
+"⚡ Santis Neural Bridge (FastAPI) Starting on Port 8000..."
+
+
+
+ADIM 4: PENCEREYİ KAPATMAYIN!
+
+-----------------------------
+
+Bu siyah pencere, sunucunun kendisidir.
+
+❌ Eğer bu pencereyi kapatırsanız:
+
+   - Site "Black Screen" (Siyah Ekran) olur.
+
+   - Admin paneli çalışmaz.
+
+   - Yapay Zeka (Santis Yazar) cevap vermez.
+
+
+
+✅ Doğrusu:
+
+Pencereyi kapatmak yerine sağ üstteki çizgiye (-) basarak SİMGE DURUMUNA KÜÇÜLTÜN.
+
+Aşağıda, görev çubuğunda çalışmaya devam etsin.
+
+
+
+ADIM 5: KULLANIMA BAŞLAYIN
+
+--------------------------
+
+Şimdi tarayıcınızdan Admin paneline veya siteye girebilirsiniz.
+
+Admin Panel: http://localhost:8000/admin/index.html
+
+
+
+HEPSİ BU KADAR!
+
+İyi çalışmalar.
+

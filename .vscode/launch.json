@@ -2,6 +2,19 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "👑 Santis: Admin Panel (Live)",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://127.0.0.1:5500/admin/panel.html",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "👑 Santis: Admin Panel (File)",
+            "type": "chrome",
+            "request": "launch",
+            "file": "${workspaceFolder}/admin/panel.html"
+        },
+        {
             "name": "📌 Santis: Launch Index (File)",
             "type": "chrome",
             "request": "launch",

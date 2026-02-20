@@ -1,0 +1,34 @@
+[
+  {
+    "id": "LOC_ALBA_RESORT__OLAKLI",
+    "slug": "alba-resort",
+    "name": "Alba Resort Hotel",
+    "tier": "luxury",
+    "currency": "EUR",
+    "isActive": true
+  },
+  {
+    "id": "LOC_ALBA_QUEEN__OLAKLI",
+    "slug": "alba-queen",
+    "name": "Alba Queen Hotel",
+    "tier": "luxury",
+    "currency": "EUR",
+    "isActive": true
+  },
+  {
+    "id": "LOC_ALBA_ROYAL__OLAKLI",
+    "slug": "alba-royal",
+    "name": "Alba Royal Hotel",
+    "tier": "luxury",
+    "currency": "EUR",
+    "isActive": true
+  },
+  {
+    "id": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "slug": "iberostar-bellevue",
+    "name": "Iberostar Waves Bellevue",
+    "tier": "luxury",
+    "currency": "EUR",
+    "isActive": true
+  }
+]

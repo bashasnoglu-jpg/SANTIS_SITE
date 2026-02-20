@@ -1,0 +1,16 @@
+C:\Users\tourg\Desktop\SANTIS_SITE\assets\img\cards\Santis-face-mask-4x5-1080x1350.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\assets\img\cards\Santis-head-massage-4x5-1080x1350.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\assets\img\cards\Santis-head-massage-hero-16x9.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\assets\img\cards\Santis-oil-bowl-4x5-1080x1350.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\assets\img\cards\Santis-spa-rest-graded-clean.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\assets\img\gallery\http127.0.0.15500Santis_SITEassetsgalerifamilyNV_FAMILY_HERO_01.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\assets\img\gallery\Santis-face-mask-4x5-1080x1350.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\assets\img\gallery\Santis_cellulite_yatay_3x2_quietlux.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\_build\deploy\assets\img\cards\Santis-face-mask-4x5-1080x1350.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\_build\deploy\assets\img\cards\Santis-head-massage-4x5-1080x1350.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\_build\deploy\assets\img\cards\Santis-head-massage-hero-16x9.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\_build\deploy\assets\img\cards\Santis-oil-bowl-4x5-1080x1350.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\_build\deploy\assets\img\cards\Santis-spa-rest-graded-clean.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\_build\deploy\assets\img\gallery\http127.0.0.15500Santis_SITEassetsgalerifamilyNV_FAMILY_HERO_01.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\_build\deploy\assets\img\gallery\Santis-face-mask-4x5-1080x1350.webp
+C:\Users\tourg\Desktop\SANTIS_SITE\_build\deploy\assets\img\gallery\Santis_cellulite_yatay_3x2_quietlux.webp

@@ -1,28 +1,38 @@
-# Dependencies
+
+# Node
 node_modules/
-package-lock.json
+dist/
+build/
+coverage/
 
-# Editor / IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Logs and Debug
+# Logs
 logs/
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Backups and temporary files
-backup/
-*.bak
-*.tmp
-_legacy/
-tmp/
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# OS specific
+# OS
 .DS_Store
 Thumbs.db
 
-# Private / Secrets (Just in case)
-.env
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Prisma
+/apps/api/prisma/*.db
+/apps/api/prisma/*.db-journal
+
+
+assets/video/Video Project 2.mp4

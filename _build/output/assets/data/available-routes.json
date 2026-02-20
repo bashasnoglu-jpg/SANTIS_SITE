@@ -1,0 +1,675 @@
+{
+  "bilgelik/index.html": {
+    "de": "wisdom/index.html",
+    "en": "wisdom/index.html",
+    "fr": "wisdom/index.html",
+    "ru": "wisdom/index.html",
+    "tr": "bilgelik/index.html"
+  },
+  "blog/index.html": {
+    "de": "blog/index.html",
+    "en": "blog/index.html",
+    "fr": "blog/index.html",
+    "ru": "blog/index.html",
+    "tr": "blog/index.html"
+  },
+  "code-of-silence.html": {
+    "de": "code-of-silence.html",
+    "en": "code-of-silence.html",
+    "fr": "code-of-silence.html",
+    "ru": "code-of-silence.html",
+    "tr": "code-of-silence.html"
+  },
+  "dunya-ritueli.html": {
+    "tr": "dunya-ritueli.html"
+  },
+  "ekibimiz/index.html": {
+    "en": "our-team/index.html",
+    "tr": "ekibimiz/index.html"
+  },
+  "galeri/index.html": {
+    "de": "gallery/index.html",
+    "en": "gallery/index.html",
+    "fr": "gallery/index.html",
+    "ru": "gallery/index.html",
+    "tr": "galeri/index.html"
+  },
+  "hakkimizda/index.html": {
+    "de": "about/index.html",
+    "en": "about/index.html",
+    "fr": "about/index.html",
+    "ru": "about/index.html",
+    "tr": "hakkimizda/index.html"
+  },
+  "hamam/cikolata-bakimi.html": {
+    "de": "hammam/cikolata-bakimi.html",
+    "en": "hammam/cikolata-bakimi.html",
+    "fr": "hammam/cikolata-bakimi.html",
+    "ru": "hammam/cikolata-bakimi.html",
+    "tr": "hamam/cikolata-bakimi.html"
+  },
+  "hamam/gelin-hamami.html": {
+    "de": "hammam/gelin-hamami.html",
+    "en": "hammam/gelin-hamami.html",
+    "fr": "hammam/gelin-hamami.html",
+    "ru": "hammam/gelin-hamami.html",
+    "tr": "hamam/gelin-hamami.html"
+  },
+  "hamam/index.html": {
+    "de": "hammam/index.html",
+    "en": "hammam/index.html",
+    "fr": "hammam/index.html",
+    "ru": "hammam/index.html",
+    "tr": "hamam/index.html"
+  },
+  "hamam/kahve-detox.html": {
+    "de": "hammam/kahve-detox.html",
+    "en": "hammam/kahve-detox.html",
+    "fr": "hammam/kahve-detox.html",
+    "ru": "hammam/kahve-detox.html",
+    "tr": "hamam/kahve-detox.html"
+  },
+  "hamam/kese-kopuk.html": {
+    "de": "hammam/kese-kopuk.html",
+    "en": "hammam/kese-kopuk.html",
+    "fr": "hammam/kese-kopuk.html",
+    "ru": "hammam/kese-kopuk.html",
+    "tr": "hamam/kese-kopuk.html"
+  },
+  "hamam/kopuk-masaji.html": {
+    "de": "hammam/kopuk-masaji.html",
+    "en": "hammam/kopuk-masaji.html",
+    "fr": "hammam/kopuk-masaji.html",
+    "ru": "hammam/kopuk-masaji.html",
+    "tr": "hamam/kopuk-masaji.html"
+  },
+  "hamam/osmanli-ritueli.html": {
+    "de": "hammam/osmanli-ritueli.html",
+    "en": "hammam/osmanli-ritueli.html",
+    "fr": "hammam/osmanli-ritueli.html",
+    "ru": "hammam/osmanli-ritueli.html",
+    "tr": "hamam/osmanli-ritueli.html"
+  },
+  "hamam/santis-pasa.html": {
+    "de": "hammam/santis-pasa.html",
+    "en": "hammam/santis-pasa.html",
+    "fr": "hammam/santis-pasa.html",
+    "ru": "hammam/santis-pasa.html",
+    "tr": "hamam/santis-pasa.html"
+  },
+  "hamam/tuz-peeling.html": {
+    "de": "hammam/tuz-peeling.html",
+    "en": "hammam/tuz-peeling.html",
+    "fr": "hammam/tuz-peeling.html",
+    "ru": "hammam/tuz-peeling.html",
+    "tr": "hamam/tuz-peeling.html"
+  },
+  "hediye-karti.html": {
+    "de": "hediye-karti.html",
+    "en": "hediye-karti.html",
+    "fr": "hediye-karti.html",
+    "ru": "hediye-karti.html",
+    "tr": "hediye-karti.html"
+  },
+  "hizmetler/abhyanga-masaji/index.html": {
+    "tr": "hizmetler/abhyanga-masaji/index.html"
+  },
+  "hizmetler/abhyanga-massage/index.html": {
+    "de": "services/abhyanga-massage/index.html",
+    "en": "services/abhyanga-massage/index.html",
+    "fr": "services/abhyanga-massage/index.html",
+    "ru": "services/abhyanga-massage/index.html",
+    "tr": "hizmetler/abhyanga-massage/index.html"
+  },
+  "hizmetler/brazilian-maderotherapy/index.html": {
+    "de": "services/brazilian-maderotherapy/index.html",
+    "en": "services/brazilian-maderotherapy/index.html",
+    "fr": "services/brazilian-maderotherapy/index.html",
+    "ru": "services/brazilian-maderotherapy/index.html",
+    "tr": "hizmetler/brazilian-maderotherapy/index.html"
+  },
+  "hizmetler/g5-masaji/index.html": {
+    "tr": "hizmetler/g5-masaji/index.html"
+  },
+  "hizmetler/g5-vibro-sculpting/index.html": {
+    "de": "services/g5-vibro-sculpting/index.html",
+    "en": "services/g5-vibro-sculpting/index.html",
+    "fr": "services/g5-vibro-sculpting/index.html",
+    "ru": "services/g5-vibro-sculpting/index.html",
+    "tr": "hizmetler/g5-vibro-sculpting/index.html"
+  },
+  "hizmetler/maderoterapi/index.html": {
+    "tr": "hizmetler/maderoterapi/index.html"
+  },
+  "hizmetler/shirodhara-mind-flow/index.html": {
+    "de": "services/shirodhara-mind-flow/index.html",
+    "en": "services/shirodhara-mind-flow/index.html",
+    "fr": "services/shirodhara-mind-flow/index.html",
+    "ru": "services/shirodhara-mind-flow/index.html",
+    "tr": "hizmetler/shirodhara-mind-flow/index.html"
+  },
+  "hizmetler/shirodhara/index.html": {
+    "tr": "hizmetler/shirodhara/index.html"
+  },
+  "iletisim.html": {
+    "de": "contact.html",
+    "en": "contact.html",
+    "fr": "contact.html",
+    "ru": "contact.html",
+    "tr": "iletisim.html"
+  },
+  "index.html": {
+    "de": "index.html",
+    "en": "index.html",
+    "fr": "index.html",
+    "ru": "index.html",
+    "tr": "index.html"
+  },
+  "magaza/atelier.html": {
+    "de": "shop/atelier.html",
+    "en": "shop/atelier.html",
+    "fr": "shop/atelier.html",
+    "ru": "shop/atelier.html",
+    "tr": "magaza/atelier.html"
+  },
+  "magaza/index.html": {
+    "de": "shop/index.html",
+    "en": "shop/index.html",
+    "fr": "shop/index.html",
+    "ru": "shop/index.html",
+    "tr": "magaza/index.html"
+  },
+  "magaza/kozmetik.html": {
+    "de": "shop/kozmetik.html",
+    "en": "shop/kozmetik.html",
+    "fr": "shop/kozmetik.html",
+    "ru": "shop/kozmetik.html",
+    "tr": "magaza/kozmetik.html"
+  },
+  "magaza/paketler.html": {
+    "de": "shop/paketler.html",
+    "en": "shop/paketler.html",
+    "fr": "shop/paketler.html",
+    "ru": "shop/paketler.html",
+    "tr": "magaza/paketler.html"
+  },
+  "masajlar/abhyanga-massage/index.html": {
+    "de": "massagen/abhyanga-massage/index.html",
+    "tr": "masajlar/abhyanga-massage/index.html"
+  },
+  "masajlar/anne-cocuk-masaji.html": {
+    "de": "massagen/anne-cocuk-masaji.html",
+    "en": "massages/anne-cocuk-masaji.html",
+    "fr": "massages/anne-cocuk-masaji.html",
+    "ru": "massages/anne-cocuk-masaji.html",
+    "tr": "masajlar/anne-cocuk-masaji.html"
+  },
+  "masajlar/anti-selulit.html": {
+    "de": "massagen/anti-selulit.html",
+    "en": "massages/anti-selulit.html",
+    "fr": "massages/anti-selulit.html",
+    "ru": "massages/anti-selulit.html",
+    "tr": "masajlar/anti-selulit.html"
+  },
+  "masajlar/anti-stress-massage/index.html": {
+    "de": "massagen/anti-stress-massage/index.html",
+    "en": "massages/anti-stress-massage/index.html",
+    "fr": "massages/anti-stress-massage/index.html",
+    "ru": "massages/anti-stress-massage/index.html",
+    "tr": "masajlar/anti-stress-massage/index.html"
+  },
+  "masajlar/anti-stress.html": {
+    "de": "massagen/anti-stress.html",
+    "en": "massages/anti-stress.html",
+    "fr": "massages/anti-stress.html",
+    "ru": "massages/anti-stress.html",
+    "tr": "masajlar/anti-stress.html"
+  },
+  "masajlar/aromaterapi-masaji.html": {
+    "de": "massagen/aromaterapi-masaji.html",
+    "en": "massages/aromaterapi-masaji.html",
+    "fr": "massages/aromaterapi-masaji.html",
+    "ru": "massages/aromaterapi-masaji.html",
+    "tr": "masajlar/aromaterapi-masaji.html"
+  },
+  "masajlar/aromatherapie-massage/index.html": {
+    "de": "massagen/aromatherapie-massage/index.html",
+    "en": "massages/aromatherapie-massage/index.html",
+    "fr": "massages/aromatherapie-massage/index.html",
+    "ru": "massages/aromatherapie-massage/index.html",
+    "tr": "masajlar/aromatherapie-massage/index.html"
+  },
+  "masajlar/aromatherapy-massage/index.html": {
+    "de": "massagen/aromatherapy-massage/index.html",
+    "en": "massages/aromatherapy-massage/index.html",
+    "fr": "massages/aromatherapy-massage/index.html",
+    "ru": "massages/aromatherapy-massage/index.html",
+    "tr": "masajlar/aromatherapy-massage/index.html"
+  },
+  "masajlar/bali-masaji.html": {
+    "de": "massagen/bali-masaji.html",
+    "en": "massages/bali-masaji.html",
+    "fr": "massages/massage-balinais/index.html",
+    "ru": "massages/bali-masaji.html",
+    "tr": "masajlar/bali-masaji.html"
+  },
+  "masajlar/bas-boyun-omuz.html": {
+    "de": "massagen/bas-boyun-omuz.html",
+    "en": "massages/bas-boyun-omuz.html",
+    "fr": "massages/bas-boyun-omuz.html",
+    "ru": "massages/bas-boyun-omuz.html",
+    "tr": "masajlar/bas-boyun-omuz.html"
+  },
+  "masajlar/brasilianische-maderotherapie/index.html": {
+    "de": "massagen/brasilianische-maderotherapie/index.html"
+  },
+  "masajlar/bronze-massage/index.html": {
+    "de": "massagen/bronze-massage/index.html",
+    "en": "massages/bronze-massage/index.html",
+    "fr": "massages/bronze-massage/index.html",
+    "ru": "massages/bronze-massage/index.html",
+    "tr": "masajlar/bronze-massage/index.html"
+  },
+  "masajlar/cift-rituel.html": {
+    "de": "massagen/cift-rituel.html",
+    "en": "massages/cift-rituel.html",
+    "fr": "massages/cift-rituel.html",
+    "ru": "massages/cift-rituel.html",
+    "tr": "masajlar/cift-rituel.html"
+  },
+  "masajlar/cift-senkron-masaji.html": {
+    "de": "massagen/cift-senkron-masaji.html",
+    "en": "massages/cift-senkron-masaji.html",
+    "fr": "massages/cift-senkron-masaji.html",
+    "ru": "massages/cift-senkron-masaji.html",
+    "tr": "masajlar/cift-senkron-masaji.html"
+  },
+  "masajlar/classic-swedish-massage/index.html": {
+    "de": "massagen/classic-swedish-massage/index.html",
+    "en": "massages/classic-swedish-massage/index.html",
+    "fr": "massages/classic-swedish-massage/index.html",
+    "ru": "massages/classic-swedish-massage/index.html",
+    "tr": "masajlar/classic-swedish-massage/index.html"
+  },
+  "masajlar/compresse-aux-herbes-thai/index.html": {
+    "fr": "massages/compresse-aux-herbes-thai/index.html"
+  },
+  "masajlar/derin-doku.html": {
+    "de": "massagen/derin-doku.html",
+    "en": "massages/derin-doku.html",
+    "fr": "massages/derin-doku.html",
+    "ru": "massages/derin-doku.html",
+    "tr": "masajlar/derin-doku.html"
+  },
+  "masajlar/g5-vibro-sculpting/index.html": {
+    "de": "massagen/g5-vibro-sculpting/index.html"
+  },
+  "masajlar/golden-triangle-ritual/index.html": {
+    "de": "massagen/golden-triangle-ritual/index.html",
+    "en": "massages/golden-triangle-ritual/index.html",
+    "fr": "massages/golden-triangle-ritual/index.html",
+    "ru": "massages/golden-triangle-ritual/index.html",
+    "tr": "masajlar/golden-triangle-ritual/index.html"
+  },
+  "masajlar/goldenes-dreieck-ritual/index.html": {
+    "de": "massagen/goldenes-dreieck-ritual/index.html"
+  },
+  "masajlar/index.html": {
+    "de": "massagen/index.html",
+    "en": "massages/index.html",
+    "fr": "massages/index.html",
+    "ru": "massages/index.html",
+    "tr": "masajlar/index.html"
+  },
+  "masajlar/isvec-full-body.html": {
+    "de": "massagen/isvec-full-body.html",
+    "en": "massages/isvec-full-body.html",
+    "fr": "massages/isvec-full-body.html",
+    "ru": "massages/isvec-full-body.html",
+    "tr": "masajlar/isvec-full-body.html"
+  },
+  "masajlar/kids-nazik-masaji.html": {
+    "de": "massagen/kids-nazik-masaji.html",
+    "en": "massages/kids-nazik-masaji.html",
+    "fr": "massages/kids-nazik-masaji.html",
+    "ru": "massages/kids-nazik-masaji.html",
+    "tr": "masajlar/kids-nazik-masaji.html"
+  },
+  "masajlar/klasik-isvec-masaji/index.html": {
+    "de": "massagen/klasik-isvec-masaji/index.html",
+    "en": "massages/klasik-isvec-masaji/index.html",
+    "fr": "massages/klasik-isvec-masaji/index.html",
+    "ru": "massages/klasik-isvec-masaji/index.html",
+    "tr": "masajlar/klasik-isvec-masaji/index.html"
+  },
+  "masajlar/klasik-rahatlama.html": {
+    "de": "massagen/klasik-rahatlama.html",
+    "en": "massages/klasik-rahatlama.html",
+    "fr": "massages/klasik-rahatlama.html",
+    "ru": "massages/klasik-rahatlama.html",
+    "tr": "masajlar/klasik-rahatlama.html"
+  },
+  "masajlar/klasik-sirt.html": {
+    "de": "massagen/klasik-sirt.html",
+    "en": "massages/klasik-sirt.html",
+    "fr": "massages/klasik-sirt.html",
+    "ru": "massages/klasik-sirt.html",
+    "tr": "masajlar/klasik-sirt.html"
+  },
+  "masajlar/klassische-schwedische-massage/index.html": {
+    "de": "massagen/klassische-schwedische-massage/index.html",
+    "en": "massages/klassische-schwedische-massage/index.html",
+    "fr": "massages/klassische-schwedische-massage/index.html",
+    "ru": "massages/klassische-schwedische-massage/index.html",
+    "tr": "masajlar/klassische-schwedische-massage/index.html"
+  },
+  "masajlar/kraliyet-thai-masaji/index.html": {
+    "de": "massagen/kraliyet-thai-masaji/index.html",
+    "en": "massages/kraliyet-thai-masaji/index.html",
+    "fr": "massages/kraliyet-thai-masaji/index.html",
+    "ru": "massages/kraliyet-thai-masaji/index.html",
+    "tr": "masajlar/kraliyet-thai-masaji/index.html"
+  },
+  "masajlar/kranyo-sakral.html": {
+    "de": "massagen/kranyo-sakral.html",
+    "en": "massages/kranyo-sakral.html",
+    "fr": "massages/kranyo-sakral.html",
+    "ru": "massages/kranyo-sakral.html",
+    "tr": "masajlar/kranyo-sakral.html"
+  },
+  "masajlar/lenf-drenaj.html": {
+    "de": "massagen/lenf-drenaj.html",
+    "en": "massages/lenf-drenaj.html",
+    "fr": "massages/lenf-drenaj.html",
+    "ru": "massages/lenf-drenaj.html",
+    "tr": "masajlar/lenf-drenaj.html"
+  },
+  "masajlar/maderotherapie-bresilienne/index.html": {
+    "de": "massagen/maderotherapie-bresilienne/index.html",
+    "en": "massages/maderotherapie-bresilienne/index.html",
+    "fr": "massages/maderotherapie-bresilienne/index.html",
+    "ru": "massages/maderotherapie-bresilienne/index.html",
+    "tr": "masajlar/maderotherapie-bresilienne/index.html"
+  },
+  "masajlar/massage-abhyanga/index.html": {
+    "de": "massagen/massage-abhyanga/index.html",
+    "en": "massages/massage-abhyanga/index.html",
+    "fr": "massages/massage-abhyanga/index.html",
+    "ru": "massages/massage-abhyanga/index.html"
+  },
+  "masajlar/massage-anti-stress/index.html": {
+    "fr": "massages/massage-anti-stress/index.html"
+  },
+  "masajlar/massage-aromatherapie/index.html": {
+    "fr": "massages/massage-aromatherapie/index.html"
+  },
+  "masajlar/massage-bronze/index.html": {
+    "fr": "massages/massage-bronze/index.html"
+  },
+  "masajlar/massage-royal-thai/index.html": {
+    "fr": "massages/massage-royal-thai/index.html"
+  },
+  "masajlar/massage-suedois-classique/index.html": {
+    "fr": "massages/massage-suedois-classique/index.html"
+  },
+  "masajlar/massage-tok-sen/index.html": {
+    "fr": "massages/massage-tok-sen/index.html"
+  },
+  "masajlar/myofascial-release.html": {
+    "de": "massagen/myofascial-release.html",
+    "en": "massages/myofascial-release.html",
+    "fr": "massages/myofascial-release.html",
+    "ru": "massages/myofascial-release.html",
+    "tr": "masajlar/myofascial-release.html"
+  },
+  "masajlar/refleksoloji.html": {
+    "de": "massagen/refleksoloji.html",
+    "en": "massages/refleksoloji.html",
+    "fr": "massages/refleksoloji.html",
+    "ru": "massages/refleksoloji.html",
+    "tr": "masajlar/refleksoloji.html"
+  },
+  "masajlar/rituel-triangle-dor/index.html": {
+    "fr": "massages/rituel-triangle-dor/index.html"
+  },
+  "masajlar/royal-thai-massage/index.html": {
+    "de": "massagen/royal-thai-massage/index.html",
+    "en": "massages/royal-thai-massage/index.html",
+    "fr": "massages/royal-thai-massage/index.html",
+    "ru": "massages/royal-thai-massage/index.html",
+    "tr": "masajlar/royal-thai-massage/index.html"
+  },
+  "masajlar/sculpture-vibro-g5/index.html": {
+    "fr": "massages/sculpture-vibro-g5/index.html"
+  },
+  "masajlar/shiatsu-masaji.html": {
+    "de": "massagen/shiatsu-masaji.html",
+    "en": "massages/shiatsu-masaji.html",
+    "fr": "massages/shiatsu/index.html",
+    "ru": "massages/shiatsu-masaji.html",
+    "tr": "masajlar/shiatsu-masaji.html"
+  },
+  "masajlar/shirodhara-flux-esprit/index.html": {
+    "fr": "massages/shirodhara-flux-esprit/index.html"
+  },
+  "masajlar/shirodhara-geistesfluss/index.html": {
+    "de": "massagen/shirodhara-geistesfluss/index.html"
+  },
+  "masajlar/sicak-tas.html": {
+    "de": "massagen/sicak-tas.html",
+    "en": "massages/sicak-tas.html",
+    "fr": "massages/sicak-tas.html",
+    "ru": "massages/sicak-tas.html",
+    "tr": "masajlar/sicak-tas.html"
+  },
+  "masajlar/signature-rituel.html": {
+    "de": "massagen/signature-rituel.html",
+    "en": "massages/signature-rituel.html",
+    "fr": "massages/signature-rituel.html",
+    "ru": "massages/signature-rituel.html",
+    "tr": "masajlar/signature-rituel.html"
+  },
+  "masajlar/sirt-terapi-masaji.html": {
+    "de": "massagen/sirt-terapi.html",
+    "en": "massages/sirt-terapi.html",
+    "fr": "massages/sirt-terapi.html",
+    "ru": "massages/sirt-terapi.html",
+    "tr": "masajlar/sirt-terapi-masaji.html"
+  },
+  "masajlar/spor-terapi.html": {
+    "de": "massagen/spor-terapi.html",
+    "en": "massages/spor-terapi.html",
+    "fr": "massages/spor-terapi.html",
+    "ru": "massages/spor-terapi.html",
+    "tr": "masajlar/spor-terapi.html"
+  },
+  "masajlar/tetik-nokta.html": {
+    "de": "massagen/tetik-nokta.html",
+    "en": "massages/tetik-nokta.html",
+    "fr": "massages/tetik-nokta.html",
+    "ru": "massages/tetik-nokta.html",
+    "tr": "masajlar/tetik-nokta.html"
+  },
+  "masajlar/thai-herbal-compress/index.html": {
+    "de": "massagen/thai-herbal-compress/index.html",
+    "en": "massages/thai-herbal-compress/index.html",
+    "fr": "massages/thai-herbal-compress/index.html",
+    "ru": "massages/thai-herbal-compress/index.html",
+    "tr": "masajlar/thai-herbal-compress/index.html"
+  },
+  "masajlar/thai-kraeuterstempel/index.html": {
+    "de": "massagen/thai-kraeuterstempel/index.html"
+  },
+  "masajlar/thai-masaji.html": {
+    "de": "massagen/thai-masaji.html",
+    "en": "massages/thai-masaji.html",
+    "fr": "massages/thai-masaji.html",
+    "ru": "massages/thai-masaji.html",
+    "tr": "masajlar/thai-masaji.html"
+  },
+  "masajlar/tok-sen-massage/index.html": {
+    "de": "massagen/tok-sen-massage/index.html",
+    "en": "massages/tok-sen-massage/index.html",
+    "fr": "massages/tok-sen-massage/index.html",
+    "ru": "massages/tok-sen-massage/index.html",
+    "tr": "masajlar/tok-sen-massage/index.html"
+  },
+  "rezervasyon/index.html": {
+    "tr": "rezervasyon/index.html"
+  },
+  "skincare/acne-balance.html": {
+    "de": "hautpflege/acne-balance.html",
+    "en": "skincare/acne-balance.html",
+    "fr": "soins-visage/acne-balance.html",
+    "ru": "skincare/acne-balance.html",
+    "tr": "cilt-bakimi/acne-balance.html"
+  },
+  "skincare/anti-aging-pro.html": {
+    "de": "hautpflege/anti-aging-pro.html",
+    "en": "skincare/anti-aging-pro.html",
+    "fr": "soins-visage/anti-aging-pro.html",
+    "ru": "skincare/anti-aging-pro.html",
+    "tr": "cilt-bakimi/anti-aging-pro.html"
+  },
+  "skincare/barrier-repair.html": {
+    "de": "hautpflege/barrier-repair.html",
+    "en": "skincare/barrier-repair.html",
+    "fr": "soins-visage/barrier-repair.html",
+    "ru": "skincare/barrier-repair.html",
+    "tr": "cilt-bakimi/barrier-repair.html"
+  },
+  "skincare/brightening-spot.html": {
+    "de": "hautpflege/brightening-spot.html",
+    "en": "skincare/brightening-spot.html",
+    "fr": "soins-visage/brightening-spot.html",
+    "ru": "skincare/brightening-spot.html",
+    "tr": "cilt-bakimi/brightening-spot.html"
+  },
+  "skincare/classic-facial.html": {
+    "de": "hautpflege/classic-facial.html",
+    "en": "skincare/classic-facial.html",
+    "fr": "soins-visage/classic-facial.html",
+    "ru": "skincare/classic-facial.html",
+    "tr": "cilt-bakimi/classic-facial.html"
+  },
+  "skincare/collagen-lift.html": {
+    "de": "hautpflege/collagen-lift.html",
+    "en": "skincare/collagen-lift.html",
+    "fr": "soins-visage/collagen-lift.html",
+    "ru": "skincare/collagen-lift.html",
+    "tr": "cilt-bakimi/collagen-lift.html"
+  },
+  "skincare/deep-cleanse.html": {
+    "de": "hautpflege/deep-cleanse.html",
+    "en": "skincare/deep-cleanse.html",
+    "fr": "soins-visage/deep-cleanse.html",
+    "ru": "skincare/deep-cleanse.html",
+    "tr": "cilt-bakimi/deep-cleanse.html"
+  },
+  "skincare/detox-charcoal.html": {
+    "de": "hautpflege/detox-charcoal.html",
+    "en": "skincare/detox-charcoal.html",
+    "fr": "soins-visage/detox-charcoal.html",
+    "ru": "skincare/detox-charcoal.html",
+    "tr": "cilt-bakimi/detox-charcoal.html"
+  },
+  "skincare/enzyme-peel.html": {
+    "de": "hautpflege/enzyme-peel.html",
+    "en": "skincare/enzyme-peel.html",
+    "fr": "soins-visage/enzyme-peel.html",
+    "ru": "skincare/enzyme-peel.html",
+    "tr": "cilt-bakimi/enzyme-peel.html"
+  },
+  "skincare/eye-contour.html": {
+    "de": "hautpflege/eye-contour.html",
+    "en": "skincare/eye-contour.html",
+    "fr": "soins-visage/eye-contour.html",
+    "ru": "skincare/eye-contour.html",
+    "tr": "cilt-bakimi/eye-contour.html"
+  },
+  "skincare/glass-skin.html": {
+    "de": "hautpflege/glass-skin.html",
+    "en": "skincare/glass-skin.html",
+    "fr": "soins-visage/glass-skin.html",
+    "ru": "skincare/glass-skin.html",
+    "tr": "cilt-bakimi/glass-skin.html"
+  },
+  "skincare/gold-mask-ritual.html": {
+    "de": "hautpflege/gold-mask-ritual.html",
+    "en": "skincare/gold-mask-ritual.html",
+    "fr": "soins-visage/gold-mask-ritual.html",
+    "ru": "skincare/gold-mask-ritual.html",
+    "tr": "cilt-bakimi/gold-mask-ritual.html"
+  },
+  "skincare/hyaluron-hydrate.html": {
+    "de": "hautpflege/hyaluron-hydrate.html",
+    "en": "skincare/hyaluron-hydrate.html",
+    "fr": "soins-visage/hyaluron-hydrate.html",
+    "ru": "skincare/hyaluron-hydrate.html",
+    "tr": "cilt-bakimi/hyaluron-hydrate.html"
+  },
+  "skincare/index.html": {
+    "de": "hautpflege/index.html",
+    "en": "skincare/index.html",
+    "fr": "soins-visage/index.html",
+    "ru": "skincare/index.html",
+    "tr": "cilt-bakimi/index.html"
+  },
+  "skincare/led-rejuvenation.html": {
+    "de": "hautpflege/led-rejuvenation.html",
+    "en": "skincare/led-rejuvenation.html",
+    "fr": "soins-visage/led-rejuvenation.html",
+    "ru": "skincare/led-rejuvenation.html",
+    "tr": "cilt-bakimi/led-rejuvenation.html"
+  },
+  "skincare/lip-care.html": {
+    "de": "hautpflege/lip-care.html",
+    "en": "skincare/lip-care.html",
+    "fr": "soins-visage/lip-care.html",
+    "ru": "skincare/lip-care.html",
+    "tr": "cilt-bakimi/lip-care.html"
+  },
+  "skincare/men-facial.html": {
+    "de": "hautpflege/men-facial.html",
+    "en": "skincare/men-facial.html",
+    "fr": "soins-visage/men-facial.html",
+    "ru": "skincare/men-facial.html",
+    "tr": "cilt-bakimi/men-facial.html"
+  },
+  "skincare/micro-polish.html": {
+    "de": "hautpflege/micro-polish.html",
+    "en": "skincare/micro-polish.html",
+    "fr": "soins-visage/micro-polish.html",
+    "ru": "skincare/micro-polish.html",
+    "tr": "cilt-bakimi/micro-polish.html"
+  },
+  "skincare/oxygen-boost.html": {
+    "de": "hautpflege/oxygen-boost.html",
+    "en": "skincare/oxygen-boost.html",
+    "fr": "soins-visage/oxygen-boost.html",
+    "ru": "skincare/oxygen-boost.html",
+    "tr": "cilt-bakimi/oxygen-boost.html"
+  },
+  "skincare/sensitive-soothe.html": {
+    "de": "hautpflege/sensitive-soothe.html",
+    "en": "skincare/sensitive-soothe.html",
+    "fr": "soins-visage/sensitive-soothe.html",
+    "ru": "skincare/sensitive-soothe.html",
+    "tr": "cilt-bakimi/sensitive-soothe.html"
+  },
+  "skincare/vitamin-c-glow.html": {
+    "de": "hautpflege/vitamin-c-glow.html",
+    "en": "skincare/vitamin-c-glow.html",
+    "fr": "soins-visage/vitamin-c-glow.html",
+    "ru": "skincare/vitamin-c-glow.html",
+    "tr": "cilt-bakimi/vitamin-c-glow.html"
+  },
+  "urunler/detay.html": {
+    "tr": "urunler/detay.html"
+  },
+  "urunler/index.html": {
+    "en": "products/index.html",
+    "tr": "urunler/index.html",
+    "de": "urunler/index.html"
+  }
+}

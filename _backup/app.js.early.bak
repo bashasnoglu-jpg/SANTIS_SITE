@@ -1,0 +1,31 @@
+﻿/* Santİs Club — app.js (Home v1.0) */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+});
+
+window.scrollToSection = function(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+window.scrollToTop = function(){
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+window.openReservation = function(){
+  // WhatsApp numarasını buraya yaz (905xxxxxxxxx formatında)
+  const phone = "905XXXXXXXXX";
+
+  const msg =
+    "Merhaba Santİs Club 👋 Rezervasyon yapmak istiyorum.\n" +
+    "- İsim:\n" +
+    "- Tarih/Saat:\n" +
+    "- Program:\n" +
+    "- Kişi Sayısı:";
+
+  const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg);
+  window.open(url, "_blank");
+}

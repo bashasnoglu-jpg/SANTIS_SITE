@@ -1,11 +1,12 @@
 /**
- * SANTIS CLUB - LANGUAGE SWITCHER v2.0
+ * SANTIS CLUB - LANGUAGE SWITCHER v2.1 (Optimized)
  * Gizli Google Translate - Bar Yok!
  * 
  * Bu versiyon:
  * - Google Translate bar'ı DOM'dan TAMAMEN KALDIRIR
  * - Cookie ile dil tercihi hatırlar
  * - Özel dropdown dil seçici sunar
+ * - PERFORMANCE: Interval ve Observer optimize edildi.
  */
 
 (function () {
@@ -20,6 +21,7 @@
     // ═══════════════════════════════════════════════════════════════
 
     const CONFIG = {
+        enabled: false, // 🛑 GOOGLE TRANSLATE DISABLED BY USER REQUEST
         // Popüler Diller (Dropdown'da görünür)
         languages: [
             { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
@@ -45,9 +47,6 @@
         // Body henüz yüklenmediyse çık
         if (!document.body) return;
 
-        // TEHLİKELİ KOD KALDIRILDI: document.body.style.cssText müdahalesi iptal.
-        // CSS enjeksiyonu zaten bu işi yapıyor.
-
         // 3. Tüm Google Translate elementlerini DOM'dan SİL (Güvenli Mod: Gizle)
         const selectors = [
             'iframe.goog-te-banner-frame',
@@ -58,44 +57,17 @@
         ];
 
         selectors.forEach(sel => {
-            document.querySelectorAll(sel).forEach(el => {
-                el.style.display = 'none';
-                el.style.visibility = 'hidden';
-                el.style.pointerEvents = 'none';
-            });
+            const els = document.querySelectorAll(sel);
+            if (els.length > 0) {
+                els.forEach(el => {
+                    if (el.style.display !== 'none') {
+                        el.style.display = 'none';
+                        el.style.visibility = 'hidden';
+                        el.style.pointerEvents = 'none';
+                    }
+                });
+            }
         });
-    }
-
-    // ... (injectKillerCSS vb. aynı kalıyor) ...
-
-    function init() {
-        // 1. CSS enjekte et (Hemen çalışsın, zararı yok)
-        injectKillerCSS();
-
-        // 2. Bar öldürücüyü sürekli çalıştır
-        setInterval(killGoogleBar, 500);
-
-        // 3. MutationObserver
-        const observer = new MutationObserver(killGoogleBar);
-        observer.observe(document.documentElement, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['style', 'class']
-        });
-
-        // 4. KRİTİK DEĞİŞİKLİK: Google Translate'i GECİKMELİ yükle
-        // Sayfa tamamen açıldıktan 3 saniye sonra.
-        const startTranslate = () => {
-            console.log('⏳ Google Translate yükleniyor...');
-            setTimeout(onReady, 2000); // 2 saniye rölanti
-        };
-
-        if (document.readyState === 'complete') {
-            startTranslate();
-        } else {
-            window.addEventListener('load', startTranslate);
-        }
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -103,6 +75,8 @@
     // ═══════════════════════════════════════════════════════════════
 
     function injectKillerCSS() {
+        if (document.getElementById('santis-translate-killer')) return;
+
         const style = document.createElement('style');
         style.id = 'santis-translate-killer';
         style.textContent = `
@@ -152,90 +126,36 @@
                 overflow: hidden !important;
                 opacity: 0 !important;
             }
-
-            /* ═══════════════════════════════════════════════════════════════ */
+            
             /* SANTIS DROPDOWN STİLLERİ */
-            /* ═══════════════════════════════════════════════════════════════ */
-            
-            .santis-lang-dropdown {
-                position: relative;
-                z-index: 99999;
-            }
-            
+            .santis-lang-dropdown { position: relative; z-index: 99999; }
             .santis-lang-btn {
-                display: flex;
-                align-items: center;
-                gap: 6px;
-                padding: 8px 12px;
-                background: rgba(255, 255, 255, 0.05);
-                border: 1px solid rgba(255, 255, 255, 0.15);
-                border-radius: 6px;
-                color: #fff;
-                cursor: pointer;
-                font-size: 14px;
-                transition: all 0.2s;
+                display: flex; align-items: center; gap: 6px; padding: 8px 12px;
+                background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15);
+                border-radius: 6px; color: #fff; cursor: pointer; font-size: 14px; transition: all 0.2s;
             }
-            
-            .santis-lang-btn:hover {
-                background: rgba(255, 255, 255, 0.1);
-                border-color: rgba(212, 175, 55, 0.5);
-            }
-            
+            .santis-lang-btn:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(212, 175, 55, 0.5); }
             .santis-lang-flag { font-size: 16px; }
             .santis-lang-code { font-weight: 500; letter-spacing: 0.5px; }
             .santis-lang-arrow { font-size: 10px; opacity: 0.6; transition: transform 0.2s; }
-            
             .santis-lang-dropdown:hover .santis-lang-arrow { transform: rotate(180deg); }
             
             .santis-lang-menu {
-                position: absolute;
-                top: calc(100% + 8px);
-                right: 0;
-                min-width: 160px;
-                background: rgba(15, 15, 15, 0.98);
-                backdrop-filter: blur(20px);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                border-radius: 8px;
-                padding: 6px;
-                opacity: 0;
-                visibility: hidden;
-                transform: translateY(-10px);
-                transition: all 0.2s;
-                max-height: 320px;
-                overflow-y: auto;
+                position: absolute; top: calc(100% + 8px); right: 0; min-width: 160px;
+                background: rgba(15, 15, 15, 0.98); backdrop-filter: blur(20px);
+                border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 6px;
+                opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s;
+                max-height: 320px; overflow-y: auto;
             }
-            
-            .santis-lang-dropdown:hover .santis-lang-menu {
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
-            }
+            .santis-lang-dropdown:hover .santis-lang-menu { opacity: 1; visibility: visible; transform: translateY(0); }
             
             .santis-lang-option {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                width: 100%;
-                padding: 10px 12px;
-                background: transparent;
-                border: none;
-                color: rgba(255, 255, 255, 0.7);
-                cursor: pointer;
-                border-radius: 6px;
-                transition: all 0.15s;
-                text-align: left;
-                font-size: 13px;
+                display: flex; align-items: center; gap: 8px; width: 100%; padding: 10px 12px;
+                background: transparent; border: none; color: rgba(255, 255, 255, 0.7);
+                cursor: pointer; border-radius: 6px; transition: all 0.15s; text-align: left; font-size: 13px;
             }
-            
-            .santis-lang-option:hover {
-                background: rgba(255, 255, 255, 0.08);
-                color: #fff;
-            }
-            
-            .santis-lang-option.active {
-                background: rgba(212, 175, 55, 0.15);
-                color: #d4af37;
-            }
+            .santis-lang-option:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+            .santis-lang-option.active { background: rgba(212, 175, 55, 0.15); color: #d4af37; }
             
             .santis-lang-menu::-webkit-scrollbar { width: 4px; }
             .santis-lang-menu::-webkit-scrollbar-track { background: transparent; }
@@ -249,30 +169,28 @@
     // ═══════════════════════════════════════════════════════════════
 
     function loadGoogleTranslate() {
-        // Container oluştur (gizli)
         const container = document.createElement('div');
         container.id = 'google_translate_element';
         document.body.appendChild(container);
 
-        // Init fonksiyonu
         window.googleTranslateElementInit = function () {
             new google.translate.TranslateElement({
                 pageLanguage: 'tr',
-                // includedLanguages parametresi kaldırılarak TÜM diller aktif edildi (100+)
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
                 autoDisplay: false
             }, 'google_translate_element');
 
-            // Widget yüklendikten 500ms sonra bar'ı öldür
+            // Bar kill attempts (finite)
             setTimeout(killGoogleBar, 500);
             setTimeout(killGoogleBar, 1000);
             setTimeout(killGoogleBar, 2000);
+            setTimeout(killGoogleBar, 5000);
         };
 
-        // Script yükle
         const script = document.createElement('script');
         script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
         script.async = true;
+        script.defer = true; // Optimization
         document.head.appendChild(script);
     }
 
@@ -281,11 +199,8 @@
     // ═══════════════════════════════════════════════════════════════
 
     function changeLanguage(langCode) {
-        // Cookie kaydet
         document.cookie = `googtrans=/tr/${langCode}; path=/`;
         document.cookie = `googtrans=/tr/${langCode}; path=/; domain=${location.hostname}`;
-
-        // Sayfa yenile
         location.reload();
     }
 
@@ -321,7 +236,6 @@
             </div>
         `;
 
-        // Event listeners
         dropdown.querySelectorAll('.santis-lang-option').forEach(btn => {
             btn.addEventListener('click', () => {
                 changeLanguage(btn.dataset.lang);
@@ -332,43 +246,34 @@
     }
 
     function insertDropdown() {
-        // Zaten varsa ekleme!
-        if (document.querySelector('.santis-lang-dropdown')) return;
+        let dropdown = document.querySelector('.santis-lang-dropdown');
+        if (!dropdown) {
+            dropdown = createDropdown();
+        }
 
-        const dropdown = createDropdown();
-
-        // 1. Navbar'daki placeholder'a ekle (Yeni Standart)
+        // 1. New Standard (Root)
         const placeholder = document.getElementById('santis-language-root');
         if (placeholder) {
-            placeholder.innerHTML = ''; // Temizle
+            placeholder.innerHTML = '';
             placeholder.appendChild(dropdown);
             return;
         }
 
-        // 2. Fallback: Navbar actions
+        // 2. Fallbacks...
         const navActions = document.querySelector('.nav-actions, .navbar-actions, header nav');
         if (navActions) {
             navActions.appendChild(dropdown);
             return;
         }
 
-        // 3. Fallback: Header
-        const header = document.querySelector('header, nav');
-        if (header) {
-            header.style.position = 'relative';
-            dropdown.style.position = 'absolute';
-            dropdown.style.right = '20px';
-            dropdown.style.top = '50%';
-            dropdown.style.transform = 'translateY(-50%)';
-            header.appendChild(dropdown);
-            return;
+        if (!dropdown.parentNode) {
+            const header = document.querySelector('header');
+            if (header) {
+                header.appendChild(dropdown);
+            } else {
+                document.body.appendChild(dropdown);
+            }
         }
-
-        // 4. Last Resort: Body Fixed
-        dropdown.style.position = 'fixed';
-        dropdown.style.right = '20px';
-        dropdown.style.top = '20px';
-        document.body.appendChild(dropdown);
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -376,23 +281,31 @@
     // ═══════════════════════════════════════════════════════════════
 
     function init() {
-        // 1. CSS enjekte et
         injectKillerCSS();
 
-        // 2. Bar öldürücüyü sürekli çalıştır
+        // Initial cleanups (Finite)
         killGoogleBar();
-        setInterval(killGoogleBar, 200); // Her 200ms'de kontrol
+        setTimeout(killGoogleBar, 500);
 
-        // 3. MutationObserver
-        const observer = new MutationObserver(killGoogleBar);
-        observer.observe(document.documentElement, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['style', 'class']
-        });
+        // Optimized MutationObserver - Only check BODY direct additions
+        if (window.MutationObserver) {
+            const observer = new MutationObserver((mutations) => {
+                let check = false;
+                for (const m of mutations) {
+                    if (m.addedNodes.length > 0) { check = true; break; }
+                }
+                if (check) killGoogleBar();
+            });
 
-        // 4. DOM hazır olunca
+            if (document.body) {
+                observer.observe(document.body, { childList: true });
+            } else {
+                document.addEventListener('DOMContentLoaded', () => {
+                    observer.observe(document.body, { childList: true });
+                });
+            }
+        }
+
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', onReady);
         } else {
@@ -402,18 +315,22 @@
 
     function onReady() {
         insertDropdown();
-        loadGoogleTranslate();
-        console.log('🌐 Santis Language Switcher v2.0 aktif (bar yok!)');
+        // Delay translation load to prioritize core interactivity
+        if (CONFIG.enabled) {
+            setTimeout(loadGoogleTranslate, 2500);
+        } else {
+            console.log('🛑 [Lang] Google Translate is disabled in config.');
+        }
+        console.log('🌐 Santis Language Switcher v2.1 (Optimized) active');
     }
 
-    // Başlat
     init();
 
-    // Global API
     window.SANTIS_LANG = {
         change: changeLanguage,
         current: getCurrentLang,
-        languages: CONFIG.languages
+        languages: CONFIG.languages,
+        refresh: insertDropdown
     };
 
 })();

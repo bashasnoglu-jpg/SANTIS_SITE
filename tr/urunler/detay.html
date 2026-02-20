@@ -1,369 +1,117 @@
-<!doctype html>
+﻿<!DOCTYPE html>
+
 <html lang="tr">
-
 <head>
-    <base href="/">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Ürün Detayı • Santis Boutique</title>
-    
-    <!-- FONTS & CSS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="icon" href="favicon.ico">
-
-    <!-- SCRIPTS -->
-    <script src="assets/js/fallback_data.js"></script>
-    <script src="assets/js/loader.js"></script>
-    <script src="assets/js/url-normalizer.js"></script>
-
-</head>
-<body class="editorial-mode">
-
-    <!-- PRELOADER -->
-    <div class="preloader" id="preloader" style="display:none;">
-        <div class="preloader-logo">Santis Boutique</div>
-    </div>
-
-    <!-- NAVBAR -->
-    <div id="navbar-container"></div>
-
-    <main id="nv-main">
-        <section class="prod-detail-section">
-            <div class="nv-container">
-                
-                <div class="prod-breadcrumb">
-                    <a href="tr/urunler/index.html">Ürünler</a> / <span id="p-cat">Kategori</span>
-                </div>
-
-                <div class="prod-layout">
-                    <!-- Left: Gallery -->
-                    <div class="prod-gallery">
-                        <div class="main-image">
-                            <div id="p-badge" class="badge"></div>
-                            <img id="p-img" src="" alt="Ürün Görseli" loading="lazy">
-                        </div>
-                    </div>
-
-                    <!-- Right: Info -->
-                    <div class="prod-info">
-                        <h1 class="prod-title-main" id="p-title">Yükleniyor...</h1>
-                        
-                        <div class="prod-description-main" id="p-desc">
-                            Ürün detayları yükleniyor, lütfen bekleyiniz.
-                        </div>
-
-                        <div class="prod-price-box" id="p-price">
-                            --
-                        </div>
-
-                        <div class="prod-meta-box">
-                            <div class="meta-item">
-                                <span class="meta-label">Faydaları</span>
-                                <span class="meta-val" id="p-benefit">--</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Kullanım</span>
-                                <span class="meta-val" id="p-use">--</span>
-                            </div>
-                        </div>
-
-                        <div class="prod-cta-box">
-                            <a href="#" id="p-whatsapp" target="_blank" class="nv-btn">
-                                <span>SİPARİŞ VE DETAYLI BİLGİ (WHATSAPP)</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- RELATED PRODUCTS -->
-        <section class="related-section">
-            <div class="nv-container">
-                <h3 class="section-title">Benzer Ürünler</h3>
-                <div class="product-grid-v2" id="related-grid">
-                    <!-- JS Injected -->
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <div id="footer-container"></div>
-
-    <script src="assets/js/product-data.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            if (typeof loadComp === "function") {
-                // Ensure the container exists before calling loadComp
-                if(document.getElementById("navbar-container")) loadComp("/components/navbar.html", "navbar-container");
-                if(document.getElementById("footer-container")) loadComp("/components/footer.html", "footer-container");
-            }
-
-            // WAIT FOR DATA TO LOAD
-            setTimeout(initPage, 100); 
-        });
-
-        function initPage() {
-            if(typeof productCatalog === 'undefined') {
-                console.error("Product catalog not loaded.");
-                return;
-            }
-
-            // GET ID FROM URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const pid = urlParams.get('id');
-
-            const product = productCatalog.find(p => p.id == pid);
-            
-            if(!product) {
-                const titleEl = document.getElementById('p-title');
-                if(titleEl) titleEl.innerText = "Ürün Bulunamadı";
-                return;
-            }
-
-            // POPULATE DATA
-            document.title = `${product.name} • Santis Boutique`;
-            
-            const imgEl = document.getElementById('p-img');
-            if(imgEl) imgEl.src = `assets/img/cards/${product.img}`;
-            
-            const titleEl = document.getElementById('p-title');
-            if(titleEl) titleEl.innerText = product.name;
-            
-            const descEl = document.getElementById('p-desc');
-            if(descEl) descEl.innerText = product.desc;
-            
-            const priceEl = document.getElementById('p-price');
-            if(priceEl) priceEl.innerText = product.price;
-            
-            const catEl = document.getElementById('p-cat');
-            // Assuming getCatName is global or defined in product-data.js
-            if(catEl && typeof getCatName === 'function') catEl.innerText = getCatName(product.cat);
-            
-            const benEl = document.getElementById('p-benefit');
-            if(benEl) benEl.innerText = product.benefit || '-';
-            
-            const useEl = document.getElementById('p-use');
-            if(useEl) useEl.innerText = product.usage || '-';
-
-            // Badge
-            const badgeEl = document.getElementById('p-badge');
-            if(badgeEl) {
-                if(product.badge) {
-                    badgeEl.innerText = product.badge;
-                    badgeEl.className = `badge ${product.badge === 'NEW' ? 'new' : 'best'}`;
-                    badgeEl.style.display = 'block';
-                } else {
-                    badgeEl.style.display = 'none';
-                }
-            }
-
-            // WhatsApp Button
-            const waBtn = document.getElementById('p-whatsapp');
-            if(waBtn) {
-                const msg = `Merhaba, ${product.name} hakkında detaylı bilgi almak ve sipariş vermek istiyorum.`;
-                waBtn.href = `https://wa.me/905348350169?text=${encodeURIComponent(msg)}`;
-            }
-
-            // RENDER RELATED
-            renderRelated(product);
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="index, follow" name="robots"/>
+<title>Santis Club</title> <!-- Placeholder -->
+<meta content="Santis Club Spa &amp; Wellness" name="description"/>
+<!-- DYNAMIC ASSETS -->
+<link href="/assets/css/style.css" rel="stylesheet"/>
+<link href="/assets/img/favicon.webp" rel="icon" type="image/png"/>
+<style>
+        /* GHOST LOADING SKELETON */
+        #nv-page-loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #111;  display: flex;
+            align-items: center; justify-content: center;
         }
-
-        function renderRelated(currentProduct) {
-            const grid = document.getElementById('related-grid');
-            if(!grid) return;
-            
-            const related = productCatalog
-                .filter(p => p.cat === currentProduct.cat && p.id !== currentProduct.id)
-                .slice(0, 3);
-
-            if(related.length === 0) {
-                 const sec = document.querySelector('.related-section');
-                 if(sec) sec.style.display = 'none';
-                 return;
-            }
-
-            related.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'prod-card-v2';
-                
-                let badgeHTML = p.badge ? `<span class="badge ${p.badge === 'NEW' ? 'new' : 'best'}">${p.badge}</span>` : '';
-                // Ensure getCatName is available
-                const catName = typeof getCatName === 'function' ? getCatName(p.cat) : p.cat;
-                
-                card.innerHTML = `
-                    <div class="prod-img-box">
-                        ${badgeHTML}
-                        <img src="assets/img/cards/${p.img}" alt="${p.name}" loading="lazy">
-                    </div>
-                    <div class="prod-details">
-                        <span class="prod-cat">${catName}</span>
-                        <h4>${p.name}</h4>
-                        <div class="prod-bottom">
-                            <span class="prod-price">${p.price}</span>
-                            <a href="tr/urunler/detay.html?id=${p.id}" class="prod-btn">İncele</a>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-    </script>
-
-    <style>
-        .prod-detail-section {
-            padding-top: 140px;
-            padding-bottom: 80px;
-            min-height: 80vh;
-        }
-
-        .prod-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: start;
-        }
-
-        @media(max-width: 900px) {
-            .prod-layout { grid-template-columns: 1fr; gap: 30px; }
-            .prod-detail-section { padding-top: 100px; }
-        }
-
-        .prod-gallery {
-            background: #111;
-            border-radius: 4px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .main-image {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 1;
-        }
+        .nv-spinner { width: 50px; height: 50px; border: 3px solid #333; border-top-color: #d4a373; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
         
-        .main-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .prod-info {
-            padding-top: 20px;
-        }
-
-        .prod-breadcrumb {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-        .prod-breadcrumb a { color: #fff; text-decoration: none; }
-
-        .prod-title-main {
-            font-family: 'Playfair Display', serif;
-            font-size: 42px;
-            color: #fff;
-            margin-bottom: 15px;
-            line-height: 1.1;
-        }
-
-        .prod-description-main {
-            font-size: 16px;
-            color: #ccc;
-            line-height: 1.7;
-            margin-bottom: 30px;
-        }
-
-        .prod-price-box {
-            font-family: 'Inter', sans-serif;
-            font-size: 24px;
-            color: var(--gold);
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-
-        .prod-meta-box {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 20px;
-            margin-bottom: 30px;
-            border-radius: 4px;
-        }
-
-        .meta-item {
-            margin-bottom: 10px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .meta-item:last-child { margin-bottom: 0; }
-
-        .meta-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 4px;
-            letter-spacing: 1px;
-        }
-
-        .meta-val {
-            font-size: 14px;
-            color: #eee;
-        }
-
-        .prod-cta-box .nv-btn {
-            height: 50px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .related-section {
-            padding: 60px 0;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        /* Re-use Grid Styles locally if needed, but they are in style.css or card-effects.css */
-        /* Ensure card styles are present since we invoke .product-grid-v2 */
-        .product-grid-v2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 25px;
-        }
-        .prod-card-v2 {
-            position: relative;
-             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .prod-img-box { height: 250px; overflow: hidden; position: relative; }
-        .prod-img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .prod-details { padding: 15px; }
-        .prod-details h4 { font-family: 'Cormorant Garamond', serif; font-size: 18px; margin-bottom: 10px; }
-        .prod-btn { font-size: 12px; text-transform: uppercase; color: #fff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); }
-
-        .badge {
-            position: absolute;
-            top: 10px; left: 10px;
-            padding: 3px 8px; font-size: 9px; font-weight: bold; color: #000; z-index: 2; text-transform: uppercase;
-        }
-        .badge.new { background: #fff; }
-        .badge.best { background: var(--gold); }
+        /* content hidden until loaded */
+        #nv-dynamic-content { opacity: 0; transition: opacity 0.5s ease; }
     </style>
+<meta content="/assets/img/og-standard.jpg" property="og:image"/>
+<link href="https://santis-club.com/tr/urunler/detay.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Detay", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Ana Sayfa",
+      "item": "https://santis-club.com/tr/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Ürünler",
+      "item": "https://santis-club.com/tr/urunler/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Detay",
+      "item": "https://santis-club.com/tr/urunler/detay.html"
+    }
+  ]
+}
+</script>
+<!-- Open Graph -->
+<meta content="Santis Club" property="og:title"/>
+<meta content="Santis Club Spa &amp; Wellness" property="og:description"/>
+<meta content="https://santis-club.com/tr/urunler/detay.html" property="og:url"/>
+<meta content="website" property="og:type"/>
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<link href="https://santis-club.com/tr/urunler/detay.html" hreflang="tr" rel="alternate"/>
+<link href="https://santis-club.com/tr/urunler/detay.html" hreflang="x-default" rel="alternate"/>
+<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Santis Club" name="twitter:title"/><meta content="Santis Club Spa &amp; Wellness" name="twitter:description"/><meta content="https://santisclub.com/assets/img/logo-santis.png" name="twitter:image"/></head>
+<body class="nv-body service-page">
+<noscript>
+<nav class="nv-noscript-nav">
+<a class="nv-ns-home" href="/index.html">ANA SAYFA</a>
+<a href="/tr/hamam/index.html">HAMAM</a>
+<a href="/tr/masajlar/index.html">MASAJLAR</a>
+<a href="/tr/cilt-bakimi/index.html">CİLT BAKIMI</a>
+<a href="/tr/galeri/index.html">GALERİ</a>
+</nav>
+</noscript>
+<h1>Detay</h1>
+<!-- GHOST LOADER -->
+<div id="nv-page-loader"><div class="nv-spinner"></div></div>
+<header id="nv-header"></header>
+<!-- DYNAMIC CONTENT STAGE -->
+<main class="nv-service-stage" id="nv-dynamic-content">
+<!-- V5 FACTORY INJECTION ZONE -->
+<section class="related-services">
+<h2>İlgili Hizmetler</h2>
+<ul>
+<li><a href="/tr/masajlar/klasik-rahatlama.html">Klasik Rahatlama Masajı</a></li>
+<li><a href="/tr/masajlar/aromaterapi.html">Aromaterapi Masajı</a></li>
+<li><a href="/tr/masajlar/derin-doku.html">Derin Doku Masajı</a></li>
+</ul>
+</section>
+</main>
+<footer id="nv-footer"></footer>
+<!-- CORE SCRIPTS -->
+<script src="/assets/js/app.js?v=8.1"></script>
+<script src="/assets/js/loaders/data-bridge.js?v=8.1"></script>
+<script src="../../assets/js/i18n-routes.js"></script>
+<script defer="" src="../../assets/js/hreflang-injector.js"></script>
+<script src="/assets/js/product-loader.js?v=8.1"></script>
+<!-- UPSELL BRIDGE (Phase 23) -->
+<div id="upsell-container"></div>
+<script src="/assets/js/modules/upsell-bridge.js"></script>
+<script>
+        // Init Factory
+        document.addEventListener("DOMContentLoaded", () => {
+            const factory = new PageFactory();
+            factory.init();
+        });
+    </script>
 </body>
 </html>

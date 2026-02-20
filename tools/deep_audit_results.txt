@@ -1,0 +1,332 @@
+﻿Total active HTML pages: 347
+======================================================================
+
+📋 1. SCHEMA MARKUP ANALİZİ
+----------------------------------------------------------------------
+  Schema olan: 333 sayfa
+  Schema OLMAYAN: 14 sayfa
+
+  Schema Tip Dağılımı:
+    Service: 333 sayfa
+
+  Schema OLMAYAN önemli sayfalar:
+    ❌ 404.html
+    ❌ kese-ve-kopuk-masaji.html
+    ❌ showroom.html
+    ❌ tr/hediye-karti.html
+    ❌ tr/iletisim.html
+    ❌ tr/bilgelik/index.html
+    ❌ tr/magaza/atelier.html
+    ❌ tr/magaza/index.html
+    ❌ tr/magaza/kozmetik.html
+    ❌ tr/magaza/paketler.html
+    ❌ trends/japan.html
+    ❌ trends/roman.html
+    ❌ trends/sothys.html
+    ❌ trends/thailand.html
+
+
+🍞 2. BREADCRUMB ANALİZİ
+----------------------------------------------------------------------
+  HTML breadcrumb olan: 58
+  Schema breadcrumb olan: 0
+  Breadcrumb OLMAYAN: 289 sayfa
+
+
+
+🔗 3. ORPHAN PAGE (YETİM SAYFA) ANALİZİ
+----------------------------------------------------------------------
+  Yetim sayfa (0 gelen link): 317
+    🚫 404.html
+    🚫 en/hammam/gelin-hamami.html
+    🚫 en/hammam/kahve-detox.html
+    🚫 en/hammam/kese-kopuk.html
+    🚫 en/hammam/kopuk-masaji.html
+    🚫 en/hammam/osmanli-ritueli.html
+    🚫 en/hammam/santis-pasa.html
+    🚫 en/hammam/tuz-peeling.html
+    🚫 en/index.html
+    🚫 en/massages/anne-cocuk.html
+    🚫 en/massages/anti-selulit.html
+    🚫 en/massages/anti-stress-massage/index.html
+    🚫 en/massages/anti-stress.html
+    🚫 en/massages/aromaterapi.html
+    🚫 en/massages/aromatherapy-massage/index.html
+    🚫 en/massages/bali.html
+    🚫 en/massages/bas-boyun-omuz.html
+    🚫 en/massages/bronze-massage/index.html
+    🚫 en/massages/cift-rituel.html
+    🚫 en/massages/cift-senkron.html
+    🚫 en/massages/classic-swedish-massage/index.html
+    🚫 en/massages/derin-doku.html
+    🚫 en/massages/golden-triangle-ritual/index.html
+    🚫 en/massages/isvec-full-body.html
+    🚫 en/massages/kids-nazik.html
+    🚫 en/massages/klasik-rahatlama.html
+    🚫 en/massages/klasik-sirt.html
+    🚫 en/massages/kranyo-sakral.html
+    🚫 en/massages/lenf-drenaj.html
+    🚫 en/massages/myofascial-release.html
+    🚫 en/massages/refleksoloji.html
+    🚫 en/massages/royal-thai-massage/index.html
+    🚫 en/massages/shiatsu.html
+    🚫 en/massages/sicak-tas.html
+    🚫 en/massages/signature-rituel.html
+    🚫 en/massages/sirt-terapi.html
+    🚫 en/massages/spor-terapi.html
+    🚫 en/massages/tetik-nokta.html
+    🚫 en/massages/thai-herbal-compress/index.html
+    🚫 en/massages/thai.html
+    🚫 en/massages/tok-sen-massage/index.html
+    🚫 en/services/abhyanga-massage/index.html
+    🚫 en/services/acne-balance.html
+    🚫 en/services/anti-aging-pro.html
+    🚫 en/services/barrier-repair.html
+    🚫 en/services/brazilian-maderotherapy/index.html
+    🚫 en/services/brightening-spot.html
+    🚫 en/services/classic-facial.html
+    🚫 en/services/collagen-lift.html
+    🚫 en/services/deep-cleanse.html
+    🚫 en/services/detox-charcoal.html
+    🚫 en/services/enzyme-peel.html
+    🚫 en/services/eye-contour.html
+    🚫 en/services/g5-vibro-sculpting/index.html
+    🚫 en/services/glass-skin.html
+    🚫 en/services/gold-mask-ritual.html
+    🚫 en/services/hyaluron-hydrate.html
+    🚫 en/services/led-rejuvenation.html
+    🚫 en/services/lip-care.html
+    🚫 en/services/men-facial.html
+    🚫 en/services/micro-polish.html
+    🚫 en/services/oxygen-boost.html
+    🚫 en/services/sensitive-soothe.html
+    🚫 en/services/shirodhara-mind-flow/index.html
+    🚫 en/services/vitamin-c-glow.html
+    🚫 kese-ve-kopuk-masaji.html
+    🚫 showroom.html
+    🚫 tr/bilgelik/index.html
+    🚫 tr/cilt-bakimi/acne-balance.html
+    🚫 tr/cilt-bakimi/barrier-repair.html
+    🚫 tr/cilt-bakimi/brightening-spot.html
+    🚫 tr/cilt-bakimi/classic-facial.html
+    🚫 tr/cilt-bakimi/collagen-lift.html
+    🚫 tr/cilt-bakimi/detox-charcoal.html
+    🚫 tr/cilt-bakimi/enzyme-peel.html
+    🚫 tr/cilt-bakimi/eye-contour.html
+    🚫 tr/cilt-bakimi/glass-skin.html
+    🚫 tr/cilt-bakimi/gold-mask-ritual.html
+    🚫 tr/cilt-bakimi/led-rejuvenation.html
+    🚫 tr/cilt-bakimi/lip-care.html
+    🚫 tr/cilt-bakimi/men-facial.html
+    🚫 tr/cilt-bakimi/micro-polish.html
+    🚫 tr/cilt-bakimi/oxygen-boost.html
+    🚫 tr/cilt-bakimi/sensitive-soothe.html
+    🚫 tr/cilt-bakimi/vitamin-c-glow.html
+    🚫 tr/code-of-silence.html
+    🚫 tr/dunya-ritueli.html
+    🚫 tr/ekibimiz/index.html
+    🚫 tr/hamam/cikolata-bakimi.html
+    🚫 tr/hamam/gelin-hamami.html
+    🚫 tr/hamam/kopuk-masaji.html
+    🚫 tr/hamam/santis-pasa.html
+    🚫 tr/hamam/tuz-peeling.html
+    🚫 tr/hizmetler/abhyanga-masaji/index.html
+    🚫 tr/hizmetler/g5-masaji/index.html
+    🚫 tr/hizmetler/index.html
+    🚫 tr/hizmetler/maderoterapi/index.html
+    🚫 tr/hizmetler/shirodhara/index.html
+    🚫 tr/iletisim.html
+    🚫 tr/index.html
+    🚫 tr/magaza/index.html
+    🚫 tr/masajlar/anne-cocuk.html
+    🚫 tr/masajlar/anti-selulit.html
+    🚫 tr/masajlar/bali.html
+    🚫 tr/masajlar/bas-boyun-omuz.html
+    🚫 tr/masajlar/cift-rituel.html
+    🚫 tr/masajlar/cift-senkron.html
+    🚫 tr/masajlar/isvec-full-body.html
+    🚫 tr/masajlar/kids-nazik.html
+    🚫 tr/masajlar/klasik-sirt.html
+    🚫 tr/masajlar/kranyo-sakral.html
+    🚫 tr/masajlar/lenf-drenaj.html
+    🚫 tr/masajlar/myofascial-release.html
+    🚫 tr/masajlar/refleksoloji.html
+    🚫 tr/masajlar/shiatsu.html
+    🚫 tr/masajlar/signature-rituel.html
+    🚫 tr/masajlar/sirt-terapi.html
+    🚫 tr/masajlar/spor-terapi.html
+    🚫 tr/masajlar/tetik-nokta.html
+    🚫 tr/masajlar/thai.html
+    🚫 trends/japan.html
+    🚫 trends/roman.html
+    🚫 trends/sothys.html
+    🚫 trends/thailand.html
+
+  Zayıf bağlı sayfa (1 gelen link): 13
+    ⚠️ en/hammam/index.html (1 link)
+    ⚠️ en/massages/index.html (1 link)
+    ⚠️ en/products/index.html (1 link)
+    ⚠️ tr/blog/index.html (1 link)
+    ⚠️ tr/cilt-bakimi/anti-aging-pro.html (1 link)
+    ⚠️ tr/cilt-bakimi/hyaluron-hydrate.html (1 link)
+    ⚠️ tr/hakkimizda/index.html (1 link)
+    ⚠️ tr/hamam/kahve-detox.html (1 link)
+    ⚠️ tr/hamam/osmanli-ritueli.html (1 link)
+    ⚠️ tr/hediye-karti.html (1 link)
+    ⚠️ tr/magaza/atelier.html (1 link)
+    ⚠️ tr/magaza/kozmetik.html (1 link)
+    ⚠️ tr/magaza/paketler.html (1 link)
+
+
+🏷️ 4. ANCHOR TEXT ANALİZİ
+----------------------------------------------------------------------
+  Toplam benzersiz anchor text: 98
+
+  En çok kullanılan anchor textler:
+    "klasik masaj" → 255 kez kullanılmış
+    "hamam kese &amp; köpük" → 255 kez kullanılmış
+    "cilt bakımı" → 255 kez kullanılmış
+    "➤ klasik rahatlama masajı" → 164 kez kullanılmış
+    "➤ anti-stress masajı" → 164 kez kullanılmış
+    "➤ aromaterapi masajı" → 164 kez kullanılmış
+    "home" → 57 kez kullanılmış
+    "rezervasyon yap" → 52 kez kullanılmış
+    "jetzt buchen" → 51 kez kullanılmış
+    "book now" → 51 kez kullanılmış
+    "réserver" → 51 kez kullanılmış
+    "забронировать" → 51 kez kullanılmış
+    "massages" → 26 kez kullanılmış
+    "➤ sıcak taş masajı" → 15 kez kullanılmış
+    "klasik rahatlama masajı" → 11 kez kullanılmış
+
+  Zayıf/Generic anchor text:
+    ⚠️ "tümünü gör" → 5 kez
+
+
+🗺️ 5. SITEMAP ANALİZİ
+----------------------------------------------------------------------
+  Dosya boyutu: 198 byte
+  URL sayısı: 1
+  lastmod olan: 0
+  priority olan: 0
+  changefreq olan: 1
+
+  Sitemap'te OLMAYAN sayfa: 347
+    ❌ 404.html
+    ❌ booking.html
+    ❌ de/hammam/gelin-hamami.html
+    ❌ de/hammam/kahve-detox.html
+    ❌ de/hammam/kese-kopuk.html
+    ❌ de/hammam/kopuk-masaji.html
+    ❌ de/hammam/osmanli-ritueli.html
+    ❌ de/hammam/santis-pasa.html
+    ❌ de/hammam/tuz-peeling.html
+    ❌ de/massagen/anne-cocuk.html
+    ... ve 337 sayfa daha
+
+  Sitemap İçeriği:
+  <?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://localhost:8000</loc>
+    <changefreq>daily</changefreq>
+  </url>
+</urlset>
+
+
+📄 6. LISTING SAYFA ANALİZİ (Kısa İçerikli Hub Sayfaları)
+----------------------------------------------------------------------
+  Kısa listing sayfa sayısı: 23
+    404.html (17w) | FAQ:❌ Intro:❌
+    booking.html (62w) | FAQ:❌ Intro:✅
+    kese-ve-kopuk-masaji.html (35w) | FAQ:❌ Intro:✅
+    service-detail.html (35w) | FAQ:❌ Intro:✅
+    tr/code-of-silence.html (71w) | FAQ:❌ Intro:✅
+    tr/iletisim.html (49w) | FAQ:❌ Intro:✅
+    tr/bilgelik/index.html (27w) | FAQ:❌ Intro:✅
+    tr/blog/index.html (38w) | FAQ:❌ Intro:✅
+    tr/cilt-bakimi/index.html (33w) | FAQ:❌ Intro:✅
+    tr/ekibimiz/index.html (36w) | FAQ:❌ Intro:✅
+    tr/galeri/index.html (29w) | FAQ:❌ Intro:✅
+    tr/hamam/index.html (61w) | FAQ:❌ Intro:✅
+    tr/hizmetler/index.html (7w) | FAQ:❌ Intro:✅
+    tr/hizmetler/g5-masaji/index.html (60w) | FAQ:❌ Intro:✅
+    tr/hizmetler/maderoterapi/index.html (47w) | FAQ:❌ Intro:✅
+    tr/hizmetler/shirodhara/index.html (55w) | FAQ:❌ Intro:✅
+    tr/magaza/atelier.html (44w) | FAQ:❌ Intro:❌
+    tr/magaza/index.html (7w) | FAQ:❌ Intro:❌
+    tr/magaza/kozmetik.html (45w) | FAQ:❌ Intro:❌
+    tr/masajlar/index.html (58w) | FAQ:❌ Intro:✅
+    tr/rezervasyon/index.html (15w) | FAQ:❌ Intro:✅
+    tr/urunler/detay.html (13w) | FAQ:❌ Intro:✅
+    tr/urunler/index.html (30w) | FAQ:❌ Intro:✅
+
+
+🤖 7. ROBOTS.TXT ANALİZİ
+----------------------------------------------------------------------
+  İçerik:
+User-agent: *
+
+Allow: /
+
+
+
+Sitemap: https://santisclub.com/sitemap.xml
+
+
+
+
+🌐 8. CANONICAL & HREFLANG ANALİZİ
+----------------------------------------------------------------------
+  Canonical OLMAYAN: 13 sayfa
+    ❌ 404.html
+    ❌ showroom.html
+    ❌ tr/hediye-karti.html
+    ❌ tr/iletisim.html
+    ❌ tr/bilgelik/index.html
+    ❌ tr/magaza/atelier.html
+    ❌ tr/magaza/index.html
+    ❌ tr/magaza/kozmetik.html
+    ❌ tr/magaza/paketler.html
+    ❌ trends/japan.html
+  Hreflang OLMAYAN: 13 sayfa
+    ❌ 404.html
+    ❌ showroom.html
+    ❌ tr/hediye-karti.html
+    ❌ tr/iletisim.html
+    ❌ tr/bilgelik/index.html
+    ❌ tr/magaza/atelier.html
+    ❌ tr/magaza/index.html
+    ❌ tr/magaza/kozmetik.html
+    ❌ tr/magaza/paketler.html
+    ❌ trends/japan.html
+
+
+📝 9. META DESCRIPTION ANALİZİ
+----------------------------------------------------------------------
+  Meta description OLMAYAN: 7 sayfa
+    ❌ 404.html
+    ❌ showroom.html
+    ❌ tr/magaza/atelier.html
+    ❌ tr/magaza/index.html
+    ❌ tr/magaza/kozmetik.html
+    ❌ trends/roman.html
+    ❌ trends/sothys.html
+  Kısa meta description (<50 char): 29 sayfa
+    ⚠️ de/massagen/klasik-isvec-masaji/index.html: "Batı"
+    ⚠️ de/massagen/kraliyet-thai-masaji/index.html: "Tayland Sarayı"
+    ⚠️ de/untitled/abhyanga-massage/index.html: ""
+    ⚠️ de/untitled/brasilianische-maderotherapie/index.html: ""
+    ⚠️ de/untitled/shirodhara-geistesfluss/index.html: ""
+
+
+📱 10. OPEN GRAPH ANALİZİ
+----------------------------------------------------------------------
+  og:title eksik: 91 sayfa
+  og:description eksik: 91 sayfa
+  og:image eksik: 14 sayfa
+
+
+======================================================================
+TARAMA TAMAMLANDI
+======================================================================

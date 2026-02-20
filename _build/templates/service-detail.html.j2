@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html lang="{{ lang }}">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>{{ title }} | Santis Club</title>
+<meta content="{{ description }}" name="description"/>
+<meta name="google-site-verification" content="J2Dz8MONVqKFcNonNa8dOuNYYNBAhGvHDHT5niVo0ro" />
+<!-- Canonical -->
+<link href="{{ canonical_url }}" rel="canonical"/>
+<!-- Hreflang -->
+{% for hl in hreflang_links %}
+    <link rel="alternate" hreflang="{{ hl.lang }}" href="{{ hl.href }}" />
+{% endfor %}
+<!-- Open Graph -->
+<meta content="{{ title }}" property="og:title"/>
+<meta content="{{ description }}" property="og:description"/>
+<meta content="service" property="og:type"/>
+<meta content="{{ canonical_url }}" property="og:url"/>
+<meta content="{{ og_image }}" property="og:image"/>
+<!-- Schema.org Service -->
+<script type="application/ld+json">
+{{ schema_service | safe }}
+</script>
+<script type="application/ld+json">
+{{ schema_breadcrumb | safe }}
+</script>
+    <script src="{{ assets_prefix }}assets/js/hreflang-injector.js" defer></script>
+<!-- Styles -->
+<link href="{{ assets_prefix }}assets/css/style.css" rel="stylesheet"/>
+<link href="{{ assets_prefix }}assets/css/service-detail.css" rel="stylesheet"/>
+</head>
+<body>
+<noscript>
+<nav class="nv-noscript-nav">
+{% for ns in noscript_nav %}
+<a href="{{ ns.href }}"{% if ns.cls %} class="{{ ns.cls }}"{% endif %}>{{ ns.label }}</a>
+{% endfor %}
+</nav>
+</noscript>
+
+<!-- NAVBAR -->
+<div id="navbar-container"></div>
+
+<header id="nv-header">
+<div class="nv-container">
+<h1>{{ title }}</h1>
+</div>
+</header>
+<main class="service-detail nv-container">
+<section class="service-intro">
+<p>{{ long_description }}</p>
+</section>
+<section class="service-benefits">
+<h2>{{ ui.benefits_title }}</h2>
+<ul>
+{% for b in benefits %}
+<li>{{ b }}</li>
+{% endfor %}
+</ul>
+</section>
+{% if process_steps %}
+<section class="service-process">
+<h2>{{ ui.process_title }}</h2>
+<p>{{ ui.process_intro }}</p>
+<ol class="service-steps">
+{% for step in process_steps %}
+<li><strong>{{ step.title }}:</strong> {{ step.text }}</li>
+{% endfor %}
+</ol>
+{% if process_note %}
+<p>{{ process_note }}</p>
+{% endif %}
+</section>
+{% endif %}
+<section class="service-duration">
+<h2>{{ ui.duration_title }}</h2>
+<div class="service-meta-grid">
+<span>⏱ {{ duration }}</span>
+{% if intensity_label %}<span>💪 {{ intensity_label }}</span>{% endif %}
+{% if room_type_label %}<span>🏠 {{ room_type_label }}</span>{% endif %}
+</div>
+</section>
+<!-- Related Services -->
+{% if related_services %}
+<section class="related-services">
+<h2>{{ ui.related_title }}</h2>
+<ul>
+{% for rs in related_services %}
+<li><a href="{{ rs.href }}">{{ rs.name }}</a></li>
+{% endfor %}
+</ul>
+</section>
+{% endif %}
+<section class="booking-cta">
+<a class="btn-primary" href="{{ booking_url }}">{{ ui.booking_cta }}</a>
+</section>
+<div class="related-services-auto"><h3>{{ ui.similar_title }}</h3><ul>{% for rs in similar_services %}<li><a href="{{ rs.href }}">➤ {{ rs.name }}</a></li>{% endfor %}</ul></div></main>
+<!-- FOOTER -->
+<div id="footer-container"></div>
+<!-- SCRIPTS -->
+<script src="{{ assets_prefix }}assets/js/i18n-routes.js"></script>
+<script src="{{ assets_prefix }}assets/js/loader.js"></script>
+<script src="{{ assets_prefix }}assets/js/santis-nav.js"></script>
+<script defer src="{{ assets_prefix }}assets/js/santis-booking.js"></script>
+<script defer src="{{ assets_prefix }}assets/js/app-core.js"></script>
+<script defer="" src="{{ assets_prefix }}assets/js/app.js"></script>
+</body>
+</html>

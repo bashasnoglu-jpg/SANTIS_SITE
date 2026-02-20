@@ -1,0 +1,39 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   SANTIS Z-INDEX & INTERACTION PATCH (FIXING MENU CLICK)
+   Date: 06.02.2026
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* 1. Navbar Priority */
+nav,
+.navbar,
+#nv-header,
+.nv-navbar {
+    position: relative;
+    z-index: 100000 !important;
+}
+
+/* 2. Ghost Layer Interaction Block */
+/* These layers should be visible but not clickable */
+.hero-overlay,
+.bento-overlay,
+.motion-layer,
+.ultra-motion,
+.fx-layer,
+.nv-hero-overlay,
+.background-effects,
+.santis-soul-layer {
+    pointer-events: none !important;
+}
+
+/* 3. Mobile Menu Specifics */
+.mobile-menu-overlay {
+    z-index: 99999 !important;
+    /* Just below Navbar toggle but above content */
+    pointer-events: auto;
+    /* Menu itself must be clickable */
+}
+
+/* 4. Fix Overlay Click Capture */
+#heroProgress {
+    pointer-events: none;
+}
