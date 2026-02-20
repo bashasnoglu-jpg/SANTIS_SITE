@@ -1,5 +1,338 @@
 [
   {
+    "id": "evt_1771622310398",
+    "timestamp": "2026-02-20T21:18:30.398845Z",
+    "type": "SECURITY_EVENT",
+    "severity": "INFO",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 401 on /api/v1/users/me"
+  },
+  {
+    "id": "evt_1771622310388",
+    "timestamp": "2026-02-20T21:18:30.388342Z",
+    "type": "INTRUSION_ATTEMPT",
+    "severity": "CRITICAL",
+    "ip": "unknown",
+    "username": "unknown",
+    "description": "JWT manipulation or invalid token: Signature verification failed."
+  },
+  {
+    "id": "evt_1771622310370",
+    "timestamp": "2026-02-20T21:18:30.370982Z",
+    "type": "SECURITY_EVENT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 429 on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771622310357",
+    "timestamp": "2026-02-20T21:18:30.357388Z",
+    "type": "SECURITY_EVENT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 429 on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771622310344",
+    "timestamp": "2026-02-20T21:18:30.344012Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "redteam@santis.com",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771622310324",
+    "timestamp": "2026-02-20T21:18:30.324171Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "redteam@santis.com",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771622310305",
+    "timestamp": "2026-02-20T21:18:30.306003Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "redteam@santis.com",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771622310280",
+    "timestamp": "2026-02-20T21:18:30.280590Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "redteam@santis.com",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771622310265",
+    "timestamp": "2026-02-20T21:18:30.265099Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "redteam@santis.com",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771622266867",
+    "timestamp": "2026-02-20T21:17:46.867758Z",
+    "type": "SECURITY_EVENT",
+    "severity": "INFO",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 401 on /api/v1/users/me"
+  },
+  {
+    "id": "evt_1771622266859",
+    "timestamp": "2026-02-20T21:17:46.859961Z",
+    "type": "INTRUSION_ATTEMPT",
+    "severity": "CRITICAL",
+    "ip": "unknown",
+    "username": "unknown",
+    "description": "JWT manipulation or invalid token: Signature verification failed."
+  },
+  {
+    "id": "evt_1771622266850",
+    "timestamp": "2026-02-20T21:17:46.850659Z",
+    "type": "SECURITY_EVENT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 429 on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771622266837",
+    "timestamp": "2026-02-20T21:17:46.837783Z",
+    "type": "SECURITY_EVENT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 429 on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771622266828",
+    "timestamp": "2026-02-20T21:17:46.828119Z",
+    "type": "SECURITY_EVENT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 429 on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771622266816",
+    "timestamp": "2026-02-20T21:17:46.816780Z",
+    "type": "SECURITY_EVENT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 429 on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771622266807",
+    "timestamp": "2026-02-20T21:17:46.807339Z",
+    "type": "SECURITY_EVENT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 429 on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771622266797",
+    "timestamp": "2026-02-20T21:17:46.797176Z",
+    "type": "SECURITY_EVENT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 429 on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771622266785",
+    "timestamp": "2026-02-20T21:17:46.785753Z",
+    "type": "SECURITY_EVENT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 429 on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771622256041",
+    "timestamp": "2026-02-20T21:17:36.041875Z",
+    "type": "SECURITY_EVENT",
+    "severity": "INFO",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 401 on /api/v1/users/me"
+  },
+  {
+    "id": "evt_1771622256034",
+    "timestamp": "2026-02-20T21:17:36.034364Z",
+    "type": "INTRUSION_ATTEMPT",
+    "severity": "CRITICAL",
+    "ip": "unknown",
+    "username": "unknown",
+    "description": "JWT manipulation or invalid token: Signature verification failed."
+  },
+  {
+    "id": "evt_1771622256020",
+    "timestamp": "2026-02-20T21:17:36.020148Z",
+    "type": "SECURITY_EVENT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 429 on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771622255982",
+    "timestamp": "2026-02-20T21:17:35.982122Z",
+    "type": "SECURITY_EVENT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 429 on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771622255973",
+    "timestamp": "2026-02-20T21:17:35.973467Z",
+    "type": "SECURITY_EVENT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 403 on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771622255965",
+    "timestamp": "2026-02-20T21:17:35.966002Z",
+    "type": "LOCKOUT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "redteam@santis.com",
+    "description": "Blocked by Brute Force Lockout Manager."
+  },
+  {
+    "id": "evt_1771622255956",
+    "timestamp": "2026-02-20T21:17:35.956552Z",
+    "type": "SECURITY_EVENT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 403 on /api/v1/auth/login"
+  },
+  {
+    "id": "evt_1771622255950",
+    "timestamp": "2026-02-20T21:17:35.950177Z",
+    "type": "LOCKOUT",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "redteam@santis.com",
+    "description": "Blocked by Brute Force Lockout Manager."
+  },
+  {
+    "id": "evt_1771622255935",
+    "timestamp": "2026-02-20T21:17:35.935735Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "redteam@santis.com",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771622255919",
+    "timestamp": "2026-02-20T21:17:35.919127Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "redteam@santis.com",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771622255899",
+    "timestamp": "2026-02-20T21:17:35.899410Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "redteam@santis.com",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771622183042",
+    "timestamp": "2026-02-20T21:16:23.042232Z",
+    "type": "SECURITY_EVENT",
+    "severity": "INFO",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 401 on /api/v1/users/me"
+  },
+  {
+    "id": "evt_1771622183032",
+    "timestamp": "2026-02-20T21:16:23.032840Z",
+    "type": "INTRUSION_ATTEMPT",
+    "severity": "CRITICAL",
+    "ip": "unknown",
+    "username": "unknown",
+    "description": "JWT manipulation or invalid token: Signature verification failed."
+  },
+  {
+    "id": "evt_1771622183022",
+    "timestamp": "2026-02-20T21:16:23.022152Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "admin' OR 1=1 --",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771622182999",
+    "timestamp": "2026-02-20T21:16:22.999267Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "redteam@santis.com",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771622156792",
+    "timestamp": "2026-02-20T21:15:56.792439Z",
+    "type": "SECURITY_EVENT",
+    "severity": "INFO",
+    "ip": "127.0.0.1",
+    "username": "unknown",
+    "description": "HTTP 401 on /api/v1/users/me"
+  },
+  {
+    "id": "evt_1771622156786",
+    "timestamp": "2026-02-20T21:15:56.786208Z",
+    "type": "INTRUSION_ATTEMPT",
+    "severity": "CRITICAL",
+    "ip": "unknown",
+    "username": "unknown",
+    "description": "JWT manipulation or invalid token: Signature verification failed."
+  },
+  {
+    "id": "evt_1771622156762",
+    "timestamp": "2026-02-20T21:15:56.762530Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "admin' OR 1=1 --",
+    "description": "User not found."
+  },
+  {
+    "id": "evt_1771622156716",
+    "timestamp": "2026-02-20T21:15:56.716113Z",
+    "type": "LOGIN_FAILED",
+    "severity": "WARN",
+    "ip": "127.0.0.1",
+    "username": "redteam@santis.com",
+    "description": "User not found."
+  },
+  {
     "id": "evt_1771621504680",
     "timestamp": "2026-02-20T21:05:04.680325Z",
     "type": "AUTH_FAILURE",

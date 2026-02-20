@@ -420,14 +420,81 @@ async def performance_audit(payload: dict = Body({}, embed=False)):
         "resources": {"total_size": 1500, "count": 25}
     }
 
-@router.post("/admin/attack-simulator")
-async def attack_simulator():
+@router.post("/api/admin/simulate-attack")
+async def simulate_attack():
+    BASE_URL = "http://127.0.0.1:8000"
+    results = []
+    total_score = 100
+    
+    async def run_probe(session, method, url, data=None, headers=None, expected_status=[], test_name="", iterations=1):
+        try:
+            nonlocal total_score
+            start_time = time.time()
+            status = 0
+            
+            for _ in range(iterations):
+                if method == 'POST':
+                    async with session.post(f"{BASE_URL}{url}", data=data, headers=headers) as resp:
+                        status = resp.status
+                elif method == 'GET':
+                    async with session.get(f"{BASE_URL}{url}", headers=headers) as resp:
+                        status = resp.status
+                else:
+                    async with session.request(method, f"{BASE_URL}{url}", data=data, headers=headers) as resp:
+                        status = resp.status
+            
+            elapsed = int((time.time() - start_time) * 1000)
+            
+            # If we run 6 iterations, the last one should hit the expected status (like 429 or 403)
+            if status in expected_status:
+                results.append({"test": test_name, "status": "PASS", "detail": f"Blocked expectedly with {status} ({elapsed}ms)"})
+            else:
+                results.append({"test": test_name, "status": "FAIL", "detail": f"Failed to block. Returned {status} ({elapsed}ms)"})
+                total_score -= 25
+                
+        except Exception as e:
+            results.append({"test": test_name, "status": "ERROR", "detail": f"Network exception: {str(e)}"})
+            total_score -= 25
+
+    async with aiohttp.ClientSession() as session:
+        # 1. Brute Force Probe => Send 6 rapid requests. Should trigger Rate Limit/Lockout (429 or 403)
+        await run_probe(
+            session, 'POST', '/api/v1/auth/login',
+            data={"username": "redteam@santis.com", "password": "bruteforce_payload"},
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+            expected_status=[403, 429],
+            test_name="Brute Force (Rate Limit & Lockout)",
+            iterations=6
+        )
+        
+        # 2. Method Fuzzing => Send POST to a GET endpoint (405).
+        await run_probe(
+            session, 'POST', '/api/v1/users/me',
+            expected_status=[405, 401], # 401 is also okay if it drops before 405 because of missing token
+            test_name="Method Fuzzing (405 Protocol)"
+        )
+        
+        # 3. SQL Injection Probe => (400 represents "Incorrect credentials", 429 means Rate Limit caught us first!)
+        await run_probe(
+            session, 'POST', '/api/v1/auth/login',
+            data={"username": "admin' OR 1=1 --", "password": "password123"},
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+            expected_status=[400, 401, 403, 429], 
+            test_name="SQL Injection (ORM Sanitizer)"
+        )
+        
+        # 4. Strict JWT Audit => Forge a fake token payload
+        await run_probe(
+            session, 'GET', '/api/v1/users/me',
+            headers={"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.forged_signature_xyz"},
+            expected_status=[401, 403],
+            test_name="Strict JWT Audit (Role & Exp Forge)"
+        )
+
     return {
-        "score": 10,
-        "total": 10,
-        "attacks": [
-            {"type": "SQL Injection", "target": "/login", "status": "BLOCKED", "outcome": "403 Forbidden"}
-        ]
+        "status": "COMPLETED",
+        "score": max(0, total_score),
+        "results": results
     }
 
 @router.post("/admin/intelligence/scan")
