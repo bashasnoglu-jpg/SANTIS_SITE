@@ -75,6 +75,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ──────────────────────────────────────────
+    // Deep Scroll Interceptors (Hero Anchors)
+    // ──────────────────────────────────────────
+    var exploreBtn = document.querySelector('.explore-btn[href^="#"]');
+    var scrollDownBtn = document.querySelector('.scroll-down');
+    var scrollTarget = document.getElementById('thai') || document.querySelector('.culture-section');
+
+    function executeSmoothScroll(e) {
+        if (e) e.preventDefault();
+        if (scrollTarget) {
+            if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+                window.lenis.scrollTo(scrollTarget);
+            } else {
+                scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }
+
+    if (exploreBtn) exploreBtn.addEventListener('click', executeSmoothScroll);
+    if (scrollDownBtn) scrollDownBtn.addEventListener('click', executeSmoothScroll);
+
+    // ──────────────────────────────────────────
     // 5. Telemetry Layer (Phase 26)
     // ──────────────────────────────────────────
     if (window.SantisTelemetry) {
