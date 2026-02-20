@@ -53,6 +53,16 @@
                 }
             }
         });
+        // Auto-Trigger from URL (?filter=massage-asian)
+        var qs = new URLSearchParams(window.location.search);
+        var autoFilter = qs.get("filter");
+        if (autoFilter) {
+            var targetChip = chipBar.querySelector(".nv-chip[data-target='" + autoFilter + "']");
+            if (targetChip) {
+                // Simulate a click on the target chip to activate it
+                targetChip.click();
+            }
+        }
     }
 
     if (document.readyState === "loading") {
