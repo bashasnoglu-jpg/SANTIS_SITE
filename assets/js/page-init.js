@@ -75,25 +75,35 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ──────────────────────────────────────────
-    // Deep Scroll Interceptors (Hero Anchors)
+    // Deep Scroll Interceptors (Hero Anchors) using Event Delegation
     // ──────────────────────────────────────────
-    var exploreBtn = document.querySelector('.explore-btn[href^="#"]');
-    var scrollDownBtn = document.querySelector('.scroll-down');
-    var scrollTarget = document.getElementById('thai') || document.querySelector('.culture-section');
+    document.addEventListener('click', function (e) {
+        var btn = e.target.closest('.explore-btn[href^="#"], .scroll-down');
+        if (btn) {
+            e.preventDefault();
+            var targetId = btn.getAttribute('href');
+            var scrollTarget = null;
 
-    function executeSmoothScroll(e) {
-        if (e) e.preventDefault();
-        if (scrollTarget) {
-            if (window.lenis && typeof window.lenis.scrollTo === 'function') {
-                window.lenis.scrollTo(scrollTarget);
-            } else {
-                scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (targetId && targetId.startsWith('#') && targetId.length > 1) {
+                scrollTarget = document.getElementById(targetId.substring(1));
+            }
+            // Fallback to the first culture section if anchor is missing or generic
+            if (!scrollTarget) {
+                scrollTarget = document.getElementById('thai') || document.querySelector('.culture-section');
+            }
+
+            if (scrollTarget) {
+                if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+                    window.lenis.scrollTo(scrollTarget);
+                } else if (window.Lenis) {
+                    // Sometimes lenis is not global but Lenis class is available
+                    scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             }
         }
-    }
-
-    if (exploreBtn) exploreBtn.addEventListener('click', executeSmoothScroll);
-    if (scrollDownBtn) scrollDownBtn.addEventListener('click', executeSmoothScroll);
+    });
 
     // ──────────────────────────────────────────
     // 5. Telemetry Layer (Phase 26)

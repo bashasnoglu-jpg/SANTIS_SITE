@@ -729,6 +729,9 @@ body.code-of-silence {
   letter-spacing: 2px;
   font-size: 0.9rem;
   transition: all 0.3s;
+  position: relative;
+  z-index: 50;
+  pointer-events: auto;
 }
 
 .explore-btn:hover {
