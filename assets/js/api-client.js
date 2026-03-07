@@ -14,7 +14,7 @@
 (function (window) {
     // 1. Environment Flag (Hardcoded localhost is forbidden)
     const API_BASE = window.__API_BASE__ || 'http://127.0.0.1:8000/api/v1';
-    const STATIC_FALLBACK = '/data/site_content.json';
+    const STATIC_FALLBACK = '/assets/data/site_content.json';
     const TIMEOUT_MS = 4000;
 
     const SantisAPI = {
@@ -58,6 +58,44 @@
             if (this.mode !== newMode) {
                 this.mode = newMode;
                 console.info(`%c 🦅 SANTIS DATA LAYER: ${newMode} MODE `, 'background: #000; color: #D4AF37; font-weight: bold; border: 1px solid #D4AF37; padding: 4px;');
+            }
+        },
+
+        /**
+         * Enterprise-grade POST fetch with CSRF Token and Timeout
+         */
+        async post(endpoint, payload) {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
+            // Get CSRF token from cookie if available
+            let csrfToken = '';
+            const match = document.cookie.match(new RegExp('(^| )csrf_token=([^;]+)'));
+            if (match) csrfToken = match[2];
+
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-csrf-token': csrfToken
+                    },
+                    body: JSON.stringify(payload),
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.status} ${response.statusText}`);
+                }
+
+                this.setMode('API');
+                return await response.json();
+            } catch (error) {
+                clearTimeout(timeoutId);
+                console.warn(`🦅 [SantisAPI] POST Error for ${endpoint}:`, error.message);
+                throw error;
             }
         },
 

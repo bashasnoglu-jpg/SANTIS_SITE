@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@source "../../html";
+@source "../../**/*.html";
+@source "../../assets/js/**/*.js";
+
+@theme {
+    --color-santis-gold: #D4AF37;
+    --font-sans: 'Inter', sans-serif;
+    --font-serif: '"Playfair Display"', serif;
+    --font-mono: 'Space Mono', sans-serif;
+}

@@ -40,6 +40,6 @@ echo   Erisim Adresi: http://localhost:8000/admin/index.html
 
 echo.
 
-python server.py
+venv\Scripts\python.exe server.py
 
 pause

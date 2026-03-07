@@ -3,9 +3,9 @@ from sqlalchemy import String, Boolean, DateTime
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 from datetime import datetime
+from typing import Optional
 
 from app.db.base import Base
-
 from app.db.models.mixins import SoftDeleteMixin
 
 class Tenant(Base, SoftDeleteMixin):
@@ -17,10 +17,13 @@ class Tenant(Base, SoftDeleteMixin):
         default=uuid.uuid4
     )
     name: Mapped[str] = mapped_column(String(255), unique=True, index=True)
-    country: Mapped[str] = mapped_column(String(100), nullable=True)
+    country: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    slug: Mapped[Optional[str]] = mapped_column(String(120), unique=True, nullable=True, index=True)
+    subdomain: Mapped[Optional[str]] = mapped_column(String(120), unique=True, nullable=True, index=True)
+    domain: Mapped[Optional[str]] = mapped_column(String(255), unique=True, nullable=True, index=True) # Gateway Domain Routing
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
-    
+
     # Relationships
     from typing import TYPE_CHECKING
     if TYPE_CHECKING:

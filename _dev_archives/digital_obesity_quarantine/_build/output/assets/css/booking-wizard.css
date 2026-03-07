@@ -1,0 +1,431 @@
+/* ==========================================================================
+   SANTIS BOOKING WIZARD v2.0 (Investor Demo Polish)
+   Theme: Quiet Luxury / Dark Mode
+   ========================================================================== */
+
+:root {
+    --bw-gold: #D4AF37;
+    --bw-gold-dim: rgba(212, 175, 55, 0.1);
+    --bw-bg: #0a0c10;
+    --bw-card-bg: #14161b;
+    --bw-text: #e0e0e0;
+    --bw-text-muted: #888;
+    --bw-border: rgba(255, 255, 255, 0.08);
+    --bw-radius: 8px;
+    --bw-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- LAYOUT & CONTAINER --- */
+.booking-wizard-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+    font-family: 'Inter', sans-serif;
+    /* Fallback if project font fails */
+    color: var(--bw-text);
+}
+
+/* --- PROGRESS HEADER --- */
+.wizard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--bw-border);
+}
+
+.wizard-title {
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    color: var(--bw-gold);
+    margin: 0;
+}
+
+.wizard-steps {
+    display: flex;
+    gap: 12px;
+}
+
+.step-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--bw-border);
+    transition: var(--bw-transition);
+}
+
+.step-indicator.active {
+    background: var(--bw-gold);
+    box-shadow: 0 0 10px var(--bw-gold-dim);
+}
+
+/* --- STEPS COMMON --- */
+.wizard-step {
+    display: none;
+    /* Hidden by default */
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.wizard-step.active {
+    display: block;
+}
+
+.step-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.step-heading h2 {
+    font-size: 28px;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.step-heading p {
+    color: var(--bw-text-muted);
+    font-size: 14px;
+}
+
+/* --- STEP 1: SERVICE GRID --- */
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.service-card {
+    background: var(--bw-card-bg);
+    border: 1px solid var(--bw-border);
+    border-radius: var(--bw-radius);
+    padding: 20px;
+    cursor: pointer;
+    transition: var(--bw-transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card:hover {
+    border-color: var(--bw-gold);
+    transform: translateY(-2px);
+    background: rgba(212, 175, 55, 0.03);
+}
+
+.service-card.selected {
+    border-color: var(--bw-gold);
+    background: var(--bw-gold-dim);
+}
+
+.svc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.svc-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+    margin: 0;
+}
+
+.svc-price {
+    font-family: 'Cinzel', serif;
+    color: var(--bw-gold);
+    font-size: 16px;
+}
+
+.svc-desc {
+    font-size: 13px;
+    color: var(--bw-text-muted);
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.svc-meta {
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    gap: 15px;
+}
+
+/* --- STEP 2: DATE & TIME --- */
+.date-time-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .date-time-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.date-picker-wrapper input {
+    width: 100%;
+    padding: 15px;
+    background: var(--bw-card-bg);
+    border: 1px solid var(--bw-border);
+    color: #fff;
+    border-radius: var(--bw-radius);
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+}
+
+.time-slots {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.time-slot {
+    padding: 12px;
+    text-align: center;
+    background: var(--bw-card-bg);
+    border: 1px solid var(--bw-border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--bw-transition);
+}
+
+.time-slot:hover,
+.time-slot.selected {
+    border-color: var(--bw-gold);
+    color: var(--bw-gold);
+}
+
+/* --- STEP 3: DETAILS --- */
+.form-grid {
+    display: grid;
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--bw-text-muted);
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: 15px;
+    background: var(--bw-card-bg);
+    border: 1px solid var(--bw-border);
+    color: #fff;
+    border-radius: var(--bw-radius);
+    transition: var(--bw-transition);
+}
+
+.input-group input:focus {
+    border-color: var(--bw-gold);
+    outline: none;
+}
+
+/* --- ACTIONS --- */
+.wizard-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--bw-border);
+}
+
+.btn-wizard {
+    padding: 12px 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    letter-spacing: 1px;
+    transition: var(--bw-transition);
+    background: transparent;
+    border: 1px solid var(--bw-border);
+    color: var(--bw-text-muted);
+}
+
+.btn-wizard:hover {
+    color: #fff;
+    border-color: #fff;
+}
+
+.btn-wizard.primary {
+    background: var(--bw-gold);
+    border-color: var(--bw-gold);
+    color: #000;
+    font-weight: 600;
+}
+
+.btn-wizard.primary:hover {
+    background: #fff;
+    border-color: #fff;
+}
+
+/* --- LOADING & SUCCESS --- */
+.loading-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 12, 16, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--bw-border);
+    border-top-color: var(--bw-gold);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+.success-ticket {
+    background: var(--bw-card-bg);
+    border: 1px solid var(--bw-gold);
+    padding: 40px;
+    text-align: center;
+    border-radius: var(--bw-radius);
+    max-width: 400px;
+    margin: 0 auto;
+    animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ticket-icon {
+    font-size: 48px;
+    color: var(--bw-gold);
+    margin-bottom: 20px;
+    display: block;
+}
+
+.ticket-id {
+    font-family: monospace;
+    color: var(--bw-text-muted);
+    letter-spacing: 2px;
+    margin-top: 20px;
+    display: block;
+}
+
+/* --- INVESTOR POLISH (SUMMARY & SCARCITY) --- */
+.order-summary-box {
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid var(--bw-border);
+    border-left: 3px solid var(--bw-gold);
+    padding: 20px;
+    border-radius: 4px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.summary-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--bw-text-muted);
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--bw-border);
+    padding-bottom: 10px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.summary-divider {
+    height: 1px;
+    background: var(--bw-border);
+    margin: 15px 0;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.total-price {
+    color: var(--bw-gold);
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+}
+
+.scarcity-badge {
+    display: block;
+    font-size: 10px;
+    color: #e57373;
+    /* Subtle Red */
+    margin-top: 4px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    animation: fadeIn 0.5s;
+}
+
+.trust-signals {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--bw-border);
+    font-size: 11px;
+    color: #555;
+    text-align: center;
+}
+
+.trust-signals p {
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

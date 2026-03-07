@@ -12,6 +12,9 @@ class TokenPayload(BaseModel):
     sub: Optional[str] = None
     tv: Optional[int] = None
     type: Optional[str] = None
+    tenant: Optional[str] = None
+    role: Optional[str] = None
+    region: Optional[str] = None
 
 class RefreshToken(BaseModel):
     refresh_token: str

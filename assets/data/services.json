@@ -19,7 +19,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hammam_lux.png"
+      "hero": "santis_card_hammam_lux.webp"
     },
     "content": {
       "tr": {
@@ -72,7 +72,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_foam_lux.png"
+      "hero": "santis_card_foam_lux.webp"
     },
     "content": {
       "tr": {
@@ -123,7 +123,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hamam_scrub_v2.png"
+      "hero": "santis_card_hamam_scrub_v2.webp"
     },
     "content": {
       "tr": {
@@ -174,7 +174,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hamam_scrub_v2.png"
+      "hero": "santis_card_hamam_scrub_v2.webp"
     },
     "content": {
       "tr": {
@@ -224,7 +224,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hammam_v1.png"
+      "hero": "santis_card_hammam_v1.webp"
     },
     "content": {
       "tr": {
@@ -274,7 +274,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_kids_v1.png"
+      "hero": "santis_card_kids_v1.webp"
     },
     "content": {
       "tr": {
@@ -324,7 +324,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_skincare_clay_v2.png"
+      "hero": "santis_card_skincare_clay_v2.webp"
     },
     "content": {
       "tr": {
@@ -377,7 +377,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hammam_lux.png"
+      "hero": "santis_card_hammam_lux.webp"
     },
     "content": {
       "tr": {
@@ -401,7 +401,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -422,7 +422,7 @@
         "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
       }
     },
-    "slug": "klasik-tum-vucut-masaji",
+    "slug": "isvec-full-body",
     "tags": []
   },
   {
@@ -435,7 +435,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_oil_v2.png"
+      "hero": "santis_card_massage_oil_v2.webp"
     },
     "content": {
       "tr": {
@@ -469,7 +469,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_deeptissue_v1.png"
+      "hero": "santis_card_deeptissue_v1.webp"
     },
     "content": {
       "tr": {
@@ -503,7 +503,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -539,7 +539,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_oil_v2.png"
+      "hero": "santis_card_massage_oil_v2.webp"
     },
     "content": {
       "tr": {
@@ -575,7 +575,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "product-oil.png"
+      "hero": "product-oil.webp"
     },
     "content": {
       "tr": {
@@ -609,7 +609,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -785,7 +785,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_deeptissue_v1.png"
+      "hero": "santis_card_deeptissue_v1.webp"
     },
     "content": {
       "tr": {
@@ -821,7 +821,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_skincare_v1.png"
+      "hero": "santis_card_skincare_v1.webp"
     },
     "content": {
       "tr": {
@@ -856,7 +856,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_deeptissue_v1.png"
+      "hero": "santis_card_deeptissue_v1.webp"
     },
     "content": {
       "tr": {
@@ -890,7 +890,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -924,7 +924,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -960,7 +960,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -994,7 +994,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_deeptissue_v1.png"
+      "hero": "santis_card_deeptissue_v1.webp"
     },
     "content": {
       "tr": {
@@ -1030,7 +1030,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_oil_v2.png"
+      "hero": "santis_card_massage_oil_v2.webp"
     },
     "content": {
       "tr": {
@@ -1066,7 +1066,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_couple_v1.png"
+      "hero": "santis_card_couple_v1.webp"
     },
     "content": {
       "tr": {
@@ -1102,7 +1102,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_couple_v1.png"
+      "hero": "santis_card_couple_v1.webp"
     },
     "content": {
       "tr": {
@@ -1123,7 +1123,7 @@
         "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
       }
     },
-    "slug": "kombine-masaj-90",
+    "slug": "kombine-masaj",
     "tags": [
       "PREMIUM"
     ]
@@ -1138,7 +1138,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -1159,7 +1159,7 @@
         "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
       }
     },
-    "slug": "mix-manuel-terapi",
+    "slug": "manuel-terapi",
     "tags": [
       "VIP"
     ]
@@ -1199,7 +1199,7 @@
       }
     },
     "slug": "rituel-purete-classique",
-    "img": "rituel-purete-classique.jpg",
+    "img": "rituel-purete-classique.webp",
     "media": {
       "hero": "santis_card_skincare_clay_v2.webp"
     },
@@ -1658,7 +1658,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_oil_v2.png"
+      "hero": "santis_card_massage_oil_v2.webp"
     },
     "content": {
       "tr": {
@@ -1698,7 +1698,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_skincare_clay_v2.png"
+      "hero": "santis_card_skincare_clay_v2.webp"
     },
     "content": {
       "tr": {
@@ -1737,7 +1737,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hammam_lux.png"
+      "hero": "santis_card_hammam_lux.webp"
     },
     "content": {
       "tr": {
@@ -1778,7 +1778,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_deeptissue_v1.png"
+      "hero": "santis_card_deeptissue_v1.webp"
     },
     "content": {
       "tr": {
@@ -1818,7 +1818,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_skincare_v1.png"
+      "hero": "santis_card_skincare_v1.webp"
     },
     "content": {
       "tr": {
@@ -1858,7 +1858,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -1898,7 +1898,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -1938,7 +1938,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -1978,7 +1978,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2018,7 +2018,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2043,7 +2043,7 @@
         "shortDesc": "Çiftlere özel masaj ve bakım kombinasyonu. Birlikte yenilenin."
       }
     },
-    "slug": "cift-rituel-masaji",
+    "slug": "cift-rituel",
     "tags": [
       "CLASSIC"
     ]
@@ -2058,7 +2058,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2098,7 +2098,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2138,7 +2138,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2178,7 +2178,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2218,7 +2218,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2258,7 +2258,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2298,7 +2298,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2338,7 +2338,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2378,7 +2378,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -4322,6 +4322,163 @@
         ],
         "effects": "Serbest radikallere savaş açarak cildi fotoyaşlanmadan (güneş hasarı) korur. Anında bir enerji portresi çizer; cildiniz adeta içeriden bir ampul yanmışçasına sağlıklı ışıldar.",
         "tagline": "Antioksidan Güç & Göz Alıcı Işıltı"
+      }
+    }
+  },
+  {
+    "id": "mass-bali-aroma",
+    "categoryId": "massage-asian",
+    "name": "Balinesische Aroma Massage",
+    "duration": 60,
+    "price": {
+      "amount": 60,
+      "currency": "€"
+    },
+    "media": {
+      "hero": "santis_card_massage_oil_v2.webp"
+    },
+    "img": "/assets/img/cards/santis_card_massage_oil_v2.webp",
+    "slug": "bali-aroma-masaji",
+    "tags": [],
+    "content": {
+      "tr": {
+        "title": "Bali Aroma Masajı",
+        "shortDesc": "Geleneksel Bali dokunuşlarının sıcak aromatik yağlarla harmanlandığı derin bir rahatlama.",
+        "fullDesc": "Kas gerginliklerini rahatlatan ve ruhunuzu şımartan Bali tarzı aromaterapi masajı.",
+        "tagline": "Duyusal Uyanış",
+        "heroTitle": "Bali'nin Aromatik Şifası",
+        "intro": "Bali'nin geleneksel iyileştirme bilgeliğini aromatik yağların rahatlatıcı gücüyle birleştiren bu terapi, beden ve zihni mükemmel bir dengeye kavuşturur.",
+        "steps": [
+          "Sıcak aromatik yağlarla karşılama ritüeli",
+          "Geleneksel Bali baskı ve sıvazlama teknikleri",
+          "Aroma esanslarının cilde derinlemesine nüfuzu",
+          "Ruhsal ve bedensel arınma"
+        ],
+        "effects": "Kan dolaşımını hızlandırır, hücreleri yeniler ve derin bir dinginlik sağlar.",
+        "idealFor": "Stresli dönemlerden geçenler ve ruhsal denge arayanlar.",
+        "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+      },
+      "de": {
+        "title": "Balinesische Aroma Massage",
+        "shortDesc": "Tiefe Entspannung mit warmen, aromatischen Ölen und traditionellen balinesischen Griffen.",
+        "fullDesc": "Balinesische Aromatherapie-Massage zur Lösung von Muskelverspannungen und Pflege der Seele."
+      }
+    }
+  },
+  {
+    "id": "mass-bali-fuss",
+    "categoryId": "massage-asian",
+    "name": "Balinesische Fußmassage",
+    "duration": 30,
+    "price": {
+      "amount": 30,
+      "currency": "€"
+    },
+    "media": {
+      "hero": "santis_card_massage_oil_v2.webp"
+    },
+    "slug": "bali-ayak-masaji",
+    "tags": [],
+    "content": {
+      "tr": {
+        "title": "Bali Ayak Masajı",
+        "shortDesc": "Ayaklardaki yorgunluğu özel Bali teknikleriyle alan bölgesel rahatlama.",
+        "fullDesc": "Ayak ve alt bacak bölgesindeki gerginliği hedefleyen odaklanmış Bali terapisi.",
+        "tagline": "Hafifleyen Adımlar",
+        "heroTitle": "Bali'nin Odaklanmış Dokunuşu",
+        "intro": "Tüm günün yükünü taşıyan ayaklarınız için özel olarak tasarlanmış bu terapi, Bali teknikleriyle derin bir hafifleme sağlar.",
+        "steps": [
+          "Sıcak kompres ile ayak ve bacak kaslarının ısıtılması",
+          "Bali teknikleriyle lokal basınç uygulaması",
+          "Ayak tabanından başlayıp dize kadar uzanan rahatlama",
+          "Nöral rahatlama ve gevşeme süreci"
+        ],
+        "effects": "Ayaklardaki ödemi azaltır, kan dolaşımını rahatlatır ve yorgunluğu yok eder.",
+        "idealFor": "Gününü ayakta geçirenler ve bölgesel bir rahatlama arayanlar.",
+        "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+      },
+      "de": {
+        "title": "Balinesische Fußmassage",
+        "shortDesc": "Spezielle balinesische Techniken für müde Füße und Waden.",
+        "fullDesc": "Gezielte Balinesische Therapie gegen Spannungen in Füßen und Unterschenkeln."
+      }
+    }
+  },
+  {
+    "id": "mass-thai-aroma",
+    "categoryId": "massage-asian",
+    "name": "Thai Aroma Massage",
+    "duration": 60,
+    "price": {
+      "amount": 70,
+      "currency": "€"
+    },
+    "media": {
+      "hero": "santis_card_massage_v1.webp"
+    },
+    "slug": "thai-aroma-masaji",
+    "tags": [],
+    "content": {
+      "tr": {
+        "title": "Thai Aroma Masajı",
+        "shortDesc": "Thai esneme hareketleri ve sıcak bitkisel yağların benzersiz sentezi.",
+        "fullDesc": "Esnekliği artırırken aroma yağlarıyla ruhu dinlendiren melez bir terapi.",
+        "tagline": "Esneklik & Dinginlik",
+        "heroTitle": "Tayland'ın Özgürleştiren Esintisi",
+        "intro": "Thai masajının esneten dinamizmi ile aromaterapinin yatıştırıcı etkisini tek bir seansla deneyimleyin.",
+        "steps": [
+          "Aromatik yağların vücuda uygulanması",
+          "Enerji meridyenleri boyunca ritmik baskılar",
+          "Kasları nazikçe açan esneme hareketleri",
+          "Esneklik kazanmış ve dinlenmiş bir bedenle bitiş"
+        ],
+        "effects": "Eklemleri açar, esneklik kazandırır ve aromatik etkiyle mental yorgunluğu yok eder.",
+        "idealFor": "Hem esnemek hem de rahatlamak isteyenler.",
+        "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+      },
+      "de": {
+        "title": "Thai Aroma Massage",
+        "shortDesc": "Einzigartige Synthese aus Thai-Dehnungen und warmen Aromaölen.",
+        "fullDesc": "Eine Hybridtherapie, die die Flexibilität fördert und mit Aromaölen die Seele beruhigt."
+      }
+    }
+  },
+  {
+    "id": "mass-thai-fuss",
+    "categoryId": "massage-asian",
+    "name": "Thai Fußreflexzonenmassage",
+    "duration": 30,
+    "price": {
+      "amount": 35,
+      "currency": "€"
+    },
+    "media": {
+      "hero": "santis_card_massage_oil_v2.webp"
+    },
+    "slug": "thai-ayak-masaji",
+    "tags": [],
+    "content": {
+      "tr": {
+        "title": "Thai Ayak Masajı",
+        "shortDesc": "Özel Thai ahşap çubuklarıyla uygulanan refleksoloji sanatı.",
+        "fullDesc": "Ayak tabanındaki organ refleks noktalarına Thai ahşap çubuğuyla uygulanan dengeleyici masaj.",
+        "tagline": "İçsel Denge & Canlanma",
+        "heroTitle": "Uzakdoğunun Denge Sırrı",
+        "intro": "Ayaklarınızın altındaki yüzlerce sinir ucuna Thai ahşap çubuğuyla yapılan milimetrik dokunuşlarla bedeninizi yeniden dengeleyin.",
+        "steps": [
+          "Ayakların ılık su ve bitki özleriyle yıkanması",
+          "Ahşap çubuk yardımıyla özel refleks noktalarının uyarılması",
+          "Alt bacak kaslarına el ile rahatlatıcı baskı",
+          "Uyumlanmış bir enerjiyle seansın tamamlanması"
+        ],
+        "effects": "Sinir sistemini uyarır, iç organların enerji akışını düzenler ve kan dolaşımını hızlandırır.",
+        "idealFor": "Enerji akışında blokaj hissedenler ve uzakdoğu tarzı güçlü bir ayak masajı arayanlar.",
+        "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+      },
+      "de": {
+        "title": "Thai Fußreflexzonenmassage",
+        "shortDesc": "Reflexzonenmassage mit traditionellen Thai-Holzstäbchen.",
+        "fullDesc": "Ausgleichende Massage der Organ-Reflexzonen an der Fußsohle mittels Thai-Holzstäbchen."
       }
     }
   }

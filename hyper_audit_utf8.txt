@@ -1,0 +1,92 @@
+﻿{
+  "broken_links": [
+    {
+      "file": "admin\\index.html",
+      "text": "\u2193 EXECUTIVE BRIEFING",
+      "href": "/api/v1/report/executive"
+    },
+    {
+      "file": "_debug_cards.html",
+      "text": "${url}",
+      "href": "${url}"
+    }
+  ],
+  "dead_buttons": [
+    {
+      "file": "admin\\gallery-upload.html",
+      "text": "T\u00fcm\u00fc",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    },
+    {
+      "file": "admin\\gallery-upload.html",
+      "text": "Hamam",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    },
+    {
+      "file": "admin\\gallery-upload.html",
+      "text": "Masaj",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    },
+    {
+      "file": "admin\\gallery-upload.html",
+      "text": "Cilt",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    },
+    {
+      "file": "admin\\gallery-upload.html",
+      "text": "Di\u011fer",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    },
+    {
+      "file": "admin\\prototype-cms-v5.html",
+      "text": "Replace",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    },
+    {
+      "file": "admin\\prototype-cms-v5.html",
+      "text": "Randevu Al",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    },
+    {
+      "file": "admin\\redirects.html",
+      "text": "Sil",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    },
+    {
+      "file": "hq-dashboard\\index.html",
+      "text": "Filter Feed",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    },
+    {
+      "file": "hq-dashboard\\index.html",
+      "text": "Export GDPR Array",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    },
+    {
+      "file": "hq-dashboard\\index.html",
+      "text": "${isDomestic ? 'Domestic' : 'Deploy Global AI'}",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    },
+    {
+      "file": "showroom.html",
+      "text": "\u0130ncele",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    },
+    {
+      "file": "showroom.html",
+      "text": "Detay",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    },
+    {
+      "file": "showroom.html",
+      "text": "Action",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    },
+    {
+      "file": "ULTRA_DERIN_ACTION_MAP_V6.html",
+      "text": "Deploy Omniscience (V6.0)",
+      "issue": "Dummy/Dead Button (No ID/Onclick)"
+    }
+  ],
+  "total_scanned": 27
+}

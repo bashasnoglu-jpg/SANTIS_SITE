@@ -1,0 +1,188 @@
+:root {
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --text-primary: #f5f5f5;
+    --text-secondary: #a0a0a0;
+    --accent: #d4af37;
+    /* Santis Gold */
+    --accent-hover: #b5952f;
+    --border: #3d3d3d;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+}
+
+.app-header {
+    padding: 30px 20px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(26, 26, 26, 1) 100%);
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.app-header h1 {
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    color: var(--accent);
+    font-size: 14px;
+    margin-top: 5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.app-main {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Service Cards */
+.service-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.service-card:active {
+    transform: scale(0.98);
+}
+
+.service-info h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.service-meta {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.service-price {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 18px;
+}
+
+.btn-book {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-left: 15px;
+    transition: all 0.2s;
+}
+
+.btn-book:hover {
+    background: var(--accent);
+    color: #000;
+}
+
+/* Booking Form */
+.hidden {
+    display: none !important;
+}
+
+.booking-card {
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.booking-card h2 {
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.price-tag {
+    color: var(--accent);
+    margin-bottom: 25px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border);
+    color: white;
+    border-radius: 6px;
+    font-family: inherit;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.btn-primary {
+    width: 100%;
+    background-color: var(--accent);
+    color: #000;
+    border: none;
+    padding: 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    width: 100%;
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    padding: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2ecc71;
+    color: black;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}

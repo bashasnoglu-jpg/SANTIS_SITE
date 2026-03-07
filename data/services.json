@@ -304,6 +304,84 @@
     }
   },
   {
+    "id": "SRV_MASSAGE_BALINESE_AROM_01",
+    "slug": "bali-aroma",
+    "category": "massage",
+    "categoryId": "massage-asian",
+    "type": "physical_service",
+    "defaultDuration": 60,
+    "i18n": {
+      "tr": {
+        "title": "Bali Aroma Masajı",
+        "desc": "Seçkin aromatik yağlarla Bali'ye özgü derin rahatlama."
+      },
+      "en": {
+        "title": "Balinese Aroma Massage",
+        "desc": "Deep relaxation unique to Bali with premium aromatic oils."
+      },
+      "de": {
+        "title": "Balinesische Aroma-Massage",
+        "desc": "Tiefe Entspannung auf balinesische Art mit feinsten Aromaölen."
+      },
+      "fr": {
+        "title": "Massage Aroma Balinais",
+        "desc": "Détente profonde propre à Bali avec des huiles aromatiques de qualité supérieure."
+      },
+      "ru": {
+        "title": "Балийский аромамассаж",
+        "desc": "Глубокое расслабление в балийском стиле с премиальными аромамаслами."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-03-05T09:50:00.000Z",
+      "updatedAt": "2026-03-05T09:50:00.000Z"
+    }
+  },
+  {
+    "id": "SRV_MASSAGE_BALINESE_FOOT_01",
+    "slug": "bali-foot-massage",
+    "category": "massage",
+    "categoryId": "massage-asian",
+    "type": "physical_service",
+    "defaultDuration": 30,
+    "i18n": {
+      "tr": {
+        "title": "Bali Ayak Masajı",
+        "desc": "Ayak ve alt bacak bölgelerine yoğunlaşan canlandırıcı dokunuşlar."
+      },
+      "en": {
+        "title": "Balinese Foot Massage",
+        "desc": "Invigorating touches focusing on the feet and lower legs."
+      },
+      "de": {
+        "title": "Balinesische Fußmassage",
+        "desc": "Belebende Berührungen, die sich auf Füße und Unterschenkel konzentrieren."
+      },
+      "fr": {
+        "title": "Massage des pieds balinais",
+        "desc": "Touches tonifiantes axées sur les pieds et le bas des jambes."
+      },
+      "ru": {
+        "title": "Балийский массаж ног",
+        "desc": "Бодрящие прикосновения, направленные на стопы и голени."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-03-05T09:50:00.000Z",
+      "updatedAt": "2026-03-05T09:50:00.000Z"
+    }
+  },
+  {
     "id": "SRV_WELL_AYURVEDA_A_01",
     "slug": "ayurveda-abhyanga",
     "category": "wellness_program",
@@ -1137,6 +1215,84 @@
       "version": 1,
       "createdAt": "2026-02-17T13:52:32.139Z",
       "updatedAt": "2026-02-17T13:52:32.139Z"
+    }
+  },
+  {
+    "id": "SRV_MASSAGE_THAI_AROMA_01",
+    "slug": "thai-aroma",
+    "category": "massage",
+    "categoryId": "massage-asian",
+    "type": "physical_service",
+    "defaultDuration": 60,
+    "i18n": {
+      "tr": {
+        "title": "Thai Aroma Masajı",
+        "desc": "Esansiyel yağların gücüyle harmanlanmış özel Thai ritüeli."
+      },
+      "en": {
+        "title": "Thai Aroma Massage",
+        "desc": "A holistic Thai ritual combining stretching and essential oils."
+      },
+      "de": {
+        "title": "Thai-Aroma-Massage",
+        "desc": "Holistisches Thai-Ritual mit Dehnungen und ätherischen Ölen."
+      },
+      "fr": {
+        "title": "Massage thaï aux huiles",
+        "desc": "Rituel thaï holistique mêlant étirements et huiles essentielles."
+      },
+      "ru": {
+        "title": "Тайский аромамассаж",
+        "desc": "Тайский ритуал, сочетающий растяжку и эфирные масла."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-03-05T09:50:00.000Z",
+      "updatedAt": "2026-03-05T09:50:00.000Z"
+    }
+  },
+  {
+    "id": "SRV_MASSAGE_THAI_FOOT_01",
+    "slug": "thai-foot-reflexology",
+    "category": "massage",
+    "categoryId": "massage-asian",
+    "type": "physical_service",
+    "defaultDuration": 30,
+    "i18n": {
+      "tr": {
+        "title": "Thai Ayak Masajı (Refleksoloji)",
+        "desc": "Ayaktaki enerji noktalarına odaklanan dengeleme terapisi."
+      },
+      "en": {
+        "title": "Thai Foot Massage",
+        "desc": "Deep balancing therapy focusing on energy points in the feet."
+      },
+      "de": {
+        "title": "Thai-Fußmassage",
+        "desc": "Tiefe Ausgleichstherapie auf die Energiepunkte der Füße."
+      },
+      "fr": {
+        "title": "Massage des pieds thaï",
+        "desc": "Thérapie d'équilibre profond axée sur les points d'énergie des pieds."
+      },
+      "ru": {
+        "title": "Тайский массаж ног",
+        "desc": "Глубокая балансирующая терапия на энергетических точках стоп."
+      }
+    },
+    "config": {
+      "hasWetArea": false,
+      "requiresTherapist": true
+    },
+    "meta": {
+      "version": 1,
+      "createdAt": "2026-03-05T09:50:00.000Z",
+      "updatedAt": "2026-03-05T09:50:00.000Z"
     }
   }
 ]

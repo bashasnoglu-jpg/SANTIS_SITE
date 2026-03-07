@@ -9,9 +9,10 @@
 <!-- FONTS -->
 <link href="/assets/css/fonts.css" rel="stylesheet"/>
 <!-- STYLES -->
+<link href="/assets/css/preloader-cinema.css" rel="stylesheet"/>
 <link href="/assets/css/style.css" rel="stylesheet"/>
-<link href="/assets/css/editorial.css?v=8.1" rel="stylesheet"/>
-<link href="/assets/css/atmospheres.css?v=8.1" rel="stylesheet"/>
+<link href="/assets/css/editorial.css" rel="stylesheet"/>
+<link href="/assets/css/atmospheres.css" rel="stylesheet"/>
 <link href="/assets/css/service-detail.css" rel="stylesheet"/>
 <link href="/favicon.ico" rel="icon"/>
 <link href="/manifest.json" rel="manifest"/>
@@ -19,7 +20,6 @@
 <!-- PAGE CONFIG -->
 <script src="/assets/js/page-config.js"></script>
 <script src="/assets/js/i18n-routes.js"></script>
-<script defer="" src="/assets/js/hreflang-injector.js"></script>
 <script>
         // Force SERVICE_ID for the logic engine
         window.SERVICE_ID = 'rituel-hydra-confort';
@@ -81,7 +81,7 @@
 <div class="cin-visual-stage">
 <div class="cin-visual-overlay"></div>
 <!-- Texture Image (Loaded by JS, but providing a default) -->
-<img alt="Hydra-Confort Ritual" class="cin-visual-img" decoding="async" height="1024" id="cin-img" loading="lazy" src="/assets/img/textures/cream.webp" style="opacity:0; transition: opacity 1s ease;" width="1024"/>
+<img alt="Hydra-Confort Ritual" class="cin-visual-img" data-santis-slot="rituel-hydra-confort" decoding="async" fetchpriority="high" height="1024" id="cin-img" src="/assets/img/textures/cream.webp" style="opacity:0; transition: opacity 1s ease;" width="1024"/>
 </div>
 <!-- RIGHT: CONTENT STAGE -->
 <div class="cin-content-stage">
@@ -107,7 +107,7 @@
 </div>
 <!-- ACTIONS -->
 <div class="cin-actions">
-<a class="cin-btn primary" href="javascript:void(0)" id="btn-whatsapp" rel="noopener noreferrer" target="_blank">REZERVASYON YAP</a>
+<button class="cin-btn primary" id="btn-whatsapp" rel="noopener noreferrer" target="_blank">REZERVASYON YAP</button>
 <a class="cin-btn" href="/tr/cilt-bakimi/index.html">KOLEKSİYONA DÖN</a>
 </div>
 </div>
@@ -115,16 +115,12 @@
 <!-- FOOTER -->
 <div id="footer-container" style="position:relative; z-index:10; background:#0b0d11;"></div>
 <!-- SCRIPTS -->
-<script src="/assets/js/fallback_data.js"></script>
-<script src="/assets/js/loaders/data-bridge.js?v=8.1"></script>
 <script defer="" src="/assets/js/santis-nav.js"></script>
 <script defer="" src="/assets/js/loader.js"></script>
 <script src="/assets/js/reflex/atmos.js"></script>
-<script src="/assets/js/booking-wizard.js"></script>
 <!-- LOGIC -->
 <script src="/assets/js/service-engine.js"></script>
 <script src="/assets/js/service-detail-logic.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-<script src="/assets/js/lenis-init.js"></script>
 </body>
 </html>

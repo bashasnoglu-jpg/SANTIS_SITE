@@ -315,7 +315,7 @@
     background: rgba(255, 255, 255, 0.98);
     /* White lightbox for minimalist feel? No, keep dark for contrast */
     background: rgba(10, 10, 10, 0.95);
-    z-index: 9999;
+    z-index: var(--z-modal); /* AUTO-CAPPED BY OMNI-CORE */
     display: none;
     align-items: center;
     justify-content: center;
@@ -346,25 +346,63 @@
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
+    .cin-visual-stage {
+        height: 50vh;
+        /* Show more content above the fold */
+    }
+
     .cin-title {
-        font-size: 2.8rem;
+        font-size: 2.2rem;
+        /* Slightly smaller for long Turkish words */
+        margin-bottom: 15px;
+        line-height: 1.2;
+    }
+
+    .cin-subtitle {
+        margin-bottom: 30px;
+        font-size: 0.70rem;
+    }
+
+    .cin-desc {
+        font-size: 1rem;
+        margin-bottom: 40px;
+        line-height: 1.8;
     }
 
     .cin-content-stage {
-        padding: 60px 24px 100px;
+        padding: 40px 20px 80px;
+        /* Tighter padding to maximize screen space */
     }
 
-    .cin-inline-visual.portrait {
+    .cin-inline-visual.portrait,
+    .cin-inline-visual.square,
+    .cin-inline-visual.landscape {
         width: 100%;
         margin-left: 0;
-    }
-
-    .cin-inline-visual.square {
-        width: 100%;
+        margin-top: 60px;
+        margin-bottom: 60px;
     }
 
     .cin-meta-grid {
-        gap: 40px 20px;
+        gap: 25px 20px;
+        /* Tighter gap */
+        margin: 50px 0;
+    }
+
+    .cin-actions {
+        flex-direction: column;
+        /* Stack buttons vertically */
+        gap: 25px;
+        margin-top: 60px;
+        align-items: stretch;
+        /* Full width tap targets */
+    }
+
+    .cin-btn {
+        text-align: center;
+        padding: 18px 0;
+        /* Larger tap area */
+        font-size: 0.85rem;
     }
 }
 
@@ -379,3 +417,8 @@
     opacity: 1;
     transform: translateY(0);
 }
+/* --- Z-INDEX FIX FOR OMNI-NAVBAR OVERLAP --- */
+#navbar-container, #nv-main-nav.navbar {
+    z-index: 9999 !important;
+}
+

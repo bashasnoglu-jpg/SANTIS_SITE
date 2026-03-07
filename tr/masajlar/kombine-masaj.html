@@ -17,8 +17,9 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Outfit:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <!-- CORE STYLES -->
-<link href="../../assets/css/style.css" rel="stylesheet"/>
-<link href="../../assets/css/service-detail.css" rel="stylesheet"/> <!-- THE ENGINE -->
+<link href="/assets/css/preloader-cinema.css" rel="stylesheet"/>
+<link href="/assets/css/style.css" rel="stylesheet"/>
+<link href="/assets/css/service-detail.css" rel="stylesheet"/> <!-- THE ENGINE -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -52,7 +53,7 @@
 <div id="cinematic-wrapper">
 <!-- LEFT: VISUAL STAGE (Sticky) -->
 <div class="cin-visual-stage">
-<img alt="Kombine Terapi Masajı" class="cin-visual-img" decoding="async" fetchpriority="high" height="1024" id="cinMainVisual" loading="eager" src="/assets/img/cards/massage.webp" width="1024"/>
+<img alt="Kombine Terapi Masajı" data-santis-slot="kombine-masaj" class="cin-visual-img" decoding="async" fetchpriority="high" height="1024" id="cinMainVisual" src="/assets/img/cards/massage.webp" width="1024">
 <div class="cin-visual-overlay"></div>
 </div>
 <!-- RIGHT: NARRATIVE STAGE (Scrollable) -->
@@ -64,7 +65,7 @@
 <!-- TITLE BLOCK -->
 <div class="cin-header">
 <span class="cin-subtitle">SANTIS TERAPİSİ</span>
-<h1 class="cin-title">Kombine Terapi Masajı</h1>
+<h1 class="cin-title" data-santis-bind="kombine-masaj:title">Kombine Terapi Masajı</h1>
 </div>
 <!-- META GRID -->
 <div class="cin-meta-grid">
@@ -82,12 +83,12 @@
 </div>
 <div class="cin-meta-box">
 <span class="cin-label">FİYAT</span>
-<span class="cin-value">95 €</span>
+<span class="cin-value" data-santis-bind="kombine-masaj:price">95 €</span>
 </div>
 </div>
 <!-- DESCRIPTION -->
 <div class="cin-desc">
-<p>Farklı tekniklerin kişiye özel harmanlandığı, bütünsel bir terapi deneyimi. Uzman terapistlerimiz ihtiyaçlarınıza göre İsveç, Derin Doku ve Aromaterapi tekniklerini birleştirir.</p>
+<p data-santis-bind="kombine-masaj:description">Farklı tekniklerin kişiye özel harmanlandığı, bütünsel bir terapi deneyimi. Uzman terapistlerimiz ihtiyaçlarınıza göre İsveç, Derin Doku ve Aromaterapi tekniklerini birleştirir.</p>
 </div>
 <!-- QUOTE / HIGHLIGHT -->
 <blockquote class="cin-quote">
@@ -95,7 +96,7 @@
             </blockquote>
 <!-- SECONDARY VISUAL (Parallax) -->
 <div class="cin-inline-visual landscape">
-<img alt="Kombine masaj atmosferi" class="cin-inline-img" decoding="async" height="1024" loading="lazy" src="/assets/img/cards/massage.webp" width="1024"/>
+<img alt="Kombine masaj atmosferi" class="cin-inline-img" decoding="async" height="1024" src="/assets/img/cards/massage.webp" width="1024" fetchpriority="high">
 <div class="cin-caption">Santis Club Atmosferi</div>
 </div>
 <!-- DETAILS ACCORDION -->
@@ -137,19 +138,17 @@
 <!-- End Cinematic Wrapper -->
 <!-- LIGHTBOX (Hidden) -->
 <div id="cin-lightbox">
-<img alt="Zoom" src=""/>
+<img decoding="async" loading="lazy" alt="Zoom" src=""/>
 </div>
 <!-- FOOTER -->
 <div id="footer-container"></div>
 <!-- SCRIPTS -->
-<script src="../../assets/js/i18n-routes.js"></script>
-<script src="../../assets/js/loader.js"></script>
-<script src="../../assets/js/santis-nav.js"></script>
-<script defer="" src="../../assets/js/booking-wizard.js"></script>
+<script src="/assets/js/i18n-routes.js"></script>
+<script src="/assets/js/loader.js"></script>
+<script src="/assets/js/santis-nav.js"></script>
 <!-- Page Specific Engines -->
-<script src="../../assets/js/santis-accordion.js"></script>
-<script src="../../assets/js/pages/service-detail-init.js"></script> <!-- CONTROLLER -->
-<script defer="" src="../../assets/js/app-core.js"></script>
-<script defer="" src="../../assets/js/app.js"></script>
+<script src="/assets/js/santis-accordion.js"></script>
+<script src="/assets/js/pages/service-detail-init.js"></script> <!-- CONTROLLER -->
+<script defer="" src="/assets/js/app.js"></script>
 </body>
 </html>

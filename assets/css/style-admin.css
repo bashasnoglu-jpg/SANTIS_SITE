@@ -276,7 +276,7 @@ body {
 
     font-size: 14px;
 
-    transition: all 0.2s;
+    transition: transform 0.2s, opacity 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
 
 }
 
@@ -576,9 +576,9 @@ td img {
 
     visibility: hidden;
 
-    transition: all 0.3s;
+    transition: transform 0.3s, opacity 0.3s, color 0.3s, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
 
-    z-index: 1000;
+    z-index: var(--z-modal); /* AUTO-CAPPED BY OMNI-CORE */
 
 }
 
@@ -757,7 +757,7 @@ td img {
 
     color: var(--text-muted);
 
-    transition: all 0.2s;
+    transition: transform 0.2s, opacity 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
 
     margin-top: 5px;
 
@@ -1016,7 +1016,7 @@ td img {
     cursor: pointer;
     margin-left: 8px;
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     display: inline-flex;
     align-items: center;
     gap: 4px;

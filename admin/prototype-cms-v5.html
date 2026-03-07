@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SantisOS • CMS Interactive Prototype</title>
+    <!-- Use basic fonts for the prototype -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #0a0c10;
+            --bg-panel: #161b22;
+            --bg-card: #21262d;
+            --border-light: #30363d;
+            --text-main: #c9d1d9;
+            --text-mut: #8b949e;
+            --accent: #58a6ff;
+            --gold: #d4af37;
+            --danger: #f85149;
+            --success: #3fb950;
+            --warning: #d29922;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            font-size: 14px;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 250px;
+            background-color: var(--bg-panel);
+            border-right: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar-header {
+            padding: 20px;
+            font-weight: 600;
+            font-size: 18px;
+            color: #fff;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+            color: var(--text-mut);
+        }
+        .nav-item:hover {
+            background-color: var(--bg-card);
+            color: #fff;
+        }
+        .nav-item.active {
+            border-left-color: var(--accent);
+            background-color: var(--bg-card);
+            color: #fff;
+        }
+
+        /* MAIN CONTENT GRID */
+        .main-layout {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 350px 1fr 400px;
+            gap: 15px;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        /* PANELS */
+        .panel {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .panel-header {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-light);
+            font-weight: 600;
+            background: rgba(255,255,255,0.02);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .panel-body {
+            padding: 15px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        /* EDITOR UI */
+        .editor-group {
+            margin-bottom: 15px;
+        }
+        .editor-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: var(--text-mut);
+        }
+        .editor-input {
+            width: 100%;
+            background: var(--bg-base);
+            border: 1px solid var(--border-light);
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+        .editor-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .tone-warning {
+            color: var(--warning);
+            font-size: 11px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            animation: pulse-warn 2s infinite;
+        }
+        @keyframes pulse-warn {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .btn {
+            background: var(--bg-card);
+            color: #fff;
+            border: 1px solid var(--border-light);
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.1s ease-out;
+        }
+        .btn:hover {
+            border-color: var(--text-mut);
+        }
+        .btn-primary {
+            background: var(--gold);
+            color: #000;
+            border: none;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background: #e6bf47;
+            border-color: transparent;
+        }
+
+        /* TRACKER / AUDIT TIMELINE */
+        .timeline-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 14px;
+            top: 30px;
+            bottom: -20px;
+            width: 2px;
+            background: var(--border-light);
+        }
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        .timeline-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 2px solid var(--border-light);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .timeline-content {
+            flex: 1;
+            background: var(--bg-base);
+            border: 1px solid var(--border-light);
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .timeline-content.status-approved .timeline-icon { border-color: var(--success); }
+        .badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            color: var(--text-mut);
+        }
+        .badge.green { background: rgba(63, 185, 80, 0.1); border-color: var(--success); color: var(--success); }
+        .badge.yellow { background: rgba(210, 153, 34, 0.1); border-color: var(--warning); color: var(--warning); }
+        .badge.red { background: rgba(248, 81, 73, 0.1); border-color: var(--danger); color: var(--danger); }
+
+        /* TEST PANEL */
+        .test-panel {
+            background: rgba(63, 185, 80, 0.05);
+            border: 1px solid rgba(63, 185, 80, 0.2);
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: auto;
+        }
+        .test-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+        .test-check {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--success);
+            display: inline-block;
+        }
+        .test-progress {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            margin: 0 15px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .test-progress-bar {
+            height: 100%;
+            background: var(--success);
+            width: 100%;
+            transform-origin: left;
+            animation: fillBar 1s ease-out;
+        }
+        @keyframes fillBar { 0% { transform: scaleX(0); } 100% { transform: scaleX(1); } }
+
+        /* SCALED PREVIEW WINDOW */
+        .preview-wrapper {
+            background: #fff;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            transform-origin: top left;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+        .preview-browser-bar {
+            background: #e1e1e1;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            gap: 5px;
+        }
+        .preview-dot { width: 10px; height: 10px; border-radius: 50%; background: #ff5f56; }
+        .preview-dot:nth-child(2) { background: #ffbd2e; }
+        .preview-dot:nth-child(3) { background: #27c93f; }
+        .preview-content {
+            flex: 1;
+            padding: 20px;
+            color: #333;
+            background: #fdfdfd;
+            font-family: serif;
+        }
+        .preview-content h1 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 28px;
+            margin-top: 0;
+            color: #111;
+            transition: all 0.3s;
+        }
+        .preview-content .price {
+            font-size: 20px;
+            font-weight: 600;
+            color: #8c7349;
+            margin: 10px 0;
+            transition: all 0.3s;
+        }
+        .preview-image {
+            width: 100%;
+            height: 150px;
+            background: #eee;
+            border-radius: 4px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        
+        .skeleton-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(2px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+        .skeleton-overlay.active {
+            opacity: 1;
+        }
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(0,0,0,0.1);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* SNAPSHOT ROLLBACK */
+        .snapshot-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .snapshot-card {
+            border: 1px solid var(--border-light);
+            background: var(--bg-base);
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .snapshot-card.selected {
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(212,175,55,0.2);
+        }
+        .snapshot-header {
+            padding: 5px 10px;
+            font-size: 10px;
+            background: var(--bg-panel);
+            color: var(--text-mut);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+        }
+        .snapshot-thumb {
+            height: 60px;
+            background: #fff;
+            padding: 5px;
+            font-size: 6px;
+            color: #000;
+            opacity: 0.8;
+            overflow: hidden;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 13px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <span style="color:var(--gold)">Santis</span> <span style="font-weight:300;">Ultra CMS</span>
+        </div>
+        <a href="/index.html" class="nav-item" style="text-decoration:none; display:block;">📊 Dashboard</a>
+        <div class="nav-item active">📄 Pages</div>
+        <div class="nav-item" onclick="showNotice('🖼️ Assets module is currently restricted in this prototype view.')">🖼️ Assets</div>
+        <div class="nav-item" onclick="showNotice('📝 Change Logs are being synced from the core database. Please wait.')">📝 Change Logs</div>
+        <div class="nav-item" onclick="showNotice('⚙️ Settings are restricted to Super Admin only in this node.')">⚙️ Settings</div>
+    </aside>
+
+    <div id="toast-container" style="position:fixed; bottom:20px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:10px;"></div>
+
+    <!-- CONTENT -->
+    <main class="main-layout">
+        
+        <!-- COLUMN 1: EDITOR -->
+        <section class="panel">
+            <div class="panel-header">
+                <div>Editor <span class="badge" style="margin-left:10px;">kombine-masaj.html</span></div>
+            </div>
+            <div class="panel-body">
+                
+                <div class="editor-group">
+                    <label>Page Title</label>
+                    <input type="text" id="inp-title" class="editor-input" value="Kombine Masaj Teklifi">
+                    <!-- AI Tone Guard Warning -->
+                    <div id="tone-warning" class="tone-warning" style="display:none;">
+                        ⚠️ Tone Warning: "SÜPER İNDİRİM" veya "BEDAVA" gibi kelimeler Quiet Luxury standartlarına uymuyor. Lütfen revize edin.
+                    </div>
+                </div>
+
+                <div class="editor-group">
+                    <label>Pricing Label</label>
+                    <input type="text" id="inp-price" class="editor-input" value="€339">
+                </div>
+
+                <div class="editor-group">
+                    <label>Description / Subtitle</label>
+                    <textarea id="inp-desc" class="editor-input" rows="3">G-6 Spa fırsatı ile bedeninizi ve zihninizi yenileyen eşsiz imza kombinasyonu.</textarea>
+                </div>
+
+                <div class="editor-group">
+                    <label>Hero Image</label>
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" class="editor-input" value="/assets/img/kombine-hero.webp" readonly>
+                        <button class="btn">Replace</button>
+                    </div>
+                </div>
+
+                <div style="margin-top:30px; display:flex; gap:10px;">
+                    <button class="btn btn-primary" id="btn-update" style="flex:1;">Push Update (Publish)</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- COLUMN 2: TRACKER & TESTS -->
+        <section style="display:flex; flex-direction:column; gap:15px;">
+            <div class="panel" style="flex:1;">
+                <div class="panel-header">Real-Time Tracker</div>
+                <div class="panel-body">
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-icon" style="border-color:var(--success);">👤</div>
+                        <div class="timeline-content">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                                <span style="color:#fff;">Admin User</span>
+                                <span style="font-size:11px; color:var(--text-mut);">Just Now</span>
+                            </div>
+                            <div style="font-size:12px; color:var(--text-mut);">
+                                Updated <span style="color:var(--gold);">kombine-masaj.html</span><br>
+                                Modified <b>Title</b> and <b>Price</b>.
+                            </div>
+                            <div style="margin-top:5px;"><span class="badge green">Draft Saved</span></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-icon">🤖</div>
+                        <div class="timeline-content">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                                <span style="color:#fff;">Cron Deamon</span>
+                                <span style="font-size:11px; color:var(--text-mut);">5m ago</span>
+                            </div>
+                            <div style="font-size:12px; color:var(--text-mut);">
+                                Automated Spinning Program generated.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-icon" style="border-color:var(--danger);">⚠️</div>
+                        <div class="timeline-content">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                                <span style="color:#fff;">System Guard</span>
+                                <span style="font-size:11px; color:var(--text-mut);">1h ago</span>
+                            </div>
+                            <div style="font-size:12px; color:var(--text-mut);">
+                                Rollback applied to previous schema.
+                            </div>
+                            <div style="margin-top:5px;"><span class="badge red">Rolled Back</span></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- AUTOMATED TEST PANEL (EST ENTENS) -->
+            <div class="test-panel" id="test-panel" style="opacity:0.5; transition: opacity 0.3s;">
+                <h4 style="margin:0 0 15px 0; color:var(--success); display:flex; justify-content:space-between;">
+                    <span>EST Publishing Checks</span>
+                    <span id="test-status-text" style="font-size:10px; color:var(--text-mut);">READY</span>
+                </h4>
+                
+                <div class="test-row">
+                    <span>DOM Up-to-Date (Hydration)</span>
+                    <div class="test-progress"><div class="test-progress-bar" style="display:none;" id="bar-1"></div></div>
+                    <span class="test-check" style="opacity:0;" id="chk-1"></span>
+                </div>
+                <div class="test-row">
+                    <span>Security Audit (Hash Verify)</span>
+                    <div class="test-progress"><div class="test-progress-bar" style="display:none;" id="bar-2"></div></div>
+                    <span class="test-check" style="opacity:0;" id="chk-2"></span>
+                </div>
+                <div class="test-row">
+                    <span>Cache Edge Invalidation</span>
+                    <div class="test-progress"><div class="test-progress-bar" style="display:none;" id="bar-3"></div></div>
+                    <span class="test-check" style="opacity:0;" id="chk-3"></span>
+                </div>
+                
+                <div id="test-success-msg" style="margin-top:15px; text-align:center; display:none; flex-direction:column; gap:8px;">
+                    <div style="font-weight:bold; color:var(--success); background:rgba(63,185,80,0.2); padding:5px; border-radius:4px;">✔ TEST PASSED! READY FOR PRODUCTION</div>
+                    <button class="btn btn-primary" style="font-size:11px;" id="btn-final-publish">CONFIRM DEPLOY</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- COLUMN 3: PREVIEW & ROLLBACK -->
+        <section class="panel">
+            <div class="panel-header">
+                <div>Snapshots & Versioning</div>
+            </div>
+            <div class="panel-body" style="display:flex; flex-direction:column;">
+                
+                <div class="snapshot-grid">
+                    <div class="snapshot-card selected" id="snap-current">
+                        <div class="snapshot-header">
+                            <span>Current Draft</span>
+                            <span class="badge green">Active</span>
+                        </div>
+                        <div class="snapshot-thumb">
+                            <h1 style="margin:2px 0;">Kombine Masaj</h1>
+                            <div style="color:#d4af37;">€339</div>
+                        </div>
+                    </div>
+                    <div class="snapshot-card" id="snap-prev">
+                        <div class="snapshot-header">
+                            <span>Before Change</span>
+                            <span>10:30 AM</span>
+                        </div>
+                        <div class="snapshot-thumb" style="opacity:0.5;">
+                            <h1 style="margin:2px 0;">Eski Kombine Masaj</h1>
+                            <div style="color:#d4af37;">€250</div>
+                        </div>
+                        <div style="padding:5px; text-align:center;">
+                            <button class="btn" style="padding:2px 5px; font-size:10px; border-color:var(--warning); color:var(--warning);" id="btn-rollback">Rollback (Undo)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:10px; font-weight:600; color:#fff; border-top:1px solid var(--border-light); padding-top:15px;">DOM Live Preview</div>
+                
+                <!-- PREVIEW WRAPPER -->
+                <div class="preview-wrapper">
+                    <div class="preview-browser-bar">
+                        <div class="preview-dot"></div><div class="preview-dot"></div><div class="preview-dot"></div>
+                        <span style="font-size:10px; color:#888; margin-left:10px;">https://santis-club.com/tr/masajlar/kombine-masaj.html</span>
+                    </div>
+                    <div class="preview-content">
+                        <!-- Skeleton overlay for realistic hydration effect -->
+                        <div class="skeleton-overlay" id="preview-skeleton"><div class="spinner"></div></div>
+                        
+                        <img decoding="async" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="preview-image" alt="Massage" fetchpriority="high">
+                        <h1 id="pv-title">Kombine Masaj Teklifi</h1>
+                        <div class="price" id="pv-price">€339</div>
+                        <p id="pv-desc" style="font-size:14px; color:#555; line-height:1.6;">G-6 Spa fırsatı ile bedeninizi ve zihninizi yenileyen eşsiz imza kombinasyonu.</p>
+                        
+                        <div style="margin-top:20px;">
+                            <button style="background:#222; color:#fff; border:none; padding:10px 20px; font-family:'Inter',sans-serif; cursor:pointer;">Randevu Al</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // DOM Elements
+        const inpTitle = document.getElementById('inp-title');
+        const inpPrice = document.getElementById('inp-price');
+        const inpDesc = document.getElementById('inp-desc');
+        const pvTitle = document.getElementById('pv-title');
+        const pvPrice = document.getElementById('pv-price');
+        const pvDesc = document.getElementById('pv-desc');
+        const previewSkeleton = document.getElementById('preview-skeleton');
+        const toneWarning = document.getElementById('tone-warning');
+        
+        let hyrdationTimeout;
+
+        // 1. DOM Hydration & Live Binding Simulation & Tone Guard
+        function bindInputs() {
+            const inputs = [inpTitle, inpPrice, inpDesc];
+            
+            inputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    // Tone Guard Check
+                    const text = input.value.toLowerCase();
+                    if(text.includes('indirim') || text.includes('bedava') || text.includes('fırsat')) {
+                        toneWarning.style.display = 'flex';
+                    } else {
+                        toneWarning.style.display = 'none';
+                    }
+
+                    // Trigger Skeleton Hydration Effect
+                    previewSkeleton.classList.add('active');
+                    clearTimeout(hyrdationTimeout);
+                    
+                    hyrdationTimeout = setTimeout(() => {
+                        // Apply DOM updates seamlessly
+                        pvTitle.innerText = inpTitle.value;
+                        pvPrice.innerText = inpPrice.value;
+                        pvDesc.innerText = inpDesc.value;
+                        
+                        // Update Snapshot Icon text
+                        document.querySelector('#snap-current h1').innerText = inpTitle.value.substring(0,15)+'...';
+                        document.querySelector('#snap-current div').innerText = inpPrice.value;
+
+                        previewSkeleton.classList.remove('active');
+                    }, 150); // Simulated 150ms fast edge merge instead of 400ms
+                });
+            });
+        }
+
+        // 2. Automated Test Panel (EST Entens) Simulator
+        const testPanel = document.getElementById('test-panel');
+        const btnUpdate = document.getElementById('btn-update');
+        const btnFinalPublish = document.getElementById('btn-final-publish');
+        
+        btnUpdate.addEventListener('click', () => {
+            testPanel.style.opacity = '1';
+            document.getElementById('test-status-text').innerText = 'RUNNING AUDITS...';
+            document.getElementById('test-status-text').style.color = 'var(--warning)';
+            
+            const bars = [document.getElementById('bar-1'), document.getElementById('bar-2'), document.getElementById('bar-3')];
+            const chks = [document.getElementById('chk-1'), document.getElementById('chk-2'), document.getElementById('chk-3')];
+            const msg = document.getElementById('test-success-msg');
+            
+            // Reset
+            bars.forEach(b => b.style.display = 'none');
+            chks.forEach(c => c.style.opacity = '0');
+            msg.style.display = 'none';
+
+            // Sequence Animation
+            setTimeout(() => { bars[0].style.display = 'block'; }, 100);
+            setTimeout(() => { chks[0].style.opacity = '1'; bars[1].style.display = 'block'; }, 1100);
+            setTimeout(() => { chks[1].style.opacity = '1'; bars[2].style.display = 'block'; }, 2200);
+            setTimeout(() => { 
+                chks[2].style.opacity = '1'; 
+                msg.style.display = 'flex';
+                document.getElementById('test-status-text').innerText = 'VERIFIED';
+                document.getElementById('test-status-text').style.color = 'var(--success)';
+            }, 3300);
+        });
+
+        // 3. Rollback Simulation
+        const btnRollback = document.getElementById('btn-rollback');
+        btnRollback.addEventListener('click', () => {
+            if(confirm("Are you sure you want to atomic rollback to '10:30 AM' version?")) {
+                // Flash the screen slightly
+                document.body.style.opacity = '0.7';
+                
+                setTimeout(() => {
+                    // Restore Old Values
+                    inpTitle.value = "Eski Kombine Masaj";
+                    inpPrice.value = "€250";
+                    inpDesc.value = "Standart kombine masaj ritüelimiz.";
+                    
+                    // Trigger input event to rehydrate
+                    inpTitle.dispatchEvent(new Event('input'));
+                    
+                    document.body.style.opacity = '1';
+                    alert("Rollback Successful. Draft restored.");
+                }, 500);
+            }
+        });
+
+        // Init
+        bindInputs();
+
+        // Prototype Notifications
+        window.showNotice = function(msg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<span style="color:var(--gold); margin-right:8px;">ℹ️</span> <span>${msg}</span>`;
+            container.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            // Remove after 3s
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        };
+    </script>
+</body>
+</html>

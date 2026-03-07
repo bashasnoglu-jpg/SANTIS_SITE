@@ -29,7 +29,7 @@
             const root = determineRoot();
 
             // Always fetch from root-served /data to avoid nested path issues
-            const dataUrl = `/data/site_content.json`;
+            const dataUrl = `/assets/data/site_content.json`;
 
             let data;
 
@@ -119,17 +119,17 @@
 
                 desc: tr(svc.desc),
 
-                img: svc.img ? (root + svc.img.replace(/^\//, '')).replace('//','/') : (root + 'assets/img/luxury-placeholder.webp'),
+                img: svc.img ? (root + svc.img.replace(/^\//, '')).replace('//', '/') : (root + '/assets/img/luxury-placeholder.webp'),
 
-                    price: svc.price,
+                price: svc.price,
 
-                    duration: svc.durationMin ? svc.durationMin + " dk" : "",
+                duration: svc.durationMin ? svc.durationMin + " dk" : "",
 
-                    category: svc.categoryId,
+                category: svc.categoryId,
 
-                    tier: svc.badge || "",
+                tier: svc.badge || "",
 
-                    tags: []
+                tags: []
 
             }));
 

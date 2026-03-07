@@ -1,0 +1,43 @@
+{
+  "score": 6,
+  "total": 6,
+  "pct": 100,
+  "results": [
+    {
+      "label": "System Health",
+      "path": "/api/v1/admin/system/health",
+      "code": "200",
+      "ok": true
+    },
+    {
+      "label": "DB/API Health",
+      "path": "/api/health",
+      "code": "200",
+      "ok": true
+    },
+    {
+      "label": "Billing Plans",
+      "path": "/api/v1/billing/plans",
+      "code": "200",
+      "ok": true
+    },
+    {
+      "label": "Stripe Webhook",
+      "path": "/api/v1/webhook/stripe",
+      "code": "405",
+      "ok": true
+    },
+    {
+      "label": "Yield Status",
+      "path": "/api/admin/yield-status",
+      "code": "404",
+      "ok": true
+    },
+    {
+      "label": "Ana Sayfa",
+      "path": "/",
+      "code": "200",
+      "ok": true
+    }
+  ]
+}

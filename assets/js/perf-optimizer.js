@@ -15,7 +15,7 @@ const PERF_OPTIMIZER = {
         this.detectWebP();
         this.initLazyImages();
         this.initLazyIframes();
-        this.prefetchLinks();
+        this.initPredictivePrefetcher();
         this.optimizeScrollPerformance();
         this.initAnimationManager(); // New V1.1
         console.log('⚡ Performance Optimizer v1.1 initialized');
@@ -103,17 +103,65 @@ const PERF_OPTIMIZER = {
         }
     },
 
-    prefetchLinks() {
+    initPredictivePrefetcher() {
+        // H1 - Predictive Prefetcher (Tahminlemeli Önyükleme)
+        const baseThreshold = 800;
+        const THRESHOLD_MS = typeof window.__SENTINEL_THROTTLE__ !== 'undefined'
+            ? (baseThreshold * window.__SENTINEL_THROTTLE__)
+            : baseThreshold;
+
+        // Define predictive map
+        const intentMap = {
+            '/tr/hamam/': '/tr/vip-suite.html', // Changed from /tr/vip-suite/ to .html based on file structure
+            '/tr/masajlar/': '/tr/masajlar/derin-doku-masaji.html',
+            '/tr/cilt-bakimi/': '/tr/cilt-bakimi/sothys-hydra.html'
+        };
+
         const internalLinks = document.querySelectorAll('a[href^="/"], a[href^="./"], a[href^="../"]');
+        let hoverTimer;
+
         internalLinks.forEach(link => {
             link.addEventListener('mouseenter', () => {
                 const href = link.getAttribute('href');
-                if (!href || document.querySelector(`link[rel="prefetch"][href="${href}"]`)) return;
-                const prefetch = document.createElement('link');
-                prefetch.rel = 'prefetch'; prefetch.href = href;
-                document.head.appendChild(prefetch);
-            }, { once: true });
+                if (!href) return;
+
+                // Simple Intent Check: If hover > 800ms and not fetched in this session
+                hoverTimer = setTimeout(() => {
+                    this.injectPrefetch(href);
+
+                    // Cross-reference with intent map based on current page path
+                    const currentPath = window.location.pathname;
+                    if (intentMap[currentPath]) {
+                        // Check if scroll depth is > 60% as an additional signal before massive prerender
+                        const scrollDepth = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+                        if (scrollDepth > 0.6) {
+                            this.injectPrefetch(intentMap[currentPath], 'prerender');
+                        }
+                    }
+                }, THRESHOLD_MS);
+            });
+
+            link.addEventListener('mouseleave', () => {
+                clearTimeout(hoverTimer);
+            });
         });
+    },
+
+    injectPrefetch(url, relType = 'prefetch') {
+        // Avoid duplicate injections in the same session
+        const sessionKey = `santis_prefetch_${url}`;
+        if (sessionStorage.getItem(sessionKey)) return;
+
+        // Ensure it's not already in DOM
+        if (document.querySelector(`link[rel="${relType}"][href="${url}"]`)) return;
+
+        const linkElement = document.createElement('link');
+        linkElement.rel = relType;
+        linkElement.href = url;
+        document.head.appendChild(linkElement);
+
+        sessionStorage.setItem(sessionKey, 'true');
+        console.log(`[PredictivePrefetcher] Injection: ${relType} -> ${url}`);
     },
 
     optimizeScrollPerformance() {

@@ -7,10 +7,6 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
 
-# Import your models here
-from app.db.base import Base
-from app.db.models import user, booking, tenant, service, staff, room, customer, commission, revenue, audit
-
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -22,6 +18,8 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
+from app.db.base import Base
+from app.db.models import user, booking, tenant, service, staff, room, customer, commission, revenue, audit, consent
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
@@ -42,8 +40,8 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    import os
-    url = os.getenv("DATABASE_URL", config.get_main_option("sqlalchemy.url"))
+    from app.core.config import settings
+    url = settings.DATABASE_URL
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -56,29 +54,32 @@ def run_migrations_offline() -> None:
 
 
 def do_run_migrations(connection: Connection) -> None:
+    # --- SOVEREIGN SHIELD: ALEMBIC PRE-CHECKS ---
+    from sqlalchemy import text
+    if connection.dialect.name == "sqlite":
+        res = connection.execute(text("PRAGMA foreign_key_check;")).fetchall()
+        if res:
+            raise Exception(f"[ANTI-FRAGILE CORE] Alembic Pre-Check Failed: Destructive migration blocked! SQLite Foreign Key Violations detected: {res}")
+    # ---------------------------------------------
+
     context.configure(connection=connection, target_metadata=target_metadata)
 
     with context.begin_transaction():
         context.run_migrations()
 
 
-async def run_migrations_online() -> None:
-    """Run migrations in 'online' mode.
-
-    In this scenario we need to create an Engine
+async def run_async_migrations() -> None:
+    """In this scenario we need to create an Engine
     and associate a connection with the context.
 
     """
-    import os
     from app.core.config import settings
-    
-    configuration = config.get_section(config.config_ini_section, {})
-    # Override URL with settings
-    configuration["sqlalchemy.url"] = settings.DATABASE_URL
-    print(f"DEBUG: Using URL from settings -> {configuration['sqlalchemy.url']}")
-    
+    section = config.get_section(config.config_ini_section, {})
+    section["sqlalchemy.url"] = settings.DATABASE_URL
+    print(f"DEBUG: Using URL from settings -> {section['sqlalchemy.url']}")
+
     connectable = async_engine_from_config(
-        configuration,
+        section,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
@@ -89,7 +90,13 @@ async def run_migrations_online() -> None:
     await connectable.dispose()
 
 
+def run_migrations_online() -> None:
+    """Run migrations in 'online' mode."""
+
+    asyncio.run(run_async_migrations())
+
+
 if context.is_offline_mode():
     run_migrations_offline()
 else:
-    asyncio.run(run_migrations_online())
+    run_migrations_online()

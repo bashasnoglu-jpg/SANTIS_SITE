@@ -1,0 +1,113 @@
+{
+    "nav": {
+        "home": {
+            "tr": "ANASAYFA",
+            "en": "HOME",
+            "de": "STARTSEITE",
+            "fr": "ACCUEIL",
+            "ru": "ГЛАВНАЯ"
+        },
+        "santis_world": {
+            "tr": "SANTIS WORLD",
+            "en": "SANTIS WORLD",
+            "de": "SANTIS WORLD",
+            "fr": "SANTIS WORLD",
+            "ru": "МИР SANTIS"
+        },
+        "hammam": {
+            "tr": "HAMAM",
+            "en": "HAMMAM",
+            "de": "HAMAM",
+            "fr": "HAMMAM",
+            "ru": "ХАММАМ"
+        },
+        "massage": {
+            "tr": "MASAJ",
+            "en": "MASSAGE",
+            "de": "MASSAGE",
+            "fr": "MASSAGE",
+            "ru": "МАССАЖ"
+        },
+        "skincare": {
+            "tr": "CİLT BAKIMI",
+            "en": "SKINCARE",
+            "de": "HAUTPFLEGE",
+            "fr": "SOIN DE LA PEAU",
+            "ru": "УХОД ЗА КОЖЕЙ"
+        },
+        "shop": {
+            "tr": "MAĞAZA",
+            "en": "SHOP",
+            "de": "SHOP",
+            "fr": "BOUTIQUE",
+            "ru": "МАГАЗИН"
+        },
+        "gallery": {
+            "tr": "GALERİ",
+            "en": "GALLERY",
+            "de": "GALERIE",
+            "fr": "GALERIE",
+            "ru": "ГАЛЕРЕЯ"
+        },
+        "about": {
+            "tr": "HAKKIMIZDA",
+            "en": "ABOUT",
+            "de": "ÜBER UNS",
+            "fr": "À PROPOS",
+            "ru": "О НАС"
+        },
+        "book_now": {
+            "tr": "REZERVASYON",
+            "en": "BOOK NOW",
+            "de": "JETZT BUCHEN",
+            "fr": "RÉSERVER",
+            "ru": "ЗАБРОНИРОВАТЬ"
+        },
+        "spa_menu": {
+            "tr": "SPA MENÜSÜ",
+            "en": "SPA MENU",
+            "de": "SPA-MENÜ",
+            "fr": "MENU DU SPA",
+            "ru": "СПА-МЕНЮ"
+        },
+        "code_of_silence": {
+            "tr": "Sessizlik Manifestosu",
+            "en": "Code of Silence",
+            "de": "Manifest der Stille",
+            "fr": "Code du Silence",
+            "ru": "Кодекс Тишины"
+        }
+    },
+    "hero": {
+        "title": {
+            "tr": "SESSİZ LÜKS",
+            "en": "QUIET LUXURY",
+            "de": "STILLER LUXUS",
+            "fr": "LUXE SILENCIEUX",
+            "ru": "ТИХАЯ РОСКОШЬ"
+        },
+        "subtitle": {
+            "tr": "Arınmanın en saf hali.",
+            "en": "The purest form of purification.",
+            "de": "Die reinste Form der Reinigung.",
+            "fr": "La forme la plus pure de purification.",
+            "ru": "Самая чистая форма очищения."
+        },
+        "discover": {
+            "tr": "RİTÜELİ KEŞFET",
+            "en": "DISCOVER RITUAL",
+            "de": "RITUAL ENTDECKEN",
+            "fr": "DÉCOUVRIR LE RITUEL",
+            "ru": "ОТКРЫТЬ РИТУАЛ"
+        }
+    },
+    "meta": {
+        "description": {
+            "tr": "Santis Club - Şehrin kalbinde sessiz lüks ve arınma ritüelleri.",
+            "en": "Santis Club - Quiet luxury and purification rituals in the heart of the city.",
+            "de": "Santis Club - Stiller Luxus und Reinigungsrituale im Herzen der Stadt.",
+            "fr": "Santis Club - Luxe silencieux et rituels de purification au cœur de la ville.",
+            "ru": "Santis Club - Тихая роскошь и ритуалы очищения в самом сердце города."
+        }
+    }
+}

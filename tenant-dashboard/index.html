@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis | Front-Desk OS (Tenant)</title>
+    <!-- Tailwind Warning Suppressor -->
+    <script>
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+            if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return;
+            originalWarn.apply(console, args);
+        };
+    </script>
+    <!-- Tailwind CSS (CDN for rapid architecture) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        santis: {
+                            light: '#f8fafc',
+                            panel: 'rgba(255, 255, 255, 0.7)',
+                            border: 'rgba(0, 0, 0, 0.05)',
+                            cyan: '#06b6d4',
+                            emerald: '#10b981'
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-santis-light text-slate-800 font-sans antialiased min-h-screen relative overflow-x-hidden selection:bg-cyan-500/30 transition-colors duration-1000" id="tenant-body">
+
+    <!-- DIGITAL TWIN THEME OVERLAYS -->
+    <div id="matrix-overlay" class="fixed inset-0 z-[99] pointer-events-none opacity-0 transition-opacity duration-1000 mix-blend-multiply"></div>
+    
+    <!-- Ambient Background Elements (Light Edition) -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none" id="ambient-bg">
+        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-cyan-100/50 rounded-full blur-[100px] transition-colors duration-1000" id="ambient-circle-1"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-100/40 rounded-full blur-[100px] transition-colors duration-1000" id="ambient-circle-2"></div>
+        <div class="absolute inset-0 bg-[#f8fafc]/50 backdrop-blur-[20px] transition-colors duration-1000" id="ambient-base"></div>
+    </div>
+
+    <!-- MAIN DASHBOARD WRAPPER -->
+    <div class="relative z-10 w-full h-screen flex flex-col p-4 md:p-8">
+        
+        <!-- HEADER ROW -->
+        <header class="w-full flex justify-between items-center mb-8 bg-white/60 backdrop-blur-md border border-slate-200/50 rounded-2xl p-4 shadow-sm">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center shadow-lg">
+                    <span class="text-white font-bold text-xl tracking-tighter">S.</span>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight text-slate-900" id="hotel-name-display">Loading Sector...</h1>
+                    <p class="text-sm text-slate-500 font-medium" id="hotel-region-display">Santis Resort Network</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <!-- App Switcher -->
+                <div class="hidden md:flex gap-2 border-r border-slate-200 pr-6">
+                    <a href="/hq-dashboard" class="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 hover:text-amber-500 px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-sm">
+                        ⎈ HQ
+                    </a>
+                    <a href="/admin" class="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 hover:text-cyan-600 px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-sm">
+                        Admin OS
+                    </a>
+                    <a href="/guest-zen" class="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 hover:text-blue-500 px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-sm">
+                        🧘‍♀️ Guest
+                    </a>
+                </div>
+
+                <div class="text-right">
+                    <p class="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">HQ Connection</p>
+                    <div class="flex items-center gap-2">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        <span class="text-sm font-mono text-emerald-600 font-bold">LINK_ACTIVE</span>
+                    </div>
+                </div>
+                <!-- Profile / Date -->
+                <div class="h-10 px-4 flex items-center bg-slate-100 rounded-lg border border-slate-200 text-sm font-medium text-slate-600 shadow-inner">
+                    <span id="current-date">--/--/----</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- GRID LAYOUT -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 flex-grow">
+            
+            <!-- LEFT COLUMN: Quick Check-In Form (The Tactical Endpoint) -->
+            <div class="lg:col-span-1 flex flex-col gap-6">
+                <!-- Data Card -->
+                <div class="bg-white/70 backdrop-blur-xl border border-white p-6 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Today's Revenue</h3>
+                    <div class="text-5xl font-mono font-bold text-slate-900 mb-2" id="tenant-revenue">€0</div>
+                    <p class="text-sm text-emerald-600 font-medium">+12% vs Yesterday</p>
+                </div>
+
+                <!-- Input Module -->
+                <div class="bg-white/70 backdrop-blur-xl border border-white p-6 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex-grow flex flex-col">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold text-slate-900">Walk-In Checkout</h3>
+                        <span class="bg-cyan-100 text-cyan-700 text-xs font-bold px-2 py-1 rounded">POS Ready</span>
+                    </div>
+                    
+                    <form id="reservation-form" class="flex flex-col gap-4 flex-grow">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Guest Room</label>
+                            <input type="text" id="ipt-room" required placeholder="e.g. 1042" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Service Type</label>
+                            <select id="ipt-service" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 appearance-none">
+                                <option value="Hammam Ritual">Hammam Ritual (€80)</option>
+                                <option value="Deep Tissue Massage">Deep Tissue Massage (€120)</option>
+                                <option value="Couples Relax">Couples Relax (€200)</option>
+                                <option value="Jet Lag Recovery">Jet Lag Recovery (€150)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Final Price (€)</label>
+                            <input type="number" id="ipt-price" required min="1" placeholder="Amount" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-mono font-bold text-lg focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all">
+                        </div>
+
+                        <div class="flex-grow"></div> <!-- Spacer -->
+
+                        <button type="submit" class="w-full bg-slate-900 hover:bg-cyan-600 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-1">
+                            Process Payment & Notify HQ
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Schedule & AI Intel -->
+            <div class="lg:col-span-2 flex flex-col gap-6">
+                <!-- AI Directive Panel -->
+                <div class="bg-gradient-to-r from-purple-50 to-white border border-purple-100 p-6 rounded-3xl shadow-sm relative overflow-hidden group">
+                    <div class="absolute right-0 top-0 w-32 h-32 bg-purple-200 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+                    <h3 class="text-xs font-bold text-purple-600 uppercase tracking-widest mb-2 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Directive from Master OS (HQ)
+                    </h3>
+                    <p class="text-slate-800 font-medium text-lg leading-snug" id="local-ai-directive">
+                        Connecting to predictive core...
+                    </p>
+                </div>
+
+                <!-- Today's Docket -->
+                <div class="bg-white/70 backdrop-blur-xl border border-white p-6 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex-grow overflow-hidden flex flex-col">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold text-slate-900">Today's Operating Docket</h3>
+                        <div class="flex gap-2">
+                            <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded border border-slate-200">Therapists: 4 Active</span>
+                        </div>
+                    </div>
+
+                    <div class="flex-grow overflow-y-auto pr-2 custom-scrollbar">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="text-[10px] uppercase font-bold tracking-wider text-slate-400 border-b border-slate-200">
+                                    <th class="pb-3 px-2">Time</th>
+                                    <th class="pb-3 px-2">Guest / Room</th>
+                                    <th class="pb-3 px-2">Service</th>
+                                    <th class="pb-3 px-2 text-right">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tenant-docket-body">
+                                <!-- JS Injected Rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Frontend Logic -->
+    <script>
+        const API_BASE = '/api/v1';
+        
+        // Target specific tenant for this tablet (e.g. Delphin Antalya = 2)
+        // In a real app, this would be determined by JWT login token.
+        const CURRENT_TENANT_ID = "9406332b866242f7ae4e00efa7eaf505"; // Replaced integer 2 with the actual UUID generated by seed_db.py
+
+        // Set Date
+        document.getElementById('current-date').innerText = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+        const els = {
+            hotelName: document.getElementById('hotel-name-display'),
+            hotelRegion: document.getElementById('hotel-region-display'),
+            revenue: document.getElementById('tenant-revenue'),
+            aiDirective: document.getElementById('local-ai-directive'),
+            docketBody: document.getElementById('tenant-docket-body'),
+            form: document.getElementById('reservation-form'),
+            roomInput: document.getElementById('ipt-room'),
+            serviceInput: document.getElementById('ipt-service'),
+            priceInput: document.getElementById('ipt-price')
+        };
+
+        // Format Currency
+        const formatEur = (num) => '€' + parseFloat(num).toFixed(0);
+
+        // Fetch Tenant Data
+        async function fetchTenantData() {
+            try {
+                // We'll create this specific endpoint next in server.js
+                // GET /tenant/dashboard?tenant_id=2
+                const res = await fetch(`${API_BASE}/tenant/dashboard?tenant_id=${CURRENT_TENANT_ID}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    
+                    if(data.hotel) {
+                        els.hotelName.innerText = data.hotel.name;
+                        els.hotelRegion.innerText = `${data.hotel.city}, ${data.hotel.country}`;
+                    }
+
+                    if(data.performance) {
+                        els.revenue.innerText = formatEur(data.performance.today_revenue);
+                        
+                        if(data.ai_directive) {
+                            els.aiDirective.innerHTML = data.ai_directive;
+                        } else {
+                            els.aiDirective.innerText = "Sistem beklemede. Veritabanı ve AI analiz ediliyor...";
+                        }
+                    }
+
+                    // Render mock docket lines based on feed
+                    if(data.feed && data.feed.length > 0) {
+                        els.docketBody.innerHTML = data.feed.map(row => {
+                            let statusClass = 'bg-slate-100 text-slate-600';
+                            if(row.status === 'COMPLETED') statusClass = 'bg-emerald-100 text-emerald-700';
+                            if(row.status === 'CONFIRMED') statusClass = 'bg-blue-100 text-blue-700';
+                            if(row.status === 'CANCELLED') statusClass = 'bg-red-100 text-red-700';
+
+                            let aiBadge = '';
+                            if(row.ai_persona) {
+                                aiBadge = `
+                                    <div class="mt-1 group-hover:block relative">
+                                        <span class="inline-flex items-center gap-1 text-[9px] font-bold text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded border border-purple-200 cursor-help">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
+                                            AI Intel
+                                        </span>
+                                        <div class="absolute left-0 top-full mt-1 w-64 p-3 bg-slate-900 text-white text-xs rounded-lg shadow-xl border border-purple-500/30 opacity-0 group-hover:opacity-100 transition-opacity z-50 pointer-events-none">
+                                            <div class="font-bold text-purple-400 mb-1 border-b border-slate-700 pb-1 uppercase tracking-widest text-[9px]">Neural Profile</div>
+                                            <div class="whitespace-pre-line leading-relaxed">${row.ai_persona}</div>
+                                        </div>
+                                    </div>
+                                `;
+                            }
+
+                            return `
+                                <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors group">
+                                    <td class="py-3 px-2 font-mono text-sm text-slate-500">${row.booked_at}</td>
+                                    <td class="py-3 px-2">
+                                        <div class="font-medium text-slate-900">${row.guest_name || 'Walk-in'}</div>
+                                        <div class="text-[10px] text-slate-400 font-mono">${row.room_number || 'W/I'}</div>
+                                        ${aiBadge}
+                                    </td>
+                                    <td class="py-3 px-2 text-sm text-slate-600">${row.service_name}</td>
+                                    <td class="py-3 px-2 text-right">
+                                        <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${statusClass}">
+                                            ${row.status || 'PENDING'}
+                                        </span>
+                                    </td>
+                                </tr>
+                            `;
+                        }).join('');
+                    } else {
+                        els.docketBody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-slate-400 text-sm">No operations scheduled today.</td></tr>`;
+                    }
+                }
+            } catch (err) {
+                console.error("Tenant Fetch Error:", err);
+            }
+        }
+
+        // Handle Form Submission (POST to API)
+        els.form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+            btn.innerText = "Processing...";
+            btn.disabled = true;
+
+            const payload = {
+                tenant_id: CURRENT_TENANT_ID,
+                // Assuming we map tenant 2 to hotel 2 (Delphin Imperial) for simplicity in demo
+                hotel_id: 2, 
+                room_number: els.roomInput.value,
+                service_name: els.serviceInput.value,
+                price: parseFloat(els.priceInput.value)
+            };
+
+            try {
+                const res = await fetch(`${API_BASE}/bookings/walk-in`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if(res.ok) {
+                    // Success! 
+                    btn.classList.add('bg-emerald-500');
+                    btn.innerText = "Confirmed & Sent to HQ";
+                    
+                    // Reset form and reload data
+                    setTimeout(() => {
+                        els.form.reset();
+                        btn.classList.remove('bg-emerald-500');
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+                        fetchTenantData(); // Refresh the UI immediately
+                    }, 2000);
+                } else {
+                    throw new Error("API Exception");
+                }
+            } catch (err) {
+                console.error("Failed to post reservation:", err);
+                btn.classList.add('bg-red-500');
+                btn.innerText = "Network Error";
+                setTimeout(() => {
+                    btn.classList.remove('bg-red-500');
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                }, 2000);
+            }
+        });
+
+        // Init
+        fetchTenantData();
+        // Poll slower than HQ (every 10 seconds locally is fine)
+        setInterval(fetchTenantData, 10000);
+
+        // SANTIS V17: NEURAL BRIDGE (WebSocket) - Tenant Connection
+        const WS_URL = 'ws://localhost:8000/ws?client_type=tenant&client_id=' + CURRENT_TENANT_ID;
+        let ws;
+
+        function connectNeuralBridge() {
+            ws = new WebSocket(WS_URL);
+
+            ws.onopen = () => {
+                console.log("🟢 [Neural Bridge] Tenant Connected to Room: tenant_" + CURRENT_TENANT_ID);
+                // Gerekirse UI'da bir yeşil ışık yakılabilir
+            };
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                
+                // 1) HQ'dan özel ping gelirse
+                if(data.type === 'hq_ping') {
+                    console.log("⚡ [Neural Bridge] HQ Ping Received! Sending Pong...");
+                    const dirEl = document.getElementById('local-ai-directive');
+                    const origHtml = dirEl.innerHTML;
+                    dirEl.innerHTML = `<span class="text-cyan-400 font-bold animate-pulse">HQ COMMAND OVERRIDE: ${data.command || 'SYNC REQUEST'}</span>`;
+                    
+                    setTimeout(() => { dirEl.innerHTML = origHtml; }, 4000);
+
+                    // HQ'ya Pong dön
+                    ws.send(JSON.stringify({
+                        type: 'tenant_pong',
+                        tenant_id: CURRENT_TENANT_ID,
+                        status: 'acknowledged',
+                        message: 'Standing by.'
+                    }));
+                }
+                
+                // 2) DIGITAL TWIN: HQ COMMAND TARGETED
+                if(data.type === 'hq_command') {
+                    console.log("🚨 [Matrix Vision] Deploying HQ Directive!", data);
+                    
+                    // Trigger Audio Synthesis
+                    if(data.tts_message) {
+                        const utterance = new SpeechSynthesisUtterance(data.tts_message);
+                        utterance.lang = "en-US";
+                        utterance.rate = 0.9;
+                        utterance.pitch = 0.8;
+                        // Attempt to pick a robotic/formal voice if available
+                        const voices = window.speechSynthesis.getVoices();
+                        const formalVoice = voices.find(v => v.name.includes("Google UK English Male") || v.name.includes("Zira") || v.name.includes("Daniel"));
+                        if(formalVoice) utterance.voice = formalVoice;
+                        
+                        window.speechSynthesis.speak(utterance);
+                    }
+                    
+                    // Execute Theme Swap
+                    const body = document.getElementById('tenant-body');
+                    const overlay = document.getElementById('matrix-overlay');
+                    const c1 = document.getElementById('ambient-circle-1');
+                    const c2 = document.getElementById('ambient-circle-2');
+                    const bg = document.getElementById('ambient-base');
+                    
+                    // Directive Modal UI manipulation
+                    const dirEl = document.getElementById('local-ai-directive');
+                    const origHtml = dirEl.innerHTML;
+                    dirEl.innerHTML = `<span class="text-red-500 font-bold animate-pulse text-2xl uppercase tracking-widest">${data.command} <br/> Target: ${data.guest_name}</span>`;
+
+                    if(data.theme === 'red-alert') {
+                        overlay.className = "fixed inset-0 z-[99] pointer-events-none mix-blend-multiply opacity-100 transition-opacity duration-1000 bg-red-900/40";
+                        c1.className = "absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-red-600/50 rounded-full blur-[100px] transition-colors duration-1000";
+                        c2.className = "absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-800/40 rounded-full blur-[100px] transition-colors duration-1000";
+                        bg.className = "absolute inset-0 bg-red-950/20 backdrop-blur-[20px] transition-colors duration-1000";
+                    } 
+                    else if(data.theme === 'matrix-blue') {
+                        overlay.className = "fixed inset-0 z-[99] pointer-events-none mix-blend-multiply opacity-100 transition-opacity duration-1000 bg-emerald-900/40";
+                        c1.className = "absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-600/50 rounded-full blur-[100px] transition-colors duration-1000";
+                        c2.className = "absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-cyan-800/40 rounded-full blur-[100px] transition-colors duration-1000";
+                        bg.className = "absolute inset-0 bg-emerald-950/20 backdrop-blur-[20px] transition-colors duration-1000";
+                    }
+
+                    // Reset Theme after 12 seconds
+                    setTimeout(() => {
+                        overlay.className = "fixed inset-0 z-[99] pointer-events-none opacity-0 transition-opacity duration-1000 mix-blend-multiply";
+                        c1.className = "absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-cyan-100/50 rounded-full blur-[100px] transition-colors duration-1000";
+                        c2.className = "absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-100/40 rounded-full blur-[100px] transition-colors duration-1000";
+                        bg.className = "absolute inset-0 bg-[#f8fafc]/50 backdrop-blur-[20px] transition-colors duration-1000";
+                        dirEl.innerHTML = origHtml;
+                    }, 12000);
+                }
+            };
+
+            ws.onclose = () => {
+                console.warn("🔴 [Neural Bridge] Disconnected. Reconnecting in 3s...");
+                setTimeout(connectNeuralBridge, 3000);
+            };
+        }
+
+        // Başlat
+        connectNeuralBridge();
+
+    </script>
+</body>
+</html>

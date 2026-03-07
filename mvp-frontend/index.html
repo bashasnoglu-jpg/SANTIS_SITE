@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Club | Guest Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="nv-dark-theme">
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="hotel-info">
+            <h1 id="hotelName">Loading Hotel...</h1>
+            <p class="subtitle">Santis Spa & Wellness</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main">
+        
+        <!-- Services Section -->
+        <section class="services-list" id="servicesContainer">
+            <div class="loading-spinner">Loading available treatments...</div>
+            <!-- Services injected via JS -->
+        </section>
+
+        <!-- Booking Form (Hidden initially) -->
+        <section class="booking-section hidden" id="bookingForm">
+            <div class="booking-card">
+                <h2>Book Your Treatment</h2>
+                <h3 id="selectedServiceName"></h3>
+                <p id="selectedServicePrice" class="price-tag"></p>
+                
+                <form id="reservationForm">
+                    <input type="hidden" id="serviceId">
+                    <input type="hidden" id="hotelId">
+                    
+                    <div class="form-group">
+                        <label>Your Name / Room Name</label>
+                        <input type="text" id="guestName" placeholder="e.g. John Doe - Room 402" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Preferred Time Today</label>
+                        <input type="time" id="bookingTime" required>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Confirm Booking</button>
+                    <button type="button" class="btn-secondary" id="cancelBooking">Cancel</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Success Toast -->
+        <div id="successToast" class="toast hidden">
+            Reservation Confirmed! The Spa Reception will contact you shortly.
+        </div>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

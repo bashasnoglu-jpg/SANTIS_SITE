@@ -1,0 +1,1092 @@
+[
+  {
+    "ts": "2026-02-21T09:19:41.508894+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "auth_fail",
+    "method": "GET",
+    "path": "/api/admin/content/integrity-scan",
+    "status": 401
+  },
+  {
+    "ts": "2026-02-21T09:18:59.020667+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "auth_fail",
+    "method": "GET",
+    "path": "/api/admin/content/integrity-scan",
+    "status": 401
+  },
+  {
+    "ts": "2026-02-21T09:18:54.817839+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "auth_fail",
+    "method": "POST",
+    "path": "/api/v1/content/draft/approve",
+    "status": 401
+  },
+  {
+    "ts": "2026-02-21T09:18:54.793549+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "auth_fail",
+    "method": "POST",
+    "path": "/api/v1/content/draft",
+    "status": 401
+  },
+  {
+    "ts": "2026-02-21T09:13:45.416848+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "auth_fail",
+    "method": "GET",
+    "path": "/api/admin/content/integrity-scan",
+    "status": 401
+  },
+  {
+    "ts": "2026-02-21T07:21:28.435465+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "auth_fail",
+    "method": "GET",
+    "path": "/api/admin/content/integrity-scan",
+    "status": 401
+  },
+  {
+    "ts": "2026-02-21T07:01:13.165025+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "forbidden_access",
+    "method": "DELETE",
+    "path": "/api/v1/users/258ccf56-6795-4985-9ef0-78db5c454336",
+    "status": 403
+  },
+  {
+    "ts": "2026-02-21T07:01:09.059425+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "forbidden_access",
+    "method": "DELETE",
+    "path": "/api/v1/users/4f968e93-e7bc-4866-9abd-cbb09835eaba",
+    "status": 403
+  },
+  {
+    "ts": "2026-02-21T06:50:40.849008+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "auth_fail",
+    "method": "GET",
+    "path": "/api/admin/content/integrity-scan",
+    "status": 401
+  },
+  {
+    "ts": "2026-02-21T06:49:43.594688+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "auth_fail",
+    "method": "GET",
+    "path": "/api/admin/content/integrity-scan",
+    "status": 401
+  },
+  {
+    "ts": "2026-02-21T06:48:16.110075+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "auth_fail",
+    "method": "GET",
+    "path": "/api/admin/content/integrity-scan",
+    "status": 401
+  },
+  {
+    "ts": "2026-02-21T06:46:37.578249+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "auth_fail",
+    "method": "GET",
+    "path": "/api/admin/content/integrity-scan",
+    "status": 401
+  },
+  {
+    "ts": "2026-02-21T06:46:20.589391+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "auth_fail",
+    "method": "GET",
+    "path": "/api/admin/content/integrity-scan",
+    "status": 401
+  },
+  {
+    "ts": "2026-02-20T22:42:08.927948+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:08.835242+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:08.695617+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:08.602906+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:08.508692+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:08.370676+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:08.278107+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:08.247212+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:08.200641+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:08.014563+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:08.004193+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:07.995769+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:07.987882+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:07.979561+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:07.970853+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:07.949064+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:07.941610+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:07.933848+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:07.924541+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:07.829893+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:06.885504+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:06.777649+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:06.638100+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:06.546344+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:06.452920+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:06.327695+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:06.234136+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:06.203784+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:06.142554+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:05.934971+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:05.925852+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:05.919329+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:05.912251+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:05.904494+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:05.896869+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:05.874573+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:05.866885+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:05.859558+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:05.850805+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:05.787099+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:04.830143+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:04.720072+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:04.594629+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:04.502282+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:04.394653+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:04.286224+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:04.178046+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:04.146139+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:04.099330+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:03.860227+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:03.849381+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:03.843561+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:03.837475+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:03.830889+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:03.823231+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:03.797041+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:03.791094+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:03.784706+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:03.775792+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:03.743257+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:02.768273+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:02.660871+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:02.551325+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:02.443841+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:02.340015+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:02.227841+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:02.118702+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:02.103416+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:02.041089+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:01.785831+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:01.777846+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:01.771650+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:01.765264+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:01.758935+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:01.751153+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:01.728634+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:01.722223+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:01.715431+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:01.707026+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:42:01.706116+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:41:59.691285+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:41:59.682727+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:41:59.675284+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:41:59.667171+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:41:59.659239+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:41:59.650477+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:41:59.642554+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:41:59.634493+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:41:59.622645+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:41:59.621822+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:40:09.876623+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "rate_limited",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 429
+  },
+  {
+    "ts": "2026-02-20T22:40:07.840716+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "lockout_triggered",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 423
+  },
+  {
+    "ts": "2026-02-20T22:40:05.802613+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "lockout_triggered",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 423
+  },
+  {
+    "ts": "2026-02-20T22:40:03.762086+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "lockout_triggered",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 423
+  },
+  {
+    "ts": "2026-02-20T22:40:01.723307+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "lockout_triggered",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 423
+  },
+  {
+    "ts": "2026-02-20T22:39:49.405708+00:00Z",
+    "actor": "unknown",
+    "ip": "127.0.0.1",
+    "region": "tr",
+    "event": "lockout_triggered",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "status": 423
+  }
+]

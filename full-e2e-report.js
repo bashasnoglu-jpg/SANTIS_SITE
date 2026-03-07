@@ -88,7 +88,7 @@ const results = [];
 
         const healthResp = await page.goto(ADMIN_URL + '/api/health');
         const hData = await healthResp.json();
-        results.push({ step: 'Metrics & Observability (Blok D3)', status: hData.status === 'healthy' ? 'Başarı (Aktif)' : 'Hata' });
+        results.push({ step: 'Metrics & Observability (Blok D3)', status: hData.status === 'up' ? 'Başarı (Aktif)' : 'Hata' });
 
     } catch (err) {
         results.push({ step: 'Security & Integrity Audit', status: 'Hata', error: err.message });

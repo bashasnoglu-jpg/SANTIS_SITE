@@ -1,0 +1,16 @@
+﻿[36m
+🚀 SOVEREIGN CSS PATCHER BAŞLIATILIYOR...
+[0m
+[36m
+--- 📊 OMNI-CORE OPERASYON RAPORU ---[0m
+[32m✅ Onarılan Dosya Sayısı: 0[0m
+[33m
+⚠️ DİKKAT GEREKTİREN MANUEL KONTROLLER (İLK 5):[0m
+[33m[CPU YORAN ANİMASYON] animations.css -> Bulunan: transition: all 0.8s ease-out; (Transform kullanın)
+[33m[CPU YORAN ANİMASYON] bento-grid.css -> Bulunan: transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); (Transform kullanın)
+[33m[CPU YORAN ANİMASYON] bento-grid.css -> Bulunan: transition: all 0.8s ease; (Transform kullanın)
+[33m[CPU YORAN ANİMASYON] bento-grid.css -> Bulunan: transition: all 0.4s ease; (Transform kullanın)
+[33m[CPU YORAN ANİMASYON] booking-wizard.css -> Bulunan: transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); (Transform kullanın)
+[93m...ve 117 uyarı daha.[0m
+[36m-------------------------------------
+[0m

@@ -8,10 +8,22 @@
     ],
     "scripts": {
         "dev": "pnpm --filter api dev",
-        "build": "pnpm -r build"
+        "build": "pnpm -r build",
+        "test": "pnpm build && node full-e2e-report.js && python audit_site.py",
+        "dev:ui": "vite --port 3000 --host 0.0.0.0",
+        "dev:edge": "miniflare workers/santis-edge-worker.js --port 8787 --watch"
     },
     "dependencies": {
         "@google/generative-ai": "^0.24.1",
-        "dotenv": "^17.3.1"
+        "dotenv": "^17.3.1",
+        "node-fetch": "^3.3.2",
+        "puppeteer": "^24.37.5"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.27",
+        "postcss": "^8.5.8",
+        "tailwindcss": "^4.2.1",
+        "vite": "latest",
+        "miniflare": "latest"
     }
 }

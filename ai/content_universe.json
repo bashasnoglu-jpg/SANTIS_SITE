@@ -1,0 +1,25 @@
+{
+    "pages": {
+        "node_mock_vienna": {
+            "editorial_title": {
+                "en": "Sovereign Masterpiece - The Vienna Core",
+                "tr": "Egemen Şaheser - Viyana Çekirdeği"
+            },
+            "hero_image_prompt": "SANTIS quiet luxury spa photography, premium editorial, dark warm-gray stone, brushed metal, minimal, calm, refined. Negative: typography, letters, logos, cheap spa look, AI artifacts.",
+            "status": "pending_hitl_approval"
+        },
+        "wien_exclusive": {
+            "url": "/de/wien-exclusive",
+            "title": "Santis Spa Wien - Exklusive Behandlungen",
+            "description": "Erleben Sie die pure Entspannung in unserem exklusiven Spa im Herzen von Wien.",
+            "lang": "de",
+            "type": "luxury_landing",
+            "sas_score": 0.96,
+            "content": {
+                "hero_image": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
+                "hero_headline": "Stille. Luxus. Wien.",
+                "hero_subheadline": "Eine Oase der Ruhe abseits des Alltags."
+            }
+        }
+    }
+}

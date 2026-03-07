@@ -330,7 +330,7 @@ class SantisSoul {
         // console.log(`🧠 [Emotion Engine] Mood Shift Detected: ${mood.toUpperCase()}`);
 
         const strategies = {
-            'calm': { mode: 'zen', breath: '19s', smoothing: 0.08 },
+            'calm': { mode: null, breath: '19s', smoothing: 0.08 }, // DO NOT enforce zen loop if user is just idle; defer to scheduler
             'decisive': { mode: 'mist', breath: '8s', smoothing: 0.03 }, // Snappy
             'hesitant': { mode: 'sunset', breath: '12s', smoothing: 0.05 }, // Warm reassurance
             'escape': { mode: 'midnight', breath: '25s', smoothing: 0.1 } // Deep immersion
@@ -339,7 +339,9 @@ class SantisSoul {
         const strat = strategies[mood] || strategies['calm'];
 
         // Apply Physical Changes
-        this.setMood(strat.mode);
+        if (strat.mode) {
+            this.setMood(strat.mode);
+        }
         this.root.style.setProperty('--breath-cycle', strat.breath);
         this.smoothness = strat.smoothing;
 

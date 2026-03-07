@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Sovereign OS | The Master Pitch</title>
+    <!-- Muted Silver and Obsidian Black baseline -->
+    <style>
+        :root {
+            --obsidian: #050505;
+            --santis-gold: #D4AF37;
+            --muted-silver: #A0A09A;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--obsidian);
+            color: var(--muted-silver);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden; /* Tam kontrol JavaScript'te */
+            scroll-behavior: smooth;
+        }
+
+        /* Sovereign UI Grid */
+        #deck-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); /* Kineti-Core Damping Simulation */
+        }
+
+        .slide {
+            min-width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            box-sizing: border-box;
+            position: relative;
+            opacity: 0.3;
+            transition: opacity 1s ease-in-out;
+            will-change: opacity;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        /* Typography */
+        h1 {
+            color: var(--santis-gold);
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            color: rgba(160, 160, 154, 0.8);
+        }
+
+        /* Ghost Forge Element */
+        .ghost-aura {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(212,175,55,0.04) 0%, rgba(5,5,5,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+            animation: breathe 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes breathe {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        }
+
+        /* Progress Dots */
+        #progress {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(160, 160, 154, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: var(--santis-gold);
+            transform: scale(1.5);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .terminal-code {
+            font-family: monospace;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 20px;
+            border-left: 3px solid var(--santis-gold);
+            margin-top: 20px;
+            text-align: left;
+            width: 100%;
+            max-width: 600px;
+            font-size: 0.9rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="progress"></div>
+
+    <div id="deck-container">
+        
+        <!-- SLIDE 1: THE HOOK -->
+        <section class="slide active">
+            <div class="ghost-aura"></div>
+            <h1>Santis Quantum OS</h1>
+            <h2>The End of Digital Friction</h2>
+            <p>We don't build websites. We build neural engines that read intent and bend time.</p>
+        </section>
+
+        <!-- SLIDE 2: THE PROBLEM -->
+        <section class="slide">
+            <h2>Your layout is betraying your real estate.</h2>
+            <p>Physical luxury is frictionless. Digital luxury is currently plagued by processor bottlenecks, loading spinners, and unrefined input fields. You lose millions every year to 2-second delays.</p>
+        </section>
+
+        <!-- SLIDE 3: ZERO-LATENCY -->
+        <section class="slide">
+            <div class="ghost-aura"></div>
+            <h1>Zero-Latency Perception</h1>
+            <h2>The Illusion of Speed > Speed Itself</h2>
+            <p>Santis Quantum OS hijacks the DOM. By employing GPU-accelerated "Ghost Forge" auras, we mask network operations behind 1.8 seconds of hypnotic visual rituals. The client never waits.</p>
+        </section>
+
+        <!-- SLIDE 4: THE KILL-ROOM -->
+        <section class="slide">
+            <h1>The Kill-Room</h1>
+            <h2>Sovereign Intent Arbitrage</h2>
+            <p>Our `Neuro-Tracker` detects when a user hesitates. If the pointer rests for 3.4 seconds, we don't wait for them to leave. The Edge worker bends the price internally via Cloudflare.</p>
+            <div class="terminal-code">
+                <span style="color: #A0A09A">[15:10:04] ⚡ VIP_SIM_01 | Latency: 9ms</span><br>
+                <span style="color: #D4AF37">ACTION: PRICE_BEND</span><br>
+                <span style="color: #32d74b; font-weight: bold;">380€ &rarr; 323€ [SECURED]</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: SaaS SCALE-OUT -->
+        <section class="slide">
+            <h1>Sovereign SaaS</h1>
+            <h2>10 Minutes to Deploy. Global Scale.</h2>
+            <p>A multi-tenant JSON architecture (`santis.tenant.config.json`) deployed globally on Cloudflare Edge. Zero-code onboarding for premium clinics and resorts worldwide.</p>
+            <div class="terminal-code">
+                <span style="color: #A0A09A">"tenant_id"</span>: <span style="color: #D4AF37">"dubai_royal_clinic_001"</span>,<br>
+                <span style="color: #A0A09A">"checkout_delay_ms"</span>: <span style="color: #D4AF37">1200</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: THE ASK -->
+        <section class="slide">
+            <div class="ghost-aura"></div>
+            <h1 style="color: #fff; text-shadow: none;">Join the Sovereign Network</h1>
+            <p>Technology as a Revenue Asset, not an Operational Cost.</p>
+        </section>
+
+    </div>
+
+    <script>
+        /**
+         * KINETI-CORE DECK NAVIGATION (Pitch Deck OS)
+         */
+        const container = document.getElementById('deck-container');
+        const slides = document.querySelectorAll('.slide');
+        const progressContainer = document.getElementById('progress');
+        
+        let currentSlide = 0;
+        let isAnimating = false;
+
+        // Initialize progress dots
+        slides.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = i === 0 ? 'dot active' : 'dot';
+            progressContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        function updateSlide(index) {
+            if (index < 0 || index >= slides.length || isAnimating) return;
+            
+            isAnimating = true;
+            
+            // Damping Simulation for the slide transition
+            container.style.transform = `translateY(-${index * 100}vh)`;
+            
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            
+            currentSlide = index;
+
+            // Kilit süresi (Prevent ultra-fast scrolling)
+            setTimeout(() => {
+                isAnimating = false;
+            }, 800);
+        }
+
+        // Mouse Wheel (Scroll) Event
+        window.addEventListener('wheel', (e) => {
+            if (e.deltaY > 30) updateSlide(currentSlide + 1);
+            else if (e.deltaY < -30) updateSlide(currentSlide - 1);
+        });
+
+        // Keyboard Event (Arrows & Space)
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                updateSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                updateSlide(currentSlide - 1);
+            }
+        });
+
+        // Touch Swipe
+        let startY = 0;
+        window.addEventListener('touchstart', e => startY = e.touches[0].clientY);
+        window.addEventListener('touchend', e => {
+            let endY = e.changedTouches[0].clientY;
+            if (startY - endY > 50) updateSlide(currentSlide + 1);
+            if (endY - startY > 50) updateSlide(currentSlide - 1);
+        });
+
+    </script>
+</body>
+</html>

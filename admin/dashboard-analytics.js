@@ -16,7 +16,8 @@ if (typeof AdminAnalytics === 'undefined') {
         }
 
         injectContainer() {
-            const target = document.querySelector('main') || document.body;
+            // Inject into Oracle view specifically so it doesn't break the global flex layout
+            const target = document.getElementById('view-oracle') || document.body;
 
             if (!document.getElementById('santis-analytics-board')) {
                 const container = document.createElement('div');

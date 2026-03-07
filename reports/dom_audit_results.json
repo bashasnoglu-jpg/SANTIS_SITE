@@ -6,199 +6,289 @@
     "source": "dom"
   },
   {
+    "url": "http://localhost:8000/assets/js/santis-sentinel.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-api.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-adaptive-quality.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-chameleon.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-persuader.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-v10-core.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-revenue-brain.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/app.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/editorial.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/luxury_engine.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-language-sync.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-ai-chatbot.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-pixel-engine.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-idle-engine.js?v=27.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-gravity.js?v=28.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-kinetics.js?v=29.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis_router.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis_edge_os.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-telemetry.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-revenue-brain.js?v=31.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-score-engine.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-behavior-tracker.js?v=24.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/santis_hotels.json?v=1772343610893",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-identity.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/social.json",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/social.json",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/tr/index.html",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-sentinel.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-chameleon.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-persuader.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-v10-core.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-revenue-brain.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/editorial.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/app.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/gallery.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/style.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/hero/santis_hero_main_v2.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
     "url": "http://localhost:8000/assets/css/fonts.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/style.css?v=5.1",
+    "url": "http://localhost:8000/assets/css/modules/cards.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/editorial.css?v=5.1",
+    "url": "http://localhost:8000/assets/css/bento-grid.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/santis-motion.css?v=1.0",
+    "url": "http://localhost:8000/assets/css/modules/global-trends.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/bento-grid.css?v=5.1",
+    "url": "http://localhost:8000/assets/css/hero-slider.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/modules/cards.css?v=5.1",
+    "url": "http://localhost:8000/assets/css/modules/testimonials.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/gallery.css?v=5.1",
+    "url": "http://localhost:8000/assets/css/video-hero.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/video-hero.css?v=5.1",
+    "url": "http://localhost:8000/assets/css/modules/sticky-booking.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/hero-slider.css?v=5.1",
+    "url": "http://localhost:8000/assets/css/concierge.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/i18n-routes.js",
+    "url": "http://localhost:8000/assets/css/santis-soul.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/core/registry.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/core/emotion-engine.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/loaders/data-bridge.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-brain.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/hreflang-injector.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/core_data_loader.js?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/language-bridge.js?v=26",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/url-normalizer.js?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/routes.js?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/concierge-engine.js?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/loader.js?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuI6fMZg.ttf",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQ.ttf",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuOKfMZg.ttf",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/preloader-cinema.css",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/hero/santis_hero_main_v2.png",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/available-routes.json",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/data/site_content.json",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/api/geo/location",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/skincare.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/atelier.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/massage.webp",
+    "url": "http://localhost:8000/assets/css/santis-skeleton.css",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -210,145 +300,37 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/santis-nav.js?v=5.1",
+    "url": "http://localhost:8000/assets/css/modules/signature-cards.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/language-switcher.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/perf-head.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/card-effects.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/santis-booking.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/home-products.js?v=5.5",
+    "url": "http://localhost:8000/assets/js/santis-ghost.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/global-trends.js?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/cognitive/smart_home.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/gallery-loader.js?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-hologram.js?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-scroll.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/reflex/atmos.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-scheduler.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/reflex/soul.js?v=1.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-transition.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/app.js?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/data/site_content.json",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/cognitive/smart-popup.js?v=27",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-atmosphere.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-health.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-oracle.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-physics.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-audio-ui.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/santis_card_hammam_v1.webp",
+    "url": "http://localhost:8000/assets/js/core/santis-identity.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
     "url": "http://localhost:8000/assets/img/cards/santis_card_skincare_v1.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/home_data.json",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -366,229 +348,13 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/components/footer.html?v=1770922701143",
+    "url": "http://localhost:8000/assets/img/cards/santis_card_hammam_v1.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/api/admin/tone-health",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/editorial.css",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/global-trends.json?t=1770922701144",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/gallery-data.json?t=1770922701144",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/components/footer.html?v=1770922701146",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/health",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/api/config",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/poster_trend.jpg",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/gallery-data.json?t=1770922701347",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/Santis-face-mask-4x5-1080x1350.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/5091624-hd_1920_1080_24fps.mp4",
-    "status": 206,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/fonts/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jDOjw.ttf",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/home_data.json?t=1770922701636",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/components/concierge-chat.html",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/santis_card_couple_v1.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/%C5%9Eirodhara%20terapi%20an%C4%B1.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/Alt%C4%B1n%20ya%C4%9F%C4%B1%20ve%20ellerin%20zarafeti.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/Santis-face-mask-4x5-1080x1350.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/santis_card_skincare_v1.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/Hammamda%20k%C3%B6p%C3%BCk%20masaj%C4%B1%20huzuru.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/santis_card_hammam_v1.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/hero-general.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/Anjali%20Mudra%20with%20soft%20lighting.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/Namaste%20elleri%20ve%20t%C3%BCts%C3%BC%20duman%C4%B1.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/Gemini_Generated_Image_gw02fdgw02fdgw02.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/Gemini_Generated_Image_jq8hzwjq8hzwjq8h.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/index.html",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/fonts.css",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/style.css?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/editorial.css?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/santis-motion.css?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/bento-grid.css?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/modules/cards.css?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/gallery.css?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/video-hero.css?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/hero-slider.css?v=5.1",
+    "url": "http://localhost:8000/assets/js/santis-nav.js",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -606,25 +372,31 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/core_data_loader.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/hero-slider.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/language-bridge.js?v=26",
+    "url": "http://localhost:8000/assets/js/loader.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/core/registry.js",
+    "url": "http://localhost:8000/assets/js/url-normalizer.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/core/emotion-engine.js",
+    "url": "http://localhost:8000/assets/js/cms-image-loader.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/routes.js",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -636,181 +408,103 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/santis-brain.js",
+    "url": "http://localhost:8000/assets/js/santis-atmosphere.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/url-normalizer.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/concierge-engine.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/routes.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/santis-language-sync.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/concierge-engine.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/santis-ai-chatbot.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/loader.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/santis-pixel-engine.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/santis-nav.js?v=5.1",
+    "url": "http://localhost:8000/assets/css/luxury_engine.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/language-switcher.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/core/santis-idle-engine.js?v=27.0",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/home-products.js?v=5.5",
+    "url": "http://localhost:8000/assets/js/core/santis-gravity.js?v=28.0",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/global-trends.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/core/santis-kinetics.js?v=29.0",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/gallery-loader.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/core/santis_router.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/cognitive/smart_home.js?v=1.0",
+    "url": "http://localhost:8000/assets/js/core/santis_edge_os.js?v=15.6",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/card-effects.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/santis-score-engine.js?v=15.6",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/santis-hologram.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/core/santis-revenue-brain.js?v=31.0",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/app.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/santis-telemetry.js?v=15.6",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/reflex/atmos.js?v=1.0",
+    "url": "http://localhost:8000/assets/js/core/santis-behavior-tracker.js?v=24.0",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/reflex/soul.js?v=1.1",
+    "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKebukDQ.ttf",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/santis-scheduler.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-scroll.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-transition.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-atmosphere.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/cognitive/smart-popup.js?v=27",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-oracle.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-health.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-physics.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-audio-ui.js?v=1.0",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/hammam.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/massage.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/skincare.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/atelier.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/preloader-cinema.css",
+    "url": "http://localhost:8000/assets/fonts/PlayfairDisplay-Regular.woff2",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -822,13 +516,13 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuOKfMZg.ttf",
+    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf",
+    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuOKfMZg.ttf",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -840,49 +534,25 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf",
+    "url": "http://localhost:8000/assets/css/preloader-cinema.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQ.ttf",
+    "url": "http://localhost:8000/assets/img/cards/massage.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/hero/santis_hero_main_v2.png",
+    "url": "http://localhost:8000/assets/img/cards/atelier.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/cards/santis_card_hammam_v1.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/santis_card_massage_v1.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/santis_card_skincare_v1.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/santis_card_skincare_cover.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/editorial.css",
+    "url": "http://localhost:8000/assets/img/cards/Santis-spa-rest-graded-clean.webp",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -894,176 +564,158 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/data/site_content.json",
+    "url": "http://localhost:8000/components/navbar.html?v=1772343612599",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/data/home_data.json",
+    "url": "http://localhost:8000/assets/data/services.json?v=12.0&tenant=santis_hq",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/data/site_content.json",
+    "url": "http://localhost:8000/components/footer.html?v=1772343612600",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/cards/santis_card_massage_v1.webp",
+    "url": "http://localhost:8000/assets/img/cards/facial.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/cards/santis_card_skincare_v1.webp",
+    "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQ.ttf",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/cards/santis_card_hammam_v1.webp",
+    "url": "http://localhost:8000/assets/data/santis_hotels.json?v=1772343612635",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/api/admin/tone-health",
+    "url": "http://localhost:8000/assets/js/api-client.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/components/footer.html?v=1770922703282",
+    "url": "http://localhost:8000/assets/js/language-switcher.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/components/footer.html?v=1770922703284",
+    "url": "http://localhost:8000/assets/img/cards/skincare.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/data/services.json?v=5.6",
+    "url": "http://localhost:8000/api/v1/gallery/slots",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/data/global-trends.json?t=1770922703282",
+    "url": "http://localhost:8000/assets/data/social.json",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/data/gallery-data.json?t=1770922703283",
+    "url": "http://localhost:8000/assets/data/social.json",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/poster_trend.jpg",
+    "url": "http://localhost:8000/assets/css/vault_scarcity_v1.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/gallery/santis_card_hammam_v1.webp",
+    "url": "http://localhost:8000/assets/css/vault_reactive_v1.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/gallery/Hammamda%20k%C3%B6p%C3%BCk%20masaj%C4%B1%20huzuru.webp",
+    "url": "http://localhost:8000/assets/img/uploads/3d25cba61f6c4d278f998df76818ca37.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/gallery/santis_card_couple_v1.webp",
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/uploads/19e08349880f4113ad3f201772becf03.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/gallery/Alt%C4%B1n%20ya%C4%9F%C4%B1%20ve%20ellerin%20zarafeti.webp",
+    "url": "http://localhost:8000/assets/img/uploads/daf528b06584462f93825f8d3f4e36d1.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/gallery/%C5%9Eirodhara%20terapi%20an%C4%B1.webp",
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/uploads/6ba36913c96d4523b4c0929f9818628e.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/gallery/santis_card_skincare_v1.webp",
+    "url": "http://localhost:8000/assets/img/uploads/00ffe68da9cc448a8d538536b5378fa0.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/gallery/Santis-face-mask-4x5-1080x1350.webp",
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/services",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/gallery/hero-general.webp",
-    "status": 200,
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/gallery/Anjali%20Mudra%20with%20soft%20lighting.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/Namaste%20elleri%20ve%20t%C3%BCts%C3%BC%20duman%C4%B1.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/Gemini_Generated_Image_jq8hzwjq8hzwjq8h.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/gallery/Gemini_Generated_Image_gw02fdgw02fdgw02.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/Santis-face-mask-4x5-1080x1350.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/api/config",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/health",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/home_data.json?t=1770922703499",
-    "status": 200,
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
     "note": "",
     "source": "dom"
   },
@@ -1074,19 +726,19 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/tr/hamam/index.html",
+    "url": "http://localhost:8000/tr/dunya-ritueli.html",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/style.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
     "url": "http://localhost:8000/assets/css/fonts.css",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/santis_card_hammam_v1.webp",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -1104,79 +756,163 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/home-products.js?v=5.5",
+    "url": "http://localhost:8000/assets/js/santis-sentinel.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/card-effects.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/santis-ghost.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/bento-grid.css?v=2.5",
+    "url": "http://localhost:8000/assets/js/santis-chameleon.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/modules/cards.css?v=2.5",
+    "url": "http://localhost:8000/assets/js/santis-persuader.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/video-hero.css?v=2.5",
+    "url": "http://localhost:8000/assets/js/app.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/style.css?v=2.5",
+    "url": "http://localhost:8000/assets/css/santis-skeleton.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/perf-head.js?v=2.5",
+    "url": "http://localhost:8000/assets/css/card-effects.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/fallback_data.js",
+    "url": "http://localhost:8000/assets/js/page-init.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/loader.js",
+    "url": "http://localhost:8000/assets/img/cards/santis_card_massage_v1.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/preloader-cinema.css",
+    "url": "http://localhost:8000/assets/img/cards/santis_card_hammam_v1.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/santis-nav.js",
+    "url": "http://localhost:8000/assets/js/core/santis-identity.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/card-manager.js",
+    "url": "http://localhost:8000/assets/js/api-client.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/loaders/data-bridge.js?v=5.5",
+    "url": "http://localhost:8000/assets/css/editorial.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-language-sync.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-ai-chatbot.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-pixel-engine.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/luxury_engine.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-idle-engine.js?v=27.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-gravity.js?v=28.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-kinetics.js?v=29.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis_router.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis_edge_os.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-score-engine.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-revenue-brain.js?v=31.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-telemetry.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-behavior-tracker.js?v=24.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/PlayfairDisplay-Regular.woff2",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -1206,643 +942,85 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
     "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQ.ttf",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
+    "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKebukDQ.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/hero-general.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
     "url": "http://localhost:8000/assets/data/available-routes.json",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/data/services.json?v=5.6",
+    "url": "http://localhost:8000/assets/js/santis-telemetry.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/components/navbar.html?v=1770922705273",
+    "url": "http://localhost:8000/assets/data/santis_hotels.json?v=1772343614421",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/components/navbar.html?v=1770922705272",
+    "url": "http://localhost:8000/assets/data/social.json",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/components/footer.html?v=1770922705274",
+    "url": "http://localhost:8000/assets/img/cards/santis_card_shirodhara_v1.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/components/footer.html?v=1770922705273",
+    "url": "http://localhost:8000/assets/img/cards/santis_card_thai_v1.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/cards/hammam.webp",
+    "url": "http://localhost:8000/assets/data/social.json",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/cards/massage.webp",
+    "url": "http://localhost:8000/api/v1/services",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/cards/skincare.webp",
-    "status": 200,
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/cards/atelier.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/home_data.json?t=1770922705477",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/language-switcher.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/tr/masajlar/index.html",
+    "url": "http://localhost:8000/tr/masajlar/index.html?filter=massage-asian",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
     "url": "http://localhost:8000/assets/css/fonts.css",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/style.css?v=2.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/modules/cards.css?v=2.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/video-hero.css?v=2.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/bento-grid.css?v=2.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/perf-head.js?v=2.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/fallback_data.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/i18n-routes.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/hreflang-injector.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/loader.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-nav.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/loaders/data-bridge.js?v=5.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/home-products.js?v=5.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/card-effects.js?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/preloader-cinema.css",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/fonts/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jDOjw.ttf",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuOKfMZg.ttf",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuI6fMZg.ttf",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQ.ttf",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/language-switcher.js?v=2.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/available-routes.json",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/services.json?v=5.6",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-booking.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/booking.html",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/app.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/editorial.css",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/home_data.json",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/data/site_content.json",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/components/navbar.html",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/components/footer.html?v=1770922707029",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/components/footer.html?v=1770922707030",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/components/footer.html?v=1770922707031",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/components/navbar.html?v=1770922707029",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/components/navbar.html?v=1770922707029",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/hammam.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/massage.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/skincare.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/atelier.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/health",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/home_data.json?t=1770922707235",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/santis_card_hammam_v1.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/tr/cilt-bakimi/index.html",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/style.css?v=2.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/modules/cards.css?v=2.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/video-hero.css?v=2.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/bento-grid.css?v=2.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/perf-head.js?v=2.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/language-switcher.js?v=2.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/fallback_data.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/loaders/data-bridge.js?v=5.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/home-products.js?v=5.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/card-effects.js?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/i18n-routes.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/hreflang-injector.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/loader.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/app.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-nav.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/card-manager.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-booking.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/editorial.css?v=2.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/preloader-cinema.css",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/services.json?v=5.6",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/available-routes.json",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/home_data.json",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/data/site_content.json",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/components/navbar.html",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/hammam.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/massage.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/skincare.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/atelier.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/health",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/video-hero.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/editorial.css",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/components/footer.html?v=1770922709111",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/components/footer.html?v=1770922709110",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/luxury-placeholder.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/home_data.json?t=1770922709317",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/santis_card_hammam_v1.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/tr/urunler/index.html",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/fonts.css",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/language-switcher.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/fallback_data.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/i18n-routes.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/hreflang-injector.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/loader.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/santis-nav.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/loaders/data-bridge.js?v=5.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/home-products.js?v=5.5",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/card-effects.js?v=5.1",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/app.js",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -1860,7 +1038,7 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/img/hero/santis_hero_main_v2.webp",
+    "url": "http://localhost:8000/assets/css/video-hero.css",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -1878,13 +1056,721 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/data/settings-data.js",
+    "url": "http://localhost:8000/assets/js/language-switcher.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/i18n-routes.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/hreflang-injector.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/loader.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-nav.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/loaders/data-bridge.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-sentinel.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-booking.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-ghost.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-chameleon.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-persuader.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/app.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/santis-skeleton.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/category-listing.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/pages/massages-chip-filter.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/pages/massages-page-init.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
     "url": "http://localhost:8000/assets/css/preloader-cinema.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/pages/massages-preloader-failsafe.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jDOjw.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuOKfMZg.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuI6fMZg.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQ.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKebukDQ.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/PlayfairDisplay-Regular.woff2",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/nuclear-cards.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/home-products.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/card-effects.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/booking-wizard.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-identity.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/api-client.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/editorial.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-language-sync.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-ai-chatbot.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-pixel-engine.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/luxury_engine.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-idle-engine.js?v=27.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-gravity.js?v=28.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-kinetics.js?v=29.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis_router.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis_edge_os.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-score-engine.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-revenue-brain.js?v=31.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-telemetry.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-behavior-tracker.js?v=24.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/available-routes.json",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/services.json?v=12.0&tenant=santis_hq",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/components/navbar.html?v=1772343616046",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/components/footer.html?v=1772343616046",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/hammam.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/massage.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/skincare.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/atelier.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/santis_hotels.json?v=1772343616073",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/social.json",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/social.json",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/home_data.json?t=1772343616250",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_massage_v1.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_skincare_v1.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/services",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_massage_oil_v2.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_deeptissue_v1.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_massage_lux.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/product-oil.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/Cinzel-Regular.woff2",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/predictive/telemetry-ingest",
+    "status": 204,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/events/batch",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/events/batch",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/predictive/telemetry-ingest",
+    "status": 204,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/tr/hamam/index.html",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/fonts.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/style.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/modules/cards.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/video-hero.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/bento-grid.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/category-listing.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/perf-head.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/language-switcher.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_hammam_v1.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/i18n-routes.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/hreflang-injector.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/loader.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-nav.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/loaders/data-bridge.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/home-products.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/nuclear-cards.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/card-effects.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/booking-wizard.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-sentinel.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-booking.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-ghost.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-chameleon.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-persuader.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/app.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/santis-skeleton.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/preloader-cinema.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/pages/hammam-page-init.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-identity.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/api-client.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/editorial.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-language-sync.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-ai-chatbot.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-pixel-engine.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/luxury_engine.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-idle-engine.js?v=27.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-gravity.js?v=28.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-kinetics.js?v=29.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis_router.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis_edge_os.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-score-engine.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-revenue-brain.js?v=31.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-telemetry.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-behavior-tracker.js?v=24.0",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -1926,7 +1812,19 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/editorial.css",
+    "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKebukDQ.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/Cinzel-Regular.woff2",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/PlayfairDisplay-Regular.woff2",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -1938,25 +1836,19 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/data/services.json?v=5.6",
+    "url": "http://localhost:8000/assets/data/services.json?v=12.0&tenant=santis_hq",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/data/home_data.json",
+    "url": "http://localhost:8000/components/footer.html?v=1772343617748",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/data/site_content.json",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/components/navbar.html",
+    "url": "http://localhost:8000/components/navbar.html?v=1772343617748",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -1986,43 +1878,925 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/health",
+    "url": "http://localhost:8000/assets/data/santis_hotels.json?v=1772343617764",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/components/footer.html?v=1770922710842",
+    "url": "http://localhost:8000/assets/data/social.json",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/components/navbar.html?v=1770922710841",
+    "url": "http://localhost:8000/assets/data/social.json",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/components/footer.html?v=1770922710843",
+    "url": "http://localhost:8000/assets/data/home_data.json?t=1772343617961",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/components/navbar.html?v=1770922710842",
+    "url": "http://localhost:8000/assets/img/cards/santis_card_hammam_lux.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/components/footer.html?v=1770922710841",
+    "url": "http://localhost:8000/assets/img/cards/santis_card_foam_lux.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/data/home_data.json?t=1770922711043",
+    "url": "http://localhost:8000/assets/img/cards/santis_card_kids_v1.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_hamam_scrub_v2.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_skincare_clay_v2.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/services",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/predictive/telemetry-ingest",
+    "status": 204,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/tr/cilt-bakimi/index.html",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/fonts.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/style.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/modules/cards.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/video-hero.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/bento-grid.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/category-listing.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/perf-head.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/language-switcher.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/i18n-routes.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/hreflang-injector.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/loader.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-nav.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/loaders/data-bridge.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/home-products.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/nuclear-cards.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/card-effects.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/booking-wizard.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-sentinel.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-booking.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-ghost.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-chameleon.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-persuader.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/app.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/santis-skeleton.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/preloader-cinema.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/pages/chip-filter.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/pages/nuclear-preloader.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/pages/skincare-detail.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-identity.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/api-client.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/editorial.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-language-sync.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-ai-chatbot.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-pixel-engine.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/luxury_engine.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-idle-engine.js?v=27.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-gravity.js?v=28.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-kinetics.js?v=29.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis_router.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis_edge_os.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-score-engine.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-revenue-brain.js?v=31.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-telemetry.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-behavior-tracker.js?v=24.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jDOjw.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuOKfMZg.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuI6fMZg.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQ.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKebukDQ.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/Cinzel-Regular.woff2",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/PlayfairDisplay-Regular.woff2",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/available-routes.json",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/services.json?v=12.0&tenant=santis_hq",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/components/navbar.html?v=1772343619459",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/components/footer.html?v=1772343619459",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/hammam.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/massage.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/skincare.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/atelier.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_hero_skincare_lux.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/social.json",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/santis_hotels.json?v=1772343619477",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/social.json",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/home_data.json?t=1772343619661",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/facial.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_skincare_clay_v2.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_skincare_v1.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/product-cream.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_hydration_lux.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/services",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_skincare_detail_v2.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/predictive/telemetry-ingest",
+    "status": 204,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/tr/urunler/index.html",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/style.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/modules/cards.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/bento-grid.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/fonts.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/perf-head.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/language-switcher.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/hero/santis_hero_main_v2.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/i18n-routes.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/hreflang-injector.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/loader.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-nav.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/loaders/data-bridge.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/home-products.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/nuclear-cards.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/card-effects.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-sentinel.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-ghost.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-chameleon.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-booking.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-persuader.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/app.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/santis-skeleton.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/page-config.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/settings-data.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/preloader-cinema.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/Cinzel-Regular.woff2",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/PlayfairDisplay-Regular.woff2",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jDOjw.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuOKfMZg.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuI6fMZg.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQ.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKebukDQ.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/pages/products-page-init.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-identity.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/api-client.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/editorial.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-language-sync.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-ai-chatbot.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-pixel-engine.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/luxury_engine.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-idle-engine.js?v=27.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-gravity.js?v=28.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-kinetics.js?v=29.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis_router.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis_edge_os.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-score-engine.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-revenue-brain.js?v=31.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-telemetry.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-behavior-tracker.js?v=24.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/available-routes.json",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/services.json?v=12.0&tenant=santis_hq",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/components/navbar.html?v=1772343624782",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/components/footer.html?v=1772343624782",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/hammam.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/massage.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/skincare.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/atelier.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/santis_hotels.json?v=1772343624791",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/social.json",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/social.json",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/home_data.json?t=1772343624986",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_hammam_lux.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_foam_lux.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_hamam_scrub_v2.webp",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -2034,6 +2808,120 @@
     "source": "dom"
   },
   {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_kids_v1.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_skincare_clay_v2.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_massage_v1.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_massage_oil_v2.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_deeptissue_v1.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/services",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/product-oil.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_skincare_v1.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_hydration_lux.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_couple_v1.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/rituel-purete-classique.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_skincare_detail_v2.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_massage_lux.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/predictive/telemetry-ingest",
+    "status": 204,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/facial.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/product-cream.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/santis_card_skincare_lux.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/crm/trace",
+    "status": 202,
+    "note": "",
+    "source": "dom"
+  },
+  {
     "url": "http://localhost:8000/tr/magaza/kozmetik.html",
     "status": 200,
     "note": "",
@@ -2064,115 +2952,31 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/preloader-cinema.css",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/shop.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/data/available-routes.json",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/components/navbar.html",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/hammam.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/massage.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/skincare.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/img/cards/atelier.webp",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/components/footer.html",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/tr/magaza/index.html",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/i18n-routes.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/hreflang-injector.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/tr/magaza/kozmetik.html",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/css/style.css",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/i18n-routes.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/hreflang-injector.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/loader.js",
-    "status": 200,
-    "note": "",
-    "source": "dom"
-  },
-  {
-    "url": "http://localhost:8000/assets/js/shop.js",
+    "url": "http://localhost:8000/assets/css/santis-skeleton.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
     "url": "http://localhost:8000/assets/css/preloader-cinema.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/Cinzel-Regular.woff2",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/PlayfairDisplay-Regular.woff2",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/shop.js",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -2256,7 +3060,25 @@
     "source": "dom"
   },
   {
+    "url": "http://localhost:8000/assets/css/santis-skeleton.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
     "url": "http://localhost:8000/assets/css/preloader-cinema.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/Cinzel-Regular.woff2",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/PlayfairDisplay-Regular.woff2",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -2304,7 +3126,7 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/tr/hediye-karti.html",
+    "url": "http://localhost:8000/tr/hediye-karti/",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -2316,13 +3138,13 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/style.css?v=5.1",
+    "url": "http://localhost:8000/assets/css/style.css",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/editorial.css?v=5.1",
+    "url": "http://localhost:8000/assets/css/editorial.css",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -2340,25 +3162,31 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/loader.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/loader.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/santis-nav.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/santis-nav.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/language-switcher.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/language-switcher.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/js/app.js?v=5.1",
+    "url": "http://localhost:8000/assets/js/app.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/santis-skeleton.css",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -2370,7 +3198,85 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/css/editorial.css",
+    "url": "http://localhost:8000/assets/js/api-client.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-language-sync.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-ai-chatbot.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-pixel-engine.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/css/luxury_engine.css",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-idle-engine.js?v=27.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-gravity.js?v=28.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-kinetics.js?v=29.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis_router.js",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis_edge_os.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-score-engine.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-revenue-brain.js?v=31.0",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/santis-telemetry.js?v=15.6",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/js/core/santis-behavior-tracker.js?v=24.0",
     "status": 200,
     "note": "",
     "source": "dom"
@@ -2412,6 +3318,24 @@
     "source": "dom"
   },
   {
+    "url": "http://localhost:8000/assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKebukDQ.ttf",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/Cinzel-Regular.woff2",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/fonts/PlayfairDisplay-Regular.woff2",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
     "url": "http://localhost:8000/assets/img/cards/atelier.webp",
     "status": 200,
     "note": "",
@@ -2424,32 +3348,68 @@
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/assets/data/home_data.json",
+    "url": "http://localhost:8000/assets/js/core/santis-identity.js",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/data/site_content.json",
+    "url": "http://localhost:8000/components/footer.html?v=1772343629793",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/components/footer.html?v=1770922717493",
+    "url": "http://localhost:8000/components/navbar.html?v=1772343629793",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/components/footer.html?v=1770922717493",
+    "url": "http://localhost:8000/assets/img/cards/hammam.webp",
     "status": 200,
     "note": "",
     "source": "dom"
   },
   {
-    "url": "http://localhost:8000/health",
+    "url": "http://localhost:8000/assets/img/cards/massage.webp",
     "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/img/cards/skincare.webp",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/santis_hotels.json?v=1772343629806",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/social.json",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/assets/data/social.json",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/services",
+    "status": 200,
+    "note": "",
+    "source": "dom"
+  },
+  {
+    "url": "http://localhost:8000/api/v1/predictive/telemetry-ingest",
+    "status": 204,
     "note": "",
     "source": "dom"
   }

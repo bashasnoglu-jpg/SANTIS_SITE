@@ -29,7 +29,7 @@ async function hydrateGalleryData() {
         // Try to fetch
         const targets = [
             "/assets/data/gallery-data.json",
-            root + "assets/data/gallery-data.json"
+            root + "/assets/data/gallery-data.json"
         ];
 
         let loadedData = null;

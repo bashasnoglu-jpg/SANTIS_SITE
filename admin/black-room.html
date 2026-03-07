@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Black Room — Santis Sovereign Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:wght@400;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<style>
+    /* ═══════════════════════════════════════════════════
+       THE BLACK ROOM — Sovereign Analytics v1.0
+    ═══════════════════════════════════════════════════ */
+    :root {
+      --br-bg:          #020406;
+      --br-surface:     rgba(10, 12, 16, 0.85);
+      --br-border:      rgba(255, 255, 255, 0.06);
+      --br-gold:        #d4af37;
+      --br-gold-glow:   rgba(212, 175, 55, 0.25);
+      --br-green:       #00ff88;
+      --br-green-dim:   rgba(0, 255, 136, 0.15);
+      --br-cyan:        #00d9ff;
+      --br-cyan-dim:    rgba(0, 217, 255, 0.12);
+      --br-red:         #ff4466;
+      --br-text:        #c8cdd8;
+      --br-muted:       #444c5c;
+      --br-radius:      14px;
+    }
+
+    html, body { width: 100%; display: block; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--br-bg);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 50% -20%, rgba(212,175,55,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 90% 100%, rgba(0,255,136,0.04) 0%, transparent 50%);
+      font-family: 'Inter', sans-serif;
+      color: var(--br-text);
+      min-height: 100vh;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* ── TOPBAR ─────────────────────────────────────── */
+    .br-topbar {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      width: 100%;
+      background: rgba(2, 4, 6, 0.92);
+      border-bottom: 1px solid var(--br-border);
+      backdrop-filter: blur(20px);
+    }
+    .br-topbar-left { display: flex; align-items: center; gap: 16px; }
+    .br-logo {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--br-gold);
+      color: #000; font-family: 'Playfair Display', serif;
+      font-size: 18px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 16px var(--br-gold-glow);
+    }
+    .br-title {
+      font-family: 'Playfair Display', serif; font-size: 18px;
+      color: #fff; letter-spacing: 0.02em;
+    }
+    .br-title span { color: var(--br-gold); }
+    .br-topbar-right { display: flex; align-items: center; gap: 16px; }
+
+    .br-live-dot {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; color: var(--br-green); font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .br-live-dot::before {
+      content: '';
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--br-green);
+      box-shadow: 0 0 8px var(--br-green);
+      animation: livePulse 1.5s ease-in-out infinite;
+    }
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    .br-refresh-info {
+      font-size: 11px; color: var(--br-muted); font-family: 'JetBrains Mono', monospace;
+    }
+    .br-back-btn {
+      padding: 6px 14px; border-radius: 8px; border: 1px solid var(--br-border);
+      background: rgba(255,255,255,0.04); color: var(--br-text);
+      font-size: 12px; font-weight: 500; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .br-back-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); }
+
+    /* ── MAIN GRID ──────────────────────────────────── */
+    .br-main {
+      padding: 28px 40px 48px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 380px;
+      grid-template-rows: auto auto auto;
+      gap: 22px;
+    }
+
+    /* ── KPI STRIP ─────────────────────────────────── */
+    .br-kpi-strip {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 18px;
+    }
+
+    .br-kpi {
+      background: var(--br-surface);
+      border: 1px solid var(--br-border);
+      border-radius: var(--br-radius);
+      padding: 24px 22px;
+      backdrop-filter: blur(12px);
+      position: relative; overflow: hidden;
+      transition: border-color 0.3s, transform 0.2s;
+    }
+    .br-kpi:hover { border-color: rgba(212,175,55,0.2); transform: translateY(-2px); }
+    .br-kpi::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .br-kpi-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--br-muted); font-weight: 600; margin-bottom: 12px;
+    }
+    .br-kpi-value {
+      font-size: 32px; font-weight: 700; color: #fff; line-height: 1;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .br-kpi-sub {
+      font-size: 11px; color: var(--br-muted); margin-top: 6px;
+    }
+    .br-kpi-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10px; font-weight: 600; padding: 2px 7px;
+      border-radius: 999px; margin-top: 6px;
+    }
+    .br-kpi-badge.up   { color: var(--br-green); background: var(--br-green-dim); }
+    .br-kpi-badge.down { color: var(--br-red); background: rgba(255,68,102,0.12); }
+    .br-kpi-badge.flat { color: var(--br-cyan); background: var(--br-cyan-dim); }
+
+    .br-kpi.gold-accent { border-color: rgba(212,175,55,0.2); }
+    .br-kpi.gold-accent .br-kpi-value { color: var(--br-gold); }
+
+    /* ── CARD ───────────────────────────────────────── */
+    .br-card {
+      background: var(--br-surface);
+      border: 1px solid var(--br-border);
+      border-radius: var(--br-radius);
+      backdrop-filter: blur(12px);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .br-card-header {
+      padding: 18px 22px 14px;
+      border-bottom: 1px solid var(--br-border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .br-card-title {
+      font-size: 12px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.1em; color: #fff;
+    }
+    .br-card-badge {
+      font-size: 10px; padding: 3px 8px; border-radius: 999px;
+      background: rgba(212,175,55,0.12); color: var(--br-gold); font-weight: 600;
+    }
+    .br-card-body { padding: 22px; flex: 1; }
+
+    /* ── LAYOUT PLACEMENTS ──────────────────────────── */
+    .br-funnel   { grid-column: 1; grid-row: 2; }
+    .br-revenue  { grid-column: 2 / 4; grid-row: 2; }
+    .br-neural   { grid-column: 4; grid-row: 2 / 4; min-height: 0; }
+    .br-heatmap  { grid-column: 1 / 3; grid-row: 3; }
+    .br-system   { grid-column: 3; grid-row: 3; }
+
+    /* ── ORACLE ─────────────────────────────────────── */
+    .br-oracle-body {
+      padding: 22px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 22px;
+    }
+    .br-oracle-chart-wrap { position: relative; height: 200px; }
+    .br-oracle-right { display: flex; flex-direction: column; gap: 14px; }
+
+    .br-insight-box {
+      background: rgba(0,217,255,0.05);
+      border: 1px solid rgba(0,217,255,0.15);
+      border-radius: 10px; padding: 14px; flex: 1;
+    }
+    .br-insight-title {
+      font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em;
+      color: var(--br-cyan); font-weight: 700; margin-bottom: 8px;
+    }
+    .br-insight-text { font-size: 12px; color: var(--br-text); line-height: 1.55; font-style: italic; }
+    .br-insight-text.loading {
+      background: linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.08) 50%,rgba(255,255,255,0.04) 75%);
+      background-size: 200% 100%; animation: shimmer 1.5s infinite;
+      height: 60px; border-radius: 6px;
+    }
+    .br-limit-alert { border-radius: 10px; padding: 14px; border: 1px solid; display: none; }
+    .br-limit-alert.warn   { background: rgba(245,158,11,0.07); border-color: rgba(245,158,11,0.25); display: block; }
+    .br-limit-alert.danger { background: rgba(255,68,102,0.07); border-color: rgba(255,68,102,0.25); display: block; }
+    .br-limit-alert-title  { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+    .br-limit-alert.warn   .br-limit-alert-title { color: #f59e0b; }
+    .br-limit-alert.danger .br-limit-alert-title { color: var(--br-red); }
+    .br-limit-alert-msg    { font-size: 11px; color: var(--br-text); margin-bottom: 10px; line-height: 1.4; }
+    .br-limit-upgrade-btn  {
+      width: 100%; padding: 7px; border-radius: 7px;
+      background: linear-gradient(135deg,rgba(212,175,55,0.2),rgba(212,175,55,0.1));
+      border: 1px solid rgba(212,175,55,0.35); color: var(--br-gold);
+      font-size: 10px; font-weight: 700; cursor: pointer;
+      letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.2s;
+    }
+    .br-limit-upgrade-btn:hover { background: rgba(212,175,55,0.3); }
+    .br-oracle-legend {
+      display: flex; gap: 16px; align-items: center;
+      font-size: 10px; color: var(--br-muted);
+    }
+    .br-legend-line { width: 20px; height: 2px; border-radius: 1px; display: inline-block; margin-right: 4px; vertical-align: middle; }
+
+
+    /* ── FUNNEL ────────────────────────────────────── */
+    .br-funnel-row {
+      margin-bottom: 16px;
+    }
+    .br-funnel-row-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 6px;
+    }
+    .br-funnel-label { font-size: 12px; color: var(--br-text); }
+    .br-funnel-count {
+      font-size: 14px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: #fff;
+    }
+    .br-funnel-bar-bg {
+      height: 6px; border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+    .br-funnel-bar {
+      height: 100%; border-radius: 999px;
+      transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bar-visitors  { background: linear-gradient(90deg, var(--br-cyan), rgba(0,217,255,0.5)); }
+    .bar-checkouts { background: linear-gradient(90deg, var(--br-gold), rgba(212,175,55,0.5)); }
+    .bar-payments  { background: linear-gradient(90deg, var(--br-green), rgba(0,255,136,0.5)); }
+
+    .br-conversion {
+      margin-top: 20px; padding-top: 16px;
+      border-top: 1px solid var(--br-border);
+      text-align: center;
+    }
+    .br-conversion-pct {
+      font-size: 36px; font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--br-green);
+    }
+    .br-conversion-label { font-size: 11px; color: var(--br-muted); margin-top: 4px; }
+
+    /* ── REVENUE CHART ─────────────────────────────── */
+    .br-chart-wrap { position: relative; height: 220px; }
+
+    /* ── NEURAL FEED ──────────────────────────────── */
+    .br-neural-scroll {
+      height: 460px; overflow-y: auto;
+    }
+    .br-neural-scroll::-webkit-scrollbar { width: 3px; }
+    .br-neural-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 999px; }
+
+    .br-neural-item {
+      padding: 12px 22px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.2s;
+      cursor: default;
+    }
+    .br-neural-item:hover { background: rgba(255,255,255,0.02); }
+    .br-neural-item-top {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+    }
+    .br-neural-icon { font-size: 14px; }
+    .br-neural-type {
+      font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em;
+      font-weight: 700; padding: 2px 6px; border-radius: 4px;
+    }
+    .type-yield    { background: rgba(212,175,55,0.15); color: var(--br-gold); }
+    .type-ai       { background: rgba(0,217,255,0.12); color: var(--br-cyan); }
+    .type-booking  { background: rgba(0,255,136,0.12); color: var(--br-green); }
+    .type-alert    { background: rgba(255,68,102,0.12); color: var(--br-red); }
+    .br-neural-time { font-size: 10px; color: var(--br-muted); margin-left: auto; font-family: 'JetBrains Mono', monospace; }
+    .br-neural-msg { font-size: 12px; color: var(--br-text); line-height: 1.4; }
+
+    /* ── HEATMAP ───────────────────────────────────── */
+    .br-heatmap-grid {
+      display: grid;
+      grid-template-columns: 40px repeat(24, 1fr);
+      gap: 3px;
+    }
+    .br-heatmap-cell {
+      height: 28px; border-radius: 4px;
+      transition: opacity 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+    .br-heatmap-cell:hover::after {
+      content: attr(data-tip);
+      position: absolute; bottom: calc(100% + 6px); left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.9); color: #fff;
+      font-size: 10px; padding: 4px 8px; border-radius: 6px;
+      white-space: nowrap; z-index: 10; pointer-events: none;
+    }
+    .br-heatmap-label {
+      font-size: 10px; color: var(--br-muted); text-align: center;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600; letter-spacing: 0.03em;
+    }
+    .br-heatmap-days { display: flex; flex-direction: column; gap: 3px; }
+
+    /* ── SYSTEM STATS ──────────────────────────────── */
+    .br-gauge-row { margin-bottom: 18px; }
+    .br-gauge-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .br-gauge-name { font-size: 12px; color: var(--br-text); }
+    .br-gauge-pct { font-size: 12px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .br-gauge-bg { height: 8px; border-radius: 999px; background: rgba(255,255,255,0.06); overflow: hidden; }
+    .br-gauge-fill { height: 100%; border-radius: 999px; transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+    .gauge-cpu    { background: linear-gradient(90deg, var(--br-cyan), rgba(0,217,255,0.6)); }
+    .gauge-mem    { background: linear-gradient(90deg, var(--br-gold), rgba(212,175,55,0.6)); }
+    .gauge-disk   { background: linear-gradient(90deg, var(--br-green), rgba(0,255,136,0.6)); }
+
+    .br-uptime-box {
+      margin-top: 20px; padding: 14px;
+      background: rgba(0,255,136,0.06); border: 1px solid rgba(0,255,136,0.12);
+      border-radius: 10px; text-align: center;
+    }
+    .br-uptime-val { font-size: 22px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--br-green); }
+    .br-uptime-label { font-size: 10px; color: var(--br-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+    .br-plan-pills { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+    .br-plan-pill {
+      padding: 10px 14px; border-radius: 10px;
+      background: rgba(255,255,255,0.03); border: 1px solid var(--br-border);
+      transition: border-color 0.2s;
+    }
+    .br-plan-pill:hover { border-color: rgba(212,175,55,0.2); }
+    .br-plan-pill-top {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 8px;
+    }
+    .br-plan-name { font-size: 12px; font-weight: 600; color: #fff; }
+    .br-plan-price { font-size: 13px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--br-gold); }
+    .br-plan-limits { font-size: 10px; color: var(--br-muted); margin-bottom: 8px; }
+    .br-upgrade-btn {
+      width: 100%; padding: 7px 10px; border-radius: 7px;
+      background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(212,175,55,0.1));
+      border: 1px solid rgba(212,175,55,0.35); color: var(--br-gold);
+      font-size: 10px; font-weight: 700; cursor: pointer;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .br-upgrade-btn:hover {
+      background: linear-gradient(135deg, rgba(212,175,55,0.35), rgba(212,175,55,0.2));
+      box-shadow: 0 4px 16px rgba(212,175,55,0.2);
+      transform: translateY(-1px);
+    }
+    .br-upgrade-btn:disabled { opacity: 0.45; cursor: wait; transform: none; }
+    .br-upgrade-btn.loading { animation: btnPulse 0.8s ease-in-out infinite alternate; }
+    @keyframes btnPulse { from { opacity: 0.45; } to { opacity: 0.75; } }
+
+    /* ── LOADING SKELETON ──────────────────────────── */
+    .skeleton {
+      background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 6px;
+    }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+
+    /* ── COMMAND COCKPIT — Yield Slider ────────────── */
+    .br-yield-panel {
+      padding: 16px 22px 18px;
+      border-top: 1px solid var(--br-border);
+      background: rgba(212,175,55,0.03);
+    }
+    .br-yield-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 10px;
+    }
+    .br-yield-label {
+      font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--br-muted); font-weight: 600;
+    }
+    .br-yield-val {
+      font-size: 18px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--br-gold);
+    }
+    .br-yield-slider {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 4px; border-radius: 999px;
+      background: linear-gradient(90deg, rgba(212,175,55,0.3), rgba(212,175,55,0.8));
+      outline: none; cursor: pointer; margin-bottom: 10px;
+    }
+    .br-yield-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 18px; height: 18px;
+      border-radius: 50%; background: var(--br-gold);
+      box-shadow: 0 0 8px var(--br-gold-glow); cursor: pointer;
+    }
+    .br-yield-apply-btn {
+      width: 100%; padding: 8px; border-radius: 8px;
+      background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3);
+      color: var(--br-gold); font-size: 11px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; letter-spacing: 0.06em;
+    }
+    .br-yield-apply-btn:hover { background: rgba(212,175,55,0.25); }
+    .br-yield-apply-btn.loading { opacity: 0.6; pointer-events: none; }
+    .br-yield-markers {
+      display: flex; justify-content: space-between;
+      font-size: 9px; color: var(--br-muted); margin-bottom: 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── ACTION BUTTONS ────────────────────────────── */
+    .br-action-row {
+      display: flex; gap: 6px; margin-top: 8px;
+    }
+    .br-btn-approve, .br-btn-reject {
+      flex: 1; padding: 5px 8px; border-radius: 6px;
+      font-size: 10px; font-weight: 700; cursor: pointer;
+      border: none; transition: all 0.2s; letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .br-btn-approve {
+      background: rgba(0,255,136,0.12); color: var(--br-green);
+      border: 1px solid rgba(0,255,136,0.25);
+    }
+    .br-btn-approve:hover { background: rgba(0,255,136,0.22); }
+    .br-btn-reject {
+      background: rgba(255,68,102,0.1); color: var(--br-red);
+      border: 1px solid rgba(255,68,102,0.2);
+    }
+    .br-btn-reject:hover { background: rgba(255,68,102,0.2); }
+    .br-btn-approved { background: rgba(0,255,136,0.06) !important; cursor: default !important; color: rgba(0,255,136,0.4) !important; }
+    .br-btn-rejected { background: rgba(255,68,102,0.05) !important; cursor: default !important; color: rgba(255,68,102,0.3) !important; }
+
+    /* ── TOAST ─────────────────────────────────────── */
+    #toast-stack {
+      position: fixed; top: 80px; right: 24px;
+      display: flex; flex-direction: column; gap: 10px;
+      z-index: 1000; pointer-events: none;
+    }
+    .br-toast {
+      min-width: 260px; max-width: 340px;
+      padding: 12px 16px; border-radius: 10px;
+      background: rgba(10,12,16,0.98); border: 1px solid var(--br-border);
+      color: #fff; font-size: 12px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+      display: flex; align-items: center; gap: 10px;
+      opacity: 0; transform: translateX(20px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: all;
+    }
+    .br-toast.show { opacity: 1; transform: translateX(0); }
+    .br-toast.success { border-color: rgba(0,255,136,0.3); }
+    .br-toast.error   { border-color: rgba(255,68,102,0.3); }
+    .br-toast.info    { border-color: rgba(212,175,55,0.3); }
+
+
+    .br-export-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 8px;
+      background: linear-gradient(135deg, rgba(212,175,55,0.18), rgba(212,175,55,0.08));
+      border: 1px solid rgba(212,175,55,0.4); color: var(--br-gold);
+      font-size: 11px; font-weight: 700; cursor: pointer;
+      letter-spacing: 0.06em; transition: all 0.2s; white-space: nowrap;
+    }
+    .br-export-btn:hover {
+      background: linear-gradient(135deg, rgba(212,175,55,0.3), rgba(212,175,55,0.15));
+      box-shadow: 0 4px 20px rgba(212,175,55,0.2);
+    }
+    .br-export-btn:disabled { opacity: 0.4; cursor: wait; }
+
+    /* ── RESPONSIVE ────────────────────────────────── */
+    @media (max-width: 1600px) {
+      .br-main { grid-template-columns: 1fr 1fr 1fr 350px; }
+    }
+    @media (max-width: 1200px) {
+      .br-main { grid-template-columns: 1fr 1fr 320px; }
+      .br-kpi-strip { grid-template-columns: repeat(3, 1fr); }
+      .br-neural { grid-column: 3; grid-row: 2 / 4; }
+      .br-funnel { grid-column: 1; grid-row: 2; }
+      .br-revenue { grid-column: 1 / 3; grid-row: 2; }
+      .br-heatmap { grid-column: 1 / 3; grid-row: 3; }
+      .br-system  { grid-column: 1; grid-row: 4; }
+    }
+    @media (max-width: 800px) {
+      .br-main { grid-template-columns: 1fr; }
+      .br-kpi-strip { grid-template-columns: repeat(2, 1fr); }
+      .br-funnel, .br-revenue, .br-neural, .br-heatmap, .br-system { grid-column: 1; grid-row: auto; }
+    }
+  </style>
+</head>
+<body>
+<!-- TOPBAR -->
+<header class="br-topbar">
+<div class="br-topbar-left">
+<div class="br-logo" id="tenant-logo-wrap"><img alt="Santis Club Experience - Premium View" id="tenant-logo-img" src="" style="display:none;width:32px;height:32px;border-radius:6px;object-fit:cover;"/><span id="tenant-logo-letter">S</span></div>
+<div>
+<div class="br-title" id="tenant-brand-title">The <span>Black Room</span></div>
+<div id="tenant-name-display" style="font-size:9px;color:var(--br-muted);margin-top:1px;">Santis Master OS</div>
+</div>
+</div>
+<div class="br-topbar-right">
+<div class="br-live-dot">CANLI</div>
+<div class="br-refresh-info" id="last-refresh">Son güncelleme: —</div>
+<button class="br-export-btn" id="chameleon-btn" onclick="toggleChameleonPanel()" style="background:rgba(0,217,255,0.08);border-color:rgba(0,217,255,0.3);color:var(--br-cyan);">
+        🎨 Tema
+      </button>
+<button class="br-export-btn" id="export-btn" onclick="generateSovereignReport()">
+        📄 Export PDF
+      </button>
+<a class="br-back-btn" href="/admin/index.html">← Admin</a>
+</div>
+</header>
+<!-- CHAMELEON PANEL -->
+<div id="chameleon-panel" style="display:none;position:fixed;top:70px;right:20px;z-index:9999;width:300px;
+    background:rgba(8,12,20,0.97);border:1px solid rgba(0,217,255,0.2);border-radius:14px;
+    padding:20px;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+<div style="font-size:11px;font-weight:700;color:var(--br-cyan);text-transform:uppercase;letter-spacing:0.12em;">🎨 Chameleon Theme</div>
+<button onclick="toggleChameleonPanel()" style="background:none;border:none;color:var(--br-muted);cursor:pointer;font-size:18px;line-height:1;">×</button>
+</div>
+<!-- Renk Seçici -->
+<div style="margin-bottom:14px;">
+<label style="font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--br-muted);display:block;margin-bottom:6px;">Kurumsal Renk</label>
+<div style="display:flex;gap:8px;align-items:center;">
+<input id="brand-color-picker" style="width:40px;height:32px;border:none;border-radius:6px;cursor:pointer;background:none;padding:0;" type="color" value="#d4af37"/>
+<input id="brand-color-hex" maxlength="7" oninput="syncColorInput(this.value)" placeholder="#d4af37" style="flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--br-border);
+          color:#fff;padding:7px 10px;border-radius:7px;font-size:12px;font-family:'JetBrains Mono',mono;" type="text"/>
+<!-- Preset colors -->
+<div style="display:flex;gap:4px;">
+<div onclick="applyPreset('#d4af37')" style="width:18px;height:18px;border-radius:4px;background:#d4af37;cursor:pointer;" title="Altın"></div>
+<div onclick="applyPreset('#00d9ff')" style="width:18px;height:18px;border-radius:4px;background:#00d9ff;cursor:pointer;" title="Cyan"></div>
+<div onclick="applyPreset('#9b59b6')" style="width:18px;height:18px;border-radius:4px;background:#9b59b6;cursor:pointer;" title="Mor"></div>
+<div onclick="applyPreset('#e74c3c')" style="width:18px;height:18px;border-radius:4px;background:#e74c3c;cursor:pointer;" title="Kırmızı"></div>
+</div>
+</div>
+</div>
+<!-- Logo URL -->
+<div style="margin-bottom:14px;">
+<label style="font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--br-muted);display:block;margin-bottom:6px;">Logo URL</label>
+<input id="brand-logo-url" placeholder="https://... veya /admin/logo.png" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--br-border);
+        color:#fff;padding:7px 10px;border-radius:7px;font-size:11px;box-sizing:border-box;" type="url"/>
+</div>
+<!-- Görünen İsim -->
+<div style="margin-bottom:18px;">
+<label style="font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--br-muted);display:block;margin-bottom:6px;">Görünen İşletme Adı</label>
+<input id="brand-display-name" placeholder="Örn: Santis Wellness Club" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--br-border);
+        color:#fff;padding:7px 10px;border-radius:7px;font-size:11px;box-sizing:border-box;" type="text"/>
+</div>
+<!-- Önizleme -->
+<div id="brand-preview" style="background:rgba(255,255,255,0.03);border:1px solid var(--br-border);
+      border-radius:8px;padding:10px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
+<div id="preview-logo" style="width:32px;height:32px;border-radius:6px;background:#d4af37;
+        display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#000;">S</div>
+<div>
+<div id="preview-name" style="font-size:12px;font-weight:600;color:#fff;">Santis Master OS</div>
+<div style="font-size:9px;color:var(--br-muted);">The Black Room</div>
+</div>
+</div>
+<!-- Apply -->
+<button id="chameleon-apply-btn" onclick="applyChameleonChanges()" style="width:100%;padding:10px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;
+      background:linear-gradient(135deg,rgba(0,217,255,0.2),rgba(0,217,255,0.1));
+      border:1px solid rgba(0,217,255,0.35);color:var(--br-cyan);
+      letter-spacing:0.08em;text-transform:uppercase;transition:all 0.2s;">
+      🦎 Chameleon Uygula
+    </button>
+<div style="margin-top:8px;font-size:9px;color:var(--br-muted);text-align:center;">Tüm açık paneller anlık güncellenir</div>
+</div>
+<!-- MAIN GRID -->
+<main class="br-main">
+<!-- KPI STRIP -->
+<div class="br-kpi-strip">
+<div class="br-kpi gold-accent">
+<div class="br-kpi-label">⚡ Yield Multiplier</div>
+<div class="br-kpi-value" id="kpi-multiplier">—</div>
+<div class="br-kpi-sub" id="kpi-action">Fiyat aksiyonu yükleniyor...</div>
+</div>
+<div class="br-kpi">
+<div class="br-kpi-label">👁 Ziyaretçi</div>
+<div class="br-kpi-value" id="kpi-visitors">—</div>
+<div class="br-kpi-sub">Aktif oturum</div>
+</div>
+<div class="br-kpi">
+<div class="br-kpi-label">🛒 Checkout</div>
+<div class="br-kpi-value" id="kpi-checkouts">—</div>
+<div class="br-kpi-sub">Başlanan ödeme</div>
+</div>
+<div class="br-kpi">
+<div class="br-kpi-label">💳 Ödeme</div>
+<div class="br-kpi-value" id="kpi-payments">—</div>
+<div class="br-kpi-sub">Tamamlanan işlem</div>
+</div>
+<div class="br-kpi">
+<div class="br-kpi-label">💰 Gelir Hızı</div>
+<div class="br-kpi-value" id="kpi-velocity">—</div>
+<div class="br-kpi-sub">EUR / dakika</div>
+</div>
+<div class="br-kpi">
+<div class="br-kpi-label">🔄 Surge Kazanç</div>
+<div class="br-kpi-value" id="kpi-surge">—</div>
+<div class="br-kpi-sub">Ort. surge EUR</div>
+</div>
+</div>
+<!-- FUNNEL CARD -->
+<div class="br-card br-funnel">
+<div class="br-card-header">
+<div class="br-card-title">📊 Gelir Hunisi</div>
+<div class="br-card-badge" id="funnel-rate">—%</div>
+</div>
+<div class="br-card-body">
+<div class="br-funnel-row">
+<div class="br-funnel-row-header">
+<span class="br-funnel-label">Ziyaretçiler</span>
+<span class="br-funnel-count" id="f-visitors">—</span>
+</div>
+<div class="br-funnel-bar-bg">
+<div class="br-funnel-bar bar-visitors" id="f-bar-visitors" style="width:0%"></div>
+</div>
+</div>
+<div class="br-funnel-row">
+<div class="br-funnel-row-header">
+<span class="br-funnel-label">Checkout'lar</span>
+<span class="br-funnel-count" id="f-checkouts">—</span>
+</div>
+<div class="br-funnel-bar-bg">
+<div class="br-funnel-bar bar-checkouts" id="f-bar-checkouts" style="width:0%"></div>
+</div>
+</div>
+<div class="br-funnel-row">
+<div class="br-funnel-row-header">
+<span class="br-funnel-label">Ödemeler</span>
+<span class="br-funnel-count" id="f-payments">—</span>
+</div>
+<div class="br-funnel-bar-bg">
+<div class="br-funnel-bar bar-payments" id="f-bar-payments" style="width:0%"></div>
+</div>
+</div>
+<div class="br-conversion">
+<div class="br-conversion-pct" id="conv-rate">—%</div>
+<div class="br-conversion-label">Ziyaretten Ödemeye Dönüşüm</div>
+</div>
+</div>
+</div>
+<!-- REVENUE CHART CARD -->
+<div class="br-card br-revenue">
+<div class="br-card-header">
+<div class="br-card-title">📈 7 Günlük Gelir Trend</div>
+<div class="br-card-badge">EUR</div>
+</div>
+<div class="br-card-body">
+<div class="br-chart-wrap">
+<canvas id="revenue-chart"></canvas>
+</div>
+</div>
+</div>
+<!-- NEURAL FEED CARD (Komuta Koltuğu) -->
+<div class="br-card br-neural">
+<div class="br-card-header">
+<div class="br-card-title">🧠 Neural Command Feed</div>
+<div class="br-card-badge">CANLI</div>
+</div>
+<div class="br-neural-scroll" id="neural-feed">
+<div class="br-neural-item" style="text-align:center;padding:40px;color:var(--br-muted)">
+          Komuta akışı yükleniyor...
+        </div>
+</div>
+<!-- YIELD CONTROL PANEL -->
+<div class="br-yield-panel">
+<div class="br-yield-header">
+<span class="br-yield-label">⚡ Yield Override</span>
+<span class="br-yield-val" id="yield-display">x1.00</span>
+</div>
+<div class="br-yield-markers">
+<span>0.5x Düşük</span><span>1.0x Normal</span><span>2.0x Surge</span><span>3.0x Scarcity</span>
+</div>
+<input class="br-yield-slider" id="yield-slider" max="3.0" min="0.5" oninput="updateYieldDisplay(this.value)" step="0.1" type="range" value="1.0">
+<button class="br-yield-apply-btn" id="yield-apply-btn" onclick="applyYieldOverride()">
+          🚀 YEŞİL IŞIK VER — UYGULA
+        </button>
+</input></div>
+</div>
+<!-- HEATMAP CARD -->
+<div class="br-card br-heatmap">
+<div class="br-card-header">
+<div class="br-card-title">🔥 Doluluk Isı Haritası</div>
+<div class="br-card-badge">24 Saatlik</div>
+</div>
+<div class="br-card-body">
+<div id="heatmap-container"></div>
+<div style="display:flex;align-items:center;gap:8px;margin-top:16px;">
+<span style="font-size:10px;color:var(--br-muted);">Seyrek</span>
+<div style="flex:1;height:6px;border-radius:999px;background:linear-gradient(90deg,rgba(0,255,136,0.1),var(--br-green));"></div>
+<span style="font-size:10px;color:var(--br-muted);">Yoğun</span>
+</div>
+</div>
+</div>
+<!-- SYSTEM CARD -->
+<div class="br-card br-system">
+<div class="br-card-header">
+<div class="br-card-title">⚙️ Sistem Sağlığı</div>
+<div class="br-card-badge" id="sys-status">—</div>
+</div>
+<div class="br-card-body">
+<div class="br-gauge-row">
+<div class="br-gauge-header">
+<span class="br-gauge-name">CPU</span>
+<span class="br-gauge-pct" id="g-cpu">—</span>
+</div>
+<div class="br-gauge-bg"><div class="br-gauge-fill gauge-cpu" id="gb-cpu" style="width:0%"></div></div>
+</div>
+<div class="br-gauge-row">
+<div class="br-gauge-header">
+<span class="br-gauge-name">RAM</span>
+<span class="br-gauge-pct" id="g-mem">—</span>
+</div>
+<div class="br-gauge-bg"><div class="br-gauge-fill gauge-mem" id="gb-mem" style="width:0%"></div></div>
+</div>
+<div class="br-gauge-row">
+<div class="br-gauge-header">
+<span class="br-gauge-name">Disk</span>
+<span class="br-gauge-pct" id="g-disk">—</span>
+</div>
+<div class="br-gauge-bg"><div class="br-gauge-fill gauge-disk" id="gb-disk" style="width:0%"></div></div>
+</div>
+<div class="br-uptime-box">
+<div class="br-uptime-val" id="g-uptime">—</div>
+<div class="br-uptime-label">Kesintisiz Çalışma</div>
+</div>
+<div style="margin-top:22px;padding-top:18px;border-top:1px solid var(--br-border);">
+<div style="font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--br-muted);margin-bottom:12px;">SaaS Planlar</div>
+<div class="br-plan-pills" id="plan-pills">
+<div class="br-plan-pill"><span class="br-plan-name skeleton" style="width:60px;height:14px"></span></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- ════ REVENUE ORACLE ════════════════════════════════════════════ -->
+<div style="padding: 0 40px 48px;">
+<div class="br-card br-oracle">
+<div class="br-card-header">
+<div style="display:flex;align-items:center;gap:12px;">
+<div class="br-card-title">🔮 Revenue Oracle</div>
+<div class="br-oracle-legend">
+<span><span class="br-legend-dot" style="background:var(--br-gold);"></span>Geçmiş 30 Gün</span>
+<span><span class="br-legend-dot" style="background:var(--br-cyan);border-top:2px dashed var(--br-cyan);height:0;"></span>AI Tahmini 14 Gün</span>
+</div>
+</div>
+<div style="display:flex;gap:8px;align-items:center;">
+<div class="br-card-badge" id="oracle-status">Yükleniyor...</div>
+<button onclick="fetchOracle()" style="background:rgba(255,255,255,0.04);border:1px solid var(--br-border);color:var(--br-muted);padding:4px 10px;border-radius:6px;font-size:10px;cursor:pointer;">↻ Yenile</button>
+</div>
+</div>
+<div class="br-oracle-body">
+<!-- Chart -->
+<div>
+<div class="br-oracle-chart-wrap">
+<canvas id="oracle-chart"></canvas>
+</div>
+</div>
+<!-- Right Panel -->
+<div class="br-oracle-right">
+<!-- AI Insight -->
+<div class="br-insight-box">
+<div class="br-insight-title">🧠 Gemini AI Analizi</div>
+<div class="br-insight-text loading" id="oracle-insight"></div>
+</div>
+<!-- Limit Alert -->
+<div class="br-limit-alert" id="oracle-limit-alert">
+<div class="br-limit-alert-title" id="oracle-alert-title">⚠️ Limit Uyarısı</div>
+<div class="br-limit-alert-msg" id="oracle-alert-msg"></div>
+<button class="br-limit-upgrade-btn" id="oracle-upgrade-btn" onclick="">🚀 Plan Yükselt</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TOAST STACK -->
+<div id="toast-stack"></div>
+<script>
+  /* ═══════════════════════════════════════════════════
+     THE BLACK ROOM — Sovereign Command Cockpit JS v2.0
+  ═══════════════════════════════════════════════════ */
+
+  const API = '';
+  let revenueChart = null;
+  let revenueHistory = Array(7).fill(0);
+
+  // ── Utility ─────────────────────────────────────
+  const q = id => document.getElementById(id);
+  const fmt = n => Number.isFinite(n) ? n.toLocaleString('tr-TR', {maximumFractionDigits: 2}) : '—';
+  function timeStr() {
+    return new Date().toLocaleTimeString('tr-TR', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  }
+
+  // ── Toast ────────────────────────────────────────
+  function showToast(msg, type = 'info', durationMs = 3500) {
+    const stack = q('toast-stack');
+    const icons = { success: '✅', error: '❌', info: '⚡' };
+    const t = document.createElement('div');
+    t.className = `br-toast ${type}`;
+    t.innerHTML = `<span style="font-size:16px">${icons[type]||'ℹ'}</span><span>${msg}</span>`;
+    stack.appendChild(t);
+    requestAnimationFrame(() => { t.classList.add('show'); });
+    setTimeout(() => {
+      t.classList.remove('show');
+      setTimeout(() => t.remove(), 350);
+    }, durationMs);
+  }
+
+  // ── Yield Control ────────────────────────────────
+  function updateYieldDisplay(val) {
+    const v = parseFloat(val);
+    const el = q('yield-display');
+    el.textContent = `x${v.toFixed(1)}`;
+    el.style.color = v > 1.5 ? '#ff4466' : v > 1.0 ? '#d4af37' : v < 1.0 ? '#00d9ff' : '#00ff88';
+  }
+
+  async function applyYieldOverride() {
+    const slider = q('yield-slider');
+    const btn    = q('yield-apply-btn');
+    const val    = parseFloat(slider.value);
+    btn.classList.add('loading');
+    btn.textContent = '⏳ Gönderiliyor...';
+    try {
+      const r = await fetch('/api/v1/admin/yield-override', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ multiplier: val })
+      });
+      const d = await r.json();
+      if (d.status === 'success') {
+        showToast(`Yield ${val.toFixed(1)}x → ${d.action} moduna geçildi`, 'success');
+        q('kpi-multiplier').textContent = `x${val.toFixed(2)}`;
+        q('kpi-action').textContent = d.action;
+        addActionNeuralEvent('override', `Manual yield override uygulandı: x${val.toFixed(1)} (${d.action})`, val);
+      } else {
+        showToast('Override gönderilemedi', 'error');
+      }
+    } catch(e) {
+      showToast('Bağlantı hatası', 'error');
+    } finally {
+      btn.classList.remove('loading');
+      btn.textContent = '🚀 YEŞİL IŞIK VER — UYGULA';
+    }
+  }
+
+  // ── Neural Action ────────────────────────────────
+  async function triggerNeuralAction(btnEl, actionId, decision, actionType, detail, valueEur) {
+    const row = btnEl.closest('.br-action-row');
+    row.querySelectorAll('button').forEach(b => b.disabled = true);
+    try {
+      const r = await fetch('/api/v1/admin/neural-action', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action_id: actionId, decision, action_type: actionType, detail, value_eur: valueEur })
+      });
+      const d = await r.json();
+      if (d.status === 'success') {
+        const approved = decision === 'approve';
+        row.innerHTML = approved
+          ? `<span style="font-size:11px;color:var(--br-green);font-weight:600">✅ Mühürlendi — €${valueEur} katkı kaydedildi</span>`
+          : `<span style="font-size:11px;color:var(--br-muted)">❌ Reddedildi</span>`;
+        showToast(d.message, approved ? 'success' : 'info');
+      }
+    } catch(e) {
+      showToast('Aksiyon gönderilemedi', 'error');
+      row.querySelectorAll('button').forEach(b => b.disabled = false);
+    }
+  }
+
+  // ── Revenue Chart ────────────────────────────────
+  function initChart() {
+    const ctx = document.getElementById('revenue-chart').getContext('2d');
+    const days = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+    const today = new Date().getDay();
+    const orderedDays = [];
+    for (let i = 6; i >= 0; i--) { orderedDays.push(days[(today - i + 7) % 7]); }
+    revenueChart = new Chart(ctx, {
+      type: 'line',
+      data: { labels: orderedDays, datasets: [{
+        label: 'Gelir (EUR)', data: revenueHistory,
+        borderColor: '#d4af37', backgroundColor: 'rgba(212,175,55,0.08)',
+        borderWidth: 2, pointBackgroundColor: '#d4af37',
+        pointRadius: 4, pointHoverRadius: 6, fill: true, tension: 0.4,
+      }]},
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: {
+          backgroundColor: 'rgba(10,12,16,0.95)', borderColor: 'rgba(212,175,55,0.3)',
+          borderWidth: 1, titleColor: '#fff', bodyColor: '#c8cdd8',
+          callbacks: { label: ctx => ` €${fmt(ctx.raw)}` }
+        }},
+        scales: {
+          x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#444c5c', font: { size: 11 } }},
+          y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#444c5c', font: { size: 11 }, callback: v => `€${v}` }, beginAtZero: true }
+        }
+      }
+    });
+  }
+
+  // ── Heatmap ──────────────────────────────────────
+  function buildHeatmap() {
+    const container = q('heatmap-container');
+    const days = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+    const hours = Array.from({length: 24}, (_, i) => `${String(i).padStart(2,'0')}`);
+    let html = '<div class="br-heatmap-grid">';
+    html += '<div class="br-heatmap-label"></div>';
+    hours.forEach((h, i) => {
+      if (i % 4 === 0) html += `<div class="br-heatmap-label" style="grid-column:span 4;font-size:8px;">${h}:00</div>`;
+    });
+    days.forEach((day, di) => {
+      html += `<div class="br-heatmap-label" style="font-size:9px;justify-content:flex-start;padding-left:4px;">${day}</div>`;
+      hours.forEach((h, hi) => {
+        const isWeekend = di >= 5;
+        const peakHour = (hi >= 10 && hi <= 12) || (hi >= 14 && hi <= 18) || (hi >= 19 && hi <= 21);
+        const base = isWeekend ? 0.5 : 0.2;
+        const peak = peakHour ? 0.4 : 0;
+        const intensity = Math.min(1, base + peak + Math.random() * 0.25);
+        const alpha = 0.05 + intensity * 0.9;
+        const tip = `${day} ${h}:00 — ${Math.round(intensity*100)}% doluluk`;
+        html += `<div class="br-heatmap-cell" style="background:rgba(0,255,136,${alpha})" data-tip="${tip}" title="${tip}"></div>`;
+      });
+    });
+    html += '</div>';
+    container.innerHTML = html;
+  }
+
+  // ── Neural Feed (Actionable) ─────────────────────
+  const NEURAL_EVENTS = [
+    { icon:'⚠️', type:'alert', typeClass:'type-alert', actionable:true,  actionType:'DISCOUNT', msg:'Düşük doluluk: Çarşamba 10-12 arası %23. Flash indirim önerilir.', value:15 },
+    { icon:'🤖', type:'AI',    typeClass:'type-ai',    actionable:true,  actionType:'UPSELL',   msg:'Ghost Concierge: Oda 204 misafirine Aromaterapi paketi öner (+€25)', value:25 },
+    { icon:'🔥', type:'yield', typeClass:'type-yield', actionable:true,  actionType:'SURGE',    msg:'Pazar salonunda doluluk %89 — surge fiyatlandırma için yeşil ışık ver', value:40 },
+    { icon:'🧠', type:'AI',    typeClass:'type-ai',    actionable:false, msg:'Neural forecast: Bu hafta sonu +18% rezervasyon beklentisi', value:0 },
+    { icon:'✅', type:'booking',typeClass:'type-booking',actionable:false,msg:'Yeni rezervasyon: Klasik Hamam, 14:30 — €120', value:0 },
+    { icon:'🤖', type:'AI',    typeClass:'type-ai',    actionable:true,  actionType:'UPSELL',   msg:'4 kişilik aile için VIP Hamam + Masaj combo öner (+€80)', value:80 },
+    { icon:'⚡', type:'yield', typeClass:'type-yield', actionable:false, msg:'MAINTAIN aksiyonu — fiyatlar optimal seviyede', value:0 },
+    { icon:'💳', type:'booking',typeClass:'type-booking',actionable:false,msg:'Stripe webhook: Tenant "Pro" aktifleştirildi', value:0 },
+    { icon:'⚠️', type:'alert', typeClass:'type-alert', actionable:true,  actionType:'FLASH_SALE',msg:'Salı günü boş slot tespit edildi (16:00-18:00). Flash sale başlat?', value:30 },
+    { icon:'🤖', type:'AI',    typeClass:'type-ai',    actionable:false, msg:'Concierge dönüşüm: %21.3 (sektör ort. %8.2)', value:0 },
+    { icon:'💰', type:'booking',typeClass:'type-booking',actionable:false,msg:'Revenue velocity: €0.83/dk — son 1 saatte €49.8', value:0 },
+    { icon:'🔥', type:'yield', typeClass:'type-yield', actionable:true,  actionType:'SURGE',    msg:'Cuma akşamı peak: Kapasitede %94. x1.4 surge onaylıyor musun?', value:55 },
+  ];
+
+  let neuralIdx = 0;
+
+  function addActionNeuralEvent(actionType, msg, value = 0) {
+    const eventMap = { override: { icon:'⚡', typeClass:'type-yield', type:'override' } };
+    const ev = eventMap[actionType] || { icon:'🔔', typeClass:'type-ai', type:'system' };
+    _addNeuralItem(ev.icon, ev.type, ev.typeClass, msg, false, null, 0);
+  }
+
+  function _addNeuralItem(icon, type, typeClass, msg, actionable, actionType, value) {
+    const feed = q('neural-feed');
+    if (!feed) return;
+    const actionId = 'act_' + Math.random().toString(36).slice(2,9);
+    const actionRow = actionable ? `
+      <div class="br-action-row">
+        <button class="br-btn-approve" onclick="triggerNeuralAction(this,'${actionId}','approve','${actionType}','${msg.replace(/'/g,'')}',${value})">
+          ✅ Uygula${value ? ' +€'+value : ''}
+        </button>
+        <button class="br-btn-reject" onclick="triggerNeuralAction(this,'${actionId}','reject','${actionType}','${msg.replace(/'/g,'')}',${value})">
+          ❌ Reddet
+        </button>
+      </div>` : '';
+
+    const item = document.createElement('div');
+    item.className = 'br-neural-item';
+    item.innerHTML = `
+      <div class="br-neural-item-top">
+        <span class="br-neural-icon">${icon}</span>
+        <span class="br-neural-type ${typeClass}">${type}</span>
+        <span class="br-neural-time">${timeStr()}</span>
+      </div>
+      <div class="br-neural-msg">${msg}</div>
+      ${actionRow}
+    `;
+    item.style.opacity = '0';
+    feed.insertBefore(item, feed.firstChild);
+    requestAnimationFrame(() => { item.style.transition = 'opacity 0.4s'; item.style.opacity = '1'; });
+    while (feed.children.length > 18) feed.removeChild(feed.lastChild);
+  }
+
+  function addNeuralEvent() {
+    const feed = q('neural-feed');
+    if (!feed) return;
+    if (neuralIdx === 0) feed.innerHTML = '';
+    const ev = NEURAL_EVENTS[neuralIdx % NEURAL_EVENTS.length];
+    neuralIdx++;
+    _addNeuralItem(ev.icon, ev.type, ev.typeClass, ev.msg, ev.actionable, ev.actionType, ev.value);
+  }
+
+  // ── Fetch: Yield Status ──────────────────────────
+  async function fetchYield() {
+    try {
+      const r = await fetch('/api/v1/admin/yield-status');
+      if (!r.ok) return;
+      const d = await r.json();
+      const mult = d.multiplier ?? 1;
+      q('kpi-multiplier').textContent = `x${mult.toFixed(2)}`;
+      q('kpi-action').textContent = d.action ?? '—';
+      // Sync slider with current multiplier
+      const slider = q('yield-slider');
+      if (slider && !slider.matches(':active')) {
+        slider.value = mult.toFixed(1);
+        updateYieldDisplay(mult);
+      }
+      const fm = d.funnel_metrics ?? {};
+      const vis  = fm.visitors ?? 0;
+      const ckos = fm.checkouts_started ?? 0;
+      const pays = fm.payments_completed ?? 0;
+      q('kpi-visitors').textContent  = fmt(vis);
+      q('kpi-checkouts').textContent = fmt(ckos);
+      q('kpi-payments').textContent  = fmt(pays);
+      q('kpi-velocity').textContent  = fmt(d.revenue_velocity_eur_per_min ?? 0);
+      q('kpi-surge').textContent     = `€${fmt(d.average_surge_gain ?? 0)}`;
+      const maxV = Math.max(vis, 1);
+      q('f-visitors').textContent  = fmt(vis);
+      q('f-checkouts').textContent = fmt(ckos);
+      q('f-payments').textContent  = fmt(pays);
+      q('f-bar-visitors').style.width  = '100%';
+      q('f-bar-checkouts').style.width = `${(ckos/maxV*100).toFixed(1)}%`;
+      q('f-bar-payments').style.width  = `${(pays/maxV*100).toFixed(1)}%`;
+      const conv = vis > 0 ? (pays/vis*100).toFixed(1) : '0.0';
+      q('conv-rate').textContent   = `${conv}%`;
+      q('funnel-rate').textContent = `${conv}% dönüşüm`;
+      const dailyRev = pays * 49 + (d.average_surge_gain ?? 0);
+      revenueHistory = [...revenueHistory.slice(1), dailyRev];
+      if (revenueChart) { revenueChart.data.datasets[0].data = revenueHistory; revenueChart.update('none'); }
+    } catch(e) { console.warn('yield-status fetch failed', e); }
+  }
+
+  async function fetchSystem() {
+    try {
+      const r = await fetch('/api/v1/admin/system/health');
+      if (!r.ok) return;
+      const d = await r.json();
+      const cpu = parseInt(d.cpu)||0, mem = parseInt(d.memory)||0, disk = parseInt(d.disk)||0;
+      q('g-cpu').textContent = d.cpu||'—'; q('g-mem').textContent = d.memory||'—'; q('g-disk').textContent = d.disk||'—';
+      q('g-uptime').textContent = d.uptime||'—';
+      q('gb-cpu').style.width = `${cpu}%`; q('gb-mem').style.width = `${mem}%`; q('gb-disk').style.width = `${disk}%`;
+      const maxV = Math.max(cpu,mem,disk);
+      q('sys-status').textContent = maxV>80?'YÜKLÜ':maxV>50?'NORMAL':'SAĞLIKLI';
+    } catch(e) { console.warn('system health fetch failed', e); }
+  }
+
+  async function fetchPlans() {
+    try {
+      const r = await fetch('/api/v1/billing/plans'); if (!r.ok) return;
+      const d = await r.json();
+      q('plan-pills').innerHTML = (d.plans||[]).map(p => {
+        const limits = p.limits || {};
+        const limitsStr = `${(limits.bookings||0).toLocaleString()} rezerv · ${(limits.ai_messages||0).toLocaleString()} AI · ${limits.branches||1} şube`;
+        return `
+        <div class="br-plan-pill">
+          <div class="br-plan-pill-top">
+            <span class="br-plan-name">${p.name}</span>
+            <span class="br-plan-price">€${p.price_eur}<span style="font-size:9px;color:var(--br-muted)">/ay</span></span>
+          </div>
+          <div class="br-plan-limits">${limitsStr}</div>
+          <button class="br-upgrade-btn" id="upgrade-btn-${p.id}"
+                  onclick="handleSubscription('${p.id}', this)">
+            🚀 Upgrade → ${p.name}
+          </button>
+        </div>`;
+      }).join('');
+    } catch(e) { console.warn('plans fetch failed', e); }
+  }
+
+  // ── Stripe Checkout Handler ───────────────────────
+  async function handleSubscription(planId, btnEl) {
+    if (btnEl) {
+      btnEl.disabled = true;
+      btnEl.classList.add('loading');
+      btnEl.textContent = '⏳ Checkout hazırlanıyor...';
+    }
+
+    const successUrl = `${window.location.origin}/admin/billing-success.html?plan=${planId}`;
+    const cancelUrl  = `${window.location.origin}/admin/black-room.html?cancelled=1`;
+
+    try {
+      const r = await fetch('/api/v1/billing/checkout', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tenant_id:   'hq-sovereign',
+          plan:         planId,
+          success_url:  successUrl,
+          cancel_url:   cancelUrl,
+        })
+      });
+      const d = await r.json();
+
+      if (d.checkout_url) {
+        showToast(`${planId.toUpperCase()} planı için Stripe'a yönlendiriliyorsunuz...`, 'info', 2500);
+        setTimeout(() => { window.location.href = d.checkout_url; }, 800);
+      } else {
+        throw new Error(d.detail || 'checkout_url alınamadı');
+      }
+    } catch(e) {
+      console.error('[handleSubscription]', e);
+      showToast(`Checkout hatası: ${e.message}`, 'error');
+      if (btnEl) {
+        btnEl.disabled = false;
+        btnEl.classList.remove('loading');
+        btnEl.textContent = `🚀 Upgrade → ${planId}`;
+      }
+    }
+  }
+
+  // ── Executive PDF Export ──────────────────────────
+  async function generateSovereignReport() {
+    const btn = q('export-btn');
+    if (btn) { btn.disabled = true; btn.textContent = '⏳ Hazırlanıyor...'; }
+    showToast('Sovereign rapor hazırlanıyor...', 'info', 2000);
+
+    try {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      const W = doc.internal.pageSize.getWidth();
+      const pageH = doc.internal.pageSize.getHeight();
+      const GOLD = [212, 175, 55];
+      const DARK = [2, 4, 6];
+      const GRAY = [30, 35, 45];
+      const LGRAY = [60, 70, 85];
+      const WHITE = [255, 255, 255];
+      const CYAN = [0, 180, 220];
+
+      // ── BG ───────────────────────────────────────
+      doc.setFillColor(...DARK);
+      doc.rect(0, 0, W, pageH, 'F');
+
+      // Gold top border
+      doc.setFillColor(...GOLD);
+      doc.rect(0, 0, W, 1.5, 'F');
+
+      // ── HEADER ───────────────────────────────────
+      // Logo block
+      doc.setFillColor(...GRAY);
+      doc.roundedRect(14, 10, 22, 22, 3, 3, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(18);
+      doc.setTextColor(...GOLD);
+      doc.text('S', 18.5, 25);
+
+      // Title
+      doc.setFontSize(22);
+      doc.setTextColor(...WHITE);
+      doc.setFont('helvetica', 'bold');
+      doc.text('SOVEREIGN INTEL REPORT', 42, 19);
+
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...LGRAY);
+      doc.text('Santis Master OS  |  The Black Room Analytics', 42, 26);
+
+      const now = new Date();
+      const dateStr = now.toLocaleString('tr-TR', { dateStyle: 'full', timeStyle: 'short' });
+      doc.text(dateStr, 42, 32);
+
+      // Gold underline
+      doc.setLineWidth(0.4);
+      doc.setDrawColor(...GOLD);
+      doc.line(14, 37, W - 14, 37);
+
+      let y = 46;
+
+      // ── SECTION 1: KPI Dashboard ─────────────────
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...GOLD);
+      doc.text('01  KPI DASHBOARD', 14, y);
+      y += 6;
+
+      // Collect live KPI values from DOM
+      const kpis = [
+        ['Yield Multiplier',  q('kpi-multiplier')?.textContent  || '—'],
+        ['Fiyat Aksiyonu',    q('kpi-action')?.textContent      || '—'],
+        ['Ziyaretçi',         q('kpi-visitors')?.textContent    || '—'],
+        ['Checkout',          q('kpi-checkouts')?.textContent   || '—'],
+        ['Ödeme',             q('kpi-payments')?.textContent    || '—'],
+        ['Gelir Hızı (EUR/dk)', q('kpi-velocity')?.textContent || '—'],
+        ['Surge Kazanç',      q('kpi-surge')?.textContent       || '—'],
+        ['Sistem Durumu',     q('sys-status')?.textContent      || '—'],
+        ['CPU',               q('g-cpu')?.textContent           || '—'],
+        ['RAM',               q('g-mem')?.textContent           || '—'],
+        ['Disk',              q('g-disk')?.textContent          || '—'],
+        ['Uptime',            q('g-uptime')?.textContent        || '—'],
+      ];
+
+      doc.autoTable({
+        startY: y,
+        margin: { left: 14, right: 14 },
+        head: [['Metrik', 'Değer']],
+        body: kpis,
+        theme: 'plain',
+        tableWidth: 'auto',
+        styles: {
+          font: 'helvetica', fontSize: 9,
+          textColor: [200, 205, 216],
+          fillColor: GRAY, lineColor: [40, 48, 60], lineWidth: 0.2,
+          cellPadding: 3
+        },
+        headStyles: {
+          fillColor: [20, 24, 32], textColor: GOLD,
+          fontStyle: 'bold', fontSize: 9,
+        },
+        alternateRowStyles: { fillColor: [18, 22, 30] },
+        columnStyles: {
+          0: { fontStyle: 'bold', textColor: WHITE },
+          1: { textColor: [180, 220, 255], fontStyle: 'bold' }
+        },
+      });
+      y = doc.lastAutoTable.finalY + 10;
+
+      // ── SECTION 2: Revenue Oracle ─────────────────
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...GOLD);
+      doc.text('02  REVENUE ORACLE — AI FORECAST', 14, y);
+      y += 6;
+
+      // Fetch oracle data for PDF
+      let oracleRows = [['Veri yükleniyor...', '']];
+      let insightText = q('oracle-insight')?.textContent || 'Oracle analizi bekleniyor.';
+      try {
+        const ro = await fetch('/api/v1/revenue/forecast');
+        if (ro.ok) {
+          const od = await ro.json();
+          const fl = od.forecast?.labels || [];
+          const fd = od.forecast?.data   || [];
+          oracleRows = fl.slice(0, 7).map((lbl, i) => [
+            lbl,
+            fd[i] != null ? `€${Number(fd[i]).toLocaleString('tr-TR', {maximumFractionDigits:0})}` : '—'
+          ]);
+          insightText = od.insight || insightText;
+        }
+      } catch(_) {}
+
+      doc.autoTable({
+        startY: y,
+        margin: { left: 14, right: 14 },
+        head: [['Tarih', 'Tahmini Gelir (EUR)']],
+        body: oracleRows,
+        theme: 'plain',
+        tableWidth: 'auto',
+        styles: {
+          font: 'helvetica', fontSize: 9, textColor: [200, 205, 216],
+          fillColor: [14, 18, 28], lineColor: [30, 40, 55], lineWidth: 0.2, cellPadding: 3
+        },
+        headStyles: { fillColor: [10, 15, 25], textColor: CYAN, fontStyle: 'bold', fontSize: 9 },
+        alternateRowStyles: { fillColor: [10, 14, 22] },
+        columnStyles: {
+          0: { textColor: WHITE },
+          1: { textColor: [0, 210, 255], fontStyle: 'bold' }
+        },
+      });
+      y = doc.lastAutoTable.finalY + 5;
+
+      // AI Insight
+      doc.setFillColor(10, 25, 35);
+      doc.setDrawColor(...CYAN);
+      doc.setLineWidth(0.3);
+      const iLines = doc.splitTextToSize(insightText, W - 36);
+      const iH = iLines.length * 5 + 8;
+      doc.roundedRect(14, y, W - 28, iH, 2, 2, 'FD');
+      doc.setFontSize(7.5);
+      doc.setFont('helvetica', 'italic');
+      doc.setTextColor(...CYAN);
+      doc.text('Gemini AI Analizi:', 18, y + 5);
+      doc.setTextColor(180, 220, 255);
+      doc.text(iLines, 18, y + 10);
+      y += iH + 10;
+
+      // ── SECTION 3: Neural Action Log ─────────────
+      if (y > pageH - 60) { doc.addPage(); doc.setFillColor(...DARK); doc.rect(0,0,W,pageH,'F'); y = 20; }
+
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...GOLD);
+      doc.text('03  NEURAL ACTION LOG', 14, y);
+      y += 6;
+
+      let actionRows = [['Log verisi yok', '', '']];
+      try {
+        const ra = await fetch('/api/v1/admin/neural-action/log');
+        if (ra.ok) {
+          const ad = await ra.json();
+          if (ad.log && ad.log.length) {
+            actionRows = ad.log.slice(-8).reverse().map(a => [
+              a.action_type || '—',
+              a.decision === 'approve' ? '✓ ONAYLANDI' : '✗ REDDEDİLDİ',
+              a.timestamp ? new Date(a.timestamp).toLocaleTimeString('tr-TR') : '—'
+            ]);
+          }
+        }
+      } catch(_) {}
+
+      doc.autoTable({
+        startY: y,
+        margin: { left: 14, right: 14 },
+        head: [['Aksiyon Tipi', 'Karar', 'Saat']],
+        body: actionRows,
+        theme: 'plain',
+        tableWidth: 'auto',
+        styles: {
+          font: 'helvetica', fontSize: 9, textColor: [200, 205, 216],
+          fillColor: [18, 22, 30], lineColor: [35, 45, 55], lineWidth: 0.2, cellPadding: 3
+        },
+        headStyles: { fillColor: [15, 18, 28], textColor: GOLD, fontStyle: 'bold', fontSize: 9 },
+        columnStyles: {
+          1: { fontStyle: 'bold', textColor: [0, 230, 120] },
+        },
+      });
+      y = doc.lastAutoTable.finalY + 12;
+
+      // ── SECTION 4: Integrity Seal ─────────────────
+      if (y > pageH - 55) { doc.addPage(); doc.setFillColor(...DARK); doc.rect(0,0,W,pageH,'F'); y = 20; }
+
+      doc.setFillColor(8, 20, 12);
+      doc.setDrawColor(0, 180, 80);
+      doc.setLineWidth(0.5);
+      doc.roundedRect(14, y, W - 28, 40, 3, 3, 'FD');
+
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(0, 230, 120);
+      doc.text('🔒  POSTGRESQL RLS INTEGRITY SEAL', 20, y + 10);
+
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(160, 200, 180);
+      const sealText = [
+        'Bu rapor, PostgreSQL 18 Row-Level Security (RLS) zırhı altında üretilmiştir.',
+        'Tüm veriler veritabanı seviyesinde izole edilmiş, tenant bazında doğrulanmıştır.',
+        'Veri bütünlüğü: Blockchain-grade imzalanmış audit trail ile güvence altındadır.',
+      ];
+      sealText.forEach((line, i) => doc.text(line, 20, y + 18 + i * 6));
+
+      doc.setFontSize(7.5);
+      doc.setTextColor(...LGRAY);
+      doc.text(`Üretim Zamanı: ${now.toISOString()}  |  Santis Master OS v9.7`, 20, y + 37);
+
+      // Gold bottom border
+      doc.setFillColor(...GOLD);
+      doc.rect(0, pageH - 1.5, W, 1.5, 'F');
+
+      // Footer
+      doc.setFontSize(7);
+      doc.setTextColor(...LGRAY);
+      doc.text('SOVEREIGN CONFIDENTIAL — Santis Master OS  |  Üretildi: The Black Room', 14, pageH - 5);
+      doc.text(`Sayfa 1`, W - 28, pageH - 5);
+
+      // ── Save ─────────────────────────────────────
+      const filename = `Santis_Sovereign_Report_${now.toLocaleDateString('tr-TR').replace(/\./g,'-')}.pdf`;
+      doc.save(filename);
+
+      showToast(`✅ "${filename}" indirildi!`, 'success', 4000);
+
+    } catch(e) {
+      console.error('[generateSovereignReport]', e);
+      showToast(`PDF hatası: ${e.message}`, 'error');
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = '📄 Export PDF'; }
+    }
+  }
+
+  async function refresh() {
+    await Promise.allSettled([fetchYield(), fetchSystem()]);
+    q('last-refresh').textContent = `Son güncelleme: ${timeStr()}`;
+    addNeuralEvent();
+  }
+
+  // ── Revenue Oracle ────────────────────────────────
+  let oracleChart = null;
+
+  async function fetchOracle() {
+    const statusEl  = q('oracle-status');
+    const insightEl = q('oracle-insight');
+    const alertEl   = q('oracle-limit-alert');
+    if (statusEl)  statusEl.textContent = 'Sorgulanıyor...';
+    if (insightEl) { insightEl.textContent = ''; insightEl.classList.add('loading'); }
+
+    try {
+      const r = await fetch('/api/v1/revenue/forecast');
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const d = await r.json();
+
+      const hist    = d.historical  || {};
+      const fore    = d.forecast    || {};
+      const insight = d.insight     || 'Veri analiz ediliyor...';
+      const hLabels = hist.labels   || [];
+      const hData   = hist.data     || [];
+      const fLabels = fore.labels   || [];
+      const fData   = fore.data     || [];
+
+      // Combined labels: history → forecast
+      const allLabels = [...hLabels, ...fLabels];
+      // Dataset 1: historical (gold solid) — null for forecast period
+      const histDataset = [...hData, ...Array(fData.length).fill(null)];
+      // Dataset 2: forecast (cyan dashed) — connect to last hist point, then forecast
+      const lastHist = hData.length > 0 ? hData[hData.length - 1] : 0;
+      const foreDataset = hData.length > 0 
+        ? [...Array(hData.length - 1).fill(null), lastHist, ...fData]
+        : [...fData];
+
+      // ── Build / update chart ──────────────────────
+      const canvas = document.getElementById('oracle-chart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      if (oracleChart) { oracleChart.destroy(); oracleChart = null; }
+
+      oracleChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: allLabels,
+          datasets: [
+            {
+              label: 'Geçmiş Gelir (EUR)',
+              data: histDataset,
+              borderColor: '#d4af37',
+              backgroundColor: 'rgba(212,175,55,0.08)',
+              borderWidth: 2,
+              pointBackgroundColor: '#d4af37',
+              pointRadius: 2.5, pointHoverRadius: 5,
+              fill: true, tension: 0.4,
+              spanGaps: false,
+            },
+            {
+              label: 'AI Tahmini (EUR)',
+              data: foreDataset,
+              borderColor: '#00d9ff',
+              backgroundColor: 'rgba(0,217,255,0.06)',
+              borderWidth: 2,
+              borderDash: [6, 4],
+              pointBackgroundColor: '#00d9ff',
+              pointRadius: 2.5, pointHoverRadius: 5,
+              fill: false, tension: 0.4,
+              spanGaps: false,
+            }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: {
+              display: true,
+              labels: { color: '#444c5c', font: { size: 10 }, boxWidth: 14 }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(10,12,16,0.95)',
+              borderColor: 'rgba(255,255,255,0.08)', borderWidth: 1,
+              titleColor: '#fff', bodyColor: '#c8cdd8',
+              callbacks: { label: ctx => ` €${fmt(ctx.raw)}` }
+            },
+            annotation: {}
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255,255,255,0.03)' },
+              ticks: { color: '#444c5c', font: { size: 9 },
+                maxTicksLimit: 12, maxRotation: 0 }
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.03)' },
+              ticks: { color: '#444c5c', font: { size: 10 },
+                callback: v => `€${(v/1000).toFixed(1)}k` },
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      // ── AI Insight ────────────────────────────────
+      if (insightEl) {
+        insightEl.classList.remove('loading');
+        insightEl.textContent = `"${insight}"`;
+      }
+      if (statusEl) statusEl.textContent = 'ORACLE AKTİF';
+
+      // ── Smart Limit Alert ─────────────────────────
+      // Forecast toplam ≈ aylık rezervasyon tahmini (basit proxy)
+      const forecastSum  = fData.reduce((a, b) => a + b, 0);
+      const forecastAvg  = fData.length ? forecastSum / fData.length : 0;
+      // Plan limitleri (PLANS map'iyle eşleştirilmiş)
+      const PLAN_LIMITS = { starter: 500, pro: 9999, enterprise: 99999 };
+      const currentPlan  = 'starter'; // API'den tenant planı gelene kadar varsayılan
+      const planLimit    = PLAN_LIMITS[currentPlan];
+      // Gelir verisini rezervasyon sayısına proxy: ortalama rezervasyon €49 → rev/49
+      const estBookings  = Math.round(forecastAvg / 49) * 30;
+
+      if (alertEl) {
+        alertEl.className = 'br-limit-alert';
+        if (estBookings > planLimit) {
+          alertEl.classList.add('danger');
+          q('oracle-alert-title').textContent = '🚨 Limit Aşımı Tahmini!';
+          q('oracle-alert-msg').textContent =
+            `Oracle, bu ay ~${estBookings.toLocaleString()} rezervasyon öngörüyor. ${currentPlan.toUpperCase()} plan limitin (${planLimit.toLocaleString()}) ötesinde. Kesintisiz hizmet için plan yükselt.`;
+          q('oracle-upgrade-btn').onclick = () => handleSubscription('pro', q('oracle-upgrade-btn'));
+          showToast('⚠️ Oracle: Limit aşımı tahmini! Pro plan ile devam edin.', 'error', 5000);
+        } else if (estBookings > planLimit * 0.8) {
+          alertEl.classList.add('warn');
+          q('oracle-alert-title').textContent = '⚠️ Limit Yaklaşıyor';
+          q('oracle-alert-msg').textContent =
+            `Oracle, ${currentPlan.toUpperCase()} plan limitine (%${Math.round(estBookings/planLimit*100)}) yaklaştığını öngörüyor. Erken upgrade ile süreç kesintisiz devam eder.`;
+          q('oracle-upgrade-btn').onclick = () => handleSubscription('pro', q('oracle-upgrade-btn'));
+        }
+      }
+
+    } catch(e) {
+      console.warn('[fetchOracle]', e);
+      if (statusEl)  statusEl.textContent = 'HATA';
+      if (insightEl) { insightEl.classList.remove('loading'); insightEl.textContent = 'Oracle verisi alınamadı.'; }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    initChart();
+    buildHeatmap();
+    await fetchPlans();
+    await refresh();
+    fetchOracle();
+    fetchBranding();  // Chameleon: tenant temasını yükle
+    setInterval(refresh, 30_000);
+    setInterval(addNeuralEvent, 8_000);
+    setInterval(fetchOracle, 5 * 60_000);
+  });
+
+  // ── CHAMELEON WHITE-LABEL ENGINE ─────────────────
+
+  function applyChameleonTheme(cfg) {
+    const color  = cfg.primary_color  || '#d4af37';
+    const name   = cfg.display_name   || cfg.tenant_name || 'Santis Master OS';
+    const logo   = cfg.logo_url;
+    const letter = name.charAt(0).toUpperCase();
+
+    // CSS variable override — tüm UI anında değişir
+    document.documentElement.style.setProperty('--br-gold', color);
+
+    // Topbar logo
+    const letterEl = document.getElementById('tenant-logo-letter');
+    const imgEl    = document.getElementById('tenant-logo-img');
+    const wrapEl   = document.getElementById('tenant-logo-wrap');
+    if (wrapEl) wrapEl.style.background = `${color}22`;
+    if (letterEl) { letterEl.textContent = letter; letterEl.style.color = color; }
+    if (imgEl) {
+      if (logo) { imgEl.src = logo; imgEl.style.display = 'block'; letterEl.style.display = 'none'; }
+      else       { imgEl.style.display = 'none'; if (letterEl) letterEl.style.display = ''; }
+    }
+
+    // Topbar name
+    const nameEl = document.getElementById('tenant-name-display');
+    if (nameEl) nameEl.textContent = name;
+
+    // Color picker sync
+    const picker = document.getElementById('brand-color-picker');
+    const hexInp = document.getElementById('brand-color-hex');
+    if (picker) picker.value = color;
+    if (hexInp) hexInp.value = color;
+
+    // Preview panel
+    const previewLogo = document.getElementById('preview-logo');
+    const previewName = document.getElementById('preview-name');
+    if (previewLogo) { previewLogo.style.background = color; previewLogo.textContent = letter; }
+    if (previewName) previewName.textContent = name;
+
+    // Logo URL field
+    const logoInput = document.getElementById('brand-logo-url');
+    if (logoInput && logo) logoInput.value = logo;
+    const dnamInput = document.getElementById('brand-display-name');
+    if (dnamInput && name !== 'Santis Master OS') dnamInput.value = name;
+  }
+
+  async function fetchBranding() {
+    try {
+      const r = await fetch('/api/v1/admin/tenant-branding');
+      if (!r.ok) return;
+      const d = await r.json();
+      applyChameleonTheme(d);
+    } catch(e) { console.warn('[fetchBranding]', e); }
+  }
+
+  function toggleChameleonPanel() {
+    const panel = document.getElementById('chameleon-panel');
+    if (!panel) return;
+    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function syncColorInput(val) {
+    const picker = document.getElementById('brand-color-picker');
+    const previewLogo = document.getElementById('preview-logo');
+    if (val && val.startsWith('#') && (val.length === 4 || val.length === 7)) {
+      if (picker) picker.value = val;
+      if (previewLogo) previewLogo.style.background = val;
+    }
+  }
+
+  function applyPreset(color) {
+    const picker = document.getElementById('brand-color-picker');
+    const hexInp = document.getElementById('brand-color-hex');
+    if (picker) picker.value = color;
+    if (hexInp) hexInp.value = color;
+    syncColorInput(color);
+  }
+
+  async function applyChameleonChanges() {
+    const btn    = document.getElementById('chameleon-apply-btn');
+    const color  = document.getElementById('brand-color-picker')?.value;
+    const logo   = document.getElementById('brand-logo-url')?.value?.trim() || null;
+    const dname  = document.getElementById('brand-display-name')?.value?.trim() || null;
+
+    if (btn) { btn.disabled = true; btn.textContent = '⏳ Uygulanıyor...'; }
+
+    try {
+      const r = await fetch('/api/v1/admin/tenant-branding', {
+        method:  'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ primary_color: color, logo_url: logo || undefined, display_name: dname || undefined })
+      });
+      const d = await r.json();
+      if (d.status === 'success') {
+        applyChameleonTheme({ primary_color: color, logo_url: logo, display_name: dname });
+        showToast(`🦎 Chameleon aktif! ${dname || 'Tema'} uygulandı.`, 'success', 3500);
+        toggleChameleonPanel();
+      } else {
+        throw new Error(d.detail || 'Sunucu hatası');
+      }
+    } catch(e) {
+      console.error('[applyChameleonChanges]', e);
+      showToast(`Chameleon hatası: ${e.message}`, 'error');
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = '🦎 Chameleon Uygula'; }
+    }
+  }
+
+  // Live preview on color picker change
+  document.addEventListener('DOMContentLoaded', () => {
+    const picker = document.getElementById('brand-color-picker');
+    if (picker) picker.addEventListener('input', e => syncColorInput(e.target.value));
+  });
+
+
+
+  </script>
+</body>
+</html>

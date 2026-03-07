@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Master OS - Revenue Analytics</title>
+    <!-- Tailwind Warning Suppressor -->
+    <script>
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+            if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return;
+            originalWarn.apply(console, args);
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- html2pdf Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link href="assets/css/admin.css" rel="stylesheet">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-gray-200 font-sans antialiased">
+    <!-- UI Layout -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-950 border-r border-gray-800 flex flex-col">
+            <div class="p-6 border-b border-gray-800">
+                <h1 class="text-xl font-semibold tracking-wider text-white">SANTIS <span class="text-amber-500 text-xs align-top">V7 OS</span></h1>
+                <p class="text-xs text-gray-500 mt-1">Super Admin (HQ Mode)</p>
+            </div>
+            <nav class="flex-1 p-4 space-y-2">
+                <a href="/index.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">❖ Dashboard</a>
+                <a href="hotels.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">🏨 Hotels Network</a>
+                <a href="bookings.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">📅 Live Bookings</a>
+                <a href="crm.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">💎 AI Offers & CRM</a>
+                <a href="revenue.html" class="block px-4 py-2 rounded-lg bg-gray-800 text-amber-500 font-medium">📈 Revenue Analytics</a>
+                <div class="pt-4 mt-4 border-t border-gray-800">
+                    <p class="text-[10px] uppercase font-bold text-gray-600 tracking-wider mb-2 ml-1">Legacy Core Modules</p>
+                    <a href="command-center.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-500 hover:text-gray-300 transition text-sm">⚙️ Command Center</a>
+                    <a href="prototype-cms-v5.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-500 hover:text-gray-300 transition text-sm">📄 Ultra CMS Builder</a>
+                </div>
+            </nav>
+            
+            <!-- App Switcher -->
+            <div class="px-4 py-2 mt-auto">
+                <p class="text-[10px] uppercase font-bold text-gray-600 tracking-wider mb-2 ml-1">Ecosystem Nodes</p>
+                <div class="space-y-1.5">
+                    <a href="/hq-dashboard" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-amber-500 hover:border-amber-500/30 transition">⎈ HQ God Mode</a>
+                    <a href="/tenant-dashboard" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-cyan-400 hover:border-cyan-500/30 transition">🏢 Tenant Node</a>
+                    <a href="/guest-zen" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-blue-400 hover:border-blue-500/30 transition">🧘‍♀️ Guest App (Zen)</a>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-gray-800 text-xs text-gray-500 text-center mt-4">
+                Santis Master OS v1.0 <br> Connected via WSS
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <!-- Topbar -->
+            <header class="h-16 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-8">
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-400">Report Scope: <span class="text-white font-medium">Global Network (All Regions)</span></span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="generateRevenuePDF()" id="btn-export-pdf" class="flex gap-2 items-center text-sm bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-md transition text-white border border-gray-700">
+                        <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        Download PDF
+                    </button>
+                    <div class="w-8 h-8 rounded-full bg-amber-600 flex items-center justify-center text-white font-medium">HQ</div>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="flex-1 overflow-y-auto p-8">
+                
+                <div class="flex justify-between items-end mb-6">
+                    <h2 class="text-2xl font-light text-white">Financial Matrix</h2>
+                    <div class="flex space-x-2" id="time-filters">
+                        <span class="filter-btn px-3 py-1 bg-gray-800 border border-gray-700 rounded text-xs text-white cursor-pointer transition" data-period="today">Today</span>
+                        <span class="filter-btn px-3 py-1 bg-gray-800 border border-gray-700 rounded text-xs text-gray-400 hover:text-white cursor-pointer transition" data-period="week">This Week</span>
+                        <span class="filter-btn px-3 py-1 bg-gray-800 border border-gray-700 rounded text-xs text-gray-400 hover:text-white cursor-pointer transition" data-period="month">This Month</span>
+                    </div>
+                </div>
+                
+                <!-- KPI Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <!-- Card 1 -->
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 relative overflow-hidden transition-all duration-300 transform group">
+                        <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-green-500 to-transparent opacity-10 rounded-bl-full group-hover:scale-110 transition-transform"></div>
+                        <p class="text-sm text-gray-400 mb-1">Gross Booking Value (GBV)</p>
+                        <h3 class="text-3xl font-semibold text-white transition-opacity duration-300" id="val-gbv">€18,450</h3>
+                        <p class="text-xs text-green-400 mt-2">↑ 8.4% vs prev. period</p>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 relative overflow-hidden group">
+                        <p class="text-sm text-gray-400 mb-1">Net Platform Revenue</p>
+                        <h3 class="text-3xl font-semibold text-amber-500 transition-opacity duration-300" id="val-net">€3,690</h3>
+                        <p class="text-xs text-green-400 mt-2">↑ 8.4% vs prev. period</p>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 relative overflow-hidden group">
+                        <p class="text-sm text-gray-400 mb-1">Average Order Value (AOV)</p>
+                        <h3 class="text-3xl font-semibold text-white transition-opacity duration-300" id="val-aov">€126</h3>
+                        <p class="text-xs text-gray-500 mt-2">- Stable</p>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 relative overflow-hidden group">
+                        <p class="text-sm text-gray-400 mb-1">Highest Selling Service</p>
+                        <h3 class="text-xl font-semibold text-white leading-tight mt-1 transition-opacity duration-300" id="val-top">Couples Relax <br/><span class="text-sm text-gray-400 font-normal">€8,200 generated</span></h3>
+                    </div>
+                </div>
+
+                <!-- 🪐 PHASE 83: SOVEREIGN WHISPER (AURELIA) YIELD IMPACT -->
+                <div class="bg-indigo-950/20 border border-indigo-900/50 p-5 rounded-xl mb-8 flex justify-between items-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1 pl-1">
+                            <span class="text-[10px] text-indigo-400 font-mono tracking-widest uppercase">The Sovereign Whisper (AI Handoff)</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white tracking-widest relative z-10 pl-1"><span class="text-indigo-400">€4,250</span> Secured by Aurelia</h3>
+                    </div>
+                    
+                    <div class="flex gap-6 pr-4 relative z-10 text-right">
+                        <div>
+                            <p class="text-[10px] text-gray-500 font-mono uppercase">Interventions</p>
+                            <p class="text-lg font-mono text-gray-300">124</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-gray-500 font-mono uppercase">Win Rate</p>
+                            <p class="text-lg font-mono text-emerald-400">42.8%</p>
+                        </div>
+                         <div>
+                            <p class="text-[10px] text-gray-500 font-mono uppercase">Avg. Lift</p>
+                            <p class="text-lg font-mono text-santis-gold">+18%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Breakdown Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="col-span-2 bg-gray-800 rounded-xl border border-gray-700 p-6 flex flex-col min-h-[300px]">
+                        <!-- Chart.js Graph -->
+                        <h4 class="text-white font-medium mb-4">Revenue Growth Chart</h4>
+                        <div class="flex-1 relative w-full">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-span-1 bg-gray-800 rounded-xl border border-gray-700 p-6">
+                        <h4 class="text-white font-medium mb-4">Revenue by Region</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-300">Antalya (TR)</span>
+                                    <span class="text-amber-500">76%</span>
+                                </div>
+                                <div class="w-full bg-gray-900 rounded-full h-1.5">
+                                    <div class="bg-amber-500 h-1.5 rounded-full" style="width: 76%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-300">Budva (ME)</span>
+                                    <span class="text-cyan-500">18%</span>
+                                </div>
+                                <div class="w-full bg-gray-900 rounded-full h-1.5">
+                                    <div class="bg-cyan-500 h-1.5 rounded-full" style="width: 18%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-300">Dubai (UAE)</span>
+                                    <span class="text-emerald-500">6%</span>
+                                </div>
+                                <div class="w-full bg-gray-900 rounded-full h-1.5">
+                                    <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 6%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Frontend Interactive Logic for Prototype -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        const API_BASE = 'http://localhost:8000/api/v1';
+        let revenueChartInstance = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const filters = document.querySelectorAll(".filter-btn");
+            const uiElements = {
+                gbv: document.getElementById("val-gbv"),
+                net: document.getElementById("val-net"),
+                aov: document.getElementById("val-aov"),
+                top: document.getElementById("val-top")
+            };
+
+            // Initialize ApexCharts (Neon Line Chart)
+            const chartOptions = {
+                series: [{
+                    name: 'Net Revenue (€)',
+                    data: []
+                }],
+                chart: {
+                    type: 'area',
+                    height: '100%',
+                    fontFamily: 'Inter, sans-serif',
+                    background: 'transparent',
+                    toolbar: { show: false },
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800,
+                        animateGradually: {
+                            enabled: true,
+                            delay: 150
+                        },
+                        dynamicAnimation: {
+                            enabled: true,
+                            speed: 350
+                        }
+                    }
+                },
+                colors: ['#06b6d4'], // Cyan-500
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.1,
+                        stops: [0, 90, 100],
+                        colorStops: [
+                            { offset: 0, color: '#06b6d4', opacity: 0.4 }, // Cyan
+                            { offset: 100, color: '#8b5cf6', opacity: 0 }  // Purple Fade
+                        ]
+                    }
+                },
+                dataLabels: { enabled: false },
+                stroke: {
+                    curve: 'smooth',
+                    width: 3,
+                    colors: ['#06b6d4'] // Cyan glowing line
+                },
+                xaxis: {
+                    categories: [],
+                    axisBorder: { show: false },
+                    axisTicks: { show: false },
+                    labels: {
+                        style: { colors: '#9ca3af', fontSize: '12px' }
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: { colors: '#9ca3af', fontSize: '12px' },
+                        formatter: (value) => { return '€' + value }
+                    }
+                },
+                grid: {
+                    borderColor: '#374151',
+                    strokeDashArray: 4,
+                    yaxis: { lines: { show: true } },
+                    xaxis: { lines: { show: true } }
+                },
+                theme: { mode: 'dark' },
+                tooltip: {
+                    theme: 'dark',
+                    y: {
+                        formatter: function (val) {
+                            return "€" + val
+                        }
+                    },
+                    marker: { show: false }
+                }
+            };
+
+            revenueChartInstance = new ApexCharts(document.querySelector("#revenueChart"), chartOptions);
+            revenueChartInstance.render();
+
+            // Mock Data Generator for Chart (since the current API endpoint might not return timeseries data)
+            function getMockChartData(period) {
+                const data = { labels: [], values: [] };
+                if (period === 'today') {
+                    data.labels = ['10:00', '12:00', '14:00', '16:00', '18:00', '20:00'];
+                    data.values = [120, 350, 480, 520, 890, 1020];
+                } else if (period === 'week') {
+                    data.labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                    data.values = [850, 920, 1050, 1200, 1800, 2400, 2100];
+                } else {
+                    data.labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+                    data.values = [4500, 5200, 4800, 6100];
+                }
+                return data;
+            }
+
+            async function loadRevenueData(period = "today") {
+                try {
+                    console.log(`[Revenue Analytics] Fetching data for period: ${period}...`);
+                    // Play nice fade transition out
+                    Object.values(uiElements).forEach(el => el.style.opacity = '0');
+
+                    const res = await fetch(`${API_BASE}/revenue/admin/revenue?period=${period}`);
+                    if (res.ok) {
+                        const payload = await res.json();
+                        if(payload.status === "success" && payload.data) {
+                            const d = payload.data;
+                            
+                            console.log(`[Revenue Analytics] Data successfully fetched:`, payload.data);
+                            
+                            setTimeout(() => {
+                                uiElements.gbv.innerText = d.gbv;
+                                uiElements.net.innerText = d.net;
+                                uiElements.aov.innerText = d.aov;
+                                uiElements.top.innerHTML = d.top_service;
+                                
+                                // Update ApexChart
+                                const chartData = getMockChartData(period);
+                                revenueChartInstance.updateOptions({
+                                    xaxis: { categories: chartData.labels }
+                                });
+                                revenueChartInstance.updateSeries([{
+                                    name: 'Net Revenue (€)',
+                                    data: chartData.values
+                                }]);
+
+                                // Fade back in
+                                Object.values(uiElements).forEach(el => el.style.opacity = '1');
+                            }, 250);
+                        }
+                    } else {
+                        console.error(`[Revenue Analytics] API returned error status: ${res.status}`);
+                        throw new Error("API returned " + res.status);
+                    }
+                } catch (err) {
+                    console.error("[Revenue Analytics] Revenue Fetch Error:", err);
+                    setTimeout(() => {
+                        Object.values(uiElements).forEach(el => {
+                            el.innerText = "Error"; 
+                            el.style.opacity = '1';
+                        });
+                    }, 250);
+                }
+            }
+
+            filters.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    if (btn.classList.contains("text-white")) return; // already active
+
+                    // Reset all classes
+                    filters.forEach(f => {
+                        f.classList.remove("text-white");
+                        f.classList.add("text-gray-400");
+                    });
+
+                    // Activate clicked
+                    btn.classList.remove("text-gray-400");
+                    btn.classList.add("text-white");
+
+                    const period = btn.getAttribute("data-period");
+                    loadRevenueData(period);
+                });
+            });
+
+            // Initial load
+            loadRevenueData("today");
+        });
+
+        // ==========================================
+        // SOVEREIGN REVENUE EXPORT LOGIC
+        // ==========================================
+        async function generateRevenuePDF() {
+            const btn = document.getElementById('btn-export-pdf');
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = `<svg class="w-4 h-4 animate-spin text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> Exporting...`;
+            
+            try {
+                // Populate the hidden template
+                document.getElementById('pdf-date').innerText = new Date().toLocaleString('en-GB', { timeZone: 'Europe/Istanbul' }) + ' (TRT)';
+                document.getElementById('pdf-gbv').innerText = document.getElementById('val-gbv').innerText;
+                document.getElementById('pdf-net').innerText = document.getElementById('val-net').innerText;
+                document.getElementById('pdf-aov').innerText = document.getElementById('val-aov').innerText;
+                document.getElementById('pdf-top').innerHTML = document.getElementById('val-top').innerHTML;
+
+                const element = document.getElementById('revenue-pdf-template');
+                
+                // Yükleme Örtüsü (Overlay): Klon değil, Orijinal DOM uzerine maske atıyoruz
+                const overlay = document.createElement('div');
+                overlay.id = 'pdf-render-overlay';
+                overlay.className = 'fixed inset-0 bg-gray-900/95 backdrop-blur-md z-[999999] flex flex-col items-center justify-center';
+                overlay.innerHTML = `<svg class="w-12 h-12 text-amber-500 animate-spin mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg><h2 class="text-white text-xl tracking-widest font-bold uppercase">Extracting Financial Data</h2><p class="text-gray-400 mt-2 text-sm tracking-wide">Drawing exact vectors. Please wait...</p>`;
+                document.body.appendChild(overlay);
+
+                // Orijinal Şablonu Aktif Etme
+                element.classList.remove('hidden', 'absolute');
+                
+                // BEYAZ KAGIT ÇÖKME HATASI: Blur filtresini anlık sil
+                const blurs = element.querySelectorAll('.blur-3xl');
+                blurs.forEach(b => b.classList.remove('blur-3xl'));
+
+                // Şablonu kameraya tam oturt (z-[999998] örtünün bir kademe arkası)
+                element.style.display = 'block';
+                element.style.position = 'fixed';
+                element.style.top = '0px';
+                element.style.left = '0px';
+                element.style.zIndex = '999998';
+
+                // Tarayıcı DOM'u ekrana tam yerleştirene kadar yarım saniye bekle
+                await new Promise(r => setTimeout(r, 500));
+
+                const opt = {
+                    margin:       0,
+                    filename:     `SANTIS_FINANCIAL_MATRIX_${new Date().getTime()}.pdf`,
+                    image:        { type: 'jpeg', quality: 1.0 },
+                    html2canvas:  { 
+                        scale: 2, 
+                        useCORS: true, 
+                        backgroundColor: '#0f172a', 
+                        scrollY: 0, // Sayfa ofset hatasını kilitler
+                        windowWidth: 800,
+                        ignoreElements: (node) => node.id === 'pdf-render-overlay'
+                    },
+                    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+                };
+
+                // Asıl şablon üzerinden render yap
+                await html2pdf().set(opt).from(element).save();
+                
+                // Çöpü temizle ve Orijinal Gizli Forma Dön
+                document.body.removeChild(overlay);
+                element.style.display = 'none';
+                element.style.position = 'absolute';
+                element.style.zIndex = '-1';
+                element.classList.add('hidden', 'absolute');
+                blurs.forEach(b => b.classList.add('blur-3xl')); // Işıkları geri aç
+
+                btn.innerHTML = `<svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Export Successful`;
+                setTimeout(() => { btn.innerHTML = originalHtml; }, 3000);
+
+            } catch (e) {
+                console.error("PDF Export failed:", e);
+                btn.innerHTML = `<span class="text-red-400 text-sm">Failed</span>`;
+                setTimeout(() => { btn.innerHTML = originalHtml; }, 3000);
+            }
+        }
+    </script>
+
+    <!-- HIDDEN PDF TEMPLATE -->
+    <div id="revenue-pdf-template" class="hidden absolute top-0 left-0 w-[800px] bg-slate-900 text-white p-12 overflow-hidden" style="font-family: 'Inter', sans-serif;">
+        <!-- Background Elements -->
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-cyan-900/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex justify-between items-end border-b border-gray-700 pb-6 mb-10">
+            <div>
+                <h1 class="text-4xl font-extrabold tracking-tighter text-white">SANTIS <span class="text-amber-500 font-light">FINANCIAL MATRIX</span></h1>
+                <p class="text-xs text-gray-400 mt-2 tracking-[0.2em] uppercase">Global Network Revenue Report</p>
+            </div>
+            <div class="text-right">
+                <p id="pdf-date" class="text-sm font-mono text-cyan-400 mb-1">YYYY-MM-DD HH:MM</p>
+                <p class="text-[10px] text-gray-500 uppercase tracking-widest border border-gray-800 bg-gray-900 px-2 py-1 rounded">Executive Read Only</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mb-10">
+            <div class="border border-gray-700 bg-gray-800/80 p-6 rounded-lg">
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-2 font-bold">Gross Booking Value (GBV)</p>
+                <h2 id="pdf-gbv" class="text-4xl font-mono text-white">€0</h2>
+            </div>
+            <div class="border border-amber-500/30 bg-gray-800/80 p-6 rounded-lg">
+                <p class="text-[10px] text-amber-500 uppercase tracking-widest mb-2 font-bold">Net Platform Revenue</p>
+                <h2 id="pdf-net" class="text-4xl font-mono text-amber-500">€0</h2>
+            </div>
+            <div class="border border-gray-700 bg-gray-800/80 p-6 rounded-lg">
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-2 font-bold">Average Order Value</p>
+                <h2 id="pdf-aov" class="text-4xl font-mono text-white">€0</h2>
+            </div>
+            <div class="border border-gray-700 bg-gray-800/80 p-6 rounded-lg">
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-2 font-bold">Highest Selling Service</p>
+                <h2 id="pdf-top" class="text-2xl font-mono text-white mt-2">N/A</h2>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-8 mt-16 text-center">
+            <p class="text-[10px] text-gray-500 font-mono tracking-widest mb-4">CONFIDENTIAL PROPRIETARY DATA • SANTIS MASTER OS</p>
+            <div class="inline-block w-8 h-8 rounded-full border border-dashed border-gray-600 animate-pulse"></div>
+        </div>
+    </div>
+</body>
+</html>

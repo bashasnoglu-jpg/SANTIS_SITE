@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Master OS - Live Bookings</title>
+    <!-- Tailwind Warning Suppressor -->
+    <script>
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+            if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return;
+            originalWarn.apply(console, args);
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/admin.css" rel="stylesheet">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-gray-200 font-sans antialiased">
+    <!-- UI Layout -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-950 border-r border-gray-800 flex flex-col">
+            <div class="p-6 border-b border-gray-800">
+                <h1 class="text-xl font-semibold tracking-wider text-white">SANTIS <span class="text-amber-500 text-xs align-top">V7 OS</span></h1>
+                <p class="text-xs text-gray-500 mt-1">Super Admin (HQ Mode)</p>
+            </div>
+            <nav class="flex-1 p-4 space-y-2">
+                <a href="/index.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">❖ Dashboard</a>
+                <a href="hotels.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">🏨 Hotels Network</a>
+                <a href="bookings.html" class="block px-4 py-2 rounded-lg bg-gray-800 text-amber-500 font-medium">📅 Live Bookings</a>
+                <a href="crm.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">💎 AI Offers & CRM</a>
+                <a href="revenue.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">📈 Revenue Analytics</a>
+                <div class="pt-4 mt-4 border-t border-gray-800">
+                    <p class="text-[10px] uppercase font-bold text-gray-600 tracking-wider mb-2 ml-1">Legacy Core Modules</p>
+                    <a href="command-center.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-500 hover:text-gray-300 transition text-sm">⚙️ Command Center</a>
+                    <a href="prototype-cms-v5.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-500 hover:text-gray-300 transition text-sm">📄 Ultra CMS Builder</a>
+                </div>
+            </nav>
+            
+            <!-- App Switcher -->
+            <div class="px-4 py-2 mt-auto">
+                <p class="text-[10px] uppercase font-bold text-gray-600 tracking-wider mb-2 ml-1">Ecosystem Nodes</p>
+                <div class="space-y-1.5">
+                    <a href="/hq-dashboard" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-amber-500 hover:border-amber-500/30 transition">⎈ HQ God Mode</a>
+                    <a href="/tenant-dashboard" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-cyan-400 hover:border-cyan-500/30 transition">🏢 Tenant Node</a>
+                    <a href="/guest-zen" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-blue-400 hover:border-blue-500/30 transition">🧘‍♀️ Guest App (Zen)</a>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-gray-800 text-xs text-gray-500 text-center mt-4">
+                Santis Master OS v1.0 <br> Connected via WSS
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <!-- Topbar -->
+            <header class="h-16 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-8">
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-400">Status: <span class="text-green-500 font-medium animate-pulse">● WSS Sync Active</span></span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="exportBookingsCSV()" id="btn-export-csv" class="text-sm bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-md transition text-white border border-gray-700">Export CSV</button>
+                    <div class="w-8 h-8 rounded-full bg-amber-600 flex items-center justify-center text-white font-medium">HQ</div>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="flex-1 overflow-y-auto p-8">
+                <h2 class="text-2xl font-light text-white mb-6">Omnichannel Booking Feed</h2>
+                
+                <div class="bg-gray-800 rounded-xl border border-gray-700 p-2 overflow-hidden">
+                    <table class="w-full text-left text-sm text-gray-400">
+                        <thead class="text-xs text-gray-500 uppercase bg-gray-900/50">
+                            <tr>
+                                <th class="px-6 py-4 rounded-tl-lg">Reference ID</th>
+                                <th class="px-6 py-4">Time</th>
+                                <th class="px-6 py-4">Tenant Hotel</th>
+                                <th class="px-6 py-4">Guest Info</th>
+                                <th class="px-6 py-4">Service</th>
+                                <th class="px-6 py-4">Revenue</th>
+                                <th class="px-6 py-4 rounded-tr-lg">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookings-feed-body">
+                            <!-- JS Injected Booking Feed -->
+                            <tr class="hover:bg-gray-700/30 transition">
+                                <td colspan="7" class="px-6 py-8 text-center text-gray-500">Connecting to Master OS Database...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Frontend Interactive Logic for Bookings Feed -->
+    <script>
+        const API_BASE = 'http://localhost:8000/api/v1';
+        
+        async function fetchAdminBookings() {
+            try {
+                const res = await fetch(`${API_BASE}/admin/bookings`);
+                if (res.ok) {
+                    const data = await res.json();
+                    const tbody = document.getElementById('bookings-feed-body');
+                    
+                    if(data.status === "success" && data.bookings && data.bookings.length > 0) {
+                        tbody.innerHTML = data.bookings.map(b => {
+                            let statusClass = 'bg-gray-500/20 text-gray-400';
+                            let rowClass = 'hover:bg-gray-700/30 transition border-b border-gray-700/50';
+                            let priceClass = 'text-gray-300';
+                            
+                            if(b.status === 'COMPLETED') { statusClass = 'bg-emerald-500/20 text-emerald-400'; priceClass = 'text-emerald-400 font-medium'; }
+                            else if(b.status === 'CONFIRMED') { statusClass = 'bg-blue-500/20 text-blue-400'; priceClass = 'text-green-400 font-medium'; }
+                            else if(b.status === 'PENDING') { statusClass = 'bg-amber-500/20 text-amber-400'; }
+                            else if(b.status === 'CANCELLED') { statusClass = 'bg-red-500/20 text-red-400'; rowClass = 'bg-red-950/20 opacity-50 border-b border-gray-700/50'; }
+
+                            return `
+                                <tr class="${rowClass}">
+                                    <td class="px-6 py-4 font-mono text-amber-500 text-sm">${b.ref_id}</td>
+                                    <td class="px-6 py-4">${b.time_ago}</td>
+                                    <td class="px-6 py-4 font-medium text-white">${b.tenant_name}</td>
+                                    <td class="px-6 py-4">${b.guest_info}</td>
+                                    <td class="px-6 py-4">${b.service_name}</td>
+                                    <td class="px-6 py-4 ${priceClass}">€${b.price}</td>
+                                    <td class="px-6 py-4"><span class="${statusClass} text-xs px-2 py-1 rounded tracking-wide">${b.status}</span></td>
+                                </tr>
+                            `;
+                        }).join('');
+                    } else {
+                        tbody.innerHTML = `<tr><td colspan="7" class="px-6 py-8 text-center text-gray-500">No bookings found in the database.</td></tr>`;
+                    }
+                }
+            } catch (err) {
+                console.error("Bookings Fetch Error:", err);
+            }
+        }
+
+        // --- Export CSV Logic ---
+        function exportBookingsCSV() {
+            const btn = document.getElementById('btn-export-csv');
+            const originalText = btn.innerText;
+            btn.innerHTML = 'Exporting...';
+            btn.disabled = true;
+
+            try {
+                // Sadece tablodaki Data'ları kazı
+                const tbody = document.getElementById('bookings-feed-body');
+                const rows = tbody.querySelectorAll('tr');
+                
+                if (rows.length === 0 || rows[0].innerText.includes('No bookings found') || rows[0].innerText.includes('Connecting')) {
+                    alert('No valid booking data to export.');
+                    return;
+                }
+
+                let csvContent = "Reference ID,Time,Tenant Hotel,Guest Info,Service,Revenue,Status\n";
+
+                rows.forEach(row => {
+                    const cols = row.querySelectorAll('td');
+                    if (cols.length === 7) {
+                        const refId = cols[0].innerText.trim();
+                        const time = cols[1].innerText.trim();
+                        const tenant = cols[2].innerText.trim().replace(/,/g, ''); // Virgülden kaçıs
+                        const guest = cols[3].innerText.trim().replace(/,/g, ' ');
+                        const service = cols[4].innerText.trim().replace(/,/g, ' ');
+                        const revStr = cols[5].innerText.trim().replace('€', '').replace(/,/g, '');
+                        const status = cols[6].innerText.trim();
+
+                        csvContent += `"${refId}","${time}","${tenant}","${guest}","${service}",${revStr},"${status}"\n`;
+                    }
+                });
+
+                // Blob'a çevir ve İndir (UTF-8)
+                const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `SANTIS_BOOKINGS_EXPORT_${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+            } catch (e) {
+                console.error("CSV Export Failed:", e);
+                alert("Failed to create CSV export.");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // Initialize Call
+        document.addEventListener('DOMContentLoaded', fetchAdminBookings);
+    </script>
+</body>
+</html>

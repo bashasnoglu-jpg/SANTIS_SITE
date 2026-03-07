@@ -11,10 +11,11 @@
 <link href="/assets/css/fonts.css" rel="stylesheet"/>
 <!-- STYLES -->
 <link href="/assets/css/service-detail.css" rel="stylesheet"/>
+<link href="/assets/css/preloader-cinema.css" rel="stylesheet"/>
 <link href="/assets/css/style.css" rel="stylesheet"/> <!-- Master for Nav/Footer -->
 <script src="/assets/js/perf-head.js"></script>
 <script>window.SITE_ROOT = '/';</script>
-<meta content="/assets/img/og-standard.jpg" property="og:image"/>
+<meta content="/assets/img/og-standard.webp" property="og:image"/>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -60,7 +61,7 @@
 <!-- LEFT: VISUAL -->
 <div class="cin-visual-stage">
 <div class="cin-visual-overlay"></div>
-<img alt="Service Visual" class="cin-visual-img" src=""/>
+<img alt="Service Visual" class="cin-visual-img" decoding="async" loading="lazy" src=""/>
 </div>
 <!-- RIGHT: CONTENT -->
 <div class="cin-content-stage">
@@ -95,7 +96,7 @@
 </div>
 <!-- ACTIONS -->
 <div class="cin-actions">
-<a class="cin-btn primary" href="javascript:void(0)" id="btn-whatsapp">Rezervasyon Yap</a>
+<button class="cin-btn primary" id="btn-whatsapp">Rezervasyon Yap</button>
 <a class="cin-btn" href="/tr/masajlar/index.html">Koleksiyona Dön</a>
 </div>
 </div>
@@ -103,7 +104,6 @@
 <!-- FOOTER CONTAINER -->
 <div id="footer-container"></div>
 <!-- DATA & LOGIC -->
-<script src="/assets/js/loaders/data-bridge.js?v=5.5"></script>
 <script src="/assets/js/service-loader.js"></script>
 <!-- CORE NAV -->
 <script src="/assets/js/loader.js"></script>

@@ -1,0 +1,46 @@
+{
+    "nav_sultan_bath": {
+        "src": "/assets/img/nav-sultan-bath.webp",
+        "alt": {
+            "tr": "Sultan Bath – mermer kurna ve göbek taşı",
+            "en": "Sultan Bath – marble basin and heated stone",
+            "de": "Sultan Bad – Marmorbecken und beheizter Stein",
+            "fr": "Bain Sultan – vasque en marbre et pierre chauffée",
+            "ru": "Султанская баня – мраморная раковина и подогреваемый камень"
+        },
+        "prompt_ref": "nv_nav_hamam_4x5_v1"
+    },
+    "nav_aroma_journey": {
+        "src": "/assets/img/nav-aroma-journey.webp",
+        "alt": {
+            "tr": "Aroma Yolculuğu – esansiyel yağlar ve sıcak taşlar",
+            "en": "Aroma Journey – essential oils and warm stones",
+            "de": "Aromareise – ätherische Öle und warme Steine",
+            "fr": "Voyage Aromatique – huiles essentielles et pierres chaudes",
+            "ru": "Ароматическое путешествие – эфирные масла и теплые камни"
+        },
+        "prompt_ref": "nv_nav_massage_4x5_v1"
+    },
+    "nav_sothys": {
+        "src": "/assets/img/nav-sothys.webp",
+        "alt": {
+            "tr": "Sothys Paris – gelişmiş cilt bakımı bilimi",
+            "en": "Sothys Paris – advanced skincare science",
+            "de": "Sothys Paris – fortschrittliche Hautpflege-Wissenschaft",
+            "fr": "Sothys Paris – science avancée des soins de la peau",
+            "ru": "Sothys Paris – передовая наука по уходу за кожей"
+        },
+        "prompt_ref": "nv_nav_skincare_4x5_v1"
+    },
+    "nav_atelier": {
+        "src": "/assets/img/nav-atelier.webp",
+        "alt": {
+            "tr": "Atelier Koleksiyonu – zanaatkar hamam aksesuarları",
+            "en": "Atelier Collection – artisan hammam accessories",
+            "de": "Atelier-Kollektion – handwerkliches Hamam-Zubehör",
+            "fr": "Collection Atelier – accessoires de hammam artisanaux",
+            "ru": "Коллекция Atelier – ремесленные аксессуары для хаммама"
+        },
+        "prompt_ref": "nv_nav_shop_4x5_v1"
+    }
+}

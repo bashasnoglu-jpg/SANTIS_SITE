@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis | Guest Zen</title>
+    <!-- Tailwind Warning Suppressor -->
+    <script>
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+            if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return;
+            originalWarn.apply(console, args);
+        };
+    </script>
+    <!-- Tailwind CSS (CDN for rapid architecture) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer="" src="/assets/js/perf-head.js"></script>
+    <script defer="" src="/assets/js/santis-vault.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/editorial.css?v=2.2.1">
+    
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg-app: #020617;
+            --accent-text: #60a5fa; /* blue-400 */
+            --accent-bg: rgba(59, 130, 246, 0.2);
+            --modal-bg: rgba(2, 6, 23, 0.8);
+        }
+        
+        body.matrix-mode {
+            --bg-app: #1a0505;
+            --accent-text: #ef4444; /* red-500 */
+            --accent-bg: rgba(239, 68, 68, 0.4);
+            --modal-bg: rgba(26, 5, 5, 0.9);
+        }
+
+        body {
+            background-color: var(--bg-app);
+            transition: background-color 1.5s ease-in-out;
+        }
+        
+        .transition-colors-custom {
+            transition: color 1.5s ease-in-out, background-color 1.5s ease-in-out, border-color 1.5s ease-in-out;
+        }
+
+        /* SANTIS CONCIERGE - GLASSMORPHISM V1 */
+        #concierge-panel {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 380px;
+            height: 550px;
+            background: rgba(10, 10, 15, 0.82);
+            backdrop-filter: blur(28px);
+            border: 1px solid rgba(0, 255, 255, 0.18);
+            border-radius: 28px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.85), 0 0 20px rgba(0,255,255,0.05);
+            z-index: 9999;
+            display: flex; /* Varsayılan olarak flex ama opacity & transform ile gizli listelenecek */
+            flex-direction: column;
+            overflow: hidden;
+            transform: translateY(20px) scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        #concierge-panel.active {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Custom Scrollbar for Chat */
+        .chat-scroll::-webkit-scrollbar { width: 4px; }
+        .chat-scroll::-webkit-scrollbar-track { background: transparent; }
+        .chat-scroll::-webkit-scrollbar-thumb { background: rgba(0,255,255,0.2); border-radius: 4px; }
+    </style>
+</head>
+<body class="text-white font-sans overflow-hidden antialiased">
+    <div class="min-h-screen relative">
+        
+        <!-- Ambient Background (Cloud Glass effect) -->
+        <div class="absolute top-[-10%] left-[-20%] w-[80%] h-[40%] bg-blue-900/20 blur-[120px] rounded-full animate-pulse-slow"></div>
+        <div class="absolute bottom-[10%] right-[-20%] w-[60%] h-[30%] bg-indigo-900/20 blur-[100px] rounded-full animate-pulse-slow" style="animation-delay: 2s;"></div>
+        
+        <!-- Subtle Particle Overlay -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-20 pointer-events-none"></div>
+
+        <!-- Header -->
+        <header class="p-8 flex justify-between items-center relative z-10 pt-12">
+            <div>
+                <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mb-1">Welcome to Santis</p>
+                <h2 class="text-2xl font-light"><span id="guest-name">Loading</span> <span class="text-blue-400">.</span></h2>
+            </div>
+            <div class="flex items-center gap-4">
+                <!-- App Switcher / Exit Component -->
+                <a href="/hq-dashboard" class="hidden md:inline-block text-[10px] text-white/50 hover:text-white uppercase tracking-widest border border-white/10 px-3 py-1.5 rounded-full backdrop-blur-md bg-white/5 transition">Exit to HQ Menu</a>
+                
+                <div class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center backdrop-blur-md bg-white/5 shadow-[0_0_15px_rgba(255,255,255,0.05)] cursor-pointer hover:bg-white/10 transition">
+                    <span class="text-xs font-mono font-bold text-white/80" id="guest-room">...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="px-6 relative z-10 animate-float">
+            <!-- Hero Experience Card -->
+            <div class="group relative aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl">
+                <!-- High-quality Hammam Image -->
+                <img decoding="async" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1000" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Hammam Experience" fetchpriority="high">
+                
+                <!-- Gradient Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/50 to-transparent"></div>
+
+                <!-- Card Content -->
+                <div class="absolute bottom-0 left-0 right-0 p-8">
+                    <span class="inline-block px-3 py-1 bg-blue-500/20 border border-blue-500/30 backdrop-blur-md rounded-full text-[9px] uppercase tracking-widest text-blue-400 mb-4 shadow-[0_0_10px_rgba(59,130,246,0.3)]"><span class="animate-pulse inline-block w-1.5 h-1.5 bg-blue-400 rounded-full mr-1"></span> AI Recommended</span>
+                    
+                    <h3 class="text-3xl font-bold mb-2 leading-tight tracking-tight" id="ai-title">Analyzing...</h3>
+                    
+                    <p class="text-slate-300 text-sm mb-6 font-light leading-relaxed" id="ai-desc">Master OS is generating an exclusive ritual recommendation tailored for your profile.</p>
+                    
+                    <button id="btn-book-ai" class="w-full py-4 bg-white/95 text-black rounded-2xl font-bold text-sm tracking-tight hover:bg-blue-50 transition-all duration-300 shadow-[0_20px_40px_rgba(255,255,255,0.15)] transform hover:-translate-y-1">
+                        Book for <span id="ai-price">...</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation (Floating Bottom Bar) -->
+        <nav class="fixed bottom-8 left-6 right-6 h-16 backdrop-blur-2xl bg-white/5 border border-white/10 rounded-3xl flex items-center justify-around px-4 z-[100] shadow-2xl">
+            <button onclick="loadZenFeed()" class="text-blue-400 flex flex-col items-center gap-1 transition-all hover:text-blue-300 active:scale-90">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                <span class="text-[8px] font-bold tracking-widest opacity-100 transition-opacity">DISCOVER</span>
+            </button>
+            <button onclick="openRitualsCatalog()" class="text-slate-500 flex flex-col items-center gap-1 transition-all hover:text-slate-300 group active:scale-90">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span class="text-[8px] font-bold tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">RITUALS</span>
+            </button>
+            <button onclick="toggleConcierge()" class="text-blue-400 flex flex-col items-center gap-1 transition-all hover:text-blue-300 group relative active:scale-90">
+                <!-- Notification dot -->
+                <span class="absolute top-0 right-[2px] w-1.5 h-1.5 bg-blue-500 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.8)] animate-pulse"></span>
+                <svg class="w-5 h-5 drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                <span class="text-[8px] font-bold tracking-widest opacity-100 transition-opacity">CONCIERGE</span>
+            </button>
+        </nav>
+        
+        <!-- Bottom fade for scrolling, although its min-h-screen -->
+        <div class="fixed bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#020617] to-transparent pointer-events-none z-40"></div>
+    </div>
+
+    <!-- THE SOVEREIGN GLASS HOLOGRAM (AI CONCIERGE) -->
+    <div id="concierge-panel">
+        <!-- Header -->
+        <div class="p-5 border-b border-cyan-500/10 flex justify-between items-center bg-black/40 backdrop-blur-md relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-cyan-900/10 to-transparent pointer-events-none"></div>
+            <div class="flex items-center gap-3 relative z-10">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(0,255,255,0.15)]">
+                    <span class="text-cyan-400 text-xs font-mono">AI</span>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold tracking-wider text-white">Sovereign Concierge</h3>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_5px_rgba(34,211,238,0.8)]"></span>
+                        <p class="text-[9px] font-mono tracking-widest text-cyan-500 uppercase">Neural Link Active</p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="toggleConcierge()" class="w-8 h-8 flex justify-center items-center text-gray-500 hover:text-white transition-colors relative z-10">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <!-- Chat Area -->
+        <div id="chat-messages" class="flex-1 p-5 overflow-y-auto chat-scroll flex flex-col gap-4">
+            <!-- Initial Greeting via JS -->
+        </div>
+
+        <!-- Gemini Pulse Outline -->
+        <div id="gemini-pulse" class="h-0.5 w-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 transition-opacity duration-300"></div>
+
+        <!-- Input Box -->
+        <div class="p-4 border-t border-cyan-500/10 bg-black/40">
+            <div class="relative">
+                <input type="text" id="chat-input" placeholder="Type your request, Captain..." 
+                    class="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-4 pr-12 text-sm text-white focus:outline-none focus:border-cyan-500/50 focus:bg-white/10 transition-all font-light placeholder:text-gray-600"
+                    onkeypress="if(event.key === 'Enter') handleSendChat()">
+                <button onclick="handleSendChat()" class="absolute right-2 top-1.5 w-9 h-9 flex items-center justify-center text-cyan-400 hover:text-cyan-300 hover:bg-cyan-900/30 rounded-lg transition-colors">
+                    <svg class="w-4 h-4 translate-x-px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                </button>
+            </div>
+            <p class="text-[8px] text-center text-gray-600 mt-2 font-mono uppercase tracking-widest">Powered by Gemini 2.0 Flash Core</p>
+        </div>
+    </div>
+
+    <!-- RITUALS CATALOG MODAL -->
+    <div id="rituals-modal" class="hidden fixed inset-0 z-[200] bg-[#020617]/90 backdrop-blur-2xl flex justify-center items-center opacity-0 transition-opacity duration-500 overflow-y-auto pt-20 pb-20">
+        <div class="relative w-[90%] max-w-5xl bg-[#0a0a0f]/80 border border-white/10 rounded-[3rem] p-10 shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden min-h-[500px]">
+            <button onclick="closeRitualsCatalog()" class="absolute top-6 right-6 w-12 h-12 flex justify-center items-center rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-all z-50">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <h2 class="text-3xl font-light mb-2 text-white/90">Master Catalog</h2>
+            <p class="text-slate-400 text-sm mb-10 font-light">Personalized luxury treatments configured by your Sovereign AI.</p>
+            <div id="rituals-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 relative z-10 w-full pb-8">
+                <!-- Javascript will inject cards here -->
+            </div>
+            <!-- Ambient Modal Glow -->
+            <div class="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-900/10 blur-[100px] rounded-full pointer-events-none"></div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-purple-900/10 blur-[100px] rounded-full pointer-events-none"></div>
+        </div>
+    </div>
+
+    <!-- Interactive AI Engine -->
+    <script>
+        const API_BASE = 'http://localhost:8000/api/v1';
+        let currentAiService = null;
+        let currentAiPrice = null;
+        let currentGuest = null;
+
+        async function loadZenFeed() {
+            try {
+                const res = await fetch(`${API_BASE}/guest/zen-feed`);
+                if(res.ok) {
+                    const data = await res.json();
+                    if(data.status === 'success') {
+                        currentGuest = data.guest;
+                        currentAiService = data.recommendation.title;
+                        currentAiPrice = data.recommendation.price;
+
+                        document.getElementById('guest-name').innerText = currentGuest.name;
+                        document.getElementById('guest-room').innerText = currentGuest.room;
+                        
+                        // Fade in AI data securely
+                        const aiTitle = document.getElementById('ai-title');
+                        const aiDesc = document.getElementById('ai-desc');
+                        const aiPrice = document.getElementById('ai-price');
+                        
+                        aiTitle.style.opacity = 0; aiDesc.style.opacity = 0;
+                        setTimeout(() => {
+                            aiTitle.innerHTML = currentAiService;
+                            aiDesc.innerText = data.recommendation.desc;
+                            aiPrice.innerText = `€${currentAiPrice}`;
+                            aiTitle.style.opacity = 1; aiDesc.style.opacity = 1;
+                        }, 300);
+                    }
+                }
+            } catch(e) { console.error("Zen Feed Error:", e); }
+        }
+
+        document.getElementById('btn-book-ai').addEventListener('click', async (e) => {
+            if(!currentAiService || !currentGuest) return;
+            
+            const btn = e.currentTarget;
+            const origHTML = btn.innerHTML;
+            btn.innerHTML = `<span class="animate-pulse">Processing Master OS...</span>`;
+            
+            const payload = {
+                tenant_id: "9406332b866242f7ae4e00efa7eaf505", // Updated to real UUID
+                hotel_id: "9406332b866242f7ae4e00efa7eaf505", 
+                room_number: currentGuest.room,
+                service_name: "AI: " + currentAiService,
+                price: parseFloat(currentAiPrice)
+            };
+
+            try {
+                const res = await fetch(`${API_BASE}/bookings/walk-in`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if(res.ok) {
+                    btn.classList.replace('bg-white/95', 'bg-emerald-500');
+                    btn.classList.replace('text-black', 'text-white');
+                    btn.innerHTML = `<svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+                    setTimeout(() => {
+                        btn.classList.replace('bg-emerald-500', 'bg-white/95');
+                        btn.classList.replace('text-white', 'text-black');
+                        btn.innerHTML = origHTML;
+                    }, 3000);
+                }
+            } catch (err) {
+                console.error(err);
+                btn.innerHTML = "Booking Failed";
+            }
+        });
+
+        // --- RITUALS CATALOG ENGINE --- //
+        
+        async function openRitualsCatalog() {
+            const modal = document.getElementById('rituals-modal');
+            const grid = document.getElementById('rituals-grid');
+            
+            // Show modal
+            modal.classList.remove('hidden');
+            // Trigger reflow for transition
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modal.classList.add('opacity-100');
+
+            // Fetch Services
+            try {
+                // Ensure tenant UUID goes along maybe if multitenant? Standard services first.
+                const res = await fetch(`${API_BASE}/services-live`);
+                if(res.ok) {
+                    const services = await res.json();
+                    
+                    if(services.length === 0) {
+                        grid.innerHTML = `<div class="col-span-1 border border-white/10 p-6 rounded-3xl text-center text-slate-400">No rituals found in database.</div>`;
+                        return;
+                    }
+
+                    // Render Cards
+                    grid.innerHTML = '';
+                    services.forEach((svc, index) => {
+                        try {
+                            // Safe Defaults and Guards
+                            const svcName = svc.name || svc.title || 'Special Ritual';
+                            const nameLower = svcName.toLowerCase();
+                            
+                            let priceAmt = 0;
+                            let isSurging = false;
+                            let originalAmt = 0;
+
+                            if (svc.price && typeof svc.price === 'object') {
+                                priceAmt = svc.price.amount !== undefined ? svc.price.amount : 0;
+                                isSurging = svc.price.is_surging || false;
+                                originalAmt = svc.price.original_amount || priceAmt;
+                            } else if (svc.price !== undefined && typeof svc.price !== 'object') {
+                                priceAmt = parseFloat(svc.price) || 0;
+                            }
+
+                            const priceFmt = parseFloat(priceAmt).toFixed(0);
+                            
+                            // 1 & 3: Neon Halo colors and Staggered Animation
+                            let haloColor = 'bg-blue-500/20'; // Default Neutral/Aqua
+                            if(nameLower.includes('massage') || nameLower.includes('masaj')) haloColor = 'bg-amber-500/20'; // Warm Gold
+                            else if(nameLower.includes('hammam') || nameLower.includes('hamam')) haloColor = 'bg-cyan-500/20'; // Cool Steam
+                            else if(nameLower.includes('facial') || nameLower.includes('cilt')) haloColor = 'bg-emerald-500/20'; // Botanical Green
+                            else if(nameLower.includes('rituel') || nameLower.includes('ritual')) haloColor = 'bg-purple-500/20'; // Deep Luxury
+
+                            const delayMs = index * 100;
+
+                            const originalPriceInfo = isSurging ? ` <span class="line-through text-slate-500 text-[10px] ml-2">€${parseFloat(originalAmt).toFixed(0)}</span>` : '';
+                            const priceClass = isSurging ? 'text-emerald-400 font-bold' : 'text-white';
+                            const surgeTag = isSurging ? `<span class="inline-block px-2 py-0.5 bg-emerald-500/20 text-emerald-400 text-[9px] uppercase tracking-widest rounded-full absolute -top-3 right-6 border border-emerald-500/30">Luxe Demand</span>` : '';
+
+                            grid.innerHTML += `
+                                <div class="group border border-white/10 rounded-[2rem] p-6 bg-white/5 hover:bg-white/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between min-h-[160px] opacity-100 animate-pulse" style="animation-iteration-count: 1; animation-duration: 0.8s; animation-delay: ${delayMs}ms;">
+                                    <!-- Glow Effect (Neon Halo) -->
+                                    <div class="absolute -top-20 -right-20 w-40 h-40 ${haloColor} blur-3xl rounded-full opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-700 pointer-events-none"></div>
+
+                                    <div>
+                                        ${surgeTag}
+                                        <div class="flex justify-between items-start mb-3">
+                                            <span class="text-[10px] uppercase font-mono tracking-widest text-slate-400 z-10 relative">${svc.duration_minutes || svc.duration || 50} MIN</span>
+                                            <span class="text-sm ${priceClass} z-10 relative">€${priceFmt}${originalPriceInfo}</span>
+                                        </div>
+                                        <h4 class="text-xl font-medium tracking-tight leading-snug mb-2 z-10 relative">${svcName}</h4>
+                                    </div>
+                                    
+                                    <button onclick="bookRitualCard(this, '${String(svcName).replace(/'/g, "\\\\'")}', ${priceAmt})" class="mt-4 w-full py-3 rounded-xl bg-white/10 hover:bg-white hover:text-black text-xs uppercase tracking-widest font-bold border border-white/5 transition-all z-10 relative shadow-[0_5px_15px_rgba(0,0,0,0.3)] hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]">
+                                        Book Now
+                                    </button>
+                                </div>
+                            `;
+                        } catch(innerErr) {
+                            console.error(`Error rendering service index ${index}:`, svc, innerErr);
+                            grid.innerHTML += `<div class="p-6 border border-red-500/30 bg-red-500/10 rounded-3xl text-xs text-red-400 font-mono">Failed to render card for ID: ${svc.id || 'unknown'}</div>`;
+                        }
+                    });
+
+                } else {
+                    grid.innerHTML = `<div class="col-span-1 border-red-500/30 p-6 rounded-3xl text-center text-red-400">Error fetching OS Catalog</div>`;
+                }
+            } catch(e) {
+                console.error("Master Rituals Modal Error:", e);
+                grid.innerHTML = `<div class="col-span-1 border-white/10 p-6 rounded-3xl text-center">Network Error: ${e.message}</div>`;
+            }
+        }
+
+        function closeRitualsCatalog() {
+            const modal = document.getElementById('rituals-modal');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); }, 500);
+        }
+
+        async function bookRitualCard(btnElement, serviceName, priceNum) {
+            // Tactical Fallback if session isn't loaded (e.g. fast click or API hiccup)
+            const guestRef = currentGuest || { room: "Walk-In (Front Desk)", name: "Valued Guest" };
+            
+            const origHTML = btnElement.innerHTML;
+            btnElement.innerHTML = `<span class="animate-pulse">Processing...</span>`;
+            
+            const payload = {
+                tenant_id: "9406332b866242f7ae4e00efa7eaf505",
+                hotel_id: "9406332b866242f7ae4e00efa7eaf505", 
+                room_number: guestRef.room,
+                service_name: serviceName,
+                price: parseFloat(priceNum)
+            };
+
+            try {
+                const res = await fetch(`${API_BASE}/bookings/walk-in`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if(res.ok) {
+                    btnElement.classList.replace('bg-white/10', 'bg-emerald-500');
+                    btnElement.classList.remove('hover:bg-blue-600');
+                    btnElement.innerHTML = `Confirmed ✓`;
+                    setTimeout(() => {
+                        closeRitualsCatalog(); // Auto close on success
+                        
+                        // 2: One-Tap Revenue WebSocket Trigger
+                        try {
+                            if(window.bridgeSocket && window.bridgeSocket.readyState === WebSocket.OPEN) {
+                                window.bridgeSocket.send(JSON.stringify({
+                                    type: 'REVENUE_SURGE',
+                                    amount: parseFloat(priceNum),
+                                    service: serviceName,
+                                    source: 'GUEST_ZEN_PORTAL'
+                                }));
+                            }
+                        } catch(wsErr) { console.warn("WebSocket trigger failed", wsErr); }
+
+                        // reset button for next time modal is opened
+                        btnElement.classList.replace('bg-emerald-500', 'bg-white/10');
+                        btnElement.classList.add('hover:bg-white');
+                        btnElement.classList.remove('text-white');
+                        btnElement.innerHTML = origHTML;
+                    }, 2000);
+                } else {
+                    btnElement.innerHTML = "Booking Failed";
+                    setTimeout(()=> btnElement.innerHTML=origHTML, 3000);
+                }
+            } catch (err) {
+                console.error(err);
+                btnElement.innerHTML = "Network Error";
+                setTimeout(()=> btnElement.innerHTML=origHTML, 3000);
+            }
+        }
+
+        // Initialize Neural Bridge WebSocket for Guest Portal
+        function initNeuralBridge() {
+            window.bridgeSocket = new WebSocket("ws://localhost:8000/ws?client_type=guest");
+            window.bridgeSocket.onopen = () => console.log("Master OS Neural Bridge: CONNECTED (Guest)");
+            
+            window.bridgeSocket.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    if(data.type === "MATRIX_RED_ALERT") {
+                        console.warn("🔥 BABA YAGA PROTOCOL INITIATED 🔥");
+                        document.body.classList.add("matrix-mode");
+                        
+                        // Optional Text-to-Speech Override
+                        if ('speechSynthesis' in window) {
+                            const msg = new SpeechSynthesisUtterance(`Priority Override. Tactical protocols engaged for ${data.target || 'High Value Target'}.`);
+                            msg.lang = 'en-US';
+                            msg.rate = 0.9;
+                            window.speechSynthesis.speak(msg);
+                        }
+                    } else if (data.type === "MATRIX_STAND_DOWN") {
+                        console.log("🕊️ PEACE PROTOCOL: Standing Down.");
+                        document.body.classList.remove("matrix-mode");
+                        
+                        if ('speechSynthesis' in window) {
+                            const msg = new SpeechSynthesisUtterance("Protocols deactivated. Resuming normal operations.");
+                            msg.lang = 'en-US';
+                            msg.rate = 0.9;
+                            window.speechSynthesis.speak(msg);
+                        }
+                    }
+                } catch(e) {
+                    console.error("Neural Bridge Message Error:", e);
+                }
+            };
+
+            window.bridgeSocket.onclose = () => setTimeout(initNeuralBridge, 3000);
+        }
+
+        // --- NEURAL CONCIERGE (THE GUEST MEMORY & SILENT AUTHORITY) ---
+                // --- THE WORKER THREAD (YAPAY ZEKA İZOLESİ) ---
+        const aiWorker = new Worker('/assets/js/santis-ai-worker.js');
+        function fetchAIResponse(payload) {
+            return new Promise((resolve, reject) => {
+                aiWorker.onmessage = (e) => {
+                    if (e.data.status === 'success') resolve(e.data.data);
+                    else reject(e.data.error);
+                };
+                aiWorker.postMessage({ action: 'FETCH_AI_RESPONSE', payload, apiBase: API_BASE });
+            });
+        }
+        let chatContext = [];
+        window.addEventListener('DOMContentLoaded', () => {
+            SantisVault.getItem('nv_neural_history').then(hist => {
+                if(hist) {
+                    let histStr = typeof hist === 'string' ? hist : JSON.stringify(hist);
+                    histStr = histStr.replace(/\.jpg/g, '.webp').replace(/\.png/g, '.webp');
+                    chatContext = JSON.parse(histStr);
+                    if(chatContext.length > 10) {
+                        chatContext = chatContext.slice(-10);
+                        SantisVault.setItem('nv_neural_history', chatContext);
+                    }
+                }
+            });
+        });
+
+        function toggleConcierge() {
+            const panel = document.getElementById('concierge-panel');
+            const isActive = panel.classList.contains('active');
+            
+            if (!isActive) {
+                panel.classList.add('active');
+                
+                const msgs = document.getElementById('chat-messages');
+                if (msgs.children.length === 0) {
+                    if (chatContext.length > 0) {
+                        // Sessiz Hafıza Yüklemesi
+                        chatContext.forEach(msg => {
+                            if (msg.role === 'user') appendUserMessage(msg.text, true);
+                            else appendBotMessage(msg.text, msg.offer, true);
+                        });
+                        // Misafir geri döndü, sessizce selamla
+                        handleSilentWelcomeBack();
+                    } else {
+                        appendBotMessage("Welcome Captain. I am your Sovereign Concierge. How may I prepare your sanctuary today?");
+                    }
+                }
+            } else {
+                panel.classList.remove('active');
+            }
+        }
+
+        function appendUserMessage(text, silent = false) {
+            const msgs = document.getElementById('chat-messages');
+            const anim = silent ? "animation: none;" : "animation-duration: 0.3s;";
+            msgs.innerHTML += `
+                <div class="flex justify-end animate-float" style="${anim}">
+                    <div class="bg-cyan-900/30 border border-cyan-500/20 text-white rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[85%] text-sm font-light shadow-[0_5px_15px_rgba(0,0,0,0.2)]">
+                        ${text}
+                    </div>
+                </div>
+            `;
+            msgs.scrollTop = msgs.scrollHeight;
+        }
+
+        function appendBotMessage(text, offer = null, silent = false) {
+            const msgs = document.getElementById('chat-messages');
+            const anim = silent ? "animation: none;" : "animation-duration: 0.3s; animation-direction: reverse;";
+            
+            // Satış Teklifi (Sessiz ve Güçlü)
+            let offerHtml = '';
+            if(offer) {
+                offerHtml = `
+                    <div class="mt-3 p-3 bg-white/5 border border-white/10 rounded-xl relative overflow-hidden group">
+                        <p class="text-[9px] text-gray-400 font-mono uppercase tracking-widest mb-1">SOVEREIGN PRIVILEGE</p>
+                        <p class="text-sm font-medium text-white mb-2">${offer.title}</p>
+                        <button onclick="acceptAIOffer('${offer.title}', ${offer.price}, this)" class="w-full py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs tracking-widest uppercase font-light text-gray-300 transition-colors shadow-none">
+                            Secure for €${offer.price}
+                        </button>
+                    </div>
+                `;
+            }
+
+            msgs.innerHTML += `
+                <div class="flex justify-start animate-float" style="${anim}">
+                    <div class="bg-white/5 border border-white/10 text-gray-300 rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[85%] text-sm font-light shadow-[0_5px_15px_rgba(0,0,0,0.2)] leading-relaxed">
+                        ${text.replace(/\n/g, '<br/>')}
+                        ${offerHtml}
+                    </div>
+                </div>
+            `;
+            msgs.scrollTop = msgs.scrollHeight;
+        }
+
+        // Satış Tamamlandığı An: THE SILENT AUTHORITY (HQ Dashboard Etkileşimi)
+        async function acceptAIOffer(title, price, btn) {
+            btn.innerHTML = `<span class="opacity-50">Authorizing...</span>`;
+            btn.disabled = true;
+            
+            try {
+                const guestRef = currentGuest || { room: "AI Walk-In" };
+                const payload = {
+                    tenant_id: "9406332b866242f7ae4e00efa7eaf505",
+                    hotel_id: "9406332b866242f7ae4e00efa7eaf505", 
+                    room_number: guestRef.room,
+                    service_name: "AI Secure: " + title,
+                    price: parseFloat(price)
+                };
+
+                const res = await fetch(`${API_BASE}/bookings/walk-in`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if(res.ok) {
+                    // Minimalist Onay
+                    btn.classList.add('text-emerald-400', 'border-emerald-900/50');
+                    btn.classList.remove('text-gray-300', 'border-white/10');
+                    btn.innerHTML = `✓ Verified`;
+                    
+                    // The Fluid Momentum: Karargaha Sessiz Sıçrama
+                    try {
+                        if(window.bridgeSocket && window.bridgeSocket.readyState === WebSocket.OPEN) {
+                            window.bridgeSocket.send(JSON.stringify({
+                                type: 'CONVERSION_PING',
+                                revenue: parseFloat(price),
+                                category: title
+                            }));
+                        }
+                    } catch(wsErr) { console.warn(wsErr); }
+                } else {
+                    btn.innerHTML = "Error Processing";
+                    btn.disabled = false;
+                }
+            } catch(e) {
+                console.error(e);
+                btn.innerHTML = "Error Processing";
+                btn.disabled = false;
+            }
+        }
+
+        async function handleSilentWelcomeBack() {
+            const tempMsgId = "typing-" + Date.now();
+            const msgs = document.getElementById('chat-messages');
+            msgs.innerHTML += `
+                <div id="${tempMsgId}" class="flex justify-start">
+                    <div class="bg-transparent text-cyan-500/50 rounded-2xl px-4 py-2 text-xs font-mono tracking-widest animate-pulse">
+                        Neural Link Syncing...
+                    </div>
+                </div>
+            `;
+            msgs.scrollTop = msgs.scrollHeight;
+            
+            try {
+                const guestName = currentGuest ? currentGuest.name : "Captain";
+                const payload = {
+                    guest_name: guestName,
+                    message: "Welcome the user back elegantly. Only 1 short sentence. 'Welcome back Captain, shall we continue?' or similar. Acknowledge past context slightly. JSON format.",
+                    intent_score: 50,
+                    behavioral_tags: ["vip", "returning"],
+                    promo_token: "SOVEREIGN",
+                    history: chatContext.slice(-4)
+                };
+
+                const data = await fetchAIResponse(payload);
+                document.getElementById(tempMsgId)?.remove();
+
+                if (data.reply) {
+                    chatContext.push({ role: "model", text: data.reply });
+                    if(chatContext.length > 10) chatContext = chatContext.slice(-10); // Rate Limit
+                    SantisVault.setItem('nv_neural_history', chatContext);
+                    appendBotMessage(data.reply, data.offer);
+                }
+            } catch(e) {
+                document.getElementById(tempMsgId)?.remove();
+            }
+        }
+
+        async function handleSendChat() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if(!text) return;
+
+            input.value = '';
+            appendUserMessage(text);
+            
+            // Sessiz pulse
+            const pulse = document.getElementById('gemini-pulse');
+            pulse.style.opacity = '1';
+
+            try {
+                const guestName = currentGuest ? currentGuest.name : "Captain";
+                const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+                
+                chatContext.push({ role: "user", text: text });
+                if(chatContext.length > 10) chatContext = chatContext.slice(-10); // Rate Limit
+                SantisVault.setItem('nv_neural_history', chatContext);
+
+                const payload = {
+                    guest_name: guestName,
+                    message: text,
+                    intent_score: 85, 
+                    behavioral_tags: ["high_value", "vip"],
+                    promo_token: "SOVEREIGN",
+                    history: chatContext.slice(-5) 
+                };
+
+                const data = await fetchAIResponse(payload);
+                
+                if (data.reply) {
+                    let finalReply = data.reply;
+                    let offerObj = data.offer || null;
+                    
+                    if (!offerObj) {
+                        const offerMatch = finalReply.match(/\[OFFER:(.*?):(\d+)\]/i);
+                        if(offerMatch) {
+                            offerObj = { title: offerMatch[1].trim(), price: parseInt(offerMatch[2]) };
+                            finalReply = finalReply.replace(offerMatch[0], '');
+                        }
+                    }
+
+                    chatContext.push({ role: "model", text: finalReply, offer: offerObj });
+                    if(chatContext.length > 10) chatContext = chatContext.slice(-10); // Rate Limit
+                    SantisVault.setItem('nv_neural_history', chatContext);
+                    appendBotMessage(finalReply, offerObj);
+                } else {
+                    appendBotMessage("I am synchronizing with the Master Database.");
+                }
+
+            } catch(e) {
+                console.error("Neural Bridge Error", e);
+                appendBotMessage("The neural bridge is experiencing interference.");
+            } finally {
+                pulse.style.opacity = '0';
+            }
+        }
+
+        // --- THE GHOST CONCIERGE (PROACTIVE TRIGGER) ---
+        let nvIdleSeconds = 0;
+        let nvGhostTriggered = false;
+
+        // Check 1: Has it triggered before in this session? 
+        window.addEventListener('DOMContentLoaded', () => {
+            SantisVault.getItem('nv_ghost_triggered').then(res => { if(res) nvGhostTriggered = true; });
+        });
+
+        const ghostInterval = setInterval(() => {
+            const panel = document.getElementById('concierge-panel');
+            if (!nvGhostTriggered && (!panel || !panel.classList.contains('active'))) {
+                nvIdleSeconds++;
+                // If inactive for 15 seconds, awaken the Ghost Concierge
+                if (nvIdleSeconds >= 15) {
+                    nvGhostTriggered = true;
+                    SantisVault.setItem('nv_ghost_triggered', true);
+                    
+                    // Silent awaken
+                    panel.classList.add('active');
+                    const tempMsgId = "ghost-" + Date.now();
+                    const msgs = document.getElementById('chat-messages');
+                    msgs.innerHTML += `
+                        <div id="${tempMsgId}" class="flex justify-start">
+                            <div class="bg-transparent text-cyan-500/50 rounded-2xl px-4 py-2 text-xs font-mono tracking-widest animate-pulse">
+                                Neural Detection: Hesitation...
+                            </div>
+                        </div>
+                    `;
+                    msgs.scrollTop = msgs.scrollHeight;
+                    
+                    setTimeout(() => {
+                        const ghostMessage = "Kaptan, incelediğiniz detaylarla ilgili aklınıza takılan özel bir nokta mı var? Hedefinize en uygun ritüeli size özel bir VIP avantajla (" + "SOVEREIGN" + ") güvenle organize edebilirim.";
+                        document.getElementById(tempMsgId)?.remove();
+                        appendBotMessage(ghostMessage, null, false);
+                        
+                        chatContext.push({ role: "model", text: ghostMessage, offer: null });
+                        try { SantisVault.setItem('nv_neural_history', chatContext); } catch(e){}
+                    }, 2000); // 2 saniye lüks gecikme (The Fluid Momentum)
+                }
+            }
+        }, 1000);
+
+        // Reset idle timer on any interaction
+        function resetNvIdle() {
+            nvIdleSeconds = 0;
+        }
+        window.addEventListener('mousemove', resetNvIdle);
+        window.addEventListener('scroll', resetNvIdle);
+        window.addEventListener('keypress', resetNvIdle);
+        window.addEventListener('click', resetNvIdle);
+
+        // --- THE EXIT INTENT SUIKASTCISI (V21 RECOVERY) ---
+        let nvExitTriggered = false;
+        window.addEventListener('DOMContentLoaded', () => {
+            SantisVault.getItem('nv_exit_triggered').then(res => { if(res) nvExitTriggered = true; });
+        });
+
+        document.addEventListener('mouseleave', (e) => {
+            // Fare yukarıdan (sayfayı kapatmak veya sekme değiştirmek için) çıkarsa
+            if (e.clientY < 10 && !nvExitTriggered) {
+                const panel = document.getElementById('concierge-panel');
+                if (!panel || !panel.classList.contains('active')) {
+                    nvExitTriggered = true;
+                    SantisVault.setItem('nv_exit_triggered', true);
+                    
+                    panel.classList.add('active');
+                    const tempMsgId = "exit-" + Date.now();
+                    const msgs = document.getElementById('chat-messages');
+                    msgs.innerHTML += `
+                        <div id="${tempMsgId}" class="flex justify-start">
+                            <div class="bg-transparent text-amber-500/50 rounded-2xl px-4 py-2 text-xs font-mono tracking-widest animate-pulse">
+                                Tactical Override Engaged...
+                            </div>
+                        </div>
+                    `;
+                    msgs.scrollTop = msgs.scrollHeight;
+                    
+                    setTimeout(() => {
+                        const exitMessage = "Kaptan, bu seçkin ritüeller için kalan son kontenjanı sizin adınıza 15 dakika daha bloke edebilirim. Ayrılmadan önce ufak bir Sovereign ayrıcalığına ne dersiniz?";
+                        document.getElementById(tempMsgId)?.remove();
+                        appendBotMessage(exitMessage, null, false);
+                        
+                        chatContext.push({ role: "model", text: exitMessage, offer: null });
+                        try { SantisVault.setItem('nv_neural_history', chatContext); } catch(err){}
+                    }, 1500); // 1.5 sn siber-otoriter gecikme
+                }
+            }
+        });
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadZenFeed();
+            initNeuralBridge();
+        });
+    </script>
+</body>
+</html>

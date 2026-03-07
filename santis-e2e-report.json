@@ -1,0 +1,26 @@
+[
+  {
+    "page": "/tr/masajlar/kombine-masaj.html",
+    "step": "DOM Hydrator",
+    "status": "Başarı",
+    "details": "Recovered Kombine Masaj | N/A | Auto-generated mock content block for kombine-masaj to restore Storage Blob Integrity."
+  },
+  {
+    "step": "ETag Kontrolü",
+    "status": "Hata",
+    "etag": null
+  },
+  {
+    "step": "Headless Subsystems",
+    "status": "Başarı",
+    "details": "Store: true, Bridge: true"
+  },
+  {
+    "step": "Security Endpoint Mounted",
+    "status": "Hata"
+  },
+  {
+    "step": "Integrity Endpoint Mounted",
+    "status": "Başarı (Korumalı)"
+  }
+]

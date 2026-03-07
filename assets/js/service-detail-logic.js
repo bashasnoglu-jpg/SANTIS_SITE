@@ -6,11 +6,7 @@
  */
 document.addEventListener("DOMContentLoaded", function () {
 
-    // 1. Load Components
-    if (typeof loadComp === "function") {
-        if (document.getElementById("navbar-container")) loadComp("/components/navbar.html", "navbar-container");
-        if (document.getElementById("footer-container")) loadComp("/components/footer.html", "footer-container");
-    }
+    // 1. Components are managed via santis-nav.js now
 
     // 2. Parse URL
     var params = new URLSearchParams(window.location.search);
@@ -46,7 +42,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 3. Find Item
         var item = null;
-        var searchId = window.SERVICE_ID || window.PAGE_GROUP_ID || id || slug;
+        var rawSearchId = window.SERVICE_ID || window.PAGE_GROUP_ID || id || slug || "";
+        var searchId = rawSearchId.replace(/\/$/, '').trim(); // Remove trailing slashes
+
         if (searchId) {
             item = window.productCatalog.find(function (p) { return p.id == searchId || p.slug == searchId; });
             // Fallback: case-insensitive
@@ -70,7 +68,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // 4. Bind Data or 404
         if (!item) {
             setText('cin-title', "Hizmet Bulunamadı");
-            setText('cin-desc', 'Aranan: "' + searchId + '" — ' + window.productCatalog.length + ' hizmet içinde bulunamadı.');
+            var dbgString = 'Aranan: "' + searchId + '" — Katalog: ' + (window.productCatalog ? window.productCatalog.length : 0) + ' öğe.';
+            setText('cin-desc', dbgString + ' Lütfen URL\'yi kontrol edin.');
+            console.error("🚨 [ServiceDetail] Bulunamadı:", searchId, "Katalog:", window.productCatalog);
             return;
         }
 
@@ -104,9 +104,9 @@ document.addEventListener("DOMContentLoaded", function () {
         var backBtn = document.querySelector('.cin-actions .cin-btn:not(.primary)');
         if (backBtn) backBtn.innerText = t.back;
 
-        var title = content.title || item.name;
+        var title = content.title || item.title || item.name || "Santis Spa Hizmeti";
         var badge = item.tier || (item.tags && item.tags.length > 0 ? item.tags[0] : 'Santis Spa Series');
-        var desc = content.intro || content.shortDesc || item.desc || "Detaylar hazırlanıyor...";
+        var desc = content.intro || content.shortDesc || item.shortDesc || item.desc || item.fullDesc || "Detaylar hazırlanıyor...";
         var steps = content.steps || (item.details ? item.details.steps : null) || [];
         var effects = content.effects || (item.details ? item.details.effects : null) || '';
         var visualSrc = (item.media ? item.media.hero : null) || item.img || '/assets/img/hero-general.webp';
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "provider": {
                 "@type": "Spa",
                 "name": "Santis Club",
-                "image": "https://santis-club.com/assets/img/logo-santis.png",
+                "image": "https://santis-club.com/assets/img/logo-santis.webp",
                 "priceRange": "$$$"
             },
             "image": "https://santis-club.com/" + visualSrc,
@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var imgEl = document.getElementById('cin-img');
         if (imgEl) {
             var src = visualSrc;
-            if (!src.includes('assets/') && !src.includes('http')) {
+            if (!src.includes('/assets/') && !src.includes('http')) {
                 src = '/assets/img/cards/' + src;
             }
             var loader = new Image();

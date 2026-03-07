@@ -1,0 +1,18 @@
+{
+    "activeMode": "default",
+    "themes": {
+        "default": {
+            "variables": {
+                "bgMain": "#5c3737",
+                "bgSection": "#653e3e",
+                "textMain": "#856f6f",
+                "gold": "#6e6868",
+                "navBg": "#000000",
+                "textMuted": "#000000",
+                "radius": "17px",
+                "fontHeading": "'Playfair Display', serif",
+                "fontBody": "'Cormorant Garamond', serif"
+            }
+        }
+    }
+}

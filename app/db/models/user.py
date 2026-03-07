@@ -2,7 +2,7 @@ import uuid
 import enum
 from typing import Optional
 from sqlalchemy import String, Boolean, DateTime, Integer, ForeignKey, Enum
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 
@@ -35,6 +35,9 @@ class User(Base, SoftDeleteMixin):
     
     token_version: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    
+    # Sovereign Shield Phase Omega: Risk Engine
+    trusted_devices: Mapped[list] = mapped_column(JSONB, default=list, nullable=True)
 
     # RBAC & Multi-Tenancy
     role: Mapped[UserRole] = mapped_column(Enum(UserRole), default=UserRole.USER)

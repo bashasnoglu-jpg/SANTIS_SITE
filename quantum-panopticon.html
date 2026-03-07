@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Panopticon - The Kill Room</title>
+    <!-- Muted Silver and Obsidian Black baseline -->
+    <style>
+        :root {
+            --obsidian: #050505;
+            --santis-gold: #D4AF37;
+            --muted-silver: #A0A09A;
+            --alert-red: #ff3333;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--obsidian);
+            color: var(--muted-silver);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden; /* Tam ekran kontrol */
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto 1fr;
+            height: 100vh;
+        }
+
+        header {
+            grid-column: 1 / -1;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            color: var(--santis-gold);
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .status-dot {
+            height: 10px;
+            width: 10px;
+            background-color: #32d74b;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px #32d74b;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(50, 215, 75, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(50, 215, 75, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(50, 215, 75, 0); }
+        }
+
+        /* D3.js Curve Area */
+        #chart-container {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .chart-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: rgba(212, 175, 55, 0.8);
+        }
+
+        /* Right Panel: Matrix & Stream */
+        #sidebar {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #matrix-container {
+            height: 40vh;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            position: relative;
+        }
+
+        #heatmap-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        #kill-stream {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: hidden;
+            font-family: monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .log-entry {
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: slideUp 0.5s forwards ease-out;
+        }
+
+        .log-time { color: var(--muted-silver); }
+        .log-node { color: #555; }
+        .log-action { color: var(--santis-gold); }
+        .log-result { color: #32d74b; font-weight: bold; }
+
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hud-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: auto;
+        }
+        
+        .stat-box {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-value {
+            font-size: 3rem;
+            color: var(--santis-gold);
+            font-weight: 300;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+    </style>
+    <!-- D3.js CDN -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Santis Panopticon <span style="color:var(--muted-silver); font-size: 0.9rem;">// The Kill Room</span></h1>
+        <div><span class="status-dot"></span> <span style="font-size: 0.8rem; letter-spacing: 1px; margin-left:10px;">GLOBAL SSE UPLINK ACTIVE</span></div>
+    </header>
+
+    <main id="chart-container">
+        <div class="chart-title">Intent-Arbitrage Velocity ($ recovered/sec)</div>
+        <div id="d3-chart" style="flex-grow: 1; position: relative;"></div>
+        
+        <div class="hud-stats">
+            <div class="stat-box">
+                <span class="stat-value" id="hud-total-arbitrage">€ 0</span>
+                <span class="stat-label">Total Arbitrage Gain (Live)</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value" id="hud-avg-intent">0.00</span>
+                <span class="stat-label">Avg. Intent Score</span>
+            </div>
+        </div>
+    </main>
+
+    <aside id="sidebar">
+        <div id="matrix-container">
+            <div style="position: absolute; top: 15px; left: 15px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--santis-gold); z-index: 10;">
+                Neuro-Tracker Matrix
+            </div>
+            <canvas id="heatmap-canvas"></canvas>
+        </div>
+        
+        <div id="kill-stream">
+            <!-- Simulated Logs will stream here -->
+        </div>
+    </aside>
+
+    <script>
+        /**
+         * SANTIS PANOPTICON ARCHITECTURE (SIMULATION MODE)
+         * Bu dosya Cloudflare SSE beklemek yerine simüle edilmiş (Mock)
+         * "Kill-Shot" verilerini fırlatarak D3.js ve Canvas yeteneklerini sahneler.
+         */
+
+        // 1. D3.js Golden Curve Engine
+        const SovereignChart = {
+            data: Array.from({length: 40}, () => 0), // Başlangıçta boş veri (40 nokta)
+            totalArbitrage: 0,
+            
+            init() {
+                const container = document.getElementById('d3-chart');
+                this.margin = {top: 20, right: 0, bottom: 20, left: 0};
+                this.width = container.clientWidth - this.margin.left - this.margin.right;
+                this.height = container.clientHeight - this.margin.top - this.margin.bottom;
+
+                this.svg = d3.select("#d3-chart").append("svg")
+                    .attr("width", this.width + this.margin.left + this.margin.right)
+                    .attr("height", this.height + this.margin.top + this.margin.bottom)
+                  .append("g")
+                    .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
+
+                // Y Eksenini statik değil dinamik bırakıyoruz, maks 100€ arbitraj varsayımı
+                this.x = d3.scaleLinear().domain([0, 39]).range([0, this.width]);
+                this.y = d3.scaleLinear().domain([0, 150]).range([this.height, 0]);
+
+                // Altın Işıltı Defs
+                const defs = this.svg.append("defs");
+                const filter = defs.append("filter").attr("id", "santis-glow");
+                filter.append("feGaussianBlur").attr("stdDeviation", "4").attr("result", "coloredBlur");
+                const feMerge = filter.append("feMerge");
+                feMerge.append("feMergeNode").attr("in", "coloredBlur");
+                feMerge.append("feMergeNode").attr("in", "SourceGraphic");
+
+                // Altın Alan Gradyanı
+                const gradient = defs.append("linearGradient")
+                    .attr("id", "gold-gradient")
+                    .attr("x1", "0%").attr("y1", "0%").attr("x2", "0%").attr("y2", "100%");
+                gradient.append("stop").attr("offset", "0%").attr("stop-color", "rgba(212, 175, 55, 0.4)");
+                gradient.append("stop").attr("offset", "100%").attr("stop-color", "rgba(5, 5, 5, 0)");
+
+                this.area = d3.area()
+                    .curve(d3.curveBasis) // Pürüzsüz spline
+                    .x((d, i) => this.x(i))
+                    .y0(this.height)
+                    .y1(d => this.y(d));
+
+                this.path = this.svg.append("path")
+                    .datum(this.data)
+                    .attr("class", "area")
+                    .attr("fill", "url(#gold-gradient)")
+                    .attr("stroke", "#D4AF37")
+                    .attr("stroke-width", 2)
+                    .style("filter", "url(#santis-glow)")
+                    .attr("d", this.area);
+            },
+
+            inject(arbitrageValue, intentScore) {
+                // Skoru topla
+                this.totalArbitrage += arbitrageValue;
+                document.getElementById('hud-total-arbitrage').innerText = `€ ${this.totalArbitrage}`;
+                document.getElementById('hud-avg-intent').innerText = intentScore.toFixed(2);
+
+                // Veriyi sona ekle
+                this.data.push(arbitrageValue);
+
+                // Transition ile kaydır
+                this.path
+                    .attr("d", this.area)
+                    .attr("transform", null)
+                    .transition()
+                    .duration(1500)
+                    .ease(d3.easeLinear)
+                    .attr("transform", `translate(${this.x(-1)},0)`)
+                    .on("end", () => {
+                        this.data.shift(); // İlk veriyi at
+                    });
+                
+                // Niyet yüksekse Işıltıyı (Glow) artır
+                const blur = 4 + (intentScore * 6);
+                d3.select("#santis-glow feGaussianBlur").transition().duration(500).attr("stdDeviation", blur);
+                setTimeout(() => {
+                    d3.select("#santis-glow feGaussianBlur").transition().duration(1000).attr("stdDeviation", 4);
+                }, 1000);
+            }
+        };
+
+        // 2. HTML5 Canvas Neuro-Tracker Matrix
+        const NeuroMatrix = {
+            init() {
+                this.canvas = document.getElementById('heatmap-canvas');
+                const container = document.getElementById('matrix-container');
+                // Canvas boyutlarını container'a eşitle
+                this.canvas.width = container.clientWidth;
+                this.canvas.height = container.clientHeight;
+                this.ctx = this.canvas.getContext('2d');
+                
+                this.width = this.canvas.width;
+                this.height = this.canvas.height;
+                this.clear();
+            },
+
+            clear() {
+                this.ctx.fillStyle = '#050505';
+                this.ctx.fillRect(0, 0, this.width, this.height);
+            },
+
+            flashKill(intentScore) {
+                // Eski izleri yavaşça karart (Ghosting)
+                this.ctx.fillStyle = 'rgba(5, 5, 5, 0.9)';
+                this.ctx.fillRect(0, 0, this.width, this.height);
+
+                // Rastgele bir karar verme yolculuğu (Trajectory) simülasyonu
+                const startX = Math.random() * this.width * 0.5;
+                const startY = Math.random() * this.height;
+                
+                // Hedef nokta (Checkout Butonu) hep sağ tarafta bir yerde varsayalım
+                const endX = this.width * 0.7 + (Math.random() * 50);
+                const endY = this.height * 0.5 + (Math.random() * 50 - 25);
+
+                const steps = 5;
+                this.ctx.strokeStyle = 'rgba(212, 175, 55, 0.2)';
+                this.ctx.lineWidth = 2;
+                this.ctx.beginPath();
+                this.ctx.moveTo(startX, startY);
+
+                // Eğriler çiz
+                let lastX = startX;
+                let lastY = startY;
+                for(let i=1; i<=steps; i++) {
+                    const cx = lastX + (endX - lastX) * (i/steps) + (Math.random()*40 - 20);
+                    const cy = lastY + (endY - lastY) * (i/steps) + (Math.random()*40 - 20);
+                    this.ctx.lineTo(cx, cy);
+                    lastX = cx;
+                    lastY = cy;
+                    
+                    // Geçiş noktalarına küçük gümüş dwell lekeleri
+                    this.drawSpot(cx, cy, 5, 'rgba(160, 160, 154, 0.2)');
+                }
+                this.ctx.stroke();
+
+                // Hedef (Kill) Noktasındaki büyük Altın Parlama (Dwell = Intent)
+                const radius = 10 + (intentScore * 40);
+                this.drawSpot(endX, endY, radius, `rgba(212, 175, 55, ${intentScore * 0.8})`);
+                
+                // Crosshair at
+                this.ctx.strokeStyle = '#D4AF37';
+                this.ctx.lineWidth = 1;
+                this.ctx.beginPath();
+                this.ctx.arc(endX, endY, 15, 0, Math.PI * 2);
+                this.ctx.moveTo(endX - 25, endY); this.ctx.lineTo(endX + 25, endY);
+                this.ctx.moveTo(endX, endY - 25); this.ctx.lineTo(endX, endY + 25);
+                this.ctx.stroke();
+            },
+
+            drawSpot(x, y, radius, colorStr) {
+                const gradient = this.ctx.createRadialGradient(x, y, 0, x, y, radius);
+                gradient.addColorStop(0, colorStr);
+                gradient.addColorStop(1, 'rgba(212, 175, 55, 0)');
+                this.ctx.beginPath();
+                this.ctx.arc(x, y, radius, 0, Math.PI * 2);
+                this.ctx.fillStyle = gradient;
+                this.ctx.fill();
+            }
+        };
+
+        // 3. UI Logger (Terminal)
+        const TerminalUI = {
+            container: document.getElementById('kill-stream'),
+            logCount: 0,
+            log(data) {
+                const node = ['LHR-01', 'FRA-04', 'IST-09', 'DXB-02'][Math.floor(Math.random()*4)];
+                const dropStr = data.diagnostics.drop_ratio > 1.2 ? `[Drop:${data.diagnostics.drop_ratio.toFixed(1)}]` : '';
+                
+                const html = `
+                    <div class="log-entry">
+                        <span class="log-time">[${new Date().toLocaleTimeString()}]</span>
+                        <span class="log-action">⚡ ${data.sovereign_response.action_taken}</span>
+                        <span class="log-node">| Node: ${node} | Intent: ${data.diagnostics.intent.toFixed(2)} ${dropStr}</span>
+                        <span class="log-result">| ${data.roi.original_price}€ -> ${data.roi.secured_price}€ [SECURED]</span>
+                    </div>
+                `;
+                
+                this.container.insertAdjacentHTML('afterbegin', html);
+                this.logCount++;
+                
+                // 10'dan fazla satırı sil
+                if(this.container.children.length > 10) {
+                    this.container.lastElementChild.remove();
+                }
+            }
+        };
+
+        // 4. SIMÜLASYON MOTORU (Mock Data Generator)
+        window.addEventListener('DOMContentLoaded', () => {
+            SovereignChart.init();
+            NeuroMatrix.init();
+            
+            // Pencere boyutlandığında Canvas'ı koru
+            window.addEventListener('resize', () => {
+                SovereignChart.svg.remove();
+                SovereignChart.init();
+                NeuroMatrix.init();
+            });
+
+            console.log("Panopticon Online. Waiting for triggers...");
+
+            // Rastgele aralıklarla (2-6 saniye) bir "Kill-Shot" üret
+            const killLoop = () => {
+                const originalPrice = 280 + Math.floor(Math.random() * 200);
+                const isHeavyRescue = Math.random() > 0.7; // %30 ihtimalle zorlu bir cihaz kurtarması
+                
+                const intentScore = 0.6 + (Math.random() * 0.4); // 0.6 ile 1.0 arası
+                const dropRatio = isHeavyRescue ? 1.5 + Math.random() : 0.8 + Math.random() * 0.2;
+                
+                // Kurtarılan tutar (Arbitraj farkı)
+                let securedPrice = originalPrice;
+                let actionTaken = 'SEAMLESS_CHECKOUT';
+                
+                if (intentScore > 0.85 && dropRatio > 1.2) {
+                    // Paha biçilemez bir pivot anı
+                    securedPrice = Math.floor(originalPrice * 0.85); // %15 Fiyat tırpanlama ile satışı kurtar
+                    actionTaken = 'AURA_FADE & PRICE_BEND';
+                } else if (dropRatio > 1.5) {
+                    actionTaken = 'KINETIC_LOCK_SECURED';
+                }
+
+                const arbitrageValue = originalPrice - securedPrice;
+
+                const mockData = {
+                    diagnostics: { intent: intentScore, drop_ratio: dropRatio },
+                    sovereign_response: { action_taken: actionTaken },
+                    roi: { original_price: originalPrice, secured_price: securedPrice, arbitrage_value: arbitrageValue }
+                };
+
+                // Tüm Panopticon sistemlerini ateşle
+                if (arbitrageValue > 0 || dropRatio > 1.2) {
+                    SovereignChart.inject(arbitrageValue > 0 ? arbitrageValue : 10, intentScore); // Grafik hareketi
+                    NeuroMatrix.flashKill(intentScore); // Isı Haritası
+                    TerminalUI.log(mockData); // Terminal Log
+                } else {
+                    // Standart satışlarda grafiği 0 kaydır (sessizlik)
+                    SovereignChart.inject(0, intentScore);
+                }
+
+                // Bir sonraki vuruş
+                setTimeout(killLoop, 2000 + Math.random() * 4000);
+            };
+
+            // Simülasyonu başlat
+            setTimeout(killLoop, 1500);
+        });
+
+    </script>
+</body>
+</html>

@@ -85,7 +85,7 @@ function getFiles(dir, base = dir) {
                 entry.name.endsWith('.zip') ||
                 entry.name.endsWith('.rar') ||
                 entry.name.endsWith('.log') ||
-                entry.name.endsWith('.json') && entry.name !== 'manifest.json' && !fullPath.includes('assets\\data') && !fullPath.includes('assets/data') || // Allow data json
+                entry.name.endsWith('.json') && entry.name !== 'manifest.json' && !fullPath.includes('assets\\data') && !fullPath.includes('assets/data') && !fullPath.includes('\\data') && !fullPath.includes('/data') || // Allow data json
                 entry.name === 'package.json' ||
                 entry.name === 'package-lock.json' ||
                 entry.name === 'cf-deploy.mjs' ||

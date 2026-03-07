@@ -123,8 +123,8 @@
 
   <form action="/admin/login" method="POST" autocomplete="on">
     <div class="input-group">
-      <label for="username">Kullanıcı Adı</label>
-      <input id="username" name="username" placeholder="admin" required type="text" autocomplete="username"/>
+      <label for="username">Kullanıcı Adı (E-posta)</label>
+      <input id="username" name="username" placeholder="admin@santis.com" required type="text" autocomplete="username"/>
     </div>
     <div class="input-group">
       <label for="password">Şifre</label>
@@ -142,6 +142,61 @@
   if (window.location.search.includes("error=1")) {
     document.getElementById("error").style.display = "block";
   }
+
+  document.querySelector('form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorBox = document.getElementById('error');
+      const btn = document.querySelector('button[type="submit"]');
+      
+      errorBox.style.display = 'none';
+      btn.textContent = 'Giriş Yapılıyor...';
+      btn.disabled = true;
+
+      try {
+          const body = new URLSearchParams();
+          
+          // Auto-resolution for 'admin' username
+          let finalUsername = username;
+          if (finalUsername.toLowerCase() === 'admin') {
+              finalUsername = 'admin@santis.com';
+          }
+
+          body.append('username', finalUsername);
+          body.append('password', password);
+
+          const res = await fetch('/api/v1/auth/login', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              body: body
+          });
+
+          if (res.ok) {
+              const data = await res.json();
+              localStorage.setItem('santis_token', data.access_token);
+              if (data.tenant_id) {
+                  localStorage.setItem('tenant_id', data.tenant_id);
+              }
+              // Store user/tenant info if available, or just redirect
+              window.location.href = '/admin/index.html';
+          } else {
+              errorBox.style.display = 'block';
+              errorBox.textContent = 'Kullanıcı adı veya şifre hatalı';
+              btn.textContent = 'Giriş Yap';
+              btn.disabled = false;
+          }
+      } catch (err) {
+          console.error('Login error:', err);
+          errorBox.style.display = 'block';
+          errorBox.textContent = 'Sunucu bağlantı hatası!';
+          btn.textContent = 'Giriş Yap';
+          btn.disabled = false;
+      }
+  });
 </script>
 </body>
 </html>

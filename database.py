@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import declarative_base, sessionmaker
-from sqlalchemy import Column, Integer, String, Boolean, JSON, DateTime, Text
+from sqlalchemy import Column, Integer, String, Boolean, JSON, DateTime, Text, UniqueConstraint, Index
 from datetime import datetime
 import os
 
@@ -54,6 +54,34 @@ class AuditLog(Base):
     details = Column(String)
     ip_address = Column(String, nullable=True)
     timestamp = Column(DateTime, default=datetime.utcnow)
+
+class ContentRegistry(Base):
+    __tablename__ = "content_registry"
+    id = Column(String, primary_key=True, index=True)
+    slug = Column(String, index=True)
+    region = Column(String, index=True)
+    locale = Column(String)
+    active_hash = Column(String)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        UniqueConstraint('slug', 'region', 'locale', name='_slug_region_locale_uc'),
+    )
+
+class ContentAuditLog(Base):
+    __tablename__ = "content_audit_log"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    slug = Column(String)
+    region = Column(String)
+    actor = Column(String)
+    action = Column(String)
+    hash = Column(String)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index('idx_slug_region_audit', 'slug', 'region'),
+    )
 
 # --- INIT ---
 async def init_db():

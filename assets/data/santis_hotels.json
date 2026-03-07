@@ -1,0 +1,32 @@
+{
+    "lara-family": {
+        "name": "Lara Family Resort",
+        "type": "family",
+        "city": "Antalya"
+    },
+    "budva-adult": {
+        "name": "Budva Luxury Spa",
+        "type": "adult",
+        "city": "Montenegro"
+    },
+    "akra": {
+        "name": "Akra Hotel",
+        "type": "luxury",
+        "city": "Antalya"
+    },
+    "santis_hq": {
+        "name": "Santis Club HQ",
+        "type": "luxury",
+        "city": "Istanbul"
+    },
+    "tenant_santis": {
+        "name": "Santis Sovereign Retreat",
+        "type": "luxury",
+        "city": "Istanbul"
+    },
+    "tenant_aman": {
+        "name": "Aman Spa",
+        "type": "luxury",
+        "city": "Tokyo"
+    }
+}

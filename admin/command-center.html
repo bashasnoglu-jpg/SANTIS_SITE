@@ -1,22 +1,25 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santis Integrated Command Center</title>
-    <!-- Tailwind Warning Suppressor -->
-    <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Santis Integrated Command Center</title>
+<!-- Tailwind Warning Suppressor -->
+<script>
         const originalWarn = console.warn;
         console.warn = function(...args) {
             if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return;
             originalWarn.apply(console, args);
         };
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- Blurhash Web Library for Soft Previews -->
-    <script src="https://cdn.jsdelivr.net/npm/blurhash@1.1.5/blurhash.js"></script>
-    <style>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Blurhash Web Library for Soft Previews -->
+<script src="https://cdn.jsdelivr.net/npm/blurhash@1.1.5/blurhash.js"></script>
+<!-- Phase 44: ECharts Omnipotence -->
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
         body {
             background-color: #050505;
             color: #d1d5db;
@@ -66,497 +69,1190 @@
         }
         @keyframes slideIn {
             to { opacity: 1; transform: translateX(0); }
+        /* -------------------------------------
+         * PHASE 43 + 52: SOVEREIGN MATRIX ENGINE (Liquid Absolute)
+         * ------------------------------------- */
+        #asset-matrix {
+            position: relative;
+            width: 100%;
+            transition: height 0.3s ease-in-out;
+            min-height: 200px;
+        }
+
+        /* Asset Card Container Styling */
+        .matrix-asset-card {
+            background: rgba(17, 24, 39, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        
+        .matrix-asset-card:hover {
+            border-color: rgba(201, 169, 110, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        /* Enforce Fixed Aspect Ratio for Asset Images */
+        .matrix-asset-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0,0,0,0.5);
+        }
+
+        /* ── PANEL RESIZERS ───────────────────────────────────── */
+        .cc-resizer {
+            width: 6px;
+            flex-shrink: 0;
+            cursor: col-resize;
+            border-radius: 3px;
+            background: transparent;
+            transition: background 0.2s;
+            position: relative;
+            z-index: 20;
+        }
+        .cc-resizer:hover,
+        .cc-resizer.dragging {
+            background: rgba(201, 169, 110, 0.35);
+            box-shadow: 0 0 8px rgba(201, 169, 110, 0.2);
+        }
+        .cc-resizer::after {
+            content: '';
+            position: absolute;
+            inset: 0 -4px;
         }
 
         /* -------------------------------------
-         * PHASE 43: MATRIX HYPER-DENSITY
+         * LIVE INTENT RADAR VUE ANIMATIONS
          * ------------------------------------- */
-        #asset-matrix {
-            /* Liquid Auto-Fill Grid */
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        }
+        .list-enter-active, .list-leave-active { transition: all 0.5s ease; }
+        .list-enter-from { opacity: 0; transform: translateX(-30px); }
+        .list-leave-to { opacity: 0; transform: translateX(30px); }
+        .sovereign-flash-enter-active, .sovereign-flash-leave-active { transition: opacity 0.4s ease, transform 0.4s ease; }
+        .sovereign-flash-enter-from, .sovereign-flash-leave-to { opacity: 0; transform: scale(0.9); }
         
+        .radar-stats-row { display: flex; gap: 10px; margin-bottom: 10px; }
+        .stat-card { flex: 1; background: rgba(17,24,39,0.5); border: 1px solid rgba(31,41,55,1); border-radius: 8px; padding: 10px; text-align: center; }
+        .stat-card h4 { font-size: 8px; text-transform: uppercase; color: #6b7280; letter-spacing: 1px; margin-bottom: 4px; }
+        .stat-card .stat-value { font-size: 18px; font-weight: bold; font-family: monospace; color: white; }
+        .stat-card.highlight-gold { border-color: rgba(212,175,55,0.3); box-shadow: 0 0 10px rgba(212,175,55,0.05); }
+        .stat-card.highlight-gold .stat-value { color: #D4AF37; }
+        .stat-card.alert-red { border-color: rgba(239,68,68,0.3); box-shadow: 0 0 10px rgba(239,68,68,0.05); }
+        .stat-card.alert-red .stat-value { color: #ef4444; }
+
+        .tier-surge { border-left: 2px solid #ef4444; background: rgba(239,68,68,0.1); box-shadow: 0 0 10px rgba(239,68,68,0.2); }
+        .tier-rescue { border-left: 2px solid #D4AF37; background: rgba(212,175,55,0.1); box-shadow: 0 0 10px rgba(212,175,55,0.2); }
+        .tier-observe { border-left: 2px solid #1f2937; background: rgba(17,24,39,0.5); }
+
+        .sovereign-alert-banner {
+            position: absolute; inset: 0; z-index: 50;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+            border: 2px solid #D4AF37; border-radius: 12px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            box-shadow: 0 0 50px rgba(212,175,55,0.5);
+            text-align: center; color: #D4AF37; padding: 20px;
+        }
+
+        /* PANEL COLLAPSE PHYSICS */
+        #cc-panel-left.collapsed, #cc-panel-right.collapsed {
+            width: 0 !important;
+            min-width: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            margin: 0 !important;
+            opacity: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        /* RESTORE BUTTONS */
+        .panel-restore-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 40;
+            background: rgba(17, 24, 39, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #D4AF37;
+            padding: 12px 4px;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .panel-restore-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            color: #fff;
+        }
+        .panel-restore-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #restore-left-btn { left: 0; border-radius: 0 8px 8px 0; border-left: none; }
+        #restore-right-btn { right: 0; border-radius: 8px 0 0 8px; border-right: none; }
     </style>
 </head>
-<body class="h-screen w-screen flex flex-col relative">
-    
-    <!-- HEADER -->
-    <header class="h-16 border-b border-gray-800 bg-black/95 flex items-center justify-between px-6 z-10 shrink-0">
-        <div class="flex items-center gap-4">
-            <h1 class="heading-font text-xl font-bold tracking-widest text-white">SANTIS <span class="text-santis-gold font-normal text-sm ml-1">COMMAND CENTER</span></h1>
-            <div class="px-2 py-0.5 bg-gray-900 border border-gray-800 rounded text-[10px] text-gray-500 font-mono tracking-widest uppercase">
+<body class="h-screen w-screen relative">
+<div class="h-full w-full flex flex-col" id="app">
+<!-- HEADER: Glassmorphism Upgraded -->
+<header class="h-16 border-b border-gray-800/60 bg-black/50 backdrop-blur-xl flex items-center justify-between px-6 z-10 shrink-0 shadow-lg">
+<div class="flex items-center gap-4">
+<h1 class="heading-font text-xl font-bold tracking-widest text-white">SANTIS <span class="text-santis-gold font-normal text-sm ml-1">COMMAND CENTER</span></h1>
+<div class="px-2 py-0.5 bg-gray-900/50 border border-gray-800/50 rounded text-[10px] text-gray-400 font-mono tracking-widest uppercase shadow-inner">
                 The Sovereign View
             </div>
-        </div>
-        <div class="flex items-center gap-4 text-xs font-mono text-gray-500">
-            <button onclick="fetchAssets()" class="hover:text-white transition">⟳ Sync Matrix</button>
-            <div class="w-8 h-8 rounded border border-gray-700 flex items-center justify-center text-santis-gold pb-1 cursor-pointer hover:bg-gray-800 transition" onclick="window.location.href='/admin/index.html'">⎈</div>
-        </div>
-    </header>
-
-    <!-- 3-COLUMN MAIN LAYOUT -->
-    <main class="flex-1 flex overflow-hidden p-4 gap-4 bg-[#0a0a0a]">
-        
-        <!-- COLUMN 1: VISUAL INGESTION UNIT -->
-        <section class="w-80 min-w-[320px] shrink-0 flex flex-col gap-4 overflow-y-auto custom-scroll pr-2 pb-2">
-            <div class="min-h-[480px] shrink-0 bg-black border border-gray-800 rounded-xl p-5 flex flex-col shadow-2xl relative overflow-hidden">
-                <h2 class="text-xs font-bold tracking-widest uppercase text-gray-400 mb-4 flex justify-between items-center">
-                    Visual Ingestion
-                    <span class="text-[9px] text-gray-600 font-mono">Smart Upload</span>
-                </h2>
-                
-                <!-- Drag Drop Zone -->
-                <div id="drop-zone" class="flex-1 border-2 border-dashed border-gray-700 bg-gray-900/30 rounded-lg flex flex-col items-center justify-center text-center p-6 cursor-pointer hover-santis-gold transition-colors group">
-                    <div class="w-12 h-12 rounded-full bg-gray-800 group-hover:bg-santis-gold/20 flex items-center justify-center mb-4 transition-colors">
-                        <span class="text-2xl text-gray-500 group-hover:text-santis-gold mb-1">↑</span>
-                    </div>
-                    <p class="text-sm font-medium text-white mb-2">Drag & Drop Image</p>
-                    <p class="text-[10px] text-gray-500 font-mono">WEBP, JPG, PNG (Max 5MB)</p>
-                    <input type="file" id="file-input" class="hidden" accept="image/*" />
-                </div>
-
-                <!-- Preview & Mapping Panel (Hidden by default) -->
-                <div id="upload-panel" class="hidden absolute inset-0 bg-black/95 backdrop-blur-md p-5 flex flex-col z-20">
-                    <h3 class="text-xs font-bold tracking-widest uppercase text-santis-gold mb-4 border-b border-gray-800 pb-2">Asset Mapping</h3>
-                    
-                    <div class="h-32 bg-gray-900 rounded-md border border-gray-800 mb-4 overflow-hidden flex items-center justify-center relative">
-                        <!-- Progress Overlay -->
-                        <div id="upload-progress" class="hidden absolute inset-0 bg-black/80 z-10 flex flex-col items-center justify-center">
-                            <div class="w-8 h-8 rounded-full border-2 border-santis-gold border-t-transparent animate-spin mb-2"></div>
-                            <span class="text-[10px] text-santis-gold font-mono uppercase tracking-widest">Ingesting...</span>
-                        </div>
-                        <img decoding="async" loading="lazy" id="preview-img" src="" class="max-h-full max-w-full object-contain" />
-                    </div>
-                    
-                    <div class="space-y-3 flex-1 overflow-y-auto custom-scroll pr-1">
-                        <div>
-                            <label class="block text-[10px] text-gray-500 font-mono mb-1">Visual Category</label>
-                            <select id="map-category" class="w-full bg-gray-900 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold">
-                                <option value="hamam">Hamam / Thermal</option>
-                                <option value="masaj">Massage / Recovery</option>
-                                <option value="cilt">Skincare / Aesthetic</option>
-                                <option value="diger">General / Hotel</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] text-gray-500 font-mono mb-1">Target Slot (Page Position)</label>
-                            <select id="map-slot" class="w-full bg-gray-900 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold font-mono">
-                                <option value="">— Sadece Galeri (Slot Yok) —</option>
-                                <optgroup label="🏠 Ana Sayfa">
-                                    <option value="card-hamam">Ana Sayfa → Hamam Kartı</option>
-                                    <option value="card-masaj">Ana Sayfa → Masaj Kartı</option>
-                                    <option value="card-cilt">Ana Sayfa → Cilt Bakımı Kartı</option>
-                                    <option value="card-atolye">Ana Sayfa → Atölye Kartı</option>
-                                    <option value="philosophy-hero">Ana Sayfa → Felsefe Görseli</option>
-                                </optgroup>
-                                <optgroup label="🧖 Hamam Sayfaları">
-                                    <option value="osmanli-ritueli">Osmanlı Hamam Geleneği</option>
-                                    <option value="kese-ve-kopuk-masaji">Kese & Köpük Masajı</option>
-                                    <option value="kopuk-masaji">Köpük Masajı</option>
-                                    <option value="tuz-peeling">Tuz Peeling</option>
-                                    <option value="kahve-peeling">Kahve Peeling</option>
-                                    <option value="bal-masaji">Bal Masajı</option>
-                                    <option value="cikolata-bakimi">Çikolata Bakımı</option>
-                                    <option value="yosun-bakimi">Yosun Bakımı</option>
-                                    <option value="santis-pasa">Santis Paşa</option>
-                                </optgroup>
-                                <optgroup label="💆 Masaj Sayfaları">
-                                    <option value="klasik-masaj">Klasik Masaj</option>
-                                    <option value="aromaterapi-masaji">Aromaterapi Masajı</option>
-                                    <option value="derin-doku-masaji">Derin Doku Masajı</option>
-                                    <option value="sicak-tas-masaji">Sıcak Taş Masajı</option>
-                                    <option value="thai-masaji">Thai Masajı</option>
-                                    <option value="anti-stress-masaji">Anti-Stres Masajı</option>
-                                    <option value="spor-terapi">Spor Terapi</option>
-                                    <option value="signature-rituel">Signature Ritüel</option>
-                                </optgroup>
-                                <optgroup label="🌿 Cilt Bakımı Sayfaları">
-                                    <option value="classic-facial">Classic Facial</option>
-                                    <option value="anti-aging-pro">Anti-Aging Pro</option>
-                                    <option value="hyaluron-hydrate">Hyaluron Hydrate</option>
-                                    <option value="gold-mask-ritual">Gold Mask Ritual</option>
-                                    <option value="collagen-lift">Collagen Lift</option>
-                                    <option value="glass-skin">Glass Skin</option>
-                                    <option value="deep-cleanse">Deep Cleanse</option>
-                                    <option value="vitamin-c-glow">Vitamin C Glow</option>
-                                </optgroup>
-                            </select>
-                            <p class="text-[9px] text-gray-600 mt-1">Görselin otomatik yerleşeceği sayfa pozisyonunu seçin.</p>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] text-gray-500 font-mono mb-1">Bind to Service ID (Optional)</label>
-                            <input type="text" id="map-service-id" placeholder="e.g. srv-hamam-vip" class="w-full bg-gray-900 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold font-mono">
-                            <p class="text-[9px] text-gray-600 mt-1">Phase J/O entegrasyonu için servis bağlantısı.</p>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] text-gray-500 font-mono mb-1">Tagline (TR)</label>
-                            <input type="text" id="map-caption" placeholder="The Purification Ritual" class="w-full bg-gray-900 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold">
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4 flex gap-2 pt-3 border-t border-gray-800">
-                        <button onclick="cancelUpload()" class="flex-1 py-2 text-xs text-gray-400 hover:text-white border border-gray-700 hover:bg-gray-800 rounded transition font-mono">Cancel</button>
-                        <button id="btn-ingest" onclick="executeIngestion()" class="flex-1 py-2 text-xs text-black bg-santis-gold hover:bg-amber-400 font-bold rounded transition font-mono">INGEST ASSET</button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- CYBER-WARFARE SHIELD (STRESS MONITOR) Phase 42 -->
-            <div id="chaos-shield-panel" class="h-40 shrink-0 bg-black border border-red-900/40 rounded-xl p-4 flex flex-col shadow-[0_0_20px_rgba(220,38,38,0.05)] relative overflow-hidden group transition-all duration-500">
-                <div class="absolute inset-0 bg-[radial-gradient(circle_at_left,rgba(220,38,38,0.1),transparent)] pointer-events-none" id="chaos-bg-pulse"></div>
-                
-                <div class="flex justify-between items-center mb-3 relative z-10">
-                    <h2 class="text-[10px] font-bold tracking-widest uppercase text-red-500 flex items-center gap-2">
-                        <span id="shield-led" class="w-2 h-2 rounded-full bg-red-600 animate-pulse shadow-[0_0_8px_#dc2626]"></span>
+</div>
+<div class="flex items-center gap-4 text-xs font-mono text-gray-500">
+<button class="hover:text-white transition" onclick="fetchAssets()">⟳ Sync Matrix</button>
+<div class="w-8 h-8 rounded border border-gray-700/50 bg-gray-900/30 backdrop-blur flex items-center justify-center text-santis-gold pb-1 cursor-pointer hover:bg-gray-800 transition" onclick="window.location.href='/admin/index.html'">⎈</div>
+</div>
+</header>
+<!-- 3-COLUMN MAIN LAYOUT -->
+<!-- Added subtle background texture image for full luxury command mode (Glass basis) -->
+<main class="flex-1 flex overflow-hidden p-4 gap-4 bg-[#0a0a0a] bg-[url('/assets/img/gallery/hero-general.webp')] bg-cover bg-center bg-fixed relative">
+<div class="absolute inset-0 bg-black/80 z-0"></div> <!-- Dimmer overlay for text contrast -->
+<!-- RESTORE BUTTONS (Hidden by default) -->
+<button class="panel-restore-btn" id="restore-left-btn" onclick="togglePanel('left')" title="Visual Ingestion'ı Aç">
+<span class="text-xs">▶</span>
+</button>
+<button class="panel-restore-btn" id="restore-right-btn" onclick="togglePanel('right')" title="Pulse Stream'i Aç">
+<span class="text-xs">◀</span>
+</button>
+<!-- COLUMN 1: VISUAL INGESTION UNIT -->
+<!-- Adding z-10 for the relative content over absolute dimmer overlay -->
+<section class="shrink-0 flex flex-col gap-4 overflow-y-auto custom-scroll pr-2 pb-48 relative z-10 transition-all duration-300" id="cc-panel-left" style="width:320px;min-width:180px;max-width:520px;">
+<div class="min-h-[480px] shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl p-5 flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.5)] relative overflow-hidden transition-all">
+<h2 class="w-full text-xs font-bold tracking-widest uppercase text-gray-400 mb-4 flex justify-between items-center group">
+<div class="flex items-center gap-2">
+                        Visual Ingestion
+                        <button class="opacity-0 group-hover:opacity-100 transition-opacity text-gray-500 hover:text-santis-gold" onclick="togglePanel('left')" title="Daralt/Genişlet">◄</button>
+</div>
+<span class="text-[9px] text-gray-600 font-mono">Smart Upload</span>
+</h2>
+<!-- Drag Drop Zone -->
+<div class="flex-1 border-2 border-dashed border-gray-700 bg-gray-900/30 rounded-lg flex flex-col items-center justify-center text-center p-6 cursor-pointer hover-santis-gold transition-colors group" id="drop-zone">
+<div class="w-12 h-12 rounded-full bg-gray-800 group-hover:bg-santis-gold/20 flex items-center justify-center mb-4 transition-colors">
+<span class="text-2xl text-gray-500 group-hover:text-santis-gold mb-1">↑</span>
+</div>
+<p class="text-sm font-medium text-white mb-2">Drag &amp; Drop Image</p>
+<p class="text-[10px] text-gray-500 font-mono">WEBP, JPG, PNG (Max 5MB)</p>
+<input accept="image/*" class="hidden" id="file-input" type="file"/>
+</div>
+<!-- Preview & Mapping Panel (Hidden by default) -->
+<div class="hidden absolute inset-0 bg-black/95 backdrop-blur-md p-5 flex flex-col z-20" id="upload-panel">
+<h3 class="text-xs font-bold tracking-widest uppercase text-santis-gold mb-4 border-b border-gray-800 pb-2">Asset Mapping</h3>
+<div class="h-32 bg-gray-900 rounded-md border border-gray-800 mb-4 overflow-hidden flex items-center justify-center relative">
+<!-- Progress Overlay -->
+<div class="hidden absolute inset-0 bg-black/80 z-10 flex flex-col items-center justify-center" id="upload-progress">
+<div class="w-8 h-8 rounded-full border-2 border-santis-gold border-t-transparent animate-spin mb-2"></div>
+<span class="text-[10px] text-santis-gold font-mono uppercase tracking-widest">Ingesting...</span>
+</div>
+<img alt="Santis Club Experience - Premium View" class="max-h-full max-w-full object-contain" decoding="async" id="preview-img" loading="lazy" src=""/>
+</div>
+<div class="space-y-3 flex-1 overflow-y-auto custom-scroll pr-1">
+<div>
+<label class="block text-[10px] text-gray-500 font-mono mb-1">Visual Category</label>
+<select class="w-full bg-gray-900 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold" id="map-category">
+<option value="hamam">Hammam / Thermal</option>
+<option value="masaj">Massage / Recovery</option>
+<option value="cilt">Skincare / Aesthetic</option>
+<option value="diger">General / Hotel</option>
+</select>
+</div>
+<div>
+<label class="block text-[10px] text-gray-500 font-mono mb-1">Target Slot (Page Position)</label>
+<select class="w-full bg-gray-900 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold font-mono" id="map-slot">
+<option value="">— Sadece Galeri (Slot Yok) —</option>
+<optgroup label="🏠 Ana Sayfa">
+<option value="card-hamam">Ana Sayfa → Hamam Kartı</option>
+<option value="card-masaj">Ana Sayfa → Masaj Kartı</option>
+<option value="card-cilt">Ana Sayfa → Cilt Bakımı Kartı</option>
+<option value="card-atolye">Ana Sayfa → Atölye Kartı</option>
+<option value="philosophy-hero">Ana Sayfa → Felsefe Görseli</option>
+</optgroup>
+<optgroup label="🧖 Hamam Sayfaları">
+<option value="osmanli-ritueli">Osmanlı Hamam Geleneği</option>
+<option value="kese-ve-kopuk-masaji">Kese &amp; Köpük Masajı</option>
+<option value="kopuk-masaji">Köpük Masajı</option>
+<option value="tuz-peeling">Tuz Peeling</option>
+<option value="kahve-peeling">Kahve Peeling</option>
+<option value="bal-masaji">Bal Masajı</option>
+<option value="cikolata-bakimi">Çikolata Bakımı</option>
+<option value="yosun-bakimi">Yosun Bakımı</option>
+<option value="santis-pasa">Santis Paşa</option>
+</optgroup>
+<optgroup label="💆 Masaj Sayfaları">
+<option value="klasik-masaj">Klasik Masaj</option>
+<option value="aromaterapi-masaji">Aromaterapi Masajı</option>
+<option value="derin-doku-masaji">Derin Doku Masajı</option>
+<option value="sicak-tas-masaji">Sıcak Taş Masajı</option>
+<option value="thai-masaji">Thai Masajı</option>
+<option value="anti-stress-masaji">Anti-Stres Masajı</option>
+<option value="spor-terapi">Spor Terapi</option>
+<option value="signature-rituel">Signature Ritüel</option>
+</optgroup>
+<optgroup label="🌿 Cilt Bakımı Sayfaları">
+<option value="classic-facial">Classic Facial</option>
+<option value="anti-aging-pro">Anti-Aging Pro</option>
+<option value="hyaluron-hydrate">Hyaluron Hydrate</option>
+<option value="gold-mask-ritual">Gold Mask Ritual</option>
+<option value="collagen-lift">Collagen Lift</option>
+<option value="glass-skin">Glass Skin</option>
+<option value="deep-cleanse">Deep Cleanse</option>
+<option value="vitamin-c-glow">Vitamin C Glow</option>
+</optgroup>
+</select>
+<p class="text-[9px] text-gray-600 mt-1">Görselin otomatik yerleşeceği sayfa pozisyonunu seçin.</p>
+</div>
+<div>
+<label class="block text-[10px] text-gray-500 font-mono mb-1">Bind to Service ID (Optional)</label>
+<input class="w-full bg-gray-900 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold font-mono" id="map-service-id" placeholder="e.g. srv-hamam-vip" type="text"/>
+<p class="text-[9px] text-gray-600 mt-1">Phase J/O entegrasyonu için servis bağlantısı.</p>
+</div>
+<div>
+<label class="block text-[10px] text-gray-500 font-mono mb-1">Tagline (TR)</label>
+<input class="w-full bg-gray-900 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold" id="map-caption" placeholder="The Purification Ritual" type="text"/>
+</div>
+</div>
+<div class="mt-4 flex gap-2 pt-3 border-t border-gray-800">
+<button class="flex-1 py-2 text-xs text-gray-400 hover:text-white border border-gray-700 hover:bg-gray-800 rounded transition font-mono" onclick="cancelUpload()">Cancel</button>
+<button class="flex-1 py-2 text-xs text-black bg-santis-gold hover:bg-amber-400 font-bold rounded transition font-mono" id="btn-ingest" onclick="executeIngestion()">INGEST ASSET</button>
+</div>
+</div>
+</div>
+<!-- CYBER-WARFARE SHIELD (STRESS MONITOR) Phase 42 -->
+<div class="h-40 shrink-0 bg-black/40 backdrop-blur-md border border-red-900/40 rounded-xl p-4 flex flex-col shadow-[0_8px_30px_rgba(220,38,38,0.05)] relative overflow-hidden group transition-all duration-500" id="chaos-shield-panel">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_left,rgba(220,38,38,0.1),transparent)] pointer-events-none" id="chaos-bg-pulse"></div>
+<div class="flex justify-between items-center mb-3 relative z-10">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-red-500 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-red-600 animate-pulse shadow-[0_0_8px_#dc2626]" id="shield-led"></span>
                         Cyber Shield (Sentinel)
                     </h2>
-                    <span class="text-[9px] text-gray-600 font-mono focus-ring">PHASE 42</span>
-                </div>
-                
-                <div class="grid grid-cols-2 gap-2 flex-1 relative z-10">
-                    <div class="bg-gray-900/60 rounded border border-gray-800 p-2 text-center flex flex-col justify-center">
-                        <div class="text-[7px] text-gray-500 uppercase tracking-widest mb-1">Cross-Tenant Attacks</div>
-                        <div id="chaos-blocked" class="text-red-500 font-bold text-xl font-mono">0</div>
-                        <div class="text-[6px] text-gray-600 uppercase mt-1">403 Blocked (RLS)</div>
-                    </div>
-                    
-                    <div class="bg-gray-900/60 rounded border border-gray-800 p-2 text-center flex flex-col justify-center">
-                        <div class="text-[7px] text-gray-500 uppercase tracking-widest mb-1">Surge Spike Load</div>
-                        <div id="chaos-load" class="text-santis-gold font-bold text-xl font-mono">1.0x</div>
-                        <div class="text-[6px] text-gray-600 uppercase mt-1">Network Stress</div>
-                    </div>
-                </div>
-                
-                <div class="mt-2 text-[8px] text-gray-500 font-mono flex justify-between relative z-10">
-                    <span>Status: <span id="chaos-status" class="text-emerald-500">SECURE</span></span>
-                    <button onclick="triggerFlashSurgeUI()" class="text-gray-400 hover:text-white underline decoration-gray-700 underline-offset-2">Simulate Chaos</button>
-                </div>
-            </div>
-            
-            <!-- SHADOW MODE LOG -->
-            <div class="h-48 shrink-0 bg-black border border-gray-800 rounded-xl p-4 flex flex-col shadow-2xl relative overflow-hidden">
-                 <div class="absolute inset-0 bg-blue-900/5 pointer-events-none"></div>
-                 <div class="flex justify-between items-center mb-3">
-                     <h2 class="text-[10px] font-bold tracking-widest uppercase text-blue-400 flex items-center gap-2">
-                         <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+<span class="text-[9px] text-gray-600 font-mono focus-ring">PHASE 42</span>
+</div>
+<div class="grid grid-cols-2 gap-2 flex-1 relative z-10">
+<div class="bg-gray-900/60 rounded border border-gray-800 p-2 text-center flex flex-col justify-center">
+<div class="text-[7px] text-gray-500 uppercase tracking-widest mb-1">Cross-Tenant Attacks</div>
+<div class="text-red-500 font-bold text-xl font-mono" id="chaos-blocked">0</div>
+<div class="text-[6px] text-gray-600 uppercase mt-1">403 Blocked (RLS)</div>
+</div>
+<div class="bg-gray-900/60 rounded border border-gray-800 p-2 text-center flex flex-col justify-center">
+<div class="text-[7px] text-gray-500 uppercase tracking-widest mb-1">Surge Spike Load</div>
+<div class="text-santis-gold font-bold text-xl font-mono" id="chaos-load">1.0x</div>
+<div class="text-[6px] text-gray-600 uppercase mt-1">Network Stress</div>
+</div>
+</div>
+<div class="mt-2 text-[8px] text-gray-500 font-mono flex justify-between relative z-10">
+<span>Status: <span class="text-emerald-500" id="chaos-status">SECURE</span></span>
+<button class="text-gray-400 hover:text-white underline decoration-gray-700 underline-offset-2" onclick="triggerFlashSurgeUI()">Simulate Chaos</button>
+</div>
+</div>
+<!-- SHADOW MODE LOG -->
+<div class="h-48 shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl p-4 flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.5)] relative overflow-hidden">
+<div class="absolute inset-0 bg-blue-900/5 pointer-events-none"></div>
+<div class="flex justify-between items-center mb-3">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-blue-400 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
                          Intelligence Log
                      </h2>
-                     <span class="text-[9px] text-gray-600 font-mono">SHADOW MODE</span>
-                 </div>
-                 
-                 <div id="shadow-log-feed" class="flex-1 overflow-y-auto custom-scroll space-y-2 font-mono text-[9px] leading-tight pr-1">
-                     <div class="text-center text-gray-700 mt-10 animate-pulse">Awaiting Sovereign Judgments...</div>
-                 </div>
-            </div>
-
-            <!-- AI REVENUE BRAIN -->
-            <div class="h-56 shrink-0 bg-black border border-gray-800 rounded-xl p-4 flex flex-col shadow-2xl">
-                <h2 class="text-[10px] font-bold tracking-widest uppercase text-gray-500 mb-3 flex items-center gap-2">
-                    <span class="text-santis-gold">🧠</span> AI Revenue Brain
+<span class="text-[9px] text-gray-600 font-mono">SHADOW MODE</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scroll space-y-2 font-mono text-[9px] leading-tight pr-1" id="shadow-log-feed">
+<transition-group name="list" tag="div">
+<div :key="log.id" class="border-l-2 border-santis-gold pl-2 mb-2 rounded bg-gray-900/30 p-1" v-for="log in shadowLogFeed">
+<!-- WebSocket Black Room Event -->
+<template v-if="log.timestamp">
+<div class="text-santis-gold font-bold">🎯 TARGET ACQUIRED [{{ log.timestamp }}]</div>
+<div class="text-gray-400">Score: <span class="text-white">{{ log.score }}</span> | Identity: <span class="text-white">{{ log.identity }}</span></div>
+<div class="text-emerald-500 font-mono text-[8px]">Deployed SKU: {{ log.sku }} (€{{ log.price }})</div>
+</template>
+<!-- Integrated Hub Custom Event -->
+<template v-else-if="log.html">
+<div v-html="log.html"></div>
+</template>
+</div>
+</transition-group>
+<div class="text-center text-gray-700 mt-10 animate-pulse" v-if="shadowLogFeed.length === 0">Awaiting Sovereign Judgments...</div>
+</div>
+</div>
+<!-- AI REVENUE BRAIN -->
+<div class="h-56 shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl p-4 flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-gray-500 mb-3 flex items-center gap-2">
+<span class="text-santis-gold">🧠</span> AI Revenue Brain
                 </h2>
-                <div class="space-y-2.5 font-mono text-xs" id="ai-brain-data">
-                    <div class="flex justify-between items-center"><span class="text-gray-500">Forecast</span><span id="ai-recommendation" class="text-gray-400">—</span></div>
-                    <div class="flex justify-between items-center"><span class="text-gray-500">Tomorrow</span><span id="ai-forecast" class="text-gray-400">—</span></div>
-                    <div class="flex justify-between items-center"><span class="text-gray-500">Occupancy</span><span id="ai-occupancy" class="text-gray-400">—</span></div>
-                    <div class="flex justify-between items-center"><span class="text-gray-500">Revenue Velocity</span><span id="ai-velocity" class="text-santis-gold font-bold">—</span></div>
-                    <div class="flex justify-between items-center mt-2 pt-2 border-t border-gray-800">
-                        <span class="text-gray-500">Today Revenue</span><span id="ai-today-rev" class="text-emerald-400 font-bold">—</span>
-                    </div>
-                    <!-- Revenue Lift: How much autonomous rules generated -->
-                    <div class="flex justify-between items-center mt-1 pt-1 border-t border-yellow-900/30 bg-yellow-950/10 -mx-1 px-1 rounded">
-                        <span class="text-yellow-600 text-[9px] uppercase tracking-widest flex items-center gap-1">
-                            <span class="w-1 h-1 rounded-full bg-yellow-500 animate-pulse"></span>
+<div class="space-y-2.5 font-mono text-xs" id="ai-brain-data">
+<div class="flex justify-between items-center"><span class="text-gray-500">Forecast</span><span class="text-gray-400" id="ai-recommendation">—</span></div>
+<div class="flex justify-between items-center"><span class="text-gray-500">Tomorrow</span><span class="text-gray-400" id="ai-forecast">—</span></div>
+<div class="flex justify-between items-center"><span class="text-gray-500">Occupancy</span><span class="text-gray-400" id="ai-occupancy">—</span></div>
+<div class="flex justify-between items-center"><span class="text-gray-500">Revenue Velocity</span><span class="text-santis-gold font-bold" id="ai-velocity">—</span></div>
+<div class="flex justify-between items-center mt-2 pt-2 border-t border-gray-800">
+<span class="text-gray-500">Today Revenue</span><span class="text-emerald-400 font-bold" id="ai-today-rev">—</span>
+</div>
+<!-- Revenue Lift: How much autonomous rules generated -->
+<div class="flex justify-between items-center mt-1 pt-1 border-t border-yellow-900/30 bg-yellow-950/10 -mx-1 px-1 rounded">
+<span class="text-yellow-600 text-[9px] uppercase tracking-widest flex items-center gap-1">
+<span class="w-1 h-1 rounded-full bg-yellow-500 animate-pulse"></span>
                             Revenue Lift (Potential)
                         </span>
-                        <span id="revenue-lift-counter" class="text-santis-gold font-bold text-sm">+€0</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ⚡ CONVERSION ORACLE -->
-            <div id="oracle-widget" class="shrink-0 bg-black border border-gray-800 rounded-xl p-4 flex flex-col shadow-2xl relative overflow-hidden transition-all duration-500">
-                <div class="absolute inset-0 pointer-events-none" id="oracle-glow-bg"></div>
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-[10px] font-bold tracking-widest uppercase text-santis-gold flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-santis-gold animate-pulse"></span>
-                        Conversion Oracle
+<span class="text-santis-gold font-bold text-sm" id="revenue-lift-counter">+€0</span>
+</div>
+</div>
+</div>
+<!-- 📡 SOVEREIGN TELEMETRY & GROWTH ENGINE -->
+<div class="telemetry-widget-container shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl p-4 flex flex-col shadow-[0_8px_30px_rgba(212,175,55,0.05)] relative overflow-hidden transition-all duration-500 min-h-[300px]" id="telemetry-widget">
+<div class="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.08),transparent_60%)]" id="telemetry-glow-bg"></div>
+<div class="flex justify-between items-center mb-4 relative z-10">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-santis-gold flex items-center gap-2 drop-shadow-[0_0_5px_rgba(212,175,55,0.4)]">
+<span class="w-1.5 h-1.5 rounded-full bg-santis-gold animate-pulse shadow-[0_0_5px_#C9A96E]"></span>
+                        Learning Loop
                     </h2>
-                    <span class="text-[9px] text-gray-600 font-mono" id="oracle-glow-badge">TRACKING</span>
-                </div>
-                <div class="space-y-2 font-mono text-xs">
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-500">👁️ Impressions</span>
-                        <span id="oracle-impressions" class="text-white font-bold">0</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-500">💎 Click Rate</span>
-                        <span id="oracle-click-rate" class="text-gray-400 font-bold">0%</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-500">💰 Revenue Lift</span>
-                        <span id="oracle-revenue-lift" class="text-santis-gold font-bold">+€0</span>
-                    </div>
-                    <div class="flex justify-between items-center pt-1 border-t border-gray-800">
-                    <div class="flex justify-between items-center pt-1 border-t border-gray-800">
-                        <span class="text-gray-500">🤖 AI Accuracy</span>
-                        <span id="oracle-ai-accuracy" class="text-emerald-400 font-bold">—</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- GLOBAL EXPANSION TRACKER (Phase 48 H3) -->
-            <div id="expansion-tracker" class="shrink-0 bg-black border border-gray-800 rounded-xl p-4 flex flex-col shadow-2xl relative overflow-hidden transition-all duration-500 max-h-64">
-                <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.05),transparent)] pointer-events-none"></div>
-                
-                <div class="flex justify-between items-center mb-3 relative z-10">
-                    <h2 class="text-[10px] font-bold tracking-widest uppercase text-emerald-500 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-[9px] text-gray-500 font-mono border border-gray-800 px-1.5 py-0.5 rounded bg-gray-900/50 flex items-center gap-1" id="telemetry-status">
+<span class="w-1 h-1 rounded-full bg-emerald-500 animate-ping"></span> BEACON SYNC
+                    </span>
+</div>
+<div class="space-y-4 font-mono text-xs relative z-10">
+<!-- Live Pulse -->
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-baseline">
+<span class="text-gray-500">Live Ghost Score</span>
+<span class="text-white font-bold text-xl flex items-center gap-1 drop-shadow-[0_0_5px_rgba(255,255,255,0.3)]" id="tel-ghost-score">
+                                0 <span class="text-[8px] text-emerald-500" id="tel-ghost-arrow">—</span>
+</span>
+</div>
+<div class="w-full bg-gray-900 h-1.5 rounded-full overflow-hidden border border-gray-800">
+<div class="bg-gradient-to-r from-santis-gold/50 to-santis-gold h-full shadow-[0_0_8px_#C9A96E]" id="tel-score-bar" style="width: 0%; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+</div>
+</div>
+<!-- Rescue Success (Win Rate) -->
+<div class="flex justify-between items-center pt-3 border-t border-gray-800">
+<span class="text-gray-500">Rescue Win Rate</span>
+<div class="text-right">
+<span class="text-emerald-400 font-bold block text-sm" id="tel-win-rate">--%</span>
+<span class="text-[8px] text-gray-600" id="tel-conversions-count">0 Conversions</span>
+</div>
+</div>
+<!-- Persona Distribution -->
+<div class="pt-3 border-t border-gray-800">
+<span class="text-gray-500 text-[8px] uppercase tracking-widest mb-2 block">Active Personas (Session)</span>
+<div class="flex justify-between items-center text-[10px] group hover:bg-gray-900/40 p-1 -mx-1 rounded transition-colors">
+<span class="text-gray-400 group-hover:text-white transition-colors">Recovery Seeker</span>
+<span class="text-white font-bold" id="tel-persona-recovery">0</span>
+</div>
+<div class="flex justify-between items-center text-[10px] mt-0.5 group hover:bg-gray-900/40 p-1 -mx-1 rounded transition-colors">
+<span class="text-gray-400 group-hover:text-santis-gold transition-colors">Sovereign Guest</span>
+<span class="text-santis-gold font-bold" id="tel-persona-sovereign">0</span>
+</div>
+<div class="flex justify-between items-center text-[10px] mt-0.5 group hover:bg-gray-900/40 p-1 -mx-1 rounded transition-colors">
+<span class="text-gray-400 group-hover:text-blue-400 transition-colors">Luxury Explorer</span>
+<span class="text-blue-400 font-bold" id="tel-persona-explorer">0</span>
+</div>
+</div>
+</div>
+</div>
+<!-- GLOBAL EXPANSION TRACKER (Phase 48 H3) -->
+<div class="shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl p-4 flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.5)] relative overflow-hidden transition-all duration-500 max-h-64" id="expansion-tracker">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.05),transparent)] pointer-events-none"></div>
+<div class="flex justify-between items-center mb-3 relative z-10">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-emerald-500 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                         Global Expansion
                     </h2>
-                    <span class="text-[9px] text-gray-600 font-mono">TENANTS: 3</span>
-                </div>
-                
-                <div class="flex-1 w-full overflow-y-auto custom-scroll pr-1 relative z-10 space-y-2 pb-8">
-                    <!-- Tenant 1: Santis HQ -->
-                    <div class="group relative bg-gray-900/60 border border-gray-700/50 rounded-lg p-2.5 flex items-center justify-between hover:border-emerald-500/50 transition-all cursor-crosshair">
-                        <div class="flex items-center gap-2">
-                            <div class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_5px_#10b981] group-hover:animate-ping"></div>
-                            <div>
-                                <div class="text-[10px] text-white font-bold leading-none">Santis Global HQ</div>
-                                <div class="text-[8px] text-gray-500 font-mono mt-0.5 group-hover:text-emerald-400">Antalya, TR</div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <div class="text-[9px] text-santis-gold font-mono font-bold whitespace-nowrap">Node 0 (Master)</div>
-                            <div class="text-[8px] text-gray-500 flex items-center gap-1 justify-end"><span class="w-1 h-1 bg-emerald-500 rounded-full animate-ping"></span> Live</div>
-                        </div>
-                        
-                        <!-- Hover Popover Data Window -->
-                        <div class="absolute left-full top-0 ml-2 w-48 bg-black/95 border border-emerald-500/30 rounded-lg p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 translate-x-2 group-hover:translate-x-0 z-50 shadow-[0_0_15px_rgba(16,185,129,0.1)] backdrop-blur-md">
-                            <div class="text-[9px] text-santis-gold font-mono border-b border-gray-800 pb-1 mb-2">LIVE METRICS</div>
-                            <div class="space-y-1 text-[8px] font-mono">
-                                <div class="flex justify-between"><span class="text-gray-400">Intent Score</span> <span class="text-emerald-400">94% (High)</span></div>
-                                <div class="flex justify-between"><span class="text-gray-400">Today Rev.</span> <span class="text-white">€14,500</span></div>
-                                <div class="flex justify-between"><span class="text-gray-400">Active VIPs</span> <span class="text-white">8</span></div>
-                                <div class="flex justify-between"><span class="text-gray-400">Cross-Sell</span> <span class="text-santis-gold">+24%</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tenant 2: The Ritz Paris -->
-                    <div class="group relative bg-gray-900/60 border border-gray-700/50 rounded-lg p-2.5 flex items-center justify-between hover:border-blue-500/50 transition-all cursor-crosshair">
-                        <div class="flex items-center gap-2">
-                            <div class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_5px_#3b82f6] group-hover:animate-ping"></div>
-                            <div>
-                                <div class="text-[10px] text-gray-300 font-bold leading-none hidden-if-sm group-hover:text-white">The Vendôme Spa</div>
-                                <div class="text-[8px] text-gray-500 font-mono mt-0.5 group-hover:text-blue-400">Paris, FR</div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <div class="text-[9px] text-blue-400 font-mono font-bold whitespace-nowrap">Volume: High</div>
-                            <div class="text-[8px] text-gray-500 flex items-center gap-1 justify-end"><span class="text-blue-500">↑ 12%</span> Cross-Sell</div>
-                        </div>
-
-                        <!-- Hover Popover Data Window -->
-                        <div class="absolute left-full top-0 ml-2 w-48 bg-black/95 border border-blue-500/30 rounded-lg p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 translate-x-2 group-hover:translate-x-0 z-50 shadow-[0_0_15px_rgba(59,130,246,0.1)] backdrop-blur-md">
-                            <div class="text-[9px] text-blue-400 font-mono border-b border-gray-800 pb-1 mb-2">LIVE METRICS</div>
-                            <div class="space-y-1 text-[8px] font-mono">
-                                <div class="flex justify-between"><span class="text-gray-400">Intent Score</span> <span class="text-blue-400">88%</span></div>
-                                <div class="flex justify-between"><span class="text-gray-400">Today Rev.</span> <span class="text-white">€8,200</span></div>
-                                <div class="flex justify-between"><span class="text-gray-400">Active VIPs</span> <span class="text-white">3</span></div>
-                                <div class="flex justify-between"><span class="text-gray-400">Intel Fee</span> <span class="text-santis-gold">€246</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tenant 3: Aman Tokyo -->
-                    <div class="group relative bg-gray-900/40 border border-gray-800 rounded-lg p-2.5 flex items-center justify-between hover:border-purple-500/50 transition-all cursor-crosshair grayscale hover:grayscale-0">
-                        <div class="flex items-center gap-2">
-                            <div class="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_5px_#a855f7] group-hover:animate-ping"></div>
-                            <div>
-                                <div class="text-[10px] text-gray-400 font-bold leading-none group-hover:text-white">Zenith Retreat</div>
-                                <div class="text-[8px] text-gray-500 font-mono mt-0.5 group-hover:text-purple-400">Tokyo, JP</div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <div class="text-[9px] text-purple-400 font-mono font-bold whitespace-nowrap">Syncing...</div>
-                            <div class="text-[8px] text-gray-600 font-mono flex items-center gap-1 justify-end"><span class="text-purple-500 animate-pulse">●</span> Connecting</div>
-                        </div>
-
-                        <!-- Hover Popover Data Window -->
-                        <div class="absolute left-full top-0 ml-2 w-48 bg-black/95 border border-purple-500/30 rounded-lg p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 translate-x-2 group-hover:translate-x-0 z-50 shadow-[0_0_15px_rgba(168,85,247,0.1)] backdrop-blur-md">
-                            <div class="text-[9px] text-purple-400 font-mono border-b border-gray-800 pb-1 mb-2">HANDSHAKE STATUS</div>
-                            <div class="text-[8px] font-mono text-gray-400">
+<span class="text-[9px] text-gray-600 font-mono">TENANTS: 3</span>
+</div>
+<div class="flex-1 w-full overflow-y-auto custom-scroll pr-1 relative z-10 space-y-2 pb-8">
+<!-- Tenant 1: Santis HQ -->
+<div class="group relative bg-gray-900/60 border border-gray-700/50 rounded-lg p-2.5 flex items-center justify-between hover:border-emerald-500/50 transition-all cursor-crosshair">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_5px_#10b981] group-hover:animate-ping"></div>
+<div>
+<div class="text-[10px] text-white font-bold leading-none">Santis Global HQ</div>
+<div class="text-[8px] text-gray-500 font-mono mt-0.5 group-hover:text-emerald-400">Antalya, TR</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-[9px] text-santis-gold font-mono font-bold whitespace-nowrap">Node 0 (Master)</div>
+<div class="text-[8px] text-gray-500 flex items-center gap-1 justify-end"><span class="w-1 h-1 bg-emerald-500 rounded-full animate-ping"></span> Live</div>
+</div>
+<!-- Hover Popover Data Window -->
+<div class="absolute left-full top-0 ml-2 w-48 bg-black/95 border border-emerald-500/30 rounded-lg p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 translate-x-2 group-hover:translate-x-0 z-50 shadow-[0_0_15px_rgba(16,185,129,0.1)] backdrop-blur-md">
+<div class="text-[9px] text-santis-gold font-mono border-b border-gray-800 pb-1 mb-2">LIVE METRICS</div>
+<div class="space-y-1 text-[8px] font-mono">
+<div class="flex justify-between"><span class="text-gray-400">Intent Score</span> <span class="text-emerald-400">94% (High)</span></div>
+<div class="flex justify-between"><span class="text-gray-400">Today Rev.</span> <span class="text-white">€14,500</span></div>
+<div class="flex justify-between"><span class="text-gray-400">Active VIPs</span> <span class="text-white">8</span></div>
+<div class="flex justify-between"><span class="text-gray-400">Cross-Sell</span> <span class="text-santis-gold">+24%</span></div>
+</div>
+</div>
+</div>
+<!-- Tenant 2: The Ritz Paris -->
+<div class="group relative bg-gray-900/60 border border-gray-700/50 rounded-lg p-2.5 flex items-center justify-between hover:border-blue-500/50 transition-all cursor-crosshair">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_5px_#3b82f6] group-hover:animate-ping"></div>
+<div>
+<div class="text-[10px] text-gray-300 font-bold leading-none hidden-if-sm group-hover:text-white">The Vendôme Spa</div>
+<div class="text-[8px] text-gray-500 font-mono mt-0.5 group-hover:text-blue-400">Paris, FR</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-[9px] text-blue-400 font-mono font-bold whitespace-nowrap">Volume: High</div>
+<div class="text-[8px] text-gray-500 flex items-center gap-1 justify-end"><span class="text-blue-500">↑ 12%</span> Cross-Sell</div>
+</div>
+<!-- Hover Popover Data Window -->
+<div class="absolute left-full top-0 ml-2 w-48 bg-black/95 border border-blue-500/30 rounded-lg p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 translate-x-2 group-hover:translate-x-0 z-50 shadow-[0_0_15px_rgba(59,130,246,0.1)] backdrop-blur-md">
+<div class="text-[9px] text-blue-400 font-mono border-b border-gray-800 pb-1 mb-2">LIVE METRICS</div>
+<div class="space-y-1 text-[8px] font-mono">
+<div class="flex justify-between"><span class="text-gray-400">Intent Score</span> <span class="text-blue-400">88%</span></div>
+<div class="flex justify-between"><span class="text-gray-400">Today Rev.</span> <span class="text-white">€8,200</span></div>
+<div class="flex justify-between"><span class="text-gray-400">Active VIPs</span> <span class="text-white">3</span></div>
+<div class="flex justify-between"><span class="text-gray-400">Intel Fee</span> <span class="text-santis-gold">€246</span></div>
+</div>
+</div>
+</div>
+<!-- Tenant 3: Aman Tokyo -->
+<div class="group relative bg-gray-900/40 border border-gray-800 rounded-lg p-2.5 flex items-center justify-between hover:border-purple-500/50 transition-all cursor-crosshair grayscale hover:grayscale-0">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_5px_#a855f7] group-hover:animate-ping"></div>
+<div>
+<div class="text-[10px] text-gray-400 font-bold leading-none group-hover:text-white">Zenith Retreat</div>
+<div class="text-[8px] text-gray-500 font-mono mt-0.5 group-hover:text-purple-400">Tokyo, JP</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-[9px] text-purple-400 font-mono font-bold whitespace-nowrap">Syncing...</div>
+<div class="text-[8px] text-gray-600 font-mono flex items-center gap-1 justify-end"><span class="text-purple-500 animate-pulse">●</span> Connecting</div>
+</div>
+<!-- Hover Popover Data Window -->
+<div class="absolute left-full top-0 ml-2 w-48 bg-black/95 border border-purple-500/30 rounded-lg p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 translate-x-2 group-hover:translate-x-0 z-50 shadow-[0_0_15px_rgba(168,85,247,0.1)] backdrop-blur-md">
+<div class="text-[9px] text-purple-400 font-mono border-b border-gray-800 pb-1 mb-2">HANDSHAKE STATUS</div>
+<div class="text-[8px] font-mono text-gray-400">
                                 Negotiating Secure Quantum Key..<br/>
-                                <span class="text-santis-gold animate-pulse">Awaiting First Packet</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- COLUMN 2: LIVING ASSET MATRIX -->
-        <section class="flex-1 min-w-[400px] flex flex-col">
-            <div class="flex-1 bg-black border border-gray-800 rounded-xl flex flex-col shadow-2xl overflow-hidden">
-                <div class="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-900/40">
-                    <h2 class="text-xs font-bold tracking-widest uppercase text-white shadow-sm flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-santis-gold animate-pulse"></span>
+<span class="text-santis-gold animate-pulse">Awaiting First Packet</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════════════════
+                 PHASE 28: SLOT INTELLIGENCE MAP (Radar Envanter)
+                 ═══════════════════════════════════════════════ -->
+<div class="shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl p-4 flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.5)] relative overflow-hidden transition-all" id="slot-radar-panel">
+<!-- Panel glow bg -->
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(201,169,110,0.04),transparent)] pointer-events-none"></div>
+<!-- Header -->
+<div class="flex justify-between items-center mb-3 relative z-10">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-santis-gold flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-santis-gold animate-pulse shadow-[0_0_5px_#C9A96E]"></span>
+                        Slot Radar
+                    </h2>
+<div class="flex items-center gap-2">
+<span class="text-[9px] text-gray-600 font-mono" id="slot-radar-count">— slots</span>
+<button class="text-[8px] text-gray-600 hover:text-santis-gold transition-colors font-mono border border-gray-800 px-1.5 py-0.5 rounded" onclick="loadSlotRadar()" title="Refresh Slot Map">↺</button>
+</div>
+</div>
+<!-- Legend -->
+<div class="flex gap-3 mb-3 relative z-10">
+<span class="flex items-center gap-1 text-[8px] font-mono text-gray-500"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>Optimal</span>
+<span class="flex items-center gap-1 text-[8px] font-mono text-gray-500"><span class="w-1.5 h-1.5 rounded-full bg-yellow-500 inline-block"></span>At Risk</span>
+<span class="flex items-center gap-1 text-[8px] font-mono text-gray-500"><span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse inline-block"></span>Critical</span>
+<span class="flex items-center gap-1 text-[8px] font-mono text-gray-500"><span class="w-1.5 h-1.5 rounded-full bg-gray-700 inline-block"></span>Empty</span>
+</div>
+<!-- Slot List (scrollable) -->
+<div class="space-y-1.5 max-h-60 overflow-y-auto custom-scroll relative z-10 pr-1" id="slot-radar-list">
+<div class="text-center py-4 text-gray-600 font-mono text-[10px] animate-pulse">Loading slot inventory...</div>
+</div>
+<!-- Drop Target Helper -->
+<div class="mt-3 pt-2 border-t border-gray-800 relative z-10">
+<p class="text-[9px] text-gray-600 font-mono text-center">
+                        Drag a <span class="text-santis-gold">Matrix card</span> onto a slot row to bind it.
+                    </p>
+</div>
+</div>
+</section>
+<!-- RESIZER LEFT -->
+<div class="cc-resizer" id="cc-resizer-left" title="Sürükle → Genişlet"></div>
+<!-- COLUMN 2: LIVING ASSET MATRIX -->
+<section class="flex-1 min-w-[400px] flex flex-col relative z-10">
+<div class="flex-1 bg-black/30 backdrop-blur-xl border border-gray-800/60 rounded-xl flex flex-col shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden">
+<div class="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-900/40">
+<h2 class="text-xs font-bold tracking-widest uppercase text-white shadow-sm flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-santis-gold animate-pulse"></span>
                         Living Asset Matrix
                     </h2>
-                    <div class="flex gap-2">
-                        <span class="text-[9px] px-2 py-0.5 border border-gray-700 bg-gray-800 rounded text-gray-400 font-mono">Total Assets: <span id="matrix-count">0</span></span>
-                    </div>
-                </div>
-
-                <!-- SOVEREIGN FILTER BAR -->
-                <div class="px-4 py-3 border-b border-gray-800 bg-gray-900/20 flex gap-2 items-center">
-                    <input type="text" id="filter-search" placeholder="🔍 Search filename or slot..."
-                        class="flex-1 bg-gray-900/50 border border-gray-700 text-white text-[11px] rounded-md px-3 py-1.5 outline-none focus:border-santis-gold font-mono placeholder-gray-600 transition" />
-                    <select id="filter-category" class="bg-gray-900/50 border border-gray-700 text-gray-300 text-[11px] rounded-md px-2 py-1.5 outline-none focus:border-santis-gold font-mono">
-                        <option value="">All Categories</option>
-                        <option value="hamam">🧖 Hamam</option>
-                        <option value="masaj">💆 Masaj</option>
-                        <option value="cilt">🌿 Cilt Bakımı</option>
-                        <option value="diger">🏨 Genel</option>
-                    </select>
-                    <select id="filter-slot-group" class="bg-gray-900/50 border border-gray-700 text-gray-300 text-[11px] rounded-md px-2 py-1.5 outline-none focus:border-santis-gold font-mono">
-                        <option value="">All Slots</option>
-                        <option value="card-">🏠 Ana Sayfa Kartları</option>
-                        <option value="philosophy-">📜 Felsefe</option>
-                    </select>
-                    <button id="filter-reset" class="bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-santis-gold text-[11px] rounded-md px-2.5 py-1.5 font-mono border border-gray-700 transition" title="Reset Filters">⟳</button>
-                </div>
-                
-                <!-- Virtual Grid -->
-                <div id="asset-matrix" class="flex-1 p-4 overflow-y-auto custom-scroll grid gap-2 bg-[#080808] content-start">
-                    <div class="col-span-full text-center py-10 text-gray-600 font-mono text-xs animate-pulse">Initializing Hyper-Density Matrix...</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- COLUMN 3: NEURAL PULSE STREAM -->
-        <section class="w-80 min-w-[320px] shrink-0 flex flex-col gap-4 overflow-y-auto custom-scroll pr-2 pb-2">
-            
-            <!-- SOVEREIGN LIVE MESH (Phase 48) -->
-            <div class="h-64 shrink-0 bg-black border border-gray-800 rounded-xl overflow-hidden flex flex-col shadow-[0_0_20px_rgba(212,175,55,0.05)] relative group transition-all duration-700">
-                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.03),transparent)] pointer-events-none"></div>
-                <div class="px-3 py-2 border-b border-gray-800 bg-gray-900/40 flex justify-between items-center relative z-10">
-                    <h2 class="text-[10px] font-bold tracking-widest uppercase text-santis-gold flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-santis-gold animate-pulse shadow-[0_0_8px_#d4af37]"></span>
+<div class="flex gap-2 items-center">
+<span class="text-[9px] px-2 py-0.5 border border-gray-700 bg-gray-800 rounded text-gray-400 font-mono">Total Assets: <span id="matrix-count">0</span></span>
+<!-- Phase 29: Autonomous Optimizer Trigger -->
+<button class="group flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-santis-gold/30 bg-santis-gold/5 hover:bg-santis-gold/15 hover:border-santis-gold/60 transition-all duration-300 shadow-[0_0_10px_rgba(201,169,110,0.1)] hover:shadow-[0_0_16px_rgba(201,169,110,0.3)] text-[9px] font-bold font-mono tracking-widest text-santis-gold uppercase" id="btn-auto-optimize" onclick="window.engageOptimizer()" title="Phase 29: Autonomous Matrix Optimizer v2.0 — Promote best assets to weak slots">
+<span class="group-hover:animate-spin inline-block">⚡</span>
+                            AUTO-OPTIMIZE
+                        </button>
+</div>
+</div>
+<!-- SOVEREIGN FILTER BAR -->
+<div class="px-4 py-3 border-b border-gray-800 bg-gray-900/20 flex gap-2 items-center">
+<input class="flex-1 bg-gray-900/50 border border-gray-700 text-white text-[11px] rounded-md px-3 py-1.5 outline-none focus:border-santis-gold font-mono placeholder-gray-600 transition" id="filter-search" placeholder="🔍 Search filename or slot..." type="text">
+<!-- Hidden native select for compatibility -->
+<select class="hidden" id="filter-category">
+<option value="">All Categories</option>
+<option value="hamam">hamam</option>
+<option value="masaj">masaj</option>
+<option value="cilt">cilt</option>
+<option value="diger">diger</option>
+</select>
+<!-- Sovereign Floating Tabs -->
+<div class="flex bg-black/40 border border-gray-700/50 rounded-lg p-1 backdrop-blur-md relative shadow-inner isolate" id="floating-tabs">
+<!-- Active indicator -->
+<div class="absolute top-1 bottom-1 bg-santis-gold/20 border border-santis-gold/50 rounded-md transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[0_0_10px_rgba(212,175,55,0.2)] -z-10" id="active-tab-pill" style="left: 0; transform: translateX(4px); width: 42px;"></div>
+<button class="cc-tab-btn px-3 py-1.5 text-[10px] font-bold tracking-widest text-santis-gold transition-colors uppercase" data-val="">ALL</button>
+<button class="cc-tab-btn px-3 py-1.5 text-[10px] font-bold tracking-widest text-gray-500 hover:text-gray-300 transition-colors uppercase" data-val="hamam">HAMMAM</button>
+<button class="cc-tab-btn px-3 py-1.5 text-[10px] font-bold tracking-widest text-gray-500 hover:text-gray-300 transition-colors uppercase" data-val="masaj">MASSAGE</button>
+<button class="cc-tab-btn px-3 py-1.5 text-[10px] font-bold tracking-widest text-gray-500 hover:text-gray-300 transition-colors uppercase" data-val="cilt">SKINCARE</button>
+</div>
+<select class="bg-gray-900/50 border border-gray-700 text-gray-300 text-[11px] rounded-md px-2 py-1.5 outline-none focus:border-santis-gold font-mono" id="filter-slot-group">
+<option value="">All Slots</option>
+<optgroup label="🌟 Ana Görseller (Hero)">
+<option value="hero_home">Ana Sayfa → Hero Video/Görsel</option>
+<option value="hero_hamam">Hamam → Hero Görsel</option>
+<option value="hero_masaj">Masajlar → Hero Görsel</option>
+<option value="hero_cilt">Cilt Bakımı → Hero Görsel</option>
+</optgroup>
+<optgroup label="🏠 Ana Sayfa">
+<option value="card-hamam">Ana Sayfa → Hamam Kartı</option>
+<option value="card-masaj">Ana Sayfa → Masaj Kartı</option>
+<option value="card-cilt">Ana Sayfa → Cilt Bakımı Kartı</option>
+<option value="card-atolye">Ana Sayfa → Atölye Kartı</option>
+<option value="philosophy-hero">Ana Sayfa → Felsefe Görseli</option>
+</optgroup>
+<optgroup label="🧖 Hamam Sayfaları">
+<option value="osmanli-ritueli">Osmanlı Hamam Geleneği</option>
+<option value="hamam-peeling-schaum">Kese &amp; Köpük Masajı</option>
+<option value="kopuk-masaji">Köpük Masajı</option>
+<option value="tuz-peeling">Tuz Peeling</option>
+<option value="kahve-detox">Kahve Detox</option>
+<option value="bal-masaji">Bal Masajı</option>
+<option value="cikolata-bakimi">Çikolata Bakımı</option>
+<option value="yosun-bakimi">Yosun Bakımı</option>
+<option value="santis-pasa">Santis Paşa</option>
+</optgroup>
+<optgroup label="💆 Masaj Sayfaları">
+<option value="klasik-masaj">Klasik Masaj</option>
+<option value="aromaterapi-masaji">Aromaterapi Masajı</option>
+<option value="derin-doku-masaji">Derin Doku Masajı</option>
+<option value="sicak-tas-masaji">Sıcak Taş Masajı</option>
+<option value="thai-masaji">Thai Masajı</option>
+<option value="anti-stress-masaji">Anti-Stres Masajı</option>
+<option value="spor-terapi">Spor Terapi</option>
+<option value="signature-rituel">Signature Ritüel</option>
+</optgroup>
+<optgroup label="🌿 Cilt Bakımı Sayfaları">
+<option value="classic-facial">Classic Facial</option>
+<option value="anti-aging-pro">Anti-Aging Pro</option>
+<option value="hyaluron-hydrate">Hyaluron Hydrate</option>
+<option value="gold-mask-ritual">Gold Mask Ritual</option>
+<option value="collagen-lift">Collagen Lift</option>
+<option value="glass-skin">Glass Skin</option>
+<option value="deep-cleanse">Deep Cleanse</option>
+<option value="vitamin-c-glow">Vitamin C Glow</option>
+</optgroup>
+<optgroup label="💠 Sovereign Vitrini (24 Kart)">
+<option value="sig-card-0">Signatures → Kart 1</option>
+<option value="sig-card-1">Signatures → Kart 2</option>
+<option value="sig-card-2">Signatures → Kart 3</option>
+<option value="sig-card-3">Signatures → Kart 4</option>
+<option value="sig-card-4">Signatures → Kart 5</option>
+<option value="sig-card-5">Signatures → Kart 6</option>
+<option value="hammam-card-0">Hammam → Kart 1</option>
+<option value="hammam-card-1">Hammam → Kart 2</option>
+<option value="hammam-card-2">Hammam → Kart 3</option>
+<option value="hammam-card-3">Hammam → Kart 4</option>
+<option value="hammam-card-4">Hammam → Kart 5</option>
+<option value="hammam-card-5">Hammam → Kart 6</option>
+<option value="hammam-card-6">Hammam → Kart 7</option>
+<option value="hammam-card-7">Hammam → Kart 8</option>
+<option value="therapy-card-0">Therapies → Kart 1</option>
+<option value="therapy-card-1">Therapies → Kart 2</option>
+<option value="therapy-card-2">Therapies → Kart 3</option>
+<option value="therapy-card-3">Therapies → Kart 4</option>
+<option value="therapy-card-4">Therapies → Kart 5</option>
+<option value="therapy-card-5">Therapies → Kart 6</option>
+<option value="therapy-card-6">Therapies → Kart 7</option>
+<option value="therapy-card-7">Therapies → Kart 8</option>
+<option value="therapy-card-8">Therapies → Kart 9</option>
+<option value="therapy-card-9">Therapies → Kart 10</option>
+</optgroup>
+</select>
+<button class="bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-santis-gold text-[11px] rounded-md px-2.5 py-1.5 font-mono border border-gray-700 transition" id="filter-reset" title="Reset Filters">⟳</button>
+</input></div>
+<!-- Virtual Grid -->
+<div class="flex-1 px-4 pt-4 pb-48 overflow-y-auto custom-scroll grid gap-4 bg-transparent content-start" id="asset-matrix">
+<div class="col-span-full text-center py-10 text-gray-600 font-mono text-xs animate-pulse">Initializing Hyper-Density Matrix...</div>
+</div>
+</div>
+</section>
+<!-- RESIZER RIGHT -->
+<div class="cc-resizer" id="cc-resizer-right" title="Sürükle → Genişlet"></div>
+<!-- COLUMN 3: NEURAL PULSE STREAM -->
+<section class="shrink-0 flex flex-col gap-4 overflow-y-auto custom-scroll pr-2 pb-48 relative z-10 transition-all duration-300" id="cc-panel-right" style="width:320px;min-width:180px;max-width:520px;">
+<!-- ══════════════════════════════════════════════════════════
+                 PHASE 30: GOD MODE SOVEREIGN PULSE DASHBOARD
+                 ═══════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+                 PHASE 30: GOD MODE — COMPACT SHI WIDGET BAR
+                 ═══════════════════════════════════════════════════════ -->
+<div class="shrink-0 bg-black/50 backdrop-blur-xl border border-santis-gold/20 rounded-xl px-3 py-2.5 flex flex-col gap-2 shadow-[0_4px_20px_rgba(201,169,110,0.08)] relative overflow-hidden" id="god-mode-panel">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_top_center,rgba(201,169,110,0.04),transparent_80%)] pointer-events-none"></div>
+<!-- Single-row compact bar -->
+<div class="flex items-center gap-3 relative z-10">
+<!-- Mini Arc Gauge (48×48) -->
+<div class="relative w-12 h-12 shrink-0">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 48 48">
+<circle cx="24" cy="24" fill="none" r="18" stroke="#1f2937" stroke-width="5"></circle>
+<circle class="transition-all duration-1000" cx="24" cy="24" fill="none" id="shi-arc" r="18" stroke="#C9A96E" stroke-dasharray="113" stroke-dashoffset="113" stroke-linecap="round" stroke-width="5"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-santis-gold font-bold text-[10px] font-mono leading-none" id="shi-value">—</span>
+</div>
+</div>
+<!-- Stats inline -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-1 group">
+<span class="text-[9px] font-bold tracking-widest uppercase text-santis-gold font-mono flex items-center gap-1.5">
+<span class="w-1 h-1 rounded-full bg-santis-gold animate-pulse shadow-[0_0_4px_#C9A96E] inline-block" id="god-mode-led"></span>God Mode
+                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-santis-gold hover:text-white ml-1" onclick="togglePanel('right')" title="Daralt/Genişlet">►</button>
+</span>
+<span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded border border-emerald-500/30 text-emerald-400 bg-emerald-900/20" id="shi-status-badge">SOVEREIGN</span>
+</div>
+<!-- Slot pill row -->
+<div class="flex gap-1.5 text-[8px] font-mono flex-wrap">
+<span class="flex items-center gap-1 text-gray-500">🟢<span id="shi-optimal-count">—</span></span>
+<span class="flex items-center gap-1 text-gray-500">🟡<span id="shi-risk-count">—</span></span>
+<span class="flex items-center gap-1 text-gray-500">🔴<span id="shi-critical-count">—</span></span>
+<span class="ml-auto text-santis-gold font-bold"><span id="shi-lift">—</span></span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col gap-1 shrink-0">
+<button class="text-[8px] text-gray-600 hover:text-santis-gold transition font-mono border border-gray-800 px-1.5 py-0.5 rounded hover:border-santis-gold/40" onclick="window.initGodMode(true)" title="Refresh SHI">↺</button>
+<button class="text-[8px] text-gray-600 hover:text-yellow-400 transition font-mono border border-gray-800 px-1.5 py-0.5 rounded" onclick="document.getElementById('god-alerts-drawer').classList.toggle('hidden')" title="Toggle Alerts">⚠</button>
+</div>
+</div>
+<!-- Collapsible Alert Drawer (hidden by default) -->
+<div class="hidden relative z-10 border-t border-gray-800 pt-2" id="god-alerts-drawer">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[8px] font-mono text-gray-500 uppercase tracking-widest">Master Alerts</span>
+<button class="text-[8px] text-gray-700 hover:text-gray-400 font-mono" onclick="document.getElementById('master-alert-list').innerHTML=''">CLEAR</button>
+</div>
+<ul class="space-y-1 max-h-24 overflow-y-auto custom-scroll text-[8px] font-mono" id="master-alert-list">
+<li class="text-gray-700 text-center py-1">No alerts ✓</li>
+</ul>
+</div>
+</div>
+<!-- ══════════════════════════════════════════════════════════
+                 PHASE 44: ECHARTS OMNIPOTENCE (COGNITIVE RADAR & PULSE FLOW)
+                 ═══════════════════════════════════════════════════════ -->
+<div class="echarts-omnipotence space-y-4 mt-4 px-2 z-50 relative">
+<div class="relative bg-[#0a0a0c]/90 border border-[#D4AF37]/30 rounded-xl p-4 backdrop-blur-md shadow-[0_0_15px_rgba(212,175,55,0.05)] transition-all duration-500 hover:shadow-[0_0_25px_rgba(212,175,55,0.15)] hover:-translate-y-1 group">
+<div class="absolute inset-0 bg-[#D4AF37]/5 blur-xl group-hover:bg-[#D4AF37]/10 transition-all duration-500 rounded-xl pointer-events-none"></div>
+<div class="flex items-center justify-between mb-2 border-b border-[#D4AF37]/20 pb-2 relative z-10">
+<h3 class="text-[#D4AF37] font-bold text-[10px] tracking-[0.2em] uppercase">[ Cognitive Resonance Radar ]</h3>
+<span class="text-green-400 text-[9px] animate-pulse">● LIVE METRICS</span>
+</div>
+<div class="relative z-10" id="echarts-revenue-radar" style="width: 100%; height: 240px;"></div>
+</div>
+<div class="relative bg-[#0a0a0c]/90 border border-[#D4AF37]/30 rounded-xl p-4 backdrop-blur-md shadow-[0_0_15px_rgba(212,175,55,0.05)] transition-all duration-500 hover:shadow-[0_0_25px_rgba(212,175,55,0.15)] hover:-translate-y-1 group">
+<div class="absolute inset-0 bg-[#D4AF37]/5 blur-xl group-hover:bg-[#D4AF37]/10 transition-all duration-500 rounded-xl pointer-events-none"></div>
+<div class="flex items-center justify-between mb-2 border-b border-[#D4AF37]/20 pb-2 relative z-10">
+<h3 class="text-[#D4AF37] font-bold text-[10px] tracking-[0.2em] uppercase">[ Liquid SAS Pulse Flow ]</h3>
+<span class="text-[#D4AF37] text-[9px]">MRR Lift (30s)</span>
+</div>
+<div class="relative z-10" id="echarts-pulse-flow" style="width: 100%; height: 200px;"></div>
+</div>
+</div>
+<!-- SOVEREIGN LIVE MESH (Phase 48) -->
+<div class="h-64 shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(212,175,55,0.05)] relative group transition-all duration-700">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.03),transparent)] pointer-events-none"></div>
+<div class="px-3 py-2 border-b border-gray-800 bg-gray-900/40 flex justify-between items-center relative z-10">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-santis-gold flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-santis-gold animate-pulse shadow-[0_0_8px_#d4af37]"></span>
                         Sovereign Live Mesh
                     </h2>
-                    <span class="text-[9px] text-gray-500 font-mono transition-colors" id="mesh-status">SYNCING...</span>
-                </div>
-                <div id="d3-mesh-canvas" class="flex-1 w-full bg-[#050505] relative isolate overflow-hidden cursor-crosshair">
-                    <div class="absolute inset-0 flex items-center justify-center text-[10px] font-mono text-gray-700 animate-pulse z-0" id="mesh-loading">Neural Network Booting...</div>
-                </div>
-            </div>
-
-            <!-- LIVE MIRROR -->
-            <div class="h-52 shrink-0 bg-black border border-gray-800 rounded-xl overflow-hidden flex flex-col shadow-2xl">
-                <div class="px-3 py-2 border-b border-gray-800 bg-gray-900/40 flex justify-between items-center">
-                    <h2 class="text-[10px] font-bold tracking-widest uppercase text-gray-400 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-[9px] text-gray-500 font-mono transition-colors" id="mesh-status">SYNCING...</span>
+</div>
+<div class="flex-1 w-full bg-transparent relative isolate overflow-hidden cursor-crosshair" id="d3-mesh-canvas">
+<div class="absolute inset-0 flex items-center justify-center text-[10px] font-mono text-gray-700 animate-pulse z-0" id="mesh-loading">Neural Network Booting...</div>
+</div>
+</div>
+<!-- LIVE MIRROR -->
+<div class="h-44 shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl overflow-hidden flex flex-col shadow-2xl">
+<div class="px-3 py-2 border-b border-gray-800 bg-gray-900/40 flex justify-between items-center">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-gray-400 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                         Live Mirror
                     </h2>
-                    <button onclick="document.getElementById('live-mirror').contentWindow.location.reload()" class="text-[9px] text-gray-500 hover:text-santis-gold font-mono transition">⟳</button>
-                </div>
-                <iframe id="live-mirror" src="/tr/index.html" class="flex-1 w-full bg-black pointer-events-none" title="Live Site Preview" loading="lazy"></iframe>
-            </div>
-            <div class="min-h-[450px] shrink-0 flex-1 bg-black border border-gray-800 rounded-xl p-4 flex flex-col shadow-2xl relative overflow-hidden">
-                <!-- Matrix background for stream -->
-                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,169,110,0.05),transparent_70%)] pointer-events-none"></div>
-                
-                <div class="flex justify-between items-center mb-4 relative z-10">
-                    <h2 class="text-xs font-bold tracking-widest uppercase text-gray-400 flex items-center gap-2">
-                        <span class="text-emerald-500">⚡</span>
+<div class="flex items-center gap-2">
+<button class="text-[9px] text-gray-500 hover:text-santis-gold font-mono transition" onclick="document.getElementById('live-mirror').contentWindow.location.reload()" title="Yenile">⟳</button>
+<button class="text-[9px] text-gray-500 hover:text-santis-gold font-mono transition border border-gray-700 px-1.5 py-0.5 rounded hover:border-santis-gold/50" onclick="window.openMirrorFullscreen()" title="Tam Ekran Aç">⛶ EXPAND</button>
+</div>
+</div>
+<iframe class="flex-1 w-full bg-black pointer-events-none" id="live-mirror" loading="lazy" src="/tr/index.html" title="Live Site Preview"></iframe>
+</div>
+<!-- ══ LIVE MIRROR FULLSCREEN MODAL ══════════════════════════════ -->
+<div class="fixed inset-0 z-[9999] hidden flex-col bg-black/95 backdrop-blur-xl" id="mirror-fullscreen-modal" style="animation: none;">
+<!-- Gold top bar -->
+<div class="h-10 shrink-0 bg-gray-900/80 border-b border-santis-gold/30 flex items-center justify-between px-4 gap-3">
+<div class="flex items-center gap-3">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-[10px] font-mono font-bold uppercase tracking-widest text-santis-gold">Live Mirror — Full View</span>
+<!-- Lang switcher -->
+<div class="flex gap-1 ml-4">
+<button class="text-[9px] font-mono px-2 py-0.5 rounded border border-gray-700 hover:border-santis-gold/50 text-gray-400 hover:text-santis-gold transition" onclick="document.getElementById('mirror-fs-iframe').src='/tr/index.html'">TR</button>
+<button class="text-[9px] font-mono px-2 py-0.5 rounded border border-gray-700 hover:border-santis-gold/50 text-gray-400 hover:text-santis-gold transition" onclick="document.getElementById('mirror-fs-iframe').src='/en/index.html'">EN</button>
+</div>
+<!-- Page switcher combo -->
+<select class="ml-2 text-[9px] font-mono bg-gray-800 border border-gray-700 text-gray-400 rounded px-2 py-0.5 outline-none hover:border-santis-gold/40 transition" id="mirror-page-select" onchange="document.getElementById('mirror-fs-iframe').src=this.value">
+<option value="/tr/index.html">TR — Ana Sayfa</option>
+<option value="/tr/hamam/index.html">TR — Hamam</option>
+<option value="/tr/masaj/index.html">TR — Masaj</option>
+<option value="/tr/cilt-bakimi/index.html">TR — Cilt Bakımı</option>
+<option value="/tr/galeri/index.html">TR — Galeri</option>
+<option value="/en/index.html">EN — Home</option>
+<option value="/en/hammam/index.html">EN — Hammam</option>
+</select>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-[9px] text-gray-500 hover:text-santis-gold font-mono border border-gray-700 px-2 py-0.5 rounded hover:border-santis-gold/40 transition" onclick="document.getElementById('mirror-fs-iframe').contentWindow.location.reload()">⟳ Reload</button>
+<button class="text-[9px] font-mono font-bold px-3 py-1 rounded bg-red-900/40 border border-red-700/40 text-red-400 hover:bg-red-700/30 hover:text-white transition" onclick="window.closeMirrorFullscreen()" title="Kapat (Esc)">✕ KAPAT</button>
+</div>
+</div>
+<!-- Full iframe — pointer-events enabled for interaction -->
+<iframe class="flex-1 w-full bg-white" id="mirror-fs-iframe" src="/tr/index.html" style="pointer-events: all; border: none;" title="Live Site Preview — Fullscreen"></iframe>
+</div>
+<div class="min-h-[450px] shrink-0 flex-1 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl p-4 flex flex-col shadow-2xl relative overflow-hidden">
+<!-- Matrix background for stream -->
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,169,110,0.05),transparent_70%)] pointer-events-none"></div>
+<div class="flex justify-between items-center mb-4 relative z-10">
+<h2 class="text-xs font-bold tracking-widest uppercase text-gray-400 flex items-center gap-2">
+<span class="text-emerald-500">⚡</span>
                         Pulse Stream
                     </h2>
-                    <span class="text-[9px] text-gray-600 font-mono">Phase S/J/P</span>
-                </div>
-
-                <!-- SOVEREIGN SURGE PULSE GRAPHIC (Phase 39.5) -->
-                <div id="pulse-aura" class="bg-gray-900/80 border border-santis-gold rounded p-4 text-center relative overflow-hidden group mb-4 transition-shadow duration-500">
-                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.05),transparent)] pointer-events-none"></div>
-                    
-                    <div class="flex justify-between items-start mb-2 relative z-10">
-                        <div class="text-[9px] text-santis-gold font-mono uppercase tracking-widest flex items-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-santis-gold animate-pulse shadow-[0_0_8px_#d4af37]"></span>
+<span class="text-[9px] text-gray-600 font-mono">Phase S/J/P</span>
+</div>
+<!-- SOVEREIGN SURGE PULSE GRAPHIC (Phase 39.5) -->
+<div class="flex-1 min-h-[140px] flex flex-col bg-gray-900/80 border border-santis-gold rounded p-4 text-center relative overflow-hidden group mb-4 transition-shadow duration-500" id="pulse-aura">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.05),transparent)] pointer-events-none"></div>
+<div class="flex justify-between items-start mb-2 relative z-10">
+<div class="text-[9px] text-santis-gold font-mono uppercase tracking-widest flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-santis-gold animate-pulse shadow-[0_0_8px_#d4af37]"></span>
                             Sovereign Pulse
                         </div>
-                        <div class="text-[9px] text-gray-500 font-mono" id="metric-surge-status">Auto-Pilot Active</div>
-                    </div>
-
-                    <!-- Surge Value Display -->
-                    <div class="flex justify-between items-end mb-4 relative z-10">
-                        <div class="text-left">
-                            <div class="text-xs text-gray-500 font-mono uppercase">Current Core Multiplier</div>
-                            <div id="metric-surge" class="text-santis-gold font-bold text-4xl heading-font font-mono drop-shadow-[0_0_8px_rgba(212,175,55,0.4)]">1.00x</div>
+<div class="text-[9px] text-gray-500 font-mono" id="metric-surge-status">Auto-Pilot Active</div>
+</div>
+<!-- Surge Value Display -->
+<div class="flex justify-between items-end mb-4 relative z-10">
+<div class="text-left">
+<div class="text-xs text-gray-500 font-mono uppercase">Current Core Multiplier</div>
+<div class="text-santis-gold font-bold text-4xl heading-font font-mono drop-shadow-[0_0_8px_rgba(212,175,55,0.4)]" id="metric-surge">1.00x</div>
+</div>
+</div>
+<!-- Chart.js Canvas -->
+<div class="relative w-full flex-1 min-h-[0] mb-2 z-10">
+<canvas class="absolute inset-0 w-full h-full" id="sovereign-pulse-chart"></canvas>
+</div>
+</div>
+<!-- Phase 19: Sandbox - Dynamic Revenue Simulation -->
+<div class="bg-black/60 border border-emerald-500/40 rounded-xl p-4 text-center relative overflow-hidden group mb-4 transition-all hover:border-emerald-400/80 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+<div class="flex justify-between items-center mb-3">
+<div class="text-[9px] text-emerald-400 font-mono uppercase tracking-widest flex items-center gap-2 font-bold">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+                            Sovereign Sandbox
                         </div>
-                        
-                        <!-- Force Surge Slider (Manual Override) -->
-                        <div class="flex flex-col items-end w-1/2">
-                            <label class="text-[8px] text-red-400 font-mono uppercase tracking-widest mb-1 flex items-center gap-1">
-                                <span>⚡ Force Surge (Override)</span>
-                            </label>
-                            <input type="range" id="surge-slider" min="1.0" max="1.5" step="0.05" value="1.0" class="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer overflow-hidden outline-none">
-                            <div class="flex justify-between w-full text-[7px] text-gray-500 font-mono mt-1">
-                                <span>1.0x</span><span>1.5x</span>
-                            </div>
-                        </div>
-                    </div>
+<span class="text-[8px] text-gray-500 font-mono bg-gray-900 border border-gray-700 px-1 py-0.5 rounded">SIMULATION LIVE</span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4 text-left">
+<!-- Surge Slider -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-[8px] font-mono">
+<span class="text-gray-400 uppercase tracking-wider">Dynamic Pricing</span>
+<span class="text-santis-gold font-bold" id="sim-surge-val">0%</span>
+</div>
+<input class="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer border border-gray-700/50 hover:bg-gray-700 outline-none transition-colors accent-santis-gold" id="sim-surge-slider" max="0.5" min="0" step="0.05" type="range" value="0"/>
+<div class="flex justify-between text-[7px] text-gray-600 font-mono mt-0.5">
+<span>HOLD</span>
+<span>SURGE</span>
+</div>
+</div>
+<!-- Aesthetic Quality Slider -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-[8px] font-mono">
+<span class="text-gray-400 uppercase tracking-wider">Target Aesthetic</span>
+<span class="text-blue-400 font-bold" id="sim-aesthetic-val">SAS: 0.85</span>
+</div>
+<input class="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer border border-gray-700/50 hover:bg-gray-700 outline-none transition-colors accent-blue-500" id="sim-aesthetic-slider" max="1.0" min="0.5" step="0.05" type="range" value="0.85"/>
+<div class="flex justify-between text-[7px] text-gray-600 font-mono mt-0.5">
+<span>BASIC</span>
+<span>MASTERPIECE</span>
+</div>
+</div>
+</div>
+<!-- Forecast Outputs -->
+<div class="bg-gray-900/60 rounded p-2.5 flex items-center justify-between border border-gray-800/80">
+<div class="text-left">
+<div class="text-[8px] text-gray-500 font-mono uppercase tracking-widest mb-0.5">Projected 30D MRR</div>
+<div class="text-emerald-400 font-bold text-2xl heading-font font-mono drop-shadow-[0_0_8px_rgba(16,185,129,0.3)] transition-all duration-300" id="sim-projected-mrr">€0</div>
+</div>
+<div class="text-right space-y-1">
+<div class="text-[9px] font-mono text-gray-400"><span class="text-white font-bold" id="sim-projected-vol">0</span> Bookings</div>
+<div class="text-[9px] font-mono text-gray-400"><span class="text-white font-bold" id="sim-projected-occ">0%</span> Occupancy</div>
+<div class="text-[9px] font-mono text-gray-500">Price/Slot: €<span class="text-santis-gold" id="sim-projected-price">0</span></div>
+</div>
+</div>
+<!-- Phase 21: Sentient Optimizer Trigger -->
+<button class="w-full mt-3 bg-emerald-500/10 hover:bg-emerald-500/30 text-emerald-400 hover:text-white border border-emerald-500/30 hover:border-emerald-400/80 rounded py-2 text-[10px] font-bold tracking-widest uppercase transition-all flex items-center justify-center gap-2 group shadow-[0_0_15px_rgba(16,185,129,0.1)] hover:shadow-[0_0_25px_rgba(16,185,129,0.3)]" id="btn-engage-sentience">
+<span class="group-hover:animate-spin">🔄</span>
+                        Engage Sentient Loop
+                    </button>
+</div>
+<!-- Live SaaS Booking Metrics -->
+<div class="grid grid-cols-2 gap-2 mb-4 relative z-10">
+<div class="bg-gray-900/50 border border-gray-800 rounded p-3 text-center">
+<div class="text-[8px] text-gray-500 font-mono uppercase tracking-widest mb-1">Today Revenue</div>
+<div class="text-santis-gold font-bold text-lg heading-font font-mono">€<span id="metric-revenue">0.00</span></div>
+</div>
+<div class="bg-gray-900/50 border border-[#D4AF37]/30 rounded p-3 text-center shadow-[0_0_15px_rgba(212,175,55,0.1)]">
+<div class="text-[8px] text-[#D4AF37] font-mono uppercase tracking-widest mb-1 flex items-center justify-center gap-1">★ Intel Fee Pool</div>
+<div class="text-[#D4AF37] font-bold text-lg heading-font font-mono">€<span id="metric-intel-fee">0.00</span></div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 mb-4 relative z-10">
+<div class="bg-gray-900/50 border border-gray-800 rounded p-3 text-center relative overflow-hidden group">
+<div class="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+<div class="text-[8px] text-gray-500 font-mono uppercase tracking-widest mb-1">Capacity</div>
+<div class="text-white font-bold text-lg heading-font font-mono"><span id="metric-capacity">0</span>%</div>
+</div>
+<div class="bg-gray-900/50 border border-gray-800 rounded p-3 text-center relative overflow-hidden">
+<div class="absolute inset-0 bg-red-500/10 animate-pulse"></div>
+<div class="text-[8px] text-red-400 font-mono uppercase tracking-widest mb-1 flex justify-center items-center gap-1"><span class="animate-bounce">🔥</span> Demand Heat</div>
+<div class="text-white font-bold text-lg heading-font font-mono"><span id="metric-heat">0</span>°</div>
+</div>
+<div class="bg-gray-900/50 border border-gray-800 rounded p-3 text-center">
+<div class="text-[8px] text-gray-500 font-mono uppercase tracking-widest mb-1">Active Visitors</div>
+<div class="text-emerald-400 font-bold text-lg heading-font font-mono flex justify-center items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+<span id="metric-visitors">0</span>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scroll space-y-2 font-mono text-[10px] leading-relaxed relative z-10 pb-4 hidden" id="pulse-feed">
+<div class="text-center text-gray-700 mt-20 animate-pulse">Listening for Global Intel...</div>
+</div>
+</div>
+<!-- SOVEREIGN WAR ROOM (Phase 19 - Sovereign Pulse) -->
+<div class="min-h-[450px] shrink-0 flex-1 bg-black border border-gray-800 rounded-xl p-4 flex flex-col shadow-2xl relative overflow-hidden">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(239,68,68,0.05),transparent_70%)] pointer-events-none"></div>
+<div class="flex justify-between items-center mb-3 relative z-10 border-b border-gray-800/50 pb-2">
+<h2 class="text-xs font-bold tracking-widest uppercase text-red-500 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_#ef4444]"></span>
+                        Sovereign War Room
+                    </h2>
+<span class="text-[9px] px-1.5 py-0.5 rounded border border-gray-800 bg-gray-900/50 text-gray-500 font-mono">Vue.js Core</span>
+</div>
+<div class="pulse-dashboard flex-1 flex flex-col gap-2 relative z-10 overflow-hidden" v-cloak="">
+<div class="pulse-stats-grid radar-stats-row">
+<div class="stat-card">
+<div class="stat-title text-[8px] uppercase text-gray-500 tracking-widest mb-1">AKTİF HAYALETLER</div>
+<div class="stat-value text-white font-bold text-lg font-mono">{{ activeSessions.length }}</div>
+</div>
+<div class="stat-card highlight-gold gold-glow">
+<div class="stat-title text-[8px] uppercase text-[#D4AF37] tracking-widest mb-1">ORTALAMA NİYET</div>
+<div class="stat-value text-[#D4AF37] font-bold text-lg font-mono">{{ averageScore }}<span class="text-xs">/100</span></div>
+</div>
+<div class="stat-card alert-red critical-glow">
+<div class="stat-title text-[8px] uppercase text-red-500 tracking-widest mb-1">AURELIA TEMASI</div>
+<div class="stat-value text-red-500 font-bold text-lg font-mono">{{ aureliaTriggers }}</div>
+</div>
+</div>
+<transition name="sovereign-flash">
+<div class="sovereign-alert-banner" v-if="sovereignAlert">
+<h1 class="text-3xl font-bold heading-font uppercase tracking-widest mb-2" style="text-shadow: 0 0 20px currentColor;">SOVEREIGN RESCUE</h1>
+<div class="font-mono text-sm text-gray-300">Target Locked (Session: {{ lastAlertSession }})</div>
+<div class="mt-2 text-[10px] text-emerald-400 uppercase tracking-widest animate-pulse">Aurelia Agent Deployed</div>
+</div>
+</transition>
+<div class="pulse-feed-wrapper radar-panel bg-gray-900/40 border border-[#D4AF37]/20 rounded-lg p-3 flex-1 flex flex-col shadow-[0_0_15px_rgba(212,175,55,0.05)] overflow-hidden">
+<h3 class="feed-title text-[10px] font-bold tracking-widest uppercase text-santis-gold flex items-center gap-2 mb-2 pb-2 border-b border-[#D4AF37]/20">
+<span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping shadow-[0_0_5px_#ef4444]" id="war-room-led"></span> 📡 OMNI-CORE Veri Akışı
+                        </h3>
+<div class="flex-1 overflow-y-auto custom-scroll pr-1 font-mono text-xs">
+<transition-group class="pulse-list space-y-2" name="list" tag="ul">
+<li :class="'tier-' + event.tier.toLowerCase()" :key="event.id" class="p-2 rounded border transition-all duration-300 flex items-center justify-between" v-for="event in reversedFeed">
+<div class="flex items-center gap-2">
+<span class="pulse-time text-gray-500">[{{ event.time }}]</span>
+<span class="pulse-uuid text-gray-400 font-bold">{{ event.session.substring(0,8) }}...</span>
+<span class="px-1.5 py-0.5 rounded bg-red-500 text-white text-[8px] uppercase tracking-widest animate-pulse ml-2" v-if="event.tier === 'SURGE'">Surge Fire</span>
+<span class="px-1.5 py-0.5 rounded bg-[#D4AF37] text-black font-bold text-[8px] uppercase tracking-widest animate-pulse ml-2" v-else-if="event.tier === 'RESCUE'">Rescue</span>
+</div>
+<div class="text-right flex flex-col items-end">
+<span class="pulse-score text-white font-bold text-sm">Skor: {{ event.score }}</span>
+<span class="pulse-tier text-blue-400 text-[8px] uppercase tracking-wider block">[{{ event.tier }}]</span>
+</div>
+</li>
+</transition-group>
+<div class="text-center text-gray-700 mt-10 animate-pulse" v-if="reversedFeed.length === 0">Awaiting Initial Telemetry...</div>
+</div>
+</div>
+<!-- PROTOCOL 24: COGNITIVE INTENT RADAR -->
+<div class="pulse-feed-wrapper radar-panel bg-gray-900/40 border border-emerald-500/20 rounded-lg p-3 flex-1 flex flex-col shadow-[0_0_15px_rgba(16,185,129,0.05)] overflow-hidden">
+<h3 class="feed-title text-[10px] font-bold tracking-widest uppercase text-emerald-500 flex justify-between items-center mb-2 pb-2 border-b border-emerald-500/20">
+<span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_5px_#10b981]"></span> 🧠 Cognitive Intent Radar</span>
+<span class="text-[8px] text-gray-500">PROTOCOL 24 (PREFETCH)</span>
+</h3>
+<div class="flex-1 overflow-y-auto custom-scroll pr-1 font-mono text-xs">
+<transition-group class="pulse-list space-y-2" name="list" tag="ul">
+<li :key="pred.id" class="p-2 rounded border border-emerald-900/30 bg-gray-900/60 transition-all duration-300 flex items-center justify-between" v-for="pred in neuralFeed">
+<div class="flex items-center gap-2">
+<span class="pulse-time text-gray-500">[{{ pred.time }}]</span>
+<span class="pulse-uuid text-gray-400 font-bold">{{ pred.session }}</span>
+<span class="text-emerald-400 text-[10px]">➔ {{ pred.target }}</span>
+</div>
+<div class="text-right flex items-center gap-2" title="Pre-cognition Confidence">
+<div class="text-[9px] text-gray-500">CONF.</div>
+<div class="pulse-score text-emerald-500 font-bold text-sm">{{ pred.confidence }}%</div>
+</div>
+</li>
+</transition-group>
+<div class="text-center text-gray-700 mt-4 animate-pulse" v-if="neuralFeed.length === 0">Awaiting Neural Predictions...</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div> <!-- End of #app -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="santis-core.js"></script>
+<script src="santis-live-mesh.js"></script>
+<script src="santis-matrix-engine.js"></script>
+<script src="integrated_hub.js"></script>
+<!-- ── PANEL RESIZE ENGINE ────────────────────────────────────── -->
+<script>
+    (function () {
+        function makeResizable(resizerId, panelId, side) {
+            const resizer = document.getElementById(resizerId);
+            const panel   = document.getElementById(panelId);
+            if (!resizer || !panel) return;
 
-                    <!-- Chart.js Canvas -->
-                    <div class="relative w-full h-24 mb-2 z-10">
-                        <canvas id="sovereign-pulse-chart"></canvas>
-                    </div>
-                </div>
+            // Restore saved width
+            const saved = localStorage.getItem('cc_panel_' + panelId);
+            if (saved) panel.style.width = saved;
 
-                <!-- Live SaaS Booking Metrics -->
-                <div class="grid grid-cols-2 gap-2 mb-4 relative z-10">
-                    <div class="bg-gray-900/50 border border-gray-800 rounded p-3 text-center">
-                        <div class="text-[8px] text-gray-500 font-mono uppercase tracking-widest mb-1">Today Revenue</div>
-                        <div class="text-santis-gold font-bold text-lg heading-font font-mono">€<span id="metric-revenue">0.00</span></div>
-                    </div>
-                    <div class="bg-gray-900/50 border border-[#D4AF37]/30 rounded p-3 text-center shadow-[0_0_15px_rgba(212,175,55,0.1)]">
-                        <div class="text-[8px] text-[#D4AF37] font-mono uppercase tracking-widest mb-1 flex items-center justify-center gap-1">★ Intel Fee Pool</div>
-                        <div class="text-[#D4AF37] font-bold text-lg heading-font font-mono">€<span id="metric-intel-fee">0.00</span></div>
-                    </div>
-                </div>
-                
-                <div class="grid grid-cols-2 gap-2 mb-4 relative z-10">
-                    <div class="bg-gray-900/50 border border-gray-800 rounded p-3 text-center relative overflow-hidden group">
-                        <div class="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                        <div class="text-[8px] text-gray-500 font-mono uppercase tracking-widest mb-1">Capacity</div>
-                        <div class="text-white font-bold text-lg heading-font font-mono"><span id="metric-capacity">0</span>%</div>
-                    </div>
-                    <div class="bg-gray-900/50 border border-gray-800 rounded p-3 text-center relative overflow-hidden">
-                        <div class="absolute inset-0 bg-red-500/10 animate-pulse"></div>
-                        <div class="text-[8px] text-red-400 font-mono uppercase tracking-widest mb-1 flex justify-center items-center gap-1"><span class="animate-bounce">🔥</span> Demand Heat</div>
-                        <div class="text-white font-bold text-lg heading-font font-mono"><span id="metric-heat">0</span>°</div>
-                    </div>
-                    <div class="bg-gray-900/50 border border-gray-800 rounded p-3 text-center">
-                        <div class="text-[8px] text-gray-500 font-mono uppercase tracking-widest mb-1">Active Visitors</div>
-                        <div class="text-emerald-400 font-bold text-lg heading-font font-mono flex justify-center items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                            <span id="metric-visitors">0</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="pulse-feed" class="flex-1 overflow-y-auto custom-scroll space-y-2 font-mono text-[10px] leading-relaxed relative z-10 pb-4">
-                    <div class="text-center text-gray-700 mt-20 animate-pulse">Listening for Global Intel...</div>
-                </div>
-            </div>
-        </section>
-        
-    </main>
+            let startX, startW;
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="santis-core.js"></script>
-    <script src="santis-live-mesh.js"></script>
-    <script src="integrated_hub.js"></script>
+            resizer.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                startX = e.clientX;
+                startW = panel.offsetWidth;
+                resizer.classList.add('dragging');
+                document.body.style.cursor   = 'col-resize';
+                document.body.style.userSelect = 'none';
+
+                function onMove(e) {
+                    let delta = side === 'left'
+                        ? e.clientX - startX
+                        : startX - e.clientX;
+                    let newW = Math.min(520, Math.max(180, startW + delta));
+                    panel.style.width = newW + 'px';
+                }
+
+                function onUp() {
+                    resizer.classList.remove('dragging');
+                    document.body.style.cursor    = '';
+                    document.body.style.userSelect = '';
+                    localStorage.setItem('cc_panel_' + panelId, panel.style.width);
+                    document.removeEventListener('mousemove', onMove);
+                    document.removeEventListener('mouseup',   onUp);
+                }
+
+                document.addEventListener('mousemove', onMove);
+                document.addEventListener('mouseup',   onUp);
+            });
+        }
+
+        makeResizable('cc-resizer-left',  'cc-panel-left',  'left');
+        makeResizable('cc-resizer-right', 'cc-panel-right', 'right');
+    })();
+    </script>
+<script defer="" src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script defer="" src="/admin/vue-command-center.js"></script>
+<!-- Phase 22: Sovereign Asset Director (The Steering Wheel) -->
+<div class="hidden fixed inset-0 bg-black/90 backdrop-blur-xl z-[9999] flex justify-center items-center" id="nv-asset-director-modal">
+<div class="bg-gray-900/80 border border-santis-gold/50 rounded-xl p-6 w-full max-w-3xl shadow-[0_0_50px_rgba(212,175,55,0.15)] flex flex-col md:flex-row gap-6 relative">
+<button class="absolute top-4 right-4 text-gray-500 hover:text-red-500 font-bold text-lg transition-colors" onclick="closeAssetDirector()">✕</button>
+<!-- Asset Preview Container -->
+<div class="flex-1 rounded-lg overflow-hidden bg-black/50 border border-gray-800 flex items-center justify-center relative min-h-[250px] md:min-h-full">
+<img alt="Santis Club Experience - Premium View" class="max-w-full max-h-[400px] object-contain" id="director-preview" src=""/>
+<div class="absolute bottom-2 left-2 bg-black/80 px-2 py-1 rounded border border-gray-700 text-[9px] font-mono text-gray-400">
+                    ID: <span class="text-white" id="director-id-display"></span>
+</div>
+</div>
+<!-- Asset Routing / Editor Controls -->
+<div class="flex-1 flex flex-col gap-4">
+<h3 class="text-sm font-bold tracking-widest uppercase text-santis-gold border-b border-gray-800 pb-2 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-santis-gold animate-pulse"></span>
+                    Sovereign Asset Director
+                </h3>
+<form class="space-y-3" id="director-form">
+<input id="director-asset-id" type="hidden">
+<div>
+<label class="block text-[10px] text-gray-400 font-mono mb-1 uppercase tracking-widest">Master Category</label>
+<select class="w-full bg-black/50 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold transition-colors" id="director-category">
+<option value="hamam">Hammam / Thermal</option>
+<option value="masaj">Massage / Recovery</option>
+<option value="cilt">Skincare / Aesthetic</option>
+<option value="diger">General / Hotel</option>
+</select>
+</div>
+<div>
+<label class="block text-[10px] text-gray-400 font-mono mb-1 uppercase tracking-widest">Routing Slot (Page Position)</label>
+<select class="w-full bg-black/50 border border-gray-700 text-santis-gold font-bold text-xs rounded p-2 outline-none focus:border-santis-gold font-mono transition-colors" id="director-slot">
+<option value="">— Sadece Galeri (Slot Yok) —</option>
+<optgroup label="🏠 Ana Sayfa">
+<option value="card-hamam">Ana Sayfa → Hamam Kartı</option>
+<option value="card-masaj">Ana Sayfa → Masaj Kartı</option>
+<option value="card-cilt">Ana Sayfa → Cilt Bakımı Kartı</option>
+<option value="card-atolye">Ana Sayfa → Atölye Kartı</option>
+<option value="philosophy-hero">Ana Sayfa → Felsefe Görseli</option>
+</optgroup>
+<optgroup label="🧖 Hamam Sayfaları">
+<option value="osmanli-ritueli">Osmanlı Hamam Geleneği</option>
+<option value="kese-ve-kopuk-masaji">Kese &amp; Köpük Masajı</option>
+<option value="kopuk-masaji">Köpük Masajı</option>
+<option value="tuz-peeling">Tuz Peeling</option>
+<option value="kahve-peeling">Kahve Peeling</option>
+<option value="bal-masaji">Bal Masajı</option>
+<option value="cikolata-bakimi">Çikolata Bakımı</option>
+<option value="yosun-bakimi">Yosun Bakımı</option>
+<option value="santis-pasa">Santis Paşa</option>
+</optgroup>
+<optgroup label="💆 Masaj Sayfaları">
+<option value="klasik-masaj">Klasik Masaj</option>
+<option value="aromaterapi-masaji">Aromaterapi Masajı</option>
+<option value="derin-doku-masaji">Derin Doku Masajı</option>
+<option value="sicak-tas-masaji">Sıcak Taş Masajı</option>
+<option value="thai-masaji">Thai Masajı</option>
+<option value="anti-stress-masaji">Anti-Stres Masajı</option>
+<option value="spor-terapi">Spor Terapi</option>
+<option value="signature-rituel">Signature Ritüel</option>
+</optgroup>
+<optgroup label="🌿 Cilt Bakımı Sayfaları">
+<option value="classic-facial">Classic Facial</option>
+<option value="anti-aging-pro">Anti-Aging Pro</option>
+<option value="hyaluron-hydrate">Hyaluron Hydrate</option>
+<option value="gold-mask-ritual">Gold Mask Ritual</option>
+<option value="collagen-lift">Collagen Lift</option>
+<option value="glass-skin">Glass Skin</option>
+<option value="deep-cleanse">Deep Cleanse</option>
+<option value="vitamin-c-glow">Vitamin C Glow</option>
+</optgroup>
+<optgroup label="💠 Sovereign Vitrini (24 Kart)">
+<option value="sig-card-0">Signatures → Kart 1</option>
+<option value="sig-card-1">Signatures → Kart 2</option>
+<option value="sig-card-2">Signatures → Kart 3</option>
+<option value="sig-card-3">Signatures → Kart 4</option>
+<option value="sig-card-4">Signatures → Kart 5</option>
+<option value="sig-card-5">Signatures → Kart 6</option>
+<option value="hammam-card-0">Hammam → Kart 1</option>
+<option value="hammam-card-1">Hammam → Kart 2</option>
+<option value="hammam-card-2">Hammam → Kart 3</option>
+<option value="hammam-card-3">Hammam → Kart 4</option>
+<option value="hammam-card-4">Hammam → Kart 5</option>
+<option value="hammam-card-5">Hammam → Kart 6</option>
+<option value="hammam-card-6">Hammam → Kart 7</option>
+<option value="hammam-card-7">Hammam → Kart 8</option>
+<option value="therapy-card-0">Therapies → Kart 1</option>
+<option value="therapy-card-1">Therapies → Kart 2</option>
+<option value="therapy-card-2">Therapies → Kart 3</option>
+<option value="therapy-card-3">Therapies → Kart 4</option>
+<option value="therapy-card-4">Therapies → Kart 5</option>
+<option value="therapy-card-5">Therapies → Kart 6</option>
+<option value="therapy-card-6">Therapies → Kart 7</option>
+<option value="therapy-card-7">Therapies → Kart 8</option>
+<option value="therapy-card-8">Therapies → Kart 9</option>
+<option value="therapy-card-9">Therapies → Kart 10</option>
+</optgroup>
+</select>
+</div>
+<div>
+<label class="block text-[10px] text-gray-400 font-mono mb-1 uppercase tracking-widest">Service Binding ID</label>
+<input class="w-full bg-black/50 border border-gray-700 text-emerald-400 text-xs rounded p-2 outline-none focus:border-santis-gold font-mono transition-colors" id="director-service-id" type="text"/>
+</div>
+<div>
+<label class="block text-[10px] text-gray-400 font-mono mb-1 uppercase tracking-widest">Tagline / Caption</label>
+<textarea class="w-full bg-black/50 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold transition-colors custom-scroll" id="director-caption" rows="2"></textarea>
+</div>
+<div class="pt-4 flex gap-3">
+<button class="flex-1 py-2 text-[10px] uppercase tracking-widest font-bold text-gray-400 border border-gray-700 rounded hover:bg-gray-800 hover:text-white transition-all font-mono" onclick="closeAssetDirector()" type="button">Cancel</button>
+<button class="flex-1 py-2 text-[10px] uppercase tracking-widest font-bold text-black bg-santis-gold rounded hover:bg-amber-400 transition-all font-mono shadow-[0_0_15px_rgba(212,175,55,0.4)]" onclick="saveAssetRouting()" type="button">Enforce Routing</button>
+</div>
+</input></form>
+</div>
+</div>
+</div>
+<!-- Phase 29: Sovereign Autonomous Matrix Dialog (Otopilot Onay Ekranı) -->
+<div class="hidden fixed inset-0 bg-black/95 backdrop-blur-2xl z-[99999] flex flex-col justify-center items-center" id="nv-sentience-modal">
+<!-- Background Ambient Glow -->
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(201,169,110,0.08),transparent_60%)] pointer-events-none"></div>
+<div class="bg-black/80 border border-santis-gold/40 rounded-2xl p-8 w-full max-w-2xl shadow-[0_0_80px_rgba(212,175,55,0.2)] relative flex flex-col items-center text-center mx-4 transform transition-all duration-500 scale-95 opacity-0" id="nv-sentience-box">
+<!-- Close Button -->
+<button class="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors cursor-pointer text-xl" onclick="closeSentienceModal()">✕</button>
+<!-- Icon / Logo -->
+<div class="w-16 h-16 rounded-full bg-santis-gold/10 border border-santis-gold flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(212,175,55,0.4)] relative">
+<div class="absolute inset-0 rounded-full border-t border-santis-gold animate-spin" style="animation-duration: 3s;"></div>
+<span class="text-3xl text-santis-gold drop-shadow-[0_0_10px_#d4af37]">⚡</span>
+</div>
+<!-- Title -->
+<h2 class="text-xl font-bold tracking-widest uppercase text-santis-gold mb-2" style="text-shadow: 0 0 15px rgba(212,175,55,0.5);">
+                Sovereign Otopilot Fırsatı
+            </h2>
+<p class="text-gray-400 font-mono text-xs mb-8 uppercase tracking-wide" id="sentience-msg">
+                Kesişimsel Zeka bir kâr fırsatı tespit etti.
+            </p>
+<!-- Data Output Panel -->
+<div class="w-full bg-gray-900/60 border border-gray-800 rounded-lg p-5 mb-8 flex flex-col items-center relative overflow-hidden">
+<div class="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(201,169,110,0.02)_50%,transparent_75%)] bg-[length:250%_250%] animate-[shimmer_3s_linear_infinite]"></div>
+<p class="text-sm text-gray-300 leading-relaxed mb-6 font-mono text-center relative z-10 w-full" id="sentience-detail">
+                    Ajan_12'yi Hero_Hammama atarsak, rezonans x% artacak.
+                </p>
+<!-- Financial Lift Banner -->
+<div class="bg-santis-gold/10 border border-santis-gold/50 rounded-full px-6 py-3 flex items-center gap-4 shadow-[0_0_20px_rgba(212,175,55,0.2)] relative z-10">
+<span class="text-[10px] text-santis-gold tracking-widest uppercase font-bold">Projected MRR Lift:</span>
+<span class="text-2xl font-bold text-white tracking-tight" id="sentience-mrr" style="text-shadow: 0 0 10px rgba(255,255,255,0.5);">+€0,00</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex gap-4 w-full">
+<button class="flex-1 py-3 text-xs uppercase tracking-widest font-bold text-gray-400 border border-gray-700 rounded-lg hover:bg-gray-800 hover:text-white transition-all font-mono" onclick="closeSentienceModal()">
+                    Reddet (Manual)
+                </button>
+<button class="flex-[2] py-3 text-sm uppercase tracking-widest font-bold text-black bg-santis-gold rounded-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] hover:bg-amber-400 transition-all font-mono relative overflow-hidden group" onclick="executeSentience()">
+<div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></div>
+                    ⚡ Oku ve Mühürle
+                </button>
+</div>
+</div>
+</div>
+
+<!-- Phase 44: ECharts Neuro-Cortex Engine -->
+<script defer="" src="santis-echarts.js"></script>
 </body>
 </html>

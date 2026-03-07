@@ -48,8 +48,9 @@
     <style>
         .concierge-widget {
             position: fixed;
-            bottom: 30px;
+            bottom: 90px;
             right: 30px;
+            z-index: 999999;
             
             font-family: 'Inter', sans-serif;
             color: white;
@@ -212,3 +213,601 @@
     </style>
 </div>
 
+<script>
+/* ── Phase 16: SANTIS CONCIERGE — Gemini Live Engine ── */
+(function () {
+    'use strict';
+    var API = '/api/v1/ai/concierge-chat';
+    var _history = [];
+    var _greeted = false;
+    var _sending = false;
+
+    function getScore() {
+        if (window._nvGhostData && window._nvGhostData.intentScore) return window._nvGhostData.intentScore;
+        return parseInt(sessionStorage.getItem('nv_intent_score') || '45');
+    }
+    function getTags() {
+        var t = []; var s = getScore();
+        if (s >= 75) t.push('high_intent');
+        if (s >= 60) t.push('warm_lead');
+        if (sessionStorage.getItem('nv_promo_token')) t.push('promo_holder');
+        return t;
+    }
+    function getSvc() { return sessionStorage.getItem('nv_service_interest') || window._nvLastViewedService || ''; }
+
+    function appendMsg(role, text, waObj) {
+        var msgs = document.getElementById('concierge-messages');
+        if (!msgs) return;
+        var wrap = document.createElement('div');
+        wrap.className = 'msg ' + role;
+        if (waObj) {
+            var a = document.createElement('a');
+            a.href = waObj.url; a.target = '_blank'; a.rel = 'noopener';
+            a.className = 'nv-wa-cta';
+            a.innerHTML = '&#128172; ' + waObj.label;
+            wrap.appendChild(a);
+        } else {
+            var inner = document.createElement('div');
+            inner.className = 'msg-text';
+            inner.textContent = text;
+            wrap.appendChild(inner);
+        }
+        msgs.appendChild(wrap);
+        msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function showTyping() {
+        var msgs = document.getElementById('concierge-messages');
+        if (!msgs) return;
+        var d = document.createElement('div');
+        d.className = 'msg bot'; d.id = 'nv-typing';
+        d.innerHTML = '<div class="msg-text nv-typing-dots"><span></span><span></span><span></span></div>';
+        msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+    }
+    function hideTyping() { var el = document.getElementById('nv-typing'); if (el) el.remove(); }
+
+    async function send(txt) {
+        if (_sending || !txt.trim()) return;
+        _sending = true;
+        appendMsg('user', txt);
+        _history.push({role:'user', text:txt});
+        showTyping();
+
+        var svc = getSvc();
+        var promo = sessionStorage.getItem('nv_promo_token') || '';
+        var score = getScore();
+        // Auto-expand greeting placeholder
+        if (txt === '__GREETING__') {
+            txt = svc ? ('Merhaba, ' + svc + ' hakkında bilgi almak istiyorum.') : 'Merhaba, size nasıl yardımcı olabilirsiniz?';
+            _history[_history.length-1].text = txt;
+        }
+
+        try {
+            // ── Phase 20: Build Ghost+Oracle context ─────────────
+            var ghost    = window._nvGhostContext || {};
+            var context  = {
+                intent_score:    score,
+                page_depth:      parseInt(ghost.page_depth || sessionStorage.getItem('nv_depth') || '1', 10),
+                time_on_site:    parseInt(ghost.time_on_site || 0, 10),
+                last_pages:      ghost.last_pages || [],
+                service_interest: svc || ghost.service_interest || '',
+                is_whale:        !!(ghost.is_whale || window._nvIsWhale),
+                is_returning:    !!(ghost.is_returning || window._nvIsReturning),
+                guest_name:      sessionStorage.getItem('nv_guest_name') || ghost.guest_name || '',
+                promo_code:      promo || sessionStorage.getItem('nv_promo_token') || '',
+                wa_number:       window.NV_CONCIERGE_NUMBER || '905348350169',
+            };
+
+            var res = await fetch(API, {
+                method:'POST', headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({
+                    message: txt,
+                    history: _history.slice(-8),
+                    context: context,
+                    // Legacy fields (backward compat with other endpoints)
+                    intent_score:     context.intent_score,
+                    service_interest: context.service_interest,
+                    promo_token:      promo,
+                    guest_name:       context.guest_name,
+                })
+            });
+            var data = await res.json();
+            hideTyping();
+
+            // ── Phase 20: Support both reply formats ──────────────
+            var reply = data.reply || data.ai_reply || 'Anlıyorum...';
+            appendMsg('bot', reply);
+            _history.push({role:'ai', text: reply});
+
+            // ── Phase 20 H3: WhatsApp deep-link CTA ──────────────
+            var waLink = data.whatsapp_deeplink;
+            if (waLink) {
+                setTimeout(function () {
+                    var promo_badge = data.promo_code
+                        ? '<span class="nv-promo-badge" style="margin-left:8px;background:rgba(0,0,0,0.25);border:1px solid rgba(0,0,0,0.3);padding:1px 6px;border-radius:4px;font-family:monospace;font-size:0.78rem;">'
+                          + data.promo_code + '</span>'
+                        : '';
+                    var msgs2 = document.getElementById('concierge-messages');
+                    if (!msgs2) return;
+                    var ctaWrap = document.createElement('div');
+                    ctaWrap.className = 'msg bot';
+                    ctaWrap.innerHTML =
+                        '<a href="' + waLink + '" target="_blank" rel="noopener" '
+                        + 'class="nv-wa-cta nv-autopilot-cta" '
+                        + 'style="display:inline-flex;align-items:center;gap:8px;'
+                        + 'background:linear-gradient(135deg,#1a3a1a,#25a050);'
+                        + 'color:#fff;padding:10px 18px;border-radius:20px;'
+                        + 'font-size:0.84rem;font-weight:600;text-decoration:none;">'
+                        + '💬 WhatsApp\'ta Onayla' + promo_badge
+                        + '</a>';
+                    msgs2.appendChild(ctaWrap);
+                    msgs2.scrollTop = msgs2.scrollHeight;
+                }, 600);
+            }
+
+            // Legacy booking CTA (Phase 16 backward compat)
+            if (data.booking_suggested && data.whatsapp_cta && !waLink) {
+                setTimeout(function() { appendMsg('bot', '', data.whatsapp_cta); }, 700);
+            }
+
+            if (data.booking_suggested || waLink) {
+                var sid = (window._nvGhostId || localStorage.getItem('nv_sid') || 'anon');
+                document.dispatchEvent(new CustomEvent('nv:concierge_engage', {
+                    detail: { intent_score: score, service: svc, session_id: sid, scenario: data.scenario }
+                }));
+                fetch('/api/v1/ai/banner-impression', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ session_id: sid, action: 'CONCIERGE_ENGAGE', discount_pct: 0, event_id: '' })
+                }).catch(function(){});
+                window._nvIntelLog = window._nvIntelLog || [];
+                window._nvIntelLog.push({ ts: new Date().toISOString(), type: 'CONCIERGE_ENGAGE', intent: score, service: svc, scenario: data.scenario });
+            }
+
+        } catch(e) {
+            hideTyping();
+            appendMsg('bot', 'Bağlantı sorunu oluştu. Lütfen tekrar deneyin.');
+        }
+        _sending = false;
+    }
+
+    // Toggle & Send click
+    document.addEventListener('click', function(e) {
+        var act = e.target.closest('[data-concierge-action]');
+        if (!act) return;
+        if (act.dataset.conciergeAction === 'toggle') {
+            var w = document.getElementById('nv-concierge-widget');
+            if (!w) return;
+            var opened = w.classList.toggle('open');
+            if (opened && !_greeted && getScore() >= 55) {
+                _greeted = true;
+                setTimeout(function() { send('__GREETING__'); }, 500);
+            }
+        }
+        if (act.dataset.conciergeAction === 'send') {
+            var inp = document.getElementById('concierge-input');
+            if (inp && inp.value.trim()) { var t = inp.value.trim(); inp.value = ''; send(t); }
+        }
+    });
+
+    // Suggestion chips
+    document.addEventListener('click', function(e) {
+        var chip = e.target.closest('[data-concierge-suggest]');
+        if (!chip) return;
+        var t = chip.dataset.conciergeuggest || chip.textContent.replace(/"/g,'').trim();
+        send(t);
+    });
+
+    // Enter key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            var inp = document.getElementById('concierge-input');
+            if (document.activeElement === inp && inp && inp.value.trim()) {
+                var t = inp.value.trim(); inp.value = ''; send(t);
+            }
+        }
+    });
+
+    // Global trigger
+    window.NV_CONCIERGE = { send: send, open: function() {
+        var w = document.getElementById('nv-concierge-widget');
+        if (w && !w.classList.contains('open')) w.classList.add('open');
+        if (!_greeted && getScore() >= 55) { _greeted = true; setTimeout(function(){ send('__GREETING__'); }, 400); }
+    }};
+}());
+</script>
+
+<style>
+.nv-wa-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, #1a3a1a 0%, #25a050 100%);
+    color: #fff; padding: 10px 18px; border-radius: 20px;
+    font-size: 0.84rem; font-weight: 600; text-decoration: none;
+    margin-top: 6px; transition: opacity 0.2s, transform 0.2s;
+}
+.nv-wa-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+.nv-typing-dots { display: flex; gap: 5px; align-items: center; min-width: 48px; }
+.nv-typing-dots span {
+    width: 7px; height: 7px; background: rgba(255,255,255,0.45);
+    border-radius: 50%; animation: nvdot 1.3s infinite;
+}
+.nv-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.nv-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes nvdot {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+}
+</style>
+
+
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   PHASE 18: SOVEREIGN AUTOPILOT BRIDGE
+   Listens for WHALE_DETECTED + sovereign_invite from the server
+   WS. When received, auto-opens the concierge chat and injects
+   the Gemini-generated VIP invitation with a typing simulation.
+   ═══════════════════════════════════════════════════════════════ */
+(function () {
+    'use strict';
+
+    // Guard: Only run on public site pages (not HQ dashboard)
+    if (window.location.pathname.includes('hq-dashboard')) return;
+
+    // ── WhatsApp config ────────────────────────────────────────
+    var WA_NUMBER = window.NV_CONCIERGE_NUMBER || '905000000000';
+    var WA_BASE   = 'https://wa.me/';
+
+    // ── Typing simulation speed (ms per char) ─────────────────
+    var TYPING_SPEED = 28;
+
+    // ── Anti-duplicate (processed invite IDs) ─────────────────
+    var _processed = new Set();
+
+    // ── Helper: Append a bot message to chat ──────────────────
+    function appendBotMsg(html) {
+        var msgs = document.getElementById('concierge-messages');
+        if (!msgs) return;
+        var wrap = document.createElement('div');
+        wrap.className = 'msg bot';
+        wrap.innerHTML = '<div class="msg-text">' + html + '</div>';
+        msgs.appendChild(wrap);
+        msgs.scrollTop = msgs.scrollHeight;
+        return wrap;
+    }
+
+    // ── Helper: Typing animation ───────────────────────────────
+    function typeIntoElement(el, text, onDone) {
+        var i = 0;
+        var inner = el.querySelector('.msg-text');
+        if (!inner) return;
+        inner.textContent = '';
+        function tick() {
+            if (i < text.length) {
+                inner.textContent += text[i++];
+                el.parentElement && (el.parentElement.scrollTop = el.parentElement.scrollHeight);
+                setTimeout(tick, TYPING_SPEED);
+            } else if (onDone) {
+                onDone();
+            }
+        }
+        tick();
+    }
+
+    // ── Helper: WhatsApp CTA button ────────────────────────────
+    function appendWhatsAppCTA(promo_code, service) {
+        var msgs = document.getElementById('concierge-messages');
+        if (!msgs) return;
+        var svcHint = service ? (' — ' + service) : '';
+        var waMsg   = encodeURIComponent(
+            'Merhaba! Santis Spa rezervasyonu yapmak istiyorum.' +
+            svcHint + (promo_code ? (' Kodum: ' + promo_code) : '')
+        );
+        var wrap = document.createElement('div');
+        wrap.className = 'msg bot';
+        wrap.innerHTML =
+            '<a href="' + WA_BASE + WA_NUMBER + '?text=' + waMsg + '" ' +
+            'target="_blank" rel="noopener" class="nv-wa-cta nv-autopilot-cta">' +
+            '&#128172; WhatsApp ile Onayla' +
+            (promo_code ? ' <span class="nv-promo-badge">' + promo_code + '</span>' : '') +
+            '</a>';
+        msgs.appendChild(wrap);
+        msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    // ── Helper: Show "Autopilot Active" badge in chat header ──
+    function showAutopilotBadge() {
+        var header = document.querySelector('.concierge-title');
+        if (!header || header.querySelector('.autopilot-badge')) return;
+        var badge = document.createElement('span');
+        badge.className = 'autopilot-badge';
+        badge.textContent = '⚡ Autopilot';
+        badge.style.cssText =
+            'font-size:0.65rem;background:linear-gradient(135deg,#d4af37,#f5c842);' +
+            'color:#000;padding:2px 7px;border-radius:4px;margin-left:8px;' +
+            'font-weight:700;letter-spacing:0.04em;';
+        header.appendChild(badge);
+    }
+
+    // ── Core: Handle a WHALE_DETECTED + sovereign_invite ──────
+    function handleAutopilot(data) {
+        var invite = data.sovereign_invite;
+        if (!invite || !invite.message) return;
+
+        // Dedup by promo_code
+        var key = invite.promo_code || (data.guest + data.score);
+        if (_processed.has(key)) return;
+        _processed.add(key);
+
+        var score = data.score || 0;
+
+        // Open the concierge window
+        if (window.NV_CONCIERGE && typeof window.NV_CONCIERGE.open === 'function') {
+            window.NV_CONCIERGE.open();
+        } else {
+            var w = document.getElementById('nv-concierge-widget');
+            if (w) w.classList.add('open');
+        }
+
+        // Small delay then inject invite with typing animation
+        setTimeout(function () {
+            showAutopilotBadge();
+
+            // Create placeholder bubble
+            var msgs = document.getElementById('concierge-messages');
+            if (!msgs) return;
+            var bubble = document.createElement('div');
+            bubble.className = 'msg bot nv-autopilot-msg';
+            bubble.innerHTML = '<div class="msg-text"></div>';
+            msgs.appendChild(bubble);
+            msgs.scrollTop = msgs.scrollHeight;
+
+            // Type message
+            typeIntoElement(bubble, invite.message, function () {
+                // After typing, append WhatsApp CTA
+                setTimeout(function () {
+                    appendWhatsAppCTA(invite.promo_code, data.service);
+                }, 500);
+            });
+
+        }, score >= 0.9 ? 800 : 2000);  // High-score whales get faster response
+    }
+
+    // ── WS Bridge: listen for AUTOPILOT_PUSH events ───────────
+    // Server broadcasts WHALE_DETECTED to hq_global.
+    // We need a site-scoped WS to receive autopilot pushes.
+    // If the site already has a socket exposure, use it.
+    function attachAutopilotListener() {
+        // Strategy 1: If site-level socket is exposed
+        if (window.siteSocket && window.siteSocket.addEventListener) {
+            window.siteSocket.addEventListener('message', function (ev) {
+                try {
+                    var d = JSON.parse(ev.data);
+                    if (d.type === 'WHALE_DETECTED' && d.autopilot && d.sovereign_invite) {
+                        handleAutopilot(d);
+                    }
+                } catch (e) {}
+            });
+            console.log('[Autopilot Bridge] Attached to siteSocket.');
+            return;
+        }
+
+        // Strategy 2: Open dedicated WS for site autopilot
+        var sid = (window._nvGhostId || sessionStorage.getItem('nv_ghost_id') || 'site-' + Math.random().toString(36).slice(2));
+        var wsUrl = (location.protocol === 'https:' ? 'wss' : 'ws') +
+                    '://' + location.host + '/ws?client_type=site&client_id=' + sid;
+        try {
+            var sock = new WebSocket(wsUrl);
+            sock.onmessage = function (ev) {
+                try {
+                    var d = JSON.parse(ev.data);
+                    if (d.type === 'WHALE_DETECTED' && d.autopilot && d.sovereign_invite) {
+                        handleAutopilot(d);
+                    }
+                } catch (e) {}
+            };
+            sock.onclose = function () {
+                // Reconnect after 5s
+                setTimeout(attachAutopilotListener, 5000);
+            };
+            window._nvAutopilotSocket = sock;
+            console.log('[Autopilot Bridge] Site WS connected:', wsUrl);
+        } catch (e) {
+            console.warn('[Autopilot Bridge] WS unavailable:', e);
+        }
+    }
+
+    // Boot after concierge UI is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', attachAutopilotListener);
+    } else {
+        setTimeout(attachAutopilotListener, 1200);
+    }
+
+}());
+</script>
+
+<style>
+/* Phase 18: Autopilot-specific styles */
+.nv-autopilot-msg .msg-text {
+    border-left: 2px solid #d4af37;
+    background: linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(10,10,12,0.95) 100%);
+}
+.nv-autopilot-cta {
+    background: linear-gradient(135deg, #b8960c 0%, #d4af37 50%, #f5c842 100%) !important;
+    box-shadow: 0 4px 20px rgba(212,175,55,0.35);
+    position: relative;
+}
+.nv-promo-badge {
+    display: inline-block;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(0,0,0,0.3);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    margin-left: 6px;
+}
+</style>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   PHASE 22 H3: FRICTION BARRIER — Proactive Assist Trigger
+   If Ghost signals high intent (whale) + deep browse (≥5 pages)
+   but user has NOT typed a message, auto-open concierge and
+   send a subtle "Can I help you?" nudge after 8s.
+   ═══════════════════════════════════════════════════════════════ */
+(function () {
+    'use strict';
+
+    if (window._p22FrictionInit) return;
+    window._p22FrictionInit = true;
+
+    var FRICTION_DELAY_MS = 8000;   // 8s after page load
+    var _triggered = false;
+
+    function shouldTrigger() {
+        var ghost   = window._nvGhostContext || {};
+        var depth   = parseInt(ghost.page_depth || sessionStorage.getItem('nv_depth') || '0', 10);
+        var isWhale = !!(ghost.is_whale || window._nvIsWhale);
+        var score   = parseInt(ghost.intent_score || 0, 10);
+        // Trigger: whale OR (score≥75 AND depth≥5), no prior chat interaction
+        return (isWhale || (score >= 75 && depth >= 5)) && !window._nvChatInteracted;
+    }
+
+    function runFrictionAssist() {
+        if (_triggered || !shouldTrigger()) return;
+        _triggered = true;
+
+        var svc  = sessionStorage.getItem('nv_service_interest') || window._nvLastViewedService || '';
+        var name = sessionStorage.getItem('nv_guest_name') || '';
+
+        // Auto-open concierge
+        var w = document.getElementById('nv-concierge-widget');
+        if (w && !w.classList.contains('open')) {
+            w.classList.add('open');
+        }
+
+        // Build proactive message
+        var proMsg = name
+            ? (name + ', size yardımcı olabilir miyim?')
+            : (svc
+                ? (svc + ' konusunda merak ettiklerinizi yanıtlayayım.')
+                : 'Santis deneyiminizi planlamanıza yardımcı olmamı ister misiniz?');
+
+        // Inject as bot message with typing animation
+        setTimeout(function () {
+            var msgs = document.getElementById('concierge-messages');
+            if (!msgs) return;
+            var bubble = document.createElement('div');
+            bubble.className = 'msg bot nv-friction-assist';
+            bubble.setAttribute('style',
+                'border-left:2px solid rgba(212,175,55,0.4);' +
+                'background:rgba(212,175,55,0.04);'
+            );
+            var inner = document.createElement('div');
+            inner.className = 'msg-text';
+            inner.textContent = '';
+            bubble.appendChild(inner);
+            msgs.appendChild(bubble);
+            msgs.scrollTop = msgs.scrollHeight;
+
+            // Typewriter
+            var i = 0;
+            var tick = function () {
+                if (i < proMsg.length) {
+                    inner.textContent += proMsg[i++];
+                    msgs.scrollTop = msgs.scrollHeight;
+                    setTimeout(tick, 30);
+                } else {
+                    // Append recovery CTA after typing
+                    setTimeout(function () {
+                        var recoveryUrl = '/api/v1/admin/recovery-offer';
+                        fetch(recoveryUrl, {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({
+                                churn_reason:     'FRICTION_BARRIER',
+                                guest_name:       name,
+                                service_interest: svc,
+                                composite_score:  parseFloat((window._nvGhostContext || {}).intent_score || 75) / 100,
+                            })
+                        })
+                        .then(function(r) { return r.json(); })
+                        .then(function(rec) {
+                            if (rec.whatsapp_deeplink && msgs) {
+                                var btnWrap = document.createElement('div');
+                                btnWrap.className = 'msg bot';
+                                btnWrap.innerHTML =
+                                    '<a href="' + rec.whatsapp_deeplink + '" target="_blank" rel="noopener" '
+                                    + 'class="nv-wa-cta" style="display:inline-flex;align-items:center;gap:8px;'
+                                    + 'background:linear-gradient(135deg,#1a3a1a,#25a050);color:#fff;'
+                                    + 'padding:8px 16px;border-radius:18px;font-size:0.82rem;font-weight:600;text-decoration:none;">'
+                                    + '💬 Hemen Başlayalım'
+                                    + '</a>';
+                                msgs.appendChild(btnWrap);
+                                msgs.scrollTop = msgs.scrollHeight;
+                            }
+                        })
+                        .catch(function(){});
+                    }, 800);
+                }
+            };
+            tick();
+        }, 600);
+    }
+
+    // Boot: check after delay
+    setTimeout(runFrictionAssist, FRICTION_DELAY_MS);
+
+    // Also listen for deep-browse signal from Ghost
+    window.addEventListener('nv:ghost_whale_detected', function () {
+        setTimeout(runFrictionAssist, 2000);
+    });
+
+}());
+</script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   PHASE 25 H3: SELF-HEAL CONCIERGE INJECTOR
+   Reads HQ healing directive from localStorage and enriches
+   the concierge context with service hints, badges.
+   TTL: 24 hours. ═══════════════════════════════════════════════ */
+(function(){
+    var TTL = 86400000; // 24h ms
+    function loadDir(){
+        try{
+            var r=localStorage.getItem('santis_heal_directive');
+            if(!r) return null;
+            var d=JSON.parse(r);
+            if(Date.now()-(d.ts||0)>TTL){localStorage.removeItem('santis_heal_directive');return null;}
+            return d;
+        }catch(e){return null;}
+    }
+    function inject(){
+        var d=loadDir();
+        if(!d) return;
+        window._nvHealDirective=d;
+        if(window._nvGhostContext){
+            window._nvGhostContext.heal_hint=d.hint;
+            window._nvGhostContext.heal_service=d.service;
+        }
+        if(d.service&&d.badge){
+            document.querySelectorAll('[data-service-name]').forEach(function(c){
+                if(c.getAttribute('data-service-name')===d.service){
+                    var b=document.createElement('span');
+                    b.textContent=d.badge;
+                    b.style.cssText='position:absolute;top:8px;right:8px;background:#d4af37;color:#000;font-size:0.65rem;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:0.05em;z-index:10;';
+                    c.style.position='relative';c.appendChild(b);
+                }
+            });
+        }
+        if(window.SantisDebug) console.log('🩺 [SelfHeal H3] Directive injected:',d);
+    }
+    if(document.readyState==='loading'){
+        document.addEventListener('DOMContentLoaded',function(){setTimeout(inject,800);});
+    } else { setTimeout(inject,800); }
+}());
+</script>

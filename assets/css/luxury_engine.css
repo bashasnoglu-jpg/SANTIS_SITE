@@ -1,0 +1,243 @@
+/**
+ * SANTIS OMNI-OS - FLOATING CONCIERGE CSS (v4.5)
+ * Soft, elegant, non-intrusive bottom-right widget.
+ */
+
+/* CONCIERGE WIDGET WRAPPER */
+.floating-concierge {
+    position: fixed;
+    bottom: 30px;
+    right: -400px;
+    /* Hidden off-screen initially */
+    width: 340px;
+    background: linear-gradient(135deg, rgba(20, 22, 25, 0.95) 0%, rgba(10, 12, 14, 0.98) 100%);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 8px;
+    padding: 30px 25px;
+    z-index: var(--z-modal);
+    /* AUTO-CAPPED BY OMNI-CORE */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    transition: right 400ms cubic-bezier(0.175, 0.885, 0.32, 1.15);
+    /* Snappy but smooth enter */
+    font-family: 'Inter', sans-serif;
+}
+
+.floating-concierge.active {
+    right: 30px;
+}
+
+/* AVATAR / ICON AREA */
+.fc-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.fc-avatar {
+    width: 45px;
+    height: 45px;
+    background: #D4AF37;
+    /* Santis Gold */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.fc-avatar svg {
+    fill: #111;
+    width: 20px;
+    height: 20px;
+}
+
+.fc-titles {
+    display: flex;
+    flex-direction: column;
+}
+
+.fc-name {
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.fc-status {
+    color: var(--gold, #D4AF37);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* CONTENT AREA */
+.fc-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.fc-body p {
+    color: #a0a0a0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* BUTTON */
+.fc-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 12px 0;
+    background: transparent;
+    border: 1px solid var(--gold, #D4AF37);
+    color: var(--gold, #D4AF37);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 4px;
+}
+
+.fc-btn:hover {
+    background: var(--gold, #D4AF37);
+    color: #000;
+}
+
+.fc-btn svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    fill: currentColor;
+}
+
+/* CLOSE BTN */
+.fc-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s ease;
+}
+
+.fc-close:hover {
+    color: #fff;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 480px) {
+    .floating-concierge {
+        bottom: 0;
+        right: 0 !important;
+        width: 100%;
+        border-radius: 12px 12px 0 0;
+        transform: translateY(110%);
+        transition: transform 400ms cubic-bezier(0.175, 0.885, 0.32, 1);
+        border: none;
+        border-top: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .floating-concierge.active {
+        transform: translateY(0);
+        right: 0;
+    }
+}
+
+/* ==========================================================================
+   PHASE 46: ULTRA MOTION (Cinematic Scroll Engine)
+   Zero-JS, native GPU — sadece Chrome/Edge tam destek.
+   Safari/Firefox: @supports dışında kalır, statik kart görür. Sıfır hata.
+   ========================================================================== */
+
+@supports (animation-timeline: view()) {
+
+    /* Sinematik giriş: tüm kart varyantlarını kapsıyor */
+    .ultra-motion .nv-card,
+    .ultra-motion .bento-card,
+    .ultra-motion .svc-card,
+    .ultra-motion .nv-signature-visual,
+    .ultra-motion .nv-trend-card {
+        animation: sovereignReveal linear both;
+        animation-timeline: view();
+        /* Viewport'a %5 girdiğinde başla → %30'unda bitir */
+        animation-range: entry 5% cover 30%;
+        will-change: transform, opacity, filter;
+    }
+
+    /* Lüks, yumuşak ve tok giriş — blur + slide + scale üçlüsü */
+    @keyframes sovereignReveal {
+        from {
+            opacity: 0;
+            transform: translateY(60px) scale(0.97);
+            filter: blur(8px) brightness(0.85);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0) brightness(1);
+        }
+    }
+
+    /* Hero / section başlıkları için daha hafif versiyon — kayma yok, sadece fade */
+    .ultra-motion h1,
+    .ultra-motion h2,
+    .ultra-motion .nv-section-label {
+        animation: sovereignFadeIn linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 20%;
+    }
+
+    @keyframes sovereignFadeIn {
+        from {
+            opacity: 0;
+            filter: blur(4px);
+        }
+
+        to {
+            opacity: 1;
+            filter: blur(0);
+        }
+    }
+
+    /* Stagger efekti: n. kart biraz geç başlar (scroll hızıyla doğal dağılım) */
+    .ultra-motion .nv-card:nth-child(2),
+    .ultra-motion .bento-card:nth-child(2) {
+        animation-range: entry 10% cover 35%;
+    }
+
+    .ultra-motion .nv-card:nth-child(3),
+    .ultra-motion .bento-card:nth-child(3) {
+        animation-range: entry 15% cover 40%;
+    }
+
+    .ultra-motion .nv-card:nth-child(n+4),
+    .ultra-motion .bento-card:nth-child(n+4) {
+        animation-range: entry 20% cover 45%;
+    }
+
+    /* Reduced Motion tercihine saygı — accessibility zorunluluğu */
+    @media (prefers-reduced-motion: reduce) {
+
+        .ultra-motion .nv-card,
+        .ultra-motion .bento-card,
+        .ultra-motion .svc-card,
+        .ultra-motion h1,
+        .ultra-motion h2,
+        .ultra-motion .nv-section-label {
+            animation: none;
+        }
+    }
+}

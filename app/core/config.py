@@ -14,11 +14,22 @@ class Settings(BaseSettings):
     ADMIN_USERNAME: str = "admin"
     ADMIN_PASSWORD_HASH: str = "changeme"
     SESSION_SECRET: str = "super-secret-session-key"
+    REDIS_URL: str = "redis://localhost:6379/0"
 
     # External Services
     GEMINI_API_KEY: str | None = None
     CLOUDFLARE_API_TOKEN: str | None = None
     CLOUDFLARE_ACCOUNT_ID: str | None = None
+    STRIPE_SECRET_KEY: str | None = None
+    STRIPE_WEBHOOK_SECRET: str | None = None
+
+    
+    # AWS & S3 Media Config
+    AWS_ACCESS_KEY_ID: str | None = None
+    AWS_SECRET_ACCESS_KEY: str | None = None
+    AWS_REGION: str = "eu-central-1"
+    AWS_BUCKET_NAME: str = "santis-media-global"
+    CDN_DOMAIN: str = "" # e.g. https://cdn.santis.club
 
     class Config:
         env_file = ".env"

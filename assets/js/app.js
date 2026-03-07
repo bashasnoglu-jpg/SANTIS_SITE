@@ -1,8 +1,79 @@
 /* ==========================================================================
-   SANTIS APP v7.0
+   SANTIS APP v7.0 (V23 Sovereign Cache Seal)
    Service catalog, content loader, mega menu, living card.
    Depends on: app-core.js (must load first)
    ========================================================================== */
+
+// ── SANTIS CONSOLE LOG SWITCH ───────────────────────────────────────────────
+// Production'da tüm console.log/info/warn susar.
+// Dev (localhost) veya ?debug=true URL parametresiyle tam log gorursunuz.
+; (function () {
+  const _isDebug = location.hostname === 'localhost'
+    || new URLSearchParams(location.search).has('debug');
+
+  if (window.SANTIS) window.SANTIS.debug = _isDebug;
+  else window.SANTIS = { debug: _isDebug };
+
+  // Global log() helper — log('...') seklinde kullanilabilir
+  window.log = (...a) => _isDebug ? console.log(...a) : undefined;
+  window.logWarn = (...a) => _isDebug ? console.warn(...a) : undefined;
+
+  if (!_isDebug) {
+    const noop = () => { };
+    console.log = noop;
+    console.info = noop;
+    console.warn = noop;
+    // console.error AKTIF — gercek hatalar her zaman gorulur
+  }
+})();
+// ────────────────────────────────────────────────────────────────────────────
+// 🧠 SANTIS GLOBAL CORE — Tüm sistemlerin ortak veri hub'ı
+window.SANTIS = window.SANTIS || {
+  version: "V23",
+  persona: null,        // santis-chameleon.js tarafından doldurulur
+  session: {},          // santis-ghost.js tarafından doldurulur
+  score: 0,             // santis-score-engine.js tarafından güncellenir
+  debug: (location.hostname === 'localhost')
+};
+
+// DEV OVERRIDE (Phase 87): Backend API is currently offline. Suppress 404s.
+window.SANTIS_API_ONLINE = false;
+
+// 🔇 PRODUCTION LOG GUARD — localhost dışında console çıktılarını sustur
+if (!window.SANTIS.debug) {
+  console.log = console.warn = console.info = () => { };
+}
+
+// 🛡️ THE MEMORY SEAL: V2.2.1 CACHE PURGE
+// Mevcut tarayıcılardaki şişmiş .jpg ve array verilerini kalıcı temizleyerek WebP rotalarını zorla getirir.
+(function initMemorySeal() {
+  const SOVEREIGN_VERSION = "2.3.0"; // Versiyon değiştirildikçe tüm misafirlerin önbelleği sıfırlanır
+  if (localStorage.getItem("santis_seal_version") !== SOVEREIGN_VERSION) {
+    console.warn("🧹 [The Memory Seal] Stale cache detected. Purging localStorage blockades...");
+    localStorage.removeItem("santis_products");
+    localStorage.removeItem("santis_hotel");
+    localStorage.removeItem("santis_booking_state");
+
+    // Tüm dinamik API cachelerini temizle
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith("santis_cache")) {
+        localStorage.removeItem(key);
+      }
+    });
+
+    // nv_neural_history'yi tamamen silmeden en güncel 5 mesaja indirge ki Rate Limit error vermesin
+    try {
+      const hist = JSON.parse(localStorage.getItem("nv_neural_history") || "[]");
+      if (Array.isArray(hist) && hist.length > 5) {
+        localStorage.setItem("nv_neural_history", JSON.stringify(hist.slice(-5)));
+      }
+    } catch (e) { }
+
+    // Versiyonu güncelle
+    localStorage.setItem("santis_seal_version", SOVEREIGN_VERSION);
+    console.log("✅ [The Memory Seal] Cache shattered. Ready for WebP injection.");
+  }
+})();
 
 /* Shared data loader — used by init() and service catalog */
 function getSantisRootPath() {
@@ -26,6 +97,19 @@ function getSantisRootPath() {
 }
 
 async function loadContent() {
+  // 🚀 FALLBACK DATA: script tag yerine dinamik fetch (250KB yük ortadan kalktı)
+  if (!window.SANTIS_FALLBACK) {
+    try {
+      // getSantisRootPath '' döndürebilir → window.location.origin ile güvenli URL kur
+      const origin = window.location.origin;
+      const res = await fetch(origin + '/assets/data/fallback_data.json');
+      if (res.ok) {
+        window.SANTIS_FALLBACK = await res.json();
+      }
+    } catch (e) {
+      window.SANTIS_FALLBACK = { global: {} };
+    }
+  }
   const localFallbackData = window.SANTIS_FALLBACK || { global: {} };
 
   try {
@@ -35,76 +119,43 @@ async function loadContent() {
       await new Promise((resolve) => {
         const script = document.createElement('script');
         script.src = '/assets/js/api-client.js';
-        script.onload = () => { console.log("🦅 API Client Loaded."); resolve(); };
-        script.onerror = () => { console.warn("⚠️ API Client Load Failed."); resolve(); };
+        script.onload = () => {
+          console.log("🦅 API Client Loaded.");
+          resolve();
+        };
+        script.onerror = () => {
+          console.warn("⚠️ API Client Load Failed.");
+          resolve();
+        };
         document.head.appendChild(script);
       });
     }
 
-    // 1. Try Santis OS API (Phase 2)
-    if (window.SantisAPI) {
-      console.log("🦅 API Mode: Active");
-
-      let apiData = null;
-      const currentHotel = state.hotel || localStorage.getItem("santis_hotel");
-
-      if (currentHotel) {
-        console.log(`🦅 Fetching Menu for: ${currentHotel}`);
-        // If hotel selected, get specific menu
-        const menuData = await SantisAPI.getHotelMenu(currentHotel);
-        if (menuData && menuData.menu) {
-          apiData = menuData.menu; // This is an array of services with pricing
-        }
-      }
-
-      if (!apiData) {
-        console.log("🦅 Fetching Master Catalog");
-        // Fallback to master catalog
-        apiData = await SantisAPI.getMasterCatalog();
-      }
-
-      if (apiData && Array.isArray(apiData) && apiData.length > 0) {
-        // ADAPTER: Convert API Array -> Legacy Object Structure
-        const base = { global: { services: {} } };
-
-        apiData.forEach(svc => {
-          // Ensure ID
-          if (svc.id) {
-            base.global.services[svc.id] = svc;
-
-            // Populate category arrays for legacy support if needed
-            // (Optional: depending on how renderAll uses them)
-          }
-        });
-
-        // Make it globally available for nuclear-cards
-        window.productCatalog = apiData;
-
-        return base;
-      }
-    }
-
-    // 2. Fallback to Legacy Fetch (Phase 1)
+    // 1. Fetch Legacy Data (which contains categories, hotels, translations)
+    let base = {};
     if (location.protocol === "file:") {
       console.warn("⚠️ File protocol - Using Fallback Data");
-      return window.SANTIS_FALLBACK || {};
+      base = window.SANTIS_FALLBACK || { global: {} };
+    } else {
+      const DATA_URL = `/assets/data/fallback-data.json?v=${Date.now()}`;
+      const res = await fetch(DATA_URL, {
+        headers: {
+          'Accept': 'application/json',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
+      });
+      if (!res.ok) throw new Error("JSON Fetch Failed");
+      const data = await res.json();
+      base = data.global ? data : { global: data };
     }
 
-    const DATA_URL = "/data/site_content.json";
-    const res = await fetch(DATA_URL, { headers: { 'Accept': 'application/json' } });
-    if (!res.ok) throw new Error("JSON Fetch Failed");
-
-    const data = await res.json();
-    const base = data.global ? data : { global: data };
-
-    // Standardize Legacy Data
+    // Standardize Legacy Data structure
     if (!base.global.services) {
       base.global.services = {};
       const keys = ["hammam", "classicMassages", "extraEffective", "faceSothys", "asianMassages", "sportsTherapy", "ayurveda", "signatureCouples", "kidsFamily"];
-
-      // Catalog for nuclear-cards
       window.productCatalog = [];
-
       keys.forEach(key => {
         if (Array.isArray(base.global[key])) {
           base.global[key].forEach(svc => {
@@ -118,10 +169,55 @@ async function loadContent() {
       });
     }
 
+    // 2. Overwrite with API Data if available (Phase 2 API Mode)
+    if (window.SantisAPI) {
+      console.log("🦅 API Mode: Active");
+      let apiData = null;
+      const currentHotel = state.hotel || localStorage.getItem("santis_hotel");
+
+      if (currentHotel) {
+        console.log(`🦅 Fetching Menu for: ${currentHotel}`);
+        const menuData = await SantisAPI.getHotelMenu(currentHotel);
+        if (menuData && menuData.menu) apiData = menuData.menu;
+      }
+
+      if (!apiData) {
+        console.log("🦅 Fetching Master Catalog");
+        apiData = await SantisAPI.getMasterCatalog();
+      }
+
+      if (apiData && Array.isArray(apiData) && apiData.length > 0) {
+        window.productCatalog = apiData;
+        base.global.services = {}; // Clear fallback services
+
+        apiData.forEach(svc => {
+          if (svc.id) {
+            // MAP CATEGORY FOR UI ENGINE
+            if (svc.category && !svc.categoryId) {
+              svc.categoryId = svc.category;
+            }
+            base.global.services[svc.id] = svc;
+          }
+        });
+        console.log("🦅 API Data injected into base content successfully.");
+      }
+    }
+
     return base;
 
   } catch (e) {
-    console.warn("Primary data fetch failed:", e.message);
+    console.error("Primary data fetch failed completely (Race/Network). Falling back cautiously.", e.message);
+
+    // SAFE-LOAD ATOMIC RECOVERY
+    if (Object.keys(localFallbackData).length === 0) {
+      console.warn("⚠️ Memory is empty, forcing atomic UI reload...");
+      // Sayfa taze yüklenmediyse ve elinde veri yoksa zorla f5 attır (Kullanıcının yaptığı gibi)
+      if (!sessionStorage.getItem("santis_safe_load_retried")) {
+        sessionStorage.setItem("santis_safe_load_retried", "true");
+        setTimeout(() => { window.location.reload(true); }, 500);
+      }
+    }
+
     return window.SANTIS_FALLBACK || localFallbackData;
   }
 }
@@ -177,70 +273,36 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 4. INSTANT LOADER (Perceived Performance)
+  // Sadece gerçek mouse destekleyen cihazlarda çalışır — mobil ağları yormaz.
+  if (window.matchMedia("(hover: hover)").matches) {
+    document.body.addEventListener('mouseover', (e) => {
 
-  // Detects hover/touch to pre-load the target page in background
+      const card = e.target.closest('.bento-card');
 
-  document.body.addEventListener('mouseover', (e) => {
+      if (card && card.dataset.href && !card.dataset.prefetched) {
 
-    const card = e.target.closest('.bento-card');
+        let href = card.dataset.href;
 
-    if (card && card.dataset.href && !card.dataset.prefetched) {
-
-      // FIX: Prepend root if path is relative and doesn't start with http/..
-
-      let href = card.dataset.href;
-
-      if (!href.startsWith('http') && !href.startsWith('../') && !href.startsWith('/')) {
-
-        const root = (typeof determineRoot === 'function') ? determineRoot() : ""; // Local helper if avail or global
-
-        // If determineRoot is not in scope here (it's inside IIFE below), we might need a global/window helper
-
-        // or just simple check. But wait, determineRoot is local to the async block below.
-
-        // Let's use a simple depth check or window.SITE_ROOT if available.
-
-        // Fix: Safer root determination for file:// protocol
-
-        let dRoot = "";
-
-        if (window.SITE_ROOT) {
-
-          dRoot = window.SITE_ROOT;
-
-        } else {
-          dRoot = '/';
+        if (!href.startsWith('http') && !href.startsWith('../') && !href.startsWith('/')) {
+          let dRoot = window.SITE_ROOT || '/';
+          href = dRoot + href;
+          if (!href.endsWith('.html') && !href.includes('.')) {
+            href = href.endsWith('/') ? href + 'index.html' : href + '/index.html';
+          }
         }
 
-        href = dRoot + href;
-
-        // Fix: Prefetching directory paths causes 404 on simple servers or file protocol
-
-        // If it doesn't end in .html and doesn't have an extension, assume directory and append index.html
-
-        if (!href.endsWith('.html') && !href.includes('.')) {
-
-          href = href.endsWith('/') ? href + 'index.html' : href + '/index.html';
-
-        }
-
+        console.log(`⚡ Instant Load: Prefetching ${href}`);
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.href = href;
+        document.head.appendChild(link);
+        card.dataset.prefetched = "true";
       }
 
-      console.log(`⚡ Instant Load: Prefetching ${href}`);
-
-      const link = document.createElement('link');
-
-      link.rel = 'prefetch';
-
-      link.href = href;
-
-      document.head.appendChild(link);
-
-      card.dataset.prefetched = "true";
-
-    }
-
-  }, { passive: true });
+    }, { passive: true });
+  } else {
+    console.log("📱 Instant Loader: Mobil cihaz tespit edildi, prefetch devre dışı.");
+  }
 
 });
 
@@ -400,13 +462,23 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 3. Performans: Görsellere Layout Shift koruması ekle
-
   document.querySelectorAll('img').forEach(img => {
-
     if (!img.getAttribute('width')) img.setAttribute('width', '600');
-
     if (!img.getAttribute('height')) img.setAttribute('height', '400');
+  });
 
+  // 3.5. THE GLOBAL LINK PURGE (Regex Tornado)
+  // Tüm internal linkleri Canonical Rotaya (/tr/) çevirir
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && href.startsWith('/') && !href.startsWith('//')) {
+      // Eski /en/ /de/ /ru/ /fr/ /sr/ rotalarını /tr/ ile değiştir
+      const newHref = href.replace(/^\/(en|ru|de|fr|sr)\//, '/tr/');
+      if (href !== newHref) {
+        link.setAttribute('href', newHref);
+        console.debug('⚡ [Regex Tornado] Canonical Link forced:', href, '->', newHref);
+      }
+    }
   });
 
   console.log("🏆 Santis Club: 10/10 Mükemmellik Mührü Uygulandı.");
@@ -414,26 +486,88 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Medya Üssü (Digital Concierge AI) Yükleyici
   console.log("🤖 Loading Digital Concierge AI...");
   const aiScript = document.createElement('script');
+
+  // SLASH ÇAKIŞMASINI (//assets) ÖNLEYEN DÜZELTME
   const rootPath = (typeof getSantisRootPath === 'function' ? getSantisRootPath() : '');
-  const normalizedRoot = rootPath ? (rootPath.endsWith('/') ? rootPath : rootPath + '/') : '/';
+  const cleanRoot = rootPath.endsWith('/') ? rootPath.slice(0, -1) : rootPath;
 
   // 4.5 Omni-Language Protocol (TR/EN Sync)
   console.log("🌍 Loading Omni-Language Protocol...");
   const langScript = document.createElement('script');
-  langScript.src = normalizedRoot + 'assets/js/santis-language-sync.js';
+  langScript.src = cleanRoot + '/assets/js/santis-language-sync.js';
   langScript.defer = false; // Load early
   document.head.appendChild(langScript);
 
-  aiScript.src = normalizedRoot + 'assets/js/santis-ai-chatbot.js';
+  aiScript.src = cleanRoot + '/assets/js/santis-ai-chatbot.js';
   aiScript.defer = true;
   document.body.appendChild(aiScript);
 
   // 5. Medya Üssü (Reklam Pixel İzleme) Yükleyici
   console.log("🎯 Loading Santis Pixel Engine...");
   const pixelScript = document.createElement('script');
-  pixelScript.src = normalizedRoot + 'assets/js/santis-pixel-engine.js';
+  pixelScript.src = cleanRoot + '/assets/js/santis-pixel-engine.js';
   pixelScript.defer = true;
   document.head.appendChild(pixelScript);
+
+  // 6. OMNI-OS V5: MASTER EDGE NODE & REVENUE ENGINE
+  console.log("💎 Loading Santis Omni-OS V5 Edge Router...");
+
+  // Load CSS
+  const luxCss = document.createElement('link');
+  luxCss.rel = 'stylesheet';
+  luxCss.href = cleanRoot + '/assets/css/luxury_engine.css';
+  document.head.appendChild(luxCss);
+
+  // Load Scripts in strict dependency order (Cleaned old V5 scripts)
+  const scriptsToLoad = [
+    // ── CORE ENGINE (Phase Protocols) ──────────────────────────────────────
+    '/assets/js/core/santis-idle-engine.js?v=27.0',   // Protocol 27: Ghost Thread
+    '/assets/js/core/santis-gravity.js?v=28.0',        // Protocol 28: Zero-Gravity Stack
+    '/assets/js/core/santis-kinetics.js?v=29.0',       // Protocol 29: Kinetic 3D Physics
+    '/assets/js/core/santis_router.js',
+    '/assets/js/core/santis_edge_os.js?v=15.6',        // Phase 44.5: LCP Domination
+    '/assets/js/core/santis-revenue-brain.js?v=31.0',  // Protocol 31: Cognitive Yield Engine
+    '/assets/js/core/santis-behavior-tracker.js?v=24.0', // Protocol 24/25: Neural Navigation
+    // ── INTELLIGENCE (Score, Telemetry, Ghost) ──────────────────────────────
+    '/assets/js/santis-score-engine.js?v=15.6',        // Revenue Brain V1 — Ghost Score Matrix
+    '/assets/js/santis-telemetry.js?v=15.6',           // Telemetry & Data Vault
+    '/assets/js/santis-ghost.js',                       // Sovereign CRM Tracker
+    '/assets/js/santis-sentinel.js',                    // Security Sentinel
+    // ── PERSONALIZATION (AI Layer) ───────────────────────────────────────────
+    '/assets/js/santis-chameleon.js',                   // AI Content Personalization
+    '/assets/js/santis-persuader.js',                   // Proactive Closing Engine (Legacy Aurelia)
+    '/assets/js/aurelia-engine.js?v=2.1',               // The Sovereign Ghost (Phase 65 Aurelia Engine)
+    '/assets/js/santis-revenue-brain.js',               // Revenue Brain (direct JS)
+    // ── UX & DATA ────────────────────────────────────────────────────────────
+    '/assets/js/santis-booking.js',                     // Booking Modal/Flow
+    '/assets/js/booking-wizard.js',                     // Booking Wizard UI
+    '/assets/js/language-switcher.js',                  // TR/EN/FR Lang Switcher
+    '/assets/js/loaders/data-bridge.js',                // Sovereign Data Bridge V6
+    '/assets/js/cms-image-loader.js',                   // CMS Image Lazy Loader
+    // ── VISUAL EFFECTS ────────────────────────────────────────────────────────
+    '/assets/js/nuclear-cards.js',                      // Nuclear Card Animations
+    '/assets/js/card-effects.js',                       // Card Hover Effects
+    '/assets/js/lenis-init.js',                         // Smooth Scroll Init
+    // ── SEO & META ────────────────────────────────────────────────────────────
+    '/assets/js/hreflang-injector.js',                  // Hreflang Tag Manager
+    '/assets/js/hreflang-loader.js',                    // Hreflang Loader
+    '/assets/js/canonical-loader.js',                   // Canonical Tag Loader
+    '/assets/js/schema-loader.js',                      // JSON-LD Schema Loader
+  ];
+
+  scriptsToLoad.forEach(src => {
+    // 🛡️ DUPLICATE GUARD: Eğer bu script zaten sayfada varsa tekrar ekleme
+    const baseSrc = src.split('?')[0]; // ?v= parametresini ignore et
+    const alreadyLoaded = document.querySelector(`script[src*="${baseSrc}"]`);
+    if (alreadyLoaded) {
+      // console.log(`⚡ [App] Skipping already-loaded script: ${baseSrc}`);
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = cleanRoot + src;
+    script.defer = true;
+    document.body.appendChild(script);
+  });
 
   // AUTO-LOAD NAVBAR (DISABLED - Handled by santis-nav.js)
 
@@ -528,20 +662,20 @@ window.getSantisData = function () {
 
 /* 0 HATA GÖRSEL YÖNETİMİ */
 
-const _imgRecoveryLog = new Set();
+window._imgRecoveryLog = window._imgRecoveryLog || new Set();
 
 document.addEventListener('error', function (e) {
 
-  if (e.target.tagName.toLowerCase() === 'img') {
+  if (e.target && e.target.tagName && e.target.tagName.toLowerCase() === 'img') {
 
     const origSrc = e.target.getAttribute('src') || '';
 
     // Prevent infinite loops
-    if (origSrc.includes('luxury-placeholder') || origSrc.includes('placeholder.png')) return;
+    if (origSrc.includes('luxury-placeholder') || origSrc.includes('placeholder.webp')) return;
 
     // Rate limit: only try recovery once per unique src
-    if (_imgRecoveryLog.has(origSrc)) return;
-    _imgRecoveryLog.add(origSrc);
+    if (window._imgRecoveryLog.has(origSrc)) return;
+    window._imgRecoveryLog.add(origSrc);
 
     console.debug("Görsel kurtarılıyor:", origSrc);
 
@@ -637,39 +771,42 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================================================
-   PHASE 24: THE LIVING CARD (Mobile Touch)
+   PHASE 24: THE LIVING CARD (Mobile Touch UX V2)
+   - İlk tap → flip (arka yüzü göster)
+   - Arka yüz a / button / .nv-btn → direkt navigate (flip etme)
+   - Boş alana tap → tüm kartları kapat
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-  // Only engage on touch devices or small screens
   if (window.matchMedia("(hover: none)").matches || window.innerWidth < 992) {
 
     const cards = document.querySelectorAll('.mega-feature-card, .nv-card, .svc-card');
 
     cards.forEach(card => {
       card.addEventListener('click', (e) => {
-        // Check if clicking a button/link inside the card
-        if (e.target.closest('a') || e.target.closest('button')) return;
 
-        // If not already flipped, flip it and prevent default link nav
-        if (!card.classList.contains('is-flipped')) {
-          e.preventDefault();
-          e.stopPropagation();
+        // Arka yüzdeki link / buton → doğrudan aksiyon, flip etme
+        const isActionable = e.target.closest('a, button, .nv-btn');
+        if (isActionable) return;
 
-          // Unflip others
-          cards.forEach(c => c !== card && c.classList.remove('is-flipped'));
+        // Flip mekanizması
+        e.preventDefault();
+        e.stopPropagation();
 
+        const wasFlipped = card.classList.contains('is-flipped');
+
+        // Tüm kartları kapat (sadece bir kart açık kalsın)
+        cards.forEach(c => c.classList.remove('is-flipped'));
+
+        // Toggle: zaten açıksa kapat, kapalıysa aç
+        if (!wasFlipped) {
           card.classList.add('is-flipped');
-        } else {
-          // If already flipped, let the click pass through (navigate)
-          // Or toggle back if it's just an info card
-          // For now, we assume second tap = action (default behavior)
         }
       });
     });
 
-    // Close when clicking outside
+    // Boş alana dokunulunca tüm kartları sıfırla
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.mega-feature-card') && !e.target.closest('.nv-card')) {
+      if (!e.target.closest('.mega-feature-card, .nv-card, .svc-card')) {
         cards.forEach(c => c.classList.remove('is-flipped'));
       }
     });

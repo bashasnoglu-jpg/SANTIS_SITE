@@ -1,0 +1,85 @@
+﻿🚀 PROTOCOL 19: ESTHETIC & STYLE AUDIT
+
+--- RESULTS ---
+
+[AURA] (8 issues)
+🟠 MEDIUM [_dev_archives\digital_obesity_quarantine\_deploy_stage\assets\css\style.css:131]: Hardcoded generic color detected instead of var() palette: `color: blue;`
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_deploy_stage\assets\css\dist\fonts.min.css]: Luxury fonts missing `font-display: swap;`
+🟠 MEDIUM [_dev_archives\digital_obesity_quarantine\_build\output\assets\css\style.css:129]: Hardcoded generic color detected instead of var() palette: `color: blue;`
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_build\output\assets\css\dist\fonts.min.css]: Luxury fonts missing `font-display: swap;`
+🟠 MEDIUM [_dev_archives\digital_obesity_quarantine\_build\deploy\assets\css\style.css:128]: Hardcoded generic color detected instead of var() palette: `color: blue;`
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_build\deploy\assets\css\dist\fonts.min.css]: Luxury fonts missing `font-display: swap;`
+🟠 MEDIUM [assets\css\style.css:131]: Hardcoded generic color detected instead of var() palette: `color: blue;`
+🔴 CRITICAL [assets\css\dist\fonts.min.css]: Luxury fonts missing `font-display: swap;`
+
+[LAYOUT] (1154 issues)
+🟡 LOW [admin\style-admin.css:177]: Hardcoded px value > 9px for padding (use rem/em): `padding: 20px;`
+🟡 LOW [admin\style-admin.css:197]: Hardcoded px value > 9px for margin (use rem/em): `margin-bottom: 40px;`
+🟡 LOW [admin\style-admin.css:199]: Hardcoded px value > 9px for padding (use rem/em): `padding-bottom: 20px;`
+🟡 LOW [admin\style-admin.css:267]: Hardcoded px value > 9px for padding (use rem/em): `padding: 12px 15px;`
+🟡 LOW [admin\style-admin.css:437]: Hardcoded px value > 9px for padding (use rem/em): `padding: 30px;`
+🟡 LOW [admin\style-admin.css:453]: Hardcoded px value > 9px for padding (use rem/em): `padding: 20px;`
+🟡 LOW [admin\style-admin.css:507]: Hardcoded px value > 9px for padding (use rem/em): `padding: 12px;`
+🟡 LOW [admin\style-admin.css:527]: Hardcoded px value > 9px for padding (use rem/em): `padding: 12px;`
+🟡 LOW [admin\style-admin.css:612]: Hardcoded px value > 9px for padding (use rem/em): `padding: 20px;`
+🟡 LOW [admin\style-admin.css:635]: Hardcoded px value > 9px for padding (use rem/em): `padding: 20px;`
+🟡 LOW [admin\style-admin.css:643]: Hardcoded px value > 9px for padding (use rem/em): `padding: 20px;`
+🟡 LOW [admin\style-admin.css:656]: Hardcoded px value > 9px for margin (use rem/em): `margin-bottom: 15px;`
+🟡 LOW [admin\style-admin.css:688]: Hardcoded px value > 9px for padding (use rem/em): `padding: 10px;`
+🟡 LOW [admin\style-admin.css:750]: Hardcoded px value > 9px for padding (use rem/em): `padding: 10px;`
+🟡 LOW [admin\style-admin.css:784]: Hardcoded px value > 9px for padding (use rem/em): `padding: 10px 15px;`
+... and 1139 more.
+
+[PERF] (163 issues)
+🟠 MEDIUM [admin\style-admin.css:581]: High z-index detected (1000): `z-index: 1000;`. Possible Z-Index War.
+🟠 MEDIUM [admin\style-v2.css:87]: High z-index detected (100): `z-index: 100;`. Possible Z-Index War.
+🟠 MEDIUM [admin\style-v2.css:362]: High z-index detected (1000): `z-index: 1000;`. Possible Z-Index War.
+🟠 MEDIUM [admin\style-v2.css:445]: High z-index detected (1500): `z-index: 1500;`. Possible Z-Index War.
+🟠 MEDIUM [admin\style-v2.css:505]: High z-index detected (1600): `z-index: 1600;`. Possible Z-Index War.
+🟠 MEDIUM [mvp-frontend\style.css:187]: High z-index detected (1000): `z-index: 1000;`. Possible Z-Index War.
+🟠 MEDIUM [_archive\z_index_patch.css:12]: High z-index detected (100000): `z-index: 100000 !important;`. Possible Z-Index War.
+🟠 MEDIUM [_archive\z_index_patch.css:30]: High z-index detected (99999): `z-index: 99999 !important;`. Possible Z-Index War.
+🟠 MEDIUM [_dev_archives\digital_obesity_quarantine\_deploy_stage\admin\style-admin.css:581]: High z-index detected (1000): `z-index: 1000;`. Possible Z-Index War.
+🟠 MEDIUM [_dev_archives\digital_obesity_quarantine\_deploy_stage\admin\style-v2.css:87]: High z-index detected (100): `z-index: 100;`. Possible Z-Index War.
+🟠 MEDIUM [_dev_archives\digital_obesity_quarantine\_deploy_stage\admin\style-v2.css:362]: High z-index detected (1000): `z-index: 1000;`. Possible Z-Index War.
+🟠 MEDIUM [_dev_archives\digital_obesity_quarantine\_deploy_stage\admin\style-v2.css:445]: High z-index detected (1500): `z-index: 1500;`. Possible Z-Index War.
+🟠 MEDIUM [_dev_archives\digital_obesity_quarantine\_deploy_stage\admin\style-v2.css:505]: High z-index detected (1600): `z-index: 1600;`. Possible Z-Index War.
+🟠 MEDIUM [_dev_archives\digital_obesity_quarantine\_deploy_stage\assets\css\card-effects.css:161]: High z-index detected (10000): `z-index: 10000;`. Possible Z-Index War.
+🟠 MEDIUM [_dev_archives\digital_obesity_quarantine\_deploy_stage\assets\css\category-listing.css:16]: High z-index detected (200): `z-index: 200;`. Possible Z-Index War.
+... and 148 more.
+
+[MOTION] (374 issues)
+🟠 MEDIUM [admin\style-admin.css:279]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: all 0.2s;`
+🟠 MEDIUM [admin\style-admin.css:579]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: all 0.3s;`
+🟠 MEDIUM [admin\style-admin.css:760]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: all 0.2s;`
+🟠 MEDIUM [admin\style-admin.css:933]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: width 0.4s ease-out;`
+🟠 MEDIUM [admin\style-admin.css:1019]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: all 0.3s ease;`
+🟠 MEDIUM [admin\style-v2.css:99]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: width 0.4s var(--ease-out-expo);`
+🟠 MEDIUM [admin\style-v2.css:138]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: all 0.2s;`
+🟠 MEDIUM [admin\style-v2.css:161]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: all 0.3s 0.1s;`
+🟠 MEDIUM [admin\style-v2.css:268]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: all 0.2s;`
+🟠 MEDIUM [admin\style-v2.css:365]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: all 0.3s;`
+🟠 MEDIUM [admin\style-v2.css:769]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: all 0.2s;`
+🟠 MEDIUM [admin\style-v2.css:812]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: width 0.6s ease;`
+🟠 MEDIUM [mvp-frontend\style.css:94]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: all 0.2s;`
+🟠 MEDIUM [_dev_archives\digital_obesity_quarantine\_deploy_stage\admin\style-admin.css:279]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: all 0.2s;`
+🟠 MEDIUM [_dev_archives\digital_obesity_quarantine\_deploy_stage\admin\style-admin.css:579]: Layout-thrashing transition detected. Prefer transform/opacity: `transition: all 0.3s;`
+... and 359 more.
+
+[CLS] (22 issues)
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_deploy_stage\assets\css\booking-wizard.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_deploy_stage\assets\css\card-effects.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_deploy_stage\assets\css\master-cards.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_deploy_stage\assets\css\dist\booking-wizard.min.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_deploy_stage\assets\css\dist\card-effects.min.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_deploy_stage\assets\css\dist\master-cards.min.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_build\output\assets\css\booking-wizard.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_build\output\assets\css\card-effects.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_build\output\assets\css\master-cards.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_build\output\assets\css\dist\card-effects.min.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_build\output\assets\css\dist\master-cards.min.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_build\deploy\assets\css\card-effects.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_build\deploy\assets\css\master-cards.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_build\deploy\assets\css\dist\card-effects.min.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+🔴 CRITICAL [_dev_archives\digital_obesity_quarantine\_build\deploy\assets\css\dist\master-cards.min.css]: Image wrapper context detected but no `aspect-ratio` or `min-height` found.
+... and 7 more.

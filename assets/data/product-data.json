@@ -1,5 +1,5 @@
 [
-  {
+{
     "id": "hamam-peeling-schaum",
     "categoryId": "ritual-hammam",
     "name": "Peeling und Schaum Massage",
@@ -9,7 +9,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hammam_lux.png"
+      "hero": "santis_card_hammam_lux.webp"
     },
     "content": {
       "tr": {
@@ -61,7 +61,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_foam_lux.png"
+      "hero": "santis_card_foam_lux.webp"
     },
     "content": {
       "tr": {
@@ -111,7 +111,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hamam_scrub_v2.png"
+      "hero": "santis_card_hamam_scrub_v2.webp"
     },
     "content": {
       "tr": {
@@ -161,7 +161,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hamam_scrub_v2.png"
+      "hero": "santis_card_hamam_scrub_v2.webp"
     },
     "content": {
       "tr": {
@@ -211,7 +211,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hammam_v1.png"
+      "hero": "santis_card_hammam_v1.webp"
     },
     "content": {
       "tr": {
@@ -261,7 +261,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_kids_v1.png"
+      "hero": "santis_card_kids_v1.webp"
     },
     "content": {
       "tr": {
@@ -311,7 +311,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_skincare_clay_v2.png"
+      "hero": "santis_card_skincare_clay_v2.webp"
     },
     "content": {
       "tr": {
@@ -363,7 +363,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hammam_lux.png"
+      "hero": "santis_card_hammam_lux.webp"
     },
     "content": {
       "tr": {
@@ -387,7 +387,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -408,7 +408,7 @@
         "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
       }
     },
-    "slug": "klasik-tum-vucut-masaji",
+    "slug": "isvec-full-body",
     "tags": []
   },
   {
@@ -421,7 +421,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_oil_v2.png"
+      "hero": "santis_card_massage_oil_v2.webp"
     },
     "content": {
       "tr": {
@@ -455,7 +455,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_deeptissue_v1.png"
+      "hero": "santis_card_deeptissue_v1.webp"
     },
     "content": {
       "tr": {
@@ -489,7 +489,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -525,7 +525,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_oil_v2.png"
+      "hero": "santis_card_massage_oil_v2.webp"
     },
     "content": {
       "tr": {
@@ -561,7 +561,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "product-oil.png"
+      "hero": "product-oil.webp"
     },
     "content": {
       "tr": {
@@ -595,7 +595,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -631,7 +631,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_deeptissue_v1.png"
+      "hero": "santis_card_deeptissue_v1.webp"
     },
     "content": {
       "tr": {
@@ -667,7 +667,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_skincare_v1.png"
+      "hero": "santis_card_skincare_v1.webp"
     },
     "content": {
       "tr": {
@@ -701,7 +701,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_deeptissue_v1.png"
+      "hero": "santis_card_deeptissue_v1.webp"
     },
     "content": {
       "tr": {
@@ -735,7 +735,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -769,7 +769,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -805,7 +805,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -839,7 +839,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_deeptissue_v1.png"
+      "hero": "santis_card_deeptissue_v1.webp"
     },
     "content": {
       "tr": {
@@ -875,7 +875,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_oil_v2.png"
+      "hero": "santis_card_massage_oil_v2.webp"
     },
     "content": {
       "tr": {
@@ -911,7 +911,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_couple_v1.png"
+      "hero": "santis_card_couple_v1.webp"
     },
     "content": {
       "tr": {
@@ -947,7 +947,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_couple_v1.png"
+      "hero": "santis_card_couple_v1.webp"
     },
     "content": {
       "tr": {
@@ -968,7 +968,7 @@
         "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
       }
     },
-    "slug": "kombine-masaj-90",
+    "slug": "kombine-masaj",
     "tags": [
       "PREMIUM"
     ]
@@ -983,7 +983,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -1004,7 +1004,7 @@
         "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
       }
     },
-    "slug": "mix-manuel-terapi",
+    "slug": "manuel-terapi",
     "tags": [
       "VIP"
     ]
@@ -1019,7 +1019,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_skincare_v1.png"
+      "hero": "santis_card_skincare_v1.webp"
     },
     "content": {
       "tr": {
@@ -1055,7 +1055,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_skincare_clay_v2.png"
+      "hero": "santis_card_skincare_clay_v2.webp"
     },
     "content": {
       "tr": {
@@ -1091,7 +1091,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_skincare_v1.png"
+      "hero": "santis_card_skincare_v1.webp"
     },
     "content": {
       "tr": {
@@ -1127,7 +1127,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_skincare_clay_v2.png"
+      "hero": "santis_card_skincare_clay_v2.webp"
     },
     "content": {
       "tr": {

@@ -24,14 +24,7 @@
             });
         }
 
-        if (typeof window.loadComp === "function") {
-            if (document.getElementById("navbar-container")) {
-                window.loadComp("/components/navbar.html", "navbar-container");
-            }
-            if (document.getElementById("footer-container")) {
-                window.loadComp("/components/footer.html", "footer-container");
-            }
-        }
+        // Components (navbar + footer) are loaded globally by santis-nav.js
     }
 
     if (document.readyState === "loading") {

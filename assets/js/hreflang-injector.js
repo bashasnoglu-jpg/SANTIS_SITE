@@ -161,8 +161,21 @@
         fragment.appendChild(xDefault);
         generated++;
 
+        // 🛡️ OMNI-LANGUAGE V3 CANONICAL ARMOR
+        // Remove existing canonical tag if any to prevent duplicates
+        const existingCanonical = document.querySelector('link[rel="canonical"]');
+        if (existingCanonical) {
+            existingCanonical.parentNode.removeChild(existingCanonical);
+        }
+
+        // Inject self-referencing Canonical URL
+        const canonical = document.createElement('link');
+        canonical.rel = 'canonical';
+        canonical.href = DOMAIN + pathname; // Explicitly pointing to the current rendering language
+        fragment.appendChild(canonical);
+
         document.head.appendChild(fragment);
-        console.log(`🌐 [Hreflang v2.0] ${generated} tags (verified: ${routeData ? 'YES' : 'self-only'})`);
+        console.log(`🌐 [Hreflang v2.0] ${generated} tags + Canonical Armor (verified: ${routeData ? 'YES' : 'self-only'})`);
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -170,7 +183,7 @@
     // ═══════════════════════════════════════════════════════════════
     function bootstrap() {
         // Try to fetch the existence registry
-        const routesUrl = (window.SITE_ROOT || '/') + 'assets/data/available-routes.json';
+        const routesUrl = '/assets/data/available-routes.json';
 
         fetch(routesUrl)
             .then(r => {

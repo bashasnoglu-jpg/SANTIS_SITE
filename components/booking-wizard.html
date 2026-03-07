@@ -155,3 +155,119 @@
 .nv-btn-gold:hover { background: #c5a028; }
 </style>
 
+<script>
+/* ── Phase 15: BOOKING_WIZARD — Promo Token Bridge ── */
+window.BOOKING_WIZARD = (function () {
+    let currentStep = 1;
+    const TOTAL_STEPS = 3;
+
+    function setProgress(step) {
+        const fill = document.getElementById('wizardProgress');
+        if (fill) fill.style.width = Math.round((step / TOTAL_STEPS) * 100) + '%';
+    }
+
+    function goTo(step) {
+        document.querySelectorAll('.wizard-step').forEach(function (el) {
+            el.style.display = el.id === 'step-' + step ? '' : 'none';
+            el.classList.toggle('active', el.id === 'step-' + step);
+        });
+        currentStep = step;
+        setProgress(step);
+
+        // Show promo badge in step 3 if token available
+        if (step === 3) injectPromoBadge();
+    }
+
+    function injectPromoBadge() {
+        const token    = sessionStorage.getItem('nv_promo_token');
+        const discount = sessionStorage.getItem('nv_promo_discount');
+        const display  = sessionStorage.getItem('nv_promo_display');
+        if (!token) return;
+
+        const existing = document.getElementById('nv-promo-badge-wiz');
+        if (existing) return;
+
+        const badge = document.createElement('div');
+        badge.id = 'nv-promo-badge-wiz';
+        badge.style.cssText = 'background:linear-gradient(135deg,#1a1200,#2a1f0e);border:1px solid #d4af37;border-radius:6px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#d4af37;text-align:center;';
+        badge.innerHTML = '<strong>🎁 Aktif Promo: ' + (display || ('NV-' + token)) + '</strong><br><span style="color:#aaa;font-size:11px">%' + (discount || 10) + ' İndirim rezervasyonunuza yansıyacak</span>';
+
+        const actions = document.querySelector('#step-3 .wizard-actions');
+        if (actions) actions.parentNode.insertBefore(badge, actions);
+    }
+
+    function buildWhatsAppMessage() {
+        const service  = document.querySelector('#wizardServices input[name="wizard_service"]:checked');
+        const date     = document.getElementById('wizDate');
+        const time     = document.getElementById('wizTime');
+        const name     = document.getElementById('wizName');
+        const note     = document.getElementById('wizNote');
+
+        const svcName  = service ? (service.closest('.wizard-option').querySelector('h4') || {}).textContent || service.value : 'Belirtilmedi';
+        const dateVal  = date ? date.value : '';
+        const timeVal  = time ? time.value : '';
+        const nameVal  = name ? name.value.trim() : 'Misafir';
+        const noteVal  = note && note.value.trim() ? '\n📝 Not: ' + note.value.trim() : '';
+
+        let msg = '🌿 Santis Ritüel Rezervasyonu\n\n';
+        msg += '👤 Ad: ' + nameVal + '\n';
+        msg += '💆 Ritüel: ' + svcName + '\n';
+        msg += '📅 Tarih: ' + (dateVal || 'Belirtilmedi') + '\n';
+        msg += '🕐 Saat: ' + (timeVal || 'Belirtilmedi');
+        msg += noteVal;
+
+        // ── Phase 15: Inject Promo Token ──
+        const token    = sessionStorage.getItem('nv_promo_token');
+        const discount = sessionStorage.getItem('nv_promo_discount');
+        const display  = sessionStorage.getItem('nv_promo_display');
+        if (token) {
+            msg += '\n\n🎁 Promo Kodum: ' + (display || ('NV-' + token)) + ' | %' + (discount || 10) + ' İndirim';
+            // Mark token as used
+            fetch('/api/v1/ai/promo-token/' + token + '/use', { method: 'POST' }).catch(function () { });
+            // Clear from session so it's not reused
+            sessionStorage.removeItem('nv_promo_token');
+            sessionStorage.removeItem('nv_promo_discount');
+            sessionStorage.removeItem('nv_promo_display');
+        }
+
+        return msg;
+    }
+
+    return {
+        open: function () {
+            const modal = document.getElementById('wizardModal');
+            if (modal) { modal.classList.add('active'); modal.setAttribute('aria-hidden', 'false'); }
+            goTo(1);
+            // Populate services from DataBridge
+            const grid = document.getElementById('wizardServices');
+            if (grid && window.NV_PRODUCTS_ALL && window.NV_PRODUCTS_ALL.length > 0) {
+                grid.innerHTML = '';
+                window.NV_PRODUCTS_ALL.slice(0, 8).forEach(function (s, i) {
+                    const name = s.name || s.title || 'Ritüel';
+                    const price = s.current_price_eur || s.price || '';
+                    const label = document.createElement('label');
+                    label.className = 'wizard-option';
+                    label.innerHTML = '<input type="radio" name="wizard_service" value="' + (s.id || i) + '"><div class="wiz-card"><span class="wiz-icon">🌿</span><div class="wiz-info"><h4>' + name + '</h4><p>' + (price ? 'EUR ' + price : '') + '</p></div><span class="wiz-check">✓</span></div>';
+                    grid.appendChild(label);
+                });
+            } else if (grid) {
+                grid.innerHTML = '<p style="color:#888;font-size:13px;text-align:center">Hizmetler yükleniyor...</p>';
+            }
+        },
+        close: function () {
+            const modal = document.getElementById('wizardModal');
+            if (modal) { modal.classList.remove('active'); modal.setAttribute('aria-hidden', 'true'); }
+            goTo(1);
+        },
+        next: function () { if (currentStep < TOTAL_STEPS) goTo(currentStep + 1); },
+        prev: function () { if (currentStep > 1) goTo(currentStep - 1); },
+        finish: function () {
+            const msg     = buildWhatsAppMessage();
+            const phone   = (window.NV_CONCIERGE_NUMBER || '905555555555').replace(/\D/g, '');
+            const encoded = encodeURIComponent(msg);
+            window.open('https://wa.me/' + phone + '?text=' + encoded, '_blank');
+            this.close();
+        }
+    };
+}());
+</script>

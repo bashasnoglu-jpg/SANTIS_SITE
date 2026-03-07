@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ödeme Mühürlendi | Santis OS</title>
+    <link href="/assets/css/output.css" rel="stylesheet">
+    <style>
+        .reveal-spring { animation: reveal 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes reveal { 0% { opacity: 0; transform: translateY(30px) scale(0.95); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+    </style>
+</head>
+<body class="bg-[#050505] min-h-screen flex items-center justify-center relative overflow-hidden font-sans">
+    
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.15)_0%,transparent_60%)]"></div>
+
+    <div class="relative z-10 text-center px-6 reveal-spring">
+        <div class="w-24 h-24 mx-auto rounded-full bg-[#D4AF37]/10 flex items-center justify-center border border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] mb-8">
+            <span class="text-5xl drop-shadow-[0_0_10px_rgba(212,175,55,1)]">✅</span>
+        </div>
+        
+        <h1 class="font-serif text-4xl md:text-5xl text-white italic mb-4">Ödemeniz <span class="not-italic text-[#D4AF37]">Mühürlendi.</span></h1>
+        
+        <p class="text-gray-400 font-light max-w-sm mx-auto leading-relaxed mb-8">
+            Sovereign Concierge, ritüelinizin kusursuz tarihini belirlemek için WhatsApp üzerinden size eşlik edecek. Lüksün acelesi yoktur.
+        </p>
+        
+        <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-black/50 border border-gray-800 text-[10px] font-mono tracking-widest text-gray-400 uppercase">
+            <span class="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse shadow-[0_0_10px_#D4AF37]"></span>
+            Sovereign Ağ Geçidine Aktarılıyor...
+        </div>
+    </div>
+
+    <script>
+        // Otonom Handoff: 3.5 saniye asilce beklet ve WhatsApp'a fırlat (Zero-Friction)
+        setTimeout(() => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ritual = (urlParams.get('ritual') || 'Sovereign Ritual').toUpperCase().replace('-', ' ');
+            const session = (urlParams.get('session_id') || 'VIP').substring(0,8);
+            
+            // Hazır Mesaj Formatı
+            const waText = `[SOVEREIGN MÜHÜR: ${ritual}] \n\nPeşin ödemem başarıyla tamamlandı (ID: ${session}). Tarih ve saat tespiti için Master'ı bekliyorum.`;
+            const waPhone = "436000000000"; // Santis WhatsApp Hattı (Kendi numaranızla değiştirin)
+            
+            window.location.href = `https://wa.me/${waPhone}?text=${encodeURIComponent(waText)}`;
+        }, 3500); 
+    </script>
+</body>
+</html>

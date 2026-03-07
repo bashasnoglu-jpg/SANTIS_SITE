@@ -1,0 +1,12 @@
+{
+    "phantom_graph": {
+        "hero_main": {
+            "default": "/assets/img/hero/santis_hero_main_v2.webp",
+            "sovereign": "/assets/img/hero/santis_hero_main_v2.webp"
+        },
+        "spa_card_1": {
+            "default": "/assets/img/gallery/53c078bfa7f240d0a7f1a3b1904d9b43.webp",
+            "sovereign": "/assets/img/gallery/53c078bfa7f240d0a7f1a3b1904d9b43.webp"
+        }
+    }
+}

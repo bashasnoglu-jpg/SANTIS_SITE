@@ -175,6 +175,13 @@
             100% { background-position: -200% 0; }
         }
     </style>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Santis Club"/>
+<meta property="og:description" content="Santis Club resmi bağlantıları, rezervasyon ve iletişim kanalları."/>
+<meta property="og:image" content="https://santis.club//assets/img/og-santis.webp"/>
+<meta property="og:url" content="https://santis.club/bio.html"/>
+<meta property="og:type" content="website"/>
 </head>
 <body class="nv-bio-body">
     <!-- Liquid Background Minimal -->
@@ -183,7 +190,7 @@
     <main class="bio-container">
         <!-- Logo & Brand Header -->
         <div class="bio-logo-container">
-            <img src="assets/img/og-santis.jpg" alt="Santis Club" class="bio-logo" decoding="async" fetchpriority="high" width="80" height="80">
+            <img src="assets/img/og-santis.webp" alt="Santis Club" class="bio-logo" decoding="async" fetchpriority="high" width="80" height="80">
             <h1 class="bio-title">SANTIS</h1>
             <p class="bio-subtitle">Exclusive Wellness & Spa</p>
         </div>
@@ -255,7 +262,7 @@
                     });
                 } else {
                     // Fallback
-                    matrix.innerHTML = '<a href="/" class="bio-link-btn">Santis Club Ana Sayfa</a><a href="/contact.html" class="bio-link-btn">Reservasyon (WhatsApp)</a>';
+                    matrix.innerHTML = '<a href="/" class="bio-link-btn">Santis Club Ana Sayfa</a><a href="https://wa.me/905321112233?text=Merhaba,%20Santis%20Club%20rezervasyonu%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="bio-link-btn">Reservasyon (WhatsApp)</a>';
                 }
 
                 // 2. Render Social Platforms (Iconlar)
@@ -285,7 +292,7 @@
                 // Fallback UI if API fails
                 matrix.innerHTML = `
                     <a href="/" class="bio-link-btn">Ana Sayfa</a>
-                    <a href="/contact.html" class="bio-link-btn">İletişim & Rezervasyon</a>
+                    <a href="https://wa.me/905321112233?text=Merhaba,%20Santis%20Club%20rezervasyonu%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="bio-link-btn">İletişim & Rezervasyon (WhatsApp)</a>
                 `;
             }
         }

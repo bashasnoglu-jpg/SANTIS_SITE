@@ -62,8 +62,12 @@
                 transform: translateY(20px);
                 opacity: 0;
                 pointer-events: none;
-                transition: transform 0.4s ease, opacity 0.4s ease;
+                transition: transform 0.4s ease, opacity 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
             }
+            #santis-concierge-window.aura-zen_blue { border-color: rgba(64, 156, 255, 0.4); box-shadow: 0 20px 40px rgba(10, 20, 40, 0.9); }
+            #santis-concierge-window.aura-sovereign_gold { border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 20px 40px rgba(40, 30, 10, 0.9); }
+            #santis-concierge-window.aura-obsidian { border-color: rgba(80, 80, 80, 0.4); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9); }
+            
             #santis-concierge-window.active {
                 transform: translateY(0);
                 opacity: 1;
@@ -250,9 +254,12 @@
     }
 
     // --- CHAT LOGIC ---
+    let chatHistory = [];
+
     async function handleUserMessage() {
         const inputEl = document.getElementById('sc-input');
         const bodyEl = document.getElementById('sc-body');
+        const winEl = document.getElementById('santis-concierge-window'); // Aura state kontrolü için
         const text = inputEl.value.trim();
 
         if (!text) return;
@@ -272,13 +279,25 @@
         bodyEl.appendChild(tMsg);
         bodyEl.scrollTop = bodyEl.scrollHeight;
 
+        // Local History Queue
+        chatHistory.push({ role: "user", text: text });
+        if (chatHistory.length > 6) chatHistory.shift();
+
         // Fetch AI Response (Python Backend)
         try {
-            // Updated to Absolute URL for Port 8000
-            const res = await fetch('http://127.0.0.1:8000/api/concierge/chat', {
+            // Updated to use the correct v1/ai/concierge-chat endpoint
+            const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
+            // Gateway'i otomatik olarak origin üzerinden çözer
+            const backendOrigin = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost' ? 'http://127.0.0.1:8000' : `${protocol}//${window.location.host}`;
+
+            const res = await fetch(`${backendOrigin}/api/v1/ai/concierge-chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: text, history: [] }) // Simple context
+                body: JSON.stringify({
+                    message: text,
+                    history: chatHistory,
+                    guest_name: "Misafir"  // Varsa Auth token ile session'dan okunabilir
+                })
             });
 
             const data = await res.json();
@@ -287,8 +306,25 @@
             const bMsg = document.createElement('div');
             bMsg.className = 'sc-msg bot';
 
-            if (data.reply) {
-                bMsg.innerHTML = data.reply; // allows <a> tags for whatsapp routing
+            if (data.ai_reply) {
+                bMsg.innerHTML = data.ai_reply;
+                chatHistory.push({ role: "ai", text: data.ai_reply });
+
+                // UX: UI Aura Application (Tenant Identity sync)
+                if (data.ui_aura && data.ui_aura !== "default") {
+                    winEl.classList.remove("aura-zen_blue", "aura-sovereign_gold", "aura-obsidian");
+                    winEl.classList.add(`aura-${data.ui_aura}`);
+                }
+
+                // WhatsApp CTA Action
+                if (data.booking_suggested && data.whatsapp_cta) {
+                    const btn = document.createElement('a');
+                    btn.href = data.whatsapp_cta.url;
+                    btn.target = "_blank";
+                    btn.style.cssText = "display: block; margin-top: 10px; padding: 8px 12px; background: #d4af37; color: #000; text-decoration: none; border-radius: 4px; font-weight: 500; text-align: center;";
+                    btn.textContent = data.whatsapp_cta.label || "Rezervasyon Yap";
+                    bMsg.appendChild(btn);
+                }
             } else {
                 bMsg.textContent = "Bağlantıda bir sorun var, lütfen WhatsApp üzerinden iletişime geçin.";
             }
@@ -300,7 +336,7 @@
             bodyEl.removeChild(tMsg);
             const err = document.createElement('div');
             err.className = 'sc-msg bot';
-            err.innerHTML = "Sistem şu an meşgul. İletişim için: <a href='/contact.html' style='color:#d4af37'>Tıklayın</a>";
+            err.innerHTML = "Sistem şu an meşgul. İletişim için: <a href='https://wa.me/905348350169' target='_blank' style='color:#d4af37; text-decoration: underline;'>WhatsApp üzerinden yazın</a>";
             bodyEl.appendChild(err);
             bodyEl.scrollTop = bodyEl.scrollHeight;
         }

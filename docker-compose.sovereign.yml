@@ -1,0 +1,41 @@
+# /santis-quantum-os/docker-compose.sovereign.yml
+# Santis OS - The Proving Ground (UI & Edge Workers)
+version: '3.8'
+
+services:
+  santis-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.sovereign
+    container_name: santis_quantum_ui
+    command: pnpm run dev:ui
+    volumes:
+      - .:/santis-quantum-os
+      - /santis-quantum-os/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - EDGE_API_URL=http://santis-edge:8787
+    networks:
+      - sovereign_net
+
+  santis-edge:
+    build:
+      context: .
+      dockerfile: Dockerfile.sovereign
+    container_name: santis_neural_edge
+    command: pnpm run dev:edge
+    volumes:
+      - .:/santis-quantum-os
+      - /santis-quantum-os/node_modules
+    ports:
+      - "8787:8787"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - sovereign_net
+
+networks:
+  sovereign_net:
+    driver: bridge

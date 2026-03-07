@@ -1,18 +1,23 @@
+from __future__ import annotations
 """
 app/api/v1/endpoints/gallery.py
 Phase Visual - Gallery Assessment API
 Handles image uploads, processing via Image Factory, and data enrichment for Pinterest grid.
 """
-from fastapi import APIRouter, UploadFile, File, Form, Depends, HTTPException, BackgroundTasks
+from fastapi import APIRouter, UploadFile, File, Form, Depends, HTTPException, BackgroundTasks, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from app.db.session import get_db, AsyncSessionLocal
+from app.db.session import get_db, get_db_for_admin, AsyncSessionLocal
 from app.db.models.gallery import GalleryAsset
 from app.core.image_factory import factory as ghost_factory
 from app.api import deps
 from app.db.models.tenant import Tenant
 import os
 import uuid
+from pathlib import Path
+
+# Proje kökü — server.py ile aynı mantık
+_GALLERY_BASE_DIR = Path(__file__).resolve().parents[4]
 import traceback
 
 async def process_and_save_asset(asset_id, temp_path, filename, category, linked_service_id, caption_tr, caption_en, caption_de, sort_order, tenant_id):
@@ -70,6 +75,141 @@ async def mock_get_stock_status(service_id: str) -> int:
 
 router = APIRouter()
 
+
+# ═══════════════════════════════════════════════════════════════
+# FAZ 3: Sovereign Batch Slot API — Phantom Injector 2.0 desteği
+# ═══════════════════════════════════════════════════════════════
+
+@router.post("/slots/batch")
+async def batch_resolve_slots(
+    request: Request,
+    db: AsyncSession = Depends(get_db_for_admin)
+):
+    """
+    Sovereign Batch Resolver: Tek istekte N slot çöz.
+    POST body: {"slots": ["hero_home", "card_masaj_1", ...]}
+    Response: {"data": {"hero_home": {"url": ..., "alt": ...}, ...}}
+    """
+    from app.core.media_orchestrator import resolve_slots
+    
+    try:
+        body = await request.json()
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid JSON")
+    
+    slot_keys = body.get("slots", [])
+    if not slot_keys or len(slot_keys) > 50:
+        raise HTTPException(status_code=400, detail="1-50 arası slot key gerekli")
+
+    # Resolve tenant (MVP: first active tenant)
+    tenant_res = await db.execute(select(Tenant).where(Tenant.is_active == True).limit(1))
+    current_tenant = tenant_res.scalar_one_or_none()
+    tenant_id = str(current_tenant.id) if current_tenant else None
+
+    data = await resolve_slots(db, slot_keys, tenant_id)
+
+    return {
+        "status": "ok",
+        "data": data,
+        "resolved": len(data),
+        "requested": len(slot_keys)
+    }
+
+
+@router.get("/debug")
+async def debug_slot_resolution(
+    slot: str = "hero_home",
+    db: AsyncSession = Depends(get_db_for_admin)
+):
+    """
+    Sovereign Debug: Hangi asset neden kazandı?
+    GET /api/v1/gallery/debug?slot=hero_home
+    """
+    from app.core.media_orchestrator import debug_slot
+
+    tenant_res = await db.execute(select(Tenant).where(Tenant.is_active == True).limit(1))
+    current_tenant = tenant_res.scalar_one_or_none()
+    tenant_id = str(current_tenant.id) if current_tenant else None
+
+    return await debug_slot(db, slot, tenant_id)
+
+@router.post("/upload")
+async def upload_gallery_asset(
+    background_tasks: BackgroundTasks,
+    file: UploadFile = File(...),
+    category: str = Form("diger"),
+    linked_service_id: str = Form(None),
+    slot: str = Form(None),
+    caption_tr: str = Form(""),
+    caption_en: str = Form(""),
+    caption_de: str = Form(""),
+    sort_order: int = Form(0),
+    db: AsyncSession = Depends(get_db_for_admin)
+):
+    """
+    Galeri gorsel yukleme endpoint. GhostFactory calisirsa CDN kullanir,
+    hata verirse lokal assets/img/uploads/ klasorune kaydeder.
+    """
+    import uuid as uuid_module
+    from pathlib import Path as PPath
+
+    # Tenant
+    tenant_res = await db.execute(select(Tenant).where(Tenant.is_active == True).limit(1))
+    current_tenant = tenant_res.scalar_one_or_none()
+    tenant_id = str(current_tenant.id) if current_tenant else "global"
+
+    file_bytes = await file.read()
+    filename   = file.filename or f"upload_{uuid_module.uuid4().hex[:8]}.jpg"
+    asset_id   = str(uuid_module.uuid4())
+
+    # Lokal kayit
+    upload_dir = _GALLERY_BASE_DIR / "assets" / "img" / "gallery"
+    upload_dir.mkdir(parents=True, exist_ok=True)
+    stem      = PPath(filename).stem[:40]
+    ext_      = PPath(filename).suffix or ".jpg"
+    safe_name = f"{stem}_{asset_id[:8]}{ext_}"
+    local_path = upload_dir / safe_name
+    local_url  = f"/assets/img/gallery/{safe_name}"
+
+    with open(local_path, "wb") as fout:
+        fout.write(file_bytes)
+
+    # GhostFactory (opsiyonel)
+    cdn_url      = local_url
+    blurhash_val = None
+    try:
+        result       = await ghost_factory.ingest_visual(
+            file_content=file_bytes, filename=filename,
+            tenant_id=tenant_id,
+            service_id=str(linked_service_id) if linked_service_id else "general"
+        )
+        cdn_url      = result.get("url", local_url)
+        blurhash_val = result.get("blurhash")
+    except Exception as ghost_err:
+        print(f"[GhostFactory] Fallback aktif: {ghost_err}")
+
+    # DB kayit
+    new_asset = GalleryAsset(
+        id=asset_id, tenant_id=tenant_id,
+        filename=safe_name, filepath=local_url, cdn_url=cdn_url,
+        blurhash=blurhash_val, category=category,
+        caption_tr=caption_tr, caption_en=caption_en, caption_de=caption_de,
+        linked_service_id=linked_service_id or None,
+        slot=slot or None, sort_order=sort_order, is_published=True
+    )
+    db.add(new_asset)
+    await db.commit()
+
+    return {
+        "status": "INGESTED",
+        "asset_id": asset_id,
+        "filename": safe_name,
+        "url": local_url,
+        "cdn_url": cdn_url,
+        "category": category,
+        "message": "Gorsel basariyla galeri matrisine eklendi."
+    }
+
 # Upload handler moved to server.py (no auth required for Command Center)
 # @router.post("/upload")
 # async def upload_gallery_asset(...):
@@ -79,25 +219,33 @@ router = APIRouter()
 async def get_gallery_assets(
     lang: str = 'tr', 
     category: str = None, 
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db_for_admin)
 ):
     print(">>> executing GET /api/v1/gallery/assets handler")
     try:
         # Fetch the default active tenant for public gallery access
         tenant_res = await db.execute(select(Tenant).where(Tenant.is_active == True).limit(1))
         current_tenant = tenant_res.scalar_one_or_none()
-        
-        if not current_tenant:
-            return {"assets": [], "multiplier": 1.0}
 
+        # ── Sovereign Inheritance: tenant assets + global assets ──
         stmt = select(GalleryAsset).filter(
-            GalleryAsset.is_published == True,
-            GalleryAsset.tenant_id == str(current_tenant.id)
+            GalleryAsset.is_published == True
         )
+
+        if current_tenant:
+            tenant_id_str = str(current_tenant.id)
+            # Show both tenant-specific AND global assets
+            stmt = stmt.filter(
+                (GalleryAsset.tenant_id == tenant_id_str) | 
+                (GalleryAsset.is_global == True) |
+                (GalleryAsset.tenant_id == None)
+            )
+        # If no tenant, show all published assets (no tenant filter)
+
         if category and category != 'all':
             stmt = stmt.filter(GalleryAsset.category == category)
         
-        stmt = stmt.order_by(GalleryAsset.sort_order.asc())
+        stmt = stmt.order_by(GalleryAsset.sort_order.asc(), GalleryAsset.uploaded_at.desc())
         result = await db.execute(stmt)
         assets = result.scalars().all()
         
@@ -108,8 +256,8 @@ async def get_gallery_assets(
             item = {
                 "id": asset.id,
                 "filename": asset.filename,
-                "url": asset.filepath,
-                "cdn_url": asset.cdn_url,
+                "url": f"/{asset.filepath}" if asset.filepath and not str(asset.filepath).startswith("/") else asset.filepath,
+                "cdn_url": f"/{asset.cdn_url}" if asset.cdn_url and not str(asset.cdn_url).startswith("/") else asset.cdn_url,
                 "blurhash": asset.blurhash,
                 "category": asset.category,
                 "caption": getattr(asset, f"caption_{lang}", asset.caption_tr),
@@ -139,7 +287,7 @@ async def get_gallery_assets(
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/slots")
-async def get_gallery_slots(db: AsyncSession = Depends(get_db)):
+async def get_gallery_slots(db: AsyncSession = Depends(get_db_for_admin)):
     """
     Phase 44: Headless Media Architecture - Returns active visual slots mapped to assets.
     Used by Phantom Injector (Client-Side HTML) to hydrate the DOM.
@@ -150,15 +298,34 @@ async def get_gallery_slots(db: AsyncSession = Depends(get_db)):
             SELECT slot, filepath, cdn_url, linked_service_id, id
             FROM gallery_assets
             WHERE slot IS NOT NULL AND slot != '' 
-            AND is_published = 1
+            AND is_published = true
             ORDER BY sort_order ASC, uploaded_at ASC
         """))
         rows = res.fetchall()
 
+        def resolve_asset_url(raw_url: str) -> str:
+            """
+            DB'deki URL'de hangi uzantı yazıyor olursa olsun,
+            fiziksel olarak var olan dosyanın URL'ini döndür.
+            Öncelik: .webp > .jpg > .jpeg > .png > orijinal
+            """
+            if not raw_url:
+                return raw_url
+            # URL'den fiziksel path'e çevir (baştaki '/' kaldır)
+            rel = raw_url.lstrip('/')
+            base_no_ext = rel.rsplit('.', 1)[0] if '.' in rel.split('/')[-1] else rel
+            for ext in ('.webp', '.jpg', '.jpeg', '.png'):
+                candidate = _GALLERY_BASE_DIR / (base_no_ext + ext)
+                if candidate.exists():
+                    return '/' + base_no_ext + ext
+            # Fiziksel dosya hiç bulunamazsa orijinal URL'i dön (en azından log'dan görülür)
+            return raw_url
+
         slots_map = {}
         for row in rows:
             slot_key = row[0]
-            url = row[2] if row[2] else (f"/{row[1]}")
+            raw_url = row[2] if row[2] else (f"/{row[1]}")
+            url = resolve_asset_url(raw_url)
             
             asset_info = {
                 "asset_id": row[4],
@@ -184,13 +351,20 @@ async def get_gallery_slots(db: AsyncSession = Depends(get_db)):
 @router.delete("/assets/{asset_id}")
 async def delete_gallery_asset(
     asset_id: str, 
-    db: AsyncSession = Depends(get_db),
-    current_tenant: Tenant = Depends(deps.get_current_tenant)
+    db: AsyncSession = Depends(get_db_for_admin)
 ):
+    # Fetch the default active tenant for MVP admin access
+    tenant_res = await db.execute(select(Tenant).where(Tenant.is_active == True).limit(1))
+    current_tenant = tenant_res.scalar_one_or_none()
+    
+    if not current_tenant:
+        raise HTTPException(status_code=400, detail="No active tenant found")
+
+    tenant_id_str = str(current_tenant.id)  # Keep dashes — consistent with upload & get handlers
     result = await db.execute(
         select(GalleryAsset).filter(
             GalleryAsset.id == asset_id,
-            GalleryAsset.tenant_id == current_tenant.id
+            GalleryAsset.tenant_id == tenant_id_str
         )
     )
     asset = result.scalar_one_or_none()
@@ -230,7 +404,7 @@ async def delete_gallery_asset(
 
 @router.post("/purge-low-conversion")
 async def purge_low_conversion_assets(
-    db: AsyncSession = Depends(get_db),
+    db: AsyncSession = Depends(get_db_for_admin),
     current_tenant: Tenant = Depends(deps.get_current_tenant)
 ):
     """
@@ -247,7 +421,7 @@ async def purge_low_conversion_assets(
 
 @router.get("/audit/orphans")
 async def audit_orphan_assets(
-    db: AsyncSession = Depends(get_db),
+    db: AsyncSession = Depends(get_db_for_admin),
     current_tenant: Tenant = Depends(deps.get_current_tenant)
 ):
     """

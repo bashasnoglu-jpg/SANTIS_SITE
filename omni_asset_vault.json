@@ -1,0 +1,4546 @@
+[
+  {
+    "asset_id": "s-asset-b776e7d5",
+    "filename": "hamam-hero.webp",
+    "url": "/assets/img/hamam-hero.webp",
+    "category": "Hammam",
+    "target_slot": "Code-of-silence - Hamam hero Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Santis Club \u2014 sessizli\u011fin l\u00fcks atmosferi",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-63721ed3",
+    "filename": "santis_hero_main_v1.webp",
+    "url": "/assets/img/santis_hero_main_v1.webp",
+    "category": "General",
+    "target_slot": "Code-of-silence - Santis_hero_main_v1 Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Santis Club spa i\u00e7 mekan \u2014 ta\u015f ve buhar",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-201f5055",
+    "filename": "santis_card_thai_v1.webp",
+    "url": "/assets/img/cards/santis_card_thai_v1.webp",
+    "category": "General",
+    "target_slot": "Dunya-ritueli - Santis_card_thai_v1 Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Thai Ritual",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-e21ed1b2",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "/assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Dunya-ritueli - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Bali Ritual",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-2c075cda",
+    "filename": "santis_card_shirodhara_v1.webp",
+    "url": "/assets/img/cards/santis_card_shirodhara_v1.webp",
+    "category": "General",
+    "target_slot": "Dunya-ritueli - Santis_card_shirodhara_v1 Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Ayurveda Ritual",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-6f3942e9",
+    "filename": "santis_card_hammam_v1.webp",
+    "url": "/assets/img/cards/santis_card_hammam_v1.webp",
+    "category": "Hammam",
+    "target_slot": "Dunya-ritueli - Santis_card_hammam_v1 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detox Ritual",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-fc449682",
+    "filename": "hammam.webp",
+    "url": "/assets/img/cards/hammam.webp",
+    "category": "Hammam",
+    "target_slot": "Index - Hammam Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Hamam \u2013 mermer g\u00f6bek ta\u015f\u0131 ve k\u00f6p\u00fck rit\u00fceli",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-c3df0052",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Index - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Masaj \u2013 s\u0131cak ta\u015f ve aromaterapi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-408e44df",
+    "filename": "facial.webp",
+    "url": "/assets/img/cards/facial.webp",
+    "category": "Skincare",
+    "target_slot": "Index - Facial Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Cilt Bak\u0131m\u0131 \u2013 profesyonel Sothys bak\u0131m uygulamas\u0131",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-468d5c94",
+    "filename": "atelier.webp",
+    "url": "/assets/img/cards/atelier.webp",
+    "category": "General",
+    "target_slot": "Index - Atelier Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "At\u00f6lye \u2013 l\u00fcks spa bak\u0131m \u00fcr\u00fcnleri",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-c6324794",
+    "filename": "Santis-spa-rest-graded-clean.webp",
+    "url": "/assets/img/cards/Santis-spa-rest-graded-clean.webp",
+    "category": "General",
+    "target_slot": "Index - Santis spa rest graded clean Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Santis Club Spa",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-40559d3e",
+    "filename": " https placehold co 600x800 1a1a1a 444 text santis journal fetchpriority=",
+    "url": " https placehold co 600x800 1a1a1a 444 text santis journal fetchpriority=",
+    "category": "General",
+    "target_slot": "Index -  https placehold co 600x800 1a1a1a 444 text santis journal fetchpriority= Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "${post.title}",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-368d5a6a",
+    "filename": "green.webp",
+    "url": "/assets/img/textures/green.webp",
+    "category": "Skincare",
+    "target_slot": "Acne-balance - Green Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Acne Balance Therapy",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-1d988903",
+    "filename": "gold.webp",
+    "url": "/assets/img/textures/gold.webp",
+    "category": "Skincare",
+    "target_slot": "Anti-aging-pro - Gold Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Pro-Collagen Definition",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-94aa9525",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Barrier-repair - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Lipid Shield Recovery",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-f1f413a8",
+    "filename": "glass.webp",
+    "url": "/assets/img/textures/glass.webp",
+    "category": "Skincare",
+    "target_slot": "Brightening-spot - Glass Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Luminous Tone Corrector",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-b0098d42",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Classic-facial - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Santis Signature Cleanse",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-e66cd3fd",
+    "filename": "gold.webp",
+    "url": "/assets/img/textures/gold.webp",
+    "category": "Skincare",
+    "target_slot": "Collagen-lift - Gold Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Collagen Infusion Lift",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-d2bfa3f5",
+    "filename": "charcoal.webp",
+    "url": "/assets/img/textures/charcoal.webp",
+    "category": "Skincare",
+    "target_slot": "Deep-cleanse - Charcoal Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Urban Detox Cleanse",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-4e7c9fdc",
+    "filename": "charcoal.webp",
+    "url": "/assets/img/textures/charcoal.webp",
+    "category": "Skincare",
+    "target_slot": "Detox-charcoal - Charcoal Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Active Charcoal Purifier",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-40c92b3f",
+    "filename": "green.webp",
+    "url": "/assets/img/textures/green.webp",
+    "category": "Skincare",
+    "target_slot": "Enzyme-peel - Green Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Fruit Enzyme Resurfacing",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-b1f8d736",
+    "filename": "water.webp",
+    "url": "/assets/img/textures/water.webp",
+    "category": "Skincare",
+    "target_slot": "Eye-contour - Water Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Awakening Eye Lift",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-e7ad64f8",
+    "filename": "glass.webp",
+    "url": "/assets/img/textures/glass.webp",
+    "category": "Skincare",
+    "target_slot": "Glass-skin - Glass Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Korean Glass Skin",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-e5a20316",
+    "filename": "gold.webp",
+    "url": "/assets/img/textures/gold.webp",
+    "category": "Skincare",
+    "target_slot": "Gold-mask-ritual - Gold Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "24K Gold Royal Ritual",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-da3d0ed8",
+    "filename": "water.webp",
+    "url": "/assets/img/textures/water.webp",
+    "category": "Skincare",
+    "target_slot": "Hyaluron-hydrate - Water Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Hyaluron Intense",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-00b6066a",
+    "filename": "santis_hero_skincare_lux.webp",
+    "url": "/assets/img/cards/santis_hero_skincare_lux.webp",
+    "category": "Skincare",
+    "target_slot": "Index - Santis_hero_skincare_lux Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Cilt Bak\u0131m\u0131 | Santis Club Spa &amp; Wellness",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-bb0739ae",
+    "filename": "glass.webp",
+    "url": "/assets/img/textures/glass.webp",
+    "category": "Skincare",
+    "target_slot": "Led-rejuvenation - Glass Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "LED Light Therapy",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-3f6c3579",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Lip-care - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Velvet Lip Polish",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-30b90807",
+    "filename": "charcoal.webp",
+    "url": "/assets/img/textures/charcoal.webp",
+    "category": "Skincare",
+    "target_slot": "Men-facial - Charcoal Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Gentleman",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-7217da4a",
+    "filename": "gold.webp",
+    "url": "/assets/img/textures/gold.webp",
+    "category": "Skincare",
+    "target_slot": "Micro-polish - Gold Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Diamond Micro-Polish",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-c2d7332b",
+    "filename": "water.webp",
+    "url": "/assets/img/textures/water.webp",
+    "category": "Skincare",
+    "target_slot": "Oxygen-boost - Water Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "O2 Vitality Infusion",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-f5658913",
+    "filename": "green.webp",
+    "url": "/assets/img/textures/green.webp",
+    "category": "Skincare",
+    "target_slot": "Rituel-detox-lumiere - Green Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Lumi\u00e8re Detox Ritual",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-9d2a095e",
+    "filename": "gold.webp",
+    "url": "/assets/img/textures/gold.webp",
+    "category": "Skincare",
+    "target_slot": "Rituel-diamant-eternel - Gold Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Eternal Diamond Ritual",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-44897ef6",
+    "filename": "charcoal.webp",
+    "url": "/assets/img/textures/charcoal.webp",
+    "category": "Skincare",
+    "target_slot": "Rituel-homme-classique - Charcoal Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Classic Homme",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-e0040d60",
+    "filename": "green.webp",
+    "url": "/assets/img/textures/green.webp",
+    "category": "Skincare",
+    "target_slot": "Rituel-homme-equilibre - Green Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Homme \u00c9quilibre",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-e5b667c0",
+    "filename": "charcoal.webp",
+    "url": "/assets/img/textures/charcoal.webp",
+    "category": "Skincare",
+    "target_slot": "Rituel-homme-force-calme - Charcoal Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Homme Force &amp; Calme",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-db2fc8f4",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Rituel-hydra-confort - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Hydra-Confort Ritual",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-3300698c",
+    "filename": "water.webp",
+    "url": "/assets/img/textures/water.webp",
+    "category": "Skincare",
+    "target_slot": "Rituel-hydra-source - Water Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Source of Hydration",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-e58be6ae",
+    "filename": "water.webp",
+    "url": "/assets/img/textures/water.webp",
+    "category": "Skincare",
+    "target_slot": "Rituel-hydra-sublime - Water Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Sublime Hydration",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-cb562201",
+    "filename": "gold.webp",
+    "url": "/assets/img/textures/gold.webp",
+    "category": "Skincare",
+    "target_slot": "Rituel-jeunesse-initiale - Gold Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Jeunesse Initiale",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-3c823fff",
+    "filename": "gold.webp",
+    "url": "/assets/img/textures/gold.webp",
+    "category": "Skincare",
+    "target_slot": "Rituel-jeunesse-supreme - Gold Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Jeunesse Supr\u00eame",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-1b9a60c8",
+    "filename": "green.webp",
+    "url": "/assets/img/textures/green.webp",
+    "category": "Skincare",
+    "target_slot": "Rituel-purete-classique - Green Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Purity Classic",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-de4057e8",
+    "filename": "green.webp",
+    "url": "/assets/img/textures/green.webp",
+    "category": "Skincare",
+    "target_slot": "Rituel-purete-profonde - Green Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Purity Profonde",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-a1dfe685",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Sensitive-soothe - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Soothe &amp; Calm",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-bd255f7d",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-acne-balance - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Akne &amp; Sebum Denge Bak\u0131m\u0131",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-0248dce7",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-anti-aging-pro - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Anti-Aging Pro Bak\u0131m",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-0778334b",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-barrier-repair - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Bariyer Onar\u0131c\u0131 Bak\u0131m",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-e16c4bef",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-brightening-spot - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Leke Kar\u015f\u0131t\u0131 Ayd\u0131nlat\u0131c\u0131 Bak\u0131m",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-5c4dc0f5",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-classic-facial - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Klasik Cilt Bak\u0131m\u0131",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-45de5ade",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-collagen-lift - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kolajen Lifting Bak\u0131m\u0131",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-e8a2de4e",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-deep-cleanse - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Derin Temizleme Bak\u0131m\u0131",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-ffc69e52",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-detox-charcoal - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detox K\u00f6m\u00fcr Maske",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-54c29833",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-enzyme-peel - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Enzim Peeling Bak\u0131m\u0131",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-ad871230",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-eye-contour - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "G\u00f6z \u00c7evresi Bak\u0131m\u0131",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-1c9aa7f2",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-glass-skin - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Glass Skin Rit\u00fceli",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-62ca8ead",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-gold-mask-ritual - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Gold Mask Rit\u00fceli",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-8608ba78",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-hyaluron-hydrate - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Hyaluron Nem Terapisi",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-66ef6387",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-led-rejuvenation - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "LED Rejuvenation",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-76eb5134",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-lip-care - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Dudak Bak\u0131m\u0131",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-d37fce4d",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-men-facial - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Erkek Cilt Bak\u0131m\u0131",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-c960339e",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-micro-polish - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Micro Polish Bak\u0131m\u0131",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-5a1a7410",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-oxygen-boost - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Oksijen Boost Bak\u0131m\u0131",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-563f0ede",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-sensitive-soothe - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Hassas Cilt Sakinle\u015ftirici Bak\u0131m",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-1a87ef15",
+    "filename": "cream.webp",
+    "url": "/assets/img/textures/cream.webp",
+    "category": "Skincare",
+    "target_slot": "Skin-vitamin-c-glow - Cream Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Vitamin C Glow",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-32081c5b",
+    "filename": "glass.webp",
+    "url": "/assets/img/textures/glass.webp",
+    "category": "Skincare",
+    "target_slot": "Vitamin-c-glow - Glass Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Vitamin C Radiance",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-8418971a",
+    "filename": "santis_card_thai_v1.webp",
+    "url": "/assets/img/cards/santis_card_thai_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_thai_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Ayu - Bali Masaj Uzman\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-865fdd0c",
+    "filename": "santis_card_deeptissue_v1.webp",
+    "url": "/assets/img/cards/santis_card_deeptissue_v1.webp",
+    "category": "General",
+    "target_slot": "Index - Santis_card_deeptissue_v1 Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Dragan - Spor Terapisti",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-677f3cf3",
+    "filename": "santis_card_skincare_v1.webp",
+    "url": "/assets/img/cards/santis_card_skincare_v1.webp",
+    "category": "Skincare",
+    "target_slot": "Index - Santis_card_skincare_v1 Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Elena - Ba\u015f Estetisyen",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-026332f8",
+    "filename": "hammam.webp",
+    "url": "/assets/img/cards/hammam.webp",
+    "category": "Hammam",
+    "target_slot": "Index - Hammam Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Mehmet - Hamam Ustas\u0131",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-ca403f2f",
+    "filename": "hero-general.webp",
+    "url": "/assets/img/hero-general.webp",
+    "category": "General",
+    "target_slot": "Index - Hero general Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Santis Club Atmosferi",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-cbd94c07",
+    "filename": "santis_card_hammam_v1.webp",
+    "url": "/assets/img/cards/santis_card_hammam_v1.webp",
+    "category": "Hammam",
+    "target_slot": "Bal-masaji - Santis_card_hammam_v1 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Santis Hamam Rit\u00fceli - Bal Masaj\u0131",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-7c6bb102",
+    "filename": "santis_card_massage_oil_v2.webp",
+    "url": "/assets/img/cards/santis_card_massage_oil_v2.webp",
+    "category": "Hammam",
+    "target_slot": "Cikolata-bakimi - Santis_card_massage_oil_v2 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "\u00c7ikolata Bak\u0131m\u0131 - Atmosfer",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-219faaf8",
+    "filename": "santis_card_hammam_v1.webp",
+    "url": "/assets/img/cards/santis_card_hammam_v1.webp",
+    "category": "Hammam",
+    "target_slot": "Index - Santis_card_hammam_v1 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Hamam Rit\u00fcelleri",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-a41e32a3",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Hammam",
+    "target_slot": "Kahve-detox - Massage Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kahve Detox",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-5a1b82dc",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kahve-detox - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-6b12b050",
+    "filename": "santis_card_hamam_kese_v2.webp",
+    "url": "/assets/img/cards/santis_card_hamam_kese_v2.webp",
+    "category": "Hammam",
+    "target_slot": "Kahve-peeling - Santis_card_hamam_kese_v2 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kahve Peeling - Doku",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-c7f8b986",
+    "filename": "santis_card_hammam_v1.webp",
+    "url": "/assets/img/cards/santis_card_hammam_v1.webp",
+    "category": "Hammam",
+    "target_slot": "Kahve-peeling - Santis_card_hammam_v1 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kahve \u00c7ekirdekleri ve Peeling",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-8b19e6d5",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Hammam",
+    "target_slot": "Kese-kopuk - Massage Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kese Kopuk",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-2be0663f",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kese-kopuk - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-65df8f27",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kese-ve-kopuk-masaji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kese ve K\u00f6p\u00fck - Atmosfer",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-8f3a1469",
+    "filename": "santis_card_foam_lux.webp",
+    "url": "/assets/img/cards/santis_card_foam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kese-ve-kopuk-masaji - Santis_card_foam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "\u0130peksi K\u00f6p\u00fck Dokunu\u015fu",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-3982004d",
+    "filename": "santis_card_hammam_v1.webp",
+    "url": "/assets/img/cards/santis_card_hammam_v1.webp",
+    "category": "Hammam",
+    "target_slot": "Kese-ve-kopuk-masaji - Santis_card_hammam_v1 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Do\u011fal Bak\u0131m \u00dcr\u00fcnleri",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-44545faa",
+    "filename": "santis_card_hamam_kese_v2.webp",
+    "url": "/assets/img/cards/santis_card_hamam_kese_v2.webp",
+    "category": "Hammam",
+    "target_slot": "Kese-ve-kopuk-masaji - Santis_card_hamam_kese_v2 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Hamam\u0131n B\u00fcy\u00fcs\u00fc",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-77058974",
+    "filename": "santis_card_foam_lux.webp",
+    "url": "/assets/img/cards/santis_card_foam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kopuk-masaji - Santis_card_foam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "K\u00f6p\u00fck Masaj\u0131 - Detay",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-49c2130a",
+    "filename": "santis_card_hammam_v1.webp",
+    "url": "/assets/img/cards/santis_card_hammam_v1.webp",
+    "category": "Hammam",
+    "target_slot": "Osmanli-hamam-gelenegi - Santis_card_hammam_v1 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Osmanl\u0131 Rit\u00fceli - Atmosfer",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-19572f2c",
+    "filename": "santis_card_skincare_clay_v2.webp",
+    "url": "/assets/img/cards/santis_card_skincare_clay_v2.webp",
+    "category": "Hammam",
+    "target_slot": "Osmanli-hamam-gelenegi - Santis_card_skincare_clay_v2 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Do\u011fal Kil Maskesi",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-ccd32b58",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Hammam",
+    "target_slot": "Osmanli-ritueli - Massage Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Osmanli Ritueli",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-1b1fa45d",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Osmanli-ritueli - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-525e7de2",
+    "filename": "santis_hero_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_hero_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Santis-pasa - Santis_hero_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Santis Pa\u015fa - L\u00fcks Bak\u0131m",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-94eab19d",
+    "filename": "santis_card_massage_lux.webp",
+    "url": "/assets/img/cards/santis_card_massage_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Santis-pasa - Santis_card_massage_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Aromaterapi Masaj\u0131",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-94634b75",
+    "filename": "santis_card_hamam_scrub_v2.webp",
+    "url": "/assets/img/cards/santis_card_hamam_scrub_v2.webp",
+    "category": "Hammam",
+    "target_slot": "Tuz-peeling - Santis_card_hamam_scrub_v2 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Deniz Tuzu - Doku",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-fab1ed50",
+    "filename": "santis_card_skincare_clay_v2.webp",
+    "url": "/assets/img/cards/santis_card_skincare_clay_v2.webp",
+    "category": "Hammam",
+    "target_slot": "Yosun-bakimi - Santis_card_skincare_clay_v2 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Yosun Bak\u0131m\u0131 - Doku",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-df43e665",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "..//assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Abhyanga Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-cdbb3a27",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "..//assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Abhyanga Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-c9340a4b",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "..//assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Abhyanga Massage",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-84c3faab",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "..//assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Brazilian Maderotherapy",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-72e515ee",
+    "filename": "santis_card_deeptissue_v1.webp",
+    "url": "..//assets/img/cards/santis_card_deeptissue_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_deeptissue_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "G5 Vibro-Sculpting",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-9da6a99a",
+    "filename": "santis_card_deeptissue_v1.webp",
+    "url": "..//assets/img/cards/santis_card_deeptissue_v1.webp",
+    "category": "General",
+    "target_slot": "Index - Santis_card_deeptissue_v1 Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "G5 Vibro-Sculpting",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-f60cb5ae",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "..//assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Brezilya Maderoterapisi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-f37eca7d",
+    "filename": "santis_card_shirodhara_v1.webp",
+    "url": "..//assets/img/cards/santis_card_shirodhara_v1.webp",
+    "category": "General",
+    "target_slot": "Index - Santis_card_shirodhara_v1 Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Shirodhara (Zihin Ak\u0131\u015f\u0131)",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-6d75d66f",
+    "filename": "santis_card_shirodhara_v1.webp",
+    "url": "..//assets/img/cards/santis_card_shirodhara_v1.webp",
+    "category": "General",
+    "target_slot": "Index - Santis_card_shirodhara_v1 Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Shirodhara (Mind Flow)",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-866342ce",
+    "filename": "santis_card_hammam_v1.webp",
+    "url": "/assets/img/cards/santis_card_hammam_v1.webp",
+    "category": "Hammam",
+    "target_slot": "Paketler - Santis_card_hammam_v1 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Santis Evde Hamam Seti \u2013 geleneksel hamam \u00fcr\u00fcnleri",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-33e62a85",
+    "filename": "santis_card_skincare_v1.webp",
+    "url": "/assets/img/cards/santis_card_skincare_v1.webp",
+    "category": "Skincare",
+    "target_slot": "Paketler - Santis_card_skincare_v1 Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Santis Kurumsal Hediye Seti \u2013 premium spa \u00fcr\u00fcnleri",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-295b7697",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "/assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Paketler - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Santis Relax Kit \u2013 se\u00e7kin rahatlama \u00fcr\u00fcnleri",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-5b0cf0e5",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Anne-cocuk-masaji - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Anne-\u00c7ocuk Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-10e80dfb",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Anne-cocuk-masaji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-420940df",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Anti-stress-masaji - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Anti-Stress Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-aa22afc4",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Anti-stress-masaji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-b19a878c",
+    "filename": "santis_card_massage_oil_v2.webp",
+    "url": "/assets/img/cards/santis_card_massage_oil_v2.webp",
+    "category": "Massage",
+    "target_slot": "Aromaterapi-masaji - Santis_card_massage_oil_v2 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Aromaterapi Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-53e8fd79",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Aromaterapi-masaji - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Aromaterapi atmosferi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-fa4f654d",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Aromaterapi - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Aromaterapi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-cafeaa5d",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Aromaterapi - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-d2c4cd06",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Ayak-refleksoloji - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Refleksoloji",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-d0685db1",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Ayak-refleksoloji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-91b8e29b",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "/assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Bali-masaji - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Bali Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-e56443de",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Bali-masaji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-cccb3425",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Bali-terapi - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Bali Terapi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-9efacc3b",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Bali-terapi - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-9392a97d",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Bas-boyun-omuz-masaji - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Ba\u015f, Boyun &amp; Omuz Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-d57a9839",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Bas-boyun-omuz-masaji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-935618b9",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "/assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Bronz-masaji - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Bronz Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-4a04fbe5",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Bronz-masaji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-f840e87a",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Cift-rituel - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "\u00c7ift Rit\u00fcel Paketi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-f01f7ecb",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Cift-rituel - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-bf6b9325",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Cift-senkron-masaji - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "\u00c7ift Senkron Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-dbd141d0",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Cift-senkron-masaji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-d7cbc8c9",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Derin-doku-masaji - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Derin Doku Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-46789ed4",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Derin-doku-masaji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-00f622f1",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Derin-doku - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Derin Doku",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-2796d27c",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Derin-doku - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-05ebd369",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Isvec-full-body - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "\u0130sve\u00e7 Full Body Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-43cc5e7a",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Isvec-full-body - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-e38f2e4f",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Kids-nazik-masaji - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "\u00c7ocuk Nazik Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-3a59f024",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kids-nazik-masaji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-201a5652",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Klasik-masaj - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Klasik Rahatlama Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-2d632902",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Klasik-masaj - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Klasik masaj atmosferi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-8ef572e9",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Klasik-rahatlama - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Klasik Rahatlama",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-ebd60b13",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Klasik-rahatlama - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-59754cd6",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Klasik-sirt - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Klasik S\u0131rt Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-1f759140",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Klasik-sirt - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-3c3e1eef",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Kombine-masaj - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kombine Terapi Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-0b363dcf",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Kombine-masaj - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kombine masaj atmosferi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-4d4b7e8d",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Kranyo-sakral-terapi - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kranyo-Sakral Terapi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-84e22251",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kranyo-sakral-terapi - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-119c6986",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Lenf-drenaj - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Lenf Drenaj Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-cf51dd85",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Lenf-drenaj - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-adabe0c8",
+    "filename": "santis_card_deeptissue_v1.webp",
+    "url": "/assets/img/cards/santis_card_deeptissue_v1.webp",
+    "category": "Massage",
+    "target_slot": "Lokal-derin-doku - Santis_card_deeptissue_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Lokal Derin Doku Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-2958cbf0",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Lokal-derin-doku - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-725a0f44",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "/assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Lokal-sicak-tas - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Lokal S\u0131cak Ta\u015f Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-c4d4d62b",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Lokal-sicak-tas - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-b17c915f",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "/assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Manuel-terapi - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Manuel Terapi Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-a2952925",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Manuel-terapi - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-9ebaa089",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Myofascial-release - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Miyofasyal Gev\u015fetme",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-241d4ca8",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Myofascial-release - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Miyofasyal masaj atmosferi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-ea097600",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Selulit-masaji - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Anti-Sel\u00fclit Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-58e29b83",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Selulit-masaji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-4eed9dda",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "/assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Shiatsu-masaji - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Shiatsu Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-ca05dfc2",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Shiatsu-masaji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-9e42d396",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Shiatsu-terapi - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Shiatsu Terapi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-7242922d",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Shiatsu-terapi - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-8908c670",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Sicak-tas-masaji - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "S\u0131cak Ta\u015f Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-75996c10",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Sicak-tas-masaji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-9b2a644f",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Signature-rituel - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Signature Rit\u00fcel",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-87d278e2",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Signature-rituel - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Santis Atmosphere",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-37ef6ea2",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Sirt-terapi-masaji - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "S\u0131rt Terapi Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-8662560a",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Sirt-terapi-masaji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-46c80021",
+    "filename": "santis_card_deeptissue_v1.webp",
+    "url": "/assets/img/cards/santis_card_deeptissue_v1.webp",
+    "category": "Massage",
+    "target_slot": "Spor-terapi - Santis_card_deeptissue_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Spor Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-54e90291",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Spor-terapi - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Spor masaj\u0131 atmosferi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-1f1e05e9",
+    "filename": "santis_card_deeptissue_v1.webp",
+    "url": "/assets/img/cards/santis_card_deeptissue_v1.webp",
+    "category": "Massage",
+    "target_slot": "Tetik-nokta-terapi - Santis_card_deeptissue_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Tetik Nokta Terapisi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-9e61f79e",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Tetik-nokta-terapi - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-a873c8e3",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "/assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Thai-masaji - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Thai Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-4b03f836",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Thai-masaji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-d1adc41c",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "..//assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Abhyanga-Massage",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-dc4e85b3",
+    "filename": "santis_card_reflexology_v1.webp",
+    "url": "..//assets/img/cards/santis_card_reflexology_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_reflexology_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Anti-Stress Massage",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-fa6762aa",
+    "filename": "santis_card_shirodhara_v1.webp",
+    "url": "..//assets/img/cards/santis_card_shirodhara_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_shirodhara_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Aromatherapie-Massage",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-11cb3cf0",
+    "filename": "santis_card_shirodhara_v1.webp",
+    "url": "..//assets/img/cards/santis_card_shirodhara_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_shirodhara_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Aromatherapy Massage",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-6e0cdace",
+    "filename": "santis_card_hammam_v1.webp",
+    "url": "..//assets/img/cards/santis_card_hammam_v1.webp",
+    "category": "Hammam",
+    "target_slot": "Index - Santis_card_hammam_v1 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Bronze Massage (Cocoa)",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-e1e2ebfb",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "..//assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Classic Swedish Massage",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-bc4b97b0",
+    "filename": "santis_card_hammam_v1.webp",
+    "url": "..//assets/img/cards/santis_card_hammam_v1.webp",
+    "category": "Hammam",
+    "target_slot": "Index - Santis_card_hammam_v1 Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "The Golden Triangle Ritual",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-6d5ecfa6",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "..//assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Klasik \u0130sve\u00e7 Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-baee1a06",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "..//assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Klassische Schwedische Massage",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-d69f0063",
+    "filename": "santis_card_thai_v1.webp",
+    "url": "..//assets/img/cards/santis_card_thai_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_thai_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Royal Thai Masaj\u0131",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-7e1332f3",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "..//assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Mad\u00e9roth\u00e9rapie Br\u00e9silienne",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-a7af5044",
+    "filename": "santis_card_thai_v1.webp",
+    "url": "..//assets/img/cards/santis_card_thai_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_thai_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Royal Thai Massage",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-80277e37",
+    "filename": "santis_card_thai_v1.webp",
+    "url": "..//assets/img/cards/santis_card_thai_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_thai_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Thai Herbal Compress",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-727aefae",
+    "filename": "santis_card_massage_v1.webp",
+    "url": "..//assets/img/cards/santis_card_massage_v1.webp",
+    "category": "Massage",
+    "target_slot": "Index - Santis_card_massage_v1 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Tok Sen Massage",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-1009ed6a",
+    "filename": "santis_hero_main_v2.webp",
+    "url": "/assets/img/hero/santis_hero_main_v2.webp",
+    "category": "General",
+    "target_slot": "Index - Santis_hero_main_v2 Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Santis Spa Atmosphere",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-45bacb94",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Hammam",
+    "target_slot": "Kahve-detox - Massage Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kahve Detox",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-aa8f04aa",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kahve-detox - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-01c3307f",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Hammam",
+    "target_slot": "Kese-kopuk - Massage Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kese Kopuk",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-d0b78029",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kese-kopuk - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-fabf9b58",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Hammam",
+    "target_slot": "Osmanli-ritueli - Massage Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Osmanli Ritueli",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-5191c700",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Osmanli-ritueli - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-82d8aa3c",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Anne-cocuk - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Anne Cocuk",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-2643db0e",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Anne-cocuk - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-28f9c8fd",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Anti-selulit - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Anti Selulit",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-3cb98de7",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Anti-selulit - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-968913a5",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Anti-stress - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Anti Stress",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-a22d5bab",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Anti-stress - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-c88c6cd0",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Aromaterapi - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Aromaterapi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-f70df9f7",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Aromaterapi - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-cf93d52a",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Aromatherapy - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Aromatherapy",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-6a1dff07",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Aromatherapy - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-d89bf896",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Bali - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Bali",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-0af3d1c4",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Bali - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-5bcc2fe0",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Cift-senkron - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Cift Senkron",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-75473786",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Cift-senkron - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-bc4639a7",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Classic-swedish - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Classic Swedish",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-055a0888",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Classic-swedish - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-7486aa3f",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Deep-tissue - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Deep Tissue",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-9819823c",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Deep-tissue - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-20fb9d01",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Derin-doku - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Derin Doku",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-79658d6f",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Derin-doku - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-fa6cdb5a",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Kids-nazik - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kids Nazik",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-c7e5afb4",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kids-nazik - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-ca82c353",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Kranyo-sakral - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kranyo Sakral",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-f9a45473",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kranyo-sakral - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-b504f778",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Refleksoloji - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Refleksoloji",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-82bdc6bd",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Refleksoloji - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-24618edf",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Shiatsu - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Shiatsu",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-39d926da",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Shiatsu - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-071e9f7d",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Sicak-tas - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Sicak Tas",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-7c830f3b",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Sicak-tas - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-91a44bbf",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Sirt-terapi - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Sirt Terapi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-bbcf2183",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Sirt-terapi - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-80e421da",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Tetik-nokta - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Tetik Nokta",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-54dde88e",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Tetik-nokta - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-6cf5209c",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Thai - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Thai",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-36b2692c",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Thai - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-699669e2",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Hammam",
+    "target_slot": "Kese-kopuk - Massage Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kese Kopuk",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-d04f63f8",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kese-kopuk - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-753c7001",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Hammam",
+    "target_slot": "Osmanli-ritueli - Massage Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Osmanli Ritueli",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-4bad6238",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Osmanli-ritueli - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-4dcd2da6",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Anne-cocuk - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Anne Cocuk",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-1dbab6c0",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Anne-cocuk - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-0bb1433c",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Aromaterapi - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Aromaterapi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-514f7fc3",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Aromaterapi - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-a2d00a80",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Bali - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Bali",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-45c16dfb",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Bali - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-5d86a887",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Cift-senkron - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Cift Senkron",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-a5f96a6f",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Cift-senkron - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-9f25e5e5",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Kids-nazik - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kids Nazik",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-1383853d",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kids-nazik - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-119d45f7",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Shiatsu - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Shiatsu",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-ba473372",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Shiatsu - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-1d2c65ec",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Tetik-nokta - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Tetik Nokta",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-8119e401",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Tetik-nokta - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-60b950cf",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Thai - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Thai",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-95e020b7",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Thai - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-b55134f0",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Hammam",
+    "target_slot": "Kese-kopuk - Massage Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kese Kopuk",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-4ac2e3cf",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kese-kopuk - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-ba562051",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Hammam",
+    "target_slot": "Osmanli-ritueli - Massage Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Osmanli Ritueli",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-b07a3383",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Osmanli-ritueli - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-8257db04",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Hammam",
+    "target_slot": "Kese-kopuk - Massage Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kese Kopuk",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-526f0d5b",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kese-kopuk - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-47ec4035",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Hammam",
+    "target_slot": "Osmanli-ritueli - Massage Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Osmanli Ritueli",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-24f42571",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Osmanli-ritueli - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-be74a655",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Anne-cocuk - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Anne Cocuk",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-fab5733e",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Anne-cocuk - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-dfcd44cc",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Aromaterapi - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Aromaterapi",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-4cc69ba8",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Aromaterapi - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-0b209371",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Bali - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Bali",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-59b60cbb",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Bali - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-42fd71e0",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Cift-senkron - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Cift Senkron",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-34b350ac",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Cift-senkron - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-cd897e1b",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Kids-nazik - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Kids Nazik",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-595586e0",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Kids-nazik - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-d939a843",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Shiatsu - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Shiatsu",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-243529ec",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Shiatsu - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-6b0105f2",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Tetik-nokta - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Tetik Nokta",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-338f56ab",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Tetik-nokta - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-dc7f4fcf",
+    "filename": "massage.webp",
+    "url": "/assets/img/cards/massage.webp",
+    "category": "Massage",
+    "target_slot": "Thai - Massage Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Thai",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-ddaccb97",
+    "filename": "santis_card_hammam_lux.webp",
+    "url": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "category": "Hammam",
+    "target_slot": "Thai - Santis_card_hammam_lux Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Detail view",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-f62896ca",
+    "filename": "${a.url}",
+    "url": "${a.url}",
+    "category": "Revenue",
+    "target_slot": "Gallery-upload - ${a Slot",
+    "page_route": "/assets",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "",
+      "tags": [
+        "revenue",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-8cf6d7e1",
+    "filename": "photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "url": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "category": "Massage",
+    "target_slot": "Prototype-cms-v5 - Photo 1544161515 4ab6ce6db874?ixlib=rb 4 Slot",
+    "page_route": "/tr/masaj.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Massage",
+      "tags": [
+        "massage",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-bc473d82",
+    "filename": "santis_hero_main_v2.webp",
+    "url": "/assets/img/hero/santis_hero_main_v2.webp",
+    "category": "General",
+    "target_slot": "Hero-cinematic - Santis_hero_main_v2 Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Santis Spa Atmosphere",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-80da3528",
+    "filename": "placeholder.webp",
+    "url": "/assets/img/placeholder.webp",
+    "category": "General",
+    "target_slot": "Navbar-en - Placeholder Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Sultan",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-fe0bf449",
+    "filename": "placeholder.webp",
+    "url": "/assets/img/placeholder.webp",
+    "category": "General",
+    "target_slot": "Navbar-en - Placeholder Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Aroma Journey \u2013 essential oils and warm stones",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-379531b5",
+    "filename": "placeholder.webp",
+    "url": "/assets/img/placeholder.webp",
+    "category": "General",
+    "target_slot": "Navbar-en - Placeholder Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Sothys Hydra \u2013 advanced moisture science",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-6d6f7a39",
+    "filename": "placeholder.webp",
+    "url": "/assets/img/placeholder.webp",
+    "category": "Hammam",
+    "target_slot": "Navbar-en - Placeholder Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Atelier Collection \u2013 artisan hammam accessories",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-b29ef9d2",
+    "filename": "placeholder.webp",
+    "url": "/assets/img/placeholder.webp",
+    "category": "General",
+    "target_slot": "Navbar - Placeholder Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Sultan Bath \u2013 mermer kurna ve g\u00f6bek ta\u015f\u0131",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-4710ec2c",
+    "filename": "placeholder.webp",
+    "url": "/assets/img/placeholder.webp",
+    "category": "General",
+    "target_slot": "Navbar - Placeholder Slot",
+    "page_route": "/tr/index.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Aroma Yolculu\u011fu \u2013 esansiyel ya\u011flar ve s\u0131cak ta\u015flar",
+      "tags": [
+        "general",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-1eab6069",
+    "filename": "placeholder.webp",
+    "url": "/assets/img/placeholder.webp",
+    "category": "Skincare",
+    "target_slot": "Navbar - Placeholder Slot",
+    "page_route": "/tr/cilt-bakimi.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Sothys Paris \u2013 geli\u015fmi\u015f cilt bak\u0131m\u0131 bilimi",
+      "tags": [
+        "skincare",
+        "auto-discovered"
+      ]
+    }
+  },
+  {
+    "asset_id": "s-asset-772f5872",
+    "filename": "placeholder.webp",
+    "url": "/assets/img/placeholder.webp",
+    "category": "Hammam",
+    "target_slot": "Navbar - Placeholder Slot",
+    "page_route": "/tr/hamam.html",
+    "tenant_id": "santis_hq",
+    "metadata": {
+      "alt": "Atelier Koleksiyonu \u2013 zanaatkar hamam aksesuarlar\u0131",
+      "tags": [
+        "hammam",
+        "auto-discovered"
+      ]
+    }
+  }
+]

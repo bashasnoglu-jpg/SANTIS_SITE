@@ -4,12 +4,22 @@
  */
 
 function initNavAndFooter() {
-    // --- HELPER FUNCTIONS (Defined at top to prevent TDZ/ReferenceError) ---
+    // --- HELPER FUNCTIONS ---
+    const pathParts = window.location.pathname.split('/').filter(p => p !== '');
+    const isLiveServerRoot = pathParts[0] === 'SANTIS_SITE';
 
-    // 1. Determine path based on depth (defensive pathing)
+    // Depth calculation strictly relying on slash count.
+    // E.g. /tr/masajlar/index.html -> length is 3. tr, masajlar, index.html.
+    // We want depth = 2. So we subtract 1 for the file itself.
+    // If there is a subfolder like SANTIS_SITE, we ignore it.
+    let baseDepth = window.location.pathname.split('/').length - 2;
+    const depthPrefix = baseDepth > 0 ? "../".repeat(baseDepth) : "./";
+
+    // Fallback getter if really needed
     const getPath = (file) => {
-        const root = window.SITE_ROOT || '/';
-        return (root + file).replace(/\/\//g, '/');
+        // if the file is already prefixed natively, just return it
+        if (file.startsWith('.') || file.startsWith('/')) return file;
+        return depthPrefix + file;
     };
 
     // 2. Helper to fix paths in injected content
@@ -37,11 +47,11 @@ function initNavAndFooter() {
                             node.setAttribute(attr, prefix + cleanVal);
                         }
                     }
-                    // Case 2: Path is relative but needs prefix adjustment (e.g. "assets/img")
-                    // If we are deep, "assets/img" looks for tr/masajlar/assets/img (wrong)
+                    // Case 2: Path is relative but needs prefix adjustment (e.g. "/assets/img")
+                    // If we are deep, "/assets/img" looks for tr/masajlar/assets/img (wrong)
                     // It needs ../../assets/img
                     else if (!val.startsWith('../') && !val.startsWith('./') && !val.startsWith('http')) {
-                        // This case is tricky. If the HTML was written as "assets/...", it assumes root.
+                        // This case is tricky. If the HTML was written as "/assets/...", it assumes root.
                         // But if we are in deep folder, we MUST prefix.
                         node.setAttribute(attr, prefix + val);
                     }
@@ -155,8 +165,8 @@ function initNavAndFooter() {
         const intlLangs = ['en', 'de', 'fr', 'ru'];
         const isIntl = intlLangs.includes(lang) || intlLangs.some(l => window.location.pathname.includes('/' + l + '/'));
 
-        const navFile = isIntl ? "components/navbar-en.html" : "components/navbar.html";
-        const footerFile = isIntl ? "components/footer-en.html" : "components/footer.html";
+        const navFile = isIntl ? "/components/navbar-en.html" : "/components/navbar.html";
+        const footerFile = isIntl ? "/components/footer-en.html" : "/components/footer.html";
 
         console.log(`[Santis Nav] Language detected: ${isIntl ? lang.toUpperCase() + ' (intl)' : 'TR'} -> Loading ${navFile}`);
 
@@ -173,8 +183,16 @@ function initNavAndFooter() {
             // Load missing scripts if not present
             if (!document.querySelector('script[src*="language-switcher.js"]')) {
                 const sc = document.createElement('script');
-                sc.src = getPath('assets/js/language-switcher.js');
+                sc.src = getPath('/assets/js/language-switcher.js');
                 document.body.appendChild(sc);
+            }
+
+            // APPLE LIQUID MEGA MENU ORCHESTRATOR INJECT
+            if (!document.querySelector('script[src*="santis-mega-menu.js"]')) {
+                const mm = document.createElement('script');
+                mm.src = getPath('/assets/js/santis-mega-menu.js');
+                mm.onload = () => { if (window.initLiquidMegaMenu) window.initLiquidMegaMenu(); };
+                document.body.appendChild(mm);
             }
         });
 
@@ -214,10 +232,26 @@ function initNavbarInteractions() {
         });
     }
 
-    // Refresh language switcher if exists
+    // --- Refresh language switcher if exists ---
     if (window.SANTIS_LANG && window.SANTIS_LANG.refresh) {
         window.SANTIS_LANG.refresh();
     }
+
+    // --- SOVEREIGN MEGA MENU: THE DIMMER ENGINE ---
+    let dimmer = document.querySelector('.nv-global-dimmer');
+    if (!dimmer) {
+        dimmer = document.createElement('div');
+        dimmer.className = 'nv-global-dimmer';
+        document.body.appendChild(dimmer);
+    }
+    const megaItems = document.querySelectorAll('.nav-item.has-mega');
+    megaItems.forEach(item => {
+        if (item.dataset.megaBound === '1') return;
+        item.dataset.megaBound = '1';
+
+        item.addEventListener('mouseenter', () => dimmer.classList.add('is-active'));
+        item.addEventListener('mouseleave', () => dimmer.classList.remove('is-active'));
+    });
 
     // Footer/CTA links that should open booking wizard when available.
     document.querySelectorAll('[data-booking-open]').forEach((link) => {
@@ -233,16 +267,58 @@ function initNavbarInteractions() {
         });
     });
 
-    // --- SCROLL EFFECT (Quiet Luxury) ---
+    // --- SANTIS NAV: MAGNETIC HOVER ENGINE ---
+    const magnetBtns = document.querySelectorAll('.nv-btn-primary');
+    magnetBtns.forEach(magnetBtn => {
+        if (magnetBtn.dataset.magnetBound === '1') return;
+        magnetBtn.dataset.magnetBound = '1';
+
+        magnetBtn.addEventListener('mousemove', (e) => {
+            const rect = magnetBtn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            magnetBtn.classList.add('is-magnetic');
+            magnetBtn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.02)`;
+        });
+
+        magnetBtn.addEventListener('mouseleave', () => {
+            magnetBtn.classList.remove('is-magnetic');
+            magnetBtn.style.transform = 'translate(0px, 0px) scale(1)';
+        });
+    });
+
+    // --- SCROLL EFFECT (Quiet Luxury & Scroll Intent) ---
     const navbar = document.getElementById('nv-main-nav');
     if (navbar) {
         let ticking = false;
+        let lastScrollY = window.scrollY;
         const SCROLL_THRESHOLD = 60; // px before shrink kicks in
 
         const onScroll = () => {
             if (!ticking) {
                 requestAnimationFrame(() => {
-                    navbar.classList.toggle('navbar--scrolled', window.scrollY > SCROLL_THRESHOLD);
+                    const currentScrollY = window.scrollY;
+
+                    // 1. Shrink state (Glassmorphism)
+                    if (currentScrollY > SCROLL_THRESHOLD) {
+                        navbar.classList.add('navbar--scrolled');
+
+                        // 2. Scroll Intent (Hide on down, show on up)
+                        if (currentScrollY > lastScrollY && currentScrollY > SCROLL_THRESHOLD * 2) {
+                            // Scrolling down & past a safe buffer -> Hide
+                            navbar.classList.add('navbar--hidden');
+                        } else {
+                            // Scrolling up -> Show instantly
+                            navbar.classList.remove('navbar--hidden');
+                        }
+                    } else {
+                        // At the top -> Reset everything
+                        navbar.classList.remove('navbar--scrolled');
+                        navbar.classList.remove('navbar--hidden');
+                    }
+
+                    lastScrollY = currentScrollY;
                     ticking = false;
                 });
                 ticking = true;
@@ -254,5 +330,85 @@ function initNavbarInteractions() {
     }
 }
 
+// ==========================================
+// 🧠 PHASE 71.5: PREDICTIVE ORCHESTRATION & DIMMING
+// ==========================================
+
+const UIOrchestrator = {
+    prefetchCache: new Set(),
+
+    init() {
+        this.bindHoverIntents();
+        this.bindNavOverlay();
+    },
+
+    bindHoverIntents() {
+        const navLinks = document.querySelectorAll('.nav-link[data-target]');
+
+        navLinks.forEach(link => {
+            let hoverTimer;
+            link.addEventListener('mouseenter', () => {
+                // 3 saniye menüde durursa, "İlgileniyor" varsay ve sayfayı ön-yükle
+                hoverTimer = setTimeout(() => {
+                    this.triggerCinematicPulse(link);
+                    this.prefetch(link.dataset.target);
+                }, 3000);
+            });
+
+            link.addEventListener('mouseleave', () => clearTimeout(hoverTimer));
+        });
+    },
+
+    triggerCinematicPulse(element) {
+        if (!element.classList.contains('intent-pulse')) {
+            element.classList.add('intent-pulse');
+            // Telemetry'e sinyal gönder (Phase 66 beslemesi)
+            if (window.SantisOS && typeof window.SantisOS.broadcastTelemetry === 'function') {
+                window.SantisOS.broadcastTelemetry({ event: "NAV_HESITATION", target: element.dataset.target });
+            }
+        }
+    },
+
+    prefetch(url) {
+        if (!url || url === '#' || this.prefetchCache.has(url)) return;
+
+        console.log(`⚡ [UI KERNEL] Predictive Pre-rendering initiated for: ${url}`);
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.href = url;
+        document.head.appendChild(link);
+        this.prefetchCache.add(url);
+    },
+
+    bindNavOverlay() {
+        const overlay = document.getElementById('santis-nav-overlay');
+        if (!overlay) return;
+
+        const hasMegaItems = document.querySelectorAll('.nav-item.hover-trigger');
+        hasMegaItems.forEach(item => {
+            item.addEventListener('mouseenter', () => overlay.classList.add('active'));
+            item.addEventListener('mouseleave', () => overlay.classList.remove('active'));
+        });
+    }
+};
+
+// Start Orchestrator after Nav loads
+function startUIOrchestrator() {
+    UIOrchestrator.init();
+}
+
+// Hook into the script loading process
+const originalInitNavbarInteractions = initNavbarInteractions;
+window.initNavbarInteractions = function () {
+    originalInitNavbarInteractions();
+    startUIOrchestrator();
+};
+
 // Auto-run on load
-document.addEventListener("DOMContentLoaded", initNavAndFooter);
+document.addEventListener("DOMContentLoaded", () => {
+    initNavAndFooter();
+    // Static navbar fallback for orchestrator
+    if (document.getElementById('nv-main-nav')) {
+        setTimeout(startUIOrchestrator, 500);
+    }
+});

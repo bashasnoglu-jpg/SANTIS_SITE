@@ -35,15 +35,15 @@
     padding: 2rem 0;
 }
 
-/* Product Grid V2 (Master) */
+/* GÜNCELLENMİŞ GRID KAPSAYICI — Sovereign Standard */
 .product-grid-v2 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
     width: 100%;
-    min-height: 420px;
-    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 /* Stability fix: ensure cards never disappear after scroll/drag */
@@ -67,6 +67,11 @@
     border-radius: var(--card-radius);
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
+
+    /* V12 SAAS ZERO CLS SYSTEM */
+    content-visibility: auto;
+    contain-intrinsic-size: auto 400px;
+    min-height: 400px;
     transition: transform 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)), box-shadow 0.4s ease;
 
     /* STABILITY FIX */
@@ -88,9 +93,14 @@
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 4px;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     width: 100%;
+
+    /* V12 SAAS ZERO CLS SYSTEM */
+    content-visibility: auto;
+    contain-intrinsic-size: auto 350px;
+    min-height: 350px;
 
     /* STABILITY FIX */
     opacity: 1 !important;
@@ -200,7 +210,7 @@
     border-radius: 50px;
     color: #fff;
     text-decoration: none;
-    transition: all 0.3s;
+    transition: transform 0.3s, opacity 0.3s, color 0.3s, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
     background: transparent;
     cursor: pointer;
     margin-top: auto;
@@ -263,7 +273,8 @@
     background: rgba(0, 0, 0, 0.85);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
-    z-index: 20000;
+    z-index: var(--z-modal);
+    /* AUTO-CAPPED BY OMNI-CORE */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -347,46 +358,105 @@
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   7. TAROT RITUAL CARDS (Phase 17)
+   7. TAROT RITUAL CARDS — Sovereign Standard
    ───────────────────────────────────────────────────────────────────────────── */
 .nv-card-tarot {
     position: relative;
     display: flex;
     flex-direction: column;
-    aspect-ratio: 2/3;
-    /* Tarot Ratio */
-    background: var(--card-bg);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    /* Gold/Bronze Thin Border */
-    border-radius: 8px;
-    /* Sharper corners */
+    min-height: 380px;
+    /* Reduced from 480px to prevent huge gaps on narrow mobile column views */
+    height: 100%;
+    /* Grid stretch ile uyumlu */
+    background: #0a0a0a;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 4px;
     overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    transform-style: preserve-3d;
-    /* Anchor link fix */
     text-decoration: none;
     color: inherit;
     cursor: pointer;
     pointer-events: auto;
+    transition: transform 0.4s ease, opacity 0.4s ease, color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    will-change: transform, box-shadow;
 }
 
 .nv-card-tarot:hover {
-    transform: translateY(-10px) scale(1.02);
+    transform: translateY(-8px) scale(1.01) translateZ(0);
+    /* Reduced scale to prevent grid blowout */
     border-color: #d4af37;
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.1);
 }
 
+/* CHAMELEON MODULE: Container Query & Kinetic Parent */
+.nv-card-wrapper {
+    container-type: inline-size;
+    container-name: product-card;
+    width: 100%;
+    perspective: 1000px;
+    display: block;
+}
+
+/* CHAMELEON MODULE: Sovereign Mutation */
+.nv-card-tarot.is-sovereign {
+    border-color: rgba(212, 175, 55, 0.25);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(212, 175, 55, 0.05);
+}
+
+.nv-card-tarot.is-sovereign:hover {
+    border-color: #ffd700;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(212, 175, 55, 0.25), inset 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+.nv-card-tarot.is-sovereign .card__action {
+    color: #ffd700;
+    font-weight: 600;
+}
+
+/* KINETIC: Image Glass Parallax Depth */
+.nv-card-tarot.is-sovereign .card__image {
+    transition: transform 0.4s ease;
+    will-change: transform;
+}
+
+.nv-card-tarot.is-sovereign:hover .card__image {
+    transform: translateZ(-20px) scale(1.05);
+}
+
 .nv-card-tarot .card__image-wrapper {
-    aspect-ratio: auto;
-    height: 65%;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    /* Async Shield – oran korunur, boşluk kalmaz */
+    overflow: hidden;
     border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    background: #111;
+    flex-shrink: 0;
+}
+
+/* Görsel yüklenene kadar sarsıntı olmaması için */
+.nv-card-tarot .card__image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease, opacity 0.3s ease;
+    opacity: 1;
+}
+
+/* Phantom Injector opacity jump'u Önleyen fix */
+.nv-card-tarot .card__image-wrapper img[src] {
+    opacity: 1 !important;
 }
 
 .nv-card-tarot .card__content {
     background: linear-gradient(to bottom, rgba(20, 20, 20, 0.95), rgba(10, 10, 10, 1));
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    /* üst metin ve alt buton arasını açar */
     padding: 20px;
+    flex-grow: 1;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+    justify-content: flex-start;
 }
 
 .nv-card-tarot .card__title {
@@ -419,11 +489,11 @@
     line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    margin-bottom: 16px;
 }
 
 .nv-card-tarot .card__action {
     align-self: flex-start;
-    margin-top: auto;
     font-family: 'Inter', sans-serif;
     font-size: 0.75rem;
     text-transform: uppercase;

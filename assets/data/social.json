@@ -1,9 +1,9 @@
 {
     "platforms": {},
     "concierge": {
-        "active": false,
-        "title": "",
-        "welcome": ""
+        "active": true,
+        "title": "Santis Concierge",
+        "welcome": "Santis Club'a hoş geldiniz. Size nasıl yardımcı olabilirim?"
     },
     "biolinks": []
 }

@@ -8,13 +8,14 @@
 <title>Ekibimiz • Santis Club</title>
 <meta content="Santis Club'ın uzman terapistleri ve profesyonel ekibiyle tanışın." name="description"/>
 <!-- MASTER STYLE -->
-<link href="../../assets/css/style.css" rel="stylesheet"/>
-<link href="../../assets/css/modules/cards.css" rel="stylesheet"/>
-<link href="../../assets/css/gallery.css" rel="stylesheet"/>
+<link href="/assets/css/preloader-cinema.css" rel="stylesheet"/>
+<link href="/assets/css/style.css" rel="stylesheet"/>
+<link href="/assets/css/modules/cards.css" rel="stylesheet"/>
+<link href="/assets/css/gallery.css" rel="stylesheet"/>
 <!-- FONTS -->
 <link href="/assets/css/fonts.css" rel="stylesheet"/>
-<script src="../../assets/js/perf-head.js"></script>
-<meta content="/assets/img/og-standard.jpg" property="og:image"/>
+<script src="/assets/js/perf-head.js"></script>
+<meta content="/assets/img/og-standard.webp" property="og:image"/>
 <link href="https://santis-club.com/tr/ekibimiz/index.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Index", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script>
 <script type="application/ld+json">
 {
@@ -90,10 +91,18 @@
 <!-- HREFLANG CLUSTER SYNC -->
 <!-- HREFLANG CLUSTER SYNC -->
 <!-- HREFLANG CLUSTER SYNC -->
-<link href="https://santis-club.com/en/our-team/index.html" hreflang="en" rel="alternate"/>
-<link href="https://santis-club.com/tr/ekibimiz/index.html" hreflang="tr" rel="alternate"/>
-<link href="https://santis-club.com/en/our-team/index.html" hreflang="x-default" rel="alternate"/>
-<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Ekibimiz • Santis Club" name="twitter:title"/><meta content="Santis Club'ın uzman terapistleri ve profesyonel ekibiyle tanışın." name="twitter:description"/><meta content="https://santisclub.com/assets/img/cards/santis_card_thai_v1.webp" name="twitter:image"/></head>
+
+<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Ekibimiz • Santis Club" name="twitter:title"/><meta content="Santis Club'ın uzman terapistleri ve profesyonel ekibiyle tanışın." name="twitter:description"/><meta content="https://santisclub.com/assets/img/cards/santis_card_thai_v1.webp" name="twitter:image"/>
+    <!-- HREFLANG CLUSTER SYNC -->
+
+    <!-- HREFLANG CLUSTER SYNC -->
+
+
+    <!-- HREFLANG CLUSTER SYNC -->
+    <link rel="alternate" hreflang="en" href="https://santis-club.com/en/our-team/index.html" />
+    <link rel="alternate" hreflang="tr" href="https://santis-club.com/tr/ekibimiz/index.html" />
+    <link rel="alternate" hreflang="x-default" href="https://santis-club.com/en/our-team/index.html" />
+</head>
 <body class="editorial-mode">
 <noscript>
 <nav class="nv-noscript-nav">
@@ -124,7 +133,7 @@
 <div id="gallery-grid">
 <!-- Member 1: Ayu (Hero Portrait) -->
 <div class="gallery-item">
-<img alt="Ayu - Bali Masaj Uzmanı" decoding="async" height="1024" loading="lazy" src="/assets/img/cards/santis_card_thai_v1.webp" width="1024"/>
+<img alt="Ayu - Bali Masaj Uzmanı" decoding="async" height="1024" src="/assets/img/cards/santis_card_thai_v1.webp" width="1024" fetchpriority="high">
 <div class="gallery-overlay">
 <span class="mood-badge">BALİ UZMANI</span>
 <span class="caption-text">Ayu</span>
@@ -132,7 +141,7 @@
 </div>
 <!-- Member 2: Dragan (Standard) -->
 <div class="gallery-item">
-<img alt="Dragan - Spor Terapisti" decoding="async" height="1024" loading="lazy" src="/assets/img/cards/santis_card_deeptissue_v1.webp" width="1024"/>
+<img alt="Dragan - Spor Terapisti" decoding="async" height="1024" src="/assets/img/cards/santis_card_deeptissue_v1.webp" width="1024" fetchpriority="high">
 <div class="gallery-overlay">
 <span class="mood-badge">SPOR &amp; MEDİKAL</span>
 <span class="caption-text">Dragan</span>
@@ -140,7 +149,7 @@
 </div>
 <!-- Member 3: Elena (Standard) -->
 <div class="gallery-item">
-<img alt="Elena - Baş Estetisyen" decoding="async" height="1024" loading="lazy" src="/assets/img/cards/santis_card_skincare_v1.webp" width="1024"/>
+<img alt="Elena - Baş Estetisyen" decoding="async" height="1024" loading="lazy" src="/assets/img/cards/santis_card_skincare_v1.webp" width="1024">
 <div class="gallery-overlay">
 <span class="mood-badge">BAŞ ESTETİSYEN</span>
 <span class="caption-text">Elena</span>
@@ -148,7 +157,7 @@
 </div>
 <!-- Member 4: Mehmet (Standard) -->
 <div class="gallery-item">
-<img alt="Mehmet - Hamam Ustası" decoding="async" height="1024" loading="lazy" src="/assets/img/cards/hammam.webp" width="1024"/>
+<img alt="Mehmet - Hamam Ustası" decoding="async" height="1024" loading="lazy" src="/assets/img/cards/hammam.webp" width="1024">
 <div class="gallery-overlay">
 <span class="mood-badge">HAMAM USTASI</span>
 <span class="caption-text">Mehmet</span>
@@ -166,16 +175,14 @@
 </main>
 <!-- FOOTER -->
 <div id="footer-container"></div>
-<!-- CORE UTILS -->
-<script src="../../assets/js/fallback_data.js"></script> <!-- Fallback for File Protocol -->
-<script src="../../assets/js/i18n-routes.js"></script>
-<script defer="" src="../../assets/js/hreflang-injector.js"></script>
-<script src="../../assets/js/loader.js"></script>
+<!-- CORE UTILS --> <!-- Fallback for File Protocol -->
+<script src="/assets/js/i18n-routes.js"></script>
+<script src="/assets/js/loader.js"></script>
 <!-- TRINITY ENGINE (Three.js + GSAP + Lenis) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-<script src="../../assets/js/santis-nav.js"></script> <!-- Nav Logic -->
+<script src="/assets/js/santis-nav.js"></script> <!-- Nav Logic -->
 <script>
 
         // Use relative paths for safety

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Quantum OS - Royal Hammam Ritual</title>
+    <style>
+        /* ========================================================
+           SANTIS QUANTUM UI CORE
+           ======================================================== */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+
+        body, html { 
+            margin: 0; padding: 0; background: #0a0a09; 
+            color: #f5f5f0; font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; scroll-behavior: smooth;
+        }
+
+        /* 1. SPATIAL ANCHOR (Zero-CLS Koordinatı) */
+        .santis-ritual-anchor {
+            width: 100%;
+            height: 80vh; 
+            position: relative;
+            margin: 15vh 0;
+            overflow: hidden;
+            background: #0f0f0c;
+        }
+
+        /* 2. GHOST HYBRID LAYER (Ekranı Dolduran Sis - 5KB) */
+        .santis-ghost-hybrid {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            transition: opacity 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        
+        /* The Echo: Bulanık Taban Görseli */
+        .santis-ghost-echo {
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=400&blur=200') center/cover;
+            filter: blur(25px);
+            transform: scale(1.1); /* Blur taşmalarını engelle */
+            opacity: 0.6;
+            transition: filter 0.6s ease-out;
+        }
+
+        /* The Sovereign Shimmer: GPU Hızlandırmalı CSS/Shader İllüzyonu */
+        .santis-forge-aura {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(110deg, transparent 20%, rgba(211, 169, 53, 0.25) 50%, transparent 80%);
+            background-size: 200% 100%;
+            animation: quantumShimmer 3s infinite linear;
+            mix-blend-mode: overlay;
+        }
+
+        @keyframes quantumShimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* 3. REAL DOM (Gerçekliğe Dönüşüm) */
+        .santis-real-dom {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            opacity: 0;
+            transform: scale(0.98);
+            transition: opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+            display: flex;
+            align-items: flex-end;
+            padding: 4vw;
+            background: linear-gradient(to top, rgba(10,10,9,0.95) 0%, rgba(10,10,9,0.4) 40%, transparent 100%);
+        }
+
+        /* 4K Cinematic Background */
+        .santis-real-media {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2070&auto=format&fit=crop') center/cover;
+        }
+
+        /* Tipografi & İçerik Düzeni */
+        .santis-ritual-info {
+            max-width: 650px;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.7s 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .santis-ritual-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #d3a935; /* Santis Gold */
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .santis-ritual-title {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            font-weight: 300;
+            letter-spacing: -1px;
+            margin: 0 0 1rem 0;
+            color: #fff;
+            line-height: 1.1;
+        }
+
+        .santis-ritual-desc {
+            color: #a0a09a; 
+            line-height: 1.7;
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Sovereign Button */
+        .santis-omni-cta {
+            background: #d3a935;
+            color: #0a0a09;
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .santis-omni-cta:hover {
+            background: #e5c35b;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(211, 169, 53, 0.2);
+        }
+
+        /* ========================================================
+           CROSS-FADE MATERIALIZATION (JIT)
+           ======================================================== */
+        .is-materialized .santis-ghost-hybrid {
+            opacity: 0;
+            pointer-events: none; /* Etkileşimi Real DOM'a devret */
+        }
+        .is-materialized .santis-ghost-echo {
+            filter: blur(0px); /* Göz yanılsaması için bluru sıfırla */
+        }
+
+        .is-materialized .santis-real-dom {
+            opacity: 1;
+            transform: scale(1.0);
+            z-index: 3; /* Tıklanabilir olmak için öne geç */
+        }
+        
+        .is-materialized .santis-ritual-info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Sunum Stilleri */
+        .scroll-prompt {
+            height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: #555; text-align: center;
+        }
+        .pulse-text { animation: pulse 2s infinite ease-in-out; }
+        @keyframes pulse { 50% { opacity: 0.5; } }
+        
+        /* Omni-Bridge Validation Pulse (Checkout'a Geçiş Efekti) */
+        .santis-checkout-pulse {
+            box-shadow: 0 0 0 0 rgba(211, 169, 53, 0.7);
+            animation: ctaPulse 1.5s infinite;
+        }
+        @keyframes ctaPulse {
+            70% { box-shadow: 0 0 0 20px rgba(211, 169, 53, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(211, 169, 53, 0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="scroll-prompt">
+        <h1 style="color: #fff; font-weight: 300; letter-spacing: -1px;">ROYAL OTTOMAN HAMMAM</h1>
+        <p>Aşağı Kaydırın (Scroll Down)</p>
+        <small class="pulse-text" style="font-size: 1rem; color: #d3a935;">Kuantum İllüzyonu $t_{impact}$ anında gerçeğe dönüşecek.</small>
+    </div>
+
+    <!-- 📍 WEBLFOW SPATIAL ANCHOR -->
+    <div class="santis-ritual-anchor" id="quantum_target">
+        
+        <!-- 👻 GHOST HYBRID (Daima ilk yüklenen, ultra hafif 5KB) -->
+        <div class="santis-ghost-hybrid" data-ghost-id="signature_hammam_01">
+            <div class="santis-ghost-echo"></div>
+            <div class="santis-forge-aura"></div>
+            <!-- Zırhlı Kapı (Phantom Click Catcher) -->
+            <div class="santis-omni-target" style="position: absolute; inset: 0; z-index: 10; cursor: pointer;" onclick="omniBridge.capturePhantomClick('signature_hammam_01')"></div>
+        </div>
+
+        <!-- 🌍 REAL DOM/REALITY (Sadece görüntü alanına girince Hydrate edilir) -->
+        <div class="santis-real-dom">
+            <div class="santis-real-media"></div>
+            <div class="santis-ritual-info">
+                <span class="santis-ritual-meta">120 DAKİKA • İMZA RİTÜELİ</span>
+                <h2 class="santis-ritual-title">Kraliyet Osmanlı<br>Hamamı</h2>
+                <p class="santis-ritual-desc">
+                    Osmanlı saraylarının arınma kültüründen ilham alan, altın hamam tasları ve sıcak mermerin şifasıyla bedeninizin yeniden doğuşu. Sadece size özel ayrılmış bir tapınakta, zihin ve beden dinginliğini keşfedin.
+                </p>
+                <button class="santis-omni-cta" id="cta_hammam_01">REZERVE ET — €250</button>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="scroll-prompt" style="height: 50vh;">
+        <p style="color: #555;">(Simülasyon Sonu. Yukarı kaydırıp tekrar test edebilirsiniz.)</p>
+    </div>
+
+    <script>
+        /**
+         * SANTIS QUANTUM OS - HYBRID DOM SIMULATOR (FAZ 4)
+         */
+
+        // 1. OMNI-BRIDGE (Event Teleportation)
+        const omniBridge = {
+            vault: null,
+            capturePhantomClick: function(ghostId) {
+                console.warn(`[Omni-Bridge] Phantom Click Captured on ${ghostId}! Kasa kilitlendi.`);
+                this.vault = { id: ghostId, timestamp: Date.now() };
+                
+                // Niyet belli oldu, anında materialization'ı başlat!
+                const target = document.querySelector('[data-ghost-id="'+ghostId+'"]').parentNode;
+                lifecycleEngine.materialize(target, true);
+            },
+            replayVaultEvents: function(realDOMNode) {
+                if (this.vault) {
+                    console.log(`[Omni-Bridge] Kasa açıldı. Geçmiş Tıklama Real DOM'a aktarılıyor...`);
+                    const ctaBtn = realDOMNode.querySelector('.santis-omni-cta');
+                    
+                    if (ctaBtn) {
+                        // Tıklamayı sanki kullanıcı butona tam o an basmış gibi tetikle
+                        ctaBtn.classList.add('santis-checkout-pulse');
+                        ctaBtn.innerText = "APPLE PAY BAĞLANIYOR...";
+                        
+                        setTimeout(() => {
+                            ctaBtn.classList.remove('santis-checkout-pulse');
+                            ctaBtn.innerText = "ÖDEME TAMAMLANDI";
+                            ctaBtn.style.background = "#fff";
+                            this.vault = null; // Kasayı temizle
+                        }, 2500);
+                    }
+                }
+            }
+        };
+
+        // 2. LIFECYCLE MASTERY (Cross-Fade Animasyonu)
+        const lifecycleEngine = {
+            materialize: function(anchorEl, forcedByClick = false) {
+                if (anchorEl.classList.contains('is-materialized')) return;
+                
+                const triggerType = forcedByClick ? 'Kullanıcı Niyeti (Click)' : 'Kinematik Tahmin (Scroll)';
+                console.log(`[Lifecycle] JIT Materialization Başlıyor: ${anchorEl.id}. Sebep: ${triggerType}`);
+                
+                // DOM oluşturma simülasyonu (DataBridge'den veriler çekilmiş varsayılıyor)
+                anchorEl.classList.add('is-materialized');
+                
+                // Cross-Fade süresi olan ~600ms sonra, Omni-Bridge kasasını kontrol et.
+                setTimeout(() => {
+                    omniBridge.replayVaultEvents(anchorEl);
+                }, 650);
+            },
+            hibernate: function(anchorEl) {
+                // Ekranda çıkınca RAM'den silme işlemi simülesi (Tekrar Ghost'a dön)
+                if (anchorEl.classList.contains('is-materialized')) {
+                    console.log(`[Lifecycle] Garbage Collection: ${anchorEl.id} kış uykusuna yattı.`);
+                    anchorEl.classList.remove('is-materialized');
+                    // Butonları sıfırla vb.
+                    setTimeout(() => {
+                        const btn = anchorEl.querySelector('.santis-omni-cta');
+                        if (btn && btn.innerText.includes('ÖDEME')) {
+                             btn.innerText = "REZERVE ET — €250";
+                             btn.style.background = "";
+                        }
+                    }, 500);
+                }
+            }
+        };
+
+        // 3. THE PANOPTICON (Scroll Physics + Intersection Observer)
+        // Basitleştirilmiş Kinematik Sensör
+        const ioObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Kullanıcının hedefi ($t_{impact}$) menzile girdi!
+                    lifecycleEngine.materialize(entry.target);
+                } else {
+                    // Kullanıcı hedefi geçti, belleği (RAM) boşalt!
+                    lifecycleEngine.hibernate(entry.target);
+                }
+            });
+        }, {
+            // Viewport'a %20 girdiği an tetikle (Sayfanın altına yakınken)
+            rootMargin: '0px 0px -20% 0px', 
+            threshold: 0 
+        });
+
+        // Spatial Anchor'u dinlemeye başla
+        const anchor = document.getElementById('quantum_target');
+        ioObserver.observe(anchor);
+        
+        // Klasik tıklama dinleyicisi (Ghost olmadan doğrudan gelenler için)
+        anchor.querySelector('#cta_hammam_01').addEventListener('click', function(e) {
+            if(!omniBridge.vault) {
+                console.log("[Reality] Klasik (Gerçek) DOM tıklaması alındı.");
+                this.classList.add('santis-checkout-pulse');
+                this.innerText = "APPLE PAY BAĞLANIYOR...";
+            }
+        });
+
+    </script>
+</body>
+</html>

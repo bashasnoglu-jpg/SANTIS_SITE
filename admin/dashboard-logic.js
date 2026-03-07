@@ -14,7 +14,7 @@ function escapeAttr(value) {
 }
 
 // --- GOD MODE SIMULATORS (Phase 6) ---
-let liveTrafficInterval = null;
+var liveTrafficInterval = window.liveTrafficInterval || null;
 function initGodModeSimulators() {
     // 1. Live Traffic Number
     const trafficEl = document.getElementById('stat-live-traffic');

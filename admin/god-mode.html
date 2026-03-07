@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Command Center | God Mode</title>
+    <!-- Tailwind Warning Suppressor -->
+    <script>
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+            if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return;
+            originalWarn.apply(console, args);
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #050505;
+            color: #d1d5db;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+        .heading-font { font-family: 'Space Grotesk', sans-serif; }
+        
+        /* Sovereign Gold & Red */
+        .text-santis-gold { color: #D4AF37; }
+        .bg-santis-gold { background-color: #D4AF37; }
+        .border-santis-gold { border-color: #D4AF37; }
+        .hover-santis-gold:hover { border-color: #D4AF37; color: #D4AF37; box-shadow: 0 0 15px rgba(212,175,55,0.2); }
+        
+        .border-santis-red { border-color: #7f1d1d; }
+        .bg-santis-red { background-color: rgba(127, 29, 29, 0.4); }
+
+        /* Custom Scrollbars */
+        .custom-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #111; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        
+        .panel-glass {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Layout Grid including Sidebar */
+        .layout-wrapper {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .god-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 350px 1fr 350px;
+            grid-template-rows: 60px 1fr;
+            height: 100vh;
+            gap: 16px;
+            padding: 16px;
+        }
+
+        /* Matrix Core Terminal (Column 1) */
+        .terminal-text {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            line-height: 1.6;
+            color: #9ca3af;
+        }
+        .ping-green { color: #10b981; }
+        .ping-gold { color: #D4AF37; }
+
+        /* AI Quarantine List (Column 2) */
+        .quarantine-card {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(212,175,55,0.1);
+            transition: all 0.3s ease;
+        }
+        .quarantine-card:hover {
+            border-color: rgba(212,175,55,0.4);
+            transform: translateY(-2px);
+        }
+        .badge-type {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Animations */
+        @keyframes pulse-gold {
+            0%, 100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.1); }
+            50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+        }
+        .live-pulse {
+            animation: pulse-gold 3s infinite;
+        }
+
+        /* 👁️ PHASE 55.2: THE THERMAL VISION (GLOW ENGINE) */
+        @keyframes heat-pulse {
+            0% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.9), inset 0 0 15px rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 1); }
+            100% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.3); }
+        }
+
+        @keyframes whale-aura {
+            0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); border-color: rgba(212, 175, 55, 0.4); }
+            50% { box-shadow: 0 0 50px rgba(212, 175, 55, 1), inset 0 0 20px rgba(212, 175, 55, 0.5); border-color: #D4AF37; }
+            100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); border-color: rgba(212, 175, 55, 0.4); }
+        }
+
+        .matrix-node-heating {
+            animation: heat-pulse 2s ease-in-out infinite;
+            z-index: 40 !important; /* Isınan kart diğerlerinin üstüne çıkar */
+        }
+
+        .matrix-node-whale {
+            animation: whale-aura 2.5s ease-in-out infinite;
+            z-index: 50 !important; /* Balina kartı mutlak en üstte */
+        }
+        
+    </style>
+</head>
+<body>
+
+<div class="layout-wrapper w-full h-full bg-[#050505]">
+    
+    <!-- Sidebar (Resizable and Scrollable) -->
+    <aside id="admin-sidebar" class="w-64 bg-gray-950 border-r border-gray-800 flex flex-col relative flex-shrink-0 z-50 shadow-[10px_0_20px_rgba(0,0,0,0.5)]" style="min-width: 240px; max-width: 600px; width: 256px;">
+        <div class="p-6 border-b border-gray-800 shrink-0">
+            <h1 class="text-xl font-semibold tracking-wider text-white">SANTIS <span class="text-amber-500 text-xs align-top">V7 OS</span></h1>
+            <p class="text-xs text-gray-500 mt-1">Super Admin (HQ Mode)</p>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto custom-scroll flex flex-col">
+            <nav id="standard-nav" class="p-4 space-y-2 transition-all duration-500 shrink-0">
+                <a href="/index.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 font-medium border border-transparent transition">❖ Dashboard</a>
+                
+                <a href="god-mode.html" class="block px-4 py-3 rounded-lg bg-gradient-to-r from-amber-900/40 to-black border border-amber-500/50 text-amber-400 font-bold shadow-[0_0_15px_rgba(245,158,11,0.2)] flex justify-between items-center group">
+                    <span class="flex items-center gap-2"><span class="text-lg">👁️</span> The God Mode (Classic)</span>
+                    <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse group-hover:bg-amber-400"></span>
+                </a>
+
+                <a href="/hq-dashboard" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-cyan-400 font-medium transition mt-2 border border-cyan-500/30 bg-cyan-950/20">
+                    ⎈ HQ Dashboard (React)
+                </a>
+
+                <a href="hotels.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition mt-2">🏨 Hotels Network</a>
+                <a href="bookings.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">📅 Live Bookings</a>
+                <a href="crm.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">💎 AI Offers & CRM</a>
+                <a href="revenue.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">📈 Revenue Analytics</a>
+                <a href="black-room.html" class="block px-4 py-3 rounded-lg bg-gradient-to-r from-amber-950/30 to-black border border-amber-500/30 text-amber-400 hover:from-amber-900/50 hover:text-amber-300 transition-all font-semibold flex justify-between items-center group">
+                    <span class="flex items-center gap-2"><span>🦾</span> The Black Room</span>
+                    <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                </a>
+                <div class="pt-4 mt-4 border-t border-gray-800">
+                    <p class="text-[10px] uppercase font-bold text-gray-600 tracking-wider mb-2 ml-1">Legacy Core Modules</p>
+                    <a href="prototype-cms-v5.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-500 hover:text-gray-300 transition text-sm">📄 Ultra CMS Builder</a>
+                </div>
+            </nav>
+
+            <div class="px-4 py-2 mt-auto shrink-0">
+                <p class="text-[10px] uppercase font-bold text-gray-600 tracking-wider mb-2 ml-1">Ecosystem Nodes</p>
+                <div class="space-y-1.5">
+                    <a href="boardroom.html" class="block text-xs px-3 py-2 rounded border border-amber-900/30 text-amber-500 bg-amber-950/20 hover:bg-amber-900/40 hover:text-amber-400 hover:border-amber-500/50 shadow-[0_0_10px_rgba(245,158,11,0.1)] transition font-bold" target="_blank">♟️ Sovereign Command (Boardroom)</a>
+                    <a href="sovereign-lab.html" class="block text-xs px-3 py-2 rounded border border-emerald-900/30 text-emerald-500 bg-emerald-950/20 hover:bg-emerald-900/40 hover:text-emerald-400 hover:border-emerald-500/50 shadow-[0_0_10px_rgba(0,255,194,0.1)] transition font-bold" target="_blank">🧪 Sovereign Lab (Pulse & Flow)</a>
+                    <a href="/hq-dashboard" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-amber-500 hover:border-amber-500/30 transition">⎈ HQ God Mode</a>
+                    <a href="/tenant-dashboard" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-cyan-400 hover:border-cyan-500/30 transition">🏢 Tenant Node</a>
+                    <a href="/guest-zen" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-blue-400 hover:border-blue-500/30 transition">🧘‍♀️ Guest App (Zen)</a>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-gray-800 text-xs text-gray-500 text-center mt-4 shrink-0">
+                Santis Master OS v1.0 <br> Connected via WSS
+            </div>
+
+            <div class="px-4 pb-4 border-t border-dashed border-gray-800 pt-3 shrink-0">
+                <p class="text-[9px] uppercase tracking-widest text-gray-700 mb-2 font-mono">Dev Test</p>
+                <div class="space-y-1.5">
+                    <button id="btn-baba-yaga" onclick="alert('Baba Yaga Activated (Global Override)')" class="w-full text-left text-[10px] px-2 py-1.5 rounded border border-red-900/40 text-red-600 hover:text-red-400 hover:border-red-700 bg-red-950/10 font-mono transition">
+                        ⚡ Baba Yaga ON
+                    </button>
+                    <button id="btn-stand-down" onclick="alert('Stand Down Protocol')" class="w-full text-left text-[10px] px-2 py-1.5 rounded border border-gray-800 text-gray-600 hover:text-gray-400 hover:border-gray-600 font-mono transition">
+                        🕊️ Stand Down
+                    </button>
+                    <button id="btn-mock-booking" onclick="alert('Mock Booking Triggered')" class="w-full text-left text-[10px] px-2 py-1.5 rounded border border-amber-900/30 text-amber-700 hover:text-amber-400 hover:border-amber-700 font-mono transition">
+                        📋 Mock Booking
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Drag Handle for Resizing -->
+        <div id="sidebar-drag-handle" class="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-amber-500/50 flex-col justify-center items-center z-50 group flex">
+            <div class="h-8 w-0.5 bg-gray-600 group-hover:bg-amber-400 rounded-full"></div>
+            <div class="h-8 w-0.5 bg-gray-600 group-hover:bg-amber-400 rounded-full mt-1"></div>
+        </div>
+    </aside>
+
+    <div class="god-grid overflow-hidden">
+        
+        <!-- HEADER -->
+        <header class="panel-glass col-span-3 flex-row items-center justify-between px-6 live-pulse">
+            <div class="flex items-center gap-4">
+                <div class="w-3 h-3 rounded-full bg-santis-gold shadow-[0_0_10px_#D4AF37] animate-pulse"></div>
+                <h1 class="heading-font text-xl text-white tracking-widest uppercase">Sovereign <span class="text-santis-gold">Command Center</span></h1>
+            </div>
+            <div class="flex items-center gap-6 text-xs text-gray-400 font-mono">
+                <div>SYSTEM_LOAD: <span class="text-white">12%</span></div>
+                <div>ACTIVE_WHALES: <span class="text-santis-gold font-bold" id="tel-whales">0</span></div>
+                <div>MAX_GHOST_SCORE: <span class="text-green-500" id="tel-score">0</span></div>
+            </div>
+        </header>
+
+        <!-- COL 1: SSG MATRIX CORE (Engine Status & Live Logs) -->
+        <aside class="panel-glass p-4 flex flex-col gap-4">
+            <div class="flex justify-between items-center border-b border-santis-gold/20 pb-2">
+                <h2 class="heading-font text-sm text-santis-gold uppercase tracking-widest">[ 1. KOGNİTİF KORTEKS ]</h2>
+                <div class="text-[10px] text-gray-400 font-mono">STATUS: <span id="mtx-hreflang" class="text-green-500">STANDBY</span></div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 mb-2">
+                <div class="bg-black/50 p-3 rounded border border-gray-800 text-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-santis-gold/5 group-hover:bg-santis-gold/10 transition"></div>
+                    <div class="text-[10px] text-gray-500 uppercase relative z-10">Compiled Nodes</div>
+                    <div class="text-2xl font-bold text-white font-mono mt-1 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)] relative z-10" id="mtx-pages">0</div>
+                </div>
+                <div class="bg-black/50 p-3 rounded border border-gray-800 text-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-green-900/10 group-hover:bg-green-900/20 transition"></div>
+                    <div class="text-[10px] text-gray-500 uppercase relative z-10">Hreflang Health</div>
+                    <div class="text-2xl font-bold text-green-400 font-mono mt-1 drop-shadow-[0_0_8px_rgba(16,185,129,0.3)] relative z-10" id="mtx-health">100%</div>
+                </div>
+            </div>
+
+            <div id="image-tray" class="flex gap-3 mb-2 overflow-x-hidden h-16 min-h-[4rem] scrollbar-hide">
+                <!-- AI Images will appear here dynamically -->
+            </div>
+
+            <div class="flex-1 bg-black/80 rounded border border-gray-800 p-3 overflow-y-auto custom-scroll terminal-text" id="cortex-logs">
+                <div class="text-green-500 opacity-50">Sovereign Log Dinleyicisi Aktif... Bekleniyor.</div>
+            </div>
+            
+            <div class="mt-2 pt-3 border-t border-gray-800 flex justify-between text-[11px] font-mono">
+                <span>Queue Total: <span id="ctx-queue" class="text-white">0</span></span>
+                <span>Missing Slots: <span id="ctx-missing" class="text-red-400">0</span></span>
+            </div>
+        </aside>
+
+        <!-- COL 2: THE QUARANTINE ZONE (HITL AI Approval) -->
+        <main class="p-6 flex flex-col relative overflow-hidden flex-1">
+            <div class="panel rounded-xl p-5 flex flex-col h-full border border-gray-800 bg-black/50 relative overflow-hidden shadow-[0_0_20px_rgba(212,175,55,0.05)]">
+                <div class="flex justify-between items-center border-b border-[#D4AF37]/30 pb-3 mb-4 z-10">
+                    <h2 class="text-[#D4AF37] text-sm tracking-widest font-bold drop-shadow-[0_0_8px_rgba(212,175,55,0.5)]">[ 2. THE QUARANTINE ZONE ]</h2>
+                    <span id="hitl-status" class="text-[10px] font-bold bg-yellow-900/40 text-yellow-500 border border-yellow-500/50 px-2 py-1 rounded animate-pulse shadow-[0_0_10px_rgba(234,179,8,0.2)]">AWAITING PULSE</span>
+                </div>
+                
+                <div id="quarantine-cards" class="flex-1 overflow-y-auto pr-2 space-y-4 scrollbar-hide z-10" data-rendered="none">
+                    <div class="text-center text-gray-600 text-[10px] mt-10 tracking-widest animate-pulse border border-gray-800 p-4 rounded bg-black/30">THE MATRIX IS PURE.<br>AWAITING NEW MASTERPIECES.</div>
+                </div>
+            </div>
+        </main>
+
+        <!-- COL 3: THE TELEMETRY SHIELD (UX & Oracle Radar) -->
+        <aside class="panel-glass p-4 flex flex-col gap-4">
+            <h2 class="heading-font text-sm text-gray-400 uppercase tracking-widest border-b border-gray-800 pb-2">Oracle & Telemetry</h2>
+            
+            <div class="flex-1 bg-black/30 rounded-xl border border-gray-800 flex items-center justify-center relative overflow-hidden">
+                <!-- Echarts Container -->
+                <div id="oracle-chart" class="w-full h-full absolute inset-0"></div>
+                <!-- Center overlay -->
+                <div class="absolute z-10 text-center pointer-events-none">
+                    <div class="text-[10px] text-gray-400 uppercase tracking-widest">Base Multiplier</div>
+                    <div class="text-[10px] font-mono text-santis-gold font-bold drop-shadow-[0_0_8px_#D4AF37] mt-1" id="tel-oracle">OBSERVING (1.0x)</div>
+                </div>
+            </div>
+
+            <h2 class="heading-font text-sm text-gray-400 uppercase tracking-widest border-b border-gray-800 pb-2 mt-2">Hesitation Arbitrage</h2>
+            <div class="bg-black/50 rounded border border-gray-800 p-2 text-xs h-24 overflow-hidden">
+                <div class="flex justify-between p-2 border-b border-gray-800/50">
+                    <span class="text-gray-400">LAST LIVE EVENT:</span>
+                    <span class="text-santis-gold font-mono truncate ml-2" id="tel-hesitation" style="max-width: 200px;">WAITING P2</span>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <script>
+        // Initialize Sovereign Oracle Chart (ECharts)
+        const chartDom = document.getElementById('oracle-chart');
+        const myChart = echarts.init(chartDom);
+        let option;
+
+        option = {
+            backgroundColor: 'transparent',
+            series: [
+                {
+                    name: 'Oracle Surge',
+                    type: 'gauge',
+                    startAngle: 180,
+                    endAngle: 0,
+                    min: 1.0,
+                    max: 2.0,
+                    splitNumber: 4,
+                    itemStyle: {
+                        color: '#D4AF37',
+                        shadowColor: 'rgba(212,175,55,0.4)',
+                        shadowBlur: 10
+                    },
+                    progress: {
+                        show: true,
+                        width: 8
+                    },
+                    pointer: {
+                        icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
+                        length: '12%',
+                        width: 10,
+                        offsetCenter: [0, '-60%'],
+                        itemStyle: { color: 'auto' }
+                    },
+                    axisLine: {
+                        lineStyle: { width: 8, color: [[1, 'rgba(255,255,255,0.1)']] }
+                    },
+                    axisTick: { show: false },
+                    splitLine: { show: false },
+                    axisLabel: { show: false },
+                    detail: { show: false },
+                    data: [{ value: 1.15 }]
+                }
+            ]
+        };
+
+        option && myChart.setOption(option);
+
+        // ==========================================
+        // SOVEREIGN SSE TUNNEL (Phase 1 & Phase 2)
+        // ==========================================
+        const logBox = document.getElementById('cortex-logs');
+        const source = new EventSource("/api/v1/god-mode/stream");
+
+        source.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            
+            // --- 1. KOGNİTİF KORTEKS (Phase 1) ---
+            if (data.cortex && data.cortex.latest_log) {
+                const newLog = document.createElement('div');
+                let colorClass = "text-gray-400";
+                
+                if (data.cortex.latest_log.includes("❌") || data.cortex.latest_log.includes("CRITICAL")) colorClass = "text-red-500";
+                else if (data.cortex.latest_log.includes("⚡") || data.cortex.latest_log.includes("generating")) colorClass = "text-santis-gold";
+                else if (data.cortex.latest_log.includes("👑") || data.cortex.latest_log.includes("✓") || data.cortex.latest_log.includes("saved")) colorClass = "text-green-400";
+                
+                newLog.innerHTML = `<span class="text-gray-600">[${data.timestamp}]</span> <span class="${colorClass}">${data.cortex.latest_log}</span>`;
+                logBox.appendChild(newLog);
+                if(logBox.childElementCount > 15) logBox.removeChild(logBox.firstChild); 
+                logBox.scrollTop = logBox.scrollHeight;
+            }
+
+            // 🚨 CANLI GÖRSEL YAKALAYICI (Phase 1)
+            if (data.cortex && data.cortex.new_image) {
+                const tray = document.getElementById('image-tray');
+                const imgWrap = document.createElement('div');
+                imgWrap.className = "flex-none h-full w-24 rounded border border-[#D4AF37]/50 overflow-hidden relative opacity-0 transition-opacity duration-1000 shadow-[0_0_10px_rgba(212,175,55,0.3)]";
+                imgWrap.innerHTML = `
+                    <img src="/assets/img/${data.cortex.new_image}?t=${Date.now()}" class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 w-full bg-black/80 text-[8px] text-[#D4AF37] text-center truncate px-1">${data.cortex.new_image}</div>
+                `;
+                tray.prepend(imgWrap);
+                setTimeout(() => imgWrap.classList.remove('opacity-0'), 50);
+                if (tray.childElementCount > 5) tray.removeChild(tray.lastChild);
+            }
+            
+            if(data.cortex && document.getElementById('ctx-queue')) {
+                document.getElementById('ctx-queue').innerText = data.cortex.queue_size;
+                document.getElementById('ctx-missing').innerText = data.cortex.missing_slots;
+            }
+
+            // --- 3. MATRIX SSG CORE (Phase 3) ---
+            if (data.matrix) {
+                if(document.getElementById('mtx-pages')) document.getElementById('mtx-pages').innerText = data.matrix.pages_active;
+                if(document.getElementById('mtx-health')) document.getElementById('mtx-health').innerText = data.matrix.health;
+                if(document.getElementById('mtx-hreflang')) document.getElementById('mtx-hreflang').innerText = data.matrix.hreflang_status;
+                
+                // Matrix Build Logs (Compiler Speed inside Cortex Terminal)
+                if(data.matrix.latest_log) {
+                    const newLog = document.createElement('div');
+                    let colorClass = "text-gray-400";
+                    
+                    if (data.matrix.latest_log.includes("ERROR") || data.matrix.latest_log.includes("CRITICAL")) colorClass = "text-red-500";
+                    else if (data.matrix.latest_log.includes("COMPILED")) colorClass = "text-blue-400";
+                    else if (data.matrix.latest_log.includes("PUSH")) colorClass = "text-purple-400";
+                    
+                    newLog.innerHTML = `<span class="text-gray-600">[${data.timestamp}]</span> <span class="${colorClass}">${data.matrix.latest_log}</span>`;
+                    logBox.appendChild(newLog);
+                    if(logBox.childElementCount > 15) logBox.removeChild(logBox.firstChild); 
+                    logBox.scrollTop = logBox.scrollHeight;
+                }
+            }
+
+            // --- 2. TELEMETRY SHIELD (Phase 2) ---
+            if (data.telemetry) {
+                if(document.getElementById('tel-whales')) document.getElementById('tel-whales').innerText = data.telemetry.active_whales;
+                if(document.getElementById('tel-hesitation')) document.getElementById('tel-hesitation').innerText = data.telemetry.hesitation_index;
+                if(document.getElementById('tel-score')) document.getElementById('tel-score').innerText = data.telemetry.ghost_score;
+                if(document.getElementById('tel-oracle')) document.getElementById('tel-oracle').innerText = data.telemetry.oracle_status;
+                
+                let surgeMultiplier = 1.0;
+                if(data.telemetry.oracle_status.includes("1.15x")) surgeMultiplier = 1.15;
+                else if(data.telemetry.oracle_status.includes("1.10x")) surgeMultiplier = 1.10;
+                
+                myChart.setOption({
+                    series: [{ data: [{ value: surgeMultiplier }] }]
+                });
+            }
+            
+            // --- 4. ORTA SÜTUN: THE QUARANTINE ZONE (Phase 51) ---
+            if (data.quarantine) {
+                const qCards = document.getElementById('quarantine-cards');
+                const hitlStatus = document.getElementById('pending-count');
+                const pending = data.quarantine.pending_nodes || [];
+                
+                if (hitlStatus) hitlStatus.innerText = pending.length;
+
+                if (pending.length === 0) {
+                    if (qCards.dataset.rendered !== "empty") {
+                        qCards.innerHTML = '<div class="text-center text-gray-600 text-xs mt-10 tracking-widest animate-pulse">THE MATRIX IS PURE.<br>AWAITING NEW MASTERPIECES.</div>';
+                        qCards.dataset.rendered = "empty";
+                    }
+                } else {
+                    const renderedIds = pending.map(p => p.filename).join(",");
+                    if (qCards.dataset.rendered !== renderedIds) {
+                        qCards.innerHTML = pending.map(card => `
+                            <div class="bg-black/60 border border-gray-800 hover:border-[#D4AF37]/50 transition-all p-4 rounded-lg shadow-[0_0_15px_rgba(212,175,55,0.05)] relative group mb-3 overflow-hidden">
+                                <div class="absolute top-0 left-0 w-1 h-full bg-[#D4AF37]/30 group-hover:bg-[#D4AF37] transition-all duration-500"></div>
+                                <div class="flex justify-between items-start mb-2 pl-2">
+                                    <span class="text-[10px] text-gray-500 font-bold tracking-widest uppercase">NODE: <span class="text-white">${card.node_id}</span></span>
+                                    <span class="text-[9px] bg-yellow-500/10 text-yellow-500 border border-yellow-500/30 px-1.5 py-0.5 rounded animate-pulse">PENDING HITL</span>
+                                </div>
+                                <h3 class="text-[#D4AF37] text-sm font-bold mb-2 pl-2 truncate">${card.title}</h3>
+                                <p class="text-gray-400 text-[10px] mb-4 border-l border-gray-700 pl-2 ml-2 italic leading-relaxed line-clamp-2" title="${card.prompt}">"${card.prompt}"</p>
+                                <div class="flex gap-2 pl-2">
+                                    <button onclick="applySeal('${card.filename}')" class="flex-1 bg-green-900/10 hover:bg-green-600 text-green-500 hover:text-white border border-green-900/50 text-[10px] py-1.5 rounded transition-all tracking-widest font-bold shadow-[0_0_10px_rgba(34,197,94,0.1)] transition-colors">👑 SEAL</button>
+                                    <button onclick="burnNode('${card.filename}')" class="flex-1 bg-red-900/10 hover:bg-red-600 text-red-500 hover:text-white border border-red-900/50 text-[10px] py-1.5 rounded transition-all tracking-widest font-bold shadow-[0_0_10px_rgba(239,68,68,0.1)] transition-colors">🔥 BURN</button>
+                                </div>
+                            </div>
+                        `).join("");
+                        qCards.dataset.rendered = renderedIds;
+                    }
+                }
+            }
+
+            // 👁️ PHASE 55.2: CANLI ISI HARİTASI (THERMAL VISION)
+            if (data.event === "TELEMETRY_PULSE" && data.node_id) {
+                // Hangi karta bakıldığını tespit et (Phantom Tracker'dan gelen ID)
+                const targetCard = document.getElementById(data.node_id) || document.getElementById(`matrix-node-${data.node_id}`);
+                
+                if (targetCard) {
+                    // Eski auraları temizle
+                    clearTimeout(targetCard.thermalTimeout);
+                    targetCard.classList.remove('matrix-node-heating', 'matrix-node-whale');
+                    
+                    // Animasyonu baştan tetiklemek için Force Reflow (Kuantum titremesi)
+                    void targetCard.offsetWidth; 
+
+                    if (data.type === "WHALE_ALERT") {
+                        // 🐋 ALTIN AURA: Balina Radarda!
+                        targetCard.classList.add('matrix-node-whale');
+                        console.log(`🐋 [THERMAL] Altın Rezonans: ${data.node_id} (H_score Zirvesi)`);
+                        
+                        // Surge Oracle İbresini Bük! (1.25x'e fırla)
+                        if (typeof myChart !== 'undefined') {
+                            myChart.setOption({ series: [{ data: [{ value: 1.25 }] }] });
+                            const oracleText = document.getElementById('tel-oracle');
+                            if(oracleText) {
+                                oracleText.innerText = "SURGE ACTIVE (1.25x)";
+                                oracleText.classList.remove('text-santis-gold');
+                                oracleText.classList.add('text-red-500', 'animate-pulse');
+                            }
+                        }
+                        
+                    } else if (data.action === "HEATING_UP") {
+                        // 🔥 KIZIL ISI: Kararsızlık (Hesitation) algılandı!
+                        targetCard.classList.add('matrix-node-heating');
+                        console.log(`🔥 [THERMAL] Kızıl Isı Tespiti: ${data.node_id}`);
+                    }
+
+                    // 🚨 COOLDOWN PROTOKOLÜ (Soğuma Efekti)
+                    // Ziyaretçi fareyi çektikten veya işlem bittikten 4 saniye sonra kart yavaşça soğur.
+                    targetCard.thermalTimeout = setTimeout(() => {
+                        targetCard.classList.remove('matrix-node-heating', 'matrix-node-whale');
+                        
+                        // Oracle'ı normale döndür
+                        if (typeof myChart !== 'undefined') {
+                            myChart.setOption({ series: [{ data: [{ value: 1.0 }] }] });
+                            const oracleText = document.getElementById('tel-oracle');
+                            if(oracleText) {
+                                oracleText.innerText = "OBSERVING (1.0x)";
+                                oracleText.classList.remove('text-red-500', 'animate-pulse');
+                                oracleText.classList.add('text-santis-gold');
+                            }
+                        }
+                    }, 4000);
+                }
+            }
+        };
+        
+        // Responsive chart
+        window.addEventListener('resize', function() {
+            myChart.resize();
+        });
+
+        // 🚨 [SOVEREIGN SEAL: QUARANTINE ZONE RENDER ENGINE]
+        const qContainer = document.getElementById('quarantine-cards');
+        const statusBadge = document.getElementById('hitl-status');
+
+        async function fetchAndRenderQuarantine() {
+            if (!qContainer) return; // Kapsayıcı yoksa dur!
+
+            try {
+                const res = await fetch("http://localhost:8000/api/v1/health/panel-audit");
+                const data = await res.json();
+                const nodes = data.quarantine_nodes || [];
+                
+                // 1. Durum Rozeti Güncellemesi (Kırmızı/Yeşil Neon Efekti)
+                if (statusBadge) {
+                    if (nodes.length === 0) {
+                        statusBadge.innerText = "0 PENDING";
+                        statusBadge.className = "text-[10px] font-bold bg-green-900/40 text-green-500 border border-green-500/50 px-2 py-1 rounded shadow-[0_0_10px_rgba(34,197,94,0.2)]";
+                    } else {
+                        statusBadge.innerText = `${nodes.length} PENDING HITL`;
+                        statusBadge.className = "text-[10px] font-bold bg-red-900/40 text-red-500 border border-red-500/50 px-2 py-1 rounded animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.3)]";
+                    }
+                }
+
+                // 2. Karantina Boş İse
+                if (nodes.length === 0) {
+                    if (qContainer.dataset.rendered !== "empty") {
+                        qContainer.innerHTML = '<div class="text-center text-gray-600 text-[10px] mt-10 tracking-widest animate-pulse border border-gray-800 p-4 rounded bg-black/30">THE MATRIX IS PURE.<br>AWAITING NEW MASTERPIECES.</div>';
+                        qContainer.dataset.rendered = "empty";
+                    }
+                    return;
+                }
+
+                // 3. Kartların Çizilmesi (Sadece Değişiklik Varsa - Performans Zırhı)
+                const currentNodesStr = JSON.stringify(nodes.map(n => n.node_id || n.filename));
+                if (qContainer.dataset.rendered === currentNodesStr) return;
+
+                qContainer.innerHTML = nodes.map(node => `
+                    <div class="bg-black/80 border border-gray-700 hover:border-[#D4AF37]/60 transition-all p-4 rounded-lg shadow-[0_0_15px_rgba(212,175,55,0.05)] relative group overflow-hidden mb-3">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-[#D4AF37]/30 group-hover:bg-[#D4AF37] transition-all duration-300"></div>
+                        <div class="flex justify-between items-start mb-2 pl-2">
+                            <span class="text-[10px] text-gray-500 font-bold tracking-widest uppercase">NODE: <span class="text-white">${node.node_id || node.filename.replace('.json','')}</span></span>
+                        </div>
+                        <h3 class="text-[#D4AF37] text-sm font-bold mb-2 pl-2 truncate drop-shadow-[0_0_5px_rgba(212,175,55,0.3)]">${node.title || 'Sovereign Expansion'}</h3>
+                        <p class="text-gray-400 text-[10px] mb-4 border-l border-gray-700 pl-2 ml-2 italic leading-relaxed line-clamp-2" title="${node.prompt}">"${node.prompt || 'Awaiting Vision...'}"</p>
+                        <div class="flex gap-3 pl-2">
+                            <button onclick="applySeal('${node.filename}')" class="flex-1 bg-green-900/20 hover:bg-green-600 text-green-500 hover:text-white border border-green-900/50 text-[10px] py-2 rounded transition-all tracking-widest font-bold shadow-[0_0_10px_rgba(34,197,94,0.1)] hover:shadow-[0_0_15px_rgba(34,197,94,0.4)] cursor-pointer">👑 SEAL</button>
+                            <button onclick="burnNode('${node.filename}')" class="flex-1 bg-red-900/20 hover:bg-red-600 text-red-500 hover:text-white border border-red-900/50 text-[10px] py-2 rounded transition-all tracking-widest font-bold shadow-[0_0_10px_rgba(239,68,68,0.1)] hover:shadow-[0_0_15px_rgba(239,68,68,0.4)] cursor-pointer">🔥 BURN</button>
+                        </div>
+                    </div>
+                `).join("");
+                qContainer.dataset.rendered = currentNodesStr;
+
+            } catch (err) {
+                console.warn("👁️ [God Mode] Karantina radarı tarama hatası (Bekleniyor...)");
+            }
+        }
+
+        // 👑 THE EXECUTIONER FUNCTIONS (İnfaz Fonksiyonları)
+        window.applySeal = async function(filename) {
+            if(confirm("👑 MÜHÜR VURULUYOR: Bu şaheseri asıl evrene (Universe) katmak istediğinize emin misiniz?")) {
+                await fetch("http://localhost:8000/api/v1/quarantine/seal/" + filename, { method: 'POST' });
+                fetchAndRenderQuarantine(); // Arayüzü beklemeden anında yenile!
+            }
+        }
+
+        window.burnNode = async function(filename) {
+            if(confirm("🔥 İMHA PROTOKOLÜ: Bu eseri acımasızca küllere çeviriyorsunuz. Emin misiniz?")) {
+                await fetch("http://localhost:8000/api/v1/quarantine/burn/" + filename, { method: 'DELETE' });
+                fetchAndRenderQuarantine(); // Arayüzü beklemeden anında yenile!
+            }
+        }
+
+        // 4 Saniyelik Polling Radarı
+        setInterval(fetchAndRenderQuarantine, 4000);
+        fetchAndRenderQuarantine(); // Sayfa yüklenir yüklenmez ilk taramayı yap!
+        // Sidebar Resizing Logic
+        const sidebar = document.getElementById('admin-sidebar');
+        const dragHandle = document.getElementById('sidebar-drag-handle');
+        
+        if (dragHandle && sidebar) {
+            let isResizing = false;
+            let startX;
+            let startWidth;
+
+            dragHandle.addEventListener('mousedown', (e) => {
+                isResizing = true;
+                startX = e.clientX;
+                startWidth = parseInt(document.defaultView.getComputedStyle(sidebar).width, 10);
+                document.body.style.cursor = 'col-resize';
+                sidebar.classList.add('select-none'); // Prevent text selection
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isResizing) return;
+                const newWidth = startWidth + (e.clientX - startX);
+                
+                // Constraints defined in inline style: min 240, max 600
+                if (newWidth >= 240 && newWidth <= 600) {
+                    sidebar.style.width = `${newWidth}px`;
+                    // Chart may need resizing when available space changes
+                    if (typeof myChart !== 'undefined') myChart.resize();
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isResizing) {
+                    isResizing = false;
+                    document.body.style.cursor = 'default';
+                    sidebar.classList.remove('select-none');
+                }
+            });
+        }
+    </script>
+</div>
+</body>
+</html>

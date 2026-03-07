@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign God Mode | Santis OS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-dark: #0A0A0A;
+            --glass-bg: rgba(20, 20, 20, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --text-primary: #EDEDED;
+            --text-muted: #888888;
+            --accent-gold: rgba(212, 175, 55, 0.8);
+            --accent-pulse: rgba(212, 175, 55, 0.3);
+            --font-serif: 'Cinzel', serif;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* 👑 SOVEREIGN HEADER */
+        header {
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            letter-spacing: 4px;
+            color: #FFF;
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-gold);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 var(--accent-pulse); }
+            70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+
+        /* 🪟 DASHBOARD GRID */
+        main {
+            padding: 3rem 4rem;
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+        }
+
+        .widget {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .widget.whale-alert {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1) inset;
+        }
+
+        .widget h2 {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        /* METRICS */
+        .metric-value {
+            font-size: 3.5rem;
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* SPECIFIC WIDGETS */
+        .w-large { grid-column: span 8; }
+        .w-medium { grid-column: span 4; }
+        .w-full { grid-column: span 12; }
+
+        /* RADAR LIST */
+        .radar-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .radar-list::-webkit-scrollbar { width: 4px; }
+        .radar-list::-webkit-scrollbar-track { background: transparent; }
+        .radar-list::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 4px; }
+
+        .radar-item {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 2px solid transparent;
+            font-size: 0.9rem;
+        }
+
+        .radar-item.whale {
+            border-left-color: var(--accent-gold);
+            background: linear-gradient(90deg, rgba(212,175,55,0.05) 0%, transparent 100%);
+        }
+
+        .node-name { color: #FFF; font-family: var(--font-serif); letter-spacing: 1px; }
+        .intent-score { color: var(--accent-gold); font-variant-numeric: tabular-nums; text-align: right;}
+        .time-ago { color: var(--text-muted); text-align: right; font-size: 0.8rem; }
+
+        /* EDGE SHIELD CHART (Simplified CSS visual) */
+        .shield-bar {
+            width: 100%;
+            height: 4px;
+            background: #222;
+            margin-top: 1rem;
+            border-radius: 2px;
+            overflow: hidden;
+            display: flex;
+        }
+        
+        .shield-edge { background: var(--accent-gold); width: 98%; transition: width 1s ease; }
+        .shield-origin { background: #ff4757; width: 2%; transition: width 1s ease; }
+
+        .shield-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <div class="logo">SANTIS OS</div>
+            <div class="status-badge">
+                <div class="status-dot"></div>
+                God Mode Active
+            </div>
+        </div>
+        <div style="font-family: var(--font-serif); color: var(--text-muted); letter-spacing: 1px; font-size: 0.9rem;">
+            THE SOVEREIGN PANOPTICON
+        </div>
+    </header>
+
+    <main>
+        <!-- CONCIERGE FLOW (MRR) -->
+        <div class="widget w-medium" id="widget-revenue">
+            <h2>Live Revenue Pulse</h2>
+            <div class="metric-value">€<span id="val_revenue">12,450</span></div>
+            <div class="metric-label">Concierge Influenced Checkout</div>
+        </div>
+
+        <!-- EDGE SHIELD METRICS -->
+        <div class="widget w-medium">
+            <h2>The Edge Shield</h2>
+            <div class="metric-value" style="font-size: 2.5rem;"><span id="val_active_users">84,021</span> <span style="font-size: 1rem; color:var(--text-muted);">CCU</span></div>
+            <div class="metric-label">Concurrent Global Users</div>
+            
+            <div class="shield-bar">
+                <div class="shield-edge" id="bar_edge" style="width: 98%;"></div>
+                <div class="shield-origin" id="bar_origin" style="width: 2%;"></div>
+            </div>
+            <div class="shield-stats">
+                <span>Edge Cache: <span id="val_edge_pct" style="color:var(--accent-gold)">98%</span></span>
+                <span>Origin Load: <span id="val_origin_pct" style="color:#ff4757">2%</span></span>
+            </div>
+        </div>
+
+        <!-- AI CONCIERGE WHISPERS -->
+        <div class="widget w-medium">
+            <h2>Concierge Interventions</h2>
+            <div class="metric-value" id="val_interventions">14</div>
+            <div class="metric-label">Active Sovereign Dialogues</div>
+        </div>
+
+        <!-- THE SOVEREIGN RADAR (WHALE HEATMAP) -->
+        <div class="w-full">
+            <div id="panopticon-radar" class="panel-glass p-5 flex flex-col gap-4 border border-[#D4AF37]/30 shadow-[0_0_30px_rgba(212,175,55,0.05)] relative overflow-hidden bg-[#050505]/90 h-[450px] mt-4">
+                
+                <div class="absolute inset-0 z-0 opacity-[0.05] pointer-events-none" style="background-image: linear-gradient(#D4AF37 1px, transparent 1px), linear-gradient(90deg, #D4AF37 1px, transparent 1px); background-size: 20px 20px; transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);"></div>
+                <div class="absolute top-0 left-0 w-full h-1 bg-[#D4AF37]/50 shadow-[0_0_15px_#D4AF37] z-0 animate-[scan_3s_linear_infinite]"></div>
+
+                <div class="flex justify-between items-center z-10 border-b border-[#D4AF37]/20 pb-3">
+                    <h2 class="text-[#D4AF37] font-bold tracking-[4px] text-[10px] uppercase flex items-center gap-2 m-0 border-none bg-transparent">
+                        <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_8px_#ef4444]"></span>
+                        The Panopticon
+                    </h2>
+                    <span class="text-[9px] font-mono text-gray-500">LIVE VIP RADAR</span>
+                </div>
+
+                <div class="flex justify-between items-center bg-black/60 border border-gray-800 p-3 rounded-lg z-10">
+                    <span class="text-[10px] text-gray-400 font-mono uppercase tracking-widest">Active Whales</span>
+                    <span id="active-whales" class="text-3xl font-serif text-[#D4AF37] drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all duration-300">0</span>
+                </div>
+
+                <div id="radar-stream" class="flex-1 overflow-y-auto custom-scroll flex flex-col gap-2 z-10 pr-2 pb-2">
+                    <div id="radar-idle" class="text-center text-[9px] text-gray-600 font-mono mt-10 tracking-widest animate-pulse">
+                        RADAR SİSTEMİ DEVREDE.<br>AV BEKLENİYOR...
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                @keyframes scan { 0% { top: -10%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 110%; opacity: 0; } }
+                @keyframes radar-drop {
+                    0% { opacity: 0; transform: translateY(-15px) scale(0.98); background-color: rgba(212,175,55,0.3); }
+                    50% { opacity: 1; transform: translateY(0) scale(1.02); background-color: rgba(212,175,55,0.1); box-shadow: 0 0 20px rgba(212,175,55,0.2); }
+                    100% { transform: scale(1); background-color: rgba(0,0,0,0.6); }
+                }
+                .radar-event { animation: radar-drop 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+            </style>
+        </div>
+    </main>
+
+    <script src="/assets/js/santis_god_mode.js"></script>
+</body>
+</html>

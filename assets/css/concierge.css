@@ -32,7 +32,7 @@
 
     position: fixed;
 
-    bottom: 30px;
+    bottom: 90px;
 
     right: 30px;
 
@@ -54,9 +54,10 @@
 
     cursor: pointer;
 
-    z-index: 9999999;
+    z-index: var(--z-modal);
+    /* AUTO-CAPPED BY OMNI-CORE */
 
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
     display: flex;
 
@@ -130,7 +131,7 @@
 
     position: fixed;
 
-    bottom: 30px;
+    bottom: 90px;
 
     right: 30px;
 
@@ -152,7 +153,8 @@
 
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
 
-    z-index: 9999999;
+    z-index: var(--z-modal);
+    /* AUTO-CAPPED BY OMNI-CORE */
 
     display: flex;
 
@@ -166,7 +168,8 @@
 
     transform: translateY(0) scale(1);
 
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: opacity, transform;
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 
 }
 
@@ -178,7 +181,7 @@
 
     pointer-events: none;
 
-    transform: translateY(20px) scale(0.95);
+    transform: translateY(20px) scale(0.98);
 
 }
 
@@ -384,7 +387,7 @@
 
     cursor: pointer;
 
-    transition: all 0.2s;
+    transition: transform 0.2s, opacity 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
 
 }
 

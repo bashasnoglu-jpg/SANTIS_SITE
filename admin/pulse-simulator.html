@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sovereign Pulse | Live Intelligence Network</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { background: #050505; color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; margin: 0; }
+        .heading-font { font-family: 'Space Grotesk', sans-serif; }
+        
+        .grid-bg {
+            position: absolute; inset: 0; z-index: 0;
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
+        }
+
+        .node {
+            position: absolute;
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            padding: 16px;
+            width: 220px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 10;
+        }
+
+        .node-header { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px; }
+        .node-val { font-family: monospace; font-size: 24px; font-weight: 700; }
+        
+        /* Node Colors */
+        .node.active.guest { border-color: #50C878; box-shadow: 0 0 20px rgba(80, 200, 120, 0.2); }
+        .node.active.guest .node-header { color: #50C878; }
+        
+        .node.active.ghost { border-color: #00D1FF; box-shadow: 0 0 20px rgba(0, 209, 255, 0.2); }
+        .node.active.ghost .node-header { color: #00D1FF; }
+        .node.ghost-critical { border-color: #FF3E3E !important; box-shadow: 0 0 30px rgba(255, 62, 62, 0.4) !important; animation: pulse-critical 1s infinite; }
+        @keyframes pulse-critical { 0%, 100% { box-shadow: 0 0 20px rgba(255, 62, 62, 0.4); } 50% { box-shadow: 0 0 40px rgba(255, 62, 62, 0.8); } }
+
+        .node.active.aurelia { border-color: #D4AF37; background: rgba(212, 175, 55, 0.05); box-shadow: 0 0 40px rgba(212, 175, 55, 0.3); }
+        .node.active.aurelia .node-header { color: #D4AF37; font-weight: 700; }
+
+        .node.active.blackroom { border-color: #9D00FF; box-shadow: 0 0 20px rgba(157, 0, 255, 0.2); }
+        .node.active.blackroom .node-header { color: #9D00FF; }
+
+        .node.active.warroom { border-color: #D4AF37; box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
+
+        /* Flow Lines SVG */
+        .flow-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        .flow-line { fill: none; stroke: rgba(255, 255, 255, 0.1); stroke-width: 2; border-radius: 8px; }
+        .flow-pulse {
+            fill: none; stroke-width: 3;
+            stroke-dasharray: 100; stroke-dashoffset: 100;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        /* Particles */
+        .particle {
+            position: absolute; width: 6px; height: 6px; border-radius: 50%;
+            background: #fff; box-shadow: 0 0 10px #fff;
+            z-index: 20; opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Position Nodes */
+        #node-guest { top: 15%; left: 10%; }
+        #node-ghost { top: 40%; left: 10%; }
+        #node-aurelia { top: 40%; left: 45%; }
+        #node-blackroom { top: 15%; left: 45%; }
+        #node-warroom { top: 40%; left: 75%; }
+
+        /* Logger */
+        #pulse-log {
+            position: absolute; bottom: 20px; left: 20px; width: 400px; max-height: 200px;
+            background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px; padding: 10px; font-family: monospace; font-size: 10px;
+            overflow-y: hidden; z-index: 50; backdrop-filter: blur(10px); color: #888;
+        }
+        .log-entry { margin-bottom: 4px; opacity: 0; animation: fadeIn 0.3s forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+        .log-entry.gold { color: #D4AF37; font-weight: bold; }
+        .log-entry.blue { color: #00D1FF; }
+        .log-entry.green { color: #50C878; }
+
+        /* Play Button */
+        #btn-simulate {
+            position: absolute; top: 30px; right: 30px; z-index: 50;
+            background: #D4AF37; color: #000; font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700; padding: 12px 24px; border-radius: 6px; cursor: pointer;
+            letter-spacing: 2px; text-transform: uppercase; border: none;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); transition: all 0.2s;
+        }
+        #btn-simulate:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(212, 175, 55, 0.6); }
+        #btn-simulate:disabled { background: #333; color: #666; cursor: not-allowed; box-shadow: none; transform: none; }
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+
+    <button id="btn-simulate" onclick="fireSimulation()">Initiate Sequence</button>
+
+    <div id="pulse-log">
+        <div style="color: #444; margin-bottom: 8px;">[SYSTEM READY] Awaiting Hostile/Friendly Interaction</div>
+    </div>
+
+    <!-- SVG CABLES -->
+    <svg class="flow-svg" id="svg-layer">
+        <!-- Lines -->
+        <path id="path-guest-ghost" class="flow-line" d="M 230 200 L 230 400" />
+        <path id="path-ghost-aurelia" class="flow-line" d="M 330 460 L 670 460" />
+        <path id="path-aurelia-blackroom" class="flow-line" d="M 780 400 L 780 200" />
+        <path id="path-blackroom-aurelia" class="flow-line" d="M 800 200 L 800 400" />
+        <path id="path-aurelia-warroom" class="flow-line" d="M 890 460 L 1150 460" />
+
+        <!-- Pulse FX -->
+        <path id="pulse-guest-ghost" class="flow-pulse" stroke="#50C878" d="M 230 200 L 230 400" />
+        <path id="pulse-ghost-aurelia" class="flow-pulse" stroke="#FF3E3E" d="M 330 460 L 670 460" />
+        <path id="pulse-aurelia-blackroom" class="flow-pulse" stroke="#9D00FF" d="M 780 400 L 780 200" />
+        <path id="pulse-blackroom-aurelia" class="flow-pulse" stroke="#D4AF37" d="M 800 200 L 800 400" />
+        <path id="pulse-aurelia-warroom" class="flow-pulse" stroke="#D4AF37" d="M 890 460 L 1150 460" />
+        
+        <path id="path-warroom-resource" class="flow-line" d="M 1260 400 L 1260 250" />
+        <path id="pulse-warroom-resource" class="flow-pulse" stroke="#D4AF37" d="M 1260 400 L 1260 250" />
+        
+        <!-- Viral Engine Flow -->
+        <path id="path-warroom-viral" class="flow-line" d="M 1370 460 L 1600 460" />
+        <path id="pulse-warroom-viral" class="flow-pulse" stroke="#D4AF37" d="M 1370 460 L 1600 460" />
+        
+        <!-- Ambassador Command Flow -->
+        <path id="path-viral-ambassador" class="flow-line" d="M 1710 400 L 1710 250" />
+        <path id="pulse-viral-ambassador" class="flow-pulse" stroke="#FFD700" d="M 1710 400 L 1710 250" />
+    </svg>
+
+    <!-- 1. GUEST -->
+    <div class="node guest" id="node-guest" style="top: 150px; left: 120px;">
+        <div class="node-header">👤 User Stream</div>
+        <div style="font-size: 12px; color: #999;">Node: London</div>
+        <div style="font-size: 11px; margin-top: 5px; height: 16px; color: #fff;" id="ui-guest-action">Idle</div>
+    </div>
+
+    <!-- 2. GHOST SCORE -->
+    <div class="node ghost" id="node-ghost" style="top: 400px; left: 120px;">
+        <div class="node-header">👻 Ghost Engine</div>
+        <div style="font-size: 10px; color: #888; margin-bottom: 4px;">Intent Score</div>
+        <div class="node-val" id="ui-ghost-score" style="color: #00D1FF;">00</div>
+        <div style="height: 4px; background: rgba(255,255,255,0.1); margin-top: 8px; border-radius: 2px; overflow: hidden;">
+            <div id="ui-ghost-bar" style="height: 100%; width: 0%; background: #00D1FF; transition: width 0.3s;"></div>
+        </div>
+    </div>
+
+    <!-- 3. AURELIA MATRIX -->
+    <div class="node aurelia" id="node-aurelia" style="top: 400px; left: 670px; width: 220px;">
+        <div class="node-header">🤖 Aurelia Matrix</div>
+        <div id="ui-aurelia-status" style="font-family: monospace; font-size: 14px; color: #666;">SLEEPING</div>
+        <div style="font-size: 10px; color: #aaa; margin-top: 8px; min-height: 28px;" id="ui-aurelia-desc">Waiting for anomaly (>85)</div>
+    </div>
+
+    <!-- 4. THE BLACK ROOM -->
+    <div class="node blackroom" id="node-blackroom" style="top: 150px; left: 670px;">
+        <div class="node-header">🗄️ The Black Room</div>
+        <div style="font-size: 10px; color: #888;">Neural Pricing & Vault</div>
+        <div id="ui-sku" style="font-family: monospace; font-size: 12px; color: #9D00FF; margin-top: 8px;">[ LCKD ]</div>
+        <div id="ui-discount" style="font-size: 14px; color: #fff; font-weight: bold;">--</div>
+    </div>
+
+    <!-- 5. THE WAR ROOM -->
+    <div class="node warroom" id="node-warroom" style="top: 400px; left: 1150px;">
+        <div class="node-header">🏛️ The War Room</div>
+        <div style="font-size: 10px; color: #888;">Global SaaS Dashboard</div>
+        <div style="margin-top: 10px;">
+            <div style="font-size: 8px; color: #D4AF37; letter-spacing: 2px;">MRR (EUR)</div>
+            <div class="node-val" id="ui-mrr" style="color: #fff;">€1,240,000</div>
+        </div>
+    </div>
+
+    <!-- 6. RESOURCE CONTROLLER -->
+    <div class="node resource" id="node-resource" style="top: 150px; left: 1150px; border-color: rgba(212,175,55,0.2);">
+        <div class="node-header" style="color:#D4AF37;">🔥 Sovereign Resource</div>
+        <div style="font-size: 10px; color: #888;">Auto-Pilot Bütçe & Trafik</div>
+        <div id="ui-budget" style="font-family: monospace; font-size: 14px; color: #D4AF37; margin-top: 8px;">[ STANDBY ]</div>
+        <div id="ui-flow" style="font-size: 10px; color: #fff; margin-top: 5px;">Hazine Bekliyor</div>
+    </div>
+    
+    <!-- 7. VIRAL ENGINE (SCREAMING GROWTH) -->
+    <div class="node viral" id="node-viral" style="top: 400px; left: 1600px; border-color: rgba(80, 200, 120, 0.2);">
+        <div class="node-header" style="color:#50C878;">🚀 Viral Engine</div>
+        <div style="font-size: 10px; color: #888;">Sovereign Ambassador Subsystem</div>
+        <div id="ui-viral-status" style="font-family: monospace; font-size: 12px; color: #50C878; margin-top: 8px;">[ STANDBY ]</div>
+        <div id="ui-viral-growth" style="font-size: 14px; color: #fff; font-weight: bold; margin-top: 5px;">--</div>
+    </div>
+    
+    <!-- 8. AMBASSADOR COMMAND CENTER -->
+    <div class="node ambassador" id="node-ambassador" style="top: 150px; left: 1600px; border-color: rgba(255, 215, 0, 0.2); width: 220px;">
+        <div class="node-header" style="color:#FFD700;">👑 Ambassador Command</div>
+        <div style="font-size: 10px; color: #888; margin-bottom: 10px;">Live Viral Metrics</div>
+        
+        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px;">
+            <span style="color: #ccc;">Active Elite:</span>
+            <span id="ui-amb-count" style="color: #FFD700; font-family: monospace;">[ CALC ]</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px;">
+            <span style="color: #ccc;">Network Reach:</span>
+            <span id="ui-amb-reach" style="color: #50C878; font-family: monospace;">--</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 10px;">
+            <span style="color: #ccc;">Viral ROI:</span>
+            <span id="ui-amb-roi" style="color: #D4AF37; font-weight: bold; font-family: monospace;">--</span>
+        </div>
+
+        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; font-size: 10px; text-align: left;">
+            <div style="color: #888; margin-bottom: 4px;">Top Originators</div>
+            <div id="ui-amb-list" style="color: #aaa; font-family: monospace; line-height: 1.4; opacity: 0.3;">
+                Awaiting Viral Ignition...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const logPanel = document.getElementById('pulse-log');
+        
+        function logMsg(msg, type='') {
+            const div = document.createElement('div');
+            div.className = `log-entry ${type}`;
+            const time = new Date().toISOString().split('T')[1].substring(0,8);
+            div.innerText = `[${time}] ${msg}`;
+            logPanel.prepend(div);
+            if(logPanel.children.length > 10) logPanel.lastChild.remove();
+        }
+
+        function animatePath(id, color, duration=600) {
+            const path = document.getElementById(id);
+            path.style.transition = 'none';
+            path.style.strokeDasharray = path.getTotalLength();
+            path.style.strokeDashoffset = path.getTotalLength();
+            path.style.opacity = '1';
+            path.style.stroke = color;
+
+            // Trigger reflow
+            path.getBoundingClientRect();
+
+            path.style.transition = `stroke-dashoffset ${duration}ms linear`;
+            path.style.strokeDashoffset = '0';
+            
+            setTimeout(() => {
+                path.style.opacity = '0';
+            }, duration + 100);
+        }
+
+        async function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function fireSimulation() {
+            document.getElementById('btn-simulate').disabled = true;
+            logPanel.innerHTML = '';
+            logMsg('Simulation Protocol Started...', 'green');
+
+            // Reset States
+            document.getElementById('ui-ghost-score').innerText = '00';
+            document.getElementById('ui-ghost-bar').style.width = '0%';
+            document.getElementById('ui-ghost-bar').style.background = '#00D1FF';
+            document.getElementById('node-ghost').className = 'node ghost';
+            document.getElementById('node-aurelia').classList.remove('active');
+            document.getElementById('ui-aurelia-status').innerText = 'SLEEPING';
+            document.getElementById('ui-aurelia-status').style.color = '#666';
+            document.getElementById('ui-aurelia-desc').innerText = 'Waiting for anomaly (>85)';
+            document.getElementById('ui-sku').innerText = '[ LCKD ]';
+            document.getElementById('ui-discount').innerText = '--';
+            document.getElementById('node-resource').classList.remove('active');
+            document.getElementById('ui-budget').innerText = '[ STANDBY ]';
+            document.getElementById('ui-flow').innerText = 'Hazine Bekliyor';
+            document.getElementById('node-viral').classList.remove('active');
+            document.getElementById('ui-viral-status').innerText = '[ STANDBY ]';
+            document.getElementById('ui-viral-growth').innerText = '--';
+            document.getElementById('node-ambassador').classList.remove('active');
+            document.getElementById('ui-amb-count').innerText = '[ CALC ]';
+            document.getElementById('ui-amb-reach').innerText = '--';
+            document.getElementById('ui-amb-roi').innerText = '--';
+            document.getElementById('ui-amb-list').style.opacity = '0.3';
+            document.getElementById('ui-amb-list').innerHTML = 'Awaiting Viral Ignition...';
+
+            // PHASE 1: The Gathering
+            await sequenceGather(15, 'Hover: "Hamam Ritual" (2.5s)', 800);
+            await sequenceGather(25, 'Scroll Depth 50%', 1200);
+            await sequenceGather(20, 'Scroll Depth 90%', 1000);
+            await sequenceGather(20, 'Deep Hover: Prices', 1500);
+
+            // PHASE 2: The Awakening
+            await sleep(500);
+            document.getElementById('node-ghost').classList.add('ghost-critical');
+            document.getElementById('ui-ghost-bar').style.background = '#FF3E3E';
+            document.getElementById('ui-ghost-score').style.color = '#FF3E3E';
+            logMsg('Ghost Threshold Breached! Score > 85', 'red');
+            animatePath('pulse-ghost-aurelia', '#FF3E3E', 400);
+
+            await sleep(400);
+            document.getElementById('node-aurelia').classList.add('active');
+            document.getElementById('ui-aurelia-status').innerText = '🔥 AURELIA AWAKE';
+            document.getElementById('ui-aurelia-status').style.color = '#D4AF37';
+            document.getElementById('ui-aurelia-desc').innerHTML = 'Sovereign Hand-Off <br> <span style="color:#fff">Target: High Value</span>';
+            logMsg('santis:aurelia_wakeup Event Fired', 'gold');
+
+            // PHASE 3: The Black Room Müzakere
+            await sleep(800);
+            animatePath('pulse-aurelia-blackroom', '#9D00FF', 300);
+            document.getElementById('node-blackroom').classList.add('active');
+            logMsg('Requesting Custom Yield Rate...', 'blue');
+            
+            await sleep(600);
+            document.getElementById('ui-sku').innerText = 'SKU: SOV-EXEC-15';
+            document.getElementById('ui-discount').innerHTML = '€350 <span style="color:#50C878; font-size:10px;">(Dynamic -15%)</span>';
+            animatePath('pulse-blackroom-aurelia', '#D4AF37', 300);
+            logMsg('Black Room Issued Token: 6EOOZVXS', 'gold');
+
+            // PHASE 4: Closing & War Room
+            await sleep(800);
+            document.getElementById('ui-aurelia-desc').innerText = "Closing Deal...";
+            document.getElementById('ui-guest-action').innerText = "ACCEPTED: Executive Package";
+            document.getElementById('ui-guest-action').style.color = '#D4AF37';
+            
+            await sleep(600);
+            animatePath('pulse-aurelia-warroom', '#D4AF37', 500);
+            document.getElementById('node-warroom').classList.add('active');
+            
+            logMsg('[INTELLIGENCE_PULSE] Transaction Confirmed!', 'gold');
+            
+            const mrrEl = document.getElementById('ui-mrr');
+            mrrEl.style.transform = 'scale(1.2)';
+            mrrEl.style.color = '#50C878';
+            mrrEl.innerText = "€1,240,350";
+            
+            setTimeout(() => {
+                mrrEl.style.transform = 'scale(1)';
+                mrrEl.style.color = '#fff';
+            }, 500);
+            
+            // PHASE 5: Sovereign Resource Auto-Pilot Overdrive
+            await sleep(800);
+            animatePath('pulse-warroom-resource', '#D4AF37', 500);
+            document.getElementById('node-resource').classList.add('active');
+            document.getElementById('node-resource').style.borderColor = "#D4AF37";
+            document.getElementById('node-resource').style.boxShadow = "0 0 30px rgba(212, 175, 55, 0.5)";
+            
+            await sleep(300);
+            document.getElementById('ui-budget').innerText = "BUDGET: +150%";
+            document.getElementById('ui-flow').innerText = "Londra (Whale) Node'a aktarıldı.";
+            logMsg('[AUTO-PILOT] Ad Budget Re-Allocated to London (π > 0.88)', 'gold');
+
+            // PHASE 6: The Screaming Growth (Viral Engine)
+            await sleep(1000);
+            animatePath('pulse-warroom-viral', '#50C878', 500);
+            const viralNode = document.getElementById('node-viral');
+            viralNode.classList.add('active');
+            viralNode.style.borderColor = "#50C878";
+            viralNode.style.boxShadow = "0 0 30px rgba(80, 200, 120, 0.5)";
+            
+            await sleep(400);
+            document.getElementById('ui-viral-status').innerText = "[ ACTIVE - AMBASSADOR HUNT ]";
+            logMsg('[VIRAL ENGINE] Top 10% LTV Guest Identified', 'green');
+            
+            await sleep(600);
+            document.getElementById('ui-viral-status').innerText = "INVITE-ONLY SENT";
+            document.getElementById('ui-viral-growth').innerText = "+15% Organic Growth Expected";
+            logMsg('[VIRAL ENGINE] Sovereign Armor Deployed (ghost_vip_1)', 'gold');
+
+            // PHASE 7: Ambassador Command Center (Phase 21)
+            await sleep(800);
+            animatePath('pulse-viral-ambassador', '#FFD700', 500);
+            const ambNode = document.getElementById('node-ambassador');
+            ambNode.classList.add('active');
+            ambNode.style.borderColor = "#FFD700";
+            ambNode.style.boxShadow = "0 0 30px rgba(255, 215, 0, 0.5)";
+            
+            await sleep(400);
+            document.getElementById('ui-amb-count').innerText = "142";
+            document.getElementById('ui-amb-reach').innerText = "+24,500";
+            document.getElementById('ui-amb-roi').innerText = "€ 114,200";
+            document.getElementById('ui-amb-list').style.opacity = "1";
+            document.getElementById('ui-amb-list').innerHTML = `
+                <div style="color: #FFD700;">[ghost_vip_1] ➔ 14 conversions</div>
+                <div style="color: #50C878;">[ghost_vip_8] ➔ 9 conversions</div>
+                <div style="color: #fff;">[ghost_vip_3] ➔ 7 conversions</div>
+            `;
+            logMsg('[COMMAND CENTER] Global Ambassador Network Synced', 'gold');
+
+            await sleep(800);
+            logMsg('Sovereign Simulation Complete. (Empire Expanding)', 'green');
+            document.getElementById('btn-simulate').innerText = "Rerun Sequence";
+            document.getElementById('btn-simulate').disabled = false;
+        }
+
+        async function sequenceGather(points, action, delay) {
+            await sleep(delay);
+            document.getElementById('node-guest').classList.add('active');
+            document.getElementById('ui-guest-action').innerText = action;
+            animatePath('pulse-guest-ghost', '#50C878', 400);
+
+            await sleep(400);
+            document.getElementById('node-guest').classList.remove('active');
+            const scoreEl = document.getElementById('ui-ghost-score');
+            const bar = document.getElementById('ui-ghost-bar');
+            let current = parseInt(scoreEl.innerText);
+            let next = current + points;
+            scoreEl.innerText = next;
+            bar.style.width = Math.min(next, 100) + '%';
+            
+            logMsg(`Intent Gathered: ${action} (+${points})`, 'green');
+        }
+    </script>
+</body>
+</html>

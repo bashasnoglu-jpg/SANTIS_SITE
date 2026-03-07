@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Master OS - AI Offers & CRM</title>
+    <!-- Tailwind Warning Suppressor -->
+    <script>
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+            if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return;
+            originalWarn.apply(console, args);
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/admin.css" rel="stylesheet">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-gray-200 font-sans antialiased">
+    <!-- UI Layout -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-950 border-r border-gray-800 flex flex-col">
+            <div class="p-6 border-b border-gray-800">
+                <h1 class="text-xl font-semibold tracking-wider text-white">SANTIS <span class="text-amber-500 text-xs align-top">V7 OS</span></h1>
+                <p class="text-xs text-gray-500 mt-1">Super Admin (HQ Mode)</p>
+            </div>
+            <nav class="flex-1 p-4 space-y-2">
+                <a href="/index.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">❖ Dashboard</a>
+                <a href="hotels.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">🏨 Hotels Network</a>
+                <a href="bookings.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">📅 Live Bookings</a>
+                <a href="crm.html" class="block px-4 py-2 rounded-lg bg-gray-800 text-amber-500 font-medium">💎 AI Offers & CRM</a>
+                <a href="revenue.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">📈 Revenue Analytics</a>
+                <div class="pt-4 mt-4 border-t border-gray-800">
+                    <p class="text-[10px] uppercase font-bold text-gray-600 tracking-wider mb-2 ml-1">Legacy Core Modules</p>
+                    <a href="command-center.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-500 hover:text-gray-300 transition text-sm">⚙️ Command Center</a>
+                    <a href="prototype-cms-v5.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-500 hover:text-gray-300 transition text-sm">📄 Ultra CMS Builder</a>
+                </div>
+            </nav>
+            
+            <!-- App Switcher -->
+            <div class="px-4 py-2 mt-auto">
+                <p class="text-[10px] uppercase font-bold text-gray-600 tracking-wider mb-2 ml-1">Ecosystem Nodes</p>
+                <div class="space-y-1.5">
+                    <a href="/hq-dashboard" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-amber-500 hover:border-amber-500/30 transition">⎈ HQ God Mode</a>
+                    <a href="/tenant-dashboard" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-cyan-400 hover:border-cyan-500/30 transition">🏢 Tenant Node</a>
+                    <a href="/guest-zen" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-blue-400 hover:border-blue-500/30 transition">🧘‍♀️ Guest App (Zen)</a>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-gray-800 text-xs text-gray-500 text-center mt-4">
+                Santis Master OS v1.0 <br> Connected via WSS
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <!-- Topbar -->
+            <header class="h-16 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-8">
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-400">Gemini 1.5 Node: <span class="text-purple-500 font-medium animate-pulse">● Active</span></span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="openCampaignModal()" class="text-sm bg-purple-900/50 hover:bg-purple-800/50 text-purple-300 px-4 py-2 rounded-md transition border border-purple-500/30">Generate Campaign</button>
+                    <div class="w-8 h-8 rounded-full bg-amber-600 flex items-center justify-center text-white font-medium">HQ</div>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="flex-1 overflow-y-auto p-8">
+                <h2 class="text-2xl font-light text-white mb-6">AI Guest Intelligence & CRM</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Section 1 -->
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                        <h3 class="text-lg font-medium text-white mb-4">Top AI Predictive Upsells</h3>
+                        <div class="space-y-4">
+                            <div class="bg-gray-900 border border-gray-700 p-4 rounded-lg">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm font-medium text-white">"Rainy Day Relax" Campaign</span>
+                                    <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded border border-purple-500/20">Auto-Triggered</span>
+                                </div>
+                                <p class="text-xs text-gray-400 mb-3">Activated across 4 hotels in Antalya due to unexpected rain. Promotes indoor Hammam rituals to stranded guests.</p>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-gray-500">Reach: 4,120</span>
+                                    <span class="text-green-400 font-medium">Conv: 12% (494 Bookings)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gray-900 border border-gray-700 p-4 rounded-lg">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm font-medium text-white">Post-Flight Recovery</span>
+                                    <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded border border-purple-500/20">Always-On</span>
+                                </div>
+                                <p class="text-xs text-gray-400 mb-3">Targeting guests checking in from late flights (detected via PMS sync) with Deep Tissue massage offers via WhatsApp concierge.</p>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-gray-500">Triggered Today: 18</span>
+                                    <span class="text-amber-500 font-medium">Conv: 27% (5 Bookings)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                        <h3 class="text-lg font-medium text-white mb-4">Digital Concierge Insights</h3>
+                        <div class="flex items-center mb-6">
+                            <div class="text-4xl font-light text-white mr-4">1,402</div>
+                            <div class="text-sm text-gray-400">Total AI Interactions globally<br>in the last 24 hours.</div>
+                        </div>
+                        
+                        <h4 class="text-sm font-medium text-gray-300 mb-2">Top Intent Queries</h4>
+                        <ul class="space-y-3">
+                            <li class="flex justify-between items-center text-sm border-b border-gray-700 pb-2">
+                                <span class="text-gray-400">"Sothys facial prices"</span>
+                                <span class="text-white">28%</span>
+                            </li>
+                            <li class="flex justify-between items-center text-sm border-b border-gray-700 pb-2">
+                                <span class="text-gray-400">"Hammam reservation tomorrow"</span>
+                                <span class="text-white">24%</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- AI Strategic Insights (Dynamic) -->
+                <div class="mt-6 bg-gradient-to-r from-gray-900 to-indigo-950 p-6 rounded-xl border border-indigo-500/30 shadow-lg relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500 rounded-full blur-3xl opacity-20 pointer-events-none"></div>
+                    <h3 class="text-sm font-bold text-indigo-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Global Network AI Insight <span class="text-xs font-normal text-gray-500 ml-2" id="ai-insight-metrics">Analyzing DB...</span>
+                    </h3>
+                    <p class="text-gray-200 font-medium text-lg leading-relaxed" id="global-ai-insight">
+                        Yapay zeka analiz motoru başlatılıyor. Lütfen bekleyin...
+                    </p>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- CRM Campaign Modal -->
+    <div id="campaign-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center">
+        <div class="bg-gray-900 border border-purple-500/30 rounded-xl w-full max-w-2xl p-6 shadow-[0_0_40px_-10px_rgba(168,85,247,0.3)] transform scale-95 opacity-0 transition-all duration-300" id="campaign-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-medium text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    Omniscience Campaign Generator
+                </h3>
+                <button onclick="closeCampaignModal()" class="text-gray-400 hover:text-white">&times;</button>
+            </div>
+            
+            <div class="space-y-4 mb-6">
+                <p class="text-sm text-gray-400">Select target audience and let Santis Master AI draft personalized SMS/Email templates for immediate dispatch.</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <button onclick="generateDraft('Rainy Day Spa Offer')" class="bg-gray-800 border border-gray-700 hover:border-purple-500/50 p-4 rounded-lg text-left transition">
+                        <span class="block text-sm text-white mb-1">🌧️ Rainy Day Response</span>
+                        <span class="block text-xs text-gray-500">Target active guests during rain</span>
+                    </button>
+                    <button onclick="generateDraft('Post-Flight Rejuvenation')" class="bg-gray-800 border border-gray-700 hover:border-purple-500/50 p-4 rounded-lg text-left transition">
+                        <span class="block text-sm text-white mb-1">✈️ Post-Flight Recovery</span>
+                        <span class="block text-xs text-gray-500">Target recent check-ins</span>
+                    </button>
+                    <button onclick="generateDraft('High-Value Upsell')" class="bg-gray-800 border border-gray-700 hover:border-purple-500/50 p-4 rounded-lg text-left transition">
+                        <span class="block text-sm text-white mb-1">💎 High Roller Target</span>
+                        <span class="block text-xs text-gray-500">Target previous high-spenders</span>
+                    </button>
+                    <button onclick="generateDraft('Weekend Family Bundle')" class="bg-gray-800 border border-gray-700 hover:border-purple-500/50 p-4 rounded-lg text-left transition">
+                        <span class="block text-sm text-white mb-1">👨‍👩‍👧 Family Relax Bundle</span>
+                        <span class="block text-xs text-gray-500">Target large group bookings</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="ai-draft-container" class="hidden">
+                <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 border-t border-gray-800 pt-4">Generated AI Draft</label>
+                <textarea id="ai-draft-text" rows="5" class="w-full bg-gray-950 border border-purple-500/30 rounded-lg p-3 text-sm text-gray-300 focus:outline-none focus:border-purple-500"></textarea>
+                
+                <div class="mt-4 flex justify-end gap-3">
+                    <button onclick="closeCampaignModal()" class="px-4 py-2 text-sm text-gray-400 hover:text-white transition">Discard</button>
+                    <button onclick="dispatchCampaign()" id="btn-dispatch" class="px-4 py-2 text-sm bg-purple-600 hover:bg-purple-500 text-white rounded transition shadow-lg shadow-purple-900/50">Send via WSS to Network</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frontend Logic for AI CRM Insights -->
+    <script>
+        const API_BASE = 'http://localhost:8000/api/v1';
+        
+        async function fetchAdminAIInsights() {
+            try {
+                const res = await fetch(`${API_BASE}/admin/ai-insights`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if(data.status === "success" && data.metrics) {
+                        const m = data.metrics;
+                        const metricsText = `(Total Customers: ${m.total_customers} | Bookings: ${m.total_bookings} | Ciro: €${parseFloat(m.total_revenue).toFixed(0)})`;
+                        document.getElementById('ai-insight-metrics').innerText = metricsText;
+                        document.getElementById('global-ai-insight').innerText = data.ai_insight || "Veri bulunamadı.";
+                    }
+                }
+            } catch (err) {
+                console.error("AI Insight Fetch Error:", err);
+            }
+        }
+
+        // --- Campaign Generator Logic ---
+        function openCampaignModal() {
+            const modal = document.getElementById('campaign-modal');
+            const content = document.getElementById('campaign-content');
+            document.getElementById('ai-draft-container').classList.add('hidden');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeCampaignModal() {
+            const modal = document.getElementById('campaign-modal');
+            const content = document.getElementById('campaign-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function generateDraft(topic) {
+            const container = document.getElementById('ai-draft-container');
+            const textarea = document.getElementById('ai-draft-text');
+            
+            container.classList.remove('hidden');
+            textarea.value = `[AI Düşünüyor... ${topic} algoritması yükleniyor]`;
+            
+            // Simulating AI generation delay (In a real scenario, this hits the Gemini API endpoint)
+            setTimeout(() => {
+                const drafts = {
+                    'Rainy Day Spa Offer': "Santis Master OS tespitine göre bulunduğunuz bölgede şiddetli yağış mevcut. Gününüzü otelde taçlandırmak için size özel tanımlanmış %15 Spa İndirimi lobide veya Santis misafir panelinizde sizi bekliyor.",
+                    'Post-Flight Rejuvenation': "Uzun uçuşunuzun ardından kas yorgunluğunuzu atmanız için Derin Doku (Deep Tissue) masajımızda size özel bir seans ayırdık. Odanızdan ayrılmadan rezervasyon yapabilirsiniz.",
+                    'High-Value Upsell': "Sayın Misafirimiz, geçmiş Santis ziyaretlerinizde seçmiş olduğunuz Sothys Cilt Bakım serisinde yeni Elmas Ritüelimiz devrede. Sizin için öncelikli olarak tanımlanmış opsiyonunuz mevcuttur.",
+                    'Weekend Family Bundle': "Ailenizle geçireceğiniz Santis hafta sonuna özel, ebeveynler masajdayken çocuklarınızın güvenle vakit geçireceği Kids Club paketli Aile Spa deneyiminiz hazır."
+                };
+                
+                textarea.value = drafts[topic] || "Draft ready. Please review.";
+            }, 1200);
+        }
+
+        function dispatchCampaign() {
+            const btn = document.getElementById('btn-dispatch');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<svg class="w-4 h-4 animate-spin inline mr-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> Dispatching Phase...`;
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = "Campaign Dispatched!";
+                btn.classList.remove('bg-purple-600', 'hover:bg-purple-500');
+                btn.classList.add('bg-emerald-600', 'hover:bg-emerald-500');
+                
+                setTimeout(() => {
+                    closeCampaignModal();
+                    // Reset
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
+                    btn.classList.add('bg-purple-600', 'hover:bg-purple-500');
+                    btn.disabled = false;
+                }, 1500);
+            }, 2000);
+        }
+
+        // Initialize Call
+        document.addEventListener('DOMContentLoaded', fetchAdminAIInsights);
+    </script>
+</body>
+</html>

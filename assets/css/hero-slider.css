@@ -8,72 +8,71 @@
 
     height: 100vh;
 
+    min-height: 80vh;
+    /* ✅ CLS FIX: Reserve space before paint */
+
     overflow: hidden;
 
     background: #000;
+
+    contain: layout style;
+    /* ✅ CLS FIX: Isolate layout shifts */
 
 }
 
 
 
 .nv-campaign-slide {
-
     position: absolute;
-
     top: 0;
-
     left: 0;
-
     width: 100%;
-
     height: 100%;
-
     opacity: 0;
-
-    transition: opacity 1.5s ease-in-out, transform 6s ease-out;
-
-    background-size: cover;
-
-    background-position: center;
-
-    background-repeat: no-repeat;
-
+    transition: opacity 1.5s ease-in-out;
     z-index: 1;
-
-}
-
-.nv-campaign-slide.active {
-    opacity: 1;
-    transform: scale(1.05);
-}
-
-/* Intro Slide (Noise/Chaos) */
-.nv-slide-intro {
-    background-color: #111;
-    background-image: url('../../assets/img/hero/santis_hero_main_v2.png');
-    /* 404 Fix */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.nv-campaign-slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scale(1);
+    transition: transform 6s ease-out;
+    z-index: -1;
+}
+
+.nv-campaign-slide.active {
+    opacity: 1;
+}
+
+.nv-campaign-slide.active::before {
+    transform: scale(1.05);
+}
+
+/* Intro Slide (Noise/Chaos) */
+.nv-slide-intro::before {
+    background-color: #111;
+    background-image: url('../../assets/img/hero/hero-general.webp') !important;
+}
+
 /* Slide Specific Backgrounds */
-.nv-slide-lab {
-    background-image: url('../../assets/img/social/post1.jpg');
+.nv-slide-lab::before {
+    background-image: url('../../assets/img/social/post1.webp');
 }
 
-.nv-slide-hammam {
-
-    background-image: url('../../assets/img/social/post2.jpg');
-
+.nv-slide-hammam::before {
+    background-image: url('../../assets/img/social/post2.webp');
 }
 
-
-
-.nv-slide-therapy {
-
-    background-image: url('../../assets/img/social/post3.jpg');
-
+.nv-slide-therapy::before {
+    background-image: url('../../assets/img/social/post3.webp');
 }
 
 
@@ -138,7 +137,7 @@
 
     transform: translateY(20px);
 
-    transition: all 1s ease 0.5s;
+    transition: transform 1s ease 0.5s, opacity 1s ease 0.5s, color 1s ease 0.5s, background-color 1s ease 0.5s, border-color 1s ease 0.5s, box-shadow 1s ease 0.5s;
 
     border-left: 3px solid var(--gold);
 
@@ -164,7 +163,7 @@
 
     transform: translateY(20px);
 
-    transition: all 1s ease 0.8s;
+    transition: transform 1s ease 0.8s, opacity 1s ease 0.8s, color 1s ease 0.8s, background-color 1s ease 0.8s, border-color 1s ease 0.8s, box-shadow 1s ease 0.8s;
 
 }
 

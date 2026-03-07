@@ -23,49 +23,69 @@
 /* --- 1. DESIGN SYNC (Mapping to Global V3 Variables) --- */
 
 :root {
-
-    /* Map Editorial Local Vars to Global V3 for backward compatibility */
-
-    --santis-bg: var(--color-bg-light);
-
-    /* Was #EAE9E5 */
-
-    --santis-ink: var(--color-charcoal);
-
-    /* Was #1A1A1A */
-
-    --santis-stone: var(--color-stone);
-
-    /* Was #4A4A4A */
-
-    --santis-accent: var(--color-bronze);
-
-    /* Was #8E7F70 */
-
-
-
-    /* Physics remain custom */
-
+    --santis-bg: var(--bg-dark, #0a0c10);
+    --santis-ink: var(--text-main, #f0f0f0);
+    --santis-stone: var(--text-muted, #a0a0a0);
+    --santis-accent: var(--gold, #D4AF37);
     --ease-santis: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-
 }
 
+/*
+ * ✅ CLS FIX #1: overflow-x:hidden MUST run before first paint.
+ * When added via JS class (body.editorial-mode), removing the scrollbar
+ * widens the layout by ~15px → triggers CLS 0.3-0.6 on Windows.
+ * Setting it unconditionally here (in <head>-loaded CSS) prevents this.
+ */
+html,
+body {
+    overflow-x: hidden;
+}
 
+/*
+ * ✅ CLS FIX #2: Pre-reserve header height so async navbar load
+ * doesn't push main#nv-main down after first paint.
+ */
+#nv-header {
+    min-height: 90px;
+    contain: layout style;
+}
+
+/*
+ * ✅ CLS FIX #3: .sr-only MUST be position:absolute.
+ * Without this, h1.sr-only is a normal block element that
+ * takes up layout space → causes CLS when JS adds it after paint.
+ */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/*
+ * ✅ CLS FIX #4: Hero section — contain:layout prevents cascade
+ * when navbar pushes main down; hero doesn’t propagate the shift.
+ */
+.nv-hero-campaign {
+    contain: layout;
+}
 
 /* 1. TYPOGRAPHY (Editorial Override) */
-
 body.editorial-mode {
-
-    background-color: var(--santis-bg);
-
+    /* ✅ CLS Zero: JS artık inline style değil, sadece bu CSS property'yi değiştirir */
+    background-color: var(--santis-v10-bg, var(--santis-bg, #0a0a09));
     color: var(--santis-ink);
-
-    /* Grain overlay handles texture */
-
-    overflow-x: hidden;
-
+    /* overflow-x: hidden — removed: now pre-set on html/body above ✅ */
+    /* Sadece background-color paint katmanını izole et */
+    will-change: background-color;
+    /* JS persona geçişlerinde layout kayması olmadan renk animasyonu */
+    transition: background-color 4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 
@@ -118,7 +138,8 @@ body.editorial-mode {
 
     pointer-events: none;
 
-    z-index: 9000;
+    z-index: var(--z-modal);
+    /* AUTO-CAPPED BY OMNI-CORE */
 
     opacity: 0.04;
 
@@ -1002,4 +1023,26 @@ body.editorial-mode {
 
     }
 
+}
+
+/* 8. SOVEREIGN SKELETON UI (V2.2.1) */
+.skeleton-card {
+    background: linear-gradient(90deg, #0a0c10 25%, #151820 50%, #0a0c10 75%);
+    background-size: 200% 100%;
+    animation: sovereign-shimmer 2s infinite linear;
+    border-radius: var(--radius-card, 6px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    aspect-ratio: 4/5;
+    width: 100%;
+    min-height: 250px;
+}
+
+@keyframes sovereign-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
 }

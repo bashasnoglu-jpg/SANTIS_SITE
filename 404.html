@@ -91,16 +91,30 @@
 <meta content="Santis Club • 404 — Santis Club Spa &amp; Wellness deneyimi." name="description">
 <meta content="Santis Club" property="og:title">
 <meta content="Santis Club • 404 — Santis Club Spa &amp; Wellness deneyimi." property="og:description"/>
-<meta content="https://santis-club.com/assets/img/og-standard.jpg" property="og:image"/>
+<meta content="https://santis-club.com/assets/img/og-standard.webp" property="og:image"/>
 <meta content="https://santis-club.com/404.html" property="og:url"/>
 <meta content="website" property="og:type"/>
-</meta></meta><meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Santis Club • 404" name="twitter:title"/><meta content="Santis Club • 404 — Santis Club Spa &amp; Wellness deneyimi." name="twitter:description"/><meta content="https://santisclub.com/assets/img/logo-santis.png" name="twitter:image"/></head>
+</meta></meta><meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Santis Club • 404" name="twitter:title"/><meta content="Santis Club • 404 — Santis Club Spa &amp; Wellness deneyimi." name="twitter:description"/><meta content="https://santisclub.com/assets/img/logo-santis.webp" name="twitter:image"/></head>
 <body>
 <div class="lost-container">
 <div class="code">404</div>
 <div class="message">Kaybolmak, bazen bulunmanın en iyi yoludur.</div>
 <div class="sub-message">Aradığınız sayfa sessizliğe karıştı.</div>
 <a class="home-btn" href="/">Akışa Dön</a>
+
+<script>
+    // Sovereign Archiving Fallback Redirect
+    (function(){
+        var path = window.location.pathname;
+        var match = path.match(/^\/(en|ru|de|fr|sr)\/(.*)/);
+        if (match) {
+            // Eski dil rotası (Ghost File) tespit edildi. Canonical Root'a yönlendiriyoruz.
+            var targetPath = '/tr/' + match[2] + '?lang=' + match[1];
+            console.log("Sovereign Redirect Triggered: " + targetPath);
+            window.location.replace(targetPath);
+        }
+    })();
+</script>
 </div>
 </body>
 </html>

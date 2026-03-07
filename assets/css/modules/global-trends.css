@@ -77,39 +77,25 @@
 
 
     /* SHADOW & DEPTH */
-
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-
     /* Subtle ambient */
-
-    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform, box-shadow;
     /* Silk smooth */
 
-
-
     cursor: pointer;
-
     text-decoration: none;
-
 }
 
 
 
 /* HOVER STATE - Gentle Lift */
-
 .nv-trend-card:hover {
-
-    transform: translateY(-8px);
-
+    transform: translateY(-8px) translateZ(0);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-
     /* Deeper shadow */
-
     border-color: rgba(198, 165, 92, 0.3);
-
     /* Subtle Gold Hint */
-
 }
 
 
@@ -133,10 +119,9 @@
 
 
     /* Initial state: Muted & Calm */
-
     filter: brightness(0.85) contrast(0.95) saturate(0.9);
-
-    transition: transform 0.8s ease, filter 0.8s easebox;
+    transition: transform 0.8s ease, filter 0.8s ease;
+    will-change: transform, filter;
 
     z-index: 0;
     pointer-events: none;
@@ -145,15 +130,10 @@
 
 
 .nv-trend-card:hover .nv-trend-bg {
-
-    transform: scale(1.03);
-
+    transform: scale(1.03) translateZ(0);
     /* Micro-zoom */
-
     filter: brightness(0.95) contrast(1) saturate(1);
-
     /* Reveal clarity */
-
 }
 
 
@@ -289,13 +269,10 @@
 
 
     opacity: 0;
-
     transform: translateY(10px);
-
-    transition: all 0.5s ease 0.1s;
-
+    transition: transform 0.5s ease 0.1s, opacity 0.5s ease 0.1s;
+    will-change: transform, opacity;
     /* Staggered reveal */
-
 }
 
 

@@ -134,9 +134,16 @@
 
     cursor: pointer;
 
+    /* V12 SAAS ZERO CLS SYSTEM */
+    content-visibility: auto;
+    contain-intrinsic-size: auto 300px;
+
     border: 1px solid rgba(255, 255, 255, 0.05);
 
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity, border-color, box-shadow;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 
@@ -176,7 +183,8 @@
 
     filter: brightness(0.7) desaturate(0.2);
 
-    transition: all 0.8s ease;
+    will-change: transform, filter;
+    transition: transform 0.8s ease, filter 0.8s ease;
 
 }
 
@@ -278,6 +286,8 @@
 
     -webkit-line-clamp: 2;
 
+    line-clamp: 2;
+
     -webkit-box-orient: vertical;
 
     overflow: hidden;
@@ -286,7 +296,8 @@
 
     transform: translateY(10px);
 
-    transition: all 0.4s ease;
+    will-change: transform, opacity;
+    transition: transform 0.4s ease, opacity 0.4s ease;
 
 }
 
@@ -391,3 +402,105 @@
     }
 
 }
+/* ==========================================
+   🍏 PHASE 67: THE SOVEREIGN BENTO GRID
+   ========================================== */
+
+/* iOS Style Segmented Control */
+.sovereign-segment {
+    background: rgba(25, 25, 25, 0.6);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(181, 164, 137, 0.1);
+    border-radius: 999px;
+    padding: 4px;
+    display: inline-flex;
+    position: relative;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.segment-btn {
+    padding: 10px 32px;
+    border-radius: 999px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(181, 164, 137, 0.5);
+    transition: color 0.4s ease;
+    position: relative;
+    z-index: 2;
+    font-weight: 700;
+}
+
+.segment-btn.active { color: #050505; }
+
+.segment-glider {
+    position: absolute;
+    top: 4px; bottom: 4px; left: 4px;
+    width: calc(33.333% - 4px); /* Buton sayısına göre JS ile güncellenecek */
+    background: #b5a489; /* Brushed Brass */
+    border-radius: 999px;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Apple Spring Effect */
+    z-index: 1;
+    box-shadow: 0 4px 15px rgba(181, 164, 137, 0.2);
+}
+
+/* Bento Grid System (Cam Ritüel Kartları) */
+.bento-card {
+    background: linear-gradient(145deg, rgba(20,20,20,0.6) 0%, rgba(5,5,5,0.8) 100%);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(181, 164, 137, 0.08);
+    border-radius: 24px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), color 0.6s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.6s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bento-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(181, 164, 137, 0.4);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 0 40px rgba(181, 164, 137, 0.05);
+}
+
+/* Theatrical Acts (Hover Anında Beliren Hiyerarşi) */
+.ritual-acts {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), color 0.6s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.6s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    overflow: hidden;
+}
+
+.bento-card:hover .ritual-acts {
+    max-height: 300px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(181, 164, 137, 0.1);
+}
+
+/* 👑 THE OTTOMAN APEX (PRO MAX MONOLİTİ) */
+.bento-apex {
+    grid-column: 1 / -1; /* Tüm satırı kaplar */
+    background: linear-gradient(135deg, rgba(20,20,20,0.95) 0%, rgba(10,8,5,0.95) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3); /* Dark Sovereign Gold */
+    box-shadow: inset 0 0 60px rgba(212, 175, 55, 0.03);
+}
+
+.bento-apex:hover {
+    border-color: #D4AF37;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.9), inset 0 0 60px rgba(212, 175, 55, 0.1);
+}
+
+/* Mühürle Butonu */
+.btn-seal {
+    border-radius: 999px; /* Tam yuvarlak Apple Payment stili */
+    transition: transform 0.4s ease, opacity 0.4s ease, color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+

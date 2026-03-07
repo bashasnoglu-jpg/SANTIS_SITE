@@ -20,11 +20,12 @@
     border: 1px solid rgba(255, 255, 255, 0.06);
     text-decoration: none;
     color: inherit;
-    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform, box-shadow;
 }
 
 .nv-signature-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-8px) translateZ(0);
     border-color: rgba(212, 175, 55, 0.2);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
@@ -41,10 +42,11 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
 }
 
 .nv-signature-card:hover .nv-signature-visual img {
-    transform: scale(1.06);
+    transform: scale(1.06) translateZ(0);
 }
 
 .nv-signature-overlay {

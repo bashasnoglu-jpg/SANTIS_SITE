@@ -8,25 +8,23 @@
 <meta content="Santis Club dünyasından en son haberler, wellness trendleri ve bakım ipuçları." name="description"/>
 <!-- CORE STYLES -->
 <!-- MASTER STYLE -->
-<link href="../../assets/css/style.css" rel="stylesheet"/>
-<link href="../../assets/css/modules/cards.css" rel="stylesheet"/>
-<link href="../../assets/css/card-effects.css" rel="stylesheet"/>
-<link href="../../assets/css/hero-slider.css" rel="stylesheet"/>
+<link href="/assets/css/preloader-cinema.css" rel="stylesheet"/>
+<link href="/assets/css/style.css" rel="stylesheet"/>
+<link href="/assets/css/modules/cards.css" rel="stylesheet"/>
+<link href="/assets/css/card-effects.css" rel="stylesheet"/>
+<link href="/assets/css/hero-slider.css" rel="stylesheet"/>
 <!-- FONTS -->
 <link href="/assets/css/fonts.css" rel="stylesheet"/>
 <!-- PERFORMANCE -->
-<script src="../../assets/js/perf-head.js"></script>
-<!-- DATA SOURCES -->
-<script src="../../assets/js/fallback_data.js"></script> <!-- Fallback for File Protocol -->
-<script src="../../assets/data/settings-data.js"></script>
-<script src="../../assets/js/blog-data.js"></script> <!-- ADMIN PANEL SOURCE -->
+<script src="/assets/js/perf-head.js"></script>
+<!-- DATA SOURCES --> <!-- Fallback for File Protocol -->
+<script src="/assets/data/settings-data.js"></script>
+<script src="/assets/js/blog-data.js"></script> <!-- ADMIN PANEL SOURCE -->
 <!-- ENGINE -->
-<script src="../../assets/js/i18n-routes.js"></script>
-<script defer="" src="../../assets/js/hreflang-injector.js"></script>
-<script defer="" src="../../assets/js/loader.js"></script>
-<script defer="" src="../../assets/js/app-core.js"></script>
-<script defer="" src="../../assets/js/app.js"></script>
-<meta content="/assets/img/og-standard.jpg" property="og:image"/>
+<script src="/assets/js/i18n-routes.js"></script>
+<script defer="" src="/assets/js/loader.js"></script>
+<script defer="" src="/assets/js/app.js"></script>
+<meta content="/assets/img/og-standard.webp" property="og:image"/>
 <link href="https://santis-club.com/tr/blog/index.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Index", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script>
 <script type="application/ld+json">
 {
@@ -102,13 +100,21 @@
 <!-- HREFLANG CLUSTER SYNC -->
 <!-- HREFLANG CLUSTER SYNC -->
 <!-- HREFLANG CLUSTER SYNC -->
-<link href="https://santis-club.com/de/blog/index.html" hreflang="de" rel="alternate"/>
-<link href="https://santis-club.com/en/blog/index.html" hreflang="en" rel="alternate"/>
-<link href="https://santis-club.com/fr/blog/index.html" hreflang="fr" rel="alternate"/>
-<link href="https://santis-club.com/ru/blog/index.html" hreflang="ru" rel="alternate"/>
-<link href="https://santis-club.com/tr/blog/index.html" hreflang="tr" rel="alternate"/>
-<link href="https://santis-club.com/en/blog/index.html" hreflang="x-default" rel="alternate"/>
-<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Santis Journal • Blog &amp; Haberler" name="twitter:title"/><meta content="Santis Club dünyasından en son haberler, wellness trendleri ve bakım ipuçları." name="twitter:description"/><meta content="https://santisclub.com/assets/img/logo-santis.png" name="twitter:image"/></head>
+
+<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Santis Journal • Blog &amp; Haberler" name="twitter:title"/><meta content="Santis Club dünyasından en son haberler, wellness trendleri ve bakım ipuçları." name="twitter:description"/><meta content="https://santisclub.com/assets/img/logo-santis.webp" name="twitter:image"/>
+    <!-- HREFLANG CLUSTER SYNC -->
+
+    <!-- HREFLANG CLUSTER SYNC -->
+
+
+    <!-- HREFLANG CLUSTER SYNC -->
+    <link rel="alternate" hreflang="de" href="https://santis-club.com/de/blog/index.html" />
+    <link rel="alternate" hreflang="en" href="https://santis-club.com/en/blog/index.html" />
+    <link rel="alternate" hreflang="fr" href="https://santis-club.com/fr/blog/index.html" />
+    <link rel="alternate" hreflang="ru" href="https://santis-club.com/ru/blog/index.html" />
+    <link rel="alternate" hreflang="tr" href="https://santis-club.com/tr/blog/index.html" />
+    <link rel="alternate" hreflang="x-default" href="https://santis-club.com/en/blog/index.html" />
+</head>
 <body class="editorial-mode">
 <noscript>
 <nav class="nv-noscript-nav">
@@ -238,15 +244,7 @@
 
                             <span class="pc-badge">${post.category || 'Genel'}</span>
 
-                            <img src="../../assets/img/blog/${post.img}" 
-
-                                 alt="${post.title}" 
-
-                                 class="pc-img"
-
-                                 loading="lazy"
-
-                                 onerror="this.src='https://placehold.co/600x800/1a1a1a/444?text=Santis+Journal'">
+                            <img decoding="async" src="/assets/img/blog/${post.img}" alt="${post.title}" class="pc-img" onerror="this.src=" https placehold co 600x800 1a1a1a 444 text santis journal fetchpriority="high">
 
                             <div class="pc-overlay">
 

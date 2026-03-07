@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Master OS - Hotels Network</title>
+    <!-- Tailwind Warning Suppressor -->
+    <script>
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+            if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return;
+            originalWarn.apply(console, args);
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/admin.css" rel="stylesheet">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-gray-200 font-sans antialiased">
+    <!-- UI Layout -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-950 border-r border-gray-800 flex flex-col">
+            <div class="p-6 border-b border-gray-800">
+                <h1 class="text-xl font-semibold tracking-wider text-white">SANTIS <span class="text-amber-500 text-xs align-top">V7 OS</span></h1>
+                <p class="text-xs text-gray-500 mt-1">Super Admin (HQ Mode)</p>
+            </div>
+            <nav class="flex-1 p-4 space-y-2">
+                <a href="/index.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">❖ Dashboard</a>
+                <a href="hotels.html" class="block px-4 py-2 rounded-lg bg-gray-800 text-amber-500 font-medium">🏨 Hotels Network</a>
+                <a href="bookings.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">📅 Live Bookings</a>
+                <a href="crm.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">💎 AI Offers & CRM</a>
+                <a href="revenue.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">📈 Revenue Analytics</a>
+                <div class="pt-4 mt-4 border-t border-gray-800">
+                    <p class="text-[10px] uppercase font-bold text-gray-600 tracking-wider mb-2 ml-1">Legacy Core Modules</p>
+                    <a href="command-center.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-500 hover:text-gray-300 transition text-sm">⚙️ Command Center</a>
+                    <a href="prototype-cms-v5.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-500 hover:text-gray-300 transition text-sm">📄 Ultra CMS Builder</a>
+                </div>
+            </nav>
+            
+            <!-- App Switcher -->
+            <div class="px-4 py-2 mt-auto">
+                <p class="text-[10px] uppercase font-bold text-gray-600 tracking-wider mb-2 ml-1">Ecosystem Nodes</p>
+                <div class="space-y-1.5">
+                    <a href="/hq-dashboard" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-amber-500 hover:border-amber-500/30 transition">⎈ HQ God Mode</a>
+                    <a href="/tenant-dashboard" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-cyan-400 hover:border-cyan-500/30 transition">🏢 Tenant Node</a>
+                    <a href="/guest-zen" class="block text-xs px-3 py-2 rounded border border-gray-800 text-gray-400 bg-gray-900/50 hover:bg-gray-800 hover:text-blue-400 hover:border-blue-500/30 transition">🧘‍♀️ Guest App (Zen)</a>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-gray-800 text-xs text-gray-500 text-center mt-4">
+                Santis Master OS v1.0 <br> Connected via WSS
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <!-- Topbar -->
+            <header class="h-16 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-8">
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-400">Status: <span class="text-green-500 font-medium">● Network Active</span></span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="openAddHotelModal()" class="text-sm bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-md transition text-white border border-gray-700">+ Add Hotel</button>
+                    <div class="w-8 h-8 rounded-full bg-amber-600 flex items-center justify-center text-white font-medium">HQ</div>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="flex-1 overflow-y-auto p-8">
+                <h2 class="text-2xl font-light text-white mb-6">Hotels Network Matrix</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="hotels-grid-container">
+                    <!-- JS Injected Cards -->
+                    <div class="col-span-full py-12 text-center text-gray-500">Connecting to Master OS Database...</div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Hotel Modal (Hidden by default) -->
+    <div id="add-hotel-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center">
+        <div class="bg-gray-900 border border-gray-700 rounded-xl w-full max-w-md p-6 shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="add-hotel-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-medium text-white">Deploy New Node (Hotel)</h3>
+                <button onclick="closeAddHotelModal()" class="text-gray-400 hover:text-white">&times;</button>
+            </div>
+            <form id="add-hotel-form" onsubmit="submitAddHotel(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Hotel Name</label>
+                        <input type="text" id="hotel_name" required class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-500" placeholder="e.g. Santis Resort Kaya">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">City / Region</label>
+                        <input type="text" id="hotel_city" required class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-500" placeholder="e.g. Antalya">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Unique Slug Identifier</label>
+                        <input type="text" id="hotel_slug" required class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-500" placeholder="e.g. santis-kaya">
+                    </div>
+                </div>
+                <div class="mt-8 flex justify-end space-x-3">
+                    <button type="button" onclick="closeAddHotelModal()" class="px-4 py-2 text-sm text-gray-400 hover:text-white transition">Cancel</button>
+                    <button type="submit" id="btn-submit-hotel" class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded transition shadow-lg shadow-amber-900/20">Deploy Node</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Frontend Interactive Logic for Hotels -->
+    <script>
+        const API_BASE = 'http://localhost:8000/api/v1';
+
+        async function fetchAdminHotels() {
+            try {
+                const res = await fetch(`${API_BASE}/admin/hotels`);
+                if (res.ok) {
+                    const payload = await res.json();
+                    const container = document.getElementById('hotels-grid-container');
+                    
+                    if(payload.status === "success" && payload.hotels && payload.hotels.length > 0) {
+                        container.innerHTML = payload.hotels.map(h => {
+                            const isOnline = h.status === 'Online';
+                            const statusBadge = isOnline 
+                                ? `<span class="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded">Online</span>`
+                                : `<span class="bg-gray-500/20 text-gray-400 text-xs px-2 py-1 rounded">Offline</span>`;
+
+                            return `
+                            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 transition hover:border-gray-500">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3 class="text-lg font-medium text-white mb-1">${h.name}</h3>
+                                        <p class="text-xs text-gray-400">${h.location}</p>
+                                    </div>
+                                    ${statusBadge}
+                                </div>
+                                <div class="space-y-2 text-sm text-gray-400">
+                                    <div class="flex justify-between">
+                                        <span>Total Guests:</span>
+                                        <span class="text-white">${h.guests}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Today's Revenue:</span>
+                                        <span class="text-amber-500">€${parseFloat(h.revenue).toFixed(0)}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>AI Offer Conv.:</span>
+                                        <span class="text-green-400">${h.ai_conv}</span>
+                                    </div>
+                                </div>
+                                <button onclick="window.location.href='/tenant-dashboard?tenant_id=${h.id}'" class="w-full mt-6 bg-gray-900 hover:bg-gray-700 text-xs border border-gray-700 text-white py-2 rounded transition">Open Tenant Node</button>
+                            </div>
+                            `;
+                        }).join('');
+                    } else {
+                        container.innerHTML = `<div class="col-span-full py-12 text-center text-gray-500">No active tenants found.</div>`;
+                    }
+                }
+            } catch (err) {
+                console.error("Hotels Fetch Error:", err);
+                document.getElementById('hotels-grid-container').innerHTML = `<div class="col-span-full py-12 text-center text-red-400">Error connecting to Master OS Database.</div>`;
+            }
+        }
+
+        // --- Modal Logic ---
+        function openAddHotelModal() {
+            const modal = document.getElementById('add-hotel-modal');
+            const content = document.getElementById('add-hotel-content');
+            modal.classList.remove('hidden');
+            // Small trigger delay for animation
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeAddHotelModal() {
+            const modal = document.getElementById('add-hotel-modal');
+            const content = document.getElementById('add-hotel-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.getElementById('add-hotel-form').reset();
+            }, 300);
+        }
+
+        async function submitAddHotel(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-hotel');
+            const originalText = btn.innerText;
+            btn.innerHTML = 'Deploying...';
+            btn.disabled = true;
+
+            const payload = {
+                name: document.getElementById('hotel_name').value,
+                city: document.getElementById('hotel_city').value,
+                slug: document.getElementById('hotel_slug').value,
+                spa_rooms: 10,
+                hotel_type: "luxury"
+            };
+
+            try {
+                const res = await fetch(`${API_BASE}/admin/hotels`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+                
+                if (res.ok) {
+                    closeAddHotelModal();
+                    fetchAdminHotels(); // Refresh the grid
+                } else {
+                    alert("Deployment failed. Master OS returned an error.");
+                }
+            } catch (err) {
+                console.error("Deployment Error:", err);
+                alert("Master OS connection lost.");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // Initialize Call
+        document.addEventListener('DOMContentLoaded', fetchAdminHotels);
+    </script>
+</body>
+</html>

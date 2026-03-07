@@ -8,14 +8,14 @@
 <title>Galeri • Santis Club</title>
 <meta content="Santis Club'ın büyüleyici atmosferini, huzur dolu hamam ve masaj alanlarını keşfedin." name="description"/>
 <!-- MASTER STYLE -->
-<link href="../../assets/css/style.css?v=8.1" rel="stylesheet"/>
-<link href="../../assets/css/modules/cards.css?v=8.1" rel="stylesheet"/>
-<link href="../../assets/css/gallery.css?v=8.1" rel="stylesheet"/>
+<link href="/assets/css/preloader-cinema.css" rel="stylesheet"/>
+<link href="/assets/css/style.css" rel="stylesheet"/>
+<link href="/assets/css/modules/cards.css" rel="stylesheet"/>
+<link href="/assets/css/gallery.css" rel="stylesheet"/>
 <!-- FONTS -->
 <link href="/assets/css/fonts.css" rel="stylesheet"/>
-<script src="../../assets/js/perf-head.js?v=8.1"></script>
-<script defer="" src="../../assets/js/language-switcher.js?v=8.1"></script>
-<meta content="/assets/img/og-standard.jpg" property="og:image"/>
+<script src="/assets/js/perf-head.js"></script>
+<meta content="/assets/img/og-standard.webp" property="og:image"/>
 <link href="https://santis-club.com/tr/galeri/index.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Index", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script>
 <script type="application/ld+json">
 {
@@ -91,13 +91,17 @@
 <!-- HREFLANG CLUSTER SYNC -->
 <!-- HREFLANG CLUSTER SYNC -->
 <!-- HREFLANG CLUSTER SYNC -->
+<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Galeri • Santis Club" name="twitter:title"/><meta content="Santis Club'ın büyüleyici atmosferini, huzur dolu hamam ve masaj alanlarını keşfedin." name="twitter:description"/><meta content="https://santisclub.com/assets/img/logo-santis.webp" name="twitter:image"/>
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
+<!-- HREFLANG CLUSTER SYNC -->
 <link href="https://santis-club.com/de/gallery/index.html" hreflang="de" rel="alternate"/>
 <link href="https://santis-club.com/en/gallery/index.html" hreflang="en" rel="alternate"/>
 <link href="https://santis-club.com/fr/gallery/index.html" hreflang="fr" rel="alternate"/>
 <link href="https://santis-club.com/ru/gallery/index.html" hreflang="ru" rel="alternate"/>
 <link href="https://santis-club.com/tr/galeri/index.html" hreflang="tr" rel="alternate"/>
 <link href="https://santis-club.com/en/gallery/index.html" hreflang="x-default" rel="alternate"/>
-<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Galeri • Santis Club" name="twitter:title"/><meta content="Santis Club'ın büyüleyici atmosferini, huzur dolu hamam ve masaj alanlarını keşfedin." name="twitter:description"/><meta content="https://santisclub.com/assets/img/logo-santis.png" name="twitter:image"/></head>
+</head>
 <body class="editorial-mode">
 <!-- NAVBAR -->
 <div id="navbar-container"></div>
@@ -148,25 +152,26 @@
 <!-- LIGHTBOX MODAL -->
 <div class="lightbox" id="lightbox">
 <span class="lightbox-close">×</span>
-<img class="lightbox-content" id="lightboxImg"/>
+<img alt="Santis Club Experience - Premium View" class="lightbox-content" decoding="async" id="lightboxImg" loading="lazy"/>
 <video class="lightbox-content" controls="" id="lightboxVideo"></video>
 <div id="caption"></div>
 </div>
-<script src="../../assets/js/gallery-init.js"></script>
+<script src="/assets/js/gallery-init.js"></script>
 <!-- LOAD DATA DYNAMICALLY -->
 <!-- LOAD DATA DYNAMICALLY -->
-<script src="../../assets/js/fallback_data.js"></script> <!-- Fallback for File Protocol -->
-<script src="../../assets/js/gallery-data.js"></script>
+<!-- Fallback for File Protocol -->
 <!-- CORE UTILS -->
-<script src="../../assets/js/i18n-routes.js"></script>
-<script defer="" src="../../assets/js/hreflang-injector.js"></script>
-<script src="../../assets/js/loader.js"></script>
+<script src="/assets/js/i18n-routes.js"></script>
+<script src="/assets/js/loader.js"></script>
 <!-- TRINITY ENGINE (Three.js + GSAP + Lenis) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 <!-- ENGINES -->
-<script src="../../assets/js/gallery-loader.js"></script> <!-- Data Binder -->
-<script src="../../assets/js/santis-nav.js"></script> <!-- Nav Logic -->
+<script src="/assets/js/gallery-engine.js"></script> <!-- Phase Visual: API-driven masonry -->
+<!-- Data Binder -->
+<script src="/assets/js/santis-nav.js"></script> <!-- Nav Logic -->
+<!-- SANTIS OS CORE V5.0 -->
+<script src="/assets/js/app.js"></script>
 </body>
 </html>

@@ -32,7 +32,7 @@ async def check_availability(
         Booking.status.in_([BookingStatus.PENDING, BookingStatus.CONFIRMED]),
         Booking.start_time < end_time,
         Booking.end_time > start_time
-    )
+    ).with_for_update()
 
     if exclude_booking_id:
         query = query.where(Booking.id != exclude_booking_id)

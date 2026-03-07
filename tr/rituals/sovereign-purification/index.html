@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth bg-black">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- INJECTED BY FORGE -->
+    <title>Sovereign Detail - The Sovereign Purification</title>
+    <meta property="og:title" content="The Sovereign Purification | Santis Club">
+    <meta property="og:description" content="Mermer kurnadan yükselen efsane.">
+    <meta property="og:image" content="/assets/img/cards/hammam.webp">
+    <script>window.RITUAL_ID = "sovereign-purification";</script>
+    
+    <link href="/assets/css/output.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/ritual-atmosphere.css" rel="stylesheet">
+
+    <!-- CSS Preload (Prefetch pipeline) -->
+    <link rel="preload" href="/assets/css/style.css" as="style">
+    <link rel="preload" href="/data/rituals.json" as="fetch" crossorigin="anonymous">
+</head>
+<body class="bg-[#050505] text-white selection:bg-[#D4AF37] selection:text-black overflow-x-hidden antialiased">
+    <!-- Header will be injected by santis-nav.js -->
+    <header id="nv-header"></header>
+
+    <main id="ritual-cinematic-container" class="relative w-full min-h-screen">
+        <!-- Close Button -->
+        <a href="/tr/rituals/index.html" class="fixed top-6 right-6 z-[100] w-12 h-12 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white/70 hover:bg-white hover:text-black hover:scale-110 transition-all duration-300" aria-label="Kapat">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </a>
+        <!-- Scroll Video Scrubbing Canvas -->
+        <div class="fixed inset-0 z-0 pointer-events-none opacity-40">
+            <canvas id="hero-scrub-canvas" class="w-full h-full object-cover origin-center"></canvas>
+            <!-- Heavy Vignette to keep text readable -->
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505] z-10"></div>
+            <div class="absolute inset-0 bg-black/50 z-10 backdrop-blur-[2px]"></div>
+        </div>
+
+        <!-- Dynamic Content Injected Here by JS -->
+        <div id="ritual-content" class="relative z-20 flex flex-col items-center w-full min-h-[300vh] pt-40 px-6">
+            <!-- Loading Skeleton -->
+            <div class="w-full max-w-4xl text-center space-y-6 opacity-50 animate-pulse mt-32">
+                <div class="h-4 w-32 bg-gray-600 mx-auto rounded-full"></div>
+                <div class="h-16 w-3/4 bg-gray-500 mx-auto rounded-xl"></div>
+                <div class="h-6 w-1/2 bg-gray-700 mx-auto rounded-full"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- THE SOVEREIGN AVAILABILITY MATRIX (Phase 87) -->
+    <div id="availability-modal" class="fixed inset-0 z-[60] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+        <!-- Obsidian Backdrop -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-2xl" onclick="closeAvailabilityMatrix()"></div>
+        
+        <!-- The Matrix Panel -->
+        <div class="relative w-full max-w-2xl bg-[#0a0a09] border border-white/10 rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,1)] p-8 md:p-12 transform translate-y-12 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden">
+            <!-- Subtle Gold Glow -->
+            <div class="absolute -top-40 -right-40 w-80 h-80 bg-[#D4AF37]/20 blur-[100px] rounded-full pointer-events-none"></div>
+
+            <button onclick="closeAvailabilityMatrix()" class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors" aria-label="Kapat">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+
+            <!-- Header -->
+            <div class="mb-10">
+                <span class="text-[#D4AF37] text-[10px] tracking-[4px] uppercase font-bold mb-3 block">Step 1 — The Allocation</span>
+                <h3 class="text-3xl md:text-4xl font-serif italic text-white mb-2">Select <span class="not-italic text-gray-400">Date & Time</span></h3>
+                <p class="text-gray-500 text-sm font-light">Lütfen ritüeliniz için size özel tahsis edilecek zaman dilimini belirleyin.</p>
+            </div>
+
+            <!-- Date Selection (Horizontal Scroll) -->
+            <div class="mb-10">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-white/80 text-xs tracking-widest uppercase font-medium">Month of <span id="matrix-month-label" class="text-white">...</span></span>
+                </div>
+                <!-- Dynamic Dates injected here -->
+                <div id="matrix-dates" class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory hide-scrollbar">
+                    <!-- Generating... -->
+                </div>
+            </div>
+
+            <!-- Time Slots (Grid) -->
+            <div class="mb-10 opacity-50 pointer-events-none transition-opacity duration-500" id="matrix-time-section">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-white/80 text-xs tracking-widest uppercase font-medium">Available <span class="text-white">Slots</span></span>
+                </div>
+                <!-- Dynamic Slots injected here -->
+                <div id="matrix-slots" class="grid grid-cols-3 md:grid-cols-4 gap-3">
+                    <!-- Generating... -->
+                </div>
+            </div>
+
+            <!-- Lock Trigger -->
+            <div class="border-t border-white/5 pt-8 flex items-center justify-between">
+                <div class="flex flex-col">
+                    <span class="text-[10px] text-gray-500 tracking-widest uppercase">Total Investment</span>
+                    <span class="text-xl font-serif text-[#D4AF37] italic" id="matrix-total-price">--€</span>
+                </div>
+                <button id="btn-lock-slot" class="px-8 py-4 rounded-full bg-white/10 text-white/50 font-bold text-xs uppercase tracking-[2px] transition-all duration-300 pointer-events-none data-[active=true]:bg-white data-[active=true]:text-black data-[active=true]:pointer-events-auto data-[active=true]:hover:bg-[#D4AF37]">
+                    Hold For 10 Min
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Sovereign Sticky Bar -->
+    <div id="sovereign-sticky-bar" class="fixed bottom-0 inset-x-0 h-24 bg-[#0a0a09]/80 backdrop-blur-3xl border-t border-white/5 z-50 transform translate-y-full transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
+        <div class="w-full max-w-5xl mx-auto h-full px-6 flex items-center justify-between">
+            <div class="flex flex-col">
+                <span id="sticky-title" class="text-sm font-sans font-medium text-white/90">Yükleniyor...</span>
+                <span id="sticky-duration" class="text-xs text-gray-500 font-mono tracking-widest uppercase">-- MIN</span>
+            </div>
+            <button id="btn-ritual-reserve" class="px-8 py-3 rounded-full bg-white text-black font-sans font-bold text-xs uppercase tracking-[2px] hover:bg-[#D4AF37] transition-colors flex items-center gap-3">
+                <span id="sticky-price" class="opacity-70 font-serif italic text-sm border-r border-black/20 pr-3 mr-1">--€</span>
+                Ritüeli Mühürle
+            </button>
+        </div>
+    </div>
+
+    <!-- GSAP / Lenis Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
+
+    <!-- Global Nav & Core -->
+    <script src="/assets/js/santis-nav.js" defer></script>
+    
+    <!-- The Kinetic Detail Engine -->
+    <script src="/assets/js/santis-detail.js" defer></script>
+    <script src="https://js.stripe.com/v3/" defer></script>
+    <script src="/assets/js/santis-seal.js" defer></script>
+</body>
+</html>

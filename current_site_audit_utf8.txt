@@ -1,0 +1,4 @@
+﻿🚀 Pre-flight check: http://localhost:8000
+✅ Base connection established. TTFB: 265ms
+✅ AI Report Generated: reports\audit_result.json
+✅ Tamamlandı. CSV: reports\fixed_links_report.csv | HTML: reports\link_audit_report.html | Broken: 79

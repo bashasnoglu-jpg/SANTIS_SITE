@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-santis-bg text-santis-text antialiased;
+  }
+}
+
+/* Custom Scrollbar for Santis Feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-santis-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-santis-border rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-santis-muted;
+}

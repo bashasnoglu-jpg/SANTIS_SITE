@@ -10,15 +10,15 @@
 <!-- Fonts -->
 <link href="/assets/css/fonts.css" rel="stylesheet"/>
 <!-- Master Styles -->
-<link href="/assets/css/style.css?v=8.1" rel="stylesheet"/>
-<link href="/assets/css/modules/cards.css?v=8.1" rel="stylesheet"/>
-<link href="/assets/css/video-hero.css?v=8.1" rel="stylesheet"/>
-<link href="/assets/css/bento-grid.css?v=8.1" rel="stylesheet"/>
-<link href="/assets/css/category-listing.css?v=8.1" rel="stylesheet"/>
+<link href="/assets/css/preloader-cinema.css" rel="stylesheet"/>
+<link href="/assets/css/style.css" rel="stylesheet"/>
+<link href="/assets/css/modules/cards.css" rel="stylesheet"/>
+<link href="/assets/css/video-hero.css" rel="stylesheet"/>
+<link href="/assets/css/bento-grid.css" rel="stylesheet"/>
+<link href="/assets/css/category-listing.css" rel="stylesheet"/>
 <link href="/favicon.ico" rel="icon" sizes="any"/>
-<script src="/assets/js/perf-head.js?v=8.1"></script>
-<script defer="" src="/assets/js/language-switcher.js?v=8.1"></script>
-<meta content="https://santis-club.com/assets/img/og-standard.jpg" property="og:image"/>
+<script src="/assets/js/perf-head.js"></script>
+<meta content="https://santis-club.com/assets/img/og-standard.webp" property="og:image"/>
 <link href="https://santis-club.com/tr/hamam/index.html" rel="canonical"/>
 <!-- Schema: BreadcrumbList -->
 <script type="application/ld+json">
@@ -131,13 +131,21 @@
 <!-- HREFLANG CLUSTER SYNC -->
 <!-- HREFLANG CLUSTER SYNC -->
 <!-- HREFLANG CLUSTER SYNC -->
-<link href="https://santis-club.com/de/hammam/index.html" hreflang="de" rel="alternate"/>
-<link href="https://santis-club.com/en/hammam/index.html" hreflang="en" rel="alternate"/>
-<link href="https://santis-club.com/fr/hammam/index.html" hreflang="fr" rel="alternate"/>
-<link href="https://santis-club.com/ru/hammam/index.html" hreflang="ru" rel="alternate"/>
-<link href="https://santis-club.com/tr/hamam/index.html" hreflang="tr" rel="alternate"/>
-<link href="https://santis-club.com/en/hammam/index.html" hreflang="x-default" rel="alternate"/>
-<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Hamam Ritüelleri • Santis Club" name="twitter:title"/><meta content="Geleneksel Türk Hamamı ritüelleriyle arının. Osmanlı saray geleneğinden ilham alan kese, köpük ve bakım terapileriyle yenilenin." name="twitter:description"/><meta content="https://santisclub.com/assets/img/b1263ebeb519b1a5da22b7d2e90d305b.jpg" name="twitter:image"/></head>
+
+<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Hamam Ritüelleri • Santis Club" name="twitter:title"/><meta content="Geleneksel Türk Hamamı ritüelleriyle arının. Osmanlı saray geleneğinden ilham alan kese, köpük ve bakım terapileriyle yenilenin." name="twitter:description"/><meta content="https://santisclub.com/assets/img/santis_card_hammam_v1.webp" name="twitter:image"/>
+    <!-- HREFLANG CLUSTER SYNC -->
+
+    <!-- HREFLANG CLUSTER SYNC -->
+
+
+    <!-- HREFLANG CLUSTER SYNC -->
+    <link rel="alternate" hreflang="de" href="https://santis-club.com/de/hammam/index.html" />
+    <link rel="alternate" hreflang="en" href="https://santis-club.com/en/hammam/index.html" />
+    <link rel="alternate" hreflang="fr" href="https://santis-club.com/fr/hammam/index.html" />
+    <link rel="alternate" hreflang="ru" href="https://santis-club.com/ru/hammam/index.html" />
+    <link rel="alternate" hreflang="tr" href="https://santis-club.com/tr/hamam/index.html" />
+    <link rel="alternate" hreflang="x-default" href="https://santis-club.com/en/hammam/index.html" />
+</head>
 <body class="editorial-mode world-hydro">
 <noscript>
 <nav class="nv-noscript-nav">
@@ -154,7 +162,7 @@
 <!-- VIDEO HERO -->
 <section class="nv-hero-video">
 <div class="nv-video-wrapper">
-<img alt="Hamam Ritüelleri" class="nv-hero-bg-img" decoding="async" fetchpriority="high" height="1500" src="/assets/img/b1263ebeb519b1a5da22b7d2e90d305b.jpg" width="1200"/>
+<img data-santis-slot="hero_hamam" alt="Hamam Ritüelleri" class="nv-hero-bg-img" decoding="async" fetchpriority="high" height="1500" src="/assets/img/cards/santis_card_hammam_v1.webp" width="1200">
 <div class="nv-video-overlay"></div>
 </div>
 <div class="nv-hero-content">
@@ -186,10 +194,31 @@
 </div>
 </section>
 <!-- CATEGORY CHIPS (Sticky Filters) -->
-<!-- CARD GRID (JS-Driven, data-bridge renders cards) -->
-<div class="nv-container nv-section" data-section="hamam" id="hamam-list">
-<div class="product-grid-v2 nv-product-grid" data-context="hamam"></div>
-</div>
+<!-- DYNAMIC RAIL CONTAINER: HAMMAM -->
+<section class="rituals-section relative w-full pt-12 pb-24 overflow-hidden group/slider" data-rail-engine="true" data-rail-id="rail-category">
+    <div class="px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] mb-12 flex flex-col md:flex-row md:items-end justify-between z-20 relative">
+        <div class="mb-6 md:mb-0">
+            <span class="text-[#D4AF37] text-[10px] sm:text-xs uppercase tracking-[4px] font-bold">SOVEREIGN RITUALS</span>
+            <h2 class="text-3xl md:text-5xl text-white font-serif mt-2 italic">Hammam <span class="not-italic text-gray-400">Traditions</span></h2>
+        </div>
+    </div>
+    <!-- Dynamically Populated by santis-ritual-renderer.js -->
+    <div class="rituals-container rail-track scrollbar-hide flex overflow-x-auto flex-nowrap w-full pb-16 pt-4 px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] gap-8 cursor-grab active:cursor-grabbing relative z-20" data-lenis-prevent="true" style="scroll-padding-left: max(1.5rem, calc((100vw - 1400px) / 2)); scrollbar-width: none; touch-action: pan-x pan-y pinch-zoom;">
+    </div>
+    
+    <!-- Controls Layout -->
+    <div class="px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] mt-6 mb-8 flex items-center justify-center relative z-20 w-full">
+        <div class="flex items-center gap-6 slider-controls">
+            <button class="slider-prev w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#D4AF37] hover:text-black transition-all shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <div class="rail-dots flex items-center gap-3"></div>
+            <button class="slider-next w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#D4AF37] hover:text-black transition-all shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+    </div>
+</section>
 <!-- ALL SERVICES LINK LIST -->
 <section class="category-all-services">
 <h2>Tüm Hizmetlerimiz</h2>
@@ -226,9 +255,7 @@
 <!-- FOOTER -->
 <div id="footer-container"></div>
 <!-- SCRIPTS -->
-<script src="/assets/js/fallback_data.js"></script>
 <script src="/assets/js/i18n-routes.js"></script>
-<script defer="" src="/assets/js/hreflang-injector.js"></script>
 <script src="/assets/js/loader.js"></script>
 <script src="/assets/js/santis-nav.js"></script>
 <!-- TRINITY STACK -->
@@ -236,14 +263,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 <!-- DATA & ENGINE -->
-<script defer="" src="/assets/js/loaders/data-bridge.js?v=8.1"></script>
-<script defer="" src="/assets/js/home-products.js?v=8.1"></script>
-<script defer="" src="/assets/js/nuclear-cards.js?v=8.1"></script>
-<script defer="" src="/assets/js/card-effects.js?v=8.1"></script>
-<script src="/assets/js/pages/hammam-page-init.js?v=8.1"></script>
+<script defer="" src="/assets/js/home-products.js"></script>
+<script src="/assets/js/pages/hammam-page-init.js"></script>
 <!-- BOOKING & APP -->
-<script defer="" src="/assets/js/booking-wizard.js"></script>
-<script defer="" src="/assets/js/app-core.js?v=8.1"></script>
-<script defer="" src="/assets/js/app.js?v=8.1"></script>
+
+<script defer="" src="/assets/js/app.js"></script>
 </body>
 </html>

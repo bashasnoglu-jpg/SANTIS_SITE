@@ -29,25 +29,6 @@ class BookingUpdate(BaseModel):
     room_id: Optional[uuid.UUID] = None
     start_time: Optional[datetime] = None
 
-class BookingOut(BookingBase):
-    id: uuid.UUID
-    tenant_id: uuid.UUID
-    # user_id: Optional[uuid.UUID] # Backend internal
-    customer_id: Optional[uuid.UUID]
-    end_time: datetime
-    price_snapshot: float
-    currency_snapshot: str
-    commission_snapshot: Optional[float]
-    status: BookingStatusEnum
-    created_at: datetime
-
-    # Nested objects for display
-    service: Optional[ServiceOut] = None
-    customer: Optional[CustomerOut] = None 
-    
-    class Config:
-        from_attributes = True
-
 # Service Schemas (Fast-track)
 class ServiceCreate(BaseModel):
     name: str
@@ -79,6 +60,25 @@ class CustomerOut(BaseModel):
     id: uuid.UUID
     full_name: str
     phone: Optional[str] = None
+    
+    class Config:
+        from_attributes = True
+
+class BookingOut(BookingBase):
+    id: uuid.UUID
+    tenant_id: uuid.UUID
+    # user_id: Optional[uuid.UUID] # Backend internal
+    customer_id: Optional[uuid.UUID]
+    end_time: datetime
+    price_snapshot: float
+    currency_snapshot: str
+    commission_snapshot: Optional[float]
+    status: BookingStatusEnum
+    created_at: datetime
+
+    # Nested objects for display
+    service: Optional[ServiceOut] = None
+    customer: Optional[CustomerOut] = None 
     
     class Config:
         from_attributes = True

@@ -174,19 +174,19 @@ window.SantisHologram = (function () {
 
 
 
-    function saveChange(id, field, value) {
+    async function saveChange(id, field, value) {
 
         console.log(`🔮 [Hologram] Saving: Product #${id} [${field}] = "${value}"`);
 
 
 
-        // 1. UPDATE LOCAL STORAGE (Persistence)
+        // 1. UPDATE ASYNC VAULT (Persistence)
 
-        const stored = localStorage.getItem("santis_products");
+        const stored = await SantisVault.getItem("santis_products");
 
         if (stored) {
 
-            const catalog = JSON.parse(stored);
+            const catalog = typeof stored === 'string' ? JSON.parse(stored) : stored;
 
             const product = catalog.find(p => p.id == id);
 
@@ -202,9 +202,9 @@ window.SantisHologram = (function () {
 
 
 
-                localStorage.setItem("santis_products", JSON.stringify(catalog));
+                await SantisVault.setItem("santis_products", catalog);
 
-                console.log("💾 [Hologram] LocalStorage Updated.");
+                console.log("💾 [Hologram] Santis Vault Updated.");
 
             }
 

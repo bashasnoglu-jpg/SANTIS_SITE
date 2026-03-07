@@ -1,0 +1,2858 @@
+[
+    {
+        "source_html": "./tr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./trends\\japan.html",
+        "missing_file": "/assets/img/cards/santis_card_zen.webp",
+        "alt_text": "Wabi-Sabi",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\de\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\de\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\de\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\de\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\de\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\de\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\de\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\en\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\en\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\en\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\en\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\en\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\en\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\fr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\fr\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\fr\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\fr\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\fr\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\fr\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\fr\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\ru\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\ru\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\ru\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\ru\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\ru\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\ru\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\ru\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\tr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\tr\\hamam\\index.html",
+        "missing_file": "/assets/img/b1263ebeb519b1a5da22b7d2e90d305b.jpg",
+        "alt_text": "Hamam Ritüelleri",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_230218\\tr\\hamam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/santis_hero_hammam_lux.png",
+        "alt_text": "Santis Paşa - Lüks Bakım",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\de\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\de\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\de\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\de\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\de\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\de\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\de\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\en\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\en\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\en\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\en\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\en\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\en\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\fr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\fr\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\fr\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\fr\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\fr\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\fr\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\fr\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\ru\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\ru\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\ru\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\ru\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\ru\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\ru\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\ru\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\tr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\tr\\hamam\\index.html",
+        "missing_file": "/assets/img/b1263ebeb519b1a5da22b7d2e90d305b.jpg",
+        "alt_text": "Hamam Ritüelleri",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_231502\\tr\\hamam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/santis_hero_hammam_lux.png",
+        "alt_text": "Santis Paşa - Lüks Bakım",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\de\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\de\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\de\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\de\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\de\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\de\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\de\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\en\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\en\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\en\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\en\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\en\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\en\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\fr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\fr\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\fr\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\fr\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\fr\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\fr\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\fr\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\ru\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\ru\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\ru\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\ru\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\ru\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\ru\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\ru\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\tr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\tr\\hamam\\index.html",
+        "missing_file": "/assets/img/b1263ebeb519b1a5da22b7d2e90d305b.jpg",
+        "alt_text": "Hamam Ritüelleri",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_backup\\hreflang_sync\\20260221_232311\\tr\\hamam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/santis_hero_hammam_lux.png",
+        "alt_text": "Santis Paşa - Lüks Bakım",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\index_original_20260213.html",
+        "missing_file": "/assets/img/cards/neurova-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club – huzurlu spa atmosferi ve sıcak aydınlatma",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\de\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\de\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\en\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\en\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\fr\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\fr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\ru\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\ru\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\hamam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/santis_card_massage_oil_v2.png",
+        "alt_text": "Çikolata Bakımı - Atmosfer",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\hamam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/santis_card_hamam_kese_v2.png",
+        "alt_text": "Kahve Peeling - Doku",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\hamam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_v1.png",
+        "alt_text": "Kahve Çekirdekleri ve Peeling",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_lux.png",
+        "alt_text": "Kese ve Köpük - Atmosfer",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_foam_lux.png",
+        "alt_text": "İpeksi Köpük Dokunuşu",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_v1.png",
+        "alt_text": "Doğal Bakım Ürünleri",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_hamam_kese_v2.png",
+        "alt_text": "Hamamın Büyüsü",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\hamam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/santis_card_foam_lux.png",
+        "alt_text": "Köpük Masajı - Detay",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\hamam\\osmanli-ritueli.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_v1.png",
+        "alt_text": "Osmanlı Ritüeli - Atmosfer",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\hamam\\osmanli-ritueli.html",
+        "missing_file": "/assets/img/cards/santis_card_skincare_clay_v2.png",
+        "alt_text": "Doğal Kil Maskesi",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\hamam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/santis_hero_hammam_lux.png",
+        "alt_text": "Santis Paşa - Lüks Bakım",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\hamam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/santis_card_massage_lux.png",
+        "alt_text": "Aromaterapi Masajı",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260216_235237\\tr\\hamam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/santis_card_hamam_scrub_v2.png",
+        "alt_text": "Deniz Tuzu - Doku",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\de\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\de\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\en\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\en\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\fr\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\fr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\ru\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\ru\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\hamam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/santis_card_massage_oil_v2.png",
+        "alt_text": "Çikolata Bakımı - Atmosfer",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\hamam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/santis_card_hamam_kese_v2.png",
+        "alt_text": "Kahve Peeling - Doku",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\hamam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_v1.png",
+        "alt_text": "Kahve Çekirdekleri ve Peeling",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_lux.png",
+        "alt_text": "Kese ve Köpük - Atmosfer",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_foam_lux.png",
+        "alt_text": "İpeksi Köpük Dokunuşu",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_v1.png",
+        "alt_text": "Doğal Bakım Ürünleri",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_hamam_kese_v2.png",
+        "alt_text": "Hamamın Büyüsü",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\hamam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/santis_card_foam_lux.png",
+        "alt_text": "Köpük Masajı - Detay",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\hamam\\osmanli-ritueli.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_v1.png",
+        "alt_text": "Osmanlı Ritüeli - Atmosfer",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\hamam\\osmanli-ritueli.html",
+        "missing_file": "/assets/img/cards/santis_card_skincare_clay_v2.png",
+        "alt_text": "Doğal Kil Maskesi",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\hamam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/santis_hero_hammam_lux.png",
+        "alt_text": "Santis Paşa - Lüks Bakım",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\hamam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/santis_card_massage_lux.png",
+        "alt_text": "Aromaterapi Masajı",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_000105\\tr\\hamam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/santis_card_hamam_scrub_v2.png",
+        "alt_text": "Deniz Tuzu - Doku",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\de\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\de\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\en\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\en\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\fr\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\fr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\ru\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\ru\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\hamam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/santis_card_massage_oil_v2.png",
+        "alt_text": "Çikolata Bakımı - Atmosfer",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\hamam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/santis_card_hamam_kese_v2.png",
+        "alt_text": "Kahve Peeling - Doku",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\hamam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_v1.png",
+        "alt_text": "Kahve Çekirdekleri ve Peeling",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_lux.png",
+        "alt_text": "Kese ve Köpük - Atmosfer",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_foam_lux.png",
+        "alt_text": "İpeksi Köpük Dokunuşu",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_v1.png",
+        "alt_text": "Doğal Bakım Ürünleri",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_hamam_kese_v2.png",
+        "alt_text": "Hamamın Büyüsü",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\hamam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/santis_card_foam_lux.png",
+        "alt_text": "Köpük Masajı - Detay",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\hamam\\osmanli-ritueli.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_v1.png",
+        "alt_text": "Osmanlı Ritüeli - Atmosfer",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\hamam\\osmanli-ritueli.html",
+        "missing_file": "/assets/img/cards/santis_card_skincare_clay_v2.png",
+        "alt_text": "Doğal Kil Maskesi",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\hamam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/santis_hero_hammam_lux.png",
+        "alt_text": "Santis Paşa - Lüks Bakım",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\hamam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/santis_card_massage_lux.png",
+        "alt_text": "Aromaterapi Masajı",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082442\\tr\\hamam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/santis_card_hamam_scrub_v2.png",
+        "alt_text": "Deniz Tuzu - Doku",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\de\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\de\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\en\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\en\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\fr\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\fr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\ru\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\ru\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\hamam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/santis_card_massage_oil_v2.png",
+        "alt_text": "Çikolata Bakımı - Atmosfer",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\hamam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/santis_card_hamam_kese_v2.png",
+        "alt_text": "Kahve Peeling - Doku",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\hamam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_v1.png",
+        "alt_text": "Kahve Çekirdekleri ve Peeling",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_lux.png",
+        "alt_text": "Kese ve Köpük - Atmosfer",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_foam_lux.png",
+        "alt_text": "İpeksi Köpük Dokunuşu",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_v1.png",
+        "alt_text": "Doğal Bakım Ürünleri",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\hamam\\kese-kopuk.html",
+        "missing_file": "/assets/img/cards/santis_card_hamam_kese_v2.png",
+        "alt_text": "Hamamın Büyüsü",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\hamam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/santis_card_foam_lux.png",
+        "alt_text": "Köpük Masajı - Detay",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\hamam\\osmanli-ritueli.html",
+        "missing_file": "/assets/img/cards/santis_card_hammam_v1.png",
+        "alt_text": "Osmanlı Ritüeli - Atmosfer",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\hamam\\osmanli-ritueli.html",
+        "missing_file": "/assets/img/cards/santis_card_skincare_clay_v2.png",
+        "alt_text": "Doğal Kil Maskesi",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\hamam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/santis_hero_hammam_lux.png",
+        "alt_text": "Santis Paşa - Lüks Bakım",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\hamam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/santis_card_massage_lux.png",
+        "alt_text": "Aromaterapi Masajı",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260217_082742\\tr\\hamam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/santis_card_hamam_scrub_v2.png",
+        "alt_text": "Deniz Tuzu - Doku",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\index.html",
+        "missing_file": "/assets/img/cards/neurova-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\acne-balance.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\anti-aging-pro.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\barrier-repair.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\brightening-spot.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\classic-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\collagen-lift.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\deep-cleanse.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\detox-charcoal.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\enzyme-peel.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\eye-contour.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\glass-skin.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\gold-mask-ritual.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\hyaluron-hydrate.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\led-rejuvenation.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\lip-care.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\men-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\micro-polish.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\oxygen-boost.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\sensitive-soothe.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\de\\hautpflege\\vitamin-c-glow.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\index.html",
+        "missing_file": "/assets/img/cards/neurova-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\acne-balance.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\anti-aging-pro.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\barrier-repair.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\brightening-spot.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\classic-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\collagen-lift.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\deep-cleanse.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\detox-charcoal.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\enzyme-peel.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\eye-contour.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\glass-skin.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\gold-mask-ritual.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\hyaluron-hydrate.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\led-rejuvenation.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\lip-care.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\men-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\micro-polish.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\oxygen-boost.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\sensitive-soothe.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\en\\skincare\\vitamin-c-glow.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\index.html",
+        "missing_file": "/assets/img/cards/neurova-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\acne-balance.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\anti-aging-pro.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\barrier-repair.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\brightening-spot.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\classic-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\collagen-lift.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\deep-cleanse.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\detox-charcoal.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\enzyme-peel.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\eye-contour.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\glass-skin.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\gold-mask-ritual.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\hyaluron-hydrate.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\led-rejuvenation.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\lip-care.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\men-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\micro-polish.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\oxygen-boost.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\sensitive-soothe.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\fr\\soins-visage\\vitamin-c-glow.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\index.html",
+        "missing_file": "/assets/img/cards/neurova-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\acne-balance.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\anti-aging-pro.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\barrier-repair.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\brightening-spot.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\classic-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\collagen-lift.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\deep-cleanse.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\detox-charcoal.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\enzyme-peel.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\eye-contour.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\glass-skin.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\gold-mask-ritual.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\hyaluron-hydrate.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\led-rejuvenation.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\lip-care.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\men-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\micro-polish.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\oxygen-boost.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\sensitive-soothe.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\ru\\skincare\\vitamin-c-glow.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\tr\\index.html",
+        "missing_file": "/assets/img/cards/neurova-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\tr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\tr\\hamam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/santis_card_massage_oil_v2.png",
+        "alt_text": "Çikolata Bakımı - Atmosfer",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\tr\\hamam\\index.html",
+        "missing_file": "/assets/img/b1263ebeb519b1a5da22b7d2e90d305b.jpg",
+        "alt_text": "Hamam Ritüelleri",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\tr\\hamam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/santis_card_foam_lux.png",
+        "alt_text": "Köpük Masajı - Detay",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\tr\\hamam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/santis_hero_hammam_lux.png",
+        "alt_text": "Santis Paşa - Lüks Bakım",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\tr\\hamam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/santis_card_massage_lux.png",
+        "alt_text": "Aromaterapi Masajı",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\hreflang_sync\\20260219_201805\\tr\\hamam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/santis_card_hamam_scrub_v2.png",
+        "alt_text": "Deniz Tuzu - Doku",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_backup\\tgov\\20260212_201812_tr_blog_index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\deploy\\de\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\deploy\\de\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\deploy\\en\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\deploy\\en\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\deploy\\fr\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\deploy\\fr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\deploy\\fr\\en\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\deploy\\ru\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\deploy\\ru\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\deploy\\tr\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\deploy\\tr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hammam\\kese-ve-kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hammam\\osmanli-hamam-gelenegi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\acne-balance.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\anti-aging-pro.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\barrier-repair.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\brightening-spot.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\classic-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\collagen-lift.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\deep-cleanse.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\detox-charcoal.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\enzyme-peel.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\eye-contour.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\glass-skin.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\gold-mask-ritual.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\hyaluron-hydrate.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\led-rejuvenation.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\lip-care.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\men-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\micro-polish.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\oxygen-boost.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\sensitive-soothe.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\de\\hautpflege\\vitamin-c-glow.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\hammam\\kahve-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\hammam\\kese-ve-kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\hammam\\osmanli-hamam-gelenegi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\acne-balance.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\anti-aging-pro.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\barrier-repair.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\brightening-spot.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\classic-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\collagen-lift.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\deep-cleanse.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\detox-charcoal.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\enzyme-peel.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\eye-contour.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\glass-skin.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\gold-mask-ritual.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\hyaluron-hydrate.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\led-rejuvenation.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\lip-care.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\men-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\micro-polish.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\oxygen-boost.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\sensitive-soothe.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\en\\skincare\\vitamin-c-glow.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\hammam\\kese-ve-kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\hammam\\osmanli-hamam-gelenegi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\acne-balance.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\anti-aging-pro.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\barrier-repair.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\brightening-spot.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\classic-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\collagen-lift.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\deep-cleanse.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\detox-charcoal.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\enzyme-peel.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\eye-contour.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\glass-skin.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\gold-mask-ritual.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\hyaluron-hydrate.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\led-rejuvenation.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\lip-care.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\men-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\micro-polish.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\oxygen-boost.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\sensitive-soothe.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\fr\\soins-visage\\vitamin-c-glow.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\index.html",
+        "missing_file": "/assets/img/cards/SANTIS CLUB-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\hammam\\kese-ve-kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\hammam\\osmanli-hamam-gelenegi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\acne-balance.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\anti-aging-pro.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\barrier-repair.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\brightening-spot.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\classic-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\collagen-lift.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\deep-cleanse.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\detox-charcoal.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\enzyme-peel.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\eye-contour.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\glass-skin.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\gold-mask-ritual.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\hyaluron-hydrate.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\led-rejuvenation.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\lip-care.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\men-facial.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\micro-polish.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\oxygen-boost.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\sensitive-soothe.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\ru\\skincare\\vitamin-c-glow.html",
+        "missing_file": "/assets/img/cards/skincare_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\output\\tr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_build\\templates\\body.html",
+        "missing_file": "/assets/img/cards/neurova-spa-rest-graded-clean.webp",
+        "alt_text": "Santis Club Spa",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\de\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\de\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\de\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\de\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\de\\hammam\\kese-ve-kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\de\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\de\\hammam\\osmanli-hamam-gelenegi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\de\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\de\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\en\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\en\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\en\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\en\\hammam\\kahve-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\en\\hammam\\kese-ve-kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\en\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\en\\hammam\\osmanli-hamam-gelenegi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\en\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\en\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\fr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\fr\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\fr\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\fr\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\fr\\hammam\\kese-ve-kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\fr\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\fr\\hammam\\osmanli-hamam-gelenegi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\fr\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\fr\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\ru\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\ru\\hammam\\cikolata-bakimi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\ru\\hammam\\gelin-hamami.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\ru\\hammam\\kahve-detox.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\ru\\hammam\\kese-ve-kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\ru\\hammam\\kopuk-masaji.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\ru\\hammam\\osmanli-hamam-gelenegi.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\ru\\hammam\\santis-pasa.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\ru\\hammam\\tuz-peeling.html",
+        "missing_file": "/assets/img/cards/hammam_detail.webp",
+        "alt_text": "Detail view",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\tr\\blog\\index.html",
+        "missing_file": "/assets/img/blog/${post.img}",
+        "alt_text": "${post.title}",
+        "slot_id": "Tanımsız"
+    },
+    {
+        "source_html": "./_dev_archives\\digital_obesity_quarantine\\_deploy_stage\\trends\\japan.html",
+        "missing_file": "/assets/img/cards/santis_card_zen.webp",
+        "alt_text": "Wabi-Sabi",
+        "slot_id": "Tanımsız"
+    }
+]

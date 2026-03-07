@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr" data-lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Vault | Güvenli Ödeme - Santis Club</title>
+    
+    <!-- NEUROVA Global Stil Katmanı -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- 🛡️ Stripe Elements Çekirdeği (Kasa'nın Anahtarı) -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        .vault-body {
+            background-color: #1a1a1a;
+            color: #f1f1f1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkout-header {
+            position: absolute;
+            top: 2rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .logo-container {
+            font-size: 1.5rem;
+            letter-spacing: 0.2em;
+            font-weight: 300;
+            color: #d4af37; /* Santis Gold */
+            text-transform: uppercase;
+        }
+
+        .vault-container {
+            width: 100%;
+            max-width: 500px;
+            background: #2a2a2a;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 1px solid #3a3a3a;
+        }
+
+        #submit-payment {
+            width: 100%;
+            padding: 1rem;
+            margin-top: 2rem;
+            background-color: #d4af37;
+            color: #111;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #submit-payment:hover {
+            background-color: #e5c158;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(212, 175, 55, 0.2);
+        }
+
+        #submit-payment:disabled {
+            background-color: #555;
+            color: #888;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        #payment-message {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            text-align: center;
+            background-color: #4a1919;
+            color: #ff8c8c;
+            border: 1px solid #6b2424;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .custom-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(0,0,0,0.1);
+            border-top-color: #111;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .checkout-footer {
+            position: absolute;
+            bottom: 2rem;
+            text-align: center;
+            width: 100%;
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body class="vault-body">
+
+    <!-- Opsiyonel: Sadeleştirilmiş, bağlantısız bir Header (Kaçışları önlemek için) -->
+    <header id="nv-header" class="checkout-header">
+        <div class="logo-container">SANTIS OS VAULT</div>
+    </header>
+
+    <!-- Kasanın Ana Gövdesi -->
+    <main id="nv-main">
+        <form id="payment-form" class="vault-container">
+            <!-- 💳 Stripe formunun çizileceği o özel konteyner -->
+            <div id="payment-element">
+                <!-- Stripe Elements form components inject here -->
+            </div>
+            
+            <!-- Ödeme Butonu -->
+            <button id="submit-payment" type="submit">
+                <span id="button-text">Ödemeyi Tamamla</span>
+            </button>
+            
+            <!-- Hata veya Bilgi Mesajları Ekranı -->
+            <div id="payment-message" class="hidden"></div>
+        </form>
+    </main>
+
+    <footer id="nv-footer" class="checkout-footer">
+        <p>&copy; 2026 Santis Club. Tüm işlemler 256-bit şifreleme ile korunmaktadır.</p>
+    </footer>
+
+    <!-- Kasa Mantığını (Logic) Yönetecek Özel JS Dosyamız -->
+    <script src="assets/js/santis-vault.js" defer></script>
+</body>
+</html>

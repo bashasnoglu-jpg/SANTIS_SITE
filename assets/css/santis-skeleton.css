@@ -1,0 +1,86 @@
+/* ==========================================================================
+   SANTIS OS - QUIET LUXURY SKELETON UI (BLOK F4)
+   Elegant, smoky gray placeholders for the Headless Reactivity engine.
+   ========================================================================== */
+
+/* The Base Skeleton Class */
+.santis-skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--santis-smoky-gray, #2a2a2a);
+    /* Smoky warm gray base */
+    color: transparent !important;
+    border-color: transparent !important;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Remove skeleton formatting when data applies */
+.santis-skeleton.santis-hydrated {
+    background-color: transparent;
+    color: inherit !important;
+    pointer-events: auto;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* The Shimmer Animation Element */
+.santis-skeleton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.04) 20%,
+            /* Subtle shine */
+            rgba(255, 255, 255, 0.08) 60%,
+            rgba(255, 255, 255, 0) 100%);
+    animation: santisShimmer 2s infinite ease-in-out;
+}
+
+@keyframes santisShimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* 
+ * Specific Overrides 
+ */
+.santis-skeleton img {
+    opacity: 0;
+}
+
+.santis-skeleton-title {
+    height: 1.8em;
+    width: 60%;
+    margin-bottom: 0.5rem;
+}
+
+.santis-skeleton-text {
+    height: 1.2em;
+    width: 100%;
+    margin-bottom: 0.4rem;
+}
+
+.santis-skeleton-text:last-child {
+    width: 80%;
+}
+
+.santis-skeleton-btn {
+    height: 48px;
+    width: 140px;
+    border-radius: 0;
+}
+
+.santis-skeleton-image {
+    width: 100%;
+    height: 100%;
+    min-height: 250px;
+    display: block;
+}

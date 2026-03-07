@@ -1,3 +1,4 @@
+from __future__ import annotations
 from datetime import datetime
 import uuid
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -7,7 +8,7 @@ from typing import Any, List
 
 from app.api import deps
 from app.schemas import auth as schemas
-from app.db.session import get_db
+from app.db.session import get_db, get_db_for_admin
 from app.db.models.user import User
 from app.services.audit import AuditService, AuditAction, AuditStatus
 
@@ -32,7 +33,7 @@ from app.core.tenant_scope import scoped_query
 async def read_users(
     skip: int = 0,
     limit: int = 100,
-    db: AsyncSession = Depends(get_db),
+    db: AsyncSession = Depends(get_db_for_admin),
     current_user: User = Depends(deps.require_permission(Permission.USER_READ)),
 ) -> Any:
     """
@@ -49,7 +50,7 @@ async def read_users(
 @router.delete("/{user_id}", status_code=status.HTTP_200_OK)
 async def delete_user(
     user_id: uuid.UUID,
-    db: AsyncSession = Depends(get_db),
+    db: AsyncSession = Depends(get_db_for_admin),
     current_user: User = Depends(deps.require_permission(Permission.USER_DELETE)),
 ) -> Any:
     """

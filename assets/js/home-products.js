@@ -42,10 +42,26 @@ async function hydrateProductCatalog() {
 
 // 2. MAIN LOGIC (NEURAL BRIDGE)
 window.loadHomeProducts = async () => {
-    // PREVENT DOUBLE RENDER (FLICKERING FIX)
+    // PREVENT DOUBLE RENDER (FLICKERING FIX) - WITH SPA (VIEW TRANSITIONS) SUPPORT
     if (window.isProductCatalogRendered) {
-        console.log("🛡️ [HomeProducts] Bloklandı: Katalog zaten render edildi.");
-        return;
+        // ZIRH: Eğer SPA geçişi olduysa (yeni sayfa yüklendiği için eski gridler çöpe gitmiştir), 
+        // DOM'daki yeni gridlerin içinin boş olup olmadığını kontrol et.
+        const checkGrids = document.querySelectorAll(".nv-product-grid, #productsGrid, .product-grid-v2");
+        let hasEmptyGrid = false;
+
+        if (checkGrids.length > 0) {
+            checkGrids.forEach(g => {
+                if (g.children.length === 0) hasEmptyGrid = true;
+            });
+        }
+
+        if (!hasEmptyGrid && checkGrids.length > 0) {
+            console.log("🛡️ [HomeProducts] Bloklandı: Katalog zaten render edildi ve gridler dolu.");
+            return;
+        } else {
+            console.log("🔄 [HomeProducts] SPA Transition algılandı: Render kilidi açıldı.");
+            window.isProductCatalogRendered = false;
+        }
     }
 
     // If DOM henüz tam yüklenmediyse bekle ve yeniden dene (erken tetiklenen olayları susturmak için)
@@ -199,9 +215,12 @@ window.loadHomeProducts = async () => {
         let ctx = (gridAtelier.dataset.context || "").toLowerCase();
         const idHint = (gridAtelier.id || "").toLowerCase();
         if (!ctx) {
-            if (idHint.includes('hamam')) ctx = 'hamam';
-            else if (idHint.includes('masaj')) ctx = 'masaj';
-            else if (idHint.includes('skin') || idHint.includes('cilt')) ctx = 'skin';
+            // Check URL path as fallback
+            const pathCat = window.location.pathname.toLowerCase();
+            if (idHint.includes('hamam') || pathCat.includes('/hamam/')) ctx = 'hamam';
+            else if (idHint.includes('masaj') || pathCat.includes('/masaj')) ctx = 'masaj';
+            else if (idHint.includes('skin') || idHint.includes('cilt') || pathCat.includes('/cilt-bakimi/')) ctx = 'skin';
+            else if (pathCat.includes('/urunler/') || pathCat.includes('/products/')) ctx = 'urunler';
             else ctx = 'product';
         }
 
@@ -210,21 +229,74 @@ window.loadHomeProducts = async () => {
             switch (context) {
                 case 'journey':
                 case 'journeys':
-                    return (Array.isArray(window.NV_JOURNEYS) && window.NV_JOURNEYS.length) ? window.NV_JOURNEYS : sourceData.filter(it => normalizeCat(it).includes('journey'));
+                    return sourceData.filter(it => {
+                        const c = normalizeCat(it);
+                        return c === 'wellness' || c.includes('journey');
+                    });
                 case 'hamam':
                 case 'hammam':
                 case 'ritual-hammam':
-                    return (Array.isArray(window.NV_HAMMAM) && window.NV_HAMMAM.length) ? window.NV_HAMMAM : sourceData.filter(it => normalizeCat(it).includes('hammam'));
+                    return sourceData.filter(it => {
+                        const c = normalizeCat(it);
+                        return c.includes('hammam') || c.startsWith('ritual-hammam');
+                    });
                 case 'masaj':
                 case 'massage':
-                    return (Array.isArray(window.NV_MASSAGES) && window.NV_MASSAGES.length) ? window.NV_MASSAGES : sourceData.filter(it => normalizeCat(it).includes('massage') || normalizeCat(it).includes('masaj'));
+                    return sourceData.filter(it => {
+                        const c = normalizeCat(it);
+                        return c.startsWith('massage');
+                    });
                 case 'skin':
                 case 'skincare':
                 case 'cilt':
-                    return (Array.isArray(window.NV_SKINCARE) && window.NV_SKINCARE.length) ? window.NV_SKINCARE : sourceData.filter(it => normalizeCat(it).includes('skin') || normalizeCat(it).includes('cilt') || normalizeCat(it).includes('face') || normalizeCat(it).includes('sothys'));
+                    return sourceData.filter(it => {
+                        const c = normalizeCat(it);
+                        return c.startsWith('skincare') || c.startsWith('sothys');
+                    });
+                case 'urunler':
+                case 'products':
+                case 'product':
+                    // Fetch physical product JSONs if not already present in sourceData
+                    if (!window.__SANTIS_STORE_PRODUCTS_LOADED) {
+                        try {
+                            console.log("🛒 [HomeProducts] Loading physical store products...");
+                            // We make synchronous-like requests using awaiting promises because this function is called from a loop it can't await easily,
+                            // However, we can use a trick: pickPool is synchronous.
+                            // The safest way is to trigger an async load and re-render.
+
+                            Promise.all([
+                                fetch('/assets/data/products-atelier.json').then(r => r.json()),
+                                fetch('/assets/data/products-sothys.json').then(r => r.json())
+                            ]).then(([atelierArgs, sothysArgs]) => {
+                                const products = [...atelierArgs, ...sothysArgs];
+                                products.forEach(p => window.productCatalog.push(p));
+                                window.__SANTIS_STORE_PRODUCTS_LOADED = true;
+                                console.log(`✅ [HomeProducts] Added ${products.length} physical products.`);
+                                // Force re-render grid
+                                window.isProductCatalogRendered = false;
+                                window.loadHomeProducts();
+                            }).catch(err => console.warn("🟠 [HomeProducts] Store products fail:", err));
+                        } catch (e) { }
+                    }
+
+                    return sourceData.filter(it => {
+                        const c = normalizeCat(it);
+                        // Store page SHOULD NOT show hammam/massage/skincare services.
+                        // It should only show physical products (e.g., product, cosmetic, merchandise, gift)
+                        return !(
+                            c.includes('hammam') ||
+                            c.startsWith('ritual-') ||
+                            c.startsWith('massage') ||
+                            c === 'wellness' ||
+                            c.includes('journey') ||
+                            c.includes('skin') ||
+                            c.includes('cilt') ||
+                            c.includes('face') ||
+                            c.startsWith('sothys-') ||
+                            c === 'facesothys'
+                        );
+                    });
                 default:
-                    if (Array.isArray(window.NV_PRODUCTS_ALL) && window.NV_PRODUCTS_ALL.length) return window.NV_PRODUCTS_ALL;
-                    if (Array.isArray(window.NV_PRODUCTS) && window.NV_PRODUCTS.length) return window.NV_PRODUCTS;
                     return sourceData;
             }
         };
@@ -304,16 +376,15 @@ window.loadHomeProducts = async () => {
                     </div>
                 `;
 
-                // Card grid
+                // Card grid (Sovereign Array)
                 const cardGrid = document.createElement('div');
                 cardGrid.className = 'product-grid-v2 nv-product-grid nv-cat-grid';
 
-                items.forEach((product, i) => {
-                    renderCard(product, cardGrid, i, ctx);
-                });
-
                 section.appendChild(cardGrid);
                 gridAtelier.appendChild(section);
+
+                // PHASE 11: SOVEREIGN CHUNKED RENDERER (Category Level)
+                attachSovereignRenderer(items, cardGrid, ctx);
             });
 
             console.log(`📂 [HomeProducts] Massage categories rendered: ${Object.keys(groups).length} groups`);
@@ -396,12 +467,11 @@ window.loadHomeProducts = async () => {
                 const cardGrid = document.createElement('div');
                 cardGrid.className = 'product-grid-v2 nv-product-grid nv-cat-grid';
 
-                items.forEach((product, i) => {
-                    renderCard(product, cardGrid, i, ctx);
-                });
-
                 section.appendChild(cardGrid);
                 gridAtelier.appendChild(section);
+
+                // PHASE 11: SOVEREIGN CHUNKED RENDERER (Category Level)
+                attachSovereignRenderer(items, cardGrid, ctx);
             });
 
             console.log(`📂 [HomeProducts] Skincare categories rendered: ${Object.keys(skinGroups).length} groups`);
@@ -441,13 +511,76 @@ window.loadHomeProducts = async () => {
                 });
                 console.log('✅ [ChipFilter:Skin] Attached to #nvChips after section render');
             }
-        } else {
-            // Standard flat rendering for other pages
-            atelierItems.forEach((product, index) => {
-                renderCard(product, gridAtelier, index, ctx);
-            });
+        } else if (atelierItems.length > 0) {
+            // General fallback mapped products (like hamam ones)
+            attachSovereignRenderer(atelierItems, gridAtelier, ctx);
         }
     });
+
+    // ── SOVEREIGN VIRTUALIZATION ENGINE (ULTRA-MEGA) ──
+    function attachSovereignRenderer(dataset, container, context) {
+        if (!dataset || dataset.length === 0) return;
+
+        const CHUNK_SIZE = 12;
+        let currentIndex = 0;
+        let observer = null;
+
+        function renderNextChunk() {
+            const chunk = dataset.slice(currentIndex, currentIndex + CHUNK_SIZE);
+            if (chunk.length === 0) return;
+
+            // ZIRH 3: DocumentFragment (Main Thread Reflow Koruması)
+            const fragment = document.createDocumentFragment();
+
+            chunk.forEach((product, i) => {
+                const globalIndex = currentIndex + i;
+                renderCard(product, fragment, globalIndex, context);
+            });
+
+            container.appendChild(fragment);
+            currentIndex += CHUNK_SIZE;
+
+            // Nöbetçi (Observer) Güncellemesi
+            if (currentIndex < dataset.length) {
+                attachObserver();
+            } else if (observer) {
+                // ZIRH 2: Yolun Sonu (End-of-List) İnfazı
+                observer.disconnect();
+                console.log(`🛡️ [Virtualization] End of list reached (${dataset.length} items). Observer disconnected.`);
+            }
+        }
+
+        function attachObserver() {
+            // Eski nöbetçi varsa ZIRH 1 gereği (Memory Leak) öldür
+            if (observer) observer.disconnect();
+
+            const targetNode = container.lastElementChild;
+            if (!targetNode) return;
+
+            observer = new IntersectionObserver((entries, obs) => {
+                if (entries[0].isIntersecting) {
+                    obs.unobserve(targetNode); // Sadece hedeften ayrıl
+
+                    // Kuantum Süzülüşü: Ghost Thread ile ana thread'i hiç yormadan birleştir
+                    requestAnimationFrame(() => {
+                        if (window.SantisIdle) {
+                            SantisIdle.enqueue('RenderNextChunk', renderNextChunk);
+                        } else {
+                            renderNextChunk();
+                        }
+                    });
+                }
+            }, {
+                rootMargin: '800px', // Ziyaretçi 800px yaklaştığında yükle
+                threshold: 0.1
+            });
+
+            observer.observe(targetNode);
+        }
+
+        // İlk Porsiyon (LCP Kurtarıcı Paketi)
+        renderNextChunk();
+    }
 
     // E. Render Journeys (Static Services)
     const gridJourneys = document.getElementById("grid-journeys");
@@ -461,6 +594,11 @@ window.loadHomeProducts = async () => {
 
     // Mark render complete only after grids were processed
     window.isProductCatalogRendered = true;
+
+    // 💎 PHASE 44: Re-trigger Phantom Injector to map database assets to the newly created dynamic cards
+    if (window.SantisOS && typeof window.SantisOS.ignitePhantomInjector === 'function') {
+        setTimeout(() => window.SantisOS.ignitePhantomInjector(), 100);
+    }
 };
 
 // 3. HELPER: RENDER ADMIN SECTION
@@ -496,6 +634,9 @@ function renderSection(gridId, sectionData) {
 
 // 4. HELPER: CREATE CARD (Unified Tarot Logic V1.0)
 function createCardElement(product, index, isAdminItem = false, ctx = "") {
+    const cardWrapper = document.createElement("div");
+    cardWrapper.className = "nv-card-wrapper";
+
     const card = document.createElement("a");
     card.className = "nv-card-tarot " + (product.layout_class || ""); // Phase 17: Tarot Class
     card.dataset.id = product.id;
@@ -531,10 +672,11 @@ function createCardElement(product, index, isAdminItem = false, ctx = "") {
     }
 
     // 2. Construct Static URL
-    if (product.slug) {
+    // 2. Construct Static URL
+    if (product.slug && product.slug !== '#') {
         detailUrl = `/${lang}/${section}/${product.slug}.html`;
     } else {
-        // Fallback for missing slugs (should verify these exist or fix JSON)
+        // Fallback for missing/empty slugs
         console.warn(`⚠️ [Card] Missing slug for ${product.id}. Using legacy fallback.`);
         detailUrl = `/service-detail.html?id=${product.id}`;
     }
@@ -550,10 +692,45 @@ function createCardElement(product, index, isAdminItem = false, ctx = "") {
     // Price Logic (Monk Tone: Hidden or Minimal)
     // We only show "Ritüeli Keşfet" (Discover Ritual) in the data loop, ignoring price for now unless critical.
 
+    // CHAMELEON MODULE: Evaluate Persona
+    const ghostScore = parseInt(sessionStorage.getItem('santis_ghost_score') || '0', 10);
+    const isSovereign = ghostScore >= 85;
+
+    if (isSovereign) {
+        card.classList.add('is-sovereign');
+    }
+
+    const actionText = isSovereign ? "Ritüeli Keşfedin" : "RİTÜELİ KEŞFET";
+
+    // REVENUE BRAIN: Dynamic Pricing
+    let displayPrice = '';
+
+    // Fiyat obje ise (örneğin { base: 60, currency: "€" } veya { tr: 1500, en: 60 }) 
+    // bunu düzgün string formatına çevir
+    let basePrice = product.price;
+    if (typeof basePrice === 'object' && basePrice !== null) {
+        // En yaygın fiyat propertylerini dene
+        basePrice = basePrice.amount || basePrice.base || basePrice.tr || basePrice.en || basePrice.value || Object.values(basePrice)[0] || '';
+    }
+
+    if (basePrice && basePrice !== 'İncele' && basePrice !== 'Loading...') {
+        // Core Logic: Yield Calculation
+        const finalPrice = (window.santisRevenueBrain && typeof window.santisRevenueBrain.validateYield === 'function')
+            ? window.santisRevenueBrain.validateYield(basePrice, basePrice)
+            : basePrice;
+
+        // Sayı olmayan metinsel fiyatları formatla
+        const prefix = isNaN(finalPrice) ? '' : '€';
+        displayPrice = `<span style="color:#D4AF37; font-weight:600; font-family:'Cinzel', serif;">${prefix}${finalPrice}</span>`;
+    }
+
+    const durationText = product.duration ? product.duration + ' DK' : 'SÜRESİZ';
+    const metaHtml = displayPrice ? `${durationText} &nbsp;|&nbsp; ${displayPrice}` : durationText;
+
     // 🎨 CONTENT HTML (Tarot Structure)
     card.innerHTML = `
         <div class="card__image-wrapper">
-            <img src="${imgPath}" alt="${product.title}" class="card__image" loading="lazy">
+            <img src="${imgPath}" alt="${product.title || product.name || 'Santis ritual'}" class="card__image" data-santis-slot="${product.slug || product.id}" loading="lazy" width="320" height="200" decoding="async">
             <span class="card__badge" style="background:rgba(0,0,0,0.8); border:none; text-transform:uppercase; letter-spacing:2px; font-size:9px;">
                 ${product.category || product.cat || 'RITUAL'}
             </span>
@@ -562,11 +739,11 @@ function createCardElement(product, index, isAdminItem = false, ctx = "") {
         <div class="card__content">
             <div>
                 <h3 class="card__title">${product.title || product.name}</h3>
-                <div class="card__meta">${product.duration ? product.duration + ' DK' : 'SÜRESİZ'}</div>
+                <div class="card__meta">${metaHtml}</div>
                 <p class="card__desc">${product.shortDesc || product.desc || product.subtitle || "Sessizliğe adım atın..."}</p>
             </div>
             
-            <span class="card__action">RİTÜELİ KEŞFET</span>
+            <span class="card__action">${actionText}</span>
         </div>
     `;
 
@@ -585,7 +762,8 @@ function createCardElement(product, index, isAdminItem = false, ctx = "") {
         }
     });
 
-    return card;
+    cardWrapper.appendChild(card);
+    return cardWrapper;
 }
 
 // Legacy Alias
@@ -605,7 +783,7 @@ function renderCard(product, container, index, ctx = "") {
     });
 
     const el = createCardElement(normalizedProduct, index, false, ctx);
-    el.style.display = "flex"; // Flex necessary for Tarot layout
+    el.style.display = "block"; // Changed from flex since the wrapper is now a block container
     container.appendChild(el);
 }
 

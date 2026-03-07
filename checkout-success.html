@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="tr" data-lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ödeme Sonucu - Santis Club</title>
+    
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        .result-body {
+            background-color: #1a1a1a;
+            color: #f1f1f1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .result-container {
+            width: 100%;
+            max-width: 600px;
+            background: #2a2a2a;
+            padding: 4rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 1px solid #3a3a3a;
+            text-align: center;
+        }
+
+        .logo-container {
+            font-size: 1.5rem;
+            letter-spacing: 0.2em;
+            font-weight: 300;
+            color: #d4af37;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        #payment-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        #payment-message {
+            font-size: 1.2rem;
+            font-weight: 300;
+            line-height: 1.6;
+            color: #ddd;
+            margin-bottom: 3rem;
+        }
+
+        .nv-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: transparent;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nv-btn:hover {
+            background-color: #d4af37;
+            color: #111;
+        }
+    </style>
+</head>
+<body class="result-body">
+
+    <main id="nv-main">
+        <section class="result-container">
+            <div class="logo-container">SANTIS OS</div>
+            
+            <span id="payment-icon">⌛</span>
+            <div id="payment-message">Makbuzunuz kontrol ediliyor, lütfen bekleyiniz...</div>
+            
+            <a href="/index.html" class="nv-btn">Anasayfaya Dön</a>
+        </section>
+    </main>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        // 1. Stripe'ı genel anahtarımız (Public Key) ile başlatıyoruz
+        // NOT: Prod'a çıkarken bu anahtar kendi hesabından alınmalı!
+        const stripe = Stripe('pk_test_51T6TcrKbhpyg503tj0P5oUBR6nWeNfT0LzE5K0TOrzP93s83w0lOrx8q1b9QpXIf9N6U8E0d9qNzWx0M7X3D31U500Xg2hWc4L');
+
+        async function checkStatus() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const clientSecret = urlParams.get("payment_intent_client_secret");
+
+            if (!clientSecret) {
+                // Return silently if accessed without a payment intent
+                document.getElementById("payment-message").innerHTML = "Doğrudan erişim kilitli.";
+                document.getElementById("payment-icon").innerHTML = "🔒";
+                return;
+            }
+
+            const messageBox = document.getElementById("payment-message");
+            const iconBox = document.getElementById("payment-icon");
+
+            try {
+                const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
+
+                switch (paymentIntent.status) {
+                    case "succeeded":
+                        iconBox.innerHTML = "✨";
+                        messageBox.innerHTML = "Ödemeniz başarıyla alındı! Santis Club'a hoş geldiniz. 🦅<br><br><span style='font-size:0.9rem;color:#999;'>İşlem onay ID: " + paymentIntent.id + "</span>";
+                        break;
+                    case "processing":
+                        iconBox.innerHTML = "⏳";
+                        messageBox.innerHTML = "Ödeme bankanız tarafından işleniyor... İşlem tamamlandığında mail alacaksınız.";
+                        break;
+                    case "requires_payment_method":
+                        iconBox.innerHTML = "❌";
+                        messageBox.innerHTML = "Ödeme reddedildi veya başarısız oldu. Lütfen farklı bir kart deneyin.";
+                        break;
+                    default:
+                        iconBox.innerHTML = "❓";
+                        messageBox.innerHTML = "Beklenmeyen bir hata oluştu veya işlem havada kaldı.";
+                        break;
+                }
+            } catch(e) {
+                iconBox.innerHTML = "⚠️";
+                messageBox.innerHTML = "Ödeme durumu doğrulanırken bir ağ sorunu oluştu.";
+            }
+        }
+
+        checkStatus();
+    </script>
+</body>
+</html>

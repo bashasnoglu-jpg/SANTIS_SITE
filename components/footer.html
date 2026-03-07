@@ -1,4 +1,116 @@
 <!-- audit-title --><title>Santis Club</title>
+
+<style>
+  /* SOVEREIGN FOOTER (QUIET LUXURY) */
+  .site-footer {
+    background-color: #050505;
+    color: #f0f0f0;
+    padding: 100px 5% 40px 5%;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    z-index: 10;
+  }
+  .footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+  .footer-brand .footer-logo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  .f-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    letter-spacing: 0.15em;
+    color: #D4AF37;
+    line-height: 1;
+  }
+  .f-logo-sub {
+    font-size: 0.8rem;
+    letter-spacing: 0.4em;
+    color: #888;
+    margin-top: 4px;
+    margin-left: 2px;
+  }
+  .footer-tagline {
+    color: #888;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    max-width: 320px;
+  }
+  .link-group h4 {
+    color: #ffffff;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .link-group a {
+    display: flex;
+    align-items: center;
+    color: #a0a0a0;
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  .link-group a:hover {
+    color: #D4AF37;
+    transform: translateX(4px);
+  }
+  .sc-icon {
+    display: none; /* Can be enabled if sprite icons are used */
+  }
+  .footer-divider {
+    border: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.05);
+    margin: 40px 0;
+  }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #666;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+  .legal-links .footer-location {
+    color: #888;
+  }
+  @media (max-width: 992px) {
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+  }
+  @media (max-width: 768px) {
+    .site-footer {
+      padding: 60px 4% 30px 4%;
+    }
+    .footer-top {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+    }
+  }
+</style>
+
 <footer class="site-footer">
 <div class="footer-content">
 <div class="footer-top">
@@ -8,16 +120,14 @@
 <span class="f-logo-text">SANTIS</span>
 <span class="f-logo-sub">CLUB</span>
 </div>
-<p class="footer-tagline">Geleneksel hamam ritüelleri ve modern spa terapilerinin, sessiz lüks
-
-                    anlayışıyla buluştuğu nokta.</p>
+<p class="footer-tagline">Geleneksel hamam ritüelleri ve modern spa terapilerinin, sessiz lüks anlayışıyla buluştuğu nokta.</p>
 </div>
 <!-- Quick Links -->
 <div class="footer-links link-group">
 <h4>Kurumsal</h4>
-<a href="/index.html"><span class="sc-icon"></span>Ana Sayfa</a>
+<a href="/tr/index.html"><span class="sc-icon"></span>Ana Sayfa</a>
 <a href="/tr/urunler/index.html"><span class="sc-icon"></span>Digital Atelier</a>
-<a class="js-booking-open" data-booking-open="1" href="/booking.html"><span class="sc-icon"></span>Rezervasyon</a>
+<a class="js-booking-open" data-booking-open="1" href="https://wa.me/905348350169" target="_blank"><span class="sc-icon"></span>Rezervasyon</a>
 <a href="/site-haritasi.html"><span class="sc-icon"></span>Site Haritası</a>
 <a href="/tr/code-of-silence.html" style="color: #d4af37;"><span class="sc-icon"></span>Code of Silence</a>
 </div>
@@ -38,11 +148,10 @@
 </div>
 <hr class="footer-divider"/>
 <div class="footer-bottom">
-<p>© 2026 Santis Club. Santis City OS v4.5 (Ultra-Bridge). All rights reserved.</p>
+<p>© 2026 Santis Club, Santis City OS v4.5 Turbo-charge. Tüm hakları saklıdır.</p>
 <div class="legal-links">
 <span class="footer-location">Antalya, TR</span>
 </div>
 </div>
 </div>
 </footer>
-

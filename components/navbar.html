@@ -1,186 +1,348 @@
 <!-- audit-title --><title>Santis Club</title>
-<nav id="nv-main-nav" class="navbar">
-    <div class="navbar-container">
-        <!-- BRAND -->
-        <a href="/tr/index.html" class="logo">
-            <div class="logo-symbol">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-            </div>
-            <div class="logo-text">
-                <span class="brand-name">SANTIS</span>
-                <span class="brand-sub">CLUB</span>
+
+<!-- SOVEREIGN STYLE GLOBAL NAV (QUIET LUXURY) -->
+<style>
+  /* Sovereign - Quiet Luxury Navbar */
+  #nv-main-nav.sovereign-nav {
+    height: 85px; /* Daha geniş, ferah ve otantik bir lüks için 85px yükseklik */
+    background: transparent;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 5%;
+    transition: background 0.4s ease, height 0.4s ease;
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  
+  /* Kaydırma sırasında hafif blur (Glassmorphism) */
+  #nv-main-nav.sovereign-nav.navbar--scrolled {
+    height: 70px;
+    background: rgba(10, 10, 10, 0.92);
+    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(25px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .sovereign-nav-container {
+    width: 100%;
+    max-width: 1800px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* --- LEFT: LOGO --- */
+  .sovereign-logo {
+    color: #e5e5e5;
+    opacity: 0.9;
+    transition: opacity 0.3s, transform 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .sovereign-logo:hover { opacity: 1; transform: scale(1.05); }
+
+  /* --- CENTER: LINKS --- */
+  .sovereign-links {
+    display: flex;
+    gap: clamp(15px, 2vw, 35px);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .sovereign-link-item {
+    font-size: 13px; /* 11px'den büyütüldü */
+    font-weight: 600;
+    letter-spacing: 0.08em; /* Harf aralığı biraz kısıldı ki çok dağılmasın */
+    text-transform: uppercase;
+    color: #cccccc;
+    text-decoration: none;
+    transition: color 0.4s ease, opacity 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    padding-bottom: 4px;
+  }
+  
+  .sovereign-link-item:hover, .sovereign-link-item.active {
+    color: #D4AF37; /* Santis Gold */
+    opacity: 1;
+  }
+
+  /* Alt Çizgi Vurgusu */
+  .sovereign-link-item::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 1px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #D4AF37;
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .sovereign-link-item:hover::after, .sovereign-link-item.active::after {
+    width: 100%;
+  }
+
+  /* --- RIGHT: ACTIONS --- */
+  .sovereign-actions {
+    display: flex;
+    align-items: center;
+    gap: clamp(12px, 1.5vw, 22px);
+    justify-content: flex-end;
+  }
+
+  /* Rituals Cta */
+  .sovereign-rituals-cta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+  .sovereign-rituals-cta span.dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #D4AF37;
+    opacity: 0.8;
+  }
+  .sovereign-rituals-cta:hover span.dot {
+    animation: pulse-dot 1s infinite alternate;
+  }
+  .sovereign-rituals-cta span.text {
+    font-size: 12px; /* 10px'den büyütüldü */
+    text-transform: uppercase;
+    letter-spacing: 0.1em; /* Okunaklılık için 0.25'ten düşürüldü */
+    color: #D4AF37;
+    font-weight: 700;
+    transition: color 0.3s ease;
+  }
+  .sovereign-rituals-cta:hover span.text {
+    color: #ffffff;
+  }
+
+  @keyframes pulse-dot {
+    from { transform: scale(1); opacity: 0.8; }
+    to { transform: scale(1.5); opacity: 1; }
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 14px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  .btn-rezervasyon {
+    font-size: 12px; /* 11px'den büyütüldü */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em; /* 0.15'ten 0.1em yapıldı */
+    color: #D4AF37;
+    transition: color 0.3s ease;
+  }
+  .btn-rezervasyon:hover {
+    color: #fff;
+  }
+
+  /* Mid-width harmony: keep center links aligned when actions get wider */
+  @media (max-width: 1536px) {
+    .sovereign-links {
+      gap: clamp(8px, 1.2vw, 16px);
+    }
+    .sovereign-link-item {
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+    .sovereign-actions {
+      gap: clamp(10px, 1.5vw, 15px);
+    }
+    .sovereign-rituals-cta .text {
+      display: none;
+    }
+    .sovereign-rituals-cta {
+      gap: 6px;
+    }
+  }
+
+  /* --- RESPONSIVE HIDING WITHOUT TAILWIND --- */
+  @media (max-width: 1024px) {
+    .sovereign-links { display: none; }
+    .sovereign-rituals-cta { display: none; }
+    .nav-divider { display: none; }
+  }
+  @media (max-width: 768px) {
+    .btn-rezervasyon { display: none; }
+    .sovereign-actions { gap: 15px; }
+  }
+
+  /* Apple Liquid Mega Menu Fiziği */
+  :root {
+      --apple-dropdown-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .santis-liquid-menu-container {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(5, 5, 5, 0.85);
+      backdrop-filter: blur(40px) saturate(150%);
+      -webkit-backdrop-filter: blur(40px) saturate(150%);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+      overflow: hidden;
+      transform-origin: top;
+      transform: scaleY(0);
+      opacity: 0;
+      z-index: 999; /* Nav'ın hemen altında */
+      transition: transform 0.5s var(--apple-dropdown-ease), opacity 0.4s ease;
+  }
+  .santis-liquid-menu-container.active {
+      transform: scaleY(1);
+      opacity: 1;
+  }
+
+  #liquid-menu-content {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+  }
+  #liquid-menu-content.reveal {
+      opacity: 1;
+      transition-delay: 0.1s;
+  }
+
+  #liquid-nav-overlay {
+      position: absolute;
+      inset: 0;
+      top: 100%;
+      height: 100vh;
+      background: rgba(5, 5, 5, 0.7);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+  }
+  #liquid-nav-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+  }
+
+  /* Liquid Menu İçerik Stilleri (JS ile Basılan) */
+  .liquid-menu-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 5%;
+  }
+  .liquid-col-title {
+      font-size: 0.75rem;
+      color: #888;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+  }
+  .liquid-link {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: block;
+      margin-bottom: 1rem;
+  }
+  .liquid-link:hover {
+      color: #D4AF37;
+  }
+  .liquid-sublink {
+      font-size: 0.875rem;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: block;
+      margin-bottom: 0.75rem;
+  }
+  .liquid-sublink:hover {
+      color: #fff;
+  }
+</style>
+
+<div class="nav-overlay" id="santis-nav-overlay"></div>
+<nav class="navbar sovereign-nav" id="nv-main-nav">
+    <div class="sovereign-nav-container">
+        
+        <!-- BRAND LOGO -->
+        <a class="sovereign-logo" href="/tr/index.html" aria-label="Santis Home" style="text-decoration: none;">
+            <svg fill="none" height="28" viewBox="0 0 24 24" width="28" style="margin-right: 14px; color: #D4AF37;">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path>
+                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path>
+                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path>
+            </svg>
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <span style="font-family: 'Playfair Display', serif; font-size: 20px; letter-spacing: 0.2em; font-weight: 400; color: #fff; line-height: 1;">SANTIS</span>
+                <span style="font-family: 'Inter', sans-serif; font-size: 9px; letter-spacing: 0.35em; color: #D4AF37; margin-top: 4px; font-weight: 600;">SPA & THERAPY</span>
             </div>
         </a>
 
         <!-- DESKTOP LINKS -->
-        <div id="navRoot" class="nav-links nav-center">
-             <!-- 0. ANASAYFA -->
-             <div class="nav-item"><a class="nav-link" href="/tr/index.html">ANASAYFA</a></div>
-
-             <!-- 0.5. SANTIS WORLD -->
-             <div class="nav-item"><a class="nav-link" href="/tr/dunya-ritueli.html" style="color:#d4af37;">SANTIS WORLD</a></div>
-
-             <!-- 1. HAMAM DEPARTMENT -->
-             <div class="nav-item has-mega">
-                <a href="/tr/hamam/index.html" class="nav-link">HAMAM <span class="arr">▾</span></a>
-                <div class="nv-mega-dropdown">
-                    <div class="nv-container">
-                        <div class="mega-grid-2-col">
-                            <div class="mega-list-col">
-                                <h4 class="mega-title">Hamam Ritüelleri</h4>
-                                <ul class="mega-links">
-                                    <li><a href="/tr/hamam/index.html#kopuk"><span>01</span> Köpük & Arınma</a></li>
-                                    <li><a href="/tr/hamam/index.html#kahve"><span>02</span> Kahve Uyanışı</a></li>
-                                    <li><a href="/tr/hamam/index.html#sultan"><span>03</span> Sultanın Hamamı</a></li>
-                                    <li><a href="/tr/hamam/index.html#gelin"><span>04</span> Gelin Hamamı</a></li>
-                                </ul>
-                            </div>
-                            <div class="mega-card-col">
-                                <a href="/tr/hamam/index.html#sultan" class="mega-feature-card">
-                                    <img src="/assets/img/cards/hammam.webp" data-fallback-src="/assets/img/placeholder.png" alt="Sultan Bath – mermer kurna ve göbek taşı" loading="lazy" decoding="async" width="400" height="280">
-                                    <div class="card-overlay">
-                                        <span>ÖNE ÇIKAN</span>
-                                        <h3>Sultanın Hamamı</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. MASAJ DEPARTMENT -->
-            <div class="nav-item has-mega">
-                <a href="/tr/masajlar/index.html" class="nav-link">MASAJ <span class="arr">▾</span></a>
-                <div class="nv-mega-dropdown">
-                    <div class="nv-container">
-                        <div class="mega-grid-2-col">
-                            <div class="mega-list-col">
-                                <h4 class="mega-title">Masaj Terapileri</h4>
-                                <ul class="mega-links">
-                                    <li><a href="/tr/masajlar/index.html#klasik"><span>01</span> Bütünsel Denge (Klasik)</a></li>
-                                    <li><a href="/tr/masajlar/index.html#aroma"><span>02</span> Aroma Yolculuğu</a></li>
-                                    <li><a href="/tr/masajlar/index.html#derindoku"><span>03</span> Derin Doku & Spor</a></li>
-                                    <li><a href="/tr/masajlar/index.html#bali"><span>04</span> Bali Masajı</a></li>
-                                </ul>
-                            </div>
-                            <div class="mega-card-col">
-                                <a href="/tr/masajlar/index.html#aroma" class="mega-feature-card">
-                                    <img src="/assets/img/cards/massage.webp" data-fallback-src="/assets/img/placeholder.png" alt="Aroma Yolculuğu – esansiyel yağlar ve sıcak taşlar" loading="lazy" decoding="async" width="400" height="280">
-                                    <div class="card-overlay">
-                                        <span>ÖNE ÇIKAN</span>
-                                        <h3>Aroma Yolculuğu</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. CİLT BAKIMI DEPARTMENT -->
-            <div class="nav-item has-mega">
-                <a href="/tr/cilt-bakimi/index.html" class="nav-link">CİLT BAKIMI <span class="arr">▾</span></a>
-                <div class="nv-mega-dropdown">
-                    <div class="nv-container">
-                        <div class="mega-grid-2-col">
-                            <div class="mega-list-col">
-                                <h4 class="mega-title">Sothys Paris</h4>
-                                <ul class="mega-links">
-                                    <li><a href="/tr/cilt-bakimi/index.html#saflik"><span>01</span> Saflık Seremonisi</a></li>
-                                    <li><a href="/tr/cilt-bakimi/index.html#antiage"><span>02</span> Zamanı Yavaşlatan Ritüel</a></li>
-                                    <li><a href="/tr/cilt-bakimi/index.html#hydra"><span>03</span> Hydra H3 Nem Bakımı</a></li>
-                                    <li><a href="/tr/cilt-bakimi/index.html#goz"><span>04</span> Göz Çevresi Bakımı</a></li>
-                                </ul>
-                            </div>
-                            <div class="mega-card-col">
-                                <a href="/tr/cilt-bakimi/index.html#hydra" class="mega-feature-card">
-                                    <img src="/assets/img/cards/skincare.webp" data-fallback-src="/assets/img/placeholder.png" alt="Sothys Paris – gelişmiş cilt bakımı bilimi" loading="lazy" decoding="async" width="400" height="280">
-                                    <div class="card-overlay">
-                                        <span>ÖNE ÇIKAN</span>
-                                        <h3>Sothys Hydra™</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. MAĞAZA DEPARTMENT -->
-            <div class="nav-item has-mega">
-                <a href="/tr/urunler/index.html" class="nav-link">MAĞAZA <span class="arr">▾</span></a>
-                <div class="nv-mega-dropdown">
-                    <div class="nv-container">
-                        <div class="mega-grid-4-col"> <!-- 4 Columns for Shop -->
-                           <div class="mega-list-col">
-                                <h4 class="mega-title">Santis Kozmetik</h4>
-                                <ul class="mega-links">
-                                    <li><a href="/tr/magaza/kozmetik.html#hydra">Hydra Serisi</a></li>
-                                    <li><a href="/tr/magaza/kozmetik.html#jeunesse">Gençlik Serisi</a></li>
-                                    <li><a href="/tr/magaza/kozmetik.html#sun">Güneş Koruma</a></li>
-                                    <li><a href="/tr/magaza/kozmetik.html#men">Sothys Men</a></li>
-                                </ul>
-                           </div>
-                           <div class="mega-list-col">
-                                <h4 class="mega-title">Atelier (Ev & Spa)</h4>
-                                <ul class="mega-links">
-                                    <li><a href="/tr/magaza/atelier.html#textile">Peştemal & Bornoz</a></li>
-                                    <li><a href="/tr/magaza/atelier.html#hamam">Kese & Bakır Tas</a></li>
-                                    <li><a href="/tr/magaza/atelier.html#soap">Doğal Sabunlar</a></li>
-                                    <li><a href="/tr/magaza/atelier.html#home">Oda Kokusu</a></li>
-                                </ul>
-                           </div>
-                           <div class="mega-list-col">
-                                <h4 class="mega-title">Hediye & Setler</h4>
-                                <ul class="mega-links">
-                                    <li><a href="/tr/hediye-karti/">Hediye Kartı &rarr;</a></li>
-                                    <li><a href="/tr/magaza/paketler.html">Evde Hamam Seti</a></li>
-                                    <li><a href="/tr/magaza/paketler.html">Kurumsal</a></li>
-                                </ul>
-                           </div>
-                           <div class="mega-card-col">
-                                <a href="/tr/magaza/atelier.html" class="mega-feature-card">
-                                    <img src="/assets/img/cards/atelier.webp" data-fallback-src="/assets/img/placeholder.png" alt="Atelier Koleksiyonu – zanaatkar hamam aksesuarları" loading="lazy" decoding="async" width="400" height="280">
-                                    <div class="card-overlay">
-                                        <span>KOLEKSİYON</span>
-                                        <h3>Atelier</h3>
-                                    </div>
-                                </a>
-                           </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5. GALERİ -->
-            <div class="nav-item">
-                <a href="/tr/galeri/index.html" class="nav-link">GALERİ</a>
-            </div>
-
-            <!-- 6. HAKKIMIZDA -->
-            <div class="nav-item">
-                <a href="/tr/hakkimizda/index.html" class="nav-link">HAKKIMIZDA</a>
-            </div>
+        <div class="sovereign-links" id="navRoot">
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/index.html" data-target="/tr/index.html">Anasayfa</a>
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/dunya-ritueli.html" data-target="/tr/dunya-ritueli.html" style="color:#D4AF37;">Santis World</a>
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/hamam/index.html" data-target="/tr/hamam/index.html" data-menu="hamam">Hamam</a>
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/masajlar/index.html" data-target="/tr/masajlar/index.html" data-menu="masajlar">Masaj</a>
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/cilt-bakimi/index.html" data-target="/tr/cilt-bakimi/index.html" data-menu="cilt">Cilt Bakımı</a>
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/urunler/index.html" data-target="/tr/urunler/index.html">Mağaza</a>
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/galeri/index.html" data-target="/tr/galeri/index.html">Galeri</a>
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/hakkimizda/index.html" data-target="/tr/hakkimizda/index.html" data-menu="hakkimizda">Hakkımızda</a>
         </div>
 
-        <!-- ACTIONS -->
-        <div class="nav-actions">
-            <a href="https://wa.me/905348350169" target="_blank" rel="noopener noreferrer" class="nv-btn nv-btn-sm nv-btn-primary mobile-hide">
-                REZERVASYON
+        <!-- ACTIONS (SEARCH / REZERVASYON / DİL) -->
+        <div class="sovereign-actions nav-actions">
+            
+            <!-- Sovereign Rituals Mührü -->
+            <a href="/tr/rituals/index.html" class="sovereign-rituals-cta group">
+                <span class="dot"></span>
+                <span class="text">Sovereign Rituals</span>
             </a>
-            <!-- Language Switcher Container -->
-            <div id="santis-language-root" class="lang-wrapper notranslate"></div>
+            
+            <span class="nav-divider"></span>
 
+            <a class="nav-link btn-rezervasyon" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">
+                Rezervasyon
+            </a>
+            
+            <!-- Language Switcher Container -->
+            <div class="lang-wrapper notranslate" id="santis-language-root"></div>
+            
             <!-- HAMBURGER -->
-            <div class="hamburger-btn" id="hamburger" aria-label="Menüyü Aç/Kapat" role="button" tabindex="0">
-                <span class="bar"></span>
-                <span class="bar"></span>
+            <div aria-label="Menüyü Aç/Kapat" class="hamburger-btn" id="hamburger" role="button" tabindex="0">
+                <span class="bar" style="background-color: #f5f5f7;"></span>
+                <span class="bar" style="background-color: #f5f5f7;"></span>
             </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 🍏 APPLE LIQUID MEGA MENU KASASI (MASTER)       -->
+    <!-- ============================================== -->
+    <div id="liquid-nav-overlay"></div>
+    <div id="santis-liquid-menu" class="santis-liquid-menu-container">
+        <div id="liquid-menu-content">
+            <!-- JS Motoru İçeriği Buraya Basacak -->
         </div>
     </div>
 </nav>
@@ -188,15 +350,16 @@
 <!-- MOBILE MENU OVERLAY -->
 <div class="mobile-menu-overlay" id="mobileMenu">
     <div class="mobile-menu-content">
-        <a href="/index.html" class="mobile-link">ANA SAYFA</a>
-        <a href="/tr/dunya-ritueli.html" class="mobile-link" style="color:#d4af37;">SANTIS WORLD</a>
-        <a href="/tr/hamam/index.html" class="mobile-link">HAMAM RİTÜELLERİ</a>
-        <a href="/tr/masajlar/index.html" class="mobile-link">DÜNYA MASAJLARI</a>
-        <a href="/tr/cilt-bakimi/index.html" class="mobile-link">CİLT BAKIMI</a>
-        <a href="/tr/urunler/index.html" class="mobile-link">ÜRÜNLER</a>
-        <a href="/tr/galeri/index.html" class="mobile-link">GALERİ</a>
-        <a href="/tr/hakkimizda/index.html" class="mobile-link">HAKKIMIZDA</a>
-        <a href="https://wa.me/905348350169" target="_blank" rel="noopener noreferrer" class="nv-btn nv-btn-primary mt-4">HEMEN REZERVASYON</a>
+        <a class="mobile-link nav-link" href="/tr/index.html">Anasayfa</a>
+        <a class="mobile-link nav-link" href="/tr/dunya-ritueli.html" style="color:#d4af37;">Santis World</a>
+        <a class="mobile-link nav-link" href="/tr/hamam/index.html">Hamam Ritüelleri</a>
+        <a class="mobile-link nav-link" href="/tr/masajlar/index.html">Dünya Masajları</a>
+        <a class="mobile-link nav-link" href="/tr/cilt-bakimi/index.html">Cilt Bakımı</a>
+        <a class="mobile-link nav-link" href="/tr/urunler/index.html">Mağaza</a>
+        <a class="mobile-link nav-link" href="/tr/galeri/index.html">Galeri</a>
+        <a class="mobile-link nav-link" href="/tr/hakkimizda/index.html">Hakkımızda</a>
+        <a class="mobile-link nav-link" href="/assets/docs/santis-spa-menu.pdf" style="color:#d4af37;" target="_blank">✦ Spa Menüsü (PDF)</a>
+        <a class="mobile-link nav-link" href="/tr/code-of-silence.html" style="color:#d4af37;">✦ Sessizlik Manifestosu</a>
+        <a class="nv-btn nv-btn-primary mt-4" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">HEMEN REZERVASYON</a>
     </div>
 </div>
-

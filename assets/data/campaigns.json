@@ -1,5 +1,5 @@
 [
-    {
+{
         "id": "welcome_offer",
         "priority": 10,
         "rules": {
@@ -12,7 +12,7 @@
             "title": "Santis Dünyasına Hoşgeldiniz",
             "text": "İlk ziyaretinize özel, %10 tanışma indirimi kazandınız.",
             "action": "KODU ÜRETİLİYOR...",
-            "image": "santis_card_hammam_lux.png",
+            "image": "santis_card_hammam_lux.webp",
             "promo_config": {
                 "prefix": "MERHABA",
                 "amount": 10
@@ -31,7 +31,7 @@
             "title": "Masaj Tutkunlarına Özel",
             "text": "Sizin için seçtiğimiz Aroma Terapi masajında 2. kişi %50 indirimli.",
             "action": "RANDEVU AL",
-            "image": "santis_card_massage_v1.png"
+            "image": "santis_card_massage_v1.webp"
         }
     },
     {
@@ -46,7 +46,7 @@
             "title": "Arınma Zamanı Geldi",
             "text": "Geleneksel Kese & Köpük ritüelinde kahve peeling hediyemizdir.",
             "action": "DETAYLARI GÖR",
-            "image": "santis_card_hammam_v1.png"
+            "image": "santis_card_hammam_v1.webp"
         }
     },
     {
@@ -61,7 +61,7 @@
             "title": "VIP Üyelik Daveti",
             "text": "Santis Club'a sadakatiniz için teşekkürler. Size özel VIP kartınız hazır.",
             "action": "KARTINIZI OLUŞTURUN",
-            "image": "santis_card_luxury.png"
+            "image": "santis_card_luxury.webp"
         }
     }
 ]

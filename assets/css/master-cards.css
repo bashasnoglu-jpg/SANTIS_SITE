@@ -42,7 +42,7 @@
 
     overflow: hidden;
 
-    transition: all 0.3s;
+    transition: transform 0.3s, opacity 0.3s, color 0.3s, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
 
     position: relative;
 
@@ -420,7 +420,7 @@
 
     backdrop-filter: blur(8px);
 
-    z-index: 2000000;
+    z-index: var(--z-modal); /* AUTO-CAPPED BY OMNI-CORE */
 
     display: flex;
 

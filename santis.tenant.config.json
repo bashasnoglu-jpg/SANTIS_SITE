@@ -1,0 +1,44 @@
+{
+    "tenant_id": "dubai_royal_clinic_001",
+    "license_tier": "SOVEREIGN_ENTERPRISE",
+    "brand_identity": {
+        "name": "The Royal Clinic",
+        "theme_mode": "dark",
+        "core_palette": {
+            "obsidian": "#06080A",
+            "sovereign_accent": "#00FF7F",
+            "muted_text": "#AAB2B7"
+        },
+        "typography": {
+            "headings": "Playfair Display",
+            "body": "Inter"
+        }
+    },
+    "ghost_forge_physics": {
+        "aura_intensity": 0.65,
+        "checkout_delay_ms": 1200,
+        "enable_kinetic_scroll": true,
+        "spring_damping": 0.82
+    },
+    "commerce_engine": {
+        "provider": "shopify_headless",
+        "api_endpoint": "https://royalclinic.myshopify.com/api/2026-01/graphql.json",
+        "storefront_token": "env.DUBAI_ROYAL_STOREFRONT_TOKEN",
+        "currency": "AED"
+    },
+    "sentinel_thresholds": {
+        "drop_ratio_tier1": 1.2,
+        "drop_ratio_tier2": 1.5,
+        "drop_ratio_tier3": 2.2
+    },
+    "intent_arbitrage": {
+        "enabled": true,
+        "max_discount_percentage": 15,
+        "trigger_dwell_time_ms": 3500
+    },
+    "kill_room_telemetry": {
+        "enabled": true,
+        "panopticon_webhook": "https://api.santis.club/v1/tenant/dubai_royal_clinic_001/telemetry",
+        "alert_threshold_value": 500
+    }
+}

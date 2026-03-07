@@ -19,54 +19,57 @@
 /* --- 1. MAIN CONTAINER (Scatter Editorial Grid) --- */
 
 #gallery-grid,
-
 .editorial-grid-engine {
-
     position: relative;
-
-    z-index: 1;
-
-    display: grid;
-
-    /* 12-Column Editorial Grid */
-
-    grid-template-columns: repeat(12, 1fr);
-
-    gap: 40px;
-
-    /* Generous breathing room */
-
-    row-gap: 120px;
-
-    /* High-fashion vertical spacing */
-
+    /* Native CSS Masonry */
+    column-count: 3;
+    column-gap: 40px;
     width: 100%;
-
     max-width: 1600px;
-
     margin: 0 auto;
-
-    padding: 100px 40px 200px 40px;
-
-    opacity: 0;
-
-    animation: simpleFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-
+    padding: 40px 40px 200px 40px;
 }
 
 
 
 @keyframes simpleFadeIn {
-
     to {
-
         opacity: 1;
-
     }
-
 }
 
+/* --- DYNAMIC MASONRY CARDS (gallery-engine.js) --- */
+.gal-card {
+    break-inside: avoid;
+    margin-bottom: 40px;
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #111;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
 
+.gal-card img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    filter: brightness(0.85) saturate(0.8) contrast(1.05);
+    transition: transform 0.8s ease, opacity 0.8s ease, color 0.8s ease, background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
+    transform: scale(1.01);
+}
+
+.gal-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
+
+.gal-card:hover img {
+    filter: brightness(1) saturate(1.1) contrast(1);
+    transform: scale(1.05);
+    /* Gentle zoom */
+}
 
 /* --- 2. SCATTER PATTERNS (The Rhythm) --- */
 
@@ -240,7 +243,7 @@
 
     /* Anti-aliasing fix */
 
-    transition: all 0.8s ease;
+    transition: transform 0.8s ease, opacity 0.8s ease, color 0.8s ease, background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
 
 }
 
@@ -518,7 +521,8 @@ body {
 
     pointer-events: none;
 
-    z-index: 999999;
+    z-index: var(--z-modal);
+    /* AUTO-CAPPED BY OMNI-CORE */
 
     mix-blend-mode: difference;
 
@@ -637,7 +641,8 @@ body {
     display: none;
     /* Hidden by default */
     position: fixed;
-    z-index: 10000;
+    z-index: var(--z-modal);
+    /* AUTO-CAPPED BY OMNI-CORE */
     left: 0;
     top: 0;
     width: 100%;
@@ -735,6 +740,7 @@ body {
         opacity: 1;
     }
 }
+
 /* =========================================
    GALLERY CHIP FILTER (extracted from inline)
    ========================================= */
@@ -747,10 +753,11 @@ body {
     font-family: var(--font-body);
     font-size: 13px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.nv-chip:hover, .nv-chip.is-active {
+.nv-chip:hover,
+.nv-chip.is-active {
     background: rgba(212, 175, 55, 0.15);
     border-color: var(--gold);
     color: var(--gold);

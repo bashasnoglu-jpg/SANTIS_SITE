@@ -199,13 +199,30 @@
     // ═══════════════════════════════════════════════════════════════
 
     function changeLanguage(langCode) {
-        // Eski Google Translate cookie'si yerine SantisOmniLang kullanıyoruz
-        if (typeof window.setLang === 'function') {
+        // Eski cookie reload yerine Omni-Language Protocol (Stateful Routing) kullanıyoruz
+        if (typeof window.SantisRouter !== 'undefined' && typeof window.SantisRouter.translate === 'function') {
+            const currentPath = window.location.pathname;
+            const newPath = window.SantisRouter.translate(currentPath, langCode);
+
+            // Dil cookie'sini her ihtimale karşı güncelle
+            document.cookie = `santis_lang=${langCode}; path=/; max-age=31536000; SameSite=Lax`;
+            localStorage.setItem('santis_lang', langCode);
+
+            // Eğer çevrilmiş yol mevcutsa oraya, değilse seçilen dilin home page'ine git
+            if (newPath && newPath !== currentPath) {
+                window.location.href = newPath;
+            } else {
+                // Fallback (örneğin o dilde sayfa yoksa ana sayfasına git)
+                window.location.href = `/${langCode}/index.html`;
+            }
+        } else if (typeof window.setLang === 'function') {
             window.setLang(langCode);
         } else {
-            console.warn('⚠️ [Santis Lang] setLang function not found. Falling back to simple cookie reload.');
+            console.warn('⚠️ [Santis Lang] Router not found. Falling back to simple generic reload.');
             document.cookie = `googtrans=/tr/${langCode}; path=/`;
             document.cookie = `googtrans=/tr/${langCode}; path=/; domain=${location.hostname}`;
+            document.cookie = `santis_lang=${langCode}; path=/; max-age=31536000; SameSite=Lax`;
+            localStorage.setItem('santis_lang', langCode);
             location.reload();
         }
 

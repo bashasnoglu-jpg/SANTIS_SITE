@@ -8,7 +8,7 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 
 const IGNORE_DIRS = ['.git', 'node_modules', '.gemini', 'tickets', 'backup_legacy'];
 
-const IGNORE_EXTS = ['.png', '.jpg', '.jpeg', '.webp', '.css', '.js', '.json', '.md', '.txt']; // We only scan HTML for *source* links
+const IGNORE_EXTS = ['.webp', '.webp', '.webp', '.webp', '.css', '.js', '.json', '.md', '.txt']; // We only scan HTML for *source* links
 
 
 

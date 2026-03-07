@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Boardroom | Global Empire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <script src="/assets/js/world.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        santis: { bg: '#0D0D0D', panel: '#1C1C1E', gold: '#D4AF37', silver: '#C0C0C0', emerald: '#50C878' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #0D0D0D; color: #F5F5F7; overflow: hidden; }
+        .glass-panel { background: rgba(28, 28, 30, 0.6); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); }
+        
+        /* Swiper Coverflow Customization */
+        .swiper { width: 100%; padding-top: 2rem; padding-bottom: 3rem; }
+        .swiper-slide {
+            background-position: center; background-size: cover;
+            width: 320px; height: 400px;
+            border-radius: 24px;
+            background: linear-gradient(145deg, #1C1C1E 0%, #0a0a0a 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2); /* Subtle Gold Border */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            display: flex; flex-direction: column; justify-content: space-between;
+            padding: 1.5rem;
+        }
+        .swiper-slide-active { border-color: #D4AF37; box-shadow: 0 0 30px rgba(212, 175, 55, 0.15); }
+
+        /* OP-2: NUCLEAR FOCUS PREVIEW */
+        #santis-nuclear-preview {
+            margin-bottom: 1.25rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        #santis-focus-card {
+            position: relative;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #0a0a0c;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .santis-glow-layer {
+            position: absolute;
+            inset: -2px;
+            border-radius: 14px;
+            background: conic-gradient(from 0deg, transparent 0%, #00FFC2 25%, #00D1FF 50%, transparent 75%);
+            animation: santis-rotate 3.5s linear infinite;
+            z-index: 0;
+            opacity: var(--santis-glow, 0);
+            transition: opacity 1.5s ease;
+        }
+        @keyframes santis-rotate { 100% { transform: rotate(360deg); } }
+
+        /* OP-3: PULSE CANVAS */
+        #santis-pulse-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            pointer-events: none;
+            opacity: 0.4;
+            z-index: 40;
+        }
+        #santis-pulse-canvas { width: 100%; height: 100%; }
+
+        /* FAZ-D: NEON CHIP BAR */
+        .santis-chip-bar {
+            display: flex;
+            gap: 10px;
+            padding: 8px 0;
+            margin-bottom: 12px;
+        }
+        .santis-chip {
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #666;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .santis-chip:hover { color: #ccc; border-color: rgba(255, 255, 255, 0.2); }
+        .santis-chip.active {
+            background: #00FFC2;
+            color: #000;
+            border-color: #00FFC2;
+            box-shadow: 0 0 15px rgba(0, 255, 194, 0.3);
+        }
+
+        /* FAZ-D: GHOST SWIPER PHYSICS */
+        .swiper-slide.ghost-out {
+            opacity: 0 !important;
+            transform: scale(0.9) translateY(10px) !important;
+            pointer-events: none;
+        }
+
+        /* FAZ-E: URGENCY LAYER */
+        #santis-focus-card.urgency {
+            animation: santis-urgency-pulse 1.5s infinite cubic-bezier(0.66, 0, 0, 1);
+            border: 1px solid rgba(255, 62, 62, 0.5);
+        }
+        @keyframes santis-urgency-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 62, 62, 0.5); }
+            70% { box-shadow: 0 0 0 12px rgba(255, 62, 62, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 62, 62, 0); }
+        }
+        /* FAZ-F: TREND WAVE PANEL */
+        #santis-trend-panel {
+            margin-top: 12px;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        #santis-trend-chart { width: 100%; height: 120px; }
+        .santis-trend-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .santis-trend-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #00D1FF;
+        }
+        .santis-mode-toggle {
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: 1px solid rgba(0, 209, 255, 0.3);
+            background: transparent;
+            color: #00D1FF;
+            transition: all 0.3s ease;
+        }
+        .santis-mode-toggle.active {
+            background: #00D1FF;
+            color: #000;
+        }
+        .santis-rising-star {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 0;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .santis-rising-star .city { font-weight: 600; color: #00D1FF; }
+        .santis-rising-star .momentum { color: #00FFC2; font-family: monospace; }
+
+        .santis-surge-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #D4AF37;
+            color: #000;
+            font-size: 8px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            z-index: 5;
+        }
+
+        /* v12.4: SOVEREIGN INSIGHTS (AI CONCIERGE) */
+        #sovereign-insights {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding: 8px 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 194, 0.1);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        /* v13.1: ACTIONABLE AI BUTTONS */
+        .insight-actions { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+        .santis-ai-btn {
+            background: transparent;
+            border: 1px solid #00FFC2;
+            color: #00FFC2;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px rgba(0,255,194,0.15);
+            font-family: 'Inter', monospace;
+        }
+        .santis-ai-btn:hover {
+            background: #00FFC2;
+            color: #000;
+            box-shadow: 0 0 15px rgba(0,255,194,0.5);
+        }
+        .santis-ai-btn.warn { border-color: #D4AF37; color: #D4AF37; box-shadow: 0 0 5px rgba(212,175,55,0.15); }
+        .santis-ai-btn.warn:hover { background: #D4AF37; color: #000; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
+        .santis-ai-btn.critical { border-color: #FF3E3E; color: #FF3E3E; box-shadow: 0 0 5px rgba(255,62,62,0.15); }
+        .santis-ai-btn.critical:hover { background: #FF3E3E; color: #000; box-shadow: 0 0 15px rgba(255,62,62,0.5); }
+        .santis-ai-btn.merchant { border-color: #FF8C42; color: #FF8C42; box-shadow: 0 0 5px rgba(255,140,66,0.15); }
+        .santis-ai-btn.merchant:hover { background: #FF8C42; color: #000; box-shadow: 0 0 15px rgba(255,140,66,0.5); }
+        .santis-ai-btn.surge-price { border-color: #FFD700; color: #FFD700; box-shadow: 0 0 5px rgba(255,215,0,0.15); }
+        .santis-ai-btn.surge-price:hover { background: #FFD700; color: #000; box-shadow: 0 0 15px rgba(255,215,0,0.5); }
+        .insights-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .insights-label {
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #00FFC2;
+        }
+        .insights-status {
+            font-size: 7px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 2px 6px;
+            border-radius: 6px;
+            background: rgba(0, 255, 194, 0.15);
+            color: #00FFC2;
+        }
+        .insight-item {
+            padding: 6px 8px;
+            margin-bottom: 4px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 2px solid #00FFC2;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+            opacity: 0;
+            transform: translateY(8px);
+            animation: insight-appear 0.4s ease forwards;
+        }
+        .insight-item.warn { border-left-color: #D4AF37; }
+        .insight-item.critical { border-left-color: #FF3E3E; }
+        .insight-item .insight-time {
+            font-size: 7px;
+            color: rgba(255, 255, 255, 0.25);
+            font-family: monospace;
+            margin-top: 2px;
+        }
+        @keyframes insight-appear {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* v13.3: SCORE RADAR PANEL */
+        #score-radar-panel {
+            margin-top: 16px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 194, 0.1);
+            border-radius: 12px;
+        }
+
+        /* v13.3: RESIZABLE ASIDE — JS drag */
+        .sovereign-aside {
+            width: 420px;
+            min-width: 280px;
+            max-width: 700px;
+            max-height: 100vh !important;
+            overflow-y: scroll !important;
+            overflow-x: hidden !important;
+            flex-shrink: 0;
+            padding-bottom: 140px !important;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0,255,194,0.15) transparent;
+        }
+        .sovereign-aside::-webkit-scrollbar { width: 4px; }
+        .sovereign-aside::-webkit-scrollbar-thumb { background: rgba(0,255,194,0.15); border-radius: 4px; }
+        .sovereign-aside::-webkit-scrollbar-track { background: transparent; }
+
+        /* Drag handle */
+        #aside-drag-handle {
+            width: 6px;
+            cursor: col-resize;
+            background: transparent;
+            position: relative;
+            z-index: 30;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+        #aside-drag-handle:hover,
+        #aside-drag-handle.dragging {
+            background: rgba(0, 255, 194, 0.25);
+        }
+        #aside-drag-handle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 1px;
+            width: 3px;
+            height: 40px;
+            transform: translateY(-50%);
+            border-radius: 3px;
+            background: rgba(0, 255, 194, 0.15);
+            transition: background 0.2s;
+        }
+        #aside-drag-handle:hover::after,
+        #aside-drag-handle.dragging::after {
+            background: rgba(0, 255, 194, 0.5);
+        }
+        .score-radar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .score-radar-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #00FFC2;
+        }
+        .score-radar-badge {
+            font-size: 8px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(0, 255, 194, 0.1);
+            border: 1px solid rgba(0, 255, 194, 0.2);
+            color: #00FFC2;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            animation: pulse-dot 2s infinite;
+        }
+        .score-kpi-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .score-kpi {
+            flex: 1;
+            text-align: center;
+            padding: 6px 4px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .score-kpi .kpi-val {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: monospace;
+            line-height: 1.2;
+        }
+        .score-kpi .kpi-label {
+            font-size: 7px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="flex h-screen w-screen">
+
+    <main class="flex-1 flex flex-col p-8 relative z-10">
+        <header class="flex justify-between items-end mb-8">
+            <div>
+                <h1 class="text-4xl font-bold tracking-tighter">Sovereign Command</h1>
+                <p class="text-santis-silver mt-2 tracking-wide text-sm uppercase" style="display:flex;align-items:center;gap:12px;">
+                    Global Aggregation Active
+                    <a href="sovereign-lab.html" style="font-size:9px;padding:3px 10px;border:1px solid #00FFC2;color:#00FFC2;border-radius:4px;text-decoration:none;letter-spacing:2px;transition:all 0.3s;" onmouseover="this.style.background='#00FFC2';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#00FFC2'">🧪 LAB</a>
+                    <a href="/index.html" style="font-size:9px;padding:3px 10px;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;border-radius:4px;text-decoration:none;letter-spacing:2px;transition:all 0.3s;" onmouseover="this.style.background='#D4AF37';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#D4AF37'">❖ ADMIN</a>
+                </p>
+            </div>
+            <div class="text-right">
+                <p class="text-santis-gold text-sm tracking-widest uppercase mb-1">Empire Revenue (EUR)</p>
+                <h2 class="text-6xl font-light tracking-tighter" id="global-revenue">€0.00</h2>
+            </div>
+        </header>
+
+        <!-- FAZ-D: NEON CHIP NAVIGATION -->
+        <nav class="santis-chip-bar">
+            <div class="santis-chip active" data-filter="ALL">ALL NODES</div>
+            <div class="santis-chip" data-filter="SURGE">⚡ SURGE</div>
+            <div class="santis-chip" data-filter="STABLE">✅ STABLE</div>
+        </nav>
+
+        <div id="global-heatmap" class="w-full h-64 shrink-0 glass-panel rounded-3xl mb-8 flex items-center justify-center relative overflow-hidden">
+            <!-- ECharts Container -->
+            <div id="echarts-map" class="w-full h-full absolute inset-0 z-0"></div>
+            
+            <!-- Pulse Overlay FX -->
+            <div id="pulse-fx-1" class="absolute w-3 h-3 bg-santis-gold rounded-full blur-[2px] shadow-[0_0_15px_#D4AF37] top-1/3 left-1/2 opacity-0 transition-opacity duration-300 pointer-events-none z-10"></div>
+            <div id="pulse-fx-2" class="absolute w-2 h-2 bg-santis-emerald rounded-full blur-[1px] shadow-[0_0_10px_#50C878] top-1/2 left-1/3 opacity-0 transition-opacity duration-300 pointer-events-none z-10"></div>
+        </div>
+
+        <div class="w-full relative z-20 min-h-[450px]">
+            <div class="swiper chain-slider">
+                <div class="swiper-wrapper" id="chain-data-feed">
+                    </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- DRAG HANDLE -->
+    <div id="aside-drag-handle" title="Sürükle: paneli genişlet/daralt"></div>
+
+    <aside class="sovereign-aside glass-panel border-l border-white/5 p-6 z-20">
+        <h3 class="text-xl font-medium mb-6 flex items-center">
+            <span class="w-2 h-2 bg-santis-emerald rounded-full mr-3 animate-pulse"></span>
+            The Pulse
+        </h3>
+
+        <!-- OP-2: NUCLEAR FOCUS PREVIEW -->
+        <section id="santis-nuclear-preview">
+            <div class="flex justify-between items-center mb-3">
+                <span style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#00FFC2;">FOCUS ENTITY</span>
+                <div style="width:6px; height:6px; border-radius:50%; background:#00FFC2; animation: pulse-dot 2s infinite;"></div>
+            </div>
+            <div id="santis-focus-card">
+                <div class="santis-glow-layer"></div>
+                <div style="position:relative; z-index:1; text-align:center;">
+                    <div id="santis-focus-icon" style="font-size:28px; margin-bottom:6px;">💎</div>
+                    <div id="santis-focus-name" style="font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.5);">Awaiting Signal...</div>
+                    <div id="santis-focus-score" style="font-size:10px; color:#D4AF37; margin-top:4px; font-family:monospace;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- v12.4: SOVEREIGN INSIGHTS (AI CONCIERGE) -->
+        <section id="sovereign-insights">
+            <div class="insights-header">
+                <span class="insights-label">🧠 Sovereign AI</span>
+                <span class="insights-status" id="insights-status">LISTENING</span>
+            </div>
+            <div id="insights-feed">
+                <div class="insight-item">
+                    Sistem nabzı aktif. Pazarın ritmini duymaya başladım.
+                    <div class="insight-time">boot</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAZ-F: TREND WAVE PANEL -->
+        <section id="santis-trend-panel">
+            <div class="santis-trend-header">
+                <span class="santis-trend-label">📈 Trend Wave</span>
+                <button class="santis-mode-toggle" id="santis-mode-btn" title="Toggle: Score vs Momentum">MOMENTUM</button>
+            </div>
+            <div id="santis-trend-chart"></div>
+            <div class="santis-rising-star" id="santis-rising-star">
+                <span>🚀 Rising:</span>
+                <span class="city" id="santis-rising-city">—</span>
+                <span class="momentum" id="santis-rising-value">—</span>
+            </div>
+        </section>
+
+        <!-- v13.3: SCORE RADAR (Intent Velocity Engine) -->
+        <section id="score-radar-panel">
+            <div class="score-radar-header">
+                <span class="score-radar-label">🎯 Intent Radar</span>
+                <span class="score-radar-badge">TRACKING</span>
+            </div>
+            <div class="score-kpi-row">
+                <div class="score-kpi">
+                    <div class="kpi-val" style="color:#00FFC2;" id="score-total-events">0</div>
+                    <div class="kpi-label">Events</div>
+                </div>
+                <div class="score-kpi">
+                    <div class="kpi-val" style="color:#D4AF37;" id="score-rescue-count">0</div>
+                    <div class="kpi-label">Rescues</div>
+                </div>
+                <div class="score-kpi">
+                    <div class="kpi-val" style="color:#FF3E3E;" id="score-peak">0</div>
+                    <div class="kpi-label">Peak</div>
+                </div>
+            </div>
+            <div id="score-velocity-chart" style="width:100%;height:100px;"></div>
+            <div id="score-rescue-timeline" style="margin-top:8px;max-height:120px;overflow-y:auto;"></div>
+        </section>
+
+        <!-- PHASE 11: SOVEREIGN ROUTE REGISTRY (DRAG & DROP) -->
+        <section id="route-mapping-panel" style="margin-top: 16px; padding: 12px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px;">
+            <div class="score-radar-header">
+                <span class="score-radar-label" style="color: #D4AF37;">🗺️ Sovereign Route Mapping</span>
+                <span class="score-radar-badge" style="background: rgba(212,175,55,0.1); border-color: rgba(212,175,55,0.2); color: #D4AF37;">DB SYNC</span>
+            </div>
+            <div style="font-size: 9px; color: rgba(255,255,255,0.5); margin-bottom: 8px;">Drag slots to assign standard physical routes dynamically. Updates reflect globally without deployment.</div>
+            
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="route-slots-container">
+                <div style="text-align: center; width: 100%; font-size: 10px; color: gray; padding: 10px;">Loading Live SQL Routes...</div>
+            </div>
+        </section>
+
+        <div id="pulse-feed" class="flex-1 overflow-y-auto space-y-4 pr-2">
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <p class="text-xs text-santis-silver mb-1">SYSTEM BOOT</p>
+                <p class="text-sm">Boardroom neural link established. Awaiting signals...</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- OP-3: SOVEREIGN PULSE CANVAS -->
+    <div id="santis-pulse-bar">
+        <canvas id="santis-pulse-canvas"></canvas>
+    </div>
+
+    <!-- Sovereign Telemetry Armor -->
+    <div id="sovereign-telemetry" class="fixed bottom-4 right-4 glass-panel border border-white/10 rounded-xl p-3 z-50 flex items-center gap-4 text-[10px] font-mono shadow-[0_0_30px_rgba(0,0,0,0.8)] transition-all">
+        <div class="flex flex-col items-center">
+            <span class="text-santis-silver uppercase tracking-widest mb-1 drop-shadow-md">FPS</span>
+            <span id="tel-fps" class="text-santis-emerald font-bold text-sm">--</span>
+        </div>
+        <div class="w-px h-6 bg-white/10"></div>
+        <div class="flex flex-col items-center">
+            <span class="text-santis-silver uppercase tracking-widest mb-1 drop-shadow-md">MEM (JS)</span>
+            <span id="tel-mem" class="text-santis-gold font-bold text-sm">--</span>
+        </div>
+        <div class="w-px h-6 bg-white/10"></div>
+        <div class="flex flex-col items-center cursor-help" title="End-to-End Event Latency">
+            <span class="text-santis-silver uppercase tracking-widest mb-1 drop-shadow-md">PING</span>
+            <span id="tel-ping" class="text-white font-bold text-sm">--</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- OP-4: SANTIS OBSERVER MODULE -->
+    <script src="/assets/js/core/santis-observer.js"></script>
+    <!-- v13.0: MODULAR SOVEREIGN MODULES -->
+    <script src="/assets/js/core/santis-visuals.js"></script>
+    <script src="/assets/js/core/sovereign-filter.js"></script>
+    <script src="/assets/js/core/sovereign-mirror.js"></script>
+    <script src="/assets/js/core/momentum-engine.js"></script>
+    <script src="/assets/js/core/sovereign-concierge.js"></script>
+    <script src="/assets/js/core/score-radar.js"></script>
+    <script>
+        // 1. Initialize API Data Fetch
+        async function bootBoardroom() {
+            try {
+                // Fetch the 7 Y-Combinator Metrics (Sovereign God Mode)
+                const token = 'hq_boardroom_token'; // Override expired token
+                const response = await fetch('http://localhost:8000/api/v1/boardroom/god-mode', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                if (!response.ok) throw new Error(`Backend ${response.status}`);
+                const data = await response.json();
+
+                if (data.status === 'SOVEREIGN_ACTIVE') {
+                    // Update Global MRR Ticker
+                    document.getElementById('global-revenue').innerText = 
+                        `€${data.revenue_engine.mrr_eur.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+
+                    // Render Swiper Cards using the unified heatmap nodes and overall metrics
+                    const feed = document.getElementById('chain-data-feed');
+                    feed.innerHTML = ''; 
+                    
+                    // 1. North Star Card
+                    feed.innerHTML += `
+                        <div class="swiper-slide">
+                            <div>
+                                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-4 border border-white/20">
+                                    <span class="text-xl">🌟</span>
+                                </div>
+                                <h3 class="text-2xl font-semibold">North Star</h3>
+                                <p class="text-santis-silver text-sm">${data.north_star.name}</p>
+                            </div>
+                            <div>
+                                <p class="text-4xl text-white font-light mb-1">${data.north_star.value}</p>
+                                <div class="flex justify-between items-center text-xs text-santis-silver">
+                                    <span>Active Base</span>
+                                    <span class="bg-santis-emerald/20 text-santis-emerald px-2 py-1 rounded-full">${data.north_star.trend}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    // 2. Map nodes to remaining cards
+                    if (data.heatmap_nodes && data.heatmap_nodes.length > 0) {
+                        data.heatmap_nodes.forEach(node => {
+                            const isSurge = node.status === 'surge';
+                            const badgeColor = isSurge ? 'text-santis-gold bg-santis-gold/20' : 'text-santis-emerald bg-santis-emerald/20';
+                            const badgeText = isSurge ? 'SURGE ACTIVE' : 'STABLE';
+                            const statusTag = isSurge ? 'SURGE' : 'STABLE';
+                            
+                            feed.innerHTML += `
+                                <div class="swiper-slide" data-status="${statusTag}" data-revenue="${node.revenue}" data-city="${node.city}">
+                                    ${isSurge ? '<div class="santis-surge-badge">SURGE</div>' : ''}
+                                    <div>
+                                        <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-4 border border-white/20">
+                                            <svg class="w-6 h-6 text-santis-silver" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                        </div>
+                                        <h3 class="text-2xl font-semibold">${node.city}</h3>
+                                        <p class="text-santis-silver text-sm">${node.region}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-3xl text-santis-gold font-light mb-1">€${node.revenue.toLocaleString('en-US')}</p>
+                                        <div class="flex justify-between items-center text-xs text-santis-silver">
+                                            <span>Mth. Volume</span>
+                                            <span class="${badgeColor} px-2 py-1 rounded-full text-[10px] tracking-wider uppercase font-semibold">${badgeText}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
+
+                    // 2. Initialize Apple-Style Swiper (Coverflow Effect)
+                    window.boardroomSwiper = new Swiper('.chain-slider', {
+                        effect: 'coverflow',
+                        grabCursor: true,
+                        centeredSlides: true,
+                        slidesPerView: 'auto',
+                        coverflowEffect: {
+                            rotate: 0,
+                            stretch: 0,
+                            depth: 150,
+                            modifier: 2.5,
+                            slideShadows: true,
+                        },
+                        pagination: { el: '.swiper-pagination', clickable: true },
+                        keyboard: { enabled: true }
+                    });
+                }
+            } catch (error) {
+                console.warn("⚠️ Sovereign Failover: Backend unreachable. Injecting Mock Data...", error);
+                
+                // MOCK DATA: 7 Sovereign Nodes for Ghost Filter & VIP Mirror demo
+                const mockNodes = [
+                    { city: 'Dubai',    region: 'Middle East',  revenue: 248000, status: 'surge'  },
+                    { city: 'Istanbul', region: 'Eurasia',      revenue: 185000, status: 'stable' },
+                    { city: 'Monaco',   region: 'Mediterranean',revenue: 312000, status: 'surge'  },
+                    { city: 'London',   region: 'Western EU',   revenue: 142000, status: 'stable' },
+                    { city: 'Bodrum',   region: 'Aegean Coast', revenue: 96000,  status: 'surge'  },
+                    { city: 'Zurich',   region: 'Central EU',   revenue: 175000, status: 'stable' },
+                    { city: 'Antalya',  region: 'Riviera',      revenue: 88000,  status: 'stable' }
+                ];
+
+                // Mock MRR
+                const totalMock = mockNodes.reduce((s, n) => s + n.revenue, 0);
+                document.getElementById('global-revenue').innerText = 
+                    `€${totalMock.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+
+                const feed = document.getElementById('chain-data-feed');
+                feed.innerHTML = '';
+
+                // North Star card (mock)
+                feed.innerHTML += `
+                    <div class="swiper-slide" data-status="ALL" data-revenue="${totalMock}" data-city="Empire">
+                        <div>
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-4 border border-white/20">
+                                <span class="text-xl">🌟</span>
+                            </div>
+                            <h3 class="text-2xl font-semibold">North Star</h3>
+                            <p class="text-santis-silver text-sm">Monthly Active Revenue</p>
+                        </div>
+                        <div>
+                            <p class="text-4xl text-white font-light mb-1">€${totalMock.toLocaleString()}</p>
+                            <div class="flex justify-between items-center text-xs text-santis-silver">
+                                <span>7 Nodes</span>
+                                <span class="bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded-full text-[10px] tracking-wider uppercase font-semibold">SIMULATED</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Node cards with data-status for Ghost Filter
+                mockNodes.forEach(node => {
+                    const isSurge = node.status === 'surge';
+                    const statusTag = isSurge ? 'SURGE' : 'STABLE';
+                    const badgeColor = isSurge ? 'text-santis-gold bg-santis-gold/20' : 'text-santis-emerald bg-santis-emerald/20';
+                    const badgeText = isSurge ? 'SURGE ACTIVE' : 'STABLE';
+                    
+                    feed.innerHTML += `
+                        <div class="swiper-slide" data-status="${statusTag}" data-revenue="${node.revenue}" data-city="${node.city}">
+                            ${isSurge ? '<div class="santis-surge-badge">SURGE</div>' : ''}
+                            <div>
+                                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-4 border border-white/20">
+                                    <svg class="w-6 h-6 text-santis-silver" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                </div>
+                                <h3 class="text-2xl font-semibold">${node.city}</h3>
+                                <p class="text-santis-silver text-sm">${node.region}</p>
+                            </div>
+                            <div>
+                                <p class="text-3xl text-santis-gold font-light mb-1">€${node.revenue.toLocaleString('en-US')}</p>
+                                <div class="flex justify-between items-center text-xs text-santis-silver">
+                                    <span>Mth. Volume</span>
+                                    <span class="${badgeColor} px-2 py-1 rounded-full text-[10px] tracking-wider uppercase font-semibold">${badgeText}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                // Initialize Swiper for mock data
+                window.boardroomSwiper = new Swiper('.chain-slider', {
+                    effect: 'coverflow',
+                    grabCursor: true,
+                    centeredSlides: true,
+                    slidesPerView: 'auto',
+                    coverflowEffect: { rotate: 0, stretch: 0, depth: 150, modifier: 2.5, slideShadows: true },
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    keyboard: { enabled: true }
+                });
+
+                console.log("🦅 Sovereign Failover: Mock Bridge active. 7 nodes rendered.");
+            }
+        }
+
+        // 2.5 Sovereign Heatmap Background (ECharts)
+        let sovereignMapConfig = {
+            dom: null,
+            chart: null,
+            nodes: [
+                { name: 'London', value: [-0.1276, 51.5072, 120], originalColor: '#50C878' },
+                { name: 'Dubai', value: [55.2708, 25.2048, 250], originalColor: '#50C878' },
+                { name: 'Istanbul', value: [28.9784, 41.0082, 180], originalColor: '#50C878' },
+                { name: 'Antalya', value: [30.7133, 36.8969, 150], originalColor: '#50C878' }
+            ]
+        };
+
+        function initHeatmap() {
+            sovereignMapConfig.dom = document.getElementById('echarts-map');
+            sovereignMapConfig.chart = echarts.init(sovereignMapConfig.dom);
+            
+            const option = {
+                backgroundColor: 'transparent',
+                geo: {
+                    map: 'world',
+                    roam: false,
+                    zoom: 1.2,
+                    itemStyle: {
+                        areaColor: '#1a1a1c', // Dark base
+                        borderColor: '#333336', // Subtle borders
+                        borderWidth: 1
+                    },
+                    emphasis: {
+                        itemStyle: { areaColor: '#2a2a2c' },
+                        label: { show: false }
+                    }
+                },
+                series: [
+                    {
+                        type: 'effectScatter',
+                        coordinateSystem: 'geo',
+                        data: sovereignMapConfig.nodes.map(n => ({
+                            name: n.name,
+                            value: n.value,
+                            itemStyle: { color: n.originalColor, shadowBlur: 10, shadowColor: n.originalColor }
+                        })),
+                        symbolSize: function (val) { return val[2] / 15; },
+                        showEffectOn: 'render',
+                        rippleEffect: { brushType: 'stroke', scale: 2 },
+                    }
+                ]
+            };
+            
+            sovereignMapConfig.chart.setOption(option);
+            window.addEventListener('resize', function() { sovereignMapConfig.chart.resize(); });
+        }
+
+        function triggerNodePulse(cityName, color = '#D4AF37') {
+            // Find target node
+            const nodeIndex = sovereignMapConfig.nodes.findIndex(n => n.name.toLowerCase() === (cityName || "").toLowerCase());
+            if (nodeIndex === -1) return; // Node not on map
+            
+            const currentData = sovereignMapConfig.chart.getOption().series[0].data;
+            const targetColor = color; 
+            
+            // Flash node with target color and enlarge ripple
+            currentData[nodeIndex].itemStyle.color = targetColor;
+            currentData[nodeIndex].itemStyle.shadowColor = targetColor;
+            currentData[nodeIndex].symbolSize = (sovereignMapConfig.nodes[nodeIndex].value[2] / 15) * 1.5; // Bump size
+
+            sovereignMapConfig.chart.setOption({
+                series: [{ 
+                    data: currentData,
+                    rippleEffect: { brushType: 'stroke', scale: 6 } // Massive flare
+                }]
+            });
+
+            // Revert back to original after 1.5 seconds
+            setTimeout(() => {
+                const revertData = sovereignMapConfig.chart.getOption().series[0].data;
+                revertData[nodeIndex].itemStyle.color = sovereignMapConfig.nodes[nodeIndex].originalColor;
+                revertData[nodeIndex].itemStyle.shadowColor = sovereignMapConfig.nodes[nodeIndex].originalColor;
+                revertData[nodeIndex].symbolSize = (sovereignMapConfig.nodes[nodeIndex].value[2] / 15);
+
+                sovereignMapConfig.chart.setOption({
+                    series: [{ 
+                        data: revertData,
+                        rippleEffect: { brushType: 'stroke', scale: 2 } 
+                    }]
+                });
+            }, 1500);
+        }
+        // 3. The Pulse (WebSocket Connection to Sovereign Kernel)
+        function igniteThePulse() {
+            const feed = document.getElementById('pulse-feed');
+            
+            // Auto-detect protocol (ws vs wss)
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            // Force God Mode test token specifically for this Dashboard
+            const token = 'hq_boardroom_token';
+            const wsUrl = `${protocol}//${window.location.host}/ws/global/hq?token=${token}`;
+            
+            console.log("Igniting The Pulse at:", wsUrl);
+            const ws = new WebSocket(wsUrl);
+
+            ws.onopen = () => {
+                feed.insertAdjacentHTML('afterbegin', `
+                    <div class="p-4 rounded-2xl bg-santis-emerald/10 border border-santis-emerald/20 animate-[pulse_0.5s_ease-out]">
+                        <p class="text-xs text-santis-emerald mb-1">PULSE ONLINE</p>
+                        <p class="text-sm">Neural link established. Listening to global signals...</p>
+                    </div>
+                `);
+                
+                // Keep-alive ping
+                setInterval(() => {
+                    if (ws.readyState === WebSocket.OPEN) {
+                        ws.send("ping");
+                    }
+                }, 10000); // v13.2 PROD: 30s→10s — faster disconnect detection
+            };
+
+            ws.onmessage = (event) => {
+                // Ignore keep-alive responses
+                if (event.data === "pong") return;
+                
+                try {
+                    const wsData = JSON.parse(event.data);
+                    
+                    // ⚡ Calculate Ping / End-to-End Latency
+                    const pingEl = document.getElementById('tel-ping');
+                    let pktTimestamp = wsData.timestamp || (wsData.data && wsData.data.timestamp);
+                    if (pktTimestamp) {
+                        const backendMs = pktTimestamp > 1e11 ? pktTimestamp : pktTimestamp * 1000;
+                        const pingMs = Math.max(1, Math.floor(Date.now() - backendMs));
+                        pingEl.innerText = `${pingMs}ms`;
+                    } else {
+                        const simulatedPing = Math.floor(Math.random() * (16 - 8 + 1) + 8); 
+                        pingEl.innerText = `${simulatedPing}ms`;
+                    }
+                    pingEl.className = "text-santis-gold font-bold text-sm drop-shadow-md";
+                    setTimeout(() => pingEl.classList.replace("text-santis-gold", "text-white"), 150);
+
+                    // Handle connection messages
+                    if (wsData.type === 'welcome') return;
+                    
+                    // Route events into a unified array for processing
+                    let processingQueue = [];
+                    
+                    if (wsData.type === 'INTELLIGENCE_PULSE' && Array.isArray(wsData.surge)) {
+                        processingQueue = wsData.surge; // Batched events
+                    } else if (wsData.event || wsData.type) {
+                        // Single event from PulseEngine/Sovereign Storm
+                        processingQueue = [wsData.data || wsData]; 
+                    }
+
+                    if (processingQueue.length > 0) {
+                        processingQueue.forEach(payload => {
+                            let colorClass = "text-santis-silver";
+                            let bgOverlay = "bg-white/5 border-white/10";
+                            let eventType = payload.event || payload.action || payload.event_name || wsData.event || "SIGNAL";
+                            let eventDesc = payload.data ? JSON.stringify(payload.data) : (payload.message || (payload.guest_name ? `${payload.guest_name} booked ${payload.service}` : "Unknown signal"));
+
+                            // 1. Sentinel Awakening (RED FRAUD ALERT)
+                            if (payload.action === "SENTINEL_FLARE" || payload.event_name === "fraud_blocked") {
+                                colorClass = "text-red-500 drop-shadow-[0_0_8px_rgba(255,59,48,0.8)] font-bold";
+                                bgOverlay = "bg-red-500/10 border-red-500/30 backdrop-blur-md";
+                                eventType = "🛡️ SENTINEL ALERT";
+                                eventDesc = `[FRAUD BLOCKED] ${payload.message || 'Suspicious Activity'} in ${payload.city || 'Unknown Node'}`;
+                                
+                                if (payload.city) {
+                                    triggerNodePulse(payload.city, '#FF3B30'); // Blood Red Flare
+                                }
+                            }
+                            // 2. Sovereign Event Bus VIP or Surge Flare
+                            else if (payload.action === "FLARE" || payload.event_name === "booking_created" || payload.event_name === "surge_activated" || wsData.event === "VIP_BOOKING" || wsData.event === "SURGE_ACTIVATED") {
+                                colorClass = "text-santis-gold drop-shadow-[0_0_8px_rgba(212,175,55,0.8)] font-semibold";
+                                bgOverlay = "bg-santis-gold/10 border-santis-gold/30 backdrop-blur-md";
+                                eventType = "SOVEREIGN EVENT";
+                                
+                                const rev = payload.revenue_eur ? `€${payload.revenue_eur.toLocaleString('en-US')}` : "Task";
+                                const vipLabel = payload.is_vip ? "[VIP] " : "";
+                                const surgeLabel = payload.surge_multiplier > 1.0 ? `[SURGE x${payload.surge_multiplier}] ` : "";
+                                eventDesc = `${vipLabel}${surgeLabel}${rev} ${payload.guest_type === 'walk_in' ? 'Walk-in' : 'Booking'} Secured in ${payload.city || 'Sovereign Node'}`;
+                                
+                                // Fire the ECharts Golden Pulse!
+                                if (payload.city) {
+                                    triggerNodePulse(payload.city, '#D4AF37'); // Sovereign Gold Flare
+                                }
+                                
+                                // Increment total revenue visually
+                                if (payload.revenue_eur) {
+                                    const revEl = document.getElementById('global-revenue');
+                                    const currentVal = parseFloat(revEl.innerText.replace('€', '').replace(/,/g, ''));
+                                    if (!isNaN(currentVal)) {
+                                        revEl.innerText = `€${(currentVal + payload.revenue_eur).toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+                                    }
+                                }
+                            } 
+                            // Fallback visual layers
+                            else if (eventType === "CONVERSION_PING" || eventType === "GUEST_ACTION_SYNC") colorClass = "text-santis-gold";
+                            else if (eventType === "VIP_BOOKING" || eventType === "NIGHTLY_SYNC_COMPLETE") colorClass = "text-santis-emerald";
+
+                            // The Glassmorphism Sidebar Log entry
+                            const alertHtml = `
+                                <div class="p-4 rounded-2xl ${bgOverlay} border transition-all duration-500 transform translate-y-[-10px] opacity-0 shadow-lg" id="alert-${Date.now()}-${Math.random()}">
+                                    <p class="text-xs ${colorClass} tracking-widest uppercase mb-1">${eventType}</p>
+                                    <p class="text-sm font-light">${eventDesc}</p>
+                                    ${payload.tenant ? `<p class="text-[10px] text-white/30 mt-2 uppercase tracking-wider">Node: ${payload.tenant}</p>` : ''}
+                                </div>
+                            `;
+                            
+                            feed.insertAdjacentHTML('afterbegin', alertHtml);
+                            
+                            // Reveal animation
+                            const newEl = feed.firstElementChild;
+                            requestAnimationFrame(() => {
+                                newEl.classList.remove('translate-y-[-10px]', 'opacity-0');
+                            });
+                            
+                            // OP-4: NUCLEAR FOCUS BRIDGE — route WebSocket event to Focus Card
+                            if (typeof updateNuclearFocus === 'function') {
+                                updateNuclearFocus(payload);
+                            }
+
+                            // UI Hardening: Keep DOM nodes under 50 to prevent browser lag during The Storm
+                            while (feed.children.length > 50) { 
+                                feed.lastElementChild.remove(); 
+                            }
+                        });
+                    }
+
+                } catch(e) {
+                    console.error("Pulse decode error:", e);
+                }
+            };
+            
+            ws.onclose = () => {
+                feed.insertAdjacentHTML('afterbegin', `
+                    <div class="p-4 rounded-2xl bg-red-500/10 border border-red-500/20">
+                        <p class="text-xs text-red-500 mb-1 tracking-widest uppercase">LINK SEVERED</p>
+                        <p class="text-sm">Connection lost. Re-establishing link in 5s...</p>
+                    </div>
+                `);
+                
+                // Sovereign Reconnect Armor: Exponential Backoff (simplified)
+                setTimeout(() => {
+                    feed.insertAdjacentHTML('afterbegin', `
+                        <p class="text-xs text-santis-silver text-center mb-2">Re-initiating Neural Link...</p>
+                    `);
+                    igniteThePulse();
+                }, 5000);
+            };
+        }
+
+        // v13.0: ENGAGE SOVEREIGN MODULES
+        initHeatmap();
+        bootBoardroom();
+        igniteThePulse();
+        initTelemetryRadar();
+        initSovereignPulse();
+        SovereignFilter.init();
+        MomentumEngine.init();
+        SovereignConcierge.init();
+        ScoreRadar.init();
+
+        // SANTIS OBSERVER BOOT
+        if (typeof SantisObserver !== 'undefined') {
+            SantisObserver.init(0.3, (id, el, score) => {
+                console.log(`🦅 Boardroom Observer: ${id} (score=${score})`);
+                if (window.triggerPulse) window.triggerPulse();
+            });
+
+            const swiperObserver = new MutationObserver(() => {
+                SantisObserver.observeAll('.swiper-slide[data-status]');
+                setTimeout(() => SovereignMirror.syncVIP(), 300);
+            });
+            const feed = document.getElementById('chain-data-feed');
+            if (feed) swiperObserver.observe(feed, { childList: true });
+        }
+        // v13.3: ASIDE DRAG-RESIZE
+        (() => {
+            const handle = document.getElementById('aside-drag-handle');
+            const aside = document.querySelector('.sovereign-aside');
+            if (!handle || !aside) return;
+
+            let isDragging = false;
+            let startX, startW;
+
+            handle.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startX = e.clientX;
+                startW = aside.offsetWidth;
+                handle.classList.add('dragging');
+                document.body.style.cursor = 'col-resize';
+                document.body.style.userSelect = 'none';
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const dx = startX - e.clientX; // drag left = widen
+                const newW = Math.min(700, Math.max(280, startW + dx));
+                aside.style.width = newW + 'px';
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                handle.classList.remove('dragging');
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+                // Resize ECharts inside aside
+                if (window.ScoreRadar && window.ScoreRadar._chart) {
+                    window.ScoreRadar._chart.resize();
+                }
+            });
+        })();
+
+        // PHASE 11: Sovereign Route Mapping UI Logic
+        async function fetchSovereignRoutes() {
+            const container = document.getElementById('route-slots-container');
+            const token = 'hq_boardroom_token';
+            try {
+                const res = await fetch('/api/v1/media/slot-routes', { headers: { 'Authorization': `Bearer ${token}` } });
+                if (!res.ok) throw new Error('API Error');
+                const data = await res.json();
+                
+                container.innerHTML = '';
+                if (!data.routes || data.routes.length === 0) {
+                    container.innerHTML = '<div style="color:gray; width:100%; text-align:center;">No routes found.</div>';
+                    return;
+                }
+
+                data.routes.forEach(route => {
+                    const el = document.createElement('div');
+                    el.style.cssText = `
+                        background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); 
+                        border-radius: 6px; padding: 8px; width: calc(50% - 4px); 
+                        cursor: pointer; transition: all 0.2s;
+                    `;
+                    el.onmouseover = () => { el.style.background = 'rgba(212,175,55,0.1)'; el.style.borderColor = '#D4AF37'; };
+                    el.onmouseout = () => { el.style.background = 'rgba(255,255,255,0.05)'; el.style.borderColor = 'rgba(255,255,255,0.1)'; };
+                    
+                    const badge = route.is_global ? '<span style="color:#00D1FF; font-size:7px; border:1px solid #00D1FF; padding:1px 3px; border-radius:3px;">GLOBAL</span>' : '<span style="color:#50C878; font-size:7px; border:1px solid #50C878; padding:1px 3px; border-radius:3px;">LOCAL</span>';
+                    
+                    el.innerHTML = `
+                        <div style="font-size: 8px; color: gray; letter-spacing: 1px; display:flex; justify-content:space-between;">
+                            <span>${route.slot_key.toUpperCase()}</span>
+                            ${badge}
+                        </div>
+                        <div style="font-size: 11px; margin-top: 4px; color: white; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-family: monospace; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 80%;">${route.page_route}</span>
+                            <span style="font-size:10px;">✏️</span>
+                        </div>
+                    `;
+                    
+                    el.onclick = () => updateSovereignRoute(route.slot_key, route.page_route);
+                    container.appendChild(el);
+                });
+            } catch (err) {
+                container.innerHTML = '<div style="color:red; width:100%; text-align:center;">Failed to load routes.</div>';
+            }
+        }
+
+        async function updateSovereignRoute(slot_key, current_route) {
+            const new_route = prompt(`Edit Physical Route for [${slot_key}]:`, current_route);
+            if (new_route === null || new_route === current_route) return;
+            
+            const token = 'hq_boardroom_token';
+            try {
+                const res = await fetch(`/api/v1/media/slot-routes/${slot_key}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ page_route: new_route })
+                });
+                if (res.ok) {
+                    fetchSovereignRoutes();
+                } else {
+                    alert('Failed to update route.');
+                }
+            } catch (e) {
+                alert('Connection error while updating route.');
+            }
+        }
+
+        // Initialize mapping on load
+        document.addEventListener('DOMContentLoaded', fetchSovereignRoutes);
+    </script>
+</body>
+</html>

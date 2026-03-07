@@ -446,7 +446,7 @@
 
 
 
-    transition: all var(--duration-fast) var(--ease-luxury);
+    transition: transform var(--duration-fast) var(--ease-luxury), opacity var(--duration-fast) var(--ease-luxury), color var(--duration-fast) var(--ease-luxury), background-color var(--duration-fast) var(--ease-luxury), border-color var(--duration-fast) var(--ease-luxury), box-shadow var(--duration-fast) var(--ease-luxury);
 
 }
 
@@ -750,7 +750,7 @@
 
     cursor: pointer;
 
-    transition: all var(--duration-fast) var(--ease-luxury);
+    transition: transform var(--duration-fast) var(--ease-luxury), opacity var(--duration-fast) var(--ease-luxury), color var(--duration-fast) var(--ease-luxury), background-color var(--duration-fast) var(--ease-luxury), border-color var(--duration-fast) var(--ease-luxury), box-shadow var(--duration-fast) var(--ease-luxury);
 
 }
 
@@ -1098,7 +1098,7 @@
 
 
 
-    transition: all var(--duration-fast) var(--ease-bounce);
+    transition: transform var(--duration-fast) var(--ease-bounce), opacity var(--duration-fast) var(--ease-bounce), color var(--duration-fast) var(--ease-bounce), background-color var(--duration-fast) var(--ease-bounce), border-color var(--duration-fast) var(--ease-bounce), box-shadow var(--duration-fast) var(--ease-bounce);
 
     z-index: 10;
 
@@ -1192,7 +1192,7 @@
 
     cursor: pointer;
 
-    transition: all var(--duration-fast) var(--ease-luxury);
+    transition: transform var(--duration-fast) var(--ease-luxury), opacity var(--duration-fast) var(--ease-luxury), color var(--duration-fast) var(--ease-luxury), background-color var(--duration-fast) var(--ease-luxury), border-color var(--duration-fast) var(--ease-luxury), box-shadow var(--duration-fast) var(--ease-luxury);
 
 }
 

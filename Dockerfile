@@ -1,34 +1,58 @@
-FROM python:3.11-slim
+# SANTIS MASTER OS — Production Dockerfile
+# Multi-stage build: Builder + Runtime
 
-# Install system dependencies required for building Python packages
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpq-dev \
-    gcc \
+# ─── Stage 1: Builder ────────────────────────────────────────────────────────
+FROM python:3.11-slim AS builder
+
+WORKDIR /build
+
+# Sistem bağımlılıkları
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc libpq-dev curl \
     && rm -rf /var/lib/apt/lists/*
+
+# Python bağımlılıkları
+COPY requirements.txt .
+RUN pip install --upgrade pip && \
+    pip wheel --no-cache-dir --no-deps --wheel-dir /build/wheels -r requirements.txt
+
+# ─── Stage 2: Runtime ────────────────────────────────────────────────────────
+FROM python:3.11-slim AS runtime
+
+# Güvenlik: root olmayan kullanıcı
+RUN groupadd -r santis && useradd -r -g santis santis
 
 WORKDIR /app
 
-# Copy only the requirements first to cache the pip install step
-COPY requirements.txt .
+# Sistem bağımlılıkları (sadece runtime için)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Wheel'ları kopyala ve kur
+COPY --from=builder /build/wheels /wheels
+RUN pip install --no-cache-dir /wheels/* && rm -rf /wheels
 
-# Create a non-root user and group
-RUN groupadd -r appgroup && useradd -r -g appgroup appuser
+# Uygulama dosyalarını kopyala
+COPY --chown=santis:santis . .
 
-# Copy the rest of the application
-COPY . .
+# Logs klasörü
+RUN mkdir -p /app/logs && chown santis:santis /app/logs
 
-# Change ownership to the non-root user
-RUN chown -R appuser:appgroup /app
+# Kullanıcıya geç
+USER santis
 
-# Switch to the non-root user
-USER appuser
+# Healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" || exit 1
 
-# Expose the API port
+# Port
 EXPOSE 8000
 
-# Command to run the application using Uvicorn
-CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8000"]
+# Production start (--reload YOK, workers var)
+CMD ["uvicorn", "server:app", \
+    "--host", "0.0.0.0", \
+    "--port", "8000", \
+    "--workers", "4", \
+    "--proxy-headers", \
+    "--forwarded-allow-ips", "*"]

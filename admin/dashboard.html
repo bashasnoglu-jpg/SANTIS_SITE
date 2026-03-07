@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Master OS - Dark Pulse</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- ApexCharts -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #d1d5db;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+        .heading-font { font-family: 'Space Grotesk', sans-serif; }
+        
+        /* Gold Accent */
+        .text-santis-gold { color: #C9A96E; }
+        .bg-santis-gold { background-color: #C9A96E; }
+        .border-santis-gold { border-color: #C9A96E; }
+        
+        /* Grid Background Pattern */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        /* Pulse Stream Custom Scroll */
+        .pulse-stream::-webkit-scrollbar { width: 4px; }
+        .pulse-stream::-webkit-scrollbar-track { background: #111; }
+        .pulse-stream::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        .pulse-stream::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        .pulse-entry {
+            animation: slideIn 0.3s ease-out forwards;
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Glow effects */
+        .gold-glow { box-shadow: 0 0 15px rgba(201, 169, 110, 0.2); }
+        .surge-glow { box-shadow: 0 0 20px rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.5); }
+    </style>
+</head>
+<body class="h-screen w-screen flex flex-col bg-grid relative">
+    
+    <!-- HEADER -->
+    <header class="h-16 border-b border-gray-800 bg-black/80 backdrop-blur-md flex items-center justify-between px-6 z-10">
+        <div class="flex items-center gap-4">
+            <h1 class="heading-font text-xl font-bold tracking-widest text-white">SANTIS <span class="text-santis-gold font-normal text-sm ml-1">COMMAND CENTER</span></h1>
+            
+            <!-- Sovereign Health Pulse -->
+            <div class="px-3 py-1 bg-black border border-gray-800 rounded-lg text-[10px] text-gray-300 font-mono tracking-wide flex items-center gap-3 ml-4 shadow-[0_0_10px_rgba(0,255,255,0.05)]">
+                <div class="flex items-center gap-2">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                    </span>
+                    <span class="text-cyan-400">UPTIME: 100%</span>
+                </div>
+                <div class="h-3 w-px bg-gray-800"></div>
+                <div class="flex items-center gap-2">
+                    <span class="text-santis-gold">RPS: <span id="pulse-rps">0.0</span></span>
+                </div>
+                <div class="h-3 w-px bg-gray-800"></div>
+                <div class="flex items-center gap-2">
+                    <span class="text-green-500">LATENCY: <span id="pulse-latency">12ms</span></span>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center gap-4 text-xs font-mono text-gray-500">
+            <span id="clock" class="text-gray-400">00:00:00 UTC</span>
+            <div class="w-8 h-8 rounded-full border border-gray-700 flex items-center justify-center text-santis-gold pb-1 cursor-pointer hover:bg-gray-800 transition" onclick="window.location.href='/admin/index.html'">⎈</div>
+        </div>
+    </header>
+
+    <!-- MAIN DASHBOARD -->
+    <main class="flex-1 flex overflow-hidden p-6 gap-6 z-10 max-h-[calc(100vh-64px)]">
+        
+        <!-- LEFT WALL: The Pulse Stream (Intent Flow) -->
+        <section class="w-1/3 flex flex-col bg-black/60 border border-gray-800/60 rounded-xl overflow-hidden backdrop-blur-sm shadow-2xl">
+            <div class="p-4 border-b border-gray-800/50 flex justify-between items-center bg-gray-900/30">
+                <h2 class="text-xs font-semibold tracking-widest uppercase text-gray-400 flex items-center gap-2">
+                    <span class="text-santis-gold text-lg leading-none">⚡</span>
+                    The Pulse Stream
+                </h2>
+                <span class="text-[9px] text-gray-600 font-mono">Phase S / Phase N</span>
+            </div>
+            
+            <div id="pulse-feed" class="flex-1 overflow-y-auto pulse-stream p-4 space-y-3 font-mono text-[11px] leading-relaxed">
+                <!-- Data injected by JS -->
+                <div class="text-center text-gray-600 mt-10 animate-pulse">Awaiting neural signals...</div>
+            </div>
+        </section>
+
+        <!-- CENTER WALL: Intent Radar & Metrics -->
+        <section class="w-1/3 flex flex-col gap-6">
+            <!-- Confidence & Conversion Metrics -->
+            <div class="bg-black/60 border border-gray-800/60 rounded-xl p-5 backdrop-blur-sm gold-glow">
+                <h2 class="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">Santis AI Conversions</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-[10px] text-gray-500 font-mono uppercase">Flash Offers Rendered</p>
+                        <p class="text-3xl heading-font text-white font-light" id="stat-offers-made">0</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-gray-500 font-mono uppercase">Offers Claimed</p>
+                        <p class="text-3xl heading-font text-green-400 font-light" id="stat-offers-claimed">0</p>
+                    </div>
+                    <div class="col-span-2 pt-2 border-t border-gray-800/50 mt-2">
+                        <p class="text-[10px] text-gray-500 font-mono uppercase mb-1">AI Yield (Revenue Impact)</p>
+                        <p class="text-2xl font-bold font-mono text-santis-gold" id="stat-revenue">€0.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Radar Heatmap Simulator -->
+            <div class="flex-1 bg-black/60 border border-gray-800/60 rounded-xl p-5 backdrop-blur-sm flex flex-col relative overflow-hidden group">
+                <h2 class="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4 z-10 relative">Intent Radar (Heatmap)</h2>
+                
+                <div class="flex-1 relative bg-gray-900/40 rounded-lg border border-gray-800/50 overflow-hidden" id="radar-screen">
+                    <div class="absolute left-0 right-0 h-1 bg-emerald-500/20 top-0 shadow-[0_0_15px_rgba(16,185,129,0.5)] z-20" style="animation: scan 4s linear infinite;"></div>
+                    <div class="absolute inset-0 bg-grid opacity-20 pointer-events-none"></div>
+                    <div class="absolute inset-0 flex items-center justify-center text-gray-700 text-[10px] font-mono z-0 pointer-events-none">
+                        Awaiting coordinate injection...
+                    </div>
+                </div>
+            </div>
+
+            <!-- APEXCHARTS: The Revenue Momentum -->
+            <div class="bg-black/60 border border-gray-800/60 rounded-xl p-4 backdrop-blur-sm relative overflow-hidden h-48 w-full">
+                <h2 class="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-2 absolute z-10">Revenue Momentum</h2>
+                <!-- Chart Container -->
+                <div id="revenue-chart" class="w-full h-full -ml-3 -mb-3 mt-4"></div>
+            </div>
+
+            <!-- 🪐 PHASE 83: QUANTUM REFLEX & A/B ENGINE -->
+            <div class="bg-black/60 border border-indigo-900/40 hover:border-indigo-500/60 transition-all duration-500 rounded-xl p-5 backdrop-blur-sm shadow-[0_0_15px_rgba(79,70,229,0.1)] relative">
+                <div class="absolute inset-0 bg-gradient-to-r from-indigo-900/10 to-transparent pointer-events-none"></div>
+                <div class="flex justify-between items-center mb-4 relative z-10">
+                    <h2 class="text-xs font-semibold tracking-widest uppercase text-indigo-400">Quantum Reflex A/B (Phase 83)</h2>
+                    <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse shadow-[0_0_8px_rgba(99,102,241,0.6)]"></span>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 relative z-10">
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-mono uppercase mb-1">Aurelia Pre-Warm (Edge)</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl font-bold text-white font-mono" id="stat-edge-latency">12<span class="text-xs text-gray-500">ms</span></span>
+                            <span class="text-[9px] bg-green-900/30 text-green-400 px-1.5 py-0.5 rounded border border-green-500/30">Zero Latency</span>
+                        </div>
+                    </div>
+                     <div>
+                        <p class="text-[9px] text-gray-500 font-mono uppercase mb-1">Rescue Conv. (Score 100)</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl font-bold text-indigo-400 font-mono" id="stat-edge-winrate">42.8<span class="text-sm">%</span></span>
+                            <span class="text-[10px] text-gray-400 font-mono">Win Rate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-gray-800/60 relative z-10">
+                    <p class="text-[9px] text-gray-500 font-mono uppercase mb-2 text-center tracking-widest">A/B Phantom Injection Impact</p>
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-gray-400 font-mono">Control (Vanilla)</span>
+                        <span class="text-gray-500">— Base</span>
+                    </div>
+                    <div class="flex justify-between items-center text-xs mt-1">
+                        <span class="text-santis-gold font-mono font-bold">Variant (Sovereign Whisper)</span>
+                        <span class="text-green-400 font-bold" id="stat-edge-impact">+€4,250 <span class="text-[10px] text-gray-500">(24h)</span></span>
+                    </div>
+                </div>
+            </div>
+
+        <!-- RIGHT WALL: Kill Switch / Demand Multiplier / Intelligence -->
+        <section class="w-1/3 flex flex-col gap-6">
+            
+            <!-- Sealed Executive Reports -->
+            <div class="bg-black/80 border border-santis-gold/50 rounded-xl p-4 backdrop-blur-sm flex justify-between items-center group cursor-pointer hover:bg-santis-gold/10 transition-all shadow-[0_0_15px_rgba(201,169,110,0.15)] mb-3" onclick="openReport('/admin/reports/SANTIS_DISPATCH_MAR_01.md')">
+                <div class="flex items-center gap-3">
+                    <span class="text-santis-gold text-xl">📜</span>
+                    <div>
+                        <h3 class="text-xs font-semibold tracking-widest uppercase text-santis-gold">The Executive Dispatch</h3>
+                        <p class="text-[9px] text-gray-400 font-mono mt-0.5">Mühürlü Dosyalar • Updated 03:00</p>
+                    </div>
+                </div>
+                <div class="h-6 w-6 rounded-full bg-santis-gold/20 flex items-center justify-center text-santis-gold text-[10px] font-bold">1</div>
+            </div>
+
+            <!-- Deep Scan Audit Report -->
+            <div class="bg-black/80 border border-cyan-500/50 rounded-xl p-4 backdrop-blur-sm flex justify-between items-center group cursor-pointer hover:bg-cyan-900/10 transition-all shadow-[0_0_15px_rgba(34,211,238,0.15)]" onclick="openReport('/admin/reports/SANTIS_DEEP_SCAN_REPORT.md')">
+                <div class="flex items-center gap-3">
+                    <span class="text-cyan-400 text-xl">🔍</span>
+                    <div>
+                        <h3 class="text-xs font-semibold tracking-widest uppercase text-cyan-400">Deep Scan Audit</h3>
+                        <p class="text-[9px] text-gray-400 font-mono mt-0.5">System Health • Critical: 15</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- V22: The Oracle Pulse (Execute Action) -->
+            <div class="bg-black/40 border border-gray-800 rounded-xl p-4 flex justify-between items-center">
+                <div>
+                     <p class="text-[9px] text-gray-400 font-mono uppercase tracking-widest mb-1">Recommended Action</p>
+                     <p class="text-xs text-white">Demand Surge: +20% (Aromatherapy)</p>
+                </div>
+                <button onclick="executePowerMove('surge_aromatherapy', 'Aromatherapy', 1.2)" class="px-3 py-1.5 bg-santis-gold/10 hover:bg-santis-gold/20 border border-santis-gold/50 rounded text-[10px] text-santis-gold font-bold tracking-widest transition shadow-[0_0_10px_rgba(201,169,110,0.2)]">EXECUTE</button>
+            </div>
+            
+            <!-- Sovereign Intelligence (Mood Map & Intent Cloud) -->
+            <div class="bg-black/60 border border-gray-800/60 rounded-xl p-5 backdrop-blur-sm flex flex-col overflow-hidden relative group">
+                <div class="absolute inset-0 bg-gradient-to-b from-santis-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="flex justify-between items-center mb-4 relative z-10">
+                    <h2 class="text-xs font-semibold tracking-widest uppercase text-santis-gold">Sovereign Intelligence</h2>
+                    <span class="h-1.5 w-1.5 rounded-full bg-santis-gold shadow-[0_0_5px_#c9a96e] animate-ping"></span>
+                </div>
+                
+                <!-- Mood Map -->
+                <div class="mb-5 relative z-10">
+                   <div class="flex justify-between text-[9px] text-gray-500 font-mono uppercase mb-2">
+                       <span>Live Mood Matrix</span>
+                   </div>
+                   <!-- Visual bars -->
+                   <div class="flex gap-1 h-1.5 mt-1 opacity-80">
+                        <div class="flex-1 bg-gray-900 rounded-full overflow-hidden"><div id="bar-relaxed" class="bg-emerald-500 h-full w-0 transition-all duration-1000 shadow-[0_0_8px_#10b981]"></div></div>
+                        <div class="flex-1 bg-gray-900 rounded-full overflow-hidden"><div id="bar-exploring" class="bg-blue-500 h-full w-0 transition-all duration-1000 shadow-[0_0_8px_#3b82f6]"></div></div>
+                        <div class="flex-1 bg-gray-900 rounded-full overflow-hidden"><div id="bar-hesitant" class="bg-amber-500 h-full w-0 transition-all duration-1000 shadow-[0_0_8px_#f59e0b]"></div></div>
+                        <div class="flex-1 bg-gray-900 rounded-full overflow-hidden"><div id="bar-intent" class="bg-red-500 h-full w-0 transition-all duration-1000 shadow-[0_0_8px_#ef4444]"></div></div>
+                   </div>
+                   <!-- Labels -->
+                   <div class="flex justify-between text-[8px] text-gray-500 font-mono mt-2" id="mood-labels">
+                       <span class="text-emerald-400">RELAXED: <span id="mood-relaxed" class="text-white">0</span></span>
+                       <span class="text-blue-400">EXPLORE: <span id="mood-exploring" class="text-white">0</span></span>
+                       <span class="text-amber-400">HESITATE: <span id="mood-hesitant" class="text-white">0</span></span>
+                       <span class="text-red-400">INTENT: <span id="mood-intent" class="text-white">0</span></span>
+                   </div>
+                </div>
+
+                <!-- Intent Cloud -->
+                <div class="relative z-10">
+                   <div class="text-[9px] text-gray-500 font-mono uppercase text-left mb-2">Intent Cloud</div>
+                   <div class="flex flex-wrap gap-2 justify-start items-center min-h-[40px]" id="intent-cloud">
+                        <span class="text-[10px] text-gray-700 font-mono italic">Awaiting neural footprint...</span>
+                   </div>
+                </div>
+                
+                <!-- Loyalty / Sync tracker -->
+                <div class="mt-4 pt-3 border-t border-gray-800/50 flex justify-between items-center relative z-10">
+                    <span class="text-[9px] text-gray-500 font-mono uppercase">Recognized Guests (Sync)</span>
+                    <span class="text-sm font-bold text-gray-300 font-mono" id="stat-recognized">0</span>
+                </div>
+            </div>
+
+            
+            <!-- Yield Autopilot status -->
+            <div class="bg-black/60 border border-gray-800/60 rounded-xl p-6 backdrop-blur-sm transition-all duration-500" id="surge-panel">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-xs font-semibold tracking-widest uppercase text-gray-400">Yield Autopilot</h2>
+                    <span id="surge-badge" class="px-2 py-0.5 text-[9px] font-mono uppercase tracking-widest bg-gray-800 text-gray-400 rounded">STABLE</span>
+                </div>
+                
+                <div class="text-center pb-4">
+                    <p class="text-[10px] text-gray-500 font-mono uppercase mb-2">Demand Multiplier</p>
+                    <div class="text-6xl heading-font font-bold text-gray-300 tracking-tighter" id="surge-multiplier">
+                        1.0<span class="text-2xl text-gray-600">x</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 404 Guardian Monitor -->
+            <div class="flex-1 bg-black/60 border border-gray-800/60 rounded-xl overflow-hidden backdrop-blur-sm flex flex-col relative group hover:border-cyan-900/50 transition-colors">
+                <div class="absolute inset-0 bg-gradient-to-b from-cyan-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="p-4 border-b border-gray-800/50 flex justify-between items-center relative z-10">
+                    <h2 class="text-xs font-semibold tracking-widest uppercase text-cyan-500 font-mono">404 Guardian Monitor</h2>
+                    <span class="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee] animate-pulse"></span>
+                </div>
+                <div class="flex-1 p-6 flex flex-col justify-center items-center relative z-10">
+                    <div class="text-[10px] text-gray-500 font-mono uppercase mb-4 tracking-widest text-center">GHOST HITS BLOCKED & REDIRECTED</div>
+                    <div class="text-5xl heading-font font-light text-cyan-400 tracking-tighter" id="stat-404-guardian">
+                        0
+                    </div>
+                    <div class="text-xs text-gray-600 font-mono mt-6 text-center max-w-[80%]">
+                        Legacy paths (/en/, /ru/) are automatically converted to Sovereign Root.
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+        
+    </main>
+
+    <!-- Scan Animation -->
+    <style>
+        @keyframes scan {
+            0% { top: 0%; opacity: 0; }
+            5% { opacity: 1; }
+            95% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+    </style>
+
+    <!-- V22: SEALED REPORT VIEWER MODAL -->
+    <div id="report-modal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md hidden justify-center items-center opacity-0 transition-opacity duration-300">
+        <div class="bg-[#0a0a0a] border border-santis-gold/30 rounded-lg shadow-[0_0_30px_rgba(201,169,110,0.1)] w-full max-w-4xl max-h-[90vh] flex flex-col scale-95 transition-transform duration-300" id="report-modal-content">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center p-6 border-b border-santis-gold/20">
+                <div class="flex items-center gap-3">
+                    <span class="text-santis-gold text-2xl">📜</span>
+                    <h2 class="text-lg text-santis-gold font-semibold tracking-widest uppercase">The Sovereign Archives</h2>
+                </div>
+                <button onclick="closeReport()" class="text-gray-500 hover:text-white transition group">
+                    <i class="fas fa-times text-xl group-hover:rotate-90 transition-transform"></i>
+                </button>
+            </div>
+            <!-- Modal Body -->
+            <div class="p-8 overflow-y-auto custom-scrollbar flex-1 relative">
+                <div id="report-loader" class="absolute inset-0 flex justify-center items-center bg-[#0a0a0a] z-10">
+                    <div class="w-8 h-8 border-2 border-santis-gold border-t-transparent rounded-full animate-spin"></div>
+                </div>
+                <div id="report-content" class="text-gray-300 font-mono text-sm leading-relaxed whitespace-pre-wrap">
+                    <!-- Report will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Bridge & ApexCharts -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="dashboard.js"></script>
+
+    <script>
+        // Inline script for Report Viewer
+        window.openReport = function(url) {
+            const modal = document.getElementById('report-modal');
+            const contentDiv = document.getElementById('report-content');
+            const loader = document.getElementById('report-loader');
+            const modalContent = document.getElementById('report-modal-content');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+
+            loader.style.display = 'flex';
+            contentDiv.innerHTML = '';
+
+            fetch(url)
+                .then(res => {
+                    if(!res.ok) throw new Error("Rapor bulunamadı veya henüz mühürlenmedi. (404)");
+                    return res.text();
+                })
+                .then(text => {
+                    // Primitive Markdown styling
+                    let html = text.replace(/^# (.*)/gim, '<h1 class="text-2xl text-santis-gold mb-4 mt-6 uppercase tracking-widest border-b border-gray-800 pb-2">$1</h1>')
+                                   .replace(/^## (.*)/gim, '<h2 class="text-lg text-white mb-3 mt-6 uppercase tracking-wider">$1</h2>')
+                                   .replace(/^### (.*)/gim, '<h3 class="text-sm text-gray-400 mb-2 mt-4 font-bold uppercase">$1</h3>')
+                                   .replace(/\*\*(.*?)\*\*/gim, '<span class="text-santis-gold font-bold">$1</span>')
+                                   .replace(/\*(.*?)\*/gim, '<span class="italic text-gray-400">$1</span>')
+                                   .replace(/^> (.*)/gim, '<blockquote class="border-l-2 border-santis-gold pl-4 text-gray-400 my-4">$1</blockquote>')
+                                   .replace(/^- (.*)/gim, '<li class="ml-4 mb-1 list-disc">$1</li>');
+                    
+                    contentDiv.innerHTML = '<ul class="list-none">' + html + '</ul>';
+                    loader.style.display = 'none';
+                })
+                .catch(err => {
+                    contentDiv.innerHTML = `<div class="text-red-500 font-bold p-4 border border-red-500/30 bg-red-500/10 rounded">ERROR: ${err.message}</div>`;
+                    loader.style.display = 'none';
+                });
+        }
+
+        window.closeReport = function() {
+            const modal = document.getElementById('report-modal');
+            const modalContent = document.getElementById('report-modal-content');
+            
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // 🚀 PHASE 83: QUANTUM REFLEX (AURELIA STREAMING UI ANALYTICS) 
+        async function fetchQuantumReflexReports() {
+            try {
+                // Requesting metrics from Sovereign Edge Node
+                const res = await fetch("http://localhost:8000/api/edge/analytics/edge_prefetch");
+                if (res.ok) {
+                    const edgeReports = await res.json();
+                    
+                    let totalRevenue = 0;
+                    let totalConversion = 0;
+                    let totalDelay = 0;
+                    
+                    edgeReports.forEach(report => {
+                        totalRevenue += report.revenue;
+                        totalConversion += report.conversion;
+                        totalDelay += report.avgDelay;
+                        
+                        console.log(`[Phase 83 Analytics] Persona: ${report.persona}, WhisperID: ${report.whisperId}`);
+                        console.log(`-> Revenue: €${report.revenue}, Conv: ${report.conversion}%, Delay: ${report.avgDelay}ms`);
+                    });
+
+                    // Update UI Dashboard Counters
+                    const avgDelay = Math.round(totalDelay / edgeReports.length);
+                    const avgConv = (totalConversion / edgeReports.length).toFixed(1);
+                    
+                    document.getElementById('stat-edge-latency').innerHTML = `${avgDelay}<span class="text-xs text-gray-500">ms</span>`;
+                    document.getElementById('stat-edge-winrate').innerHTML = `${avgConv}<span class="text-sm">%</span>`;
+                    document.getElementById('stat-edge-impact').innerHTML = `+€${totalRevenue.toLocaleString()} <span class="text-[10px] text-gray-500">(24h)</span>`;
+                }
+            } catch (err) {
+                console.warn("Phase 83 Analytics not reachable (Edge Node Simülasyonu çalışmıyor olabilir).", err);
+            }
+        }
+        
+        // Execute Quantum Reflex Telemetry Polling
+        setTimeout(fetchQuantumReflexReports, 2000);
+        setInterval(fetchQuantumReflexReports, 15000);
+
+    </script>
+</body>
+</html>

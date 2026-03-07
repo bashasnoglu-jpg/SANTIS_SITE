@@ -68,7 +68,14 @@ class Booking(Base, SoftDeleteMixin):
     # Financials
     price_snapshot: Mapped[float] = mapped_column(Numeric(10, 2), nullable=False)
     currency_snapshot: Mapped[str] = mapped_column(String(3), default="EUR")
+    
+    # Phase V11: The Currency Vault (Immutable Ledger)
+    fx_rate_snapshot: Mapped[Optional[float]] = mapped_column(Numeric(10, 4), default=1.0)
+    local_currency: Mapped[Optional[str]] = mapped_column(String(3), nullable=True)
+    base_currency_amount: Mapped[Optional[float]] = mapped_column(Numeric(10, 2), nullable=True)
+    
     commission_snapshot: Mapped[Optional[float]] = mapped_column(Numeric(10, 2), default=0.0)
+    payment_intent_id: Mapped[Optional[str]] = mapped_column(String(255), nullable=True, index=True)
     
     # Status
     status: Mapped[BookingStatus] = mapped_column(

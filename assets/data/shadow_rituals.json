@@ -1,0 +1,78 @@
+{
+    "shadow_mode": true,
+    "classification": "TACTICAL_OVERRIDE",
+    "version": "1.0",
+    "rituals": [
+        {
+            "id": "shadow_alpha",
+            "protocol_code": "ALPHA-01",
+            "name": "Protocol Alpha – The Invisibility Cloak",
+            "description": "A deep-silence full-body massage engineered for guests who demand total sensory isolation. Zero conversation, zero eye contact. Pure calibrated pressure.",
+            "duration_min": 90,
+            "price": 380,
+            "intensity": "DEEP",
+            "category": "shadow_ritual",
+            "shadow_mode": true,
+            "tags": [
+                "silent",
+                "privacy",
+                "deep-tissue",
+                "vip"
+            ]
+        },
+        {
+            "id": "shadow_sigma",
+            "protocol_code": "SIGMA-02",
+            "name": "Protocol Sigma – Deep Cover",
+            "description": "A private hamam ritual performed in the secure wing. Black marble, obsidian scrub, and single-use linens. Discretion guaranteed. No footage. No records.",
+            "duration_min": 75,
+            "price": 490,
+            "intensity": "MEDIUM",
+            "category": "shadow_ritual",
+            "shadow_mode": true,
+            "tags": [
+                "hamam",
+                "private",
+                "marble",
+                "vip",
+                "secure"
+            ]
+        },
+        {
+            "id": "shadow_omega",
+            "protocol_code": "OMEGA-03",
+            "name": "Protocol Omega – Zero Trace",
+            "description": "Neurosensory aromatherapy fused with cold-press muscle recovery. Engineered to restore peak cognitive and physical performance within 60 minutes. No residue. No trace.",
+            "duration_min": 60,
+            "price": 290,
+            "intensity": "LIGHT",
+            "category": "shadow_ritual",
+            "shadow_mode": true,
+            "tags": [
+                "aromatherapy",
+                "recovery",
+                "cognitive",
+                "vip"
+            ]
+        },
+        {
+            "id": "shadow_continental",
+            "protocol_code": "JW-CONTINENTAL",
+            "name": "John Wick Special – The Continental Package",
+            "description": "Full evening exclusive. Private hamam + Protocol Alpha massage + Omega recovery + secure lounge access. Gold coin pricing applies. By invitation only.",
+            "duration_min": 240,
+            "price": 1200,
+            "intensity": "VIP",
+            "category": "shadow_ritual",
+            "shadow_mode": true,
+            "currency": "gold_coin",
+            "tags": [
+                "exclusive",
+                "full-evening",
+                "continental",
+                "john-wick",
+                "vip"
+            ]
+        }
+    ]
+}

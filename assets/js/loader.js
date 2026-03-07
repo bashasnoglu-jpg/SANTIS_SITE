@@ -76,22 +76,13 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
 
 
 
-    // Helper for cache busting
-
+    // Helper for cache busting (String based to avoid stripping local subfolders like 192.168.x.x/SANTIS_SITE)
     function withCacheBust(url, enabled = true) {
-
         if (!enabled) return url;
-
         try {
-
-            const u = new URL(url, window.location.href);
-
-            u.searchParams.set("v", Date.now().toString());
-
-            return u.toString();
-
+            const separator = url.includes('?') ? '&' : '?';
+            return url + separator + "v=" + Date.now().toString();
         } catch (e) { return url; }
-
     }
 
 
@@ -317,21 +308,100 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
     // END IIFE
 
 
-
-    // --- INJECT CINEMATIC CSS ---
-
+    // --- INJECT SLOT SKELETON CSS (CLS Armor — MUST run before Phantom Injector) ---
+    // Inline <style> olarak enjekte ediliyor: stylesheet yüklenmesini beklemez,
+    // Phantom Injector'ın 5 slotu override etmesinden önce alan rezerve edilir.
     (function () {
+        if (document.getElementById('nv-skeleton-armor')) return; // Idempotent
 
-        const link = document.createElement('link');
+        const style = document.createElement('style');
+        style.id = 'nv-skeleton-armor';
+        style.textContent = `
+            /* SANTIS CLS ARMOR — Slot Skeleton Pre-Reserve */
 
-        link.rel = 'stylesheet';
+            /* Navbar rezervasyonu: santis-nav.js async fetch ederken alan sabit kalır */
+            #navbar-container {
+                min-height: 90px;       /* Desktop navbar yüksekliği */
+                width: 100%;
+                display: block;
+                background-color: transparent;
+            }
+            @media (max-width: 991px) {
+                #navbar-container { min-height: 70px; }
+            }
+            
+            /* Navbar CLS Protection for dynamic Lang Switcher */
+            .nav-actions {
+                min-width: 180px; /* Reserves space for reserve button + lang switcher */
+                display: flex;
+                justify-content: flex-end;
+            }
 
-        link.href = '/assets/css/preloader-cinema.css';
+            #footer-container {
+                min-height: 120px;      /* Footer rezervasyonu */
+                display: block;
+            }
+            
+            /* Grid CLS Armor - Prevents footer/sections below from shifting down when 64 cards mount */
+            .nv-product-grid {
+                min-height: 100vh;
+            }
 
-        document.head.appendChild(link);
-
-        console.log("🎬 [Loader] Cinematic CSS injected.");
+            [data-santis-slot] {
+                display: block;
+                overflow: hidden;
+                position: relative;
+                background-color: #0f0e0c;
+                opacity: 0.85;
+            }
+            /* Hero slot: 16:9 */
+            [data-santis-slot="hero-main"]:not(.nv-hero-campaign):not(.cinematic-hero),
+            [data-santis-slot^="hero"]:not(.nv-hero-campaign):not(.cinematic-hero) {
+                aspect-ratio: 16 / 9;
+                min-height: 260px;
+            }
+            /* Kart slotları: 4:3 */
+            [data-santis-slot^="card-"] {
+                aspect-ratio: 4 / 3;
+                min-height: 180px;
+            }
+            /* Shimmer animasyonu */
+            [data-santis-slot]::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    90deg,
+                    transparent 20%,
+                    rgba(212,175,55,0.06) 50%,
+                    transparent 80%
+                );
+                background-size: 200% 100%;
+                animation: nv-shimmer 1.8s infinite linear;
+            }
+            @keyframes nv-shimmer {
+                from { background-position: 200% 0; }
+                to   { background-position: -200% 0; }
+            }
+            /* Yükleme bitti — TÜM skeleton kısıtlamaları serbest kalır */
+            [data-santis-slot].nv-asset-loaded {
+                opacity: 1;
+                background-color: transparent;
+                aspect-ratio: unset;   /* ← Chrome için kritik: 4/3 kilidini kaldırır */
+                min-height: unset;
+            }
+            [data-santis-slot].nv-asset-loaded::before {
+                display: none;
+            }
+        `;
+        document.head.appendChild(style);
     })();
+
+    // --- CINEMATIC CSS ---
+    // ✅ CLS FIX: Bu CSS artık loader.js'den inject edilmez.
+    // Runtime <link> inject = tüm sayfa yeniden layout = CLS 0.3+
+    // preloader-cinema.css her sayfanın <head>'inde statik <link> olarak bulunmalı.
+    console.log("🎬 [Loader] Cinematic CSS: loaded statically from <head>.");
 
     // Fail-safe Preloader Removal (Cinematic V1)
     (function () {

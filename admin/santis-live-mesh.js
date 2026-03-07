@@ -62,15 +62,18 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: "INPUT", label: "Intent", x: width * 0.15, y: height * 0.5, color: "#94a3b8", glow: "" },
         { id: "ENGINE", label: "AI Brain", x: width * 0.5, y: height * 0.25, color: "#d4af37", glow: "url(#glow-gold)" },
         { id: "VAULT", label: "Vault", x: width * 0.5, y: height * 0.75, color: "#10b981", glow: "" },
-        { id: "EDGE", label: "Edge", x: width * 0.85, y: height * 0.5, color: "#38bdf8", glow: "url(#glow-cyan)" }
+        { id: "EDGE", label: "Edge", x: width * 0.85, y: height * 0.5, color: "#38bdf8", glow: "url(#glow-cyan)" },
+        { id: "FUTURE", label: "+15m Forecast", x: width * 0.85, y: height * 0.85, color: "#d4af37", glow: "url(#glow-gold)" }
     ];
 
     const linksData = [
-        { source: "INPUT", target: "ENGINE" },
-        { source: "INPUT", target: "VAULT" },
-        { source: "ENGINE", target: "EDGE" },
-        { source: "ENGINE", target: "VAULT" },
-        { source: "VAULT", target: "EDGE" }
+        { source: "INPUT", target: "ENGINE", dashed: false },
+        { source: "INPUT", target: "VAULT", dashed: false },
+        { source: "ENGINE", target: "EDGE", dashed: false },
+        { source: "ENGINE", target: "VAULT", dashed: false },
+        { source: "VAULT", target: "EDGE", dashed: false },
+        { source: "VAULT", target: "FUTURE", dashed: true },     // H3: Predictive Shadow
+        { source: "ENGINE", target: "FUTURE", dashed: true }
     ];
 
     // Helper to get node by ID
@@ -87,8 +90,10 @@ document.addEventListener("DOMContentLoaded", () => {
             .attr("y1", source.y)
             .attr("x2", target.x)
             .attr("y2", target.y)
-            .attr("stroke", "#1e293b")
-            .attr("stroke-width", 1.5)
+            .attr("stroke", link.dashed ? "#d4af37" : "#1e293b")
+            .attr("stroke-width", link.dashed ? 1.0 : 1.5)
+            .attr("stroke-dasharray", link.dashed ? "4,4" : "none")
+            .attr("opacity", link.dashed ? 0.6 : 1.0)
             .attr("id", `link-${link.source}-${link.target}`);
     });
 
@@ -208,6 +213,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 hqFeeNode.parentElement.classList.add("scale-105", "shadow-[0_0_20px_rgba(212,175,55,0.4)]");
                 setTimeout(() => hqFeeNode.parentElement.classList.remove("scale-105", "shadow-[0_0_20px_rgba(212,175,55,0.4)]"), 300);
             }
+
+            // H3: Predictive Simulation (Linear Regression Mapped to Dashed Lines)
+            setTimeout(() => {
+                fireParticle("ENGINE", "FUTURE", "#d4af37", 2);
+                fireParticle("VAULT", "FUTURE", "#d4af37", 3);
+            }, 300);
         }
 
         // 3. SURGE TRIGGER (Ultra-High Demand / Scarcity) (> 95)

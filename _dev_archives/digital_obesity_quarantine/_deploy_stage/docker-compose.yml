@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  santis-api:
+    build: .
+    container_name: santis-core-api
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    ports:
+      - "127.0.0.1:8000:8000"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+    volumes:
+      # Mount the current directory to enable live-reloading (optional) and persistent data
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - ENVIRONMENT=production
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

@@ -302,11 +302,14 @@
     display: grid !important;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
+    align-items: start;
+    /* Kartların satırdaki en uzun karta uzamasını önler */
 }
 
 /* Hero adjustment */
 .nv-hero-card {
-    min-height: 50vh;
+    /* 50vh zorlaması kaldırıldı — kartlar kendi içerik yüksekliklerine döner */
+    min-height: unset;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -338,6 +341,7 @@
     break-inside: avoid;
 }
 
+
 .service-link-list a {
     color: rgba(200, 195, 188, 0.7);
     text-decoration: none;
@@ -357,6 +361,8 @@
     padding: 3rem 0;
     max-width: 700px;
     margin: 0 auto;
+    min-height: 600px;
+    /* FAQ akordeonları için alan ayırır */
 }
 
 .page-faq h2 {
@@ -407,6 +413,12 @@
 .seo-bottom-block {
     padding: 2rem 0;
     text-align: center;
+}
+
+.seo-bottom-block img {
+    aspect-ratio: attr(width) / attr(height);
+    content-visibility: auto;
+    /* Performans ve stabilite artırımı */
 }
 
 /* ═══ MOBILE RESPONSIVE ═══ */

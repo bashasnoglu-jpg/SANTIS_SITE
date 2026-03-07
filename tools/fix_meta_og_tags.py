@@ -3,7 +3,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 BASE_URL = "https://santisclub.com"
-DEFAULT_IMAGE = f"{BASE_URL}/assets/img/logo-santis.png"
+DEFAULT_IMAGE = f"{BASE_URL}/assets/img/logo.png"
 
 def generate_meta_and_og():
     root_dir = Path(".")

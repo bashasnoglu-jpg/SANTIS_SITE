@@ -8,7 +8,7 @@
     height: 100%;
     background-color: #0b0d11;
     /* Dark Luxury Background */
-    z-index: 9999999;
+    z-index: var(--z-modal); /* AUTO-CAPPED BY OMNI-CORE */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,7 +34,7 @@
     opacity: 0;
     transform: scale(0.9);
     filter: blur(5px);
-    transition: all 1.2s ease-out;
+    transition: transform 1.2s ease-out, opacity 1.2s ease-out, color 1.2s ease-out, background-color 1.2s ease-out, border-color 1.2s ease-out, box-shadow 1.2s ease-out;
 }
 
 /* LOGO ACTIVE STATE */

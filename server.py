@@ -1,3 +1,4 @@
+
 import sys
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
@@ -19,6 +20,7 @@ from pydantic import BaseModel
 from pathlib import Path
 import json
 import uvicorn
+from app.core.tenant_middleware import TenantResolverMiddleware
 
 # 📌 1️⃣ Event Loop (Windows stabil - Python 3.16 uyarısı nedeniyle kaldırıldı)
 # if sys.platform.startswith("win"):
@@ -51,9 +53,30 @@ async def lifespan(app: FastAPI):
     print(f"[DBIndex] created={_idx['created']} skipped={_idx['skipped']} failed={len(_idx['failed'])}")
 
     print("--- SERVER STARTING NEW CODE v2 ---")
+    
+    # ── SANTIS MEDIA SYSTEM HEALTH CHECK ─────────────────────
+    try:
+        from app.db.session import AsyncSessionLocal
+        from sqlalchemy import text
+        from app.core.sovereign_slots import VALID_SLOTS
+        
+        async with AsyncSessionLocal() as _db:
+            _res = await _db.execute(text("SELECT COUNT(*) FROM gallery_assets"))
+            _asset_count = _res.scalar()
+            
+        print("\n" + "="*40)
+        print(" SANTIS MEDIA SYSTEM")
+        print("="*40)
+        print(f" slots loaded: {len(VALID_SLOTS)}")
+        print(f" assets:      {_asset_count}")
+        print(" batch api:   enabled")
+        print("="*40 + "\n")
+    except Exception as e:
+        print(f"[Media System Health Check Error]: {e}")
+        
     for route in app.routes:
         methods = getattr(route, "methods", None)
-        print(f"Route: {route.path} Methods: {methods}")
+        # print(f"Route: {route.path} Methods: {methods}")
 
     from app.core.event_dispatcher import event_dispatcher
     from app.core.intelligence_worker import intelligence_worker
@@ -65,7 +88,19 @@ async def lifespan(app: FastAPI):
     asyncio.create_task(auto_pricing_worker())          # Phase J: Auto-Learning Pricing
     asyncio.create_task(nightly_intelligence_worker())  # Phase Q: Nightly Analytics at 02:00
 
+    # Phase 17 & 18 Workers
+    from app.core.auto_pilot import auto_pilot
+    from app.core.resource_controller import resource_manager
+    from app.core.viral_engine import viral_engine # Phase 19
+    asyncio.create_task(auto_pilot.run_autonomous_cycle())
+    asyncio.create_task(resource_manager.allocate_resources())
+    asyncio.create_task(viral_engine.run_viral_cycle())
+
+
+    from app.core.pulse import nightly_scheduler
+    await nightly_scheduler.start()
     yield
+    nightly_scheduler.stop()
 
     event_dispatcher.stop()
     intelligence_worker.stop()
@@ -73,6 +108,128 @@ async def lifespan(app: FastAPI):
 
 # 📌 2️⃣ FastAPI Setup
 app = FastAPI(title="Santis Club API", version="3.0", lifespan=lifespan)
+
+# Phase 82: The Sovereign Gateway (Global Tenant Resolver)
+app.add_middleware(TenantResolverMiddleware)
+
+@app.get("/manifest.json", tags=["PWA"])
+@app.get("/admin/manifest.json", tags=["PWA"])
+async def get_manifest():
+    """Serves the Web App Manifest unconditionally."""
+    manifest_path = BASE_DIR / "manifest.json"
+    if manifest_path.exists():
+        return FileResponse(manifest_path, media_type="application/manifest+json")
+    return {"error": "Manifest not found"}
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def get_favicon():
+    favicon_path = BASE_DIR / "assets" / "img" / "favicon.ico"
+    if favicon_path.exists():
+        return FileResponse(favicon_path)
+    # If no favicon exists yet, return empty response to avoid 404 spam in console
+    from fastapi.responses import Response
+    return Response(content=b"", media_type="image/x-icon")
+
+# ─── SOVEREIGN PRIORITY ROUTES (registered first — index 0) ─────────────────
+# These 3 routes MUST be registered before any wildcard/catch-all route.
+# Do NOT move or reorder. Root cause: /{lang}/{path:path} catch-all shadows them.
+
+@app.get("/api/v1/analytics/god/health", tags=["Sovereign Priority"])
+async def _god_health_priority():
+    """Phase 30: God Mode SHI — Priority route (prevents catch-all shadowing)."""
+    import datetime as _dt, math as _math
+    try:
+        from app.db.session import AsyncSessionLocal
+        from sqlalchemy import text as _t
+        async with AsyncSessionLocal() as _db:
+            rows = await _db.execute(_t("""
+                SELECT ga.slot, COALESCE(ai.sas_score, 0.0) AS sas_score
+                FROM gallery_assets ga
+                LEFT JOIN asset_intelligence ai ON ai.asset_id = ga.id
+                WHERE ga.slot IS NOT NULL AND ga.slot != ''
+            """))
+            occupied = rows.fetchall()
+    except Exception:
+        occupied = []
+    KNOWN_SLOTS = ["hero_home","hero_hamam","hero_masaj","hero_cilt",
+                   "card_hamam_1","card_hamam_2","card_masaj_1","card_masaj_2",
+                   "card_cilt_1","highlight_home"]
+    occupied_set = {r[0] for r in occupied}
+    empty = [s for s in KNOWN_SLOTS if s not in occupied_set]
+    def w(s): return 1.5 if "hero" in s else 1.2 if "card" in s else 1.0
+    num = sum(float(r[1]) * w(r[0]) for r in occupied)
+    den = sum(w(r[0]) for r in occupied) + len(empty) * 1.2
+    shi = round((num / den if den > 0 else 0) * 100, 1)
+    ts = _dt.datetime.utcnow().strftime("%H:%M")
+    alerts = [{"severity":"VACANCY","msg":f"Empty: '{s}'","ts":ts} for s in empty[:3]]
+    if shi < 85: alerts.insert(0, {"severity":"WARNING","msg":f"SHI {shi}% < 85%","ts":ts})
+    if not alerts: alerts = [{"severity":"OK","msg":"All systems Sovereign.","ts":ts}]
+    return {"shi":shi,"shi_status":"sovereign" if shi>=85 else "elevated" if shi>=70 else "alert",
+            "slot_breakdown":{"optimal":sum(1 for r in occupied if r[1]>=0.75),
+                              "at_risk":sum(1 for r in occupied if 0.5<=r[1]<0.75),
+                              "critical":sum(1 for r in occupied if r[1]<0.5),
+                              "empty":len(empty)},
+            "est_portfolio_lift":round(sum(float(r[1])*w(r[0])*580 for r in occupied),0),
+            "alerts":alerts[:5],"ts":_dt.datetime.utcnow().strftime("%H:%M:%S")}
+
+
+@app.get("/api/v1/media/slots/health", tags=["Sovereign Priority"])
+async def _slots_health_priority():
+    """Phase 28: Slot Radar — Priority route (prevents catch-all shadowing)."""
+    try:
+        from app.db.session import AsyncSessionLocal
+        from sqlalchemy import text as _t
+        async with AsyncSessionLocal() as _db:
+            rows = await _db.execute(_t("""
+                SELECT ga.slot, ga.id, ga.url, ga.filename, ga.category,
+                       COALESCE(ai.sas_score, 0.0) AS sas_score
+                FROM gallery_assets ga
+                LEFT JOIN asset_intelligence ai ON ai.asset_id = ga.id
+                WHERE ga.slot IS NOT NULL AND ga.slot != ''
+                ORDER BY ga.slot ASC
+            """))
+            occupied = rows.fetchall()
+    except Exception:
+        occupied = []
+    KNOWN_SLOTS = ["hero_home","hero_hamam","hero_masaj","hero_cilt",
+                   "card_hamam_1","card_hamam_2","card_masaj_1","card_masaj_2",
+                   "card_cilt_1","card_cilt_2","highlight_home",
+                   "card_wellness_1","card_wellness_2","hero_galeri",
+                   "hero_rezervasyon","hero_iletisim","card_kids_1",
+                   "feature_kids","feature_detox"]
+    omap = {}
+    for r in occupied:
+        sas = float(r[5])
+        omap[r[0]] = {"slot":r[0],"asset_id":str(r[1]),"url":r[2] or r[3] or "",
+                      "category":r[4],"sas_score":round(sas,4),
+                      "health":"optimal" if sas>=0.75 else "at_risk" if sas>=0.50 else "critical"}
+    result = [omap.get(s,{"slot":s,"asset_id":None,"url":None,"category":None,"sas_score":0.0,"health":"empty"})
+              for s in KNOWN_SLOTS]
+    return {"slots":result,"total":len(result)}
+
+
+@app.post("/api/v1/analytics/simulate", tags=["Sovereign Priority"])
+async def _simulate_priority(payload: dict = Body(...)):
+    """Phase Sandbox: Simulator — Priority route (prevents catch-all shadowing)."""
+    import math, random
+    base = float(payload.get("base_price", 150.0))
+    surge = float(payload.get("surge_multiplier", payload.get("multiplier", 1.0)))
+    aes = float(payload.get("aesthetic_threshold", payload.get("conversion_rate", 0.12)))
+    sessions = int(payload.get("sessions", 800))
+    conv = min(0.35, aes * 0.45)
+    bookings = math.ceil(sessions * conv)
+    price = round(base * surge * (1 + aes * 0.3), 2)
+    mrr = round(bookings * price * 30, 0)
+    occ = min(98, round(conv * 100 * surge, 1))
+    return {"predicted_mrr":int(mrr),"predicted_bookings":bookings,
+            "predicted_occupancy_pct":occ,"dynamic_price":price,
+            "projected_revenue":int(mrr),"bookings_est":bookings,
+            "multiplier_applied":surge,"confidence":round(0.72+random.uniform(-0.05,0.15),2),
+            "status":"SIMULATION_COMPLETE"}
+
+# ─────────────────────────────────────────────────────────────────────────────
+
+
 
 
 # ── Production A: CORS Lockdown ─────────────────────────────────
@@ -83,8 +240,116 @@ ALLOWED_ORIGINS = [
     "http://localhost:8000",    # Uvicorn dev
     "http://127.0.0.1:8000",
     "http://localhost:3000",    # Optional: Next.js front
-    os.getenv("PRODUCTION_ORIGIN", "https://santis.ai"),
+    "http://127.0.0.1:3000",
+    os.getenv("PRODUCTION_ORIGIN", "https://santis.ai")
 ]
+
+# ─── SOVEREIGN API GUARD MIDDLEWARE (Nuclear option — runs before route matching) ─
+# These 3 endpoints get 404'd by the /{lang}/{path:path} catch-all route.
+# This middleware intercepts them at the WSGI/ASGI level, before FastAPI routing.
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import JSONResponse as _JSONResponse
+import datetime as _mdt, math as _mmath, random as _mrand
+
+class SovereignAPIGuard(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        path = request.url.path
+        method = request.method
+
+        # Intercept god/health
+        if path == "/api/v1/analytics/god/health" and method == "GET":
+            try:
+                from app.db.session import AsyncSessionLocal
+                from sqlalchemy import text as _t
+                async with AsyncSessionLocal() as _db:
+                    rows = await _db.execute(_t("""
+                        SELECT ga.slot, COALESCE(ai.sas_score, 0.0) AS sas_score
+                        FROM gallery_assets ga
+                        LEFT JOIN asset_intelligence ai ON ai.asset_id = ga.id
+                        WHERE ga.slot IS NOT NULL AND ga.slot != ''
+                    """))
+                    occupied = rows.fetchall()
+            except Exception:
+                occupied = []
+            KNOWN = ["hero_home","hero_hamam","hero_masaj","hero_cilt",
+                     "card_hamam_1","card_hamam_2","card_masaj_1","card_masaj_2",
+                     "card_cilt_1","highlight_home"]
+            occupied_set = {r[0] for r in occupied}
+            empty = [s for s in KNOWN if s not in occupied_set]
+            def w(s): return 1.5 if "hero" in s else 1.2 if "card" in s else 1.0
+            num = sum(float(r[1]) * w(r[0]) for r in occupied)
+            den = sum(w(r[0]) for r in occupied) + len(empty) * 1.2
+            shi = round((num / den if den > 0 else 0) * 100, 1)
+            ts = _mdt.datetime.utcnow().strftime("%H:%M")
+            alerts = [{"severity":"VACANCY","msg":f"Empty: '{s}'","ts":ts} for s in empty[:3]]
+            if shi < 85: alerts.insert(0, {"severity":"WARNING","msg":f"SHI {shi}% < 85%","ts":ts})
+            if not alerts: alerts = [{"severity":"OK","msg":"All systems Sovereign.","ts":ts}]
+            return _JSONResponse({"shi":shi,"shi_status":"sovereign" if shi>=85 else "elevated" if shi>=70 else "alert",
+                "slot_breakdown":{"optimal":sum(1 for r in occupied if r[1]>=0.75),
+                                  "at_risk":sum(1 for r in occupied if 0.5<=r[1]<0.75),
+                                  "critical":sum(1 for r in occupied if r[1]<0.5),"empty":len(empty)},
+                "est_portfolio_lift":round(sum(float(r[1])*w(r[0])*580 for r in occupied),0),
+                "alerts":alerts[:5],"ts":_mdt.datetime.utcnow().strftime("%H:%M:%S")})
+
+        # Intercept slots/health
+        elif path == "/api/v1/media/slots/health" and method == "GET":
+            try:
+                from app.db.session import AsyncSessionLocal
+                from sqlalchemy import text as _t
+                async with AsyncSessionLocal() as _db:
+                    rows = await _db.execute(_t("""
+                        SELECT ga.slot, ga.id, ga.url, ga.filename, ga.category,
+                               COALESCE(ai.sas_score, 0.0) AS sas_score
+                        FROM gallery_assets ga
+                        LEFT JOIN asset_intelligence ai ON ai.asset_id = ga.id
+                        WHERE ga.slot IS NOT NULL AND ga.slot != ''
+                        ORDER BY ga.slot ASC
+                    """))
+                    occupied = rows.fetchall()
+            except Exception:
+                occupied = []
+            KNOWN = ["hero_home","hero_hamam","hero_masaj","hero_cilt",
+                     "card_hamam_1","card_hamam_2","card_masaj_1","card_masaj_2",
+                     "card_cilt_1","card_cilt_2","highlight_home",
+                     "card_wellness_1","card_wellness_2","hero_galeri",
+                     "hero_rezervasyon","hero_iletisim","card_kids_1","feature_kids","feature_detox"]
+            omap = {}
+            for r in occupied:
+                sas = float(r[5])
+                omap[r[0]] = {"slot":r[0],"asset_id":str(r[1]),"url":r[2] or r[3] or "",
+                              "category":r[4],"sas_score":round(sas,4),
+                              "health":"optimal" if sas>=0.75 else "at_risk" if sas>=0.50 else "critical"}
+            result = [omap.get(s,{"slot":s,"asset_id":None,"url":None,"category":None,"sas_score":0.0,"health":"empty"})
+                      for s in KNOWN]
+            return _JSONResponse({"slots":result,"total":len(result)})
+
+        # Intercept simulate
+        elif path == "/api/v1/analytics/simulate" and method == "POST":
+            import json as _json
+            try:
+                body = await request.body()
+                payload = _json.loads(body) if body else {}
+            except Exception:
+                payload = {}
+            base = float(payload.get("base_price", 150.0))
+            surge = float(payload.get("surge_multiplier", payload.get("multiplier", 1.0)))
+            aes = float(payload.get("aesthetic_threshold", payload.get("conversion_rate", 0.12)))
+            sessions = int(payload.get("sessions", 800))
+            conv = min(0.35, aes * 0.45)
+            bookings = _mmath.ceil(sessions * conv)
+            price = round(base * surge * (1 + aes * 0.3), 2)
+            mrr = round(bookings * price * 30, 0)
+            occ = min(98, round(conv * 100 * surge, 1))
+            return _JSONResponse({"predicted_mrr":int(mrr),"predicted_bookings":bookings,
+                "predicted_occupancy_pct":occ,"dynamic_price":price,
+                "projected_revenue":int(mrr),"bookings_est":bookings,
+                "multiplier_applied":surge,"confidence":round(0.72+_mrand.uniform(-0.05,0.15),2),
+                "status":"SIMULATION_COMPLETE"})
+
+        return await call_next(request)
+
+app.add_middleware(SovereignAPIGuard)
+# ─────────────────────────────────────────────────────────────────────────────
 
 app.add_middleware(
     CORSMiddleware,
@@ -108,6 +373,34 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 from app.core.middleware import GlobalAuditMiddleware
 app.add_middleware(GlobalAuditMiddleware)
 
+# ── SOVEREIGN SHIELD PHASE OMEGA: CSRF MIDDLEWARE ────────
+from fastapi.responses import JSONResponse
+import traceback
+import sys
+
+@app.middleware("http")
+async def csrf_shield_middleware(request: Request, call_next):
+    try:
+        if request.method in ["POST", "PUT", "DELETE", "PATCH"]:
+            if request.url.path.startswith("/api/") and not request.url.path.startswith("/api/v1/auth/login") and not request.url.path.startswith("/api/v1/auth/promo"):
+                cookie = request.cookies.get("santis_csrf")
+                header = request.headers.get("x-csrf-token")
+                if request.cookies.get("santis_session"):
+                    if not cookie or not header or cookie != header:
+                        from app.core.security_logger import security_logger
+                        security_logger.log_event("CSRF_BLOCKED", "CRITICAL", request.client.host if request.client else "unknown", "unknown", f"CSRF violation on {request.url.path}")
+                        return JSONResponse(status_code=403, content={"detail": "Sovereign Shield: CSRF Token missing."})
+                        
+        response = await call_next(request)
+        return response
+    except Exception as e:
+        with open("logs/fatal_500.txt", "a") as f:
+            f.write(f"\n--- 500 CRASH ON {request.method} {request.url.path} ---\n")
+            traceback.print_exc(file=f)
+        raise e
+
+
+
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         response = await call_next(request)
@@ -127,7 +420,7 @@ app.add_middleware(SecurityHeadersMiddleware)
 # Resolves tenant from subdomain (antalya.santis.ai → tenant_id)
 # Sets request.state.tenant_id + request.state.tenant_slug
 from app.core.tenant_router import TenantRouterMiddleware
-app.add_middleware(TenantRouterMiddleware, db_path=str(BASE_DIR / "santis.db"))
+app.add_middleware(TenantRouterMiddleware, sqlite_path=str(BASE_DIR / "santis.db"))
 
 
 # ── Production E: Global Unhandled Exception Handler ───────────
@@ -140,7 +433,7 @@ async def global_exception_handler(request: Request, exc: Exception):
     Never leak tracebacks to the client — log them server-side.
     """
     tb = _traceback.format_exc()
-    security_logger.error(
+    print(
         f"[500] {request.method} {request.url} — {type(exc).__name__}: {exc}\n{tb}"
     )
     return JSONResponse(
@@ -148,7 +441,8 @@ async def global_exception_handler(request: Request, exc: Exception):
         content={
             "error":   "Internal Server Error",
             "code":    500,
-            "message": "Beklenmedik bir hata oluştu. Lütfen tekrar deneyin.",
+            "message": "Beklenmedik bir hata.",
+            "traceback": tb
         },
     )
 
@@ -311,7 +605,8 @@ async def neural_thought(message: str, level: str = "info"):
     """Broadcast a single AI thought to the HQ Neural Stream panel."""
     from datetime import datetime as _dt
     try:
-        await manager.broadcast_to_room({
+        from app.core.pulse import pulse_engine
+        await pulse_engine.broadcast_to_tenant({
             "type":      "NEURAL_THOUGHT",
             "message":   message,
             "level":     level,   # info | surge | relax | alert
@@ -438,7 +733,8 @@ async def auto_pricing_worker():
 
                     # Broadcast to HQ Dashboard
                     try:
-                        await manager.broadcast_to_room({
+                        from app.core.pulse import pulse_engine
+                        await pulse_engine.broadcast_to_tenant({
                             "type":        "SURGE_UPDATED",
                             "multiplier":  new_multiplier,
                             "velocity":    velocity,
@@ -525,6 +821,8 @@ async def get_services_dynamic():
 from app.api.v1.endpoints import (
     users,
     auth,
+    session_auth,
+    pulse_router,
     tenants,
     bookings,
     payments,
@@ -540,15 +838,69 @@ from app.api.v1.endpoints import (
     content_publish,
     edge_resolver,
     seo,
-    gallery,
+    media_gateway,
+    booking_engine,
     predictive,
     personalize,
     analytics,
     agent_logic,
     sdk,
-    billing
+    billing,
+    boardroom,
+    commerce_fomo,
+    ai_concierge,
+    prophet_engine,
+    god_mode,
+    telemetry,
+    quarantine,
+    health
 )
 
+app.include_router(
+    health.router,
+    prefix="/api/v1/health",
+    tags=["Sovereign_Health_Panel_Audit"],
+)
+
+app.include_router(
+    quarantine.router,
+    prefix="/api/v1/quarantine",
+    tags=["Sovereign_Quarantine"],
+)
+
+app.include_router(
+    telemetry.router,
+    prefix="/api/v1/telemetry",
+    tags=["Sovereign_Telemetry"],
+)
+
+app.include_router(
+    boardroom.router,
+    prefix="/api/v1/boardroom",
+    tags=["boardroom_sovereign_command"],
+)
+
+app.include_router(
+    prophet_engine.router,
+    prefix="/api/v1/prophet",
+    tags=["predictive_intelligence"],
+)
+
+app.include_router(
+    god_mode.router,
+    prefix="/api/v1/god-mode",
+    tags=["God_Mode_Sovereign"],
+)
+
+app.include_router(
+    session_auth.router,
+    prefix="/api/v1/auth",
+    tags=["auth"],
+)
+app.include_router(
+    pulse_router.router,
+    tags=["pulse"],
+)
 app.include_router(
     auth.router,
     prefix="/api/v1/auth",
@@ -639,16 +991,32 @@ app.include_router(
     seo.router,
 )
 app.include_router(
-    gallery.router,
-    prefix="/api/v1/gallery",
-    tags=["gallery"]
+    media_gateway.router,
+    prefix="/api/v1/media",
+    tags=["Media"]
+)
+app.include_router(
+    booking_engine.router,
+    prefix="/api/v1/booking",
+    tags=["Booking Engine"]
+)
+app.include_router(
+    ai_concierge.router,
+    prefix="",
+    tags=["AI Concierge AND Guest Profiling"]
 )
 app.include_router(
     agent_logic.router,
     prefix="/api/v1/ai",
     tags=["agentic_closing"]
 )
+app.include_router(
+    commerce_fomo.router, 
+    prefix="/api/v1/commerce", 
+    tags=["Hesitation Arbitrage"]
+)
 
+# Phase 25.4 - Server-Side Gallery Integration
 # Gallery routes handled directly in server.py (lines 1944-2190)
 # app.include_router(
 #     gallery.router,
@@ -711,7 +1079,7 @@ async def global_exception_handler(request, exc):
 # 📌 3️⃣ CORS (Production-safe basic)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # production’da domain ile sınırla
+    allow_origins=ALLOWED_ORIGINS,  # production’da domain ile sınırla
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -722,6 +1090,9 @@ app.mount("/assets", StaticFiles(directory=BASE_DIR / "assets"), name="assets")
 app.mount("/components", StaticFiles(directory=BASE_DIR / "components"), name="components")
 # Admin arayüz dosyalarını /admin yolundan servis et
 app.mount("/admin", StaticFiles(directory=BASE_DIR / "admin", html=True), name="admin")
+app.mount("/hq-dashboard", StaticFiles(directory=BASE_DIR / "hq-dashboard", html=True), name="hq-dashboard")
+app.mount("/tenant-dashboard", StaticFiles(directory=BASE_DIR / "tenant-dashboard", html=True), name="tenant-dashboard")
+app.mount("/guest-zen", StaticFiles(directory=BASE_DIR / "guest-zen", html=True), name="guest-zen")
 
 # 📌 4.1️⃣ SANTIS V17 - NEURAL BRIDGE (ROOM ENGINE)
 from typing import List, Dict
@@ -732,7 +1103,7 @@ from app.core.websocket import ConnectionManager, manager
 async def websocket_bridge(websocket: WebSocket, client_type: str = "guest", client_id: str = "guest_1"):
     # client_type = 'hq' veya 'tenant'. client_id = 'global' veya '2' (tenant id) vb.
     room_id = f"{client_type}_{client_id}"
-    
+    print(f"WS Attempt: {room_id} from {websocket.client}")
     await manager.connect(websocket, room_id)
     try:
         # Welcome message (Handshake init)
@@ -753,40 +1124,36 @@ async def websocket_bridge(websocket: WebSocket, client_type: str = "guest", cli
             # 1) HQ'dan bir Tenant'a özel komut gidiyorsa (Ping)
             if payload.get("type") == "hq_ping" and payload.get("target_tenant"):
                 target_room = f"tenant_{payload['target_tenant']}"
-                await manager.broadcast_to_room(payload, target_room)
+                from app.core.pulse import pulse_engine
+                await pulse_engine.broadcast_to_tenant(payload, target_room)
                 
             # 2) Tenant komutu uygulayıp HQ'ya yanıt dönüyorsa (Pong / Acknowledged)
             elif payload.get("type") in ["tenant_pong", "tenant_sync"]:
                 # Bütün HQ panellerine atalım
-                await manager.broadcast_to_room(payload, "hq_global")
+                from app.core.pulse import pulse_engine
+                await pulse_engine.broadcast_to_tenant(payload, "hq_global")
                 
             # 3) Guest Zen panelinden anlık ciro fırlaması (Surge) geliyorsa HQ'ya gönder
             elif payload.get("type") == "REVENUE_SURGE":
-                await manager.broadcast_to_room(payload, "hq_global")
+                from app.core.pulse import pulse_engine
+                await pulse_engine.broadcast_to_tenant(payload, "hq_global")
                 
             # 4) Herkese giden genel broadcast
             else:
-                 await manager.broadcast_global(payload)
+                 from app.core.pulse import pulse_engine
+                 await pulse_engine.broadcast_to_hq(payload)
 
-    except WebSocketDisconnect:
+    except WebSocketDisconnect as e:
+        print(f"[WS] Disconnected: {room_id} Code: {e.code}")
         manager.disconnect(websocket, room_id)
     except Exception as e:
-        print(f"[WS] Exception in {room_id}: {e}")
+        print(f"[WS] Exception in {room_id}: {e} Type: {type(e)}")
         manager.disconnect(websocket, room_id)   # always clean up stale socket
         try:
             await websocket.close()
         except Exception:
             pass
 
-# WebSocket: Zekayı Dashboard'a bağlayan sinir ucu
-@app.websocket("/ws/pulse")
-async def pulse_stream(websocket: WebSocket):
-    await manager.connect(websocket, "hq_global")
-    try:
-        while True:
-            await websocket.receive_text()
-    except WebSocketDisconnect:
-        manager.disconnect(websocket, "hq_global")
 # 📌 5️⃣ API Route & Legacy Data Interceptors
 from sqlalchemy import select
 from app.db.models.content import ContentRegistry
@@ -851,6 +1218,16 @@ async def generate_ai(payload: dict = Body(...)):
 async def get_health_score():
     return {"score": 98}
 
+
+# ─── NOTE: god/health, slots/health, simulate ──────────────────────────────────
+# These endpoints are now permanently registered in their native routers:
+#   GET  /api/v1/analytics/god/health  → analytics.py @router.get("/god/health")
+#   POST /api/v1/analytics/simulate    → analytics.py @router.post("/simulate")
+#   GET  /api/v1/media/slots/health    → media_gateway.py @router.get("/slots/health")
+# Bypasses removed — router chain is the single source of truth.
+# ────────────────────────────────────────────────────────────────────────────────
+
+
 @app.get("/api/health-history")
 async def get_health_history():
     return {
@@ -862,106 +1239,6 @@ async def get_health_history():
 async def get_config():
     return {"animation_level": "high", "env": "dev"}
 
-from pydantic import BaseModel
-class ReservationPayload(BaseModel):
-    tenant_id: int
-    hotel_id: int
-    room_number: str
-    service_name: str
-    price: float
-
-from fastapi import Depends
-from sqlalchemy.ext.asyncio import AsyncSession
-from app.db.session import get_db
-
-@app.post("/api/v1/reservation")
-async def create_reservation(payload: ReservationPayload, db: AsyncSession = Depends(get_db)):
-    # 1. Prototype Mapping: Find first available tenant, customer, service, etc.
-    tenant_res = await db.execute(select(Tenant).limit(1))
-    t1 = tenant_res.scalar_one_or_none()
-    
-    cust_res = await db.execute(select(Customer).where(Customer.tenant_id == t1.id).limit(1))
-    c1 = cust_res.scalar_one_or_none()
-    
-    # Check if a custom service exists or create mock
-    from app.db.models.service import Service
-    from app.db.models.room import Room
-    from app.db.models.staff import Staff
-    from app.db.models.booking import BookingStatus
-    from datetime import datetime
-    
-    svc_res = await db.execute(select(Service).where(Service.name.ilike(f"%{payload.service_name}%")).limit(1))
-    svc = svc_res.scalar_one_or_none()
-    
-    if not svc:
-        svc_res = await db.execute(select(Service).limit(1))
-        svc = svc_res.scalar_one_or_none()
-        
-    room_res = await db.execute(select(Room).limit(1))
-    r1 = room_res.scalar_one_or_none()
-    
-    staff_res = await db.execute(select(Staff).limit(1))
-    st1 = staff_res.scalar_one_or_none()
-    
-    # 2. Insert Booking
-    if t1 and c1 and svc:
-        new_booking = Booking(
-            tenant_id=t1.id,
-            customer_id=c1.id,
-            service_id=svc.id,
-            room_id=r1.id if r1 else None,
-            staff_id=st1.id if st1 else None,
-            start_time=datetime.utcnow() + timedelta(hours=1),
-            end_time=datetime.utcnow() + timedelta(hours=2),
-            price_snapshot=payload.price,
-            status=BookingStatus.PENDING
-        )
-        db.add(new_booking)
-        
-        # 3. Update Daily Revenue for Today
-        from app.db.models.revenue import DailyRevenue
-        from datetime import date
-        today = date.today()
-        rev_res = await db.execute(
-            select(DailyRevenue)
-            .where(DailyRevenue.tenant_id == t1.id, DailyRevenue.date == today)
-        )
-        dr = rev_res.scalar_one_or_none()
-        if dr:
-            dr.daily_revenue = float(dr.daily_revenue) + payload.price
-            dr.booking_count = dr.booking_count + 1
-        else:
-            dr = DailyRevenue(tenant_id=t1.id, date=today, daily_revenue=payload.price, booking_count=1)
-            db.add(dr)
-            
-        await db.commit()
-    
-    # 📌 SANTIS V17 - NEURAL BRIDGE: LIVE FEED STREAM (GUEST_ACTION_SYNC)
-    # Trigger HQ Dashboard with the new booking event
-    try:
-        from datetime import datetime
-        # Fetch customer name for the sync payload
-        guest_name_sync = "Walk-in Guest"
-        if c1:
-            guest_name_sync = c1.full_name
-        
-        live_feed_payload = {
-            "type": "GUEST_ACTION_SYNC",
-            "action": "New Booking",
-            "guest_name": guest_name_sync,
-            "room": f"Room {payload.room_number}",
-            "hotel": t1.name if t1 else "Unknown Node",
-            "service": svc.name if svc else payload.service_name,
-            "price": payload.price,
-            "tenant_id": payload.tenant_id,
-            "timestamp": datetime.utcnow().isoformat()
-        }
-        await manager.broadcast_global(live_feed_payload)
-        print(f"[Neural Bridge] GUEST_ACTION_SYNC dispatched: {guest_name_sync} → {live_feed_payload['service']}")
-    except Exception as e:
-        print(f"Failed to stream to HQ: {e}")
-
-    return {"status": "success", "message": "Reservation confirmed in Master OS"}
 
 from app.db.models.customer import Customer
 @app.get("/api/v1/admin/ai-insights")
@@ -1048,73 +1325,6 @@ async def get_admin_ai_insights(db: AsyncSession = Depends(get_db)):
         "neural_latency_ms": latency_ms
     }
 
-from datetime import timedelta
-@app.get("/api/v1/admin/bookings")
-async def get_admin_bookings(db: AsyncSession = Depends(get_db)):
-    # Get last 20 bookings globally
-    booking_res = await db.execute(
-        select(Booking)
-        .options(selectinload(Booking.service), selectinload(Booking.room), selectinload(Booking.tenant), selectinload(Booking.customer))
-        .order_by(desc(Booking.created_at))
-        .limit(20)
-    )
-    bookings = booking_res.scalars().all()
-    
-    result = []
-    for b in bookings:
-        result.append({
-            "ref_id": f"BK-{str(b.id)[:8].upper()}",
-            "time_ago": b.created_at.strftime("%H:%M") if b.created_at else "Now",
-            "tenant_name": b.tenant.name if b.tenant else "Unknown App",
-            "guest_info": b.customer.full_name if b.customer else "Walk-in Proxy",
-            "service_name": b.service.name if b.service else "Custom",
-            "price": float(b.price_snapshot),
-            "status": b.status.value
-        })
-    return {"status": "success", "bookings": result}
-
-from sqlalchemy import select, func, desc
-from datetime import date, timedelta
-from app.db.models.revenue import DailyRevenue
-from app.db.models.booking import Booking
-
-@app.get("/api/v1/admin/revenue")
-async def get_admin_revenue(period: str = "today", db: AsyncSession = Depends(get_db)):
-    today = date.today()
-    if period == "today":
-        start_date = today
-    elif period == "week":
-        start_date = today - timedelta(days=7)
-    elif period == "month":
-        start_date = today - timedelta(days=30)
-    else:
-        start_date = today
-
-    # Aggregate Revenue
-    gross_res = await db.execute(
-        select(func.sum(DailyRevenue.daily_revenue))
-        .where(DailyRevenue.date >= start_date)
-    )
-    gbv = float(gross_res.scalar() or 0.0)
-    net_revenue = gbv * 0.20 # Assume 20% platform cut
-
-    # AOV based on Bookings table for the period
-    aov_res = await db.execute(
-        select(func.avg(Booking.price_snapshot))
-        .where(func.date(Booking.created_at) >= start_date)
-    )
-    raw_aov = float(aov_res.scalar() or 0.0)
-    aov = raw_aov if raw_aov else 126.0
-
-    return {
-        "status": "success",
-        "data": {
-            "gbv": f"€{gbv:,.0f}",
-            "net": f"€{net_revenue:,.0f}",
-            "aov": f"€{aov:,.0f}",
-            "top_service": "Deep Tissue Massage <br/><span class='text-sm text-gray-400 font-normal'>Trending</span>"
-        }
-    }
 
 from app.db.models.tenant import Tenant
 from app.db.models.customer import Customer
@@ -1235,7 +1445,8 @@ async def hq_live_command(id: str, payload: dict = Body(...), db: AsyncSession =
             tts_message = f"Signal intercepted. Executing {command} for Mr. Anderson. Follow the white rabbit protocol."
     
     # Broadcast to Tenant via Server's ConnectionManager
-    await manager.broadcast_to_room({
+    from app.core.pulse import pulse_engine
+    await pulse_engine.broadcast_to_tenant({
         "type": "hq_command",
         "command": command,
         "guest_id": str(id),
@@ -1263,7 +1474,8 @@ async def hq_activate_protocol(protocol_name: str, payload: dict = Body(None), d
     
     if protocol_name == "baba_yaga":
         print(f"🔥 MASTER ALARM: Baba Yaga protocol triggered for {target_name}!")
-        await manager.broadcast_global({
+        from app.core.pulse import pulse_engine
+        await pulse_engine.broadcast_to_hq({
             "type": "MATRIX_RED_ALERT",
             "target": target_name,
             "message": f"Priority Override: {target_name} detected in the network."
@@ -1280,7 +1492,8 @@ async def hq_deactivate_protocol(protocol_name: str, db: AsyncSession = Depends(
     """
     if protocol_name == "baba_yaga":
         print(f"🕊️ MASTER ALARM: Baba Yaga protocol deactivated. Standing down.")
-        await manager.broadcast_global({
+        from app.core.pulse import pulse_engine
+        await pulse_engine.broadcast_to_hq({
             "type": "MATRIX_STAND_DOWN",
             "message": "Protocol deactivated. Resuming standard operations."
         })
@@ -1311,156 +1524,8 @@ async def get_shadow_rituals():
 class ProfileRequest(BaseModel):
     customer_id: str  # UUID string
 
-@app.post("/api/v1/guest/generate-profile")
-async def generate_vip_profile(payload: ProfileRequest, db: AsyncSession = Depends(get_db)):
-    """
-    Generates a Gemini AI persona summary + VIP score for a customer.
-    Updates ai_persona_summary, visit_count, total_spent in DB.
-    """
-    import uuid as _uuid
-    try:
-        cust_id = _uuid.UUID(payload.customer_id)
-    except ValueError:
-        raise HTTPException(status_code=400, detail="Invalid customer_id UUID.")
-
-    # 1. Fetch customer + booking history
-    cust_res = await db.execute(
-        select(Customer)
-        .options(selectinload(Customer.bookings))
-        .where(Customer.id == cust_id)
-    )
-    customer = cust_res.scalar_one_or_none()
-    if not customer:
-        raise HTTPException(status_code=404, detail="Customer not found.")
-
-    bookings = customer.bookings or []
-    total_spent = sum(float(b.price_snapshot or 0) for b in bookings)
-    visit_count = len(bookings)
-
-    # 2. Extract service names from bookings
-    service_names = []
-    for b in bookings[-10:]:  # son 10 booking
-        if b.service_id:
-            svc_res = await db.execute(select(Service).where(Service.id == b.service_id))
-            svc = svc_res.scalar_one_or_none()
-            if svc:
-                service_names.append(svc.name)
-
-    services_str = ", ".join(service_names) if service_names else "No service history"
-
-    # 3. Calculate VIP Score (0-100)
-    vip_score = min(100, int(
-        (min(visit_count, 20) / 20 * 40) +   # 40 pts: visit frequency
-        (min(total_spent, 5000) / 5000 * 40) + # 40 pts: total spend
-        (20 if total_spent > 1000 else 0)       # 20 pts: high-value bonus
-    ))
-
-    vip_tier = "STANDARD"
-    if vip_score >= 80: vip_tier = "CONTINENTAL"
-    elif vip_score >= 60: vip_tier = "PLATINUM"
-    elif vip_score >= 40: vip_tier = "GOLD"
-
-    # 4. Generate AI Persona with Gemini
-    persona_text = f"Loyal guest with {visit_count} visits. Total spend: €{total_spent:,.0f}."
-    try:
-        from dotenv import load_dotenv
-        import os, asyncio
-        load_dotenv(override=True)
-        api_key = os.getenv("GEMINI_API_KEY")
-        if api_key:
-            import google.generativeai as genai
-            genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-2.5-flash")
-            prompt = f"""Sen Santis Master OS'un VIP Guest Intelligence motorusun.
-Aşağıdaki misafir verisine bakarak 2-3 cümlelik, "Quiet Luxury" tonunda, stratejik bir persona özeti yaz.
-İngilizce olsun. Asla selamlama veya blok açıklama ekleme. Direkt içgörüyle başla.
-
-Misafir: {customer.full_name}
-Ziyaret Sayısı: {visit_count}
-Toplam Harcama: €{total_spent:,.0f}
-En Çok Seçilen Servisler: {services_str}
-VIP Tier: {vip_tier} (Skor: {vip_score}/100)
-"""
-            response = await asyncio.to_thread(model.generate_content, prompt)
-            if response and response.text:
-                persona_text = response.text.strip()
-    except Exception as e:
-        print(f"[Phase G] Gemini persona error: {e}")
-
-    # 5. Persist to DB
-    customer.ai_persona_summary = persona_text
-    customer.visit_count = visit_count
-    customer.total_spent = total_spent
-    from datetime import datetime
-    customer.last_visit = datetime.utcnow()
-    await db.commit()
-
-    # 6. Broadcast to HQ Neural Bridge
-    await manager.broadcast_global({
-        "type": "VIP_PROFILE_UPDATED",
-        "customer_id": str(customer.id),
-        "guest_name": customer.full_name,
-        "vip_score": vip_score,
-        "vip_tier": vip_tier,
-        "persona": persona_text,
-        "visit_count": visit_count,
-        "total_spent": total_spent
-    })
-
-    return {
-        "status": "success",
-        "customer_id": str(customer.id),
-        "guest_name": customer.full_name,
-        "vip_score": vip_score,
-        "vip_tier": vip_tier,
-        "visit_count": visit_count,
-        "total_spent": total_spent,
-        "persona": persona_text
-    }
 
 
-@app.get("/api/v1/admin/vip-roster")
-async def get_vip_roster(db: AsyncSession = Depends(get_db)):
-    """
-    Returns all customers with their VIP scores for the Sentient Guest Card panel.
-    Computes scores live from booking data.
-    """
-    cust_res = await db.execute(
-        select(Customer)
-        .options(selectinload(Customer.bookings))
-        .order_by(Customer.total_spent.desc())
-        .limit(20)
-    )
-    customers = cust_res.scalars().all()
-
-    roster = []
-    for c in customers:
-        bookings = c.bookings or []
-        total = float(c.total_spent or 0)
-        visits = int(c.visit_count or len(bookings))
-
-        vip_score = min(100, int(
-            (min(visits, 20) / 20 * 40) +
-            (min(total, 5000) / 5000 * 40) +
-            (20 if total > 1000 else 0)
-        ))
-        vip_tier = "STANDARD"
-        if vip_score >= 80: vip_tier = "CONTINENTAL"
-        elif vip_score >= 60: vip_tier = "PLATINUM"
-        elif vip_score >= 40: vip_tier = "GOLD"
-
-        roster.append({
-            "id": str(c.id),
-            "name": c.full_name,
-            "vip_score": vip_score,
-            "vip_tier": vip_tier,
-            "visit_count": visits,
-            "total_spent": total,
-            "last_visit": c.last_visit.strftime("%Y-%m-%d") if c.last_visit else "—",
-            "persona": c.ai_persona_summary or None
-        })
-
-    return {"status": "success", "count": len(roster), "roster": roster}
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -1619,98 +1684,6 @@ async def get_ltv_churn(db: AsyncSession = Depends(get_db)):
     }
 
 
-@app.post("/api/v1/revenue/ai-boost")
-async def get_ai_revenue_boost(db: AsyncSession = Depends(get_db)):
-    """
-    AI Revenue Boost (Gemini):
-    Mevcut kapasiteyi, booking verisini ve surge'ü analiz edip
-    aksiyon odaklı gelir artırma önerisi üretir.
-    """
-    from datetime import datetime, timedelta
-    import asyncio, os
-    from sqlalchemy import func
-
-    now = datetime.utcnow()
-    day_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
-
-    # Veri topla
-    today_res = await db.execute(
-        select(func.sum(Booking.price_snapshot), func.count(Booking.id))
-        .where(Booking.created_at >= day_start)
-        .where(Booking.status == BookingStatus.CONFIRMED)
-    )
-    row = today_res.one()
-    today_rev   = float(row[0] or 0)
-    today_count = int(row[1] or 0)
-
-    # En popüler servis
-    top_svc_res = await db.execute(
-        select(Service.name, func.count(Booking.id).label("cnt"))
-        .join(Booking, Booking.service_id == Service.id)
-        .where(Booking.created_at >= day_start - timedelta(days=7))
-        .group_by(Service.name)
-        .order_by(desc("cnt"))
-        .limit(3)
-    )
-    top_services = [r[0] for r in top_svc_res.fetchall()]
-
-    # High-LTV müşteri sayısı
-    vip_res = await db.execute(
-        select(func.count(Customer.id)).where(Customer.total_spent >= 1000)
-    )
-    vip_count = int(vip_res.scalar() or 0)
-
-    elapsed_hours = max(1, (now - day_start).seconds // 3600)
-    remaining_hours = max(1, 24 - elapsed_hours)
-    run_rate = today_rev / elapsed_hours
-
-    # Gemini AI Aksiyon Önerisi
-    boost_suggestion = (
-        f"Current run rate is €{run_rate:.0f}/hr. "
-        f"With {remaining_hours} hours remaining, consider activating surge pricing "
-        f"on {top_services[0] if top_services else 'top services'} to capture €{run_rate * remaining_hours * 0.3:.0f} additional revenue."
-    )
-
-    try:
-        from dotenv import load_dotenv
-        load_dotenv(override=True)
-        api_key = os.getenv("GEMINI_API_KEY")
-        if api_key:
-            import google.generativeai as genai
-            genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-2.5-flash")
-            prompt = f"""Sen Santis Revenue Intelligence motoru olarak çalışıyorsun.
-Aşağıdaki günlük veriyi analiz et ve 2-3 cümlelik, aksiyon odaklı, özgüvenli bir gelir artırma tavsiyesi üret.
-Rakamsal tahmin içersin. Türkçe değil, İngilizce yaz. Selamlama yok. Direkt aksiyonla başla.
-
-Bugünkü Gelir: €{today_rev:,.0f}
-Bugünkü Booking Sayısı: {today_count}
-Günlük Run Rate: €{run_rate:.0f}/saat
-Kalan Saat: {remaining_hours} saat
-En Popüler Servisler (son 7 gün): {', '.join(top_services) if top_services else 'N/A'}
-Yüksek Değerli Misafirler (€1000+): {vip_count} kişi
-
-Tavsiyeni ver:"""
-            resp = await asyncio.to_thread(model.generate_content, prompt)
-            if resp and resp.text:
-                boost_suggestion = resp.text.strip()
-    except Exception as e:
-        print(f"[Phase H] AI Boost error: {e}")
-
-    projected_extra = round(run_rate * remaining_hours * 0.25, 2)
-
-    return {
-        "status": "success",
-        "snapshot_time": now.isoformat(),
-        "today_revenue": today_rev,
-        "today_bookings": today_count,
-        "run_rate_per_hour": round(run_rate, 2),
-        "remaining_hours": remaining_hours,
-        "projected_extra_revenue": projected_extra,
-        "top_services": top_services,
-        "vip_count": vip_count,
-        "ai_boost_suggestion": boost_suggestion
-    }
 
 
 @app.get("/api/v1/guest/zen-feed")
@@ -1978,182 +1951,21 @@ async def serve_root_html(file_name: str):
 # Stok kritik → demand_multiplier +0.10/+0.25 bump → Neural alert
 # ═══════════════════════════════════════════════════════════════
 
-async def get_scarcity_bumps(db: AsyncSession) -> dict:
-    """
-    Phase O helper: returns {service_id: bump} for services with critical stock.
-    Called from Phase J auto_pricing_worker every cycle.
-    """
-    res = await db.execute(text("""
-        SELECT service_id, item_name, current_stock, min_threshold, is_luxury
-        FROM service_inventory
-        WHERE current_stock <= min_threshold
-    """))
-    rows = res.fetchall()
-    bumps = {}
-    for service_id, item_name, stock, threshold, is_luxury in rows:
-        bump = 0.25 if is_luxury else 0.10
-        bumps[service_id] = {"bump": bump, "item": item_name, "stock": stock, "threshold": threshold}
-    return bumps
-
-
-@app.get("/api/v1/inventory")
-async def get_inventory(db: AsyncSession = Depends(get_db)):
-    """Phase O – Full inventory list with scarcity status."""
-    res = await db.execute(text("""
-        SELECT si.id, si.service_id, s.name as service_name,
-               si.item_name, si.unit, si.current_stock, si.min_threshold,
-               si.is_luxury, si.notes, si.updated_at
-        FROM service_inventory si
-        LEFT JOIN services s ON s.id = si.service_id
-        ORDER BY (si.current_stock - si.min_threshold) ASC
-    """))
-    rows = res.fetchall()
-    items = []
-    for r in rows:
-        is_critical = r.current_stock <= r.min_threshold
-        items.append({
-            "id": r.id, "service_id": r.service_id, "service_name": r.service_name,
-            "item_name": r.item_name, "unit": r.unit,
-            "current_stock": r.current_stock, "min_threshold": r.min_threshold,
-            "is_luxury": bool(r.is_luxury), "notes": r.notes,
-            "is_critical": is_critical,
-            "scarcity_bump": 0.25 if (is_critical and r.is_luxury) else (0.10 if is_critical else 0.0),
-            "updated_at": str(r.updated_at)
-        })
-    return {"status": "success", "total": len(items), "critical": sum(1 for i in items if i["is_critical"]), "items": items}
-
-
-@app.patch("/api/v1/inventory/{item_id}")
-async def update_inventory_stock(item_id: str, payload: dict = Body(...), db: AsyncSession = Depends(get_db)):
-    """Phase O – Update stock level for an inventory item."""
-    res = await db.execute(text("SELECT * FROM service_inventory WHERE id = :id"), {"id": item_id})
-    row = res.fetchone()
-    if not row:
-        raise HTTPException(status_code=404, detail="Inventory item not found")
-
-    new_stock = payload.get("current_stock", row.current_stock)
-    await db.execute(text("""
-        UPDATE service_inventory
-        SET current_stock = :stock, updated_at = CURRENT_TIMESTAMP
-        WHERE id = :id
-    """), {"stock": new_stock, "id": item_id})
-    await db.commit()
-
-    is_critical = new_stock <= row.min_threshold
-    bump = 0.25 if (is_critical and row.is_luxury) else (0.10 if is_critical else 0.0)
-
-    if is_critical:
-        cluster = "Aesthetic Elite" if row.is_luxury else "Recovery Athlete"
-        await neural_thought(
-            f"Santis Inventory ∷ '{row.item_name}' critical — {new_stock} {row.unit} left. "
-            f"Scarcity +{bump:.0%} surge → {cluster} cluster targeted.",
-            level="alert" if row.is_luxury else "surge"
-        )
-    else:
-        await neural_thought(f"Santis Inventory ∷ '{row.item_name}' restocked → {new_stock} {row.unit}.", level="info")
-
-    return {
-        "status": "success",
-        "item_name": row.item_name,
-        "new_stock": new_stock,
-        "is_critical": is_critical,
-        "scarcity_bump": bump
-    }
 
 
 # ═══════════════════════════════════════════════════════════════
 # 📌 PHASE VISUAL – GALLERY ASSET ENGINE
-# GalleryAsset CRUD + multipart upload + Phase J/O entegrasyonu
+# ⚠️ GET /gallery/assets moved to app/api/v1/endpoints/gallery.py
+#    (Sovereign Inheritance + Batch Slot API active there)
 # ═══════════════════════════════════════════════════════════════
 
-@app.get("/api/v1/gallery/assets")
-async def get_gallery_assets(
-    category: str = "",
-    lang:     str = "tr",
-    slot:     str = "",
-    slots:    str = "",
-    search:   str = "",
-    db: AsyncSession = Depends(get_db)
-):
-    """Gallery list — optional category/slot/search filter; includes live multiplier + scarcity."""
-    import json as _j
-    where = "WHERE is_published = 1"
-    params = {}
-    if category and category != "all":
-        where += " AND category = :cat"
-        params["cat"] = category
+# NOTE: This inline handler has been deprecated in favor of the
+# gallery.py router which supports Sovereign Inheritance logic.
+# The gallery.py router is included via:
+#   app.include_router(gallery.router, prefix="/api/v1/gallery")
 
-    # Text search across filename and slot
-    if search:
-        where += " AND (filename LIKE :search OR COALESCE(slot,'') LIKE :search)"
-        params["search"] = f"%{search}%"
-
-    # Single slot filter (exact match or prefix with trailing -)
-    if slot:
-        if slot.endswith("-"):
-            where += " AND slot LIKE :slot"
-            params["slot"] = f"{slot}%"
-        else:
-            where += " AND slot = :slot"
-            params["slot"] = slot
-
-    # Batch slot filter (comma-separated)
-    if slots:
-        slot_list = [s.strip() for s in slots.split(",") if s.strip()]
-        if slot_list:
-            placeholders = ",".join([f":sl{i}" for i in range(len(slot_list))])
-            where += f" AND slot IN ({placeholders})"
-            for i, s in enumerate(slot_list):
-                params[f"sl{i}"] = s
-
-    res = await db.execute(
-        text(f"""
-            SELECT id, filename, filepath, category,
-                   caption_tr, caption_en, caption_de,
-                   linked_service_id, sort_order, uploaded_at, slot
-            FROM gallery_assets {where}
-            ORDER BY sort_order ASC, uploaded_at DESC
-        """), params
-    )
-    rows = res.fetchall()
-
-    # Phase J: live multiplier
-    mult_res = await db.execute(text("SELECT AVG(demand_multiplier) FROM services WHERE is_active=1"))
-    multiplier = round(float(mult_res.scalar() or 1.0), 2)
-
-    # Phase O: critical items by service
-    scarcity_bumps = {}
-    try:
-        scarcity_bumps = await get_scarcity_bumps(db)
-    except Exception:
-        pass
-
-    caption_key = {"tr": "caption_tr", "en": "caption_en", "de": "caption_de"}.get(lang, "caption_tr")
-
-    assets = []
-    for row in rows:
-        sid = str(row[7]) if row[7] else None
-        is_scarce = sid in scarcity_bumps if sid else False
-        cap_map = {"caption_tr": row[4], "caption_en": row[5], "caption_de": row[6]}
-        assets.append({
-            "id":                 row[0],
-            "filename":           row[1],
-            "filepath":           row[2],
-            "url":                f"/{row[2]}",
-            "category":           row[3],
-            "caption":            cap_map.get(caption_key, row[4]),
-            "linked_service_id":  sid,
-            "sort_order":         row[8],
-            "uploaded_at":        str(row[9]),
-            "slot":               row[10],
-            "demand_multiplier":  multiplier,
-            "is_scarce":          is_scarce,
-            "scarcity_label":     "Limited Availability" if is_scarce else None,
-        })
-
-    return {"assets": assets, "total": len(assets), "multiplier": multiplier}
-
-    return {"assets": assets, "total": len(assets), "multiplier": multiplier}
+# @app.get("/api/v1/gallery/assets")  # DEPRECATED — route shadowing fix
+# async def get_gallery_assets(...):  # See gallery.py router instead
 
 # Note: get_gallery_slots moved to app/api/v1/endpoints/gallery.py
 # to fix Route Shadowing issue.
@@ -2203,685 +2015,43 @@ async def crm_trace(request: Request):
 
 
 # ── Phase 9.5B: Decision Engine ─────────────────────────────────
-@app.get("/api/v1/ai/decision-rules")
-async def get_decision_rules():
-    """List active decision rules."""
-    async with AsyncSessionLocal() as db:
-        result = await db.execute(text("SELECT * FROM decision_rules WHERE enabled = 1 ORDER BY priority DESC"))
-        rules = [dict(r._mapping) for r in result.fetchall()]
-    return {"rules": rules, "total": len(rules)}
 
 
-@app.get("/api/v1/ai/shadow-log")
-async def get_shadow_log():
-    """View shadow decision log for AI accuracy analysis."""
-    async with AsyncSessionLocal() as db:
-        result = await db.execute(text(
-            "SELECT * FROM shadow_decisions ORDER BY created_at DESC LIMIT 50"
-        ))
-        logs = [dict(r._mapping) for r in result.fetchall()]
-    return {"decisions": logs, "total": len(logs)}
 
 
 # ── Phase 11: Conversion Oracle — Banner Analytics ──────────────
-@app.get("/api/v1/ai/banner-stats")
-async def get_banner_stats():
-    """Conversion Oracle: impressions, clicks, conversion rate, revenue lift."""
-    async with AsyncSessionLocal() as db:
-        r1 = await db.execute(text("SELECT COUNT(*) FROM banner_impressions"))
-        impressions = r1.scalar() or 0
-
-        r2 = await db.execute(text("SELECT COUNT(*) FROM banner_clicks"))
-        clicks = r2.scalar() or 0
-
-        r3 = await db.execute(text(
-            "SELECT COALESCE(SUM(lift_estimate),0) FROM shadow_decisions WHERE was_autonomous=1"
-        ))
-        revenue_lift = float(r3.scalar() or 0)
-
-        r4 = await db.execute(text(
-            "SELECT COUNT(*) FROM shadow_decisions WHERE was_autonomous=1"
-        ))
-        autonomous_fired = r4.scalar() or 0
-
-    conversion_rate = round((clicks / impressions * 100), 1) if impressions > 0 else 0
-    ai_accuracy = round((autonomous_fired / max(impressions, 1)) * 100, 1)
-
-    return {
-        "impressions": impressions,
-        "clicks": clicks,
-        "conversion_rate": conversion_rate,
-        "revenue_lift": revenue_lift,
-        "autonomous_fired": autonomous_fired,
-        "ai_accuracy": min(ai_accuracy, 99.9),
-        "glow_active": conversion_rate >= 15
-    }
 
 
-@app.post("/api/v1/ai/banner-impression")
-async def log_banner_impression(request: Request):
-    """Log that a banner was shown to a visitor."""
-    body = await request.json()
-    async with AsyncSessionLocal() as db:
-        await db.execute(text(
-            "INSERT INTO banner_impressions (session_id, tenant_id, event_id, action, discount_pct) "
-            "VALUES (:sid, :tid, :eid, :action, :disc)"
-        ), {
-            "sid": body.get("session_id", "anon"),
-            "tid": body.get("tenant_id", "system"),
-            "eid": body.get("event_id", ""),
-            "action": body.get("action", "FLASH_OFFER"),
-            "disc": body.get("discount_pct", 10)
-        })
-        await db.commit()
-    return {"status": "logged"}
 
 
-@app.post("/api/v1/ai/banner-click")
-async def log_banner_click(request: Request):
-    """Log a click on the urgency banner."""
-    body = await request.json()
-    async with AsyncSessionLocal() as db:
-        await db.execute(text(
-            "INSERT INTO banner_clicks (session_id, tenant_id, impression_id, converted) "
-            "VALUES (:sid, :tid, :iid, :conv)"
-        ), {
-            "sid": body.get("session_id", "anon"),
-            "tid": body.get("tenant_id", "system"),
-            "iid": body.get("impression_id", None),
-            "conv": int(body.get("converted", 0))
-        })
-        await db.commit()
-    return {"status": "click_logged"}
 
 
 # ── Phase 15: Checkout Discount Bridge — Promo Token ─────────────
-@app.post("/api/v1/ai/promo-token")
-async def create_promo_token(request: Request):
-    """Create a session-based promo discount token (expires in 30 min)."""
-    from datetime import datetime, timedelta
-    import random, string
-    body = await request.json()
-    token = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
-    expires_at = (datetime.now() + timedelta(minutes=30)).strftime('%Y-%m-%d %H:%M:%S')
-    async with AsyncSessionLocal() as db:
-        await db.execute(text(
-            "INSERT INTO promo_tokens (id, session_id, discount_pct, action, expires_at, used) "
-            "VALUES (:tid, :sid, :disc, :action, :exp, 0)"
-        ), {
-            "tid": token,
-            "sid": body.get("session_id", "anon"),
-            "disc": float(body.get("discount_pct", 10)),
-            "action": body.get("action", "FLASH_OFFER"),
-            "exp": expires_at
-        })
-        await db.commit()
-    return {
-        "token": token,
-        "discount_pct": body.get("discount_pct", 10),
-        "expires_at": expires_at,
-        "display": f"NV-{token}",
-        "message": f"🎁 %{int(body.get('discount_pct', 10))} İndirim Kodunuz: NV-{token}"
-    }
 
 
-@app.get("/api/v1/ai/promo-token/{token}")
-async def validate_promo_token(token: str):
-    """Validate a promo token and return discount info."""
-    from datetime import datetime
-    async with AsyncSessionLocal() as db:
-        r = await db.execute(text(
-            "SELECT id, discount_pct, action, expires_at, used FROM promo_tokens WHERE id = :tid"
-        ), {"tid": token.upper()})
-        row = r.fetchone()
-
-    if not row:
-        return {"valid": False, "reason": "Token bulunamadı"}
-    if row[4]:
-        return {"valid": False, "reason": "Token daha önce kullanıldı", "discount_pct": row[1]}
-    if row[3] and datetime.now() > datetime.strptime(str(row[3]), '%Y-%m-%d %H:%M:%S'):
-        return {"valid": False, "reason": "Token süresi doldu", "discount_pct": row[1]}
-
-    return {
-        "valid": True,
-        "token": row[0],
-        "discount_pct": row[1],
-        "action": row[2],
-        "display": f"NV-{row[0]}",
-        "whatsapp_text": f"🎁 Promo Kodum: NV-{row[0]} | %{int(row[1])} İndirim"
-    }
 
 
-@app.post("/api/v1/ai/promo-token/{token}/use")
-async def use_promo_token(token: str):
-    """Mark a promo token as used after reservation."""
-    async with AsyncSessionLocal() as db:
-        await db.execute(text(
-            "UPDATE promo_tokens SET used=1 WHERE id=:tid"
-        ), {"tid": token.upper()})
-        await db.commit()
-    return {"status": "used", "token": token.upper()}
 
 
 # ── Phase 16: Sentiment Concierge — Gemini Powered Chat ──────────
-@app.post("/api/v1/ai/concierge-chat")
-async def concierge_chat(request: Request):
-    """
-    Gemini-powered conversational concierge.
-    Accepts: guest_name, message, intent_score, behavioral_tags, history[]
-    Returns: ai_reply, booking_suggested, whatsapp_cta
-    """
-    import re, json as _json
-
-    body = await request.json()
-    guest_name    = body.get("guest_name", "Değerli Misafirimiz")
-    message       = body.get("message", "")
-    intent_score  = int(body.get("intent_score", 50))
-    behavioral_tags = body.get("behavioral_tags", [])   # e.g. ["high_intent","returning"]
-    history       = body.get("history", [])             # [{role:user/ai, text:...}]
-    service_hint  = body.get("service_interest", "")
-    promo_token   = body.get("promo_token", "")
-
-    if not message.strip():
-        return {"ai_reply": "Sizi duyuyorum, lütfen devam edin.", "booking_suggested": False}
-
-    # Get API key
-    api_key = os.environ.get("GEMINI_API_KEY", "")
-    if not api_key:
-        from pathlib import Path as _P
-        _ef = _P(__file__).parent / ".env"
-        if _ef.exists():
-            for _l in _ef.read_text().splitlines():
-                if _l.startswith("GEMINI_API_KEY="):
-                    api_key = _l.split("=", 1)[1].strip()
-                    break
-
-    if not api_key:
-        return {"ai_reply": "Konciyer şu an bakımda. Lütfen WhatsApp'tan ulaşın.", "booking_suggested": True,
-                "whatsapp_cta": {"label": "WhatsApp ile Rezervasyon", "phone": "905555555555", "text": "Santis rezervasyon talebi"}}
-
-    # ── Build Santis Brand System Prompt ─────────────────────────
-    urgency_note = ""
-    if intent_score >= 75:
-        urgency_note = "This guest has HIGH booking intent (score={intent_score}/100). Gently guide toward reservation NOW.".format(intent_score=intent_score)
-    elif intent_score >= 50:
-        urgency_note = "Guest intent is moderate. Build desire, describe the experience, then suggest booking."
-    else:
-        urgency_note = "Guest is exploring. Be warm and informative. Do not push booking yet."
-
-    tags_note = f"Behavioral profile: {', '.join(behavioral_tags)}." if behavioral_tags else ""
-    svc_note  = f"Guest shows interest in: {service_hint}." if service_hint else ""
-    promo_note = f"Guest has promo token {promo_token} — mention their special discount naturally." if promo_token else ""
-
-    system_prompt = f"""You are the AI Concierge for Santis, a premium luxury spa in Antalya, Turkey.
-
-BRAND VOICE: Elegant, warm, knowledgeable. Like a trusted Maitre d'Hotel. Never robotic or generic.
-LANGUAGE: Reply in Turkish unless guest writes in another language.
-STYLE: 2-3 sentences max. Rich sensory language. Reference specific treatments when relevant.
-{urgency_note}
-{tags_note}
-{svc_note}
-{promo_note}
-
-SERVICES (reference naturally when relevant):
-- Osmanlı Hammam Ritüeli – Steam, exfoliation, marble relaxation
-- Derin Doku Masajı – Deep tissue, tension release
-- Sothys Yüz Bakımı – French luxury skincare
-- Aromaterapik Masaj – Essential oils, harmony
-- Taş Terapisi – Hot stone, deep warmth
-- Çift Ritüel – Couples spa journey
-- VIP Özel Protokol – Bespoke luxury experience
-
-RULES:
-- Never make up prices (say 'kişiye özel' for pricing)
-- Always end with an implicit or explicit invitation
-- If guest is ready to book, tell them their personal WhatsApp link awaits
-- JSON format: {{"reply": "your response", "booking_suggested": true/false}}"""
-
-    # Build conversation
-    conversation_text = system_prompt + "\n\n"
-    for h in history[-6:]:  # Last 6 turns
-        role = "Misafir" if h.get("role") == "user" else "Konciyer"
-        conversation_text += f"{role}: {h.get('text','')}\n"
-    conversation_text += f"Misafir: {message}\nKonciyer:"
-
-    try:
-        import google.generativeai as _genai
-        import asyncio as _asyncio
-        _genai.configure(api_key=api_key)
-        _model = _genai.GenerativeModel("gemini-2.0-flash")
-        loop = _asyncio.get_event_loop()
-        resp = await loop.run_in_executor(None, lambda: _model.generate_content(conversation_text))
-        raw = resp.text.strip()
-
-        # Try JSON parse
-        m = re.search(r'\{.*\}', raw, re.DOTALL)
-        if m:
-            parsed = _json.loads(m.group())
-            ai_reply = parsed.get("reply", raw)
-            booking_suggested = bool(parsed.get("booking_suggested", False))
-        else:
-            ai_reply = raw
-            booking_suggested = intent_score >= 70
-
-        # Build WhatsApp CTA
-        phone    = (os.environ.get("NV_CONCIERGE_NUMBER") or "905555555555").replace("+", "")
-        wa_lines = [f"Merhaba, Santis rezervasyon talebim var."]
-        if service_hint:
-            wa_lines.append(f"İlgilendiğim hizmet: {service_hint}")
-        if promo_token:
-            wa_lines.append(f"Promo kodum: {promo_token}")
-        wa_text = " | ".join(wa_lines)
-
-        return {
-            "ai_reply": ai_reply,
-            "booking_suggested": booking_suggested,
-            "intent_score": intent_score,
-            "whatsapp_cta": {
-                "label": "WhatsApp ile Rezerve Et 🌿",
-                "phone": phone,
-                "text": wa_text,
-                "url": f"https://wa.me/{phone}?text={wa_text.replace(' ', '%20')}"
-            } if booking_suggested else None
-        }
-
-    except Exception as e:
-        return {
-            "ai_reply": f"Merhaba {guest_name}, size en kısa sürede dönmek için buradayım.",
-            "booking_suggested": False,
-            "error": str(e)[:100]
-        }
-
 
 # ── Phase 14: Gemini Neural Endpoints ────────────────────────────
-@app.get("/api/v1/ai/accuracy")
-async def get_ai_accuracy():
-    """Real AI accuracy: Gemini recommendation vs rule decision alignment rate."""
-    async with AsyncSessionLocal() as db:
-        r = await db.execute(text("""
-            SELECT
-                COUNT(*) as total,
-                SUM(CASE WHEN ai_recommendation = rule_decision THEN 1 ELSE 0 END) as matched,
-                AVG(COALESCE(ai_confidence, 0.5)) as avg_confidence,
-                SUM(CASE WHEN gemini_source = 'gemini_live' THEN 1 ELSE 0 END) as gemini_backed
-            FROM shadow_decisions
-        """))
-        row = r.fetchone()
-    total = row[0] or 0
-    matched = row[1] or 0
-    avg_conf = round(float(row[2] or 0.5) * 100, 1)
-    gemini_backed = row[3] or 0
-    accuracy = round((matched / total) * 100, 1) if total > 0 else 0.0
-    return {
-        "total_decisions": total,
-        "gemini_backed": gemini_backed,
-        "accuracy_pct": accuracy,
-        "avg_confidence_pct": avg_conf,
-        "grade": "A" if accuracy >= 80 else "B" if accuracy >= 60 else "C"
-    }
 
 
-@app.post("/api/v1/ai/gemini-strategy")
-async def get_gemini_strategy(request: Request):
-    """On-demand Gemini strategy call with live DB context."""
-    import re, json as _json
-    body = await request.json()
-    occupancy = float(body.get("occupancy_pct", 0.65))
-
-    api_key = os.environ.get("GEMINI_API_KEY", "")
-    if not api_key:
-        from pathlib import Path as _P
-        _ef = _P(__file__).parent / ".env"
-        if _ef.exists():
-            for _l in _ef.read_text().splitlines():
-                if _l.startswith("GEMINI_API_KEY="):
-                    api_key = _l.split("=",1)[1].strip()
-                    break
-
-    if not api_key:
-        return {"action": "HOLD", "confidence": 0.0, "reasoning": "API key not found", "source": "config_error"}
-
-    try:
-        import google.generativeai as _genai
-        import asyncio as _asyncio
-        _genai.configure(api_key=api_key)
-        _model = _genai.GenerativeModel("gemini-2.0-flash")
-        prompt = (
-            f"You are Revenue Intelligence AI for Santis Luxury Spa Turkey. "
-            f"REAL-TIME OCCUPANCY: {round(occupancy * 100)}%. "
-            'Recommend ONE action. Reply ONLY as JSON no markdown: '
-            '{"action":"SURGE or FLASH_OFFER or HOLD","confidence":0.0-1.0,'
-            '"price_suggestion":"e.g. +15%","reasoning":"one sentence"} '
-            "Rules: SURGE if occupancy>70%, FLASH_OFFER if occupancy<40%, HOLD otherwise."
-        )
-        loop = _asyncio.get_event_loop()
-        resp = await loop.run_in_executor(None, lambda: _model.generate_content(prompt))
-        raw = resp.text.strip()
-        m = re.search(r'\{.*\}', raw, re.DOTALL)
-        if m:
-            result = _json.loads(m.group())
-            result["source"] = "gemini_live"
-            return result
-        return {"action": "HOLD", "confidence": 0.7, "reasoning": raw[:120], "source": "gemini_raw"}
-    except Exception as e:
-        return {"action": "HOLD", "confidence": 0.0, "reasoning": str(e)[:150], "source": "error"}
 
 
-@app.get("/api/v1/ai/gemini-forecast")
-async def get_gemini_forecast():
-    """Gemini 48-hour spa forecast."""
-    import re, json as _json
-    from datetime import datetime as _dt, timedelta as _td
-
-    api_key = os.environ.get("GEMINI_API_KEY", "")
-    if not api_key:
-        from pathlib import Path as _P
-        _ef = _P(__file__).parent / ".env"
-        if _ef.exists():
-            for _l in _ef.read_text().splitlines():
-                if _l.startswith("GEMINI_API_KEY="):
-                    api_key = _l.split("=",1)[1].strip()
-                    break
-
-    if not api_key:
-        return {"forecast_text": "API key not configured", "peak_window": "N/A", "recommended_action": "HOLD", "source": "config_error"}
-
-    # Build minimal context from DB
-    now = _dt.now()
-    context = ""
-    try:
-        async with AsyncSessionLocal() as db:
-            r1 = await db.execute(text("SELECT COUNT(*), COALESCE(SUM(price_snapshot),0) FROM bookings WHERE is_deleted=0 AND start_time >= :s"), {"s": (now - _td(days=7)).isoformat()})
-            r1d = r1.fetchone()
-            r2 = await db.execute(text("SELECT COUNT(*) FROM bookings WHERE is_deleted=0 AND DATE(start_time)=DATE(:t)"), {"t": now.isoformat()})
-            r2d = r2.fetchone()
-            context = f"Last 7 days: {r1d[0]} bookings, EUR {round(float(r1d[1]),2)}. Today: {r2d[0][0] if isinstance(r2d[0], tuple) else r2d[0]} bookings."
-    except Exception:
-        context = "Santis luxury spa, 8 treatment rooms, premium clientele."
-
-    try:
-        import google.generativeai as _genai
-        import asyncio as _asyncio
-        _genai.configure(api_key=api_key)
-        _model = _genai.GenerativeModel("gemini-2.0-flash")
-        prompt = (
-            f"You are the Forecasting Oracle for Santis Luxury Spa Turkey. "
-            f"Business context: {context} "
-            "Generate a 48-hour forecast. Reply ONLY as JSON no markdown: "
-            '{"forecast_text":"2-3 sentences luxury tone",'
-            '"peak_window":"e.g. Saturday 14:00",'
-            '"recommended_action":"SURGE or FLASH_OFFER or HOLD",'
-            '"expected_revenue_lift_eur":0-500}'
-        )
-        loop = _asyncio.get_event_loop()
-        resp = await loop.run_in_executor(None, lambda: _model.generate_content(prompt))
-        raw = resp.text.strip()
-        m = re.search(r'\{.*\}', raw, re.DOTALL)
-        if m:
-            result = _json.loads(m.group())
-            result["source"] = "gemini_live"
-            return result
-        return {"forecast_text": raw[:200], "peak_window": "N/A", "recommended_action": "HOLD", "source": "gemini_raw"}
-    except Exception as e:
-        return {"forecast_text": str(e)[:200], "peak_window": "N/A", "recommended_action": "HOLD", "source": "error"}
 
 
 # ── Phase 9.2: AI Revenue Brain — Forecast Engine ──────────────
-@app.get("/api/v1/ai/forecast")
-async def ai_forecast():
-    """48-hour occupancy forecast based on booking velocity."""
-    from datetime import datetime, timedelta
-
-    now = datetime.now()
-    seven_days_ago = now - timedelta(days=7)
-    today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
-
-    async with AsyncSessionLocal() as db:
-        r1 = await db.execute(text(
-            "SELECT COUNT(*) FROM bookings WHERE start_time >= :ts AND status != 'CANCELLED'"
-        ), {"ts": str(today_start)})
-        today_count = r1.scalar() or 0
-
-        r2 = await db.execute(text(
-            "SELECT COUNT(*) FROM bookings WHERE start_time >= :ts AND status != 'CANCELLED'"
-        ), {"ts": str(seven_days_ago)})
-        week_total = r2.scalar() or 0
-        avg_daily = round(week_total / 7, 1)
-
-        r3 = await db.execute(text(
-            "SELECT COALESCE(SUM(price_snapshot), 0) FROM bookings WHERE start_time >= :ts AND status != 'CANCELLED'"
-        ), {"ts": str(today_start)})
-        today_revenue = float(r3.scalar() or 0)
-
-        r4 = await db.execute(text(
-            "SELECT COALESCE(SUM(price_snapshot), 0) FROM bookings WHERE start_time >= :ts AND status != 'CANCELLED'"
-        ), {"ts": str(seven_days_ago)})
-        week_revenue = float(r4.scalar() or 0)
-        avg_daily_revenue = round(week_revenue / 7, 2)
-
-    CAPACITY = 50
-    forecast_tomorrow = round(avg_daily * 1.05, 1)
-    occupancy_pct = round((forecast_tomorrow / CAPACITY) * 100, 1)
-
-    if occupancy_pct > 70:
-        recommendation = "SURGE"
-        reason = f"Predicted occupancy {occupancy_pct}% exceeds 70% threshold"
-    elif occupancy_pct < 30:
-        recommendation = "DISCOUNT"
-        reason = f"Low predicted demand ({occupancy_pct}%) — flash offer recommended"
-    else:
-        recommendation = "HOLD"
-        reason = f"Stable demand at {occupancy_pct}%"
-
-    return {
-        "today_bookings": today_count,
-        "avg_daily_bookings": avg_daily,
-        "forecast_tomorrow": forecast_tomorrow,
-        "forecast_occupancy_pct": occupancy_pct,
-        "today_revenue": today_revenue,
-        "avg_daily_revenue": avg_daily_revenue,
-        "revenue_velocity": f"€{avg_daily_revenue}/day",
-        "ai_recommendation": recommendation,
-        "ai_reason": reason,
-        "generated_at": now.isoformat()
-    }
 
 
 # ── Phase 8.7: CMS Live Preview WebSocket ──────────────────────
-from app.core.websocket import manager as ws_manager
-
-@app.websocket("/ws")
-async def ws_endpoint(websocket: WebSocket):
-    client_type = websocket.query_params.get("client_type", "site")
-    client_id = websocket.query_params.get("client_id", "anon")
-    room_id = f"{client_type}_{client_id}"
-    await ws_manager.connect(websocket, room_id)
-    try:
-        while True:
-            await websocket.receive_text()
-    except WebSocketDisconnect:
-        ws_manager.disconnect(websocket, room_id)
 
 
-@app.post("/api/v1/gallery/upload")
-async def upload_gallery_asset(
-    file:             UploadFile = File(...),
-    category:         str        = Form("diger"),
-    caption_tr:       str        = Form(""),
-    caption_en:       str        = Form(""),
-    caption_de:       str        = Form(""),
-    linked_service_id:str        = Form(""),
-    slot:             str        = Form(""),
-    sort_order:       int        = Form(0),
-    db: AsyncSession = Depends(get_db)
-):
-    """Phase Visual – Upload a gallery asset and register in DB."""
-    import os as _os, uuid as _uuid, shutil as _sh
-    from fastapi import UploadFile, File, Form
 
-    # Validate extension
-    allowed = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
-    ext = _os.path.splitext(file.filename.lower())[1]
-    if ext not in allowed:
-        raise HTTPException(status_code=400, detail=f"Unsupported format: {ext}")
-
-    # Save original
-    upload_dir = "assets/img/uploads"
-    _os.makedirs(upload_dir, exist_ok=True)
-    safe_name = f"{_uuid.uuid4().hex}{ext}"
-    dest = _os.path.join(upload_dir, safe_name)
-    with open(dest, "wb") as f:
-        _sh.copyfileobj(file.file, f)
-
-    # ── Phase Visual: Image Factory (Pillow WebP) ──────────────
-    variants  = {}
-    dominant  = "#1a1a1a"
-    thumb_url = f"/{dest.replace(chr(92), '/')}"
-    try:
-        from app.core.image_factory import process_image as _proc
-        variants = _proc(dest)
-        dominant = variants.get("dominant", "#1a1a1a")
-        thumb_url = f"/{variants.get('thumb', dest).replace(chr(92), '/')}"
-    except Exception as _e:
-        print(f"[Image Factory] Warning: {_e}")
-
-    # Resolve tenant for SaaS isolation
-    tenant_res = await db.execute(text("SELECT id FROM tenants WHERE is_active = 1 LIMIT 1"))
-    tenant_row = tenant_res.fetchone()
-    tenant_id = str(tenant_row[0]) if tenant_row else None
-
-    asset_id = str(_uuid.uuid4())
-    await db.execute(text("""
-        INSERT INTO gallery_assets
-            (id, tenant_id, filename, filepath, category, caption_tr, caption_en, caption_de,
-             linked_service_id, slot, sort_order, is_published, uploaded_at)
-        VALUES
-            (:id, :tid, :fn, :fp, :cat, :ctr, :cen, :cde, :sid, :slot, :so, 1, CURRENT_TIMESTAMP)
-    """), {
-        "id":  asset_id,
-        "tid": tenant_id,
-        "fn":  safe_name,
-        "fp":  dest.replace("\\", "/"),
-        "cat": category,
-        "ctr": caption_tr,
-        "cen": caption_en,
-        "cde": caption_de,
-        "sid": linked_service_id or None,
-        "slot": slot or None,
-        "so":  sort_order,
-    })
-    await db.commit()
-
-    # Phase 8.7: Broadcast live update to all connected clients
-    file_url = f"/{dest.replace(chr(92), '/')}"
-    try:
-        await ws_manager.broadcast_global({
-            "type": "CMS_ASSET_UPDATED",
-            "slot": slot or None,
-            "url": file_url,
-            "category": category,
-            "asset_id": asset_id
-        })
-    except Exception:
-        pass  # WS failure must not block upload
-
-    await neural_thought(
-        f"Santis Gallery ∷ '{safe_name}' [{category}] uploaded. "
-        f"WebP variants: {len(variants)} | Dominant: {dominant}",
-        level="info"
-    )
-
-    return {
-        "id":        asset_id,
-        "filename":  safe_name,
-        "filepath":  dest.replace("\\", "/"),
-        "url":       f"/{dest.replace(chr(92), '/')}",
-        "thumb_url": thumb_url,
-        "dominant":  dominant,
-        "variants":  {k: f"/{v.replace(chr(92), '/')}" for k,v in variants.items() if k != "dominant"},
-        "category":  category,
-    }
-
-
-@app.patch("/api/v1/gallery/assets/{asset_id}")
-async def update_gallery_asset(
-    asset_id: str,
-    payload:  dict = Body(...),
-    db: AsyncSession = Depends(get_db)
-):
-    """Phase Visual – Update caption, category, service link, sort order."""
-    allowed_fields = {"caption_tr", "caption_en", "caption_de", "category",
-                      "linked_service_id", "sort_order", "is_published"}
-    updates = {k: v for k, v in payload.items() if k in allowed_fields}
-    if not updates:
-        raise HTTPException(status_code=400, detail="No valid fields to update.")
-
-    set_clause = ", ".join(f"{k} = :{k}" for k in updates)
-    updates["asset_id"] = asset_id
-    await db.execute(
-        text(f"UPDATE gallery_assets SET {set_clause} WHERE id = :asset_id"),
-        updates
-    )
-    await db.commit()
-    return {"updated": asset_id, "fields": list(updates.keys())}
-
-
-@app.post("/api/v1/gallery/assets/{asset_id}/view")
-async def record_gallery_view(asset_id: str, db: AsyncSession = Depends(get_db)):
-    """
-    Phase Visual – Track asset view count.
-    Every 50 views → apply +0.03x Interest Bump to Phase J demand_multiplier.
-    """
-    # Ensure view_count column exists (idempotent)
-    try:
-        await db.execute(text(
-            "ALTER TABLE gallery_assets ADD COLUMN view_count INTEGER DEFAULT 0"
-        ))
-        await db.commit()
-    except Exception:
-        pass
-
-    await db.execute(
-        text("UPDATE gallery_assets SET view_count = COALESCE(view_count,0) + 1 WHERE id = :id"),
-        {"id": asset_id}
-    )
-    await db.commit()
-
-    # Read new count
-    res = await db.execute(
-        text("SELECT view_count, category FROM gallery_assets WHERE id = :id"),
-        {"id": asset_id}
-    )
-    row = res.fetchone()
-    if row:
-        views, cat = row[0] or 0, row[1]
-        # Interest Bump: every 50 views → +0.03x on top of current multiplier
-        if views > 0 and views % 50 == 0:
-            bump = 0.03
-            await db.execute(text(
-                "UPDATE services SET demand_multiplier = MIN(2.5, demand_multiplier + :b) WHERE is_active = 1"
-            ), {"b": bump})
-            await db.commit()
-            await neural_thought(
-                f"Santis Gallery ∷ '{cat}' visual trending — {views} views. "
-                f"Interest Bump +{bump:.0%} applied to demand_multiplier.",
-                level="surge"
-            )
-            return {"views": views, "interest_bump_applied": bump}
-
-    return {"views": row[0] if row else 0, "interest_bump_applied": None}
-
-
-@app.delete("/api/v1/gallery/assets/{asset_id}")
-async def delete_gallery_asset(asset_id: str, db: AsyncSession = Depends(get_db)):
-    """Phase Visual – Soft-delete (unpublish) a gallery asset."""
-    await db.execute(
-        text("UPDATE gallery_assets SET is_published = 0 WHERE id = :id"),
-        {"id": asset_id}
-    )
-    await db.commit()
-    return {"deleted": asset_id}
-
+# --- ROUERS ---
+from app.api.v1.endpoints import commerce
+app.include_router(commerce.router, prefix="/api/v1/commerce", tags=["Commerce Checkout"])
 
 # ═══════════════════════════════════════════════════════════════
 # 📌 PHASE R – EXECUTIVE REPORTING ENGINE
@@ -2970,118 +2140,10 @@ async def executive_report(db: AsyncSession = Depends(get_db)):
 # Customer bazlı derin hafıza: tercihler, AI notları, vibe_check
 # ═══════════════════════════════════════════════════════════════
 
-@app.get("/api/v1/guests/{customer_id}/memory")
-async def get_guest_memory(customer_id: str, db: AsyncSession = Depends(get_db)):
-    """Phase P – Read Concierge Memory for a guest."""
-    import json as _json, uuid as _uuid
-    cust = await db.get(Customer, _uuid.UUID(customer_id))
-    if not cust:
-        raise HTTPException(status_code=404, detail="Guest not found")
-
-    prefs = {}
-    if cust.preferences_json:
-        try:
-            prefs = _json.loads(cust.preferences_json)
-        except Exception:
-            prefs = {}
-
-    return {
-        "status":      "success",
-        "guest_id":    str(cust.id),
-        "guest_name":  cust.full_name,
-        "preferences": prefs,
-        "ai_notes":    cust.ai_notes    or "",
-        "vibe_check":  cust.vibe_check  or "unknown",
-        "medical_notes": "[ENCRYPTED — omitted]" if cust.medical_notes else None,
-        "persona":     cust.ai_persona_summary or ""
-    }
 
 
-@app.patch("/api/v1/guests/{customer_id}/memory")
-async def update_guest_memory(customer_id: str, payload: dict = Body(...), db: AsyncSession = Depends(get_db)):
-    """Phase P – Update Concierge Memory."""
-    import json as _json, uuid as _uuid
-    cust = await db.get(Customer, _uuid.UUID(customer_id))
-    if not cust:
-        raise HTTPException(status_code=404, detail="Guest not found")
-
-    if "preferences" in payload:
-        cust.preferences_json = _json.dumps(payload["preferences"], ensure_ascii=False)
-    if "ai_notes" in payload:
-        cust.ai_notes = payload["ai_notes"]
-    if "vibe_check" in payload:
-        cust.vibe_check = payload["vibe_check"]
-    if "medical_notes" in payload:
-        cust.medical_notes = payload["medical_notes"]
-
-    await db.commit()
-
-    # Phase N: neural whisper
-    await neural_thought(
-        f"Memory Updated → {cust.full_name} | vibe: {cust.vibe_check or '–'} | prefs saved",
-        level="info"
-    )
-
-    return {"status": "success", "guest_name": cust.full_name, "updated": list(payload.keys())}
 
 
-@app.post("/api/v1/guests/{customer_id}/memory/ai-observe")
-async def ai_observe_guest(customer_id: str, db: AsyncSession = Depends(get_db)):
-    """Phase P – Gemini generates a real-time psychological observation from booking history."""
-    import json as _json, asyncio as _asyncio, uuid as _uuid
-    cust = await db.get(Customer, _uuid.UUID(customer_id))
-    if not cust:
-        raise HTTPException(status_code=404, detail="Guest not found")
-
-    # Booking history context
-    booking_res = await db.execute(
-        select(Service.name, Booking.created_at)
-        .join(Booking, Booking.service_id == Service.id)
-        .where(Booking.customer_id == cust.id)
-        .order_by(Booking.created_at.desc())
-        .limit(10)
-    )
-    history = [{"service": r[0], "date": r[1].strftime("%b %d")} for r in booking_res.fetchall()]
-
-    prefs = {}
-    if cust.preferences_json:
-        try:
-            prefs = _json.loads(cust.preferences_json)
-        except Exception:
-            pass
-
-    ai_note = "Pattern analysis unavailable."
-    try:
-        import os, google.generativeai as genai
-        genai.configure(api_key=os.getenv("GEMINI_API_KEY", ""))
-        model = genai.GenerativeModel("gemini-2.5-flash")
-        prompt = f"""Sen Santis lüks spa'nın dijital konsiyer asistanısın. 
-Misafir: {cust.full_name}
-Geçmiş rezervasyonlar: {history}
-Bilinen tercihler: {prefs}
-Psikolojik profil notu (ai_persona_summary): {cust.ai_persona_summary or 'Yok'}
-
-Bu misafir için kısa (1-2 cümle), operasyonel bir İngilizce gözlem yaz. 
-Ton: sessiz lüks (quiet luxury), profesyonel, içgörülü.
-Örnek: "Guest shows strong Recovery pattern. Likely to benefit from post-workout Deep Tissue. Prefers minimal interaction."
-"""
-        resp = await _asyncio.to_thread(model.generate_content, prompt)
-        if resp and resp.text:
-            ai_note = resp.text.strip()
-    except Exception as e:
-        print(f"[Phase P] Gemini observe error: {e}")
-
-    # Save to DB
-    cust.ai_notes = ai_note
-    await db.commit()
-
-    # Flashback to Neural Stream
-    await neural_thought(
-        f"Memory ∷ {cust.full_name} — {ai_note}",
-        level="info"
-    )
-
-    return {"status": "success", "guest_name": cust.full_name, "ai_observation": ai_note}
 
 
 async def flashback_trigger(customer_id: str, service_name: str, db: AsyncSession):
@@ -3211,7 +2273,8 @@ async def flash_recovery_trigger(
             }
 
             # 5. Broadcast to HQ Dashboard
-            await manager.broadcast_to_room(offer_payload, "hq_global")
+            from app.core.pulse import pulse_engine
+            await pulse_engine.broadcast_to_tenant(offer_payload, "hq_global")
             print(f"[Phase M] ✅ Flash offer sent | {service.name} | €{flash_price} | {len(matched)} targets")
 
     except Exception as e:
@@ -3312,56 +2375,34 @@ async def get_guest_dna_clusters_v2(generate_ai: bool = False, db: AsyncSession 
     }
 
 
-@app.get("/{lang}/{path:path}")
-async def serve_pages(lang: str, path: str):
-    # API routes should never be handled by this wildcard – return 404 JSON
-    if lang in ("api", "hq", "ws"):
-        raise HTTPException(status_code=404, detail=f"Route /{lang}/{path} not found.")
-
-    # Security check to prevent directory traversal
-    if ".." in path or ".." in lang:
+# ── Page Serving: ONLY for content pages (tr/en) — NEVER intercept /api/  ──
+# Using explicit language codes prevents /api/... from ever matching
+@app.get("/tr/{page:path}", include_in_schema=False)
+@app.get("/en/{page:path}", include_in_schema=False)
+async def serve_language_pages(page: str, request: Request):
+    lang = request.url.path.split("/")[1]  # "tr" or "en"
+    if ".." in page or ".." in lang:
         return FileResponse(BASE_DIR / "404.html", status_code=404)
-        
-    file_path = BASE_DIR / lang / path
-    
-    # Check if file exists and is a file (not directory)
-    if file_path.exists():
-        if file_path.is_file():
-            return FileResponse(file_path)
-        if file_path.is_dir():
-            index_path = file_path / "index.html"
-            if index_path.exists() and index_path.is_file():
-                return FileResponse(index_path)
-    
-    # Try adding .html if missing
-    if not path.endswith(".html"):
+    file_path = BASE_DIR / lang / page
+    if file_path.exists() and file_path.is_file():
+        return FileResponse(file_path)
+    if file_path.is_dir():
+        index_path = file_path / "index.html"
+        if index_path.exists():
+            return FileResponse(index_path)
+    if not page.endswith(".html"):
         html_path = file_path.with_suffix(".html")
-        if html_path.exists() and html_path.is_file():
+        if html_path.exists():
             return FileResponse(html_path)
-            
-    # Check 301 Redirect Registry before 404
-    slug_candidate = path.replace(".html", "").split("/")[-1]
-    
-    from app.db.session import AsyncSessionLocal
-    from sqlalchemy import select
-    from app.db.models.content import RedirectRegistry
-    from fastapi.responses import RedirectResponse
-    
-    try:
-        async with AsyncSessionLocal() as db:
-            stmt = select(RedirectRegistry).where(
-                RedirectRegistry.old_slug == slug_candidate,
-                RedirectRegistry.region == lang
-            )
-            result = await db.execute(stmt)
-            redirect_entry = result.scalar_one_or_none()
-            if redirect_entry:
-                new_path = path.replace(slug_candidate, redirect_entry.new_slug)
-                return RedirectResponse(url=f"/{lang}/{new_path}", status_code=301)
-    except Exception as e:
-        pass # Fallback to 404 if DB disconnected
-        
     return FileResponse(BASE_DIR / "404.html", status_code=404)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NOTE: /{lang}/{path:path} catch-all has been REMOVED.
+# Page serving is now handled exclusively by:
+#   /tr/{page:path} → serve_language_pages
+#   /en/{page:path} → serve_language_pages
+# This prevents the wildcard from shadowing /api/v1/... routes.
+# ─────────────────────────────────────────────────────────────────────────────
 
 
 # ═══════════════════════════════════════════════════════════════

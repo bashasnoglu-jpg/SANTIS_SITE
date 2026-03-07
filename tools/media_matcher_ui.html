@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Media Matcher 🎬</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #0a0c10;
+            --bg-panel: #161b22;
+            --bg-card: #21262d;
+            --border-light: #30363d;
+            --gold: #d4af37;
+            --accent: #58a6ff;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: #c9d1d9;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* App mode */
+        }
+
+        /* Scrollbars */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: var(--bg-card); border-radius: 4px; border: 1px solid var(--border-light); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--border-light); }
+
+        .app-layout {
+            display: grid;
+            grid-template-columns: 80px 1fr 400px;
+            height: 100vh;
+        }
+
+        /* Nav */
+        .side-nav {
+            background: var(--bg-panel);
+            border-right: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #8b949e;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 15px;
+            border: 1px solid transparent;
+        }
+        .nav-btn:hover { background: var(--bg-card); color: #fff; }
+        .nav-btn.active {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        /* Middle Panel: Targets */
+        .target-panel {
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border-light);
+            background: var(--bg-base);
+        }
+        .panel-header {
+            padding: 20px;
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Target Items */
+        .target-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            align-content: start;
+        }
+        
+        .target-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .target-card:hover { border-color: #8b949e; }
+        .target-card.highlight { border-color: var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+        
+        .target-img-slot {
+            width: 100%;
+            height: 160px;
+            background: #000;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-light);
+            overflow: hidden;
+        }
+        .target-img-slot img, .target-img-slot video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s;
+        }
+        .target-img-slot .placeholder {
+            color: #8b949e;
+            font-size: 12px;
+            position: absolute;
+            pointer-events: none;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        /* Drag Overlay */
+        .drop-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(2px);
+            border: 2px dashed var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: bold;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+        .target-card.drag-over .drop-overlay { opacity: 1; }
+        
+        .target-info { p-3 bg-card }
+
+        /* Right Panel: Source Media */
+        .source-panel {
+            background: var(--bg-panel);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .media-grid {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            align-content: start;
+        }
+        
+        .media-item {
+            aspect-ratio: 1;
+            background: #000;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: grab;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .media-item:hover { border-color: var(--gold); transform: scale(1.02); }
+        .media-item:active { cursor: grabbing; }
+        
+        .media-item img, .media-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none; /* Let the container handle drag */
+        }
+        
+        .media-label {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            font-size: 9px;
+            padding: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .btn-save {
+            background: var(--gold);
+            color: #000;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .btn-save:hover { background: #e6bf47; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3); }
+
+        .toast {
+            position: fixed;
+            bottom: 20px; right: 20px;
+            background: var(--success);
+            background: #238636;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 9999;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        
+        .cat-filter {
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            font-size: 12px;
+            cursor: pointer;
+            color: var(--text-mut);
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .cat-filter:hover { border-color: #8b949e; color: #c9d1d9; }
+        .cat-filter.active { background: var(--bg-card); color: #fff; border-color: var(--gold); }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- SIDE NAV -->
+        <nav class="side-nav">
+            <div class="nav-btn active" title="Products (products.json)" onclick="switchTab('products', this)">📦</div>
+            <div class="nav-btn" title="Cinematic Hero (home_data.json)" onclick="switchTab('hero', this)">🎬</div>
+        </nav>
+
+        <!-- TARGET PANEL -->
+        <div class="target-panel">
+            <div class="panel-header">
+                <div>
+                    <h1 id="panel-title" class="text-xl font-semibold text-white tracking-wide">Product Cards</h1>
+                    <p id="panel-subtitle" class="text-xs text-gray-500 mt-1">Editing products.json</p>
+                </div>
+                <!-- Filters -->
+                <div id="product-filters" class="flex gap-2 overflow-x-auto px-4 py-2" style="max-width: 400px;">
+                    <button class="cat-filter active" onclick="filterCat('all', this)">All</button>
+                    <!-- Filled dynamically -->
+                </div>
+            </div>
+            
+            <div class="target-list" id="target-container">
+                <!-- Targets injected here via JS -->
+                 <div class="w-full h-full flex items-center justify-center text-gray-600 animate-pulse">Loading Oracles...</div>
+            </div>
+        </div>
+
+        <!-- SOURCE MEDIA PANEL -->
+        <div class="source-panel border-l border-[#30363d]">
+            <div class="panel-header flex-col items-stretch gap-3">
+                <div class="flex justify-between items-center w-full">
+                    <h2 class="text-sm font-semibold text-white">Media Library</h2>
+                    <button class="btn-save" onclick="saveData()">💾 Save Config</button>
+                </div>
+                <input type="text" id="search-media" placeholder="Search .webp, .mp4..." class="w-full bg-[#0a0c10] border border-[#30363d] rounded p-2 text-xs text-white focus:outline-none focus:border-[#d4af37]">
+            </div>
+            
+            <div class="media-grid" id="media-container">
+                <!-- Media injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast flex items-center gap-2">
+        <span>✅</span> <span id="toast-msg">Saved securely.</span>
+    </div>
+
+    <script>
+        let GLOBAL_DATA = { products: [], home_data: {} };
+        let GLOBAL_MEDIA = [];
+        let CURRENT_TAB = 'products';
+        let draggedMediaUrl = null;
+
+        // Fetch Initial Data
+        async function init() {
+            try {
+                // Fetch JSONs
+                const dataRes = await fetch('/api/data');
+                GLOBAL_DATA = await dataRes.json();
+                
+                // Fetch Media
+                const mediaRes = await fetch('/api/media');
+                const mediaJson = await mediaRes.json();
+                GLOBAL_MEDIA = mediaJson.media.sort((a,b) => a.name.localeCompare(b.name));
+                
+                renderMedia(GLOBAL_MEDIA);
+                renderProducts();
+                buildFilters();
+                
+            } catch (e) {
+                console.error("Initialization failed:", e);
+                showToast("❌ Failed to connect to local API.", true);
+            }
+        }
+
+        // --- RENDERERS ---
+
+        function renderMedia(mediaArray) {
+            const container = document.getElementById('media-container');
+            container.innerHTML = mediaArray.map(m => {
+                const isVid = m.type === 'video';
+                const tag = isVid 
+                    ? `<video src="${m.path}" muted loop onmouseover="this.play()" onmouseout="this.pause()"></video>` 
+                    : `<img src="${m.path}" decoding="async" fetchpriority="high">`;
+                    
+                return `
+                <div class="media-item" draggable="true" ondragstart="handleDragStart(event, '${m.path}')">
+                    ${tag}
+                    <div class="media-label">${m.name}</div>
+                </div>`;
+            }).join('');
+        }
+
+        function createTargetCard(id, title, subtitle, imgUrl, updateCallbackFnName) {
+            const isVid = imgUrl && imgUrl.toLowerCase().endsWith('.mp4');
+            const mediaTag = imgUrl 
+                ? (isVid 
+                    ? `<video src="${imgUrl}" autoplay muted loop class="pointer-events-none"></video>` 
+                    : `<img src="${imgUrl}" class="pointer-events-none" decoding="async" fetchpriority="high">`)
+                : `<div class="placeholder">NO MEDIA ASSIGNED<br><span style="font-size:10px; color:#555">Drag here</span></div>`;
+
+            return `
+            <div class="target-card" 
+                 ondrop="handleDrop(event, '${id}', '${updateCallbackFnName}')" 
+                 ondragover="handleDragOver(event)" 
+                 ondragleave="handleDragLeave(event)">
+                
+                <div class="target-img-slot">
+                    ${mediaTag}
+                    <div class="drop-overlay">ASSIGN MEDIA</div>
+                </div>
+                
+                <div class="p-3 bg-[#161b22]">
+                    <h3 class="text-sm text-white font-medium truncate" title="${title}">${title}</h3>
+                    <p class="text-[10px] text-gray-500 font-mono mt-1">${subtitle}</p>
+                </div>
+            </div>`;
+        }
+
+        function renderProducts(catFilter = 'all') {
+            const container = document.getElementById('target-container');
+            let html = '';
+            
+            const filtered = GLOBAL_DATA.products.filter(p => catFilter === 'all' || p.category === catFilter);
+            
+            filtered.forEach(p => {
+                const img = p.media?.cover || '';
+                html += createTargetCard(p.id, p.title, p.id, img, 'updateProductCover');
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function renderHero() {
+            const container = document.getElementById('target-container');
+            let html = '';
+            
+            // 1. Parse home_data sections
+            const sections = GLOBAL_DATA.home_data.sections || {};
+            
+            Object.keys(sections).forEach(secKey => {
+                const sec = sections[secKey];
+                
+                // Hero is empty, let's create a visual slot for it if it exists or build dynamic
+                if (secKey === 'hero') {
+                    // Extract first video if exists
+                    const heroVid = (sec.items && sec.items[0] && sec.items[0].video_url) ? sec.items[0].video_url : '';
+                    html += `
+                        <div class="col-span-full border-b border-[#30363d] pb-4 mb-2">
+                            <h2 class="text-amber-500 font-medium mb-1 uppercase tracking-widest text-xs">Main Hero (Cinematic)</h2>
+                            <p class="text-xs text-gray-500 mb-4">Accepts .mp4 or .webp. The main index page background.</p>
+                            <div class="w-full max-w-2xl">
+                                ${createTargetCard('hero_main', 'Index Hero Background', 'home_data.sections.hero', heroVid, 'updateHeroData')}
+                            </div>
+                        </div>
+                    `;
+                } else if (sec.title) {
+                    html += `
+                        <div class="col-span-full mt-4 mb-2">
+                            <h2 class="text-white font-medium mb-1">${sec.title}</h2>
+                            <p class="text-[10px] font-mono text-gray-500">Key: ${secKey}</p>
+                        </div>
+                    `;
+                    if (sec.items) {
+                        sec.items.forEach((item, idx) => {
+                             html += createTargetCard(`${secKey}_${idx}`, item.title || 'Slot', `Index: ${idx}`, item.image, 'updateGridHomeData');
+                        });
+                    }
+                }
+            });
+            
+            container.innerHTML = html || '<div class="col-span-full text-gray-500 text-sm">No sections found in home_data.json</div>';
+        }
+
+        // --- FILTERS & TABS ---
+        
+        function buildFilters() {
+            const cats = new Set(GLOBAL_DATA.products.map(p => p.category));
+            const cList = Array.from(cats);
+            const fltContainer = document.getElementById('product-filters');
+            fltContainer.innerHTML = `<button class="cat-filter active" onclick="filterCat('all', this)">All</button>` +
+                cList.map(c => `<button class="cat-filter" onclick="filterCat('${c}', this)">${c.replace('cat_','')}</button>`).join('');
+        }
+
+        function filterCat(cat, el) {
+            document.querySelectorAll('.cat-filter').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            renderProducts(cat);
+        }
+
+        function switchTab(tab, el) {
+            CURRENT_TAB = tab;
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            
+            const title = document.getElementById('panel-title');
+            const sub = document.getElementById('panel-subtitle');
+            const filters = document.getElementById('product-filters');
+            
+            if(tab === 'products') {
+                title.innerText = 'Product Cards';
+                sub.innerText = 'Editing products.json (cover images)';
+                filters.style.display = 'flex';
+                renderProducts();
+            } else {
+                title.innerText = 'Cinematic Screens';
+                sub.innerText = 'Editing home_data.json (Heroes & Grids)';
+                filters.style.display = 'none';
+                renderHero();
+            }
+        }
+
+        // Media Search
+        document.getElementById('search-media').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = GLOBAL_MEDIA.filter(m => m.name.toLowerCase().includes(term));
+            renderMedia(filtered);
+        });
+
+        // --- DRAG & DROP LOGIC ---
+
+        function handleDragStart(e, url) {
+            draggedMediaUrl = url;
+            e.dataTransfer.effectAllowed = 'copy';
+            // Need to set data to unlock drag API
+            e.dataTransfer.setData('text/plain', url); 
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('drag-over');
+            e.dataTransfer.dropEffect = 'copy';
+        }
+
+        function handleDragLeave(e) {
+             e.currentTarget.classList.remove('drag-over');
+        }
+
+        function handleDrop(e, targetId, callbackName) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+            
+            if(!draggedMediaUrl) return;
+            
+            // Highlight effect
+            const card = e.currentTarget;
+            card.classList.add('highlight');
+            setTimeout(() => card.classList.remove('highlight'), 1000);
+
+            // Execute the specific updater based on tab
+            window[callbackName](targetId, draggedMediaUrl);
+        }
+
+        // --- UPATERS ---
+
+        function updateProductCover(productId, newUrl) {
+            const product = GLOBAL_DATA.products.find(p => p.id === productId);
+            if (product) {
+                if(!product.media) product.media = {};
+                product.media.cover = newUrl;
+                // Re-render just products (with current filter state if possible, or just all)
+                const activeFilter = document.querySelector('.cat-filter.active').innerText.toLowerCase();
+                const rawCat = activeFilter === 'all' ? 'all' : `cat_${activeFilter}`; 
+                renderProducts(rawCat);
+            }
+        }
+
+        function updateHeroData(targetId, newUrl) {
+           if (!GLOBAL_DATA.home_data.sections) GLOBAL_DATA.home_data.sections = {};
+           if (!GLOBAL_DATA.home_data.sections.hero) GLOBAL_DATA.home_data.sections.hero = { items: [] };
+           
+           if (GLOBAL_DATA.home_data.sections.hero.items.length === 0) {
+               GLOBAL_DATA.home_data.sections.hero.items.push({});
+           }
+           
+           const item = GLOBAL_DATA.home_data.sections.hero.items[0];
+           
+           if(newUrl.endsWith('.mp4')){
+               item.video_url = newUrl;
+               item.image = ""; // clear image if video assigned
+           } else {
+               item.image = newUrl;
+               item.video_url = "";
+           }
+           renderHero();
+        }
+
+        function updateGridHomeData(targetCompositeId, newUrl) {
+            // targetCompositeId Format: grid-skincare_0 (key_index)
+            const parts = targetCompositeId.split('_');
+            const key = parts[0];
+            const idx = parseInt(parts[1]);
+            
+            try {
+                GLOBAL_DATA.home_data.sections[key].items[idx].image = newUrl;
+                renderHero();
+            } catch(e) { console.error("Error updating grid item", e); }
+        }
+
+        // --- SAVE TO BACKEND ---
+        async function saveData() {
+            const btn = document.querySelector('.btn-save');
+            btn.innerText = '⏳ Saving...';
+            btn.style.opacity = '0.7';
+
+            try {
+                const res = await fetch('/api/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        products: GLOBAL_DATA.products,
+                        home_data: GLOBAL_DATA.home_data
+                    })
+                });
+                
+                if (res.ok) {
+                    showToast("✅ Sovereign Config Secured & Backed Up.");
+                } else {
+                    throw new Error("Server rejected save.");
+                }
+            } catch (e) {
+                console.error(e);
+                showToast("❌ Save Failed! Check backend logs.", true);
+            } finally {
+                btn.innerText = '💾 Save Config';
+                btn.style.opacity = '1';
+            }
+        }
+
+        // --- UTILS ---
+        function showToast(msg, isError=false) {
+            const toast = document.getElementById('toast');
+            toast.style.backgroundColor = isError ? '#da3633' : '#238636';
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Trigger logic
+        init();
+
+    </script>
+</body>
+</html>

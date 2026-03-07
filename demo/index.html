@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Ghost Forge v2.0 Demo</title>
+    <style>
+        body, html { margin: 0; padding: 0; background: #020202; overflow: hidden; height: 100vh; }
+        canvas { display: block; width: 100vw; height: 100vh; }
+        .overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #D4AF37; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; letter-spacing: 8px; pointer-events: none; text-shadow: 0 0 30px rgba(212,175,55,0.4); font-size: 2.5rem; font-weight: 300; text-transform: uppercase; text-align: center;}
+        .sub { font-size: 0.9rem; letter-spacing: 4px; color: #A0A09A; display: block; margin-top: 15px;}
+    </style>
+</head>
+<body>
+    <canvas id="ghost-canvas"></canvas>
+    <div class="overlay">
+        GHOST FORGE V2.0
+        <span class="sub">Volumetric Core Engaged</span>
+    </div>
+    
+    <script type="module">
+        import { GhostForgeV2 } from '../assets/js/santis-ghost-forge-v2.js';
+        
+        // Boot the Volumetric SDF Raymarching engine
+        GhostForgeV2.init('ghost-canvas');
+
+        // Note: The Neural Bridge (Lerp + Gyroscope) is already automatically 
+        // bound within the setupNeuralBridge() method of the GhostForgeV2 module.
+        // Just move your mouse or phone and watch the light bend.
+    </script>
+</body>
+</html>

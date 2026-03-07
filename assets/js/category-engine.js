@@ -221,15 +221,14 @@
         },
 
         buildBentoCard(item, bentoClass, index) {
-            // URL Generation (STATIC V5.5)
-            const lang = (window.SITE_LANG || 'tr').toLowerCase();
+            // URL Generation (SVEREIGN V6.0 - Canonical Root)
             const cat = (item.categoryId || item.category || '').toLowerCase();
             let section = 'masajlar';
             if (cat.includes('hammam') || cat.includes('hamam')) section = 'hamam';
             else if (cat.includes('skin') || cat.includes('cilt') || cat.includes('face') || cat.includes('sothys')) section = 'cilt-bakimi';
 
             const slug = item.slug || item.id;
-            const href = slug ? `/${lang}/${section}/${slug}.html` : `/tr/urunler/detay.html?product=${item.id}`;
+            const href = slug ? `/tr/${section}/${slug}.html` : `/tr/urunler/detay.html?product=${item.id}`;
 
             const imgPath = this.fixPath(item.img);
 
@@ -245,15 +244,14 @@
         },
 
         buildCard(item, index) {
-            // URL Generation (STATIC V5.5)
-            const lang = (window.SITE_LANG || 'tr').toLowerCase();
+            // URL Generation (SOVEREIGN V6.0 - Canonical Root)
             const cat = (item.categoryId || item.category || '').toLowerCase();
             let section = 'masajlar';
             if (cat.includes('hammam') || cat.includes('hamam')) section = 'hamam';
             else if (cat.includes('skin') || cat.includes('cilt') || cat.includes('face') || cat.includes('sothys')) section = 'cilt-bakimi';
 
             const slug = item.slug || item.id;
-            const href = slug ? `/${lang}/${section}/${slug}.html` : `/tr/urunler/detay.html?product=${item.id}`;
+            const href = slug ? `/tr/${section}/${slug}.html` : `/tr/urunler/detay.html?product=${item.id}`;
 
             const imgPath = this.fixPath(item.img);
 
