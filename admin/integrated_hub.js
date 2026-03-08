@@ -780,6 +780,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Tiny background job for the health panel simulation
     async function updateAOVHealth() {
+        // console.warn("[AOV Health] Offline Mode Mock - Muting 404");
+        return; // Disable real fetch to prevent 404s
         try {
             const res = await window.SantisCore.apiFetch('/api/v1/analytics/metrics');
             const data = await res.json();
@@ -794,6 +796,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. AI REVENUE BRAIN WIDGET
     // ==========================================
     async function updateAIBrain() {
+        // console.warn("[AI Brain] Offline Mode Mock - Muting 404");
+        return; // Disable real fetch to prevent 404s
         try {
             const res = await fetch('/api/v1/ai/forecast');
             if (!res.ok) return;
@@ -816,6 +820,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. SHADOW MODE LOG & DECISION ENGINE
     // ==========================================
     async function updateShadowLog() {
+        // console.warn("[Shadow Log] Offline Mode Mock - Muting 404");
+        return;
         try {
             const res = await fetch('/api/v1/ai/shadow-log');
             if (!res.ok) return;
@@ -1020,6 +1026,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function updateSovereignPulse() {
+        // console.warn("[Sovereign Pulse] Offline Mode Mock - Muting 404");
+        return;
         try {
             // 1. Fetch Real-time Occupancy & Surge
             const resOccupancy = await fetch('/api/v1/revenue/occupancy', { headers: { 'X-Tenant-ID': 'santis_hq' } });

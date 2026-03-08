@@ -24,7 +24,7 @@
     {
       "label": "Stripe Webhook",
       "path": "/api/v1/webhook/stripe",
-      "code": "405",
+      "code": "404",
       "ok": true
     },
     {

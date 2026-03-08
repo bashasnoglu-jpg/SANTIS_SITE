@@ -1,107 +1,89 @@
 /**
- * Phase 72: Neural UX & Adaptive Navigation Engine
- * Santis OS Core: The Mind
+ * SANTIS OS - SOVEREIGN INTENT ENGINE V1
+ * Kuantum Psikolojisi, Lerp Matematiği ve Asimetrik Sönümleme
  */
 
-const SantisIntentEngine = {
-    currentIntent: 'default',
-    menuData: null,
+export class SovereignIntentEngine {
+    constructor(gpuField) {
+        this.gpuField = gpuField;
 
-    async init() {
-        // 1. Load Headless Oracle
-        try {
-            const res = await fetch('/assets/data/menu.json');
-            const data = await res.json();
-            this.menuData = data.intents;
-        } catch (e) {
-            console.error("Headless Oracle (menu.json) failed to load.", e);
-        }
+        // Kartların anlık niyet skorlarını (0.0 - 1.0) ve hedef skorlarını tutan RAM Önbelleği
+        this.intentCache = new Map(); // key -> { current: 0.0, target: 0.0, element: node }
 
-        // 2. State Layer Check (LocalStorage for now, later Edge KV)
-        const storedIntent = localStorage.getItem('santis_current_intent');
-        if (storedIntent && this.menuData && this.menuData[storedIntent]) {
-            this.currentIntent = storedIntent;
-        }
+        // Asimetrik Hız Çarpanları (Lüksün Matematiği)
+        this.ATTACK_SPEED = 0.05;  // Üzerine gelince (Lerp hızı) - Orta/Hızlı artış
+        this.DECAY_SPEED = 0.015;  // Ayrılınca (Lerp hızı) - Çok yavaş (Hayalet) sönümleme
 
-        // 3. Bind Event Listeners for Orchestration (CustomEvent from Aurelia/Telemetry)
-        window.addEventListener('santis:intent_change', (e) => {
-            if (e.detail && e.detail.intent) {
-                this.switchIntent(e.detail.intent);
+        this.initDelegation();
+        console.log("🦅 [Sovereign Intent] Asimetrik Niyet Motoru Devrede.");
+    }
+
+    // Olay Delegasyonu ile tüm kartları tek noktadan dinle
+    initDelegation() {
+        const app = document.getElementById('santis-app');
+        if (!app) return;
+
+        // Fırtına Başlıyor (Hover / Pointer Enter)
+        // Olay delegasyonunda mouseover/mouseout bubbling yapar.
+        app.addEventListener('mouseover', (e) => {
+            const card = e.target.closest('.santis-card-armor');
+            if (!card) return;
+
+            const key = card.getAttribute('data-key');
+            if (key) {
+                if (!this.intentCache.has(key)) {
+                    this.intentCache.set(key, { current: 0.0, target: 1.0, element: card });
+                } else {
+                    this.intentCache.get(key).target = 1.0;
+                }
             }
         });
 
-        // 4. Initial Render (if different from default or if we want to force JSON render)
-        // For progressive enhancement, we might just leave the static HTML menu on first load 
-        // unless intent is different.
-        if (this.currentIntent !== 'default') {
-            this.renderNavigation(this.currentIntent);
-        }
-    },
+        // Fırtına Sönümleniyor (Hover Out / Pointer Leave)
+        app.addEventListener('mouseout', (e) => {
+            const card = e.target.closest('.santis-card-armor');
+            if (!card) return;
 
-    switchIntent(newIntent) {
-        if (!this.menuData || !this.menuData[newIntent] || this.currentIntent === newIntent) return;
-
-        console.log(`🧠 [INTENT ENGINE] Shifting aura to: ${newIntent}`);
-        this.currentIntent = newIntent;
-        localStorage.setItem('santis_current_intent', newIntent);
-
-        // Broadcast System-wide Aura Shift
-        window.dispatchEvent(new CustomEvent('santis:aura_shift', {
-            detail: { theme: this.menuData[newIntent].theme_aura }
-        }));
-
-        this.renderNavigation(newIntent);
-    },
-
-    renderNavigation(intentKey) {
-        const intentData = this.menuData[intentKey];
-        if (!intentData) return;
-
-        const navRoot = document.getElementById('navRoot');
-        if (!navRoot) return;
-
-        // Liquid Transition: Fade Out
-        navRoot.style.transition = 'opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1), transform 0.4s cubic-bezier(0.32, 0.72, 0, 1)';
-        navRoot.style.opacity = '0';
-        navRoot.style.transform = 'translateY(10px)';
-
-        setTimeout(() => {
-            // Rebuild DOM
-            navRoot.innerHTML = '';
-
-            intentData.navigation.forEach(item => {
-                const a = document.createElement('a');
-                a.className = 'apple-link-item nav-link';
-                a.href = item.url;
-                a.innerText = item.label;
-
-                if (item.action === 'open_concierge') {
-                    a.onclick = (e) => { e.preventDefault(); /* open concierge logic */ };
-                }
-
-                if (item.is_highlight) {
-                    a.classList.add('text-[#D4AF37]', 'font-bold');
-                    // Glisten effect
-                    a.style.textShadow = '0 0 10px rgba(212,175,55,0.4)';
-                }
-
-                // Append
-                navRoot.appendChild(a);
-            });
-
-            // Liquid Transition: Fade In
-            // Trigger reflow
-            void navRoot.offsetWidth;
-            navRoot.style.opacity = '1';
-            navRoot.style.transform = 'translateY(0)';
-
-            // Re-bind UI Orchestrator (Predictive pre-fetching)
-            if (window.UIOrchestrator) {
-                window.UIOrchestrator.bindHoverIntents();
+            // İç elemanlara geçerken mouseout tetiklenir, bunu relatedTarget ile filtreleyelim
+            if (e.relatedTarget && card.contains(e.relatedTarget)) {
+                return; // Hala kartın içindeyiz, çıkmadık
             }
 
-        }, 400); // 0.4s match
+            const key = card.getAttribute('data-key');
+            if (key && this.intentCache.has(key)) {
+                this.intentCache.get(key).target = 0.0;
+            }
+        });
     }
-};
 
-document.addEventListener('DOMContentLoaded', () => SantisIntentEngine.init());
+    // MotionKernel tarafından saniyede 60 kez (rAF) çağrılır!
+    update() {
+        let isAnimating = false;
+
+        for (let [key, state] of this.intentCache.entries()) {
+            // Eğer mevcut skor hedefe ulaştıysa hesaplama yapma
+            if (Math.abs(state.target - state.current) < 0.001) {
+                state.current = state.target;
+                continue;
+            }
+
+            isAnimating = true;
+
+            // Kuantum Asimetrisi: Artarken hızlı, azalırken yavaş (Hayalet Sönümleme)
+            const speed = state.target === 1.0 ? this.ATTACK_SPEED : this.DECAY_SPEED;
+
+            // Lerp (Linear Interpolation) ile Pürüzsüz İvmelenme
+            state.current += (state.target - state.current) * speed;
+
+            // --- GPU FIELD'A KUANTUM FISILTISI ---
+            // gpuField.updateCardIntent metodu float32 array'deki ilgili offseti günceller
+            if (this.gpuField && typeof this.gpuField.updateCardIntent === 'function') {
+                this.gpuField.updateCardIntent(key, state.current);
+            }
+        }
+
+        return isAnimating;
+    }
+}
+
+window.SovereignIntentEngine = SovereignIntentEngine;

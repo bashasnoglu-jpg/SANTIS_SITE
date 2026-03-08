@@ -12,10 +12,20 @@
 <!-- Master Styles -->
 <link href="/assets/css/preloader-cinema.css" rel="stylesheet"/>
 <link href="/assets/css/style.css" rel="stylesheet"/>
+<link href="/assets/css/output.css?v=2" rel="stylesheet">
 <link href="/assets/css/modules/cards.css?v=3.5" rel="stylesheet"/>
 <link href="/assets/css/video-hero.css" rel="stylesheet"/>
 <link href="/assets/css/bento-grid.css" rel="stylesheet"/>
 <link href="/assets/css/category-listing.css" rel="stylesheet"/>
+<!-- Kuantum Fiziki ve Stil Motoru (Phase 22) -->
+<link href="/assets/css/santis-rail.css" rel="stylesheet"/>
+<style>
+/* Sovereign Z-Index Armor & Flex Fix */
+.checkout-btn-wrapper { pointer-events: none !important; z-index: 9999 !important; transform: translateY(0) !important; bottom: 2rem !important; }
+.ritual-card:hover .checkout-btn-wrapper { pointer-events: auto !important; z-index: 10000 !important; opacity: 1 !important; }
+.ritual-card > .z-20 { pointer-events: none; }
+.checkout-btn-wrapper button { position: relative; z-index: 10001 !important; pointer-events: auto !important; cursor: pointer !important; }
+</style>
 <link href="/favicon.ico" rel="icon" sizes="any"/>
 <script src="/assets/js/perf-head.js"></script>
 <meta content="https://santis-club.com/assets/img/og-standard.webp" property="og:image"/>
@@ -285,11 +295,32 @@
 <button class="nv-chip" data-target="skincare-purify">🌿 Arındırma</button>
 </div>
 </div>
-<!-- CARD GRID (JS-Driven, data-bridge renders cards) -->
-<div class="nv-container nv-section" data-section="skincare" id="skincare" style="min-height: 800px;">
-<div class="product-grid-v2 nv-product-grid" data-context="skincare"></div>
+<!-- CARD GRID (JS-Driven, data-bridge renders rails) -->
+<div class="nv-container nv-section" data-section="skincare" id="skincare" style="min-height: 800px; max-width: 100%; overflow: hidden;">
+    <!-- Kuantum Rayları (Sovereign Rails) -->
+    
+    <div style="margin-top: 40px; margin-bottom: 20px;" data-rail-header="skincare_sothys">
+        <h3 style="font-size: clamp(2rem, 3.5vw, 3.2rem); color: #d1cbc1; font-weight: 300; padding-left: 24px; border-left: 3px solid #b39b59; margin-left: 5vw; letter-spacing: 0.04em; font-family: 'Cinzel', serif;">Sothys Özel Koleksiyonu</h3>
+        <p style="color: #888; padding-left: 24px; margin-left: 5vw; max-width: 600px;">Paris'in kalbinden gelen klinik formüllerle lüks cilt bakımı.</p>
+    </div>
+    <section class="rituals-section flex overflow-x-auto flex-nowrap scrollbar-hide pb-12 pt-4" data-rail-engine="true" data-rail-id="skincare_sothys" style="width: 100%; align-items: center; position: relative; scrollbar-width: none;">
+        <!-- SovereignRenderer burayı JSON verisi ile dolduracak -->
+    </section>
+
+    <div style="margin-top: 60px; margin-bottom: 20px;" data-rail-header="skincare_antiage">
+        <h3 style="font-size: clamp(2rem, 3.5vw, 3.2rem); color: #d1cbc1; font-weight: 300; padding-left: 24px; border-left: 3px solid #b39b59; margin-left: 5vw; letter-spacing: 0.04em; font-family: 'Cinzel', serif;">Anti-Aging Ritüelleri</h3>
+    </div>
+    <section class="rituals-section flex overflow-x-auto flex-nowrap scrollbar-hide pb-12 pt-4" data-rail-engine="true" data-rail-id="skincare_antiage" style="width: 100%; align-items: center; position: relative; scrollbar-width: none;">
+        <!-- SovereignRenderer burayı JSON verisi ile dolduracak -->
+    </section>
+
+    <div style="margin-top: 60px; margin-bottom: 20px;" data-rail-header="skincare_hydra">
+        <h3 style="font-size: clamp(2rem, 3.5vw, 3.2rem); color: #d1cbc1; font-weight: 300; padding-left: 24px; border-left: 3px solid #b39b59; margin-left: 5vw; letter-spacing: 0.04em; font-family: 'Cinzel', serif;">Nem &amp; Işıltı Bakımları</h3>
+    </div>
+    <section class="rituals-section flex overflow-x-auto flex-nowrap scrollbar-hide pb-12 pt-4" data-rail-engine="true" data-rail-id="skincare_hydra" style="width: 100%; align-items: center; position: relative; scrollbar-width: none;">
+        <!-- SovereignRenderer burayı JSON verisi ile dolduracak -->
+    </section>
 </div>
-<!-- ALL SERVICES LINK LIST -->
 <section class="category-all-services">
 <h2>Tüm Hizmetlerimiz</h2>
 <ul class="service-link-list">
@@ -346,8 +377,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-<!-- DATA & ENGINE -->
-<script defer="" src="/assets/js/home-products.js"></script>
+<!-- DATA & ENGINE (Kuantum Mimari Phase 22) -->
+<script defer="" src="/assets/js/santis-checkout-vault.js"></script>
+<script type="module" src="/assets/js/santis-rail.js"></script>
+<script src="/assets/js/santis-shadow-db.js" defer=""></script>
+<script src="/assets/js/santis-v5-virtual-engine.js" defer=""></script>
+<script type="module" src="/assets/js/santis-ritual-renderer.js"></script>
+<script defer="" src="/assets/js/santis-bootloader.js"></script>
+<script defer="" src="/assets/js/santis-v10-core.js"></script>
 <script src="/assets/js/pages/skincare-detail.js"></script>
 <script src="/assets/js/pages/chip-filter.js"></script>
 <script src="/assets/js/pages/nuclear-preloader.js"></script>

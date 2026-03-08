@@ -12,12 +12,23 @@
 <!-- Master Styles -->
 <link href="/assets/css/preloader-cinema.css" rel="stylesheet"/>
 <link href="/assets/css/style.css" rel="stylesheet"/>
+<link href="/assets/css/output.css?v=2" rel="stylesheet">
 <link href="/assets/css/modules/cards.css" rel="stylesheet"/>
 <link href="/assets/css/video-hero.css" rel="stylesheet"/>
 <link href="/assets/css/bento-grid.css" rel="stylesheet"/>
 <link href="/assets/css/category-listing.css" rel="stylesheet"/>
+<style>
+/* Sovereign Z-Index Armor & Flex Fix */
+.checkout-btn-wrapper { pointer-events: none !important; z-index: 9999 !important; transform: translateY(0) !important; bottom: 2rem !important; }
+.ritual-card:hover .checkout-btn-wrapper { pointer-events: auto !important; z-index: 10000 !important; opacity: 1 !important; }
+.ritual-card > .z-20 { pointer-events: none; }
+.checkout-btn-wrapper button { position: relative; z-index: 10001 !important; pointer-events: auto !important; cursor: pointer !important; }
+</style>
+<link rel="preload" as="image" href="/assets/img/cards/santis_card_hammam_v1.webp" fetchpriority="high">
 <link href="/favicon.ico" rel="icon" sizes="any"/>
 <script src="/assets/js/perf-head.js"></script>
+<script>window.SANTIS_DEBUG = true;</script>
+<script src="/assets/js/core/santis-cls-visualizer.js"></script>
 <meta content="https://santis-club.com/assets/img/og-standard.webp" property="og:image"/>
 <link href="https://santis-club.com/tr/hamam/index.html" rel="canonical"/>
 <!-- Schema: BreadcrumbList -->
@@ -162,7 +173,7 @@
 <!-- VIDEO HERO -->
 <section class="nv-hero-video">
 <div class="nv-video-wrapper">
-<img data-santis-slot="hero_hamam" alt="Hamam Ritüelleri" class="nv-hero-bg-img" decoding="async" fetchpriority="high" height="1500" src="/assets/img/cards/santis_card_hammam_v1.webp" width="1200">
+<img data-santis-slot="hero_hamam" alt="Hamam Ritüelleri" class="nv-hero-bg-img" decoding="async" fetchpriority="high" loading="eager" height="1500" src="/assets/img/cards/santis_card_hammam_v1.webp" width="1200">
 <div class="nv-video-overlay"></div>
 </div>
 <div class="nv-hero-content">
@@ -262,9 +273,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-<!-- DATA & ENGINE -->
-<script defer="" src="/assets/js/home-products.js"></script>
-<script src="/assets/js/pages/hammam-page-init.js"></script>
+<!-- DATA & ENGINE (Kuantum Mimari Phase 22) -->
+<script defer="" src="/assets/js/santis-checkout-vault.js"></script>
+<script type="module" src="/assets/js/santis-rail.js"></script>
+<script src="/assets/js/santis-v5-virtual-engine.js"></script>
+<script type="module" src="/assets/js/santis-ritual-renderer.js"></script>
+<script defer="" src="/assets/js/santis-bootloader.js"></script>
+<script defer="" src="/assets/js/santis-v10-core.js"></script>
 <!-- BOOKING & APP -->
 
 <script defer="" src="/assets/js/app.js"></script>

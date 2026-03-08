@@ -132,6 +132,9 @@ window.CheckoutVault = (function () {
             const dummyVariantId = btoa("gid://shopify/ProductVariant/1234567890");
             this.initiate(dummyVariantId, ritualId);
         },
+        open(ritualId) {
+            this.openAvailabilityMatrix(ritualId);
+        },
 
         async fetchShopifyURL(variantId) {
             // Bu kısım gerçek prod ortamında Shopify'dan token ile fetch atar.

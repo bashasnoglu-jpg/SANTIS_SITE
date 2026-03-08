@@ -16,6 +16,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer="" src="/assets/js/perf-head.js"></script>
     <script defer="" src="/assets/js/santis-vault.js"></script>
+    <!-- Sovereign Ghost (Exit Intent / VIP Rescue) -->
+    <script defer="" src="/assets/js/santis-sovereign-ghost.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/editorial.css?v=2.2.1">
     
@@ -745,95 +747,35 @@
             }
         }
 
-        // --- THE GHOST CONCIERGE (PROACTIVE TRIGGER) ---
-        let nvIdleSeconds = 0;
-        let nvGhostTriggered = false;
-
-        // Check 1: Has it triggered before in this session? 
-        window.addEventListener('DOMContentLoaded', () => {
-            SantisVault.getItem('nv_ghost_triggered').then(res => { if(res) nvGhostTriggered = true; });
-        });
-
-        const ghostInterval = setInterval(() => {
+        // --- SOVEREIGN GHOST LOGIC TRIGGERED EXTERNALLY ---
+        // (Siber-otoriter gecikme ve uyanış `santis-sovereign-ghost.js` tarafından kontrol edilir.)
+        
+        // Kuantum Ağında EventBus bulunamazsa Doğrudan Fallback Metodu:
+        window.triggerGhost = function() {
             const panel = document.getElementById('concierge-panel');
-            if (!nvGhostTriggered && (!panel || !panel.classList.contains('active'))) {
-                nvIdleSeconds++;
-                // If inactive for 15 seconds, awaken the Ghost Concierge
-                if (nvIdleSeconds >= 15) {
-                    nvGhostTriggered = true;
-                    SantisVault.setItem('nv_ghost_triggered', true);
-                    
-                    // Silent awaken
-                    panel.classList.add('active');
-                    const tempMsgId = "ghost-" + Date.now();
-                    const msgs = document.getElementById('chat-messages');
-                    msgs.innerHTML += `
-                        <div id="${tempMsgId}" class="flex justify-start">
-                            <div class="bg-transparent text-cyan-500/50 rounded-2xl px-4 py-2 text-xs font-mono tracking-widest animate-pulse">
-                                Neural Detection: Hesitation...
-                            </div>
-                        </div>
-                    `;
-                    msgs.scrollTop = msgs.scrollHeight;
-                    
-                    setTimeout(() => {
-                        const ghostMessage = "Kaptan, incelediğiniz detaylarla ilgili aklınıza takılan özel bir nokta mı var? Hedefinize en uygun ritüeli size özel bir VIP avantajla (" + "SOVEREIGN" + ") güvenle organize edebilirim.";
-                        document.getElementById(tempMsgId)?.remove();
-                        appendBotMessage(ghostMessage, null, false);
-                        
-                        chatContext.push({ role: "model", text: ghostMessage, offer: null });
-                        try { SantisVault.setItem('nv_neural_history', chatContext); } catch(e){}
-                    }, 2000); // 2 saniye lüks gecikme (The Fluid Momentum)
-                }
-            }
-        }, 1000);
-
-        // Reset idle timer on any interaction
-        function resetNvIdle() {
-            nvIdleSeconds = 0;
-        }
-        window.addEventListener('mousemove', resetNvIdle);
-        window.addEventListener('scroll', resetNvIdle);
-        window.addEventListener('keypress', resetNvIdle);
-        window.addEventListener('click', resetNvIdle);
-
-        // --- THE EXIT INTENT SUIKASTCISI (V21 RECOVERY) ---
-        let nvExitTriggered = false;
-        window.addEventListener('DOMContentLoaded', () => {
-            SantisVault.getItem('nv_exit_triggered').then(res => { if(res) nvExitTriggered = true; });
-        });
-
-        document.addEventListener('mouseleave', (e) => {
-            // Fare yukarıdan (sayfayı kapatmak veya sekme değiştirmek için) çıkarsa
-            if (e.clientY < 10 && !nvExitTriggered) {
-                const panel = document.getElementById('concierge-panel');
-                if (!panel || !panel.classList.contains('active')) {
-                    nvExitTriggered = true;
-                    SantisVault.setItem('nv_exit_triggered', true);
-                    
-                    panel.classList.add('active');
-                    const tempMsgId = "exit-" + Date.now();
-                    const msgs = document.getElementById('chat-messages');
-                    msgs.innerHTML += `
-                        <div id="${tempMsgId}" class="flex justify-start">
-                            <div class="bg-transparent text-amber-500/50 rounded-2xl px-4 py-2 text-xs font-mono tracking-widest animate-pulse">
-                                Tactical Override Engaged...
-                            </div>
-                        </div>
-                    `;
-                    msgs.scrollTop = msgs.scrollHeight;
-                    
-                    setTimeout(() => {
-                        const exitMessage = "Kaptan, bu seçkin ritüeller için kalan son kontenjanı sizin adınıza 15 dakika daha bloke edebilirim. Ayrılmadan önce ufak bir Sovereign ayrıcalığına ne dersiniz?";
-                        document.getElementById(tempMsgId)?.remove();
-                        appendBotMessage(exitMessage, null, false);
-                        
-                        chatContext.push({ role: "model", text: exitMessage, offer: null });
-                        try { SantisVault.setItem('nv_neural_history', chatContext); } catch(err){}
-                    }, 1500); // 1.5 sn siber-otoriter gecikme
-                }
-            }
-        });
+            if (!panel || panel.classList.contains('active')) return;
+            
+            panel.classList.add('active');
+            const tempMsgId = "ghost-" + Date.now();
+            const msgs = document.getElementById('chat-messages');
+            msgs.innerHTML += `
+                <div id="${tempMsgId}" class="flex justify-start">
+                    <div class="bg-transparent text-amber-500/50 rounded-2xl px-4 py-2 text-xs font-mono tracking-widest animate-pulse">
+                        Tactical Override Engaged...
+                    </div>
+                </div>
+            `;
+            msgs.scrollTop = msgs.scrollHeight;
+            
+            setTimeout(() => {
+                const exitMessage = "Kaptan, incelediğiniz detaylarla ilgili aklınıza takılan özel bir nokta mı var? Hedefinize en uygun ritüeli size özel bir VIP avantajla (SOVEREIGN) güvenle organize edebilirim.";
+                document.getElementById(tempMsgId)?.remove();
+                appendBotMessage(exitMessage, null, false);
+                
+                chatContext.push({ role: "model", text: exitMessage, offer: null });
+                try { SantisVault.setItem('nv_neural_history', chatContext); } catch(err){}
+            }, 1500); // 1.5 sn siber-otoriter gecikme
+        };
 
 
         document.addEventListener('DOMContentLoaded', () => {

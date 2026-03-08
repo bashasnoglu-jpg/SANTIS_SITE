@@ -521,6 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load Scripts in strict dependency order (Cleaned old V5 scripts)
   const scriptsToLoad = [
     // ── CORE ENGINE (Phase Protocols) ──────────────────────────────────────
+    '/assets/js/core/santis-bus.js',                  // Protocol 0: Sovereign EventBus Priority Queue
     '/assets/js/core/santis-idle-engine.js?v=27.0',   // Protocol 27: Ghost Thread
     '/assets/js/core/santis-gravity.js?v=28.0',        // Protocol 28: Zero-Gravity Stack
     '/assets/js/core/santis-kinetics.js?v=29.0',       // Protocol 29: Kinetic 3D Physics
@@ -565,7 +566,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const script = document.createElement('script');
     script.src = cleanRoot + src;
-    script.defer = true;
+
+    // 🛡️ MODULE GUARD: santis-bus.js ES6 export kullanır, module olarak yüklenmeli
+    if (baseSrc.includes('santis-bus.js')) {
+      script.type = 'module';
+    } else {
+      script.defer = true;
+    }
+
     document.body.appendChild(script);
   });
 

@@ -1,20 +1,14 @@
 (function () {
     "use strict";
 
-    var maxAttempts = 20;
-    var attempt = 0;
-
     function initChipFilter() {
-        var sections = document.querySelectorAll(".nv-massage-category");
         var chipBar = document.getElementById("nvChips");
+        if (!chipBar) return;
 
-        if (!sections.length || !chipBar) {
-            attempt += 1;
-            if (attempt < maxAttempts) {
-                setTimeout(initChipFilter, 500);
-            } else {
-                console.warn("[ChipFilter] No sections found after 10s");
-            }
+        var sections = document.querySelectorAll(".nv-massage-category, .rail-section, [data-category]");
+
+        if (!sections.length) {
+            console.warn("[ChipFilter] Sections not ready yet.");
             return;
         }
 
@@ -22,6 +16,8 @@
             return;
         }
         chipBar.dataset.chipFilterBound = "1";
+
+        console.log("[ChipFilter] Bound to", sections.length, "sections.");
 
         chipBar.addEventListener("click", function (event) {
             var chip = event.target.closest(".nv-chip");
@@ -40,7 +36,7 @@
             }
             chip.classList.add("is-active");
 
-            var freshSections = document.querySelectorAll(".nv-massage-category");
+            var freshSections = document.querySelectorAll(".nv-massage-category, .rail-section, [data-category]");
             for (var j = 0; j < freshSections.length; j += 1) {
                 var section = freshSections[j];
                 if (catId === "all") {
@@ -53,6 +49,7 @@
                 }
             }
         });
+
         // Auto-Trigger from URL (?filter=massage-asian)
         var qs = new URLSearchParams(window.location.search);
         var autoFilter = qs.get("filter");
@@ -65,11 +62,13 @@
         }
     }
 
+    // Sovereign Renderer (Enterprise Event Driven)
+    document.addEventListener("santis:cards-rendered", initChipFilter);
+
+    // Fallback
     if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", function () {
-            setTimeout(initChipFilter, 1000);
-        });
+        document.addEventListener("DOMContentLoaded", initChipFilter);
     } else {
-        setTimeout(initChipFilter, 1000);
+        initChipFilter();
     }
 })();

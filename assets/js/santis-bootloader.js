@@ -34,6 +34,25 @@ window.SantisBootloader = (function () {
         return tier;
     }
 
+    // Phase 10: Zihin Okuma (Speculative Rules API)
+    function injectSpeculationRules() {
+        // Chromium Zırhı: Eski tarayıcıları korur
+        if (HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules')) {
+            const script = document.createElement('script');
+            script.type = 'speculationrules';
+            script.textContent = JSON.stringify({
+                "prerender": [{
+                    "source": "document",
+                    "where": { "href_matches": "/*" },
+                    "eagerness": "moderate"
+                }]
+            });
+            document.head.appendChild(script);
+            console.log("🌌 [Santis Bootloader] V10 Speculation Rules (Zihin Okuma) Enjekte Edildi.");
+        }
+    }
+
+
     // 2. Load Core Modules
     function bootSequence() {
         const tier = initSentinel();
@@ -44,6 +63,10 @@ window.SantisBootloader = (function () {
             Config.features.kineticParallax = false;
             console.warn("[Bootloader] Düşük donanım saptandı. WebGL Auralar kapatıldı.");
         }
+
+        // Phase 10: Inject Speculation Rules (Native C++ Pre-rendering)
+        injectSpeculationRules();
+
 
         requestAnimationFrame(() => {
             // A. Ghost Forge Initialization

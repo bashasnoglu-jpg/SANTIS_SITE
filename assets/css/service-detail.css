@@ -47,6 +47,7 @@
     filter: brightness(1.05) contrast(0.95);
     /* Softer image */
     transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    view-transition-name: active-ritual-img;
 }
 
 .cin-visual-overlay {
@@ -315,7 +316,8 @@
     background: rgba(255, 255, 255, 0.98);
     /* White lightbox for minimalist feel? No, keep dark for contrast */
     background: rgba(10, 10, 10, 0.95);
-    z-index: var(--z-modal); /* AUTO-CAPPED BY OMNI-CORE */
+    z-index: var(--z-modal);
+    /* AUTO-CAPPED BY OMNI-CORE */
     display: none;
     align-items: center;
     justify-content: center;
@@ -417,8 +419,9 @@
     opacity: 1;
     transform: translateY(0);
 }
+
 /* --- Z-INDEX FIX FOR OMNI-NAVBAR OVERLAP --- */
-#navbar-container, #nv-main-nav.navbar {
+#navbar-container,
+#nv-main-nav.navbar {
     z-index: 9999 !important;
 }
-

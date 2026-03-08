@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis OS - Sovereign Kuantum Tuvali (V6 Live Action)</title>
+    <style>
+        /* Quiet Luxury CSS Zırhı */
+        :root {
+            --santis-dark: #0a0a09;
+            --santis-light: #d1cbc1;
+            --santis-gold: #b39b59;
+        }
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--santis-dark);
+            color: var(--santis-light);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* THE QUANTUM VOID - En Alt Katman */
+        #santis-quantum-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* THE MORPHING BODY - Orta Katman */
+        #santis-app {
+            position: relative;
+            z-index: 1;
+            padding: 100px 5vw;
+            max-width: 1200px;
+            margin: 0 auto;
+            will-change: opacity; /* Kuantum Geçiş Cerrahi Optimizasyonu */
+        }
+        
+        header { margin-bottom: 80px; text-align: center; }
+        header h1 { font-weight: 300; letter-spacing: 0.1em; font-size: 2.5rem; }
+        header p { opacity: 0.6; font-size: 0.9rem; letter-spacing: 0.05em; }
+
+        .santis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        /* Sovereign Card Armor */
+        .santis-card-armor {
+            position: relative;
+            height: 400px;
+            border: 1px solid rgba(209, 203, 193, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            cursor: pointer;
+            overflow: hidden;
+            background: transparent; /* Arkadaki dumanları göstermek için */
+        }
+
+        .santis-card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .santis-card-title {
+            font-weight: 300;
+            font-size: 1.5rem;
+            margin: 0 0 10px 0;
+        }
+
+        .santis-card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .santis-intent-btn {
+            position: relative;
+            z-index: 2;
+            margin-top: 20px;
+            background: transparent;
+            border: 1px solid var(--santis-light);
+            color: var(--santis-light);
+            padding: 12px 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        
+        .santis-intent-btn:hover {
+            background: var(--santis-light);
+            color: var(--santis-dark);
+        }
+
+        /* TELEMETRY HUD - Askeri Gösterge */
+        #santis-telemetry-hud {
+            position: fixed;
+            bottom: 20px; left: 20px;
+            background: rgba(10, 10, 9, 0.8);
+            border: 1px solid rgba(179, 155, 89, 0.3);
+            color: var(--santis-gold);
+            padding: 15px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+            pointer-events: none;
+            line-height: 1.6;
+        }
+        #santis-telemetry-hud span { color: var(--santis-light); }
+    </style>
+</head>
+<body>
+
+    <!-- KATMAN 1: QUANTUM VOID (GPU FIELD) -->
+    <canvas id="santis-quantum-canvas"></canvas>
+
+    <!-- TELEMETRY HUD -->
+    <div id="santis-telemetry-hud">
+        <div style="margin-bottom: 5px; opacity: 0.5;">SANTIS OS V6 QUANTUM CORE</div>
+        <div>FPS: <span id="hud-fps">0</span></div>
+        <div>Draw Calls: <span id="hud-draw">1</span> (Instanced)</div>
+        <div>Active Cards: <span id="hud-cards">0</span></div>
+        <div style="margin-top: 5px;">Max Intent Score (Lerp): <span id="hud-intent">0.000</span></div>
+    </div>
+
+    <!-- KATMAN 2: THE MORPHING BODY -->
+    <main id="santis-app">
+        <header>
+            <h1>Sovereign Retreat</h1>
+            <p>Select your quantum sequence</p>
+            <br>
+            <!-- Test Butonu: JSON Data Bridge'i fomo çarpanıyla tetikler -->
+            <button onclick="window.SovereignDataBridgeInstance?.setSurgeMultiplier(1.15); window.SovereignDataBridgeInstance?.injectMatrix('assets/data/sovereign-matrix.json')" style="background:transparent; color:#b39b59; border: 1px solid #b39b59; padding: 10px 20px; cursor: pointer; text-transform:uppercase; font-size: 0.7rem; letter-spacing:0.1em;">Simulate FOMO Surge (Load JSON)</button>
+        </header>
+
+        <div class="santis-grid" id="santis-card-grid">
+            <!-- Initial Cards to be tracked -->
+            <div class="santis-card-armor" data-key="rit_01" data-hash="alpha01" data-aura-color="0.83, 0.68, 0.21" data-aura-effect="1.0">
+                <div class="santis-card-content">
+                    <h2 class="santis-card-title" data-text="title">Osmanlı Saray Ritüeli</h2>
+                    <div class="santis-card-meta">
+                        <span class="santis-duration" data-text="duration">120 Min</span>
+                        <span class="santis-price" data-text="price">€180</span>
+                    </div>
+                </div>
+                <button class="santis-intent-btn" data-id="rit_01"><span>Mühürle</span></button>
+            </div>
+
+            <div class="santis-card-armor" data-key="rit_02" data-hash="beta02" data-aura-color="0.10, 0.45, 0.25" data-aura-effect="0.8">
+                <div class="santis-card-content">
+                    <h2 class="santis-card-title" data-text="title">Himalaya Tuz Terapisi</h2>
+                    <div class="santis-card-meta">
+                        <span class="santis-duration" data-text="duration">90 Min</span>
+                        <span class="santis-price" data-text="price">€140</span>
+                    </div>
+                </div>
+                <button class="santis-intent-btn" data-id="rit_02"><span>Mühürle</span></button>
+            </div>
+            
+            <div class="santis-card-armor" data-key="rit_03" data-hash="gamma03" data-aura-color="0.45, 0.15, 0.10" data-aura-effect="1.2">
+                <div class="santis-card-content">
+                    <h2 class="santis-card-title" data-text="title">Kuantum Derin Doku</h2>
+                    <div class="santis-card-meta">
+                        <span class="santis-duration" data-text="duration">60 Min</span>
+                        <span class="santis-price" data-text="price">€110</span>
+                    </div>
+                </div>
+                <button class="santis-intent-btn" data-id="rit_03"><span>Mühürle</span></button>
+            </div>
+        </div>
+    </main>
+
+    <!-- TELEMETRY SCRIPT (HUD Updater) -->
+    <script>
+        let lastTime = 0;
+        let frames = 0;
+        const hudFps = document.getElementById('hud-fps');
+        const hudCards = document.getElementById('hud-cards');
+        const hudIntent = document.getElementById('hud-intent');
+
+        function updateTelemetry(time) {
+            frames++;
+            if (time - lastTime >= 1000) {
+                hudFps.innerText = frames;
+                frames = 0;
+                lastTime = time;
+                
+                // Active Cards (Layout Mesh'ten al)
+                if (window.Santis && window.Santis.Bootloader && window.Santis.Bootloader.layoutMesh) {
+                    hudCards.innerText = window.Santis.Bootloader.layoutMesh.activeCardsCache.size;
+                }
+            }
+
+            // Max Intent Score (Intent Engine'den al)
+            if (window.Santis && window.Santis.Bootloader && window.Santis.Bootloader.intentEngine) {
+                let maxScore = 0.0;
+                window.Santis.Bootloader.intentEngine.intentCache.forEach(state => {
+                    if (state.current > maxScore) maxScore = state.current;
+                });
+                hudIntent.innerText = maxScore.toFixed(3);
+                
+                // Lüks bir geri bildirim: Skor 0.8'i geçerse HUD rengini altın yap
+                hudIntent.parentElement.style.color = maxScore > 0.8 ? '#b39b59' : 'var(--santis-gold)';
+            }
+
+            requestAnimationFrame(updateTelemetry);
+        }
+        requestAnimationFrame(updateTelemetry);
+    </script>
+
+    <!-- KATMAN 3: THE BRAIN -->
+    <script type="module" src="assets/js/santis-core.js"></script>
+
+    <!-- KATMAN 4: THE CONCIERGE (SOVEREIGN AI) -->
+    <script type="module" src="assets/js/aurelia/santis-aurelia-v2.js"></script>
+
+    <!-- DataBridge Global Access for the Demo Button -->
+    <script type="module">
+        import { SovereignDataBridge } from './assets/js/santis-data-bridge.js';
+        setTimeout(() => {
+            if (window.Santis && window.Santis.Bootloader && window.Santis.Bootloader.dataBridge) {
+                window.SovereignDataBridgeInstance = window.Santis.Bootloader.dataBridge;
+            }
+        }, 500);
+    </script>
+
+</body>
+</html>

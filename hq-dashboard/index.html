@@ -164,9 +164,13 @@
         }
     </style>
 </head>
-<body class="min-h-screen text-white font-sans p-4 md:p-8 antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
+    <body class="min-h-screen text-white font-sans p-4 md:p-8 antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
 
     <div class="max-w-7xl mx-auto">
+        
+        <div id="hq-offline-banner" class="hidden mb-4 px-4 py-3 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-200 font-mono text-xs tracking-widest">
+            HQ API offline or unreachable. Showing placeholder data; retries paused after three failures.
+        </div>
         
         <!-- HEADER (Glassmorphism) -->
         <header class="backdrop-blur-xl bg-santis-panel border border-santis-border rounded-2xl p-6 mb-8 flex flex-col md:flex-row justify-between items-start md:items-center shadow-2xl relative overflow-hidden">
@@ -601,7 +605,13 @@
     </style>
 <!-- Backend Integration Script -->
     <script>
-        const API_BASE = 'http://localhost:8000';
+        const API_BASE = window.__HQ_API_BASE__ 
+            || localStorage.getItem('SANTIS_HQ_API_BASE') 
+            || `${window.location.protocol}//${window.location.host}`;
+        const WS_BASE  = (API_BASE || window.location.origin).replace(/^http/, 'ws');
+        const OFFLINE_MAX_STRIKES = 3;
+        let offlineStrikes = 0;
+        let hqPoller, forecastPoller, heatmapPoller;
         
         // Element References
         const els = {
@@ -622,6 +632,35 @@
             zoomAiAction: document.getElementById('zoom-ai-action'),
             closeZoomBtn: document.getElementById('close-zoom-btn')
         };
+
+        function showOfflineBanner() {
+            const banner = document.getElementById('hq-offline-banner');
+            if (banner) banner.classList.remove('hidden');
+        }
+
+        function markOffline(endpoint, status) {
+            offlineStrikes++;
+            console.warn(`[HQ OFFLINE] ${endpoint} -> ${status} (${offlineStrikes}/${OFFLINE_MAX_STRIKES})`);
+            if (offlineStrikes >= OFFLINE_MAX_STRIKES) {
+                if (hqPoller) clearInterval(hqPoller);
+                if (forecastPoller) clearInterval(forecastPoller);
+                if (heatmapPoller) clearInterval(heatmapPoller);
+                showOfflineBanner();
+            }
+        }
+
+        async function safeJson(url, options) {
+            try {
+                const res = await fetch(url, options);
+                if (!res.ok) { markOffline(url, res.status); return null; }
+                const ct = res.headers.get('content-type') || '';
+                if (!ct.includes('application/json')) { markOffline(url, `ct:${ct}`); return null; }
+                return res.json();
+            } catch (e) {
+                markOffline(url, e?.message || 'network-error');
+                return null;
+            }
+        }
 
         // Format Currency
         const formatEur = (num) => {
@@ -834,28 +873,25 @@
         async function fetchHQData() {
             try {
                 // Fetch Stats
-                const statsRes = await fetch(`${API_BASE}/hq/global-stats`);
-                if(statsRes.ok) {
-                    const data = await statsRes.json();
+                const data = await safeJson(`${API_BASE}/hq/global-stats`);
+                if (data) {
+                    if(els.totalTenants) els.totalTenants.innerText = data.network?.total_tenants ?? '—';
+                    if(els.totalHotels) els.totalHotels.innerText = `/ ${data.network?.total_hotels ?? '0'} Hotels`;
                     
-                    if(els.totalTenants) els.totalTenants.innerText = data.network.total_tenants;
-                    if(els.totalHotels) els.totalHotels.innerText = `/ ${data.network.total_hotels} Hotels`;
+                    if(els.globalRevenue && data.performance) els.globalRevenue.innerText = formatEur(data.performance.today_revenue || 0);
+                    if(els.aiBookings && data.performance) els.aiBookings.innerText = data.performance.today_bookings ?? 0;
                     
-                    if(els.globalRevenue) els.globalRevenue.innerText = formatEur(data.performance.today_revenue);
-                    if(els.aiBookings) els.aiBookings.innerText = data.performance.today_bookings;
-                    
-                    // Utilization math (Mock capacity at 50 for demo)
                     const capacity = 50;
-                    const percent = Math.min(Math.round((data.network.total_hotels / capacity) * 100), 100);
+                    const percent = Math.min(Math.round(((data.network?.total_hotels || 0) / capacity) * 100), 100);
                     if(els.utilizationBar) els.utilizationBar.style.width = `${percent}%`;
                     if(els.utilizationText) els.utilizationText.innerText = `${percent}%`;
-                    // Map Render Update is obsolete due to Mapbox, removed renderSpatialNodes(data.regions);
+                } else {
+                    return;
                 }
 
                 // V18 Cognitive Yield Engine Sync
-                const yieldRes = await fetch(`${API_BASE}/api/v1/admin/yield-status`);
-                if(yieldRes.ok) {
-                    const yData = await yieldRes.json();
+                const yData = await safeJson(`${API_BASE}/api/v1/admin/yield-status`);
+                if(yData) {
                     document.getElementById('stat-yield-multiplier').innerText = yData.multiplier.toFixed(2);
                     const statusEl = document.getElementById('stat-yield-status');
                     statusEl.innerText = yData.action;
@@ -867,9 +903,8 @@
                 }
 
                 // V17 Neural Ecosystem: AI Commander (Strategic Insight & Staffing)
-                const insightRes = await fetch(`${API_BASE}/api/v1/admin/ai-insights`);
-                if(insightRes.ok) {
-                    const insightData = await insightRes.json();
+                const insightData = await safeJson(`${API_BASE}/api/v1/admin/ai-insights`);
+                if(insightData) {
                     const insightPanel = document.getElementById('stat-ai-insight-panel');
                     if(insightPanel && insightData.ai_insight) {
                         insightPanel.innerHTML = insightData.ai_insight.replace(/\*\*/g, ''); 
@@ -902,30 +937,27 @@
                 }
 
                 // Fetch Feed
-                const feedRes = await fetch(`${API_BASE}/hq/live-feed`);
-                if(feedRes.ok) {
-                    const data = await feedRes.json();
-                    
-                    if(data.feed && data.feed.length > 0 && els.liveFeedBody) {
-                        els.liveFeedBody.innerHTML = data.feed.map((row, index) => `
-                            <tr class="hover:bg-slate-800/30 transition-colors group cursor-pointer ${index === 0 ? 'animate-[fadeIn_0.5s_ease-out] bg-cyan-900/10' : ''}" onclick="openDeepDive('${row.id}')">
-                                <td class="py-4 px-6 font-mono text-slate-400 group-hover:text-cyan-400 transition-colors">${row.booked_at}</td>
-                                <td class="py-4 px-6 font-medium border-l-2 border-transparent group-hover:border-cyan-500">${row.hotel_name || 'System Hub'}</td>
-                                <td class="py-4 px-6 text-slate-400"><span class="bg-slate-800 border border-slate-700 px-2 py-0.5 rounded text-xs">${row.room_number || 'Walk-in'}</span></td>
-                                <td class="py-4 px-6 text-slate-200">${row.service_name || 'Custom Deal'}</td>
-                                <td class="py-4 px-6">
-                                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-xs font-medium 
-                                        ${row.status === 'CONFIRMED' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-amber-500/10 text-amber-500 border-amber-500/20'} border">
-                                        <span class="w-1.5 h-1.5 rounded-full ${row.status === 'CONFIRMED' ? 'bg-emerald-500' : 'bg-amber-500'}"></span> 
-                                        ${row.status || 'PENDING'}
-                                    </span>
-                                </td>
-                                <td class="py-4 px-6 font-mono font-medium text-right ${row.status === 'CONFIRMED' ? 'text-emerald-400' : ''}">€${row.price_charged}</td>
-                            </tr>
-                        `).join('');
-                    }
+                const feedData = await safeJson(`${API_BASE}/hq/live-feed`);
+                if(feedData && feedData.feed && feedData.feed.length > 0 && els.liveFeedBody) {
+                    els.liveFeedBody.innerHTML = feedData.feed.map((row, index) => `
+                        <tr class="hover:bg-slate-800/30 transition-colors group cursor-pointer ${index === 0 ? 'animate-[fadeIn_0.5s_ease-out] bg-cyan-900/10' : ''}" onclick="openDeepDive('${row.id}')">
+                            <td class="py-4 px-6 font-mono text-slate-400 group-hover:text-cyan-400 transition-colors">${row.booked_at}</td>
+                            <td class="py-4 px-6 font-medium border-l-2 border-transparent group-hover:border-cyan-500">${row.hotel_name || 'System Hub'}</td>
+                            <td class="py-4 px-6 text-slate-400"><span class="bg-slate-800 border border-slate-700 px-2 py-0.5 rounded text-xs">${row.room_number || 'Walk-in'}</span></td>
+                            <td class="py-4 px-6 text-slate-200">${row.service_name || 'Custom Deal'}</td>
+                            <td class="py-4 px-6">
+                                <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-xs font-medium 
+                                    ${row.status === 'CONFIRMED' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-amber-500/10 text-amber-500 border-amber-500/20'} border">
+                                    <span class="w-1.5 h-1.5 rounded-full ${row.status === 'CONFIRMED' ? 'bg-emerald-500' : 'bg-amber-500'}"></span> 
+                                    ${row.status || 'PENDING'}
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 font-mono font-medium text-right ${row.status === 'CONFIRMED' ? 'text-emerald-400' : ''}">€${row.price_charged}</td>
+                        </tr>
+                    `).join('');
                 }
             } catch (err) {
+                markOffline('HQ Sync Error', err?.message || err);
                 console.error("HQ Sync Error:", err);
             }
         }
@@ -933,9 +965,8 @@
         let forecastChart = null;
         async function fetchForecastData() {
             try {
-                const res = await fetch(`${API_BASE}/api/v1/admin/revenue-forecast`);
-                if(res.ok) {
-                    const data = await res.json();
+                const data = await safeJson(`${API_BASE}/api/v1/admin/revenue-forecast`);
+                if(data) {
                     
                     const ctx = document.getElementById('revenueForecastChart').getContext('2d');
                     
@@ -1029,6 +1060,7 @@
                     });
                 }
             } catch (err) {
+                markOffline('Forecast Sync Error', err?.message || err);
                 console.error("Forecast Chart Sync Error:", err);
             }
         }
@@ -1036,10 +1068,8 @@
         // V13 Execute Heatmap sync
         async function fetchEuroHeatmap() {
             try {
-                const res = await fetch(`${API_BASE}/api/v1/admin/euro-heatmap`);
-                if (res.ok) {
-                    const payload = await res.json();
-                    
+                const payload = await safeJson(`${API_BASE}/api/v1/admin/euro-heatmap`);
+                if (payload) {
                     if(payload.insight) {
                         document.getElementById('heatmap-insight').innerHTML = `<span class="text-indigo-400 font-bold">AI Insight:</span> ${payload.insight}`;
                     }
@@ -1048,7 +1078,6 @@
                         const tbody = document.getElementById('euro-heatmap-body');
                         let html = '';
                         payload.data.forEach(row => {
-                            // Determine color based on threshold (e.g., AOV > 500 is high-roller)
                             const isHighRoller = row.aov >= 500;
                             const isDomestic = row.country.includes('(TR)');
                             const aovColor = isHighRoller ? 'text-indigo-400 font-bold' : (isDomestic ? 'text-slate-400' : 'text-emerald-400');
@@ -1072,6 +1101,7 @@
                     }
                 }
             } catch (err) {
+                markOffline('Heatmap Sync Error', err?.message || err);
                 console.error("Heatmap Sync Error:", err);
             }
         }
@@ -1081,9 +1111,9 @@
         fetchForecastData();
         fetchEuroHeatmap();
         initMapbox();
-        setInterval(fetchHQData, 5000);
-        setInterval(fetchForecastData, 60000); // Forecast needs less frequent polling
-        setInterval(fetchEuroHeatmap, 60000);
+        hqPoller = setInterval(fetchHQData, 5000);
+        forecastPoller = setInterval(fetchForecastData, 60000); // Forecast needs less frequent polling
+        heatmapPoller = setInterval(fetchEuroHeatmap, 60000);
     </script>
     
     <!-- DEEP DIVE MODAL -->
@@ -1423,12 +1453,36 @@
 
     <!-- FETCH PATH OVERRIDE FOR DASHBOARD -->
     <script>
-        // Intercept concierg-chat.html fetch to look in parent directory
+        const MOCK_MODE = (["localhost","127.0.0.1"].includes(window.location.hostname)) 
+            && (window.location.port === "8000" || window.location.port === "" || window.location.port === "5500");
+        
+        // Intercept concierg-chat.html fetch to look in parent directory AND mock API calls
         const originalFetch = window.fetch;
         window.fetch = function() {
-            if (arguments[0] === '/components/concierge-chat.html') {
+            let urlStr = arguments[0];
+            
+            if (urlStr === '/components/concierge-chat.html') {
                 arguments[0] = '../components/concierge-chat.html';
             }
+            
+            if (MOCK_MODE && typeof urlStr === 'string' && (urlStr.includes('/api/v1/') || urlStr.includes('/hq/'))) {
+                return Promise.resolve({
+                    ok: true,
+                    json: () => {
+                        if(urlStr.includes('global-stats')) return Promise.resolve({ network: { total_tenants: 0, total_hotels: 0 }, performance: { today_revenue: 0, today_bookings: 0 }, regions: [] });
+                        if(urlStr.includes('yield-status')) return Promise.resolve({ multiplier: 1.0, action: 'OBSERVING' });
+                        if(urlStr.includes('ai-insights')) return Promise.resolve({ ai_insight: 'Static Mock Mode Active.', neural_latency_ms: 12, staffing_prediction: 'Optimal' });
+                        if(urlStr.includes('revenue-forecast')) return Promise.resolve({ historical: { labels:[], data:[] }, forecast: { labels:[], data:[] } });
+                        if(urlStr.includes('euro-heatmap')) return Promise.resolve({ insight: 'Mock Data', data: [] });
+                        if(urlStr.includes('live-feed')) return Promise.resolve({ feed: [] });
+                        if(urlStr.includes('tenants-list')) return Promise.resolve({ tenants: [] });
+                        if(urlStr.includes('conversion-report')) return Promise.resolve({ funnel: { views: 0, carts: 0, checkouts: 0, purchases: 0 } });
+                        if(urlStr.includes('global-pulse')) return Promise.resolve({ active_users: 0, events_per_min: 0, top_routes: [] });
+                        return Promise.resolve({});
+                    }
+                });
+            }
+            
             return originalFetch.apply(this, arguments);
         };
     </script>
@@ -1452,6 +1506,13 @@
             const _clientId = 'hq-' + Math.random().toString(36).slice(2, 10);
 
             function connectHQBridge() {
+                if (MOCK_MODE) {
+                    console.log('[Neural Bridge] MOCK_MODE Active. Disabling real WebSocket connection.');
+                    const dot = document.getElementById('ws-status-dot');
+                    if (dot) { dot.classList.add('bg-blue-500'); dot.classList.remove('bg-red-500', 'bg-yellow-400', 'bg-green-500'); }
+                    return;
+                }
+
                 if (window.hqSocket &&
                     (window.hqSocket.readyState === WebSocket.OPEN ||
                      window.hqSocket.readyState === WebSocket.CONNECTING)) {
@@ -1466,9 +1527,13 @@
                     return;
                 }
 
-                window.hqSocket = new WebSocket(
-                    `ws://localhost:8000/ws?client_type=hq&client_id=${_clientId}`
-                );
+                if (offlineStrikes >= OFFLINE_MAX_STRIKES) {
+                    console.warn('[Neural Bridge] Skipping WS connect: API marked offline.');
+                    return;
+                }
+
+                const wsUrl = `${WS_BASE.replace(/\/$/, '')}/ws?client_type=hq&client_id=${_clientId}`;
+                window.hqSocket = new WebSocket(wsUrl);
                 window.hqSocket = window.hqSocket;
 
                 window.hqSocket.onopen = () => {

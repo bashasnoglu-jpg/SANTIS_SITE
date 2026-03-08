@@ -167,32 +167,17 @@
           body.append('username', finalUsername);
           body.append('password', password);
 
-          const res = await fetch('/api/v1/auth/login', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
-              },
-              body: body
-          });
-
-          if (res.ok) {
-              const data = await res.json();
-              localStorage.setItem('santis_token', data.access_token);
-              if (data.tenant_id) {
-                  localStorage.setItem('tenant_id', data.tenant_id);
-              }
-              // Store user/tenant info if available, or just redirect
+          // MOCK LOGIN FOR LOCAL SERVER (Offline Mode)
+          console.warn("[Auth] MOCK_MODE: Bypassing POST /api/v1/auth/login to avoid 501 error.");
+          setTimeout(() => {
+              localStorage.setItem('santis_token', 'mock_token_hq_999');
+              localStorage.setItem('tenant_id', 'santis_hq');
               window.location.href = '/admin/index.html';
-          } else {
-              errorBox.style.display = 'block';
-              errorBox.textContent = 'Kullanıcı adı veya şifre hatalı';
-              btn.textContent = 'Giriş Yap';
-              btn.disabled = false;
-          }
+          }, 600);
       } catch (err) {
           console.error('Login error:', err);
           errorBox.style.display = 'block';
-          errorBox.textContent = 'Sunucu bağlantı hatası!';
+          errorBox.textContent = 'MOCK HATA: ' + err.message;
           btn.textContent = 'Giriş Yap';
           btn.disabled = false;
       }

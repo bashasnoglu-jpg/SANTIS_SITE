@@ -341,10 +341,39 @@
         option && myChart.setOption(option);
 
         // ==========================================
+        // OTONOM MOCK INTERCEPTOR (Statik Sunucu 404 Engelleme Zırhı)
+        // Eğer backend yerine statik Python sunucusu (port 8000) açıksa 
+        // 404 hatalarını ezmek için sahte (mock) veri döner.
+        // ==========================================
+        const MOCK_MODE = window.location.port === "8000" && window.location.hostname === "localhost";
+        
+        // ==========================================
         // SOVEREIGN SSE TUNNEL (Phase 1 & Phase 2)
         // ==========================================
         const logBox = document.getElementById('cortex-logs');
-        const source = new EventSource("/api/v1/god-mode/stream");
+        
+        let source;
+        if (MOCK_MODE) {
+            // Sahte EventSource (Mock)
+            source = {
+                onmessage: null,
+                close: () => {}
+            };
+            // 10 saniyede bir sahte kalp atışı (ping) gönder
+            setInterval(() => {
+                if(source.onmessage) {
+                    source.onmessage({
+                        data: JSON.stringify({
+                            timestamp: new Date().toISOString().split('T')[1].split('.')[0],
+                            telemetry: { active_whales: 2, hesitation_index: "LOW", ghost_score: 95, oracle_status: "SURGE ACTIVE (1.15x)" },
+                            cortex: { queue_size: 0, missing_slots: 0, latest_log: "⚡ [Sovereign Edge] Frontend is running in Static Mock Mode." }
+                        })
+                    });
+                }
+            }, 10000);
+        } else {
+            source = new EventSource("/api/v1/god-mode/stream");
+        }
 
         source.onmessage = function(event) {
             const data = JSON.parse(event.data);
@@ -525,8 +554,17 @@
             if (!qContainer) return; // Kapsayıcı yoksa dur!
 
             try {
-                const res = await fetch("http://localhost:8000/api/v1/health/panel-audit");
-                const data = await res.json();
+                let data = { quarantine_nodes: [] };
+
+                if (!MOCK_MODE) {
+                    const res = await fetch("http://localhost:8000/api/v1/health/panel-audit");
+                    if(res.ok) {
+                        data = await res.json();
+                    } else {
+                        throw new Error("HTTP " + res.status);
+                    }
+                }
+
                 const nodes = data.quarantine_nodes || [];
                 
                 // 1. Durum Rozeti Güncellemesi (Kırmızı/Yeşil Neon Efekti)

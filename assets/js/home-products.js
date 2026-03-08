@@ -272,9 +272,8 @@ window.loadHomeProducts = async () => {
                                 products.forEach(p => window.productCatalog.push(p));
                                 window.__SANTIS_STORE_PRODUCTS_LOADED = true;
                                 console.log(`✅ [HomeProducts] Added ${products.length} physical products.`);
-                                // Force re-render grid
-                                window.isProductCatalogRendered = false;
-                                window.loadHomeProducts();
+                                // Removed window.loadHomeProducts() recursion. Let the virtualizer handle the initial load, 
+                                // and if it missed it, the next manual navigate will catch the loaded catalog.
                             }).catch(err => console.warn("🟠 [HomeProducts] Store products fail:", err));
                         } catch (e) { }
                     }
@@ -853,24 +852,4 @@ window.renderSpotlight = function (product, reasoning) {
     }, 800);
 };
 
-// ═══════════════════════════════════════════════════════════════════════
-// BODY-LEVEL CARD CLICK DELEGATION (Last Resort Navigation)
-// Catches ALL clicks on .nv-card-tarot cards via body delegation
-// ═══════════════════════════════════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', () => {
-    document.body.addEventListener('click', (e) => {
-        const card = e.target.closest('a.nv-card-tarot');
-        if (!card) return;
-
-        const href = card.getAttribute('href');
-        console.log('🃏 [CardDelegation] Card clicked! href:', href);
-
-        if (href && href !== '#' && href !== '') {
-            e.preventDefault();
-            e.stopPropagation();
-            window.location.href = href;
-        }
-    }, true); // CAPTURE PHASE — fires BEFORE any other handler
-
-    console.log('🃏 [CardDelegation] Body-level card click handler installed (capture phase)');
-});
+// ORACLE INTERFACE END

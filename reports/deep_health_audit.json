@@ -6,262 +6,296 @@
       "resolved": "assets\\img\\og-santis.webp"
     },
     {
-      "file": "admin-panel\\index.html",
-      "ref": "/src/main.jsx",
-      "resolved": "src\\main.jsx"
+      "file": "index.html",
+      "ref": "/en/index.html",
+      "resolved": "en\\index.html"
     },
     {
-      "file": "en\\index.html",
-      "ref": "/en/services/index.html",
-      "resolved": "en\\services\\index.html"
+      "file": "index.html",
+      "ref": "/de/index.html",
+      "resolved": "de\\index.html"
     },
     {
-      "file": "en\\index.html",
-      "ref": "/en/services/index.html",
-      "resolved": "en\\services\\index.html"
+      "file": "index.html",
+      "ref": "/fr/index.html",
+      "resolved": "fr\\index.html"
     },
     {
-      "file": "en\\index.html",
-      "ref": "/en/services/index.html",
-      "resolved": "en\\services\\index.html"
+      "file": "index.html",
+      "ref": "/ru/index.html",
+      "resolved": "ru\\index.html"
     },
     {
-      "file": "sr\\index.html",
-      "ref": "/sr/hammam/index.html",
-      "resolved": "sr\\hammam\\index.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/index.html",
+      "resolved": "de\\index.html"
     },
     {
-      "file": "sr\\index.html",
-      "ref": "/sr/massages/index.html",
-      "resolved": "sr\\massages\\index.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/acne-balance.html",
+      "resolved": "de\\hautpflege\\acne-balance.html"
     },
     {
-      "file": "sr\\index.html",
-      "ref": "/sr/services/index.html",
-      "resolved": "sr\\services\\index.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/anti-aging-pro.html",
+      "resolved": "de\\hautpflege\\anti-aging-pro.html"
     },
     {
-      "file": "sr\\index.html",
-      "ref": "/sr/urunler/index.html",
-      "resolved": "sr\\urunler\\index.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/barrier-repair.html",
+      "resolved": "de\\hautpflege\\barrier-repair.html"
     },
     {
-      "file": "sr\\index.html",
-      "ref": "/sr/hammam/index.html",
-      "resolved": "sr\\hammam\\index.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/brightening-spot.html",
+      "resolved": "de\\hautpflege\\brightening-spot.html"
     },
     {
-      "file": "sr\\index.html",
-      "ref": "/sr/massages/index.html",
-      "resolved": "sr\\massages\\index.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/classic-facial.html",
+      "resolved": "de\\hautpflege\\classic-facial.html"
     },
     {
-      "file": "sr\\index.html",
-      "ref": "/sr/services/index.html",
-      "resolved": "sr\\services\\index.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/collagen-lift.html",
+      "resolved": "de\\hautpflege\\collagen-lift.html"
     },
     {
-      "file": "sr\\index.html",
-      "ref": "/sr/urunler/index.html",
-      "resolved": "sr\\urunler\\index.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/deep-cleanse.html",
+      "resolved": "de\\hautpflege\\deep-cleanse.html"
     },
     {
-      "file": "sr\\index.html",
-      "ref": "/sr/services/index.html",
-      "resolved": "sr\\services\\index.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/detox-charcoal.html",
+      "resolved": "de\\hautpflege\\detox-charcoal.html"
     },
     {
-      "file": "templates\\service-detail.html",
-      "ref": "{{canonical_url}}",
-      "resolved": "templates\\{{canonical_url}}"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/enzyme-peel.html",
+      "resolved": "de\\hautpflege\\enzyme-peel.html"
     },
     {
-      "file": "templates\\service-detail.html",
-      "ref": "/tr/masajlar/klasik-rahatlama.html",
-      "resolved": "tr\\masajlar\\klasik-rahatlama.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/eye-contour.html",
+      "resolved": "de\\hautpflege\\eye-contour.html"
     },
     {
-      "file": "templates\\service-detail.html",
-      "ref": "/tr/hamam/kese-kopuk.html",
-      "resolved": "tr\\hamam\\kese-kopuk.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/glass-skin.html",
+      "resolved": "de\\hautpflege\\glass-skin.html"
     },
     {
-      "file": "trends\\japan.html",
-      "ref": "/assets/img/cards/santis_card_zen.webp",
-      "resolved": "assets\\img\\cards\\santis_card_zen.webp"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/gold-mask-ritual.html",
+      "resolved": "de\\hautpflege\\gold-mask-ritual.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\de\\index.html",
-      "ref": "../manifest.json",
-      "resolved": "_backup\\hreflang_sync\\20260221_232311\\de\\..\\manifest.json"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/hyaluron-hydrate.html",
+      "resolved": "de\\hautpflege\\hyaluron-hydrate.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\en\\code-of-silence.html",
-      "ref": "/en/massages/aromaterapi.html",
-      "resolved": "en\\massages\\aromaterapi.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/led-rejuvenation.html",
+      "resolved": "de\\hautpflege\\led-rejuvenation.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\en\\code-of-silence.html",
-      "ref": "/en/massages/derin-doku.html",
-      "resolved": "en\\massages\\derin-doku.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/lip-care.html",
+      "resolved": "de\\hautpflege\\lip-care.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\en\\index.html",
-      "ref": "/en/services/index.html",
-      "resolved": "en\\services\\index.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/men-facial.html",
+      "resolved": "de\\hautpflege\\men-facial.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\en\\index.html",
-      "ref": "/en/services/index.html",
-      "resolved": "en\\services\\index.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/micro-polish.html",
+      "resolved": "de\\hautpflege\\micro-polish.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\en\\index.html",
-      "ref": "/en/services/index.html",
-      "resolved": "en\\services\\index.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/oxygen-boost.html",
+      "resolved": "de\\hautpflege\\oxygen-boost.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\fr\\index.html",
-      "ref": "../manifest.json",
-      "resolved": "_backup\\hreflang_sync\\20260221_232311\\fr\\..\\manifest.json"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/sensitive-soothe.html",
+      "resolved": "de\\hautpflege\\sensitive-soothe.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\ru\\index.html",
-      "ref": "../manifest.json",
-      "resolved": "_backup\\hreflang_sync\\20260221_232311\\ru\\..\\manifest.json"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/vitamin-c-glow.html",
+      "resolved": "de\\hautpflege\\vitamin-c-glow.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\code-of-silence.html",
-      "ref": "/tr/masajlar/klasik-rahatlama.html",
-      "resolved": "tr\\masajlar\\klasik-rahatlama.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/acne-balance.html",
+      "resolved": "de\\hautpflege\\acne-balance.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\code-of-silence.html",
-      "ref": "/tr/masajlar/aromaterapi.html",
-      "resolved": "tr\\masajlar\\aromaterapi.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/anti-aging-pro.html",
+      "resolved": "de\\hautpflege\\anti-aging-pro.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\code-of-silence.html",
-      "ref": "/tr/masajlar/derin-doku.html",
-      "resolved": "tr\\masajlar\\derin-doku.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/barrier-repair.html",
+      "resolved": "de\\hautpflege\\barrier-repair.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\bilgelik\\index.html",
-      "ref": "/tr/masajlar/klasik-rahatlama.html",
-      "resolved": "tr\\masajlar\\klasik-rahatlama.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/brightening-spot.html",
+      "resolved": "de\\hautpflege\\brightening-spot.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\bilgelik\\index.html",
-      "ref": "/tr/masajlar/aromaterapi.html",
-      "resolved": "tr\\masajlar\\aromaterapi.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/classic-facial.html",
+      "resolved": "de\\hautpflege\\classic-facial.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\bilgelik\\index.html",
-      "ref": "/tr/masajlar/derin-doku.html",
-      "resolved": "tr\\masajlar\\derin-doku.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/collagen-lift.html",
+      "resolved": "de\\hautpflege\\collagen-lift.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\blog\\index.html",
-      "ref": "/tr/masajlar/klasik-rahatlama.html",
-      "resolved": "tr\\masajlar\\klasik-rahatlama.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/deep-cleanse.html",
+      "resolved": "de\\hautpflege\\deep-cleanse.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\blog\\index.html",
-      "ref": "/tr/masajlar/aromaterapi.html",
-      "resolved": "tr\\masajlar\\aromaterapi.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/detox-charcoal.html",
+      "resolved": "de\\hautpflege\\detox-charcoal.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\blog\\index.html",
-      "ref": "/tr/masajlar/derin-doku.html",
-      "resolved": "tr\\masajlar\\derin-doku.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/enzyme-peel.html",
+      "resolved": "de\\hautpflege\\enzyme-peel.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\blog\\index.html",
-      "ref": "/assets/img/blog/${post.img}",
-      "resolved": "assets\\img\\blog\\${post.img}"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/eye-contour.html",
+      "resolved": "de\\hautpflege\\eye-contour.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\ekibimiz\\index.html",
-      "ref": "/tr/masajlar/klasik-rahatlama.html",
-      "resolved": "tr\\masajlar\\klasik-rahatlama.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/glass-skin.html",
+      "resolved": "de\\hautpflege\\glass-skin.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\ekibimiz\\index.html",
-      "ref": "/tr/masajlar/aromaterapi.html",
-      "resolved": "tr\\masajlar\\aromaterapi.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/gold-mask-ritual.html",
+      "resolved": "de\\hautpflege\\gold-mask-ritual.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\ekibimiz\\index.html",
-      "ref": "/tr/masajlar/derin-doku.html",
-      "resolved": "tr\\masajlar\\derin-doku.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/hyaluron-hydrate.html",
+      "resolved": "de\\hautpflege\\hyaluron-hydrate.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\galeri\\index.html",
-      "ref": "/tr/masajlar/klasik-rahatlama.html",
-      "resolved": "tr\\masajlar\\klasik-rahatlama.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/index.html",
+      "resolved": "de\\hautpflege\\index.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\galeri\\index.html",
-      "ref": "/tr/masajlar/aromaterapi.html",
-      "resolved": "tr\\masajlar\\aromaterapi.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/led-rejuvenation.html",
+      "resolved": "de\\hautpflege\\led-rejuvenation.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\galeri\\index.html",
-      "ref": "/tr/masajlar/derin-doku.html",
-      "resolved": "tr\\masajlar\\derin-doku.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/lip-care.html",
+      "resolved": "de\\hautpflege\\lip-care.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\hakkimizda\\index.html",
-      "ref": "/tr/masajlar/klasik-rahatlama.html",
-      "resolved": "tr\\masajlar\\klasik-rahatlama.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/men-facial.html",
+      "resolved": "de\\hautpflege\\men-facial.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\hakkimizda\\index.html",
-      "ref": "/tr/masajlar/aromaterapi.html",
-      "resolved": "tr\\masajlar\\aromaterapi.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/micro-polish.html",
+      "resolved": "de\\hautpflege\\micro-polish.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\hakkimizda\\index.html",
-      "ref": "/tr/masajlar/derin-doku.html",
-      "resolved": "tr\\masajlar\\derin-doku.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/oxygen-boost.html",
+      "resolved": "de\\hautpflege\\oxygen-boost.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\hamam\\index.html",
-      "ref": "/assets/img/b1263ebeb519b1a5da22b7d2e90d305b.webp",
-      "resolved": "assets\\img\\b1263ebeb519b1a5da22b7d2e90d305b.webp"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/sensitive-soothe.html",
+      "resolved": "de\\hautpflege\\sensitive-soothe.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\hamam\\index.html",
-      "ref": "/tr/hamam/kese-kopuk.html",
-      "resolved": "tr\\hamam\\kese-kopuk.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/vitamin-c-glow.html",
+      "resolved": "de\\hautpflege\\vitamin-c-glow.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\hamam\\index.html",
-      "ref": "/tr/hamam/kese-kopuk.html",
-      "resolved": "tr\\hamam\\kese-kopuk.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/about/index.html",
+      "resolved": "de\\about\\index.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\hamam\\index.html",
-      "ref": "/tr/hamam/osmanli-ritueli.html",
-      "resolved": "tr\\hamam\\osmanli-ritueli.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/contact.html",
+      "resolved": "de\\contact.html"
     },
     {
-      "file": "_backup\\hreflang_sync\\20260221_232311\\tr\\hamam\\index.html",
-      "ref": "/tr/hamam/kahve-detox.html",
-      "resolved": "tr\\hamam\\kahve-detox.html"
+      "file": "site-haritasi.html",
+      "ref": "/de/galerie/index.html",
+      "resolved": "de\\galerie\\index.html"
     }
   ],
-  "js_issues": [],
-  "json_issues": [
+  "js_issues": [
     {
-      "file": "data\\generated_assets.json",
-      "issue": "Invalid JSON: Extra data: line 2 column 15 (char 15)",
+      "file": "assets\\js\\core\\santis-data-sanitizer.js",
+      "count": 1,
+      "type": "relative_path"
+    }
+  ],
+  "json_issues": [],
+  "lang_issues": [
+    {
+      "lang": "en",
+      "issue": "index.html missing",
+      "severity": "critical"
+    },
+    {
+      "lang": "de",
+      "issue": "index.html missing",
+      "severity": "critical"
+    },
+    {
+      "lang": "fr",
+      "issue": "index.html missing",
+      "severity": "critical"
+    },
+    {
+      "lang": "ru",
+      "issue": "index.html missing",
+      "severity": "critical"
+    },
+    {
+      "lang": "sr",
+      "issue": "Directory missing",
       "severity": "critical"
     }
   ],
-  "lang_issues": [],
   "endpoint_issues": [],
   "import_issues": [
+    {
+      "module": "warnings",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "log",
+      "issue": "Imported in server.py but file not found"
+    },
     {
       "module": "FastAPI",
       "issue": "Imported in server.py but file not found"
@@ -287,6 +321,10 @@
       "issue": "Imported in server.py but file not found"
     },
     {
+      "module": "TenantResolverMiddleware",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
       "module": "asynccontextmanager",
       "issue": "Imported in server.py but file not found"
     },
@@ -296,6 +334,22 @@
     },
     {
       "module": "ensure_indexes",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AsyncSessionLocal",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "text",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "VALID_SLOTS",
       "issue": "Imported in server.py but file not found"
     },
     {
@@ -311,7 +365,79 @@
       "issue": "Imported in server.py but file not found"
     },
     {
-      "module": "neural_worker_loop",
+      "module": "auto_pilot",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "resource_manager",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "viral_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "nightly_scheduler",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Response",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AsyncSessionLocal",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "text",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AsyncSessionLocal",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "text",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "BaseHTTPMiddleware",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "JSONResponse",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AsyncSessionLocal",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "text",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AsyncSessionLocal",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "text",
       "issue": "Imported in server.py but file not found"
     },
     {
@@ -355,23 +481,19 @@
       "issue": "Imported in server.py but file not found"
     },
     {
+      "module": "JSONResponse",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "security_logger",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
       "module": "subdomain",
       "issue": "Imported in server.py but file not found"
     },
     {
       "module": "TenantRouterMiddleware",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "RedirectResponse",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "manager",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "WebSocket",
       "issue": "Imported in server.py but file not found"
     },
     {
@@ -411,6 +533,10 @@
       "issue": "Imported in server.py but file not found"
     },
     {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
       "module": "sqlalchemy",
       "issue": "Imported in server.py but file not found"
     },
@@ -420,6 +546,10 @@
     },
     {
       "module": "AuditService",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
       "issue": "Imported in server.py but file not found"
     },
     {
@@ -491,6 +621,22 @@
       "issue": "Imported in server.py but file not found"
     },
     {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
       "module": "sqlalchemy",
       "issue": "Imported in server.py but file not found"
     },
@@ -511,50 +657,6 @@
       "issue": "Imported in server.py but file not found"
     },
     {
-      "module": "BaseModel",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "Depends",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "sqlalchemy",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "AsyncSession",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "get_db",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "Service",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "Room",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "Staff",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "BookingStatus",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "DailyRevenue",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "date",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
       "module": "Customer",
       "issue": "Imported in server.py but file not found"
     },
@@ -564,30 +666,6 @@
     },
     {
       "module": "google",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "timedelta",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "sqlalchemy",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "select",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "date",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "DailyRevenue",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "Booking",
       "issue": "Imported in server.py but file not found"
     },
     {
@@ -611,27 +689,23 @@
       "issue": "Imported in server.py but file not found"
     },
     {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
       "module": "Room",
       "issue": "Imported in server.py but file not found"
     },
     {
       "module": "shadow_rituals",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "bookings",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "load_dotenv",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "google",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "booking",
       "issue": "Imported in server.py but file not found"
     },
     {
@@ -648,22 +722,6 @@
     },
     {
       "module": "high",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "sqlalchemy",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "func",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "load_dotenv",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "google",
       "issue": "Imported in server.py but file not found"
     },
     {
@@ -735,47 +793,11 @@
       "issue": "Imported in server.py but file not found"
     },
     {
-      "module": "Phase",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
       "module": "AsyncSessionLocal",
       "issue": "Imported in server.py but file not found"
     },
     {
-      "module": "Path",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "google",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "Path",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "google",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "Path",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "google",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "manager",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "UploadFile",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "process_image",
+      "module": "commerce",
       "issue": "Imported in server.py but file not found"
     },
     {
@@ -791,15 +813,11 @@
       "issue": "Imported in server.py but file not found"
     },
     {
-      "module": "booking",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "post",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
       "module": "create_booking",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
       "issue": "Imported in server.py but file not found"
     },
     {
@@ -811,23 +829,11 @@
       "issue": "Imported in server.py but file not found"
     },
     {
-      "module": "AsyncSessionLocal",
+      "module": "ever",
       "issue": "Imported in server.py but file not found"
     },
     {
-      "module": "sqlalchemy",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "select",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "RedirectRegistry",
-      "issue": "Imported in server.py but file not found"
-    },
-    {
-      "module": "RedirectResponse",
+      "module": "shadowing",
       "issue": "Imported in server.py but file not found"
     },
     {
@@ -848,8 +854,8 @@
     }
   ],
   "summary": {
-    "total_issues": 2564,
-    "critical": 147,
-    "html_scanned": 1803
+    "total_issues": 4534,
+    "critical": 146,
+    "html_scanned": 1388
   }
 }

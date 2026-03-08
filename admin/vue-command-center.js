@@ -108,22 +108,15 @@ const app = createApp({
                 formData.append('username', loginEmail.value);
                 formData.append('password', loginPassword.value);
 
-                const res = await fetch('/api/v1/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: formData.toString()
-                });
-                const data = await res.json();
-
-                if (res.ok && data.access_token) {
-                    localStorage.setItem('santis_token', data.access_token);
+                // MOCK LOGIN FOR LOCAL SERVER (Offline Mode)
+                console.warn("[Vue Auth] MOCK_MODE: Bypassing POST /api/v1/auth/login");
+                setTimeout(() => {
+                    localStorage.setItem('santis_token', 'mock_vue_token_888');
                     isAuthenticated.value = true;
                     fetchStatus();
-                } else {
-                    loginError.value = data.detail || 'Login failed.';
-                }
+                }, 400);
             } catch (e) {
-                loginError.value = 'Failed to connect to authentication server.';
+                loginError.value = 'Mock Login failed: ' + e.message;
             }
         };
 

@@ -5,8 +5,7 @@ import datetime
 ROOT_DIR = r"c:\Users\tourg\Desktop\SANTIS_SITE\tr"
 GUEST_ZEN = r"c:\Users\tourg\Desktop\SANTIS_SITE\guest-zen"
 ASSETS_DIR = r"c:\Users\tourg\Desktop\SANTIS_SITE\assets"
-OUTPUT_REPORT = r"C:\Users\tourg\.gemini\antigravity\brain\1d25d0df-210c-4de1-be44-12bc907b4b06\SANTIS_DEEP_SCAN_REPORT.md"
-
+OUTPUT_REPORT = r"C:\Users\tourg\.gemini\antigravity\brain\ae15d084-2e2c-4eed-8690-43e9e9a75134\SANTIS_DEEP_SCAN_REPORT.md"
 def generate_report():
     report_lines = []
     report_lines.append(f"# 🛡️ SANTIS MASTER OS - DEEP SCAN AUDIT (V22)")

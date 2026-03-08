@@ -659,6 +659,8 @@
 
         // 3. Neural Bridge HQ Listener
         function initHQNeuralBridge() {
+            console.warn("Master OS Neural Bridge (HQ): OFFLINE/MOCK_MODE. WebSocket disabled.");
+            /*
             window.hqSocket = new WebSocket("ws://localhost:8000/ws?client_type=hq&client_id=global");
             window.hqSocket.onopen = () => console.log("Master OS Neural Bridge: CONNECTED (HQ)");
             
@@ -693,6 +695,7 @@
                 } catch(e) { console.warn('[Neural Bridge] Parse error:', e); }
             };
             window.hqSocket.onclose = () => setTimeout(initHQNeuralBridge, 3000);
+            */
         }
 
         // 4. PHASE 3 – SHADOW RITUALS MODAL ENGINE

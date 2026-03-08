@@ -1719,18 +1719,43 @@ body.fade-out {
 
 .scrollbar-hide {
   -ms-overflow-style: none;
-  scrollbar-width: none;
   pointer-events: auto !important;
 }
 
 .rail-track {
-  -webkit-overflow-scrolling: touch;
   pointer-events: auto !important;
-  touch-action: pan-x pan-y;
+  touch-action: pan-x pan-y !important;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Kuantum Sis Maskesi (The 3440px Void fade-out) */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 2%, black 98%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 2%, black 98%, transparent 100%);
 }
 
 .rituals-container {
   pointer-events: auto !important;
+  min-height: 480px;
+  /* Sentinel Guardian: Prevents High CLS when cards inject */
+}
+
+/* --- EMOTION-BASED UX: ACTIVE AURA --- */
+.nv-rail-card {
+  transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.rail-track:has(.is-active-aura) .nv-rail-card:not(.is-active-aura) {
+  filter: brightness(0.4) grayscale(20%);
+  transform: scale(0.96);
+}
+
+.nv-rail-card.is-active-aura {
+  /* Phase 11: Circadian Aura Dimming */
+  filter: brightness(var(--aura-intensity, 1)) grayscale(0%);
+  transform: scale(1);
+  z-index: 50;
+
+  /* Phase 11: OmniScience Gyro Parallax Hardware Acceleration */
+  will-change: transform;
 }
 
 /* 🌍 [SANTIS OS - PHASE 95: LENIS & CINEMATIC REVEAL] */

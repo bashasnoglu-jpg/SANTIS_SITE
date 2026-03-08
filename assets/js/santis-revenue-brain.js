@@ -100,23 +100,64 @@ class SantisRevenueBrain {
         });
     }
 
-    // H3: SOVEREIGN RESCUE MISSION (Exit Intent / Mouse Bounce)
+    // H3: SOVEREIGN RESCUE MISSION (Exit Intent / Mouse Bounce via Priority Queue)
     listenForExitIntent() {
-        // Kullanıcı mouse'u viewport dışına (sekmelere vs) çıkarttığında
+        // Event Bus'a Event Gönder (Priority 1, Yüksek Öncelik)
         document.addEventListener('mouseleave', (e) => {
             if (e.clientY < 5 && !this.intents.abandonCart) {
-                this.intents.abandonCart = true;
-                this.triggerRescueMission();
+                if (window.SantisBus) {
+                    window.SantisBus.debounceEmit('santis:exit-intent', { priority: 1, type: 'mouse-bounce' }, 500);
+                } else {
+                    this._handleExitIntent(); // Fallback if Bus is not loaded
+                }
             }
         });
 
-        // Veya otonom kodla testten tetiklendiğinde:
-        window.addEventListener('santis-abandon-cart-intent', () => {
-            if (!this.intents.abandonCart) {
-                this.intents.abandonCart = true;
-                this.triggerRescueMission();
+        // 📱 MOBİL İÇİN MODERN ÇÖZÜM: visibilitychange ve pagehide
+        // Kullanıcı sekmeyi değiştirdiğinde, arka plana aldığında veya tarayıcıyı kapattığında tetiklenir
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden' && !this.intents.abandonCart) {
+                if (window.SantisBus) {
+                    window.SantisBus.debounceEmit('santis:exit-intent', { priority: 1, type: 'visibility-hidden' }, 500);
+                } else {
+                    this._handleExitIntent();
+                }
             }
         });
+
+        window.addEventListener('pagehide', () => {
+            if (!this.intents.abandonCart) {
+                if (window.SantisBus) {
+                    window.SantisBus.emit('santis:exit-intent', { priority: 1, type: 'page-hide' });
+                } else {
+                    this._handleExitIntent();
+                }
+            }
+        });
+
+        // Event Bus'tan Dinle (Sadece Raylar Hazırsa - Anti-Jitter)
+        if (window.SantisBus) {
+            window.SantisBus.on('santis:exit-intent', (evt) => {
+                if (evt.priority === 1 && window.SantisBus.history.has('santis:rail-ready')) {
+                    this._handleExitIntent();
+                } else if (!window.SantisBus.history.has('santis:rail-ready')) {
+                    console.log("⏳ [Revenue Brain] Exit Intent detected but deferred. Waiting for 'santis:rail-ready'...");
+                }
+            });
+        }
+
+        // Otonom Kodla Testten Tetiklendiğinde (Santis Bus)
+        window.addEventListener('santis-abandon-cart-intent', () => {
+            if (window.SantisBus) window.SantisBus.emit('santis:exit-intent', { priority: 2, type: 'manual' });
+            else this._handleExitIntent();
+        });
+    }
+
+    _handleExitIntent() {
+        if (!this.intents.abandonCart) {
+            this.intents.abandonCart = true;
+            this.triggerRescueMission();
+        }
     }
 
     // H2.5: PERSONA BAZLI RESCUE (Score Engine Otonom Hand-off)
@@ -136,6 +177,12 @@ class SantisRevenueBrain {
         const ghostScore = parseInt(ghostScoreStr || '0', 10);
 
         console.log(`🔍 [Revenue Brain] Testing Rescue conditions. Ghost Score: ${ghostScore}, Minimum Required: ${this.settings.minGhostScoreForRescue}`);
+
+        // Rail-Ready Gating (Architecture Principle 2)
+        if (window.SantisBus && !window.SantisBus.history.has('santis:rail-ready')) {
+            console.warn(`🛡️ [Revenue Brain] Delaying Sovereign Rescue: Physics Engine is not ready yet.`);
+            return;
+        }
 
         if (ghostScore < this.settings.minGhostScoreForRescue) {
             console.warn(`🛡️ [Revenue Brain] Exit intent detected, but Ghost Score is too low for Sovereign Rescue.`);

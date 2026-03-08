@@ -103,15 +103,23 @@
 <a class="home-btn" href="/">Akışa Dön</a>
 
 <script>
-    // Sovereign Archiving Fallback Redirect
-    (function(){
-        var path = window.location.pathname;
-        var match = path.match(/^\/(en|ru|de|fr|sr)\/(.*)/);
-        if (match) {
-            // Eski dil rotası (Ghost File) tespit edildi. Canonical Root'a yönlendiriyoruz.
-            var targetPath = '/tr/' + match[2] + '?lang=' + match[1];
-            console.log("Sovereign Redirect Triggered: " + targetPath);
-            window.location.replace(targetPath);
+    // Sovereign Omni-Router (Smart Fallback)
+    (function() {
+        const path = window.location.pathname.toLowerCase();
+        
+        // Kayıp dil dizinleri tespiti
+        const deadLangs = ['/en', '/de', '/fr', '/ru', '/sr'];
+        const isDeadLangRoute = deadLangs.some(lang => path.startsWith(lang + '/') || path === lang);
+
+        if (isDeadLangRoute) {
+            console.warn(`🦅 [Omni-Router] Zombi dil rotası tespit edildi: ${path}. Sovereign Merkeze (/tr/) tahliye ediliyor...`);
+            
+            // Kullanıcıyı sarsmadan (sessiz lüks) ana dile yönlendir
+            window.location.replace('/tr/index.html?ref=omni-router');
+        } else {
+            // Dil rotası değilse, standart 404 Sovereign tasarımını göster
+            console.log("🛑 [Omni-Router] Standart 404. Sistem UI yükleniyor.");
+            document.documentElement.classList.add('santis-404-active');
         }
     })();
 </script>

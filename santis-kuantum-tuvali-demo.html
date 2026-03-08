@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis OS - Kuantum Tuvali (Sovereign GPU Field) V6</title>
+    <style>
+        /* SESSİZ LÜKS (Quiet Luxury) RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0k0b09; /* Obsidyen */
+            color: #d1cbc1; /* Küllü Kemik */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            /* Performans için Native Yumuşak Scroll */
+            scroll-behavior: smooth;
+        }
+
+        /* 🌌 KUANTUM TUVALİ (WebGL Surface) */
+        /* Z-index -1, ekranı boydan boya kaplayan tek bir sabit tuval. */
+        #santis-global-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; 
+            pointer-events: none; /* Mouse olaylarını yutar, altındakilere geçirir */
+            background-color: transparent; 
+        }
+
+        /* 🏛️ SOVEREIGN RAIL MATRIX */
+        #nv-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px 4vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .nv-logo {
+            font-size: 14px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .nv-status {
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            opacity: 0.6;
+        }
+
+        .santis-scroll-container {
+            width: 100%;
+            height: 300vh; /* Scroll denemesi için uzun sayfa */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20vh;
+            gap: 15vh;
+        }
+
+        /* Kart Zırhı (Placeholder) */
+        .santis-card-armor {
+            width: 70vw;
+            max-width: 600px;
+            height: 400px;
+            
+            /* DİKKAT: Kartın arka planı tamamen ŞEFFAF! */
+            /* Çünkü dumanı ve rengi GPU-Field arkadan çizecek. */
+            background: transparent; 
+            
+            /* Kart sınırlarını görmek için hafif bir cam/kenarlık (Opsiyonel) */
+            border: 1px solid rgba(255,255,255, 0.05);
+            border-radius: 12px;
+            
+            display: flex;
+            align-items: flex-end;
+            padding: 40px;
+            
+            /* Ghost Forge Z-Index Mimarisi */
+            position: relative;
+            z-index: 10;
+        }
+
+        .santis-card-content {
+            color: #fff;
+            pointer-events: auto; /* Yazılarla etkileşim */
+        }
+
+        .santis-card-title {
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .santis-card-desc {
+            font-size: 14px;
+            opacity: 0.7;
+            max-width: 300px;
+            line-height: 1.6;
+        }
+
+        /* Live FPS Counter */
+        #fps-meter {
+            position: fixed;
+            bottom: 30px;
+            right: 4vw;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            color: #fff;
+            opacity: 0.3;
+            z-index: 200;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. SOVEREIGN GPU FIELD (Sabit WebGL Tabakası) -->
+    <canvas id="santis-global-field"></canvas>
+
+    <!-- 2. UI KATMANI -->
+    <header id="nv-header">
+        <div class="nv-logo">Santis OS</div>
+        <div class="nv-status">V6 • Kuantum Tuvali Aktif</div>
+    </header>
+
+    <div id="fps-meter">FPS: 60</div>
+
+    <!-- 3. DOM KARTLARI (Kuantum Sensörleri Burada Çalışır) -->
+    <main class="santis-scroll-container" id="card-matrix">
+        
+        <div class="santis-card-armor" id="card-1">
+            <div class="santis-card-content">
+                <h2 class="santis-card-title">Ghost Forge Aurelia</h2>
+                <p class="santis-card-desc">Altın işlemeli mermer kubbenin altında 120 dakikalık Kuantum Detoks ritüeli.</p>
+            </div>
+        </div>
+
+        <div class="santis-card-armor" id="card-2">
+            <div class="santis-card-content">
+                <h2 class="santis-card-title">Kraliyet Hamamı (Obsidyen)</h2>
+                <p class="santis-card-desc">Sıcak obsidyen taşları ve mineral zengini köpük ile mutlak arınma seansı.</p>
+            </div>
+        </div>
+
+        <div class="santis-card-armor" id="card-3">
+            <div class="santis-card-content">
+                <h2 class="santis-card-title">Sovereign Focus Masajı</h2>
+                <p class="santis-card-desc">Derin doku manipülasyonu ve santis-aroma terapisiyle fizyolojik reset.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Kuantum Çekirdeklerini Yükle -->
+    <script type="module" src="./assets/js/santis-layout-mesh.js"></script>
+    <script type="module" src="./assets/js/santis-gpu-field.js"></script>
+    
+    <!-- Motion Kernel & Entegrasyon (Sistemi Ateşleyen Kod) -->
+    <script type="module">
+        import { SantisLayoutMesh } from './assets/js/santis-layout-mesh.js';
+        import { SovereignGPUField } from './assets/js/santis-gpu-field.js';
+
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("🦅 [Santis OS] Kuantum Tuvali (Mesh + GPU) Entegrasyon Testi Başlıyor...");
+
+            // 1. Ağ Kurucuyu (Mesh) Başlat
+            const layoutMesh = new SantisLayoutMesh();
+
+            // 2. GPU Field'ı (Otoyol) Başlat
+            const gpuField = new SovereignGPUField('santis-global-field');
+
+            // 3. Sistem Senkronizasyonu (DNA Dağıtımı)
+            // Her kartı Ağa bağla ve "Aura" renklerini tanımla
+            const dataSothysAurelia = { color: [0.72, 0.58, 0.40], effect: 1.2 }; // Mat Altın/Bronz
+            const dataObsidianHamam = { color: [0.20, 0.22, 0.25], effect: 1.0 };  // Sisli Koyu Gri
+            const dataDeepTissueFocus = { color: [0.35, 0.45, 0.38], effect: 0.8 }; // Dingin Yosun Yeşili
+
+            layoutMesh.observeCard(document.getElementById('card-1'), dataSothysAurelia);
+            layoutMesh.observeCard(document.getElementById('card-2'), dataObsidianHamam);
+            layoutMesh.observeCard(document.getElementById('card-3'), dataDeepTissueFocus);
+
+            // 4. Motion Kernel (Sürekli Döngü)
+            let lastTime = performance.now();
+            let frameCount = 0;
+            const fpsMeter = document.getElementById("fps-meter");
+
+            function motionLoop(time) {
+                // Saniyede ~60 Kez Çalışır (Apple Standardı)
+                const timeInSeconds = time * 0.001;
+                
+                // Kuantum Kaydırma Senkronizasyonu
+                // Eğer scroll olmuşsak koordinatları Cache'den düzeltip Otoyola (GPU) atar
+                gpuField.syncWithLayoutMesh(layoutMesh.getVisibleCache(), window.scrollY);
+
+                // GPU Piksellerine Ateş Emri
+                gpuField.render(timeInSeconds);
+
+                // Basit FPS Sayacı
+                frameCount++;
+                if (time - lastTime >= 1000) {
+                    fpsMeter.innerText = `FPS: ${frameCount}`;
+                    frameCount = 0;
+                    lastTime = time;
+                }
+
+                // Döngüyü kile
+                requestAnimationFrame(motionLoop);
+            }
+
+            // Ağa tetik düştüğünde (Resize vs.) Otoyola "Scroll:0" varsayımıyla gönder.
+            // Asıl düzenleme yukarıdaki Scroll Loop'unda anlık olarak yapılır.
+            layoutMesh.events.addEventListener('mesh_update', () => {
+                 gpuField.syncWithLayoutMesh(layoutMesh.getVisibleCache(), window.scrollY);
+            });
+
+            // İlk Ateş
+            requestAnimationFrame(motionLoop);
+        });
+    </script>
+</body>
+</html>

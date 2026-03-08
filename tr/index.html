@@ -9,8 +9,7 @@
 <link href="/assets/css/output.css?v=2.6" rel="stylesheet"/>
 <link href="/assets/css/style.css?v=2.6" rel="stylesheet"/>
 <link href="/assets/css/fonts.css" rel="stylesheet"/>
-<!-- 🛡️ Phase 15.4: LCP Hero Preload -->
-<link rel="preload" as="image" href="/assets/img/hero/hero-general.webp" fetchpriority="high"/>
+<!-- 🛡️ Phase 15.4: LCP Hero Preload (Moved to CSS) -->
 <!-- FAANG Hack: Zero-RTT DNS Prefetch & HTTP/3 Preconnect (Protocol 27) -->
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -18,7 +17,7 @@
 <link href="/manifest.json" rel="manifest"/>
 <link href="/assets/img/icons/icon-192x192.webp" rel="apple-touch-icon"/>
 <script defer="" src="/assets/js/perf-head.js"></script>
-<script defer="" src="/assets/js/santis-vault.js?v=2"></script>
+<script defer="" src="/assets/js/santis-checkout-vault.js"></script>
 <script defer="" src="/assets/js/loader.js"></script>
 <script defer="" src="/assets/js/santis-v10-core.js"></script>
 <script defer="" src="/assets/js/santis-event-bus.js"></script>
@@ -28,7 +27,6 @@
 <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js" defer></script>
 <script src="/assets/js/santis-lenis.js" defer></script>
 <link href="/assets/css/preloader-cinema.css" rel="stylesheet"/>
-<link href="/assets/css/style.css" rel="stylesheet"/>
 <link href="/assets/css/editorial.css" rel="stylesheet"/>
 <link href="/assets/css/bento-grid.css" rel="stylesheet"/>
 <link href="/assets/css/modules/cards.css" rel="stylesheet"/>
@@ -41,6 +39,7 @@
 <link href="/assets/css/modules/sticky-booking.css" rel="stylesheet"/>
 <link href="/assets/css/modules/signature-cards.css" rel="stylesheet"/>
 <link href="/assets/css/santis-soul.css" rel="stylesheet"/>
+<link href="/assets/css/santis-rail.css" rel="stylesheet"/>
 <script defer="" src="/assets/js/hero-slider.js"></script>
 <meta content="/assets/img/og-standard.webp" property="og:image"/>
 <link href="https://santis-club.com/tr/index.html" rel="canonical"/>
@@ -75,27 +74,15 @@
 </head>
 <body class="editorial-mode">
 <noscript>
-<nav style="background:#0a0c10;padding:12px 20px;text-align:center;border-bottom:1px solid rgba(212,175,55,0.15);">
-<a href="/tr/index.html" style="color:#d4af37;margin:0 12px;text-decoration:none;font-size:13px;">ANA SAYFA</a>
-<a href="/tr/hamam/index.html" style="color:#ccc;margin:0 12px;text-decoration:none;font-size:13px;">HAMAM</a>
-<a href="/tr/masajlar/index.html" style="color:#ccc;margin:0 12px;text-decoration:none;font-size:13px;">MASAJLAR</a>
-<a href="/tr/cilt-bakimi/index.html" style="color:#ccc;margin:0 12px;text-decoration:none;font-size:13px;">CİLT BAKIM</a>
-<a href="/tr/urunler/index.html" style="color:#ccc;margin:0 12px;text-decoration:none;font-size:13px;">MAĞAZA</a>
-<a href="/tr/galeri/index.html" style="color:#ccc;margin:0 12px;text-decoration:none;font-size:13px;">GALERİ</a>
-<a href="/tr/hakkimizda/index.html" style="color:#ccc;margin:0 12px;text-decoration:none;font-size:13px;">HAKKIMIZDA</a>
-</nav>
-</noscript>
-<div id="navbar-container"></div>
-<noscript>
-    <div style="background: #D4AF37; color: black; padding: 10px; text-align: center; font-weight: bold; z-index: 9999; position: relative;">
-        Santis OS tam deneyimi ve dinamik dil desteği için lütfen JavaScript'i etkinleştirin.
+    <div style="background: #0a0c10; color: #D4AF37; padding: 12px; text-align: center; border-bottom: 1px solid rgba(212,175,55,0.15); font-size: 13px; z-index: 9999; position: relative;">
+        Santis OS Lüks Deneyimi için lütfen JavaScript'i etkinleştirin.
     </div>
 </noscript>
+<div id="navbar-container"></div>
 <main id="nv-main" role="main">
 <h1 class="sr-only">Santis Club</h1>
 <!-- SECTION 1: HERO -->
 <section class="nv-hero-campaign" data-santis-slot="hero_home" aria-label="Ana Karşılama Ekranı" tabindex="0">
-<div class="nv-hero-overlay"></div>
 <div class="nv-campaign-slide nv-slide-intro active santis-parallax" data-speed="0.15">
 <div class="nv-hero-content-dynamic">
 <span class="nv-hero-caption">SESSİZLİĞİN SESİ</span>
@@ -174,11 +161,46 @@
 <!-- SECTION 4: GLOBAL TRENDS -->
 <div class="nv-container nv-section nv-gap-y-trends" id="global-trends">
 <div class="nv-section-header reveal-up"><span class="nv-kicker">KÜRESEL İLHAM</span><h2 class="nv-title text-gradient-silver">Dünyanın Dört Bir Yanından Ritüeller</h2></div>
-<div class="nv-trend-grid" id="global-trends-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;width:100%;margin-top:40px;">
-<a aria-label="Wabi-Sabi" class="nv-trend-card santis-glass-panel reveal-up" href="/service-detail.html?slug=anti-stress-masaji" style="display:flex;flex-direction:column;justify-content:flex-end;position:relative;height:520px;overflow:hidden;border-radius:24px;text-decoration:none;"><div class="nv-trend-bg nv-bg-trend-tokyo" style="position:absolute;inset:0;width:100%;height:100%;background-image:url('/assets/img/cards/santis_card_hammam_v1.webp');background-size:cover;background-position:center;z-index:0;"></div><div class="nv-trend-overlay" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.85) 100%);z-index:1;pointer-events:none;"></div><div class="nv-trend-content" style="position:relative;z-index:2;padding:36px;"><div class="nv-trend-label"><span class="icon">🇯🇵</span> KÜRESEL RİTÜEL • ASYA</div><h3 class="nv-trend-title">Wabi-Sabi Estetiği</h3><p class="nv-trend-desc">Kusursuzluğun güzelliği.</p></div></a>
-<a aria-label="Wat Pho" class="nv-trend-card santis-glass-panel reveal-up" href="/service-detail.html?slug=kombine-masaj" style="display:flex;flex-direction:column;justify-content:flex-end;position:relative;height:520px;overflow:hidden;border-radius:24px;text-decoration:none;transition-delay:100ms;"><div class="nv-trend-bg nv-bg-trend-bangkok" style="position:absolute;inset:0;width:100%;height:100%;background-image:url('/assets/img/cards/santis_card_massage_v1.webp');background-size:cover;background-position:center;z-index:0;"></div><div class="nv-trend-overlay" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.85) 100%);z-index:1;pointer-events:none;"></div><div class="nv-trend-content" style="position:relative;z-index:2;padding:36px;"><div class="nv-trend-label"><span class="icon">🇹🇭</span> KÜRESEL RİTÜEL • TAYLAND</div><h3 class="nv-trend-title">Wat Pho Bilgeliği</h3><p class="nv-trend-desc">Kadim şifa mirası.</p></div></a>
-<a aria-label="Roman Thermal" class="nv-trend-card santis-glass-panel reveal-up" href="/service-detail.html?slug=kese-ve-kopuk-masaji" style="display:flex;flex-direction:column;justify-content:flex-end;position:relative;height:520px;overflow:hidden;border-radius:24px;text-decoration:none;transition-delay:200ms;"><div class="nv-trend-bg nv-bg-trend-italy" style="position:absolute;inset:0;width:100%;height:100%;background-image:url('/assets/img/cards/santis_card_skincare_v1.webp');background-size:cover;background-position:center;z-index:0;"></div><div class="nv-trend-overlay" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.85) 100%);z-index:1;pointer-events:none;"></div><div class="nv-trend-content" style="position:relative;z-index:2;padding:36px;"><div class="nv-trend-label"><span class="icon">🇮🇹</span> KÜRESEL RİTÜEL • İTALYA</div><h3 class="nv-trend-title">Roma Termal Kültürü</h3><p class="nv-trend-desc">Salus per aquam.</p></div></a>
-<a aria-label="Scientific Skincare" class="nv-trend-card santis-glass-panel reveal-up" href="/tr/cilt-bakimi/index.html" style="display:flex;flex-direction:column;justify-content:flex-end;position:relative;height:520px;overflow:hidden;border-radius:24px;text-decoration:none;transition-delay:300ms;"><div class="nv-trend-bg nv-bg-trend-beauty" style="position:absolute;inset:0;width:100%;height:100%;background-image:url('/assets/img/cards/santis_card_skincare_cover.webp');background-size:cover;background-position:center;z-index:0;"></div><div class="nv-trend-overlay" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.85) 100%);z-index:1;pointer-events:none;"></div><div class="nv-trend-content" style="position:relative;z-index:2;padding:36px;"><div class="nv-trend-label"><span class="icon">🌿</span> SAF GÜZELLİK • DOĞA</div><h3 class="nv-trend-title">Bilimsel Cilt Bakımı</h3><p class="nv-trend-desc">İleri dermatolojik çözümler.</p></div></a>
+<div class="nv-trend-grid" id="global-trends-grid">
+<a aria-label="Wabi-Sabi" class="nv-trend-card santis-glass-panel reveal-up" href="/service-detail.html?slug=anti-stress-masaji">
+<div class="nv-trend-bg nv-bg-trend-tokyo"></div>
+<div class="nv-trend-overlay"></div>
+<div class="nv-trend-content">
+<div class="nv-trend-label"><span class="icon">🇯🇵</span> KÜRESEL RİTÜEL • ASYA</div>
+<h3 class="nv-trend-title">Wabi-Sabi Estetiği</h3>
+<p class="nv-trend-desc">Kusursuzluğun güzelliği.</p>
+</div>
+</a>
+
+<a aria-label="Wat Pho" class="nv-trend-card santis-glass-panel reveal-up" href="/service-detail.html?slug=kombine-masaj" style="transition-delay:100ms;">
+<div class="nv-trend-bg nv-bg-trend-bangkok"></div>
+<div class="nv-trend-overlay"></div>
+<div class="nv-trend-content">
+<div class="nv-trend-label"><span class="icon">🇹🇭</span> KÜRESEL RİTÜEL • TAYLAND</div>
+<h3 class="nv-trend-title">Wat Pho Bilgeliği</h3>
+<p class="nv-trend-desc">Kadim şifa mirası.</p>
+</div>
+</a>
+
+<a aria-label="Roman Thermal" class="nv-trend-card santis-glass-panel reveal-up" href="/service-detail.html?slug=kese-ve-kopuk-masaji" style="transition-delay:200ms;">
+<div class="nv-trend-bg nv-bg-trend-italy"></div>
+<div class="nv-trend-overlay"></div>
+<div class="nv-trend-content">
+<div class="nv-trend-label"><span class="icon">🇮🇹</span> KÜRESEL RİTÜEL • İTALYA</div>
+<h3 class="nv-trend-title">Roma Termal Kültürü</h3>
+<p class="nv-trend-desc">Salus per aquam.</p>
+</div>
+</a>
+
+<a aria-label="Scientific Skincare" class="nv-trend-card santis-glass-panel reveal-up" href="/tr/cilt-bakimi/index.html" style="transition-delay:300ms;">
+<div class="nv-trend-bg nv-bg-trend-beauty"></div>
+<div class="nv-trend-overlay"></div>
+<div class="nv-trend-content">
+<div class="nv-trend-label"><span class="icon">🌿</span> SAF GÜZELLİK • DOĞA</div>
+<h3 class="nv-trend-title">Bilimsel Cilt Bakımı</h3>
+<p class="nv-trend-desc">İleri dermatolojik çözümler.</p>
+</div>
+</a>
 </div>
 
 <!-- SANTIS WORLD GATEWAY -->
@@ -226,13 +248,15 @@
 <!-- santis-reveal.js REMOVED: Replaced by santis-atmosphere.js -->
 <script defer="" src="/assets/js/santis-atmosphere.js"></script>
 <script defer="" src="/assets/js/core/santis-neuro-tracker.js"></script>
-<script defer="" src="/assets/js/santis-rail.js"></script>
+<script type="module" src="/assets/js/santis-rail.js"></script>
 <script defer="" src="/assets/js/santis-rituals.js"></script>
 <script defer="" src="/assets/js/santis-checkout-vault.js"></script>
-<script defer="" src="/assets/js/santis-ritual-renderer.js"></script>
+<script src="/assets/js/santis-shadow-db.js" defer=""></script>
+<script src="/assets/js/santis-v5-virtual-engine.js" defer=""></script>
+<script type="module" src="/assets/js/santis-ritual-renderer.js"></script>
 <script defer="" src="/assets/js/santis-bootloader.js"></script>
 <script defer="" src="/assets/js/app.js"></script>
-<script defer="" src="/assets/js/santis-intent-engine.js"></script>
+<script type="module" src="/assets/js/santis-intent-engine.js"></script>
 <script>(function(){var b=document.getElementById('stickyBooking');if(!b)return;var s=false;window.addEventListener('scroll',function(){if(window.scrollY>600&&!s){b.classList.add('visible');s=true;}else if(window.scrollY<=600&&s){b.classList.remove('visible');s=false;}},{passive:true});})();</script>
 </body>
 </html>

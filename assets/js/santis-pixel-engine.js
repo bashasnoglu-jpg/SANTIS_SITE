@@ -103,7 +103,14 @@
     // Expose globally for manual tracking (like bio link clicks)
     window.SantisPixelEngine = PixelEngine;
 
-    // Load After Standard Content
-    window.addEventListener('load', () => PixelEngine.init());
+    // Phase 10: Zihin Okuma (Speculative Rules API) Ghost Traffic Kalkanı
+    // Eğer sayfa arka planda ön-yükleniyorsa (prerender), Pixel'leri ateşleme. Görünür olmasını bekle.
+    if (document.prerendering) {
+        document.addEventListener('prerenderingchange', () => {
+            PixelEngine.init();
+        });
+    } else {
+        window.addEventListener('load', () => PixelEngine.init());
+    }
 
 })();

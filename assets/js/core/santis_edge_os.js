@@ -198,9 +198,22 @@ window.SantisOS = {
 
             // ── Slot verilerini çek (tek API call, tüm slotar için) ──────────────
             const edgeCacheBuster = Date.now();
-            const response = await fetch(`/api/v1/media/slots`); // cache-buster kaldırıldı → browser cache aktif
-            if (!response.ok) throw new Error("API unreachable");
-            const slotMap = await response.json();
+            let slotMap = {};
+            try {
+                // If we know the API is offline (from data-bridge or config), skip the fetch entirely to avoid 404 console spam
+                if (window.SANTIS_API_ONLINE !== false) {
+                    const response = await fetch(`/api/v1/media/slots`); // cache-buster kaldırıldı → browser cache aktif
+                    if (response.ok) {
+                        slotMap = await response.json();
+                    } else {
+                        console.warn("[Phantom Injector] API unreachable (404/500). MOCK_MODE: Using empty slotMap.");
+                    }
+                } else {
+                    console.log("[Phantom Injector] API is Offline. MOCK_MODE: Bypassing fetch.");
+                }
+            } catch (err) {
+                console.warn("[Phantom Injector] API fetch failed. MOCK_MODE: Using empty slotMap.");
+            }
 
             // Scarcity CSS — sadece gerektiğinde inject et
             if (!document.getElementById('vault-scarcity-css')) {

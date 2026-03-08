@@ -17,7 +17,6 @@
 
 <script defer="" src="/assets/js/perf-head.js"></script>
 <script defer="" src="/assets/js/santis-vault.js"></script>
-<script defer="" src="/assets/js/santis-v10-core.js"></script>
 <script defer="" src="/assets/js/santis-event-bus.js"></script>
 <script defer="" src="/assets/js/santis-graph-resolver.js"></script>
 <script defer="" src="/assets/js/i18n-routes.js"></script>
@@ -27,93 +26,12 @@
 <link href="/assets/css/style.css" rel="stylesheet"/>
 <link href="/assets/css/bento-grid.css" rel="stylesheet"/>
 <link href="/assets/css/checkout.css" rel="stylesheet"/>
+<link href="/assets/css/santis-rail.css" rel="stylesheet"/>
 
 <!-- Tailwind Play CDN for immediate styling support of the provided HTML snippet -->
 <link href="/assets/css/output.css?v=2" rel="stylesheet">
-
-<style>
-/* Sovereign Spring Physics & Magnetic Dimming */
-.snapped-focus {
-    opacity: 1 !important;
-    filter: brightness(1) !important;
-    transform: scale(1);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-.snapped-dim {
-    opacity: 0.4 !important;
-    filter: brightness(0.5) !important;
-    transform: scale(0.95);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-.ritual-card {
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform, opacity, filter;
-}
-
-/* Phase 68: Sovereign Seal (Zero-Friction Checkout) */
-.obsidian-blur-active {
-    backdrop-filter: blur(20px) saturate(120%) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(120%) !important;
-    background-color: rgba(0, 0, 0, 0.6) !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-}
-
-.checkout-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.checkout-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    /* Spring Physics Translate */
-    transform: translate(-50%, 150%) scale(0.9);
-    z-index: 101;
-    background: #0a0a0a;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
-    width: 90%;
-    max-width: 480px;
-    padding: 32px;
-    opacity: 0;
-    pointer-events: none;
-    /* Spring Physics Curve: cubic-bezier(0.175, 0.885, 0.32, 1.275) */
-    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-}
-
-.checkout-modal.seal-active {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* Fluid Number Rolling */
-.price-roller {
-    display: inline-flex;
-    flex-direction: column;
-    height: 1.2em;
-    overflow: hidden;
-    position: relative;
-    vertical-align: bottom;
-}
-.price-roller-inner {
-    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-}
-</style>
-
-    <!-- Custom CSS for Ritual Cards Buttons without relying on JIT compiled Tailwind classes -->
-    <style>
-        .checkout-btn-wrapper { pointer-events: none; }
-        .ritual-card:hover .checkout-btn-wrapper { pointer-events: auto !important; }
-    </style>
 </head>
+
 <body class="editorial-mode bg-[#050505]">
 <noscript>
 <div style="background: #D4AF37; color: black; padding: 10px; text-align: center; font-weight: bold; z-index: 9999; position: relative;">
@@ -175,906 +93,103 @@
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#D4AF37] opacity-[0.02] blur-[150px] pointer-events-none rounded-full"></div>
     </section>
 
-    <!-- TIER 1: SOVEREIGN SIGNATURES (6 CARDS) -->
-    <section id="tier-1-signatures" class="rituals-section pt-24 pb-12 bg-black relative flex flex-col items-center border-b border-white/5">
-        <div class="w-full max-w-[1400px] px-6 mb-8">
-            <h3 class="text-3xl md:text-5xl font-serif text-white tracking-wide italic mb-2">Sovereign <span class="not-italic text-[#D4AF37]">Signatures</span></h3>
-            <p class="font-sans text-gray-400 font-light max-w-xl text-sm md:text-base">Santis Club'ın en üst düzey prestij paketleri. 150€ ve üzeri değere sahip, zamanı durduran sarsılmaz ritüeller.</p>
-        </div>
-
-        <div class="relative w-full group/slider" data-rail-id="rail-signatures">
-            <div class="slider-controls absolute inset-y-0 w-full max-w-[1400px] left-1/2 -translate-x-1/2 pointer-events-none">
-                <button class="slider-prev absolute left-2 md:left-8 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-[#111]/90 backdrop-blur-2xl border border-white/20 text-white flex items-center justify-center transition-all duration-500 hover:bg-white hover:text-black hover:scale-110 shadow-[0_10px_40px_rgba(0,0,0,0.8)] opacity-0 pointer-events-none" aria-label="Önceki Ritüel">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </button>
-                <button class="slider-next absolute right-2 md:right-8 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-[#111]/90 backdrop-blur-2xl border border-white/20 text-white flex items-center justify-center transition-all duration-500 hover:bg-white hover:text-black hover:scale-110 shadow-[0_10px_40px_rgba(0,0,0,0.8)] pointer-events-auto" aria-label="Sonraki Ritüel">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </button>
-            </div>
-
-            <div class="rituals-container scrollbar-hide flex overflow-x-auto snap-x snap-mandatory flex-nowrap w-full pb-16 pt-4 px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] gap-8" style="scroll-padding-left: max(1.5rem, calc((100vw - 1400px) / 2)); scrollbar-width: none;">
-                <!-- Card 1: The Sovereign Purification -->
-                <div class="ritual-card group relative w-[85vw] sm:w-[380px] md:w-[420px] lg:w-[480px] shrink-0 snap-start h-[550px] md:h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="sig-card-0" data-slug="sovereign-purification" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="sig-card-0" src="/assets/img/cards/hammam.webp" alt="Signature Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-[9px] uppercase tracking-[4px] rounded-full mb-4">SOVEREIGN APEX</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-white tracking-wide mb-2 italic">The Sovereign <span class="not-italic text-[#D4AF37]">Purification</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Mermer kurnadan yükselen efsane.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-[#D4AF37] h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">150€</span><span class="h-[40px] w-full flex items-center shrink-0 leading-none text-[#D4AF37] drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]">125€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">150€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('sig-card-0'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2: Delux Imperial (Signature version) -->
-                <div class="ritual-card group relative w-[85vw] sm:w-[380px] md:w-[420px] lg:w-[480px] shrink-0 snap-start h-[550px] md:h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="sig-card-1" data-slug="deluxe-imperial" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="sig-card-1" src="/assets/img/cards/massage.webp" alt="Signature Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-[9px] uppercase tracking-[4px] rounded-full mb-4">SOVEREIGN APEX</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-white tracking-wide mb-2 italic">Delux <span class="not-italic text-[#D4AF37]">Imperial</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Derin dinlenmenin mimarisi.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-[#D4AF37] h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">175€</span><span class="h-[40px] w-full flex items-center shrink-0 leading-none text-[#D4AF37] drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]">150€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">175€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('sig-card-1'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3: Royal Detox (Signature version) -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="sig-card-2" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="sig-card-2" src="/assets/img/cards/skincare.webp" alt="Signature Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-[9px] uppercase tracking-[4px] rounded-full mb-4">SOVEREIGN APEX</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-white tracking-wide mb-2 italic">Royal <span class="not-italic text-[#D4AF37]">Detox</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Hücresel yenilenme süreci.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-[#D4AF37] h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">150€</span><span class="h-[40px] w-full flex items-center shrink-0 leading-none text-[#D4AF37] drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]">135€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">150€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('sig-card-2'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 4: Royal Detox (Signature version) -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="sig-card-3" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="sig-card-3" src="/assets/img/cards/skincare.webp" alt="Signature Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-[9px] uppercase tracking-[4px] rounded-full mb-4">SOVEREIGN APEX</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-white tracking-wide mb-2 italic">Royal <span class="not-italic text-[#D4AF37]">Detox</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Hücresel yenilenme süreci.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-[#D4AF37] h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">150€</span><span class="h-[40px] w-full flex items-center shrink-0 leading-none text-[#D4AF37] drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]">135€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">150€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('sig-card-3'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 5: Royal Detox (Signature version) -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="sig-card-4" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="sig-card-4" src="/assets/img/cards/skincare.webp" alt="Signature Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-[9px] uppercase tracking-[4px] rounded-full mb-4">SOVEREIGN APEX</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-white tracking-wide mb-2 italic">Royal <span class="not-italic text-[#D4AF37]">Detox</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Hücresel yenilenme süreci.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-[#D4AF37] h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">150€</span><span class="h-[40px] w-full flex items-center shrink-0 leading-none text-[#D4AF37] drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]">135€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">150€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('sig-card-4'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 6: Royal Detox (Signature version) -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="sig-card-5" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="sig-card-5" src="/assets/img/cards/skincare.webp" alt="Signature Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-[9px] uppercase tracking-[4px] rounded-full mb-4">SOVEREIGN APEX</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-white tracking-wide mb-2 italic">Royal <span class="not-italic text-[#D4AF37]">Detox</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Hücresel yenilenme süreci.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-[#D4AF37] h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">150€</span><span class="h-[40px] w-full flex items-center shrink-0 leading-none text-[#D4AF37] drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]">135€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">150€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('sig-card-5'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- TIER 1: SOVEREIGN SIGNATURES -->
+    <section id="tier-1-signatures" class="rituals-section relative w-full bg-[#050505] pt-24 pb-12 overflow-hidden group/slider border-b border-white/5" data-rail-engine="true" data-rail-id="rail-signatures">
+        <div class="w-full max-w-[1400px] mx-auto px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] mb-12 flex flex-col md:flex-row md:items-end justify-between z-20 relative">
+            <div class="mb-6 md:mb-0">
+                <h3 class="text-3xl md:text-5xl font-serif text-white tracking-wide italic mb-2">Sovereign <span class="not-italic text-[#D4AF37]">Signatures</span></h3>
+                <p class="font-sans text-gray-400 font-light max-w-xl text-sm md:text-base">Santis Club'ın en üst düzey prestij paketleri. 150€ ve üzeri değere sahip, zamanı durduran sarsılmaz ritüeller.</p>
             </div>
         </div>
-    </section>
 
-    <!-- TIER 2: HAMMAM RITUALS & MASSAGE (8 CARDS) -->
-    <section id="tier-2-hammam" class="rituals-section pt-24 pb-12 bg-black relative flex flex-col items-center border-b border-white/5">
-        <div class="w-full max-w-[1400px] px-6 mb-12">
-            <h3 class="text-3xl md:text-5xl font-serif text-[#b5a489] tracking-wide italic mb-2">Hammam Rituals <span class="not-italic text-white">& Massage</span></h3>
-            <p class="font-sans text-gray-400 font-light max-w-xl text-sm md:text-base">Sıcaklık, kese, köpük ve derin rahatlama arayanlar için otantik merkez.</p>
-        </div>
-
-        <div class="relative w-full group/slider" data-rail-id="rail-hammam">
-            <div class="slider-controls absolute inset-y-0 w-full max-w-[1400px] left-1/2 -translate-x-1/2 pointer-events-none">
-                <button class="slider-prev absolute left-2 md:left-8 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-[#111]/90 backdrop-blur-2xl border border-white/20 text-white flex items-center justify-center transition-all duration-500 hover:bg-white hover:text-black hover:scale-110 shadow-[0_10px_40px_rgba(0,0,0,0.8)] opacity-0 pointer-events-none" aria-label="Önceki Ritüel">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </button>
-                <button class="slider-next absolute right-2 md:right-8 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-[#111]/90 backdrop-blur-2xl border border-white/20 text-white flex items-center justify-center transition-all duration-500 hover:bg-white hover:text-black hover:scale-110 shadow-[0_10px_40px_rgba(0,0,0,0.8)] pointer-events-auto" aria-label="Sonraki Ritüel">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </button>
-            </div>
-
-            <div class="rituals-container scrollbar-hide flex overflow-x-auto snap-x snap-mandatory flex-nowrap w-full pb-16 pt-4 px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] gap-8" style="scroll-padding-left: max(1.5rem, calc((100vw - 1400px) / 2)); scrollbar-width: none;">
-                <!-- Card 1: Kese Köpük -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="hammam-card-0" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="hammam-card-0" src="/assets/img/cards/hammam.webp" alt="Hamam Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">TRADITIONAL HAMMAM</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-[#b5a489] tracking-wide mb-2 italic">Ottoman <span class="not-italic text-white">Classic</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Kese ve köpüğün eşsiz dansı.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-[#b5a489] h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">90€</span><span class="h-[40px] w-full flex items-center shrink-0 leading-none text-[#b5a489] drop-shadow-[0_0_15px_rgba(181,164,137,0.6)]">75€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">90€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#b5a489] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('hammam-card-0'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2: Deep Tissue Massage -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="hammam-card-1" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="hammam-card-1" src="/assets/img/cards/massage.webp" alt="Masaj Terapisi" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">SIGNATURE MASSAGE</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-[#b5a489] tracking-wide mb-2 italic">Deep <span class="not-italic text-white">Tissue</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Kronik gerginlikleri çözen dinamik baskı.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-[#b5a489] h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">120€</span><span class="h-[40px] w-full flex items-center shrink-0 leading-none text-[#b5a489] drop-shadow-[0_0_15px_rgba(181,164,137,0.6)]">100€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">120€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#b5a489] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('hammam-card-1'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3: Balinese Touch -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="hammam-card-2" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="hammam-card-2" src="/assets/img/cards/massage.webp" alt="Masaj Terapisi" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">SIGNATURE MASSAGE</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-[#b5a489] tracking-wide mb-2 italic">Balinese <span class="not-italic text-white">Touch</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Uzakdoğunun kadim denge sanatı.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-[#b5a489] h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">110€</span><span class="h-[40px] w-full flex items-center shrink-0 leading-none text-[#b5a489] drop-shadow-[0_0_15px_rgba(181,164,137,0.6)]">95€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">110€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#b5a489] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('hammam-card-2'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 4: Sultan Hammam -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="hammam-card-3" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="hammam-card-3" src="/assets/img/cards/hammam.webp" alt="Hamam Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">TRADITIONAL HAMMAM</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-[#b5a489] tracking-wide mb-2 italic">Sultan <span class="not-italic text-white">Experience</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Kil maskesi ve köpükle zenginleştirilen lüks banyo.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-[#b5a489] h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">110€</span><span class="h-[40px] w-full flex items-center shrink-0 leading-none text-[#b5a489] drop-shadow-[0_0_15px_rgba(181,164,137,0.6)]">85€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">110€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#b5a489] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('hammam-card-3'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 5: Sultan Hammam -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="hammam-card-4" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="hammam-card-4" src="/assets/img/cards/hammam.webp" alt="Hamam Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">TRADITIONAL HAMMAM</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-[#b5a489] tracking-wide mb-2 italic">Sultan <span class="not-italic text-white">Experience</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Kil maskesi ve köpükle zenginleştirilen lüks banyo.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-[#b5a489] h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">110€</span><span class="h-[40px] w-full flex items-center shrink-0 leading-none text-[#b5a489] drop-shadow-[0_0_15px_rgba(181,164,137,0.6)]">85€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">110€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#b5a489] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('hammam-card-4'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 6: Sultan Hammam -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="hammam-card-5" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="hammam-card-5" src="/assets/img/cards/hammam.webp" alt="Hamam Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">TRADITIONAL HAMMAM</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-[#b5a489] tracking-wide mb-2 italic">Sultan <span class="not-italic text-white">Experience</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Kil maskesi ve köpükle zenginleştirilen lüks banyo.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-[#b5a489] h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">110€</span><span class="h-[40px] w-full flex items-center shrink-0 leading-none text-[#b5a489] drop-shadow-[0_0_15px_rgba(181,164,137,0.6)]">85€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">110€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#b5a489] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('hammam-card-5'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 7: Sultan Hammam -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="hammam-card-6" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="hammam-card-6" src="/assets/img/cards/hammam.webp" alt="Hamam Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">TRADITIONAL HAMMAM</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-[#b5a489] tracking-wide mb-2 italic">Sultan <span class="not-italic text-white">Experience</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Kil maskesi ve köpükle zenginleştirilen lüks banyo.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-[#b5a489] h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">110€</span><span class="h-[40px] w-full flex items-center shrink-0 leading-none text-[#b5a489] drop-shadow-[0_0_15px_rgba(181,164,137,0.6)]">85€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">110€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#b5a489] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('hammam-card-6'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 8: Sultan Hammam -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="hammam-card-7" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="hammam-card-7" src="/assets/img/cards/hammam.webp" alt="Hamam Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">TRADITIONAL HAMMAM</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-[#b5a489] tracking-wide mb-2 italic">Sultan <span class="not-italic text-white">Experience</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Kil maskesi ve köpükle zenginleştirilen lüks banyo.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-[#b5a489] h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">110€</span><span class="h-[40px] w-full flex items-center shrink-0 leading-none text-[#b5a489] drop-shadow-[0_0_15px_rgba(181,164,137,0.6)]">85€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">110€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#b5a489] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('hammam-card-7'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TIER 3: THERAPIES & SKINCARE (10 CARDS) -->
-    <section id="tier-3-therapies" class="rituals-section pt-24 pb-12 bg-black relative flex flex-col items-center">
-        <div class="w-full max-w-[1400px] px-6 mb-12">
-            <h3 class="text-3xl md:text-5xl font-serif text-white tracking-wide italic mb-2">Therapies <span class="not-italic text-gray-400">& Skincare</span></h3>
-            <p class="font-sans text-gray-400 font-light max-w-xl text-sm md:text-base">Spesifik sorunları çözmek ve bedeni onarmak isteyenler için tasarlanmış Tailored Healing serisi.</p>
-        </div>
-
-        <div class="relative w-full group/slider" data-rail-id="rail-therapies">
-            <div class="slider-controls absolute inset-y-0 w-full max-w-[1400px] left-1/2 -translate-x-1/2 pointer-events-none">
-                <button class="slider-prev absolute left-2 md:left-8 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-[#111]/90 backdrop-blur-2xl border border-white/20 text-white flex items-center justify-center transition-all duration-500 hover:bg-white hover:text-black hover:scale-110 shadow-[0_10px_40px_rgba(0,0,0,0.8)] opacity-0 pointer-events-none" aria-label="Önceki Ritüel">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </button>
-                <button class="slider-next absolute right-2 md:right-8 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-[#111]/90 backdrop-blur-2xl border border-white/20 text-white flex items-center justify-center transition-all duration-500 hover:bg-white hover:text-black hover:scale-110 shadow-[0_10px_40px_rgba(0,0,0,0.8)] pointer-events-auto" aria-label="Sonraki Ritüel">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </button>
-            </div>
-
-            <div class="rituals-container scrollbar-hide flex overflow-x-auto snap-x snap-mandatory flex-nowrap w-full pb-16 pt-4 px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] gap-8" style="scroll-padding-left: max(1.5rem, calc((100vw - 1400px) / 2)); scrollbar-width: none;">
-                <!-- Card 1: Express Facial -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="therapy-card-0" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="therapy-card-0" src="/assets/img/cards/skincare.webp" alt="Detox Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">RECOVERY LAB</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-gray-300 tracking-wide mb-2 italic">Express <span class="not-italic text-white">Facial</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Anında tazelik ve parlaklık hissi.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-white h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">70€</span><span class="h-[40px] flex items-center text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]">55€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">70€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('therapy-card-0'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2: Age Defy -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="therapy-card-1" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="therapy-card-1" src="/assets/img/cards/skincare.webp" alt="Detox Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">RECOVERY LAB</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-gray-300 tracking-wide mb-2 italic">Age <span class="not-italic text-white">Defy</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Sothys mineralleriyle kolajen dopingi.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-white h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">110€</span><span class="h-[40px] flex items-center text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]">90€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">110€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('therapy-card-1'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3: Deep Cleanse -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="therapy-card-2" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="therapy-card-2" src="/assets/img/cards/skincare.webp" alt="Detox Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">RECOVERY LAB</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-gray-300 tracking-wide mb-2 italic">Deep <span class="not-italic text-white">Cleanse</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Tıkanık gözeneklerin ve yorgun ifadenin sonu.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-white h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">90€</span><span class="h-[40px] flex items-center text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]">80€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">90€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('therapy-card-2'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 4: Deep Cleanse -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="therapy-card-3" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="therapy-card-3" src="/assets/img/cards/skincare.webp" alt="Detox Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">RECOVERY LAB</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-gray-300 tracking-wide mb-2 italic">Deep <span class="not-italic text-white">Cleanse</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Tıkanık gözeneklerin ve yorgun ifadenin sonu.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-white h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">90€</span><span class="h-[40px] flex items-center text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]">80€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">90€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('therapy-card-3'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 5: Deep Cleanse -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="therapy-card-4" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="therapy-card-4" src="/assets/img/cards/skincare.webp" alt="Detox Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">RECOVERY LAB</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-gray-300 tracking-wide mb-2 italic">Deep <span class="not-italic text-white">Cleanse</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Tıkanık gözeneklerin ve yorgun ifadenin sonu.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-white h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">90€</span><span class="h-[40px] flex items-center text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]">80€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">90€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('therapy-card-4'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 6: Deep Cleanse -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="therapy-card-5" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="therapy-card-5" src="/assets/img/cards/skincare.webp" alt="Detox Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">RECOVERY LAB</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-gray-300 tracking-wide mb-2 italic">Deep <span class="not-italic text-white">Cleanse</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Tıkanık gözeneklerin ve yorgun ifadenin sonu.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-white h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">90€</span><span class="h-[40px] flex items-center text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]">80€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">90€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('therapy-card-5'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 7: Deep Cleanse -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="therapy-card-6" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="therapy-card-6" src="/assets/img/cards/skincare.webp" alt="Detox Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">RECOVERY LAB</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-gray-300 tracking-wide mb-2 italic">Deep <span class="not-italic text-white">Cleanse</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Tıkanık gözeneklerin ve yorgun ifadenin sonu.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-white h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">90€</span><span class="h-[40px] flex items-center text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]">80€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">90€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('therapy-card-6'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 8: Deep Cleanse -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="therapy-card-7" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="therapy-card-7" src="/assets/img/cards/skincare.webp" alt="Detox Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">RECOVERY LAB</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-gray-300 tracking-wide mb-2 italic">Deep <span class="not-italic text-white">Cleanse</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Tıkanık gözeneklerin ve yorgun ifadenin sonu.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-white h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">90€</span><span class="h-[40px] flex items-center text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]">80€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">90€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('therapy-card-7'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 9: Deep Cleanse -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="therapy-card-8" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="therapy-card-8" src="/assets/img/cards/skincare.webp" alt="Detox Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">RECOVERY LAB</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-gray-300 tracking-wide mb-2 italic">Deep <span class="not-italic text-white">Cleanse</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Tıkanık gözeneklerin ve yorgun ifadenin sonu.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-white h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">90€</span><span class="h-[40px] flex items-center text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]">80€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">90€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('therapy-card-8'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 10: Deep Cleanse -->
-                <div class="ritual-card group relative w-[85vw] md:w-[480px] shrink-0 snap-start h-[650px] rounded-3xl overflow-hidden cursor-pointer" id="therapy-card-9" style="background-color: #050505;">
-                    <div class="skeleton-layer absolute inset-0 bg-neutral-900 animate-pulse z-0 rounded-3xl"></div>
-                    <img data-cms-slot="therapy-card-9" src="/assets/img/cards/skincare.webp" alt="Detox Ritüeli" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0', 'scale-110'); this.previousElementSibling.classList.add('hidden');" class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:opacity-30 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
-                        <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                            <span class="inline-block px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-[9px] uppercase tracking-[4px] rounded-full mb-4">RECOVERY LAB</span>
-                            <h2 class="font-serif text-3xl md:text-4xl text-gray-300 tracking-wide mb-2 italic">Deep <span class="not-italic text-white">Cleanse</span></h2>
-                            <p class="font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">Tıkanık gözeneklerin ve yorgun ifadenin sonu.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-baseline gap-3">
-                                    <div class="text-3xl font-serif text-white h-[40px] overflow-hidden relative flex items-start w-full">
-                                        <div class="price-roller-track flex flex-col w-full transition-transform duration-[800ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] popup-price-track transform translate-y-0 group-hover:-translate-y-1/2">
-                                            <span class="h-[40px] w-full flex items-center shrink-0 leading-none">90€</span><span class="h-[40px] flex items-center text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]">80€</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-gray-500 line-through original-price transition-opacity duration-500 group-hover:opacity-100">90€</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
-                            <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                                <button class="mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" onclick="window.triggerSovereignCheckout('therapy-card-9'); event.stopPropagation();">Ritüeli Mühürle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Dynamically Populated by santis-ritual-renderer.js -->
+        <div class="rituals-container rail-track scrollbar-hide flex overflow-x-auto flex-nowrap w-full pb-16 pt-4 px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] gap-8 cursor-grab active:cursor-grabbing relative z-20" data-lenis-prevent="true" style="scroll-padding-left: max(1.5rem, calc((100vw - 1400px) / 2)); scrollbar-width: none; touch-action: pan-x pan-y pinch-zoom;">
         </div>
         
-        <!-- YENİ: Aurelia'nın Satranç Hamlesi (Sabit En Altta Kalsın) -->
-        <div id="inline-aurelia-whisper" class="w-full max-w-[1400px] px-6 mt-16 mb-24 opacity-0 translate-y-4 transition-all duration-700 ease-out z-20 h-0 overflow-hidden">
-            <div class="bg-gradient-to-r from-black via-white/5 to-black border-y border-white/10 py-6 px-8 flex items-center gap-6 rounded-2xl relative">
-                <!-- Glowing Golden Orb Effect -->
-                <div class="w-12 h-12 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 flex items-center justify-center shrink-0 relative">
-                    <div class="absolute w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse shadow-[0_0_15px_#D4AF37]"></div>
-                </div>
-                <div>
-                    <span class="text-[9px] uppercase tracking-[4px] text-[#D4AF37] font-bold block mb-1">AURELIA INSIGHTS</span>
-                    <p id="inline-whisper-text" class="text-gray-300 font-serif italic text-lg leading-relaxed">
-                        Deneyiminizi benzersiz kılacak ufak bir detay...
-                    </p>
-                </div>
-                <!-- Dynamic blur overlay mimicking Apple Intelligence -->
-                <div class="absolute inset-0 bg-white/5 blur-xl -z-10 rounded-2xl pointer-events-none mix-blend-overlay"></div>
-            </div>
-        </div>
-
-    </section>
-
-
-
-
-    <!-- The Sovereign Checkout Vault (Multi-Step Kuantum Kasası) -->
-    <div id="santis-checkout-vault" class="fixed inset-0 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-500 ease-out">
-        
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-md vault-backdrop"></div>
-
-        <div class="relative w-[95vw] md:w-[600px] h-[80vh] md:h-[650px] bg-[#0a0a0a] border border-[#D4AF37]/30 rounded-3xl shadow-[0_0_50px_rgba(212,175,55,0.1)] overflow-hidden flex flex-col transform scale-95 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] vault-container">
-            
-            <div class="flex justify-between items-center p-6 border-b border-white/5 z-20 bg-[#0a0a0a]">
-                <h3 class="text-[#D4AF37] font-serif text-xl tracking-widest uppercase">Sovereign Vault</h3>
-                <button id="close-vault-btn" class="text-gray-400 hover:text-white transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        <div class="px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] mt-6 mb-8 flex items-center justify-center relative z-20 w-full">
+            <div class="flex items-center gap-6 slider-controls">
+                <button class="slider-prev w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#D4AF37] hover:text-black transition-all shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <div class="rail-dots flex items-center gap-3"></div>
+                <button class="slider-next w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#D4AF37] hover:text-black transition-all shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path></svg>
                 </button>
             </div>
+        </div>
+    </section>
 
-            <div id="vault-step-track" class="flex w-[300%] h-full transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform">
-                
-                <!-- STEP 1: ALLOCATION -->
-                <div class="w-1/3 h-full p-6 md:p-8 flex flex-col overflow-y-auto custom-scrollbar">
-                    <p class="text-xs text-gray-500 uppercase tracking-[3px] mb-2">Step 1 — The Allocation</p>
-                    <h4 class="text-2xl text-white font-serif mb-6">Zamanınızı Seçin</h4>
-                    
-                    <div class="grid grid-cols-4 md:grid-cols-7 gap-3 mb-6" id="vault-date-grid">
-                        </div>
-                    
-                    <div class="grid grid-cols-3 gap-3" id="vault-time-grid">
-                        </div>
-
-                    <div class="mt-auto pt-6">
-                        <button id="btn-to-step-2" class="w-full py-4 bg-white text-black font-bold uppercase tracking-[2px] rounded-full hover:bg-[#D4AF37] transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>Devam Et</button>
-                    </div>
-                </div>
-
-                <!-- STEP 2: VERIFICATION -->
-                <div class="w-1/3 h-full p-6 md:p-8 flex flex-col overflow-y-auto custom-scrollbar relative">
-                    <button class="absolute top-8 right-8 text-gray-500 hover:text-white text-sm" onclick="window.SantisVault.goToStep(0)">← Geri</button>
-                    <p class="text-xs text-gray-500 uppercase tracking-[3px] mb-2">Step 2 — The Verification</p>
-                    <h4 class="text-2xl text-white font-serif mb-6">Kimlik ve Mühür</h4>
-                    
-                    <div class="space-y-4 mb-8">
-                        <input type="text" id="guest-name" placeholder="Tam Adınız" class="w-full bg-[#111] border border-white/10 rounded-xl p-4 text-white focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] outline-none transition-all">
-                        <input type="email" id="guest-email" placeholder="E-Posta Adresiniz" class="w-full bg-[#111] border border-white/10 rounded-xl p-4 text-white focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] outline-none transition-all">
-                    </div>
-
-                    <!-- Stripe Payment Section -->
-                    <div id="step2-payment" class="bg-[#111] border border-white/10 rounded-xl mb-6 p-4">
-                            <!-- Express Checkout (Apple Pay / Google Pay / Link) -->
-                            <div id="express-checkout-element" class="mb-4 min-h-[56px]"></div>
-                            
-                            <div class="text-xs text-gray-500 mb-2 uppercase tracking-widest px-1">Kredi Kartı ile Mühürle</div>
-                            <div id="stripe-card-element" class="stripe-card bg-[#050505] border border-zinc-800 p-4 rounded-lg min-h-[50px]"></div>
-                            <div id="card-errors" role="alert" class="text-xs text-red-500 mt-2 px-1 h-4"></div>
-                        </form>
-                    </div>
-
-                    <div class="mt-auto shrink-0 pt-6 pb-2">
-                        <button id="btn-seal-fate" class="w-full py-4 bg-[#D4AF37] text-black font-black uppercase tracking-[2px] rounded-full hover:bg-yellow-500 transition-colors shadow-[0_0_20px_rgba(212,175,55,0.3)] relative overflow-hidden">
-                            <span id="seal-btn-text">Mührü Vur</span>
-                            <div id="seal-spinner" class="absolute inset-0 flex items-center justify-center bg-[#D4AF37] opacity-0 transition-opacity">
-                                <svg class="animate-spin h-6 w-6 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- STEP 3: MÜHÜRLENDİ -->
-                <div class="w-1/3 h-full p-6 md:p-8 flex flex-col items-center justify-center text-center">
-                    <div class="w-24 h-24 rounded-full border border-[#D4AF37] flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(212,175,55,0.4)]">
-                        <svg class="w-10 h-10 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"></path></svg>
-                    </div>
-                    <h4 class="text-3xl text-white font-serif mb-4">Mühürlendi.</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed max-w-xs">Sovereign deneyiminiz onaylandı. Tüm kuantum detayları e-posta adresinize iletiliyor.</p>
-                    <button onclick="window.location.reload()" class="mt-8 border-b border-[#D4AF37] text-[#D4AF37] pb-1 uppercase tracking-widest text-xs hover:text-white transition-colors">Portaldan Çık</button>
-                </div>
-
+    <!-- TIER 2: HAMMAM RITUALS & MASSAGE -->
+    <section id="tier-2-hammam" class="rituals-section relative w-full bg-[#050505] pt-24 pb-12 overflow-hidden group/slider border-b border-white/5" data-rail-engine="true" data-rail-id="rail-hammam">
+        <div class="w-full max-w-[1400px] mx-auto px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] mb-12 flex flex-col md:flex-row md:items-end justify-between z-20 relative">
+            <div class="mb-6 md:mb-0">
+                <h3 class="text-3xl md:text-5xl font-serif text-[#b5a489] tracking-wide italic mb-2">Hammam Rituals <span class="not-italic text-white">& Massage</span></h3>
+                <p class="font-sans text-gray-400 font-light max-w-xl text-sm md:text-base">Sıcaklık, kese, köpük ve derin rahatlama arayanlar için otantik merkez.</p>
             </div>
         </div>
-    </div>
 
+        <!-- Dynamically Populated by santis-ritual-renderer.js -->
+        <div class="rituals-container rail-track scrollbar-hide flex overflow-x-auto flex-nowrap w-full pb-16 pt-4 px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] gap-8 cursor-grab active:cursor-grabbing relative z-20" data-lenis-prevent="true" style="scroll-padding-left: max(1.5rem, calc((100vw - 1400px) / 2)); scrollbar-width: none; touch-action: pan-x pan-y pinch-zoom;">
+        </div>
+        
+        <div class="px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] mt-6 mb-8 flex items-center justify-center relative z-20 w-full">
+            <div class="flex items-center gap-6 slider-controls">
+                <button class="slider-prev w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#D4AF37] hover:text-black transition-all shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <div class="rail-dots flex items-center gap-3"></div>
+                <button class="slider-next w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#D4AF37] hover:text-black transition-all shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+        </div>
+    </section>
 
-    <!-- AURELIA TOAST -->
-    <div id="aurelia-toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 w-[90%] md:w-auto max-w-lg bg-[#111]/95 backdrop-blur-2xl border border-[#D4AF37]/30 p-5 rounded-[999px] shadow-[0_20px_50px_rgba(0,0,0,0.8)] transform translate-y-32 opacity-0 transition-all duration-[800ms] cubic-bezier(0.34, 1.56, 0.64, 1) flex gap-4 items-center pointer-events-auto">
-        <div class="w-10 h-10 rounded-full bg-[#D4AF37]/10 flex items-center justify-center shrink-0 border border-[#D4AF37]/20 relative">
-            <div class="absolute w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse shadow-[0_0_10px_#D4AF37]"></div>
+    <!-- TIER 3: THERAPIES & SKINCARE -->
+    <section id="tier-3-therapies" class="rituals-section relative w-full bg-[#050505] pt-24 pb-12 overflow-hidden group/slider" data-rail-engine="true" data-rail-id="rail-therapies">
+        <div class="w-full max-w-[1400px] mx-auto px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] mb-12 flex flex-col md:flex-row md:items-end justify-between z-20 relative">
+            <div class="mb-6 md:mb-0">
+                <h3 class="text-3xl md:text-5xl font-serif text-white tracking-wide italic mb-2">Therapies <span class="not-italic text-gray-400">& Skincare</span></h3>
+                <p class="font-sans text-gray-400 font-light max-w-xl text-sm md:text-base">Spesifik sorunları çözmek ve bedeni onarmak isteyenler için tasarlanmış Tailored Healing serisi.</p>
+            </div>
         </div>
-        <div class="flex-1 px-2">
-            <span class="block text-[8px] uppercase tracking-[3px] text-[#D4AF37]/70 font-bold mb-1">Aurelia AI</span>
-            <p id="aurelia-msg" class="text-xs text-gray-200 leading-relaxed font-serif italic"></p>
+
+        <!-- Dynamically Populated by santis-ritual-renderer.js -->
+        <div class="rituals-container rail-track scrollbar-hide flex overflow-x-auto flex-nowrap w-full pb-16 pt-4 px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] gap-8 cursor-grab active:cursor-grabbing relative z-20" data-lenis-prevent="true" style="scroll-padding-left: max(1.5rem, calc((100vw - 1400px) / 2)); scrollbar-width: none; touch-action: pan-x pan-y pinch-zoom;">
         </div>
-        <button class="shrink-0 px-6 py-2.5 bg-[#D4AF37] text-black rounded-[999px] text-[9px] font-bold uppercase tracking-[2px] hover:bg-white transition-colors" onclick="dismissAurelia()">Kabul Et</button>
-    </div>
+        
+        <div class="px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2))] mt-6 mb-8 flex items-center justify-center relative z-20 w-full">
+            <div class="flex items-center gap-6 slider-controls">
+                <button class="slider-prev w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#D4AF37] hover:text-black transition-all shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <div class="rail-dots flex items-center gap-3"></div>
+                <button class="slider-next w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#D4AF37] hover:text-black transition-all shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+        </div>
+    </section>
 
 </main>
 
 <div id="footer-container"></div>
+<div class="modal-overlay" hidden="" id="bookingModal"></div>
 
-<!-- Santis OS System Scripts -->
-<script src="/assets/js/santis-ghost.js"></script>
+<script defer="" src="/assets/js/url-normalizer.js"></script>
+<script defer="" src="/assets/js/routes.js"></script>
+<script defer="" src="/assets/js/concierge-engine.js"></script>
+<script defer="" src="/assets/js/santis-atmosphere.js"></script>
+<script defer="" src="/assets/js/core/santis-neuro-tracker.js"></script>
+<script type="module" src="/assets/js/santis-rail.js"></script>
+<script defer="" src="/assets/js/santis-checkout-vault.js"></script>
+<script type="module" src="/assets/js/santis-ritual-renderer.js"></script>
+<script defer="" src="/assets/js/santis-bootloader.js"></script>
+<script defer="" src="/assets/js/santis-v10-core.js"></script>
+<script defer="" src="/assets/js/app.js"></script>
+<script type="module" src="/assets/js/santis-intent-engine.js"></script>
 
-<!-- Data Integration Pipeline -->
-<script src="https://js.stripe.com/v3/"></script>
-<script src="/assets/js/api-client.js"></script>
-<script src="/assets/js/loaders/data-bridge.js"></script>
-
-<!-- UI Core Scripts -->
-<script src="/assets/js/core/santis-neuro-tracker.js"></script>
-<script src="/assets/js/santis-score-engine.js?v=15.6"></script>
-<script src="/assets/js/santis-revenue-brain.js"></script>
-<script src="/assets/js/santis-sentinel.js"></script>   <!-- Focus & Analytics Engine -->
-<script src="/assets/js/routes.js"></script>
-<script src="/assets/js/core/santis_edge_os.js?v=15.6"></script>
-
-<!-- Page Specific Scripts -->
-<script src="/assets/js/app.js"></script>
-<script src="/assets/js/cms-image-loader.js"></script>
-<script src="/assets/js/santis-rituals.js"></script>
-<script src="/assets/js/santis-ritual-renderer.js"></script>
-<script src="/assets/js/santis-vault.js"></script>
-<script type="module" src="/assets/js/santis-vault-step2.js"></script>
-<script src="/assets/js/santis-seal.js"></script>
+<!-- Note: santis-rituals.js and lenis were removed because ritual renderer uses custom scroll rails like the home page -->
 
 </body>
 </html>

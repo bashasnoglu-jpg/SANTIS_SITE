@@ -331,3 +331,190 @@ class SantisAtmosphereEngine {
         }
     }
 }
+
+/* =========================================================
+   SANTIS OMNI-SCROLL V4.1 (THE ULTIMATE FIX)
+   Piksel hesabı yapmaz, CSS ile kavga etmez. Kusursuz akar.
+========================================================= */
+const initOmniScroll = () => {
+    console.log("⚡ [Omni-Scroll V4.1] Intersection Observer Devrede. Sıfır Titreme.");
+
+    const carousels = document.querySelectorAll('.rail-track');
+
+    carousels.forEach(track => {
+        if (track.hasAttribute('data-v4-observer')) return;
+
+        const section = track.closest('section') || track.parentElement;
+        if (!section) return;
+
+        const prevBtn = section.querySelector('button.prev, button:has(svg path[d*="M15 19l-7-7"]), .slider-prev');
+        const nextBtn = section.querySelector('button.next, button:has(svg path[d*="M9 5l7 7"]), .slider-next');
+        const dotsContainer = section.querySelector('.flex.justify-center.gap-2, .dots-container, .rail-dots, .nv-rail-dots');
+        const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('button, span')) : [];
+        const cards = Array.from(track.querySelectorAll('.nv-rail-card, .nv-card, .ritual-card'));
+
+        if (!cards.length) return;
+
+        track.setAttribute('data-v4-observer', 'true');
+
+        // 1. NOKTALARI GÜNCELLEME YARDIMCISI
+        const updateDots = (activeIndex) => {
+            dots.forEach((dot, index) => {
+                if (index === activeIndex) {
+                    dot.style.backgroundColor = '#d4af37'; // Aktif (Gold)
+                    dot.style.background = '#B39B59'; // Sovereign Gold override for span
+                    dot.style.width = '24px';
+                } else {
+                    dot.style.backgroundColor = 'rgba(255,255,255,0.2)'; // Pasif
+                    dot.style.background = 'rgba(179,155,89,0.35)'; // Default override for span
+                    dot.style.width = '6px';
+                }
+            });
+        };
+
+        // Kinetik Spam Koruması (250ms rAF Throttle Kalkanı)
+        let isThrottled = false;
+        const throttleScroll = (callback) => {
+            if (isThrottled) return;
+            isThrottled = true;
+            window.requestAnimationFrame(() => {
+                callback();
+                setTimeout(() => { isThrottled = false; }, 250); // Sovereign standard: 250ms Fluid UX
+            });
+        };
+
+        // Kuantum Kaydırma Motoru (Matematiksel Kesinlik, Sıfır Dikey Zıplama)
+        const executeSovereignScroll = (targetIndex) => {
+            const targetCard = cards[targetIndex];
+            if (!targetCard) return;
+
+            // Browser `scrollIntoView` hatalarını engellemek için doğrudan ofset hesabı
+            const trackRect = track.getBoundingClientRect();
+            const cardRect = targetCard.getBoundingClientRect();
+            const paddingLeft = parseFloat(window.getComputedStyle(track).paddingLeft) || 0;
+
+            const scrollDistance = cardRect.left - trackRect.left - paddingLeft;
+            track.scrollBy({ left: scrollDistance, behavior: 'smooth' });
+        };
+
+        // 2. GÖZLEMCİ (OBSERVER) - Hangi kartın ekranda olduğunu kendi anlar
+        const observerOptions = {
+            root: track,
+            threshold: 0.5 // Kartın en az %50'si ekrandaysa onu aktif say
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Pasiflik Sendromunu Kırmak (Aktif Aura)
+                    cards.forEach(c => c.classList.remove('is-active-aura'));
+                    entry.target.classList.add('is-active-aura');
+
+                    const activeIndex = cards.indexOf(entry.target);
+                    track.dataset.activeIndex = activeIndex; // Aktif indexi hafızaya al
+                    updateDots(activeIndex); // Noktayı otomatik sarı yap
+                }
+            });
+        }, observerOptions);
+
+        // Tüm kartları gözlemlemeye başla
+        cards.forEach(card => observer.observe(card));
+
+        // 3. OKLARA TIKLAMA (Sovereign Scroll Kilitli)
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                throttleScroll(() => {
+                    let currentIndex = parseInt(track.dataset.activeIndex || 0);
+                    let targetIndex = Math.max(0, currentIndex - 1);
+                    executeSovereignScroll(targetIndex);
+                });
+            }, { capture: true });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                throttleScroll(() => {
+                    let currentIndex = parseInt(track.dataset.activeIndex || 0);
+                    let targetIndex = Math.min(cards.length - 1, currentIndex + 1);
+                    executeSovereignScroll(targetIndex);
+                });
+            }, { capture: true });
+        }
+
+        // 4. NOKTALARA TIKLAMA
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                throttleScroll(() => {
+                    executeSovereignScroll(index);
+                });
+            }, { capture: true });
+        });
+
+        // 5. MASAÜSTÜ İÇİN KİNETİK SÜRÜKLEME (Drag-to-Scroll Kancası)
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let dragDistance = 0;
+
+        track.addEventListener('mousedown', (e) => {
+            isDown = true;
+            dragDistance = 0; // Sıfırla
+            track.classList.add('is-dragging');
+            track.style.cursor = 'grabbing';
+            track.style.scrollBehavior = 'auto'; // Smooth'u devre dışı bırak
+            startX = e.pageX - track.offsetLeft;
+            scrollLeft = track.scrollLeft;
+        });
+
+        const stopDrag = () => {
+            if (!isDown) return;
+            isDown = false;
+            track.classList.remove('is-dragging');
+            track.style.cursor = 'grab';
+            track.style.scrollBehavior = 'smooth';
+
+            // Eğer drag yapıldıysa, kısa süreliğine click eventi yut (Hack)
+            if (dragDistance > 5) {
+                setTimeout(() => dragDistance = 0, 50);
+            }
+        };
+
+        track.addEventListener('mouseleave', stopDrag);
+        track.addEventListener('mouseup', stopDrag);
+
+        track.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault(); // Varsayılan sürükleme eylemlerini (text seçimi vs) durdur
+            const x = e.pageX - track.offsetLeft;
+            const walk = (x - startX) * 1.5; // Kinetik hız çarpanı
+            dragDistance = Math.abs(walk);
+            track.scrollLeft = scrollLeft - walk;
+        });
+
+        // Kuantum Kalkanı: Eğer sürükleme yapıldıysa (dragDistance > 5) içindeki tıklamaları İPTAL et
+        track.addEventListener('click', (e) => {
+            if (dragDistance > 5 || track.classList.contains('is-dragging')) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            }
+        }, true);
+    });
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    initOmniScroll();
+});
+
+// Kuantum Motoru Modüler Olarak Dışarı Aktarılıyor
+window.initOmniScroll = initOmniScroll;
+
+// Zırhlanmış Kuantum Kartları DOM'a oturduktan 100ms sonra motoru çalıştır.
+document.addEventListener('santis:cards-rendered', () => {
+    setTimeout(initOmniScroll, 100);
+});

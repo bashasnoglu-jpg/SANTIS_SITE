@@ -3,6 +3,45 @@
  * Ram-based state, rAF rendering, 0-paint sliding, real payments.
  */
 
+// Global shim so pages can safely use SantisVault for storage and UI handoffs
+window.SantisVault = window.SantisVault || (() => {
+  const safeStringify = (val) => typeof val === 'string' ? val : JSON.stringify(val);
+  const safeParse = (val) => {
+    try { return JSON.parse(val); }
+    catch { return val; }
+  };
+
+  return {
+    sanctumState: { price: 150, currency: 'eur' },
+    async getItem(key) {
+      if (!key) return null;
+      return safeParse(localStorage.getItem(key));
+    },
+    async setItem(key, value) {
+      if (!key) return false;
+      localStorage.setItem(key, safeStringify(value));
+      return true;
+    },
+    async removeItem(key) {
+      if (!key) return false;
+      localStorage.removeItem(key);
+      return true;
+    },
+    processPayment() {
+      console.info('[Vault] processPayment stub invoked (demo mode).');
+      const msg = document.getElementById('payment-message');
+      if (msg) {
+        msg.classList.remove('hidden');
+        msg.textContent = 'Payment sealed (demo mode).';
+        setTimeout(() => {
+          msg.classList.add('hidden');
+          msg.textContent = '';
+        }, 4000);
+      }
+    }
+  };
+})();
+
 (() => {
   // Only bootstrap on pages that actually have a payment form
   const paymentForm = document.querySelector("#payment-form");
