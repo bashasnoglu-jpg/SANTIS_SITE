@@ -57,6 +57,7 @@ class HamamHybridRenderer {
             await this.loadDataMatrix();
             this.renderOracleLineup(); // V11 Phase 2: Biometric Matrix
             this.renderMasks();
+            this.initDesignStudio(); // V11 Phase 4: Design Studio Configurator Options
         }
     }
 
@@ -167,9 +168,10 @@ class HamamHybridRenderer {
             const imagePath = item.media?.thumbnail || item.image || '/assets/img/cards/santis_card_recovery_lotion_v2.webp';
             const isPriority = item._biometricFlag ? true : false;
             const price = item.price?.amount || item.price_eur || 0;
+            const dataPayload = JSON.stringify({ id: item.id, title: trContent.title, price: price });
 
             html += `
-            <div style="flex-shrink: 0; scroll-snap-align: center; width: 280px; height: 400px; border-radius: 8px; overflow: hidden; border: ${isPriority ? '2px solid #d4af37' : '1px solid rgba(0,0,0,0.1)'}; position: relative; background: #080808; cursor: pointer; opacity: 0; animation: fadeIn 0.5s ease forwards ${idx * 0.1}s; display: flex; flex-direction: column; justify-content: flex-end; transition: transform 0.4s ease;">
+            <div class="hamam-item" data-item='${dataPayload}' style="flex-shrink: 0; scroll-snap-align: center; width: 280px; height: 400px; border-radius: 8px; overflow: hidden; border: ${isPriority ? '2px solid #d4af37' : '1px solid rgba(0,0,0,0.1)'}; position: relative; background: #080808; cursor: pointer; opacity: 0; animation: fadeIn 0.5s ease forwards ${idx * 0.1}s; display: flex; flex-direction: column; justify-content: flex-end; transition: transform 0.4s ease;">
                 <img src="${imagePath}" alt="${trContent.title}" style="position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; opacity: 0.75; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); z-index: 0;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
                 <div style="position: absolute; top:0; left:0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(5,5,5,0.95) 100%); z-index: 1;"></div>
                 
@@ -239,6 +241,9 @@ class HamamHybridRenderer {
             oracleGrid.addEventListener('mouseup', oracleGrid._mlHandler);
             oracleGrid.addEventListener('mousemove', oracleGrid._mmHandler);
         }
+
+        // Attach click listeners to Oracle Cards
+        this.attachSelectListeners('#oracle-icons-grid .hamam-item', 'hamam');
 
         // CSS Animation for fade-in
         if (!document.getElementById('oracle-styles')) {
@@ -494,14 +499,18 @@ class HamamHybridRenderer {
             if (type === 'hamam') {
                 el.style.borderColor = isSelected ? '#d4af37' : 'transparent';
                 const btn = el.querySelector('.select-btn');
-                if (isSelected) {
-                    btn.style.background = '#d4af37';
-                    btn.style.color = '#000';
-                    btn.innerText = 'SEÇİLDİ';
-                } else {
-                    btn.style.background = 'rgba(255,255,255,0.1)';
-                    btn.style.color = '#fff';
-                    btn.innerText = 'SEÇ';
+
+                // Safe check if card doesn't have a select text button (like Oracle cards)
+                if (btn) {
+                    if (isSelected) {
+                        btn.style.background = '#d4af37';
+                        btn.style.color = '#000';
+                        btn.innerText = 'SEÇİLDİ';
+                    } else {
+                        btn.style.background = 'rgba(255,255,255,0.1)';
+                        btn.style.color = '#fff';
+                        btn.innerText = 'SEÇ';
+                    }
                 }
             } else if (type === 'mask') {
                 el.style.borderColor = isSelected ? '#d4af37' : 'rgba(255,255,255,0.05)';
@@ -534,6 +543,40 @@ class HamamHybridRenderer {
     // ==========================================
     // V11: THE DESIGN STUDIO (PHASE 4 & 5)
     // ==========================================
+    initDesignStudio() {
+        const options = document.querySelectorAll('.studio-option');
+        if (!options.length) return;
+
+        const previewImg = document.getElementById('studio-main-preview');
+
+        options.forEach(opt => {
+            opt.addEventListener('click', () => {
+                options.forEach(o => {
+                    o.classList.remove('active');
+                    o.style.borderColor = 'rgba(0,0,0,0.1)';
+                    const indicator = o.querySelector('div:first-child');
+                    if (indicator) indicator.style.border = '1px solid rgba(0,0,0,0.1)';
+                });
+
+                opt.classList.add('active');
+                opt.style.borderColor = '#d4af37';
+                const div = opt.querySelector('div:first-child');
+                if (div) div.style.border = '2px solid #d4af37';
+
+                if (previewImg) {
+                    previewImg.style.transition = 'opacity 0.3s ease';
+                    previewImg.style.opacity = '0';
+                    setTimeout(() => {
+                        previewImg.src = opt.dataset.oil === 'amber'
+                            ? '/assets/img/cards/santis_card_recovery_lotion_v2.webp'
+                            : '/assets/img/cards/santis_card_body_scrub.webp';
+                        previewImg.style.opacity = '0.9';
+                    }, 300);
+                }
+            });
+        });
+    }
+
     updateV11DesignStudio() {
         const titleEl = document.getElementById('buy-bar-title');
         const priceEl = document.getElementById('buy-bar-price');
