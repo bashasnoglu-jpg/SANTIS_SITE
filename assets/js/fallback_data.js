@@ -15,11 +15,11 @@ if (!window.__SANTIS_RAIL_READY__) {
     fetch('/assets/data/services.json')
         .then(r => r.json())
         .then(data => {
-            window.SovereignDataMatrix = data;
-            window.productCatalog = data;
+            // SADECE FALLBACK DATA (Event fırlatma! data-bridge'in event'ini bozuyor)
+            window.SovereignDataMatrix = data.categories ? data.categories.flatMap(c => c.services || c.items) : (data.services || data);
+            window.productCatalog = Array.isArray(window.SovereignDataMatrix) ? [...window.SovereignDataMatrix] : window.SovereignDataMatrix;
             window.__SANTIS_RAIL_READY__ = true;
-            document.dispatchEvent(new CustomEvent('santis:rail-ready', { detail: data }));
-            console.log('[Fallback] services.json bootstrap: ' + data.length + ' kayıt');
+            console.log('[Fallback] services.json bootstrap: ' + window.productCatalog.length + ' kayıt');
         })
         .catch(() => console.warn('[Fallback] services.json yüklenemedi'));
 }

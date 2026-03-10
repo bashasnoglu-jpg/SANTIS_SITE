@@ -46,13 +46,19 @@ const SantisDataBridge = {
                 const label = String(categoryLabel).toLowerCase();
                 filteredData = allData.filter(item => {
                     const cat = String(item.category || item.categoryId || '').toLowerCase();
-                    // HTML'den 'skincare' gönderilmişse, sadece cilt bakımlarını göster
-                    if (label === 'skincare') return cat.includes('skincare') || cat.includes('sothys') || cat === 'face' || cat === 'cilt-bakimi';
-                    // HTML'den 'hammam' gönderilmişse, sadece hamamları göster
-                    if (label === 'hammam' || label === 'hamam') return cat.includes('hammam') || cat.includes('hamam');
-                    // HTML'den 'massage' gönderilmişse, sadece masajları göster
-                    if (label === 'massage' || label === 'masajlar') return cat.includes('massage') || cat.includes('asian') || cat.includes('classical') || cat.includes('specialty');
-                    if (label === 'rituals') return cat.includes('journey') || cat.includes('ritual') || cat.includes('signature');
+
+                    if (label === 'skincare') {
+                        return cat.includes('skincare') || cat.includes('sothys') || cat === 'face' || cat === 'cilt-bakimi';
+                    }
+                    if (label === 'hammam' || label === 'hamam') {
+                        return cat.includes('hammam') || cat.includes('hamam');
+                    }
+                    if (label === 'massage' || label === 'masajlar') {
+                        return cat.includes('massage') || cat.includes('asian') || cat.includes('classical') || cat.includes('specialty');
+                    }
+                    if (label === 'rituals' || label === 'journey') {
+                        return cat.includes('journey') || cat.includes('ritual') || cat.includes('signature');
+                    }
 
                     return cat.includes(label);
                 });
