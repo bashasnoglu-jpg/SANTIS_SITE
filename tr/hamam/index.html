@@ -11,10 +11,23 @@
 <link rel="preload" href="/assets/fonts/sovereign-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link href="/assets/css/fonts.css" rel="stylesheet"/>
 <link href="/assets/css/fonts.css" rel="stylesheet"/>
-<!-- MASTER STYLE -->
+<!-- MASTER STYLE (Phase 5: Critical CSS Preloads) -->
+<style>
+/* Critical CSS for Phase 5 Sovereign Bento Grid */
+body { margin: 0; background: #050505; color: #fff; }
+.sovereign-bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, minmax(220px, auto)); gap: 24px; width: 100%; margin: 0 auto; }
+.bento-card { aspect-ratio: 4/5; border-radius: 24px; overflow: hidden; position: relative; background: #050505; padding: 0; }
+a:focus-visible, button:focus-visible { outline: 2px solid #d4af37; outline-offset: 4px; }
+@media (max-width: 768px) {
+    .sovereign-bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .bento-card.signature, .bento-card.world, .bento-card.ritual { grid-column: span 1; grid-row: span 1; aspect-ratio: auto; height: 400px; }
+}
+</style>
+
+<link rel="preload" href="/assets/css/style.css" as="style">
 <link href="/assets/css/style.css" rel="stylesheet"/>
 <link href="/assets/css/modules/cards.css" rel="stylesheet"/>
-<link href="/assets/css/bento-grid.css" rel="stylesheet"/> <!-- UPGRADE: Bento Grid -->
+<link href="/assets/css/bento-grid.css" rel="stylesheet"/>
 <!-- Video Hero REMOVED for Consistency (or updated to cleaner CSS) -->
 <link href="/assets/css/video-hero.css" rel="stylesheet"/>
 <script src="/assets/js/perf-head.js"></script>
@@ -189,20 +202,50 @@
   }
 }
     </script>
+    <script type="application/ld+json">
+    {
+     "@context":"https://schema.org",
+     "@type":"Spa",
+     "name":"Santis Spa",
+     "service":[
+      {
+       "@type":"Service",
+       "name":"Osmanlı Hamam Geleneği"
+      },
+      {
+       "@type":"Service",
+       "name":"Kese ve Köpük Masajı"
+      },
+      {
+       "@type":"Service",
+       "name":"Kahve Peeling"
+      },
+      {
+       "@type":"Service",
+       "name":"Çikolata Bakımı"
+      }
+     ]
+    }
+    </script>
     <!-- /SCHEMA SYNC -->
 </head>
 <body class="editorial-mode world-hydro" data-page="hamam">
 
-<header id="site-header">
+<!-- Phase 69: Smooth Overlay (CLS Safe) -->
+<div class="transition-overlay"></div>
+
+<header id="site-header" role="banner">
   <div id="navbar-container"></div>
 </header>
 
-<main id="sovereign-page-root">
+<main id="sovereign-page-root" role="main">
   <section class="sovereign-bento-grid">
     
     <!-- Signature Card (Hero - Span 2x2) -->
     <article class="bento-card signature">
       <img src="/assets/img/cards/santis_card_hammam_v1.webp" 
+           srcset="/assets/img/cards/santis_card_hammam_v1-400.webp 400w, /assets/img/cards/santis_card_hammam_v1-800.webp 800w, /assets/img/cards/santis_card_hammam_v1.webp 1200w"
+           sizes="(max-width:768px) 100vw, 800px"
            alt="Geleneksel Osmanlı Hamam Ritüeli"
            fetchpriority="high" 
            decoding="async" 
@@ -210,9 +253,9 @@
            height="1500"
            class="nv-card-img" />
       <div class="card-glass-overlay">
-        <h2 class="card-title">Saray Ritüeli</h2>
-        <p class="card-desc">Geleneksel kese ve köpükle derinlemesine arınma.</p>
-        <button class="card-btn">KEŞFET</button>
+        <h2 class="card-title" style="font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; letter-spacing: -1px; line-height: 1.1;">The Grand Sanctuary</h2>
+        <p class="card-desc" style="font-size: 1.1rem; font-weight: 300;">Swiss precision meets artisan excellence. A refined journey of purification.</p>
+        <button class="card-btn magnetic-btn" aria-label="Saray Ritüelini Keşfet">KEŞFET</button>
       </div>
     </article>
 
@@ -299,9 +342,25 @@
     </article>
 
   </section>
+
+  <!-- PHASE 70: ASYNC DATA MATRIX ENGINE & PROGRESSIVE ENHANCEMENT -->
+  <section id="santis-data-matrix" style="padding: 6rem 2vw 4rem; max-width: 1200px; margin: 0 auto;">
+      <h2 style="font-size: 2.5rem; font-family: 'Playfair Display', serif; color: #fff; text-align: center; margin-bottom: 3rem; font-weight: 400;">Tüm Hamam Ritüelleri</h2>
+      
+      <noscript>
+          <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); padding: 2rem; border-radius: 12px; text-align: center;">
+              <p style="color: #fff; font-family: 'Inter', sans-serif;">Hizmetleri görüntüleyebilmek için lütfen tarayıcınızın JavaScript özelliğini aktifleştirin.</p>
+          </div>
+      </noscript>
+
+      <div id="santis-data-matrix-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px;">
+          <!-- Dynamically populated from /assets/data/services.json by hamam-engine.js -->
+      </div>
+  </section>
+
 </main>
 
-<footer id="site-footer">
+<footer id="site-footer" role="contentinfo">
   <div id="footer-container"></div>
 </footer>
 
@@ -324,6 +383,9 @@
          }
     });
 </script>
+
+<!-- SENSORY UI ENGINE (FPS Protected) -->
+<script src="/assets/js/sensory-dust.js" defer></script>
 
 <!-- ISOLATED ENGINE -->
 <script src="/assets/js/hamam-engine.js" defer></script>

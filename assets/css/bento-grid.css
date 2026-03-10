@@ -654,3 +654,38 @@
         height: 400px;
     }
 }
+
+/* ==========================================
+   🍏 PHASE 69: SENSORY UI & CLS PROTECTION
+   ========================================== */
+
+/* Magnetic Elements Base */
+.magnetic-btn {
+    display: inline-block;
+    will-change: transform;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, color 0.3s ease;
+}
+
+/* Smooth Page Transition Overlay - Fixed Layer */
+.transition-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 99999;
+    background: #050505;
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.transition-overlay.is-active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* A11Y Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
