@@ -20,8 +20,8 @@ class HamamHybridRenderer {
 
         // Hybrid Renderer Core 
         this.pool = [];
-        this.POOL_SIZE = 18; // Apple Standard
-        this.visibleCount = 12; // Viewport limit
+        this.POOL_SIZE = 10; // 10 Giant Cards (Apple Pro Standard)
+        this.visibleCount = 10; // Viewport limit
         this.data = [];
 
         // State Engine (Future Global State Prep)
