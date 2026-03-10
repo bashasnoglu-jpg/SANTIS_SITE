@@ -257,104 +257,32 @@ a:focus-visible, button:focus-visible { outline: 2px solid #d4af37; outline-offs
       </div>
     </article>
 
-    <!-- World Cards (Span 1x1) -->
-    <article class="bento-card world">
-      <img src="/assets/img/cards/santis_card_foam_lux.webp" 
-           alt="Köpük Masajı"
-           loading="lazy" 
-           decoding="async" 
-           width="800" 
-           height="1000"
-           class="nv-card-img" />
-      <div class="card-glass-overlay">
-        <h3 class="card-title">Köpük Masajı</h3>
-      </div>
-    </article>
-    
-    <article class="bento-card world">
-      <img src="/assets/img/cards/santis_card_hamam_scrub_v2.webp" 
-           alt="Kahve Detox Peeling"
-           loading="lazy" 
-           decoding="async" 
-           width="800" 
-           height="1000"
-           class="nv-card-img" />
-      <div class="card-glass-overlay">
-        <h3 class="card-title">Kahve Detox</h3>
-      </div>
-    </article>
-    
-    <article class="bento-card world">
-      <img src="/assets/img/cards/santis_card_skincare_clay_v2.webp" 
-           alt="Yosun Bakımı"
-           loading="lazy" 
-           decoding="async" 
-           width="800" 
-           height="1000"
-           class="nv-card-img" />
-      <div class="card-glass-overlay">
-        <h3 class="card-title">Yosun Detoksu</h3>
-      </div>
-    </article>
-
-    <article class="bento-card world">
-      <img src="/assets/img/cards/santis_card_hammam_lux.webp" 
-           alt="Deniz Tuzu Peeling"
-           loading="lazy" 
-           decoding="async" 
-           width="800" 
-           height="1000"
-           class="nv-card-img" />
-      <div class="card-glass-overlay">
-        <h3 class="card-title">Deniz Tuzu</h3>
-      </div>
-    </article>
-
-    <!-- Ritual Cards (Vertical - Span 1x2) -->
-    <article class="bento-card ritual">
-      <img src="/assets/img/cards/santis_card_kids_v1.webp" 
-           alt="Çikolata Bakımı"
-           loading="lazy" 
-           decoding="async" 
-           width="800" 
-           height="1000"
-           class="nv-card-img" />
-      <div class="card-glass-overlay">
-        <h3 class="card-title">Çikolata Bakımı</h3>
-        <p class="card-desc">Mutluluk hormonu salgılayan aromatik bakım.</p>
-      </div>
-    </article>
-
-    <article class="bento-card ritual">
-      <img src="/assets/img/cards/santis_card_hammam_v1.webp" 
-           alt="Bal Masajı Terapisi"
-           loading="lazy" 
-           decoding="async" 
-           width="800" 
-           height="1000"
-           class="nv-card-img" />
-      <div class="card-glass-overlay">
-        <h3 class="card-title">Bal Masajı</h3>
-        <p class="card-desc">Doğal bal ile cildi besleyen tatlı dokunuş.</p>
-      </div>
-    </article>
-
   </section>
 
   <!-- PHASE 70: ASYNC DATA MATRIX ENGINE & PROGRESSIVE ENHANCEMENT -->
-  <section id="santis-data-matrix" style="padding: 6rem 2vw 4rem; max-width: 1200px; margin: 0 auto;">
-      <h2 style="font-size: 2.5rem; font-family: 'Playfair Display', serif; color: #fff; text-align: center; margin-bottom: 3rem; font-weight: 400;">Tüm Hamam Ritüelleri</h2>
-      
+  <section id="santis-data-matrix" style="padding: 2rem 2vw 4rem; max-width: 1400px; margin: 0 auto;">
       <noscript>
           <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); padding: 2rem; border-radius: 12px; text-align: center;">
               <p style="color: #fff; font-family: 'Inter', sans-serif;">Hizmetleri görüntüleyebilmek için lütfen tarayıcınızın JavaScript özelliğini aktifleştirin.</p>
           </div>
       </noscript>
 
-      <div id="santis-data-matrix-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px;">
+      <div id="santis-data-matrix-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
           <!-- Dynamically populated from /assets/data/services.json by hamam-engine.js -->
       </div>
   </section>
+
+  <!-- PHASE 6: SOVEREIGN RAIL (MASK & EXTRA ADD-ONS) -->
+  <section id="sovereign-mask-rail" style="padding: 4rem 2vw; background: #080808; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem;">
+      <div style="max-width: 1400px; margin: 0 auto;">
+          <h2 style="font-size: 2rem; font-family: 'Playfair Display', serif; color: #fff; margin-bottom: 2rem; font-weight: 400;">Kişiselleştirilmiş Bakımlar</h2>
+          <div class="rail-container" style="display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent;">
+              <!-- Masks will be loaded here dynamically by the engine -->
+          </div>
+      </div>
+  </section>
+
+
 
 </main>
 

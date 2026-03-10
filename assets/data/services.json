@@ -4860,5 +4860,28 @@
     "image": "/assets/img/cards/santis_card_massage_asian.webp",
     "price_eur": 75,
     "category": "massage"
+  },
+  {
+    "id": "hamam-enzim-peeling",
+    "categoryId": "ritual-hammam",
+    "name": "Enzim Peeling Bakımı",
+    "duration": 30,
+    "price": {
+      "amount": 50,
+      "currency": "€"
+    },
+    "media": {
+      "hero": "santis_card_skincare_lux.webp"
+    },
+    "content": {
+      "tr": {
+        "title": "Enzim Peeling Bakımı",
+        "shortDesc": "Meyve enzimleri ile cildi tahriş etmeden nazikçe arındıran yenileyici bakım."
+      }
+    },
+    "slug": "enzim-peeling-bakimi",
+    "image": "/assets/img/cards/santis_card_skincare_clay_v2.webp",
+    "price_eur": 50,
+    "category": "hammam"
   }
 ]

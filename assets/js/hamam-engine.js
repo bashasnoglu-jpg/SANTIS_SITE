@@ -3,37 +3,47 @@ class HamamEngine {
     constructor() {
         this.cards = document.querySelectorAll(".bento-card");
         this.matrixContainer = document.getElementById('santis-data-matrix-grid');
+        this.railContainer = document.querySelector('#sovereign-mask-rail .rail-container');
+
+        // Cart State
+        this.cart = {
+            hamam: null,
+            mask: null
+        };
+
+        this.masks = [
+            { id: 'm1', title: 'Sothys Altın Maske', desc: 'Yaşlanma karşıtı 24K onarım.', price: 30, img: '/assets/img/cards/santis_card_skincare_lux.webp' },
+            { id: 'm2', title: 'Havyar Göz Çevresi', desc: 'Havyar özlü yoğun göz çevresi bakımı.', price: 25, img: '/assets/img/cards/santis_card_skincare_detail_v2.webp' },
+            { id: 'm3', title: 'Volkanik Kil Maskesi', desc: 'Derin gözenek temizliği ve sebum dengesi.', price: 20, img: '/assets/img/cards/santis_card_skincare_clay_v2.webp' },
+            { id: 'm4', title: 'Aloe Vera Yoğun Nem', desc: 'Güneş sonrası acil nem ve yatıştırma.', price: 20, img: '/assets/img/cards/santis_card_skincare_v1.webp' },
+            { id: 'm5', title: 'C Vitamini Parlaklık', desc: 'Solgun ciltler için aydınlatıcı C vitamini bombası.', price: 25, img: '/assets/img/cards/santis_card_recovery_lotion_v2.webp' },
+            { id: 'm6', title: 'Oksijen Terapisi', desc: 'Hücre yenilenmesini hızlandıran oksijen kürü.', price: 35, img: '/assets/img/cards/santis_card_skin_advanced.webp' }
+        ];
+
+        this.initCartUI();
     }
 
     async init() {
-        // Safe check for GSAP scrolling cards
+        // Safe check for GSAP scrolling cards (Hero only now)
         if (this.cards.length > 0) {
-            console.log("[HamamEngine] V10 Sovereign Engine Booted. Bento Cards found:", this.cards.length);
+            console.log("[HamamEngine] V10 Sovereign Engine Booted. Cards found:", this.cards.length);
             this.initScroll();
         }
 
-        // Execute Phase 4 Data Matrix Load
+        // Execute Phase 4/6 Data Matrix Load
         if (this.matrixContainer) {
             await this.loadDataMatrix();
+            this.renderMasks();
         }
     }
 
     initScroll() {
-        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-            console.warn("[HamamEngine] GSAP or ScrollTrigger missing.");
-            return;
-        }
-
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
         gsap.utils.toArray(this.cards).forEach((card, i) => {
             gsap.to(card, {
                 yPercent: 10 + (i * 2), // Staggered smooth parallax
                 ease: "none",
-                scrollTrigger: {
-                    trigger: card,
-                    scrub: true,
-                    start: "top bottom",
-                    end: "bottom top"
-                }
+                scrollTrigger: { trigger: card, scrub: true, start: "top bottom", end: "bottom top" }
             });
         });
     }
@@ -44,49 +54,177 @@ class HamamEngine {
             if (!response.ok) throw new Error("HTTP Status " + response.status);
 
             const data = await response.json();
-
-            // Extract hammam specific rituals safely
             const hammamServices = data.filter(s => s.categoryId === 'ritual-hammam' || s.category === 'hammam' || s.id.includes('hamam'));
 
-            if (hammamServices.length === 0) {
-                console.warn("[HamamEngine] No hammam services found in JSON.");
-                return;
-            }
-
+            if (hammamServices.length === 0) return;
             this.renderServices(hammamServices);
 
         } catch (error) {
             console.error("[HamamEngine] Service data load failed:", error);
-            this.matrixContainer.innerHTML = `<p style="color:red; font-family:'Inter',sans-serif;">Hizmet verisi yüklenirken bir hata oluştu. Lütfen sayfayı yenileyin.</p>`;
+            this.matrixContainer.innerHTML = `<p style="color:red; font-family:'Inter',sans-serif;">Hizmet verisi yüklenirken bir hata oluştu.</p>`;
         }
     }
 
     renderServices(services) {
         let html = '';
         services.forEach(s => {
-            // Safe fallback for multi-language object variations
             const trContent = s.content && s.content.tr ? s.content.tr : { title: s.name, shortDesc: s.description || "" };
             const price = s.price && s.price.amount ? s.price.amount : (s.price_eur || 0);
+            const imagePath = s.image || (s.media && s.media.hero ? `/assets/img/cards/${s.media.hero}` : '/assets/img/cards/santis_card_hammam_lux.webp');
+            const dataPayload = JSON.stringify({ id: s.id, title: trContent.title, price: price });
 
-            // Phase 69 Magnetic Button integrated inside Matrix Component
             html += `
-            <div class="matrix-service-card" style="padding: 24px; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; background: rgba(5,5,5,0.8); display: flex; flex-direction: column; gap: 12px; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease;">
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #fff; margin:0; letter-spacing: -0.5px;">${trContent.title}</h3>
-                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: rgba(255,255,255,0.6); margin:0; line-height: 1.5; font-weight: 300;">${trContent.shortDesc}</p>
-                <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; margin-top: 20px;">
-                    <span style="color: #fff; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 1.1rem;">${price} €</span>
-                    <button class="magnetic-btn" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 8px 20px; border-radius: 99px; font-size: 0.75rem; letter-spacing: 1px; cursor: pointer;">DETAYLAR</button>
+            <div class="matrix-service-card hamam-item" data-item='${dataPayload}' style="position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 3/4; display: flex; flex-direction: column; justify-content: flex-end; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; border: 2px solid transparent;">
+                <img src="${imagePath}" alt="${trContent.title}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; filter: brightness(0.7) contrast(1.1);" loading="lazy" decoding="async">
+                <div class="card-gradient" style="position: absolute; top:0; left:0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(5,5,5,0.95) 100%); z-index: 1;"></div>
+                
+                <div style="position: relative; z-index: 2; padding: 32px 24px; display: flex; flex-direction: column; gap: 8px;">
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #fff; margin:0; letter-spacing: -0.5px; line-height: 1.1;">${trContent.title}</h3>
+                    <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: rgba(255,255,255,0.7); margin:0; line-height: 1.5; font-weight: 300;">${trContent.shortDesc}</p>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+                        <span style="color: #d4af37; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.2rem;">${price} €</span>
+                        <button class="magnetic-btn select-btn" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; padding: 10px 24px; border-radius: 99px; font-size: 0.8rem; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease; pointer-events: none;">SEÇ</button>
+                    </div>
                 </div>
             </div>`;
         });
 
         this.matrixContainer.innerHTML = html;
+        this.attachSelectListeners('.hamam-item', 'hamam');
 
-        // Re-initialize Magnetic UI bounds for freshly rendered buttons 
         if (window.SantisMagnetic) {
             window.SantisMagnetic.items = document.querySelectorAll('.magnetic-btn');
             window.SantisMagnetic.init();
         }
+    }
+
+    renderMasks() {
+        if (!this.railContainer) return;
+        let html = '';
+        this.masks.forEach(m => {
+            const dataPayload = JSON.stringify({ id: m.id, title: m.title, price: m.price });
+            html += `
+            <div class="mask-item" data-item='${dataPayload}' style="min-width: 280px; width: 280px; border-radius: 16px; overflow: hidden; background: #111; position: relative; scroll-snap-align: start; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transition: border-color 0.3s ease;">
+                <img src="${m.img}" alt="${m.title}" style="width: 100%; height: 180px; object-fit: cover; opacity: 0.8;">
+                <div style="padding: 20px;">
+                    <h4 style="font-family: 'Playfair Display', serif; color: #fff; margin:0 0 8px 0; font-size: 1.2rem;">${m.title}</h4>
+                    <p style="color: rgba(255,255,255,0.6); font-family: 'Inter', sans-serif; font-size: 0.85rem; margin:0 0 16px 0;">${m.desc}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: #d4af37; font-size: 1.1rem; font-family: 'Inter', sans-serif;">+${m.price} €</span>
+                        <div class="select-indicator" style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;"></div>
+                    </div>
+                </div>
+            </div>`;
+        });
+        this.railContainer.innerHTML = html;
+        this.attachSelectListeners('.mask-item', 'mask');
+    }
+
+    attachSelectListeners(selector, type) {
+        const items = document.querySelectorAll(selector);
+        items.forEach(el => {
+            el.addEventListener('click', () => {
+                const data = JSON.parse(el.getAttribute('data-item'));
+
+                // Toggle logic
+                if (this.cart[type] && this.cart[type].id === data.id) {
+                    this.cart[type] = null; // deselect
+                } else {
+                    this.cart[type] = data; // select
+                }
+
+                this.updateUISelection(selector, type);
+            });
+        });
+    }
+
+    updateUISelection(selector, type) {
+        const items = document.querySelectorAll(selector);
+        items.forEach(el => {
+            const data = JSON.parse(el.getAttribute('data-item'));
+            const isSelected = this.cart[type] && this.cart[type].id === data.id;
+
+            if (type === 'hamam') {
+                el.style.borderColor = isSelected ? '#d4af37' : 'transparent';
+                const btn = el.querySelector('.select-btn');
+                if (isSelected) {
+                    btn.style.background = '#d4af37';
+                    btn.style.color = '#000';
+                    btn.innerText = 'SEÇİLDİ';
+                } else {
+                    btn.style.background = 'rgba(255,255,255,0.1)';
+                    btn.style.color = '#fff';
+                    btn.innerText = 'SEÇ';
+                }
+            } else if (type === 'mask') {
+                el.style.borderColor = isSelected ? '#d4af37' : 'rgba(255,255,255,0.05)';
+                const indicator = el.querySelector('.select-indicator');
+                if (isSelected) {
+                    indicator.style.background = '#d4af37';
+                    indicator.style.borderColor = '#d4af37';
+                    indicator.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                } else {
+                    indicator.style.background = 'transparent';
+                    indicator.innerHTML = '';
+                    indicator.style.borderColor = 'rgba(255,255,255,0.3)';
+                }
+            }
+        });
+
+        this.updateCartOverlay();
+    }
+
+    initCartUI() {
+        this.cartOverlay = document.createElement('div');
+        this.cartOverlay.style.cssText = `
+            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(5,5,5,0.98); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            border-top: 1px solid rgba(212,175,55,0.2); padding: 20px 0; z-index: 9999;
+            transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; justify-content: center; align-items: center; box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+        `;
+
+        this.cartOverlay.innerHTML = `
+            <div style="max-width: 1400px; width: 100%; padding: 0 4vw; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <span style="color: rgba(255,255,255,0.6); font-family: 'Inter', sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Sovereign Paketiniz</span>
+                    <h4 id="cart-summary-text" style="color: #fff; font-family: 'Playfair Display', serif; font-size: 1.4rem; margin: 0; font-weight: 400;">Seçim Bekleniyor...</h4>
+                </div>
+                <div style="display: flex; align-items: center; gap: 24px;">
+                    <div style="text-align: right;">
+                        <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; display: block; margin-bottom: 2px;">Toplam Tutar</span>
+                        <span id="cart-total-price" style="color: #d4af37; font-size: 1.8rem; font-family: 'Inter', sans-serif; font-weight: 300;">0 €</span>
+                    </div>
+                    <button style="background: #fff; color: #000; border: none; padding: 14px 32px; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.9rem; letter-spacing: 1px; border-radius: 99px; cursor: pointer; transition: opacity 0.3s ease;">REZERVASYON YAP</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(this.cartOverlay);
+    }
+
+    updateCartOverlay() {
+        if (!this.cart.hamam && !this.cart.mask) {
+            this.cartOverlay.style.transform = 'translateY(100%)';
+            return;
+        }
+
+        this.cartOverlay.style.transform = 'translateY(0)';
+
+        let total = 0;
+        let summaryParts = [];
+
+        if (this.cart.hamam) {
+            total += this.cart.hamam.price;
+            summaryParts.push(this.cart.hamam.title);
+        }
+        if (this.cart.mask) {
+            total += this.cart.mask.price;
+            summaryParts.push(`+ ${this.cart.mask.title}`);
+        }
+
+        document.getElementById('cart-summary-text').innerText = summaryParts.join(' ');
+        document.getElementById('cart-total-price').innerText = `${total} €`;
     }
 }
 
