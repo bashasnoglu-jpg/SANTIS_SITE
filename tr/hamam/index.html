@@ -284,6 +284,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #d4af37; outline-offs
           /* Giant Card Dimension Overrides */
           .matrix-service-card {
               min-width: 85vw !important; /* Mobile Peek Effect */
+              flex-shrink: 0 !important; /* Prevent flexbox from squishing the cards */
               scroll-snap-align: center;
               border-radius: 4px !important; /* V11 Sharp Corner Requirement */
           }

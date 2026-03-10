@@ -185,7 +185,7 @@ class HamamHybridRenderer {
         for (let i = 0; i < this.POOL_SIZE; i++) {
             const card = document.createElement("div");
             card.className = "matrix-service-card hamam-item";
-            card.style.cssText = `position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 3/4; display: none; flex-direction: column; justify-content: flex-end; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; border: 2px solid transparent;`;
+            card.style.cssText = `flex-shrink: 0; position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 3/4; display: none; flex-direction: column; justify-content: flex-end; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; border: 2px solid transparent;`;
 
             card.innerHTML = `
                 <img class="sv-cover" src="" alt="Santis Service" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; filter: brightness(0.7) contrast(1.1);" loading="lazy" decoding="async">
