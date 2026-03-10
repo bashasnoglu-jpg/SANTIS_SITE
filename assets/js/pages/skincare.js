@@ -14,6 +14,8 @@ export const SkincarePage = {
         // 💎 API kapalı olsa bile sistemin çökmemesi için doğrudan yerel JSON'a bağlıyoruz!
         if (window.SantisDataBridge && window.SantisDataBridge.bootMatrix) {
             await window.SantisDataBridge.bootMatrix('/assets/data/services.json', selector, 'skincare');
+        } else {
+            console.error("🚨 [Skincare V10] window.SantisDataBridge is not defined! Kuantum Sinyali Kesildi.");
         }
     },
 
