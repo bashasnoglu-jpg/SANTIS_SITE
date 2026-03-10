@@ -145,8 +145,8 @@
     // =========================================================
     const PAGE_MAP = {
         'index': () => import('/assets/js/pages/home-page.js'),
-        'hamam': () => import('/assets/js/hamam-engine.js'),
-        'massage': () => import('/assets/js/pages/rail-page.js'),
+        'hamam': () => import('/assets/js/hamam-engine.v10.1.js'),
+        'massage': () => import('/assets/js/pages/massages-page-init.js'),
         'skincare': () => import('/assets/js/pages/skincare.js'),
         'rituals': () => import('/assets/js/pages/rituals.js'),
     };
@@ -159,6 +159,11 @@
         }
 
         try {
+            // THE BRIDGE INJECTION: Ensure data bridge is present for legacy pages since HTML Purge removed it
+            if (['skincare', 'rituals', 'hamam', 'index'].includes(page)) {
+                await import('/assets/js/santis-data-bridge.js').catch(() => console.warn("[Omni-Router] Data bridge failed to load."));
+            }
+
             const mod = await loader();
             if (signal.aborted) return; // Guillotine
             if (typeof mod.init === 'function') {

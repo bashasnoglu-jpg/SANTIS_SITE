@@ -262,9 +262,13 @@ const SantisCardEngineV8 = (() => {
 
         article.addEventListener('click', e => {
             e.preventDefault();
-            if (targetUrl) return window.location.href = targetUrl;
+
+            // 🚨 COEP / V17 GÜVENLİK YAMASI: 
+            // JSON'da eski usül (statik .html) bir URL olsa bile onu ezip, 
+            // her şeyi V17 Dynamic Detail Page'e yönlendiriyoruz!
             if (window.BoutiqueQuickView) return window.BoutiqueQuickView.open({ ...item, isProduct: layout === 'grid', title, image: img });
             if (window.SovereignVault) return window.SovereignVault.open({ ...item, title, image: img });
+
             window.location.href = '/tr/urunler/detay.html?id=' + item.id;
         });
 

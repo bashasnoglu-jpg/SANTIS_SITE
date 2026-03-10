@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
@@ -21,7 +21,7 @@
     </script>
     
     <!-- Tailwind CSS (CDN for Prototyping) -->
-    <script src="https://cdn.tailwindcss.com" crossorigin="anonymous"></script>
+    <script src="/assets/js/tailwindcss.min.js" crossorigin="anonymous"></script>
     <!-- html2pdf Library for Sovereign Export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous"></script>
     <!-- Chart.js for Quantum Forecasting -->
@@ -980,11 +980,14 @@
                     
                     const combinedLabels = [...data.historical.labels, ...data.forecast.labels];
                     
-                    // Pad arrays to match combined labels length
-                    const historicalPad = [...data.historical.data, ...Array(data.forecast.labels.length).fill(null)];
+                    // Pad arrays to match combined labels length safely
+                    const histLabelsLen = data.historical?.labels?.length || 0;
+                    const foreLabelsLen = data.forecast?.labels?.length || 0;
                     
-                    const lastHistVal = data.historical.data[data.historical.data.length - 1];
-                    const forecastPad = [...Array(data.historical.labels.length - 1).fill(null), lastHistVal, ...data.forecast.data];
+                    const historicalPad = [...(data.historical?.data || []), ...Array(Math.max(0, foreLabelsLen)).fill(null)];
+                    
+                    const lastHistVal = (data.historical?.data?.length > 0) ? data.historical.data[data.historical.data.length - 1] : null;
+                    const forecastPad = [...Array(Math.max(0, histLabelsLen - 1)).fill(null), lastHistVal, ...(data.forecast?.data || [])];
                     
                     forecastChart = new Chart(ctx, {
                         type: 'line',
@@ -2649,4 +2652,5 @@ async function generateInvestorReport(){
 
 </body>
 </html>
+
 

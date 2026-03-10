@@ -321,7 +321,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #d4af37; outline-offs
   <section id="sovereign-mask-rail" style="padding: 4rem 2vw; background: #080808; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem;">
       <div style="max-width: 1400px; margin: 0 auto;">
           <h2 style="font-size: 2rem; font-family: 'Playfair Display', serif; color: #fff; margin-bottom: 2rem; font-weight: 400;">Kişiselleştirilmiş Bakımlar</h2>
-          <div class="rail-container" style="display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent;">
+          <div class="rail-container" style="display: flex; gap: 20px; overflow-x: auto; overflow-y: hidden; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 20px; padding-right: 40px; scrollbar-width: none;">
               <!-- Masks will be loaded here dynamically by the engine -->
           </div>
       </div>
@@ -416,18 +416,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #d4af37; outline-offs
 <!-- OMNI-OS V5 MASTER KERNEL -->
 <script src="/assets/js/app.js" defer></script>
 
-<!-- SOVEREIGN SCROLL ENGINE (PHASE 9) -->
-<script src="/assets/js/santis-scroll-engine.js" defer></script>
-
-<!-- SENSORY UI ENGINE (FPS Protected) -->
-<script src="/assets/js/sensory-dust.js" defer></script>
-
-<!-- ♾️ SANTIS V17: THE QUANTUM BRIDGE (SHARED MEMORY) ♾️ -->
-<script src="/assets/js/santis-v17-bridge.js" defer></script>
-
-<!-- SOVEREIGN OS BOOTLOADER (PHASE 7) -->
-<script src="/assets/js/santis-bootloader.js" defer></script>
-
+<!-- SOVEREIGN OS BOOTLOADER (V17 DYNAMIC ENGINE MANAGER) -->
+<script type="module" src="/assets/js/santis-bootloader.js" defer></script>
 </body>
 </html>
 

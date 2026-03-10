@@ -408,9 +408,73 @@ class HamamHybridRenderer {
         }
     }
 
-    // ==========================================
-    // THE QUANTUM SIEVE (Sovereign Filter)
-    // ==========================================
+    // ========================================================================
+    // 🌌 V17 THE QUANTUM SIEVE & AMNESIA PROTOCOL (ZOMBİ İNFAZCISI)
+    // ========================================================================
+    applyCategoryFilter(selectedCategory) {
+        console.log(`🌌 [Quantum Sieve] Evren daralıyor... Kategori Mührü: ${selectedCategory}`);
+
+        // 1. KUTSAL VERİYİ RAM'DEN ÇEK
+        const rawData = window.__NEURO_SYNC_CACHE__ || window.allCardsData || [];
+
+        if (!rawData || rawData.length === 0) {
+            console.warn("⚠️ [Quantum Sieve] Kaynak veri boş! Neuro-Sync'i kontrol et.");
+            return;
+        }
+
+        // 2. RAM ÜZERİNDE FİLTRELE (DOM'a Dokunmak Yok!)
+        if (selectedCategory === 'all') {
+            this.data = [...rawData].filter(c => (c.categoryId || c.category || '').toLowerCase().includes('hamam') || c.id.includes('hamam'));
+        } else {
+            this.data = rawData.filter(card => {
+                const c = (card.categoryId || card.category || '').toLowerCase();
+                const isHamam = c.includes('hammam') || c.startsWith('ritual-hammam') || c === 'hamam';
+                return isHamam && (c === selectedCategory || c.includes(selectedCategory) || (card.tags && card.tags.includes(selectedCategory)));
+            });
+        }
+
+        this.totalCards = this.data.length;
+
+        // 3. THE SPACE COLLAPSE
+        if (this.matrixContainer) this.matrixContainer.scrollLeft = 0;
+
+        // 4. TIMELINE RESET
+        this.physicalScroll = 0;
+        this.renderScroll = 0;
+        if (typeof this.lastScrollX !== 'undefined') this.lastScrollX = 0;
+
+        // 5. THE QUANTUM AMNESIA (Zombilerin İnfazı!)
+        // Ölümsüz Node'ların geçmişini SİLİYORUZ. Zihinleri sıfırla!
+        if (this.pool && this.pool.length > 0) {
+            this.pool.forEach(poolItem => {
+                poolItem.currentIndex = -1; // 💀 HAFIZAYI SİL!
+                poolItem.removeAttribute('data-item'); // Ekstra Zombi koruması
+                poolItem.style.opacity = "0";
+                poolItem.style.transform = `translate3d(-9999px, 0, 0)`;
+            });
+        }
+
+        // 6. 120Hz RE-IGNITION (Kusursuz Uyanış)
+        setTimeout(() => {
+            if (typeof this.reconcile === 'function') {
+                this.reconcile(0);
+            } else {
+                this.renderViewport(0);
+            }
+
+            // Görünürleri geri çağır
+            this.pool.forEach((poolItem, idx) => {
+                if (idx < this.data.length && idx < this.POOL_SIZE) {
+                    poolItem.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s';
+                    poolItem.style.transform = `translate3d(0, 0, 0) scale(1)`;
+                    poolItem.style.opacity = "1";
+                    poolItem.style.display = 'flex';
+                }
+            });
+            console.log(`🏆 [Quantum Sieve] Zombiler Küle Döndü! Yeni Evren: ${this.totalCards} Kart. FPS: 120 Lock.`);
+        }, 50);
+    }
+
     applyQuantumSieve(filteredDataArray) {
         if (!filteredDataArray || !Array.isArray(filteredDataArray)) return;
         console.log(`🌌 [Quantum Sieve] Evren daralıyor. Yeni Ritüel Sayısı: ${filteredDataArray.length}`);
@@ -484,6 +548,7 @@ class HamamHybridRenderer {
             if (!response.ok) throw new Error("HTTP Status " + response.status);
 
             const fullData = await response.json();
+            window.__NEURO_SYNC_CACHE__ = fullData; // V17 Kuantum Hafızası (RAM Sızıntı Kalkanı)
             this.data = fullData.filter(s => s.categoryId === 'ritual-hammam' || s.category === 'hammam' || s.id.includes('hamam'));
 
             if (this.data.length === 0) return;
@@ -531,7 +596,7 @@ class HamamHybridRenderer {
         this.masks.forEach(m => {
             const dataPayload = JSON.stringify({ id: m.id, title: m.title, price: m.price });
             html += `
-            <div class="mask-item" data-item='${dataPayload}' style="min-width: 280px; width: 280px; border-radius: 16px; overflow: hidden; background: #111; position: relative; scroll-snap-align: start; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transition: border-color 0.3s ease;">
+            <div class="mask-item" data-item='${dataPayload}' style="min-width: 280px; width: 280px; border-radius: 16px; overflow: hidden; background: #111; position: relative; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transition: border-color 0.3s ease;">
                 <img src="${m.img}" alt="${m.title}" style="width: 100%; height: 180px; object-fit: cover; opacity: 0.8;">
                 <div style="padding: 20px;">
                     <h4 style="font-family: 'Playfair Display', serif; color: #fff; margin:0 0 8px 0; font-size: 1.2rem;">${m.title}</h4>
@@ -543,6 +608,10 @@ class HamamHybridRenderer {
                 </div>
             </div>`;
         });
+
+        // Süzülmeyi (Glide) ve son kartın tam görünmesini sağlamak için %100 görünmez bir bariyer (spacer) ekleniyor
+        html += `<div style="min-width: 40px; height: 10px; flex-shrink: 0; pointer-events: none;"></div>`;
+
         this.railContainer.innerHTML = html;
         this.attachSelectListeners('.mask-item', 'mask');
     }
