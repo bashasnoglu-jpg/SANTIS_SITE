@@ -43,6 +43,9 @@ class HamamHybridRenderer {
     }
 
     async init() {
+        // V11 PHASE 1: Cinematic Entrance
+        this.initCinematicEntrance();
+
         // Step 1: Pre-warm the Object Pool (createElement spam suppression)
         if (this.matrixContainer) this.initObjectPool();
 
@@ -52,7 +55,126 @@ class HamamHybridRenderer {
         // Step 3: Data Load & Virtualization Trigger
         if (this.matrixContainer) {
             await this.loadDataMatrix();
+            this.renderOracleLineup(); // V11 Phase 2: Biometric Matrix
             this.renderMasks();
+        }
+    }
+
+    // ==========================================
+    // V11: CINEMATIC ENTRANCE
+    // ==========================================
+    initCinematicEntrance() {
+        if (typeof gsap === 'undefined') return;
+
+        const entranceElement = document.getElementById('v11-cinematic-entrance');
+        const logo = document.getElementById('v11-entrance-logo');
+        const hint = document.getElementById('v11-entrance-hint');
+
+        if (!entranceElement || !logo) return;
+
+        // 1. Lock scroll initially
+        if (window.SovereignScroll) window.SovereignScroll.lock();
+
+        // 2. Initial Animation (Fade In)
+        gsap.to(entranceElement, { opacity: 1, duration: 0.5 });
+        gsap.to(logo, { opacity: 1, y: 0, duration: 1.2, ease: "power2.out", delay: 0.2 });
+
+        // 3. User Interaction Hook (Neuro-Acoustic Trigger)
+        entranceElement.addEventListener('click', () => {
+            // Neuro-Acoustic 432Hz WebAudio API Stub
+            this.playGodModeAcoustic();
+
+            // Smooth fade out into Sovereign Light
+            gsap.to(hint, { opacity: 0, duration: 0.3 });
+            gsap.to(logo, { opacity: 0, y: -20, duration: 0.5, ease: "power1.in" });
+
+            gsap.to(entranceElement, {
+                yPercent: -100,
+                duration: 1.5,
+                ease: "expo.inOut",
+                delay: 0.2,
+                onComplete: () => {
+                    entranceElement.style.display = 'none';
+                    if (window.SovereignScroll) window.SovereignScroll.unlock();
+                }
+            });
+        }, { once: true });
+    }
+
+    playGodModeAcoustic() {
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            const ctx = new AudioContext();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(432, ctx.currentTime); // 432Hz Healing Frequency
+
+            gain.gain.setValueAtTime(0, ctx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.1, ctx.currentTime + 1); // Subtle sub-bass
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 4);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 4);
+        } catch (e) {
+            console.log("[Sovereign Acoustics] Hardware bypass.");
+        }
+    }
+
+    // ==========================================
+    // V11: ORACLE LINEUP (BIOMETRIC MATRIX)
+    // ==========================================
+    renderOracleLineup() {
+        const oracleGrid = document.getElementById('oracle-icons-grid');
+        if (!oracleGrid) return;
+
+        // Mock Biometric Data (Normally fetched via HealthKit/IoT Sync)
+        const mockHealthStatus = "insomnia"; // User needs sleep
+
+        // Isolate Hammam/Rituals for Quick Access
+        let quickAccessList = [...this.data].slice(0, 8);
+
+        // Biometric algorithmic sorting
+        if (mockHealthStatus === "insomnia") {
+            const sleepTherapyIndex = quickAccessList.findIndex(s => s.id.includes('masaj') || s.name.toLowerCase().includes('rahat'));
+            if (sleepTherapyIndex > -1) {
+                const sleepItem = quickAccessList.splice(sleepTherapyIndex, 1)[0];
+                sleepItem._biometricFlag = "Biyometrik verileriniz için yapılandırıldı";
+                quickAccessList.unshift(sleepItem); // Push to first
+            }
+        }
+
+        let html = '';
+        quickAccessList.forEach((item, idx) => {
+            const trContent = item.content?.tr || { title: item.name };
+            const imagePath = item.media?.thumbnail || item.image || '/assets/img/cards/santis_card_recovery_lotion.webp';
+            const isPriority = item._biometricFlag ? true : false;
+
+            html += `
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; opacity: 0; animation: fadeIn 0.5s ease forwards ${idx * 0.1}s;">
+                <div style="width: 120px; height: 120px; border-radius: 4px; overflow: hidden; border: ${isPriority ? '2px solid #d4af37' : '1px solid rgba(0,0,0,0.1)'}; position: relative; background: #000;">
+                    <img src="${imagePath}" alt="${trContent.title}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    ${isPriority ? `<div style="position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(212,175,55,0.9); padding: 2px 0; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg></div>` : ''}
+                </div>
+                <div style="text-align: center;">
+                    <span style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #111; font-weight: 500; display: block;">${trContent.title.split(' ')[0]}</span>
+                    ${isPriority ? `<span style="font-family: 'Inter', sans-serif; font-size: 0.6rem; color: #d4af37; display: block;">ÖNERİLEN</span>` : ''}
+                </div>
+            </div>`;
+        });
+
+        oracleGrid.innerHTML = html;
+
+        // CSS Animation for fade-in
+        if (!document.getElementById('oracle-styles')) {
+            const style = document.createElement('style');
+            style.id = 'oracle-styles';
+            style.innerHTML = `@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }`;
+            document.head.appendChild(style);
         }
     }
 
@@ -285,40 +407,24 @@ class HamamHybridRenderer {
     }
 
     initCartUI() {
-        this.cartOverlay = document.createElement('div');
-        this.cartOverlay.style.cssText = `
-            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(5,5,5,0.98); 
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
-            border-top: 1px solid rgba(212,175,55,0.2); padding: 20px 0; z-index: 9999;
-            transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; justify-content: center; align-items: center; box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
-        `;
-
-        this.cartOverlay.innerHTML = `
-            <div style="max-width: 1400px; width: 100%; padding: 0 4vw; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-                <div style="display: flex; flex-direction: column; gap: 4px;">
-                    <span style="color: rgba(255,255,255,0.6); font-family: 'Inter', sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Sovereign Paketiniz</span>
-                    <h4 id="cart-summary-text" style="color: #fff; font-family: 'Playfair Display', serif; font-size: 1.4rem; margin: 0; font-weight: 400;">Seçim Bekleniyor...</h4>
-                </div>
-                <div style="display: flex; align-items: center; gap: 24px;">
-                    <div style="text-align: right;">
-                        <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; display: block; margin-bottom: 2px;">Toplam Tutar</span>
-                        <span id="cart-total-price" style="color: #d4af37; font-size: 1.8rem; font-family: 'Inter', sans-serif; font-weight: 300;">0 €</span>
-                    </div>
-                    <button style="background: #fff; color: #000; border: none; padding: 14px 32px; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.9rem; letter-spacing: 1px; border-radius: 99px; cursor: pointer; transition: opacity 0.3s ease;">REZERVASYON YAP</button>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(this.cartOverlay);
+        // Obsolete UI: Cart Overlay is replaced by Phase 4: Sticky Buy Bar
+        this.initGodModeBridge();
     }
 
     updateCartOverlay() {
-        if (!this.cart.hamam && !this.cart.mask) {
-            this.cartOverlay.style.transform = 'translateY(100%)';
-            return;
-        }
+        // Redirecting calculation to Phase 4 V11 Design Studio Logic
+        this.updateV11DesignStudio();
+    }
 
-        this.cartOverlay.style.transform = 'translateY(0)';
+    // ==========================================
+    // V11: THE DESIGN STUDIO (PHASE 4 & 5)
+    // ==========================================
+    updateV11DesignStudio() {
+        const titleEl = document.getElementById('buy-bar-title');
+        const priceEl = document.getElementById('buy-bar-price');
+        const buyBar = document.getElementById('sticky-buy-bar');
+
+        if (!titleEl || !priceEl || !buyBar) return;
 
         let total = 0;
         let summaryParts = [];
@@ -332,8 +438,133 @@ class HamamHybridRenderer {
             summaryParts.push(`+ ${this.cart.mask.title}`);
         }
 
-        document.getElementById('cart-summary-text').innerText = summaryParts.join(' ');
-        document.getElementById('cart-total-price').innerText = `${total} €`;
+        // V11 Default Values if nothing selected
+        if (total === 0) {
+            titleEl.innerText = "Sovereign Seçim Bekleniyor";
+            priceEl.innerText = "Yapılandırın";
+            this.resetSovereignBlack();
+            return;
+        }
+
+        titleEl.innerText = summaryParts.join(' ');
+
+        // V11 Phase 5: Sovereign Black Threshold (€1,200)
+        if (total >= 1200) {
+            priceEl.innerText = `Sovereign Black €${total}`;
+            this.triggerSovereignBlack();
+        } else {
+            priceEl.innerText = `Pay €${(total / 12).toFixed(2)}/mo. for 12 mo.*`;
+            this.resetSovereignBlack();
+        }
+    }
+
+    triggerSovereignBlack() {
+        // Vantablack Environmental Override
+        document.body.style.transition = 'background-color 2s ease, color 2s ease';
+        document.body.style.backgroundColor = '#050505';
+
+        const buyBar = document.getElementById('sticky-buy-bar');
+        if (buyBar) {
+            buyBar.style.background = 'rgba(5,5,5,0.9)';
+            buyBar.style.borderTop = '1px solid rgba(212,175,55,0.3)';
+        }
+
+        const titleText = document.getElementById('buy-bar-title');
+        if (titleText) titleText.style.color = 'rgba(255,255,255,0.6)';
+
+        const priceText = document.getElementById('buy-bar-price');
+        if (priceText) priceText.style.color = '#d4af37';
+
+        const godButton = document.getElementById('btn-god-mode-checkout');
+        if (godButton) {
+            godButton.style.background = 'linear-gradient(135deg, #d4af37, #f3e5ab)';
+            godButton.style.color = '#000';
+            godButton.innerText = 'SOVEREIGN ONAYI';
+
+            // WebHaptics Heavy Impact
+            if (navigator.vibrate) navigator.vibrate([100, 50, 200]);
+        }
+    }
+
+    resetSovereignBlack() {
+        document.body.style.backgroundColor = '';
+
+        const buyBar = document.getElementById('sticky-buy-bar');
+        if (buyBar) {
+            buyBar.style.background = 'rgba(255,255,255,0.9)';
+            buyBar.style.borderTop = '1px solid rgba(0,0,0,0.1)';
+        }
+
+        const titleText = document.getElementById('buy-bar-title');
+        if (titleText) titleText.style.color = 'rgba(0,0,0,0.5)';
+
+        const priceText = document.getElementById('buy-bar-price');
+        if (priceText) priceText.style.color = '#111';
+
+        const godButton = document.getElementById('btn-god-mode-checkout');
+        if (godButton) {
+            godButton.style.background = '#111';
+            godButton.style.color = '#fff';
+            godButton.innerText = 'REZERVASYONU ONAYLA';
+        }
+    }
+
+    // ==========================================
+    // V11: GOD MODE API (PHYGITAL BRIDGE)
+    // ==========================================
+    initGodModeBridge() {
+        const checkoutBtn = document.getElementById('btn-god-mode-checkout');
+        if (!checkoutBtn) return;
+
+        checkoutBtn.addEventListener('click', () => {
+            const isSovereign = this.cart.hamam && (this.cart.hamam.price + (this.cart.mask ? this.cart.mask.price : 0)) >= 1200;
+
+            console.log("=====================================");
+            console.log("🌐 [Sovereign IoT Gateway] Pinging Facility...");
+            console.log(`📡 Room Environment: ${isSovereign ? 'Vantablack & Gold' : 'Apple Light'}`);
+            console.log(`🌡 Oil Pre-Heat: 42°C initiated.`);
+            console.log(`🎵 Neuro-Acoustics: 432Hz ambient loop started.`);
+            console.log("=====================================");
+
+            // Haptic Payment Success
+            if (navigator.vibrate) navigator.vibrate([50, 100, 50, 100, 50]);
+
+            checkoutBtn.innerHTML = '<span style="display: flex; align-items: center; gap: 8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> APPLE WALLET EKLENDİ</span>';
+            checkoutBtn.style.pointerEvents = 'none';
+        });
+
+        // Configurator Studio Option Toggles
+        const options = document.querySelectorAll('.studio-option');
+        options.forEach(opt => {
+            opt.addEventListener('click', (e) => {
+                // Sibling deselect logic for demo purposes
+                const siblings = opt.parentElement.querySelectorAll('.studio-option');
+                siblings.forEach(s => {
+                    s.classList.remove('active');
+                    s.style.border = '1px solid rgba(0,0,0,0.1)';
+                });
+
+                opt.classList.add('active');
+                opt.style.border = '2px solid #111';
+
+                // Oil choice trigger: Haptics & Visuals
+                if (opt.dataset.oil) {
+                    opt.style.border = '2px solid #d4af37';
+                    if (navigator.vibrate) navigator.vibrate(20); // Light taptic click
+
+                    const preview = document.getElementById('studio-main-preview');
+                    if (preview) {
+                        preview.style.opacity = '0';
+                        setTimeout(() => {
+                            preview.src = opt.dataset.oil === 'amber'
+                                ? '/assets/img/cards/santis_card_recovery_lotion.webp'
+                                : '/assets/img/cards/santis_card_body_scrub.webp';
+                            preview.style.opacity = '0.9';
+                        }, 300);
+                    }
+                }
+            });
+        });
     }
 }
 
