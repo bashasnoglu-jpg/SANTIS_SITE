@@ -402,6 +402,7 @@
     }
 
 }
+
 /* ==========================================
    🍏 PHASE 67: THE SOVEREIGN BENTO GRID
    ========================================== */
@@ -416,7 +417,7 @@
     padding: 4px;
     display: inline-flex;
     position: relative;
-    box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .segment-btn {
@@ -432,22 +433,29 @@
     font-weight: 700;
 }
 
-.segment-btn.active { color: #050505; }
+.segment-btn.active {
+    color: #050505;
+}
 
 .segment-glider {
     position: absolute;
-    top: 4px; bottom: 4px; left: 4px;
-    width: calc(33.333% - 4px); /* Buton sayısına göre JS ile güncellenecek */
-    background: #b5a489; /* Brushed Brass */
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    width: calc(33.333% - 4px);
+    /* Buton sayısına göre JS ile güncellenecek */
+    background: #b5a489;
+    /* Brushed Brass */
     border-radius: 999px;
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Apple Spring Effect */
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* Apple Spring Effect */
     z-index: 1;
     box-shadow: 0 4px 15px rgba(181, 164, 137, 0.2);
 }
 
 /* Bento Grid System (Cam Ritüel Kartları) */
 .bento-card {
-    background: linear-gradient(145deg, rgba(20,20,20,0.6) 0%, rgba(5,5,5,0.8) 100%);
+    background: linear-gradient(145deg, rgba(20, 20, 20, 0.6) 0%, rgba(5, 5, 5, 0.8) 100%);
     -webkit-backdrop-filter: blur(24px);
     backdrop-filter: blur(24px);
     border: 1px solid rgba(181, 164, 137, 0.08);
@@ -464,7 +472,7 @@
 .bento-card:hover {
     transform: translateY(-8px);
     border-color: rgba(181, 164, 137, 0.4);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 0 40px rgba(181, 164, 137, 0.05);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(181, 164, 137, 0.05);
 }
 
 /* Theatrical Acts (Hover Anında Beliren Hiyerarşi) */
@@ -487,20 +495,162 @@
 
 /* 👑 THE OTTOMAN APEX (PRO MAX MONOLİTİ) */
 .bento-apex {
-    grid-column: 1 / -1; /* Tüm satırı kaplar */
-    background: linear-gradient(135deg, rgba(20,20,20,0.95) 0%, rgba(10,8,5,0.95) 100%);
-    border: 1px solid rgba(212, 175, 55, 0.3); /* Dark Sovereign Gold */
+    grid-column: 1 / -1;
+    /* Tüm satırı kaplar */
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 8, 5, 0.95) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    /* Dark Sovereign Gold */
     box-shadow: inset 0 0 60px rgba(212, 175, 55, 0.03);
 }
 
 .bento-apex:hover {
     border-color: #D4AF37;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.9), inset 0 0 60px rgba(212, 175, 55, 0.1);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9), inset 0 0 60px rgba(212, 175, 55, 0.1);
 }
 
 /* Mühürle Butonu */
 .btn-seal {
-    border-radius: 999px; /* Tam yuvarlak Apple Payment stili */
+    border-radius: 999px;
+    /* Tam yuvarlak Apple Payment stili */
     transition: transform 0.4s ease, opacity 0.4s ease, color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
+/* ==========================================
+   🍏 PHASE 68: SOVEREIGN APPLE BENTO GRID
+   ========================================== */
+
+.sovereign-bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, minmax(220px, auto));
+    gap: 24px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.sovereign-bento-grid .bento-card {
+    aspect-ratio: 4/5;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background: #050505;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    /* clear old styles */
+    padding: 0;
+    justify-content: unset;
+}
+
+.sovereign-bento-grid .bento-card:hover {
+    transform: translateY(-8px);
+}
+
+.sovereign-bento-grid .signature {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.sovereign-bento-grid .world {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.sovereign-bento-grid .ritual {
+    grid-column: span 1;
+    grid-row: span 2;
+}
+
+.sovereign-bento-grid .nv-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s ease;
+}
+
+.sovereign-bento-grid .bento-card:hover .nv-card-img {
+    transform: scale(1.05);
+}
+
+.sovereign-bento-grid .card-glass-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(20, 20, 20, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    /* Safari GPU fallback */
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transform: translateY(10px);
+    opacity: 0.9;
+    transition: all 0.4s ease;
+}
+
+.sovereign-bento-grid .bento-card:hover .card-glass-overlay {
+    transform: translateY(0);
+    opacity: 1;
+    background: rgba(20, 20, 20, 0.6);
+}
+
+.sovereign-bento-grid .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: #fff;
+    margin: 0;
+}
+
+.sovereign-bento-grid .signature .card-title {
+    font-size: 28px;
+}
+
+.sovereign-bento-grid .card-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.sovereign-bento-grid .card-btn {
+    align-self: flex-start;
+    margin-top: 8px;
+    padding: 8px 20px;
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.sovereign-bento-grid .card-btn:hover {
+    background: #d4af37;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .sovereign-bento-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .sovereign-bento-grid .bento-card.signature,
+    .sovereign-bento-grid .bento-card.world,
+    .sovereign-bento-grid .bento-card.ritual {
+        grid-column: span 1;
+        grid-row: span 1;
+        aspect-ratio: auto;
+        height: 400px;
+    }
+}
