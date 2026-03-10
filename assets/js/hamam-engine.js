@@ -244,20 +244,6 @@ class HamamHybridRenderer {
                 const walk = (x - startX) * 1.5; // Drag speed multiplier
                 this.matrixContainer.scrollLeft = containerScrollLeft - walk;
             });
-
-            // Wheel translation
-            this.matrixContainer.addEventListener('wheel', (e) => {
-                const isAtStart = this.matrixContainer.scrollLeft <= 0;
-                const isAtEnd = Math.ceil(this.matrixContainer.scrollLeft + this.matrixContainer.clientWidth) >= this.matrixContainer.scrollWidth;
-
-                // Translate vertical scroll to horizontal scroll
-                if (e.deltaY !== 0) {
-                    if ((e.deltaY > 0 && !isAtEnd) || (e.deltaY < 0 && !isAtStart)) {
-                        e.preventDefault(); // Pause vertical lenis scroll
-                        this.matrixContainer.scrollLeft += e.deltaY;
-                    }
-                }
-            }, { passive: false });
         }
     }
 
