@@ -560,7 +560,8 @@ class HamamHybridRenderer {
                 const data = JSON.parse(dataStr);
 
                 // Bi-directional Routing: Design Studio Select vs Detail Page Open
-                const isSelectButton = e.target.closest('.select-btn') || e.target.closest('.select-indicator');
+                // Modifikasyon: Maske (Add-on) elementlerinin detail URL'si olmadığı için herhangi bir yere tıklamak seçimi tetikler.
+                const isSelectButton = e.target.closest('.select-btn') || e.target.closest('.select-indicator') || (type === 'mask' && !data.url);
 
                 console.log(`[Router] Card Clicked! ID: ${data.id}, isSelectBtn: ${Boolean(isSelectButton)}`);
 
@@ -582,7 +583,7 @@ class HamamHybridRenderer {
 
                     // SantisBus Global Event Dispatch
                     if (window.SantisBus) {
-                        window.SantisBus.dispatchEvent(new CustomEvent("combo:selected", { detail: this.cart }));
+                        window.SantisBus.emit("combo:selected", { detail: this.cart });
                     }
                 } else {
                     // DETAIL PAGE NAVIGATION
