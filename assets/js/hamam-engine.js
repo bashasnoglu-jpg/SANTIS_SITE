@@ -171,23 +171,39 @@ class HamamHybridRenderer {
             const detailUrl = item.detailUrl || item.url || `/tr/hamam/detay.html?id=${item.id}`;
             const dataPayload = JSON.stringify({ id: item.id, title: trContent.title, price: price, url: detailUrl });
 
+            const shortDesc = trContent.shortDesc || item.description || 'Santis Club imzalı kusursuz deneyim.';
+            const dur = item.duration ? item.duration + ' DK.' : '30 DK. EXPRESS';
+
             html += `
-            <div class="hamam-item" data-item='${dataPayload}' style="flex-shrink: 0; scroll-snap-align: center; width: 280px; height: 400px; border-radius: 8px; overflow: hidden; border: ${isPriority ? '2px solid #d4af37' : '1px solid rgba(0,0,0,0.1)'}; position: relative; background: #080808; cursor: pointer; opacity: 0; animation: fadeIn 0.5s ease forwards ${idx * 0.1}s; display: flex; flex-direction: column; justify-content: flex-end; transition: transform 0.4s ease;">
-                <img src="${imagePath}" alt="${trContent.title}" style="position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; opacity: 0.75; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); z-index: 0;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
-                <div style="position: absolute; top:0; left:0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(5,5,5,0.95) 100%); z-index: 1;"></div>
+            <div class="hamam-item matrix-service-card" data-item='${dataPayload}' style="flex-shrink: 0; scroll-snap-align: start; width: 480px; height: 620px; border-radius: 20px; overflow: hidden; border: ${isPriority ? '2px solid #d4af37' : '2px solid transparent'}; position: relative; background: #080808; cursor: pointer; opacity: 0; animation: fadeIn 0.5s ease forwards ${idx * 0.1}s; display: flex; flex-direction: column; justify-content: flex-end; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+                <img class="sv-cover" src="${imagePath}" alt="${trContent.title}" style="position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); z-index: 0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <div class="card-gradient" style="position: absolute; top:0; left:0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(5,5,5,0.98) 100%); z-index: 1;"></div>
                 
-                ${isPriority ? `<div style="position: absolute; top: 12px; right: 12px; z-index: 3; background: rgba(212,175,55,0.9); backdrop-filter: blur(4px); padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px;">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
-                    <span style="font-family: 'Inter', sans-serif; font-size: 0.65rem; color: #fff; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">${item._biometricFlag}</span>
+                ${isPriority ? `<div style="position: absolute; top: 20px; right: 20px; z-index: 3; background: rgba(212,175,55,0.9); backdrop-filter: blur(4px); padding: 6px 14px; border-radius: 20px; display: flex; align-items: center; gap: 6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                    <span style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #fff; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">${item._biometricFlag}</span>
                 </div>` : ''}
 
-                <div style="position: relative; z-index: 2; padding: 24px; display: flex; flex-direction: column; gap: 6px;">
-                    <span style="font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #d4af37; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">30 DK. EXPRESS</span>
-                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #fff; margin:0; line-height: 1.15; font-weight: 400;">${trContent.title}</h3>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
-                        <span style="color: rgba(255,255,255,0.7); font-family: 'Inter', sans-serif; font-weight: 400; font-size: 1rem;">${price > 0 ? price + ' €' : ''}</span>
-                        <div class="select-btn" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <div style="position: relative; z-index: 2; padding: 40px 32px; display: flex; flex-direction: column; gap: 12px; width: 100%;">
+                    <span class="sv-subtitle" style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #d4af37; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;">${dur} RİTÜELİ</span>
+                    <h3 class="sv-title" style="font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #fff; margin:0; line-height: 1.1; font-weight: 400;">${trContent.title}</h3>
+                    <p class="sv-desc" style="font-family: 'Inter', sans-serif; font-size: 1.05rem; color: rgba(255,255,255,0.6); margin:0; line-height: 1.5; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${shortDesc}</p>
+                    
+                    <div style="margin-top: 8px; display: flex; align-items: center; justify-content: space-between;">
+                        <div class="apple-link-btn select-btn" style="display: inline-flex; align-items: center; gap: 8px; color: #0071e3; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.1rem; cursor: pointer; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+                            Ritüeli Yapılandır
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+                        </div>
+                    </div>
+
+                    <div class="sv-spec-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 6px;">
+                            <span style="color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Süre</span>
+                            <span class="sv-spec-duration" style="color: #fff; font-size: 1.1rem; font-family: 'Inter', sans-serif;">${item.duration || '30'} Dakika</span>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 6px;">
+                            <span style="color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Yatırım</span>
+                            <span class="sv-price" style="color: #d4af37; font-size: 1.1rem; font-family: 'Inter', sans-serif; font-weight: 500;">${price > 0 ? price + ' €' : 'Özel'}</span>
                         </div>
                     </div>
                 </div>
@@ -262,19 +278,33 @@ class HamamHybridRenderer {
         for (let i = 0; i < this.POOL_SIZE; i++) {
             const card = document.createElement("div");
             card.className = "matrix-service-card hamam-item";
-            card.style.cssText = `flex-shrink: 0; position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 3/4; display: none; flex-direction: column; justify-content: flex-end; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; border: 2px solid transparent;`;
+            card.style.cssText = `flex-shrink: 0; scroll-snap-align: start; width: 480px; height: 620px; border-radius: 20px; overflow: hidden; position: relative; display: none; flex-direction: column; justify-content: flex-end; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; border: 2px solid transparent; background: #080808;`;
 
             card.innerHTML = `
-                <img class="sv-cover" src="" alt="Santis Service" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; filter: brightness(0.7) contrast(1.1);" loading="lazy" decoding="async">
-                <div class="card-gradient" style="position: absolute; top:0; left:0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(5,5,5,0.95) 100%); z-index: 1;"></div>
+                <img class="sv-cover" src="" alt="Santis Service" style="position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); z-index: 0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <div class="card-gradient" style="position: absolute; top:0; left:0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(5,5,5,0.98) 100%); z-index: 1;"></div>
                 
-                <div style="position: relative; z-index: 2; padding: 32px 24px; display: flex; flex-direction: column; gap: 8px;">
-                    <h3 class="sv-title" style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #fff; margin:0; letter-spacing: -0.5px; line-height: 1.1;"></h3>
-                    <p class="sv-desc" style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: rgba(255,255,255,0.7); margin:0; line-height: 1.5; font-weight: 300;"></p>
+                <div style="position: relative; z-index: 2; padding: 40px 32px; display: flex; flex-direction: column; gap: 12px; width: 100%;">
+                    <span class="sv-subtitle" style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #d4af37; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;">SPA RİTÜELİ</span>
+                    <h3 class="sv-title" style="font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #fff; margin:0; line-height: 1.1; font-weight: 400;"></h3>
+                    <p class="sv-desc" style="font-family: 'Inter', sans-serif; font-size: 1.05rem; color: rgba(255,255,255,0.6); margin:0; line-height: 1.5; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"></p>
                     
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
-                        <span class="sv-price" style="color: #d4af37; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.2rem;"></span>
-                        <button class="magnetic-btn select-btn" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; padding: 10px 24px; border-radius: 99px; font-size: 0.8rem; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease; pointer-events: auto;">SEÇ</button>
+                    <div style="margin-top: 8px; display: flex; align-items: center; justify-content: space-between;">
+                        <div class="apple-link-btn select-btn" style="display: inline-flex; align-items: center; gap: 8px; color: #0071e3; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.1rem; cursor: pointer; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+                            Ritüeli Yapılandır
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+                        </div>
+                    </div>
+
+                    <div class="sv-spec-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 6px;">
+                            <span style="color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Süre</span>
+                            <span class="sv-spec-duration" style="color: #fff; font-size: 1.1rem; font-family: 'Inter', sans-serif;">60 Dakika</span>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 6px;">
+                            <span style="color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Yatırım</span>
+                            <span class="sv-price" style="color: #d4af37; font-size: 1.1rem; font-family: 'Inter', sans-serif; font-weight: 500;"></span>
+                        </div>
                     </div>
                 </div>
             `;
@@ -333,13 +363,16 @@ class HamamHybridRenderer {
         const imagePath = dataItem.image || (dataItem.media?.hero ? `/assets/img/cards/${dataItem.media.hero}` : '/assets/img/cards/santis_card_hammam_lux.webp');
         const detailUrl = dataItem.detailUrl || dataItem.url || `/tr/hamam/detay.html?id=${dataItem.id}`;
         const dataPayload = JSON.stringify({ id: dataItem.id, title: trContent.title, price: price, url: detailUrl });
+        const dur = dataItem.duration ? dataItem.duration + ' DK.' : 'SPA';
 
         // Update values without recreating DOM
         cardDOM.querySelector('.sv-cover').src = imagePath;
         cardDOM.querySelector('.sv-cover').alt = trContent.title;
         cardDOM.querySelector('.sv-title').textContent = trContent.title;
-        cardDOM.querySelector('.sv-desc').textContent = trContent.shortDesc;
-        cardDOM.querySelector('.sv-price').textContent = `${price} €`;
+        cardDOM.querySelector('.sv-subtitle').textContent = dur + ' RİTÜELİ';
+        cardDOM.querySelector('.sv-desc').textContent = trContent.shortDesc || dataItem.description || 'Santis Club imzalı özel deneyim.';
+        cardDOM.querySelector('.sv-spec-duration').textContent = dataItem.duration ? dataItem.duration + ' Dakika' : 'Özel';
+        cardDOM.querySelector('.sv-price').textContent = price > 0 ? price + ' €' : 'Özel';
         cardDOM.setAttribute('data-item', dataPayload);
 
         // Show element (if hidden)
@@ -349,14 +382,14 @@ class HamamHybridRenderer {
         const isSelected = this.cart.hamam && this.cart.hamam.id === dataItem.id;
         cardDOM.style.borderColor = isSelected ? '#d4af37' : 'transparent';
         const btn = cardDOM.querySelector('.select-btn');
-        if (isSelected) {
-            btn.style.background = '#d4af37';
-            btn.style.color = '#000';
-            btn.innerText = 'SEÇİLDİ';
-        } else {
-            btn.style.background = 'rgba(255,255,255,0.1)';
-            btn.style.color = '#fff';
-            btn.innerText = 'SEÇ';
+        if (btn) {
+            if (isSelected) {
+                btn.style.color = '#d4af37';
+                btn.innerHTML = `SEÇİLDİ <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+            } else {
+                btn.style.color = '#0071e3';
+                btn.innerHTML = `Ritüeli Yapılandır <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>`;
+            }
         }
     }
 
@@ -525,13 +558,11 @@ class HamamHybridRenderer {
                 // Safe check if card doesn't have a select text button (like Oracle cards)
                 if (btn) {
                     if (isSelected) {
-                        btn.style.background = '#d4af37';
-                        btn.style.color = '#000';
-                        btn.innerText = 'SEÇİLDİ';
+                        btn.style.color = '#d4af37';
+                        btn.innerHTML = `SEÇİLDİ <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
                     } else {
-                        btn.style.background = 'rgba(255,255,255,0.1)';
-                        btn.style.color = '#fff';
-                        btn.innerText = 'SEÇ';
+                        btn.style.color = '#0071e3';
+                        btn.innerHTML = `Ritüeli Yapılandır <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>`;
                     }
                 }
             } else if (type === 'mask') {
@@ -722,14 +753,17 @@ class HamamHybridRenderer {
                 siblings.forEach(s => {
                     s.classList.remove('active');
                     s.style.border = '1px solid rgba(0,0,0,0.1)';
+                    s.style.background = 'transparent';
+                    s.style.boxShadow = 'none';
                 });
 
                 opt.classList.add('active');
-                opt.style.border = '2px solid #111';
 
                 // Oil choice trigger: Haptics & Visuals
                 if (opt.dataset.oil) {
                     opt.style.border = '2px solid #d4af37';
+                    opt.style.background = 'rgba(212,175,55,0.05)';
+                    opt.style.boxShadow = '0 8px 24px rgba(212,175,55,0.15)';
                     if (navigator.vibrate) navigator.vibrate(20); // Light taptic click
 
                     const preview = document.getElementById('studio-main-preview');
@@ -742,6 +776,9 @@ class HamamHybridRenderer {
                             preview.style.opacity = '0.9';
                         }, 300);
                     }
+                } else {
+                    opt.style.border = '2px solid #111';
+                    opt.style.background = 'rgba(0,0,0,0.02)';
                 }
             });
         });
