@@ -411,4 +411,21 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById('nv-main-nav')) {
         setTimeout(startUIOrchestrator, 500);
     }
+
+    // 📡 SOVEREIGN EVENT BARRIER: Dispatch DOM_READY signal
+    const emitDomReady = () => {
+        if (window.SantisBus) {
+            window.SantisBus.emit('santis:dom-ready', { page: window.location.pathname });
+            console.log("🏗 [Router] DOM Ready signal emitted");
+        } else {
+            // Re-try once if Bus loaded asynchronously
+            setTimeout(() => {
+                if (window.SantisBus) {
+                    window.SantisBus.emit('santis:dom-ready', { page: window.location.pathname });
+                    console.log("🏗 [Router] Late DOM Ready signal emitted");
+                }
+            }, 100);
+        }
+    };
+    emitDomReady();
 });

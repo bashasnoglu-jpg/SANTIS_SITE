@@ -310,19 +310,47 @@ window.SantisV8Engine = { boot: SantisCardEngineV8.init };
 
 /* ── BOOT TETİKLEYİCİ ── */
 (function () {
-    function tryBoot() {
-        if (window.__SANTIS_RAIL_READY__ && window.SovereignDataMatrix && window.SovereignDataMatrix.length) {
-            SantisCardEngineV8.init(window.SovereignDataMatrix);
-        } else {
-            document.addEventListener('santis:rail-ready', e => SantisCardEngineV8.init(e.detail), { once: true });
-            setTimeout(() => {
-                if (!document.querySelector('.santis-card-v8')) {
-                    console.warn('[V8.5] Failsafe boot...');
-                    SantisCardEngineV8.init();
-                }
-            }, 1500);
+    console.log("[V8.5] Engine standby. Waiting for DOM & DATA barriers...");
+
+    let domReady = false;
+    let dataReady = false;
+    let dataPayload = null;
+    let bootTriggered = false;
+
+    function checkLocks() {
+        if (domReady && dataReady && !bootTriggered) {
+            bootTriggered = true;
+            console.log("⚡ [V8] DOM & DATA barriers passed. Rendering cards...");
+            SantisCardEngineV8.init(dataPayload || window.SovereignDataMatrix);
         }
     }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tryBoot);
-    else tryBoot();
+
+    // Modern V11 Sovereign Bus Architecture
+    if (window.SantisBus) {
+        window.SantisBus.on('santis:dom-ready', () => {
+            domReady = true;
+            checkLocks();
+        });
+
+        window.SantisBus.on('santis:rail-ready', (evt) => {
+            dataReady = true;
+            if (evt && evt.detail) dataPayload = evt.detail;
+            else if (Array.isArray(evt)) dataPayload = evt;
+            checkLocks();
+        });
+    } else {
+        // Legacy Failsafe (If Bus is missing)
+        document.addEventListener('DOMContentLoaded', () => { domReady = true; checkLocks(); });
+        document.addEventListener('santis:rail-ready', (e) => { dataReady = true; dataPayload = e.detail; checkLocks(); }, { once: true });
+
+        // Hard Reboot Failsafe (e.g., Cache locks)
+        setTimeout(() => {
+            if (!bootTriggered && !document.querySelector('.santis-card-v8')) {
+                console.warn('[V8.5] Phantom Render Race Condition detected! Force Booting...');
+                domReady = true;
+                dataReady = true;
+                checkLocks();
+            }
+        }, 2000);
+    }
 })();

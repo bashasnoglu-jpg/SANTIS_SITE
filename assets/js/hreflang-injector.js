@@ -91,10 +91,11 @@
      * Translate a canonical path to a specific language's actual path.
      */
     function toLanguagePath(canonicalPath, targetLang) {
+        if (!canonicalPath) return '/' + targetLang + '/';
         const parts = canonicalPath.split('/');
         const router = window.SantisRouter;
 
-        if (parts.length >= 1 && router && router.ROUTE_MAP[parts[0]]) {
+        if (parts.length >= 1 && router && router.ROUTE_MAP && router.ROUTE_MAP[parts[0]]) {
             const translations = router.ROUTE_MAP[parts[0]];
             parts[0] = translations[targetLang] || translations[DEFAULT_LANG] || parts[0];
         }

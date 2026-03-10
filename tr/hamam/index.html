@@ -401,19 +401,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #d4af37; outline-offs
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
-<!-- ESSENTIALS -->
-<script>
-    window.SITE_ROOT = '../../';
-    const navPath = '../../components/navbar.html';
-    const footPath = '../../components/footer.html';
-
-    document.addEventListener("DOMContentLoaded", () => {
-         if (typeof loadComp === "function") {
-            if(document.getElementById("navbar-container")) loadComp(navPath, "navbar-container");
-            if(document.getElementById("footer-container")) loadComp(footPath, "footer-container");
-         }
-    });
-</script>
+<!-- OMNI-OS V5 MASTER KERNEL -->
+<script src="/assets/js/app.js" defer></script>
 
 <!-- SOVEREIGN SCROLL ENGINE (PHASE 9) -->
 <script src="/assets/js/santis-scroll-engine.js" defer></script>
