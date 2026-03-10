@@ -145,7 +145,7 @@
     // =========================================================
     const PAGE_MAP = {
         'index': () => import('/assets/js/pages/home-page.js'),
-        'hamam': () => import('/assets/js/pages/rail-page.js'),
+        'hamam': () => import('/assets/js/hamam-engine.js'),
         'massage': () => import('/assets/js/pages/rail-page.js'),
         'skincare': () => import('/assets/js/pages/skincare.js'),
         'rituals': () => import('/assets/js/pages/rituals.js'),
