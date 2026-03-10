@@ -51,7 +51,9 @@
 <link href="https://santis-club.com/tr/index.html" hreflang="tr" rel="alternate"/>
 <link href="https://santis-club.com/en/index.html" hreflang="x-default" rel="alternate"/>
 <meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Santis Club • Spa &amp; Wellness" name="twitter:title"/><meta content="Santis Club – Antalya'da özel lüks spa, hamam ritüelleri ve terapötik wellness deneyimi." name="twitter:description"/><meta content="https://santisclub.com/assets/img/cards/hammam.webp" name="twitter:image"/></head>
-<body class="editorial-mode">
+<body class="editorial-mode" data-page="index">
+<!-- 🌌 V17 THE GOD CANVAS (Quantum Renderer) 🌌 -->
+<canvas id="santis-god-canvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:-1;"></canvas>
 <noscript>
 <nav style="background:#0a0c10;padding:12px 20px;text-align:center;border-bottom:1px solid rgba(212,175,55,0.15);">
 <a href="/tr/index.html" style="color:#d4af37;margin:0 12px;text-decoration:none;font-size:13px;">ANA SAYFA</a>
@@ -139,7 +141,7 @@
         </div>
         <a href="/tr/masajlar/index.html" style="color:#888;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#888'">Tümünü Gör &rarr;</a>
       </div>
-      <div class="santis-socket" data-layout="rail" data-category="massage" data-limit="8"></div>
+      <div class="santis-matrix-container" id="santis-massage-matrix" data-layout="rail" data-category="massage" data-limit="8"></div>
     </div>
 
     <!-- Skincare Rail -->
@@ -151,7 +153,7 @@
         </div>
         <a href="/tr/cilt-bakimi/index.html" style="color:#888;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#888'">Tümünü Gör &rarr;</a>
       </div>
-      <div class="santis-socket" data-layout="rail" data-category="skincare" data-limit="8"></div>
+      <div class="santis-matrix-container" id="santis-skincare-matrix" data-layout="rail" data-category="skincare" data-limit="8"></div>
     </div>
 
   </div>
@@ -186,18 +188,15 @@
 <!-- SECTION 7: STICKY BAR -->
 <div class="nv-sticky-booking" id="stickyBooking"><div class="nv-sticky-booking-inner"><span class="nv-sticky-booking-text">Ritüelinizi planlayın</span><a class="nv-btn nv-btn-primary nv-btn-sm" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">Rezervasyon</a></div></div>
 <div id="footer-container"></div>
+<!-- V17 SOVEREIGN ARCHITECTURE SCRIPTS -->
+<script src="/assets/js/santis-bootloader.js" defer></script>
+
 <div class="modal-overlay" hidden="" id="bookingModal"></div>
-<script defer="" src="/assets/js/loaders/data-bridge.js"></script>
 <script defer="" src="/assets/js/url-normalizer.js"></script>
 <script defer="" src="/assets/js/routes.js"></script>
 <script defer="" src="/assets/js/concierge-engine.js"></script>
-<!-- card-effects.js REMOVED: SAFE MODE, does nothing -->
-<!-- santis-hologram.js REMOVED: Dev-only editor tool -->
-<!-- santis-reveal.js REMOVED: Replaced by santis-atmosphere.js -->
 <script defer="" src="/assets/js/santis-atmosphere.js"></script>
 <script defer="" src="/assets/js/app.js"></script>
 <script>(function(){var b=document.getElementById('stickyBooking');if(!b)return;var s=false;window.addEventListener('scroll',function(){if(window.scrollY>600&&!s){b.classList.add('visible');s=true;}else if(window.scrollY<=600&&s){b.classList.remove('visible');s=false;}},{passive:true});})();</script>
-<script defer src="/assets/js/santis-data-bridge.js"></script>
-<script defer src="/assets/js/santis-v8-engine.js"></script>
 </body>
 </html>
