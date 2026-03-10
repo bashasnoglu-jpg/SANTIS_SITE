@@ -199,6 +199,9 @@ const SantisDataBridge = {
     }
 };
 
+// V17 & Legacy Global Export
+window.SantisDataBridge = SantisDataBridge;
+
 window.SantisDataBridge = SantisDataBridge;
 
 window.SovereignDataBridge = { injectMatrix: (ep) => SantisDataBridge.bootMatrix(ep, '#santis-app') };
