@@ -14,6 +14,22 @@
             console.error("🚨 [Skincare Detail] SovereignDataBridge is missing! Cards will not load.");
         }
 
+        // 2. DATA READY LISTENER (DOM Render hooks)
+        document.addEventListener('santis:rail-ready', function () {
+            console.log("⚡ [Skincare Detail] Data Ready. Arming Matrix Cards...");
+            if (typeof window.initNuclearCards === 'function') {
+                window.initNuclearCards({
+                    containerId: 'skincare-grid',
+                    filterHelper: function (item) {
+                        var cat = String(item.category || item.categoryId || '').toLowerCase();
+                        return cat.includes('skincare') || cat.includes('sothys') || cat === 'face' || cat === 'cilt-bakimi';
+                    }
+                });
+            } else {
+                console.error("🚨 [Skincare Detail] initNuclearCards is undefined. Check nuclear-cards.js loading.");
+            }
+        });
+
         // 2. SCROLL INDICATOR
         var scrollTrigger = document.querySelector(".nv-scroll-indicator[data-scroll-target]");
         if (scrollTrigger && scrollTrigger.dataset.scrollBound !== "1") {
