@@ -5,6 +5,7 @@
   font-display: swap;
   src: url(../fonts/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jDOjw.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;
@@ -12,6 +13,7 @@
   font-display: swap;
   src: url(../fonts/co3umX5slCNuHLi8bLeY9MK7whWMhyjypVO7abI26QOD_v86GnM.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -19,6 +21,7 @@
   font-display: swap;
   src: url(../fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuOKfMZg.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -26,6 +29,7 @@
   font-display: swap;
   src: url(../fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -33,6 +37,7 @@
   font-display: swap;
   src: url(../fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuI6fMZg.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -40,13 +45,16 @@
   font-display: swap;
   src: url(../fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'Playfair Display';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(../fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQ.ttf) format('truetype');
+  src: url(../fonts/PlayfairDisplay-Regular.woff2) format('woff2'),
+    url(../fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQ.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'Playfair Display';
   font-style: normal;
