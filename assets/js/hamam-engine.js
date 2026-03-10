@@ -425,17 +425,23 @@ class HamamHybridRenderer {
         // 3. TIMELINE RESET (Zamanın Bükülmesi)
         if (this.matrixContainer) this.matrixContainer.scrollLeft = 0;
 
-        // 4. THE AMNESIA PROTOCOL (Hafıza Silme)
+        // 4. THE QUANTUM AMNESIA PROTOCOL (Phantom Node / Zombi Referans Temizliği)
         this.pool.forEach(poolNode => {
-            // Endeksi unutturmak / Işınlanma efekti için karart
-            poolNode.style.opacity = "0";
-            poolNode.style.transform = `translate3d(-9999px, 0, 0)`;
-            poolNode.style.transition = 'none'; // Geçici olarak transition kapat
+            poolNode._currentIndex = -1; // RAM'deki endeksi sıfırla (Amnesia)
+            poolNode.style.opacity = "0"; // Görünmez yap
+            poolNode.style.transform = `translate3d(-9999px, 0, 0)`; // Uzay boşluğuna fırlat
+            poolNode.style.transition = 'none'; // CSS Geçişini devre dışı bırak
         });
 
-        // 5. YENİ EVRENİ UYANDIR (Re-ignite)
+        // 5. YENİ EVRENİ UYANDIR (Render Reconicile)
         setTimeout(() => {
-            this.renderViewport(0);
+            // Motoru sıfırdan yeniden başlat
+            if (typeof this.reconcile === 'function') {
+                this.reconcile(0);
+            } else {
+                this.renderViewport(0);
+            }
+
             this.pool.forEach((poolNode, idx) => {
                 if (idx < this.data.length && idx < this.POOL_SIZE) {
                     poolNode.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s';
@@ -443,7 +449,7 @@ class HamamHybridRenderer {
                     poolNode.style.opacity = "1";
                 }
             });
-            console.log(`🏆 [Quantum Sieve] Filtreleme Kusursuz Tamamlandı. DOM Sabit: ${this.POOL_SIZE} Element.`);
+            console.log(`🏆 [Quantum Amnesia] Zombi Karatalar Silindi. DOM Sabit: ${this.POOL_SIZE} Element. Motor Reconcile Edildi.`);
         }, 50);
     }
 
