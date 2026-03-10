@@ -3,7 +3,6 @@
  * SOVEREIGN OS v10 - SPA ROUTER PAGE (V10 IGNITION)
  * ========================================================================
  */
-import { SantisDataBridge } from '../santis-data-bridge.js';
 
 export const RailPage = {
     async mount() {
@@ -29,8 +28,8 @@ export const RailPage = {
         const selector = container.id ? `#${container.id}` : '.santis-matrix-container';
 
         // 3. V10 Kuantum Köprüsünü Ateşle!
-        if (SantisDataBridge && SantisDataBridge.bootMatrix) {
-            await SantisDataBridge.bootMatrix('/assets/data/services.json', selector, category);
+        if (window.SantisDataBridge && window.SantisDataBridge.bootMatrix) {
+            await window.SantisDataBridge.bootMatrix('/assets/data/services.json', selector, category);
         }
     },
 

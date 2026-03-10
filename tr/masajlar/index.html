@@ -269,7 +269,9 @@
     </script>
     <!-- /SCHEMA SYNC -->
 </head>
-<body class="editorial-mode">
+<body class="editorial-mode" data-page="massage">
+<!-- 🌌 V17 THE GOD CANVAS (Quantum Renderer) 🌌 -->
+<canvas id="santis-god-canvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:-1;"></canvas>
 <noscript>
 <nav style="background:#0a0c10; text-align:center; border-bottom:1px solid rgba(212,175,55,0.15); padding:12px 20px">
 <a href="/index.html" style="color:#d4af37; text-decoration:none; font-size:13px; margin:0 12px">ANA SAYFA</a>
@@ -324,7 +326,7 @@
 </div>
 <!-- MASSAGE GRID (Universal Renderer) -->
 <div class="nv-container nv-section" data-section="massage" id="massages">
-<div class="santis-socket" data-layout="grid" data-category="massage"></div>
+<div class="product-grid-v2 nv-product-grid santis-matrix-container" id="santis-matrix-container"></div>
 </div>
 <div class="related-services-auto" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:12px; margin-top:40px; padding:30px"><h3>Benzer Hizmetler</h3><ul style="list-style:none; padding:0; margin:10px 0 0 0"><li style="margin:6px 0;"><a href="/tr/masajlar/klasik-rahatlama.html" style="color:#d4af37; text-decoration:none; font-size:14px">➤ Klasik Rahatlama Masajı</a></li><li style="margin:6px 0;"><a href="/tr/masajlar/anti-stress.html" style="color:#d4af37; text-decoration:none; font-size:14px">➤ Anti-Stress Masajı</a></li><li style="margin:6px 0;"><a href="/tr/masajlar/aromaterapi.html" style="color:#d4af37; text-decoration:none; font-size:14px">➤ Aromaterapi Masajı</a></li></ul></div>
 <section class="category-all-services">
@@ -405,14 +407,12 @@
 <script src="/assets/js/santis-bootloader.js" defer></script>
 
 <!-- PAGE SPECIFIC CARDS & EFFECTS -->
-<script defer src="/assets/js/nuclear-cards.js"></script>
 <script defer src="/assets/js/card-effects.js"></script>
 <script src="/assets/js/pages/chip-filter.js"></script>
 <script src="/assets/js/pages/nuclear-preloader.js"></script>
 
 <!-- BOOKING WIZARD -->
 <script defer src="/assets/js/booking-wizard.js"></script>
-<script defer src="/assets/js/santis-data-bridge.js"></script>
 
 <script>
     // DYNAMIC ROOT DEFINITION
@@ -425,30 +425,7 @@
             if(document.getElementById("navbar-container")) loadComp(navPath, "navbar-container");
             if(document.getElementById("footer-container")) loadComp(footPath, "footer-container");
         }
-        
-        console.log("⚡ [Massage Page] Initializing V10 Engine Routing...");
-        // 1. DATA BRIDGE INJECTION (V10 CORE)
-        if (typeof window.SovereignDataBridge !== "undefined" && typeof window.SovereignDataBridge.injectMatrix === "function") {
-            window.SovereignDataBridge.injectMatrix("/assets/data/services.json", ".nv-product-grid", "massage");
-        } else {
-            console.error("🚨 [Massage Page] SovereignDataBridge is missing! Cards will not load.");
-        }
-    });
-
-    // 2. DATA READY LISTENER (DOM Render hooks)
-    document.addEventListener('santis:rail-ready', function() {
-        console.log("⚡ [Massage Page] Data Ready. Arming Matrix Cards...");
-        if (typeof window.initNuclearCards === 'function') {
-            window.initNuclearCards({
-                containerId: 'massage-grid',
-                filterHelper: function(item) {
-                    var cat = String(item.category || item.categoryId || '').toLowerCase();
-                    return cat.includes('massage') || cat.includes('asian') || cat.includes('classical') || cat.includes('specialty');
-                }
-            });
-        }
     });
 </script>
-
 </body>
 </html>
