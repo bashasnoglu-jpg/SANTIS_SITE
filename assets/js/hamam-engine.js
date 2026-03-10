@@ -141,15 +141,28 @@ class HamamHybridRenderer {
             .filter(s => {
                 const c = (s.categoryId || s.category || '').toLowerCase();
                 const isHamam = c.includes('hammam') || c.startsWith('ritual-hammam') || c === 'hamam';
-                const isShort = s.duration === 30 || (s.duration && typeof s.duration === 'string' && s.duration.includes('30'));
+                const isShort = s.duration == 30 || (s.duration && String(s.duration).includes('30'));
                 return isHamam && isShort;
             })
             .slice(0, 8);
 
         // Fallback if not enough 30-min services found in JSON
         if (quickAccessList.length < 8) {
-            const fillers = [...this.data].filter(s => s.duration === 45 || s.duration === 50).slice(0, 8 - quickAccessList.length);
+            const needed = 8 - quickAccessList.length;
+            const fillers = [...this.data].filter(s => {
+                const isAlreadyAdded = quickAccessList.some(q => q.id === s.id);
+                const c = (s.categoryId || s.category || '').toLowerCase();
+                const isHamam = c.includes('hammam') || c.startsWith('ritual-hammam') || c === 'hamam';
+                return !isAlreadyAdded && isHamam;
+            }).slice(0, needed);
+
             quickAccessList = [...quickAccessList, ...fillers];
+
+            // If still not 8 (e.g., Hamam category is too small), grab from anywhere
+            if (quickAccessList.length < 8) {
+                const ultimateFillers = [...this.data].filter(s => !quickAccessList.some(q => q.id === s.id)).slice(0, 8 - quickAccessList.length);
+                quickAccessList = [...quickAccessList, ...ultimateFillers];
+            }
         }
 
         // Biometric algorithmic sorting (Mock IoT)
