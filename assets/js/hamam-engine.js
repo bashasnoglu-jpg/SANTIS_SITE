@@ -168,7 +168,8 @@ class HamamHybridRenderer {
             const imagePath = item.media?.thumbnail || item.image || '/assets/img/cards/santis_card_recovery_lotion_v2.webp';
             const isPriority = item._biometricFlag ? true : false;
             const price = item.price?.amount || item.price_eur || 0;
-            const dataPayload = JSON.stringify({ id: item.id, title: trContent.title, price: price });
+            const detailUrl = item.detailUrl || item.url || `/tr/hamam/detay.html?id=${item.id}`;
+            const dataPayload = JSON.stringify({ id: item.id, title: trContent.title, price: price, url: detailUrl });
 
             html += `
             <div class="hamam-item" data-item='${dataPayload}' style="flex-shrink: 0; scroll-snap-align: center; width: 280px; height: 400px; border-radius: 8px; overflow: hidden; border: ${isPriority ? '2px solid #d4af37' : '1px solid rgba(0,0,0,0.1)'}; position: relative; background: #080808; cursor: pointer; opacity: 0; animation: fadeIn 0.5s ease forwards ${idx * 0.1}s; display: flex; flex-direction: column; justify-content: flex-end; transition: transform 0.4s ease;">
@@ -330,7 +331,8 @@ class HamamHybridRenderer {
         const trContent = dataItem.content?.tr || { title: dataItem.name, shortDesc: dataItem.description || "" };
         const price = dataItem.price?.amount || dataItem.price_eur || 0;
         const imagePath = dataItem.image || (dataItem.media?.hero ? `/assets/img/cards/${dataItem.media.hero}` : '/assets/img/cards/santis_card_hammam_lux.webp');
-        const dataPayload = JSON.stringify({ id: dataItem.id, title: trContent.title, price: price });
+        const detailUrl = dataItem.detailUrl || dataItem.url || `/tr/hamam/detay.html?id=${dataItem.id}`;
+        const dataPayload = JSON.stringify({ id: dataItem.id, title: trContent.title, price: price, url: detailUrl });
 
         // Update values without recreating DOM
         cardDOM.querySelector('.sv-cover').src = imagePath;
@@ -459,28 +461,40 @@ class HamamHybridRenderer {
             if (el._listenerAttached) return;
             el._listenerAttached = true;
 
-            el.addEventListener('click', () => {
+            el.addEventListener('click', (e) => {
                 const dataStr = el.getAttribute('data-item');
                 if (!dataStr) return;
                 const data = JSON.parse(dataStr);
 
-                // Toggle logic
-                if (this.cart[type] && this.cart[type].id === data.id) {
-                    this.cart[type] = null; // deselect
+                // Bi-directional Routing: Design Studio Select vs Detail Page Open
+                const isSelectButton = e.target.closest('.select-btn') || e.target.closest('.select-indicator') || e.target.closest('path');
+
+                if (isSelectButton) {
+                    // CART TOGGLE LOGIC
+                    if (this.cart[type] && this.cart[type].id === data.id) {
+                        this.cart[type] = null; // deselect
+                    } else {
+                        this.cart[type] = data; // select
+                    }
+
+                    this.updateUISelection(selector, type);
+
+                    // Phase 4/5 integration triggers
+                    if (typeof this.updateCartOverlay === 'function') {
+                        this.updateCartOverlay();
+                    }
+
+                    // SantisBus Global Event Dispatch
+                    if (window.SantisBus) {
+                        window.SantisBus.dispatchEvent(new CustomEvent("combo:selected", { detail: this.cart }));
+                    }
                 } else {
-                    this.cart[type] = data; // select
-                }
-
-                this.updateUISelection(selector, type);
-
-                // Phase 4/5 integration triggers
-                if (typeof this.updateCartOverlay === 'function') {
-                    this.updateCartOverlay();
-                }
-
-                // SantisBus Global Event Dispatch
-                if (window.SantisBus) {
-                    window.SantisBus.dispatchEvent(new CustomEvent("combo:selected", { detail: this.cart }));
+                    // DETAIL PAGE NAVIGATION
+                    if (window.SovereignVault) {
+                        window.SovereignVault.open({ id: data.id, title: data.title, isProduct: false });
+                    } else if (data.url) {
+                        window.location.href = data.url;
+                    }
                 }
             });
         });
