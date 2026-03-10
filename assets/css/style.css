@@ -1863,7 +1863,8 @@ html.lenis body {
   width: 100%;
 }
 
-#nv-main-nav.sovereign-nav.navbar--scrolled {
+#nv-main-nav.sovereign-nav.navbar--scrolled,
+body.solid-nav-page #nv-main-nav.sovereign-nav {
   height: 70px;
   background: rgba(10, 10, 10, 0.92);
   -webkit-backdrop-filter: blur(25px);
