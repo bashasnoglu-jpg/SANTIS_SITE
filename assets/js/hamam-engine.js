@@ -7,7 +7,9 @@
 export async function init(signal) {
     if (signal?.aborted) return;
     console.log("[Sovereign Engine] 🩸 Hybrid Renderer Booting...");
-    new HamamHybridRenderer().init();
+    const renderer = new HamamHybridRenderer();
+    window.SovereignEngineInstance = renderer; // Kuantum sızıntıları ve komutlar için kapıyı arala
+    renderer.init();
 }
 
 class HamamHybridRenderer {
@@ -404,6 +406,45 @@ class HamamHybridRenderer {
                 btn.innerHTML = `Ritüeli Yapılandır <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>`;
             }
         }
+    }
+
+    // ==========================================
+    // THE QUANTUM SIEVE (Sovereign Filter)
+    // ==========================================
+    applyQuantumSieve(filteredDataArray) {
+        if (!filteredDataArray || !Array.isArray(filteredDataArray)) return;
+        console.log(`🌌 [Quantum Sieve] Evren daralıyor. Yeni Ritüel Sayısı: ${filteredDataArray.length}`);
+
+        // 1. KUTSAL VERİYİ DEĞİŞTİR (Uzayı Daralt)
+        this.data = filteredDataArray;
+        this.totalCards = this.data.length;
+
+        // 2. THE SPACE COLLAPSE (HamamHybridRenderer için Virtual Genişliği ayarlama veya Snap'i resetleme)
+        // Hamam motoru CSS Flexbox scroll kullanır. ScrollTrack genişletilmesine gerek yoktur.
+
+        // 3. TIMELINE RESET (Zamanın Bükülmesi)
+        if (this.matrixContainer) this.matrixContainer.scrollLeft = 0;
+
+        // 4. THE AMNESIA PROTOCOL (Hafıza Silme)
+        this.pool.forEach(poolNode => {
+            // Endeksi unutturmak / Işınlanma efekti için karart
+            poolNode.style.opacity = "0";
+            poolNode.style.transform = `translate3d(-9999px, 0, 0)`;
+            poolNode.style.transition = 'none'; // Geçici olarak transition kapat
+        });
+
+        // 5. YENİ EVRENİ UYANDIR (Re-ignite)
+        setTimeout(() => {
+            this.renderViewport(0);
+            this.pool.forEach((poolNode, idx) => {
+                if (idx < this.data.length && idx < this.POOL_SIZE) {
+                    poolNode.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s';
+                    poolNode.style.transform = `translate3d(0, 0, 0) scale(1)`;
+                    poolNode.style.opacity = "1";
+                }
+            });
+            console.log(`🏆 [Quantum Sieve] Filtreleme Kusursuz Tamamlandı. DOM Sabit: ${this.POOL_SIZE} Element.`);
+        }, 50);
     }
 
     // ==========================================

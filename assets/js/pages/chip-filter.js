@@ -36,6 +36,31 @@
             }
             chip.classList.add("is-active");
 
+            // OMNI-OS V10: THE QUANTUM SIEVE INTEGRATION
+            console.log(`[ChipFilter] Kuantum Hedef: ${catId}`);
+
+            // Eğer sayfa Hamam-V10 motoru (SovereignEngineInstance) kullanıyorsa:
+            if (window.SovereignEngineInstance && typeof window.SovereignEngineInstance.applyQuantumSieve === 'function') {
+                // Neuro-Sync veya V10 Data'dan orijinal veriyi al (hamam-engine.js'in data array'ı initial'da var, asıl liste süzülmeli)
+                // Daha kalıcı çözüm: motorun referans veri kaynağını filtreleyip yollamak
+                // (Mevcut 'santis-data-bridge.js' veya 'hamam-engine.js' cache'inden fetchlemek)
+                if (window.SovereignEngineInstance._originalData === undefined) {
+                    window.SovereignEngineInstance._originalData = [...window.SovereignEngineInstance.data];
+                }
+                const baseData = window.SovereignEngineInstance._originalData;
+
+                const filtered = catId === 'all'
+                    ? baseData
+                    : baseData.filter(item => {
+                        const c = String(item.category || item.categoryId || '').toLowerCase();
+                        return c.includes(catId) || c === catId;
+                    });
+
+                window.SovereignEngineInstance.applyQuantumSieve(filtered);
+                return; // DOM manipülasyonunu atla
+            }
+
+            // Fallback (eski sayfalar için, henüz V10'a geçmediyse çalışsın)
             var freshSections = document.querySelectorAll(".nv-massage-category, .rail-section, [data-category]");
             for (var j = 0; j < freshSections.length; j += 1) {
                 var section = freshSections[j];
