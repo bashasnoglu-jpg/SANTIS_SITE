@@ -46,7 +46,7 @@
   <!-- JOURNEY GRID -->
   <section style="padding:5rem 0;background:#050505">
     <div class="nv-container" style="max-width:1200px">
-      <div class="santis-socket" data-layout="grid" data-category="journey"></div>
+      <div class="product-grid-v2 nv-product-grid" id="ritual-grid"></div>
     </div>
   </section>
 
@@ -60,7 +60,7 @@
         </div>
         <a href="/tr/masajlar/index.html" style="color:#888;font-size:.7rem;letter-spacing:.2em;text-decoration:none;text-transform:uppercase" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#888'">Tümü &rarr;</a>
       </div>
-      <div class="santis-socket" data-layout="rail" data-category="massage" data-limit="6"></div>
+      <div class="product-grid-v2 nv-product-grid" id="ritual-massage-grid"></div>
     </div>
   </section>
 
@@ -106,23 +106,69 @@
 <div id="footer-container"></div>
 
 <!-- SCRIPTS -->
-<script src="/assets/js/fallback_data.js"></script>
-<script defer src="/assets/js/loaders/data-bridge.js"></script>
-<script defer src="/assets/js/santis-nav.js"></script>
+<!-- OMNI-OS V5 MASTER KERNEL -->
+<script src="/assets/js/app.js" defer></script>
+
+<!-- SOVEREIGN SCROLL ENGINE (PHASE 9) -->
+<script src="/assets/js/santis-scroll-engine.js" defer></script>
+
+<!-- SENSORY UI ENGINE (FPS Protected) -->
+<script src="/assets/js/sensory-dust.js" defer></script>
+
+<!-- ♾️ SANTIS V17: THE QUANTUM BRIDGE (SHARED MEMORY) ♾️ -->
+<script src="/assets/js/santis-v17-bridge.js" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (PHASE 7) -->
+<script src="/assets/js/santis-bootloader.js" defer></script>
+
+<!-- PAGE SPECIFIC CARDS & EFFECTS -->
+<script defer src="/assets/js/nuclear-cards.js"></script>
+<script defer src="/assets/js/card-effects.js"></script>
+
 <script defer src="/assets/js/santis-data-bridge.js"></script>
-<script defer src="/assets/js/santis-v8-engine.js"></script>
-<script defer src="/assets/js/boutique-quickview.js"></script>
-<script defer src="/assets/js/app.js"></script>
+
 <script>
-(function(){
-  var SITE_ROOT = '/';
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof loadComp === 'function') {
-      if(document.getElementById('navbar-container')) loadComp('/components/navbar.html','navbar-container');
-      if(document.getElementById('footer-container')) loadComp('/components/footer.html','footer-container');
-    }
-  });
-})();
+    window.SITE_ROOT = '/';
+
+    document.addEventListener("DOMContentLoaded", () => {
+        if (typeof loadComp === "function") {
+            if(document.getElementById('navbar-container')) loadComp('/components/navbar.html','navbar-container');
+            if(document.getElementById('footer-container')) loadComp('/components/footer.html','footer-container');
+        }
+        
+        console.log("⚡ [Rituals Page] Initializing V10 Engine Routing...");
+        if (typeof window.SovereignDataBridge !== "undefined" && typeof window.SovereignDataBridge.injectMatrix === "function") {
+            // Rituals sayfası 'all' datasını çekmek zorunda çünkü hem masaj hem ritual var.
+            window.SovereignDataBridge.injectMatrix("/assets/data/services.json", ".nv-product-grid", "all");
+        } else {
+            console.error("🚨 [Rituals Page] SovereignDataBridge is missing!");
+        }
+    });
+
+    // DATA READY LISTENER
+    document.addEventListener('santis:rail-ready', function() {
+        console.log("⚡ [Rituals Page] Data Ready. Arming Matrix Cards...");
+        if (typeof window.initNuclearCards === 'function') {
+            // 1. Grid: Yalnızca Journeys (Rituals)
+            window.initNuclearCards({
+                containerId: 'ritual-grid',
+                filterHelper: function(item) {
+                    var cat = String(item.category || item.categoryId || '').toLowerCase();
+                    return cat.includes('journey') || cat.includes('ritual') || cat.includes('signature');
+                }
+            });
+
+            // 2. Rail: Limitli 6 Adet Masaj
+            window.initNuclearCards({
+                containerId: 'ritual-massage-grid',
+                limit: 6,
+                filterHelper: function(item) {
+                    var cat = String(item.category || item.categoryId || '').toLowerCase();
+                    return cat.includes('massage') || cat.includes('asian') || cat.includes('classical') || cat.includes('specialty');
+                }
+            });
+        }
+    });
 </script>
 </body>
 </html>

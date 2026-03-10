@@ -389,101 +389,66 @@
 </main>
 <!-- FOOTER -->
 <div id="footer-container"></div>
-<!-- SCRIPTS -->
-<!-- 1. Data Layer -->
-<!-- CORE SCRIPTS -->
-<script src="/assets/js/fallback_data.js"></script> <!-- Fallback for File Protocol -->
-<script src="/assets/js/i18n-routes.js"></script>
-    <script src="/assets/js/hreflang-injector.js" defer></script>
-<script src="/assets/js/loader.js"></script>
-<script src="/assets/js/santis-nav.js"></script>
-<!-- THE TRINITY STACK (V6.0 ENGINE) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-<!-- LOAD DATA DYNAMICALLY -->
-<!-- LOAD DATA DYNAMICALLY -->
-<!-- <script src="/assets/js/product-data.js" defer></script> REMOVED V5.5 -->
-<script defer="" src="/assets/js/loaders/data-bridge.js"></script>
-<!-- ENGINES (V5.1 Universal Stack) -->
-<script defer src="/assets/js/santis-v8-engine.js"></script>
+<!-- OMNI-OS V5 MASTER KERNEL -->
+<script src="/assets/js/app.js" defer></script>
 
-<script defer="" src="/assets/js/card-effects.js"></script>
-<script>
-        // DYNAMIC ROOT DEFINITION
-        window.SITE_ROOT = '/';
-        // Define paths relative to root
-        const navPath = '/components/navbar.html';
-        const footPath = '/components/footer.html';
+<!-- SOVEREIGN SCROLL ENGINE (PHASE 9) -->
+<script src="/assets/js/santis-scroll-engine.js" defer></script>
 
-        document.addEventListener("DOMContentLoaded", () => {
-             // Init Category Engine for Massages
-             if (typeof Engine !== 'undefined') Engine.init('MASSAGES');
+<!-- SENSORY UI ENGINE (FPS Protected) -->
+<script src="/assets/js/sensory-dust.js" defer></script>
 
-             if (typeof loadComp === "function") {
-                if(document.getElementById("navbar-container")) loadComp(navPath, "navbar-container");
-                if(document.getElementById("footer-container")) loadComp(footPath, "footer-container");
-             }
-        });
-    </script>
-<style>
-        /* Chip Styles (matching homepage) */
-        .nv-chips {
-            margin-bottom: 2rem;
-        }
+<!-- ♾️ SANTIS V17: THE QUANTUM BRIDGE (SHARED MEMORY) ♾️ -->
+<script src="/assets/js/santis-v17-bridge.js" defer></script>
 
-        .nv-chip {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 100px;
-            color: var(--text-muted, #888);
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+<!-- SOVEREIGN OS BOOTLOADER (PHASE 7) -->
+<script src="/assets/js/santis-bootloader.js" defer></script>
 
-        .nv-chip:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.2);
-            color: var(--text-main, #fff);
-        }
+<!-- PAGE SPECIFIC CARDS & EFFECTS -->
+<script defer src="/assets/js/nuclear-cards.js"></script>
+<script defer src="/assets/js/card-effects.js"></script>
+<script src="/assets/js/pages/chip-filter.js"></script>
+<script src="/assets/js/pages/nuclear-preloader.js"></script>
 
-        .nv-chip.is-active {
-            background: rgba(212, 175, 55, 0.15);
-            border-color: var(--gold-primary, #D4AF37);
-            color: var(--gold-primary, #D4AF37);
-        }
-
-        /* Card Description */
-        .nv-card-desc {
-            line-height: 1.5;
-        }
-
-        /* Hero adjustment for category pages */
-        .nv-hero-card {
-            min-height: 50vh;
-        }
-    </style>
-<!-- 4. Global App Logic (Added to fix Black Screen) -->
-<!-- santis-nav removed (duplicate) -->
-<script defer="" src="/assets/js/booking-wizard.js"></script>
-<script defer="" src="/assets/js/app.js"></script>
-<!-- FAILSAFE: Preloader Guard -->
-<script>
-        setTimeout(function() {
-            var p = document.getElementById('preloader');
-            if (p) {
-                console.warn("🛡️ Preloader Failsafe Triggered: Forcing unlock.");
-                p.style.opacity = '0';
-                p.style.pointerEvents = 'none';
-                setTimeout(function(){ p.style.display = 'none'; }, 500);
-            }
-        }, 4000);
-    </script>
+<!-- BOOKING WIZARD -->
+<script defer src="/assets/js/booking-wizard.js"></script>
 <script defer src="/assets/js/santis-data-bridge.js"></script>
+
+<script>
+    // DYNAMIC ROOT DEFINITION
+    window.SITE_ROOT = '/';
+    const navPath = '/components/navbar.html';
+    const footPath = '/components/footer.html';
+
+    document.addEventListener("DOMContentLoaded", () => {
+        if (typeof loadComp === "function") {
+            if(document.getElementById("navbar-container")) loadComp(navPath, "navbar-container");
+            if(document.getElementById("footer-container")) loadComp(footPath, "footer-container");
+        }
+        
+        console.log("⚡ [Massage Page] Initializing V10 Engine Routing...");
+        // 1. DATA BRIDGE INJECTION (V10 CORE)
+        if (typeof window.SovereignDataBridge !== "undefined" && typeof window.SovereignDataBridge.injectMatrix === "function") {
+            window.SovereignDataBridge.injectMatrix("/assets/data/services.json", ".nv-product-grid", "massage");
+        } else {
+            console.error("🚨 [Massage Page] SovereignDataBridge is missing! Cards will not load.");
+        }
+    });
+
+    // 2. DATA READY LISTENER (DOM Render hooks)
+    document.addEventListener('santis:rail-ready', function() {
+        console.log("⚡ [Massage Page] Data Ready. Arming Matrix Cards...");
+        if (typeof window.initNuclearCards === 'function') {
+            window.initNuclearCards({
+                containerId: 'massage-grid',
+                filterHelper: function(item) {
+                    var cat = String(item.category || item.categoryId || '').toLowerCase();
+                    return cat.includes('massage') || cat.includes('asian') || cat.includes('classical') || cat.includes('specialty');
+                }
+            });
+        }
+    });
+</script>
 
 </body>
 </html>
