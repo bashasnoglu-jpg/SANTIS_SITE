@@ -488,6 +488,12 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         response.headers["Strict-Transport-Security"] = "max-age=63072000; includeSubDomains; preload"
         # Referrer Policy
         response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        
+        # ── V17 Quantum Bridge: Cross-Origin Isolation ──
+        # Required to unlock SharedArrayBuffer and high-resolution timers
+        response.headers["Cross-Origin-Opener-Policy"] = "same-origin"
+        response.headers["Cross-Origin-Embedder-Policy"] = "require-corp"
+        
         return response
 
 app.add_middleware(SecurityHeadersMiddleware)
