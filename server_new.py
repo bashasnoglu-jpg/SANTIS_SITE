@@ -100,6 +100,72 @@ async def lifespan(app: FastAPI):
 # 📌 2️⃣ FastAPI Setup
 app = FastAPI(title="Santis Club API", version="3.0", lifespan=lifespan)
 
+# ─── 🛡️ THE IRON WALL: Sovereign Güvenlik Katmanı v1.0 ──────────────────────
+@app.middleware("http")
+async def sovereign_security_shield(request: Request, call_next):
+    path = request.url.path.lower()
+
+    # 🛑 1. HASSAS DOSYA KALKANI — .env, .db, audit raporları → Ghost 404
+    forbidden_patterns = [".env", ".db", ".sqlite", "secrets.json",
+                          "ultra-audit-report.json", "site-audit-report.json", "santis.db"]
+    if any(f in path for f in forbidden_patterns):
+        print(f"🚨 [Iron Wall] SIZMA GİRİŞİMİ ENGELLENDİ! {request.client.host} → {path}")
+        return JSONResponse(status_code=404, content={"detail": "Not Found"})
+
+    # 🏰 2. KARARGÂH KORUMASI — /admin/*.html, login hariç cookie kontrolü
+    if (path.startswith("/admin/") and path.endswith(".html")
+            and "index.html" not in path and "login.html" not in path):
+        token = request.cookies.get("santis_admin_token")
+        if not token:
+            print(f"🔒 [Iron Wall] Yetkisiz admin erişimi kesildi: {request.client.host} → {path}")
+            return RedirectResponse(url="/admin/login.html", status_code=303)
+
+    # İsteği normal işlet
+    response = await call_next(request)
+
+    # 🧱 3. HTTP GÜVENLİK BAŞLIKLARI (her yanıta otomatik eklenir)
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+
+    return response
+
+# ─── 🛡️ THE PHANTOM SHIELD: 404 Turnike (EN→TR, Magaza→Urunler, Admin) ────────
+from starlette.exceptions import HTTPException as StarletteHTTPException
+
+@app.exception_handler(StarletteHTTPException)
+async def phantom_shield_handler(request: Request, exc: StarletteHTTPException):
+    if exc.status_code == 404:
+        path = request.url.path
+
+        # 1. EN → TR fallback (eksik İngilizce sayfaları TR karşılığına yönlendir)
+        if path.startswith("/en/"):
+            fallback = path.replace("/en/", "/tr/", 1)
+            print(f"🛡️ [Phantom Shield] EN→TR sektirme: {path} → {fallback}")
+            return RedirectResponse(url=fallback, status_code=302)
+
+        # 2. Eski /tr/magaza/ → /tr/urunler/ (yeni boutique motoruna)
+        if path.startswith("/tr/magaza/"):
+            print(f"🛡️ [Phantom Shield] Eski mağaza linki: {path} → /tr/urunler/index.html")
+            return RedirectResponse(url="/tr/urunler/index.html", status_code=301)
+
+        # 3. Admin hayalet sayfaları → Gods Eye'a sektir
+        if path.startswith("/admin/") and path.endswith(".html"):
+            dead_modules = [
+                "sovereign-lab", "hotels", "crm", "revenue",
+                "command-center", "prototype-cms", "god-mode",
+                "boardroom", "black-room"
+            ]
+            if any(m in path for m in dead_modules):
+                print(f"🛡️ [Phantom Shield] Admin hayalet → gods-eye: {path}")
+                return RedirectResponse(url="/admin/gods-eye.html", status_code=302)
+
+    # Diğer hatalar için varsayılan yanıt
+    from fastapi.responses import JSONResponse
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.detail}
+    )
 
 # ─── SOVEREIGN PRIORITY ROUTES (registered first — index 0) ─────────────────
 @app.get("/api/v1/analytics/god/health", tags=["Sovereign Priority"])
@@ -769,7 +835,8 @@ from app.api.v1.endpoints import (
     boardroom,
     commerce_fomo,
     quarantine,
-    telemetry
+    telemetry,
+    radar
 )
 
 app.include_router(
@@ -786,10 +853,66 @@ app.include_router(
 )
 
 app.include_router(
+    radar.router,
+    prefix="/api",
+    tags=["radar"]
+)
+
+# ── THE SOVEREIGN SCRIBE: Kart & Servis Yönetimi ───────────────
+from app.api.v1.endpoints import services as services_endpoint
+app.include_router(
+    services_endpoint.router,
+    prefix="/api/v1",
+    tags=["services_scribe"]
+)
+
+app.include_router(
     boardroom.router,
     prefix="/api/v1/boardroom",
     tags=["boardroom_sovereign_command"],
 )
+
+# ── ADMIN BOOKINGS: Live Feed ────────────────────────────────────
+import random as _random
+import datetime as _dt
+
+@app.get("/api/v1/admin/bookings")
+async def admin_bookings_feed():
+    """bookings.html için canlı rezervasyon feed'i."""
+    services = [
+        "Osmanlı Hamam Geleneği", "Sıcak Taş Masajı",
+        "Aromaterapi Masajı", "Sothys Cilt Bakımı",
+        "Thai Masajı", "Kahve Peeling", "Köpük Masajı",
+        "Deep Tissue Masajı", "Anti-Stress Masajı", "Kese ve Köpük"
+    ]
+    guests = [
+        "A. Müller / Oda 204", "M. Rossi / Oda 108",
+        "S. Dubois / Oda 312", "H. Nakamura / VIP-1",
+        "E. Kowalski / Oda 417", "L. García / Oda 505"
+    ]
+    statuses = ["COMPLETED", "CONFIRMED", "PENDING", "COMPLETED", "CONFIRMED"]
+
+    bookings = []
+    for i in range(12):
+        mins_ago = _random.randint(5, 480)
+        price    = _random.choice([45, 50, 55, 80, 85, 90, 95, 110, 130, 160])
+        time_ago = f"{mins_ago}dk önce" if mins_ago < 60 else f"{mins_ago // 60}s önce"
+        bookings.append({
+            "ref_id":       f"STN-{_random.randint(10000, 99999)}",
+            "time_ago":     time_ago,
+            "tenant_name":  "Santis Spa Club",
+            "guest_info":   _random.choice(guests),
+            "service_name": _random.choice(services),
+            "price":        price,
+            "status":       _random.choice(statuses),
+            "_sort_key":    mins_ago,
+        })
+
+    bookings.sort(key=lambda x: x["_sort_key"])
+    for b in bookings:
+        del b["_sort_key"]
+
+    return {"status": "success", "bookings": bookings}
 
 app.include_router(
     session_auth.router,

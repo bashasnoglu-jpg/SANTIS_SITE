@@ -136,4 +136,7 @@ class SantisSentinel {
 }
 
 // Otonom olarak başlat
-new SantisSentinel();
+if (!window.__SANTIS_SENTINEL_BOOTED__) {
+    window.__SANTIS_SENTINEL_BOOTED__ = true;
+    new SantisSentinel();
+}

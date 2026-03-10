@@ -22,6 +22,9 @@ const Navbar = () => {
                     <Link to="/operations" className={`py-2 transition-colors ${isActive('/operations')}`}>
                         Operations
                     </Link>
+                    <Link to="/services" className={`py-2 transition-colors ${isActive('/services')}`}>
+                        Services
+                    </Link>
                     <Link to="/finance" className={`py-2 transition-colors ${isActive('/finance')}`}>
                         Finance
                     </Link>

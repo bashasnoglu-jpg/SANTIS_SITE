@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html data-site-root="/" lang="tr">
 <head>
 <!-- EXPLICIT RELATIVE PATH STRATEGY -->
 <!-- Base tag removed to prevent conflict with relative asset paths -->
 <meta charset="utf-8"/>
+    <meta name="description" content="Santis Club Sovereign Mağaza — Sothys Paris ürünleri, hamam aksesuarları ve özel spa koleksiyonu. Lüks deneyimi evinize taşıyın.">
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Santis Boutique • Online Mağaza</title>
 <meta content="Sothys profesyonel cilt bakımı ve Santis Home spa koleksiyonu." name="description"/>
@@ -177,63 +178,44 @@
 <!-- NAVBAR -->
 <div id="navbar-container"></div>
 <main id="nv-main">
-<!-- CINEMATIC HERO (Video Background) -->
-<section class="cinematic-hero">
-<!-- VIDEO CONTAINER -->
-<div class="hero-video-container">
-<video autoplay="" class="hero-video" loop="" muted="" playsinline="" poster="/assets/img/hero/santis_hero_main_v2.webp">
-<!-- Placeholder Abstract Spa Video (Water/Flow) -->
-<source src="https://videos.pexels.com/video-files/5091624/5091624-hd_1920_1080_24fps.mp4" type="video/mp4"/>
-</video>
-<img alt="Santis Spa Atmosphere" class="hero-fallback-img" decoding="async" fetchpriority="high" height="1024" src="/assets/img/hero/santis_hero_main_v2.webp" width="1024">
-</div>
-<!-- ATMOSPHERE -->
-<div class="santis-grain-overlay"></div>
-<div class="hero-gradient-overlay"></div>
-<!-- CONTENT -->
-<div class="nv-container hero-content">
-<span class="nv-kicker slide-up-1">SOTHYS PARIS &amp; SANTIS HOME</span>
-<h1 class="hero-title slide-up-2">Ritüellerin <br/>Sanatı</h1>
-<div class="page-intro-seo"><p>Santis Club'un özenle seçilmiş ürün koleksiyonunu keşfedin. Ev spa deneyiminizi zenginleştirecek profesyonel bakım ürünleri, geleneksel hamam aksesuarları ve doğal güzellik ürünleri.</p></div>
-<p class="hero-subtitle slide-up-3">
+<section class="relative w-full h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden border-b border-white/5 mt-20">
+    <div class="absolute inset-0 bg-black">
+        <img src="/assets/img/cards/santis_card_massage_lux.webp" alt="Santis Boutique" class="w-full h-full object-cover opacity-30 mix-blend-luminosity scale-105 transition-transform duration-[20s] hover:scale-100">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a09] via-[#0a0a09]/60 to-[#0a0a09]"></div>
+    </div>
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-10">
+        <p class="text-[10px] md:text-xs tracking-[0.4em] text-[#D4AF37] uppercase font-semibold mb-4">L'Art de Vivre</p>
+        <h1 class="text-5xl md:text-7xl font-serif text-white mb-6 drop-shadow-2xl tracking-tight">Lüksün Özü.</h1>
+        <p class="text-gray-400 font-light text-sm md:text-base tracking-widest max-w-2xl mx-auto">Santis Club'ın gizli laboratuvarlarında, nadir botanikler ve saf minerallerle formüle edilmiş imza koleksiyonumuz.</p>
+    </div>
+</section>
 
-                    Zamanın yavaşladığı, bedenin ve ruhun yeniden doğduğu yer.
+<div class="filter-controls flex flex-wrap justify-center gap-3 md:gap-4 mb-16 relative z-10 px-4 py-8">
+    <button class="boutique-filter active px-6 py-2 border border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10 rounded-full text-xs tracking-widest uppercase transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.2)]" data-filter="all">
+        Tüm İksirler
+    </button>
+    <button class="boutique-filter px-6 py-2 border border-white/20 text-white hover:border-[#D4AF37] hover:text-[#D4AF37] rounded-full text-xs tracking-widest uppercase transition-all duration-300 hover:bg-[#D4AF37]/5" data-filter="skincare">
+        Cilt Terapisi
+    </button>
+    <button class="boutique-filter px-6 py-2 border border-white/20 text-white hover:border-[#D4AF37] hover:text-[#D4AF37] rounded-full text-xs tracking-widest uppercase transition-all duration-300 hover:bg-[#D4AF37]/5" data-filter="massage">
+        Masaj &amp; Terapi
+    </button>
+    <button class="boutique-filter px-6 py-2 border border-white/20 text-white hover:border-[#D4AF37] hover:text-[#D4AF37] rounded-full text-xs tracking-widest uppercase transition-all duration-300 hover:bg-[#D4AF37]/5" data-filter="ritual-hammam">
+        Hamam Ritüelleri
+    </button>
+    <button class="boutique-filter px-6 py-2 border border-white/20 text-white hover:border-[#D4AF37] hover:text-[#D4AF37] rounded-full text-xs tracking-widest uppercase transition-all duration-300 hover:bg-[#D4AF37]/5" data-filter="sothys">
+        Sothys Paris
+    </button>
+    <button class="boutique-filter px-6 py-2 border border-white/20 text-white hover:border-[#D4AF37] hover:text-[#D4AF37] rounded-full text-xs tracking-widest uppercase transition-all duration-300 hover:bg-[#D4AF37]/5" data-filter="journey">
+        VIP Ritüeller
+    </button>
+</div>
 
-                </p>
-</div>
-<!-- SCROLL INDICATOR -->
-<div class="scroll-indicator">
-<span class="mouse-icon"></span>
-</div>
-</section>
-<!-- BENTO GRID SYSTEM -->
-<section class="nv-section">
-<div class="nv-container">
-<!-- FILTER TABS (Category Engine Auto-Populates this if needed, or we hardcode) -->
-<!-- Ideally, Category Engine will inject filters if configured, but for now we provide the container -->
-<!-- FILTER TABS (Category Engine Auto-Populates this) -->
-<div class="category-filters" id="nvChips"></div>
-<!-- THE GRID -->
-<!-- THE GRID (Universal Renderer) -->
-<div class="product-grid-v2 nv-product-grid" data-context="product"></div>
-</div>
-</section>
-<section class="related-services">
-<h2>İlgili Hizmetler</h2>
-<ul>
-<li><a href="/tr/masajlar/klasik-rahatlama.html">Klasik Rahatlama Masajı</a></li>
-<li><a href="/tr/masajlar/aromaterapi.html">Aromaterapi Masajı</a></li>
-<li><a href="/tr/masajlar/derin-doku.html">Derin Doku Masajı</a></li>
-</ul>
-</section>
-<section class="category-all-services">
-<h2>Tüm Hizmetlerimiz</h2>
-<ul class="service-link-list">
-<li><a href="/tr/urunler/detay.html">Detay</a></li>
-</ul>
-</section>
-<section class="seo-bottom-block">
-<p style="color:#aaa; max-width:500px; margin:10px auto">Santis Club online mağaza — Sothys Paris kozmetik, peştemal, doğal sabun, hamam seti, aroma yağları ve premium spa aksesuarları. Evde lüks spa deneyimi için ihtiyacınız olan her şey.</p>
+<section class="py-24 bg-[#0a0a09] min-h-screen">
+    <div class="max-w-[1400px] mx-auto px-6">
+        <div id="santis-boutique-grid" class="w-full flex flex-col gap-24">
+            </div>
+    </div>
 </section>
 </main>
 <!-- FOOTER -->
@@ -248,10 +230,13 @@
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 <!-- ENGINES -->
 <!-- ENGINES (V5.5 Data Bridge Stack) -->
-<script defer="" src="/assets/js/home-products.js"></script>
+<script defer src="/assets/js/santis-checkout-vault.js"></script>
+<script defer src="/assets/js/boutique-quickview.js"></script>
+<script defer src="/assets/js/boutique-prefetch.js"></script>
+<script defer src="/assets/js/santis-data-bridge.js"></script>
+<script defer src="/assets/js/santis-boutique-engine.js"></script>
 
 <script defer="" src="/assets/js/app.js"></script> <!-- Master App Logic -->
-<script defer="" src="/assets/js/pages/products-page-init.js"></script>
 <style>
 
         /* Cinematic Hero styles are loaded from assets/css/editorial.css */

@@ -75,10 +75,13 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
 
 /* CARDS */
 .nv-rail-card {
-    /* 1. YATAY SIKIŞMA ZIRHI: Asla büyüme (0), asla küçülme (0), tam 300px ol */
-    flex: 0 0 300px !important;
+    /* 1. YATAY SIKIŞMA ZIRHI: Asla büyüme (0), asla küçülme (0) flex-basis: auto (clamp ile) */
+    flex: 0 0 auto !important;
+    min-width: 280px;
     /* 2. DİKEY FERAHLIK: Oranı her zaman koru */
     aspect-ratio: 3 / 4;
+    min-height: 380px !important;
+    /* HEIGHT 0 ÇÖZÜM ZIRHI */
     /* 3. İÇERİK KANAMASI ZIRHI: Taşan metni veya degradeyi kartın içinde kes */
     overflow: hidden !important;
 
@@ -256,9 +259,8 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
 .rail-track .nv-rail-card,
 .rail-track .nv-card,
 .rail-track .ritual-card {
-    flex: 0 0 320px !important;
-    width: 320px !important;
-    max-width: 320px !important;
+    flex: 0 0 auto !important;
+    width: clamp(280px, 85vw, 360px) !important;
     aspect-ratio: 3 / 4 !important;
     overflow: hidden !important;
     scroll-snap-align: start !important;
@@ -270,10 +272,11 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
 }
 
 @media (min-width: 768px) {
-    .rail-track .ritual-card {
-        flex: 0 0 480px !important;
-        width: 480px !important;
-        max-width: 480px !important;
+
+    .rail-track .ritual-card,
+    .rail-track .nv-rail-card {
+        flex: 0 0 auto !important;
+        width: clamp(320px, 30vw, 420px) !important;
     }
 }
 
@@ -339,23 +342,21 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
     scroll-padding-inline: max(24px, calc((100vw - 1400px) / 2)) !important;
     box-sizing: border-box !important;
 
-    /* Sovereign Sis Maskesi (GPU Hızlandırmalı) */
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
     will-change: transform;
     /* GPU'ya al, performansı koru */
 }
 
-/* 2. ACTIVE CARD AURA (Apple Store Hiyerarşisi) */
+/* 2. ACTIVE CARD AURA (Sis Suikasti — Physical Clarity Protocol) */
 .rail-track .nv-rail-card,
 .rail-track .nv-card,
 .rail-track .ritual-card {
-    filter: brightness(0.45);
-    /* Pasif kartlar karanlıkta bekler */
+    filter: none;
+    opacity: 1 !important;
+    /* FALLBACK KORUMASI: Observer çalışmasa bile kart %100 görünür kalacak */
     transform: scale(0.95);
-    /* Pasif kartlar hafifçe küçülür */
     transition: filter 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
+
 
 /* JS IntersectionObserver bu sınıfı eklediğinde kart parlayacak! */
 .rail-track .nv-rail-card.is-active-aura,

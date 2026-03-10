@@ -100,6 +100,8 @@ function processScore(eventKey, extraPayload) {
     const delta = MATRIX[eventKey];
     if (delta === undefined) return;
 
+    if (state.score >= MAX_SAFE_SCORE) return; // 🛑 100 Olunca Olayları İşlemeyi Bırak (Spam'ı Kes)
+
     const prev = state.score;
     state.score = Math.max(0, Math.min(MAX_SAFE_SCORE, state.score + delta));
 

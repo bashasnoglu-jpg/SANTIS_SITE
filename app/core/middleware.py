@@ -121,7 +121,10 @@ class CSRFProtectionMiddleware(BaseHTTPMiddleware):
             "/api/v1/telemetry/ingest",
             "/api/v1/telemetry/aurelia-mock",
             "/api/v1/crm/trace",
-            "/api/v1/events/batch"
+            "/api/v1/events/batch",
+            "/api/v1/payments/checkout/sovereign-seal",    # 💳 Mağaza checkout (CSRF token yok)
+            "/api/v1/payments/webhook/stripe-sovereign",   # 💰 Stripe webhook (Stripe'dan gelir)
+            "/api/v1/payments/webhook/stripe",             # 💰 Eski Stripe webhook
         ]
         if request.url.path in exempt_routes:
             return await call_next(request)

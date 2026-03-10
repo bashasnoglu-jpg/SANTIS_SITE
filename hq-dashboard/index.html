@@ -2,6 +2,7 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="SANTIS MASTER OS | HQ Mode v9.0 — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SANTIS MASTER OS | HQ Mode v9.0</title>
     <link rel="icon" href="data:,">
@@ -1468,6 +1469,7 @@
             if (MOCK_MODE && typeof urlStr === 'string' && (urlStr.includes('/api/v1/') || urlStr.includes('/hq/'))) {
                 return Promise.resolve({
                     ok: true,
+                    headers: { get: (name) => name.toLowerCase() === 'content-type' ? 'application/json' : null },
                     json: () => {
                         if(urlStr.includes('global-stats')) return Promise.resolve({ network: { total_tenants: 0, total_hotels: 0 }, performance: { today_revenue: 0, today_bookings: 0 }, regions: [] });
                         if(urlStr.includes('yield-status')) return Promise.resolve({ multiplier: 1.0, action: 'OBSERVING' });

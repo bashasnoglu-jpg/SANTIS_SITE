@@ -105,6 +105,60 @@ async def stripe_webhook(
     return {"received": True}
 
 
+@router.post("/webhook/stripe-sovereign")
+async def stripe_sovereign_webhook(
+    request: Request,
+):
+    """
+    💰 THE REVENUE STRIKE — God's Eye Radar Entegrasyonu
+    Stripe Checkout tamamlandığında God's Eye radarına anlık altın sinyal fırlatır.
+    """
+    payload_body = await request.body()
+    sig_header = request.headers.get("Stripe-Signature")
+    webhook_secret = settings.STRIPE_WEBHOOK_SECRET
+
+    if not webhook_secret:
+        raise HTTPException(status_code=500, detail="Webhook secret not configured")
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload=payload_body,
+            sig_header=sig_header,
+            secret=webhook_secret
+        )
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid payload")
+    except stripe.error.SignatureVerificationError:
+        raise HTTPException(status_code=400, detail="Invalid signature")
+
+    # 💥 THE REVENUE STRIKE (Para Kasaya Girdiğinde!)
+    if event["type"] == "checkout.session.completed":
+        session = event["data"]["object"]
+
+        amount_total = session.get("amount_total", 0) / 100  # Kuruştan Euro'ya
+        currency = session.get("currency", "eur").upper()
+        customer = session.get("customer_details", {}).get("email", "VIP_GUEST")
+
+        print(f"💰 [REVENUE STRIKE] Tahsilat Başarılı: {amount_total} {currency} | Hedef: {customer}")
+
+        # Savaş Radarına (God's Eye) Altın Sinyali Fırlat!
+        try:
+            from app.api.v1.endpoints.radar import radar_hub
+            await radar_hub.broadcast_to_command({
+                "type": "REVENUE_STRIKE",
+                "data": {
+                    "amount": amount_total,
+                    "currency": currency,
+                    "customer": customer
+                }
+            })
+            print("🚀 [God's Eye] Hasılat Sinyali Karargâha iletildi!")
+        except Exception as ex:
+            print(f"⚠️ Radar Hub'a sinyal giderken hata (Ödeme yine de başarılı): {ex}")
+
+    return {"status": "success"}
+
+
 
 @router.post("/create-checkout-session", response_model=CreateCheckoutSessionResponse)
 async def create_checkout_session_api(
@@ -188,10 +242,12 @@ import time
 class SovereignCheckoutRequest(BaseModel):
     ritual_id: str
     ritual_name: str
-    price_eur: int
+    price_eur: float          # float kabul et (int değil)
     whisper_id: str = "organic"
     ghost_score: int = 0
     session_id: str
+    ghost_id: str = "UNKNOWN_VIP"   # God's Eye entegrasyonu
+    date: str = "2099-01-01"        # Ürünler için placeholder
 
 @router.post("/checkout/sovereign-seal")
 async def create_sovereign_checkout(data: SovereignCheckoutRequest):
@@ -200,11 +256,16 @@ async def create_sovereign_checkout(data: SovereignCheckoutRequest):
     """
     try:
         stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+        print(f"💳 [Sovereign Seal] Gelen data: {data}")
+        
         if not stripe.api_key:
             # Fallback mock for local without env
             return {"checkout_url": f"/tr/handoff/success.html?session_id=mock_session&ritual={data.ritual_id}", "stripe_session_id": "mock_id"}
 
         DOMAIN_URL = os.getenv("DOMAIN_URL", "http://localhost:8000")
+
+        # Fiyat sıfırsa minimum 1 EUR (Stripe sıfır kabul etmez)
+        unit_amount = max(int(data.price_eur * 100), 100)
         
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
@@ -215,7 +276,7 @@ async def create_sovereign_checkout(data: SovereignCheckoutRequest):
                         'name': data.ritual_name.replace('-', ' ').title(),
                         'description': 'Sovereign Masterpiece Ritual (Zero-Friction Booking)',
                     },
-                    'unit_amount': data.price_eur * 100, 
+                    'unit_amount': unit_amount,
                 },
                 'quantity': 1,
             }],
@@ -230,8 +291,10 @@ async def create_sovereign_checkout(data: SovereignCheckoutRequest):
                 "is_aurelia_impact": "true" if data.whisper_id != "organic_royal" else "false"
             }
         )
+        print(f"✅ [Sovereign Seal] Stripe Session oluştu: {session.id}")
         return {"checkout_url": session.url, "stripe_session_id": session.id}
     except Exception as e:
+        print(f"🚨 [Sovereign Seal] ERROR: {type(e).__name__}: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Vault Kilitli: {str(e)}")
 
 @router.post("/webhook/stripe-sovereign")

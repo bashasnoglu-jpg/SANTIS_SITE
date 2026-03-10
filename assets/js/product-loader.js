@@ -1,333 +1,138 @@
 /**
- * SANTIS V5: THE FACTORY (Page Generation Engine)
- * Tek şablondan sonsuz sayfa üreten javascript motoru.
+ * 🎯 THE QUANTUM DETAIL ASSISTANT (product-loader.js)
+ * Linkleri yakalar, iksiri bulur ve Sovereign Odayı aydınlatır.
+ * v1.0 — 2026-03-09 | Santis Ultra Card Engine V8 ekosistemi
  */
-
-class PageFactory {
-    constructor() {
-        this.apiBase = "/api/content";
-        this.contentStage = document.getElementById("nv-dynamic-content");
-        this.loader = document.getElementById("nv-page-loader");
-    }
+const QuantumDetailAssistant = {
 
     async init() {
-        // 1. URL'den slug'ı al
-        const slug = this.getPseudoSlug();
-        console.log(`🏭 Factory Started for: ${slug}`);
+        console.log('⚡ [Quantum Assistant] Sovereign Detay Odası Uyanıyor...');
 
-        if (!slug) {
-            this.render404();
-            return;
+        const params = new URLSearchParams(window.location.search);
+        const rawId = params.get('id') || params.get('slug') || '';
+
+        // Bilet yoksa Mağazaya yönlendir
+        if (!rawId) {
+            return window.location.href = '/tr/urunler/index.html';
         }
 
-        // 2. Veriyi Çek
-        const data = await this.fetchProductData(slug);
+        // ID temizliği — .webp .jpg .html uzantılarını temizle
+        const targetId = rawId
+            .replace(/\.(webp|jpg|jpeg|png|html)$/i, '')
+            .toLowerCase()
+            .trim();
 
-        if (data) {
-
-            // 3. Sayfayı İnşa Et
-            this.renderPage(data);
-            this.updateSEO(data);
-
-
-            // FAZ 3: BRAIN ACTIVATION
-            // await this.renderRecommendations(data);
-
-            this.updateSEO(data);
-
-
-            // FAZ 3: BRAIN ACTIVATION
-            // await this.renderRecommendations(data);
-
-            this.revealPage();
-        } else {
-            this.render404();
-        }
-    }
-
-    getPseudoSlug() {
-        // URL simülasyonu: ?product=aromaterapi-masaji
-        const urlParams = new URLSearchParams(window.location.search);
-        let slug = urlParams.get('product');
-        return this.resolveSlug(slug);
-    }
-
-    resolveSlug(slug) {
-        // 🛡️ URL ALIAS & FALLBACK SYSTEM
-        const aliases = {
-            'osmanli-ritueli': 'osmanli-hamam-gelenegi',
-            'roman-bath': 'kese-ve-kopuk-masaji',
-            'wabi-sabi': 'anti-stress-masaji',    // Fallback: Zen/Simplicity
-            'thai-massage': 'kombine-masaj',      // Fallback: Includes Thai techniques
-            'ayurveda-shirodhara': 'aromaterapi-masaji' // Fallback
-        };
-        return aliases[slug] || slug;
-    }
-
-    async fetchProductData(slug) {
-        // A) Local fallback first for known pseudo items or offline use
-        await this.ensureLocalCatalog();
-        const localData = this.findLocalProduct(slug);
-        if (localData) {
-            console.log("🟢 [Factory] Local product matched:", slug);
-            return localData;
+        // Önceden global cache var mı? (V8 engine zaten çekmiş olabilir)
+        const cached = window.SovereignDataMatrix || window.productCatalog || null;
+        if (cached && cached.length) {
+            const product = this._find(cached, targetId);
+            if (product) return this.render(product);
         }
 
-        // B) Remote fetch (API)
+        // Cache yoksa direkt fetch
         try {
-            const response = await fetch(`${this.apiBase}/products/${slug}`);
-            if (!response.ok) return null;
-            return await response.json();
-        } catch (error) {
-            console.error("Factory Data Error:", error);
-            return null;
+            const res = await fetch('/assets/data/services.json?v=' + Date.now());
+            const data = await res.json();
+
+            // Cache'e yaz (V8 ekosistemle uyumluluk)
+            window.SovereignDataMatrix = data;
+
+            const product = this._find(data, targetId);
+            if (product) this.render(product);
+            else this.renderError(targetId);
+
+        } catch (err) {
+            console.error('🚨 [Quantum Assistant] Veri çekilemedi:', err);
+            this.renderError('bağlantı hatası');
         }
-    }
+    },
 
-    async ensureLocalCatalog() {
-        // 1. Check if data is already ready
-        if (window.NV_DATA_READY || (Array.isArray(window.productCatalog) && window.productCatalog.length > 0)) {
-            return;
-        }
+    /** Fuzzy Arama — ID, Slug veya Görsel adından eşleşme */
+    _find(data, targetId) {
+        return data.find(p => {
+            const pId = (p.id || '').toLowerCase().trim();
+            const pSlug = (p.slug || '').toLowerCase().trim();
+            const pImage = (p.image || '').toLowerCase();
 
-        // 2. Wait for the Event (Neuro-Sync)
-        return new Promise((resolve) => {
-            const onReady = () => {
-                console.log("🏭 [Factory] Data Ready Signal Received.");
-                resolve();
-            };
-
-            window.addEventListener('product-data:ready', onReady, { once: true });
-
-            // 3. Safety Timeout (Fallback)
-            setTimeout(() => {
-                if (!window.NV_DATA_READY) {
-                    console.warn("🏭 [Factory] Data Check Timeout. Proceeding anyway.");
-                    resolve();
-                }
-            }, 2000); // 2s max wait
+            if (pId === targetId || pSlug === targetId) return true; // kesin
+            if (targetId.length > 4 && pImage.includes(targetId)) return true; // görsel adı
+            if (pId && targetId.includes(pId) && pId.length > 4) return true; // kısmi
+            return false;
         });
-    }
+    },
 
-    findLocalProduct(slug) {
-        if (slug === "system-test-card") {
-            return this.normalizeProduct({
-                id: "system-test-card",
-                slug: "system-test-card",
-                title: "Santis System Check",
-                name: "System Check",
-                category: "Diagnostics",
-                duration: 0,
-                price: { amount: "", currency: "₺" },
-                media: { hero: "/assets/img/cards/santis_card_hammam_v1.webp" },
-                content: { tr: { shortDesc: "Test kartı" } }
+    render(p) {
+        const title = p.title || p.name || 'Sovereign Özel İksir';
+        const price = parseFloat(p.price_eur || 0);
+        const imgUrl = (p.image && p.image.length > 5)
+            ? p.image
+            : '/assets/img/cards/santis_card_massage_lux.webp';
+
+        // SEO: sayfa başlığı
+        document.title = title + ' | Santis Club';
+
+        // Gizli SEO h1
+        const seoH1 = document.getElementById('detail-title-seo');
+        if (seoH1) seoH1.textContent = title + ' — Santis Club Sovereign Ritüeli';
+
+        // DOM doldurma
+        const titleEl = document.getElementById('detail-title');
+        const catEl = document.getElementById('detail-category');
+        const descEl = document.getElementById('detail-desc');
+        const priceEl = document.getElementById('detail-price');
+        const imgEl = document.getElementById('detail-image');
+
+        if (titleEl) titleEl.textContent = title;
+        if (catEl) catEl.textContent = (p.category || 'Sovereign Koleksiyon')
+            .replace(/-/g, ' ').toUpperCase();
+        if (descEl) descEl.innerHTML = p.description
+            || 'Bu eşsiz ritüel hakkında detaylı bilgi için Sovereign uzmanlarımızla iletişime geçin.';
+        if (priceEl) priceEl.textContent = price > 0 ? '€' + price : 'VIP';
+        if (imgEl) {
+            imgEl.src = imgUrl;
+            imgEl.alt = title;
+        }
+
+        // Işıkları Yak — opacity: 0 → 1
+        const stage = document.getElementById('nv-dynamic-content');
+        if (stage) requestAnimationFrame(() => { stage.style.opacity = '1'; });
+
+        // Rezerve Et butonu
+        const btn = document.getElementById('detail-vault-btn');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                const item = { ...p, price_eur: price, title, image: imgUrl, isProduct: true };
+                if (window.SovereignVault) return window.SovereignVault.open(item);
+                if (window.CheckoutVault) return window.CheckoutVault.open(item);
+                if (window.BoutiqueQuickView) return window.BoutiqueQuickView.open(item);
+                // Son fallback: WhatsApp
+                const wa = 'https://wa.me/905348350169?text=' +
+                    encodeURIComponent('Merhaba, ' + title + ' ritüeli hakkında bilgi almak istiyorum.');
+                window.open(wa, '_blank');
             });
         }
 
-        const pools = [
-            window.NV_PRODUCTS_ALL,
-            window.NV_PRODUCTS,
-            window.productCatalog
-        ].filter(Array.isArray);
+        console.log('[Quantum Assistant] ✅ Sovereign Odası aydınlatıldı:', title);
+    },
 
-        console.log("ℹ️ [Factory] Local pools sizes", {
-            NV_PRODUCTS_ALL: Array.isArray(window.NV_PRODUCTS_ALL) ? window.NV_PRODUCTS_ALL.length : 0,
-            NV_PRODUCTS: Array.isArray(window.NV_PRODUCTS) ? window.NV_PRODUCTS.length : 0,
-            productCatalog: Array.isArray(window.productCatalog) ? window.productCatalog.length : 0
-        });
-
-        for (const pool of pools) {
-            const hit = pool.find(
-                (item) =>
-                    item.slug === slug ||
-                    item.id === slug
-            );
-            if (hit) return this.normalizeProduct(hit);
-        }
-        return null;
+    renderError(targetId) {
+        document.title = 'Kayıp Formül | Santis Club';
+        const stage = document.getElementById('nv-dynamic-content');
+        if (!stage) return;
+        stage.innerHTML = [
+            '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem">',
+            '  <div>',
+            '    <div style="width:64px;height:64px;border:1px solid rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.5rem">🗝️</div>',
+            '    <h1 style="color:#D4AF37;font-family:\'Cinzel\',serif;font-size:2rem;margin-bottom:1rem">Gizli Formül Aranıyor</h1>',
+            '    <p style="color:#888;margin-bottom:2rem">Aradığınız ritüel (' + targetId + ') Sovereign kasasında güncellenmektedir.</p>',
+            '    <a href="/tr/urunler/index.html" style="display:inline-block;padding:.875rem 2.5rem;border:1px solid rgba(255,255,255,.15);color:#fff;text-decoration:none;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;transition:all .3s" ',
+            '       onmouseover="this.style.borderColor=\'#D4AF37\';this.style.color=\'#D4AF37\'" ',
+            '       onmouseout="this.style.borderColor=\'rgba(255,255,255,.15)\';this.style.color=\'#fff\'">MAĞAZAYA DÖN</a>',
+            '  </div>',
+            '</div>'
+        ].join('');
+        stage.style.opacity = '1';
     }
+};
 
-    normalizeProduct(item) {
-        const title = item.content?.tr?.title || item.title || item.name || "Santis Deneyimi";
-        const shortDesc = item.content?.tr?.shortDesc || item.shortDesc || item.desc || "";
-        const longDesc = item.content?.tr?.fullDesc || item.long_description || item.description || shortDesc;
-        const category = item.category || item.categoryId || "Santis";
-        const duration = item.duration || item.time || "";
-
-        // Price normalizer
-        let priceObj = { amount: "", currency: "₺" };
-        if (typeof item.price === "object" && item.price !== null) {
-            priceObj = {
-                amount: item.price.amount || "",
-                currency: item.price.currency || "₺"
-            };
-        } else if (item.price) {
-            priceObj = { amount: item.price, currency: "₺" };
-        }
-
-        let cover =
-            item.media?.cover ||
-            item.media?.hero ||
-            item.img ||
-            item.image ||
-            "/assets/img/cards/santis_card_hammam_v1.webp";
-
-        // Normalize cover path
-        if (cover.startsWith("/assets/")) {
-            cover = "/" + cover;
-        } else if (!cover.startsWith("/") && !cover.startsWith("http")) {
-            cover = `/assets/img/cards/${cover}`;
-        }
-
-        return {
-            id: item.id || item.slug,
-            slug: item.slug || item.id,
-            title,
-            short_description: shortDesc,
-            long_description: longDesc,
-            category,
-            duration,
-            price: priceObj,
-            moods: item.moods || item.tags || [],
-            media: { cover },
-            seo: {
-                title,
-                description: shortDesc || "Santis Club deneyimi"
-            }
-        };
-    }
-
-    renderPage(data) {
-        // ATOMIC DESIGN BLOCKS
-
-        const html = `
-        <section class="nv-hero-split">
-            <div class="nv-hero-visual">
-                <img src="${data.media.cover}" 
-                     alt="${data.title}" 
-                     class="nv-hero-img"
-                     fetchpriority="high">
-            </div>
-            
-            <div class="nv-hero-content">
-                <div class="nv-breadcrumbs">
-                    <a href="${window.SantisRouter ? SantisRouter.localize('/tr/') : '/tr/'}">${window.SantisRouter && SantisRouter.detectLang() === 'en' ? 'Home' : 'Ana Sayfa'}</a> / 
-                    <a href="${window.SantisRouter ? SantisRouter.localize('/tr/urunler/') : '/tr/urunler/'}">${window.SantisRouter && SantisRouter.detectLang() === 'en' ? 'PRODUCTS' : 'ÜRÜNLER'}</a> / 
-                    <span>${data.title}</span>
-                </div>
-
-                <div class="nv-header-block">
-                    <span class="nv-badge">${data.category.toUpperCase()}</span>
-                    <h1 class="nv-title">${data.title}</h1>
-                    <div class="nv-separator"></div>
-                    <div class="nv-desc">${data.long_description || data.short_description}</div>
-                </div>
-
-                <div class="nv-details-grid">
-                    <div class="nv-detail-item">
-                        <span class="nv-label">Süre</span>
-                        <span class="nv-value">${data.duration} Dakika</span>
-                    </div>
-                    <div class="nv-detail-item">
-                        <span class="nv-label">Fiyat</span>
-                        <span class="nv-value">${data.price.amount} ${data.price.currency}</span>
-                    </div>
-                     <div class="nv-detail-item">
-                        <span class="nv-label">Mood</span>
-                        <span class="nv-value">${data.moods ? data.moods.join(", ") : "Relax"}</span>
-                    </div>
-                </div>
-
-                <div class="nv-actions">
-                    <a href="https://wa.me/905348350169?text=Rezervasyon: ${data.title}" target="_blank" class="nv-btn nv-btn-primary">
-                        Rezervasyon Yap
-                    </a>
-                </div>
-            </div>
-        </section>
-        `;
-
-
-        this.contentStage.innerHTML = html;
-    }
-
-    // --- FAZ 3: THE BRAIN (Recommendation Engine) ---
-    async renderRecommendations(currentProduct) {
-        try {
-            // Tüm ürünleri çek (Gerçek hayatta backend filter kullanılır)
-            const response = await fetch(`${this.apiBase}/products`);
-            const allProducts = await response.json();
-
-            if (!allProducts || allProducts.length === 0) return;
-
-            // ALGORİTMA: Mood Match & Kategori
-            const recommendations = allProducts
-                .filter(p => p.id !== currentProduct.id) // Kendini hariç tut
-                .map(p => {
-                    let score = 0;
-                    // Kural 1: Aynı Kategori (+5 Puan)
-                    if (p.category === currentProduct.category) score += 5;
-
-                    // Kural 2: Ortak Mood (+3 Puan)
-                    if (p.moods && currentProduct.moods) {
-                        const commonMoods = p.moods.filter(m => currentProduct.moods.includes(m));
-                        score += commonMoods.length * 3;
-                    }
-
-                    return { product: p, score: score };
-                })
-                .sort((a, b) => b.score - a.score) // Puana göre sırala
-                .slice(0, 3); // İlk 3'ü al
-
-            if (recommendations.length > 0) {
-                this.appendRecommendationSection(recommendations.map(r => r.product));
-            }
-
-        } catch (e) {
-            console.warn("Brain Error:", e);
-        }
-    }
-
-    appendRecommendationSection(products) {
-        let cardsHtml = products.map(p => `
-            <a href="?product=${p.slug}" class="nv-rec-card">
-                <div class="nv-rec-img">
-                    <img src="${p.media.cover}" alt="${p.title}" loading="lazy">
-                </div>
-                <div class="nv-rec-info">
-                    <h4>${p.title}</h4>
-                    <span>${p.price.amount} ${p.price.currency}</span>
-                </div>
-            </a>
-        `).join("");
-
-        const sectionHtml = `
-            <section class="nv-recommendations">
-                <div class="nv-rec-header">
-                    <h3>Bunları da Sevebilirsiniz</h3>
-                </div>
-                <div class="nv-rec-grid">
-                    ${cardsHtml}
-                </div>
-            </section>
-        `;
-
-        this.contentStage.insertAdjacentHTML('beforeend', sectionHtml);
-    }
-
-    updateSEO(data) {
-        document.title = data.seo.title;
-        document.querySelector('meta[name="description"]').setAttribute("content", data.seo.description);
-    }
-
-    revealPage() {
-        this.loader.style.display = 'none';
-        this.contentStage.style.opacity = 1;
-    }
-
-    render404() {
-        this.loader.style.display = 'none';
-        this.contentStage.innerHTML = "<h1>404 - Ürün Bulunamadı</h1>";
-        this.contentStage.style.opacity = 1;
-    }
-}
+document.addEventListener('DOMContentLoaded', () => QuantumDetailAssistant.init());

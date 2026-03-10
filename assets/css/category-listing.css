@@ -413,6 +413,15 @@
 .seo-bottom-block {
     padding: 2rem 0;
     text-align: center;
+    min-height: 120px;
+    /* CLS önleme: JS içerik enjeksiyonuna alan ayır */
+    contain-intrinsic-size: auto 120px;
+}
+
+/* CLS FIX: related-services section — JS tarafından enjekte edilir */
+section.related-services {
+    min-height: 200px;
+    contain-intrinsic-size: auto 200px;
 }
 
 .seo-bottom-block img {

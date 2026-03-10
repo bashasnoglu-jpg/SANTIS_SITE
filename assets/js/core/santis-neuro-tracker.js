@@ -368,6 +368,9 @@ class SovereignNeuroTracker {
 // OS Çekirdeği hazır olduğunda Global Namespace'e tak
 document.addEventListener('DOMContentLoaded', () => {
     if (window.matchMedia("(hover: hover)").matches) {
-        window.NeuroTracker = new SovereignNeuroTracker();
+        if (!window.__NEURO_BOOTED__) {
+            window.__NEURO_BOOTED__ = true;
+            window.NeuroTracker = new SovereignNeuroTracker();
+        }
     }
 });

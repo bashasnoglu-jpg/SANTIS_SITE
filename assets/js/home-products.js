@@ -9,33 +9,60 @@ const STATIC_URL_MAP = {};
  * Tamamen JSON tabanlıdır ve Live Sync uyumludur.
  */
 
-// 1. SAFE HYDRATION BRIDGE
-// 1. SAFE HYDRATION BRIDGE (Neuro-Sync v3.0)
+// 1. SAFE HYDRATION BRIDGE (Neuro-Sync v3.1)
 async function hydrateProductCatalog() {
-    // A. Immediate Check (Did we miss the event?)
+    // A. Immediate Check
+    if (window.__SANTIS_RAIL_READY__ && window.SovereignDataMatrix) {
+        window.productCatalog = window.SovereignDataMatrix;
+        return;
+    }
     if (window.NV_DATA_READY && window.productCatalog && window.productCatalog.length > 0) {
         return;
     }
 
     // B. Wait for Signal
     return new Promise((resolve) => {
-        const onReady = () => {
-            console.log("🧠 [HomeProducts] Neuro-Sync Signal Received.");
+        const onReady = (e) => {
+            console.log("🧠 [HomeProducts] Neuro-Sync Signal Received (Rail Ready).");
+            if (e && e.detail) {
+                window.productCatalog = e.detail; // Consume the global matrix
+            } else if (window.SovereignDataMatrix) {
+                window.productCatalog = window.SovereignDataMatrix;
+            }
             resolve();
         };
 
-        if (window.NV_DATA_READY) {
+        if (window.__SANTIS_RAIL_READY__ && window.SovereignDataMatrix) {
+            onReady();
+        } else if (window.NV_DATA_READY) {
             onReady();
         } else {
-            window.addEventListener('product-data:ready', onReady, { once: true });
+            // Our V10/V7 Sovereign Motoru dispatches this when real data is seeded
+            document.addEventListener('santis:rail-ready', onReady, { once: true });
+            document.addEventListener('nv-data-ready', onReady, { once: true });
 
-            // C. Safety Timeout (Fallback only if signal dies)
+            // D. Parallel Self-Fetch (Data Bridge yoksa kendi başına çeker)
+            fetch('/assets/data/services.json')
+                .then(r => r.json())
+                .then(data => {
+                    if (!window.__SANTIS_RAIL_READY__ && !window.NV_DATA_READY) {
+                        window.productCatalog = data;
+                        window.SovereignDataMatrix = data;
+                        window.NV_PRODUCTS = data;
+                        window.__SANTIS_RAIL_READY__ = true;
+                        console.log('[HomeProducts] Self-fetch: ' + data.length + ' kayıt yüklendi.');
+                        document.dispatchEvent(new CustomEvent('santis:rail-ready', { detail: data }));
+                    }
+                })
+                .catch(() => { });
+
+            // C. Safety Timeout
             setTimeout(() => {
-                if (!window.NV_DATA_READY) {
-                    console.warn('⚠️ [HomeProducts] Neuro-Sync Signal Timeout. Proceeding/Fetching manually...');
+                if (!window.NV_DATA_READY && !window.__SANTIS_RAIL_READY__) {
+                    console.warn('⚠️ [HomeProducts] Neuro-Sync Signal Timeout. Processing aborted. Using fallback.');
                     resolve();
                 }
-            }, 4000);
+            }, 6000); // 6 saniye (bir tık daha tolerans)
         }
     });
 }
@@ -746,8 +773,23 @@ function createCardElement(product, index, isAdminItem = false, ctx = "") {
         </div>
     `;
 
-    // 🛡️ TRACK CLICK (Registry only — let native <a> handle navigation)
-    card.addEventListener('click', () => {
+    // 🏆 GİZLİ GÖREV: KASAYI ÜRÜNLER (GRID) SAYFASINA DA BAĞLAYIN
+    const btnAction = card.querySelector('.card__action');
+    if (btnAction) {
+        btnAction.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation(); // <a> kartının varsayılan link tetiklemesini durdurur
+            if (window.SovereignVault) {
+                console.log(`💎 [Grid] Kasaya Gönderiliyor: ${product.title || product.name}`);
+                window.SovereignVault.open(product); // Ürünler sayfasından da Kasa açılsın!
+            }
+        });
+    }
+
+    // 🛡️ TRACK CLICK (Registry only)
+    card.addEventListener('click', (e) => {
+        // Eğer kasaya gidiyorsa (yukarıda durdurulur) bu link gezinmesi engellenmez, 
+        // Ancak kartın herhangi bir *başka* yerine tıklanmışsa normal sayfaya gider.
         try {
             if (window.Registry) {
                 window.Registry.track('view_service', {

@@ -15,7 +15,13 @@ class SovereignTenantMiddleware(BaseHTTPMiddleware):
         path = request.url.path
         
         # 2. Hard 403 Firewall for Global Admin Routes
-        if path.startswith("/api/v1/admin") and not path.startswith("/api/v1/admin/login"):
+        # Whitelist: login + local read-only admin endpoints (no external tenant needed)
+        ADMIN_BYPASS = [
+            "/api/v1/admin/login",
+            "/api/v1/admin/bookings",   # bookings.html feed
+            "/api/v1/admin/services",   # services read
+        ]
+        if path.startswith("/api/v1/admin") and path not in ADMIN_BYPASS:
             tenant_id = request.headers.get("X-Tenant-ID")
             token = request.cookies.get("santis_session") or request.headers.get("Authorization")
             

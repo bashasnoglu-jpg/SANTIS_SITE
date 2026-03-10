@@ -25,7 +25,8 @@
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px var(--aurelia-glow) inset;
     -webkit-backdrop-filter: blur(25px);
     backdrop-filter: blur(25px);
-    z-index: 9999;
+    z-index: 350;
+    /* Sovereign Standard: Live Agent (350) */
 
     /* Animation Initial State */
     opacity: 0;

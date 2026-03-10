@@ -3,6 +3,7 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8"/>
+    <meta name="description" content="Santis Club — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="index, follow" name="robots"/>
 <title>Santis Club</title> <!-- Placeholder -->
@@ -89,22 +90,46 @@
 <a href="/tr/galeri/index.html">GALERİ</a>
 </nav>
 </noscript>
-<h1>Detay</h1>
+<h1 id="detail-title-seo" style="position:absolute;width:1px;height:1px;overflow:hidden;opacity:0">Santis Club Sovereign Ritüeli</h1>
+
 <!-- GHOST LOADER -->
 <div id="nv-page-loader"><div class="nv-spinner"></div></div>
 <header id="nv-header"></header>
 <!-- DYNAMIC CONTENT STAGE -->
-<main class="nv-service-stage" id="nv-dynamic-content">
-<!-- V5 FACTORY INJECTION ZONE -->
-<section class="related-services">
-<h2>İlgili Hizmetler</h2>
-<ul>
-<li><a href="/tr/masajlar/klasik-rahatlama.html">Klasik Rahatlama Masajı</a></li>
-<li><a href="/tr/masajlar/aromaterapi.html">Aromaterapi Masajı</a></li>
-<li><a href="/tr/masajlar/derin-doku.html">Derin Doku Masajı</a></li>
-</ul>
-</section>
+<main id="nv-dynamic-content" style="opacity:0;transition:opacity 1s ease;background:#050505;min-height:100vh;padding:8rem 0 5rem;position:relative;overflow:hidden">
+  <div style="position:absolute;width:600px;height:600px;background:rgba(212,175,55,0.05);border-radius:50%;filter:blur(120px);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none"></div>
+  <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:10">
+    <a href="javascript:history.back()" style="display:inline-flex;align-items:center;color:#888;text-decoration:none;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:3rem;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#888'">← GERİ DÖN</a>
+    <div style="display:flex;flex-wrap:wrap;gap:3rem;align-items:center">
+      <!-- Görsel -->
+      <div style="flex:1;min-width:280px;max-width:480px;position:relative">
+        <div style="width:100%;aspect-ratio:4/5;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:#0a0a0a;box-shadow:0 0 50px rgba(0,0,0,.8)">
+          <img id="detail-image" src="/assets/img/cards/santis_card_massage_lux.webp" alt="Sovereign Ritüeli"
+               loading="eager" decoding="async" style="width:100%;height:100%;object-fit:cover;transition:transform 3s ease"
+               onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+      </div>
+      <!-- İçerik -->
+      <div style="flex:1;min-width:280px">
+        <span id="detail-category" style="color:#D4AF37;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:1rem">SOVEREIGN KOLEKSİYONU</span>
+        <h1 id="detail-title" style="font-size:clamp(2rem,4vw,3.5rem);color:#fff;font-family:'Cinzel',serif;line-height:1.2;margin-bottom:1.5rem">Yükleniyor…</h1>
+        <div style="height:1px;width:6rem;background:linear-gradient(to right,#D4AF37,transparent);margin-bottom:2rem"></div>
+        <p id="detail-desc" style="color:#aaa;font-size:1rem;line-height:1.8;margin-bottom:2.5rem;font-weight:300">Sovereign kasasının kilitleri açılıyor…</p>
+        <div style="margin-bottom:2.5rem">
+          <span style="color:#666;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:.5rem">Sovereign Değer</span>
+          <div id="detail-price" style="font-size:2.5rem;color:#fff;font-family:'Cinzel',serif;border-bottom:1px solid rgba(212,175,55,.4);padding-bottom:.5rem;display:inline-block">VIP</div>
+        </div>
+        <button id="detail-vault-btn"
+          style="padding:1.25rem 3rem;background:linear-gradient(135deg,#D4AF37,#aa8a2a);color:#000;font-weight:700;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;border:none;cursor:pointer;border-radius:2px;transition:all .3s;box-shadow:0 0 20px rgba(212,175,55,.2)"
+          onmouseover="this.style.boxShadow='0 0 40px rgba(212,175,55,.5)';this.style.transform='scale(1.02)'"
+          onmouseout="this.style.boxShadow='0 0 20px rgba(212,175,55,.2)';this.style.transform='scale(1)'">
+          SOVEREIGN REZERVE ET
+        </button>
+      </div>
+    </div>
+  </div>
 </main>
+
 <footer id="nv-footer"></footer>
 <!-- CORE SCRIPTS -->
 <script src="/assets/js/app.js"></script>
@@ -113,12 +138,6 @@
 <!-- UPSELL BRIDGE (Phase 23) -->
 <div id="upsell-container"></div>
 <script src="/assets/js/modules/upsell-bridge.js"></script>
-<script>
-        // Init Factory
-        document.addEventListener("DOMContentLoaded", () => {
-            const factory = new PageFactory();
-            factory.init();
-        });
-    </script>
+
 </body>
 </html>

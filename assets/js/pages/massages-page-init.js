@@ -1,35 +1,25 @@
-(function () {
-    "use strict";
+import { SantisDataBridge } from '../santis-data-bridge.js';
 
-    // Keep root-based asset resolution stable for nested language pages.
-    window.SITE_ROOT = "/";
+export const MassagePage = {
+    async mount() {
+        console.log("🛡️ [Massage V10] Kaçak dosya ele geçirildi. V10 Motoruna devrediliyor...");
+        const container = document.querySelector('#santis-matrix-container') || document.querySelector('.santis-matrix-container');
+        if (!container) return;
+        const selector = container.id ? `#${container.id}` : '.santis-matrix-container';
 
-    function initMassagesPage() {
-        if (typeof window.Engine !== "undefined" && typeof window.Engine.init === "function") {
-            window.Engine.init("MASSAGES");
+        if (SantisDataBridge && SantisDataBridge.bootMatrix) {
+            await SantisDataBridge.bootMatrix('/assets/data/services.json', selector, 'massage');
         }
-
-        var scrollTrigger = document.querySelector(".nv-scroll-indicator[data-scroll-target]");
-        if (scrollTrigger && scrollTrigger.dataset.scrollBound !== "1") {
-            scrollTrigger.dataset.scrollBound = "1";
-            scrollTrigger.addEventListener("click", function () {
-                var targetId = scrollTrigger.getAttribute("data-scroll-target");
-                if (!targetId) {
-                    return;
-                }
-                var target = document.getElementById(targetId);
-                if (target) {
-                    target.scrollIntoView({ behavior: "smooth" });
-                }
-            });
+    },
+    async unmount() {
+        const container = document.querySelector('#santis-matrix-container') || document.querySelector('.santis-matrix-container');
+        if (container) container.innerHTML = '';
+        if (window.SovereignVirtualEngine && window.SovereignVirtualEngine.physicalNodes) {
+            window.SovereignVirtualEngine.physicalNodes.clear();
         }
-
-        // Components (navbar + footer) are loaded globally by santis-nav.js
     }
+};
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initMassagesPage);
-    } else {
-        initMassagesPage();
-    }
-})();
+export function initMassages() { return MassagePage; } // veya initMassage()
+export default MassagePage;
+window.MassagePage = MassagePage;

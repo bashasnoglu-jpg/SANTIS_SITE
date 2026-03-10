@@ -1300,6 +1300,7 @@ window.loadDynamicSlots = async function () {
                 const opt = document.createElement('option');
                 opt.value = svc.slug;
                 opt.textContent = `${svc.name} (${svc.category})`;
+                opt.dataset.category = svc.category; // Ensure category is accessible for filtering
                 optgroup.appendChild(opt);
             });
 
@@ -1327,8 +1328,69 @@ window.openAssetDirector = async function (assetId) {
     document.getElementById('director-service-id').value = asset.caption_en || asset.linked_service_id || '';
     document.getElementById('director-caption').value = asset.caption || '';
 
+    // Automatically filter slots when modal opens
+    window.filterDirectorSlots();
+
     document.getElementById('nv-asset-director-modal').classList.remove('hidden');
 };
+
+window.filterDirectorSlots = function () {
+    const cat = document.getElementById('director-category').value;
+    const select = document.getElementById('director-slot');
+
+    Array.from(select.children).forEach(group => {
+        if (group.tagName.toLowerCase() === 'optgroup') {
+            // Check dynamic options inside the group
+            let hasVisibleOptions = false;
+            Array.from(group.children).forEach(opt => {
+                if (!opt.value) { // This is the "Sadece Galeri" option, leave visible
+                    opt.style.display = '';
+                    hasVisibleOptions = true;
+                } else if (opt.dataset.category) { // Dynamic option with db category
+                    if (cat === 'diger' || opt.dataset.category === cat) {
+                        opt.style.display = '';
+                        hasVisibleOptions = true;
+                    } else {
+                        opt.style.display = 'none';
+                    }
+                } else { // Static options formatting checks
+                    const label = group.label.toLowerCase();
+                    const optVal = opt.value.toLowerCase();
+                    let matches = false;
+
+                    if (cat === 'hamam' && (label.includes('hamam') || optVal.includes('hamam'))) matches = true;
+                    else if (cat === 'masaj' && (label.includes('masaj') || optVal.includes('therapy') || optVal.includes('masaj') || optVal.includes('sig-card'))) matches = true;
+                    else if (cat === 'cilt' && (label.includes('cilt') || optVal.includes('cilt'))) matches = true;
+                    else if (cat === 'diger') matches = true; // 'diger' context shows all general things or fallback
+                    else if (label.includes('ana sayfa')) matches = true; // Homepage slots show universally for routing
+
+                    if (matches) {
+                        opt.style.display = '';
+                        hasVisibleOptions = true;
+                    } else {
+                        opt.style.display = 'none';
+                    }
+                }
+            });
+            group.style.display = hasVisibleOptions ? '' : 'none';
+        } else {
+            // Direct options (e.g. standard "null" slots)
+            group.style.display = '';
+        }
+    });
+
+    // Safety fallback: if currently selected slot got hidden, reset to blank
+    const selectedOpt = select.options[select.selectedIndex];
+    if (selectedOpt && selectedOpt.style.display === 'none') {
+        select.value = '';
+    }
+};
+
+// Bind the event listener once
+document.addEventListener('DOMContentLoaded', () => {
+    const dirCat = document.getElementById('director-category');
+    if (dirCat) dirCat.addEventListener('change', window.filterDirectorSlots);
+});
 
 window.closeAssetDirector = function () {
     document.getElementById('nv-asset-director-modal').classList.add('hidden');

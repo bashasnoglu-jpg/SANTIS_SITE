@@ -59,7 +59,7 @@
 /* Intro Slide (Noise/Chaos) */
 .nv-slide-intro::before {
     background-color: #111;
-    background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 80%), url('../../assets/img/hero/hero-general.webp') !important;
+    background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 80%), url('../img/cards/anasayfa_hero_8k_v1.webp') !important;
 }
 
 /* Slide Specific Backgrounds */

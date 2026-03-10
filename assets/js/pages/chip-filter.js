@@ -8,7 +8,7 @@
         var sections = document.querySelectorAll(".nv-massage-category, .rail-section, [data-category]");
 
         if (!sections.length) {
-            console.warn("[ChipFilter] Sections not ready yet.");
+            // console.warn("[ChipFilter] Sections not ready yet. Motor bekliyor.");
             return;
         }
 

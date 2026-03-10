@@ -97,76 +97,119 @@ window.CheckoutVault = (function () {
             console.log("💎 [Sovereign Checkout] Hybrid Vault Initialized.");
         },
 
-        async initiate(variantId, ghostId) {
-            if (!isInitialized) this.init();
-            console.log(`[Vault] Ritual ${ghostId} için Kuantum Tüneli açılıyor...`);
+        // Butonlardan tetiklenen asıl giriş fonksiyonu (V7 Uyumlu Dinamik Nesne)
+        openAvailabilityMatrix(serviceData) {
+            this.initiateCheckout(serviceData);
+        },
+        open(serviceData) {
+            if (!serviceData) return;
+            this.currentService = serviceData;
 
-            // 1. Görsel Kilidi Aktif Et (Neuro-Focus)
+            // 🧠 YAPAY ZEKA: Bu bir Ürün mü, yoksa Spa Ritüeli mi?
+            const dateContainer = document.getElementById('vault-calendar-matrix');
+            const datePicker = document.getElementById('vault-date-picker');
+
+            if (serviceData.isProduct) {
+                // KOZMETİK ÜRÜNÜYSE: Tarih Seçiciyi GİZLE! 
+                if (dateContainer) dateContainer.style.display = 'none';
+                // Stripe API hata vermesin diye hayali bir tarih atıyoruz
+                if (datePicker) datePicker.value = "2099-01-01";
+                if (this.checkoutBtn) this.checkoutBtn.innerHTML = 'Kargoya Ver (Satın Al)';
+            } else {
+                // SPA RİTÜELİYSE: Tarih Seçiciyi GÖSTER!
+                if (dateContainer) dateContainer.style.display = 'block';
+                //if (datePicker) datePicker.value = ""; // Yeni tarih için sıfırla
+                if (this.checkoutBtn) this.checkoutBtn.innerHTML = 'Ritüeli Mühürle';
+            }
+
+            this.openAvailabilityMatrix(serviceData);
+        },
+
+        async initiateCheckout(serviceData) {
+            if (!isInitialized) this.init();
+
+            const service = typeof serviceData === 'object' ? serviceData : { id: serviceData, title: "Sovereign Ritüel", price_eur: 150 };
+
+            // Tarih kontrolü (ürün değilse)
+            const ritualDate = this.datePicker ? this.datePicker.value : new Date().toISOString().split('T')[0];
+            if (!service.isProduct && !ritualDate) {
+                alert("Lütfen asil bir tarih seçiniz Komutanım.");
+                return;
+            }
+
+            const originalText = this.checkoutBtn ? this.checkoutBtn.innerHTML : '';
+            if (this.checkoutBtn) {
+                this.checkoutBtn.innerHTML = `<svg class="animate-spin h-5 w-5 mr-3 inline-block" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg> <span>Sovereign Tüneli Açılıyor...</span>`;
+                this.checkoutBtn.classList.add('opacity-80', 'cursor-not-allowed', 'pointer-events-none');
+            }
+
+            console.log(`🚀 [Stripe Vault] Fırlatılıyor: ${service.title} | Tarih: ${ritualDate}`);
             this.toggleOverlay(true);
-            const startTime = Date.now();
 
             try {
-                // 2. Asenkron Shopify Handshake (Arka planda)
-                // Hali hazırda Shopify variant ID'si gerektirir. Eğer yoksa simulated fallback çalışır.
-                const checkoutPromise = this.fetchShopifyURL(variantId);
+                // Fiyat zırhı (string içinden sadece rakam al)
+                let cleanPrice = 0;
+                if (typeof service.price_eur === 'string') {
+                    cleanPrice = parseFloat(service.price_eur.replace(/[^0-9.]/g, '')) || 0;
+                } else {
+                    cleanPrice = parseFloat(service.price_eur) || 0;
+                }
 
-                // 3. Yarışı Başlat: API cevabı vs Minimum Animasyon Süresi
-                const checkoutUrl = await checkoutPromise;
-                const elapsedTime = Date.now() - startTime;
-                const remainingTime = Math.max(0, this.minAnimationTime - elapsedTime);
+                // God's Eye Ghost ID'sini payload'a ekle
+                const ghostId = localStorage.getItem('santis_ghost_id') || 'UNKNOWN_VIP';
 
-                // 4. Animasyon Bitişiyle Kusursuz Geçiş
-                setTimeout(() => {
-                    console.log("[Vault] Geçiş Mühürlendi. Shopify'a akış başlıyor.");
-                    window.location.href = checkoutUrl;
-                }, remainingTime);
+                const payload = {
+                    ritual_id: service.id || service.slug || "sovereign-item",
+                    ritual_name: service.title || "Sovereign Lüks Ürün",
+                    price_eur: cleanPrice,
+                    date: service.isProduct ? "2099-01-01" : ritualDate,
+                    session_id: crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15),
+                    ghost_id: ghostId
+                };
+
+                // FastAPI Sovereign Stripe Köprüsüne Vuruş!
+                const response = await fetch('/api/v1/payments/checkout/sovereign-seal', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error("Stripe Tüneli Yanıt Vermedi!");
+
+                const data = await response.json();
+
+                if (data.checkout_url) {
+                    if (this.checkoutBtn) {
+                        this.checkoutBtn.innerHTML = '✅ STRIPE AĞINA BAĞLANILDI';
+                        this.checkoutBtn.classList.replace('from-[#D4AF37]', 'from-green-500');
+                        this.checkoutBtn.classList.replace('to-[#AA8A2A]', 'to-green-700');
+                    }
+                    // 0.5 saniye lüks gecikmeyle Stripe'a ışınla
+                    setTimeout(() => window.location.href = data.checkout_url, 500);
+                } else {
+                    throw new Error("Checkout URL bulunamadı.");
+                }
 
             } catch (error) {
-                this.handleError(error);
+                console.error("🚨 [Sovereign Checkout] Hata:", error);
+                if (this.checkoutBtn) {
+                    this.checkoutBtn.innerHTML = '❌ BAĞLANTI KOPTU';
+                    this.checkoutBtn.classList.replace('from-[#D4AF37]', 'from-red-600');
+                    this.checkoutBtn.classList.replace('to-[#AA8A2A]', 'to-red-900');
+                    setTimeout(() => {
+                        this.checkoutBtn.innerHTML = originalText;
+                        this.checkoutBtn.classList.replace('from-red-600', 'from-[#D4AF37]');
+                        this.checkoutBtn.classList.replace('to-red-900', 'to-[#AA8A2A]');
+                        this.checkoutBtn.classList.remove('opacity-80', 'cursor-not-allowed', 'pointer-events-none');
+                    }, 3000);
+                }
+                setTimeout(() => {
+                    this.toggleOverlay(false);
+                    alert("Rezervasyon güvenli tüneli açılamadı. Lütfen direkt WhatsApp hattımızdan ulaşın.");
+                }, 1500);
             }
         },
 
-        // Butonlardan tetiklenen asıl giriş fonksiyonu
-        openAvailabilityMatrix(ritualId) {
-            // RitualID'den Shopify Variant ID türetecek bir mantık eklenebilir. Şimdilik dummy variant
-            const dummyVariantId = btoa("gid://shopify/ProductVariant/1234567890");
-            this.initiate(dummyVariantId, ritualId);
-        },
-        open(ritualId) {
-            this.openAvailabilityMatrix(ritualId);
-        },
-
-        async fetchShopifyURL(variantId) {
-            // Bu kısım gerçek prod ortamında Shopify'dan token ile fetch atar.
-            // Santis.config global değilse lokal fallback alıyoruz.
-            const apiEndpoint = (window.Santis && window.Santis.config) ? window.Santis.config.endpoints.shopify : config.endpoints.shopify;
-            const apiToken = (window.Santis && window.Santis.config) ? window.Santis.config.tokens.storefront : config.tokens.storefront;
-
-            const query = `mutation { checkoutCreate(input: { lineItems: [{ variantId: "${variantId}", quantity: 1 }] }) { checkout { webUrl } } }`;
-
-            // EĞER SADECE DEMO ORTAMIYSA ASYNC TIMEOUT İLE SIMULE ET (Domain veya HTTPS hazır olmayabilir)
-            if (apiToken === 'API_TOKEN_XYZ') {
-                console.warn("[Vault] Demo Mode: Gerçek API bağlantısı yok, yönlendirme simülasyonu çalışıyor.");
-                return new Promise(resolve => {
-                    setTimeout(() => resolve("#checkout-success"), 600);
-                });
-            }
-
-            const response = await fetch(apiEndpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Shopify-Storefront-Access-Token': apiToken
-                },
-                body: JSON.stringify({ query })
-            });
-
-            const { data } = await response.json();
-            if (!data || !data.checkoutCreate || !data.checkoutCreate.checkout) {
-                throw new Error("Geçersiz API Yanıtı");
-            }
-            return data.checkoutCreate.checkout.webUrl;
-        },
 
         toggleOverlay(active) {
             const body = document.body;

@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
+    <meta name="description" content="Santis Integrated Command Center — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Santis Integrated Command Center</title>
 <!-- Tailwind Warning Suppressor -->
@@ -709,7 +710,188 @@
 <!-- ══════════════════════════════════════════════════════════
                  PHASE 30: GOD MODE — COMPACT SHI WIDGET BAR
                  ═══════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     GÖRSEL & KART EDİTÖRÜ (Sovereign Card Manager)
+     ═══════════════════════════════════════════════════ -->
+<div class="shrink-0 bg-black/50 backdrop-blur-xl border border-[#D4AF37]/30 rounded-xl p-4 flex flex-col gap-3 shadow-[0_4px_20px_rgba(201,169,110,0.12)] relative overflow-hidden" id="card-editor-panel">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.05),transparent_70%)] pointer-events-none"></div>
+
+    <!-- Header -->
+    <div class="flex items-center justify-between relative z-10">
+        <h2 class="text-[10px] font-bold tracking-widest uppercase text-[#D4AF37] flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse shadow-[0_0_5px_#D4AF37]"></span>
+            Görsel & Kart Editörü
+        </h2>
+        <span class="text-[8px] font-mono text-gray-600 border border-gray-800 px-1.5 py-0.5 rounded" id="card-editor-count">— kart</span>
+    </div>
+
+    <!-- Card Selector -->
+    <div class="relative z-10">
+        <label class="block text-[9px] font-mono text-gray-500 mb-1 uppercase tracking-widest">Kart Seç</label>
+        <select id="ce-card-select" class="w-full bg-gray-900 border border-gray-700 text-white text-[11px] rounded px-2 py-1.5 outline-none focus:border-[#D4AF37] font-mono transition">
+            <option value="">— Yükleniyor... —</option>
+        </select>
+    </div>
+
+    <!-- Preview + Fields -->
+    <div class="flex gap-3 relative z-10">
+        <!-- Image Preview -->
+        <div class="w-20 h-24 shrink-0 rounded overflow-hidden border border-gray-700 bg-gray-900 relative">
+            <img id="ce-preview-img" src="" alt="" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300">
+            <div class="absolute inset-0 flex items-center justify-center text-gray-700 text-[9px] font-mono" id="ce-preview-placeholder">Görsel</div>
+        </div>
+        <!-- Fields -->
+        <div class="flex-1 flex flex-col gap-2">
+            <div>
+                <label class="block text-[9px] font-mono text-gray-500 mb-0.5">Başlık (TR)</label>
+                <input id="ce-title" type="text" class="w-full bg-gray-900 border border-gray-700 text-white text-[11px] rounded px-2 py-1 outline-none focus:border-[#D4AF37] font-mono transition" placeholder="Hamam Ritüeli">
+            </div>
+            <div>
+                <label class="block text-[9px] font-mono text-gray-500 mb-0.5">Fiyat (€)</label>
+                <input id="ce-price" type="number" step="1" class="w-full bg-gray-900 border border-gray-700 text-white text-[11px] rounded px-2 py-1 outline-none focus:border-[#D4AF37] font-mono transition" placeholder="0">
+            </div>
+        </div>
+    </div>
+
+    <!-- Image URL Field -->
+    <div class="relative z-10">
+        <label class="block text-[9px] font-mono text-gray-500 mb-0.5 uppercase tracking-widest">Görsel URL / Path</label>
+        <input id="ce-image" type="text" class="w-full bg-gray-900 border border-gray-700 text-white text-[11px] rounded px-2 py-1.5 outline-none focus:border-[#D4AF37] font-mono transition" placeholder="/assets/img/cards/...">
+    </div>
+
+    <!-- Description -->
+    <div class="relative z-10">
+        <label class="block text-[9px] font-mono text-gray-500 mb-0.5 uppercase tracking-widest">Açıklama</label>
+        <textarea id="ce-description" rows="2" class="w-full bg-gray-900 border border-gray-700 text-white text-[11px] rounded px-2 py-1.5 outline-none focus:border-[#D4AF37] font-mono transition resize-none" placeholder="Kart açıklaması..."></textarea>
+    </div>
+
+    <!-- URL / Routing Field -->
+    <div class="relative z-10">
+        <label class="block text-[9px] font-mono text-gray-500 mb-0.5 uppercase tracking-widest flex items-center gap-1">
+            🔗 Yönlendirme URL
+            <span class="text-gray-700">(tıklayınca gidecek adres)</span>
+        </label>
+        <input id="ce-url" type="text" class="w-full bg-gray-900 border border-gray-700 text-white text-[11px] rounded px-2 py-1.5 outline-none focus:border-[#D4AF37] font-mono transition" placeholder="/tr/hamam/osmanli-ritueli.html">
+        <p class="text-[8px] text-gray-600 mt-0.5 font-mono">Boş bırakılırsa slug'dan otomatik oluşturulur.</p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex gap-2 relative z-10">
+        <button onclick="cardEditorSave()" class="flex-1 py-2 text-[10px] font-bold tracking-widest uppercase bg-[#D4AF37]/15 hover:bg-[#D4AF37]/30 border border-[#D4AF37]/40 hover:border-[#D4AF37]/80 text-[#D4AF37] rounded transition-all duration-300 shadow-[0_0_10px_rgba(212,175,55,0.1)]">
+            💾 Kaydet
+        </button>
+        <button onclick="cardEditorReload()" class="px-3 py-2 text-[10px] text-gray-500 hover:text-[#D4AF37] border border-gray-700 hover:border-[#D4AF37]/40 rounded transition font-mono">
+            ↺
+        </button>
+    </div>
+
+    <!-- Status -->
+    <div id="ce-status" class="text-[9px] font-mono text-center hidden relative z-10"></div>
+</div>
+
+<script>
+(function() {
+    let _ceData = [];
+
+    async function cardEditorLoad() {
+        try {
+            const res = await fetch('/assets/data/services.json');
+            const raw = await res.json();
+            _ceData = raw.categories
+                ? raw.categories.flatMap(c => c.services || c.items || [])
+                : (raw.services || raw);
+
+            const sel = document.getElementById('ce-card-select');
+            sel.innerHTML = '<option value="">— Kart seçin —</option>';
+            _ceData.forEach((item, i) => {
+                const title = item.title || item.name || item.slug || `Kart #${i}`;
+                const cat   = item.category || '';
+                sel.innerHTML += `<option value="${i}">[${cat}] ${title}</option>`;
+            });
+            document.getElementById('card-editor-count').textContent = `${_ceData.length} kart`;
+        } catch(e) {
+            document.getElementById('ce-card-select').innerHTML = '<option>⚠ Yüklenemedi</option>';
+        }
+    }
+
+    document.getElementById('ce-card-select').addEventListener('change', function() {
+        const i = parseInt(this.value);
+        if (isNaN(i)) return;
+        const item = _ceData[i];
+        document.getElementById('ce-title').value       = item.title || item.name || '';
+        document.getElementById('ce-price').value       = item.price_eur || item.price || '';
+        document.getElementById('ce-image').value       = item.image || '';
+        document.getElementById('ce-description').value = item.description || '';
+        // URL: item.url varsa kullan, yoksa slug'dan otomatik oluştur
+        const autoUrl = item.slug ? `/tr/${(item.category||'').replace('ritual-','').replace('-','')}/${item.slug}.html` : '';
+        document.getElementById('ce-url').value         = item.url || autoUrl;
+        const img = document.getElementById('ce-preview-img');
+        const ph  = document.getElementById('ce-preview-placeholder');
+        if (item.image) {
+            img.src = item.image;
+            img.style.opacity = '1';
+            ph.style.display = 'none';
+        } else {
+            img.style.opacity = '0';
+            ph.style.display = 'flex';
+        }
+    });
+
+    document.getElementById('ce-image').addEventListener('input', function() {
+        const img = document.getElementById('ce-preview-img');
+        img.src = this.value;
+        img.style.opacity = this.value ? '1' : '0';
+    });
+
+    window.cardEditorSave = async function() {
+        const sel = document.getElementById('ce-card-select');
+        const i   = parseInt(sel.value);
+        if (isNaN(i)) return;
+
+        const item = _ceData[i];
+        const payload = {
+            id:          item.id || item.slug,
+            title:       document.getElementById('ce-title').value,
+            price_eur:   parseFloat(document.getElementById('ce-price').value) || 0,
+            image:       document.getElementById('ce-image').value,
+            description: document.getElementById('ce-description').value,
+            url:         document.getElementById('ce-url').value,
+        };
+
+        const st = document.getElementById('ce-status');
+        st.className = 'text-[9px] font-mono text-center text-[#D4AF37] relative z-10';
+        st.textContent = '⏳ Kaydediliyor...';
+        st.classList.remove('hidden');
+
+        try {
+            const res = await fetch('/api/v1/services/update', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (res.ok) {
+                st.textContent = '✅ Kart güncellendi!';
+                st.className = 'text-[9px] font-mono text-center text-emerald-400 relative z-10';
+                _ceData[i] = { ..._ceData[i], ...payload };
+            } else {
+                throw new Error(`HTTP ${res.status}`);
+            }
+        } catch(e) {
+            st.textContent = `⚠ ${e.message}`;
+            st.className = 'text-[9px] font-mono text-center text-red-400 relative z-10';
+        }
+        setTimeout(() => st.classList.add('hidden'), 3000);
+    };
+
+    window.cardEditorReload = function() { cardEditorLoad(); };
+
+    cardEditorLoad();
+})();
+</script>
+
+<!-- God Mode Panel (existing) -->
 <div class="shrink-0 bg-black/50 backdrop-blur-xl border border-santis-gold/20 rounded-xl px-3 py-2.5 flex flex-col gap-2 shadow-[0_4px_20px_rgba(201,169,110,0.08)] relative overflow-hidden" id="god-mode-panel">
+
 <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_center,rgba(201,169,110,0.04),transparent_80%)] pointer-events-none"></div>
 <!-- Single-row compact bar -->
 <div class="flex items-center gap-3 relative z-10">

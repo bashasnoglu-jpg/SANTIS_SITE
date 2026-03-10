@@ -463,7 +463,10 @@ window.SantisOS = {
 };
 
 // Async boot
-SantisOS.init();
+if (!window.__SANTIS_EDGE_OS_BOOTED__) {
+    window.__SANTIS_EDGE_OS_BOOTED__ = true;
+    SantisOS.init();
+}
 
 /* ==========================================================================
    PROTOCOL 23: THE QUANTUM GATEWAY (Sovereign Sayfa Geçişleri)

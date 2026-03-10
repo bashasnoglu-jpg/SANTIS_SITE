@@ -7,6 +7,8 @@
     'use strict';
 
     if (window.SantisScore) return;
+    if (window.__SANTIS_SCORE_BOOTED__) return;
+    window.__SANTIS_SCORE_BOOTED__ = true;
 
     // ─── THE GHOST EXORCISM (V15.6 AUTO-WIPE) ──────────────────────────────
     const CURRENT_GHOST_VERSION = '15.6';
@@ -88,6 +90,9 @@
     };
 
     function addScoreProxy(eventKey, extraPayload = {}) {
+        // 🛡️ ULTRA-MEGA ZIRH: Skor 100 ise fonksiyonu anında öldür, işlemciyi yorma!
+        if (_currentScoreLocal >= 100) return;
+
         if (window.SantisOS && window.SantisOS.SAFE_MODE) {
             console.warn(`🛡️ [Kill Switch] Otonom puanlama devredışı. (Target: ${eventKey})`);
             return;
@@ -140,6 +145,9 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
+                    if (entry.target.dataset.viewed) return;
+                    entry.target.dataset.viewed = "true";
+
                     addScoreProxy('card_view', { card: entry.target.dataset.id || 'unknown' });
                     observer.unobserve(entry.target);
                 }
@@ -169,7 +177,7 @@
         requestAnimationFrame(() => {
             if (e.clientY < 5 && !_exitBridgeFired) {
                 _exitBridgeFired = true;
-                console.log(`🚁 [Score Engine] Exit Intent detected.`);
+                // console.log(`🚁 [Score Engine] Exit Intent detected.`); // Spam engellendi
                 brainWorker.postMessage({ type: 'EXIT_INTENT' });
 
                 setTimeout(() => { _exitBridgeFired = false; }, 15000);

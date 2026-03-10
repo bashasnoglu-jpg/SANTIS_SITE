@@ -12,7 +12,7 @@ for _noisy in ("sqlalchemy.engine", "sqlalchemy.engine.Engine",
     _logging.getLogger(_noisy).setLevel(_logging.WARNING)
 
 import asyncio
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Body
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Body, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -120,6 +120,82 @@ async def get_manifest():
     if manifest_path.exists():
         return FileResponse(manifest_path, media_type="application/manifest+json")
     return {"error": "Manifest not found"}
+
+# ── Katman 12/13: Media Upload ve V10 SSE Stream ────────────────
+import uuid
+import aiofiles
+from PIL import Image
+from io import BytesIO
+from fastapi import UploadFile, File
+from fastapi.responses import StreamingResponse
+from app.core.event_dispatcher import event_dispatcher
+
+# Görsellerin fiziksel olarak kaydedileceği klasör (Proje root dizinine göre ayarlayın)
+import os
+import io
+UPLOAD_DIR = os.path.join(os.getcwd(), "assets", "img", "cards")
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+@app.post("/api/v1/media/upload", tags=["Upload"])
+async def upload_service_media(file: UploadFile = File(...)):
+    """
+    Sovereign OS - Akıllı Medya Yükleyici
+    Gelen dosyayı WebP formatına sıkıştırır ve karta atanmaya hazır path'i döner.
+    """
+    allowed_types = ["image/jpeg", "image/png", "image/webp"]
+    if file.content_type not in allowed_types:
+        raise HTTPException(status_code=400, detail="Sadece JPG, PNG veya WEBP kabul edilir.")
+
+    try:
+        # 1. Dosyayı hafızaya al ve Pillow ile aç
+        contents = await file.read()
+        image = Image.open(io.BytesIO(contents))
+        
+        # 2. Şeffaf PNG'leri WebP yaparken siyah arkaplanı önlemek için RGB'ye çevir
+        if image.mode in ("RGBA", "P"):
+            image = image.convert("RGB")
+            
+        # 3. Akıllı Boyutlandırma (Lüks kartlar 4/5 oranındadır, çok büyükse küçült)
+        image.thumbnail((800, 1000), Image.Resampling.LANCZOS)
+
+        # 4. Deterministik İsimlendirme (Klasörde çakışmayı önler)
+        safe_filename = f"santis-card-{uuid.uuid4().hex[:8]}.webp"
+        file_path = os.path.join(UPLOAD_DIR, safe_filename)
+
+        # 5. WebP olarak kaydet (Kalite: 85, Lüks hissiyatı korur, boyutu ezer)
+        image.save(file_path, "WEBP", quality=85, optimize=True)
+        
+        # 6. Frontend Motorunun Beklediği Tam Yolu (Path) Döndür
+        public_path = f"/assets/img/cards/{safe_filename}"
+        
+        return {"success": True, "path": public_path, "message": "Görsel Kuantum Ağa yüklendi."}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Görsel işlenirken sunucu hatası: {str(e)}")
+
+@app.get("/api/v1/stream", tags=["Stream"])
+async def sse_stream(request: Request, tenant_id: str = "santis_hq"):
+    """V10 Engine Server-Sent Events (SSE). Canlı güncellemeleri clientlara iter."""
+    async def event_generator():
+        # Dinleyici olarak kuyruğa alınıyoruz
+        queue = asyncio.Queue()
+        event_dispatcher.subscribe(queue)
+        try:
+            while True:
+                if await request.is_disconnected():
+                    break
+                try:
+                    # Normalde event_dispatcher'dan haber bekle
+                    msg = await asyncio.wait_for(queue.get(), timeout=15.0)
+                    yield f"data: {msg}\n\n"
+                except asyncio.TimeoutError:
+                    # Timeout durumunda ping at (bağlantıyı canlı tutar)
+                    yield ':\n\n'
+        finally:
+            event_dispatcher.unsubscribe(queue)
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
+
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def get_favicon():

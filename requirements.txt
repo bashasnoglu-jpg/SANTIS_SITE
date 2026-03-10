@@ -40,3 +40,4 @@ sse-starlette
 
 watchdog
 
+pyvips

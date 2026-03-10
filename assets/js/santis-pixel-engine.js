@@ -8,6 +8,9 @@
 (function () {
     'use strict';
 
+    if (window.__SANTIS_PIXEL_BOOTED__) return;
+    window.__SANTIS_PIXEL_BOOTED__ = true;
+
     // State
     const PixelEngine = {
         initialized: false,

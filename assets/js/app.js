@@ -37,7 +37,7 @@ window.SANTIS = window.SANTIS || {
 };
 
 // DEV OVERRIDE (Phase 87): Backend API is currently offline. Suppress 404s.
-window.SANTIS_API_ONLINE = false;
+window.SANTIS_API_ONLINE = false; // global kill-switch; set true only when API is reachable
 
 // 🔇 PRODUCTION LOG GUARD — localhost dışında console çıktılarını sustur
 if (!window.SANTIS.debug) {
@@ -170,7 +170,7 @@ async function loadContent() {
     }
 
     // 2. Overwrite with API Data if available (Phase 2 API Mode)
-    if (window.SantisAPI) {
+    if (window.SantisAPI && window.SANTIS_API_ONLINE) {
       console.log("🦅 API Mode: Active");
       let apiData = null;
       const currentHotel = state.hotel || localStorage.getItem("santis_hotel");
@@ -201,6 +201,14 @@ async function loadContent() {
         });
         console.log("🦅 API Data injected into base content successfully.");
       }
+    }
+
+    // NEW (V10): Broadcast global ignition signal for AI/Concierge engines
+    if (window.productCatalog && window.productCatalog.length > 0) {
+      window.NV_DATA_READY = true;
+      document.dispatchEvent(new Event('nv-data-ready'));
+      window.dispatchEvent(new Event('nv-data-ready')); // Add window dispatch for legacy listeners
+      console.log(`🌌 [Santis V10] Global Product Seed Broadcasted. Catalog Items: ${window.productCatalog.length}`);
     }
 
     return base;
@@ -538,12 +546,10 @@ document.addEventListener('DOMContentLoaded', () => {
     '/assets/js/santis-chameleon.js',                   // AI Content Personalization
     '/assets/js/santis-persuader.js',                   // Proactive Closing Engine (Legacy Aurelia)
     '/assets/js/aurelia-engine.js?v=2.1',               // The Sovereign Ghost (Phase 65 Aurelia Engine)
-    '/assets/js/santis-revenue-brain.js',               // Revenue Brain (direct JS)
     // ── UX & DATA ────────────────────────────────────────────────────────────
     '/assets/js/santis-booking.js',                     // Booking Modal/Flow
     '/assets/js/booking-wizard.js',                     // Booking Wizard UI
     '/assets/js/language-switcher.js',                  // TR/EN/FR Lang Switcher
-    '/assets/js/loaders/data-bridge.js',                // Sovereign Data Bridge V6
     '/assets/js/cms-image-loader.js',                   // CMS Image Lazy Loader
     // ── VISUAL EFFECTS ────────────────────────────────────────────────────────
     '/assets/js/nuclear-cards.js',                      // Nuclear Card Animations

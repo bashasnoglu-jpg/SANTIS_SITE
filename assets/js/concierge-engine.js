@@ -163,14 +163,20 @@
 
         init: function () {
             // 1. Determine Data Source (Admin vs Site)
-            let sourceData = window.localCatalog || window.productCatalog;
+            let sourceData = window.localCatalog || window.productCatalog || window.SovereignDataMatrix;
 
-            if (!sourceData) {
-                console.warn("⚠️ Concierge waiting for Product Catalog...");
+            if (!sourceData || !sourceData.length) {
+                // 🛡️ Quiet Luxury: Pusuya yat — Data Bridge sinyalini bekle
+                console.warn("💤 [Concierge] Ürün kataloğu bekleniyor. santis:rail-ready sinyali bekleniyor...");
+                document.addEventListener('santis:rail-ready', (e) => {
+                    window.SovereignDataMatrix = e.detail;
+                    console.log("🤖 [Concierge] Data Matrix alındı! AI Uyanıyor.");
+                    window.NV_CONCIERGE.init();
+                }, { once: true });
                 return;
             }
             this.brain = new ConciergeBrain(sourceData);
-            console.log("🤖 Concierge Engine v2.0 READY. Source:", window.localCatalog ? "Admin (Live)" : "Static (Site)");
+            console.log("🤖 Concierge Engine v2.0 READY. Source:", window.localCatalog ? "Admin (Live)" : "Data Matrix");
 
             // LOAD UI
             this.loadUI();
@@ -378,13 +384,32 @@
         }
     };
 
-    // Auto-init on Load
-    if (window.NV_DATA_READY) {
-        window.NV_CONCIERGE.init();
+    // 🚀 BOOT — Kuantum Sinyalleri ile Uyanış
+    const bootstrapConcierge = () => {
+        if (!window.NV_CONCIERGE.brain) {
+            window.NV_CONCIERGE.init();
+        }
+    };
+
+    if (window.NV_DATA_READY || (window.productCatalog && window.productCatalog.length > 0) || window.SovereignDataMatrix) {
+        bootstrapConcierge();
     } else {
-        window.addEventListener('nv-data-ready', () => window.NV_CONCIERGE.init());
-        // Backup init
-        setTimeout(() => { if (!window.NV_CONCIERGE.brain) window.NV_CONCIERGE.init(); }, 1500);
+        // nv-data-ready (legacy) ve santis:rail-ready (V10) her ikisini dinle
+        document.addEventListener('nv-data-ready', bootstrapConcierge, { once: true });
+        window.addEventListener('nv-data-ready', bootstrapConcierge, { once: true });
+        document.addEventListener('santis:rail-ready', (e) => {
+            window.SovereignDataMatrix = e.detail;
+            bootstrapConcierge();
+        }, { once: true });
+        // Son çare: 4s sonra services.json ile kendini besle
+        setTimeout(() => {
+            if (!window.NV_CONCIERGE.brain) {
+                fetch('/assets/data/services.json')
+                    .then(r => r.json())
+                    .then(data => { window.productCatalog = data; bootstrapConcierge(); })
+                    .catch(() => { });
+            }
+        }, 4000);
     }
 
 })();

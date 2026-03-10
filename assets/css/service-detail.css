@@ -47,7 +47,12 @@
     filter: brightness(1.05) contrast(0.95);
     /* Softer image */
     transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-    view-transition-name: active-ritual-img;
+}
+
+@supports (view-transition-name: active-ritual-img) {
+    .cin-visual-img {
+        view-transition-name: active-ritual-img;
+    }
 }
 
 .cin-visual-overlay {

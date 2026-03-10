@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Operations from './pages/Operations';
 import Finance from './pages/Finance';
+import ServiceManager from './pages/ServiceManager';
 import useAuthStore from './store/useAuthStore';
 
 // Create a client
@@ -35,6 +36,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Operations />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/services"
+            element={
+              <PrivateRoute>
+                <ServiceManager />
               </PrivateRoute>
             }
           />

@@ -871,3 +871,26 @@ async def get_slot_health(
         return {"slots": result, "total": len(result)}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/forge/upload")
+async def upload_image(file: UploadFile, background_tasks: BackgroundTasks):
+    from app.core.face_flag import ALLOW_FACE_USAGE
+    from app.core.image_forge import forge_image
+    import shutil
+    
+    # 1️⃣ Önce insan yüzü kullanım kısıtlamasını kontrol et
+    if not ALLOW_FACE_USAGE:
+        return {"error": "İnsan yüzü kullanımına izin verilmemektedir."}
+    
+    # 2️⃣ /tmp/ dizinine geçici kaydet (Windows'ta ./tmp altına alır)
+    import os
+    os.makedirs("tmp", exist_ok=True)
+    temp_path = f"tmp/{file.filename}"
+    with open(temp_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    
+    # 3️⃣ Arka planda PyVips pipeline ile işleme
+    background_tasks.add_task(forge_image, temp_path)
+    
+    # 4️⃣ Admin paneline hemen 202 Accepted dön
+    return {"status": "202 Accepted", "message": "İşlem başlatıldı."}

@@ -25,6 +25,20 @@ class EventDispatcher:
     def __init__(self):
         self.running = False
         self._task = None
+        self._subscribers = set()
+
+    def subscribe(self, queue: asyncio.Queue):
+        self._subscribers.add(queue)
+
+    def unsubscribe(self, queue: asyncio.Queue):
+        self._subscribers.discard(queue)
+
+    def publish_memory(self, payload: dict):
+        """Phase V10: Cerrahi Render (Surgical Patch) için doğrudan hafızadan SSE yayını yapar"""
+        import json
+        msg = json.dumps(payload)
+        for queue in self._subscribers:
+            queue.put_nowait(msg)
 
     def start(self):
         if not self.running:
@@ -108,6 +122,9 @@ class EventDispatcher:
 
         # Fire to all HQ and Guest nodes
         await manager.broadcast_global(payload)
+        
+        # Fire to all SSE connections (Phase V10 Kuantum Köprüsü)
+        self.publish_memory(payload)
 
         prefix = "📡 [Global Event Bus]" if event.event_type == "CONTENT_PUBLISHED" else "⏪ [Global Event Bus]"
         print(f"{prefix} Broadcasting Sync for {slug} ({region})")

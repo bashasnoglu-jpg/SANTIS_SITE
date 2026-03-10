@@ -6,7 +6,8 @@
     "description": "Farklı tekniklerin kişiye özel harmanlandığı, bütünsel bir terapi deneyimi.",
     "category": "massage",
     "image": "/assets/img/cards/massage.webp",
-    "url": "/tr/masajlar/kombine-masaj.html"
+    "url": "/tr/masajlar/kombine-masaj.html",
+    "price_eur": 60
   },
   {
     "id": "hamam-peeling-schaum",
@@ -19,7 +20,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hammam_lux.png"
+      "hero": "santis_card_hammam_lux.webp"
     },
     "content": {
       "tr": {
@@ -59,7 +60,9 @@
     "slug": "kese-ve-kopuk-masaji",
     "tags": [
       "CLASSIC"
-    ]
+    ],
+    "image": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "price_eur": 45
   },
   {
     "id": "hamam-schaum",
@@ -72,7 +75,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_foam_lux.png"
+      "hero": "santis_card_foam_lux.webp"
     },
     "content": {
       "tr": {
@@ -110,7 +113,9 @@
       }
     },
     "slug": "kopuk-masaji",
-    "tags": []
+    "tags": [],
+    "image": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "price_eur": 45
   },
   {
     "id": "hamam-kaffee",
@@ -123,7 +128,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hamam_scrub_v2.png"
+      "hero": "santis_card_hamam_scrub_v2.webp"
     },
     "content": {
       "tr": {
@@ -161,7 +166,9 @@
       }
     },
     "slug": "kahve-peeling",
-    "tags": []
+    "tags": [],
+    "image": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "price_eur": 45
   },
   {
     "id": "hamam-meersalz",
@@ -174,7 +181,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hamam_scrub_v2.png"
+      "hero": "santis_card_hamam_scrub_v2.webp"
     },
     "content": {
       "tr": {
@@ -212,7 +219,9 @@
       }
     },
     "slug": "tuz-peeling",
-    "tags": []
+    "tags": [],
+    "image": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "price_eur": 45
   },
   {
     "id": "hamam-honig",
@@ -224,7 +233,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hammam_v1.png"
+      "hero": "santis_card_hammam_v1.webp"
     },
     "content": {
       "tr": {
@@ -262,7 +271,10 @@
       }
     },
     "slug": "bal-masaji",
-    "tags": []
+    "tags": [],
+    "url": "/tr/hamam/bal-masaji.html",
+    "image": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "price_eur": 45
   },
   {
     "id": "hamam-schokolade",
@@ -274,7 +286,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_kids_v1.png"
+      "hero": "santis_card_kids_v1.webp"
     },
     "content": {
       "tr": {
@@ -312,7 +324,10 @@
       }
     },
     "slug": "cikolata-bakimi",
-    "tags": []
+    "tags": [],
+    "url": "/tr/hamam/cikolata-bakimi.html",
+    "image": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "price_eur": 45
   },
   {
     "id": "hamam-algen",
@@ -324,7 +339,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_skincare_clay_v2.png"
+      "hero": "santis_card_skincare_clay_v2.webp"
     },
     "content": {
       "tr": {
@@ -364,7 +379,10 @@
     "slug": "yosun-bakimi",
     "tags": [
       "DETOX"
-    ]
+    ],
+    "url": "/tr/hamam/yosun-bakimi.html",
+    "image": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "price_eur": 45
   },
   {
     "id": "hamam-osmanische",
@@ -377,7 +395,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hammam_lux.png"
+      "hero": "santis_card_hammam_lux.webp"
     },
     "content": {
       "tr": {
@@ -389,7 +407,9 @@
     "slug": "osmanli-hamam-gelenegi",
     "tags": [
       "SIGNATURE"
-    ]
+    ],
+    "image": "/assets/img/cards/santis_card_hammam_lux.webp",
+    "price_eur": 45
   },
   {
     "id": "mass-classic-ganz",
@@ -401,7 +421,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -423,7 +443,10 @@
       }
     },
     "slug": "isvec-full-body",
-    "tags": []
+    "tags": [],
+    "url": "/tr/masajlar/isvec-full-body.html",
+    "image": "/assets/img/cards/santis_card_massage_lux.webp",
+    "price_eur": 60
   },
   {
     "id": "mass-fuss",
@@ -435,7 +458,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_oil_v2.png"
+      "hero": "santis_card_massage_oil_v2.webp"
     },
     "content": {
       "tr": {
@@ -457,7 +480,10 @@
       }
     },
     "slug": "ayak-refleksoloji",
-    "tags": []
+    "tags": [],
+    "url": "/tr/masajlar/ayak-refleksoloji.html",
+    "image": "/assets/img/cards/santis_card_massage_lux.webp",
+    "price_eur": 65
   },
   {
     "id": "mass-rucken",
@@ -469,7 +495,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_deeptissue_v1.png"
+      "hero": "santis_card_deeptissue_v1.webp"
     },
     "content": {
       "tr": {
@@ -491,7 +517,10 @@
       }
     },
     "slug": "sirt-terapi-masaji",
-    "tags": []
+    "tags": [],
+    "url": "/tr/masajlar/sirt-terapi-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_lux.webp",
+    "price_eur": 65
   },
   {
     "id": "mass-classic-50",
@@ -503,7 +532,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -527,7 +556,10 @@
     "slug": "klasik-masaj",
     "tags": [
       "POPULAR"
-    ]
+    ],
+    "url": "/tr/masajlar/klasik-masaj.html",
+    "image": "/assets/img/cards/santis_card_massage_lux.webp",
+    "price_eur": 60
   },
   {
     "id": "mass-antistress",
@@ -539,7 +571,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_oil_v2.png"
+      "hero": "santis_card_massage_oil_v2.webp"
     },
     "content": {
       "tr": {
@@ -563,7 +595,10 @@
     "slug": "anti-stress-masaji",
     "tags": [
       "RELAX"
-    ]
+    ],
+    "url": "/tr/masajlar/anti-stress-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_lux.webp",
+    "price_eur": 60
   },
   {
     "id": "mass-aroma",
@@ -575,7 +610,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "product-oil.png"
+      "hero": "product-oil.webp"
     },
     "content": {
       "tr": {
@@ -597,7 +632,10 @@
       }
     },
     "slug": "aromaterapi-masaji",
-    "tags": []
+    "tags": [],
+    "url": "/tr/masajlar/aromaterapi-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_lux.webp",
+    "price_eur": 60
   },
   {
     "id": "mass-bronze",
@@ -609,7 +647,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -633,7 +671,10 @@
     "slug": "bronz-masaji",
     "tags": [
       "SUMMER"
-    ]
+    ],
+    "url": "/tr/masajlar/bronz-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_premium.webp",
+    "price_eur": 90
   },
   {
     "id": "mass-thai",
@@ -668,7 +709,10 @@
       }
     },
     "slug": "thai-masaji",
-    "tags": []
+    "tags": [],
+    "url": "/tr/masajlar/thai-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_asian.webp",
+    "price_eur": 75
   },
   {
     "id": "mass-bali",
@@ -703,7 +747,10 @@
       }
     },
     "slug": "bali-masaji",
-    "tags": []
+    "tags": [],
+    "url": "/tr/masajlar/bali-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_asian.webp",
+    "price_eur": 75
   },
   {
     "id": "mass-shiatsu",
@@ -738,7 +785,10 @@
       }
     },
     "slug": "shiatsu-masaji",
-    "tags": []
+    "tags": [],
+    "url": "/tr/masajlar/shiatsu-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_asian.webp",
+    "price_eur": 75
   },
   {
     "id": "mass-hotstone",
@@ -773,7 +823,10 @@
       }
     },
     "slug": "sicak-tas-masaji",
-    "tags": []
+    "tags": [],
+    "url": "/tr/masajlar/sicak-tas-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_lux.webp",
+    "price_eur": 60
   },
   {
     "id": "mass-sport",
@@ -785,7 +838,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_deeptissue_v1.png"
+      "hero": "santis_card_deeptissue_v1.webp"
     },
     "content": {
       "tr": {
@@ -809,7 +862,10 @@
     "slug": "spor-terapi",
     "tags": [
       "STRONG"
-    ]
+    ],
+    "url": "/tr/masajlar/spor-terapi.html",
+    "image": "/assets/img/cards/santis_card_massage_sports.webp",
+    "price_eur": 70
   },
   {
     "id": "mass-anticellulite",
@@ -821,7 +877,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_skincare_v1.png"
+      "hero": "santis_card_skincare_v1.webp"
     },
     "content": {
       "tr": {
@@ -843,7 +899,10 @@
       }
     },
     "slug": "selulit-masaji",
-    "tags": []
+    "tags": [],
+    "url": "/tr/masajlar/selulit-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_medical.webp",
+    "price_eur": 70
   },
   {
     "id": "extra-local-deep",
@@ -856,7 +915,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_deeptissue_v1.png"
+      "hero": "santis_card_deeptissue_v1.webp"
     },
     "content": {
       "tr": {
@@ -878,7 +937,9 @@
       }
     },
     "slug": "lokal-derin-doku",
-    "tags": []
+    "tags": [],
+    "image": "/assets/img/cards/santis_card_massage_lux.webp",
+    "price_eur": 65
   },
   {
     "id": "extra-local-hotstone",
@@ -890,7 +951,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -912,7 +973,10 @@
       }
     },
     "slug": "lokal-sicak-tas",
-    "tags": []
+    "tags": [],
+    "url": "/tr/masajlar/lokal-sicak-tas.html",
+    "image": "/assets/img/cards/santis_card_massage_lux.webp",
+    "price_eur": 65
   },
   {
     "id": "extra-manual",
@@ -924,7 +988,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -948,7 +1012,10 @@
     "slug": "manuel-terapi",
     "tags": [
       "THERAPY"
-    ]
+    ],
+    "url": "/tr/masajlar/manuel-terapi.html",
+    "image": "/assets/img/cards/santis_card_massage_medical.webp",
+    "price_eur": 70
   },
   {
     "id": "extra-hotstone",
@@ -960,7 +1027,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -982,7 +1049,10 @@
       }
     },
     "slug": "sicak-tas-masaji",
-    "tags": []
+    "tags": [],
+    "url": "/tr/masajlar/sicak-tas-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_premium.webp",
+    "price_eur": 90
   },
   {
     "id": "extra-deep",
@@ -994,7 +1064,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_deeptissue_v1.png"
+      "hero": "santis_card_deeptissue_v1.webp"
     },
     "content": {
       "tr": {
@@ -1018,7 +1088,10 @@
     "slug": "derin-doku-masaji",
     "tags": [
       "INTENSE"
-    ]
+    ],
+    "url": "/tr/masajlar/derin-doku-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_sports.webp",
+    "price_eur": 70
   },
   {
     "id": "extra-lymph",
@@ -1030,7 +1103,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_oil_v2.png"
+      "hero": "santis_card_massage_oil_v2.webp"
     },
     "content": {
       "tr": {
@@ -1054,7 +1127,10 @@
     "slug": "lenf-drenaj",
     "tags": [
       "DETOX"
-    ]
+    ],
+    "url": "/tr/masajlar/lenf-drenaj.html",
+    "image": "/assets/img/cards/santis_card_massage_medical.webp",
+    "price_eur": 70
   },
   {
     "id": "extra-combined",
@@ -1066,7 +1142,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_couple_v1.png"
+      "hero": "santis_card_couple_v1.webp"
     },
     "content": {
       "tr": {
@@ -1090,7 +1166,10 @@
     "slug": "kombine-masaj",
     "tags": [
       "MIX"
-    ]
+    ],
+    "url": "/tr/masajlar/kombine-masaj.html",
+    "image": "/assets/img/cards/santis_card_massage_premium.webp",
+    "price_eur": 90
   },
   {
     "id": "extra-combo-ganz",
@@ -1102,7 +1181,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_couple_v1.png"
+      "hero": "santis_card_couple_v1.webp"
     },
     "content": {
       "tr": {
@@ -1126,7 +1205,10 @@
     "slug": "kombine-masaj",
     "tags": [
       "PREMIUM"
-    ]
+    ],
+    "url": "/tr/masajlar/kombine-masaj.html",
+    "image": "/assets/img/cards/santis_card_massage_premium.webp",
+    "price_eur": 90
   },
   {
     "id": "extra-mix-manuel",
@@ -1138,7 +1220,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -1162,7 +1244,10 @@
     "slug": "manuel-terapi",
     "tags": [
       "VIP"
-    ]
+    ],
+    "url": "/tr/masajlar/manuel-terapi.html",
+    "image": "/assets/img/cards/santis_card_massage_premium.webp",
+    "price_eur": 90
   },
   {
     "id": "sothys-purete-classique",
@@ -1199,11 +1284,14 @@
       }
     },
     "slug": "rituel-purete-classique",
-    "img": "rituel-purete-classique.jpg",
+    "img": "rituel-purete-classique.webp",
     "media": {
       "hero": "santis_card_skincare_clay_v2.webp"
     },
-    "tags": []
+    "tags": [],
+    "url": "/tr/cilt-bakimi/rituel-purete-classique.html",
+    "image": "/assets/img/cards/santis_card_sothys_purifying.webp",
+    "price_eur": 80
   },
   {
     "id": "sothys-detox-lumiere",
@@ -1243,7 +1331,10 @@
     "media": {
       "hero": "santis_card_skincare_clay_v2.webp"
     },
-    "tags": []
+    "tags": [],
+    "url": "/tr/cilt-bakimi/rituel-detox-lumiere.html",
+    "image": "/assets/img/cards/santis_card_sothys_purifying.webp",
+    "price_eur": 80
   },
   {
     "id": "sothys-purete-profonde",
@@ -1284,7 +1375,10 @@
     "media": {
       "hero": "santis_card_skincare_clay_v2.webp"
     },
-    "tags": []
+    "tags": [],
+    "url": "/tr/cilt-bakimi/rituel-purete-profonde.html",
+    "image": "/assets/img/cards/santis_card_sothys_purifying.webp",
+    "price_eur": 80
   },
   {
     "id": "sothys-hydra-source",
@@ -1324,7 +1418,10 @@
     "media": {
       "hero": "santis_card_hydration_lux.webp"
     },
-    "tags": []
+    "tags": [],
+    "url": "/tr/cilt-bakimi/rituel-hydra-source.html",
+    "image": "/assets/img/cards/santis_card_sothys_hydra.webp",
+    "price_eur": 85
   },
   {
     "id": "sothys-hydra-confort",
@@ -1364,7 +1461,10 @@
     "media": {
       "hero": "santis_card_hydration_lux.webp"
     },
-    "tags": []
+    "tags": [],
+    "url": "/tr/cilt-bakimi/rituel-hydra-confort.html",
+    "image": "/assets/img/cards/santis_card_sothys_hydra.webp",
+    "price_eur": 85
   },
   {
     "id": "sothys-hydra-sublime",
@@ -1405,7 +1505,10 @@
     "media": {
       "hero": "santis_card_hydration_lux.webp"
     },
-    "tags": []
+    "tags": [],
+    "url": "/tr/cilt-bakimi/rituel-hydra-sublime.html",
+    "image": "/assets/img/cards/santis_card_sothys_hydra.webp",
+    "price_eur": 85
   },
   {
     "id": "sothys-jeunesse-initiale",
@@ -1445,7 +1548,10 @@
     "media": {
       "hero": "santis_card_skincare_detail_v2.webp"
     },
-    "tags": []
+    "tags": [],
+    "url": "/tr/cilt-bakimi/rituel-jeunesse-initiale.html",
+    "image": "/assets/img/cards/santis_card_sothys_antiage.webp",
+    "price_eur": 105
   },
   {
     "id": "sothys-jeunesse-supreme",
@@ -1485,7 +1591,10 @@
     "media": {
       "hero": "santis_card_skincare_detail_v2.webp"
     },
-    "tags": []
+    "tags": [],
+    "url": "/tr/cilt-bakimi/rituel-jeunesse-supreme.html",
+    "image": "/assets/img/cards/santis_card_sothys_antiage.webp",
+    "price_eur": 105
   },
   {
     "id": "sothys-diamant-eternel",
@@ -1526,7 +1635,10 @@
     "media": {
       "hero": "santis_card_skincare_detail_v2.webp"
     },
-    "tags": []
+    "tags": [],
+    "url": "/tr/cilt-bakimi/rituel-diamant-eternel.html",
+    "image": "/assets/img/cards/santis_card_sothys_antiage.webp",
+    "price_eur": 105
   },
   {
     "id": "sothys-homme-classique",
@@ -1566,7 +1678,10 @@
     "media": {
       "hero": "santis_card_skincare_v1.webp"
     },
-    "tags": []
+    "tags": [],
+    "url": "/tr/cilt-bakimi/rituel-homme-classique.html",
+    "image": "/assets/img/cards/santis_card_sothys_men.webp",
+    "price_eur": 80
   },
   {
     "id": "sothys-homme-equilibre",
@@ -1606,7 +1721,10 @@
     "media": {
       "hero": "santis_card_skincare_v1.webp"
     },
-    "tags": []
+    "tags": [],
+    "url": "/tr/cilt-bakimi/rituel-homme-equilibre.html",
+    "image": "/assets/img/cards/santis_card_sothys_men.webp",
+    "price_eur": 80
   },
   {
     "id": "sothys-homme-force",
@@ -1646,7 +1764,10 @@
     "media": {
       "hero": "santis_card_skincare_v1.webp"
     },
-    "tags": []
+    "tags": [],
+    "url": "/tr/cilt-bakimi/rituel-homme-force-calme.html",
+    "image": "/assets/img/cards/santis_card_sothys_men.webp",
+    "price_eur": 80
   },
   {
     "id": "journey-romantic-escape",
@@ -1658,7 +1779,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_oil_v2.png"
+      "hero": "santis_card_massage_oil_v2.webp"
     },
     "content": {
       "tr": {
@@ -1686,7 +1807,10 @@
     "tags": [
       "SIGNATURE",
       "COUPLE"
-    ]
+    ],
+    "url": "/tr/rituals/romantik-kacis-paketi.html",
+    "image": "/assets/img/cards/santis_card_journey_vip.webp",
+    "price_eur": 180
   },
   {
     "id": "journey-total-detox",
@@ -1698,7 +1822,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_skincare_clay_v2.png"
+      "hero": "santis_card_skincare_clay_v2.webp"
     },
     "content": {
       "tr": {
@@ -1725,7 +1849,10 @@
     "slug": "derin-detoks-paketi",
     "tags": [
       "DETOX"
-    ]
+    ],
+    "url": "/tr/rituals/derin-detoks-paketi.html",
+    "image": "/assets/img/cards/santis_card_journey_vip.webp",
+    "price_eur": 180
   },
   {
     "id": "journey-sultan-ritual",
@@ -1737,7 +1864,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_hammam_lux.png"
+      "hero": "santis_card_hammam_lux.webp"
     },
     "content": {
       "tr": {
@@ -1766,7 +1893,10 @@
     "tags": [
       "SIGNATURE",
       "VIP"
-    ]
+    ],
+    "url": "/tr/rituals/sultan-ritueli-paketi.html",
+    "image": "/assets/img/cards/santis_card_journey_vip.webp",
+    "price_eur": 180
   },
   {
     "id": "journey-athlete-recovery",
@@ -1778,7 +1908,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_deeptissue_v1.png"
+      "hero": "santis_card_deeptissue_v1.webp"
     },
     "content": {
       "tr": {
@@ -1806,7 +1936,10 @@
     "tags": [
       "STRONG",
       "SPORT"
-    ]
+    ],
+    "url": "/tr/rituals/sporcu-toparlanma-paketi.html",
+    "image": "/assets/img/cards/santis_card_journey_vip.webp",
+    "price_eur": 180
   },
   {
     "id": "journey-golden-glow",
@@ -1818,7 +1951,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_skincare_v1.png"
+      "hero": "santis_card_skincare_v1.webp"
     },
     "content": {
       "tr": {
@@ -1846,7 +1979,10 @@
     "tags": [
       "GLOW",
       "ANTI-AGE"
-    ]
+    ],
+    "url": "/tr/rituals/altin-isilti-paketi.html",
+    "image": "/assets/img/cards/santis_card_journey_vip.webp",
+    "price_eur": 180
   },
   {
     "id": "journey-zen-mind",
@@ -1858,7 +1994,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_v1.png"
+      "hero": "santis_card_massage_v1.webp"
     },
     "content": {
       "tr": {
@@ -1886,7 +2022,10 @@
     "tags": [
       "RELAX",
       "MINDFULNESS"
-    ]
+    ],
+    "url": "/tr/rituals/zen-zihin-paketi.html",
+    "image": "/assets/img/cards/santis_card_journey_vip.webp",
+    "price_eur": 180
   },
   {
     "id": "mass-anne-cocuk",
@@ -1898,7 +2037,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -1926,7 +2065,10 @@
     "slug": "anne-cocuk-masaji",
     "tags": [
       "SPECIALTY"
-    ]
+    ],
+    "url": "/tr/masajlar/anne-cocuk-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_kids.webp",
+    "price_eur": 40
   },
   {
     "id": "mass-bali",
@@ -1938,7 +2080,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -1966,7 +2108,10 @@
     "slug": "bali-masaji",
     "tags": [
       "SPECIALTY"
-    ]
+    ],
+    "url": "/tr/masajlar/bali-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_asian.webp",
+    "price_eur": 75
   },
   {
     "id": "mass-bas-boyun-omuz",
@@ -1978,7 +2123,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2006,7 +2151,10 @@
     "slug": "bas-boyun-omuz-masaji",
     "tags": [
       "CLASSIC"
-    ]
+    ],
+    "url": "/tr/masajlar/bas-boyun-omuz-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_lux.webp",
+    "price_eur": 65
   },
   {
     "id": "mass-cift-rituel",
@@ -2018,7 +2166,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2046,7 +2194,10 @@
     "slug": "cift-rituel",
     "tags": [
       "CLASSIC"
-    ]
+    ],
+    "url": "/tr/masajlar/cift-rituel.html",
+    "image": "/assets/img/cards/santis_card_massage_couples.webp",
+    "price_eur": 110
   },
   {
     "id": "mass-cift-senkron",
@@ -2058,7 +2209,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2086,7 +2237,10 @@
     "slug": "cift-senkron-masaji",
     "tags": [
       "CLASSIC"
-    ]
+    ],
+    "url": "/tr/masajlar/cift-senkron-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_couples.webp",
+    "price_eur": 110
   },
   {
     "id": "mass-kids-nazik",
@@ -2098,7 +2252,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2126,7 +2280,10 @@
     "slug": "kids-nazik-masaji",
     "tags": [
       "CLASSIC"
-    ]
+    ],
+    "url": "/tr/masajlar/kids-nazik-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_kids.webp",
+    "price_eur": 40
   },
   {
     "id": "mass-kranyo-sakral",
@@ -2138,7 +2295,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2166,7 +2323,10 @@
     "slug": "kranyo-sakral-terapi",
     "tags": [
       "THERAPEUTIC"
-    ]
+    ],
+    "url": "/tr/masajlar/kranyo-sakral-terapi.html",
+    "image": "/assets/img/cards/santis_card_massage_medical.webp",
+    "price_eur": 70
   },
   {
     "id": "mass-myofascial-release",
@@ -2178,7 +2338,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2206,7 +2366,10 @@
     "slug": "myofascial-release",
     "tags": [
       "THERAPEUTIC"
-    ]
+    ],
+    "url": "/tr/masajlar/myofascial-release.html",
+    "image": "/assets/img/cards/santis_card_massage_sports.webp",
+    "price_eur": 70
   },
   {
     "id": "mass-shiatsu",
@@ -2218,7 +2381,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2246,7 +2409,10 @@
     "slug": "shiatsu-masaji",
     "tags": [
       "SPECIALTY"
-    ]
+    ],
+    "url": "/tr/masajlar/shiatsu-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_asian.webp",
+    "price_eur": 75
   },
   {
     "id": "mass-signature-rituel",
@@ -2258,7 +2424,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2286,7 +2452,10 @@
     "slug": "signature-rituel",
     "tags": [
       "SPECIALTY"
-    ]
+    ],
+    "url": "/tr/masajlar/signature-rituel.html",
+    "image": "/assets/img/cards/santis_card_massage_premium.webp",
+    "price_eur": 90
   },
   {
     "id": "mass-sirt-terapi",
@@ -2298,7 +2467,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2326,7 +2495,10 @@
     "slug": "sirt-terapi-masaji",
     "tags": [
       "THERAPEUTIC"
-    ]
+    ],
+    "url": "/tr/masajlar/sirt-terapi-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_lux.webp",
+    "price_eur": 65
   },
   {
     "id": "mass-tetik-nokta",
@@ -2338,7 +2510,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2366,7 +2538,10 @@
     "slug": "tetik-nokta-terapi",
     "tags": [
       "THERAPEUTIC"
-    ]
+    ],
+    "url": "/tr/masajlar/tetik-nokta-terapi.html",
+    "image": "/assets/img/cards/santis_card_massage_sports.webp",
+    "price_eur": 70
   },
   {
     "id": "mass-thai",
@@ -2378,7 +2553,7 @@
       "currency": "€"
     },
     "media": {
-      "hero": "santis_card_massage_lux.png"
+      "hero": "santis_card_massage_lux.webp"
     },
     "content": {
       "tr": {
@@ -2406,7 +2581,10 @@
     "slug": "thai-masaji",
     "tags": [
       "SPECIALTY"
-    ]
+    ],
+    "url": "/tr/masajlar/thai-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_asian.webp",
+    "price_eur": 75
   },
   {
     "id": "skin-acne-balance",
@@ -2453,7 +2631,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/acne-balance.html"
+    "detailUrl": "/tr/cilt-bakimi/acne-balance.html",
+    "image": "/assets/img/cards/santis_card_skin_purify.webp",
+    "price_eur": 65
   },
   {
     "id": "skin-anti-aging-pro",
@@ -2501,7 +2681,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/anti-aging-pro.html"
+    "detailUrl": "/tr/cilt-bakimi/anti-aging-pro.html",
+    "image": "/assets/img/cards/santis_card_skin_antiage.webp",
+    "price_eur": 95
   },
   {
     "id": "skin-barrier-repair",
@@ -2548,7 +2730,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/barrier-repair.html"
+    "detailUrl": "/tr/cilt-bakimi/barrier-repair.html",
+    "image": "/assets/img/cards/santis_card_skin_hydra.webp",
+    "price_eur": 65
   },
   {
     "id": "skin-brightening-spot",
@@ -2595,7 +2779,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/brightening-spot.html"
+    "detailUrl": "/tr/cilt-bakimi/brightening-spot.html",
+    "image": "/assets/img/cards/santis_card_skin_antiage.webp",
+    "price_eur": 95
   },
   {
     "id": "skin-classic-facial",
@@ -2642,7 +2828,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/classic-facial.html"
+    "detailUrl": "/tr/cilt-bakimi/classic-facial.html",
+    "image": "/assets/img/cards/santis_card_skin_basic.webp",
+    "price_eur": 55
   },
   {
     "id": "skin-collagen-lift",
@@ -2689,7 +2877,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/collagen-lift.html"
+    "detailUrl": "/tr/cilt-bakimi/collagen-lift.html",
+    "image": "/assets/img/cards/santis_card_skin_antiage.webp",
+    "price_eur": 95
   },
   {
     "id": "skin-deep-cleanse",
@@ -2736,7 +2926,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/deep-cleanse.html"
+    "detailUrl": "/tr/cilt-bakimi/deep-cleanse.html",
+    "image": "/assets/img/cards/santis_card_skin_purify.webp",
+    "price_eur": 65
   },
   {
     "id": "skin-detox-charcoal",
@@ -2783,7 +2975,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/detox-charcoal.html"
+    "detailUrl": "/tr/cilt-bakimi/detox-charcoal.html",
+    "image": "/assets/img/cards/santis_card_skin_purify.webp",
+    "price_eur": 65
   },
   {
     "id": "skin-enzyme-peel",
@@ -2830,7 +3024,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/enzyme-peel.html"
+    "detailUrl": "/tr/cilt-bakimi/enzyme-peel.html",
+    "image": "/assets/img/cards/santis_card_skin_purify.webp",
+    "price_eur": 65
   },
   {
     "id": "skin-eye-contour",
@@ -2877,7 +3073,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/eye-contour.html"
+    "detailUrl": "/tr/cilt-bakimi/eye-contour.html",
+    "image": "/assets/img/cards/santis_card_skin_basic.webp",
+    "price_eur": 55
   },
   {
     "id": "skin-glass-skin",
@@ -2924,7 +3122,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/glass-skin.html"
+    "detailUrl": "/tr/cilt-bakimi/glass-skin.html",
+    "image": "/assets/img/cards/santis_card_skin_hydra.webp",
+    "price_eur": 65
   },
   {
     "id": "skin-gold-mask-ritual",
@@ -2971,7 +3171,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/gold-mask-ritual.html"
+    "detailUrl": "/tr/cilt-bakimi/gold-mask-ritual.html",
+    "image": "/assets/img/cards/santis_card_skin_special.webp",
+    "price_eur": 75
   },
   {
     "id": "skin-hyaluron-hydrate",
@@ -3018,7 +3220,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/hyaluron-hydrate.html"
+    "detailUrl": "/tr/cilt-bakimi/hyaluron-hydrate.html",
+    "image": "/assets/img/cards/santis_card_skin_hydra.webp",
+    "price_eur": 65
   },
   {
     "id": "skin-led-rejuvenation",
@@ -3065,7 +3269,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/led-rejuvenation.html"
+    "detailUrl": "/tr/cilt-bakimi/led-rejuvenation.html",
+    "image": "/assets/img/cards/santis_card_skin_antiage.webp",
+    "price_eur": 95
   },
   {
     "id": "skin-lip-care",
@@ -3112,7 +3318,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/lip-care.html"
+    "detailUrl": "/tr/cilt-bakimi/lip-care.html",
+    "image": "/assets/img/cards/santis_card_skin_basic.webp",
+    "price_eur": 55
   },
   {
     "id": "skin-men-facial",
@@ -3159,7 +3367,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/men-facial.html"
+    "detailUrl": "/tr/cilt-bakimi/men-facial.html",
+    "image": "/assets/img/cards/santis_card_skin_special.webp",
+    "price_eur": 75
   },
   {
     "id": "skin-micro-polish",
@@ -3206,7 +3416,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/micro-polish.html"
+    "detailUrl": "/tr/cilt-bakimi/micro-polish.html",
+    "image": "/assets/img/cards/santis_card_skin_special.webp",
+    "price_eur": 75
   },
   {
     "id": "skin-oxygen-boost",
@@ -3253,7 +3465,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/oxygen-boost.html"
+    "detailUrl": "/tr/cilt-bakimi/oxygen-boost.html",
+    "image": "/assets/img/cards/santis_card_skin_hydra.webp",
+    "price_eur": 65
   },
   {
     "id": "skin-sensitive-soothe",
@@ -3300,7 +3514,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/sensitive-soothe.html"
+    "detailUrl": "/tr/cilt-bakimi/sensitive-soothe.html",
+    "image": "/assets/img/cards/santis_card_skin_basic.webp",
+    "price_eur": 55
   },
   {
     "id": "skin-vitamin-c-glow",
@@ -3347,7 +3563,9 @@
       "skincare",
       "cilt-bakimi"
     ],
-    "detailUrl": "/tr/cilt-bakimi/vitamin-c-glow.html"
+    "detailUrl": "/tr/cilt-bakimi/vitamin-c-glow.html",
+    "image": "/assets/img/cards/santis_card_skin_special.webp",
+    "price_eur": 75
   },
   {
     "id": "acne-balance",
@@ -3382,7 +3600,9 @@
         "effects": "Ciltteki enflamasyonu ve kızarıklığı yatıştırır, fazla sebumu kontrol altına alır ve sivilce oluşumunu engeller. Taze, dengeli ve mat bir bitiş sağlar.",
         "tagline": "Denge & Pürüzsüzlük"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_advanced.webp",
+    "price_eur": 85
   },
   {
     "id": "anti-aging-pro",
@@ -3417,7 +3637,9 @@
         "effects": "Yüz ovalini toparlar, ince çizgi ve kırışıklık görünümünü azaltır. Hücresel yenilenmeyi hızlandırarak cilde genç, dolgun ve pürüzsüz bir görünüm kazandırır.",
         "tagline": "Zamanı Geri Alan Dokunuş"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_advanced.webp",
+    "price_eur": 85
   },
   {
     "id": "barrier-repair",
@@ -3452,7 +3674,9 @@
         "effects": "Zarar görmüş veya hassaslaşmış cilt bariyerini onarır. Çevresel faktörlere karşı cildi güçlendirir, kronik kızarıklığı ve gerginlik hissini anında giderir.",
         "tagline": "Koruma Kalkanı & Derin Onarım"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "brightening-spot",
@@ -3487,7 +3711,9 @@
         "effects": "Güneş, yaşlılık veya akne sonrası oluşan leke görünümlerini hafifletir. Cilt tonunu eşitler ve donuk görünümü silip yerine berrak, ışıltılı bir cilt bırakır.",
         "tagline": "Porselen Berraklığı & Işıltı"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_advanced.webp",
+    "price_eur": 85
   },
   {
     "id": "classic-facial",
@@ -3522,7 +3748,9 @@
         "effects": "Cildin temel nem ve temizlik ihtiyacını karşılar. Gözeneklerin nefes almasını sağlayarak yorgunluk hissini siler, doğal bir pembelik ve yumuşaklık kazandırır.",
         "tagline": "Klasik Zarafet & Temel Bakım"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "collagen-lift",
@@ -3557,7 +3785,9 @@
         "effects": "Elastikiyetini kaybetmiş cildi toparlar, sıkılaşma ve anında lifting (gerginlik) etkisi yaratır. Yüz hatları daha belirgin, doku ise daha dolgun hissedilir.",
         "tagline": "Sıkılık & Gençlik Aşısı"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_advanced.webp",
+    "price_eur": 85
   },
   {
     "id": "deep-cleanse",
@@ -3592,7 +3822,9 @@
         "effects": "Tıkanmış gözenekleri ve komedonları tamamen temizler. Cildin oksijen kapasitesini artırarak daha berrak, nefes alan ve pürüzsüz bir ten dokusu yaratır.",
         "tagline": "Saf Nefes & Derin Arınma"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "detox-charcoal",
@@ -3627,7 +3859,9 @@
         "effects": "Şehir kirliliği, stres ve makyaj kalıntılarının yarattığı matlığı ve toksin birikimini siler. Cildi tıkanıklıklardan arındırarak sağlıklı bir canlanma sağlar.",
         "tagline": "Şehir Detoksu & Yenilenme"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "enzyme-peel",
@@ -3662,7 +3896,9 @@
         "effects": "Fiziksel aşındırma yapmadan (granülsüz) ölü deri hücrelerini nazikçe yok eder. Hassas ciltlerde bile güvenle kullanılabilen, anında parlatıcı bir etki sunar.",
         "tagline": "Nazik Yenilenme & Botanik Işıltı"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_advanced.webp",
+    "price_eur": 85
   },
   {
     "id": "eye-contour",
@@ -3697,7 +3933,9 @@
         "effects": "Göz altı torbalanmalarını, koyu halkaları ve kaz ayaklarını gözle görülür şekilde azaltır. Daha uyanık, aydınlık ve genç bir bakış kazandırır.",
         "tagline": "Aydınlık Bakışlar & Göz Çevresi Terapisi"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_advanced.webp",
+    "price_eur": 85
   },
   {
     "id": "glass-skin",
@@ -3732,7 +3970,9 @@
         "effects": "Kore güzellik ritüellerinden ilham alan bu bakım, gözenek görünümünü minimize eder. Cilde içeriden gelen su bazlı, şeffaf ve cam gibi yansımalı bir ışıltı verir.",
         "tagline": "Porselen Pürüzsüzlüğü & Kristal Parlaklık"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_advanced.webp",
+    "price_eur": 85
   },
   {
     "id": "gold-mask-ritual",
@@ -3767,7 +4007,9 @@
         "effects": "Altının iyonik özellikleri ile cilt dokusunu yeniler, kan akışını hızlandırarak erken yaşlanmayı yavaşlatır. Muhteşem bir lüks hissi ve kraliyet ışıltısı bırakır.",
         "tagline": "Saf Lüks & 24 Ayar Işıltı"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "hyaluron-hydrate",
@@ -3802,7 +4044,9 @@
         "effects": "Cildin alt katmanlarına kadar inerek dehidrasyonu (susuzluğu) yok eder. Nemsizlikten kaynaklanan ince çizgileri anında doldurur, cildi neme doyurur ve dolgunlaştırır.",
         "tagline": "Derin Nem & Su Terapisi"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_advanced.webp",
+    "price_eur": 85
   },
   {
     "id": "led-rejuvenation",
@@ -3837,7 +4081,9 @@
         "effects": "Işık spektrumu sayesinde iğnesiz ve ağrısız hücresel yenilenme sağlar. Kırmızı ışık kolajeni uyarır, mavi ışık bakterileri yok eder, yeşil ışık ton eşitsizliklerini giderir.",
         "tagline": "Işığın İyileştirici Gücü & Fototerapi"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_advanced.webp",
+    "price_eur": 85
   },
   {
     "id": "lip-care",
@@ -3872,7 +4118,9 @@
         "effects": "Çatlamış ve yıpranmış dudakları onarır, doğal rengini canlandırır. Çevresindeki ince 'barkod' çizgilerini hafifleterek dudaklara çok daha dolgun ve pürüzsüz bir görünüm katar.",
         "tagline": "Duyusal Dolgunluk & İpeksi Dudaklar"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "men-facial",
@@ -3907,7 +4155,9 @@
         "effects": "Erkeklerin daha kalın ve yağlanmaya müsait cilt yapısını dengeler. Tıraşın yarattığı mikro-tahrişleri iyileştirir, cilde yorgunluktan uzak, sağlıklı ve enerjik bir matlık verir.",
         "tagline": "Dinamik Enerji & Maskülen Bakım"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "micro-polish",
@@ -3942,7 +4192,9 @@
         "effects": "Cildin en üst katmanındaki hasarlı ve ölü hücreleri fiziksel olarak yeniler. Küçük yara izleri, hafif çukurlar ve geniş gözenek görünümü anında düzelerek taze bir cilt ortaya çıkar.",
         "tagline": "Pırlanta Pürüzsüzlüğü & Yeniden Doğuş"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_advanced.webp",
+    "price_eur": 85
   },
   {
     "id": "oxygen-boost",
@@ -3977,7 +4229,9 @@
         "effects": "Sigara içenler, stresli yaşantıya sahip olanlar veya solgun görünen ciltler için bir nefestir. Dokulara yoğun oksijen taşıyarak anında pembemsi, son derece sağlıklı ve canlı bir doku yaratır.",
         "tagline": "Hücresel Nefes & Saf Canlılık"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_advanced.webp",
+    "price_eur": 85
   },
   {
     "id": "rituel-detox-lumiere",
@@ -4000,7 +4254,9 @@
       "description": "A comprehensive ritual to detoxify and illuminate your skin."
     },
     "url": "/tr/cilt-bakimi/rituel-detox-lumiere.html",
-    "slug": "rituel-detox-lumiere"
+    "slug": "rituel-detox-lumiere",
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "rituel-diamant-eternel",
@@ -4023,7 +4279,9 @@
       "description": "The pinnacle of luxury. Diamond-infused care for eternal radiance."
     },
     "url": "/tr/cilt-bakimi/rituel-diamant-eternel.html",
-    "slug": "rituel-diamant-eternel"
+    "slug": "rituel-diamant-eternel",
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "rituel-homme-classique",
@@ -4046,7 +4304,9 @@
       "description": "Effective and straightforward skincare maintenance for men."
     },
     "url": "/tr/cilt-bakimi/rituel-homme-classique.html",
-    "slug": "rituel-homme-classique"
+    "slug": "rituel-homme-classique",
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "rituel-homme-equilibre",
@@ -4069,7 +4329,9 @@
       "description": "Restore balance to oily or irritated male skin."
     },
     "url": "/tr/cilt-bakimi/rituel-homme-equilibre.html",
-    "slug": "rituel-homme-equilibre"
+    "slug": "rituel-homme-equilibre",
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "rituel-homme-force-calme",
@@ -4092,7 +4354,9 @@
       "description": "Strengthen and calm your skin with this relaxing men's ritual."
     },
     "url": "/tr/cilt-bakimi/rituel-homme-force-calme.html",
-    "slug": "rituel-homme-force-calme"
+    "slug": "rituel-homme-force-calme",
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "rituel-hydra-confort",
@@ -4115,7 +4379,9 @@
       "description": "Deep comfort and hydration for dry skin types."
     },
     "url": "/tr/cilt-bakimi/rituel-hydra-confort.html",
-    "slug": "rituel-hydra-confort"
+    "slug": "rituel-hydra-confort",
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "rituel-hydra-source",
@@ -4138,7 +4404,9 @@
       "description": "Refreshing hydration for thirsty skin."
     },
     "url": "/tr/cilt-bakimi/rituel-hydra-source.html",
-    "slug": "rituel-hydra-source"
+    "slug": "rituel-hydra-source",
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "rituel-hydra-sublime",
@@ -4161,7 +4429,9 @@
       "description": "Experience the ultimate in skin hydration and relaxation."
     },
     "url": "/tr/cilt-bakimi/rituel-hydra-sublime.html",
-    "slug": "rituel-hydra-sublime"
+    "slug": "rituel-hydra-sublime",
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "rituel-jeunesse-initiale",
@@ -4184,7 +4454,9 @@
       "description": "Preserve your youth with our Initial Youth defense ritual."
     },
     "url": "/tr/cilt-bakimi/rituel-jeunesse-initiale.html",
-    "slug": "rituel-jeunesse-initiale"
+    "slug": "rituel-jeunesse-initiale",
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "rituel-jeunesse-supreme",
@@ -4207,7 +4479,9 @@
       "description": "Comprehensive anti-aging correction for supreme youthfulness."
     },
     "url": "/tr/cilt-bakimi/rituel-jeunesse-supreme.html",
-    "slug": "rituel-jeunesse-supreme"
+    "slug": "rituel-jeunesse-supreme",
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "rituel-purete-classique",
@@ -4230,7 +4504,9 @@
       "description": "Balance and purify combination skin."
     },
     "url": "/tr/cilt-bakimi/rituel-purete-classique.html",
-    "slug": "rituel-purete-classique"
+    "slug": "rituel-purete-classique",
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "rituel-purete-profonde",
@@ -4253,7 +4529,9 @@
       "description": "Intense regulation for oily and congestion-prone skin."
     },
     "url": "/tr/cilt-bakimi/rituel-purete-profonde.html",
-    "slug": "rituel-purete-profonde"
+    "slug": "rituel-purete-profonde",
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "sensitive-soothe",
@@ -4288,7 +4566,9 @@
         "effects": "Rosacea, egzama eğilimi veya yoğun alerjik reaksiyon gösteren ciltler için bir kurtarıcıdır. İntoleransı azaltır, cildin ateşini alır ve güvenli bir rahatlama kozası oluşturur.",
         "tagline": "Sakinleştirici Şefkat & Ateş Düşürücü Dokunuş"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_ritual.webp",
+    "price_eur": 80
   },
   {
     "id": "vitamin-c-glow",
@@ -4323,6 +4603,177 @@
         "effects": "Serbest radikallere savaş açarak cildi fotoyaşlanmadan (güneş hasarı) korur. Anında bir enerji portresi çizer; cildiniz adeta içeriden bir ampul yanmışçasına sağlıklı ışıldar.",
         "tagline": "Antioksidan Güç & Göz Alıcı Işıltı"
       }
-    }
+    },
+    "image": "/assets/img/cards/santis_card_skin_advanced.webp",
+    "price_eur": 85
+  },
+  {
+    "id": "mass-bali-aroma",
+    "categoryId": "massage-asian",
+    "name": "Balinesische Aroma Massage",
+    "duration": 60,
+    "price": {
+      "amount": 60,
+      "currency": "€"
+    },
+    "media": {
+      "hero": "santis_card_massage_oil_v2.webp"
+    },
+    "img": "/assets/img/cards/santis_card_massage_oil_v2.webp",
+    "slug": "bali-aroma-masaji",
+    "tags": [],
+    "content": {
+      "tr": {
+        "title": "Bali Aroma Masajı",
+        "shortDesc": "Geleneksel Bali dokunuşlarının sıcak aromatik yağlarla harmanlandığı derin bir rahatlama.",
+        "fullDesc": "Kas gerginliklerini rahatlatan ve ruhunuzu şımartan Bali tarzı aromaterapi masajı.",
+        "tagline": "Duyusal Uyanış",
+        "heroTitle": "Bali'nin Aromatik Şifası",
+        "intro": "Bali'nin geleneksel iyileştirme bilgeliğini aromatik yağların rahatlatıcı gücüyle birleştiren bu terapi, beden ve zihni mükemmel bir dengeye kavuşturur.",
+        "steps": [
+          "Sıcak aromatik yağlarla karşılama ritüeli",
+          "Geleneksel Bali baskı ve sıvazlama teknikleri",
+          "Aroma esanslarının cilde derinlemesine nüfuzu",
+          "Ruhsal ve bedensel arınma"
+        ],
+        "effects": "Kan dolaşımını hızlandırır, hücreleri yeniler ve derin bir dinginlik sağlar.",
+        "idealFor": "Stresli dönemlerden geçenler ve ruhsal denge arayanlar.",
+        "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+      },
+      "de": {
+        "title": "Balinesische Aroma Massage",
+        "shortDesc": "Tiefe Entspannung mit warmen, aromatischen Ölen und traditionellen balinesischen Griffen.",
+        "fullDesc": "Balinesische Aromatherapie-Massage zur Lösung von Muskelverspannungen und Pflege der Seele."
+      }
+    },
+    "url": "/tr/masajlar/bali-aroma-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_asian.webp",
+    "price_eur": 75
+  },
+  {
+    "id": "mass-bali-fuss",
+    "categoryId": "massage-asian",
+    "name": "Balinesische Fußmassage",
+    "duration": 30,
+    "price": {
+      "amount": 30,
+      "currency": "€"
+    },
+    "media": {
+      "hero": "santis_card_massage_oil_v2.webp"
+    },
+    "slug": "bali-ayak-masaji",
+    "tags": [],
+    "content": {
+      "tr": {
+        "title": "Bali Ayak Masajı",
+        "shortDesc": "Ayaklardaki yorgunluğu özel Bali teknikleriyle alan bölgesel rahatlama.",
+        "fullDesc": "Ayak ve alt bacak bölgesindeki gerginliği hedefleyen odaklanmış Bali terapisi.",
+        "tagline": "Hafifleyen Adımlar",
+        "heroTitle": "Bali'nin Odaklanmış Dokunuşu",
+        "intro": "Tüm günün yükünü taşıyan ayaklarınız için özel olarak tasarlanmış bu terapi, Bali teknikleriyle derin bir hafifleme sağlar.",
+        "steps": [
+          "Sıcak kompres ile ayak ve bacak kaslarının ısıtılması",
+          "Bali teknikleriyle lokal basınç uygulaması",
+          "Ayak tabanından başlayıp dize kadar uzanan rahatlama",
+          "Nöral rahatlama ve gevşeme süreci"
+        ],
+        "effects": "Ayaklardaki ödemi azaltır, kan dolaşımını rahatlatır ve yorgunluğu yok eder.",
+        "idealFor": "Gününü ayakta geçirenler ve bölgesel bir rahatlama arayanlar.",
+        "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+      },
+      "de": {
+        "title": "Balinesische Fußmassage",
+        "shortDesc": "Spezielle balinesische Techniken für müde Füße und Waden.",
+        "fullDesc": "Gezielte Balinesische Therapie gegen Spannungen in Füßen und Unterschenkeln."
+      }
+    },
+    "url": "/tr/masajlar/bali-ayak-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_asian.webp",
+    "price_eur": 75
+  },
+  {
+    "id": "mass-thai-aroma",
+    "categoryId": "massage-asian",
+    "name": "Thai Aroma Massage",
+    "duration": 60,
+    "price": {
+      "amount": 70,
+      "currency": "€"
+    },
+    "media": {
+      "hero": "santis_card_massage_v1.webp"
+    },
+    "slug": "thai-aroma-masaji",
+    "tags": [],
+    "content": {
+      "tr": {
+        "title": "Thai Aroma Masajı",
+        "shortDesc": "Thai esneme hareketleri ve sıcak bitkisel yağların benzersiz sentezi.",
+        "fullDesc": "Esnekliği artırırken aroma yağlarıyla ruhu dinlendiren melez bir terapi.",
+        "tagline": "Esneklik & Dinginlik",
+        "heroTitle": "Tayland'ın Özgürleştiren Esintisi",
+        "intro": "Thai masajının esneten dinamizmi ile aromaterapinin yatıştırıcı etkisini tek bir seansla deneyimleyin.",
+        "steps": [
+          "Aromatik yağların vücuda uygulanması",
+          "Enerji meridyenleri boyunca ritmik baskılar",
+          "Kasları nazikçe açan esneme hareketleri",
+          "Esneklik kazanmış ve dinlenmiş bir bedenle bitiş"
+        ],
+        "effects": "Eklemleri açar, esneklik kazandırır ve aromatik etkiyle mental yorgunluğu yok eder.",
+        "idealFor": "Hem esnemek hem de rahatlamak isteyenler.",
+        "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+      },
+      "de": {
+        "title": "Thai Aroma Massage",
+        "shortDesc": "Einzigartige Synthese aus Thai-Dehnungen und warmen Aromaölen.",
+        "fullDesc": "Eine Hybridtherapie, die die Flexibilität fördert und mit Aromaölen die Seele beruhigt."
+      }
+    },
+    "url": "/tr/masajlar/thai-aroma-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_asian.webp",
+    "price_eur": 75
+  },
+  {
+    "id": "mass-thai-fuss",
+    "categoryId": "massage-asian",
+    "name": "Thai Fußreflexzonenmassage",
+    "duration": 30,
+    "price": {
+      "amount": 35,
+      "currency": "€"
+    },
+    "media": {
+      "hero": "santis_card_massage_oil_v2.webp"
+    },
+    "slug": "thai-ayak-masaji",
+    "tags": [],
+    "content": {
+      "tr": {
+        "title": "Thai Ayak Masajı",
+        "shortDesc": "Özel Thai ahşap çubuklarıyla uygulanan refleksoloji sanatı.",
+        "fullDesc": "Ayak tabanındaki organ refleks noktalarına Thai ahşap çubuğuyla uygulanan dengeleyici masaj.",
+        "tagline": "İçsel Denge & Canlanma",
+        "heroTitle": "Uzakdoğunun Denge Sırrı",
+        "intro": "Ayaklarınızın altındaki yüzlerce sinir ucuna Thai ahşap çubuğuyla yapılan milimetrik dokunuşlarla bedeninizi yeniden dengeleyin.",
+        "steps": [
+          "Ayakların ılık su ve bitki özleriyle yıkanması",
+          "Ahşap çubuk yardımıyla özel refleks noktalarının uyarılması",
+          "Alt bacak kaslarına el ile rahatlatıcı baskı",
+          "Uyumlanmış bir enerjiyle seansın tamamlanması"
+        ],
+        "effects": "Sinir sistemini uyarır, iç organların enerji akışını düzenler ve kan dolaşımını hızlandırır.",
+        "idealFor": "Enerji akışında blokaj hissedenler ve uzakdoğu tarzı güçlü bir ayak masajı arayanlar.",
+        "signature": "Santis, terapötik ustalığı duyusal spa lüksüyle buluşturur."
+      },
+      "de": {
+        "title": "Thai Fußreflexzonenmassage",
+        "shortDesc": "Reflexzonenmassage mit traditionellen Thai-Holzstäbchen.",
+        "fullDesc": "Ausgleichende Massage der Organ-Reflexzonen an der Fußsohle mittels Thai-Holzstäbchen."
+      }
+    },
+    "url": "/tr/masajlar/thai-ayak-masaji.html",
+    "image": "/assets/img/cards/santis_card_massage_asian.webp",
+    "price_eur": 75
   }
 ]

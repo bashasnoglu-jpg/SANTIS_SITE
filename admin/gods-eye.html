@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="DUAL-CORE OS | Sovereign Admin — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUAL-CORE OS | Sovereign Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #050505; color: #e5e7eb; margin: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        .heading { font-family: 'Space Grotesk', sans-serif; }
+
+        /* Scrollbars */
+        .custom-scroll::-webkit-scrollbar { width: 3px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
+
+        /* Grid lines background */
+        .grid-bg { background-image: linear-gradient(#D4AF3710 1px, transparent 1px), linear-gradient(90deg, #D4AF3710 1px, transparent 1px); background-size: 40px 40px; }
+
+        /* Tabs */
+        .tab-btn { padding: 10px 28px; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; border-bottom: 2px solid transparent; transition: all 0.3s; cursor: pointer; background: transparent; border-top: none; border-left: none; border-right: none; color: #6b7280; }
+        .tab-btn:hover { color: #d1d5db; }
+        .tab-btn.active { color: #D4AF37; border-bottom-color: #D4AF37; background: rgba(212,175,55,0.06); }
+
+        /* Category Buttons */
+        .cat-btn { width: 100%; text-align: left; padding: 10px 14px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #9ca3af; cursor: pointer; transition: all 0.25s; }
+        .cat-btn:hover { background: rgba(255,255,255,0.05); color: #e5e7eb; border-color: rgba(255,255,255,0.1); }
+        .cat-btn.active { background: rgba(212,175,55,0.15); border-color: rgba(212,175,55,0.4); color: #D4AF37; }
+
+        /* Card Rows */
+        .card-row { width: 100%; text-align: left; padding: 12px 14px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; cursor: pointer; transition: all 0.25s; display: flex; justify-content: space-between; align-items: center; }
+        .card-row:hover { background: rgba(255,255,255,0.05); border-color: rgba(212,175,55,0.3); }
+        .card-row.active { background: rgba(212,175,55,0.1); border-color: #D4AF37; }
+
+        /* Inputs */
+        .nv-input { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px; color: #e5e7eb; font-size: 12px; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.25s; }
+        .nv-input:focus { border-color: #D4AF37; }
+        textarea.nv-input { resize: none; }
+
+        /* Save Button */
+        .btn-save {
+            width: 100%; padding: 14px; font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, #D4AF37, #AA8A2A);
+            color: #000; font-weight: 800; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+            border: none; border-radius: 10px; cursor: pointer;
+            transition: all 0.3s; box-shadow: 0 4px 20px rgba(212,175,55,0.15);
+        }
+        .btn-save:hover { box-shadow: 0 0 30px rgba(212,175,55,0.4); transform: scale(1.01); }
+        .btn-save:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+        .btn-save.success { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 0 20px rgba(16,185,129,0.3); }
+        .btn-save.error { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+
+        /* Editor lock overlay */
+        #editor-lock { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: opacity 0.3s; }
+
+        /* Media items */
+        .media-item { position: relative; border-radius: 6px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; aspect-ratio: 1; }
+        .media-item:hover { border-color: #D4AF37; }
+        .media-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.2s; }
+        .media-item .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.75); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #D4AF37; text-align: center; text-transform: uppercase; }
+        .media-item:hover .overlay { opacity: 1; }
+
+        /* Radar scan */
+        .radar-scan { position: absolute; width: 100%; height: 20%; background: linear-gradient(to bottom, transparent, rgba(212,175,55,0.1), transparent); animation: scan 4s linear infinite; pointer-events: none; z-index: 0; }
+        @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(600%); } }
+
+        /* Animated dots */
+        .dot-pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    </style>
+</head>
+<body class="grid-bg">
+
+<!-- ═══════════════════════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════════════════════ -->
+<header class="shrink-0 h-14 border-b border-white/5 bg-black/70 backdrop-blur-xl flex items-center justify-between px-6 z-50">
+    <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded border border-[#D4AF37]/50 flex items-center justify-center">
+            <span class="text-[#D4AF37] text-xs">⬛</span>
+        </div>
+        <h1 class="heading text-sm font-bold tracking-[0.25em] text-white uppercase">Santis <span class="text-[#D4AF37] font-normal">Dual-Core OS</span></h1>
+    </div>
+
+    <!-- Tab Switcher -->
+    <div class="flex items-center border border-white/5 rounded-lg overflow-hidden bg-black/40">
+        <button class="tab-btn active" id="tab-cms" onclick="SovereignCMS.switchTab('cms')">
+            🖼️ Sovereign Architect
+        </button>
+        <button class="tab-btn" id="tab-radar" onclick="SovereignCMS.switchTab('radar')">
+            📡 God's Eye
+        </button>
+    </div>
+
+    <div class="flex items-center gap-3 text-xs font-mono text-gray-600">
+        <span id="status-indicator" class="flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 dot-pulse"></span>
+            <span id="status-text">Hazır</span>
+        </span>
+        <a href="/admin/command-center.html" class="px-3 py-1 border border-white/10 rounded text-gray-500 hover:text-white hover:border-white/30 transition">⬅ Hub</a>
+    </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════
+     VIEW A: SOVEREIGN ARCHITECT (CMS)
+═══════════════════════════════════════════════════════════ -->
+<div id="view-cms" class="flex-1 overflow-hidden flex">
+
+    <!-- COL 1: Kategoriler + Medya -->
+    <div class="w-64 shrink-0 border-r border-white/5 flex flex-col bg-black/20 overflow-hidden">
+
+        <!-- Kategori listesi -->
+        <div class="p-4 border-b border-white/5">
+            <h3 class="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-bold mb-3">① Departman</h3>
+            <div id="cms-category-list" class="space-y-1.5">
+                <div class="text-gray-700 text-[10px] text-center py-4 animate-pulse">Yükleniyor...</div>
+            </div>
+        </div>
+
+        <!-- Medya Kütüphanesi -->
+        <div class="flex-1 flex flex-col p-4 overflow-hidden">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-bold">Görsel Kütüphanesi</h3>
+                <span class="text-[#D4AF37] text-[9px] uppercase tracking-wider cursor-pointer hover:opacity-70" onclick="document.getElementById('media-upload-input').click()">+ Yükle</span>
+                <input type="file" id="media-upload-input" accept="image/*" class="hidden" onchange="SovereignCMS.handleMediaUpload(event)">
+            </div>
+            <div id="cms-media-gallery" class="flex-1 overflow-y-auto custom-scroll grid grid-cols-2 gap-1.5 content-start">
+                <div class="text-gray-700 text-[10px] text-center col-span-2 py-4 animate-pulse">Yükleniyor...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COL 2: Kart Listesi -->
+    <div class="w-72 shrink-0 border-r border-white/5 flex flex-col bg-black/10 overflow-hidden">
+        <div class="p-4 border-b border-white/5">
+            <h3 class="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-bold mb-1">② Kart Seç</h3>
+            <div class="relative mt-2">
+                <input type="text" id="card-search" placeholder="Ara..." class="nv-input text-[11px] pl-8" oninput="SovereignCMS.filterCards(this.value)">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 text-xs">🔍</span>
+            </div>
+        </div>
+        <div id="cms-card-list" class="flex-1 overflow-y-auto custom-scroll p-3 space-y-1.5">
+            <div class="text-gray-700 text-[10px] text-center py-8">← Soldan departman seçin</div>
+        </div>
+    </div>
+
+    <!-- COL 3: Editör -->
+    <div class="flex-1 flex flex-col overflow-hidden relative">
+
+        <!-- Editor Lock Overlay -->
+        <div id="editor-lock" class="absolute inset-0 z-20 bg-black/70 flex flex-col items-center justify-center">
+            <div class="text-gray-600 text-[11px] uppercase tracking-[0.2em]">③ Düzenlemek İçin Kart Seçin</div>
+            <div class="mt-2 text-4xl opacity-20">✍️</div>
+        </div>
+
+        <!-- Editor Content -->
+        <div class="p-6 flex-1 overflow-y-auto custom-scroll" id="editor-content">
+
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <div class="text-[9px] text-gray-600 uppercase tracking-[0.2em] mb-1">③ Kuantum Kart Editörü</div>
+                    <h2 class="heading text-xl font-bold text-white" id="editor-card-title">—</h2>
+                </div>
+                <a href="#" id="btn-preview-site" target="_blank" class="hidden text-[10px] px-4 py-2 border border-white/10 rounded-lg text-gray-400 hover:text-white hover:border-white/30 transition uppercase tracking-widest">
+                    🌍 Sitede Gör
+                </a>
+            </div>
+
+            <form id="cms-edit-form" class="space-y-4" onsubmit="return false;">
+                <input type="hidden" id="edit-id">
+                <input type="hidden" id="edit-cat">
+
+                <!-- Başlık + Fiyat -->
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="col-span-2">
+                        <label class="text-[9px] text-gray-500 uppercase tracking-widest block mb-1.5">Başlık (TR)</label>
+                        <input type="text" id="edit-title" class="nv-input" placeholder="Hamam Ritüeli" oninput="SovereignCMS.autoSlug()">
+                    </div>
+                    <div>
+                        <label class="text-[9px] text-gray-500 uppercase tracking-widest block mb-1.5">Fiyat (€)</label>
+                        <input type="number" id="edit-price" class="nv-input text-[#D4AF37] font-bold" placeholder="0">
+                    </div>
+                </div>
+
+                <!-- URL -->
+                <div>
+                    <label class="text-[9px] text-gray-500 uppercase tracking-widest block mb-1.5 flex justify-between">
+                        <span>🔗 Yönlendirme URL</span>
+                        <a href="#" id="btn-test-url" target="_blank" class="text-blue-400 hover:text-blue-300 normal-case tracking-normal font-normal">Test Et →</a>
+                    </label>
+                    <input type="text" id="edit-url" class="nv-input font-mono text-[11px]" placeholder="/tr/hamam/kart-adi.html">
+                </div>
+
+                <!-- Görsel -->
+                <div class="p-4 bg-white/3 border border-white/8 rounded-xl">
+                    <label class="text-[9px] text-[#D4AF37] uppercase tracking-widest block mb-3">Aktif Görsel <span class="text-gray-600 normal-case tracking-normal">(Sol galeriden tıklayarak ata)</span></label>
+                    <div class="flex gap-3 items-center">
+                        <div class="w-20 h-20 rounded-lg overflow-hidden border border-white/10 bg-black shrink-0 relative">
+                            <img id="edit-img-preview" src="" alt="" class="w-full h-full object-cover opacity-0 transition-opacity duration-300 absolute inset-0">
+                            <div id="edit-img-placeholder" class="w-full h-full flex items-center justify-center text-gray-700 text-2xl">🖼</div>
+                        </div>
+                        <input type="text" id="edit-image" class="nv-input font-mono text-[11px] flex-1" placeholder="/assets/img/cards/..." readonly>
+                    </div>
+                </div>
+
+                <!-- Açıklama -->
+                <div>
+                    <label class="text-[9px] text-gray-500 uppercase tracking-widest block mb-1.5">Açıklama</label>
+                    <textarea id="edit-desc" rows="4" class="nv-input" placeholder="Kısa servis açıklaması..."></textarea>
+                </div>
+
+                <!-- Save -->
+                <div class="pt-2">
+                    <button type="submit" id="btn-save" class="btn-save" onclick="SovereignCMS.save()">
+                        💾 DEĞİŞİKLİKLERİ MÜHÜRLE
+                    </button>
+                    <div id="save-status" class="text-center text-[10px] font-mono mt-2 h-4"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     VIEW B: GOD'S EYE RADAR (existing telemetry, preserved)
+═══════════════════════════════════════════════════════════ -->
+<div id="view-radar" class="flex-1 hidden flex-col relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none opacity-5" style="background-image: linear-gradient(#D4AF37 1px, transparent 1px), linear-gradient(90deg, #D4AF37 1px, transparent 1px); background-size: 40px 40px;"></div>
+    <div class="radar-scan"></div>
+
+    <div class="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6 p-6 relative z-10 overflow-hidden">
+
+        <!-- Target Table -->
+        <div class="lg:col-span-2 flex flex-col bg-black/60 border border-gray-800 rounded-xl backdrop-blur-md shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+            <div class="p-4 border-b border-gray-800 flex justify-between items-center bg-white/5">
+                <h2 class="text-[#D4AF37] text-xs uppercase tracking-[0.2em] flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    Radardaki Hedefler
+                </h2>
+                <span class="text-[9px] text-gray-600 font-mono">
+                    Aktif: <span id="radar-active-count">0</span>
+                </span>
+            </div>
+            <div class="flex-1 overflow-auto p-4">
+                <table class="w-full text-left text-xs">
+                    <thead class="text-[9px] uppercase tracking-widest text-gray-500 border-b border-gray-800">
+                        <tr>
+                            <th class="pb-3 font-medium">Hedef (Ghost ID)</th>
+                            <th class="pb-3 font-medium">Şu Anki Konum</th>
+                            <th class="pb-3 font-medium">Kasa Durumu</th>
+                            <th class="pb-3 font-medium text-right">Taktik Emri</th>
+                        </tr>
+                    </thead>
+                    <tbody id="radar-targets-body" class="divide-y divide-gray-800/50"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Sinir Ağı Log -->
+        <div class="bg-black/80 border border-gray-800 rounded-xl flex flex-col backdrop-blur-md shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+            <div class="p-4 border-b border-gray-800 bg-white/5 flex items-center justify-between">
+                <h2 class="text-gray-400 text-xs uppercase tracking-[0.2em]">Sovereign Sinir Ağı</h2>
+                <span class="flex items-center gap-1.5 text-[9px] font-mono" id="socket-status">
+                    <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse"></span>
+                    Bağlanıyor...
+                </span>
+            </div>
+            <div id="radar-logs" class="flex-1 overflow-y-auto custom-scroll p-4 space-y-2 text-[11px] font-mono leading-relaxed">
+                <div class="text-gray-600">Sistem Dinleniyor... Kuantum Parçacıkları Bekleniyor.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SOVEREIGN CMS ENGINE + GOD'S EYE RADAR
+═══════════════════════════════════════════════════════════ -->
+<script>
+const SovereignCMS = {
+    allData:      [],
+    filteredCards: [],
+    activeCategory: null,
+    activeCardId:   null,
+
+    // ── BOOT ────────────────────────────────────────────────────
+    async init() {
+        await this.loadData();
+        this.loadMediaGallery();
+    },
+
+    // ── TABS ─────────────────────────────────────────────────────
+    switchTab(tab) {
+        ['cms','radar'].forEach(t => {
+            document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
+            const v = document.getElementById(`view-${t}`);
+            v.classList.toggle('hidden', t !== tab);
+            v.classList.toggle('flex', t === tab);
+        });
+        if (tab === 'radar') GodEyeRadar.init();
+    },
+
+    // ── DATA ─────────────────────────────────────────────────────
+    async loadData() {
+        this.setStatus('Veri yükleniyor...');
+        try {
+            const res     = await fetch(`/assets/data/services.json?v=${Date.now()}`);
+            const rawData = await res.json();
+
+            // 🛡️ THE DATA PURIFIER — Veri Kirliliğini Yok Et
+            const seen = new Map();
+            rawData.forEach(item => {
+                // 1. Kategori: trim + category || categoryId normalize
+                const rawCat  = (item.category || item.categoryId || 'Genel').toString().trim();
+
+                // 2. ID güvenlik ağı — id veya slug yoksa geçici UUID ata
+                const safeId  = (item.id || item.slug || '').trim()
+                    || `unknown-${Math.random().toString(36).substr(2, 9)}`;
+
+                const cleaned = { ...item, category: rawCat, categoryId: rawCat, id: safeId };
+
+                // 3. Deduplicate — aynı id'li öğe varsa son kayıt kazanır
+                seen.set(safeId, cleaned);
+            });
+
+            this.allData = [...seen.values()];
+            console.log(`🛡️ [Data Purifier] ${rawData.length} ham → ${this.allData.length} temiz kart.`);
+            this.renderCategories();
+            this.setStatus(`${this.allData.length} kart hazır`, 'ok');
+        } catch(e) {
+            this.setStatus('Veri yüklenemedi ⚠', 'err');
+        }
+    },
+
+
+    // ── CATEGORIES ───────────────────────────────────────────────
+    renderCategories() {
+        // Her öğenin category = category || categoryId normalize et
+        const normalize = i => i.category || i.categoryId || 'Genel';
+
+        const counts = {};
+        this.allData.forEach(i => {
+            const c = normalize(i);
+            counts[c] = (counts[c] || 0) + 1;
+        });
+
+        const cats = Object.keys(counts).sort();
+        const box  = document.getElementById('cms-category-list');
+        box.innerHTML = '';
+
+        // Kategori adı etiketlerini Türkçeye çevir
+        const labels = {
+            'ritual-hammam': '🧖 Hamam',
+            'massage-relaxation': '💆 Masaj (Gevşeme)',
+            'massage-regional': '💆 Masaj (Bölgesel)',
+            'massage-premium': '💎 Masaj (Premium)',
+            'massage-asian': '🌏 Masaj (Asya)',
+            'massage-sports': '🏃 Spor Masajı',
+            'massage-deep': '🔬 Derin Doku',
+            'skincare': '🌿 Cilt Bakımı',
+            'massage': '💆 Masaj',
+            'ritual': '✨ Ritüel',
+            'Genel': '📦 Genel',
+        };
+
+        cats.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.className = 'cat-btn';
+            btn.setAttribute('data-cat', cat);
+            btn.innerHTML = `${labels[cat] || '○ ' + cat} <span class="ml-2 text-gray-600">${counts[cat]}</span>`;
+            btn.onclick = () => this.selectCategory(cat);
+            box.appendChild(btn);
+        });
+    },
+
+    selectCategory(cat) {
+        this.activeCategory = cat;
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+
+        // Reset card search
+        document.getElementById('card-search').value = '';
+        this.filteredCards = this.allData.filter(i => (i.category || i.categoryId || 'Genel') === cat);
+        this.renderCardList(this.filteredCards);
+    },
+
+    // ── CARD LIST ─────────────────────────────────────────────────
+    renderCardList(items) {
+        const box = document.getElementById('cms-card-list');
+        box.innerHTML = '';
+        if (!items.length) {
+            box.innerHTML = '<div class="text-gray-700 text-[10px] text-center py-8">Bu kategoride kart yok</div>';
+            return;
+        }
+        items.forEach(item => {
+            const title = this._itemTitle(item);
+            const price = item.price_eur || (item.price && item.price.amount) || 0;
+            const id    = item.id || item.slug;
+
+            const row = document.createElement('button');
+            row.className = 'card-row group';
+            row.setAttribute('data-id', id);
+            row.innerHTML = `
+                <span class="text-[11px] text-gray-300 group-hover:text-white truncate pr-2 leading-tight">${title}</span>
+                <span class="text-[#D4AF37] font-mono text-[10px] shrink-0">€${price}</span>
+            `;
+            row.onclick = () => this.loadToEditor(item);
+            box.appendChild(row);
+        });
+    },
+
+    filterCards(q) {
+        if (!this.activeCategory) return;
+        const search = q.trim().toLowerCase();
+        const pool   = this.allData.filter(i => (i.category || i.categoryId || 'Genel') === this.activeCategory);
+        const result = search ? pool.filter(i => this._itemTitle(i).toLowerCase().includes(search)) : pool;
+        this.renderCardList(result);
+    },
+
+    // ── EDITOR ───────────────────────────────────────────────────
+    loadToEditor(item) {
+        this.activeCardId = item.id || item.slug;
+
+        // Highlight active card
+        document.querySelectorAll('.card-row').forEach(r => r.classList.toggle('active', r.dataset.id === this.activeCardId));
+
+        // Remove lock
+        document.getElementById('editor-lock').style.opacity = '0';
+        document.getElementById('editor-lock').style.pointerEvents = 'none';
+
+        const title = this._itemTitle(item);
+        document.getElementById('editor-card-title').textContent = title;
+
+        document.getElementById('edit-id').value   = item.id || item.slug || '';
+        document.getElementById('edit-cat').value  = item.category || item.categoryId || '';
+        document.getElementById('edit-title').value = title;
+        document.getElementById('edit-price').value = item.price_eur || (item.price && item.price.amount) || '';
+        document.getElementById('edit-desc').value  = item.description || (item.content && item.content.tr && item.content.tr.shortDesc) || '';
+
+        // URL
+        const url = item.url || item.detailUrl || this._autoUrl(item);
+        document.getElementById('edit-url').value = url;
+        document.getElementById('btn-test-url').href = url || '#';
+
+        // Preview button
+        const previewBtn = document.getElementById('btn-preview-site');
+        if (url) { previewBtn.href = url; previewBtn.classList.remove('hidden'); }
+        else       previewBtn.classList.add('hidden');
+
+        // Görsel
+        const imgPath = item.image || (item.media && item.media.hero ? `/assets/img/cards/${item.media.hero}` : '');
+        this.assignImage(imgPath);
+
+        // Clear save status
+        document.getElementById('save-status').textContent = '';
+    },
+
+    assignImage(url) {
+        document.getElementById('edit-image').value = url;
+        const img = document.getElementById('edit-img-preview');
+        const ph  = document.getElementById('edit-img-placeholder');
+        if (url) {
+            img.src = url;
+            img.style.opacity = '1';
+            ph.style.display = 'none';
+        } else {
+            img.style.opacity = '0';
+            ph.style.display = 'flex';
+        }
+    },
+
+    // Auto slug when title changes
+    autoSlug() {
+        const title = document.getElementById('edit-title').value;
+        const cat   = document.getElementById('edit-cat').value;
+        const slug  = title.toLowerCase()
+            .replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s')
+            .replace(/ı/g,'i').replace(/ö/g,'o').replace(/ç/g,'c')
+            .replace(/[^a-z0-9\s-]/g,'').trim().replace(/\s+/g,'-');
+        if (slug && cat) {
+            const prefix = this._catPrefix(cat);
+            const url    = `/tr/${prefix}/${slug}.html`;
+            document.getElementById('edit-url').value = url;
+            document.getElementById('btn-test-url').href = url;
+        }
+    },
+
+    // ── SAVE ─────────────────────────────────────────────────────
+    async save() {
+        if (!this.activeCardId) return;
+
+        const btn = document.getElementById('btn-save');
+        const st  = document.getElementById('save-status');
+        btn.disabled = true;
+        btn.textContent = '⏳ Mühürleniyor...';
+        st.textContent  = '';
+        st.className    = 'text-center text-[10px] font-mono mt-2 h-4';
+
+        const payload = {
+            id:          document.getElementById('edit-id').value,
+            title:       document.getElementById('edit-title').value,
+            price_eur:   document.getElementById('edit-price').value,
+            image:       document.getElementById('edit-image').value,
+            description: document.getElementById('edit-desc').value,
+            category:    document.getElementById('edit-cat').value,
+            url:         document.getElementById('edit-url').value,
+        };
+
+        try {
+            const res = await fetch('/api/v1/services/update', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify(payload)
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.detail || `HTTP ${res.status}`);
+
+            btn.textContent = '✅ BAŞARIYLA MÜHÜRLENDİ';
+            btn.classList.add('success');
+            st.textContent  = data.message || 'Kayıt başarılı.';
+            st.className    = 'text-center text-[10px] font-mono mt-2 h-4 text-emerald-400';
+
+            // Veriyi güncelle — aktif kategoride kart listesini yenile
+            await this.loadData();
+            if (this.activeCategory) this.selectCategory(this.activeCategory);
+
+        } catch(e) {
+            btn.textContent = '❌ KAYIT BAŞARISIZ';
+            btn.classList.add('error');
+            st.textContent  = e.message;
+            st.className    = 'text-center text-[10px] font-mono mt-2 h-4 text-red-400';
+        }
+
+        setTimeout(() => {
+            btn.disabled = false;
+            btn.textContent = '💾 DEĞİŞİKLİKLERİ MÜHÜRLE';
+            btn.classList.remove('success','error');
+        }, 2500);
+    },
+
+    // ── MEDIA GALLERY ────────────────────────────────────────────
+    async loadMediaGallery() {
+        const gallery = document.getElementById('cms-media-gallery');
+        // Mevcut kart görsellerini listele
+        try {
+            const res   = await fetch('/assets/data/services.json');
+            const items = await res.json();
+            const imgs  = [...new Set(items
+                .map(i => i.image || (i.media && i.media.hero ? `/assets/img/cards/${i.media.hero}` : null))
+                .filter(Boolean)
+            )];
+
+            gallery.innerHTML = '';
+            imgs.forEach(src => {
+                const div = document.createElement('div');
+                div.className = 'media-item';
+                div.innerHTML = `<img src="${src}" loading="lazy" alt=""><div class="overlay">Karta<br>Ata</div>`;
+                div.onclick = () => this.assignImage(src);
+                gallery.appendChild(div);
+            });
+        } catch(e) {
+            gallery.innerHTML = '<div class="text-gray-700 text-[10px] col-span-2 text-center py-4">Görsel listesi yüklenemedi</div>';
+        }
+    },
+
+    handleMediaUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        // Simüle: gerçek upload için /api/v1/media endpoint gerekir
+        const url = URL.createObjectURL(file);
+        const gallery = document.getElementById('cms-media-gallery');
+        const div = document.createElement('div');
+        div.className = 'media-item';
+        div.innerHTML = `<img src="${url}" alt=""><div class="overlay">Karta<br>Ata</div>`;
+        div.onclick = () => this.assignImage(url);
+        gallery.prepend(div);
+        this.setStatus(`${file.name} galeriye eklendi (yerel)`, 'ok');
+    },
+
+    // ── HELPERS ──────────────────────────────────────────────────
+    _itemTitle(item) {
+        return item.title
+            || (item.content && item.content.tr && item.content.tr.title)
+            || item.name
+            || item.slug
+            || item.id
+            || '—';
+    },
+    _autoUrl(item) {
+        const cat  = item.category || item.categoryId || '';
+        const slug = item.slug || item.id || '';
+        if (!slug) return '';
+        return `/tr/${this._catPrefix(cat)}/${slug}.html`;
+    },
+    _catPrefix(cat) {
+        if (cat.includes('hammam') || cat.includes('hamam')) return 'hamam';
+        if (cat.includes('massage') || cat.includes('masaj'))  return 'masajlar';
+        if (cat.includes('skin') || cat.includes('cilt'))      return 'cilt-bakimi';
+        if (cat.includes('ritual') || cat.includes('rituel'))  return 'rituals';
+        return 'hizmetler';
+    },
+    setStatus(msg, type) {
+        const el = document.getElementById('status-text');
+        el.textContent = msg;
+        const dot = el.previousElementSibling;
+        dot.className = `w-1.5 h-1.5 rounded-full ${type === 'err' ? 'bg-red-500' : type === 'ok' ? 'bg-emerald-500 dot-pulse' : 'bg-yellow-500 animate-pulse'}`;
+    }
+};
+
+// ── GOD'S EYE RADAR (original functionality preserved) ─────────
+const GodEyeRadar = {
+    ws: null,
+    targets: new Map(),
+    inited: false,
+
+    init() {
+        if (this.inited) return;
+        this.inited = true;
+        this.connect();
+    },
+
+    connect() {
+        const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+        const wsUrl = `${proto}://${location.host}/ws/god-mode`;
+        this.ws = new WebSocket(wsUrl);
+
+        this.ws.onopen  = () => {
+            document.getElementById('socket-status').innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 dot-pulse mr-1.5"></span>UPLINK ACTIVE`;
+        };
+        this.ws.onclose = () => {
+            document.getElementById('socket-status').innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-red-500 mr-1.5"></span>OFFLINE`;
+        };
+        this.ws.onmessage = (e) => {
+            try {
+                const data = JSON.parse(e.data);
+                this.handleEvent(data);
+            } catch {}
+        };
+    },
+
+    handleEvent(data) {
+        const log = document.getElementById('radar-logs');
+        const row = document.createElement('div');
+        row.className = 'text-gray-500 border-l-2 border-gray-800 pl-2';
+        row.innerHTML = `<span class="text-[#D4AF37]">[${new Date().toLocaleTimeString('tr')}]</span> ${JSON.stringify(data).substring(0,120)}`;
+        log.prepend(row);
+        if (log.children.length > 50) log.lastChild.remove();
+
+        if (data.session) {
+            this.targets.set(data.session, data);
+            this.renderTargets();
+        }
+    },
+
+    renderTargets() {
+        const body = document.getElementById('radar-targets-body');
+        document.getElementById('radar-active-count').textContent = this.targets.size;
+        body.innerHTML = '';
+        this.targets.forEach((d, id) => {
+            const tr = document.createElement('tr');
+            tr.className = 'hover:bg-white/3 transition';
+            tr.innerHTML = `
+                <td class="py-3 text-[#D4AF37] font-mono text-[10px]">${id.substring(0,12)}…</td>
+                <td class="py-3 text-gray-400 text-[10px]">${d.page || '—'}</td>
+                <td class="py-3 text-[10px]"><span class="${d.score > 80 ? 'text-red-400' : 'text-emerald-400'}">${d.score || 0}</span></td>
+                <td class="py-3 text-right">
+                    <button class="text-[9px] px-2 py-1 bg-[#D4AF37]/15 border border-[#D4AF37]/30 rounded text-[#D4AF37] hover:bg-[#D4AF37]/30 transition" onclick="GodEyeRadar.deployAurelia('${id}')">Aurelia →</button>
+                </td>
+            `;
+            body.appendChild(tr);
+        });
+    },
+
+    deployAurelia(sessionId) {
+        fetch('/api/v1/telemetry/aurelia-mock', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ session_id: sessionId })
+        }).then(r => r.json()).then(d => console.log('Aurelia deployed:', d));
+    }
+};
+
+// ── BOOT ────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => SovereignCMS.init());
+
+// Global hook for image assignment from anywhere
+window.assignImage = (url) => SovereignCMS.assignImage(url);
+</script>
+
+<!-- 🛡️ GHOST PROTOCOL: Admin Hayalet Modül Kilidi -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const ghostModules = [
+        'sovereign-lab.html', 'hotels.html', 'crm.html', 'revenue.html',
+        'command-center.html', 'prototype-cms-v5.html', 'god-mode.html',
+        'boardroom.html', 'black-room.html', 'black-room.html'
+    ];
+    document.querySelectorAll('a[href]').forEach(link => {
+        const href = link.getAttribute('href') || '';
+        if (ghostModules.some(m => href.includes(m))) {
+            link.style.opacity      = '0.3';
+            link.style.filter       = 'grayscale(1)';
+            link.style.cursor       = 'not-allowed';
+            link.style.pointerEvents = 'none';
+            link.title = '🔒 Sovereign Kilit: Yapım Aşamasında';
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                if(confirm('🔒 SOVEREIGN KİLİDİ: Bu modül henüz yapım aşamasında. Gods Eye\'a yönlendiriliyorsunuz.')) {
+                    window.location.href = '/admin/gods-eye.html';
+                }
+            }, { capture: true });
+        }
+    });
+    console.log('🛡️ [Ghost Protocol] Admin hayalet kilitleri aktif.');
+});
+</script>
+</body>
+</html>

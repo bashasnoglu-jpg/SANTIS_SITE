@@ -10,24 +10,14 @@
 <!-- Fonts -->
 <link href="/assets/css/fonts.css" rel="stylesheet"/>
 <!-- Master Styles -->
-<link href="/assets/css/preloader-cinema.css" rel="stylesheet"/>
 <link href="/assets/css/style.css" rel="stylesheet"/>
-<link href="/assets/css/output.css?v=2" rel="stylesheet">
-<link href="/assets/css/modules/cards.css?v=3.5" rel="stylesheet"/>
+<link href="/assets/css/modules/cards.css" rel="stylesheet"/>
 <link href="/assets/css/video-hero.css" rel="stylesheet"/>
 <link href="/assets/css/bento-grid.css" rel="stylesheet"/>
 <link href="/assets/css/category-listing.css" rel="stylesheet"/>
-<!-- Kuantum Fiziki ve Stil Motoru (Phase 22) -->
-<link href="/assets/css/santis-rail.css" rel="stylesheet"/>
-<style>
-/* Sovereign Z-Index Armor & Flex Fix */
-.checkout-btn-wrapper { pointer-events: none !important; z-index: 9999 !important; transform: translateY(0) !important; bottom: 2rem !important; }
-.ritual-card:hover .checkout-btn-wrapper { pointer-events: auto !important; z-index: 10000 !important; opacity: 1 !important; }
-.ritual-card > .z-20 { pointer-events: none; }
-.checkout-btn-wrapper button { position: relative; z-index: 10001 !important; pointer-events: auto !important; cursor: pointer !important; }
-</style>
 <link href="/favicon.ico" rel="icon" sizes="any"/>
 <script src="/assets/js/perf-head.js"></script>
+<script defer="" src="/assets/js/language-switcher.js"></script>
 <meta content="https://santis-club.com/assets/img/og-standard.webp" property="og:image"/>
 <link href="https://santis-club.com/tr/cilt-bakimi/index.html" rel="canonical"/>
 <!-- Schema: BreadcrumbList -->
@@ -222,21 +212,13 @@
 <!-- HREFLANG CLUSTER SYNC -->
 <!-- HREFLANG CLUSTER SYNC -->
 <!-- HREFLANG CLUSTER SYNC -->
-
-<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Cilt Bakımı | Santis Club Spa &amp; Wellness • Santis Club" name="twitter:title"/><meta content="Sothys Paris ürünleri ile profesyonel cilt bakım ritüelleri. Klasik bakım, anti-aging, glass skin ve daha fazlası." name="twitter:description"/><meta content="https://santisclub.com/assets/img/cards/santis_hero_skincare_lux.webp" name="twitter:image"/>
-    <!-- HREFLANG CLUSTER SYNC -->
-
-    <!-- HREFLANG CLUSTER SYNC -->
-
-
-    <!-- HREFLANG CLUSTER SYNC -->
-    <link rel="alternate" hreflang="de" href="https://santis-club.com/de/hautpflege/index.html" />
-    <link rel="alternate" hreflang="en" href="https://santis-club.com/en/skincare/index.html" />
-    <link rel="alternate" hreflang="fr" href="https://santis-club.com/fr/soins-visage/index.html" />
-    <link rel="alternate" hreflang="ru" href="https://santis-club.com/ru/skincare/index.html" />
-    <link rel="alternate" hreflang="tr" href="https://santis-club.com/tr/cilt-bakimi/index.html" />
-    <link rel="alternate" hreflang="x-default" href="https://santis-club.com/en/skincare/index.html" />
-</head>
+<link href="https://santis-club.com/de/hautpflege/index.html" hreflang="de" rel="alternate"/>
+<link href="https://santis-club.com/en/skincare/index.html" hreflang="en" rel="alternate"/>
+<link href="https://santis-club.com/fr/soins-visage/index.html" hreflang="fr" rel="alternate"/>
+<link href="https://santis-club.com/ru/skincare/index.html" hreflang="ru" rel="alternate"/>
+<link href="https://santis-club.com/tr/cilt-bakimi/index.html" hreflang="tr" rel="alternate"/>
+<link href="https://santis-club.com/en/skincare/index.html" hreflang="x-default" rel="alternate"/>
+<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Cilt Bakımı | Santis Club Spa &amp; Wellness • Santis Club" name="twitter:title"/><meta content="Sothys Paris ürünleri ile profesyonel cilt bakım ritüelleri. Klasik bakım, anti-aging, glass skin ve daha fazlası." name="twitter:description"/><meta content="https://santisclub.com/assets/img/cards/santis_hero_skincare_lux.webp" name="twitter:image"/></head>
 <body class="editorial-mode">
 <noscript>
 <nav class="nv-noscript-nav">
@@ -288,39 +270,17 @@
 <div class="nv-container" style="position:relative; z-index:200;">
 <div class="nv-chips" id="nvChips">
 <button class="nv-chip is-active" data-target="all">🔮 Tüm Bakımlar</button>
-<button class="nv-chip" data-target="sothys">🇫🇷 Sothys Koleksiyonu</button>
-<button class="nv-chip" data-target="skincare-hydra">💧 Nem & Işıltı</button>
-<button class="nv-chip" data-target="skincare-antiage">✨ Anti-Aging</button>
-<button class="nv-chip" data-target="skincare-special">💎 Premium & Özel</button>
-<button class="nv-chip" data-target="skincare-purify">🌿 Arındırma</button>
+<button class="nv-chip" data-target="sothys-purifying">🌿 Arındırma</button>
+<button class="nv-chip" data-target="sothys-hydra">💧 Nem &amp; Işıltı</button>
+<button class="nv-chip" data-target="sothys-antiage">✨ Anti-Aging</button>
+<button class="nv-chip" data-target="sothys-men">🕶️ Erkek Bakımı</button>
 </div>
 </div>
-<!-- CARD GRID (JS-Driven, data-bridge renders rails) -->
-<div class="nv-container nv-section" data-section="skincare" id="skincare" style="min-height: 800px; max-width: 100%; overflow: hidden;">
-    <!-- Kuantum Rayları (Sovereign Rails) -->
-    
-    <div style="margin-top: 40px; margin-bottom: 20px;" data-rail-header="skincare_sothys">
-        <h3 style="font-size: clamp(2rem, 3.5vw, 3.2rem); color: #d1cbc1; font-weight: 300; padding-left: 24px; border-left: 3px solid #b39b59; margin-left: 5vw; letter-spacing: 0.04em; font-family: 'Cinzel', serif;">Sothys Özel Koleksiyonu</h3>
-        <p style="color: #888; padding-left: 24px; margin-left: 5vw; max-width: 600px;">Paris'in kalbinden gelen klinik formüllerle lüks cilt bakımı.</p>
-    </div>
-    <section class="rituals-section flex overflow-x-auto flex-nowrap scrollbar-hide pb-12 pt-4" data-rail-engine="true" data-rail-id="skincare_sothys" style="width: 100%; align-items: center; position: relative; scrollbar-width: none;">
-        <!-- SovereignRenderer burayı JSON verisi ile dolduracak -->
-    </section>
-
-    <div style="margin-top: 60px; margin-bottom: 20px;" data-rail-header="skincare_antiage">
-        <h3 style="font-size: clamp(2rem, 3.5vw, 3.2rem); color: #d1cbc1; font-weight: 300; padding-left: 24px; border-left: 3px solid #b39b59; margin-left: 5vw; letter-spacing: 0.04em; font-family: 'Cinzel', serif;">Anti-Aging Ritüelleri</h3>
-    </div>
-    <section class="rituals-section flex overflow-x-auto flex-nowrap scrollbar-hide pb-12 pt-4" data-rail-engine="true" data-rail-id="skincare_antiage" style="width: 100%; align-items: center; position: relative; scrollbar-width: none;">
-        <!-- SovereignRenderer burayı JSON verisi ile dolduracak -->
-    </section>
-
-    <div style="margin-top: 60px; margin-bottom: 20px;" data-rail-header="skincare_hydra">
-        <h3 style="font-size: clamp(2rem, 3.5vw, 3.2rem); color: #d1cbc1; font-weight: 300; padding-left: 24px; border-left: 3px solid #b39b59; margin-left: 5vw; letter-spacing: 0.04em; font-family: 'Cinzel', serif;">Nem &amp; Işıltı Bakımları</h3>
-    </div>
-    <section class="rituals-section flex overflow-x-auto flex-nowrap scrollbar-hide pb-12 pt-4" data-rail-engine="true" data-rail-id="skincare_hydra" style="width: 100%; align-items: center; position: relative; scrollbar-width: none;">
-        <!-- SovereignRenderer burayı JSON verisi ile dolduracak -->
-    </section>
+<!-- CARD GRID (JS-Driven, data-bridge renders cards) -->
+<div class="nv-container nv-section" data-section="skincare" id="skincare">
+<div class="product-grid-v2 nv-product-grid" data-context="skincare"></div>
 </div>
+<!-- ALL SERVICES LINK LIST -->
 <section class="category-all-services">
 <h2>Tüm Hizmetlerimiz</h2>
 <ul class="service-link-list">
@@ -366,30 +326,42 @@
 <section class="seo-bottom-block">
 <p style="color:#aaa; max-width:500px; margin:10px auto">Santis Club'un profesyonel cilt bakım merkezi, Sothys Paris ürünleri ile klasik yüz bakımından anti-aging tedavilere, enzim peelingden gold mask ritüeline kadar geniş bir yelpazede hizmet sunar. Dijital cilt analizi ile kişiselleştirilmiş protokoller.</p>
 </section>
+<noscript>
+<div style="display:none;" itemscope itemtype="https://schema.org/ItemList">
+    <h2 itemprop="name">Santis Club - Profesyonel Cilt Bakımı ve Sothys Paris Terapileri</h2>
+    <meta itemprop="description" content="Antalya'da profesyonel cilt analizi, anti-aging ve Sothys Paris ürünleri ile kişiselleştirilmiş yüz ve vücut bakım terapileri.">
+    <ul>
+        <li itemprop="itemListElement">Anti-Aging Yoğun Bakım - Kırışıklık karşıtı premium terapi</li>
+        <li itemprop="itemListElement">Derinlemesine Nem Ritüeli - Hyaluronik asit ile nemlendirme</li>
+        <li itemprop="itemListElement">Sothys Purifying Care - Akneye eğilimli ciltler için bakım</li>
+    </ul>
+</div>
+</noscript>
 </main>
 <!-- FOOTER -->
 <div id="footer-container"></div>
 <!-- SCRIPTS -->
 <script src="/assets/js/i18n-routes.js"></script>
+<script defer="" src="/assets/js/hreflang-injector.js"></script>
 <script src="/assets/js/loader.js"></script>
+<script src="/assets/js/fallback_data.js"></script>
 <script src="/assets/js/santis-nav.js"></script>
 <!-- TRINITY STACK -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-<!-- DATA & ENGINE (Kuantum Mimari Phase 22) -->
-<script defer="" src="/assets/js/santis-checkout-vault.js"></script>
-<script type="module" src="/assets/js/santis-rail.js"></script>
-<script src="/assets/js/santis-shadow-db.js" defer=""></script>
-<script src="/assets/js/santis-v5-virtual-engine.js" defer=""></script>
-<script type="module" src="/assets/js/santis-ritual-renderer.js"></script>
-<script defer="" src="/assets/js/santis-bootloader.js"></script>
-<script defer="" src="/assets/js/santis-v10-core.js"></script>
+<!-- DATA & ENGINE -->
+<script defer="" src="/assets/js/loaders/data-bridge.js"></script>
+<script defer src="/assets/js/santis-v8-engine.js"></script>
+<script defer="" src="/assets/js/nuclear-cards.js"></script>
+<script defer="" src="/assets/js/card-effects.js"></script>
 <script src="/assets/js/pages/skincare-detail.js"></script>
 <script src="/assets/js/pages/chip-filter.js"></script>
 <script src="/assets/js/pages/nuclear-preloader.js"></script>
 <!-- BOOKING & APP -->
+<script defer="" src="/assets/js/booking-wizard.js"></script>
 
 <script defer="" src="/assets/js/app.js"></script>
+<script defer src="/assets/js/santis-data-bridge.js"></script>
 </body>
 </html>

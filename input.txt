@@ -1,0 +1,6 @@
+﻿https://example.com/page1
+https://example.com/page2
+Here is a caret ^ symbol line
+Another line ^ test
+No links here
+https://example.com/page3

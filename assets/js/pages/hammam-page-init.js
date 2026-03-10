@@ -1,35 +1,26 @@
-(function () {
-    "use strict";
+import { SantisDataBridge } from '../santis-data-bridge.js';
 
-    // Keep relative-root behavior for this nested page.
-    window.SITE_ROOT = "../../";
+export const HammamPage = {
+    async mount() {
+        console.log("🛡️ [Hammam V10] Kaçak dosya ele geçirildi. V10 Motoruna devrediliyor...");
+        const container = document.querySelector('#santis-matrix-container') || document.querySelector('.santis-matrix-container');
+        if (!container) return;
+        const selector = container.id ? `#${container.id}` : '.santis-matrix-container';
 
-    function initHammamPage() {
-        if (typeof window.Engine !== "undefined" && typeof window.Engine.init === "function") {
-            window.Engine.init("HAMMAM");
+        if (SantisDataBridge && SantisDataBridge.bootMatrix) {
+            // Eğer Hamam'ın ayrı JSON'u varsa buraya onu yazın, yoksa services.json kalsın
+            await SantisDataBridge.bootMatrix('/assets/data/services.json', selector, 'hammam');
         }
-
-        var scrollTrigger = document.querySelector(".nv-scroll-indicator[data-scroll-target]");
-        if (scrollTrigger && scrollTrigger.dataset.scrollBound !== "1") {
-            scrollTrigger.dataset.scrollBound = "1";
-            scrollTrigger.addEventListener("click", function () {
-                var targetId = scrollTrigger.getAttribute("data-scroll-target");
-                if (!targetId) {
-                    return;
-                }
-                var target = document.getElementById(targetId);
-                if (target) {
-                    target.scrollIntoView({ behavior: "smooth" });
-                }
-            });
+    },
+    async unmount() {
+        const container = document.querySelector('#santis-matrix-container') || document.querySelector('.santis-matrix-container');
+        if (container) container.innerHTML = '';
+        if (window.SovereignVirtualEngine && window.SovereignVirtualEngine.physicalNodes) {
+            window.SovereignVirtualEngine.physicalNodes.clear();
         }
-
-        // Components (navbar + footer) are loaded globally by santis-nav.js
     }
+};
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initHammamPage);
-    } else {
-        initHammamPage();
-    }
-})();
+export function initHammam() { return HammamPage; } // veya initHamam()
+export default HammamPage;
+window.HammamPage = HammamPage;

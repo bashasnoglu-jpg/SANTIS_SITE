@@ -339,10 +339,22 @@ class SantisAtmosphereEngine {
 const initOmniScroll = () => {
     console.log("⚡ [Omni-Scroll V4.1] Intersection Observer Devrede. Sıfır Titreme.");
 
-    const carousels = document.querySelectorAll('.rail-track');
+    const carousels = document.querySelectorAll('.rail-track, .santis-rail-track');
 
     carousels.forEach(track => {
-        if (track.hasAttribute('data-v4-observer')) return;
+        if (track.hasAttribute('data-v4-observer')) {
+            // Zaten kuruluysa, sadece kart listesini güncelle ve observer'a ekle (Re-init)
+            const newCards = Array.from(track.querySelectorAll('.nv-rail-card, .nv-card, .ritual-card'));
+            if (track._v4Observer && newCards.length > 0) {
+                newCards.forEach(card => {
+                    if (!card.hasAttribute('data-observed')) {
+                        track._v4Observer.observe(card);
+                        card.setAttribute('data-observed', 'true');
+                    }
+                });
+            }
+            return;
+        }
 
         const section = track.closest('section') || track.parentElement;
         if (!section) return;
@@ -417,8 +429,13 @@ const initOmniScroll = () => {
             });
         }, observerOptions);
 
+        track._v4Observer = observer; // Re-init için observer'ı track nesnesine iliştir
+
         // Tüm kartları gözlemlemeye başla
-        cards.forEach(card => observer.observe(card));
+        cards.forEach(card => {
+            observer.observe(card);
+            card.setAttribute('data-observed', 'true');
+        });
 
         // 3. OKLARA TIKLAMA (Sovereign Scroll Kilitli)
         if (prevBtn) {
