@@ -206,6 +206,27 @@ class HamamHybridRenderer {
             this.matrixContainer.appendChild(card);
         }
         console.log(`[Sovereign Renderer] Object Pool Warmed: ${this.POOL_SIZE} DOM elements ready.`);
+
+        // Desktop Mouse Wheel to Horizontal Scroll Translation (Apple Pro Rail Effect)
+        if (this.matrixContainer) {
+            this.matrixContainer.style.scrollBehavior = 'auto'; // Ensure smooth wheel interaction
+            this.matrixContainer.addEventListener('wheel', (e) => {
+                const isAtStart = this.matrixContainer.scrollLeft <= 0;
+                const isAtEnd = Math.ceil(this.matrixContainer.scrollLeft + this.matrixContainer.clientWidth) >= this.matrixContainer.scrollWidth;
+
+                // Translate vertical scroll to horizontal scroll
+                if (e.deltaY !== 0) {
+                    // Only intercept if there's room to scroll horizontally
+                    if ((e.deltaY > 0 && !isAtEnd) || (e.deltaY < 0 && !isAtStart)) {
+                        e.preventDefault(); // Pause vertical lenis scroll
+                        this.matrixContainer.scrollLeft += e.deltaY;
+                    }
+                }
+            }, { passive: false });
+
+            // Touch smoothing for mobile overrides
+            this.matrixContainer.style.WebkitOverflowScrolling = 'touch';
+        }
     }
 
     // ==========================================
