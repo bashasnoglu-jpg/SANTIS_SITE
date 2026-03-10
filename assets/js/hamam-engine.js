@@ -186,7 +186,7 @@ class HamamHybridRenderer {
                     <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #fff; margin:0; line-height: 1.15; font-weight: 400;">${trContent.title}</h3>
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
                         <span style="color: rgba(255,255,255,0.7); font-family: 'Inter', sans-serif; font-weight: 400; font-size: 1rem;">${price > 0 ? price + ' €' : ''}</span>
-                        <div style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center;">
+                        <div class="select-btn" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                         </div>
                     </div>
@@ -274,7 +274,7 @@ class HamamHybridRenderer {
                     
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
                         <span class="sv-price" style="color: #d4af37; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.2rem;"></span>
-                        <button class="magnetic-btn select-btn" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; padding: 10px 24px; border-radius: 99px; font-size: 0.8rem; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease; pointer-events: none;">SEÇ</button>
+                        <button class="magnetic-btn select-btn" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; padding: 10px 24px; border-radius: 99px; font-size: 0.8rem; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease; pointer-events: auto;">SEÇ</button>
                     </div>
                 </div>
             `;
@@ -467,10 +467,13 @@ class HamamHybridRenderer {
                 const data = JSON.parse(dataStr);
 
                 // Bi-directional Routing: Design Studio Select vs Detail Page Open
-                const isSelectButton = e.target.closest('.select-btn') || e.target.closest('.select-indicator') || e.target.closest('path');
+                const isSelectButton = e.target.closest('.select-btn') || e.target.closest('.select-indicator');
+
+                console.log(`[Router] Card Clicked! ID: ${data.id}, isSelectBtn: ${Boolean(isSelectButton)}`);
 
                 if (isSelectButton) {
                     // CART TOGGLE LOGIC
+                    console.log(`[Router] Toggling Target in Cart.`);
                     if (this.cart[type] && this.cart[type].id === data.id) {
                         this.cart[type] = null; // deselect
                     } else {
@@ -490,10 +493,15 @@ class HamamHybridRenderer {
                     }
                 } else {
                     // DETAIL PAGE NAVIGATION
+                    console.log(`[Router] Opening Details for: ${data.url}`);
                     if (window.SovereignVault) {
+                        console.log(`[Router] SovereignVault detected, opening overlay...`);
                         window.SovereignVault.open({ id: data.id, title: data.title, isProduct: false });
                     } else if (data.url) {
+                        console.log(`[Router] Vault not found, redirecting to: ${data.url}`);
                         window.location.href = data.url;
+                    } else {
+                        console.error("[Router] No URL or Vault available for this item.");
                     }
                 }
             });
