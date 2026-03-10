@@ -448,27 +448,32 @@ class HamamHybridRenderer {
     }
 
     attachSelectListeners(selector, type) {
-        // Remove old listeners to prevent stacking on recycled DOM nodes
-        const oldItems = document.querySelectorAll(selector);
-        oldItems.forEach(el => {
-            const newEl = el.cloneNode(true);
-            if (el.parentNode) el.parentNode.replaceChild(newEl, el);
-        });
-
-        // Attach fresh listeners
         const items = document.querySelectorAll(selector);
         items.forEach(el => {
+            // Prevent duplicate listeners without destroying the internal DOM reference
+            if (el._listenerAttached) return;
+            el._listenerAttached = true;
+
             el.addEventListener('click', () => {
-                const data = JSON.parse(el.getAttribute('data-item'));
+                const dataStr = el.getAttribute('data-item');
+                if (!dataStr) return;
+                const data = JSON.parse(dataStr);
+
                 // Toggle logic
                 if (this.cart[type] && this.cart[type].id === data.id) {
                     this.cart[type] = null; // deselect
                 } else {
                     this.cart[type] = data; // select
                 }
+
                 this.updateUISelection(selector, type);
 
-                // SantisBus Global Event Dispatch (Phase 8/9 Integration Prep)
+                // Phase 4/5 integration triggers
+                if (typeof this.updateCartOverlay === 'function') {
+                    this.updateCartOverlay();
+                }
+
+                // SantisBus Global Event Dispatch
                 if (window.SantisBus) {
                     window.SantisBus.dispatchEvent(new CustomEvent("combo:selected", { detail: this.cart }));
                 }
