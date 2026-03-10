@@ -45,7 +45,7 @@ async function revalidate(channel, signal) {
         const dataKey = { hamam: 'NV_HAMMAM', massage: 'NV_MASSAGES', skincare: 'NV_SKINCARE', rituals: 'NV_JOURNEYS', index: 'NV_HAMMAM' }[page];
         if (!dataKey) return;
 
-        const endpoint = `/api/v1/services`;
+        const endpoint = `/assets/data/services.json`;
         const res = await fetch(endpoint, { signal });
         if (!res.ok) return;
 

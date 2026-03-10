@@ -151,7 +151,7 @@ class HamamHybridRenderer {
         let html = '';
         quickAccessList.forEach((item, idx) => {
             const trContent = item.content?.tr || { title: item.name };
-            const imagePath = item.media?.thumbnail || item.image || '/assets/img/cards/santis_card_recovery_lotion.webp';
+            const imagePath = item.media?.thumbnail || item.image || '/assets/img/cards/santis_card_recovery_lotion_v2.webp';
             const isPriority = item._biometricFlag ? true : false;
 
             html += `
@@ -557,7 +557,7 @@ class HamamHybridRenderer {
                         preview.style.opacity = '0';
                         setTimeout(() => {
                             preview.src = opt.dataset.oil === 'amber'
-                                ? '/assets/img/cards/santis_card_recovery_lotion.webp'
+                                ? '/assets/img/cards/santis_card_recovery_lotion_v2.webp'
                                 : '/assets/img/cards/santis_card_body_scrub.webp';
                             preview.style.opacity = '0.9';
                         }, 300);
