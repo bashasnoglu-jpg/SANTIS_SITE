@@ -1,7 +1,6 @@
 /**
  * 🛡️ [SOVEREIGN V10] RITUALS (JOURNEY) PAGE ROUTER
  */
-import { SantisDataBridge } from '../santis-data-bridge.js';
 
 export const RitualsPage = {
     async mount() {
@@ -13,8 +12,8 @@ export const RitualsPage = {
         const selector = container.id ? `#${container.id}` : '.santis-matrix-container';
 
         // 💎 Kuantum Motoruna "rituals" etiketli tüm (yaklaşık 24) lüks kartı çizmesini emrediyoruz!
-        if (SantisDataBridge && SantisDataBridge.bootMatrix) {
-            await SantisDataBridge.bootMatrix('/assets/data/services.json', selector, 'rituals');
+        if (window.SantisDataBridge && window.SantisDataBridge.bootMatrix) {
+            await window.SantisDataBridge.bootMatrix('/assets/data/services.json', selector, 'rituals');
         }
     },
 
