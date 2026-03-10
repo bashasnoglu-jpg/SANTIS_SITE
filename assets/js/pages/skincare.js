@@ -1,7 +1,6 @@
 /**
  * 🛡️ [SOVEREIGN V10] SKINCARE PAGE ROUTER (JSON FALLBACK)
  */
-import { SantisDataBridge } from '../santis-data-bridge.js';
 
 export const SkincarePage = {
     async mount() {
@@ -13,8 +12,8 @@ export const SkincarePage = {
         const selector = container.id ? `#${container.id}` : '.santis-matrix-container';
 
         // 💎 API kapalı olsa bile sistemin çökmemesi için doğrudan yerel JSON'a bağlıyoruz!
-        if (SantisDataBridge && SantisDataBridge.bootMatrix) {
-            await SantisDataBridge.bootMatrix('/assets/data/services.json', selector, 'skincare');
+        if (window.SantisDataBridge && window.SantisDataBridge.bootMatrix) {
+            await window.SantisDataBridge.bootMatrix('/assets/data/services.json', selector, 'skincare');
         }
     },
 

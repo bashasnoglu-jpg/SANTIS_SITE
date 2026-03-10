@@ -6,8 +6,8 @@
 
 let gl;
 let sensorData; // Shared Float32Array
-let canvasWidth = window?.innerWidth || 1920;
-let canvasHeight = window?.innerHeight || 1080;
+let canvasWidth = 1920;
+let canvasHeight = 1080;
 
 self.onmessage = (e) => {
     if (e.data.canvas && e.data.bridge) {
