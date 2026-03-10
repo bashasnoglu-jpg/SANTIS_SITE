@@ -135,15 +135,28 @@ class HamamHybridRenderer {
         // Mock Biometric Data (Normally fetched via HealthKit/IoT Sync)
         const mockHealthStatus = "insomnia"; // User needs sleep
 
-        // Isolate Hammam/Rituals for Quick Access
-        let quickAccessList = [...this.data].slice(0, 8);
+        // Filter for Phase 11 Vertical Pro: Max 8 Items, 30 Mins (Express), Hamam/Scrub/Foam focus
+        let quickAccessList = [...this.data]
+            .filter(s => {
+                const c = (s.categoryId || s.category || '').toLowerCase();
+                const isHamam = c.includes('hammam') || c.startsWith('ritual-hammam') || c === 'hamam';
+                const isShort = s.duration === 30 || (s.duration && typeof s.duration === 'string' && s.duration.includes('30'));
+                return isHamam && isShort;
+            })
+            .slice(0, 8);
 
-        // Biometric algorithmic sorting
+        // Fallback if not enough 30-min services found in JSON
+        if (quickAccessList.length < 8) {
+            const fillers = [...this.data].filter(s => s.duration === 45 || s.duration === 50).slice(0, 8 - quickAccessList.length);
+            quickAccessList = [...quickAccessList, ...fillers];
+        }
+
+        // Biometric algorithmic sorting (Mock IoT)
         if (mockHealthStatus === "insomnia") {
             const sleepTherapyIndex = quickAccessList.findIndex(s => s.id.includes('masaj') || s.name.toLowerCase().includes('rahat'));
             if (sleepTherapyIndex > -1) {
                 const sleepItem = quickAccessList.splice(sleepTherapyIndex, 1)[0];
-                sleepItem._biometricFlag = "Biyometrik verileriniz için yapılandırıldı";
+                sleepItem._biometricFlag = "Apple Health Tavsiyesi";
                 quickAccessList.unshift(sleepItem); // Push to first
             }
         }
@@ -153,21 +166,79 @@ class HamamHybridRenderer {
             const trContent = item.content?.tr || { title: item.name };
             const imagePath = item.media?.thumbnail || item.image || '/assets/img/cards/santis_card_recovery_lotion_v2.webp';
             const isPriority = item._biometricFlag ? true : false;
+            const price = item.price?.amount || item.price_eur || 0;
 
             html += `
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; opacity: 0; animation: fadeIn 0.5s ease forwards ${idx * 0.1}s;">
-                <div style="width: 120px; height: 120px; border-radius: 4px; overflow: hidden; border: ${isPriority ? '2px solid #d4af37' : '1px solid rgba(0,0,0,0.1)'}; position: relative; background: #000;">
-                    <img src="${imagePath}" alt="${trContent.title}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                    ${isPriority ? `<div style="position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(212,175,55,0.9); padding: 2px 0; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg></div>` : ''}
-                </div>
-                <div style="text-align: center;">
-                    <span style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #111; font-weight: 500; display: block;">${trContent.title.split(' ')[0]}</span>
-                    ${isPriority ? `<span style="font-family: 'Inter', sans-serif; font-size: 0.6rem; color: #d4af37; display: block;">ÖNERİLEN</span>` : ''}
+            <div style="flex-shrink: 0; scroll-snap-align: center; width: 280px; height: 400px; border-radius: 8px; overflow: hidden; border: ${isPriority ? '2px solid #d4af37' : '1px solid rgba(0,0,0,0.1)'}; position: relative; background: #080808; cursor: pointer; opacity: 0; animation: fadeIn 0.5s ease forwards ${idx * 0.1}s; display: flex; flex-direction: column; justify-content: flex-end; transition: transform 0.4s ease;">
+                <img src="${imagePath}" alt="${trContent.title}" style="position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; opacity: 0.75; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); z-index: 0;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+                <div style="position: absolute; top:0; left:0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(5,5,5,0.95) 100%); z-index: 1;"></div>
+                
+                ${isPriority ? `<div style="position: absolute; top: 12px; right: 12px; z-index: 3; background: rgba(212,175,55,0.9); backdrop-filter: blur(4px); padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                    <span style="font-family: 'Inter', sans-serif; font-size: 0.65rem; color: #fff; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">${item._biometricFlag}</span>
+                </div>` : ''}
+
+                <div style="position: relative; z-index: 2; padding: 24px; display: flex; flex-direction: column; gap: 6px;">
+                    <span style="font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #d4af37; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">30 DK. EXPRESS</span>
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #fff; margin:0; line-height: 1.15; font-weight: 400;">${trContent.title}</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
+                        <span style="color: rgba(255,255,255,0.7); font-family: 'Inter', sans-serif; font-weight: 400; font-size: 1rem;">${price > 0 ? price + ' €' : ''}</span>
+                        <div style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
+                    </div>
                 </div>
             </div>`;
         });
 
         oracleGrid.innerHTML = html;
+
+        // Desktop Mouse Drag to Scroll for Oracle Lineup
+        if (oracleGrid) {
+            oracleGrid.style.scrollBehavior = 'auto';
+            oracleGrid.style.WebkitOverflowScrolling = 'touch';
+            oracleGrid.style.cursor = 'grab';
+
+            let isDown = false;
+            let startX;
+            let containerScrollLeft;
+
+            const mdHandler = (e) => {
+                isDown = true;
+                oracleGrid.style.cursor = 'grabbing';
+                oracleGrid.style.scrollSnapType = 'none';
+                startX = e.pageX - oracleGrid.offsetLeft;
+                containerScrollLeft = oracleGrid.scrollLeft;
+            };
+
+            const mlHandler = () => {
+                isDown = false;
+                oracleGrid.style.cursor = 'grab';
+                oracleGrid.style.scrollSnapType = 'x mandatory';
+            };
+
+            const mmHandler = (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - oracleGrid.offsetLeft;
+                const walk = (x - startX) * 1.5;
+                oracleGrid.scrollLeft = containerScrollLeft - walk;
+            };
+
+            oracleGrid.removeEventListener('mousedown', oracleGrid._mdHandler);
+            oracleGrid.removeEventListener('mouseleave', oracleGrid._mlHandler);
+            oracleGrid.removeEventListener('mouseup', oracleGrid._mlHandler);
+            oracleGrid.removeEventListener('mousemove', oracleGrid._mmHandler);
+
+            oracleGrid._mdHandler = mdHandler;
+            oracleGrid._mlHandler = mlHandler;
+            oracleGrid._mmHandler = mmHandler;
+
+            oracleGrid.addEventListener('mousedown', oracleGrid._mdHandler);
+            oracleGrid.addEventListener('mouseleave', oracleGrid._mlHandler);
+            oracleGrid.addEventListener('mouseup', oracleGrid._mlHandler);
+            oracleGrid.addEventListener('mousemove', oracleGrid._mmHandler);
+        }
 
         // CSS Animation for fade-in
         if (!document.getElementById('oracle-styles')) {
