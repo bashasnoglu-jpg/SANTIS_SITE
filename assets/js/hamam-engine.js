@@ -207,25 +207,57 @@ class HamamHybridRenderer {
         }
         console.log(`[Sovereign Renderer] Object Pool Warmed: ${this.POOL_SIZE} DOM elements ready.`);
 
-        // Desktop Mouse Wheel to Horizontal Scroll Translation (Apple Pro Rail Effect)
+        // Desktop Mouse Drag to Scroll (Grab & Pull) & Wheel Translation
         if (this.matrixContainer) {
-            this.matrixContainer.style.scrollBehavior = 'auto'; // Ensure smooth wheel interaction
+            this.matrixContainer.style.scrollBehavior = 'auto';
+            this.matrixContainer.style.WebkitOverflowScrolling = 'touch';
+            this.matrixContainer.style.cursor = 'grab';
+
+            let isDown = false;
+            let startX;
+            let containerScrollLeft;
+
+            this.matrixContainer.addEventListener('mousedown', (e) => {
+                isDown = true;
+                this.matrixContainer.style.cursor = 'grabbing';
+                this.matrixContainer.style.scrollSnapType = 'none'; // Disable snap for smooth dragging
+                startX = e.pageX - this.matrixContainer.offsetLeft;
+                containerScrollLeft = this.matrixContainer.scrollLeft;
+            });
+
+            this.matrixContainer.addEventListener('mouseleave', () => {
+                isDown = false;
+                this.matrixContainer.style.cursor = 'grab';
+                this.matrixContainer.style.scrollSnapType = 'x mandatory';
+            });
+
+            this.matrixContainer.addEventListener('mouseup', () => {
+                isDown = false;
+                this.matrixContainer.style.cursor = 'grab';
+                this.matrixContainer.style.scrollSnapType = 'x mandatory';
+            });
+
+            this.matrixContainer.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault(); // Prevent text/image selection while dragging
+                const x = e.pageX - this.matrixContainer.offsetLeft;
+                const walk = (x - startX) * 1.5; // Drag speed multiplier
+                this.matrixContainer.scrollLeft = containerScrollLeft - walk;
+            });
+
+            // Wheel translation
             this.matrixContainer.addEventListener('wheel', (e) => {
                 const isAtStart = this.matrixContainer.scrollLeft <= 0;
                 const isAtEnd = Math.ceil(this.matrixContainer.scrollLeft + this.matrixContainer.clientWidth) >= this.matrixContainer.scrollWidth;
 
                 // Translate vertical scroll to horizontal scroll
                 if (e.deltaY !== 0) {
-                    // Only intercept if there's room to scroll horizontally
                     if ((e.deltaY > 0 && !isAtEnd) || (e.deltaY < 0 && !isAtStart)) {
                         e.preventDefault(); // Pause vertical lenis scroll
                         this.matrixContainer.scrollLeft += e.deltaY;
                     }
                 }
             }, { passive: false });
-
-            // Touch smoothing for mobile overrides
-            this.matrixContainer.style.WebkitOverflowScrolling = 'touch';
         }
     }
 
