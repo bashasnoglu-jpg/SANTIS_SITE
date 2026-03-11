@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -396,7 +396,7 @@
         async function fetchQuantumReflexReports() {
             try {
                 // Requesting metrics from Sovereign Edge Node
-                const res = await fetch("http://localhost:8000/api/edge/analytics/edge_prefetch");
+                const res = await fetch("http://localhost:8080/api/edge/analytics/edge_prefetch");
                 if (res.ok) {
                     const edgeReports = await res.json();
                     

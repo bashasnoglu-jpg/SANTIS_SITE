@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -558,7 +558,7 @@
                 let data = { quarantine_nodes: [] };
 
                 if (!MOCK_MODE) {
-                    const res = await fetch("http://localhost:8000/api/v1/health/panel-audit");
+                    const res = await fetch("http://localhost:8080/api/v1/health/panel-audit");
                     if(res.ok) {
                         data = await res.json();
                     } else {
@@ -616,14 +616,14 @@
         // 👑 THE EXECUTIONER FUNCTIONS (İnfaz Fonksiyonları)
         window.applySeal = async function(filename) {
             if(confirm("👑 MÜHÜR VURULUYOR: Bu şaheseri asıl evrene (Universe) katmak istediğinize emin misiniz?")) {
-                await fetch("http://localhost:8000/api/v1/quarantine/seal/" + filename, { method: 'POST' });
+                await fetch("http://localhost:8080/api/v1/quarantine/seal/" + filename, { method: 'POST' });
                 fetchAndRenderQuarantine(); // Arayüzü beklemeden anında yenile!
             }
         }
 
         window.burnNode = async function(filename) {
             if(confirm("🔥 İMHA PROTOKOLÜ: Bu eseri acımasızca küllere çeviriyorsunuz. Emin misiniz?")) {
-                await fetch("http://localhost:8000/api/v1/quarantine/burn/" + filename, { method: 'DELETE' });
+                await fetch("http://localhost:8080/api/v1/quarantine/burn/" + filename, { method: 'DELETE' });
                 fetchAndRenderQuarantine(); // Arayüzü beklemeden anında yenile!
             }
         }

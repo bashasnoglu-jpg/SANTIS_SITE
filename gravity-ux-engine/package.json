@@ -1,0 +1,30 @@
+{
+  "name": "gravity-ux-engine",
+  "version": "3.0.0",
+  "description": "Neuro-Cognitive UX Conversion Simulator — Predict e-commerce conversion rates before deployment using AI behavioral physics.",
+  "main": "src/core/gravity-engine.js",
+  "type": "module",
+  "scripts": {
+    "demo": "npx serve demo -l 3000",
+    "dev": "npx serve . -l 3000",
+    "test": "echo 'Open demo/3-card-arena.html in any browser'"
+  },
+  "keywords": [
+    "ux",
+    "conversion-rate",
+    "ai",
+    "gravity-simulation",
+    "heatmap",
+    "e-commerce",
+    "saas",
+    "spatial-hash-grid",
+    "neuro-cognitive",
+    "ab-testing-alternative"
+  ],
+  "author": "Santis Club",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/santis-club/gravity-ux-engine"
+  }
+}

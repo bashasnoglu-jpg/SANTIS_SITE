@@ -18,33 +18,36 @@ async function bootSovereignOS() {
     console.log(`%c⏱️ [T+${Math.round(t0)}ms] Karargâh Onaylandı: Cephe [${window.Santis.State.page.toUpperCase()}]`, "color: #3b82f6");
 
     try {
-        // 🟢 T+200ms : KERNEL IGNITION (İşçileri Madene İndir)
-        // Main thread'i 1 ms bile kitlemeden JSON verilerini çekmesi için Kuantum Beynini başlat!
-        console.log(`%c🧠 [T+${Math.round(performance.now())}ms] Kuantum Çekirdeği (Kernel Worker) Ateşleniyor...`, "color: #10b981");
-        window.Santis.Workers.Kernel = new Worker('/assets/js/workers/kernel.worker.js', { type: 'module' });
+        // 🟢 LCP < 1.0s GARANTİSİ (Lazy-Shader Skeleton)
+        // DOM ve CSS iskeletlerinin anında çizilmesi için WebGL motorunun uyanışını 300ms erteliyoruz.
+        await new Promise(resolve => setTimeout(resolve, 300));
 
-        // İşçiye hangi sayfada olduğunu fısılda, madene insin!
-        window.Santis.Workers.Kernel.postMessage({ type: 'BOOT_SEQUENCE', payload: { page: window.Santis.State.page } });
+        // 🟢 T+300ms : THE SOVEREIGN GPU (Sıvı Altın HER SAYFADA Akacak!)
+        const GPU = await import('../engines/gpu-effects.js?v=V18_APEX_RESURRECTION').catch(() => { });
+        if (GPU) window.Santis.Engines.GPU = GPU.init();
 
-        // 🟢 T+300ms : PAGE UI & GPU ENGINE (Sadece İhtiyacın Olanı Yükle - Lazy Load)
-        if (window.Santis.State.page === 'massage') {
-            console.log(`%c👁️ [T+${Math.round(performance.now())}ms] UI ve GPU Motorları RAM'e Çekiliyor...`, "color: #a855f7");
+        // 🟢 T+400ms : THE QUANTUM MATRIX (ROUTER)
+        const matrixPages = ['massage', 'hamam', 'hammam', 'skincare', 'rituals', 'index']; // Kart dizilecek sayfalar (index = ana sayfa rail'leri)
+        const page = window.Santis.State.page;
 
-            // Masaj UI Katmanı (Kartları DOM'a basacak - Faz 3'te yazacağız)
-            const MassageUI = await import('../ui/massage-matrix.js').catch(e => console.warn("⏳ [V18] UI modülü Faz 3'te yaratılacak. Kuantum beklemede."));
-            if (MassageUI) {
-                window.Santis.UI.Massage = MassageUI.init(window.Santis.Workers.Kernel);
+        if (matrixPages.includes(page)) {
+            // 💎 SADECE LİSTE SAYFALARINDA KUANTUM İŞÇİSİNİ ÇAĞIR!
+            console.log(`%c🧠 [T+${Math.round(performance.now())}ms] Kuantum Çekirdeği (Kernel Worker) Ateşleniyor...`, "color: #10b981");
+            window.Santis.Workers.Kernel = new Worker('/assets/js/workers/kernel.worker.js?v=V18_APEX_RESURRECTION', { type: 'module' });
+            window.Santis.Workers.Kernel.postMessage({ type: 'BOOT_SEQUENCE', payload: { page: page } });
+
+            const MatrixUI = await import('../ui/massage-matrix.js?v=V18_APEX_RESURRECTION').catch(() => { });
+            if (MatrixUI) window.Santis.UI.Matrix = MatrixUI.init(window.Santis.Workers.Kernel);
+
+        } else {
+            // 💎 Ana Sayfa Kuantum modunda — ek motor gerekmez
+            if (page === 'home' || page === 'index') {
+                console.log("💎 [V18] Ana sayfa Kuantum modunda çalışıyor.");
             }
 
-            // GPU Diktatörü (Sıvı altın fiziği - Faz 3'te yazacağız)
-            const GPU = await import('../engines/gpu-effects.js').catch(e => console.warn("⏳ [V18] GPU Motoru Faz 3'te yaratılacak."));
-            if (GPU) window.Santis.Engines.GPU = GPU.init();
-
-            // Fırtına koptu, karanlıkta yatan Matrix'i aydınlat! (Soft Transition)
-            const arena = document.querySelector('.santis-matrix-container');
-            if (arena) {
-                requestAnimationFrame(() => { arena.style.opacity = "1"; });
-            }
+            // Karanlıktan aydınlığa geçişi (Opacity) direkt HTML'e uygula!
+            const arena = document.querySelector('.santis-matrix-container') || document.querySelector('main');
+            if (arena) requestAnimationFrame(() => { arena.style.opacity = "1"; });
         }
 
         const t1 = performance.now();
@@ -59,22 +62,40 @@ async function bootSovereignOS() {
     }
 }
 
-// 3. THE SILENT ASSASSINS (Idle Task Scheduler)
+// 3. THE APEX WATERFALL (Dual-Trigger Quantum Assassins)
+// Kozmetik motorlar, hangisi ÖNCE olursa onu tetikler:
+//   A) Kullanıcı ilk scroll hareketini yaptığında (Engagement Signal)
+//   B) 2 saniye idle bekleme dolduğunda (Idle Timeout)
+// Tek seferlik: İlk tetikten sonra diğer tetik iptal olur (Clone Wars önlemi).
 function scheduleIdleAssassins() {
-    const wakeTheDead = async () => {
-        console.log(`%c🌙 [T+${Math.round(performance.now())}ms] İşlemci %100 Boş. Parazitler (Analytics, Pixels) Zindandan Çıkarılıyor...`, "color: #6b7280");
+    let fired = false;
+
+    const wakeTheDead = async (trigger) => {
+        if (fired) return; // Zaten ateşlendi, ikinci tetik iptal!
+        fired = true;
+
+        console.log(`%c🌙 [T+${Math.round(performance.now())}ms] Parazitler Uyanıyor! Tetik: ${trigger}`, "color: #6b7280");
         try {
-            // Sitenin FCP ve LCP hızını %0 etkileyen, arka kapıdan giren ajanlar!
-            await import('../engines/santis-pixel-engine.js').catch(() => { });
-            await import('../engines/santis-score-engine.js').catch(() => { });
+            await import('../santis-pixel-engine.js?v=V18_APEX_RESURRECTION').catch(() => { });
+            await import('../santis-score-engine.js?v=V18_APEX_RESURRECTION').catch(() => { });
+            await import('../core/quantum-engine.js?v=V31_QUANTUM_APEX').catch(() => { });
+            await import('../core/neuro-detail.js?v=V32_NEURO_STUDIO').catch(() => { });
+            await import('../core/fibonacci-swarm.js?v=V33_FIBONACCI').catch(() => { });
+            await import('../core/checkout-ritual.js?v=V33_LIVING_TICKET').catch(() => { });
+            await import('../core/sovereign-acoustics.js?v=V34_ACOUSTICS').catch(() => { });
+            await import('../core/wallet-bridge.js?v=V34_WALLET').catch(() => { });
+            await import('../core/boutique-infection.js?v=V35_GAMMA').catch(() => { });
         } catch (e) { }
     };
 
-    // İşlemci %100 boşaldığında (veya en geç 3 saniye sonra) ateşle!
+    // 🅰️ SCROLL TETİĞİ: Kullanıcı ilk scroll yaptığı an ateşle (passive + once = sıfır TBT)
+    window.addEventListener('scroll', () => wakeTheDead('SCROLL'), { passive: true, once: true });
+
+    // 🅱️ IDLE TETİĞİ: İşlemci 2 saniye boşa düşerse ateşle
     if ('requestIdleCallback' in window) {
-        requestIdleCallback(wakeTheDead, { timeout: 3000 });
+        requestIdleCallback(() => wakeTheDead('IDLE'), { timeout: 2000 });
     } else {
-        setTimeout(wakeTheDead, 2000); // Failsafe (Safari vb. eski mimariler için)
+        setTimeout(() => wakeTheDead('IDLE_FALLBACK'), 2000);
     }
 }
 

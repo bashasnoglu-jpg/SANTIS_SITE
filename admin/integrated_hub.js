@@ -215,6 +215,14 @@ document.addEventListener('DOMContentLoaded', () => {
     dropZone.addEventListener('drop', (e) => {
         const dt = e.dataTransfer;
         const files = dt.files;
+
+        // Sovereign Seismic Drop Physics
+        dropZone.classList.add('dropped-seismic');
+        setTimeout(() => { dropZone.classList.remove('dropped-seismic'); }, 600);
+        
+        // Haptic Feedback Simulation (if supported)
+        if (navigator.vibrate) navigator.vibrate(50);
+        
         handleFiles(files);
     });
 
@@ -1638,20 +1646,161 @@ window.downloadAsset = async function (url, filename) {
 
 let _draggedAssetId = null;
 
-// Make Matrix cards draggable (called after renderMatrix)
+// Make Matrix cards draggable with Magnetic Kinetic OS
 function wireMatrixDragSource() {
-    document.querySelectorAll('.matrix-card[data-asset-id]').forEach(card => {
-        card.setAttribute('draggable', 'true');
-        card.addEventListener('dragstart', (e) => {
+    document.querySelectorAll('.matrix-card[data-asset-id], .matrix-asset-card[data-asset-id]').forEach(card => {
+        card.removeAttribute('draggable'); // HTML5'i siliyoruz
+
+        if(card.dataset.magneticWired) return;
+        card.dataset.magneticWired = "true";
+
+        let isDragging = false;
+        let startX, startY;
+        let originalZ;
+
+        card.addEventListener('pointerdown', (e) => {
+            // Buton tıklamalarını pas geç
+            if(e.target.closest('button')) return;
+
+            isDragging = true;
             _draggedAssetId = card.dataset.assetId;
-            card.style.opacity = '0.5';
-            e.dataTransfer.effectAllowed = 'link';
+            card.setPointerCapture(e.pointerId);
+            
+            card.style.transition = 'none'; 
+            originalZ = card.style.zIndex;
+            card.style.zIndex = 1000;
+            
+            // Ağırlık hissi (basınç) ve Sovereign Gölgelendirme
+            card.style.transform = 'scale(1.05) translateY(-5px)';
+            card.style.boxShadow = '0 20px 40px rgba(212, 175, 55, 0.4)';
+            
+            startX = e.clientX;
+            startY = e.clientY;
+
+            // 🌪️ WEBGPU KÖPRÜSÜ: Olay Ufku (Kara Delik) Oluştur
+            if (window.kernel) triggerGPUIntent(e, 8.0);
         });
-        card.addEventListener('dragend', () => {
-            card.style.opacity = '';
+
+        card.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            
+            // Ağır, kinetik takip (Mikro eğilme/rotasyon ile birlikte)
+            card.style.transform = `translate(${dx}px, ${dy}px) scale(1.05) rotate(${dx * 0.03}deg)`;
+
+            // 🌪️ WEBGPU KÖPRÜSÜ: Sıvı altın farenin arkasından kuyruk gibi aksın
+            if (window.kernel) triggerGPUIntent(e, 12.0);
+
+            // Radar Row Highlight
+            const target = document.elementFromPoint(e.clientX, e.clientY);
+            const row = target ? target.closest('.slot-radar-row') : null;
+            document.querySelectorAll('.slot-radar-row.drag-active').forEach(r => r.classList.remove('drag-active'));
+            if(row) row.classList.add('drag-active');
+        });
+
+        card.addEventListener('pointerup', async (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            card.releasePointerCapture(e.pointerId);
+            
+            // Yuvaya Elastik Oturma (Magnetic Snap)
+            card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)'; 
+            card.style.transform = 'translate(0px, 0px) scale(1)';
+            card.style.boxShadow = 'none';
+            card.style.zIndex = originalZ;
+
+            // 🌪️ WEBGPU KÖPRÜSÜ: Sismik Altın Patlaması!
+            if (window.kernel) {
+                triggerGPUIntent(e, -30.0);
+                setTimeout(() => window.kernel.injectIntent(0, 0, 0, 0), 200);
+            }
+
+            createSovereignRipple(e.clientX, e.clientY);
+
+            // Drop tespiti
+            card.style.pointerEvents = 'none';
+            const target = document.elementFromPoint(e.clientX, e.clientY);
+            card.style.pointerEvents = 'auto';
+
+            const row = target ? target.closest('.slot-radar-row') : null;
+            document.querySelectorAll('.slot-radar-row.drag-active').forEach(r => r.classList.remove('drag-active'));
+
+            if (row && _draggedAssetId) {
+                const slotKey = row.dataset.slotKey;
+                pushPulseSignal('SLOT BIND', `Binding asset → ${slotKey}...`, 'text-santis-gold');
+
+                try {
+                    const res = await window.SantisCore.apiFetch(`/api/v1/media/assets/${_draggedAssetId}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ slot: slotKey })
+                    });
+                    if (res.ok) {
+                        const data = await res.json().catch(() => ({}));
+                        const sas = data.sas_score ? ` · SAS: ${data.sas_score}` : '';
+                        pushPulseSignal('SLOT BOUND ✓', `Masterpiece mühürlendi → ${slotKey}${sas}`, 'text-santis-gold font-bold');
+                        setTimeout(() => {
+                            fetchAssets();
+                            loadSlotRadar();
+                            if (typeof window.initGodMode === 'function') window.initGodMode(true);
+                        }, 600);
+                    } else {
+                        pushPulseSignal('ERROR', `Slot bind failed (${res.status})`, 'text-red-500');
+                    }
+                } catch (err) {
+                    pushPulseSignal('ERROR', 'Slot bind — network failure.', 'text-red-500');
+                }
+            }
             _draggedAssetId = null;
         });
+
+        // Tıklamayı engelle (kaydırma yapıldıysa)
+        card.addEventListener('click', (e) => {
+            if(Math.abs(e.clientX - startX) > 5 || Math.abs(e.clientY - startY) > 5) {
+                e.preventDefault();
+            }
+        });
     });
+}
+
+// Koordinat Dönüştürücü (DOM -> WebGPU NDC Koordinatları)
+function triggerGPUIntent(e, force) {
+    if (!window.kernel) return;
+    const ndcX = (e.clientX / window.innerWidth) * 2 - 1;
+    const ndcY = -(e.clientY / window.innerHeight) * 2 + 1;
+    window.kernel.injectIntent(ndcX, ndcY, force, 1.0); 
+}
+
+function createSovereignRipple(x, y) {
+    const ripple = document.createElement('div');
+    ripple.className = 'sovereign-shockwave';
+    document.body.appendChild(ripple);
+    
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
+    
+    setTimeout(() => ripple.remove(), 800);
+}
+
+/**
+ * 🫀 SOVEREIGN OS - BIOLOGICAL CHAOS ENGINE
+ */
+window.igniteBiologicalChaos = function(element) {
+    if (!element) return;
+    const animate = (time) => {
+        const deepBreath = Math.sin(time / 1000) * 0.03;
+        const microPulse = Math.sin(time / 300) * 0.01;
+        const scale = 1 + deepBreath + microPulse;
+        const glow = Math.max(0, 0.5 + (deepBreath * 10));
+        
+        element.style.transform = `scale(${scale})`;
+        element.style.filter = `drop-shadow(0 0 ${10 + glow * 10}px rgba(212, 175, 55, ${glow}))`;
+        requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
 }
 
 let shadowSimulationTimer = null;

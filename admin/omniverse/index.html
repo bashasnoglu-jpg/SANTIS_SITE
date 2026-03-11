@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Omniverse — Command Center</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap');
+        :root { --gold: #c5a059; --bg: #030305; --cyan: #00e5ff; --purple: #e879f9; --success: #00ff66; --danger: #ff3366; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 60px 30px; }
+
+        .brand { text-align: center; margin-bottom: 50px; }
+        .brand h1 { font-family: 'Orbitron'; font-size: 2rem; font-weight: 900; letter-spacing: 4px; }
+        .brand h1 span { color: var(--gold); }
+        .brand p { font-size: 0.7rem; color: #555; letter-spacing: 3px; margin-top: 6px; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; width: 100%; max-width: 1100px; }
+
+        .card { background: rgba(10,10,14,0.8); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 28px; text-decoration: none; color: #fff; transition: 0.3s; position: relative; overflow: hidden; }
+        .card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0; transition: 0.3s; }
+        .card:hover::before { opacity: 1; }
+
+        .card-icon { font-size: 2rem; margin-bottom: 14px; }
+        .card-title { font-family: 'Orbitron'; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; letter-spacing: 1px; }
+        .card-desc { font-size: 0.72rem; color: #888; line-height: 1.6; }
+        .card-tag { position: absolute; top: 14px; right: 14px; font-family: 'Orbitron'; font-size: 0.5rem; padding: 3px 8px; border-radius: 10px; letter-spacing: 1px; }
+        .tag-core { background: rgba(197,160,89,0.15); color: var(--gold); border: 1px solid rgba(197,160,89,0.3); }
+        .tag-ai { background: rgba(232,121,249,0.1); color: var(--purple); border: 1px solid rgba(232,121,249,0.25); }
+        .tag-evo { background: rgba(0,255,102,0.1); color: var(--success); border: 1px solid rgba(0,255,102,0.2); }
+        .tag-gpu { background: rgba(255,51,102,0.1); color: var(--danger); border: 1px solid rgba(255,51,102,0.2); }
+        .tag-live { background: rgba(0,229,255,0.1); color: var(--cyan); border: 1px solid rgba(0,229,255,0.2); }
+
+        .section-label { font-family: 'Orbitron'; font-size: 0.6rem; color: #333; letter-spacing: 3px; margin: 30px 0 14px; width: 100%; max-width: 1100px; border-bottom: 1px solid #111; padding-bottom: 6px; }
+
+        .footer { margin-top: 60px; text-align: center; font-size: 0.6rem; color: #333; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+
+    <div class="brand">
+        <h1>SANTIS <span>OMNIVERSE</span></h1>
+        <p>SOVEREIGN COMMAND CENTER</p>
+    </div>
+
+    <div class="section-label">🧠 SİMÜLASYON & KONTROL</div>
+    <div class="grid">
+        <a class="card" href="oracle-console.html">
+            <span class="card-tag tag-core">CORE</span>
+            <div class="card-icon">👁️</div>
+            <div class="card-title">ORACLE CONSOLE</div>
+            <div class="card-desc">Drag-drop kart editörü. Heatmap overlay. 50K bot simülasyonu. Runtime JSON deploy.</div>
+        </a>
+        <a class="card" href="council-arena.html">
+            <span class="card-tag tag-ai">AI</span>
+            <div class="card-icon">🤖</div>
+            <div class="card-title">SOVEREIGN COUNCIL</div>
+            <div class="card-desc">3 AI (Merchant / Architect / Oracle) tartışır. Her biri layout önerir, Oracle simüle eder, kazanan seçilir.</div>
+        </a>
+        <a class="card" href="evolution-arena.html">
+            <span class="card-tag tag-evo">EVOLUTION</span>
+            <div class="card-icon">🧬</div>
+            <div class="card-title">DARWINIAN ARENA</div>
+            <div class="card-desc">Genetik algoritma. 3 AI Breeder × 30 popülasyon × 20 nesil. Fitness graph. Apex Predator deploy.</div>
+        </a>
+    </div>
+
+    <div class="section-label">🚀 INVESTOR DEMOLAR</div>
+    <div class="grid">
+        <a class="card" href="../../gravity-ux-engine/demo/3-card-arena.html">
+            <span class="card-tag tag-core">DEMO</span>
+            <div class="card-icon">⚔️</div>
+            <div class="card-title">3-CARD ARENA</div>
+            <div class="card-desc">Bad Layout vs AI Layout karşılaştırma. Yatırımcıya farkı gösteren ilk vuruş.</div>
+        </a>
+        <a class="card" href="../../gravity-ux-engine/demo/darwinian-evolution.html">
+            <span class="card-tag tag-evo">PITCH</span>
+            <div class="card-icon">🦅</div>
+            <div class="card-title">DARWINIAN EVOLUTION</div>
+            <div class="card-desc">150 mutant scatter plot. 50 nesil doğal seçilim animasyonu. Apex Predator Zone.</div>
+        </a>
+        <a class="card" href="../../gravity-ux-engine/demo/webgpu-million.html">
+            <span class="card-tag tag-gpu">WEBGPU</span>
+            <div class="card-icon">💣</div>
+            <div class="card-title">1M BOT SIMULATOR</div>
+            <div class="card-desc">GPU Compute Shader (WGSL). 1 Milyon nöral bot. 0% CPU yükü. Shock & Awe.</div>
+        </a>
+        <a class="card" href="../../gravity-ux-engine/demo/full-matrix.html">
+            <span class="card-tag tag-core">STRESS</span>
+            <div class="card-icon">🔬</div>
+            <div class="card-title">FULL MATRIX</div>
+            <div class="card-desc">150 ürün + 50K bot stres testi. Spatial Hash Grid performans kanıtı.</div>
+        </a>
+    </div>
+
+    <div class="section-label">📡 LIVE EVOLUTION PIPELINE</div>
+    <div class="grid">
+        <a class="card" href="../../gravity-ux-engine/src/saas-dashboard/index.html">
+            <span class="card-tag tag-live">SAAS</span>
+            <div class="card-icon">🎛️</div>
+            <div class="card-title">SOVEREIGN DASHBOARD</div>
+            <div class="card-desc">SaaS Control Center. Lazer tarama + AI optimize. Müşteri URL girişi.</div>
+        </a>
+        <a class="card" href="../../gravity-ux-engine/src/saas-dashboard/cognitive-certificate.html">
+            <span class="card-tag tag-ai">CERT</span>
+            <div class="card-icon">📜</div>
+            <div class="card-title">COGNITIVE CERTIFICATE</div>
+            <div class="card-desc">A4 PDF Cognitive Yield Certificate. S+ Tier Sovereign mühür.</div>
+        </a>
+    </div>
+
+    <div class="footer">SANTIS OMNIVERSE — 25 DOSYA / 252 KB / Y-COMBINATOR READY</div>
+
+</body>
+</html>

@@ -728,7 +728,7 @@
 
         async function fetchCurrentSurge() {
             try {
-                const res = await fetch("http://localhost:8000/api/v1/booking/admin/surge", {
+                const res = await fetch("http://localhost:8080/api/v1/booking/admin/surge", {
                     // Requires Auth in production
                     headers: { "Authorization": "Bearer hq_boardroom_token" }
                 });
@@ -744,7 +744,7 @@
         window.syncSurgeToCore = async function() {
             const val = parseFloat(surgeSlider.value);
             try {
-                const res = await fetch("http://localhost:8000/api/v1/booking/admin/surge", {
+                const res = await fetch("http://localhost:8080/api/v1/booking/admin/surge", {
                     method: "POST",
                     headers: { 
                         "Content-Type": "application/json",

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darwinian Evolution | Interface Natural Selection</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap');
+        :root { --gold: #c5a059; --bg: #020204; --cyan: #00e5ff; --danger: #ff3366; --purple: #e879f9; --success: #00ff66; --panel: rgba(8,8,12,0.9); --border: rgba(197,160,89,0.12); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+        .topbar { height: 50px; background: rgba(0,0,0,0.8); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+        .brand { font-family: 'Orbitron'; font-size: 1rem; letter-spacing: 2px; }
+        .brand span { color: var(--success); }
+        .sys { font-family: 'Orbitron'; font-size: 0.65rem; }
+        .sys b { color: #fff; }
+
+        .main { display: flex; flex: 1; overflow: hidden; }
+
+        /* LEFT: CONFIG */
+        .config { width: 260px; background: var(--panel); border-right: 1px solid var(--border); padding: 16px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
+        .sec { font-family: 'Orbitron'; font-size: 0.55rem; color: #555; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid #151515; padding-bottom: 4px; }
+        .sg { margin-top: 4px; }
+        .sg-label { display: flex; justify-content: space-between; font-size: 0.7rem; color: #888; margin-bottom: 3px; }
+        .sg-label .v { color: var(--cyan); font-family: 'Orbitron'; font-size: 0.7rem; }
+        input[type=range] { width: 100%; -webkit-appearance: none; background: rgba(255,255,255,0.06); height: 3px; border-radius: 2px; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; background: var(--success); border-radius: 50%; cursor: pointer; }
+
+        .breeder { display: flex; align-items: center; gap: 8px; padding: 8px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: 6px; }
+        .b-emoji { font-size: 1.2rem; }
+        .b-name { font-family: 'Orbitron'; font-size: 0.65rem; font-weight: 700; }
+        .b-role { font-size: 0.6rem; color: #666; }
+
+        .btn { width: 100%; padding: 14px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; border-radius: 6px; cursor: pointer; transition: 0.3s; background: transparent; border: 1px solid var(--success); color: var(--success); margin-top: auto; }
+        .btn:hover { background: var(--success); color: #000; box-shadow: 0 0 20px rgba(0,255,102,0.3); }
+        .btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .btn-gold { border-color: var(--gold); color: var(--gold); margin-top: 6px; }
+        .btn-gold:hover { background: var(--gold); color: #000; }
+
+        .pbar { width: 100%; height: 4px; background: #111; border-radius: 2px; overflow: hidden; }
+        .pfill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--success), var(--gold)); transition: width 0.3s; }
+
+        /* CENTER: EVOLUTION GRAPH + LOG */
+        .center { flex: 1; display: flex; flex-direction: column; }
+        .graph-area { height: 280px; border-bottom: 1px solid rgba(255,255,255,0.04); position: relative; padding: 10px; }
+        .graph-area canvas { width: 100%; height: 100%; }
+        .graph-label { position: absolute; top: 8px; left: 14px; font-family: 'Orbitron'; font-size: 0.55rem; color: #444; letter-spacing: 2px; }
+
+        .evo-log { flex: 1; overflow-y: auto; padding: 14px; font-family: monospace; font-size: 0.7rem; line-height: 1.7; }
+        .el { margin-bottom: 2px; padding: 2px 8px; border-radius: 3px; }
+        .el-separator { color: #222; text-align: center; }
+        .el-header { color: var(--success); font-weight: bold; text-align: center; font-size: 0.8rem; }
+        .el-info { color: #888; }
+        .el-gen { color: var(--cyan); font-weight: bold; background: rgba(0,229,255,0.05); }
+        .el-best { color: var(--success); }
+        .el-avg { color: #666; }
+        .el-kill { color: var(--danger); opacity: 0.7; }
+        .el-breed { color: var(--purple); }
+        .el-apex { color: var(--gold); font-weight: bold; background: rgba(197,160,89,0.08); padding: 6px 10px; }
+
+        /* RIGHT: APEX PREDATOR */
+        .apex-panel { width: 300px; background: var(--panel); border-left: 1px solid var(--border); padding: 16px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+        .apex-title { font-family: 'Orbitron'; font-size: 0.6rem; color: var(--gold); letter-spacing: 2px; border-bottom: 1px solid rgba(197,160,89,0.2); padding-bottom: 6px; }
+        .apex-canvas { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.04); border-radius: 6px; height: 200px; }
+        .apex-canvas canvas { width: 100%; height: 100%; border-radius: 6px; }
+
+        .am { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.04); padding: 12px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
+        .am-label { font-size: 0.55rem; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+        .am-val { font-family: 'Orbitron'; font-size: 1.1rem; font-weight: 700; }
+
+        .gen-badge { display: inline-block; background: rgba(0,255,102,0.1); border: 1px solid var(--success); color: var(--success); padding: 4px 10px; border-radius: 20px; font-family: 'Orbitron'; font-size: 0.6rem; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="brand">DARWINIAN <span>EVOLUTION</span></div>
+    <div class="sys" style="color:var(--gold)">GEN: <b id="sys-gen">0</b> / <b id="sys-total">20</b> | STATUS: <b id="sys-status" style="color:#555">IDLE</b></div>
+</div>
+
+<div class="main">
+    <div class="config">
+        <div class="sec">🧬 EVRİM PARAMETRELERİ</div>
+        <div class="sg"><div class="sg-label"><span>Popülasyon</span><span class="v" id="v-pop">30</span></div>
+        <input type="range" id="s-pop" min="10" max="60" step="5" value="30" oninput="document.getElementById('v-pop').textContent=this.value"></div>
+        <div class="sg"><div class="sg-label"><span>Nesil Sayısı</span><span class="v" id="v-gen">20</span></div>
+        <input type="range" id="s-gen" min="5" max="50" step="5" value="20" oninput="document.getElementById('v-gen').textContent=this.value; document.getElementById('sys-total').textContent=this.value"></div>
+        <div class="sg"><div class="sg-label"><span>Bot / Simülasyon</span><span class="v" id="v-bot">8,000</span></div>
+        <input type="range" id="s-bot" min="3000" max="20000" step="1000" value="8000" oninput="document.getElementById('v-bot').textContent=parseInt(this.value).toLocaleString()"></div>
+        <div class="sg"><div class="sg-label"><span>Mutasyon Oranı</span><span class="v" id="v-mut">15%</span></div>
+        <input type="range" id="s-mut" min="5" max="40" step="5" value="15" oninput="document.getElementById('v-mut').textContent=this.value+'%'"></div>
+
+        <div class="sec" style="margin-top:8px">⚡ AI BREEDERS</div>
+        <div class="breeder"><span class="b-emoji">⚡</span><div><div class="b-name" style="color:var(--gold)">HERMES</div><div class="b-role">Agresif Satıcı — Kaba Kuvvet</div></div></div>
+        <div class="breeder"><span class="b-emoji">🏛️</span><div><div class="b-name" style="color:var(--cyan)">ARCHIMEDES</div><div class="b-role">Mimar — Altın Oran</div></div></div>
+        <div class="breeder"><span class="b-emoji">🔮</span><div><div class="b-name" style="color:var(--purple)">AURELIA</div><div class="b-role">Veri Bilimci — F-Pattern</div></div></div>
+
+        <div class="pbar"><div class="pfill" id="pfill"></div></div>
+        <button class="btn" id="btn-evolve" onclick="Page.startEvolution()">🧬 EVRİMİ BAŞLAT</button>
+        <button class="btn btn-gold" id="btn-deploy" onclick="Page.deployApex()" disabled>🚀 APEX'İ YAYINA AL</button>
+    </div>
+
+    <div class="center">
+        <div class="graph-area">
+            <div class="graph-label">FITNESS GRAFİĞİ (Nesil → Fitness)</div>
+            <canvas id="graph-canvas"></canvas>
+        </div>
+        <div class="evo-log" id="evo-log">
+            <div class="el el-info">> Doğal seçilim motoru bekleniyor. "🧬 Evrimi Başlat" butonuna basın.</div>
+        </div>
+    </div>
+
+    <div class="apex-panel">
+        <div class="apex-title">🦅 APEX PREDATOR (Zirve Yırtıcı)</div>
+        <div class="apex-canvas"><canvas id="apex-canvas"></canvas></div>
+        <div class="am"><span class="am-label">Fitness</span><span class="am-val" id="a-fit" style="color:var(--success)">—</span></div>
+        <div class="am"><span class="am-label">CVR</span><span class="am-val" id="a-cvr">—</span></div>
+        <div class="am"><span class="am-label">Ciro</span><span class="am-val" id="a-rev">—</span></div>
+        <div class="am"><span class="am-label">Bounce</span><span class="am-val" id="a-bnc">—</span></div>
+        <div class="am"><span class="am-label">Doğduğu Nesil</span><span class="am-val" id="a-gen">—</span></div>
+        <div style="text-align:center; margin-top:6px;"><span class="gen-badge" id="a-grade">—</span></div>
+    </div>
+</div>
+
+<script src="omniverse-bridge.js"></script>
+<script src="darwinian-engine.js"></script>
+<script>
+const Page = (() => {
+    const bridge = new OmniverseBridge('oracle-worker.js');
+    const darwin = new DarwinianEngine(bridge);
+    let apexResult = null;
+
+    const catalog = [
+        { id: 'sultan-hamam', name: 'Sultan Hamamı', price: 180, mass: 120 },
+        { id: 'bali-masaj',   name: 'Bali Masajı',   price: 120, mass: 80 },
+        { id: 'sothys-cilt',  name: 'Sothys Cilt',    price: 95,  mass: 60 },
+        { id: 'deep-tissue',  name: 'Deep Tissue',    price: 140, mass: 90 },
+        { id: 'ayurveda',     name: 'Ayurveda Ritüel', price: 200, mass: 130 },
+        { id: 'cocuk-spa',    name: 'Çocuk SPA',      price: 65,  mass: 40 },
+    ];
+
+    const logEl = document.getElementById('evo-log');
+    darwin.onLog = (msg, type) => {
+        const d = document.createElement('div');
+        d.className = `el el-${type}`;
+        d.textContent = msg;
+        logEl.appendChild(d);
+        logEl.scrollTop = logEl.scrollHeight;
+    };
+
+    darwin.onGeneration = (gen, best, avg) => {
+        document.getElementById('sys-gen').textContent = gen;
+        document.getElementById('pfill').style.width = (gen / parseInt(document.getElementById('s-gen').value) * 100) + '%';
+    };
+
+    function drawGraph(history) {
+        const canvas = document.getElementById('graph-canvas');
+        const ctx = canvas.getContext('2d');
+        const rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width - 20; canvas.height = rect.height - 20;
+        const W = canvas.width, H = canvas.height;
+        ctx.clearRect(0, 0, W, H);
+
+        if (history.length < 2) return;
+        const maxFit = Math.max(...history.map(h => h.best)) * 1.1 || 1;
+        const xStep = W / (history.length - 1);
+
+        // Best line
+        ctx.beginPath(); ctx.strokeStyle = '#00ff66'; ctx.lineWidth = 2;
+        history.forEach((h, i) => {
+            const x = i * xStep, y = H - (h.best / maxFit) * H * 0.9;
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+
+        // Avg line
+        ctx.beginPath(); ctx.strokeStyle = '#555'; ctx.lineWidth = 1;
+        history.forEach((h, i) => {
+            const x = i * xStep, y = H - (h.avg / maxFit) * H * 0.9;
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+
+        // Labels
+        ctx.fillStyle = '#00ff66'; ctx.font = '9px Orbitron'; ctx.textAlign = 'right';
+        ctx.fillText('Best: ' + history[history.length-1].best.toFixed(1), W - 5, 15);
+        ctx.fillStyle = '#555';
+        ctx.fillText('Avg: ' + history[history.length-1].avg.toFixed(1), W - 5, 28);
+    }
+
+    function drawApex(layout) {
+        const canvas = document.getElementById('apex-canvas');
+        const ctx = canvas.getContext('2d');
+        const rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width; canvas.height = rect.height;
+        const sX = rect.width / 1000, sY = rect.height / 600;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        layout.forEach(c => {
+            const x = c.x * sX, y = c.y * sY, r = Math.max(c.mass * 0.15 * sX, 8);
+            ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(197,160,89,0.5)'; ctx.lineWidth = 1.5; ctx.stroke();
+            ctx.fillStyle = 'rgba(197,160,89,0.08)'; ctx.fill();
+            ctx.fillStyle = '#aaa'; ctx.font = '8px Inter'; ctx.textAlign = 'center';
+            ctx.fillText(c.name, x, y + r + 10);
+        });
+    }
+
+    async function startEvolution() {
+        const btn = document.getElementById('btn-evolve');
+        btn.disabled = true; btn.textContent = '⏳ EVRİM SÜRÜYOR...';
+        document.getElementById('sys-status').textContent = 'EVOLVING';
+        document.getElementById('sys-status').style.color = '#00ff66';
+        logEl.innerHTML = '';
+
+        const config = {
+            populationSize: parseInt(document.getElementById('s-pop').value),
+            generations: parseInt(document.getElementById('s-gen').value),
+            botCount: parseInt(document.getElementById('s-bot').value),
+            mutationRate: parseInt(document.getElementById('s-mut').value) / 100,
+            survivors: Math.max(3, Math.floor(parseInt(document.getElementById('s-pop').value) * 0.2))
+        };
+
+        const apex = await darwin.evolve(catalog, config);
+        apexResult = apex;
+
+        // Update UI
+        document.getElementById('a-fit').textContent = apex.fitness.toFixed(1);
+        document.getElementById('a-cvr').textContent = apex.stats.cvr + '%';
+        document.getElementById('a-cvr').style.color = parseFloat(apex.stats.cvr) > 10 ? '#00ff66' : '#ff3366';
+        document.getElementById('a-rev').textContent = '€' + apex.stats.totalRevenue.toLocaleString();
+        document.getElementById('a-bnc').textContent = apex.stats.bounced.toLocaleString();
+        document.getElementById('a-gen').textContent = 'Gen ' + apex.generation;
+
+        const grade = parseFloat(apex.stats.cvr) > 15 ? 'S+ SOVEREIGN' : parseFloat(apex.stats.cvr) > 10 ? 'A TIER' : 'B TIER';
+        document.getElementById('a-grade').textContent = '🦅 ' + grade;
+        document.getElementById('a-grade').style.borderColor = grade.includes('S+') ? '#00ff66' : '#c5a059';
+
+        drawGraph(apex.fitnessHistory);
+        drawApex(apex.layout);
+
+        btn.disabled = false; btn.textContent = '🧬 YENİDEN EVRİMLEŞTİR';
+        document.getElementById('btn-deploy').disabled = false;
+        document.getElementById('pfill').style.width = '100%';
+        document.getElementById('sys-status').textContent = 'APEX FOUND';
+        document.getElementById('sys-status').style.color = '#c5a059';
+    }
+
+    function deployApex() {
+        if (!apexResult) return;
+        const runtime = bridge.compileToRuntime({ heatmap: apexResult.heatmap || [], stats: apexResult.stats }, 'darwinian-apex');
+        bridge.downloadRuntime(runtime);
+        document.getElementById('sys-status').textContent = 'DEPLOYED';
+        document.getElementById('sys-status').style.color = '#00ff66';
+    }
+
+    return { startEvolution, deployApex };
+})();
+</script>
+</body>
+</html>

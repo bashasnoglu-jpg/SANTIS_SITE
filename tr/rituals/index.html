@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="utf-8"/>
@@ -107,20 +107,14 @@
 
 <div id="footer-container"></div>
 
-<!-- SCRIPTS -->
-<!-- OMNI-OS V5 MASTER KERNEL -->
+<!-- CORE SCRIPTS -->
+<script src="/assets/js/loader.js"></script>
+<script src="/assets/js/santis-nav.js"></script>
+<script src="/assets/js/santis-data-bridge.js" defer></script>
 <script src="/assets/js/app.js" defer></script>
 
-<!-- SOVEREIGN OS BOOTLOADER (V17 DYNAMIC ENGINE MANAGER) -->
-<script type="module" src="/assets/js/santis-bootloader.js" defer></script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        if (typeof loadComp === "function") {
-            if(document.getElementById('navbar-container')) loadComp('/components/navbar.html','navbar-container');
-            if(document.getElementById('footer-container')) loadComp('/components/footer.html','footer-container');
-        }
-    });
-</script>
+<!-- SOVEREIGN OS BOOTLOADER (V18 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V18_APEX_RESURRECTION"></script>
 </body>
 </html>
+

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Sovereign OS | WebGPU 1.000.000 Bot Simulator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');
+        body { margin: 0; background: #030305; overflow: hidden; color: #fff; font-family: monospace; user-select: none; }
+        canvas { display: block; width: 100vw; height: 100vh; }
+        #ui { position: absolute; top: 30px; left: 30px; background: rgba(10,10,15,0.85); padding: 25px; border: 1px solid #00e5ff; border-radius: 8px; backdrop-filter: blur(10px); box-shadow: 0 10px 40px rgba(0,229,255,0.2); z-index: 10; pointer-events: none;}
+        .gold { color: #c5a059; font-family: 'Orbitron'; font-size: 1.5rem; letter-spacing: 2px;}
+        .stat { font-size: 0.8rem; color: #aaa; margin-top: 15px; border-bottom: 1px dashed #333; padding-bottom: 5px;}
+        .val { color: #00ff66; font-size: 1.2rem; font-weight: bold; }
+        #fps { color: #00e5ff; font-family: 'Orbitron'; font-size: 2.5rem; text-shadow: 0 0 20px rgba(0,229,255,0.5); }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <div class="gold">WEBGPU OMNIVERSE</div>
+        <div style="font-size:0.65rem; color:#888; margin-bottom: 20px; letter-spacing:3px;">COMPUTE SHADER PHYSICS</div>
+        <div id="fps">00</div>
+        <div style="font-size:0.65rem; color:#00e5ff; margin-bottom:15px;">FRAMES PER SECOND</div>
+        <div class="stat">SENTETİK POPÜLASYON:<br><span class="val" style="color:#ff3366">1,000,000 BOT</span></div>
+        <div class="stat">HESAPLAMA MİMARİSİ:<br><span class="val">PARALEL GPU ŞİFRESİ (WGSL)</span></div>
+        <div class="stat">BOTTLENECK (DARBOĞAZ):<br><span class="val" style="color:#00ff66">SIFIR (0% CPU YÜKÜ)</span></div>
+        <div style="font-size: 0.7rem; margin-top: 15px; color:#888;">> Fareyi hareket ettirerek Kütleçekim Merkezini (Apex CTA) yönetin.</div>
+    </div>
+    <canvas id="cvs"></canvas>
+    <script>
+        const NUM_PARTICLES = 1000000;
+        async function initWebGPU() {
+            if (!navigator.gpu) {
+                document.getElementById('ui').innerHTML += "<br><br><div style='color:#ff3366'>[!] HATA: Tarayıcınız WebGPU desteklemiyor (Güncel Chrome/Edge gereklidir).</div>";
+                return;
+            }
+            const adapter = await navigator.gpu.requestAdapter();
+            if (!adapter) { document.getElementById('ui').innerHTML += "<br><div style='color:#ff3366'>[!] GPU Adapter bulunamadı.</div>"; return; }
+            const device = await adapter.requestDevice();
+            const canvas = document.getElementById('cvs');
+            const context = canvas.getContext('webgpu');
+            const format = navigator.gpu.getPreferredCanvasFormat();
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            context.configure({ device, format, alphaMode: 'premultiplied' });
+
+            const shaderCode = `
+                struct Particle { pos : vec2<f32>, vel : vec2<f32> };
+                @group(0) @binding(0) var<storage, read_write> particles : array<Particle>;
+                struct SimParams { targetX: f32, targetY: f32, width: f32, height: f32 };
+                @group(0) @binding(1) var<uniform> params : SimParams;
+
+                @compute @workgroup_size(64)
+                fn computeMain(@builtin(global_invocation_id) id : vec3<u32>) {
+                    let index = id.x;
+                    if (index >= ${NUM_PARTICLES}u) { return; }
+                    var p = particles[index];
+                    let dx = params.targetX - p.pos.x;
+                    let dy = params.targetY - p.pos.y;
+                    let distSq = max(dx*dx + dy*dy, 100.0);
+                    let pull = 15000.0 / distSq;
+                    p.vel.x += (dx / sqrt(distSq)) * pull;
+                    p.vel.y += (dy / sqrt(distSq)) * pull;
+                    p.vel.x *= 0.96;
+                    p.vel.y *= 0.96;
+                    p.pos.x += p.vel.x;
+                    p.pos.y += p.vel.y;
+                    if(p.pos.y > params.height + 10.0 || p.pos.x < -10.0 || p.pos.x > params.width + 10.0) {
+                        p.pos.y = -10.0;
+                        p.pos.x = f32(index % u32(params.width));
+                        p.vel = vec2<f32>(0.0, 0.0);
+                    }
+                    particles[index] = p;
+                }
+
+                @vertex
+                fn vertexMain(@builtin(vertex_index) v_idx : u32, @builtin(instance_index) i_idx : u32) -> @builtin(position) vec4<f32> {
+                    let p = particles[i_idx].pos;
+                    let x = (p.x / params.width) * 2.0 - 1.0;
+                    let y = 1.0 - (p.y / params.height) * 2.0;
+                    var tri = array<vec2<f32>, 3>(
+                        vec2<f32>(-0.002, -0.002), vec2<f32>(0.002, -0.002), vec2<f32>(0.0, 0.002)
+                    );
+                    return vec4<f32>(x + tri[v_idx].x, y + tri[v_idx].y, 0.0, 1.0);
+                }
+
+                @fragment
+                fn fragmentMain() -> @location(0) vec4<f32> {
+                    return vec4<f32>(0.0, 0.9, 1.0, 0.15);
+                }
+            `;
+            const module = device.createShaderModule({ code: shaderCode });
+
+            const particleData = new Float32Array(NUM_PARTICLES * 4);
+            for (let i = 0; i < NUM_PARTICLES; i++) {
+                particleData[i*4] = Math.random() * canvas.width;
+                particleData[i*4+1] = Math.random() * -canvas.height;
+                particleData[i*4+2] = 0;
+                particleData[i*4+3] = Math.random() * 2 + 1;
+            }
+            const particleBuffer = device.createBuffer({ size: particleData.byteLength, usage: GPUBufferUsage.STORAGE | GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST });
+            device.queue.writeBuffer(particleBuffer, 0, particleData);
+
+            const paramsBuffer = device.createBuffer({ size: 16, usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST });
+
+            const computePipeline = device.createComputePipeline({ layout: 'auto', compute: { module, entryPoint: 'computeMain' } });
+            const renderPipeline = device.createRenderPipeline({
+                layout: 'auto',
+                vertex: { module, entryPoint: 'vertexMain' },
+                fragment: { module, entryPoint: 'fragmentMain', targets: [{ format, blend: {
+                    color: { srcFactor: 'src-alpha', dstFactor: 'one', operation: 'add' },
+                    alpha: { srcFactor: 'one', dstFactor: 'one', operation: 'add' }
+                }}] },
+                primitive: { topology: 'triangle-list' }
+            });
+
+            const bindGroup = device.createBindGroup({
+                layout: computePipeline.getBindGroupLayout(0),
+                entries: [
+                    { binding: 0, resource: { buffer: particleBuffer } },
+                    { binding: 1, resource: { buffer: paramsBuffer } }
+                ]
+            });
+
+            let targetX = canvas.width / 2, targetY = canvas.height / 2;
+            window.addEventListener('mousemove', e => { targetX = e.clientX * dpr; targetY = e.clientY * dpr; });
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth * dpr;
+                canvas.height = window.innerHeight * dpr;
+                context.configure({ device, format, alphaMode: 'premultiplied' });
+            });
+
+            let frameCount = 0, lastTime = performance.now();
+            const fpsEl = document.getElementById('fps');
+
+            function frame() {
+                device.queue.writeBuffer(paramsBuffer, 0, new Float32Array([targetX, targetY, canvas.width, canvas.height]));
+                const cmd = device.createCommandEncoder();
+
+                const cp = cmd.beginComputePass();
+                cp.setPipeline(computePipeline);
+                cp.setBindGroup(0, bindGroup);
+                cp.dispatchWorkgroups(Math.ceil(NUM_PARTICLES / 64));
+                cp.end();
+
+                const rp = cmd.beginRenderPass({
+                    colorAttachments: [{ view: context.getCurrentTexture().createView(), clearValue: { r: 0.01, g: 0.01, b: 0.02, a: 1 }, loadOp: 'clear', storeOp: 'store' }]
+                });
+                rp.setPipeline(renderPipeline);
+                rp.setBindGroup(0, bindGroup);
+                rp.draw(3, NUM_PARTICLES);
+                rp.end();
+
+                device.queue.submit([cmd.finish()]);
+
+                frameCount++;
+                const now = performance.now();
+                if (now - lastTime >= 1000) { fpsEl.innerText = frameCount; frameCount = 0; lastTime = now; }
+                requestAnimationFrame(frame);
+            }
+            frame();
+        }
+        initWebGPU();
+    </script>
+</body>
+</html>

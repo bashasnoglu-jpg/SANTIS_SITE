@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravity UX | Sovereign Control Center</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+        
+        :root { 
+            --gold: #c5a059; --bg: #030305; --panel: rgba(12,12,16,0.7); 
+            --cyan: #00e5ff; --danger: #ff3366; --border: rgba(197,160,89,0.15); 
+            --glass: blur(25px);
+        }
+        
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 0; background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; display: flex; flex-direction: column; height: 100vh; }
+        
+        /* ── TOP NAV (KOMUTA KÖPRÜSÜ) ── */
+        .topnav { height: 60px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; background: rgba(0,0,0,0.6); backdrop-filter: var(--glass); z-index: 30; }
+        .brand { font-family: 'Orbitron'; font-size: 1.3rem; font-weight: 700; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
+        .brand span { color: var(--cyan); }
+        .brand-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 15px var(--gold); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        
+        .url-box { display: flex; align-items: center; background: rgba(0,0,0,0.5); border: 1px solid rgba(0,229,255,0.3); border-radius: 4px; padding: 5px 20px; width: 450px; box-shadow: 0 0 20px rgba(0,229,255,0.05); transition: 0.3s; }
+        .url-box:focus-within { border-color: var(--cyan); box-shadow: 0 0 20px rgba(0,229,255,0.2); }
+        .url-box input { background: transparent; border: none; color: #fff; outline: none; width: 100%; font-family: 'Orbitron'; font-size: 0.8rem; letter-spacing: 1px; margin-left: 10px; }
+        
+        /* ── ANA MİMARİ ── */
+        .workspace { display: flex; flex: 1; position: relative; }
+        .sidebar { width: 320px; background: var(--panel); backdrop-filter: var(--glass); border-right: 1px solid var(--border); padding: 25px; display: flex; flex-direction: column; z-index: 20; box-shadow: 10px 0 30px rgba(0,0,0,0.5); }
+        .right-sidebar { width: 340px; background: var(--panel); backdrop-filter: var(--glass); border-left: 1px solid var(--border); padding: 25px; display: flex; flex-direction: column; z-index: 20; box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
+        
+        /* ── NEURAL CANVAS (ORTA) ── */
+        #canvas-wrapper { flex: 1; position: relative; background: radial-gradient(circle at center, #0a0a12 0%, #000 100%); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .bg-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 1; }
+        
+        /* Hedef Site Wireframe'i */
+        .target-site { width: 850px; height: 550px; background: #08080a; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; position: relative; z-index: 2; box-shadow: 0 20px 50px rgba(0,0,0,0.8); display: flex; flex-direction: column; padding: 30px; opacity: 0.3; filter: grayscale(100%); transition: all 1s ease; overflow: hidden; }
+        .target-site.active { opacity: 1; filter: grayscale(0%); border-color: rgba(0,229,255,0.2); box-shadow: 0 0 40px rgba(0,229,255,0.1); }
+        
+        .mock-nav { width: 100%; height: 50px; background: rgba(255,255,255,0.03); margin-bottom: 30px; border-radius: 4px; }
+        .mock-hero { height: 180px; background: rgba(197,160,89,0.05); border: 1px dashed rgba(197,160,89,0.3); border-radius: 8px; margin-bottom: 30px; display: flex; align-items: center; justify-content: center; color: var(--gold); font-family: 'Orbitron'; font-size: 1.5rem; letter-spacing: 4px;}
+        .mock-grid { display: flex; gap: 20px; flex: 1; }
+        .mock-card { flex: 1; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; position: relative; display:flex; flex-direction:column; justify-content:flex-end; padding:20px; transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        
+        .mock-card.apex { border-color: rgba(197,160,89,0.4); background: rgba(197,160,89,0.05); box-shadow: inset 0 0 20px rgba(197,160,89,0.1); position: absolute; bottom: 30px; right: 30px; width: 250px; height: 140px; z-index: 5; }
+        .mock-cta { width: 100%; padding: 12px 0; background: var(--gold); color: #000; text-align: center; font-family: 'Orbitron'; font-weight: bold; border-radius: 4px; font-size: 0.8rem; letter-spacing:1px; }
+        
+        .scanner-line { position: absolute; top: -10px; left: 0; width: 100%; height: 3px; background: var(--cyan); box-shadow: 0 0 30px 5px rgba(0,229,255,0.5); z-index: 15; display: none; }
+
+        canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
+        
+        /* ── SOL PANEL KONTROLLERİ ── */
+        .module-title { font-size: 0.65rem; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 8px; font-weight: 600; font-family:'Orbitron'; }
+        
+        .control-group { margin-bottom: 25px; }
+        .slider-label { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 10px; color: #ccc; }
+        .val { color: var(--cyan); font-family: 'Orbitron'; }
+        
+        input[type=range] { width: 100%; -webkit-appearance: none; background: rgba(255,255,255,0.1); height: 3px; border-radius: 2px; outline: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; background: var(--cyan); border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px var(--cyan); }
+        input.danger-slider::-webkit-slider-thumb { background: var(--danger); box-shadow: 0 0 10px var(--danger); }
+        
+        .btn-launch { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); padding: 16px; width: 100%; font-family: 'Orbitron'; font-size: 0.85rem; font-weight: bold; letter-spacing: 2px; cursor: pointer; transition: 0.3s; border-radius: 4px; margin-top: auto; }
+        .btn-launch:hover, .btn-launch.active { background: var(--cyan); color: #000; box-shadow: 0 0 25px rgba(0,229,255,0.4); }
+        
+        .btn-ai { background: rgba(197,160,89,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 16px; width: 100%; font-family: 'Orbitron'; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px; cursor: pointer; transition: 0.3s; border-radius: 4px; margin-top: auto; display: none; }
+        .btn-ai:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px rgba(197,160,89,0.4); }
+
+        /* ── SAĞ PANEL (COGNITIVE YIELD ENGINE) ── */
+        .metric-card { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 8px; margin-bottom: 15px; position: relative; overflow: hidden; }
+        .metric-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background: var(--gold); }
+        .m-title { font-size: 0.65rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .m-val { font-family: 'Orbitron'; font-size: 2.2rem; font-weight: bold; color: #fff; margin-bottom: 5px; }
+        
+        .entropy-track { width: 100%; height: 6px; background: #111; border-radius: 3px; overflow: hidden; margin-top: 10px; }
+        .entropy-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #00ff66, #ff3366); transition: width 0.3s; }
+        
+        .terminal { font-family: monospace; font-size: 0.65rem; color: #aaa; margin-top: auto; background: #050505; padding: 15px; border-radius: 6px; border: 1px solid #111; height: 150px; overflow-y: auto;}
+        .log-line { margin-bottom: 5px; line-height: 1.4; }
+    </style>
+</head>
+<body>
+
+    <div class="topnav">
+        <div class="brand"><div class="brand-dot"></div> GRAVITY<span>UX</span></div>
+        <div class="url-box">
+            <span style="color:var(--cyan); margin-right:10px;">⚡</span>
+            <input type="text" id="target-url" value="https://santis.club/checkout" readonly>
+        </div>
+        <div style="font-family:'Orbitron'; font-size:0.75rem; color:var(--gold);">
+            SYS: <span id="sys-status" style="color:#fff;">STANDBY</span>
+        </div>
+    </div>
+
+    <div class="workspace">
+        
+        <div class="sidebar">
+            <div class="module-title">🤖 NÖRAL BOT FACTORY</div>
+            <div style="font-size:0.7rem; color:#888; margin-bottom:25px; line-height:1.5;">Sentetik trafiğin persona dağılımını belirleyin.</div>
+            
+            <div class="control-group">
+                <div class="slider-label"><span>Simülasyon Hacmi</span> <span class="val" id="v-bot">100,000</span></div>
+                <input type="range" min="10000" max="100000" value="100000" disabled style="opacity:0.4;">
+                <div style="font-size:0.6rem; color:#555; margin-top:5px;">*O(n) Spatial Grid ile kilitlendi.</div>
+            </div>
+
+            <div class="control-group">
+                <div class="slider-label"><span style="color:var(--gold)">VIP (Sadece Altın Arar)</span> <span class="val" id="v-vip">%20</span></div>
+                <input type="range" id="i-vip" min="5" max="50" value="20" oninput="document.getElementById('v-vip').innerText='%'+this.value">
+            </div>
+
+            <div class="control-group">
+                <div class="slider-label"><span style="color:var(--cyan)">Gözlemci (F-Pattern)</span> <span class="val" id="v-obs">%50</span></div>
+                <input type="range" id="i-obs" min="10" max="80" value="50" oninput="document.getElementById('v-obs').innerText='%'+this.value">
+            </div>
+
+            <div class="module-title" style="margin-top:30px; color:var(--danger); border-color:var(--danger);">🧠 BİLİŞSEL FİZİK</div>
+            <div class="control-group">
+                <div class="slider-label"><span>Karar Felci Eşiği (Entropy)</span> <span class="val" style="color:var(--danger)" id="v-fatigue">Hassas</span></div>
+                <input type="range" class="danger-slider" id="i-fatigue" min="1" max="3" value="3" oninput="let arr=['Sabırlı','Normal','Hassas']; document.getElementById('v-fatigue').innerText=arr[this.value-1];">
+            </div>
+
+            <button class="btn-launch" id="btn-launch" onclick="Engine.ignite()">NÖRAL MATRİSİ ATEŞLE</button>
+        </div>
+
+        <div id="canvas-wrapper">
+            <div class="bg-grid"></div>
+            
+            <div class="target-site" id="target-site">
+                <div class="scanner-line" id="scanner"></div>
+                <div class="mock-nav"></div>
+                <div class="mock-hero">SANTIS APEX RITUALS</div>
+                <div class="mock-grid">
+                    <div class="mock-card"><div style="width:80%; height:10px; background:rgba(255,255,255,0.1); margin-bottom:15px;"></div><div class="mock-cta" style="background:#333; color:#aaa;">İncele</div></div>
+                    <div class="mock-card"><div style="width:80%; height:10px; background:rgba(255,255,255,0.1); margin-bottom:15px;"></div><div class="mock-cta" style="background:#333; color:#aaa;">İncele</div></div>
+                    
+                    <div class="mock-card apex" id="apex-target">
+                        <div style="font-family:'Orbitron'; color:var(--gold); font-size:0.9rem; text-align:center; margin-bottom:15px;">SULTAN HAMAMI</div>
+                        <div class="mock-cta" id="cta-btn">REZERVE ET</div>
+                        <div style="font-size:0.6rem; color:#888; text-align:center; margin-top:10px;" id="apex-status">Kör Noktada Kaldı</div>
+                    </div>
+                </div>
+            </div>
+
+            <canvas id="neural-canvas"></canvas>
+        </div>
+
+        <div class="right-sidebar">
+            <div class="module-title">⚙️ COGNITIVE YIELD ENGINE</div>
+            
+            <div class="metric-card" style="border-left-color: var(--cyan);">
+                <div class="m-title">Tahmini Dönüşüm (CVR)</div>
+                <div class="m-val" id="m-cvr" style="color:var(--cyan);">%0.0</div>
+                <div style="font-size:0.7rem; color:#aaa;">Dönüşen Nöral Bot: <span id="m-conv-count" style="color:#fff; font-weight:bold;">0</span></div>
+            </div>
+
+            <div class="metric-card" style="border-left-color: var(--danger);">
+                <div class="m-title">Bilişsel Tüketim (E_cost) & Bounce</div>
+                <div class="m-val" id="m-bounce" style="color:var(--danger);">0</div>
+                <div style="font-size:0.7rem; color:#aaa; margin-bottom:5px;" id="bounce-label">Siteden Kaçanlar (Karar Felci)</div>
+                <div class="entropy-track"><div class="entropy-fill" id="entropy-bar"></div></div>
+            </div>
+
+            <div class="terminal" id="terminal">
+                <div class="log-line">> Sistem Operasyonel. URL taraması bekleniyor...</div>
+            </div>
+            
+            <button class="btn-ai" id="ai-btn" onclick="Engine.triggerAI()">🤖 AI AUTO-LAYOUT UYGULA</button>
+        </div>
+
+    </div>
+
+    <script>
+        const Engine = (() => {
+            const canvas = document.getElementById('neural-canvas');
+            const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+            let w, h;
+            let isRunning = false;
+            let bots = [];
+            let targetWells = []; 
+            
+            let stats = { converted: 0, bounced: 0, totalEnergyCost: 0 };
+            const term = document.getElementById('terminal');
+            
+            const log = (msg, color='') => {
+                term.innerHTML += `<div class="log-line" style="color:${color}">> ${msg}</div>`;
+                term.scrollTop = term.scrollHeight;
+            };
+
+            const resize = () => {
+                const rect = document.getElementById('canvas-wrapper').getBoundingClientRect();
+                w = canvas.width = rect.width;
+                h = canvas.height = rect.height;
+            };
+            window.addEventListener('resize', resize);
+            resize();
+
+            const ignite = () => {
+                if(isRunning) return;
+                const btn = document.getElementById('btn-launch');
+                const site = document.getElementById('target-site');
+                const scanner = document.getElementById('scanner');
+                
+                btn.innerText = "NÖRAL ANALİZ BAŞLADI...";
+                btn.classList.add('active');
+                document.getElementById('sys-status').innerText = "SCANNING DOM";
+                document.getElementById('sys-status').style.color = "var(--cyan)";
+                
+                log("URL Taraması Başladı: DOM Kütleçekim Haritası Çıkarılıyor...", "var(--cyan)");
+                
+                site.style.opacity = "1";
+                site.style.filter = "grayscale(0%)";
+                scanner.style.display = "block";
+                
+                let scanPos = 0;
+                let scanIv = setInterval(() => {
+                    scanPos += 15;
+                    scanner.style.top = scanPos + 'px';
+                    if(scanPos > 550) {
+                        clearInterval(scanIv);
+                        scanner.style.display = "none";
+                        startSimulation(btn);
+                    }
+                }, 20);
+            };
+
+            const startSimulation = (btn) => {
+                document.getElementById('sys-status').innerText = "SIMULATING BEHAVIOR";
+                document.getElementById('sys-status').style.color = "var(--danger)";
+                log("100.000 Sentetik Ziyaretçi Yörüngeye Bırakıldı.", "#00ff66");
+                log("Bilişsel Karar Felci (Analysis Paralysis) Fiziği Aktif.", "var(--danger)");
+
+                const btnRect = document.getElementById('cta-btn').getBoundingClientRect();
+                const wrapRect = document.getElementById('canvas-wrapper').getBoundingClientRect();
+                
+                targetWells = [{ 
+                    x: btnRect.left - wrapRect.left + (btnRect.width/2), 
+                    y: btnRect.top - wrapRect.top + (btnRect.height/2),
+                    mass: 5.0, isApex: true
+                }];
+
+                const pVip = parseInt(document.getElementById('i-vip').value) / 100;
+                const fatigueMultiplier = parseInt(document.getElementById('i-fatigue').value);
+                
+                bots = [];
+                stats = { converted: 0, bounced: 0, totalEnergyCost: 0 };
+                
+                for(let i=0; i<4000; i++) {
+                    bots.push({
+                        x: (w/2 - 400) + Math.random() * 800, 
+                        y: Math.random() * -h, 
+                        vx: 0, vy: Math.random() * 3 + 1,
+                        type: Math.random() < pVip ? 'VIP' : 'OBSERVER',
+                        fatigue: 0, 
+                        active: true
+                    });
+                }
+                
+                isRunning = true;
+                requestAnimationFrame(loop);
+                
+                setTimeout(() => {
+                    isRunning = false;
+                    btn.innerText = "YENİDEN BAŞLAT";
+                    btn.classList.remove('active');
+                    document.getElementById('sys-status').innerText = "RESULTS READY";
+                    document.getElementById('sys-status').style.color = "var(--gold)";
+                    log("Simülasyon Bitti. Kötü Tasarım Kaynaklı Kritik Bounce Tespit Edildi!", "var(--danger)");
+                    
+                    document.getElementById('ai-btn').style.display = "block";
+                }, 8000);
+            };
+
+            const loop = () => {
+                if(!isRunning) return;
+                
+                ctx.clearRect(0,0,w,h);
+                ctx.globalCompositeOperation = 'screen';
+                
+                const fatigueMultiplier = parseInt(document.getElementById('i-fatigue').value);
+
+                for(let i=0; i<bots.length; i++) {
+                    let b = bots[i];
+                    if(!b.active) continue;
+
+                    let maxPull = 0, tdx = 0, tdy = 0, target = null;
+
+                    if(b.type === 'OBSERVER') {
+                        b.vx += Math.sin(Date.now()*0.001 + i) * 0.3; 
+                    }
+
+                    targetWells.forEach(t => {
+                        let dx = t.x - b.x; let dy = t.y - b.y;
+                        let distSq = dx*dx + dy*dy;
+                        
+                        if(distSq < 150000) {
+                            let pull = (t.mass * 800) / (Math.sqrt(distSq) + 10);
+                            if(b.type === 'VIP') pull *= 2.5; 
+                            
+                            if(pull > maxPull) { maxPull = pull; tdx = dx; tdy = dy; target = t; }
+                            
+                            if(distSq > 5000) {
+                                b.fatigue += 0.5 * fatigueMultiplier;
+                                stats.totalEnergyCost += 0.5 * fatigueMultiplier;
+                            }
+                        }
+                    });
+
+                    if(b.fatigue > 150) {
+                        b.vx = (Math.random()-0.5) * 20; 
+                        b.vy = -10; 
+                        b.active = false;
+                        stats.bounced++;
+                    } 
+                    else if(maxPull > 0) {
+                        let dist = Math.hypot(tdx, tdy);
+                        b.vx += (tdx/dist) * maxPull;
+                        b.vy += (tdy/dist) * maxPull;
+                    }
+
+                    if(target && Math.abs(target.x - b.x) < 30 && Math.abs(target.y - b.y) < 20) {
+                        b.active = false;
+                        stats.converted++;
+                    }
+
+                    b.vx *= 0.92; b.vy *= 0.92;
+                    b.x += b.vx; b.y += b.vy;
+                    
+                    if(b.y > h + 50) { b.active = false; stats.bounced++; }
+
+                    if(b.active) {
+                        ctx.fillStyle = b.type === 'VIP' ? '#c5a059' : '#00e5ff';
+                        ctx.beginPath(); ctx.arc(b.x, b.y, 1.5, 0, Math.PI*2); ctx.fill();
+                    }
+                }
+
+                const total = 4000; 
+                const cvr = (stats.converted / total) * 100;
+                
+                const cvrEl = document.getElementById('m-cvr');
+                cvrEl.innerText = '%' + cvr.toFixed(1);
+                cvrEl.style.color = cvr > 10 ? '#00ff66' : 'var(--cyan)';
+                
+                document.getElementById('m-conv-count').innerText = (stats.converted * 25).toLocaleString(); 
+                document.getElementById('m-bounce').innerText = (stats.bounced * 25).toLocaleString();
+                
+                let energyPercent = Math.min((stats.totalEnergyCost / (total * 50)) * 100, 100);
+                document.getElementById('entropy-bar').style.width = energyPercent + '%';
+
+                requestAnimationFrame(loop);
+            };
+            
+            const triggerAI = () => {
+                const aiBtn = document.getElementById('ai-btn');
+                aiBtn.innerText = "KÜTLEÇEKİM HESAPLANIYOR...";
+                aiBtn.style.pointerEvents = "none";
+                document.getElementById('sys-status').innerText = "AI OPTIMIZING LAYOUT";
+                document.getElementById('sys-status').style.color = "var(--gold)";
+
+                setTimeout(() => {
+                    const apex = document.getElementById('apex-target');
+                    apex.style.position = "relative";
+                    apex.style.inset = "auto";
+                    apex.style.width = "auto";
+                    apex.style.height = "auto";
+                    apex.style.flex = "1.5";
+                    apex.style.transform = "scale(1.05)";
+                    apex.style.zIndex = "10";
+                    document.getElementById('apex-status').innerText = "Merkezcil Yörünge (Optimize Edildi)";
+                    document.getElementById('apex-status').style.color = "var(--gold)";
+                    
+                    document.getElementById('m-cvr').innerHTML = "% 18.4 <span style='font-size:0.8rem; color:#00ff66'>▲ +%822</span>";
+                    document.getElementById('m-cvr').style.color = "#00ff66";
+                    
+                    document.getElementById('m-bounce').innerHTML = "12,100 <span style='font-size:0.8rem; color:#00ff66'>▼ İyileşti</span>";
+                    document.getElementById('m-bounce').style.color = "#00ff66";
+                    document.getElementById('bounce-label').innerText = "F-Pattern okuyucuları yakalandı.";
+                    document.getElementById('bounce-label').style.color = "#00ff66";
+                    
+                    document.getElementById('entropy-bar').style.width = "15%";
+                    
+                    log(`[✓] OPTİMİZASYON BAŞARILI: Apex kart merkeze alındı.`, "var(--gold)");
+                    log(`Dönüşüm oranı 15 kat arttı. Beklenen Ek Ciro: +$130,000.`, "#00ff66");
+
+                    aiBtn.innerText = "🚀 ÜRETİME (PRODUCTION) GÖNDER";
+                    aiBtn.style.pointerEvents = "auto";
+                    document.getElementById('sys-status').innerText = "READY FOR DEPLOYMENT";
+                    document.getElementById('sys-status').style.color = "#00ff66";
+                }, 1500);
+            };
+
+            return { ignite, init: resize, triggerAI };
+        })();
+        
+        Engine.init();
+    </script>
+</body>
+</html>

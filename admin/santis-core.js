@@ -6,9 +6,25 @@
 class SantisSovereign {
     constructor() {
         this.state = { revenue: 0, capacity: 0, heat: 0, visitors: 0 };
-        // Determine WS URL based on protocol. `client_type=hq` required by server.py /ws
-        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-        this.socket = new WebSocket(`${protocol}//${window.location.host}/ws?client_type=hq&client_id=global`);
+        this.socket = null;
+        this._connectWS();
+    }
+
+    _connectWS() {
+        try {
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const WS_BASE = isLocal ? `${protocol}//${window.location.host}` : 'wss://api.sovereign-os.com';
+            this.socket = new WebSocket(`${WS_BASE}/ws?client_type=hq&client_id=global`);
+            this.socket.onerror = () => {};
+            this.socket.onclose = () => {
+                // Auto-reconnect after 5s
+                setTimeout(() => this._connectWS(), 5000);
+            };
+        } catch (e) {
+            // Silently retry
+            setTimeout(() => this._connectWS(), 5000);
+        }
     }
 
     async init() {
@@ -16,10 +32,14 @@ class SantisSovereign {
         this.listen(); // Start listening to WebSocket
     }
 
-    async apiFetch(url, options = {}) {
+    async apiFetch(endpoint, options = {}) {
         const token = localStorage.getItem('santis_token');
         const tenant = localStorage.getItem('tenant_id');
         const headers = { ...options.headers };
+
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const API_BASE = isLocal ? '' : 'https://api.sovereign-os.com';
+        const url = endpoint.startsWith('http') ? endpoint : `${API_BASE}${endpoint}`;
 
         if (token) {
             headers['Authorization'] = `Bearer ${token}`;

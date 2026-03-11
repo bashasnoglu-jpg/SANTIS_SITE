@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Santis OS v100 | The Oracle Simulator</title>
+    <style>
+        body { margin: 0; background: #030303; color: #fff; font-family: monospace; overflow: hidden; user-select: none; }
+        canvas { display: block; width: 100vw; height: 100vh; }
+        #ui { position: absolute; top: 20px; left: 20px; z-index: 10; }
+        .panel { 
+            background: rgba(10,10,12,0.85); border: 1px solid rgba(197,160,89,0.3); 
+            padding: 20px; border-radius: 8px; backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .gold { color: #c5a059; font-weight: bold; font-size: 1.2rem; letter-spacing: 2px;}
+        button { 
+            background: transparent; border: 1px solid #c5a059; color: #c5a059; 
+            padding: 10px 15px; cursor: pointer; margin-top: 15px; transition: 0.3s; font-family: monospace; width: 100%;
+        }
+        button:hover { background: #c5a059; color: #000; box-shadow: 0 0 20px rgba(197,160,89,0.6); }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <div class="panel">
+            <div class="gold">THE ORACLE v100</div>
+            <div style="color:#888; font-size: 0.7rem; margin-top: 5px;">MONTE CARLO PREDICTIVE SWARM</div>
+            <div style="margin-top: 15px; font-size: 0.8rem;">DURUM: <span id="status" style="color:#00e5ff">BEKLİYOR</span></div>
+            <button onclick="Engine.releaseSwarm()">3.000 ZİYARETÇİ SAL</button>
+        </div>
+    </div>
+    <canvas id="cvs"></canvas>
+
+    <script>
+        const Engine = (() => {
+            const canvas = document.getElementById('cvs');
+            const ctx = canvas.getContext('2d', { alpha: false });
+            let w, h;
+            
+            // Tasarlanan 3 Gezegen (Kartlar) ve Kütleleri
+            const planets = [
+                { x: 0, y: 0, mass: 60, hits: 0, name: "MASAJ KARTI" },
+                { x: 0, y: 0, mass: 140, hits: 0, name: "HAMAM (APEX KÜTLE)" }, // En büyük kütle
+                { x: 0, y: 0, mass: 40, hits: 0, name: "CİLT BAKIMI" }
+            ];
+            
+            let swarm = [];
+            let isSimulating = false;
+
+            const resize = () => { 
+                w = canvas.width = window.innerWidth; 
+                h = canvas.height = window.innerHeight; 
+                planets[0].x = w * 0.3; planets[0].y = h * 0.6;
+                planets[1].x = w * 0.5; planets[1].y = h * 0.5;
+                planets[2].x = w * 0.7; planets[2].y = h * 0.6;
+            };
+            window.addEventListener('resize', resize);
+
+            const releaseSwarm = () => {
+                if(isSimulating) return;
+                isSimulating = true;
+                document.getElementById('status').innerText = "SİMÜLASYON AKTİF";
+                document.getElementById('status').style.color = "#ff3366";
+                
+                planets.forEach(p => p.hits = 0);
+                swarm = [];
+                
+                // 3.000 sanal botu ekranın üstünden (Siteye giriş) bırak
+                for(let i=0; i<3000; i++) {
+                    swarm.push({
+                        x: Math.random() * w,
+                        y: Math.random() * -h - 100, // Yukarıdan düşerler
+                        vx: 0, vy: Math.random() * 2 + 1,
+                        active: true
+                    });
+                }
+                
+                setTimeout(() => {
+                    isSimulating = false;
+                    document.getElementById('status').innerText = "ISI HARİTASI ÇIKARILDI";
+                    document.getElementById('status').style.color = "#c5a059";
+                }, 8000);
+            };
+
+            const loop = () => {
+                ctx.fillStyle = 'rgba(3, 3, 3, 0.4)'; // Motion blur
+                ctx.fillRect(0, 0, w, h);
+
+                // Swarm Fiziği (Kahin Algoritması)
+                if (isSimulating) {
+                    ctx.fillStyle = 'rgba(0, 229, 255, 0.6)'; // Ziyaretçi Rengi
+                    for(let i=0; i<swarm.length; i++) {
+                        let p = swarm[i];
+                        if(!p.active) continue;
+
+                        let bestPull = 0;
+                        let target = null;
+
+                        planets.forEach(planet => {
+                            let dx = planet.x - p.x;
+                            let dy = planet.y - p.y;
+                            let dist = Math.max(Math.hypot(dx, dy), 10);
+                            
+                            // Ters Kare Kanunu ile İlgi Çekimi (Gravity)
+                            let pull = (planet.mass * 80) / (dist * dist);
+                            
+                            if (pull > bestPull) {
+                                bestPull = pull;
+                                target = {dx, dy, dist};
+                            }
+
+                            // Gezegenin çekim ufkuna giren ziyaretçi "Satın Almış" sayılır
+                            if (dist < planet.mass * 0.5) {
+                                p.active = false; 
+                                planet.hits += 1;
+                            }
+                        });
+
+                        if (target && target.dist > 0) {
+                            p.vx += (target.dx / target.dist) * bestPull;
+                            p.vy += (target.dy / target.dist) * bestPull;
+                        }
+
+                        p.vx *= 0.94; // Sürtünme
+                        p.vy *= 0.94;
+                        p.x += p.vx;
+                        p.y += p.vy;
+
+                        if (p.active) ctx.fillRect(p.x, p.y, 2, 2);
+                    }
+                }
+
+                // Gezegenleri (Kartları) Çiz ve Isı Haritasını (Heatmap) Güncelle
+                planets.forEach(p => {
+                    let heat = Math.min(p.hits / 1000, 1); // Isınma oranı
+                    
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.mass * 0.6 + (heat * 30), 0, Math.PI * 2);
+                    
+                    // Siyah -> Altın -> Kırmızı geçişi
+                    let r = Math.floor(20 + (235 * heat));
+                    let g = Math.floor(20 + (80 * heat));
+                    let b = Math.floor(20 - (20 * heat));
+                    
+                    ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+                    ctx.shadowBlur = heat * 60;
+                    ctx.shadowColor = `rgba(255, 50, 50, ${heat})`;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+
+                    // Metinler
+                    ctx.fillStyle = '#fff';
+                    ctx.font = '14px monospace';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(p.name, p.x, p.y - p.mass * 0.7 - 10);
+                    ctx.fillStyle = '#c5a059';
+                    ctx.fillText(`DÖNÜŞÜM: ${p.hits}`, p.x, p.y + p.mass * 0.7 + 20);
+                });
+
+                requestAnimationFrame(loop);
+            };
+
+            return { init: () => { resize(); loop(); }, releaseSwarm };
+        })();
+        
+        Engine.init();
+    </script>
+</body>
+</html>

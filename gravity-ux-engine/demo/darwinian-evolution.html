@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign OS | Darwinian Evolution Engine</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;700&display=swap');
+        
+        :root { 
+            --hermes: #ff3366; --archimedes: #c5a059; --aurelia: #00e5ff; 
+            --bg: #050508; --panel: rgba(12,12,16,0.85); 
+        }
+        
+        * { box-sizing: border-box; }
+        body { margin: 0; background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; height: 100vh; display: flex; overflow: hidden; user-select: none; }
+        
+        .sidebar { width: 340px; background: var(--panel); border-right: 1px solid rgba(255,255,255,0.05); padding: 25px; display: flex; flex-direction: column; z-index: 10; backdrop-filter: blur(20px); box-shadow: 10px 0 30px rgba(0,0,0,0.5); }
+        .brand { font-family: 'Orbitron'; font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; color:#fff;}
+        .brand span { color: #00ff66; }
+        .sub-brand { font-size: 0.65rem; color: #888; letter-spacing: 2px; margin-bottom: 25px; margin-top: 5px; }
+        
+        .agent-card { background: rgba(0,0,0,0.6); border-left: 3px solid; padding: 15px; margin-bottom: 12px; border-radius: 0 8px 8px 0; }
+        .agent-card.hermes { border-color: var(--hermes); }
+        .agent-card.archimedes { border-color: var(--archimedes); }
+        .agent-card.aurelia { border-color: var(--aurelia); }
+        
+        .agent-name { font-family: 'Orbitron'; font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; display: flex; justify-content: space-between;}
+        .agent-desc { font-size: 0.7rem; color: #aaa; line-height: 1.4; }
+        
+        .gen-counter { margin-top: auto; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;}
+        .gen-num { font-family: 'Orbitron'; font-size: 4.5rem; font-weight: 900; color: #fff; text-shadow: 0 0 25px rgba(255,255,255,0.2); line-height: 1;}
+        .gen-label { font-size: 0.75rem; color: #888; letter-spacing: 4px; text-transform: uppercase; }
+
+        .arena { flex: 1; position: relative; background: radial-gradient(circle at center, #0a0a0f 0%, #000 100%); display: flex; flex-direction: column; }
+        .arena-header { padding: 25px 40px 0; font-family: 'Orbitron'; font-size: 0.9rem; color: #fff; display: flex; justify-content: space-between; align-items: center; z-index: 10; }
+        
+        .scatter-container { flex: 1; position: relative; margin: 40px; border-left: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2); }
+        canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+        
+        .axis-label { position: absolute; font-family: 'Orbitron'; font-size: 0.7rem; color: #666; letter-spacing: 2px; }
+        .y-axis { top: -25px; left: -10px; }
+        .x-axis { bottom: -25px; right: 0; }
+        
+        .apex-zone { position: absolute; top: 0; right: 0; width: 35%; height: 35%; background: radial-gradient(circle at top right, rgba(0,255,102,0.15), transparent); border-left: 1px dashed #00ff66; border-bottom: 1px dashed #00ff66; border-radius: 0 0 0 100%; pointer-events: none;}
+        .apex-label { position: absolute; top: 15px; right: 15px; font-family: 'Orbitron'; color: #00ff66; font-size: 0.8rem; font-weight: bold; text-shadow: 0 0 10px rgba(0,255,102,0.5); }
+        .death-zone { position: absolute; bottom: 0; left: 0; width: 30%; height: 30%; background: radial-gradient(circle at bottom left, rgba(255,51,102,0.1), transparent); pointer-events: none; border-radius: 0 100% 0 0;}
+
+        .right-sidebar { width: 360px; background: var(--panel); border-left: 1px solid rgba(255,255,255,0.05); padding: 25px; display: flex; flex-direction: column; z-index: 10; backdrop-filter: blur(20px); box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
+        .section-title { font-family: 'Orbitron'; font-size: 0.75rem; color: var(--archimedes); letter-spacing: 1px; border-bottom: 1px solid rgba(197,160,89,0.3); padding-bottom: 8px; margin-bottom: 20px; }
+        
+        .math-box { background: rgba(0,0,0,0.8); border: 1px dashed rgba(255,255,255,0.2); padding: 15px; border-radius: 6px; margin-bottom: 20px; text-align: center;}
+        .math-formula { font-size: 1.1rem; color: #fff; font-weight: bold; font-style: italic;}
+        .math-desc { font-size: 0.65rem; color: #888; font-family: monospace; margin-top: 8px;}
+        
+        .apex-dna { background: linear-gradient(135deg, rgba(20,20,25,0.9), rgba(5,5,5,0.9)); border: 1px solid #333; padding: 20px; border-radius: 8px; display:flex; flex-direction: column;}
+        .dna-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.75rem; }
+        .dna-bar-bg { width: 120px; height: 6px; background: #111; border-radius: 3px; overflow: hidden; }
+        .dna-bar-fill { height: 100%; transition: width 0.3s; }
+        
+        .metric-row { display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); }
+        .m-val { font-family: 'Orbitron'; font-size: 1.2rem; font-weight: bold; color: #00ff66; }
+
+        .log-container { flex: 1; background: #000; border: 1px solid #222; border-radius: 6px; padding: 10px; font-family: monospace; font-size: 0.65rem; color: #aaa; margin-top: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
+        .log-kill { color: var(--hermes); }
+        .log-breed { color: var(--aurelia); }
+        .log-apex { color: #00ff66; font-weight: bold;}
+
+        .btn-evolve { background: rgba(0,229,255,0.1); border: 1px solid var(--aurelia); color: var(--aurelia); padding: 18px; font-family: 'Orbitron'; font-size: 0.85rem; font-weight: bold; letter-spacing: 2px; cursor: pointer; border-radius: 4px; transition: 0.3s; width: 100%; margin-top: 15px;}
+        .btn-evolve:hover { background: var(--aurelia); color: #000; box-shadow: 0 0 25px rgba(0,229,255,0.5); }
+        
+        .btn-deploy { background: rgba(0,255,102,0.1); border: 1px solid #00ff66; color: #00ff66; padding: 18px; font-family: 'Orbitron'; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px; cursor: pointer; border-radius: 4px; transition: 0.3s; width: 100%; margin-top: 15px; display: none; text-align:center;}
+        .btn-deploy:hover { background: #00ff66; color: #000; box-shadow: 0 0 30px rgba(0,255,102,0.6); }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="brand">DARWINIAN<span>ENGINE</span></div>
+        <div class="sub-brand">NATURAL SELECTION OF INTERFACES</div>
+        
+        <div class="agent-card hermes">
+            <div class="agent-name"><span style="color:var(--hermes)">1. HERMES</span> (Maximizer)</div>
+            <div class="agent-desc">Agresif Satıcı. Devasa CTA'lar üretir. Dönüşümü zorlar ama Bilişsel Yükü (E_cost) patlatabilir.</div>
+        </div>
+        <div class="agent-card archimedes">
+            <div class="agent-name"><span style="color:var(--archimedes)">2. ARCHIMEDES</span> (Guardian)</div>
+            <div class="agent-desc">Mimar. Boşlukları ve Altın Oranı (Φ) korur. Sürtünmesiz bir akış (Cognitive Ease) yaratır.</div>
+        </div>
+        <div class="agent-card aurelia">
+            <div class="agent-name"><span style="color:var(--aurelia)">3. AURELIA</span> (Scientist)</div>
+            <div class="agent-desc">Veri Bilimcisi. F-Pattern okuma rüzgarlarına göre asimetrik hizalamalar yapar.</div>
+        </div>
+        
+        <div class="gen-counter">
+            <div class="gen-num" id="gen-display">00</div>
+            <div class="gen-label">GENERATION</div>
+        </div>
+    </div>
+
+    <div class="arena">
+        <div class="arena-header">
+            <span>🧬 THE PRIMORDIAL SOUP (MUTASYON ARENASI)</span>
+            <span style="color:var(--aurelia); font-size: 0.75rem;">POPÜLASYON: 150 ARAYÜZ VARYANTI</span>
+        </div>
+        
+        <div class="scatter-container" id="scatter-box">
+            <div class="apex-zone"></div>
+            <div class="death-zone"></div>
+            <div class="apex-label">APEX PREDATOR ZONE</div>
+            <div class="axis-label y-axis">▲ CVR (DÖNÜŞÜM ORANI)</div>
+            <div class="axis-label x-axis">COGNITIVE EASE (SÜRTÜNMESİZ AKIŞ) ▶</div>
+            <canvas id="evolution-canvas"></canvas>
+        </div>
+    </div>
+
+    <div class="right-sidebar">
+        <div class="section-title">NATURAL SELECTION ALGORITHM</div>
+        <div class="math-box">
+            <div class="math-formula">Fitness = (CVR²) × Cognitive Ease</div>
+            <div class="math-desc">Zayıf tasarımlar acımasızca yok edilir. Hayatta kalan elitler çiftleşerek yeni nesli oluşturur.</div>
+        </div>
+        
+        <div class="apex-dna">
+            <div class="section-title" style="color:#fff; border-bottom:1px dashed #333;">LİDER GENOM (DNA)</div>
+            
+            <div class="dna-row">
+                <span style="color:var(--hermes); font-weight:bold;">Hermes (Kütle)</span>
+                <div class="dna-bar-bg"><div class="dna-bar-fill" id="bar-h" style="background:var(--hermes); width:0%;"></div></div>
+                <span id="val-h">0%</span>
+            </div>
+            <div class="dna-row">
+                <span style="color:var(--archimedes); font-weight:bold;">Archimedes (Oran)</span>
+                <div class="dna-bar-bg"><div class="dna-bar-fill" id="bar-a" style="background:var(--archimedes); width:0%;"></div></div>
+                <span id="val-a">0%</span>
+            </div>
+            <div class="dna-row">
+                <span style="color:var(--aurelia); font-weight:bold;">Aurelia (Asimetri)</span>
+                <div class="dna-bar-bg"><div class="dna-bar-fill" id="bar-u" style="background:var(--aurelia); width:0%;"></div></div>
+                <span id="val-u">0%</span>
+            </div>
+
+            <div class="metric-row">
+                <div><div style="font-size:0.65rem; color:#888;">Zirve CVR</div><div class="m-val" id="max-cvr">%--</div></div>
+                <div style="text-align:right;"><div style="font-size:0.65rem; color:#888;">Bilişsel Akış</div><div class="m-val" style="color:var(--aurelia)" id="max-ease">--/100</div></div>
+            </div>
+        </div>
+
+        <div class="log-container" id="log-box">
+            <div style="color:#666;">> Sistem Beklemede...</div>
+        </div>
+
+        <button class="btn-evolve" id="btn-start" onclick="Engine.startEvolution()">🧬 EVRİMİ BAŞLAT</button>
+        <div class="btn-deploy" id="btn-deploy" onclick="Engine.deploy()">⚡ SSE DELTA-PATCH İLE CANLIYA AL</div>
+    </div>
+
+    <script>
+        const Engine = (() => {
+            const canvas = document.getElementById('evolution-canvas');
+            const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+            let w, h;
+            
+            let population = [];
+            const POP_SIZE = 150;
+            const MAX_GEN = 50;
+            let currentGen = 0;
+            let isEvolving = false;
+            let phase = 0;
+            let phaseTimer = 0;
+            const PHASE_DUR = 30;
+
+            const logs = document.getElementById('log-box');
+            const log = (msg, cls='') => {
+                logs.innerHTML += `<div class="log-line ${cls}">> ${msg}</div>`;
+                logs.scrollTop = logs.scrollHeight;
+            };
+
+            const resize = () => {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                w = canvas.width = rect.width;
+                h = canvas.height = rect.height;
+            };
+            window.addEventListener('resize', resize);
+            resize();
+
+            class LayoutMutant {
+                constructor(hG, aG, uG, startX, startY) {
+                    let total = hG + aG + uG;
+                    this.genes = { h: hG/total, a: aG/total, u: uG/total };
+                    this.x = startX !== undefined ? startX : Math.random() * w * 0.3;
+                    this.y = startY !== undefined ? startY : h - (Math.random() * h * 0.3);
+                    this.calculateMetrics();
+                    this.dead = false;
+                }
+                calculateMetrics() {
+                    let baseCVR = 2 + (this.genes.h * 15) + (this.genes.u * 8); 
+                    let baseEase = 20 + (this.genes.a * 60) + (this.genes.u * 20); 
+                    this.cvr = baseCVR * (0.85 + Math.random()*0.3);
+                    this.ease = baseEase * (0.85 + Math.random()*0.3);
+                    this.fitness = (this.cvr * this.cvr) * (this.ease / 100);
+                    this.tx = (Math.min(this.ease, 100) / 100) * w;
+                    this.ty = h - (Math.min(this.cvr, 30) / 30) * h;
+                }
+                getColor() {
+                    let r = Math.floor(this.genes.h * 255);
+                    let g = Math.floor(this.genes.a * 160 + this.genes.u * 229);
+                    let b = Math.floor(this.genes.a * 89 + this.genes.u * 255);
+                    return `rgb(${r},${g},${b})`;
+                }
+                updatePosition() {
+                    if(this.dead) return;
+                    this.x += (this.tx - this.x) * 0.08;
+                    this.y += (this.ty - this.y) * 0.08;
+                }
+            }
+
+            const drawPopulation = () => {
+                ctx.clearRect(0,0,w,h);
+                ctx.globalCompositeOperation = 'lighter';
+                population.forEach(m => {
+                    m.updatePosition();
+                    ctx.beginPath();
+                    ctx.arc(m.x, m.y, m.dead ? 2 : 4, 0, Math.PI*2);
+                    ctx.fillStyle = m.dead ? 'rgba(255,51,102,0.1)' : m.getColor();
+                    ctx.fill();
+                    if(!m.dead) {
+                        ctx.shadowBlur = 15; ctx.shadowColor = m.getColor();
+                        ctx.fill(); ctx.shadowBlur = 0;
+                    }
+                });
+            };
+
+            const updateDashboard = (apex) => {
+                document.getElementById('gen-display').innerText = currentGen.toString().padStart(2, '0');
+                document.getElementById('bar-h').style.width = (apex.genes.h * 100) + '%';
+                document.getElementById('val-h').innerText = (apex.genes.h * 100).toFixed(1) + '%';
+                document.getElementById('bar-a').style.width = (apex.genes.a * 100) + '%';
+                document.getElementById('val-a').innerText = (apex.genes.a * 100).toFixed(1) + '%';
+                document.getElementById('bar-u').style.width = (apex.genes.u * 100) + '%';
+                document.getElementById('val-u').innerText = (apex.genes.u * 100).toFixed(1) + '%';
+                document.getElementById('max-cvr').innerText = '%' + apex.cvr.toFixed(2);
+                document.getElementById('max-ease').innerText = Math.min(apex.ease, 100).toFixed(1);
+            };
+
+            const theBloodbath = () => {
+                population.sort((a,b) => b.fitness - a.fitness); 
+                const SURVIVORS = Math.floor(POP_SIZE * 0.2);
+                for(let i=SURVIVORS; i<POP_SIZE; i++) population[i].dead = true;
+                if(currentGen % 5 === 0) log(`[CULLING] Nesil ${currentGen}: Zayıf tasarımlar yok edildi.`, 'log-kill');
+                updateDashboard(population[0]);
+            };
+
+            const crossover = () => {
+                if(currentGen >= MAX_GEN) {
+                    isEvolving = false;
+                    document.getElementById('btn-deploy').style.display = "block";
+                    log(`[!] EVRİM DURDU. Apex Predator Hayatta Kaldı.`, 'log-apex');
+                    let apex = population[0];
+                    ctx.beginPath(); ctx.arc(apex.x, apex.y, 25, 0, Math.PI*2);
+                    ctx.strokeStyle = "#00ff66"; ctx.lineWidth = 2; ctx.stroke();
+                    return;
+                }
+                currentGen++;
+                const SURVIVORS = Math.floor(POP_SIZE * 0.2);
+                const elites = population.slice(0, SURVIVORS);
+                const nextPop = [...elites];
+                while(nextPop.length < POP_SIZE) {
+                    let p1 = elites[Math.floor(Math.random() * elites.length)];
+                    let p2 = elites[Math.floor(Math.random() * elites.length)];
+                    let childH = (p1.genes.h + p2.genes.h) / 2;
+                    let childA = (p1.genes.a + p2.genes.a) / 2;
+                    let childU = (p1.genes.u + p2.genes.u) / 2;
+                    if(Math.random() < 0.1) {
+                        childH += (Math.random()-0.5)*0.2;
+                        childA += (Math.random()-0.5)*0.2;
+                        childU += (Math.random()-0.5)*0.2;
+                    }
+                    nextPop.push(new LayoutMutant(Math.max(0.01, childH), Math.max(0.01, childA), Math.max(0.01, childU), (p1.x+p2.x)/2, (p1.y+p2.y)/2));
+                }
+                if(currentGen % 5 === 0) log(`[BREEDING] Elit genler çaprazlandı. Yeni nesil doğdu.`, 'log-breed');
+                population = nextPop;
+            };
+
+            const animLoop = () => {
+                if(!isEvolving && currentGen === 0) return;
+                phaseTimer++;
+                if(phaseTimer > PHASE_DUR) {
+                    phase = (phase + 1) % 3;
+                    phaseTimer = 0;
+                    if(phase === 1) theBloodbath();
+                    if(phase === 2) crossover();
+                }
+                drawPopulation();
+                if(phase === 1 && phaseTimer < 10) {
+                    ctx.fillStyle = `rgba(255, 51, 102, 0.1)`;
+                    ctx.fillRect(0,0,w,h);
+                }
+                if(phase === 2 && phaseTimer < 20) {
+                    ctx.strokeStyle = "rgba(0, 229, 255, 0.05)"; ctx.lineWidth = 1;
+                    const elts = Math.floor(POP_SIZE * 0.2);
+                    for(let i=0; i<elts; i++) {
+                        for(let j=i+1; j<elts; j++) {
+                            ctx.beginPath();
+                            ctx.moveTo(population[i].x, population[i].y);
+                            ctx.lineTo(population[j].x, population[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                if(isEvolving || currentGen === MAX_GEN) requestAnimationFrame(animLoop);
+            };
+
+            const startEvolution = () => {
+                if(isEvolving) return;
+                isEvolving = true; currentGen = 1;
+                document.getElementById('btn-start').style.display = "none";
+                logs.innerHTML = '';
+                log("Sıfırıncı Nesil (The Primordial Soup) Yaratılıyor...");
+                population = [];
+                for(let i=0; i<POP_SIZE; i++) population.push(new LayoutMutant(Math.random(), Math.random(), Math.random()));
+                animLoop();
+            };
+
+            const deploy = () => {
+                const btn = document.getElementById('btn-deploy');
+                btn.innerHTML = "📡 KÖPRÜ (SSE) İLE CANLIYA İNJEKTE EDİLİYOR...";
+                btn.style.background = "var(--archimedes)"; btn.style.color = "#000"; btn.style.borderColor = "var(--archimedes)";
+                setTimeout(() => {
+                    btn.innerHTML = "✅ PRODUCTION MÜHÜRLENDİ (Sıfır CLS)";
+                    btn.style.background = "rgba(0,255,102,0.2)"; btn.style.color = "#00ff66";
+                    log("Apex DNA, Sovereign Live Bridge üzerinden GPU katmanına aktarıldı.", "log-apex");
+                }, 1500);
+            };
+
+            return { startEvolution, deploy };
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+/* ================================================================
+   🌌 SANTIS OMNIVERSE CONSOLE — CSS v1.0
+   Kozmik tema: smoky dark, gold accents, glassmorphism panels
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+    --omni-bg: #050508;
+    --omni-panel: rgba(12, 12, 16, 0.92);
+    --omni-border: rgba(197, 160, 89, 0.18);
+    --omni-gold: #d4af37;
+    --omni-gold-dim: rgba(197, 160, 89, 0.5);
+    --omni-cyan: #00e5ff;
+    --omni-green: #00ffc2;
+    --omni-text: #b0b0b0;
+    --omni-text-bright: #e0e0e0;
+    --omni-radius: 10px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body.omniverse-body {
+    background: var(--omni-bg);
+    color: var(--omni-text);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    user-select: none;
+}
+
+/* ── LAYOUT: 3-Column ── */
+.omni-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr 320px;
+    height: 100vh;
+    gap: 0;
+}
+
+/* ── LEFT PANEL ── */
+.omni-panel-left {
+    background: var(--omni-panel);
+    border-right: 1px solid var(--omni-border);
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    backdrop-filter: blur(20px);
+}
+
+.omni-panel-left::-webkit-scrollbar { width: 4px; }
+.omni-panel-left::-webkit-scrollbar-thumb { background: var(--omni-border); border-radius: 4px; }
+
+/* ── CENTER (Canvas) ── */
+.omni-center {
+    position: relative;
+    background: var(--omni-bg);
+    cursor: crosshair;
+}
+
+.omni-center canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* ── RIGHT PANEL ── */
+.omni-panel-right {
+    background: var(--omni-panel);
+    border-left: 1px solid var(--omni-border);
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    backdrop-filter: blur(20px);
+}
+
+.omni-panel-right::-webkit-scrollbar { width: 4px; }
+.omni-panel-right::-webkit-scrollbar-thumb { background: var(--omni-border); border-radius: 4px; }
+
+/* ── HEADER ── */
+.omni-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--omni-border);
+}
+
+.omni-logo {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.omni-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--omni-gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.omni-subtitle {
+    font-size: 10px;
+    color: var(--omni-text);
+    letter-spacing: 1px;
+    margin-top: 2px;
+}
+
+/* ── SECTION ── */
+.omni-section {
+    border: 1px solid var(--omni-border);
+    border-radius: var(--omni-radius);
+    padding: 14px;
+    background: rgba(20, 20, 25, 0.6);
+}
+
+.omni-section-title {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--omni-gold-dim);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+/* ── BUTTONS ── */
+.omni-btn {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--omni-border);
+    border-radius: 6px;
+    background: rgba(197, 160, 89, 0.06);
+    color: var(--omni-gold);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.5px;
+}
+
+.omni-btn:hover {
+    background: rgba(197, 160, 89, 0.15);
+    border-color: var(--omni-gold);
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.1);
+}
+
+.omni-btn.danger {
+    color: #ff5555;
+    border-color: rgba(255, 85, 85, 0.2);
+    background: rgba(255, 85, 85, 0.05);
+}
+
+.omni-btn.danger:hover {
+    background: rgba(255, 85, 85, 0.15);
+    border-color: #ff5555;
+}
+
+.omni-btn-row {
+    display: flex;
+    gap: 8px;
+}
+
+.omni-btn-row .omni-btn { flex: 1; }
+
+/* ── SLIDERS ── */
+.omni-slider-group {
+    margin-bottom: 10px;
+}
+
+.omni-slider-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--omni-text);
+    margin-bottom: 6px;
+}
+
+.omni-slider-val {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--omni-cyan);
+    font-size: 11px;
+}
+
+input[type="range"].omni-range {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(197, 160, 89, 0.15);
+    border-radius: 2px;
+    outline: none;
+}
+
+input[type="range"].omni-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--omni-gold);
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(197, 160, 89, 0.4);
+}
+
+/* ── INPUTS ── */
+.omni-input {
+    width: 100%;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--omni-border);
+    border-radius: 6px;
+    color: var(--omni-text-bright);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.omni-input:focus {
+    border-color: var(--omni-gold);
+}
+
+select.omni-input {
+    cursor: pointer;
+}
+
+/* ── ENTITY PANEL (appears when entity selected) ── */
+.omni-entity-panel {
+    display: none;
+}
+
+.omni-entity-panel.visible {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ── HUD OVERLAY (Canvas) ── */
+.omni-hud {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    gap: 12px;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.omni-hud-badge {
+    background: rgba(10, 10, 14, 0.85);
+    border: 1px solid var(--omni-border);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--omni-text);
+    backdrop-filter: blur(10px);
+}
+
+.omni-hud-badge .val {
+    color: var(--omni-green);
+    font-weight: 600;
+}
+
+/* ── HELP HUD ── */
+.omni-help {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    pointer-events: none;
+    z-index: 5;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.25);
+    line-height: 1.6;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── DNA OUTPUT ── */
+.omni-dna-output {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--omni-text);
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--omni-border);
+    border-radius: 6px;
+    padding: 12px;
+    max-height: 500px;
+    overflow-y: auto;
+    white-space: pre;
+    line-height: 1.5;
+    flex: 1;
+}
+
+.omni-dna-output::-webkit-scrollbar { width: 4px; }
+.omni-dna-output::-webkit-scrollbar-thumb { background: var(--omni-border); border-radius: 4px; }

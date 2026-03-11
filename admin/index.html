@@ -671,7 +671,7 @@
         function initHQNeuralBridge() {
             console.warn("Master OS Neural Bridge (HQ): OFFLINE/MOCK_MODE. WebSocket disabled.");
             /*
-            window.hqSocket = new WebSocket("ws://localhost:8000/ws?client_type=hq&client_id=global");
+            window.hqSocket = new WebSocket("ws://localhost:8080/ws?client_type=hq&client_id=global");
             window.hqSocket.onopen = () => console.log("Master OS Neural Bridge: CONNECTED (HQ)");
             
             window.hqSocket.onmessage = (event) => {

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis OS v33 | L3 & L4 Quantum Sandbox</title>
+    <style>
+        body {
+            margin: 0; padding: 0; background-color: #050505; color: #c5a059;
+            font-family: monospace; overflow: hidden; user-select: none;
+        }
+        /* Canvas, Main Thread'i asla meşgul etmez */
+        #quantum-canvas {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 1; pointer-events: none; mix-blend-mode: screen;
+        }
+        .telemetry {
+            position: relative; z-index: 10; padding: 2rem;
+            text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.8rem;
+            text-shadow: 0 0 10px rgba(197,160,89,0.5); pointer-events: none;
+        }
+        .value { color: #fff; font-weight: bold; }
+        
+        #test-intent-btn {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 20; padding: 1rem 3rem; background: transparent; color: #c5a059;
+            border: 1px solid #c5a059; border-radius: 50px; cursor: crosshair;
+            letter-spacing: 0.2em; font-size: 1rem; text-transform: uppercase;
+            transition: all 0.3s;
+        }
+        #test-intent-btn:hover { background: rgba(197,160,89,0.1); box-shadow: 0 0 30px rgba(197,160,89,0.4); }
+    </style>
+</head>
+<body>
+
+    <canvas id="quantum-canvas"></canvas>
+
+    <div class="telemetry">
+        <div>Santis OS v33 | GPU Governor Active</div><br>
+        <div>SYS.TICK: <span id="hud-fps" class="value">0.0</span> ms</div>
+        <div>SWARM.LOD: <span id="hud-lod" class="value">2500</span> pt (Golden Angle)</div>
+        <div>INTENT.LOCK: <span id="hud-intent" class="value" style="color:#ff4444">FALSE</span></div>
+    </div>
+
+    <button id="test-intent-btn">Biyometrik Mühür</button>
+
+    <script id="santis-physics-worker" type="javascript/worker">
+        importScripts('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js');
+
+        let scene, camera, renderer, swarmMesh;
+        let STATE = { 
+            lod: 2500, fpsDelta: 0, lastTime: 0, frameCount: 0,
+            mouse: { x: 0, y: 0 }, intentActive: false 
+        };
+
+        self.onmessage = function(e) {
+            const data = e.data;
+            if (data.type === 'INIT') {
+                initThreeJS(data.canvas, data.width, data.height, data.pixelRatio);
+                STATE.lastTime = performance.now();
+                masterLoop();
+            } else if (data.type === 'TELEMETRY') {
+                STATE.mouse = data.mouse;
+                STATE.intentActive = data.intentActive;
+            } else if (data.type === 'RESIZE') {
+                camera.aspect = data.width / data.height;
+                camera.updateProjectionMatrix();
+                renderer.setSize(data.width, data.height, false);
+            } else if (data.type === 'PAUSE') {
+                // Zero-Decibel Protocol: GPU tamamen durur
+                STATE.paused = true;
+            } else if (data.type === 'RESUME') {
+                if (STATE.paused) {
+                    STATE.paused = false;
+                    STATE.lastTime = performance.now();
+                    STATE.frameCount = 0;
+                    masterLoop();
+                }
+            }
+        };
+
+        function initThreeJS(canvas, width, height, pr) {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+            camera.position.z = 30;
+            
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: false, powerPreference: "high-performance" });
+            renderer.setSize(width, height, false);
+            renderer.setPixelRatio(pr);
+
+            buildFibonacciSwarm(STATE.lod);
+        }
+
+        // L4: Fibonacci Swarm (Altın Tozu Kutsal Geometrisi)
+        function buildFibonacciSwarm(count) {
+            if(swarmMesh) scene.remove(swarmMesh);
+            
+            const geo = new THREE.BufferGeometry();
+            const pos = new Float32Array(count * 3);
+            const phi = Math.PI * (3 - Math.sqrt(5)); // Golden Angle
+
+            for (let i = 0; i < count; i++) {
+                const y = 1 - (i / (count - 1)) * 2; 
+                const radius = Math.sqrt(1 - y * y);
+                const theta = phi * i;
+                
+                pos[i*3] = Math.cos(theta) * radius * 12;
+                pos[i*3+1] = y * 12;
+                pos[i*3+2] = Math.sin(theta) * radius * 12;
+            }
+            geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            
+            const mat = new THREE.PointsMaterial({ 
+                color: 0xc5a059, size: 0.08, transparent: true, 
+                opacity: 0.6, blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+            swarmMesh = new THREE.Points(geo, mat);
+            scene.add(swarmMesh);
+        }
+
+        // L4: GPU Governor (Zero-Decibel Protocol)
+        function checkThermalLOD(now) {
+            STATE.frameCount++;
+            if (now - STATE.lastTime >= 1000) {
+                const avgDelta = 1000 / STATE.frameCount;
+                
+                if (avgDelta > 20 && STATE.lod === 2500) { 
+                    STATE.lod = 800; buildFibonacciSwarm(800); 
+                } 
+                else if (avgDelta < 12 && STATE.lod === 800) { 
+                    STATE.lod = 2500; buildFibonacciSwarm(2500); 
+                }
+                
+                self.postMessage({ type: 'HUD_UPDATE', delta: avgDelta.toFixed(1), lod: STATE.lod });
+                
+                STATE.frameCount = 0;
+                STATE.lastTime = now;
+            }
+        }
+
+        function masterLoop() {
+            if (STATE.paused) return;
+            
+            const now = performance.now();
+            checkThermalLOD(now);
+
+            const rotationSpeed = STATE.intentActive ? 0.02 : 0.002;
+            const scalePulse = STATE.intentActive ? 1.2 + Math.sin(now * 0.01) * 0.1 : 1.0;
+
+            swarmMesh.rotation.y += rotationSpeed;
+            swarmMesh.rotation.x += rotationSpeed * 0.5;
+            
+            swarmMesh.scale.lerp(new THREE.Vector3(scalePulse, scalePulse, scalePulse), 0.1);
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(masterLoop);
+        }
+    </script>
+
+    <script>
+        const SantisConnect = (() => {
+            let worker;
+            const hud = { 
+                fps: document.getElementById('hud-fps'), 
+                lod: document.getElementById('hud-lod'), 
+                intent: document.getElementById('hud-intent') 
+            };
+            const btn = document.getElementById('test-intent-btn');
+
+            const init = () => {
+                // 1. Blob Kernel: RAM üzerinde otonom beyin yaratımı
+                const workerCode = document.getElementById('santis-physics-worker').textContent;
+                const blob = new Blob([workerCode], { type: 'application/javascript' });
+                worker = new Worker(URL.createObjectURL(blob));
+
+                // 2. OffscreenCanvas: UI thread'den kopuş
+                const canvas = document.getElementById('quantum-canvas');
+                const offscreen = canvas.transferControlToOffscreen();
+
+                worker.postMessage({
+                    type: 'INIT', canvas: offscreen,
+                    width: window.innerWidth, height: window.innerHeight,
+                    pixelRatio: Math.min(window.devicePixelRatio, 2)
+                }, [offscreen]);
+
+                setupEventBus();
+            };
+
+            const setupEventBus = () => {
+                // Worker HUD güncellemeleri
+                worker.onmessage = (e) => {
+                    if (e.data.type === 'HUD_UPDATE') {
+                        hud.fps.innerText = e.data.delta;
+                        hud.lod.innerText = e.data.lod;
+                    }
+                };
+
+                // L3: Intent Detection — mouse proximity to button
+                window.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const btnCX = rect.left + rect.width / 2;
+                    const btnCY = rect.top + rect.height / 2;
+                    const dist = Math.hypot(e.clientX - btnCX, e.clientY - btnCY);
+                    const isIntentActive = dist < 250;
+
+                    hud.intent.innerText = isIntentActive ? "TRUE [PULLING]" : "FALSE";
+                    hud.intent.style.color = isIntentActive ? "#c5a059" : "#ff4444";
+
+                    worker.postMessage({ 
+                        type: 'TELEMETRY', 
+                        mouse: { x: e.clientX, y: e.clientY },
+                        intentActive: isIntentActive
+                    });
+                }, { passive: true });
+
+                // Zero-Decibel: Tab hidden → pause GPU
+                document.addEventListener('visibilitychange', () => {
+                    worker.postMessage({ type: document.hidden ? 'PAUSE' : 'RESUME' });
+                });
+
+                // Resize handler
+                window.addEventListener('resize', () => {
+                    worker.postMessage({ type: 'RESIZE', width: window.innerWidth, height: window.innerHeight });
+                });
+            };
+
+            return { init };
+        })();
+
+        document.addEventListener('DOMContentLoaded', SantisConnect.init);
+    </script>
+</body>
+</html>

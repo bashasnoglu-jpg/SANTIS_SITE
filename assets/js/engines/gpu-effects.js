@@ -49,7 +49,45 @@ export function init() {
     }));
 
     // 4. THE 120Hz RENDER LOOP (Nükleer Reaksiyon Döngüsü)
-    const render = () => {
+    let isCanvasVisible = true;
+    let frameCount = 0;
+    let lastFpsTime = performance.now();
+    let currentDpr = Math.min(window.devicePixelRatio || 1, 2);
+    let degradationApplied = false;
+
+    // Intersection Culling (Kuantum Gözlemci)
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            isCanvasVisible = entry.isIntersecting;
+            if (isCanvasVisible) {
+                lastFpsTime = performance.now();
+                frameCount = 0;
+                requestAnimationFrame(render);
+            }
+        });
+    }, { threshold: 0.1 });
+    observer.observe(canvas);
+
+    const render = (now) => {
+        if (!isCanvasVisible) return; // Görünmezse GPU dinlenir! (Kuantum Gözlemci)
+
+        // FPS Monitoring & Graceful Degradation
+        frameCount++;
+        if (now - lastFpsTime >= 1000) {
+            const fps = frameCount;
+            if (fps < 45 && !degradationApplied && currentDpr > 1) {
+                console.warn(`⚠️ [V18 GPU] FPS Drop Detected (${fps} FPS). Graceful Degradation Devrede. Sovereign Matrix Bulanıklaşıyor (Sinematik Derinlik).`);
+                currentDpr = currentDpr * 0.7; // Düşür
+                canvas.width = window.innerWidth * currentDpr;
+                canvas.height = window.innerHeight * currentDpr;
+                ctx.setTransform(1, 0, 0, 1, 0, 0); // reset scale
+                ctx.scale(currentDpr, currentDpr);
+                degradationApplied = true;
+            }
+            frameCount = 0;
+            lastFpsTime = now;
+        }
+
         // LERP (Linear Interpolation) ile Scroll Hızını hesapla (Yumuşak ivme, Viskozite: 0.08)
         currentScroll += (targetScroll - currentScroll) * 0.08;
         velocity = targetScroll - currentScroll;
@@ -90,6 +128,6 @@ export function init() {
     // Motoru Ateşle!
     requestAnimationFrame(render);
 
-    console.log("🏆 [V18 GPU APEX] Liquid Gold Shader 120 FPS'e Kilitlendi! Viskozite Aktif.");
+    console.log("🏆 [V18 GPU APEX] Liquid Gold Shader 120 FPS'e Kilitlendi. IntersectionObserver & Graceful Degradation Aktif.");
     return { status: 'dictating' };
 }

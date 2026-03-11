@@ -13,16 +13,12 @@ self.onmessage = async (event) => {
             const response = await fetch('/assets/data/services.json');
             const allData = await response.json();
 
-            // 2. Filtrelemeyi İşlemci Çekirdeğinde (Worker) yap!
-            // Main Thread'i 1 ms bile bloke etmiyoruz.
-            const filteredData = allData.filter(item =>
-                item.category && item.category.toLowerCase().includes(targetPage.toLowerCase())
-            );
-
-            // 3. Altın külçelerini (Saf Data) yüzeye (Main Thread'e) fırlat!
+            // 2. Filtrelemeyi UI katmanına (Matrix Engine) bırak! 
+            // V18'de sayfa bazlı çoğul gridler desteklenir (Ana sayfa birden fazla kategori barındırır).
+            // Altın külçelerini (Saf Data) yüzeye (Main Thread'e) fırlat!
             self.postMessage({
                 type: 'MATRIX_READY',
-                payload: filteredData
+                payload: allData
             });
 
         } catch (error) {

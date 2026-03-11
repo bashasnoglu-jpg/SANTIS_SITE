@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX Gravity Engine — 3-Card Arena Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #030303; color: #fff; font-family: 'Inter', monospace; overflow: hidden; user-select: none; }
+        canvas { display: block; width: 100vw; height: 100vh; }
+
+        #ui { position: absolute; top: 20px; left: 20px; z-index: 10; display: flex; flex-direction: column; gap: 12px; }
+
+        .panel {
+            background: rgba(10,10,12,0.9); border: 1px solid rgba(197,160,89,0.25);
+            padding: 20px; border-radius: 12px; backdrop-filter: blur(16px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.8);
+            max-width: 320px;
+        }
+
+        .gold { color: #d4af37; font-weight: 700; font-size: 1rem; letter-spacing: 3px; text-transform: uppercase; }
+        .sub { color: #555; font-size: 0.65rem; margin-top: 4px; letter-spacing: 1px; }
+
+        .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .stat-label { color: #888; font-size: 0.75rem; }
+        .stat-value { color: #fff; font-size: 0.85rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+        .stat-value.green { color: #4ade80; }
+        .stat-value.red { color: #ff3366; }
+        .stat-value.gold { color: #d4af37; font-size: 0.85rem; }
+
+        .persona-row { display: flex; align-items: center; gap: 8px; padding: 4px 0; }
+        .persona-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .persona-name { color: #aaa; font-size: 0.7rem; }
+        .persona-count { color: #fff; font-size: 0.7rem; font-weight: 600; margin-left: auto; }
+
+        button {
+            background: transparent; border: 1px solid #d4af37; color: #d4af37;
+            padding: 12px 16px; cursor: pointer; transition: all 0.3s; font-family: 'Inter', monospace;
+            width: 100%; border-radius: 8px; font-size: 0.8rem; letter-spacing: 1px; font-weight: 600;
+        }
+        button:hover { background: #d4af37; color: #000; box-shadow: 0 0 24px rgba(197,160,89,0.5); }
+        button:disabled { opacity: 0.3; cursor: not-allowed; }
+        button.danger { border-color: #ff3366; color: #ff3366; }
+        button.danger:hover { background: #ff3366; color: #fff; }
+        button.success { border-color: #4ade80; color: #4ade80; }
+        button.success:hover { background: #4ade80; color: #000; }
+
+        .mode-label {
+            text-align: center; padding: 8px; border-radius: 6px; font-size: 0.7rem;
+            letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
+        }
+        .mode-bad { background: rgba(255,51,102,0.15); color: #ff3366; border: 1px solid rgba(255,51,102,0.3); }
+        .mode-good { background: rgba(74,222,128,0.15); color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+
+        .slider-group { margin-top: 8px; }
+        .slider-group label { display: block; color: #888; font-size: 0.7rem; margin-bottom: 4px; }
+        .slider-group input[type="range"] { width: 100%; accent-color: #d4af37; }
+
+        .cvr-big { font-size: 2.5rem; font-weight: 700; text-align: center; margin: 8px 0; font-variant-numeric: tabular-nums; }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <!-- HEADER -->
+        <div class="panel">
+            <div class="gold">UX Gravity Engine</div>
+            <div class="sub">Neuro-Cognitive Conversion Simulator v3.0</div>
+            <div id="modeLabel" class="mode-label mode-bad" style="margin-top: 12px;">⚠️ BAD LAYOUT (RANDOM)</div>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="panel">
+            <div class="slider-group">
+                <label>Bot Count: <span id="botCountLabel">10,000</span></label>
+                <input type="range" id="botSlider" min="1000" max="50000" step="1000" value="10000">
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 12px;">
+                <button onclick="Engine.release()" id="btnRelease">🚀 RELEASE SWARM</button>
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 8px;">
+                <button class="success" onclick="Engine.toggleLayout()" id="btnToggle">✨ AI OPTIMIZE</button>
+                <button class="danger" onclick="Engine.reset()">↺ RESET</button>
+            </div>
+        </div>
+
+        <!-- LIVE STATS -->
+        <div class="panel" id="statsPanel">
+            <div style="color: #d4af37; font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 8px; font-weight: 600;">LIVE ANALYTICS</div>
+            <div class="cvr-big" id="cvrBig" style="color: #ff3366;">0.0%</div>
+            <div class="stat-row"><span class="stat-label">Active Bots</span><span class="stat-value" id="statActive">0</span></div>
+            <div class="stat-row"><span class="stat-label">Converted</span><span class="stat-value green" id="statConverted">0</span></div>
+            <div class="stat-row"><span class="stat-label">Bounced</span><span class="stat-value red" id="statBounced">0</span></div>
+            <div class="stat-row"><span class="stat-label">Predicted Revenue</span><span class="stat-value gold" id="statRevenue">€0</span></div>
+            <div class="stat-row"><span class="stat-label">FPS</span><span class="stat-value" id="statFPS">60</span></div>
+        </div>
+
+        <!-- PERSONAS -->
+        <div class="panel">
+            <div style="color: #888; font-size: 0.65rem; letter-spacing: 2px; margin-bottom: 8px;">BOT PERSONAS</div>
+            <div class="persona-row"><div class="persona-dot" style="background:#d4af37"></div><span class="persona-name">VIP Hunter</span><span class="persona-count" id="pVip">10%</span></div>
+            <div class="persona-row"><div class="persona-dot" style="background:#ff3366"></div><span class="persona-name">Impulse Buyer</span><span class="persona-count" id="pImpulse">30%</span></div>
+            <div class="persona-row"><div class="persona-dot" style="background:#00e5ff"></div><span class="persona-name">Observer (F-Pattern)</span><span class="persona-count" id="pObserver">40%</span></div>
+            <div class="persona-row"><div class="persona-dot" style="background:#4ade80"></div><span class="persona-name">Bargain Seeker</span><span class="persona-count" id="pBargain">20%</span></div>
+        </div>
+    </div>
+
+    <canvas id="arena"></canvas>
+
+    <script>
+        const Engine = (() => {
+            const canvas = document.getElementById('arena');
+            const ctx = canvas.getContext('2d', { alpha: false });
+            let w, h;
+
+            // --- SPATIAL HASH GRID (O(n) Performance) ---
+            const CELL_SIZE = 200;
+            let gridCols, gridRows, grid;
+
+            function initGrid() {
+                gridCols = Math.ceil(w / CELL_SIZE);
+                gridRows = Math.ceil(h / CELL_SIZE);
+                grid = new Map();
+            }
+            function gridKey(col, row) { return (col << 16) | row; }
+            function insertGrid(entity) {
+                const col = Math.floor(entity.x / CELL_SIZE);
+                const row = Math.floor(entity.y / CELL_SIZE);
+                const key = gridKey(col, row);
+                if (!grid.has(key)) grid.set(key, []);
+                grid.get(key).push(entity);
+            }
+            function queryGrid(x, y, radius) {
+                const results = [];
+                const minCol = Math.floor((x - radius) / CELL_SIZE);
+                const maxCol = Math.floor((x + radius) / CELL_SIZE);
+                const minRow = Math.floor((y - radius) / CELL_SIZE);
+                const maxRow = Math.floor((y + radius) / CELL_SIZE);
+                for (let c = minCol; c <= maxCol; c++) {
+                    for (let r = minRow; r <= maxRow; r++) {
+                        const cell = grid.get(gridKey(c, r));
+                        if (cell) for (const e of cell) results.push(e);
+                    }
+                }
+                return results;
+            }
+
+            // --- PERSONA CONFIG ---
+            const PERSONAS = {
+                vip:     { color: '#d4af37', massAff: 1.8, speed: [1.5, 3],  entry: 'center' },
+                impulse: { color: '#ff3366', massAff: 0.8, speed: [3, 6],    entry: 'random' },
+                observer:{ color: '#00e5ff', massAff: 1.0, speed: [1, 2.5],  entry: 'top-left' },
+                bargain: { color: '#4ade80', massAff: 0.4, speed: [2, 4],    entry: 'top' }
+            };
+            const DISTRIBUTION = { vip: 0.1, impulse: 0.3, observer: 0.4, bargain: 0.2 };
+
+            // --- PRODUCTS (Bad vs Good Layout) ---
+            const PRODUCTS_BAD = [
+                { name: "MASSAGE CARD",   mass: 40,  price: 89,  conversions: 0, totalBots: 0, xRatio: 0.15, yRatio: 0.3 },
+                { name: "HAMAM (PREMIUM)",mass: 60,  price: 180, conversions: 0, totalBots: 0, xRatio: 0.85, yRatio: 0.8 },
+                { name: "SKINCARE",       mass: 35,  price: 65,  conversions: 0, totalBots: 0, xRatio: 0.5,  yRatio: 0.15 }
+            ];
+
+            const PRODUCTS_GOOD = [
+                { name: "HAMAM (PREMIUM)",mass: 140, price: 180, conversions: 0, totalBots: 0, xRatio: 0.5,  yRatio: 0.45 },
+                { name: "MASSAGE CARD",   mass: 70,  price: 89,  conversions: 0, totalBots: 0, xRatio: 0.25, yRatio: 0.6 },
+                { name: "SKINCARE",       mass: 50,  price: 65,  conversions: 0, totalBots: 0, xRatio: 0.75, yRatio: 0.6 }
+            ];
+
+            let isGoodLayout = false;
+            let products = [];
+            let swarm = [];
+            let isSimulating = false;
+            let totalBots = 0;
+            let frameCount = 0;
+            let lastFpsTime = performance.now();
+            let currentFps = 60;
+
+            function positionProducts(list) {
+                return list.map(p => ({
+                    ...p,
+                    x: p.xRatio * w,
+                    y: p.yRatio * h,
+                    radius: p.mass * 0.6,
+                    conversions: 0,
+                    totalBots: 0
+                }));
+            }
+
+            const resize = () => {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+                products = positionProducts(isGoodLayout ? PRODUCTS_GOOD : PRODUCTS_BAD);
+                initGrid();
+            };
+            window.addEventListener('resize', resize);
+
+            // --- BOT GENERATION ---
+            function generateBots(count) {
+                const bots = [];
+                const types = Object.entries(DISTRIBUTION);
+                for (let i = 0; i < count; i++) {
+                    let rand = Math.random();
+                    let pKey = 'observer';
+                    for (const [type, weight] of types) {
+                        rand -= weight;
+                        if (rand <= 0) { pKey = type; break; }
+                    }
+                    const p = PERSONAS[pKey];
+                    let x, y;
+                    switch (p.entry) {
+                        case 'center':   x = w*0.3 + Math.random()*w*0.4; y = -50 - Math.random()*300; break;
+                        case 'top-left': x = Math.random()*w*0.3;          y = -50 - Math.random()*400; break;
+                        case 'random':   x = Math.random()*w;              y = -50 - Math.random()*w;   break;
+                        default:         x = Math.random()*w;              y = -50 - Math.random()*200;
+                    }
+                    const spd = p.speed[0] + Math.random() * (p.speed[1] - p.speed[0]);
+                    bots.push({ x, y, vx: 0, vy: spd, active: true, persona: pKey, color: p.color, massAff: p.massAff });
+                }
+                return bots;
+            }
+
+            // --- SIMULATION ---
+            function release() {
+                if (isSimulating) return;
+                isSimulating = true;
+                const count = parseInt(document.getElementById('botSlider').value);
+
+                products = positionProducts(isGoodLayout ? PRODUCTS_GOOD : PRODUCTS_BAD);
+                swarm = generateBots(count);
+                totalBots = count;
+                products.forEach(p => p.totalBots = count);
+
+                document.getElementById('btnRelease').disabled = true;
+                setTimeout(() => {
+                    isSimulating = false;
+                    document.getElementById('btnRelease').disabled = false;
+                }, 12000);
+            }
+
+            function toggleLayout() {
+                isGoodLayout = !isGoodLayout;
+                const label = document.getElementById('modeLabel');
+                if (isGoodLayout) {
+                    label.textContent = '✅ AI-OPTIMIZED LAYOUT (GRAVITY)';
+                    label.className = 'mode-label mode-good';
+                    document.getElementById('btnToggle').textContent = '⚠️ BAD LAYOUT';
+                    document.getElementById('btnToggle').className = 'danger';
+                } else {
+                    label.textContent = '⚠️ BAD LAYOUT (RANDOM)';
+                    label.className = 'mode-label mode-bad';
+                    document.getElementById('btnToggle').textContent = '✨ AI OPTIMIZE';
+                    document.getElementById('btnToggle').className = 'success';
+                }
+                products = positionProducts(isGoodLayout ? PRODUCTS_GOOD : PRODUCTS_BAD);
+                swarm = [];
+                totalBots = 0;
+            }
+
+            function reset() {
+                swarm = [];
+                totalBots = 0;
+                isSimulating = false;
+                products = positionProducts(isGoodLayout ? PRODUCTS_GOOD : PRODUCTS_BAD);
+                document.getElementById('btnRelease').disabled = false;
+            }
+
+            // --- RENDER LOOP ---
+            function loop() {
+                ctx.fillStyle = 'rgba(3, 3, 3, 0.35)';
+                ctx.fillRect(0, 0, w, h);
+
+                // FPS
+                frameCount++;
+                const now = performance.now();
+                if (now - lastFpsTime > 500) {
+                    currentFps = Math.round(frameCount / ((now - lastFpsTime) / 1000));
+                    frameCount = 0;
+                    lastFpsTime = now;
+                }
+
+                // SPATIAL HASH: Insert all products
+                grid = new Map();
+                for (const p of products) insertGrid(p);
+
+                // PHYSICS + RENDER BOTS
+                let activeBots = 0;
+                let converted = 0;
+                let bounced = 0;
+
+                for (let i = 0; i < swarm.length; i++) {
+                    const bot = swarm[i];
+                    if (!bot.active) {
+                        if (bot.converted) converted++;
+                        else bounced++;
+                        continue;
+                    }
+                    activeBots++;
+
+                    // Check if bot went off-screen (bounced)
+                    if (bot.y > h + 100 || bot.x < -200 || bot.x > w + 200) {
+                        bot.active = false;
+                        bot.converted = false;
+                        bounced++;
+                        continue;
+                    }
+
+                    let bestPull = 0;
+                    let bestTarget = null;
+
+                    for (const product of products) {
+                        const dx = product.x - bot.x;
+                        const dy = product.y - bot.y;
+                        const distSq = dx * dx + dy * dy;
+                        const dist = Math.max(Math.sqrt(distSq), 10);
+
+                        const pull = (80 * product.mass * bot.massAff) / distSq;
+
+                        if (dist < product.radius * 0.5) {
+                            bot.active = false;
+                            bot.converted = true;
+                            product.conversions++;
+                            converted++;
+                            bestTarget = null;
+                            break;
+                        }
+
+                        if (pull > bestPull) {
+                            bestPull = pull;
+                            bestTarget = { dx, dy, dist, pull };
+                        }
+                    }
+
+                    if (bestTarget && bot.active) {
+                        bot.vx += (bestTarget.dx / bestTarget.dist) * bestTarget.pull;
+                        bot.vy += (bestTarget.dy / bestTarget.dist) * bestTarget.pull;
+                    }
+
+                    bot.vx *= 0.94;
+                    bot.vy *= 0.94;
+                    bot.x += bot.vx;
+                    bot.y += bot.vy;
+
+                    if (bot.active) {
+                        ctx.fillStyle = bot.color;
+                        ctx.fillRect(bot.x, bot.y, 2, 2);
+                    }
+                }
+
+                // RENDER PRODUCTS
+                for (const p of products) {
+                    const heat = Math.min(p.conversions / Math.max(totalBots * 0.15, 1), 1);
+                    const radius = p.radius + heat * 30;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+                    const r = Math.floor(20 + 235 * heat);
+                    const g = Math.floor(20 + 80 * heat);
+                    const b = Math.floor(20 - 20 * heat);
+                    ctx.fillStyle = `rgb(${r},${g},${b})`;
+                    ctx.shadowBlur = heat * 60;
+                    ctx.shadowColor = `rgba(255,50,50,${heat})`;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 14px Inter, monospace';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(p.name, p.x, p.y - radius - 16);
+
+                    ctx.fillStyle = '#d4af37';
+                    ctx.font = '13px Inter, monospace';
+                    ctx.fillText(`CVR: ${p.conversions}  |  €${(p.conversions * p.price).toLocaleString()}`, p.x, p.y + radius + 24);
+                }
+
+                // UPDATE UI STATS
+                const totalConverted = products.reduce((s, p) => s + p.conversions, 0);
+                const totalRevenue = products.reduce((s, p) => s + p.conversions * p.price, 0);
+                const cvr = totalBots > 0 ? ((totalConverted / totalBots) * 100).toFixed(1) : '0.0';
+
+                document.getElementById('statActive').textContent = activeBots.toLocaleString();
+                document.getElementById('statConverted').textContent = totalConverted.toLocaleString();
+                document.getElementById('statBounced').textContent = bounced.toLocaleString();
+                document.getElementById('statRevenue').textContent = `€${totalRevenue.toLocaleString()}`;
+                document.getElementById('statFPS').textContent = currentFps;
+
+                const cvrEl = document.getElementById('cvrBig');
+                cvrEl.textContent = `${cvr}%`;
+                cvrEl.style.color = parseFloat(cvr) > 5 ? '#4ade80' : '#ff3366';
+
+                requestAnimationFrame(loop);
+            }
+
+            // SLIDER UPDATE
+            document.getElementById('botSlider').addEventListener('input', (e) => {
+                document.getElementById('botCountLabel').textContent = parseInt(e.target.value).toLocaleString();
+            });
+
+            return {
+                init: () => { resize(); loop(); },
+                release,
+                toggleLayout,
+                reset
+            };
+        })();
+
+        Engine.init();
+    </script>
+</body>
+</html>

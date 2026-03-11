@@ -1,0 +1,44 @@
+﻿# CSP Inline Script Deep Audit
+
+## Summary
+- JS inline scripts: 16
+- JSON-LD (CSP exempt): 38
+
+## JS Inline Scripts (need external migration)
+
+### C:\Users\tourg\Desktop\SANTIS_SITE\_debug_cards.html (1 scripts)
+- **L17** (4655 chars): `const log = document.getElementById('log'); function add(cls, msg) {     log.innerHTML += `<p class="${cls}">${msg}</p>`; }  async function runDi`
+
+### C:\Users\tourg\Desktop\SANTIS_SITE\booking.html (1 scripts)
+- **L185** (1566 chars): `document.addEventListener('DOMContentLoaded', () => {              if (typeof loadComp === "function") {                  loadComp("components/nav`
+
+### C:\Users\tourg\Desktop\SANTIS_SITE\en\contact.html (1 scripts)
+- **L136** (334 chars): `document.addEventListener('DOMContentLoaded', () => {             if(!document.getElementById('footer-container').innerHTML) {                 fetch`
+
+### C:\Users\tourg\Desktop\SANTIS_SITE\index.html (1 scripts)
+- **L19** (1043 chars): `(function() {     var COOKIE = 'santis_lang';     var cookies = document.cookie.split(';');     var savedLang = '';          // 1. Check for save`
+
+### C:\Users\tourg\Desktop\SANTIS_SITE\kese-ve-kopuk-masaji.html (4 scripts)
+- **L18** (23 chars): `window.SITE_ROOT = '/';`
+- **L19** (106 chars): `// SELF-HEALING: Hardcoded ID for this specific page       window.PAGE_GROUP_ID = "kese-ve-kopuk-masaji";`
+- **L117** (4196 chars): `document.addEventListener("DOMContentLoaded", () => {          // 1. Load Components          if (typeof loadComp === "function") {             if(`
+- **L217** (155 chars): `const lenis = new Lenis();     function raf(time) {         lenis.raf(time);         requestAnimationFrame(raf);     }     requestAnimationFrame(`
+
+### C:\Users\tourg\Desktop\SANTIS_SITE\service-detail.html (4 scripts)
+- **L19** (23 chars): `window.SITE_ROOT = '/';`
+- **L20** (187 chars): `const __params = new URLSearchParams(window.location.search);       window.PAGE_GROUP_ID = window.PAGE_GROUP_ID || __params.get('group_id') || __para`
+- **L133** (16708 chars): `document.addEventListener("DOMContentLoaded", () => {               // 1. Load Components              if (typeof loadComp === "function") {      `
+- **L472** (185 chars): `const lenis = new Lenis();          function raf(time) {              lenis.raf(time);              requestAnimationFrame(raf);          }  `
+
+### C:\Users\tourg\Desktop\SANTIS_SITE\showroom.html (1 scripts)
+- **L178** (282 chars): `// Init Soul if script loaded         window.addEventListener('load', () => {             if(window.SantisSoul) {                 new SantisSoul();`
+
+### C:\Users\tourg\Desktop\SANTIS_SITE\tr\code-of-silence.html (1 scripts)
+- **L120** (1073 chars): `// TRIGGER ATMOSPHERE         document.addEventListener('DOMContentLoaded', () => {             // Load Nav             if(window.loadComp) loadCom`
+
+### C:\Users\tourg\Desktop\SANTIS_SITE\tr\dunya-ritueli.html (1 scripts)
+- **L155** (307 chars): `document.addEventListener("DOMContentLoaded", () => {             if (typeof loadComp === "function") {                 loadComp("/assets/html/compo`
+
+### C:\Users\tourg\Desktop\SANTIS_SITE\tr\iletisim.html (1 scripts)
+- **L151** (401 chars): `// Load Footer Manually if not handled by app.js (Safety)         document.addEventListener('DOMContentLoaded', () => {             if(!document.get`
+

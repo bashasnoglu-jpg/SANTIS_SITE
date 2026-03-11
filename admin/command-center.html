@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -20,6 +20,10 @@
     <script src="/assets/js/blurhash.js"></script>
 <!-- Phase 44: ECharts Omnipotence -->
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" crossorigin="anonymous"></script>
+
+<!-- THE PHANTOM INTERCEPTOR (Chaos Engine) -->
+<script src="phantom-interceptor.js"></script>
+
 <style>
         body {
             background-color: #050505;
@@ -42,12 +46,24 @@
         .custom-scroll::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
         .custom-scroll::-webkit-scrollbar-thumb:hover { background: #555; }
 
-        /* Drag & Drop Highlight */
+        /* Drag & Drop Highlight & Physics */
         .drag-active {
             border-color: #C9A96E !important;
             background-color: rgba(201, 169, 110, 0.1) !important;
             transform: scale(1.02);
-            transition: all 0.2s ease;
+            box-shadow: 0 0 30px rgba(201, 169, 110, 0.4);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes seismic-ripple {
+            0% { box-shadow: 0 0 0 0 rgba(201, 169, 110, 0.7); transform: scale(1.05); }
+            70% { box-shadow: 0 0 0 20px rgba(201, 169, 110, 0); transform: scale(1); }
+            100% { box-shadow: 0 0 0 0 rgba(201, 169, 110, 0); transform: scale(1); }
+        }
+        
+        .dropped-seismic {
+            animation: seismic-ripple 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            border-color: #C9A96E !important;
         }
 
         /* Pulse Animations */
@@ -70,6 +86,25 @@
         }
         @keyframes slideIn {
             to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .sovereign-shockwave {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: transparent;
+            border: 2px solid #D4AF37; /* Sovereign Gold */
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: none;
+            z-index: 9999;
+            animation: goldSismicBlast 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes goldSismicBlast {
+            0% { transform: translate(-50%, -50%) scale(1); border-width: 4px; opacity: 1; filter: drop-shadow(0 0 10px #D4AF37); }
+            100% { transform: translate(-50%, -50%) scale(30); border-width: 0px; opacity: 0; filter: drop-shadow(0 0 40px #D4AF37); }
+        }
         /* -------------------------------------
          * PHASE 43 + 52: SOVEREIGN MATRIX ENGINE (Liquid Absolute)
          * ------------------------------------- */
@@ -214,8 +249,60 @@
                 The Sovereign View
             </div>
 </div>
-<div class="flex items-center gap-4 text-xs font-mono text-gray-500">
+<div class="flex items-center gap-3 text-xs font-mono text-gray-500">
 <button class="hover:text-white transition" onclick="fetchAssets()">⟳ Sync Matrix</button>
+<span class="text-gray-800">|</span>
+<!-- CORE OS DROPDOWN -->
+<div class="relative group">
+    <button onclick="window.open('/admin/index.html', '_blank')" class="px-2 py-1 rounded border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 transition text-[10px] tracking-widest uppercase flex items-center gap-1 cursor-pointer" title="Core Admin Hub">
+        🛡️ Core OS <span>▼</span>
+    </button>
+    <div class="absolute left-0 mt-1 w-48 bg-black border border-emerald-500/50 rounded shadow-2xl hidden group-hover:flex flex-col p-1 z-[100]">
+        <a href="/admin/gods-eye.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">God's Eye (Vusal Radar)</a>
+        <a href="/admin/god-mode.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">God Mode (System Core)</a>
+        <a href="/admin/boardroom.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">Boardroom</a>
+        <a href="/admin/crm.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">Sovereign CRM</a>
+        <a href="/admin/revenue.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">Revenue Desk</a>
+        <a href="/admin/hotels.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">Hotel Integrations</a>
+        <a href="/admin/sovereign-lab.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">Sovereign Lab</a>
+        <a href="/admin/dashboard.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">Master Dashboard</a>
+    </div>
+</div>
+
+<!-- OMNIVERSE DROPDOWN -->
+<div class="relative group">
+    <button onclick="window.open('/admin/omniverse/index.html', '_blank')" class="px-2 py-1 rounded border border-purple-500/30 text-purple-400 hover:bg-purple-500/10 transition text-[10px] tracking-widest uppercase flex items-center gap-1 cursor-pointer" title="Omniverse Index">
+        🌌 Omniverse <span>▼</span>
+    </button>
+    <div class="absolute right-0 mt-1 w-48 bg-black border border-purple-500/50 rounded shadow-2xl hidden group-hover:flex flex-col p-1 z-[100]">
+        <a href="/santis-oracle.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 rounded transition">Santis Oracle</a>
+        <a href="/admin/omniverse/oracle-console.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 rounded transition">Oracle Console</a>
+        <a href="/admin/omniverse/council-arena.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 rounded transition">Council Arena</a>
+        <a href="/admin/omniverse/evolution-arena.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 rounded transition">Evolution Arena</a>
+    </div>
+</div>
+
+<!-- GRAVITY UX DROPDOWN -->
+<div class="relative group">
+    <button onclick="window.open('/gravity-ux-engine/src/saas-dashboard/index.html', '_blank')" class="px-2 py-1 rounded border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition text-[10px] tracking-widest uppercase flex items-center gap-1 cursor-pointer" title="Gravity UX Index">
+        🚀 Gravity UX <span>▼</span>
+    </button>
+    <div class="absolute right-0 mt-1 w-48 bg-black border border-blue-500/50 rounded shadow-2xl hidden group-hover:flex flex-col p-1 z-[100]">
+        <a href="/gravity-ux-engine/src/saas-dashboard/index.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 rounded transition">SaaS Dashboard</a>
+        <a href="/gravity-ux-engine/src/saas-dashboard/cognitive-certificate.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 rounded transition">Cognitive Cert</a>
+        <a href="/gravity-ux-engine/demo/darwinian-evolution.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 rounded transition">Darwinian Evolution</a>
+        <a href="/gravity-ux-engine/demo/full-matrix.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 rounded transition">Full Matrix</a>
+        <a href="/gravity-ux-engine/demo/3-card-arena.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 rounded transition">3-Card Arena</a>
+        <a href="/gravity-ux-engine/demo/webgpu-million.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 rounded transition">WebGPU Million</a>
+    </div>
+</div>
+
+<span class="text-gray-800">|</span>
+<a href="/sovereign-os/" target="_blank" class="px-2 py-1 rounded border border-santis-gold/30 text-santis-gold hover:bg-santis-gold/10 transition text-[10px] tracking-widest uppercase" title="Sovereign OS Landing Page">🚀 Landing</a>
+<a href="/sovereign-os/audit.html?target=santisclub.com" target="_blank" class="px-2 py-1 rounded border border-red-500/30 text-red-400 hover:bg-red-500/10 transition text-[10px] tracking-widest uppercase" title="Audit Honeypot Demo">🕸️ Audit</a>
+<a href="/admin/bookings.html" class="px-2 py-1 rounded border border-gray-700/50 text-gray-400 hover:text-white hover:bg-gray-800 transition text-[10px] tracking-widest uppercase" title="Bookings Panel">📋 Bookings</a>
+<a href="/tr/index.html" target="_blank" class="px-2 py-1 rounded border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 transition text-[10px] tracking-widest uppercase" title="Live Site">🌍 Site</a>
+<span class="text-gray-800">|</span>
 <div class="w-8 h-8 rounded border border-gray-700/50 bg-gray-900/30 backdrop-blur flex items-center justify-center text-santis-gold pb-1 cursor-pointer hover:bg-gray-800 transition" onclick="window.location.href='/admin/index.html'">⎈</div>
 </div>
 </header>
@@ -1436,6 +1523,22 @@
 
 <!-- Phase 44: ECharts Neuro-Cortex Engine -->
 <script defer="" src="santis-echarts.js"></script>
+
+<!-- Sovereign: Biological Chaos Ignition -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            // Apply 120FPS Breathing to the main radar stat panels
+            document.querySelectorAll('.stat-card').forEach(el => {
+                if(window.igniteBiologicalChaos) window.igniteBiologicalChaos(el);
+            });
+            // Also ignite the Main Surge Value if it exists
+            const surgeVal = document.getElementById('metric-surge');
+            if(surgeVal && window.igniteBiologicalChaos) window.igniteBiologicalChaos(surgeVal);
+        }, 800);
+    });
+</script>
+
 </body>
 </html>
 

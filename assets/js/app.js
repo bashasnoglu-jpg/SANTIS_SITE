@@ -327,6 +327,10 @@ document.addEventListener("DOMContentLoaded", () => {
 /* Phase 7B-4B: Lazy loaded only when server fetch fails */
 var FALLBACK_DATA = window.FALLBACK_DATA || window.SANTIS_FALLBACK || null;
 
+// V18 Siber Turnike: Eski HTML'de inline tanımlanan CONTENT değişkeni artık yok.
+// app.js çökmemesi için boş obje ile güvenli başlatma.
+var CONTENT = window.CONTENT || null;
+
 // App State (was missing — caused ReferenceError at L292)
 var state = {
   lang: "tr",

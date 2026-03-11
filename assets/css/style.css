@@ -2174,9 +2174,15 @@ body.solid-nav-page #nv-main-nav.sovereign-nav {
   scroll-behavior: smooth;
   will-change: transform, scroll-position;
   transform: translateZ(0);
-  scrollbar-width: none;
-  /* Firefox 121+ */
   -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.boutique-slider-container::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari and Opera */
 }
 
 .boutique-slider-container::-webkit-scrollbar {
@@ -2207,5 +2213,141 @@ body.solid-nav-page #nv-main-nav.sovereign-nav {
     width: auto;
     max-width: none;
     scroll-snap-align: none;
+  }
+}
+
+/* ================================================================
+   🛡️ V18.1 TİTANYUM GRID ZIRHI: MATRIX CONTAINER (Order 66 Recovery)
+   ================================================================ */
+.santis-matrix-container {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  min-height: 50vh;
+  padding: 4rem 5vw;
+  position: relative;
+  z-index: 10;
+  /* Altın parçacıkların altında ezilmesin! */
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+/* ================================================================
+   🦅 SANTIS OS v31 — L1 SIGMOID OKLCH + L2 EULER SKEW
+   Quantum Physics Injection | Zero DOM Mutation | GPU-Accelerated
+   ================================================================ */
+
+/* --- L1: KUANTUM RENK DEĞİŞKENLERİ --- */
+:root {
+  --lux-affinity: 0;
+  --scroll-skew: 0deg;
+  --c-purity: oklch(0.97 0.01 290);
+  --c-champagne: oklch(0.85 0.06 85);
+  --c-void: oklch(0.15 0.02 290);
+}
+
+/* L1: Sigmoid Renk Geçişi — GPU color-mix ile donanım ivmeli */
+body.quantum-active {
+  /* Fallback for browsers without color-mix (Chrome <111, Safari <16.4) */
+  background: #1d1d1f;
+  color: #e0e0e0;
+  /* Progressive enhancement: color-mix for modern browsers */
+  background: color-mix(
+    in oklch,
+    var(--c-void) calc(var(--lux-affinity) * 100%),
+    color-mix(in oklch, var(--c-champagne) calc(var(--lux-affinity) * 150%), var(--c-purity))
+  );
+  color: color-mix(
+    in oklch,
+    #ffffff calc(var(--lux-affinity) * 100%),
+    #1d1d1f
+  );
+  transition: background 0.1s linear, color 0.8s ease, opacity 0.8s ease;
+  will-change: background, color;
+}
+
+/* --- L3: NÖRO-DETAY STÜDYOSU (Biometric Scanner + Liquid Metal) --- */
+
+/* Biyometrik Tarama: Altın lazer overlay */
+.neuro-scanner-active {
+  position: relative;
+  overflow: hidden;
+}
+
+.neuro-scanner-active::after {
+  content: '';
+  position: absolute;
+  inset: -50% 0 150% 0;
+  background: linear-gradient(to bottom, transparent, rgba(197, 160, 89, 0.4), transparent);
+  box-shadow: 0 0 50px rgba(197, 160, 89, 0.6);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 10;
+  animation: biometricScan 2.5s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+@keyframes biometricScan {
+  0%   { transform: translateY(0);    opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(200%); opacity: 0; }
+}
+
+/* Macro Human Focus: kontrast + sepia → mekanı siler, insanı vurgular */
+.neuro-scanner-active img,
+.neuro-scanner-active picture {
+  filter: contrast(1.15) brightness(0.8) sepia(0.4) hue-rotate(-10deg);
+  transition: filter 1s ease, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transform: scale(1.05);
+}
+
+/* Sıvı Metal: 3D derinlik hazırlığı */
+.option-card,
+.santis-config-option,
+.variant-box {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* --- L2: EULER SKEW (Kart Rüzgar Fiziği) --- */
+.nv-matrix-card,
+.matrix-service-card,
+.santis-card,
+.nv-rail-card {
+  transform-origin: bottom center;
+  transform: skewX(var(--scroll-skew));
+  will-change: transform;
+  transition:
+    transform 0.15s linear,
+    box-shadow 0.4s ease,
+    border-color 0.4s ease,
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover: Skew + lift + scale + luxury shadow */
+.nv-matrix-card:hover,
+.matrix-service-card:hover,
+.santis-card:hover {
+  transform: skewX(var(--scroll-skew)) translateY(-12px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, calc(0.08 + var(--lux-affinity) * 0.4));
+  /* Fallback for browsers without color-mix */
+  border-color: rgba(197, 160, 89, 0.3);
+  border-color: color-mix(in oklch, #c5a059 calc(var(--lux-affinity) * 100%), rgba(0, 0, 0, 0.1));
+}
+
+/* 📱 Mobil: Euler Skew devre dışı */
+@media (max-width: 768px) {
+  .nv-matrix-card,
+  .matrix-service-card,
+  .santis-card,
+  .nv-rail-card {
+    transform: none !important;
+  }
+  .nv-matrix-card:hover,
+  .matrix-service-card:hover,
+  .santis-card:hover {
+    transform: translateY(-6px) scale(1.01) !important;
   }
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="tr">
 <head>
@@ -8,8 +8,6 @@
 <title>Hamam Ritüelleri • Santis Club</title>
 <meta content="Geleneksel Türk Hamamı ritüelleriyle arının. Osmanlı saray geleneğinden ilham alan kese, köpük ve bakım terapileriyle yenilenin." name="description"/>
 <!-- FONTS -->
-<link rel="preload" href="/assets/fonts/PlayfairDisplay-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link href="/assets/css/fonts.css" rel="stylesheet"/>
 <link href="/assets/css/fonts.css" rel="stylesheet"/>
 <!-- MASTER STYLE (Phase 5: Critical CSS Preloads) -->
 <style>
@@ -30,7 +28,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid #d4af37; outline-offs
 <link href="/assets/css/bento-grid.css" rel="stylesheet"/>
 <!-- Video Hero REMOVED for Consistency (or updated to cleaner CSS) -->
 <link href="/assets/css/video-hero.css" rel="stylesheet"/>
-<script src="/assets/js/perf-head.js"></script>
 <meta content="/assets/img/og-standard.jpg" property="og:image"/>
 <link href="https://santis.club/tr/hamam/index.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Index", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script>
 <script type="application/ld+json">
@@ -234,13 +231,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid #d4af37; outline-offs
 <!-- ♾️ SANTIS V17 - OFFSCREEN QUANTUM RENDERER ♾️ -->
 <canvas id="santis-god-canvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:-1; pointer-events:none;"></canvas>
 
-<!-- V11 PHASE 1: CINEMATIC ENTRANCE -->
-<div id="v11-cinematic-entrance" style="position: fixed; inset: 0; background: #080808; z-index: 99999; display: flex; justify-content: center; align-items: center; cursor: pointer;">
-    <div style="text-align: center;">
-        <h1 id="v11-entrance-logo" style="font-family: 'Playfair Display', serif; color: #d4af37; font-size: 3rem; font-weight: 300; letter-spacing: 4px; margin: 0; opacity: 0; transform: translateY(20px);">SANTIS</h1>
-        <p id="v11-entrance-hint" style="font-family: 'Inter', sans-serif; color: rgba(255,255,255,0.4); font-size: 0.7rem; margin-top: 16px; letter-spacing: 2px; text-transform: uppercase;">Keşfetmek için Dokunun</p>
-    </div>
-</div>
 
 <header id="site-header" role="banner">
   <div id="navbar-container"></div>
@@ -249,13 +239,14 @@ a:focus-visible, button:focus-visible { outline: 2px solid #d4af37; outline-offs
 <main id="sovereign-page-root" role="main" style="padding-top: 120px; background: #fdfdfd; min-height: 100vh;">
   
   <!-- V11 PHASE 3: EDITORIAL HERO -->
-  <section class="editorial-page-header" style="padding: 40px 5vw 60px; text-align: center; max-width: 900px; margin: 0 auto; contain: layout;">
+  <section class="editorial-page-header" style="padding: 100px 5vw 60px; text-align: center; max-width: 900px; margin: 0 auto; contain: layout;">
       <span style="font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 4px; color: #a0a0a0; text-transform: uppercase; display: block; margin-bottom: 20px;">Santis Sovereign</span>
       <h1 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #111; font-weight: 400; line-height: 1.1; margin: 0; letter-spacing: -0.02em;">Geleneksel<br><span style="color: #d4af37; font-style: italic;">Hamam</span> Ritüelleri</h1>
       <p style="font-family: 'Inter', sans-serif; font-size: 1.05rem; color: #666; font-weight: 300; margin-top: 30px; line-height: 1.7; padding: 0 20px;">
           Osmanlı saray geleneğinden ilham alan kese, köpük ve özel arınma terapileriyle bedeninizi ve ruhunuzu yeniliyoruz. Her su damlası, asırlık bir uyanışın habercisidir.
       </p>
   </section>
+
 
   <!-- V11 PHASE 2: ORACLE LINEUP (BIOMETRIC QUICK ACCESS) -->
   <section id="oracle-lineup" style="padding: 2rem 0 4rem; max-width: 100%; overflow: hidden;">
@@ -407,17 +398,15 @@ a:focus-visible, button:focus-visible { outline: 2px solid #d4af37; outline-offs
   <div id="footer-container"></div>
 </footer>
 
-<!-- TRINITY STACK -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" crossorigin="anonymous"></script>
-
-<!-- OMNI-OS V5 MASTER KERNEL -->
+<!-- CORE SCRIPTS -->
+<script src="/assets/js/loader.js"></script>
+<script src="/assets/js/santis-nav.js"></script>
+<script src="/assets/js/santis-data-bridge.js" defer></script>
 <script src="/assets/js/app.js" defer></script>
 
-<!-- SOVEREIGN OS BOOTLOADER (V17 DYNAMIC ENGINE MANAGER) -->
-<script type="module" src="/assets/js/santis-bootloader.js" defer></script>
+<!-- SOVEREIGN OS BOOTLOADER (V18 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V18_APEX_RESURRECTION"></script>
 </body>
 </html>
+
 

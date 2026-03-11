@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Omniverse | Oracle Console</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600;700&display=swap');
+        :root { --gold: #c5a059; --bg: #030305; --panel: rgba(10,10,14,0.85); --cyan: #00e5ff; --danger: #ff3366; --border: rgba(197,160,89,0.15); --success: #00ff66; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; user-select: none; }
+
+        .topbar { height: 56px; background: rgba(0,0,0,0.7); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; backdrop-filter: blur(20px); z-index: 50; }
+        .brand { font-family: 'Orbitron'; font-size: 1.1rem; letter-spacing: 3px; display: flex; align-items: center; gap: 8px; }
+        .brand .dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 12px var(--gold); animation: pulse 2s infinite; }
+        @keyframes pulse { 50% { opacity: 0.3; } }
+        .brand span { color: var(--cyan); }
+        .sys { font-family: 'Orbitron'; font-size: 0.7rem; color: var(--gold); letter-spacing: 1px; }
+        .sys b { color: #fff; }
+
+        .workspace { display: flex; flex: 1; }
+
+        .toolbar { width: 280px; background: var(--panel); border-right: 1px solid var(--border); padding: 20px; display: flex; flex-direction: column; gap: 16px; backdrop-filter: blur(20px); overflow-y: auto; }
+        .section-head { font-family: 'Orbitron'; font-size: 0.6rem; color: #666; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid #1a1a1a; padding-bottom: 6px; }
+        .card-palette { display: flex; flex-direction: column; gap: 8px; }
+        .palette-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); padding: 12px; border-radius: 6px; cursor: grab; transition: 0.2s; display: flex; justify-content: space-between; align-items: center; }
+        .palette-item:hover { border-color: var(--cyan); background: rgba(0,229,255,0.05); }
+        .p-name { font-size: 0.8rem; font-weight: 600; }
+        .p-price { font-family: 'Orbitron'; font-size: 0.7rem; color: var(--gold); }
+        .p-mass { font-size: 0.6rem; color: #555; }
+
+        .slider-group { margin-top: 4px; }
+        .slider-label { display: flex; justify-content: space-between; font-size: 0.7rem; color: #888; margin-bottom: 4px; }
+        .slider-label .val { color: var(--cyan); font-family: 'Orbitron'; }
+        input[type=range] { width: 100%; -webkit-appearance: none; background: rgba(255,255,255,0.08); height: 3px; border-radius: 2px; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; cursor: pointer; }
+
+        .btn { width: 100%; padding: 14px; font-family: 'Orbitron'; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; border: 1px solid; border-radius: 6px; cursor: pointer; transition: 0.3s; background: transparent; }
+        .btn-oracle { border-color: var(--cyan); color: var(--cyan); }
+        .btn-oracle:hover { background: var(--cyan); color: #000; box-shadow: 0 0 20px rgba(0,229,255,0.4); }
+        .btn-deploy { border-color: var(--gold); color: var(--gold); margin-top: 6px; }
+        .btn-deploy:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px rgba(197,160,89,0.4); }
+        .btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .progress-bar { width: 100%; height: 4px; background: #111; border-radius: 2px; overflow: hidden; display: none; }
+        .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--cyan), var(--gold)); transition: width 0.3s; }
+
+        .canvas-area { flex: 1; position: relative; background: radial-gradient(ellipse at center, #080810, #000); overflow: hidden; }
+        .grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px); background-size: 50px 50px; pointer-events: none; }
+        canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+        #heatmap-canvas { z-index: 2; pointer-events: none; }
+        #card-canvas { z-index: 3; }
+        .drop-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #222; font-family: 'Orbitron'; font-size: 1rem; letter-spacing: 4px; pointer-events: none; z-index: 1; }
+
+        .results { width: 300px; background: var(--panel); border-left: 1px solid var(--border); padding: 20px; display: flex; flex-direction: column; gap: 12px; backdrop-filter: blur(20px); overflow-y: auto; }
+        .metric { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.04); padding: 16px; border-radius: 8px; position: relative; }
+        .metric::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; border-radius: 3px 0 0 3px; }
+        .metric.gold::before { background: var(--gold); }
+        .metric.cyan::before { background: var(--cyan); }
+        .metric.red::before { background: var(--danger); }
+        .metric.green::before { background: var(--success); }
+        .m-label { font-size: 0.6rem; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .m-value { font-family: 'Orbitron'; font-size: 1.8rem; font-weight: 700; }
+
+        .card-result { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.04); padding: 10px 14px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .cr-name { font-size: 0.75rem; }
+        .cr-cvr { font-family: 'Orbitron'; font-size: 0.8rem; font-weight: 700; }
+
+        .terminal { font-family: monospace; font-size: 0.6rem; color: #666; background: #050505; padding: 10px; border-radius: 4px; border: 1px solid #111; max-height: 120px; overflow-y: auto; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="brand"><div class="dot"></div>SANTIS <span>OMNIVERSE</span></div>
+    <div class="sys">STATUS: <b id="sys-status">EDITOR MODE</b></div>
+</div>
+
+<div class="workspace">
+    <div class="toolbar">
+        <div class="section-head">📦 Ürün Kartları (Sürükle → Bırak)</div>
+        <div class="card-palette" id="palette"></div>
+
+        <div class="section-head" style="margin-top: 12px;">🤖 Oracle Konfigürasyon</div>
+        <div class="slider-group">
+            <div class="slider-label"><span>Bot Sayısı</span><span class="val" id="v-bots">10,000</span></div>
+            <input type="range" id="s-bots" min="5000" max="50000" step="5000" value="10000" oninput="document.getElementById('v-bots').textContent=parseInt(this.value).toLocaleString()">
+        </div>
+        <div class="slider-group">
+            <div class="slider-label"><span>Yorulma Eşiği</span><span class="val" id="v-fatigue">150</span></div>
+            <input type="range" id="s-fatigue" min="50" max="300" step="10" value="150" oninput="document.getElementById('v-fatigue').textContent=this.value">
+        </div>
+
+        <div class="progress-bar" id="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <button class="btn btn-oracle" id="btn-oracle" onclick="App.runOracle()">👁️ KÂHİNİ UYANDIRIN</button>
+        <button class="btn btn-deploy" id="btn-deploy" onclick="App.deploy()" disabled>🚀 YAYINA AL (Deploy)</button>
+    </div>
+
+    <div class="canvas-area" id="canvas-area">
+        <div class="grid-bg"></div>
+        <div class="drop-hint" id="drop-hint">KARTLARI BURAYA SÜRÜKLE</div>
+        <canvas id="heatmap-canvas"></canvas>
+        <canvas id="card-canvas"></canvas>
+    </div>
+
+    <div class="results">
+        <div class="section-head">⚙️ Cognitive Yield Engine</div>
+        <div class="metric gold"><div class="m-label">Tahmini CVR</div><div class="m-value" id="r-cvr">—</div></div>
+        <div class="metric green"><div class="m-label">Beklenen Ciro</div><div class="m-value" id="r-revenue" style="font-size:1.3rem;">—</div></div>
+        <div class="metric red"><div class="m-label">Bounce (Kaçan)</div><div class="m-value" id="r-bounce">—</div></div>
+        <div class="metric cyan"><div class="m-label">Bilişsel Enerji (E_cost)</div><div class="m-value" id="r-energy" style="font-size:1.3rem;">—</div></div>
+
+        <div class="section-head" style="margin-top: 8px;">📊 Kart Bazlı Sonuçlar</div>
+        <div id="card-results"></div>
+
+        <div class="terminal" id="terminal">> Oracle Console hazır. Kartları sürükleyin.</div>
+    </div>
+</div>
+
+<script src="omniverse-bridge.js"></script>
+<script>
+const App = (() => {
+    const cardCanvas = document.getElementById('card-canvas');
+    const heatCanvas = document.getElementById('heatmap-canvas');
+    const cardCtx = cardCanvas.getContext('2d');
+    const heatCtx = heatCanvas.getContext('2d');
+    const area = document.getElementById('canvas-area');
+    let W, H;
+
+    const resize = () => {
+        const r = area.getBoundingClientRect();
+        W = cardCanvas.width = heatCanvas.width = r.width;
+        H = cardCanvas.height = heatCanvas.height = r.height;
+        draw();
+    };
+    window.addEventListener('resize', resize);
+
+    const catalog = [
+        { id: 'sultan-hamam', name: 'Sultan Hamamı', price: 180, mass: 120, color: '#c5a059' },
+        { id: 'bali-masaj',   name: 'Bali Masajı',   price: 120, mass: 80,  color: '#00e5ff' },
+        { id: 'sothys-cilt',  name: 'Sothys Cilt',    price: 95,  mass: 60,  color: '#4ade80' },
+        { id: 'deep-tissue',  name: 'Deep Tissue',    price: 140, mass: 90,  color: '#ff3366' },
+        { id: 'ayurveda',     name: 'Ayurveda Ritüel', price: 200, mass: 130, color: '#e879f9' },
+        { id: 'cocuk-spa',    name: 'Çocuk SPA',      price: 65,  mass: 40,  color: '#38bdf8' },
+    ];
+
+    const paletteEl = document.getElementById('palette');
+    catalog.forEach(c => {
+        const div = document.createElement('div');
+        div.className = 'palette-item';
+        div.draggable = true;
+        div.dataset.id = c.id;
+        div.innerHTML = `<div><div class="p-name" style="color:${c.color}">${c.name}</div><div class="p-mass">Kütle: ${c.mass}</div></div><div class="p-price">€${c.price}</div>`;
+        div.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', c.id));
+        paletteEl.appendChild(div);
+    });
+
+    let placedCards = [];
+    let dragCard = null;
+    let dragOffset = { x: 0, y: 0 };
+    let lastResult = null;
+
+    const canvasArea = document.getElementById('canvas-area');
+    canvasArea.addEventListener('dragover', e => e.preventDefault());
+    canvasArea.addEventListener('drop', e => {
+        e.preventDefault();
+        const id = e.dataTransfer.getData('text/plain');
+        const cat = catalog.find(c => c.id === id);
+        if (!cat) return;
+        const rect = area.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        if (!placedCards.find(p => p.id === id)) {
+            placedCards.push({ ...cat, x, y });
+            document.getElementById('drop-hint').style.display = 'none';
+            clearHeatmap();
+            draw();
+            log(`📦 "${cat.name}" sahneye eklendi.`);
+        }
+    });
+
+    cardCanvas.addEventListener('mousedown', e => {
+        const rect = area.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        for (let i = placedCards.length - 1; i >= 0; i--) {
+            const c = placedCards[i];
+            const r = Math.max(c.mass * 0.35, 30);
+            if (Math.abs(mx - c.x) < r && Math.abs(my - c.y) < r) {
+                dragCard = c;
+                dragOffset = { x: mx - c.x, y: my - c.y };
+                break;
+            }
+        }
+    });
+    cardCanvas.addEventListener('mousemove', e => {
+        if (!dragCard) return;
+        const rect = area.getBoundingClientRect();
+        dragCard.x = e.clientX - rect.left - dragOffset.x;
+        dragCard.y = e.clientY - rect.top - dragOffset.y;
+        clearHeatmap();
+        draw();
+    });
+    cardCanvas.addEventListener('mouseup', () => { dragCard = null; });
+    cardCanvas.addEventListener('mouseleave', () => { dragCard = null; });
+
+    function draw() {
+        cardCtx.clearRect(0, 0, W, H);
+        for (const c of placedCards) {
+            const r = Math.max(c.mass * 0.35, 30);
+            cardCtx.beginPath(); cardCtx.arc(c.x, c.y, r + 8, 0, Math.PI * 2);
+            cardCtx.fillStyle = c.color + '15'; cardCtx.fill();
+            cardCtx.beginPath(); cardCtx.arc(c.x, c.y, r, 0, Math.PI * 2);
+            cardCtx.strokeStyle = c.color; cardCtx.lineWidth = 2; cardCtx.stroke();
+            cardCtx.fillStyle = c.color + '20'; cardCtx.fill();
+            cardCtx.fillStyle = '#fff'; cardCtx.font = '600 11px Inter'; cardCtx.textAlign = 'center';
+            cardCtx.fillText(c.name, c.x, c.y - r - 10);
+            cardCtx.fillStyle = c.color; cardCtx.font = '700 10px Orbitron';
+            cardCtx.fillText(`€${c.price}`, c.x, c.y + 4);
+            cardCtx.fillStyle = '#555'; cardCtx.font = '9px Inter';
+            cardCtx.fillText(`m=${c.mass}`, c.x, c.y + r + 14);
+        }
+    }
+
+    function clearHeatmap() { heatCtx.clearRect(0, 0, W, H); lastResult = null; document.getElementById('btn-deploy').disabled = true; }
+
+    function drawHeatmap(heatmapData) {
+        heatCtx.clearRect(0, 0, W, H);
+        for (const h of heatmapData) {
+            const card = placedCards.find(c => c.id === h.cardId) || h;
+            const intensity = h.heatIntensity;
+            const r = (card.mass || 50) * 0.35 + intensity * 60;
+            const grad = heatCtx.createRadialGradient(card.x, card.y, 0, card.x, card.y, r);
+            grad.addColorStop(0, `rgba(${Math.floor(255*intensity)}, ${Math.floor(100*(1-intensity))}, 20, ${0.3+intensity*0.4})`);
+            grad.addColorStop(1, 'transparent');
+            heatCtx.beginPath(); heatCtx.arc(card.x, card.y, r, 0, Math.PI * 2);
+            heatCtx.fillStyle = grad; heatCtx.fill();
+            heatCtx.fillStyle = intensity > 0.5 ? '#00ff66' : '#ff3366';
+            heatCtx.font = 'bold 13px Orbitron'; heatCtx.textAlign = 'center';
+            heatCtx.fillText(`${h.cvr}%`, card.x, card.y + (card.mass||50)*0.35 + 34);
+        }
+    }
+
+    const bridge = new OmniverseBridge('oracle-worker.js');
+    bridge.onProgress = (p) => { document.getElementById('progress-fill').style.width = p + '%'; };
+
+    async function runOracle() {
+        if (placedCards.length === 0) { log('⚠️ Önce sahneye kart ekleyin!', '#ff3366'); return; }
+        const btn = document.getElementById('btn-oracle');
+        const bar = document.getElementById('progress-bar');
+        btn.disabled = true; btn.textContent = '⏳ SİMÜLASYON...';
+        bar.style.display = 'block';
+        document.getElementById('sys-status').textContent = 'SIMULATING';
+        document.getElementById('sys-status').style.color = '#ff3366';
+        log('🔮 Oracle Worker ateşlendi...', '#00e5ff');
+
+        const config = { botCount: parseInt(document.getElementById('s-bots').value), fatigueThreshold: parseInt(document.getElementById('s-fatigue').value), canvasWidth: W, canvasHeight: H };
+        try {
+            const result = await bridge.simulate(placedCards, config);
+            lastResult = result;
+            document.getElementById('r-cvr').textContent = result.stats.cvr + '%';
+            document.getElementById('r-cvr').style.color = parseFloat(result.stats.cvr) > 10 ? '#00ff66' : '#ff3366';
+            document.getElementById('r-revenue').textContent = '€' + result.stats.totalRevenue.toLocaleString();
+            document.getElementById('r-bounce').textContent = result.stats.bounced.toLocaleString();
+            document.getElementById('r-energy').textContent = result.stats.totalEnergyCost.toLocaleString() + ' J';
+            const crEl = document.getElementById('card-results'); crEl.innerHTML = '';
+            result.heatmap.sort((a,b) => b.conversions - a.conversions).forEach(h => {
+                crEl.innerHTML += `<div class="card-result"><span class="cr-name">${h.name}</span><span class="cr-cvr" style="color:${parseFloat(h.cvr)>5?'#00ff66':'#ff3366'}">${h.cvr}%</span></div>`;
+            });
+            drawHeatmap(result.heatmap);
+            log(`🏆 CVR: ${result.stats.cvr}% | Ciro: €${result.stats.totalRevenue.toLocaleString()}`, '#00ff66');
+            document.getElementById('btn-deploy').disabled = false;
+            document.getElementById('sys-status').textContent = 'RESULTS READY';
+            document.getElementById('sys-status').style.color = '#c5a059';
+        } catch(e) { log('🔴 Hata: ' + e, '#ff3366'); }
+        btn.disabled = false; btn.textContent = '👁️ KÂHİNİ UYANDIRIN'; bar.style.display = 'none';
+    }
+
+    function deploy() {
+        if (!lastResult) return;
+        const runtime = bridge.compileToRuntime(lastResult, 'santis-main');
+        bridge.downloadRuntime(runtime);
+        log('🚀 universe-runtime.json indirildi!', '#c5a059');
+        document.getElementById('sys-status').textContent = 'DEPLOYED';
+        document.getElementById('sys-status').style.color = '#00ff66';
+    }
+
+    function log(msg, color = '#666') {
+        const t = document.getElementById('terminal');
+        t.innerHTML += `<div style="color:${color};margin-bottom:3px;">> ${msg}</div>`;
+        t.scrollTop = t.scrollHeight;
+    }
+
+    return { init: resize, runOracle, deploy };
+})();
+App.init();
+</script>
+</body>
+</html>

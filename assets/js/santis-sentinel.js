@@ -32,7 +32,8 @@ class SantisSentinel {
                 const entries = entryList.getEntries();
                 const lastEntry = entries[entries.length - 1];
 
-                if (lastEntry && lastEntry.startTime > 2500) {
+                // SOVEREIGN ULTRA-STRICT PROTOCOL (1.5s LCP Limit)
+                if (lastEntry && lastEntry.startTime > 1500) {
                     console.warn(`⚠️ Sentinel (LCP): Slow down detected (${Math.round(lastEntry.startTime)}ms). Auto-Fix routine initiated.`);
                     this.anomalies.lcp++;
                     this.autoFixLCP();

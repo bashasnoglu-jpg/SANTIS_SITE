@@ -10,9 +10,6 @@
 
     <link rel="preload" as="image" href="/assets/img/hero/hero-general.webp" fetchpriority="high">
 
-    <link rel="preload" href="/assets/fonts/PlayfairDisplay-Regular.woff2" as="font" type="font/woff2" crossorigin>
-
-    <link rel="modulepreload" href="/assets/js/boot/santis-bootloader.js">
 
     <style>
         :root { --vanta-black: #050505; --liquid-gold: #d4af37; }
@@ -35,7 +32,92 @@
 
     <canvas id="santis-god-canvas" style="position:fixed; inset:0; width:100vw; height:100vh; pointer-events:none; z-index:0;"></canvas>
 
-    <div class="santis-header-ghost"></div>
+<header id="site-header" role="banner">
+<div class="nav-overlay" id="santis-nav-overlay"></div>
+<nav class="navbar sovereign-nav" id="nv-main-nav">
+    <div class="sovereign-nav-container">
+        
+        <!-- BRAND LOGO -->
+        <a class="sovereign-logo" href="/tr/index.html" aria-label="Santis Home" style="text-decoration: none;">
+            <svg fill="none" height="28" viewBox="0 0 24 24" width="28" style="margin-right: 14px; color: #D4AF37;">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path>
+                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path>
+                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path>
+            </svg>
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <span style="font-family: 'Playfair Display', serif; font-size: 20px; letter-spacing: 0.2em; font-weight: 400; color: #fff; line-height: 1;">SANTIS</span>
+                <span style="font-family: 'Inter', sans-serif; font-size: 9px; letter-spacing: 0.35em; color: #D4AF37; margin-top: 4px; font-weight: 600;">SPA & THERAPY</span>
+            </div>
+        </a>
+
+        <!-- DESKTOP LINKS -->
+        <div class="sovereign-links" id="navRoot">
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/index.html" data-target="/tr/index.html">Anasayfa</a>
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/dunya-ritueli.html" data-target="/tr/dunya-ritueli.html" style="color:#D4AF37;">Santis World</a>
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/hamam/index.html" data-target="/tr/hamam/index.html" data-menu="hamam">Hamam</a>
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/masajlar/index.html" data-target="/tr/masajlar/index.html" data-menu="masajlar">Masaj</a>
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/cilt-bakimi/index.html" data-target="/tr/cilt-bakimi/index.html" data-menu="cilt">Cilt Bakımı</a>
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/urunler/index.html" data-target="/tr/urunler/index.html">Mağaza</a>
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/galeri/index.html" data-target="/tr/galeri/index.html">Galeri</a>
+            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/hakkimizda/index.html" data-target="/tr/hakkimizda/index.html" data-menu="hakkimizda">Hakkımızda</a>
+        </div>
+
+        <!-- ACTIONS (SEARCH / REZERVASYON / DİL) -->
+        <div class="sovereign-actions nav-actions">
+            
+            <!-- Sovereign Rituals Mührü -->
+            <a href="/tr/rituals/index.html" class="sovereign-rituals-cta group">
+                <span class="dot"></span>
+                <span class="text">Sovereign Rituals</span>
+            </a>
+            
+            <span class="nav-divider"></span>
+
+            <a class="nav-link btn-rezervasyon" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">
+                Rezervasyon
+            </a>
+            
+            <!-- Language Switcher Container -->
+            <div class="lang-wrapper notranslate" id="santis-language-root"></div>
+            
+            <!-- HAMBURGER -->
+            <div aria-label="Menüyü Aç/Kapat" class="hamburger-btn" id="hamburger" role="button" tabindex="0">
+                <span class="bar" style="background-color: #f5f5f7;"></span>
+                <span class="bar" style="background-color: #f5f5f7;"></span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 🍏 APPLE LIQUID MEGA MENU KASASI (MASTER)       -->
+    <!-- ============================================== -->
+    <div id="liquid-nav-overlay"></div>
+    <div id="santis-liquid-menu" class="santis-liquid-menu-container">
+        <div id="liquid-menu-content">
+            <!-- JS Motoru İçeriği Buraya Basacak -->
+        </div>
+    </div>
+</nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu-overlay" id="mobileMenu">
+    <div class="mobile-menu-content">
+        <a class="mobile-link nav-link" href="/tr/index.html">Anasayfa</a>
+        <a class="mobile-link nav-link" href="/tr/dunya-ritueli.html" style="color:#d4af37;">Santis World</a>
+        <a class="mobile-link nav-link" href="/tr/hamam/index.html">Hamam Ritüelleri</a>
+        <a class="mobile-link nav-link" href="/tr/masajlar/index.html">Dünya Masajları</a>
+        <a class="mobile-link nav-link" href="/tr/cilt-bakimi/index.html">Cilt Bakımı</a>
+        <a class="mobile-link nav-link" href="/tr/urunler/index.html">Mağaza</a>
+        <a class="mobile-link nav-link" href="/tr/galeri/index.html">Galeri</a>
+        <a class="mobile-link nav-link" href="/tr/hakkimizda/index.html">Hakkımızda</a>
+        <a class="mobile-link nav-link" href="/assets/docs/santis-spa-menu.pdf" style="color:#d4af37;" target="_blank">✦ Spa Menüsü (PDF)</a>
+        <a class="mobile-link nav-link" href="/tr/code-of-silence.html" style="color:#d4af37;">✦ Sessizlik Manifestosu</a>
+        <a class="nv-btn nv-btn-primary mt-4" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">HEMEN REZERVASYON</a>
+    </div>
+</div>
+</header>
+<div class="santis-header-ghost"></div>
 
     <header class="santis-hero-skeleton">
         <img src="/assets/img/hero/hero-general.webp" alt="Santis Sovereign" fetchpriority="high" decoding="sync" loading="eager">
@@ -44,7 +126,17 @@
 
     <main id="santis-giant-lineup" class="santis-matrix-container"></main>
 
-    <script type="module" src="/assets/js/boot/santis-bootloader.js"></script>
+<div id="footer-container"></div>
+
+<!-- CORE SCRIPTS -->
+<script src="/assets/js/loader.js"></script>
+<script src="/assets/js/santis-nav.js"></script>
+<script src="/assets/js/santis-data-bridge.js" defer></script>
+<script src="/assets/js/app.js" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V18 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V18_APEX_RESURRECTION"></script>
 
 </body>
 </html>
+
