@@ -167,7 +167,8 @@ class AureliaConcierge {
         try {
             // EDGE WORKER (Sovereign Orchestrator) Streaming API'sine bağlan (Örnek Endpoint)
             // Real Phase'de bura https://edge.santis-os.com/api/v1/aurelia/stream olacaktır.
-            const apiBase = window.__API_BASE__ || 'http://127.0.0.1:8000/api/v1';
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const apiBase = window.__API_BASE__ || (isLocal ? 'http://localhost:8080/api/v1' : 'https://api.sovereign-os.com/api/v1');
             let csrfToken = '';
             const match = document.cookie.match(new RegExp('(^| )csrf_token=([^;]+)'));
             if (match) csrfToken = match[2];

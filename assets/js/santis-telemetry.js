@@ -1,7 +1,7 @@
 // [SOVEREIGN SEAL: PHANTOM TRACKER v2.0 - ULTRA MEGA EDITION]
 (function () {
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const API_BASE = window.__API_BASE__ || (isLocal ? '/api/v1' : 'https://api.sovereign-os.com/api/v1');
+    const API_BASE = window.__API_BASE__ || (isLocal ? 'http://localhost:8080/api/v1' : 'https://api.sovereign-os.com/api/v1');
     const TELEMETRY_ENDPOINT = `${API_BASE}/telemetry/ingest`;
 
     // Kuantum Kimlik (Backend'in Whale'i tanıması için)

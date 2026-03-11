@@ -3,7 +3,7 @@
 // ==========================================
 
 const _SEAL_IS_LOCAL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-const _SEAL_API_BASE = window.__API_BASE__ || (_SEAL_IS_LOCAL ? '/api/v1' : 'https://api.sovereign-os.com/api/v1');
+const _SEAL_API_BASE = window.__API_BASE__ || (_SEAL_IS_LOCAL ? 'http://localhost:8080/api/v1' : 'https://api.sovereign-os.com/api/v1');
 
 const SovereignCardEngine = {
     timers: {},

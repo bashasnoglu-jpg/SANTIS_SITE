@@ -9,7 +9,7 @@
     'use strict';
 
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const API_BASE = window.__API_BASE__ || (isLocal ? '/api/v1' : 'https://api.sovereign-os.com/api/v1');
+    const API_BASE = window.__API_BASE__ || (isLocal ? 'http://localhost:8080/api/v1' : 'https://api.sovereign-os.com/api/v1');
     const API = `${API_BASE}/media/assets`;
 
     async function init() {
@@ -99,7 +99,7 @@
 
         const protocol = document.location.protocol === 'https:' ? 'wss:' : 'ws:';
         const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        const wsHost = (window.__API_BASE__) ? new URL(window.__API_BASE__).host : (isLocal ? window.location.host : 'api.sovereign-os.com');
+        const wsHost = (window.__API_BASE__) ? new URL(window.__API_BASE__).host : (isLocal ? 'localhost:8080' : 'api.sovereign-os.com');
         const ws = new WebSocket(`${protocol}//${wsHost}/ws?client_type=site&client_id=live`);
 
         ws.onmessage = function (event) {

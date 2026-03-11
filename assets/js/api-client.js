@@ -14,7 +14,7 @@
 (function (window) {
     // 1. Environment Flag (Hardcoded localhost is forbidden)
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const API_BASE = window.__API_BASE__ || (isLocal ? '/api/v1' : 'https://api.sovereign-os.com/api/v1');
+    const API_BASE = window.__API_BASE__ || (isLocal ? 'http://localhost:8080/api/v1' : 'https://api.sovereign-os.com/api/v1');
     const STATIC_FALLBACK = '/assets/data/site_content.json';
     const TIMEOUT_MS = 4000;
 
