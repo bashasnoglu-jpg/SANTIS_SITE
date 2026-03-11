@@ -86,10 +86,7 @@ class AureliaConcierge {
             </div>
         `;
 
-        const container = document.createElement('div');
-        container.innerHTML = htmlRaw.trim();
-        document.body.appendChild(container.firstChild);
-        document.body.appendChild(document.getElementById('aurelia-glass-panel'));
+        document.body.insertAdjacentHTML('beforeend', htmlRaw.trim());
 
         this.panel = document.getElementById('aurelia-glass-panel');
         this.overlay = document.getElementById('aurelia-hyper-overlay');

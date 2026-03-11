@@ -8,7 +8,8 @@
 (function () {
     'use strict';
 
-    const API_BASE = window.__API_BASE__ || 'http://127.0.0.1:8000/api/v1';
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const API_BASE = window.__API_BASE__ || (isLocal ? '/api/v1' : 'https://api.sovereign-os.com/api/v1');
     const API = `${API_BASE}/media/assets`;
 
     async function init() {
@@ -97,7 +98,8 @@
         window._nvBridgeConnected = true;
 
         const protocol = document.location.protocol === 'https:' ? 'wss:' : 'ws:';
-        const wsHost = (window.__API_BASE__) ? new URL(window.__API_BASE__).host : '127.0.0.1:8000';
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const wsHost = (window.__API_BASE__) ? new URL(window.__API_BASE__).host : (isLocal ? window.location.host : 'api.sovereign-os.com');
         const ws = new WebSocket(`${protocol}//${wsHost}/ws?client_type=site&client_id=live`);
 
         ws.onmessage = function (event) {

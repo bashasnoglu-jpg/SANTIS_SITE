@@ -2,6 +2,9 @@
 // 💳 PHASE 68 & 84: THE SOVEREIGN SEAL (ZERO-FRICTION CHECKOUT + FLUID ROLLING)
 // ==========================================
 
+const _SEAL_IS_LOCAL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const _SEAL_API_BASE = window.__API_BASE__ || (_SEAL_IS_LOCAL ? '/api/v1' : 'https://api.sovereign-os.com/api/v1');
+
 const SovereignCardEngine = {
     timers: {},
     appliedRebates: {},
@@ -56,7 +59,7 @@ const SovereignCardEngine = {
         sessionStorage.setItem('sovereign_sid', sessionId);
 
         try {
-            fetch('/api/v1/telemetry/ingest', {
+            fetch(`${_SEAL_API_BASE}/telemetry/ingest`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -454,7 +457,7 @@ async function executePhase68Checkout() {
     });
 
     try {
-        const response = await fetch('/api/v1/payments/checkout/sovereign-seal', {
+        const response = await fetch(`${_SEAL_API_BASE}/payments/checkout/sovereign-seal`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
