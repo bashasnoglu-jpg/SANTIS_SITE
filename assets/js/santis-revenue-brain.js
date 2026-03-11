@@ -102,11 +102,15 @@ class SantisRevenueBrain {
 
     // H3: SOVEREIGN RESCUE MISSION (Exit Intent / Mouse Bounce via Priority Queue)
     listenForExitIntent() {
+        const triggerMs = (typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_AURELIA_TRIGGER_MS) 
+                          || window.__ENV__?.NEXT_PUBLIC_AURELIA_TRIGGER_MS 
+                          || 150; // Strict Hunter Mode
+                          
         // Event Bus'a Event Gönder (Priority 1, Yüksek Öncelik)
         document.addEventListener('mouseleave', (e) => {
             if (e.clientY < 5 && !this.intents.abandonCart) {
                 if (window.SantisBus) {
-                    window.SantisBus.debounceEmit('santis:exit-intent', { priority: 1, type: 'mouse-bounce' }, 500);
+                    window.SantisBus.debounceEmit('santis:exit-intent', { priority: 1, type: 'mouse-bounce' }, triggerMs);
                 } else {
                     this._handleExitIntent(); // Fallback if Bus is not loaded
                 }
@@ -118,7 +122,7 @@ class SantisRevenueBrain {
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'hidden' && !this.intents.abandonCart) {
                 if (window.SantisBus) {
-                    window.SantisBus.debounceEmit('santis:exit-intent', { priority: 1, type: 'visibility-hidden' }, 500);
+                    window.SantisBus.debounceEmit('santis:exit-intent', { priority: 1, type: 'visibility-hidden' }, triggerMs);
                 } else {
                     this._handleExitIntent();
                 }

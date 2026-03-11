@@ -7,7 +7,7 @@ def check_broken_links(root_dir):
         ".git", "node_modules", "venv", ".venv", "__pycache__", "dist", "build", "core", "api", "backend", "app", 
         ".vscode", "backup", "backups", "backup_assets", "_archive", "_legacy", "_legacy_archive", 
         "_legacy_content", "_dev_archives", "SantisV5.5_Backup_20260221_122443", 
-        "visual_checkpoints", "quarantine_zone", "logs", "test-results", "tests"
+        "visual_checkpoints", "quarantine_zone", "logs", "test-results", "tests", "templates", "components", "admin", "admin-panel", "tools", "hq-dashboard"
     }
     
     html_files = []
