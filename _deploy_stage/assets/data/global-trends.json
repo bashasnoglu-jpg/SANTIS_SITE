@@ -1,0 +1,63 @@
+[
+    {
+        "id": "trend-gourmet",
+        "region": "GOURMET WELLNESS",
+        "title": "Doğal Şifa & Lüks",
+        "desc": "Bal ve çikolatanın antioksidan gücüyle cildiniz yenilensin. Bestecilerin tercihi.",
+        "image": "/assets/img/cards/Santis-face-mask-4x5-1080x1350.webp",
+        "link": "/trends/thailand.html",
+        "target_slug": "honey-ritual",
+        "dimension": "gold",
+        "tags": [
+            "Honey",
+            "Chocolate",
+            "Antioxidant"
+        ]
+    },
+    {
+        "id": "trend-thalasso",
+        "region": "OCEAN THERAPY",
+        "title": "Thalasso & Detox",
+        "desc": "Okyanusun mineralleriyle derinlemesine arınma ve canlanma.",
+        "image": "/assets/img/cards/5091624-hd_1920_1080_24fps.mp4",
+        "isVideo": true,
+        "link": "/trends/roman.html",
+        "target_slug": "algae-ritual",
+        "dimension": "ice",
+        "tags": [
+            "Algae",
+            "Salt",
+            "Detox"
+        ]
+    },
+    {
+        "id": "trend-men",
+        "region": "GENTLEMEN'S CODE",
+        "title": "Modern Erkek Bakımı",
+        "desc": "Güçlü kaslar ve bakımlı ciltler için maskülen bir kaçış planı.",
+        "image": "/assets/img/cards/massage.webp",
+        "link": "/trends/sothys.html",
+        "target_slug": "sothys-homme-force",
+        "dimension": "slate",
+        "tags": [
+            "For Men",
+            "Sport",
+            "Recovery"
+        ]
+    },
+    {
+        "id": "trend-eastern",
+        "region": "EASTERN FUSION",
+        "title": "Doğu Sentezi",
+        "desc": "Thai ve Shiatsu tekniklerinin harmanlandığı kadim bir yolculuk.",
+        "image": "/assets/img/cards/hammam.webp",
+        "link": "/trends/japan.html",
+        "target_slug": "extra-combined",
+        "dimension": "sage",
+        "tags": [
+            "Thai",
+            "Shiatsu",
+            "Holistic"
+        ]
+    }
+]

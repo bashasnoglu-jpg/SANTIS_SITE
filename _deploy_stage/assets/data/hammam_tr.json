@@ -1,0 +1,167 @@
+[
+    {
+        "id": "svc_hammam_ottoman",
+        "slug": "ottoman-hammam-tradition",
+        "title": "Osmanlı Hamam Geleneği",
+        "subtitle": "Klasik hamam deneyiminin tam ritüeli",
+        "duration_min": 50,
+        "price_eur": 90,
+        "badges": [
+            "Signature"
+        ],
+        "desc_short": "Kese, köpük ve sıcak taş dinlenmesi ile tam bir arınma ritüeli.",
+        "includes": [
+            "Tüm Vücut Kese",
+            "Bol Köpük Masajı",
+            "Sıcak Taş Göbek Taşı Dinlenmesi",
+            "Bitki Çayı İkramı"
+        ],
+        "ideal_for": [
+            "Derin Arınma",
+            "İlk Kez Hamam Deneyimi",
+            "Yorgunluk Atma"
+        ]
+    },
+    {
+        "id": "svc_hammam_peeling_foam",
+        "slug": "peeling-foam-massage",
+        "title": "Peeling + Köpük Masajı",
+        "subtitle": "Arınma + köpük masajı, hızlı reset",
+        "duration_min": 30,
+        "price_eur": 45,
+        "badges": [
+            "Entry",
+            "Bestseller"
+        ],
+        "desc_short": "Geleneksel kesenin arındırıcı etkisi ve köpüğün rahatlatıcı dokunuşu.",
+        "includes": [
+            "Tüm Vücut Kese",
+            "Köpük Masajı"
+        ],
+        "ideal_for": [
+            "Hızlı Yenilenme",
+            "Düzenli Bakım"
+        ]
+    },
+    {
+        "id": "svc_hammam_foam",
+        "slug": "foam-massage",
+        "title": "Köpük Masajı",
+        "subtitle": "Sadece köpük, sadece rahatlama",
+        "duration_min": 30,
+        "price_eur": 45,
+        "badges": [
+            "Comfort"
+        ],
+        "desc_short": "Kese yapılmadan, sadece sabun köpükleri eşliğinde yumuşak bir masaj.",
+        "includes": [
+            "Köpük Masajı (Kese yok)"
+        ],
+        "ideal_for": [
+            "Hassas Ciltler",
+            "Kese İstemeyenler",
+            "Güneş Yanığı Olanlar"
+        ]
+    },
+    {
+        "id": "svc_hammam_seasalt",
+        "slug": "sea-salt-peeling",
+        "title": "Deniz Tuzu Peeling",
+        "subtitle": "Mineral arınma, pürüzsüz doku",
+        "duration_min": 30,
+        "price_eur": 50,
+        "badges": [
+            "Detox"
+        ],
+        "desc_short": "İnce deniz tuzu ile yapılan peeling, cildi ölü deriden arındırır ve mineral desteği sağlar.",
+        "includes": [
+            "Tüm Vücut Deniz Tuzu Peeling",
+            "Duş"
+        ],
+        "ideal_for": [
+            "Pürüzsüz Cilt İsteyenler",
+            "Ödem Atma"
+        ]
+    },
+    {
+        "id": "svc_hammam_coffee",
+        "slug": "coffee-peeling",
+        "title": "Kahve Peeling",
+        "subtitle": "Canlandırıcı ve sıkılaştırıcı etki",
+        "duration_min": 30,
+        "price_eur": 50,
+        "badges": [
+            "Energize"
+        ],
+        "desc_short": "Türk kahvesi telvesi ile yapılan peeling. Kan dolaşımını hızlandırır.",
+        "includes": [
+            "Tüm Vücut Kahve Peeling",
+            "Duş"
+        ],
+        "ideal_for": [
+            "Selülit Karşıtı",
+            "Enerji Düşüklüğü"
+        ]
+    },
+    {
+        "id": "svc_hammam_honey",
+        "slug": "honey-ritual",
+        "title": "Bal Ritüeli",
+        "subtitle": "Konfor ve yumuşaklık, sıcak bitiriş",
+        "duration_min": 30,
+        "price_eur": 55,
+        "badges": [
+            "Comfort"
+        ],
+        "desc_short": "Doğal balın cilde sürülmesi ve sıcak göbek taşında emilimin sağlanması.",
+        "includes": [
+            "Bal Maskesi (Tüm Vücut)",
+            "Sıcak Taş Bekletme"
+        ],
+        "ideal_for": [
+            "Kuru Ciltler",
+            "Nem İhtiyacı",
+            "Lüks Bakım"
+        ]
+    },
+    {
+        "id": "svc_hammam_chocolate",
+        "slug": "chocolate-ritual",
+        "title": "Çikolata Ritüeli",
+        "subtitle": "Mutluluk veren aromatik bakım",
+        "duration_min": 30,
+        "price_eur": 55,
+        "badges": [
+            "Seasonal"
+        ],
+        "desc_short": "Kakao yağı ve çikolata içeren özel karışımla yapılan tatlı bir bakım.",
+        "includes": [
+            "Çikolata Maskesi (Tüm Vücut)",
+            "Aromaterapi Etkisi"
+        ],
+        "ideal_for": [
+            "Mod Yükseltme",
+            "Keyif"
+        ]
+    },
+    {
+        "id": "svc_hammam_algae",
+        "slug": "algae-ritual",
+        "title": "Yosun (Alg) Ritüeli",
+        "subtitle": "Denizden gelen detoks etkisi",
+        "duration_min": 30,
+        "price_eur": 55,
+        "badges": [
+            "Detox"
+        ],
+        "desc_short": "Mikronize yosun tozu ile yapılan vücut maskesi. Metabolizmayı hızlandırır.",
+        "includes": [
+            "Yosun Maskesi (Sarma)",
+            "Detoks Etkisi"
+        ],
+        "ideal_for": [
+            "Zayıflama Destek",
+            "Toksin Atma"
+        ]
+    }
+]

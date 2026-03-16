@@ -1,0 +1,201 @@
+/**
+ * ========================================================================
+ * SOVEREIGN OS v10 - LAYER 5: SPATIAL ARMOR & CLS PROTECTION
+ * ========================================================================
+ */
+:root {
+    --rail-spacing-y: clamp(4rem, 8vw, 8rem);
+    /* Raylar arası yatay devasa boşluk */
+    --card-gap-x: clamp(1rem, 2vw, 1.5rem);
+    /* Kartlar arası esnek genişlik */
+    --page-safe-x: max(1.5rem, calc((100vw - 1400px) / 2));
+    /* Lüks ortalama payı */
+    --rail-track-height: clamp(480px, 60vh, 560px);
+    /* CLS kilidi */
+}
+
+/* -------------------------------------------------------------------
+   1. CLS ARMOR (sayfa yüklenirken titreme önlenir, 60FPS rezerve)
+   ------------------------------------------------------------------- */
+.santis-matrix-container,
+#santis-massage-matrix,
+#santis-skincare-matrix {
+    min-height: var(--rail-track-height);
+    contain: layout style;
+    /* Tarayıcı reflow'u hapseder */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* -------------------------------------------------------------------
+   2. MULTI-RAIL ORCHESTRATION
+   ------------------------------------------------------------------- */
+.santis-rail-section {
+    margin-bottom: var(--rail-spacing-y);
+    width: 100%;
+}
+
+.santis-rail-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-inline: var(--page-safe-x);
+    margin-bottom: 2rem;
+}
+
+.santis-rail-divider {
+    height: 1px;
+    flex-grow: 1;
+    background: linear-gradient(to right, rgba(212, 175, 55, 0.3), transparent);
+}
+
+/* -------------------------------------------------------------------
+   3. CLIPPING ARMOR (hover'da kart bıçak gibi kesilmez, nefes alır)
+   ------------------------------------------------------------------- */
+/* ========================================================================
+   SOVEREIGN OS v10 - KART FİZİĞİ & ZIRH MÜHRÜ (TAILWIND BYPASS)
+   ======================================================================== */
+
+/* 1. RAY ZIRHI: Yatay kaydırmayı zorunlu kılar, kartları asla alt alta indirmez */
+.santis-rail-track {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 1.5rem !important;
+    padding: 2.5rem var(--page-safe-x, 1.5rem) !important;
+    margin: -2.5rem 0 !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+
+    /* Drag (Sürükleme) sırasında CSS Manyetiğini (Snap) geçici kapat ki akıcı sürüklensin */
+    &.is-dragging {
+        scroll-snap-type: none !important;
+        cursor: grabbing !important;
+    }
+
+    &.is-dragging .nv-rail-card {
+        pointer-events: none !important;
+    }
+
+    /* IE, Edge ve Firefox için Kaydırma Çubuğu Gizleme (VS Code Linter Uyarısı Sebebiyle Pasife Alındı) */
+    /* -ms-overflow-style: none !important; */
+    /* scrollbar-width: none !important; */
+
+    /* iOS Momentum Scroll (VS Code Linter Uyarısı Sebebiyle Pasife Alındı) */
+    /* -webkit-overflow-scrolling: touch !important; */
+
+    width: 100% !important;
+}
+
+/* Chrome, Safari ve Opera için Kaydırma Çubuğu Gizleme (Fallback Zırhı) */
+.santis-rail-track::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* 2. KART İSKELETİ: Asla Ezilmez (Shrink 0), 320px Sabit! */
+.santis-rail-track .nv-rail-card {
+    flex: 0 0 320px !important;
+    /* KARTIN SIKIŞMASINI %100 YASAKLAR! */
+    width: 320px !important;
+    height: 400px !important;
+    /* 4/5 Oranı garanti eder */
+    border-radius: 12px !important;
+    position: relative !important;
+    display: block !important;
+    overflow: hidden !important;
+    scroll-snap-align: start !important;
+    background-color: #080808 !important;
+    transform: translateZ(0) !important;
+    /* GPU İvmelendirmesi (Kasmayı önler) */
+}
+
+/* 3. GÖRSEL (Resim) MÜHRÜ: Kartın içini tam kaplar, en arkaya atar (z-10) */
+.santis-rail-track .nv-rail-card img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 4 / 5 !important;
+    object-fit: cover !important;
+    z-index: 10 !important;
+}
+
+/* 4. LÜKS KARARTMA (GRADIENT) MÜHRÜ: Görselin üstüne biner, yazıları patlatır */
+.santis-rail-track .nv-rail-card>div:nth-of-type(1) {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 15 !important;
+    background: linear-gradient(to top, rgba(4, 4, 4, 1) 0%, rgba(4, 4, 4, 0.6) 40%, transparent 100%) !important;
+    pointer-events: none !important;
+}
+
+/* 5. İÇERİK (YAZILAR) MÜHRÜ: Yazıları EN ÜSTE (z-20) çeker ve aşağı hizalar */
+.santis-rail-track .nv-rail-card-content {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 20 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    /* Yazıları en aşağı iter */
+    padding: 1.5rem !important;
+    pointer-events: none !important;
+}
+
+/* Metinlerin ve rozetlerin görünürlüğü KESİN olarak garantilenir */
+.santis-rail-track .nv-rail-card-content * {
+    position: relative !important;
+    z-index: 21 !important;
+}
+
+/* 6. BUTON MÜHRÜ: Tıklanabilirliği korur */
+.santis-rail-track .checkout-btn-wrapper {
+    z-index: 40 !important;
+    pointer-events: auto !important;
+}
+
+/* -------------------------------------------------------------------
+   4. CRUD ANİMASYONLARI (0-GC Admin Silme / Ekleme)
+   ------------------------------------------------------------------- */
+.santis-card-deleted {
+    opacity: 0 !important;
+    transform: scale(0.8) !important;
+    pointer-events: none;
+    transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.santis-card-enter {
+    animation: santisCardEnter 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes santisCardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* -------------------------------------------------------------------
+   5. RESPONSIVE ADAPTASYON
+   ------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    :root {
+        --page-safe-x: 1.25rem;
+        --card-gap-x: 0.875rem;
+        --rail-spacing-y: clamp(2rem, 5vw, 4rem);
+    }
+}

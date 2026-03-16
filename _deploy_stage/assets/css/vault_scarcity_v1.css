@@ -1,0 +1,241 @@
+/* 
+  SANTIS SOVEREIGN VAULT: SCARCITY AURA v1.0 
+  Phase 45: Predictive Scarcity & Dynamic Interface
+*/
+
+.nv-scarcity-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(14, 15, 17, 0.85);
+    /* Deep luxury obsidian */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    /* Santis Gold */
+    padding: 8px 14px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 25;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(212, 175, 55, 0.1);
+    pointer-events: none;
+    /* Let clicks pass through */
+}
+
+.nv-pulse-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #d4af37;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #d4af37;
+    animation: nvGoldPulse 2s infinite ease-in-out;
+}
+
+.nv-scarcity-text {
+    font-family: var(--font-primary, 'Outfit', sans-serif);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    color: #e6c875;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px rgba(212, 175, 55, 0.2);
+}
+
+@keyframes nvGoldPulse {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.8;
+        box-shadow: 0 0 4px rgba(212, 175, 55, 0.5);
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+        box-shadow: 0 0 12px rgba(212, 175, 55, 1);
+    }
+
+    100% {
+        transform: scale(0.95);
+        opacity: 0.8;
+        box-shadow: 0 0 4px rgba(212, 175, 55, 0.5);
+    }
+}
+
+/* Make sure container is relative if using depth/reveal classes */
+.depth-1,
+.depth-2,
+.nv-signature-visual,
+.nv-trend-card,
+.nv-philosophy-visual {
+    position: relative;
+}
+
+/* ==========================================================================
+   PHASE 45 H1: SOVEREIGN HALO — Altın Hare Efekti (Hover Dwell)
+   Kullanıcı kart üzerinde 2+ saniye durduğunda .sovereign-hover class eklenir
+   ========================================================================== */
+
+.sovereign-hover {
+    box-shadow:
+        0 0 0 1px rgba(212, 175, 55, 0.3),
+        0 0 20px rgba(212, 175, 55, 0.15),
+        0 0 40px rgba(212, 175, 55, 0.08),
+        inset 0 0 20px rgba(212, 175, 55, 0.03) !important;
+    animation: sovereignHaloPulse 2.4s ease-in-out infinite !important;
+    transform: translateY(-2px) !important;
+    transition: transform 0.4s ease, box-shadow 0.4s ease !important;
+    border-color: rgba(212, 175, 55, 0.5) !important;
+}
+
+@keyframes sovereignHaloPulse {
+    0% {
+        box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2), 0 0 15px rgba(212, 175, 55, 0.1), 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.5), 0 0 35px rgba(212, 175, 55, 0.25), 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    100% {
+        box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2), 0 0 15px rgba(212, 175, 55, 0.1), 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* Halo önizleme etiket (Opsiyonel: kart köşesine Gold ikon) */
+.sovereign-hover::before {
+    content: '◆';
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    font-size: 8px;
+    color: rgba(212, 175, 55, 0.7);
+    letter-spacing: 2px;
+    animation: sovereignHaloPulse 2.4s ease-in-out infinite;
+    z-index: 30;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   PHASE 45 H3: PERSONA PALETTE — Royal Gold (Whale Mode)
+   .whale-mode class body'e eklenir ve tüm renk sistemi güncellenir
+   ========================================================================== */
+
+body.whale-mode {
+    --santis-gold: #D4AF37;
+    --santis-gold-light: #F0D060;
+    --santis-bg: #080808;
+    --santis-surface: #111009;
+    --santis-text: #F5F0E8;
+    --santis-border: rgba(212, 175, 55, 0.25);
+}
+
+body.whale-mode .nv-card {
+    border-color: rgba(212, 175, 55, 0.15);
+    background: linear-gradient(145deg, #0f0e0a 0%, #141210 100%);
+}
+
+body.whale-mode .nv-btn-primary {
+    background: linear-gradient(135deg, #D4AF37 0%, #B8960C 100%);
+    color: #000;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+}
+
+body.whale-mode .nv-btn-primary:hover {
+    background: linear-gradient(135deg, #F0D060 0%, #D4AF37 100%);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+}
+
+/* ==========================================================================
+   PHASE 44.5: SKELETON ARMOR — CLS Zero-Shift Defense System
+   Phantom Injector görseli basmadan önce DOM alanı rezerve eder.
+   CLS (Cumulative Layout Shift) → 0 hedefi.
+   ========================================================================== */
+
+/* Default skeleton — tüm [data-santis-slot] elementlerine asgari alan garantisi */
+[data-santis-slot] {
+    display: block;
+    min-height: 200px;
+    /* Fallback: aspect-ratio desteklenmezse */
+    background-color: #0f0e0c;
+    /* Santis obsidian — skeleton zemin */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hero slot'lar: 16:9 sinematik oran */
+[data-santis-slot="hero-main"],
+[data-santis-slot="hero-secondary"],
+[data-santis-slot="philosophy-hero"] {
+    aspect-ratio: 16 / 9;
+    min-height: unset;
+    /* aspect-ratio varken min-height'i devrede dışı bırak */
+}
+
+/* Card slot'lar: 4:3 kart oranı */
+[data-santis-slot="card-hamam"],
+[data-santis-slot="card-masaj"],
+[data-santis-slot="card-atolye"],
+[data-santis-slot="card-cilt"],
+[data-santis-slot="card-recovery"] {
+    aspect-ratio: 4 / 3;
+    min-height: unset;
+}
+
+/* Skeleton shimmer: görsel yüklenene kadar gösterilen nefes alan titreşim */
+[data-santis-slot]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(212, 175, 55, 0.04) 40%,
+            /* Santis Gold — çok düşük opaklık */
+            rgba(212, 175, 55, 0.08) 50%,
+            rgba(212, 175, 55, 0.04) 60%,
+            transparent 100%);
+    background-size: 200% 100%;
+    animation: skeletonShimmer 2s infinite ease-in-out;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+/* Görsel yüklenince shimmer'ı söndür */
+[data-santis-slot].nv-asset-loaded::before {
+    opacity: 0;
+}
+
+/* Skeleton shimmer animasyonu */
+@keyframes skeletonShimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Yükleniyor sinyali: nv-asset-loading sınıfı aktifken */
+[data-santis-slot].nv-asset-loading {
+    /* Shimmer zaten ::before üzerinden çalışıyor */
+    opacity: 0.85;
+}
+
+/* Yükleme tamamlandı: tüm skeleton kısıtlamaları serbest */
+[data-santis-slot].nv-asset-loaded {
+    opacity: 1;
+    min-height: unset;
+    aspect-ratio: unset;
+    /* ← ASIL NEDEN: 4/3 kilitli kalıyordu */
+    background-color: transparent;
+}
+
+/* Kart grid: min-height ile ilk render'da boş alan kaynaması önlendi */
+.nv-product-grid,
+.product-grid-v2 {
+    min-height: 200px;
+}

@@ -1,0 +1,35 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ApexTerminal from '../../components/ui/ApexTerminal.tsx';
+
+export function getStaticPaths() {
+  return [
+    { params: { category: 'hamam' } },
+    { params: { category: 'masajlar' } },
+    { params: { category: 'cilt-bakimi' } },
+  ];
+}
+
+const { category } = Astro.params;
+
+const titles: Record<string, string> = {
+  hamam: "Hamam | SpaOS Sovereign Elite",
+  masajlar: "Masaj Terapileri | SpaOS Sovereign Elite",
+  'cilt-bakimi': "Cilt Bakımı | SpaOS Sovereign Elite"
+};
+
+const categoryToUniverseMap: Record<string, string> = {
+  hamam: 'HAMAM',
+  masajlar: 'MASAJ',
+  'cilt-bakimi': 'CİLT'
+};
+
+const initialUniverse = categoryToUniverseMap[category as string] || 'ALL';
+---
+
+<Layout title={titles[category as string] || "Santis SpaOS Elite"}>
+	<main class="w-full min-h-screen overflow-hidden relative flex flex-col justify-center bg-[#020202]">
+		<!-- The Apex Terminal Core directly synced with Deep Link -->
+		<ApexTerminal initialCategory={initialUniverse} client:load />
+	</main>
+</Layout>

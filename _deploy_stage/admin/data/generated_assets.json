@@ -1,0 +1,147 @@
+[
+
+    {
+
+        "id": "hero_main",
+
+        "image": "assets/img/hero/santis_hero_main_v2.webp",
+
+        "title": "Santis Club Spa",
+
+        "link": "index.html",
+
+        "mood": "hero",
+
+        "alt": "Lüks spa salonu, dinlenme alanı, geniş açı"
+
+    },
+
+    {
+
+        "id": "slot_massage_oil",
+
+        "image": "assets/img/cards/santis_card_massage_oil_v2.webp",
+
+        "title": "Aroma Terapi",
+
+        "link": "tr/masajlar/",
+
+        "mood": "calm",
+
+        "alt": "Sıcak yağ masajı detayı, lüks spa"
+
+    },
+
+    {
+
+        "id": "slot_skincare_clay",
+
+        "image": "assets/img/cards/santis_card_skincare_clay_v2.webp",
+
+        "title": "Kil Bakımı",
+
+        "link": "tr/cilt-bakimi/",
+
+        "mood": "relax",
+
+        "alt": "Kil maskesi uygulanan kişi, üstten görünüm"
+
+    },
+
+    {
+
+        "id": "slot_skincare_detail",
+
+        "image": "assets/img/cards/santis_card_skincare_detail_v2.webp",
+
+        "title": "Detox Maske",
+
+        "link": "tr/cilt-bakimi/",
+
+        "mood": "artistic",
+
+        "alt": "Kil maskesi detay profil görünümü"
+
+    },
+
+    {
+
+        "id": "slot_hamam_kese",
+
+        "image": "assets/img/cards/santis_card_hamam_kese_v2.webp",
+
+        "title": "Kese Ritüeli",
+
+        "link": "tr/hamam/",
+
+        "mood": "authentic",
+
+        "alt": "Geleneksel Türk hamamı kese uygulaması"
+
+    },
+
+    {
+
+        "id": "slot_hamam_scrub",
+
+        "image": "assets/img/cards/santis_card_hamam_scrub_v2.webp",
+
+        "title": "Vücut Peeling",
+
+        "link": "tr/hamam/",
+
+        "mood": "pure",
+
+        "alt": "Vücut peeling uygulaması bacak detayı"
+
+    },
+
+    {
+
+        "id": "slot_detox_brush",
+
+        "image": "assets/img/cards/santis_card_detox_brush_v2.webp",
+
+        "title": "Kuru Fırçalama",
+
+        "link": "tr/vucut-bakimi/",
+
+        "mood": "energy",
+
+        "alt": "Doğal at kılı fırçası ile kuru fırçalama detayı"
+
+    },
+
+    {
+
+        "id": "slot_recovery_lotion",
+
+        "image": "assets/img/cards/santis_card_recovery_lotion_v2.webp",
+
+        "title": "Nemlendirme",
+
+        "link": "tr/vucut-bakimi/",
+
+        "mood": "glow",
+
+        "alt": "Nemlendirici losyon uygulaması, parlak cilt"
+
+    },
+
+    {
+
+        "id": "slot_deep_relax",
+
+        "image": "assets/img/cards/santis_card_deep_relax_v2.webp",
+
+        "title": "Deep Relax",
+
+        "link": "tr/masajlar/",
+
+        "mood": "zen",
+
+        "alt": "Masaj dokusu detay, havlu ve cilt"
+
+    }
+
+]

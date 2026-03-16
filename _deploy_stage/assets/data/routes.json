@@ -1,0 +1,30 @@
+{
+    "nav_home": {
+        "tr": "/tr/index.html",
+        "en": "/en/index.html",
+        "de": "/de/index.html",
+        "fr": "/fr/index.html",
+        "ru": "/ru/index.html"
+    },
+    "nav_santis_world": {
+        "tr": "/tr/dunya-ritueli.html",
+        "en": "/en/world-rituals/index.html",
+        "de": "/de/world-rituals/index.html",
+        "fr": "/fr/world-rituals/index.html",
+        "ru": "/ru/world-rituals/index.html"
+    },
+    "spa_booking": {
+        "tr": "https://wa.me/905348350169",
+        "en": "https://wa.me/905348350169",
+        "de": "https://wa.me/905348350169",
+        "fr": "https://wa.me/905348350169",
+        "ru": "https://wa.me/905348350169"
+    },
+    "unassigned_spa_route": {
+        "tr": "/tr/index.html",
+        "en": "/en/index.html",
+        "de": "/de/index.html",
+        "fr": "/fr/index.html",
+        "ru": "/ru/index.html"
+    }
+}

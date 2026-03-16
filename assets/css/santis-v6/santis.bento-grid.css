@@ -1,0 +1,467 @@
+/* =====================================================
+SANTIS BENTO GRID V6
+Editorial Magazine Layout Engine
+===================================================== */
+
+.santis-bento-universe,
+#santis-bento-universe{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+grid-auto-rows:200px;
+gap:16px;
+position:relative;
+}
+
+
+/* =====================================================
+PAGE OVERLAY (CINEMATIC TRANSITIONS)
+===================================================== */
+
+.page-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.05);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 0.6s cubic-bezier(.19,1,.22,1), transform 0.6s ease;
+}
+
+.page-overlay.active {
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+
+/* =====================================================
+BENTO CARD
+===================================================== */
+
+.bento-card-v6{
+position:relative;
+display:block;
+overflow:hidden;
+border-radius:22px;
+background:#111;
+color:#fff;
+text-decoration:none;
+isolation:isolate;
+transition:transform .6s cubic-bezier(.19,1,.22,1),
+box-shadow .6s ease;
+}
+
+/* hover lift */
+
+.bento-card-v6, .bento-card-v7{
+transform-style:preserve-3d;
+will-change:transform;
+/* V7 Gaze Engine Değişken Tutanakları */
+--mouse-x:50%;
+--mouse-y:50%;
+--spotlight-opacity:0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+.bento-card-v6:hover, .bento-card-v7:hover {
+/* transform:translateY(-6px); -> JS Gaze Engine Parallax devralıyor */
+box-shadow:
+0 20px 60px rgba(0,0,0,.45);
+}
+}
+
+/* =====================================================
+LIQUID GLASS (V7 SPOTLIGHT LAYER)
+===================================================== */
+@media (hover: hover) and (pointer: fine) {
+.bento-card-v6::before, .bento-card-v7::before {
+content:"";
+position:absolute;
+inset:0;
+z-index: 5;
+opacity:var(--spotlight-opacity, 0);
+background:
+radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(255,255,255,0.08),
+    transparent 35%
+),
+radial-gradient(
+    300px circle at var(--mouse-x) var(--mouse-y),
+    rgba(255,255,255,0.15),
+    transparent 25%
+);
+transition:opacity .45s ease;
+pointer-events:none;
+border-radius:inherit;
+}
+}
+
+/* =====================================================
+MEDIA
+===================================================== */
+
+.bento-card-media{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+transition:
+transform 1s cubic-bezier(.19,1,.22,1),
+filter .8s ease;
+filter:grayscale(100%);
+}
+
+/* cinematic hover */
+@media (hover: hover) and (pointer: fine) {
+.bento-card-v6:hover .bento-card-media,
+.bento-card-v7:hover .bento-card-media {
+transform:scale(1.08);
+filter:grayscale(0%);
+}
+}
+
+/* =====================================================
+PROTECTOR
+===================================================== */
+
+.bento-card-protector{
+position:absolute;
+inset:0;
+
+background:linear-gradient(
+180deg,
+rgba(0,0,0,0) 35%,
+rgba(0,0,0,.55) 100%
+);
+
+z-index:1;
+}
+
+/* =====================================================
+CONTENT & INTERIOR PARALLAX (V7)
+===================================================== */
+
+.bento-card-content{
+position:absolute;
+bottom:22px;
+left:22px;
+right:22px;
+z-index:2;
+transform:translateZ(60px); 
+transform-style:preserve-3d;
+transition:transform 0.6s cubic-bezier(.19,1,.22,1);
+}
+
+.santis-experience .experience-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    padding: 0 20px;
+    will-change: transform;
+}
+
+/* =====================================================
+TYPOGRAPHY
+===================================================== */
+
+.bento-meta{
+display:block;
+font-size:12px;
+letter-spacing:.12em;
+color:rgba(255,255,255,.65);
+margin-bottom:6px;
+}
+
+.bento-title{
+font-size:26px;
+font-weight:600;
+line-height:1.2;
+margin-bottom:6px;
+}
+
+.bento-desc{
+font-size:14px;
+color:rgba(255,255,255,.75);
+max-width:420px;
+}
+
+/* =====================================================
+CASCADE ANIMATION
+===================================================== */
+
+/* Varsayılan: metin her zaman görünür */
+.bento-card-content > *{
+opacity:1;
+transform:translateY(0);
+transition:
+opacity .6s ease,
+transform .6s ease;
+}
+
+/* Desktop hover'da: önce metni gizle, sonra kinetic cascade ile aç */
+@media (hover: hover) and (pointer: fine) {
+.bento-card-v6 .bento-card-content > *,
+.bento-card-v7 .bento-card-content > * {
+opacity:0;
+transform:translateY(14px);
+}
+
+.bento-card-v6:hover .bento-meta,
+.bento-card-v7:hover .bento-meta {
+opacity:1;
+transform:translateY(0);
+transition-delay:.05s;
+}
+
+.bento-card-v6:hover .bento-title,
+.bento-card-v7:hover .bento-title {
+opacity:1;
+transform:translateY(0);
+transition-delay:.12s;
+}
+
+.bento-card-v6:hover .bento-desc,
+.bento-card-v7:hover .bento-desc {
+opacity:1;
+transform:translateY(0);
+transition-delay:.18s;
+}
+}
+
+/* =====================================================
+BENTO TAGS
+===================================================== */
+
+.bento-price-tag, .bento-tag{
+position:absolute;
+top:16px;
+left:16px;
+padding:6px 12px;
+font-size:11px;
+letter-spacing:.12em;
+border-radius:999px;
+
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.2);
+
+backdrop-filter:blur(12px);
+
+z-index:3;
+color: #fff;
+text-transform: uppercase;
+font-weight: 500;
+transform:translateZ(80px); /* Kutu dışında derinlik v7 */
+}
+
+/* gold variant */
+
+.bento-price-tag.gold, .bento-tag-gold{
+background:rgba(212,175,55,.12);
+border:1px solid rgba(212,175,55,.35);
+color: #D4AF37;
+}
+
+.bento-tag-glass {
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.15);
+color: #ccc;
+}
+
+.bento-tag-premium {
+background: rgba(255, 255, 255, 0.07);
+border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* =====================================================
+SIZE VARIANTS
+===================================================== */
+
+.bento-card-v6.wide{
+grid-column:span 2;
+/* aspect-ratio kaldırıldı: grid-auto-rows:200px ile çakışıyordu */
+}
+
+/* =====================================================
+REVEAL ANIMATION
+===================================================== */
+
+.santis-reveal{
+opacity:0;
+transform:translateY(30px);
+transition:
+opacity .8s ease,
+transform .8s ease;
+}
+
+.santis-reveal.active, .santis-reveal.revealed{
+opacity:1;
+transform:translateY(0);
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media (max-width:1200px){
+
+.santis-bento-universe,
+#santis-bento-universe{
+grid-template-columns:repeat(2,1fr);
+}
+
+.bento-card-v6.wide{
+grid-column:span 2;
+}
+
+}
+
+@media (max-width:700px){
+
+.santis-bento-universe,
+#santis-bento-universe{
+grid-template-columns:1fr;
+}
+
+.bento-card-v6.wide{
+grid-column:auto;
+grid-row:span 1;
+}
+
+.bento-title{
+font-size:22px;
+}
+
+}
+
+@media (hover:none){
+.bento-card-v6, .bento-card-v7{
+transform:none !important;
+}
+.bento-card-v6::before, .bento-card-v7::before{
+display:none !important;
+}
+}
+
+/* =====================================================
+SMOOTH EDGE HIGHLIGHT (Apple Premium Trick)
+===================================================== */
+
+.bento-card-v6::after, .bento-card-v7::after{
+content:"";
+position:absolute;
+inset:0;
+border-radius:inherit;
+pointer-events:none;
+z-index: 6;
+
+background:linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,.06),
+transparent
+);
+
+opacity:0;
+transition:opacity .5s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+.bento-card-v6:hover::after, .bento-card-v7:hover::after{
+opacity:1;
+}
+}
+
+/* =====================================================
+V10 IMMERSIVE EXPERIENCE
+===================================================== */
+.santis-experience {
+    position: relative;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.santis-experience .experience-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    filter: contrast(1.1) brightness(0.7);
+}
+
+.santis-experience .experience-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+    z-index: 1;
+}
+
+/* =====================================================
+V11 CURSOR ENGINE & SPATIAL INTERACTION
+===================================================== */
+.magnetic-button, .magnetic-card {
+    transition: transform 0.25s cubic-bezier(.19,1,.22,1);
+    will-change: transform;
+}
+
+/* V7 card – tek temiz tanım */
+.bento-card-v7 {
+    position: relative;
+    display: block;
+    border-radius: 22px;
+    background: #111;
+    color: #fff;
+    text-decoration: none;
+    isolation: isolate;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    will-change: transform;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+    --spotlight-opacity: 0;
+    transition: transform .6s cubic-bezier(.19,1,.22,1), box-shadow .6s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+.bento-card-v7::before {
+    content:"";
+    position:absolute; inset:0; z-index:5;
+    background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
+        rgba(255,255,255,0.06), transparent 40%),
+        radial-gradient(300px circle at var(--mouse-x) var(--mouse-y),
+        rgba(255,255,255,0.08), transparent 30%);
+    opacity: var(--spotlight-opacity);
+    pointer-events: none;
+    border-radius: inherit;
+    transition: opacity 0.5s ease;
+}
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .santis-spotlight {
+        position: fixed;
+        pointer-events: none;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        mix-blend-mode: screen;
+        transition: width 0.2s ease, height 0.2s ease;
+    }
+}
+

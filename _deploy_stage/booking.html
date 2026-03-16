@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html data-page-type="booking" lang="tr">
+<head>
+<meta charset="utf-8"/>
+    <meta name="description" content="Rezervasyon • Santis Club — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rezervasyon • Santis Club</title>
+<meta content="Online spa rezervasyonu yapın. Premium deneyim için hemen randevunuzu oluşturun." name="description"/>
+<!-- Fonts & Core Styles -->
+<link href="/assets/css/fonts.css" rel="stylesheet"/>
+<link href="/assets/css/style.css" rel="stylesheet"/>
+<link href="/assets/css/booking-wizard.css" rel="stylesheet"/>
+<script src="/assets/js/api-client.js"></script>
+<meta content="website" property="og:type"/><meta content="Rezervasyon • Santis Club" property="og:title"/><meta content="Online spa rezervasyonu yapın. Premium deneyim için hemen randevunuzu oluşturun." property="og:description"/><meta content="https://santisclub.com/booking.html" property="og:url"/><meta content="https://santisclub.com/assets/img/logo-santis.webp" property="og:image"/><meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Rezervasyon • Santis Club" name="twitter:title"/><meta content="Online spa rezervasyonu yapın. Premium deneyim için hemen randevunuzu oluşturun." name="twitter:description"/><meta content="https://santisclub.com/assets/img/logo-santis.webp" name="twitter:image"/>
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
+</head>
+<body class="editorial-mode">
+<div id="navbar-container"></div>
+<main id="nv-main" style="padding-top: 140px; min-height: 90vh;">
+<div class="booking-wizard-wrapper">
+<!-- HEADER -->
+<div class="wizard-header">
+<h1 class="wizard-title">Rezervasyon</h1>
+<div class="wizard-steps">
+<div class="step-indicator active"></div>
+<div class="step-indicator"></div>
+<div class="step-indicator"></div>
+</div>
+</div>
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" id="loadingOverlay">
+<div class="spinner"></div>
+<p style="color: #fff; letter-spacing: 1px;">İşleminiz Yapılıyor...</p>
+</div>
+<!-- SUCCESS VIEW -->
+<div id="successView" style="display: none;"></div>
+<!-- WIZARD CONTENT -->
+<div id="wizardContent">
+<!-- STEP 1: SERVICE -->
+<div class="wizard-step active" id="step-1">
+<div class="step-heading">
+<h2>Deneyiminizi Seçin</h2>
+<p>Size özel hazırlanan ritüellerden dilediğinizi işaretleyin.</p>
+</div>
+<div class="service-grid" id="serviceGrid">
+<!-- Injected by JS -->
+</div>
+</div>
+<!-- STEP 2: DATE & TIME -->
+<div class="wizard-step" id="step-2">
+<div class="step-heading">
+<h2>Tarih ve Saat</h2>
+<p>Müsaitlik durumuna göre en uygun zamanı belirleyin.</p>
+</div>
+<div class="date-time-container">
+<div class="date-picker-wrapper">
+<label style="display:block; margin-bottom:10px; color:#888; font-size:12px;">TARİH SEÇİN</label>
+<input id="inputDate" min="2024-01-01" style="color-scheme: dark;" type="date"/>
+</div>
+<div class="time-slots-wrapper">
+<label style="display:block; margin-bottom:10px; color:#888; font-size:12px;">SAAT SEÇİN</label>
+<div class="time-slots" id="timeSlots">
+<div class="time-slot" onclick="BookingEngine.selectTime('10:00')">10:00</div>
+<div class="time-slot" onclick="BookingEngine.selectTime('11:30')">11:30</div>
+<div class="time-slot" onclick="BookingEngine.selectTime('13:00')">13:00</div>
+<div class="time-slot" onclick="BookingEngine.selectTime('14:30')">14:30</div>
+<div class="time-slot" onclick="BookingEngine.selectTime('16:00')">16:00</div>
+<div class="time-slot" onclick="BookingEngine.selectTime('17:30')">17:30</div>
+</div>
+</div>
+</div>
+</div>
+<!-- STEP 3: DETAILS -->
+<div class="wizard-step" id="step-3">
+<div class="step-heading">
+<h2>Misafir Bilgileri</h2>
+<p>Rezervasyon onayı için bilgilerinizi girin.</p>
+</div>
+<!-- NEW: Order Summary (Investor Polish) -->
+<div id="step3Summary" style="margin-bottom: 30px;"></div>
+<div class="form-grid">
+<div class="input-group">
+<label>ADINIZ SOYADINIZ</label>
+<input id="inputName" onkeyup="BookingEngine.validateStep()" placeholder="İsim Soyisim" type="text"/>
+</div>
+<div class="input-group">
+<label>TELEFON NUMARASI</label>
+<input id="inputPhone" onkeyup="BookingEngine.validateStep()" placeholder="+90 5XX XXX XX XX" type="tel"/>
+</div>
+<div class="input-group">
+<label>NOTLARINIZ (Opsiyonel)</label>
+<textarea id="inputNote" placeholder="Özel bir isteğiniz var mı?" rows="3"></textarea>
+</div>
+</div>
+</div>
+<!-- ACTIONS -->
+<div class="wizard-actions">
+<button class="btn-wizard" id="btnPrev">GERİ</button>
+<button class="btn-wizard" disabled="" id="btnNext" style="opacity:0.5;">DEVAM ET</button>
+</div>
+</div>
+</div>
+</main>
+<div id="footer-container"></div>
+<!-- Scripts -->
+<script src="/assets/js/santis-nav.js"></script>
+<script src="/assets/js/booking-engine.js"></script>
+<!-- Auto Date Min Fix -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('inputDate').setAttribute('min', today);
+        });
+    </script>
+</body>
+</html>

@@ -5,17 +5,12 @@
     <meta name="description" content="Sovereign Command Center | God Mode — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sovereign Command Center | God Mode</title>
-    <!-- Tailwind Warning Suppressor -->
-    <script>
-        const originalWarn = console.warn;
-        console.warn = function(...args) {
-            if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return;
-            originalWarn.apply(console, args);
-        };
-    </script>
-    <script src="/assets/js/tailwindcss.min.js" crossorigin="anonymous"></script>
+    <link href="/admin/dist/admin.bundle.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" crossorigin="anonymous"></script>
+    <script src="/admin/assets/js/vendor/vis-network.min.js"></script>
+    <script src="/admin/assets/js/santis-neural-map.js"></script>
+    <script src="/admin/assets/js/santis-masaf-patch.js"></script>
     
     <style>
         body {
@@ -129,6 +124,9 @@
         }
         
     </style>
+
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
 </head>
 <body>
 
@@ -164,7 +162,6 @@
                 </a>
                 <div class="pt-4 mt-4 border-t border-gray-800">
                     <p class="text-[10px] uppercase font-bold text-gray-600 tracking-wider mb-2 ml-1">Legacy Core Modules</p>
-                    <a href="/admin/prototype-cms-v5.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-500 hover:text-gray-300 transition text-sm">📄 Ultra CMS Builder</a>
                 </div>
             </nav>
 
@@ -186,6 +183,12 @@
             <div class="px-4 pb-4 border-t border-dashed border-gray-800 pt-3 shrink-0">
                 <p class="text-[9px] uppercase tracking-widest text-gray-700 mb-2 font-mono">Dev Test</p>
                 <div class="space-y-1.5">
+                    <button id="btn-cyber-scalpel" class="w-full text-left text-[10px] px-2 py-1.5 rounded border border-blue-900/40 text-blue-500 hover:text-blue-300 hover:border-blue-500 bg-blue-950/10 font-mono transition shadow-[0_0_10px_rgba(10,132,255,0.1)]">
+                        🔬 Siber Teşhis (Aşama 24)
+                    </button>
+                    <button id="btn-masaf-patch" class="w-full text-left text-[10px] px-2 py-1.5 rounded border border-purple-900/40 text-purple-500 hover:text-purple-300 hover:border-purple-500 bg-purple-950/10 font-mono transition shadow-[0_0_10px_rgba(168,85,247,0.1)]">
+                        🌌 Masaf Yükle (Aşama 27)
+                    </button>
                     <button id="btn-baba-yaga" onclick="alert('Baba Yaga Activated (Global Override)')" class="w-full text-left text-[10px] px-2 py-1.5 rounded border border-red-900/40 text-red-600 hover:text-red-400 hover:border-red-700 bg-red-950/10 font-mono transition">
                         ⚡ Baba Yaga ON
                     </button>
@@ -255,16 +258,75 @@
             </div>
         </aside>
 
-        <!-- COL 2: THE QUARANTINE ZONE (HITL AI Approval) -->
-        <main class="p-6 flex flex-col relative overflow-hidden flex-1">
-            <div class="panel rounded-xl p-5 flex flex-col h-full border border-gray-800 bg-black/50 relative overflow-hidden shadow-[0_0_20px_rgba(212,175,55,0.05)]">
-                <div class="flex justify-between items-center border-b border-[#D4AF37]/30 pb-3 mb-4 z-10">
-                    <h2 class="text-[#D4AF37] text-sm tracking-widest font-bold drop-shadow-[0_0_8px_rgba(212,175,55,0.5)]">[ 2. THE QUARANTINE ZONE ]</h2>
-                    <span id="hitl-status" class="text-[10px] font-bold bg-yellow-900/40 text-yellow-500 border border-yellow-500/50 px-2 py-1 rounded animate-pulse shadow-[0_0_10px_rgba(234,179,8,0.2)]">AWAITING PULSE</span>
+        <!-- COL 2: SITE NEURAL MAP ENGINE (Darwinian Traffic Web) -->
+        <main class="p-4 flex flex-col relative overflow-hidden flex-1">
+            <div class="panel rounded-xl p-2 flex flex-col h-full border border-gray-800 bg-black/50 relative overflow-hidden shadow-[0_0_20px_rgba(212,175,55,0.05)]">
+                <div class="flex justify-between items-center border-b border-[#D4AF37]/30 pb-2 mb-2 z-10 px-3 pt-2">
+                    <h2 class="text-[#D4AF37] text-sm tracking-widest font-bold drop-shadow-[0_0_8px_rgba(212,175,55,0.5)]">🧠 [ 2. THE GOD'S EYE NEURAL MAP ]</h2>
+                    <span id="neural-status" class="text-[10px] font-bold bg-green-900/40 text-green-500 border border-green-500/50 px-2 py-1 rounded shadow-[0_0_10px_rgba(34,197,94,0.2)]">SYNCHRONIZED (120 FPS)</span>
                 </div>
                 
-                <div id="quarantine-cards" class="flex-1 overflow-y-auto pr-2 space-y-4 scrollbar-hide z-10" data-rendered="none">
-                    <div class="text-center text-gray-600 text-[10px] mt-10 tracking-widest animate-pulse border border-gray-800 p-4 rounded bg-black/30">THE MATRIX IS PURE.<br>AWAITING NEW MASTERPIECES.</div>
+                <div id="neural-container" class="flex-1 w-full bg-transparent relative z-10 rounded-lg overflow-hidden">
+                    <!-- Vis-Network Canvas injects here -->
+                    
+                    <!-- OMNI-CORE COMMAND DECK (MASAF AŞAMA 28) -->
+                    <div class="sovereign-command-deck" style="
+                        position: absolute; 
+                        top: 20px; 
+                        left: 20px; 
+                        z-index: 100; 
+                        background: rgba(10, 10, 10, 0.75); 
+                        backdrop-filter: blur(15px); 
+                        -webkit-backdrop-filter: blur(15px);
+                        border: 1px solid rgba(10, 132, 255, 0.2); 
+                        padding: 20px; 
+                        border-radius: 12px; 
+                        box-shadow: 0 10px 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(10,132,255,0.05);
+                        font-family: 'Inter', sans-serif;
+                        width: 280px;
+                        pointer-events: auto;
+                    ">
+                        <h2 style="color: #E0E0E0; margin: 0 0 5px 0; font-size: 13px; letter-spacing: 2px; text-transform: uppercase;">
+                            <span style="color: #0A84FF; text-shadow: 0 0 8px #0A84FF;">●</span> OMNI-CORE COMMAND
+                        </h2>
+                        <p style="color: #888; font-size: 11px; margin: 0 0 20px 0;">Santis V26 Nöral Topoloji Merkezi</p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <button id="btn-inject-masaf" style="
+                                background: linear-gradient(90deg, #001a33, #002244); 
+                                color: #0A84FF; 
+                                border: 1px solid #0A84FF; 
+                                padding: 10px 12px; 
+                                cursor: pointer; 
+                                font-weight: 600; 
+                                transition: all 0.3s ease; 
+                                border-radius: 6px;
+                                box-shadow: 0 0 15px rgba(10,132,255,0.2);
+                                display: flex; justify-content: space-between; align-items: center;
+                                font-size: 12px;
+                            ">
+                                <span>🌌 Neon Masaf Fırlat</span>
+                                <span style="font-size: 9px; background: rgba(10,132,255,0.2); padding: 3px 6px; border-radius: 4px;">Enjekte Et</span>
+                            </button>
+                            
+                            <button id="btn-purge-masaf" disabled style="
+                                background: transparent; 
+                                color: #FF3B30; 
+                                border: 1px solid #FF3B30; 
+                                padding: 10px 12px; 
+                                cursor: pointer; 
+                                font-weight: 600; 
+                                transition: all 0.3s ease; 
+                                opacity: 0.4; 
+                                border-radius: 6px;
+                                display: flex; justify-content: space-between; align-items: center;
+                                font-size: 12px;
+                            ">
+                                <span>🧹 Yamayı İmha Et</span>
+                                <span style="font-size: 9px; background: rgba(255,59,48,0.1); padding: 3px 6px; border-radius: 4px;">Purge</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -400,7 +462,7 @@
                 const imgWrap = document.createElement('div');
                 imgWrap.className = "flex-none h-full w-24 rounded border border-[#D4AF37]/50 overflow-hidden relative opacity-0 transition-opacity duration-1000 shadow-[0_0_10px_rgba(212,175,55,0.3)]";
                 imgWrap.innerHTML = `
-                    <img src="/assets/img/${data.cortex.new_image}?t=${Date.now()}" class="w-full h-full object-cover">
+                    <img loading="lazy" decoding="async" width="1024" height="1024" src="/assets/img/${data.cortex.new_image}?t=${Date.now()}" class="w-full h-full object-cover">
                     <div class="absolute bottom-0 w-full bg-black/80 text-[8px] text-[#D4AF37] text-center truncate px-1">${data.cortex.new_image}</div>
                 `;
                 tray.prepend(imgWrap);
@@ -451,40 +513,9 @@
                 });
             }
             
-            // --- 4. ORTA SÜTUN: THE QUARANTINE ZONE (Phase 51) ---
-            if (data.quarantine) {
-                const qCards = document.getElementById('quarantine-cards');
-                const hitlStatus = document.getElementById('pending-count');
-                const pending = data.quarantine.pending_nodes || [];
-                
-                if (hitlStatus) hitlStatus.innerText = pending.length;
-
-                if (pending.length === 0) {
-                    if (qCards.dataset.rendered !== "empty") {
-                        qCards.innerHTML = '<div class="text-center text-gray-600 text-xs mt-10 tracking-widest animate-pulse">THE MATRIX IS PURE.<br>AWAITING NEW MASTERPIECES.</div>';
-                        qCards.dataset.rendered = "empty";
-                    }
-                } else {
-                    const renderedIds = pending.map(p => p.filename).join(",");
-                    if (qCards.dataset.rendered !== renderedIds) {
-                        qCards.innerHTML = pending.map(card => `
-                            <div class="bg-black/60 border border-gray-800 hover:border-[#D4AF37]/50 transition-all p-4 rounded-lg shadow-[0_0_15px_rgba(212,175,55,0.05)] relative group mb-3 overflow-hidden">
-                                <div class="absolute top-0 left-0 w-1 h-full bg-[#D4AF37]/30 group-hover:bg-[#D4AF37] transition-all duration-500"></div>
-                                <div class="flex justify-between items-start mb-2 pl-2">
-                                    <span class="text-[10px] text-gray-500 font-bold tracking-widest uppercase">NODE: <span class="text-white">${card.node_id}</span></span>
-                                    <span class="text-[9px] bg-yellow-500/10 text-yellow-500 border border-yellow-500/30 px-1.5 py-0.5 rounded animate-pulse">PENDING HITL</span>
-                                </div>
-                                <h3 class="text-[#D4AF37] text-sm font-bold mb-2 pl-2 truncate">${card.title}</h3>
-                                <p class="text-gray-400 text-[10px] mb-4 border-l border-gray-700 pl-2 ml-2 italic leading-relaxed line-clamp-2" title="${card.prompt}">"${card.prompt}"</p>
-                                <div class="flex gap-2 pl-2">
-                                    <button onclick="applySeal('${card.filename}')" class="flex-1 bg-green-900/10 hover:bg-green-600 text-green-500 hover:text-white border border-green-900/50 text-[10px] py-1.5 rounded transition-all tracking-widest font-bold shadow-[0_0_10px_rgba(34,197,94,0.1)] transition-colors">👑 SEAL</button>
-                                    <button onclick="burnNode('${card.filename}')" class="flex-1 bg-red-900/10 hover:bg-red-600 text-red-500 hover:text-white border border-red-900/50 text-[10px] py-1.5 rounded transition-all tracking-widest font-bold shadow-[0_0_10px_rgba(239,68,68,0.1)] transition-colors">🔥 BURN</button>
-                                </div>
-                            </div>
-                        `).join("");
-                        qCards.dataset.rendered = renderedIds;
-                    }
-                }
+            // --- 4. ORTA SÜTUN: THE QUARANTINE ZONE IS NOW NEURAL MAP ---
+            if (data.telemetry && window.sovereignNetwork) {
+                // Future telemetry integration directly into the neural nodes
             }
 
             // 👁️ PHASE 55.2: CANLI ISI HARİTASI (THERMAL VISION)
@@ -547,90 +578,61 @@
             myChart.resize();
         });
 
-        // 🚨 [SOVEREIGN SEAL: QUARANTINE ZONE RENDER ENGINE]
-        const qContainer = document.getElementById('quarantine-cards');
-        const statusBadge = document.getElementById('hitl-status');
+        // 🚨 [SOVEREIGN SEAL: SITE NEURAL MAP ENGINE]
+        // Protocol B: Darwinian Traffic Web (Live Flow)
+        const initialNodesConfig = [
+            { id: 'visitor', label: 'Global Trafik', type: 'visitor', metrics: { visitors: 150, cvr: 0 } },
+            { id: 'index', label: 'Landing Page', title: 'Apex V1', type: 'apex', metrics: { visitors: 120, cvr: 4.5 } },
+            { id: 'hamam', label: 'Hamam', title: 'High Explore', type: 'service', metrics: { visitors: 45, cvr: 12.0 } },
+            { id: 'massage', label: 'Masajlar', title: 'High CVR', type: 'service', metrics: { visitors: 85, cvr: 8.5 } },
+            { id: 'skincare', label: 'Cilt Bakımı', type: 'service', metrics: { visitors: 20, cvr: 5.0 } },
+            { id: 'checkout', label: 'Sovereign Vault\\n(Ödeme)', type: 'apex', metrics: { visitors: 30, cvr: 100 } },
+            { id: 'mutant_v2', label: 'Massage (Mutant)', type: 'bounce', metrics: { visitors: 40, cvr: 0.1 } },
+            { id: 'orphan_01', label: 'Eski Kampanya', type: 'orphan', metrics: { visitors: 0, cvr: 0 }, shape: 'diamond' }
+        ];
 
-        async function fetchAndRenderQuarantine() {
-            if (!qContainer) return; // Kapsayıcı yoksa dur!
+        const initialEdgesConfig = [
+            { id: 'e1', from: 'visitor', to: 'index', traffic: 150 },
+            { id: 'e2', from: 'index', to: 'hamam', traffic: 30 },
+            { id: 'e3', from: 'index', to: 'massage', traffic: 60 },
+            { id: 'e4', from: 'index', to: 'skincare', traffic: 10 },
+            { id: 'e5', from: 'massage', to: 'checkout', traffic: 25 },
+            { id: 'e6', from: 'index', to: 'mutant_v2', traffic: 20 },
+            { id: 'e7', from: 'mutant_v2', to: 'visitor', traffic: 15 },
+            { id: 'e8', from: 'hamam', to: 'massage', traffic: 5 },
+            { id: 'e9', from: 'skincare', to: 'checkout', traffic: 5 }
+        ];
 
-            try {
-                let data = { quarantine_nodes: [] };
+        const brainEngine = new SiteNeuralMapEngine('neural-container');
+        window.brainEngine = brainEngine; // 🦅 Sovereign Global Kalkan İzni
+        brainEngine.init({ nodes: initialNodesConfig, edges: initialEdgesConfig });
 
-                if (!MOCK_MODE) {
-                    const res = await fetch("http://localhost:8080/api/v1/health/panel-audit");
-                    if(res.ok) {
-                        data = await res.json();
-                    } else {
-                        throw new Error("HTTP " + res.status);
-                    }
-                }
+        // 🚨 LIVE PULSE (Darwinian Traffic Web)
+        // Simulate live backend changes
+        brainEngine.pulseInterval = setInterval(() => {
+            const liveNodes = initialNodesConfig.map(n => {
+                if(n.type === 'orphan') return n; // Okyanustaki sürüklenen ölü düğüme can gelmez
+                const fluctuation = Math.floor(Math.random() * 20) - 10;
+                const newVisitors = Math.max(0, n.metrics.visitors + fluctuation);
+                return { id: n.id, type: n.type, metrics: { ...n.metrics, visitors: newVisitors } };
+            });
 
-                const nodes = data.quarantine_nodes || [];
-                
-                // 1. Durum Rozeti Güncellemesi (Kırmızı/Yeşil Neon Efekti)
-                if (statusBadge) {
-                    if (nodes.length === 0) {
-                        statusBadge.innerText = "0 PENDING";
-                        statusBadge.className = "text-[10px] font-bold bg-green-900/40 text-green-500 border border-green-500/50 px-2 py-1 rounded shadow-[0_0_10px_rgba(34,197,94,0.2)]";
-                    } else {
-                        statusBadge.innerText = `${nodes.length} PENDING HITL`;
-                        statusBadge.className = "text-[10px] font-bold bg-red-900/40 text-red-500 border border-red-500/50 px-2 py-1 rounded animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.3)]";
-                    }
-                }
+            const liveEdges = initialEdgesConfig.map(e => {
+                const pulse = Math.floor(Math.random() * 10) - 5;
+                return { id: e.id, traffic: Math.max(1, e.traffic + pulse) };
+            });
 
-                // 2. Karantina Boş İse
-                if (nodes.length === 0) {
-                    if (qContainer.dataset.rendered !== "empty") {
-                        qContainer.innerHTML = '<div class="text-center text-gray-600 text-[10px] mt-10 tracking-widest animate-pulse border border-gray-800 p-4 rounded bg-black/30">THE MATRIX IS PURE.<br>AWAITING NEW MASTERPIECES.</div>';
-                        qContainer.dataset.rendered = "empty";
-                    }
-                    return;
-                }
+            brainEngine.updateTraffic({ nodes: liveNodes, edges: liveEdges });
+        }, 3000);
 
-                // 3. Kartların Çizilmesi (Sadece Değişiklik Varsa - Performans Zırhı)
-                const currentNodesStr = JSON.stringify(nodes.map(n => n.node_id || n.filename));
-                if (qContainer.dataset.rendered === currentNodesStr) return;
-
-                qContainer.innerHTML = nodes.map(node => `
-                    <div class="bg-black/80 border border-gray-700 hover:border-[#D4AF37]/60 transition-all p-4 rounded-lg shadow-[0_0_15px_rgba(212,175,55,0.05)] relative group overflow-hidden mb-3">
-                        <div class="absolute top-0 left-0 w-1 h-full bg-[#D4AF37]/30 group-hover:bg-[#D4AF37] transition-all duration-300"></div>
-                        <div class="flex justify-between items-start mb-2 pl-2">
-                            <span class="text-[10px] text-gray-500 font-bold tracking-widest uppercase">NODE: <span class="text-white">${node.node_id || node.filename.replace('.json','')}</span></span>
-                        </div>
-                        <h3 class="text-[#D4AF37] text-sm font-bold mb-2 pl-2 truncate drop-shadow-[0_0_5px_rgba(212,175,55,0.3)]">${node.title || 'Sovereign Expansion'}</h3>
-                        <p class="text-gray-400 text-[10px] mb-4 border-l border-gray-700 pl-2 ml-2 italic leading-relaxed line-clamp-2" title="${node.prompt}">"${node.prompt || 'Awaiting Vision...'}"</p>
-                        <div class="flex gap-3 pl-2">
-                            <button onclick="applySeal('${node.filename}')" class="flex-1 bg-green-900/20 hover:bg-green-600 text-green-500 hover:text-white border border-green-900/50 text-[10px] py-2 rounded transition-all tracking-widest font-bold shadow-[0_0_10px_rgba(34,197,94,0.1)] hover:shadow-[0_0_15px_rgba(34,197,94,0.4)] cursor-pointer">👑 SEAL</button>
-                            <button onclick="burnNode('${node.filename}')" class="flex-1 bg-red-900/20 hover:bg-red-600 text-red-500 hover:text-white border border-red-900/50 text-[10px] py-2 rounded transition-all tracking-widest font-bold shadow-[0_0_10px_rgba(239,68,68,0.1)] hover:shadow-[0_0_15px_rgba(239,68,68,0.4)] cursor-pointer">🔥 BURN</button>
-                        </div>
-                    </div>
-                `).join("");
-                qContainer.dataset.rendered = currentNodesStr;
-
-            } catch (err) {
-                console.warn("👁️ [God Mode] Karantina radarı tarama hatası (Bekleniyor...)");
+        // Memory Leak Guard 
+        window.addEventListener('beforeunload', () => brainEngine.destroy());
+        document.body.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (link && !link.hasAttribute('target') && link.hostname === window.location.hostname && link.pathname !== window.location.pathname) {
+                brainEngine.destroy();
             }
-        }
-
-        // 👑 THE EXECUTIONER FUNCTIONS (İnfaz Fonksiyonları)
-        window.applySeal = async function(filename) {
-            if(confirm("👑 MÜHÜR VURULUYOR: Bu şaheseri asıl evrene (Universe) katmak istediğinize emin misiniz?")) {
-                await fetch("http://localhost:8080/api/v1/quarantine/seal/" + filename, { method: 'POST' });
-                fetchAndRenderQuarantine(); // Arayüzü beklemeden anında yenile!
-            }
-        }
-
-        window.burnNode = async function(filename) {
-            if(confirm("🔥 İMHA PROTOKOLÜ: Bu eseri acımasızca küllere çeviriyorsunuz. Emin misiniz?")) {
-                await fetch("http://localhost:8080/api/v1/quarantine/burn/" + filename, { method: 'DELETE' });
-                fetchAndRenderQuarantine(); // Arayüzü beklemeden anında yenile!
-            }
-        }
-
-        // 4 Saniyelik Polling Radarı
-        setInterval(fetchAndRenderQuarantine, 4000);
-        fetchAndRenderQuarantine(); // Sayfa yüklenir yüklenmez ilk taramayı yap!
+        });
         // Sidebar Resizing Logic
         const sidebar = document.getElementById('admin-sidebar');
         const dragHandle = document.getElementById('sidebar-drag-handle');
@@ -668,8 +670,56 @@
                 }
             });
         }
+
+        // 🗡️ [AŞAMA 24] CYBER SCALPEL DEV TEST BUTTON
+        const btnScalpel = document.getElementById('btn-cyber-scalpel');
+        if (btnScalpel) {
+            btnScalpel.addEventListener('click', () => {
+                if(!window.brainEngine) return;
+                
+                // MOCK Scanner Data (Santis Pro Scanner'dan gelmiş gibi)
+                const scannerData = {
+                    orphans: [
+                        { id: "santis-oracle", label: "/santis-oracle.html" },
+                        { id: "404_page", label: "/404.html" },
+                        { id: "checkout_suc", label: "/checkout-success.html" }
+                    ],
+                    bleeding: [
+                        { id: "mutant_v2", label: "Massage (Mutant)", lostTraffic: 145 },
+                        { id: "old_hamam", label: "/tr/hamam/old-ritual", lostTraffic: 89 }
+                    ]
+                };
+                
+                window.brainEngine.runDiagnostics(scannerData);
+                btnScalpel.classList.replace('text-blue-500', 'text-green-500');
+                btnScalpel.innerText = "💉 Neşter Aktif!";
+            });
+        }
+
+        // 🌌 [AŞAMA 27] SOVEREIGN MASAF PATCH BUTTON
+        const btnMasaf = document.getElementById('btn-masaf-patch');
+        if (btnMasaf) {
+            btnMasaf.addEventListener('click', async () => {
+                if(!window.brainEngine) return;
+                
+                // btnMasaf durumu güncelle (Pulse)
+                btnMasaf.classList.replace('text-purple-500', 'text-amber-500');
+                btnMasaf.innerText = "⏳ Yükleniyor...";
+                
+                // Masaf Patch'ini başlat
+                const patch = new SovereignCollectionPatch('masaf_demo_v1', window.brainEngine);
+                await patch.ignite();
+                
+                btnMasaf.classList.replace('text-amber-500', 'text-green-500');
+                btnMasaf.innerText = "✅ Masaf Enjekte Edildi!";
+            });
+        }
     </script>
 </div>
+<!-- Sovereign Admin Navigation -->
+<script src="/admin/assets/js/admin-nav.js" defer></script>
+<!-- Sovereign Omni-Core Init -->
+<script src="/admin/assets/js/god-mode-init.js" defer></script>
 </body>
 </html>
 

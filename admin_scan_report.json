@@ -1,0 +1,357 @@
+{
+    "html_files": {
+        "audit-button.html": {
+            "title": "Sovereign God Mode | Audit & Telemetry",
+            "scripts": [
+                "audit-button.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "audit-history.html": {
+            "title": "Santis \u2022 Site Sa\u011fl\u0131k Trendleri",
+            "scripts": [
+                "https://cdn.jsdelivr.net/npm/chart.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "billing-success.html": {
+            "title": "Sovereign Upgrade \u2014 Santis Master OS",
+            "scripts": [
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "black-room.html": {
+            "title": "The Black Room \u2014 Santis Sovereign Analytics",
+            "scripts": [
+                "https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "boardroom.html": {
+            "title": "Sovereign Boardroom | Global Empire",
+            "scripts": [
+                "/assets/js/tailwindcss.min.js",
+                "https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js",
+                "/assets/js/world.js",
+                "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js",
+                "/assets/js/core/santis-observer.js",
+                "/assets/js/core/santis-visuals.js",
+                "/assets/js/core/sovereign-filter.js",
+                "/assets/js/core/sovereign-mirror.js",
+                "/assets/js/core/momentum-engine.js",
+                "/assets/js/core/sovereign-concierge.js",
+                "/assets/js/core/score-radar.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "bookings.html": {
+            "title": "Santis Master OS - Live Bookings",
+            "scripts": [
+                "/assets/js/tailwindcss.min.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "command-center.html": {
+            "title": "Santis Integrated Command Center",
+            "scripts": [
+                "/assets/js/tailwindcss.min.js",
+                "https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js",
+                "phantom-interceptor.js",
+                "https://cdn.jsdelivr.net/npm/chart.js",
+                "https://d3js.org/d3.v7.min.js",
+                "santis-core.js",
+                "santis-live-mesh.js",
+                "santis-matrix-engine.js",
+                "integrated_hub.js",
+                "https://unpkg.com/vue@3/dist/vue.global.prod.js",
+                "/admin/vue-command-center.js",
+                "santis-echarts.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "crm.html": {
+            "title": "Santis Master OS - AI Offers & CRM",
+            "scripts": [
+                "/assets/js/tailwindcss.min.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "dashboard.html": {
+            "title": "Santis Master OS - Dark Pulse",
+            "scripts": [
+                "/assets/js/tailwindcss.min.js",
+                "https://cdn.jsdelivr.net/npm/apexcharts",
+                "https://cdn.jsdelivr.net/npm/apexcharts",
+                "dashboard.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "gallery-upload.html": {
+            "title": "Gallery Upload \u2022 Santis Admin",
+            "scripts": [
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "god-mode.html": {
+            "title": "Sovereign Command Center | God Mode",
+            "scripts": [
+                "/assets/js/tailwindcss.min.js",
+                "https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "gods-eye-command.html": {
+            "title": "SANTIS GOD'S EYE \u2014 Realtime Command Center",
+            "scripts": []
+        },
+        "gods-eye-v2.html": {
+            "title": "SANTIS GOD'S EYE V2 \u2014 Spatial War Room",
+            "scripts": [
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "gods-eye-v3.html": {
+            "title": "SANTIS CITY OS \u2014 Spatial Intelligence Map",
+            "scripts": [
+                "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "gods-eye-vision.html": {
+            "title": "Santis God's Eye Vision Panel",
+            "scripts": [
+                "/assets/js/tailwindcss.min.js",
+                "https://cdn.jsdelivr.net/npm/chart.js",
+                "/admin/assets/js/admin-nav.js",
+                "/assets/js/magnetic-ui.js"
+            ]
+        },
+        "gods-eye.html": {
+            "title": "DUAL-CORE OS | Sovereign Admin",
+            "scripts": [
+                "/assets/js/tailwindcss.min.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "hotels.html": {
+            "title": "Santis Master OS - Hotels Network",
+            "scripts": [
+                "/assets/js/tailwindcss.min.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "index.html": {
+            "title": "Santis Master OS - Control Center",
+            "scripts": [
+                "/assets/js/tailwindcss.min.js",
+                "assets/js/admin_mock.js"
+            ]
+        },
+        "login.html": {
+            "title": "Santis Admin Giri\u015f",
+            "scripts": []
+        },
+        "prototype-cms-v5.html": {
+            "title": "SantisOS \u2022 CMS Interactive Prototype",
+            "scripts": [
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "pulse-simulator.html": {
+            "title": "The Sovereign Pulse | Live Intelligence Network",
+            "scripts": [
+                "/assets/js/tailwindcss.min.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "redirects.html": {
+            "title": "Santis | Eski URL Y\u00f6nlendirmeleri",
+            "scripts": [
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "revenue.html": {
+            "title": "Santis Master OS - Revenue Analytics",
+            "scripts": [
+                "/assets/js/tailwindcss.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js",
+                "https://cdn.jsdelivr.net/npm/apexcharts",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "sovereign-lab.html": {
+            "title": "SANTIS SOVEREIGN LAB v12.2 | Pulse & Flow",
+            "scripts": [
+                "../assets/js/core/santis-observer.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        },
+        "world_table.html": {
+            "title": "SANTIS \u2022 The World Table",
+            "scripts": [
+                "/assets/js/santis-brain.js",
+                "/assets/js/admin/world-engine.js",
+                "/admin/assets/js/admin-nav.js"
+            ]
+        }
+    },
+    "js_files": {
+        "activity-dashboard.js": {
+            "fetches": 2,
+            "intervals": 1,
+            "size_kb": 6.21
+        },
+        "app.js": {
+            "fetches": 1,
+            "intervals": 0,
+            "size_kb": 6.13
+        },
+        "audit-button.js": {
+            "fetches": 1,
+            "intervals": 0,
+            "size_kb": 0.85
+        },
+        "audit-engine.js": {
+            "fetches": 2,
+            "intervals": 0,
+            "size_kb": 5.96
+        },
+        "audit-history-api.js": {
+            "fetches": 1,
+            "intervals": 0,
+            "size_kb": 0.26
+        },
+        "city-intelligence.js": {
+            "fetches": 2,
+            "intervals": 1,
+            "size_kb": 4.35
+        },
+        "city-os.js": {
+            "fetches": 3,
+            "intervals": 1,
+            "size_kb": 3.36
+        },
+        "command-center.js": {
+            "fetches": 4,
+            "intervals": 0,
+            "size_kb": 8.63
+        },
+        "dashboard-analytics.js": {
+            "fetches": 1,
+            "intervals": 1,
+            "size_kb": 8.81
+        },
+        "dashboard-logic.js": {
+            "fetches": 21,
+            "intervals": 5,
+            "size_kb": 53.87
+        },
+        "dashboard.js": {
+            "fetches": 2,
+            "intervals": 4,
+            "size_kb": 17.75
+        },
+        "event-bindings.js": {
+            "fetches": 0,
+            "intervals": 0,
+            "size_kb": 13.48
+        },
+        "health-badge.js": {
+            "fetches": 1,
+            "intervals": 0,
+            "size_kb": 1.13
+        },
+        "health-score.js": {
+            "fetches": 2,
+            "intervals": 0,
+            "size_kb": 3.68
+        },
+        "i18n-dashboard.js": {
+            "fetches": 4,
+            "intervals": 0,
+            "size_kb": 36.93
+        },
+        "inline-panels.js": {
+            "fetches": 11,
+            "intervals": 2,
+            "size_kb": 39.01
+        },
+        "integrated_hub.js": {
+            "fetches": 13,
+            "intervals": 6,
+            "size_kb": 112.6
+        },
+        "media-library.js": {
+            "fetches": 2,
+            "intervals": 0,
+            "size_kb": 4.67
+        },
+        "page-builder.js": {
+            "fetches": 4,
+            "intervals": 0,
+            "size_kb": 12.31
+        },
+        "phantom-interceptor.js": {
+            "fetches": 0,
+            "intervals": 0,
+            "size_kb": 3.4
+        },
+        "preview-logic.js": {
+            "fetches": 0,
+            "intervals": 0,
+            "size_kb": 1.89
+        },
+        "santis-core.js": {
+            "fetches": 1,
+            "intervals": 0,
+            "size_kb": 12.98
+        },
+        "santis-echarts.js": {
+            "fetches": 0,
+            "intervals": 0,
+            "size_kb": 4.57
+        },
+        "santis-live-mesh.js": {
+            "fetches": 0,
+            "intervals": 1,
+            "size_kb": 10.75
+        },
+        "santis-matrix-engine.js": {
+            "fetches": 1,
+            "intervals": 1,
+            "size_kb": 16.01
+        },
+        "services-data.js": {
+            "fetches": 0,
+            "intervals": 0,
+            "size_kb": 3.13
+        },
+        "vue-command-center.js": {
+            "fetches": 15,
+            "intervals": 0,
+            "size_kb": 28.46
+        },
+        "world_table.js": {
+            "fetches": 1,
+            "intervals": 3,
+            "size_kb": 6.47
+        },
+        "assets/js/admin-nav.js": {
+            "fetches": 0,
+            "intervals": 0,
+            "size_kb": 12.43
+        },
+        "assets/js/admin_mock.js": {
+            "fetches": 0,
+            "intervals": 1,
+            "size_kb": 6.94
+        },
+        "assets/js/war-room-radar.js": {
+            "fetches": 0,
+            "intervals": 0,
+            "size_kb": 15.79
+        }
+    }
+}

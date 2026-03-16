@@ -1,0 +1,85 @@
+{
+    "intents": {
+        "default": {
+            "theme_aura": "obsidian",
+            "voice_tone": "neutral",
+            "navigation": [
+                {
+                    "label": "Anasayfa",
+                    "url": "/tr/index.html"
+                },
+                {
+                    "label": "Hamam",
+                    "url": "/tr/hamam/index.html"
+                },
+                {
+                    "label": "Masaj",
+                    "url": "/tr/masajlar/index.html"
+                },
+                {
+                    "label": "Cilt Bakımı",
+                    "url": "/tr/cilt-bakimi/index.html"
+                },
+                {
+                    "label": "Sovereign Rituals",
+                    "url": "/tr/rituals/index.html",
+                    "is_highlight": true
+                }
+            ]
+        },
+        "luxury_stay": {
+            "theme_aura": "sovereign_gold",
+            "voice_tone": "aristocratic",
+            "navigation": [
+                {
+                    "label": "The Sanctuary",
+                    "url": "/tr/index.html"
+                },
+                {
+                    "label": "Sovereign Apex",
+                    "url": "/tr/rituals/index.html",
+                    "is_highlight": true
+                },
+                {
+                    "label": "VIP Transfer",
+                    "url": "/tr/hizmetler/transfer.html"
+                },
+                {
+                    "label": "Özel Süitler",
+                    "url": "/tr/hizmetler/suites.html"
+                },
+                {
+                    "label": "Concierge",
+                    "url": "#",
+                    "action": "open_concierge"
+                }
+            ]
+        },
+        "mental": {
+            "theme_aura": "zen_blue",
+            "voice_tone": "healing",
+            "navigation": [
+                {
+                    "label": "Anasayfa",
+                    "url": "/tr/index.html"
+                },
+                {
+                    "label": "Şifa Terapileri",
+                    "url": "/tr/cilt-bakimi/index.html"
+                },
+                {
+                    "label": "Tıbbi Masajlar",
+                    "url": "/tr/masajlar/index.html"
+                },
+                {
+                    "label": "Arınma (Detox)",
+                    "url": "/tr/hamam/index.html"
+                },
+                {
+                    "label": "Sessizlik Manifestosu",
+                    "url": "/tr/code-of-silence.html"
+                }
+            ]
+        }
+    }
+}

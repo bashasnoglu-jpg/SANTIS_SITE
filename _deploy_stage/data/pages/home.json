@@ -1,0 +1,12 @@
+{
+  "title": "Home",
+  "blocks": [
+    {
+      "type": "hero",
+      "data": {
+        "title": "Santis Club",
+        "subtitle": "Welcome"
+      }
+    }
+  ]
+}

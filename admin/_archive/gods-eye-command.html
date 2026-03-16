@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANTIS GOD'S EYE — Realtime Command Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void: #050505;
+            --surface: #0a0a0a;
+            --surface-2: #111;
+            --surface-3: #1a1a1a;
+            --border: rgba(255,255,255,0.06);
+            --border-gold: rgba(212,175,55,0.15);
+            --gold: #d4af37;
+            --gold-dim: rgba(212,175,55,0.5);
+            --text: #fff;
+            --text-dim: rgba(255,255,255,0.5);
+            --text-muted: rgba(255,255,255,0.25);
+            --green: #10b981;
+            --red: #ef4444;
+            --amber: #f59e0b;
+            --purple: #a855f7;
+            --cyan: #06b6d4;
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--void);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ═══ HEADER ═══ */
+        .cmd-header {
+            padding: 20px 32px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--surface);
+            position: sticky; top: 0; z-index: 100;
+            backdrop-filter: blur(20px);
+        }
+        .cmd-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--gold);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .cmd-header h1 span { font-size: 1.5rem; }
+
+        .status-pill {
+            display: flex; align-items: center; gap: 8px;
+            padding: 6px 16px; border-radius: 50px;
+            background: rgba(16,185,129,0.08);
+            border: 1px solid rgba(16,185,129,0.2);
+            font-size: 0.72rem; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase;
+            color: var(--green);
+        }
+        .status-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 8px var(--green);
+            animation: blink 2s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .back-btn {
+            color: var(--text-dim); text-decoration: none;
+            font-size: 0.8rem; display: flex; align-items: center; gap: 6px;
+            transition: color 0.2s;
+        }
+        .back-btn:hover { color: var(--gold); }
+
+        /* ═══ GRID ═══ */
+        .cmd-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            padding: 24px 32px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* ═══ PANELS ═══ */
+        .cmd-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+        .cmd-panel:hover { border-color: var(--border-gold); }
+
+        .panel-head {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .panel-icon {
+            width: 32px; height: 32px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+        }
+        .panel-title {
+            font-size: 0.7rem; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: var(--text-dim);
+        }
+        .panel-body { padding: 20px; }
+
+        /* ═══ BUTTONS ═══ */
+        .cmd-btn {
+            display: flex; align-items: center; gap: 8px;
+            padding: 10px 18px; border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--surface-2);
+            color: var(--text-dim);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem; font-weight: 500;
+            cursor: pointer; transition: all 0.3s;
+            width: 100%;
+        }
+        .cmd-btn:hover {
+            border-color: var(--gold-dim);
+            color: var(--text);
+            background: var(--surface-3);
+            transform: translateY(-1px);
+        }
+        .cmd-btn:active { transform: translateY(0); }
+        .cmd-btn.active {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.08);
+            color: var(--gold);
+        }
+        .cmd-btn.danger {
+            border-color: rgba(239,68,68,0.2);
+        }
+        .cmd-btn.danger:hover {
+            border-color: var(--red);
+            color: var(--red);
+            background: rgba(239,68,68,0.06);
+        }
+
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .btn-stack { display: flex; flex-direction: column; gap: 8px; }
+
+        /* ═══ INPUT ═══ */
+        .cmd-input {
+            width: 100%; padding: 10px 14px; border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--surface-2);
+            color: var(--text); font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            transition: border-color 0.3s;
+        }
+        .cmd-input:focus {
+            outline: none; border-color: var(--gold-dim);
+        }
+        .cmd-input::placeholder { color: var(--text-muted); }
+
+        .input-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+        .input-label {
+            font-size: 0.65rem; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ═══ LOG ═══ */
+        .cmd-log {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            background: var(--void);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+        .log-entry { padding: 2px 0; border-bottom: 1px solid rgba(255,255,255,0.02); }
+        .log-ok { color: var(--green); }
+        .log-err { color: var(--red); }
+        .log-time { color: var(--text-muted); }
+        .log-type { color: var(--gold); font-weight: 600; }
+
+        /* ═══ METER ═══ */
+        .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .status-card {
+            background: var(--surface-2); border-radius: 8px;
+            padding: 14px; border: 1px solid var(--border);
+        }
+        .status-value {
+            font-size: 1.4rem; font-weight: 300; color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .status-label {
+            font-size: 0.6rem; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 768px) {
+            .cmd-grid { grid-template-columns: 1fr; padding: 16px; }
+            .cmd-header { padding: 16px; }
+            .btn-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="cmd-header">
+    <div style="display:flex; align-items:center; gap: 20px;">
+        <a href="/admin/index.html" class="back-btn">← Hub</a>
+        <h1><span>🦅</span> God's Eye — Command Center</h1>
+    </div>
+    <div class="status-pill">
+        <div class="status-dot"></div>
+        <span id="conn-status">BroadcastChannel Active</span>
+    </div>
+</header>
+
+<!-- ═══ COMMAND GRID ═══ -->
+<div class="cmd-grid">
+
+    <!-- 1. LAYOUT CONTROLLER -->
+    <div class="cmd-panel">
+        <div class="panel-head">
+            <div class="panel-icon" style="background:rgba(6,182,212,0.1);">🎛️</div>
+            <span class="panel-title">Layout Controller</span>
+        </div>
+        <div class="panel-body">
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:14px;">
+                Ziyaretçi ekranlarındaki kart düzenini anlık değiştir.
+            </p>
+            <div class="btn-grid">
+                <button class="cmd-btn" onclick="sendLayout('grid')" id="btn-grid">
+                    <span>▦</span> Grid
+                </button>
+                <button class="cmd-btn" onclick="sendLayout('rail')" id="btn-rail">
+                    <span>≡</span> Rail
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. DARWINIAN A/B -->
+    <div class="cmd-panel">
+        <div class="panel-head">
+            <div class="panel-icon" style="background:rgba(168,85,247,0.1);">🧬</div>
+            <span class="panel-title">Darwinian A/B Control</span>
+        </div>
+        <div class="panel-body">
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:14px;">
+                Kazanan görsel varyantı kilitle veya otonom evrime bırak.
+            </p>
+            <div class="input-group">
+                <span class="input-label">Variant Hash (Filter)</span>
+                <input type="text" class="cmd-input" id="apex-hash"
+                    placeholder="brightness(0.7) hue-rotate(15deg)" value="brightness(0.65) saturate(1.1)">
+            </div>
+            <div class="btn-grid">
+                <button class="cmd-btn" onclick="sendApexLock()">
+                    <span>👑</span> Apex Lock
+                </button>
+                <button class="cmd-btn" onclick="sendApexUnlock()">
+                    <span>🔓</span> Unlock
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. MOOD ENGINE CONTROL -->
+    <div class="cmd-panel">
+        <div class="panel-head">
+            <div class="panel-icon" style="background:rgba(212,175,55,0.1);">🧠</div>
+            <span class="panel-title">Mood Engine Control</span>
+        </div>
+        <div class="panel-body">
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:14px;">
+                Ziyaretçinin ruh halini uzaktan seç ve kişisel paket öner.
+            </p>
+            <div class="btn-grid">
+                <button class="cmd-btn" onclick="sendMood('purification')">
+                    <span>🌿</span> Arınma
+                </button>
+                <button class="cmd-btn" onclick="sendMood('energy')">
+                    <span>⚡</span> Enerji
+                </button>
+                <button class="cmd-btn" onclick="sendMood('compassion')">
+                    <span>💜</span> Şefkat
+                </button>
+                <button class="cmd-btn" onclick="sendMood('luxury')">
+                    <span>👑</span> İhtişam
+                </button>
+            </div>
+            <button class="cmd-btn" onclick="sendMoodReset()" style="margin-top: 8px;">
+                <span>✨</span> Mood Reset (Tümü)
+            </button>
+        </div>
+    </div>
+
+    <!-- 4. PROMO INJECTOR -->
+    <div class="cmd-panel">
+        <div class="panel-head">
+            <div class="panel-icon" style="background:rgba(245,158,11,0.1);">📦</div>
+            <span class="panel-title">Promo Bundle Injector</span>
+        </div>
+        <div class="panel-body">
+            <div class="input-group">
+                <span class="input-label">Başlık</span>
+                <input type="text" class="cmd-input" id="promo-title" value="Santis VIP Fırsatı">
+            </div>
+            <div class="input-group">
+                <span class="input-label">Mesaj</span>
+                <input type="text" class="cmd-input" id="promo-msg" value="Bu hafta Hamam + Masaj kombinasyonunda özel indirim.">
+            </div>
+            <div class="input-group">
+                <span class="input-label">İndirim</span>
+                <input type="text" class="cmd-input" id="promo-discount" value="%20">
+            </div>
+            <div class="input-group">
+                <span class="input-label">CTA Butonu</span>
+                <input type="text" class="cmd-input" id="promo-cta" value="Hemen Rezerve Et →">
+            </div>
+            <button class="cmd-btn" onclick="sendPromo()" style="margin-top: 4px;">
+                <span>🚀</span> Promo Enjekte Et
+            </button>
+        </div>
+    </div>
+
+    <!-- 5. SOVEREIGN SEAL -->
+    <div class="cmd-panel">
+        <div class="panel-head">
+            <div class="panel-icon" style="background:rgba(239,68,68,0.1);">🔒</div>
+            <span class="panel-title">Sovereign Seal</span>
+        </div>
+        <div class="panel-body">
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:14px;">
+                Acil durumlarda tüm ziyaretçi ekranlarını anında mühürle.
+            </p>
+            <div class="input-group">
+                <span class="input-label">Mühür Mesajı</span>
+                <input type="text" class="cmd-input" id="seal-msg" value="Bu deneyim şu anda bakım altındadır.">
+            </div>
+            <div class="btn-grid">
+                <button class="cmd-btn danger" onclick="sendSeal()">
+                    <span>🔐</span> Seal System
+                </button>
+                <button class="cmd-btn" onclick="sendUnseal()">
+                    <span>🔓</span> Unseal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. COMMAND LOG -->
+    <div class="cmd-panel">
+        <div class="panel-head">
+            <div class="panel-icon" style="background:rgba(16,185,129,0.1);">📡</div>
+            <span class="panel-title">Telemetry & Command Log</span>
+        </div>
+        <div class="panel-body">
+            <div class="status-grid">
+                <div class="status-card">
+                    <div class="status-value" id="cmd-count">0</div>
+                    <div class="status-label">Komut Gönderildi</div>
+                </div>
+                <div class="status-card">
+                    <div class="status-value" id="client-count">—</div>
+                    <div class="status-label">Aktif İstemci</div>
+                </div>
+            </div>
+            <div class="cmd-log" id="cmd-log">
+                <div class="log-entry"><span class="log-time">00:00:00</span> <span class="log-ok">🟢</span> Sovereign Command Center başlatıldı</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script>
+(function() {
+    'use strict';
+
+    // BroadcastChannel — Admin gönderme hattı
+    const channel = new BroadcastChannel('santis-command');
+    let cmdCount = 0;
+    let clientCount = 0;
+
+    // Client discovery — ping gönder, pong bekle
+    const discoveredClients = new Map();
+
+    channel.onmessage = (event) => {
+        const data = event.data;
+
+        // Pong cevapları — aktif istemci sayısı
+        if (data.type === 'pong') {
+            discoveredClients.set(data.page, Date.now());
+            updateClientCount();
+        }
+
+        // Komut logları
+        if (data.type !== 'pong' && data.type !== 'ping') {
+            // Frontend'den gelen log
+        }
+    };
+
+    // Her 3 saniyede bir ping gönder
+    setInterval(() => {
+        channel.postMessage({ type: 'ping', source: 'gods-eye' });
+
+        // 10 saniyedir cevap vermeyen istemcileri temizle
+        const now = Date.now();
+        discoveredClients.forEach((ts, page) => {
+            if (now - ts > 10000) discoveredClients.delete(page);
+        });
+        updateClientCount();
+    }, 3000);
+
+    function updateClientCount() {
+        clientCount = discoveredClients.size;
+        document.getElementById('client-count').textContent = clientCount;
+    }
+
+    // ── Command senders ──
+
+    function send(type, payload = {}) {
+        const cmd = {
+            channel: 'command',
+            source: 'gods-eye',
+            type: type,
+            timestamp: Date.now(),
+            ...payload
+        };
+        channel.postMessage(cmd);
+        cmdCount++;
+        document.getElementById('cmd-count').textContent = cmdCount;
+        appendLog(type, true, JSON.stringify(payload).substring(0, 80));
+    }
+
+    window.sendLayout = (layout) => {
+        // UI state
+        document.querySelectorAll('#btn-grid, #btn-rail').forEach(b => b.classList.remove('active'));
+        document.getElementById(`btn-${layout}`)?.classList.add('active');
+        send('layout_switch', { layout });
+    };
+
+    window.sendApexLock = () => {
+        const hash = document.getElementById('apex-hash').value;
+        send('apex_lock', { variantHash: hash });
+    };
+
+    window.sendApexUnlock = () => send('apex_unlock');
+
+    window.sendMood = (moodId) => {
+        // UI state
+        document.querySelectorAll('.cmd-panel:nth-child(3) .cmd-btn').forEach(b => b.classList.remove('active'));
+        event.target.closest('.cmd-btn')?.classList.add('active');
+        send('mood_inject', { moodId });
+    };
+
+    window.sendMoodReset = () => {
+        document.querySelectorAll('.cmd-panel:nth-child(3) .cmd-btn').forEach(b => b.classList.remove('active'));
+        send('mood_reset');
+    };
+
+    window.sendPromo = () => {
+        send('promo_bundle', {
+            title: document.getElementById('promo-title').value,
+            message: document.getElementById('promo-msg').value,
+            discount: document.getElementById('promo-discount').value,
+            cta: document.getElementById('promo-cta').value
+        });
+    };
+
+    window.sendSeal = () => {
+        if (!confirm('⚠️ Tüm ziyaretçi ekranları mühürlenecek. Emin misiniz?')) return;
+        send('seal_system', { message: document.getElementById('seal-msg').value });
+    };
+
+    window.sendUnseal = () => send('unseal_system');
+
+    // ── Log ──
+
+    function appendLog(type, success, detail) {
+        const log = document.getElementById('cmd-log');
+        const now = new Date();
+        const time = now.toTimeString().split(' ')[0];
+        const icon = success ? '<span class="log-ok">✓</span>' : '<span class="log-err">✗</span>';
+        const entry = document.createElement('div');
+        entry.className = 'log-entry';
+        entry.innerHTML = `<span class="log-time">${time}</span> ${icon} <span class="log-type">${type}</span> ${detail || ''}`;
+        log.prepend(entry);
+
+        // Max 50 entries
+        while (log.children.length > 50) log.lastChild.remove();
+    }
+
+
+
+    // Initial ping
+    setTimeout(() => {
+        channel.postMessage({ type: 'ping', source: 'gods-eye' });
+    }, 500);
+
+})();
+</script>
+</body>
+</html>

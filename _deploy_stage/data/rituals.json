@@ -1,0 +1,63 @@
+{
+    "signatures": [
+        {
+            "id": "sovereign-purification",
+            "title": "The Sovereign Purification",
+            "subtitle": "Mermer kurnadan yükselen efsane.",
+            "category": "SOVEREIGN APEX",
+            "price": "150€",
+            "duration": "90 min",
+            "hero_image": "/assets/img/cards/hammam.webp",
+            "atmosphere_color": "#0a0a09",
+            "timeline": [
+                {
+                    "time": "00:00",
+                    "title": "Buhar ve Sükunet",
+                    "description": "Özel Sovereign odasında okaliptüs esansıyla açılış."
+                },
+                {
+                    "time": "00:20",
+                    "title": "İpek Kese",
+                    "description": "Ölü derilerden tamamen arınma ritüeli."
+                },
+                {
+                    "time": "00:50",
+                    "title": "Sothys Nem Terapisi",
+                    "description": "Premium yağlarla hücresel yenilenme."
+                },
+                {
+                    "time": "01:20",
+                    "title": "Sovereign Altın Mühür",
+                    "description": "24 Ayar altın maske ile kapanış dokunuşu."
+                }
+            ]
+        },
+        {
+            "id": "deluxe-imperial",
+            "title": "Deluxe Imperial",
+            "subtitle": "Saraylara layık bir yenilenme.",
+            "category": "SOVEREIGN APEX",
+            "price": "200€",
+            "duration": "120 min",
+            "hero_image": "/assets/img/cards/massage.webp",
+            "atmosphere_color": "#110e08",
+            "timeline": [
+                {
+                    "time": "00:00",
+                    "title": "Karşılama",
+                    "description": "Sıcak havlu ve bitki çayı ikramı."
+                },
+                {
+                    "time": "00:30",
+                    "title": "Tüm Vücut Masajı",
+                    "description": "Baştan ayağa derin doku terapisi."
+                },
+                {
+                    "time": "01:45",
+                    "title": "Yüz ve Boyun Maskesi",
+                    "description": "Sothys Imperial serisi ile anti-aging."
+                }
+            ]
+        }
+    ]
+}

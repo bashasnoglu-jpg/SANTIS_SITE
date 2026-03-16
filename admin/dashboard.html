@@ -5,8 +5,8 @@
     <meta name="description" content="Santis Master OS - Dark Pulse — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Santis Master OS - Dark Pulse</title>
-    <!-- Tailwind CSS -->
-    <script src="/assets/js/tailwindcss.min.js" crossorigin="anonymous"></script>
+    <!-- Tailwind CSS (Precompiled Bundle) -->
+    <link href="/admin/dist/admin.bundle.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <!-- ApexCharts -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" crossorigin="anonymous"></script>
@@ -52,6 +52,9 @@
         .gold-glow { box-shadow: 0 0 15px rgba(201, 169, 110, 0.2); }
         .surge-glow { box-shadow: 0 0 20px rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.5); }
     </style>
+
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
 </head>
 <body class="h-screen w-screen flex flex-col bg-grid relative">
     
@@ -337,7 +340,7 @@
 
     <!-- Data Bridge & ApexCharts -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" crossorigin="anonymous"></script>
-    <script src="dashboard.js"></script>
+    <!-- 🛡️ ZOMBIE QUARANTINED: dashboard.js -->
 
     <script>
         // Inline script for Report Viewer
@@ -393,44 +396,52 @@
         }
 
         // 🚀 PHASE 83: QUANTUM REFLEX (AURELIA STREAMING UI ANALYTICS) 
+        let quantumReflexInterval;
+        
         async function fetchQuantumReflexReports() {
             try {
                 // Requesting metrics from Sovereign Edge Node
-                const res = await fetch("http://localhost:8080/api/edge/analytics/edge_prefetch");
-                if (res.ok) {
-                    const edgeReports = await res.json();
-                    
-                    let totalRevenue = 0;
-                    let totalConversion = 0;
-                    let totalDelay = 0;
-                    
-                    edgeReports.forEach(report => {
-                        totalRevenue += report.revenue;
-                        totalConversion += report.conversion;
-                        totalDelay += report.avgDelay;
-                        
-                        console.log(`[Phase 83 Analytics] Persona: ${report.persona}, WhisperID: ${report.whisperId}`);
-                        console.log(`-> Revenue: €${report.revenue}, Conv: ${report.conversion}%, Delay: ${report.avgDelay}ms`);
-                    });
-
-                    // Update UI Dashboard Counters
-                    const avgDelay = Math.round(totalDelay / edgeReports.length);
-                    const avgConv = (totalConversion / edgeReports.length).toFixed(1);
-                    
-                    document.getElementById('stat-edge-latency').innerHTML = `${avgDelay}<span class="text-xs text-gray-500">ms</span>`;
-                    document.getElementById('stat-edge-winrate').innerHTML = `${avgConv}<span class="text-sm">%</span>`;
-                    document.getElementById('stat-edge-impact').innerHTML = `+€${totalRevenue.toLocaleString()} <span class="text-[10px] text-gray-500">(24h)</span>`;
+                const res = await fetch('/api/v1/analytics/edge/reflex');
+                if (!res.ok) {
+                    console.warn("⚡ [Edge Analytics] API offline (404/500). Waiting for backend telemetry.");
+                    return;
                 }
+                
+                const edgeReports = await res.json();
+                
+                let totalRevenue = 0;
+                let totalConversion = 0;
+                let totalDelay = 0;
+                
+                edgeReports.forEach(report => {
+                    totalRevenue += report.revenue;
+                    totalConversion += report.conversion;
+                    totalDelay += report.avgDelay;
+                    
+                    // Sessiz mod: Console kirliliğini engellemek için başarılı döngüleri sadece önemli durumlarda yazdırır.
+                });
+
+                // Update UI Dashboard Counters
+                const avgDelay = Math.round(totalDelay / edgeReports.length);
+                const avgConv = (totalConversion / edgeReports.length).toFixed(1);
+                
+                document.getElementById('stat-edge-latency').innerHTML = `${avgDelay}<span class="text-xs text-gray-500">ms</span>`;
+                document.getElementById('stat-edge-winrate').innerHTML = `${avgConv}<span class="text-sm">%</span>`;
+                document.getElementById('stat-edge-impact').innerHTML = `+€${totalRevenue.toLocaleString()} <span class="text-[10px] text-gray-500">(24h)</span>`;
+                
             } catch (err) {
-                console.warn("Phase 83 Analytics not reachable (Edge Node Simülasyonu çalışmıyor olabilir).", err);
+                console.warn("⚡ [Edge Analytics] Network error. Disabling telemetry polling.");
+                if (quantumReflexInterval) clearInterval(quantumReflexInterval);
             }
         }
         
         // Execute Quantum Reflex Telemetry Polling
         setTimeout(fetchQuantumReflexReports, 2000);
-        setInterval(fetchQuantumReflexReports, 15000);
+        quantumReflexInterval = setInterval(fetchQuantumReflexReports, 15000);
 
     </script>
+<!-- Sovereign Admin Navigation -->
+<script src="/admin/assets/js/admin-nav.js" defer></script>
 </body>
 </html>
 

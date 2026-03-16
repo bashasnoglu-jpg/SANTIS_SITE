@@ -1,0 +1,45 @@
+@layer utilities {
+
+    /* ── DISPLAY HELPERS ── */
+    .hidden {
+        display: none !important;
+    }
+    
+    .opacity-0 {
+        opacity: 0 !important;
+    }
+    
+    .invisible {
+        visibility: hidden !important;
+    }
+
+    /* ── TYPOGRAPHY HELPERS ── */
+    .text-center {
+        text-align: center;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .lux-gradient-text {
+        background: linear-gradient(90deg, #c6a96b, #e2c88f, #c6a96b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* ── SPACING HELPERS ── */
+    .mt-lg {
+        margin-top: var(--space-lg);
+    }
+    
+    .mb-lg {
+        margin-bottom: var(--space-lg);
+    }
+
+    .py-xl {
+        padding-top: var(--space-xl);
+        padding-bottom: var(--space-xl);
+    }
+}

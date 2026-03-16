@@ -389,12 +389,193 @@ function serveStatic(req, res) {
     });
 }
 
-// ── WebSocket (Minimal, RFC 6455) ──────────────────────────
-const wsClients = new Set();
+// ═══════════════════════════════════════════════════════════
+// 🛡️ SOVEREIGN WEBSOCKET SHIELD v2.0 (Production-Grade)
+// ═══════════════════════════════════════════════════════════
+// 7-Layer Defense: Origin · IP Limit · Rate Limit · Heartbeat
+//                  Zombie Cleanup · Payload Limit · Multiplex Router
+// ═══════════════════════════════════════════════════════════
 
+const wsClients = new Set();
+const wsRateMap = new Map();        // IP → { count, resetTime } (connection rate)
+const ipConnections = new Map();    // IP → active connection count (concurrent)
+
+// ── CONFIG ─────────────────────────────────────────────────
+const WS_CONFIG = {
+    // 🛡️ Origin Whitelist (CSWSH Koruması)
+    ALLOWED_ORIGINS: new Set([
+        'http://localhost:8080',
+        'http://127.0.0.1:8080',
+        'https://santisclub.com',
+        'https://www.santisclub.com',
+        'https://admin.santisclub.com',
+    ]),
+    ALLOW_NULL_ORIGIN: true,           // file:// ve yerel geliştirme için
+
+    // 🚫 Limits
+    MAX_CONNECTIONS_PER_IP: 5,         // Eş zamanlı bağlantı limiti
+    MAX_CONNECT_RATE_PER_MIN: 120,      // Dakikada max yeni bağlantı (local dev: 120)
+    MAX_MESSAGES_PER_MIN: 100,         // Bağlantı başına mesaj hız limiti
+    MAX_PAYLOAD_BYTES: 32 * 1024,      // 32 KB max mesaj boyutu
+
+    // ❤️ Heartbeat
+    HEARTBEAT_INTERVAL_MS: 30000,      // 30 saniye ping/pong
+    TELEMETRY_INTERVAL_MS: 10000,      // 10 saniye mock telemetry
+};
+
+// ── 1️⃣ ORIGIN SHIELD (CSWSH Koruması) ─────────────────────
+function verifyOrigin(origin) {
+    if (origin === null || origin === undefined) {
+        return WS_CONFIG.ALLOW_NULL_ORIGIN;
+    }
+    return WS_CONFIG.ALLOWED_ORIGINS.has(origin);
+}
+
+// ── 2️⃣ IP CONNECTION LIMIT ────────────────────────────────
+function canConnect(ip) {
+    const count = ipConnections.get(ip) || 0;
+    if (count >= WS_CONFIG.MAX_CONNECTIONS_PER_IP) return false;
+    ipConnections.set(ip, count + 1);
+    return true;
+}
+
+function releaseConnection(ip) {
+    const count = ipConnections.get(ip) || 1;
+    if (count <= 1) {
+        ipConnections.delete(ip);
+    } else {
+        ipConnections.set(ip, count - 1);
+    }
+}
+
+// ── 3️⃣ CONNECTION RATE LIMIT ──────────────────────────────
+function checkConnectionRate(ip) {
+    const now = Date.now();
+    let entry = wsRateMap.get(ip);
+    if (!entry || now > entry.resetTime) {
+        entry = { count: 0, resetTime: now + 60000 };
+        wsRateMap.set(ip, entry);
+    }
+    entry.count++;
+    return entry.count <= WS_CONFIG.MAX_CONNECT_RATE_PER_MIN;
+}
+
+// Rate map temizliği — her 5 dakikada eski kayıtları sil
+setInterval(() => {
+    const now = Date.now();
+    for (const [ip, entry] of wsRateMap) {
+        if (now > entry.resetTime) wsRateMap.delete(ip);
+    }
+}, 300000);
+
+// ── FULL VERIFY CLIENT ─────────────────────────────────────
+function verifyClient(req, socket) {
+    const origin = req.headers.origin || null;
+    const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress;
+
+    // 1. ORIGIN KONTROLÜ
+    if (!verifyOrigin(origin)) {
+        console.warn(`🚫 [WS SHIELD] Origin reddedildi: ${origin} | IP: ${ip}`);
+        socket.write('HTTP/1.1 403 Forbidden\r\n\r\n');
+        socket.destroy();
+        return null;
+    }
+
+    // 2. CONNECTION RATE LIMIT
+    if (!checkConnectionRate(ip)) {
+        console.warn(`🚫 [WS SHIELD] Bağlantı hız limiti aşıldı: ${ip}`);
+        socket.write('HTTP/1.1 429 Too Many Requests\r\n\r\n');
+        socket.destroy();
+        return null;
+    }
+
+    // 3. CONCURRENT CONNECTION LIMIT
+    if (!canConnect(ip)) {
+        console.warn(`🚫 [WS SHIELD] Eş zamanlı bağlantı limiti aşıldı: ${ip} (max ${WS_CONFIG.MAX_CONNECTIONS_PER_IP})`);
+        socket.write('HTTP/1.1 429 Too Many Requests\r\n\r\n');
+        socket.destroy();
+        return null;
+    }
+
+    return ip; // Doğrulanmış IP döndür
+}
+
+// ── 8️⃣ SOVEREIGN MULTIPLEX ROUTER ─────────────────────────
+function routeMessage(socket, parsed) {
+    const channel = parsed.channel || parsed.type || 'unknown';
+
+    switch (channel) {
+        case 'telemetry':
+            // Telemetri verisi — logla ve admin client'lara forward et
+            console.log(`📊 [WS Router] Telemetry: ${JSON.stringify(parsed.payload || {}).substring(0, 80)}`);
+            // 🧬 Darwinian + Ghost telemetriyi admin radar'a ilet
+            wsClients.forEach(c => {
+                if (c !== socket && !c.destroyed && c._wsClientType === 'admin') {
+                    wsSend(c, { type: 'TELEMETRY_BEACON', payload: parsed.payload });
+                }
+            });
+            break;
+
+        case 'data':
+            // Veri güncelleme — Store'a yönlendir
+            wsClients.forEach(c => {
+                if (c !== socket && !c.destroyed) {
+                    wsSend(c, { type: 'data_update', payload: parsed.payload });
+                }
+            });
+            break;
+
+        case 'system':
+            // Sistem komutları — admin panelden gelen emirler
+            console.log(`⚙️ [WS Router] System: ${parsed.action || 'unknown'}`);
+
+            // 🧬 APEX LOCK: Admin en başarılı varyantı tüm kullanıcılara kilitler
+            if (parsed.action === 'apex_lock' && socket._wsClientType === 'admin') {
+                console.log(`👑 [APEX LOCK] Varyant kilitlendi: ${parsed.payload?.variantHash}`);
+                wsClients.forEach(c => {
+                    if (!c.destroyed && c._wsClientType !== 'admin') {
+                        wsSend(c, { type: 'APEX_LOCK', payload: parsed.payload });
+                    }
+                });
+                // Admin'e onay
+                wsSend(socket, { type: 'APEX_LOCK_CONFIRMED', payload: parsed.payload });
+            }
+            // 🔓 APEX UNLOCK: Otonom evrime geri dön
+            else if (parsed.action === 'apex_unlock' && socket._wsClientType === 'admin') {
+                console.log(`🔓 [APEX UNLOCK] Otonom evrim yeniden aktif`);
+                wsClients.forEach(c => {
+                    if (!c.destroyed && c._wsClientType !== 'admin') {
+                        wsSend(c, { type: 'APEX_UNLOCK' });
+                    }
+                });
+                wsSend(socket, { type: 'APEX_UNLOCK_CONFIRMED' });
+            }
+            break;
+
+        case 'ping':
+            // Uygulama seviyesi ping/pong
+            wsSend(socket, { type: 'pong', t: Date.now() });
+            break;
+
+        default:
+            // Bilinmeyen kanal — broadcast et (geriye uyumluluk)
+            wsClients.forEach(c => {
+                if (c !== socket && !c.destroyed) {
+                    wsSend(c, { type: 'broadcast', data: parsed });
+                }
+            });
+            break;
+    }
+}
+
+// ── UPGRADE HANDLER ────────────────────────────────────────
 function handleUpgrade(req, socket) {
+    // 🛡️ ZERO TRUST: Handshake öncesi 3 katmanlı doğrulama
+    const ip = verifyClient(req, socket);
+    if (!ip) return;
+
     const key = req.headers['sec-websocket-key'];
-    if (!key) { socket.destroy(); return; }
+    if (!key) { releaseConnection(ip); socket.destroy(); return; }
 
     const accept = crypto.createHash('sha1')
         .update(key + '258EAFA5-E914-47DA-95CA-5AB5DC11E65B')
@@ -407,26 +588,112 @@ function handleUpgrade(req, socket) {
         'Sec-WebSocket-Accept: ' + accept + '\r\n\r\n'
     );
 
+    // ── Connection State ──
+    socket._wsIp = ip;
+    socket._wsAlive = true;
+    socket._wsMsgCount = 0;
+    socket._wsConnectedAt = Date.now();
+
+    // 🏷️ Client Sınıflandırma: admin paneli mi, frontend mi?
+    const urlParams = new URL(req.url, 'http://dummy').searchParams;
+    socket._wsClientType = urlParams.get('client_type') || 'frontend';
+
     wsClients.add(socket);
-    console.log(`📡 [WS] Client connected. Total: ${wsClients.size}`);
+    console.log(`📡 [WS] Bağlantı kabul edildi. Type: ${socket._wsClientType} | Origin: ${req.headers.origin || 'N/A'} | IP: ${ip} | Aktif: ${wsClients.size}`);
 
     // Welcome message
-    wsSend(socket, { type: 'welcome', message: 'Sovereign Bus Online', timestamp: Date.now() });
+    wsSend(socket, { type: 'SYSTEM_BOOT', payload: { message: 'Sovereign Bus Online', version: '2.0', timestamp: Date.now() } });
 
+    // ── 4️⃣ DATA HANDLER + 5️⃣ MESSAGE RATE LIMIT ──
     socket.on('data', (buf) => {
         try {
+            // Protocol-level pong cevabı (opcode 0xA)
+            if (buf.length >= 2 && (buf[0] & 0x0F) === 0x0A) {
+                socket._wsAlive = true;
+                return;
+            }
+
             const msg = wsDecodeFrame(buf);
-            if (msg) {
-                // Broadcast to all clients
-                wsClients.forEach(c => { if (c !== socket && !c.destroyed) wsSend(c, { type: 'broadcast', data: msg }); });
+            if (!msg) return;
+
+            // 🚫 Payload boyut kontrolü
+            if (Buffer.byteLength(msg, 'utf8') > WS_CONFIG.MAX_PAYLOAD_BYTES) {
+                console.warn(`🚫 [WS SHIELD] Payload aşırı büyük — bağlantı kapatılıyor: ${ip}`);
+                socket.destroy();
+                return;
+            }
+
+            // 🚫 Message rate limit
+            socket._wsMsgCount++;
+            if (socket._wsMsgCount > WS_CONFIG.MAX_MESSAGES_PER_MIN) {
+                console.warn(`🚫 [WS SHIELD] Mesaj hız limiti aşıldı: ${ip} (${socket._wsMsgCount}/${WS_CONFIG.MAX_MESSAGES_PER_MIN}/dk)`);
+                wsSend(socket, { type: 'error', code: 1008, message: 'Rate limit exceeded' });
+                socket.destroy();
+                return;
+            }
+
+            // Parse & route
+            try {
+                const parsed = JSON.parse(msg);
+                routeMessage(socket, parsed);
+            } catch (e) {
+                // JSON olmayan mesaj — sessizce yoksay
             }
         } catch (e) {}
     });
 
-    socket.on('close', () => { wsClients.delete(socket); console.log(`📡 [WS] Client disconnected. Total: ${wsClients.size}`); });
-    socket.on('error', () => { wsClients.delete(socket); });
+    // ── 7️⃣ CONNECTION CLEANUP ──
+    socket.on('close', () => {
+        wsClients.delete(socket);
+        releaseConnection(ip);
+        console.log(`📡 [WS] Bağlantı kapandı. IP: ${ip} | Aktif: ${wsClients.size}`);
+    });
+    socket.on('error', () => {
+        wsClients.delete(socket);
+        releaseConnection(ip);
+    });
 }
 
+// ── 5️⃣ MESSAGE RATE RESET (60 saniyelik döngü) ───────────
+setInterval(() => {
+    wsClients.forEach(socket => {
+        if (!socket.destroyed) socket._wsMsgCount = 0;
+    });
+}, 60000);
+
+// ── 6️⃣ HEARTBEAT — ZOMBIE CONNECTION KILLER ───────────────
+// Protocol-level Ping (opcode 0x9) — RFC 6455 uyumlu
+function wsPing(socket) {
+    try {
+        if (!socket.destroyed) {
+            const pingFrame = Buffer.from([0x89, 0x00]); // opcode 0x9 (ping), 0 byte payload
+            socket.write(pingFrame);
+        }
+    } catch (e) {}
+}
+
+setInterval(() => {
+    let zombieCount = 0;
+    wsClients.forEach(socket => {
+        if (!socket._wsAlive) {
+            // ☠️ Zombi tespit edildi — öldür
+            zombieCount++;
+            console.warn(`☠️ [HEARTBEAT] Zombi bağlantı temizlendi: ${socket._wsIp}`);
+            socket.destroy();
+            wsClients.delete(socket);
+            releaseConnection(socket._wsIp);
+            return;
+        }
+        // Canlılık bayrağını indir ve ping at
+        socket._wsAlive = false;
+        wsPing(socket);
+    });
+    if (zombieCount > 0) {
+        console.log(`🧹 [HEARTBEAT] ${zombieCount} zombi temizlendi. Aktif: ${wsClients.size}`);
+    }
+}, WS_CONFIG.HEARTBEAT_INTERVAL_MS);
+
+// ── WS ENCODING / DECODING ─────────────────────────────────
 function wsSend(socket, obj) {
     try {
         const str = JSON.stringify(obj);
@@ -447,6 +714,14 @@ function wsSend(socket, obj) {
 
 function wsDecodeFrame(buf) {
     if (buf.length < 2) return null;
+    const opcode = buf[0] & 0x0F;
+    // Close frame (0x8) — bağlantıyı kapat
+    if (opcode === 0x08) return null;
+    // Ping frame (0x9) — protokol seviyesi, routeMessage'a geçme
+    if (opcode === 0x09) return null;
+    // Pong frame (0xA) — zaten data handler'da yakalanıyor
+    if (opcode === 0x0A) return null;
+
     const masked = (buf[1] & 0x80) !== 0;
     let len = buf[1] & 0x7f;
     let offset = 2;
@@ -460,20 +735,38 @@ function wsDecodeFrame(buf) {
     return buf.slice(offset, offset + len).toString('utf8');
 }
 
-// Heartbeat: her 10 saniyede mock telemetry
+// ── TELEMETRY BROADCAST (Mock — 10 saniyelik döngü) ────────
 setInterval(() => {
     const event = {
-        type: 'telemetry',
-        visitors: Math.floor(Math.random() * 5),
-        page: ['/tr/','/tr/masajlar/','/tr/hamam/','/tr/cilt-bakimi/'][Math.floor(Math.random() * 4)],
+        type: 'LIVE_PULSE',
+        data: {
+            activeGuests: Math.floor(Math.random() * 8) + 1,
+            revenueForecast: 14500 + Math.floor(Math.random() * 3000),
+        },
         timestamp: Date.now()
     };
     wsClients.forEach(c => { if (!c.destroyed) wsSend(c, event); });
-}, 10000);
+}, WS_CONFIG.TELEMETRY_INTERVAL_MS);
 
 // ── HTTP Server ────────────────────────────────────────────
 const server = http.createServer((req, res) => {
-    // API routes first
+    // 🏥 ROOT HEALTH ENDPOINT — JSON sağlık raporu
+    if (req.url === '/health' || req.url === '/health/') {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+            status: 'online',
+            server: 'Santis Sovereign Server v1.0',
+            uptime_seconds: Math.round(process.uptime()),
+            uptime_human: formatUptime(process.uptime()),
+            memory_mb: Math.round(process.memoryUsage().rss / 1024 / 1024),
+            ws_clients: wsClients.size,
+            node_version: process.version,
+            timestamp: new Date().toISOString()
+        }));
+        return;
+    }
+
+    // API routes
     if (req.url.startsWith('/api/')) {
         if (!handleAPI(req, res)) {
             res.writeHead(404, { 'Content-Type': 'application/json' });
@@ -494,6 +787,22 @@ const server = http.createServer((req, res) => {
     }
     // Static files
     serveStatic(req, res);
+});
+
+// 🛡️ Uptime Formatter
+function formatUptime(seconds) {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+    return `${h}h ${m}m ${s}s`;
+}
+
+// 🛡️ CRASH SHIELD: Sunucu hiçbir hatada çökmez
+process.on('uncaughtException', (err) => {
+    console.error('🚨 [CRASH SHIELD] Uncaught Exception yakalandı (sunucu ayakta):', err.message);
+});
+process.on('unhandledRejection', (reason) => {
+    console.error('🚨 [CRASH SHIELD] Unhandled Rejection yakalandı (sunucu ayakta):', reason);
 });
 
 // WebSocket upgrade

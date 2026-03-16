@@ -476,18 +476,32 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
     // Expose globally
     window.loadComp = loadComp;
 
-    // --- SERVICE WORKER CLEANUP (Force Unregister to fix 404s) ---
+    // --- NAVIGATION FLOW (Breadcrumb + Cross-Sell + Footer Nav) ---
+    (function() {
+        if (document.querySelector('script[src*="navigation-flow"]')) return;
+        const navScript = document.createElement('script');
+        navScript.src = '/assets/js/navigation-flow.js';
+        navScript.defer = true;
+        document.head.appendChild(navScript);
+        console.log('🧭 [Loader] Navigation Flow injector loaded.');
+    })();
+
+    // --- SERVICE WORKER CLEANUP (Yabancı SW'leri temizle, kendi Zırh SW'mize dokunma) ---
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.getRegistrations().then(function (registrations) {
-                for (let registration of registrations) {
-                    console.log('🛑 [Loader] Unregistering Service Worker:', registration.scope);
-                    registration.unregister();
+                const OWNED_SW = '/santis-sw.js'; // PWA Zırhı — dokunma
+                let nuked = 0;
+                for (let reg of registrations) {
+                    // Kendi SW'mizi (santis-sw.js) koru — sadece yabancı scope'ları sil
+                    if (!reg.active?.scriptURL?.includes(OWNED_SW)) {
+                        reg.unregister();
+                        nuked++;
+                        console.log('🛑 [Loader] Zombie SW silindi:', reg.scope);
+                    }
                 }
-                if (registrations.length > 0) {
-                    console.log('✅ [Loader] Zombie Service Workers Nuked. Reloading page...');
-                    // Optional: Force reload if we killed something
-                    // location.reload(); 
+                if (nuked > 0) {
+                    console.log(`✅ [Loader] ${nuked} Zombie SW temizlendi. Kendi Zırh SW korundu.`);
                 }
             });
         });

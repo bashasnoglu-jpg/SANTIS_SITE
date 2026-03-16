@@ -71,6 +71,7 @@ const ADMIN_JS_ORDER = [
 ];
 
 const ADMIN_CSS_ORDER = [
+    'assets/css/tailwind-admin.css',
     'style-v2.css',
     'style-admin.css',
 ];

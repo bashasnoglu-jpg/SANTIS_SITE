@@ -1,0 +1,46 @@
+[
+    {
+        "id": "sothys-hydra-serum",
+        "name": "Hydra-Hyaluronic Acid4 Serum",
+        "line": "hydra",
+        "category": "serum",
+        "price": 85,
+        "volume": "50ml",
+        "benefit": "Derin Nem & Dolgunluk",
+        "image": "/assets/img/products/sothys_hydra_serum.png",
+        "desc": "Dört farklı hyalüronik asit molekülü ile cildin su tutma kapasitesini artıran ve anında dolgunluk veren yoğun nem serumu."
+    },
+    {
+        "id": "sothys-hydra-cream",
+        "name": "Hydra-Hyaluronic Cream",
+        "line": "hydra",
+        "category": "cream",
+        "price": 75,
+        "volume": "50ml",
+        "benefit": "Günlük Nem & Konfor",
+        "image": "/assets/img/products/sothys_hydra_cream.png",
+        "desc": "Cildin doğal nem bariyerini güçlendiren ve gün boyu yumuşaklık sağlayan günlük bakım kremi."
+    },
+    {
+        "id": "sothys-detox-serum",
+        "name": "Detox Energie™ Energizing Serum",
+        "line": "detox",
+        "category": "serum",
+        "price": 90,
+        "volume": "30ml",
+        "benefit": "Oksijen & Işıltı",
+        "image": "/assets/img/products/sothys_detox_serum.png",
+        "desc": "Şehir hayatının yıpratıcı etkilerine karşı cildi koruyan, mürver ağacı özlü güçlü antioksidan serum."
+    },
+    {
+        "id": "sothys-youth-cream",
+        "name": "Youth Cream (Firming)",
+        "line": "jeunesse",
+        "category": "cream",
+        "price": 110,
+        "volume": "50ml",
+        "benefit": "Sıkılaşma & Lifting",
+        "image": "/assets/img/products/sothys_youth_firming.png",
+        "desc": "Cildin elastikiyetini geri kazandıran ve yüz hatlarını toparlayan ileri teknoloji gençlik kremi."
+    }
+]

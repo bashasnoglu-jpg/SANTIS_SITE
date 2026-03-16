@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ApexTerminal from '../components/ui/ApexTerminal.tsx';
+---
+
+<Layout title="SpaOS | Sovereign Elite V4">
+	<main class="w-full min-h-screen overflow-hidden relative flex flex-col justify-center bg-[#020202]">
+		<!-- The Omni-Node V4: Replaces all older UI elements -->
+		<ApexTerminal client:load />
+	</main>
+</Layout>

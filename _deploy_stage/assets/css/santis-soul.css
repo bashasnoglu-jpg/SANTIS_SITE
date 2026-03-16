@@ -1,0 +1,207 @@
+/* 
+ * SANTIS SOUL ENGINE v1.0 (CSS Core)
+ * "The site literally breathes."
+ */
+
+:root {
+    /* --- 1. THE 4-7-8 BREATH RHYTHM --- */
+    /* Total Cycle: 19s (4s In, 7s Hold, 8s Out) */
+    --breath-cycle: 19s;
+    --breath-scale: 1.0;
+    --breath-opacity: 0.6;
+
+    /* --- 2. LIQUID LIGHT VARIABLES (Updated by JS) --- */
+    --cursor-x: 50vw;
+    --cursor-y: 50vh;
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+
+    /* --- 3. MOOD PALETTES --- */
+    /* Default: "Deep Relax" (Obsidian & Gold) */
+    --soul-bg: #0F0F12;
+    --soul-nebula-1: rgba(74, 66, 56, 0.4);
+    /* Dark Taupe */
+    --soul-nebula-2: rgba(15, 23, 42, 0.6);
+    /* Midnight */
+    --soul-light: rgba(198, 165, 92, 0.15);
+    /* Muted Gold */
+    --soul-ray: rgba(255, 255, 255, 0.03);
+}
+
+/* --- THE ATMOSPHERE LAYER --- */
+.soul-atmosphere {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    /* Behind everything */
+    background: var(--soul-bg);
+    overflow: hidden;
+    pointer-events: none;
+    transition: background 2s ease;
+}
+
+/* Nebula Mesh (The Breathing Body) */
+.soul-nebula {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+        radial-gradient(circle at 50% 50%, var(--soul-nebula-1) 0%, transparent 60%),
+        radial-gradient(circle at 80% 20%, var(--soul-nebula-2) 0%, transparent 50%);
+    filter: blur(80px);
+    opacity: var(--breath-opacity);
+    transform: scale(var(--breath-scale));
+    /* The Breath Animation */
+    animation: breathe var(--breath-cycle) infinite ease-in-out;
+}
+
+/* Liquid Starlight (Interactive Layer) */
+.soul-light {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle 600px at var(--cursor-x) var(--cursor-y),
+            var(--soul-light) 0%,
+            transparent 100%);
+    mix-blend-mode: screen;
+    opacity: 0.8;
+    transition: opacity 0.5s ease;
+}
+
+/* Divine Rays (Subtle Texture - CLEANED) */
+.soul-rays {
+    position: absolute;
+    inset: 0;
+    background: transparent;
+    /* Clean look, no stripes */
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+/* --- ANIMATIONS --- */
+
+/* The 4-7-8 Breath Pattern Simulation */
+@keyframes breathe {
+    0% {
+        transform: scale(1.0);
+        opacity: 0.5;
+    }
+
+    /* Start Inhale */
+    20% {
+        transform: scale(1.1);
+        opacity: 0.7;
+    }
+
+    /* End Inhale (4s approx) */
+    55% {
+        transform: scale(1.1);
+        opacity: 0.7;
+    }
+
+    /* End Hold (7s approx) */
+    100% {
+        transform: scale(1.0);
+        opacity: 0.5;
+    }
+}
+
+@keyframes rayDrift {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 100px 100px;
+    }
+}
+
+/* --- PHANTOM GLASS --- */
+/* Applies to all premium cards defined in card-effects.js */
+.soul-card,
+.prod-card-v2,
+.nv-trend-card,
+.nv-card {
+    position: relative;
+    overflow: hidden;
+    /* For sheen */
+    /* Glass Base */
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    /* Subtle border */
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+/* The Phantom Sheen (Follows Mouse) */
+.soul-card::after,
+.prod-card-v2::after,
+.nv-trend-card::after,
+.nv-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    pointer-events: none;
+    /* Uses vars from card-effects.js (--mouse-x, --mouse-y) */
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 40%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Hover States */
+.soul-card:hover,
+.prod-card-v2:hover,
+.nv-trend-card:hover,
+.nv-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    border-color: rgba(255, 255, 255, 0.2);
+    /* Brighter border */
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+    /* Deep Shadow */
+}
+
+.soul-card:hover::after,
+.prod-card-v2:hover::after,
+.nv-trend-card:hover::after,
+.nv-card:hover::after {
+    opacity: 1;
+    /* Show the phantom sheen */
+}
+/* --- MOBILE OPTIMIZATION (ULTRA MEGA v3) --- */
+@media (max-width: 768px) {
+    .soul-nebula {
+        /* Reduce GPU texture load */
+        width: 150%; 
+        height: 150%;
+        top: -25%; 
+        left: -25%;
+        filter: blur(40px); /* 50% Less Blur Calc */
+    }
+    
+    /* Disable expensive particle layers on mobile */
+    .element-rain, .element-mist, .element-dawn, .element-water {
+        opacity: 0.3 !important;
+        animation: none !important; /* Stop JS-heavy or CSS-heavy loops */
+        background-image: none !important; /* Remove complex gradients */
+    }
+
+    /* Fallback simple gradient for mobile atmosphere */
+    .soul-atmosphere {
+        background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%);
+    }
+}
+

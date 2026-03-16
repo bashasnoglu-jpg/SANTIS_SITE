@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign V18 - Apex Cards & Anti-Grid Layout Demo</title>
+    
+    <!-- SOVEREIGN CSS KERNEL (V6) -->
+    <link rel="stylesheet" href="/assets/css/santis-v6/santis.css">
+
+    <style>
+        /* Decorative Background specifically for the demo window */
+        body { 
+            background: radial-gradient(circle at 50% 0%, #1a1a24 0%, #0a0c10 100%); 
+            min-height: 100vh;
+        }
+        
+        /* 
+          A temporary hack to simulate the Javascript adding the 'app-ready' 
+          class for our LCP fix, so the body fades in smoothly. 
+        */
+        html.app-ready body { visibility: visible; }
+    </style>
+
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
+</head>
+<body>
+
+    <nav class="sovereign-nav gpu-layer">
+        <h1 class="font-secondary lux-gradient-text" style="margin:0; font-size:1.5rem;">Sovereign OS V18</h1>
+        <div style="font-size:0.8rem; color:var(--color-text-muted); font-family:var(--font-mono);">PHASE 1: ANTI-GRID & APEX CARDS</div>
+    </nav>
+
+    <!-- ANTI-GRID RAIL CONTAINER -->
+    <main class="v18-rail mt-lg py-xl px-4 mx-auto" style="max-width: 1600px; padding-top: 120px;">
+        
+        <!-- CARD 1 -->
+        <article class="v18-card gpu-layer">
+            <div class="aura-image">
+                <img loading="lazy" decoding="async" width="1024" height="1024" src="/assets/img/cards/sothys-ritual.webp" alt="Cartier Style Spa Mockup 1">
+            </div>
+            <div class="card-content">
+                <h2 class="kinetic-title">Signature Massage</h2>
+                <div class="liquid-divider"></div>
+                <p class="hover-reveal-desc">A bespoke journey aligning your physical resonance with deep tranquility. Masterfully crafted for the modern sovereign.</p>
+                <div class="price-tag">€ 120.00</div>
+            </div>
+        </article>
+
+        <!-- CARD 2 -->
+        <article class="v18-card gpu-layer">
+            <div class="aura-image">
+                <img loading="lazy" decoding="async" width="1024" height="1024" src="/assets/img/cards/hammam-luxury.webp" alt="Cartier Style Spa Mockup 2">
+            </div>
+            <div class="card-content">
+                <h2 class="kinetic-title">Hammam Ritual</h2>
+                <div class="liquid-divider"></div>
+                <p class="hover-reveal-desc">The ancient art of purification reinvented. Steam, marble, and Moroccan black soap forge an unparalleled skin rebirth.</p>
+                <div class="price-tag">€ 145.00</div>
+            </div>
+        </article>
+
+        <!-- CARD 3 -->
+        <article class="v18-card gpu-layer">
+            <div class="aura-image">
+                <img loading="lazy" decoding="async" width="1024" height="1024" src="/assets/img/cards/skincare-sothys.webp" alt="Cartier Style Spa Mockup 3">
+            </div>
+            <div class="card-content">
+                <h2 class="kinetic-title">Sothys Secret</h2>
+                <div class="liquid-divider"></div>
+                <p class="hover-reveal-desc">Cellular rejuvenation powered by exclusive Sothys Paris serums. Immediate plumping and a legendary glow.</p>
+                <div class="price-tag">€ 180.00</div>
+            </div>
+        </article>
+
+        <!-- CARD 4 -->
+        <article class="v18-card gpu-layer">
+            <div class="aura-image">
+                <img loading="lazy" decoding="async" width="600" height="800" src="/assets/img/cards/massage-deep.webp" alt="Cartier Style Spa Mockup 4">
+            </div>
+            <div class="card-content">
+                <h2 class="kinetic-title">Deep Tissue Matrix</h2>
+                <div class="liquid-divider"></div>
+                <p class="hover-reveal-desc">Precision kinetic strikes to dismantle muscle tension blocks. Recommended for athletes and high-performers.</p>
+                <div class="price-tag">€ 130.00</div>
+            </div>
+        </article>
+        
+        <!-- CARD 5 -->
+        <article class="v18-card gpu-layer">
+            <div class="aura-image">
+                <img loading="lazy" decoding="async" width="600" height="800" src="/assets/img/cards/couple-massage.webp" alt="Cartier Style Spa Mockup 5">
+            </div>
+            <div class="card-content">
+                <h2 class="kinetic-title">Sovereign Alliance</h2>
+                <div class="liquid-divider"></div>
+                <p class="hover-reveal-desc">A synchronized experience for two. Transcend reality together in our private VIP matrix suite.</p>
+                <div class="price-tag">€ 260.00</div>
+            </div>
+        </article>
+
+        <!-- CARD 6 -->
+        <article class="v18-card gpu-layer">
+            <div class="aura-image">
+                <img loading="lazy" decoding="async" width="1024" height="1024" src="/assets/img/cards/detox-wrap.webp" alt="Cartier Style Spa Mockup 6">
+            </div>
+            <div class="card-content">
+                <h2 class="kinetic-title">Cryo Detox Forge</h2>
+                <div class="liquid-divider"></div>
+                <p class="hover-reveal-desc">Sub-zero therapy combined with active algae wraps. Instantly crushes inflammation and resets cellular age.</p>
+                <div class="price-tag">€ 95.00</div>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- HORIZONTAL SHOWCASE CONTAINER -->
+    <section class="mt-lg py-xl px-4 mx-auto" style="max-width: 1400px; padding-bottom: 200px;">
+        
+        <h2 class="font-secondary lux-gradient-text text-center mb-lg" style="letter-spacing: 0.2em; font-size: 1.2rem; text-transform: uppercase;">
+            Horizon / Panoramik Seri
+        </h2>
+        
+        <!-- HORIZONTAL CARD 1 -->
+        <article class="v18-card horizontal gpu-layer" style="margin-bottom: 80px;">
+            <div class="aura-image">
+                <img loading="lazy" decoding="async" width="1024" height="1024" src="/assets/img/cards/sothys-ritual.webp" alt="Cartier Style Spa Mockup 1">
+            </div>
+            <div class="card-content">
+                <h2 class="kinetic-title">Signature Horizon</h2>
+                <div class="liquid-divider"></div>
+                <p class="hover-reveal-desc">A bespoke horizontal journey aligning your physical resonance with deep tranquility. Masterfully crafted for the modern sovereign. The expanded viewport allows for a deeper narrative.</p>
+                <div class="price-tag">€ 150.00</div>
+            </div>
+        </article>
+
+        <!-- HORIZONTAL CARD 2 (REVERSE) -->
+        <article class="v18-card horizontal reverse gpu-layer" style="margin-bottom: 80px;">
+            <div class="aura-image">
+                <img loading="lazy" decoding="async" width="1024" height="1024" src="/assets/img/cards/hammam-luxury.webp" alt="Cartier Style Spa Mockup 2">
+            </div>
+            <div class="card-content">
+                <h2 class="kinetic-title">Hammam Panoramique</h2>
+                <div class="liquid-divider"></div>
+                <p class="hover-reveal-desc">The ancient art of purification reinvented. Steam, marble, and Moroccan black soap forge an unparalleled skin rebirth. Seen from a completely new angle.</p>
+                <div class="price-tag">€ 195.00</div>
+            </div>
+        </article>
+
+    </section>
+
+    <script>
+        // Simulate System Boot Complete
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.documentElement.classList.add('app-ready');
+            }, 50); // Small delay to let critical CSS parse
+        });
+    </script>
+</body>
+</html>

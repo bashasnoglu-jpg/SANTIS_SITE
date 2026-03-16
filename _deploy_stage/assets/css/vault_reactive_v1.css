@@ -1,0 +1,109 @@
+/* ==========================================================================
+   PHASE V7: REACTIVE AURA (SOVEREIGN MUTATION)
+   ========================================================================== */
+
+/* 1. Temel Geçiş ve Sinematik Kararma (Vignette) Hazırlığı */
+body {
+    transition: background-color 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    /* Tıklamaları engellememesi kritik */
+    background: radial-gradient(circle at center, transparent 100%, rgba(0, 0, 0, 0) 100%);
+    transition: background 2.5s ease-in-out;
+    z-index: var(--z-modal); /* AUTO-CAPPED BY OMNI-CORE */
+    /* İçeriğin üstünde, UI Modal/Chat'in altında */
+}
+
+/* --------------------------------------------------------------------------
+   STAGE 1: AWAKENED (Score 70+) 
+   -------------------------------------------------------------------------- */
+body[data-aura="awakened"] {
+    background-color: #050505 !important;
+}
+
+body[data-aura="awakened"]::before {
+    /* Hafif kenar kararması */
+    background: radial-gradient(circle at center, transparent 60%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+body[data-aura="awakened"] .nv-btn-cta,
+body[data-aura="awakened"] .card__action {
+    animation: sovereignPulse 3s infinite alternate;
+}
+
+/* --------------------------------------------------------------------------
+   STAGE 2: SURGE (Score 95+) 
+   -------------------------------------------------------------------------- */
+body[data-aura="surge"] {
+    background-color: #020202 !important;
+}
+
+body[data-aura="surge"]::before {
+    /* Derin sinematik odaklanma */
+    background: radial-gradient(circle at center, transparent 35%, rgba(0, 0, 0, 0.85) 100%);
+}
+
+body[data-aura="surge"] .nv-btn-cta,
+body[data-aura="surge"] .card__action {
+    box-shadow: 0 0 20px rgba(218, 165, 32, 0.6);
+    border-color: rgba(218, 165, 32, 0.8);
+    animation: sovereignSurgePulse 1.5s infinite alternate;
+}
+
+/* --------------------------------------------------------------------------
+   SOVEREIGN KALP ATIŞI (PULSE) ANİMASYONLARI
+   -------------------------------------------------------------------------- */
+@keyframes sovereignPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(218, 165, 32, 0.1);
+    }
+
+    100% {
+        box-shadow: 0 0 12px 1px rgba(218, 165, 32, 0.3);
+    }
+}
+
+@keyframes sovereignSurgePulse {
+    0% {
+        box-shadow: 0 0 10px 2px rgba(255, 215, 0, 0.4);
+    }
+
+    100% {
+        box-shadow: 0 0 25px 6px rgba(255, 215, 0, 0.8);
+    }
+}
+
+/* ==========================================================================
+   ACİL DÜZELTME: AURA GÖLGESİNİ DELİP GEÇEN KATMANLAR
+   ========================================================================== */
+
+/* 1. Karanlık Auranın Tıklamaları Yutmasını KESİN OLARAK Engelle */
+body::before {
+    pointer-events: none !important;
+}
+
+/* 2. Merkezdeki Teklif Kutusunu ve Butonları Karanlığın Üstüne Taşı */
+#santis-rescue-overlay,
+.santis-rescue-modal {
+    position: relative;
+    z-index: var(--z-modal); /* AUTO-CAPPED BY OMNI-CORE */
+    pointer-events: auto !important;
+}
+
+/* 3. Aurelia'nın Grafik Çakışmasını (Alt Bar ile) Çöz */
+.santis-closing-bubble {
+    z-index: var(--z-modal); /* AUTO-CAPPED BY OMNI-CORE */
+    bottom: 90px !important;
+    /* Alt bar 24px padding + height'ından dolayı en az 90px yeter */
+    pointer-events: auto !important;
+}
+
+/* Alt rezervasyon barının z-index güvencesi */
+.santis-urgency-bar {
+    z-index: var(--z-modal); /* AUTO-CAPPED BY OMNI-CORE */
+}

@@ -1,97 +1,192 @@
-// ========================================================================
-// 🦅 SANTIS OMNI-OS V18 | THE LORD OF TIME (BOOTLOADER)
-// ========================================================================
-console.log("%c👑 [V18 OMNI-OS] The Lord of Time Awakening...", "color: #d4af37; font-weight: bold; background: #050505; padding: 4px 10px; border: 1px solid #d4af37;");
+/* ==========================================================================
+   🦅 SANTIS OS V8 OMEGA — DETERMINISTIC BOOTLOADER
+   The Great Pruning: 51 → 15 Super-Cluster Architecture
+   ========================================================================== */
 
-// 1. THE IMPERIAL SEAL (Tekil Global Hükümdarlık)
-// Tarayıcının Window objesindeki tüm o varoş kirliliği bitiriyoruz! 15 motor bitti, TEK TANRI geldi.
-window.Santis = {
-    State: { page: document.body.dataset.page || 'unknown', scroll: 0 },
-    Workers: {},
-    Engines: {},
-    UI: {}
-};
+// 🛡️ CRASH SHIELD (Browser): Hiçbir JS hatası sayfayı çökertemez
+window.addEventListener('error', (e) => {
+    console.error(`🚨 [CRASH SHIELD] JS Error yakalandı: ${e.message} (${e.filename}:${e.lineno})`);
+    e.preventDefault(); // Hatanın yayılmasını engelle
+});
+window.addEventListener('unhandledrejection', (e) => {
+    console.error('🚨 [CRASH SHIELD] Promise Rejection yakalandı:', e.reason);
+    e.preventDefault();
+});
 
-// 2. THE CHRONOS PIPELINE (Zaman Otoyolu)
-async function bootSovereignOS() {
-    const t0 = performance.now();
-    console.log(`%c⏱️ [T+${Math.round(t0)}ms] Karargâh Onaylandı: Cephe [${window.Santis.State.page.toUpperCase()}]`, "color: #3b82f6");
+// 🛡️ IDEMPOTENT GUARD: Çift Darbe (Double Boot) Sendromunu Global Olarak Engelle
+if (window.__SANTIS_BOOTED_GLOBAL) {
+    console.warn('⚠️ [V8 OMEGA] Global Bootloader Script Zaten Çalıştırıldı — çift çağrı engellendi.');
+} else {
+    window.__SANTIS_BOOTED_GLOBAL = true;
+
+    async function igniteSantisOS() {
+        if (window.__SANTIS_BOOTED) {
+            console.warn('⚠️ [V8 OMEGA] Boot zaten tamamlandı — çift çağrı engellendi.');
+            return;
+        }
+        window.__SANTIS_BOOTED = true;
+
+        const t0 = performance.now();
+        const page = document.body?.dataset?.page || 'unknown';
+
+    console.log(
+        "%c🦅 [V8 OMEGA] Deterministic Boot Sequence Initiated...",
+        "color: #d4af37; font-weight: bold; background: #050505; padding: 4px 10px; border: 1px solid #d4af37;"
+    );
+    console.log(`%c⏱️ [T+0ms] Cephe: [${page.toUpperCase()}]`, "color: #3b82f6");
+
+    // ── Sovereign Global State ────────────────────────────────────────────────
+    window.Santis = window.Santis || {
+        State: { page, scroll: 0 },
+        Workers: {},
+        Engines: {},
+        UI: {}
+    };
+
+    // ══════════════════════════════════════════════════════════════════════
+    // 🛡️ FAIL-SAFE: 3 saniye içinde boot tamamlanmazsa perdeyi yine de aç!
+    // CSS'teki html:not(.app-ready) body { visibility: hidden } kuralını
+    // her halükarda kaldırır — kara ekran ASLA kalıcı olamaz.
+    // ══════════════════════════════════════════════════════════════════════
+    const failSafeTimer = setTimeout(() => {
+        if (!document.documentElement.classList.contains('app-ready')) {
+            console.warn("⚠️ [V8 OMEGA] FAIL-SAFE: Boot 3s'de tamamlanamadı — perde zorla kaldırılıyor!");
+            document.documentElement.classList.add('app-ready');
+        }
+    }, 3000);
+
+    // ── waitForPaint: Tarayıcının ilk pikseli çizdiği ana kadar bekle ─────────
+    function waitForPaint() {
+        return new Promise((resolve) => {
+            if (document.readyState === 'complete') return requestAnimationFrame(resolve);
+            let resolved = false;
+            const done = () => { if (!resolved) { resolved = true; resolve(); } };
+            if ('PerformanceObserver' in window) {
+                try {
+                    const po = new PerformanceObserver((list) => {
+                        if (list.getEntries().length > 0) { po.disconnect(); done(); }
+                    });
+                    po.observe({ type: 'paint', buffered: true });
+                    setTimeout(() => { po.disconnect(); done(); }, 250); // Güvenlik ağı
+                } catch { done(); }
+            } else {
+                requestAnimationFrame(() => requestAnimationFrame(done)); // Eski tarayıcı fallback
+            }
+        });
+    }
 
     try {
-        // 🟢 LCP < 1.0s GARANTİSİ (Lazy-Shader Skeleton)
-        // DOM ve CSS iskeletlerinin anında çizilmesi için WebGL motorunun uyanışını 300ms erteliyoruz.
-        await new Promise(resolve => setTimeout(resolve, 300));
+        // ══════════════════════════════════════════════════════════════════════
+        // FAZ 0: SANTIS OS v3 KERNEL BOOT (Non-blocking, paralel)
+        // ══════════════════════════════════════════════════════════════════════
+        import('/assets/js/core/santis-core.js?v=V3')
+            .then(m => m.default?.boot?.())
+            .catch(e => console.error('[V8 OMEGA] Kernel import failed (non-fatal):', e));
 
-        // 🟢 T+300ms : THE SOVEREIGN GPU (Sıvı Altın HER SAYFADA Akacak!)
-        const GPU = await import('../engines/gpu-effects.js?v=V18_APEX_RESURRECTION').catch(() => { });
+        // LCP GUARD — Sabit 300ms YOK. Tarayıcı paint edince devam et.
+        await waitForPaint();
+
+        // ══════════════════════════════════════════════════════════════════════
+        // FAZ 1: GPU & MATRIX CORE (300-500ms) — Görsel Çekirdek
+        // ══════════════════════════════════════════════════════════════════════
+        const GPU = await import('../engines/gpu-effects.js?v=V8_OMEGA').catch(() => null);
         if (GPU) window.Santis.Engines.GPU = GPU.init();
 
-        // 🟢 T+400ms : THE QUANTUM MATRIX (ROUTER)
-        const matrixPages = ['massage', 'hamam', 'hammam', 'skincare', 'rituals', 'index']; // Kart dizilecek sayfalar (index = ana sayfa rail'leri)
-        const page = window.Santis.State.page;
-
-        if (matrixPages.includes(page)) {
-            // 💎 SADECE LİSTE SAYFALARINDA KUANTUM İŞÇİSİNİ ÇAĞIR!
-            console.log(`%c🧠 [T+${Math.round(performance.now())}ms] Kuantum Çekirdeği (Kernel Worker) Ateşleniyor...`, "color: #10b981");
-            window.Santis.Workers.Kernel = new Worker('/assets/js/workers/kernel.worker.js?v=V18_APEX_RESURRECTION', { type: 'module' });
-            window.Santis.Workers.Kernel.postMessage({ type: 'BOOT_SEQUENCE', payload: { page: page } });
-
-            const MatrixUI = await import('../ui/massage-matrix.js?v=V18_APEX_RESURRECTION').catch(() => { });
-            if (MatrixUI) window.Santis.UI.Matrix = MatrixUI.init(window.Santis.Workers.Kernel);
-
-        } else {
-            // 💎 Ana Sayfa Kuantum modunda — ek motor gerekmez
-            if (page === 'home' || page === 'index') {
-                console.log("💎 [V18] Ana sayfa Kuantum modunda çalışıyor.");
+        // 👁️🗨️ [Phase 30] Sovereign Quantum Cursor Engine
+        const CursorMode = await import('../core/santis-cursor.js?v=V30_OMEGA').catch(() => null);
+        if (CursorMode && typeof CursorMode.SovereignCursor === 'function') {
+            if (!document.querySelector('link[href*="santis.cursor.css"]')) {
+                const styleLink = document.createElement('link');
+                styleLink.rel = 'stylesheet';
+                styleLink.href = '/assets/css/santis-v6/santis.cursor.css';
+                document.head.appendChild(styleLink);
             }
+            window.Santis.Engines.Cursor = new CursorMode.SovereignCursor();
+        }
 
-            // Karanlıktan aydınlığa geçişi (Opacity) direkt HTML'e uygula!
+        // Kart dizilecek sayfalar için Matrix UI'ı boot et
+        const matrixPages = ['massage', 'hamam', 'hammam', 'skincare', 'rituals', 'index'];
+        if (matrixPages.includes(page)) {
+            console.log(`%c🧠 [T+${Math.round(performance.now() - t0)}ms] Kuantum Çekirdeği Ateşleniyor...`, "color: #10b981");
+            window.Santis.Workers.Kernel = new Worker(
+                '/assets/js/workers/kernel.worker.js?v=V8_OMEGA',
+                { type: 'module' }
+            );
+            window.Santis.Workers.Kernel.postMessage({
+                type: 'BOOT_SEQUENCE',
+                payload: { page }
+            });
+
+            const MatrixUI = await import('../ui/massage-matrix.js?v=V8_OMEGA').catch(() => null);
+            if (MatrixUI) window.Santis.UI.Matrix = MatrixUI.init(window.Santis.Workers.Kernel);
+        } else {
+            // Statik sayfalarda opacity geçişi
             const arena = document.querySelector('.santis-matrix-container') || document.querySelector('main');
             if (arena) requestAnimationFrame(() => { arena.style.opacity = "1"; });
         }
 
-        const t1 = performance.now();
-        console.log(`%c🏆 [V18 APEX COMPLETE] Sistem ${(t1 - t0).toFixed(2)}ms içinde tahta oturdu. Main Thread TBT: 0.00ms!`, "color: #10b981; font-weight: bold; font-size: 12px;");
+        // ══════════════════════════════════════════════════════════════════════
+        // 🎭 PERDEYİ AÇ — CSS visibility kilidini kaldır (app-ready)
+        // ══════════════════════════════════════════════════════════════════════
+        document.documentElement.classList.add('app-ready');
+        clearTimeout(failSafeTimer);
 
-        // 🟢 T+1500ms+ : THE GRAVEYARD (Sessiz Parazitlerin Uyanışı)
-        // Misafir büyülenmiş ekrana bakarken, işlemci TAMAMEN BOŞA ÇIKTIĞINDA pikselleri ateşle!
-        scheduleIdleAssassins();
+        const bootTime = Math.round(performance.now() - t0);
+        console.log(
+            `%c🏆 [V8 OMEGA] BOOT COMPLETE IN ${bootTime}ms | Cephe: ${page.toUpperCase()}`,
+            "color: #10b981; font-weight: bold; font-size: 12px;"
+        );
+
+        // ══════════════════════════════════════════════════════════════════════
+        // FAZ 2: GÖLGE KÜMELER (Idle/Scroll tetikli — ana işlemce rahatlayınca)
+        // ══════════════════════════════════════════════════════════════════════
+        scheduleShadowClusters(t0);
 
     } catch (error) {
-        console.error("🚨 [V18 FATAL ERROR] Kuantum Çöküşü:", error);
+        console.error("🚨 [V8 OMEGA] CRITICAL BOOT FAILURE:", error);
+        // 🛡️ Hata durumunda bile perdeyi aç!
+        document.documentElement.classList.add('app-ready');
+        clearTimeout(failSafeTimer);
     }
 }
 
-// 3. THE APEX WATERFALL (Dual-Trigger Quantum Assassins)
-// Kozmetik motorlar, hangisi ÖNCE olursa onu tetikler:
-//   A) Kullanıcı ilk scroll hareketini yaptığında (Engagement Signal)
-//   B) 2 saniye idle bekleme dolduğunda (Idle Timeout)
-// Tek seferlik: İlk tetikten sonra diğer tetik iptal olur (Clone Wars önlemi).
-function scheduleIdleAssassins() {
+// ── SHADOW CLUSTER BOOTSTRAP ────────────────────────────────────────────────
+// Fizik + Ticaret motorlarını scroll VEYA idle anında sessizce yükler.
+// İlk tetikten sonra diğer tetik iptal olur (Clone Wars önlemi).
+function scheduleShadowClusters(t0) {
     let fired = false;
 
     const wakeTheDead = async (trigger) => {
-        if (fired) return; // Zaten ateşlendi, ikinci tetik iptal!
+        if (fired) return;
         fired = true;
 
-        console.log(`%c🌙 [T+${Math.round(performance.now())}ms] Parazitler Uyanıyor! Tetik: ${trigger}`, "color: #6b7280");
+        console.log(`%c🌙 [T+${Math.round(performance.now() - t0)}ms] Gölge Kümeler Uyanıyor! Tetik: ${trigger}`, "color: #6b7280");
         try {
-            await import('../santis-pixel-engine.js?v=V18_APEX_RESURRECTION').catch(() => { });
-            await import('../santis-score-engine.js?v=V18_APEX_RESURRECTION').catch(() => { });
-            await import('../core/quantum-engine.js?v=V31_QUANTUM_APEX').catch(() => { });
-            await import('../core/neuro-detail.js?v=V32_NEURO_STUDIO').catch(() => { });
-            await import('../core/fibonacci-swarm.js?v=V33_FIBONACCI').catch(() => { });
-            await import('../core/checkout-ritual.js?v=V33_LIVING_TICKET').catch(() => { });
-            await import('../core/sovereign-acoustics.js?v=V34_ACOUSTICS').catch(() => { });
-            await import('../core/wallet-bridge.js?v=V34_WALLET').catch(() => { });
-            await import('../core/boutique-infection.js?v=V35_GAMMA').catch(() => { });
-        } catch (e) { }
+            // 🟣 FİZİK KÜMESİ — Parçacık efektleri & animasyonlar
+            await import('../core/quantum-engine.js?v=V8_OMEGA').catch(() => {});
+            await import('../core/fibonacci-swarm.js?v=V8_OMEGA').catch(() => {});
+
+            // 🔵 TİCARET KÜMESİ — Checkout & wallet
+            await import('../core/checkout-ritual.js?v=V8_OMEGA').catch(() => {});
+            await import('../core/wallet-bridge.js?v=V8_OMEGA').catch(() => {});
+            await import('../core/boutique-infection.js?v=V8_OMEGA').catch(() => {});
+
+            // 🟠 DENEYİM KÜMESİ — Nöral detay & akustik
+            await import('../core/neuro-detail.js?v=V8_OMEGA').catch(() => {});
+            await import('../core/sovereign-acoustics.js?v=V8_OMEGA').catch(() => {});
+
+            // 🟢 İSTİHBARAT — Piksel & skor
+            await import('../santis-pixel-engine.js?v=V8_OMEGA').catch(() => {});
+            await import('../santis-score-engine.js?v=V8_OMEGA').catch(() => {});
+
+            console.log(`%c✅ [T+${Math.round(performance.now() - t0)}ms] Tüm Gölge Kümeler Çevrimiçi`, "color: #10b981");
+        } catch (e) { /* Sessiz hata yakalama */ }
     };
 
-    // 🅰️ SCROLL TETİĞİ: Kullanıcı ilk scroll yaptığı an ateşle (passive + once = sıfır TBT)
+    // 🅰️ SCROLL TETİĞİ
     window.addEventListener('scroll', () => wakeTheDead('SCROLL'), { passive: true, once: true });
 
-    // 🅱️ IDLE TETİĞİ: İşlemci 2 saniye boşa düşerse ateşle
+    // 🅱️ IDLE TETİĞİ (2 saniye)
     if ('requestIdleCallback' in window) {
         requestIdleCallback(() => wakeTheDead('IDLE'), { timeout: 2000 });
     } else {
@@ -99,10 +194,26 @@ function scheduleIdleAssassins() {
     }
 }
 
-// ⚔️ TETİĞİ ÇEK!
-// HTML tamamen parse edildiği an Bootloader'ı ateşle (Render Blocking'i sıfırla)
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bootSovereignOS);
-} else {
-    bootSovereignOS();
+// 🌑 [V26] SOVEREIGN PWA INJECTION (Hayalet İşçi Uyanışı)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/santis-sw.js')
+            .then((registration) => {
+                console.log('🛡️ [PWA Zırhı] Shadow Worker devrede! Sovereign Kapsamı:', registration.scope);
+            })
+            .catch((error) => {
+                console.error('🚨 [PWA Hatası] Gölge İşçi uyanamadı:', error);
+            });
+    });
 }
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ⚔️ SİSTEMİ ATEŞLE — DOM hazır olduğu an boot et
+// ══════════════════════════════════════════════════════════════════════════════
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', igniteSantisOS);
+} else {
+    igniteSantisOS();
+}
+
+} // End of Global Guardia

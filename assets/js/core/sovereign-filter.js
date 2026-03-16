@@ -1,7 +1,7 @@
 /**
  * SANTIS v13.0 — SOVEREIGN GHOST FILTER
- * Chip navigation + Ghost UI transitions + Swiper sync
- * Dependencies: SantisObserver (optional), SovereignMirror, Swiper
+ * Chip navigation + Ghost UI transitions
+ * Dependencies: SantisObserver (optional), SovereignMirror
  */
 window.SovereignFilter = {
     init() {
@@ -19,37 +19,32 @@ window.SovereignFilter = {
         if (window.triggerPulse) window.triggerPulse(true);
         if (typeof SantisObserver !== 'undefined') SantisObserver.clear(); // Silent disconnect, _seen preserved
 
-        const slides = document.querySelectorAll('.swiper-slide');
+        const cards = document.querySelectorAll('.bento-card');
         let visibleCount = 0;
 
-        slides.forEach(slide => {
-            const status = slide.dataset.status || 'ALL';
+        cards.forEach(card => {
+            const status = card.dataset.status || 'ALL';
             const isMatch = category === 'ALL' || status === category;
 
             if (isMatch) {
-                slide.style.display = '';
+                card.style.display = '';
                 setTimeout(() => {
-                    slide.classList.remove('ghost-out');
-                    if (typeof SantisObserver !== 'undefined') SantisObserver.observe(slide);
+                    card.classList.remove('ghost-out');
+                    if (typeof SantisObserver !== 'undefined') SantisObserver.observe(card);
                 }, 10);
                 visibleCount++;
             } else {
-                slide.classList.add('ghost-out');
+                card.classList.add('ghost-out');
                 setTimeout(() => {
-                    if (slide.classList.contains('ghost-out')) {
-                        slide.style.display = 'none';
+                    if (card.classList.contains('ghost-out')) {
+                        card.style.display = 'none';
+                        card.classList.remove('revealed'); // Auto-close expanded cards on filter
                     }
                 }, 500);
             }
         });
 
-        // Swiper layout recalculation
-        if (window.boardroomSwiper) {
-            setTimeout(() => {
-                window.boardroomSwiper.update();
-                window.boardroomSwiper.slideTo(0, 300);
-            }, 550);
-        }
+        // Swiper layout recalculation logic removed (Boardroom now uses Bento Grid)
 
         // VIP Mirror sync after ghost transition
         setTimeout(() => {

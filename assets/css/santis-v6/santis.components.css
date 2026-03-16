@@ -1,0 +1,371 @@
+@layer components {
+
+    /* ── 1. SOVEREIGN NAVBAR V2 — DUAL BAR ── */
+    .sovereign-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        
+        display: flex;
+        flex-direction: column;
+        
+        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    
+    .sovereign-nav.nav-hidden {
+        transform: translateY(-100%);
+    }
+
+    /* ── 1A. BRAND BAR — "The Sanctuary Gate" ── */
+    .sovereign-brand-bar {
+        height: 64px;
+        
+        /* Glassmorphism Lux — Warm Stone */
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+        background: rgba(18, 16, 14, 0.82);
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    
+    .sovereign-brand-bar .sovereign-nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 4vw;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2vw;
+    }
+    
+    .sovereign-brand-links {
+        display: flex;
+        align-items: center;
+        gap: 3vw;
+    }
+    
+    .sovereign-brand-links .sovereign-link-item {
+        font-family: 'Inter', sans-serif;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(245,245,247,0.55);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .sovereign-brand-links .sovereign-link-item:hover {
+        color: rgba(245,245,247,0.92);
+    }
+
+    /* ── 1B. SERVICE BAR — "The Pavilion" ── */
+    .sovereign-service-bar {
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+        background: rgba(18, 16, 14, 0.55);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.06);
+    }
+    
+    .sovereign-service-bar .sovereign-nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 4vw;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4vw;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+    }
+    
+    .sovereign-service-bar .service-link {
+        font-family: 'Inter', sans-serif;
+        font-size: 13px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.8);
+        text-decoration: none;
+        position: relative;
+        padding: 10px 0;
+        transition: color 0.3s ease;
+    }
+    
+    .sovereign-service-bar .service-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #D4AF37;
+        transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    
+    .sovereign-service-bar .service-link:hover {
+        color: #D4AF37;
+    }
+    
+    .sovereign-service-bar .service-link:hover::after {
+        width: 100%;
+    }
+
+    /* ── 1C. MOBILE: Service bar always visible ── */
+    @media (max-width: 768px) {
+        .sovereign-brand-bar {
+            height: 56px;
+        }
+        
+        .sovereign-brand-links {
+            display: none; /* Hidden on mobile; hamburger opens them */
+        }
+        
+        .sovereign-service-bar {
+            height: 40px;
+        }
+        
+        .sovereign-service-bar .sovereign-nav-container {
+            gap: 6vw;
+            justify-content: center;
+        }
+        
+        .sovereign-service-bar .service-link {
+            font-size: 11px;
+            letter-spacing: 0.1em;
+        }
+    }
+
+    /* ── 1D. HAMBURGER MENU ── */
+    .hamburger-btn {
+        display: none; /* Default hidden on desktop if links are present */
+        cursor: pointer;
+        flex-direction: column;
+        width: 30px;
+        gap: 6px;
+        position: relative;
+        padding: 10px;
+    }
+
+    .hamburger-btn .bar {
+        width: 100%;
+        height: 2px;
+        background-color: var(--text-main, #f0f0f0);
+        transition: all 0.3s ease;
+    }
+
+    .hamburger-btn.active .bar:nth-child(1) {
+        transform: translateY(4px) rotate(45deg);
+    }
+
+    .hamburger-btn.active .bar:nth-child(2) {
+        transform: translateY(-4px) rotate(-45deg);
+    }
+
+    @media (max-width: 992px) {
+        .hamburger-btn {
+            display: flex;
+        }
+    }
+
+    /* ── 2. V18 APEX SERVICE CARDS (EDITORIAL QUIET LUXURY) ── */
+    .v18-card {
+        position: relative;
+        border-radius: 2px; /* Brutalist/editorial sharp edge */
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        aspect-ratio: 3 / 4; /* Editorial portrait mode */
+        padding: 40px;
+        cursor: pointer;
+        
+        /* GPU Acceleration */
+        transform: translateZ(0);
+        
+        /* Instead of moving the whole card, we move the contents. It feels much more premium */
+    }
+
+    /* Inner Gold Frame Effect */
+    .v18-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border: 1px solid rgba(198, 169, 107, 0.1);
+        transition: inset 1s var(--ease-lux), border-color 1s var(--ease-lux);
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .v18-card:hover::before {
+        inset: 15px;
+        border-color: rgba(198, 169, 107, 0.5);
+    }
+
+    /* Aura Image Background */
+    .v18-card .aura-image {
+        position: absolute;
+        inset: -5%; /* Allowance for scale pan */
+        z-index: 0;
+    }
+
+    .v18-card .aura-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.65;
+        filter: grayscale(40%) contrast(1.05);
+        transition: transform 1.8s var(--ease-lux),
+                    filter 1.8s var(--ease-lux),
+                    opacity 1.8s var(--ease-lux);
+    }
+
+    /* Gradient overlay: pure darkness at the bottom for text */
+    .v18-card .aura-image::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(6, 6, 8, 0.95) 0%, rgba(6, 6, 8, 0) 50%);
+    }
+
+    .v18-card:hover .aura-image img {
+        transform: scale(1.05);
+        filter: grayscale(0%) contrast(1.1);
+        opacity: 0.9;
+    }
+
+    /* Card Content Container */
+    .v18-card .card-content {
+        position: relative;
+        z-index: 3;
+        color: #fff;
+    }
+
+    /* Kinetic Title */
+    .v18-card .kinetic-title {
+        font-family: var(--font-secondary); /* Cinzel */
+        font-size: clamp(20px, 2vw, 32px);
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: 0;
+        
+        transform: translateY(20px);
+        transition: transform 1s var(--ease-lux),
+                    letter-spacing 1s var(--ease-lux),
+                    color 1s var(--ease-lux);
+    }
+
+    .v18-card:hover .kinetic-title {
+        transform: translateY(0);
+        letter-spacing: 0.25em; /* Extreme cinematic kerning */
+        color: var(--lux-gold);
+    }
+
+    /* Liquid Divider */
+    .v18-card .liquid-divider {
+        width: 0;
+        height: 1px;
+        background: var(--lux-gold);
+        margin: 20px 0;
+        opacity: 0.6;
+        transition: width 1s var(--ease-lux);
+    }
+
+    .v18-card:hover .liquid-divider {
+        width: 60px;
+    }
+
+    /* Hover Reveal Description */
+    .v18-card .hover-reveal-desc {
+        font-family: var(--font-primary);
+        font-size: 13px;
+        line-height: 1.6;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.6);
+        
+        opacity: 0;
+        transform: translateY(15px);
+        transition: opacity 1s var(--ease-lux),
+                    transform 1s var(--ease-lux);
+    }
+
+    .v18-card:hover .hover-reveal-desc {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .v18-card .price-tag {
+        font-family: var(--font-mono);
+        color: var(--lux-gold);
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        margin-top: 15px;
+        
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 1s var(--ease-lux) 0.1s,
+                    transform 1s var(--ease-lux) 0.1s;
+    }
+    
+    .v18-card:hover .price-tag {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    /* ── 2A. V18 HORIZONTAL VARIANT (PANORAMIC LUXURY) ── */
+    
+    /* 
+      For desktop: Breaks the portrait 3:4 to a widescreen, 
+      splitting the image (left) and content (right). 
+    */
+    @container (width > 768px) {
+        .v18-card.horizontal {
+            flex-direction: row;
+            aspect-ratio: auto; /* reset inherited portrait */
+            min-height: 480px;
+            padding: 0;
+            background: rgba(6, 6, 8, 0.4);
+        }
+
+        /* Keep the inner frame constraint */
+        .v18-card.horizontal::before {
+            border-color: rgba(198, 169, 107, 0.05); /* very subtle on horizontal */
+        }
+
+        .v18-card.horizontal .aura-image {
+            position: relative;
+            width: 50%;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        /* Adjust internal mask for horizontal (darkness on right side instead of bottom) */
+        .v18-card.horizontal .aura-image::after {
+            background: linear-gradient(to right, transparent 50%, rgba(6, 6, 8, 0.95) 100%);
+        }
+
+        .v18-card.horizontal .card-content {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 80px;
+        }
+
+        /* Reverse Horizontal: Image on right */
+        .v18-card.horizontal.reverse {
+            flex-direction: row-reverse;
+        }
+        
+        .v18-card.horizontal.reverse .aura-image::after {
+            background: linear-gradient(to left, transparent 50%, rgba(6, 6, 8, 0.95) 100%);
+        }
+    }
+}

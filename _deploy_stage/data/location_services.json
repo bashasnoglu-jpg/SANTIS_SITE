@@ -1,0 +1,950 @@
+[
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_HAMMAM_HAMMAM_TRA_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 110,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_HAMMAM_HAMMAM_TRA_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 110,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_HAMMAM_HAMMAM_FOA_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 85,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_MASSAGE_RELAX_AROM_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 120,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_MASSAGE_RELAX_AROM_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 120,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_MASSAGE_SWEDISH_CL_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 105,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_MASSAGE_SWEDISH_CL_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 105,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_MASSAGE_DEEP_TISSU_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 140,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_MASSAGE_DEEP_TISSU_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 140,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_MASSAGE_SPORTS_REC_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 135,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_MASSAGE_THAI_TRADI_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 130,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_MASSAGE_BALINESE_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 125,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_WELL_AYURVEDA_A_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 160,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_WELL_SHIRODHARA_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 170,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_PKG_COUPLES_SI_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 180,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_PKG_COUPLES_SI_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 180,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_PKG_SANTIS_SIG_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 150,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_PKG_SANTIS_SIG_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 150,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_KIDS_KIDS_CHOCO_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 65,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_KIDS_KIDS_CHOCO_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 65,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_FACIAL_FACE_SOTHY_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 125,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_FACIAL_FACE_SOTHY_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 125,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_FACIAL_FACE_SOTHY_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 135,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_RAD_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_RAD_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_RAD_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_FACIAL_SOTHYS_RAD_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_SEA_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_SEA_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_SEA_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_FACIAL_SOTHYS_SEA_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_SOO_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_SOO_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_SOO_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_FACIAL_SOTHYS_SOO_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_CRY_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_CRY_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_CRY_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_FACIAL_SOTHYS_CRY_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_HYD_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_HYD_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_HYD_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_FACIAL_SOTHYS_HYD_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_DET_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_DET_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_DET_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_FACIAL_SOTHYS_DET_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_GLO_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_GLO_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_GLO_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_FACIAL_SOTHYS_GLO_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_YOU_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_YOU_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_YOU_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_FACIAL_SOTHYS_YOU_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_DER_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_DER_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_DER_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_FACIAL_SOTHYS_DER_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_GLY_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_GLY_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_GLY_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_FACIAL_SOTHYS_GLY_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_RES_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_RES_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_FACIAL_SOTHYS_RES_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_IBEROSTAR_BELLEVUE_BE_I_I",
+    "serviceId": "SRV_FACIAL_SOTHYS_RES_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 99,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_MASSAGE_HAMMAM_HON_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 80,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_MASSAGE_HAMMAM_HON_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 80,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_MASSAGE_HAMMAM_HON_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 80,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_BODY_BODY_ALGAE_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 70,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_BODY_BODY_ALGAE_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 70,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_BODY_BODY_ALGAE_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 70,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_BODY_BODY_CHOCO_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 75,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_BODY_BODY_CHOCO_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 75,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_BODY_BODY_CHOCO_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 75,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_ROYAL__OLAKLI",
+    "serviceId": "SRV_MASSAGE_MYOFASCIAL_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 90,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_RESORT__OLAKLI",
+    "serviceId": "SRV_MASSAGE_MYOFASCIAL_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 90,
+        "currency": "EUR"
+      }
+    ]
+  },
+  {
+    "locationId": "LOC_ALBA_QUEEN__OLAKLI",
+    "serviceId": "SRV_MASSAGE_MYOFASCIAL_01",
+    "isActive": true,
+    "pricing": [
+      {
+        "season": "standard",
+        "amount": 90,
+        "currency": "EUR"
+      }
+    ]
+  }
+]

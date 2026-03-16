@@ -1,0 +1,104 @@
+[
+  {
+    "id": "rit-mo-hamam-001",
+    "slug": "sultan-hamami",
+    "category": "hamam",
+    "presentation": {
+      "title": "Sultan Hamamı",
+      "badge": "MİRAS",
+      "short_desc": "Geleneksel kese ve sıcak köpük ile hücresel yenilenme.",
+      "pricing": {
+        "base_eur": 150,
+        "duration_min": 60,
+        "surge_eligible": true
+      },
+      "media": {
+        "card_cover": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=600&auto=format&fit=crop"
+      }
+    },
+    "sensory_iot": {
+      "trigger_on_focus": true,
+      "ui_aura_color": "rgba(212, 175, 55, 0.15)",
+      "hardware_payload": {
+        "light_hex": "#CEB38A",
+        "scent_profile": "oud_rose",
+        "audio_freq": "432Hz",
+        "hvac_temp_c": 26
+      }
+    },
+    "commerce_brain": {
+      "sas_baseline": 4.8,
+      "cross_sell_matrix": [
+        {
+          "target_id": "cilt-24k-gold-mask",
+          "pitch_logic": "Hamam sonrası gözenekler açıldığında %100 emilim garantisi.",
+          "bundle_discount_pct": 10
+        }
+      ]
+    }
+  },
+  {
+    "id": "rit-mo-masaj-001",
+    "slug": "aura-aromaterapi",
+    "category": "masaj",
+    "presentation": {
+      "title": "Aura Aromaterapi",
+      "badge": "İMZA",
+      "short_desc": "Sıcak esansiyel yağlarla zihinsel frekans dengelemesi.",
+      "pricing": {
+        "base_eur": 180,
+        "duration_min": 60,
+        "surge_eligible": true
+      },
+      "media": {
+        "card_cover": "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=600&auto=format&fit=crop"
+      }
+    },
+    "sensory_iot": {
+      "trigger_on_focus": true,
+      "ui_aura_color": "rgba(46, 139, 87, 0.15)",
+      "hardware_payload": {
+        "light_hex": "#2E8B57",
+        "scent_profile": "lavender_mist",
+        "audio_freq": "528Hz",
+        "hvac_temp_c": 24
+      }
+    },
+    "commerce_brain": {
+      "sas_baseline": 4.9,
+      "cross_sell_matrix": []
+    }
+  },
+  {
+    "id": "rit-mo-cilt-001",
+    "slug": "safir-isilti",
+    "category": "cilt",
+    "presentation": {
+      "title": "Safir Işıltı",
+      "badge": "PREMİUM",
+      "short_desc": "Mineral kristalleriyle cilt bariyerini güçlendiren safir terapi.",
+      "pricing": {
+        "base_eur": 210,
+        "duration_min": 45,
+        "surge_eligible": false
+      },
+      "media": {
+        "card_cover": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=600&auto=format&fit=crop"
+      }
+    },
+    "sensory_iot": {
+      "trigger_on_focus": true,
+      "ui_aura_color": "rgba(15, 82, 186, 0.15)",
+      "hardware_payload": {
+        "light_hex": "#0F52BA",
+        "scent_profile": "ocean_breeze",
+        "audio_freq": "396Hz",
+        "hvac_temp_c": 22
+      }
+    },
+    "commerce_brain": {
+      "sas_baseline": 4.6,
+      "cross_sell_matrix": []
+    }
+  }
+]

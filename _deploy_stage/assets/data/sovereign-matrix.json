@@ -1,0 +1,64 @@
+{
+    "rituals": [
+        {
+            "key": "rit_01",
+            "hash": "surge_alpha01",
+            "category": "hammam",
+            "ui": {
+                "title": "Osmanlı Saray Ritüeli (Surge)",
+                "duration": "120 Min",
+                "price_eur": 180
+            },
+            "gpu_dna": {
+                "color": [
+                    0.93,
+                    0.78,
+                    0.31
+                ],
+                "turbulence": 1.5,
+                "effect_multiplier": 1.2
+            },
+            "intent_threshold": 0.95
+        },
+        {
+            "key": "rit_02",
+            "hash": "beta02",
+            "category": "asian",
+            "ui": {
+                "title": "Himalaya Tuz Terapisi",
+                "duration": "90 Min",
+                "price_eur": 140
+            },
+            "gpu_dna": {
+                "color": [
+                    0.10,
+                    0.45,
+                    0.25
+                ],
+                "turbulence": 2.5,
+                "effect_multiplier": 0.8
+            },
+            "intent_threshold": 0.70
+        },
+        {
+            "key": "rit_04",
+            "hash": "delta04_new",
+            "category": "recovery",
+            "ui": {
+                "title": "Kuantum Uyku Odası (YENİ)",
+                "duration": "45 Min",
+                "price_eur": 90
+            },
+            "gpu_dna": {
+                "color": [
+                    0.20,
+                    0.30,
+                    0.90
+                ],
+                "turbulence": 0.5,
+                "effect_multiplier": 1.5
+            },
+            "intent_threshold": 0.80
+        }
+    ]
+}

@@ -1,0 +1,213 @@
+/* ═══════════════════════════════════════════════════════════
+   SOVEREIGN BREADCRUMB v1.0
+   Vanta Black + Amber-500 Palette
+   ═══════════════════════════════════════════════════════════ */
+
+.sovereign-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 1rem 2rem;
+    background: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 15;
+}
+
+.sovereign-breadcrumb a {
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.sovereign-breadcrumb a:hover {
+    color: #D4AF37;
+}
+
+.sovereign-breadcrumb .bc-separator {
+    color: rgba(255, 255, 255, 0.12);
+    margin: 0 0.6rem;
+    font-size: 9px;
+    user-select: none;
+}
+
+.sovereign-breadcrumb .bc-current {
+    color: rgba(212, 175, 55, 0.7);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 280px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SOVEREIGN BACK CTA (Sticky Category Return)
+   ═══════════════════════════════════════════════════════════ */
+
+.sovereign-back-cta {
+    position: sticky;
+    top: 0;
+    z-index: 14;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 2rem;
+    background: rgba(5, 5, 5, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.06);
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: opacity 0.3s ease;
+}
+
+.sovereign-back-cta a {
+    color: rgba(212, 175, 55, 0.6);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.sovereign-back-cta a:hover {
+    color: #D4AF37;
+}
+
+.sovereign-back-cta .back-arrow {
+    font-size: 14px;
+    line-height: 1;
+    transition: transform 0.3s ease;
+}
+
+.sovereign-back-cta a:hover .back-arrow {
+    transform: translateX(-3px);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CROSS-SELL RAIL
+   ═══════════════════════════════════════════════════════════ */
+
+.sovereign-cross-sell {
+    padding: 4rem 0;
+    background: #050505;
+    border-top: 1px solid rgba(212, 175, 55, 0.06);
+}
+
+.sovereign-cross-sell .cs-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.sovereign-cross-sell .cs-kicker {
+    color: #D4AF37;
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.4rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.sovereign-cross-sell .cs-title {
+    color: #fff;
+    font-size: 1.4rem;
+    font-family: 'Cinzel', serif;
+    margin: 0;
+    font-weight: 400;
+}
+
+.sovereign-cross-sell .cs-link {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.sovereign-cross-sell .cs-link:hover {
+    color: #D4AF37;
+}
+
+/* Cross-sell grid uses existing .santis-matrix-container[data-layout="grid"] */
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER CATEGORY NAV
+   ═══════════════════════════════════════════════════════════ */
+
+.footer-explore {
+    border-top: 1px solid rgba(212, 175, 55, 0.08);
+    padding: 2.5rem 0 1.5rem;
+    margin-top: 2rem;
+}
+
+.footer-explore-title {
+    color: #D4AF37;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+}
+
+.footer-explore-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+}
+
+.footer-explore-grid a {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.footer-explore-grid a:hover {
+    color: #D4AF37;
+}
+
+@media (max-width: 768px) {
+    .sovereign-breadcrumb {
+        padding: 0.75rem 1rem;
+        font-size: 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .sovereign-breadcrumb::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .sovereign-back-cta {
+        padding: 0.5rem 1rem;
+    }
+    
+    .sovereign-cross-sell .cs-title {
+        font-size: 1.1rem;
+    }
+    
+    .footer-explore-grid {
+        gap: 0.4rem 1rem;
+    }
+}

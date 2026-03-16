@@ -1,0 +1,82 @@
+{
+    "nodes": {
+        "spa_entrance": {
+            "id": "spa_entrance",
+            "type": "entry",
+            "name": "Spa Karşılama"
+        },
+        "hamam_base": {
+            "id": "hamam_base",
+            "type": "category",
+            "name": "Geleneksel Hamam"
+        },
+        "ottoman_apex": {
+            "id": "ottoman_apex",
+            "type": "ritual",
+            "name": "Ottoman Apex",
+            "price": 150,
+            "intent_tags": [
+                "luxury_stay",
+                "deep_cleanse"
+            ]
+        },
+        "massage_base": {
+            "id": "massage_base",
+            "type": "category",
+            "name": "Dünya Masajları"
+        },
+        "neuro_therapy": {
+            "id": "neuro_therapy",
+            "type": "ritual",
+            "name": "Neuro-Therapy",
+            "price": 200,
+            "intent_tags": [
+                "mental",
+                "healing",
+                "sleep"
+            ]
+        },
+        "sothys_skincare": {
+            "id": "sothys_skincare",
+            "type": "ritual",
+            "name": "Sothys Cilt Bakımı",
+            "price": 120,
+            "intent_tags": [
+                "beauty",
+                "anti_aging"
+            ]
+        }
+    },
+    "edges": [
+        {
+            "source": "spa_entrance",
+            "target": "hamam_base",
+            "weight": 1.0,
+            "condition": "default"
+        },
+        {
+            "source": "spa_entrance",
+            "target": "ottoman_apex",
+            "weight": 3.0,
+            "condition": "intent:luxury_stay"
+        },
+        {
+            "source": "spa_entrance",
+            "target": "neuro_therapy",
+            "weight": 3.0,
+            "condition": "intent:mental"
+        },
+        {
+            "source": "hamam_base",
+            "target": "ottoman_apex",
+            "weight": 1.5,
+            "condition": "default"
+        },
+        {
+            "source": "massage_base",
+            "target": "neuro_therapy",
+            "weight": 1.5,
+            "condition": "default"
+        }
+    ]
+}

@@ -6,24 +6,18 @@
 class SantisTransition {
     constructor() {
         this.overlay = null;
+        this.isTransitioning = false; // 🔒 Çift-tıklama koruyucu
         this.init();
     }
 
     init() {
         console.log("🎬 [Santis Cinema] Transition Engine Ready");
-
-        // 1. Create Overlay
         this.createOverlay();
-
-        // 2. Play Entry Animation (Fade In)
         window.addEventListener('load', () => this.playEntry());
-
-        // 3. Bind Links (Fade Out)
         document.addEventListener('click', (e) => this.onLinkClick(e));
-
-        // 4. Handle Back/Forward Cache (Safari/Chrome restoration)
         window.addEventListener('pageshow', (e) => {
             if (e.persisted) {
+                this.isTransitioning = false; // BFCache dönüşünde kilidi aç
                 this.playEntry();
             }
         });
@@ -32,7 +26,6 @@ class SantisTransition {
     createOverlay() {
         const id = 'santis-transition-curtain';
         if (document.getElementById(id)) return;
-
         this.overlay = document.createElement('div');
         this.overlay.id = id;
         this.overlay.style.cssText = `
@@ -50,37 +43,37 @@ class SantisTransition {
 
     playEntry() {
         if (!this.overlay) this.createOverlay();
-
-        // Force Reflow
         void this.overlay.offsetWidth;
-
-        // Fade Out the Black Overlay (Revealing the page)
         requestAnimationFrame(() => {
             this.overlay.style.opacity = '0';
+            // Giriş tamamlanınca kilidi aç
+            setTimeout(() => { this.isTransitioning = false; }, 900);
         });
     }
 
     playExit(url) {
-        if (!this.overlay) this.createOverlay();
+        if (this.isTransitioning) return; // 🔒 Zaten geçiş varsa sessizce iptal et
+        this.isTransitioning = true;
 
-        // Fade In the Black Overlay (Hiding the page)
+        if (!this.overlay) this.createOverlay();
         this.overlay.style.opacity = '1';
 
-        // Wait for animation then navigate
         setTimeout(() => {
-            window.location.href = url;
-        }, 800); // Match transition duration (0.8s)
+            try {
+                window.location.href = url;
+            } catch (e) {
+                // AbortError / InvalidStateError — sessizce yakala, kilidi aç
+                this.isTransitioning = false;
+                console.warn('[Santis Transition] Navigasyon iptal edildi, kilit açıldı.');
+            }
+        }, 800);
     }
 
     onLinkClick(e) {
-        // Find anchor tag
         const link = e.target.closest('a');
         if (!link) return;
-
         const href = link.getAttribute('href');
         const target = link.getAttribute('target');
-
-        // Ignore cases
         if (
             !href ||
             href.startsWith('#') ||
@@ -90,13 +83,9 @@ class SantisTransition {
             e.ctrlKey || e.metaKey ||
             href.includes('javascript:')
         ) return;
-
-        // Internal Link Check
         const isInternal = href.startsWith('/') || href.includes(window.location.hostname) || !href.startsWith('http');
-
         if (isInternal) {
             e.preventDefault();
-            console.log(`🎬 [Transition] Exiting to: ${href}`);
             this.playExit(href);
         }
     }

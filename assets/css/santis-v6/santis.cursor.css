@@ -1,0 +1,101 @@
+/* =========================================================
+   🦅 SANTIS OS: QUANTUM CURSOR ARMOR
+   ========================================================= */
+
+/* 1. Eski dünyanın kalıntısını (Native Cursor) yok et! */
+body, a, button, input, .santis-magnetic, [data-santis-cursor] {
+    cursor: none !important;
+}
+
+.santis-cursor-dot,
+.santis-cursor-halo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* Tıklamaları engellememesi için transparan yap */
+    z-index: 99999;
+    border-radius: 50%;
+    transform: translate3d(-50%, -50%, 0); /* Tam merkeze oturt */
+    opacity: 0; /* JS ile görünür hale gelecek */
+    
+    /* 2. GPU Stabilization */
+    will-change: transform;
+    contain: layout style paint;
+}
+
+/* Otonom Çekirdek (Dot) */
+.santis-cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #0A84FF; /* Sovereign Neon Mavi */
+    margin-top: -3px;
+    margin-left: -3px;
+    transition: opacity 0.2s ease;
+}
+
+/* Sıvı Çember (Halo) */
+.santis-cursor-halo {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(10, 132, 255, 0.5);
+    margin-top: -18px;
+    margin-left: -18px;
+    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                height 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                background-color 0.3s ease, 
+                border-color 0.3s ease,
+                opacity 0.3s ease;
+    
+    /* 🔮 KUANTUM OPTİK: Altındaki renk neyse, zıttına bürün! */
+    mix-blend-mode: difference; 
+}
+
+/* 3. Fallback for mix-blend-mode */
+@supports not (mix-blend-mode: difference) {
+    .santis-cursor-halo {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    .santis-cursor-halo.is-snapped {
+        background-color: rgba(255, 255, 255, 0.8) !important;
+    }
+}
+
+/* 🧲 Manyetik Alana Girildiğinde (Snap Effect) */
+.santis-cursor-halo.is-snapped {
+    width: 60px;
+    height: 60px;
+    margin-top: -30px;
+    margin-left: -30px;
+    background-color: rgba(255, 255, 255, 1);
+    border-color: transparent;
+    mix-blend-mode: difference;
+}
+
+/* 🧲 Drag Modu (Slider, Momentum Scroll, Bento) */
+.santis-cursor-halo.cursor-drag {
+    width: 48px;
+    height: 48px;
+    margin-top: -24px;
+    margin-left: -24px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.8);
+    mix-blend-mode: difference;
+}
+
+.santis-cursor-dot.is-hidden {
+    opacity: 0 !important;
+}
+
+/* 6. Accessibility (Erişilebilirlik) - Kinetik animasyonları kapatma tercihinde */
+@media (prefers-reduced-motion: reduce) {
+    .santis-cursor-halo, .santis-cursor-dot {
+        display: none !important;
+    }
+    body, a, button, input, .santis-magnetic, [data-santis-cursor] {
+        cursor: auto !important; /* Eski imleci geri getir */
+    }
+    a:hover, button:hover {
+        cursor: pointer !important;
+    }
+}

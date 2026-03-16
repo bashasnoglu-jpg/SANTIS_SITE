@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Derin Detoks Paketi - Santis Club Spa & Wellness Antalya.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Club | Derin Detoks Paketi</title>
+    <!-- CSS & Core System -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="/assets/js/santis-vitals.js" async></script>
+    <script type="speculationrules">
+    {
+      "prerender": [
+        {
+          "source": "document",
+          "where": {
+            "and": [
+              { "href_matches": "/*" },
+              { "not": { "selector_matches": ".no-prerender, [target='_blank'], [href^='mailto:'], [href^='tel:']" } }
+            ]
+          },
+          "eagerness": "moderate" 
+        }
+      ]
+    }
+    </script>
+
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
+</head>
+<body class="editorial-mode solid-nav-page" data-page="rituals">
+    
+    <!-- 1. SOVEREIGN NAVBAR INJECTION POINT -->
+    <header id="nv-header" class="santis-nav-header"></header>
+
+    <main id="nv-main" style="padding-top: 100px; min-height: 80vh;">
+        <div class="santis-container">
+            <h1 class="font-playfair text-4xl mb-6 text-white text-center mt-12">Derin Detoks Paketi</h1>
+            <p class="text-santis-gray text-center max-w-2xl mx-auto mb-12">Bedeninizi arındıran, toksinlerden uzaklaştıran bütünsel bir yenilenme ritüeli.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative mt-16 pb-16">
+                <div class="aspect-square relative rounded-2xl overflow-hidden shadow-2xl">
+                    <img src="/assets/img/cards/santis_card_recovery_lotion_v2.webp" alt="Detox" class="w-full h-full object-cover">
+                </div>
+                <div class="flex flex-col justify-center">
+                    <h2 class="font-playfair text-2xl text-santis-gold mb-4">Deneyim İçeriği</h2>
+                    <ul class="text-gray-300 space-y-4 mb-8">
+                        <li>• Özel Detoks Peeling (30 dk)</li>
+                        <li>• Derin Doku Toksin Atıcı Masaj (60 dk)</li>
+                        <li>• Ozonlu Buhar Terapisi</li>
+                        <li>• Organik Detoks İçecek İkramları</li>
+                    </ul>
+                    <div class="flex items-center justify-between border-t border-gray-800 pt-6">
+                        <div>
+                            <span class="block text-gray-500 text-sm mb-1">Yatırım</span>
+                            <span class="text-2xl text-white font-medium">90 €</span>
+                        </div>
+                        <button class="nv-btn nv-btn-gold px-8 py-3" onclick="window.openReservationModal('Derin Detoks Paketi')">Rezervasyon Yap</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 2. SOVEREIGN FOOTER INJECTION POINT -->
+    <footer id="santis-footer-container"></footer>
+
+    <!-- JS Yüklemeleri -->
+    <script src="/assets/js/santis-nav.js" defer></script>
+    <script type="module" src="/assets/js/core/santis-core.js"></script>
+    <script src="/assets/js/app.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof GhostConcierge !== 'undefined') {
+        GhostConcierge.recordInterest("Derin Detoks Paketi", window.location.href);
+    }
+});
+</script>
+<script src="/assets/js/ghost-concierge.js?v=V21_GHOST_2" defer></script>
+</body>
+</html>

@@ -245,6 +245,9 @@
         .cat-filter.active { background: var(--bg-card); color: #fff; border-color: var(--gold); }
 
     </style>
+
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
 </head>
 <body>
 
@@ -332,7 +335,7 @@
                 const isVid = m.type === 'video';
                 const tag = isVid 
                     ? `<video src="${m.path}" muted loop onmouseover="this.play()" onmouseout="this.pause()"></video>` 
-                    : `<img src="${m.path}" decoding="async" fetchpriority="high">`;
+                    : `<img width="1024" height="1024" src="${m.path}" decoding="async" fetchpriority="high">`;
                     
                 return `
                 <div class="media-item" draggable="true" ondragstart="handleDragStart(event, '${m.path}')">
@@ -347,7 +350,7 @@
             const mediaTag = imgUrl 
                 ? (isVid 
                     ? `<video src="${imgUrl}" autoplay muted loop class="pointer-events-none"></video>` 
-                    : `<img src="${imgUrl}" class="pointer-events-none" decoding="async" fetchpriority="high">`)
+                    : `<img width="1024" height="1024" src="${imgUrl}" class="pointer-events-none" decoding="async" fetchpriority="high">`)
                 : `<div class="placeholder">NO MEDIA ASSIGNED<br><span style="font-size:10px; color:#555">Drag here</span></div>`;
 
             return `

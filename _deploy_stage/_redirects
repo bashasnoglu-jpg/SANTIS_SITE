@@ -1,0 +1,18 @@
+# Root Redirect (Removed for Language Gateway)
+# / /tr/index.html 301
+
+# Force HTTPS
+# http://* https://santis-club.pages.dev/:splat 301
+# http://* https://santis-club.com/:splat 301
+
+
+
+# Fix 403 Error for Audit Report
+/audit-report.html /audit_report.pdf 301
+
+# Massage slug fallback
+/tr/masajlar/aromaterapi.html /tr/masajlar/aromaterapi-masaji.html 301
+/tr/masajlar/derin-doku.html /tr/masajlar/derin-doku-masaji.html 301
+/tr/masajlar/klasik-rahatlama.html /tr/masajlar/klasik-masaj.html 301
+/tr/masajlar/klasik-tum-vucut-masaji.html /tr/masajlar/klasik-masaj.html 301
+/tr/masajlar/anti-stress.html /tr/masajlar/anti-stress-masaji.html 301

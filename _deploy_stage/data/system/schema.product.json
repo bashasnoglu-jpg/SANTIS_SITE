@@ -1,0 +1,112 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Santis Product Schema",
+    "type": "object",
+    "required": [
+        "id",
+        "slug",
+        "title",
+        "category",
+        "status"
+    ],
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string",
+            "enum": [
+                "massage",
+                "ritual",
+                "hamam",
+                "skincare",
+                "product"
+            ]
+        },
+        "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+        },
+        "title": {
+            "type": "string"
+        },
+        "short_description": {
+            "type": "string"
+        },
+        "long_description": {
+            "type": "string"
+        },
+        "duration": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "price": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "currency": {
+                    "type": "string",
+                    "default": "TRY"
+                }
+            }
+        },
+        "category": {
+            "type": "string"
+        },
+        "tags": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "moods": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "media": {
+            "type": "object",
+            "properties": {
+                "cover": {
+                    "type": "string"
+                },
+                "gallery": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "seo": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            }
+        },
+        "status": {
+            "type": "string",
+            "enum": [
+                "published",
+                "draft",
+                "archived"
+            ]
+        },
+        "created_at": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "updated_at": {
+            "type": "string",
+            "format": "date-time"
+        }
+    }
+}

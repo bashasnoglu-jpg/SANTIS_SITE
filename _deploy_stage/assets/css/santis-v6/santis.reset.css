@@ -1,0 +1,45 @@
+@layer reset {
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html, body {
+        height: 100%;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    img, picture, video, canvas, svg {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+
+    input, button, textarea, select {
+        font: inherit;
+        color: inherit;
+        background: transparent;
+        border: none;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    p, h1, h2, h3, h4, h5, h6 {
+        overflow-wrap: break-word;
+    }
+
+    ul, ol {
+        list-style: none;
+    }
+
+    /* Remove tap highlight on mobile OS */
+    a, button, input {
+        -webkit-tap-highlight-color: transparent;
+    }
+}

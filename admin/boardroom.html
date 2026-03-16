@@ -5,41 +5,67 @@
     <meta name="description" content="Sovereign Boardroom | Global Empire — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sovereign Boardroom | Global Empire</title>
-    <script src="/assets/js/tailwindcss.min.js" crossorigin="anonymous"></script>
+    <link href="/admin/dist/admin.bundle.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" crossorigin="anonymous"></script>
     <script src="/assets/js/world.js"></script>
     
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        santis: { bg: '#0D0D0D', panel: '#1C1C1E', gold: '#D4AF37', silver: '#C0C0C0', emerald: '#50C878' }
-                    }
-                }
-            }
-        }
+        // Tailwind config removed as per Sovereign V25 architecture (using statically compiled admin.bundle.css)
     </script>
     <style>
         body { background-color: #0D0D0D; color: #F5F5F7; overflow: hidden; }
         .glass-panel { background: rgba(28, 28, 30, 0.6); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); }
         
-        /* Swiper Coverflow Customization */
-        .swiper { width: 100%; padding-top: 2rem; padding-bottom: 3rem; }
-        .swiper-slide {
-            background-position: center; background-size: cover;
-            width: 320px; height: 400px;
-            border-radius: 24px;
-            background: linear-gradient(145deg, #1C1C1E 0%, #0a0a0a 100%);
-            border: 1px solid rgba(212, 175, 55, 0.2); /* Subtle Gold Border */
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            display: flex; flex-direction: column; justify-content: space-between;
+        /* BENTO GRID (Faz 2) */
+        .bento-card {
+            background: linear-gradient(145deg, rgba(28,28,30,0.8) 0%, rgba(10,10,10,0.9) 100%);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
             padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 280px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
         }
-        .swiper-slide-active { border-color: #D4AF37; box-shadow: 0 0 30px rgba(212, 175, 55, 0.15); }
+        
+        .bento-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.1);
+            z-index: 10;
+        }
+
+        .bento-card.revealed {
+            grid-column: span 2;
+            grid-row: span 2;
+            min-height: 400px;
+            background: rgba(20,20,22,0.95);
+            border-color: #D4AF37;
+            box-shadow: 0 0 40px rgba(212,175,55,0.2);
+            z-index: 20;
+        }
+
+        /* Glassmorphism Reveal Content */
+        .bento-reveal-content {
+            display: none;
+            opacity: 0;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            transition: opacity 0.5s ease;
+        }
+        
+        .bento-card.revealed .bento-reveal-content {
+            display: block;
+            opacity: 1;
+        }
 
         /* OP-2: NUCLEAR FOCUS PREVIEW */
         #santis-nuclear-preview {
@@ -113,11 +139,12 @@
             box-shadow: 0 0 15px rgba(0, 255, 194, 0.3);
         }
 
-        /* FAZ-D: GHOST SWIPER PHYSICS */
-        .swiper-slide.ghost-out {
+        /* FAZ-D: GHOST BENTO PHYSICS */
+        .bento-card.ghost-out {
             opacity: 0 !important;
             transform: scale(0.9) translateY(10px) !important;
             pointer-events: none;
+            position: absolute;
         }
 
         /* FAZ-E: URGENCY LAYER */
@@ -386,6 +413,8 @@
             color: rgba(255, 255, 255, 0.3);
         }
     </style>
+
+<meta name="theme-color" content="#000000">
 </head>
 <body class="flex h-screen w-screen">
 
@@ -395,8 +424,9 @@
                 <h1 class="text-4xl font-bold tracking-tighter">Sovereign Command</h1>
                 <p class="text-santis-silver mt-2 tracking-wide text-sm uppercase" style="display:flex;align-items:center;gap:12px;">
                     Global Aggregation Active
+                    <a href="javascript:history.back()" style="font-size:9px;padding:3px 10px;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);border-radius:4px;text-decoration:none;letter-spacing:2px;transition:all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,0.6)'">← GERİ</a>
                     <a href="/admin/sovereign-lab.html" style="font-size:9px;padding:3px 10px;border:1px solid #00FFC2;color:#00FFC2;border-radius:4px;text-decoration:none;letter-spacing:2px;transition:all 0.3s;" onmouseover="this.style.background='#00FFC2';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#00FFC2'">🧪 LAB</a>
-                    <a href="/index.html" style="font-size:9px;padding:3px 10px;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;border-radius:4px;text-decoration:none;letter-spacing:2px;transition:all 0.3s;" onmouseover="this.style.background='#D4AF37';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#D4AF37'">❖ ADMIN</a>
+                    <a href="/admin/index.html" style="font-size:9px;padding:3px 10px;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;border-radius:4px;text-decoration:none;letter-spacing:2px;transition:all 0.3s;" onmouseover="this.style.background='#D4AF37';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#D4AF37'">❖ ADMIN HUB</a>
                 </p>
             </div>
             <div class="text-right">
@@ -407,9 +437,11 @@
 
         <!-- FAZ-D: NEON CHIP NAVIGATION -->
         <nav class="santis-chip-bar">
-            <div class="santis-chip active" data-filter="ALL">ALL NODES</div>
-            <div class="santis-chip" data-filter="SURGE">⚡ SURGE</div>
-            <div class="santis-chip" data-filter="STABLE">✅ STABLE</div>
+            <div class="santis-chip active" data-filter="ALL" onclick="showView('nodes')">ALL NODES</div>
+            <div class="santis-chip" data-filter="SURGE" onclick="showView('nodes')">⚡ SURGE</div>
+            <div class="santis-chip" data-filter="STABLE" onclick="showView('nodes')">✅ STABLE</div>
+            <div class="santis-chip" onclick="showView('portals')" style="border-color:rgba(212,175,55,0.4);color:#D4AF37;">🗂️ PORTALS</div>
+            <a href="/SANTIS_SITE_GRAPH_VISUAL.html" target="_blank" class="santis-chip" style="border-color:rgba(0,209,255,0.5);color:#00D1FF;text-decoration:none;">🗺️ SITE GRAPH</a>
         </nav>
 
         <div id="global-heatmap" class="w-full h-64 shrink-0 glass-panel rounded-3xl mb-8 flex items-center justify-center relative overflow-hidden">
@@ -421,17 +453,60 @@
             <div id="pulse-fx-2" class="absolute w-2 h-2 bg-santis-emerald rounded-full blur-[1px] shadow-[0_0_10px_#50C878] top-1/2 left-1/3 opacity-0 transition-opacity duration-300 pointer-events-none z-10"></div>
         </div>
 
-        <div class="w-full relative z-20 min-h-[450px]">
-            <div class="swiper chain-slider">
-                <div class="swiper-wrapper" id="chain-data-feed">
-                    </div>
-                <div class="swiper-pagination"></div>
+        <!-- BENTO GRID (Faz 2: Egemen Yönetim Kurulu Konsolidasyonu) -->
+        <div class="w-full relative z-20 flex-1 overflow-y-auto px-2 pb-20 custom-scroll mt-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="chain-data-feed">
+                <!-- Bento Cards injected via JS -->
+            </div>
+
+            <!-- PORTALS VIEW: 24 Admin Panel Kartları -->
+            <div id="portals-view" style="display:none;">
+                <p style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(212,175,55,0.5);margin-bottom:16px;">SOVEREIGN PANEL REGISTRY — 24 NODES</p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;">
+
+                    <!-- Analytics -->
+                    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#00FFC2;grid-column:1/-1;padding:8px 0 4px;">📊 Analytics</div>
+                    <a href="/admin/audit-button.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🔍</div><div style="font-size:11px;font-weight:600;">Audit & Telemetry</div><div style="font-size:9px;color:#666;margin-top:4px;">audit-button.html</div></a>
+                    <a href="/admin/audit-history.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">📈</div><div style="font-size:11px;font-weight:600;">Site Sağlık Trendleri</div><div style="font-size:9px;color:#666;margin-top:4px;">audit-history.html</div></a>
+                    <a href="/admin/black-room.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🦾</div><div style="font-size:11px;font-weight:600;">The Black Room</div><div style="font-size:9px;color:#666;margin-top:4px;">black-room.html</div></a>
+                    <a href="/admin/boardroom.html" class="bento-card" style="min-height:100px;padding:1rem;border-color:rgba(212,175,55,0.4);"><div style="font-size:18px;margin-bottom:6px;">♟️</div><div style="font-size:11px;font-weight:600;color:#D4AF37;">Boardroom ★ HUB</div><div style="font-size:9px;color:#666;margin-top:4px;">boardroom.html</div></a>
+                    <a href="/admin/revenue.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">💰</div><div style="font-size:11px;font-weight:600;">Revenue Analytics</div><div style="font-size:9px;color:#666;margin-top:4px;">revenue.html</div></a>
+                    <a href="/admin/gods-eye-vision.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">⬛</div><div style="font-size:11px;font-weight:600;">God's Eye Vision</div><div style="font-size:9px;color:#666;margin-top:4px;">gods-eye-vision.html</div></a>
+                    <a href="/admin/pulse-simulator.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">📡</div><div style="font-size:11px;font-weight:600;">Sovereign Pulse</div><div style="font-size:9px;color:#666;margin-top:4px;">pulse-simulator.html</div></a>
+
+                    <!-- Operations -->
+                    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#00D1FF;grid-column:1/-1;padding:12px 0 4px;">⚙️ Operations</div>
+                    <a href="/admin/gallery-upload.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🖼️</div><div style="font-size:11px;font-weight:600;">Gallery Upload</div><div style="font-size:9px;color:#666;margin-top:4px;">gallery-upload.html</div></a>
+                    <a href="/admin/god-mode.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">👁️</div><div style="font-size:11px;font-weight:600;">God Mode</div><div style="font-size:9px;color:#666;margin-top:4px;">god-mode.html</div></a>
+                    <a href="/admin/hotels.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🏨</div><div style="font-size:11px;font-weight:600;">Hotels Network</div><div style="font-size:9px;color:#666;margin-top:4px;">hotels.html</div></a>
+                    <a href="/admin/login.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🔐</div><div style="font-size:11px;font-weight:600;">Admin Giriş</div><div style="font-size:9px;color:#666;margin-top:4px;">login.html</div></a>
+                    <a href="/admin/redirects.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">↩️</div><div style="font-size:11px;font-weight:600;">URL Yönlendirmeleri</div><div style="font-size:9px;color:#666;margin-top:4px;">redirects.html</div></a>
+                    <a href="/admin/sovereign-lab.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🧪</div><div style="font-size:11px;font-weight:600;">Sovereign Lab</div><div style="font-size:9px;color:#666;margin-top:4px;">sovereign-lab.html</div></a>
+                    <a href="/admin/world_table.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🌍</div><div style="font-size:11px;font-weight:600;">The World Table</div><div style="font-size:9px;color:#666;margin-top:4px;">world_table.html</div></a>
+                    <a href="/admin/command-center.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🦅</div><div style="font-size:11px;font-weight:600;">Command Center</div><div style="font-size:9px;color:#666;margin-top:4px;">command-center.html</div></a>
+                    <a href="/admin/index.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">❖</div><div style="font-size:11px;font-weight:600;">Control Center</div><div style="font-size:9px;color:#666;margin-top:4px;">admin/index.html</div></a>
+
+                    <!-- Booking / CRM -->
+                    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#D4AF37;grid-column:1/-1;padding:12px 0 4px;">📅 Booking & CRM</div>
+                    <a href="/admin/bookings.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">📋</div><div style="font-size:11px;font-weight:600;">Live Bookings</div><div style="font-size:9px;color:#666;margin-top:4px;">bookings.html</div></a>
+                    <a href="/admin/crm.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">💎</div><div style="font-size:11px;font-weight:600;">AI Offers & CRM</div><div style="font-size:9px;color:#666;margin-top:4px;">crm.html</div></a>
+
+                    <!-- Omniverse -->
+                    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#a855f7;grid-column:1/-1;padding:12px 0 4px;">🌌 Omniverse</div>
+                    <a href="/admin/omniverse/council-arena.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🏛️</div><div style="font-size:11px;font-weight:600;">Council Arena</div><div style="font-size:9px;color:#666;margin-top:4px;">council-arena.html</div></a>
+                    <a href="/admin/omniverse/evolution-arena.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🧬</div><div style="font-size:11px;font-weight:600;">Evolution Arena</div><div style="font-size:9px;color:#666;margin-top:4px;">evolution-arena.html</div></a>
+                    <a href="/admin/omniverse/oracle-console.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🔮</div><div style="font-size:11px;font-weight:600;">Oracle Console</div><div style="font-size:9px;color:#666;margin-top:4px;">oracle-console.html</div></a>
+                    <a href="/admin/reports/admin_panel_visual_report.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">📊</div><div style="font-size:11px;font-weight:600;">Visual Audit Report</div><div style="font-size:9px;color:#666;margin-top:4px;">admin_panel_visual_report.html</div></a>
+
+                    <!-- Developer Tools -->
+                    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#00D1FF;grid-column:1/-1;padding:12px 0 4px;">🛠️ Developer Tools</div>
+                    <a href="/SANTIS_SITE_GRAPH_VISUAL.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;border-color:rgba(0,209,255,0.3);background:linear-gradient(145deg,rgba(0,40,60,0.8),rgba(10,10,10,0.9));"><div style="font-size:18px;margin-bottom:6px;">🗺️</div><div style="font-size:11px;font-weight:600;color:#00D1FF;">Site Architecture Graph</div><div style="font-size:9px;color:#666;margin-top:4px;">SANTIS_SITE_GRAPH_VISUAL.html</div><div style="margin-top:8px;font-size:8px;padding:2px 6px;border-radius:4px;background:rgba(0,209,255,0.1);border:1px solid rgba(0,209,255,0.2);color:#00D1FF;display:inline-block;letter-spacing:1px;">522 NODES · VIS.JS</div></a>
+                    <a href="/santis-oracle.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;border-color:rgba(168,85,247,0.3);background:linear-gradient(145deg,rgba(30,10,50,0.8),rgba(10,10,10,0.9));"><div style="font-size:18px;margin-bottom:6px;">🔮</div><div style="font-size:11px;font-weight:600;color:#a855f7;">Santis Oracle</div><div style="font-size:9px;color:#666;margin-top:4px;">santis-oracle.html</div><div style="margin-top:8px;font-size:8px;padding:2px 6px;border-radius:4px;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);color:#a855f7;display:inline-block;letter-spacing:1px;">AI DEMO</div></a>
+
+                </div>
             </div>
         </div>
     </main>
-
-    <!-- DRAG HANDLE -->
-    <div id="aside-drag-handle" title="Sürükle: paneli genişlet/daralt"></div>
 
     <aside class="sovereign-aside glass-panel border-l border-white/5 p-6 z-20">
         <h3 class="text-xl font-medium mb-6 flex items-center">
@@ -551,7 +626,28 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" crossorigin="anonymous"></script>
+    <!-- PORTALS VIEW TOGGLE -->
+    <script>
+    function showView(view) {
+        const nodesGrid = document.getElementById('chain-data-feed');
+        const portalsView = document.getElementById('portals-view');
+        const heatmap = document.getElementById('global-heatmap');
+        if (view === 'portals') {
+            nodesGrid.style.display = 'none';
+            portalsView.style.display = 'block';
+            if (heatmap) heatmap.style.display = 'none';
+            // Chip active state
+            document.querySelectorAll('.santis-chip').forEach(c => c.classList.remove('active'));
+            const btn = document.querySelector('[data-filter="PORTALS"]');
+            if (btn) btn.classList.add('active');
+        } else {
+            nodesGrid.style.display = '';
+            portalsView.style.display = 'none';
+            if (heatmap) heatmap.style.display = '';
+        }
+    }
+    </script>
+
     <!-- OP-4: SANTIS OBSERVER MODULE -->
     <script src="/assets/js/core/santis-observer.js"></script>
     <!-- v13.0: MODULAR SOVEREIGN MODULES -->
@@ -567,7 +663,7 @@
             try {
                 // Fetch the 7 Y-Combinator Metrics (Sovereign God Mode)
                 const token = 'hq_boardroom_token'; // Override expired token
-                const response = await fetch('http://localhost:8080/api/v1/boardroom/god-mode', {
+                const response = await fetch('/api/v1/boardroom/god-mode', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -584,9 +680,9 @@
                     const feed = document.getElementById('chain-data-feed');
                     feed.innerHTML = ''; 
                     
-                    // 1. North Star Card
+                    // 1. North Star Card (Bento Style)
                     feed.innerHTML += `
-                        <div class="swiper-slide">
+                        <div class="bento-card" data-status="ALL">
                             <div>
                                 <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-4 border border-white/20">
                                     <span class="text-xl">🌟</span>
@@ -601,6 +697,12 @@
                                     <span class="bg-santis-emerald/20 text-santis-emerald px-2 py-1 rounded-full">${data.north_star.trend}</span>
                                 </div>
                             </div>
+                            <div class="bento-reveal-content">
+                                <p class="text-[10px] text-santis-silver uppercase tracking-widest mb-2">Expansion Analytics</p>
+                                <div class="w-full h-32 bg-black/40 rounded-lg border border-white/5 flex items-center justify-center">
+                                    <span class="text-white/30 text-xs">[ECharts Render Area]</span>
+                                </div>
+                            </div>
                         </div>
                     `;
 
@@ -613,11 +715,11 @@
                             const statusTag = isSurge ? 'SURGE' : 'STABLE';
                             
                             feed.innerHTML += `
-                                <div class="swiper-slide" data-status="${statusTag}" data-revenue="${node.revenue}" data-city="${node.city}">
+                                <div class="bento-card" data-status="${statusTag}" data-revenue="${node.revenue}" data-city="${node.city}">
                                     ${isSurge ? '<div class="santis-surge-badge">SURGE</div>' : ''}
                                     <div>
                                         <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-4 border border-white/20">
-                                            <svg class="w-6 h-6 text-santis-silver" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                            <svg width="24" height="24" class="w-6 h-6 text-santis-silver" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                                         </div>
                                         <h3 class="text-2xl font-semibold">${node.city}</h3>
                                         <p class="text-santis-silver text-sm">${node.region}</p>
@@ -629,26 +731,40 @@
                                             <span class="${badgeColor} px-2 py-1 rounded-full text-[10px] tracking-wider uppercase font-semibold">${badgeText}</span>
                                         </div>
                                     </div>
+                                    <div class="bento-reveal-content">
+                                        <div class="flex gap-4">
+                                            <div class="flex-1 bg-black/40 p-4 rounded-xl border border-white/5">
+                                                <p class="text-[9px] text-santis-silver uppercase tracking-widest mb-1">Live Occupancy</p>
+                                                <p class="text-xl font-mono text-santis-emerald">87%</p>
+                                            </div>
+                                            <div class="flex-1 bg-black/40 p-4 rounded-xl border border-white/5">
+                                                <p class="text-[9px] text-santis-silver uppercase tracking-widest mb-1">Active Staff</p>
+                                                <p class="text-xl font-mono text-white">42</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             `;
                         });
                     }
 
-                    // 2. Initialize Apple-Style Swiper (Coverflow Effect)
-                    window.boardroomSwiper = new Swiper('.chain-slider', {
-                        effect: 'coverflow',
-                        grabCursor: true,
-                        centeredSlides: true,
-                        slidesPerView: 'auto',
-                        coverflowEffect: {
-                            rotate: 0,
-                            stretch: 0,
-                            depth: 150,
-                            modifier: 2.5,
-                            slideShadows: true,
-                        },
-                        pagination: { el: '.swiper-pagination', clickable: true },
-                        keyboard: { enabled: true }
+                    // Initialize Bento Grid Reveal Interaction
+                    document.querySelectorAll('.bento-card').forEach(card => {
+                        card.addEventListener('click', function() {
+                            // Close others
+                            document.querySelectorAll('.bento-card.revealed').forEach(c => {
+                                if (c !== this) c.classList.remove('revealed');
+                            });
+                            // Toggle current
+                            this.classList.toggle('revealed');
+                            
+                            // Scroll into view if revealed
+                            if (this.classList.contains('revealed')) {
+                                setTimeout(() => {
+                                    this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                }, 300);
+                            }
+                        });
                     });
                 }
             } catch (error) {
@@ -673,9 +789,9 @@
                 const feed = document.getElementById('chain-data-feed');
                 feed.innerHTML = '';
 
-                // North Star card (mock)
+                // North Star card (mock - Bento Style)
                 feed.innerHTML += `
-                    <div class="swiper-slide" data-status="ALL" data-revenue="${totalMock}" data-city="Empire">
+                    <div class="bento-card" data-status="ALL" data-revenue="${totalMock}" data-city="Empire">
                         <div>
                             <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-4 border border-white/20">
                                 <span class="text-xl">🌟</span>
@@ -690,6 +806,12 @@
                                 <span class="bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded-full text-[10px] tracking-wider uppercase font-semibold">SIMULATED</span>
                             </div>
                         </div>
+                        <div class="bento-reveal-content">
+                            <p class="text-[10px] text-santis-silver uppercase tracking-widest mb-2">Expansion Analytics</p>
+                            <div class="w-full h-32 bg-black/40 rounded-lg border border-white/5 flex items-center justify-center">
+                                <span class="text-white/30 text-xs">[ECharts Render Area]</span>
+                            </div>
+                        </div>
                     </div>
                 `;
 
@@ -701,11 +823,11 @@
                     const badgeText = isSurge ? 'SURGE ACTIVE' : 'STABLE';
                     
                     feed.innerHTML += `
-                        <div class="swiper-slide" data-status="${statusTag}" data-revenue="${node.revenue}" data-city="${node.city}">
+                        <div class="bento-card" data-status="${statusTag}" data-revenue="${node.revenue}" data-city="${node.city}">
                             ${isSurge ? '<div class="santis-surge-badge">SURGE</div>' : ''}
                             <div>
                                 <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-4 border border-white/20">
-                                    <svg class="w-6 h-6 text-santis-silver" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                    <svg width="24" height="24" class="w-6 h-6 text-santis-silver" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                                 </div>
                                 <h3 class="text-2xl font-semibold">${node.city}</h3>
                                 <p class="text-santis-silver text-sm">${node.region}</p>
@@ -717,19 +839,35 @@
                                     <span class="${badgeColor} px-2 py-1 rounded-full text-[10px] tracking-wider uppercase font-semibold">${badgeText}</span>
                                 </div>
                             </div>
+                            <div class="bento-reveal-content">
+                                <div class="flex gap-4">
+                                    <div class="flex-1 bg-black/40 p-4 rounded-xl border border-white/5">
+                                        <p class="text-[9px] text-santis-silver uppercase tracking-widest mb-1">Live Occupancy</p>
+                                        <p class="text-xl font-mono text-santis-emerald">${Math.floor(Math.random() * 40 + 50)}%</p>
+                                    </div>
+                                    <div class="flex-1 bg-black/40 p-4 rounded-xl border border-white/5">
+                                        <p class="text-[9px] text-santis-silver uppercase tracking-widest mb-1">Active Staff</p>
+                                        <p class="text-xl font-mono text-white">${Math.floor(Math.random() * 20 + 20)}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     `;
                 });
 
-                // Initialize Swiper for mock data
-                window.boardroomSwiper = new Swiper('.chain-slider', {
-                    effect: 'coverflow',
-                    grabCursor: true,
-                    centeredSlides: true,
-                    slidesPerView: 'auto',
-                    coverflowEffect: { rotate: 0, stretch: 0, depth: 150, modifier: 2.5, slideShadows: true },
-                    pagination: { el: '.swiper-pagination', clickable: true },
-                    keyboard: { enabled: true }
+                // Initialize Bento Grid Reveal Interaction for Mock Data
+                document.querySelectorAll('.bento-card').forEach(card => {
+                    card.addEventListener('click', function() {
+                        document.querySelectorAll('.bento-card.revealed').forEach(c => {
+                            if (c !== this) c.classList.remove('revealed');
+                        });
+                        this.classList.toggle('revealed');
+                        if (this.classList.contains('revealed')) {
+                            setTimeout(() => {
+                                this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }, 300);
+                        }
+                    });
                 });
 
                 console.log("🦅 Sovereign Failover: Mock Bridge active. 7 nodes rendered.");
@@ -824,6 +962,8 @@
             }, 1500);
         }
         // 3. The Pulse (WebSocket Connection to Sovereign Kernel)
+        let wsRetryCount = 0;
+        const MAX_WS_RETRIES = 3;
         function igniteThePulse() {
             const feed = document.getElementById('pulse-feed');
             
@@ -831,6 +971,7 @@
             const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
             // Force God Mode test token specifically for this Dashboard
             const token = 'hq_boardroom_token';
+            // Use dynamic host to prevent CORS overlaps between 127.0.0.1 and localhost
             const wsUrl = `${protocol}//${window.location.host}/ws/global/hq?token=${token}`;
             
             console.log("Igniting The Pulse at:", wsUrl);
@@ -904,28 +1045,57 @@
                                     triggerNodePulse(payload.city, '#FF3B30'); // Blood Red Flare
                                 }
                             }
-                            // 2. Sovereign Event Bus VIP or Surge Flare
-                            else if (payload.action === "FLARE" || payload.event_name === "booking_created" || payload.event_name === "surge_activated" || wsData.event === "VIP_BOOKING" || wsData.event === "SURGE_ACTIVATED") {
+                            // 2. Sovereign Event Bus VIP or Surge Flare or REVENUE_STRIKE
+                            else if (payload.action === "FLARE" || payload.event_name === "booking_created" || payload.event_name === "surge_activated" || wsData.event === "VIP_BOOKING" || wsData.event === "SURGE_ACTIVATED" || wsData.type === "REVENUE_STRIKE") {
                                 colorClass = "text-santis-gold drop-shadow-[0_0_8px_rgba(212,175,55,0.8)] font-semibold";
                                 bgOverlay = "bg-santis-gold/10 border-santis-gold/30 backdrop-blur-md";
-                                eventType = "SOVEREIGN EVENT";
                                 
-                                const rev = payload.revenue_eur ? `€${payload.revenue_eur.toLocaleString('en-US')}` : "Task";
-                                const vipLabel = payload.is_vip ? "[VIP] " : "";
-                                const surgeLabel = payload.surge_multiplier > 1.0 ? `[SURGE x${payload.surge_multiplier}] ` : "";
-                                eventDesc = `${vipLabel}${surgeLabel}${rev} ${payload.guest_type === 'walk_in' ? 'Walk-in' : 'Booking'} Secured in ${payload.city || 'Sovereign Node'}`;
-                                
-                                // Fire the ECharts Golden Pulse!
-                                if (payload.city) {
-                                    triggerNodePulse(payload.city, '#D4AF37'); // Sovereign Gold Flare
-                                }
-                                
-                                // Increment total revenue visually
-                                if (payload.revenue_eur) {
-                                    const revEl = document.getElementById('global-revenue');
-                                    const currentVal = parseFloat(revEl.innerText.replace('€', '').replace(/,/g, ''));
-                                    if (!isNaN(currentVal)) {
-                                        revEl.innerText = `€${(currentVal + payload.revenue_eur).toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+                                if (wsData.type === "REVENUE_STRIKE") {
+                                    eventType = "💰 REVENUE STRIKE";
+                                    const evPrice = payload.price || payload.amount || 0;
+                                    const evTarget = payload.target || payload.customer || 'VIP Service';
+                                    const evImpact = payload.impact || 'ORGANIC';
+                                    eventDesc = `[${evImpact}] €${evPrice.toLocaleString('en-US')} Secured for ${evTarget}`;
+                                    
+                                    // Trigger massive Map Pulse (fallback to Dubai for demo effect)
+                                    triggerNodePulse(payload.city || 'Dubai', '#D4AF37'); // Sovereign Gold Flare
+                                    
+                                    // Increment Global MRR with visual feedback
+                                    if (evPrice > 0) {
+                                        const revEl = document.getElementById('global-revenue');
+                                        const currentVal = parseFloat(revEl.innerText.replace('€', '').replace(/,/g, ''));
+                                        if (!isNaN(currentVal)) {
+                                            revEl.innerText = `€${(currentVal + evPrice).toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+                                            revEl.style.transition = "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+                                            revEl.style.transform = "scale(1.08)";
+                                            revEl.style.color = "#D4AF37";
+                                            revEl.style.textShadow = "0 0 25px rgba(212,175,55,0.8)";
+                                            setTimeout(() => {
+                                                revEl.style.transform = "scale(1)";
+                                                revEl.style.color = "";
+                                                revEl.style.textShadow = "";
+                                            }, 600);
+                                        }
+                                    }
+                                } else {
+                                    eventType = "SOVEREIGN EVENT";
+                                    const rev = payload.revenue_eur ? `€${payload.revenue_eur.toLocaleString('en-US')}` : "Task";
+                                    const vipLabel = payload.is_vip ? "[VIP] " : "";
+                                    const surgeLabel = payload.surge_multiplier > 1.0 ? `[SURGE x${payload.surge_multiplier}] ` : "";
+                                    eventDesc = `${vipLabel}${surgeLabel}${rev} ${payload.guest_type === 'walk_in' ? 'Walk-in' : 'Booking'} Secured in ${payload.city || 'Sovereign Node'}`;
+                                    
+                                    // Fire the ECharts Golden Pulse!
+                                    if (payload.city) {
+                                        triggerNodePulse(payload.city, '#D4AF37'); // Sovereign Gold Flare
+                                    }
+                                    
+                                    // Increment total revenue visually
+                                    if (payload.revenue_eur) {
+                                        const revEl = document.getElementById('global-revenue');
+                                        const currentVal = parseFloat(revEl.innerText.replace('€', '').replace(/,/g, ''));
+                                        if (!isNaN(currentVal)) {
+                                            revEl.innerText = `€${(currentVal + payload.revenue_eur).toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+                                        }
                                     }
                                 }
                             } 
@@ -971,17 +1141,25 @@
                 feed.insertAdjacentHTML('afterbegin', `
                     <div class="p-4 rounded-2xl bg-red-500/10 border border-red-500/20">
                         <p class="text-xs text-red-500 mb-1 tracking-widest uppercase">LINK SEVERED</p>
-                        <p class="text-sm">Connection lost. Re-establishing link in 5s...</p>
+                        <p class="text-sm">Connection lost.</p>
                     </div>
                 `);
                 
-                // Sovereign Reconnect Armor: Exponential Backoff (simplified)
-                setTimeout(() => {
+                // Sovereign Reconnect Armor: Exponential Backoff (limited to prevent console spam)
+                if (wsRetryCount < MAX_WS_RETRIES) {
+                    wsRetryCount++;
+                    setTimeout(() => {
+                        feed.insertAdjacentHTML('afterbegin', `
+                            <p class="text-xs text-santis-silver text-center mb-2">Re-initiating Neural Link (${wsRetryCount}/${MAX_WS_RETRIES})...</p>
+                        `);
+                        igniteThePulse();
+                    }, 5000);
+                } else {
                     feed.insertAdjacentHTML('afterbegin', `
-                        <p class="text-xs text-santis-silver text-center mb-2">Re-initiating Neural Link...</p>
+                        <p class="text-xs text-red-500 text-center mb-2">Maximum reconnect attempts reached. Shielding UI from spam.</p>
                     `);
-                    igniteThePulse();
-                }, 5000);
+                    console.warn("🦅 Sovereign Guard: Suspended WebSocket reconnection to prevent memory bleed.");
+                }
             };
         }
 
@@ -1003,12 +1181,12 @@
                 if (window.triggerPulse) window.triggerPulse();
             });
 
-            const swiperObserver = new MutationObserver(() => {
-                SantisObserver.observeAll('.swiper-slide[data-status]');
+            const bentoObserver = new MutationObserver(() => {
+                SantisObserver.observeAll('.bento-card[data-status]');
                 setTimeout(() => SovereignMirror.syncVIP(), 300);
             });
             const feed = document.getElementById('chain-data-feed');
-            if (feed) swiperObserver.observe(feed, { childList: true });
+            if (feed) bentoObserver.observe(feed, { childList: true });
         }
         // v13.3: ASIDE DRAG-RESIZE
         (() => {
@@ -1054,6 +1232,7 @@
             const container = document.getElementById('route-slots-container');
             const token = 'hq_boardroom_token';
             try {
+                // Use relative path to avoid CORS
                 const res = await fetch('/api/v1/media/slot-routes', { headers: { 'Authorization': `Bearer ${token}` } });
                 if (!res.ok) throw new Error('API Error');
                 const data = await res.json();
@@ -1119,7 +1298,9 @@
         // Initialize mapping on load
         document.addEventListener('DOMContentLoaded', fetchSovereignRoutes);
     </script>
-</body>
+<!-- Sovereign Admin Navigation -->
+<script src="/admin/assets/js/admin-nav.js" defer></script>
+<!-- 🛡️ ZOMBIE QUARANTINED: santis-telemetry-engine.js -->\n</body>
 </html>
 
 

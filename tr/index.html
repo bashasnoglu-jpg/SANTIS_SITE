@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="tr">
 <head>
@@ -6,24 +6,84 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Santis Club • Spa &amp; Wellness</title>
 <meta content="Santis Club – Antalya'da özel lüks spa, hamam ritüelleri ve terapötik wellness deneyimi." name="description"/>
-<link href="/assets/css/fonts.css" rel="stylesheet"/>
+
+<style id="critical-css">
+/* Temel sıfırlama ve tipografi iskeleti */
+body { margin: 0; background-color: #f4f3f1; font-family: 'Cormorant Garamond', 'Inter', system-ui, sans-serif; color: #1a1a1a; }
+.site-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; min-height: 80px; }
+/* Mutlak Mizanpaj Koruması & İskelet (Skeleton) */
+.media-wrapper { position: relative; width: 100%; overflow: hidden; background-color: #f4f3f1; }
+.media-wrapper::after { content: ""; position: absolute; inset: 0; background-image: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%); transform: translateX(-100%); animation: shimmer 1.5s infinite; will-change: transform; }
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+.hero-media { aspect-ratio: 2 / 3; }
+@media (min-width: 768px) { .hero-media { aspect-ratio: 2 / 1; } }
+.hero-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0; transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.hero-image.loaded { opacity: 1; }
+</style>
+
+  <link rel="preload" href="/assets/css/fonts.css" as="style">
+  <link rel="stylesheet" href="/assets/css/fonts.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/fonts.css"></noscript>
+<meta name="theme-color" content="#000000">
 <link href="/manifest.json" rel="manifest"/>
 <link href="/assets/img/icons/icon-192x192.webp" rel="apple-touch-icon"/>
-<link href="/assets/css/style.css" rel="stylesheet"/>
-<link href="/assets/css/editorial.css" rel="stylesheet"/>
-<link href="/assets/css/bento-grid.css" rel="stylesheet"/>
-<link href="/assets/css/modules/cards.css" rel="stylesheet"/>
-<link href="/assets/css/gallery.css" rel="stylesheet"/>
-<link href="/assets/css/video-hero.css" rel="stylesheet"/>
-<link href="/assets/css/hero-slider.css" rel="stylesheet"/>
-<link href="/assets/css/modules/global-trends.css" rel="stylesheet"/>
-<link href="/assets/css/concierge.css" rel="stylesheet"/>
-<link href="/assets/css/modules/testimonials.css" rel="stylesheet"/>
-<link href="/assets/css/modules/sticky-booking.css" rel="stylesheet"/>
-<link href="/assets/css/modules/signature-cards.css" rel="stylesheet"/>
-<link href="/assets/css/santis-soul.css" rel="stylesheet"/>
+
+  <link rel="preload" href="/assets/css/style.css" as="style">
+  <link rel="stylesheet" href="/assets/css/style.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/style.css"></noscript>
+
+  <link rel="preload" href="/assets/css/editorial.css" as="style">
+  <link rel="stylesheet" href="/assets/css/editorial.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/editorial.css"></noscript>
+
+  <link rel="preload" href="/assets/css/bento-grid.css" as="style">
+  <link rel="stylesheet" href="/assets/css/bento-grid.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/bento-grid.css"></noscript>
+
+  <link rel="preload" href="/assets/css/santis-v6/santis.bento-grid.css" as="style">
+  <link rel="stylesheet" href="/assets/css/santis-v6/santis.bento-grid.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/santis-v6/santis.bento-grid.css"></noscript>
+
+  <link rel="preload" href="/assets/css/modules/cards.css" as="style">
+  <link rel="stylesheet" href="/assets/css/modules/cards.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/modules/cards.css"></noscript>
+
+  <link rel="preload" href="/assets/css/gallery.css" as="style">
+  <link rel="stylesheet" href="/assets/css/gallery.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/gallery.css"></noscript>
+
+  <link rel="preload" href="/assets/css/video-hero.css" as="style">
+  <link rel="stylesheet" href="/assets/css/video-hero.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/video-hero.css"></noscript>
+
+  <link rel="preload" href="/assets/css/hero-slider.css" as="style">
+  <link rel="stylesheet" href="/assets/css/hero-slider.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/hero-slider.css"></noscript>
+
+  <link rel="preload" href="/assets/css/modules/global-trends.css" as="style">
+  <link rel="stylesheet" href="/assets/css/modules/global-trends.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/modules/global-trends.css"></noscript>
+
+  <link rel="preload" href="/assets/css/concierge.css" as="style">
+  <link rel="stylesheet" href="/assets/css/concierge.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/concierge.css"></noscript>
+
+  <link rel="preload" href="/assets/css/modules/testimonials.css" as="style">
+  <link rel="stylesheet" href="/assets/css/modules/testimonials.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/modules/testimonials.css"></noscript>
+
+  <link rel="preload" href="/assets/css/modules/sticky-booking.css" as="style">
+  <link rel="stylesheet" href="/assets/css/modules/sticky-booking.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/modules/sticky-booking.css"></noscript>
+
+  <link rel="preload" href="/assets/css/modules/signature-cards.css" as="style">
+  <link rel="stylesheet" href="/assets/css/modules/signature-cards.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/modules/signature-cards.css"></noscript>
+
+  <link rel="preload" href="/assets/css/santis-soul.css" as="style">
+  <link rel="stylesheet" href="/assets/css/santis-soul.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/santis-soul.css"></noscript>
 <meta content="/assets/img/og-standard.webp" property="og:image"/>
-<link href="https://santis-club.com/tr/index.html" rel="canonical"/>
 <meta content="Santis Club – Spa &amp; Wellness" property="og:title"/>
 <meta content="Santis Club – Antalya'da özel lüks spa, hamam ritüelleri ve terapötik wellness deneyimi." property="og:description"/>
 <meta content="https://santis-club.com/tr/index.html" property="og:url"/>
@@ -37,131 +97,212 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type": "Question", "name": "Masaj seansı ne kadar sürer?", "acceptedAnswer": {"@type": "Answer", "text": "Masaj seanslarımız 30 ile 90 dakika arasında sürer. Süre seçilen terapiye bağlıdır."}},{"@type": "Question", "name": "Masaj öncesi ne yapmalıyım?", "acceptedAnswer": {"@type": "Answer", "text": "Bir saat önce ağır yemek yememenizi ve bol su içmenizi öneririz. Lütfen 15 dakika erken gelin."}},{"@type": "Question", "name": "Bana hangi masaj türü uygun?", "acceptedAnswer": {"@type": "Answer", "text": "Terapistlerimiz ilk görüşmede ihtiyaçlarınızı değerlendirir ve en uygun masajı önerir."}}]}</script>
 <!-- SCHEMA: HealthAndBeautyBusiness -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"HealthAndBeautyBusiness","name":"Santis Club Spa & Wellness","url":"https://santis-club.com","telephone":"+905348350169","address":{"@type":"PostalAddress","streetAddress":"Çolaklı Mah.","addressLocality":"Manavgat","addressRegion":"Antalya","postalCode":"07600","addressCountry":"TR"},"geo":{"@type":"GeoCoordinates","latitude":"36.7633","longitude":"31.3864"},"priceRange":"€€€","openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"09:00","closes":"22:00"}}</script>
-<!-- HREFLANG CLUSTER SYNC -->
-<link href="https://santis-club.com/de/index.html" hreflang="de" rel="alternate"/>
-<link href="https://santis-club.com/en/index.html" hreflang="en" rel="alternate"/>
-<link href="https://santis-club.com/fr/index.html" hreflang="fr" rel="alternate"/>
-<link href="https://santis-club.com/ru/index.html" hreflang="ru" rel="alternate"/>
-<link href="https://santis-club.com/tr/index.html" hreflang="tr" rel="alternate"/>
-<link href="https://santis-club.com/en/index.html" hreflang="x-default" rel="alternate"/>
-<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Santis Club • Spa &amp; Wellness" name="twitter:title"/><meta content="Santis Club – Antalya'da özel lüks spa, hamam ritüelleri ve terapötik wellness deneyimi." name="twitter:description"/><meta content="https://santisclub.com/assets/img/cards/hammam.webp" name="twitter:image"/></head>
-<body class="editorial-mode" data-page="index">
+<!-- HREFLANG CLUSTER SYNC & SOVEREIGN SEO ARMOR -->
+<link rel="canonical" href="https://santis-club.com/" id="santis-canonical" />
+
+<link rel="alternate" hreflang="tr" href="https://santis-club.com/" />
+<link rel="alternate" hreflang="en" href="https://santis-club.com/?lang=en" />
+<link rel="alternate" hreflang="ru" href="https://santis-club.com/?lang=ru" />
+<link rel="alternate" hreflang="de" href="https://santis-club.com/?lang=de" />
+<link rel="alternate" hreflang="ar" href="https://santis-club.com/?lang=ar" />
+<link rel="alternate" hreflang="fr" href="https://santis-club.com/?lang=fr" />
+
+<link rel="alternate" hreflang="x-default" href="https://santis-club.com/" />
+<meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Santis Club • Spa &amp; Wellness" name="twitter:title"/><meta content="Santis Club – Antalya'da özel lüks spa, hamam ritüelleri ve terapötik wellness deneyimi." name="twitter:description"/><meta content="https://santisclub.com/assets/img/cards/hammam.webp" name="twitter:image"/>
+<!-- RUM: Core Web Vitals Gözlemcisi -->
+<script src="/assets/js/santis-vitals.js" async></script>
+
+<!-- Phase 6: Fluid Space Engine (Speculation Rules API) -->
+<script type="speculationrules">
+{
+  "prerender": [
+    {
+      "source": "document",
+      "where": {
+        "and": [
+          { "href_matches": "/*" },
+          { "not": { "selector_matches": ".no-prerender, [target='_blank'], [href^='mailto:'], [href^='tel:']" } }
+        ]
+      },
+      "eagerness": "moderate" 
+    }
+  ]
+}
+</script>
+</head>
+<body class="editorial-mode" data-page="index" data-barba="wrapper">
+<!-- Page Overlay for Cinematic Transitions -->
+<div class="page-overlay"></div>
 <!-- 🌌 V17 THE GOD CANVAS (Quantum Renderer) 🌌 -->
 <canvas id="santis-god-canvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:-1;"></canvas>
-<header id="site-header" role="banner">
-<div class="nav-overlay" id="santis-nav-overlay"></div>
-<nav class="navbar sovereign-nav" id="nv-main-nav">
-    <div class="sovereign-nav-container">
-        
-        <!-- BRAND LOGO -->
-        <a class="sovereign-logo" href="/tr/index.html" aria-label="Santis Home" style="text-decoration: none;">
-            <svg fill="none" height="28" viewBox="0 0 24 24" width="28" style="margin-right: 14px; color: #D4AF37;">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path>
-                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path>
-                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path>
-            </svg>
-            <div style="display: flex; flex-direction: column; align-items: flex-start;">
-                <span style="font-family: 'Playfair Display', serif; font-size: 20px; letter-spacing: 0.2em; font-weight: 400; color: #fff; line-height: 1;">SANTIS</span>
-                <span style="font-family: 'Inter', sans-serif; font-size: 9px; letter-spacing: 0.35em; color: #D4AF37; margin-top: 4px; font-weight: 600;">SPA & THERAPY</span>
-            </div>
-        </a>
-
-        <!-- DESKTOP LINKS -->
-        <div class="sovereign-links" id="navRoot">
-            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/index.html" data-target="/tr/index.html">Anasayfa</a>
-            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/dunya-ritueli.html" data-target="/tr/dunya-ritueli.html" style="color:#D4AF37;">Santis World</a>
-            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/hamam/index.html" data-target="/tr/hamam/index.html" data-menu="hamam">Hamam</a>
-            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/masajlar/index.html" data-target="/tr/masajlar/index.html" data-menu="masajlar">Masaj</a>
-            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/cilt-bakimi/index.html" data-target="/tr/cilt-bakimi/index.html" data-menu="cilt">Cilt Bakımı</a>
-            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/urunler/index.html" data-target="/tr/urunler/index.html">Mağaza</a>
-            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/galeri/index.html" data-target="/tr/galeri/index.html">Galeri</a>
-            <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/hakkimizda/index.html" data-target="/tr/hakkimizda/index.html" data-menu="hakkimizda">Hakkımızda</a>
-        </div>
-
-        <!-- ACTIONS (SEARCH / REZERVASYON / DİL) -->
-        <div class="sovereign-actions nav-actions">
-            
-            <!-- Sovereign Rituals Mührü -->
-            <a href="/tr/rituals/index.html" class="sovereign-rituals-cta group">
-                <span class="dot"></span>
-                <span class="text">Sovereign Rituals</span>
-            </a>
-            
-            <span class="nav-divider"></span>
-
-            <a class="nav-link btn-rezervasyon" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">
-                Rezervasyon
-            </a>
-            
-            <!-- Language Switcher Container -->
-            <div class="lang-wrapper notranslate" id="santis-language-root"></div>
-            
-            <!-- HAMBURGER -->
-            <div aria-label="Menüyü Aç/Kapat" class="hamburger-btn" id="hamburger" role="button" tabindex="0">
-                <span class="bar" style="background-color: #f5f5f7;"></span>
-                <span class="bar" style="background-color: #f5f5f7;"></span>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- ============================================== -->
-    <!-- 🍏 APPLE LIQUID MEGA MENU KASASI (MASTER)       -->
-    <!-- ============================================== -->
-    <div id="liquid-nav-overlay"></div>
-    <div id="santis-liquid-menu" class="santis-liquid-menu-container">
-        <div id="liquid-menu-content">
-            <!-- JS Motoru İçeriği Buraya Basacak -->
-        </div>
-    </div>
-</nav>
-
-<!-- MOBILE MENU OVERLAY -->
-<div class="mobile-menu-overlay" id="mobileMenu">
-    <div class="mobile-menu-content">
-        <a class="mobile-link nav-link" href="/tr/index.html">Anasayfa</a>
-        <a class="mobile-link nav-link" href="/tr/dunya-ritueli.html" style="color:#d4af37;">Santis World</a>
-        <a class="mobile-link nav-link" href="/tr/hamam/index.html">Hamam Ritüelleri</a>
-        <a class="mobile-link nav-link" href="/tr/masajlar/index.html">Dünya Masajları</a>
-        <a class="mobile-link nav-link" href="/tr/cilt-bakimi/index.html">Cilt Bakımı</a>
-        <a class="mobile-link nav-link" href="/tr/urunler/index.html">Mağaza</a>
-        <a class="mobile-link nav-link" href="/tr/galeri/index.html">Galeri</a>
-        <a class="mobile-link nav-link" href="/tr/hakkimizda/index.html">Hakkımızda</a>
-        <a class="mobile-link nav-link" href="/assets/docs/santis-spa-menu.pdf" style="color:#d4af37;" target="_blank">✦ Spa Menüsü (PDF)</a>
-        <a class="mobile-link nav-link" href="/tr/code-of-silence.html" style="color:#d4af37;">✦ Sessizlik Manifestosu</a>
-        <a class="nv-btn nv-btn-primary mt-4" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">HEMEN REZERVASYON</a>
-    </div>
-</div>
+<header id="site-header" class="santis-navbar" role="banner">
+  <div id="navbar-container"></div>
 </header>
-<main id="nv-main">
+<main id="nv-main" data-barba="container" data-barba-namespace="home">
 <h1 class="sr-only">Santis Club</h1>
-<!-- SECTION 1: HERO -->
-<section class="nv-hero-campaign" data-gravity-id="hero-main">
-<div class="nv-hero-overlay"></div>
-<div class="nv-campaign-slide nv-slide-intro active">
-<div class="nv-hero-content-dynamic">
-<span class="nv-hero-caption">SESSİZLİĞİN SESİ</span>
-<h2 class="nv-hero-title-dynamic">Hiçbir şey yapmamanın<br/>lüksünü keşfedin.</h2>
-<p class="nv-hero-desc" style="max-width:500px;margin:20px auto;color:#ccc;font-weight:300;letter-spacing:0.5px;opacity:0;animation:fadeUp 1s ease 0.5s forwards;">Telefon yok. Zaman yok. Gürültü yok.<br/>Sadece siz ve an.<br/>Santis, modern dünyanın gürültüsüne karşı bir isyan.</p>
-</div>
-</div>
-<div class="nv-campaign-progress" id="heroProgress"></div>
-<span class="nv-scroll-indicator" data-gravity-id="hero-cta-scroll">Deneyiminizi Planlayın</span>
+<!-- SECTION 1: HERO (V8 CINEMATIC ENGINE) -->
+<section class="santis-hero" data-gravity-id="hero-main">
+    <video class="santis-hero-video" muted loop playsinline style="display:none">
+        <!-- <source src="/assets/video/spa-hero.mp4" type="video/mp4"> -->
+        <!-- spa-hero.mp4 hazır olunca source ekle ve display:none kaldır -->
+    </video>
+    <div class="santis-hero-overlay"></div>
+    <div class="santis-hero-content">
+        <span class="hero-kicker">SANTIS CLUB</span>
+        <h1 class="hero-title">The Ritual of Stillness</h1>
+        <p class="hero-subtitle">Where water, stone and silence meet.</p>
+        <a class="hero-cta" href="/tr/rezervasyon">Ritüeli Keşfet</a>
+    </div>
 </section>
 <!-- SECTION 2: SIGNATURE EXPERIENCES -->
 <section class="nv-container nv-section" id="imza-deneyimler">
-<div class="nv-section-header reveal-up">
-<span class="nv-kicker">İMZA DENEYİMLER</span>
-<h2 class="nv-title">Dört Element, Tek Felsefe</h2>
-<p class="nv-section-subtitle" style="max-width:600px;margin:12px auto 0;color:rgba(255,255,255,0.6);font-size:15px;">Yüzyılların bilgeliğiyle şekillenen özel koleksiyonlar.</p>
-</div>
-<div class="nv-signature-grid">
-<a class="nv-signature-card depth-1 reveal-up" href="/tr/hamam/index.html" data-gravity-id="card-hamam"><div class="nv-signature-visual"><img alt="Hamam – mermer göbek taşı ve köpük ritüeli" decoding="async" height="500" src="/assets/img/cards/hammam.webp" width="400" fetchpriority="high"><div class="nv-signature-overlay"></div></div><div class="nv-signature-info"><h3 class="nv-signature-name">Hamam Ritüelleri</h3><p class="nv-signature-desc">Osmanlı geleneğinin zarif dokunuşu</p><span class="nv-signature-cta">Koleksiyonu Keşfet →</span></div></a>
-<a class="nv-signature-card depth-1 reveal-up" href="/tr/masajlar/index.html" data-gravity-id="card-massage" style="transition-delay:80ms;"><div class="nv-signature-visual"><img alt="Masaj – sıcak taş ve aromaterapi" decoding="async" height="500" src="/assets/img/cards/massage.webp" width="400" fetchpriority="high"><div class="nv-signature-overlay"></div></div><div class="nv-signature-info"><h3 class="nv-signature-name">Masaj Terapileri</h3><p class="nv-signature-desc">Beden ve zihin için derin dinlenme</p><span class="nv-signature-cta">Koleksiyonu Keşfet →</span></div></a>
-<a class="nv-signature-card depth-1 reveal-up" href="/tr/cilt-bakimi/index.html" data-gravity-id="card-skincare" style="transition-delay:160ms;"><div class="nv-signature-visual"><img alt="Cilt Bakımı – profesyonel Sothys bakım uygulaması" decoding="async" height="500" loading="lazy" src="/assets/img/cards/facial.webp" width="400"><div class="nv-signature-overlay"></div></div><div class="nv-signature-info"><h3 class="nv-signature-name">Cilt Bakımı</h3><p class="nv-signature-desc">Bilim ve doğanın mükemmel sentezi</p><span class="nv-signature-cta">Koleksiyonu Keşfet →</span></div></a>
-<a class="nv-signature-card depth-1 reveal-up" href="/tr/urunler/index.html" data-gravity-id="card-atelier" style="transition-delay:240ms;"><div class="nv-signature-visual"><img alt="Atölye – lüks spa bakım ürünleri" decoding="async" height="500" loading="lazy" src="/assets/img/cards/atelier.webp" width="400"><div class="nv-signature-overlay"></div></div><div class="nv-signature-info"><h3 class="nv-signature-name">Atölye</h3><p class="nv-signature-desc">Yanınızda taşıyacağınız lüks</p><span class="nv-signature-cta">Koleksiyonu Keşfet →</span></div></a>
-</div>
+    <div class="nv-section-header reveal-up">
+        <span class="nv-kicker">İMZA DENEYİMLER</span>
+        <h2 class="nv-title">Elementlerin Ritüeli</h2>
+        <p class="nv-section-subtitle" style="max-width:600px;margin:12px auto 0;color:rgba(255,255,255,0.6);font-size:15px;">Yüzyılların bilgeliğiyle şekillenen özel koleksiyonlar.</p>
+    </div>
+
+    <!-- Editöryal Bento Magazin Layout -->
+    <div class="santis-bento-universe">
+        <!-- 1. GENİŞ KART: HAMAM -->
+        <a class="bento-card-v6 santis-reveal wide" href="/tr/hamam/index.html">
+            <img src="/assets/img/cards/hammam.webp" class="bento-card-media" alt="Hamam Ritüelleri" decoding="async" fetchpriority="high">
+            <div class="bento-card-protector"></div>
+            <div class="bento-card-content">
+                <span class="bento-meta">İmza Deneyim</span>
+                <h3 class="bento-title">Hamam Ritüelleri</h3>
+                <p class="bento-desc">Geleneksel arınma ritüelinin modern lüks ile birleşimi.</p>
+            </div>
+        </a>
+
+        <!-- 2. KÜÇÜK KART: MASAJ -->
+        <a class="bento-card-v6 santis-reveal" href="/tr/masajlar/index.html">
+            <img src="/assets/img/cards/massage.webp" class="bento-card-media" alt="Masaj Terapileri" loading="lazy">
+            <div class="bento-card-protector"></div>
+            <div class="bento-card-content">
+                <span class="bento-meta">Rahatlama</span>
+                <h3 class="bento-title">Masaj Terapileri</h3>
+                <p class="bento-desc">Kasları gevşeten profesyonel terapiler.</p>
+            </div>
+        </a>
+
+        <!-- 3. KÜÇÜK KART: CİLT BAKIMI -->
+        <a class="bento-card-v6 santis-reveal" href="/tr/cilt-bakimi/index.html">
+            <img src="/assets/img/cards/skincare.webp" class="bento-card-media" alt="Cilt Bakımı" loading="lazy">
+            <div class="bento-card-protector"></div>
+            <div class="bento-card-content">
+                <span class="bento-meta">Güzellik</span>
+                <h3 class="bento-title">Cilt Bakımı</h3>
+                <p class="bento-desc">Bilimsel cilt yenileme terapileri.</p>
+            </div>
+        </a>
+
+        <!-- 4. KÜÇÜK KART: ATÖLYE -->
+        <a class="bento-card-v6 santis-reveal" href="/tr/urunler/index.html">
+            <img src="/assets/img/cards/atelier.webp" class="bento-card-media" alt="Spa Atölyesi" loading="lazy">
+            <div class="bento-card-protector"></div>
+            <div class="bento-card-content">
+                <span class="bento-meta">Deneyim</span>
+                <h3 class="bento-title">Spa Atölyesi</h3>
+                <p class="bento-desc">Spa ritüellerinin arkasındaki sanat.</p>
+            </div>
+        </a>
+    </div>
 </section>
+
+<!-- [CLS FIX] Swiper CSS senkron — defer etme, hemen yerleştir -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<!-- SECTION 2b: SPAOS VERTICAL RITUAL STACK -->
+<section class="nv-section" id="ritual-stack" style="padding:6rem 0; background:#050505; overflow:hidden;">
+  <div class="nv-container" style="max-width:1280px;margin:0 auto;">
+    <div style="display:flex; align-items:center; gap:80px; flex-wrap:wrap;">
+
+      <!-- Sol: Metin -->
+      <div style="flex:1; min-width:280px;">
+        <span class="nv-kicker" style="color:#D4AF37;">RİTÜEL KEŞFEDİCİ</span>
+        <h2 class="nv-title" style="margin:16px 0 20px;">Kaydır.<br>Keşfet.<br>Hisset.</h2>
+        <p style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.8; max-width:380px;">
+          Dört imza ritüelimiz. Fare tekerleğiyle aşağı kaydırın — her kart bir dünya kapısı açar.
+        </p>
+        <a href="/tr/hamam/index.html" class="nv-btn nv-btn-outline santis-magnetic" style="margin-top:32px; display:inline-block;">
+          Tüm Ritüeller
+        </a>
+      </div>
+
+      <!-- Sağ: Swiper -->
+      <div style="flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:16px;">
+        <p style="font-size:10px; letter-spacing:0.25em; color:rgba(255,255,255,0.3); text-transform:uppercase; text-align:center;">↓ Kaydırın</p>
+        <div class="swiper spaos-ritual-swiper" style="width:300px; height:440px; padding:30px 0;">
+          <div class="swiper-wrapper">
+
+            <!-- Kart 1: Hamam -->
+            <div class="swiper-slide spaos-card">
+              <img src="/assets/img/cards/hammam.webp" alt="Sultan Hamamı – geleneksel kese ve köpük ritüeli" loading="lazy" decoding="async" width="600" height="800" class="spaos-card-img">
+              <div class="spaos-card-gradient"></div>
+              <div class="spaos-card-content">
+                <span class="spaos-badge">MİRAS</span>
+                <h3 class="spaos-title">Sultan Hamamı</h3>
+                <p class="spaos-desc">Geleneksel kese ve sıcak köpük ile hücresel yenilenme.</p>
+                <a href="/tr/hamam/index.html" class="spaos-link">RİTÜELİ KEŞFET</a>
+              </div>
+            </div>
+
+            <!-- Kart 2: Masaj -->
+            <div class="swiper-slide spaos-card">
+              <img src="/assets/img/cards/massage.webp" alt="Aura Aromaterapi masajı – esansiyel yağlar" loading="lazy" decoding="async" width="600" height="800" class="spaos-card-img">
+              <div class="spaos-card-gradient"></div>
+              <div class="spaos-card-content">
+                <span class="spaos-badge">İMZA</span>
+                <h3 class="spaos-title">Aura Aromaterapi</h3>
+                <p class="spaos-desc">Sıcak esansiyel yağlarla zihinsel frekans dengelemesi.</p>
+                <a href="/tr/masajlar/index.html" class="spaos-link">RİTÜELİ KEŞFET</a>
+              </div>
+            </div>
+
+            <!-- Kart 3: Cilt Bakımı -->
+            <div class="swiper-slide spaos-card">
+              <img src="/assets/img/cards/Santis-face-mask-4x5-1080x1350.webp" alt="Sothys Safir Işıltı – mineral cilt bakımı" loading="lazy" decoding="async" width="600" height="800" class="spaos-card-img">
+              <div class="spaos-card-gradient"></div>
+              <div class="spaos-card-content">
+                <span class="spaos-badge">PREMİUM</span>
+                <h3 class="spaos-title">Safir Işıltı</h3>
+                <p class="spaos-desc">Mineral kristalleriyle cilt bariyerini güçlendiren terapi.</p>
+                <a href="/tr/cilt-bakimi/index.html" class="spaos-link">RİTÜELİ KEŞFET</a>
+              </div>
+            </div>
+
+            <!-- Kart 4: Dinlenme -->
+            <div class="swiper-slide spaos-card">
+              <img src="/assets/img/cards/Santis-spa-rest-graded-clean.webp" alt="Ayurvedik Dokunuş – sıcak taşlar ve prana nefes" decoding="async" width="600" height="800" class="spaos-card-img" fetchpriority="low">
+              <div class="spaos-card-gradient"></div>
+              <div class="spaos-card-content">
+                <span class="spaos-badge">DENGE</span>
+                <h3 class="spaos-title">Ayurvedik Dokunuş</h3>
+                <p class="spaos-desc">Sıcak taşlar ve Prana nefes teknikleriyle içsel huzur.</p>
+                <a href="/tr/masajlar/index.html" class="spaos-link">RİTÜELİ KEŞFET</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .spaos-card { border-radius:16px; overflow:hidden; background:#0a0a0a; border:1px solid rgba(255,255,255,0.05); box-shadow:0 40px 80px rgba(0,0,0,0.8); display:flex; flex-direction:column; justify-content:flex-end; align-items:center; position:relative; cursor:pointer; min-height:380px; aspect-ratio:3/4; contain:layout size; }
+  .spaos-card-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .spaos-card-gradient { position:absolute; inset:0; background:linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.3) 55%, transparent 100%); z-index:1; }
+  .spaos-card-content { position:relative; z-index:2; width:100%; padding:0 20px 24px; text-align:center; }
+  .spaos-badge { display:block; font-size:9px; font-weight:600; letter-spacing:.3em; color:#D4AF37; margin-bottom:8px; }
+  .spaos-title { font-family:'Cinzel','Cormorant Garamond',serif; font-size:20px; font-weight:500; color:#F5F5F7; margin:0 0 8px; }
+  .spaos-desc { font-size:11px; font-weight:300; color:rgba(255,255,255,0.55); line-height:1.5; margin:0 0 16px; }
+  .spaos-link { font-size:9px; font-weight:500; color:#D4AF37; letter-spacing:.2em; border-top:1px solid rgba(255,255,255,0.1); padding-top:12px; display:block; text-decoration:none; transition:opacity .3s; }
+  .spaos-link:hover { opacity:.7; }
+</style>
+
 <!-- SECTION 3: PHILOSOPHY -->
 <section class="nv-philosophy nv-section" id="felsefe">
 <div class="nv-container"><div class="nv-philosophy-grid">
@@ -171,33 +312,91 @@
 <h2 class="nv-title">Bedeninizi Dinleyin.<br/>Sessizliği Biz Sunuyoruz.</h2>
 <p class="nv-brand-story-text">Santis Club, geleneksel hamam ritüellerini ve modern spa terapilerini eşsiz bir anlayışla buluşturur. Burada zaman yavaşlar, beden dinlenir, zihin berraklaşır.</p>
 <p class="nv-brand-story-text">Her ritüel, yüzyılların bilgeliğiyle tasarlanmış bir iyi olma yolculuğudur. Sessizlik burada lüks değil — bir yaşam biçimi.</p>
-<a class="nv-btn nv-btn-outline" href="/tr/hakkimizda/index.html" style="margin-top:24px;">Hikâyemizi Keşfedin</a>
+<a class="nv-btn nv-btn-outline santis-magnetic" href="/tr/hakkimizda/index.html" style="margin-top:24px;">Hikâyemizi Keşfedin</a>
 </div>
 </div></div>
 </section>
 <!-- SECTION 4: GLOBAL TRENDS -->
 <div class="nv-container nv-section nv-gap-y-trends" id="global-trends">
-<div class="nv-section-header reveal-up"><span class="nv-kicker">KÜRESEL İLHAM</span><h2 class="nv-title">Dünyanın Dört Bir Yanından Ritüeller</h2></div>
-<div class="nv-trend-grid" id="global-trends-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;width:100%;margin-top:40px;">
-<a aria-label="Wabi-Sabi" class="nv-trend-card depth-2 reveal-up" href="/service-detail.html?slug=anti-stress-masaji" style="display:flex;flex-direction:column;justify-content:flex-end;position:relative;height:520px;overflow:hidden;border-radius:24px;background:rgba(20,20,20,0.4);text-decoration:none;"><div class="nv-trend-bg nv-bg-trend-tokyo" style="position:absolute;inset:0;width:100%;height:100%;background-image:url('/assets/img/cards/santis_card_hammam_v1.webp');background-size:cover;background-position:center;z-index:0;"></div><div class="nv-trend-overlay" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.85) 100%);z-index:1;pointer-events:none;"></div><div class="nv-trend-content" style="position:relative;z-index:2;padding:36px;"><div class="nv-trend-label"><span class="icon">🇯🇵</span> KÜRESEL RİTÜEL • ASYA</div><h3 class="nv-trend-title">Wabi-Sabi Estetiği</h3><p class="nv-trend-desc">Kusursuzluğun güzelliği.</p></div></a>
-<a aria-label="Wat Pho" class="nv-trend-card depth-2 reveal-up" href="/service-detail.html?slug=kombine-masaj" style="display:flex;flex-direction:column;justify-content:flex-end;position:relative;height:520px;overflow:hidden;border-radius:24px;background:rgba(20,20,20,0.4);text-decoration:none;transition-delay:100ms;"><div class="nv-trend-bg nv-bg-trend-bangkok" style="position:absolute;inset:0;width:100%;height:100%;background-image:url('/assets/img/cards/santis_card_massage_v1.webp');background-size:cover;background-position:center;z-index:0;"></div><div class="nv-trend-overlay" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.85) 100%);z-index:1;pointer-events:none;"></div><div class="nv-trend-content" style="position:relative;z-index:2;padding:36px;"><div class="nv-trend-label"><span class="icon">🇹🇭</span> KÜRESEL RİTÜEL • TAYLAND</div><h3 class="nv-trend-title">Wat Pho Bilgeliği</h3><p class="nv-trend-desc">Kadim şifa mirası.</p></div></a>
-<a aria-label="Roman Thermal" class="nv-trend-card depth-2 reveal-up" href="/service-detail.html?slug=kese-ve-kopuk-masaji" style="display:flex;flex-direction:column;justify-content:flex-end;position:relative;height:520px;overflow:hidden;border-radius:24px;background:rgba(20,20,20,0.4);text-decoration:none;transition-delay:200ms;"><div class="nv-trend-bg nv-bg-trend-italy" style="position:absolute;inset:0;width:100%;height:100%;background-image:url('/assets/img/cards/santis_card_skincare_v1.webp');background-size:cover;background-position:center;z-index:0;"></div><div class="nv-trend-overlay" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.85) 100%);z-index:1;pointer-events:none;"></div><div class="nv-trend-content" style="position:relative;z-index:2;padding:36px;"><div class="nv-trend-label"><span class="icon">🇮🇹</span> KÜRESEL RİTÜEL • İTALYA</div><h3 class="nv-trend-title">Roma Termal Kültürü</h3><p class="nv-trend-desc">Salus per aquam.</p></div></a>
-<a aria-label="Scientific Skincare" class="nv-trend-card depth-2 reveal-up" href="/tr/cilt-bakimi/index.html" style="display:flex;flex-direction:column;justify-content:flex-end;position:relative;height:520px;overflow:hidden;border-radius:24px;background:rgba(20,20,20,0.4);text-decoration:none;transition-delay:300ms;"><div class="nv-trend-bg nv-bg-trend-beauty" style="position:absolute;inset:0;width:100%;height:100%;background-image:url('/assets/img/cards/santis_card_skincare_cover.webp');background-size:cover;background-position:center;z-index:0;"></div><div class="nv-trend-overlay" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.85) 100%);z-index:1;pointer-events:none;"></div><div class="nv-trend-content" style="position:relative;z-index:2;padding:36px;"><div class="nv-trend-label"><span class="icon">🌿</span> SAF GÜZELLİK • DOĞA</div><h3 class="nv-trend-title">Bilimsel Cilt Bakımı</h3><p class="nv-trend-desc">İleri dermatolojik çözümler.</p></div></a>
-</div>
+    <div class="nv-section-header reveal-up">
+        <span class="nv-kicker">KÜRESEL İLHAM</span>
+        <h2 class="nv-title">Dünyanın Dört Bir Yanından Ritüeller</h2>
+    </div>
+
+    <div class="santis-bento-universe" style="margin-top:40px;">
+        <!-- Wabi Sabi Katmanı (Wide) -->
+        <a class="bento-card-v6 santis-reveal wide" href="/service-detail.html?slug=anti-stress-masaji">
+            <img src="/assets/img/cards/santis_card_massage_asian.webp" class="bento-card-media" alt="Wabi-Sabi Estetiği – Japon minimal spa" loading="lazy" decoding="async">
+            <div class="bento-card-protector"></div>
+            <div class="bento-card-content">
+                <span class="bento-meta">Japon Estetiği</span>
+                <h3 class="bento-title">Wabi-Sabi</h3>
+                <p class="bento-desc">Kusurlu güzelliğin sadeliği.</p>
+            </div>
+        </a>
+
+        <!-- Wat Pho (Small) -->
+        <a class="bento-card-v6 santis-reveal" href="/service-detail.html?slug=kombine-masaj">
+            <img src="/assets/img/cards/santis_card_thai_v1.webp" class="bento-card-media" alt="Wat Pho Masajı – Tayland" loading="lazy" decoding="async">
+            <div class="bento-card-protector"></div>
+            <div class="bento-card-content">
+                <span class="bento-meta">Tayland</span>
+                <h3 class="bento-title">Wat Pho Masajı</h3>
+                <p class="bento-desc">Dünyanın en eski masaj okulu.</p>
+            </div>
+        </a>
+
+        <!-- Roma (Small) -->
+        <a class="bento-card-v6 santis-reveal" href="/service-detail.html?slug=kese-ve-kopuk-masaji">
+            <img src="/assets/img/cards/santis_card_skincare_v1.webp" class="bento-card-media" loading="lazy" decoding="async" alt="Roma Termal Kültürü – Kese ve Köpük bakımı">
+            <div class="bento-card-protector"></div>
+            <div class="bento-card-content">
+                <span class="bento-meta">İTALYA</span>
+                <h3 class="bento-title">Roma Termal</h3>
+                <p class="bento-desc">Salus per aquam (sudan gelen sağlık).</p>
+            </div>
+        </a>
+
+        <!-- Sothys (Wide) -->
+        <a class="bento-card-v6 wide santis-reveal" href="/tr/cilt-bakimi/index.html">
+            <img src="/assets/img/cards/santis_card_skincare_cover.webp" class="bento-card-media" loading="lazy" decoding="async" alt="Bilimsel Cilt Bakımı – Doğa ve bilim sentezi">
+            <div class="bento-card-protector"></div>
+            <div class="bento-card-content">
+                <span class="bento-meta">BİLİM VE DOĞA</span>
+                <h3 class="bento-title">Sothys: Paris Zarafeti</h3>
+                <p class="bento-desc">İleri dermatolojik çözümlerin ve doğal ekstrelerin sentezi.</p>
+            </div>
+        </a>
+    </div>
 
 <!-- SANTIS WORLD GATEWAY -->
 <div class="nv-container reveal-up" style="text-align:center; padding-top:50px;">
     <p style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-style:italic; color:#888; margin-bottom:15px;">Tüm dünya miraslarını tek bir ritüelde birleştirdik.</p>
-    <a href="/tr/dunya-ritueli.html" class="nv-btn" style="border:1px solid #d4af37; color:#d4af37; padding:15px 40px; font-size:14px; letter-spacing:2px; display:inline-block; transition:all 0.4s ease; background:rgba(212,175,55,0.05); text-decoration:none;">
+    <a href="/tr/dunya-ritueli.html" class="nv-btn santis-magnetic" style="border:1px solid #d4af37; color:#d4af37; padding:15px 40px; font-size:14px; letter-spacing:2px; display:inline-block; transition:all 0.4s ease; background:rgba(212,175,55,0.05); text-decoration:none;">
         SANTIS WORLD'Ü KEŞFET
     </a>
 </div>
 <!-- /SANTIS WORLD GATEWAY -->
 </div>
 
-<!-- SECTION 4b: V8.5 SOVEREIGN RAILS -->
+<!-- SECTION 5: IMMERSIVE EXPERIENCE BLOCK (V10) -->
+<section class="santis-experience">
+  <div class="santis-container" style="position:relative; width:100%; height:100%;">
+    <video muted loop playsinline class="experience-video" style="display:none">
+      <!-- <source src="/assets/video/spa-hero.mp4" type="video/mp4"> -->
+    </video>
+    <div class="experience-overlay"></div>
+    <div class="experience-content">
+      <span class="hero-kicker" style="font-size:12px; letter-spacing:0.2em; opacity:0.8; margin-bottom:12px; display:block;">DERİNLEŞEN BAĞ</span>
+      <h2 style="font-family:'Cormorant Garamond', serif; font-size:44px; margin-bottom:16px;">Bir Ritüel, Bin Duygu</h2>
+      <p style="font-size:16px; opacity:0.8; max-width:500px; margin:0 auto;">Suyun, taşın ve sessizliğin uyumuyla bedeninizi yeniden keşfedin. Her nefes, yeni bir başlangıçtır.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: V8.5 SOVEREIGN RAILS (Atelier Product Grid) -->
 <section style="padding:5rem 0;background:#050505;overflow:hidden">
-  <div class="nv-container" style="max-width:1280px">
+  <div class="nv-container" style="max-width:1280px;margin:0 auto">
 
     <!-- Masaj Rail -->
     <div style="margin-bottom:4rem">
@@ -234,7 +433,7 @@
 <section class="nv-testimonials" id="testimonials">
 <div class="nv-container"><div class="nv-section-header"><span class="nv-kicker">MİSAFİR DENEYİMLERİ</span><h2 class="nv-title">Huzurun Yankıları</h2></div>
 <div class="nv-testimonial-grid">
-<div class="nv-testimonial-card depth-1"><div class="nv-testimonial-stars">★★★★★</div><blockquote class="nv-testimonial-quote">"Hayatımın en huzurlu 2 saatiydi. Osmanlı Hamam ritüeli eşsiz bir deneyimdi."</blockquote><div class="nv-testimonial-author"><span class="nv-testimonial-name">Ayşe K.</span><span class="nv-testimonial-location">Istanbul</span></div></div>
+<div class="nv-testimonial-card depth-1"><div class="nv-testimonial-stars">★★★★★</div><blockquote class="nv-testimonial-quote">"Hayatımın en huzurlu 2 saatiydi. Geleneksel Hamam ritüeli eşsiz bir deneyimdi."</blockquote><div class="nv-testimonial-author"><span class="nv-testimonial-name">Ayşe K.</span><span class="nv-testimonial-location">Istanbul</span></div></div>
 <div class="nv-testimonial-card depth-1"><div class="nv-testimonial-stars">★★★★★</div><blockquote class="nv-testimonial-quote">"Aromaterapi masajından sonra vücudum yeniden doğmuş gibi hissetti. Çok profesyonel."</blockquote><div class="nv-testimonial-author"><span class="nv-testimonial-name">Mehmet T.</span><span class="nv-testimonial-location">Antalya</span></div></div>
 <div class="nv-testimonial-card depth-1"><div class="nv-testimonial-stars">★★★★★</div><blockquote class="nv-testimonial-quote">"Sothys cilt bakım seansı muhteşemdi. Cildim hiç bu kadar parlak ve sağlıklı olmamıştı."</blockquote><div class="nv-testimonial-author"><span class="nv-testimonial-name">Elena M.</span><span class="nv-testimonial-location">Moskova</span></div></div>
 </div></div>
@@ -246,30 +445,51 @@
 <h2 class="nv-title" style="margin-bottom:12px;">Huzur sadece bir arama uzağınızda</h2>
 <p class="nv-brand-story-text" style="max-width:500px;margin:0 auto 32px;">Uzmanlarımız sizin için mükemmel ritüeli planlasın.</p>
 <div class="nv-booking-cta-actions">
-<a class="nv-btn nv-btn-primary" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank" data-gravity-id="cta-whatsapp-booking">WhatsApp ile Rezervasyon</a>
-<a class="nv-btn nv-btn-outline" href="tel:+905348350169">Bizi Arayın</a>
+<a class="nv-btn nv-btn-primary santis-magnetic" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank" data-gravity-id="cta-whatsapp-booking">WhatsApp ile Rezervasyon</a>
+<a class="nv-btn nv-btn-outline santis-magnetic" href="tel:+905348350169">Bizi Arayın</a>
 </div>
 </div>
 </section>
 </main>
 <!-- SECTION 7: STICKY BAR -->
-<div class="nv-sticky-booking" id="stickyBooking" data-gravity-id="sticky-booking-bar"><div class="nv-sticky-booking-inner"><span class="nv-sticky-booking-text">Ritüelinizi planlayın</span><a class="nv-btn nv-btn-primary nv-btn-sm" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">Rezervasyon</a></div></div>
+<div class="nv-sticky-booking" id="stickyBooking" data-gravity-id="sticky-booking-bar"><div class="nv-sticky-booking-inner"><span class="nv-sticky-booking-text">Ritüelinizi planlayın</span><a class="nv-btn nv-btn-primary nv-btn-sm santis-magnetic" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">Rezervasyon</a></div></div>
 <div id="footer-container"></div>
 
 <div class="modal-overlay" hidden="" id="bookingModal"></div>
 
+<!-- PAGE TRANSITION ENGINES (GSAP & Barba.js) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
+
 <!-- CORE SCRIPTS -->
-<script src="/assets/js/loader.js"></script>
-<script src="/assets/js/santis-nav.js"></script>
+<script src="/assets/js/ghost-concierge.js?v=V21_GHOST_2" defer></script>
+<script src="/assets/js/core/sovereign-scroll.js" defer></script>
+<script src="/assets/js/loader.js" defer></script>
+<script src="/assets/js/santis-nav.js" defer></script>
 <script src="/assets/js/santis-data-bridge.js" defer></script>
-<script src="/assets/js/app.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+<script defer>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (document.querySelector('.spaos-ritual-swiper')) {
+      new Swiper('.spaos-ritual-swiper', {
+        effect: 'cards',
+        grabCursor: true,
+        direction: 'vertical',
+        mousewheel: { invert: false, sensitivity: 0.8 },
+        cardsEffect: { slideShadows: true, perSlideOffset: 10, perSlideRotate: 0 }
+      });
+    }
+  });
+</script>
+<script type="module" src="/assets/js/core/santis-core.js"></script>
+    <script src="/assets/js/app.js" defer></script>
 
 <!-- SOVEREIGN OS BOOTLOADER (V18 KERNEL) -->
-<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V18_APEX_RESURRECTION"></script>
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V18_APEX_RESURRECTION" defer></script>
 
-<!-- 🧬 SOVEREIGN LIVE EVOLUTION PIPELINE -->
-<script src="/admin/omniverse/santis-neural-beacon.js" defer></script>
-<script src="/admin/omniverse/darwinian-traffic-router.js" defer></script>
+<!-- 🧬 SOVEREIGN LIVE EVOLUTION PIPELINE (henüz aktif değil) -->
+<!-- <script src="/admin/omniverse/santis-neural-beacon.js" defer></script> -->
+<!-- <script src="/admin/omniverse/darwinian-traffic-router.js" defer></script> -->
 </body>
 </html>
 

@@ -145,10 +145,12 @@
     // =========================================================
     const PAGE_MAP = {
         'index': () => import('/assets/js/pages/home-page.js'),
-        'hamam': () => import('/assets/js/hamam-engine.v10.1.js'),
-        'massage': () => import('/assets/js/pages/massages-page-init.js'),
-        'skincare': () => import('/assets/js/pages/skincare.js'),
         'rituals': () => import('/assets/js/pages/rituals.js'),
+        // Bento Pages use orchestrator, but need headless data bridge for Concierge
+        'hamam': async () => { if(window.SantisDataBridge) SantisDataBridge.bootMatrix('/assets/data/services.json', null, 'hamam'); },
+        'massage': async () => { if(window.SantisDataBridge) SantisDataBridge.bootMatrix('/assets/data/services.json', null, 'massage'); },
+        'skincare': async () => { if(window.SantisDataBridge) SantisDataBridge.bootMatrix('/assets/data/services.json', null, 'skincare'); },
+        'boutique': async () => { if(window.SantisDataBridge) SantisDataBridge.bootMatrix('/assets/data/product-data.json', null, 'boutique'); },
     };
 
     async function dispatchModule(page, signal) {
@@ -160,7 +162,7 @@
 
         try {
             // THE BRIDGE INJECTION: Ensure data bridge is present for legacy pages since HTML Purge removed it
-            if (['skincare', 'rituals', 'hamam', 'index'].includes(page)) {
+            if (['skincare', 'rituals', 'hamam', 'index', 'massage', 'boutique'].includes(page)) {
                 await import('/assets/js/santis-data-bridge.js').catch(() => console.warn("[Omni-Router] Data bridge failed to load."));
             }
 
@@ -207,7 +209,20 @@
             }
         });
 
-        // 7f. Neuro-Vault yükle (Ghost Mode yoksa)
+        // 7f. Sovereign Quantum Cursor Engine (Phase 30)
+        if (tier !== 'LITE_ESSENTIAL') {
+            import('/assets/js/core/santis-cursor.js').then((module) => {
+                if (!document.querySelector('link[href*="santis.cursor.css"]')) {
+                    const styleLink = document.createElement('link');
+                    styleLink.rel = 'stylesheet';
+                    styleLink.href = '/assets/css/santis-v6/santis.cursor.css';
+                    document.head.appendChild(styleLink);
+                }
+                window.SovereignCursorEngine = new module.SovereignCursor();
+            }).catch(err => console.warn('[Quantum Cursor] Motor başlatılamadı:', err));
+        }
+
+        // 7g. Neuro-Vault yükle (Ghost Mode yoksa)
         if (!window.__SOVEREIGN_GHOST && tier === 'ULTRA') {
             import(`/assets/js/neuro-sync.js?v=${Date.now()}`)
                 .then(m => m.init(masterController.signal))

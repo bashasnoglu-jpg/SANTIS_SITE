@@ -1,0 +1,135 @@
+@layer engines {
+
+    /* ── 1. EXPERIMENTAL PHYSICS & GPU ISOLATION ── */
+    
+    /* 
+      Force elements onto the GPU compositor layer to prevent main thread lag 
+      Used heavily on the Virtual Rail container and flying elements 
+    */
+    .gpu-layer {
+        transform: translateZ(0);
+        will-change: transform;
+    }
+
+    /* 
+      CSS Containment for complex animated blocks 
+      Prevents the browser from recalculating entire layout when this block animates
+    */
+    .motion-safe {
+        contain: layout style paint;
+    }
+
+
+    /* ── 2. ANTI-GRID LAYOUT ENGINE & VIRTUAL RAIL ── */
+    
+    .v18-rail {
+        /* Container Query for dynamic flex/grid sizing. Media Queries are dead. */
+        container-type: inline-size;
+        position: relative;
+        min-height: 100vh; /* Will be managed by JS virtual-rail */
+        width: 100%;
+        overflow-x: hidden;
+        padding: var(--space-xl) 0;
+    }
+
+    /* 
+      Anti-Grid Default (Mobile: Stacked with offsets) 
+      We use position relative and margins to create an organic jitter 
+    */
+    .v18-rail .v18-card {
+        margin-bottom: var(--space-lg);
+        width: 100%;
+    }
+
+    /* 
+      Organic Offsets using even/odd selectors for Mobile
+    */
+    .v18-rail .v18-card:nth-child(even) {
+        transform: translateX(20px);
+    }
+    
+    .v18-rail .v18-card:nth-child(odd) {
+        transform: translateX(-20px);
+    }
+
+
+    /* 
+      Container Query: Tablet/Desktop Architecture 
+    */
+    @container (width > 768px) {
+        
+        .v18-rail {
+            /* 
+              We switch to an absolute positioning layout eventually for Virtual Rail 
+              For now, we define the grid bounds, but cards will float freely. 
+            */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5vw;
+            justify-content: center;
+            padding: 8vw 4vw;
+        }
+
+        .v18-rail .v18-card {
+            /* Force width for a floating appearance */
+            flex: 0 0 calc(33.333% - 5vw);
+            max-width: 440px;
+            margin-bottom: 0;
+        }
+
+        /* 
+          Anti-Grid Jitter Architecture (Asymmetric Staggering) 
+          Cards shouldn't align perfectly.
+        */
+        .v18-rail .v18-card:nth-child(3n+1) { /* Left column */
+            transform: translateY(0);
+        }
+
+        .v18-rail .v18-card:nth-child(3n+2) { /* Middle column */
+            transform: translateY(16vh);
+        }
+
+        .v18-rail .v18-card:nth-child(3n+3) { /* Right column */
+            transform: translateY(8vh);
+        }
+
+        /*
+          We no longer move the whole card container on hover. Solid planted cards are more luxurious.
+        */
+    }
+}
+
+/* ==========================================================================
+   PHASE 6: SOVEREIGN V18 - FLUID SPACE ENGINE (VIEW TRANSITIONS API)
+   ========================================================================== */
+@view-transition {
+  navigation: auto;
+}
+
+/* Geçişin ivmesi ve süresi: Lüks, tok ve yavaşlatılmış bir süzülme (0.8s) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.8s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Çıkış Yapan Ekran: Geriye düşerek usulca erir */
+::view-transition-old(root) {
+  animation-name: sovereign-fade-out;
+}
+
+/* Giren Ekran: Hafif bir sisin (blur) içinden derinlikten gelerek netleşir */
+::view-transition-new(root) {
+  animation-name: sovereign-fade-in;
+  mix-blend-mode: normal;
+}
+
+@keyframes sovereign-fade-out {
+  from { opacity: 1; filter: blur(0px); transform: scale(1); }
+  to { opacity: 0; filter: blur(5px); transform: scale(0.98); }
+}
+
+@keyframes sovereign-fade-in {
+  from { opacity: 0; filter: blur(5px); transform: scale(1.02); }
+  to { opacity: 1; filter: blur(0px); transform: scale(1); }
+}

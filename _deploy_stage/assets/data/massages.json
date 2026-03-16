@@ -1,0 +1,267 @@
+{
+    "metadata": {
+        "version": "1.0.0-Sovereign",
+        "total_services": 24,
+        "signature_count": 6
+    },
+    "categories": [
+        {
+            "tier": "asian",
+            "title": "Asya Ritüelleri",
+            "services": [
+                {
+                    "id": "msg_thai_01",
+                    "title": "Santis Signature Thai",
+                    "is_signature": true,
+                    "aura": "emerald-glow",
+                    "intent_threshold": 0.88,
+                    "price_eur": 120,
+                    "duration": "60 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_thai_full_1a",
+                    "title": "Thai Full Body Masajı",
+                    "is_signature": false,
+                    "aura": "silver-glow",
+                    "intent_threshold": 0.75,
+                    "price_eur": 160,
+                    "duration": "90 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_thai_aroma_1b",
+                    "title": "Thai Aroma Masajı",
+                    "is_signature": false,
+                    "aura": "emerald-glow",
+                    "intent_threshold": 0.80,
+                    "price_eur": 140,
+                    "duration": "60 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_bali_02",
+                    "title": "Royal Bali",
+                    "is_signature": false,
+                    "aura": "santis-gold",
+                    "intent_threshold": 0.70,
+                    "price_eur": 150,
+                    "duration": "90 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_bali_full_2a",
+                    "title": "Bali Full Body Masajı",
+                    "is_signature": true,
+                    "aura": "santis-gold",
+                    "intent_threshold": 0.85,
+                    "price_eur": 180,
+                    "duration": "120 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_bali_aroma_2b",
+                    "title": "Bali Aroma Masajı",
+                    "is_signature": false,
+                    "aura": "emerald-glow",
+                    "intent_threshold": 0.78,
+                    "price_eur": 130,
+                    "duration": "60 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_shiatsu_03",
+                    "title": "Shiatsu Zen",
+                    "is_signature": false,
+                    "aura": "obsidian-glow",
+                    "intent_threshold": 0.70,
+                    "price_eur": 130,
+                    "duration": "60 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_reflex_04",
+                    "title": "Refleksoloji & Akupresür",
+                    "is_signature": false,
+                    "aura": "silver-glow",
+                    "intent_threshold": 0.65,
+                    "price_eur": 95,
+                    "duration": "45 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_thai_herb_05",
+                    "title": "Sıcak Bitki Kesesi (Herbal)",
+                    "is_signature": true,
+                    "aura": "emerald-glow",
+                    "intent_threshold": 0.85,
+                    "price_eur": 160,
+                    "duration": "90 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_lomi_06",
+                    "title": "Lomi Lomi Nui",
+                    "is_signature": false,
+                    "aura": "azure-glow",
+                    "intent_threshold": 0.75,
+                    "price_eur": 140,
+                    "duration": "60 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                }
+            ]
+        },
+        {
+            "tier": "classical",
+            "title": "Klasik Medikal Dokunuşlar",
+            "services": [
+                {
+                    "id": "msg_swedish_05",
+                    "title": "İsveç Rahatlama Masajı",
+                    "is_signature": false,
+                    "aura": "azure-glow",
+                    "intent_threshold": 0.60,
+                    "price_eur": 100,
+                    "duration": "50 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_deep_06",
+                    "title": "Derin Doku (Deep Tissue)",
+                    "is_signature": true,
+                    "aura": "amber-glow",
+                    "intent_threshold": 0.80,
+                    "price_eur": 140,
+                    "duration": "60 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_lymph_07",
+                    "title": "Lenf Drenaj Terapisi",
+                    "is_signature": false,
+                    "aura": "silver-glow",
+                    "intent_threshold": 0.60,
+                    "price_eur": 110,
+                    "duration": "45 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_aroma_08",
+                    "title": "Aromaterapi Masajı",
+                    "is_signature": false,
+                    "aura": "santis-gold",
+                    "intent_threshold": 0.75,
+                    "price_eur": 120,
+                    "duration": "60 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_stone_09",
+                    "title": "Sıcak Taş Terapisi",
+                    "is_signature": true,
+                    "aura": "obsidian-gold",
+                    "intent_threshold": 0.85,
+                    "price_eur": 160,
+                    "duration": "75 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_head_10",
+                    "title": "Baş, Boyun & Omuz",
+                    "is_signature": false,
+                    "aura": "silver-glow",
+                    "intent_threshold": 0.50,
+                    "price_eur": 70,
+                    "duration": "30 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_trigger_11",
+                    "title": "Tetik Nokta Terapisi",
+                    "is_signature": false,
+                    "aura": "amber-glow",
+                    "intent_threshold": 0.65,
+                    "price_eur": 130,
+                    "duration": "50 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_sports_12",
+                    "title": "Sovereign Spor Masajı",
+                    "is_signature": true,
+                    "aura": "obsidian-glow",
+                    "intent_threshold": 0.90,
+                    "price_eur": 170,
+                    "duration": "60 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                }
+            ]
+        },
+        {
+            "tier": "specialty",
+            "title": "Signature & Çift Terapileri",
+            "services": [
+                {
+                    "id": "msg_sig_13",
+                    "title": "Santis Signature Ritüeli",
+                    "is_signature": true,
+                    "aura": "santis-gold",
+                    "intent_threshold": 0.95,
+                    "price_eur": 250,
+                    "duration": "120 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_couple_14",
+                    "title": "Çift Senkron Masajı",
+                    "is_signature": false,
+                    "aura": "emerald-glow",
+                    "intent_threshold": 0.88,
+                    "price_eur": 240,
+                    "duration": "60 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_couple_15",
+                    "title": "Sovereign Çift Paketi",
+                    "is_signature": true,
+                    "aura": "obsidian-gold",
+                    "intent_threshold": 0.98,
+                    "price_eur": 450,
+                    "duration": "150 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_anti_stress_16",
+                    "title": "Executive Anti-Stress",
+                    "is_signature": false,
+                    "aura": "azure-glow",
+                    "intent_threshold": 0.70,
+                    "price_eur": 140,
+                    "duration": "60 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_mom_kid_17",
+                    "title": "Anne & Çocuk Bağ Masajı",
+                    "is_signature": false,
+                    "aura": "amber-glow",
+                    "intent_threshold": 0.65,
+                    "price_eur": 180,
+                    "duration": "50 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                },
+                {
+                    "id": "msg_cellulite_18",
+                    "title": "Sovereign Anti-Selülit",
+                    "is_signature": false,
+                    "aura": "silver-glow",
+                    "intent_threshold": 0.75,
+                    "price_eur": 150,
+                    "duration": "60 Min",
+                    "image": "/assets/img/cards/massage.webp"
+                }
+            ]
+        }
+    ]
+}

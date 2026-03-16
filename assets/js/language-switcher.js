@@ -199,6 +199,7 @@
     // ═══════════════════════════════════════════════════════════════
 
     function changeLanguage(langCode) {
+        applySovereignSEO(langCode);
         // Eski cookie reload yerine Omni-Language Protocol (Stateful Routing) kullanıyoruz
         if (typeof window.SantisRouter !== 'undefined' && typeof window.SantisRouter.translate === 'function') {
             const currentPath = window.location.pathname;
@@ -239,6 +240,18 @@
         return localStorage.getItem('santis_lang') || (match ? match[1] : 'tr');
     }
 
+    // ⚡ Dil değiştiğinde Canonical zırhını otonom olarak güncelle
+    function applySovereignSEO(currentLang) {
+        const canonicalEl = document.getElementById('santis-canonical');
+        if (canonicalEl) {
+            // tr ana kök, diğerleri parametreli yörünge
+            canonicalEl.href = currentLang === 'tr' 
+                ? 'https://santis-club.com/' 
+                : `https://santis-club.com/?lang=${currentLang}`;
+            console.log(`🛡️ [SEO Zırhı] Canonical rotası '${currentLang.toUpperCase()}' için mühürlendi!`);
+        }
+    }
+
     // ═══════════════════════════════════════════════════════════════
     // DROPDOWN OLUŞTUR
     // ═══════════════════════════════════════════════════════════════
@@ -251,7 +264,6 @@
         dropdown.className = 'santis-lang-dropdown skiptranslate';
         dropdown.innerHTML = `
             <button class="santis-lang-btn" aria-label="Dil Seçin">
-                <span class="santis-lang-flag">${current.flag}</span>
                 <span class="santis-lang-code">${currentLang.toUpperCase()}</span>
                 <span class="santis-lang-arrow">▼</span>
             </button>

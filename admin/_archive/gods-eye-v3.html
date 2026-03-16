@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>SANTIS CITY OS — Spatial Intelligence Map</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+           SANTIS CITY OS — SPATIAL INTELLIGENCE MAP V3
+           Architecture:
+             Z0 : Three.js WebGL Canvas (3D City)
+             Z5 : HUD Overlay (glassmorphism panels)
+             Z8 : Header bar
+             Z9 : Tooltip / Detail Panel
+        ═══════════════════════════════════════════════════════════ */
+        :root {
+            --gold: #D4AF37;
+            --gold-dim: rgba(212,175,55,0.12);
+            --gold-glow: rgba(212,175,55,0.5);
+            --cyan: #00d9ff;
+            --red: #ef4444;
+            --green: #10b981;
+            --purple: #a855f7;
+            --bg: #030308;
+            --surface: rgba(8,8,12,0.75);
+            --text: #e5e7eb;
+            --muted: #6b7280;
+            --border: rgba(255,255,255,0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            cursor: crosshair;
+        }
+        .heading { font-family: 'Space Grotesk', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* ─── Z0: THREE.JS CANVAS ─── */
+        #city-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+        }
+
+        /* ─── Z8: HEADER ─── */
+        .city-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 8;
+            height: 48px;
+            background: rgba(3,3,8,0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212,175,55,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        .city-header-brand {
+            display: flex; align-items: center; gap: 10px;
+        }
+        .city-header-brand .icon {
+            width: 28px; height: 28px;
+            border: 1px solid rgba(212,175,55,0.4);
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px;
+            background: rgba(212,175,55,0.05);
+        }
+        .city-header-brand h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px; font-weight: 700;
+            letter-spacing: 0.3em; text-transform: uppercase;
+        }
+        .city-header-brand h1 span { color: var(--gold); font-weight: 400; }
+        .header-controls {
+            display: flex; align-items: center; gap: 12px;
+            font-size: 10px; font-family: 'JetBrains Mono', monospace; color: var(--muted);
+        }
+        .hdr-btn {
+            padding: 4px 12px; border-radius: 4px; border: 1px solid var(--border);
+            background: transparent; color: var(--muted); font-size: 10px; cursor: pointer;
+            font-family: 'JetBrains Mono', monospace; transition: all 0.2s;
+        }
+        .hdr-btn:hover { border-color: rgba(212,175,55,0.3); color: var(--gold); }
+        .hdr-btn.active { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+
+        /* ─── Z5: HUD OVERLAY PANELS ─── */
+        .hud-panel {
+            position: fixed;
+            z-index: 5;
+            background: var(--surface);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+            pointer-events: auto;
+        }
+
+        /* Top-left: System Metrics */
+        .hud-metrics {
+            top: 60px; left: 16px;
+            width: 200px;
+        }
+        .hud-mini-title {
+            font-size: 9px; font-weight: 700;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 12px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .hud-metric-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .hud-metric-row:last-child { border: none; }
+        .hud-metric-label { font-size: 10px; color: var(--muted); }
+        .hud-metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px; font-weight: 700;
+        }
+
+        /* Bottom-left: Neural Log mini */
+        .hud-log {
+            bottom: 16px; left: 16px;
+            width: 320px; max-height: 160px;
+        }
+        .hud-log-entries {
+            max-height: 110px; overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace; font-size: 9px; line-height: 1.8;
+        }
+        .hud-log-entries::-webkit-scrollbar { width: 2px; }
+        .hud-log-entries::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.15); }
+        .log-ts { color: #374151; }
+        .log-gold { color: var(--gold); }
+        .log-green { color: var(--green); }
+        .log-red { color: var(--red); }
+        .log-cyan { color: var(--cyan); }
+
+        /* Top-right: Building Legend */
+        .hud-legend {
+            top: 60px; right: 16px;
+            width: 180px;
+        }
+        .legend-item {
+            display: flex; align-items: center; gap: 8px;
+            padding: 5px 0; font-size: 10px;
+            cursor: pointer; transition: opacity 0.2s;
+        }
+        .legend-item:hover { opacity: 0.7; }
+        .legend-dot {
+            width: 8px; height: 8px; border-radius: 2px;
+        }
+
+        /* Bottom-right: Revenue */
+        .hud-revenue {
+            bottom: 16px; right: 16px;
+            width: 200px; text-align: center;
+        }
+        .revenue-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px; font-weight: 800;
+            color: var(--gold);
+            text-shadow: 0 0 30px rgba(212,175,55,0.3);
+            margin-bottom: 4px;
+        }
+        .revenue-label {
+            font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--muted);
+        }
+        .revenue-bar {
+            margin-top: 10px; height: 4px; background: rgba(255,255,255,0.05);
+            border-radius: 2px; overflow: hidden;
+        }
+        .revenue-bar-fill {
+            height: 100%; border-radius: 2px;
+            background: linear-gradient(90deg, var(--gold), #f5d78e);
+            transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ─── Z9: BUILDING DETAIL TOOLTIP ─── */
+        .building-tooltip {
+            position: fixed;
+            z-index: 9;
+            background: rgba(3,3,8,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 10px;
+            padding: 20px;
+            width: 260px;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.25s, transform 0.25s;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.6), 0 0 20px rgba(212,175,55,0.05);
+        }
+        .building-tooltip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tooltip-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px; font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .tooltip-type {
+            font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 10px;
+        }
+        .tooltip-stat {
+            display: flex; justify-content: space-between;
+            padding: 4px 0; font-size: 11px;
+        }
+        .tooltip-stat-label { color: var(--muted); }
+        .tooltip-stat-value { font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+        .tooltip-pulse {
+            margin-top: 10px; height: 3px; background: rgba(255,255,255,0.05);
+            border-radius: 2px; overflow: hidden;
+        }
+        .tooltip-pulse-fill {
+            height: 100%; border-radius: 2px;
+            animation: pulse-bar 2s ease infinite;
+        }
+        @keyframes pulse-bar {
+            0%,100% { width: 30%; opacity: 0.5; }
+            50% { width: 100%; opacity: 1; }
+        }
+
+        /* ─── INSTRUCTIONS ─── */
+        .city-instructions {
+            position: fixed;
+            bottom: 50%; left: 50%;
+            transform: translate(-50%, 50%);
+            z-index: 6;
+            text-align: center;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 1s ease 3s;
+        }
+        .city-instructions.hidden { opacity: 0; }
+        .instr-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+            color: rgba(212,175,55,0.5);
+            animation: fade-instr 2s ease infinite;
+        }
+        @keyframes fade-instr { 0%,100% { opacity:0.3; } 50% { opacity:0.8; } }
+
+        /* ─── GRID FLOOR HELPER ─── */
+        .floor-gradient {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            height: 200px;
+            background: linear-gradient(to top, rgba(212,175,55,0.02), transparent);
+            z-index: 1;
+            pointer-events: none;
+        }
+    </style>
+
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
+</head>
+<body>
+
+<!-- ═══ Z0: THREE.JS CANVAS CONTAINER ═══ -->
+<div id="city-canvas"></div>
+
+<!-- ═══ Z8: HEADER ═══ -->
+<header class="city-header">
+    <div class="city-header-brand">
+        <div class="icon">🏙️</div>
+        <h1>SANTIS <span>CITY OS V3</span></h1>
+    </div>
+    <div class="header-controls">
+        <button class="hdr-btn active" onclick="CityOS.setView('perspective')">3D</button>
+        <button class="hdr-btn" onclick="CityOS.setView('top')">TOP</button>
+        <button class="hdr-btn" onclick="CityOS.setView('orbit')">ORBIT</button>
+        <span style="color:#374151;">|</span>
+        <span>FPS: <span id="fps" style="color:var(--green);">60</span></span>
+        <span style="color:#374151;">|</span>
+        <span id="clock">--:--:--</span>
+    </div>
+</header>
+
+<!-- ═══ Z5: HUD PANELS ═══ -->
+
+<!-- Top-Left: System Metrics -->
+<div class="hud-panel hud-metrics">
+    <div class="hud-mini-title">📊 Sistem Durumu</div>
+    <div class="hud-metric-row">
+        <span class="hud-metric-label">Aktif Misafir</span>
+        <span class="hud-metric-value" id="hud-guests" style="color:var(--gold);">0</span>
+    </div>
+    <div class="hud-metric-row">
+        <span class="hud-metric-label">Doluluk</span>
+        <span class="hud-metric-value" id="hud-occupancy" style="color:var(--cyan);">0%</span>
+    </div>
+    <div class="hud-metric-row">
+        <span class="hud-metric-label">Aktif Servis</span>
+        <span class="hud-metric-value" id="hud-services" style="color:var(--green);">0</span>
+    </div>
+    <div class="hud-metric-row">
+        <span class="hud-metric-label">AI Skor</span>
+        <span class="hud-metric-value" id="hud-ai-score" style="color:var(--purple);">0</span>
+    </div>
+</div>
+
+<!-- Top-Right: Building Legend -->
+<div class="hud-panel hud-legend">
+    <div class="hud-mini-title">🏗️ Bina Haritası</div>
+    <div class="legend-item" onclick="CityOS.focusBuilding('hamam')">
+        <div class="legend-dot" style="background:#D4AF37;"></div>
+        <span>Hamam Kompleksi</span>
+    </div>
+    <div class="legend-item" onclick="CityOS.focusBuilding('massage')">
+        <div class="legend-dot" style="background:#00d9ff;"></div>
+        <span>Masaj Birimleri</span>
+    </div>
+    <div class="legend-item" onclick="CityOS.focusBuilding('skincare')">
+        <div class="legend-dot" style="background:#a855f7;"></div>
+        <span>Cilt Bakım Lab</span>
+    </div>
+    <div class="legend-item" onclick="CityOS.focusBuilding('rituals')">
+        <div class="legend-dot" style="background:#10b981;"></div>
+        <span>VIP Ritüeller</span>
+    </div>
+    <div class="legend-item" onclick="CityOS.focusBuilding('revenue')">
+        <div class="legend-dot" style="background:#ef4444;"></div>
+        <span>Gelir Merkezi</span>
+    </div>
+</div>
+
+<!-- Bottom-Left: Neural Log -->
+<div class="hud-panel hud-log">
+    <div class="hud-mini-title">🧠 Sinir Ağı</div>
+    <div class="hud-log-entries" id="city-log">
+        <div><span class="log-ts">[--:--:--]</span> <span class="log-gold">CITY OS V3 başlatılıyor...</span></div>
+    </div>
+</div>
+
+<!-- Bottom-Right: Revenue -->
+<div class="hud-panel hud-revenue">
+    <div class="hud-mini-title" style="justify-content:center;">⚡ Enerji Merkezi</div>
+    <div class="revenue-value" id="total-revenue">€0</div>
+    <div class="revenue-label">Günlük Gelir Akışı</div>
+    <div class="revenue-bar"><div class="revenue-bar-fill" id="rev-bar" style="width:0%;"></div></div>
+</div>
+
+<!-- Building Detail Tooltip -->
+<div class="building-tooltip" id="building-tooltip">
+    <div class="tooltip-name" id="tt-name">—</div>
+    <div class="tooltip-type" id="tt-type">—</div>
+    <div class="tooltip-stat"><span class="tooltip-stat-label">Misafir</span><span class="tooltip-stat-value" id="tt-guests">0</span></div>
+    <div class="tooltip-stat"><span class="tooltip-stat-label">Doluluk</span><span class="tooltip-stat-value" id="tt-occupancy">0%</span></div>
+    <div class="tooltip-stat"><span class="tooltip-stat-label">Gelir</span><span class="tooltip-stat-value" id="tt-revenue">€0</span></div>
+    <div class="tooltip-stat"><span class="tooltip-stat-label">AI Skor</span><span class="tooltip-stat-value" id="tt-ai">0</span></div>
+    <div class="tooltip-pulse"><div class="tooltip-pulse-fill" id="tt-pulse" style="background:var(--gold);"></div></div>
+</div>
+
+<!-- Instructions -->
+<div class="city-instructions" id="instructions">
+    <div class="instr-text">FARE İLE ŞEHRİ DÖNDÜRÜN · BİNALARA YAKINLAŞIN</div>
+</div>
+
+<div class="floor-gradient"></div>
+
+<!-- ═══ THREE.JS ENGINE ═══ -->
+<script>
+const CityOS = {
+    scene: null,
+    camera: null,
+    renderer: null,
+    buildings: {},
+    raycaster: new THREE.Raycaster(),
+    mouse: new THREE.Vector2(),
+    hoveredBuilding: null,
+    targetCamPos: null,
+    targetCamLook: null,
+    isAnimating: false,
+    frameCount: 0,
+    lastFpsTime: Date.now(),
+    startTime: Date.now(),
+    revenue: 0,
+    autoRotate: true,
+
+    // ══════════════════════════════════════════════════════════════
+    // BUILDING DATA
+    // ══════════════════════════════════════════════════════════════
+    BUILDING_DATA: {
+        hamam: {
+            name: 'Hamam Kompleksi',
+            type: 'RITUAL CENTER',
+            color: 0xD4AF37,
+            emissive: 0x5C4A10,
+            position: { x: -3, z: -1 },
+            size: { w: 2.5, h: 3.2, d: 2 },
+            guests: 0, capacity: 20, revenue: 0, aiScore: 0,
+            icon: '🧖'
+        },
+        massage: {
+            name: 'Masaj Birimleri',
+            type: 'TREATMENT COMPLEX',
+            color: 0x00d9ff,
+            emissive: 0x003344,
+            position: { x: 2, z: -2 },
+            size: { w: 3, h: 2.5, d: 1.8 },
+            guests: 0, capacity: 30, revenue: 0, aiScore: 0,
+            icon: '💆'
+        },
+        skincare: {
+            name: 'Cilt Bakım Laboratuvarı',
+            type: 'ADVANCED SCIENCE LAB',
+            color: 0xa855f7,
+            emissive: 0x2D1050,
+            position: { x: -2, z: 3 },
+            size: { w: 2, h: 2.8, d: 2 },
+            guests: 0, capacity: 15, revenue: 0, aiScore: 0,
+            icon: '🧬'
+        },
+        rituals: {
+            name: 'VIP Ritüel Sarayı',
+            type: 'SOVEREIGN EXPERIENCE',
+            color: 0x10b981,
+            emissive: 0x043320,
+            position: { x: 3, z: 2.5 },
+            size: { w: 2.2, h: 4, d: 1.8 },
+            guests: 0, capacity: 8, revenue: 0, aiScore: 0,
+            icon: '👑'
+        },
+        revenue: {
+            name: 'Enerji Merkezi',
+            type: 'STRIPE POWER CORE',
+            color: 0xef4444,
+            emissive: 0x3D0A0A,
+            position: { x: 0, z: 0 },
+            size: { w: 1.5, h: 5, d: 1.5 },
+            guests: 0, capacity: 1, revenue: 0, aiScore: 0,
+            icon: '⚡'
+        }
+    },
+
+    // ══════════════════════════════════════════════════════════════
+    // INIT
+    // ══════════════════════════════════════════════════════════════
+    init() {
+        console.log('%c🏙️ SANTIS CITY OS V3 — SPATIAL INTELLIGENCE MAP', 'color:#D4AF37;font-size:14px;font-weight:bold;');
+
+        this.initScene();
+        this.createGround();
+        this.createBuildings();
+        this.createParticles();
+        this.createConnections();
+        this.initInteraction();
+        this.initClock();
+        this.startTelemetry();
+        this.animate();
+
+        this.log('🏙️ CITY OS V3 boot complete — all districts online', 'gold');
+        setTimeout(() => document.getElementById('instructions').classList.add('hidden'), 5000);
+    },
+
+    // ══════════════════════════════════════════════════════════════
+    // THREE.JS SCENE SETUP
+    // ══════════════════════════════════════════════════════════════
+    initScene() {
+        this.scene = new THREE.Scene();
+        this.scene.fog = new THREE.FogExp2(0x030308, 0.04);
+
+        // Camera
+        this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        this.camera.position.set(8, 10, 12);
+        this.camera.lookAt(0, 0, 0);
+
+        // Renderer
+        this.renderer = new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: true,
+            powerPreference: 'high-performance'
+        });
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        this.renderer.setClearColor(0x030308, 1);
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.getElementById('city-canvas').appendChild(this.renderer.domElement);
+        this.renderer.domElement.style.cssText = 'position:fixed;inset:0;z-index:0;';
+
+        // Lighting
+        const ambient = new THREE.AmbientLight(0xffffff, 0.15);
+        this.scene.add(ambient);
+
+        const mainLight = new THREE.DirectionalLight(0xD4AF37, 0.6);
+        mainLight.position.set(8, 15, 8);
+        mainLight.castShadow = true;
+        mainLight.shadow.mapSize.width = 2048;
+        mainLight.shadow.mapSize.height = 2048;
+        mainLight.shadow.camera.near = 0.5;
+        mainLight.shadow.camera.far = 50;
+        mainLight.shadow.camera.left = -15;
+        mainLight.shadow.camera.right = 15;
+        mainLight.shadow.camera.top = 15;
+        mainLight.shadow.camera.bottom = -15;
+        this.scene.add(mainLight);
+
+        const fillLight = new THREE.DirectionalLight(0x00d9ff, 0.2);
+        fillLight.position.set(-5, 8, -5);
+        this.scene.add(fillLight);
+
+        // Point lights for buildings
+        const centerGlow = new THREE.PointLight(0xD4AF37, 1.5, 12);
+        centerGlow.position.set(0, 3, 0);
+        this.scene.add(centerGlow);
+
+        window.addEventListener('resize', () => {
+            this.camera.aspect = window.innerWidth / window.innerHeight;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        this.log('Three.js scene initialized — WebGL active', 'green');
+    },
+
+    // ══════════════════════════════════════════════════════════════
+    // GROUND PLANE
+    // ══════════════════════════════════════════════════════════════
+    createGround() {
+        // Grid
+        const gridHelper = new THREE.GridHelper(30, 30, 0x1a1a2e, 0x0d0d15);
+        this.scene.add(gridHelper);
+
+        // Ground plane
+        const groundGeo = new THREE.PlaneGeometry(30, 30);
+        const groundMat = new THREE.MeshStandardMaterial({
+            color: 0x050510,
+            metalness: 0.8,
+            roughness: 0.4,
+            transparent: true,
+            opacity: 0.9
+        });
+        const ground = new THREE.Mesh(groundGeo, groundMat);
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = -0.01;
+        ground.receiveShadow = true;
+        this.scene.add(ground);
+    },
+
+    // ══════════════════════════════════════════════════════════════
+    // 3D BUILDINGS
+    // ══════════════════════════════════════════════════════════════
+    createBuildings() {
+        Object.entries(this.BUILDING_DATA).forEach(([key, data]) => {
+            const group = new THREE.Group();
+            group.userData = { key, ...data };
+
+            // Main body
+            const geo = new THREE.BoxGeometry(data.size.w, data.size.h, data.size.d);
+            const mat = new THREE.MeshStandardMaterial({
+                color: data.color,
+                emissive: data.emissive,
+                emissiveIntensity: 0.3,
+                metalness: 0.7,
+                roughness: 0.3,
+                transparent: true,
+                opacity: 0.85,
+            });
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.position.y = data.size.h / 2;
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            group.add(mesh);
+
+            // Top glow edge
+            const edgeGeo = new THREE.BoxGeometry(data.size.w + 0.1, 0.08, data.size.d + 0.1);
+            const edgeMat = new THREE.MeshBasicMaterial({
+                color: data.color,
+                transparent: true,
+                opacity: 0.6,
+            });
+            const edge = new THREE.Mesh(edgeGeo, edgeMat);
+            edge.position.y = data.size.h + 0.04;
+            group.add(edge);
+
+            // Beacon light on top
+            const beaconGeo = new THREE.SphereGeometry(0.12, 8, 8);
+            const beaconMat = new THREE.MeshBasicMaterial({
+                color: data.color,
+                transparent: true,
+                opacity: 0.9,
+            });
+            const beacon = new THREE.Mesh(beaconGeo, beaconMat);
+            beacon.position.y = data.size.h + 0.3;
+            group.add(beacon);
+
+            // Point light for each building
+            const bLight = new THREE.PointLight(data.color, 0.8, 5);
+            bLight.position.y = data.size.h + 0.5;
+            group.add(bLight);
+
+            // Windows (horizontal lines)
+            const floors = Math.floor(data.size.h / 0.6);
+            for (let f = 0; f < floors; f++) {
+                const winGeo = new THREE.BoxGeometry(data.size.w + 0.02, 0.03, data.size.d + 0.02);
+                const winMat = new THREE.MeshBasicMaterial({
+                    color: 0xffffff,
+                    transparent: true,
+                    opacity: 0.05 + Math.random() * 0.05,
+                });
+                const win = new THREE.Mesh(winGeo, winMat);
+                win.position.y = 0.5 + f * 0.6;
+                group.add(win);
+            }
+
+            group.position.set(data.position.x, 0, data.position.z);
+            this.scene.add(group);
+            this.buildings[key] = group;
+        });
+
+        this.log(`${Object.keys(this.buildings).length} districts constructed`, 'cyan');
+    },
+
+    // ══════════════════════════════════════════════════════════════
+    // PARTICLES (floating data orbs)
+    // ══════════════════════════════════════════════════════════════
+    createParticles() {
+        const count = 200;
+        const positions = new Float32Array(count * 3);
+        const colors = new Float32Array(count * 3);
+        const palette = [
+            new THREE.Color(0xD4AF37),
+            new THREE.Color(0x00d9ff),
+            new THREE.Color(0xa855f7),
+            new THREE.Color(0x10b981),
+        ];
+
+        for (let i = 0; i < count; i++) {
+            positions[i * 3] = (Math.random() - 0.5) * 25;
+            positions[i * 3 + 1] = Math.random() * 8 + 1;
+            positions[i * 3 + 2] = (Math.random() - 0.5) * 25;
+
+            const c = palette[Math.floor(Math.random() * palette.length)];
+            colors[i * 3] = c.r;
+            colors[i * 3 + 1] = c.g;
+            colors[i * 3 + 2] = c.b;
+        }
+
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const mat = new THREE.PointsMaterial({
+            size: 0.08,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.6,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+        });
+
+        this.particles = new THREE.Points(geo, mat);
+        this.scene.add(this.particles);
+    },
+
+    // ══════════════════════════════════════════════════════════════
+    // CONNECTIONS (lines between buildings)
+    // ══════════════════════════════════════════════════════════════
+    createConnections() {
+        const keys = Object.keys(this.buildings);
+        const center = this.buildings.revenue;
+
+        keys.forEach(key => {
+            if (key === 'revenue') return;
+            const b = this.buildings[key];
+            const bData = this.BUILDING_DATA[key];
+            const cData = this.BUILDING_DATA.revenue;
+
+            const points = [
+                new THREE.Vector3(bData.position.x, 0.1, bData.position.z),
+                new THREE.Vector3(cData.position.x, 0.1, cData.position.z),
+            ];
+            const geo = new THREE.BufferGeometry().setFromPoints(points);
+            const mat = new THREE.LineBasicMaterial({
+                color: this.BUILDING_DATA[key].color,
+                transparent: true,
+                opacity: 0.15,
+            });
+            const line = new THREE.Line(geo, mat);
+            this.scene.add(line);
+        });
+    },
+
+    // ══════════════════════════════════════════════════════════════
+    // INTERACTION (hover + click)
+    // ══════════════════════════════════════════════════════════════
+    initInteraction() {
+        const canvas = this.renderer.domElement;
+
+        canvas.addEventListener('mousemove', (e) => {
+            this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+            this._checkHover(e);
+        });
+
+        canvas.addEventListener('click', () => {
+            if (this.hoveredBuilding) {
+                this.focusBuilding(this.hoveredBuilding);
+            }
+        });
+
+        // Orbit drag
+        let isDragging = false;
+        let prevX = 0, prevY = 0;
+        canvas.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            prevX = e.clientX;
+            prevY = e.clientY;
+            this.autoRotate = false;
+        });
+        canvas.addEventListener('mouseup', () => { isDragging = false; });
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const dx = e.clientX - prevX;
+            const dy = e.clientY - prevY;
+            prevX = e.clientX;
+            prevY = e.clientY;
+
+            const pos = this.camera.position;
+            const angle = Math.atan2(pos.x, pos.z) + dx * 0.005;
+            const dist = Math.sqrt(pos.x * pos.x + pos.z * pos.z);
+            pos.x = dist * Math.sin(angle);
+            pos.z = dist * Math.cos(angle);
+            pos.y = Math.max(3, Math.min(25, pos.y - dy * 0.05));
+            this.camera.lookAt(0, 0, 0);
+        });
+
+        // Zoom
+        canvas.addEventListener('wheel', (e) => {
+            const pos = this.camera.position;
+            const dist = pos.length();
+            const factor = e.deltaY > 0 ? 1.1 : 0.9;
+            const newDist = Math.max(5, Math.min(30, dist * factor));
+            pos.normalize().multiplyScalar(newDist);
+            this.camera.lookAt(0, 0, 0);
+        });
+    },
+
+    _checkHover(e) {
+        this.raycaster.setFromCamera(this.mouse, this.camera);
+        const meshes = [];
+        Object.values(this.buildings).forEach(group => {
+            group.children.forEach(child => {
+                if (child.isMesh) meshes.push(child);
+            });
+        });
+
+        const intersects = this.raycaster.intersectObjects(meshes);
+        const tooltip = document.getElementById('building-tooltip');
+
+        if (intersects.length > 0) {
+            const hit = intersects[0].object.parent;
+            const data = hit.userData;
+            if (data.key) {
+                this.hoveredBuilding = data.key;
+                document.body.style.cursor = 'pointer';
+
+                // Update tooltip
+                const bd = this.BUILDING_DATA[data.key];
+                document.getElementById('tt-name').textContent = `${bd.icon} ${bd.name}`;
+                document.getElementById('tt-type').textContent = bd.type;
+                document.getElementById('tt-guests').textContent = bd.guests;
+                document.getElementById('tt-occupancy').textContent = Math.round((bd.guests / bd.capacity) * 100) + '%';
+                document.getElementById('tt-revenue').textContent = '€' + bd.revenue.toLocaleString('de-DE');
+                document.getElementById('tt-ai').textContent = bd.aiScore;
+                document.getElementById('tt-pulse').style.background = '#' + bd.color.toString(16).padStart(6, '0');
+
+                tooltip.style.left = (e.clientX + 20) + 'px';
+                tooltip.style.top = (e.clientY - 60) + 'px';
+                tooltip.classList.add('visible');
+
+                // Highlight building
+                hit.children[0].material.emissiveIntensity = 0.8;
+            }
+        } else {
+            this.hoveredBuilding = null;
+            document.body.style.cursor = 'crosshair';
+            tooltip.classList.remove('visible');
+
+            // Reset all buildings
+            Object.values(this.buildings).forEach(g => {
+                if (g.children[0]) g.children[0].material.emissiveIntensity = 0.3;
+            });
+        }
+    },
+
+    focusBuilding(key) {
+        const bd = this.BUILDING_DATA[key];
+        if (!bd) return;
+
+        const targetPos = new THREE.Vector3(
+            bd.position.x + 4,
+            bd.size.h + 3,
+            bd.position.z + 4
+        );
+        const lookAt = new THREE.Vector3(bd.position.x, bd.size.h / 2, bd.position.z);
+
+        this.autoRotate = false;
+        this.targetCamPos = targetPos;
+        this.targetCamLook = lookAt;
+        this.isAnimating = true;
+
+        this.log(`📍 Focusing: ${bd.icon} ${bd.name}`, 'cyan');
+
+        // Reset after 5 seconds
+        setTimeout(() => {
+            this.targetCamPos = new THREE.Vector3(8, 10, 12);
+            this.targetCamLook = new THREE.Vector3(0, 0, 0);
+            setTimeout(() => { this.isAnimating = false; this.autoRotate = true; }, 2000);
+        }, 5000);
+    },
+
+    setView(mode) {
+        document.querySelectorAll('.hdr-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+
+        this.autoRotate = false;
+        this.isAnimating = true;
+
+        switch(mode) {
+            case 'perspective':
+                this.targetCamPos = new THREE.Vector3(8, 10, 12);
+                this.targetCamLook = new THREE.Vector3(0, 0, 0);
+                break;
+            case 'top':
+                this.targetCamPos = new THREE.Vector3(0, 18, 0.1);
+                this.targetCamLook = new THREE.Vector3(0, 0, 0);
+                break;
+            case 'orbit':
+                this.autoRotate = true;
+                this.targetCamPos = new THREE.Vector3(12, 8, 12);
+                this.targetCamLook = new THREE.Vector3(0, 0, 0);
+                break;
+        }
+
+        setTimeout(() => { this.isAnimating = false; }, 2000);
+        this.log(`🎬 Camera mode: ${mode.toUpperCase()}`, 'gold');
+    },
+
+    // ══════════════════════════════════════════════════════════════
+    // TELEMETRY
+    // ══════════════════════════════════════════════════════════════
+    startTelemetry() {
+        this.revenue = 0;
+
+        const update = () => {
+            // Random guest changes per building
+            Object.entries(this.BUILDING_DATA).forEach(([key, bd]) => {
+                if (key === 'revenue') return;
+
+                // Guest fluctuation
+                const change = Math.floor(Math.random() * 3) - 1;
+                bd.guests = Math.max(0, Math.min(bd.capacity, bd.guests + change));
+
+                // Revenue per guest
+                const rates = { hamam: 85, massage: 65, skincare: 120, rituals: 200 };
+                bd.revenue += bd.guests * (rates[key] || 50) * (Math.random() * 0.1);
+                bd.revenue = Math.round(bd.revenue);
+
+                // AI Score
+                bd.aiScore = Math.min(100, Math.round((bd.guests / bd.capacity) * 100 * (0.8 + Math.random() * 0.4)));
+
+                // Scale building based on activity
+                const group = this.buildings[key];
+                if (group) {
+                    const scale = 1 + (bd.guests / bd.capacity) * 0.2;
+                    group.scale.y = scale;
+
+                    // Beacon pulse
+                    const beacon = group.children[2];
+                    if (beacon) {
+                        beacon.material.opacity = 0.3 + (bd.guests / bd.capacity) * 0.7;
+                        beacon.scale.setScalar(1 + Math.sin(Date.now() * 0.003) * 0.3);
+                    }
+                }
+            });
+
+            // Total revenue
+            const totalGuests = Object.entries(this.BUILDING_DATA)
+                .filter(([k]) => k !== 'revenue')
+                .reduce((sum, [, d]) => sum + d.guests, 0);
+            const totalRevenue = Object.entries(this.BUILDING_DATA)
+                .filter(([k]) => k !== 'revenue')
+                .reduce((sum, [, d]) => sum + d.revenue, 0);
+            const avgOccupancy = Object.entries(this.BUILDING_DATA)
+                .filter(([k]) => k !== 'revenue')
+                .reduce((sum, [, d]) => sum + (d.guests / d.capacity), 0) / 4;
+            const avgAI = Object.entries(this.BUILDING_DATA)
+                .filter(([k]) => k !== 'revenue')
+                .reduce((sum, [, d]) => sum + d.aiScore, 0) / 4;
+
+            // Revenue center pulsation
+            this.BUILDING_DATA.revenue.guests = totalGuests;
+            this.BUILDING_DATA.revenue.revenue = totalRevenue;
+            this.BUILDING_DATA.revenue.aiScore = Math.round(avgAI);
+
+            // Revenue tower scales with total revenue
+            const revGroup = this.buildings.revenue;
+            if (revGroup) {
+                const pulse = 1 + Math.sin(Date.now() * 0.002) * 0.05;
+                revGroup.scale.y = pulse * (1 + avgOccupancy * 0.3);
+                revGroup.children[0].material.emissiveIntensity = 0.3 + avgOccupancy * 0.5;
+            }
+
+            // Update HUD
+            document.getElementById('hud-guests').textContent = totalGuests;
+            document.getElementById('hud-occupancy').textContent = Math.round(avgOccupancy * 100) + '%';
+            document.getElementById('hud-services').textContent = Object.entries(this.BUILDING_DATA)
+                .filter(([k, d]) => k !== 'revenue' && d.guests > 0).length;
+            document.getElementById('hud-ai-score').textContent = Math.round(avgAI);
+            document.getElementById('total-revenue').textContent = '€' + totalRevenue.toLocaleString('de-DE');
+            document.getElementById('rev-bar').style.width = Math.min(100, avgOccupancy * 100) + '%';
+
+            // Log occasionally
+            if (Math.random() < 0.15) {
+                const keys = Object.keys(this.BUILDING_DATA).filter(k => k !== 'revenue');
+                const rk = keys[Math.floor(Math.random() * keys.length)];
+                const rd = this.BUILDING_DATA[rk];
+                const colors = ['gold', 'cyan', 'green', ''];
+                this.log(`${rd.icon} ${rd.name}: ${rd.guests}/${rd.capacity} misafir (AI: ${rd.aiScore})`, colors[Math.floor(Math.random() * colors.length)]);
+            }
+        };
+
+        // Initial boost
+        Object.values(this.BUILDING_DATA).forEach(d => { if (d.capacity > 1) d.guests = Math.floor(Math.random() * d.capacity * 0.5); });
+        update();
+
+        setInterval(update, 2000);
+        this.log('📡 Telemetry stream active — all districts reporting', 'green');
+    },
+
+    // ══════════════════════════════════════════════════════════════
+    // ANIMATION LOOP
+    // ══════════════════════════════════════════════════════════════
+    animate() {
+        requestAnimationFrame(() => this.animate());
+
+        const time = Date.now() * 0.001;
+
+        // Auto-rotate
+        if (this.autoRotate && !this.isAnimating) {
+            const pos = this.camera.position;
+            const angle = Math.atan2(pos.x, pos.z) + 0.002;
+            const dist = Math.sqrt(pos.x * pos.x + pos.z * pos.z);
+            pos.x = dist * Math.sin(angle);
+            pos.z = dist * Math.cos(angle);
+            this.camera.lookAt(0, 0, 0);
+        }
+
+        // Smooth camera transitions
+        if (this.isAnimating && this.targetCamPos) {
+            this.camera.position.lerp(this.targetCamPos, 0.03);
+            if (this.targetCamLook) {
+                const current = new THREE.Vector3();
+                this.camera.getWorldDirection(current);
+                this.camera.lookAt(this.targetCamLook);
+            }
+        }
+
+        // Animate particles
+        if (this.particles) {
+            const positions = this.particles.geometry.attributes.position.array;
+            for (let i = 0; i < positions.length; i += 3) {
+                positions[i + 1] += Math.sin(time + i) * 0.003;
+                if (positions[i + 1] > 10) positions[i + 1] = 1;
+                if (positions[i + 1] < 0) positions[i + 1] = 8;
+            }
+            this.particles.geometry.attributes.position.needsUpdate = true;
+            this.particles.rotation.y = time * 0.02;
+        }
+
+        // FPS
+        this.frameCount++;
+        const now = Date.now();
+        if (now - this.lastFpsTime >= 1000) {
+            document.getElementById('fps').textContent = this.frameCount;
+            this.frameCount = 0;
+            this.lastFpsTime = now;
+        }
+
+        this.renderer.render(this.scene, this.camera);
+    },
+
+    // ══════════════════════════════════════════════════════════════
+    // UTILITIES
+    // ══════════════════════════════════════════════════════════════
+    log(msg, colorClass = '') {
+        const container = document.getElementById('city-log');
+        const ts = new Date().toTimeString().split(' ')[0];
+        const div = document.createElement('div');
+        div.innerHTML = `<span class="log-ts">[${ts}]</span> <span class="log-${colorClass}">${msg}</span>`;
+        container.appendChild(div);
+        container.scrollTop = container.scrollHeight;
+        while (container.children.length > 40) container.removeChild(container.firstChild);
+    },
+
+    initClock() {
+        setInterval(() => {
+            document.getElementById('clock').textContent = new Date().toTimeString().split(' ')[0];
+        }, 1000);
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => CityOS.init());
+</script>
+
+<script src="/admin/assets/js/admin-nav.js" defer></script>
+</body>
+</html>

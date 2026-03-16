@@ -5,18 +5,13 @@
     <meta name="description" content="Santis Master OS - Control Center — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Santis Master OS - Control Center</title>
-    <!-- Tailwind Warning Suppressor -->
-    <script>
-        const originalWarn = console.warn;
-        console.warn = function(...args) {
-            if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return;
-            originalWarn.apply(console, args);
-        };
-    </script>
-    <script src="/assets/js/tailwindcss.min.js"></script>
+    <link href="/admin/dist/admin.bundle.css" rel="stylesheet" />
     <link href="/admin/assets/css/admin.css" rel="stylesheet">
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
 </head>
 <body class="bg-gray-900 text-gray-200 font-sans antialiased relative">
     <!-- MATRIX CANVAS (Hidden until activated) -->
@@ -42,12 +37,21 @@
                     </a>
 
                     <!-- THE GOD'S EYE — DUAL-CORE OS -->
-                    <a href="/admin/gods-eye.html" class="block px-4 py-3 rounded-lg bg-gradient-to-r from-[#D4AF37]/20 to-black border border-[#D4AF37]/60 text-[#D4AF37] hover:from-[#D4AF37]/30 hover:text-yellow-200 transition-all font-bold shadow-[0_0_20px_rgba(212,175,55,0.25)] flex justify-between items-center group">
+                    <a href="/admin/gods-eye-vision.html" class="block px-4 py-3 rounded-lg bg-gradient-to-r from-[#D4AF37]/20 to-black border border-[#D4AF37]/60 text-[#D4AF37] hover:from-[#D4AF37]/30 hover:text-yellow-200 transition-all font-bold shadow-[0_0_20px_rgba(212,175,55,0.25)] flex justify-between items-center group">
                         <span class="flex items-center gap-2">
                             <span class="text-lg">⬛</span>
                             <span>God's Eye <span class="text-[10px] font-normal opacity-70 ml-1">Dual-Core OS</span></span>
                         </span>
                         <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse group-hover:bg-yellow-300"></span>
+                    </a>
+
+                    <!-- COMMAND CENTER — Realtime Control -->
+                    <a href="/admin/command-center.html" class="block px-4 py-3 rounded-lg bg-gradient-to-r from-blue-900/40 to-black border border-blue-500/50 text-blue-400 hover:from-blue-800/60 hover:text-blue-300 transition-all font-bold shadow-[0_0_15px_rgba(59,130,246,0.2)] flex justify-between items-center group">
+                        <span class="flex items-center gap-2">
+                            <span class="text-lg">🦅</span>
+                            <span>Command Center</span>
+                        </span>
+                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse group-hover:bg-blue-400"></span>
                     </a>
 
                     <!-- THE NEW HQ DASHBOARD LINK -->
@@ -65,7 +69,6 @@
                     </a>
                     <div class="pt-4 mt-4 border-t border-gray-800">
                         <p class="text-[10px] uppercase font-bold text-gray-600 tracking-wider mb-2 ml-1">Legacy Core Modules</p>
-                        <a href="/admin/prototype-cms-v5.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-500 hover:text-gray-300 transition text-sm">📄 Ultra CMS Builder</a>
                     </div>
                 </nav>
 
@@ -239,7 +242,7 @@
                             <!-- 1. Prediction Radar -->
                             <div class="bg-gray-800/80 rounded-xl border border-blue-900/50 p-5 relative overflow-hidden group hover:border-blue-500/50 transition-colors">
                                 <div class="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity">
-                                    <svg class="h-12 w-12 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                    <svg width="48" height="48" class="h-12 w-12 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                                 </div>
                                 <h4 class="text-blue-400 text-xs font-bold uppercase tracking-wider mb-3">Prediction Radar</h4>
                                 <div id="intel-predict-content" class="text-gray-300 text-sm h-16 flex flex-col justify-center">
@@ -253,7 +256,7 @@
                             <!-- 2. Surge Monitor -->
                             <div class="bg-gray-800/80 rounded-xl border border-emerald-900/50 p-5 relative overflow-hidden group hover:border-emerald-500/50 transition-colors">
                                 <div class="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity">
-                                    <svg class="h-12 w-12 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <svg width="48" height="48" class="h-12 w-12 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                 </div>
                                 <h4 class="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-3">Surge Monitor</h4>
                                 <div id="intel-surge-content" class="text-gray-300 text-sm h-16 flex flex-col justify-center">
@@ -267,7 +270,7 @@
                             <!-- 3. Graph Pulse -->
                             <div class="bg-gray-800/80 rounded-xl border border-purple-900/50 p-5 relative overflow-hidden group hover:border-purple-500/50 transition-colors">
                                 <div class="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity">
-                                    <svg class="h-12 w-12 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                                    <svg width="48" height="48" class="h-12 w-12 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
                                 </div>
                                 <h4 class="text-purple-400 text-xs font-bold uppercase tracking-wider mb-3">Graph Pulse</h4>
                                 <div id="intel-graph-content" class="text-gray-300 text-sm h-16 flex flex-col justify-center">
@@ -450,7 +453,7 @@
                             <div class="flex gap-2">
                                 <button onclick="loadDNA(false)" class="text-xs px-3 py-1.5 rounded border border-violet-800/50 text-violet-500 hover:bg-violet-900/20 hover:border-violet-500 font-mono transition">⟳ Scan</button>
                                 <button onclick="loadDNA(true)" id="btn-dna-ai" class="text-xs px-3 py-1.5 rounded border border-amber-700/40 text-amber-600 hover:bg-amber-900/20 hover:border-amber-500 font-mono transition">✦ AI Labels</button>
-                                <a href="/api/v1/report/executive" target="_blank" id="btn-exec-report"
+                                <a href="/tr/index.html?lang=tr" target="_blank" id="btn-exec-report"
                                    class="text-xs px-3 py-1.5 rounded font-mono transition flex items-center gap-1"
                                    style="border:1px solid #C9A96E55;color:#C9A96E;background:linear-gradient(135deg,#1a140800,#C9A96E18);position:relative;overflow:hidden;"
                                    onmouseover="this.style.background='linear-gradient(135deg,#C9A96E22,#C9A96E33)'"
@@ -669,7 +672,7 @@
 
         // 3. Neural Bridge HQ Listener
         function initHQNeuralBridge() {
-            console.warn("Master OS Neural Bridge (HQ): OFFLINE/MOCK_MODE. WebSocket disabled.");
+            // console.log("Master OS Neural Bridge (HQ): OFFLINE/MOCK_MODE.");
             /*
             window.hqSocket = new WebSocket("ws://localhost:8080/ws?client_type=hq&client_id=global");
             window.hqSocket.onopen = () => console.log("Master OS Neural Bridge: CONNECTED (HQ)");

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santis Omniverse — Command Center</title>
+    <meta http-equiv="refresh" content="3; url=/admin/boardroom.html">
+    <title>Santis Omniverse — → Boardroom</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap');
         :root { --gold: #c5a059; --bg: #030305; --cyan: #00e5ff; --purple: #e879f9; --success: #00ff66; --danger: #ff3366; }
@@ -36,10 +37,17 @@
 
         .footer { margin-top: 60px; text-align: center; font-size: 0.6rem; color: #333; letter-spacing: 2px; }
     </style>
+
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
 </head>
 <body>
-
-    <div class="brand">
+    <!-- REDIRECT BANNER -->
+    <div style="position:fixed;top:0;left:0;right:0;background:rgba(212,175,55,0.15);border-bottom:1px solid rgba(212,175,55,0.4);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;z-index:9999;backdrop-filter:blur(10px);">
+        <span style="font-size:11px;color:#D4AF37;letter-spacing:1px;">&#9654; Bu panel Boardroom → PORTALS sekmesine taşındı. 3 saniye içinde yönlendiriliyorsunuz...</span>
+        <a href="/admin/boardroom.html" style="font-size:10px;padding:4px 14px;border:1px solid #D4AF37;color:#D4AF37;border-radius:4px;text-decoration:none;letter-spacing:1px;">BOARDROOM →</a>
+    </div>
+    <div style="margin-top:52px;">
         <h1>SANTIS <span>OMNIVERSE</span></h1>
         <p>SOVEREIGN COMMAND CENTER</p>
     </div>
@@ -112,5 +120,6 @@
 
     <div class="footer">SANTIS OMNIVERSE — 25 DOSYA / 252 KB / Y-COMBINATOR READY</div>
 
+<script src="/admin/assets/js/admin-nav.js" defer></script>
 </body>
 </html>

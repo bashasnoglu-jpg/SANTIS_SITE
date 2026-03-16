@@ -1,0 +1,938 @@
+[
+  {
+    "id": "classic-swedish",
+    "categoryId": "massage-classic",
+    "order": 1,
+    "slug": {
+      "tr": "klasik-isvec-masaji",
+      "en": "classic-swedish-massage",
+      "ru": "classic-swedish-massage",
+      "de": "klassische-schwedische-massage",
+      "fr": "massage-suedois-classique",
+      "sr": "klasicna-svedska-masaza"
+    },
+    "meta": {
+      "title": {
+        "tr": "Klasik İsveç Masajı | Santis Club",
+        "en": "Classic Swedish Massage | Santis Club",
+        "ru": "Classic Swedish Massage | Santis Club",
+        "de": "Klassische Schwedische Massage | Santis Club",
+        "fr": "Massage Suédois Classique | Santis Club",
+        "sr": "Klasična Švedska Masaža | Santis Club"
+      },
+      "desc": {
+        "tr": "Batı'nın en eski ve temel masaj tekniği. Tüm vücuda uygulanan orta şiddetteki manipülasyonlarla kan dolaşımı hızlandırılır.",
+        "en": "The oldest and most fundamental massage technique of the West. Blood circulation is accelerated with moderate manipulations applied to the whole body.",
+        "ru": "The oldest and most fundamental massage technique of the West. Blood circulation is accelerated with moderate manipulations applied to the whole body.",
+        "de": "Die älteste und grundlegendste Massagetechnik des Westens. Die Durchblutung wird durch mäßige Manipulationen am ganzen Körper beschleunigt.",
+        "fr": "La technique de massage la plus ancienne et la plus fondamentale de l'Occident. La circulation sanguine est accélérée par des manipulations modérées appliquées sur tout le corps.",
+        "sr": "Najstarija i najosnovnija tehnika masaže na Zapadu. Cirkulacija krvi se ubrzava umerenim manipulacijama koje se primenjuju na celo telo."
+      }
+    },
+    "content": {
+      "title": {
+        "tr": "Klasik İsveç Masajı",
+        "en": "Classic Swedish Massage",
+        "ru": "Classic Swedish Massage",
+        "de": "Klassische Schwedische Massage",
+        "fr": "Massage Suédois Classique",
+        "sr": "Klasična Švedska Masaža"
+      },
+      "description": {
+        "tr": "Batı'nın en eski ve temel masaj tekniği. Tüm vücuda uygulanan orta şiddetteki manipülasyonlarla kan dolaşımı hızlandırılır ve kaslar gevşetilir.",
+        "en": "The oldest and most fundamental massage technique of the West. Moderate manipulations applied to the whole body accelerate blood circulation and relax muscles.",
+        "ru": "The oldest and most fundamental massage technique of the West. Moderate manipulations applied to the whole body accelerate blood circulation and relax muscles.",
+        "de": "Die älteste und grundlegendste Massagetechnik des Westens. Mäßige Manipulationen am ganzen Körper beschleunigen die Durchblutung und entspannen die Muskeln.",
+        "fr": "La technique de massage la plus ancienne et la plus fondamentale de l'Occident. Des manipulations modérées appliquées sur tout le corps accélèrent la circulation sanguine et détendent les muscles.",
+        "sr": "Najstarija i najosnovnija tehnika masaže na Zapadu. Umerene manipulacije koje se primenjuju na celo telo ubrzavaju cirkulaciju krvi i opuštaju mišiće."
+      },
+      "benefit": {
+        "tr": "Genel rahatlama ve stres atımı.",
+        "en": "General relaxation and stress relief.",
+        "ru": "General relaxation and stress relief.",
+        "de": "Allgemeine Entspannung und Stressabbau.",
+        "fr": "Relaxation générale et soulagement du stress.",
+        "sr": "Opšte opuštanje i oslobađanje od stresa."
+      },
+      "usage": {
+        "tr": "Doğal Yağlar ile",
+        "en": "With Natural Oils",
+        "ru": "With Natural Oils",
+        "de": "Mit natürlichen Ölen",
+        "fr": "Aux huiles naturelles",
+        "sr": "Sa prirodnim uljima"
+      },
+      "price": {
+        "tr": "Bilgi Al",
+        "en": "Get Info",
+        "ru": "Get Info",
+        "de": "Info erhalten",
+        "fr": "Obtenir des infos",
+        "sr": "Dobiti informacije"
+      },
+      "badge": "CLASSIC"
+    },
+    "assets": {
+      "hero": "santis_card_massage_v1.png",
+      "gallery": []
+    }
+  },
+  {
+    "id": "classic-aroma",
+    "categoryId": "massage-classic",
+    "order": 2,
+    "slug": {
+      "tr": "aromaterapi-masaji",
+      "en": "aromatherapy-massage",
+      "ru": "aromatherapy-massage",
+      "de": "aromatherapie-massage",
+      "fr": "massage-aromatherapie",
+      "sr": "aromaterapija-masaza"
+    },
+    "meta": {
+      "title": {
+        "tr": "Aromaterapi Masajı | Santis Club",
+        "en": "Aromatherapy Massage | Santis Club",
+        "ru": "Aromatherapy Massage | Santis Club",
+        "de": "Aromatherapie-Massage | Santis Club",
+        "fr": "Massage Aromathérapie | Santis Club",
+        "sr": "Aromaterapija Masaža | Santis Club"
+      },
+      "desc": {
+        "tr": "Bitkilerin özü, ruhun şifası. Kişinin ihtiyacına göre seçilen esansiyel yağlarla yapılan hafif ve ritmik bir masaj.",
+        "en": "Essence of plants, healing of the soul. A light and rhythmic massage performed with essential oils selected according to your needs.",
+        "ru": "Essence of plants, healing of the soul. A light and rhythmic massage performed with essential oils selected according to your needs.",
+        "de": "Essenz der Pflanzen, Heilung der Seele. Eine leichte und rhythmische Massage mit ätherischen Ölen, die nach Ihren Bedürfnissen ausgewählt werden.",
+        "fr": "L'essence des plantes, la guérison de l'âme. Un massage léger et rythmé effectué avec des huiles essentielles sélectionnées selon vos besoins.",
+        "sr": "Esencija biljaka, isceljenje duše. Lagana i ritmička masaža koja se izvodi sa eteričnim uljima odabranim prema vašim potrebama."
+      }
+    },
+    "content": {
+      "title": {
+        "tr": "Aromaterapi Masajı",
+        "en": "Aromatherapy Massage",
+        "ru": "Aromatherapy Massage",
+        "de": "Aromatherapie-Massage",
+        "fr": "Massage Aromathérapie",
+        "sr": "Aromaterapija Masaža"
+      },
+      "description": {
+        "tr": "Bitkilerin özü, ruhun şifası. Kişinin ihtiyacına göre seçilen (Lavanta, Portakal, Biberiye) esansiyel yağlarla yapılan hafif ve ritmik bir masaj.",
+        "en": "Essence of plants, healing of the soul. A light and rhythmic massage performed with essential oils selected according to your needs (Lavender, Orange, Rosemary).",
+        "ru": "Essence of plants, healing of the soul. A light and rhythmic massage performed with essential oils selected according to your needs (Lavender, Orange, Rosemary).",
+        "de": "Essenz der Pflanzen, Heilung der Seele. Eine leichte und rhythmische Massage mit ätherischen Ölen (Lavendel, Orange, Rosmarin), die nach Ihren Bedürfnissen ausgewählt werden.",
+        "fr": "L'essence des plantes, la guérison de l'âme. Un massage léger et rythmé effectué avec des huiles essentielles (Lavande, Orange, Romarin) sélectionnées selon vos besoins.",
+        "sr": "Esencija biljaka, isceljenje duše. Lagana i ritmička masaža koja se izvodi sa eteričnim uljima (Lavanda, Narandža, Ruzmarin) odabranim prema vašim potrebama."
+      },
+      "benefit": {
+        "tr": "Zihinsel denge ve duygusal arınma.",
+        "en": "Mental balance and emotional purification.",
+        "ru": "Mental balance and emotional purification.",
+        "de": "Geistiges Gleichgewicht und emotionale Reinigung.",
+        "fr": "Équilibre mental et purification émotionnelle.",
+        "sr": "Mentalna ravnoteža i emocionalno pročišćenje."
+      },
+      "usage": {
+        "tr": "Kişiye Özel Esans Seçimi",
+        "en": "Personalized Essence Selection",
+        "ru": "Personalized Essence Selection",
+        "de": "Personalisierte Essenzauswahl",
+        "fr": "Sélection d'essence personnalisée",
+        "sr": "Personalizovani izbor esencije"
+      },
+      "price": {
+        "tr": "Bilgi Al",
+        "en": "Get Info",
+        "ru": "Get Info",
+        "de": "Info erhalten",
+        "fr": "Obtenir des infos",
+        "sr": "Dobiti informacije"
+      },
+      "badge": "SOUL"
+    },
+    "assets": {
+      "hero": "santis_card_shirodhara_v1.png",
+      "gallery": []
+    }
+  },
+  {
+    "id": "classic-antistress",
+    "categoryId": "massage-classic",
+    "order": 3,
+    "slug": {
+      "tr": "anti-stress-masaji",
+      "en": "anti-stress-massage",
+      "ru": "anti-stress-massage",
+      "de": "anti-stress-massage",
+      "fr": "massage-anti-stress",
+      "sr": "anti-stres-masaza"
+    },
+    "meta": {
+      "title": {
+        "tr": "Anti-Stress Masajı | Santis Club",
+        "en": "Anti-Stress Massage | Santis Club",
+        "ru": "Anti-Stress Massage | Santis Club",
+        "de": "Anti-Stress-Massage | Santis Club",
+        "fr": "Massage Anti-Stress | Santis Club",
+        "sr": "Anti-Stres Masaža | Santis Club"
+      },
+      "desc": {
+        "tr": "Günün yorgunluğunu atmak için boyun, omuz ve sırt bölgesine odaklanan yavaş ve ritmik bir terapi.",
+        "en": "A slow and rhythmic therapy focusing on the neck, shoulder and back area to relieve the tiredness of the day.",
+        "ru": "A slow and rhythmic therapy focusing on the neck, shoulder and back area to relieve the tiredness of the day.",
+        "de": "Eine langsame und rhythmische Therapie, die sich auf den Nacken-, Schulter- und Rückenbereich konzentriert, um die Müdigkeit des Tages zu lindern.",
+        "fr": "Une thérapie lente et rythmée axée sur le cou, les épaules et le dos pour soulager la fatigue de la journée.",
+        "sr": "Spor i ritmičan tretman fokusiran na vrat, ramena i leđa kako bi se ublažio umor dana."
+      }
+    },
+    "content": {
+      "title": {
+        "tr": "Anti-Stress Masajı",
+        "en": "Anti-Stress Massage",
+        "ru": "Anti-Stress Massage",
+        "de": "Anti-Stress-Massage",
+        "fr": "Massage Anti-Stress",
+        "sr": "Anti-Stres Masaža"
+      },
+      "description": {
+        "tr": "Günün yorgunluğunu atmak için boyun, omuz ve sırt bölgesine odaklanan yavaş ve ritmik bir terapi. Kas gerginliklerini çözer.",
+        "en": "A slow and rhythmic therapy focusing on the neck, shoulder and back area to relieve the tiredness of the day. Relieves muscle tension.",
+        "ru": "A slow and rhythmic therapy focusing on the neck, shoulder and back area to relieve the tiredness of the day. Relieves muscle tension.",
+        "de": "Eine langsame und rhythmische Therapie, die sich auf den Nacken-, Schulter- und Rückenbereich konzentriert, um die Müdigkeit des Tages zu lindern. Löst Muskelverspannungen.",
+        "fr": "Une thérapie lente et rythmée axée sur le cou, les épaules et le dos pour soulager la fatigue de la journée. Soulage la tension musculaire.",
+        "sr": "Spor i ritmičan tretman fokusiran na vrat, ramena i leđa kako bi se ublažio umor dana. Oslobađa napetost mišića."
+      },
+      "benefit": {
+        "tr": "Bölgesel rahatlama (Baş, Boyun, Omuz).",
+        "en": "Regional relaxation (Head, Neck, Shoulder).",
+        "ru": "Regional relaxation (Head, Neck, Shoulder).",
+        "de": "Regionale Entspannung (Kopf, Nacken, Schulter).",
+        "fr": "Relaxation régionale (Tête, Cou, Épaule).",
+        "sr": "Regionalna relaksacija (Glava, Vrat, Ramena)."
+      },
+      "usage": {
+        "tr": "30 Dk veya 50 Dk Seçenek",
+        "en": "30 Min or 50 Min Option",
+        "ru": "30 Min or 50 Min Option",
+        "de": "30 Min oder 50 Min Option",
+        "fr": "Option 30 min ou 50 min",
+        "sr": "Opcija 30 min ili 50 min"
+      },
+      "price": {
+        "tr": "Bilgi Al",
+        "en": "Get Info",
+        "ru": "Get Info",
+        "de": "Info erhalten",
+        "fr": "Obtenir des infos",
+        "sr": "Dobiti informacije"
+      },
+      "badge": "RELAX"
+    },
+    "assets": {
+      "hero": "santis_card_reflexology_v1.png",
+      "gallery": []
+    }
+  },
+  {
+    "id": "classic-bronze",
+    "categoryId": "massage-classic",
+    "order": 4,
+    "slug": {
+      "tr": "bronz-masaj",
+      "en": "bronze-massage",
+      "ru": "bronze-massage",
+      "de": "bronze-massage",
+      "fr": "massage-bronze",
+      "sr": "bronzana-masaza"
+    },
+    "meta": {
+      "title": {
+        "tr": "Bronz Masaj (Kakao) | Santis Club",
+        "en": "Bronze Massage (Cocoa) | Santis Club",
+        "ru": "Bronze Massage (Cocoa) | Santis Club",
+        "de": "Bronze-Massage (Kakao) | Santis Club",
+        "fr": "Massage Bronze (Cacao) | Santis Club",
+        "sr": "Bronzana Masaža (Kakao) | Santis Club"
+      },
+      "desc": {
+        "tr": "Kakao ve Havuç yağı karışımıyla yapılan, bronzluğu hızlandıran ve sabitleyen özel bir yaz masajı.",
+        "en": "A special summer massage made with a mixture of Cocoa and Carrot oil, accelerating and fixing the tan.",
+        "ru": "A special summer massage made with a mixture of Cocoa and Carrot oil, accelerating and fixing the tan.",
+        "de": "Eine spezielle Sommermassage mit einer Mischung aus Kakao- und Karottenöl, die die Bräune beschleunigt und fixiert.",
+        "fr": "Un massage d'été spécial fait avec un mélange d'huile de cacao et de carotte, accélérant et fixant le bronzage.",
+        "sr": "Posebna letnja masaža napravljena mešavinom kakao i ulja šargarepe, ubrzava i fiksira preplanulost."
+      }
+    },
+    "content": {
+      "title": {
+        "tr": "Bronz Masaj (Kakao)",
+        "en": "Bronze Massage (Cocoa)",
+        "ru": "Bronze Massage (Cocoa)",
+        "de": "Bronze-Massage (Kakao)",
+        "fr": "Massage Bronze (Cacao)",
+        "sr": "Bronzana Masaža (Kakao)"
+      },
+      "description": {
+        "tr": "Kakao ve Havuç yağı karışımıyla yapılan, bronzluğu hızlandıran ve sabitleyen özel bir yaz masajı. Cildi besler ve parlatır.",
+        "en": "A special summer massage made with a mixture of Cocoa and Carrot oil, accelerating and fixing the tan. Nourishes and shines the skin.",
+        "ru": "A special summer massage made with a mixture of Cocoa and Carrot oil, accelerating and fixing the tan. Nourishes and shines the skin.",
+        "de": "Eine spezielle Sommermassage mit einer Mischung aus Kakao- und Karottenöl, die die Bräune beschleunigt und fixiert. Pflegt und glänzt die Haut.",
+        "fr": "Un massage d'été spécial fait avec un mélange d'huile de cacao et de carotte, accélérant et fixant le bronzage. Nourrit et fait briller la peau.",
+        "sr": "Posebna letnja masaža napravljena mešavinom kakao i ulja šargarepe, ubrzava i fiksira preplanulost. Hrani i daje sjaj koži."
+      },
+      "benefit": {
+        "tr": "Altın rengi, kalıcı bronzluk.",
+        "en": "Golden, lasting tan.",
+        "ru": "Golden, lasting tan.",
+        "de": "Goldene, dauerhafte Bräune.",
+        "fr": "Bronzage doré et durable.",
+        "sr": "Zlatna, dugotrajna preplanulost."
+      },
+      "usage": {
+        "tr": "Güneşlenme öncesi/sonrası",
+        "en": "Before/After Tanning",
+        "ru": "Before/After Tanning",
+        "de": "Vor/Nach dem Bräunen",
+        "fr": "Avant/Après bronzage",
+        "sr": "Pre/Posle sunčanja"
+      },
+      "price": {
+        "tr": "Bilgi Al",
+        "en": "Get Info",
+        "ru": "Get Info",
+        "de": "Info erhalten",
+        "fr": "Obtenir des infos",
+        "sr": "Dobiti informacije"
+      },
+      "badge": "SUMMER"
+    },
+    "assets": {
+      "hero": "santis_card_hammam_v1.png",
+      "gallery": []
+    }
+  },
+  {
+    "id": "detox-g5",
+    "categoryId": "massage-anticellulite",
+    "order": 5,
+    "slug": {
+      "tr": "g5-masaji",
+      "en": "g5-vibro-sculpting",
+      "ru": "g5-vibro-sculpting",
+      "de": "g5-vibro-sculpting",
+      "fr": "sculpture-vibro-g5",
+      "sr": "g5-vibro-skulpturiranje"
+    },
+    "meta": {
+      "title": {
+        "tr": "G5 Vibro-Sculpting | Santis Club",
+        "en": "G5 Vibro-Sculpting | Santis Club",
+        "ru": "G5 Vibro-Sculpting | Santis Club",
+        "de": "G5 Vibro-Sculpting | Santis Club",
+        "fr": "Sculpture Vibro G5 | Santis Club",
+        "sr": "G5 Vibro Skulpturiranje | Santis Club"
+      },
+      "desc": {
+        "tr": "İnatçı selülitler için mekanik çözüm. Hızlı titreşimli başlık (G5) ile yağ blokları parçalanır.",
+        "en": "Mechanical solution for stubborn cellulite. Fat blocks are broken down with the fast vibrating head (G5).",
+        "ru": "Mechanical solution for stubborn cellulite. Fat blocks are broken down with the fast vibrating head (G5).",
+        "de": "Mechanische Lösung für hartnäckige Cellulite. Fettblöcke werden mit dem schnell vibrierenden Kopf (G5) abgebaut.",
+        "fr": "Solution mécanique pour la cellulite tenace. Les blocs graisseux sont décomposés avec la tête vibrante rapide (G5).",
+        "sr": "Mehaničko rešenje za tvrdokorni celulit. Masni blokovi se razbijaju brzom vibrirajućom glavom (G5)."
+      }
+    },
+    "content": {
+      "title": {
+        "tr": "G5 Vibro-Sculpting",
+        "en": "G5 Vibro-Sculpting",
+        "ru": "G5 Vibro-Sculpting",
+        "de": "G5 Vibro-Sculpting",
+        "fr": "Sculpture Vibro G5",
+        "sr": "G5 Vibro Skulpturiranje"
+      },
+      "description": {
+        "tr": "İnatçı selülitler için mekanik çözüm. Hızlı titreşimli başlık (G5) ile yağ blokları parçalanır ve kan dolaşımı maksimum seviyeye çıkarılır.",
+        "en": "Mechanical solution for stubborn cellulite. Fat blocks are broken down with the fast vibrating head (G5) and blood circulation is maximized.",
+        "ru": "Mechanical solution for stubborn cellulite. Fat blocks are broken down with the fast vibrating head (G5) and blood circulation is maximized.",
+        "de": "Mechanische Lösung für hartnäckige Cellulite. Fettblöcke werden mit dem schnell vibrierenden Kopf (G5) abgebaut und die Durchblutung maximiert.",
+        "fr": "Solution mécanique pour la cellulite tenace. Les blocs graisseux sont décomposés avec la tête vibrante rapide (G5) et la circulation sanguine est maximisée.",
+        "sr": "Mehaničko rešenje za tvrdokorni celulit. Masni blokovi se razbijaju brzom vibrirajućom glavom (G5) i cirkulacija krvi je maksimizirana."
+      },
+      "benefit": {
+        "tr": "Selülit görünümünü azaltır, dokuyu pürüzsüzleştirir.",
+        "en": "Reduces cellulite appearance, smooths texture.",
+        "ru": "Reduces cellulite appearance, smooths texture.",
+        "de": "Reduziert das Erscheinungsbild von Cellulite, glättet die Textur.",
+        "fr": "Réduit l'apparence de la cellulite, lisse la texture.",
+        "sr": "Smanjuje pojavu celulita, zaglađuje teksturu."
+      },
+      "usage": {
+        "tr": "Bölgesel Uygulama (Bacak/Basen)",
+        "en": "Regional Application (Leg/Hip)",
+        "ru": "Regional Application (Leg/Hip)",
+        "de": "Regionale Anwendung (Bein/Hüfte)",
+        "fr": "Application régionale (Jambe/Hanche)",
+        "sr": "Regionalna primena (Noga/Kuk)"
+      },
+      "price": {
+        "tr": "Bilgi Al",
+        "en": "Get Info",
+        "ru": "Get Info",
+        "de": "Info erhalten",
+        "fr": "Obtenir des infos",
+        "sr": "Dobiti informacije"
+      },
+      "badge": "MECHANICAL"
+    },
+    "assets": {
+      "hero": "santis_card_deeptissue_v1.png",
+      "gallery": []
+    }
+  },
+  {
+    "id": "detox-madero",
+    "categoryId": "massage-anticellulite",
+    "order": 6,
+    "slug": {
+      "tr": "maderoterapi",
+      "en": "brazilian-maderotherapy",
+      "ru": "brazilian-maderotherapy",
+      "de": "brasilianische-maderotherapie",
+      "fr": "maderotherapie-bresilienne",
+      "sr": "brazilska-maderoterapija"
+    },
+    "meta": {
+      "title": {
+        "tr": "Brezilya Maderoterapisi | Santis Club",
+        "en": "Brazilian Maderotherapy | Santis Club",
+        "ru": "Brazilian Maderotherapy | Santis Club",
+        "de": "Brasilianische Maderotherapie | Santis Club",
+        "fr": "Madérothérapie Brésilienne | Santis Club",
+        "sr": "Brazilska Maderoterapija | Santis Club"
+      },
+      "desc": {
+        "tr": "Kolombiya menşeli 'Ahşap Terapisi'. Anatomik şekilli tahta silindirlerle yapılan ritmik masaj, lenfatik sistemi uyarır.",
+        "en": "'Wood Therapy' of Colombian origin. Rhythmic massage with anatomically shaped wooden cylinders stimulates the lymphatic system.",
+        "ru": "'Wood Therapy' of Colombian origin. Rhythmic massage with anatomically shaped wooden cylinders stimulates the lymphatic system.",
+        "de": "'Holztherapie' kolumbianischen Ursprungs. Rhythmische Massage mit anatomisch geformten Holzzylindern stimuliert das Lymphsystem.",
+        "fr": "'Thérapie par le bois' d'origine colombienne. Le massage rythmé avec des cylindres en bois de forme anatomique stimule le système lymphatique.",
+        "sr": "'Terapija drvetom' kolumbijskog porekla. Ritmička masaža anatomski oblikovanim drvenim cilindrima stimuliše limfni sistem."
+      }
+    },
+    "content": {
+      "title": {
+        "tr": "Brezilya Maderoterapisi",
+        "en": "Brazilian Maderotherapy",
+        "ru": "Brazilian Maderotherapy",
+        "de": "Brasilianische Maderotherapie",
+        "fr": "Madérothérapie Brésilienne",
+        "sr": "Brazilska Maderoterapija"
+      },
+      "description": {
+        "tr": "Kolombiya menşeli 'Ahşap Terapisi'. Anatomik şekilli tahta silindirlerle yapılan ritmik masaj, lenfatik sistemi uyarır ve vücudu şekillendirir.",
+        "en": "'Wood Therapy' of Colombian origin. Rhythmic massage with anatomically shaped wooden cylinders stimulates the lymphatic system and shapes the body.",
+        "ru": "'Wood Therapy' of Colombian origin. Rhythmic massage with anatomically shaped wooden cylinders stimulates the lymphatic system and shapes the body.",
+        "de": "'Holztherapie' kolumbianischen Ursprungs. Rhythmische Massage mit anatomisch geformten Holzzylindern stimuliert das Lymphsystem und formt den Körper.",
+        "fr": "'Thérapie par le bois' d'origine colombienne. Le massage rythmé avec des cylindres en bois de forme anatomique stimule le système lymphatique et façonne le corps.",
+        "sr": "'Terapija drvetom' kolumbijskog porekla. Ritmička masaža anatomski oblikovanim drvenim cilindrima stimuliše limfni sistem i oblikuje telo."
+      },
+      "benefit": {
+        "tr": "Vücut kontürünü belirginleştirir (Body Contouring).",
+        "en": "Defines body contour (Body Contouring).",
+        "ru": "Defines body contour (Body Contouring).",
+        "de": "Definiert die Körperkontur (Body Contouring).",
+        "fr": "Définit le contour du corps (Body Contouring).",
+        "sr": "Definiše konturu tela (Body Contouring)."
+      },
+      "usage": {
+        "tr": "%100 Doğal Ahşap Ekipmanlar",
+        "en": "100% Natural Wooden Equipment",
+        "ru": "100% Natural Wooden Equipment",
+        "de": "100% natürliche Holzausrüstung",
+        "fr": "Équipement en bois 100% naturel",
+        "sr": "100% oprema od prirodnog drveta"
+      },
+      "price": {
+        "tr": "Bilgi Al",
+        "en": "Get Info",
+        "ru": "Get Info",
+        "de": "Info erhalten",
+        "fr": "Obtenir des infos",
+        "sr": "Dobiti informacije"
+      },
+      "badge": "WOOD"
+    },
+    "assets": {
+      "hero": "santis_card_massage_v1.png",
+      "gallery": []
+    }
+  },
+  {
+    "id": "thai-royal",
+    "categoryId": "massage-thai",
+    "order": 10,
+    "slug": {
+      "tr": "kraliyet-thai-masaji",
+      "en": "royal-thai-massage",
+      "ru": "royal-thai-massage",
+      "de": "royal-thai-massage",
+      "fr": "massage-royal-thai",
+      "sr": "kraljevska-tajlandska-masaza"
+    },
+    "meta": {
+      "title": {
+        "tr": "Royal Thai Masajı | Santis Club",
+        "en": "Royal Thai Massage | Santis Club",
+        "ru": "Royal Thai Massage | Santis Club",
+        "de": "Royal Thai Massage | Santis Club",
+        "fr": "Massage Royal Thai | Santis Club",
+        "sr": "Kraljevska Tajlandska Masaža | Santis Club"
+      },
+      "desc": {
+        "tr": "Tayland Sarayı'ndan gelen asalet. Sadece parmak baskısı (Acupressure) ile yapılan, germe içermeyen saygın bir terapi.",
+        "en": "Nobility from the Thai Palace. A respected therapy performed only with finger pressure (Acupressure), without stretching.",
+        "ru": "Nobility from the Thai Palace. A respected therapy performed only with finger pressure (Acupressure), without stretching.",
+        "de": "Adel aus dem Thai-Palast. Eine angesehene Therapie, die nur mit Fingerdruck (Akupressur) und ohne Dehnung durchgeführt wird.",
+        "fr": "La noblesse du Palais Thaïlandais. Une thérapie respectée effectuée uniquement par pression des doigts (Acupression), sans étirement.",
+        "sr": "Plemenitost iz tajlandske palate. Poštovana terapija koja se izvodi samo pritiskom prstiju (akupresura), bez istezanja."
+      }
+    },
+    "content": {
+      "title": {
+        "tr": "Royal Thai Masajı",
+        "en": "Royal Thai Massage",
+        "ru": "Royal Thai Massage",
+        "de": "Royal Thai Massage",
+        "fr": "Massage Royal Thai",
+        "sr": "Kraljevska Tajlandska Masaža"
+      },
+      "description": {
+        "tr": "Tayland Sarayı'ndan gelen asalet. Sadece parmak baskısı (Acupressure) ile yapılan, germe içermeyen saygın bir terapi. (Nuad Rajasamnak)",
+        "en": "Nobility from the Thai Palace. A respected therapy performed only with finger pressure (Acupressure), without stretching. (Nuad Rajasamnak)",
+        "ru": "Nobility from the Thai Palace. A respected therapy performed only with finger pressure (Acupressure), without stretching. (Nuad Rajasamnak)",
+        "de": "Adel aus dem Thai-Palast. Eine angesehene Therapie, die nur mit Fingerdruck (Akupressur) und ohne Dehnung durchgeführt wird. (Nuad Rajasamnak)",
+        "fr": "La noblesse du Palais Thaïlandais. Une thérapie respectée effectuée uniquement par pression des doigts (Acupression), sans étirement. (Nuad Rajasamnak)",
+        "sr": "Plemenitost iz tajlandske palate. Poštovana terapija koja se izvodi samo pritiskom prstiju (akupresura), bez istezanja. (Nuad Rajasamnak)"
+      },
+      "benefit": {
+        "tr": "Ruhsal dinginlik ve derin kas rahatlaması.",
+        "en": "Spiritual calmness and deep muscle relaxation.",
+        "ru": "Spiritual calmness and deep muscle relaxation.",
+        "de": "Geistige Ruhe und tiefe Muskelentspannung.",
+        "fr": "Calme spirituel et relaxation musculaire profonde.",
+        "sr": "Duhovni mir i duboka relaksacija mišića."
+      },
+      "usage": {
+        "tr": "Yasemin Yağı ile • Germe Yoktur",
+        "en": "With Jasmine Oil • No Stretching",
+        "ru": "With Jasmine Oil • No Stretching",
+        "de": "Mit Jasminöl • Kein Dehnen",
+        "fr": "Avec huile de jasmin • Pas d'étirement",
+        "sr": "Sa jasminovim uljem • Bez istezanja"
+      },
+      "price": {
+        "tr": "Bilgi Al",
+        "en": "Get Info",
+        "ru": "Get Info",
+        "de": "Info erhalten",
+        "fr": "Obtenir des infos",
+        "sr": "Dobiti informacije"
+      },
+      "badge": "ROYAL"
+    },
+    "assets": {
+      "hero": "santis_card_thai_v1.png",
+      "gallery": []
+    }
+  },
+  {
+    "id": "thai-toksen",
+    "categoryId": "massage-thai",
+    "order": 11,
+    "slug": {
+      "tr": "tok-sen-masaji",
+      "en": "tok-sen-massage",
+      "ru": "tok-sen-massage",
+      "de": "tok-sen-massage",
+      "fr": "massage-tok-sen",
+      "sr": "tok-sen-masaza"
+    },
+    "meta": {
+      "title": {
+        "tr": "Tok Sen Masajı | Santis Club",
+        "en": "Tok Sen Massage | Santis Club",
+        "ru": "Tok Sen Massage | Santis Club",
+        "de": "Tok Sen Massage | Santis Club",
+        "fr": "Massage Tok Sen | Santis Club",
+        "sr": "Tok Sen Masaža | Santis Club"
+      },
+      "desc": {
+        "tr": "Kuzey Tayland'ın kadim titreşim terapisi. Ahşap tokmaklarla enerji hatlarına ritmik vuruşlar yapılır.",
+        "en": "Ancient vibration therapy of Northern Thailand. Rhythmic blows are made to energy lines with wooden mallets.",
+        "ru": "Ancient vibration therapy of Northern Thailand. Rhythmic blows are made to energy lines with wooden mallets.",
+        "de": "Antike Vibrationstherapie Nordthailands. Rhythmische Schläge auf Energielinien mit Holzschlägeln.",
+        "fr": "Thérapie vibratoire ancienne du nord de la Thaïlande. Des coups rythmés sont portés aux lignes énergétiques avec des maillets en bois.",
+        "sr": "Drevna vibraciona terapija severnog Tajlanda. Ritmički udarci se izvode na energetske linije drvenim čekićima."
+      }
+    },
+    "content": {
+      "title": {
+        "tr": "Tok Sen Masajı",
+        "en": "Tok Sen Massage",
+        "ru": "Tok Sen Massage",
+        "de": "Tok Sen Massage",
+        "fr": "Massage Tok Sen",
+        "sr": "Tok Sen Masaža"
+      },
+      "description": {
+        "tr": "Kuzey Tayland'ın kadim titreşim terapisi. Ahşap tokmaklarla enerji hatlarına ritmik vuruşlar yapılır. Titreşimler kasların en derinine ulaşır.",
+        "en": "Ancient vibration therapy of Northern Thailand. Rhythmic blows are made to energy lines with wooden mallets. Vibrations reach deep into muscles.",
+        "ru": "Ancient vibration therapy of Northern Thailand. Rhythmic blows are made to energy lines with wooden mallets. Vibrations reach deep into muscles.",
+        "de": "Antike Vibrationstherapie Nordthailands. Rhythmische Schläge auf Energielinien mit Holzschlägeln. Vibrationen reichen tief in die Muskeln.",
+        "fr": "Thérapie vibratoire ancienne du nord de la Thaïlande. Des coups rythmés sont portés aux lignes énergétiques avec des maillets en bois. Les vibrations atteignent les muscles en profondeur.",
+        "sr": "Drevna vibraciona terapija severnog Tajlanda. Ritmički udarci se izvode na energetske linije drvenim čekićima. Vibracije dopiru duboko u mišiće."
+      },
+      "benefit": {
+        "tr": "Derin kas blokajlarını çözer (Deep Tissue).",
+        "en": "Dissolves deep muscle blockages (Deep Tissue).",
+        "ru": "Dissolves deep muscle blockages (Deep Tissue).",
+        "de": "Löst tiefe Muskelblockaden (Deep Tissue).",
+        "fr": "Dissout les blocages musculaires profonds (Deep Tissue).",
+        "sr": "Rastvara duboke blokade mišića (Deep Tissue)."
+      },
+      "usage": {
+        "tr": "Plai Yağı (Ağrı Kesici) ile",
+        "en": "With Plai Oil (Painkiller)",
+        "ru": "With Plai Oil (Painkiller)",
+        "de": "Mit Plai-Öl (Schmerzmittel)",
+        "fr": "Avec huile de Plai (analgésique)",
+        "sr": "Sa Plai uljem (protiv bolova)"
+      },
+      "price": {
+        "tr": "Bilgi Al",
+        "en": "Get Info",
+        "ru": "Get Info",
+        "de": "Info erhalten",
+        "fr": "Obtenir des infos",
+        "sr": "Dobiti informacije"
+      },
+      "badge": "EXOTIC"
+    },
+    "assets": {
+      "hero": "santis_card_massage_v1.png",
+      "gallery": []
+    }
+  },
+  {
+    "id": "thai-herbal",
+    "categoryId": "massage-thai",
+    "order": 12,
+    "slug": {
+      "tr": "thai-bitki-kesesi",
+      "en": "thai-herbal-compress",
+      "ru": "thai-herbal-compress",
+      "de": "thai-kraeuterstempel",
+      "fr": "compresse-aux-herbes-thai",
+      "sr": "tajlandski-biljni-oblog"
+    },
+    "meta": {
+      "title": {
+        "tr": "Thai Bitki Kesesi | Santis Club",
+        "en": "Thai Herbal Compress | Santis Club",
+        "ru": "Thai Herbal Compress | Santis Club",
+        "de": "Thai Kräuterstempel | Santis Club",
+        "fr": "Compresse aux Herbes Thaï | Santis Club",
+        "sr": "Tajlandski Biljni Oblog | Santis Club"
+      },
+      "desc": {
+        "tr": "Buharda ısıtılmış 15 çeşit şifalı bitki kesesi (Zerdeçal, Limon Otu) ile yapılan sıcak terapi.",
+        "en": "Hot therapy with 15 kinds of steamed medicinal herbal pouches (Turmeric, Lemon Grass).",
+        "ru": "Hot therapy with 15 kinds of steamed medicinal herbal pouches (Turmeric, Lemon Grass).",
+        "de": "Heiße Therapie mit 15 Arten von gedämpften Heilkräuterbeuteln (Kurkuma, Zitronengras).",
+        "fr": "Thérapie chaude avec 15 types de sachets d'herbes médicinales à la vapeur (Curcuma, Citronnelle).",
+        "sr": "Topla terapija sa 15 vrsta parenih lekovitih biljnih kesica (Kurkuma, Limunska trava)."
+      }
+    },
+    "content": {
+      "title": {
+        "tr": "Thai Bitki Kesesi",
+        "en": "Thai Herbal Compress",
+        "ru": "Thai Herbal Compress",
+        "de": "Thai Kräuterstempel",
+        "fr": "Compresse aux Herbes Thaï",
+        "sr": "Tajlandski Biljni Oblog"
+      },
+      "description": {
+        "tr": "Buharda ısıtılmış 15 çeşit şifalı bitki kesesi (Zerdeçal, Limon Otu) ile yapılan sıcak terapi. Isı ve aroma, kasları gevşetir.",
+        "en": "Hot therapy with 15 kinds of steamed medicinal herbal pouches (Turmeric, Lemon Grass). Heat and aroma relax muscles.",
+        "ru": "Hot therapy with 15 kinds of steamed medicinal herbal pouches (Turmeric, Lemon Grass). Heat and aroma relax muscles.",
+        "de": "Heiße Therapie mit 15 Arten von gedämpften Heilkräuterbeuteln (Kurkuma, Zitronengras). Wärme und Aroma entspannen die Muskeln.",
+        "fr": "Thérapie chaude avec 15 types de sachets d'herbes médicinales à la vapeur (Curcuma, Citronnelle). La chaleur et l'arôme détendent les muscles.",
+        "sr": "Topla terapija sa 15 vrsta parenih lekovitih biljnih kesica (Kurkuma, Limunska trava). Toplota i aroma opuštaju mišiće."
+      },
+      "benefit": {
+        "tr": "Kas ağrılarını dindirir ve enerji verir.",
+        "en": "Soothes muscle pain and gives energy.",
+        "ru": "Soothes muscle pain and gives energy.",
+        "de": "Lindert Muskelschmerzen und gibt Energie.",
+        "fr": "Apaise les douleurs musculaires et donne de l'énergie.",
+        "sr": "Ublažava bolove u mišićima i daje energiju."
+      },
+      "usage": {
+        "tr": "Sıcak Kese Hediyesi ile",
+        "en": "With Hot Pouch Gift",
+        "ru": "With Hot Pouch Gift",
+        "de": "Mit heißem Beutelgeschenk",
+        "fr": "Avec cadeau de sachet chaud",
+        "sr": "Sa poklonom tople kesice"
+      },
+      "price": {
+        "tr": "Bilgi Al",
+        "en": "Get Info",
+        "ru": "Get Info",
+        "de": "Info erhalten",
+        "fr": "Obtenir des infos",
+        "sr": "Dobiti informacije"
+      },
+      "badge": "HEALING"
+    },
+    "assets": {
+      "hero": "santis_card_thai_v1.png",
+      "gallery": []
+    }
+  },
+  {
+    "id": "thai-golden",
+    "categoryId": "massage-thai",
+    "order": 13,
+    "slug": {
+      "tr": "altin-ucgen-ritueli",
+      "en": "golden-triangle-ritual",
+      "ru": "golden-triangle-ritual",
+      "de": "goldenes-dreieck-ritual",
+      "fr": "rituel-triangle-dor",
+      "sr": "ritual-zlatnog-trougla"
+    },
+    "meta": {
+      "title": {
+        "tr": "Altın Üçgen Ritüeli | Santis Club",
+        "en": "The Golden Triangle Ritual | Santis Club",
+        "ru": "The Golden Triangle Ritual | Santis Club",
+        "de": "Das Goldene Dreieck Ritual | Santis Club",
+        "fr": "Le Rituel du Triangle d'Or | Santis Club",
+        "sr": "Ritual Zlatnog Trougla | Santis Club"
+      },
+      "desc": {
+        "tr": "120 dakikalık kutsal bir seremonisi. Sauna -> Hamam -> Relax Room -> Thai Masajı.",
+        "en": "A 120-minute sacred ceremony. Sauna -> Hammam -> Relax Room -> Thai Massage.",
+        "ru": "A 120-minute sacred ceremony. Sauna -> Hammam -> Relax Room -> Thai Massage.",
+        "de": "Eine 120-minütige heilige Zeremonie. Sauna -> Hammam -> Ruheraum -> Thai-Massage.",
+        "fr": "Une cérémonie sacrée de 120 minutes. Sauna -> Hammam -> Salle de relaxation -> Massage Thaï.",
+        "sr": "Sveta ceremonija od 120 minuta. Sauna -> Hamam -> Soba za opuštanje -> Tajlandska masaža."
+      }
+    },
+    "content": {
+      "title": {
+        "tr": "Altın Üçgen Ritüeli",
+        "en": "The Golden Triangle Ritual",
+        "ru": "The Golden Triangle Ritual",
+        "de": "Das Goldene Dreieck Ritual",
+        "fr": "Le Rituel du Triangle d'Or",
+        "sr": "Ritual Zlatnog Trougla"
+      },
+      "description": {
+        "tr": "120 dakikalık kutsal bir seremonisi. Sauna -> Hamam (Kese/Köpük) -> Relax Room -> Odaya Transfer (Thai Masajı + Sıcak Kese).",
+        "en": "A 120-minute sacred ceremony. Sauna -> Hammam (Scrub/Foam) -> Relax Room -> Transfer to Room (Thai Massage + Hot Pouch).",
+        "ru": "A 120-minute sacred ceremony. Sauna -> Hammam (Scrub/Foam) -> Relax Room -> Transfer to Room (Thai Massage + Hot Pouch).",
+        "de": "Eine 120-minütige heilige Zeremonie. Sauna -> Hammam (Peeling/Schaum) -> Ruheraum -> Transfer zum Zimmer (Thai-Massage + heißer Beutel).",
+        "fr": "Une cérémonie sacrée de 120 minutes. Sauna -> Hammam (Gommage/Mousse) -> Salle de relaxation -> Transfert en chambre (Massage Thaï + Sachet chaud).",
+        "sr": "Sveta ceremonija od 120 minuta. Sauna -> Hamam (Piling/Pena) -> Soba za opuštanje -> Transfer u sobu (Tajlandska masaža + Topla kesica)."
+      },
+      "benefit": {
+        "tr": "Tam kapsamlı, 4 aşamalı arınma yolculuğu.",
+        "en": "Full scope, 4-stage purification journey.",
+        "ru": "Full scope, 4-stage purification journey.",
+        "de": "Umfassende, 4-stufige Reinigungsreise.",
+        "fr": "Voyage de purification complet en 4 étapes.",
+        "sr": "Sveobuhvatno, putovanje pročišćenja u 4 faze."
+      },
+      "usage": {
+        "tr": "Toplam 120 Dk • Full Spa Deneyimi",
+        "en": "Total 120 Min • Full Spa Experience",
+        "ru": "Total 120 Min • Full Spa Experience",
+        "de": "Gesamt 120 Min • Volles Spa-Erlebnis",
+        "fr": "Total 120 min • Expérience Spa complète",
+        "sr": "Ukupno 120 min • Potpuno Spa iskustvo"
+      },
+      "price": {
+        "tr": "Bilgi Al",
+        "en": "Get Info",
+        "ru": "Get Info",
+        "de": "Info erhalten",
+        "fr": "Obtenir des infos",
+        "sr": "Dobiti informacije"
+      },
+      "badge": "RITUAL"
+    },
+    "assets": {
+      "hero": "santis_card_hammam_v1.png",
+      "gallery": []
+    }
+  },
+  {
+    "id": "ayur-abhyanga",
+    "categoryId": "massage-ayur",
+    "order": 14,
+    "slug": {
+      "tr": "abhyanga-masaji",
+      "en": "abhyanga-massage",
+      "ru": "abhyanga-massage",
+      "de": "abhyanga-massage",
+      "fr": "massage-abhyanga",
+      "sr": "abhyanga-masaza"
+    },
+    "meta": {
+      "title": {
+        "tr": "Abhyanga Masajı | Santis Club",
+        "en": "Abhyanga Massage | Santis Club",
+        "ru": "Abhyanga Massage | Santis Club",
+        "de": "Abhyanga-Massage | Santis Club",
+        "fr": "Massage Abhyanga | Santis Club",
+        "sr": "Abhyanga Masaža | Santis Club"
+      },
+      "desc": {
+        "tr": "Kerala geleneğinde 'kutsanma' ritüeli. Vücut sıcaklığındaki bol bitkisel yağ ile yapılan ritmik masaj.",
+        "en": "'Anointing' ritual in Kerala tradition. Rhythmic massage with plenty of herbal oil at body temperature.",
+        "ru": "'Anointing' ritual in Kerala tradition. Rhythmic massage with plenty of herbal oil at body temperature.",
+        "de": "'Salbungs'-Ritual in der Tradition von Kerala. Rhythmische Massage mit reichlich Kräuteröl auf Körpertemperatur.",
+        "fr": "Rituel d''onction' dans la tradition du Kerala. Massage rythmé avec beaucoup d'huile végétale à température corporelle.",
+        "sr": "Ritual 'pomazanja' u tradiciji Kerale. Ritmička masaža sa puno biljnog ulja na temperaturi tela."
+      }
+    },
+    "content": {
+      "title": {
+        "tr": "Abhyanga Masajı",
+        "en": "Abhyanga Massage",
+        "ru": "Abhyanga Massage",
+        "de": "Abhyanga-Massage",
+        "fr": "Massage Abhyanga",
+        "sr": "Abhyanga Masaža"
+      },
+      "description": {
+        "tr": "Kerala geleneğinde 'kutsanma' ritüeli. Vücut sıcaklığındaki (38°C) bol bitkisel yağ, 7 farklı pozisyonda ritmik hareketlerle uygulanır.",
+        "en": "'Anointing' ritual in Kerala tradition. Plenty of herbal oil at body temperature (38°C) is applied with rhythmic movements in 7 different positions.",
+        "ru": "'Anointing' ritual in Kerala tradition. Plenty of herbal oil at body temperature (38°C) is applied with rhythmic movements in 7 different positions.",
+        "de": "'Salbungs'-Ritual in der Tradition von Kerala. Reichlich Kräuteröl auf Körpertemperatur (38°C) wird in 7 verschiedenen Positionen mit rhythmischen Bewegungen aufgetragen.",
+        "fr": "Rituel d''onction' dans la tradition du Kerala. Beaucoup d'huile végétale à température corporelle (38°C) est appliquée avec des mouvements rythmés dans 7 positions différentes.",
+        "sr": "Ritual 'pomazanja' u tradiciji Kerale. Puno biljnog ulja na temperaturi tela (38°C) nanosi se ritmičkim pokretima u 7 različitih položaja."
+      },
+      "benefit": {
+        "tr": "Lenfatik dolaşımı açar, cildi derinlemesine besler.",
+        "en": "Opens lymphatic circulation, deeply nourishes the skin.",
+        "ru": "Opens lymphatic circulation, deeply nourishes the skin.",
+        "de": "Öffnet den Lymphkreislauf, pflegt die Haut tiefgehend.",
+        "fr": "Ouvre la circulation lymphatique, nourrit la peau en profondeur.",
+        "sr": "Otvara limfnu cirkulaciju, dubinski hrani kožu."
+      },
+      "usage": {
+        "tr": "Dosha'nıza özel ılık yağ ile (Vata/Pitta/Kapha)",
+        "en": "With warm oil specific to your Dosha (Vata/Pitta/Kapha)",
+        "ru": "With warm oil specific to your Dosha (Vata/Pitta/Kapha)",
+        "de": "Mit warmem Öl speziell für Ihr Dosha (Vata/Pitta/Kapha)",
+        "fr": "Avec de l'huile chaude spécifique à votre Dosha (Vata/Pitta/Kapha)",
+        "sr": "Sa toplim uljem specifičnim za vašu Došu (Vata/Pitta/Kapha)"
+      },
+      "price": {
+        "tr": "Bilgi Al",
+        "en": "Get Info",
+        "ru": "Get Info",
+        "de": "Info erhalten",
+        "fr": "Obtenir des infos",
+        "sr": "Dobiti informacije"
+      },
+      "badge": "WARM OIL"
+    },
+    "assets": {
+      "hero": "santis_card_massage_v1.png",
+      "gallery": []
+    }
+  },
+  {
+    "id": "ayur-shiro",
+    "categoryId": "massage-ayur",
+    "order": 15,
+    "slug": {
+      "tr": "shirodhara",
+      "en": "shirodhara-mind-flow",
+      "ru": "shirodhara-mind-flow",
+      "de": "shirodhara-geistesfluss",
+      "fr": "shirodhara-flux-esprit",
+      "sr": "shirodhara-tok-uma"
+    },
+    "meta": {
+      "title": {
+        "tr": "Shirodhara (Zihin Akışı) | Santis Club",
+        "en": "Shirodhara (Mind Flow) | Santis Club",
+        "ru": "Shirodhara (Mind Flow) | Santis Club",
+        "de": "Shirodhara (Geistesfluss) | Santis Club",
+        "fr": "Shirodhara (Flux de l'Esprit) | Santis Club",
+        "sr": "Shirodhara (Tok Uma) | Santis Club"
+      },
+      "desc": {
+        "tr": "Zihni susturan 'İlahi Akış'. Alnınızdaki 3. Göz noktasına ılık susam yağının ritmik olarak akıtılmasıdır.",
+        "en": "'Divine Flow' that silences the mind. Rhythmic pouring of warm sesame oil on the 3rd Eye point on your forehead.",
+        "ru": "'Divine Flow' that silences the mind. Rhythmic pouring of warm sesame oil on the 3rd Eye point on your forehead.",
+        "de": "'Göttlicher Fluss', der den Geist zum Schweigen bringt. Rhythmisches Gießen von warmem Sesamöl auf das 3. Auge auf Ihrer Stirn.",
+        "fr": "'Flux Divin' qui fait taire l'esprit. Versement rythmé d'huile de sésame chaude sur le point du 3ème Œil sur votre front.",
+        "sr": "'Božanski Tok' koji ućutkuje um. Ritmičko sipanje toplog susamovog ulja na tačku 3. Oka na vašem čelu."
+      }
+    },
+    "content": {
+      "title": {
+        "tr": "Shirodhara (Zihin Akışı)",
+        "en": "Shirodhara (Mind Flow)",
+        "ru": "Shirodhara (Mind Flow)",
+        "de": "Shirodhara (Geistesfluss)",
+        "fr": "Shirodhara (Flux de l'Esprit)",
+        "sr": "Shirodhara (Tok Uma)"
+      },
+      "description": {
+        "tr": "Zihni susturan 'İlahi Akış'. Alnınızdaki 3. Göz noktasına ılık susam yağının, sarkaç hareketiyle (Oscillation) ritmik olarak akıtılmasıdır.",
+        "en": "'Divine Flow' that silences the mind. It is the rhythmic pouring of warm sesame oil on the 3rd Eye point on your forehead with a pendulum movement (Oscillation).",
+        "ru": "'Divine Flow' that silences the mind. It is the rhythmic pouring of warm sesame oil on the 3rd Eye point on your forehead with a pendulum movement (Oscillation).",
+        "de": "'Göttlicher Fluss', der den Geist zum Schweigen bringt. Es ist das rhythmische Gießen von warmem Sesamöl auf das 3. Auge auf Ihrer Stirn mit einer Pendelbewegung (Oszillation).",
+        "fr": "'Flux Divin' qui fait taire l'esprit. C'est le versement rythmé d'huile de sésame chaude sur le point du 3ème Œil sur votre front avec un mouvement pendulaire (Oscillation).",
+        "sr": "'Božanski Tok' koji ućutkuje um. To je ritmičko sipanje toplog susamovog ulja na tačku 3. Oka na vašem čelu sa pokretom klatna (Oscilacija)."
+      },
+      "benefit": {
+        "tr": "Uykusuzluk, stres ve anksiyete için en güçlü terapi.",
+        "en": "Most powerful therapy for insomnia, stress and anxiety.",
+        "ru": "Most powerful therapy for insomnia, stress and anxiety.",
+        "de": "Stärkste Therapie bei Schlaflosigkeit, Stress und Angstzuständen.",
+        "fr": "La thérapie la plus puissante pour l'insomnie, le stress et l'anxiété.",
+        "sr": "Najmoćnija terapija za nesanicu, stres i anksioznost."
+      },
+      "usage": {
+        "tr": "Susam Yağı & Sessizlik Protokolü",
+        "en": "Sesame Oil & Silence Protocol",
+        "ru": "Sesame Oil & Silence Protocol",
+        "de": "Sesamöl & Stille-Protokoll",
+        "fr": "Huile de sésame & Protocole de silence",
+        "sr": "Susamovo ulje & Protokol tišine"
+      },
+      "price": {
+        "tr": "Bilgi Al",
+        "en": "Get Info",
+        "ru": "Get Info",
+        "de": "Info erhalten",
+        "fr": "Obtenir des infos",
+        "sr": "Dobiti informacije"
+      },
+      "badge": "3RD EYE"
+    },
+    "assets": {
+      "hero": "santis_card_shirodhara_v1.png",
+      "gallery": []
+    }
+  }
+]

@@ -1,0 +1,906 @@
+[
+  {
+    "id": "peeling_kopuk",
+    "cat": "hammam",
+    "time": 30,
+    "price": 0,
+    "name": {
+      "tr": "Peeling ve Köpük Masajı"
+    },
+    "desc": {
+      "tr": "Klasik hamam keyfi: arınma + köpük rahatlığı."
+    },
+    "slug": "peeling-kopuk-masaji"
+  },
+  {
+    "id": "kopuk_masaji",
+    "cat": "hammam",
+    "time": 30,
+    "price": 0,
+    "name": {
+      "tr": "Köpük Masajı"
+    },
+    "desc": {
+      "tr": "Yumuşak köpük dokunuşlarıyla rahatlama."
+    },
+    "slug": "kopuk-masaji"
+  },
+  {
+    "id": "kahve_peelingi",
+    "cat": "hammam",
+    "time": 30,
+    "price": 0,
+    "name": {
+      "tr": "Kahve Peelingi"
+    },
+    "desc": {
+      "tr": "Canlandırıcı peeling ile pürüzsüz his."
+    },
+    "slug": "kahve-peeling"
+  },
+  {
+    "id": "deniz_tuzu_peelingi",
+    "cat": "hammam",
+    "time": 30,
+    "price": 0,
+    "name": {
+      "tr": "Deniz Tuzu Peelingi"
+    },
+    "desc": {
+      "tr": "Mineralli peeling ile tazelik."
+    },
+    "slug": "deniz-tuzu-peelingi"
+  },
+  {
+    "id": "bal_bakimi",
+    "cat": "hammam",
+    "time": 30,
+    "price": 0,
+    "name": {
+      "tr": "Bal Bakımı"
+    },
+    "desc": {
+      "tr": "Yumuşak dokunuşlu bakım ve konfor."
+    },
+    "slug": "bal-bakimi"
+  },
+  {
+    "id": "cikolata_bakimi",
+    "cat": "hammam",
+    "time": 30,
+    "price": 0,
+    "name": {
+      "tr": "Çikolata Bakımı"
+    },
+    "desc": {
+      "tr": "Tatlı bir SPA ritüeli: bakım & keyif."
+    },
+    "slug": "cikolata-bakimi"
+  },
+  {
+    "id": "alg_bakimi",
+    "cat": "hammam",
+    "time": 30,
+    "price": 0,
+    "name": {
+      "tr": "Alg Bakımı"
+    },
+    "desc": {
+      "tr": "SPA bakımıyla yenilenmiş his."
+    },
+    "slug": "alg-bakimi"
+  },
+  {
+    "id": "osmanli_ritual",
+    "cat": "hammam",
+    "time": 50,
+    "price": 0,
+    "name": {
+      "tr": "Osmanlı Hamam Ritüeli"
+    },
+    "desc": {
+      "tr": "Geleneksel hamamın en kapsamlı deneyimi."
+    },
+    "slug": "osmanli-hamam-ritueli"
+  },
+  {
+    "id": "klasik_30",
+    "cat": "massage",
+    "time": 30,
+    "price": 0,
+    "name": {
+      "tr": "Klasik Tüm Vücut Masajı"
+    },
+    "desc": {
+      "tr": "Kısa sürede tüm vücut rahatlığı."
+    },
+    "slug": "klasik-tum-vucut-30"
+  },
+  {
+    "id": "mass_thai",
+    "cat": "massage",
+    "time": 60,
+    "price": 90,
+    "name": {
+      "tr": "Thai Masajı"
+    },
+    "desc": {
+      "tr": "Pasif yoga ile esneklik artıran kadim ritüel."
+    },
+    "slug": "thai-masaji",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_bali",
+    "cat": "massage",
+    "time": 50,
+    "price": 80,
+    "name": {
+      "tr": "Bali Masajı"
+    },
+    "desc": {
+      "tr": "Derin baskı teknikleriyle egzotik rahatlama."
+    },
+    "slug": "bali-masaji",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_shiatsu",
+    "cat": "massage",
+    "time": 50,
+    "price": 85,
+    "name": {
+      "tr": "Shiatsu Masajı"
+    },
+    "desc": {
+      "tr": "Parmak baskısıyla enerji dengesi sağlayan terapi."
+    },
+    "slug": "shiatsu-masaji",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_hotstone",
+    "cat": "massage",
+    "time": 60,
+    "price": 95,
+    "name": {
+      "tr": "Sıcak Taş Masajı"
+    },
+    "desc": {
+      "tr": "Volkanik taşlarla derin gevşeme."
+    },
+    "slug": "sicak-tas-masaji",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_trigger",
+    "cat": "massage",
+    "time": 50,
+    "price": 90,
+    "name": {
+      "tr": "Tetik Nokta Terapisi"
+    },
+    "desc": {
+      "tr": "Kronik ağrılar için nokta atışı tedavi."
+    },
+    "slug": "tetik-nokta-terapi",
+    "img": "/assets/img/cards/santis_card_deeptissue_v1.webp"
+  },
+  {
+    "id": "mass_sport",
+    "cat": "massage",
+    "time": 50,
+    "price": 90,
+    "name": {
+      "tr": "Spor Masajı"
+    },
+    "desc": {
+      "tr": "Aktif bedenler için güçlü toparlanma."
+    },
+    "slug": "spor-terapi",
+    "img": "/assets/img/cards/santis_card_deeptissue_v1.webp"
+  },
+  {
+    "id": "mass_signature",
+    "cat": "ritual",
+    "time": 90,
+    "price": 150,
+    "name": {
+      "tr": "Signature Ritüel"
+    },
+    "desc": {
+      "tr": "Santis Club'a özel tam kapsamlı deneyim."
+    },
+    "slug": "signature-rituel",
+    "img": "/assets/img/cards/santis_card_hammam_lux.webp"
+  },
+  {
+    "id": "mass_cellulite",
+    "cat": "massage",
+    "time": 40,
+    "price": 80,
+    "name": {
+      "tr": "Selülit Masajı"
+    },
+    "desc": {
+      "tr": "Kan dolaşımını hızlandıran özel teknikler."
+    },
+    "slug": "selulit-masaji",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_myofascial",
+    "cat": "massage",
+    "time": 60,
+    "price": 95,
+    "name": {
+      "tr": "Miyofasiyal Gevşetme"
+    },
+    "desc": {
+      "tr": "Bağ dokusu odaklı derin rahatlama."
+    },
+    "slug": "myofascial-release",
+    "img": "/assets/img/cards/santis_card_deeptissue_v1.webp"
+  },
+  {
+    "id": "mass_manual",
+    "cat": "massage",
+    "time": 50,
+    "price": 100,
+    "name": {
+      "tr": "Manuel Terapi"
+    },
+    "desc": {
+      "tr": "Eklem ve kas sistemine yönelik özel manipülasyonlar."
+    },
+    "slug": "manuel-terapi",
+    "img": "/assets/img/cards/santis_card_deeptissue_v1.webp"
+  },
+  {
+    "id": "mass_local_hotstone",
+    "cat": "massage",
+    "time": 30,
+    "price": 50,
+    "name": {
+      "tr": "Lokal Sıcak Taş"
+    },
+    "desc": {
+      "tr": "Bölgesel sıcak taş uygulaması."
+    },
+    "slug": "lokal-sicak-tas",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_local_deep",
+    "cat": "massage",
+    "time": 30,
+    "price": 55,
+    "name": {
+      "tr": "Lokal Derin Doku"
+    },
+    "desc": {
+      "tr": "Bölgesel yoğun kas terapisi."
+    },
+    "slug": "lokal-derin-doku",
+    "img": "/assets/img/cards/santis_card_deeptissue_v1.webp"
+  },
+  {
+    "id": "mass_lymph",
+    "cat": "massage",
+    "time": 50,
+    "price": 85,
+    "name": {
+      "tr": "Lenf Drenaj"
+    },
+    "desc": {
+      "tr": "Ödem atmayı destekleyen hafif ritmik masaj."
+    },
+    "slug": "lenf-drenaj",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_cranio",
+    "cat": "massage",
+    "time": 50,
+    "price": 95,
+    "name": {
+      "tr": "Kranyo Sakral Terapi"
+    },
+    "desc": {
+      "tr": "Kafatası ve omurga hattında derin denge."
+    },
+    "slug": "kranyo-sakral-terapi",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_anne_cocuk",
+    "cat": "massage",
+    "time": 40,
+    "price": 70,
+    "name": {
+      "tr": "Anne & Çocuk Masajı"
+    },
+    "desc": {
+      "tr": "Anne ve çocuk için özel bağ kurduran rahatlama saati."
+    },
+    "slug": "anne-cocuk-masaji",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_antistress",
+    "cat": "massage",
+    "time": 50,
+    "price": 85,
+    "name": {
+      "tr": "Anti-Stress Masajı"
+    },
+    "desc": {
+      "tr": "Günün yorgunluğunu atan hafif ve akıcı dokunuşlar."
+    },
+    "slug": "anti-stress-masaji",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "kombine-masaj",
+    "cat": "massage",
+    "time": 50,
+    "price": 95,
+    "name": {
+      "tr": "Kombine Terapi Masajı"
+    },
+    "desc": {
+      "tr": "Farklı tekniklerin kişiye özel harmanlandığı, bütünsel bir terapi deneyimi."
+    },
+    "slug": "kombine-masaj",
+    "img": "/assets/img/cards/massage.webp"
+  },
+  {
+    "id": "mass_aromatherapy",
+    "cat": "massage",
+    "time": 50,
+    "price": 90,
+    "name": {
+      "tr": "Aromaterapi Masajı"
+    },
+    "desc": {
+      "tr": "Özel bitkisel yağlarla ruhu ve bedeni dengeleyen terapi."
+    },
+    "slug": "aromaterapi-masaji",
+    "img": "/assets/img/cards/santis_card_massage_oil_v2.webp"
+  },
+  {
+    "id": "mass_head_neck",
+    "cat": "massage",
+    "time": 30,
+    "price": 50,
+    "name": {
+      "tr": "Baş, Boyun ve Omuz Masajı"
+    },
+    "desc": {
+      "tr": "Ofis yorgunluğuna birebir bölgesel rahatlama."
+    },
+    "slug": "bas-boyun-omuz-masaji",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_bronze",
+    "cat": "massage",
+    "time": 40,
+    "price": 75,
+    "name": {
+      "tr": "Bronz Masajı"
+    },
+    "desc": {
+      "tr": "Güneş sonrası cildi besleyen ve bronzluğu koruyan bakım."
+    },
+    "slug": "bronz-masaji",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_couple_ritual",
+    "cat": "ritual",
+    "time": 90,
+    "price": 180,
+    "name": {
+      "tr": "Çift Ritüeli"
+    },
+    "desc": {
+      "tr": "Çiftlere özel jakuzi ve masaj keyfi."
+    },
+    "slug": "cift-rituel",
+    "img": "/assets/img/cards/santis_card_hammam_lux.webp"
+  },
+  {
+    "id": "mass_couple_sync",
+    "cat": "massage",
+    "time": 60,
+    "price": 160,
+    "name": {
+      "tr": "Çift Senkron Masajı"
+    },
+    "desc": {
+      "tr": "Aynı anda, aynı ritimle uygulanan senkronize masaj deneyimi."
+    },
+    "slug": "cift-senkron-masaji",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_deep_tissue",
+    "cat": "massage",
+    "time": 50,
+    "price": 95,
+    "name": {
+      "tr": "Derin Doku Masajı"
+    },
+    "desc": {
+      "tr": "Kasların derin katmanlarına inen yoğun baskılı terapi."
+    },
+    "slug": "derin-doku-masaji",
+    "img": "/assets/img/cards/santis_card_deeptissue_v1.webp"
+  },
+  {
+    "id": "mass_swedish_full",
+    "cat": "massage",
+    "time": 60,
+    "price": 85,
+    "name": {
+      "tr": "İsveç Full Body"
+    },
+    "desc": {
+      "tr": "Klasik İsveç tekniği ile tüm vücut rahatlaması."
+    },
+    "slug": "isvec-full-body",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_kids_gentle",
+    "cat": "massage",
+    "time": 30,
+    "price": 45,
+    "name": {
+      "tr": "Kids Nazik Masajı"
+    },
+    "desc": {
+      "tr": "Çocuklar için özel geliştirilmiş yumuşak dokunuşlar."
+    },
+    "slug": "kids-nazik-masaji",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_classic_relax",
+    "cat": "massage",
+    "time": 50,
+    "price": 80,
+    "name": {
+      "tr": "Klasik Masaj"
+    },
+    "desc": {
+      "tr": "Geleneksel rahatlama teknikleri."
+    },
+    "slug": "klasik-masaj",
+    "img": "/assets/img/cards/santis_card_massage_v1.webp"
+  },
+  {
+    "id": "mass_classic_back",
+    "cat": "massage",
+    "time": 30,
+    "price": 50,
+    "name": {
+      "tr": "Klasik Sırt Masajı"
+    },
+    "desc": {
+      "tr": "Sırt ağrlarına odaklanan klasik terapi."
+    },
+    "slug": "klasik-sirt",
+    "img": "/assets/img/cards/santis_card_deeptissue_v1.webp"
+  },
+  {
+    "id": "ayak_refleks",
+    "cat": "massage",
+    "time": 30,
+    "price": 0,
+    "name": {
+      "tr": "Ayak Refleksoloji Masajı"
+    },
+    "desc": {
+      "tr": "Ayak odaklı rahatlama ve hafiflik hissi."
+    },
+    "slug": "ayak-refleksoloji"
+  },
+  {
+    "id": "sirt_masaji",
+    "cat": "massage",
+    "time": 30,
+    "price": 0,
+    "name": {
+      "tr": "Sırt Masajı"
+    },
+    "desc": {
+      "tr": "Omuz–boyun–sırt odaklı hızlı rahatlama."
+    },
+    "slug": "sirt-terapi-masaji",
+    "img": "/assets/img/cards/santis_card_deeptissue_v1.webp"
+  },
+  {
+    "id": "klasik_50",
+    "cat": "massage",
+    "time": 50,
+    "price": 0,
+    "name": {
+      "tr": "Klasik Masaj"
+    },
+    "desc": {
+      "tr": "Klasik dokunuşlarla dengeli rahatlama."
+    },
+    "slug": "klasik-masaj-50"
+  },
+  {
+    "id": "anti_stres",
+    "cat": "massage",
+    "time": 50,
+    "price": 0,
+    "name": {
+      "tr": "Anti-Stres Masajı"
+    },
+    "desc": {
+      "tr": "Zihni boşaltan, rahatlatıcı seans."
+    },
+    "slug": "anti-stres-masaji-50"
+  },
+  {
+    "id": "aroma_50",
+    "cat": "massage",
+    "time": 50,
+    "price": 0,
+    "name": {
+      "tr": "Aroma Masajı"
+    },
+    "desc": {
+      "tr": "Aromatik yağlarla daha özel bir masaj deneyimi."
+    },
+    "slug": "aroma-masaji-50"
+  },
+  {
+    "id": "bronz_50",
+    "cat": "massage",
+    "time": 50,
+    "price": 0,
+    "name": {
+      "tr": "Bronzlaştırıcı Masaj"
+    },
+    "desc": {
+      "tr": "Bakım hissi yüksek, ışıltı odaklı seans."
+    },
+    "slug": "bronzlastirici-masaj-50"
+  },
+  {
+    "id": "spor_50",
+    "cat": "massage",
+    "time": 50,
+    "price": 0,
+    "name": {
+      "tr": "Spor Masajı"
+    },
+    "desc": {
+      "tr": "Aktif yaşam için toparlanma odaklı masaj."
+    },
+    "slug": "spor-masaji-50"
+  },
+  {
+    "id": "anti_selulit",
+    "cat": "massage",
+    "time": 50,
+    "price": 0,
+    "name": {
+      "tr": "Anti-Selülit Masajı"
+    },
+    "desc": {
+      "tr": "Şekillendirme hissi odaklı, daha yoğun seans."
+    },
+    "slug": "anti-selulit-masaji-50"
+  },
+  {
+    "id": "lokal_derin",
+    "cat": "extra",
+    "time": 30,
+    "price": 0,
+    "name": {
+      "tr": "Lokal Derin Doku Masajı"
+    },
+    "desc": {
+      "tr": "Tek bölgeye odaklı yoğun rahatlama."
+    },
+    "slug": "lokal-derin-doku-30"
+  },
+  {
+    "id": "lokal_sicak_tas",
+    "cat": "extra",
+    "time": 30,
+    "price": 0,
+    "name": {
+      "tr": "Lokal Sıcak Taş Masajı"
+    },
+    "desc": {
+      "tr": "Sıcak taşla tek bölgeye konfor."
+    },
+    "slug": "lokal-sicak-tas-30"
+  },
+  {
+    "id": "manuel_30",
+    "cat": "extra",
+    "time": 30,
+    "price": 0,
+    "name": {
+      "tr": "Manuel Masaj"
+    },
+    "desc": {
+      "tr": "Terapistin özel dokunuşlarıyla hedefli seans."
+    },
+    "slug": "manuel-masaj-30"
+  },
+  {
+    "id": "sicak_tas_50",
+    "cat": "extra",
+    "time": 50,
+    "price": 0,
+    "name": {
+      "tr": "Sıcak Taş Masajı"
+    },
+    "desc": {
+      "tr": "Sıcak taşla derin gevşeme hissi."
+    },
+    "slug": "sicak-tas-masaji-50"
+  },
+  {
+    "id": "derin_doku_50",
+    "cat": "extra",
+    "time": 50,
+    "price": 0,
+    "name": {
+      "tr": "Derin Doku Masajı"
+    },
+    "desc": {
+      "tr": "Terapötik hissi yüksek, yoğun masaj."
+    },
+    "slug": "derin-doku-masaji-50"
+  },
+  {
+    "id": "lenf_drenaj",
+    "cat": "extra",
+    "time": 50,
+    "price": 0,
+    "name": {
+      "tr": "Lenf Drenaj Masajı"
+    },
+    "desc": {
+      "tr": "Hafif dokunuşlarla rahatlatıcı bakım seansı."
+    },
+    "slug": "lenf-drenaj-masaji-50"
+  },
+  {
+    "id": "kombine_50",
+    "cat": "extra",
+    "time": 50,
+    "price": 0,
+    "name": {
+      "tr": "Kombine Masaj"
+    },
+    "desc": {
+      "tr": "Tek seansta birden fazla tekniğin dengesi."
+    },
+    "slug": "kombine-masaj-50"
+  },
+  {
+    "id": "kombi_90",
+    "cat": "extra",
+    "time": 90,
+    "price": 0,
+    "name": {
+      "tr": "Kombinasyon Masajı"
+    },
+    "desc": {
+      "tr": "90 dakikalık tam kapsam: premium rahatlama."
+    },
+    "slug": "kombinasyon-masaji-tum-vucut-90"
+  },
+  {
+    "id": "mix_manuel_90",
+    "cat": "extra",
+    "time": 90,
+    "price": 0,
+    "name": {
+      "tr": "Mix Manuel Terapi"
+    },
+    "desc": {
+      "tr": "En premium terapi: kişiye özel 90 dk."
+    },
+    "slug": "mix-manuel-terapi-90"
+  },
+  {
+    "id": "401",
+    "cat": "skincare",
+    "time": 30,
+    "price": 0,
+    "name": {
+      "tr": "Sothys Organics® Işıltı Bakımı",
+      "en": "Sothys Organics® Organic Certified Radiance Treatment",
+      "de": "Sothys Organics® Bio-Radiance Behandlung",
+      "fr": "Sothys Organics® Soin éclat certifié bio",
+      "ru": "Sothys Organics® Органический уход «Сияние»"
+    },
+    "desc": {
+      "tr": "Anında ışıltı. Tüm cilt tipleri (hassas dahil)."
+    },
+    "slug": "401"
+  },
+  {
+    "id": "402",
+    "cat": "skincare",
+    "time": 45,
+    "price": 0,
+    "name": {
+      "tr": "Sothys Seasonal Oksijenlendirici Bakım",
+      "en": "Sothys Seasonal Oxygenating Treatment",
+      "de": "Sothys Seasonal Oxygenating Behandlung",
+      "fr": "Sothys Soin saisonnier oxygénant",
+      "ru": "Sothys Сезонный кислородный уход"
+    },
+    "desc": {
+      "tr": "Mevsimsel canlandırma: peeling + maske + rahatlatıcı modelaj."
+    },
+    "slug": "402"
+  },
+  {
+    "id": "403",
+    "cat": "skincare",
+    "time": 50,
+    "price": 0,
+    "name": {
+      "tr": "Spa™ Termal Su ile Yatıştırıcı Bakım",
+      "en": "Soothing Professional Treatment with Spa™ Thermal Water",
+      "de": "Beruhigende Profi-Behandlung mit Spa™ Thermalwasser",
+      "fr": "Soin professionnel apaisant à l’Eau Thermale Spa™",
+      "ru": "Успокаивающий профессиональный уход со Spa™ термальной водой"
+    },
+    "desc": {
+      "tr": "Konfor ve sakinlik odaklı; hassasiyete nazik yaklaşım."
+    },
+    "slug": "403"
+  },
+  {
+    "id": "404",
+    "cat": "skincare",
+    "time": 45,
+    "price": 0,
+    "name": {
+      "tr": "Sothys Cryo Eye Profesyonel Göz Bakımı",
+      "en": "Sothys Cryo Eye Professional Treatment",
+      "de": "Sothys Cryo Eye Profi-Augenbehandlung",
+      "fr": "Sothys Soin professionnel Cryo Yeux",
+      "ru": "Sothys Профессиональный Cryo-уход для глаз"
+    },
+    "desc": {
+      "tr": "Göz çevresinde ferahlık ve daha dinlenmiş görünüm."
+    },
+    "slug": "404"
+  },
+  {
+    "id": "405",
+    "cat": "skincare",
+    "time": 75,
+    "price": 0,
+    "name": {
+      "tr": "Hydra Hyaluronic Acid4 (Yoğun Nem Bakımı)",
+      "en": "Hydrating Intensive Treatment (Hydra Hyaluronic Acid4)",
+      "de": "Hydrating Intensive Behandlung (Hydra Hyaluronic Acid4)",
+      "fr": "Soin intensif hydratant (Hydra Hyaluronic Acid4)",
+      "ru": "Интенсивное увлажнение (Hydra Hyaluronic Acid4)"
+    },
+    "desc": {
+      "tr": "6 aşamalı yoğun nem; dolgunluk ve tazelik hissi."
+    },
+    "slug": "405"
+  },
+  {
+    "id": "406",
+    "cat": "skincare",
+    "time": 75,
+    "price": 0,
+    "name": {
+      "tr": "Detox Energie™ Yoğun Bakım",
+      "en": "Detox Energie™ Intensive Treatment",
+      "de": "Detox Energie™ Intensive Behandlung",
+      "fr": "Soin intensif Detox Energie™",
+      "ru": "Detox Energie™ Интенсивный уход"
+    },
+    "desc": {
+      "tr": "Enerji desteği ve ‘depolluted’ görünüm odağı."
+    },
+    "slug": "406"
+  },
+  {
+    "id": "407",
+    "cat": "skincare",
+    "time": 75,
+    "price": 0,
+    "name": {
+      "tr": "Glow Defense Yoğun Bakım",
+      "en": "Glow Defense Intensive Treatment",
+      "de": "Glow Defense Intensive Behandlung",
+      "fr": "Soin intensif Glow Defense",
+      "ru": "Glow Defense Интенсивный уход"
+    },
+    "desc": {
+      "tr": "Işıltı ve koruma odağı; şehir temposuna karşı bakım hissi."
+    },
+    "slug": "407"
+  },
+  {
+    "id": "408",
+    "cat": "skincare",
+    "time": 75,
+    "price": 0,
+    "name": {
+      "tr": "Youth Intensive (Gençlik Yoğun Bakım)",
+      "en": "Youth Intensive Treatment",
+      "de": "Youth Intensive Behandlung",
+      "fr": "Soin intensif Jeunesse",
+      "ru": "Youth Intensive — Интенсивный уход"
+    },
+    "desc": {
+      "tr": "Daha genç görünüm ve sıkılık hissi odaklı protokol."
+    },
+    "slug": "408"
+  },
+  {
+    "id": "409",
+    "cat": "skincare",
+    "time": 45,
+    "price": 0,
+    "name": {
+      "tr": "Dermo_Booster Double Peel (Çift Peeling)",
+      "en": "Dermo_Booster Double Peel Professional Treatment",
+      "de": "Dermo_Booster Double Peel Profi-Behandlung",
+      "fr": "Dermo_Booster Double Peel — Soin professionnel",
+      "ru": "Dermo_Booster Double Peel — Профессиональный уход"
+    },
+    "desc": {
+      "tr": "Enzim + asit peeling kombinasyonu (AHA/BHA/PHA)."
+    },
+    "slug": "409"
+  },
+  {
+    "id": "410",
+    "cat": "skincare",
+    "time": 45,
+    "price": 0,
+    "name": {
+      "tr": "Glysalac Pro Peel",
+      "en": "Glysalac Pro Peel Treatment",
+      "de": "Glysalac Pro Peel Behandlung",
+      "fr": "Glysalac Pro Peel",
+      "ru": "Glysalac Pro Peel"
+    },
+    "desc": {
+      "tr": "Daha pürüzsüz doku ve daha aydınlık görünüm (normal/karma)."
+    },
+    "slug": "410"
+  },
+  {
+    "id": "411",
+    "cat": "skincare",
+    "time": 60,
+    "price": 0,
+    "name": {
+      "tr": "Professional Resurfacing Peel (Yenileyici Peeling)",
+      "en": "Professional Resurfacing Peel Treatment",
+      "de": "Professional Resurfacing Peel Behandlung",
+      "fr": "Soin peeling resurfaçant professionnel",
+      "ru": "Профессиональный Resurfacing Peel"
+    },
+    "desc": {
+      "tr": "Peel + mikrodermabrazyon yaklaşımı; daha net ve aydınlık görünüm."
+    },
+    "slug": "411"
+  }
+]

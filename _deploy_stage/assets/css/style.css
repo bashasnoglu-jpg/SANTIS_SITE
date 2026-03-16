@@ -1,0 +1,248 @@
+@charset "UTF-8";
+/* ==========================================================================
+   💎 SANTIS OS - SOVEREIGN V6 MASTER MANIFEST
+   Felsefe: Sessiz Lüks (Quiet Luxury) & Quantum Rendering
+   Durum: V5 Monolith Tamamen İmha Edildi. Sıfır Teknik Borç.
+   Yedek: _dev_archives/style.css.v5-backup
+   ========================================================================== */
+
+/* ÇEKİRDEK SİNİR SİSTEMİ BAĞLANTILARI */
+@import url('santis-v6/santis.reset.css');
+@import url('santis-v6/santis.tokens.css');
+@import url('santis-v6/santis.engines.css');
+
+/* ESTETİK VE BİLEŞENLER */
+@import url('santis-v6/santis.base.css');
+@import url('santis-v6/santis.components.css');
+@import url('santis-v6/santis.utilities.css');
+@import url('santis-v6/santis.overrides.css');
+
+/* V5 UYUMLULUK KATMANI — V6 modülleri tüm kuralları kapsayana dek aktif */
+@import url('santis-v6/santis.legacy-compat.css');
+
+@import url('media-skeleton.css');
+
+/* 
+   ⚠️ BABA YAGA PROTOKOLÜ UYARISI: 
+   BUNDAN SONRA BU DOSYAYA MANUEL STATİK CSS YAZILMASI KESİNLİKLE YASAKTIR.
+   TÜM KODLAR İLGİLİ SOVEREIGN V6 MODÜLÜNDEN ÇEKİLECEKTİR. 
+*/
+/* --- Sovereign V23: Kinetik İllüzyon Motoru --- */
+
+/* 1. Sonsuz Derinlik (Paralaks): Hero Görselleri ve Arka Planlar İçin */
+.hero-image,
+.parallax-bg {
+  /* Sayfa kayarken, görsel kendi çerçevesi içinde zıt yönde (%15 oranında) daha yavaş kayar. 
+     Derinlik hissi verir. Bu işlem sadece ekran kartında (GPU) yapılır! */
+  transform: translate3d(0, calc(var(--scroll-y, 0) * 0.15px), 0) scale(1.15);
+  will-change: transform;
+  transform-origin: center;
+}
+
+/* 2. Sıvı İvme (Liquid Momentum): Matrix ve Blog Kartları İçin */
+.matrix-card,
+.santis-blog-card,
+.nv-signature-card,
+.nv-trend-card,
+.santis-card {
+  /* Kullanıcı sayfayı agresif kaydırdığında ivme (--scroll-velocity) artar, 
+     kartlar rüzgar yemiş masif bir kumaş gibi çok hafifçe esner (skew).
+     0.03deg hassas bir 'Quiet Luxury' katsayısıdır, abartıdan kaçınır. */
+  transform: skewY(calc(var(--scroll-velocity, 0) * 0.03deg));
+  will-change: transform;
+  
+  /* Kaydırma durduğunda kartların lüks bir süspansiyonla jilet gibi 0 dereceye (düz) dönmesi: */
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 3. Dinamik Cam Yansıması (Opsiyonel: Yapışkan Header İçin) */
+.santis-header.is-sticky,
+#site-header.is-sticky {
+  /* Hızlı kaydırmalarda header'ın arka plan bulanıklığı (blur) dinamik olarak artar */
+  backdrop-filter: blur(calc(10px + Math.abs(var(--scroll-velocity, 0)) * 0.1px));
+}
+
+/* --- Sovereign V21: The Ghost Concierge --- */
+.ghost-concierge-modal {
+  border: none;
+  background: transparent;
+  padding: 0;
+  max-width: 550px;
+  width: 90%;
+  margin: auto;
+  overflow: visible;
+}
+
+/* Kuantum Sisi - Lüks Cam Efekti (Native ::backdrop) */
+.ghost-concierge-modal::backdrop {
+  background: rgba(26, 26, 26, 0.4);
+  backdrop-filter: blur(0px);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ghost-concierge-modal.is-visible::backdrop {
+  backdrop-filter: blur(12px); /* Ekranı lüks bir sis kaplar */
+}
+
+/* Panel Kinematiği */
+.ghost-content {
+  position: relative;
+  background: #f4f3f1; /* "Quiet Luxury" bej zemini */
+  padding: 4rem 3rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+  
+  /* Derinlikten geliş animasyonu */
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ghost-concierge-modal.is-visible .ghost-content {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Tipografi & Butonlar */
+.ghost-eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; color: #8b7a5e; display: block; margin-bottom: 1rem; text-transform: uppercase; }
+.ghost-title { font-family: 'BrandQuietFont', serif; font-size: 1.8rem; color: #1a1a1a; margin-top: 0; margin-bottom: 1.5rem; line-height: 1.3;}
+.ghost-message { color: #555; line-height: 1.6; margin-bottom: 2.5rem; font-size: 1rem; }
+
+.ghost-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #1a1a1a;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+.ghost-close:hover { opacity: 1; }
+
+.ghost-actions { display: flex; justify-content: center; }
+.ghost-btn-primary {
+  background: #1a1a1a;
+*/
+/* --- Sovereign V23: Kinetik İllüzyon Motoru --- */
+
+/* 1. Sonsuz Derinlik (Paralaks): Hero Görselleri ve Arka Planlar İçin */
+.hero-image,
+.parallax-bg {
+  /* Sayfa kayarken, görsel kendi çerçevesi içinde zıt yönde (%15 oranında) daha yavaş kayar. 
+     Derinlik hissi verir. Bu işlem sadece ekran kartında (GPU) yapılır! */
+  transform: translate3d(0, calc(var(--scroll-y, 0) * 0.15px), 0) scale(1.15);
+  will-change: transform;
+  transform-origin: center;
+}
+
+/* 2. Sıvı İvme (Liquid Momentum): Matrix ve Blog Kartları İçin */
+.matrix-card,
+.santis-blog-card,
+.nv-signature-card,
+.nv-trend-card,
+.santis-card {
+  /* Kullanıcı sayfayı agresif kaydırdığında ivme (--scroll-velocity) artar, 
+     kartlar rüzgar yemiş masif bir kumaş gibi çok hafifçe esner (skew).
+     0.03deg hassas bir 'Quiet Luxury' katsayısıdır, abartıdan kaçar. */
+  transform: skewY(calc(var(--scroll-velocity, 0) * 0.03deg));
+  will-change: transform;
+  
+  /* Kaydırma durduğunda kartların lüks bir süspansiyonla jilet gibi 0 dereceye (düz) dönmesi: */
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 3. Dinamik Cam Yansıması (Opsiyonel: Yapışkan Header İçin) */
+.santis-header.is-sticky,
+#site-header.is-sticky {
+  /* Hızlı kaydırmalarda header'ın arka plan bulanıklığı (blur) dinamik olarak artar */
+  backdrop-filter: blur(calc(10px + Math.abs(var(--scroll-velocity, 0)) * 0.1px));
+}
+
+/* --- Sovereign V21: The Ghost Concierge --- */
+.ghost-concierge-modal {
+  border: none;
+  background: transparent;
+  padding: 0;
+  max-width: 550px;
+  width: 90%;
+  margin: auto;
+  overflow: visible;
+}
+
+/* Kuantum Sisi - Lüks Cam Efekti (Native ::backdrop) */
+.ghost-concierge-modal::backdrop {
+  background: rgba(26, 26, 26, 0.4);
+  backdrop-filter: blur(0px);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ghost-concierge-modal.is-visible::backdrop {
+  backdrop-filter: blur(12px); /* Ekranı lüks bir sis kaplar */
+}
+
+/* Panel Kinematiği */
+.ghost-content {
+  position: relative;
+  background: #f4f3f1; /* "Quiet Luxury" bej zemini */
+  padding: 4rem 3rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+  
+  /* Derinlikten geliş animasyonu */
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ghost-concierge-modal.is-visible .ghost-content {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Tipografi & Butonlar */
+.ghost-eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; color: #8b7a5e; display: block; margin-bottom: 1rem; text-transform: uppercase; }
+.ghost-title { font-family: 'BrandQuietFont', serif; font-size: 1.8rem; color: #1a1a1a; margin-top: 0; margin-bottom: 1.5rem; line-height: 1.3;}
+.ghost-message { color: #555; line-height: 1.6; margin-bottom: 2.5rem; font-size: 1rem; }
+
+.ghost-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #1a1a1a;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+.ghost-close:hover { opacity: 1; }
+
+.ghost-actions { display: flex; justify-content: center; }
+.ghost-btn-primary {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 1rem 2.5rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+.ghost-btn-primary:hover { background: #333; }
+
+/* --- Sovereign V24: Magnetic Physics --- */
+.santis-magnetic {
+  display: inline-flex;
+  will-change: transform;
+  /* İmleç ayrıldığında devreye giren lüks geri dönüş süspansiyonu */
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.santis-magnetic:hover {
+  /* SİHİRLİ DOKUNUŞ: Fare üzerindeyken transition iptal edilir ki imlece anında, 0 gecikmeyle (120Hz) yapışsın */
+  transition: none; 
+}

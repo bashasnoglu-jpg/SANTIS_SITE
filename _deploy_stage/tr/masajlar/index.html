@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="tr" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Santis Sovereign | Omni-OS V18</title>
+
+    <link rel="preconnect" href="https://santisclub.com" crossorigin>
+    <link rel="dns-prefetch" href="https://santisclub.com">
+
+    <style>
+        :root { --vanta-black: #050505; --liquid-gold: #d4af37; }
+        body { margin: 0; padding: 0; background-color: var(--vanta-black); color: #fff; font-family: 'Playfair Display', serif; overflow-x: hidden; }
+        
+        /* CLS (Düzen Kayması) önleyici iskeletler */
+        .santis-header-ghost { height: 80px; width: 100%; position: absolute; top: 0; z-index: 9999; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
+        .santis-hero-skeleton { position: relative; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--vanta-black); z-index: 1;}
+        .santis-hero-skeleton img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.8; z-index: 0; }
+        
+        /* Worker'ın kartları basacağı Arena (İlk başta karanlıkta) */
+        .santis-matrix-container { min-height: 50vh; padding: 4rem 5vw; position: relative; z-index: 2; opacity: 0; transition: opacity 0.8s ease; }
+    </style>
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/modules/cards.css">
+    <link rel="stylesheet" href="/assets/css/category-listing.css">
+    <noscript><link rel="stylesheet" href="/assets/css/style.css"></noscript>
+
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
+</head>
+
+<body data-page="massage">
+
+    <canvas id="santis-god-canvas" style="position:fixed; inset:0; width:100vw; height:100vh; pointer-events:none; z-index:0;"></canvas>
+
+<header id="site-header" role="banner">
+  <div id="navbar-container"></div>
+</header>
+
+
+    <main id="santis-giant-lineup" class="santis-matrix-container" data-layout="grid" data-category="massage"></main>
+
+<div id="footer-container"></div>
+
+<!-- CORE SCRIPTS -->
+<script src="/assets/js/loader.js"></script>
+<script src="/assets/js/santis-nav.js"></script>
+<script src="/assets/js/santis-data-bridge.js" defer></script>
+<script type="module" src="/assets/js/core/santis-core.js"></script>
+    <script src="/assets/js/app.js" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V18 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V18_APEX_RESURRECTION"></script>
+
+<!-- MOOD ENGINE V1.0 — Smart Funnel -->
+<script src="/assets/js/ui/santis-mood-engine.js" defer></script>
+
+<!-- SOVEREIGN COMMAND V1.0 — Realtime Control Receiver -->
+<script src="/assets/js/sovereign-command.js" defer></script>
+
+</body>
+</html>
+

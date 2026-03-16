@@ -1,0 +1,18 @@
+@layer overrides {
+
+    /* 
+      This layer acts as the absolute highest specificity tier in the Cascade.
+      Rules placed here will override everything else (tokens, base, components, etc.)
+      
+      USE SPARINGLY. 
+      Only for necessary Third-Party Script overrides or critical hotfixes.
+    */
+
+    /* Example placeholder for future Swiper.js or third-party iframe fixes */
+    /*
+    .swiper-button-next, .swiper-button-prev {
+        color: var(--lux-gold) !important;
+    }
+    */
+
+}

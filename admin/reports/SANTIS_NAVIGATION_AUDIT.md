@@ -1,0 +1,3713 @@
+# SANTIS MASTER OS NAVIGATION STRUCTURE AUDIT
+
+## NAVIGATION HEALTH SCORE
+**Health Score:** 0.0/100
+- **TOTAL PAGES:** 555
+- **TOTAL NAVBAR LINKS:** 54 (14 unique)
+- **ORPHAN PAGE COUNT:** 542
+- **BROKEN LINK COUNT:** 1
+
+---
+
+## CATEGORY 1 — ORPHAN PAGES (Not linked in nav)
+- **Path:** `/404.html`
+  - **Title:** Santis Club • 404
+  - **Dir:** /
+- **Path:** `/_legacy_archive/SANTIS_CAMPAIGN_PREVIEW.html`
+  - **Title:** SANTIS CAMPAIGN: THE AWAKENING (Animatic)
+  - **Dir:** /_legacy_archive
+- **Path:** `/_legacy_archive/blog-detail.html`
+  - **Title:** Blog Detay • Santis Club
+  - **Dir:** /_legacy_archive
+- **Path:** `/_legacy_archive/detail.html`
+  - **Title:** Masaj Detay • Santis Club
+  - **Dir:** /_legacy_archive
+- **Path:** `/_legacy_archive/tr/hamam/algae-ritual.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Dir:** /_legacy_archive/tr/hamam
+- **Path:** `/_legacy_archive/tr/hamam/chocolate-ritual.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Dir:** /_legacy_archive/tr/hamam
+- **Path:** `/_legacy_archive/tr/hamam/coffee-peeling.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Dir:** /_legacy_archive/tr/hamam
+- **Path:** `/_legacy_archive/tr/hamam/foam-massage.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Dir:** /_legacy_archive/tr/hamam
+- **Path:** `/_legacy_archive/tr/hamam/honey-ritual.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Dir:** /_legacy_archive/tr/hamam
+- **Path:** `/_legacy_archive/tr/hamam/jet-lag-recovery.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Dir:** /_legacy_archive/tr/hamam
+- **Path:** `/_legacy_archive/tr/hamam/ottoman-hammam-tradition.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Dir:** /_legacy_archive/tr/hamam
+- **Path:** `/_legacy_archive/tr/hamam/peeling-foam-massage.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Dir:** /_legacy_archive/tr/hamam
+- **Path:** `/_legacy_archive/tr/hamam/sea-salt-peeling.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Dir:** /_legacy_archive/tr/hamam
+- **Path:** `/_legacy_archive/tr/masajlar/detail.html`
+  - **Title:** Masaj Detay • Santis Club
+  - **Dir:** /_legacy_archive/tr/masajlar
+- **Path:** `/_legacy_archive/tr/masajlar/detay.html`
+  - **Title:** Santis Club • Detay
+  - **Dir:** /_legacy_archive/tr/masajlar
+- **Path:** `/_legacy_content/masajlar/altin-ucgen-ritueli/index.html`
+  - **Title:** Altın Üçgen Ritüeli | Santis Club
+  - **Dir:** /_legacy_content/masajlar/altin-ucgen-ritueli
+- **Path:** `/_legacy_content/masajlar/anti-stress-masaji/index.html`
+  - **Title:** Anti-Stress Masajı | Santis Club
+  - **Dir:** /_legacy_content/masajlar/anti-stress-masaji
+- **Path:** `/_legacy_content/masajlar/aromaterapi-masaji/index.html`
+  - **Title:** Aromaterapi Masajı | Santis Club
+  - **Dir:** /_legacy_content/masajlar/aromaterapi-masaji
+- **Path:** `/_legacy_content/masajlar/bronz-masaj/index.html`
+  - **Title:** Bronz Masaj (Kakao) | Santis Club
+  - **Dir:** /_legacy_content/masajlar/bronz-masaj
+- **Path:** `/_legacy_content/masajlar/klasik-isvec-masaji/index.html`
+  - **Title:** Klasik İsveç Masajı | Santis Club
+  - **Dir:** /_legacy_content/masajlar/klasik-isvec-masaji
+- **Path:** `/_legacy_content/masajlar/kraliyet-thai-masaji/index.html`
+  - **Title:** Royal Thai Masajı | Santis Club
+  - **Dir:** /_legacy_content/masajlar/kraliyet-thai-masaji
+- **Path:** `/_legacy_content/masajlar/thai-bitki-kesesi/index.html`
+  - **Title:** Thai Bitki Kesesi | Santis Club
+  - **Dir:** /_legacy_content/masajlar/thai-bitki-kesesi
+- **Path:** `/_legacy_content/masajlar/tok-sen-masaji/index.html`
+  - **Title:** Tok Sen Masajı | Santis Club
+  - **Dir:** /_legacy_content/masajlar/tok-sen-masaji
+- **Path:** `/a4/menu_master.html`
+  - **Title:** Santis Club - Master Menu 2026
+  - **Dir:** /a4
+- **Path:** `/admin-panel/dist/index.html`
+  - **Title:** admin-panel
+  - **Dir:** /admin-panel/dist
+- **Path:** `/admin-panel/index.html`
+  - **Title:** admin-panel
+  - **Dir:** /admin-panel
+- **Path:** `/admin/audit-button.html`
+  - **Title:** Sovereign God Mode | Audit & Telemetry
+  - **Dir:** /admin
+- **Path:** `/admin/audit-history.html`
+  - **Title:** Santis • Site Sağlık Trendleri
+  - **Dir:** /admin
+- **Path:** `/admin/billing-success.html`
+  - **Title:** Sovereign Upgrade — Santis Master OS
+  - **Dir:** /admin
+- **Path:** `/admin/black-room.html`
+  - **Title:** The Black Room — Santis Sovereign Analytics
+  - **Dir:** /admin
+- **Path:** `/admin/boardroom.html`
+  - **Title:** Sovereign Boardroom | Global Empire
+  - **Dir:** /admin
+- **Path:** `/admin/bookings.html`
+  - **Title:** Santis Master OS - Live Bookings
+  - **Dir:** /admin
+- **Path:** `/admin/command-center.html`
+  - **Title:** Santis Integrated Command Center
+  - **Dir:** /admin
+- **Path:** `/admin/crm.html`
+  - **Title:** Santis Master OS - AI Offers & CRM
+  - **Dir:** /admin
+- **Path:** `/admin/dashboard.html`
+  - **Title:** Santis Master OS - Dark Pulse
+  - **Dir:** /admin
+- **Path:** `/admin/gallery-upload.html`
+  - **Title:** Gallery Upload • Santis Admin
+  - **Dir:** /admin
+- **Path:** `/admin/god-mode.html`
+  - **Title:** Sovereign Command Center | God Mode
+  - **Dir:** /admin
+- **Path:** `/admin/gods-eye-vision.html`
+  - **Title:** Santis God's Eye Vision Panel
+  - **Dir:** /admin
+- **Path:** `/admin/hotels.html`
+  - **Title:** Santis Master OS - Hotels Network
+  - **Dir:** /admin
+- **Path:** `/admin/index.html`
+  - **Title:** Santis Master OS - Control Center
+  - **Dir:** /admin
+- **Path:** `/admin/login.html`
+  - **Title:** Santis Admin Giriş
+  - **Dir:** /admin
+- **Path:** `/admin/omniverse/council-arena.html`
+  - **Title:** Sovereign Council | AI Layout Debate
+  - **Dir:** /admin/omniverse
+- **Path:** `/admin/omniverse/evolution-arena.html`
+  - **Title:** Darwinian Evolution | Interface Natural Selection
+  - **Dir:** /admin/omniverse
+- **Path:** `/admin/omniverse/index.html`
+  - **Title:** Santis Omniverse — Command Center
+  - **Dir:** /admin/omniverse
+- **Path:** `/admin/omniverse/oracle-console.html`
+  - **Title:** Santis Omniverse | Oracle Console
+  - **Dir:** /admin/omniverse
+- **Path:** `/admin/pulse-simulator.html`
+  - **Title:** The Sovereign Pulse | Live Intelligence Network
+  - **Dir:** /admin
+- **Path:** `/admin/redirects.html`
+  - **Title:** Santis | Eski URL Yönlendirmeleri
+  - **Dir:** /admin
+- **Path:** `/admin/reports/SANTIS_UI_SYSTEM_OPTIMIZATION_VISUAL.html`
+  - **Title:** Santis Visual Audit | UI & System Optimization
+  - **Dir:** /admin/reports
+- **Path:** `/admin/reports/admin_panel_visual_report.html`
+  - **Title:** SANTIS MASTER OS - Panel Visual Audit
+  - **Dir:** /admin/reports
+- **Path:** `/admin/revenue.html`
+  - **Title:** Santis Master OS - Revenue Analytics
+  - **Dir:** /admin
+- **Path:** `/admin/sovereign-lab.html`
+  - **Title:** SANTIS SOVEREIGN LAB v12.2 | Pulse & Flow
+  - **Dir:** /admin
+- **Path:** `/admin/world_table.html`
+  - **Title:** SANTIS • The World Table
+  - **Dir:** /admin
+- **Path:** `/ar/cilt-bakimi/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ar/cilt-bakimi
+- **Path:** `/ar/galeri/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ar/galeri
+- **Path:** `/ar/hamam/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ar/hamam
+- **Path:** `/ar/hizmetler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ar/hizmetler
+- **Path:** `/ar/iletisim/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ar/iletisim
+- **Path:** `/ar/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ar
+- **Path:** `/ar/kurumsal/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ar/kurumsal
+- **Path:** `/ar/masajlar/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ar/masajlar
+- **Path:** `/ar/rituller/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ar/rituller
+- **Path:** `/ar/urunler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ar/urunler
+- **Path:** `/assets/html/components/footer-en.html`
+  - **Title:** Santis Club
+  - **Dir:** /assets/html/components
+- **Path:** `/assets/html/components/footer.html`
+  - **Title:** Santis Club
+  - **Dir:** /assets/html/components
+- **Path:** `/assets/html/components/navbar-en.html`
+  - **Title:** Santis Club
+  - **Dir:** /assets/html/components
+- **Path:** `/assets/html/templates/cinematic-detail-master.html`
+  - **Title:** {{TITLE}} | Santis Club
+  - **Dir:** /assets/html/templates
+- **Path:** `/bio.html`
+  - **Title:** Santis Club | Bio Links
+  - **Dir:** /
+- **Path:** `/booking.html`
+  - **Title:** Rezervasyon • Santis Club
+  - **Dir:** /
+- **Path:** `/checkout-success.html`
+  - **Title:** Ödeme Sonucu - Santis Club
+  - **Dir:** /
+- **Path:** `/checkout.html`
+  - **Title:** Sovereign Vault | Güvenli Ödeme - Santis Club
+  - **Dir:** /
+- **Path:** `/de/cilt-bakimi/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /de/cilt-bakimi
+- **Path:** `/de/galeri/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /de/galeri
+- **Path:** `/de/hamam/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /de/hamam
+- **Path:** `/de/hammam/kese-kopuk.html`
+  - **Title:** Kese Kopuk | Santis Club
+  - **Dir:** /de/hammam
+- **Path:** `/de/hammam/osmanli-ritueli.html`
+  - **Title:** Osmanli Ritueli | Santis Club
+  - **Dir:** /de/hammam
+- **Path:** `/de/hizmetler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /de/hizmetler
+- **Path:** `/de/iletisim/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /de/iletisim
+- **Path:** `/de/index.html`
+  - **Title:** Santis Club - Proceeding to Sovereign Hub...
+  - **Dir:** /de
+- **Path:** `/de/kurumsal/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /de/kurumsal
+- **Path:** `/de/masajlar/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /de/masajlar
+- **Path:** `/de/massagen/anne-cocuk.html`
+  - **Title:** Anne Cocuk | Santis Club
+  - **Dir:** /de/massagen
+- **Path:** `/de/massagen/aromaterapi.html`
+  - **Title:** Aromaterapi | Santis Club
+  - **Dir:** /de/massagen
+- **Path:** `/de/massagen/bali.html`
+  - **Title:** Bali | Santis Club
+  - **Dir:** /de/massagen
+- **Path:** `/de/massagen/cift-senkron.html`
+  - **Title:** Cift Senkron | Santis Club
+  - **Dir:** /de/massagen
+- **Path:** `/de/massagen/kids-nazik.html`
+  - **Title:** Kids Nazik | Santis Club
+  - **Dir:** /de/massagen
+- **Path:** `/de/massagen/shiatsu.html`
+  - **Title:** Shiatsu | Santis Club
+  - **Dir:** /de/massagen
+- **Path:** `/de/massagen/tetik-nokta.html`
+  - **Title:** Tetik Nokta | Santis Club
+  - **Dir:** /de/massagen
+- **Path:** `/de/massagen/thai.html`
+  - **Title:** Thai | Santis Club
+  - **Dir:** /de/massagen
+- **Path:** `/de/rituller/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /de/rituller
+- **Path:** `/de/urunler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /de/urunler
+- **Path:** `/demo/index.html`
+  - **Title:** Santis Ghost Forge v2.0 Demo
+  - **Dir:** /demo
+- **Path:** `/en/about/index.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/about
+- **Path:** `/en/blog/index.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/blog
+- **Path:** `/en/cilt-bakimi/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /en/cilt-bakimi
+- **Path:** `/en/code-of-silence.html`
+  - **Title:** Santis Club
+  - **Dir:** /en
+- **Path:** `/en/galeri/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /en/galeri
+- **Path:** `/en/gallery/index.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/gallery
+- **Path:** `/en/gift-cards/index.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/gift-cards
+- **Path:** `/en/hamam/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /en/hamam
+- **Path:** `/en/hammam/bal-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/hammam
+- **Path:** `/en/hammam/cikolata-bakimi.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/hammam
+- **Path:** `/en/hammam/index.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/hammam
+- **Path:** `/en/hammam/kahve-detox.html`
+  - **Title:** Kahve Detox | Santis Club
+  - **Dir:** /en/hammam
+- **Path:** `/en/hammam/kahve-peeling.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/hammam
+- **Path:** `/en/hammam/kese-kopuk.html`
+  - **Title:** Kese Kopuk | Santis Club
+  - **Dir:** /en/hammam
+- **Path:** `/en/hammam/kese-ve-kopuk-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/hammam
+- **Path:** `/en/hammam/kopuk-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/hammam
+- **Path:** `/en/hammam/osmanli-hamam-gelenegi.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/hammam
+- **Path:** `/en/hammam/osmanli-ritueli.html`
+  - **Title:** Osmanli Ritueli | Santis Club
+  - **Dir:** /en/hammam
+- **Path:** `/en/hammam/santis-pasa.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/hammam
+- **Path:** `/en/hammam/tuz-peeling.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/hammam
+- **Path:** `/en/hammam/yosun-bakimi.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/hammam
+- **Path:** `/en/hizmetler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /en/hizmetler
+- **Path:** `/en/iletisim/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /en/iletisim
+- **Path:** `/en/index.html`
+  - **Title:** Santis Club - Proceeding to Sovereign Hub...
+  - **Dir:** /en
+- **Path:** `/en/kurumsal/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /en/kurumsal
+- **Path:** `/en/masajlar/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /en/masajlar
+- **Path:** `/en/massages/anne-cocuk-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/anne-cocuk.html`
+  - **Title:** Anne Cocuk | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/anti-selulit.html`
+  - **Title:** Anti Selulit | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/anti-stress-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/anti-stress.html`
+  - **Title:** Anti Stress | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/aromaterapi-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/aromaterapi.html`
+  - **Title:** Aromaterapi | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/aromatherapy.html`
+  - **Title:** Aromatherapy | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/ayak-refleksoloji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/bali-aroma-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/bali-ayak-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/bali-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/bali-terapi.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/bali.html`
+  - **Title:** Bali | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/bas-boyun-omuz-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/bronz-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/cift-rituel.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/cift-senkron-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/cift-senkron.html`
+  - **Title:** Cift Senkron | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/classic-swedish.html`
+  - **Title:** Classic Swedish | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/deep-tissue.html`
+  - **Title:** Deep Tissue | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/derin-doku-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/derin-doku.html`
+  - **Title:** Derin Doku | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/index.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/isvec-full-body.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/kids-nazik-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/kids-nazik.html`
+  - **Title:** Kids Nazik | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/klasik-masaj.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/klasik-rahatlama.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/klasik-sirt.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/kombine-masaj.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/kranyo-sakral-terapi.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/kranyo-sakral.html`
+  - **Title:** Kranyo Sakral | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/lenf-drenaj.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/lokal-derin-doku.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/lokal-sicak-tas.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/manuel-terapi.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/myofascial-release.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/refleksoloji.html`
+  - **Title:** Refleksoloji | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/selulit-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/shiatsu-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/shiatsu-terapi.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/shiatsu.html`
+  - **Title:** Shiatsu | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/sicak-tas-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/sicak-tas.html`
+  - **Title:** Sicak Tas | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/signature-rituel.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/sirt-terapi-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/sirt-terapi.html`
+  - **Title:** Sirt Terapi | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/spor-terapi.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/tetik-nokta-terapi.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/tetik-nokta.html`
+  - **Title:** Tetik Nokta | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/thai-aroma-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/thai-ayak-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/thai-masaji.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/massages/thai.html`
+  - **Title:** Thai | Santis Club
+  - **Dir:** /en/massages
+- **Path:** `/en/products/detay.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/products
+- **Path:** `/en/products/index.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/products
+- **Path:** `/en/reservation/index.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/reservation
+- **Path:** `/en/rituals/index.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/rituals
+- **Path:** `/en/rituals/success.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/rituals
+- **Path:** `/en/rituller/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /en/rituller
+- **Path:** `/en/skincare/acne-balance.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/anti-aging-pro.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/barrier-repair.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/brightening-spot.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/classic-facial.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/collagen-lift.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/deep-cleanse.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/detox-charcoal.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/enzyme-peel.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/eye-contour.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/glass-skin.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/gold-mask-ritual.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/hyaluron-hydrate.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/index.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/led-rejuvenation.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/lip-care.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/men-facial.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/micro-polish.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/oxygen-boost.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/rituel-detox-lumiere.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/rituel-diamant-eternel.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/rituel-homme-classique.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/rituel-homme-equilibre.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/rituel-homme-force-calme.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/rituel-hydra-confort.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/rituel-hydra-source.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/rituel-hydra-sublime.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/rituel-jeunesse-initiale.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/rituel-jeunesse-supreme.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/rituel-purete-classique.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/rituel-purete-profonde.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/sensitive-soothe.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-acne-balance.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-anti-aging-pro.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-barrier-repair.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-brightening-spot.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-classic-facial.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-collagen-lift.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-deep-cleanse.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-detox-charcoal.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-enzyme-peel.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-eye-contour.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-glass-skin.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-gold-mask-ritual.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-hyaluron-hydrate.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-led-rejuvenation.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-lip-care.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-men-facial.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-micro-polish.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-oxygen-boost.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-sensitive-soothe.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/skin-vitamin-c-glow.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/skincare/vitamin-c-glow.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/skincare
+- **Path:** `/en/urunler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /en/urunler
+- **Path:** `/en/world-rituals/index.html`
+  - **Title:** Santis Club
+  - **Dir:** /en/world-rituals
+- **Path:** `/fr/cilt-bakimi/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /fr/cilt-bakimi
+- **Path:** `/fr/galeri/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /fr/galeri
+- **Path:** `/fr/hamam/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /fr/hamam
+- **Path:** `/fr/hammam/kese-kopuk.html`
+  - **Title:** Kese Kopuk | Santis Club
+  - **Dir:** /fr/hammam
+- **Path:** `/fr/hammam/osmanli-ritueli.html`
+  - **Title:** Osmanli Ritueli | Santis Club
+  - **Dir:** /fr/hammam
+- **Path:** `/fr/hizmetler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /fr/hizmetler
+- **Path:** `/fr/iletisim/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /fr/iletisim
+- **Path:** `/fr/index.html`
+  - **Title:** Santis Club - Proceeding to Sovereign Hub...
+  - **Dir:** /fr
+- **Path:** `/fr/kurumsal/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /fr/kurumsal
+- **Path:** `/fr/masajlar/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /fr/masajlar
+- **Path:** `/fr/rituller/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /fr/rituller
+- **Path:** `/fr/urunler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /fr/urunler
+- **Path:** `/guest-zen/index.html`
+  - **Title:** Santis | Guest Zen
+  - **Dir:** /guest-zen
+- **Path:** `/hq-dashboard/index.html`
+  - **Title:** SANTIS MASTER OS | HQ Mode v9.0
+  - **Dir:** /hq-dashboard
+- **Path:** `/kese-ve-kopuk-masaji.html`
+  - **Title:** Santis Club • Hizmet Detayı
+  - **Dir:** /
+- **Path:** `/massages/index.html`
+  - **Title:** Unknown Title
+  - **Dir:** /massages
+- **Path:** `/mvp-frontend/index.html`
+  - **Title:** Santis Club | Guest Portal
+  - **Dir:** /mvp-frontend
+- **Path:** `/print/menu_a4.html`
+  - **Title:** Santis Club - A4 Menu
+  - **Dir:** /print
+- **Path:** `/reports/dom_audit_report.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260207_180456.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_094046.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_101251.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_120051.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_120655.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_124817.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_143456.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_161058.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_161758.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_171237.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_172538.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_173539.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_174540.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_175542.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_180543.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_181544.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_182545.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_183546.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_184547.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260208_185548.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260209_054541.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260209_055044.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260209_125506.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260209_165816.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260210_071954.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260210_163733.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260210_214723.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260210_235048.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260211_001606.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260211_105447.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260211_105500.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260211_200329.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260211_203204.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260212_105819.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260212_162105.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260212_185846.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260212_212504.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260212_212607.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260214_221320.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260214_223312.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260214_223346.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260214_223400.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260214_223417.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260214_223616.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260214_223648.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260214_225016.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260214_225952.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260216_204056.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260217_100057.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260217_100206.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260218_064956.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260228_154544.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260228_163455.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260301_051620.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/reports/link_audit_report_20260301_051703.html`
+  - **Title:** Unknown Title
+  - **Dir:** /reports
+- **Path:** `/ru/cilt-bakimi/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ru/cilt-bakimi
+- **Path:** `/ru/galeri/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ru/galeri
+- **Path:** `/ru/hamam/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ru/hamam
+- **Path:** `/ru/hammam/kese-kopuk.html`
+  - **Title:** Kese Kopuk | Santis Club
+  - **Dir:** /ru/hammam
+- **Path:** `/ru/hammam/osmanli-ritueli.html`
+  - **Title:** Osmanli Ritueli | Santis Club
+  - **Dir:** /ru/hammam
+- **Path:** `/ru/hizmetler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ru/hizmetler
+- **Path:** `/ru/iletisim/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ru/iletisim
+- **Path:** `/ru/index.html`
+  - **Title:** Santis Club - Proceeding to Sovereign Hub...
+  - **Dir:** /ru
+- **Path:** `/ru/kurumsal/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ru/kurumsal
+- **Path:** `/ru/masajlar/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ru/masajlar
+- **Path:** `/ru/massages/anne-cocuk.html`
+  - **Title:** Anne Cocuk | Santis Club
+  - **Dir:** /ru/massages
+- **Path:** `/ru/massages/aromaterapi.html`
+  - **Title:** Aromaterapi | Santis Club
+  - **Dir:** /ru/massages
+- **Path:** `/ru/massages/bali.html`
+  - **Title:** Bali | Santis Club
+  - **Dir:** /ru/massages
+- **Path:** `/ru/massages/cift-senkron.html`
+  - **Title:** Cift Senkron | Santis Club
+  - **Dir:** /ru/massages
+- **Path:** `/ru/massages/kids-nazik.html`
+  - **Title:** Kids Nazik | Santis Club
+  - **Dir:** /ru/massages
+- **Path:** `/ru/massages/shiatsu.html`
+  - **Title:** Shiatsu | Santis Club
+  - **Dir:** /ru/massages
+- **Path:** `/ru/massages/tetik-nokta.html`
+  - **Title:** Tetik Nokta | Santis Club
+  - **Dir:** /ru/massages
+- **Path:** `/ru/massages/thai.html`
+  - **Title:** Thai | Santis Club
+  - **Dir:** /ru/massages
+- **Path:** `/ru/rituller/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ru/rituller
+- **Path:** `/ru/urunler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Dir:** /ru/urunler
+- **Path:** `/santis-audit/admin/audit-button.html`
+  - **Title:** Sovereign God Mode | Audit & Telemetry
+  - **Dir:** /santis-audit/admin
+- **Path:** `/santis-oracle.html`
+  - **Title:** Santis OS v100 | The Oracle Simulator
+  - **Dir:** /
+- **Path:** `/santis-pitch-deck.html`
+  - **Title:** Santis Sovereign OS | The Master Pitch
+  - **Dir:** /
+- **Path:** `/showroom.html`
+  - **Title:** Santis Club - Digital Spa Showroom
+  - **Dir:** /
+- **Path:** `/sovereign-os/audit.html`
+  - **Title:** Sovereign OS — Cognitive Yield Audit
+  - **Dir:** /sovereign-os
+- **Path:** `/sovereign-os/index.html`
+  - **Title:** Sovereign OS — Autonomous UX Evolution Engine
+  - **Dir:** /sovereign-os
+- **Path:** `/spaos-core/dist/index.html`
+  - **Title:** SpaOS | Sovereign Engine
+  - **Dir:** /spaos-core/dist
+- **Path:** `/spaos-hero-demo.html`
+  - **Title:** Santis SpaOS | Hero Expansion Module
+  - **Dir:** /
+- **Path:** `/spaos-vertical-demo.html`
+  - **Title:** Santis SpaOS | Vertical Z-Axis Stack (Kaydırma Modeli)
+  - **Dir:** /
+- **Path:** `/sr/index.html`
+  - **Title:** Santis Club - Proceeding to Sovereign Hub...
+  - **Dir:** /sr
+- **Path:** `/templates/market_expansion.html`
+  - **Title:** {{ node.title }} | Santis Club
+  - **Dir:** /templates
+- **Path:** `/templates/ritual_detail.html`
+  - **Title:** Sovereign Detail - {{RITUAL_TITLE}}
+  - **Dir:** /templates
+- **Path:** `/templates/seo-meta-template.html`
+  - **Title:** Santis Club
+  - **Dir:** /templates
+- **Path:** `/templates/service-detail.html`
+  - **Title:** {{title}} | Santis Club
+  - **Dir:** /templates
+- **Path:** `/tenant-dashboard/index.html`
+  - **Title:** Santis | Front-Desk OS (Tenant)
+  - **Dir:** /tenant-dashboard
+- **Path:** `/tools/media_matcher_ui.html`
+  - **Title:** Sovereign Media Matcher 🎬
+  - **Dir:** /tools
+- **Path:** `/tr/bilgelik/index.html`
+  - **Title:** Bilgelik Kayıtları • Santis Club
+  - **Dir:** /tr/bilgelik
+- **Path:** `/tr/blog/index.html`
+  - **Title:** Santis Journal • Blog &amp; Haberler
+  - **Dir:** /tr/blog
+- **Path:** `/tr/cilt-bakimi/acne-balance.html`
+  - **Title:** Acne Balance Therapy | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/anti-aging-pro.html`
+  - **Title:** Pro-Collagen Anti-Aging | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/barrier-repair.html`
+  - **Title:** Barrier Repair Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/brightening-spot.html`
+  - **Title:** Brightening Spot Treatment | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/classic-facial.html`
+  - **Title:** Classic Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/collagen-lift.html`
+  - **Title:** Collagen Lift Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/deep-cleanse.html`
+  - **Title:** Deep Pore Cleansing | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/detox-charcoal.html`
+  - **Title:** Charcoal Detox Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/enzyme-peel.html`
+  - **Title:** Enzyme Peel Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/eye-contour.html`
+  - **Title:** Eye Contour Treatment | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/glass-skin.html`
+  - **Title:** Glass Skin Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/gold-mask-ritual.html`
+  - **Title:** 24K Gold Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/hyaluron-hydrate.html`
+  - **Title:** Hyaluronic Acid Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/led-rejuvenation.html`
+  - **Title:** LED Light Therapy | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/lip-care.html`
+  - **Title:** Lip Care Treatment | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/men-facial.html`
+  - **Title:** Men's Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/micro-polish.html`
+  - **Title:** Microdermabrasion | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/oxygen-boost.html`
+  - **Title:** Oxygen Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/rituel-detox-lumiere.html`
+  - **Title:** Detox &amp; Brightening Ritual | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/rituel-diamant-eternel.html`
+  - **Title:** Diamond Facial Ritual | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/rituel-homme-classique.html`
+  - **Title:** Classic Men's Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/rituel-homme-equilibre.html`
+  - **Title:** Balancing Men's Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/rituel-homme-force-calme.html`
+  - **Title:** Calming Men's Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/rituel-hydra-confort.html`
+  - **Title:** Hydra-Confort Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/rituel-hydra-source.html`
+  - **Title:** Hydration Source Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/rituel-hydra-sublime.html`
+  - **Title:** Sublime Hydration Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/rituel-jeunesse-initiale.html`
+  - **Title:** Early Anti-Aging Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/rituel-jeunesse-supreme.html`
+  - **Title:** Supreme Anti-Aging Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/rituel-purete-classique.html`
+  - **Title:** Classic Purity Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/rituel-purete-profonde.html`
+  - **Title:** Deep Purity Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/sensitive-soothe.html`
+  - **Title:** Soothing Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-acne-balance.html`
+  - **Title:** Akne &amp; Sebum Denge Bakımı
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-anti-aging-pro.html`
+  - **Title:** Anti-Aging Pro Bakım
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-barrier-repair.html`
+  - **Title:** Bariyer Onarıcı Bakım
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-brightening-spot.html`
+  - **Title:** Leke Karşıtı Aydınlatıcı Bakım
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-classic-facial.html`
+  - **Title:** Klasik Cilt Bakımı
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-collagen-lift.html`
+  - **Title:** Kolajen Lifting Bakımı
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-deep-cleanse.html`
+  - **Title:** Derin Temizleme Bakımı
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-detox-charcoal.html`
+  - **Title:** Detox Kömür Maske
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-enzyme-peel.html`
+  - **Title:** Enzim Peeling Bakımı
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-eye-contour.html`
+  - **Title:** Göz Çevresi Bakımı
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-glass-skin.html`
+  - **Title:** Glass Skin Ritüeli
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-gold-mask-ritual.html`
+  - **Title:** Gold Mask Ritüeli
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-hyaluron-hydrate.html`
+  - **Title:** Hyaluron Nem Terapisi
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-led-rejuvenation.html`
+  - **Title:** LED Rejuvenation
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-lip-care.html`
+  - **Title:** Dudak Bakımı
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-men-facial.html`
+  - **Title:** Erkek Cilt Bakımı
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-micro-polish.html`
+  - **Title:** Micro Polish Bakımı
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-oxygen-boost.html`
+  - **Title:** Oksijen Boost Bakımı
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-sensitive-soothe.html`
+  - **Title:** Hassas Cilt Sakinleştirici Bakım
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/skin-vitamin-c-glow.html`
+  - **Title:** Vitamin C Glow
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/cilt-bakimi/vitamin-c-glow.html`
+  - **Title:** Vitamin C Facial | Santis Skin Care
+  - **Dir:** /tr/cilt-bakimi
+- **Path:** `/tr/ekibimiz/index.html`
+  - **Title:** Ekibimiz • Santis Club
+  - **Dir:** /tr/ekibimiz
+- **Path:** `/tr/hamam/bal-masaji.html`
+  - **Title:** Bal Masajı | Santis Club
+  - **Dir:** /tr/hamam
+- **Path:** `/tr/hamam/cikolata-bakimi.html`
+  - **Title:** Çikolata Hamam Bakımı | Santis Club
+  - **Dir:** /tr/hamam
+- **Path:** `/tr/hamam/kahve-detox.html`
+  - **Title:** Kahve Detox | Santis Club
+  - **Dir:** /tr/hamam
+- **Path:** `/tr/hamam/kahve-peeling.html`
+  - **Title:** Kahve Detox &amp; Peeling | Santis Club
+  - **Dir:** /tr/hamam
+- **Path:** `/tr/hamam/kese-kopuk.html`
+  - **Title:** Kese Kopuk | Santis Club
+  - **Dir:** /tr/hamam
+- **Path:** `/tr/hamam/kese-ve-kopuk-masaji.html`
+  - **Title:** Geleneksel Kese &amp; Köpük | Santis Club
+  - **Dir:** /tr/hamam
+- **Path:** `/tr/hamam/kopuk-masaji.html`
+  - **Title:** Sadece Köpük Masajı | Santis Club
+  - **Dir:** /tr/hamam
+- **Path:** `/tr/hamam/osmanli-hamam-gelenegi.html`
+  - **Title:** Osmanlı Ritüeli | Santis Club
+  - **Dir:** /tr/hamam
+- **Path:** `/tr/hamam/osmanli-ritueli.html`
+  - **Title:** Osmanli Ritueli | Santis Club
+  - **Dir:** /tr/hamam
+- **Path:** `/tr/hamam/santis-pasa.html`
+  - **Title:** Santis Paşa Bakımı | Santis Club
+  - **Dir:** /tr/hamam
+- **Path:** `/tr/hamam/tuz-peeling.html`
+  - **Title:** Deniz Tuzu Peeling | Santis Club
+  - **Dir:** /tr/hamam
+- **Path:** `/tr/hamam/yosun-bakimi.html`
+  - **Title:** Yosun Bakımı (Algae) | Santis Club
+  - **Dir:** /tr/hamam
+- **Path:** `/tr/handoff/success.html`
+  - **Title:** Ödeme Mühürlendi | Santis OS
+  - **Dir:** /tr/handoff
+- **Path:** `/tr/hediye-karti/index.html`
+  - **Title:** Hediye Kartı | Santis Club
+  - **Dir:** /tr/hediye-karti
+- **Path:** `/tr/hizmetler/abhyanga-masaji/index.html`
+  - **Title:** Abhyanga Masajı | Santis Club
+  - **Dir:** /tr/hizmetler/abhyanga-masaji
+- **Path:** `/tr/hizmetler/abhyanga-massage/index.html`
+  - **Title:** [DRAFT] Abhyanga Massage | Santis Club
+  - **Dir:** /tr/hizmetler/abhyanga-massage
+- **Path:** `/tr/hizmetler/brazilian-maderotherapy/index.html`
+  - **Title:** [DRAFT] Brazilian Maderotherapy | Santis Club
+  - **Dir:** /tr/hizmetler/brazilian-maderotherapy
+- **Path:** `/tr/hizmetler/g5-masaji/index.html`
+  - **Title:** G5 Vibro-Sculpting | Santis Club
+  - **Dir:** /tr/hizmetler/g5-masaji
+- **Path:** `/tr/hizmetler/g5-vibro-sculpting/index.html`
+  - **Title:** [DRAFT] G5 Vibro-Sculpting | Santis Club
+  - **Dir:** /tr/hizmetler/g5-vibro-sculpting
+- **Path:** `/tr/hizmetler/maderoterapi/index.html`
+  - **Title:** Brezilya Maderoterapisi | Santis Club
+  - **Dir:** /tr/hizmetler/maderoterapi
+- **Path:** `/tr/hizmetler/shirodhara-mind-flow/index.html`
+  - **Title:** [DRAFT] Shirodhara (Mind Flow) | Santis Club
+  - **Dir:** /tr/hizmetler/shirodhara-mind-flow
+- **Path:** `/tr/hizmetler/shirodhara/index.html`
+  - **Title:** Shirodhara (Zihin Akışı) | Santis Club
+  - **Dir:** /tr/hizmetler/shirodhara
+- **Path:** `/tr/iletisim.html`
+  - **Title:** Unknown Title
+  - **Dir:** /tr
+- **Path:** `/tr/index_backup.html`
+  - **Title:** Santis Club • Spa &amp; Wellness
+  - **Dir:** /tr
+- **Path:** `/tr/masajlar/_backup_legacy/anne-cocuk.html`
+  - **Title:** Anne-Çocuk Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/anti-selulit.html`
+  - **Title:** Anti-Selülit Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/anti-stress.html`
+  - **Title:** Anti-Stress Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/aromaterapi.html`
+  - **Title:** Aromaterapi Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/bali.html`
+  - **Title:** Bali Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/bas-boyun-omuz.html`
+  - **Title:** Baş, Boyun &amp; Omuz Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/cift-rituel.html`
+  - **Title:** Çift Ritüel Paketi | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/cift-senkron.html`
+  - **Title:** Çift Senkron Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/derin-doku.html`
+  - **Title:** Derin Doku Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/isvec-full-body.html`
+  - **Title:** İsveç Full Body Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/kids-nazik.html`
+  - **Title:** Çocuk Nazik Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/klasik-rahatlama.html`
+  - **Title:** Klasik Rahatlama Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/klasik-sirt.html`
+  - **Title:** Klasik Sırt Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/kranyo-sakral.html`
+  - **Title:** Kranyo-Sakral Terapi | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/lenf-drenaj.html`
+  - **Title:** Lenf Drenaj Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/myofascial-release.html`
+  - **Title:** Miyofasyal Gevşetme | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/refleksoloji.html`
+  - **Title:** Refleksoloji | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/shiatsu.html`
+  - **Title:** Shiatsu Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/sicak-tas.html`
+  - **Title:** Sıcak Taş Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/sirt-terapi.html`
+  - **Title:** Sırt Terapi Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/spor-terapi.html`
+  - **Title:** Spor Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/tetik-nokta.html`
+  - **Title:** Tetik Nokta Terapisi | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_legacy/thai.html`
+  - **Title:** Thai Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_legacy
+- **Path:** `/tr/masajlar/_backup_manual/anne-cocuk.html`
+  - **Title:** Anne–Çocuk Rahatlama | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/anti-selulit.html`
+  - **Title:** Anti-Selülit Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/anti-stress.html`
+  - **Title:** Anti-Stress Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/aromaterapi.html`
+  - **Title:** Aromaterapi Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/bali.html`
+  - **Title:** Geleneksel Bali Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/bas-boyun-omuz.html`
+  - **Title:** Baş–Boyun–Omuz Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/cift-rituel.html`
+  - **Title:** Çift Spa Ritüeli (Masaj + Bakım) | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/cift-senkron.html`
+  - **Title:** Çift Masajı (Senkron) | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/derin-doku.html`
+  - **Title:** Derin Doku (Deep Tissue) | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/isvec-full-body.html`
+  - **Title:** İsveç Masajı (Full Body) | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/kids-nazik.html`
+  - **Title:** Kids Masajı (Nazik Dokunuş) | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/klasik-rahatlama.html`
+  - **Title:** Klasik Rahatlama Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/klasik-sirt.html`
+  - **Title:** Klasik Sırt Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/kranyo-sakral.html`
+  - **Title:** Kraniyo-Sakral Terapi | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/lenf-drenaj.html`
+  - **Title:** Manuel Lenf Drenajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/myofascial-release.html`
+  - **Title:** Miyofasyal Gevşetme (MFR) | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/refleksoloji.html`
+  - **Title:** Refleksoloji (Ayak Masajı) | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/shiatsu.html`
+  - **Title:** Shiatsu | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/sicak-tas.html`
+  - **Title:** Sıcak Taş Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/signature-rituel.html`
+  - **Title:** Signature Santis Ritüeli | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/sirt-terapi.html`
+  - **Title:** Sırt Odaklı Terapi | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/spor-terapi.html`
+  - **Title:** Spor Terapi Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/tetik-nokta.html`
+  - **Title:** Tetik Nokta Terapi (Trigger Point) | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/_backup_manual/thai.html`
+  - **Title:** Thai Masajı | Santis Club
+  - **Dir:** /tr/masajlar/_backup_manual
+- **Path:** `/tr/masajlar/abhyanga-massage/index.html`
+  - **Title:** [DRAFT] Abhyanga-Massage | Santis Club
+  - **Dir:** /tr/masajlar/abhyanga-massage
+- **Path:** `/tr/masajlar/anne-cocuk-masaji.html`
+  - **Title:** Anne-Çocuk Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/anti-stress-masaji.html`
+  - **Title:** Anti-Stress Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/anti-stress-massage/index.html`
+  - **Title:** [DRAFT] Anti-Stress Massage | Santis Club
+  - **Dir:** /tr/masajlar/anti-stress-massage
+- **Path:** `/tr/masajlar/aromaterapi-masaji.html`
+  - **Title:** Aromaterapi Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/aromaterapi.html`
+  - **Title:** Aromaterapi | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/aromatherapie-massage/index.html`
+  - **Title:** [DRAFT] Aromatherapie-Massage | Santis Club
+  - **Dir:** /tr/masajlar/aromatherapie-massage
+- **Path:** `/tr/masajlar/aromatherapy-massage/index.html`
+  - **Title:** [DRAFT] Aromatherapy Massage | Santis Club
+  - **Dir:** /tr/masajlar/aromatherapy-massage
+- **Path:** `/tr/masajlar/ayak-refleksoloji.html`
+  - **Title:** Refleksoloji | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/bali-aroma-masaji.html`
+  - **Title:** Unknown Title
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/bali-ayak-masaji.html`
+  - **Title:** Unknown Title
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/bali-masaji.html`
+  - **Title:** Unknown Title
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/bali-terapi.html`
+  - **Title:** Bali Terapi | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/bas-boyun-omuz-masaji.html`
+  - **Title:** Baş, Boyun &amp; Omuz Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/bronz-masaji.html`
+  - **Title:** Bronz Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/bronze-massage/index.html`
+  - **Title:** [DRAFT] Bronze Massage (Cocoa) | Santis Club
+  - **Dir:** /tr/masajlar/bronze-massage
+- **Path:** `/tr/masajlar/cift-rituel.html`
+  - **Title:** Çift Ritüel Paketi | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/cift-senkron-masaji.html`
+  - **Title:** Çift Senkron Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/classic-swedish-massage/index.html`
+  - **Title:** [DRAFT] Classic Swedish Massage | Santis Club
+  - **Dir:** /tr/masajlar/classic-swedish-massage
+- **Path:** `/tr/masajlar/derin-doku-masaji.html`
+  - **Title:** Derin Doku Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/derin-doku.html`
+  - **Title:** Derin Doku | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/golden-triangle-ritual/index.html`
+  - **Title:** [DRAFT] The Golden Triangle Ritual | Santis Club
+  - **Dir:** /tr/masajlar/golden-triangle-ritual
+- **Path:** `/tr/masajlar/isvec-full-body.html`
+  - **Title:** İsveç Full Body Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/kids-nazik-masaji.html`
+  - **Title:** Çocuk Nazik Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/klasik-isvec-masaji/index.html`
+  - **Title:** [DRAFT] Klasik İsveç Masajı | Santis Club
+  - **Dir:** /tr/masajlar/klasik-isvec-masaji
+- **Path:** `/tr/masajlar/klasik-masaj.html`
+  - **Title:** Klasik Rahatlama Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/klasik-rahatlama.html`
+  - **Title:** Klasik Rahatlama | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/klasik-sirt.html`
+  - **Title:** Klasik Sırt Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/klassische-schwedische-massage/index.html`
+  - **Title:** [DRAFT] Klassische Schwedische Massage | Santis Club
+  - **Dir:** /tr/masajlar/klassische-schwedische-massage
+- **Path:** `/tr/masajlar/kombine-masaj.html`
+  - **Title:** Kombine Terapi Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/kraliyet-thai-masaji/index.html`
+  - **Title:** [DRAFT] Royal Thai Masajı | Santis Club
+  - **Dir:** /tr/masajlar/kraliyet-thai-masaji
+- **Path:** `/tr/masajlar/kranyo-sakral-terapi.html`
+  - **Title:** Kranyo-Sakral Terapi | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/lenf-drenaj.html`
+  - **Title:** Lenf Drenaj Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/lokal-derin-doku.html`
+  - **Title:** Lokal Derin Doku Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/lokal-sicak-tas.html`
+  - **Title:** Lokal Sıcak Taş Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/maderotherapie-bresilienne/index.html`
+  - **Title:** [DRAFT] Madérothérapie Brésilienne | Santis Club
+  - **Dir:** /tr/masajlar/maderotherapie-bresilienne
+- **Path:** `/tr/masajlar/manuel-terapi.html`
+  - **Title:** Manuel Terapi Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/myofascial-release.html`
+  - **Title:** Miyofasyal Gevşetme | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/royal-thai-massage/index.html`
+  - **Title:** [DRAFT] Royal Thai Massage | Santis Club
+  - **Dir:** /tr/masajlar/royal-thai-massage
+- **Path:** `/tr/masajlar/selulit-masaji.html`
+  - **Title:** Anti-Selülit Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/shiatsu-masaji.html`
+  - **Title:** Unknown Title
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/shiatsu-terapi.html`
+  - **Title:** Shiatsu Terapi | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/sicak-tas-masaji.html`
+  - **Title:** Sıcak Taş Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/signature-rituel.html`
+  - **Title:** Signature Ritüel | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/sirt-terapi-masaji.html`
+  - **Title:** Sırt Terapi Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/spor-terapi.html`
+  - **Title:** Spor Masajı (Deep Tissue) | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/tetik-nokta-terapi.html`
+  - **Title:** Tetik Nokta Terapisi | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/thai-aroma-masaji.html`
+  - **Title:** Unknown Title
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/thai-ayak-masaji.html`
+  - **Title:** Unknown Title
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/thai-herbal-compress/index.html`
+  - **Title:** [DRAFT] Thai Herbal Compress | Santis Club
+  - **Dir:** /tr/masajlar/thai-herbal-compress
+- **Path:** `/tr/masajlar/thai-masaji.html`
+  - **Title:** Thai Masajı | Santis Club
+  - **Dir:** /tr/masajlar
+- **Path:** `/tr/masajlar/tok-sen-massage/index.html`
+  - **Title:** [DRAFT] Tok Sen Massage | Santis Club
+  - **Dir:** /tr/masajlar/tok-sen-massage
+- **Path:** `/tr/ozel-ayricaliklar.html`
+  - **Title:** Özel Ayrıcalıklar | Santis Club
+  - **Dir:** /tr
+- **Path:** `/tr/rezervasyon/index.html`
+  - **Title:** Rezervasyon • Santis Club
+  - **Dir:** /tr/rezervasyon
+- **Path:** `/tr/rituals/deluxe-imperial/index.html`
+  - **Title:** Sovereign Detail - Deluxe Imperial
+  - **Dir:** /tr/rituals/deluxe-imperial
+- **Path:** `/tr/rituals/derin-detoks-paketi.html`
+  - **Title:** Santis Club | Derin Detoks Paketi
+  - **Dir:** /tr/rituals
+- **Path:** `/tr/rituals/sovereign-purification/index.html`
+  - **Title:** Sovereign Detail - The Sovereign Purification
+  - **Dir:** /tr/rituals/sovereign-purification
+- **Path:** `/tr/rituals/success.html`
+  - **Title:** Santis | Ayrıcalığınız Mühürlendi
+  - **Dir:** /tr/rituals
+- **Path:** `/tr/urunler/detay.html`
+  - **Title:** Santis Club
+  - **Dir:** /tr/urunler
+- **Path:** `/trends/japan.html`
+  - **Title:** Santis Club • Wabi-Sabi (Japan)
+  - **Dir:** /trends
+- **Path:** `/trends/roman.html`
+  - **Title:** Santis Club • Roman (Italy)
+  - **Dir:** /trends
+- **Path:** `/trends/sothys.html`
+  - **Title:** Santis Club • Sothys (France)
+  - **Dir:** /trends
+- **Path:** `/trends/thailand.html`
+  - **Title:** Santis Club • Wat Pho (Thailand)
+  - **Dir:** /trends
+- **Path:** `/v18-demo.html`
+  - **Title:** Sovereign V18 - Apex Cards & Anti-Grid Layout Demo
+  - **Dir:** /
+- **Path:** `/venv/Lib/site-packages/playwright/driver/package/lib/vite/htmlReport/index.html`
+  - **Title:** Playwright Test Report
+  - **Dir:** /venv/Lib/site-packages/playwright/driver/package/lib/vite/htmlReport
+- **Path:** `/venv/Lib/site-packages/playwright/driver/package/lib/vite/recorder/index.html`
+  - **Title:** Playwright Inspector
+  - **Dir:** /venv/Lib/site-packages/playwright/driver/package/lib/vite/recorder
+- **Path:** `/venv/Lib/site-packages/playwright/driver/package/lib/vite/traceViewer/index.html`
+  - **Title:** Playwright Trace Viewer
+  - **Dir:** /venv/Lib/site-packages/playwright/driver/package/lib/vite/traceViewer
+- **Path:** `/venv/Lib/site-packages/playwright/driver/package/lib/vite/traceViewer/snapshot.html`
+  - **Title:** Unknown Title
+  - **Dir:** /venv/Lib/site-packages/playwright/driver/package/lib/vite/traceViewer
+- **Path:** `/venv/Lib/site-packages/playwright/driver/package/lib/vite/traceViewer/uiMode.html`
+  - **Title:** Playwright Test
+  - **Dir:** /venv/Lib/site-packages/playwright/driver/package/lib/vite/traceViewer
+- **Path:** `/venv/Lib/site-packages/setuptools/tests/indexes/test_links_priority/external.html`
+  - **Title:** Unknown Title
+  - **Dir:** /venv/Lib/site-packages/setuptools/tests/indexes/test_links_priority
+- **Path:** `/venv/Lib/site-packages/setuptools/tests/indexes/test_links_priority/simple/foobar/index.html`
+  - **Title:** Unknown Title
+  - **Dir:** /venv/Lib/site-packages/setuptools/tests/indexes/test_links_priority/simple/foobar
+- **Path:** `/venv/Lib/site-packages/torch/utils/model_dump/skeleton.html`
+  - **Title:** TorchScript Model
+  - **Dir:** /venv/Lib/site-packages/torch/utils/model_dump
+
+## CATEGORY 2 — NAVBAR MISSING LINKS (Important Orphans)
+- **Path:** `/404.html`
+  - **Title:** Santis Club • 404
+  - **Suggested Category:** General
+  - **Priority:** Medium
+- **Path:** `/_legacy_archive/SANTIS_CAMPAIGN_PREVIEW.html`
+  - **Title:** SANTIS CAMPAIGN: THE AWAKENING (Animatic)
+  - **Suggested Category:** _legacy_archive
+  - **Priority:** Medium
+- **Path:** `/_legacy_archive/blog-detail.html`
+  - **Title:** Blog Detay • Santis Club
+  - **Suggested Category:** _legacy_archive
+  - **Priority:** Medium
+- **Path:** `/_legacy_archive/detail.html`
+  - **Title:** Masaj Detay • Santis Club
+  - **Suggested Category:** _legacy_archive
+  - **Priority:** Medium
+- **Path:** `/_legacy_archive/tr/hamam/algae-ritual.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/_legacy_archive/tr/hamam/chocolate-ritual.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/_legacy_archive/tr/hamam/coffee-peeling.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/_legacy_archive/tr/hamam/foam-massage.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/_legacy_archive/tr/hamam/honey-ritual.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/_legacy_archive/tr/hamam/jet-lag-recovery.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/_legacy_archive/tr/hamam/ottoman-hammam-tradition.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/_legacy_archive/tr/hamam/peeling-foam-massage.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/_legacy_archive/tr/hamam/sea-salt-peeling.html`
+  - **Title:** Yönlendiriliyor... | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/_legacy_archive/tr/masajlar/detail.html`
+  - **Title:** Masaj Detay • Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/_legacy_archive/tr/masajlar/detay.html`
+  - **Title:** Santis Club • Detay
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/_legacy_content/masajlar/altin-ucgen-ritueli/index.html`
+  - **Title:** Altın Üçgen Ritüeli | Santis Club
+  - **Suggested Category:** Altin-ucgen-ritueli
+  - **Priority:** High
+- **Path:** `/_legacy_content/masajlar/anti-stress-masaji/index.html`
+  - **Title:** Anti-Stress Masajı | Santis Club
+  - **Suggested Category:** Anti-stress-masaji
+  - **Priority:** High
+- **Path:** `/_legacy_content/masajlar/aromaterapi-masaji/index.html`
+  - **Title:** Aromaterapi Masajı | Santis Club
+  - **Suggested Category:** Aromaterapi-masaji
+  - **Priority:** High
+- **Path:** `/_legacy_content/masajlar/bronz-masaj/index.html`
+  - **Title:** Bronz Masaj (Kakao) | Santis Club
+  - **Suggested Category:** Bronz-masaj
+  - **Priority:** High
+- **Path:** `/_legacy_content/masajlar/klasik-isvec-masaji/index.html`
+  - **Title:** Klasik İsveç Masajı | Santis Club
+  - **Suggested Category:** Klasik-isvec-masaji
+  - **Priority:** High
+- **Path:** `/_legacy_content/masajlar/kraliyet-thai-masaji/index.html`
+  - **Title:** Royal Thai Masajı | Santis Club
+  - **Suggested Category:** Kraliyet-thai-masaji
+  - **Priority:** High
+- **Path:** `/_legacy_content/masajlar/thai-bitki-kesesi/index.html`
+  - **Title:** Thai Bitki Kesesi | Santis Club
+  - **Suggested Category:** Thai-bitki-kesesi
+  - **Priority:** High
+- **Path:** `/_legacy_content/masajlar/tok-sen-masaji/index.html`
+  - **Title:** Tok Sen Masajı | Santis Club
+  - **Suggested Category:** Tok-sen-masaji
+  - **Priority:** High
+- **Path:** `/a4/menu_master.html`
+  - **Title:** Santis Club - Master Menu 2026
+  - **Suggested Category:** A4
+  - **Priority:** Medium
+- **Path:** `/admin-panel/dist/index.html`
+  - **Title:** admin-panel
+  - **Suggested Category:** Dist
+  - **Priority:** High
+- **Path:** `/admin-panel/index.html`
+  - **Title:** admin-panel
+  - **Suggested Category:** Admin-panel
+  - **Priority:** High
+- **Path:** `/ar/cilt-bakimi/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** High
+- **Path:** `/ar/galeri/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Galeri
+  - **Priority:** High
+- **Path:** `/ar/hamam/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Hamam
+  - **Priority:** High
+- **Path:** `/ar/hizmetler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Hizmetler
+  - **Priority:** High
+- **Path:** `/ar/iletisim/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Iletisim
+  - **Priority:** High
+- **Path:** `/ar/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Ar
+  - **Priority:** High
+- **Path:** `/ar/kurumsal/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Kurumsal
+  - **Priority:** High
+- **Path:** `/ar/masajlar/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Masajlar
+  - **Priority:** High
+- **Path:** `/ar/rituller/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Rituller
+  - **Priority:** High
+- **Path:** `/ar/urunler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Urunler
+  - **Priority:** High
+- **Path:** `/assets/html/components/footer-en.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Components
+  - **Priority:** Medium
+- **Path:** `/assets/html/components/footer.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Components
+  - **Priority:** Medium
+- **Path:** `/assets/html/components/navbar-en.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Components
+  - **Priority:** Medium
+- **Path:** `/assets/html/templates/cinematic-detail-master.html`
+  - **Title:** {{TITLE}} | Santis Club
+  - **Suggested Category:** Templates
+  - **Priority:** Medium
+- **Path:** `/bio.html`
+  - **Title:** Santis Club | Bio Links
+  - **Suggested Category:** General
+  - **Priority:** Medium
+- **Path:** `/booking.html`
+  - **Title:** Rezervasyon • Santis Club
+  - **Suggested Category:** General
+  - **Priority:** Medium
+- **Path:** `/checkout-success.html`
+  - **Title:** Ödeme Sonucu - Santis Club
+  - **Suggested Category:** General
+  - **Priority:** Medium
+- **Path:** `/checkout.html`
+  - **Title:** Sovereign Vault | Güvenli Ödeme - Santis Club
+  - **Suggested Category:** General
+  - **Priority:** Medium
+- **Path:** `/de/cilt-bakimi/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** High
+- **Path:** `/de/galeri/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Galeri
+  - **Priority:** High
+- **Path:** `/de/hamam/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Hamam
+  - **Priority:** High
+- **Path:** `/de/hammam/kese-kopuk.html`
+  - **Title:** Kese Kopuk | Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/de/hammam/osmanli-ritueli.html`
+  - **Title:** Osmanli Ritueli | Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/de/hizmetler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Hizmetler
+  - **Priority:** High
+- **Path:** `/de/iletisim/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Iletisim
+  - **Priority:** High
+- **Path:** `/de/index.html`
+  - **Title:** Santis Club - Proceeding to Sovereign Hub...
+  - **Suggested Category:** De
+  - **Priority:** High
+- **Path:** `/de/kurumsal/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Kurumsal
+  - **Priority:** High
+- **Path:** `/de/masajlar/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Masajlar
+  - **Priority:** High
+- **Path:** `/de/massagen/anne-cocuk.html`
+  - **Title:** Anne Cocuk | Santis Club
+  - **Suggested Category:** Massagen
+  - **Priority:** Medium
+- **Path:** `/de/massagen/aromaterapi.html`
+  - **Title:** Aromaterapi | Santis Club
+  - **Suggested Category:** Massagen
+  - **Priority:** Medium
+- **Path:** `/de/massagen/bali.html`
+  - **Title:** Bali | Santis Club
+  - **Suggested Category:** Massagen
+  - **Priority:** Medium
+- **Path:** `/de/massagen/cift-senkron.html`
+  - **Title:** Cift Senkron | Santis Club
+  - **Suggested Category:** Massagen
+  - **Priority:** Medium
+- **Path:** `/de/massagen/kids-nazik.html`
+  - **Title:** Kids Nazik | Santis Club
+  - **Suggested Category:** Massagen
+  - **Priority:** Medium
+- **Path:** `/de/massagen/shiatsu.html`
+  - **Title:** Shiatsu | Santis Club
+  - **Suggested Category:** Massagen
+  - **Priority:** Medium
+- **Path:** `/de/massagen/tetik-nokta.html`
+  - **Title:** Tetik Nokta | Santis Club
+  - **Suggested Category:** Massagen
+  - **Priority:** Medium
+- **Path:** `/de/massagen/thai.html`
+  - **Title:** Thai | Santis Club
+  - **Suggested Category:** Massagen
+  - **Priority:** Medium
+- **Path:** `/de/rituller/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Rituller
+  - **Priority:** High
+- **Path:** `/de/urunler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Urunler
+  - **Priority:** High
+- **Path:** `/en/about/index.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** About
+  - **Priority:** High
+- **Path:** `/en/blog/index.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Blog
+  - **Priority:** High
+- **Path:** `/en/cilt-bakimi/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** High
+- **Path:** `/en/code-of-silence.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** En
+  - **Priority:** Medium
+- **Path:** `/en/galeri/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Galeri
+  - **Priority:** High
+- **Path:** `/en/gallery/index.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Gallery
+  - **Priority:** High
+- **Path:** `/en/gift-cards/index.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Gift-cards
+  - **Priority:** High
+- **Path:** `/en/hamam/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Hamam
+  - **Priority:** High
+- **Path:** `/en/hammam/bal-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/en/hammam/cikolata-bakimi.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/en/hammam/index.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** High
+- **Path:** `/en/hammam/kahve-detox.html`
+  - **Title:** Kahve Detox | Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/en/hammam/kahve-peeling.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/en/hammam/kese-kopuk.html`
+  - **Title:** Kese Kopuk | Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/en/hammam/kese-ve-kopuk-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/en/hammam/kopuk-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/en/hammam/osmanli-hamam-gelenegi.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/en/hammam/osmanli-ritueli.html`
+  - **Title:** Osmanli Ritueli | Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/en/hammam/santis-pasa.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/en/hammam/tuz-peeling.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/en/hammam/yosun-bakimi.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/en/hizmetler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Hizmetler
+  - **Priority:** High
+- **Path:** `/en/iletisim/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Iletisim
+  - **Priority:** High
+- **Path:** `/en/index.html`
+  - **Title:** Santis Club - Proceeding to Sovereign Hub...
+  - **Suggested Category:** En
+  - **Priority:** High
+- **Path:** `/en/kurumsal/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Kurumsal
+  - **Priority:** High
+- **Path:** `/en/masajlar/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Masajlar
+  - **Priority:** High
+- **Path:** `/en/massages/anne-cocuk-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/anne-cocuk.html`
+  - **Title:** Anne Cocuk | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/anti-selulit.html`
+  - **Title:** Anti Selulit | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/anti-stress-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/anti-stress.html`
+  - **Title:** Anti Stress | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/aromaterapi-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/aromaterapi.html`
+  - **Title:** Aromaterapi | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/aromatherapy.html`
+  - **Title:** Aromatherapy | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/ayak-refleksoloji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/bali-aroma-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/bali-ayak-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/bali-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/bali-terapi.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/bali.html`
+  - **Title:** Bali | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/bas-boyun-omuz-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/bronz-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/cift-rituel.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/cift-senkron-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/cift-senkron.html`
+  - **Title:** Cift Senkron | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/classic-swedish.html`
+  - **Title:** Classic Swedish | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/deep-tissue.html`
+  - **Title:** Deep Tissue | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/derin-doku-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/derin-doku.html`
+  - **Title:** Derin Doku | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/index.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** High
+- **Path:** `/en/massages/isvec-full-body.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/kids-nazik-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/kids-nazik.html`
+  - **Title:** Kids Nazik | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/klasik-masaj.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/klasik-rahatlama.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/klasik-sirt.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/kombine-masaj.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/kranyo-sakral-terapi.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/kranyo-sakral.html`
+  - **Title:** Kranyo Sakral | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/lenf-drenaj.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/lokal-derin-doku.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/lokal-sicak-tas.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/manuel-terapi.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/myofascial-release.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/refleksoloji.html`
+  - **Title:** Refleksoloji | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/selulit-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/shiatsu-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/shiatsu-terapi.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/shiatsu.html`
+  - **Title:** Shiatsu | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/sicak-tas-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/sicak-tas.html`
+  - **Title:** Sicak Tas | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/signature-rituel.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/sirt-terapi-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/sirt-terapi.html`
+  - **Title:** Sirt Terapi | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/spor-terapi.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/tetik-nokta-terapi.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/tetik-nokta.html`
+  - **Title:** Tetik Nokta | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/thai-aroma-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/thai-ayak-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/thai-masaji.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/massages/thai.html`
+  - **Title:** Thai | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/en/products/detay.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Products
+  - **Priority:** Medium
+- **Path:** `/en/products/index.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Products
+  - **Priority:** High
+- **Path:** `/en/reservation/index.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Reservation
+  - **Priority:** High
+- **Path:** `/en/rituals/index.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Rituals
+  - **Priority:** High
+- **Path:** `/en/rituals/success.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Rituals
+  - **Priority:** Medium
+- **Path:** `/en/rituller/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Rituller
+  - **Priority:** High
+- **Path:** `/en/skincare/acne-balance.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/anti-aging-pro.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/barrier-repair.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/brightening-spot.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/classic-facial.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/collagen-lift.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/deep-cleanse.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/detox-charcoal.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/enzyme-peel.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/eye-contour.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/glass-skin.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/gold-mask-ritual.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/hyaluron-hydrate.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/index.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** High
+- **Path:** `/en/skincare/led-rejuvenation.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/lip-care.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/men-facial.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/micro-polish.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/oxygen-boost.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/rituel-detox-lumiere.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/rituel-diamant-eternel.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/rituel-homme-classique.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/rituel-homme-equilibre.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/rituel-homme-force-calme.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/rituel-hydra-confort.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/rituel-hydra-source.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/rituel-hydra-sublime.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/rituel-jeunesse-initiale.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/rituel-jeunesse-supreme.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/rituel-purete-classique.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/rituel-purete-profonde.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/sensitive-soothe.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-acne-balance.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-anti-aging-pro.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-barrier-repair.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-brightening-spot.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-classic-facial.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-collagen-lift.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-deep-cleanse.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-detox-charcoal.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-enzyme-peel.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-eye-contour.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-glass-skin.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-gold-mask-ritual.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-hyaluron-hydrate.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-led-rejuvenation.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-lip-care.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-men-facial.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-micro-polish.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-oxygen-boost.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-sensitive-soothe.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/skin-vitamin-c-glow.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/skincare/vitamin-c-glow.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Skincare
+  - **Priority:** Medium
+- **Path:** `/en/urunler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Urunler
+  - **Priority:** High
+- **Path:** `/en/world-rituals/index.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** World-rituals
+  - **Priority:** High
+- **Path:** `/fr/cilt-bakimi/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** High
+- **Path:** `/fr/galeri/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Galeri
+  - **Priority:** High
+- **Path:** `/fr/hamam/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Hamam
+  - **Priority:** High
+- **Path:** `/fr/hammam/kese-kopuk.html`
+  - **Title:** Kese Kopuk | Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/fr/hammam/osmanli-ritueli.html`
+  - **Title:** Osmanli Ritueli | Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/fr/hizmetler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Hizmetler
+  - **Priority:** High
+- **Path:** `/fr/iletisim/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Iletisim
+  - **Priority:** High
+- **Path:** `/fr/index.html`
+  - **Title:** Santis Club - Proceeding to Sovereign Hub...
+  - **Suggested Category:** Fr
+  - **Priority:** High
+- **Path:** `/fr/kurumsal/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Kurumsal
+  - **Priority:** High
+- **Path:** `/fr/masajlar/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Masajlar
+  - **Priority:** High
+- **Path:** `/fr/rituller/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Rituller
+  - **Priority:** High
+- **Path:** `/fr/urunler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Urunler
+  - **Priority:** High
+- **Path:** `/guest-zen/index.html`
+  - **Title:** Santis | Guest Zen
+  - **Suggested Category:** Guest-zen
+  - **Priority:** High
+- **Path:** `/hq-dashboard/index.html`
+  - **Title:** SANTIS MASTER OS | HQ Mode v9.0
+  - **Suggested Category:** Hq-dashboard
+  - **Priority:** High
+- **Path:** `/kese-ve-kopuk-masaji.html`
+  - **Title:** Santis Club • Hizmet Detayı
+  - **Suggested Category:** General
+  - **Priority:** Medium
+- **Path:** `/massages/index.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Massages
+  - **Priority:** High
+- **Path:** `/mvp-frontend/index.html`
+  - **Title:** Santis Club | Guest Portal
+  - **Suggested Category:** Mvp-frontend
+  - **Priority:** High
+- **Path:** `/print/menu_a4.html`
+  - **Title:** Santis Club - A4 Menu
+  - **Suggested Category:** Print
+  - **Priority:** Medium
+- **Path:** `/reports/dom_audit_report.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260207_180456.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_094046.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_101251.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_120051.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_120655.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_124817.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_143456.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_161058.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_161758.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_171237.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_172538.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_173539.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_174540.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_175542.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_180543.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_181544.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_182545.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_183546.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_184547.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260208_185548.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260209_054541.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260209_055044.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260209_125506.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260209_165816.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260210_071954.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260210_163733.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260210_214723.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260210_235048.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260211_001606.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260211_105447.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260211_105500.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260211_200329.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260211_203204.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260212_105819.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260212_162105.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260212_185846.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260212_212504.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260212_212607.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260214_221320.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260214_223312.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260214_223346.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260214_223400.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260214_223417.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260214_223616.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260214_223648.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260214_225016.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260214_225952.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260216_204056.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260217_100057.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260217_100206.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260218_064956.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260228_154544.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260228_163455.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260301_051620.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/reports/link_audit_report_20260301_051703.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Reports
+  - **Priority:** Medium
+- **Path:** `/ru/cilt-bakimi/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** High
+- **Path:** `/ru/galeri/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Galeri
+  - **Priority:** High
+- **Path:** `/ru/hamam/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Hamam
+  - **Priority:** High
+- **Path:** `/ru/hammam/kese-kopuk.html`
+  - **Title:** Kese Kopuk | Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/ru/hammam/osmanli-ritueli.html`
+  - **Title:** Osmanli Ritueli | Santis Club
+  - **Suggested Category:** Hammam
+  - **Priority:** Medium
+- **Path:** `/ru/hizmetler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Hizmetler
+  - **Priority:** High
+- **Path:** `/ru/iletisim/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Iletisim
+  - **Priority:** High
+- **Path:** `/ru/index.html`
+  - **Title:** Santis Club - Proceeding to Sovereign Hub...
+  - **Suggested Category:** Ru
+  - **Priority:** High
+- **Path:** `/ru/kurumsal/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Kurumsal
+  - **Priority:** High
+- **Path:** `/ru/masajlar/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Masajlar
+  - **Priority:** High
+- **Path:** `/ru/massages/anne-cocuk.html`
+  - **Title:** Anne Cocuk | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/ru/massages/aromaterapi.html`
+  - **Title:** Aromaterapi | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/ru/massages/bali.html`
+  - **Title:** Bali | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/ru/massages/cift-senkron.html`
+  - **Title:** Cift Senkron | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/ru/massages/kids-nazik.html`
+  - **Title:** Kids Nazik | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/ru/massages/shiatsu.html`
+  - **Title:** Shiatsu | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/ru/massages/tetik-nokta.html`
+  - **Title:** Tetik Nokta | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/ru/massages/thai.html`
+  - **Title:** Thai | Santis Club
+  - **Suggested Category:** Massages
+  - **Priority:** Medium
+- **Path:** `/ru/rituller/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Rituller
+  - **Priority:** High
+- **Path:** `/ru/urunler/index.html`
+  - **Title:** Santis Club | Quiet Luxury
+  - **Suggested Category:** Urunler
+  - **Priority:** High
+- **Path:** `/santis-audit/admin/audit-button.html`
+  - **Title:** Sovereign God Mode | Audit & Telemetry
+  - **Suggested Category:** Admin
+  - **Priority:** Medium
+- **Path:** `/santis-oracle.html`
+  - **Title:** Santis OS v100 | The Oracle Simulator
+  - **Suggested Category:** General
+  - **Priority:** Medium
+- **Path:** `/santis-pitch-deck.html`
+  - **Title:** Santis Sovereign OS | The Master Pitch
+  - **Suggested Category:** General
+  - **Priority:** Medium
+- **Path:** `/showroom.html`
+  - **Title:** Santis Club - Digital Spa Showroom
+  - **Suggested Category:** General
+  - **Priority:** Medium
+- **Path:** `/sovereign-os/audit.html`
+  - **Title:** Sovereign OS — Cognitive Yield Audit
+  - **Suggested Category:** Sovereign-os
+  - **Priority:** Medium
+- **Path:** `/sovereign-os/index.html`
+  - **Title:** Sovereign OS — Autonomous UX Evolution Engine
+  - **Suggested Category:** Sovereign-os
+  - **Priority:** High
+- **Path:** `/spaos-core/dist/index.html`
+  - **Title:** SpaOS | Sovereign Engine
+  - **Suggested Category:** Dist
+  - **Priority:** High
+- **Path:** `/sr/index.html`
+  - **Title:** Santis Club - Proceeding to Sovereign Hub...
+  - **Suggested Category:** Sr
+  - **Priority:** High
+- **Path:** `/templates/market_expansion.html`
+  - **Title:** {{ node.title }} | Santis Club
+  - **Suggested Category:** Templates
+  - **Priority:** Medium
+- **Path:** `/templates/ritual_detail.html`
+  - **Title:** Sovereign Detail - {{RITUAL_TITLE}}
+  - **Suggested Category:** Templates
+  - **Priority:** Medium
+- **Path:** `/templates/seo-meta-template.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Templates
+  - **Priority:** Medium
+- **Path:** `/templates/service-detail.html`
+  - **Title:** {{title}} | Santis Club
+  - **Suggested Category:** Templates
+  - **Priority:** Medium
+- **Path:** `/tenant-dashboard/index.html`
+  - **Title:** Santis | Front-Desk OS (Tenant)
+  - **Suggested Category:** Tenant-dashboard
+  - **Priority:** High
+- **Path:** `/tools/media_matcher_ui.html`
+  - **Title:** Sovereign Media Matcher 🎬
+  - **Suggested Category:** Tools
+  - **Priority:** Medium
+- **Path:** `/tr/bilgelik/index.html`
+  - **Title:** Bilgelik Kayıtları • Santis Club
+  - **Suggested Category:** Bilgelik
+  - **Priority:** High
+- **Path:** `/tr/blog/index.html`
+  - **Title:** Santis Journal • Blog &amp; Haberler
+  - **Suggested Category:** Blog
+  - **Priority:** High
+- **Path:** `/tr/cilt-bakimi/acne-balance.html`
+  - **Title:** Acne Balance Therapy | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/anti-aging-pro.html`
+  - **Title:** Pro-Collagen Anti-Aging | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/barrier-repair.html`
+  - **Title:** Barrier Repair Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/brightening-spot.html`
+  - **Title:** Brightening Spot Treatment | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/classic-facial.html`
+  - **Title:** Classic Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/collagen-lift.html`
+  - **Title:** Collagen Lift Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/deep-cleanse.html`
+  - **Title:** Deep Pore Cleansing | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/detox-charcoal.html`
+  - **Title:** Charcoal Detox Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/enzyme-peel.html`
+  - **Title:** Enzyme Peel Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/eye-contour.html`
+  - **Title:** Eye Contour Treatment | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/glass-skin.html`
+  - **Title:** Glass Skin Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/gold-mask-ritual.html`
+  - **Title:** 24K Gold Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/hyaluron-hydrate.html`
+  - **Title:** Hyaluronic Acid Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/led-rejuvenation.html`
+  - **Title:** LED Light Therapy | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/lip-care.html`
+  - **Title:** Lip Care Treatment | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/men-facial.html`
+  - **Title:** Men's Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/micro-polish.html`
+  - **Title:** Microdermabrasion | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/oxygen-boost.html`
+  - **Title:** Oxygen Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/rituel-detox-lumiere.html`
+  - **Title:** Detox &amp; Brightening Ritual | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/rituel-diamant-eternel.html`
+  - **Title:** Diamond Facial Ritual | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/rituel-homme-classique.html`
+  - **Title:** Classic Men's Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/rituel-homme-equilibre.html`
+  - **Title:** Balancing Men's Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/rituel-homme-force-calme.html`
+  - **Title:** Calming Men's Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/rituel-hydra-confort.html`
+  - **Title:** Hydra-Confort Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/rituel-hydra-source.html`
+  - **Title:** Hydration Source Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/rituel-hydra-sublime.html`
+  - **Title:** Sublime Hydration Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/rituel-jeunesse-initiale.html`
+  - **Title:** Early Anti-Aging Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/rituel-jeunesse-supreme.html`
+  - **Title:** Supreme Anti-Aging Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/rituel-purete-classique.html`
+  - **Title:** Classic Purity Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/rituel-purete-profonde.html`
+  - **Title:** Deep Purity Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/sensitive-soothe.html`
+  - **Title:** Soothing Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-acne-balance.html`
+  - **Title:** Akne &amp; Sebum Denge Bakımı
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-anti-aging-pro.html`
+  - **Title:** Anti-Aging Pro Bakım
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-barrier-repair.html`
+  - **Title:** Bariyer Onarıcı Bakım
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-brightening-spot.html`
+  - **Title:** Leke Karşıtı Aydınlatıcı Bakım
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-classic-facial.html`
+  - **Title:** Klasik Cilt Bakımı
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-collagen-lift.html`
+  - **Title:** Kolajen Lifting Bakımı
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-deep-cleanse.html`
+  - **Title:** Derin Temizleme Bakımı
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-detox-charcoal.html`
+  - **Title:** Detox Kömür Maske
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-enzyme-peel.html`
+  - **Title:** Enzim Peeling Bakımı
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-eye-contour.html`
+  - **Title:** Göz Çevresi Bakımı
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-glass-skin.html`
+  - **Title:** Glass Skin Ritüeli
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-gold-mask-ritual.html`
+  - **Title:** Gold Mask Ritüeli
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-hyaluron-hydrate.html`
+  - **Title:** Hyaluron Nem Terapisi
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-led-rejuvenation.html`
+  - **Title:** LED Rejuvenation
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-lip-care.html`
+  - **Title:** Dudak Bakımı
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-men-facial.html`
+  - **Title:** Erkek Cilt Bakımı
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-micro-polish.html`
+  - **Title:** Micro Polish Bakımı
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-oxygen-boost.html`
+  - **Title:** Oksijen Boost Bakımı
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-sensitive-soothe.html`
+  - **Title:** Hassas Cilt Sakinleştirici Bakım
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/skin-vitamin-c-glow.html`
+  - **Title:** Vitamin C Glow
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/cilt-bakimi/vitamin-c-glow.html`
+  - **Title:** Vitamin C Facial | Santis Skin Care
+  - **Suggested Category:** Cilt-bakimi
+  - **Priority:** Medium
+- **Path:** `/tr/ekibimiz/index.html`
+  - **Title:** Ekibimiz • Santis Club
+  - **Suggested Category:** Ekibimiz
+  - **Priority:** High
+- **Path:** `/tr/hamam/bal-masaji.html`
+  - **Title:** Bal Masajı | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/tr/hamam/cikolata-bakimi.html`
+  - **Title:** Çikolata Hamam Bakımı | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/tr/hamam/kahve-detox.html`
+  - **Title:** Kahve Detox | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/tr/hamam/kahve-peeling.html`
+  - **Title:** Kahve Detox &amp; Peeling | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/tr/hamam/kese-kopuk.html`
+  - **Title:** Kese Kopuk | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/tr/hamam/kese-ve-kopuk-masaji.html`
+  - **Title:** Geleneksel Kese &amp; Köpük | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/tr/hamam/kopuk-masaji.html`
+  - **Title:** Sadece Köpük Masajı | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/tr/hamam/osmanli-hamam-gelenegi.html`
+  - **Title:** Osmanlı Ritüeli | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/tr/hamam/osmanli-ritueli.html`
+  - **Title:** Osmanli Ritueli | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/tr/hamam/santis-pasa.html`
+  - **Title:** Santis Paşa Bakımı | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/tr/hamam/tuz-peeling.html`
+  - **Title:** Deniz Tuzu Peeling | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/tr/hamam/yosun-bakimi.html`
+  - **Title:** Yosun Bakımı (Algae) | Santis Club
+  - **Suggested Category:** Hamam
+  - **Priority:** Medium
+- **Path:** `/tr/handoff/success.html`
+  - **Title:** Ödeme Mühürlendi | Santis OS
+  - **Suggested Category:** Handoff
+  - **Priority:** Medium
+- **Path:** `/tr/hediye-karti/index.html`
+  - **Title:** Hediye Kartı | Santis Club
+  - **Suggested Category:** Hediye-karti
+  - **Priority:** High
+- **Path:** `/tr/hizmetler/abhyanga-masaji/index.html`
+  - **Title:** Abhyanga Masajı | Santis Club
+  - **Suggested Category:** Abhyanga-masaji
+  - **Priority:** High
+- **Path:** `/tr/hizmetler/abhyanga-massage/index.html`
+  - **Title:** [DRAFT] Abhyanga Massage | Santis Club
+  - **Suggested Category:** Abhyanga-massage
+  - **Priority:** High
+- **Path:** `/tr/hizmetler/brazilian-maderotherapy/index.html`
+  - **Title:** [DRAFT] Brazilian Maderotherapy | Santis Club
+  - **Suggested Category:** Brazilian-maderotherapy
+  - **Priority:** High
+- **Path:** `/tr/hizmetler/g5-masaji/index.html`
+  - **Title:** G5 Vibro-Sculpting | Santis Club
+  - **Suggested Category:** G5-masaji
+  - **Priority:** High
+- **Path:** `/tr/hizmetler/g5-vibro-sculpting/index.html`
+  - **Title:** [DRAFT] G5 Vibro-Sculpting | Santis Club
+  - **Suggested Category:** G5-vibro-sculpting
+  - **Priority:** High
+- **Path:** `/tr/hizmetler/maderoterapi/index.html`
+  - **Title:** Brezilya Maderoterapisi | Santis Club
+  - **Suggested Category:** Maderoterapi
+  - **Priority:** High
+- **Path:** `/tr/hizmetler/shirodhara-mind-flow/index.html`
+  - **Title:** [DRAFT] Shirodhara (Mind Flow) | Santis Club
+  - **Suggested Category:** Shirodhara-mind-flow
+  - **Priority:** High
+- **Path:** `/tr/hizmetler/shirodhara/index.html`
+  - **Title:** Shirodhara (Zihin Akışı) | Santis Club
+  - **Suggested Category:** Shirodhara
+  - **Priority:** High
+- **Path:** `/tr/iletisim.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Tr
+  - **Priority:** Medium
+- **Path:** `/tr/index_backup.html`
+  - **Title:** Santis Club • Spa &amp; Wellness
+  - **Suggested Category:** Tr
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/anne-cocuk.html`
+  - **Title:** Anne-Çocuk Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/anti-selulit.html`
+  - **Title:** Anti-Selülit Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/anti-stress.html`
+  - **Title:** Anti-Stress Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/aromaterapi.html`
+  - **Title:** Aromaterapi Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/bali.html`
+  - **Title:** Bali Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/bas-boyun-omuz.html`
+  - **Title:** Baş, Boyun &amp; Omuz Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/cift-rituel.html`
+  - **Title:** Çift Ritüel Paketi | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/cift-senkron.html`
+  - **Title:** Çift Senkron Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/derin-doku.html`
+  - **Title:** Derin Doku Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/isvec-full-body.html`
+  - **Title:** İsveç Full Body Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/kids-nazik.html`
+  - **Title:** Çocuk Nazik Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/klasik-rahatlama.html`
+  - **Title:** Klasik Rahatlama Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/klasik-sirt.html`
+  - **Title:** Klasik Sırt Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/kranyo-sakral.html`
+  - **Title:** Kranyo-Sakral Terapi | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/lenf-drenaj.html`
+  - **Title:** Lenf Drenaj Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/myofascial-release.html`
+  - **Title:** Miyofasyal Gevşetme | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/refleksoloji.html`
+  - **Title:** Refleksoloji | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/shiatsu.html`
+  - **Title:** Shiatsu Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/sicak-tas.html`
+  - **Title:** Sıcak Taş Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/sirt-terapi.html`
+  - **Title:** Sırt Terapi Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/spor-terapi.html`
+  - **Title:** Spor Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/tetik-nokta.html`
+  - **Title:** Tetik Nokta Terapisi | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_legacy/thai.html`
+  - **Title:** Thai Masajı | Santis Club
+  - **Suggested Category:** _backup_legacy
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/anne-cocuk.html`
+  - **Title:** Anne–Çocuk Rahatlama | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/anti-selulit.html`
+  - **Title:** Anti-Selülit Masajı | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/anti-stress.html`
+  - **Title:** Anti-Stress Masajı | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/aromaterapi.html`
+  - **Title:** Aromaterapi Masajı | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/bali.html`
+  - **Title:** Geleneksel Bali Masajı | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/bas-boyun-omuz.html`
+  - **Title:** Baş–Boyun–Omuz Masajı | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/cift-rituel.html`
+  - **Title:** Çift Spa Ritüeli (Masaj + Bakım) | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/cift-senkron.html`
+  - **Title:** Çift Masajı (Senkron) | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/derin-doku.html`
+  - **Title:** Derin Doku (Deep Tissue) | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/isvec-full-body.html`
+  - **Title:** İsveç Masajı (Full Body) | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/kids-nazik.html`
+  - **Title:** Kids Masajı (Nazik Dokunuş) | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/klasik-rahatlama.html`
+  - **Title:** Klasik Rahatlama Masajı | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/klasik-sirt.html`
+  - **Title:** Klasik Sırt Masajı | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/kranyo-sakral.html`
+  - **Title:** Kraniyo-Sakral Terapi | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/lenf-drenaj.html`
+  - **Title:** Manuel Lenf Drenajı | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/myofascial-release.html`
+  - **Title:** Miyofasyal Gevşetme (MFR) | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/refleksoloji.html`
+  - **Title:** Refleksoloji (Ayak Masajı) | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/shiatsu.html`
+  - **Title:** Shiatsu | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/sicak-tas.html`
+  - **Title:** Sıcak Taş Masajı | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/signature-rituel.html`
+  - **Title:** Signature Santis Ritüeli | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/sirt-terapi.html`
+  - **Title:** Sırt Odaklı Terapi | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/spor-terapi.html`
+  - **Title:** Spor Terapi Masajı | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/tetik-nokta.html`
+  - **Title:** Tetik Nokta Terapi (Trigger Point) | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/_backup_manual/thai.html`
+  - **Title:** Thai Masajı | Santis Club
+  - **Suggested Category:** _backup_manual
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/abhyanga-massage/index.html`
+  - **Title:** [DRAFT] Abhyanga-Massage | Santis Club
+  - **Suggested Category:** Abhyanga-massage
+  - **Priority:** High
+- **Path:** `/tr/masajlar/anne-cocuk-masaji.html`
+  - **Title:** Anne-Çocuk Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/anti-stress-masaji.html`
+  - **Title:** Anti-Stress Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/anti-stress-massage/index.html`
+  - **Title:** [DRAFT] Anti-Stress Massage | Santis Club
+  - **Suggested Category:** Anti-stress-massage
+  - **Priority:** High
+- **Path:** `/tr/masajlar/aromaterapi-masaji.html`
+  - **Title:** Aromaterapi Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/aromaterapi.html`
+  - **Title:** Aromaterapi | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/aromatherapie-massage/index.html`
+  - **Title:** [DRAFT] Aromatherapie-Massage | Santis Club
+  - **Suggested Category:** Aromatherapie-massage
+  - **Priority:** High
+- **Path:** `/tr/masajlar/aromatherapy-massage/index.html`
+  - **Title:** [DRAFT] Aromatherapy Massage | Santis Club
+  - **Suggested Category:** Aromatherapy-massage
+  - **Priority:** High
+- **Path:** `/tr/masajlar/ayak-refleksoloji.html`
+  - **Title:** Refleksoloji | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/bali-aroma-masaji.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/bali-ayak-masaji.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/bali-masaji.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/bali-terapi.html`
+  - **Title:** Bali Terapi | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/bas-boyun-omuz-masaji.html`
+  - **Title:** Baş, Boyun &amp; Omuz Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/bronz-masaji.html`
+  - **Title:** Bronz Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/bronze-massage/index.html`
+  - **Title:** [DRAFT] Bronze Massage (Cocoa) | Santis Club
+  - **Suggested Category:** Bronze-massage
+  - **Priority:** High
+- **Path:** `/tr/masajlar/cift-rituel.html`
+  - **Title:** Çift Ritüel Paketi | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/cift-senkron-masaji.html`
+  - **Title:** Çift Senkron Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/classic-swedish-massage/index.html`
+  - **Title:** [DRAFT] Classic Swedish Massage | Santis Club
+  - **Suggested Category:** Classic-swedish-massage
+  - **Priority:** High
+- **Path:** `/tr/masajlar/derin-doku-masaji.html`
+  - **Title:** Derin Doku Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/derin-doku.html`
+  - **Title:** Derin Doku | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/golden-triangle-ritual/index.html`
+  - **Title:** [DRAFT] The Golden Triangle Ritual | Santis Club
+  - **Suggested Category:** Golden-triangle-ritual
+  - **Priority:** High
+- **Path:** `/tr/masajlar/isvec-full-body.html`
+  - **Title:** İsveç Full Body Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/kids-nazik-masaji.html`
+  - **Title:** Çocuk Nazik Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/klasik-isvec-masaji/index.html`
+  - **Title:** [DRAFT] Klasik İsveç Masajı | Santis Club
+  - **Suggested Category:** Klasik-isvec-masaji
+  - **Priority:** High
+- **Path:** `/tr/masajlar/klasik-masaj.html`
+  - **Title:** Klasik Rahatlama Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/klasik-rahatlama.html`
+  - **Title:** Klasik Rahatlama | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/klasik-sirt.html`
+  - **Title:** Klasik Sırt Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/klassische-schwedische-massage/index.html`
+  - **Title:** [DRAFT] Klassische Schwedische Massage | Santis Club
+  - **Suggested Category:** Klassische-schwedische-massage
+  - **Priority:** High
+- **Path:** `/tr/masajlar/kombine-masaj.html`
+  - **Title:** Kombine Terapi Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/kraliyet-thai-masaji/index.html`
+  - **Title:** [DRAFT] Royal Thai Masajı | Santis Club
+  - **Suggested Category:** Kraliyet-thai-masaji
+  - **Priority:** High
+- **Path:** `/tr/masajlar/kranyo-sakral-terapi.html`
+  - **Title:** Kranyo-Sakral Terapi | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/lenf-drenaj.html`
+  - **Title:** Lenf Drenaj Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/lokal-derin-doku.html`
+  - **Title:** Lokal Derin Doku Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/lokal-sicak-tas.html`
+  - **Title:** Lokal Sıcak Taş Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/maderotherapie-bresilienne/index.html`
+  - **Title:** [DRAFT] Madérothérapie Brésilienne | Santis Club
+  - **Suggested Category:** Maderotherapie-bresilienne
+  - **Priority:** High
+- **Path:** `/tr/masajlar/manuel-terapi.html`
+  - **Title:** Manuel Terapi Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/myofascial-release.html`
+  - **Title:** Miyofasyal Gevşetme | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/royal-thai-massage/index.html`
+  - **Title:** [DRAFT] Royal Thai Massage | Santis Club
+  - **Suggested Category:** Royal-thai-massage
+  - **Priority:** High
+- **Path:** `/tr/masajlar/selulit-masaji.html`
+  - **Title:** Anti-Selülit Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/shiatsu-masaji.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/shiatsu-terapi.html`
+  - **Title:** Shiatsu Terapi | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/sicak-tas-masaji.html`
+  - **Title:** Sıcak Taş Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/signature-rituel.html`
+  - **Title:** Signature Ritüel | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/sirt-terapi-masaji.html`
+  - **Title:** Sırt Terapi Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/spor-terapi.html`
+  - **Title:** Spor Masajı (Deep Tissue) | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/tetik-nokta-terapi.html`
+  - **Title:** Tetik Nokta Terapisi | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/thai-aroma-masaji.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/thai-ayak-masaji.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/thai-herbal-compress/index.html`
+  - **Title:** [DRAFT] Thai Herbal Compress | Santis Club
+  - **Suggested Category:** Thai-herbal-compress
+  - **Priority:** High
+- **Path:** `/tr/masajlar/thai-masaji.html`
+  - **Title:** Thai Masajı | Santis Club
+  - **Suggested Category:** Masajlar
+  - **Priority:** Medium
+- **Path:** `/tr/masajlar/tok-sen-massage/index.html`
+  - **Title:** [DRAFT] Tok Sen Massage | Santis Club
+  - **Suggested Category:** Tok-sen-massage
+  - **Priority:** High
+- **Path:** `/tr/ozel-ayricaliklar.html`
+  - **Title:** Özel Ayrıcalıklar | Santis Club
+  - **Suggested Category:** Tr
+  - **Priority:** Medium
+- **Path:** `/tr/rezervasyon/index.html`
+  - **Title:** Rezervasyon • Santis Club
+  - **Suggested Category:** Rezervasyon
+  - **Priority:** High
+- **Path:** `/tr/rituals/deluxe-imperial/index.html`
+  - **Title:** Sovereign Detail - Deluxe Imperial
+  - **Suggested Category:** Deluxe-imperial
+  - **Priority:** High
+- **Path:** `/tr/rituals/derin-detoks-paketi.html`
+  - **Title:** Santis Club | Derin Detoks Paketi
+  - **Suggested Category:** Rituals
+  - **Priority:** Medium
+- **Path:** `/tr/rituals/sovereign-purification/index.html`
+  - **Title:** Sovereign Detail - The Sovereign Purification
+  - **Suggested Category:** Sovereign-purification
+  - **Priority:** High
+- **Path:** `/tr/rituals/success.html`
+  - **Title:** Santis | Ayrıcalığınız Mühürlendi
+  - **Suggested Category:** Rituals
+  - **Priority:** Medium
+- **Path:** `/tr/urunler/detay.html`
+  - **Title:** Santis Club
+  - **Suggested Category:** Urunler
+  - **Priority:** Medium
+- **Path:** `/trends/japan.html`
+  - **Title:** Santis Club • Wabi-Sabi (Japan)
+  - **Suggested Category:** Trends
+  - **Priority:** Medium
+- **Path:** `/trends/roman.html`
+  - **Title:** Santis Club • Roman (Italy)
+  - **Suggested Category:** Trends
+  - **Priority:** Medium
+- **Path:** `/trends/sothys.html`
+  - **Title:** Santis Club • Sothys (France)
+  - **Suggested Category:** Trends
+  - **Priority:** Medium
+- **Path:** `/trends/thailand.html`
+  - **Title:** Santis Club • Wat Pho (Thailand)
+  - **Suggested Category:** Trends
+  - **Priority:** Medium
+- **Path:** `/venv/Lib/site-packages/playwright/driver/package/lib/vite/htmlReport/index.html`
+  - **Title:** Playwright Test Report
+  - **Suggested Category:** Htmlreport
+  - **Priority:** High
+- **Path:** `/venv/Lib/site-packages/playwright/driver/package/lib/vite/recorder/index.html`
+  - **Title:** Playwright Inspector
+  - **Suggested Category:** Recorder
+  - **Priority:** High
+- **Path:** `/venv/Lib/site-packages/playwright/driver/package/lib/vite/traceViewer/index.html`
+  - **Title:** Playwright Trace Viewer
+  - **Suggested Category:** Traceviewer
+  - **Priority:** High
+- **Path:** `/venv/Lib/site-packages/playwright/driver/package/lib/vite/traceViewer/snapshot.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Traceviewer
+  - **Priority:** Medium
+- **Path:** `/venv/Lib/site-packages/playwright/driver/package/lib/vite/traceViewer/uiMode.html`
+  - **Title:** Playwright Test
+  - **Suggested Category:** Traceviewer
+  - **Priority:** Medium
+- **Path:** `/venv/Lib/site-packages/setuptools/tests/indexes/test_links_priority/external.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Test_links_priority
+  - **Priority:** Medium
+- **Path:** `/venv/Lib/site-packages/setuptools/tests/indexes/test_links_priority/simple/foobar/index.html`
+  - **Title:** Unknown Title
+  - **Suggested Category:** Foobar
+  - **Priority:** High
+- **Path:** `/venv/Lib/site-packages/torch/utils/model_dump/skeleton.html`
+  - **Title:** TorchScript Model
+  - **Suggested Category:** Model_dump
+  - **Priority:** Medium
+
+## CATEGORY 3 — BROKEN LINKS
+- **Linked Path:** `/assets/docs/santis-spa-menu.pdf/index.html`
+  - **Found in:** /components/navbar.html
+  - **Priority:** High
+
+## CATEGORY 4 — DUPLICATE NAVIGATION
+- **Link:** `/tr/cilt-bakimi/index.html` - Found **7** times.
+- **Link:** `/tr/urunler/index.html` - Found **7** times.
+- **Link:** `/tr/masajlar/index.html` - Found **6** times.
+- **Link:** `/tr/hakkimizda/index.html` - Found **5** times.
+- **Link:** `/tr/index.html` - Found **5** times.
+- **Link:** `/tr/hamam/index.html` - Found **5** times.
+- **Link:** `/tr/galeri/index.html` - Found **4** times.
+- **Link:** `/service-detail.html` - Found **3** times.
+- **Link:** `/tr/dunya-ritueli.html` - Found **3** times.
+- **Link:** `/tr/rituals/index.html` - Found **2** times.
+- **Link:** `/tr/code-of-silence.html` - Found **2** times.
+- **Link:** `/site-haritasi.html` - Found **2** times.
+- **Link:** `/index.html` - Found **2** times.
+
+## 🛠️ SUGGESTED AUTOMATIC FIXES
+1. **Remove Dead Links:** Clean up the broken links identified in Category 3 from `components/navbar.html` and other headers.
+2. **Integrate Missing Links:** Review Category 2 orphans (especially feature pages) and add them to the Mega Menu.
+3. **Merge Duplicate Routes:** Consolidate repeated links to avoid cognitive overload in the navigation.
