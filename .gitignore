@@ -31,3 +31,32 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# Embedded Git Repositories (Submodule değil, local only)
+/spaos-core/
+/sovereign-os/
+
+# Python & Venv
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Build & Temp Scripts (local utility, repo'ya girmez)
+bracket_test.js
+check_scripts.py
+find_scripts.py
+fix_zombies*.py
+generate_*.py
+hidden_audit.py
+nav_audit.py
+admin_scan*.py
+admin_scan*.json
+build_ui_audit_visual.py
+unify_telemetry.py
+implement_*.py
+inject_*.py
+
+# Vite Cache
+.vite/
