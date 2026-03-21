@@ -24,9 +24,9 @@ const SANTIS_ROUTES = {
 
     HOME: "/index.html",
 
-    get GALLERY() { return (window.SantisRouter ? SantisRouter.categoryPath('galeri') : '/tr/galeri/index.html'); },
+    get GALLERY() { return (window.SantisRouter ? SantisRouter.categoryPath('galeri') : '/galeri.html'); },
 
-    get PRODUCTS() { return (window.SantisRouter ? SantisRouter.categoryPath('urunler') : '/tr/urunler/index.html'); },
+    get PRODUCTS() { return (window.SantisRouter ? SantisRouter.categoryPath('urunler') : '/magaza.html'); },
 
     BOOKING: "/booking.html",
 
@@ -44,11 +44,11 @@ const SANTIS_ROUTES = {
 
     CATEGORY: {
 
-        get HAMAM() { return (window.SantisRouter ? SantisRouter.categoryPath('hamam') : '/tr/hamam/index.html'); },
+        get HAMAM() { return (window.SantisRouter ? SantisRouter.categoryPath('hamam') : '/hamam.html'); },
 
-        get MASSAGE() { return (window.SantisRouter ? SantisRouter.categoryPath('masajlar') : '/tr/masajlar/index.html'); },
+        get MASSAGE() { return (window.SantisRouter ? SantisRouter.categoryPath('masajlar') : '/masaj.html'); },
 
-        get SKINCARE() { return (window.SantisRouter ? SantisRouter.categoryPath('cilt-bakimi') : '/tr/cilt-bakimi/index.html'); }
+        get SKINCARE() { return (window.SantisRouter ? SantisRouter.categoryPath('cilt-bakimi') : '/cilt-bakimi.html'); }
 
     },
 
@@ -223,7 +223,7 @@ const SANTIS_ROUTES = {
 
      * Mevcut sayfa yolunu döndürür
 
-     * @returns {string} Sayfa yolu (örn: "/tr/hamam/index.html")
+     * @returns {string} Sayfa yolu (örn: "/hamam.html")
 
      */
 

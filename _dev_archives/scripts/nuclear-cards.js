@@ -1,7 +1,7 @@
 /**
  * NUCLEAR CARD CLICK FIX v1.1
  * ────────────────────────────
- * Forces navigation on .nv-card-tarot clicks.
+ * Forces navigation on .santis-card-tarot clicks.
  * Fixes: invisible overlay blocking, <button> inside <a> issue,
  * and any pointer-events conflicts.
  * 
@@ -11,7 +11,7 @@
     var ARMED = false;
 
     function nuclearCardFix() {
-        var cards = document.querySelectorAll('.nv-card-tarot');
+        var cards = document.querySelectorAll('.santis-card-tarot');
         if (cards.length === 0) return; // No cards on this page
         if (ARMED) return; // Already armed
         ARMED = true;
@@ -187,7 +187,7 @@ window.initNuclearCards = function (config) {
         }
 
         return `
-            <a href="${href}" class="nv-card-tarot" data-id="${item.id}">
+            <a href="${href}" class="santis-card-tarot" data-id="${item.id}">
                 <div class="card__visual">
                     <img src="${img}" alt="${title}" loading="lazy" width="300" height="400">
                     <div class="card__overlay"></div>
@@ -216,7 +216,7 @@ window.initNuclearCards = function (config) {
     let haloTimers = new Map();
 
     function attachHaloListeners() {
-        const cards = document.querySelectorAll('.nv-card-tarot, .nv-card, .bento-card, .nv-trend-card');
+        const cards = document.querySelectorAll('.santis-card-tarot, .santis-card, .bento-card, .santis-trend-card');
         cards.forEach(function (card, idx) {
             if (card.dataset.haloArmed === '1') return;
             card.dataset.haloArmed = '1';

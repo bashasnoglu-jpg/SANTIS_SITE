@@ -10,7 +10,7 @@
 window.SantisAccordion = {
     init: function (options = {}) {
         const config = {
-            selector: '.nv-accordion-item',
+            selector: '.santis-accordion-item',
             mode: 'single', // 'single' or 'multi'
             sound: true,    // Click sound
             ...options
@@ -22,7 +22,7 @@ window.SantisAccordion = {
         console.log(`🎹 Santis Accordion Init: ${items.length} items found.`);
 
         items.forEach(item => {
-            const header = item.querySelector('.nv-accordion-header');
+            const header = item.querySelector('.santis-accordion-header');
             if (!header) return;
 
             // Remove old listeners to prevent dupes

@@ -5,7 +5,7 @@
  */
 
 export class SovereignRouter {
-    constructor(diffEngine, appSelector = '#nv-main') {
+    constructor(diffEngine, appSelector = '#santis-main') {
         this.diffEngine = diffEngine;
         this.appContainer = document.querySelector(appSelector) || document.querySelector('#cinematic-wrapper') || document.querySelector('main');
 
@@ -67,14 +67,14 @@ export class SovereignRouter {
 
             const parser = new DOMParser();
             const virtualDoc = parser.parseFromString(htmlString, 'text/html');
-            const newContainer = virtualDoc.querySelector(this.appSelector) || virtualDoc.querySelector('#cinematic-wrapper') || virtualDoc.querySelector('#nv-main') || virtualDoc.querySelector('main');
+            const newContainer = virtualDoc.querySelector(this.appSelector) || virtualDoc.querySelector('#cinematic-wrapper') || virtualDoc.querySelector('#santis-main') || virtualDoc.querySelector('main');
             const newTitle = virtualDoc.querySelector('title') ? virtualDoc.querySelector('title').innerText : document.title;
 
             if (!newContainer) {
                 throw new Error("Hedef Belgede Sığınak Container Bulunamadı.");
             }
 
-            // Eğer sayfa değiştirirken container ID'si evrimleştiyse (örn. #nv-main -> #cinematic-wrapper)
+            // Eğer sayfa değiştirirken container ID'si evrimleştiyse (örn. #santis-main -> #cinematic-wrapper)
             if (this.appContainer.id !== newContainer.id) {
                 this.appContainer.id = newContainer.id;
                 this.appContainer.className = newContainer.className;
@@ -105,6 +105,12 @@ export class SovereignRouter {
                     // Geçiş Süresince Tetiklenebilecek Kuantum Olaylarını Bildir
                     if (window.Santis && window.Santis.Bus) {
                         window.Santis.Bus.emit('router:morphed', { target: targetUrl });
+                    }
+                    if (typeof window.initSantisCards === 'function') {
+                        requestAnimationFrame(() => {
+                            window.initSantisCards();
+                            setTimeout(() => window.dispatchEvent(new Event('resize')), 150);
+                        });
                     }
 
                     // Rota başarıyla tamamlandı, zırhı indir

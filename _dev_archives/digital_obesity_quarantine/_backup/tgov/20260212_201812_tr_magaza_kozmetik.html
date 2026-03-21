@@ -170,13 +170,13 @@
 
 
     <!-- NAV -->
-    <div id="nv-navbar-target"></div>
+    <div id="santis-navbar-target"></div>
 
     <!-- HERO -->
     <header class="apothecary-header">
-        <div class="nv-container">
-            <span class="nv-kicker">SANTIS BIO-LAB v4.0</span>
-            <h1 class="nv-title">Santis Bio-Lab</h1>
+        <div class="santis-container">
+            <span class="santis-kicker">SANTIS BIO-LAB v4.0</span>
+            <h1 class="santis-title">Santis Bio-Lab</h1>
             <p style="color:#aaa;max-width:500px;margin:10px auto;">
                 Cildiniz için bilimsel çözümler. 
                 Sothys Paris formülleri ve profesyonel bakım.
@@ -185,8 +185,8 @@
     </header>
 
     <!-- FILTER SYSTEM -->
-    <section class="nv-section" style="padding:60px 0;">
-        <div class="nv-container">
+    <section class="santis-section" style="padding:60px 0;">
+        <div class="santis-container">
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;">
                 <button class="filter-chip active" data-filter="all">Tümü</button>
                 <button class="filter-chip" data-filter="hydra">Nem (Hydra)</button>
@@ -203,16 +203,16 @@
     </section>
 
     <!-- CONSULTATION CTA -->
-    <section class="nv-container">
+    <section class="santis-container">
         <div class="diagnosis-box">
             <h2 style="font-size:1.5rem;color:#e0e0e0;margin-bottom:10px;">Uzman Görüşü</h2>
             <p style="color:#aaa;max-width:500px;margin:10px auto;">Cilt analizi ve doğru ürün seçimi için uzmanlarımızla görüşün.</p>
-            <a href="https://wa.me/905348350169?text=Cilt%20analizi%20ve%20ürünler%20hakkında%20bilgi%20almak%20istiyorum" class="nv-btn">UZMANA DANIŞ (WhatsApp)</a>
+            <a href="https://wa.me/905348350169?text=Cilt%20analizi%20ve%20ürünler%20hakkında%20bilgi%20almak%20istiyorum" class="santis-btn">UZMANA DANIŞ (WhatsApp)</a>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <div id="nv-footer-target"></div>
+    <div id="santis-footer-target"></div>
 
     <script src="/assets/js/i18n-routes.js"></script>
     <script src="/assets/js/hreflang-injector.js" defer></script>
@@ -221,8 +221,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Load Nav/Footer
-            fetch('../../components/navbar.html').then(r=>r.text()).then(h=>{document.getElementById('nv-navbar-target').innerHTML=h});
-            fetch('../../components/footer.html').then(r=>r.text()).then(h=>{document.getElementById('nv-footer-target').innerHTML=h});
+            fetch('../../components/navbar.html').then(r=>r.text()).then(h=>{document.getElementById('santis-navbar-target').innerHTML=h});
+            fetch('../../components/footer.html').then(r=>r.text()).then(h=>{document.getElementById('santis-footer-target').innerHTML=h});
 
             // Init Shop Page
             if(window.SHOP) {

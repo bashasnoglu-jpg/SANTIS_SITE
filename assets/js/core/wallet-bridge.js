@@ -154,11 +154,25 @@ const SantisPhygitalBridge = (() => {
 
                 console.log('📲 [Santis OS v35] L7 .pkpass kriptografik olarak imzalandı. Fiziksel cüzdana teslim edildi.');
 
-                // GERÇEK SENARYO:
-                // const resp = await fetch('/api/v1/wallet/generate-sovereign-pass', { method: 'POST' });
-                // const blob = await resp.blob();
-                // const url = URL.createObjectURL(blob);
-                // window.location.href = url;
+                // Sovereign Commerce Nexus - Phygital Bridge Live Extraction
+                console.log('📲 [Santis OS v35] Sunucudan Sovereign Pass talep ediliyor...');
+                const resp = await fetch('/api/v1/wallet/pass', { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ tier: 'SOVEREIGN', intent: 'Exclusive Treatment' })
+                });
+                if (!resp.ok) throw new Error('Cüzdan köprüsü reddedildi.');
+                const blob = await resp.blob();
+                const url = URL.createObjectURL(blob);
+                
+                // Trigger auto download / add to wallet
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'sovereign-pass.pkpass';
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => document.body.removeChild(a), 1000);
 
             } catch (error) {
                 btn.querySelector('span').textContent = 'BAĞLANTI HATASI';

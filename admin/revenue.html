@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <meta charset="UTF-8">
     <meta name="description" content="Santis Master OS - Revenue Analytics — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Santis Master OS - Revenue Analytics</title>
     <link href="/admin/dist/admin.bundle.css" rel="stylesheet" />
     <!-- html2pdf Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="/assets/vendor/html2pdf.bundle.min.js" crossorigin="anonymous" defer></script>
     <link href="/admin/assets/css/admin.css" rel="stylesheet">
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -25,7 +30,7 @@
                 <p class="text-xs text-gray-500 mt-1">Super Admin (HQ Mode)</p>
             </div>
             <nav class="flex-1 p-4 space-y-2">
-                <a href="/index.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">❖ Dashboard</a>
+                <a href="/" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">❖ Dashboard</a>
                 <a href="hotels.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">🏨 Hotels Network</a>
                 <a href="bookings.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">📅 Live Bookings</a>
                 <a href="crm.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition">💎 AI Offers & CRM</a>
@@ -182,7 +187,7 @@
     </div>
 
     <!-- Frontend Interactive Logic for Prototype -->
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts" crossorigin="anonymous"></script>
+    <script src="/assets/vendor/apexcharts.js" crossorigin="anonymous" defer></script>
     <script>
         const API_BASE = 'http://localhost:8080/api/v1';
         let revenueChartInstance = null;
@@ -487,6 +492,9 @@
     </div>
 <!-- Sovereign Admin Navigation -->
 <script src="/admin/assets/js/admin-nav.js" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
 

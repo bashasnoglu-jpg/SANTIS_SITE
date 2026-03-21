@@ -51,7 +51,7 @@
     // ═══════════════════════════════════════════════════════════════
     /**
      * Translates a URL path from any language to the target language.
-     * @param {string} path - e.g. "/tr/masajlar/index.html"
+     * @param {string} path - e.g. "/masaj.html"
      * @param {string} [targetLang] - target language code (default: current page lang)
      * @returns {string} translated path, e.g. "/en/massages/index.html"
      */
@@ -102,7 +102,7 @@
     // ═══════════════════════════════════════════════════════════════
     /**
      * Convenience function: translates a /tr/-based href to current language.
-     * Usage in templates: SantisRouter.localize('/tr/masajlar/index.html')
+     * Usage in templates: SantisRouter.localize('/masaj.html')
      * @param {string} href
      * @returns {string}
      */

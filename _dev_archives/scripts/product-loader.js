@@ -94,7 +94,7 @@ const QuantumDetailAssistant = {
         }
 
         // Işıkları Yak — opacity: 0 → 1
-        const stage = document.getElementById('nv-dynamic-content');
+        const stage = document.getElementById('santis-dynamic-content');
         if (stage) requestAnimationFrame(() => { stage.style.opacity = '1'; });
 
         // Rezerve Et butonu
@@ -117,7 +117,7 @@ const QuantumDetailAssistant = {
 
     renderError(targetId) {
         document.title = 'Kayıp Formül | Santis Club';
-        const stage = document.getElementById('nv-dynamic-content');
+        const stage = document.getElementById('santis-dynamic-content');
         if (!stage) return;
         stage.innerHTML = [
             '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem">',

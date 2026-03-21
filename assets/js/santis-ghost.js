@@ -115,10 +115,10 @@
             let actionType = 'click';
 
             // Kaptan'ın İstediği Özel Puanlamalar
-            if (targetId.includes('gallery') || el.classList.contains('nv-gallery-open')) {
+            if (targetId.includes('gallery') || el.classList.contains('santis-gallery-open')) {
                 delta = 15.0; // Gallery Open
                 actionType = 'gallery_open';
-            } else if (targetId.includes('price') || el.classList.contains('nv-price-toggle')) {
+            } else if (targetId.includes('price') || el.classList.contains('santis-price-toggle')) {
                 delta = 20.0; // Price Toggle
                 actionType = 'price_toggle';
             }
@@ -295,9 +295,9 @@
     });
 
     function showSovereignAuraPopup(msg, token, target) {
-        if (document.getElementById('nv-sovereign-aura')) return;
+        if (document.getElementById('santis-sovereign-aura')) return;
         const auraHtml = `
-            <div id="nv-sovereign-aura" class="fixed inset-0 z-[99999] flex items-center justify-center p-4" style="background: radial-gradient(circle at center, rgba(20,20,18,0.9), rgba(0,0,0,0.95)); opacity: 0; transition: opacity 1s ease;">
+            <div id="santis-sovereign-aura" class="fixed inset-0 z-[99999] flex items-center justify-center p-4" style="background: radial-gradient(circle at center, rgba(20,20,18,0.9), rgba(0,0,0,0.95)); opacity: 0; transition: opacity 1s ease;">
                 <div class="relative max-w-md w-full border border-santis-gold/30 bg-[#0a0a09] p-8 text-center shadow-[0_0_50px_rgba(212,175,55,0.15)] overflow-hidden">
                     <div class="absolute inset-0 bg-[url('/assets/img/textures/gold.webp')] bg-cover opacity-10 mix-blend-overlay"></div>
                     <div class="relative z-10">
@@ -309,14 +309,14 @@
                             <span class="text-santis-gold text-xl font-mono tracking-widest relative z-10">${token}</span>
                             <div class="absolute bottom-1 right-2 w-max text-[8px] text-gray-500 uppercase tracking-widest">Click to Copy</div>
                         </div>
-                        <button onclick="document.getElementById('nv-sovereign-aura').remove()" class="text-xs text-gray-500 hover:text-white uppercase tracking-widest transition-colors">Acknowledge</button>
+                        <button onclick="document.getElementById('santis-sovereign-aura').remove()" class="text-xs text-gray-500 hover:text-white uppercase tracking-widest transition-colors">Acknowledge</button>
                     </div>
                 </div>
             </div>
         `;
         document.body.insertAdjacentHTML('beforeend', auraHtml);
         setTimeout(() => {
-            document.getElementById('nv-sovereign-aura').style.opacity = '1';
+            document.getElementById('santis-sovereign-aura').style.opacity = '1';
         }, 100);
     }
 

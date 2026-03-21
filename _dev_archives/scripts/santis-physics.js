@@ -45,7 +45,7 @@ class SantisPhysics {
     // --- 🧲 COMPONENT: MAGNETIC BUTTONS ---
     initMagnets() {
         // Auto-detect all buttons and nav links
-        const targets = document.querySelectorAll('.nv-btn, .nv-nav-link, .intro-btn');
+        const targets = document.querySelectorAll('.santis-btn, .santis-nav-link, .intro-btn');
 
         targets.forEach(el => {
             // State for physics integration
@@ -126,7 +126,7 @@ class SantisPhysics {
     // --- 🔮 COMPONENT: HOLOGRAPHIC TILT (3D Cards) ---
     initHolograms() {
         // Target all cards that need 3D depth
-        const selector = '.nv-card, .nv-trend-card, .product-card, .nv-visual-col, .nv-campaign-slide';
+        const selector = '.santis-card, .santis-trend-card, .product-card, .santis-visual-col, .santis-campaign-slide';
 
         // Since many cards are dynamic (loaded via JS), we need a MutationObserver
         const observer = new MutationObserver((mutations) => {

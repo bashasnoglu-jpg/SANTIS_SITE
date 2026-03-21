@@ -20,7 +20,7 @@
 
     function init() {
 
-        const video = document.querySelector('.nv-bg-video');
+        const video = document.querySelector('.santis-bg-video');
 
         const controlBtn = document.getElementById('videoControl');
 

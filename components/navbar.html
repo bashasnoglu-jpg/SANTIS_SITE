@@ -1,7 +1,7 @@
 
 
 <div class="nav-overlay" id="santis-nav-overlay"></div>
-<nav class="sovereign-nav" id="nv-main-nav">
+<nav class="sovereign-nav" id="santis-main-nav">
     <!-- ═══════════════════════════════════════════════ -->
     <!-- ① BRAND BAR — "The Sanctuary Gate" (6 items)   -->
     <!-- ═══════════════════════════════════════════════ -->
@@ -9,12 +9,13 @@
         <div class="sovereign-nav-container">
 
             <!-- BRAND LOGO -->
-            <a class="sovereign-logo" href="/tr/index.html" aria-label="Santis Home" style="text-decoration: none;">
+            <a class="sovereign-logo logo" href="/" aria-label="Santis Home" style="text-decoration: none;">
                 <svg fill="none" height="28" viewBox="0 0 24 24" width="28" style="margin-right: 14px; color: #D4AF37;">
                     <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path>
                     <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path>
                     <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path>
                 </svg>
+                <img src="/assets/img/logo.webp" alt="Santis OS Logo" class="hidden" decoding="async" loading="lazy" width="1200" height="800">
                 <div style="display: flex; flex-direction: column; align-items: flex-start;">
                     <span style="font-family: 'Playfair Display', serif; font-size: 20px; letter-spacing: 0.2em; font-weight: 400; color: #fff; line-height: 1;">SANTIS</span>
                     <span style="font-family: 'Inter', sans-serif; font-size: 9px; letter-spacing: 0.35em; color: #D4AF37; margin-top: 4px; font-weight: 600;">SPA & THERAPY</span>
@@ -23,24 +24,25 @@
 
             <!-- BRAND LINKS (Global pages only) -->
             <div class="sovereign-links sovereign-brand-links" id="navRoot">
-                <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/dunya-ritueli.html" data-target="/tr/dunya-ritueli.html">Santis World</a>
-                <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/galeri/index.html" data-target="/tr/galeri/index.html">Galeri</a>
-                <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/hakkimizda/index.html" data-target="/tr/hakkimizda/index.html" data-menu="hakkimizda">Hakkımızda</a>
-                <a class="sovereign-link-item nav-link liquid-trigger" href="/tr/urunler/index.html" data-target="/tr/urunler/index.html">Mağaza</a>
+                <!-- DYNAMICALLY INJECTED BY SOVEREIGN ROUTER -->
             </div>
 
             <!-- ACTIONS (REZERVASYON / DİL / HAMBURGER) -->
             <div class="sovereign-actions nav-actions">
                 <span class="nav-divider"></span>
-                <a class="nav-link btn-rezervasyon santis-magnetic" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">
+                <a class="nav-link santis-magnetic" href="/hq-dashboard" style="color:#d4af37; margin-right:8px;">
+                    <svg fill="currentColor" height="14" viewBox="0 0 24 24" width="14" style="display:inline; margin-top:-2px;">
+                        <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"></path>
+                    </svg> Sisteme Giriş (HQ)
+                </a>
+                <a class="nav-link btn-rezervasyon santis-magnetic btn btn-primary cta" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">
                     Rezervasyon
                 </a>
-                <!-- Language Switcher Container -->
-                <div class="lang-wrapper notranslate" id="santis-language-root"></div>
                 <!-- HAMBURGER -->
-                <div aria-label="Menüyü Aç/Kapat" class="hamburger-btn santis-magnetic" id="hamburger" role="button" tabindex="0">
-                    <span class="bar" style="background-color: #f5f5f7;"></span>
-                    <span class="bar" style="background-color: #f5f5f7;"></span>
+                <div aria-label="Mobil Menüyü Aç" class="hamburger-btn hamburger santis-magnetic" id="hamburger" role="button" tabindex="0">
+                    <span class="bar line" style="background-color: #f5f5f7;"></span>
+                    <span class="bar line" style="background-color: #f5f5f7;"></span>
+                    <span class="bar line" style="background-color: #f5f5f7;"></span>
                 </div>
             </div>
         </div>
@@ -50,12 +52,9 @@
     <!-- ② SERVICE BAR — "The Pavilion" (4 items)       -->
     <!-- ═══════════════════════════════════════════════ -->
     <div class="sovereign-service-bar">
-        <div class="sovereign-nav-container">
-            <a class="service-link liquid-trigger" href="/tr/hamam/index.html" data-target="/tr/hamam/index.html" data-menu="hamam">Hamam</a>
-            <a class="service-link liquid-trigger" href="/tr/masajlar/index.html" data-target="/tr/masajlar/index.html" data-menu="masajlar">Masaj</a>
-            <a class="service-link liquid-trigger" href="/tr/cilt-bakimi/index.html" data-target="/tr/cilt-bakimi/index.html" data-menu="cilt">Cilt Bakımı</a>
-            <a class="service-link liquid-trigger" href="/tr/rituals/index.html" data-target="/tr/rituals/index.html" data-menu="rituals">Ritüeller</a>
-        </div>
+            <div class="sovereign-nav-container" id="serviceRoot">
+                <!-- DYNAMICALLY INJECTED BY SOVEREIGN ROUTER -->
+            </div>
     </div>
 
     <!-- ============================================== -->
@@ -71,13 +70,13 @@
 
 <!-- MOBILE MENU OVERLAY -->
 <div class="mobile-menu-overlay" id="mobileMenu">
-    <div class="mobile-menu-content">
-        <a class="mobile-link nav-link" href="/tr/dunya-ritueli.html" style="color:#d4af37;">Santis World</a>
-        <a class="mobile-link nav-link" href="/tr/galeri/index.html">Galeri</a>
-        <a class="mobile-link nav-link" href="/tr/hakkimizda/index.html">Hakkımızda</a>
-        <a class="mobile-link nav-link" href="/tr/urunler/index.html">Mağaza</a>
+    <div class="mobile-menu-content" id="mobileRoot">
+        <!-- DYNAMICALLY INJECTED BY SOVEREIGN ROUTER -->
         <a class="mobile-link nav-link" href="/assets/docs/santis-spa-menu.pdf" style="color:#d4af37;" target="_blank">✦ Spa Menüsü (PDF)</a>
-        <a class="mobile-link nav-link" href="/tr/code-of-silence.html" style="color:#d4af37;">✦ Sessizlik Manifestosu</a>
-        <a class="nv-btn nv-btn-primary santis-magnetic mt-4" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">HEMEN REZERVASYON</a>
+        <a class="mobile-link nav-link" href="/code-of-silence.html" style="color:#d4af37;">✦ Sessizlik Manifestosu</a>
+        <a class="mobile-link nav-link" href="/guest-zen/index.html" style="color:#d4af37; font-weight:bold;">✦ VIP Sovereign Üye Girişi</a>
     </div>
 </div>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>

@@ -139,7 +139,7 @@
 
     // ─── COLLECTOR 3: HİZMET KARTI GÖRÜNÜRLÜĞÜ ──────
     function _observeCards() {
-        const cards = document.querySelectorAll('.nv-card-tarot, .nv-card, .ritual-card, .bento-card');
+        const cards = document.querySelectorAll('.santis-card-tarot, .santis-card, .ritual-card, .bento-card');
         if (!cards.length) return;
 
         const observer = new IntersectionObserver((entries) => {
@@ -159,7 +159,7 @@
 
     // ─── COLLECTOR 4: CTA TIKLAMA ───────────────────────────────────────────
     document.addEventListener('click', (e) => {
-        const isCTA = e.target.closest('.card__action, .nv-btn-cta, [data-score-cta]');
+        const isCTA = e.target.closest('.card__action, .santis-btn-cta, [data-score-cta]');
         if (isCTA) addScoreProxy('cta_click', { target: isCTA.textContent?.trim().slice(0, 40) });
     });
 
@@ -190,7 +190,7 @@
     let _hoverTimer = null;
     const _deepHoveredCards = new Set();
     document.addEventListener('mouseover', (e) => {
-        const card = e.target.closest('.nv-card-tarot, .nv-card, .ritual-card, .bento-card');
+        const card = e.target.closest('.santis-card-tarot, .santis-card, .ritual-card, .bento-card');
         if (card) {
             const cardId = card.dataset.id || card.id || card.querySelector('h3')?.innerText || 'unknown_item';
             if (!_deepHoveredCards.has(cardId)) {
@@ -203,7 +203,7 @@
     }, { passive: true });
 
     document.addEventListener('mouseout', (e) => {
-        if (e.target.closest('.nv-card-tarot, .nv-card, .ritual-card, .bento-card')) {
+        if (e.target.closest('.santis-card-tarot, .santis-card, .ritual-card, .bento-card')) {
             clearTimeout(_hoverTimer);
         }
     }, { passive: true });

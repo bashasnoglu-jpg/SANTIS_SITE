@@ -26,13 +26,13 @@ function initGlobalTrends() {
     let html = '';
     trends.forEach(t => {
         html += `
-            <a href="${t.link || '#'}" class="nv-trend-card-link" style="text-decoration: none; color: inherit;">
-                <div class="nv-trend-card">
-                    <div class="nv-trend-icon">${t.icon}</div>
-                    <div class="nv-trend-info">
-                        <span class="nv-trend-city">${t.city}</span>
-                        <h3 class="nv-trend-title">${t.trend}</h3>
-                        <p class="nv-trend-desc">${t.desc}</p>
+            <a href="${t.link || '#'}" class="santis-trend-card-link" style="text-decoration: none; color: inherit;">
+                <div class="santis-trend-card">
+                    <div class="santis-trend-icon">${t.icon}</div>
+                    <div class="santis-trend-info">
+                        <span class="santis-trend-city">${t.city}</span>
+                        <h3 class="santis-trend-title">${t.trend}</h3>
+                        <p class="santis-trend-desc">${t.desc}</p>
                     </div>
                 </div>
             </a>

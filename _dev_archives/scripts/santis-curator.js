@@ -114,7 +114,7 @@ window.SantisCurator = (function () {
 
     function autoTag(description) {
 
-        if (!window.NV_CONCIERGE || !window.NV_CONCIERGE.brain) {
+        if (!window.SANTIS_CONCIERGE || !window.SANTIS_CONCIERGE.brain) {
 
             console.warn("⚠️ Concierge Brain not ready. Cannot auto-tag.");
 
@@ -126,7 +126,7 @@ window.SantisCurator = (function () {
 
         // Use the Brain's Intent Detection logic
 
-        const analysis = window.NV_CONCIERGE.brain.detectIntents(description);
+        const analysis = window.SANTIS_CONCIERGE.brain.detectIntents(description);
 
 
 

@@ -1,10 +1,10 @@
 (function () {
 
-    window.NV_HAMMAM = [];
+    window.SANTIS_HAMMAM = [];
 
-    window.NV_MASSAGES = [];
+    window.SANTIS_MASSAGES = [];
 
-    window.NV_SKINCARE = [];
+    window.SANTIS_SKINCARE = [];
 
 
 
@@ -152,7 +152,7 @@
             }
 
             // Expose globally for Home Renderer (Standardizes access)
-            window.NV_PRODUCTS = allServices;
+            window.SANTIS_PRODUCTS = allServices;
             if (!window.productCatalog || window.productCatalog.length === 0) {
                 window.productCatalog = allServices;
             }
@@ -160,9 +160,9 @@
 
             // 1. HAMMAM
 
-            window.NV_HAMMAM = allServices.filter(s => s.category === 'hammam');
+            window.SANTIS_HAMMAM = allServices.filter(s => s.category === 'hammam');
 
-            window.NV_HAMMAM_CATEGORIES = {};
+            window.SANTIS_HAMMAM_CATEGORIES = {};
 
 
 
@@ -170,11 +170,11 @@
 
             const massageCats = ['classicMassages', 'sportsTherapy', 'asianMassages', 'ayurveda', 'signatureCouples', 'kidsFamily'];
 
-            window.NV_MASSAGES = allServices.filter(s => massageCats.includes(s.category));
+            window.SANTIS_MASSAGES = allServices.filter(s => massageCats.includes(s.category));
 
-            window.NV_MASSAGES_CATEGORY_ORDER = ['all', 'classicMassages', 'asianMassages', 'sportsTherapy', 'signatureCouples', 'kidsFamily'];
+            window.SANTIS_MASSAGES_CATEGORY_ORDER = ['all', 'classicMassages', 'asianMassages', 'sportsTherapy', 'signatureCouples', 'kidsFamily'];
 
-            window.NV_MASSAGES_CATEGORY_LABELS = {
+            window.SANTIS_MASSAGES_CATEGORY_LABELS = {
 
                 'all': 'Tümü',
 
@@ -194,19 +194,19 @@
 
             // 3. SKINCARE
 
-            window.NV_SKINCARE = allServices.filter(s => s.category === 'faceSothys');
+            window.SANTIS_SKINCARE = allServices.filter(s => s.category === 'faceSothys');
 
-            window.NV_SKINCARE_PRICE_LABEL = (p) => !p ? "Fiyat sorunuz" : `${p}€`;
+            window.SANTIS_SKINCARE_PRICE_LABEL = (p) => !p ? "Fiyat sorunuz" : `${p}€`;
 
 
 
-            console.log(`✅ Data Hydrated: Hammam(${window.NV_HAMMAM.length}), Massages(${window.NV_MASSAGES.length}), Skin(${window.NV_SKINCARE.length})`);
+            console.log(`✅ Data Hydrated: Hammam(${window.SANTIS_HAMMAM.length}), Massages(${window.SANTIS_MASSAGES.length}), Skin(${window.SANTIS_SKINCARE.length})`);
 
 
 
             // Dispatch Event
 
-            window.dispatchEvent(new Event('NV_DATA_READY'));
+            window.dispatchEvent(new Event('SANTIS_DATA_READY'));
 
 
 
@@ -222,7 +222,7 @@
 
     // Expose a promise for engines
 
-    window.NV_DATA_READY_PROMISE = loadData();
+    window.SANTIS_DATA_READY_PROMISE = loadData();
 
 
 

@@ -5,7 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // Race-Condition Check
-    if (typeof window.NV_PRODUCTS === 'undefined') {
+    if (typeof window.SANTIS_PRODUCTS === 'undefined') {
         setTimeout(() => SANTIS_PRODUCT_ENGINE.init(), 300);
         return;
     }
@@ -29,7 +29,7 @@ const SANTIS_PRODUCT_ENGINE = {
         const grid = document.getElementById(this.config.gridId);
         if (!grid) return;
 
-        const allData = window.NV_PRODUCTS || [];
+        const allData = window.SANTIS_PRODUCTS || [];
         const items = filter === 'all'
             ? allData
             : allData.filter(p => p.category === filter);
@@ -43,9 +43,9 @@ const SANTIS_PRODUCT_ENGINE = {
             const price = product.price ? `${product.price}€` : "Danışınız";
             // Tier 3 Card Template
             return `
-            <div class="nv-card-product curtain-reveal" style="animation-delay: ${index * 0.1}s; position:relative;">
-                <div class="nv-product-img-box">
-                    <img src="${product.img}" alt="${product.title}" class="nv-product-img" loading="lazy">
+            <div class="santis-card-product curtain-reveal" style="animation-delay: ${index * 0.1}s; position:relative;">
+                <div class="santis-product-img-box">
+                    <img src="${product.img}" alt="${product.title}" class="santis-product-img" loading="lazy">
                     
                     <!-- Quick View Overlay (Hover) -->
                     <div class="product-overlay" style="
@@ -53,19 +53,19 @@ const SANTIS_PRODUCT_ENGINE = {
                         display:flex; align-items:center; justify-content:center;
                         opacity:0; transition:opacity 0.3s ease;
                     ">
-                       <button class="nv-btn nv-btn-sm nv-btn-outline" onclick="SANTIS_PRODUCT_ENGINE.giftHint('${product.id}')" style="background:#000; border-color:#fff;">
+                       <button class="santis-btn santis-btn-sm santis-btn-outline" onclick="SANTIS_PRODUCT_ENGINE.giftHint('${product.id}')" style="background:#000; border-color:#fff;">
                           🎁 BUNU BANA AL
                        </button>
                     </div>
                 </div>
                 
                 <style>
-                    .nv-product-img-box:hover .product-overlay { opacity: 1; }
+                    .santis-product-img-box:hover .product-overlay { opacity: 1; }
                 </style>
 
-                <h3 class="nv-title" style="font-size:18px; margin-bottom:5px; color:#fff;">${product.title}</h3>
+                <h3 class="santis-title" style="font-size:18px; margin-bottom:5px; color:#fff;">${product.title}</h3>
                 <span style="font-size:12px; color:var(--gold); text-transform:uppercase; letter-spacing:1px; display:block; margin-bottom:5px;">${product.brand}</span>
-                <span class="nv-kicker">${price}</span>
+                <span class="santis-kicker">${price}</span>
             </div>
             `;
         }).join('');
@@ -85,7 +85,7 @@ const SANTIS_PRODUCT_ENGINE = {
 
     giftHint(id) {
         // Find product
-        const product = (window.NV_PRODUCTS || []).find(p => p.id === id);
+        const product = (window.SANTIS_PRODUCTS || []).find(p => p.id === id);
         if (!product) return;
 
         // WhatsApp Logic

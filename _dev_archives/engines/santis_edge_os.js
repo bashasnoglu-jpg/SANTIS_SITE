@@ -305,21 +305,21 @@ window.SantisOS = {
         // Scarcity badge
         if (slotData.is_scarce) {
             let container = el.parentElement;
-            if (container && !container.querySelector('.nv-scarcity-badge')) {
+            if (container && !container.querySelector('.santis-scarcity-badge')) {
                 container.style.position = 'relative';
                 const badge = document.createElement('div');
-                badge.className = 'nv-scarcity-badge reveal-up';
-                badge.innerHTML = `<span class="nv-pulse-dot"></span><span class="nv-scarcity-text">${slotData.scarcity_message || 'Premium Slot'}</span>`;
+                badge.className = 'santis-scarcity-badge reveal-up';
+                badge.innerHTML = `<span class="santis-pulse-dot"></span><span class="santis-scarcity-text">${slotData.scarcity_message || 'Premium Slot'}</span>`;
                 container.appendChild(badge);
             }
         }
 
-        el.classList.add('nv-asset-loading');
+        el.classList.add('santis-asset-loading');
 
         // ── Ortak yükleme mührü — tek bir yerden yönetilir ──────────────────
         const markLoaded = (target) => {
-            target.classList.remove('nv-asset-loading');
-            target.classList.add('nv-asset-loaded');   // Skeleton shimmer söner
+            target.classList.remove('santis-asset-loading');
+            target.classList.add('santis-asset-loaded');   // Skeleton shimmer söner
             target.style.opacity = '1';
         };
 
@@ -413,15 +413,15 @@ window.SantisOS = {
                 });
             }, { rootMargin: '200px' }); // 200px önce → görünmeden önce başla
 
-            document.querySelectorAll('[data-santis-slot]:not(.nv-prefetch-bound)').forEach(el => {
+            document.querySelectorAll('[data-santis-slot]:not(.santis-prefetch-bound)').forEach(el => {
                 io.observe(el);
                 // Class addition will be handled below to avoid duplicates
             });
         }
 
         // Hover intent: herhangi bir nav/card hover'ında slotları önceden çek + ROTAYI PREFETCH ET + SALES TRIGGER
-        document.querySelectorAll('[data-santis-slot]:not(.nv-prefetch-bound)').forEach(el => {
-            el.classList.add('nv-prefetch-bound'); // Duplicate guard
+        document.querySelectorAll('[data-santis-slot]:not(.santis-prefetch-bound)').forEach(el => {
+            el.classList.add('santis-prefetch-bound'); // Duplicate guard
             let hoverTimer;
 
             el.addEventListener('mouseenter', () => {

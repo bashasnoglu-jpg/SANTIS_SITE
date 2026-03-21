@@ -6,7 +6,7 @@
 
   const safe = (v) => String(v ?? "");
   const priceLabel = (price) => {
-    if (typeof window.NV_SKINCARE_PRICE_LABEL === "function") return window.NV_SKINCARE_PRICE_LABEL(price);
+    if (typeof window.SANTIS_SKINCARE_PRICE_LABEL === "function") return window.SANTIS_SKINCARE_PRICE_LABEL(price);
     return !price ? "Fiyat sorunuz" : `${price}€`;
   };
 
@@ -16,7 +16,7 @@
   }
 
   function findItem(id) {
-    const all = Array.isArray(window.NV_SKINCARE) ? window.NV_SKINCARE : [];
+    const all = Array.isArray(window.SANTIS_SKINCARE) ? window.SANTIS_SKINCARE : [];
     return all.find((x) => x.id === id) || null;
   }
 
@@ -24,7 +24,7 @@
     const root = $("nvDetail");
     if (!root) return;
     root.innerHTML = `
-      <div class="nv-empty">
+      <div class="santis-empty">
         Program bulunamadı. <a href="index.html">Listeye dön</a>
       </div>
     `;
@@ -35,26 +35,26 @@
     if (!root) return;
 
     root.innerHTML = `
-      <a class="nv-back" href="index.html">← Geri</a>
+      <a class="santis-back" href="index.html">← Geri</a>
 
-      <div class="nv-hero">
+      <div class="santis-hero">
         <img src="${x.img}" alt="${safe(x.title)}" />
       </div>
 
-      <div class="nv-detailCard">
-        <div class="nv-detailTop">
-          <h1 class="nv-detailTitle">${safe(x.title)}</h1>
-          <div class="nv-detailMeta">
-            <span class="nv-pill">${safe(x.tier)}</span>
-            <span class="nv-pill">${safe(x.duration)}</span>
+      <div class="santis-detailCard">
+        <div class="santis-detailTop">
+          <h1 class="santis-detailTitle">${safe(x.title)}</h1>
+          <div class="santis-detailMeta">
+            <span class="santis-pill">${safe(x.tier)}</span>
+            <span class="santis-pill">${safe(x.duration)}</span>
           </div>
         </div>
 
-        <p class="nv-detailDesc">${safe(x.desc)}</p>
+        <p class="santis-detailDesc">${safe(x.desc)}</p>
 
-        <div class="nv-detailRow">
-          <div class="nv-price">${priceLabel(x.price)}</div>
-          <a class="nv-cta" href="../iletisim/index.html">Randevu / Bilgi Al</a>
+        <div class="santis-detailRow">
+          <div class="santis-price">${priceLabel(x.price)}</div>
+          <a class="santis-cta" href="../iletisim/index.html">Randevu / Bilgi Al</a>
         </div>
       </div>
     `;
@@ -62,7 +62,7 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     const id = getIdFromUrl();
-    if (!id || !window.NV_SKINCARE) return renderNotFound();
+    if (!id || !window.SANTIS_SKINCARE) return renderNotFound();
 
     const item = findItem(id);
     if (!item) return renderNotFound();

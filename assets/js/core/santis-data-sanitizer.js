@@ -29,7 +29,7 @@ export class SovereignDataSanitizer {
             duration: raw.duration || "Özel Randevu",
 
             // Kuantum Aura
-            aura_color: (raw.gpu_dna?.color) ? `rgb(${raw.gpu_dna.color.join(',')})` : (raw.aura_color || "var(--nv-gold-muted, #B39B59)"),
+            aura_color: (raw.gpu_dna?.color) ? `rgb(${raw.gpu_dna.color.join(',')})` : (raw.aura_color || "var(--santis-gold-muted, #B39B59)"),
 
             // Media resmini /assets/img/cards/ kök yolu ile birleştir
             image_url: raw.image ? raw.image :
@@ -77,7 +77,7 @@ export class SovereignDataSanitizer {
             title: "Sovereign Kuantum Ritüeli",
             price: "Keşfetmek İçin Bize Ulaşın",
             duration: "Görüşme İle Belirlenir",
-            aura_color: "var(--nv-gold-muted, #B39B59)",
+            aura_color: "var(--santis-gold-muted, #B39B59)",
             image_url: "assets/img/placeholder-sovereign-void.jpg",
             alt_text: "Santis Club - Sovereign Aura",
             detail_url: "/tr/"

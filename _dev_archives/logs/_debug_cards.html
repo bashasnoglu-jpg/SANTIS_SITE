@@ -52,36 +52,36 @@ async function runDiagnostic() {
         const r = await fetch('/assets/data/services.json?t=' + Date.now());
         const items = await r.json();
         
-        const NV_MASSAGES = [];
-        const NV_HAMMAM = [];
-        const NV_SKINCARE = [];
-        const NV_PRODUCTS = [];
+        const SANTIS_MASSAGES = [];
+        const SANTIS_HAMMAM = [];
+        const SANTIS_SKINCARE = [];
+        const SANTIS_PRODUCTS = [];
         
         items.forEach(item => {
             const cat = (item.categoryId || '').toLowerCase();
             if (cat.includes('massage')) {
-                NV_MASSAGES.push(item);
+                SANTIS_MASSAGES.push(item);
             } else if (cat.includes('hammam') || cat.includes('hamam')) {
-                NV_HAMMAM.push(item);
+                SANTIS_HAMMAM.push(item);
             } else if (cat.includes('facial') || cat.includes('skin') || cat.includes('sothys') || cat.includes('face')) {
-                NV_SKINCARE.push(item);
+                SANTIS_SKINCARE.push(item);
             } else {
-                NV_PRODUCTS.push(item);
+                SANTIS_PRODUCTS.push(item);
             }
         });
         
-        add(NV_HAMMAM.length > 0 ? 'ok' : 'fail', `HAMAM: ${NV_HAMMAM.length} items`);
-        add(NV_MASSAGES.length > 0 ? 'ok' : 'fail', `MASSAGE: ${NV_MASSAGES.length} items`);
-        add(NV_SKINCARE.length > 0 ? 'ok' : 'fail', `SKINCARE: ${NV_SKINCARE.length} items`);
-        add(NV_PRODUCTS.length > 0 ? 'warn' : 'ok', `PRODUCTS (fallback): ${NV_PRODUCTS.length} items`);
+        add(SANTIS_HAMMAM.length > 0 ? 'ok' : 'fail', `HAMAM: ${SANTIS_HAMMAM.length} items`);
+        add(SANTIS_MASSAGES.length > 0 ? 'ok' : 'fail', `MASSAGE: ${SANTIS_MASSAGES.length} items`);
+        add(SANTIS_SKINCARE.length > 0 ? 'ok' : 'fail', `SKINCARE: ${SANTIS_SKINCARE.length} items`);
+        add(SANTIS_PRODUCTS.length > 0 ? 'warn' : 'ok', `PRODUCTS (fallback): ${SANTIS_PRODUCTS.length} items`);
         
-        if (NV_MASSAGES.length > 0) {
+        if (SANTIS_MASSAGES.length > 0) {
             add('', '<b>İlk 3 masaj slug:</b>');
-            NV_MASSAGES.slice(0,3).forEach(m => add('', `  → ${m.slug} (id: ${m.id})`));
+            SANTIS_MASSAGES.slice(0,3).forEach(m => add('', `  → ${m.slug} (id: ${m.id})`));
         }
-        if (NV_SKINCARE.length > 0) {
+        if (SANTIS_SKINCARE.length > 0) {
             add('', '<b>İlk 3 skincare slug:</b>');
-            NV_SKINCARE.slice(0,3).forEach(m => add('', `  → ${m.slug} (id: ${m.id})`));
+            SANTIS_SKINCARE.slice(0,3).forEach(m => add('', `  → ${m.slug} (id: ${m.id})`));
         }
         
         add('', '━━━ 4. service-detail.html EŞLEŞME TESTİ ━━━');

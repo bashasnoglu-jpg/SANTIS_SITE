@@ -4,7 +4,7 @@ import { SovereignForgeInjector } from './core/santis-forge-injector.js';
 /**
  * SANTIS OS - SOVEREIGN RITUAL RENDERER V2 (Global Distribution Engine)
  * Kuantum Router Görevi: Hangi sayfada olduğumuzu (URL) anlar ve DataBridge'den
- * gelen devasa JSON okyanusunu (örn. window.NV_SKINCARE) parçalara bölerek
+ * gelen devasa JSON okyanusunu (örn. window.SANTIS_SKINCARE) parçalara bölerek
  * data-rail-engine Kuantum Raylarına doldurması için SovereignForgeInjector'a fırlatır.
  */
 export class SovereignRitualRenderer {
@@ -35,9 +35,9 @@ export class SovereignRitualRenderer {
         console.log("💉 [Ritual Renderer] Skincare Morph Routing Initiated.");
 
         // DataBridge bu veriyi daha önce API'den çekip Kuantum Hafızasına almış olmalı.
-        const matrix = window.NV_SKINCARE;
+        const matrix = window.SANTIS_SKINCARE;
         if (!matrix || matrix.length === 0) {
-            console.error("🚨 [Sovereign Error] NV_SKINCARE matrix missing or empty from DataBridge!");
+            console.error("🚨 [Sovereign Error] SANTIS_SKINCARE matrix missing or empty from DataBridge!");
             return;
         }
 
@@ -67,7 +67,7 @@ export class SovereignRitualRenderer {
     static routeMassageMatrix() {
         console.log('💆 [Ritual Renderer] Massage Matrix Routing Initiated.');
 
-        let massageData = window.NV_MASSAGE || [];
+        let massageData = window.SANTIS_MASSAGE || [];
         if (massageData.length === 0 && window.SovereignDataMatrix) {
             massageData = window.SovereignDataMatrix.filter(item => {
                 const cat = String(item.category || item.categoryId || '').trim().toLowerCase();
@@ -116,15 +116,15 @@ export class SovereignRitualRenderer {
     static routeHammamMatrix() {
         console.log("🫧 [Ritual Renderer] Hammam Matrix Routing Initiated.");
 
-        // NV_HAMMAM yoksa SovereignDataMatrix'ten hammam kategorisini filtrele
-        let hammamData = window.NV_HAMMAM || [];
+        // SANTIS_HAMMAM yoksa SovereignDataMatrix'ten hammam kategorisini filtrele
+        let hammamData = window.SANTIS_HAMMAM || [];
         if (hammamData.length === 0 && window.SovereignDataMatrix) {
             hammamData = window.SovereignDataMatrix.filter(item => {
                 // trim() ile gizli boşlukları, toLowerCase() ile büyük/küçük harf sorunlarını yok et
                 const cat = String(item.category || item.categoryId || '').trim().toLowerCase();
                 return cat.includes('hammam') || cat.includes('hamam');
             });
-            console.log(`🧩 [Ritual Renderer] NV_HAMMAM boş, SovereignDataMatrix'ten ${hammamData.length} hamam kartı çekildi.`);
+            console.log(`🧩 [Ritual Renderer] SANTIS_HAMMAM boş, SovereignDataMatrix'ten ${hammamData.length} hamam kartı çekildi.`);
         }
 
         if (hammamData.length === 0) {
@@ -180,9 +180,9 @@ export class SovereignRitualRenderer {
         console.log("👑 [Ritual Renderer] Rituals Matrix Routing Initiated.");
 
         // Sovereign Signatures aslında Wellness / Journeys olarak DataBridge'den giriyor
-        const signaturesData = window.NV_JOURNEYS || [];
-        const hammamData = window.NV_HAMMAM || [];
-        const therapiesData = window.NV_MASSAGES || [];
+        const signaturesData = window.SANTIS_JOURNEYS || [];
+        const hammamData = window.SANTIS_HAMMAM || [];
+        const therapiesData = window.SANTIS_MASSAGES || [];
 
         if (window.SovereignVirtualEngine) {
             if (signaturesData.length > 0) window.SovereignVirtualEngine.create('section[data-rail-id="rail-signatures"] .rituals-container', signaturesData);
@@ -204,9 +204,9 @@ export class SovereignRitualRenderer {
     static routeIndexMatrix() {
         console.log("🏠 [Ritual Renderer] Ana Sayfa Sovereign Matrix Başlatılıyor...");
 
-        // NV_HAMMAM / NV_MASSAGES neuro-sync'ten GEÇ gelir → SovereignDataMatrix'ten filtrele
-        let hammamData = window.NV_HAMMAM || [];
-        let massageData = window.NV_MASSAGES || [];
+        // SANTIS_HAMMAM / SANTIS_MASSAGES neuro-sync'ten GEÇ gelir → SovereignDataMatrix'ten filtrele
+        let hammamData = window.SANTIS_HAMMAM || [];
+        let massageData = window.SANTIS_MASSAGES || [];
 
         if ((hammamData.length === 0 || massageData.length === 0) && window.SovereignDataMatrix) {
             const all = window.SovereignDataMatrix;

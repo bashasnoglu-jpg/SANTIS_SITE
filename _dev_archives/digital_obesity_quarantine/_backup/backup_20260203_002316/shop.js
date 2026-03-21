@@ -139,10 +139,10 @@ const SHOP = {
         if (document.getElementById('shop-drawer')) return;
 
         // Overlay is reused but we might need new one if not present
-        let overlay = document.querySelector('.nv-nav-overlay'); // Try reuse
+        let overlay = document.querySelector('.santis-nav-overlay'); // Try reuse
         if (!overlay) {
             overlay = document.createElement('div');
-            overlay.className = 'nv-nav-overlay';
+            overlay.className = 'santis-nav-overlay';
             document.body.appendChild(overlay);
         }
         overlay.id = 'shop-overlay'; // Add specific ID for shop targeting

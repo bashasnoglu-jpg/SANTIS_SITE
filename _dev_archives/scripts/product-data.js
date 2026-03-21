@@ -10,17 +10,17 @@
     // Legacy consumers expect window.productCatalog
     window.productCatalog = Array.isArray(data) ? data : [];
     // Convenience aliases used by some modules
-    window.NV_PRODUCTS = window.productCatalog;
+    window.SANTIS_PRODUCTS = window.productCatalog;
 
     // 🧠 NEURO-SYNC SIGNAL SOURCE
-    window.NV_DATA_READY = true;
+    window.SANTIS_DATA_READY = true;
     document.dispatchEvent(new CustomEvent('product-data:ready', { detail: { count: window.productCatalog.length } }));
     console.log(`🧠 [Neuro-Sync] Signal Dispatched: product-data:ready (${window.productCatalog.length} items)`);
   };
 
   const fallback = () => {
     window.productCatalog = [];
-    window.NV_PRODUCTS = [];
+    window.SANTIS_PRODUCTS = [];
   };
 
   fetch(JSON_URL, { cache: 'no-store' })

@@ -49,7 +49,8 @@ export function init() {
     }));
 
     // 4. THE 120Hz RENDER LOOP (Nükleer Reaksiyon Döngüsü)
-    let isCanvasVisible = true;
+    let isCanvasVisible = false; // Başlangıçta false
+    let isRunning = false;
     let frameCount = 0;
     let lastFpsTime = performance.now();
     let currentDpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -59,7 +60,8 @@ export function init() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             isCanvasVisible = entry.isIntersecting;
-            if (isCanvasVisible) {
+            if (isCanvasVisible && !isRunning) {
+                isRunning = true;
                 lastFpsTime = performance.now();
                 frameCount = 0;
                 requestAnimationFrame(render);
@@ -69,7 +71,10 @@ export function init() {
     observer.observe(canvas);
 
     const render = (now) => {
-        if (!isCanvasVisible) return; // Görünmezse GPU dinlenir! (Kuantum Gözlemci)
+        if (!isCanvasVisible) {
+            isRunning = false;
+            return; // Görünmezse loop'u durdur!
+        }
 
         // FPS Monitoring & Graceful Degradation
         frameCount++;
@@ -98,6 +103,8 @@ export function init() {
         // Hıza (Velocity) bağlı altın vizkozitesi! Hızlı kaydırınca altın parlar!
         const isScrolling = Math.abs(velocity) > 2.0;
 
+        ctx.fillStyle = '#D4AF37'; // Global altın rengi (String allocation engellendi)
+
         particles.forEach(p => {
             // Parçacıklar hem kendi hızlarında yukarı çıkar, hem de scroll hızına (velocity) vahşice tepki verir!
             p.y -= p.speedY + (velocity * 0.15);
@@ -107,26 +114,15 @@ export function init() {
             if (p.y > height + 20) p.y = -20;
 
             // SCROLL EDİLİYORSA: Ekran Kartı uzayı büker! Tozlar ivmeye göre savrulur ve PARLAR!
-            if (isScrolling) {
-                ctx.fillStyle = `rgba(212, 175, 55, ${Math.min(0.9, p.alpha + 0.4)})`; // Parlama
-                ctx.beginPath();
-                // Uzay bükülmesi: Hız arttıkça parçacıklar esner (Liquid Distortion)
-                ctx.arc(p.x, p.y, p.size + (Math.abs(velocity) * 0.02), 0, Math.PI * 2);
-            } else {
-                ctx.fillStyle = `rgba(212, 175, 55, ${p.alpha})`; // Sakin
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            }
-
+            ctx.globalAlpha = isScrolling ? Math.min(0.9, p.alpha + 0.4) : p.alpha;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, isScrolling ? p.size + (Math.abs(velocity) * 0.02) : p.size, 0, Math.PI * 2);
             ctx.fill();
         });
 
         // 120 FPS'e kilitlenmiş V-Sync Döngüsü
         requestAnimationFrame(render);
     };
-
-    // Motoru Ateşle!
-    requestAnimationFrame(render);
 
     console.log("🏆 [V18 GPU APEX] Liquid Gold Shader 120 FPS'e Kilitlendi. IntersectionObserver & Graceful Degradation Aktif.");
     return { status: 'dictating' };

@@ -6,8 +6,8 @@
 /* 1. Navbar Priority */
 nav,
 .navbar,
-#nv-header,
-.nv-navbar {
+#santis-header,
+.santis-navbar {
     position: relative;
     z-index: 100000 !important;
 }
@@ -19,7 +19,7 @@ nav,
 .motion-layer,
 .ultra-motion,
 .fx-layer,
-.nv-hero-overlay,
+.santis-hero-overlay,
 .background-effects,
 .santis-soul-layer {
     pointer-events: none !important;

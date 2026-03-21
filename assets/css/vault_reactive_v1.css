@@ -31,7 +31,7 @@ body[data-aura="awakened"]::before {
     background: radial-gradient(circle at center, transparent 60%, rgba(0, 0, 0, 0.5) 100%);
 }
 
-body[data-aura="awakened"] .nv-btn-cta,
+body[data-aura="awakened"] .santis-btn-cta,
 body[data-aura="awakened"] .card__action {
     animation: sovereignPulse 3s infinite alternate;
 }
@@ -48,7 +48,7 @@ body[data-aura="surge"]::before {
     background: radial-gradient(circle at center, transparent 35%, rgba(0, 0, 0, 0.85) 100%);
 }
 
-body[data-aura="surge"] .nv-btn-cta,
+body[data-aura="surge"] .santis-btn-cta,
 body[data-aura="surge"] .card__action {
     box-shadow: 0 0 20px rgba(218, 165, 32, 0.6);
     border-color: rgba(218, 165, 32, 0.8);

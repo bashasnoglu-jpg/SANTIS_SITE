@@ -42,7 +42,7 @@ async function revalidate(channel, signal) {
         }
 
         const page = document.body?.dataset?.page;
-        const dataKey = { hamam: 'NV_HAMMAM', massage: 'NV_MASSAGES', skincare: 'NV_SKINCARE', rituals: 'NV_JOURNEYS', index: 'NV_HAMMAM' }[page];
+        const dataKey = { hamam: 'SANTIS_HAMMAM', massage: 'SANTIS_MASSAGES', skincare: 'SANTIS_SKINCARE', rituals: 'SANTIS_JOURNEYS', index: 'SANTIS_HAMMAM' }[page];
         if (!dataKey) return;
 
         const endpoint = `/assets/data/services.json`;
@@ -55,10 +55,10 @@ async function revalidate(channel, signal) {
         // Kategoriye göre filtrele (data-bridge.js ile aynı mantık)
         allServices.forEach(item => {
             const c = (item.categoryId || item.category || '').toLowerCase();
-            if (dataKey === 'NV_JOURNEYS' && (c === 'wellness' || c.includes('journey'))) fresh.push(item);
-            else if (dataKey === 'NV_MASSAGES' && (c.startsWith('massage') || c === 'massage' || c === 'classicmassages' || c === 'asianmassages' || c === 'sportstherapy')) fresh.push(item);
-            else if (dataKey === 'NV_HAMMAM' && (c.includes('hammam') || c.startsWith('ritual-hammam') || c === 'hamam')) fresh.push(item);
-            else if (dataKey === 'NV_SKINCARE' && (c.startsWith('skincare') || c.startsWith('sothys') || c === 'facesothys')) fresh.push(item);
+            if (dataKey === 'SANTIS_JOURNEYS' && (c === 'wellness' || c.includes('journey'))) fresh.push(item);
+            else if (dataKey === 'SANTIS_MASSAGES' && (c.startsWith('massage') || c === 'massage' || c === 'classicmassages' || c === 'asianmassages' || c === 'sportstherapy')) fresh.push(item);
+            else if (dataKey === 'SANTIS_HAMMAM' && (c.includes('hammam') || c.startsWith('ritual-hammam') || c === 'hamam')) fresh.push(item);
+            else if (dataKey === 'SANTIS_SKINCARE' && (c.startsWith('skincare') || c.startsWith('sothys') || c === 'facesothys')) fresh.push(item);
         });
 
 

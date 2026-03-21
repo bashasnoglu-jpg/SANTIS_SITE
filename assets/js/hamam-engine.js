@@ -183,7 +183,7 @@ class HamamHybridRenderer {
             const imagePath = item.media?.thumbnail || item.image || '/assets/img/cards/santis_card_recovery_lotion_v2.webp';
             const isPriority = item._biometricFlag ? true : false;
             const price = item.price?.amount || item.price_eur || 0;
-            const detailUrl = item.detailUrl || item.url || `/tr/hamam/detay.html?id=${item.id}`;
+            const detailUrl = item.detailUrl || item.url || `/hamam.htmldetay.html?id=${item.id}`;
             const dataPayload = JSON.stringify({ id: item.id, title: trContent.title, price: price, url: detailUrl });
 
             const shortDesc = trContent.shortDesc || item.description || 'Santis Club imzalı kusursuz deneyim.';
@@ -376,7 +376,7 @@ class HamamHybridRenderer {
         const trContent = dataItem.content?.tr || { title: dataItem.name, shortDesc: dataItem.description || "" };
         const price = dataItem.price?.amount || dataItem.price_eur || 0;
         const imagePath = dataItem.image || (dataItem.media?.hero ? `/assets/img/cards/${dataItem.media.hero}` : '/assets/img/cards/santis_card_hammam_lux.webp');
-        const detailUrl = dataItem.detailUrl || dataItem.url || `/tr/hamam/detay.html?id=${dataItem.id}`;
+        const detailUrl = dataItem.detailUrl || dataItem.url || `/hamam.htmldetay.html?id=${dataItem.id}`;
         const dataPayload = JSON.stringify({ id: dataItem.id, title: trContent.title, price: price, url: detailUrl });
         const dur = dataItem.duration ? dataItem.duration + ' DK.' : 'SPA';
 

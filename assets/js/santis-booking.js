@@ -41,7 +41,7 @@ function injectBookingModal() {
         <div class="modal-content" style="background:#050505; border:1px solid rgba(212,175,55,0.3); box-shadow:0 25px 50px -12px rgba(0,0,0,1), 0 0 30px rgba(212,175,55,0.1); border-radius:12px; padding:32px; width:90%; max-width:500px; color:#fff; font-family:'Outfit', sans-serif; position:relative;">
             <button id="bookingCloseBtn" onclick="closeBookingModal()" style="position:absolute; top:20px; right:20px; background:none; border:none; color:rgba(255,255,255,0.5); font-size:24px; cursor:pointer;" aria-label="Kapat">&times;</button>
             <div style="text-align:center; margin-bottom:24px;">
-                <span class="nv-kicker" style="color:#D4AF37; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;">SANTIS CLUB VIP</span>
+                <span class="santis-kicker" style="color:#D4AF37; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;">SANTIS CLUB VIP</span>
                 <h2 id="bookingModalTitle" style="font-family:'Cinzel', serif; font-size:24px; margin-top:8px; font-weight:400; letter-spacing:0.05em;">THE BLACK ROOM</h2>
                 <p id="bookingModalSub" style="color:rgba(255,255,255,0.6); font-size:13px; margin-top:4px;">Sovereign Executive</p>
             </div>

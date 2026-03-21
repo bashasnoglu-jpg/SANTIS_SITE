@@ -55,7 +55,7 @@
             margin-bottom: 3rem;
         }
 
-        .nv-btn {
+        .santis-btn {
             display: inline-block;
             padding: 1rem 2rem;
             background-color: transparent;
@@ -70,7 +70,7 @@
             transition: all 0.3s ease;
         }
 
-        .nv-btn:hover {
+        .santis-btn:hover {
             background-color: #d4af37;
             color: #111;
         }
@@ -81,18 +81,18 @@
 </head>
 <body class="result-body">
 
-    <main id="nv-main">
+    <main id="santis-main">
         <section class="result-container">
             <div class="logo-container">SANTIS OS</div>
             
             <span id="payment-icon">⌛</span>
             <div id="payment-message">Makbuzunuz kontrol ediliyor, lütfen bekleyiniz...</div>
             
-            <a href="/index.html" class="nv-btn">Anasayfaya Dön</a>
+            <a href="/" class="santis-btn">Anasayfaya Dön</a>
         </section>
     </main>
 
-    <script src="https://js.stripe.com/v3/"></script>
+    <script src="/assets/vendor/.js" defer></script>
     <script>
         // 1. Stripe'ı genel anahtarımız (Public Key) ile başlatıyoruz
         // NOT: Prod'a çıkarken bu anahtar kendi hesabından alınmalı!
@@ -141,5 +141,8 @@
 
         checkStatus();
     </script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>

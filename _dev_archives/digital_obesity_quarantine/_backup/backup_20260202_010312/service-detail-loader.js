@@ -1,6 +1,6 @@
 // assets/js/service-detail-loader.js
 // Handles loading details for Massage, Skincare, or JSON-based services
-// Updated to use NV_MASSAGES (plural)
+// Updated to use SANTIS_MASSAGES (plural)
 
 (async function () {
     const detailRoot = document.getElementById('serviceDetail');
@@ -27,19 +27,19 @@
 
     // 2. Search Function
     function findService(slug) {
-        // A) NV_MASSAGES
-        if (window.NV_MASSAGES) {
-            const m = window.NV_MASSAGES.find(x => (x.id === slug || x.slug === slug));
+        // A) SANTIS_MASSAGES
+        if (window.SANTIS_MASSAGES) {
+            const m = window.SANTIS_MASSAGES.find(x => (x.id === slug || x.slug === slug));
             if (m) return { type: 'massage', data: m };
         }
-        // B) NV_SKINCARE
-        if (window.NV_SKINCARE) {
-            const s = window.NV_SKINCARE.find(x => (x.id === slug || x.slug === slug));
+        // B) SANTIS_SKINCARE
+        if (window.SANTIS_SKINCARE) {
+            const s = window.SANTIS_SKINCARE.find(x => (x.id === slug || x.slug === slug));
             if (s) return { type: 'skincare', data: s };
         }
-        // C) NV_HAMMAM
-        if (window.NV_HAMMAM) {
-            const h = window.NV_HAMMAM.find(x => (x.id === slug || x.slug === slug));
+        // C) SANTIS_HAMMAM
+        if (window.SANTIS_HAMMAM) {
+            const h = window.SANTIS_HAMMAM.find(x => (x.id === slug || x.slug === slug));
             if (h) return { type: 'hammam', data: h };
         }
         return null;
@@ -102,8 +102,8 @@
         ${hotelSlugs.length > 0 ? `
         <div class="detail-section">
              <h3 class="section-title">Bulunduğu Oteller</h3>
-             <div class="nv-chips">
-                ${hotelSlugs.map(h => `<span class="nv-pill" style="margin-right:8px; opacity:0.8;">${formatHotelName(h)}</span>`).join('')}
+             <div class="santis-chips">
+                ${hotelSlugs.map(h => `<span class="santis-pill" style="margin-right:8px; opacity:0.8;">${formatHotelName(h)}</span>`).join('')}
              </div>
         </div>
         ` : ''}

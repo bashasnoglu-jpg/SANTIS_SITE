@@ -13,7 +13,7 @@ const QuantumDetailAssistant = {
 
         // Bilet yoksa Mağazaya yönlendir
         if (!rawId) {
-            return window.location.href = '/tr/urunler/index.html';
+            return window.location.href = '/magaza.html';
         }
 
         // ID temizliği — .webp .jpg .html uzantılarını temizle
@@ -94,7 +94,7 @@ const QuantumDetailAssistant = {
         }
 
         // Işıkları Yak — opacity: 0 → 1
-        const stage = document.getElementById('nv-dynamic-content');
+        const stage = document.getElementById('santis-dynamic-content');
         if (stage) requestAnimationFrame(() => { stage.style.opacity = '1'; });
 
         // Rezerve Et butonu
@@ -117,7 +117,7 @@ const QuantumDetailAssistant = {
 
     renderError(targetId) {
         document.title = 'Kayıp Formül | Santis Club';
-        const stage = document.getElementById('nv-dynamic-content');
+        const stage = document.getElementById('santis-dynamic-content');
         if (!stage) return;
         stage.innerHTML = [
             '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem">',
@@ -125,7 +125,7 @@ const QuantumDetailAssistant = {
             '    <div style="width:64px;height:64px;border:1px solid rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.5rem">🗝️</div>',
             '    <h1 style="color:#D4AF37;font-family:\'Cinzel\',serif;font-size:2rem;margin-bottom:1rem">Gizli Formül Aranıyor</h1>',
             '    <p style="color:#888;margin-bottom:2rem">Aradığınız ritüel (' + targetId + ') Sovereign kasasında güncellenmektedir.</p>',
-            '    <a href="/tr/urunler/index.html" style="display:inline-block;padding:.875rem 2.5rem;border:1px solid rgba(255,255,255,.15);color:#fff;text-decoration:none;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;transition:all .3s" ',
+            '    <a href="/urunler/index.html" style="display:inline-block;padding:.875rem 2.5rem;border:1px solid rgba(255,255,255,.15);color:#fff;text-decoration:none;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;transition:all .3s" ',
             '       onmouseover="this.style.borderColor=\'#D4AF37\';this.style.color=\'#D4AF37\'" ',
             '       onmouseout="this.style.borderColor=\'rgba(255,255,255,.15)\';this.style.color=\'#fff\'">MAĞAZAYA DÖN</a>',
             '  </div>',

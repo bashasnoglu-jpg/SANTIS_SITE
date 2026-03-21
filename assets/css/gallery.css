@@ -361,11 +361,11 @@
 
     .editorial-grid-engine {
 
-        grid-template-columns: 1fr;
+        column-count: 1;
 
         /* Single Column on Mobile */
 
-        gap: 20px;
+        column-gap: 20px;
 
         padding: 0 20px 80px 20px;
 
@@ -497,7 +497,7 @@ body {
 
 
 
-    .nv-cursor {
+    .santis-cursor {
 
         display: none;
 
@@ -507,7 +507,7 @@ body {
 
 
 
-.nv-cursor {
+.santis-cursor {
 
     position: fixed;
 
@@ -536,7 +536,7 @@ body {
 
 
 
-.nv-cursor-inner {
+.santis-cursor-inner {
 
     width: 100%;
 
@@ -568,7 +568,7 @@ body {
 
 /* Hover State */
 
-.nv-cursor.is-hovering .nv-cursor-inner {
+.santis-cursor.is-hovering .santis-cursor-inner {
 
     transform: scale(2.5);
 
@@ -580,7 +580,7 @@ body {
 
 /* View State (Gallery) */
 
-.nv-cursor.is-viewing .nv-cursor-inner {
+.santis-cursor.is-viewing .santis-cursor-inner {
 
     transform: scale(4);
 
@@ -744,7 +744,7 @@ body {
 /* =========================================
    GALLERY CHIP FILTER (extracted from inline)
    ========================================= */
-.nv-chip {
+.santis-chip {
     padding: 10px 24px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -756,8 +756,8 @@ body {
     transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.nv-chip:hover,
-.nv-chip.is-active {
+.santis-chip:hover,
+.santis-chip.is-active {
     background: rgba(212, 175, 55, 0.15);
     border-color: var(--gold);
     color: var(--gold);

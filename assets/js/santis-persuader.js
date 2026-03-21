@@ -563,7 +563,7 @@ class SantisPersuader {
                         if (typeof window.addVirtualSku === "function") {
                             window.addVirtualSku(directOfferObj);
                         } else {
-                            const phone = window.NV_CONCIERGE_NUMBER || "905000000000";
+                            const phone = window.SANTIS_CONCIERGE_NUMBER || "905000000000";
                             const fallbackMsg = `Merhaba Santis Club! ✨\n\nBenim için özel hazırlanan Sovereign Executive teklifini kabul ediyorum.\n\n💎 Seçilen Hizmet: 👑 Sovereign Özel [€${directOfferObj.dynamic_price}]\n🔐 Sistem Mührü: [SOVEREIGN HAND-OFF] SKU: ${directOfferObj.virtual_sku}\n🔑 Token: ${discountToken}\n\nLütfen rezervasyon işlemlerimi tamamlamak için benimle iletişime geçin.`;
                             window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(fallbackMsg)}`;
                         }

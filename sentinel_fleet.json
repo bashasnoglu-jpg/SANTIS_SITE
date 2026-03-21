@@ -9,8 +9,8 @@
         },
         {
             "id": "neurova_mock",
-            "name": "Neurova V1 (Mock)",
-            "root": "../NEUROVA-Site",
+            "name": "Santis V1 (Mock)",
+            "root": "../SANTIS-Site",
             "config": "sentinel_config.json",
             "active": false
         }

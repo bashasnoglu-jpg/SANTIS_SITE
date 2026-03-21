@@ -151,8 +151,7 @@
 </main>
 <div id="footer-container"></div>
 <!-- SCRIPTS -->
-<script src="/assets/js/i18n-routes.js"></script>
-<script src="/assets/js/loader.js"></script>
+<script src="/assets/js/i18n-routes.js" defer></script>
 <script>
         document.addEventListener('DOMContentLoaded', () => {
             if(window.loadComp) {
@@ -183,5 +182,8 @@
             }, 1000); // Wait for DataBridge
         });
     </script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>

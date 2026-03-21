@@ -3,13 +3,13 @@
    Santis Club – Misafir Deneyimleri
    ========================================================================== */
 
-.nv-testimonials {
+.santis-testimonials {
     padding: 80px 0 60px;
     background: linear-gradient(180deg, rgba(10, 12, 16, 0) 0%, rgba(10, 12, 16, 0.4) 100%);
 }
 
 /* Grid Layout */
-.nv-testimonial-grid {
+.santis-testimonial-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
@@ -17,7 +17,7 @@
 }
 
 /* Card Base */
-.nv-testimonial-card {
+.santis-testimonial-card {
     background: rgba(20, 20, 20, 0.5);
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
@@ -31,21 +31,21 @@
     will-change: transform, box-shadow;
 }
 
-.nv-testimonial-card:hover {
+.santis-testimonial-card:hover {
     transform: translateY(-4px) translateZ(0);
     border-color: rgba(198, 165, 92, 0.2);
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
 }
 
 /* Stars */
-.nv-testimonial-stars {
+.santis-testimonial-stars {
     color: var(--gold, #C6A55C);
     font-size: 16px;
     letter-spacing: 3px;
 }
 
 /* Quote */
-.nv-testimonial-quote {
+.santis-testimonial-quote {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.15rem;
     font-style: italic;
@@ -57,7 +57,7 @@
 }
 
 /* Author */
-.nv-testimonial-author {
+.santis-testimonial-author {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -66,14 +66,14 @@
     border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.nv-testimonial-name {
+.santis-testimonial-name {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 500;
     color: #fff;
 }
 
-.nv-testimonial-location {
+.santis-testimonial-location {
     font-family: 'Inter', sans-serif;
     font-size: 12px;
     color: rgba(255, 255, 255, 0.4);
@@ -81,7 +81,7 @@
     letter-spacing: 1px;
 }
 
-.nv-testimonial-location::before {
+.santis-testimonial-location::before {
     content: '•';
     margin-right: 8px;
     color: var(--gold, #C6A55C);
@@ -89,20 +89,20 @@
 
 /* Mobile */
 @media (max-width: 768px) {
-    .nv-testimonials {
+    .santis-testimonials {
         padding: 60px 0 40px;
     }
 
-    .nv-testimonial-grid {
+    .santis-testimonial-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
 
-    .nv-testimonial-card {
+    .santis-testimonial-card {
         padding: 28px;
     }
 
-    .nv-testimonial-quote {
+    .santis-testimonial-quote {
         font-size: 1.05rem;
     }
 }

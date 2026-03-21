@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Load nav + footer components managed by santis-nav.js
 
     // 3. FILTER CHIP LOGIC
-    const chips = document.querySelectorAll('.nv-chip');
+    const chips = document.querySelectorAll('.santis-chip');
 
     chips.forEach(chip => {
         chip.addEventListener('click', () => {

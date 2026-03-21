@@ -19,8 +19,43 @@
 
 /* V5 UYUMLULUK KATMANI — V6 modülleri tüm kuralları kapsayana dek aktif */
 @import url('santis-v6/santis.legacy-compat.css');
+@import url('components.css'); /* GLOBAL ORPHAN FIX: Restores .santis-chip, Navbar Z-Index, and Legacy Cards */
 
 @import url('media-skeleton.css');
+@import url('view-transitions.css');
+
+/* --- Z-Index Master Map & Variables --- */
+:root {
+  --z-overlay: 9998;
+  --z-ghost: 9999;
+}
+
+/* --- Stacking Context Enforcer (God Canvas Z-Index Bugfix) --- */
+section, .santis-section {
+  position: relative;
+  z-index: 1;
+}
+
+/* 🔴 NUCLEAR FIX: Global Navbar Görünürlüğü ve Tıklama Kilidi İptali */
+.sovereign-brand-bar, .solid-nav-page .sovereign-brand-bar, .editorial-mode .sovereign-brand-bar { 
+    background: rgba(18, 16, 14, 0.98) !important; 
+    opacity: 1 !important; 
+    visibility: visible !important; 
+    display: flex !important; 
+}
+#navbar-container { 
+    position: relative !important; 
+    z-index: 2147483647 !important; 
+    pointer-events: auto !important; 
+}
+.sovereign-nav { 
+    pointer-events: auto !important; 
+    z-index: 2147483647 !important; 
+    opacity: 1 !important; 
+    visibility: visible !important; 
+    transform: translateY(0) !important; /* Prevent scroll-hidden */
+}
+
 
 /* 
    ⚠️ BABA YAGA PROTOKOLÜ UYARISI: 
@@ -42,8 +77,8 @@
 /* 2. Sıvı İvme (Liquid Momentum): Matrix ve Blog Kartları İçin */
 .matrix-card,
 .santis-blog-card,
-.nv-signature-card,
-.nv-trend-card,
+.santis-signature-card,
+.santis-trend-card,
 .santis-card {
   /* Kullanıcı sayfayı agresif kaydırdığında ivme (--scroll-velocity) artar, 
      kartlar rüzgar yemiş masif bir kumaş gibi çok hafifçe esner (skew).
@@ -59,7 +94,36 @@
 .santis-header.is-sticky,
 #site-header.is-sticky {
   /* Hızlı kaydırmalarda header'ın arka plan bulanıklığı (blur) dinamik olarak artar */
-  backdrop-filter: blur(calc(10px + Math.abs(var(--scroll-velocity, 0)) * 0.1px));
+    backdrop-filter: blur(calc(10px + abs(var(--scroll-velocity, 0)) * 0.1px));
+}
+
+/* --- Sovereign V26: Santis Soul Engine (Biometric UX) --- */
+:root {
+  --soul-breath-intensity: 0;
+  --gyro-x: 0;
+  --gyro-y: 0;
+}
+
+/* 1. 4-7-8 Breathing Apparition */
+.santis-card, .matrix-card, .phantom-layer {
+  box-shadow: 0 calc(10px + (var(--soul-breath-intensity) * 15px)) calc(30px + (var(--soul-breath-intensity) * 20px)) rgba(0,0,0, calc(0.15 + (var(--soul-breath-intensity) * 0.1)));
+  transition: box-shadow 0.1s linear;
+}
+
+/* 2. Gyroscope Liquid Light Glare */
+.santis-card::after, .matrix-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at calc(50% + (var(--gyro-x) * 50%)) calc(50% + (var(--gyro-y) * 50%)), rgba(255,255,255,0.06) 0%, transparent 60%);
+  mix-blend-mode: overlay;
+  z-index: 10;
+}
+
+/* 3. SVG Phantom Glass Application */
+.phantom-glass-active {
+  filter: url(#phantom-glass);
 }
 
 /* --- Sovereign V21: The Ghost Concierge --- */
@@ -146,3 +210,389 @@
   /* SİHİRLİ DOKUNUŞ: Fare üzerindeyken transition iptal edilir ki imlece anında, 0 gecikmeyle (120Hz) yapışsın */
   transition: none; 
 }
+
+/* --- Sovereign V28: Aurelia Voice UI --- */
+.voice-overlay {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: #00FFC2;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-family: inherit;
+  font-weight: 500;
+  letter-spacing: 1px;
+  z-index: 9999;
+  box-shadow: 0 0 20px rgba(0,255,194,0.4);
+  border: 1px solid rgba(0,255,194,0.2);
+}
+
+.intent-flash {
+  animation: santis-flash 0.3s ease;
+}
+
+@keyframes santis-flash {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(2); }
+  100% { filter: brightness(1); }
+}
+
+#memory-panel {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: rgba(10,10,12,0.85);
+  border: 1px solid rgba(0, 255, 194, 0.2);
+  color: #00ffcc;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-family: inherit;
+  font-weight: 500;
+  max-width: 300px;
+  z-index: 9999;
+  font-size: 11px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+}
+
+/* --- Sovereign V30: PDP Data Bridge (Skeleton & Refraction) --- */
+/* SANTIS SKELETON (Nefes Alan Biyometrik İskelet) */
+.santis-skeleton {
+    background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+    background-size: 200% 100%;
+    animation: santis-shimmer 1.5s infinite linear;
+    color: transparent !important;
+    border-radius: 4px;
+    pointer-events: none;
+    min-height: 1.5em; /* CLS (Layout Shift) önlemek için kritik boyut koruması */
+}
+
+@keyframes santis-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* SANTIS REFRACTION (Veri Sahneye Çıkarken Biyometrik Kırılma Efekti) */
+.santis-refracted {
+    animation: santis-fade-in-blur 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes santis-fade-in-blur {
+    0% { opacity: 0; filter: blur(12px); transform: translateY(10px) scale(0.98); }
+    100% { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
+}
+
+/* 🦋 PHASE 33: SOVEREIGN SOUL FLASH (KUANTUM SIVI METAL) & ADAPTIVE HEARTBEAT */
+
+/* 1. Kuantum Sıvı Metal Parlaması (Aurelia Nudge anında ekranı sarar) */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999999;
+    background: radial-gradient(circle at center, rgba(212, 175, 55, var(--santis-soul-flash, 0)) 0%, transparent 60%);
+    mix-blend-mode: screen;
+    opacity: var(--santis-soul-flash, 0);
+    backdrop-filter: blur(calc(var(--santis-soul-flash, 0) * 10px));
+    transition: opacity 0.1s ease-out, backdrop-filter 0.1s ease-out;
+}
+
+/* 2. Hiperventilasyon Etkisi (Nefes hızlandıkça arka plan greni ve kılıç ışığı gerilir) */
+.santis-grain-overlay {
+    opacity: calc(0.12 + (1 - var(--soul-breath-intensity, 1)) * 0.15); /* Nefes verirken karanlık çöker */
+}
+
+/* 3. Kartların üzerindeki Phantom Glass nefesle senkron titreşir */
+.santis-card, .bento-card-v6 {
+    filter: drop-shadow(0 0 calc(var(--soul-breath-intensity, 0) * 20px) rgba(212, 175, 55, 0.15));
+}
+
+/* --- Sovereign V45 3D Stacked Carousel (Cover Flow) --- */
+.santis-carousel-stage {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    overflow: hidden;
+    cursor: grab;
+    margin: 4rem 0;
+}
+.santis-carousel-stage:active {
+    cursor: grabbing;
+}
+.santis-stack-card {
+    position: absolute;
+    width: 340px;
+    height: 440px;
+    background: #111;
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.6s ease,
+                border-color 0.6s ease;
+    will-change: transform, opacity;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 2rem;
+    color: #fff;
+    user-select: none;
+    background-size: cover;
+    background-position: center;
+    box-shadow: inset 0 -150px 100px -20px rgba(0,0,0,0.85); /* Derin Inner Gölge */
+}
+.santis-stack-card h3 {
+    font-size: 1.8rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin: 0 0 0.5rem 0;
+    position: relative;
+    z-index: 2;
+}
+.santis-stack-card.is-active {
+    border-color: rgba(212, 175, 55, 0.5); /* Gold Frame */
+    box-shadow: inset 0 -150px 100px -20px rgba(0,0,0,0.85), 0 0 40px rgba(212, 175, 55, 0.2);
+}
+.santis-stack-meta {
+    font-size: 0.8rem;
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 2;
+}
+
+/* =========================================
+   SANTIS SOVEREIGN REVEAL (GHOST EXPANSION)
+   ========================================= */
+
+body.ghost-active {
+    overflow: hidden !important;\n    pointer-events: none;
+}
+
+.santis-ghost-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(5,5,5,0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: var(--z-overlay, 9998);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+.santis-ghost-overlay.is-active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.santis-ghost-card {
+    position: fixed;
+    z-index: var(--z-ghost, 9999);
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                width 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                height 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                border-radius 0.6s ease;
+    will-change: transform, width, height, border-radius;
+    transform: translateZ(0);
+    overflow: hidden;
+    pointer-events: auto;
+}
+
+.santis-stack-card.ghost-hidden {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+.santis-ghost-close {
+    position: absolute;
+    top: 40px; right: 40px;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 28px;
+    cursor: pointer;
+    opacity: 0; transform: translateY(-20px) translateZ(0);
+    transition: opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s, background 0.3s ease, color 0.3s ease;
+    z-index: 10000;
+}
+.santis-ghost-close:hover {
+    background: rgba(255,255,255,0.2);
+    color: #D4AF37;
+}
+
+.santis-ghost-card.is-expanded .santis-ghost-close {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+}
+
+.santis-reveal-data {
+    display: none;
+}
+
+.santis-ghost-card.is-expanded .santis-reveal-data {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    opacity: 0;
+    transform: translateY(40px) translateZ(0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    text-align: center;
+}
+
+/* The internal dark gradient for readability */
+.santis-ghost-gradient {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 60%;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, transparent 100%);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+.santis-ghost-card.is-expanded .santis-ghost-gradient {
+    opacity: 1;
+}
+
+.santis-ghost-card.is-expanded.reveal-content-active .santis-reveal-data {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+}
+
+
+/* ==========================================
+   💧 LIQUID CURSOR ENGINE
+   ========================================== */
+@media (pointer: fine) {
+    /* Kill native cursor globally for fine pointing devices */
+    body, a, button, input, textarea, .santis-btn, .santis-magnetic, .santis-stack-card {
+        cursor: none !important;
+    }
+}
+
+#santis-cursor-dot {
+    position: fixed;
+    top: 0; left: 0;
+    width: 6px; height: 6px;
+    background: #D4AF37;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10001;
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.1s ease-out; /* scale transition on click */
+}
+
+#santis-cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: difference;
+    display: flex; align-items: center; justify-content: center;
+    transform-origin: center center;
+    will-change: transform, width, height, border-radius;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Base Initializer */
+body.cursor-initialized #santis-cursor-dot,
+body.cursor-initialized #santis-cursor-ring {
+    opacity: 1;
+}
+
+/* ZIRH 2: Window Edge Death (Hide when mouse leaves window) */
+body.cursor-hidden #santis-cursor-dot,
+body.cursor-hidden #santis-cursor-ring {
+    opacity: 0 !important;
+    transform: scale(0) !important;
+}
+
+/* ZIRH 3: Micro-Compression on Mousedown */
+body.cursor-mousedown #santis-cursor-ring {
+    transform: scale(0.85) !important;
+    /* We don't animate transform normally because LERP sets it, 
+       but we can use matrix logic in JS or apply a sub-div for scale. 
+       Actually, doing it in JS LERP is safer. We will handle compression in JS. */
+}
+
+.santis-cursor-label {
+    display: none;
+    color: #000;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+/* === MORPH STATES === */
+/* Text Hover (I-Beam) */
+body.cursor-text-hover #santis-cursor-ring {
+    width: 2px !important;
+    height: 1.5em !important;
+    border-radius: 0 !important;
+    background: #fff;
+    border: none;
+}
+body.cursor-text-hover #santis-cursor-dot {
+    opacity: 0; /* hide dot during text beam */
+}
+
+/* Lens / Ghost Action (Expand & Show Text) */
+body.cursor-lens-hover #santis-cursor-ring {
+    width: 60px !important;
+    height: 60px !important;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    mix-blend-mode: normal;
+}
+body.cursor-lens-hover .santis-cursor-label {
+    display: block;
+    opacity: 1;
+}
+body.cursor-lens-hover #santis-cursor-dot {
+    opacity: 0; 
+}
+
+/* Snap State (The Fluid Box Fusion) */
+body.cursor-snap-hover #santis-cursor-ring {
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    mix-blend-mode: normal;
+    /* width, height, border-radius are injected by JS dynamically */
+}
+body.cursor-snap-hover #santis-cursor-dot {
+    opacity: 0; /* dissolve dot into the button */
+}
+

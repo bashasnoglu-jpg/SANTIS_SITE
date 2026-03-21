@@ -38,11 +38,11 @@
 
             const configKey = configMap[categoryKey] || categoryKey;
 
-            this.filters = window.NV_SMART_FILTERS ? window.NV_SMART_FILTERS[configKey] : null;
+            this.filters = window.SANTIS_SMART_FILTERS ? window.SANTIS_SMART_FILTERS[configKey] : null;
 
             // 3. Load Data Source (Using Output of Data Bridge or Catalog Directly)
             // We still use the Global Variables populated by product-data.js Bridge for backward compat
-            const dataSourceName = `NV_${context.toUpperCase()}`;
+            const dataSourceName = `SANTIS_${context.toUpperCase()}`;
             this.data = window[dataSourceName] || [];
 
             console.log(`📊 Data Source: ${dataSourceName} (${this.data.length} items)`);
@@ -126,7 +126,7 @@
 
             this.chipsContainer.innerHTML = this.filters.map(f => {
                 const isActive = this.state.filterKey === f.key ? "active" : "";
-                return `<button class="nv-chip ${isActive}" data-key="${f.key}">
+                return `<button class="santis-chip ${isActive}" data-key="${f.key}">
                             <span class="chip-icon">${f.icon}</span> 
                             ${f.label}
                         </button>`;
@@ -137,20 +137,20 @@
             this.container.innerHTML = "";
 
             if (items.length === 0) {
-                this.container.innerHTML = `<div class="nv-empty-state">Sonuç bulunamadı.</div>`;
+                this.container.innerHTML = `<div class="santis-empty-state">Sonuç bulunamadı.</div>`;
                 return;
             }
 
             // Check if we need Sectioned View (Catalog Mode)
             // Logic: If "all" is selected AND we have a defined CATEGORY ORDER global (Legacy Support)
-            // We use the bridged globals: NV_MASSAGES_CATEGORY_ORDER etc.
+            // We use the bridged globals: SANTIS_MASSAGES_CATEGORY_ORDER etc.
             // But wait, the V2 System prefers flat lists filtered by tags. 
             // Let's keep the Sectioned View for "All" only if globals exist.
 
             // Determining Context from Data (heuristic)
-            const isMassages = window.NV_MASSAGES && this.data === window.NV_MASSAGES;
-            const orderGlobal = isMassages ? window.NV_MASSAGES_CATEGORY_ORDER : window.NV_HAMMAM_CATEGORY_ORDER;
-            const labelGlobal = isMassages ? window.NV_MASSAGES_CATEGORY_LABELS : window.NV_HAMMAM_CATEGORY_LABELS;
+            const isMassages = window.SANTIS_MASSAGES && this.data === window.SANTIS_MASSAGES;
+            const orderGlobal = isMassages ? window.SANTIS_MASSAGES_CATEGORY_ORDER : window.SANTIS_HAMMAM_CATEGORY_ORDER;
+            const labelGlobal = isMassages ? window.SANTIS_MASSAGES_CATEGORY_LABELS : window.SANTIS_HAMMAM_CATEGORY_LABELS;
 
             const showSections = (this.state.filterKey === "all" && orderGlobal && items.length > 5);
 
@@ -164,11 +164,11 @@
                     if (groupItems.length > 0) {
                         const title = (labelGlobal && labelGlobal[catKey]) || catKey;
                         html += `
-                        <div class="nv-catalog-section">
-                            <div class="nv-section-header">
-                                <h2 class="nv-section-title">${title}</h2>
+                        <div class="santis-catalog-section">
+                            <div class="santis-section-header">
+                                <h2 class="santis-section-title">${title}</h2>
                             </div>
-                            <div class="nv-card-grid">
+                            <div class="santis-card-grid">
                                 ${groupItems.map((item, idx) => this.buildCard(item, idx)).join('')}
                             </div>
                         </div>`;
@@ -178,7 +178,7 @@
 
             } else {
                 // FLAT LIST RENDERER
-                this.container.innerHTML = `<div class="nv-card-grid">
+                this.container.innerHTML = `<div class="santis-card-grid">
                     ${items.map((item, idx) => this.buildCard(item, idx)).join('')}
                 </div>`;
             }
@@ -186,7 +186,7 @@
 
         renderBento(items) {
             if (items.length === 0) {
-                this.container.innerHTML = `<div class="nv-empty-state">Sonuç bulunamadı.</div>`;
+                this.container.innerHTML = `<div class="santis-empty-state">Sonuç bulunamadı.</div>`;
                 return;
             }
             this.container.innerHTML = items.map((item, index) => {
@@ -228,7 +228,7 @@
             else if (cat.includes('skin') || cat.includes('cilt') || cat.includes('face') || cat.includes('sothys')) section = 'cilt-bakimi';
 
             const slug = item.slug || item.id;
-            const href = slug ? `/tr/${section}/${slug}.html` : `/tr/urunler/detay.html?product=${item.id}`;
+            const href = slug ? `/tr/${section}/${slug}.html` : `/urunler/detay.html?product=${item.id}`;
 
             const imgPath = this.fixPath(item.img);
 
@@ -251,7 +251,7 @@
             else if (cat.includes('skin') || cat.includes('cilt') || cat.includes('face') || cat.includes('sothys')) section = 'cilt-bakimi';
 
             const slug = item.slug || item.id;
-            const href = slug ? `/tr/${section}/${slug}.html` : `/tr/urunler/detay.html?product=${item.id}`;
+            const href = slug ? `/tr/${section}/${slug}.html` : `/urunler/detay.html?product=${item.id}`;
 
             const imgPath = this.fixPath(item.img);
 
@@ -335,7 +335,7 @@
             else if (path.includes("urunler")) Engine.init("PRODUCTS");
         };
 
-        if (window.NV_DATA_READY) {
+        if (window.SANTIS_DATA_READY) {
             start();
         } else {
             // Neuro-Sync Listener

@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sovereign Council | AI Layout Debate</title>
@@ -142,11 +147,11 @@
     </div>
 </div>
 
-<script src="omniverse-bridge.js"></script>
-<script src="sovereign-council.js"></script>
+<script src="omniverse-bridge.js" defer></script>
+<script src="sovereign-council.js" defer></script>
 <script>
 const Page = (() => {
-    const bridge = new OmniverseBridge('oracle-worker.js');
+    const bridge = new OmniverseBridge('omniverse/oracle-worker.js');
     const council = new SovereignCouncil(bridge);
     let winnerResult = null;
 
@@ -267,5 +272,8 @@ const Page = (() => {
 })();
 </script>
 <script src="/admin/assets/js/admin-nav.js" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>

@@ -1,0 +1,294 @@
+/**
+ * ╔══════════════════════════════════════════════════════════════╗
+ * ║  🏗️ SANTIS BENTO GRID ENGINE v2.0                         ║
+ * ║  12-Kolon → grid-template-areas · DOM Sırası Korumalı      ║
+ * ║  Gerçek HTML: .santis-bento-universe + .bento-card-v6      ║
+ * ╚══════════════════════════════════════════════════════════════╝
+ *
+ * HTML yapısı:
+ *   <div class="santis-bento-universe">
+ *     <a class="bento-card-v6 wide">  ← Geniş kart (Hamam)
+ *     <a class="bento-card-v6">       ← Normal (Masaj)
+ *     <a class="bento-card-v6">       ← Normal (Cilt)
+ *     <a class="bento-card-v6">       ← Normal (Atölye)
+ *   </div>
+ *
+ * Import: tr/index.html <head>'ine ekle:
+ *   <link rel="stylesheet" href="/assets/css/base/grid-engine.css">
+ */
+
+/* ── 1. MASAÜSTÜ: 12 Kolon Grid + Template Areas (1440px+) ──────────────── */
+.santis-bento-universe {
+    display: grid;
+
+    /* 12 eşit kolon — overflow yok, minmax(0,1fr) kritik */
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-rows: auto;
+    gap: 20px;
+
+    width: 100%;
+    max-width: 1600px;
+    margin: 40px auto 0;
+    padding: 0 0 8px;
+
+    /* grid-auto-flow: dense KAPALIYIZ → DOM sırası = tab sırası (A11y) */
+    grid-auto-flow: row;
+
+    /**
+     * Görsel Alan Haritası:
+     *   "wide  wide  wide  wide  wide  wide  wide  wide  c1 c1 c1 c1"
+     *   "c2    c2    c2    c2    c3    c3    c3    c3    c4 c4 c4 c4"
+     *
+     * wide = 8 kolon geniş kart (Hamam Ritüeli)
+     * c1   = 4 kolon dar kart (Masaj)
+     * c2   = 4 kolon normal kart (Masaj 2)
+     * c3   = 4 kolon normal kart (Cilt Bakımı)
+     * c4   = 4 kolon normal kart (Atölye)
+     */
+    grid-template-areas:
+        "wide wide wide wide wide wide wide wide c1 c1 c1 c1"
+        "c2   c2   c2   c2   c3   c3   c3   c3   c4 c4 c4 c4";
+}
+
+/* ── 2. KART AREA ATAMALARI ──────────────────────────────────────────────── */
+
+/* 1. Çocuk: wide (Hamam — geniş kart) */
+.santis-bento-universe > .bento-card-v6.wide:first-child,
+.santis-bento-universe > .bento-card-v6:first-child.wide {
+    grid-area: wide;
+    aspect-ratio: 16 / 9;
+}
+
+/* 2. Çocuk: c1 — Masaj (sağ sütun, üst) */
+.santis-bento-universe > .bento-card-v6:nth-child(2) {
+    grid-area: c1;
+    aspect-ratio: 4 / 5;
+}
+
+/* 3. Çocuk: c2 — ilk satır sol (Global Trends'teki sıralamaya göre) */
+.santis-bento-universe > .bento-card-v6:nth-child(3) {
+    grid-area: c2;
+    aspect-ratio: 1 / 1;
+}
+
+/* 4. Çocuk: c3 */
+.santis-bento-universe > .bento-card-v6:nth-child(4) {
+    grid-area: c3;
+    aspect-ratio: 1 / 1;
+}
+
+/* 5+ Çocuk: otomatik akış (extra kartlar) */
+.santis-bento-universe > .bento-card-v6:nth-child(n+5) {
+    grid-column: span 4;
+    aspect-ratio: 1 / 1;
+}
+
+/* ── 3. KART TEMELİ (bento-card-v6) ─────────────────────────────────────── */
+.bento-card-v6 {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    text-decoration: none;
+    color: inherit;
+
+    /* GPU: will-change STATIK YOK — motion-guard.js dinamik ekler */
+    contain: layout style paint;
+
+    /* Viewport dışı render ertele */
+    content-visibility: auto;
+    contain-intrinsic-size: 0 400px;
+
+    /* Hover animasyonu */
+    transition:
+        transform  0.5s cubic-bezier(0.23, 1, 0.32, 1),
+        box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+        border-color 0.4s ease;
+
+    border: 1px solid rgba(181, 164, 137, 0.08);
+    background: #0a0a08;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.bento-card-v6:hover {
+    transform: translateY(-6px) scale(1.005);
+    border-color: rgba(212, 175, 55, 0.25);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(212,175,55,0.1);
+    z-index: 2;
+}
+
+/* Görüntü */
+.bento-card-v6 .bento-card-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+                filter 0.8s ease;
+    filter: brightness(0.72) saturate(0.85);
+}
+
+.bento-card-v6:hover .bento-card-media {
+    transform: scale(1.04);
+    filter: brightness(0.82) saturate(1);
+}
+
+/* Degrade overlay */
+.bento-card-v6 .bento-card-protector {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(5,5,3,0.92) 0%,
+        rgba(5,5,3,0.4)  40%,
+        transparent      75%
+    );
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* İçerik */
+.bento-card-v6 .bento-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 28px 28px 24px;
+    z-index: 2;
+}
+
+.bento-card-v6 .bento-meta {
+    display: block;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--clr-gold, #D4AF37);
+    margin-bottom: 6px;
+    opacity: 0.8;
+}
+
+.bento-card-v6 .bento-title {
+    font-family: 'Cinzel', 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-weight: 500;
+    color: #F5F1EA;
+    margin: 0 0 6px;
+    line-height: 1.2;
+    /* CLS koruması: sabit satır */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.bento-card-v6 .bento-desc {
+    font-size: 13px;
+    color: rgba(245, 241, 234, 0.6);
+    line-height: 1.55;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.bento-card-v6:hover .bento-desc,
+.bento-card-v6:focus-visible .bento-desc {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── 4. REDUCED MOTION ──────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .bento-card-v6,
+    .bento-card-v6 .bento-card-media,
+    .bento-card-v6 .bento-desc {
+        transition: none;
+    }
+
+    .bento-card-v6:hover {
+        transform: none;
+    }
+
+    .bento-card-v6 .bento-desc {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ── 5. TABLET (max 1200px) ── 8 Kolon ─────────────────────────────────── */
+@media (max-width: 1200px) {
+    .santis-bento-universe {
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+        grid-template-areas:
+            "wide wide wide wide wide wide wide wide"
+            "wide wide wide wide wide wide wide wide"
+            "c1   c1   c1   c1   c2   c2   c2   c2"
+            "c3   c3   c3   c3   c4   c4   c4   c4";
+    }
+
+    .santis-bento-universe > .bento-card-v6.wide:first-child {
+        aspect-ratio: 21 / 9;
+    }
+
+    .santis-bento-universe > .bento-card-v6:nth-child(2) {
+        aspect-ratio: 4 / 3;
+    }
+}
+
+/* ── 6. TABLETİK (max 768px) ── 2 Kolon ────────────────────────────────── */
+@media (max-width: 768px) {
+    .santis-bento-universe {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-areas:
+            "wide wide"
+            "c1   c2"
+            "c3   c4";
+        gap: 12px;
+        margin: 24px auto 0;
+    }
+
+    .santis-bento-universe > .bento-card-v6.wide:first-child {
+        aspect-ratio: 3 / 2;
+    }
+
+    .santis-bento-universe > .bento-card-v6:nth-child(n) {
+        aspect-ratio: 1 / 1;
+    }
+}
+
+/* ── 7. MOBİL (max 480px) ── Tek Kolon ─────────────────────────────────── */
+@media (max-width: 480px) {
+    .santis-bento-universe {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "wide"
+            "c1"
+            "c2"
+            "c3"
+            "c4";
+        gap: 10px;
+    }
+
+    .santis-bento-universe > .bento-card-v6 {
+        aspect-ratio: 4 / 3 !important;
+    }
+
+    .bento-card-v6 .bento-desc {
+        opacity: 1;  /* Mobilde her zaman göster */
+        transform: none;
+    }
+}
+
+/* ── 8. FOCUS ERİŞİLEBİLİRLİK ───────────────────────────────────────────── */
+.bento-card-v6:focus-visible {
+    outline: 2px solid var(--clr-gold, #D4AF37);
+    outline-offset: 3px;
+}

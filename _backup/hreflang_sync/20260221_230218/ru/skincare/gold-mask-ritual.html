@@ -18,8 +18,8 @@
 <link href="/manifest.json" rel="manifest"/>
 <link href="https://santis-club.com/ru/skincare/gold-mask-ritual.html" rel="canonical"/>
 <!-- PAGE CONFIG -->
-<script src="/assets/js/page-config.js"></script>
-<script src="/assets/js/i18n-routes.js"></script>
+<script src="/assets/js/page-config.js" defer></script>
+<script src="/assets/js/i18n-routes.js" defer></script>
 <script defer="" src="/assets/js/hreflang-injector.js"></script>
 <script>
         // Force SERVICE_ID for the logic engine
@@ -66,8 +66,8 @@
 </script><link href="https://santisclub.com/ru/skincare/gold-mask-ritual.html" hreflang="ru" rel="alternate"/><link href="https://santisclub.com/en/skincare/gold-mask-ritual.html" hreflang="x-default" rel="alternate"/><meta content="website" property="og:type"/><meta content="Classic Facial | Santis Skin Care" property="og:title"/><meta content="Our signature deep cleansing facial customized for your unique skin type." property="og:description"/><meta content="https://santis-club.com/ru/skincare/gold-mask-ritual.html" property="og:url"/><meta content="https://santisclub.com/assets/img/textures/cream.webp" property="og:image"/><meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Classic Facial | Santis Skin Care" name="twitter:title"/><meta content="Our signature deep cleansing facial customized for your unique skin type." name="twitter:description"/><meta content="https://santisclub.com/assets/img/textures/cream.webp" name="twitter:image"/></head>
 <body class="editorial-mode skincare-theme">
 <noscript>
-<nav class="nv-noscript-nav">
-<a class="nv-ns-home" href="/index.html">ANA SAYFA</a>
+<nav class="santis-noscript-nav">
+<a class="santis-ns-home" href="/">ANA SAYFA</a>
 <a href="/ru/skincare/index.html">CİLT BAKIMI</a>
 </nav>
 </noscript>
@@ -82,7 +82,7 @@
 <div class="cin-visual-stage">
 <div class="cin-visual-overlay"></div>
 <!-- Texture Image (Loaded by JS, but providing a default) -->
-<img alt="Santis Signature Cleanse" class="cin-visual-img" decoding="async" height="1024" id="cin-img" loading="lazy" src="/assets/img/textures/cream.webp" style="opacity:0; transition: opacity 1s ease;" width="1024"/>
+<img alt="Santis Signature Cleanse" class="cin-visual-img" decoding="async" height="1024" id="cin-img" loading="lazy" src="/assets/img/textures/cream.webp" style="opacity:0; transition: opacity 1s ease;" width="1024">
 </div>
 <!-- RIGHT: CONTENT STAGE -->
 <div class="cin-content-stage">
@@ -116,17 +116,18 @@
 <!-- FOOTER -->
 <div id="footer-container" style="position:relative; z-index:10; background:#0b0d11;"></div>
 <!-- SCRIPTS -->
-<script src="/assets/js/fallback_data.js"></script>
-<script src="/assets/js/loaders/data-bridge.js"></script>
-<script defer="" src="/assets/js/santis-nav.js"></script>
-<script defer="" src="/assets/js/loader.js"></script>
-<script src="/assets/js/reflex/atmos.js"></script>
-<script src="/assets/js/booking-wizard.js"></script>
+<script src="/assets/js/fallback_data.js" defer></script>
+<script src="/assets/js/loaders/data-bridge.js" defer></script>
+<script src="/assets/js/reflex/atmos.js" defer></script>
+<script src="/assets/js/booking-wizard.js" defer></script>
 <!-- LOGIC -->
-<script src="/assets/js/service-engine.js"></script>
-<script src="/assets/js/service-detail-logic.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" crossorigin="anonymous"></script>
-<script src="/assets/js/lenis-init.js"></script>
+<script src="/assets/js/service-engine.js" defer></script>
+<script src="/assets/js/service-detail-logic.js" defer></script>
+<script src="/assets/vendor/lenis.min.js" crossorigin="anonymous" defer></script>
+<script src="/assets/js/lenis-init.js" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
 

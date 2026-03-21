@@ -1,0 +1,101 @@
+# ════════════════════════════════════════════════════════════════
+# 🏛️ SOVEREIGN CHARTER V1.0 — SANTIS OS AGENT CONSTITUTION
+# Bu anayasa, Santis OS bünyesindeki tüm otonom ajanların
+# yetki sınırlarını, mali limitlerini ve güven barajlarını belirler.
+# ════════════════════════════════════════════════════════════════
+
+charter_version: "1.0"
+effective_date: "2026-03-19"
+philosophy: "Zero-Trust by default. Otonomi kazanılır, verilmez."
+
+# ──────────────────────────────────
+# GLOBAL GOVERNANCE RULES
+# ──────────────────────────────────
+global:
+  trust_score:
+    initial_base: 50         # Tüm ajanlar 50 puanla başlar (0-100 ölçeği)
+    success_reward: 5         # Başarılı görev → +5 puan
+    failure_penalty: 15       # Başarısız görev veya ihlal → -15 puan (asimetrik)
+    min_score: 0
+    max_score: 100
+  autonomy_thresholds:
+    full:    { min_score: 90,  label: "Sovereign",  logging: false,  human_approval: false }
+    partial: { min_score: 60,  label: "Monitored",  logging: true,   human_approval: false }
+    blocked: { min_score: 0,   label: "Restricted", logging: true,   human_approval: true  }
+
+# ──────────────────────────────────
+# AGENT REGISTRY
+# ──────────────────────────────────
+agents:
+
+  phantom_concierge:
+    display_name: "Phantom Concierge"
+    role: "Guest Interactor"
+    description: "Sesli ve metin bazlı misafir etkileşimini yönetir."
+    trust_score_requirement: 75
+    fiscal:
+      max_discount_pct: 15     # Otonom indirim limiti (yüzde)
+      daily_budget_usd: 500    # Günlük harcama/indirim tavanı
+    capabilities:
+      - read_intent
+      - book_spa
+      - apply_discount
+      - override_cart
+    blocked_actions:
+      - delete_booking
+      - escalate_to_human
+    exceptions:
+      budget_exceeded: "FiscalInsolvencyError"
+      low_trust: "UnauthorizedAutonomyError"
+
+  quantum_shield:
+    display_name: "Quantum Shield"
+    role: "Network Interceptor"
+    description: "Tüm giden ağ isteklerini mühürler ve filtreler."
+    trust_score_requirement: 95
+    fiscal:
+      max_discount_pct: 0
+      daily_budget_usd: 0
+    capabilities:
+      - intercept_fetch
+      - seal_packet
+      - purge_cache
+      - block_request
+    blocked_actions:
+      - expose_headers
+    exceptions:
+      low_trust: "ShieldDeactivationError"
+
+  self_healing_swarm:
+    display_name: "Self-Healing Swarm"
+    role: "DOM Regent"
+    description: "DOM ağacındaki kritik düğümleri izler ve diriltir."
+    trust_score_requirement: 80
+    fiscal:
+      max_discount_pct: 0
+      daily_budget_usd: 0
+    capabilities:
+      - observe_dom
+      - resurrect_node
+      - cache_genesis
+    blocked_actions:
+      - modify_node_content
+    exceptions:
+      low_trust: "SwarmDeploymentError"
+
+  semantic_engine:
+    display_name: "Semantic Quantum Engine"
+    role: "Intent Resolver"
+    description: "Kullanıcı sorgularını vektör uzayında değerlendirerek hizmet önerir."
+    trust_score_requirement: 60
+    fiscal:
+      max_discount_pct: 0
+      daily_budget_usd: 0
+    capabilities:
+      - read_query
+      - vectorize_intent
+      - recommend_service
+    blocked_actions:
+      - persist_user_data
+    exceptions:
+      low_trust: "NLPDeactivationError"

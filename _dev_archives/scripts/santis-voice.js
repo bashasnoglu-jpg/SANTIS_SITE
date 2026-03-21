@@ -100,7 +100,7 @@ class SantisVoice {
 
         // Trend Cards
 
-        document.querySelectorAll('.nv-trend-card').forEach(card => {
+        document.querySelectorAll('.santis-trend-card').forEach(card => {
 
             card.addEventListener('mouseenter', () => {
 

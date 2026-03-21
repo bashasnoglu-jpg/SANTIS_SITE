@@ -29,11 +29,11 @@
             
             <div class="wizard-form-group">
                 <label>Tarih</label>
-                <input type="date" id="wizDate" class="nv-input">
+                <input type="date" id="wizDate" class="santis-input">
             </div>
             <div class="wizard-form-group">
                 <label>Saat</label>
-                <select id="wizTime" class="nv-input">
+                <select id="wizTime" class="santis-input">
                     <option value="">Seçiniz...</option>
                     <option value="10:00">10:00 - Günaydın</option>
                     <option value="12:00">12:00 - Öğle Güneşi</option>
@@ -44,8 +44,8 @@
             </div>
 
             <div class="wizard-actions">
-                <button class="nv-btn nv-btn-outline" onclick="BOOKING_WIZARD.prev()">Geri Dön</button>
-                <button class="nv-btn" onclick="BOOKING_WIZARD.next()">Devam Et</button>
+                <button class="santis-btn santis-btn-outline" onclick="BOOKING_WIZARD.prev()">Geri Dön</button>
+                <button class="santis-btn" onclick="BOOKING_WIZARD.next()">Devam Et</button>
             </div>
         </div>
 
@@ -56,16 +56,16 @@
             
             <div class="wizard-form-group">
                 <label>Adınız</label>
-                <input type="text" id="wizName" class="nv-input" placeholder="Size nasıl hitap edelim?">
+                <input type="text" id="wizName" class="santis-input" placeholder="Size nasıl hitap edelim?">
             </div>
             <div class="wizard-form-group">
                 <label>Notunuz (Opsiyonel)</label>
-                <textarea id="wizNote" class="nv-input" placeholder="Bedeninizin fısıldadığı özel bir durum var mı?"></textarea>
+                <textarea id="wizNote" class="santis-input" placeholder="Bedeninizin fısıldadığı özel bir durum var mı?"></textarea>
             </div>
 
             <div class="wizard-actions">
-                <button class="nv-btn nv-btn-outline" onclick="BOOKING_WIZARD.prev()">Geri Dön</button>
-                <button class="nv-btn nv-btn-gold" onclick="BOOKING_WIZARD.finish()">Sessizliğe Adım At</button>
+                <button class="santis-btn santis-btn-outline" onclick="BOOKING_WIZARD.prev()">Geri Dön</button>
+                <button class="santis-btn santis-btn-gold" onclick="BOOKING_WIZARD.finish()">Sessizliğe Adım At</button>
             </div>
         </div>
 
@@ -139,20 +139,20 @@
 .wiz-check { margin-left: auto; color: #d4af37; opacity: 0; transform: scale(0.5); transition: all 0.3s; }
 .wizard-option input:checked + .wiz-card .wiz-check { opacity: 1; transform: scale(1); }
 
-.nv-input {
+.santis-input {
     width: 100%; padding: 12px; background: #0a0a0a; border: 1px solid #333; color: #fff; border-radius: 4px; margin-top: 5px;
 }
-.nv-input:focus { border-color: #d4af37; outline: none; }
+.santis-input:focus { border-color: #d4af37; outline: none; }
 .wizard-form-group { margin-bottom: 20px; }
 
 .wizard-actions {
     display: flex; gap: 10px; margin-top: 30px;
 }
-.wizard-actions .nv-btn { flex: 1; }
-.nv-btn-outline { background: transparent; border: 1px solid #444; color: #ccc; }
-.nv-btn-outline:hover { background: #222; border-color: #666; }
-.nv-btn-gold { background: #d4af37; color: #000; border: none; }
-.nv-btn-gold:hover { background: #c5a028; }
+.wizard-actions .santis-btn { flex: 1; }
+.santis-btn-outline { background: transparent; border: 1px solid #444; color: #ccc; }
+.santis-btn-outline:hover { background: #222; border-color: #666; }
+.santis-btn-gold { background: #d4af37; color: #000; border: none; }
+.santis-btn-gold:hover { background: #c5a028; }
 </style>
 
 <script>
@@ -184,11 +184,11 @@ window.BOOKING_WIZARD = (function () {
         const display  = sessionStorage.getItem('nv_promo_display');
         if (!token) return;
 
-        const existing = document.getElementById('nv-promo-badge-wiz');
+        const existing = document.getElementById('santis-promo-badge-wiz');
         if (existing) return;
 
         const badge = document.createElement('div');
-        badge.id = 'nv-promo-badge-wiz';
+        badge.id = 'santis-promo-badge-wiz';
         badge.style.cssText = 'background:linear-gradient(135deg,#1a1200,#2a1f0e);border:1px solid #d4af37;border-radius:6px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#d4af37;text-align:center;';
         badge.innerHTML = '<strong>🎁 Aktif Promo: ' + (display || ('NV-' + token)) + '</strong><br><span style="color:#aaa;font-size:11px">%' + (discount || 10) + ' İndirim rezervasyonunuza yansıyacak</span>';
 
@@ -240,9 +240,9 @@ window.BOOKING_WIZARD = (function () {
             goTo(1);
             // Populate services from DataBridge
             const grid = document.getElementById('wizardServices');
-            if (grid && window.NV_PRODUCTS_ALL && window.NV_PRODUCTS_ALL.length > 0) {
+            if (grid && window.SANTIS_PRODUCTS_ALL && window.SANTIS_PRODUCTS_ALL.length > 0) {
                 grid.innerHTML = '';
-                window.NV_PRODUCTS_ALL.slice(0, 8).forEach(function (s, i) {
+                window.SANTIS_PRODUCTS_ALL.slice(0, 8).forEach(function (s, i) {
                     const name = s.name || s.title || 'Ritüel';
                     const price = s.current_price_eur || s.price || '';
                     const label = document.createElement('label');
@@ -263,7 +263,7 @@ window.BOOKING_WIZARD = (function () {
         prev: function () { if (currentStep > 1) goTo(currentStep - 1); },
         finish: function () {
             const msg     = buildWhatsAppMessage();
-            const phone   = (window.NV_CONCIERGE_NUMBER || '905555555555').replace(/\D/g, '');
+            const phone   = (window.SANTIS_CONCIERGE_NUMBER || '905555555555').replace(/\D/g, '');
             const encoded = encodeURIComponent(msg);
             window.open('https://wa.me/' + phone + '?text=' + encoded, '_blank');
             this.close();
@@ -271,3 +271,6 @@ window.BOOKING_WIZARD = (function () {
     };
 }());
 </script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>

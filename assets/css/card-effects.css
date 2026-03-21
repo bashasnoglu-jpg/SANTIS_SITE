@@ -34,11 +34,11 @@
 
 /* --- 2. GLASSMORPHISM BASE --- */
 
-.nv-card,
+.santis-card,
 
-.nv-card-service,
+.santis-card-service,
 
-.nv-card-product {
+.santis-card-product {
 
     position: relative;
 
@@ -70,11 +70,11 @@
 
 /* --- 3. GOLD GLOW ON HOVER --- */
 
-.nv-card:hover,
+.santis-card:hover,
 
-.nv-card-service:hover,
+.santis-card-service:hover,
 
-.nv-card-product:hover {
+.santis-card-product:hover {
 
     border-color: var(--gold-border);
 
@@ -96,11 +96,11 @@
 
 /* --- 4. SPOTLIGHT EFFECT (Mouse Follow) --- */
 
-.nv-card::before,
+.santis-card::before,
 
-.nv-card-service::before,
+.santis-card-service::before,
 
-.nv-card-product::before {
+.santis-card-product::before {
 
     content: '';
 
@@ -126,11 +126,11 @@
 
 
 
-.nv-card:hover::before,
+.santis-card:hover::before,
 
-.nv-card-service:hover::before,
+.santis-card-service:hover::before,
 
-.nv-card-product:hover::before {
+.santis-card-product:hover::before {
 
     opacity: 1;
 
@@ -192,11 +192,11 @@
 
 /* --- 5. SHIMMER EFFECT --- */
 
-.nv-card::after,
+.santis-card::after,
 
-.nv-card-service::after,
+.santis-card-service::after,
 
-.nv-card-product::after {
+.santis-card-product::after {
 
     content: '';
 
@@ -234,11 +234,11 @@
 
 
 
-.nv-card:hover::after,
+.santis-card:hover::after,
 
-.nv-card-service:hover::after,
+.santis-card-service:hover::after,
 
-.nv-card-product:hover::after {
+.santis-card-product:hover::after {
 
     left: 150%;
 
@@ -248,11 +248,11 @@
 
 /* --- 6. INNER CONTENT Z-INDEX FIX --- */
 
-.nv-card>*,
+.santis-card>*,
 
-.nv-card-service>*,
+.santis-card-service>*,
 
-.nv-card-product>* {
+.santis-card-product>* {
 
     position: relative;
 
@@ -264,9 +264,9 @@
 
 /* --- 7. IMAGE ENHANCEMENT --- */
 
-.nv-card-img-box,
-.nv-service-img-box,
-.nv-product-img-box {
+.santis-card-img-box,
+.santis-service-img-box,
+.santis-product-img-box {
     overflow: hidden;
     border-radius: 16px 16px 0 0;
 
@@ -279,9 +279,9 @@
 
 
 
-.nv-card-img-box img,
-.nv-service-img-box img,
-.nv-product-img-box img {
+.santis-card-img-box img,
+.santis-service-img-box img,
+.santis-product-img-box img {
     /* 🛡️ Phase 15.4: Aspect-Ratio İskeletiyle Tam Uyum */
     width: 100%;
     height: 100%;
@@ -296,11 +296,11 @@
 
 
 
-.nv-card:hover .nv-card-img-box img,
+.santis-card:hover .santis-card-img-box img,
 
-.nv-card-service:hover .nv-service-img-box img,
+.santis-card-service:hover .santis-service-img-box img,
 
-.nv-card-product:hover .nv-product-img-box img {
+.santis-card-product:hover .santis-product-img-box img {
 
     transform: scale(1.08);
 
@@ -312,11 +312,11 @@
 
 /* --- 8. 3D TILT SUPPORT (via vanilla-tilt.js) --- */
 
-.nv-card[data-tilt],
+.santis-card[data-tilt],
 
-.nv-card-service[data-tilt],
+.santis-card-service[data-tilt],
 
-.nv-card-product[data-tilt] {
+.santis-card-product[data-tilt] {
 
     transform-style: preserve-3d;
 
@@ -336,11 +336,11 @@
 
 /* --- 9. TITLE & CONTENT PARALLAX DEPTH --- */
 
-.nv-card .nv-title,
+.santis-card .santis-title,
 
-.nv-card-service .nv-title,
+.santis-card-service .santis-title,
 
-.nv-card .nv-kicker {
+.santis-card .santis-kicker {
 
     transform: translateZ(30px);
 
@@ -350,9 +350,9 @@
 
 
 
-.nv-card:hover .nv-title,
+.santis-card:hover .santis-title,
 
-.nv-card-service:hover .nv-title {
+.santis-card-service:hover .santis-title {
 
     transform: translateZ(50px);
 
@@ -362,7 +362,7 @@
 
 /* --- 10. TIER BADGE ENHANCEMENT --- */
 
-.nv-tier-badge {
+.santis-tier-badge {
 
     position: absolute;
 
@@ -400,9 +400,9 @@
 
 /* --- 11. PRICE TAG GLOW --- */
 
-.nv-card-price,
+.santis-card-price,
 
-.nv-price {
+.santis-price {
 
     color: var(--gold-primary);
 
@@ -416,9 +416,9 @@
 
 /* --- 12. CTA BUTTON ENHANCEMENT --- */
 
-.nv-card .nv-btn,
+.santis-card .santis-btn,
 
-.nv-card-service .nv-btn {
+.santis-card-service .santis-btn {
 
     position: relative;
 
@@ -448,9 +448,9 @@
 
 
 
-.nv-card .nv-btn::before,
+.santis-card .santis-btn::before,
 
-.nv-card-service .nv-btn::before {
+.santis-card-service .santis-btn::before {
 
     content: '';
 
@@ -472,9 +472,9 @@
 
 
 
-.nv-card .nv-btn:hover,
+.santis-card .santis-btn:hover,
 
-.nv-card-service .nv-btn:hover {
+.santis-card-service .santis-btn:hover {
 
     color: #141416;
 
@@ -484,9 +484,9 @@
 
 
 
-.nv-card .nv-btn:hover::before,
+.santis-card .santis-btn:hover::before,
 
-.nv-card-service .nv-btn:hover::before {
+.santis-card-service .santis-btn:hover::before {
 
     transform: scaleX(1);
 
@@ -500,21 +500,21 @@
 
 
 
-    .nv-card,
+    .santis-card,
 
-    .nv-card-service,
+    .santis-card-service,
 
-    .nv-card-product,
+    .santis-card-product,
 
-    .nv-card::before,
+    .santis-card::before,
 
-    .nv-card::after,
+    .santis-card::after,
 
-    .nv-card-service::before,
+    .santis-card-service::before,
 
-    .nv-card-service::after,
+    .santis-card-service::after,
 
-    .nv-card img {
+    .santis-card img {
 
         animation: none !important;
 
@@ -532,11 +532,11 @@
 
 
 
-    .nv-card:hover,
+    .santis-card:hover,
 
-    .nv-card-service:hover,
+    .santis-card-service:hover,
 
-    .nv-card-product:hover {
+    .santis-card-product:hover {
 
         transform: translateY(-4px) scale(1.01);
 
@@ -544,11 +544,11 @@
 
 
 
-    .nv-card::before,
+    .santis-card::before,
 
-    .nv-card-service::before,
+    .santis-card-service::before,
 
-    .nv-card-product::before {
+    .santis-card-product::before {
 
         display: none;
 
@@ -570,7 +570,7 @@
 
 /* --- 15. CARD GRID ENHANCEMENT --- */
 
-.nv-card-grid {
+.santis-card-grid {
 
     display: grid;
 
@@ -586,7 +586,7 @@
 
 @media (max-width: 768px) {
 
-    .nv-card-grid {
+    .santis-card-grid {
 
         grid-template-columns: 1fr;
 

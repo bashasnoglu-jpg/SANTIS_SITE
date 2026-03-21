@@ -1,0 +1,3 @@
+name: santis-gods-eye-telemetry
+runtime: nodejs
+description: Sovereign OS Pulumi IaC for God's Eye Observability Stack (OpenTelemetry + FluentBit + OpenObserve)

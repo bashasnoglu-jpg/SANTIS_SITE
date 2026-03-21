@@ -110,9 +110,9 @@ async function loadContent() {
 
         // Global data-ready sinyali
         if (window.productCatalog?.length > 0) {
-            window.NV_DATA_READY = true;
-            document.dispatchEvent(new Event('nv-data-ready'));
-            window.dispatchEvent(new Event('nv-data-ready'));
+            window.SANTIS_DATA_READY = true;
+            document.dispatchEvent(new Event('santis-data-ready'));
+            window.dispatchEvent(new Event('santis-data-ready'));
             console.log(`[Router] 🌌 Product Seed Broadcasted. Items: ${window.productCatalog.length}`);
         }
 
@@ -193,6 +193,12 @@ async function _routerInit() {
             path: location.pathname, ts: performance.now()
         });
     }
+    if (typeof window.initSantisCards === 'function') {
+        requestAnimationFrame(() => {
+            window.initSantisCards();
+            setTimeout(() => window.dispatchEvent(new Event('resize')), 150);
+        });
+    }
     console.log('[Page Router v1.0] ✅ Page init complete:', location.pathname);
 }
 
@@ -214,9 +220,9 @@ window.SANTIS_RESOLVE_PATH = function(slug) {
 window.getSantisData = function() {
     try {
         const all = [
-            ...(window.NV_HAMMAM   || []),
-            ...(window.NV_MASSAGES || []),
-            ...(window.NV_SKINCARE || [])
+            ...(window.SANTIS_HAMMAM   || []),
+            ...(window.SANTIS_MASSAGES || []),
+            ...(window.SANTIS_SKINCARE || [])
         ];
         if (all.length === 0) console.warn('[Router] Warning: Data sets empty.');
         return all;

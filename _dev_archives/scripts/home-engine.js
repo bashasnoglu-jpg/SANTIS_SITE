@@ -18,7 +18,7 @@ function renderHomeSections(data) {
 
   }
 
-  const main = document.getElementById('nv-main');
+  const main = document.getElementById('santis-main');
 
   if (!main) return;
 
@@ -488,7 +488,7 @@ function renderHomeGallery() {
 
   if (!grid) return;
 
-  const sources = [...(window.NV_HAMMAM || []), ...(window.NV_MASSAGES || []), ...(window.NV_SKINCARE || [])];
+  const sources = [...(window.SANTIS_HAMMAM || []), ...(window.SANTIS_MASSAGES || []), ...(window.SANTIS_SKINCARE || [])];
 
   // Create unique pool of items (not just images)
 

@@ -55,7 +55,7 @@
 <link href="https://santis-club.com/en/gallery/index.html" hreflang="en" rel="alternate"/>
 <link href="https://santis-club.com/fr/gallery/index.html" hreflang="fr" rel="alternate"/>
 <link href="https://santis-club.com/ru/gallery/index.html" hreflang="ru" rel="alternate"/>
-<link href="https://santis-club.com/tr/galeri/index.html" hreflang="tr" rel="alternate"/>
+<link href="https://santis-club.com/galeri.html" hreflang="tr" rel="alternate"/>
 <link href="https://santis-club.com/en/gallery/index.html" hreflang="x-default" rel="alternate"/>
 <meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Gallery • Santis Club" name="twitter:title"/><meta content="Explore the enchanting atmosphere of Santis Club — serene hammam spaces, massage rooms, and relaxation areas." name="twitter:description"/><meta content="https://santisclub.com/assets/img/logo-santis.png" name="twitter:image"/>
 <meta name="theme-color" content="#000000">
@@ -65,10 +65,10 @@
 <!-- NAVBAR -->
 <div id="navbar-container"></div>
 <!-- MAIN CONTENT -->
-<main id="nv-main">
+<main id="santis-main">
 <!-- HEADER -->
 <header class="text-center mb-80 reveal-on-scroll">
-<span class="nv-kicker">Visual Journey</span>
+<span class="santis-kicker">Visual Journey</span>
 <h1 class="fs-56 mb-20 text-white">Santis Atmosphere</h1>
 <div class="page-intro-seo"><p>Discover the unique atmosphere and premium spa experience of Santis Club through our gallery. From hammam rituals to massage therapies, skincare sessions to architectural details — explore every corner of our space.</p></div>
 <p class="text-muted fs-18 max-w-700 mx-auto lh-16">
@@ -91,9 +91,9 @@ JavaScript is required for the gallery.
 <section class="related-services">
 <h2>Related Services</h2>
 <ul>
-<li><a href="/tr/massages/classic-swedish.html">Classic Relaxation Massage</a></li>
-<li><a href="/tr/massages/aromatherapy.html">Aromatherapy Massage</a></li>
-<li><a href="/tr/massages/deep-tissue.html">Deep Tissue Massage</a></li>
+<li><a href="/massages/classic-swedish.html">Classic Relaxation Massage</a></li>
+<li><a href="/massages/aromatherapy.html">Aromatherapy Massage</a></li>
+<li><a href="/massages/deep-tissue.html">Deep Tissue Massage</a></li>
 </ul>
 </section>
 <section class="seo-bottom-block">
@@ -105,21 +105,21 @@ JavaScript is required for the gallery.
 <!-- LIGHTBOX MODAL -->
 <div class="lightbox" id="lightbox">
 <span class="lightbox-close">×</span>
-<img decoding="async" loading="lazy" class="lightbox-content" id="lightboxImg"/>
+<img decoding="async" loading="lazy" class="lightbox-content" id="lightboxImg">
 <video class="lightbox-content" controls="" id="lightboxVideo"></video>
 <div id="caption"></div>
 </div>
-<script src="/assets/js/gallery-init.js"></script>
+<script src="/assets/js/gallery-init.js" defer></script>
 <!-- LOAD DATA -->
-<script src="/assets/js/fallback_data.js"></script>
-<script src="/assets/js/gallery-data.js"></script>
+<script src="/assets/js/fallback_data.js" defer></script>
+<script src="/assets/js/gallery-data.js" defer></script>
 <!-- CORE UTILS -->
 <script defer="" src="/assets/js/i18n-routes.js"></script>
 <script defer="" src="/assets/js/hreflang-injector.js"></script>
-<script defer="" src="/assets/js/loader.js"></script>
 <!-- ENGINES -->
-<script defer="" src="/assets/js/gallery-loader.js"></script>
-<script defer="" src="/assets/js/santis-nav.js"></script>
 <script defer="" src="/assets/js/app.js"></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>

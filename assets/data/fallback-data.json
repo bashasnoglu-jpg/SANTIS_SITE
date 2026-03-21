@@ -731,24 +731,25 @@
       },
       "face_sothys_hydra": {
         "categoryId": "faceSothys",
+        "tags": ["sothys-hydra", "skincare"],
         "name": {
-          "tr": "Sothys Nem Terapisi (Yüz)",
-          "en": "Sothys Hydra Facial",
-          "de": "Sothys Hydra-Gesichtsbehandlung",
-          "fr": "Soin visage hydratant Sothys",
-          "ru": "Увлажняющий уход Sothys"
+          "tr": "Glass Skin Ritüeli",
+          "en": "Glass Skin Ritual",
+          "de": "Glass Skin Ritual",
+          "fr": "Rituel Glass Skin",
+          "ru": "Ритуал Glass Skin"
         },
         "desc": {
-          "tr": "Yoğun nem ve tazelik etkisi.",
-          "en": "Intense hydration and freshness.",
-          "de": "Intensive Feuchtigkeit und Frische.",
-          "fr": "Hydratation intense et fraîcheur.",
-          "ru": "Интенсивное увлажнение и свежесть."
+          "tr": "Su altı pürüzsüzlüğünde ışıldayan, yoğun neme doymuş cilt terapisi.",
+          "en": "Intense hydration and freshness for flawless, glass-like skin.",
+          "de": "Intensive Feuchtigkeit und Frische für makellose Haut.",
+          "fr": "Hydratation intense et fraîcheur pour une peau parfaite.",
+          "ru": "Интенсивное увлажнение и свежесть для идеальной кожи."
         },
         "durationMin": 50,
         "price": 125,
         "currency": "EUR",
-        "img": "/assets/img/cards/santis_card_skincare_v1.webp",
+        "img": "/assets/img/treatment/media__1773941741891.jpg",
         "hotelSlugs": [
           "alba-resort",
           "iberostar-bellevue"
@@ -756,16 +757,17 @@
       },
       "face_sothys_glow": {
         "categoryId": "faceSothys",
+        "tags": ["skincare"],
         "name": {
-          "tr": "Sothys Glow Bakımı (Yüz)",
-          "en": "Sothys Glow Facial",
-          "de": "Sothys Glow-Gesichtsbehandlung",
-          "fr": "Soin éclat Sothys",
-          "ru": "Сияющий уход Sothys"
+          "tr": "Vitamin C Glow Bakımı",
+          "en": "Vitamin C Glow Facial",
+          "de": "Vitamin C Glow-Gesichtsbehandlung",
+          "fr": "Soin éclat Vitamin C",
+          "ru": "Сияющий уход с Витамином С"
         },
         "desc": {
-          "tr": "Işıltı ve canlı görünüm için profesyonel bakım.",
-          "en": "A professional treatment for radiance and vitality.",
+          "tr": "Pembe ışıltı ve canlı bir görünüm için profesyonel estetik dokunuş.",
+          "en": "A professional treatment for pink radiance and vitality.",
           "de": "Professionelle Behandlung für Ausstrahlung und Vitalität.",
           "fr": "Soin professionnel pour l’éclat et la vitalité.",
           "ru": "Профессиональный уход для сияния и тонуса."
@@ -773,9 +775,88 @@
         "durationMin": 50,
         "price": 135,
         "currency": "EUR",
-        "img": "/assets/img/cards/santis_card_skincare_v1.webp",
+        "img": "/assets/img/treatment/media__1773941741981.jpg",
         "hotelSlugs": [
           "alba-queen"
+        ]
+      },
+      "face_sothys_antiage": {
+        "categoryId": "faceSothys",
+        "tags": ["antiage", "skincare"],
+        "name": {
+          "tr": "Anti-Aging Pro Bakım",
+          "en": "Anti-Aging Pro Facial",
+          "de": "Anti-Aging Pro",
+          "fr": "Soin Anti-Âge Pro",
+          "ru": "Профессиональный антивозрастной уход"
+        },
+        "desc": {
+          "tr": "Zamansız zarafet: Hücresel lifting ve lüks doku onarımı.",
+          "en": "Timeless elegance: Cellular lifting and luxury tissue repair.",
+          "de": "Zeitlose Eleganz: Zelluläres Lifting.",
+          "fr": "Élégance intemporelle : Lifting cellulaire.",
+          "ru": "Вневременная элегантность: Клеточный лифтинг."
+        },
+        "durationMin": 75,
+        "price": 180,
+        "currency": "EUR",
+        "img": "/assets/img/treatment/media__1773941741929.jpg",
+        "hotelSlugs": [
+          "alba-resort",
+          "alba-royal"
+        ]
+      },
+      "face_sothys_purifying": {
+        "categoryId": "faceSothys",
+        "tags": ["purify", "skincare", "sothys-purifying"],
+        "name": {
+          "tr": "Detox Kömür Maske",
+          "en": "Detox Charcoal Mask",
+          "de": "Detox Kohlemaske",
+          "fr": "Masque Détox Charbon",
+          "ru": "Детокс маска с углем"
+        },
+        "desc": {
+          "tr": "Uzman estetisyen eşliğinde gözenek arındırıcı profesyonel klinik ritüel.",
+          "en": "Pore-purifying professional clinic ritual with expert aesthetician.",
+          "de": "Porenreinigendes professionelles Klinikritual.",
+          "fr": "Rituel clinique professionnel purifiant les pores.",
+          "ru": "Профессиональный клинический ритуал очищения пор."
+        },
+        "durationMin": 45,
+        "price": 110,
+        "currency": "EUR",
+        "img": "/assets/img/treatment/media__1773941741907.jpg",
+        "hotelSlugs": [
+          "alba-queen",
+          "iberostar-bellevue"
+        ]
+      },
+      "face_sothys_men": {
+        "categoryId": "faceSothys",
+        "tags": ["men", "skincare", "sothys-men"],
+        "name": {
+          "tr": "Erkek Cilt Bakımı",
+          "en": "Men's Facial Therapy",
+          "de": "Herren-Gesichtsbehandlung",
+          "fr": "Soin visage pour hommes",
+          "ru": "Уход за лицом для мужчин"
+        },
+        "desc": {
+          "tr": "Erkek cildinin anatomisine özel derin arınma ve rahatlama terapisi.",
+          "en": "Deep purifying and relaxation tailored for men's skin.",
+          "de": "Tiefenreinigung speziell für Männerhaut.",
+          "fr": "Purification profonde pour la peau des hommes.",
+          "ru": "Глубокое очищение специально для мужской кожи."
+        },
+        "durationMin": 50,
+        "price": 120,
+        "currency": "EUR",
+        "img": "/assets/img/treatment/media__1773941741926.jpg",
+        "hotelSlugs": [
+          "alba-resort",
+          "alba-queen",
+          "alba-royal"
         ]
       },
       "sothys_radiance": {

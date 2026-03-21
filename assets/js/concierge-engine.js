@@ -156,7 +156,7 @@
     // ==========================================
     // 3. PUBLIC API
     // ==========================================
-    window.NV_CONCIERGE = {
+    window.SANTIS_CONCIERGE = {
         brain: null,
         isOpen: false,
         isMuted: false,
@@ -171,7 +171,7 @@
                 document.addEventListener('santis:rail-ready', (e) => {
                     window.SovereignDataMatrix = e.detail;
                     console.log("🤖 [Concierge] Data Matrix alındı! AI Uyanıyor.");
-                    window.NV_CONCIERGE.init();
+                    window.SANTIS_CONCIERGE.init();
                 }, { once: true });
                 return;
             }
@@ -183,7 +183,7 @@
         },
 
         loadUI: function () {
-            if (document.getElementById('nv-concierge-widget')) {
+            if (document.getElementById('santis-concierge-widget')) {
                 this.bindUIEvents();
                 return;
             }
@@ -215,7 +215,7 @@
         },
 
         bindUIEvents: function () {
-            const widget = document.getElementById('nv-concierge-widget');
+            const widget = document.getElementById('santis-concierge-widget');
             if (!widget) return;
 
             widget.querySelectorAll('[data-concierge-action="toggle"]').forEach((node) => {
@@ -278,7 +278,7 @@
 
         toggle: function () {
             this.isOpen = !this.isOpen;
-            const widget = document.getElementById('nv-concierge-widget');
+            const widget = document.getElementById('santis-concierge-widget');
             if (widget) widget.classList.toggle('open', this.isOpen);
             if (this.isOpen) {
                 const input = document.getElementById('concierge-input');
@@ -386,24 +386,24 @@
 
     // 🚀 BOOT — Kuantum Sinyalleri ile Uyanış
     const bootstrapConcierge = () => {
-        if (!window.NV_CONCIERGE.brain) {
-            window.NV_CONCIERGE.init();
+        if (!window.SANTIS_CONCIERGE.brain) {
+            window.SANTIS_CONCIERGE.init();
         }
     };
 
-    if (window.NV_DATA_READY || (window.productCatalog && window.productCatalog.length > 0) || window.SovereignDataMatrix) {
+    if (window.SANTIS_DATA_READY || (window.productCatalog && window.productCatalog.length > 0) || window.SovereignDataMatrix) {
         bootstrapConcierge();
     } else {
-        // nv-data-ready (legacy) ve santis:rail-ready (V10) her ikisini dinle
-        document.addEventListener('nv-data-ready', bootstrapConcierge, { once: true });
-        window.addEventListener('nv-data-ready', bootstrapConcierge, { once: true });
+        // santis-data-ready (legacy) ve santis:rail-ready (V10) her ikisini dinle
+        document.addEventListener('santis-data-ready', bootstrapConcierge, { once: true });
+        window.addEventListener('santis-data-ready', bootstrapConcierge, { once: true });
         document.addEventListener('santis:rail-ready', (e) => {
             window.SovereignDataMatrix = e.detail;
             bootstrapConcierge();
         }, { once: true });
         // Son çare: 4s sonra services.json ile kendini besle
         setTimeout(() => {
-            if (!window.NV_CONCIERGE.brain) {
+            if (!window.SANTIS_CONCIERGE.brain) {
                 fetch('/assets/data/services.json')
                     .then(r => r.json())
                     .then(data => { window.productCatalog = data; bootstrapConcierge(); })

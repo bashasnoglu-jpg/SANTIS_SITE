@@ -103,7 +103,7 @@
    PHASE 6: SOVEREIGN V18 - FLUID SPACE ENGINE (VIEW TRANSITIONS API)
    ========================================================================== */
 @view-transition {
-  navigation: auto;
+  /* navigation: auto; DISABLED: Conflicts with loader.js dynamic DOM injection, throws InvalidStateError */
 }
 
 /* Geçişin ivmesi ve süresi: Lüks, tok ve yavaşlatılmış bir süzülme (0.8s) */

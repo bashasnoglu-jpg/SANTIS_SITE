@@ -26,7 +26,7 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
         const R = window.SantisRouter;
         const l = (path) => R ? R.localize(path) : path;
         return `
-<nav id="nv-main-nav" class="navbar" style="z-index: 999999;">
+<nav id="santis-main-nav" class="navbar" style="z-index: 999999;">
     <div class="navbar-container">
         <a href="/index.html" class="logo">
             <div class="logo-symbol">
@@ -36,14 +36,14 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
         </a>
         <div id="navRoot" class="nav-links nav-center">
              <div class="nav-item"><a class="nav-link" href="/index.html">ANA SAYFA</a></div>
-             <div class="nav-item"><a class="nav-link" href="${l('/tr/hamam/index.html')}">HAMAM</a></div>
-             <div class="nav-item"><a class="nav-link" href="${l('/tr/masajlar/index.html')}">MASAJLAR</a></div>
-             <div class="nav-item"><a class="nav-link" href="${l('/tr/cilt-bakimi/index.html')}">CİLT BAKIMI</a></div>
-             <div class="nav-item"><a class="nav-link" href="${l('/tr/urunler/index.html')}">ÜRÜNLER</a></div>
-             <div class="nav-item"><a class="nav-link" href="${l('/tr/galeri/index.html')}">GALERİ</a></div>
+             <div class="nav-item"><a class="nav-link" href="${l('/hamam.html')}">HAMAM</a></div>
+             <div class="nav-item"><a class="nav-link" href="${l('/masaj.html')}">MASAJLAR</a></div>
+             <div class="nav-item"><a class="nav-link" href="${l('/cilt-bakimi.html')}">CİLT BAKIMI</a></div>
+             <div class="nav-item"><a class="nav-link" href="${l('/magaza.html')}">ÜRÜNLER</a></div>
+             <div class="nav-item"><a class="nav-link" href="${l('/galeri.html')}">GALERİ</a></div>
         </div>
         <div class="nav-actions">
-            <a href="https://wa.me/905348350169" target="_blank" rel="noopener noreferrer" class="nv-btn nv-btn-sm nv-btn-primary mobile-hide">REZERVASYON</a>
+            <a href="https://wa.me/905348350169" target="_blank" rel="noopener noreferrer" class="santis-btn santis-btn-sm santis-btn-primary mobile-hide">REZERVASYON</a>
             <div class="hamburger-btn" id="hamburger"><span class="bar"></span><span class="bar"></span></div>
         </div>
     </div>
@@ -51,10 +51,10 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
 <div class="mobile-menu-overlay" id="mobileMenu">
     <div class="mobile-menu-content">
         <a href="/index.html" class="mobile-link">ANA SAYFA</a>
-        <a href="${l('/tr/hamam/index.html')}" class="mobile-link">HAMAM</a>
-        <a href="${l('/tr/masajlar/index.html')}" class="mobile-link">MASAJLAR</a>
-        <a href="${l('/tr/urunler/index.html')}" class="mobile-link">ÜRÜNLER</a>
-        <a href="https://wa.me/905348350169" target="_blank" rel="noopener noreferrer" class="nv-btn nv-btn-primary mt-4">REZERVASYON</a>
+        <a href="${l('/hamam.html')}" class="mobile-link">HAMAM</a>
+        <a href="${l('/masaj.html')}" class="mobile-link">MASAJLAR</a>
+        <a href="${l('/magaza.html')}" class="mobile-link">ÜRÜNLER</a>
+        <a href="https://wa.me/905348350169" target="_blank" rel="noopener noreferrer" class="santis-btn santis-btn-primary mt-4">REZERVASYON</a>
     </div>
 </div>
 `;
@@ -175,7 +175,7 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
                 targetEl.innerHTML = FALLBACK_NAVBAR_HTML;
                 // Auto-init interactions
                 if (typeof initNavbarInteractions === 'function') initNavbarInteractions();
-                else if (typeof window.NV_INIT_NAVBAR === 'function') window.NV_INIT_NAVBAR();
+                else if (typeof window.SANTIS_INIT_NAVBAR === 'function') window.SANTIS_INIT_NAVBAR();
                 return;
             }
     
@@ -231,34 +231,58 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
 
 
 
-            // Run Scripts if needed
-
+            // Run Scripts if needed (🛡️ ES6 SyntaxError Korumalı)
             if (runScripts) {
-
                 const scripts = Array.from(targetEl.querySelectorAll("script"));
-
                 for (const s of scripts) {
-
                     const newScript = document.createElement("script");
-
+                    
+                    // Nitelikleri kopyala
                     Array.from(s.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-
-                    newScript.appendChild(document.createTextNode(s.innerHTML)); // Inline
-
-                    if (s.src) newScript.src = s.src; // External
+                    
+                    if (s.src) {
+                        newScript.src = s.src;
+                        // 🛡️ DIŞ DOSYA KORUMASI: Sistem dosyaları ise module zorlaması yap
+                        if (!newScript.type && (s.src.includes('bridge') || s.src.includes('engine') || s.src.includes('santis-') || s.src.includes('pages/'))) {
+                             newScript.type = "module";
+                        }
+                    } else {
+                        let inlineCode = s.innerHTML;
+                        
+                        // 🛡️ AKILLI ES6 DEDEKTÖRÜ: Kodun içinde ES6 Modül syntax'ı var mı?
+                        const isES6Module = inlineCode.includes('import ') || inlineCode.includes('export ') || inlineCode.includes('import(');
+                        
+                        // Eğer ES6 modülüyse KESİNLİKLE module type olmalı ve try/catch KULLANILMAMALI!
+                        if (isES6Module || newScript.type === 'module') {
+                            newScript.type = "module";
+                            newScript.textContent = inlineCode;
+                        } else {
+                            // Sadece standart (global) script'ler için Error Boundary (Try-Catch) uygula
+                            if (!newScript.type || newScript.type === 'text/javascript') {
+                                inlineCode = `
+                                    try {
+                                        ${inlineCode}
+                                    } catch (e) {
+                                        console.warn('🛡️ [Loader Shield] Inline Script Hatası İzole Edildi:', e);
+                                    }
+                                `;
+                            }
+                            newScript.textContent = inlineCode;
+                        }
+                    }
+                    
+                    // Script çalışırken oluşacak ağ kopmalarını yakala ve sessizce yut
+                    newScript.onerror = (e) => {
+                        console.warn(`🛡️ [Loader Shield] Script Abort/Load Error (Sönümlendi): ${newScript.src || 'inline'}`);
+                    };
 
                     s.parentNode.replaceChild(newScript, s);
-
                 }
 
                 // Auto-init Navbar
-
-                if (url.includes("navbar.html") && typeof window.NV_INIT_NAVBAR === "function") {
-
-                    window.NV_INIT_NAVBAR();
-
+                if (url.includes("navbar.html") && typeof window.SANTIS_INIT_NAVBAR === "function") {
+                    window.SANTIS_INIT_NAVBAR();
                 }
-
             }
 
             // --- EXECUTE CALLBACK (Patch for V2 Compatibility) ---
@@ -312,10 +336,10 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
     // Inline <style> olarak enjekte ediliyor: stylesheet yüklenmesini beklemez,
     // Phantom Injector'ın 5 slotu override etmesinden önce alan rezerve edilir.
     (function () {
-        if (document.getElementById('nv-skeleton-armor')) return; // Idempotent
+        if (document.getElementById('santis-skeleton-armor')) return; // Idempotent
 
         const style = document.createElement('style');
-        style.id = 'nv-skeleton-armor';
+        style.id = 'santis-skeleton-armor';
         style.textContent = `
             /* SANTIS CLS ARMOR — Slot Skeleton Pre-Reserve */
 
@@ -343,7 +367,7 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
             }
             
             /* Grid CLS Armor - Prevents footer/sections below from shifting down when 64 cards mount */
-            .nv-product-grid {
+            .santis-product-grid {
                 min-height: 100vh;
             }
 
@@ -355,8 +379,8 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
                 opacity: 0.85;
             }
             /* Hero slot: 16:9 */
-            [data-santis-slot="hero-main"]:not(.nv-hero-campaign):not(.cinematic-hero),
-            [data-santis-slot^="hero"]:not(.nv-hero-campaign):not(.cinematic-hero) {
+            [data-santis-slot="hero-main"]:not(.santis-hero-campaign):not(.cinematic-hero),
+            [data-santis-slot^="hero"]:not(.santis-hero-campaign):not(.cinematic-hero) {
                 aspect-ratio: 16 / 9;
                 min-height: 260px;
             }
@@ -377,20 +401,20 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
                     transparent 80%
                 );
                 background-size: 200% 100%;
-                animation: nv-shimmer 1.8s infinite linear;
+                animation: santis-shimmer 1.8s infinite linear;
             }
-            @keyframes nv-shimmer {
+            @keyframes santis-shimmer {
                 from { background-position: 200% 0; }
                 to   { background-position: -200% 0; }
             }
             /* Yükleme bitti — TÜM skeleton kısıtlamaları serbest kalır */
-            [data-santis-slot].nv-asset-loaded {
+            [data-santis-slot].santis-asset-loaded {
                 opacity: 1;
                 background-color: transparent;
                 aspect-ratio: unset;   /* ← Chrome için kritik: 4/3 kilidini kaldırır */
                 min-height: unset;
             }
-            [data-santis-slot].nv-asset-loaded::before {
+            [data-santis-slot].santis-asset-loaded::before {
                 display: none;
             }
         `;
@@ -428,7 +452,7 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
                     console.log("🌊 [Loader] Cinematic entrance complete.");
 
                     // Trigger Hero Animation if available
-                    const heroTitle = document.querySelector('.nv-hero-title-dynamic');
+                    const heroTitle = document.querySelector('.santis-hero-title-dynamic');
                     if (heroTitle) heroTitle.classList.add('animate-in');
 
                 }, 1200); // Matches CSS transition duration
@@ -453,10 +477,10 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
                 const randomHint = hints[Math.floor(Math.random() * hints.length)];
 
                 // Create or update hint element
-                let hintEl = p.querySelector('.nv-loader-hint');
+                let hintEl = p.querySelector('.santis-loader-hint');
                 if (!hintEl) {
                     hintEl = document.createElement('div');
-                    hintEl.className = 'nv-loader-hint fade-in';
+                    hintEl.className = 'santis-loader-hint fade-in';
                     hintEl.style.cssText = "margin-top:20px; font-size:12px; letter-spacing:3px; opacity:0; transition:opacity 1s ease; color:#888; text-transform:uppercase;";
                     const logo = p.querySelector('.preloader-logo') || p.firstElementChild;
                     if (logo) logo.parentNode.insertBefore(hintEl, logo.nextSibling);

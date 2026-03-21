@@ -7,7 +7,7 @@
 // Global Observer Reference
 let globalObserver;
 
-window.NV_InitAnimations = function () {
+window.SANTIS_InitAnimations = function () {
     const observerOptions = {
         root: null,
         rootMargin: '0px',
@@ -30,7 +30,7 @@ window.NV_InitAnimations = function () {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    window.NV_InitAnimations();
+    window.SANTIS_InitAnimations();
     // Re-check after small delay for lazy rendered items
-    setTimeout(window.NV_InitAnimations, 500);
+    setTimeout(window.SANTIS_InitAnimations, 500);
 });

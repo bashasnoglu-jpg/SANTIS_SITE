@@ -6,7 +6,7 @@
 
 // HAMMAM
 
-const NV_HAMMAM = [
+const SANTIS_HAMMAM = [
 
     {
 
@@ -80,9 +80,9 @@ const NV_HAMMAM = [
 
 // DATA: LABELS
 
-const NV_HAMMAM_CATEGORY_LABELS = { "hammam": "Hamam Ritüelleri" };
+const SANTIS_HAMMAM_CATEGORY_LABELS = { "hammam": "Hamam Ritüelleri" };
 
-const NV_HAMMAM_CATEGORY_ORDER = ["hammam"];
+const SANTIS_HAMMAM_CATEGORY_ORDER = ["hammam"];
 
 
 
@@ -90,7 +90,7 @@ const NV_HAMMAM_CATEGORY_ORDER = ["hammam"];
 
 // MASSAGES
 
-const NV_MASSAGES = [
+const SANTIS_MASSAGES = [
 
     {
 
@@ -140,7 +140,7 @@ const NV_MASSAGES = [
 
 
 
-const NV_MASSAGES_CATEGORY_LABELS = {
+const SANTIS_MASSAGES_CATEGORY_LABELS = {
 
     "classicMassages": "Klasik Masajlar",
 
@@ -152,7 +152,7 @@ const NV_MASSAGES_CATEGORY_LABELS = {
 
 };
 
-const NV_MASSAGES_CATEGORY_ORDER = ["classicMassages", "asianMassages", "sportsTherapy", "signatureCouples"];
+const SANTIS_MASSAGES_CATEGORY_ORDER = ["classicMassages", "asianMassages", "sportsTherapy", "signatureCouples"];
 
 
 
@@ -160,7 +160,7 @@ const NV_MASSAGES_CATEGORY_ORDER = ["classicMassages", "asianMassages", "sportsT
 
 // SKINCARE
 
-const NV_SKINCARE = [
+const SANTIS_SKINCARE = [
 
     {
 
@@ -188,7 +188,7 @@ const NV_SKINCARE = [
 
 
 
-const NV_SKINCARE_CATEGORY_LABELS = { "faceSothys": "Sothys Yüz Bakımları" };
+const SANTIS_SKINCARE_CATEGORY_LABELS = { "faceSothys": "Sothys Yüz Bakımları" };
 
-const NV_SKINCARE_CATEGORY_ORDER = ["faceSothys"];
+const SANTIS_SKINCARE_CATEGORY_ORDER = ["faceSothys"];
 

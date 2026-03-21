@@ -37,7 +37,7 @@ function applySiteSettings() {
 
   // 1. WhatsApp Numarası Güncelle
   if (SITE_SETTINGS.contact && SITE_SETTINGS.contact.whatsapp) {
-    window.NV_CONCIERGE_NUMBER = SITE_SETTINGS.contact.whatsapp;
+    window.SANTIS_CONCIERGE_NUMBER = SITE_SETTINGS.contact.whatsapp;
 
     // Sitedeki tüm WhatsApp linklerini bul ve güncelle
     document.querySelectorAll('a[href*="wa.me"]').forEach(el => {
@@ -89,7 +89,7 @@ var CONTENT = window.CONTENT || null;
 // (applySiteSettings is already defined above, removing duplicate)
 
 /* 
- * NEUROVA – GLOBAL NAVIGATION v1.0 
+ * SANTIS – GLOBAL NAVIGATION v1.0 
  * (Navigation Logic Below)
  */
 function ensureSlug(svc) {
@@ -772,7 +772,7 @@ function renderHomeSections(data) {
     data = FALLBACK_HOME_DATA;
   }
 
-  const main = document.getElementById('nv-main');
+  const main = document.getElementById('santis-main');
   if (!main) return;
 
   main.innerHTML = ''; // Clean slate
@@ -890,7 +890,7 @@ Object.entries(mapping).forEach(([catKey, gridId]) => {
 
     // HTML Structure (Quiet Luxury)
     card.innerHTML = `
-        <figure class="nv-figure">
+        <figure class="santis-figure">
           <div class="img-wrapper">
              <img src="${item.image}" alt="${item.title}" loading="lazy" decoding="async" class="card-img">
           </div>
@@ -4492,7 +4492,7 @@ function renderHomeGallery() {
   const grid = document.getElementById('gallery-grid');
   if (!grid) return;
 
-  const sources = [...(window.NV_HAMMAM || []), ...(window.NV_MASSAGES || []), ...(window.NV_SKINCARE || [])];
+  const sources = [...(window.SANTIS_HAMMAM || []), ...(window.SANTIS_MASSAGES || []), ...(window.SANTIS_SKINCARE || [])];
 
   // Create unique pool of items (not just images)
   const seenImgs = new Set();
@@ -4522,7 +4522,7 @@ init();
 
 /* Sticky Header Patch */
 document.addEventListener('DOMContentLoaded', () => {
-  const h = document.getElementById('nv-header');
+  const h = document.getElementById('santis-header');
   if (h) {
     const onScroll = () => h.classList.toggle('shrink', window.scrollY > 50);
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -4588,9 +4588,9 @@ window.SANTIS_RESOLVE_PATH = function (slug) {
 /* DATA GUARD — EKSİK VERİDE SİTEYİ AYAKTA TUTAR */
 window.getSantisData = function () {
   try {
-    const hammam = window.NV_HAMMAM || [];
-    const massage = window.NV_MASSAGES || [];
-    const skin = window.NV_SKINCARE || [];
+    const hammam = window.SANTIS_HAMMAM || [];
+    const massage = window.SANTIS_MASSAGES || [];
+    const skin = window.SANTIS_SKINCARE || [];
 
     const all = [...hammam, ...massage, ...skin];
     if (all.length === 0) console.warn("Santis Warning: Data sets are empty.");

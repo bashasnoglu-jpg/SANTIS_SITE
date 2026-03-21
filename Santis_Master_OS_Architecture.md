@@ -1,6 +1,6 @@
 # 📚 Santis Master OS: Neural Architecture Blueprint
 
-Bu doküman, **Santis / Neurova** siber-fiziksel sisteminin teknik omurgasını, veri akış diyagramlarını ve otonom karar mekanizmalarını tanımlar.
+Bu doküman, **Santis / Santis** siber-fiziksel sisteminin teknik omurgasını, veri akış diyagramlarını ve otonom karar mekanizmalarını tanımlar.
 
 ## 1. Core Engine: Asynchronous Reactive Micro-Kernel
 

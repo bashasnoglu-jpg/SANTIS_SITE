@@ -128,10 +128,10 @@
                 if (data.type === 'SURGE_ACTIVE') {
                     const pct = Math.round((data.multiplier - 1) * 100);
                     // Remove any existing surge badge
-                    const old = document.getElementById('nv-surge-badge');
+                    const old = document.getElementById('santis-surge-badge');
                     if (old) old.remove();
                     const badge = document.createElement('div');
-                    badge.id = 'nv-surge-badge';
+                    badge.id = 'santis-surge-badge';
                     badge.setAttribute('role', 'status');
                     badge.style.cssText = [
                         'position:fixed;top:80px;right:16px;z-index:9990',
@@ -162,11 +162,11 @@
 
     // ─── Phase 9.5-E: Urgency Banner Engine ────────────────────────
     function injectBannerStyles() {
-        if (document.getElementById('nv-urgency-banner-style')) return;
+        if (document.getElementById('santis-urgency-banner-style')) return;
         const style = document.createElement('style');
-        style.id = 'nv-urgency-banner-style';
+        style.id = 'santis-urgency-banner-style';
         style.textContent = `
-            #nv-urgency-banner {
+            #santis-urgency-banner {
                 position: fixed; top: 0; left: 0; right: 0; z-index: 99999;
                 background: linear-gradient(135deg, #1a1208 0%, #2d1f05 50%, #1a1208 100%);
                 border-bottom: 1px solid #c9a96e;
@@ -177,46 +177,46 @@
                 transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
                 box-shadow: 0 4px 30px rgba(201,169,110,0.25);
             }
-            #nv-urgency-banner.nv-banner-visible {
+            #santis-urgency-banner.santis-banner-visible {
                 transform: translateY(0);
             }
-            #nv-urgency-banner .nv-banner-inner {
+            #santis-urgency-banner .santis-banner-inner {
                 display: flex; align-items: center; justify-content: center;
                 gap: 16px; padding: 12px 24px;
                 max-width: 1200px; margin: 0 auto;
             }
-            #nv-urgency-banner .nv-banner-pulse {
+            #santis-urgency-banner .santis-banner-pulse {
                 width: 8px; height: 8px; border-radius: 50%;
-                background: #c9a96e; animation: nv-ping 1.2s infinite;
+                background: #c9a96e; animation: santis-ping 1.2s infinite;
                 flex-shrink: 0;
             }
-            #nv-urgency-banner .nv-banner-text {
+            #santis-urgency-banner .santis-banner-text {
                 font-size: 13px; letter-spacing: 0.05em; color: #f5e6c8;
             }
-            #nv-urgency-banner .nv-banner-discount {
+            #santis-urgency-banner .santis-banner-discount {
                 font-size: 15px; font-weight: 700;
                 color: #c9a96e; letter-spacing: 0.08em;
             }
-            #nv-urgency-banner .nv-banner-timer {
+            #santis-urgency-banner .santis-banner-timer {
                 font-size: 12px; font-family: monospace;
                 background: rgba(201,169,110,0.15);
                 border: 1px solid rgba(201,169,110,0.3);
                 padding: 2px 8px; border-radius: 4px;
                 color: #c9a96e; min-width: 44px; text-align: center;
             }
-            #nv-urgency-banner .nv-banner-close {
+            #santis-urgency-banner .santis-banner-close {
                 position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
                 background: none; border: none; color: #6b5c3e;
                 cursor: pointer; font-size: 18px; line-height: 1;
                 transition: color 0.2s;
             }
-            #nv-urgency-banner .nv-banner-close:hover { color: #c9a96e; }
-            #nv-urgency-banner .nv-ai-badge {
+            #santis-urgency-banner .santis-banner-close:hover { color: #c9a96e; }
+            #santis-urgency-banner .santis-ai-badge {
                 font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
                 color: #6b5c3e; border: 1px solid #3a2e1a; padding: 1px 6px;
                 border-radius: 99px;
             }
-            @keyframes nv-ping {
+            @keyframes santis-ping {
                 0%, 100% { transform: scale(1); opacity: 1; }
                 50% { transform: scale(1.5); opacity: 0.5; }
             }
@@ -227,7 +227,7 @@
     function showUrgencyBanner({ text, discount, duration, aiConfirmed, eventId }) {
         injectBannerStyles();
 
-        const old = document.getElementById('nv-urgency-banner');
+        const old = document.getElementById('santis-urgency-banner');
         if (old) old.remove();
 
         // ── H2: Log Impression ──────────────────────────
@@ -240,25 +240,25 @@
         }).catch(() => { });
 
         const banner = document.createElement('div');
-        banner.id = 'nv-urgency-banner';
+        banner.id = 'santis-urgency-banner';
         banner.setAttribute('role', 'alert');
         banner.style.cursor = 'pointer';
         banner.innerHTML = `
-            <div class="nv-banner-inner">
-                <span class="nv-banner-pulse"></span>
-                <span class="nv-banner-text">${text}</span>
-                <span class="nv-banner-discount">%${discount} İNDİRİM</span>
-                <span class="nv-banner-timer" id="nv-urgency-countdown">2:00</span>
-                ${aiConfirmed ? '<span class="nv-ai-badge">⚡ AI Onaylı</span>' : ''}
-                <button class="nv-banner-close" aria-label="Kapat">×</button>
+            <div class="santis-banner-inner">
+                <span class="santis-banner-pulse"></span>
+                <span class="santis-banner-text">${text}</span>
+                <span class="santis-banner-discount">%${discount} İNDİRİM</span>
+                <span class="santis-banner-timer" id="santis-urgency-countdown">2:00</span>
+                ${aiConfirmed ? '<span class="santis-ai-badge">⚡ AI Onaylı</span>' : ''}
+                <button class="santis-banner-close" aria-label="Kapat">×</button>
             </div>
         `;
         document.body.prepend(banner);
 
         // ── H2: Click Tracking ──────────────────────────
-        banner.querySelector('.nv-banner-inner').addEventListener('click', function (e) {
-            if (e.target.classList.contains('nv-banner-close')) {
-                banner.classList.remove('nv-banner-visible');
+        banner.querySelector('.santis-banner-inner').addEventListener('click', function (e) {
+            if (e.target.classList.contains('santis-banner-close')) {
+                banner.classList.remove('santis-banner-visible');
                 setTimeout(() => { if (banner.parentNode) banner.remove(); }, 600);
                 return;
             }
@@ -292,11 +292,11 @@
 
 
         requestAnimationFrame(() => {
-            requestAnimationFrame(() => { banner.classList.add('nv-banner-visible'); });
+            requestAnimationFrame(() => { banner.classList.add('santis-banner-visible'); });
         });
 
         let remaining = Math.floor(duration / 1000);
-        const timerEl = banner.querySelector('#nv-urgency-countdown');
+        const timerEl = banner.querySelector('#santis-urgency-countdown');
         const tick = setInterval(() => {
             remaining--;
             if (timerEl) {
@@ -306,7 +306,7 @@
             }
             if (remaining <= 0) {
                 clearInterval(tick);
-                banner.classList.remove('nv-banner-visible');
+                banner.classList.remove('santis-banner-visible');
                 setTimeout(() => { if (banner.parentNode) banner.remove(); }, 600);
             }
         }, 1000);

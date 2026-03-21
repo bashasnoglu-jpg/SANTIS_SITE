@@ -4,12 +4,42 @@ Editorial Magazine Layout Engine
 ===================================================== */
 
 .santis-bento-universe,
-#santis-bento-universe{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-grid-auto-rows:200px;
-gap:16px;
-position:relative;
+#santis-bento-universe {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 260px;
+    grid-auto-flow: dense; /* Boşlukları otomatik doldur, üst üste binmeyi önle */
+    gap: 20px;
+    position: relative;
+    padding: 8px 0 40px;
+    align-items: start; /* Satırların çökmesini engelle */
+}
+
+/* Asimetrik Vurgu Kartı — SADECE 2 sütun genişlik (satır span kaldırıldı, üst üste binme önlendi) */
+.santis-bento-universe .bento-card-v6.wide,
+#santis-bento-universe .bento-card-v6.wide {
+    grid-column: span 2;
+    /* grid-row: span 2; → kaldırıldı, overlap'e neden oluyordu */
+}
+
+@media (max-width: 900px) {
+    .santis-bento-universe,
+    #santis-bento-universe {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 220px;
+    }
+}
+
+@media (max-width: 540px) {
+    .santis-bento-universe,
+    #santis-bento-universe {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 280px;
+    }
+    .santis-bento-universe .bento-card-v6.wide,
+    #santis-bento-universe .bento-card-v6.wide {
+        grid-column: span 1;
+    }
 }
 
 
@@ -35,66 +65,74 @@ PAGE OVERLAY (CINEMATIC TRANSITIONS)
 
 
 /* =====================================================
-BENTO CARD
+BENTO CARD (V44 APPLE-STYLE BENTO ARCHITECTURE)
 ===================================================== */
 
-.bento-card-v6{
-position:relative;
-display:block;
-overflow:hidden;
-border-radius:22px;
-background:#111;
-color:#fff;
-text-decoration:none;
-isolation:isolate;
-transition:transform .6s cubic-bezier(.19,1,.22,1),
-box-shadow .6s ease;
+:root {
+    /* Apple'ın imzası olan kusursuz pürüzsüzlükteki Yay Fiziği */
+    --sq-spring: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* hover lift */
-
-.bento-card-v6, .bento-card-v7{
-transform-style:preserve-3d;
-will-change:transform;
-/* V7 Gaze Engine Değişken Tutanakları */
---mouse-x:50%;
---mouse-y:50%;
---spotlight-opacity:0;
+.bento-card-v6, .bento-card-v7 {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 4;
+    text-decoration: none;
+    color: #fff;
+    
+    border-radius: 24px; /* Apple Squircle Standardı */
+    background: rgba(20, 20, 22, 0.45); /* Lüks ve derin cam taban */
+    
+    /* Sub-pixel İç Aydınlatma (Inset Glow) ve Dış Gölge Derinliği */
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+                0 10px 30px rgba(0, 0, 0, 0.2);
+                
+    /* Cam Efekti (Glassmorphism) */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    
+    overflow: hidden;
+    transform: translateZ(0); /* Donanım Hızlandırmayı (GPU) Zorla */
+    
+    /* Tüm basit geçişleri iptal et ve Apple Fiziğine bağla */
+    transition: all 0.6s var(--sq-spring);
+    will-change: transform, box-shadow;
 }
 
+/* 3. Kuantum Parlaması (Glare Katmanı) - Sadece GPU'da çalışır */
+.bento-card-v6::after, .bento-card-v7::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    
+    /* JS'den fısıldanacak koordinatları dinleyen Lokal Işık Kaynağı */
+    background: radial-gradient(
+        800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        rgba(255, 255, 255, 0.08), 
+        transparent 40%
+    );
+    
+    opacity: 0;
+    transition: opacity 0.6s var(--sq-spring);
+    pointer-events: none; /* KRİTİK: Farenin kartın içindeki linklere tıklamasını engellemez */
+    z-index: 1; /* Arka planın üstünde, yazıların altında */
+    will-change: background, opacity;
+}
+
+/* 4. Kart Vurgusu (Hover) ve Işık Aktivasyonu */
 @media (hover: hover) and (pointer: fine) {
-.bento-card-v6:hover, .bento-card-v7:hover {
-/* transform:translateY(-6px); -> JS Gaze Engine Parallax devralıyor */
-box-shadow:
-0 20px 60px rgba(0,0,0,.45);
-}
-}
+    .bento-card-v6:hover, .bento-card-v7:hover {
+        transform: translateY(-4px) scale(1.01) translateZ(0);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25), 
+                    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+                    0 20px 40px rgba(0, 0, 0, 0.4);
+    }
 
-/* =====================================================
-LIQUID GLASS (V7 SPOTLIGHT LAYER)
-===================================================== */
-@media (hover: hover) and (pointer: fine) {
-.bento-card-v6::before, .bento-card-v7::before {
-content:"";
-position:absolute;
-inset:0;
-z-index: 5;
-opacity:var(--spotlight-opacity, 0);
-background:
-radial-gradient(
-    600px circle at var(--mouse-x) var(--mouse-y),
-    rgba(255,255,255,0.08),
-    transparent 35%
-),
-radial-gradient(
-    300px circle at var(--mouse-x) var(--mouse-y),
-    rgba(255,255,255,0.15),
-    transparent 25%
-);
-transition:opacity .45s ease;
-pointer-events:none;
-border-radius:inherit;
-}
+    .bento-card-v6:hover::after, .bento-card-v7:hover::after {
+        opacity: 1; /* Işığı sadece üzerine gelince yak */
+    }
 }
 
 /* =====================================================
@@ -140,18 +178,25 @@ z-index:1;
 }
 
 /* =====================================================
-CONTENT & INTERIOR PARALLAX (V7)
+CONTENT & OXYGEN SPACE (V44)
 ===================================================== */
 
-.bento-card-content{
-position:absolute;
-bottom:22px;
-left:22px;
-right:22px;
-z-index:2;
-transform:translateZ(60px); 
-transform-style:preserve-3d;
-transition:transform 0.6s cubic-bezier(.19,1,.22,1);
+.bento-card-v6 .bento-card-content, .bento-card-v7 .bento-card-content {
+    position: relative;
+    z-index: 2; /* Parlama katmanının HER ZAMAN üstünde kalmalı */
+    padding: 32px; /* Lüks ferahlık */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-sizing: border-box; /* Padding'in taşmasını engeller */
+    
+    /* Metinlerin cam üzerinde elmas gibi okunması için alttan üste karanlık degrade */
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 60%);
+    
+    transform:translateZ(60px); 
+    transform-style:preserve-3d;
+    transition:transform 0.6s var(--sq-spring);
 }
 
 .santis-experience .experience-content {
@@ -280,7 +325,7 @@ SIZE VARIANTS
 
 .bento-card-v6.wide{
 grid-column:span 2;
-/* aspect-ratio kaldırıldı: grid-auto-rows:200px ile çakışıyordu */
+aspect-ratio: 16 / 9;
 }
 
 /* =====================================================
@@ -344,34 +389,7 @@ display:none !important;
 }
 }
 
-/* =====================================================
-SMOOTH EDGE HIGHLIGHT (Apple Premium Trick)
-===================================================== */
-
-.bento-card-v6::after, .bento-card-v7::after{
-content:"";
-position:absolute;
-inset:0;
-border-radius:inherit;
-pointer-events:none;
-z-index: 6;
-
-background:linear-gradient(
-120deg,
-transparent,
-rgba(255,255,255,.06),
-transparent
-);
-
-opacity:0;
-transition:opacity .5s ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-.bento-card-v6:hover::after, .bento-card-v7:hover::after{
-opacity:1;
-}
-}
+/* (Removed) SMOOTH EDGE HIGHLIGHT - Replaced by Quantum Glare Engine */
 
 /* =====================================================
 V10 IMMERSIVE EXPERIENCE
@@ -417,38 +435,7 @@ V11 CURSOR ENGINE & SPATIAL INTERACTION
     will-change: transform;
 }
 
-/* V7 card – tek temiz tanım */
-.bento-card-v7 {
-    position: relative;
-    display: block;
-    border-radius: 22px;
-    background: #111;
-    color: #fff;
-    text-decoration: none;
-    isolation: isolate;
-    overflow: hidden;
-    transform-style: preserve-3d;
-    will-change: transform;
-    --mouse-x: 50%;
-    --mouse-y: 50%;
-    --spotlight-opacity: 0;
-    transition: transform .6s cubic-bezier(.19,1,.22,1), box-shadow .6s ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-.bento-card-v7::before {
-    content:"";
-    position:absolute; inset:0; z-index:5;
-    background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
-        rgba(255,255,255,0.06), transparent 40%),
-        radial-gradient(300px circle at var(--mouse-x) var(--mouse-y),
-        rgba(255,255,255,0.08), transparent 30%);
-    opacity: var(--spotlight-opacity);
-    pointer-events: none;
-    border-radius: inherit;
-    transition: opacity 0.5s ease;
-}
-}
+/* (Removed) V7 card tek temiz tanım - Merged into V44 Core */
 
 @media (hover: hover) and (pointer: fine) {
     .santis-spotlight {
@@ -465,3 +452,349 @@ V11 CURSOR ENGINE & SPATIAL INTERACTION
     }
 }
 
+/* =====================================================
+   V44 QUANTUM GLARE — FİLTRE ÇİPLERİ (.santis-chip)
+   Bento kartlarındakiyle aynı radial parlama motoruna bağlı.
+   JS fare koordinatlarını --cx / --cy değişkenlerine yazar.
+===================================================== */
+
+.santis-chips {
+    display: flex;
+    flex-wrap: nowrap;          /* Çipler alt satıra geçmesin, yan yana devam etsin */
+    gap: 10px;
+    justify-content: center;
+    padding: 20px 20px 32px;
+
+    /* Yatay Kaydırma Motoru */
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; /* iOS atalet kaydırması */
+    scroll-snap-type: x mandatory;    /* Her çip "tok" hissiyatla yerine oturur */
+    scroll-behavior: smooth;
+
+    /* Masaüstünde ortalanmış görünüm boz, mobilde tam genişlik */
+    width: 100%;
+    box-sizing: border-box;
+
+    /* Kaydırma çubuğunu gizle (ama çalışmaya devam etsin) */
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* IE/Edge */
+}
+
+/* Webkit (Chrome/Safari) için kaydırma çubuğunu gizle */
+.santis-chips::-webkit-scrollbar {
+    display: none;
+}
+
+/* Mobilde çipler soldan sağa tam genişlik alır */
+@media (max-width: 768px) {
+    .santis-chips {
+        justify-content: flex-start; /* Mobilde sola yasla, kaydırmaya izin ver */
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+
+/* Her çip — scroll snap + glare zırhı (TEK BLOK) */
+.santis-chip {
+    scroll-snap-align: start;    /* Kaydırma anında sol kenara hizala */
+    flex-shrink: 0;              /* Sıkışıp küçülmesin */
+
+    position: relative;         /* ::after için bağlam */
+    overflow: hidden;           /* Taşan glare'i kırp */
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 999px;       /* Tam daire (pill) */
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+
+    /* Apple Yay Fiziği */
+    transition: color 0.4s var(--sq-spring),
+                border-color 0.4s var(--sq-spring),
+                background 0.4s var(--sq-spring),
+                transform 0.4s var(--sq-spring),
+                box-shadow 0.4s var(--sq-spring);
+    will-change: transform;
+}
+
+/* Kuantum Glare katmanı (bento-card-v6::after ile aynı mekanizma) */
+.santis-chip::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+
+    background: radial-gradient(
+        300px circle at var(--cx, 50%) var(--cy, 50%),
+        rgba(255, 255, 255, 0.18),
+        transparent 60%
+    );
+
+    opacity: 0;
+    transition: opacity 0.5s var(--sq-spring);
+    pointer-events: none;
+    z-index: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .santis-chip:hover {
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.28);
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    /* Fare üzerine gelince glare yak */
+    .santis-chip:hover::after {
+        opacity: 1;
+    }
+}
+
+/* Aktif (seçili) chip — Santis Altını */
+.santis-chip.is-active,
+.santis-chip[data-filter].is-active {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: rgba(212, 175, 55, 0.50);
+    color: #D4AF37;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.12),
+                inset 0 1px 0 rgba(212, 175, 55, 0.2);
+}
+
+.santis-chip.is-active::after {
+    background: radial-gradient(
+        300px circle at var(--cx, 50%) var(--cy, 50%),
+        rgba(212, 175, 55, 0.22),
+        transparent 60%
+    );
+    opacity: 1;
+}
+
+/* ==========================================================================
+   SİNEMATİK HOVER (Grayscale → Renkli + Scale)
+   Hover'da kart renklenerek öne çıkar, diğerleri solar.
+========================================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+    /* Hover'daki kart — renklenir, öne gelir */
+    #santis-bento-universe .bento-card-v6:hover .bento-card-media {
+        filter: grayscale(0%) brightness(1.05) !important;
+    }
+
+    /* Hover'da GERİDEKİLER solar — Odak etkisi */
+    #santis-bento-universe:has(.bento-card-v6:hover) .bento-card-v6:not(:hover) {
+        opacity: 0.5;
+        transform: scale(0.97) translateZ(0);
+        transition: opacity 0.5s var(--sq-spring),
+                    transform 0.5s var(--sq-spring);
+    }
+}
+
+/* ==========================================================================
+   SCROLL REVEAL (Fade-Up Şelale)
+   JS observer 'is-revealed' sınıfını atar.
+========================================================================== */
+
+.bento-card-v6.santis-await-reveal,
+.bento-card-v7.santis-await-reveal {
+    opacity: 0;
+    transform: translateY(48px) translateZ(0);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card-v6.santis-await-reveal.is-revealed,
+.bento-card-v7.santis-await-reveal.is-revealed {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+}
+
+/* ==========================================================================
+   SOVEREIGN RAIL SYSTEM v1.0 — Kategori Bazlı Yatay Kaydırma
+   (Netflix-style, her kategori kendi şeridinde)
+========================================================================== */
+
+.santis-rails-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    padding: 40px 0 80px;
+}
+
+/* ─── Rail Başlığı ─────────────────────────────────────────────────────── */
+.santis-rail-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 0 4px;
+}
+
+.santis-rail-icon {
+    font-size: 22px;
+}
+
+.santis-rail-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: -0.3px;
+    margin: 0;
+}
+
+.santis-rail-subtitle {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-left: auto;
+}
+
+/* ─── Yatay Kaydırma Şeridi ────────────────────────────────────────────── */
+.santis-rail-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 12px 4px 20px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    cursor: grab;
+}
+
+.santis-rail-track::-webkit-scrollbar { display: none; }
+.santis-rail-track:active { cursor: grabbing; }
+
+/* ─── Rail Kartı ───────────────────────────────────────────────────────── */
+.santis-rail-card {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    width: 190px;
+    aspect-ratio: 4 / 5;        /* Apple DNA: tarayıcı 237.5px height hesaplar */
+    border-radius: 20px;        /* V44 grid standardı */
+    overflow: hidden;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+
+    /* V44 Cam Zırhı */
+    background: rgba(18, 18, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    /* Scroll-Reveal başlangıç durumu */
+    opacity: 0;
+    transform: translateY(32px) translateZ(0);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+
+/* Reveal: kart ekrana girince açılır */
+.santis-rail-card.is-revealed {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+}
+
+.santis-rail-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Görsel */
+.santis-rail-card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(80%) brightness(0.75);
+    transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+/* Kart Overlay (Alt Gradient + Metin) */
+.santis-rail-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 14px 16px;    /* Geniş gradient, metin dibe alışır */
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0) 100%);
+    z-index: 2;
+}
+
+.santis-rail-card-price {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: #D4AF37;
+    margin-bottom: 6px;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 20px;
+    padding: 2px 10px;
+}
+
+.santis-rail-card-title {
+    font-size: 14px;
+    font-weight: 400;            /* Thin weight — quiet luxury */
+    letter-spacing: 0.01em;
+    margin: 0 0 2px;
+    line-height: 1.35;
+}
+
+.santis-rail-card-desc {
+    display: none;               /* Temiz, odak sadece başlık + fiyat */
+}
+
+/* Glare katmanı */
+.santis-rail-glare {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+        200px circle at var(--rx, 50%) var(--ry, 50%),
+        rgba(255,255,255,0.1),
+        transparent 60%
+    );
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 3;
+}
+
+/* Hover ─ Masaüstü */
+@media (hover: hover) and (pointer: fine) {
+    .santis-rail-card:hover {
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+        transform: translateY(-4px) scale(1.02) translateZ(0);
+    }
+    .santis-rail-card:hover .santis-rail-card-img {
+        filter: grayscale(0%) brightness(1.0);
+        transform: scale(1.06);
+    }
+    .santis-rail-card:hover .santis-rail-glare {
+        opacity: 1;
+    }
+}
+
+/* Boş rail'i gizle */
+.santis-rail.is-empty { display: none; }

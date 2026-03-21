@@ -48,7 +48,7 @@ export default {
                         // Scarcity Katmanı (ESR ile direkt içine CSS/HTML basma)
                         if (slotData.is_scarce) {
                             el.setAttribute("data-scarcity-rendered", "true");
-                            el.after(`<div class="nv-scarcity-badge reveal-up"><span class="nv-pulse-dot"></span><span class="nv-scarcity-text">${slotData.scarcity_message}</span></div>`, { html: true });
+                            el.after(`<div class="santis-scarcity-badge reveal-up"><span class="santis-pulse-dot"></span><span class="santis-scarcity-text">${slotData.scarcity_message}</span></div>`, { html: true });
                         }
                     }
                 }

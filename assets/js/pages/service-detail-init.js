@@ -37,7 +37,7 @@ function initCinematicExperience() {
 }
 
 function initScrollReveal() {
-    const targets = document.querySelectorAll('.cin-title, .cin-desc, .cin-meta-grid, .cin-quote, .cin-inline-visual, .nv-accordion, .cin-actions');
+    const targets = document.querySelectorAll('.cin-title, .cin-desc, .cin-meta-grid, .cin-quote, .cin-inline-visual, .santis-accordion, .cin-actions');
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {

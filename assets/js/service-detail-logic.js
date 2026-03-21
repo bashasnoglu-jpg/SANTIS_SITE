@@ -341,7 +341,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // ═══════════════════════════════════════════════════
     // DATA READY GATE: Wait for data-bridge.js
     // ═══════════════════════════════════════════════════
-    if (window.NV_DATA_READY && window.productCatalog && window.productCatalog.length > 0) {
+    if (window.SANTIS_DATA_READY && window.productCatalog && window.productCatalog.length > 0) {
         initDetailPage();
     } else {
         var resolved = false;

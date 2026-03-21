@@ -37,5 +37,5 @@
     }
 
     // Expose for loader.js
-    window.NV_INIT_NAVBAR = initNavbar;
+    window.SANTIS_INIT_NAVBAR = initNavbar;
 })();

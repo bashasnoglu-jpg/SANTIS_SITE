@@ -1,0 +1,71 @@
+/* 🃏 Reservation Card — Co-located Styles
+   Sadece bu component'i etkiler, global scope'u kirletmez */
+
+.res-card__host {
+    display:        contents; /* host element iz bırakmaz */
+}
+
+.res-card {
+    /* Component kapsülleme */
+    contain:        layout style paint;
+    content-visibility: auto;
+    contain-intrinsic-size: 0 280px;
+
+    background:     var(--clr-surface-1, #1a1815);
+    border:         1px solid var(--clr-border, rgba(201,169,110,.15));
+    border-radius:  var(--radius-card, 12px);
+    padding:        var(--space-5, 1.5rem);
+    display:        flex;
+    flex-direction: column;
+    gap:            var(--space-3, 0.75rem);
+    transition:     border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.res-card:hover {
+    border-color:   var(--clr-gold, #c9a96e);
+    box-shadow:     0 0 24px rgba(201,169,110,.08);
+}
+
+.res-card__header {
+    display:        flex;
+    align-items:    center;
+    justify-content: space-between;
+}
+
+.res-card__title {
+    font-size:      var(--fs-md, 1rem);
+    font-weight:    500;
+    color:          var(--clr-text-primary, #f0ece4);
+    letter-spacing: 0.02em;
+}
+
+.res-card__badge {
+    font-size:      0.7rem;
+    padding:        0.2em 0.6em;
+    border-radius:  100vmax;
+    background:     rgba(201,169,110,.12);
+    color:          var(--clr-gold, #c9a96e);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.res-card__desc {
+    font-size:      var(--fs-sm, 0.9rem);
+    color:          var(--clr-text-secondary, #8a8070);
+    line-height:    1.6;
+}
+
+.res-card__footer {
+    margin-top:     auto;
+}
+
+.res-card__cta {
+    width:  100%;
+}
+
+/* ── Reduced Motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .res-card {
+        transition: none;
+    }
+}

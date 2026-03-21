@@ -25,8 +25,8 @@ class SmartHome {
     updateAtmosphere() {
         const hour = new Date().getHours();
         const body = document.body;
-        const title = document.querySelector('.nv-hero-title-dynamic');
-        const caption = document.querySelector('.nv-hero-caption');
+        const title = document.querySelector('.santis-hero-title-dynamic');
+        const caption = document.querySelector('.santis-hero-caption');
 
         // Reset
         body.classList.remove('mode-dawn', 'mode-sunset', 'mode-midnight');
@@ -89,7 +89,7 @@ class SmartHome {
             if (el) sections[id] = el;
         });
 
-        const hero = document.querySelector('.nv-hero-campaign');
+        const hero = document.querySelector('.santis-hero-campaign');
         if (!hero) return;
 
         console.log("🏠 SmartHome: Reordering sections based on Oracle score...", order);

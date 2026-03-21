@@ -344,7 +344,7 @@ const initOmniScroll = () => {
     carousels.forEach(track => {
         if (track.hasAttribute('data-v4-observer')) {
             // Zaten kuruluysa, sadece kart listesini güncelle ve observer'a ekle (Re-init)
-            const newCards = Array.from(track.querySelectorAll('.nv-rail-card, .nv-card, .ritual-card'));
+            const newCards = Array.from(track.querySelectorAll('.santis-rail-card, .santis-card, .ritual-card'));
             if (track._v4Observer && newCards.length > 0) {
                 newCards.forEach(card => {
                     if (!card.hasAttribute('data-observed')) {
@@ -361,9 +361,9 @@ const initOmniScroll = () => {
 
         const prevBtn = section.querySelector('button.prev, button:has(svg path[d*="M15 19l-7-7"]), .slider-prev');
         const nextBtn = section.querySelector('button.next, button:has(svg path[d*="M9 5l7 7"]), .slider-next');
-        const dotsContainer = section.querySelector('.flex.justify-center.gap-2, .dots-container, .rail-dots, .nv-rail-dots');
+        const dotsContainer = section.querySelector('.flex.justify-center.gap-2, .dots-container, .rail-dots, .santis-rail-dots');
         const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('button, span')) : [];
-        const cards = Array.from(track.querySelectorAll('.nv-rail-card, .nv-card, .ritual-card'));
+        const cards = Array.from(track.querySelectorAll('.santis-rail-card, .santis-card, .ritual-card'));
 
         if (!cards.length) return;
 

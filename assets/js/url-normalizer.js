@@ -43,15 +43,15 @@
 
         // Eski root URL'ler (ileride kullanılabilir)
 
-        "/hamam.html": _l("/tr/hamam/index.html"),
+        "/hamam.html": _l("/hamam.html"),
 
-        "/massage.html": _l("/tr/masajlar/index.html"),
+        "/massage.html": _l("/masaj.html"),
 
-        "/skincare.html": _l("/tr/cilt-bakimi/index.html"),
+        "/skincare.html": _l("/cilt-bakimi.html"),
 
-        "/masaj.html": _l("/tr/masajlar/index.html"),
+        "/masaj.html": _l("/masaj.html"),
 
-        "/cilt-bakimi.html": _l("/tr/cilt-bakimi/index.html")
+        "/cilt-bakimi.html": _l("/cilt-bakimi.html")
 
     };
 

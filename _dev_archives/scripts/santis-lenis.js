@@ -5,7 +5,7 @@ class SovereignScrollEngine {
     constructor() {
         this.lenis = null;
         // Sayfa kaydırıldıkça karanlıktan zarifçe çıkacak elementlerin otonom radarı
-        this.revealElements = document.querySelectorAll('.santis-reveal, .ritual-card, .nv-testimonials > div > div, #sovereign-rituals h2, #massage-therapies h2, #skincare-therapies h2');
+        this.revealElements = document.querySelectorAll('.santis-reveal, .ritual-card, .santis-testimonials > div > div, #sovereign-rituals h2, #massage-therapies h2, #skincare-therapies h2');
 
         this.initLenis();
         this.initReveal();

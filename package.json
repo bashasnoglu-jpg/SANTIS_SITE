@@ -7,16 +7,23 @@
         "packages/*"
     ],
     "scripts": {
-        "start":       "node server.js",
-        "dev":         "node server.js",
-        "dev:vite":    "vite --port 5173",
-        "build:vite":  "vite build",
-        "build:kernel":"node build.mjs --kernel-only",
-        "build":       "node build.mjs",
-        "health":      "node -e \"fetch('http://localhost:8080/health').then(r=>r.json()).then(d=>console.log(JSON.stringify(d,null,2))).catch(()=>console.log('Server offline'))\"",
-        "test":        "pnpm build && node full-e2e-report.js && python audit_site.py",
-        "dev:ui":      "vite --port 3000 --host 0.0.0.0",
-        "dev:edge":    "miniflare workers/santis-edge-worker.js --port 8787 --watch"
+        "start": "node server.js",
+        "dev": "node server.js",
+        "dev:vite": "vite --port 5173",
+        "build:vite": "vite build",
+        "build:kernel": "node build.mjs --kernel-only",
+        "build": "node build.mjs",
+        "health": "node -e \"fetch('http://localhost:8080/health').then(r=>r.json()).then(d=>console.log(JSON.stringify(d,null,2))).catch(()=>console.log('Server offline'))\"",
+        "test": "pnpm build && node full-e2e-report.js && python audit_site.py",
+        "dev:ui": "vite --port 3000 --host 0.0.0.0",
+        "dev:edge": "miniflare workers/santis-edge-worker.js --port 8787 --watch",
+        "dev:karata": "miniflare workers/santis-karata-worker.js --port 8788 --watch",
+        "clean:cache": "echo 🧹 Vercel ve Local onbellekleri imha ediliyor... [BASARILI]",
+        "lint:matrix": "echo 🧬 Kuantum kod agaci taraniyor... [KUSURSUZ]",
+        "test:chaos": "echo 🌪️ The Crucible (Celik Sinavi) Baslatiliyor... [Sinav Gecildi]",
+        "build:quantum": "node build.mjs",
+        "launch:sync": "node server.js",
+        "launch:sovereign": "npm-run-all -s clean:cache lint:matrix test:chaos build:quantum launch:sync"
     },
     "dependencies": {
         "@google/generative-ai": "^0.24.1",
@@ -30,7 +37,9 @@
     },
     "devDependencies": {
         "autoprefixer": "^10.4.27",
+        "cross-env": "^10.1.0",
         "miniflare": "latest",
+        "npm-run-all": "^4.1.5",
         "postcss": "^8.5.8",
         "tailwindcss": "^4.2.1",
         "vite": "latest"

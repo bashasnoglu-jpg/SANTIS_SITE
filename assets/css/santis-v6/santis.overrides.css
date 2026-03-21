@@ -16,3 +16,5 @@
     */
 
 }
+
+body.solid-nav-page .sovereign-brand-bar, body.solid-nav-page .sovereign-service-bar { background-color: #050505 !important; backdrop-filter: none !important; }

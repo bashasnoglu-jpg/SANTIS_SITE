@@ -150,8 +150,8 @@
 </head>
 <body class="atelier-mode">
 <noscript>
-<nav class="nv-noscript-nav">
-<a href="/index.html" class="nv-ns-home">ANA SAYFA</a>
+<nav class="santis-noscript-nav">
+<a href="/index.html" class="santis-ns-home">ANA SAYFA</a>
 <a href="/tr/hamam/index.html" >HAMAM</a>
 <a href="/tr/masajlar/index.html" >MASAJLAR</a>
 <a href="/tr/cilt-bakimi/index.html" >CİLT BAKIMI</a>
@@ -159,12 +159,12 @@
 </nav>
 </noscript>
 
-    <div id="nv-navbar-target"></div>
+    <div id="santis-navbar-target"></div>
 
     <header class="atelier-header">
-        <div class="nv-container">
-            <span class="nv-kicker">SANTIS ATELIER</span>
-            <h1 class="nv-title">Dokuma & Taş</h1>
+        <div class="santis-container">
+            <span class="santis-kicker">SANTIS ATELIER</span>
+            <h1 class="santis-title">Dokuma & Taş</h1>
             <p style="color:#aaa;max-width:500px;margin:10px auto;" style="max-width: 500px; margin: 20px auto">
                 Hamam geleneğini evinize taşıyan zanaatkar dokunuşlar.
                 %100 Organik Pamuk, Keten ve Mermer.
@@ -172,7 +172,7 @@
         </div>
     </header>
 
-    <div class="nv-container" style="display: flex; padding: 80px 20px; gap: 50px;">
+    <div class="santis-container" style="display: flex; padding: 80px 20px; gap: 50px;">
         <!-- SIDEBAR -->
         <aside class="category-sidebar">
             <div class="cat-link active" data-cat="all">Tüm Koleksiyon</div>
@@ -189,7 +189,7 @@
     </div>
 
     <!-- FOOTER -->
-    <div id="nv-footer-target"></div>
+    <div id="santis-footer-target"></div>
 
     <script src="/assets/js/i18n-routes.js"></script>
     <script src="/assets/js/hreflang-injector.js" defer></script>
@@ -198,8 +198,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Load Nav/Footer
-            fetch('../../components/navbar.html').then(r=>r.text()).then(h=>{document.getElementById('nv-navbar-target').innerHTML=h});
-            fetch('../../components/footer.html').then(r=>r.text()).then(h=>{document.getElementById('nv-footer-target').innerHTML=h});
+            fetch('../../components/navbar.html').then(r=>r.text()).then(h=>{document.getElementById('santis-navbar-target').innerHTML=h});
+            fetch('../../components/footer.html').then(r=>r.text()).then(h=>{document.getElementById('santis-footer-target').innerHTML=h});
 
             // Init Shop (cart drawer, FAB button, badge)
             function bootShop() {

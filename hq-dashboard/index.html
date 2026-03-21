@@ -1,6 +1,7 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+    <meta name="robots" content="noindex, nofollow">
     <meta charset="UTF-8">
     <meta name="description" content="SANTIS MASTER OS | HQ Mode v9.0 — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,15 +22,15 @@
     </script>
     
     <!-- Tailwind CSS (CDN for Prototyping) -->
-    <script src="/assets/js/tailwindcss.min.js" crossorigin="anonymous"></script>
+    <script src="/assets/js/tailwindcss.min.js" crossorigin="anonymous" defer></script>
     <!-- html2pdf Library for Sovereign Export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="/assets/vendor/html2pdf.bundle.min.js" crossorigin="anonymous" defer></script>
     <!-- Chart.js for Quantum Forecasting -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" crossorigin="anonymous"></script>
+    <script src="/assets/vendor/chart.js" crossorigin="anonymous" defer></script>
     <!-- MapLibre GL JS (Open Source Mapbox Alternative) -->
-    <script src='https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js'></script>
-    <link href='https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css' rel='stylesheet' />
-    <!-- Turf.js for curve calculations --><script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+    <script src="/assets/vendor/maplibre-gl.js" defer></script>
+    <link href='/assets/vendor/maplibre-gl.css' rel='stylesheet' />
+    <!-- Turf.js for curve calculations --><script src="/assets/vendor/turf.min.js" defer></script>
     
     <!-- Tailwind Custom Configuration -->
     <script>
@@ -1453,7 +1454,7 @@
             { id: "hq-1", name: "HQ System Report", category: "admin", tags: ["report", "system", "hq"] },
             { id: "hq-2", name: "Deploy Node Assistant", category: "admin", tags: ["deploy", "node", "hotel"] }
         ];
-        window.NV_DATA_READY = true;
+        window.SANTIS_DATA_READY = true;
     </script>
     <script defer src="/assets/js/santis-voice.js"></script>
     <script defer src="/assets/js/concierge-engine.js"></script>
@@ -2180,6 +2181,9 @@
 }());
 </script>
 
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
 
@@ -2653,6 +2657,9 @@ async function generateInvestorReport(){
 }
 </script>
 
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
 

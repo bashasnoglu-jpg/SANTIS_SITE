@@ -105,7 +105,7 @@ export function init(kernelWorker) {
                         return cat === 'hammam' || catId.startsWith('ritual-hammam');
                     }
                     if (datasetCategory === 'massage' || datasetCategory === 'masajlar') {
-                        return cat === 'massage' && !catId.startsWith('ritual-hammam');
+                        return (cat.startsWith('massage') || catId.startsWith('massage')) && !catId.startsWith('ritual-hammam');
                     }
                     if (datasetCategory === 'rituals') {
                         return cat === 'journey';
@@ -152,23 +152,55 @@ export function init(kernelWorker) {
                 for (let index = 0; index < filteredData.length; index++) {
                     const item = filteredData[index];
                     // Extract Title & Description
-                    let title = item.title;
+                    let title = item.name;
                     let desc = item.description || '';
                     if (!title && item.content && item.content.tr) {
-                        title = item.content.tr.title || item.name;
-                        desc = item.content.tr.shortDesc || item.content.tr.fullDesc || desc;
-                    } else if (!title) {
-                        title = item.name;
+                        title = item.content.tr.title || 'Santis Massage';
                     }
 
-                    let url = item.url || item.detailUrl || `/tr/${datasetCategory === 'index' ? 'masajlar' : datasetCategory}/${item.slug || item.id}.html`;
+                    let url = item.detailUrl || `/tr/${datasetCategory === 'index' ? 'masajlar' : datasetCategory}/${item.slug || item.id}.html`;
                     let img = item.image || (item.media && item.media.hero ? `/assets/img/cards/${item.media.hero}` : item.img || '/assets/img/luxury-placeholder.webp');
                     let price = item.price_eur ? `€${item.price_eur}` : (item.price && item.price.amount ? `${item.price.currency || '€'}${item.price.amount}` : '');
 
-                    const card = document.createElement('a');
-                    card.href = url;
+                    const card = document.createElement(layout === 'coverflow' ? 'div' : 'a');
+                    if (layout !== 'coverflow') card.href = url;
 
-                    if (layout === 'giant-rail') {
+                    if (layout === 'coverflow') {
+                        const loadAttr = index < 2 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
+                        card.className = 'santis-stack-card';
+                        card.setAttribute('data-ghost-trace', `card-${item.id}`);
+                        card.setAttribute('data-variant-hash', getVariantFilter(img, item.id));
+                        card.setAttribute('data-reveal', item.slug || item.id || title.toLowerCase().replace(/[^a-z0-9]+/g, '-'));
+                        card.style.backgroundImage = `url('${img}')`;
+                        
+                        // We use background-image for Cover Flow by default, but we'll apply the filter inline to a pseudo element if needed,
+                        // or just rely on the existing V45 CSS which natively supports background-image.
+                        
+                        card.innerHTML = `
+                            <h3 data-morph="title" style="text-shadow: 0 4px 12px rgba(0,0,0,0.8);">${title}</h3>
+                            <span data-morph="meta" class="santis-stack-meta" style="text-shadow: 0 4px 12px rgba(0,0,0,0.8);">${({skincare:'CİLT BAKIMI',massage:'MASAJ',hammam:'HAMAM',hamam:'HAMAM',rituals:'RİTÜELLER',journey:'RİTÜELLER'})[datasetCategory] || datasetCategory.toUpperCase()} | ${price}</span>
+                            
+                            <div class="santis-reveal-data">
+                                <h2 data-morph="title" style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">${title}</h2>
+                                <p data-morph="meta" style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                                    ${desc || 'Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.'}
+                                </p>
+                                <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                                    <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                                        <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                                        <strong style="font-size: 1.3rem;">60 Dk</strong>
+                                    </div>
+                                    <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                                        <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                                        <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                                    </div>
+                                </div>
+                                <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                                    HEMEN REZERVASYON
+                                </a>
+                            </div>
+                        `;
+                    } else if (layout === 'giant-rail') {
                         // Hammam Giant Card (Apple Pro Width 480px / 85vw)
                         const loadAttr = index < 2 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
                         card.className = 'matrix-service-card';
@@ -195,7 +227,7 @@ export function init(kernelWorker) {
                     } else {
                         // Rail / Grid Card (Index, Masaj)
                         const loadAttr = index < 2 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
-                        card.className = 'nv-matrix-card santis-card';
+                        card.className = 'santis-matrix-card santis-card';
                         card.setAttribute('data-ghost-trace', `card-${item.id}`);
                         card.setAttribute('data-variant-hash', getVariantFilter(img, item.id));
                         card.setAttribute('data-category', (item.category || '').toLowerCase());
@@ -228,11 +260,13 @@ export function init(kernelWorker) {
                 // 🗑️ CLS FIX: Skeleton kartları temizle, gerçek kartları replace et
                 arena.querySelectorAll('.santis-skeleton-card').forEach(sk => sk.remove());
 
-                // Hardware-Accelerated Başlangıç Noktası (will-change ile CLS-safe)
-                card.style.opacity = "0";
-                card.style.transform = "translate3d(0, 20px, 0)";
-                card.style.willChange = "opacity, transform";
-                card.style.transition = `opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${Math.min(index * 0.04, 0.5)}s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${Math.min(index * 0.04, 0.5)}s`;
+                if (layout !== 'coverflow') {
+                    // Hardware-Accelerated Başlangıç Noktası (will-change ile CLS-safe)
+                    card.style.opacity = "0";
+                    card.style.transform = "translate3d(0, 20px, 0)";
+                    card.style.willChange = "opacity, transform";
+                    card.style.transition = `opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${Math.min(index * 0.04, 0.5)}s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${Math.min(index * 0.04, 0.5)}s`;
+                }
 
                 fragment.appendChild(card);
                     
@@ -246,7 +280,7 @@ export function init(kernelWorker) {
 
                 requestAnimationFrame(() => {
                     arena.style.opacity = "1";
-                    const allCards = arena.querySelectorAll('.matrix-service-card, .nv-matrix-card');
+                    const allCards = arena.querySelectorAll('.matrix-service-card, .santis-matrix-card');
                     allCards.forEach(c => {
                         c.style.opacity = "1";
                         c.style.transform = "translate3d(0, 0, 0)";
@@ -257,6 +291,9 @@ export function init(kernelWorker) {
             // 🎯 SMART FILTER BRIDGE: Kartlar DOM'a enjekte edildi — filtre motorunu uyandır!
             console.log(`🎯 [Matrix] ${totalGold} kart DOM'a eklendi. santis:cards-rendered ateşleniyor...`);
             document.dispatchEvent(new CustomEvent('santis:cards-rendered', { detail: { count: totalGold } }));
+            
+            // 🔥 V45 CAROUSEL RESURRECTION: Re-init 3D Cover Flow stages that were dynamically injected
+            setTimeout(() => { if(window.initCoverFlowCarousel) window.initCoverFlowCarousel(); }, 150);
 
             // ========================================================
             // 👑 V18.1 RESURRECTION: THE ORACLE LINEUP (Biyometrik Matrix)
@@ -294,7 +331,7 @@ export function init(kernelWorker) {
                     const priceRaw = item.price?.amount || item.price_eur || 0;
                     const price = priceRaw > 0 ? priceRaw + ' €' : 'Özel';
                     const dur = item.duration || '30';
-                    const detailUrl = item.detailUrl || item.url || `/tr/hamam/${item.slug || item.id}.html`;
+                    const detailUrl = item.detailUrl || item.url || `/hamam.html${item.slug || item.id}.html`;
 
                     oracleHtml += `
                     <a href="${detailUrl}" class="matrix-service-card" style="flex-shrink: 0; scroll-snap-align: start; width: 480px; height: 600px; border-radius: 20px; overflow: hidden; border: ${isPriority ? '2px solid #d4af37' : '2px solid transparent'}; position: relative; background: #080808; text-decoration: none; display: flex; flex-direction: column; justify-content: flex-end; opacity: 0; transform: translateY(20px); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease; animation: fadeIn 0.5s ease forwards ${idx * 0.05}s;">

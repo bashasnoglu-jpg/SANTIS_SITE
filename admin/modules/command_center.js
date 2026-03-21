@@ -1,0 +1,1606 @@
+/**
+ * SANTIS MODULE: Command Center (Elite Lifecycle v2 + Cortex)
+ * Ref: Surgical Migration - Phase 5
+ * Status: Deployment Ready
+ */
+
+export const meta = { 
+    name: "command_center",
+    preload: false, 
+    keepAlive: false 
+};
+
+// 1. Private Module State (Isolated from Global Scope)
+let viewAbortController = null;
+let statsInterval = null;
+let _ceData = []; // Görsel Kart Editörü verisi
+
+export async function mount(viewport, ctx) {
+    console.log("🟢 [Command Center] Initializing Sovereign Matrix Engine...");
+    
+    viewAbortController = new AbortController();
+    const { signal } = viewAbortController;
+
+    // 2. High-Performance Template Injection
+    viewport.innerHTML = `
+        <div class="command-center-wrapper opacity-0 translate-y-2 transition-all duration-300 h-full w-full relative">
+            
+<div class="h-full w-full flex flex-col" id="app">
+<!-- HEADER: Glassmorphism Upgraded -->
+<header class="h-16 border-b border-gray-800/60 bg-black/50 backdrop-blur-xl flex items-center justify-between px-6 z-50 shrink-0 shadow-lg">
+<div class="flex items-center gap-4">
+<h1 class="heading-font text-xl font-bold tracking-widest text-white">SANTIS <span class="text-santis-gold font-normal text-sm ml-1">COMMAND CENTER</span></h1>
+<div class="px-2 py-0.5 bg-gray-900/50 border border-gray-800/50 rounded text-[10px] text-gray-400 font-mono tracking-widest uppercase shadow-inner">
+                The Sovereign View
+            </div>
+</div>
+<div class="flex items-center gap-3 text-xs font-mono text-gray-500">
+<button class="hover:text-white transition" onclick="fetchAssets()">⟳ Sync Matrix</button>
+<span class="text-gray-800">|</span>
+<!-- CORE OS DROPDOWN -->
+<div class="relative group">
+    <button class="px-2 py-1 rounded border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 transition text-[10px] tracking-widest uppercase flex items-center gap-1 cursor-pointer" title="Core Admin Hub">
+        🛡️ Core OS <span>▼</span>
+    </button>
+    <div class="absolute left-0 top-full pt-1 w-48 z-[100] hidden group-hover:block">
+        <div class="bg-black border border-emerald-500/50 rounded shadow-2xl flex flex-col p-1">
+            <a data-link href="/admin/gods-eye-vision.html" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">God's Eye (Vusal Radar)</a>
+        <a data-link href="/admin/god-mode.html" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">God Mode (System Core)</a>
+        <a data-link href="/admin/boardroom.html" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">Boardroom</a>
+        <a data-link href="/admin/crm.html" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">Sovereign CRM</a>
+        <a data-link href="/admin/revenue.html" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">Revenue Desk</a>
+        <a data-link href="/admin/hotels.html" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">Hotel Integrations</a>
+        <a data-link href="/admin/sovereign-lab.html" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">Sovereign Lab</a>
+        <a data-link href="/admin/dashboard.html" class="px-3 py-2 text-[10px] text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded transition">Master Dashboard</a>
+        <div class="border-t border-emerald-500/20 my-1"></div>
+            <a href="http://localhost:4321/" target="_top" rel="noopener noreferrer" class="px-3 py-2 text-[10px] text-emerald-300 hover:text-white hover:bg-emerald-500/20 rounded transition font-bold flex items-center gap-1">🚀 SPAOS Terminal (V4)</a>
+        </div>
+    </div>
+</div>
+
+<!-- OMNIVERSE DROPDOWN -->
+<div class="relative group">
+    <button class="px-2 py-1 rounded border border-purple-500/30 text-purple-400 hover:bg-purple-500/10 transition text-[10px] tracking-widest uppercase flex items-center gap-1 cursor-pointer" title="Omniverse Index">
+        🌌 Omniverse <span>▼</span>
+    </button>
+    <div class="absolute right-0 top-full pt-1 w-48 z-[100] hidden group-hover:block">
+        <div class="bg-black border border-purple-500/50 rounded shadow-2xl flex flex-col p-1">
+            <a href="/santis-oracle.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 rounded transition">Santis Oracle</a>
+        <a data-link href="/admin/omniverse/oracle-console.html" class="px-3 py-2 text-[10px] text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 rounded transition">Oracle Console</a>
+        <a data-link href="/admin/omniverse/council-arena.html" class="px-3 py-2 text-[10px] text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 rounded transition">Council Arena</a>
+            <a data-link href="/admin/omniverse/evolution-arena.html" class="px-3 py-2 text-[10px] text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 rounded transition">Evolution Arena</a>
+        </div>
+    </div>
+</div>
+
+<!-- GRAVITY UX DROPDOWN -->
+<div class="relative group">
+    <button class="px-2 py-1 rounded border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition text-[10px] tracking-widest uppercase flex items-center gap-1 cursor-pointer" title="Gravity UX Index">
+        🚀 Gravity UX <span>▼</span>
+    </button>
+    <div class="absolute right-0 top-full pt-1 w-48 z-[100] hidden group-hover:block">
+        <div class="bg-black border border-blue-500/50 rounded shadow-2xl flex flex-col p-1">
+            <a href="/packages/gravity-ux-engine/src/saas-dashboard/index.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 rounded transition">SaaS Dashboard</a>
+        <a href="/packages/gravity-ux-engine/src/saas-dashboard/cognitive-certificate.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 rounded transition">Cognitive Cert</a>
+        <a href="/packages/gravity-ux-engine/demo/darwinian-evolution.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 rounded transition">Darwinian Evolution</a>
+        <a href="/packages/gravity-ux-engine/demo/full-matrix.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 rounded transition">Full Matrix</a>
+        <a href="/packages/gravity-ux-engine/demo/3-card-arena.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 rounded transition">3-Card Arena</a>
+            <a href="/packages/gravity-ux-engine/demo/webgpu-million.html" target="_blank" class="px-3 py-2 text-[10px] text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 rounded transition">WebGPU Million</a>
+        </div>
+    </div>
+</div>
+
+<span class="text-gray-800">|</span>
+<a href="/sovereign-os/" target="_blank" class="px-2 py-1 rounded border border-santis-gold/30 text-santis-gold hover:bg-santis-gold/10 transition text-[10px] tracking-widest uppercase" title="Sovereign OS Landing Page">🚀 Landing</a>
+<a href="/sovereign-os/audit.html?target=santisclub.com" target="_blank" class="px-2 py-1 rounded border border-red-500/30 text-red-400 hover:bg-red-500/10 transition text-[10px] tracking-widest uppercase" title="Audit Honeypot Demo">🕸️ Audit</a>
+<a data-link href="/admin/bookings.html" class="px-2 py-1 rounded border border-gray-700/50 text-gray-400 hover:text-white hover:bg-gray-800 transition text-[10px] tracking-widest uppercase" title="Bookings Panel">📋 Bookings</a>
+<a href="/index.html" target="_blank" class="px-2 py-1 rounded border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 transition text-[10px] tracking-widest uppercase" title="Live Site">🌍 Site</a>
+<span class="text-gray-800">|</span>
+<div class="w-8 h-8 rounded border border-gray-700/50 bg-gray-900/30 backdrop-blur flex items-center justify-center text-santis-gold pb-1 cursor-pointer hover:bg-gray-800 transition" onclick="window.location.href='/admin/index.html'">⎈</div>
+</div>
+</header>
+<!-- 3-COLUMN MAIN LAYOUT -->
+<!-- Added subtle background texture image for full luxury command mode (Glass basis) -->
+<main class="flex-1 flex overflow-hidden p-4 gap-4 bg-[#0a0a0a] bg-[url('/assets/img/gallery/hero-general.webp')] bg-cover bg-center bg-fixed relative">
+<div class="absolute inset-0 bg-black/80 z-0 pointer-events-none"></div> <!-- Dimmer overlay for text contrast -->
+<!-- RESTORE BUTTONS (Hidden by default) -->
+<button class="panel-restore-btn" id="restore-left-btn" onclick="togglePanel('left')" title="Visual Ingestion'ı Aç">
+<span class="text-xs">▶</span>
+</button>
+<button class="panel-restore-btn" id="restore-right-btn" onclick="togglePanel('right')" title="Pulse Stream'i Aç">
+<span class="text-xs">◀</span>
+</button>
+<!-- COLUMN 1: VISUAL INGESTION UNIT -->
+<!-- Adding z-10 for the relative content over absolute dimmer overlay -->
+<section class="shrink-0 flex flex-col gap-4 overflow-y-auto custom-scroll pr-2 pb-48 relative z-10 transition-all duration-300" id="cc-panel-left" style="width:320px;min-width:180px;max-width:520px;">
+<div class="min-h-[480px] shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl p-5 flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.5)] relative overflow-hidden transition-all">
+<h2 class="w-full text-xs font-bold tracking-widest uppercase text-gray-400 mb-4 flex justify-between items-center group">
+<div class="flex items-center gap-2">
+                        Visual Ingestion
+                        <button class="opacity-0 group-hover:opacity-100 transition-opacity text-gray-500 hover:text-santis-gold" onclick="togglePanel('left')" title="Daralt/Genişlet">◄</button>
+</div>
+<span class="text-[9px] text-gray-600 font-mono">Smart Upload</span>
+</h2>
+<!-- Drag Drop Zone -->
+<div class="flex-1 border-2 border-dashed border-gray-700 bg-gray-900/30 rounded-lg flex flex-col items-center justify-center text-center p-6 cursor-pointer hover-santis-gold transition-colors group" id="drop-zone">
+<div class="w-12 h-12 rounded-full bg-gray-800 group-hover:bg-santis-gold/20 flex items-center justify-center mb-4 transition-colors">
+<span class="text-2xl text-gray-500 group-hover:text-santis-gold mb-1">↑</span>
+</div>
+<p class="text-sm font-medium text-white mb-2">Drag &amp; Drop Image</p>
+<p class="text-[10px] text-gray-500 font-mono">WEBP, JPG, PNG (Max 5MB)</p>
+<input accept="image/*" class="hidden" id="file-input" type="file"/>
+</div>
+<!-- Preview & Mapping Panel (Hidden by default) -->
+<div class="hidden absolute inset-0 bg-black/95 backdrop-blur-md p-5 flex flex-col z-20" id="upload-panel">
+<h3 class="text-xs font-bold tracking-widest uppercase text-santis-gold mb-4 border-b border-gray-800 pb-2">Asset Mapping</h3>
+<div class="h-32 bg-gray-900 rounded-md border border-gray-800 mb-4 overflow-hidden flex items-center justify-center relative">
+<!-- Progress Overlay -->
+<div class="hidden absolute inset-0 bg-black/80 z-10 flex flex-col items-center justify-center" id="upload-progress">
+<div class="w-8 h-8 rounded-full border-2 border-santis-gold border-t-transparent animate-spin mb-2"></div>
+<span class="text-[10px] text-santis-gold font-mono uppercase tracking-widest">Ingesting...</span>
+</div>
+
+</div>
+<div class="space-y-3 flex-1 overflow-y-auto custom-scroll pr-1">
+<div>
+<label class="block text-[10px] text-gray-500 font-mono mb-1">Visual Category</label>
+<select class="w-full bg-gray-900 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold" id="map-category">
+<option value="hamam">Hammam / Thermal</option>
+<option value="masaj">Massage / Recovery</option>
+<option value="cilt">Skincare / Aesthetic</option>
+<option value="diger">General / Hotel</option>
+</select>
+</div>
+<div>
+<label class="block text-[10px] text-gray-500 font-mono mb-1">Target Slot (Page Position)</label>
+<select class="w-full bg-gray-900 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold font-mono" id="map-slot">
+<option value="">— Sadece Galeri (Slot Yok) —</option>
+<optgroup label="🏠 Ana Sayfa">
+<option value="card-hamam">Ana Sayfa → Hamam Kartı</option>
+<option value="card-masaj">Ana Sayfa → Masaj Kartı</option>
+<option value="card-cilt">Ana Sayfa → Cilt Bakımı Kartı</option>
+<option value="card-atolye">Ana Sayfa → Atölye Kartı</option>
+<option value="philosophy-hero">Ana Sayfa → Felsefe Görseli</option>
+</optgroup>
+<optgroup label="🧖 Hamam Sayfaları">
+<option value="osmanli-ritueli">Osmanlı Hamam Geleneği</option>
+<option value="kese-ve-kopuk-masaji">Kese &amp; Köpük Masajı</option>
+<option value="kopuk-masaji">Köpük Masajı</option>
+<option value="tuz-peeling">Tuz Peeling</option>
+<option value="kahve-peeling">Kahve Peeling</option>
+<option value="bal-masaji">Bal Masajı</option>
+<option value="cikolata-bakimi">Çikolata Bakımı</option>
+<option value="yosun-bakimi">Yosun Bakımı</option>
+<option value="santis-pasa">Santis Paşa</option>
+</optgroup>
+<optgroup label="💆 Masaj Sayfaları">
+<option value="klasik-masaj">Klasik Masaj</option>
+<option value="aromaterapi-masaji">Aromaterapi Masajı</option>
+<option value="derin-doku-masaji">Derin Doku Masajı</option>
+<option value="sicak-tas-masaji">Sıcak Taş Masajı</option>
+<option value="thai-masaji">Thai Masajı</option>
+<option value="anti-stress-masaji">Anti-Stres Masajı</option>
+<option value="spor-terapi">Spor Terapi</option>
+<option value="signature-rituel">Signature Ritüel</option>
+</optgroup>
+<optgroup label="🌿 Cilt Bakımı Sayfaları">
+<option value="classic-facial">Classic Facial</option>
+<option value="anti-aging-pro">Anti-Aging Pro</option>
+<option value="hyaluron-hydrate">Hyaluron Hydrate</option>
+<option value="gold-mask-ritual">Gold Mask Ritual</option>
+<option value="collagen-lift">Collagen Lift</option>
+<option value="glass-skin">Glass Skin</option>
+<option value="deep-cleanse">Deep Cleanse</option>
+<option value="vitamin-c-glow">Vitamin C Glow</option>
+</optgroup>
+</select>
+<p class="text-[9px] text-gray-600 mt-1">Görselin otomatik yerleşeceği sayfa pozisyonunu seçin.</p>
+</div>
+<div>
+<label class="block text-[10px] text-gray-500 font-mono mb-1">Bind to Service ID (Optional)</label>
+<input class="w-full bg-gray-900 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold font-mono" id="map-service-id" placeholder="e.g. srv-hamam-vip" type="text"/>
+<p class="text-[9px] text-gray-600 mt-1">Phase J/O entegrasyonu için servis bağlantısı.</p>
+</div>
+<div>
+<label class="block text-[10px] text-gray-500 font-mono mb-1">Tagline (TR)</label>
+<input class="w-full bg-gray-900 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold" id="map-caption" placeholder="The Purification Ritual" type="text"/>
+</div>
+</div>
+<div class="mt-4 flex gap-2 pt-3 border-t border-gray-800">
+<button type="button" class="flex-1 py-2 text-xs text-gray-400 hover:text-white border border-gray-700 hover:bg-gray-800 rounded transition font-mono" onclick="cancelUpload()">Cancel</button>
+<button type="button" class="flex-1 py-2 text-xs text-black bg-santis-gold hover:bg-amber-400 font-bold rounded transition font-mono" id="btn-ingest" onclick="executeIngestion()">INGEST ASSET</button>
+</div>
+</div>
+</div>
+<!-- CYBER-WARFARE SHIELD (STRESS MONITOR) Phase 42 -->
+<div class="h-40 shrink-0 bg-black/40 backdrop-blur-md border border-red-900/40 rounded-xl p-4 flex flex-col shadow-[0_8px_30px_rgba(220,38,38,0.05)] relative overflow-hidden group transition-all duration-500" id="chaos-shield-panel">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_left,rgba(220,38,38,0.1),transparent)] pointer-events-none" id="chaos-bg-pulse"></div>
+<div class="flex justify-between items-center mb-3 relative z-10">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-red-500 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-red-600 animate-pulse shadow-[0_0_8px_#dc2626]" id="shield-led"></span>
+                        Cyber Shield (Sentinel)
+                    </h2>
+<span class="text-[9px] text-gray-600 font-mono focus-ring">PHASE 42</span>
+</div>
+<div class="grid grid-cols-2 gap-2 flex-1 relative z-10">
+<div class="bg-gray-900/60 rounded border border-gray-800 p-2 text-center flex flex-col justify-center">
+<div class="text-[7px] text-gray-500 uppercase tracking-widest mb-1">Cross-Tenant Attacks</div>
+<div class="text-red-500 font-bold text-xl font-mono" id="chaos-blocked">0</div>
+<div class="text-[6px] text-gray-600 uppercase mt-1">403 Blocked (RLS)</div>
+</div>
+<div class="bg-gray-900/60 rounded border border-gray-800 p-2 text-center flex flex-col justify-center">
+<div class="text-[7px] text-gray-500 uppercase tracking-widest mb-1">Surge Spike Load</div>
+<div class="text-santis-gold font-bold text-xl font-mono" id="chaos-load">1.0x</div>
+<div class="text-[6px] text-gray-600 uppercase mt-1">Network Stress</div>
+</div>
+</div>
+<div class="mt-2 text-[8px] text-gray-500 font-mono flex justify-between relative z-10">
+<span>Status: <span class="text-emerald-500" id="chaos-status">SECURE</span></span>
+<button class="text-gray-400 hover:text-white underline decoration-gray-700 underline-offset-2" onclick="triggerFlashSurgeUI()">Simulate Chaos</button>
+</div>
+</div>
+<!-- SHADOW MODE LOG -->
+<div class="h-48 shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl p-4 flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.5)] relative overflow-hidden">
+<div class="absolute inset-0 bg-blue-900/5 pointer-events-none"></div>
+<div class="flex justify-between items-center mb-3">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-blue-400 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                         Intelligence Log
+                     </h2>
+<span class="text-[9px] text-gray-600 font-mono">SHADOW MODE</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scroll space-y-2 font-mono text-[9px] leading-tight pr-1" id="shadow-log-feed">
+<transition-group name="list" tag="div">
+<div :key="log.id" class="border-l-2 border-santis-gold pl-2 mb-2 rounded bg-gray-900/30 p-1" v-for="log in shadowLogFeed">
+<!-- WebSocket Black Room Event -->
+<template v-if="log.timestamp">
+<div class="text-santis-gold font-bold">🎯 TARGET ACQUIRED [{{ log.timestamp }}]</div>
+<div class="text-gray-400">Score: <span class="text-white">{{ log.score }}</span> | Identity: <span class="text-white">{{ log.identity }}</span></div>
+<div class="text-emerald-500 font-mono text-[8px]">Deployed SKU: {{ log.sku }} (€{{ log.price }})</div>
+</template>
+<!-- Integrated Hub Custom Event -->
+<template v-else-if="log.html">
+<div v-html="log.html"></div>
+</template>
+</div>
+</transition-group>
+<div class="text-center text-gray-700 mt-10 animate-pulse" v-if="shadowLogFeed.length === 0">Awaiting Sovereign Judgments...</div>
+</div>
+</div>
+<!-- AI REVENUE BRAIN -->
+<div class="h-56 shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl p-4 flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-gray-500 mb-3 flex items-center gap-2">
+<span class="text-santis-gold">🧠</span> AI Revenue Brain
+                </h2>
+<div class="space-y-2.5 font-mono text-xs" id="ai-brain-data">
+<div class="flex justify-between items-center"><span class="text-gray-500">Forecast</span><span class="text-gray-400" id="ai-recommendation">—</span></div>
+<div class="flex justify-between items-center"><span class="text-gray-500">Tomorrow</span><span class="text-gray-400" id="ai-forecast">—</span></div>
+<div class="flex justify-between items-center"><span class="text-gray-500">Occupancy</span><span class="text-gray-400" id="ai-occupancy">—</span></div>
+<div class="flex justify-between items-center"><span class="text-gray-500">Revenue Velocity</span><span class="text-santis-gold font-bold" id="ai-velocity">—</span></div>
+<div class="flex justify-between items-center mt-2 pt-2 border-t border-gray-800">
+<span class="text-gray-500">Today Revenue</span><span class="text-emerald-400 font-bold" id="ai-today-rev">—</span>
+</div>
+<!-- Revenue Lift: How much autonomous rules generated -->
+<div class="flex justify-between items-center mt-1 pt-1 border-t border-yellow-900/30 bg-yellow-950/10 -mx-1 px-1 rounded">
+<span class="text-yellow-600 text-[9px] uppercase tracking-widest flex items-center gap-1">
+<span class="w-1 h-1 rounded-full bg-yellow-500 animate-pulse"></span>
+                            Revenue Lift (Potential)
+                        </span>
+<span class="text-santis-gold font-bold text-sm" id="revenue-lift-counter">+€0</span>
+</div>
+</div>
+</div>
+<!-- 📡 SOVEREIGN TELEMETRY & GROWTH ENGINE -->
+<div class="telemetry-widget-container shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl p-4 flex flex-col shadow-[0_8px_30px_rgba(212,175,55,0.05)] relative overflow-hidden transition-all duration-500 min-h-[300px]" id="telemetry-widget">
+<div class="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.08),transparent_60%)]" id="telemetry-glow-bg"></div>
+<div class="flex justify-between items-center mb-4 relative z-10">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-santis-gold flex items-center gap-2 drop-shadow-[0_0_5px_rgba(212,175,55,0.4)]">
+<span class="w-1.5 h-1.5 rounded-full bg-santis-gold animate-pulse shadow-[0_0_5px_#C9A96E]"></span>
+                        Learning Loop
+                    </h2>
+<span class="text-[9px] text-gray-500 font-mono border border-gray-800 px-1.5 py-0.5 rounded bg-gray-900/50 flex items-center gap-1" id="telemetry-status">
+<span class="w-1 h-1 rounded-full bg-emerald-500 animate-ping"></span> BEACON SYNC
+                    </span>
+</div>
+<div class="space-y-4 font-mono text-xs relative z-10">
+<!-- Live Pulse -->
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-baseline">
+<span class="text-gray-500">Live Ghost Score</span>
+<span class="text-white font-bold text-xl flex items-center gap-1 drop-shadow-[0_0_5px_rgba(255,255,255,0.3)]" id="tel-ghost-score">
+                                0 <span class="text-[8px] text-emerald-500" id="tel-ghost-arrow">—</span>
+</span>
+</div>
+<div class="w-full bg-gray-900 h-1.5 rounded-full overflow-hidden border border-gray-800">
+<div class="bg-gradient-to-r from-santis-gold/50 to-santis-gold h-full shadow-[0_0_8px_#C9A96E]" id="tel-score-bar" style="width: 0%; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+</div>
+</div>
+<!-- Rescue Success (Win Rate) -->
+<div class="flex justify-between items-center pt-3 border-t border-gray-800">
+<span class="text-gray-500">Rescue Win Rate</span>
+<div class="text-right">
+<span class="text-emerald-400 font-bold block text-sm" id="tel-win-rate">--%</span>
+<span class="text-[8px] text-gray-600" id="tel-conversions-count">0 Conversions</span>
+</div>
+</div>
+<!-- Persona Distribution -->
+<div class="pt-3 border-t border-gray-800">
+<span class="text-gray-500 text-[8px] uppercase tracking-widest mb-2 block">Active Personas (Session)</span>
+<div class="flex justify-between items-center text-[10px] group hover:bg-gray-900/40 p-1 -mx-1 rounded transition-colors">
+<span class="text-gray-400 group-hover:text-white transition-colors">Recovery Seeker</span>
+<span class="text-white font-bold" id="tel-persona-recovery">0</span>
+</div>
+<div class="flex justify-between items-center text-[10px] mt-0.5 group hover:bg-gray-900/40 p-1 -mx-1 rounded transition-colors">
+<span class="text-gray-400 group-hover:text-santis-gold transition-colors">Sovereign Guest</span>
+<span class="text-santis-gold font-bold" id="tel-persona-sovereign">0</span>
+</div>
+<div class="flex justify-between items-center text-[10px] mt-0.5 group hover:bg-gray-900/40 p-1 -mx-1 rounded transition-colors">
+<span class="text-gray-400 group-hover:text-blue-400 transition-colors">Luxury Explorer</span>
+<span class="text-blue-400 font-bold" id="tel-persona-explorer">0</span>
+</div>
+</div>
+</div>
+</div>
+<!-- GLOBAL EXPANSION TRACKER (Phase 48 H3) -->
+<div class="shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl p-4 flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.5)] relative overflow-hidden transition-all duration-500 max-h-64" id="expansion-tracker">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.05),transparent)] pointer-events-none"></div>
+<div class="flex justify-between items-center mb-3 relative z-10">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-emerald-500 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Global Expansion
+                    </h2>
+<span class="text-[9px] text-gray-600 font-mono">TENANTS: 3</span>
+</div>
+<div class="flex-1 w-full overflow-y-auto custom-scroll pr-1 relative z-10 space-y-2 pb-8">
+<!-- Tenant 1: Santis HQ -->
+<div class="group relative bg-gray-900/60 border border-gray-700/50 rounded-lg p-2.5 flex items-center justify-between hover:border-emerald-500/50 transition-all cursor-crosshair">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_5px_#10b981] group-hover:animate-ping"></div>
+<div>
+<div class="text-[10px] text-white font-bold leading-none">Santis Global HQ</div>
+<div class="text-[8px] text-gray-500 font-mono mt-0.5 group-hover:text-emerald-400">Antalya, TR</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-[9px] text-santis-gold font-mono font-bold whitespace-nowrap">Node 0 (Master)</div>
+<div class="text-[8px] text-gray-500 flex items-center gap-1 justify-end"><span class="w-1 h-1 bg-emerald-500 rounded-full animate-ping"></span> Live</div>
+</div>
+<!-- Hover Popover Data Window -->
+<div class="absolute left-full top-0 ml-2 w-48 bg-black/95 border border-emerald-500/30 rounded-lg p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 translate-x-2 group-hover:translate-x-0 z-50 shadow-[0_0_15px_rgba(16,185,129,0.1)] backdrop-blur-md">
+<div class="text-[9px] text-santis-gold font-mono border-b border-gray-800 pb-1 mb-2">LIVE METRICS</div>
+<div class="space-y-1 text-[8px] font-mono">
+<div class="flex justify-between"><span class="text-gray-400">Intent Score</span> <span class="text-emerald-400">94% (High)</span></div>
+<div class="flex justify-between"><span class="text-gray-400">Today Rev.</span> <span class="text-white">€14,500</span></div>
+<div class="flex justify-between"><span class="text-gray-400">Active VIPs</span> <span class="text-white">8</span></div>
+<div class="flex justify-between"><span class="text-gray-400">Cross-Sell</span> <span class="text-santis-gold">+24%</span></div>
+</div>
+</div>
+</div>
+<!-- Tenant 2: The Ritz Paris -->
+<div class="group relative bg-gray-900/60 border border-gray-700/50 rounded-lg p-2.5 flex items-center justify-between hover:border-blue-500/50 transition-all cursor-crosshair">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_5px_#3b82f6] group-hover:animate-ping"></div>
+<div>
+<div class="text-[10px] text-gray-300 font-bold leading-none hidden-if-sm group-hover:text-white">The Vendôme Spa</div>
+<div class="text-[8px] text-gray-500 font-mono mt-0.5 group-hover:text-blue-400">Paris, FR</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-[9px] text-blue-400 font-mono font-bold whitespace-nowrap">Volume: High</div>
+<div class="text-[8px] text-gray-500 flex items-center gap-1 justify-end"><span class="text-blue-500">↑ 12%</span> Cross-Sell</div>
+</div>
+<!-- Hover Popover Data Window -->
+<div class="absolute left-full top-0 ml-2 w-48 bg-black/95 border border-blue-500/30 rounded-lg p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 translate-x-2 group-hover:translate-x-0 z-50 shadow-[0_0_15px_rgba(59,130,246,0.1)] backdrop-blur-md">
+<div class="text-[9px] text-blue-400 font-mono border-b border-gray-800 pb-1 mb-2">LIVE METRICS</div>
+<div class="space-y-1 text-[8px] font-mono">
+<div class="flex justify-between"><span class="text-gray-400">Intent Score</span> <span class="text-blue-400">88%</span></div>
+<div class="flex justify-between"><span class="text-gray-400">Today Rev.</span> <span class="text-white">€8,200</span></div>
+<div class="flex justify-between"><span class="text-gray-400">Active VIPs</span> <span class="text-white">3</span></div>
+<div class="flex justify-between"><span class="text-gray-400">Intel Fee</span> <span class="text-santis-gold">€246</span></div>
+</div>
+</div>
+</div>
+<!-- Tenant 3: Aman Tokyo -->
+<div class="group relative bg-gray-900/40 border border-gray-800 rounded-lg p-2.5 flex items-center justify-between hover:border-purple-500/50 transition-all cursor-crosshair grayscale hover:grayscale-0">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_5px_#a855f7] group-hover:animate-ping"></div>
+<div>
+<div class="text-[10px] text-gray-400 font-bold leading-none group-hover:text-white">Zenith Retreat</div>
+<div class="text-[8px] text-gray-500 font-mono mt-0.5 group-hover:text-purple-400">Tokyo, JP</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-[9px] text-purple-400 font-mono font-bold whitespace-nowrap">Syncing...</div>
+<div class="text-[8px] text-gray-600 font-mono flex items-center gap-1 justify-end"><span class="text-purple-500 animate-pulse">●</span> Connecting</div>
+</div>
+<!-- Hover Popover Data Window -->
+<div class="absolute left-full top-0 ml-2 w-48 bg-black/95 border border-purple-500/30 rounded-lg p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 translate-x-2 group-hover:translate-x-0 z-50 shadow-[0_0_15px_rgba(168,85,247,0.1)] backdrop-blur-md">
+<div class="text-[9px] text-purple-400 font-mono border-b border-gray-800 pb-1 mb-2">HANDSHAKE STATUS</div>
+<div class="text-[8px] font-mono text-gray-400">
+                                Negotiating Secure Quantum Key..<br/>
+<span class="text-santis-gold animate-pulse">Awaiting First Packet</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════════════════
+                 PHASE 28: SLOT INTELLIGENCE MAP (Radar Envanter)
+                 ═══════════════════════════════════════════════ -->
+<div class="shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl p-4 flex flex-col shadow-[0_8px_30px_rgba(0,0,0,0.5)] relative overflow-hidden transition-all" id="slot-radar-panel">
+<!-- Panel glow bg -->
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(201,169,110,0.04),transparent)] pointer-events-none"></div>
+<!-- Header -->
+<div class="flex justify-between items-center mb-3 relative z-10">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-santis-gold flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-santis-gold animate-pulse shadow-[0_0_5px_#C9A96E]"></span>
+                        Slot Radar
+                    </h2>
+<div class="flex items-center gap-2">
+<span class="text-[9px] text-gray-600 font-mono" id="slot-radar-count">— slots</span>
+<button class="text-[8px] text-gray-600 hover:text-santis-gold transition-colors font-mono border border-gray-800 px-1.5 py-0.5 rounded" onclick="loadSlotRadar()" title="Refresh Slot Map">↺</button>
+</div>
+</div>
+<!-- Legend -->
+<div class="flex gap-3 mb-3 relative z-10">
+<span class="flex items-center gap-1 text-[8px] font-mono text-gray-500"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>Optimal</span>
+<span class="flex items-center gap-1 text-[8px] font-mono text-gray-500"><span class="w-1.5 h-1.5 rounded-full bg-yellow-500 inline-block"></span>At Risk</span>
+<span class="flex items-center gap-1 text-[8px] font-mono text-gray-500"><span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse inline-block"></span>Critical</span>
+<span class="flex items-center gap-1 text-[8px] font-mono text-gray-500"><span class="w-1.5 h-1.5 rounded-full bg-gray-700 inline-block"></span>Empty</span>
+</div>
+<!-- Slot List (scrollable) -->
+<div class="space-y-1.5 max-h-60 overflow-y-auto custom-scroll relative z-10 pr-1" id="slot-radar-list">
+<div class="text-center py-4 text-gray-600 font-mono text-[10px] animate-pulse">Loading slot inventory...</div>
+</div>
+<!-- Drop Target Helper -->
+<div class="mt-3 pt-2 border-t border-gray-800 relative z-10">
+<p class="text-[9px] text-gray-600 font-mono text-center">
+                        Drag a <span class="text-santis-gold">Matrix card</span> onto a slot row to bind it.
+                    </p>
+</div>
+</div>
+</section>
+<!-- RESIZER LEFT -->
+<div class="cc-resizer" id="cc-resizer-left" title="Sürükle → Genişlet"></div>
+<!-- COLUMN 2: LIVING ASSET MATRIX -->
+<section class="flex-1 min-w-[400px] flex flex-col relative z-10">
+<div class="flex-1 bg-black/30 backdrop-blur-xl border border-gray-800/60 rounded-xl flex flex-col shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden">
+<div class="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-900/40">
+<h2 class="text-xs font-bold tracking-widest uppercase text-white shadow-sm flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-santis-gold animate-pulse"></span>
+                        Living Asset Matrix
+                    </h2>
+<div class="flex gap-2 items-center">
+<span class="text-[9px] px-2 py-0.5 border border-gray-700 bg-gray-800 rounded text-gray-400 font-mono">Total Assets: <span id="matrix-count">0</span></span>
+<!-- Phase 29: Autonomous Optimizer Trigger -->
+<button class="group flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-santis-gold/30 bg-santis-gold/5 hover:bg-santis-gold/15 hover:border-santis-gold/60 transition-all duration-300 shadow-[0_0_10px_rgba(201,169,110,0.1)] hover:shadow-[0_0_16px_rgba(201,169,110,0.3)] text-[9px] font-bold font-mono tracking-widest text-santis-gold uppercase" id="btn-auto-optimize" onclick="window.engageOptimizer()" title="Phase 29: Autonomous Matrix Optimizer v2.0 — Promote best assets to weak slots">
+<span class="group-hover:animate-spin inline-block">⚡</span>
+                            AUTO-OPTIMIZE
+                        </button>
+</div>
+</div>
+<!-- SOVEREIGN FILTER BAR -->
+<div class="px-4 py-3 border-b border-gray-800 bg-gray-900/20 flex gap-2 items-center">
+<input class="flex-1 bg-gray-900/50 border border-gray-700 text-white text-[11px] rounded-md px-3 py-1.5 outline-none focus:border-santis-gold font-mono placeholder-gray-600 transition" id="filter-search" placeholder="🔍 Search filename or slot..." type="text">
+<!-- Hidden native select for compatibility -->
+<select class="hidden" id="filter-category">
+<option value="">All Categories</option>
+<option value="hamam">hamam</option>
+<option value="masaj">masaj</option>
+<option value="cilt">cilt</option>
+<option value="diger">diger</option>
+</select>
+<!-- Sovereign Floating Tabs -->
+<div class="flex bg-black/40 border border-gray-700/50 rounded-lg p-1 backdrop-blur-md relative shadow-inner isolate" id="floating-tabs">
+<!-- Active indicator -->
+<div class="absolute top-1 bottom-1 bg-santis-gold/20 border border-santis-gold/50 rounded-md transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[0_0_10px_rgba(212,175,55,0.2)] -z-10" id="active-tab-pill" style="left: 0; transform: translateX(4px); width: 42px;"></div>
+<button class="cc-tab-btn px-3 py-1.5 text-[10px] font-bold tracking-widest text-santis-gold transition-colors uppercase" data-val="">ALL</button>
+<button class="cc-tab-btn px-3 py-1.5 text-[10px] font-bold tracking-widest text-gray-500 hover:text-gray-300 transition-colors uppercase" data-val="hamam">HAMMAM</button>
+<button class="cc-tab-btn px-3 py-1.5 text-[10px] font-bold tracking-widest text-gray-500 hover:text-gray-300 transition-colors uppercase" data-val="masaj">MASSAGE</button>
+<button class="cc-tab-btn px-3 py-1.5 text-[10px] font-bold tracking-widest text-gray-500 hover:text-gray-300 transition-colors uppercase" data-val="cilt">SKINCARE</button>
+</div>
+<select class="bg-gray-900/50 border border-gray-700 text-gray-300 text-[11px] rounded-md px-2 py-1.5 outline-none focus:border-santis-gold font-mono" id="filter-slot-group">
+<option value="">All Slots</option>
+<optgroup label="🌟 Ana Görseller (Hero)">
+<option value="hero_home">Ana Sayfa → Hero Video/Görsel</option>
+<option value="hero_hamam">Hamam → Hero Görsel</option>
+<option value="hero_masaj">Masajlar → Hero Görsel</option>
+<option value="hero_cilt">Cilt Bakımı → Hero Görsel</option>
+</optgroup>
+<optgroup label="🏠 Ana Sayfa">
+<option value="card-hamam">Ana Sayfa → Hamam Kartı</option>
+<option value="card-masaj">Ana Sayfa → Masaj Kartı</option>
+<option value="card-cilt">Ana Sayfa → Cilt Bakımı Kartı</option>
+<option value="card-atolye">Ana Sayfa → Atölye Kartı</option>
+<option value="philosophy-hero">Ana Sayfa → Felsefe Görseli</option>
+</optgroup>
+<optgroup label="🧖 Hamam Sayfaları">
+<option value="osmanli-ritueli">Osmanlı Hamam Geleneği</option>
+<option value="hamam-peeling-schaum">Kese &amp; Köpük Masajı</option>
+<option value="kopuk-masaji">Köpük Masajı</option>
+<option value="tuz-peeling">Tuz Peeling</option>
+<option value="kahve-detox">Kahve Detox</option>
+<option value="bal-masaji">Bal Masajı</option>
+<option value="cikolata-bakimi">Çikolata Bakımı</option>
+<option value="yosun-bakimi">Yosun Bakımı</option>
+<option value="santis-pasa">Santis Paşa</option>
+</optgroup>
+<optgroup label="💆 Masaj Sayfaları">
+<option value="klasik-masaj">Klasik Masaj</option>
+<option value="aromaterapi-masaji">Aromaterapi Masajı</option>
+<option value="derin-doku-masaji">Derin Doku Masajı</option>
+<option value="sicak-tas-masaji">Sıcak Taş Masajı</option>
+<option value="thai-masaji">Thai Masajı</option>
+<option value="anti-stress-masaji">Anti-Stres Masajı</option>
+<option value="spor-terapi">Spor Terapi</option>
+<option value="signature-rituel">Signature Ritüel</option>
+</optgroup>
+<optgroup label="🌿 Cilt Bakımı Sayfaları">
+<option value="classic-facial">Classic Facial</option>
+<option value="anti-aging-pro">Anti-Aging Pro</option>
+<option value="hyaluron-hydrate">Hyaluron Hydrate</option>
+<option value="gold-mask-ritual">Gold Mask Ritual</option>
+<option value="collagen-lift">Collagen Lift</option>
+<option value="glass-skin">Glass Skin</option>
+<option value="deep-cleanse">Deep Cleanse</option>
+<option value="vitamin-c-glow">Vitamin C Glow</option>
+</optgroup>
+<optgroup label="💠 Sovereign Vitrini (24 Kart)">
+<option value="sig-card-0">Signatures → Kart 1</option>
+<option value="sig-card-1">Signatures → Kart 2</option>
+<option value="sig-card-2">Signatures → Kart 3</option>
+<option value="sig-card-3">Signatures → Kart 4</option>
+<option value="sig-card-4">Signatures → Kart 5</option>
+<option value="sig-card-5">Signatures → Kart 6</option>
+<option value="hammam-card-0">Hammam → Kart 1</option>
+<option value="hammam-card-1">Hammam → Kart 2</option>
+<option value="hammam-card-2">Hammam → Kart 3</option>
+<option value="hammam-card-3">Hammam → Kart 4</option>
+<option value="hammam-card-4">Hammam → Kart 5</option>
+<option value="hammam-card-5">Hammam → Kart 6</option>
+<option value="hammam-card-6">Hammam → Kart 7</option>
+<option value="hammam-card-7">Hammam → Kart 8</option>
+<option value="therapy-card-0">Therapies → Kart 1</option>
+<option value="therapy-card-1">Therapies → Kart 2</option>
+<option value="therapy-card-2">Therapies → Kart 3</option>
+<option value="therapy-card-3">Therapies → Kart 4</option>
+<option value="therapy-card-4">Therapies → Kart 5</option>
+<option value="therapy-card-5">Therapies → Kart 6</option>
+<option value="therapy-card-6">Therapies → Kart 7</option>
+<option value="therapy-card-7">Therapies → Kart 8</option>
+<option value="therapy-card-8">Therapies → Kart 9</option>
+<option value="therapy-card-9">Therapies → Kart 10</option>
+</optgroup>
+</select>
+<button class="bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-santis-gold text-[11px] rounded-md px-2.5 py-1.5 font-mono border border-gray-700 transition" id="filter-reset" title="Reset Filters">⟳</button>
+</input></div>
+<!-- Virtual Grid -->
+<div class="flex-1 px-4 pt-4 pb-48 overflow-y-auto custom-scroll grid gap-4 bg-transparent content-start" id="asset-matrix">
+<div class="col-span-full text-center py-10 text-gray-600 font-mono text-xs animate-pulse">Initializing Hyper-Density Matrix...</div>
+</div>
+</div>
+</section>
+<!-- RESIZER RIGHT -->
+<div class="cc-resizer" id="cc-resizer-right" title="Sürükle → Genişlet"></div>
+<!-- COLUMN 3: NEURAL PULSE STREAM -->
+<section class="shrink-0 flex flex-col gap-4 overflow-y-auto custom-scroll pr-2 pb-48 relative z-10 transition-all duration-300" id="cc-panel-right" style="width:320px;min-width:180px;max-width:520px;">
+<!-- ══════════════════════════════════════════════════════════
+                 PHASE 30: GOD MODE SOVEREIGN PULSE DASHBOARD
+                 ═══════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+                 PHASE 30: GOD MODE — COMPACT SHI WIDGET BAR
+                 ═══════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     GÖRSEL & KART EDİTÖRÜ (Sovereign Card Manager)
+     ═══════════════════════════════════════════════════ -->
+<div class="shrink-0 bg-black/50 backdrop-blur-xl border border-[#D4AF37]/30 rounded-xl p-4 flex flex-col gap-3 shadow-[0_4px_20px_rgba(201,169,110,0.12)] relative overflow-hidden" id="card-editor-panel">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.05),transparent_70%)] pointer-events-none"></div>
+
+    <!-- Header -->
+    <div class="flex items-center justify-between relative z-10">
+        <h2 class="text-[10px] font-bold tracking-widest uppercase text-[#D4AF37] flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse shadow-[0_0_5px_#D4AF37]"></span>
+            Görsel & Kart Editörü
+        </h2>
+        <span class="text-[8px] font-mono text-gray-600 border border-gray-800 px-1.5 py-0.5 rounded" id="card-editor-count">— kart</span>
+    </div>
+
+    <!-- Card Selector -->
+    <div class="relative z-10">
+        <label class="block text-[9px] font-mono text-gray-500 mb-1 uppercase tracking-widest">Kart Seç</label>
+        <select id="ce-card-select" class="w-full bg-gray-900 border border-gray-700 text-white text-[11px] rounded px-2 py-1.5 outline-none focus:border-[#D4AF37] font-mono transition">
+            <option value="">— Yükleniyor... —</option>
+        </select>
+    </div>
+
+    <!-- Preview + Fields -->
+    <div class="flex gap-3 relative z-10">
+        <!-- Image Preview -->
+        <div class="w-20 h-24 shrink-0 rounded overflow-hidden border border-gray-700 bg-gray-900 relative">
+            
+            <div class="absolute inset-0 flex items-center justify-center text-gray-700 text-[9px] font-mono" id="ce-preview-placeholder">Görsel</div>
+        </div>
+        <!-- Fields -->
+        <div class="flex-1 flex flex-col gap-2">
+            <div>
+                <label class="block text-[9px] font-mono text-gray-500 mb-0.5">Başlık (TR)</label>
+                <input id="ce-title" type="text" class="w-full bg-gray-900 border border-gray-700 text-white text-[11px] rounded px-2 py-1 outline-none focus:border-[#D4AF37] font-mono transition" placeholder="Hamam Ritüeli">
+            </div>
+            <div>
+                <label class="block text-[9px] font-mono text-gray-500 mb-0.5">Fiyat (€)</label>
+                <input id="ce-price" type="number" step="1" class="w-full bg-gray-900 border border-gray-700 text-white text-[11px] rounded px-2 py-1 outline-none focus:border-[#D4AF37] font-mono transition" placeholder="0">
+            </div>
+        </div>
+    </div>
+
+    <!-- Image URL Field -->
+    <div class="relative z-10">
+        <label class="block text-[9px] font-mono text-gray-500 mb-0.5 uppercase tracking-widest">Görsel URL / Path</label>
+        <input id="ce-image" type="text" class="w-full bg-gray-900 border border-gray-700 text-white text-[11px] rounded px-2 py-1.5 outline-none focus:border-[#D4AF37] font-mono transition" placeholder="/assets/img/cards/...">
+    </div>
+
+    <!-- Description -->
+    <div class="relative z-10">
+        <label class="block text-[9px] font-mono text-gray-500 mb-0.5 uppercase tracking-widest">Açıklama</label>
+        <textarea id="ce-description" rows="2" class="w-full bg-gray-900 border border-gray-700 text-white text-[11px] rounded px-2 py-1.5 outline-none focus:border-[#D4AF37] font-mono transition resize-none" placeholder="Kart açıklaması..."></textarea>
+    </div>
+
+    <!-- URL / Routing Field -->
+    <div class="relative z-10">
+        <label class="block text-[9px] font-mono text-gray-500 mb-0.5 uppercase tracking-widest flex items-center gap-1">
+            🔗 Yönlendirme URL
+            <span class="text-gray-700">(tıklayınca gidecek adres)</span>
+        </label>
+        <input id="ce-url" type="text" class="w-full bg-gray-900 border border-gray-700 text-white text-[11px] rounded px-2 py-1.5 outline-none focus:border-[#D4AF37] font-mono transition" placeholder="/hamam.htmlosmanli-ritueli.html">
+        <p class="text-[8px] text-gray-600 mt-0.5 font-mono">Boş bırakılırsa slug'dan otomatik oluşturulur.</p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex gap-2 relative z-10">
+        <button onclick="cardEditorSave()" class="flex-1 py-2 text-[10px] font-bold tracking-widest uppercase bg-[#D4AF37]/15 hover:bg-[#D4AF37]/30 border border-[#D4AF37]/40 hover:border-[#D4AF37]/80 text-[#D4AF37] rounded transition-all duration-300 shadow-[0_0_10px_rgba(212,175,55,0.1)]">
+            💾 Kaydet
+        </button>
+        <button onclick="cardEditorReload()" class="px-3 py-2 text-[10px] text-gray-500 hover:text-[#D4AF37] border border-gray-700 hover:border-[#D4AF37]/40 rounded transition font-mono">
+            ↺
+        </button>
+    </div>
+
+    <!-- Status -->
+    <div id="ce-status" class="text-[9px] font-mono text-center hidden relative z-10"></div>
+</div>
+
+
+
+<!-- God Mode Panel (existing) -->
+<div class="shrink-0 bg-black/50 backdrop-blur-xl border border-santis-gold/20 rounded-xl px-3 py-2.5 flex flex-col gap-2 shadow-[0_4px_20px_rgba(201,169,110,0.08)] relative overflow-hidden" id="god-mode-panel">
+
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_top_center,rgba(201,169,110,0.04),transparent_80%)] pointer-events-none"></div>
+<!-- Single-row compact bar -->
+<div class="flex items-center gap-3 relative z-10">
+<!-- Mini Arc Gauge (48×48) -->
+<div class="relative w-12 h-12 shrink-0">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 48 48">
+<circle cx="24" cy="24" fill="none" r="18" stroke="#1f2937" stroke-width="5"></circle>
+<circle class="transition-all duration-1000" cx="24" cy="24" fill="none" id="shi-arc" r="18" stroke="#C9A96E" stroke-dasharray="113" stroke-dashoffset="113" stroke-linecap="round" stroke-width="5"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-santis-gold font-bold text-[10px] font-mono leading-none" id="shi-value">—</span>
+</div>
+</div>
+<!-- Stats inline -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-1 group">
+<span class="text-[9px] font-bold tracking-widest uppercase text-santis-gold font-mono flex items-center gap-1.5">
+<span class="w-1 h-1 rounded-full bg-santis-gold animate-pulse shadow-[0_0_4px_#C9A96E] inline-block" id="god-mode-led"></span>God Mode
+                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-santis-gold hover:text-white ml-1" onclick="togglePanel('right')" title="Daralt/Genişlet">►</button>
+</span>
+<span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded border border-emerald-500/30 text-emerald-400 bg-emerald-900/20" id="shi-status-badge">SOVEREIGN</span>
+</div>
+<!-- Slot pill row -->
+<div class="flex gap-1.5 text-[8px] font-mono flex-wrap">
+<span class="flex items-center gap-1 text-gray-500">🟢<span id="shi-optimal-count">—</span></span>
+<span class="flex items-center gap-1 text-gray-500">🟡<span id="shi-risk-count">—</span></span>
+<span class="flex items-center gap-1 text-gray-500">🔴<span id="shi-critical-count">—</span></span>
+<span class="ml-auto text-santis-gold font-bold"><span id="shi-lift">—</span></span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col gap-1 shrink-0">
+<button class="text-[8px] text-gray-600 hover:text-santis-gold transition font-mono border border-gray-800 px-1.5 py-0.5 rounded hover:border-santis-gold/40" onclick="window.initGodMode(true)" title="Refresh SHI">↺</button>
+<button class="text-[8px] text-gray-600 hover:text-yellow-400 transition font-mono border border-gray-800 px-1.5 py-0.5 rounded" onclick="document.getElementById('god-alerts-drawer').classList.toggle('hidden')" title="Toggle Alerts">⚠</button>
+</div>
+</div>
+<!-- Collapsible Alert Drawer (hidden by default) -->
+<div class="hidden relative z-10 border-t border-gray-800 pt-2" id="god-alerts-drawer">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[8px] font-mono text-gray-500 uppercase tracking-widest">Master Alerts</span>
+<button class="text-[8px] text-gray-700 hover:text-gray-400 font-mono" onclick="document.getElementById('master-alert-list').innerHTML=''">CLEAR</button>
+</div>
+<ul class="space-y-1 max-h-24 overflow-y-auto custom-scroll text-[8px] font-mono" id="master-alert-list">
+<li class="text-gray-700 text-center py-1">No alerts ✓</li>
+</ul>
+</div>
+</div>
+<!-- ══════════════════════════════════════════════════════════
+                 PHASE 44: ECHARTS OMNIPOTENCE (COGNITIVE RADAR & PULSE FLOW)
+                 ═══════════════════════════════════════════════════════ -->
+<div class="echarts-omnipotence space-y-4 mt-4 px-2 z-50 relative">
+<div class="relative bg-[#0a0a0c]/90 border border-[#D4AF37]/30 rounded-xl p-4 backdrop-blur-md shadow-[0_0_15px_rgba(212,175,55,0.05)] transition-all duration-500 hover:shadow-[0_0_25px_rgba(212,175,55,0.15)] hover:-translate-y-1 group">
+<div class="absolute inset-0 bg-[#D4AF37]/5 blur-xl group-hover:bg-[#D4AF37]/10 transition-all duration-500 rounded-xl pointer-events-none"></div>
+<div class="flex items-center justify-between mb-2 border-b border-[#D4AF37]/20 pb-2 relative z-10">
+<h3 class="text-[#D4AF37] font-bold text-[10px] tracking-[0.2em] uppercase">[ Cognitive Resonance Radar ]</h3>
+<span class="text-green-400 text-[9px] animate-pulse">● LIVE METRICS</span>
+</div>
+<div class="relative z-10" id="echarts-revenue-radar" style="width: 100%; height: 240px;"></div>
+</div>
+<div class="relative bg-[#0a0a0c]/90 border border-[#D4AF37]/30 rounded-xl p-4 backdrop-blur-md shadow-[0_0_15px_rgba(212,175,55,0.05)] transition-all duration-500 hover:shadow-[0_0_25px_rgba(212,175,55,0.15)] hover:-translate-y-1 group">
+<div class="absolute inset-0 bg-[#D4AF37]/5 blur-xl group-hover:bg-[#D4AF37]/10 transition-all duration-500 rounded-xl pointer-events-none"></div>
+<div class="flex items-center justify-between mb-2 border-b border-[#D4AF37]/20 pb-2 relative z-10">
+<h3 class="text-[#D4AF37] font-bold text-[10px] tracking-[0.2em] uppercase">[ Liquid SAS Pulse Flow ]</h3>
+<span class="text-[#D4AF37] text-[9px]">MRR Lift (30s)</span>
+</div>
+<div class="relative z-10" id="echarts-pulse-flow" style="width: 100%; height: 200px;"></div>
+</div>
+</div>
+<!-- SOVEREIGN LIVE MESH (Phase 48) -->
+<div class="h-64 shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(212,175,55,0.05)] relative group transition-all duration-700">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.03),transparent)] pointer-events-none"></div>
+<div class="px-3 py-2 border-b border-gray-800 bg-gray-900/40 flex justify-between items-center relative z-10">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-santis-gold flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-santis-gold animate-pulse shadow-[0_0_8px_#d4af37]"></span>
+                        Sovereign Live Mesh
+                    </h2>
+<span class="text-[9px] text-gray-500 font-mono transition-colors" id="mesh-status">SYNCING...</span>
+</div>
+<div class="flex-1 w-full bg-transparent relative isolate overflow-hidden cursor-crosshair" id="d3-mesh-canvas">
+<div class="absolute inset-0 flex items-center justify-center text-[10px] font-mono text-gray-700 animate-pulse z-0" id="mesh-loading">Neural Network Booting...</div>
+</div>
+</div>
+<!-- LIVE MIRROR -->
+<div class="h-44 shrink-0 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl overflow-hidden flex flex-col shadow-2xl">
+<div class="px-3 py-2 border-b border-gray-800 bg-gray-900/40 flex justify-between items-center">
+<h2 class="text-[10px] font-bold tracking-widest uppercase text-gray-400 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Live Mirror
+                    </h2>
+<div class="flex items-center gap-2">
+<button class="text-[9px] text-gray-500 hover:text-santis-gold font-mono transition" onclick="document.getElementById('live-mirror').contentWindow.location.reload()" title="Yenile">⟳</button>
+<button class="text-[9px] text-gray-500 hover:text-santis-gold font-mono transition border border-gray-700 px-1.5 py-0.5 rounded hover:border-santis-gold/50" onclick="window.openMirrorFullscreen()" title="Tam Ekran Aç">⛶ EXPAND</button>
+</div>
+</div>
+<iframe class="flex-1 w-full bg-black pointer-events-none" id="live-mirror" loading="lazy" src="/index.html" title="Live Site Preview"></iframe>
+</div>
+<!-- ══ LIVE MIRROR FULLSCREEN MODAL ══════════════════════════════ -->
+<div class="fixed inset-0 z-[9999] hidden flex-col bg-black/95 backdrop-blur-xl" id="mirror-fullscreen-modal" style="animation: none;">
+<!-- Gold top bar -->
+<div class="h-10 shrink-0 bg-gray-900/80 border-b border-santis-gold/30 flex items-center justify-between px-4 gap-3">
+<div class="flex items-center gap-3">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-[10px] font-mono font-bold uppercase tracking-widest text-santis-gold">Live Mirror — Full View</span>
+<!-- Lang switcher -->
+<div class="flex gap-1 ml-4">
+<button class="text-[9px] font-mono px-2 py-0.5 rounded border border-gray-700 hover:border-santis-gold/50 text-gray-400 hover:text-santis-gold transition" onclick="document.getElementById('mirror-fs-iframe').src="/index.html'">TR</button>
+<button class="text-[9px] font-mono px-2 py-0.5 rounded border border-gray-700 hover:border-santis-gold/50 text-gray-400 hover:text-santis-gold transition" onclick="document.getElementById('mirror-fs-iframe').src='/en/index.html'">EN</button>
+</div>
+<!-- Page switcher combo -->
+<select class="ml-2 text-[9px] font-mono bg-gray-800 border border-gray-700 text-gray-400 rounded px-2 py-0.5 outline-none hover:border-santis-gold/40 transition" id="mirror-page-select" onchange="document.getElementById('mirror-fs-iframe').src=this.value">
+<option value="/">TR — Ana Sayfa</option>
+<option value="/hamam.html">TR — Hamam</option>
+<option value="/masaj.html">TR — Masaj</option>
+<option value="/cilt-bakimi.html">TR — Cilt Bakımı</option>
+<option value="/galeri.html">TR — Galeri</option>
+<option value="/en/index.html">EN — Home</option>
+<option value="/en/hammam/index.html">EN — Hammam</option>
+</select>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-[9px] text-gray-500 hover:text-santis-gold font-mono border border-gray-700 px-2 py-0.5 rounded hover:border-santis-gold/40 transition" onclick="document.getElementById('mirror-fs-iframe').contentWindow.location.reload()">⟳ Reload</button>
+<button class="text-[9px] font-mono font-bold px-3 py-1 rounded bg-red-900/40 border border-red-700/40 text-red-400 hover:bg-red-700/30 hover:text-white transition" onclick="window.closeMirrorFullscreen()" title="Kapat (Esc)">✕ KAPAT</button>
+</div>
+</div>
+<!-- Full iframe — pointer-events enabled for interaction -->
+<iframe class="flex-1 w-full bg-white" id="mirror-fs-iframe" src="/index.html" style="pointer-events: all; border: none;" title="Live Site Preview — Fullscreen"></iframe>
+</div>
+<div class="min-h-[450px] shrink-0 flex-1 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-xl p-4 flex flex-col shadow-2xl relative overflow-hidden">
+<!-- Matrix background for stream -->
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,169,110,0.05),transparent_70%)] pointer-events-none"></div>
+<div class="flex justify-between items-center mb-4 relative z-10">
+<h2 class="text-xs font-bold tracking-widest uppercase text-gray-400 flex items-center gap-2">
+<span class="text-emerald-500">⚡</span>
+                        Pulse Stream
+                    </h2>
+<span class="text-[9px] text-gray-600 font-mono">Phase S/J/P</span>
+</div>
+<!-- SOVEREIGN SURGE PULSE GRAPHIC (Phase 39.5) -->
+<div class="flex-1 min-h-[140px] flex flex-col bg-gray-900/80 border border-santis-gold rounded p-4 text-center relative overflow-hidden group mb-4 transition-shadow duration-500" id="pulse-aura">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.05),transparent)] pointer-events-none"></div>
+<div class="flex justify-between items-start mb-2 relative z-10">
+<div class="text-[9px] text-santis-gold font-mono uppercase tracking-widest flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-santis-gold animate-pulse shadow-[0_0_8px_#d4af37]"></span>
+                            Sovereign Pulse
+                        </div>
+<div class="text-[9px] text-gray-500 font-mono" id="metric-surge-status">Auto-Pilot Active</div>
+</div>
+<!-- Surge Value Display -->
+<div class="flex justify-between items-end mb-4 relative z-10">
+<div class="text-left">
+<div class="text-xs text-gray-500 font-mono uppercase">Current Core Multiplier</div>
+<div class="text-santis-gold font-bold text-4xl heading-font font-mono drop-shadow-[0_0_8px_rgba(212,175,55,0.4)]" id="metric-surge">1.00x</div>
+</div>
+</div>
+<!-- Chart.js Canvas -->
+<div class="relative w-full flex-1 min-h-[0] mb-2 z-10">
+<canvas class="absolute inset-0 w-full h-full" id="sovereign-pulse-chart"></canvas>
+</div>
+</div>
+<!-- Phase 19: Sandbox - Dynamic Revenue Simulation -->
+<div class="bg-black/60 border border-emerald-500/40 rounded-xl p-4 text-center relative overflow-hidden group mb-4 transition-all hover:border-emerald-400/80 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+<div class="flex justify-between items-center mb-3">
+<div class="text-[9px] text-emerald-400 font-mono uppercase tracking-widest flex items-center gap-2 font-bold">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+                            Sovereign Sandbox
+                        </div>
+<span class="text-[8px] text-gray-500 font-mono bg-gray-900 border border-gray-700 px-1 py-0.5 rounded">SIMULATION LIVE</span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4 text-left">
+<!-- Surge Slider -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-[8px] font-mono">
+<span class="text-gray-400 uppercase tracking-wider">Dynamic Pricing</span>
+<span class="text-santis-gold font-bold" id="sim-surge-val">0%</span>
+</div>
+<input class="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer border border-gray-700/50 hover:bg-gray-700 outline-none transition-colors accent-santis-gold" id="sim-surge-slider" max="0.5" min="0" step="0.05" type="range" value="0"/>
+<div class="flex justify-between text-[7px] text-gray-600 font-mono mt-0.5">
+<span>HOLD</span>
+<span>SURGE</span>
+</div>
+</div>
+<!-- Aesthetic Quality Slider -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-[8px] font-mono">
+<span class="text-gray-400 uppercase tracking-wider">Target Aesthetic</span>
+<span class="text-blue-400 font-bold" id="sim-aesthetic-val">SAS: 0.85</span>
+</div>
+<input class="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer border border-gray-700/50 hover:bg-gray-700 outline-none transition-colors accent-blue-500" id="sim-aesthetic-slider" max="1.0" min="0.5" step="0.05" type="range" value="0.85"/>
+<div class="flex justify-between text-[7px] text-gray-600 font-mono mt-0.5">
+<span>BASIC</span>
+<span>MASTERPIECE</span>
+</div>
+</div>
+</div>
+<!-- Forecast Outputs -->
+<div class="bg-gray-900/60 rounded p-2.5 flex items-center justify-between border border-gray-800/80">
+<div class="text-left">
+<div class="text-[8px] text-gray-500 font-mono uppercase tracking-widest mb-0.5">Projected 30D MRR</div>
+<div class="text-emerald-400 font-bold text-2xl heading-font font-mono drop-shadow-[0_0_8px_rgba(16,185,129,0.3)] transition-all duration-300" id="sim-projected-mrr">€0</div>
+</div>
+<div class="text-right space-y-1">
+<div class="text-[9px] font-mono text-gray-400"><span class="text-white font-bold" id="sim-projected-vol">0</span> Bookings</div>
+<div class="text-[9px] font-mono text-gray-400"><span class="text-white font-bold" id="sim-projected-occ">0%</span> Occupancy</div>
+<div class="text-[9px] font-mono text-gray-500">Price/Slot: €<span class="text-santis-gold" id="sim-projected-price">0</span></div>
+</div>
+</div>
+<!-- Phase 21: Sentient Optimizer Trigger -->
+<button class="w-full mt-3 bg-emerald-500/10 hover:bg-emerald-500/30 text-emerald-400 hover:text-white border border-emerald-500/30 hover:border-emerald-400/80 rounded py-2 text-[10px] font-bold tracking-widest uppercase transition-all flex items-center justify-center gap-2 group shadow-[0_0_15px_rgba(16,185,129,0.1)] hover:shadow-[0_0_25px_rgba(16,185,129,0.3)]" id="btn-engage-sentience">
+<span class="group-hover:animate-spin">🔄</span>
+                        Engage Sentient Loop
+                    </button>
+</div>
+<!-- Live SaaS Booking Metrics -->
+<div class="grid grid-cols-2 gap-2 mb-4 relative z-10">
+<div class="bg-gray-900/50 border border-gray-800 rounded p-3 text-center">
+<div class="text-[8px] text-gray-500 font-mono uppercase tracking-widest mb-1">Today Revenue</div>
+<div class="text-santis-gold font-bold text-lg heading-font font-mono">€<span id="metric-revenue">0.00</span></div>
+</div>
+<div class="bg-gray-900/50 border border-[#D4AF37]/30 rounded p-3 text-center shadow-[0_0_15px_rgba(212,175,55,0.1)]">
+<div class="text-[8px] text-[#D4AF37] font-mono uppercase tracking-widest mb-1 flex items-center justify-center gap-1">★ Intel Fee Pool</div>
+<div class="text-[#D4AF37] font-bold text-lg heading-font font-mono">€<span id="metric-intel-fee">0.00</span></div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 mb-4 relative z-10">
+<div class="bg-gray-900/50 border border-gray-800 rounded p-3 text-center relative overflow-hidden group">
+<div class="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+<div class="text-[8px] text-gray-500 font-mono uppercase tracking-widest mb-1">Capacity</div>
+<div class="text-white font-bold text-lg heading-font font-mono"><span id="metric-capacity">0</span>%</div>
+</div>
+<div class="bg-gray-900/50 border border-gray-800 rounded p-3 text-center relative overflow-hidden">
+<div class="absolute inset-0 bg-red-500/10 animate-pulse"></div>
+<div class="text-[8px] text-red-400 font-mono uppercase tracking-widest mb-1 flex justify-center items-center gap-1"><span class="animate-bounce">🔥</span> Demand Heat</div>
+<div class="text-white font-bold text-lg heading-font font-mono"><span id="metric-heat">0</span>°</div>
+</div>
+<div class="bg-gray-900/50 border border-gray-800 rounded p-3 text-center">
+<div class="text-[8px] text-gray-500 font-mono uppercase tracking-widest mb-1">Active Visitors</div>
+<div class="text-emerald-400 font-bold text-lg heading-font font-mono flex justify-center items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+<span id="metric-visitors">0</span>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scroll space-y-2 font-mono text-[10px] leading-relaxed relative z-10 pb-4 hidden" id="pulse-feed">
+<div class="text-center text-gray-700 mt-20 animate-pulse">Listening for Global Intel...</div>
+</div>
+</div>
+<!-- SOVEREIGN WAR ROOM (Phase 19 - Sovereign Pulse) -->
+<div class="min-h-[450px] shrink-0 flex-1 bg-black border border-gray-800 rounded-xl p-4 flex flex-col shadow-2xl relative overflow-hidden">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(239,68,68,0.05),transparent_70%)] pointer-events-none"></div>
+<div class="flex justify-between items-center mb-3 relative z-10 border-b border-gray-800/50 pb-2">
+<h2 class="text-xs font-bold tracking-widest uppercase text-red-500 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_#ef4444]"></span>
+                        Sovereign War Room
+                    </h2>
+<span class="text-[9px] px-1.5 py-0.5 rounded border border-gray-800 bg-gray-900/50 text-gray-500 font-mono">Vue.js Core</span>
+</div>
+<div class="pulse-dashboard flex-1 flex flex-col gap-2 relative z-10 overflow-hidden" v-cloak="">
+<div class="pulse-stats-grid radar-stats-row">
+<div class="stat-card">
+<div class="stat-title text-[8px] uppercase text-gray-500 tracking-widest mb-1">AKTİF HAYALETLER</div>
+<div class="stat-value text-white font-bold text-lg font-mono">{{ activeSessions.length }}</div>
+</div>
+<div class="stat-card highlight-gold gold-glow">
+<div class="stat-title text-[8px] uppercase text-[#D4AF37] tracking-widest mb-1">ORTALAMA NİYET</div>
+<div class="stat-value text-[#D4AF37] font-bold text-lg font-mono">{{ averageScore }}<span class="text-xs">/100</span></div>
+</div>
+<div class="stat-card alert-red critical-glow">
+<div class="stat-title text-[8px] uppercase text-red-500 tracking-widest mb-1">AURELIA TEMASI</div>
+<div class="stat-value text-red-500 font-bold text-lg font-mono">{{ aureliaTriggers }}</div>
+</div>
+</div>
+<transition name="sovereign-flash">
+<div class="sovereign-alert-banner" v-if="sovereignAlert">
+<h1 class="text-3xl font-bold heading-font uppercase tracking-widest mb-2" style="text-shadow: 0 0 20px currentColor;">SOVEREIGN RESCUE</h1>
+<div class="font-mono text-sm text-gray-300">Target Locked (Session: {{ lastAlertSession }})</div>
+<div class="mt-2 text-[10px] text-emerald-400 uppercase tracking-widest animate-pulse">Aurelia Agent Deployed</div>
+</div>
+</transition>
+<div class="pulse-feed-wrapper radar-panel bg-gray-900/40 border border-[#D4AF37]/20 rounded-lg p-3 flex-1 flex flex-col shadow-[0_0_15px_rgba(212,175,55,0.05)] overflow-hidden">
+<h3 class="feed-title text-[10px] font-bold tracking-widest uppercase text-santis-gold flex items-center gap-2 mb-2 pb-2 border-b border-[#D4AF37]/20">
+<span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping shadow-[0_0_5px_#ef4444]" id="war-room-led"></span> 📡 OMNI-CORE Veri Akışı
+                        </h3>
+<div class="flex-1 overflow-y-auto custom-scroll pr-1 font-mono text-xs">
+<transition-group class="pulse-list space-y-2" name="list" tag="ul">
+<li :class="'tier-' + event.tier.toLowerCase()" :key="event.id" class="p-2 rounded border transition-all duration-300 flex items-center justify-between" v-for="event in reversedFeed">
+<div class="flex items-center gap-2">
+<span class="pulse-time text-gray-500">[{{ event.time }}]</span>
+<span class="pulse-uuid text-gray-400 font-bold">{{ event.session.substring(0,8) }}...</span>
+<span class="px-1.5 py-0.5 rounded bg-red-500 text-white text-[8px] uppercase tracking-widest animate-pulse ml-2" v-if="event.tier === 'SURGE'">Surge Fire</span>
+<span class="px-1.5 py-0.5 rounded bg-[#D4AF37] text-black font-bold text-[8px] uppercase tracking-widest animate-pulse ml-2" v-else-if="event.tier === 'RESCUE'">Rescue</span>
+</div>
+<div class="text-right flex flex-col items-end">
+<span class="pulse-score text-white font-bold text-sm">Skor: {{ event.score }}</span>
+<span class="pulse-tier text-blue-400 text-[8px] uppercase tracking-wider block">[{{ event.tier }}]</span>
+</div>
+</li>
+</transition-group>
+<div class="text-center text-gray-700 mt-10 animate-pulse" v-if="reversedFeed.length === 0">Awaiting Initial Telemetry...</div>
+</div>
+</div>
+<!-- PROTOCOL 24: COGNITIVE INTENT RADAR -->
+<div class="pulse-feed-wrapper radar-panel bg-gray-900/40 border border-emerald-500/20 rounded-lg p-3 flex-1 flex flex-col shadow-[0_0_15px_rgba(16,185,129,0.05)] overflow-hidden">
+<h3 class="feed-title text-[10px] font-bold tracking-widest uppercase text-emerald-500 flex justify-between items-center mb-2 pb-2 border-b border-emerald-500/20">
+<span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_5px_#10b981]"></span> 🧠 Cognitive Intent Radar</span>
+<span class="text-[8px] text-gray-500">PROTOCOL 24 (PREFETCH)</span>
+</h3>
+<div class="flex-1 overflow-y-auto custom-scroll pr-1 font-mono text-xs">
+<transition-group class="pulse-list space-y-2" name="list" tag="ul">
+<li :key="pred.id" class="p-2 rounded border border-emerald-900/30 bg-gray-900/60 transition-all duration-300 flex items-center justify-between" v-for="pred in neuralFeed">
+<div class="flex items-center gap-2">
+<span class="pulse-time text-gray-500">[{{ pred.time }}]</span>
+<span class="pulse-uuid text-gray-400 font-bold">{{ pred.session }}</span>
+<span class="text-emerald-400 text-[10px]">➔ {{ pred.target }}</span>
+</div>
+<div class="text-right flex items-center gap-2" title="Pre-cognition Confidence">
+<div class="text-[9px] text-gray-500">CONF.</div>
+<div class="pulse-score text-emerald-500 font-bold text-sm">{{ pred.confidence }}%</div>
+</div>
+</li>
+</transition-group>
+<div class="text-center text-gray-700 mt-4 animate-pulse" v-if="neuralFeed.length === 0">Awaiting Neural Predictions...</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div> <!-- End of #app -->
+
+
+<!-- 🛡️ ZOMBIE QUARANTINED: santis-core.js -->\n<!-- 🛡️ ZOMBIE QUARANTINED: santis-telemetry-engine.js -->
+<!-- 🛡️ ZOMBIE QUARANTINED: santis-live-mesh.js -->
+
+
+<!-- ── PANEL RESIZE ENGINE ────────────────────────────────────── -->
+
+
+<!-- 🛡️ ZOMBIE QUARANTINED: vue-command-center.js -->
+<!-- Phase 22: Sovereign Asset Director (The Steering Wheel) -->
+<div class="hidden fixed inset-0 bg-black/90 backdrop-blur-xl z-[9999] flex justify-center items-center" id="santis-asset-director-modal">
+<div class="bg-gray-900/80 border border-santis-gold/50 rounded-xl p-6 w-full max-w-3xl shadow-[0_0_50px_rgba(212,175,55,0.15)] flex flex-col md:flex-row gap-6 relative">
+<button class="absolute top-4 right-4 text-gray-500 hover:text-red-500 font-bold text-lg transition-colors" onclick="closeAssetDirector()">✕</button>
+<!-- Asset Preview Container -->
+<div class="flex-1 rounded-lg overflow-hidden bg-black/50 border border-gray-800 flex items-center justify-center relative min-h-[250px] md:min-h-full">
+
+<div class="absolute bottom-2 left-2 bg-black/80 px-2 py-1 rounded border border-gray-700 text-[9px] font-mono text-gray-400">
+                    ID: <span class="text-white" id="director-id-display"></span>
+</div>
+</div>
+<!-- Asset Routing / Editor Controls -->
+<div class="flex-1 flex flex-col gap-4">
+<h3 class="text-sm font-bold tracking-widest uppercase text-santis-gold border-b border-gray-800 pb-2 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-santis-gold animate-pulse"></span>
+                    Sovereign Asset Director
+                </h3>
+<form class="space-y-3" id="director-form">
+<input id="director-asset-id" type="hidden">
+<div>
+<label class="block text-[10px] text-gray-400 font-mono mb-1 uppercase tracking-widest">Master Category</label>
+<select class="w-full bg-black/50 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold transition-colors" id="director-category">
+<option value="hamam">Hammam / Thermal</option>
+<option value="masaj">Massage / Recovery</option>
+<option value="cilt">Skincare / Aesthetic</option>
+<option value="diger">General / Hotel</option>
+</select>
+</div>
+<div>
+<label class="block text-[10px] text-gray-400 font-mono mb-1 uppercase tracking-widest">Routing Slot (Page Position)</label>
+<select class="w-full bg-black/50 border border-gray-700 text-santis-gold font-bold text-xs rounded p-2 outline-none focus:border-santis-gold font-mono transition-colors" id="director-slot">
+<option value="">— Sadece Galeri (Slot Yok) —</option>
+<optgroup label="🏠 Ana Sayfa">
+<option value="card-hamam">Ana Sayfa → Hamam Kartı</option>
+<option value="card-masaj">Ana Sayfa → Masaj Kartı</option>
+<option value="card-cilt">Ana Sayfa → Cilt Bakımı Kartı</option>
+<option value="card-atolye">Ana Sayfa → Atölye Kartı</option>
+<option value="philosophy-hero">Ana Sayfa → Felsefe Görseli</option>
+</optgroup>
+<optgroup label="🧖 Hamam Sayfaları">
+<option value="osmanli-ritueli">Osmanlı Hamam Geleneği</option>
+<option value="kese-ve-kopuk-masaji">Kese &amp; Köpük Masajı</option>
+<option value="kopuk-masaji">Köpük Masajı</option>
+<option value="tuz-peeling">Tuz Peeling</option>
+<option value="kahve-peeling">Kahve Peeling</option>
+<option value="bal-masaji">Bal Masajı</option>
+<option value="cikolata-bakimi">Çikolata Bakımı</option>
+<option value="yosun-bakimi">Yosun Bakımı</option>
+<option value="santis-pasa">Santis Paşa</option>
+</optgroup>
+<optgroup label="💆 Masaj Sayfaları">
+<option value="klasik-masaj">Klasik Masaj</option>
+<option value="aromaterapi-masaji">Aromaterapi Masajı</option>
+<option value="derin-doku-masaji">Derin Doku Masajı</option>
+<option value="sicak-tas-masaji">Sıcak Taş Masajı</option>
+<option value="thai-masaji">Thai Masajı</option>
+<option value="anti-stress-masaji">Anti-Stres Masajı</option>
+<option value="spor-terapi">Spor Terapi</option>
+<option value="signature-rituel">Signature Ritüel</option>
+</optgroup>
+<optgroup label="🌿 Cilt Bakımı Sayfaları">
+<option value="classic-facial">Classic Facial</option>
+<option value="anti-aging-pro">Anti-Aging Pro</option>
+<option value="hyaluron-hydrate">Hyaluron Hydrate</option>
+<option value="gold-mask-ritual">Gold Mask Ritual</option>
+<option value="collagen-lift">Collagen Lift</option>
+<option value="glass-skin">Glass Skin</option>
+<option value="deep-cleanse">Deep Cleanse</option>
+<option value="vitamin-c-glow">Vitamin C Glow</option>
+</optgroup>
+<optgroup label="💠 Sovereign Vitrini (24 Kart)">
+<option value="sig-card-0">Signatures → Kart 1</option>
+<option value="sig-card-1">Signatures → Kart 2</option>
+<option value="sig-card-2">Signatures → Kart 3</option>
+<option value="sig-card-3">Signatures → Kart 4</option>
+<option value="sig-card-4">Signatures → Kart 5</option>
+<option value="sig-card-5">Signatures → Kart 6</option>
+<option value="hammam-card-0">Hammam → Kart 1</option>
+<option value="hammam-card-1">Hammam → Kart 2</option>
+<option value="hammam-card-2">Hammam → Kart 3</option>
+<option value="hammam-card-3">Hammam → Kart 4</option>
+<option value="hammam-card-4">Hammam → Kart 5</option>
+<option value="hammam-card-5">Hammam → Kart 6</option>
+<option value="hammam-card-6">Hammam → Kart 7</option>
+<option value="hammam-card-7">Hammam → Kart 8</option>
+<option value="therapy-card-0">Therapies → Kart 1</option>
+<option value="therapy-card-1">Therapies → Kart 2</option>
+<option value="therapy-card-2">Therapies → Kart 3</option>
+<option value="therapy-card-3">Therapies → Kart 4</option>
+<option value="therapy-card-4">Therapies → Kart 5</option>
+<option value="therapy-card-5">Therapies → Kart 6</option>
+<option value="therapy-card-6">Therapies → Kart 7</option>
+<option value="therapy-card-7">Therapies → Kart 8</option>
+<option value="therapy-card-8">Therapies → Kart 9</option>
+<option value="therapy-card-9">Therapies → Kart 10</option>
+</optgroup>
+</select>
+</div>
+<div>
+<label class="block text-[10px] text-gray-400 font-mono mb-1 uppercase tracking-widest">Service Binding ID</label>
+<input class="w-full bg-black/50 border border-gray-700 text-emerald-400 text-xs rounded p-2 outline-none focus:border-santis-gold font-mono transition-colors" id="director-service-id" type="text"/>
+</div>
+<div>
+<label class="block text-[10px] text-gray-400 font-mono mb-1 uppercase tracking-widest">Tagline / Caption</label>
+<textarea class="w-full bg-black/50 border border-gray-700 text-white text-xs rounded p-2 outline-none focus:border-santis-gold transition-colors custom-scroll" id="director-caption" rows="2"></textarea>
+</div>
+<div class="pt-4 flex gap-3">
+<button class="flex-1 py-2 text-[10px] uppercase tracking-widest font-bold text-gray-400 border border-gray-700 rounded hover:bg-gray-800 hover:text-white transition-all font-mono" onclick="closeAssetDirector()" type="button">Cancel</button>
+<button class="flex-1 py-2 text-[10px] uppercase tracking-widest font-bold text-black bg-santis-gold rounded hover:bg-amber-400 transition-all font-mono shadow-[0_0_15px_rgba(212,175,55,0.4)]" onclick="saveAssetRouting()" type="button">Enforce Routing</button>
+</div>
+</input></form>
+</div>
+</div>
+</div>
+<!-- Phase 29: Sovereign Autonomous Matrix Dialog (Otopilot Onay Ekranı) -->
+<div class="hidden fixed inset-0 bg-black/95 backdrop-blur-2xl z-[99999] flex flex-col justify-center items-center" id="santis-sentience-modal">
+<!-- Background Ambient Glow -->
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(201,169,110,0.08),transparent_60%)] pointer-events-none"></div>
+<div class="bg-black/80 border border-santis-gold/40 rounded-2xl p-8 w-full max-w-2xl shadow-[0_0_80px_rgba(212,175,55,0.2)] relative flex flex-col items-center text-center mx-4 transform transition-all duration-500 scale-95 opacity-0" id="santis-sentience-box">
+<!-- Close Button -->
+<button class="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors cursor-pointer text-xl" onclick="closeSentienceModal()">✕</button>
+<!-- Icon / Logo -->
+<div class="w-16 h-16 rounded-full bg-santis-gold/10 border border-santis-gold flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(212,175,55,0.4)] relative">
+<div class="absolute inset-0 rounded-full border-t border-santis-gold animate-spin" style="animation-duration: 3s;"></div>
+<span class="text-3xl text-santis-gold drop-shadow-[0_0_10px_#d4af37]">⚡</span>
+</div>
+<!-- Title -->
+<h2 class="text-xl font-bold tracking-widest uppercase text-santis-gold mb-2" style="text-shadow: 0 0 15px rgba(212,175,55,0.5);">
+                Sovereign Otopilot Fırsatı
+            </h2>
+<p class="text-gray-400 font-mono text-xs mb-8 uppercase tracking-wide" id="sentience-msg">
+                Kesişimsel Zeka bir kâr fırsatı tespit etti.
+            </p>
+<!-- Data Output Panel -->
+<div class="w-full bg-gray-900/60 border border-gray-800 rounded-lg p-5 mb-8 flex flex-col items-center relative overflow-hidden">
+<div class="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(201,169,110,0.02)_50%,transparent_75%)] bg-[length:250%_250%] animate-[shimmer_3s_linear_infinite]"></div>
+<p class="text-sm text-gray-300 leading-relaxed mb-6 font-mono text-center relative z-10 w-full" id="sentience-detail">
+                    Ajan_12'yi Hero_Hammama atarsak, rezonans x% artacak.
+                </p>
+<!-- Financial Lift Banner -->
+<div class="bg-santis-gold/10 border border-santis-gold/50 rounded-full px-6 py-3 flex items-center gap-4 shadow-[0_0_20px_rgba(212,175,55,0.2)] relative z-10">
+<span class="text-[10px] text-santis-gold tracking-widest uppercase font-bold">Projected MRR Lift:</span>
+<span class="text-2xl font-bold text-white tracking-tight" id="sentience-mrr" style="text-shadow: 0 0 10px rgba(255,255,255,0.5);">+€0,00</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex gap-4 w-full">
+<button class="flex-1 py-3 text-xs uppercase tracking-widest font-bold text-gray-400 border border-gray-700 rounded-lg hover:bg-gray-800 hover:text-white transition-all font-mono" onclick="closeSentienceModal()">
+                    Reddet (Manual)
+                </button>
+<button class="flex-[2] py-3 text-sm uppercase tracking-widest font-bold text-black bg-santis-gold rounded-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] hover:bg-amber-400 transition-all font-mono relative overflow-hidden group" onclick="executeSentience()">
+<div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></div>
+                    ⚡ Oku ve Mühürle
+                </button>
+</div>
+</div>
+</div>
+
+<!-- Phase 44: ECharts Neuro-Cortex Engine -->
+<!-- 🛡️ ZOMBIE QUARANTINED: santis-echarts.js -->
+
+<!-- Sovereign: Biological Chaos Ignition -->
+
+
+<!-- Sovereign Admin Navigation -->
+
+
+        </div>
+    `;
+
+    // 3. Setup Listeners & Local Scripts
+    initResizers(signal);
+    initDragDrop(signal);
+    initCardEditor(signal);
+
+    // 4. Setup Cortex Subscriptions (State Engine)
+    if (window.StateObserver) {
+        window.StateObserver.subscribe('revenue', (val) => {
+            const revEl = document.getElementById('metric-revenue');
+            if (revEl) revEl.innerText = Number(val).toLocaleString();
+        }, signal);
+
+        window.StateObserver.subscribe('activeNodes', (val) => {
+            const nodesEl = document.getElementById('matrix-count');
+            if (nodesEl) nodesEl.innerText = val;
+        }, signal);
+
+        window.StateObserver.subscribe('systemPulse', (status) => {
+            const shiBadge = document.getElementById('shi-status-badge');
+            if (!shiBadge) return;
+            
+            if (status === 'SURGE') {
+                shiBadge.innerText = 'SURGE ACTIVE';
+                shiBadge.className = 'text-[8px] font-mono font-bold px-1.5 py-0.5 rounded border border-santis-gold text-santis-gold bg-santis-gold/20 animate-pulse';
+            } else if (status === 'CRITICAL') {
+                shiBadge.innerText = 'SHIELD ALERT';
+                shiBadge.className = 'text-[8px] font-mono font-bold px-1.5 py-0.5 rounded border border-red-500 text-red-500 bg-red-900/40 animate-pulse';
+            } else {
+                shiBadge.innerText = 'SOVEREIGN';
+                shiBadge.className = 'text-[8px] font-mono font-bold px-1.5 py-0.5 rounded border border-emerald-500/30 text-emerald-400 bg-emerald-900/20';
+            }
+        }, signal);
+    }
+
+    // 5. Dynamic Dependencies & Initialization
+    await loadDependencies();
+
+    // 6. Animasyon: Quiet Luxury Girişi
+    requestAnimationFrame(() => {
+        const wrapper = viewport.querySelector('.command-center-wrapper');
+        if(wrapper) {
+            wrapper.classList.remove('opacity-0', 'translate-y-2');
+            wrapper.classList.add('opacity-100', 'translate-y-0');
+        }
+
+        // Re-ignite specific scripts
+        setTimeout(() => {
+            // 120FPS Breathing for stat cards
+            document.querySelectorAll('.stat-card').forEach(el => {
+                if(window.igniteBiologicalChaos) window.igniteBiologicalChaos(el);
+            });
+            const surgeVal = document.getElementById('metric-surge');
+            if(surgeVal && window.igniteBiologicalChaos) window.igniteBiologicalChaos(surgeVal);
+            
+            // Call external scripts if they expose init functions
+            if (typeof window.fetchAssets === 'function') window.fetchAssets();
+            if (typeof window.initGodMode === 'function') window.initGodMode(true);
+        }, 300);
+    });
+}
+
+export async function unmount() {
+    console.log("🔴 [Command Center] Unmounting... Executing Clean Kill Protocol.");
+    
+    if (viewAbortController) {
+        viewAbortController.abort();
+        viewAbortController = null;
+    }
+
+    if (statsInterval) {
+        clearInterval(statsInterval);
+        statsInterval = null;
+    }
+
+    // Purge ECharts instances
+    if (window.echarts) {
+        ['echarts-revenue-radar', 'echarts-pulse-flow'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                const instance = window.echarts.getInstanceByDom(el);
+                if (instance) instance.dispose();
+            }
+        });
+    }
+
+    _ceData = [];
+}
+
+// ─── PRIVATE HELPERS ───────────────────────────────────────
+
+async function loadDependencies() {
+    // Load external dependencies in the background if they haven't been loaded
+    const loadScript = (src) => new Promise(resolve => {
+        if (document.querySelector(`script[src="${src}"]`)) return resolve();
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = resolve;
+        s.crossOrigin = "anonymous";
+        document.head.appendChild(s);
+    });
+
+    await Promise.all([
+        loadScript("https://cdn.jsdelivr.net/npm/chart.js"),
+        loadScript("https://d3js.org/d3.v7.min.js"),
+        loadScript("https://unpkg.com/vue@3/dist/vue.global.prod.js")
+    ]);
+
+    // Load custom domain scripts. 
+    await loadScript("/admin/santis-matrix-engine.js");
+    await loadScript("/admin/integrated_hub.js");
+}
+
+function initResizers(signal) {
+    function makeResizable(resizerId, panelId, side) {
+        const resizer = document.getElementById(resizerId);
+        const panel   = document.getElementById(panelId);
+        if (!resizer || !panel) return;
+
+        const saved = localStorage.getItem('cc_panel_' + panelId);
+        if (saved) panel.style.width = saved;
+
+        let startX, startW;
+
+        const onDown = (e) => {
+            e.preventDefault();
+            startX = e.clientX;
+            startW = panel.offsetWidth;
+            resizer.classList.add('dragging');
+            document.body.style.cursor   = 'col-resize';
+            document.body.style.userSelect = 'none';
+
+            const onMove = (evt) => {
+                let delta = side === 'left' ? evt.clientX - startX : startX - evt.clientX;
+                let newW = Math.min(520, Math.max(180, startW + delta));
+                panel.style.width = newW + 'px';
+            };
+
+            const onUp = () => {
+                resizer.classList.remove('dragging');
+                document.body.style.cursor    = '';
+                document.body.style.userSelect = '';
+                localStorage.setItem('cc_panel_' + panelId, panel.style.width);
+                document.removeEventListener('mousemove', onMove);
+                document.removeEventListener('mouseup',   onUp);
+            };
+
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('mouseup',   onUp);
+            // Attach cleanup to abort signal
+            signal.addEventListener('abort', () => {
+                document.removeEventListener('mousemove', onMove);
+                document.removeEventListener('mouseup',   onUp);
+            });
+        };
+        
+        resizer.addEventListener('mousedown', onDown, { signal });
+    }
+
+    makeResizable('cc-resizer-left',  'cc-panel-left',  'left');
+    makeResizable('cc-resizer-right', 'cc-panel-right', 'right');
+}
+
+function initDragDrop(signal) {
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const uploadPanel = document.getElementById('upload-panel');
+
+    if (!dropZone || !fileInput) return;
+
+    dropZone.addEventListener('click', () => fileInput.click(), { signal });
+    
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); }, { signal });
+    });
+
+    ['dragenter', 'dragover'].forEach(evt => {
+        dropZone.addEventListener(evt, () => {
+            dropZone.classList.add('border-[#D4AF37]', 'bg-[#D4AF37]/5');
+            const span = dropZone.querySelector('span');
+            if (span) span.classList.add('text-[#D4AF37]');
+        }, { signal });
+    });
+
+    ['dragleave', 'drop'].forEach(evt => {
+        dropZone.addEventListener(evt, () => {
+            dropZone.classList.remove('border-[#D4AF37]', 'bg-[#D4AF37]/5');
+            const span = dropZone.querySelector('span');
+            if (span) span.classList.remove('text-[#D4AF37]');
+        }, { signal });
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        const files = e.dataTransfer.files;
+        if (files.length > 0) handleImageFile(files[0]);
+    }, { signal });
+
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) handleImageFile(e.target.files[0]);
+    }, { signal });
+
+    function handleImageFile(file) {
+        if (!file.type.startsWith('image/')) {
+            alert('❌ Sadece görsel dosyalar kabul edilir (WEBP, JPG, PNG)');
+            return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+            alert('❌ Dosya boyutu 5MB\'ı aşamaz');
+            return;
+        }
+
+        console.log(`📸 [Upload] ${file.name} (${(file.size/1024).toFixed(0)}KB)`);
+        window._pendingUploadFileName = file.name;
+
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+            window._pendingUploadBase64 = evt.target.result;
+            const previewImg = document.getElementById('upload-preview-img');
+            if (previewImg) {
+                previewImg.src = evt.target.result;
+            } else {
+                const previewBox = uploadPanel?.querySelector('.h-32');
+                if (previewBox) {
+                    previewBox.innerHTML = `<img loading="lazy" decoding="async" width="1024" height="1024" src="${evt.target.result}" class="w-full h-full object-cover rounded-md" id="upload-preview-img" alt="Upload Preview"/>`;
+                }
+            }
+            
+            if (uploadPanel) uploadPanel.classList.remove('hidden');
+
+            dropZone.innerHTML = `
+                <div class="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center mb-4">
+                    <span class="text-2xl text-emerald-400">✓</span>
+                </div>
+                <p class="text-sm font-medium text-white mb-1">Yüklendi: ${file.name}</p>
+                <p class="text-[10px] text-gray-500 font-mono">${(file.size/1024).toFixed(0)}KB — Slot atamaya hazır</p>
+            `;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Export UI actions globally for onclick
+    window.executeIngestion = async function() {
+        const btn = document.getElementById('btn-ingest');
+        const progress = document.getElementById('upload-progress');
+        const panel = document.getElementById('upload-panel');
+        const slot = document.getElementById('map-slot')?.value;
+        
+        if (!window._pendingUploadBase64 || !window._pendingUploadFileName) {
+            alert("⚠ Lütfen önce bir görsel seçin veya sürükleyin.");
+            return;
+        }
+
+        if (progress) progress.classList.remove('hidden');
+        if (btn) btn.disabled = true;
+
+        try {
+            const res = await fetch('/api/v1/media/upload', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    filename: window._pendingUploadFileName,
+                    contentBase64: window._pendingUploadBase64
+                })
+            });
+            
+            const data = await res.json();
+            
+            if (data.success) {
+                setTimeout(() => {
+                    window._pendingUploadBase64 = null;
+                    if (progress) progress.classList.add('hidden');
+                    if (panel) panel.classList.add('hidden');
+                    if (btn) btn.disabled = false;
+                    
+                    if (dropZone) {
+                        dropZone.innerHTML = `
+                            <div class="w-12 h-12 rounded-full bg-gray-800 group-hover:bg-santis-gold/20 flex items-center justify-center mb-4 transition-colors">
+                                <span class="text-2xl text-gray-500 group-hover:text-santis-gold mb-1">↑</span>
+                            </div>
+                            <p class="text-sm font-medium text-white mb-2">Drag & Drop Image</p>
+                            <p class="text-[10px] text-gray-500 font-mono">WEBP, JPG, PNG (Max 5MB)</p>
+                        `;
+                    }
+                    alert("✨ [Santis OS] Asset successfully ingested" + (slot ? " and mapped to " + slot : "") + ".");
+                }, 800);
+            } else {
+                throw new Error(data.error || 'Upload failed');
+            }
+        } catch (err) {
+            alert("❌ Upload Error: " + err.message);
+            if(progress) progress.classList.add('hidden');
+            if(btn) btn.disabled = false;
+        }
+    };
+
+    window.cancelUpload = function() {
+        const panel = document.getElementById('upload-panel');
+        if (panel) panel.classList.add('hidden');
+        
+        if (dropZone) {
+            dropZone.innerHTML = `
+                <div class="w-12 h-12 rounded-full bg-gray-800 group-hover:bg-santis-gold/20 flex items-center justify-center mb-4 transition-colors">
+                    <span class="text-2xl text-gray-500 group-hover:text-santis-gold mb-1">↑</span>
+                </div>
+                <p class="text-sm font-medium text-white mb-2">Drag & Drop Image</p>
+                <p class="text-[10px] text-gray-500 font-mono">WEBP, JPG, PNG (Max 5MB)</p>
+            `;
+        }
+    };
+}
+
+function initCardEditor(signal) {
+    async function cardEditorLoad() {
+        try {
+            const res = await fetch('/assets/data/services.json');
+            const raw = await res.json();
+            _ceData = raw.categories
+                ? raw.categories.flatMap(c => c.services || c.items || [])
+                : (raw.services || raw);
+
+            const sel = document.getElementById('ce-card-select');
+            if (!sel) return;
+            sel.innerHTML = '<option value="">— Kart seçin —</option>';
+            _ceData.forEach((item, i) => {
+                const title = item.title || item.name || item.slug || `Kart #${i}`;
+                const cat   = item.category || '';
+                sel.innerHTML += `<option value="${i}">[${cat}] ${title}</option>`;
+            });
+            const countEl = document.getElementById('card-editor-count');
+            if (countEl) countEl.textContent = `${_ceData.length} kart`;
+        } catch(e) {
+            const sel = document.getElementById('ce-card-select');
+            if (sel) sel.innerHTML = '<option>⚠ Yüklenemedi</option>';
+        }
+    }
+
+    const ceSelect = document.getElementById('ce-card-select');
+    if (ceSelect) {
+        ceSelect.addEventListener('change', function() {
+            const i = parseInt(this.value);
+            if (isNaN(i)) return;
+            const item = _ceData[i];
+            document.getElementById('ce-title').value       = item.title || item.name || '';
+            document.getElementById('ce-price').value       = item.price_eur || item.price || '';
+            document.getElementById('ce-image').value       = item.image || '';
+            document.getElementById('ce-description').value = item.description || '';
+            
+            const autoUrl = item.slug ? `/tr/${(item.category||'').replace('ritual-','').replace('-','')}/${item.slug}.html` : '';
+            document.getElementById('ce-url').value         = item.url || autoUrl;
+            const img = document.getElementById('ce-preview-img');
+            const ph  = document.getElementById('ce-preview-placeholder');
+            
+            if (img && ph) {
+                if (item.image) {
+                    img.src = item.image;
+                    img.style.opacity = '1';
+                    ph.style.display = 'none';
+                } else {
+                    img.style.opacity = '0';
+                    ph.style.display = 'flex';
+                }
+            }
+        }, { signal });
+    }
+
+    const ceImage = document.getElementById('ce-image');
+    if (ceImage) {
+        ceImage.addEventListener('input', function() {
+            const img = document.getElementById('ce-preview-img');
+            if (img) {
+                img.src = this.value;
+                img.style.opacity = this.value ? '1' : '0';
+            }
+        }, { signal });
+    }
+
+    // Make global for inline onclick
+    window.cardEditorSave = async function() {
+        const sel = document.getElementById('ce-card-select');
+        const i   = parseInt(sel.value);
+        if (isNaN(i)) return;
+
+        const item = _ceData[i];
+        const payload = {
+            id:          item.id || item.slug,
+            title:       document.getElementById('ce-title').value,
+            price_eur:   parseFloat(document.getElementById('ce-price').value) || 0,
+            image:       document.getElementById('ce-image').value,
+            description: document.getElementById('ce-description').value,
+            url:         document.getElementById('ce-url').value,
+        };
+
+        const st = document.getElementById('ce-status');
+        if (!st) return;
+
+        st.className = 'text-[9px] font-mono text-center text-[#D4AF37] relative z-10';
+        st.textContent = '⏳ Kaydediliyor...';
+        st.classList.remove('hidden');
+
+        try {
+            const res = await fetch('/api/v1/services/update', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (res.ok) {
+                st.textContent = '✅ Kart güncellendi!';
+                st.className = 'text-[9px] font-mono text-center text-emerald-400 relative z-10';
+                _ceData[i] = { ..._ceData[i], ...payload };
+            } else {
+                throw new Error(`HTTP ${res.status}`);
+            }
+        } catch(e) {
+            st.textContent = `⚠ ${e.message}`;
+            st.className = 'text-[9px] font-mono text-center text-red-400 relative z-10';
+        }
+        setTimeout(() => st.classList.add('hidden'), 3000);
+    };
+
+    window.cardEditorReload = function() { cardEditorLoad(); };
+
+    cardEditorLoad();
+}

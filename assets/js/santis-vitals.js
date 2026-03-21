@@ -67,10 +67,20 @@
     };
 
     /** METRİK 2: Largest Contentful Paint (LCP) */
+    let firstHiddenTime = document.visibilityState === 'hidden' ? 0 : Infinity;
+    document.addEventListener('visibilitychange', (event) => {
+        firstHiddenTime = Math.min(firstHiddenTime, event.timeStamp);
+    }, { once: true });
+
     const lcpObserver = new PerformanceObserver((entryList) => {
         const entries = entryList.getEntries();
         const lastEntry = entries[entries.length - 1];
         
+        // Eğer sekme arka plandayken LCP gerçekleştiyse, süresi inanılmaz şişmiş olabilir (Anomali)
+        if (lastEntry.startTime > firstHiddenTime) {
+            return;
+        }
+
         if (_isDebug) {
             const lcpTime = lastEntry.renderTime || lastEntry.loadTime;
             if (lcpTime > THRESHOLDS.LCP) {

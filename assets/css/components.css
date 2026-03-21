@@ -38,7 +38,7 @@
 
 /* --- GRID SYSTEM --- */
 
-.nv-container {
+.santis-container {
 
     max-width: 1400px;
 
@@ -54,7 +54,7 @@
 
 #navbar-container,
 
-#nv-main-nav,
+#santis-main-nav,
 
 .navbar {
 
@@ -68,7 +68,7 @@
 
 
 
-.nv-grid-12 {
+.santis-grid-12 {
 
     display: grid;
 
@@ -82,7 +82,7 @@
 
 /* --- PREMIUM CARD (Hammam) --- */
 
-.nv-card {
+.santis-card {
 
     position: relative;
 
@@ -118,7 +118,7 @@
 
 
 
-.nv-card:hover {
+.santis-card:hover {
 
     transform: translateY(-5px);
 
@@ -134,7 +134,7 @@
 
 /* Clickable Overlay Link */
 
-.nv-card-link {
+.santis-card-link {
 
     position: absolute;
 
@@ -150,7 +150,7 @@
 
 /* Card Content */
 
-.nv-kicker {
+.santis-kicker {
 
     font-size: 11px;
 
@@ -168,7 +168,7 @@
 
 
 
-.nv-title {
+.santis-title {
 
     font-family: 'Playfair Display', serif;
 
@@ -186,7 +186,7 @@
 
 
 
-.nv-subtitle {
+.santis-subtitle {
 
     font-size: 14px;
 
@@ -206,7 +206,7 @@
 
 /* Meta Chips */
 
-.nv-meta-row {
+.santis-meta-row {
 
     display: flex;
 
@@ -220,7 +220,7 @@
 
 
 
-.nv-chip {
+.santis-chip {
 
     font-size: 12px;
 
@@ -238,12 +238,12 @@
 
 /* ── CHIP FILTER BAR ── */
 
-.nv-category-header {
+.santis-category-header {
     position: relative;
     z-index: 50;
 }
 
-.nv-chips {
+.santis-chips {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -253,7 +253,7 @@
     pointer-events: auto;
 }
 
-.nv-chips .nv-chip {
+.santis-chips .santis-chip {
     font-size: 13px;
     padding: 8px 18px;
     border-radius: 100px;
@@ -270,13 +270,13 @@
     z-index: 101;
 }
 
-.nv-chips .nv-chip:hover {
+.santis-chips .santis-chip:hover {
     background: rgba(212, 175, 55, 0.12);
     color: var(--gold, #d4af37);
     border-color: rgba(212, 175, 55, 0.3);
 }
 
-.nv-chips .nv-chip.is-active {
+.santis-chips .santis-chip.is-active {
     background: var(--gold, #d4af37);
     color: #000;
     border-color: var(--gold, #d4af37);
@@ -284,13 +284,13 @@
 }
 
 @media (max-width: 768px) {
-    .nv-chips {
+    .santis-chips {
         overflow-x: auto;
         flex-wrap: nowrap;
         padding-bottom: 8px;
     }
 
-    .nv-chips .nv-chip {
+    .santis-chips .santis-chip {
         font-size: 12px;
         padding: 6px 14px;
     }
@@ -298,7 +298,7 @@
 
 
 
-.nv-chip.gold {
+.santis-chip.gold {
 
     background: rgba(212, 175, 55, 0.1);
 
@@ -312,7 +312,7 @@
 
 /* Helper Class for Badges */
 
-.nv-chip[data-badge="Signature"] {
+.santis-chip[data-badge="Signature"] {
 
     border-color: var(--gold);
 
@@ -322,7 +322,7 @@
 
 
 
-.nv-chip[data-badge="Detox"] {
+.santis-chip[data-badge="Detox"] {
 
     border-color: #81c784;
 
@@ -336,7 +336,7 @@
 
 /* Actions Row */
 
-.nv-actions {
+.santis-actions {
 
     display: flex;
 
@@ -354,7 +354,7 @@
 
 /* Buttons */
 
-.nv-btn {
+.santis-btn {
 
     padding: 10px 20px;
 
@@ -382,7 +382,7 @@
 
 
 
-.nv-btn-outline {
+.santis-btn-outline {
 
     background: transparent;
 
@@ -394,7 +394,7 @@
 
 
 
-.nv-btn-outline:hover {
+.santis-btn-outline:hover {
 
     background: rgba(255, 255, 255, 0.1);
 
@@ -404,7 +404,7 @@
 
 
 
-.nv-btn-primary {
+.santis-btn-primary {
 
     background: var(--gold);
 
@@ -422,7 +422,7 @@
 
 
 
-.nv-btn-primary:hover {
+.santis-btn-primary:hover {
 
     background: #fff;
 
@@ -438,7 +438,7 @@
 
 @media (max-width: 768px) {
 
-    .nv-grid-12 {
+    .santis-grid-12 {
 
         display: flex;
 
@@ -450,7 +450,7 @@
 
 
 
-    .nv-card {
+    .santis-card {
 
         min-height: 0;
 
@@ -532,7 +532,7 @@ body {
 
 /* Her 3 kartta bir asimetrik ritim oluştur (Vogue Style) */
 
-.nv-card {
+.santis-card {
 
     grid-column: span 4;
 
@@ -542,7 +542,7 @@ body {
 
 
 
-.nv-card:nth-child(3n+1) {
+.santis-card:nth-child(3n+1) {
 
     grid-column: span 8;
 
@@ -550,7 +550,7 @@ body {
 
 
 
-.nv-card:nth-child(3n+2) {
+.santis-card:nth-child(3n+2) {
 
     grid-column: span 4;
 
@@ -562,9 +562,9 @@ body {
 
 
 
-    .nv-card,
+    .santis-card,
 
-    .nv-card:nth-child(3n+1) {
+    .santis-card:nth-child(3n+1) {
 
         grid-column: span 12;
 

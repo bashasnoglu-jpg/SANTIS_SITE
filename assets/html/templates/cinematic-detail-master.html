@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8"/>
@@ -47,7 +47,7 @@
             
             <!-- BREADCRUMB -->
             <nav class="cin-breadcrumb">
-                <a href="/tr/index.html?lang=tr">Ana Sayfa</a> / <a href="/tr/index.html?lang=tr">Masajlar</a> / <span class="current">{{TITLE}}</span>
+                <a href="/index.html?lang=tr">Ana Sayfa</a> / <a href="/index.html?lang=tr">Masajlar</a> / <span class="current">{{TITLE}}</span>
             </nav>
 
             <!-- TITLE BLOCK -->
@@ -93,14 +93,14 @@
             </div>
 
             <!-- DETAILS ACCORDION -->
-            <div class="nv-accordion">
+            <div class="santis-accordion">
                 <!-- Benefis -->
-                <div class="nv-accordion-item">
-                    <div class="nv-accordion-header">
+                <div class="santis-accordion-item">
+                    <div class="santis-accordion-header">
                         <span>Faydaları</span>
                         <span class="acc-icon">+</span>
                     </div>
-                    <div class="nv-accordion-content">
+                    <div class="santis-accordion-content">
                         <ul class="cin-rich-steps">
                             {{BENEFITS_LIST}}
                         </ul>
@@ -108,12 +108,12 @@
                 </div>
 
                 <!-- Contraindications -->
-                <div class="nv-accordion-item">
-                    <div class="nv-accordion-header">
+                <div class="santis-accordion-item">
+                    <div class="santis-accordion-header">
                         <span>Kimler İçin Uygun?</span>
                         <span class="acc-icon">+</span>
                     </div>
-                    <div class="nv-accordion-content">
+                    <div class="santis-accordion-content">
                         <p class="cin-text">{{SUITABILITY_TEXT}}</p>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
 
             <!-- ACTIONS -->
             <div class="cin-actions">
-                <button class="nv-btn nv-btn-primary" onclick="BOOKING_WIZARD.open()">SESSİZLİĞE ADIM AT</button>
+                <button class="santis-btn santis-btn-primary" onclick="BOOKING_WIZARD.open()">SESSİZLİĞE ADIM AT</button>
                 <a href="https://wa.me/905348350169" target="_blank" class="cin-btn">WHATSAPP İLE SOR</a>
             </div>
 
@@ -140,16 +140,16 @@
     <div id="footer-container"></div>
 
     <!-- SCRIPTS -->
-    <script src="/assets/js/i18n-routes.js"></script>
-    <script src="/assets/js/loader.js"></script>
-    <script src="/assets/js/santis-nav.js"></script>
-    
+    <script src="/assets/js/i18n-routes.js" defer></script>
     <!-- Page Specific Engines -->
-    <script src="/assets/js/santis-accordion.js"></script>
-    <script src="/assets/js/pages/service-detail-init.js"></script> <!-- CONTROLLER -->
-<script type="module" src="/assets/js/core/santis-core.js"></script>
+    <script src="/assets/js/santis-accordion.js" defer></script>
+    <script src="/assets/js/pages/service-detail-init.js" defer></script> <!-- CONTROLLER -->
+<script type="module" src="/assets/js/core/santis-core.js" defer></script>
     <script defer src="/assets/js/app.js"></script>
 
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
 

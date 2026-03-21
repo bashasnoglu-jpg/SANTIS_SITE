@@ -37,7 +37,7 @@ class SovereignVirtualEngine {
     // 🛡️ 1. TANRI MODU (GOD-MODE) KART FABRİKASI: Boyutlar ASLA ezilemez!
     buildPureDOMCard(item) {
         const card = document.createElement("a");
-        card.className = `nv-rail-card ritual-card ${item.aura} group snap-center`;
+        card.className = `santis-rail-card ritual-card ${item.aura} group snap-center`;
         card.href = item.url || "javascript:void(0)";
         card.dataset.id = item.id;
 
@@ -253,7 +253,7 @@ class SovereignVirtualEngine {
 
     handleGlobalClick(e) {
         const btn = e.target.closest('button');
-        const card = e.target.closest('.nv-rail-card');
+        const card = e.target.closest('.santis-rail-card');
         if (!card) return;
         if (btn) {
             e.preventDefault();

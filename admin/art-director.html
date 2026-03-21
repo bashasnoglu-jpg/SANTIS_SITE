@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <meta charset="utf-8">
+    <title>Sovereign Art Director - Observability Panel</title>
+    <style>
+        body { background: #050505; color: #fff; font-family: 'Inter', system-ui, sans-serif; margin: 0; padding: 2.5rem; }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+        .card { background: #111; padding: 1.5rem; border: 1px solid rgba(212,175,55,0.2); border-radius: 8px; position: relative; overflow: hidden; }
+        .card::before { content: ""; position: absolute; top:0; left:0; width: 4px; height: 100%; background: #D4AF37; }
+        .kicker { font-size: 0.7rem; color: #D4AF37; letter-spacing: 0.2rem; text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
+        .value { font-size: 2.5rem; font-weight: 300; margin: 0; font-family: 'Cinzel', serif; }
+        .panel { background: #111; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; }
+        .feed-item { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .feed-item:last-child { border-bottom: none; }
+        .status-accepted { color: #4ade80; font-weight: bold; font-size: 0.75rem; letter-spacing: 0.1em; }
+        .status-rejected { color: #f87171; font-weight: bold; font-size: 0.75rem; letter-spacing: 0.1em; }
+        .main-layout { display: grid; grid-template-columns: 2fr 1.2fr; gap: 2rem; }
+        
+        /* Custom Scrollbar for Feed */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header style="margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">
+        <div>
+            <span class="kicker" style="color:#888;">PHASE 43: Autonomous Aesthetics</span>
+            <h1 style="margin: 0; font-family: 'Cinzel', serif; font-size: 2.5rem; color: #D4AF37; font-weight: 400;">SANTIS ART DIRECTOR</h1>
+        </div>
+        <div style="text-align: right; display: flex; align-items: center; gap: 10px;">
+            <div style="width: 8px; height: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 10px #4ade80;"></div>
+            <span style="color: #4ade80; font-family: monospace; font-size: 0.85rem; letter-spacing: 0.1em;">LIVE PIPELINE ACTIVE</span>
+        </div>
+    </header>
+
+    <div class="grid" id="kpi-grid">
+        <!-- Rendered via JS -->
+    </div>
+
+    <div class="main-layout">
+        <div class="panel" style="display: flex; flex-direction: column;">
+            <span class="kicker">Aesthetic Score Radar (Gemini 2.5 Pro)</span>
+            <div id="scoreRadar" style="flex-grow: 1; min-height: 480px; margin-top: 1rem;"></div>
+        </div>
+        <div class="panel" style="display: flex; flex-direction: column;">
+            <span class="kicker">Live Pipeline Feed</span>
+            <div id="liveFeed" style="margin-top: 1rem; flex-grow: 1; overflow-y: auto; max-height: 480px;">
+                <!-- Rendered via JS -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="grid" style="margin-top: 2rem; grid-template-columns: 1fr 1fr 1fr;">
+        <div class="panel">
+            <span class="kicker" style="color: #f87171;">Reject Analytics / Style Drift</span>
+            <div id="rejectAnalytics" style="margin-top:1.5rem; color:#888;"></div>
+        </div>
+        <div class="panel">
+            <span class="kicker" style="color: #60a5fa;">Top Performers (Style Memory)</span>
+            <div id="topPerformers" style="margin-top:1.5rem; color:#888;"></div>
+        </div>
+         <div class="panel">
+            <span class="kicker" style="color: #4ade80;">User Impact Validation</span>
+            <div id="userImpact" style="margin-top:1.5rem; color:#888;"></div>
+        </div>
+    </div>
+
+    <script type="module" src="/admin/modules/art-director-ui.js" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
+</body>
+</html>

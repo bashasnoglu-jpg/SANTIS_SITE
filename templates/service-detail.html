@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="{{lang}}">
 <head>
@@ -33,7 +33,7 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Ana Sayfa",
-      "item": "https://santisclub.com/tr/index.html"
+      "item": "https://santisclub.com/"
     },
     {
       "@type": "ListItem",
@@ -54,12 +54,12 @@
 <link rel="manifest" href="/manifest.json">
 </head>
 <body>
-<header id="nv-header">
-<div class="nv-container">
+<header id="santis-header">
+<div class="santis-container">
 <h1>{{title}}</h1>
 </div>
 </header>
-<main class="service-detail nv-container">
+<main class="service-detail santis-container">
 <section class="service-intro">
 <p>{{intro_paragraph}}</p>
 </section>
@@ -81,20 +81,23 @@
 <section class="related-services">
 <h2>{{header_related}}</h2>
 <ul>
-<li><a href="/tr/masajlar/klasik-rahatlama.html">Klasik Masaj</a></li>
-<li><a href="/tr/hamam/kese-kopuk.html">Hamam Kese &amp; Köpük</a></li>
-<li><a href="/tr/cilt-bakimi/deep-cleanse.html">Cilt Bakımı</a></li>
+<li><a href="/masajlar/klasik-rahatlama.html">Klasik Masaj</a></li>
+<li><a href="/hamam/kese-kopuk.html">Hamam Kese &amp; Köpük</a></li>
+<li><a href="/cilt-bakimi/deep-cleanse.html">Cilt Bakımı</a></li>
 </ul>
 </section>
 <section class="booking-cta">
-<a class="btn-primary" href="/tr/rezervasyon/index.html">Rezervasyon Yap</a>
+<a class="btn-primary" href="/rezervasyon/index.html">Rezervasyon Yap</a>
 </section>
 </main>
 <footer>
 <p>© 2026 Santis Club</p>
 </footer>
 <!-- Scripts -->
-<script type="module" src="/assets/js/core/santis-core.js"></script>
+<script type="module" src="/assets/js/core/santis-core.js" defer></script>
     <script defer="" src="/assets/js/app.js"></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>

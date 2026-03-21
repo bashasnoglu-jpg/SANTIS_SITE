@@ -119,7 +119,7 @@
             console.warn(`🦅 [Omni-Router] Zombi dil rotası tespit edildi: ${path}. Sovereign Merkeze (/tr/) tahliye ediliyor...`);
             
             // Kullanıcıyı sarsmadan (sessiz lüks) ana dile yönlendir
-            window.location.replace('/tr/index.html?ref=omni-router');
+            window.location.replace('/?ref=omni-router');
         } else {
             // Dil rotası değilse, standart 404 Sovereign tasarımını göster
             console.log("🛑 [Omni-Router] Standart 404. Sistem UI yükleniyor.");
@@ -128,5 +128,8 @@
     })();
 </script>
 </div>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>

@@ -21,7 +21,7 @@ const SantisBoutiqueInfection = (() => {
     'use strict';
 
     // ── SELECTORS ──
-    const CARD_SELECTOR = '.boutique-item, .product-card, .santis-store-item, .wc-block-grid__product, .urun-karti, .product, .nv-matrix-card, .matrix-service-card, .santis-card';
+    const CARD_SELECTOR = '.boutique-item, .product-card, .santis-store-item, .wc-block-grid__product, .urun-karti, .product, .santis-matrix-card, .matrix-service-card, .santis-card';
     const BTN_SELECTOR = '.add-to-cart-btn, .single_add_to_cart_button, .boutique-buy-btn, .ajax_add_to_cart, .sepete-ekle, .buy-btn, .btn-rezervasyon';
 
     let audioCtx = null;

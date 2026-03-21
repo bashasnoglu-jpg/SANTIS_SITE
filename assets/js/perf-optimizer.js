@@ -112,9 +112,9 @@ const PERF_OPTIMIZER = {
 
         // Define predictive map
         const intentMap = {
-            '/tr/hamam/': '/tr/vip-suite.html', // Changed from /tr/vip-suite/ to .html based on file structure
-            '/tr/masajlar/': '/tr/masajlar/derin-doku-masaji.html',
-            '/tr/cilt-bakimi/': '/tr/cilt-bakimi/sothys-hydra.html'
+            '/hamam.html': "/vip-suite.html", // Changed from /tr/vip-suite/ to .html based on file structure
+            '/masaj.html': '/masaj.htmlderin-doku-masaji.html',
+            '/cilt-bakimi.html': '/cilt-bakimi.htmlsothys-hydra.html'
         };
 
         const internalLinks = document.querySelectorAll('a[href^="/"], a[href^="./"], a[href^="../"]');

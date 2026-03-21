@@ -94,13 +94,55 @@ class SantisVoice {
 
 
 
+    // Sentient Guide / Zen Mode
+    triggerZenMode() {
+        const msg = "Biraz kararsız kaldığınızı seziyorum. Size Zen VIP ritüellerimiz hakkında sesli bilgi vermemi ister misiniz?";
+        
+        // 1. Otonom "Sıvı Metal" Parlaması (Soul Engine Flare)
+        console.log("✨ [Aurelia AI] Sıvı Metal Rezonansı Aktif.");
+        const oldGlow = document.documentElement.style.getPropertyValue('--soul-breath-intensity');
+        document.documentElement.style.setProperty('--soul-breath-intensity', '0.1s'); // Extremely fast pulse
+        document.body.style.boxShadow = "inset 0 0 150px rgba(212,175,55,0.15)";
+        document.body.style.transition = "box-shadow 2s ease, --soul-breath-intensity 2s ease";
+        
+        setTimeout(() => {
+            document.documentElement.style.setProperty('--soul-breath-intensity', oldGlow || '6s');
+            document.body.style.boxShadow = "none";
+        }, 4000);
+
+        // Dispatch visual UI text anyway
+        const e = new CustomEvent('santis:aurelia-text-nudge', { detail: { text: msg } });
+        window.dispatchEvent(e);
+
+        if (!this.active || !this.synth) {
+            console.log("🎙️ [Voice] Sessiz mod: Aurelia UI görsel olarak uyarıldı.");
+            return;
+        }
+
+        // Shift config to Zen mode
+        const originalConfig = { ...this.config };
+        this.setTuning({ pitch: 0.8, rate: 0.75, volume: 0.8 });
+        
+        this.speak(msg);
+        
+        // Autonomously open Reservation modal after speech starts
+        setTimeout(() => {
+            if (typeof window.openReservationModal === 'function') {
+                window.openReservationModal('Sovereign Zen Therapy');
+            }
+        }, 3000);
+
+        // Restore config
+        setTimeout(() => this.setTuning(originalConfig), 8000);
+    }
+
     // Interaction Bindings
 
     bindHoverEffects() {
 
         // Trend Cards
 
-        document.querySelectorAll('.nv-trend-card').forEach(card => {
+        document.querySelectorAll('.santis-trend-card').forEach(card => {
 
             card.addEventListener('mouseenter', () => {
 

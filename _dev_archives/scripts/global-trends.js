@@ -21,7 +21,7 @@ async function initGlobalTrends() {
     }
 
     // GUARD: If static cards already exist (from build template), preserve them
-    const existingCards = container.querySelectorAll('.nv-trend-card');
+    const existingCards = container.querySelectorAll('.santis-trend-card');
     if (existingCards.length > 0) {
         console.log(`✅ [Global Trends] ${existingCards.length} static cards found. Preserving HTML template.`);
         return;
@@ -54,14 +54,14 @@ async function initGlobalTrends() {
 
         // 3. Trigger Animations (if ScrollReveal or similar is used)
         if (window.ScrollReveal) {
-            window.ScrollReveal().reveal('.nv-trend-card', { interval: 100 });
+            window.ScrollReveal().reveal('.santis-trend-card', { interval: 100 });
         }
 
     } catch (error) {
         console.error("❌ [Global Trends] Error:", error);
         // Don't destroy existing content on error
         if (container.children.length === 0) {
-            container.innerHTML = '<div class="nv-error">Trend verileri yüklenemedi.</div>';
+            container.innerHTML = '<div class="santis-error">Trend verileri yüklenemedi.</div>';
         }
     }
 }
@@ -99,7 +99,7 @@ function createTrendCard(trend, index) {
     // No wrappers, no noise. Just Content + Physics.
 
     const a = document.createElement('a');
-    a.className = `nv-trend-card world-${trend.dimension || 'standard'}`;
+    a.className = `santis-trend-card world-${trend.dimension || 'standard'}`;
     a.href = trend.link || '#';
     a.setAttribute('aria-label', `View Trend: ${trend.title}`);
 
@@ -124,10 +124,10 @@ function createTrendCard(trend, index) {
     // MEDIA LAYER (Matte Finish)
     let mediaHtml = '';
     if (trend.isVideo) {
-        mediaHtml = `<video class="nv-trend-bg" src="${trend.image}" autoplay loop muted playsinline poster="/assets/img/poster_trend.webp" 
+        mediaHtml = `<video class="santis-trend-bg" src="${trend.image}" autoplay loop muted playsinline poster="/assets/img/poster_trend.webp" 
         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.75; filter: brightness(0.7) saturate(0.8); pointer-events: none;"></video>`;
     } else {
-        mediaHtml = `<div class="nv-trend-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('${trend.image}'); background-size: cover; background-position: center; opacity: 0.75; filter: brightness(0.7) saturate(0.8); pointer-events: none;"></div>`;
+        mediaHtml = `<div class="santis-trend-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('${trend.image}'); background-size: cover; background-position: center; opacity: 0.75; filter: brightness(0.7) saturate(0.8); pointer-events: none;"></div>`;
     }
 
     // BADGE (Modern Pill)
@@ -143,7 +143,7 @@ function createTrendCard(trend, index) {
         ${mediaHtml}
         
         <!-- CONTENT LAYER (Minimalist) -->
-        <div class="nv-trend-content" style="
+        <div class="santis-trend-content" style="
             position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px;
             background: linear-gradient(to top, rgba(11,13,15,0.95), transparent);
             pointer-events: none;
@@ -170,15 +170,15 @@ function createTrendCard(trend, index) {
     a.addEventListener('mouseenter', () => {
         a.style.transform = 'translateY(-8px)';
         a.style.boxShadow = '0 30px 60px -10px rgba(0,0,0,0.5)';
-        a.querySelector('.nv-trend-bg').style.opacity = '0.9';
-        a.querySelector('.nv-trend-bg').style.filter = 'brightness(0.8) saturate(1)';
+        a.querySelector('.santis-trend-bg').style.opacity = '0.9';
+        a.querySelector('.santis-trend-bg').style.filter = 'brightness(0.8) saturate(1)';
     });
 
     a.addEventListener('mouseleave', () => {
         a.style.transform = 'translateY(0)';
         a.style.boxShadow = 'none';
-        a.querySelector('.nv-trend-bg').style.opacity = '0.75';
-        a.querySelector('.nv-trend-bg').style.filter = 'brightness(0.7) saturate(0.8)';
+        a.querySelector('.santis-trend-bg').style.opacity = '0.75';
+        a.querySelector('.santis-trend-bg').style.filter = 'brightness(0.7) saturate(0.8)';
     });
 
     // Tilt Hook

@@ -7,7 +7,7 @@
 class SovereignNeuroTracker {
     constructor() {
         this.config = {
-            ctaSelector: '.nv-btn-checkout, .santis-cta, [data-price], .nv-card-tarot, .ritual-card',
+            ctaSelector: '.santis-btn-checkout, .santis-cta, [data-price], .santis-card-tarot, .ritual-card',
             triggerRadius: 150,
             maxDwellTime: 2000,
             velocityThreshold: 0.12, // Jitter filtreleme için artırıldı
@@ -96,7 +96,7 @@ class SovereignNeuroTracker {
     }
 
     analyzeHoverIntent(e) {
-        const targetCard = e.target.closest('.bento-card, .matrix-asset-card, .nv-card-tarot, .ritual-card');
+        const targetCard = e.target.closest('.bento-card, .matrix-asset-card, .santis-card-tarot, .ritual-card');
 
         if (this.currentTarget !== targetCard) {
             clearTimeout(this.hoverTimer);

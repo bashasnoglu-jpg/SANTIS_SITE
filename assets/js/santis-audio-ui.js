@@ -49,14 +49,14 @@ class SantisAudio {
         // 1. CLICK (Stone Thud)
         // Delegate to capture all buttons/links
         document.addEventListener('click', (e) => {
-            if (e.target.closest('a, button, .nv-btn, .nv-card')) {
+            if (e.target.closest('a, button, .santis-btn, .santis-card')) {
                 this.playStoneClick();
             }
         });
 
         // 2. HOVER (Silk Slide)
         // Use capture phase for performance on specific targets
-        const targets = document.querySelectorAll('.nv-btn, .nv-card, .nv-trend-card, .product-card');
+        const targets = document.querySelectorAll('.santis-btn, .santis-card, .santis-trend-card, .product-card');
         targets.forEach(el => {
             el.addEventListener('mouseenter', () => this.playSilkHover());
         });

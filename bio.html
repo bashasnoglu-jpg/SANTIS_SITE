@@ -17,7 +17,7 @@
            SANTIS LINKTREE KILLER 
            (Ultra Minimal & Quiet Luxury)
            ================================ */
-        body.nv-bio-body {
+        body.santis-bio-body {
             background-color: #0a0a0a;
             color: #dcdcdc;
             font-family: 'Inter', 'Helvetica Neue', sans-serif;
@@ -186,7 +186,7 @@
 <meta name="theme-color" content="#000000">
 <link rel="manifest" href="/manifest.json">
 </head>
-<body class="nv-bio-body">
+<body class="santis-bio-body">
     <!-- Liquid Background Minimal -->
     <div class="bio-background" id="canvas-container"></div>
 
@@ -218,7 +218,7 @@
     </main>
 
     <!-- Bio Logic & Meta Pixel Trigger Engine -->
-    <script src="assets/js/santis-pixel-engine.js"></script>
+    <script src="assets/js/santis-pixel-engine.js" defer></script>
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -303,5 +303,8 @@
         // Boot
         document.addEventListener('DOMContentLoaded', initBioMatrix);
     </script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>

@@ -5,7 +5,7 @@
    ═══════════════════════════════════════════════════════════ */
 
 /* ── CHIP BAR ── */
-.nv-chips {
+.santis-chips {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -32,7 +32,7 @@
 }
 
 /* ── BASE CHIP ── */
-.nv-chip {
+.santis-chip {
     padding: 10px 22px;
     pointer-events: auto;
 
@@ -64,7 +64,7 @@
 }
 
 /* Inner shimmer layer */
-.nv-chip::before {
+.santis-chip::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -79,7 +79,7 @@
 }
 
 /* ── HOVER STATE ── */
-.nv-chip:hover {
+.santis-chip:hover {
     color: rgba(235, 228, 218, 0.85);
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(212, 175, 55, 0.2);
@@ -88,12 +88,12 @@
         0 0 0 1px rgba(212, 175, 55, 0.05);
 }
 
-.nv-chip:hover::before {
+.santis-chip:hover::before {
     opacity: 1;
 }
 
 /* ── ACTIVE / SELECTED STATE ── */
-.nv-chip.is-active {
+.santis-chip.is-active {
     /* Gold glass gradient */
     background: linear-gradient(135deg,
             rgba(212, 175, 55, 0.14) 0%,
@@ -112,7 +112,7 @@
         inset 0 -1px 0 rgba(212, 175, 55, 0.05);
 }
 
-.nv-chip.is-active::before {
+.santis-chip.is-active::before {
     opacity: 1;
     background: linear-gradient(135deg,
             rgba(212, 175, 55, 0.08) 0%,
@@ -121,7 +121,7 @@
 }
 
 /* Active press feedback */
-.nv-chip:active {
+.santis-chip:active {
     transform: scale(0.97);
     transition-duration: 0.1s;
 }
@@ -130,12 +130,12 @@
    FEATURED SERVICE HIGHLIGHT
    ═══════════════════════════════════════════════════════════ */
 
-.nv-featured-highlight {
+.santis-featured-highlight {
     margin-bottom: 3rem;
     padding: 0 1rem;
 }
 
-.nv-featured-kicker {
+.santis-featured-kicker {
     display: block;
     text-align: center;
     margin-bottom: 1.2rem;
@@ -144,7 +144,7 @@
     letter-spacing: 3px;
 }
 
-.nv-featured-card {
+.santis-featured-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -166,18 +166,18 @@
     transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.nv-featured-card:hover {
+.santis-featured-card:hover {
     border-color: rgba(212, 175, 55, 0.3);
     box-shadow:
         0 0 60px rgba(212, 175, 55, 0.06),
         0 12px 48px rgba(0, 0, 0, 0.25);
 }
 
-.nv-featured-body {
+.santis-featured-body {
     flex: 1;
 }
 
-.nv-featured-title {
+.santis-featured-title {
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
     font-weight: 500;
@@ -186,7 +186,7 @@
     letter-spacing: 1px;
 }
 
-.nv-featured-desc {
+.santis-featured-desc {
     color: rgba(200, 195, 188, 0.7);
     font-size: 0.9rem;
     line-height: 1.6;
@@ -194,14 +194,14 @@
     max-width: 500px;
 }
 
-.nv-featured-meta {
+.santis-featured-meta {
     font-family: 'Inter', sans-serif;
     font-size: 0.8rem;
     color: rgba(212, 175, 55, 0.6);
     letter-spacing: 1px;
 }
 
-.nv-featured-cta {
+.santis-featured-cta {
     flex-shrink: 0;
     padding: 14px 32px;
     font-size: 0.85rem;
@@ -210,18 +210,18 @@
 }
 
 @media (max-width: 768px) {
-    .nv-featured-card {
+    .santis-featured-card {
         flex-direction: column;
         text-align: center;
         padding: 1.5rem;
         gap: 1.2rem;
     }
 
-    .nv-featured-desc {
+    .santis-featured-desc {
         max-width: 100%;
     }
 
-    .nv-featured-cta {
+    .santis-featured-cta {
         width: 100%;
     }
 }
@@ -230,7 +230,7 @@
    CATEGORY SECTIONS — EDITORIAL LAYOUT
    ═══════════════════════════════════════════════════════════ */
 
-.nv-massage-category {
+.santis-massage-category {
     margin-bottom: 4rem;
     padding-top: 1.5rem;
     scroll-margin-top: 140px;
@@ -249,7 +249,7 @@
     }
 }
 
-.nv-cat-header {
+.santis-cat-header {
     display: flex;
     align-items: center;
     gap: 18px;
@@ -260,7 +260,7 @@
 }
 
 /* Gold accent line */
-.nv-cat-header::after {
+.santis-cat-header::after {
     content: '';
     position: absolute;
     bottom: -1px;
@@ -271,14 +271,14 @@
     border-radius: 1px;
 }
 
-.nv-cat-icon {
+.santis-cat-icon {
     font-size: 1.6rem;
     line-height: 1;
     filter: grayscale(20%) brightness(0.95);
     opacity: 0.85;
 }
 
-.nv-cat-title {
+.santis-cat-title {
     font-family: 'Playfair Display', serif;
     font-size: 1.4rem;
     font-weight: 500;
@@ -288,7 +288,7 @@
     text-transform: uppercase;
 }
 
-.nv-cat-tagline {
+.santis-cat-tagline {
     font-family: 'Inter', sans-serif;
     font-size: 0.78rem;
     color: rgba(212, 175, 55, 0.5);
@@ -298,7 +298,7 @@
     font-weight: 300;
 }
 
-.nv-cat-grid {
+.santis-cat-grid {
     display: grid !important;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
@@ -314,13 +314,13 @@
     align-items: start;
 }
 
-.santis-matrix-container[data-layout="grid"] .nv-matrix-card {
+.santis-matrix-container[data-layout="grid"] .santis-matrix-card {
     aspect-ratio: 3 / 4;
     min-height: 380px;
 }
 
 /* ── CANVAS Z-INDEX FIX: İçerik katmanları her zaman canvas üstünde ── */
-#nv-main,
+#santis-main,
 main,
 .santis-matrix-container {
     position: relative;
@@ -328,7 +328,7 @@ main,
 }
 
 /* Hero adjustment */
-.nv-hero-card {
+.santis-hero-card {
     /* 50vh zorlaması kaldırıldı — kartlar kendi içerik yüksekliklerine döner */
     min-height: unset;
 }
@@ -453,7 +453,7 @@ section.related-services {
 
 /* ═══ MOBILE RESPONSIVE ═══ */
 @media (max-width: 768px) {
-    .nv-chips {
+    .santis-chips {
         gap: 6px;
         top: 58px;
         padding: 12px 16px;
@@ -464,44 +464,44 @@ section.related-services {
         justify-content: flex-start;
     }
 
-    .nv-chips::-webkit-scrollbar {
+    .santis-chips::-webkit-scrollbar {
         display: none;
         /* WebKit/Blink standard */
     }
 
     /* Modern scrollbar hide (Firefox) */
     @supports (scrollbar-width: none) {
-        .nv-chips {
+        .santis-chips {
             scrollbar-width: none;
         }
     }
 
-    .nv-chip {
+    .santis-chip {
         font-size: 9.5px;
         padding: 9px 16px;
         letter-spacing: 2px;
         flex-shrink: 0;
     }
 
-    .nv-cat-title {
+    .santis-cat-title {
         font-size: 1.15rem;
         letter-spacing: 1.5px;
     }
 
-    .nv-cat-icon {
+    .santis-cat-icon {
         font-size: 1.3rem;
     }
 
-    .nv-cat-tagline {
+    .santis-cat-tagline {
         font-size: 0.72rem;
     }
 
-    .nv-cat-grid {
+    .santis-cat-grid {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 1rem;
     }
 
-    .nv-massage-category {
+    .santis-massage-category {
         margin-bottom: 3rem;
     }
 

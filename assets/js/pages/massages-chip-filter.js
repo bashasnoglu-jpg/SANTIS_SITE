@@ -5,7 +5,7 @@
         var chipBar = document.getElementById("nvChips");
         if (!chipBar) return;
 
-        var sections = document.querySelectorAll(".nv-massage-category, .rail-section, [data-category]");
+        var sections = document.querySelectorAll(".santis-massage-category, .rail-section, [data-category]");
 
         if (!sections.length) {
             console.warn("[ChipFilter] Sections not ready yet.");
@@ -20,7 +20,7 @@
         console.log("[ChipFilter] Bound to", sections.length, "sections.");
 
         chipBar.addEventListener("click", function (event) {
-            var chip = event.target.closest(".nv-chip");
+            var chip = event.target.closest(".santis-chip");
             if (!chip) {
                 return;
             }
@@ -30,13 +30,13 @@
                 return;
             }
 
-            var allChips = chipBar.querySelectorAll(".nv-chip");
+            var allChips = chipBar.querySelectorAll(".santis-chip");
             for (var i = 0; i < allChips.length; i += 1) {
                 allChips[i].classList.remove("is-active");
             }
             chip.classList.add("is-active");
 
-            var freshSections = document.querySelectorAll(".nv-massage-category, .rail-section, [data-category]");
+            var freshSections = document.querySelectorAll(".santis-massage-category, .rail-section, [data-category]");
             for (var j = 0; j < freshSections.length; j += 1) {
                 var section = freshSections[j];
                 if (catId === "all") {
@@ -54,7 +54,7 @@
         var qs = new URLSearchParams(window.location.search);
         var autoFilter = qs.get("filter");
         if (autoFilter) {
-            var targetChip = chipBar.querySelector(".nv-chip[data-target='" + autoFilter + "']");
+            var targetChip = chipBar.querySelector(".santis-chip[data-target='" + autoFilter + "']");
             if (targetChip) {
                 // Simulate a click on the target chip to activate it
                 targetChip.click();

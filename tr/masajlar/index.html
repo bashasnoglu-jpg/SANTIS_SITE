@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr" dir="ltr">
 <head>
     <meta charset="utf-8">
@@ -28,6 +28,8 @@
 
 <meta name="theme-color" content="#000000">
 <link rel="manifest" href="/manifest.json">
+<!-- SOVEREIGN ZERO-JANK VIEW TRANSITIONS -->
+<meta name="view-transition" content="same-origin">
 </head>
 
 <body class="solid-nav-page" data-page="massage">
@@ -46,23 +48,21 @@
 <div id="footer-container"></div>
 
 <!-- CORE SCRIPTS -->
-<script src="/assets/js/loader.js"></script>
-<script src="/assets/js/santis-nav.js"></script>
 <script src="/assets/js/santis-data-bridge.js" defer></script>
 <script type="module" src="/assets/js/core/santis-core.js"></script>
-    <script src="/assets/js/app.js" defer></script>
-<script src="/assets/js/core/santis-momentum.js" defer></script>
+<script src="/assets/js/app.js" defer></script>
 <script src="/assets/js/core/bento-orchestrator.js" defer></script>
 
 <!-- SOVEREIGN OS BOOTLOADER (V18 KERNEL) -->
-<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V18_APEX_RESURRECTION"></script>
-
+<script src="/assets/js/core/view-transition-handler.js" defer></script>
 <!-- MOOD ENGINE V1.0 — Smart Funnel -->
 <script src="/assets/js/ui/santis-mood-engine.js" defer></script>
 
 <!-- SOVEREIGN COMMAND V1.0 — Realtime Control Receiver -->
 <script src="/assets/js/sovereign-command.js" defer></script>
 
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
-

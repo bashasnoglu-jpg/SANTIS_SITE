@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <meta charset="UTF-8">
     <meta name="description" content="Santis Master OS - Control Center — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +17,17 @@
 
 <meta name="theme-color" content="#000000">
 <link rel="manifest" href="/manifest.json">
+    <script type="module" src="/admin/assets/js/santis-core.js" defer></script>
+
+    <!-- ⚡ SOVEREIGN CORE MODULES (Phase 54-61) -->
+    <!-- Loaded here so window.GovernanceEngine, PhygitalBridge, VocalDNA etc. are available in console -->
+    <script type="module" src="/assets/js/core/santis-quantum-shield.js" defer></script>
+    <script type="module" src="/assets/js/core/santis-self-healing-agent.js" defer></script>
+    <script type="module" src="/assets/js/core/santis-semantic-engine.js" defer></script>
+    <script type="module" src="/assets/js/core/santis-governance-engine.js" defer></script>
+    <script type="module" src="/assets/js/core/santis-phygital-bridge.js" defer></script>
+    <script type="module" src="/assets/js/core/santis-edge-pipeline.js" defer></script>
+    <script type="module" src="/assets/js/core/santis-vocal-dna.js" defer></script>
 </head>
 <body class="bg-gray-900 text-gray-200 font-sans antialiased relative">
     <!-- MATRIX CANVAS (Hidden until activated) -->
@@ -28,7 +44,7 @@
             
             <div class="flex-1 overflow-y-auto custom-scroll flex flex-col">
                 <nav id="standard-nav" class="p-4 space-y-2 transition-all duration-500 shrink-0">
-                    <a href="/index.html" class="block px-4 py-2 rounded-lg bg-gray-800 text-amber-500 font-medium border border-transparent shadow-sm">❖ Dashboard</a>
+                    <a href="/" class="block px-4 py-2 rounded-lg bg-gray-800 text-amber-500 font-medium border border-transparent shadow-sm">❖ Dashboard</a>
                     
                     <!-- THE ORIGINAL GOD MODE LINK -->
                     <a href="/admin/god-mode.html" class="block px-4 py-3 rounded-lg bg-gradient-to-r from-amber-900/40 to-black border border-amber-500/50 text-amber-400 hover:from-amber-800/60 hover:text-amber-300 transition-all font-bold shadow-[0_0_15px_rgba(245,158,11,0.2)] flex justify-between items-center group">
@@ -54,6 +70,15 @@
                         <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse group-hover:bg-blue-400"></span>
                     </a>
 
+                    <!-- V42 SOVEREIGN CONTROL PLANE -->
+                    <a href="/admin/sovereign-control-plane.html" target="_blank" class="block mt-2 px-4 py-3 rounded-lg bg-gradient-to-r from-red-900/40 to-black border border-red-500/50 text-red-400 hover:from-red-800/60 hover:text-red-300 transition-all font-bold shadow-[0_0_15px_rgba(239,68,68,0.2)] flex justify-between items-center group">
+                        <span class="flex items-center gap-2">
+                            <span class="text-lg">🎛️</span>
+                            <span>Sovereign Control Plane <span class="text-[10px] font-normal opacity-70 ml-1">V42 Live</span></span>
+                        </span>
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse group-hover:bg-red-400"></span>
+                    </a>
+
                     <!-- THE NEW HQ DASHBOARD LINK -->
                     <a href="/hq-dashboard" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-cyan-400 font-medium transition mt-2 border border-cyan-500/30 bg-cyan-950/20">
                         ⎈ HQ Dashboard (React)
@@ -67,6 +92,62 @@
                         <span class="flex items-center gap-2"><span>🦾</span> The Black Room</span>
                         <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
                     </a>
+                    <a href="/admin/resilience-simulator.html" target="_blank" class="block mt-2 px-4 py-3 rounded-lg bg-gradient-to-r from-teal-900/40 to-black border border-teal-500/50 text-teal-400 hover:from-teal-800/60 hover:text-teal-300 transition-all font-bold shadow-[0_0_15px_rgba(20,184,166,0.2)] flex justify-between items-center group">
+                        <span class="flex items-center gap-2"><span class="text-lg">🛡️</span> Resilience Simulator</span>
+                        <span class="w-2 h-2 rounded-full bg-teal-500 animate-pulse group-hover:bg-teal-400"></span>
+                    </a>
+                    <a href="/admin/semantic-simulator.html" target="_blank" class="block mt-2 px-4 py-3 rounded-lg bg-gradient-to-r from-purple-900/40 to-black border border-purple-500/50 text-purple-400 hover:from-purple-800/60 hover:text-purple-300 transition-all font-bold shadow-[0_0_15px_rgba(168,85,247,0.2)] flex justify-between items-center group">
+                        <span class="flex items-center gap-2"><span class="text-lg">🌌</span> Semantic Quantum NLP</span>
+                        <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse group-hover:bg-purple-400"></span>
+                    </a>
+                    <!-- Phase 58: Governance Engine Live Monitor -->
+                    <div id="governance-trust-panel" class="mt-2 px-3 py-3 rounded-lg border border-yellow-900/40 bg-yellow-950/10 text-yellow-600 text-[10px] font-mono space-y-1">
+                        <p class="text-[9px] tracking-widest text-yellow-700 uppercase mb-2">⚖️ TrustScore Matrix</p>
+                        <div class="flex justify-between"><span>Phantom Concierge</span><span id="ts-phantom">—</span></div>
+                        <div class="flex justify-between"><span>Quantum Shield</span><span id="ts-shield">—</span></div>
+                        <div class="flex justify-between"><span>Self-Healing Swarm</span><span id="ts-swarm">—</span></div>
+                        <div class="flex justify-between"><span>Semantic Engine</span><span id="ts-semantic">—</span></div>
+                    </div>
+                    <!-- Phase 59: Phygital Bridge Ghost Override Control -->
+                    <div class="mt-2 px-3 py-3 rounded-lg border border-red-900/40 bg-red-950/10 font-mono space-y-2">
+                        <p class="text-[9px] tracking-widest text-red-700 uppercase mb-2">🌐 IoT Digital Twins</p>
+                        <div id="twin-status-list" class="space-y-1 text-[10px] text-gray-500">
+                            <div class="flex justify-between"><span>Hamam Kilit</span><span id="twin-smart_lock_hamam" class="text-green-600">—</span></div>
+                            <div class="flex justify-between"><span>Sauna Termostat</span><span id="twin-sauna_thermostat" class="text-green-600">—</span></div>
+                            <div class="flex justify-between"><span>Ortam Işık</span><span id="twin-ambient_lighting" class="text-green-600">—</span></div>
+                        </div>
+                        <button id="btn-ghost-override"
+                            onclick="window.PhygitalBridge && window.PhygitalBridge.activateGhostOverride('ADMIN'); this.classList.add('opacity-50');"
+                            class="w-full text-left text-[10px] px-2 py-1.5 rounded border border-red-700/50 text-red-500 hover:text-red-400 hover:border-red-600 bg-red-950/20 font-mono transition mt-1">
+                            👻 GHOST OVERRIDE ON
+                        </button>
+                        <button id="btn-ghost-clear"
+                            onclick="window.PhygitalBridge && window.PhygitalBridge.deactivateGhostOverride('ADMIN'); document.getElementById('btn-ghost-override').classList.remove('opacity-50');"
+                            class="w-full text-left text-[10px] px-2 py-1.5 rounded border border-gray-700 text-gray-500 hover:text-gray-300 hover:border-gray-500 font-mono transition">
+                            🕊️ OVERRIDE DEACTIVATE
+                        </button>
+                    </div>
+                    <!-- Phase 61: Vocal DNA Panel -->
+                    <div class="mt-2 px-3 py-3 rounded-lg border border-blue-900/40 bg-blue-950/10 font-mono space-y-2">
+                        <p class="text-[9px] tracking-widest text-blue-700 uppercase mb-1">🎙️ Vocal DNA</p>
+                        <div class="text-[10px] text-gray-500 space-y-1">
+                            <div class="flex justify-between"><span>Vault Kayıtları</span><span id="vocal-vault-size" class="text-blue-500">—</span></div>
+                            <div id="vocal-last-result" class="text-gray-600 truncate text-[9px]">Bekleniyor...</div>
+                        </div>
+                        <button onclick="window.VocalDNA && window.VocalDNA.grantConsent('admin'); document.getElementById('btn-vocal-listen').disabled=false;"
+                            class="w-full text-[10px] px-2 py-1.5 rounded border border-blue-700/50 text-blue-500 hover:text-blue-300 font-mono transition">
+                            ✅ Ses Onamı Ver
+                        </button>
+                        <button id="btn-vocal-listen" disabled
+                            onclick="window.VocalDNA && window.VocalDNA.startListening('admin');"
+                            class="w-full text-[10px] px-2 py-1.5 rounded border border-purple-700/50 text-purple-400 hover:text-purple-200 font-mono transition disabled:opacity-30">
+                            🎤 Dinlemeye Başla
+                        </button>
+                        <button onclick="if(confirm('Tüm biyometrik veriler geri döndürülemez şekilde silinecek!')) { window.VocalDNA && window.VocalDNA.nuclearErasure(); }"
+                            class="w-full text-[10px] px-2 py-1.5 rounded border border-red-900/50 text-red-700 hover:text-red-500 font-mono transition">
+                            ☢️ GDPR Erasure
+                        </button>
+                    </div>
                     <div class="pt-4 mt-4 border-t border-gray-800">
                         <p class="text-[10px] uppercase font-bold text-gray-600 tracking-wider mb-2 ml-1">Legacy Core Modules</p>
                     </div>
@@ -152,11 +233,12 @@
         </div>
 
         <!-- Main Content -->
-        <main class="flex-1 flex flex-col overflow-hidden">
-            <!-- Topbar -->
+        
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-hidden relative z-10 bg-gray-900">
             <header class="h-16 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-8">
                 <div class="flex items-center space-x-4">
-                    <span class="text-sm text-gray-400">Status: <span class="text-green-500 font-medium">● All Systems Nominal</span></span>
+                    <span class="text-sm text-gray-400">Status: <span id="global-status-badge"><span class="text-green-500 font-medium">● All Systems Nominal</span></span></span>
                 </div>
                 <div class="flex items-center space-x-4">
                     <button onclick="window.location.href='hotels.html'" class="text-sm bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-md transition text-white border border-gray-700">+ Add Hotel</button>
@@ -164,1186 +246,79 @@
                 </div>
             </header>
 
-            <!-- Dashboard Content -->
-            <div class="flex-1 overflow-y-auto p-8">
-                
-                <h2 class="text-2xl font-light text-white mb-6">Global Network Overview</h2>
-                
-                <!-- KPI Cards -->
-                <div class="grid grid-cols-4 gap-6 mb-8">
-                    <!-- Card 1 -->
-                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-amber-500 to-transparent opacity-10 rounded-bl-full"></div>
-                        <p class="text-sm text-gray-400 mb-1">Total Active Hotels</p>
-                        <h3 class="text-3xl font-semibold text-white" id="stat-hotels">18 <span class="text-sm font-normal text-gray-500">/ 20</span></h3>
-                    </div>
-                    <!-- Card 2 -->
-                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 relative overflow-hidden">
-                        <p class="text-sm text-gray-400 mb-1">Guests in Network</p>
-                        <h3 class="text-3xl font-semibold text-white" id="stat-guests">3,420</h3>
-                    </div>
-                    <!-- Card 3 -->
-                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 relative overflow-hidden">
-                        <p class="text-sm text-gray-400 mb-1">Bookings Today</p>
-                        <h3 class="text-3xl font-semibold text-green-400" id="stat-bookings">146 <span class="text-sm font-normal text-green-500/50">↑ 12%</span></h3>
-                    </div>
-                    <!-- Card 4 -->
-                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 relative overflow-hidden">
-                        <p class="text-sm text-gray-400 mb-1">Total Revenue Today</p>
-                        <h3 class="text-3xl font-semibold text-amber-500" id="stat-revenue">€18,450</h3>
-                    </div>
-                </div>
-
-                <!-- Matrix Section -->
-                <div class="grid grid-cols-3 gap-6">
-                    <!-- regional performance -->
-                    <div class="col-span-1 bg-gray-800 rounded-xl border border-gray-700 p-6">
-                        <h4 class="text-white font-medium mb-4">Regional Performance</h4>
-                        <div class="space-y-4">
-                            <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                                <div>
-                                    <p class="text-sm text-white">Antalya Region</p>
-                                    <p class="text-xs text-gray-500">14 Hotels</p>
-                                </div>
-                                <span class="text-amber-500 font-medium">€14,100</span>
-                            </div>
-                            <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                                <div>
-                                    <p class="text-sm text-white">Montenegro Region</p>
-                                    <p class="text-xs text-gray-500">4 Hotels</p>
-                                </div>
-                                <span class="text-amber-500 font-medium">€4,350</span>
-                            </div>
-                            
-                            <div class="mt-8">
-                                <h4 class="text-white font-medium mb-4">Top AI Campaigns</h4>
-                                <div class="space-y-3">
-                                    <div class="flex justify-between items-center bg-gray-900 p-3 rounded-lg border border-gray-700">
-                                        <span class="text-sm text-gray-300">Couple Romance Ritual</span>
-                                        <span class="text-xs text-green-400 font-medium">32 Conv.</span>
-                                    </div>
-                                    <div class="flex justify-between items-center bg-gray-900 p-3 rounded-lg border border-gray-700">
-                                        <span class="text-sm text-gray-300">Mom & Kids Relax</span>
-                                        <span class="text-xs text-green-400 font-medium">18 Conv.</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PHASE E: SANTIS INTELLIGENCE FEED -->
-                    <div class="col-span-2 mb-6">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="h-2 w-2 rounded-full bg-blue-500 animate-pulse"></div>
-                            <h3 class="text-lg font-semibold text-white tracking-widest uppercase text-sm">Santis Intelligence Feed <span class="text-blue-400 text-xs ml-2">Beta</span></h3>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <!-- 1. Prediction Radar -->
-                            <div class="bg-gray-800/80 rounded-xl border border-blue-900/50 p-5 relative overflow-hidden group hover:border-blue-500/50 transition-colors">
-                                <div class="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity">
-                                    <svg width="48" height="48" class="h-12 w-12 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                                </div>
-                                <h4 class="text-blue-400 text-xs font-bold uppercase tracking-wider mb-3">Prediction Radar</h4>
-                                <div id="intel-predict-content" class="text-gray-300 text-sm h-16 flex flex-col justify-center">
-                                    <div class="flex items-center gap-2 text-gray-500 animate-pulse">
-                                        <div class="h-1.5 w-1.5 bg-gray-600 rounded-full"></div>
-                                        <span>Scanning semantic edges...</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- 2. Surge Monitor -->
-                            <div class="bg-gray-800/80 rounded-xl border border-emerald-900/50 p-5 relative overflow-hidden group hover:border-emerald-500/50 transition-colors">
-                                <div class="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity">
-                                    <svg width="48" height="48" class="h-12 w-12 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                </div>
-                                <h4 class="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-3">Surge Monitor</h4>
-                                <div id="intel-surge-content" class="text-gray-300 text-sm h-16 flex flex-col justify-center">
-                                    <div class="flex items-center gap-2 text-gray-500 animate-pulse">
-                                        <div class="h-1.5 w-1.5 bg-gray-600 rounded-full"></div>
-                                        <span>Calculating demand curve...</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- 3. Graph Pulse -->
-                            <div class="bg-gray-800/80 rounded-xl border border-purple-900/50 p-5 relative overflow-hidden group hover:border-purple-500/50 transition-colors">
-                                <div class="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity">
-                                    <svg width="48" height="48" class="h-12 w-12 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-                                </div>
-                                <h4 class="text-purple-400 text-xs font-bold uppercase tracking-wider mb-3">Graph Pulse</h4>
-                                <div id="intel-graph-content" class="text-gray-300 text-sm h-16 flex flex-col justify-center">
-                                    <div class="flex items-center gap-2 text-gray-500 animate-pulse">
-                                        <div class="h-1.5 w-1.5 bg-gray-600 rounded-full"></div>
-                                        <span>Aggregating node relations...</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PHASE O + P: AI CONVERSION ENGINE -->
-                    <div class="col-span-3 bg-gray-800 rounded-xl border border-rose-900/40 p-6 mb-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center gap-3">
-                                <div class="h-2 w-2 rounded-full bg-rose-500 animate-pulse"></div>
-                                <h3 class="text-lg font-semibold text-white tracking-widest uppercase text-sm">AI Conversion Engine & Predictive Revenue</h3>
-                            </div>
-                            <button onclick="loadAnalyticsMetrics()" class="text-xs px-3 py-1 rounded border border-rose-700/50 text-rose-500 hover:bg-rose-900/20 font-mono transition">⟳ Sync Data</button>
-                        </div>
-                        <div class="grid grid-cols-3 gap-6">
-                            <div class="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
-                                <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Visual Intent Tracked (Heatmap)</p>
-                                <h4 class="text-2xl font-light text-rose-400" id="stat-heatmap">0 <span class="text-xs text-gray-600">points</span></h4>
-                            </div>
-                            <div class="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
-                                <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Flash Offers Converted</p>
-                                <h4 class="text-2xl font-light text-emerald-400" id="stat-conversions">0 <span class="text-xs text-gray-600">accepted</span></h4>
-                            </div>
-                            <div class="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
-                                <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Santis AI Gains (Yield Optimized)</p>
-                                <h4 class="text-2xl font-bold text-amber-500" id="stat-ai-gains">€0.00</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Live Bookings -->
-                    <div class="col-span-2 bg-gray-800 rounded-xl border border-gray-700 p-6">
-                        <div class="flex justify-between items-center mb-4">
-                            <h4 class="text-white font-medium">🔴 Live Booking Feed</h4>
-                            <span class="text-xs bg-gray-900 border border-gray-700 px-3 py-1 rounded-full text-green-400 animate-pulse">WSS Synced</span>
-                        </div>
-                        
-                        <div class="overflow-hidden">
-                            <table class="w-full text-left text-sm text-gray-400">
-                                <thead class="text-xs text-gray-500 uppercase bg-gray-900/50">
-                                    <tr>
-                                        <th class="px-4 py-3 rounded-tl-lg">Time</th>
-                                        <th class="px-4 py-3">Hotel (Scope)</th>
-                                        <th class="px-4 py-3">Guest Info</th>
-                                        <th class="px-4 py-3">Service</th>
-                                        <th class="px-4 py-3">Status</th>
-                                        <th class="px-4 py-3 rounded-tr-lg">Rev.</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="live-bookings-tbody">
-                                    <!-- Populated by JS -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PHASE G: SENTIENT GUEST CARD PANEL -->
-                <div class="mt-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="h-2 w-2 rounded-full bg-amber-500 animate-pulse"></div>
-                            <h3 class="text-sm font-semibold text-white tracking-widest uppercase">Sentient Guest Intelligence <span class="text-amber-500 text-xs ml-2">Phase G</span></h3>
-                        </div>
-                        <button onclick="loadVipRoster()" class="text-xs px-3 py-1.5 rounded border border-amber-700/50 text-amber-500 hover:bg-amber-900/20 hover:border-amber-500 font-mono transition">⟳ Refresh</button>
-                    </div>
-
-                    <div id="vip-roster-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                        <!-- Populated by JS -->
-                        <div class="col-span-3 text-center py-8 text-gray-600 text-sm font-mono animate-pulse">
-                            Scanning guest neural signatures...
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PHASE H: REVENUE INTELLIGENCE PANEL -->
-                <div class="mt-8" id="revenue-intelligence-panel">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
-                            <h3 class="text-sm font-semibold text-white tracking-widest uppercase">Revenue Intelligence <span class="text-green-500 text-xs ml-2">Phase H</span></h3>
-                        </div>
-                        <div class="flex gap-2">
-                            <button onclick="loadRevenueData()" class="text-xs px-3 py-1.5 rounded border border-green-800/50 text-green-600 hover:bg-green-900/20 hover:border-green-600 font-mono transition">⟳ Refresh</button>
-                            <button onclick="getAIBoost()" id="btn-ai-boost" class="text-xs px-3 py-1.5 rounded border border-amber-700/40 text-amber-600 hover:bg-amber-900/20 hover:border-amber-500 font-mono transition">⚡ AI Boost</button>
-                        </div>
-                    </div>
-
-                    <!-- KPI Cards -->
-                    <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-6" id="revenue-kpi-grid">
-                        <div class="bg-gray-800/60 border border-gray-700 rounded-xl p-4 animate-pulse">
-                            <p class="text-gray-600 text-[10px] font-mono">Loading...</p>
-                        </div>
-                    </div>
-
-                    <!-- AI Boost Banner -->
-                    <div id="ai-boost-banner" class="hidden mb-6 bg-gradient-to-r from-amber-950/40 to-gray-900 border border-amber-800/40 rounded-xl p-4">
-                        <div class="flex items-start gap-3">
-                            <span class="text-amber-500 text-xl shrink-0">⚡</span>
-                            <div>
-                                <p class="text-[9px] uppercase tracking-widest text-amber-700 font-mono mb-1">AI Revenue Intelligence</p>
-                                <p id="ai-boost-text" class="text-sm text-gray-300 leading-relaxed"></p>
-                                <p id="ai-boost-meta" class="text-[10px] text-green-500 font-mono mt-2"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Churn Radar -->
-                    <div class="bg-gray-800/40 border border-gray-700 rounded-xl p-5">
-                        <div class="flex items-center gap-2 mb-4">
-                            <span class="text-red-500">⚠</span>
-                            <h4 class="text-sm text-white font-medium">Churn Radar <span class="text-[10px] text-gray-500 font-normal ml-2">60+ gün gelmeyenler</span></h4>
-                        </div>
-                        <div id="churn-table" class="space-y-2 text-sm">
-                            <p class="text-gray-700 font-mono text-xs animate-pulse">Scanning churn signals...</p>
-                        </div>
-                    </div>
-
-                    <!-- ══════════════════════════════════════════════════════ -->
-                    <!-- PHASE N: EXECUTIVE PULSE DASHBOARD                    -->
-                    <!-- ══════════════════════════════════════════════════════ -->
-
-                    <!-- 1. NEURAL PULSE STREAM -->
-                    <div class="mt-6 rounded-xl border border-gray-800/60 bg-gray-950/60 backdrop-blur-sm overflow-hidden">
-                        <div class="flex items-center justify-between px-4 py-3 border-b border-gray-800/40">
-                            <div class="flex items-center gap-2">
-                                <span class="relative flex h-2 w-2">
-                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                                </span>
-                                <h3 class="text-xs font-semibold text-gray-300 tracking-widest uppercase">Neural Pulse Stream <span class="text-emerald-500 ml-2">Phase N</span></h3>
-                            </div>
-                            <button onclick="clearNeural()" class="text-xs text-gray-600 hover:text-gray-400 font-mono transition">⌫ clear</button>
-                        </div>
-                        <div id="neural-stream" class="font-mono text-xs p-3 space-y-1 max-h-36 overflow-y-auto scrollbar-thin"
-                             style="background:linear-gradient(180deg,#0a0f0a 0%,#060a06 100%);">
-                            <p class="text-gray-700 animate-pulse">Listening for intelligence signals...</p>
-                        </div>
-                    </div>
-
-                    <!-- 2. DNA RADAR + MULTIPLIER PULSE ROW -->
-                    <div class="mt-4 grid grid-cols-2 gap-4">
-
-                        <!-- DNA RADAR CHART -->
-                        <div class="rounded-xl border border-violet-900/40 bg-gray-950/60 p-4">
-                            <h3 class="text-xs font-semibold text-gray-400 tracking-widest uppercase mb-3">
-                                Psychographic Radar <span class="text-violet-500 ml-2">Live DNA</span>
-                            </h3>
-                            <canvas id="dna-radar" height="180"></canvas>
-                        </div>
-
-                        <!-- MULTIPLIER GAUGE -->
-                        <div id="multiplier-card" class="rounded-xl border border-amber-900/30 bg-gray-950/60 p-4 flex flex-col items-center justify-center transition-all duration-700" style="position:relative;overflow:hidden;">
-                            <div id="multiplier-glow" class="absolute inset-0 pointer-events-none" style="border-radius:0.75rem;transition:box-shadow 1s ease;"></div>
-                            <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">Demand Multiplier</p>
-                            <p id="multiplier-value" class="text-5xl font-black tracking-tight text-amber-400 transition-all duration-700">1.35<span class="text-xl text-gray-600">×</span></p>
-                            <p id="multiplier-status" class="mt-2 text-xs font-semibold tracking-widest text-gray-500">STABLE</p>
-                            <div class="mt-3 w-full bg-gray-800 rounded-full h-1.5">
-                                <div id="multiplier-bar" class="h-1.5 rounded-full transition-all duration-700" style="width:54%;background:linear-gradient(90deg,#d97706,#f59e0b);"></div>
-                            </div>
-                            <p class="text-xs text-gray-700 mt-1 font-mono">range 1.0× — 2.5×</p>
-                        </div>
-
-                    </div>
-
-                    <!-- PHASE K: DNA MATRIX PANEL -->
-                    <div class="mt-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center gap-3">
-                                <div class="h-2 w-2 rounded-full bg-violet-500 animate-pulse"></div>
-                                <h3 class="text-sm font-semibold text-white tracking-widest uppercase">Guest DNA Matrix <span class="text-violet-500 text-xs ml-2">Phase K</span></h3>
-                            </div>
-                            <div class="flex gap-2">
-                                <button onclick="loadDNA(false)" class="text-xs px-3 py-1.5 rounded border border-violet-800/50 text-violet-500 hover:bg-violet-900/20 hover:border-violet-500 font-mono transition">⟳ Scan</button>
-                                <button onclick="loadDNA(true)" id="btn-dna-ai" class="text-xs px-3 py-1.5 rounded border border-amber-700/40 text-amber-600 hover:bg-amber-900/20 hover:border-amber-500 font-mono transition">✦ AI Labels</button>
-                                <a href="/tr/index.html?lang=tr" target="_blank" id="btn-exec-report"
-                                   class="text-xs px-3 py-1.5 rounded font-mono transition flex items-center gap-1"
-                                   style="border:1px solid #C9A96E55;color:#C9A96E;background:linear-gradient(135deg,#1a140800,#C9A96E18);position:relative;overflow:hidden;"
-                                   onmouseover="this.style.background='linear-gradient(135deg,#C9A96E22,#C9A96E33)'"
-                                   onmouseout="this.style.background='linear-gradient(135deg,#1a140800,#C9A96E18)'"
-                                   onclick="pushNeural('Phase R ∷ Executive Briefing PDF generating...','info')">
-                                    ↓ <span style="letter-spacing:0.05em">EXECUTIVE BRIEFING</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Cluster Summary Bar -->
-                        <div id="dna-cluster-bar" class="grid grid-cols-4 gap-3 mb-5 hidden">
-                            <!-- filled by JS -->
-                        </div>
-
-                        <!-- DNA Cards Grid -->
-                        <div id="dna-cards-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                            <div class="col-span-3 text-center py-8 text-gray-700 text-xs font-mono">
-                                Press ⟳ Scan to analyze guest DNA...
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+            <!-- SANTIS RUNTIME ENGINE VIEWPORT -->
+            <div id="santis-master-viewport" class="w-full h-full flex flex-col transition-opacity duration-300 opacity-0 overflow-y-auto custom-scroll relative">
+                <!-- Modules will inject here -->
             </div>
-        </main>
-    </div>
-
-    <script src="assets/js/admin_mock.js"></script>
-
-    <!-- BABA YAGA PROTOCOL ENGINE -->
-    <script>
-        // 1. Matrix Digital Rain Canvas Engine
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-        let rainInterval = null;
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        function startMatrixRain() {
-            if (rainInterval) return; // Zaten çalışıyorsa durdur
-            canvas.classList.remove('opacity-0');
-            canvas.classList.add('opacity-30'); // Hafif şeffaf arka plan yağmuru
             
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-
-            const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレゲゼデベペオォコソトノホモヨョロゴゾドボポヴッン';
-            const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const nums = '0123456789';
-            const alphabet = katakana + latin + nums;
-            
-            const fontSize = 16;
-            let columns = canvas.width / fontSize;
-            let drops = [];
-            for(let x = 0; x < columns; x++) { drops[x] = 1; }
-
-            function draw() {
-                // Siyah bg with opacity for trail effect
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            <!-- GLOBAL CONTROL BUS SCRIPTS -->
+            <script type="module">
+                console.log("🟢 [Master Shell] Booting Control Bus...");
                 
-                // Blood Red Text
-                ctx.fillStyle = '#ef4444'; // Tailwind red-500
-                ctx.font = fontSize + 'px monospace';
-                
-                // Ekran genişliği değişirse sütun sayısını onar
-                if(drops.length < canvas.width / fontSize) {
-                    for(let x = drops.length; x < canvas.width / fontSize; x++) drops[x] = 1;
+                // Sidebar Resize Logic
+                const sidebar = document.getElementById('admin-sidebar');
+                const dragHandle = document.getElementById('sidebar-drag-handle');
+                let isResizing = false;
+
+                if (dragHandle && sidebar) {
+                    dragHandle.addEventListener('mousedown', (e) => {
+                        isResizing = true;
+                        document.body.style.cursor = 'col-resize';
+                        dragHandle.classList.add('bg-gray-700');
+                        e.preventDefault();
+                    });
+
+                    document.addEventListener('mousemove', (e) => {
+                        if (!isResizing) return;
+                        let newWidth = e.clientX;
+                        if (newWidth < 240) newWidth = 240;
+                        if (newWidth > 600) newWidth = 600;
+                        sidebar.classList.remove('w-64');
+                        sidebar.style.width = newWidth + 'px';
+                    });
+
+                    document.addEventListener('mouseup', () => {
+                        if (isResizing) {
+                            isResizing = false;
+                            document.body.style.cursor = 'default';
+                            dragHandle.classList.remove('bg-gray-700');
+                        }
+                    });
                 }
 
-                for(let i = 0; i < drops.length; i++) {
-                    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                    
-                    if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                        drops[i] = 0;
-                    }
-                    drops[i]++;
-                }
-            }
-            rainInterval = setInterval(draw, 30);
-        }
-
-        // 2. DOM Transformer (Shadow Auth)
-        function enableShadowMenu(targetName) {
-            // Ana Gövdeyi Karart
-            document.body.classList.remove('bg-gray-900');
-            document.body.classList.add('bg-black');
-            
-            // Sidebar'ı söküp Tactical Menüyü çak
-            const stdNav = document.getElementById('standard-nav');
-            const shdNav = document.getElementById('shadow-nav');
-            
-            stdNav.classList.add('hidden', 'opacity-0');
-            shdNav.classList.remove('hidden');
-            
-            // Tarayıcı render için çok ufak gecikme
-            setTimeout(() => {
-                shdNav.classList.add('opacity-100');
-            }, 50);
-
-            // Tüm gri renkli/bordürlü panelleri siyah/kırmızıya dönüştür
-            const panels = document.querySelectorAll('.bg-gray-800');
-            panels.forEach(p => {
-                p.classList.remove('bg-gray-800', 'border-gray-700');
-                p.classList.add('bg-black/80', 'border-red-900/30', 'shadow-[0_0_30px_rgba(239,68,68,0.05)]');
-            });
-            
-            // Header
-            const header = document.querySelector('header.bg-gray-900');
-            if(header) {
-                header.classList.remove('bg-gray-900', 'border-gray-800');
-                header.classList.add('bg-black/90', 'border-red-900/50');
-                const statusSpan = header.querySelector('.text-green-500');
-                if(statusSpan) {
-                    statusSpan.className = 'text-red-500 font-bold animate-pulse';
-                    statusSpan.innerHTML = `⚠️ OVERRIDE: ${targetName} DETECTED`;
-                }
-                const hqButton = header.querySelector('.bg-amber-600');
-                if(hqButton) hqButton.className = 'w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white font-medium shadow-[0_0_10px_rgba(239,68,68,0.8)]';
-            }
-        }
-
-        function disableShadowMenu() {
-            // Ana Gövdeyi Geri Al
-            document.body.classList.remove('bg-black');
-            document.body.classList.add('bg-gray-900');
-            
-            // Menüleri Geri Değiştir
-            const stdNav = document.getElementById('standard-nav');
-            const shdNav = document.getElementById('shadow-nav');
-            
-            shdNav.classList.add('hidden', 'opacity-0');
-            stdNav.classList.remove('hidden');
-            setTimeout(() => { stdNav.classList.remove('opacity-0'); }, 50);
-
-            // Panelleri Geri Al
-            const panels = document.querySelectorAll('.bg-black\\/80');
-            panels.forEach(p => {
-                p.classList.remove('bg-black/80', 'border-red-900/30', 'shadow-[0_0_30px_rgba(239,68,68,0.05)]');
-                p.classList.add('bg-gray-800', 'border-gray-700');
-            });
-            
-            // Header'ı Geri Al
-            const header = document.querySelector('header');
-            if(header) {
-                header.classList.remove('bg-black/90', 'border-red-900/50');
-                header.classList.add('bg-gray-900', 'border-gray-800');
-                const statusSpan = header.querySelector('.text-red-500');
-                if(statusSpan) {
-                    statusSpan.className = 'text-green-500 font-medium';
-                    statusSpan.innerHTML = `● All Systems Nominal`;
-                }
-                const hqButton = header.querySelector('.bg-red-600');
-                if(hqButton) hqButton.className = 'w-8 h-8 rounded-full bg-amber-600 flex items-center justify-center text-white font-medium';
-            }
-            
-            // Yağmuru Durdur
-            if(rainInterval) {
-                clearInterval(rainInterval);
-                rainInterval = null;
-            }
-            canvas.classList.remove('opacity-30');
-            canvas.classList.add('opacity-0');
-            setTimeout(() => ctx.clearRect(0, 0, canvas.width, canvas.height), 2000);
-        }
-
-        function showLiveSyncToaster(data) {
-            // Sağ alt köşede CMS V5 tarzı bir Live Action bildirim balonu oluştur
-            const toaster = document.createElement('div');
-            toaster.className = 'fixed bottom-4 right-4 bg-gray-900 border border-amber-500/50 text-white p-4 rounded-lg shadow-[0_10px_40px_rgba(0,0,0,0.8)] z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-start gap-4';
-            toaster.innerHTML = `
-                <div class="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-500 text-xl animate-pulse">⚡</div>
-                <div>
-                    <div class="text-[10px] text-amber-500 font-mono tracking-wider mb-1">LIVE INTELLIGENCE SYNC</div>
-                    <div class="font-medium text-sm text-gray-200">${data.action}: <span class="text-white">${data.service}</span></div>
-                    <div class="text-xs text-gray-400 mt-1">Target: ${data.guest_name} | Room: ${data.room}</div>
-                    <div class="text-xs text-green-400 font-mono mt-2">+ €${data.price}</div>
-                </div>
-            `;
-            document.body.appendChild(toaster);
-            
-            // Masaya satır ekle
-            const tbody = document.getElementById('live-bookings-tbody');
-            if(tbody) {
-                const tr = document.createElement('tr');
-                tr.className = 'border-b border-gray-800 hover:bg-gray-800/50 transition';
-                const d = new Date(data.timestamp);
-                const timeStr = `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
-                tr.innerHTML = `
-                    <td class="px-4 py-3 text-white">${timeStr}</td>
-                    <td class="px-4 py-3">Santis HQ</td>
-                    <td class="px-4 py-3"><span class="text-amber-500">${data.guest_name}</span><br><span class="text-[10px]">${data.room}</span></td>
-                    <td class="px-4 py-3 text-gray-300">New Booking:<br><span class="text-white">${data.service}</span></td>
-                    <td class="px-4 py-3"><span class="text-xs bg-gray-900 border border-green-900 px-2 py-1 rounded text-green-400">Confirmed</span></td>
-                    <td class="px-4 py-3 text-white font-mono">€${data.price}</td>
-                `;
-                tbody.insertBefore(tr, tbody.firstChild);
-            }
-
-            // Animate In
-            setTimeout(() => {
-                toaster.classList.remove('translate-y-20', 'opacity-0');
-            }, 50);
-
-            // Animate Out after 6s
-            setTimeout(() => {
-                toaster.classList.add('translate-y-20', 'opacity-0');
-                setTimeout(() => toaster.remove(), 300);
-            }, 6000);
-        }
-
-        // 3. Neural Bridge HQ Listener
-        function initHQNeuralBridge() {
-            // console.log("Master OS Neural Bridge (HQ): OFFLINE/MOCK_MODE.");
-            /*
-            window.hqSocket = new WebSocket("ws://localhost:8080/ws?client_type=hq&client_id=global");
-            window.hqSocket.onopen = () => console.log("Master OS Neural Bridge: CONNECTED (HQ)");
-            
-            window.hqSocket.onmessage = (event) => {
-                try {
-                    const data = JSON.parse(event.data);
-                    // Phase N: dispatch to all listeners
-                    document.dispatchEvent(new CustomEvent('hq-ws-message', { detail: data }));
-                    console.log('[Neural Bridge] MSG:', data.type, data);
-                    if(data.type === "MATRIX_RED_ALERT") {
-                        console.error("/// TACTICAL OVERRIDE INITIATED ///");
-                        startMatrixRain();
-                        enableShadowMenu(data.target || 'BABA YAGA');
-                    } else if (data.type === "MATRIX_STAND_DOWN") {
-                        console.log("/// STANDING DOWN ///");
-                        disableShadowMenu();
-                    } else if (data.type === "GUEST_ACTION_SYNC") {
-                        showLiveSyncToaster(data);
-                    } else if (data.type === "INTELLIGENCE_PULSE" && window.renderSantisIntel) {
-                        window.renderSantisIntel(data);
-                    } else if (data.type === "VIP_PROFILE_UPDATED") {
-                        loadVipRoster();
-                        showLiveSyncToaster({
-                            action: 'VIP Profile Generated',
-                            guest_name: data.guest_name,
-                            room: data.vip_tier,
-                            service: `Score: ${data.vip_score}/100`,
-                            price: data.total_spent,
-                            timestamp: new Date().toISOString()
+                // Cortex Connections for Topbar & Sidebar
+                // Powered by Santis Core V1
+                const checkCortex = setInterval(() => {
+                    if (window.SantisState) {
+                        clearInterval(checkCortex);
+                        
+                        // Example: Global status badge on topbar using passive UI binding
+                        window.SantisState.subscribe('systemPulse', (status) => {
+                            const statusEl = document.getElementById('global-status-badge');
+                            if (statusEl) {
+                                if (status === 'CRITICAL') {
+                                    statusEl.innerHTML = '<span class="text-red-500 font-bold animate-pulse">● SHIELD ALERT</span>';
+                                } else if (status === 'SURGE') {
+                                    statusEl.innerHTML = '<span class="text-amber-500 font-bold animate-pulse">● YIELD SURGE</span>';
+                                } else {
+                                    statusEl.innerHTML = '<span class="text-green-500 font-medium">● All Systems Nominal</span>';
+                                }
+                            }
                         });
                     }
-                } catch(e) { console.warn('[Neural Bridge] Parse error:', e); }
-            };
-            window.hqSocket.onclose = () => setTimeout(initHQNeuralBridge, 3000);
-            */
-        }
+                }, 100);
+            </script>
+        </main>
 
-        // 4. PHASE 3 – SHADOW RITUALS MODAL ENGINE
-        async function openShadowRitualsModal() {
-            const modal = document.getElementById('shadow-rituals-modal');
-            const list  = document.getElementById('shadow-rituals-list');
+    </div>
 
-            modal.classList.remove('hidden');
+    <script src="/admin/assets/js/admin_mock.js" defer></script>
 
-            try {
-                const res  = await fetch('/api/v1/shadow-rituals');
-                const data = await res.json();
-                const rituals = data.rituals || [];
+    <!-- BABA YAGA PROTOCOL ENGINE -->
+    
 
-                const intensityColors = {
-                    'DEEP':   'text-red-400 border-red-700',
-                    'MEDIUM': 'text-orange-400 border-orange-700',
-                    'LIGHT':  'text-amber-400 border-amber-700',
-                    'VIP':    'text-yellow-300 border-yellow-600'
-                };
-
-                list.innerHTML = rituals.map(r => `
-                    <div class="border border-red-950 hover:border-red-700/50 bg-black/40 rounded-lg p-4 transition group">
-                        <div class="flex justify-between items-start mb-2">
-                            <div>
-                                <span class="text-[9px] font-mono text-red-700 tracking-widest">${r.protocol_code}</span>
-                                <p class="text-sm font-medium text-gray-200 mt-0.5 group-hover:text-white transition">${r.name}</p>
-                            </div>
-                            <div class="text-right shrink-0 ml-4">
-                                <p class="text-white font-mono text-sm">€${r.price.toLocaleString()}</p>
-                                <p class="text-gray-600 text-[10px]">${r.duration_min} min</p>
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-500 leading-relaxed">${r.description}</p>
-                        <div class="mt-3 flex items-center gap-2">
-                            <span class="text-[9px] border px-2 py-0.5 rounded font-mono ${intensityColors[r.intensity] || 'text-gray-400 border-gray-700'}">${r.intensity}</span>
-                            ${r.tags.slice(0,3).map(t => `<span class="text-[9px] text-gray-600 font-mono">#${t}</span>`).join('')}
-                        </div>
-                    </div>
-                `).join('');
-            } catch(e) {
-                list.innerHTML = `<p class="text-red-700 font-mono text-sm">ERR: Classified network unreachable. Server offline.</p>`;
-            }
-        }
-
-        function closeShadowRitualsModal() {
-            document.getElementById('shadow-rituals-modal').classList.add('hidden');
-        }
-
-        // Close modal on backdrop click
-        document.getElementById('shadow-rituals-modal').addEventListener('click', function(e) {
-            if(e.target === this) closeShadowRitualsModal();
-        });
-
-        // ── DEV TEST PANEL ───────────────────────────────────────
-        const guests = ["John Wick", "Thomas Anderson", "Evelyn O'Connell", "Ethan Hunt", "Black Widow"];
-        const services = ["Royal Hamam", "Deep Tissue Massage", "Sothys Facial", "Thai Massage", "Aromatherapy"];
-        const rooms = ["101", "204", "312", "405", "VIP-1"];
-
-        async function devTrigger(protocol) {
-            const btn = document.getElementById('btn-baba-yaga');
-            btn.textContent = '⚡ Dispatching...';
-            btn.disabled = true;
-            try {
-                await fetch(`/hq/activate-protocol/${protocol}`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ target: 'John Wick' })
-                });
-                btn.textContent = '✔ Dispatched!';
-            } catch(e) {
-                btn.textContent = '✖ Error';
-            }
-            setTimeout(() => { btn.textContent = '⚡ Baba Yaga ON'; btn.disabled = false; }, 2000);
-        }
-
-        async function devStandDown() {
-            const btn = document.getElementById('btn-stand-down');
-            btn.textContent = '🕊️ Standing down...';
-            btn.disabled = true;
-            try {
-                await fetch('/hq/deactivate-protocol/baba_yaga', { method: 'POST' });
-                btn.textContent = '✔ Stood down!';
-            } catch(e) {
-                btn.textContent = '✖ Error';
-            }
-            setTimeout(() => { btn.textContent = '🕊️ Stand Down'; btn.disabled = false; }, 2000);
-        }
-
-        async function devMockBooking() {
-            const btn = document.getElementById('btn-mock-booking');
-            btn.textContent = '📋 Sending...';
-            btn.disabled = true;
-            const guest   = guests[Math.floor(Math.random() * guests.length)];
-            const service = services[Math.floor(Math.random() * services.length)];
-            const room    = rooms[Math.floor(Math.random() * rooms.length)];
-            const price   = (Math.floor(Math.random() * 8) + 2) * 50;
-            try {
-                const res = await fetch('/api/v1/bookings/walk-in', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('santis_token')}`
-                    },
-                    body: JSON.stringify({
-                        tenant_id: "1", hotel_id: "1",
-                        room_number: room,
-                        service_name: service,
-                        price: price
-                    })
-                });
-                const result = await res.json();
-                console.log('[Dev] Reservation result:', result);
-                // Direkt toaster tetikle (WS bağımsız)
-                showLiveSyncToaster({
-                    action: 'New Booking',
-                    guest_name: guest,
-                    room: 'Room ' + room,
-                    service: service,
-                    price: price,
-                    timestamp: new Date().toISOString()
-                });
-                btn.textContent = `✔ ${guest.split(' ')[0]} booked!`;
-            } catch(e) {
-                console.error('[Dev] Mock booking error:', e);
-                btn.textContent = '✖ Error';
-            }
-            setTimeout(() => { btn.textContent = '📋 Mock Booking'; btn.disabled = false; }, 3000);
-        }
-        // ────────────────────────────────────────────────────────
-
-        // ── PHASE G – VIP PROFILING ENGINE ──────────────────────
-        const TIER_COLORS = {
-            'CONTINENTAL': 'text-yellow-300 border-yellow-600 bg-yellow-900/10',
-            'PLATINUM':    'text-purple-300 border-purple-600 bg-purple-900/10',
-            'GOLD':        'text-amber-400 border-amber-600 bg-amber-900/10',
-            'STANDARD':    'text-gray-400 border-gray-700 bg-gray-900/10'
-        };
-
-        async function loadVipRoster() {
-            const grid = document.getElementById('vip-roster-grid');
-            grid.innerHTML = '<div class="col-span-3 text-center py-8 text-gray-600 text-sm font-mono animate-pulse">Scanning neural signatures...</div>';
-            try {
-                const res  = await fetch('/api/v1/admin/vip-roster');
-                const data = await res.json();
-                if (!data.roster || data.roster.length === 0) {
-                    grid.innerHTML = '<div class="col-span-3 text-center py-8 text-gray-700 text-sm">No guest profiles found. Run Mock Booking to seed data.</div>';
-                    return;
-                }
-                grid.innerHTML = data.roster.map(g => renderVipCard(g)).join('');
-            } catch(e) {
-                grid.innerHTML = '<div class="col-span-3 text-center py-6 text-red-800 text-sm font-mono">ERR: Neural link unreachable.</div>';
-            }
-        }
-
-        function renderVipCard(g) {
-            const tc = TIER_COLORS[g.vip_tier] || TIER_COLORS['STANDARD'];
-            const scoreBar = Math.min(100, g.vip_score);
-            const initials = g.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-            const personaHtml = g.persona
-                ? `<p class="text-xs text-gray-500 mt-2 leading-relaxed line-clamp-2">${g.persona}</p>`
-                : `<p class="text-xs text-gray-700 mt-2 italic">No AI profile yet.</p>`;
-            return `
-                <div class="bg-gray-800/60 border border-gray-700 rounded-xl p-4 hover:border-amber-700/40 transition group relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-20 h-20 opacity-5 group-hover:opacity-10 transition">
-                        <svg viewBox="0 0 24 24" fill="currentColor" class="text-amber-500 w-full h-full"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-sm font-semibold text-gray-300 shrink-0">${initials}</div>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-sm font-medium text-white truncate">${g.name}</p>
-                            <span class="text-[9px] border px-2 py-0.5 rounded font-mono ${tc}">${g.vip_tier}</span>
-                        </div>
-                    </div>
-                    <!-- Score Bar -->
-                    <div class="mt-3">
-                        <div class="flex justify-between text-[10px] mb-1">
-                            <span class="text-gray-500 font-mono">VIP Score</span>
-                            <span class="text-amber-400 font-mono font-bold">${g.vip_score}/100</span>
-                        </div>
-                        <div class="h-1 bg-gray-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-gradient-to-r from-amber-600 to-amber-400 rounded-full transition-all duration-700" style="width:${scoreBar}%"></div>
-                        </div>
-                    </div>
-                    <!-- Stats -->
-                    <div class="flex gap-4 mt-3">
-                        <div><p class="text-[9px] text-gray-600">Visits</p><p class="text-white font-mono text-xs">${g.visit_count}</p></div>
-                        <div><p class="text-[9px] text-gray-600">Spent</p><p class="text-amber-500 font-mono text-xs">€${Number(g.total_spent).toLocaleString()}</p></div>
-                        <div><p class="text-[9px] text-gray-600">Last</p><p class="text-gray-400 font-mono text-xs">${g.last_visit}</p></div>
-                    </div>
-                    ${personaHtml}
-                    <!-- Generate AI Profile button -->
-                    <button onclick="generateProfile('${g.id}', this)"
-                        class="mt-3 w-full text-[10px] py-1.5 rounded border border-amber-900/40 text-amber-700 hover:text-amber-400 hover:border-amber-700 font-mono transition">
-                        ✦ Generate AI Persona
-                    </button>
-                </div>
-            `;
-        }
-
-        async function generateProfile(customerId, btn) {
-            const original = btn.textContent;
-            btn.textContent = '⟳ Generating...';
-            btn.disabled = true;
-            try {
-                const res  = await fetch('/api/v1/guest/generate-profile', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ customer_id: customerId })
-                });
-                const data = await res.json();
-                console.log('[Phase G] Profile generated:', data);
-                // Roster otomatik WS üzerinden yenilenecek (VIP_PROFILE_UPDATED)
-                // Fallback: direkt de yenile
-                setTimeout(loadVipRoster, 500);
-            } catch(e) {
-                console.error('[Phase G] Profile error:', e);
-                btn.disabled = false;
-                btn.textContent = '✖ Error';
-                return;
-            }
-            btn.textContent = '✔ Done!';
-            setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 3000);
-        }
-        // ─────────────────────────────────────────────────────────
-
-        // ── PHASE H – REVENUE INTELLIGENCE ──────────────────────
-        function kpiCard(label, value, sub, color='text-white') {
-            return `
-                <div class="bg-gray-800/60 border border-gray-700 rounded-xl p-4 hover:border-gray-600 transition">
-                    <p class="text-[10px] uppercase tracking-widest text-gray-500 font-mono mb-1">${label}</p>
-                    <p class="text-2xl font-light ${color}">${value}</p>
-                    ${sub ? `<p class="text-[10px] text-gray-600 mt-1 font-mono">${sub}</p>` : ''}
-                </div>`;
-        }
-
-        async function loadRevenueData() {
-            const grid = document.getElementById('revenue-kpi-grid');
-            grid.innerHTML = '<div class="col-span-4 text-gray-600 text-xs font-mono animate-pulse">Fetching revenue data...</div>';
-
-            try {
-                const [fRes, lRes] = await Promise.all([
-                    fetch('/api/v1/revenue/forecast'),
-                    fetch('/api/v1/revenue/ltv-churn')
-                ]);
-                const f = await fRes.json();
-                const l = await lRes.json();
-
-                // KPI Cards
-                const surgeGainStr = f.today.surge_gain > 0
-                    ? `+€${f.today.surge_gain.toLocaleString()} surge gain`
-                    : 'No active surge';
-
-                grid.innerHTML =
-                    kpiCard('Today Revenue', `€${f.today.revenue.toLocaleString()}`, surgeGainStr, 'text-green-400') +
-                    kpiCard('Projected EOD', `€${f.today.projected_eod.toLocaleString()}`, `Surge ×${f.avg_surge_factor}`, 'text-amber-400') +
-                    kpiCard('Month Revenue', `€${f.month.revenue.toLocaleString()}`, `EOMonthForecast: €${f.month.projected_eom.toLocaleString()}`, 'text-blue-400') +
-                    kpiCard('LTV Portfolio', `€${l.total_ltv_portfolio.toLocaleString()}`, `⚠ €${l.revenue_at_risk.toLocaleString()} at churn risk`, 'text-purple-400');
-
-                // Churn Radar
-                const churnEl = document.getElementById('churn-table');
-                if (l.churn_alerts && l.churn_alerts.length > 0) {
-                    churnEl.innerHTML = l.churn_alerts.map(a => `
-                        <div class="flex items-center justify-between py-2 border-b border-gray-800 last:border-0">
-                            <div class="flex items-center gap-2">
-                                <span class="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse"></span>
-                                <span class="text-white text-xs font-medium">${a.name}</span>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <span class="text-red-400 text-[10px] font-mono">${a.days_absent} days absent</span>
-                                <span class="text-amber-500 text-[10px] font-mono">LTV at risk: €${a.ltv_at_risk.toLocaleString()}</span>
-                            </div>
-                        </div>`).join('');
-                } else {
-                    churnEl.innerHTML = '<p class="text-green-700 text-xs font-mono">✓ No high-risk churn signals detected.</p>';
-                }
-
-            } catch(e) {
-                grid.innerHTML = '<div class="col-span-4 text-red-800 text-xs font-mono">ERR: Revenue data unavailable.</div>';
-            }
-        }
-
-        async function getAIBoost() {
-            const btn = document.getElementById('btn-ai-boost');
-            const banner = document.getElementById('ai-boost-banner');
-            btn.textContent = '⟳ Analyzing...';
-            btn.disabled = true;
-            try {
-                const res  = await fetch('/api/v1/revenue/ai-boost', { method: 'POST' });
-                const data = await res.json();
-                document.getElementById('ai-boost-text').textContent = data.ai_boost_suggestion;
-                document.getElementById('ai-boost-meta').textContent =
-                    `Projected extra: €${data.projected_extra_revenue.toLocaleString()} · Run rate: €${data.run_rate_per_hour}/hr · ${data.remaining_hours}h remaining`;
-                banner.classList.remove('hidden');
-                btn.textContent = '✔ Insight Ready';
-            } catch(e) {
-                btn.textContent = '✖ Error';
-            }
-            setTimeout(() => { btn.textContent = '⚡ AI Boost'; btn.disabled = false; }, 4000);
-        }
-        // ─────────────────────────────────────────────────────────
-
-        // ── PHASE K – GUEST DNA CLUSTERING ───────────────────────
-        const DNA_COLORS = {
-            'THERMAL':   'text-orange-400 border-orange-700/50 bg-orange-950/10',
-            'AESTHETIC': 'text-pink-400 border-pink-700/50 bg-pink-950/10',
-            'RECOVERY':  'text-blue-400 border-blue-700/50 bg-blue-950/10',
-            'WELLNESS':  'text-green-400 border-green-700/50 bg-green-950/10',
-            'UNDEFINED': 'text-gray-500 border-gray-700/50 bg-gray-900/10',
-        };
-        const DNA_BAR_COLORS = {
-            'THERMAL':   'bg-orange-600', 'AESTHETIC': 'bg-pink-600',
-            'RECOVERY':  'bg-blue-600',   'WELLNESS':  'bg-green-600',
-            'UNDEFINED': 'bg-gray-700',
-        };
-
-        async function loadDNA(withAI = false) {
-            const grid = document.getElementById('dna-cards-grid');
-            const bar  = document.getElementById('dna-cluster-bar');
-            const btn  = document.getElementById('btn-dna-ai');
-
-            grid.innerHTML = `<div class="col-span-3 text-center py-8 text-violet-800 text-xs font-mono animate-pulse">${withAI ? '✦ Generating AI Labels (Gemini)...' : '⟳ Scanning DNA...'}</div>`;
-            if (withAI) { btn.textContent = '⟳ Working...'; btn.disabled = true; }
-
-            try {
-                const url = `/api/v1/guests/clusters${withAI ? '?generate_ai=true' : ''}`;
-                const res  = await fetch(url);
-                const data = await res.json();
-
-                // Cluster summary bar
-                const summary = data.cluster_summary || {};
-                const total   = Object.values(summary).reduce((a,b) => a+b, 0) || 1;
-                bar.innerHTML = Object.entries(summary).map(([k, v]) => `
-                    <div class="bg-gray-800/60 border border-gray-700 rounded-lg p-3 text-center">
-                        <div class="h-1 ${DNA_BAR_COLORS[k] || 'bg-gray-600'} rounded-full mb-2" style="width:${Math.round(v/total*100)}%"></div>
-                        <p class="text-[9px] text-gray-500 font-mono uppercase">${k}</p>
-                        <p class="text-white font-mono text-sm">${v}</p>
-                    </div>`).join('');
-                bar.classList.remove('hidden');
-
-                // DNA cards
-                if (!data.profiles || data.profiles.length === 0) {
-                    grid.innerHTML = '<div class="col-span-3 text-center py-6 text-gray-700 text-xs">No profiles found.</div>';
-                    return;
-                }
-                grid.innerHTML = data.profiles.map(p => renderDnaCard(p)).join('');
-
-            } catch(e) {
-                grid.innerHTML = '<div class="col-span-3 text-red-800 text-xs font-mono text-center py-4">ERR: DNA scan failed.</div>';
-            }
-            if (withAI) { btn.textContent = '✦ AI Labels'; btn.disabled = false; }
-        }
-
-        function renderDnaCard(p) {
-            const tc       = DNA_COLORS[p.dna_type] || DNA_COLORS['UNDEFINED'];
-            const initials = p.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
-            const scores   = p.scores_pct || {};
-            const topScore = Math.max(...Object.values(scores));
-
-            const scoreBar = Object.entries(scores).map(([k, v]) => `
-                <div class="flex items-center gap-1.5 mb-0.5">
-                    <span class="text-[8px] text-gray-600 w-16 shrink-0">${k}</span>
-                    <div class="flex-1 h-0.5 bg-gray-800 rounded-full overflow-hidden">
-                        <div class="${DNA_BAR_COLORS[k] || 'bg-gray-600'} h-full rounded-full" style="width:${v}%"></div>
-                    </div>
-                    <span class="text-[8px] text-gray-700 w-8 text-right">${v}%</span>
-                </div>`).join('');
-
-            return `
-                <div class="bg-gray-800/50 border ${tc.split(' ')[1]} rounded-xl p-4 hover:bg-gray-800/70 transition">
-                    <div class="flex items-start gap-3 mb-3">
-                        <div class="w-9 h-9 rounded-full bg-gray-700 flex items-center justify-center text-xs font-semibold text-gray-300 shrink-0">${initials}</div>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-sm font-medium text-white truncate">${p.name}</p>
-                            <span class="text-[9px] font-mono ${tc.split(' ')[0]}">${p.label}</span>
-                        </div>
-                        <div class="text-right shrink-0">
-                            <p class="text-amber-500 font-mono text-xs">€${Number(p.total_spent).toLocaleString()}</p>
-                            <p class="text-gray-600 text-[9px]">${p.visit_count} visits</p>
-                        </div>
-                    </div>
-                    <p class="text-[10px] text-gray-500 italic mb-3 leading-relaxed">"${p.tagline}"</p>
-                    <div class="mt-2">${scoreBar}</div>
-                </div>`;
-        }
-        // ─────────────────────────────────────────────────────────
-        // PHASE N: EXECUTIVE PULSE — Neural Stream, Radar, Glow
-        // ─────────────────────────────────────────────────────────
-
-        // Chart.js lazy-load (CDN)
-        let radarChart = null;
-        function initRadar(counts) {
-            const ctx = document.getElementById('dna-radar');
-            if (!ctx) return;
-            const labels = ['THERMAL', 'AESTHETIC', 'RECOVERY', 'WELLNESS'];
-            const vals   = labels.map(l => counts[l] || 0);
-            if (radarChart) {
-                radarChart.data.datasets[0].data = vals;
-                radarChart.update('active');
-                return;
-            }
-            if (typeof Chart === 'undefined') return;
-            radarChart = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels,
-                    datasets: [{
-                        label: 'Guest DNA',
-                        data: vals,
-                        backgroundColor: 'rgba(139,92,246,0.15)',
-                        borderColor: 'rgba(139,92,246,0.7)',
-                        pointBackgroundColor: 'rgba(139,92,246,1)',
-                        borderWidth: 1.5,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        r: {
-                            suggestedMin: 0,
-                            ticks: { display: false },
-                            grid:  { color: 'rgba(255,255,255,0.05)' },
-                            pointLabels: { color: '#6b7280', font: { size: 9, family:'monospace' } }
-                        }
-                    },
-                    plugins: { legend: { display: false } }
-                }
-            });
-        }
-
-        // Chart.js script injection (once)
-        (function() {
-            const s = document.createElement('script');
-            s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js';
-            s.onload = () => { /* auto-init when DNA loads */ };
-            document.head.appendChild(s);
-        })();
-
-        // Neural Stream rendering
-        const NL_COLORS = { surge:'#f59e0b', relax:'#60a5fa', alert:'#ef4444', info:'#34d399' };
-        function pushNeural(msg, level='info') {
-            const el  = document.getElementById('neural-stream');
-            if (!el) return;
-            const ts  = new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-            const col = NL_COLORS[level] || '#34d399';
-            const row = document.createElement('div');
-            row.style.cssText = `border-left:2px solid ${col}33;padding-left:8px;color:${col};opacity:0;transition:opacity 0.4s`;
-            row.innerHTML = `<span style="color:#374151">[${ts}]</span> ${msg}`;
-            // Remove placeholder
-            const ph = el.querySelector('p.text-gray-700');
-            if (ph) ph.remove();
-            el.appendChild(row);
-            requestAnimationFrame(() => row.style.opacity = '0.9');
-            // Keep max 20 rows
-            while (el.children.length > 20) el.removeChild(el.firstChild);
-            el.scrollTop = el.scrollHeight;
-        }
-
-        function clearNeural() {
-            const el = document.getElementById('neural-stream');
-            if (el) el.innerHTML = '<p class="text-gray-700 animate-pulse">Listening for intelligence signals...</p>';
-        }
-
-        // Multiplier Glow
-        function updateMultiplierGlow(mult, direction='') {
-            const val  = document.getElementById('multiplier-value');
-            const bar  = document.getElementById('multiplier-bar');
-            const glow = document.getElementById('multiplier-glow');
-            const stat = document.getElementById('multiplier-status');
-            if (!val) return;
-
-            val.textContent = `${parseFloat(mult).toFixed(2)}`;
-            val.innerHTML += '<span style="font-size:1.25rem;color:#374151">×</span>';
-
-            const pct = Math.min(100, Math.round((mult - 1.0) / 1.5 * 100));
-            bar.style.width = `${pct}%`;
-
-            let shadow, color, label;
-            if (direction.includes('↑') || mult >= 1.4) {
-                shadow = '0 0 30px rgba(245,158,11,0.4), 0 0 60px rgba(245,158,11,0.15)';
-                color  = '#f59e0b'; label = 'SURGE';
-            } else if (direction.includes('↓') || mult <= 1.0) {
-                shadow = '0 0 20px rgba(96,165,250,0.3)';
-                color  = '#60a5fa'; label = 'RELAX';
-            } else {
-                shadow = 'none';
-                color  = '#d97706'; label = 'STABLE';
-            }
-            glow.style.boxShadow = `inset ${shadow}`;
-            val.style.color = color;
-            stat.textContent = label;
-            stat.style.color = color;
-            bar.style.background = `linear-gradient(90deg,${color}99,${color})`;
-        }
-
-        // Patch HQ Socket handler to intercept Phase N events
-        const _origInitHQ = window.initHQNeuralBridge;
-        window.initHQNeuralBridge = function() {
-            _origInitHQ && _origInitHQ();
-            // Poll yield-status for multiplier on load
-            fetch('/api/v1/admin/yield-status').then(r=>r.json()).then(d => {
-                if (d && d.multiplier) updateMultiplierGlow(d.multiplier);
-            }).catch(()=>{});
-        };
-
-        // Listen for WS events via HQ socket
-        document.addEventListener('hq-ws-message', function(e) {
-            const msg = e.detail;
-            if (!msg || !msg.type) return;
-
-            if (msg.type === 'NEURAL_THOUGHT') {
-                pushNeural(msg.message, msg.level || 'info');
-            }
-            if (msg.type === 'SURGE_UPDATED') {
-                updateMultiplierGlow(msg.multiplier, msg.direction);
-                const dir = msg.direction || '';
-                const lvl = dir.includes('↑') ? 'surge' : dir.includes('↓') ? 'relax' : 'info';
-                pushNeural(`Auto-Pricing ↔ multiplier ${msg.multiplier}× | ${msg.direction}`, lvl);
-            }
-            if (msg.type === 'FLASH_RECOVERY_OFFER') {
-                pushNeural(`⚡ FLASH RECOVERY: ${msg.service_name} @ €${msg.flash_price} | ${msg.hours_left}h slot | Target: ${msg.dna_target}`, 'alert');
-                // Red pulse glow
-                const glow = document.getElementById('multiplier-glow');
-                if (glow) {
-                    glow.style.boxShadow = 'inset 0 0 40px rgba(239,68,68,0.4)';
-                    setTimeout(() => glow.style.boxShadow = 'none', 5000);
-                }
-            }
-        });
-
-        // Boot Phase N radar on DNA load — patch loadDNA return
-        const _origLoadDNA = window.loadDNA;
-        window.loadDNA = async function(withAI) {
-            await (typeof _origLoadDNA === 'function' ? _origLoadDNA(withAI) : loadDNA(withAI));
-            // After DNA loads, update radar
-            try {
-                const d = await fetch('/api/v1/guests/clusters').then(r=>r.json());
-                if (d && d.cluster_summary) initRadar(d.cluster_summary);
-            } catch(e) {}
-        };
-
-        // ─────────────────────────────────────────────────────────
-
-        // ── Genesis Live Check ─────────────────────────────────
-        async function genesisCheck() {
-            const checks = await Promise.allSettled([
-                fetch('/api/v1/services-live', {signal: AbortSignal.timeout(3000)}).then(r => r.ok ? 'services-live ✓' : Promise.reject('services-live ✗')),
-                fetch('/api/v1/admin/yield-status', {signal: AbortSignal.timeout(3000)}).then(r => r.ok ? 'yield-status ✓' : Promise.reject('yield-status ✗')),
-                fetch('/api/v1/guests/clusters', {signal: AbortSignal.timeout(3000)}).then(r => r.ok ? 'dna-clusters ✓' : Promise.reject('dna-clusters ✗')),
-            ]);
-            const passed = checks.filter(c => c.status === 'fulfilled').map(c => c.value);
-            const failed = checks.filter(c => c.status === 'rejected').map(c => c.reason);
-            if (failed.length === 0) {
-                setTimeout(() => pushNeural('→ [SYSTEM] All intelligence layers verified. Genesis Mission Control: READY.', 'info'), 1200);
-            } else {
-                setTimeout(() => pushNeural(`→ [SYSTEM] ${passed.length}/3 layers OK | Issues: ${failed.join(', ')}`, 'relax'), 1200);
-            }
-        }
-        // ──────────────────────────────────────────────────────
-
-        // ── Phase Pulse: Analytics Sink ──────────────────────────
-        async function loadAnalyticsMetrics() {
-            try {
-                const token = localStorage.getItem('santis_token');
-                const tenant = localStorage.getItem('tenant_id');
-                if (!token) {
-                    window.location.href = '/admin/login.html'; // Or whatever the login page is
-                    return;
-                }
-                const headers = { 'Authorization': `Bearer ${token}` };
-                if (tenant) {
-                    headers['X-Tenant-ID'] = tenant;
-                }
-                
-                const res = await fetch('/api/v1/analytics/metrics', { headers });
-                
-                if (res.status === 401 || res.status === 403) {
-                    localStorage.removeItem('santis_token');
-                    window.location.href = '/admin/login.html'; // Direct to the login page
-                    return;
-                }
-                
-                if (!res.ok) throw new Error("HTTP " + res.status);
-                
-                const data = await res.json();
-                
-                document.getElementById('stat-heatmap').innerHTML = `${data.heatmaps ?? 0} <span class="text-xs text-gray-600">points</span>`;
-                document.getElementById('stat-conversions').innerHTML = `${data.conversions?.accepted_offers ?? 0} <span class="text-xs text-gray-600">accepted</span>`;
-                // Format revenue
-                const gain = Number(data.conversions?.revenue_gained ?? 0).toLocaleString('en-US', {minimumFractionDigits: 2});
-                document.getElementById('stat-ai-gains').textContent = `€${gain}`;
-            } catch (e) {
-                console.error("Pulse Analytics sync failed:", e);
-            }
-        }
-        // ──────────────────────────────────────────────────────
-
-        initHQNeuralBridge();
-        genesisCheck();        // Phase N: startup health check → Neural Stream
-        loadVipRoster();    // Phase G: auto-load
-        loadRevenueData();  // Phase H: auto-load
-        loadAnalyticsMetrics(); // Phase Pulse: auto-load
-
-        // SIDEBAR RESIZE LOGIC
-        const sidebar = document.getElementById('admin-sidebar');
-        const dragHandle = document.getElementById('sidebar-drag-handle');
-        let isResizing = false;
-
-        if (dragHandle && sidebar) {
-            dragHandle.addEventListener('mousedown', (e) => {
-                isResizing = true;
-                document.body.style.cursor = 'col-resize';
-                dragHandle.classList.add('bg-gray-700');
-                e.preventDefault();
-            });
-
-            document.addEventListener('mousemove', (e) => {
-                if (!isResizing) return;
-                let newWidth = e.clientX;
-                if (newWidth < 240) newWidth = 240;
-                if (newWidth > 600) newWidth = 600;
-                // Temporarily disable transition during drag for smooth resize
-                sidebar.classList.remove('w-64');
-                sidebar.style.width = newWidth + 'px';
-            });
-
-            document.addEventListener('mouseup', () => {
-                if (isResizing) {
-                    isResizing = false;
-                    document.body.style.cursor = 'default';
-                    dragHandle.classList.remove('bg-gray-700');
-                }
-            });
-        }
-    </script>
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
 

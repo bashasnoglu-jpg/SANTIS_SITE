@@ -18,11 +18,11 @@ function loadJsFile(filename) {
 
     // Strip IIFE wrappers or specific code if needed, but simple eval might work if code assigns to window
 
-    // Most files are IIFE but assign to window.NV_...
+    // Most files are IIFE but assign to window.SANTIS_...
 
     // We can use a simple VM or just regex extraction if complexity is low.
 
-    // Given the files use `(function(){ ... window.NV_X = ... })();`
+    // Given the files use `(function(){ ... window.SANTIS_X = ... })();`
 
     // We can just execute the content in a context where 'window' exists.
 
@@ -44,11 +44,11 @@ function loadJsFile(filename) {
 
 console.log("Loading JS Data files...");
 
-loadJsFile('hammam-data.js'); // Populates window.NV_HAMMAM, window.NV_HAMMAM_CATEGORIES, etc.
+loadJsFile('hammam-data.js'); // Populates window.SANTIS_HAMMAM, window.SANTIS_HAMMAM_CATEGORIES, etc.
 
-loadJsFile('massage-data.js'); // Populates window.NV_MASSAGES, etc.
+loadJsFile('massage-data.js'); // Populates window.SANTIS_MASSAGES, etc.
 
-loadJsFile('skincare-data.js'); // Populates window.NV_SKINCARE
+loadJsFile('skincare-data.js'); // Populates window.SANTIS_SKINCARE
 
 
 
@@ -74,21 +74,21 @@ const catalogs = {
 
     hammam: {
 
-        items: window.NV_HAMMAM || [],
+        items: window.SANTIS_HAMMAM || [],
 
-        categories: window.NV_HAMMAM_CATEGORIES || {},
+        categories: window.SANTIS_HAMMAM_CATEGORIES || {},
 
-        tiers: window.NV_HAMMAM_TIERS || {}
+        tiers: window.SANTIS_HAMMAM_TIERS || {}
 
     },
 
     massages: {
 
-        items: window.NV_MASSAGES || [],
+        items: window.SANTIS_MASSAGES || [],
 
-        categories: window.NV_MASSAGE_CATEGORIES || {},
+        categories: window.SANTIS_MASSAGE_CATEGORIES || {},
 
-        tiers: window.NV_MASSAGE_TIERS || {}
+        tiers: window.SANTIS_MASSAGE_TIERS || {}
 
         // Chips excluded due to functions
 
@@ -96,11 +96,11 @@ const catalogs = {
 
     skincare: {
 
-        items: window.NV_SKINCARE || [],
+        items: window.SANTIS_SKINCARE || [],
 
-        categories: window.NV_SKINCARE_CATEGORY_LABELS || {}, // Map label to categories
+        categories: window.SANTIS_SKINCARE_CATEGORY_LABELS || {}, // Map label to categories
 
-        order: window.NV_SKINCARE_CATEGORY_ORDER || []
+        order: window.SANTIS_SKINCARE_CATEGORY_ORDER || []
 
     }
 

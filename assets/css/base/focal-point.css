@@ -1,0 +1,126 @@
+/**
+ * ╔══════════════════════════════════════════════════════════════╗
+ * ║  🖼️ SANTIS FOCAL POINT ENGINE v1.0                        ║
+ * ║  Art Direction · Responsive Cropping · LCP Optimizasyonu   ║
+ * ║  Bento grid kartları için elastik görsel dönüşümler        ║
+ * ╚══════════════════════════════════════════════════════════════╝
+ *
+ * Problem: Masaüstünde 16:9 → Mobilde 1:1 geçişinde
+ *          object-fit: cover ana özneyi kırpabilir.
+ *
+ * Çözüm:   data-focal-x / data-focal-y attribute'ları ile
+ *          her kart için özel odak noktası tanımla.
+ *
+ * Kullanım:
+ *   <img data-focal-x="35" data-focal-y="20" .../>
+ *   → object-position: 35% 20%
+ *
+ * JS tarafı: focal-point.js bu attribute'ları okur ve
+ *            --img-focal-x / --img-focal-y CSS değişkenlerini
+ *            dinamik olarak atar.
+ */
+
+/* ── 1. BENTO KART GÖRSEL TEMEL KURALLARI ────────────────────────────────── */
+.bento-card-media,
+.bento-img,
+.cin-visual-img,
+.cin-inline-img,
+.spaos-card-img,
+[data-bento-img] {
+    width:         100%;
+    height:        100%;
+    object-fit:    cover;
+
+    /* Varsayılan odak: üst-merkez (çoğu spa görseli için uygun) */
+    object-position: var(--img-focal-x, center) var(--img-focal-y, 30%);
+
+    /* LCP: Görsel geçişini yumuşat — layout shift YOK */
+    display: block;
+}
+
+/* ── 2. KART TİPİNE GÖRE VARSAYILAN ODAK NOKTALARI ──────────────────────── */
+
+/* Hero: Geniş kart — üst alan önemli (mekân/atmosfer) */
+.bento-card-v6.wide .bento-card-media,
+.card-hero .bento-card-media,
+[data-card-type="hero"] .bento-card-media {
+    object-position: var(--img-focal-x, center) var(--img-focal-y, 30%);
+}
+
+/* Dikey (portrait) kartlar: yüz/detay üstte */
+.bento-card-v6[data-size="M"] .bento-card-media,
+[data-card-type="portrait"] .bento-card-media {
+    object-position: var(--img-focal-x, center) var(--img-focal-y, 20%);
+}
+
+/* Kare kartlar: merkez */
+.bento-card-v6[data-size="S"] .bento-card-media,
+[data-card-type="square"] .bento-card-media {
+    object-position: var(--img-focal-x, center) var(--img-focal-y, center);
+}
+
+/* Banner: Çok geniş — merkez-alt */
+.card-banner .bento-card-media,
+[data-card-type="banner"] .bento-card-media {
+    object-position: var(--img-focal-x, center) var(--img-focal-y, 50%);
+}
+
+/* ── 3. RESPONSİVE ART DIRECTION ─────────────────────────────────────────── */
+/* Tablet'te kırpma noktası kaymasını önle */
+@media (max-width: 1200px) {
+    .bento-card-v6.wide .bento-card-media {
+        object-position: var(--img-focal-x, center) var(--img-focal-y, 25%);
+    }
+}
+
+/* Mobilde tüm kartlar 4:3 veya 1:1 olur — odak yukarı kayar */
+@media (max-width: 480px) {
+    .bento-card-media,
+    .bento-img,
+    [data-bento-img] {
+        object-position: var(--img-focal-x, center) var(--img-focal-y, 20%);
+    }
+}
+
+/* ── 4. LCP OPTİMİZASYONU: Above-the-fold hero görselleri ──────────────── */
+/*
+ * Preload direktifi tr/index.html <head>'ine eklenir:
+ *   <link rel="preload" fetchpriority="high" as="image"
+ *         href="/assets/img/cards/hammam.webp">
+ *
+ * Bu CSS'de ek olarak aspect-ratio ile CLS (Layout Shift) önlenir:
+ */
+
+/* Hero section görseli — CLS koruması */
+.santis-hero-video,
+.santis-hero [data-lcp],
+.cin-visual-stage {
+    /* Görsel yüklenene kadar yer tut */
+    aspect-ratio: 16 / 9;
+    background: #0a0907;
+}
+
+@media (max-width: 768px) {
+    .santis-hero-video,
+    .santis-hero [data-lcp],
+    .cin-visual-stage {
+        aspect-ratio: 3 / 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .santis-hero-video,
+    .santis-hero [data-lcp],
+    .cin-visual-stage {
+        aspect-ratio: 2 / 3;  /* Mobil: dikey hero */
+    }
+}
+
+/* ── 5. REDUCED MOTION: Görsel geçiş animasyonları ──────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .bento-card-v6 .bento-card-media,
+    .cin-visual-img {
+        transition: none !important;
+        transform:  none !important;
+    }
+}

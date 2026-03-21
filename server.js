@@ -27,9 +27,36 @@ const http = require('http');
 const fs   = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const mediaManifest = require('./admin/omniverse/media-manifest-engine.js');
 
 const PORT = 8080;
 const ROOT = __dirname;
+
+// ── SOVEREIGN ROUTING MANIFESTO (P4) ──
+let RUNTIME_MANIFEST = { routes: [] };
+const manifestPath = path.join(ROOT, 'routes.json');
+try {
+    const rawData = fs.readFileSync(manifestPath, 'utf8');
+    RUNTIME_MANIFEST = JSON.parse(rawData);
+    console.log(`🦅 [Sovereign Core] Rota Manifestosu (routes.json) yüklendi. (v${RUNTIME_MANIFEST.config.version} - ${RUNTIME_MANIFEST.routes.length} rota)`);
+
+    // 🔥 HOT-RELOAD MANIFEST
+    fs.watch(manifestPath, (eventType, filename) => {
+        if (eventType === 'change') {
+            try {
+                const freshData = fs.readFileSync(manifestPath, 'utf8');
+                RUNTIME_MANIFEST = JSON.parse(freshData);
+                console.log(`🦅 [Sovereign Core] Rota Manifestosu HOT-RELOADED. (${RUNTIME_MANIFEST.routes.length} rota)`);
+            } catch (err) {
+                console.error('🚨 [HOT-RELOAD] Manifest parse error:', err);
+            }
+        }
+    });
+} catch (err) {
+    console.error('🚨 [CRITICAL FAILURE] Sovereign Manifestosu okunamadı veya JSON geçersiz!');
+    console.error(err.message);
+    process.exit(1); // Directive Gamma: Kesin Ölüm Protokolü
+}
 
 // ── MIME Types ─────────────────────────────────────────────
 const MIME = {
@@ -63,7 +90,7 @@ const mockMetrics = () => ({
     revenue:     12400 + Math.floor(Math.random() * 3000),
     bounceRate:  (22 + Math.random() * 10).toFixed(1),
     avgSession:  '4m 12s',
-    topPage:     '/tr/masajlar/',
+    topPage:     '/masaj.html',
     timestamp:   new Date().toISOString()
 });
 
@@ -137,6 +164,64 @@ function handleAPI(req, res) {
     }
 
     // ── Media ──
+    if (url === '/api/v1/media/manifest' && method === 'GET') {
+        json({ success: true, manifest: mediaManifest.manifest }); 
+        return true;
+    }
+
+    // ── Sovereign Navigation (Directive Beta) ──
+    if (url === '/api/nav-manifest' && method === 'GET') {
+        // Intelligence Secrecy: Only return routes with nav.show === true
+        const publicNav = RUNTIME_MANIFEST.routes.filter(r => r.nav && r.nav.show);
+        json({ success: true, routes: publicNav }); 
+        return true;
+    }
+
+    // ── Autonomous Sitemap (P4.4) ──
+    if (url === '/sitemap.xml' && method === 'GET') {
+        let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+        const domain = 'https://www.santis-spa.com';
+        
+        RUNTIME_MANIFEST.routes.forEach(r => {
+            if (r.type !== 'external' && !(r.guards && r.guards.includes('admin')) && !r.authRequired) {
+                xml += `  <url>\n    <loc>${domain}${r.path}</loc>\n    <changefreq>daily</changefreq>\n    <priority>${r.path === '/' ? '1.0' : '0.8'}</priority>\n  </url>\n`;
+            }
+        });
+        
+        xml += `</urlset>`;
+        
+        res.writeHead(200, { 'Content-Type': 'application/xml; charset=utf-8' });
+        res.end(xml);
+        return true;
+    }
+
+    // ── Art Director Observability (Phase 43) ──
+    if (url === '/api/v1/art-director/metrics' && method === 'GET') {
+        json({
+            avgScore: 0.94,
+            rejectRate: 0.12,
+            regenerationAvg: 1.2,
+            avgRenderTime: "1.4s",
+            scoreBreakdown: { luxury: 0.95, minimalism: 0.90, lighting: 0.92, brandFit: 0.98 },
+            rejectReasons: { "low_luxury": 4, "bad_lighting": 7, "too_cluttered": 2 },
+            userImpact: { dwellTime: "+24%", scrollDepth: "+18%", conversionLift: "+11%" },
+            topPerformers: [
+                { id: "hero-index.a8f3x9", score: 0.98 },
+                { id: "texture-oil.b92x1", score: 0.95 },
+                { id: "massage-card.c4f8y2", score: 0.93 }
+            ]
+        });
+        return true;
+    }
+    if (url === '/api/v1/art-director/feed' && method === 'GET') {
+        json([
+            { timestamp: Date.now() - 12000, prompt: "macro shot of warm basalt stone with steam...", score: 0.95, status: "accepted", iterations: 1 },
+            { timestamp: Date.now() - 45000, prompt: "luxury spa interior with gold accents...", score: 0.65, status: "rejected", iterations: 2 },
+            { timestamp: Date.now() - 89000, prompt: "minimalist white towel on dark marble...", score: 0.91, status: "accepted", iterations: 1 }
+        ]);
+        return true;
+    }
+
     if (url === '/api/v1/media/assets' && method === 'GET') {
         json(mockAssets()); return true;
     }
@@ -162,8 +247,32 @@ function handleAPI(req, res) {
         return true;
     }
     if (url === '/api/v1/media/upload' && method === 'POST') {
-        // Mock upload endpoint matching integrated_hub.js expectations
-        json({ status: 'SCANNING', success: true, message: 'Media successfully ingested.', asset_id: 'asset-' + Date.now() });
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+            try {
+                const payload = JSON.parse(body);
+                if (!payload.filename || !payload.contentBase64) {
+                    json({ success: false, error: 'Missing filename or contentBase64' }, 400);
+                    return;
+                }
+                const base64Data = payload.contentBase64.split(';base64,').pop();
+                const savePath = path.join(ROOT, 'assets', 'img', payload.filename);
+                
+                fs.writeFile(savePath, base64Data, {encoding: 'base64'}, (err) => {
+                    if (err) {
+                        console.error('Upload Error:', err);
+                        json({ success: false, error: 'Failed to save file' }, 500);
+                    } else {
+                        console.log(`🖼️ [Upload Success] Saved to: ${savePath}`);
+                        json({ status: 'SCANNING', success: true, message: 'Media successfully ingested.', asset_id: payload.filename });
+                    }
+                });
+            } catch (e) {
+                console.error(e);
+                json({ success: false, error: 'Invalid upload JSON' }, 400);
+            }
+        });
         return true;
     }
     
@@ -180,6 +289,23 @@ function handleAPI(req, res) {
         return true;
     }
 
+    // ── Concierge AI Suggestions ──
+    if (url === '/api/v1/concierge/suggestions' && method === 'GET') {
+        json({
+            status: 'active',
+            recommendations: [
+                {
+                    url: '/masaj.htmlsothys-cilt-bakimi.html',
+                    image: '/assets/img/cards/santis_card_skincare_v1.webp',
+                    title: 'Sothys Özel Cilt Terapisi',
+                    description: 'Ritüelinizin ardından, derinlemesine oksijen terapisiyle cildinizi yenileyin. Sovereign üyeliğinize özel tavsiyedir.',
+                    price: '€180'
+                }
+            ]
+        });
+        return true;
+    }
+
     // ── Services ──
     if (url === '/api/v1/services/update' && method === 'PATCH') {
         let body = '';
@@ -192,11 +318,93 @@ function handleAPI(req, res) {
         });
         return true;
     }
-
-    // ── Telemetry & Sentience ──
-    if (url === '/api/v1/telemetry/beacon' && method === 'POST') {
-        json({ received: true, timestamp: new Date().toISOString() }); return true;
+    // ── Billing / Checkout (Black Room) ──
+    if (url === '/api/v1/billing/checkout' && method === 'POST') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+            json({
+                success: true,
+                checkout_url: 'https://billing.stripe.com/p/session/mock_session_santis_v18',
+                message: 'Stripe Gateway Mock Initiated'
+            });
+        });
+        return true;
     }
+
+    // ── Tenant Branding (Black Room) ──
+    if (url === '/api/v1/admin/tenant-branding' && method === 'PATCH') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+            json({
+                success: true,
+                message: 'Chameleon Modeli Başarıyla Vektörel Hafızaya İşlendi.'
+            });
+        });
+        return true;
+    }
+
+    // ── Neural Action Log (Black Room) ──
+    if (url === '/api/v1/admin/neural-action/log' && method === 'GET') {
+        json({
+            success: true,
+            logs: [
+                { id: "LOG-" + Date.now(), action: "Sovereign Analytics Raporu Oluşturuldu", timestamp: new Date().toISOString() },
+                { id: "LOG-" + (Date.now()-360000), action: "Chameleon Brand Engine Senkronize Edildi", timestamp: new Date(Date.now() - 360000).toISOString() }
+            ]
+        });
+        return true;
+    }
+
+    // ── Telemetry & Sentience (V36 Sovereign Observability) ──
+    global.V36_TELEMETRY_STREAM = global.V36_TELEMETRY_STREAM || [];
+    
+    if (url === '/api/v1/telemetry/decision' && method === 'POST') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+            try {
+                const data = JSON.parse(body);
+                global.V36_TELEMETRY_STREAM.push({
+                    level: 'DECISION',
+                    module: data.module,
+                    decision: data.decision,
+                    meta: data.meta,
+                    time: data.time || Date.now()
+                });
+                if (global.V36_TELEMETRY_STREAM.length > 200) global.V36_TELEMETRY_STREAM.shift();
+                json({ received: true });
+            } catch(e) { json({ received: false }, 400); }
+        });
+        return true;
+    }
+
+    if (url === '/api/v1/telemetry/beacon' && method === 'POST') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+            try {
+                const data = JSON.parse(body);
+                global.V36_TELEMETRY_STREAM.push({
+                    level: data.level || 'INFO',
+                    message: data.message || 'Heartbeat signal',
+                    page: data.page || 'unknown',
+                    time: Date.now()
+                });
+                if (global.V36_TELEMETRY_STREAM.length > 200) global.V36_TELEMETRY_STREAM.shift();
+                json({ received: true });
+            } catch(e) { json({received: false}, 400); }
+        });
+        return true;
+    }
+
+    if (url === '/api/v1/admin/telemetry/stream' && method === 'GET') {
+        const events = global.V36_TELEMETRY_STREAM.splice(0, global.V36_TELEMETRY_STREAM.length); // Send and clear queue
+        json({ events });
+        return true;
+    }
+
     if (url === '/api/v1/telemetry/ingest' && method === 'POST') {
         let body = '';
         req.on('data', c => body += c);
@@ -343,6 +551,35 @@ function handleAPI(req, res) {
         return true;
     }
 
+    // ── Neural Surge & Phygital Control ──
+    if (url === '/api/v1/booking/admin/surge' && method === 'GET') {
+        json({ success: true, surge_multiplier: 1.0 });
+        return true;
+    }
+    
+    if (url === '/api/v1/booking/admin/surge' && method === 'POST') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+             // Just mock success to please the frontend
+             json({ success: true, status: 'LOCKED', message: 'Neural Pricing Surge locked.' });
+        });
+        return true;
+    }
+
+    // ── Phase 11: Sovereign Route Mapping Registry ──
+    if (url === '/api/v1/media/slot-routes' && method === 'GET') {
+        json({
+            success: true,
+            routes: [
+                { slot_key: 'hero_main', page_route: '/index.html', is_global: true },
+                { slot_key: 'hamam_ritual', page_route: '/hamam.html', is_global: false },
+                { slot_key: 'massage_vip', page_route: '/masaj.html', is_global: false }
+            ]
+        });
+        return true;
+    }
+
     // ── Revenue Forecast & LTV ──
     if (url === '/api/v1/revenue/forecast' && method === 'GET') {
         json({ today: 14500, forecast_tomorrow: 16200, weekly: 98000, monthly_target: 420000, monthly_actual: 312000 }); return true;
@@ -367,7 +604,63 @@ function handleAPI(req, res) {
 // ── Static File Server ─────────────────────────────────────
 function serveStatic(req, res) {
     let urlPath = req.url.split('?')[0];
-    if (urlPath.endsWith('/')) urlPath += 'index.html';
+
+    // Yönlendirme ve Uzantı Kurtarma Mantığı (Extensionless)
+    if (urlPath === '/rezervasyon' || urlPath === '/rezervasyon/') {
+        urlPath = '/booking.html'; // Master rezervasyon rotası
+    } else if (urlPath.endsWith('/')) {
+        urlPath += 'index.html';
+    } else if (!path.extname(urlPath)) {
+        urlPath += '.html';
+    }
+
+    // --- DICTATORIAL ROUTING (Directive Delta) ---
+    // Enforce Absolute Whitelist on HTML files
+    const extRaw = path.extname(urlPath).toLowerCase();
+    if (extRaw === '.html' || extRaw === '') {
+        const routePath = req.url.split('?')[0];
+
+        // 🛡️ Auto-Redirect old admin routes to the Sovereign HQ Dashboard
+        if (routePath === '/admin/index.html' || routePath === '/admin' || routePath === '/admin/') {
+            res.writeHead(302, { 'Location': '/hq-dashboard' });
+            res.end();
+            return;
+        }
+
+        // Match path against Manifest (exact match or with trailing slash removed)
+        const manifestRoute = RUNTIME_MANIFEST.routes.find(r => r.path === routePath || r.path === routePath.replace(/\/$/, '') || (r.path === '/' && urlPath === '/index.html'));
+        
+        let isAdminRoute = routePath.startsWith('/admin/');
+        let isComponent = routePath.startsWith('/components/');
+        let isReactDashboard = routePath.startsWith('/admin-panel') || routePath.startsWith('/hq-dashboard');
+
+        if (manifestRoute || isAdminRoute || isComponent || isReactDashboard) {
+            // Rewrite URL to physical template if it's in the manifest
+            if (manifestRoute) {
+                urlPath = manifestRoute.template.startsWith('/') ? manifestRoute.template : '/' + manifestRoute.template;
+            } else {
+                // If it's a dynamic admin route or component, use the routePath directly
+                urlPath = routePath;
+            }
+            
+            // 🛡️ LEX AEGIS: Admin Armor (Zero-Trust Shield)
+            const requiresAuth = isAdminRoute || (manifestRoute && (manifestRoute.authRequired || (manifestRoute.guards && manifestRoute.guards.includes('admin'))));
+            
+            if (requiresAuth) {
+                const auth = req.headers['authorization'];
+                if (!auth || auth !== 'Basic c292ZXJlaWduOnF1YW50dW0yMDI2') {
+                    res.writeHead(401, { 'WWW-Authenticate': 'Basic realm="Lex Aegis Sovereign Shield"' });
+                    res.end('Access Restricted by Lex Aegis Central Command. Unauthorized Entity.');
+                    return;
+                }
+            }
+        } else {
+            // Absolute Execution: Ghost routes are ruthlessly terminated
+            res.writeHead(404, { 'Content-Type': 'text/plain' });
+            res.end('Ghost Route Terminated by Sovereign Command. 404 Not Found.');
+            return;
+        }
+    }
 
     const filePath = path.join(ROOT, decodeURIComponent(urlPath));
     const ext = path.extname(filePath).toLowerCase();
@@ -413,7 +706,7 @@ const WS_CONFIG = {
     ALLOW_NULL_ORIGIN: true,           // file:// ve yerel geliştirme için
 
     // 🚫 Limits
-    MAX_CONNECTIONS_PER_IP: 5,         // Eş zamanlı bağlantı limiti
+    MAX_CONNECTIONS_PER_IP: 50,         // Eş zamanlı bağlantı limiti (DevTools refresh toleransı için artırıldı)
     MAX_CONNECT_RATE_PER_MIN: 120,      // Dakikada max yeni bağlantı (local dev: 120)
     MAX_MESSAGES_PER_MIN: 100,         // Bağlantı başına mesaj hız limiti
     MAX_PAYLOAD_BYTES: 32 * 1024,      // 32 KB max mesaj boyutu
@@ -578,7 +871,7 @@ function handleUpgrade(req, socket) {
     if (!key) { releaseConnection(ip); socket.destroy(); return; }
 
     const accept = crypto.createHash('sha1')
-        .update(key + '258EAFA5-E914-47DA-95CA-5AB5DC11E65B')
+        .update(key + '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')
         .digest('base64');
 
     socket.write(
@@ -599,7 +892,7 @@ function handleUpgrade(req, socket) {
     socket._wsClientType = urlParams.get('client_type') || 'frontend';
 
     wsClients.add(socket);
-    console.log(`📡 [WS] Bağlantı kabul edildi. Type: ${socket._wsClientType} | Origin: ${req.headers.origin || 'N/A'} | IP: ${ip} | Aktif: ${wsClients.size}`);
+    console.log(`📡 [WS] Bağlantı kabul edildi. Type: ${socket._wsClientType} | URL: ${req.url} | Origin: ${req.headers.origin || 'N/A'} | IP: ${ip} | User-Agent: ${req.headers['user-agent']} | Aktif: ${wsClients.size}`);
 
     // Welcome message
     wsSend(socket, { type: 'SYSTEM_BOOT', payload: { message: 'Sovereign Bus Online', version: '2.0', timestamp: Date.now() } });
@@ -748,6 +1041,100 @@ setInterval(() => {
     wsClients.forEach(c => { if (!c.destroyed) wsSend(c, event); });
 }, WS_CONFIG.TELEMETRY_INTERVAL_MS);
 
+
+// ── HYBRID SEO ENGINE (Phase 9) ────────────────────────────
+const preRenderCache = new Map();
+
+const seoDictionary = {
+    'tr': {
+        '/index.html': { title: 'Santis Club • Spa & Wellness', desc: 'Antalya\'da özel lüks spa, hamam ritüelleri ve terapötik wellness deneyimi.' },
+        'default': { title: 'Santis Club', desc: 'Santis Club Özel Deneyimi' }
+    },
+    'en': {
+        '/index.html': { title: 'Santis Club • Spa & Wellness', desc: 'Exclusive luxury spa, hammam rituals, and therapeutic wellness experience in Antalya.' },
+        'default': { title: 'Santis Club', desc: 'Santis Club Exclusive Experience' }
+    }
+};
+
+function serveSovereignSEO(req, res, lang, virtualPath) {
+    const fullUrl = `${req.url}`;
+    
+    // Check Cache
+    if (preRenderCache.has(fullUrl)) {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(preRenderCache.get(fullUrl));
+        return true;
+    }
+
+    // Map all requests to the single source of truth (currently in /tr/)
+    if (virtualPath === '/') virtualPath = '/index.html';
+    let physicalPath = path.join(ROOT, 'tr', virtualPath);
+
+    fs.stat(physicalPath, (err, stats) => {
+        // Eğer bir dizinse veya dosya bulunamadıysa (uzantısız bir URL ise), index.html ekle
+        if (err || !stats.isFile()) {
+            if (!virtualPath.endsWith('.html')) {
+                const altVirtualPath = virtualPath.endsWith('/') ? virtualPath + 'index.html' : virtualPath + '/index.html';
+                const altPhysicalPath = path.join(ROOT, 'tr', altVirtualPath);
+                
+                fs.stat(altPhysicalPath, (altErr, altStats) => {
+                    if (altErr || !altStats.isFile()) {
+                        res.writeHead(404, { 'Content-Type': 'text/plain' });
+                        res.end('File not found: ' + req.url);
+                        return;
+                    }
+                    servePhysicalPath(altPhysicalPath, altVirtualPath);
+                });
+                return;
+            } else {
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.end('File not found: ' + req.url);
+                return;
+            }
+        } else {
+            servePhysicalPath(physicalPath, virtualPath);
+        }
+
+        function servePhysicalPath(finalPhysicalPath, finalVirtualPath) {
+            fs.readFile(finalPhysicalPath, 'utf8', (err, html) => {
+                if (err) {
+                    res.writeHead(500); res.end('Server Error'); return;
+                }
+
+                const dict = seoDictionary[lang][finalVirtualPath] || seoDictionary[lang]['default'];
+
+                /*
+                 * 1. Inject lang attribute
+                 * 2. Inject Title & Meta Description
+                 * 3. Inject Canonical & Hreflang
+                 */
+                let processedHtml = html
+                    .replace(/<html[^>]*>/i, `<html lang="${lang}">`)
+                    .replace(/<title>.*?<\/title>/i, `<title>${dict.title}</title>`)
+                    .replace(/<meta\s+name="description"\s+content="[^"]*"/ig, `<meta name="description" content="${dict.desc}"`);
+
+                // Inject SEO Head Tags safely before </head>
+                const seoTags = `
+        <!-- PHASE 9: HYBRID SEO ENGINE -->
+        <link rel="canonical" href="https://santis.club/${lang}${finalVirtualPath.replace('/index.html', '/')}" />
+        <link rel="alternate" hreflang="tr" href="https://santis.club/tr${finalVirtualPath.replace('/index.html', '/')}" />
+        <link rel="alternate" hreflang="en" href="https://santis.club/en${finalVirtualPath.replace('/index.html', '/')}" />
+        <link rel="alternate" hreflang="x-default" href="https://santis.club/en${finalVirtualPath.replace('/index.html', '/')}" />
+        <script>window.__SANTIS_LANG__ = '${lang}';</script>
+    </head>`;
+                processedHtml = processedHtml.replace(/<\/head>/i, seoTags);
+
+                preRenderCache.set(fullUrl, processedHtml);
+
+                res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+                res.end(processedHtml);
+            });
+        }
+    });
+
+    return true;
+}
+
 // ── HTTP Server ────────────────────────────────────────────
 const server = http.createServer((req, res) => {
     // 🏥 ROOT HEALTH ENDPOINT — JSON sağlık raporu
@@ -768,23 +1155,65 @@ const server = http.createServer((req, res) => {
 
     // API routes
     if (req.url.startsWith('/api/')) {
-        if (!handleAPI(req, res)) {
+        // 🚨 GOD'S EYE v2 - TELEMETRY & HOT LEAD INTERCEPTOR
+        if (req.url === '/api/intelligence/hot-lead' && req.method === 'POST') {
+            let body = '';
+            req.on('data', chunk => { body += chunk; });
+            req.on('end', () => {
+                try {
+                    const lead = JSON.parse(body);
+                    if (lead.mood) {
+                        if (lead.mood === 'buying' && lead.confidence >= 0.85) {
+                            console.log(`\n🚨 [GOD'S EYE: HOT LEAD] ======================`);
+                            console.log(`👤 Hedef: ${lead.sessionId}`);
+                            console.log(`📍 Konum: ${lead.url}`);
+                            console.log(`🔥 Durum: ALMAYA HAZIR (%${Math.round(lead.confidence * 100)})`);
+                            console.log(`==============================================\n`);
+                        } else if (lead.mood === 'exit_intent' || lead.mood === 'abandoned_session') {
+                            console.warn(`⚠️ [GOD'S EYE: FLIGHT RISK] Müşteri ${lead.sessionId}, ${lead.url} sayfasından çıkış yaptı veya yapmaya çalışıyor.`);
+                        }
+                    }
+                } catch(e) { /* ignore parse error from beacon */ }
+                res.writeHead(204);
+                res.end();
+            });
+            return;
+        }
+
+        if (typeof handleAPI !== 'undefined' && !handleAPI(req, res)) {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Unknown API endpoint', path: req.url }));
+        } else if (typeof handleAPI === 'undefined') {
             res.writeHead(404, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ error: 'Unknown API endpoint', path: req.url }));
         }
         return;
     }
+
     // Admin sidebar redirects
     const redirects = {
-        '/hq-dashboard': '/admin/index.html',
         '/tenant-dashboard': '/admin/hotels.html',
-        '/guest-zen': '/tr/index.html'
+        '/guest-zen': '/'
     };
-    const cleanUrl = req.url.split('?')[0];
+    let cleanUrl = req.url.split('?')[0];
     if (redirects[cleanUrl]) {
         res.writeHead(302, { 'Location': redirects[cleanUrl] });
         res.end(); return;
     }
+
+    // ── PHASE 9: HYBRID SEO ROUTER ──
+    // Match /tr/something or /en/something
+    const langMatch = cleanUrl.match(/^\/(tr|en)(\/.*)?$/);
+    if (langMatch) {
+       const lang = langMatch[1];
+       const virtualPath = langMatch[2] || '/';
+       // Only intercept HTML requests
+       if (!virtualPath.includes('.') || virtualPath.endsWith('.html')) {
+           serveSovereignSEO(req, res, lang, virtualPath);
+           return;
+       }
+    }
+
     // Static files
     serveStatic(req, res);
 });

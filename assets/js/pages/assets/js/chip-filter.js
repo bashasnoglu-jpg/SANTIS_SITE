@@ -5,7 +5,7 @@
     var attempt = 0;
 
     function initChipFilter() {
-        var sections = document.querySelectorAll(".nv-massage-category");
+        var sections = document.querySelectorAll(".santis-massage-category");
         var chipBar = document.getElementById("nvChips");
 
         if (!sections.length || !chipBar) {
@@ -24,7 +24,7 @@
         chipBar.dataset.chipFilterBound = "1";
 
         chipBar.addEventListener("click", function (event) {
-            var chip = event.target.closest(".nv-chip");
+            var chip = event.target.closest(".santis-chip");
             if (!chip) {
                 return;
             }
@@ -34,13 +34,13 @@
                 return;
             }
 
-            var allChips = chipBar.querySelectorAll(".nv-chip");
+            var allChips = chipBar.querySelectorAll(".santis-chip");
             for (var i = 0; i < allChips.length; i += 1) {
                 allChips[i].classList.remove("is-active");
             }
             chip.classList.add("is-active");
 
-            var freshSections = document.querySelectorAll(".nv-massage-category");
+            var freshSections = document.querySelectorAll(".santis-massage-category");
             for (var j = 0; j < freshSections.length; j += 1) {
                 var section = freshSections[j];
                 if (catId === "all") {

@@ -9,9 +9,9 @@ window.SantisStateEngine = {
         console.log("🧠 [Santis State Engine] V1 Boot Sequence Initiated...");
 
         // Data Bridge is async. Check if it's already here, otherwise wait for DataBridge completion.
-        // It distributes to window.NV_HAMMAM, window.NV_MASSAGES, window.NV_SKINCARE.
+        // It distributes to window.SANTIS_HAMMAM, window.SANTIS_MASSAGES, window.SANTIS_SKINCARE.
 
-        if ((document.readyState === 'complete' || document.readyState === 'interactive') && window.NV_MASSAGES && window.NV_MASSAGES.length > 0) {
+        if ((document.readyState === 'complete' || document.readyState === 'interactive') && window.SANTIS_MASSAGES && window.SANTIS_MASSAGES.length > 0) {
             this.hydrateAll();
         } else {
             // Depending heavily on custom events or DOMContentLoaded
@@ -25,10 +25,10 @@ window.SantisStateEngine = {
         console.log("💧 [State Engine] The Hydration Protocol is engaging DOM elements...");
 
         const allServices = [
-            ...(window.NV_HAMMAM || []),
-            ...(window.NV_MASSAGES || []),
-            ...(window.NV_SKINCARE || []),
-            ...(window.NV_JOURNEYS || [])
+            ...(window.SANTIS_HAMMAM || []),
+            ...(window.SANTIS_MASSAGES || []),
+            ...(window.SANTIS_SKINCARE || []),
+            ...(window.SANTIS_JOURNEYS || [])
         ];
 
         if (allServices.length === 0) {

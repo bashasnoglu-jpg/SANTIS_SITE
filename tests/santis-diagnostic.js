@@ -59,7 +59,7 @@ async function runSantisDiagnostic(targetUrl) {
 
                 // 2. Sistemin (MutationObserver) bu çöküşü anında fark etmesi için Dom Tree'yi sarsıyoruz
                 const dummyGhostCard = document.createElement('div');
-                dummyGhostCard.className = 'nv-rail-card ghost-sabotage';
+                dummyGhostCard.className = 'santis-rail-card ghost-sabotage';
                 track.appendChild(dummyGhostCard);
             });
         });
@@ -77,9 +77,9 @@ async function runSantisDiagnostic(targetUrl) {
             return {
                 tenantId: window.SANTIS_TENANT_ID || 'Bilinmiyor',
                 catalogSize: window.productCatalog ? window.productCatalog.length : 0,
-                skincareCount: window.NV_SKINCARE ? window.NV_SKINCARE.length : 0,
+                skincareCount: window.SANTIS_SKINCARE ? window.SANTIS_SKINCARE.length : 0,
                 domRailsActive: document.querySelectorAll('[data-rail-active="true"]').length,
-                domCardsInjected: document.querySelectorAll('.nv-rail-card').length,
+                domCardsInjected: document.querySelectorAll('.santis-rail-card').length,
                 isKillSwitchEngaged: !!document.querySelector('.kill-switch-active'),
                 isSafeMode: !!document.querySelector('.rail-safe')
             };
@@ -131,5 +131,5 @@ async function runSantisDiagnostic(targetUrl) {
 }
 
 // Örnek Kullanım:
-const target = process.argv[2] || `file://${__dirname.replace(/\\/g, '/')}/../tr/rituals/index.html`;
+const target = process.argv[2] || `file://${__dirname.replace(/\\/g, '/')}/../ritueller.html`;
 runSantisDiagnostic(target);

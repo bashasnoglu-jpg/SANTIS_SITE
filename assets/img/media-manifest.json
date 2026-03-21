@@ -1,0 +1,19 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "last_updated": "2026-03-19T11:25:00Z",
+    "description": "Sovereign Media Manifest - Deterministic Source of Truth"
+  },
+  "assets": {
+    "hero-master-index": {
+      "prompt": "A wide cinematic overhead shot of a luxurious bronze massage ritual, warm antique gold oils glistening...",
+      "aspect": "16:9",
+      "versions": ["avif", "webp"],
+      "width": 1920,
+      "height": 1080,
+      "hash": "a8f3x9",
+      "status": "APPROVED",
+      "lastGenerated": "2026-03-19T11:20:00Z"
+    }
+  }
+}

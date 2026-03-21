@@ -15,10 +15,10 @@
 <!-- FONTS -->
 <link href="/assets/css/fonts.css" rel="stylesheet"/>
 <script>window.SITE_ROOT = '/';</script>
-<script src="/assets/js/perf-head.js"></script>
+<script src="/assets/js/perf-head.js" defer></script>
 <script defer="" src="/assets/js/language-switcher.js"></script>
-<script src="/assets/js/fallback_data.js"></script> <!-- Fallback for File Protocol -->
-<script src="/assets/data/settings-data.js"></script>
+<script src="/assets/js/fallback_data.js" defer></script> <!-- Fallback for File Protocol -->
+<script src="/assets/data/settings-data.js" defer></script>
 <meta content="/assets/img/og-standard.jpg" property="og:image"/>
 <link href="https://santis-club.com/ru/shop/index.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Index", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script>
 <script type="application/ld+json">
@@ -36,19 +36,19 @@
       "@type": "ListItem",
       "position": 2,
       "name": "Ana Sayfa",
-      "item": "https://santis-club.com/tr/index.html"
+      "item": "https://santis-club.com/"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": "Ürünler",
-      "item": "https://santis-club.com/tr/urunler/index.html"
+      "item": "https://santis-club.com/magaza.html"
     },
     {
       "@type": "ListItem",
       "position": 4,
       "name": "Ritüellerin Sanatı",
-      "item": "https://santis-club.com/tr/urunler/index.html"
+      "item": "https://santis-club.com/magaza.html"
     }
   ]
 }
@@ -94,7 +94,7 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Detay",
-      "url": "https://santis-club.com/tr/urunler/detay.html"
+      "url": "https://santis-club.com/urunler/detay.html"
     }
   ]
 }
@@ -154,7 +154,7 @@
 <link href="https://santis-club.com/en/shop/index.html" hreflang="en" rel="alternate"/>
 <link href="https://santis-club.com/fr/shop/index.html" hreflang="fr" rel="alternate"/>
 <link href="https://santis-club.com/ru/shop/index.html" hreflang="ru" rel="alternate"/>
-<link href="https://santis-club.com/tr/magaza/index.html" hreflang="tr" rel="alternate"/>
+<link href="https://santis-club.com/magaza.html" hreflang="tr" rel="alternate"/>
 <link href="https://santis-club.com/en/shop/index.html" hreflang="x-default" rel="alternate">
 </link><meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="[DRAFT] Santis Boutique • Online Mağaza" name="twitter:title"/><meta content="Sothys profesyonel cilt bakımı ve Santis Home spa koleksiyonu." name="twitter:description"/><meta content="https://santisclub.com/assets/img/hero/santis_hero_main_v2.webp" name="twitter:image"/>
 <meta name="theme-color" content="#000000">
@@ -162,17 +162,17 @@
 </head>
 <body class="editorial-mode shop-layout">
 <noscript>
-<nav class="nv-noscript-nav">
-<a class="nv-ns-home" href="/index.html">ANA SAYFA</a>
-<a href="/tr/hamam/index.html">HAMAM</a>
-<a href="/tr/masajlar/index.html">MASAJLAR</a>
-<a href="/tr/cilt-bakimi/index.html">CİLT BAKIMI</a>
-<a href="/tr/galeri/index.html">GALERİ</a>
+<nav class="santis-noscript-nav">
+<a class="santis-ns-home" href="/">ANA SAYFA</a>
+<a href="/hamam.html">HAMAM</a>
+<a href="/masaj.html">MASAJLAR</a>
+<a href="/cilt-bakimi.html">CİLT BAKIMI</a>
+<a href="/galeri.html">GALERİ</a>
 </nav>
 </noscript>
 <!-- NAVBAR -->
 <div id="navbar-container"></div>
-<main id="nv-main">
+<main id="santis-main">
 <!-- CINEMATIC HERO (Video Background) -->
 <section class="cinematic-hero">
 <!-- VIDEO CONTAINER -->
@@ -181,14 +181,14 @@
 <!-- Placeholder Abstract Spa Video (Water/Flow) -->
 <source src="https://videos.pexels.com/video-files/5091624/5091624-hd_1920_1080_24fps.mp4" type="video/mp4"/>
 </video>
-<img alt="Santis Spa Atmosphere" class="hero-fallback-img" decoding="async" fetchpriority="high" height="1024" src="/assets/img/hero/santis_hero_main_v2.webp" width="1024"/>
+<img alt="Santis Spa Atmosphere" class="hero-fallback-img" decoding="async" fetchpriority="high" height="1024" src="/assets/img/hero/santis_hero_main_v2.webp" width="1024">
 </div>
 <!-- ATMOSPHERE -->
 <div class="santis-grain-overlay"></div>
 <div class="hero-gradient-overlay"></div>
 <!-- CONTENT -->
-<div class="nv-container hero-content">
-<span class="nv-kicker slide-up-1">SOTHYS PARIS &amp; SANTIS HOME</span>
+<div class="santis-container hero-content">
+<span class="santis-kicker slide-up-1">SOTHYS PARIS &amp; SANTIS HOME</span>
 <h1 class="hero-title slide-up-2">Ritüellerin <br/>Sanatı</h1>
 <div class="page-intro-seo"><p>Santis Club'un özenle seçilmiş ürün koleksiyonunu keşfedin. Ev spa deneyiminizi zenginleştirecek profesyonel bakım ürünleri, geleneksel hamam aksesuarları ve doğal güzellik ürünleri.</p></div>
 <p class="hero-subtitle slide-up-3">
@@ -203,29 +203,29 @@
 </div>
 </section>
 <!-- BENTO GRID SYSTEM -->
-<section class="nv-section">
-<div class="nv-container">
+<section class="santis-section">
+<div class="santis-container">
 <!-- FILTER TABS (Category Engine Auto-Populates this if needed, or we hardcode) -->
 <!-- Ideally, Category Engine will inject filters if configured, but for now we provide the container -->
 <!-- FILTER TABS (Category Engine Auto-Populates this) -->
 <div class="category-filters" id="nvChips"></div>
 <!-- THE GRID -->
 <!-- THE GRID (Universal Renderer) -->
-<div class="product-grid-v2 nv-product-grid" data-context="product"></div>
+<div class="product-grid-v2 santis-product-grid" data-context="product"></div>
 </div>
 </section>
 <section class="related-services">
 <h2>İlgili Hizmetler</h2>
 <ul>
-<li><a href="/tr/masajlar/klasik-rahatlama.html">Klasik Rahatlama Masajı</a></li>
-<li><a href="/tr/masajlar/aromaterapi.html">Aromaterapi Masajı</a></li>
-<li><a href="/tr/masajlar/derin-doku.html">Derin Doku Masajı</a></li>
+<li><a href="/masajlar/klasik-rahatlama.html">Klasik Rahatlama Masajı</a></li>
+<li><a href="/masajlar/aromaterapi.html">Aromaterapi Masajı</a></li>
+<li><a href="/masajlar/derin-doku.html">Derin Doku Masajı</a></li>
 </ul>
 </section>
 <section class="category-all-services">
 <h2>Tüm Hizmetlerimiz</h2>
 <ul class="service-link-list">
-<li><a href="/tr/urunler/detay.html">Detay</a></li>
+<li><a href="/urunler/detay.html">Detay</a></li>
 </ul>
 </section>
 <section class="seo-bottom-block">
@@ -235,14 +235,12 @@
 <!-- FOOTER -->
 <div id="footer-container"></div>
 <!-- CORE SCRIPTS -->
-<script src="/assets/js/i18n-routes.js"></script>
+<script src="/assets/js/i18n-routes.js" defer></script>
 <script defer="" src="/assets/js/hreflang-injector.js"></script>
-<script src="/assets/js/loader.js"></script>
-<script src="/assets/js/santis-nav.js"></script>
 <!-- THE TRINITY STACK -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" crossorigin="anonymous"></script>
+<script src="/assets/vendor/three.min.js" crossorigin="anonymous" defer></script>
+<script src="/assets/vendor/gsap.min.js" crossorigin="anonymous" defer></script>
+<script src="/assets/vendor/lenis.min.js" crossorigin="anonymous" defer></script>
 <!-- ENGINES -->
 <!-- ENGINES (V5.5 Data Bridge Stack) -->
 <script defer="" src="/assets/js/loaders/data-bridge.js"></script>
@@ -289,5 +287,8 @@
         }
 
     </style>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body></html>
 

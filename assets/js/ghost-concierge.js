@@ -35,7 +35,20 @@ class GhostConcierge {
             const h1 = document.querySelector('h1');
             const serviceName = h1 ? h1.innerText.trim() : document.title.split('-')[0].trim();
             GhostConcierge.recordInterest(intentType, serviceName, window.location.href);
-            console.log(`%c[Ghost Concierge] Niyet Mühürlendi: ${intentType} -> ${serviceName}`, 'color: #8b5cf6; font-style: italic;');
+            
+            // Phase 21: Backend Intent Radar Feedback Loop
+            fetch('/api/v1/analytics/intent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    intentType: intentType,
+                    service: serviceName,
+                    path: window.location.pathname,
+                    duration: 3 // Dwell time yield
+                })
+            }).catch(e => console.warn('Radar offline', e));
+
+            console.log(`%c[Sovereign Radar] Intent mühürlendi ve Backend'e aktarıldı: ${intentType}`, 'color: #8b5cf6; font-style: italic;');
         }, 3000);
     }
   }
@@ -64,7 +77,7 @@ class GhostConcierge {
     
     let intentType = 'default';
     let serviceName = "Santis'in eşsiz arınma ritüelleri";
-    let actionUrl = "/tr/rezervasyon/index.html";
+    let actionUrl = "/rezervasyon.html";
 
     if (memory) {
         if (memory.lastViewed) serviceName = memory.lastViewed;
@@ -80,14 +93,14 @@ class GhostConcierge {
   static recordInterest(intentType, serviceNameOrObj, url) {
     let iType = intentType || 'default';
     let sName = serviceNameOrObj || "Özel Rezervasyon";
-    let sUrl = url || "/tr/rezervasyon/index.html";
+    let sUrl = url || "/rezervasyon.html";
     
     // Fallback if the first argument was omitted and an object was passed
     if (typeof intentType === 'object') {
         const obj = intentType;
         iType = obj.intentType || 'default';
         sName = obj.page || obj.intent || obj.lastViewed || "Özel Rezervasyon";
-        sUrl = obj.url || "/tr/rezervasyon/index.html";
+        sUrl = obj.url || "/rezervasyon.html";
     }
     
     const state = { intentType: iType, lastViewed: sName, url: sUrl, timestamp: Date.now() };

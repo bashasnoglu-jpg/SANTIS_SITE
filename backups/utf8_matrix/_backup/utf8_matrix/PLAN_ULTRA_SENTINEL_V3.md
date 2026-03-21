@@ -68,7 +68,7 @@ Every byte of text that enters or leaves the system passes through a normalizati
     *   **Goal:** Eliminate "Race Conditions" where scripts run before data is ready.
     *   **Mechanism:** Standardize on `product-data:ready` signal dispatched by `product-data.js`.
     *   **Adoption:** Update `home-products.js`, `category-engine.js`, `card-manager.js`, and `app-admin.js` to listen for this specific signal.
-    *   **Deprecation:** Remove `SantisCatalogReady` and `window.NV_DATA_READY` polling loops.
+    *   **Deprecation:** Remove `SantisCatalogReady` and `window.SANTIS_DATA_READY` polling loops.
 
 ### PHASE 4: THE COMPATIBILITY LAYER
 1.  **Verify & Backup:**

@@ -69,17 +69,17 @@ const UpsellBridge = {
         `).join('');
 
         const html = `
-            <div class="nv-upsell-wrapper slide-up-delay">
-                <div class="nv-upsell-header">
-                    <span class="nv-subtitle-gold">RİTÜELİ TAMAMLA</span>
+            <div class="santis-upsell-wrapper slide-up-delay">
+                <div class="santis-upsell-header">
+                    <span class="santis-subtitle-gold">RİTÜELİ TAMAMLA</span>
                     <h3>${data.title}</h3>
                     <p>${data.desc}</p>
                 </div>
-                <div class="nv-upsell-grid">
+                <div class="santis-upsell-grid">
                     ${productsHtml}
                 </div>
-                <div class="nv-upsell-action">
-                    <a href="/tr/magaza/index.html" class="btn-text-gold">Tüm Ürünleri İncele &rarr;</a>
+                <div class="santis-upsell-action">
+                    <a href="/magaza/index.html" class="btn-text-gold">Tüm Ürünleri İncele &rarr;</a>
                 </div>
             </div>
         `;

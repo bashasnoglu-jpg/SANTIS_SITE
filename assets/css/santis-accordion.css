@@ -1,25 +1,25 @@
 /* SANTIS ACCORDION ENGINE v1.0 [Ultra Luxury Style] */
 /* Theme: Quiet Luxury / Minimalist Interaction */
 
-.nv-accordion {
+.santis-accordion {
     width: 100%;
     margin-top: 40px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     /* Çok hafif çizgi */
 }
 
-.nv-accordion-item {
+.santis-accordion-item {
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     transition: background 0.4s ease;
 }
 
-.nv-accordion-item:hover {
+.santis-accordion-item:hover {
     background: rgba(255, 255, 255, 0.02);
     /* Hover'da çok hafif aydınlanma */
 }
 
 /* HEADER BOLUMU */
-.nv-accordion-header {
+.santis-accordion-header {
     padding: 24px 10px;
     cursor: pointer;
     display: flex;
@@ -32,7 +32,7 @@
 }
 
 /* BAŞLIK (Tipografi) */
-.nv-accordion-title {
+.santis-accordion-title {
     font-family: 'Playfair Display', serif;
     font-size: 18px;
     font-weight: 500;
@@ -42,7 +42,7 @@
 }
 
 /* KON (Minimalist Arrow) */
-.nv-accordion-icon {
+.santis-accordion-icon {
     width: 24px;
     height: 24px;
     display: flex;
@@ -52,7 +52,7 @@
     opacity: 0.6;
 }
 
-.nv-accordion-icon::after {
+.santis-accordion-icon::after {
     content: '';
     width: 8px;
     height: 8px;
@@ -65,7 +65,7 @@
 }
 
 /* ICERIK ALANI (Animasyonlu) */
-.nv-accordion-body {
+.santis-accordion-body {
     max-height: 0;
     overflow: hidden;
     opacity: 0;
@@ -77,7 +77,7 @@
         transform 0.6s ease;
 }
 
-.nv-accordion-content {
+.santis-accordion-content {
     padding: 0 10px 40px 10px;
     font-family: 'Inter', sans-serif;
     font-size: 15px;
@@ -88,24 +88,24 @@
 
 /* --- ACTIVE STATE --- */
 
-.nv-accordion-item.is-active .nv-accordion-header .nv-accordion-title {
+.santis-accordion-item.is-active .santis-accordion-header .santis-accordion-title {
     color: var(--os-gold, #D4AF37);
     /* Altın dokunuş */
     padding-left: 10px;
     /* Hafif sağa kayma */
 }
 
-.nv-accordion-item.is-active .nv-accordion-header .nv-accordion-icon {
+.santis-accordion-item.is-active .santis-accordion-header .santis-accordion-icon {
     transform: rotate(180deg);
     opacity: 1;
     border-color: var(--os-gold, #D4AF37);
 }
 
-.nv-accordion-item.is-active .nv-accordion-header .nv-accordion-icon::after {
+.santis-accordion-item.is-active .santis-accordion-header .santis-accordion-icon::after {
     border-color: var(--os-gold, #D4AF37);
 }
 
-.nv-accordion-item.is-active .nv-accordion-body {
+.santis-accordion-item.is-active .santis-accordion-body {
     max-height: 800px;
     /* İçeriğe göre JS ile de set edilebilir ama CSS fallback */
     opacity: 1;

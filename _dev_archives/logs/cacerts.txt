@@ -129,8 +129,8 @@ F6YM40AIOw7n60RzKprxaZLvcRTDOaxxp5EJb+RxBrO6WVcmeQD2+A2iMzAo1KpY
 oJ2daZH9
 -----END CERTIFICATE-----
 
-# Issuer: CN=GlobalSign Root CA O=GlobalSign nv-sa OU=Root CA
-# Subject: CN=GlobalSign Root CA O=GlobalSign nv-sa OU=Root CA
+# Issuer: CN=GlobalSign Root CA O=GlobalSign santis-sa OU=Root CA
+# Subject: CN=GlobalSign Root CA O=GlobalSign santis-sa OU=Root CA
 # Label: "GlobalSign Root CA"
 # Serial: 4835703278459707669005204
 # MD5 Fingerprint: 3e:45:52:15:09:51:92:e1:b7:5d:37:9f:b1:87:29:8a

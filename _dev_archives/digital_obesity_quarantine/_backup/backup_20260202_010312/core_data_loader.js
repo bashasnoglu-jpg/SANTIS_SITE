@@ -4,7 +4,7 @@
     // 1. Static Configuration (Chips, etc.) - Migrated from *-data.js
 
     // MASSAGE CHIPS (Function-based logic)
-    window.NV_MASSAGE_CHIPS = {
+    window.SANTIS_MASSAGE_CHIPS = {
         classicMassages: [
             { key: "all", label: "Tümü", icon: "✨" },
             { key: "express", label: "Ekspres (30dk)", icon: "⚡", filter: item => item.duration === "30 dk" },
@@ -36,9 +36,9 @@
     };
 
     // Default Placeholders (if JSON missing)
-    window.NV_HAMMAM = [];
-    window.NV_MASSAGES = [];
-    window.NV_SKINCARE = [];
+    window.SANTIS_HAMMAM = [];
+    window.SANTIS_MASSAGES = [];
+    window.SANTIS_SKINCARE = [];
 
     async function loadData() {
         try {
@@ -91,16 +91,16 @@
             }));
 
             // 1. HAMMAM
-            window.NV_HAMMAM = allServices.filter(s => s.category === 'hammam');
-            window.NV_HAMMAM_CATEGORIES = {}; // Kategori filtreleme için boş obje
-            console.log("✅ NV_HAMMAM Hydrated (" + window.NV_HAMMAM.length + " items)");
+            window.SANTIS_HAMMAM = allServices.filter(s => s.category === 'hammam');
+            window.SANTIS_HAMMAM_CATEGORIES = {}; // Kategori filtreleme için boş obje
+            console.log("✅ SANTIS_HAMMAM Hydrated (" + window.SANTIS_HAMMAM.length + " items)");
 
             // 2. MASSAGES (Classic, Sports, Asian, Signature, Kids)
             // Categories in site_content.json: classicMassages, sportsTherapy, asianMassages, ayurveda, signatureCouples, kidsFamily
             const massageCats = ['classicMassages', 'sportsTherapy', 'asianMassages', 'ayurveda', 'signatureCouples', 'kidsFamily'];
-            window.NV_MASSAGES = allServices.filter(s => massageCats.includes(s.category));
-            window.NV_MASSAGES_CATEGORY_ORDER = ['all', 'classicMassages', 'asianMassages', 'sportsTherapy', 'signatureCouples', 'kidsFamily'];
-            window.NV_MASSAGES_CATEGORY_LABELS = {
+            window.SANTIS_MASSAGES = allServices.filter(s => massageCats.includes(s.category));
+            window.SANTIS_MASSAGES_CATEGORY_ORDER = ['all', 'classicMassages', 'asianMassages', 'sportsTherapy', 'signatureCouples', 'kidsFamily'];
+            window.SANTIS_MASSAGES_CATEGORY_LABELS = {
                 'all': 'Tümü',
                 'classicMassages': 'Klasik',
                 'asianMassages': 'Uzak Doğu',
@@ -108,20 +108,20 @@
                 'signatureCouples': 'Premium',
                 'kidsFamily': 'Aile'
             };
-            console.log("✅ NV_MASSAGES Hydrated (" + window.NV_MASSAGES.length + " items)");
+            console.log("✅ SANTIS_MASSAGES Hydrated (" + window.SANTIS_MASSAGES.length + " items)");
 
             // 3. SKINCARE (faceSothys)
-            window.NV_SKINCARE = allServices.filter(s => s.category === 'faceSothys');
-            window.NV_SKINCARE_PRICE_LABEL = (p) => !p ? "Fiyat sorunuz" : `${p}€`;
-            console.log("✅ NV_SKINCARE Hydrated (" + window.NV_SKINCARE.length + " items)");
+            window.SANTIS_SKINCARE = allServices.filter(s => s.category === 'faceSothys');
+            window.SANTIS_SKINCARE_PRICE_LABEL = (p) => !p ? "Fiyat sorunuz" : `${p}€`;
+            console.log("✅ SANTIS_SKINCARE Hydrated (" + window.SANTIS_SKINCARE.length + " items)");
 
             // Global Fallback Image handler for anything we missed
-            [...window.NV_HAMMAM, ...window.NV_MASSAGES, ...window.NV_SKINCARE].forEach(item => {
+            [...window.SANTIS_HAMMAM, ...window.SANTIS_MASSAGES, ...window.SANTIS_SKINCARE].forEach(item => {
                 if (!item.img) item.img = "/assets/img/luxury-placeholder.webp";
             });
 
             // Dispatch Event
-            window.dispatchEvent(new Event('NV_DATA_READY'));
+            window.dispatchEvent(new Event('SANTIS_DATA_READY'));
 
         } catch (e) {
             console.error("❌ Data Loader Error:", e);
@@ -129,6 +129,6 @@
     }
 
     // Expose a promise for engines
-    window.NV_DATA_READY_PROMISE = loadData();
+    window.SANTIS_DATA_READY_PROMISE = loadData();
 
 })();

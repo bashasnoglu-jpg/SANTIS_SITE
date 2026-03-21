@@ -15,10 +15,10 @@ function initCursor() {
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
     const cursor = document.createElement('div');
-    cursor.className = 'nv-cursor';
+    cursor.className = 'santis-cursor';
 
     const cursorInner = document.createElement('div');
-    cursorInner.className = 'nv-cursor-inner';
+    cursorInner.className = 'santis-cursor-inner';
 
     cursor.appendChild(cursorInner);
     document.body.appendChild(cursor);
@@ -51,7 +51,7 @@ function initCursor() {
     // Magnetic Snap Logic (Event Delegation for Dynamic Elements)
     // We track mouseover on document to catch any element matching our selectors
 
-    const magneticSelectors = 'a, button, .gallery-item, .nv-chip, .prod-card-v2, .nv-btn, .nav-link';
+    const magneticSelectors = 'a, button, .gallery-item, .santis-chip, .prod-card-v2, .santis-btn, .nav-link';
 
     document.addEventListener('mouseover', (e) => {
         const target = e.target.closest(magneticSelectors);
@@ -83,17 +83,17 @@ let lastScrollY = window.scrollY;
 
 function initUltraVisuals() {
     // 1. Kinetic Typography Setup
-    document.querySelectorAll('.nv-title, .nv-editorial-title, .nv-hero-title').forEach(el => {
-        el.classList.add('nv-kinetic');
+    document.querySelectorAll('.santis-title, .santis-editorial-title, .santis-hero-title').forEach(el => {
+        el.classList.add('santis-kinetic');
         splitText(el);
     });
 
     // 2. Curtain Reveal Setup
     document.querySelectorAll('img').forEach(img => {
         // Wrap images in curtain container if not already wrapped
-        if (!img.closest('.nv-reveal-curtain') && !img.closest('.nv-cursor') && !img.closest('.nav-logo')) {
+        if (!img.closest('.santis-reveal-curtain') && !img.closest('.santis-cursor') && !img.closest('.nav-logo')) {
             const wrapper = document.createElement('div');
-            wrapper.className = 'nv-reveal-curtain';
+            wrapper.className = 'santis-reveal-curtain';
             img.parentNode.insertBefore(wrapper, img);
             wrapper.appendChild(img);
         }
@@ -113,11 +113,11 @@ function splitText(el) {
 
     words.forEach(word => {
         const wordSpan = document.createElement('span');
-        wordSpan.className = 'nv-kinetic-word';
+        wordSpan.className = 'santis-kinetic-word';
 
         [...word].forEach((char, i) => {
             const span = document.createElement('span');
-            span.className = 'nv-kinetic-char';
+            span.className = 'santis-kinetic-char';
             span.innerHTML = char === ' ' ? '&nbsp;' : char;
             span.style.transitionDelay = `${i * 0.03}s`;
             wordSpan.appendChild(span);
@@ -138,7 +138,7 @@ function scrollLoop() {
     currentSkew = Math.max(Math.min(currentSkew, 2), -2);
 
     // Apply Skew to Main Container (exclude fixed elements)
-    const main = document.getElementById('nv-main');
+    const main = document.getElementById('santis-main');
     if (main) {
         main.style.transform = `skewY(${currentSkew}deg)`;
     }
@@ -160,7 +160,7 @@ function initObserver() {
         });
     }, { threshold: 0.15 });
 
-    document.querySelectorAll('.nv-reveal-curtain, .nv-kinetic').forEach(el => {
+    document.querySelectorAll('.santis-reveal-curtain, .santis-kinetic').forEach(el => {
         observer.observe(el);
     });
 }

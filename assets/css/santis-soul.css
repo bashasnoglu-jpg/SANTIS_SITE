@@ -127,8 +127,8 @@
 /* Applies to all premium cards defined in card-effects.js */
 .soul-card,
 .prod-card-v2,
-.nv-trend-card,
-.nv-card {
+.santis-trend-card,
+.santis-card {
     position: relative;
     overflow: hidden;
     /* For sheen */
@@ -144,8 +144,8 @@
 /* The Phantom Sheen (Follows Mouse) */
 .soul-card::after,
 .prod-card-v2::after,
-.nv-trend-card::after,
-.nv-card::after {
+.santis-trend-card::after,
+.santis-card::after {
     content: "";
     position: absolute;
     top: 0;
@@ -165,8 +165,8 @@
 /* Hover States */
 .soul-card:hover,
 .prod-card-v2:hover,
-.nv-trend-card:hover,
-.nv-card:hover {
+.santis-trend-card:hover,
+.santis-card:hover {
     transform: translateY(-4px) scale(1.01);
     border-color: rgba(255, 255, 255, 0.2);
     /* Brighter border */
@@ -176,8 +176,8 @@
 
 .soul-card:hover::after,
 .prod-card-v2:hover::after,
-.nv-trend-card:hover::after,
-.nv-card:hover::after {
+.santis-trend-card:hover::after,
+.santis-card:hover::after {
     opacity: 1;
     /* Show the phantom sheen */
 }

@@ -14,10 +14,10 @@ function initCursor() {
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
     const cursor = document.createElement('div');
-    cursor.className = 'nv-cursor';
+    cursor.className = 'santis-cursor';
 
     const cursorInner = document.createElement('div');
-    cursorInner.className = 'nv-cursor-inner';
+    cursorInner.className = 'santis-cursor-inner';
 
     cursor.appendChild(cursorInner);
     document.body.appendChild(cursor);
@@ -50,7 +50,7 @@ function initCursor() {
     // Magnetic Snap Logic (Event Delegation for Dynamic Elements)
     // We track mouseover on document to catch any element matching our selectors
 
-    const magneticSelectors = 'a, button, .gallery-item, .nv-chip, .prod-card-v2, .nv-btn, .nav-link';
+    const magneticSelectors = 'a, button, .gallery-item, .santis-chip, .prod-card-v2, .santis-btn, .nav-link';
 
     document.addEventListener('mouseover', (e) => {
         const target = e.target.closest(magneticSelectors);

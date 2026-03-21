@@ -73,7 +73,7 @@
         cursor: grabbing !important;
     }
 
-    &.is-dragging .nv-rail-card {
+    &.is-dragging .santis-rail-card {
         pointer-events: none !important;
     }
 
@@ -93,7 +93,7 @@
 }
 
 /* 2. KART İSKELETİ: Asla Ezilmez (Shrink 0), 320px Sabit! */
-.santis-rail-track .nv-rail-card {
+.santis-rail-track .santis-rail-card {
     flex: 0 0 320px !important;
     /* KARTIN SIKIŞMASINI %100 YASAKLAR! */
     width: 320px !important;
@@ -110,7 +110,7 @@
 }
 
 /* 3. GÖRSEL (Resim) MÜHRÜ: Kartın içini tam kaplar, en arkaya atar (z-10) */
-.santis-rail-track .nv-rail-card img {
+.santis-rail-track .santis-rail-card img {
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
@@ -124,7 +124,7 @@
 }
 
 /* 4. LÜKS KARARTMA (GRADIENT) MÜHRÜ: Görselin üstüne biner, yazıları patlatır */
-.santis-rail-track .nv-rail-card>div:nth-of-type(1) {
+.santis-rail-track .santis-rail-card>div:nth-of-type(1) {
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
@@ -136,7 +136,7 @@
 }
 
 /* 5. İÇERİK (YAZILAR) MÜHRÜ: Yazıları EN ÜSTE (z-20) çeker ve aşağı hizalar */
-.santis-rail-track .nv-rail-card-content {
+.santis-rail-track .santis-rail-card-content {
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
@@ -152,7 +152,7 @@
 }
 
 /* Metinlerin ve rozetlerin görünürlüğü KESİN olarak garantilenir */
-.santis-rail-track .nv-rail-card-content * {
+.santis-rail-track .santis-rail-card-content * {
     position: relative !important;
     z-index: 21 !important;
 }

@@ -71,8 +71,8 @@ function analyseHtml(fullPath, rel) {
             uxIssues.push({ tip: '❌ Detay Sayfası', detay: '<h1>Detay</h1> statik kalmış', dosya: rel });
         if (html.includes('PageFactory'))
             uxIssues.push({ tip: '❌ Detay JS', detay: 'PageFactory tanımsız — crash riski', dosya: rel });
-        if (!html.includes('id="nv-dynamic-content"'))
-            uxIssues.push({ tip: '⚠️  Detay Layout', detay: '#nv-dynamic-content eksik', dosya: rel });
+        if (!html.includes('id="santis-dynamic-content"'))
+            uxIssues.push({ tip: '⚠️  Detay Layout', detay: '#santis-dynamic-content eksik', dosya: rel });
     }
 
     // 4. Mağaza script kontrolleri

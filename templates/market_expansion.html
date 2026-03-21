@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ node.lang }}">
 <head>
     <meta charset="utf-8">
@@ -109,12 +109,12 @@
 <body>
 
     <!-- Omni-Language Global Nav -->
-    <header id="nv-header" style="position:fixed; top:0; width:100%; padding:20px; z-index:99; display:flex; justify-content:space-between;">
+    <header id="santis-header" style="position:fixed; top:0; width:100%; padding:20px; z-index:99; display:flex; justify-content:space-between;">
         <div class="logo font-bold tracking-widest text-[#D4AF37]">SANTIS</div>
-        <nav><a href="/tr/rezervasyon/index.html" class="text-xs uppercase tracking-widest text-white border border-white/20 px-4 py-2 hover:bg-white hover:text-black transition-all">BOOK NOW</a></nav>
+        <nav><a href="/rezervasyon/index.html" class="text-xs uppercase tracking-widest text-white border border-white/20 px-4 py-2 hover:bg-white hover:text-black transition-all">BOOK NOW</a></nav>
     </header>
 
-    <main id="nv-main">
+    <main id="santis-main">
         {% if node.content and node.content.hero_image %}
         <section class="expansion-hero">
             <img src="{{ node.content.hero_image }}" alt="{{ node.title }}" decoding="async" fetchpriority="high" width="1920" height="1080">
@@ -144,7 +144,10 @@
 
     <!-- Santis JS Core -->
     <script defer src="/assets/js/santis-telemetry.js"></script>
-    <script type="module" src="/assets/js/core/santis-core.js"></script>
+    <script type="module" src="/assets/js/core/santis-core.js" defer></script>
     <script defer src="/assets/js/app.js"></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>

@@ -65,7 +65,7 @@
 
   /* ─── Render Filter Bar ──────────────────────────────────────── */
   function renderFilterBar() {
-    const bar = document.querySelector('.nv-gallery-filter') ||
+    const bar = document.querySelector('.santis-gallery-filter') ||
       document.querySelector('.filter-bar') ||
       createFilterBar();
     bar.innerHTML = '';
@@ -86,7 +86,7 @@
 
   function createFilterBar() {
     const bar = document.createElement('div');
-    bar.className = 'nv-gallery-filter';
+    bar.className = 'santis-gallery-filter';
     const grid = document.getElementById('gallery-grid');
     grid.parentNode.insertBefore(bar, grid);
     return bar;
@@ -213,7 +213,7 @@
     // CTA → reservation
     card.querySelector('.gal-cta').addEventListener('click', (e) => {
       e.stopPropagation();
-      const modal = document.getElementById('nv-reservation-modal');
+      const modal = document.getElementById('santis-reservation-modal');
       if (modal) { modal.classList.add('open'); }
       else { window.location.href = `/${LANG}/rezervasyon/`; }
     });
@@ -224,7 +224,7 @@
   /* ─── Lightbox ───────────────────────────────────────────────── */
   function buildLightbox() {
     const el = document.createElement('div');
-    el.id = 'nv-gallery-lightbox';
+    el.id = 'santis-gallery-lightbox';
     el.innerHTML = `
       <div class="gal-lb-backdrop"></div>
       <div class="gal-lb-panel">
@@ -241,7 +241,7 @@
     el.querySelector('.gal-lb-backdrop').addEventListener('click', closeLightbox);
     el.querySelector('.gal-lb-close').addEventListener('click', closeLightbox);
     el.querySelector('.gal-lb-book').addEventListener('click', () => {
-      const modal = document.getElementById('nv-reservation-modal');
+      const modal = document.getElementById('santis-reservation-modal');
       if (modal) modal.classList.add('open');
       closeLightbox();
     });
@@ -388,7 +388,7 @@
       })
     }).catch(e => console.error(e));
 
-    const modal = document.getElementById('nv-reservation-modal');
+    const modal = document.getElementById('santis-reservation-modal');
     if (modal) { modal.classList.add('open'); }
     else { window.location.href = `/${LANG}/rezervasyon/?intent=${category}&offer=active`; }
   };
@@ -396,11 +396,11 @@
 
   /* ─── CSS Injection ──────────────────────────────────────────── */
   function injectStyles() {
-    if (document.getElementById('nv-gallery-engine-css')) return;
+    if (document.getElementById('santis-gallery-engine-css')) return;
     const style = document.createElement('style');
-    style.id = 'nv-gallery-engine-css';
+    style.id = 'santis-gallery-engine-css';
     style.textContent = `
-      .nv-gallery-filter {
+      .santis-gallery-filter {
         display: flex; gap: 10px; justify-content: center;
         margin: 0 auto 40px; flex-wrap: wrap;
       }
@@ -463,11 +463,11 @@
       .gal-empty { text-align: center; color: #555; padding: 60px 0; width: 100%; }
 
       /* Lightbox */
-      #nv-gallery-lightbox {
+      #santis-gallery-lightbox {
         display: none; position: fixed; inset: 0; z-index: 9000;
         align-items: center; justify-content: center;
       }
-      #nv-gallery-lightbox.open .gal-lb-panel {
+      #santis-gallery-lightbox.open .gal-lb-panel {
         opacity: 1; transform: scale(1);
       }
       .gal-lb-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.88); }

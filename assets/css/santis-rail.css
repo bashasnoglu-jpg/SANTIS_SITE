@@ -74,7 +74,7 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
 }
 
 /* CARDS */
-.nv-rail-card {
+.santis-rail-card {
     /* 1. YATAY SIKIŞMA ZIRHI: Asla büyüme (0), asla küçülme (0) flex-basis: auto (clamp ile) */
     flex: 0 0 auto !important;
     min-width: 280px;
@@ -101,13 +101,13 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
     scroll-snap-align: start;
 }
 
-.nv-rail-card:hover {
+.santis-rail-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 /* MEDIA & AURA BACKGROUND */
-.nv-rail-card-bg {
+.santis-rail-card-bg {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -120,14 +120,14 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
     /* Karanlık lüks hava */
 }
 
-.nv-rail-card:hover .nv-rail-card-bg {
+.santis-rail-card:hover .santis-rail-card-bg {
     transform: scale(1.08);
     /* Sinematik zoom */
     opacity: 1;
 }
 
 /* GLASS SHADOW OVERLAY (Resmin üzerine gradient) */
-.nv-rail-card-glass {
+.santis-rail-card-glass {
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -139,7 +139,7 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
 }
 
 /* CONTENT CONTAINER */
-.nv-rail-card-content {
+.santis-rail-card-content {
     position: relative;
     z-index: 2;
     /* Resmin ve gölgenin üstünde! */
@@ -154,7 +154,7 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
     width: 100%;
 }
 
-.nv-rail-card-title {
+.santis-rail-card-title {
     font-family: 'Cinzel', serif;
     font-size: 1.15rem;
     color: #fff;
@@ -169,7 +169,7 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.nv-rail-card-meta {
+.santis-rail-card-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -184,13 +184,13 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
     margin-top: 0.25rem;
 }
 
-.nv-meta-price {
+.santis-meta-price {
     color: #FACC15;
     /* Altın vurgu */
     font-weight: 600;
 }
 
-.nv-rail-card-btn {
+.santis-rail-card-btn {
     display: inline-block;
     color: #d4af37;
     /* Santis Gold */
@@ -207,28 +207,28 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
     text-decoration: none;
 }
 
-.nv-rail-card-btn:hover {
+.santis-rail-card-btn:hover {
     color: #fff;
     letter-spacing: 0.15em;
 }
 
 /* RESPONSIVE */
 @media (min-width: 768px) {
-    .nv-rail-card {
+    .santis-rail-card {
         width: 320px;
         padding: 2rem;
     }
 }
 
 @media (min-width: 1024px) {
-    .nv-rail-card {
+    .santis-rail-card {
         width: clamp(300px, 25vw, 400px);
         /* 1 tam + 2 yarım kart altın oranı */
     }
 }
 
 @media (min-width: 1280px) {
-    .nv-rail-card {
+    .santis-rail-card {
         width: clamp(340px, 20vw, 420px);
         /* Dev masaüstünde geniş lüks kartlar */
     }
@@ -256,8 +256,8 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
 /* =========================================================
    2. RAY İÇİ KART ZIRHI (Grid Sayfalarını Bozmaz)
 ========================================================= */
-.rail-track .nv-rail-card,
-.rail-track .nv-card,
+.rail-track .santis-rail-card,
+.rail-track .santis-card,
 .rail-track .ritual-card {
     flex: 0 0 auto !important;
     width: clamp(280px, 85vw, 360px) !important;
@@ -274,14 +274,14 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
 @media (min-width: 768px) {
 
     .rail-track .ritual-card,
-    .rail-track .nv-rail-card {
+    .rail-track .santis-rail-card {
         flex: 0 0 auto !important;
         width: clamp(320px, 30vw, 420px) !important;
     }
 }
 
-.rail-track .nv-rail-card img,
-.rail-track .nv-card img,
+.rail-track .santis-rail-card img,
+.rail-track .santis-card img,
 .rail-track .ritual-card img {
     position: absolute !important;
     inset: 0 !important;
@@ -291,8 +291,8 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
     z-index: 1;
 }
 
-.rail-track .nv-rail-card-content,
-.rail-track .nv-card-body {
+.rail-track .santis-rail-card-content,
+.rail-track .santis-card-body {
     position: relative !important;
     z-index: 2 !important;
     width: 100% !important;
@@ -347,8 +347,8 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
 }
 
 /* 2. ACTIVE CARD AURA (Sis Suikasti — Physical Clarity Protocol) */
-.rail-track .nv-rail-card,
-.rail-track .nv-card,
+.rail-track .santis-rail-card,
+.rail-track .santis-card,
 .rail-track .ritual-card {
     filter: none;
     opacity: 1 !important;
@@ -359,8 +359,8 @@ section[data-rail-engine="true"]:not(.rituals-section)::-webkit-scrollbar {
 
 
 /* JS IntersectionObserver bu sınıfı eklediğinde kart parlayacak! */
-.rail-track .nv-rail-card.is-active-aura,
-.rail-track .nv-card.is-active-aura,
+.rail-track .santis-rail-card.is-active-aura,
+.rail-track .santis-card.is-active-aura,
 .rail-track .ritual-card.is-active-aura {
     filter: brightness(1);
     transform: scale(1);

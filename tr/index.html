@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="tr">
 <head>
@@ -9,16 +9,14 @@
 
 <style id="critical-css">
 /* Temel sıfırlama ve tipografi iskeleti */
-body { margin: 0; background-color: #f4f3f1; font-family: 'Cormorant Garamond', 'Inter', system-ui, sans-serif; color: #1a1a1a; }
-.site-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; min-height: 80px; }
+body { margin: 0; background-color: #101010; font-family: 'Outfit', 'Inter', system-ui, sans-serif; color: #fff; }
+.santis-navbar { min-height: 86px; display: block; position: absolute; top: 0; width: 100%; z-index: 100; }
 /* Mutlak Mizanpaj Koruması & İskelet (Skeleton) */
-.media-wrapper { position: relative; width: 100%; overflow: hidden; background-color: #f4f3f1; }
-.media-wrapper::after { content: ""; position: absolute; inset: 0; background-image: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%); transform: translateX(-100%); animation: shimmer 1.5s infinite; will-change: transform; }
-@keyframes shimmer { 100% { transform: translateX(100%); } }
-.hero-media { aspect-ratio: 2 / 3; }
-@media (min-width: 768px) { .hero-media { aspect-ratio: 2 / 1; } }
-.hero-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0; transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-.hero-image.loaded { opacity: 1; }
+.santis-hero { position: relative; overflow: hidden; background-color: #050505; aspect-ratio: 16 / 9; width: 100%; display: block; }
+@media (max-width: 768px) { .santis-hero { aspect-ratio: 4 / 5; } }
+.hero-visual { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 1; }
+/* Font yükleme kaymalarını (CLS) engellemek için */
+html { font-display: optional; }
 </style>
 
   <link rel="preload" href="/assets/css/fonts.css" as="style">
@@ -86,13 +84,13 @@ body { margin: 0; background-color: #f4f3f1; font-family: 'Cormorant Garamond', 
 <meta content="/assets/img/og-standard.webp" property="og:image"/>
 <meta content="Santis Club – Spa &amp; Wellness" property="og:title"/>
 <meta content="Santis Club – Antalya'da özel lüks spa, hamam ritüelleri ve terapötik wellness deneyimi." property="og:description"/>
-<meta content="https://santis-club.com/tr/index.html" property="og:url"/>
+<meta content="https://santis-club.com/" property="og:url"/>
 <meta content="website" property="og:type"/>
 <!-- HREFLANG CLUSTER -->
 <!-- SCHEMA: Service -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Index","provider":{"@type":"LocalBusiness","name":"Santis Club"}}</script>
 <!-- SCHEMA: BreadcrumbList -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://santis-club.com/index.html"},{"@type":"ListItem","position":2,"name":"Ana Sayfa","item":"https://santis-club.com/tr/index.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://santis-club.com/index.html"},{"@type":"ListItem","position":2,"name":"Ana Sayfa","item":"https://santis-club.com/"}]}</script>
 <!-- SCHEMA: FAQPage -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type": "Question", "name": "Masaj seansı ne kadar sürer?", "acceptedAnswer": {"@type": "Answer", "text": "Masaj seanslarımız 30 ile 90 dakika arasında sürer. Süre seçilen terapiye bağlıdır."}},{"@type": "Question", "name": "Masaj öncesi ne yapmalıyım?", "acceptedAnswer": {"@type": "Answer", "text": "Bir saat önce ağır yemek yememenizi ve bol su içmenizi öneririz. Lütfen 15 dakika erken gelin."}},{"@type": "Question", "name": "Bana hangi masaj türü uygun?", "acceptedAnswer": {"@type": "Answer", "text": "Terapistlerimiz ilk görüşmede ihtiyaçlarınızı değerlendirir ve en uygun masajı önerir."}}]}</script>
 <!-- SCHEMA: HealthAndBeautyBusiness -->
@@ -101,7 +99,7 @@ body { margin: 0; background-color: #f4f3f1; font-family: 'Cormorant Garamond', 
 <link rel="canonical" href="https://santis-club.com/" id="santis-canonical" />
 
 <link rel="alternate" hreflang="tr" href="https://santis-club.com/" />
-<link rel="alternate" hreflang="en" href="https://santis-club.com/?lang=en" />
+
 <link rel="alternate" hreflang="ru" href="https://santis-club.com/?lang=ru" />
 <link rel="alternate" hreflang="de" href="https://santis-club.com/?lang=de" />
 <link rel="alternate" hreflang="ar" href="https://santis-club.com/?lang=ar" />
@@ -112,21 +110,21 @@ body { margin: 0; background-color: #f4f3f1; font-family: 'Cormorant Garamond', 
 <!-- RUM: Core Web Vitals Gözlemcisi -->
 <script src="/assets/js/santis-vitals.js" async></script>
 
-<!-- Phase 6: Fluid Space Engine (Speculation Rules API) -->
 <script type="speculationrules">
 {
-  "prerender": [
-    {
-      "source": "document",
-      "where": {
-        "and": [
-          { "href_matches": "/*" },
-          { "not": { "selector_matches": ".no-prerender, [target='_blank'], [href^='mailto:'], [href^='tel:']" } }
-        ]
-      },
-      "eagerness": "moderate" 
-    }
-  ]
+  "prerender": [{
+    "where": {
+      "and": [
+        { "href_matches": "/tr/*" },
+        { "not": { "selector_matches": ".no-prerender, [target='_blank'], [href^='mailto:'], [href^='tel:']" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }],
+  "prefetch": [{
+    "where": { "selector_matches": ".prefetch-link" },
+    "eagerness": "conservative"
+  }]
 }
 </script>
 </head>
@@ -135,244 +133,564 @@ body { margin: 0; background-color: #f4f3f1; font-family: 'Cormorant Garamond', 
 <div class="page-overlay"></div>
 <!-- 🌌 V17 THE GOD CANVAS (Quantum Renderer) 🌌 -->
 <canvas id="santis-god-canvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:-1;"></canvas>
-<header id="site-header" class="santis-navbar" role="banner">
+<header id="santis-header" class="santis-navbar" role="banner">
   <div id="navbar-container"></div>
 </header>
-<main id="nv-main" data-barba="container" data-barba-namespace="home">
+<main id="santis-main" data-barba="container" data-barba-namespace="home" style="display: block; position: relative; width: 100%;">
 <h1 class="sr-only">Santis Club</h1>
 <!-- SECTION 1: HERO (V8 CINEMATIC ENGINE) -->
-<section class="santis-hero" data-gravity-id="hero-main">
-    <video class="santis-hero-video" muted loop playsinline style="display:none">
-        <!-- <source src="/assets/video/spa-hero.mp4" type="video/mp4"> -->
-        <!-- spa-hero.mp4 hazır olunca source ekle ve display:none kaldır -->
-    </video>
+<section class="santis-hero hero-main" data-gravity-id="hero-main" style="position: relative; overflow: hidden; background: #1B263B; aspect-ratio: 16 / 9;">
+    <picture>
+        <img src="/assets/img/santis_hero_main_v1.webp" 
+            alt="Sovereign Sessiz Lüks Deneyimi - Kuantum Sentezi"
+            width="1920" 
+            height="1080" 
+            fetchpriority="high" 
+            loading="eager" 
+            decoding="sync"
+            class="hero-visual"
+            data-inertia="0.15"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform;">
+    </picture>
     <div class="santis-hero-overlay"></div>
     <div class="santis-hero-content">
         <span class="hero-kicker">SANTIS CLUB</span>
-        <h1 class="hero-title">The Ritual of Stillness</h1>
+        <h2 class="hero-title">The Ritual of Stillness</h2>
         <p class="hero-subtitle">Where water, stone and silence meet.</p>
-        <a class="hero-cta" href="/tr/rezervasyon">Ritüeli Keşfet</a>
+        <a class="hero-cta" href="/rezervasyon">Ritüeli Keşfet</a>
     </div>
 </section>
-<!-- SECTION 2: SIGNATURE EXPERIENCES -->
-<section class="nv-container nv-section" id="imza-deneyimler">
-    <div class="nv-section-header reveal-up">
-        <span class="nv-kicker">İMZA DENEYİMLER</span>
-        <h2 class="nv-title">Elementlerin Ritüeli</h2>
-        <p class="nv-section-subtitle" style="max-width:600px;margin:12px auto 0;color:rgba(255,255,255,0.6);font-size:15px;">Yüzyılların bilgeliğiyle şekillenen özel koleksiyonlar.</p>
-    </div>
-
-    <!-- Editöryal Bento Magazin Layout -->
-    <div class="santis-bento-universe">
-        <!-- 1. GENİŞ KART: HAMAM -->
-        <a class="bento-card-v6 santis-reveal wide" href="/tr/hamam/index.html">
-            <img src="/assets/img/cards/hammam.webp" class="bento-card-media" alt="Hamam Ritüelleri" decoding="async" fetchpriority="high">
-            <div class="bento-card-protector"></div>
-            <div class="bento-card-content">
-                <span class="bento-meta">İmza Deneyim</span>
-                <h3 class="bento-title">Hamam Ritüelleri</h3>
-                <p class="bento-desc">Geleneksel arınma ritüelinin modern lüks ile birleşimi.</p>
-            </div>
-        </a>
-
-        <!-- 2. KÜÇÜK KART: MASAJ -->
-        <a class="bento-card-v6 santis-reveal" href="/tr/masajlar/index.html">
-            <img src="/assets/img/cards/massage.webp" class="bento-card-media" alt="Masaj Terapileri" loading="lazy">
-            <div class="bento-card-protector"></div>
-            <div class="bento-card-content">
-                <span class="bento-meta">Rahatlama</span>
-                <h3 class="bento-title">Masaj Terapileri</h3>
-                <p class="bento-desc">Kasları gevşeten profesyonel terapiler.</p>
-            </div>
-        </a>
-
-        <!-- 3. KÜÇÜK KART: CİLT BAKIMI -->
-        <a class="bento-card-v6 santis-reveal" href="/tr/cilt-bakimi/index.html">
-            <img src="/assets/img/cards/skincare.webp" class="bento-card-media" alt="Cilt Bakımı" loading="lazy">
-            <div class="bento-card-protector"></div>
-            <div class="bento-card-content">
-                <span class="bento-meta">Güzellik</span>
-                <h3 class="bento-title">Cilt Bakımı</h3>
-                <p class="bento-desc">Bilimsel cilt yenileme terapileri.</p>
-            </div>
-        </a>
-
-        <!-- 4. KÜÇÜK KART: ATÖLYE -->
-        <a class="bento-card-v6 santis-reveal" href="/tr/urunler/index.html">
-            <img src="/assets/img/cards/atelier.webp" class="bento-card-media" alt="Spa Atölyesi" loading="lazy">
-            <div class="bento-card-protector"></div>
-            <div class="bento-card-content">
-                <span class="bento-meta">Deneyim</span>
-                <h3 class="bento-title">Spa Atölyesi</h3>
-                <p class="bento-desc">Spa ritüellerinin arkasındaki sanat.</p>
-            </div>
-        </a>
-    </div>
-</section>
-
-<!-- [CLS FIX] Swiper CSS senkron — defer etme, hemen yerleştir -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-<!-- SECTION 2b: SPAOS VERTICAL RITUAL STACK -->
-<section class="nv-section" id="ritual-stack" style="padding:6rem 0; background:#050505; overflow:hidden;">
-  <div class="nv-container" style="max-width:1280px;margin:0 auto;">
-    <div style="display:flex; align-items:center; gap:80px; flex-wrap:wrap;">
-
-      <!-- Sol: Metin -->
-      <div style="flex:1; min-width:280px;">
-        <span class="nv-kicker" style="color:#D4AF37;">RİTÜEL KEŞFEDİCİ</span>
-        <h2 class="nv-title" style="margin:16px 0 20px;">Kaydır.<br>Keşfet.<br>Hisset.</h2>
-        <p style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.8; max-width:380px;">
-          Dört imza ritüelimiz. Fare tekerleğiyle aşağı kaydırın — her kart bir dünya kapısı açar.
-        </p>
-        <a href="/tr/hamam/index.html" class="nv-btn nv-btn-outline santis-magnetic" style="margin-top:32px; display:inline-block;">
-          Tüm Ritüeller
-        </a>
+<!-- SECTION 2: SIGNATURE EXPERIENCES (V45 COVER FLOW MULTI-CARD) -->
+<section class="santis-section" id="imza-deneyimler-v45" style="padding:6rem 0; overflow:hidden;">
+  <div class="santis-container" style="overflow: visible;">
+      <div class="santis-section-header reveal-up" style="text-align: center; margin-bottom: 2rem;">
+          <span class="santis-kicker" style="color:#D4AF37;">İMZA DENEYİMLER</span>
+          <h2 class="santis-title" style="font-size: 2.8rem; margin:16px 0 20px;">Elementlerin Ritüeli</h2>
+          <p style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.8; max-width:480px; margin: 0 auto 32px;">
+              Doğanın temel güçlerinden ilham alan 10 Sovereign dönüştürücü ritüeli.
+          </p>
       </div>
 
-      <!-- Sağ: Swiper -->
-      <div style="flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:16px;">
-        <p style="font-size:10px; letter-spacing:0.25em; color:rgba(255,255,255,0.3); text-transform:uppercase; text-align:center;">↓ Kaydırın</p>
-        <div class="swiper spaos-ritual-swiper" style="width:300px; height:440px; padding:30px 0;">
-          <div class="swiper-wrapper">
-
-            <!-- Kart 1: Hamam -->
-            <div class="swiper-slide spaos-card">
-              <img src="/assets/img/cards/hammam.webp" alt="Sultan Hamamı – geleneksel kese ve köpük ritüeli" loading="lazy" decoding="async" width="600" height="800" class="spaos-card-img">
-              <div class="spaos-card-gradient"></div>
-              <div class="spaos-card-content">
-                <span class="spaos-badge">MİRAS</span>
-                <h3 class="spaos-title">Sultan Hamamı</h3>
-                <p class="spaos-desc">Geleneksel kese ve sıcak köpük ile hücresel yenilenme.</p>
-                <a href="/tr/hamam/index.html" class="spaos-link">RİTÜELİ KEŞFET</a>
+      <div class="santis-carousel-stage custom-cover-flow" id="sov-3d-stage-elements" style="height: 60vh; min-height: 400px; width: 100%; position: relative;">
+          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_card_recovery_lotion_v2.webp'); filter: hue-rotate(180deg) saturate(150%);">
+              <h3 data-morph="title">Su: Arınma Şelalesi</h3>
+              <span class="santis-stack-meta">Hidroterapi</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Su: Arınma Şelalesi</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Hidroterapi dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
               </div>
-            </div>
-
-            <!-- Kart 2: Masaj -->
-            <div class="swiper-slide spaos-card">
-              <img src="/assets/img/cards/massage.webp" alt="Aura Aromaterapi masajı – esansiyel yağlar" loading="lazy" decoding="async" width="600" height="800" class="spaos-card-img">
-              <div class="spaos-card-gradient"></div>
-              <div class="spaos-card-content">
-                <span class="spaos-badge">İMZA</span>
-                <h3 class="spaos-title">Aura Aromaterapi</h3>
-                <p class="spaos-desc">Sıcak esansiyel yağlarla zihinsel frekans dengelemesi.</p>
-                <a href="/tr/masajlar/index.html" class="spaos-link">RİTÜELİ KEŞFET</a>
-              </div>
-            </div>
-
-            <!-- Kart 3: Cilt Bakımı -->
-            <div class="swiper-slide spaos-card">
-              <img src="/assets/img/cards/Santis-face-mask-4x5-1080x1350.webp" alt="Sothys Safir Işıltı – mineral cilt bakımı" loading="lazy" decoding="async" width="600" height="800" class="spaos-card-img">
-              <div class="spaos-card-gradient"></div>
-              <div class="spaos-card-content">
-                <span class="spaos-badge">PREMİUM</span>
-                <h3 class="spaos-title">Safir Işıltı</h3>
-                <p class="spaos-desc">Mineral kristalleriyle cilt bariyerini güçlendiren terapi.</p>
-                <a href="/tr/cilt-bakimi/index.html" class="spaos-link">RİTÜELİ KEŞFET</a>
-              </div>
-            </div>
-
-            <!-- Kart 4: Dinlenme -->
-            <div class="swiper-slide spaos-card">
-              <img src="/assets/img/cards/Santis-spa-rest-graded-clean.webp" alt="Ayurvedik Dokunuş – sıcak taşlar ve prana nefes" decoding="async" width="600" height="800" class="spaos-card-img" fetchpriority="low">
-              <div class="spaos-card-gradient"></div>
-              <div class="spaos-card-content">
-                <span class="spaos-badge">DENGE</span>
-                <h3 class="spaos-title">Ayurvedik Dokunuş</h3>
-                <p class="spaos-desc">Sıcak taşlar ve Prana nefes teknikleriyle içsel huzur.</p>
-                <a href="/tr/masajlar/index.html" class="spaos-link">RİTÜELİ KEŞFET</a>
-              </div>
-            </div>
-
           </div>
-        </div>
+          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/massage.webp'); filter: sepia(50%) hue-rotate(-20deg) contrast(120%);">
+              <h3 data-morph="title">Ateş: Volkanik Taş</h3>
+              <span class="santis-stack-meta">Termoterapi</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Ateş: Volkanik Taş</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Termoterapi dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
+          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/hammam.webp'); filter: grayscale(20%) sepia(30%);">
+              <h3 data-morph="title">Toprak: Kırmızı Kil</h3>
+              <span class="santis-stack-meta">Detoks</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Toprak: Kırmızı Kil</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Detoks dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
+          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/skincare.webp'); filter: hue-rotate(40deg) brightness(1.1);">
+              <h3 data-morph="title">Hava: Oksijen İnfüzyonu</h3>
+              <span class="santis-stack-meta">Hücresel Yenilenme</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Hava: Oksijen İnfüzyonu</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Hücresel Yenilenme dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
+          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_card_massage_asian.webp'); filter: hue-rotate(280deg) saturate(200%);">
+              <h3 data-morph="title">Kristal: Ametist Frekansı</h3>
+              <span class="santis-stack-meta">Enerji Dengeleme</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Kristal: Ametist Frekansı</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Enerji Dengeleme dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
+          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_card_thai_v1.webp'); filter: sepia(40%) hue-rotate(20deg);">
+              <h3 data-morph="title">Odun: Bambu Masajı</h3>
+              <span class="santis-stack-meta">Derin Doku</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Odun: Bambu Masajı</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Derin Doku dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
+          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/Santis-face-mask-4x5-1080x1350.webp'); filter: contrast(110%) brightness(0.9);">
+              <h3 data-morph="title">Metal: Altın İğne V2</h3>
+              <span class="santis-stack-meta">Kolajen Aktivasyonu</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Metal: Altın İğne V2</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Kolajen Aktivasyonu dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
+          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/shirodhara.webp'); filter: hue-rotate(250deg) saturate(180%);">
+              <h3 data-morph="title">Eter: Kuantum Dokunuş</h3>
+              <span class="santis-stack-meta">Sovereign İmzası</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Eter: Kuantum Dokunuş</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Sovereign İmzası dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
+          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_card_skincare_v1.webp'); filter: grayscale(60%) brightness(0.7);">
+              <h3 data-morph="title">Ay: Gece Onarımı</h3>
+              <span class="santis-stack-meta">Melatonin Sentezi</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Ay: Gece Onarımı</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Melatonin Sentezi dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
+          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/Santis-spa-rest-graded-clean.webp'); filter: sepia(50%) contrast(130%) saturate(150%);">
+              <h3 data-morph="title">Güneş: Bronz Işıltı</h3>
+              <span class="santis-stack-meta">Altın Oran Terapisi</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Güneş: Bronz Işıltı</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Altın Oran Terapisi dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
       </div>
-
-    </div>
   </div>
 </section>
 
-<style>
-  .spaos-card { border-radius:16px; overflow:hidden; background:#0a0a0a; border:1px solid rgba(255,255,255,0.05); box-shadow:0 40px 80px rgba(0,0,0,0.8); display:flex; flex-direction:column; justify-content:flex-end; align-items:center; position:relative; cursor:pointer; min-height:380px; aspect-ratio:3/4; contain:layout size; }
-  .spaos-card-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
-  .spaos-card-gradient { position:absolute; inset:0; background:linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.3) 55%, transparent 100%); z-index:1; }
-  .spaos-card-content { position:relative; z-index:2; width:100%; padding:0 20px 24px; text-align:center; }
-  .spaos-badge { display:block; font-size:9px; font-weight:600; letter-spacing:.3em; color:#D4AF37; margin-bottom:8px; }
-  .spaos-title { font-family:'Cinzel','Cormorant Garamond',serif; font-size:20px; font-weight:500; color:#F5F5F7; margin:0 0 8px; }
-  .spaos-desc { font-size:11px; font-weight:300; color:rgba(255,255,255,0.55); line-height:1.5; margin:0 0 16px; }
-  .spaos-link { font-size:9px; font-weight:500; color:#D4AF37; letter-spacing:.2em; border-top:1px solid rgba(255,255,255,0.1); padding-top:12px; display:block; text-decoration:none; transition:opacity .3s; }
-  .spaos-link:hover { opacity:.7; }
-</style>
+<!-- Initialization Script Sync -->
+<!-- [CLS FIX] V45 Carousel Style already active holistically -->
+<!-- SECTION 2b: SOVEREIGN 3D COVER FLOW (V45) -->
+<section class="santis-section" id="ritual-stack" style="padding:6rem 0; overflow:hidden;">
+  <div class="santis-container" style="overflow: visible;">
+      <div style="text-align: center; margin-bottom: 2rem;">
+          <span class="santis-kicker" style="color:#D4AF37;">RİTÜEL KEŞFEDİCİ</span>
+          <h2 class="santis-title" style="font-size: 2.8rem; margin:16px 0 20px;">Sovereign Koleksiyonu</h2>
+          <p style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.8; max-width:480px; margin: 0 auto 32px;">
+              Dört imza ritüelimiz. Kaydırın — her kart bir dünya kapısı açar.
+          </p>
+      </div>
+
+      <!-- V45 COVER FLOW STAGE: SIGNATURE RITUALS (ANASAYFA) -->
+      <div class="santis-carousel-stage" id="sov-3d-stage" style="height: 60vh; min-height: 400px; width: 100%; position: relative;">
+          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/hammam.webp');">
+              <h3 data-morph="title">Sultan Hamamı</h3>
+              <span class="santis-stack-meta">Geleneksel Miras</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Sultan Hamamı</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Geleneksel Miras dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
+          <div class="santis-stack-card" data-reveal="aura-aromaterapi" style="background-image: url(\'/assets/img/cards/massage.webp\'); filter: hue-rotate(40deg);">
+              <h3 data-morph="title">Aura Aromaterapi</h3>
+              <span class="santis-stack-meta">Zihinsel Denge</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Aura Aromaterapi</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Zihinsel Denge dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
+          <div class="santis-stack-card" data-reveal="safir-isilti" style="background-image: url(\'/assets/img/cards/Santis-face-mask-4x5-1080x1350.webp\'); filter: grayscale(50%);">
+              <h3 data-morph="title">Safir Işıltı</h3>
+              <span class="santis-stack-meta">Premium Cilt Bakımı</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Safir Işıltı</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Premium Cilt Bakımı dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
+          <div class="santis-stack-card" data-reveal="ayurvedik-dokunus" style="background-image: url(\'/assets/img/cards/Santis-spa-rest-graded-clean.webp\'); filter: sepia(30%);">
+              <h3 data-morph="title">Ayurvedik Dokunuş</h3>
+              <span class="santis-stack-meta">İçsel Huzur</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Ayurvedik Dokunuş</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      İçsel Huzur dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
+          <div class="santis-stack-card" data-reveal="sothys-paris" style="background-image: url(\'/assets/img/cards/skincare.webp\'); filter: contrast(120%);">
+              <h3 data-morph="title">Sothys Paris</h3>
+              <span class="santis-stack-meta">Dermatolojik Lüks</span>
+          
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Sothys Paris</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Dermatolojik Lüks dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 4rem;">
+          <a href="/hamam.html" class="santis-btn santis-btn-outline santis-magnetic" style="display:inline-block;">
+            Tüm Ritüelleri İncele
+          </a>
+      </div>
+  </div>
+</section>
 
 <!-- SECTION 3: PHILOSOPHY -->
-<section class="nv-philosophy nv-section" id="felsefe">
-<div class="nv-container"><div class="nv-philosophy-grid">
-<div class="nv-philosophy-visual depth-1"><img alt="Santis Club Spa" decoding="async" height="800" loading="lazy" src="/assets/img/cards/Santis-spa-rest-graded-clean.webp" width="600"></div>
-<div class="nv-philosophy-content depth-1">
-<span class="nv-kicker">İYİ OLMA SANATI</span>
-<h2 class="nv-title">Bedeninizi Dinleyin.<br/>Sessizliği Biz Sunuyoruz.</h2>
-<p class="nv-brand-story-text">Santis Club, geleneksel hamam ritüellerini ve modern spa terapilerini eşsiz bir anlayışla buluşturur. Burada zaman yavaşlar, beden dinlenir, zihin berraklaşır.</p>
-<p class="nv-brand-story-text">Her ritüel, yüzyılların bilgeliğiyle tasarlanmış bir iyi olma yolculuğudur. Sessizlik burada lüks değil — bir yaşam biçimi.</p>
-<a class="nv-btn nv-btn-outline santis-magnetic" href="/tr/hakkimizda/index.html" style="margin-top:24px;">Hikâyemizi Keşfedin</a>
+<section class="santis-philosophy santis-section" id="felsefe">
+<div class="santis-container"><div class="santis-philosophy-grid">
+<div class="santis-philosophy-visual depth-1"><img alt="Santis Club Spa" decoding="async" height="800" loading="lazy" src="/assets/img/cards/Santis-spa-rest-graded-clean.webp" width="600"></div>
+<div class="santis-philosophy-content depth-1">
+<span class="santis-kicker">İYİ OLMA SANATI</span>
+<h2 class="santis-title">Bedeninizi Dinleyin.<br/>Sessizliği Biz Sunuyoruz.</h2>
+<p class="santis-brand-story-text">Santis Club, geleneksel hamam ritüellerini ve modern spa terapilerini eşsiz bir anlayışla buluşturur. Burada zaman yavaşlar, beden dinlenir, zihin berraklaşır.</p>
+<p class="santis-brand-story-text">Her ritüel, yüzyılların bilgeliğiyle tasarlanmış bir iyi olma yolculuğudur. Sessizlik burada lüks değil — bir yaşam biçimi.</p>
+<a class="santis-btn santis-btn-outline santis-magnetic" href="/hakkimizda.html" style="margin-top:24px;">Hikâyemizi Keşfedin</a>
 </div>
 </div></div>
 </section>
 <!-- SECTION 4: GLOBAL TRENDS -->
-<div class="nv-container nv-section nv-gap-y-trends" id="global-trends">
-    <div class="nv-section-header reveal-up">
-        <span class="nv-kicker">KÜRESEL İLHAM</span>
-        <h2 class="nv-title">Dünyanın Dört Bir Yanından Ritüeller</h2>
+<div class="santis-container santis-section santis-gap-y-trends" id="global-trends">
+    <div class="santis-section-header reveal-up">
+        <span class="santis-kicker">KÜRESEL İLHAM</span>
+        <h2 class="santis-title">Dünyanın Dört Bir Yanından Ritüeller</h2>
     </div>
 
-    <div class="santis-bento-universe" style="margin-top:40px;">
+    <div class="santis-carousel-stage" style="height: 60vh; min-height: 400px; width: 100%; position: relative; margin-top:40px;">
         <!-- Wabi Sabi Katmanı (Wide) -->
-        <a class="bento-card-v6 santis-reveal wide" href="/service-detail.html?slug=anti-stress-masaji">
-            <img src="/assets/img/cards/santis_card_massage_asian.webp" class="bento-card-media" alt="Wabi-Sabi Estetiği – Japon minimal spa" loading="lazy" decoding="async">
-            <div class="bento-card-protector"></div>
-            <div class="bento-card-content">
-                <span class="bento-meta">Japon Estetiği</span>
-                <h3 class="bento-title">Wabi-Sabi</h3>
-                <p class="bento-desc">Kusurlu güzelliğin sadeliği.</p>
-            </div>
-        </a>
+        <div class="santis-stack-card" data-reveal="wabi-sabi" style="background-image: url(\'/assets/img/cards/santis_card_massage_asian.webp\'); display:block; text-decoration:none;">
+            <h3 data-morph="title">Wabi-Sabi</h3>
+            <span class="santis-stack-meta">Japon Estetiği</span>
+        
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Wabi-Sabi</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Japon Estetiği dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
 
         <!-- Wat Pho (Small) -->
-        <a class="bento-card-v6 santis-reveal" href="/service-detail.html?slug=kombine-masaj">
-            <img src="/assets/img/cards/santis_card_thai_v1.webp" class="bento-card-media" alt="Wat Pho Masajı – Tayland" loading="lazy" decoding="async">
-            <div class="bento-card-protector"></div>
-            <div class="bento-card-content">
-                <span class="bento-meta">Tayland</span>
-                <h3 class="bento-title">Wat Pho Masajı</h3>
-                <p class="bento-desc">Dünyanın en eski masaj okulu.</p>
-            </div>
-        </a>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_card_thai_v1.webp'); filter: hue-rotate(20deg); display:block; text-decoration:none;">
+            <h3 data-morph="title">Wat Pho Masajı</h3>
+            <span class="santis-stack-meta">Tayland</span>
+        
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Wat Pho Masajı</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      Tayland dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
 
         <!-- Roma (Small) -->
-        <a class="bento-card-v6 santis-reveal" href="/service-detail.html?slug=kese-ve-kopuk-masaji">
-            <img src="/assets/img/cards/santis_card_skincare_v1.webp" class="bento-card-media" loading="lazy" decoding="async" alt="Roma Termal Kültürü – Kese ve Köpük bakımı">
-            <div class="bento-card-protector"></div>
-            <div class="bento-card-content">
-                <span class="bento-meta">İTALYA</span>
-                <h3 class="bento-title">Roma Termal</h3>
-                <p class="bento-desc">Salus per aquam (sudan gelen sağlık).</p>
-            </div>
-        </a>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_card_skincare_v1.webp'); filter: sepia(30%); display:block; text-decoration:none;">
+            <h3 data-morph="title">Roma Termal</h3>
+            <span class="santis-stack-meta">İTALYA</span>
+        
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Roma Termal</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      İTALYA dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
 
         <!-- Sothys (Wide) -->
-        <a class="bento-card-v6 wide santis-reveal" href="/tr/cilt-bakimi/index.html">
-            <img src="/assets/img/cards/santis_card_skincare_cover.webp" class="bento-card-media" loading="lazy" decoding="async" alt="Bilimsel Cilt Bakımı – Doğa ve bilim sentezi">
-            <div class="bento-card-protector"></div>
-            <div class="bento-card-content">
-                <span class="bento-meta">BİLİM VE DOĞA</span>
-                <h3 class="bento-title">Sothys: Paris Zarafeti</h3>
-                <p class="bento-desc">İleri dermatolojik çözümlerin ve doğal ekstrelerin sentezi.</p>
-            </div>
-        </a>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_card_skincare_cover.webp'); filter: grayscale(20%); display:block; text-decoration:none;">
+            <h3 data-morph="title">Sothys: Paris Zarafeti</h3>
+            <span class="santis-stack-meta">BİLİM VE DOĞA</span>
+        
+              <div class="santis-reveal-data">
+                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Sothys: Paris Zarafeti</h2>
+                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                      BİLİM VE DOĞA dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
+                  </p>
+                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
+                          <strong style="font-size: 1.3rem;">60 Dk</strong>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
+                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
+                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
+                      </div>
+                  </div>
+                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
+                      HEMEN REZERVASYON
+                  </a>
+              </div>
+          </div>
     </div>
 
 <!-- SANTIS WORLD GATEWAY -->
-<div class="nv-container reveal-up" style="text-align:center; padding-top:50px;">
+<div class="santis-container reveal-up" style="text-align:center; padding-top:50px;">
     <p style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-style:italic; color:#888; margin-bottom:15px;">Tüm dünya miraslarını tek bir ritüelde birleştirdik.</p>
-    <a href="/tr/dunya-ritueli.html" class="nv-btn santis-magnetic" style="border:1px solid #d4af37; color:#d4af37; padding:15px 40px; font-size:14px; letter-spacing:2px; display:inline-block; transition:all 0.4s ease; background:rgba(212,175,55,0.05); text-decoration:none;">
+    <a href="/dunya-ritueli.html" class="santis-btn santis-magnetic" style="border:1px solid #d4af37; color:#d4af37; padding:15px 40px; font-size:14px; letter-spacing:2px; display:inline-block; transition:all 0.4s ease; background:rgba(212,175,55,0.05); text-decoration:none;">
         SANTIS WORLD'Ü KEŞFET
     </a>
 </div>
@@ -396,7 +714,7 @@ body { margin: 0; background-color: #f4f3f1; font-family: 'Cormorant Garamond', 
 
 <!-- SECTION 6: V8.5 SOVEREIGN RAILS (Atelier Product Grid) -->
 <section style="padding:5rem 0;background:#050505;overflow:hidden">
-  <div class="nv-container" style="max-width:1280px;margin:0 auto">
+  <div class="santis-container" style="max-width:1280px;margin:0 auto">
 
     <!-- Masaj Rail -->
     <div style="margin-bottom:4rem">
@@ -405,9 +723,9 @@ body { margin: 0; background-color: #f4f3f1; font-family: 'Cormorant Garamond', 
           <span style="color:#D4AF37;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;display:block;margin-bottom:.5rem">Premium Deneyim</span>
           <h2 style="color:#fff;font-size:1.75rem;font-family:'Cinzel',serif;margin:0">Sovereign Masajlar</h2>
         </div>
-        <a href="/tr/masajlar/index.html" style="color:#888;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#888'">Tümünü Gör &rarr;</a>
+        <a href="/masaj.html" style="color:#888;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#888'">Tümünü Gör &rarr;</a>
       </div>
-      <div class="santis-matrix-container" id="santis-massage-matrix" data-layout="rail" data-category="massage" data-limit="8"></div>
+      <div class="santis-matrix-container santis-carousel-stage" id="santis-massage-matrix" data-layout="coverflow" data-category="massage" data-limit="6" style="height: 60vh; min-height: 400px; width: 100%; position: relative;"></div>
     </div>
 
     <!-- Skincare Rail -->
@@ -417,9 +735,9 @@ body { margin: 0; background-color: #f4f3f1; font-family: 'Cormorant Garamond', 
           <span style="color:#D4AF37;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;display:block;margin-bottom:.5rem">Sothys Paris</span>
           <h2 style="color:#fff;font-size:1.75rem;font-family:'Cinzel',serif;margin:0">Özel Cilt Bakımı</h2>
         </div>
-        <a href="/tr/cilt-bakimi/index.html" style="color:#888;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#888'">Tümünü Gör &rarr;</a>
+        <a href="/cilt-bakimi.html" style="color:#888;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#888'">Tümünü Gör &rarr;</a>
       </div>
-      <div class="santis-matrix-container" id="santis-skincare-matrix" data-layout="rail" data-category="skincare" data-limit="8"></div>
+      <div class="santis-matrix-container santis-carousel-stage" id="santis-skincare-matrix" data-layout="coverflow" data-category="skincare" data-limit="6" style="height: 60vh; min-height: 400px; width: 100%; position: relative;"></div>
     </div>
 
   </div>
@@ -430,44 +748,55 @@ body { margin: 0; background-color: #f4f3f1; font-family: 'Cormorant Garamond', 
 
 <!-- SECTION 5: TESTIMONIALS -->
 
-<section class="nv-testimonials" id="testimonials">
-<div class="nv-container"><div class="nv-section-header"><span class="nv-kicker">MİSAFİR DENEYİMLERİ</span><h2 class="nv-title">Huzurun Yankıları</h2></div>
-<div class="nv-testimonial-grid">
-<div class="nv-testimonial-card depth-1"><div class="nv-testimonial-stars">★★★★★</div><blockquote class="nv-testimonial-quote">"Hayatımın en huzurlu 2 saatiydi. Geleneksel Hamam ritüeli eşsiz bir deneyimdi."</blockquote><div class="nv-testimonial-author"><span class="nv-testimonial-name">Ayşe K.</span><span class="nv-testimonial-location">Istanbul</span></div></div>
-<div class="nv-testimonial-card depth-1"><div class="nv-testimonial-stars">★★★★★</div><blockquote class="nv-testimonial-quote">"Aromaterapi masajından sonra vücudum yeniden doğmuş gibi hissetti. Çok profesyonel."</blockquote><div class="nv-testimonial-author"><span class="nv-testimonial-name">Mehmet T.</span><span class="nv-testimonial-location">Antalya</span></div></div>
-<div class="nv-testimonial-card depth-1"><div class="nv-testimonial-stars">★★★★★</div><blockquote class="nv-testimonial-quote">"Sothys cilt bakım seansı muhteşemdi. Cildim hiç bu kadar parlak ve sağlıklı olmamıştı."</blockquote><div class="nv-testimonial-author"><span class="nv-testimonial-name">Elena M.</span><span class="nv-testimonial-location">Moskova</span></div></div>
+<section class="santis-testimonials" id="testimonials">
+<div class="santis-container"><div class="santis-section-header"><span class="santis-kicker">MİSAFİR DENEYİMLERİ</span><h2 class="santis-title">Huzurun Yankıları</h2></div>
+<div class="santis-testimonial-grid">
+<div class="santis-testimonial-card depth-1"><div class="santis-testimonial-stars">★★★★★</div><blockquote class="santis-testimonial-quote">"Hayatımın en huzurlu 2 saatiydi. Geleneksel Hamam ritüeli eşsiz bir deneyimdi."</blockquote><div class="santis-testimonial-author"><span class="santis-testimonial-name">Ayşe K.</span><span class="santis-testimonial-location">Istanbul</span></div></div>
+<div class="santis-testimonial-card depth-1"><div class="santis-testimonial-stars">★★★★★</div><blockquote class="santis-testimonial-quote">"Aromaterapi masajından sonra vücudum yeniden doğmuş gibi hissetti. Çok profesyonel."</blockquote><div class="santis-testimonial-author"><span class="santis-testimonial-name">Mehmet T.</span><span class="santis-testimonial-location">Antalya</span></div></div>
+<div class="santis-testimonial-card depth-1"><div class="santis-testimonial-stars">★★★★★</div><blockquote class="santis-testimonial-quote">"Sothys cilt bakım seansı muhteşemdi. Cildim hiç bu kadar parlak ve sağlıklı olmamıştı."</blockquote><div class="santis-testimonial-author"><span class="santis-testimonial-name">Elena M.</span><span class="santis-testimonial-location">Moskova</span></div></div>
 </div></div>
 </section>
 <!-- SECTION 6: BOOKING CTA -->
-<section class="nv-booking-cta" id="bookingCta">
-<div class="nv-container" style="text-align:center;padding:80px 20px;">
-<span class="nv-kicker">RİTÜELİNİZİ PLANLAYIN</span>
-<h2 class="nv-title" style="margin-bottom:12px;">Huzur sadece bir arama uzağınızda</h2>
-<p class="nv-brand-story-text" style="max-width:500px;margin:0 auto 32px;">Uzmanlarımız sizin için mükemmel ritüeli planlasın.</p>
-<div class="nv-booking-cta-actions">
-<a class="nv-btn nv-btn-primary santis-magnetic" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank" data-gravity-id="cta-whatsapp-booking">WhatsApp ile Rezervasyon</a>
-<a class="nv-btn nv-btn-outline santis-magnetic" href="tel:+905348350169">Bizi Arayın</a>
+<section class="santis-booking-cta" id="bookingCta">
+<div class="santis-container" style="text-align:center;padding:80px 20px;">
+<span class="santis-kicker">RİTÜELİNİZİ PLANLAYIN</span>
+<h2 class="santis-title" style="margin-bottom:12px;">Huzur sadece bir arama uzağınızda</h2>
+<p class="santis-brand-story-text" style="max-width:500px;margin:0 auto 32px;">Uzmanlarımız sizin için mükemmel ritüeli planlasın.</p>
+<div class="santis-booking-cta-actions">
+<a class="santis-btn santis-btn-primary santis-magnetic" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank" data-gravity-id="cta-whatsapp-booking">WhatsApp ile Rezervasyon</a>
+<a class="santis-btn santis-btn-outline santis-magnetic" href="tel:+905348350169">Bizi Arayın</a>
 </div>
 </div>
 </section>
-</main>
 <!-- SECTION 7: STICKY BAR -->
-<div class="nv-sticky-booking" id="stickyBooking" data-gravity-id="sticky-booking-bar"><div class="nv-sticky-booking-inner"><span class="nv-sticky-booking-text">Ritüelinizi planlayın</span><a class="nv-btn nv-btn-primary nv-btn-sm santis-magnetic" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">Rezervasyon</a></div></div>
+<div class="santis-sticky-booking" id="stickyBooking" data-gravity-id="sticky-booking-bar"><div class="santis-sticky-booking-inner"><span class="santis-sticky-booking-text">Ritüelinizi planlayın</span><a class="santis-btn santis-btn-primary santis-btn-sm santis-magnetic" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">Rezervasyon</a></div></div>
 <div id="footer-container"></div>
+
+<script>
+(function awaitSovereignInteraction() {
+    if (typeof window.initCoverFlowCarousel === 'function') {
+        window.initCoverFlowCarousel();
+        console.log("🎡 Sovereign B2B Cover Flow Carousels Inited globally on Homepage.");
+    } else {
+        setTimeout(awaitSovereignInteraction, 100);
+    }
+})();
+</script>
+
+</main>
 
 <div class="modal-overlay" hidden="" id="bookingModal"></div>
 
 <!-- PAGE TRANSITION ENGINES (GSAP & Barba.js) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
+<script src="/assets/vendor/gsap.min.js" defer></script>
+<script src="/assets/vendor/core.js" defer></script>
 
 <!-- CORE SCRIPTS -->
 <script src="/assets/js/ghost-concierge.js?v=V21_GHOST_2" defer></script>
-<script src="/assets/js/core/sovereign-scroll.js" defer></script>
-<script src="/assets/js/loader.js" defer></script>
-<script src="/assets/js/santis-nav.js" defer></script>
+<!-- <script src="/assets/js/core/sovereign-scroll.js" defer></script> -->
 <script src="/assets/js/santis-data-bridge.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+<script src="/assets/js/santis-quantum-nexus.js" defer></script>
+<script src="/assets/vendor/swiper-bundle.min.js" defer></script>
 <script defer>
   document.addEventListener('DOMContentLoaded', function() {
     if (document.querySelector('.spaos-ritual-swiper')) {
@@ -475,21 +804,82 @@ body { margin: 0; background-color: #f4f3f1; font-family: 'Cormorant Garamond', 
         effect: 'cards',
         grabCursor: true,
         direction: 'vertical',
-        mousewheel: { invert: false, sensitivity: 0.8 },
+        mousewheel: { invert: false, sensitivity: 0.8, releaseOnEdges: true },
         cardsEffect: { slideShadows: true, perSlideOffset: 10, perSlideRotate: 0 }
       });
     }
   });
 </script>
-<script type="module" src="/assets/js/core/santis-core.js"></script>
+<script type="module" src="/assets/js/core/santis-lang.js" defer></script>
+<script type="module" src="/assets/js/core/santis-core.js" defer></script>
     <script src="/assets/js/app.js" defer></script>
 
-<!-- SOVEREIGN OS BOOTLOADER (V18 KERNEL) -->
-<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V18_APEX_RESURRECTION" defer></script>
+<!-- Phase 42(B): Real-Time Art Director Personalization -->
+<script type="module" src="/assets/js/core/santis-art-director-client.js" defer></script>
 
+<!-- Phase 43/44: Predictive Orchestration (Kinematic Radar) -->
+<script type="module" src="/assets/js/core/santis-predictive-orchestrator.js" defer></script>
+
+<!-- Phase 45: The "Silent Prestige" Protocol (Aesthetic Gamification) -->
+<script type="module" src="/assets/js/core/santis-prestige-engine.js" defer></script>
+
+<!-- Phase 47: The Phantom Concierge (Voice-Led Omniscient UI) -->
+<script type="module" src="/assets/js/core/santis-phantom-concierge.js" defer></script>
+
+<!-- Phase 49: The Invisible Transaction (Biometric Cart bypass) -->
+<script type="module" src="/assets/js/core/santis-sovereign-vault.js" defer></script>
+
+<!-- Phase 54: WebSocket Singleton Shield -->
+<script type="module" src="/assets/js/core/santis-telemetry-client.js" defer></script>
+
+<!-- Phase 54 & 55: Quantum Shield and Self-Healing Swarm -->
+<script type="module" src="/assets/js/core/santis-quantum-shield.js" defer></script>
+<script type="module" src="/assets/js/core/santis-self-healing-agent.js" defer></script>
+
+<!-- Phase 56: Semantic Quantum Search NLP -->
+<script type="module" src="/assets/js/core/santis-semantic-engine.js" defer></script>
+
+<!-- Phase 58: Sovereign Governance Engine (Ajan Anayasası) -->
+<script type="module" src="/assets/js/core/santis-governance-engine.js" defer></script>
+
+<!-- Phase 59: Phygital Bridge (IoT & Digital Twins) -->
+<script type="module" src="/assets/js/core/santis-phygital-bridge.js" defer></script>
+
+<!-- Phase 60: Zero-Copy Karata Edge Pipeline -->
+<script type="module" src="/assets/js/core/santis-edge-pipeline.js" defer></script>
+
+<!-- Phase 61: Vocal DNA — Biyometrik Ses Katmanı -->
+<script type="module" src="/assets/js/core/santis-vocal-dna.js" defer></script>
+
+<!-- Phase 46: The Omniverse Architecture (Spatial 3D) -->
+
+<!-- SOVEREIGN OS BOOTLOADER (V18 KERNEL) -->
+<!-- SOVEREIGN NAVIGATION ENGINE -->
+<!-- Phase 46: Sanctuary Service Worker Registration -->
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/santis-sanctuary-sw.js')
+            .then(reg => console.log('🛡️ [Sanctuary] Offline Service Worker Kilitlendi.', reg.scope))
+            .catch(err => {
+                console.warn('⚠️ [Sanctuary] Servis çalışanı (SW) kök dizinden yüklenemedi. Geliştirme sunucusunda (Live Server/Vite) izole bir yolda (path) çalışıyor olabilirsiniz.');
+                navigator.serviceWorker.register('../santis-sanctuary-sw.js')
+                    .then(reg => console.log('🛡️ [Sanctuary] Offline Service Worker Kilitlendi (Göreceli Yol).', reg.scope))
+                    .catch(fallbackErr => console.warn('⚠️ [Sanctuary] Service Worker geliştirme ortamında aktif değil (404 / Kapsam Hatası). Sistem yoluna devam ediyor.'));
+            });
+    });
+}
+</script>
 <!-- 🧬 SOVEREIGN LIVE EVOLUTION PIPELINE (henüz aktif değil) -->
 <!-- <script src="/admin/omniverse/santis-neural-beacon.js" defer></script> -->
 <!-- <script src="/admin/omniverse/darwinian-traffic-router.js" defer></script> -->
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
+
+<!-- 💧 SANTIS LIQUID CURSOR ENGINE v1.0 -->
+<div id="santis-cursor-dot"></div>
+<div id="santis-cursor-ring"><span class="santis-cursor-label"></span></div>
+
 </body>
 </html>
-

@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sovereign Vault | Güvenli Ödeme - Santis Club</title>
     
-    <!-- NEUROVA Global Stil Katmanı -->
+    <!-- SANTIS Global Stil Katmanı -->
     <link rel="stylesheet" href="assets/css/style.css">
     
     <!-- 🛡️ Stripe Elements Çekirdeği (Kasa'nın Anahtarı) -->
-    <script src="https://js.stripe.com/v3/"></script>
+    <script src="/assets/vendor/.js" defer></script>
     <style>
         .vault-body {
             background-color: #1a1a1a;
@@ -124,12 +124,12 @@
 <body class="vault-body">
 
     <!-- Opsiyonel: Sadeleştirilmiş, bağlantısız bir Header (Kaçışları önlemek için) -->
-    <header id="nv-header" class="checkout-header">
+    <header id="santis-header" class="checkout-header">
         <div class="logo-container">SANTIS OS VAULT</div>
     </header>
 
     <!-- Kasanın Ana Gövdesi -->
-    <main id="nv-main">
+    <main id="santis-main">
         <form id="payment-form" class="vault-container">
             <!-- 💳 Stripe formunun çizileceği o özel konteyner -->
             <div id="payment-element">
@@ -146,12 +146,15 @@
         </form>
     </main>
 
-    <footer id="nv-footer" class="checkout-footer">
+    <footer id="santis-footer" class="checkout-footer">
         <p>&copy; 2026 Santis Club. Tüm işlemler 256-bit şifreleme ile korunmaktadır.</p>
     </footer>
 
     <!-- Kasa Mantığını (Logic) Yönetecek Özel JS Dosyamız -->
     <script src="assets/js/santis-vault.js" defer></script>
     <script src="/assets/js/ghost-concierge.js?v=V21_GHOST_2" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>

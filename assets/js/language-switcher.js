@@ -288,34 +288,7 @@
     }
 
     function insertDropdown() {
-        let dropdown = document.querySelector('.santis-lang-dropdown');
-        if (!dropdown) {
-            dropdown = createDropdown();
-        }
-
-        // 1. New Standard (Root)
-        const placeholder = document.getElementById('santis-language-root');
-        if (placeholder) {
-            placeholder.innerHTML = '';
-            placeholder.appendChild(dropdown);
-            return;
-        }
-
-        // 2. Fallbacks...
-        const navActions = document.querySelector('.nav-actions, .navbar-actions, header nav');
-        if (navActions) {
-            navActions.appendChild(dropdown);
-            return;
-        }
-
-        if (!dropdown.parentNode) {
-            const header = document.querySelector('header');
-            if (header) {
-                header.appendChild(dropdown);
-            } else {
-                document.body.appendChild(dropdown);
-            }
-        }
+        return; // Disabled by user request - Removes 'TR' selector from the navbar
     }
 
     // ═══════════════════════════════════════════════════════════════

@@ -164,11 +164,11 @@
 @supports (animation-timeline: view()) {
 
     /* Sinematik giriş: tüm kart varyantlarını kapsıyor */
-    .ultra-motion .nv-card,
+    .ultra-motion .santis-card,
     .ultra-motion .bento-card,
     .ultra-motion .svc-card,
-    .ultra-motion .nv-signature-visual,
-    .ultra-motion .nv-trend-card {
+    .ultra-motion .santis-signature-visual,
+    .ultra-motion .santis-trend-card {
         animation: sovereignReveal linear both;
         animation-timeline: view();
         /* Viewport'a %5 girdiğinde başla → %30'unda bitir */
@@ -194,7 +194,7 @@
     /* Hero / section başlıkları için daha hafif versiyon — kayma yok, sadece fade */
     .ultra-motion h1,
     .ultra-motion h2,
-    .ultra-motion .nv-section-label {
+    .ultra-motion .santis-section-label {
         animation: sovereignFadeIn linear both;
         animation-timeline: view();
         animation-range: entry 0% cover 20%;
@@ -213,17 +213,17 @@
     }
 
     /* Stagger efekti: n. kart biraz geç başlar (scroll hızıyla doğal dağılım) */
-    .ultra-motion .nv-card:nth-child(2),
+    .ultra-motion .santis-card:nth-child(2),
     .ultra-motion .bento-card:nth-child(2) {
         animation-range: entry 10% cover 35%;
     }
 
-    .ultra-motion .nv-card:nth-child(3),
+    .ultra-motion .santis-card:nth-child(3),
     .ultra-motion .bento-card:nth-child(3) {
         animation-range: entry 15% cover 40%;
     }
 
-    .ultra-motion .nv-card:nth-child(n+4),
+    .ultra-motion .santis-card:nth-child(n+4),
     .ultra-motion .bento-card:nth-child(n+4) {
         animation-range: entry 20% cover 45%;
     }
@@ -231,12 +231,12 @@
     /* Reduced Motion tercihine saygı — accessibility zorunluluğu */
     @media (prefers-reduced-motion: reduce) {
 
-        .ultra-motion .nv-card,
+        .ultra-motion .santis-card,
         .ultra-motion .bento-card,
         .ultra-motion .svc-card,
         .ultra-motion h1,
         .ultra-motion h2,
-        .ultra-motion .nv-section-label {
+        .ultra-motion .santis-section-label {
             animation: none;
         }
     }

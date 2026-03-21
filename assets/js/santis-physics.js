@@ -45,7 +45,7 @@ class SantisPhysics {
     // --- 🧲 COMPONENT: MAGNETIC BUTTONS ---
     initMagnets() {
         // Auto-detect all buttons and nav links
-        const targets = document.querySelectorAll('.nv-btn, .nv-nav-link, .intro-btn');
+        const targets = document.querySelectorAll('.santis-btn, .santis-nav-link, .intro-btn');
 
         targets.forEach(el => {
             // State for physics integration
@@ -61,6 +61,10 @@ class SantisPhysics {
             });
 
             // Bind Events
+            el.addEventListener('mouseenter', () => {
+                const item = this.magnetics.find(i => i.el === el);
+                if (item) item.rect = el.getBoundingClientRect(); // Only compute once per hover
+            });
             el.addEventListener('mousemove', (e) => this.handleMagnetMove(e, el));
             el.addEventListener('mouseleave', () => this.handleMagnetLeave(el));
 
@@ -80,7 +84,7 @@ class SantisPhysics {
 
         // Calculate distance from center
         // We use the element's center as the gravity core
-        item.rect = el.getBoundingClientRect(); // Refresh for accuracy
+        
         const centerX = item.rect.left + item.rect.width / 2;
         const centerY = item.rect.top + item.rect.height / 2;
 
@@ -126,7 +130,7 @@ class SantisPhysics {
     // --- 🔮 COMPONENT: HOLOGRAPHIC TILT (3D Cards) ---
     initHolograms() {
         // Target all cards that need 3D depth
-        const selector = '.nv-card, .nv-trend-card, .product-card, .nv-visual-col, .nv-campaign-slide';
+        const selector = '.santis-card, .santis-trend-card, .product-card, .santis-visual-col, .santis-campaign-slide';
 
         // Since many cards are dynamic (loaded via JS), we need a MutationObserver
         const observer = new MutationObserver((mutations) => {

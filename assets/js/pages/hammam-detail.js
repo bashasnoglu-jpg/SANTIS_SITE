@@ -55,9 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 3. Accordion Logic (FAQ / Steps)
-    const accordions = document.querySelectorAll('.nv-accordion-item');
+    const accordions = document.querySelectorAll('.santis-accordion-item');
     accordions.forEach(acc => {
-        const header = acc.querySelector('.nv-accordion-header');
+        const header = acc.querySelector('.santis-accordion-header');
         header.addEventListener('click', () => {
             const isActive = acc.classList.contains('active');
 
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typeof openBookingModal === 'function') {
                 openBookingModal();
             } else {
-                window.location.href = "/tr/rezervasyon/index.html";
+                window.location.href = "/rezervasyon.html";
             }
         });
     }

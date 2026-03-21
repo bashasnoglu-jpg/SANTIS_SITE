@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <meta charset="UTF-8">
     <meta name="description" content="Sovereign Command Center | God Mode — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +13,9 @@
     <link href="/admin/dist/admin.bundle.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" crossorigin="anonymous"></script>
-    <script src="/admin/assets/js/vendor/vis-network.min.js"></script>
-    <script src="/admin/assets/js/santis-neural-map.js"></script>
-    <script src="/admin/assets/js/santis-masaf-patch.js"></script>
+    <script src="/admin/assets/js/vendor/vis-network.min.js" defer></script>
+    <script src="/admin/assets/js/santis-neural-map.js" defer></script>
+    <script src="/admin/assets/js/santis-masaf-patch.js" defer></script>
     
     <style>
         body {
@@ -141,7 +146,7 @@
         
         <div class="flex-1 overflow-y-auto custom-scroll flex flex-col">
             <nav id="standard-nav" class="p-4 space-y-2 transition-all duration-500 shrink-0">
-                <a href="/index.html" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 font-medium border border-transparent transition">❖ Dashboard</a>
+                <a href="/" class="block px-4 py-2 rounded-lg hover:bg-gray-800 text-gray-400 font-medium border border-transparent transition">❖ Dashboard</a>
                 
                 <a href="/admin/god-mode.html" class="block px-4 py-3 rounded-lg bg-gradient-to-r from-amber-900/40 to-black border border-amber-500/50 text-amber-400 font-bold shadow-[0_0_15px_rgba(245,158,11,0.2)] flex justify-between items-center group">
                     <span class="flex items-center gap-2"><span class="text-lg">👁️</span> The God Mode (Classic)</span>
@@ -686,7 +691,7 @@
                     ],
                     bleeding: [
                         { id: "mutant_v2", label: "Massage (Mutant)", lostTraffic: 145 },
-                        { id: "old_hamam", label: "/tr/hamam/old-ritual", lostTraffic: 89 }
+                        { id: "old_hamam", label: "/hamam.htmlold-ritual", lostTraffic: 89 }
                     ]
                 };
                 
@@ -720,6 +725,9 @@
 <script src="/admin/assets/js/admin-nav.js" defer></script>
 <!-- Sovereign Omni-Core Init -->
 <script src="/admin/assets/js/god-mode-init.js" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
 

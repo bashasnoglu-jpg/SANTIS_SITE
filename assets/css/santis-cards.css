@@ -22,7 +22,7 @@
 
 /* --- 2. TIER 2: CINEMATIC SERVICE CARD --- */
 
-.nv-card-service {
+.santis-card-service {
 
     position: relative;
 
@@ -40,7 +40,7 @@
 
 
 
-.nv-card-service:hover {
+.santis-card-service:hover {
 
     transform: translateY(-5px);
 
@@ -50,7 +50,7 @@
 
 
 
-.nv-service-img-box {
+.santis-service-img-box {
 
     position: relative;
 
@@ -68,7 +68,7 @@
 
 
 
-.nv-service-img-box img {
+.santis-service-img-box img {
 
     width: 100%;
 
@@ -84,7 +84,7 @@
 
 
 
-.nv-card-service:hover .nv-service-img-box img {
+.santis-card-service:hover .santis-service-img-box img {
 
     transform: scale(1.05);
 
@@ -94,7 +94,7 @@
 
 
 
-.nv-service-overlay {
+.santis-service-overlay {
 
     position: absolute;
 
@@ -116,7 +116,7 @@
 
 
 
-.nv-card-service:hover .nv-service-overlay {
+.santis-card-service:hover .santis-service-overlay {
 
     opacity: 1;
 
@@ -124,7 +124,7 @@
 
 
 
-.nv-service-info {
+.santis-service-info {
 
     padding: 24px;
 
@@ -134,7 +134,7 @@
 
 /* --- 3. LEGACY CARD (Fallback) --- */
 
-.nv-card {
+.santis-card {
 
     /* Kept for backward compatibility if needed */
 
@@ -154,7 +154,7 @@
 
 /* --- 4. TIER 3: PRODUCT CARD (Minimal) --- */
 
-.nv-card-product {
+.santis-card-product {
 
     background: transparent;
 
@@ -166,7 +166,7 @@
 
 
 
-.nv-product-img-box {
+.santis-product-img-box {
 
     position: relative;
 

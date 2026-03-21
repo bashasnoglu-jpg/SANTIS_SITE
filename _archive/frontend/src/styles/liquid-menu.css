@@ -1,0 +1,110 @@
+/* ═══════════════════════════════════════════════════════════════
+   💧 THE LIQUID MENU - CSS ENGINE
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 1. Base Variables & Overlays */
+:root {
+    --nav-height: 100px;
+    --nav-glass-bg: rgba(5, 5, 5, 0.7);
+    --nav-blur: blur(20px);
+    --gold: #D4AF37;
+    --emerald: #10b981;
+}
+
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.nav-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* 2. Main Navigation Shell */
+.sovereign-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 101;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.4s ease,
+                backdrop-filter 0.4s ease;
+}
+
+.sovereign-nav.is-scrolled {
+    background-color: var(--nav-glass-bg);
+    backdrop-filter: var(--nav-blur);
+    /* -webkit-backdrop-filter is often needed for Safari */
+    -webkit-backdrop-filter: var(--nav-blur); 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sovereign-nav.is-hidden {
+    transform: translateY(-100%);
+}
+
+/* 3. Dropdown Container & Glassmorphism */
+.santis-liquid-menu-container {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.liquid-header-col p {
+    font-family: 'Outfit', sans-serif;
+}
+
+.liquid-link:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.liquid-link:hover .liquid-link-text {
+    transform: translateX(8px);
+}
+
+.liquid-link-text {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 4. Link Hoover Traces (Underlines) */
+.liquid-trigger {
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.liquid-trigger::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width 0.3s ease, left 0.3s ease, background-color 0.3s ease;
+}
+
+.liquid-trigger:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.liquid-trigger[data-menu="cilt"]:hover::after {
+    background: var(--emerald);
+}
+
+/* Typography Overrides */
+.sovereign-brand-bar {
+    font-family: 'Outfit', sans-serif;
+}
+.sovereign-service-bar {
+    font-family: 'Outfit', sans-serif;
+}

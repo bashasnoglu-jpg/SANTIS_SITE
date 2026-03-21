@@ -1,0 +1,34 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "generate:api": "openapi-typescript http://localhost:8000/openapi.json -o src/services/api/schema.d.ts"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.27",
+    "openapi-fetch": "^0.17.0",
+    "openapi-typescript": "^7.13.0",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^3.4.19",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.0",
+    "vite-plugin-pwa": "^1.2.0",
+    "workbox-core": "^7.4.0",
+    "workbox-expiration": "^7.4.0",
+    "workbox-precaching": "^7.4.0",
+    "workbox-routing": "^7.4.0",
+    "workbox-strategies": "^7.4.0",
+    "workbox-window": "^7.4.0"
+  },
+  "dependencies": {
+    "@types/three": "^0.183.1",
+    "comlink": "^4.4.2",
+    "gsap": "^3.14.2",
+    "three": "^0.183.2"
+  }
+}

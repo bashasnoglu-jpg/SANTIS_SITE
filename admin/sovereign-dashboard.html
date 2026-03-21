@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Observability Dashboard | V36</title>
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <style>
+        :root {
+            --sov-bg: #050505;
+            --sov-text: #e5e5e5;
+            --sov-accent: #d4af37;
+            --sov-cyber: #06b6d4;
+            --sov-danger: #ef4444;
+            --sov-success: #10b981;
+            --sov-panel: #111111;
+        }
+        body {
+            background-color: var(--sov-bg);
+            color: var(--sov-text);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .dashboard-title {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--sov-accent);
+            text-transform: uppercase;
+        }
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--sov-success);
+        }
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--sov-success);
+            border-radius: 50%;
+            animation: pulse-dot 1.5s infinite;
+        }
+        @keyframes pulse-dot {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+            flex-grow: 1;
+            min-height: 0;
+        }
+        .panel {
+            background: var(--sov-panel);
+            border: 1px solid #222;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            overflow: hidden;
+        }
+        .panel-header {
+            font-size: 0.85rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-box {
+            background: #1a1a1a;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2rem;
+            color: var(--sov-cyber);
+            font-weight: 300;
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+        .log-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            background: #000;
+            border: 1px solid #222;
+            border-radius: 6px;
+            padding: 1rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        .log-entry {
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid #111;
+            padding: 0.5rem 0;
+        }
+        .log-time { color: #555; width: 100px; flex-shrink: 0; }
+        .log-level-HEAL { color: var(--sov-success); font-weight: bold; width: 60px;}
+        .log-level-WARN { color: var(--sov-accent); font-weight: bold; width: 60px;}
+        .log-level-CRIT { color: var(--sov-danger); font-weight: bold; width: 60px;}
+        .log-level-INFO { color: var(--sov-cyber); font-weight: bold; width: 60px;}
+        .log-msg { color: #ccc; flex-grow: 1; }
+        .log-page { color: #777; font-size: 0.75rem; text-align: right; }
+        .santis-carousel-stage {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px; /* 3D Derinlik Hissi İçin Şart */
+            overflow: hidden;
+            cursor: grab;
+            margin-top: 1rem;
+        }
+        .santis-carousel-stage:active {
+            cursor: grabbing;
+        }
+        .santis-stack-card {
+            position: absolute; /* Kartlar yan yana değil, üst üstedir */
+            width: 320px;
+            height: 400px;
+            background: #111;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+            
+            /* Sovereign Animasyon Motoru */
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                        opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                        box-shadow 0.6s ease;
+            
+            will-change: transform, opacity;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            background-image: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+            user-select: none;
+        }
+        .santis-stack-card h3 {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+        
+        /* Sadece aktif karta o özel altın/sarı parlamayı veriyoruz */
+        .santis-stack-card.is-active {
+            border-color: rgba(255, 215, 0, 0.5); /* Altın rengi */
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="dashboard-header">
+        <div class="dashboard-title">V36 Sovereign Observability</div>
+        <div class="status-indicator">
+            <div class="live-dot"></div>
+            <span>Global Hive Connected</span>
+        </div>
+    </header>
+
+    <div class="grid-container">
+        <!-- Left Panel: Metrics -->
+        <div class="panel">
+            <div class="panel-header">Vital Organ Metrics</div>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value" id="val-healed">0</div>
+                    <div class="stat-label">Auto-Healed Organs</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="val-active">1720</div>
+                    <div class="stat-label">Nodes Monitored</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" style="color:var(--sov-accent)" id="val-drift">0</div>
+                    <div class="stat-label">Version Drifts</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" style="color:var(--sov-success)">99.9%</div>
+                    <div class="stat-label">System Integrity</div>
+                </div>
+            </div>
+
+            <div class="panel-header">Active Modules (Global)</div>
+            <ul style="list-style: none; padding: 0; color: #aaa; font-size: 0.85rem; line-height: 2;">
+                <li><span style="color:var(--sov-success)">●</span> Navigation Core (100%)</li>
+                <li><span style="color:var(--sov-success)">●</span> Bento Orchestrator (100%)</li>
+                <li><span style="color:var(--sov-success)">●</span> Sovereign Concierge (98%)</li>
+                <li><span style="color:var(--sov-cyber)">●</span> Interaction Engine (Ready)</li>
+            </ul>
+        </div>
+
+        <!-- Right Panel: Matrix Terminal -->
+        <div class="panel">
+            <div class="panel-header">
+                <span>Real-Time Autonomous Telemetry</span>
+                <span id="connection-status" style="color:var(--sov-cyber)">Listening on /api/v1/telemetry/stream</span>
+            </div>
+            <div class="log-container" id="terminal">
+                <div class="log-entry">
+                    <div class="log-time">00:00:00</div>
+                    <div class="log-level-INFO">SYS</div>
+                    <div class="log-msg">Sovereign Radar Initialized. Waiting for node reports...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- V45: 3D Stacked Carousel Engine -->
+    <div class="panel" style="margin-top: 2rem;">
+        <div class="panel-header" id="v45-cover-flow-header">V45 3D Stacked Carousel (Cover Flow) Preview</div>
+        <div class="santis-carousel-stage" id="sov-3d-stage">
+            <div class="santis-stack-card"><h3>Istanbul</h3></div>
+            <div class="santis-stack-card"><h3>Dubai</h3></div>
+            <div class="santis-stack-card"><h3>London</h3></div>
+            <div class="santis-stack-card"><h3>Paris</h3></div>
+            <div class="santis-stack-card"><h3>New York</h3></div>
+            <div class="santis-stack-card"><h3>Tokyo</h3></div>
+            <div class="santis-stack-card"><h3>Singapore</h3></div>
+        </div>
+    </div>
+
+    <script>
+        const terminal = document.getElementById('terminal');
+        let healedCount = 0;
+        let driftCount = 0;
+
+        function addLog(level, msg, page) {
+            const time = new Date().toLocaleTimeString('en-GB', { hour12: false });
+            const div = document.createElement('div');
+            div.className = 'log-entry';
+            div.innerHTML = `
+                <div class="log-time">${time}</div>
+                <div class="log-level-${level}">${level}</div>
+                <div class="log-msg">${msg}</div>
+                <div class="log-page">${page || ''}</div>
+            `;
+            terminal.appendChild(div);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        async function pollTelemetry() {
+            try {
+                const res = await fetch('/api/v1/admin/telemetry/stream');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.events && data.events.length > 0) {
+                        data.events.forEach(ev => {
+                            addLog(ev.level, ev.message, ev.page);
+                            if (ev.level === 'HEAL') {
+                                healedCount++;
+                                document.getElementById('val-healed').textContent = healedCount;
+                            }
+                            if (ev.level === 'WARN' && ev.message.includes('Drift')) {
+                                driftCount++;
+                                document.getElementById('val-drift').textContent = driftCount;
+                            }
+                        });
+                    }
+                }
+            } catch (e) {
+                console.error("Telemetry link lost.");
+            }
+            setTimeout(pollTelemetry, 2500);
+        }
+
+        pollTelemetry();
+
+        /* ─── V45 3D STACKED CAROUSEL ENGINE ─── */
+        let activeIndex = 0;
+        const stackCards = document.querySelectorAll('.santis-stack-card');
+        const stackStage = document.getElementById('sov-3d-stage');
+
+        function updateSovereignStack() {
+            stackCards.forEach((card, index) => {
+                const diff = index - activeIndex; 
+                const absDiff = Math.abs(diff);
+
+                let translateX = diff * (120 - absDiff * 15); 
+                let scale = 1 - (absDiff * 0.15);
+                let opacity = 1 - (absDiff * 0.4);
+                let zIndex = 100 - absDiff;
+
+                if (scale < 0) scale = 0;
+                if (opacity < 0) opacity = 0;
+
+                card.style.transform = `translateX(${translateX}%) scale(${scale})`;
+                card.style.opacity = opacity;
+                card.style.zIndex = zIndex;
+
+                if (diff === 0) {
+                    card.classList.add('is-active');
+                } else {
+                    card.classList.remove('is-active');
+                }
+            });
+        }
+
+        // Init
+        updateSovereignStack();
+
+        // Interaction: Click Focus
+        stackCards.forEach((card, i) => {
+            card.addEventListener('click', () => {
+                activeIndex = i;
+                updateSovereignStack();
+            });
+        });
+
+        // Interaction: Wheel / Scroll
+        stackStage.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            if (e.deltaY > 0 && activeIndex < stackCards.length - 1) {
+                activeIndex++;
+                updateSovereignStack();
+            } else if (e.deltaY < 0 && activeIndex > 0) {
+                activeIndex--;
+                updateSovereignStack();
+            }
+        });
+
+        // Interaction: Drag & Swipe Physics
+        let isStackDragging = false;
+        let stackStartX = 0;
+
+        stackStage.addEventListener('mousedown', (e) => {
+            isStackDragging = true;
+            stackStartX = e.clientX;
+        });
+        
+        stackStage.addEventListener('mousemove', (e) => {
+            if (!isStackDragging) return;
+            const diffX = e.clientX - stackStartX;
+            
+            // Swipe Threshold
+            if (diffX > 80) { // Swipe Right
+                if (activeIndex > 0) {
+                    activeIndex--;
+                    updateSovereignStack();
+                }
+                isStackDragging = false; // reset lock
+            } else if (diffX < -80) { // Swipe Left
+                if (activeIndex < stackCards.length - 1) {
+                    activeIndex++;
+                    updateSovereignStack();
+                }
+                isStackDragging = false; // reset lock
+            }
+        });
+
+        stackStage.addEventListener('mouseup', () => { isStackDragging = false; });
+        stackStage.addEventListener('mouseleave', () => { isStackDragging = false; });
+    </script>
+</body>
+</html>

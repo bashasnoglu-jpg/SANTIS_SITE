@@ -139,6 +139,10 @@ const SantisCheckoutRitual = (() => {
 
     // ── UNSEAL (Return to normal) ──
     const executeUnseal = () => {
+        if (!isSealed) {
+            console.trace('🔒 [Santis L5 DEBUG] unseal called while already unsealed! Trace below:');
+            return;
+        }
         isSealed = false;
         document.body.classList.remove('checkout-sealed');
 
@@ -152,6 +156,9 @@ const SantisCheckoutRitual = (() => {
 
     // ── SETUP ──
     const init = () => {
+        if (window.__SANTIS_CHECKOUT_INIT__) return;
+        window.__SANTIS_CHECKOUT_INIT__ = true;
+
         injectCSS();
         injectDOM();
 

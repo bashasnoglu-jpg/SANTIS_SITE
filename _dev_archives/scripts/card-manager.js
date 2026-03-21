@@ -87,7 +87,7 @@ function initQuickView() {
 
                             <span class="prod-price" id="qv-price">--</span>
 
-                            <a id="qv-btn" href="#" target="_blank" class="nv-btn nv-btn-primary">WhatsApp Sipariş</a>
+                            <a id="qv-btn" href="#" target="_blank" class="santis-btn santis-btn-primary">WhatsApp Sipariş</a>
 
                         </div>
 
@@ -180,7 +180,7 @@ function initQuickView() {
 
             if (!item) {
 
-                const sources = [window.NV_HAMMAM, window.NV_MASSAGES, window.NV_SKINCARE];
+                const sources = [window.SANTIS_HAMMAM, window.SANTIS_MASSAGES, window.SANTIS_SKINCARE];
 
                 for (const source of sources) {
 

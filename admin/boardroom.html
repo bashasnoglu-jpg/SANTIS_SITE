@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+    <meta name="robots" content="noindex, nofollow">
     <meta charset="UTF-8">
     <meta name="description" content="Sovereign Boardroom | Global Empire — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" crossorigin="anonymous"></script>
-    <script src="/assets/js/world.js"></script>
+    <script src="/assets/js/world.js" defer></script>
     
     <script>
         // Tailwind config removed as per Sovereign V25 architecture (using statically compiled admin.bundle.css)
@@ -415,97 +416,16 @@
     </style>
 
 <meta name="theme-color" content="#000000">
+    <script type="module" src="/admin/assets/js/santis-core.js" defer></script>
 </head>
 <body class="flex h-screen w-screen">
 
+    <!-- Global Map Background -->
+    <div id="echarts-map" class="fixed inset-0 z-0 opacity-40 pointer-events-none"></div>
+
     <main class="flex-1 flex flex-col p-8 relative z-10">
-        <header class="flex justify-between items-end mb-8">
-            <div>
-                <h1 class="text-4xl font-bold tracking-tighter">Sovereign Command</h1>
-                <p class="text-santis-silver mt-2 tracking-wide text-sm uppercase" style="display:flex;align-items:center;gap:12px;">
-                    Global Aggregation Active
-                    <a href="javascript:history.back()" style="font-size:9px;padding:3px 10px;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);border-radius:4px;text-decoration:none;letter-spacing:2px;transition:all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,0.6)'">← GERİ</a>
-                    <a href="/admin/sovereign-lab.html" style="font-size:9px;padding:3px 10px;border:1px solid #00FFC2;color:#00FFC2;border-radius:4px;text-decoration:none;letter-spacing:2px;transition:all 0.3s;" onmouseover="this.style.background='#00FFC2';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#00FFC2'">🧪 LAB</a>
-                    <a href="/admin/index.html" style="font-size:9px;padding:3px 10px;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;border-radius:4px;text-decoration:none;letter-spacing:2px;transition:all 0.3s;" onmouseover="this.style.background='#D4AF37';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#D4AF37'">❖ ADMIN HUB</a>
-                </p>
-            </div>
-            <div class="text-right">
-                <p class="text-santis-gold text-sm tracking-widest uppercase mb-1">Empire Revenue (EUR)</p>
-                <h2 class="text-6xl font-light tracking-tighter" id="global-revenue">€0.00</h2>
-            </div>
-        </header>
-
-        <!-- FAZ-D: NEON CHIP NAVIGATION -->
-        <nav class="santis-chip-bar">
-            <div class="santis-chip active" data-filter="ALL" onclick="showView('nodes')">ALL NODES</div>
-            <div class="santis-chip" data-filter="SURGE" onclick="showView('nodes')">⚡ SURGE</div>
-            <div class="santis-chip" data-filter="STABLE" onclick="showView('nodes')">✅ STABLE</div>
-            <div class="santis-chip" onclick="showView('portals')" style="border-color:rgba(212,175,55,0.4);color:#D4AF37;">🗂️ PORTALS</div>
-            <a href="/SANTIS_SITE_GRAPH_VISUAL.html" target="_blank" class="santis-chip" style="border-color:rgba(0,209,255,0.5);color:#00D1FF;text-decoration:none;">🗺️ SITE GRAPH</a>
-        </nav>
-
-        <div id="global-heatmap" class="w-full h-64 shrink-0 glass-panel rounded-3xl mb-8 flex items-center justify-center relative overflow-hidden">
-            <!-- ECharts Container -->
-            <div id="echarts-map" class="w-full h-full absolute inset-0 z-0"></div>
-            
-            <!-- Pulse Overlay FX -->
-            <div id="pulse-fx-1" class="absolute w-3 h-3 bg-santis-gold rounded-full blur-[2px] shadow-[0_0_15px_#D4AF37] top-1/3 left-1/2 opacity-0 transition-opacity duration-300 pointer-events-none z-10"></div>
-            <div id="pulse-fx-2" class="absolute w-2 h-2 bg-santis-emerald rounded-full blur-[1px] shadow-[0_0_10px_#50C878] top-1/2 left-1/3 opacity-0 transition-opacity duration-300 pointer-events-none z-10"></div>
-        </div>
-
-        <!-- BENTO GRID (Faz 2: Egemen Yönetim Kurulu Konsolidasyonu) -->
-        <div class="w-full relative z-20 flex-1 overflow-y-auto px-2 pb-20 custom-scroll mt-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="chain-data-feed">
-                <!-- Bento Cards injected via JS -->
-            </div>
-
-            <!-- PORTALS VIEW: 24 Admin Panel Kartları -->
-            <div id="portals-view" style="display:none;">
-                <p style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(212,175,55,0.5);margin-bottom:16px;">SOVEREIGN PANEL REGISTRY — 24 NODES</p>
-                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;">
-
-                    <!-- Analytics -->
-                    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#00FFC2;grid-column:1/-1;padding:8px 0 4px;">📊 Analytics</div>
-                    <a href="/admin/audit-button.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🔍</div><div style="font-size:11px;font-weight:600;">Audit & Telemetry</div><div style="font-size:9px;color:#666;margin-top:4px;">audit-button.html</div></a>
-                    <a href="/admin/audit-history.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">📈</div><div style="font-size:11px;font-weight:600;">Site Sağlık Trendleri</div><div style="font-size:9px;color:#666;margin-top:4px;">audit-history.html</div></a>
-                    <a href="/admin/black-room.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🦾</div><div style="font-size:11px;font-weight:600;">The Black Room</div><div style="font-size:9px;color:#666;margin-top:4px;">black-room.html</div></a>
-                    <a href="/admin/boardroom.html" class="bento-card" style="min-height:100px;padding:1rem;border-color:rgba(212,175,55,0.4);"><div style="font-size:18px;margin-bottom:6px;">♟️</div><div style="font-size:11px;font-weight:600;color:#D4AF37;">Boardroom ★ HUB</div><div style="font-size:9px;color:#666;margin-top:4px;">boardroom.html</div></a>
-                    <a href="/admin/revenue.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">💰</div><div style="font-size:11px;font-weight:600;">Revenue Analytics</div><div style="font-size:9px;color:#666;margin-top:4px;">revenue.html</div></a>
-                    <a href="/admin/gods-eye-vision.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">⬛</div><div style="font-size:11px;font-weight:600;">God's Eye Vision</div><div style="font-size:9px;color:#666;margin-top:4px;">gods-eye-vision.html</div></a>
-                    <a href="/admin/pulse-simulator.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">📡</div><div style="font-size:11px;font-weight:600;">Sovereign Pulse</div><div style="font-size:9px;color:#666;margin-top:4px;">pulse-simulator.html</div></a>
-
-                    <!-- Operations -->
-                    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#00D1FF;grid-column:1/-1;padding:12px 0 4px;">⚙️ Operations</div>
-                    <a href="/admin/gallery-upload.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🖼️</div><div style="font-size:11px;font-weight:600;">Gallery Upload</div><div style="font-size:9px;color:#666;margin-top:4px;">gallery-upload.html</div></a>
-                    <a href="/admin/god-mode.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">👁️</div><div style="font-size:11px;font-weight:600;">God Mode</div><div style="font-size:9px;color:#666;margin-top:4px;">god-mode.html</div></a>
-                    <a href="/admin/hotels.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🏨</div><div style="font-size:11px;font-weight:600;">Hotels Network</div><div style="font-size:9px;color:#666;margin-top:4px;">hotels.html</div></a>
-                    <a href="/admin/login.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🔐</div><div style="font-size:11px;font-weight:600;">Admin Giriş</div><div style="font-size:9px;color:#666;margin-top:4px;">login.html</div></a>
-                    <a href="/admin/redirects.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">↩️</div><div style="font-size:11px;font-weight:600;">URL Yönlendirmeleri</div><div style="font-size:9px;color:#666;margin-top:4px;">redirects.html</div></a>
-                    <a href="/admin/sovereign-lab.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🧪</div><div style="font-size:11px;font-weight:600;">Sovereign Lab</div><div style="font-size:9px;color:#666;margin-top:4px;">sovereign-lab.html</div></a>
-                    <a href="/admin/world_table.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🌍</div><div style="font-size:11px;font-weight:600;">The World Table</div><div style="font-size:9px;color:#666;margin-top:4px;">world_table.html</div></a>
-                    <a href="/admin/command-center.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🦅</div><div style="font-size:11px;font-weight:600;">Command Center</div><div style="font-size:9px;color:#666;margin-top:4px;">command-center.html</div></a>
-                    <a href="/admin/index.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">❖</div><div style="font-size:11px;font-weight:600;">Control Center</div><div style="font-size:9px;color:#666;margin-top:4px;">admin/index.html</div></a>
-
-                    <!-- Booking / CRM -->
-                    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#D4AF37;grid-column:1/-1;padding:12px 0 4px;">📅 Booking & CRM</div>
-                    <a href="/admin/bookings.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">📋</div><div style="font-size:11px;font-weight:600;">Live Bookings</div><div style="font-size:9px;color:#666;margin-top:4px;">bookings.html</div></a>
-                    <a href="/admin/crm.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">💎</div><div style="font-size:11px;font-weight:600;">AI Offers & CRM</div><div style="font-size:9px;color:#666;margin-top:4px;">crm.html</div></a>
-
-                    <!-- Omniverse -->
-                    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#a855f7;grid-column:1/-1;padding:12px 0 4px;">🌌 Omniverse</div>
-                    <a href="/admin/omniverse/council-arena.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🏛️</div><div style="font-size:11px;font-weight:600;">Council Arena</div><div style="font-size:9px;color:#666;margin-top:4px;">council-arena.html</div></a>
-                    <a href="/admin/omniverse/evolution-arena.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🧬</div><div style="font-size:11px;font-weight:600;">Evolution Arena</div><div style="font-size:9px;color:#666;margin-top:4px;">evolution-arena.html</div></a>
-                    <a href="/admin/omniverse/oracle-console.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">🔮</div><div style="font-size:11px;font-weight:600;">Oracle Console</div><div style="font-size:9px;color:#666;margin-top:4px;">oracle-console.html</div></a>
-                    <a href="/admin/reports/admin_panel_visual_report.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;"><div style="font-size:18px;margin-bottom:6px;">📊</div><div style="font-size:11px;font-weight:600;">Visual Audit Report</div><div style="font-size:9px;color:#666;margin-top:4px;">admin_panel_visual_report.html</div></a>
-
-                    <!-- Developer Tools -->
-                    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#00D1FF;grid-column:1/-1;padding:12px 0 4px;">🛠️ Developer Tools</div>
-                    <a href="/SANTIS_SITE_GRAPH_VISUAL.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;border-color:rgba(0,209,255,0.3);background:linear-gradient(145deg,rgba(0,40,60,0.8),rgba(10,10,10,0.9));"><div style="font-size:18px;margin-bottom:6px;">🗺️</div><div style="font-size:11px;font-weight:600;color:#00D1FF;">Site Architecture Graph</div><div style="font-size:9px;color:#666;margin-top:4px;">SANTIS_SITE_GRAPH_VISUAL.html</div><div style="margin-top:8px;font-size:8px;padding:2px 6px;border-radius:4px;background:rgba(0,209,255,0.1);border:1px solid rgba(0,209,255,0.2);color:#00D1FF;display:inline-block;letter-spacing:1px;">522 NODES · VIS.JS</div></a>
-                    <a href="/santis-oracle.html" target="_blank" class="bento-card" style="min-height:100px;padding:1rem;border-color:rgba(168,85,247,0.3);background:linear-gradient(145deg,rgba(30,10,50,0.8),rgba(10,10,10,0.9));"><div style="font-size:18px;margin-bottom:6px;">🔮</div><div style="font-size:11px;font-weight:600;color:#a855f7;">Santis Oracle</div><div style="font-size:9px;color:#666;margin-top:4px;">santis-oracle.html</div><div style="margin-top:8px;font-size:8px;padding:2px 6px;border-radius:4px;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);color:#a855f7;display:inline-block;letter-spacing:1px;">AI DEMO</div></a>
-
-                </div>
-            </div>
-        </div>
+        <!-- SANTIS RUNTIME ENGINE VIEWPORT -->
+        <div id="santis-master-viewport" class="w-full h-full flex flex-col transition-opacity duration-300 opacity-0"></div>
     </main>
 
     <aside class="sovereign-aside glass-panel border-l border-white/5 p-6 z-20">
@@ -649,14 +569,14 @@
     </script>
 
     <!-- OP-4: SANTIS OBSERVER MODULE -->
-    <script src="/assets/js/core/santis-observer.js"></script>
+    <script src="/assets/js/core/santis-observer.js" defer></script>
     <!-- v13.0: MODULAR SOVEREIGN MODULES -->
-    <script src="/assets/js/core/santis-visuals.js"></script>
-    <script src="/assets/js/core/sovereign-filter.js"></script>
-    <script src="/assets/js/core/sovereign-mirror.js"></script>
-    <script src="/assets/js/core/momentum-engine.js"></script>
-    <script src="/assets/js/core/sovereign-concierge.js"></script>
-    <script src="/assets/js/core/score-radar.js"></script>
+    <script src="/assets/js/core/santis-visuals.js" defer></script>
+    <script src="/assets/js/core/sovereign-filter.js" defer></script>
+    <script src="/assets/js/core/sovereign-mirror.js" defer></script>
+    <script src="/assets/js/core/momentum-engine.js" defer></script>
+    <script src="/assets/js/core/sovereign-concierge.js" defer></script>
+    <script src="/assets/js/core/score-radar.js" defer></script>
     <script>
         // 1. Initialize API Data Fetch
         async function bootBoardroom() {
@@ -1164,15 +1084,39 @@
         }
 
         // v13.0: ENGAGE SOVEREIGN MODULES
-        initHeatmap();
-        bootBoardroom();
-        igniteThePulse();
-        initTelemetryRadar();
-        initSovereignPulse();
-        SovereignFilter.init();
-        MomentumEngine.init();
-        SovereignConcierge.init();
-        ScoreRadar.init();
+        function tryBootSovereign() {
+            if (document.getElementById('chain-data-feed') && document.getElementById('global-revenue')) {
+                const tasks = [
+                    () => { if (typeof initHeatmap === 'function') initHeatmap(); },
+                    () => { if (typeof bootBoardroom === 'function') bootBoardroom(); },
+                    () => { if (typeof igniteThePulse === 'function') igniteThePulse(); },
+                    () => { if (typeof initTelemetryRadar === 'function') initTelemetryRadar(); },
+                    () => { if (typeof initSovereignPulse === 'function') initSovereignPulse(); },
+                    () => { if (typeof SovereignFilter !== 'undefined') SovereignFilter.init(); },
+                    () => { if (typeof MomentumEngine !== 'undefined') MomentumEngine.init(); },
+                    () => { if (typeof SovereignConcierge !== 'undefined') SovereignConcierge.init(); },
+                    () => { if (typeof ScoreRadar !== 'undefined') ScoreRadar.init(); }
+                ];
+
+                const yieldToMain = () => new Promise(r => setTimeout(r, 0));
+
+                async function runTasks() {
+                    for (const task of tasks) {
+                        task();
+                        await yieldToMain();
+                    }
+                }
+                
+                if ('requestIdleCallback' in window) {
+                    requestIdleCallback(() => runTasks());
+                } else {
+                    setTimeout(() => runTasks(), 0);
+                }
+            } else {
+                requestAnimationFrame(tryBootSovereign);
+            }
+        }
+        tryBootSovereign();
 
         // SANTIS OBSERVER BOOT
         if (typeof SantisObserver !== 'undefined') {
@@ -1300,7 +1244,10 @@
     </script>
 <!-- Sovereign Admin Navigation -->
 <script src="/admin/assets/js/admin-nav.js" defer></script>
-<!-- 🛡️ ZOMBIE QUARANTINED: santis-telemetry-engine.js -->\n</body>
+<!-- 🛡️ ZOMBIE QUARANTINED: santis-telemetry-engine.js -->\n
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
+</body>
 </html>
 
 

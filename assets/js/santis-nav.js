@@ -21,7 +21,7 @@ function initNavAndFooter() {
     const isLiveServerRoot = pathParts[0] === 'SANTIS_SITE';
 
     // Depth calculation strictly relying on slash count.
-    // E.g. /tr/masajlar/index.html -> length is 3. tr, masajlar, index.html.
+    // E.g. /masaj.html -> length is 3. tr, masajlar, index.html.
     // We want depth = 2. So we subtract 1 for the file itself.
     // If there is a subfolder like SANTIS_SITE, we ignore it.
     let baseDepth = window.location.pathname.split('/').length - 2;
@@ -92,7 +92,7 @@ function initNavAndFooter() {
         // 2. Fix Desktop Home Link
         container.querySelectorAll('.nav-link').forEach(link => {
             const href = link.getAttribute('href');
-            if (href && (href === '/index.html' || href === '/tr/index.html' || href === '/en/index.html')) {
+            if (href && (href === '/index.html' || href === '/' || href === '/en/index.html')) {
                 link.setAttribute('href', homeUrl);
             }
         });
@@ -101,7 +101,7 @@ function initNavAndFooter() {
         const mobileHome = document.querySelector('.mobile-menu-content .mobile-link');
         if (mobileHome) {
             const mHref = mobileHome.getAttribute('href');
-            if (mHref === '/index.html' || mHref === '/tr/index.html' || mHref === '/en/index.html') {
+            if (mHref === '/index.html' || mHref === '/' || mHref === '/en/index.html') {
                 mobileHome.setAttribute('href', homeUrl);
             }
         }
@@ -145,68 +145,138 @@ function initNavAndFooter() {
     }
 
     // --- MAIN LOGIC ---
-
-    // ULTRA MEGA FIX: Skip navbar loading if static navbar already exists
-    if (document.getElementById('nv-main-nav')) {
-        console.log('[Santis Nav] Static navbar detected. Skipping dynamic load.');
-
-        // Still load footer
-        const lang = document.documentElement.lang || 'tr';
-        const intlLangs = ['en', 'de', 'fr', 'ru'];
-        const isIntl = intlLangs.includes(lang) || intlLangs.some(l => window.location.pathname.includes('/' + l + '/'));
-        const footerFile = isIntl ? "components/footer-en.html" : "components/footer.html";
-
-        if (typeof window.loadComp === 'function') {
-            window.loadComp(getPath(footerFile), "footer-container", () => {
-                const footer = document.getElementById("footer-container");
-                if (footer) {
-                    fixPaths(footer); // CODE X FIX: Now fixPaths is defined!
-                    bindBookingTriggers(footer);
+    
+    // --- SOVEREIGN ROUTER: ZERO-TOUCH NAVIGATION (P4.2) ---
+    async function buildSovereignNav(container) {
+        try {
+            const pathParts = window.location.pathname.split('/').filter(p => p !== '');
+            let baseDepth = pathParts.length;
+            if (pathParts[0] === 'SANTIS_SITE') baseDepth--; // Dev folder bypass
+            if (window.location.pathname.endsWith('.html') || window.location.pathname.endsWith('/')) baseDepth--; 
+            const depthPrefix = baseDepth > 0 ? "../".repeat(baseDepth) : "/";
+            
+            const lang = document.documentElement.lang || 'tr';
+            
+            const res = await fetch('/api/nav-manifest');
+            const manifest = await res.json();
+            
+            const navRoot = document.getElementById('navRoot');
+            const serviceRoot = document.getElementById('serviceRoot');
+            const mobileRoot = document.getElementById('mobileRoot');
+            
+            // Sort by weight
+            const visibleRoutes = manifest.routes
+                .sort((a, b) => a.nav.weight - b.nav.weight);
+                
+            visibleRoutes.forEach(r => {
+                let href = r.type === 'external' ? r.path : (depthPrefix + r.path.replace(/^\//, ''));
+                if(r.path === '/') href = depthPrefix; // Root fallback
+                
+                const title = r.title && r.title[lang] ? r.title[lang] : (r.title.tr || r.title);
+                
+                const a = document.createElement('a');
+                a.href = href;
+                a.className = 'nav-link liquid-trigger';
+                a.textContent = title;
+                a.dataset.target = r.path; // For liquid menu matching
+                
+                // Re-bind the Mega Menu Hooks for the Liquid Engine
+                if (r.nav && r.nav.menu) {
+                    a.dataset.menu = r.nav.menu;
+                }
+                
+                if (r.hooks && r.hooks.onEnter) a.dataset.hook = r.hooks.onEnter;
+                
+                if (r.nav.group === 'brand') {
+                    a.classList.add('sovereign-link-item');
+                    if (navRoot) navRoot.appendChild(a);
+                } else if (r.nav.group === 'service') {
+                    // Add sovereign-link-item to trigger the querySelector in santis-liquid-menu.js
+                    a.classList.replace('nav-link', 'service-link');
+                    a.classList.add('sovereign-link-item');
+                    if (serviceRoot) serviceRoot.appendChild(a);
+                }
+                
+                if (r.nav.group === 'brand' || r.nav.group === 'service' || r.nav.group === 'action') {
+                    if (mobileRoot) {
+                        const m = a.cloneNode(true);
+                        m.className = 'mobile-link nav-link';
+                        if(r.nav.group === 'action') m.style.color = '#d4af37';
+                        // Insert before the static PDF link
+                        const pdfLink = mobileRoot.querySelector('a[href*="santis-spa-menu.pdf"]');
+                        if(pdfLink) mobileRoot.insertBefore(m, pdfLink);
+                        else mobileRoot.appendChild(m);
+                    }
                 }
             });
+            
+            const resBtn = document.createElement('a');
+            resBtn.className = 'santis-btn santis-btn-primary santis-magnetic mt-4';
+            resBtn.href = 'https://wa.me/905348350169';
+            resBtn.target = '_blank';
+            resBtn.rel = 'noopener noreferrer';
+            resBtn.textContent = 'HEMEN REZERVASYON';
+            if (mobileRoot) mobileRoot.appendChild(resBtn);
+            
+        } catch (e) {
+            console.error('[Sovereign Router] Failed to construct Zero-Touch Layout:', e);
+        } finally {
+            if (container) updateHomeLinks(container);
+            initNavbarInteractions();
+            
+            // --- IFF SWARM CALIBRATION (P4.3) ---
+            // Inform the Self-Healing Swarm that the Genesis DOM is ready
+            document.dispatchEvent(new CustomEvent('santis:nav:ready'));
         }
-        // Init interactions for the static navbar
-        if (typeof initNavbarInteractions === 'function') initNavbarInteractions();
-        return;
     }
 
-    // Dynamic Loading Logic
-    if (typeof window.loadComp === 'function') {
-        // Smart Language Detection (v2.2 -> v2.3: All non-TR = International)
-        const lang = document.documentElement.lang || 'tr';
-        const intlLangs = ['en', 'de', 'fr', 'ru'];
-        const isIntl = intlLangs.includes(lang) || intlLangs.some(l => window.location.pathname.includes('/' + l + '/'));
+    const lang = document.documentElement.lang || 'tr';
+    const intlLangs = ['en', 'de', 'fr', 'ru'];
+    const isIntl = intlLangs.includes(lang) || intlLangs.some(l => window.location.pathname.includes('/' + l + '/'));
 
-        const navFile = isIntl ? "/components/navbar-en.html" : "/components/navbar.html";
-        const footerFile = isIntl ? "/components/footer-en.html" : "/components/footer.html";
+    const navFile = isIntl ? "/components/navbar-en.html" : "/components/navbar.html";
+    const footerFile = isIntl ? "/components/footer-en.html" : "/components/footer.html";
 
-        console.log(`[Santis Nav] Language detected: ${isIntl ? lang.toUpperCase() + ' (intl)' : 'TR'} -> Loading ${navFile}`);
+    function loadAncillaryScripts() {
+        if (!document.querySelector('script[src*="language-switcher.js"]')) {
+            const sc = document.createElement('script');
+            sc.src = getPath('/assets/js/language-switcher.js');
+            document.body.appendChild(sc);
+        }
+        if (!document.querySelector('script[src*="santis-liquid-menu.js"]')) {
+            const lm = document.createElement('script');
+            lm.src = getPath('/assets/js/santis-liquid-menu.js');
+            document.body.appendChild(lm);
+        }
+    }
 
-        window.loadComp(getPath(navFile), "navbar-container", () => {
-            // Callback after load: Initialize Logic
+    // Modern Bootstrap Flow
+    if (document.getElementById('navbar-container') && typeof window.loadComp === 'function') {
+        console.log(`[Santis Nav] Dynamic route detected: Loading ${navFile}`);
+        window.loadComp(getPath(navFile), "navbar-container", async () => {
             const container = document.getElementById("navbar-container");
             if (container) {
                 fixPaths(container);
                 bindImageFallbacks(container);
-                updateHomeLinks(container); // Apply dynamic home links
-                initNavbarInteractions();
+                await buildSovereignNav(container);
             }
-
-            // Load missing scripts if not present
-            if (!document.querySelector('script[src*="language-switcher.js"]')) {
-                const sc = document.createElement('script');
-                sc.src = getPath('/assets/js/language-switcher.js');
-                document.body.appendChild(sc);
-            }
-
-            // V8 OMEGA: santis-mega-menu.js kaldırıldı — yerine santis-liquid-menu.js geldi
-            if (!document.querySelector('script[src*="santis-liquid-menu.js"]')) {
-                const lm = document.createElement('script');
-                lm.src = getPath('/assets/js/santis-liquid-menu.js');
-                document.body.appendChild(lm);
-            }
+            loadAncillaryScripts();
         });
+    } else if (document.getElementById('santis-main-nav')) {
+        console.log('[Santis Nav] Static navbar detected. Booting link engine directly.');
+        const container = document.getElementById('santis-main-nav');
+        fixPaths(container);
+        bindImageFallbacks(container);
+        buildSovereignNav(container).then(() => {
+            loadAncillaryScripts();
+        });
+    } else {
+        // Fallback or intentionally navless page
+        console.log('[Santis Nav] No navbar mounting point found.');
+    }
 
+    // Dynamic Loading Logic for Footer
+    if (document.getElementById('footer-container') && typeof window.loadComp === 'function') {
         window.loadComp(getPath(footerFile), "footer-container", () => {
             const footer = document.getElementById("footer-container");
             if (footer) {
@@ -262,10 +332,10 @@ function initNavbarInteractions() {
     }
 
     // --- SOVEREIGN MEGA MENU: THE DIMMER ENGINE ---
-    let dimmer = document.querySelector('.nv-global-dimmer');
+    let dimmer = document.querySelector('.santis-global-dimmer');
     if (!dimmer) {
         dimmer = document.createElement('div');
-        dimmer.className = 'nv-global-dimmer';
+        dimmer.className = 'santis-global-dimmer';
         document.body.appendChild(dimmer);
     }
     const megaItems = document.querySelectorAll('.nav-item.has-mega');
@@ -292,7 +362,7 @@ function initNavbarInteractions() {
     });
 
     // --- SANTIS NAV: MAGNETIC HOVER ENGINE ---
-    const magnetBtns = document.querySelectorAll('.nv-btn-primary');
+    const magnetBtns = document.querySelectorAll('.santis-btn-primary');
     magnetBtns.forEach(magnetBtn => {
         if (magnetBtn.dataset.magnetBound === '1') return;
         magnetBtn.dataset.magnetBound = '1';
@@ -313,7 +383,7 @@ function initNavbarInteractions() {
     });
 
     // --- SCROLL EFFECT (Quiet Luxury & Scroll Intent) ---
-    const navbar = document.getElementById('nv-main-nav');
+    const navbar = document.getElementById('santis-main-nav');
     if (navbar) {
         let ticking = false;
         let lastScrollY = window.scrollY;
@@ -421,7 +491,7 @@ function startUIOrchestrator() {
     UIOrchestrator.init();
 
     // ── V2 SCROLL-UP REVEAL (Apple iOS Style) ──
-    const nav = document.getElementById('nv-main-nav');
+    const nav = document.getElementById('santis-main-nav');
     if (nav) {
         let lastScrollY = window.scrollY;
         let ticking = false;
@@ -453,10 +523,10 @@ window.initNavbarInteractions = function () {
 };
 
 // Auto-run on load
-document.addEventListener("DOMContentLoaded", () => {
+function bootSantisNav() {
     initNavAndFooter();
     // Static navbar fallback for orchestrator
-    if (document.getElementById('nv-main-nav')) {
+    if (document.getElementById('santis-main-nav')) {
         setTimeout(startUIOrchestrator, 500);
     }
 
@@ -476,5 +546,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
     emitDomReady();
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootSantisNav);
+} else {
+    bootSantisNav();
+}
 } // Çift yükleme koruması sonu

@@ -38,9 +38,9 @@
         .card-row.active { background: rgba(212,175,55,0.1); border-color: #D4AF37; }
 
         /* Inputs */
-        .nv-input { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px; color: #e5e7eb; font-size: 12px; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.25s; }
-        .nv-input:focus { border-color: #D4AF37; }
-        textarea.nv-input { resize: none; }
+        .santis-input { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px; color: #e5e7eb; font-size: 12px; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.25s; }
+        .santis-input:focus { border-color: #D4AF37; }
+        textarea.santis-input { resize: none; }
 
         /* Save Button */
         .btn-save {
@@ -161,7 +161,7 @@
         <div class="p-4 border-b border-white/5">
             <h3 class="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-bold mb-1">② Kart Seç</h3>
             <div class="relative mt-2">
-                <input type="text" id="card-search" placeholder="Ara..." class="nv-input text-[11px] pl-8" oninput="SovereignCMS.filterCards(this.value)">
+                <input type="text" id="card-search" placeholder="Ara..." class="santis-input text-[11px] pl-8" oninput="SovereignCMS.filterCards(this.value)">
                 <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 text-xs">🔍</span>
             </div>
         </div>
@@ -201,11 +201,11 @@
                 <div class="grid grid-cols-3 gap-3">
                     <div class="col-span-2">
                         <label class="text-[9px] text-gray-500 uppercase tracking-widest block mb-1.5">Başlık (TR)</label>
-                        <input type="text" id="edit-title" class="nv-input" placeholder="Hamam Ritüeli" oninput="SovereignCMS.autoSlug()">
+                        <input type="text" id="edit-title" class="santis-input" placeholder="Hamam Ritüeli" oninput="SovereignCMS.autoSlug()">
                     </div>
                     <div>
                         <label class="text-[9px] text-gray-500 uppercase tracking-widest block mb-1.5">Fiyat (€)</label>
-                        <input type="number" id="edit-price" class="nv-input text-[#D4AF37] font-bold" placeholder="0">
+                        <input type="number" id="edit-price" class="santis-input text-[#D4AF37] font-bold" placeholder="0">
                     </div>
                 </div>
 
@@ -215,7 +215,7 @@
                         <span>🔗 Yönlendirme URL</span>
                         <a href="#" id="btn-test-url" target="_blank" class="text-blue-400 hover:text-blue-300 normal-case tracking-normal font-normal">Test Et →</a>
                     </label>
-                    <input type="text" id="edit-url" class="nv-input font-mono text-[11px]" placeholder="/tr/hamam/kart-adi.html">
+                    <input type="text" id="edit-url" class="santis-input font-mono text-[11px]" placeholder="/tr/hamam/kart-adi.html">
                 </div>
 
                 <!-- Görsel -->
@@ -226,14 +226,14 @@
                             
                             <div id="edit-img-placeholder" class="w-full h-full flex items-center justify-center text-gray-700 text-2xl">🖼</div>
                         </div>
-                        <input type="text" id="edit-image" class="nv-input font-mono text-[11px] flex-1" placeholder="/assets/img/cards/..." readonly>
+                        <input type="text" id="edit-image" class="santis-input font-mono text-[11px] flex-1" placeholder="/assets/img/cards/..." readonly>
                     </div>
                 </div>
 
                 <!-- Açıklama -->
                 <div>
                     <label class="text-[9px] text-gray-500 uppercase tracking-widest block mb-1.5">Açıklama</label>
-                    <textarea id="edit-desc" rows="4" class="nv-input" placeholder="Kısa servis açıklaması..."></textarea>
+                    <textarea id="edit-desc" rows="4" class="santis-input" placeholder="Kısa servis açıklaması..."></textarea>
                 </div>
 
                 <!-- Save -->
@@ -912,6 +912,9 @@ window.assignImage = (url) => SovereignCMS.assignImage(url);
 
 <!-- Sovereign Admin Navigation -->
 <script src="/admin/assets/js/admin-nav.js" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
 

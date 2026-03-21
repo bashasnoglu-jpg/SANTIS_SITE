@@ -8,7 +8,7 @@
 
 /* ─── 1. KERNEL GLOBAL STATE ─────────────────────────────────────────────── */
 const __SANTIS__ = {
-    version: '3.0.0',
+    version: '4.0.0', // V4: Unified Runtime
     bootTime: performance.now(),
     modules: new Map(),       // Yüklü modül cache
     workers: new Map(),       // Worker havuzu
@@ -24,6 +24,12 @@ const __SANTIS__ = {
         safeMode: false,
         kernelReady: false,
         neuralActive: false
+    },
+    policy: {
+        enforceCLS: true,
+        enforceLifecycle: true,
+        enforceScheduler: true,
+        enforceSEO: true
     }
 };
 globalThis.__SANTIS__ = __SANTIS__;
@@ -153,9 +159,9 @@ async function resilientImport(name, importFn, options = {}) {
 const DEPENDENCY_GRAPH = {
     render:      { deps: [],                       loader: () => import('../engines/gpu-effects.js') },
     data:        { deps: [],                       loader: () => import('../loaders/data-bridge.js') },
-    interaction: { deps: [],                       loader: () => import('../modules/interaction-engine.js') },
+    interaction: { deps: [],                       loader: () => import('../modules/interaction-engine.js?v=V51_GHOST14') },
     router:      { deps: ['interaction'],           loader: () => import('../modules/page-router.js') },
-    ui:          { deps: ['render','interaction'],  loader: () => import('../ui/massage-matrix.js') },
+    ui:          { deps: ['render','interaction'],  loader: () => import('../ui/massage-matrix.js?v=V51_GHOST14') },
     commerce:    { deps: ['data'],                 loader: () => import('../core/checkout-ritual.js') },
     experience:  { deps: ['render'],               loader: () => import('../core/neuro-detail.js') },
     analytics:   { deps: [],                       loader: () => import('../santis-score-engine.js') },
@@ -316,14 +322,92 @@ function activateSafeMode(reason) {
     document.head.appendChild(style);
 
     // Statik rezervasyon linki koru
-    document.querySelectorAll('[data-booking-trigger], .nv-btn-primary').forEach(el => {
+    document.querySelectorAll('[data-booking-trigger], .santis-btn-primary').forEach(el => {
         if (el.tagName === 'A') el.href = 'https://wa.me/905348350169';
     });
 
     SantisEventBus.emit('kernel:safe-mode', { reason });
 }
 
-/* ─── 8. KERNEL BOOT SEQUENCE ────────────────────────────────────────────── */
+/* ─── 8. RUNTIME ENFORCEMENT & SHIELD ────────────────────────────────────── */
+const SantisEnforcer = (() => {
+    // 1. CLS Auto-Fixer (MutationObserver)
+    if (__SANTIS__.policy.enforceCLS) {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach(m => {
+                m.addedNodes.forEach(node => {
+                    if (node.tagName === 'IMG') {
+                        if (!node.style.aspectRatio && !node.getAttribute('height')) {
+                            console.warn('⚠️ [Santis Enforcer] CLS violation fixed: aspect-ratio applied.');
+                            node.style.aspectRatio = '16/9';
+                            node.style.width = '100%';
+                            node.style.objectFit = 'cover';
+                        }
+                        node.setAttribute('decoding', 'async');
+                    }
+                });
+            });
+        });
+        // Start watching the DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => observer.observe(document.body, { childList: true, subtree: true }));
+        } else {
+            observer.observe(document.body, { childList: true, subtree: true });
+        }
+    }
+
+    // 2. Global Socket Click Event Enforcement (Event Bus Lock)
+    document.addEventListener('click', (e) => {
+        const target = e.target.closest('[data-socket]');
+        if (!target) return;
+        const socketType = target.dataset.socket;
+        SantisEventBus.emit(socketType, target);
+    });
+
+    // 3. Layout Thrashing Guard
+    let readQueue = [];
+    let writeQueue = [];
+    function flushThrashing() {
+        if (readQueue.length || writeQueue.length) {
+            readQueue.forEach(fn => fn());
+            writeQueue.forEach(fn => fn());
+            readQueue = [];
+            writeQueue = [];
+        }
+        requestAnimationFrame(flushThrashing);
+    }
+    requestAnimationFrame(flushThrashing);
+
+    // 4. Continuous Memory Validation (Zombie Detector)
+    setInterval(() => {
+        const activeMod = __SANTIS__.activeModule;
+        const subs = activeMod?.__subscriptions?.length || 0;
+        if (subs > 20) {
+            console.warn('⚠️ [Santis Enforcer] Suspicious subscription growth detected in ' + (activeMod.constructor.name || 'active module'));
+        }
+    }, 5000);
+
+    return {
+        scheduleRead: (fn) => readQueue.push(fn),
+        scheduleWrite: (fn) => writeQueue.push(fn),
+        updateHead: (meta) => {
+            if (meta.title) document.title = meta.title;
+            const desc = document.querySelector('meta[name="description"]');
+            if (desc && meta.description) desc.content = meta.description;
+        },
+        domUpdate: (fn) => {
+            SantisScheduler.post(fn, 'normal');
+        },
+        registerResource: (cleanupFn) => {
+            if (!__SANTIS__.activeModule) return;
+            __SANTIS__.activeModule.__resources ??= [];
+            __SANTIS__.activeModule.__resources.push(cleanupFn);
+        }
+    };
+})();
+__SANTIS__.enforcer = SantisEnforcer;
+
+/* ─── 9. KERNEL BOOT SEQUENCE ────────────────────────────────────────────── */
 async function kernelBoot() {
     performance.mark('santis-kernel-start'); // 📊 Boot ölçümü başlat
     const t0 = __SANTIS__.bootTime;
@@ -351,22 +435,84 @@ async function kernelBoot() {
         __SANTIS__.services.bus       = SantisEventBus;
         log('Scheduler + EventBus ✓');
 
-        // ── WORKER FABRIC (non-blocking) ────────────────────────────────────
-        SantisScheduler.idle(async () => {
-            try {
-                const { wrap } = await import('https://unpkg.com/comlink/dist/esm/comlink.mjs');
-                const aiWorker = new Worker(
-                    new URL('../workers/santis-ai.worker.js', import.meta.url),
-                    { type: 'module' }
-                );
-                __SANTIS__.workers.set('ai', wrap(aiWorker));
-                const pong = await __SANTIS__.workers.get('ai').ping();
-                log(`Worker Fabric ✓ — ${pong}`);
-                SantisEventBus.emit('kernel:worker-ready', { name: 'ai' });
-            } catch (e) {
-                console.warn('[Kernel] ⚠️ AI Worker başlatılamadı (non-fatal):', e.message);
-            }
-        });
+        // ── SOVEREIGN WORKER FABRIC (Otonom Proxy Köprüsü) ────────────────────────────────────
+        // Geliştirici arka planda Worker mı var, Comlink mi var bilmek zorunda değil.
+        // Sadece "await window.SovereignAI.filterCatalog()" der ve Proxy gerisini halleder.
+        
+        window.SovereignAI = (() => {
+            let enginePromise = null;
+
+            // 🛑 ZIRH: Eğer tarayıcı Worker'ı engellerse (AdBlocker, CSP vb.) sistem ÇÖKMESİN diye yedek motor.
+            const fallbackEngine = {
+                ping: async () => 'FALLBACK_MODE (Main Thread)',
+                analyzeIntent: async () => ({ score: 50, tier: 'STANDARD', intent: 'BROWSING', actions: { prefetch: [] } }),
+                filterCatalog: async (catalog, categoryId = '', limit = 50) => {
+                    let result = Array.isArray(catalog) ? [...catalog] : [];
+                    if (categoryId) {
+                        const searchCat = categoryId.toLowerCase();
+                        result = result.filter(item => (item.categoryId || item.category || '').toLowerCase().includes(searchCat));
+                    }
+                    result.sort((a, b) => {
+                        if (a.featured && !b.featured) return -1;
+                        if (!a.featured && b.featured) return 1;
+                        return (a.name || '').localeCompare(b.name || '', 'tr');
+                    });
+                    return result.slice(0, limit);
+                }
+            };
+
+            const bootFabric = () => {
+                if (!enginePromise) {
+                    enginePromise = new Promise((resolve) => {
+                        // Arka planda (idle) yükle, Ana İş Parçacığını meşgul etme
+                        const scheduler = (typeof SantisScheduler !== 'undefined' && SantisScheduler.idle) 
+                            ? SantisScheduler.idle 
+                            : (cb) => (window.requestIdleCallback || setTimeout)(cb);
+
+                        scheduler(async () => {
+                            try {
+                                const { wrap } = await import('https://unpkg.com/comlink/dist/esm/comlink.mjs');
+                                const aiWorker = new Worker(
+                                    new URL('../workers/santis-ai.worker.js', import.meta.url),
+                                    { type: 'module' }
+                                );
+                                const proxyEngine = wrap(aiWorker);
+                                
+                                if (typeof __SANTIS__ !== 'undefined' && __SANTIS__.workers) {
+                                    __SANTIS__.workers.set('ai', proxyEngine);
+                                }
+                                
+                                const pong = await proxyEngine.ping();
+                                console.log(`🌌 [Worker Fabric] Kuantum Köprüsü Kuruldu: ${pong}`);
+                                
+                                if (typeof SantisEventBus !== 'undefined' && SantisEventBus.emit) {
+                                    SantisEventBus.emit('kernel:worker-ready', { name: 'ai' });
+                                }
+                                resolve(proxyEngine);
+                            } catch (e) {
+                                console.warn('🚨 [Worker Fabric] AI Worker başlatılamadı. Fallback devrede:', e.message);
+                                resolve(fallbackEngine); // Çökmeyi engelle, Main Thread yedeğine dön
+                            }
+                        });
+                    });
+                }
+                return enginePromise;
+            };
+
+            // Sayfa açılır açılmaz arka planda motoru ısıt (Pre-warm)
+            bootFabric();
+
+            // 🛡️ AKILLI PROXY MİMARİSİ: Sayfa yüklendiği 1. milisaniyede fonksiyon çağrılsa bile,
+            // hata fırlatmaz. Worker'ın yüklenmesini havada bekler ve yanıtı döndürür! (Zero-Friction)
+            return new Proxy({}, {
+                get(target, prop) {
+                    return async (...args) => {
+                        const engine = await bootFabric();
+                        return await engine[prop](...args);
+                    };
+                }
+            });
+        })();
         // ───────────────────────────────────────────────────────────────────
 
         // T+10ms: Render Engine (GPU)
@@ -379,6 +525,16 @@ async function kernelBoot() {
         SantisScheduler.high(async () => {
             await resolveModule('data');
             log('Data Bridge ✓');
+        });
+
+        // T+25ms: Biometric UX Layer (Santis Soul Engine)
+        SantisScheduler.high(async () => {
+            try {
+                await import('/assets/js/core/santis-soul.js');
+                log('Soul Engine ✓');
+            } catch (e) {
+                console.warn('Soul Engine bypassed:', e);
+            }
         });
 
         // T+30ms: Interaction Engine (UI efektleri, Living Card, Modal)
@@ -442,15 +598,112 @@ async function kernelBoot() {
     }
 }
 
-/* ─── 9. LAUNCH ──────────────────────────────────────────────────────────── */
+/* ─── 10. LAUNCH ──────────────────────────────────────────────────────────── */
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', kernelBoot);
 } else {
     kernelBoot();
 }
 
-/* ─── 10. PUBLIC API ─────────────────────────────────────────────────────── */
-export { SantisScheduler, SantisEventBus, resilientImport, resolveModule, NeuralRuntime };
+/* ─── 11. PUBLIC API ─────────────────────────────────────────────────────── */
+export { SantisScheduler, SantisEventBus, SantisEnforcer, resilientImport, resolveModule, NeuralRuntime };
 
 // Default export: bootloader'dan SantisKernel.boot() ile çağrılır
 export default { boot: kernelBoot };
+
+
+/**
+ * SANTIS OS - PHASE 58: MAIN THREAD SENSOR ARRAY
+ * Görev: Veri toplama, Worker yönetimi ve UI Render tetikleme
+ */
+
+class SantisSensors {
+    constructor() {
+        if (!window.__SANTIS_AI_WORKER__) {
+            window.__SANTIS_AI_WORKER__ = new Worker('/santis-ai.worker.js');
+        }
+        this.aiWorker = window.__SANTIS_AI_WORKER__;
+        this.lastIntent = null;
+
+        this.initCommunication();
+        this.bootAI();
+        this.startSensors();
+    }
+
+    initCommunication() {
+        this.aiWorker.onmessage = (e) => {
+            const { type, ...data } = e.data;
+
+            switch(type) {
+                case 'INTENT_DETECTED':
+                    if (this.lastIntent !== data.intent) {
+                        this.lastIntent = data.intent;
+                        console.log(`[Phase 58] ⚡ Kuantum Hedef Kilitlendi: ${data.intent} (Güven: %${(data.confidence*100).toFixed(1)})`);
+                        window.dispatchEvent(new CustomEvent('santis:intent', { detail: data.intent }));
+                    }
+                    break;
+                case 'WEIGHTS_UPDATED':
+                    localStorage.setItem('santis_neural_weights', JSON.stringify(data.weights));
+                    break;
+                case 'DATASET_READY':
+                    window.dispatchEvent(new CustomEvent('santis:dataset_ready', { detail: data.dataset }));
+                    break;
+                case 'CRITICAL_ERROR':
+                    console.error("🔴 GOD'S EYE PING:", data.message);
+                    break;
+                case 'LOG':
+                    console.log(`[AI Worker] ${data.message}`);
+                    break;
+            }
+        };
+    }
+
+    bootAI() {
+        const savedWeights = JSON.parse(localStorage.getItem('santis_neural_weights')) || null;
+        const context = {
+            hour: new Date().getHours(),
+            origin: document.referrer
+        };
+        this.aiWorker.postMessage({ action: 'BOOT', payload: { weights: savedWeights, context } });
+    }
+
+    startSensors() {
+        let lastX = 0, lastY = 0;
+        let directionChanges = 0;
+        
+        setInterval(() => {
+            directionChanges = Math.max(0, directionChanges - 1);
+        }, 500);
+
+        window.addEventListener('mousemove', (e) => {
+            if (Math.sign(e.movementX) !== Math.sign(lastX) || Math.sign(e.movementY) !== Math.sign(lastY)) {
+                directionChanges++;
+            }
+            lastX = e.movementX;
+            lastY = e.movementY;
+
+            const sensorData = {
+                friction: window.santisFrictionScore || 0.5,
+                velocity: Math.min(1, (Math.abs(e.movementX) + Math.abs(e.movementY)) / 100),
+                dwellTime: 0.5,
+                jitter: Math.min(1, directionChanges / 10)
+            };
+
+            if (Math.random() > 0.8) {
+                 this.aiWorker.postMessage({ action: 'TICK', payload: sensorData });
+            }
+        });
+    }
+
+    sendFeedback(clickedIntent, wasPredictedCorrectly, dominantFeature) {
+        this.aiWorker.postMessage({
+            action: 'FEEDBACK',
+            payload: { success: wasPredictedCorrectly, dominantFeature: dominantFeature }
+        });
+    }
+}
+
+if (!window.__SANTIS_SYSTEM_INITIALIZED__) {
+    window.SantisOS_Neural = new SantisSensors();
+    window.__SANTIS_SYSTEM_INITIALIZED__ = true;
+}

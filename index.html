@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -168,7 +168,7 @@
     </style>
 <meta content="website" property="og:type"/><meta content="Santis Club • Wellness &amp; Spa" property="og:title"/><meta content="Santis Club - Premium Spa &amp; Wellness. Select your language to begin." property="og:description"/><meta content="https://santisclub.com/index.html" property="og:url"/><meta content="https://santisclub.com/assets/img/logo-santis.webp" property="og:image"/><meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Santis Club • Wellness &amp; Spa" name="twitter:title"/><meta content="Santis Club - Premium Spa &amp; Wellness. Select your language to begin." name="twitter:description"/><meta content="https://santisclub.com/assets/img/logo-santis.webp" name="twitter:image"/></head>
 <body>
-<script type="module" src="/assets/js/core/santis-core.js"></script>
+<script type="module" src="/assets/js/core/santis-core.js" defer></script>
     <script defer="" src="/assets/js/app.js"></script>
 <div class="gateway-overlay"></div>
 <div class="gateway-content">
@@ -179,11 +179,11 @@
 <div class="gateway-subtitle">Wellness &amp; Spa</div>
 </div>
 <ul class="lang-list">
-<li class="lang-item"><a href="/tr/index.html">TÜRKÇE</a></li>
-<li class="lang-item"><a href="/tr/index.html?lang=en">ENGLISH</a></li>
-<li class="lang-item"><a href="/de/index.html">DEUTSCH</a></li>
-<li class="lang-item"><a href="/fr/index.html">FRANÇAIS</a></li>
-<li class="lang-item"><a href="/ru/index.html">PYCCKИЙ</a></li>
+<li class="lang-item"><a href="/tr/index.html" data-lang-code="tr">TÜRKÇE</a></li>
+<li class="lang-item"><a href="/tr/index.html?lang=en" data-lang-code="en">ENGLISH</a></li>
+<li class="lang-item"><a href="/tr/index.html?lang=de" data-lang-code="de">DEUTSCH</a></li>
+<li class="lang-item"><a href="/tr/index.html?lang=fr" data-lang-code="fr">FRANÇAIS</a></li>
+<li class="lang-item"><a href="/tr/index.html?lang=ru" data-lang-code="ru">PYCCKИЙ</a></li>
 </ul>
 </div>
 <div class="gateway-footer">
@@ -193,9 +193,9 @@
         // Language Persistence Logic
         document.querySelectorAll('.lang-item a').forEach(link => {
             link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
-                // Extract lang code: /tr/index.html -> tr
-                const match = href.match(/^\/(\w+)\//);
+                const langCode = link.getAttribute('data-lang-code') || 'tr';
+                // Extract lang code: / -> tr
+                const match = [null, langCode];
                 if (match && match[1]) {
                     const lang = match[1];
                     
@@ -212,5 +212,8 @@
         // Optional: Auto-redirect if returning user? 
         // For now, we allow them to see the Premium Gateway (it's a brand experience).
     </script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>

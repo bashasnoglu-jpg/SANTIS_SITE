@@ -13,7 +13,9 @@ const MockEngine = {
         "Mom & Kids Relax", "Glow Facial", "Jet Lag Recovery"
     ],
 
-    tbody: document.getElementById('live-bookings-tbody'),
+    getTbody() {
+        return document.getElementById('live-bookings-tbody');
+    },
 
     init() {
         this.populateInitialMatrix();
@@ -52,16 +54,22 @@ const MockEngine = {
     },
 
     populateInitialMatrix() {
+        const tbody = this.getTbody();
+        if (!tbody) return; // Silent return if we are on a page without this table
+
         for (let i = 0; i < 6; i++) {
-            this.tbody.appendChild(this.createRow(false));
+            tbody.appendChild(this.createRow(false));
         }
     },
 
     simulateRealTime() {
         // Drop in a new booking every 8-15 seconds to simulate incoming traffic
         setInterval(() => {
+            const tbody = this.getTbody();
+            if (!tbody) return; // Only process if the table is currently mounted
+
             const row = this.createRow(true);
-            this.tbody.insertBefore(row, this.tbody.firstChild);
+            tbody.insertBefore(row, tbody.firstChild);
 
             // Re-calc stat updates
             const statEl = document.getElementById('stat-bookings');
@@ -74,8 +82,8 @@ const MockEngine = {
             }
 
             // Keep table at max 8 rows
-            if (this.tbody.children.length > 8) {
-                this.tbody.removeChild(this.tbody.lastChild);
+            if (tbody.children.length > 8) {
+                tbody.removeChild(tbody.lastChild);
             }
         }, Math.floor(Math.random() * 8000) + 8000);
     }
@@ -155,4 +163,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (e) { console.error("Neural Bridge Intel Render Error:", e); }
     };
+
+    // ════════════════════════════════════════════════════════════
+    // ⚡ SOVEREIGN MODULE BOOTSTRAP (Phase 54-61)
+    // Network-First JS üzerinden yüklenir — HTML cache'ini bypass eder.
+    // ════════════════════════════════════════════════════════════
+    const SOVEREIGN_MODULES = [
+        '/assets/js/core/santis-quantum-shield.js',
+        '/assets/js/core/santis-self-healing-agent.js',
+        '/assets/js/core/santis-semantic-engine.js',
+        '/assets/js/core/santis-governance-engine.js',
+        '/assets/js/core/santis-phygital-bridge.js',
+        '/assets/js/core/santis-edge-pipeline.js',
+        '/assets/js/core/santis-vocal-dna.js',
+    ];
+
+    SOVEREIGN_MODULES.forEach(src => {
+        const s = document.createElement('script');
+        s.type = 'module';
+        s.src = src;
+        document.head.appendChild(s);
+    });
+
+    console.log('⚡ [Admin Mock] Sovereign Core Modules Bootstrap — Phase 54-61 yükleniyor...');
 });

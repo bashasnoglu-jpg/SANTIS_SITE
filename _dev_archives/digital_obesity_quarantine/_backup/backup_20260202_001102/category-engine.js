@@ -4,7 +4,7 @@
  */
 
 (function () {
-    const SANTIS_PREFIX = "NV_";
+    const SANTIS_PREFIX = "SANTIS_";
 
     const Engine = {
         config: {
@@ -78,7 +78,7 @@
             this.chipsContainer.innerHTML = this.order.map(key => {
                 const label = this.labels[key] || (key === "all" ? "Tümü" : key);
                 const isActive = this.state.filter === key ? "active" : "";
-                return `<button class="nv-chip ${isActive}" data-key="${key}">${label}</button>`;
+                return `<button class="santis-chip ${isActive}" data-key="${key}">${label}</button>`;
             }).join("");
         },
 
@@ -107,13 +107,13 @@
                         const title = this.labels[catKey] || catKey;
 
                         html += `
-                        <div class="nv-catalog-section" style="margin-bottom:60px;">
-                            <div class="nv-section-header" style="text-align:center; margin-bottom:30px; position:relative;">
-                                <h2 class="nv-section-title" style="font-size:24px; letter-spacing:2px; text-transform:uppercase; display:inline-block; padding-bottom:10px; border-bottom:1px solid var(--gold); color:#fff;">
+                        <div class="santis-catalog-section" style="margin-bottom:60px;">
+                            <div class="santis-section-header" style="text-align:center; margin-bottom:30px; position:relative;">
+                                <h2 class="santis-section-title" style="font-size:24px; letter-spacing:2px; text-transform:uppercase; display:inline-block; padding-bottom:10px; border-bottom:1px solid var(--gold); color:#fff;">
                                     ${title}
                                 </h2>
                             </div>
-                            <div class="nv-card-grid">
+                            <div class="santis-card-grid">
                                 ${groupItems.map((item, idx) => this.buildCard(item, idx)).join('')}
                             </div>
                         </div>
@@ -125,7 +125,7 @@
 
             } else {
                 // 3. RENDER FLAT GRID (Filtered View)
-                this.container.innerHTML = `<div class="nv-card-grid">
+                this.container.innerHTML = `<div class="santis-card-grid">
                     ${items.map((item, idx) => this.buildCard(item, idx)).join('')}
                 </div>`;
             }
@@ -222,8 +222,8 @@
     // Auto Init based on URL
     document.addEventListener("DOMContentLoaded", async () => {
         // Wait for data if loader exists
-        if (window.NV_DATA_READY_PROMISE) {
-            await window.NV_DATA_READY_PROMISE;
+        if (window.SANTIS_DATA_READY_PROMISE) {
+            await window.SANTIS_DATA_READY_PROMISE;
         }
 
         const path = window.location.pathname;

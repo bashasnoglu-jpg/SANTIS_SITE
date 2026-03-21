@@ -15,9 +15,9 @@ const MegaMenuEngine = {
             <div class="liquid-menu-grid">
                 <div>
                     <h4 class="liquid-col-title">Hamam Deneyimi</h4>
-                    <a href="/tr/hamam/index.html#kopuk" class="liquid-link">Köpük Ritüeli</a>
-                    <a href="/tr/hamam/index.html#sultan" class="liquid-link">Sultanın Hamamı</a>
-                    <a href="/tr/hamam/index.html#geleneksel" class="liquid-link">Geleneksel Kese</a>
+                    <a href="/hamam/index.html#kopuk" class="liquid-link">Köpük Ritüeli</a>
+                    <a href="/hamam/index.html#sultan" class="liquid-link">Sultanın Hamamı</a>
+                    <a href="/hamam/index.html#geleneksel" class="liquid-link">Geleneksel Kese</a>
                 </div>
                 <div>
                     <h4 class="liquid-col-title">Zaman Çizelgesi</h4>
@@ -33,15 +33,15 @@ const MegaMenuEngine = {
             <div class="liquid-menu-grid">
                 <div>
                     <h4 class="liquid-col-title">Dünya Masajları</h4>
-                    <a href="/tr/masajlar/index.html#bali" class="liquid-link">Bali Masajı</a>
-                    <a href="/tr/masajlar/index.html#aromaterapi" class="liquid-link">Aromaterapi</a>
-                    <a href="/tr/masajlar/index.html#derindoku" class="liquid-link">Derin Doku</a>
+                    <a href="/masajlar/index.html#bali" class="liquid-link">Bali Masajı</a>
+                    <a href="/masajlar/index.html#aromaterapi" class="liquid-link">Aromaterapi</a>
+                    <a href="/masajlar/index.html#derindoku" class="liquid-link">Derin Doku</a>
                 </div>
                 <div>
                     <h4 class="liquid-col-title">Özel Terapiler</h4>
-                    <a href="/tr/masajlar/index.html#lomi" class="liquid-sublink">Lomi Lomi Nui</a>
-                    <a href="/tr/masajlar/index.html#thai" class="liquid-sublink">Thai Geleneksel</a>
-                    <a href="/tr/masajlar/index.html#sicaktasc" class="liquid-sublink">Sıcak Taş</a>
+                    <a href="/masajlar/index.html#lomi" class="liquid-sublink">Lomi Lomi Nui</a>
+                    <a href="/masajlar/index.html#thai" class="liquid-sublink">Thai Geleneksel</a>
+                    <a href="/masajlar/index.html#sicaktasc" class="liquid-sublink">Sıcak Taş</a>
                 </div>
             </div>
         `,
@@ -49,8 +49,8 @@ const MegaMenuEngine = {
             <div class="liquid-menu-grid">
                 <div>
                     <h4 class="liquid-col-title">Premium Cilt Bakımı</h4>
-                    <a href="/tr/cilt-bakimi/index.html#antiaging" class="liquid-link">Anti-Aging Serisi</a>
-                    <a href="/tr/cilt-bakimi/index.html#nemlendirici" class="liquid-link">Hyalüronik Nem</a>
+                    <a href="/cilt-bakimi/index.html#antiaging" class="liquid-link">Anti-Aging Serisi</a>
+                    <a href="/cilt-bakimi/index.html#nemlendirici" class="liquid-link">Hyalüronik Nem</a>
                 </div>
             </div>
         `,
@@ -58,8 +58,8 @@ const MegaMenuEngine = {
             <div class="liquid-menu-grid">
                 <div>
                     <h4 class="liquid-col-title">Kurumsal</h4>
-                    <a href="/tr/hakkimizda/index.html#felsefe" class="liquid-link">Manifestomuz</a>
-                    <a href="/tr/hakkimizda/index.html#ekip" class="liquid-link">Sovereign Ekibi</a>
+                    <a href="/hakkimizda/index.html#felsefe" class="liquid-link">Manifestomuz</a>
+                    <a href="/hakkimizda/index.html#ekip" class="liquid-link">Sovereign Ekibi</a>
                 </div>
             </div>
         `
@@ -69,7 +69,7 @@ const MegaMenuEngine = {
         this.panel = document.getElementById('santis-liquid-menu');
         this.content = document.getElementById('liquid-menu-content');
         this.overlay = document.getElementById('liquid-nav-overlay');
-        this.navbar = document.getElementById('nv-main-nav');
+        this.navbar = document.getElementById('santis-main-nav');
 
         if (!this.panel || !this.content || !this.overlay || !this.navbar) {
             console.warn("🍎 [Mega Menu] Elements missing. Delaying initialization.");

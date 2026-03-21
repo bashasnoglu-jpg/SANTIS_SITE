@@ -31,7 +31,7 @@ export class SantisCore {
         this.diffEngine = new SantisDiffEngine();
 
         // --- 4. EGEMEN AĞ & VERİ (Router & DataBridge) ---
-        this.router = new SovereignRouter(this.diffEngine, '#nv-main');
+        this.router = new SovereignRouter(this.diffEngine, '#santis-main');
         this.dataBridge = new SovereignDataBridge(this.diffEngine, '#santis-card-grid');
 
         // --- 5. NİYET MOTORU (Kuantum Psikolojisi) ---

@@ -19,7 +19,7 @@
         floatingDelay: 2000,  // ms before floating CTA can appear
         cookieKey: 'nv_visitor',
         ctaSelector: '[data-smart-cta]',
-        floatingId: 'nv-floating-cta'
+        floatingId: 'santis-floating-cta'
     };
 
     // ──────────────── CTA TEXT MATRIX ────────────────

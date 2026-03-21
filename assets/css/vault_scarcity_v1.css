@@ -3,7 +3,7 @@
   Phase 45: Predictive Scarcity & Dynamic Interface
 */
 
-.nv-scarcity-badge {
+.santis-scarcity-badge {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -24,7 +24,7 @@
     /* Let clicks pass through */
 }
 
-.nv-pulse-dot {
+.santis-pulse-dot {
     width: 6px;
     height: 6px;
     background-color: #d4af37;
@@ -33,7 +33,7 @@
     animation: nvGoldPulse 2s infinite ease-in-out;
 }
 
-.nv-scarcity-text {
+.santis-scarcity-text {
     font-family: var(--font-primary, 'Outfit', sans-serif);
     font-size: 11px;
     font-weight: 500;
@@ -66,9 +66,9 @@
 /* Make sure container is relative if using depth/reveal classes */
 .depth-1,
 .depth-2,
-.nv-signature-visual,
-.nv-trend-card,
-.nv-philosophy-visual {
+.santis-signature-visual,
+.santis-trend-card,
+.santis-philosophy-visual {
     position: relative;
 }
 
@@ -131,19 +131,19 @@ body.whale-mode {
     --santis-border: rgba(212, 175, 55, 0.25);
 }
 
-body.whale-mode .nv-card {
+body.whale-mode .santis-card {
     border-color: rgba(212, 175, 55, 0.15);
     background: linear-gradient(145deg, #0f0e0a 0%, #141210 100%);
 }
 
-body.whale-mode .nv-btn-primary {
+body.whale-mode .santis-btn-primary {
     background: linear-gradient(135deg, #D4AF37 0%, #B8960C 100%);
     color: #000;
     font-weight: 600;
     letter-spacing: 1.5px;
 }
 
-body.whale-mode .nv-btn-primary:hover {
+body.whale-mode .santis-btn-primary:hover {
     background: linear-gradient(135deg, #F0D060 0%, #D4AF37 100%);
     box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
 }
@@ -204,7 +204,7 @@ body.whale-mode .nv-btn-primary:hover {
 }
 
 /* Görsel yüklenince shimmer'ı söndür */
-[data-santis-slot].nv-asset-loaded::before {
+[data-santis-slot].santis-asset-loaded::before {
     opacity: 0;
 }
 
@@ -219,14 +219,14 @@ body.whale-mode .nv-btn-primary:hover {
     }
 }
 
-/* Yükleniyor sinyali: nv-asset-loading sınıfı aktifken */
-[data-santis-slot].nv-asset-loading {
+/* Yükleniyor sinyali: santis-asset-loading sınıfı aktifken */
+[data-santis-slot].santis-asset-loading {
     /* Shimmer zaten ::before üzerinden çalışıyor */
     opacity: 0.85;
 }
 
 /* Yükleme tamamlandı: tüm skeleton kısıtlamaları serbest */
-[data-santis-slot].nv-asset-loaded {
+[data-santis-slot].santis-asset-loaded {
     opacity: 1;
     min-height: unset;
     aspect-ratio: unset;
@@ -235,7 +235,7 @@ body.whale-mode .nv-btn-primary:hover {
 }
 
 /* Kart grid: min-height ile ilk render'da boş alan kaynaması önlendi */
-.nv-product-grid,
+.santis-product-grid,
 .product-grid-v2 {
     min-height: 200px;
 }

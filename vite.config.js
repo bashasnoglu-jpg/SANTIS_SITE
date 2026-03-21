@@ -21,8 +21,7 @@ const EXCLUDE_DIRS = new Set([
     'backup', 'backups', 'backup_assets', 'SantisV5.5_Backup',
     'Quarantine', 'quarantine', 'quarantine_zone',
     'visual_checkpoints', 'test-results', '_deploy_stage',
-    // Kendi Vite instance'ı olan admin panel
-    'admin-panel', 'admin',
+    // Kendi Vite instance'ı olan admin panel (Kaldırıldı - Merkezi Derlemeye Dahil Edildi)
     // Demo ve test sayfaları
     'demo', 'trends', 'print', 'sr',
     // Backend/Python
@@ -75,7 +74,7 @@ export default defineConfig({
     // ── Dev Server ──────────────────────────────────────────────────────────
     server: {
         port: 5173,
-        open: '/tr/index.html',
+        open: '/',
     },
 
     // ── Build ───────────────────────────────────────────────────────────────
@@ -121,6 +120,27 @@ export default defineConfig({
     // ── Web Worker ──────────────────────────────────────────────────────────
     worker: {
         format: 'es'
+    },
+
+    // ── Phase 60: Edge Worker Environment (Vite 6 Environment API) ───────────
+    environments: {
+        // Standard SSR / Node environment
+        ssr: {
+            resolve: { conditions: ['node'] }
+        },
+        // Cloudflare / Miniflare Edge environment (zero-copy image transforms)
+        edge: {
+            resolve: { conditions: ['workerd', 'browser'] },
+            build: {
+                outDir: 'dist/edge-workers',
+                rollupOptions: {
+                    input: {
+                        'santis-karata-worker': 'workers/santis-karata-worker.js',
+                        'santis-edge-image':    'workers/santis-edge-image-worker.js',
+                    }
+                }
+            }
+        }
     },
 
     // ── esbuild ─────────────────────────────────────────────────────────────

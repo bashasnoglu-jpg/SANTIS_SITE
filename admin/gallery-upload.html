@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <meta name="robots" content="noindex, nofollow">
   <meta charset="UTF-8" />
     <meta name="description" content="Gallery Upload • Santis Admin — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -128,7 +129,7 @@
       <p style="font-size:11px; margin-top:6px;">JPG · PNG · WebP · GIF</p>
       <input type="file" id="file-input" accept="image/*" style="display:none" />
     </div>
-    <img id="preview-img" alt="Preview">
+    <img id="preview-img" alt="Preview" decoding="async" loading="lazy">
     
 
     <label>Kategori</label>
@@ -378,6 +379,9 @@
 })();
 </script>
 <script src="/admin/assets/js/admin-nav.js" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
 

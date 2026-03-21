@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis OS | Sovereign Control Plane V42</title>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --border: #222;
+            --text: #e0e0e0;
+            --gold: #d4af37;
+            --danger: #cf6679;
+            --success: #03dac6;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+        body { margin: 0; padding: 2rem; background: var(--bg); color: var(--text); font-family: -apple-system, system-ui, sans-serif; }
+        .header { border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { margin: 0; font-weight: 300; letter-spacing: 0.05em; }
+        .tag { background: var(--surface); border: 1px solid var(--gold); color: var(--gold); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        
+        .grid { display: grid; grid-template-columns: 1fr 350px; gap: 2rem; }
+        .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; }
+        .panel-title { margin-top: 0; margin-bottom: 1rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; }
+        
+        .stream { flex: 1; background: #000; border: 1px solid var(--border); border-radius: 4px; padding: 1rem; font-family: var(--font-mono); font-size: 0.85rem; overflow-y: auto; height: 500px; }
+        .log-entry { padding: 0.5rem 0; border-bottom: 1px dashed #1a1a1a; display: flex; justify-content: space-between; }
+        .log-entry:last-child { border-bottom: none; }
+        .log-time { color: #666; }
+        .log-mod { font-weight: bold; color: var(--text); width: 120px; display: inline-block; }
+        .log-dec.load { color: var(--success); }
+        .log-dec.skip, .log-dec.apex_halt { color: var(--danger); }
+        .log-dec.apex_bypassed_critical, .log-dec.policy_override { color: var(--gold); }
+        .log-meta { color: #888; font-size: 0.75rem; text-align: right; }
+
+        .heatmap { list-style: none; padding: 0; margin: 0; }
+        .hm-item { margin-bottom: 1rem; }
+        .hm-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.3rem; }
+        .hm-bar-bg { height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
+        .hm-bar { height: 100%; background: var(--gold); width: 0%; transition: width 0.3s; }
+
+        .controls button { width: 100%; padding: 0.8rem; margin-bottom: 1rem; background: transparent; border: 1px solid var(--border); color: var(--text); border-radius: 4px; cursor: pointer; transition: 0.2s; font-weight: bold; }
+        .controls button:hover { border-color: var(--gold); color: var(--gold); }
+        .controls button.active { background: rgba(212, 175, 55, 0.1); border-color: var(--gold); color: var(--gold); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>SANTIS OS <span style="opacity:0.5; font-weight:200;">| Sovereign Control Plane</span></h1>
+        <span class="tag" id="conn-status">CONNECTING...</span>
+    </div>
+
+    <div class="grid">
+        <div class="panel">
+            <h2 class="panel-title">Live Decision Stream</h2>
+            <div class="stream" id="stream-container"></div>
+        </div>
+
+        <div class="side-panel">
+            <div class="panel" style="margin-bottom: 2rem;">
+                <h2 class="panel-title">Policy Heatmap</h2>
+                <ul class="heatmap" id="heatmap-list">
+                    <li class="hm-item">
+                        <div class="hm-label"><span>VIP_OVERRIDE</span><span id="stat-vip">0</span></div>
+                        <div class="hm-bar-bg"><div class="hm-bar" id="bar-vip"></div></div>
+                    </li>
+                    <li class="hm-item">
+                        <div class="hm-label"><span>HIGH_MEMORY_PROTECTION</span><span id="stat-mem">0</span></div>
+                        <div class="hm-bar-bg"><div class="hm-bar" id="bar-mem"></div></div>
+                    </li>
+                    <li class="hm-item">
+                        <div class="hm-label"><span>LOW_CPU_MODE</span><span id="stat-cpu">0</span></div>
+                        <div class="hm-bar-bg"><div class="hm-bar" id="bar-cpu"></div></div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel controls">
+                <h2 class="panel-title">Runtime Override (V42)</h2>
+                <button id="btn-sandbox" onclick="toggleSandbox()">Enable Policy Sandbox</button>
+                <div style="font-size: 0.75rem; color: #888; text-align: center;">V42 Governable Micro-OS Blueprint</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const statusEl = document.getElementById('conn-status');
+        const streamContainer = document.getElementById('stream-container');
+        
+        let policyStats = {
+            VIP_OVERRIDE: 0,
+            HIGH_MEMORY_PROTECTION: 0,
+            LOW_CPU_MODE: 0
+        };
+
+        function formatTime(timestamp) {
+            const d = new Date(timestamp);
+            return `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}:${d.getSeconds().toString().padStart(2, '0')}::${d.getMilliseconds().toString().padStart(3, '0')}`;
+        }
+
+        function appendLog(event) {
+            const div = document.createElement('div');
+            div.className = 'log-entry';
+            
+            let metaString = '';
+            if (event.meta) {
+                if (event.meta.score !== undefined) metaString += `Score: ${event.meta.score} `;
+                if (event.meta.ctx?.cpuPressure !== undefined) metaString += `CPU: ${event.meta.ctx.cpuPressure} `;
+                if (event.meta.ctx?.memory) metaString += `Mem: ${(event.meta.ctx.memory/1e6).toFixed(1)}MB `;
+                if (event.meta.policy) metaString += `[${event.meta.policy}] `;
+                if (event.meta.memory) metaString += `Mem: ${(event.meta.memory/1e6).toFixed(1)}MB `;
+            }
+
+            if (event.meta && event.meta.policy && policyStats[event.meta.policy] !== undefined) {
+                policyStats[event.meta.policy]++;
+                updateHeatmap();
+            }
+
+            div.innerHTML = `
+                <div>
+                    <span class="log-time">[${formatTime(event.time)}]</span> 
+                    <span class="log-mod">${event.module.toUpperCase()}</span> 
+                    <span class="log-dec ${event.decision}">${event.decision.toUpperCase().replace('_', ' ')}</span>
+                </div>
+                <div class="log-meta">${metaString}</div>
+            `;
+            
+            streamContainer.appendChild(div);
+            streamContainer.scrollTop = streamContainer.scrollHeight;
+        }
+
+        function updateHeatmap() {
+            const max = Math.max(1, Object.values(policyStats).reduce((a,b)=>a+b, 0));
+            document.getElementById('stat-vip').innerText = policyStats.VIP_OVERRIDE;
+            document.getElementById('bar-vip').style.width = ((policyStats.VIP_OVERRIDE / max) * 100) + '%';
+            document.getElementById('stat-mem').innerText = policyStats.HIGH_MEMORY_PROTECTION;
+            document.getElementById('bar-mem').style.width = ((policyStats.HIGH_MEMORY_PROTECTION / max) * 100) + '%';
+            document.getElementById('stat-cpu').innerText = policyStats.LOW_CPU_MODE;
+            document.getElementById('bar-cpu').style.width = ((policyStats.LOW_CPU_MODE / max) * 100) + '%';
+        }
+
+        async function pollTelemetry() {
+            try {
+                const res = await fetch('/api/v1/admin/telemetry/stream');
+                if (res.ok) {
+                    statusEl.innerText = "STREAMING ACTIVE";
+                    statusEl.style.color = "var(--success)";
+                    statusEl.style.borderColor = "var(--success)";
+
+                    const data = await res.json();
+                    data.events.forEach(ev => {
+                        if (ev.level === 'DECISION') {
+                            appendLog(ev);
+                        }
+                    });
+                }
+            } catch (e) {
+                statusEl.innerText = "OFFLINE";
+                statusEl.style.color = "var(--danger)";
+                statusEl.style.borderColor = "var(--danger)";
+            }
+        }
+
+        setInterval(pollTelemetry, 1000);
+
+        let sandboxOn = false;
+        function toggleSandbox() {
+            sandboxOn = !sandboxOn;
+            const btn = document.getElementById('btn-sandbox');
+            if (sandboxOn) {
+                btn.innerText = 'Disable Policy Sandbox';
+                btn.classList.add('active');
+            } else {
+                btn.innerText = 'Enable Policy Sandbox';
+                btn.classList.remove('active');
+            }
+            console.log(`[V42 Control Plane] Sandbox Logic Mode: ${sandboxOn}`);
+        }
+    </script>
+</body>
+</html>

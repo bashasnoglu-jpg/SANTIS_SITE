@@ -36,8 +36,8 @@
             return;
         }
 
-        // Wait for cards to be rendered by massage-matrix.js
-        document.addEventListener('santis:cards-rendered', () => {
+        // Wait for cards to be rendered by bento-orchestrator.js
+        document.addEventListener('bento:batch-rendered', () => {
             console.log(`${LOG_PREFIX} Cards rendered signal received — injecting mood selector.`);
             collectCards();
             injectMoodSelector();
@@ -59,7 +59,7 @@
     // COLLECT EXISTING CARDS FROM DOM
     // ══════════════════════════════════════════════════════════════
     function collectCards() {
-        allCards = Array.from(document.querySelectorAll('.matrix-service-card, .nv-matrix-card'));
+        allCards = Array.from(document.querySelectorAll('.bento-card, .matrix-service-card, .santis-matrix-card'));
         console.log(`${LOG_PREFIX} Collected ${allCards.length} cards from DOM.`);
     }
 
@@ -347,7 +347,7 @@
                         font-style: italic; line-height: 1.6;">
                         "${pkg.story}"
                     </p>
-                    <a href="#nv-reservation-modal" onclick="document.getElementById('nv-reservation-modal')?.classList.add('active'); return false;"
+                    <a href="#santis-reservation-modal" onclick="document.getElementById('santis-reservation-modal')?.classList.add('active'); return false;"
                        style="display: inline-flex; align-items: center; gap: 8px;
                         padding: 12px 28px; border-radius: 50px;
                         background: ${mood.gradient};
@@ -398,13 +398,9 @@
     }
 
     // ══════════════════════════════════════════════════════════════
-    // AUTO-BOOT
+    // AUTO-BOOT (Delegated to initSantisCards)
     // ══════════════════════════════════════════════════════════════
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', boot);
-    } else {
-        boot();
-    }
+    window.initMoodEngine = boot;
 
     // Expose for external control (God's Eye, Boardroom etc.)
     window.SantisMoodEngine = {

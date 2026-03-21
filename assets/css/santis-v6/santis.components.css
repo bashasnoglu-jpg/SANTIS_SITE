@@ -43,13 +43,15 @@
     .sovereign-brand-links {
         display: flex;
         align-items: center;
-        gap: 3vw;
+        gap: 1.5vw; /* Reduced from 3vw to fit 7 items */
+        flex-wrap: nowrap;
+        white-space: nowrap;
     }
     
     .sovereign-brand-links .sovereign-link-item {
         font-family: 'Inter', sans-serif;
-        font-size: 12px;
-        letter-spacing: 0.12em;
+        font-size: 11px; /* Reduced from 12px */
+        letter-spacing: 0.08em; /* Reduced from 0.12em */
         text-transform: uppercase;
         color: rgba(245,245,247,0.55);
         text-decoration: none;

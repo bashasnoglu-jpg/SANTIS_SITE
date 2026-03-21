@@ -69,12 +69,12 @@ function analyseHtml(fullPath, rel) {
     // Detay sayfası kontrolü
     if (rel.includes('detay.html')) {
         const hasStaticH1 = /<h1[^>]*>Detay<\/h1>/i.test(html);
-        const hasDynamic = html.includes('id="nv-dynamic-content"');
+        const hasDynamic = html.includes('id="santis-dynamic-content"');
         const hasFactory = html.includes('PageFactory');
 
         if (hasStaticH1) uxIssues.push({ tip: '❌ Detay Sayfası', detay: '<h1>Detay</h1> statik — SEO/UX hatalı', dosya: rel });
         if (hasFactory) uxIssues.push({ tip: '❌ Detay JS', detay: 'PageFactory tanımsız — crash riski', dosya: rel });
-        if (!hasDynamic) uxIssues.push({ tip: '⚠️  Detay Layout', detay: '#nv-dynamic-content eksik', dosya: rel });
+        if (!hasDynamic) uxIssues.push({ tip: '⚠️  Detay Layout', detay: '#santis-dynamic-content eksik', dosya: rel });
     }
 
     // Quick View + script etiketleri (urunler index)

@@ -11,7 +11,7 @@
 <link href="/assets/css/modules/cards.css" rel="stylesheet"/>
 <link href="/assets/css/gallery.css" rel="stylesheet"/>
 <link href="/assets/css/fonts.css" rel="stylesheet"/>
-<script src="/assets/js/perf-head.js"></script>
+<script src="/assets/js/perf-head.js" defer></script>
 <script defer="" src="/assets/js/language-switcher.js"></script>
 <meta content="/assets/img/og-standard.jpg" property="og:image"/>
 <link href="https://santis-club.com/ru/gallery/index.html" rel="canonical"/>
@@ -50,7 +50,7 @@
     <link rel="alternate" hreflang="en" href="https://santis-club.com/en/gallery/index.html" />
     <link rel="alternate" hreflang="fr" href="https://santis-club.com/fr/gallery/index.html" />
     <link rel="alternate" hreflang="ru" href="https://santis-club.com/ru/gallery/index.html" />
-    <link rel="alternate" hreflang="tr" href="https://santis-club.com/tr/galeri/index.html" />
+    <link rel="alternate" hreflang="tr" href="https://santis-club.com/galeri.html" />
     <link rel="alternate" hreflang="x-default" href="https://santis-club.com/en/gallery/index.html" />
 
 <meta name="theme-color" content="#000000">
@@ -58,9 +58,9 @@
 </head>
 <body class="editorial-mode">
 <div id="navbar-container"></div>
-<main id="nv-main">
+<main id="santis-main">
 <header class="text-center mb-80 reveal-on-scroll">
-<span class="nv-kicker">Визуальное Путешествие</span>
+<span class="santis-kicker">Визуальное Путешествие</span>
 <h1 class="fs-56 mb-20 text-white">Атмосфера Santis</h1>
 <div class="page-intro-seo"><p>Откройте для себя уникальную атмосферу и премиальный спа-опыт Santis Club в фотографиях. От ритуалов хаммама до массажных терапий, от ухода за кожей до архитектурных деталей.</p></div>
 <p class="text-muted fs-18 max-w-700 mx-auto lh-16">
@@ -78,16 +78,16 @@
 <div id="footer-container"></div>
 <div class="lightbox" id="lightbox">
 <span class="lightbox-close">×</span>
-<img decoding="async" loading="lazy" class="lightbox-content" id="lightboxImg"/>
+<img decoding="async" loading="lazy" class="lightbox-content" id="lightboxImg">
 <video class="lightbox-content" controls="" id="lightboxVideo"></video>
 <div id="caption"></div>
 </div>
-<script src="/assets/js/gallery-init.js"></script>
-<script src="/assets/js/gallery-data.js"></script>
-<script src="/assets/js/i18n-routes.js"></script>
+<script src="/assets/js/gallery-init.js" defer></script>
+<script src="/assets/js/gallery-data.js" defer></script>
+<script src="/assets/js/i18n-routes.js" defer></script>
 <script defer="" src="/assets/js/hreflang-injector.js"></script>
-<script src="/assets/js/loader.js"></script>
-<script src="/assets/js/gallery-loader.js"></script>
-<script src="/assets/js/santis-nav.js"></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>

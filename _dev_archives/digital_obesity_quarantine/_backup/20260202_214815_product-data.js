@@ -608,29 +608,29 @@ function getCatName(cat) {
     }
 
     // 1. MASSAGES (All Massage Types)
-    window.NV_MASSAGES = window.productCatalog.filter(p =>
+    window.SANTIS_MASSAGES = window.productCatalog.filter(p =>
         p.cat.startsWith('massage-') || p.id === 'thai-royal'
     ).map(mapProduct);
 
     // 2. HAMMAM (Body Care)
-    window.NV_HAMMAM = window.productCatalog.filter(p =>
+    window.SANTIS_HAMMAM = window.productCatalog.filter(p =>
         p.cat === 'body-care' || p.cat.includes('soap')
     ).map(mapProduct);
 
     // 3. SKINCARE (Face)
-    window.NV_SKINCARE = window.productCatalog.filter(p =>
+    window.SANTIS_SKINCARE = window.productCatalog.filter(p =>
         p.cat.startsWith('face-')
     ).map(mapProduct);
 
     // 4. PRODUCTS (All Items for Shop)
-    window.NV_PRODUCTS = window.productCatalog.map(p => {
+    window.SANTIS_PRODUCTS = window.productCatalog.map(p => {
         let mapped = mapProduct(p);
         mapped.tier = p.badge || 'SHOP'; // Override for shop context if needed
         return mapped;
     });
 
     // --- METADATA (For Grouped Display) ---
-    window.NV_MASSAGES_CATEGORY_LABELS = {
+    window.SANTIS_MASSAGES_CATEGORY_LABELS = {
         'massage-classic': 'KLASİK MASAJLAR',
         'massage-thai': 'PRESTIGE THAI',
         'massage-bali': 'BALI & ENDONEZYA',
@@ -640,7 +640,7 @@ function getCatName(cat) {
         'massage-detox': 'DETOX & SIKILAŞMA'
     };
 
-    window.NV_PRODUCTS_CATEGORY_LABELS = {
+    window.SANTIS_PRODUCTS_CATEGORY_LABELS = {
         'face-youth': 'YÜZ / GENÇLİK',
         'face-hydra': 'YÜZ / NEM',
         'face-men': 'ERKEK BAKIMI',
@@ -649,11 +649,11 @@ function getCatName(cat) {
         'sun-care': 'GÜNEŞ SERİSİ'
     };
 
-    window.NV_PRODUCTS_CATEGORY_ORDER = [
+    window.SANTIS_PRODUCTS_CATEGORY_ORDER = [
         'face-youth', 'face-hydra', 'home-textile', 'home-aroma', 'sun-care', 'face-men'
     ];
 
-    window.NV_MASSAGES_CATEGORY_ORDER = [
+    window.SANTIS_MASSAGES_CATEGORY_ORDER = [
         'massage-classic',
         'massage-thai',
         'massage-bali',
@@ -663,13 +663,13 @@ function getCatName(cat) {
     ];
 
     // Signal Ready
-    window.NV_DATA_READY = true;
+    window.SANTIS_DATA_READY = true;
     if (window.onNvDataReady) window.onNvDataReady();
 
     console.log("✅ Data Bridge: Connected to Category Engine.", {
-        Massages: testCount(window.NV_MASSAGES),
-        Skin: testCount(window.NV_SKINCARE),
-        Products: testCount(window.NV_PRODUCTS)
+        Massages: testCount(window.SANTIS_MASSAGES),
+        Skin: testCount(window.SANTIS_SKINCARE),
+        Products: testCount(window.SANTIS_PRODUCTS)
     });
 
     function testCount(arr) { return arr ? arr.length : 0; }

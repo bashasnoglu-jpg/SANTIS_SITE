@@ -420,7 +420,7 @@
 
             // Get tier info
 
-            const tierInfo = window.NV_MASSAGE_TIERS?.[data.tier] || {};
+            const tierInfo = window.SANTIS_MASSAGE_TIERS?.[data.tier] || {};
 
 
 

@@ -52,12 +52,12 @@ A production-ready `sitemap.xml` has been created in the root directory. Link pr
 - `/_legacy_archive/tr/hamam/peeling-foam-massage.html`
 - `/venv/Lib/site-packages/playwright/driver/package/lib/vite/htmlReport/index.html`
 - `/_legacy_archive/detail.html`
-- `/gravity-ux-engine/src/saas-dashboard/cognitive-certificate.html`
+- `/packages/gravity-ux-engine/src/saas-dashboard/cognitive-certificate.html`
 - `/_legacy_content/masajlar/altin-ucgen-ritueli/index.html`
 - `/_legacy_archive/tr/hamam/honey-ritual.html`
 - `/_legacy_content/masajlar/aromaterapi-masaji/index.html`
 - `/_legacy_archive/tr/hamam/sea-salt-peeling.html`
-- `/gravity-ux-engine/demo/3-card-arena.html`
+- `/packages/gravity-ux-engine/demo/3-card-arena.html`
 - `/_legacy_archive/tr/masajlar/detail.html`
 - `/_legacy_archive/tr/hamam/foam-massage.html`
 - `/components/concierge-chat.html`

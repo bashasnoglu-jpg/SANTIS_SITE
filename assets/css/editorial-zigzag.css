@@ -60,7 +60,7 @@ body::before {
 
 /* --- HERO ENHANCEMENT --- */
 
-.nv-ed-hero-title {
+.santis-ed-hero-title {
 
     display: inline-block;
 
@@ -72,7 +72,7 @@ body::before {
 
 
 
-.nv-grain {
+.santis-grain {
 
     position: relative;
 
@@ -80,7 +80,7 @@ body::before {
 
 
 
-.nv-eyebrow {
+.santis-eyebrow {
 
     font-family: var(--ed-font-body);
 
@@ -102,7 +102,7 @@ body::before {
 
 
 
-.nv-container {
+.santis-container {
 
     max-width: 1200px;
 
@@ -116,7 +116,7 @@ body::before {
 
 /* --- SECTION: DISCOVER WALL (MASONRY) --- */
 
-.nv-discover-wall {
+.santis-discover-wall {
 
     padding: 80px 0;
 
@@ -126,7 +126,7 @@ body::before {
 
 
 
-.nv-pins {
+.santis-pins {
 
     column-count: 3;
 
@@ -136,7 +136,7 @@ body::before {
 
 
 
-.nv-pin {
+.santis-pin {
 
     break-inside: avoid;
 
@@ -160,7 +160,7 @@ body::before {
 
 
 
-.nv-pin:hover {
+.santis-pin:hover {
 
     transform: translateY(-5px);
 
@@ -170,7 +170,7 @@ body::before {
 
 
 
-.nv-pin-img {
+.santis-pin-img {
 
     width: 100%;
 
@@ -188,7 +188,7 @@ body::before {
 
 
 
-.nv-pin:hover .nv-pin-img {
+.santis-pin:hover .santis-pin-img {
 
     filter: grayscale(0%);
 
@@ -196,7 +196,7 @@ body::before {
 
 
 
-.nv-pin-content {
+.santis-pin-content {
 
     padding: 15px;
 
@@ -204,7 +204,7 @@ body::before {
 
 
 
-.nv-pin-meta {
+.santis-pin-meta {
 
     font-size: 0.7rem;
 
@@ -220,7 +220,7 @@ body::before {
 
 
 
-.nv-pin-title {
+.santis-pin-title {
 
     font-family: var(--ed-font-heading);
 
@@ -240,7 +240,7 @@ body::before {
 
 @media (max-width: 1024px) {
 
-    .nv-pins {
+    .santis-pins {
 
         column-count: 2;
 
@@ -252,7 +252,7 @@ body::before {
 
 @media (max-width: 640px) {
 
-    .nv-pins {
+    .santis-pins {
 
         column-count: 1;
 
@@ -264,7 +264,7 @@ body::before {
 
 /* --- SECTION: EDITORIAL ZIGZAG (STORIES) --- */
 
-.nv-editorial-zigzag {
+.santis-editorial-zigzag {
 
     padding: 100px 0;
 
@@ -276,7 +276,7 @@ body::before {
 
 
 
-.nv-zigzag-list {
+.santis-zigzag-list {
 
     display: flex;
 
@@ -288,7 +288,7 @@ body::before {
 
 
 
-.nv-z-item {
+.santis-z-item {
 
     display: grid;
 
@@ -304,7 +304,7 @@ body::before {
 
 /* Alternating Layout */
 
-.nv-z-item.is-right {
+.santis-z-item.is-right {
 
     grid-template-columns: 0.85fr 1.15fr;
 
@@ -312,7 +312,7 @@ body::before {
 
 
 
-.nv-z-item.is-right .nv-z-content {
+.santis-z-item.is-right .santis-z-content {
 
     order: 1;
 
@@ -322,7 +322,7 @@ body::before {
 
 
 
-.nv-z-item.is-right .nv-z-visual {
+.santis-z-item.is-right .santis-z-visual {
 
     order: 2;
 
@@ -334,7 +334,7 @@ body::before {
 
 /* Visual Side */
 
-.nv-z-visual {
+.santis-z-visual {
 
     position: relative;
 
@@ -342,7 +342,7 @@ body::before {
 
 
 
-.nv-z-img {
+.santis-z-img {
 
     width: 100%;
 
@@ -362,7 +362,7 @@ body::before {
 
 /* Content Side */
 
-.nv-z-content {
+.santis-z-content {
 
     padding: 20px;
 
@@ -370,7 +370,7 @@ body::before {
 
 
 
-.nv-z-badge {
+.santis-z-badge {
 
     display: inline-block;
 
@@ -392,7 +392,7 @@ body::before {
 
 
 
-.nv-z-title {
+.santis-z-title {
 
     font-family: var(--ed-font-heading);
 
@@ -408,7 +408,7 @@ body::before {
 
 
 
-.nv-z-desc {
+.santis-z-desc {
 
     font-family: var(--ed-font-body);
 
@@ -426,7 +426,7 @@ body::before {
 
 
 
-.nv-z-specs {
+.santis-z-specs {
 
     display: flex;
 
@@ -442,7 +442,7 @@ body::before {
 
 
 
-.nv-spec-item {
+.santis-spec-item {
 
     font-size: 0.8rem;
 
@@ -452,7 +452,7 @@ body::before {
 
 
 
-.nv-spec-val {
+.santis-spec-val {
 
     display: block;
 
@@ -468,7 +468,7 @@ body::before {
 
 /* Actions */
 
-.nv-z-actions {
+.santis-z-actions {
 
     display: flex;
 
@@ -554,7 +554,7 @@ body::before {
 
 @media (max-width: 768px) {
 
-    .nv-z-item {
+    .santis-z-item {
 
         grid-template-columns: 1fr;
 
@@ -564,7 +564,7 @@ body::before {
 
 
 
-    .nv-z-item:nth-child(even) .nv-z-content {
+    .santis-z-item:nth-child(even) .santis-z-content {
 
         order: unset;
 
@@ -572,7 +572,7 @@ body::before {
 
 
 
-    .nv-z-item:nth-child(even) .nv-z-visual {
+    .santis-z-item:nth-child(even) .santis-z-visual {
 
         order: unset;
 
@@ -580,7 +580,7 @@ body::before {
 
 
 
-    .nv-z-title {
+    .santis-z-title {
 
         font-size: 2rem;
 
@@ -592,7 +592,7 @@ body::before {
 
     /* --- SECTION: SPLIT-SCREEN EDITORIAL (ADVANCED) --- */
 
-    .nv-split-wrapper {
+    .santis-split-wrapper {
 
         display: flex;
 
@@ -614,7 +614,7 @@ body::before {
 
 
 
-    .nv-chapter-side {
+    .santis-chapter-side {
 
         width: 35%;
 
@@ -638,7 +638,7 @@ body::before {
 
 
 
-    .nv-rituals-side {
+    .santis-rituals-side {
 
         width: 60%;
 
@@ -652,7 +652,7 @@ body::before {
 
     /* Chapter Typography */
 
-    .nv-chapter-num {
+    .santis-chapter-num {
 
         font-family: var(--ed-font-heading);
 
@@ -670,7 +670,7 @@ body::before {
 
 
 
-    .nv-chapter-title {
+    .santis-chapter-title {
 
         font-family: var(--ed-font-heading);
 
@@ -686,7 +686,7 @@ body::before {
 
 
 
-    .nv-chapter-desc {
+    .santis-chapter-desc {
 
         font-family: var(--ed-font-body);
 
@@ -704,7 +704,7 @@ body::before {
 
     /* VOGUE CARD (CINEMATIC) */
 
-    .nv-vogue-grid {
+    .santis-vogue-grid {
 
         display: grid;
 
@@ -716,7 +716,7 @@ body::before {
 
 
 
-    .nv-vogue-card {
+    .santis-vogue-card {
 
         position: relative;
 
@@ -736,7 +736,7 @@ body::before {
 
 
 
-    .nv-vogue-img {
+    .santis-vogue-img {
 
         width: 100%;
 
@@ -750,7 +750,7 @@ body::before {
 
 
 
-    .nv-vogue-card:hover .nv-vogue-img {
+    .santis-vogue-card:hover .santis-vogue-img {
 
         transform: scale(1.1);
 
@@ -758,7 +758,7 @@ body::before {
 
 
 
-    .nv-vogue-overlay {
+    .santis-vogue-overlay {
 
         position: absolute;
 
@@ -774,7 +774,7 @@ body::before {
 
 
 
-    .nv-vogue-card:hover .nv-vogue-overlay {
+    .santis-vogue-card:hover .santis-vogue-overlay {
 
         opacity: 0.8;
 
@@ -784,7 +784,7 @@ body::before {
 
     /* Card Content & Animations */
 
-    .nv-vogue-content {
+    .santis-vogue-content {
 
         position: absolute;
 
@@ -806,7 +806,7 @@ body::before {
 
 
 
-    .nv-vogue-card:hover .nv-vogue-content {
+    .santis-vogue-card:hover .santis-vogue-content {
 
         transform: translateY(0);
 
@@ -814,7 +814,7 @@ body::before {
 
 
 
-    .nv-vogue-tier {
+    .santis-vogue-tier {
 
         position: absolute;
 
@@ -842,7 +842,7 @@ body::before {
 
 
 
-    .nv-vogue-duration {
+    .santis-vogue-duration {
 
         position: absolute;
 
@@ -862,7 +862,7 @@ body::before {
 
 
 
-    .nv-vogue-title {
+    .santis-vogue-title {
 
         font-family: var(--ed-font-heading);
 
@@ -878,7 +878,7 @@ body::before {
 
 
 
-    .nv-vogue-desc {
+    .santis-vogue-desc {
 
         font-family: var(--ed-font-body);
 
@@ -906,7 +906,7 @@ body::before {
 
 
 
-    .nv-vogue-card:hover .nv-vogue-desc {
+    .santis-vogue-card:hover .santis-vogue-desc {
 
         opacity: 1;
 
@@ -918,7 +918,7 @@ body::before {
 
     /* Draw Border Animation */
 
-    .nv-vogue-card::after {
+    .santis-vogue-card::after {
 
         content: '';
 
@@ -942,7 +942,7 @@ body::before {
 
 
 
-    .nv-vogue-card:hover::after {
+    .santis-vogue-card:hover::after {
 
         opacity: 1;
 
@@ -956,7 +956,7 @@ body::before {
 
     @media (max-width: 1024px) {
 
-        .nv-split-wrapper {
+        .santis-split-wrapper {
 
             flex-direction: column;
 
@@ -966,9 +966,9 @@ body::before {
 
 
 
-        .nv-chapter-side,
+        .santis-chapter-side,
 
-        .nv-rituals-side {
+        .santis-rituals-side {
 
             width: 100%;
 
@@ -978,7 +978,7 @@ body::before {
 
 
 
-        .nv-chapter-side {
+        .santis-chapter-side {
 
             position: relative;
 
@@ -996,7 +996,7 @@ body::before {
 
 
 
-        .nv-vogue-grid {
+        .santis-vogue-grid {
 
             gap: 20px;
 
@@ -1008,7 +1008,7 @@ body::before {
 
     @media (max-width: 600px) {
 
-        .nv-vogue-grid {
+        .santis-vogue-grid {
 
             grid-template-columns: 1fr;
 

@@ -254,7 +254,7 @@
 
         // Site Linki
         const siteLink = document.createElement('a');
-        siteLink.href = '/tr/index.html';
+        siteLink.href = '/';
         siteLink.target = '_blank';
         siteLink.style.cssText = 'color:#6b7280;font-size:10px;padding:3px 8px;border:1px solid rgba(255,255,255,0.05);border-radius:4px;text-decoration:none;transition:all 0.15s;';
         siteLink.textContent = '🌍 Site';

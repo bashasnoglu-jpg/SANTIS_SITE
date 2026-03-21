@@ -69,7 +69,7 @@ const MegaMenuEngine = {
         this.panel = document.getElementById('santis-liquid-menu');
         this.content = document.getElementById('liquid-menu-content');
         this.overlay = document.getElementById('liquid-nav-overlay');
-        this.navbar = document.getElementById('nv-main-nav');
+        this.navbar = document.getElementById('santis-main-nav');
 
         if (!this.panel || !this.content || !this.overlay || !this.navbar) {
             console.warn("🍎 [Mega Menu] Elements missing. Delaying initialization.");

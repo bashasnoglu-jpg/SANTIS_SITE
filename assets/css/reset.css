@@ -1,0 +1,132 @@
+/**
+ * ╔══════════════════════════════════════════════════════════════╗
+ * ║  🔄 SANTIS MODERN CSS RESET 2026 v1.0                      ║
+ * ║  box-sizing · dialog ignore · interpolate-size · motion    ║
+ * ╚══════════════════════════════════════════════════════════════╝
+ *
+ * Import: style.css'in EN BAŞINA @import './reset.css' ekle
+ * Kaynak: Josh Comeau Reset + CSS2026 spec extensions
+ */
+
+/* ── 1. BOX MODEL: border-box everywhere ────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* ── 2. MARGIN SIFIRLAMA (dialog hariç) ──────────────────────────────────── */
+*:not(dialog) {
+    margin: 0;
+    padding: 0;
+}
+
+/* ── 3. TIPOGRAFI TEMELI ─────────────────────────────────────────────────── */
+html {
+    /* Animasyonlu height geçişi: 0 → auto pürüzsüz */
+    interpolate-size: allow-keywords;
+
+    /* iOS tap highlight kaldır */
+    -webkit-tap-highlight-color: transparent;
+
+    /* Yazı fonta smooth render */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Metin boyutu otomatik büyültmeyi engelle (iOS) */
+    text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100dvh;        /* dvh: mobilde adres çubuğu kaymasına karşı */
+    line-height: 1.5;
+    font-synthesis: none;
+}
+
+/* ── 4. GÖRSEL MEDYA: doğal bir şekilde büyüsün ─────────────────────────── */
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* ── 5. FORM ELEMENTLERİ: font kalıtımı ─────────────────────────────────── */
+input, button, textarea, select {
+    font: inherit;
+    color: inherit;
+}
+
+/* ── 6. OVERFLOW: Metin taşmasını önle ──────────────────────────────────── */
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* ── 7. LİSTE: semantik korunurken stil sıfırlanır ─────────────────────── */
+ul[class], ol[class] {
+    list-style: none;
+}
+
+/* ── 8. ANCHOR: renk kalıtımı ──────────────────────────────────────────── */
+a {
+    color: inherit;
+    text-decoration-skip-ink: auto;
+}
+
+/* ── 9. TABLE ────────────────────────────────────────────────────────────── */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* ── 10. KAYDIRILABİLİR ALANLAR: performanslı dokunma ──────────────────── */
+[data-scroll], .overflow-auto, .overflow-scroll {
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ── 11. DIALOG (sıfırlanmaz — tarayıcı varsayılanına saygı) ───────────── */
+dialog {
+    /* Kasıtlı boş: dialog'un padding ve margin'i korunur */
+}
+
+/* ── 12. ANIMASYON ERİŞİLEBİLİRLİĞİ ────────────────────────────────────── */
+/* motion-guard.js ile birlikte çalışır */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration:   0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration:  0.01ms !important;
+        scroll-behavior:      auto   !important;
+    }
+
+    .parallax,
+    .kinetic-hover,
+    [data-parallax] {
+        transform: none !important;
+    }
+}
+
+/* ── 13. GPU: will-change KALICI KULLANIM YASAĞI ───────────────────────── */
+/* will-change statik olarak YOK — motion-guard.js dinamik yönetir         */
+/* Sadece animasyon/hover anında js ile eklenir, bitirir kaldırılır         */
+
+/* ── 14. SCROLL ANCHORING ─────────────────────────────────────────────── */
+html {
+    overflow-anchor: auto;
+}
+
+/* ── 15. FOCUS GÖRÜNÜRLÜĞÜ (klavye erişilebilirliği) ───────────────────── */
+:focus-visible {
+    outline:        2px solid var(--clr-gold, #c9a96e);
+    outline-offset: 3px;
+    border-radius:  2px;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}

@@ -60,7 +60,7 @@ Projenin en büyük eksiği **GÖRSEL İÇERİK** çeşitliliğidir.
     *   Bazı eski sayfalarda (`service.html`, `booking.html`) halen `style="color:#666"` gibi satır içi stiller var. Bunlar global CSS değişkenlerine (`var(--text-muted)`) bağlanmalı.
     *   *Not:* `tr/massage.html` ve `algae-ritual.html` tarafımdan yeni düzeltildi, ancak proje geneli taranmalı.
 *   **Butonlar:**
-    *   Eski buton sınıfları (`btn-submit`, `btn-primary`) ile yeni sistem (`nv-btn`) karışık kullanılıyor. Tek sisteme geçilmeli.
+    *   Eski buton sınıfları (`btn-submit`, `btn-primary`) ile yeni sistem (`santis-btn`) karışık kullanılıyor. Tek sisteme geçilmeli.
 
 ---
 

@@ -1,0 +1,77 @@
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  📊 SANTIS OS — Prometheus Konfigürasyonu                  ║
+# ║  Scrape: FastAPI /metrics · BullMQ Redis Exporter          ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+global:
+  scrape_interval:     15s   # Her 15 saniyede bir metrik topla
+  evaluation_interval: 15s   # Alert kurallarını 15s'de değerlendir
+  scrape_timeout:      10s
+
+  external_labels:
+    env:     'santis-os'
+    cluster: 'local-dev'
+
+# ── Alert Manager (opsiyonel, production'da etkinleştir) ─────────────────────
+# alerting:
+#   alertmanagers:
+#     - static_configs:
+#         - targets: ['alertmanager:9093']
+
+# ── Kural Dosyaları ───────────────────────────────────────────────────────────
+rule_files:
+  - "rules/*.yml"
+
+# ── Scrape Hedefleri ──────────────────────────────────────────────────────────
+scrape_configs:
+
+  # ── 1. FastAPI — prometheus-fastapi-instrumentator ────────────────────────
+  # /metrics endpoint'i FastAPI tarafından otomatik açılır
+  - job_name: 'santis-api'
+    static_configs:
+      - targets: ['api:8000']  # Docker network: api container, port 8000
+    metrics_path: '/metrics'
+    scheme: http
+    scrape_interval: 15s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'santis-api'
+
+  # ── 2. BullMQ / Redis — bull-exporter ────────────────────────────────────
+  # Bull Board / bull-exporter container: Redis queue metriklerini expose eder
+  # Alternatif: redis_exporter ile queue length'i key olarak çek
+  - job_name: 'bullmq-worker'
+    static_configs:
+      - targets: ['bull-exporter:9538']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'bullmq'
+
+  # ── 3. Redis Genel Metrikler ──────────────────────────────────────────────
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis-exporter:9121']
+    scrape_interval: 30s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'redis'
+
+  # ── 4. Nginx — nginx-prometheus-exporter ─────────────────────────────────
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx-exporter:9113']
+    scrape_interval: 30s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'nginx'
+
+  # ── 5. Prometheus kendisi ─────────────────────────────────────────────────
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

@@ -10,19 +10,19 @@
 
     // ─── ROUTE MAP ───────────────────────────────────
     const CATEGORY_MAP = {
-        'hamam':       { label: 'Hamam Ritüelleri',   path: '/tr/hamam/index.html',      crossCat: 'massage' },
-        'masajlar':    { label: 'Dünya Masajları',     path: '/tr/masajlar/index.html',    crossCat: 'hamam' },
-        'cilt-bakimi': { label: 'Cilt Bakımı',         path: '/tr/cilt-bakimi/index.html', crossCat: 'massage' },
-        'rituals':     { label: 'Sovereign Ritüeller', path: '/tr/rituals/index.html',     crossCat: 'hamam' },
-        'urunler':     { label: 'Mağaza',              path: '/tr/urunler/index.html',     crossCat: 'massage' },
-        'galeri':      { label: 'Galeri',              path: '/tr/galeri/index.html',       crossCat: null },
-        'hakkimizda':  { label: 'Hakkımızda',          path: '/tr/hakkimizda/index.html',   crossCat: null },
-        'hizmetler':   { label: 'Hizmetler',           path: '/tr/masajlar/index.html',     crossCat: 'hamam' },
-        'bilgelik':    { label: 'Bilgelik',            path: '/tr/bilgelik/index.html',     crossCat: null },
-        'blog':        { label: 'Blog',                path: '/tr/blog/index.html',         crossCat: null },
-        'rezervasyon': { label: 'Rezervasyon',         path: '/tr/rezervasyon/index.html',  crossCat: null },
-        'ekibimiz':    { label: 'Ekibimiz',            path: '/tr/ekibimiz/index.html',     crossCat: null },
-        'hediye-karti':{ label: 'Hediye Kartı',        path: '/tr/hediye-karti/index.html', crossCat: null }
+        'hamam':       { label: 'Hamam Ritüelleri',   path: '/hamam.html',      crossCat: 'massage' },
+        'masajlar':    { label: 'Dünya Masajları',     path: '/masaj.html',    crossCat: 'hamam' },
+        'cilt-bakimi': { label: 'Cilt Bakımı',         path: '/cilt-bakimi.html', crossCat: 'massage' },
+        'rituals':     { label: 'Sovereign Ritüeller', path: '/ritueller.html',     crossCat: 'hamam' },
+        'urunler':     { label: 'Mağaza',              path: '/magaza.html',     crossCat: 'massage' },
+        'galeri':      { label: 'Galeri',              path: '/galeri.html',       crossCat: null },
+        'hakkimizda':  { label: 'Hakkımızda',          path: '/hakkimizda.html',   crossCat: null },
+        'hizmetler':   { label: 'Hizmetler',           path: '/masaj.html',     crossCat: 'hamam' },
+        'bilgelik':    { label: 'Bilgelik',            path: "/bilgelik.html",     crossCat: null },
+        'blog':        { label: 'Blog',                path: "/blog.html",         crossCat: null },
+        'rezervasyon': { label: 'Rezervasyon',         path: "/rezervasyon.html",  crossCat: null },
+        'ekibimiz':    { label: 'Ekibimiz',            path: "/ekibimiz.html",     crossCat: null },
+        'hediye-karti':{ label: 'Hediye Kartı',        path: "/hediye-karti.html", crossCat: null }
     };
 
     // ─── URL PARSER ──────────────────────────────────
@@ -46,17 +46,17 @@
         if (isHome) {
             isIndex = true;
         } else if (segments.length === 2) {
-            // /tr/hamam/ — category without file
+            // /hamam.html — category without file
             isIndex = true;
         } else if (segments.length === 3 && segments[2] === 'index.html') {
-            // /tr/hamam/index.html — category listing
+            // /hamam.html — category listing
             isIndex = true;
         } else if (segments.length === 3 && segments[2].endsWith('.html')) {
-            // /tr/hamam/bal-masaji.html — flat file detail page (Format B)
+            // /hamam.htmlbal-masaji.html — flat file detail page (Format B)
             subPage = segments[2].replace(/\.html$/i, '');
             isIndex = false;
         } else if (segments.length >= 3) {
-            // /tr/masajlar/klasik-isvec-masaji/index.html — subdirectory (Format A)
+            // /masaj.htmlklasik-isvec-masaji/index.html — subdirectory (Format A)
             subPage = segments[2];
             isIndex = false;
         }
@@ -85,7 +85,7 @@
         const crumbs = [];
 
         // Level 1: Home
-        crumbs.push({ label: 'Anasayfa', href: '/tr/index.html' });
+        crumbs.push({ label: 'Anasayfa', href: '/' });
 
         // Level 2: Category
         if (cat) {
@@ -124,7 +124,7 @@
         // Inject: ALWAYS before the main content wrapper (never inside it!)
         // Prevents breadcrumb from becoming a grid/flex item
         const target = document.getElementById('cinematic-wrapper') 
-                    || document.getElementById('nv-main') 
+                    || document.getElementById('santis-main') 
                     || document.querySelector('main');
         if (target) {
             target.insertAdjacentElement('beforebegin', nav);
@@ -176,9 +176,9 @@
         };
 
         const crossPaths = {
-            'massage':  '/tr/masajlar/index.html',
-            'hamam':    '/tr/hamam/index.html',
-            'skincare': '/tr/cilt-bakimi/index.html'
+            'massage':  '/masaj.html',
+            'hamam':    '/hamam.html',
+            'skincare': '/cilt-bakimi.html'
         };
 
         const crossCatFilter = {
@@ -190,13 +190,13 @@
         const section = document.createElement('section');
         section.className = 'sovereign-cross-sell';
         section.innerHTML = `
-            <div class="nv-container" style="max-width:1200px;padding:0 2rem">
+            <div class="santis-container" style="max-width:1200px;padding:0 2rem">
                 <div class="cs-header">
                     <div>
                         <span class="cs-kicker">Keşfetmeye Devam Edin</span>
                         <h2 class="cs-title">${crossLabels[cat.crossCat] || 'Diğer Deneyimleri'} Keşfedin</h2>
                     </div>
-                    <a class="cs-link" href="${crossPaths[cat.crossCat] || '/tr/index.html'}">Tümünü Gör →</a>
+                    <a class="cs-link" href="${crossPaths[cat.crossCat] || '/'}">Tümünü Gör →</a>
                 </div>
                 <div class="santis-matrix-container" 
                      data-layout="grid" 

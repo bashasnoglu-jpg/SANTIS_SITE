@@ -1,0 +1,202 @@
+/**
+ * ╔══════════════════════════════════════════════════════════════╗
+ * ║  🎨 SANTIS DESIGN TOKENS v1.0                              ║
+ * ║  12-Kolon Grid · Spacing · Breakpoints · Color · Motion    ║
+ * ║  Figma → CSS Custom Properties standart köprüsü            ║
+ * ╚══════════════════════════════════════════════════════════════╝
+ *
+ * Import: style.css'in EN BAŞINA (reset.css'den sonra):
+ *   @import './base/tokens.css';
+ *
+ * Kullanım: var(--grid-cols), var(--clr-gold), var(--space-4) vb.
+ */
+
+:root {
+
+    /* ── GRID SİSTEMİ ──────────────────────────────────────────── */
+    --grid-cols:        12;
+    --grid-gutter:      20px;   /* Kolonlar arası boşluk */
+    --grid-margin:      24px;   /* Sayfa kenar boşluğu (mobil) */
+    --grid-margin-md:   40px;   /* Tablet */
+    --grid-margin-lg:   64px;   /* Masaüstü */
+    --grid-max-width:   1600px; /* Container maksimum genişliği */
+
+    /* Kırılma Noktaları (JS'de window.SANTIS_BREAKPOINTS ile eşleşir) */
+    --bp-xs:   480px;   /* Küçük mobil */
+    --bp-sm:   640px;   /* Geniş mobil */
+    --bp-md:   768px;   /* Tablet dikey */
+    --bp-lg:   1024px;  /* Tablet yatay / küçük masaüstü */
+    --bp-xl:   1200px;  /* Büyük masaüstü */
+    --bp-2xl:  1440px;  /* Ultra geniş */
+
+    /* ── SPACING SCALE (4px taban) ─────────────────────────────── */
+    --space-1:   4px;
+    --space-2:   8px;
+    --space-3:   12px;
+    --space-4:   16px;
+    --space-5:   20px;
+    --space-6:   24px;
+    --space-7:   32px;
+    --space-8:   40px;
+    --space-9:   48px;
+    --space-10:  64px;
+    --space-11:  80px;
+    --space-12:  96px;
+    --space-13:  120px;
+
+    /* ── TİPOGRAFİ SCALE ───────────────────────────────────────── */
+    --fs-xs:    0.75rem;    /* 12px */
+    --fs-sm:    0.875rem;   /* 14px */
+    --fs-base:  1rem;       /* 16px */
+    --fs-md:    1.125rem;   /* 18px */
+    --fs-lg:    1.25rem;    /* 20px */
+    --fs-xl:    1.5rem;     /* 24px */
+    --fs-2xl:   1.875rem;   /* 30px */
+    --fs-3xl:   2.25rem;    /* 36px */
+    --fs-4xl:   3rem;       /* 48px */
+    --fs-5xl:   3.75rem;    /* 60px */
+    --fs-display: clamp(2.5rem, 6vw, 5rem); /* Fluid hero başlık */
+
+    /* Line Height */
+    --lh-tight:  1.1;
+    --lh-snug:   1.3;
+    --lh-normal: 1.5;
+    --lh-relaxed:1.7;
+
+    /* Letter Spacing */
+    --ls-tight:  -0.02em;
+    --ls-normal:  0;
+    --ls-wide:    0.04em;
+    --ls-wider:   0.1em;
+    --ls-widest:  0.25em;
+
+    /* Font Families */
+    --font-serif:    'Cormorant Garamond', 'Cinzel', Georgia, serif;
+    --font-display:  'Cinzel', 'Playfair Display', serif;
+    --font-sans:     'Outfit', 'Inter', system-ui, sans-serif;
+    --font-mono:     'JetBrains Mono', 'Fira Code', monospace;
+
+    /* ── RENK PALETİ ——————————————————————————————————————————— */
+    /* Background Hierarchy */
+    --clr-bg-base:      #0a0907;  /* Sayfa zemini */
+    --clr-bg-raised:    #111009;  /* Kart zemin */
+    --clr-bg-overlay:   #1a1815;  /* Modal, dropdown */
+    --clr-bg-sunken:    #060504;  /* Gömük alanlar */
+
+    /* Surface (bento kartları) */
+    --clr-surface-1:    rgba(20, 18, 14, 0.95);
+    --clr-surface-2:    rgba(30, 27, 21, 0.90);
+    --clr-surface-glass:rgba(15, 13, 10, 0.60); /* Glassmorphism */
+
+    /* Brand */
+    --clr-gold:         #C9A96E;  /* Ana marka altın */
+    --clr-gold-light:   #D4AF37;  /* Parlak vurgu */
+    --clr-gold-dark:    #9A7A45;  /* Gölgeli vurgu */
+    --clr-gold-subtle:  rgba(201, 169, 110, 0.12); /* Arka plan tonu */
+
+    /* Metin */
+    --clr-text-primary:   #F0ECE4;  /* Ana metin */
+    --clr-text-secondary: #8A8070;  /* İkincil metin */
+    --clr-text-muted:     #4A4640;  /* Soluk metin */
+    --clr-text-inverse:   #0a0907;  /* Koyu zemin üzerinde */
+
+    /* Kenarlıklar */
+    --clr-border:         rgba(201, 169, 110, 0.12);
+    --clr-border-hover:   rgba(201, 169, 110, 0.30);
+    --clr-border-active:  rgba(201, 169, 110, 0.60);
+
+    /* Durum Renkleri */
+    --clr-success:  #4CAF50;
+    --clr-warning:  #FF9800;
+    --clr-error:    #F44336;
+    --clr-info:     #2196F3;
+
+    /* ── BORDER RADIUS ───────────────────────────────────────── */
+    --radius-sm:    6px;
+    --radius-md:    12px;
+    --radius-lg:    16px;
+    --radius-xl:    24px;
+    --radius-2xl:   32px;
+    --radius-pill:  9999px;
+
+    /* ── GÖLGELER ─────────────────────────────────────────────── */
+    --shadow-sm:  0 2px 8px  rgba(0,0,0,0.25);
+    --shadow-md:  0 8px 24px rgba(0,0,0,0.40);
+    --shadow-lg:  0 20px 48px rgba(0,0,0,0.65);
+    --shadow-xl:  0 40px 80px rgba(0,0,0,0.80);
+    --shadow-gold: 0 0 32px rgba(201,169,110,0.15);
+
+    /* ── ANİMASYON & GEÇİŞ ───────────────────────────────────── */
+    /* Easing Curves */
+    --ease-out-expo:   cubic-bezier(0.16, 1, 0.3, 1);    /* Ana interaksiyon */
+    --ease-out-back:   cubic-bezier(0.34, 1.56, 0.64, 1); /* Yaylanma */
+    --ease-in-out:     cubic-bezier(0.45, 0, 0.55, 1);
+    --ease-spring:     cubic-bezier(0.23, 1, 0.32, 1);    /* Kinetic scroll */
+
+    /* Süreler */
+    --dur-instant:  0.1s;
+    --dur-fast:     0.2s;
+    --dur-normal:   0.35s;
+    --dur-slow:     0.6s;
+    --dur-lazy:     0.9s;
+
+    /* Smooth Geçiş Kısayolları */
+    --transition-base:    var(--dur-normal) var(--ease-out-expo);
+    --transition-fast:    var(--dur-fast)   var(--ease-out-expo);
+    --transition-kinetic: var(--dur-slow)   var(--ease-spring);
+
+    /* ── Z-INDEX STACK ────────────────────────────────────────── */
+    --z-base:      0;
+    --z-elevated:  10;
+    --z-sticky:    100;
+    --z-overlay:   200;
+    --z-modal:     300;
+    --z-toast:     400;
+    --z-tooltip:   500;
+    --z-cursor:    1000;
+
+    /* ── BENTO KART ASPECT RASYOLARI ─────────────────────────── */
+    --ratio-square:     1 / 1;
+    --ratio-portrait:   4 / 5;
+    --ratio-landscape:  16 / 9;
+    --ratio-wide:       21 / 9;
+    --ratio-card:       3 / 4;   /* Mobil kart varsayılanı */
+    --ratio-banner:     5 / 1;   /* Tam genişlik banner */
+
+    /* ── ODAK NOKTASI KAYMA DEĞERLERİ (Focal Point) ─────────── */
+    /* Her bento kartı tipi için varsayılan object-position */
+    --focal-hero:     center 30%;   /* Hero: insan/mekân üstte */
+    --focal-portrait: center 20%;   /* Dikey kart: yüz/detay */
+    --focal-square:   center center;
+    --focal-wide:     center 40%;
+}
+
+/* ── Mobil Token Override ─────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    :root {
+        --grid-gutter:   12px;
+        --grid-margin:   16px;
+        --fs-display:    clamp(2rem, 8vw, 3rem);
+        --space-13:      80px;
+    }
+}
+
+/* ── Tablet Token Override ────────────────────────────────────────────────── */
+@media (min-width: 641px) and (max-width: 1024px) {
+    :root {
+        --grid-gutter:   16px;
+        --grid-margin:   var(--grid-margin-md);
+    }
+}
+
+/* ── JS Token Mirror (window.SANTIS_TOKENS erişimi için) ──────────────────── */
+/*
+ * Bu değerleri JS'de kullanmak için:
+ * const tokens = getComputedStyle(document.documentElement);
+ * tokens.getPropertyValue('--clr-gold').trim();  // '#C9A96E'
+ *
+ * Veya Kernel'deki __SANTIS__.config.tokens üzerinden:
+ * window.__SANTIS__.config.tokens = {
+ *     bpLg: 1024, bpXl: 1200, bpMd: 768, ...
+ * };
+ */

@@ -79,7 +79,7 @@
             });
 
             // Kartları yeniden düzenle
-            const cards = document.querySelectorAll('.matrix-service-card, .nv-matrix-card');
+            const cards = document.querySelectorAll('.matrix-service-card, .santis-matrix-card');
             cards.forEach(card => {
                 if (data.layout === 'rail') {
                     card.style.minWidth = '340px';
@@ -203,7 +203,7 @@
                         <span style="font-size: 0.7rem; color: rgba(255,255,255,0.4);
                             text-transform: uppercase; letter-spacing: 1px;">İndirim</span>
                     </div>` : ''}
-                    <a href="${data.url || '#nv-reservation-modal'}" style="display: block;
+                    <a href="${data.url || '#santis-reservation-modal'}" style="display: block;
                         text-align: center; padding: 12px 24px; border-radius: 50px;
                         background: linear-gradient(135deg, ${color}dd, ${color});
                         color: #000; font-weight: 600; font-size: 0.8rem;

@@ -19,8 +19,8 @@ const SantisL3Injector = (() => {
     const gravity = (dist, radius) => Math.max(0, Math.pow((radius - dist) / radius, 2));
 
     // ── CARD SELECTORS (matches your existing class names) ──
-    const CARD_SELECTOR = '.option-card, .santis-config-option, .variant-box, .santis-card, .nv-matrix-card, .matrix-service-card';
-    const IMG_CONTAINER_SELECTOR = '.config-left, .product-image-container, .modal-image, .nv-hero-card';
+    const CARD_SELECTOR = '.option-card, .santis-config-option, .variant-box, .santis-card, .santis-matrix-card, .matrix-service-card';
+    const IMG_CONTAINER_SELECTOR = '.config-left, .product-image-container, .modal-image, .santis-hero-card';
     const BUY_BTN_SELECTOR = '.buy-btn, #main-buy-btn, .add-to-cart, #apex-btn, .btn-rezervasyon, .sovereign-rituals-cta';
 
     const init = () => {

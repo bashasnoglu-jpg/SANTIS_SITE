@@ -1,135 +1,84 @@
-(function () {
-    "use strict";
+// 🧠 Santis Filter Engine v2.0 (Deterministic & Safe)
 
-    function initChipFilter() {
-        var chipBar = document.getElementById("nvChips");
-        if (!chipBar) return;
+const CATEGORY_MAP = {
+  "sothys-purifying": ["skincare", "purify"],
+  "sothys-antiage": ["skincare", "antiage"],
+  "sothys-men": ["skincare", "men"]
+};
 
-        var sections = document.querySelectorAll(".nv-massage-category, .rail-section, [data-category]");
-        var cards = document.querySelectorAll(".santis-card, .nv-matrix-card, .matrix-service-card");
+function normalize(val) {
+  return (val || "")
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-");
+}
 
-        if (!sections.length && !cards.length) {
-            // console.warn("[ChipFilter] Sections/Cards not ready yet. Motor bekliyor.");
-            return;
-        }
+function matchesFilter(item, filterKey) {
+  const normalizedCategory = normalize(item.category);
+  const normalizedTags = (item.tags || []).map(normalize);
 
-        if (chipBar.dataset.chipFilterBound === "1") {
-            return;
-        }
-        chipBar.dataset.chipFilterBound = "1";
+  const allowed = CATEGORY_MAP[filterKey];
 
-        console.log("[ChipFilter] Bound to", sections.length, "sections.");
+  if (!allowed) {
+    // fallback: direkt eşleşme
+    return normalizedCategory === filterKey;
+  }
 
-        chipBar.addEventListener("click", function (event) {
-            var chip = event.target.closest(".nv-chip");
-            if (!chip) {
-                return;
-            }
+  return (
+    allowed.includes(normalizedCategory) ||
+    normalizedTags.some(tag => allowed.includes(tag))
+  );
+}
 
-            var catId = chip.getAttribute("data-target");
-            if (!catId) {
-                return;
-            }
+function applyFilter(data, filterKey) {
+  if (!Array.isArray(data)) return [];
 
-            var allChips = chipBar.querySelectorAll(".nv-chip");
-            for (var i = 0; i < allChips.length; i += 1) {
-                allChips[i].classList.remove("is-active");
-            }
-            chip.classList.add("is-active");
+  const filtered = data.filter(item => matchesFilter(item, filterKey));
 
-            // OMNI-OS V10: THE QUANTUM AMNESIA INTEGRATION
-            console.log(`[ChipFilter] Kuantum Hedef: ${catId}`);
+  console.log(`🔮 [Filter Engine v2] ${filterKey} → ${filtered.length}/${data.length}`);
 
-            // Eğer sayfa Hamam-V10 motoru (SovereignEngineInstance - Quantum Sieve) kullanıyorsa:
-            if (window.SovereignEngineInstance && typeof window.SovereignEngineInstance.applyCategoryFilter === 'function') {
-                window.SovereignEngineInstance.applyCategoryFilter(catId);
-                return; // DOM manipülasyonunu atla
-            } else if (window.SovereignEngineInstance && typeof window.SovereignEngineInstance.applyQuantumSieve === 'function') {
-                // FALLBACK ESKİ KOD (Silinmemesi için güvence)
-                if (window.SovereignEngineInstance._originalData === undefined) {
-                    window.SovereignEngineInstance._originalData = [...window.SovereignEngineInstance.data];
-                }
-                const baseData = window.SovereignEngineInstance._originalData;
+  // ⚠️ UX FAILSAFE
+  if (filtered.length === 0) {
+    console.warn("⚠️ Boş sonuç! Fallback devrede...");
+    return data.slice(0, 4); // ilk 4 kartı göster
+  }
 
-                const filtered = catId === 'all'
-                    ? baseData
-                    : baseData.filter(item => {
-                        const c = String(item.category || item.categoryId || '').toLowerCase();
-                        return c.includes(catId) || c === catId;
-                    });
+  return filtered;
+}
 
-                window.SovereignEngineInstance.applyQuantumSieve(filtered);
-                return;
-            }
+// duplicate bind engelle
+if (!window.__CHIP_FILTER_BOUND__) {
+  window.__CHIP_FILTER_BOUND__ = true;
 
-            // 🎯 SMART FILTER: Kart seviyesi + Section seviyesi hibrit filtreleme
-            var freshSections = document.querySelectorAll(".nv-massage-category, .rail-section, [data-category]");
-            var freshCards = document.querySelectorAll(".santis-card, .nv-matrix-card, .matrix-service-card");
+  document.addEventListener("click", (e) => {
+    const chip = e.target.closest("[data-filter]");
+    if (!chip) return;
 
-            // Kart seviyesi filtreleme (öncelikli)
-            if (freshCards.length > 0) {
-                var visibleCount = 0;
-                for (var j = 0; j < freshCards.length; j += 1) {
-                    var cardEl = freshCards[j];
-                    var cardCat = (cardEl.getAttribute("data-category") || "").toLowerCase();
-                    var cardCatId = (cardEl.getAttribute("data-category-id") || "").toLowerCase();
-                    var cardTags = (cardEl.getAttribute("data-tags") || "").toLowerCase();
+    // Aktif sınıfı yeniden dağıt
+    document.querySelectorAll(".santis-chip").forEach(c => c.classList.remove("is-active"));
+    chip.classList.add("is-active");
 
-                    var isMatch = catId === "all" ||
-                        cardCat === catId ||
-                        cardCat.includes(catId) ||
-                        cardCatId.includes(catId) ||
-                        cardTags.includes(catId);
+    const filterKey = chip.dataset.filter;
+    window.dispatchEvent(new CustomEvent("santis:filter", { detail: filterKey }));
+  });
+}
 
-                    if (isMatch) {
-                        cardEl.style.display = "";
-                        cardEl.style.opacity = "1";
-                        cardEl.style.transform = "scale(1)";
-                        cardEl.style.transition = "opacity 0.3s ease, transform 0.3s ease";
-                        visibleCount++;
-                    } else {
-                        cardEl.style.opacity = "0";
-                        cardEl.style.transform = "scale(0.95)";
-                        cardEl.style.transition = "opacity 0.3s ease, transform 0.3s ease";
-                        (function(el) {
-                            setTimeout(function() { el.style.display = "none"; }, 300);
-                        })(cardEl);
-                    }
-                }
-                console.log(`🔮 [Filter Engine] ${catId} → ${visibleCount}/${freshCards.length} kart görünür`);
-            }
-            // Section seviyesi fallback (eski sayfalar)
-            else if (freshSections.length > 0) {
-                for (var k = 0; k < freshSections.length; k += 1) {
-                    var section = freshSections[k];
-                    if (catId === "all") {
-                        section.style.display = "";
-                    } else if (section.getAttribute("data-category") === catId) {
-                        section.style.display = "";
-                        section.scrollIntoView({ behavior: "smooth", block: "start" });
-                    } else {
-                        section.style.display = "none";
-                    }
-                }
-            }
+/* ─── V44 QUANTUM GLARE: Filtre Çiplerinde Fare Takibi ─── */
+if (!window.__CHIP_GLARE_BOUND__) {
+  window.__CHIP_GLARE_BOUND__ = true;
 
-            // 📡 God's Eye Radarına Telemetri Gönder
-            if (window.SovereignBus && typeof SovereignBus.send === 'function') {
-                SovereignBus.send("telemetry", {
-                    action: "filter_used",
-                    payload: { filter: catId, timestamp: Date.now() }
-                });
-            }
-        });
-    }
+  // Delegate: tüm .santis-chip'leri body üzerinden izle (yeni eklenenler de dahil)
+  document.addEventListener("mousemove", (e) => {
+    const chip = e.target.closest(".santis-chip");
+    if (!chip) return;
 
-    // Sovereign Renderer (Enterprise Event Driven)
-    document.addEventListener("santis:cards-rendered", initChipFilter);
+    const rect = chip.getBoundingClientRect();
+    // Farenin chip içindeki yüzde koordinatları
+    const cx = ((e.clientX - rect.left) / rect.width)  * 100;
+    const cy = ((e.clientY - rect.top)  / rect.height) * 100;
 
-    // Fallback
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initChipFilter);
-    } else {
-        initChipFilter();
-    }
-})();
+    chip.style.setProperty("--cx", `${cx}%`);
+    chip.style.setProperty("--cy", `${cy}%`);
+  });
+}

@@ -4,17 +4,15 @@
  * @description Offline Zırhı — JS dosyaları artık Network-First ile taze kalıyor
  */
 
-const CACHE_NAME = 'santis-core-v29';     // ← v29: clone fix aktif
-const DYNAMIC_CACHE = 'santis-dynamic-v29';
+const CACHE_NAME = 'santis-core-v51-ghost-v1.4'; 
+const DYNAMIC_CACHE = 'santis-dynamic-v51-ghost-v1.4';
 
 // Çekirdek statik assets (HTML + manifest)
 const CORE_ASSETS = [
     '/',
     '/index.html',
     '/manifest.json',
-    '/admin/god-mode.html',
-    '/admin/assets/js/santis-neural-map.js',
-    '/admin/assets/js/vendor/vis-network.min.js'
+    '/assets/data/fallback-data.json'
 ];
 
 // 1. KURULUM
@@ -50,18 +48,27 @@ self.addEventListener('fetch', (event) => {
     const url = new URL(request.url);
 
     if (!url.protocol.startsWith('http')) return;
+    if (request.method !== 'GET') return;
+    if (request.headers.get('upgrade') === 'websocket') return;
+
+    // 🔴 BUG FİX: Chrome DevTools "Update on reload" hatasını (only-if-cached) önler
+    // Workbox'ın da kullandığı standart koruma. "Failed to execute 'fetch' on 'WorkerGlobalScope'" hatasını çözer.
+    if (request.cache === 'only-if-cached' && request.mode !== 'same-origin') {
+        return;
+    }
 
     // API → Network-First
     if (url.pathname.startsWith('/api/')) {
         event.respondWith(
-            fetch(request)
+            fetch(request).catch(() => fetch(request.url)) // B Planı: Chrome DevTools reload fix
                 .then(response => {
                     if (request.method === 'GET' && response.status === 200 && response.type === 'basic') {
-                        caches.open(DYNAMIC_CACHE).then(cache => cache.put(request, response.clone()));
+                        const responseToCache = response.clone();
+                        caches.open(DYNAMIC_CACHE).then(cache => cache.put(request, responseToCache).catch(() => {}));
                     }
                     return response;
                 })
-                .catch(() => caches.match(request).then(res =>
+                .catch(() => caches.match(request, { ignoreSearch: true }).then(res =>
                     res || new Response(
                         JSON.stringify({ error: "Offline", message: "Sovereign Link koptu." }),
                         { headers: { 'Content-Type': 'application/json' } }
@@ -71,46 +78,82 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
+    // ── /admin/* → NETWORK-FIRST (her zaman taze alınır) ─────────
+    if (url.pathname.startsWith('/admin/')) {
+        event.respondWith(
+            fetch(request).catch(() => fetch(request.url)) // B planı: Chrome DevTools reload fix
+                .then(networkResponse => {
+                    if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+                        const toCache = networkResponse.clone();
+                        caches.open(DYNAMIC_CACHE).then(cache => cache.put(request, toCache).catch(() => {}));
+                    }
+                    return networkResponse;
+                })
+                .catch(() => {
+                    // Admin sayfası için path fallback'i (örn: /admin/ istenirse /admin/index.html bak)
+                    const searchPath = (url.pathname === '/admin/' || url.pathname === '/admin') ? '/admin/index.html' : request;
+                    return caches.match(searchPath, { ignoreSearch: true }).then(res => {
+                        return res || new Response(
+                            '<html><body style="background:#0a0a0a;color:#d4af37;font-family:monospace;text-align:center;padding:50px;"><h2>SANTIS OFFLINE</h2><p>Çevrimdışı Mod. Sunucuya erişilemiyor.</p><button onclick="location.reload()" style="background:#d4af37;border:none;padding:10px;margin-top:20px;cursor:pointer;">Tekrar Dene</button></body></html>',
+                            { status: 200, headers: { 'Content-Type': 'text/html;charset=utf-8' } }
+                        );
+                    });
+                })
+        );
+        return;
+    }
+
     // ── JS ve JSON dosyaları: NETWORK-FIRST (stale code engellemek için) ──────
     const isScript = url.pathname.endsWith('.js') || url.pathname.endsWith('.json');
     if (isScript) {
         event.respondWith(
-            fetch(request)
+            fetch(request).catch(() => fetch(request.url)) // B planı: Chrome DevTools reload fix
                 .then(networkResponse => {
                     if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
                         // ✅ Clone'u SYNC al — caches.open() async gap'inden önce (stream tükenmez)
                         const responseToCache = networkResponse.clone();
-                        caches.open(DYNAMIC_CACHE).then(cache => cache.put(request, responseToCache));
+                        caches.open(DYNAMIC_CACHE).then(cache => cache.put(request, responseToCache).catch(() => {}));
                     }
                     return networkResponse;
                 })
-                .catch(() => caches.match(request))
+                .catch(() => caches.match(request, { ignoreSearch: true }).then(res => res || new Response(
+                    JSON.stringify({ error: "Offline", message: "Network Link Severed." }),
+                    { headers: { 'Content-Type': 'application/json' }, status: 503 }
+                )))
         );
         return;
     }
 
     // ── Diğer statik dosyalar (CSS, img, font) → Cache-First ─────────────────
     event.respondWith(
-        caches.match(request).then((cachedResponse) => {
+        caches.match(request, { ignoreSearch: true }).then((cachedResponse) => {
             if (cachedResponse) {
                 // Arka planda cache'i tazele — clone sync alınır, async gap öncesi
-                fetch(request).then(networkResponse => {
+                fetch(request).catch(() => fetch(request.url)).then(networkResponse => {
                     if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
                         const toCache = networkResponse.clone(); // ✅ sync
-                        caches.open(DYNAMIC_CACHE).then(cache => cache.put(request, toCache));
+                        caches.open(DYNAMIC_CACHE).then(cache => cache.put(request, toCache).catch(() => {}));
                     }
                 }).catch(() => {});
                 return cachedResponse;
             }
-            return fetch(request).then((networkResponse) => {
+            return fetch(request).catch(() => fetch(request.url)).then((networkResponse) => {
                 if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
                     return networkResponse;
                 }
                 const toCache = networkResponse.clone(); // ✅ sync — async gap öncesi
-                caches.open(DYNAMIC_CACHE).then(cache => cache.put(request, toCache));
+                caches.open(DYNAMIC_CACHE).then(cache => cache.put(request, toCache).catch(() => {}));
                 return networkResponse;
             }).catch(() => {
-                if (request.mode === 'navigate') return caches.match('/index.html');
+                if (request.mode === 'navigate') {
+                    return caches.match('/index.html', { ignoreSearch: true }).then(res => {
+                        return res || new Response(
+                            '<html><body style="background:#0a0a0a;color:#d4af37;font-family:monospace;text-align:center;padding:50px;"><h2>SANTIS OFFLINE</h2><p>Sistem çevrimdışı. Bağlantı geldiğinde sayfayı yenileyiniz.</p><button onclick="location.reload()" style="background:#d4af37;border:none;padding:10px;margin-top:20px;cursor:pointer;font-weight:bold;">Tazele</button></body></html>',
+                            { status: 200, headers: { 'Content-Type': 'text/html;charset=utf-8' } }
+                        );
+                    });
+                }
+                return new Response('', {status: 408, statusText: 'Request Timeout'});
             });
         })
     );

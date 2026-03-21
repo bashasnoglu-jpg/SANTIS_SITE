@@ -11,7 +11,7 @@
         console.log('🛡️ Santis Card Effects: SAFE MODE Active. Visual effects disabled for stability.');
 
         // Force cleanup of any lingering inline styles set by previous versions
-        const cards = document.querySelectorAll('.nv-card, .nv-card-service, .nv-card-product, article.nv-card, .prod-card-v2, .luxury-card');
+        const cards = document.querySelectorAll('.santis-card, .santis-card-service, .santis-card-product, article.santis-card, .prod-card-v2, .luxury-card');
         cards.forEach(card => {
             // Remove any inline opacity/transform that might hide the card
             card.style.removeProperty('opacity');

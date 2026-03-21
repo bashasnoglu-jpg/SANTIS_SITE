@@ -280,13 +280,13 @@ const SHOP = {
 
         // Overlay is reused but we might need new one if not present
 
-        let overlay = document.querySelector('.nv-nav-overlay'); // Try reuse
+        let overlay = document.querySelector('.santis-nav-overlay'); // Try reuse
 
         if (!overlay) {
 
             overlay = document.createElement('div');
 
-            overlay.className = 'nv-nav-overlay';
+            overlay.className = 'santis-nav-overlay';
 
             document.body.appendChild(overlay);
 
@@ -1005,7 +1005,7 @@ const SHOP = {
                 card.innerHTML = `
                     <div class="atelier-img-wrap">
                         <img src="${p.image || '/assets/img/placeholder.webp'}" class="atelier-img" alt="${p.name}">
-                        <button class="nv-btn btn-add-atelier" style="position:absolute; bottom:20px; right:20px; padding:10px; background:#fff; color:#000; opacity:0; transform:translateY(10px); transition:all 0.3s;">
+                        <button class="santis-btn btn-add-atelier" style="position:absolute; bottom:20px; right:20px; padding:10px; background:#fff; color:#000; opacity:0; transform:translateY(10px); transition:all 0.3s;">
                             + KOLEKSİYONA EKLE
                         </button>
                     </div>

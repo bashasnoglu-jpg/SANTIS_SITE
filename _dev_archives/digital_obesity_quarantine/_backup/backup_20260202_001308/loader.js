@@ -89,8 +89,8 @@ async function loadComp(url, target, opts = {}) {
                 s.parentNode.replaceChild(newScript, s);
             }
             // Auto-init Navbar
-            if (url.includes("navbar.html") && typeof window.NV_INIT_NAVBAR === "function") {
-                window.NV_INIT_NAVBAR();
+            if (url.includes("navbar.html") && typeof window.SANTIS_INIT_NAVBAR === "function") {
+                window.SANTIS_INIT_NAVBAR();
             }
         }
 

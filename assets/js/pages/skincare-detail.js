@@ -9,7 +9,7 @@
 
         // 1. DATA BRIDGE INJECTION (V10 CORE)
         if (typeof SovereignDataBridge !== "undefined" && typeof SovereignDataBridge.injectMatrix === "function") {
-            SovereignDataBridge.injectMatrix("/assets/data/services.json", ".nv-product-grid", "skincare");
+            SovereignDataBridge.injectMatrix("/assets/data/services.json", ".santis-product-grid", "skincare");
         } else {
             console.error("🚨 [Skincare Detail] SovereignDataBridge is missing! Cards will not load.");
         }
@@ -31,7 +31,7 @@
         });
 
         // 2. SCROLL INDICATOR
-        var scrollTrigger = document.querySelector(".nv-scroll-indicator[data-scroll-target]");
+        var scrollTrigger = document.querySelector(".santis-scroll-indicator[data-scroll-target]");
         if (scrollTrigger && scrollTrigger.dataset.scrollBound !== "1") {
             scrollTrigger.dataset.scrollBound = "1";
             scrollTrigger.addEventListener("click", function () {

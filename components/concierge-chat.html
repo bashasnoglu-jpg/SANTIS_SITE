@@ -1,4 +1,4 @@
-<div id="nv-concierge-widget" class="concierge-widget closed">
+<div id="santis-concierge-widget" class="concierge-widget closed">
     <!-- TRIGGER BUTTON (Floating Orb) -->
     <div class="concierge-trigger" data-concierge-action="toggle">
         <div class="concierge-icon">
@@ -243,7 +243,7 @@
         if (waObj) {
             var a = document.createElement('a');
             a.href = waObj.url; a.target = '_blank'; a.rel = 'noopener';
-            a.className = 'nv-wa-cta';
+            a.className = 'santis-wa-cta';
             a.innerHTML = '&#128172; ' + waObj.label;
             wrap.appendChild(a);
         } else {
@@ -260,11 +260,11 @@
         var msgs = document.getElementById('concierge-messages');
         if (!msgs) return;
         var d = document.createElement('div');
-        d.className = 'msg bot'; d.id = 'nv-typing';
-        d.innerHTML = '<div class="msg-text nv-typing-dots"><span></span><span></span><span></span></div>';
+        d.className = 'msg bot'; d.id = 'santis-typing';
+        d.innerHTML = '<div class="msg-text santis-typing-dots"><span></span><span></span><span></span></div>';
         msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
     }
-    function hideTyping() { var el = document.getElementById('nv-typing'); if (el) el.remove(); }
+    function hideTyping() { var el = document.getElementById('santis-typing'); if (el) el.remove(); }
 
     async function send(txt) {
         if (_sending || !txt.trim()) return;
@@ -295,7 +295,7 @@
                 is_returning:    !!(ghost.is_returning || window._nvIsReturning),
                 guest_name:      sessionStorage.getItem('nv_guest_name') || ghost.guest_name || '',
                 promo_code:      promo || sessionStorage.getItem('nv_promo_token') || '',
-                wa_number:       window.NV_CONCIERGE_NUMBER || '905348350169',
+                wa_number:       window.SANTIS_CONCIERGE_NUMBER || '905348350169',
             };
 
             var res = await fetch(API, {
@@ -324,7 +324,7 @@
             if (waLink) {
                 setTimeout(function () {
                     var promo_badge = data.promo_code
-                        ? '<span class="nv-promo-badge" style="margin-left:8px;background:rgba(0,0,0,0.25);border:1px solid rgba(0,0,0,0.3);padding:1px 6px;border-radius:4px;font-family:monospace;font-size:0.78rem;">'
+                        ? '<span class="santis-promo-badge" style="margin-left:8px;background:rgba(0,0,0,0.25);border:1px solid rgba(0,0,0,0.3);padding:1px 6px;border-radius:4px;font-family:monospace;font-size:0.78rem;">'
                           + data.promo_code + '</span>'
                         : '';
                     var msgs2 = document.getElementById('concierge-messages');
@@ -333,7 +333,7 @@
                     ctaWrap.className = 'msg bot';
                     ctaWrap.innerHTML =
                         '<a href="' + waLink + '" target="_blank" rel="noopener" '
-                        + 'class="nv-wa-cta nv-autopilot-cta" '
+                        + 'class="santis-wa-cta santis-autopilot-cta" '
                         + 'style="display:inline-flex;align-items:center;gap:8px;'
                         + 'background:linear-gradient(135deg,#1a3a1a,#25a050);'
                         + 'color:#fff;padding:10px 18px;border-radius:20px;'
@@ -376,7 +376,7 @@
         var act = e.target.closest('[data-concierge-action]');
         if (!act) return;
         if (act.dataset.conciergeAction === 'toggle') {
-            var w = document.getElementById('nv-concierge-widget');
+            var w = document.getElementById('santis-concierge-widget');
             if (!w) return;
             var opened = w.classList.toggle('open');
             if (opened && !_greeted && getScore() >= 55) {
@@ -409,8 +409,8 @@
     });
 
     // Global trigger
-    window.NV_CONCIERGE = { send: send, open: function() {
-        var w = document.getElementById('nv-concierge-widget');
+    window.SANTIS_CONCIERGE = { send: send, open: function() {
+        var w = document.getElementById('santis-concierge-widget');
         if (w && !w.classList.contains('open')) w.classList.add('open');
         if (!_greeted && getScore() >= 55) { _greeted = true; setTimeout(function(){ send('__GREETING__'); }, 400); }
     }};
@@ -418,21 +418,21 @@
 </script>
 
 <style>
-.nv-wa-cta {
+.santis-wa-cta {
     display: inline-flex; align-items: center; gap: 8px;
     background: linear-gradient(135deg, #1a3a1a 0%, #25a050 100%);
     color: #fff; padding: 10px 18px; border-radius: 20px;
     font-size: 0.84rem; font-weight: 600; text-decoration: none;
     margin-top: 6px; transition: opacity 0.2s, transform 0.2s;
 }
-.nv-wa-cta:hover { opacity: 0.88; transform: translateY(-1px); }
-.nv-typing-dots { display: flex; gap: 5px; align-items: center; min-width: 48px; }
-.nv-typing-dots span {
+.santis-wa-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+.santis-typing-dots { display: flex; gap: 5px; align-items: center; min-width: 48px; }
+.santis-typing-dots span {
     width: 7px; height: 7px; background: rgba(255,255,255,0.45);
     border-radius: 50%; animation: nvdot 1.3s infinite;
 }
-.nv-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-.nv-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+.santis-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.santis-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
 @keyframes nvdot {
     0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
     40% { transform: scale(1); opacity: 1; }
@@ -455,7 +455,7 @@
     if (window.location.pathname.includes('hq-dashboard')) return;
 
     // ── WhatsApp config ────────────────────────────────────────
-    var WA_NUMBER = window.NV_CONCIERGE_NUMBER || '905000000000';
+    var WA_NUMBER = window.SANTIS_CONCIERGE_NUMBER || '905000000000';
     var WA_BASE   = 'https://wa.me/';
 
     // ── Typing simulation speed (ms per char) ─────────────────
@@ -507,9 +507,9 @@
         wrap.className = 'msg bot';
         wrap.innerHTML =
             '<a href="' + WA_BASE + WA_NUMBER + '?text=' + waMsg + '" ' +
-            'target="_blank" rel="noopener" class="nv-wa-cta nv-autopilot-cta">' +
+            'target="_blank" rel="noopener" class="santis-wa-cta santis-autopilot-cta">' +
             '&#128172; WhatsApp ile Onayla' +
-            (promo_code ? ' <span class="nv-promo-badge">' + promo_code + '</span>' : '') +
+            (promo_code ? ' <span class="santis-promo-badge">' + promo_code + '</span>' : '') +
             '</a>';
         msgs.appendChild(wrap);
         msgs.scrollTop = msgs.scrollHeight;
@@ -542,10 +542,10 @@
         var score = data.score || 0;
 
         // Open the concierge window
-        if (window.NV_CONCIERGE && typeof window.NV_CONCIERGE.open === 'function') {
-            window.NV_CONCIERGE.open();
+        if (window.SANTIS_CONCIERGE && typeof window.SANTIS_CONCIERGE.open === 'function') {
+            window.SANTIS_CONCIERGE.open();
         } else {
-            var w = document.getElementById('nv-concierge-widget');
+            var w = document.getElementById('santis-concierge-widget');
             if (w) w.classList.add('open');
         }
 
@@ -557,7 +557,7 @@
             var msgs = document.getElementById('concierge-messages');
             if (!msgs) return;
             var bubble = document.createElement('div');
-            bubble.className = 'msg bot nv-autopilot-msg';
+            bubble.className = 'msg bot santis-autopilot-msg';
             bubble.innerHTML = '<div class="msg-text"></div>';
             msgs.appendChild(bubble);
             msgs.scrollTop = msgs.scrollHeight;
@@ -629,16 +629,16 @@
 
 <style>
 /* Phase 18: Autopilot-specific styles */
-.nv-autopilot-msg .msg-text {
+.santis-autopilot-msg .msg-text {
     border-left: 2px solid #d4af37;
     background: linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(10,10,12,0.95) 100%);
 }
-.nv-autopilot-cta {
+.santis-autopilot-cta {
     background: linear-gradient(135deg, #b8960c 0%, #d4af37 50%, #f5c842 100%) !important;
     box-shadow: 0 4px 20px rgba(212,175,55,0.35);
     position: relative;
 }
-.nv-promo-badge {
+.santis-promo-badge {
     display: inline-block;
     background: rgba(0,0,0,0.25);
     border: 1px solid rgba(0,0,0,0.3);
@@ -684,7 +684,7 @@
         var name = sessionStorage.getItem('nv_guest_name') || '';
 
         // Auto-open concierge
-        var w = document.getElementById('nv-concierge-widget');
+        var w = document.getElementById('santis-concierge-widget');
         if (w && !w.classList.contains('open')) {
             w.classList.add('open');
         }
@@ -701,7 +701,7 @@
             var msgs = document.getElementById('concierge-messages');
             if (!msgs) return;
             var bubble = document.createElement('div');
-            bubble.className = 'msg bot nv-friction-assist';
+            bubble.className = 'msg bot santis-friction-assist';
             bubble.setAttribute('style',
                 'border-left:2px solid rgba(212,175,55,0.4);' +
                 'background:rgba(212,175,55,0.04);'
@@ -741,7 +741,7 @@
                                 btnWrap.className = 'msg bot';
                                 btnWrap.innerHTML =
                                     '<a href="' + rec.whatsapp_deeplink + '" target="_blank" rel="noopener" '
-                                    + 'class="nv-wa-cta" style="display:inline-flex;align-items:center;gap:8px;'
+                                    + 'class="santis-wa-cta" style="display:inline-flex;align-items:center;gap:8px;'
                                     + 'background:linear-gradient(135deg,#1a3a1a,#25a050);color:#fff;'
                                     + 'padding:8px 16px;border-radius:18px;font-size:0.82rem;font-weight:600;text-decoration:none;">'
                                     + '💬 Hemen Başlayalım'
@@ -811,3 +811,6 @@
     } else { setTimeout(inject,800); }
 }());
 </script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>

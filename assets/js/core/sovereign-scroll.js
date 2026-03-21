@@ -4,7 +4,7 @@
  */
 class SovereignScroll {
   constructor() {
-    this.container = document.querySelector('#nv-main');
+    this.container = document.querySelector('#santis-main');
     if (!this.container) return;
     
     this.currentY = 0;
@@ -33,11 +33,21 @@ class SovereignScroll {
       this.setBodyHeight();
     });
 
+    // V23 FIX: Dynamically track container height for lazy-loaded images and injected footers
+    if (window.ResizeObserver) {
+      const ro = new ResizeObserver(() => {
+        this.setBodyHeight();
+      });
+      ro.observe(this.container);
+    }
+
     this.render();
   }
 
   setBodyHeight() {
-    document.body.style.height = `${this.container.getBoundingClientRect().height}px`;
+    if (this.container) {
+      document.body.style.height = `${this.container.getBoundingClientRect().height}px`;
+    }
   }
 
   render() {

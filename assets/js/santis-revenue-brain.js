@@ -32,7 +32,7 @@ class SantisRevenueBrain {
             'recovery-seeker': {
                 message: "Bedeniniz bugün derin bir dinlenmeyi hak ediyor. Sizin için özel hazırladığımız Recovery Journey paketine ücretsiz VIP transfer ekledik.",
                 action_button: "Recovery Journey'imi Onayla",
-                action_url: "/tr/hamam/index.html"
+                action_url: "/hamam.html"
             },
             'sovereign-guest': {
                 message: "Sovereign misafirimiz olarak bu ziyaretinize özel bir ayrıcalık hazırladık. Yönetim inisiyatifiyle VIP Suite & Transfer paketi sizin için rezerve edildi.",
@@ -47,7 +47,7 @@ class SantisRevenueBrain {
             'default': {
                 message: "Bu ziyaretinize özel, sadece bugün geçerli bir teklif hazırladık. Santis Club deneyiminize ücretsiz bir Hammam Ritual ekleyelim mi?",
                 action_button: "Teklife Bak →",
-                action_url: "/tr/hamam/index.html"
+                action_url: "/hamam.html"
             }
         };
     }

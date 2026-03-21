@@ -59,7 +59,7 @@ class SantisEngine {
         if (window.matchMedia("(pointer: coarse)").matches) return; // No mobile
 
         const cursor = document.createElement('div');
-        cursor.className = 'nv-cursor-v6';
+        cursor.className = 'santis-cursor-v6';
         document.body.appendChild(cursor);
 
         const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };

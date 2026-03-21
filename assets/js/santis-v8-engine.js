@@ -117,12 +117,11 @@ const SantisCardEngineV8 = (() => {
         document.head.appendChild(style);
     }
 
-    /* ── 2. BOOT ── */
+    /* ── 2. BOOT (ZIRHLI V8.5 AUTO-HEAL INIT) ── */
     async function init(injectedData = null) {
-        injectLuxuryStyles();
+        if (typeof injectLuxuryStyles === 'function') injectLuxuryStyles();
 
-        const sockets = document.querySelectorAll('.santis-socket, #santis-matrix-container, .rail-container');
-        if (!sockets.length) return console.warn('[V8.5] Hedef socket bulunamadı.');
+        const SELECTOR = '.santis-socket, #santis-matrix-container, .rail-container';
 
         try {
             if (injectedData && Array.isArray(injectedData) && injectedData.length > 0) {
@@ -144,21 +143,72 @@ const SantisCardEngineV8 = (() => {
                     ? item.image
                     : '/assets/img/cards/santis_card_massage_lux.webp'
             }));
+        } catch (e) {
+            console.error('🚨 [V8.5 Data Error]:', e);
+            killLoaders();
+            return;
+        }
 
-            sockets.forEach(s => {
-                if (!s.classList.contains('santis-v8-rail') && !s.classList.contains('santis-v8-grid')) {
-                    s.innerHTML = '';
+        // 🛡️ ÇEKİRDEK İŞÇİ: Asıl veri basma işlemini yapan fonksiyon
+        const hydrateSockets = (sockets) => {
+            const validSockets = [];
+            sockets.forEach(socket => {
+                // MÜHÜRLE: Aynı sokete bir daha asla dokunulmasın (Double-Render / Memory Leak Engeli)
+                if (socket.hasAttribute('data-v8-hydrated')) return;
+                socket.setAttribute('data-v8-hydrated', 'true');
+                
+                if (!socket.classList.contains('santis-v8-rail') && !socket.classList.contains('santis-v8-grid')) {
+                    socket.innerHTML = '';
+                }
+                validSockets.push(socket);
+            });
+            
+            if (validSockets.length > 0) {
+                renderSockets(validSockets);
+                bindFilters();
+                killLoaders();
+                console.log(`⚡ [V8.5 Sovereign] ${validSockets.length} soket havada yakalandı ve mühürlendi.`);
+            }
+        };
+
+        // 1. İLK KONTROL (Eğer Sayfa Statik İse Anında Vurur)
+        const existingSockets = document.querySelectorAll(SELECTOR);
+        if (existingSockets.length > 0) {
+            hydrateSockets(Array.from(existingSockets));
+        } else {
+            console.info('⏳ [V8.5 Sovereign] Soket bekleniyor... (Otonom Avcı Pusuda)');
+        }
+
+        // 2. SOVEREIGN MUTATION OBSERVER (Sıfır Gecikme, Otonom Kalkan)
+        // Omni-Router (SPA) sayfayı sonradan getirdiğinde havada yakalar!
+        if (!window.__SovereignV8Observer) {
+            window.__SovereignV8Observer = new MutationObserver((mutations) => {
+                const newSockets = [];
+                for (const mutation of mutations) {
+                    if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                        mutation.addedNodes.forEach(node => {
+                            if (node.nodeType === 1) { // Sadece HTML Elementleri
+                                // Kendisi bir soket mi?
+                                if (node.matches && node.matches(SELECTOR)) {
+                                    newSockets.push(node);
+                                }
+                                // Veya içine eklenen alt çocuklardan biri soket mi?
+                                const children = node.querySelectorAll(SELECTOR);
+                                if (children.length > 0) newSockets.push(...Array.from(children));
+                            }
+                        });
+                    }
+                }
+                
+                // Ağa yeni soketler takıldıysa, anında canlandır (Hydrate)
+                if (newSockets.length > 0) {
+                    // Ana iş parçacığını (Main Thread) kilitlememek için requestAnimationFrame ile asenkron bindir
+                    requestAnimationFrame(() => hydrateSockets(newSockets));
                 }
             });
 
-            renderSockets(sockets);
-            bindFilters();
-            killLoaders();
-            console.log('[V8.5] ' + DATA.length + ' formül işlendi.');
-
-        } catch (e) {
-            console.error('🚨 [V8.5]:', e);
-            killLoaders();
+            // Sadece Body içindeki değişimleri dinle (Performanslıdır)
+            window.__SovereignV8Observer.observe(document.body, { childList: true, subtree: true });
         }
     }
 
@@ -269,7 +319,7 @@ const SantisCardEngineV8 = (() => {
             if (window.BoutiqueQuickView) return window.BoutiqueQuickView.open({ ...item, isProduct: layout === 'grid', title, image: img });
             if (window.SovereignVault) return window.SovereignVault.open({ ...item, title, image: img });
 
-            window.location.href = '/tr/urunler/detay.html?id=' + item.id;
+            window.location.href = '/urunler/detay.html?id=' + item.id;
         });
 
         return article;

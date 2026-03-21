@@ -25,7 +25,7 @@ fetch @ api-client.js:51
 api-client.js:60  🦅 SANTIS DATA LAYER: FALLBACK MODE 
 home-products.js?v=8.1:107 🟢 [HomeProducts] Dynamic Sections Loaded: Object
 home-products.js?v=8.1:130 🔍 [HomeProducts] collectGrids found: 1
-home-products.js?v=8.1:189 ℹ️ [HomeProducts] Source lengths -> productCatalog: 114 NV_PRODUCTS: 114
+home-products.js?v=8.1:189 ℹ️ [HomeProducts] Source lengths -> productCatalog: 114 SANTIS_PRODUCTS: 114
 home-products.js?v=8.1:238 ℹ️ [HomeProducts] Context: Object
 home-products.js?v=8.1:407 📂 [HomeProducts] Skincare categories rendered: 11 groups
 home-products.js?v=8.1:442 ✅ [ChipFilter:Skin] Attached to #nvChips after section render

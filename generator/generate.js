@@ -18,7 +18,7 @@ const CONFIG = {
 
     outputDir: path.join(__dirname, '../'), // Root for now, or '../dist' if we want clean split
 
-    // For this specific project, user wants folders in root (e.g. /tr/masajlar/...) so we output to root.
+    // For this specific project, user wants folders in root (e.g. /masaj.html...) so we output to root.
 
     // CAUTION: "Clean Build" must NOT delete the whole root! We will carefuly clean specific target folders.
 
@@ -264,7 +264,7 @@ function build() {
 
 
 
-            // Construct Physical Path: /tr/masajlar/klasik-isvec/index.html
+            // Construct Physical Path: /masaj.htmlklasik-isvec/index.html
 
             // Note: We output to ROOT/lang/cat/slug/
 

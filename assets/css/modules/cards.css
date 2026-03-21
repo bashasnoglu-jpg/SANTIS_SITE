@@ -143,7 +143,7 @@
 /* Badges */
 .card__badge,
 .badge,
-.nv-tier-badge {
+.santis-tier-badge {
     position: absolute;
     top: 16px;
     left: 16px;
@@ -360,7 +360,7 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    7. TAROT RITUAL CARDS — Sovereign Standard
    ───────────────────────────────────────────────────────────────────────────── */
-.nv-card-tarot {
+.santis-card-tarot {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -380,7 +380,7 @@
     will-change: transform, box-shadow;
 }
 
-.nv-card-tarot:hover {
+.santis-card-tarot:hover {
     transform: translateY(-8px) scale(1.01) translateZ(0);
     /* Reduced scale to prevent grid blowout */
     border-color: #d4af37;
@@ -388,7 +388,7 @@
 }
 
 /* CHAMELEON MODULE: Container Query & Kinetic Parent */
-.nv-card-wrapper {
+.santis-card-wrapper {
     container-type: inline-size;
     container-name: product-card;
     width: 100%;
@@ -397,32 +397,32 @@
 }
 
 /* CHAMELEON MODULE: Sovereign Mutation */
-.nv-card-tarot.is-sovereign {
+.santis-card-tarot.is-sovereign {
     border-color: rgba(212, 175, 55, 0.25);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(212, 175, 55, 0.05);
 }
 
-.nv-card-tarot.is-sovereign:hover {
+.santis-card-tarot.is-sovereign:hover {
     border-color: #ffd700;
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(212, 175, 55, 0.25), inset 0 0 20px rgba(212, 175, 55, 0.1);
 }
 
-.nv-card-tarot.is-sovereign .card__action {
+.santis-card-tarot.is-sovereign .card__action {
     color: #ffd700;
     font-weight: 600;
 }
 
 /* KINETIC: Image Glass Parallax Depth */
-.nv-card-tarot.is-sovereign .card__image {
+.santis-card-tarot.is-sovereign .card__image {
     transition: transform 0.4s ease;
     will-change: transform;
 }
 
-.nv-card-tarot.is-sovereign:hover .card__image {
+.santis-card-tarot.is-sovereign:hover .card__image {
     transform: translateZ(-20px) scale(1.05);
 }
 
-.nv-card-tarot .card__image-wrapper {
+.santis-card-tarot .card__image-wrapper {
     width: 100%;
     aspect-ratio: 16 / 10;
     /* Async Shield – oran korunur, boşluk kalmaz */
@@ -433,7 +433,7 @@
 }
 
 /* Görsel yüklenene kadar sarsıntı olmaması için */
-.nv-card-tarot .card__image-wrapper img {
+.santis-card-tarot .card__image-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -443,11 +443,11 @@
 }
 
 /* Phantom Injector opacity jump'u Önleyen fix */
-.nv-card-tarot .card__image-wrapper img[src] {
+.santis-card-tarot .card__image-wrapper img[src] {
     opacity: 1 !important;
 }
 
-.nv-card-tarot .card__content {
+.santis-card-tarot .card__content {
     background: linear-gradient(to bottom, rgba(20, 20, 20, 0.95), rgba(10, 10, 10, 1));
     display: flex;
     flex-direction: column;
@@ -459,7 +459,7 @@
     justify-content: flex-start;
 }
 
-.nv-card-tarot .card__title {
+.santis-card-tarot .card__title {
     font-family: 'Cinzel', serif;
     /* Monk Tone Type */
     font-size: 1.4rem;
@@ -469,7 +469,7 @@
     text-transform: uppercase;
 }
 
-.nv-card-tarot .card__meta {
+.santis-card-tarot .card__meta {
     font-family: 'Inter', sans-serif;
     font-size: 0.8rem;
     color: #888;
@@ -478,7 +478,7 @@
     margin-bottom: 15px;
 }
 
-.nv-card-tarot .card__desc {
+.santis-card-tarot .card__desc {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.1rem;
     color: #aaa;
@@ -492,7 +492,7 @@
     margin-bottom: 16px;
 }
 
-.nv-card-tarot .card__action {
+.santis-card-tarot .card__action {
     align-self: flex-start;
     font-family: 'Inter', sans-serif;
     font-size: 0.75rem;
@@ -506,7 +506,7 @@
     position: relative;
 }
 
-.nv-card-tarot .card__action::after {
+.santis-card-tarot .card__action::after {
     content: '';
     position: absolute;
     bottom: -4px;
@@ -519,7 +519,7 @@
     transition: transform 0.4s ease;
 }
 
-.nv-card-tarot:hover .card__action::after {
+.santis-card-tarot:hover .card__action::after {
     transform: scaleX(1);
     transform-origin: left;
 }

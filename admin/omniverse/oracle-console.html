@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Santis Omniverse | Oracle Console</title>
@@ -244,7 +249,7 @@ const App = (() => {
         }
     }
 
-    const bridge = new OmniverseBridge('oracle-worker.js');
+    const bridge = new OmniverseBridge('omniverse/oracle-worker.js');
     bridge.onProgress = (p) => { document.getElementById('progress-fill').style.width = p + '%'; };
 
     async function runOracle() {
@@ -299,5 +304,8 @@ const App = (() => {
 App.init();
 </script>
 <script src="/admin/assets/js/admin-nav.js" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>

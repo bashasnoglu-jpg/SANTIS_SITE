@@ -15,7 +15,7 @@ function injectNavbar() {
 
     // Direct HTML Injection (Matches components/navbar.html)
     container.innerHTML = `
-    <nav id="nv-main-nav" class="navbar" style="z-index: 999999;">
+    <nav id="santis-main-nav" class="navbar" style="z-index: 999999;">
         <div class="navbar-container">
             <a href="index.html" class="logo">
                 <div class="logo-symbol">
@@ -42,7 +42,7 @@ function injectNavbar() {
             </div>
 
             <div class="nav-actions">
-                <a href="https://wa.me/905348350169" target="_blank" class="nv-btn nv-btn-sm nv-btn-primary mobile-hide">REZERVASYON</a>
+                <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-sm santis-btn-primary mobile-hide">REZERVASYON</a>
                 
                 <!-- Language Placeholder -->
                 <div id="santis-language-root" class="lang-wrapper notranslate"></div>

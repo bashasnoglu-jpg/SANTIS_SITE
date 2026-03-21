@@ -61,8 +61,8 @@ function serveSsrSnapshot(res, pathname) {
             "@context": "https://schema.org",
             "@type": "ItemList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "url": "https://santis.club/tr/rituals/hammam" },
-                { "@type": "ListItem", "position": 2, "url": "https://santis.club/tr/rituals/massages" }
+                { "@type": "ListItem", "position": 1, "url": "https://santis.club/ritueller.htmlhammam" },
+                { "@type": "ListItem", "position": 2, "url": "https://santis.club/ritueller.htmlmassages" }
             ]
         };
 
@@ -72,18 +72,18 @@ function serveSsrSnapshot(res, pathname) {
         let ssrHtml = htmlData.replace('</head>', `${jsonLdScript}\n</head>`);
 
         // 3. SPA Loading Kalkanını Kaldır
-        // Botun bembeyaz sayfa görmemesi için ana container'a (nv-main) sahte ama SEO uyumlu bir içerik bas
+        // Botun bembeyaz sayfa görmemesi için ana container'a (santis-main) sahte ama SEO uyumlu bir içerik bas
         const seoContent = `
             <div class="ssr-bot-content">
                 <h1>Santis Club - Sovereign Rituals</h1>
                 <p>Welcome to the ultimate luxury spa experience. Deep relaxation and sovereign wellness.</p>
                 <ul>
-                    <li><a href="/tr/rituals/hammam">Ottoman hammam rituals</a></li>
-                    <li><a href="/tr/rituals/massages">Deep tissue and signature massages</a></li>
+                    <li><a href="/rituals/hammam">Ottoman hammam rituals</a></li>
+                    <li><a href="/rituals/massages">Deep tissue and signature massages</a></li>
                 </ul>
             </div>
         `;
-        ssrHtml = ssrHtml.replace('<main id="nv-main">', `<main id="nv-main">\n${seoContent}`);
+        ssrHtml = ssrHtml.replace('<main id="santis-main">', `<main id="santis-main">\n${seoContent}`);
 
         res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
         res.end(ssrHtml);
@@ -116,5 +116,5 @@ function serveStaticFile(res, pathname) {
 
 server.listen(PORT, () => {
     console.log(`\n🛡️ [Sovereign Edge Router] Mock Server başlatıldı: http://localhost:${PORT}`);
-    console.log(`🤖 Bot Testi için: curl -A "Googlebot" http://localhost:${PORT}/tr/rituals/index.html\n`);
+    console.log(`🤖 Bot Testi için: curl -A "Googlebot" http://localhost:${PORT}/ritueller.html\n`);
 });

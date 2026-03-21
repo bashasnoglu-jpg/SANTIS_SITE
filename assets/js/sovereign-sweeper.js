@@ -23,8 +23,8 @@ function sovereignSweep(dir) {
             content = content.replace(/(?:\.\.\/)+tr\//g, '/tr/');
             content = content.replace(/(?:\.\.\/)+en\//g, '/en/');
 
-            // 🔪 2. DARBE: Melez Rotaları Düzelt (/tr/massages/ -> /tr/masajlar/)
-            content = content.replace(/\/tr\/massages\//g, '/tr/masajlar/');
+            // 🔪 2. DARBE: Melez Rotaları Düzelt (/tr/massages/ -> /masaj.html)
+            content = content.replace(/\/tr\/massages\//g, '/masaj.html');
             content = content.replace(/\/tr\/services\//g, '/tr/hizmetler/');
             content = content.replace(/\/en\/masajlar\//g, '/en/massages/');
             content = content.replace(/\/en\/hizmetler\//g, '/en/services/');

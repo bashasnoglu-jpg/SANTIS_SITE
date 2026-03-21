@@ -71,7 +71,7 @@ function buildInvertedIndex(sourceUrl, arrData) {
     const wordMap = new Map();
     arrData.forEach((item, index) => {
         // Tüm alanları küçük harfe çevirip kelime kelime parçala
-        const textBlob = `${item.title || ''} ${item.description || ''} ${item.content?.tr?.title || ''} ${item.content?.tr?.shortDesc || ''}`.toLowerCase();
+        const textBlob = `${item.name || ''} ${item.description || ''} ${item.content?.tr?.title || ''} ${item.content?.tr?.shortDesc || ''}`.toLowerCase();
         const words = textBlob.match(/[\wğüşöçİĞÜŞÖÇ]+/g) || [];
         
         words.forEach(word => {
@@ -131,8 +131,19 @@ async function handleFilter(payload, jobId) {
             let pass = false;
             if (qCat === 'skincare') pass = itemCat.includes('skincare') || itemCat.includes('sothys') || itemCat === 'face';
             else if (qCat === 'massage') pass = itemCat.includes('massage') || itemCat.includes('asian');
-            else if (qCat === 'hamam') pass = itemCat.includes('hammam') || itemCat.includes('hamam');
+            else if (qCat === 'hamam' || qCat === 'ritual-hammam') pass = itemCat.includes('hammam') || itemCat.includes('hamam');
             else if (qCat === 'boutique' || qCat === 'products') pass = true; // Mağazada hepsi
+            else if (qCat.startsWith('sothys-')) {
+                // Özel Cilt Bakımı filtreleri (JSON'da alt tag olmadığı için ID/URL tabanlı eşleştirme)
+                if (itemCat !== 'skincare' && !itemCat.includes('skin') && !itemCat.includes('cilt')) { pass = false; }
+                else {
+                    const str = String(item.id || item.detailUrl || '').toLowerCase();
+                    if (qCat === 'sothys-purifying') pass = str.includes('acne') || str.includes('detox') || str.includes('cleanse') || str.includes('polish');
+                    else if (qCat === 'sothys-hydra') pass = str.includes('glass') || str.includes('gold') || str.includes('hydrate') || str.includes('oxygen');
+                    else if (qCat === 'sothys-antiage') pass = str.includes('anti') || str.includes('collagen') || str.includes('lift') || str.includes('enzyme');
+                    else if (qCat === 'sothys-men') pass = str.includes('men');
+                }
+            }
             else pass = itemCat.includes(qCat);
             
             if (!pass) continue;

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const slides = document.querySelectorAll('.nv-campaign-slide');
+    const slides = document.querySelectorAll('.santis-campaign-slide');
     const progress = document.getElementById('heroProgress');
 
     // Check if slider exists on this page
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial State
     // Ensure first slide is active if not already
-    if (!document.querySelector('.nv-campaign-slide.active')) {
+    if (!document.querySelector('.santis-campaign-slide.active')) {
         slides[0].classList.add('active');
     }
 

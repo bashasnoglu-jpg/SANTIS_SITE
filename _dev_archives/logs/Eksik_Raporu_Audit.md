@@ -19,11 +19,11 @@
 - **Tespit Edilen:** `data-lang` mimarisine tam entegre olmayan veya dil çevirilerinde (*tr, en, de, fr, ru*) eksik barındıran toplam 10 adet ana dosya bulundu (örnekler `i18n_report.csv` detayında).
 
 ## 5. Content & Copywriting (İçerik ve Metin Yazarlığı)
-- **Problem:** TR/EN birebir senkronizasyon gereklilikleri (NEUROVA konsepti) bazı sayfalarda veri eksikliğinden dolayı tam olarak uygulanabilmiş değil.
+- **Problem:** TR/EN birebir senkronizasyon gereklilikleri (SANTIS konsepti) bazı sayfalarda veri eksikliğinden dolayı tam olarak uygulanabilmiş değil.
 - **Öneri:** Eksik tespit edilen 10 dosya için `NEUROVA_TR_EN_BIREBIR_SYNC v1.0` senkronizasyon promptu çalıştırılmalıdır.
 
 ## 6. Media & Imagery (Medya ve Görseller)
-- **Problem:** Tampon görsellerin ("placeholder.webp" vb.) değiştirilmesi için "NEUROVA quiet luxury" standartlarında yeni promptlarla resim üretilmesi gerekmektedir.
+- **Problem:** Tampon görsellerin ("placeholder.webp" vb.) değiştirilmesi için "SANTIS quiet luxury" standartlarında yeni promptlarla resim üretilmesi gerekmektedir.
 - **Tespit Edilen:** Sistem genelinde en az 12 görselin değiştirilmesi gerekmektedir.
 
 ## 7. Technical Performance (Teknik Performans)
@@ -41,7 +41,7 @@
 2. **Eksik Dil Dosyaları (10 Tespit):** `data-lang` yapısındaki eksik dil karşılıklarının oluşturulması. Sayfaların dil değiştirici ile hatasız çalışması sağlanmalı.
 
 ### 🟡 Orta Öncelikli (Kısa Vadede Çözülmeli)
-1. **Placeholder Görseller (12 Tespit):** "NEUROVA quiet luxury" prompt direktifleri ile kalıcı ve kaliteli imajların üretilip yerleştirilmesi.
+1. **Placeholder Görseller (12 Tespit):** "SANTIS quiet luxury" prompt direktifleri ile kalıcı ve kaliteli imajların üretilip yerleştirilmesi.
 2. **Görsel Alt Etiketleri (4 Tespit):** Boş bırakılan `alt` metinlerinin SEO'ya uygun ve açıklayıcı şekilde doldurulması.
 
 ### 🟢 Düşük Öncelikli (Uzun Vadede İyileştirilmeli)

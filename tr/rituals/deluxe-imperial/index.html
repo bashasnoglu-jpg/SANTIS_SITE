@@ -23,11 +23,11 @@
 </head>
 <body class="bg-[#050505] text-white selection:bg-[#D4AF37] selection:text-black overflow-x-hidden antialiased">
     <!-- Header will be injected by santis-nav.js -->
-    <header id="nv-header"></header>
+    <header id="santis-header"></header>
 
     <main id="ritual-cinematic-container" class="relative w-full min-h-screen">
         <!-- Close Button -->
-        <a href="/tr/rituals/index.html" class="fixed top-6 right-6 z-[100] w-12 h-12 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white/70 hover:bg-white hover:text-black hover:scale-110 transition-all duration-300" aria-label="Kapat">
+        <a href="/ritueller.html" class="fixed top-6 right-6 z-[100] w-12 h-12 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white/70 hover:bg-white hover:text-black hover:scale-110 transition-all duration-300" aria-label="Kapat">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </a>
         <!-- Scroll Video Scrubbing Canvas -->
@@ -125,10 +125,11 @@
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/dist/lenis.min.js" crossorigin="anonymous"></script>
 
     <!-- Global Nav & Core -->
-    <script src="/assets/js/santis-nav.js" defer></script>
-    
     <!-- The Kinetic Detail Engine -->
     <script src="https://js.stripe.com/v3/" defer></script>
-    </body>
+    
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
+</body>
 </html>
 

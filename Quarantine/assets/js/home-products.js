@@ -1,5 +1,5 @@
 // STATIC_URL_MAP REMOVED - NOW USING DYNAMIC ROUTING
-// All links are now generated via: /tr/urunler/detay.html?id={id}
+// All links are now generated via: /urunler/detay.html?id={id}
 const STATIC_URL_MAP = {};
 
 
@@ -16,7 +16,7 @@ async function hydrateProductCatalog() {
         window.productCatalog = window.SovereignDataMatrix;
         return;
     }
-    if (window.NV_DATA_READY && window.productCatalog && window.productCatalog.length > 0) {
+    if (window.SANTIS_DATA_READY && window.productCatalog && window.productCatalog.length > 0) {
         return;
     }
 
@@ -34,21 +34,21 @@ async function hydrateProductCatalog() {
 
         if (window.__SANTIS_RAIL_READY__ && window.SovereignDataMatrix) {
             onReady();
-        } else if (window.NV_DATA_READY) {
+        } else if (window.SANTIS_DATA_READY) {
             onReady();
         } else {
             // Our V10/V7 Sovereign Motoru dispatches this when real data is seeded
             document.addEventListener('santis:rail-ready', onReady, { once: true });
-            document.addEventListener('nv-data-ready', onReady, { once: true });
+            document.addEventListener('santis-data-ready', onReady, { once: true });
 
             // D. Parallel Self-Fetch (Data Bridge yoksa kendi başına çeker)
             fetch('/assets/data/services.json')
                 .then(r => r.json())
                 .then(data => {
-                    if (!window.__SANTIS_RAIL_READY__ && !window.NV_DATA_READY) {
+                    if (!window.__SANTIS_RAIL_READY__ && !window.SANTIS_DATA_READY) {
                         window.productCatalog = data;
                         window.SovereignDataMatrix = data;
-                        window.NV_PRODUCTS = data;
+                        window.SANTIS_PRODUCTS = data;
                         window.__SANTIS_RAIL_READY__ = true;
                         console.log('[HomeProducts] Self-fetch: ' + data.length + ' kayıt yüklendi.');
                         document.dispatchEvent(new CustomEvent('santis:rail-ready', { detail: data }));
@@ -58,7 +58,7 @@ async function hydrateProductCatalog() {
 
             // C. Safety Timeout
             setTimeout(() => {
-                if (!window.NV_DATA_READY && !window.__SANTIS_RAIL_READY__) {
+                if (!window.SANTIS_DATA_READY && !window.__SANTIS_RAIL_READY__) {
                     console.warn('⚠️ [HomeProducts] Neuro-Sync Signal Timeout. Processing aborted. Using fallback.');
                     resolve();
                 }
@@ -73,7 +73,7 @@ window.loadHomeProducts = async () => {
     if (window.isProductCatalogRendered) {
         // ZIRH: Eğer SPA geçişi olduysa (yeni sayfa yüklendiği için eski gridler çöpe gitmiştir), 
         // DOM'daki yeni gridlerin içinin boş olup olmadığını kontrol et.
-        const checkGrids = document.querySelectorAll(".nv-product-grid, #productsGrid, .product-grid-v2");
+        const checkGrids = document.querySelectorAll(".santis-product-grid, #productsGrid, .product-grid-v2");
         let hasEmptyGrid = false;
 
         if (checkGrids.length > 0) {
@@ -107,16 +107,16 @@ window.loadHomeProducts = async () => {
         window.productCatalog = []; // Prevent crash
     }
 
-    // B1. Align NV_PRODUCTS mirrors if empty
-    if (!Array.isArray(window.NV_PRODUCTS) || window.NV_PRODUCTS.length === 0) {
+    // B1. Align SANTIS_PRODUCTS mirrors if empty
+    if (!Array.isArray(window.SANTIS_PRODUCTS) || window.SANTIS_PRODUCTS.length === 0) {
         if (Array.isArray(window.productCatalog)) {
-            window.NV_PRODUCTS = [...window.productCatalog];
+            window.SANTIS_PRODUCTS = [...window.productCatalog];
         } else {
-            window.NV_PRODUCTS = [];
+            window.SANTIS_PRODUCTS = [];
         }
     }
-    if (!Array.isArray(window.NV_PRODUCTS_ALL) || window.NV_PRODUCTS_ALL.length === 0) {
-        window.NV_PRODUCTS_ALL = Array.isArray(window.productCatalog) ? [...window.productCatalog] : [];
+    if (!Array.isArray(window.SANTIS_PRODUCTS_ALL) || window.SANTIS_PRODUCTS_ALL.length === 0) {
+        window.SANTIS_PRODUCTS_ALL = Array.isArray(window.productCatalog) ? [...window.productCatalog] : [];
     }
 
     // B2. Fallback: if still empty, hydrate from gallery-data.json to ensure cards render
@@ -169,7 +169,7 @@ window.loadHomeProducts = async () => {
 
     // Ensure at least one target grid exists; also support legacy .product-grid-v2 only
     const collectGrids = () => {
-        const els = document.querySelectorAll(".nv-product-grid, #productsGrid, .product-grid-v2");
+        const els = document.querySelectorAll(".santis-product-grid, #productsGrid, .product-grid-v2");
         console.log("🔍 [HomeProducts] collectGrids found:", els.length);
         return Array.from(els);
     };
@@ -184,7 +184,7 @@ window.loadHomeProducts = async () => {
             SantisRouter.categoryPath('hamam', l),
             SantisRouter.categoryPath('cilt-bakimi', l),
         ]) : [
-            "/tr/urunler/index.html", "/tr/masajlar/index.html", "/tr/hamam/index.html", "/tr/cilt-bakimi/index.html",
+            "/magaza.html", "/masaj.html", "/hamam.html", "/cilt-bakimi.html",
             "/en/products/index.html", "/en/massages/index.html", "/en/hammam/index.html"
         ])
     ];
@@ -210,7 +210,7 @@ window.loadHomeProducts = async () => {
     if (grids.length === 0) {
         if (shouldForceGrid) {
             const fallbackGrid = document.createElement("div");
-            fallbackGrid.className = "product-grid-v2 nv-product-grid";
+            fallbackGrid.className = "product-grid-v2 santis-product-grid";
             fallbackGrid.id = "productsGrid";
             (document.querySelector("main") || document.body).appendChild(fallbackGrid);
             grids = [fallbackGrid];
@@ -230,7 +230,7 @@ window.loadHomeProducts = async () => {
         let sourceData = window.productCatalog || [];
 
         console.log("ℹ️ [HomeProducts] Source lengths -> productCatalog:", Array.isArray(sourceData) ? sourceData.length : 'n/a',
-            "NV_PRODUCTS:", Array.isArray(window.NV_PRODUCTS) ? window.NV_PRODUCTS.length : 'n/a');
+            "SANTIS_PRODUCTS:", Array.isArray(window.SANTIS_PRODUCTS) ? window.SANTIS_PRODUCTS.length : 'n/a');
 
         // Fallback: If JSON is empty, try Core Data Bridge (site_content.json via app.js)
         if (sourceData.length === 0 && typeof window.getSantisData === 'function') {
@@ -387,24 +387,24 @@ window.loadHomeProducts = async () => {
 
                 // Section wrapper
                 const section = document.createElement('section');
-                section.className = 'nv-massage-category';
+                section.className = 'santis-massage-category';
                 section.id = `cat-${meta.id}`;
                 section.dataset.category = meta.id;
 
                 // Section header
                 section.innerHTML = `
-                    <div class="nv-cat-header">
-                        <span class="nv-cat-icon">${meta.icon}</span>
+                    <div class="santis-cat-header">
+                        <span class="santis-cat-icon">${meta.icon}</span>
                         <div>
-                            <h2 class="nv-cat-title">${meta.title}</h2>
-                            <p class="nv-cat-tagline">${meta.tagline}</p>
+                            <h2 class="santis-cat-title">${meta.title}</h2>
+                            <p class="santis-cat-tagline">${meta.tagline}</p>
                         </div>
                     </div>
                 `;
 
                 // Card grid (Sovereign Array)
                 const cardGrid = document.createElement('div');
-                cardGrid.className = 'product-grid-v2 nv-product-grid nv-cat-grid';
+                cardGrid.className = 'product-grid-v2 santis-product-grid santis-cat-grid';
 
                 section.appendChild(cardGrid);
                 gridAtelier.appendChild(section);
@@ -419,18 +419,18 @@ window.loadHomeProducts = async () => {
             const chipContainer = document.getElementById('nvChips');
             if (chipContainer) {
                 chipContainer.addEventListener('click', function (e) {
-                    const chip = e.target.closest('.nv-chip');
+                    const chip = e.target.closest('.santis-chip');
                     if (!chip) return;
 
                     const catId = chip.getAttribute('data-target');
                     console.log('🏷️ [ChipFilter] Clicked:', catId);
 
                     // Update active chip
-                    chipContainer.querySelectorAll('.nv-chip').forEach(c => c.classList.remove('is-active'));
+                    chipContainer.querySelectorAll('.santis-chip').forEach(c => c.classList.remove('is-active'));
                     chip.classList.add('is-active');
 
                     // Get all category sections (they exist now)
-                    const catSections = gridAtelier.querySelectorAll('.nv-massage-category');
+                    const catSections = gridAtelier.querySelectorAll('.santis-massage-category');
 
                     if (catId === 'all') {
                         catSections.forEach(s => { s.style.display = ''; });
@@ -476,22 +476,22 @@ window.loadHomeProducts = async () => {
                 if (!items || items.length === 0) return;
 
                 const section = document.createElement('section');
-                section.className = 'nv-massage-category';
+                section.className = 'santis-massage-category';
                 section.id = `cat-${meta.id}`;
                 section.dataset.category = meta.id;
 
                 section.innerHTML = `
-                    <div class="nv-cat-header">
-                        <span class="nv-cat-icon">${meta.icon}</span>
+                    <div class="santis-cat-header">
+                        <span class="santis-cat-icon">${meta.icon}</span>
                         <div>
-                            <h2 class="nv-cat-title">${meta.title}</h2>
-                            <p class="nv-cat-tagline">${meta.tagline}</p>
+                            <h2 class="santis-cat-title">${meta.title}</h2>
+                            <p class="santis-cat-tagline">${meta.tagline}</p>
                         </div>
                     </div>
                 `;
 
                 const cardGrid = document.createElement('div');
-                cardGrid.className = 'product-grid-v2 nv-product-grid nv-cat-grid';
+                cardGrid.className = 'product-grid-v2 santis-product-grid santis-cat-grid';
 
                 section.appendChild(cardGrid);
                 gridAtelier.appendChild(section);
@@ -506,16 +506,16 @@ window.loadHomeProducts = async () => {
             const skinChipContainer = document.getElementById('nvChips');
             if (skinChipContainer) {
                 skinChipContainer.addEventListener('click', function (e) {
-                    const chip = e.target.closest('.nv-chip');
+                    const chip = e.target.closest('.santis-chip');
                     if (!chip) return;
 
                     const catId = chip.getAttribute('data-target');
                     console.log('🏷️ [ChipFilter:Skin] Clicked:', catId);
 
-                    skinChipContainer.querySelectorAll('.nv-chip').forEach(c => c.classList.remove('is-active'));
+                    skinChipContainer.querySelectorAll('.santis-chip').forEach(c => c.classList.remove('is-active'));
                     chip.classList.add('is-active');
 
-                    const catSections = gridAtelier.querySelectorAll('.nv-massage-category');
+                    const catSections = gridAtelier.querySelectorAll('.santis-massage-category');
 
                     if (catId === 'all') {
                         catSections.forEach(s => { s.style.display = ''; });
@@ -611,7 +611,7 @@ window.loadHomeProducts = async () => {
     // E. Render Journeys (Static Services)
     const gridJourneys = document.getElementById("grid-journeys");
     if (gridJourneys) {
-        const journeyItems = window.NV_JOURNEYS || [];
+        const journeyItems = window.SANTIS_JOURNEYS || [];
         gridJourneys.innerHTML = "";
         journeyItems.forEach((product, index) => {
             renderCard(product, gridJourneys, index);
@@ -661,10 +661,10 @@ function renderSection(gridId, sectionData) {
 // 4. HELPER: CREATE CARD (Unified Tarot Logic V1.0)
 function createCardElement(product, index, isAdminItem = false, ctx = "") {
     const cardWrapper = document.createElement("div");
-    cardWrapper.className = "nv-card-wrapper";
+    cardWrapper.className = "santis-card-wrapper";
 
     const card = document.createElement("a");
-    card.className = "nv-card-tarot " + (product.layout_class || ""); // Phase 17: Tarot Class
+    card.className = "santis-card-tarot " + (product.layout_class || ""); // Phase 17: Tarot Class
     card.dataset.id = product.id;
 
     // URL Logic (STATIC V5.5)
@@ -860,7 +860,7 @@ function formatCategory(catId) {
 document.addEventListener("DOMContentLoaded", window.loadHomeProducts);
 // 5. ORACLE INTERFACE
 window.renderSpotlight = function (product, reasoning) {
-    const spotlightSection = document.querySelector('.nv-spotlight');
+    const spotlightSection = document.querySelector('.santis-spotlight');
     if (!spotlightSection) return;
 
     console.log("🔦 [Spotlight] Updating visual based on Oracle Prophecy...");
@@ -872,16 +872,16 @@ window.renderSpotlight = function (product, reasoning) {
 
     setTimeout(() => {
         // Update Content
-        const titleEl = spotlightSection.querySelector('.nv-editorial-title');
+        const titleEl = spotlightSection.querySelector('.santis-editorial-title');
         const descEl = spotlightSection.querySelector('.text-muted');
-        const kickerEl = spotlightSection.querySelector('.nv-kicker');
-        const btnEl = spotlightSection.querySelector('.nv-btn');
-        const imgEl = spotlightSection.querySelector('.nv-visual-col img');
+        const kickerEl = spotlightSection.querySelector('.santis-kicker');
+        const btnEl = spotlightSection.querySelector('.santis-btn');
+        const imgEl = spotlightSection.querySelector('.santis-visual-col img');
 
         if (titleEl) titleEl.textContent = product.title || product.name;
         if (descEl) descEl.textContent = product.desc || product.subtitle || "Sizin için özel olarak seçilmiş bir deneyim.";
         if (kickerEl) kickerEl.textContent = `ÖNERİLEN: ${reasoning || 'SİZE ÖZEL'}`;
-        if (btnEl) btnEl.href = product.slug ? `/service-detail.html?slug=${product.slug}` : (window.SantisRouter ? SantisRouter.localize(`/tr/urunler/detay.html?id=${product.id}`) : `/tr/urunler/detay.html?id=${product.id}`);
+        if (btnEl) btnEl.href = product.slug ? `/service-detail.html?slug=${product.slug}` : (window.SantisRouter ? SantisRouter.localize(`/urunler/detay.html?id=${product.id}`) : `/urunler/detay.html?id=${product.id}`);
 
         if (imgEl) {
             imgEl.src = product.img || product.image;

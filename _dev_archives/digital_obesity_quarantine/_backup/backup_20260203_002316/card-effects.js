@@ -24,7 +24,7 @@
         console.log('🎨 Santis Card Effects v1.0: Initializing...');
 
         // Get all premium cards
-        const cards = document.querySelectorAll('.nv-card, .nv-card-service, .nv-card-product, article.nv-card, .prod-card-v2');
+        const cards = document.querySelectorAll('.santis-card, .santis-card-service, .santis-card-product, article.santis-card, .prod-card-v2');
 
         if (cards.length === 0) {
             console.log('⚠️ No cards found');
@@ -131,7 +131,7 @@
             rootMargin: '0px 0px -50px 0px'
         });
 
-        document.querySelectorAll('.nv-card, .nv-card-service').forEach(card => {
+        document.querySelectorAll('.santis-card, .santis-card-service').forEach(card => {
             observer.observe(card);
         });
     }

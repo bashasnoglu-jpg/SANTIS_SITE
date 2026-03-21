@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html data-page-type="service-detail" data-site-root="/" lang="tr">
 <head>
@@ -17,10 +17,10 @@
 <link href="/assets/css/service-detail.css" rel="stylesheet"/>
 <link href="/favicon.ico" rel="icon"/>
 <link href="/manifest.json" rel="manifest"/>
-<script src="/assets/js/perf-head.js"></script>
+<script src="/assets/js/perf-head.js" defer></script>
 <!-- PAGE CONFIG (CSP-Safe) -->
-<script src="/assets/js/page-config.js"></script>
-<script src="/assets/js/i18n-routes.js"></script>
+<script src="/assets/js/page-config.js" defer></script>
+<script src="/assets/js/i18n-routes.js" defer></script>
 <meta content="/assets/img/og-standard.webp" property="og:image"/>
 <link href="https://santis-club.com/service-detail.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Service Detail", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script>
 <script type="application/ld+json">
@@ -53,12 +53,12 @@
 <meta content="Santis Club" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="Santis Club • Hizmet Detayı" name="twitter:title"/><meta content="Yükleniyor... at Santis Club. Hizmet detayları getiriliyor, lütfen bekleyiniz..." name="twitter:description"/><meta content="https://santisclub.com/assets/img/hero-general.webp" name="twitter:image"/></head>
 <body class="editorial-mode">
 <noscript>
-<nav class="nv-noscript-nav">
-<a class="nv-ns-home" href="/index.html">ANA SAYFA</a>
-<a href="/tr/hamam/index.html">HAMAM</a>
-<a href="/tr/masajlar/index.html">MASAJLAR</a>
-<a href="/tr/cilt-bakimi/index.html">CİLT BAKIMI</a>
-<a href="/tr/galeri/index.html">GALERİ</a>
+<nav class="santis-noscript-nav">
+<a class="santis-ns-home" href="/">ANA SAYFA</a>
+<a href="/hamam.html">HAMAM</a>
+<a href="/masaj.html">MASAJLAR</a>
+<a href="/cilt-bakimi.html">CİLT BAKIMI</a>
+<a href="/galeri.html">GALERİ</a>
 </nav>
 </noscript>
 <!-- PRELOADER -->
@@ -72,12 +72,12 @@
 <div class="cin-visual-stage">
 <div class="cin-visual-overlay"></div>
 <!-- Initial placeholder or loading state -->
-<img alt="Service Visual" class="cin-visual-img" decoding="async" fetchpriority="high" height="1024" id="cin-img" src="/assets/img/hero-general.webp" style="opacity:0; transition: opacity 1s ease;" width="1024"/>
+<img alt="Service Visual" class="cin-visual-img" decoding="async" fetchpriority="high" height="1024" id="cin-img" src="/assets/img/hero-general.webp" style="opacity:0; transition: opacity 1s ease;" width="1024">
 </div>
 <!-- RIGHT: CONTENT STAGE (Scrolling) -->
 <div class="cin-content-stage">
 <div class="cin-breadcrumb">
-<a href="/index.html">Ana Sayfa</a> / <span id="bread-cat">Koleksiyon</span>
+<a href="/">Ana Sayfa</a> / <span id="bread-cat">Koleksiyon</span>
 </div>
 <h1 class="cin-title" id="cin-title">Yükleniyor...</h1>
 <h2 class="cin-subtitle" id="cin-subtitle">Santis Spa Rituals</h2>
@@ -108,7 +108,7 @@
 <!-- ACTIONS -->
 <div class="cin-actions">
 <button class="cin-btn primary" id="btn-whatsapp" rel="noopener noreferrer" target="_blank">REZERVASYON YAP</button>
-<a class="cin-btn" href="/index.html">ANA SAYFAYA DÖN</a>
+<a class="cin-btn" href="/">ANA SAYFAYA DÖN</a>
 </div>
 </div>
 </main>
@@ -117,16 +117,17 @@
          In Split layout, footer usually sits at bottom of Right Column) -->
 <div id="footer-container" style="position:relative; z-index:10; background:#0b0d11;"></div>
 <!-- SCRIPTS -->
-<script type="module" src="/assets/js/core/santis-core.js"></script>
-    <script src="/assets/js/app.js"></script> <!-- Hydrator and Fetch Bridge --> <!-- Fallback for File Protocol -->
-<script defer="" src="/assets/js/santis-nav.js"></script>
-<script defer="" src="/assets/js/loader.js"></script>
-<script src="/assets/js/reflex/atmos.js"></script>
+<script type="module" src="/assets/js/core/santis-core.js" defer></script>
+    <script src="/assets/js/app.js" defer></script> <!-- Hydrator and Fetch Bridge --> <!-- Fallback for File Protocol -->
+<script src="/assets/js/reflex/atmos.js" defer></script>
 <!-- LOGIC: CINEMATIC DETAILS (External, CSP-Safe) -->
-<script src="/assets/js/service-engine.js"></script>
-<script src="/assets/js/service-detail-logic.js"></script>
+<script src="/assets/js/service-engine.js" defer></script>
+<script src="/assets/js/service-detail-logic.js" defer></script>
 <!-- SMOOTH SCROLL FOR RIGHT COL -->
-<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" crossorigin="anonymous"></script>
+<script src="/assets/vendor/lenis.min.js" crossorigin="anonymous" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
 

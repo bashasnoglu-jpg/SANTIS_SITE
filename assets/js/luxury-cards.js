@@ -420,7 +420,7 @@
 
             // Get tier info
 
-            const tierInfo = window.NV_MASSAGE_TIERS?.[data.tier] || {};
+            const tierInfo = window.SANTIS_MASSAGE_TIERS?.[data.tier] || {};
 
 
 
@@ -512,7 +512,7 @@
 
                     <!-- CTA -->
 
-                    <a href="${window.SantisRouter ? SantisRouter.localize('/tr/masajlar/' + (data.slug || data.id) + '/') : '/tr/masajlar/' + (data.slug || data.id) + '/'}" class="card__cta">
+                    <a href="${window.SantisRouter ? SantisRouter.localize('/masaj.html' + (data.slug || data.id) + '/') : '/masaj.html' + (data.slug || data.id) + '/'}" class="card__cta">
 
                         <span>Keşfet</span>
 

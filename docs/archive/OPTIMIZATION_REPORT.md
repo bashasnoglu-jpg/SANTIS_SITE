@@ -29,7 +29,7 @@ Genel performans denetimi tamamlandı ve kritik darboğazlar giderildi.
 
 ### 3. 🌐 HTML & Network
 * **Inline Style Temizliği:**
-  * `index.html` ve `navbar.html` içindeki `style="..."` etiketleri temizlendi, `.nv-z-max` gibi global sınıflar kullanıldı.
+  * `index.html` ve `navbar.html` içindeki `style="..."` etiketleri temizlendi, `.santis-z-max` gibi global sınıflar kullanıldı.
 * **Fallback Koruması:**
   * Veri gelmezse sitenin boş kalmaması için `home-products.js` içine "Acil Durum Kartı" (System Check) eklendi.
 

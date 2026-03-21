@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="tr">
 <head>
@@ -421,18 +421,210 @@ a:focus-visible, button:focus-visible { outline: 2px solid #d4af37; outline-offs
   <div id="footer-container"></div>
 </footer>
 
+    <script src="/assets/js/santis-vitals.js" async></script>
+
+    <!-- Phase 6: Fluid Space Engine (Speculation Rules API) -->
+    <script type="speculationrules">
+    {
+      "prerender": [
+        {
+          "source": "document",
+          "where": {
+            "and": [
+              { "href_matches": "/*" },
+              { "not": { "selector_matches": ".no-prerender, [target='_blank'], [href^='mailto:'], [href^='tel:']" } }
+            ]
+          },
+          "eagerness": "moderate" 
+        }
+      ]
+    }
+    </script>
+
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
+</head>
+<body class="editorial-mode world-hydro solid-nav-page" data-page="hamam">
+
+<!-- ♾️ SANTIS V17 - OFFSCREEN QUANTUM RENDERER ♾️ -->
+<canvas id="santis-god-canvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:-1; pointer-events:none;"></canvas>
+
+
+<header id="site-header" role="banner">
+  <div id="navbar-container"></div>
+</header>
+
+<main id="sovereign-page-root" role="main" style="padding-top: 120px; background: #fdfdfd; min-height: 100vh;">
+  
+  <!-- V11 PHASE 3: EDITORIAL HERO -->
+  <section class="editorial-page-header" style="padding: 100px 5vw 60px; text-align: center; max-width: 900px; margin: 0 auto; contain: layout;">
+      <span style="font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 4px; color: #a0a0a0; text-transform: uppercase; display: block; margin-bottom: 20px;">Santis Sovereign</span>
+      <h1 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #111; font-weight: 400; line-height: 1.1; margin: 0; letter-spacing: -0.02em;">Geleneksel<br><span style="color: #d4af37; font-style: italic;">Hamam</span> Ritüelleri</h1>
+      <p style="font-family: 'Inter', sans-serif; font-size: 1.05rem; color: #666; font-weight: 300; margin-top: 30px; line-height: 1.7; padding: 0 20px;">
+          Osmanlı saray geleneğinden ilham alan kese, köpük ve özel arınma terapileriyle bedeninizi ve ruhunuzu yeniliyoruz. Her su damlası, asırlık bir uyanışın habercisidir.
+      </p>
+  </section>
+
+
+  <!-- V11 PHASE 2: ORACLE LINEUP (BIOMETRIC QUICK ACCESS) -->
+  <section id="oracle-lineup" style="padding: 2rem 0 4rem; max-width: 100%; overflow: hidden;">
+      <div style="max-width: 1400px; margin: 0 auto; padding: 0 2vw; margin-bottom: 2rem;">
+          <div>
+              <span style="font-family: 'Inter', sans-serif; color: #d4af37; font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">Apple Health Senkronizasyonu Aktif</span>
+              <h2 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 4px 0 0; font-weight: 400; color: #111;">Biyometrik Matrix</h2>
+          </div>
+      </div>
+      
+      <!-- 8x 480px Vertical Flagship Cards (Amiral Gemisi) -->
+      <div id="oracle-icons-grid" data-lenis-prevent style="display: flex; gap: 24px; padding-bottom: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; width: 100%; height: 650px; padding-left: 2vw; padding-right: 2vw; padding-top: 10px;">
+          <!-- Icons will be populated dynamically -->
+      </div>
+      <style>
+          /* Hide scrollbar for Chrome, Safari and Opera */
+          #oracle-icons-grid::-webkit-scrollbar { display: none; }
+      </style>
+  </section>
+
+  <!-- V11 PHASE 3: THE GIANT GALLERY (Apple Pro Exhibition) -->
+  <section id="santis-data-matrix" style="padding: 2rem 0 4rem; max-width: 100%; overflow: hidden;">
+      <div style="max-width: 1400px; margin: 0 auto; padding: 0 2vw; margin-bottom: 2rem;">
+          <h2 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 0; font-weight: 400; color: #111;">Hamam Koleksiyonu</h2>
+          <p style="font-family: 'Inter', sans-serif; color: rgba(0,0,0,0.5); margin-top: 8px;">Osmanlı geleneğinden ilham alan arınma ve yenilenme ritüelleri.</p>
+      </div>
+      
+      <noscript>
+          <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); padding: 2rem; border-radius: 12px; text-align: center; max-width: 1400px; margin: 0 auto;">
+              <p style="color: #111; font-family: 'Inter', sans-serif;">Hizmetleri görüntüleyebilmek için lütfen tarayıcınızın JavaScript özelliğini aktifleştirin.</p>
+          </div>
+      </noscript>
+
+      <!-- Sovereign Bento Engine Mount Point -->
+      <div id="santis-bento-universe" data-category="hamam"></div>
+      <style>
+          /* Hide scrollbar for Chrome, Safari and Opera */
+          #santis-data-matrix-grid::-webkit-scrollbar { display: none; }
+          
+          /* Giant Card Dimension Overrides */
+          .matrix-service-card {
+              min-width: 85vw !important; /* Mobile Peek Effect */
+              flex-shrink: 0 !important; /* Prevent flexbox from squishing the cards */
+              scroll-snap-align: center;
+              border-radius: 4px !important; /* V11 Sharp Corner Requirement */
+          }
+          
+          @media(min-width: 768px) {
+              .matrix-service-card {
+                  min-width: 480px !important; /* Apple Pro Desktop Width Requirement */
+                  scroll-snap-align: start;
+              }
+              #santis-data-matrix-grid {
+                  padding: 0 calc(50vw - 700px) 40px; /* Center alignment based on 1400px max-width */
+              }
+          }
+      </style>
+  </section>
+
+
+
+  <!-- PHASE 6: SOVEREIGN RAIL (MASK & EXTRA ADD-ONS) -->
+  <section id="sovereign-mask-rail" style="padding: 4rem 2vw; background: #080808; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem;">
+      <div style="max-width: 1400px; margin: 0 auto;">
+          <h2 style="font-size: 2rem; font-family: 'Playfair Display', serif; color: #fff; margin-bottom: 2rem; font-weight: 400;">Kişiselleştirilmiş Bakımlar</h2>
+          <div class="rail-container" style="display: flex; gap: 20px; overflow-x: auto; overflow-y: hidden; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 20px; padding-right: 40px; scrollbar-width: none;">
+              <!-- Masks will be loaded here dynamically by the engine -->
+          </div>
+      </div>
+  </section>
+
+
+
+  <!-- V11 PHASE 4: THE DESIGN STUDIO / CONFIGURATOR -->
+  <section id="v11-design-studio" style="position: relative; width: 100vw; height: 96vh; background: #f9f9f9; display: flex; overflow: hidden; margin-top: 4rem; border-top: 1px solid rgba(0,0,0,0.05); flex-direction: column; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+      
+      <!-- Studio Split Layout -->
+      <div style="display: flex; flex: 1; width: 100%; max-width: 100%; flex-wrap: wrap;">
+          
+          <!-- Left Panel: Triple Photo Rail & WebGL Canvas -->
+          <div id="studio-left" style="flex: 1; min-width: 320px; position: relative; background: #ebebeb; overflow: hidden;">
+              <!-- WebGL Fluid Container -->
+              <div id="studio-webgl-container" style="position: absolute; inset: 0; z-index: 1;"></div>
+              
+              <!-- Static Image Fallback -->
+              <img fetchpriority="high" decoding="async" width="1024" height="1024" src="/assets/img/cards/santis_card_recovery_lotion_v2.webp" alt="Santis Altın Yağ Terapisi" style="width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 2; mix-blend-mode: multiply; opacity: 0.9;" id="studio-main-preview">
+              
+              <!-- Apple Retail Dots -->
+              <div style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 3;">
+                  <div style="width: 8px; height: 8px; border-radius: 50%; background: #111;"></div>
+                  <div style="width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.2);"></div>
+                  <div style="width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.2);"></div>
+              </div>
+          </div>
+
+          <!-- Right Panel: Configurations -->
+          <div id="studio-right" style="flex: 1; min-width: 320px; padding: 4rem 10%; display: flex; flex-direction: column; gap: 2.5rem; overflow-y: auto; background: #fff; z-index: 4;">
+              
+              <div>
+                  <span style="font-family: 'Inter', sans-serif; color: #d4af37; font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">Adım 1</span>
+                  <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin: 8px 0 1rem; font-weight: 400; color: #111;">Terapi Yağı</h3>
+                  
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                      <button class="studio-option active" data-oil="amber" style="padding: 1rem; border: 2px solid #d4af37; background: transparent; border-radius: 4px; cursor: pointer; text-align: left; position: relative; overflow: hidden;">
+                          <div style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #d4af37, #f3e5ab); margin-bottom: 12px; border: 1px solid rgba(0,0,0,0.1);"></div>
+                          <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500; color: #111; display: block;">Kehribar Dokunuşu</span>
+                          <span style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: rgba(0,0,0,0.5);">Derin Kas Onarımı</span>
+                      </button>
+                      <button class="studio-option" data-oil="gold" style="padding: 1rem; border: 1px solid rgba(0,0,0,0.1); background: transparent; border-radius: 4px; cursor: pointer; text-align: left; position: relative; overflow: hidden;">
+                          <div style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #f0e6d2, #fff); margin-bottom: 12px; border: 1px solid rgba(0,0,0,0.1);"></div>
+                          <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500; color: #111; display: block;">Beyaz Çay & Lotus</span>
+                          <span style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: rgba(0,0,0,0.5);">Hücresel Yenilenme</span>
+                      </button>
+                  </div>
+              </div>
+
+              <div>
+                  <span style="font-family: 'Inter', sans-serif; color: #d4af37; font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">Adım 2</span>
+                  <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin: 8px 0 1rem; font-weight: 400; color: #111;">Süre</h3>
+                  
+                  <div style="display: flex; gap: 16px;">
+                      <button class="studio-option" style="flex: 1; padding: 1rem; border: 1px solid rgba(0,0,0,0.1); background: transparent; border-radius: 4px; cursor: pointer;">
+                          <span style="font-family: 'Inter', sans-serif; font-size: 1.1rem; font-weight: 500; color: #111; display: block;">60 Dakika</span>
+                      </button>
+                      <button class="studio-option active" style="flex: 1; padding: 1rem; border: 2px solid #111; background: transparent; border-radius: 4px; cursor: pointer;">
+                          <span style="font-family: 'Inter', sans-serif; font-size: 1.1rem; font-weight: 500; color: #111; display: block;">90 Dakika</span>
+                          <span style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #d4af37; margin-top: 4px;">Sovereign Tavsiyesi</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Sticky Buy Bar -->
+      <div id="sticky-buy-bar" style="position: sticky; bottom: 0; width: 100%; background: rgba(255,255,255,0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid rgba(0,0,0,0.1); padding: 20px 5vw; display: flex; justify-content: space-between; align-items: center; z-index: 10; transform: translateZ(0);">
+          <div style="display: flex; flex-direction: column;">
+              <span id="buy-bar-title" style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(0,0,0,0.5); font-weight: 500; letter-spacing: 1px; text-transform: uppercase;">Paket Özeti</span>
+              <span id="buy-bar-price" style="font-family: 'Inter', sans-serif; font-size: 1.4rem; color: #111; font-weight: 400; margin-top: 2px;">Pay €350/mo. for 12 mo.*</span>
+          </div>
+          <!-- Phase 6: God Mode API Trigger hooked here -->
+          <button id="btn-god-mode-checkout" style="background: #111; color: #fff; border: none; padding: 16px 32px; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 500; letter-spacing: 1px; border-radius: 99px; cursor: pointer; transition: all 0.3s ease;">REZERVASYONU ONAYLA</button>
+      </div>
+
+  </section>
+
+</main>
+
+<footer id="site-footer" role="contentinfo">
+  <div id="footer-container"></div>
+</footer>
+
 <!-- CORE SCRIPTS -->
-<script src="/assets/js/loader.js" defer></script>
-<script src="/assets/js/santis-nav.js" defer></script>
 <script src="/assets/js/santis-data-bridge.js" defer></script>
 <script type="module" src="/assets/js/core/santis-core.js"></script>
     <script src="/assets/js/app.js" defer></script>
-<script src="/assets/js/core/santis-momentum.js" defer></script>
 <script src="/assets/js/core/bento-orchestrator.js" defer></script>
 
 <!-- SOVEREIGN OS BOOTLOADER (V18 KERNEL) -->
-<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V18_APEX_RESURRECTION"></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
-
-

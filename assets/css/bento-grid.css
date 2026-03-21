@@ -560,14 +560,14 @@
     grid-row: span 2;
 }
 
-.sovereign-bento-grid .nv-card-img {
+.sovereign-bento-grid .santis-card-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 1s ease;
 }
 
-.sovereign-bento-grid .bento-card:hover .nv-card-img {
+.sovereign-bento-grid .bento-card:hover .santis-card-img {
     transform: scale(1.05);
 }
 
@@ -688,4 +688,35 @@
         animation: none !important;
         transition: none !important;
     }
+}
+
+/* ==========================================
+   ⚕️ THE VOID ANOMALY SHIELD (Phase 31.5)
+   ========================================== */
+
+.bento-card-v6 {
+    position: relative; /* Tactical Rollback sonrası güvenli konum */
+    display: block;
+    aspect-ratio: 3/2; /* Hedef en-boy oranı */
+    overflow: hidden;
+    border-radius: 20px;
+    background: #111;
+}
+
+.bento-card-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Görseli kırılmadan oturtur */
+    will-change: transform; /* Kinetic Engine ile sorunsuz animasyon */
+}
+
+.bento-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1em;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    color: #fff;
+    pointer-events: none; /* Drag/Reveal ile çakışmayı önler */
 }

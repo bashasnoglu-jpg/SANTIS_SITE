@@ -18,8 +18,8 @@
 <link href="/manifest.json" rel="manifest"/>
 <link href="https://santis-club.com/en/skincare/oxygen-boost.html" rel="canonical"/>
 <!-- PAGE CONFIG -->
-<script src="/assets/js/page-config.js"></script>
-<script src="/assets/js/i18n-routes.js"></script>
+<script src="/assets/js/page-config.js" defer></script>
+<script src="/assets/js/i18n-routes.js" defer></script>
 <script defer="" src="/assets/js/hreflang-injector.js"></script>
 <script>
         // Force SERVICE_ID for the logic engine
@@ -69,14 +69,14 @@
     <link rel="alternate" hreflang="en" href="https://santis-club.com/en/skincare/oxygen-boost.html" />
     <link rel="alternate" hreflang="fr" href="https://santis-club.com/fr/soins-visage/oxygen-boost.html" />
     <link rel="alternate" hreflang="ru" href="https://santis-club.com/ru/skincare/oxygen-boost.html" />
-    <link rel="alternate" hreflang="tr" href="https://santis-club.com/tr/cilt-bakimi/oxygen-boost.html" />
+    <link rel="alternate" hreflang="tr" href="https://santis-club.com/cilt-bakimi.htmloxygen-boost.html" />
     <link rel="alternate" hreflang="x-default" href="https://santis-club.com/en/skincare/oxygen-boost.html" />
 </head>
 <body class="editorial-mode skincare-theme">
 <noscript>
-<nav class="nv-noscript-nav">
-<a class="nv-ns-home" href="/index.html">HOME</a>
-<a href="/tr/skincare/index.html">SKINCARE</a>
+<nav class="santis-noscript-nav">
+<a class="santis-ns-home" href="/">HOME</a>
+<a href="/skincare/index.html">SKINCARE</a>
 </nav>
 </noscript>
 <!-- PRELOADER -->
@@ -90,12 +90,12 @@
 <div class="cin-visual-stage">
 <div class="cin-visual-overlay"></div>
 <!-- Texture Image (Loaded by JS, but providing a default) -->
-<img alt="O2 Vitality Infusion" class="cin-visual-img" decoding="async" height="1024" id="cin-img" loading="lazy" src="/assets/img/textures/water.webp" style="opacity:0; transition: opacity 1s ease;" width="1024"/>
+<img alt="O2 Vitality Infusion" class="cin-visual-img" decoding="async" height="1024" id="cin-img" loading="lazy" src="/assets/img/textures/water.webp" style="opacity:0; transition: opacity 1s ease;" width="1024">
 </div>
 <!-- RIGHT: CONTENT STAGE -->
 <div class="cin-content-stage">
 <div class="cin-breadcrumb">
-<a href="/tr/index.html">Home</a> / <a href="/tr/skincare/index.html">Skincare</a>
+<a href="/">Home</a> / <a href="/skincare/index.html">Skincare</a>
 </div>
 <!-- Content will be hydrated by service-detail-logic.js -->
 <h1 class="cin-title" id="cin-title">Santis Signature Cleanse</h1>
@@ -117,24 +117,25 @@
 <!-- ACTIONS -->
 <div class="cin-actions">
 <a class="cin-btn primary" href="javascript:void(0)" id="btn-whatsapp" rel="noopener noreferrer" target="_blank">BOOK NOW</a>
-<a class="cin-btn" href="/tr/skincare/index.html">BACK TO COLLECTION</a>
+<a class="cin-btn" href="/skincare/index.html">BACK TO COLLECTION</a>
 </div>
 </div>
 </main>
 <!-- FOOTER -->
 <div id="footer-container" style="position:relative; z-index:10; background:#0b0d11;"></div>
 <!-- SCRIPTS -->
-<script src="/assets/js/fallback_data.js"></script>
-<script src="/assets/js/loaders/data-bridge.js"></script>
-<script defer="" src="/assets/js/santis-nav.js"></script>
-<script defer="" src="/assets/js/loader.js"></script>
-<script src="/assets/js/reflex/atmos.js"></script>
-<script src="/assets/js/booking-wizard.js"></script>
+<script src="/assets/js/fallback_data.js" defer></script>
+<script src="/assets/js/loaders/data-bridge.js" defer></script>
+<script src="/assets/js/reflex/atmos.js" defer></script>
+<script src="/assets/js/booking-wizard.js" defer></script>
 <!-- LOGIC -->
-<script src="/assets/js/service-engine.js"></script>
-<script src="/assets/js/service-detail-logic.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" crossorigin="anonymous"></script>
-<script src="/assets/js/lenis-init.js"></script>
+<script src="/assets/js/service-engine.js" defer></script>
+<script src="/assets/js/service-detail-logic.js" defer></script>
+<script src="/assets/vendor/lenis.min.js" crossorigin="anonymous" defer></script>
+<script src="/assets/js/lenis-init.js" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
 

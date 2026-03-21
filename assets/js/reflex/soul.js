@@ -251,7 +251,7 @@ class SantisSoul {
                 const cfg = await resConfig.json();
                 if (cfg.animation_level === 'low') {
                     console.log("🌑 SoulEngine: Optimization Mode Active (Throttled)");
-                    document.body.classList.add('nv-low-perf');
+                    document.body.classList.add('santis-low-perf');
                     this.smoothness = 0.02;
                     this.root.style.setProperty('--breath-cycle', '25s');
                 }

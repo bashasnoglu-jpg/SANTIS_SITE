@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8"/>
     <meta name="description" content="Santis Admin Giriş — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -176,7 +177,11 @@
           setTimeout(() => {
               localStorage.setItem('santis_token', 'mock_token_hq_999');
               localStorage.setItem('tenant_id', 'santis_hq');
-              window.location.href = '/admin/index.html';
+              localStorage.setItem('santis_hq_token', 'SOVEREIGN_V9_AUTHORIZED');
+              
+              const urlParams = new URLSearchParams(window.location.search);
+              const returnTo = urlParams.get('returnTo') || '/hq-dashboard';
+              window.location.href = returnTo;
           }, 600);
       } catch (err) {
           console.error('Login error:', err);
@@ -187,6 +192,9 @@
       }
   });
 </script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
 

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Santis Sovereign | Omni-OS V18</title>
+
+    <link rel="preconnect" href="https://santisclub.com" crossorigin>
+    <link rel="dns-prefetch" href="https://santisclub.com">
+
+    <style>
+        :root { --vanta-black: #050505; --liquid-gold: #d4af37; }
+        body { margin: 0; padding: 0; background-color: var(--vanta-black); color: #fff; font-family: 'Playfair Display', serif; overflow-x: hidden; }
+        
+        /* CLS (Düzen Kayması) önleyici iskeletler */
+        .santis-header-ghost { height: 80px; width: 100%; position: absolute; top: 0; z-index: 9999; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
+        .santis-hero-skeleton { position: relative; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--vanta-black); z-index: 1;}
+        .santis-hero-skeleton img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.8; z-index: 0; }
+        
+        /* Worker'ın kartları basacağı Arena (İlk başta karanlıkta) */
+        .santis-matrix-container { min-height: 50vh; padding: 4rem 5vw; position: relative; z-index: 2; opacity: 0; transition: opacity 0.8s ease; }
+    </style>
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/modules/cards.css">
+    <link rel="stylesheet" href="/assets/css/santis-v6/santis.bento-grid.css">
+    <noscript><link rel="stylesheet" href="/assets/css/style.css"></noscript>
+
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
+<!-- SOVEREIGN ZERO-JANK VIEW TRANSITIONS -->
+<meta name="view-transition" content="same-origin">
+</head>
+
+<body class="solid-nav-page" data-page="massage">
+
+    <canvas id="santis-god-canvas" style="position:fixed; inset:0; width:100vw; height:100vh; pointer-events:none; z-index:0;"></canvas>
+
+<header id="site-header" role="banner">
+  <div id="navbar-container"></div>
+</header>
+
+
+    <main id="sovereign-page-root" style="padding-top: 120px; position: relative; z-index: 2;">
+        
+        <!-- V45 COVER FLOW STAGE: SIGNATURE RITUALS (MASAJ) -->
+        <section class="santis-container" style="overflow: visible; padding-top: 2rem;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span class="santis-kicker">RİTÜELLER</span>
+                <h2 class="santis-title" style="font-size: 2.2rem;">Öne Çıkan Masajlar</h2>
+            </div>
+            <div class="santis-carousel-stage" id="sov-3d-stage" style="height: 60vh; min-height: 400px; width: 100%; position: relative;">
+                <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp');">
+                    <h3>Deep Tissue</h3>
+                    <span class="santis-stack-meta">Derin Rahatlama</span>
+                </div>
+                <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: hue-rotate(40deg);">
+                    <h3>Thai Masajı</h3>
+                    <span class="santis-stack-meta">Esneklik ve Enerji</span>
+                </div>
+                <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: grayscale(50%);">
+                    <h3>Sıcak Taş</h3>
+                    <span class="santis-stack-meta">Volkanik Terapi</span>
+                </div>
+                <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: sepia(30%);">
+                    <h3>Aromaterapi</h3>
+                    <span class="santis-stack-meta">Ruhsal Dinlenme</span>
+                </div>
+                <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: contrast(120%);">
+                    <h3>Bali Masajı</h3>
+                    <span class="santis-stack-meta">Geleneksel Dokunuş</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- COVER FLOW CATEGORY CAROUSELS (MASAJLAR) -->
+<section class="santis-container" style="overflow: visible; margin-bottom: 5rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 class="santis-title" style="font-size: 2.2rem;">Klasik Masajlar</h2>
+        <span class="santis-kicker">Kusursuz Başlangıçlar</span>
+    </div>
+    <div class="santis-carousel-stage custom-cover-flow" id="sov-3d-stage-klasik" style="height: 60vh; min-height: 400px; width: 100%; position: relative;">
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: brightness(0.9);">
+            <h3>İsveç Masajı</h3>
+            <span class="santis-stack-meta">€80</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: contrast(110%);">
+            <h3>Aromaterapi Masajı</h3>
+            <span class="santis-stack-meta">€95</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: brightness(0.9);">
+            <h3>Anti-Stres Masajı</h3>
+            <span class="santis-stack-meta">€75</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: sepia(20%);">
+            <h3>Lenf Drenaj Masajı</h3>
+            <span class="santis-stack-meta">€110</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: hue-rotate(-15deg);">
+            <h3>Sırt ve Boyun Terapi</h3>
+            <span class="santis-stack-meta">€60</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: hue-rotate(-15deg);">
+            <h3>Klasik Vücut Masajı</h3>
+            <span class="santis-stack-meta">€85</span>
+        </div>
+    </div>
+</section>
+<section class="santis-container" style="overflow: visible; margin-bottom: 5rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 class="santis-title" style="font-size: 2.2rem;">Spor ve Terapi</h2>
+        <span class="santis-kicker">Derinlemesine İyileşme</span>
+    </div>
+    <div class="santis-carousel-stage custom-cover-flow" id="sov-3d-stage-spor-terapi" style="height: 60vh; min-height: 400px; width: 100%; position: relative;">
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: hue-rotate(15deg);">
+            <h3>Derin Doku Masajı</h3>
+            <span class="santis-stack-meta">€120</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: contrast(110%);">
+            <h3>Spor Terapi Masajı</h3>
+            <span class="santis-stack-meta">€115</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: hue-rotate(15deg);">
+            <h3>Tetik Nokta Terapisi</h3>
+            <span class="santis-stack-meta">€105</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: brightness(0.9);">
+            <h3>Sıcak Taş Terapisi</h3>
+            <span class="santis-stack-meta">€130</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: hue-rotate(-15deg);">
+            <h3>Medikal Masaj</h3>
+            <span class="santis-stack-meta">€140</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: grayscale(20%);">
+            <h3>Myofascial Release</h3>
+            <span class="santis-stack-meta">€125</span>
+        </div>
+    </div>
+</section>
+<section class="santis-container" style="overflow: visible; margin-bottom: 5rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 class="santis-title" style="font-size: 2.2rem;">Asya Masajları</h2>
+        <span class="santis-kicker">Egzotik ve Geleneksel Ritm</span>
+    </div>
+    <div class="santis-carousel-stage custom-cover-flow" id="sov-3d-stage-asya" style="height: 60vh; min-height: 400px; width: 100%; position: relative;">
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: hue-rotate(-15deg);">
+            <h3>Geleneksel Bali Masajı</h3>
+            <span class="santis-stack-meta">€110</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: grayscale(20%);">
+            <h3>Kraliyet Thai Masajı</h3>
+            <span class="santis-stack-meta">€135</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: contrast(110%);">
+            <h3>Shiatsu Terapi</h3>
+            <span class="santis-stack-meta">€150</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: brightness(0.9);">
+            <h3>Ayak Refleksolojisi</h3>
+            <span class="santis-stack-meta">€70</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: hue-rotate(-15deg);">
+            <h3>Abhyanga (Ayurvedik)</h3>
+            <span class="santis-stack-meta">€160</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: brightness(0.9);">
+            <h3>Thai Herbal Compress</h3>
+            <span class="santis-stack-meta">€145</span>
+        </div>
+    </div>
+</section>
+
+<section class="santis-container" style="overflow: visible; margin-bottom: 5rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 class="santis-title" style="font-size: 2.2rem;">Bölgesel Masajlar</h2>
+        <span class="santis-kicker">Odaklanmış Rahatlama</span>
+    </div>
+    <div class="santis-carousel-stage custom-cover-flow" id="sov-3d-stage-bolgesel" style="height: 60vh; min-height: 400px; width: 100%; position: relative;">
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: hue-rotate(15deg);">
+            <h3>Sırt ve Boyun Masajı</h3>
+            <span class="santis-stack-meta">€60</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: grayscale(20%);">
+            <h3>Hint Baş Masajı</h3>
+            <span class="santis-stack-meta">€50</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: contrast(110%);">
+            <h3>Omuz ve Kollar</h3>
+            <span class="santis-stack-meta">€55</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: sepia(20%);">
+            <h3>Lokal Bacak Masajı</h3>
+            <span class="santis-stack-meta">€65</span>
+        </div>
+        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_hero_massage_lux.webp'); filter: saturate(120%);">
+            <h3>Yüz ve Dekolte</h3>
+            <span class="santis-stack-meta">€45</span>
+        </div>
+    </div>
+</section>
+
+<script>
+// Sovereign OS Module Sync (Interaction Engine Yüklenmesini Bekle)
+(function awaitSovereignInteraction() {
+    if (typeof window.initCoverFlowCarousel === 'function') {
+        window.initCoverFlowCarousel();
+        console.log("🎡 Sovereign B2B Cover Flow Carousels Inited via Retry.");
+    } else {
+        setTimeout(awaitSovereignInteraction, 100);
+    }
+})();
+</script>
+
+    </main>
+
+<div id="footer-container"></div>
+
+<!-- CORE SCRIPTS -->
+<script src="/assets/js/santis-data-bridge.js" defer></script>
+<script type="module" src="/assets/js/core/santis-core.js" defer></script>
+<script src="/assets/js/app.js" defer></script>
+
+
+<!-- SOVEREIGN OS BOOTLOADER (V18 KERNEL) -->
+<script src="/assets/js/core/view-transition-handler.js" defer></script>
+<!-- MOOD ENGINE V1.0 — Smart Funnel -->
+<script src="/assets/js/ui/santis-mood-engine.js" defer></script>
+
+<!-- SOVEREIGN COMMAND V1.0 — Realtime Control Receiver -->
+<script src="/assets/js/sovereign-command.js" defer></script>
+
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
+</body>
+</html>

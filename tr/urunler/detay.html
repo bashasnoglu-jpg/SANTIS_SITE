@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="tr">
 <head>
@@ -14,16 +14,16 @@
 <link href="/assets/img/favicon.webp" rel="icon" type="image/png"/>
 <style>
         /* GHOST LOADING SKELETON */
-        #nv-page-loader {
+        #santis-page-loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #111;  display: flex;
             align-items: center; justify-content: center;
         }
-        .nv-spinner { width: 50px; height: 50px; border: 3px solid #333; border-top-color: #d4a373; border-radius: 50%; animation: spin 1s linear infinite; }
+        .santis-spinner { width: 50px; height: 50px; border: 3px solid #333; border-top-color: #d4a373; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
         
         /* content hidden until loaded */
-        #nv-dynamic-content { opacity: 0; transition: opacity 0.5s ease; }
+        #santis-dynamic-content { opacity: 0; transition: opacity 0.5s ease; }
     </style>
 <meta content="/assets/img/og-standard.webp" property="og:image"/>
 <link href="https://santis-club.com/tr/urunler/detay.html" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Detay", "provider": {"@type": "LocalBusiness", "name": "Santis Club"}}</script>
@@ -83,23 +83,23 @@
 <meta name="theme-color" content="#000000">
 <link rel="manifest" href="/manifest.json">
 </head>
-<body class="nv-body service-page">
+<body class="santis-body service-page">
 <noscript>
-<nav class="nv-noscript-nav">
-<a class="nv-ns-home" href="/index.html">ANA SAYFA</a>
-<a href="/tr/hamam/index.html">HAMAM</a>
-<a href="/tr/masajlar/index.html">MASAJLAR</a>
-<a href="/tr/cilt-bakimi/index.html">CİLT BAKIMI</a>
-<a href="/tr/galeri/index.html">GALERİ</a>
+<nav class="santis-noscript-nav">
+<a class="santis-ns-home" href="/">ANA SAYFA</a>
+<a href="/hamam.html">HAMAM</a>
+<a href="/masaj.html">MASAJLAR</a>
+<a href="/cilt-bakimi.html">CİLT BAKIMI</a>
+<a href="/galeri.html">GALERİ</a>
 </nav>
 </noscript>
 <h1 id="detail-title-seo" style="position:absolute;width:1px;height:1px;overflow:hidden;opacity:0">Santis Club Sovereign Ritüeli</h1>
 
 <!-- GHOST LOADER -->
-<div id="nv-page-loader"><div class="nv-spinner"></div></div>
-<header id="nv-header"></header>
+<div id="santis-page-loader"><div class="santis-spinner"></div></div>
+<header id="santis-header"></header>
 <!-- DYNAMIC CONTENT STAGE -->
-<main id="nv-dynamic-content" style="opacity:0;transition:opacity 1s ease;background:#050505;min-height:100vh;padding:8rem 0 5rem;position:relative;overflow:hidden">
+<main id="santis-dynamic-content" style="opacity:0;transition:opacity 1s ease;background:#050505;min-height:100vh;padding:8rem 0 5rem;position:relative;overflow:hidden">
   <div style="position:absolute;width:600px;height:600px;background:rgba(212,175,55,0.05);border-radius:50%;filter:blur(120px);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none"></div>
   <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:10">
     <a href="javascript:history.back()" style="display:inline-flex;align-items:center;color:#888;text-decoration:none;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:3rem;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#888'">← GERİ DÖN</a>
@@ -133,14 +133,16 @@
   </div>
 </main>
 
-<footer id="nv-footer"></footer>
+<footer id="santis-footer"></footer>
 <!-- CORE SCRIPTS -->
 <script type="module" src="/assets/js/core/santis-core.js"></script>
     <script src="/assets/js/app.js"></script>
-<script src="/assets/js/product-loader.js"></script>
 <!-- UPSELL BRIDGE (Phase 23) -->
 <div id="upsell-container"></div>
 <script src="/assets/js/modules/upsell-bridge.js"></script>
 
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>

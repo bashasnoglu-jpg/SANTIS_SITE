@@ -37,6 +37,39 @@ class BentoOrchestrator {
         }
 
         this.initWorker();
+        this.initFilters();
+    }
+
+    initFilters() {
+        const filterBtns = document.querySelectorAll('.boutique-filter, .nv-chip, .santis-chip');
+        if (filterBtns.length > 0) {
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // Update UI
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'is-active');
+                        b.style.borderColor = ''; // reset inline if any
+                    });
+                    btn.classList.add('active', 'is-active');
+
+                    // Set new category and request filter via Worker
+                    const newCategory = btn.getAttribute('data-filter') || 'all';
+                    this.category = (newCategory === 'all' && document.body.getAttribute('data-page') === 'boutique') ? 'boutique' : newCategory;
+                    
+                    console.log(`🦅 Bento Orchestrator: Filtre tıklandı -> [${this.category}]`);
+                    
+                    // Container'ı opasite ile karart, yeni veriyi beklerken şık bir geçiş olsun
+                    if(this.container) {
+                        this.container.style.opacity = '0.4';
+                        this.container.style.transition = 'opacity 0.4s ease';
+                    }
+                    setTimeout(() => {
+                        this.requestFilter();
+                    }, 50);
+                });
+            });
+        }
     }
 
     initWorker() {
@@ -91,6 +124,10 @@ class BentoOrchestrator {
     }
 
     async renderCards(payload) {
+        if (this.container) {
+            this.container.style.opacity = '1';
+        }
+        
         if (!payload || payload.length === 0) {
             this.container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: Inter;">Bu kriterlere uygun koleksiyon bulunamadı.</div>`;
             return;
@@ -133,23 +170,30 @@ class BentoOrchestrator {
             chunk.forEach((item, chunkIndex) => {
                 const globalIndex = i + chunkIndex;
                 const card = document.createElement('a');
-                card.href = item.url || item.detailUrl || '#';
+                card.href = item.detailUrl || '#';
                 
                 // Manyetik ve Reveal sınıfları enjekte edildi
                 // FAZ 3.2: content-visibility çökmelerini engellemek için CSS sınıfına devrediyoruz
-                card.className = 'bento-card-v6 santis-reveal santis-magnetic santis-drag santis-virtual-node';
+                card.className = 'bento-card-v6 santis-magnetic santis-drag santis-virtual-node santis-await-reveal';
                 
                 // Sinematik Dalga Efekti (Staggered Delay)
                 card.style.transitionDelay = `${(globalIndex % 8) * 0.05}s`;
 
-                if (globalIndex === 0 && (payload.length > 3)) {
+                // ASİMETRİK VE GÜZEL: Her 5. kart devasa (2 sütun × 2 satır) vurgu kartı
+                if (globalIndex % 5 === 0 && payload.length > 4) {
                     card.classList.add('wide');
                 }
 
-                const title = item.content?.tr?.title || item.title || item.name || 'Santis Sovereign';
+                const title = item.name || item.content?.tr?.title || 'Santis Sovereign';
                 const desc = item.content?.tr?.shortDesc || item.description || item.content?.tr?.tagline || '';
                 const price = item.price_eur || (item.price && item.price.amount) || '';
                 const imgTarget = item.image || item.img || (item.media && '/assets/img/cards/' + item.media.hero) || '/assets/img/cards/product-oil.webp';
+
+                // FAZ 4: ChipFilter Uyumluluğu için Data Attribute Enjektasyonu
+                const safeTags = Array.isArray(item.tags) ? item.tags.join(',') : '';
+                card.setAttribute('data-category', item.category || '');
+                card.setAttribute('data-category-id', item.categoryId || '');
+                card.setAttribute('data-tags', safeTags);
 
                 // FAZ 2.2: Lazy Loading ve Async Decoding standartları uygulandı
                 // Resimler IntersectionObserver tarafından yüklenecek (data-src)
@@ -172,12 +216,16 @@ class BentoOrchestrator {
                     </div>
                 `;
                 
-                // DOM'a girdiği an Reveal tetikle
-                setTimeout(() => card.classList.add('is-revealed'), 50);
+                // DOM'a girdiği an Kuantum Görünürlük Kalkanını Çak (Opacity Lock Bypass)
+                setTimeout(() => {
+                    card.classList.add('is-revealed', 'revealed', 'active');
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) rotateX(0deg)';
+                }, 50);
                 
                 // Observer'a ekle
                 this.virtualObserver.observe(card);
-                
+
                 fragment.appendChild(card);
             });
 
@@ -185,9 +233,33 @@ class BentoOrchestrator {
 
             // Ana ipliğe nefes aldır (Inertial Scroll ve Kuantum İmleç donmaz)
             await yieldToMain();
+            
+            // Batch sonrası toplu yükseklik güncellemesi tetikle
+            document.dispatchEvent(new CustomEvent('bento:batch-rendered'));
         }
 
         console.log(`💎 [Omni-Orchestrator] ${payload.length} kart 0ms TBT ile (Chunking & Virtualization) aktarıldı.`);
+
+        // ─── SCROLL REVEAL: Kuantum Şelale Sensörü ───────────────────────────
+        // Kartlar ekrana girince sırayla yukarı süzülür (Fade-Up)
+        const revealObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const card = entry.target;
+                // Kart görüş alanına girdiği anda revealed yap
+                card.classList.add('is-revealed');
+                obs.unobserve(card); // Bir kez çalışınca takibi bırak (CPU tasarrufu)
+            });
+        }, {
+            root: null,
+            rootMargin: '-40px 0px',   // Ekranın biraz içine girince tetikle
+            threshold: 0.05
+        });
+
+        // Görselsiz observer: tüm await-reveal kartları izlemeye al
+        document.querySelectorAll('.bento-card-v6.santis-await-reveal:not(.is-revealed)')
+            .forEach(card => revealObserver.observe(card));
+        // ─────────────────────────────────────────────────────────────────────
 
         // Kinetik motorun hesaplamalarını güncelle
         setTimeout(() => {
@@ -203,7 +275,29 @@ class BentoOrchestrator {
     }
 }
 
-// DOM yüklenince çalıştır
-window.addEventListener('DOMContentLoaded', () => {
+window.initBentoCards = function() {
+    if (!document.getElementById('santis-bento-universe')) return;
     window.SovereignBentoOrchestrator = new BentoOrchestrator();
+    console.log("💎 [Bento Orchestrator] Attached to DOM.");
+};
+
+window.initSantisCards = function() {
+    console.log("🦅 [Orchestrator] Global Card Init Triggered.");
+    if (typeof window.initBentoCards === 'function') window.initBentoCards();
+    if (typeof window.initMoodEngine === 'function') window.initMoodEngine();
+    if (typeof window.initCoverFlowCarousel === 'function') window.initCoverFlowCarousel();
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', window.initSantisCards);
+} else {
+    setTimeout(window.initSantisCards, 100);
+}
+
+// Phase 30.5 Otonom Sinyal Avcısı
+document.addEventListener('matrix:recalculate', () => {
+    if (window.SovereignKineticEngine && typeof window.SovereignKineticEngine.updateHeight === 'function') {
+        window.SovereignKineticEngine.updateHeight();
+        console.log("📐 [Bento Orchestrator] ResizeObserver sinyali alındı. Asimetrik Matris sıvı metal gibi hizalandı!");
+    }
 });

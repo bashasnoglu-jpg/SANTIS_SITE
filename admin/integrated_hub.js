@@ -242,9 +242,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         pendingFile = file;
 
-        // Show preview
+        // Show preview and store base64 for upload
         const reader = new FileReader();
         reader.onload = (e) => {
+            window._pendingUploadBase64 = e.target.result;
             if (previewImg) previewImg.src = e.target.result;
             uploadPanel.classList.remove('hidden');
         };
@@ -253,13 +254,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.cancelUpload = function () {
         pendingFile = null;
+        window._pendingUploadBase64 = null;
         fileInput.value = '';
         uploadPanel.classList.add('hidden');
         if (previewImg) previewImg.src = '';
     };
 
     window.executeIngestion = async function () {
-        if (!pendingFile) return;
+        if (!pendingFile || !window._pendingUploadBase64) return;
 
         const category = document.getElementById('map-category')?.value || 'diger';
         const serviceIdRaw = document.getElementById('map-service-id');
@@ -269,13 +271,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const slotRaw = document.getElementById('map-slot');
         const slot = slotRaw ? slotRaw.value : '';
 
-        const formData = new FormData();
-        formData.append('file', pendingFile);
-        formData.append('category', category);
-        if (serviceId) formData.append('linked_service_id', serviceId);
-        if (slot) formData.append('slot', slot);
-        if (caption) formData.append('caption_tr', caption);
-
         // UI Loading State (SADECE ONAY İÇİN)
         btnIngest.disabled = true;
         progressOverlay.classList.remove('hidden');
@@ -283,7 +278,15 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('/api/v1/media/upload', {
                 method: 'POST',
-                body: formData
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    filename: pendingFile.name,
+                    contentBase64: window._pendingUploadBase64,
+                    category: category,
+                    linked_service_id: serviceId,
+                    slot: slot,
+                    caption_tr: caption
+                })
             });
 
             if (response.ok) {
@@ -306,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 try { document.getElementById('live-mirror').contentWindow.location.reload(); } catch (e) { }
             } else {
                 const err = await response.json();
-                pushPulseSignal("ERROR", `Ingest failed: ${err.detail || 'Unknown server error'}`, "text-red-500");
+                pushPulseSignal("ERROR", `Ingest failed: ${err.error || err.detail || 'Unknown server error'}`, "text-red-500");
             }
         } catch (e) {
             console.error("Upload error:", e);
@@ -546,9 +549,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!document.startViewTransition) {
             updateDOM(assets);
         } else {
-            document.startViewTransition(() => {
+            try {
+                const transition = document.startViewTransition(() => {
+                    updateDOM(assets);
+                });
+                const handleAbort = e => {
+                    if (e && e.name === 'AbortError') {
+                        console.warn('[Integrated Hub] View Transition skipped/aborted.');
+                    } else {
+                        console.error('[Integrated Hub] View Transition error:', e);
+                    }
+                };
+                transition.ready.catch(handleAbort);
+                transition.finished.catch(handleAbort);
+            } catch(e) {
+                console.warn('[Integrated Hub] View Transition fallback handled.');
                 updateDOM(assets);
-            });
+            }
         }
     }
 
@@ -1339,7 +1356,7 @@ window.openAssetDirector = async function (assetId) {
     // Automatically filter slots when modal opens
     window.filterDirectorSlots();
 
-    document.getElementById('nv-asset-director-modal').classList.remove('hidden');
+    document.getElementById('santis-asset-director-modal').classList.remove('hidden');
 };
 
 window.filterDirectorSlots = function () {
@@ -1401,12 +1418,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 window.closeAssetDirector = function () {
-    document.getElementById('nv-asset-director-modal').classList.add('hidden');
+    document.getElementById('santis-asset-director-modal').classList.add('hidden');
 };
 
 window.saveAssetRouting = async function () {
     const assetId = document.getElementById('director-asset-id').value;
-    const btn = document.querySelector('#nv-asset-director-modal button[onclick="saveAssetRouting()"]');
+    const btn = document.querySelector('#santis-asset-director-modal button[onclick="saveAssetRouting()"]');
     const originalText = btn.innerHTML;
 
     btn.disabled = true;
@@ -1507,7 +1524,7 @@ window.analyzeCommerce = async function (assetId, sasScore = 0.5) {
     pushPulseSignal("COMMERCE", `Cross-referencing Inventory for ${assetId.substring(0, 8)}...`, "text-santis-gold animate-pulse");
 
     try {
-        const res = await window.SantisCore.apiFetch(`/api/v1/analytics/product_match?agent_id=${assetId}&agent_sas=${sasScore}`);
+        const res = await fetch(`/api/v1/analytics/product_match?agent_id=${assetId}&agent_sas=${sasScore}`);
 
         if (!res.ok) {
             pushPulseSignal("ERROR", `Commerce Engine Offline (${res.status})`, "text-red-500");
@@ -1564,7 +1581,7 @@ window.analyzeCommerce = async function (assetId, sasScore = 0.5) {
                         pushPulseSignal("CHECKOUT", `Generating Stripe Link for ${match.product_name}...`, "text-santis-gold animate-pulse");
 
                         try {
-                            const checkoutRes = await window.SantisCore.apiFetch('/api/v1/commerce/generate_checkout', {
+                            const checkoutRes = await fetch('/api/v1/commerce/generate_checkout', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({
@@ -1733,7 +1750,7 @@ function wireMatrixDragSource() {
                 pushPulseSignal('SLOT BIND', `Binding asset → ${slotKey}...`, 'text-santis-gold');
 
                 try {
-                    const res = await window.SantisCore.apiFetch(`/api/v1/media/assets/${_draggedAssetId}`, {
+                    const res = await fetch(`/api/v1/media/assets/${_draggedAssetId}`, {
                         method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ slot: slotKey })
@@ -1825,7 +1842,7 @@ window.loadSlotRadar = async function () {
     list.innerHTML = `<div class="text-center py-4 text-gray-600 font-mono text-[10px] animate-pulse">Scanning slot inventory...</div>`;
 
     try {
-        const res = await window.SantisCore.apiFetch('/api/v1/media/slots/health');
+        const res = await fetch('/api/v1/media/slots/health');
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
 
@@ -1901,7 +1918,7 @@ window.loadSlotRadar = async function () {
                                 ? parseFloat(document.getElementById('multiplier-value').textContent) || 1.0
                                 : 1.0;
 
-                            const res = await window.SantisCore.apiFetch(`/api/v1/analytics/simulate_move?asset_id=${_draggedAssetId}&slot=${slotKey}&surge=${surgeStatus}`);
+                            const res = await fetch(`/api/v1/analytics/simulate_move?asset_id=${_draggedAssetId}&slot=${slotKey}&surge=${surgeStatus}`);
                             if (res.ok) {
                                 const data = await res.json();
                                 if (data.status === 'ok') {
@@ -1963,7 +1980,7 @@ window.loadSlotRadar = async function () {
                 pushPulseSignal('SLOT BIND', `Binding asset → ${slotKey}...`, 'text-santis-gold');
 
                 try {
-                    const res = await window.SantisCore.apiFetch(`/api/v1/media/assets/${_draggedAssetId}`, {
+                    const res = await fetch(`/api/v1/media/assets/${_draggedAssetId}`, {
                         method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ slot: slotKey })
@@ -2019,8 +2036,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // ─── PHASE 29: AUTONOMOUS MATRIX OPTIMIZER v2.0 ────────────────────────────────
 
 window.closeSentienceModal = function () {
-    const modal = document.getElementById('nv-sentience-modal');
-    const box = document.getElementById('nv-sentience-box');
+    const modal = document.getElementById('santis-sentience-modal');
+    const box = document.getElementById('santis-sentience-box');
     if (!modal || !box) return;
 
     box.classList.remove('scale-100', 'opacity-100');
@@ -2043,7 +2060,7 @@ window.engageOptimizer = async function () {
     pushPulseSignal('OPTIMIZER', 'Sovereign Kesişimsel Tarama Başladı...', 'text-santis-gold animate-pulse');
 
     try {
-        const res = await window.SantisCore.apiFetch('/api/v1/analytics/engage_sentience', {
+        const res = await fetch('/api/v1/analytics/engage_sentience', {
             method: 'POST'
         });
 
@@ -2061,8 +2078,8 @@ window.engageOptimizer = async function () {
         const rec = data.recommendation;
         _pendingSentiencePayload = rec;
 
-        const modal = document.getElementById('nv-sentience-modal');
-        const box = document.getElementById('nv-sentience-box');
+        const modal = document.getElementById('santis-sentience-modal');
+        const box = document.getElementById('santis-sentience-box');
 
         document.getElementById('sentience-msg').textContent = data.message;
 
@@ -2078,10 +2095,13 @@ window.engageOptimizer = async function () {
         document.getElementById('sentience-mrr').className = `text-4xl font-bold tracking-tight ${liftColor}`;
 
         modal.classList.remove('hidden');
-        // Trigger reflow
-        void modal.offsetWidth;
-        box.classList.remove('scale-95', 'opacity-0');
-        box.classList.add('scale-100', 'opacity-100');
+        // V37 Governance: Fix 31ms forced reflow violation using rAF chain
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                box.classList.remove('scale-95', 'opacity-0');
+                box.classList.add('scale-100', 'opacity-100');
+            });
+        });
 
     } catch (e) {
         console.error('Optimizer error:', e);
@@ -2105,7 +2125,7 @@ window.executeSentience = async function () {
     pushPulseSignal('ENGAGING', `Sovereign Otopilot → ${rec.target_slot} ataması yapılıyor...`, 'text-santis-gold font-bold');
 
     try {
-        const patchRes = await window.SantisCore.apiFetch(`/api/v1/media/assets/${rec.agent_id}`, {
+        const patchRes = await fetch(`/api/v1/media/assets/${rec.agent_id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ slot: rec.target_slot })
@@ -2150,7 +2170,7 @@ window.initGodMode = async function (forceRefresh = false) {
     if (!shiArc) return;
 
     try {
-        const res = await window.SantisCore.apiFetch('/api/v1/analytics/god/health');
+        const res = await fetch('/api/v1/analytics/god/health');
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
 
@@ -2252,7 +2272,7 @@ window.openMirrorFullscreen = function () {
 
     // Sync src from small mirror
     if (smallMirror && fsIframe) {
-        fsIframe.src = smallMirror.src || '/tr/index.html';
+        fsIframe.src = smallMirror.src || '/';
     }
 
     // Show modal

@@ -1,6 +1,6 @@
 /* CAMPAIGN HERO SLIDER */
 
-.nv-hero-campaign {
+.santis-hero-campaign {
 
     position: relative;
 
@@ -22,7 +22,7 @@
 
 
 
-.nv-campaign-slide {
+.santis-campaign-slide {
     position: absolute;
     top: 0;
     left: 0;
@@ -36,7 +36,7 @@
     justify-content: center;
 }
 
-.nv-campaign-slide::before {
+.santis-campaign-slide::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -48,22 +48,22 @@
     z-index: -1;
 }
 
-.nv-campaign-slide.active {
+.santis-campaign-slide.active {
     opacity: 1;
 }
 
-.nv-campaign-slide.active::before {
+.santis-campaign-slide.active::before {
     transform: scale(1.05);
 }
 
 /* Intro Slide — bg artık <img> tag ile yükleniyor, ::before devre dışı */
-.nv-slide-intro::before {
+.santis-slide-intro::before {
     background-color: #111;
     background-image: none !important;
 }
 
 /* 🚀 LCP: Direct <img> hero background */
-.nv-hero-bg-img {
+.santis-hero-bg-img {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -74,7 +74,7 @@
 }
 
 /* Gradient overlay (replaces radial-gradient from ::before) */
-.nv-hero-gradient-overlay {
+.santis-hero-gradient-overlay {
     position: absolute;
     inset: 0;
     background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 80%);
@@ -83,15 +83,15 @@
 }
 
 /* Slide Specific Backgrounds */
-.nv-slide-lab::before {
+.santis-slide-lab::before {
     background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 80%), url('../../assets/img/social/post1.webp');
 }
 
-.nv-slide-hammam::before {
+.santis-slide-hammam::before {
     background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 80%), url('../../assets/img/social/post2.webp');
 }
 
-.nv-slide-therapy::before {
+.santis-slide-therapy::before {
     background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 80%), url('../../assets/img/social/post3.webp');
 }
 
@@ -99,7 +99,7 @@
 
 /* Captions similar to the animatic */
 
-.nv-hero-content-dynamic {
+.santis-hero-content-dynamic {
 
     position: absolute;
 
@@ -127,7 +127,7 @@
 
 
 
-.nv-hero-caption {
+.santis-hero-caption {
 
     font-family: var(--font-body);
 
@@ -157,7 +157,7 @@
 
 
 
-.nv-hero-title-dynamic {
+.santis-hero-title-dynamic {
 
     font-family: var(--font-heading);
 
@@ -181,9 +181,9 @@
 
 /* Active State for Text */
 
-.nv-campaign-slide.active .nv-hero-caption,
+.santis-campaign-slide.active .santis-hero-caption,
 
-.nv-campaign-slide.active .nv-hero-title-dynamic {
+.santis-campaign-slide.active .santis-hero-title-dynamic {
 
     opacity: 1;
 
@@ -195,7 +195,7 @@
 
 /* Progress Bar */
 
-.nv-campaign-progress {
+.santis-campaign-progress {
 
     position: absolute;
 
@@ -219,7 +219,7 @@
 
 @media (max-width: 768px) {
 
-    .nv-hero-title-dynamic {
+    .santis-hero-title-dynamic {
 
         font-size: 42px;
 
@@ -227,7 +227,7 @@
 
 
 
-    .nv-hero-content-dynamic {
+    .santis-hero-content-dynamic {
 
         bottom: 20%;
 

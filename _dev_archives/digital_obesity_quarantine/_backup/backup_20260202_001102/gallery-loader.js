@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Filtre Mantığı (index.html'dekini override eder veya yenisini kurar)
 function initFilters() {
-    const chips = document.querySelectorAll('.nv-chip');
+    const chips = document.querySelectorAll('.santis-chip');
 
     chips.forEach(chip => {
         // Clone element to remove old listeners if any
@@ -113,7 +113,7 @@ function initFilters() {
 
         newChip.addEventListener('click', () => {
             // UI Update
-            document.querySelectorAll('.nv-chip').forEach(c => c.classList.remove('is-active'));
+            document.querySelectorAll('.santis-chip').forEach(c => c.classList.remove('is-active'));
             newChip.classList.add('is-active');
 
             const filter = newChip.getAttribute('data-filter');

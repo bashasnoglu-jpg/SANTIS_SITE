@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <meta name="robots" content="noindex, nofollow">
     <meta charset="UTF-8">
     <meta name="description" content="SANTIS SOVEREIGN LAB v12.2 | Pulse & Flow — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -420,7 +421,7 @@
         <!-- Navigation -->
         <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">
             <a href="boardroom.html" style="display:block;text-align:center;font-size:10px;padding:8px 12px;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;border-radius:6px;text-decoration:none;letter-spacing:2px;font-weight:600;transition:all 0.3s;" onmouseover="this.style.background='#D4AF37';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#D4AF37'">♟️ BOARDROOM</a>
-            <a href="/index.html" style="display:block;text-align:center;font-size:10px;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);border-radius:6px;text-decoration:none;letter-spacing:2px;transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.3)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.4)'">❖ ADMIN PANEL</a>
+            <a href="/" style="display:block;text-align:center;font-size:10px;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);border-radius:6px;text-decoration:none;letter-spacing:2px;transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.3)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.4)'">❖ ADMIN PANEL</a>
         </div>
 
         <!-- Event Log -->
@@ -456,10 +457,10 @@
     </div>
 
     <!-- ═══════ OBSERVER MODULE ═══════ -->
-    <script src="../assets/js/core/santis-observer.js"></script>
+    <script src="../assets/js/core/santis-observer.js" defer></script>
 
     <script>
-    (function() {
+    document.addEventListener('DOMContentLoaded', function() {
         "use strict";
 
         // ─── DATA: 12 Test Entities ─────────────────────────────
@@ -769,10 +770,13 @@
         // Initialize Phase 15 Module
         fetchCurrentSurge();
 
-    })();
+    });
     </script>
 <!-- Sovereign Admin Navigation -->
 <script src="/admin/assets/js/admin-nav.js" defer></script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 </body>
 </html>
 

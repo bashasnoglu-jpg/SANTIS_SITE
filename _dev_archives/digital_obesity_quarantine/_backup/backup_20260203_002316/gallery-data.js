@@ -29,7 +29,7 @@ window.GALLERY_DATA = [
         "mood": "calm"
     },
     {
-        "file": "neurova-face-mask-4x5-1080x1350.webp",
+        "file": "santis-face-mask-4x5-1080x1350.webp",
         "category": "skincare",
         "caption": "Premium Yüz Maskeleri",
         "mood": "energetic"

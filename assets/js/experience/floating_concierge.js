@@ -13,7 +13,7 @@ const FloatingConcierge = {
         fc.id = "santisFloatingConcierge";
 
         // WA Payload
-        const phone = window.NV_CONCIERGE_NUMBER || "905348350169";
+        const phone = window.SANTIS_CONCIERGE_NUMBER || "905348350169";
         let payload = `?text=${encodeURIComponent('Merhaba\n' + offerData.title + ' hakkında bilgi almak istiyorum.')}`;
 
         if (window.SantisSession) {

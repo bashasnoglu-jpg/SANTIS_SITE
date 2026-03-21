@@ -162,21 +162,21 @@ body.editorial-mode::before {
 h1,
 h2,
 h3,
-.nv-title {
+.santis-title {
   font-family: var(--font-heading);
   font-weight: 400;
   line-height: 1.1;
   color: #fff;
 }
 
-.nv-editorial-title {
+.santis-editorial-title {
   font-family: var(--font-editorial);
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.02em;
 }
 
-.nv-kicker {
+.santis-kicker {
   font-family: var(--font-body);
   font-size: 11px;
   letter-spacing: 3px;
@@ -308,7 +308,7 @@ h3,
 /* --- 5. COMPONENT SYSTEM (The 4 Tiers) --- */
 
 /* TIER 1: The Cinematic Hero (Showcase) */
-.nv-hero-card {
+.santis-hero-card {
   position: relative;
   width: 100%;
   height: 85vh;
@@ -320,7 +320,7 @@ h3,
   padding-bottom: 80px;
 }
 
-.nv-hero-bg {
+.santis-hero-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -332,7 +332,7 @@ h3,
   filter: brightness(0.6);
 }
 
-.nv-hero-content {
+.santis-hero-content {
   position: relative;
   z-index: 2;
   width: 100%;
@@ -341,7 +341,7 @@ h3,
   padding: 0 40px;
 }
 
-.nv-hero-title {
+.santis-hero-title {
   font-family: var(--font-editorial);
   font-style: italic;
   font-size: clamp(48px, 6vw, 96px);
@@ -351,13 +351,13 @@ h3,
 }
 
 /* TIER 2: The Service Artifact (List) */
-.nv-card-grid {
+.santis-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 30px;
 }
 
-.nv-card {
+.santis-card {
   background: var(--bg-panel);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-card);
@@ -368,44 +368,44 @@ h3,
   flex-direction: column;
 }
 
-.nv-card:hover {
+.santis-card:hover {
   transform: translateY(-8px);
   border-color: rgba(212, 175, 55, 0.3);
 }
 
-.nv-card-link {
+.santis-card-link {
   position: absolute;
   inset: 0;
   z-index: 10;
   font-size: 0;
 }
 
-.nv-card-img-box {
+.santis-card-img-box {
   width: 100%;
   aspect-ratio: 4/3;
   overflow: hidden;
 }
 
-.nv-card-img {
+.santis-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s ease;
 }
 
-.nv-card:hover .nv-card-img {
+.santis-card:hover .santis-card-img {
   transform: scale(1.05);
   /* Gentle Zoom */
 }
 
-.nv-card-body {
+.santis-card-body {
   padding: 30px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
-.nv-card-price {
+.santis-card-price {
   margin-top: auto;
   font-family: var(--font-editorial);
   font-size: 24px;
@@ -416,19 +416,19 @@ h3,
   transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.nv-card:hover .nv-card-price {
+.santis-card:hover .santis-card-price {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* TIER 3: The Boutique Object (Products) */
-.nv-card-product {
+.santis-card-product {
   background: transparent;
   border: none;
   text-align: center;
 }
 
-.nv-product-img-box {
+.santis-product-img-box {
   width: 100%;
   aspect-ratio: 1/1;
   /* Square */
@@ -442,18 +442,18 @@ h3,
   overflow: hidden;
 }
 
-.nv-product-img {
+.santis-product-img {
   width: 60%;
   height: auto;
   transition: transform 0.4s ease;
 }
 
-.nv-card-product:hover .nv-product-img {
+.santis-card-product:hover .santis-product-img {
   transform: scale(1.1);
 }
 
 /* TIER 4: Detail Layout (Editorial) */
-.nv-detail-layout {
+.santis-detail-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
   /* Text | Sidebar */
@@ -463,7 +463,7 @@ h3,
   padding: 0 40px;
 }
 
-.nv-sticky-aside {
+.santis-sticky-aside {
   position: sticky;
   top: 120px;
   background: var(--bg-panel);
@@ -474,7 +474,7 @@ h3,
 }
 
 /* --- 6. BUTTON SYSTEM --- */
-.nv-btn {
+.santis-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -490,32 +490,32 @@ h3,
   transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.nv-btn-primary {
+.santis-btn-primary {
   background: var(--gold);
   color: #000;
   border: 1px solid var(--gold);
 }
 
-.nv-btn-primary:hover {
+.santis-btn-primary:hover {
   background: #fff;
   border-color: #fff;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
-.nv-btn-outline {
+.santis-btn-outline {
   background: transparent;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.nv-btn-outline:hover {
+.santis-btn-outline:hover {
   border-color: var(--gold);
   color: var(--gold);
 }
 
 
 /* Small Button (Card Overlays) */
-.nv-btn-sm {
+.santis-btn-sm {
   padding: 10px 18px;
   font-size: 10px;
   letter-spacing: 1.5px;
@@ -736,67 +736,67 @@ h3,
 }
 
 /* Section Containers */
-.nv-section {
+.santis-section {
   margin-top: 120px;
 }
 
-.nv-section-last {
+.santis-section-last {
   margin-top: 120px;
   margin-bottom: 120px;
 }
 
 /* Section Header */
-.nv-section-header {
+.santis-section-header {
   margin-bottom: 40px;
 }
 
 /* CTA Container */
-.nv-cta-container {
+.santis-cta-container {
   text-align: center;
   margin-top: 40px;
 }
 
 /* Products Grid Override */
-.nv-product-grid {
+.santis-product-grid {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 /* Atelier Header */
-.nv-atelier-header {
+.santis-atelier-header {
   text-align: center;
   margin-bottom: 60px;
 }
 
-.nv-atelier-header .nv-editorial-title {
+.santis-atelier-header .santis-editorial-title {
   font-size: 48px;
 }
 
-.nv-atelier-header .nv-kicker {
+.santis-atelier-header .santis-kicker {
   margin-top: 20px;
 }
 
 /* Category Page Styles */
-.nv-category-main {
+.santis-category-main {
   padding-top: 120px;
   padding-bottom: 100px;
 }
 
-.nv-category-header {
+.santis-category-header {
   text-align: center;
   margin-bottom: 60px;
 }
 
-.nv-category-header .nv-editorial-title {
+.santis-category-header .santis-editorial-title {
   font-size: 48px;
   margin-top: 10px;
 }
 
-.nv-controls {
+.santis-controls {
   max-width: 800px;
   margin: 40px auto 0;
 }
 
-.nv-search {
+.santis-search {
   width: 100%;
   max-width: 400px;
   margin-bottom: 20px;
@@ -808,7 +808,7 @@ h3,
   text-align: center;
 }
 
-.nv-chips {
+.santis-chips {
   display: flex;
   justify-content: center;
   gap: 12px;
@@ -817,7 +817,7 @@ h3,
 }
 
 /* Premium Chip Button */
-.nv-chip {
+.santis-chip {
   padding: 12px 24px;
   font-size: 11px;
   font-weight: 500;
@@ -834,7 +834,7 @@ h3,
   overflow: hidden;
 }
 
-.nv-chip::before {
+.santis-chip::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -843,7 +843,7 @@ h3,
   transition: transform 0.6s ease;
 }
 
-.nv-chip:hover {
+.santis-chip:hover {
   color: #fff;
   border-color: rgba(255, 255, 255, 0.3);
   background: rgba(255, 255, 255, 0.08);
@@ -851,19 +851,19 @@ h3,
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.nv-chip:hover::before {
+.santis-chip:hover::before {
   transform: translateX(100%);
 }
 
 /* Active State - Gold Accent */
-.nv-chip.active {
+.santis-chip.active {
   color: var(--gold);
   border-color: var(--gold);
   background: rgba(212, 175, 55, 0.1);
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
 }
 
-.nv-chip.active::after {
+.santis-chip.active::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -876,17 +876,17 @@ h3,
 }
 
 /* Products Page */
-.nv-products-main {
+.santis-products-main {
   padding-top: 140px;
   padding-bottom: 120px;
 }
 
-.nv-products-header {
+.santis-products-header {
   text-align: center;
   margin-bottom: 80px;
 }
 
-.nv-products-header .nv-editorial-title {
+.santis-products-header .santis-editorial-title {
   font-size: 56px;
   margin-top: 10px;
 }
@@ -1340,7 +1340,7 @@ body.mood-detox .btn-primary {
 }
 
 
-.nv-filter-bar {
+.santis-filter-bar {
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -1368,7 +1368,7 @@ body.mood-detox .btn-primary {
 }
 
 /* Signature Spotlight Section */
-.nv-spotlight {
+.santis-spotlight {
   margin-top: 0;
   padding-top: 120px;
   padding-bottom: 120px;
@@ -1376,17 +1376,17 @@ body.mood-detox .btn-primary {
 }
 
 /* Brand Story Section */
-.nv-brand-story {
+.santis-brand-story {
   text-align: center;
   padding: 120px 20px;
 }
 
-.nv-brand-story .nv-title {
+.santis-brand-story .santis-title {
   font-size: 36px;
   margin: 20px 0;
 }
 
-.nv-brand-story p {
+.santis-brand-story p {
   max-width: 700px;
   margin: 0 auto;
   font-size: 18px;
@@ -1396,13 +1396,13 @@ body.mood-detox .btn-primary {
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .nv-detail-layout {
+  .santis-detail-layout {
     grid-template-columns: 1fr;
     /* Stack */
     gap: 40px;
   }
 
-  .nv-sticky-aside {
+  .santis-sticky-aside {
     position: static;
   }
 
@@ -1520,12 +1520,12 @@ body.mood-detox .btn-primary {
 }
 
 /* --- 9. GALLERY MASONRY (Curated Mosaic) --- */
-.nv-masonry-grid {
+.santis-masonry-grid {
   column-count: 3;
   column-gap: 30px;
 }
 
-.nv-masonry-item {
+.santis-masonry-item {
   break-inside: avoid;
   margin-bottom: 30px;
   position: relative;
@@ -1533,13 +1533,13 @@ body.mood-detox .btn-primary {
   overflow: hidden;
 }
 
-.nv-masonry-item img {
+.santis-masonry-item img {
   width: 100%;
   display: block;
   transition: transform 0.6s ease;
 }
 
-.nv-masonry-item:hover img {
+.santis-masonry-item:hover img {
   transform: scale(1.05);
 }
 
@@ -1551,13 +1551,13 @@ body.mood-detox .btn-primary {
     gap: 40px;
   }
 
-  .nv-masonry-grid {
+  .santis-masonry-grid {
     column-count: 2;
   }
 }
 
 @media (max-width: 600px) {
-  .nv-masonry-grid {
+  .santis-masonry-grid {
     column-count: 1;
   }
 }
@@ -1566,21 +1566,21 @@ body.mood-detox .btn-primary {
 @media (max-width: 768px) {
 
   /* Container Padding */
-  .nv-container {
+  .santis-container {
     padding-left: 16px;
     padding-right: 16px;
   }
 
   /* Hero Section */
-  .nv-hero-card {
+  .santis-hero-card {
     min-height: 70vh;
   }
 
-  .nv-hero-content {
+  .santis-hero-content {
     padding: 0 20px;
   }
 
-  .nv-hero-title {
+  .santis-hero-title {
     font-size: clamp(32px, 8vw, 48px);
     line-height: 1;
   }
@@ -1591,49 +1591,49 @@ body.mood-detox .btn-primary {
   }
 
   section,
-  .nv-container {
+  .santis-container {
     margin-bottom: 60px;
   }
 
   /* Card Grid - Single Column */
-  .nv-card-grid {
+  .santis-card-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
 
   /* Typography Scaling */
-  .nv-title {
+  .santis-title {
     font-size: 24px !important;
   }
 
-  .nv-editorial-title {
+  .santis-editorial-title {
     font-size: 32px !important;
   }
 
-  .nv-kicker {
+  .santis-kicker {
     font-size: 10px;
     letter-spacing: 2px;
   }
 
   /* Buttons */
-  .nv-btn {
+  .santis-btn {
     padding: 12px 20px;
     font-size: 10px;
     width: 100%;
     text-align: center;
   }
 
-  .nv-btn-sm {
+  .santis-btn-sm {
     padding: 8px 14px;
     font-size: 9px;
   }
 
   /* Detail Layout */
-  .nv-detail-layout {
+  .santis-detail-layout {
     padding: 40px 16px;
   }
 
-  .nv-sticky-aside {
+  .santis-sticky-aside {
     position: static;
     padding: 24px;
   }
@@ -1652,11 +1652,11 @@ body.mood-detox .btn-primary {
   }
 
   /* Service Cards */
-  .nv-service-info {
+  .santis-service-info {
     padding: 16px;
   }
 
-  .nv-service-overlay {
+  .santis-service-overlay {
     opacity: 1;
     background: rgba(0, 0, 0, 0.5);
   }
@@ -1670,15 +1670,15 @@ body.mood-detox .btn-primary {
 
 /* --- EXTRA SMALL DEVICES --- */
 @media (max-width: 480px) {
-  .nv-hero-title {
+  .santis-hero-title {
     font-size: 28px;
   }
 
-  .nv-editorial-title {
+  .santis-editorial-title {
     font-size: 26px !important;
   }
 
-  .nv-btn {
+  .santis-btn {
     padding: 10px 16px;
   }
 
@@ -1686,7 +1686,7 @@ body.mood-detox .btn-primary {
     padding: 0 12px;
   }
 
-  .nv-hero-content {
+  .santis-hero-content {
     padding: 0 12px;
   }
 }
@@ -1744,17 +1744,17 @@ body.fade-out {
 }
 
 /* --- EMOTION-BASED UX: ACTIVE AURA --- */
-.nv-rail-card {
+.santis-rail-card {
   transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.rail-track:has(.is-active-aura) .nv-rail-card:not(.is-active-aura) {
+.rail-track:has(.is-active-aura) .santis-rail-card:not(.is-active-aura) {
   filter: none;
   opacity: 0.82;
   transform: scale(0.97);
 }
 
-.nv-rail-card.is-active-aura {
+.santis-rail-card.is-active-aura {
   /* Phase 11: Circadian Aura Dimming */
   filter: brightness(var(--aura-intensity, 1)) grayscale(0%);
   transform: scale(1);
@@ -2293,10 +2293,10 @@ body.quantum-active {
 }
 
 /* --- L2: EULER SKEW (Kart Rüzgar Fiziği) --- */
-.nv-matrix-card,
+.santis-matrix-card,
 .matrix-service-card,
 .santis-card,
-.nv-rail-card {
+.santis-rail-card {
   transform-origin: bottom center;
   transform: skewX(var(--scroll-skew));
   will-change: transform;
@@ -2308,7 +2308,7 @@ body.quantum-active {
 }
 
 /* Hover: Skew + lift + scale + luxury shadow */
-.nv-matrix-card:hover,
+.santis-matrix-card:hover,
 .matrix-service-card:hover,
 .santis-card:hover {
   transform: skewX(var(--scroll-skew)) translateY(-12px) scale(1.02);
@@ -2318,7 +2318,7 @@ body.quantum-active {
 }
 
 @supports (border-color: color-mix(in oklch, red, blue)) {
-  .nv-matrix-card:hover,
+  .santis-matrix-card:hover,
   .matrix-service-card:hover,
   .santis-card:hover {
     border-color: color-mix(in oklch, #c5a059 calc(var(--lux-affinity) * 100%), rgba(0, 0, 0, 0.1));
@@ -2327,13 +2327,13 @@ body.quantum-active {
 
 /* 📱 Mobil: Euler Skew devre dışı */
 @media (max-width: 768px) {
-  .nv-matrix-card,
+  .santis-matrix-card,
   .matrix-service-card,
   .santis-card,
-  .nv-rail-card {
+  .santis-rail-card {
     transform: none !important;
   }
-  .nv-matrix-card:hover,
+  .santis-matrix-card:hover,
   .matrix-service-card:hover,
   .santis-card:hover {
     transform: translateY(-6px) scale(1.01) !important;
@@ -2342,9 +2342,9 @@ body.quantum-active {
 
 /* ==========================================================================
    🛡️ DIMMER SAFETY CSS — Prevents phantom overlay from blocking page
-   JS creates .nv-global-dimmer but has no CSS. This ensures it's invisible.
+   JS creates .santis-global-dimmer but has no CSS. This ensures it's invisible.
    ========================================================================== */
-.nv-global-dimmer {
+.santis-global-dimmer {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -2354,7 +2354,7 @@ body.quantum-active {
   transition: opacity 0.4s ease;
 }
 
-.nv-global-dimmer.is-active {
+.santis-global-dimmer.is-active {
   opacity: 1;
   pointer-events: auto;
 }
@@ -2372,7 +2372,6 @@ body.quantum-active {
 #site-header header,
 header#site-header {
   min-height: 80px;
-  contain: layout;
 }
 
 /* 2. Bento Grid Sabit Alan Rezervasyonu
@@ -2384,12 +2383,12 @@ header#site-header {
 }
 
 /* 3. Philosophy Görseli CLS Koruması */
-.nv-philosophy-visual,
-.nv-philosophy-visual.depth-1 {
+.santis-philosophy-visual,
+.santis-philosophy-visual.depth-1 {
   contain: layout;
 }
 
-.nv-philosophy-visual img {
+.santis-philosophy-visual img {
   aspect-ratio: 3/4;
   width: 100%;
   height: auto;

@@ -43,7 +43,7 @@
         console.log("📦 Modules: Core ✓ | Products ✓ | Services ✓ | Blog ✓ | Audit ✓ | Commerce ✓ | Sentinel ✓ | System ✓");
 
         // --- 1. Product Data Sync ---
-        if (window.NV_DATA_READY && window.productCatalog) {
+        if (window.SANTIS_DATA_READY && window.productCatalog) {
             localCatalog = [].concat(window.productCatalog);
             if (typeof updateProductView === 'function') updateProductView();
         } else {

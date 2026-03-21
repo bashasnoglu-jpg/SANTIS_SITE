@@ -10,7 +10,7 @@
 
 /* 1. CONTAINER GRID matches Homepage Services */
 
-.nv-trend-grid {
+.santis-trend-grid {
 
     display: grid;
 
@@ -32,7 +32,7 @@
 
 /* 2. CARD BASE - The "Glass" Container */
 
-.nv-trend-card {
+.santis-trend-card {
 
     position: relative;
 
@@ -90,7 +90,7 @@
 
 
 /* HOVER STATE - Gentle Lift */
-.nv-trend-card:hover {
+.santis-trend-card:hover {
     transform: translateY(-8px) translateZ(0);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
     /* Deeper shadow */
@@ -102,7 +102,7 @@
 
 /* 3. IMAGE LAYER (Atmosphere) */
 
-.nv-trend-bg {
+.santis-trend-bg {
 
     position: absolute;
 
@@ -129,7 +129,7 @@
 
 
 
-.nv-trend-card:hover .nv-trend-bg {
+.santis-trend-card:hover .santis-trend-bg {
     transform: scale(1.03) translateZ(0);
     /* Micro-zoom */
     filter: brightness(0.95) contrast(1) saturate(1);
@@ -140,7 +140,7 @@
 
 /* 4. OVERLAY LAYER (Readability) */
 
-.nv-trend-overlay {
+.santis-trend-overlay {
 
     position: absolute;
 
@@ -164,7 +164,7 @@
 
 /* 5. TEXT CONTENT LAYER */
 
-.nv-trend-content {
+.santis-trend-content {
 
     position: relative;
 
@@ -184,7 +184,7 @@
 
 /* TYPOGRAPHY SYSTEM */
 
-.nv-trend-label {
+.santis-trend-label {
 
     font-family: 'Inter', sans-serif;
 
@@ -214,7 +214,7 @@
 
 
 
-.nv-trend-title {
+.santis-trend-title {
 
     font-family: 'Playfair Display', serif;
 
@@ -238,7 +238,7 @@
 
 
 
-.nv-trend-desc {
+.santis-trend-desc {
 
     font-family: 'Inter', sans-serif;
 
@@ -279,7 +279,7 @@
 
 /* Hover Effect on Text */
 
-.nv-trend-card:hover .nv-trend-desc {
+.santis-trend-card:hover .santis-trend-desc {
 
     opacity: 1;
 
@@ -289,7 +289,7 @@
 
 
 
-.nv-trend-card:hover .nv-trend-title {
+.santis-trend-card:hover .santis-trend-title {
 
     color: #FFF;
 
@@ -300,19 +300,19 @@
 
 /* 6. BACKGROUND IMAGES (Atmosphere Visuals) */
 
-.nv-bg-trend-tokyo {
+.santis-bg-trend-tokyo {
     background-image: url('/assets/img/cards/santis_card_hammam_v1.webp');
 }
 
-.nv-bg-trend-bangkok {
+.santis-bg-trend-bangkok {
     background-image: url('/assets/img/cards/santis_card_massage_v1.webp');
 }
 
-.nv-bg-trend-italy {
+.santis-bg-trend-italy {
     background-image: url('/assets/img/cards/santis_card_skincare_v1.webp');
 }
 
-.nv-bg-trend-beauty {
+.santis-bg-trend-beauty {
     background-image: url('/assets/img/cards/santis_card_skincare_cover.webp');
 }
 
@@ -320,25 +320,25 @@
 /* 7. RESPONSIVE */
 
 @media (max-width: 768px) {
-    .nv-trend-grid {
+    .santis-trend-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
 
-    .nv-trend-card {
+    .santis-trend-card {
         height: 380px;
         border-radius: 18px;
     }
 
-    .nv-trend-content {
+    .santis-trend-content {
         padding: 24px;
     }
 
-    .nv-trend-title {
+    .santis-trend-title {
         font-size: 22px;
     }
 
-    .nv-trend-desc {
+    .santis-trend-desc {
         opacity: 1;
         transform: none;
     }

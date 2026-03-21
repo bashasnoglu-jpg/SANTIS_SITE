@@ -12,7 +12,7 @@ class SantisKinetics {
         if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
             this.init();
         }
-        this.targetSelectors = '.nv-card-tarot, .nv-trend-card, .nv-signature-card, .bento-card, .nv-testimonial-card';
+        this.targetSelectors = '.santis-card-tarot, .santis-trend-card, .santis-signature-card, .bento-card, .santis-testimonial-card';
     }
 
     init() {

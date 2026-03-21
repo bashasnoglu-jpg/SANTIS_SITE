@@ -32,13 +32,13 @@ function initCursor() {
 
     const cursor = document.createElement('div');
 
-    cursor.className = 'nv-cursor';
+    cursor.className = 'santis-cursor';
 
 
 
     const cursorInner = document.createElement('div');
 
-    cursorInner.className = 'nv-cursor-inner';
+    cursorInner.className = 'santis-cursor-inner';
 
 
 
@@ -104,7 +104,7 @@ function initCursor() {
 
 
 
-    const magneticSelectors = 'a, button, .gallery-item, .nv-chip, .prod-card-v2, .nv-btn, .nav-link';
+    const magneticSelectors = 'a, button, .gallery-item, .santis-chip, .prod-card-v2, .santis-btn, .nav-link';
 
 
 
@@ -168,9 +168,9 @@ function initUltraVisuals() {
 
     // 1. Kinetic Typography Setup
 
-    document.querySelectorAll('.nv-title, .nv-editorial-title, .nv-hero-title').forEach(el => {
+    document.querySelectorAll('.santis-title, .santis-editorial-title, .santis-hero-title').forEach(el => {
 
-        el.classList.add('nv-kinetic');
+        el.classList.add('santis-kinetic');
 
         splitText(el);
 
@@ -184,11 +184,11 @@ function initUltraVisuals() {
 
         // Wrap images in curtain container if not already wrapped
 
-        if (!img.closest('.nv-reveal-curtain') && !img.closest('.nv-cursor') && !img.closest('.nav-logo')) {
+        if (!img.closest('.santis-reveal-curtain') && !img.closest('.santis-cursor') && !img.closest('.nav-logo')) {
 
             const wrapper = document.createElement('div');
 
-            wrapper.className = 'nv-reveal-curtain';
+            wrapper.className = 'santis-reveal-curtain';
 
             img.parentNode.insertBefore(wrapper, img);
 
@@ -228,7 +228,7 @@ function splitText(el) {
 
         const wordSpan = document.createElement('span');
 
-        wordSpan.className = 'nv-kinetic-word';
+        wordSpan.className = 'santis-kinetic-word';
 
 
 
@@ -236,7 +236,7 @@ function splitText(el) {
 
             const span = document.createElement('span');
 
-            span.className = 'nv-kinetic-char';
+            span.className = 'santis-kinetic-char';
 
             span.innerHTML = char === ' ' ? '&nbsp;' : char;
 
@@ -278,7 +278,7 @@ function scrollLoop() {
 
     // Apply Skew to Main Container (exclude fixed elements)
 
-    const main = document.getElementById('nv-main');
+    const main = document.getElementById('santis-main');
 
     if (main) {
 
@@ -322,7 +322,7 @@ function initObserver() {
 
 
 
-    document.querySelectorAll('.nv-reveal-curtain, .nv-kinetic').forEach(el => {
+    document.querySelectorAll('.santis-reveal-curtain, .santis-kinetic').forEach(el => {
 
         observer.observe(el);
 

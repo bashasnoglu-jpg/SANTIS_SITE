@@ -32,10 +32,10 @@
             title: 'Hamam Ritüelleri',
             subtitle: 'Osmanlı geleneğinin lüks yorumu',
             links: [
-                { label: 'Klasik Hamam', href: '/tr/hamam/index.html', icon: '♨️' },
-                { label: 'Sultan Hamamı', href: '/tr/hamam/index.html#sultan', icon: '👑' },
-                { label: 'Köpük Masajı', href: '/tr/hamam/index.html#kopuk', icon: '🫧' },
-                { label: 'Kese Ritüeli', href: '/tr/hamam/index.html#kese', icon: '✋' }
+                { label: 'Klasik Hamam', href: '/hamam.html', icon: '♨️' },
+                { label: 'Sultan Hamamı', href: '/hamam.html#sultan', icon: '👑' },
+                { label: 'Köpük Masajı', href: '/hamam.html#kopuk', icon: '🫧' },
+                { label: 'Kese Ritüeli', href: '/hamam.html#kese', icon: '✋' }
             ],
             accent: '#D4AF37'
         },
@@ -43,10 +43,10 @@
             title: 'Dünya Masajları',
             subtitle: 'Uzak Doğu\'dan Akdeniz\'e uzanan dokunuş',
             links: [
-                { label: 'Tüm Masajlar', href: '/tr/masajlar/index.html', icon: '🌍' },
-                { label: 'Bali Masajı', href: '/tr/masajlar/index.html#bali', icon: '🌺' },
-                { label: 'Hot Stone', href: '/tr/masajlar/index.html#hotstone', icon: '🪨' },
-                { label: 'Aromaterapi', href: '/tr/masajlar/index.html#aroma', icon: '🌿' }
+                { label: 'Tüm Masajlar', href: '/masaj.html', icon: '🌍' },
+                { label: 'Bali Masajı', href: '/masaj.html#bali', icon: '🌺' },
+                { label: 'Hot Stone', href: '/masaj.html#hotstone', icon: '🪨' },
+                { label: 'Aromaterapi', href: '/masaj.html#aroma', icon: '🌿' }
             ],
             accent: '#D4AF37'
         },
@@ -54,10 +54,10 @@
             title: 'Cilt Bakımı',
             subtitle: 'Sothys Paris ile profesyonel bakım',
             links: [
-                { label: 'Tüm Bakımlar', href: '/tr/cilt-bakimi/index.html', icon: '✨' },
-                { label: 'Anti-Age', href: '/tr/cilt-bakimi/index.html#antiage', icon: '💎' },
-                { label: 'Nemlendirme', href: '/tr/cilt-bakimi/index.html#hydra', icon: '💧' },
-                { label: 'Detox Bakımı', href: '/tr/cilt-bakimi/index.html#detox', icon: '🌿' }
+                { label: 'Tüm Bakımlar', href: '/cilt-bakimi.html', icon: '✨' },
+                { label: 'Anti-Age', href: '/cilt-bakimi.html#antiage', icon: '💎' },
+                { label: 'Nemlendirme', href: '/cilt-bakimi.html#hydra', icon: '💧' },
+                { label: 'Detox Bakımı', href: '/cilt-bakimi.html#detox', icon: '🌿' }
             ],
             accent: '#D4AF37'
         },
@@ -65,10 +65,10 @@
             title: 'Hakkımızda',
             subtitle: 'Santis Spa & Wellness deneyimi',
             links: [
-                { label: 'Hikayemiz', href: '/tr/hakkimizda/index.html', icon: '📖' },
-                { label: 'Sessizlik Manifestosu', href: '/tr/code-of-silence.html', icon: '🤫' },
+                { label: 'Hikayemiz', href: '/hakkimizda.html', icon: '📖' },
+                { label: 'Sessizlik Manifestosu', href: '/code-of-silence.html', icon: '🤫' },
                 { label: 'Spa Menüsü (PDF)', href: '/assets/docs/santis-spa-menu.pdf', icon: '📋', external: true },
-                { label: 'İletişim', href: '/tr/hakkimizda/index.html#contact', icon: '📍' }
+                { label: 'İletişim', href: '/hakkimizda.html#contact', icon: '📍' }
             ],
             accent: '#D4AF37'
         }
