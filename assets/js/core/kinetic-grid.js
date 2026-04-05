@@ -197,13 +197,3 @@ export function initKineticGrid() {
     console.log('  Katman 3: Section Stagger (children reveal)');
 }
 
-/* ─── ScrollTrigger Yenileme Yardımcıları ────────────────────────────────── */
-/**
- * Dinamik içerik eklendikten sonra çağrıl (Swiper init sonrası vb.)
- * @param {number} delay - ms cinsinden gecikme (layout'un oturması için)
- */
-export function refreshKinetic(delay = 100) {
-    if (typeof ScrollTrigger !== 'undefined') {
-        setTimeout(() => ScrollTrigger.refresh(), delay);
-    }
-}

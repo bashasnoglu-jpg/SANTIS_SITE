@@ -19,17 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var skipFooter = html.getAttribute('data-no-footer') === 'true';
     var mood = html.getAttribute('data-page-mood');
 
-    // Helper: resolve component path relative to current depth or SITE_ROOT
-    function compPath(p) {
-        var root = (window.SITE_ROOT || '').trim();
-        if (root) {
-            return (root + p).replace(/\/{2,}/g, '/');
-        }
-        var depth = window.location.pathname.split('/').length - 2;
-        var prefix = depth > 0 ? '../'.repeat(depth) : '';
-        return prefix + p;
-    }
-
     // ──────────────────────────────────────────
     // 1. Components (navbar + footer) are loaded globally by santis-nav.js
     // ──────────────────────────────────────────

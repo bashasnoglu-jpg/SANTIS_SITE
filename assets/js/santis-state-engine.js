@@ -55,17 +55,6 @@ window.SantisStateEngine = {
     hydrateCard(card, data) {
         const lang = document.documentElement.lang || 'tr';
 
-        // Multi-lang Object Parser (Sovereign Array Structure Support)
-        const parseStr = (field) => {
-            if (typeof field === 'object' && field !== null) {
-                return field[lang] || field.en || field.tr || '';
-            } else if (typeof field === 'string' && data.i18n && data.i18n[lang]) {
-                // e.g. title inside i18n
-                return data.i18n[lang][field] || '';
-            }
-            return field || '';
-        };
-
         // Get elements
         const titleEl = card.querySelector('.santis-hydrate-title');
         const descEl = card.querySelector('.santis-hydrate-desc');

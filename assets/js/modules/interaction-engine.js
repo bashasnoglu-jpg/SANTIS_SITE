@@ -135,53 +135,6 @@ if (document.readyState === 'loading') {
     window.SantisFrictionEngine.init();
 }
 
-/* ─── 1. BENTO CORE INJECTOR ─────────────────────────────────────────────── */
-(function initBentoCore() {
-    // editorial.css layer
-    const link = document.createElement('link');
-    link.rel  = 'stylesheet';
-    link.href = '/assets/css/editorial.css';
-    document.head.appendChild(link);
-
-    // Grain overlay
-    if (!document.querySelector('.santis-grain-overlay')) {
-        const grain = document.createElement('div');
-        grain.className = 'santis-grain-overlay';
-        document.body.appendChild(grain);
-    }
-
-    // Ultra Motion feature detection (CSS Scroll Timeline)
-    if (CSS.supports('animation-timeline: view()')) {
-        document.documentElement.classList.add('ultra-motion');
-        console.log('🚀 [Interaction] Ultra Motion: GPU animations aktif.');
-    } else {
-        console.log('⚠️ [Interaction] Ultra Motion: CSS Transitions fallback.');
-    }
-
-    // Instant hover prefetch — sadece gerçek mouse'lu cihazlarda
-    if (window.matchMedia('(hover: hover)').matches) {
-        document.body.addEventListener('mouseover', (e) => {
-            const card = e.target.closest('.bento-card');
-            if (card && card.dataset.href && !card.dataset.prefetched) {
-                let href = card.dataset.href;
-                if (!href.startsWith('http') && !href.startsWith('../') && !href.startsWith('/')) {
-                    const dRoot = window.SITE_ROOT || '/';
-                    href = dRoot + href;
-                    if (!href.endsWith('.html') && !href.includes('.')) {
-                        href = href.endsWith('/') ? href + 'index.html' : href + '/index.html';
-                    }
-                }
-                const pl = document.createElement('link');
-                pl.rel  = 'prefetch';
-                pl.href = href;
-                document.head.appendChild(pl);
-                card.dataset.prefetched = 'true';
-                console.debug('⚡ [Interaction] Prefetch:', href);
-            }
-        }, { passive: true });
-    }
-})();
-
 /* ─── 2. SAFE PRELOADER REMOVER ──────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
@@ -329,24 +282,6 @@ document.addEventListener('DOMContentLoaded', () => {
     new QuantumGlareEngine();
     console.log("Sovereign OS: Quantum Glare Engine Aktif Edildi. [Zero-Jank Mode: ON]");
 });
-
-/* ─── 8. DUMMY LOADER — Eksik Modül 404 Susturucu ───────────────────────── */
-(function initDummyLoaders() {
-    const dummyFn = (name) => () => console.debug(`[Santis] '${name}' modülü henüz aktif değil. Dummy fallback devrede.`);
-    const missingModules = [
-        'santis-booking', 'booking-wizard', 'cms-image-loader', 'nuclear-cards',
-        'card-effects', 'lenis-init', 'hreflang-injector', 'hreflang-loader',
-        'canonical-loader', 'schema-loader', 'santis-language-sync',
-        'santis-ai-chatbot', 'santis-telemetry', 'santis-chameleon',
-        'santis-persuader', 'aurelia-engine'
-    ];
-    missingModules.forEach(mod => {
-        const camelCased = mod.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-        if (!window[camelCased]) window[camelCased] = dummyFn(mod);
-        if (!window[mod])        window[mod]        = dummyFn(mod);
-    });
-    console.log('✅ [Interaction] Dummy Loader aktif. Eksik modüller susturuldu.');
-})();
 
 /* ─── 9. KERNEL ENTEGRASYON SİNYALİ ─────────────────────────────────────── */
 // Kernel yükleme tamamlandığında SantisEventBus'a bildir

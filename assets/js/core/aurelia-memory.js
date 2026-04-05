@@ -26,11 +26,6 @@ export function recallLast(n = 5) {
   return memoryQueue.slice(-n);
 }
 
-// Hafızadaki spesifik intentleri filtrele
-export function recallByIntent(intent) {
-  return memoryQueue.filter(item => item.intent === intent);
-}
-
 // ✅ Dynamic UI Injection for memory panel
 if (typeof document !== 'undefined') {
   const injectMemoryPanel = () => {

@@ -281,26 +281,6 @@ if (typeof SITE_LANG === 'undefined') {
 
 }
 
-// URL'deki ?lang=... parametresini temizle
-
-(function normalizeLangParam() {
-
-  try {
-
-    const url = new URL(window.location.href);
-
-    if (url.searchParams.has("lang")) {
-
-      url.searchParams.delete("lang");
-
-      history.replaceState({}, "", url.toString());
-
-    }
-
-  } catch (_) { }
-
-})();
-
 // Helper to safely get Turkish text (Force TR)
 
 function trText(v) {

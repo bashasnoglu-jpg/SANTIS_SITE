@@ -36,6 +36,8 @@
         "ws": "^8.19.0"
     },
     "devDependencies": {
+        "@babel/parser": "^7.29.2",
+        "@babel/traverse": "^7.29.0",
         "autoprefixer": "^10.4.27",
         "cross-env": "^10.1.0",
         "miniflare": "latest",

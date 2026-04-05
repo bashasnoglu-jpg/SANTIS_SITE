@@ -146,15 +146,6 @@ function closeLangModal() {
 
 
 
-function filterLangs() {
-
-    const val = document.getElementById('langSearch').value.toLowerCase();
-
-    renderLangs(val);
-
-}
-
-
 
 function renderLangs(filter = "") {
 

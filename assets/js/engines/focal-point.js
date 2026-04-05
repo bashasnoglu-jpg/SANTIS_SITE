@@ -88,15 +88,3 @@ export function preloadHeroImage(selector = '.cin-visual-img, [data-lcp]') {
     console.log('[FocalPoint] LCP preload eklendi:', hero.src);
 }
 
-/* ── 5. RESPONSIVE BREAKPOINT GÖZLEMCİSİ ────────────────────────────────── */
-/**
- * Ekran boyutu değişince focal-point'leri yeniden hesapla.
- * (CSS zaten responsive ama bazı kartlarda override gerekebilir)
- */
-export function refreshOnResize() {
-    let rafId;
-    window.addEventListener('resize', () => {
-        cancelAnimationFrame(rafId);
-        rafId = requestAnimationFrame(() => initFocalPoints());
-    }, { passive: true });
-}

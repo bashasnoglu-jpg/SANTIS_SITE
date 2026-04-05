@@ -1,6 +1,0 @@
-@echo off
-echo Installing Dependencies...
-pip install requests beautifulsoup4 "uvicorn[standard]"
-echo Starting Santis Neural Bridge Server...
-python server.py
-pause

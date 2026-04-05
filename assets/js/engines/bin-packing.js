@@ -147,35 +147,3 @@ export function applyBinPacking(container, options = {}) {
     return results;
 }
 
-// ── Responsive: Kırılma Noktalarında Yeniden Pack ─────────────────────────────
-/**
- * Ekran genişliğine göre otomatik col sayısı belirle ve yeniden pack et
- * @param {HTMLElement} container
- */
-export function initResponsivePacking(container) {
-    const getColCount = () => {
-        const w = window.innerWidth;
-        if (w < 640)  return 1;   // mobil: tek kolon
-        if (w < 1024) return 2;   // tablet
-        if (w < 1440) return 3;   // laptop
-        return 4;                  // geniş ekran
-    };
-
-    const pack = () => {
-        const cols = getColCount();
-        applyBinPacking(container, { cols });
-    };
-
-    // İlk yükleme
-    pack();
-
-    // Resize ile yeniden pack (debounced)
-    let rafId;
-    const observer = new ResizeObserver(() => {
-        cancelAnimationFrame(rafId);
-        rafId = requestAnimationFrame(pack);
-    });
-    observer.observe(document.documentElement);
-
-    return { pack, observer };
-}
