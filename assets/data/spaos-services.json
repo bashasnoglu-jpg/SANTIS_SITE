@@ -1,0 +1,134 @@
+[
+  {
+    "id": "hamam_classic",
+    "name": "Hamam Peeling & Foam",
+    "category": "hamam",
+    "duration": 30,
+    "faceValue": 45,
+    "currency": "EUR",
+    "tags": ["detox", "traditional", "water"],
+    "capacityType": "hamam_room",
+    "therapistSkill": "hamam_master"
+  },
+  {
+    "id": "lymph_drainage",
+    "name": "Lymphatic Drainage Massage",
+    "category": "massage",
+    "duration": 50,
+    "faceValue": 90,
+    "currency": "EUR",
+    "tags": ["detox", "medical", "recovery"],
+    "capacityType": "dry_room",
+    "therapistSkill": "massage_therapist"
+  },
+  {
+    "id": "facial_detox",
+    "name": "Detox Facial Care",
+    "category": "skincare",
+    "duration": 30,
+    "faceValue": 50,
+    "currency": "EUR",
+    "tags": ["beauty", "face", "detox"],
+    "capacityType": "skincare_room",
+    "therapistSkill": "aesthetician"
+  },
+  {
+    "id": "asian_massage",
+    "name": "Asian Healing Massage",
+    "category": "massage",
+    "duration": 50,
+    "faceValue": 90,
+    "currency": "EUR",
+    "tags": ["relax", "asian", "recovery"],
+    "capacityType": "dry_room",
+    "therapistSkill": "massage_therapist"
+  },
+  {
+    "id": "relax_massage",
+    "name": "Deep Relaxation Massage",
+    "category": "massage",
+    "duration": 50,
+    "faceValue": 80,
+    "currency": "EUR",
+    "tags": ["relax", "anti-stress"],
+    "capacityType": "dry_room",
+    "therapistSkill": "massage_therapist"
+  },
+  {
+    "id": "scalp_massage",
+    "name": "Indian Head Massage",
+    "category": "massage",
+    "duration": 30,
+    "faceValue": 55,
+    "currency": "EUR",
+    "tags": ["relax", "head"],
+    "capacityType": "dry_room",
+    "therapistSkill": "massage_therapist"
+  },
+  {
+    "id": "skin_renewal",
+    "name": "Renewal Collagen Mask",
+    "category": "skincare",
+    "duration": 30,
+    "faceValue": 50,
+    "currency": "EUR",
+    "tags": ["beauty", "face", "anti-aging"],
+    "capacityType": "skincare_room",
+    "therapistSkill": "aesthetician"
+  },
+  {
+    "id": "deep_tissue",
+    "name": "Deep Tissue Therapy",
+    "category": "massage",
+    "duration": 50,
+    "faceValue": 90,
+    "currency": "EUR",
+    "tags": ["recovery", "muscle", "medical"],
+    "capacityType": "dry_room",
+    "therapistSkill": "massage_therapist"
+  },
+  {
+    "id": "express_face",
+    "name": "Express Face Refresh",
+    "category": "skincare",
+    "duration": 15,
+    "faceValue": 20,
+    "currency": "EUR",
+    "tags": ["beauty", "face", "quick"],
+    "capacityType": "any_room",
+    "therapistSkill": "aesthetician"
+  },
+  {
+    "id": "manual_therapy",
+    "name": "Mix Manual Therapy",
+    "category": "medical",
+    "duration": 90,
+    "faceValue": 180,
+    "currency": "EUR",
+    "tags": ["recovery", "medical", "intensive"],
+    "capacityType": "medical_room",
+    "therapistSkill": "physiotherapist"
+  },
+  {
+    "id": "mandara_4hand",
+    "name": "Mandara 4-Hand Massage",
+    "category": "massage",
+    "duration": 50,
+    "faceValue": 150,
+    "currency": "EUR",
+    "tags": ["luxury", "relax", "signature"],
+    "capacityType": "dry_room",
+    "therapistSkill": "massage_therapist"
+  },
+  {
+    "id": "deluxe_care",
+    "name": "Deluxe Face Care",
+    "category": "skincare",
+    "duration": 90,
+    "faceValue": 170,
+    "currency": "EUR",
+    "tags": ["luxury", "beauty", "anti-aging"],
+    "capacityType": "skincare_room",
+    "therapistSkill": "aesthetician"
+  }
+]

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign OS | Karargâh Terminali</title>
+    <!-- MapLibre for Kamikaze Visualization -->
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+    <style>
+        /* Siber-Lüks Tasarım Temelleri */
+        body {
+            background-color: #050505;
+            color: #d4af37;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative; /* Map container pozisyonlaması için */
+        }
+
+        /* Map Container (Varsayılan olarak gizli) */
+        #map-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 2s ease-in-out;
+            filter: sepia(100%) hue-rotate(320deg) saturate(300%) contrast(150%) brightness(50%);
+        }
+
+        #terminal-container {
+            width: 80%;
+            max-width: 900px;
+            height: 70vh;
+            background: rgba(5, 5, 5, 0.85);
+            border: 1px solid #d4af37;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+            padding: 20px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+        }
+
+        #output {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        #output::-webkit-scrollbar { width: 5px; }
+        #output::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 5px; }
+
+        .input-line {
+            display: flex;
+            align-items: center;
+            border-top: 1px dashed rgba(212, 175, 55, 0.3);
+            padding-top: 10px;
+        }
+
+        .prompt {
+            color: #ff3366;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            background: transparent;
+            border: none;
+            color: #d4af37;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            width: 100%;
+            outline: none;
+        }
+
+        .sys-msg { color: #00ffcc; text-shadow: 0 0 5px rgba(0, 255, 204, 0.5); }
+        .error-msg { color: #ff0000; text-shadow: 0 0 10px rgba(255, 0, 0, 0.8); }
+        .gold-msg { color: #d4af37; text-shadow: 0 0 10px rgba(212, 175, 55, 0.8); }
+    </style>
+</head>
+<body>
+    
+    <!-- Map Container for Kamikaze Illusion -->
+    <div id="map-container"></div>
+
+    <div id="terminal-container">
+        <div id="output">
+            <div class="sys-msg">[SİSTEM LOGU] Karargâh Bulut Bağlantısı Kuruldu.</div>
+            <div class="sys-msg">[SİSTEM LOGU] Nöral Ağ (Cross-Tab Pub/Sub) Tespiti Başarılı.</div>
+            <br>
+            <div>Sovereign OS Terminal v1.1. Ağa Hoş Geldiniz, Yüksek Mimar.</div>
+            <div>Komut bekleniyor... ('yardim' yazabilirsiniz)</div>
+            <br>
+        </div>
+        <div class="input-line">
+            <span class="prompt">root@sovereign:~#</span>
+            <input type="text" id="cmd-input" autocomplete="off" autofocus>
+        </div>
+    </div>
+
+    <script>
+        const inputField = document.getElementById('cmd-input');
+        const outputDiv = document.getElementById('output');
+        const mapContainer = document.getElementById('map-container');
+        const terminalContainer = document.getElementById('terminal-container');
+        let map = null;
+
+        // Initialize MapLibre in background
+        function initMap() {
+            map = new maplibregl.Map({
+                container: 'map-container',
+                style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
+                center: [0, 0], // Dünya geneli
+                zoom: 1,
+                pitch: 0,
+                interactive: false // Sadece görüntüsel şov
+            });
+        }
+        initMap();
+
+        inputField.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const command = inputField.value.trim().toLowerCase();
+                printLine(`<span class="prompt">root@sovereign:~#</span> ${command}`);
+                processCommand(command);
+                inputField.value = '';
+                outputDiv.scrollTop = outputDiv.scrollHeight;
+            }
+        });
+
+        function processCommand(cmd) {
+            switch(cmd) {
+                case 'yardim':
+                    printLine("Mevcut Komutlar:");
+                    printLine("  <span class='sys-msg'>durum</span>    - Ağ durumunu sorgular");
+                    printLine("  <span class='gold-msg'>midas</span>    - [BETA] Nöral Ağa Surge (Fiyat Artışı) Sinyali Gönderir");
+                    printLine("  <span class='error-msg'>kamikaze</span> - [ALFA] Karadağ Tesisine Otonom Dalış Simülasyonunu Başlatır");
+                    printLine("  <span class='sys-msg'>temizle</span>  - Terminali temizler");
+                    break;
+                case 'durum':
+                    printLine("<span class='sys-msg'>Tüm sistemler çevrimiçi. Hedef Yörünge: Stabil. Nöral Ağ Pub/Sub: Aktif.</span>");
+                    break;
+                case 'temizle':
+                    outputDiv.innerHTML = '';
+                    break;
+                case 'midas':
+                    printLine("<span class='gold-msg'>[MIDAS PROTOKOLÜ]</span> Tetikleniyor...");
+                    printLine("Siber-Lüks kâr marjı manipülasyonu Nöral Ağa (localStorage) basılıyor...");
+                    localStorage.setItem('santis_surge_pricing', 'active');
+                    // 30 Seconds Auto-Revert UI Logic
+                    setTimeout(() => {
+                        localStorage.removeItem('santis_surge_pricing');
+                        printLine("<span class='sys-msg'>[MIDAS PROTOKOLÜ]</span> Kuantum Sönümlenmesi (Quantum Dampening) devrede. Fiyatlar normalize edildi.");
+                        outputDiv.scrollTop = outputDiv.scrollHeight;
+                    }, 30000);
+                    break;
+                case 'kamikaze':
+                    printLine("<span class='error-msg'>[ALFA STRIKE] DİKKAT: Kamikaze Dalışı başlatılıyor...</span>");
+                    printLine("Yörünge uydusundan Karadağ koordinatlarına kilitlenildi: [42.2798, 18.8431]");
+                    executeKamikazeDrisi();
+                    break;
+                case '':
+                    break;
+                default:
+                    printLine(`Geçersiz komut: ${cmd}. Yardım için 'yardim' yazın.`);
+            }
+        }
+
+        function executeKamikazeDrisi() {
+            // Arka plan haritasını görünür yap ve terminali hafif transparanlaştır
+            mapContainer.style.opacity = '1';
+            terminalContainer.style.background = 'rgba(5, 5, 5, 0.4)';
+            terminalContainer.style.borderColor = 'rgba(255, 51, 102, 0.5)'; // Kamikaze kırmızısı
+            terminalContainer.style.boxShadow = '0 0 50px rgba(255, 51, 102, 0.3)';
+
+            if(map) {
+                // Dünya genelinden Karadağ'a vahşi ve sinematik bir dalış (FlyTo)
+                map.flyTo({
+                    center: [18.8431, 42.2798], // Budva, Montenegro (Yaklaşık)
+                    zoom: 17,
+                    speed: 0.8, // Dalış hızı
+                    curve: 1.5, // Uçuş kavis şiddeti
+                    pitch: 75,  // 3D eğim (vuruş anı)
+                    bearing: 120, // Kamera açısı dönmesi
+                    essential: true
+                });
+
+                // Dalışın vurma (impact) anında log bastır (yaklaşık 5 saniye sonra)
+                setTimeout(() => {
+                    printLine("<span class='error-msg'>[HEDEF KİLİTLENDİ] Karadağ Tesisine Otonom Ciro Mühürlendi!</span>");
+                    outputDiv.scrollTop = outputDiv.scrollHeight;
+                    
+                    // Şoku atlatıp 3 saniye sonra ekranı karart
+                    setTimeout(() => {
+                        mapContainer.style.opacity = '0';
+                        terminalContainer.style.background = 'rgba(5, 5, 5, 0.85)';
+                        terminalContainer.style.borderColor = '#d4af37';
+                        terminalContainer.style.boxShadow = '0 0 30px rgba(212, 175, 55, 0.15)';
+                        // Çaktırmadan kamerayı başa al
+                        setTimeout(() => map.jumpTo({center: [0, 0], zoom: 1, pitch: 0, bearing: 0}), 2000);
+                    }, 4000);
+                    
+                }, 5500);
+            }
+        }
+
+        function printLine(text) {
+            const newLine = document.createElement('div');
+            newLine.style.marginBottom = '4px';
+            newLine.innerHTML = text;
+            outputDiv.appendChild(newLine);
+        }
+    </script>
+    <script type="module" src="/admin/js/core/admin-command-launcher.js"></script>
+</body>
+</html>

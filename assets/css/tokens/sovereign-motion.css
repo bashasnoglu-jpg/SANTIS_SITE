@@ -1,0 +1,18 @@
+:root {
+  --sovereign-ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --sovereign-ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+  --sovereign-hover-duration: 0.6s;
+  --sovereign-fade-duration: 0.45s;
+  --sovereign-drag-friction: 0.85;
+  --sovereign-hover-lift: -8px;
+  --sovereign-image-scale: 1.05;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --sovereign-hover-duration: 0.01ms;
+    --sovereign-fade-duration: 0.01ms;
+    --sovereign-hover-lift: 0px;
+    --sovereign-image-scale: 1;
+  }
+}

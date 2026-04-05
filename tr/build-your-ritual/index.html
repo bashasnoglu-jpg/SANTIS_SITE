@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Club | Build Your Ritual</title>
+    <!-- Quiet Luxury Aesthetic -->
+    <style>
+        :root {
+            --santis-bg: #1a1918;
+            --santis-surface: #22201e;
+            --santis-text: #ddd7d2;
+            --santis-muted: #706d6a;
+            --santis-accent: #a38c73;
+        }
+        body {
+            background-color: var(--santis-bg); color: var(--santis-text);
+            font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        header { width: 100%; padding: 50px 20px; text-align: center; border-bottom: 1px solid #2a2826; }
+        h1 { margin: 0; font-weight: 300; letter-spacing: 2px; color: #fff;}
+        p.subtitle { color: var(--santis-muted); letter-spacing: 1px; font-size: 0.9rem; text-transform: uppercase; margin-top:10px;}
+        
+        main { width: 100%; max-width: 900px; padding: 50px 20px; }
+        
+        .step {
+            background-color: var(--santis-surface);
+            padding: 40px; margin-bottom: 30px; border-left: 2px solid var(--santis-accent);
+        }
+        
+        .service-list { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 30px; }
+        .service-item {
+            border: 1px solid #3a3836; padding: 15px 20px; cursor: pointer; user-select: none;
+            transition: all 0.3s ease; color: #aaa; font-size: 0.95rem; letter-spacing:0.5px;
+        }
+        .service-item:hover { border-color: #555; color: #fff;}
+        .service-item.selected {
+            border-color: var(--santis-accent); color: var(--santis-accent);
+            background-color: rgba(163, 140, 115, 0.05);
+        }
+
+        .cart-summary { margin-top: 50px; padding: 40px; border: 1px solid #3a3836; text-align: center; background: #1f1d1c;}
+        .btn-buy {
+            background-color: var(--santis-accent); color: var(--santis-bg);
+            border: none; padding: 15px 40px; cursor: pointer; margin-top: 30px;
+            text-transform: uppercase; letter-spacing: 2px; font-weight: 600; font-size: 0.85rem;
+            transition: 0.3s ease;
+        }
+        .btn-buy:hover { background-color: #fff; }
+        
+        #checkout-notice {
+            position: fixed; bottom: 30px; right: 30px; background: var(--santis-accent);
+            color: #1a1a1a; padding: 20px; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>TASARIM RİTÜELİ (BYOR)</h1>
+        <p class="subtitle">Zamanınızı ve deneyiminizi kendi formülünüzle şekillendirin.</p>
+    </header>
+
+    <main>
+        <div class="step" id="step-core">
+            <h3 style="margin-top:0; color:#fff; font-weight:400; letter-spacing:1px;">Seçim Katmanı</h3>
+            <p style="color:#706d6a; font-size: 0.95rem;">Bedensel ve zihinsel yolculuğunuzda size eşlik edecek pratikleri seçin.</p>
+            <div class="service-list" id="services-container"></div>
+        </div>
+
+        <div class="cart-summary">
+            <h3 style="margin-top:0; letter-spacing:2px; font-weight:300; color:#fff;">SİMÜLE RİTÜEL</h3>
+            <div id="selected-list" style="min-height: 50px; color:var(--santis-accent); margin: 30px 0; font-size: 1.1rem; line-height:1.8;">Küratörünüz bekliyor...</div>
+            <h2 style="font-weight:300; letter-spacing:1px; color:#fff;">Ayrıcalık: <span id="total-price">0</span> EUR</h2>
+            <p style="font-size:0.8rem; color:#706d6a; margin-top:-10px;">(Huni simülasyonu özel %10 indirim uygular)</p>
+            <button class="btn-buy" onclick="checkoutCustomRitual()">Ritüeli Tamamla</button>
+        </div>
+    </main>
+
+    <div id="checkout-notice"></div>
+
+    <script src="../../assets/js/core/santis-spaos.js"></script>
+    <script src="../../assets/js/core/santis-revenue-engine.js"></script>
+    <script src="../../assets/js/core/santis-commission-engine.js"></script>
+    <script src="../../assets/js/core/santis-crm-engine.js"></script>
+    <script src="../../assets/js/core/santis-telemetry-client.js"></script>
+
+    <script>
+        let selectedServices = [];
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const db = window.SantisSpaOS.getDatabase();
+                const container = document.getElementById('services-container');
+                db.services.forEach(svc => {
+                    const el = document.createElement('div');
+                    el.className = 'service-item';
+                    el.innerText = `${svc.name} — ${svc.duration}'\n${svc.faceValue} ${svc.currency}`;
+                    el.onclick = () => toggleService(svc, el);
+                    container.appendChild(el);
+                    
+                    if(window.SantisTelemetry) window.SantisTelemetry.watchElement(el, svc.id, 'service_item');
+                });
+                
+                // Track if they read the summary for a long time
+                if(window.SantisTelemetry) {
+                    window.SantisTelemetry.watchElement(document.querySelector('.cart-summary'), 'CartSummary_Pondering', 'summary_box');
+                }
+            }, 800);
+        });
+
+        function toggleService(svc, element) {
+            const index = selectedServices.findIndex(s => s.id === svc.id);
+            if (index > -1) {
+                selectedServices.splice(index, 1);
+                element.classList.remove('selected');
+            } else {
+                selectedServices.push(svc);
+                element.classList.add('selected');
+            }
+            updateCart();
+        }
+
+        function updateCart() {
+            const list = document.getElementById('selected-list');
+            const totalEl = document.getElementById('total-price');
+            
+            if (selectedServices.length === 0) {
+                list.innerText = 'Küratörünüz bekliyor...';
+                totalEl.innerText = '0';
+                return;
+            }
+
+            list.innerHTML = selectedServices.map(s => s.name).join(' <br> <span style="font-size:0.8rem; color:#666;">+</span> <br> ');
+            const total = selectedServices.reduce((sum, s) => sum + s.faceValue, 0);
+            const discounted = total * 0.90;
+            totalEl.innerText = discounted.toFixed(0);
+        }
+
+        function checkoutCustomRitual() {
+            if (selectedServices.length === 0) return alert('Lütfen en az bir deneyim seçin.');
+            const total = selectedServices.reduce((sum, s) => sum + s.faceValue, 0);
+            const discountedPrice = parseInt(total * 0.90, 10);
+
+            const customPackage = {
+                id: 'custom_ritual_' + Date.now().toString().slice(-6),
+                name: 'Kişiselleştirilmiş İnziva (BYOR)',
+                type: 'custom',
+                goal: 'holistic',
+                price: discountedPrice,
+                currency: 'EUR',
+                components: selectedServices.map(s => ({ serviceId: s.id, faceValue: s.faceValue, quantity: 1 })),
+                crm: { triggers: ['custom_ritual_feedback', 'custom_upsell_logic'] },
+                commission: { sales: 0.05, delivery: 0.12, retention: 0.03 }
+            };
+
+            const customerDetails = { id: 'CUST-BYOR', name: 'Mimar Misafir' };
+            window.SantisSpaOS.triggerCheckout(customPackage, customerDetails);
+
+            const notice = document.getElementById('checkout-notice');
+            notice.innerHTML = `<strong style="letter-spacing:1px; display:block; margin-bottom:5px;">RİTÜEL İNŞASI TAMAMLANDI</strong> 
+            Özel formülünüz kaydedildi.`;
+            notice.style.display = 'block';
+            setTimeout(() => { notice.style.display = 'none'; }, 4000);
+        }
+    </script>
+</body>
+</html>

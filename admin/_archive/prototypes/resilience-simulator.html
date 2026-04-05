@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Resilience Simulator</title>
+    <!-- React & ReactDOM (Development version) -->
+    <script crossorigin src="/assets/vendor/react.development.js" defer></script>
+    <script crossorigin src="/assets/vendor/react-dom.development.js" defer></script>
+    <!-- Babel for JSX -->
+    <script src="/assets/vendor/babel.min.js" defer></script>
+    <!-- Tailwind CSS -->
+    <script src="/assets/vendor/cdn.tailwindcss.com.js" defer></script>
+    <style>
+        body {
+            background-color: #0a0f14;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+        }
+        .neon-green { color: #00ffcc; }
+        .neon-red { color: #ff3333; }
+        .neon-cyan { color: #00ffff; }
+        .bg-glass {
+            background: rgba(20, 30, 40, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .node-block {
+            transition: all 0.3s ease-in-out;
+        }
+        .destroyed {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        .flash {
+            animation: neon-flash 0.5s ease-out;
+        }
+        @keyframes neon-flash {
+            0% { box-shadow: 0 0 20px #00ffcc; border-color: #00ffcc; }
+            100% { box-shadow: none; border-color: rgba(255, 255, 255, 0.1); }
+        }
+        .matrix-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(0, 255, 204, 0.3);
+            border-radius: 50%;
+            border-top-color: #00ffcc;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+<script src="/assets/js/core/santis-ws-orchestrator.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const NodeBlock = ({ title, code, onLog }) => {
+            const [status, setStatus] = useState('active'); // 'active', 'destroyed', 'flash'
+
+            const handleDestroy = () => {
+                setStatus('destroyed');
+                onLog({ type: 'error', text: `🚨 Warning: DOM Mutation detected on [${title}].` });
+                
+                setTimeout(() => {
+                    setStatus('flash');
+                    onLog({ type: 'success', text: `✨ [Self-Healing Swarm] Node Restored to genesis state.` });
+                    setTimeout(() => setStatus('active'), 500); // Remove flash class after anim
+                }, 500);
+            };
+
+            return (
+                <div className={`p-4 bg-glass rounded-lg mb-4 flex items-center justify-between node-block ${status === 'destroyed' ? 'destroyed' : ''} ${status === 'flash' ? 'flash' : ''}`}>
+                    <div>
+                        <h3 className="text-gray-400 text-sm mb-1">{title}</h3>
+                        <code className="text-xs text-[#00ffcc]">{code}</code>
+                    </div>
+                    <button 
+                        onClick={handleDestroy}
+                        disabled={status === 'destroyed'}
+                        className="bg-[#ff3333] hover:bg-red-700 text-white px-4 py-2 rounded text-xs tracking-wider transition-colors disabled:opacity-50"
+                    >
+                        DESTROY NODE
+                    </button>
+                </div>
+            );
+        };
+
+        const QuantumShieldPanel = ({ onLog }) => {
+            const [loading, setLoading] = useState(false);
+            const [lastHash, setLastHash] = useState('');
+
+            const triggerAPI = () => {
+                setLoading(true);
+                
+                // Simulate network latency & crypto loading
+                setTimeout(() => {
+                    const entropy = new Uint8Array(16);
+                    window.crypto.getRandomValues(entropy);
+                    const hex = Array.from(entropy).map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+                    const hash = `SNT-KYB-LAT-${hex}`;
+                    
+                    setLastHash(hash);
+                    setLoading(false);
+                    onLog({ type: 'info', text: `🛡️ [Quantum Shield] Intercepted outbound fetch(). Injected header: X-Sovereign-Kyber-Hash: ${hash}` });
+                }, 800);
+            };
+
+            return (
+                <div className="h-full bg-glass rounded-xl p-6 flex flex-col items-center justify-center text-center">
+                    <div className="text-4xl mb-4">🛡️</div>
+                    <h3 className="text-xl mb-2 tracking-widest text-[#00ffcc]">QUANTUM SHIELD</h3>
+                    <p className="text-sm text-gray-400 mb-8 max-w-xs">
+                        Intercepts standard fetch() requests and injects Post-Quantum Lattice signatures.
+                    </p>
+                    
+                    {loading ? (
+                        <div className="mb-6 h-10 flex items-center justify-center">
+                            <div className="matrix-spinner mr-3"></div>
+                            <span className="text-[#00ffcc] text-sm animate-pulse">Encrypting Payload...</span>
+                        </div>
+                    ) : (
+                        <div className="mb-6 h-10 flex items-center justify-center">
+                            {lastHash ? <span className="text-xs text-gray-500">Last Signature: <br/> <strong className="text-white">{lastHash}</strong></span> : null}
+                        </div>
+                    )}
+
+                    <button 
+                        onClick={triggerAPI}
+                        disabled={loading}
+                        className="border border-[#00ffcc] text-[#00ffcc] hover:bg-[#00ffcc] hover:text-black px-6 py-3 rounded tracking-widest text-sm transition-all"
+                    >
+                        TRIGGER SECURED API REQUEST
+                    </button>
+                </div>
+            );
+        };
+
+        const Terminal = ({ logs }) => {
+            const endRef = useRef(null);
+
+            useEffect(() => {
+                endRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }, [logs]);
+
+            return (
+                <div className="bg-black border-t border-[#333] h-48 overflow-y-auto p-4 font-mono text-xs">
+                    {logs.map((log, i) => {
+                        let colorClass = 'text-gray-300';
+                        if (log.type === 'error') colorClass = 'text-[#ff3333]';
+                        if (log.type === 'success') colorClass = 'text-[#00ffcc]';
+                        if (log.type === 'info') colorClass = 'text-[#00ffff]';
+
+                        return (
+                            <div key={i} className={`mb-1 ${colorClass}`}>
+                                &gt; {log.text}
+                            </div>
+                        );
+                    })}
+                    <div ref={endRef} />
+                </div>
+            );
+        };
+
+        const Dashboard = () => {
+            const [logs, setLogs] = useState([{ type: 'success', text: 'System Initialized. Sovereign Resilience active.' }]);
+
+            const addLog = (log) => {
+                setLogs(prev => {
+                    const newLogs = [...prev, log];
+                    if (newLogs.length > 10) return newLogs.slice(newLogs.length - 10);
+                    return newLogs;
+                });
+            };
+
+            return (
+                <div className="h-screen flex flex-col">
+                    {/* Header */}
+                    <div className="bg-black border-b border-[#333] p-4 flex justify-between items-center shadow-lg">
+                        <div className="font-bold tracking-widest text-sm text-gray-200">
+                            🛡️ SOVEREIGN RESILIENCE MATRIX
+                        </div>
+                        <div className="flex items-center">
+                            <span className="text-xs mr-2 text-gray-400">Status:</span>
+                            <span className="text-sm text-[#00ffcc] font-bold tracking-widest drop-shadow-[0_0_8px_rgba(0,255,204,0.8)]">OMNI-LOCKED</span>
+                        </div>
+                    </div>
+
+                    {/* Main Content */}
+                    <div className="flex-1 p-6 grid grid-cols-2 gap-8 overflow-hidden">
+                        {/* Left Column */}
+                        <div className="flex flex-col">
+                            <h2 className="text-sm tracking-widest mb-6 opacity-50 border-b border-gray-800 pb-2">DOM MATRIX & SWARM</h2>
+                            
+                            <NodeBlock title="Main Navigation" code="<nav id='santis-main-nav'>" onLog={addLog} />
+                            <NodeBlock title="Hero Visuals" code="<div class='santis-hero'>" onLog={addLog} />
+                            <NodeBlock title="Bento Grid" code="<section id='santis-bento-universe'>" onLog={addLog} />
+                            
+                            <div className="mt-8 text-xs text-gray-500 leading-relaxed border border-gray-800 p-4 rounded bg-black/50">
+                                <strong>Self-Healing Swarm Directive:</strong> <br/>
+                                "A genesis map of these nodes is stored in isolated memory. Any external mutation or deletion triggers an immediate restoration from the genesis cache within 0 ms."
+                            </div>
+                        </div>
+
+                        {/* Right Column */}
+                        <div className="flex flex-col">
+                            <h2 className="text-sm tracking-widest mb-6 opacity-50 border-b border-gray-800 pb-2">QUANTUM TELEMETRY</h2>
+                            <QuantumShieldPanel onLog={addLog} />
+                        </div>
+                    </div>
+
+                    {/* Bottom Terminal */}
+                    <Terminal logs={logs} />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<Dashboard />);
+    </script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
+</body>
+</html>

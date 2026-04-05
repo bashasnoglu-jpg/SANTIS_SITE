@@ -1,0 +1,80 @@
+.sovereign-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(80vw, var(--sovereign-card-w));
+  aspect-ratio: var(--sovereign-card-ratio);
+  border-radius: var(--sovereign-radius);
+  overflow: clip;
+  border: var(--sovereign-card-border);
+  background: rgba(255,255,255,0.02);
+  will-change: transform;
+  transform: translateY(0);
+  transition:
+    transform var(--sovereign-hover-duration) var(--sovereign-ease-spring),
+    opacity var(--sovereign-fade-duration) var(--sovereign-ease-smooth);
+}
+
+.sovereign-card__link {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.sovereign-card__media,
+.sovereign-card__image {
+  width: 100%;
+  height: 100%;
+}
+
+.sovereign-card__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.sovereign-card__image {
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1);
+  transition: transform var(--sovereign-hover-duration) var(--sovereign-ease-spring);
+  will-change: transform;
+}
+
+.sovereign-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--sovereign-overlay-gradient);
+  pointer-events: none;
+}
+
+.sovereign-card__content {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 20px 18px 18px;
+  display: grid;
+  gap: 8px;
+  align-content: end;
+}
+
+.sovereign-card__title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--sovereign-card-title-lines);
+  overflow: hidden;
+  line-height: 1.18;
+}
+
+.santis-premium-rail:not(.is-dragging) .sovereign-card:hover,
+.santis-premium-rail:not(.is-dragging) .sovereign-card:focus-within {
+  transform: translateY(var(--sovereign-hover-lift));
+}
+
+.santis-premium-rail:not(.is-dragging) .sovereign-card:hover .sovereign-card__image,
+.santis-premium-rail:not(.is-dragging) .sovereign-card:focus-within .sovereign-card__image {
+  transform: scale(var(--sovereign-image-scale));
+}

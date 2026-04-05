@@ -1,0 +1,28 @@
+:root {
+  /* ============================================================================
+   * 1. SOVEREIGN GEOMETRY (Mutlak Boyut ve Konumlandırma)
+   * ============================================================================ */
+
+  /* Kart Oranları (Quiet Luxury) */
+  --sovereign-card-ratio: 3 / 4;
+  --sovereign-card-radius: 12px;
+  
+  /* Rail Snap ve Spacer */
+  --sovereign-rail-gap: 20px;
+  --sovereign-rail-padding-x: max(20px, env(safe-area-inset-left));
+  
+  /* Z-Index Hiyerarşisi */
+  --sovereign-z-base: 1;
+  --sovereign-z-overlay: 10;
+  --sovereign-z-controls: 20;
+  
+  /* İçerik Yükseklikleri */
+  --sovereign-header-v: 80px;
+
+  /* Form & Typography Spacing */
+  --sovereign-space-xs: 4px;
+  --sovereign-space-sm: 8px;
+  --sovereign-space-base: 16px;
+  --sovereign-space-lg: 24px;
+  --sovereign-space-xl: 40px;
+}

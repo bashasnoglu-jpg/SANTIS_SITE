@@ -1,0 +1,44 @@
+/* ==========================================================================
+   🧠 SANTIS SENTIENCE LAYER (V7) - Dynamic Luxury Scaling
+   ========================================================================== */
+
+/* LITE MODE: GPU ve Shader eklentileri kapatılır, ancak animasyonlar kalır */
+html.santis-mode-lite * {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+}
+
+html.santis-mode-lite .santis-magnetic, 
+html.santis-mode-lite .quantum-glare {
+    display: none !important;
+}
+
+html.santis-mode-lite video.santis-player {
+    /* Videoların oynatılması durdurulmayabilir, ama poster gösterip yükten alınabilir */
+    filter: brightness(0.9) contrast(1.1) !important;
+}
+
+/* STATIC MODE: Maksimum Kısıtlama, Tamamen Stabil Render */
+html.santis-mode-static * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+    animation: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+html.santis-mode-static .santis-magnetic, 
+html.santis-mode-static .quantum-glare,
+html.santis-mode-static .santis-carousel-stage {
+    display: none !important;
+}
+
+/* 
+   NOT: Bu modlarda okunabilirlik ve asil (Statik) duruş bozulmaz. 
+   Lüks, sadece sessizleşir. 
+*/

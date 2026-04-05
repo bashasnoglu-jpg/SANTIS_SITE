@@ -1,0 +1,41 @@
+.railWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.railContainer {
+  display: flex;
+  gap: var(--sovereign-rail-gap);
+  padding: var(--sovereign-space-sm) var(--sovereign-rail-padding-x) var(--sovereign-space-xl) var(--sovereign-rail-padding-x);
+  
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  
+  /* Scrollbar Gizleme */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.railContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.railContainer > * {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+}
+
+/* 
+ * Sürüklenme sırasında pointer-events: none yaparak 
+ * alt komponentlerin (Card) hover state'lerini öldürüyoruz! 
+ */
+.isDragging {
+  scroll-snap-type: none; /* Drag anında snap zorunluluğunu kaldırır */
+  scroll-behavior: auto;
+  cursor: grabbing;
+}
+
+.isDragging > * {
+  pointer-events: none;
+}

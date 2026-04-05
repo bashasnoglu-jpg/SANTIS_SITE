@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+/* 🚨 PRECOG HAYATTA KALMA KALKANI (SURVIVAL MODE) */
+html.santis-survival-mode * {
+    /* CPU/GPU'yu boğan tüm cam efektlerini (backdrop-filter) ve animasyonları anında kes! */
+    transition: none !important;
+    animation: none !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+}

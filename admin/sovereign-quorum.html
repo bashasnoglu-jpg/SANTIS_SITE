@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L9 Sovereign v3 | Quorum Proving Grounds</title>
+    <style>
+        :root {
+            --bg: #09090b; --surface: #18181b; --border: #27272a;
+            --text: #a1a1aa; --cyan: #06b6d4; --red: #ef4444; --green: #10b981; --warn: #f59e0b; --purple: #8b5cf6;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', monospace; }
+        body { background: var(--bg); color: var(--text); display: grid; grid-template-columns: 1fr 420px; height: 100vh; overflow: hidden; }
+        
+        #arena { padding: 40px; display: flex; align-items: center; justify-content: center; position: relative; }
+        
+        .morph-card {
+            background: var(--surface); border: 1px solid var(--border);
+            width: 320px; height: 180px; cursor: pointer; border-radius: 12px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            view-transition-name: sovereign-morph;
+            transition: all 0.2s; color: #fff; text-align: center;
+        }
+        .morph-card:hover { border-color: var(--cyan); box-shadow: 0 0 20px rgba(6, 182, 212, 0.15); }
+        .morph-card.is-fullscreen {
+            position: absolute; inset: 20px; width: auto; height: auto;
+            background: #1e1e24; z-index: 100; border-color: var(--purple);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        /* 🚨 THE NATIVE HARDWARE ACCELERATION */
+        ::view-transition-group(sovereign-morph) { animation-duration: 0.6s; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+
+        #hud {
+            background: rgba(9, 9, 11, 0.95); border-left: 1px solid var(--border); padding: 20px;
+            display: flex; flex-direction: column; gap: 15px; box-shadow: -10px 0 30px rgba(0,0,0,0.5); z-index: 10;
+        }
+        .metric-box { background: var(--surface); border: 1px solid var(--border); padding: 15px; border-radius: 6px; transition: border-color 0.2s; }
+        .title { font-size: 0.75rem; color: #71717a; text-transform: uppercase; margin-bottom: 5px; }
+        .val { font-size: 1.5rem; font-weight: bold; color: var(--green); }
+        .val.danger { color: var(--red); text-shadow: 0 0 10px rgba(239,68,68,0.5); }
+        .val.warn { color: var(--purple); text-shadow: 0 0 10px rgba(139,92,246,0.5); }
+        
+        #ledger-log { flex: 1; background: #000; border: 1px solid var(--border); padding: 10px; font-size: 0.75rem; overflow-y: auto; color: #a1a1aa; border-radius: 6px; }
+        .log-entry { margin-bottom: 5px; border-bottom: 1px dashed #27272a; padding-bottom: 5px; }
+        .log-entry.alert { color: var(--red); font-weight: bold; }
+        .log-entry.safe { color: var(--green); }
+
+        button { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 15px; cursor: pointer; font-weight: bold; width: 100%; transition: all 0.2s; border-radius: 4px; text-transform: uppercase;}
+        button:hover { background: var(--surface); border-color: var(--cyan); color: var(--cyan); }
+        button.peer-btn { border-color: var(--purple); color: var(--purple); }
+        button.peer-btn:hover { background: rgba(139,92,246,0.1); }
+        button.catastrophe { border-color: var(--red); color: var(--red); margin-top: auto;}
+        button.catastrophe:hover { background: rgba(239,68,68,0.1); }
+    </style>
+</head>
+<body>
+
+    <div id="arena">
+        <div class="morph-card" id="target">
+            <span style="font-size: 1.2rem; font-weight: bold; margin-bottom: 5px;">KUANTUM GEÇİŞİ</span>
+            <span style="font-size: 0.8rem; color: #71717a;">Test etmek için tıkla</span>
+        </div>
+    </div>
+
+    <div id="hud">
+        <div style="font-weight: bold; color: var(--cyan); border-bottom: 1px solid var(--border); padding-bottom: 10px;">
+            /// L9 KERNEL V3: QUORUM HUD
+        </div>
+        
+        <div class="metric-box">
+            <div class="title">Lokal Basınç (Local FPS / Load)</div>
+            <div class="val" id="hud-local-pressure">0 (COLD)</div>
+        </div>
+        
+        <div class="metric-box" id="box-peer" style="border-color: var(--purple); background: rgba(139,92,246,0.05);">
+            <div class="title" style="color: var(--purple);">Koro Mutabakatı (Peer Status)</div>
+            <div class="val" id="hud-peer-pressure" style="color: var(--text);">ALL SYSTEMS GO</div>
+        </div>
+        
+        <div class="metric-box" id="box-commit">
+            <div class="title">Atomic Commit Status</div>
+            <div class="val safe" id="hud-commit">GPU NATIVE (VT)</div>
+        </div>
+
+        <div class="title" style="margin-top: 5px;">Distributed Ledger Log</div>
+        <div id="ledger-log"></div>
+
+        <button class="peer-btn" onclick="window.open(window.location.href, '_blank')">🧬 1. YAN SEKME AÇ (SPAWN PEER)</button>
+        <button class="catastrophe" onclick="triggerHardwareFire()">🔥 2. V8'İ YAK (SABOTAGE LOCAL CPU)</button>
+    </div>
+
+<script>
+/**
+ * L9 SOVEREIGN CONTINUITY KERNEL v3
+ * Hardware-Aware Distributed Arbitration
+ */
+
+const UI = {
+    log: (msg, type = 'normal') => {
+        const el = document.getElementById('ledger-log');
+        const className = type === 'alert' ? 'alert' : (type === 'safe' ? 'safe' : '');
+        el.innerHTML = `<div class="log-entry ${className}">[${new Date().toISOString().split('T')[1].slice(0,-1)}] ${msg}</div>` + el.innerHTML;
+    }
+};
+
+// 🧱 1. THE DISTRIBUTED LEDGER (BroadcastChannel)
+class SovereignLedger {
+    static CHANNEL = new BroadcastChannel('l9-quorum-channel');
+
+    static init(onPeerPressure) {
+        this.CHANNEL.onmessage = (e) => {
+            if (e.data.type === 'PRESSURE_ALERT') {
+                if (e.data.level >= 2) UI.log(`📡 KORO UYARISI: Yan Sekme Yanıyor! (Seviye ${e.data.level})`, 'alert');
+                else UI.log(`📡 KORO UYARISI: Yan Sekme Soğudu.`, 'safe');
+                onPeerPressure(e.data.level);
+            }
+        };
+        UI.log("Quorum P2P Ağı Kuruldu.");
+    }
+
+    static write(type, payload = {}) {
+        if (type === 'PRESSURE_SPIKE') {
+            this.CHANNEL.postMessage({ type: 'PRESSURE_ALERT', level: payload.level });
+            if (payload.level >= 2) UI.log(`🔥 LOKAL YANGIN: Diğer sekmelere SOS gönderildi!`, 'alert');
+            else UI.log(`✅ LOKAL SOĞUMA: Koro normale döndü.`, 'safe');
+        } else {
+            UI.log(`✍️ Ledger Event: ${type}`);
+        }
+    }
+}
+
+// 🧱 2. RENDER BUDGET CONTROLLER
+class RenderBudgetController {
+    constructor() {
+        this.localPressure = 0; 
+        this.peerPressure = 0;
+        this.lastTime = performance.now();
+        this.fps = 60;
+    }
+    
+    setPeerPressure(level) { this.peerPressure = level; }
+
+    update(now) {
+        const dt = now - this.lastTime; this.lastTime = now;
+        if (dt > 0) this.fps = (this.fps * 0.9) + ((1000 / dt) * 0.1); 
+        
+        // Lokal FPS düşerse (Felaket simülatörü tetiklediğinde) basıncı yükselt
+        if (this.fps < 20) this.localPressure = 2;
+        else if (this.fps < 45) this.localPressure = 1;
+        else this.localPressure = 0;
+        
+        // NİHAİ KARAR: Ortamdaki en yüksek basıncı (Quorum) baz al
+        return Math.max(this.localPressure, this.peerPressure);
+    }
+}
+
+// 🧱 3. SOVEREIGN ARBITRATOR (Çekirdek Karar Mekanizması)
+class SovereignArbitrator {
+    constructor(mutator) {
+        this.budget = new RenderBudgetController();
+        this.commitState = mutator;
+        this.lastCommitMode = 'GPU NATIVE (VT)';
+        
+        SovereignLedger.init((level) => this.budget.setPeerPressure(level));
+        this._loop();
+    }
+
+    _loop = (now) => {
+        this.budget.update(now || performance.now());
+        requestAnimationFrame(this._loop);
+    }
+
+    dispatch() {
+        const finalPressure = Math.max(this.budget.localPressure, this.budget.peerPressure);
+        
+        // 🚨 OTONOM HAKEMLİK: Lokal yanıyorsa VEYA Peer yanıyorsa animasyonu feda et!
+        if (finalPressure >= 2 || !document.startViewTransition) {
+            this.lastCommitMode = this.budget.peerPressure >= 2 ? 'THROTTLED BY QUORUM' : 'THROTTLED (LOCAL)';
+            UI.log(`🛑 OTONOM FREN: Animasyon feda edildi. (Partial Paint Engellendi)`, 'alert');
+            this.commitState();
+            setTimeout(() => this.lastCommitMode = 'GPU NATIVE (VT)', 1500);
+            return;
+        }
+
+        this.lastCommitMode = 'GPU NATIVE (VT)';
+        UI.log(`🟢 GPU Morphing Onaylandı.`);
+        document.startViewTransition(() => this.commitState());
+        SovereignLedger.write('MORPH_INTENT');
+    }
+}
+
+// --- HARNESS BAŞLATILIYOR ---
+const target = document.getElementById('target');
+const Engine = new SovereignArbitrator(() => { 
+    target.classList.toggle('is-fullscreen'); 
+    target.innerHTML = target.classList.contains('is-fullscreen') 
+        ? '<span style="font-size: 2rem; font-weight: bold; color: var(--cyan);">KUANTUM DURUMU (AKTİF)</span>' 
+        : '<span style="font-size: 1.2rem; font-weight: bold; margin-bottom: 5px;">KUANTUM GEÇİŞİ</span><span style="font-size: 0.8rem; color: #71717a;">Test etmek için tıkla</span>';
+});
+
+target.addEventListener('click', () => { Engine.dispatch(); });
+
+// HUD GÜNCELLEMELERİ
+setInterval(() => {
+    const fps = Engine.budget.fps;
+    const lp = Engine.budget.localPressure;
+    const pp = Engine.budget.peerPressure;
+    const cMode = Engine.lastCommitMode;
+
+    const elLocal = document.getElementById('hud-local-pressure');
+    elLocal.innerText = `${fps.toFixed(0)} FPS | Lvl ${lp}`;
+    elLocal.className = `val ${lp >= 2 ? 'danger' : ''}`;
+    
+    const elPeer = document.getElementById('hud-peer-pressure');
+    const boxPeer = document.getElementById('box-peer');
+    if (pp >= 2) {
+        elPeer.innerText = '🔥 PEER FIRE DETECTED!';
+        elPeer.className = 'val warn';
+        boxPeer.style.borderColor = 'var(--red)';
+    } else {
+        elPeer.innerText = 'ALL SYSTEMS GO';
+        elPeer.className = 'val safe';
+        boxPeer.style.borderColor = 'var(--purple)';
+    }
+    
+    const elCommit = document.getElementById('hud-commit');
+    elCommit.innerText = cMode;
+    elCommit.className = `val ${cMode.includes('THROTTLED') ? 'danger' : 'safe'}`;
+    document.getElementById('box-commit').style.borderColor = cMode.includes('THROTTLED') ? 'var(--red)' : 'var(--border)';
+}, 100);
+
+// STRESSOR (Felaket Üreteci)
+window.triggerHardwareFire = () => {
+    // 1. Quorum'a anında SOS gönder
+    SovereignLedger.write('PRESSURE_SPIKE', { level: 2 });
+    
+    // 2. Main Thread'i kasten "Chunked Spinlock" ile boğarak FPS'i 4 saniyeliğine ~5'e düşür
+    let ticks = 0;
+    const lock = setInterval(() => {
+        const start = performance.now();
+        while(performance.now() - start < 160) { /* V8 ENGINE HIJACKED */ } 
+        if(++ticks > 20) { // 20 * 200ms = 4 saniye
+            clearInterval(lock);
+            SovereignLedger.write('PRESSURE_SPIKE', { level: 0 }); // Kurtuluş sinyali
+        }
+    }, 200);
+};
+</script>
+</body>
+</html>

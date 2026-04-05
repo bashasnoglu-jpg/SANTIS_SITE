@@ -1,0 +1,118 @@
+/* ==========================================================================
+   SANTIS INTERVENTION MOTOR CSS (Phase A)
+   Quiet Luxury UI / GPU Friendly
+   ========================================================================== */
+
+/* CONCIERGE FLOAT BASE (Eklenecek Buton Temsili) */
+.santis-concierge-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    z-index: 9999;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+/* 1. CONCIERGE PULSE (UI Behavior Principles) 
+   - 2px glow
+   - 4s interval
+*/
+@keyframes quietLuxuryPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+    }
+}
+
+.intervention-active.concierge-pulse {
+    animation: quietLuxuryPulse 4s infinite cubic-bezier(0.66, 0, 0, 1);
+    border-color: rgba(212, 175, 55, 0.6);
+}
+
+/* 2. QUIET LUXURY TOOLTIP */
+.santis-luxury-tooltip {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 240px;
+    background: rgba(15, 15, 15, 0.85);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 6px;
+    padding: 16px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    transform: translateY(10px);
+    opacity: 0;
+    pointer-events: none;
+    -webkit-backdrop-filter: blur(4px); /* Minimal blur */
+    backdrop-filter: blur(4px);
+    animation: fadeInSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    cursor: default;
+}
+
+.intervention-active.concierge-pulse .santis-luxury-tooltip {
+    pointer-events: auto;
+}
+
+.santis-luxury-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    right: 24px;
+    width: 10px;
+    height: 10px;
+    background: rgba(15, 15, 15, 0.95);
+    border-right: 1px solid rgba(212, 175, 55, 0.3);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    transform: rotate(45deg);
+}
+
+.tooltip-title {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    color: #D4AF37; /* Sovereign Gold */
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.tooltip-alt {
+    font-size: 12px;
+    color: #a0a0a0;
+    margin-bottom: 12px;
+}
+
+/* Dismiss Copy */
+.tooltip-close {
+    background: none;
+    border: none;
+    font-size: 11px;
+    color: #777;
+    cursor: pointer;
+    padding: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.3s;
+}
+
+.tooltip-close:hover {
+    color: #D4AF37;
+}
+
+/* GPU-friendly animation */
+@keyframes fadeInSlideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

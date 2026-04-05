@@ -1,0 +1,71 @@
+.santis-rail-shell {
+  position: relative;
+}
+
+.santis-rail-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.santis-premium-rail {
+  position: relative;
+  display: flex;
+  gap: var(--sovereign-rail-gap);
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--sovereign-rail-pad);
+  padding-inline: var(--sovereign-rail-pad);
+  padding-bottom: 8px;
+  cursor: grab;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  user-select: none;
+}
+
+.santis-premium-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.santis-premium-rail::after {
+  content: "";
+  flex: 0 0 calc(var(--sovereign-rail-pad) - var(--sovereign-rail-gap));
+}
+
+.santis-premium-rail .sovereign-card {
+  scroll-snap-align: start;
+}
+
+.santis-premium-rail.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+.santis-premium-rail.is-dragging .sovereign-card,
+.santis-premium-rail.is-dragging .sovereign-card * {
+  pointer-events: none;
+}
+
+.santis-rail-arrow {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition:
+    opacity var(--sovereign-fade-duration) var(--sovereign-ease-smooth),
+    transform var(--sovereign-fade-duration) var(--sovereign-ease-smooth);
+}
+
+.santis-rail-shell.is-nav-active .santis-rail-arrow {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .santis-premium-rail {
+    scroll-behavior: auto;
+  }
+}

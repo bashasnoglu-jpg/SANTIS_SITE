@@ -1,0 +1,59 @@
+/* SANTIS QUIET LUXURY UI */
+:root {
+    --color-smoky-warm-gray: #f5f1e8;
+    --color-brushed-bronze: #b89e7c;
+}
+
+.santis-viewport {
+    transition: filter 1.2s ease, opacity 1.2s ease;
+    will-change: filter, opacity;
+}
+
+.state-exclusive .santis-viewport:not(.focus-target) {
+    filter: blur(2px) grayscale(0.2);
+    opacity: 0.75;
+    pointer-events: none;
+}
+
+.focus-target {
+    z-index: 100;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.8s ease;
+    box-shadow: 0 0 80px -20px rgba(184, 158, 124, 0.15);
+}
+
+.state-exclusive .focus-target {
+    border: 1px solid var(--color-brushed-bronze);
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.hold-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Inter', sans-serif;
+    color: var(--color-smoky-warm-gray);
+}
+
+.ring-outer {
+    width: 14px;
+    height: 14px;
+    border: 1px solid rgba(184, 158, 124, 0.3);
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ring-inner {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-brushed-bronze);
+    border-radius: 50%;
+    animation: santisPulse 4s ease-in-out infinite;
+}
+
+@keyframes santisPulse {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.5); opacity: 0.8; }
+}

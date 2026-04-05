@@ -1,0 +1,64 @@
+{
+  "products": [
+    {
+      "id": "sov-oil-01",
+      "category": "terapi-yaglari",
+      "title": "Amber Scent Massage Oil",
+      "meta": "150ml | Derin Kas Onarımı",
+      "description": "Santis Signature Kehribar (Amber) notalarıyla demlenmiş, kas gerginliklerini alan premium aromaterapi yağı. Okyanus mineralleri içerir.",
+      "price": "€45",
+      "image": "/assets/img/cards/santis_card_recovery_lotion_v2.webp",
+      "badge": "Signature"
+    },
+    {
+      "id": "sov-oil-02",
+      "category": "terapi-yaglari",
+      "title": "White Tea & Lotus Serum",
+      "meta": "100ml | Hücresel Yenilenme",
+      "description": "Beyaz çay ekstresi ve saf lotus çiçeği yağı ile cildi besleyen ve yaşlanma karşıtı koruma sağlayan lüks bakım serumu.",
+      "price": "€60",
+      "image": "/assets/img/cards/santis_card_massage_lux.webp",
+      "badge": "Yenileyici"
+    },
+    {
+      "id": "sov-spa-01",
+      "category": "hamam-banyo",
+      "title": "Sovereign Kese Seti",
+      "meta": "Saf İpek | Geleneksel Arınma",
+      "description": "Osmanlı geleneğinden alınan ilhamla %100 saf ipekten dokunmuş profesyonel kese seti. Tam vücut arınması için.",
+      "price": "€25",
+      "image": "/assets/img/cards/santis_card_hamam_signature.webp",
+      "badge": "Geleneksel"
+    },
+    {
+      "id": "sov-spa-02",
+      "category": "hamam-banyo",
+      "title": "Deniz Tuzu Peeling",
+      "meta": "250g | Ege Mineralleri",
+      "description": "Ölü hücreleri narin bir şekilde temizleyen, zenginleştirilmiş Ege denizi tuzu ve badem yağı karışımı doğal vücut peeling'i.",
+      "price": "€35",
+      "image": "/assets/img/cards/santis_card_ritual_ayurveda.webp",
+      "badge": "Arındırıcı"
+    },
+    {
+      "id": "sov-scent-01",
+      "category": "ambiyans",
+      "title": "Santis Oda Kokusu (Signature)",
+      "meta": "200ml | Reed Diffuser",
+      "description": "Santis Spa'nın o eşsiz sakinleştirici imza kokusu artık evinizde. Sedir ağacı, amber ve hafif narenciye notaları.",
+      "price": "€55",
+      "image": "/assets/img/cards/santis_card_skincare_sothys.webp",
+      "badge": "En Çok Satan"
+    },
+    {
+      "id": "sov-scent-02",
+      "category": "ambiyans",
+      "title": "Zen Soya Mumu",
+      "meta": "300g | Ortalama 60 Saat",
+      "description": "Meditasyon ve derin rahatlama için özel formüle edilmiş %100 doğal soya mumu. Yandığında havayı temizler.",
+      "price": "€40",
+      "image": "/assets/img/cards/santis_card_massage_couples.webp",
+      "badge": "Relaxing"
+    }
+  ]
+}

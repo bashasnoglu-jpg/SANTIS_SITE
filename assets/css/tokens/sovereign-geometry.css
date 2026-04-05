@@ -1,0 +1,17 @@
+:root {
+  --sovereign-card-w: clamp(280px, 25vw, 340px);
+  --sovereign-card-ratio: 3 / 4;
+  --sovereign-radius: 16px;
+  --sovereign-rail-gap: 24px;
+  --sovereign-rail-pad: clamp(20px, 5vw, 72px);
+  --sovereign-card-border: 1px solid rgba(255,255,255,0.08);
+  --sovereign-card-title-lines: 2;
+  --sovereign-overlay-gradient:
+    linear-gradient(
+      to top,
+      rgba(10,12,16,0.95),
+      rgba(10,12,16,0.3) 50%,
+      transparent
+    );
+  --sovereign-edge-fade: 72px;
+}

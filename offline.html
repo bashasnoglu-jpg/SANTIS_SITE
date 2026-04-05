@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sovereign OS | Bağlantı Koptu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Kuantum Nefes Alma Efekti */
+    .pulse-glow { animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+      70% { box-shadow: 0 0 20px 10px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center font-sans">
+
+  <div class="relative overflow-hidden backdrop-blur-xl bg-white/5 border border-red-500/30 rounded-3xl p-10 shadow-2xl text-center max-w-md pulse-glow">
+    <div class="text-5xl mb-4 opacity-80">📡</div>
+    <h1 class="text-2xl tracking-widest uppercase mb-2">Bağlantı Koptu</h1>
+    <p class="text-slate-400 mb-8">
+      Karargâh ile telemetri bağlantınız geçici olarak kesildi. Ancak endişelenmeyin, <b>Sovereign Zırhları</b> sizi koruyor.
+    </p>
+    <button onclick="window.location.reload()" class="bg-white/10 hover:bg-white/20 border border-white/20 transition-all px-6 py-2 rounded-full tracking-wider uppercase text-sm">
+      Kuantum Sinyalini Yenile
+    </button>
+  </div>
+
+</body>
+</html>

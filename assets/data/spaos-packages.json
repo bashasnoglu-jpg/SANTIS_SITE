@@ -1,0 +1,114 @@
+[
+  {
+    "id": "pkg_ultimate_detox",
+    "name": "Ultimate Detox Ritual",
+    "type": "collection",
+    "goal": "detox",
+    "price": 240,
+    "currency": "EUR",
+    "validityDays": 180,
+    "components": [
+      { "serviceId": "hamam_classic", "faceValue": 45, "quantity": 1 },
+      { "serviceId": "lymph_drainage", "faceValue": 90, "quantity": 1 },
+      { "serviceId": "facial_detox", "faceValue": 50, "quantity": 1 },
+      { "serviceId": "asian_massage", "faceValue": 90, "quantity": 1 }
+    ],
+    "accounting": { "recognitionMethod": "per_service" },
+    "breakagePolicy": "proportionate",
+    "crm": { "triggers": ["low_usage_30_days", "pre_expiry_offer"] },
+    "commission": { "sales": 0.06, "delivery": 0.12, "retention": 0.04 },
+    "upsellTargets": ["deluxe_care", "deep_tissue"]
+  },
+  {
+    "id": "pkg_sleep_recovery",
+    "name": "Sleep Recovery Ritual",
+    "type": "collection",
+    "goal": "relax",
+    "price": 120,
+    "currency": "EUR",
+    "validityDays": 90,
+    "components": [
+      { "serviceId": "relax_massage", "faceValue": 80, "quantity": 1 },
+      { "serviceId": "scalp_massage", "faceValue": 55, "quantity": 1 }
+    ],
+    "accounting": { "recognitionMethod": "per_service" },
+    "breakagePolicy": "proportionate",
+    "crm": { "triggers": ["follow_up_email_7_days"] },
+    "commission": { "sales": 0.05, "delivery": 0.10, "retention": 0.03 },
+    "upsellTargets": ["skin_renewal"]
+  },
+  {
+    "id": "pkg_skin_renewal",
+    "name": "Skin Renewal Collection",
+    "type": "collection",
+    "goal": "beauty",
+    "price": 230,
+    "currency": "EUR",
+    "validityDays": 180,
+    "components": [
+      { "serviceId": "facial_detox", "faceValue": 50, "quantity": 1 },
+      { "serviceId": "skin_renewal", "faceValue": 50, "quantity": 1 },
+      { "serviceId": "deluxe_care", "faceValue": 170, "quantity": 1 }
+    ],
+    "accounting": { "recognitionMethod": "per_service" },
+    "breakagePolicy": "proportionate",
+    "crm": { "triggers": ["product_upsell_2nd_visit", "low_usage_30_days"] },
+    "commission": { "sales": 0.08, "delivery": 0.10, "retention": 0.05 },
+    "upsellTargets": ["express_face"]
+  },
+  {
+    "id": "pkg_executive_reset",
+    "name": "Executive Reset",
+    "type": "collection",
+    "goal": "recovery",
+    "price": 140,
+    "currency": "EUR",
+    "validityDays": 90,
+    "components": [
+      { "serviceId": "hamam_classic", "faceValue": 45, "quantity": 1 },
+      { "serviceId": "deep_tissue", "faceValue": 90, "quantity": 1 },
+      { "serviceId": "express_face", "faceValue": 20, "quantity": 1 }
+    ],
+    "accounting": { "recognitionMethod": "per_service" },
+    "breakagePolicy": "proportionate",
+    "crm": { "triggers": ["stress_assessment_poll", "b2b_corporate_offer"] },
+    "commission": { "sales": 0.06, "delivery": 0.11, "retention": 0.04 },
+    "upsellTargets": ["manual_therapy"]
+  },
+  {
+    "id": "pkg_medical_recovery",
+    "name": "Medical Recovery Flow",
+    "type": "collection",
+    "goal": "medical",
+    "price": 240,
+    "currency": "EUR",
+    "validityDays": 180,
+    "components": [
+      { "serviceId": "manual_therapy", "faceValue": 180, "quantity": 1 },
+      { "serviceId": "lymph_drainage", "faceValue": 90, "quantity": 1 }
+    ],
+    "accounting": { "recognitionMethod": "per_service" },
+    "breakagePolicy": "proportionate",
+    "crm": { "triggers": ["physio_follow_up_14_days"] },
+    "commission": { "sales": 0.05, "delivery": 0.15, "retention": 0.05 },
+    "upsellTargets": ["deep_tissue"]
+  },
+  {
+    "id": "pkg_santis_signature",
+    "name": "Santis Signature Ritual",
+    "type": "signature",
+    "goal": "luxury",
+    "price": 320,
+    "currency": "EUR",
+    "validityDays": 365,
+    "components": [
+      { "serviceId": "mandara_4hand", "faceValue": 150, "quantity": 1 },
+      { "serviceId": "deluxe_care", "faceValue": 170, "quantity": 1 }
+    ],
+    "accounting": { "recognitionMethod": "strict_bundle" },
+    "breakagePolicy": "no_breakage",
+    "crm": { "triggers": ["vip_member_invitation", "annual_reminder"] },
+    "commission": { "sales": 0.10, "delivery": 0.20, "retention": 0.10 },
+    "upsellTargets": []
+  }
+]

@@ -1,0 +1,158 @@
+/* 
+ * SANTIS SOVEREIGN UI KIT (VNEXT)
+ * Zero-Reflow, Absolute Metal CSS Library
+ */
+
+/* 1. THE MAGNETIC BUTTON (v3 Physics) */
+.btn-magnetic {
+    /* Base Styling */
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 40px;
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+    
+    /* Zero-Reflow Transforms Cache */
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    
+    /* Return Snap Animation (CSS) */
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease, border-color 0.4s ease;
+}
+
+/* When the JS Magnetize triggers */
+.btn-magnetic.is-magnetizing {
+    /* Disable CSS transition so JS requestAnimationFrame lerp handles the motion */
+    transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    border-color: #D4AF37;
+    background-color: rgba(212, 175, 55, 0.05);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+}
+
+.btn-magnetic::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 50%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.btn-magnetic:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* 2. THE WHISPER INPUT (Floating Label & Zero Border) */
+.whisper-group {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 2rem;
+}
+
+.input-whisper {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #333;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 0;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.4s ease;
+}
+
+.label-whisper {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    color: #666;
+    font-size: 16px;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease, font-size 0.4s ease;
+    transform-origin: left top;
+}
+
+/* Floating label trigger */
+.input-whisper:focus + .label-whisper,
+.input-whisper.has-value + .label-whisper {
+    transform: translateY(-24px) scale(0.65);
+    color: #D4AF37;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.input-whisper:focus {
+    border-bottom-color: #D4AF37;
+    box-shadow: 0 1px 0 #D4AF37; /* Crisp gold line */
+}
+
+/* 3. SOVEREIGN GLASS MODAL */
+.modal-glass-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(5, 5, 5, 0.8);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-glass-backdrop.is-active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-glass {
+    position: relative;
+    background: linear-gradient(135deg, rgba(20, 20, 22, 0.9) 0%, rgba(10, 10, 12, 0.95) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 3rem;
+    width: 90%;
+    max-width: 500px;
+    transform: translateY(40px) scale(0.95);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+.modal-glass-backdrop.is-active .modal-glass {
+    transform: translateY(0) scale(1);
+}
+
+/* Ambient Gold Lighting within Modal */
+.modal-glass::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 150px;
+    height: 150px;
+    background: #D4AF37;
+    filter: blur(100px);
+    opacity: 0.15;
+    pointer-events: none;
+}

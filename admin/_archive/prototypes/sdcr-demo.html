@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" data-runtime="vanilla">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANTIS OS | V44.6 Production Matrix</title>
+
+    <link rel="preconnect" href="https://your-api-cdn.com" crossorigin>
+
+    <link rel="modulepreload" href="/assets/js/core/santis.production-shield.js">
+    <link rel="modulepreload" href="/assets/js/core/santis.bootstrap.js">
+    <link rel="modulepreload" href="/assets/js/core/sovereign-bus.js">
+    
+    <link rel="prefetch" href="/assets/js/core/santis-temporal-os.js">
+    <link rel="prefetch" href="/assets/js/core/santis.observability.js">
+    <link rel="prefetch" href="/assets/js/core/sovereign-leviathan-mesh.js">
+    <link rel="prefetch" href="/assets/js/core/santis.adaptive-os.js">
+
+    <style>
+        /* 🧯 THE AEGIS FALLBACK: Eğer JavaScript felç olursa arayüzü Vanilla'ya kilitle */
+        html[data-runtime="vanilla"] * {
+            animation: none !important;
+            transition: none !important;
+            view-transition-name: none !important;
+        }
+        body { background: #09090b; color: #a1a1aa; font-family: monospace; }
+        #app {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <h2 style="color: #06b6d4;">SDCR KERNEL <span id="boot-status" style="color:#fff;">BOOTING...</span></h2>
+    </div>
+
+    <script type="module" src="/assets/js/core/santis.bootstrap.js"></script>
+
+</body>
+</html>

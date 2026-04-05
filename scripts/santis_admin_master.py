@@ -1,0 +1,203 @@
+import os
+
+ROOT_DIR = r"C:\Users\tourg\Desktop\SANTIS_SITE\santis-os-monorepo\apps\guest-web\src\admin"
+ROOT_DIR_ASSETS = r"C:\Users\tourg\Desktop\SANTIS_SITE\santis-os-monorepo\apps\guest-web\src\admin\assets"
+
+os.makedirs(ROOT_DIR, exist_ok=True)
+os.makedirs(ROOT_DIR_ASSETS, exist_ok=True)
+
+files = {}
+
+files["dark-observatory.html"] = """<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Santis Merkez Komuta | The Dark Observatory</title>
+    <link rel="stylesheet" href="assets/dark-observatory.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="santis-observatory">
+    <header class="observatory-header">
+        <div class="brand">SANTIS Sovereign OS</div>
+        <div class="status">Intelligence Kernel: <span class="active">ONLINE</span></div>
+    </header>
+
+    <main class="radar-container">
+        <!-- Floor Plan Representation -->
+        <div class="floor-plan">
+            <div id="room-hamam-vip" class="room-node" style="top: 20%; left: 30%;">
+                <div class="amber-glow"></div>
+                <div class="bronze-ring"></div>
+                <span class="room-label">VIP Hamam</span>
+            </div>
+
+            <div id="room-deep-tissue" class="room-node active-glow" style="top: 50%; left: 60%;">
+                <div class="amber-glow" style="--glow-opacity: 0.8"></div>
+                <div class="bronze-ring active-ring"></div>
+                <span class="room-label">Derin Doku (Exclusive)</span>
+            </div>
+            
+            <div id="room-skincare" class="room-node" style="top: 70%; left: 20%;">
+                <div class="amber-glow"></div>
+                <div class="bronze-ring"></div>
+                <span class="room-label">Cilt Bakımı</span>
+            </div>
+        </div>
+    </main>
+
+    <footer class="autonomous-ticker">
+        <div class="ticker-track">
+            <span>[09:15] Director Intervention: Derin Doku manuel olarak mühürlendi. Sovereign Lock devrede.</span>
+            <span>[09:12] Intelligence Kernel: VIP Hamam hit hızı %40 arttı. Prewarm tetiklendi.</span>
+            <span>[09:10] Economy Unit: Son 2 slot. "Exclusivity Premium" fiyatlaması mühürlendi.</span>
+        </div>
+    </footer>
+</body>
+</html>
+"""
+
+files["assets/dark-observatory.css"] = """/* SANTIS DARK OBSERVATORY UI */
+:root {
+    --color-charcoal: #0b0d10;
+    --color-soft-amber: #d97736;
+    --color-brushed-bronze: #b89e7c;
+    --color-smoky-gray: #1c1e21;
+    --color-text: #f5f1e8;
+}
+
+body.santis-observatory {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-charcoal);
+    color: var(--color-text);
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.observatory-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.observatory-header .active {
+    color: var(--color-soft-amber);
+    text-shadow: 0 0 10px rgba(217,119,54,0.5);
+    animation: pulsar 2s infinite alternate;
+}
+
+@keyframes pulsar {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.radar-container {
+    flex: 1;
+    position: relative;
+    background: radial-gradient(circle at center, var(--color-smoky-gray) 0%, var(--color-charcoal) 70%);
+}
+
+.floor-plan {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+.room-node {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.amber-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, var(--color-soft-amber) 0%, transparent 60%);
+    opacity: var(--glow-opacity, 0);
+    pointer-events: none;
+    transition: opacity 2s ease;
+}
+
+.bronze-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border: 1px solid var(--color-brushed-bronze);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.active-ring {
+    opacity: 1;
+    animation: ring-swell 4s ease-in-out infinite;
+}
+
+@keyframes ring-swell {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); border-color: rgba(184, 158, 124, 0.4); }
+    50% { transform: translate(-50%, -50%) scale(1.2); border-color: rgba(184, 158, 124, 1); }
+}
+
+.room-label {
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    white-space: nowrap;
+    opacity: 0.6;
+    letter-spacing: 0.1em;
+}
+
+.autonomous-ticker {
+    padding: 16px 24px;
+    background: var(--color-smoky-gray);
+    font-family: monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    overflow: hidden;
+}
+
+.ticker-track {
+    display: flex;
+    gap: 80px;
+    animation: ticker 25s linear infinite;
+    white-space: nowrap;
+}
+
+@keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+"""
+
+for path, content in files.items():
+    full_path = os.path.join(ROOT_DIR, path)
+    with open(full_path, "w", encoding="utf-8") as f:
+        f.write(content)
+    print(f"Created: {full_path}")
+
+print("Santis Admin Dark Observatory Deployed Successfully.")

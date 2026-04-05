@@ -1,0 +1,10 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+catalogs:
+  default:
+    zod: ^3.23.0
+    typescript: ^5.8.0
+    "@santis/event-dictionary": workspace:*
+    "@santis/sovereign-bus": workspace:*

@@ -1,0 +1,73 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  
+  width: 280px; /* Ya da viewport clamp */
+  aspect-ratio: var(--sovereign-card-ratio);
+  border-radius: var(--sovereign-card-radius);
+  
+  background-color: #1a1a1c;
+  overflow: hidden;
+  cursor: pointer;
+  
+  /* Animasyon tokenları */
+  transition: transform var(--sovereign-duration-base) var(--sovereign-ease-out),
+              box-shadow var(--sovereign-duration-base) var(--sovereign-ease-out);
+}
+
+/* Hover Efekti (Sovereign Rail sürüklendiğinde .is-dragging class'ı eklenir 
+   ve pointer-events kapatılır, böylece hover tetiklenmez) */
+.card:hover {
+  transform: translateY(var(--sovereign-lift-amount)) scale(var(--sovereign-scale-hover));
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+}
+
+.card:active {
+  transform: scale(var(--sovereign-scale-press));
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: center;
+  object-fit: cover;
+  z-index: var(--sovereign-z-base);
+  pointer-events: none;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
+  z-index: var(--sovereign-z-overlay);
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: var(--sovereign-z-controls);
+  padding: var(--sovereign-space-lg);
+  color: #fff;
+  pointer-events: none;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  margin: var(--sovereign-space-xs) 0 0 0;
+  font-size: 0.875rem;
+  opacity: 0.8;
+}

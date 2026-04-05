@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Santis SpaOS | Vertical Z-Axis Stack (Kaydırma Modeli)</title>
+  
+  <link rel="stylesheet" href="/assets/vendor/swiper-bundle.min.css" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --santis-black: #050505;
+      --santis-gold: #d4af37;
+      --text-main: #f5f5f7;
+      --text-muted: #888891;
+    }
+
+    body, html {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      background-color: var(--santis-black);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-main);
+      overflow: hidden; 
+      user-select: none;
+    }
+
+    /* Arka Plan Aurası */
+    .spaos-universe {
+      position: relative;
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #050505 80%);
+    }
+
+    /* Swiper Container */
+    .swiper {
+      width: 340px;
+      height: 480px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    .swiper-slide {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #0a0a0a;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.9);
+      border: 1px solid rgba(255,255,255,0.05);
+      cursor: pointer;
+    }
+
+    .card-img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 0;
+    }
+
+    .card-gradient {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.3) 50%, transparent 100%);
+      z-index: 1;
+    }
+
+    .card-content {
+      position: relative; z-index: 2; width: 100%; padding: 0 24px 30px 24px; text-align: center;
+    }
+
+    .card-badge { display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.3em; color: var(--santis-gold); margin-bottom: 12px; }
+    .card-title { font-family: 'Cinzel', serif; font-size: 24px; font-weight: 500; color: var(--text-main); margin: 0 0 12px 0; letter-spacing: 0.05em; }
+    .card-desc { font-size: 12px; font-weight: 300; color: var(--text-muted); line-height: 1.6; margin: 0 0 24px 0; }
+    .card-link { font-size: 11px; font-weight: 500; color: var(--santis-gold); letter-spacing: 0.2em; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; display: block; }
+    
+    .instruction {
+      position: absolute;
+      top: 5%;
+      width: 100%;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
+    }
+  </style>
+
+<meta name="theme-color" content="#000000">
+<script src="/assets/js/core/santis-ws-orchestrator.js"></script>
+</head>
+<body>
+
+  <div class="spaos-universe">
+    <div class="instruction">
+      <span>↓ Fare Tekerleği İle Aşağı Doğru Kaydırın (Scroll) ↓</span>
+    </div>
+
+    <!-- Dikey Kart (Cards Effect) Motoru -->
+    <div class="swiper mySovereignVerticalSwiper">
+      <div class="swiper-wrapper">
+        
+        <!-- Kart 1 -->
+        <div class="swiper-slide">
+          <img decoding="async" width="1024" height="1024" src="/assets/img/cards/hammam.webp" class="card-img" alt="Sultan Hamamı – kese ve köpük ritüeli" fetchpriority="high">
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <span class="card-badge">MİRAS</span>
+            <h3 class="card-title">SULTAN HAMAMI</h3>
+            <p class="card-desc">Geleneksel kese ve sıcak köpük ile hücresel yenilenme.</p>
+            <span class="card-link">RİTÜELİ KEŞFET</span>
+          </div>
+        </div>
+
+        <!-- Kart 2 -->
+        <div class="swiper-slide">
+          <img decoding="async" width="1024" height="1024" src="/assets/img/cards/massage.webp" class="card-img" alt="Aura Aromaterapi masajı" fetchpriority="high">
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <span class="card-badge">İMZA</span>
+            <h3 class="card-title">AURA AROMATERAPİ</h3>
+            <p class="card-desc">Sıcak esansiyel yağlarla zihinsel frekans dengelemesi.</p>
+            <span class="card-link">RİTÜELİ KEŞFET</span>
+          </div>
+        </div>
+
+        <!-- Kart 3 -->
+        <div class="swiper-slide">
+          <img decoding="async" width="1024" height="1024" src="/assets/img/cards/Santis-face-mask-4x5-1080x1350.webp" class="card-img" alt="Safir Işıltı – mineral cilt bakımı" loading="lazy">
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <span class="card-badge">PREMİUM</span>
+            <h3 class="card-title">SAFİR IŞILTI</h3>
+            <p class="card-desc">Mineral kristalleriyle cilt bariyerini güçlendiren safir terapi.</p>
+            <span class="card-link">RİTÜELİ KEŞFET</span>
+          </div>
+        </div>
+        
+        <!-- Kart 4 -->
+        <div class="swiper-slide">
+          <img decoding="async" width="1024" height="1024" src="/assets/img/cards/Santis-spa-rest-graded-clean.webp" class="card-img" alt="Ayurvedik Dokunuş – sıcak taşlar" loading="lazy">
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <span class="card-badge">DENGE</span>
+            <h3 class="card-title">AYURVEDİK DOKUNUŞ</h3>
+            <p class="card-desc">Sıcak taşlar ve Prana nefes teknikleriyle içsel huzur.</p>
+            <span class="card-link">RİTÜELİ KEŞFET</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/vendor/swiper-bundle.min.js" defer></script>
+  <script>
+    /* Dikey (Vertical Z-Axis) Swiper Kurulumu */
+    const swiper = new Swiper('.mySovereignVerticalSwiper', {
+      effect: 'cards', // Z Ekseninde İskambil destesi gibi dizer
+      grabCursor: true,
+      direction: 'vertical', // Dikey kaydırma yönü
+      mousewheel: {
+        invert: false, // Fare topuyla kaydırmak için
+        sensitivity: 0.5
+      },
+      cardsEffect: {
+        slideShadows: true, // Arkaya düşen kartı karartır
+        perSlideOffset: 12, // Kartlar arası Z mesafesi
+        perSlideRotate: 0 // Kartları sağa sola yatırmadan düz istifler
+      }
+    });
+  </script>
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+[
+  {
+    "page": "/tr/masajlar/kombine-masaj.html",
+    "step": "DOM Hydrator (Blok F3)",
+    "status": "Başarı",
+    "details": "Recovered Kombine Masaj | N/A | Auto-generated mock content block for kombine-masaj to restore Storage Blob Integrity."
+  },
+  {
+    "step": "Edge Content Delivery (Blok E)",
+    "status": "Başarı"
+  },
+  {
+    "step": "L2 Interceptor & Store (Blok F1 & F2)",
+    "status": "Başarı",
+    "details": "Store: true, Bridge: true, Hydrator API: true"
+  },
+  {
+    "step": "Content Integrity Engine (Blok D2)",
+    "status": "Başarı (Korumalı JWT)"
+  },
+  {
+    "step": "Metrics & Observability (Blok D3)",
+    "status": "Hata"
+  }
+]

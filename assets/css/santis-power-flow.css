@@ -1,0 +1,87 @@
+/**
+ * 🔋 SOVEREIGN POWER FLOW (AI JITTER KARAR MOTORU CSS KABUĞU)
+ * ADR-003: Distributed Cognitive Admin OS
+ * Author: Santis OS Head Engineer
+ */
+
+/* ===============================================================
+   1. LEVEL 1: TRIAGE (Jitter > 80ms)
+   Lojistik Önceliklendirme: CSS Blur, Ağır Gölgeler ve Pürüzsüz Efektler Fedası
+   =============================================================== */
+html.power-flow-triage * {
+    /* Donanım ivmelendirmeli ama yorucu olan filtreleri kapat (Cam efekti iptali) */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    
+    /* Box Shadow gibi GPU yoran efektleri minimuma indir */
+    box-shadow: none !important;
+    
+    /* Opacity animasyonlarını dondur (CPU nefes alsın) */
+    transition-duration: 0.1s !important;
+}
+
+/* Kasten background'lara düz bir fall-back ver ki blur gidince transparanlık çiğ durmasın */
+html.power-flow-triage .nv-glass-panel,
+html.power-flow-triage .god-bento-cell {
+    background: rgba(15, 20, 24, 0.95) !important; 
+}
+
+
+/* ===============================================================
+   2. LEVEL 2: ZEN MODE (Jitter > 150ms)
+   Sessiz Lüks Tasarrufu: Minimalist Şıklık, Salt İçerik
+   =============================================================== */
+html.power-flow-zen * {
+    /* Triage sınıflarını miras alır ama daha agresif feda eder */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    
+    /* Bütün CSS animasyonları (Pulse, Breathe, Float) durdurulur */
+    animation-play-state: paused !important;
+    transition: none !important;
+}
+
+/* Dekoratif ögeleri (Parallax, Glow, Arka Plan İmajları) siler, sadece veriyi tutar */
+html.power-flow-zen .parallax-bg,
+html.power-flow-zen .ambient-glow,
+html.power-flow-zen .decorative-element {
+    display: none !important;
+}
+
+/* Daha az GPU harcayan düz kontrast renkler */
+html.power-flow-zen body {
+    background-color: #0A0F0C !important; /* Koyu Füme */
+    background-image: none !important;
+}
+
+
+/* ===============================================================
+   3. LEVEL 3: SURVIVAL MODE (Kopma İstilası)
+   Military-Grade Kilit: Kullanıcı UI Eventleri tamamen donar.
+   Sadece Santis-WS-Orchestrator Heartbeat atar.
+   =============================================================== */
+html.power-flow-survival {
+    /* Pointer-events JS tarafından body'ye atılıyor ancak CSS sigortası yapıyoruz */
+    pointer-events: none !important;
+    user-select: none !important;
+    cursor: wait !important;
+    /* Hafif matrix grisi/kırmızı parazit filtresi */
+    filter: grayscale(80%) sepia(20%) hue-rotate(-50deg);
+}
+
+/* Sayfa üstüne acil durum şeridi (İsteğe bağlı) */
+html.power-flow-survival body::after {
+    content: "CRITICAL: NETWORK SURVIVAL MODE ENGAGED. UI FROZEN.";
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: #EF4444;
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 4px;
+    z-index: 999999;
+}

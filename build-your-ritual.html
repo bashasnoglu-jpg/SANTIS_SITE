@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="view-transition" content="same-origin">
+    <title>SANTIS | Ritüelini Yarat</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } }
+    </script>
+</head>
+<body class="min-h-screen bg-[#050505] text-white overflow-x-hidden flex flex-col font-sans relative selection:bg-[#D4AF37] selection:text-black pb-40">
+    
+    <header class="pt-16 pb-12 px-8 max-w-5xl mx-auto w-full relative z-10 text-center">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-[#D4AF37] rounded-full blur-[120px] opacity-10 pointer-events-none"></div>
+        <h1 class="text-4xl md:text-5xl font-light tracking-wide mb-4">
+            Kendi <span class="text-[#D4AF37] font-medium">Ritüelini</span> Tasarla
+        </h1>
+        <p class="text-gray-400 max-w-xl mx-auto text-sm leading-relaxed tracking-wide">Farklı kategorilerden seçim yaparak kusursuz kombinasyonunuzu yaratın. Seçtiğiniz her yeni alan, ayrıcalıklı indirimlerin kilidini açar.</p>
+    </header>
+
+    <div class="flex-1 w-full max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10 relative z-10">
+        
+        <section class="flex flex-col gap-5">
+            <h2 class="text-xs font-bold tracking-[0.2em] text-gray-500 uppercase border-b border-gray-800 pb-3 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-500/50 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></span> 1. Arınım (Sovereign Hamam)
+            </h2>
+            
+            <div class="ritual-card cursor-pointer bg-[#0a0a0c] border border-gray-800 rounded-2xl p-6 hover:border-[#D4AF37]/40 transition-all duration-300 relative overflow-hidden group" onclick="window.RitualBuilder.toggleItem('A', 'A1')">
+                <div class="selection-indicator absolute inset-0 border-2 border-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.15)] rounded-2xl opacity-0 transition-opacity duration-300" data-ritual-card="A1"></div>
+                <div class="flex justify-between items-start mb-2 relative z-10">
+                    <h3 class="text-base text-gray-200 font-medium group-hover:text-[#d4af37] transition-colors leading-tight">Geleneksel Türk Hamamı</h3>
+                    <span class="text-[#D4AF37] font-mono text-sm ml-2">€70</span>
+                </div>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4 relative z-10 w-11/12">Sıcak mermer üzerinde otantik köpük ve yoğun kese ile toksinlerden arınma ritüeli.</p>
+                <div class="text-[10px] text-gray-600 uppercase tracking-widest relative z-10 flex items-center gap-1.5">
+                    <span class="w-1 h-1 rounded-full bg-gray-600"></span> 40 Dakika
+                </div>
+            </div>
+
+            <div class="ritual-card cursor-pointer bg-[#0a0a0c] border border-gray-800 rounded-2xl p-6 hover:border-[#D4AF37]/40 transition-all duration-300 relative overflow-hidden group" onclick="window.RitualBuilder.toggleItem('A', 'A2')">
+                <div class="selection-indicator absolute inset-0 border-2 border-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.15)] rounded-2xl opacity-0 transition-opacity duration-300" data-ritual-card="A2"></div>
+                <div class="flex justify-between items-start mb-2 relative z-10">
+                    <h3 class="text-base text-gray-200 font-medium group-hover:text-[#d4af37] transition-colors leading-tight">Sultan Hamam Ritüeli</h3>
+                    <span class="text-[#D4AF37] font-mono text-sm ml-2">€120</span>
+                </div>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4 relative z-10 w-11/12">Isparta gülü özleri ve altın parçacıklı sabun ile tamamen kişiselleştirilmiş VIP kese-köpük konsepti.</p>
+                <div class="text-[10px] text-gray-600 uppercase tracking-widest relative z-10 flex items-center gap-1.5">
+                    <span class="w-1 h-1 rounded-full bg-[#d4af37]/80 shadow-[0_0_5px_rgba(212,175,55,0.5)]"></span> 60 Dakika
+                </div>
+            </div>
+        </section>
+
+        <section class="flex flex-col gap-5">
+            <h2 class="text-xs font-bold tracking-[0.2em] text-gray-500 uppercase border-b border-gray-800 pb-3 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500/50 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span> 2. Denge (Sovereign Masaj)
+            </h2>
+            
+            <div class="ritual-card cursor-pointer bg-[#0a0a0c] border border-gray-800 rounded-2xl p-6 hover:border-[#D4AF37]/40 transition-all duration-300 relative overflow-hidden group" onclick="window.RitualBuilder.toggleItem('B', 'B1')">
+                <div class="selection-indicator absolute inset-0 border-2 border-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.15)] rounded-2xl opacity-0 transition-opacity duration-300" data-ritual-card="B1"></div>
+                <div class="flex justify-between items-start mb-2 relative z-10">
+                    <h3 class="text-base text-gray-200 font-medium group-hover:text-[#d4af37] transition-colors leading-tight">Aromaterapi Masajı</h3>
+                    <span class="text-[#D4AF37] font-mono text-sm ml-2">€95</span>
+                </div>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4 relative z-10 w-11/12">Kişiselleştirilmiş esansiyel bitki özü yağlarıyla ruhsal ve bedensel hizalanma.</p>
+                <div class="text-[10px] text-gray-600 uppercase tracking-widest relative z-10 flex items-center gap-1.5">
+                    <span class="w-1 h-1 rounded-full bg-gray-600"></span> 60 Dakika
+                </div>
+            </div>
+
+            <div class="ritual-card cursor-pointer bg-[#0a0a0c] border border-gray-800 rounded-2xl p-6 hover:border-[#D4AF37]/40 transition-all duration-300 relative overflow-hidden group" onclick="window.RitualBuilder.toggleItem('B', 'B2')">
+                <div class="selection-indicator absolute inset-0 border-2 border-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.15)] rounded-2xl opacity-0 transition-opacity duration-300" data-ritual-card="B2"></div>
+                <div class="flex justify-between items-start mb-2 relative z-10">
+                    <h3 class="text-base text-gray-200 font-medium group-hover:text-[#d4af37] transition-colors leading-tight">Kraliyet Thai Masajı</h3>
+                    <span class="text-[#D4AF37] font-mono text-sm ml-2">€135</span>
+                </div>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4 relative z-10 w-11/12">Antik Asya esnetme teknikleriyle derin enerji blokajlarının kusursuz çözümü.</p>
+                <div class="text-[10px] text-gray-600 uppercase tracking-widest relative z-10 flex items-center gap-1.5">
+                    <span class="w-1 h-1 rounded-full bg-[#d4af37]/80 shadow-[0_0_5px_rgba(212,175,55,0.5)]"></span> 90 Dakika
+                </div>
+            </div>
+
+            <div class="ritual-card cursor-pointer bg-[#0a0a0c] border border-gray-800 rounded-2xl p-6 hover:border-[#D4AF37]/40 transition-all duration-300 relative overflow-hidden group" onclick="window.RitualBuilder.toggleItem('B', 'B3')">
+                <div class="selection-indicator absolute inset-0 border-2 border-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.15)] rounded-2xl opacity-0 transition-opacity duration-300" data-ritual-card="B3"></div>
+                <div class="flex justify-between items-start mb-2 relative z-10">
+                    <h3 class="text-base text-gray-200 font-medium group-hover:text-[#d4af37] transition-colors leading-tight">Abhyanga (Ayurvedik)</h3>
+                    <span class="text-[#D4AF37] font-mono text-sm ml-2">€160</span>
+                </div>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4 relative z-10 w-11/12">Sıcak şifalı ot yağlarıyla uygulanan, zihni sıfırlayan geleneksel Hint ritüeli.</p>
+                <div class="text-[10px] text-gray-600 uppercase tracking-widest relative z-10 flex items-center gap-1.5">
+                    <span class="w-1 h-1 rounded-full bg-[#d4af37]/80 shadow-[0_0_5px_rgba(212,175,55,0.5)]"></span> 90 Dakika
+                </div>
+            </div>
+        </section>
+
+        <section class="flex flex-col gap-5">
+            <h2 class="text-xs font-bold tracking-[0.2em] text-gray-500 uppercase border-b border-gray-800 pb-3 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-purple-500/50 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></span> 3. Işıltı (Sothys Cilt)
+            </h2>
+            
+            <div class="ritual-card cursor-pointer bg-[#0a0a0c] border border-gray-800 rounded-2xl p-6 hover:border-[#D4AF37]/40 transition-all duration-300 relative overflow-hidden group" onclick="window.RitualBuilder.toggleItem('C', 'C1')">
+                <div class="selection-indicator absolute inset-0 border-2 border-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.15)] rounded-2xl opacity-0 transition-opacity duration-300" data-ritual-card="C1"></div>
+                <div class="flex justify-between items-start mb-2 relative z-10">
+                    <h3 class="text-base text-gray-200 font-medium group-hover:text-[#d4af37] transition-colors leading-tight">Sothys B-Plan Terapi</h3>
+                    <span class="text-[#D4AF37] font-mono text-sm ml-2">€140</span>
+                </div>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4 relative z-10 w-11/12">Fransız Sothys enstitüsünün hyaluronik asit bazlı, imza hücresel yenileme bakımı.</p>
+                <div class="text-[10px] text-gray-600 uppercase tracking-widest relative z-10 flex items-center gap-1.5">
+                    <span class="w-1 h-1 rounded-full bg-gray-600"></span> 60 Dakika
+                </div>
+            </div>
+            
+            <div class="ritual-card cursor-pointer bg-[#0a0a0c] border border-gray-800 rounded-2xl p-6 hover:border-[#D4AF37]/40 transition-all duration-300 relative overflow-hidden group" onclick="window.RitualBuilder.toggleItem('C', 'C2')">
+                <div class="selection-indicator absolute inset-0 border-2 border-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.15)] rounded-2xl opacity-0 transition-opacity duration-300" data-ritual-card="C2"></div>
+                <div class="flex justify-between items-start mb-2 relative z-10">
+                    <h3 class="text-base text-gray-200 font-medium group-hover:text-[#d4af37] transition-colors leading-tight">Medikal Anti-Aging</h3>
+                    <span class="text-[#D4AF37] font-mono text-sm ml-2">€180</span>
+                </div>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4 relative z-10 w-11/12">Radyofrekans ve kolajen sentezleyici patentli serumlarla ameliyatsız gençleşme.</p>
+                <div class="text-[10px] text-gray-600 uppercase tracking-widest relative z-10 flex items-center gap-1.5">
+                    <span class="w-1 h-1 rounded-full bg-[#d4af37]/80 shadow-[0_0_5px_rgba(212,175,55,0.5)]"></span> 75 Dakika
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="fixed bottom-0 left-0 w-full bg-[#050505]/95 backdrop-blur-2xl border-t border-gray-800/60 z-50 transform transition-transform duration-500 translate-y-full shadow-[0_-10px_40px_rgba(0,0,0,0.8)]" id="ritual-hud">
+        
+        <div class="absolute top-0 left-0 w-full h-1 bg-gray-900">
+            <div id="hud-progress-bar" class="h-full bg-gray-700 w-0 transition-all duration-700 ease-out"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6 py-5 flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <div class="flex-1 w-full flex items-center gap-4">
+                <div class="relative w-14 h-14 flex items-center justify-center bg-gray-900 rounded-full border border-gray-700 shadow-inner">
+                    <span class="text-[#D4AF37] text-xl font-light font-mono">%<span id="ui-discount-rate">0</span></span>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <div class="text-[10px] text-gray-400 uppercase tracking-[0.2em] font-medium" id="hud-message">Bir kategori daha seçin</div>
+                    <div class="flex gap-1.5" id="hud-dots">
+                        <div class="w-10 h-1 bg-gray-800 rounded-full transition-all duration-500"></div>
+                        <div class="w-10 h-1 bg-gray-800 rounded-full transition-all duration-500"></div>
+                        <div class="w-10 h-1 bg-gray-800 rounded-full transition-all duration-500"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-1 text-center md:text-right w-full">
+                <div class="text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-1">Ritüel Bedeli</div>
+                <div class="flex items-center justify-center md:justify-end gap-3">
+                    <span class="text-lg text-gray-600 line-through decoration-red-900/50 font-mono transition-opacity duration-300 opacity-0" id="base-price-display">
+                        €<span id="ui-base-price">0</span>
+                    </span>
+                    <span class="text-3xl text-white font-light font-mono drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                        €<span id="ui-final-price">0</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="flex-1 flex justify-end gap-3 w-full md:w-auto">
+                <button onclick="openVIPModal()" id="btn-vip" class="flex-1 md:flex-none px-5 py-3 bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black rounded text-[10px] font-bold tracking-widest uppercase transition-all hidden shadow-[0_0_15px_rgba(212,175,55,0.15)] items-center gap-2">
+                    👑 VIP KİLİDİ (+%5)
+                </button>
+                <button class="flex-1 md:flex-none px-8 py-3 bg-white hover:bg-[#D4AF37] text-black rounded text-[10px] font-bold tracking-[0.2em] uppercase shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all transform active:scale-95">
+                    TAMAMLA
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="vip-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500">
+        <div class="bg-[#0a0a0c] border border-gray-800 rounded-3xl p-10 max-w-md w-full mx-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform scale-95 transition-transform duration-500 relative overflow-hidden" id="vip-modal-box">
+            <div class="absolute -top-32 -right-32 w-64 h-64 bg-[#D4AF37] rounded-full blur-[100px] opacity-10"></div>
+            
+            <div class="text-center mb-8 relative z-10">
+                <div class="text-4xl mb-4">👑</div>
+                <h3 class="text-2xl text-white font-light tracking-wide mb-3">Santis VIP Club</h3>
+                <p class="text-xs text-gray-400 leading-relaxed">Telefon numaranızı girin. Doğrulama kodu beklemeden anında <strong class="text-[#D4AF37]">ekstra %5 indirim</strong> kilidini açın.</p>
+            </div>
+            
+            <div class="relative z-10">
+                <input type="tel" id="vip-phone" placeholder="+90 5XX XXX XX XX" class="w-full bg-[#050505] border border-gray-700 text-white text-center text-xl font-mono py-4 rounded-xl mb-6 focus:outline-none focus:border-[#D4AF37] transition-colors shadow-inner">
+                
+                <button onclick="handleVIPUnlock()" class="w-full py-4 bg-[#D4AF37] text-black font-bold text-xs uppercase tracking-[0.2em] rounded-xl hover:bg-white shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all">
+                    %20 İNDİRİMİ KİLİTLE
+                </button>
+                
+                <button onclick="closeVIPModal()" class="w-full py-4 mt-2 text-gray-500 text-[10px] uppercase tracking-[0.2em] hover:text-white transition-colors">
+                    İstemiyorum, Devam Et
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Normalde bu kod SovereignState ve js modülünden gelir. Kapsül için gömüyoruz:
+        window.SovereignState = { ritual: { selections: { A: null, B: null, C: null }, baseTotal: 0, discountPercent: 0, finalTotal: 0, vipUnlocked: false, activeCategories: 0 } };
+        
+        const CATALOG = {
+            A: { items: { 'A1': 70, 'A2': 120 } },
+            B: { items: { 'B1': 95, 'B2': 135, 'B3': 160 } },
+            C: { items: { 'C1': 140, 'C2': 180 } }
+        };
+
+        window.RitualBuilder = {
+            toggleItem: (catId, itemId) => {
+                const s = window.SovereignState.ritual;
+                if (s.selections[catId] === itemId) s.selections[catId] = null;
+                else s.selections[catId] = itemId;
+                recalculate();
+            },
+            unlockVIP: (phone) => {
+                if (phone && phone.length > 5) {
+                    window.SovereignState.ritual.vipUnlocked = true;
+                    recalculate();
+                    console.log(`🚀 [HIVE NEXUS] Sürtünmesiz VIP Lead: ${phone}`);
+                    return true;
+                } return false;
+            }
+        };
+
+        function recalculate() {
+            const s = window.SovereignState.ritual;
+            let base = 0; let active = 0;
+            
+            Object.keys(s.selections).forEach(cat => {
+                const id = s.selections[cat];
+                if (id) {
+                    base += CATALOG[cat].items[id];
+                    active++;
+                }
+            });
+
+            s.activeCategories = active;
+            let rate = 0;
+            if (active === 2) rate = 10;
+            if (active === 3) rate = 15;
+            if (s.vipUnlocked && active > 0) rate += 5;
+
+            s.baseTotal = base;
+            s.discountPercent = rate;
+            s.finalTotal = base - Math.floor(base * (rate / 100));
+
+            document.dispatchEvent(new CustomEvent('SantisRitualUpdated'));
+        }
+
+        // DOM ve Görsel Geribildirim (View Logic)
+        document.addEventListener('SantisRitualUpdated', () => {
+            const state = window.SovereignState.ritual;
+            const hud = document.getElementById('ritual-hud');
+            const dots = document.getElementById('hud-dots').children;
+            const msg = document.getElementById('hud-message');
+            const btnVip = document.getElementById('btn-vip');
+            const basePriceDisplay = document.getElementById('base-price-display');
+            const progressBar = document.getElementById('hud-progress-bar');
+
+            // 1. Verileri Ekrana Yaz
+            document.getElementById('ui-discount-rate').textContent = state.discountPercent;
+            document.getElementById('ui-base-price').textContent = state.baseTotal.toFixed(2);
+            document.getElementById('ui-final-price').textContent = state.finalTotal.toFixed(2);
+
+            // 2. HUD Görünürlüğü
+            const hasItems = Object.values(state.selections).some(val => val !== null);
+            if (hasItems) hud.classList.remove('translate-y-full');
+            else hud.classList.add('translate-y-full');
+
+            // 3. Kartların Aktiflik Görünümü (Apple Toggle)
+            document.querySelectorAll('.selection-indicator').forEach(el => {
+                const cardId = el.getAttribute('data-ritual-card');
+                const cat = cardId.charAt(0);
+                if (state.selections[cat] === cardId) {
+                    el.style.opacity = '1';
+                    el.parentElement.classList.add('bg-white/[0.02]', 'border-[#D4AF37]/30');
+                } else {
+                    el.style.opacity = '0';
+                    el.parentElement.classList.remove('bg-white/[0.02]', 'border-[#D4AF37]/30');
+                }
+            });
+
+            // 4. Fiyat İllüzyonu
+            if (state.discountPercent > 0) basePriceDisplay.style.opacity = '1';
+            else basePriceDisplay.style.opacity = '0';
+
+            // 5. Oyunlaştırma Barı ve Mesajları
+            const cats = state.activeCategories;
+            progressBar.style.width = `${(cats / 3) * 100}%`;
+            
+            for(let i=0; i<3; i++) {
+                if (i < cats) dots[i].className = 'w-10 h-1 rounded-full transition-all duration-500 bg-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.5)]';
+                else dots[i].className = 'w-10 h-1 bg-gray-800 rounded-full transition-all duration-500';
+            }
+
+            if (cats === 1) {
+                msg.innerHTML = "Farklı bir kategori ekle, <span class='text-white font-bold'>%10 İndirim</span> kazan";
+                progressBar.className = 'h-full bg-gray-600 w-0 transition-all duration-700 ease-out';
+                btnVip.classList.remove('flex'); btnVip.classList.add('hidden');
+            }
+            else if (cats === 2) {
+                msg.innerHTML = "Harika! Son bir kategori ile <span class='text-white font-bold'>%15 İndirim</span>";
+                progressBar.className = 'h-full bg-blue-500 w-0 transition-all duration-700 ease-out shadow-[0_0_15px_rgba(59,130,246,0.5)]';
+                btnVip.classList.remove('flex'); btnVip.classList.add('hidden');
+            }
+            else if (cats === 3 && !state.vipUnlocked) {
+                msg.innerHTML = "<span class='text-[#D4AF37] font-bold'>Mükemmel Kombinasyon!</span>";
+                btnVip.classList.remove('hidden'); btnVip.classList.add('flex'); // VIP Kancası belirdi!
+                progressBar.className = 'h-full bg-[#D4AF37] w-0 transition-all duration-700 ease-out shadow-[0_0_15px_rgba(212,175,55,0.5)]';
+            }
+            else if (state.vipUnlocked) {
+                msg.innerHTML = "👑 <span class='text-[#D4AF37] font-bold tracking-widest'>VIP PROTOKOLÜ: MAKSİMUM İNDİRİM</span>";
+                btnVip.classList.remove('flex'); btnVip.classList.add('hidden'); // Kullanıldı, gizle
+            }
+        });
+
+        // Sürtünmesiz VIP Yönetimi
+        const vipModal = document.getElementById('vip-modal');
+        const vipBox = document.getElementById('vip-modal-box');
+        
+        function openVIPModal() {
+            vipModal.classList.remove('opacity-0', 'pointer-events-none');
+            vipBox.classList.remove('scale-95');
+        }
+
+        function closeVIPModal() {
+            vipModal.classList.add('opacity-0', 'pointer-events-none');
+            vipBox.classList.add('scale-95');
+        }
+
+        function handleVIPUnlock() {
+            const phone = document.getElementById('vip-phone').value;
+            if (window.RitualBuilder.unlockVIP(phone)) {
+                // Dopamin Vuruşu! Sıfır bekletme, anında kapansın
+                closeVIPModal();
+            } else {
+                // Sadece inputu titret (Hata)
+                const input = document.getElementById('vip-phone');
+                input.classList.add('border-red-500');
+                setTimeout(() => input.classList.remove('border-red-500'), 1000);
+            }
+        }
+    </script>
+
+    <!-- ORACLE MATCHER (Labor Illusion & 3 Kapsül UI) -->
+    <div id="oracle-overlay" class="fixed inset-0 bg-[#050505] z-[200] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-1000">
+        
+        <!-- Yükleme Radarı -->
+        <div id="oracle-radar" class="flex flex-col items-center transition-opacity duration-500">
+            <div class="relative w-32 h-32 mb-8">
+                <div class="absolute inset-0 border border-[#D4AF37]/20 rounded-full animate-ping"></div>
+                <div class="absolute inset-2 border border-[#D4AF37]/40 rounded-full animate-[spin_3s_linear_infinite]"></div>
+                <div class="absolute inset-4 border-2 border-[#D4AF37] rounded-full flex items-center justify-center bg-[#D4AF37]/5 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+                    <span class="text-2xl">👁️</span>
+                </div>
+            </div>
+            <p class="text-[#D4AF37] text-xs font-mono tracking-[0.3em] uppercase animate-pulse">Kâhin Sinerjiyi Hesaplıyor</p>
+        </div>
+
+        <!-- 3 Seçenekli Slot Kartları -->
+        <div id="oracle-slots" class="hidden flex-col items-center w-full max-w-4xl px-4 transform translate-y-8 opacity-0 transition-all duration-1000">
+            <h2 class="text-3xl text-white font-light tracking-wide mb-2 text-center">Ortak Titreşim: <span class="text-[#D4AF37] font-medium">Zaman Kapsülleri</span></h2>
+            <p class="text-gray-400 text-sm mb-12 text-center">Ritüelinizdeki bileşenlerin ruhsal ağırlığına göre en kusursuz anlar Kâhin tarafından belirlendi.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-10" id="slot-container">
+                <!-- JS tarafından doldurulacak -->
+            </div>
+
+            <!-- Ultimate Fallback -->
+            <button onclick="window.commitCheckout('fallback')" class="text-xs text-gray-500 hover:text-white uppercase tracking-[0.2em] border-b border-gray-800 hover:border-gray-500 transition-colors pb-1">
+                Kapsülleri Beğenmedim, Asistanla Görüş
+            </button>
+        </div>
+    </div>
+
+    <!-- Oracle JS Injector -->
+    <script type="module">
+        import { OracleMatcher } from './assets/js/modules/santis-oracle-matcher.js';
+        
+        window.startOracleCheckout = function() {
+            // Sepet boşsa engelle
+            if (window.SovereignState.ritual.activeCategories === 0) return;
+
+            const overlay = document.getElementById('oracle-overlay');
+            const radar = document.getElementById('oracle-radar');
+            const slotsContainer = document.getElementById('oracle-slots');
+            const slotGrid = document.getElementById('slot-container');
+            
+            // 1. Sinematik Ekranı Aç
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            
+            // 2. Oracle'dan verileri çek
+            const oracle = new OracleMatcher();
+            const slots = oracle.predictPerfectSlots();
+            
+            // HTML Kartlarını oluştur
+            slotGrid.innerHTML = slots.map((s, index) => `
+                <div onclick="window.commitCheckout(${index})" class="cursor-pointer bg-[#0a0a0c] border ${s.isPremium ? 'border-[#D4AF37]/50 shadow-[0_0_20px_rgba(212,175,55,0.1)]' : 'border-gray-800'} rounded-2xl p-6 hover:bg-[#111] hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group">
+                    ${s.isPremium ? '<div class="absolute top-0 right-0 bg-[#D4AF37] text-black text-[9px] font-bold px-3 py-1 rounded-bl-lg tracking-widest uppercase shadow-md">VIP KAPSÜL</div>' : ''}
+                    <div class="text-[#D4AF37] text-sm font-mono mb-2">${s.time}</div>
+                    <h3 class="text-xl text-white font-medium mb-1">${s.label}</h3>
+                    <p class="text-xs text-gray-400 mb-6">Terapist: ${s.therapist}</p>
+                    
+                    <button class="w-full py-3 bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/30 text-xs font-bold tracking-[0.2em] rounded-lg group-hover:bg-[#25D366] group-hover:text-black transition-colors flex items-center justify-center gap-2">
+                        <span>WHATSAPP İLE ONAYLA</span>
+                    </button>
+                </div>
+            `).join('');
+
+            // Checkout global scope function
+            window.commitCheckout = function(slotIndex) {
+                if(slotIndex === 'fallback') oracle.executeCheckout('fallback');
+                else oracle.executeCheckout(slots[slotIndex]);
+            };
+
+            // 3. Labor Illusion (1.8s bekleme)
+            setTimeout(() => {
+                radar.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => {
+                    radar.classList.add('hidden');
+                    slotsContainer.classList.remove('hidden');
+                    // Reflow hack for animation
+                    void slotsContainer.offsetWidth;
+                    slotsContainer.classList.remove('translate-y-8', 'opacity-0');
+                }, 500);
+            }, 1800);
+        };
+
+        // Mevcut TAMAMLA butonuna Oracle Checkout olayını bağla
+        // İlgili butonu bularak attach ediyoruz
+        const tamamlaBtn = Array.from(document.querySelectorAll('button')).find(btn => btn.textContent.includes('TAMAMLA'));
+        if(tamamlaBtn) {
+            tamamlaBtn.onclick = function() { window.startOracleCheckout(); };
+        }
+    </script>
+</body>
+</html>

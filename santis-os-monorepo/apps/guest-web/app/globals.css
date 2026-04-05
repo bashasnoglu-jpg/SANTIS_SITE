@@ -1,0 +1,39 @@
+@import './styles/tokens/sovereign-geometry.css';
+@import './styles/tokens/sovereign-motion.css';
+
+/* ============================================================================
+ * 3. SOVEREIGN RESET (Sıfırlama ve Renk Paleti)
+ * ============================================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Lüks gri/siyah palet */
+  background-color: #0f0f11;
+  color: #f7f7f7;
+  
+  /* Scrollbar gizleme (Safari & Chrome) */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Sayfa transitionları için pürüzsüzleştirme */
+html {
+  scroll-behavior: smooth;
+}

@@ -1,0 +1,508 @@
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Club Fitness & Spa - Spa Menüsü</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            background-color: #08110b;
+            color: #d1d5db; 
+            font-family: 'Lato', sans-serif; 
+            background-image: radial-gradient(circle at top right, rgba(26, 60, 36, 0.4) 0%, transparent 50%),
+                              radial-gradient(circle at bottom left, rgba(16, 36, 22, 0.6) 0%, transparent 50%);
+        }
+        h1, h2, h3, .serif-font { font-family: 'Playfair Display', serif; }
+        .text-gold { color: #d4af37; }
+        .border-gold { border-color: rgba(212, 175, 55, 0.3); }
+        .glass-panel { 
+            background: rgba(10, 20, 13, 0.6); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(74, 222, 128, 0.1); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .glass-panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        .leader-line { 
+            flex-grow: 1; 
+            border-bottom: 1px dotted rgba(255, 255, 255, 0.15); 
+            margin: 0 12px; 
+            position: relative; 
+            top: -6px; 
+        }
+        .menu-item:hover .text-gray-300 { color: #fff; transition: color 0.3s; }
+        .menu-item:hover .leader-line { border-color: rgba(212, 175, 55, 0.5); transition: border-color 0.3s; }
+    </style>
+</head>
+<body class="antialiased min-h-screen pb-20">
+
+    <!-- GLOBAL KAÇIŞ VE VİZYON KÖPRÜSÜ (NAVBAR) -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-panel !border-t-0 !border-l-0 !border-r-0 !rounded-none border-b border-green-900/40 px-4 md:px-8 py-4 flex justify-between items-center shadow-2xl">
+        <a href="/tr/index.html" class="flex items-center gap-2 text-xs md:text-sm text-gray-400 hover:text-emerald-400 uppercase tracking-widest transition-colors font-semibold group">
+            <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            <span class="hidden md:inline">Lobiye Dön</span>
+            <span class="inline md:hidden">Geri</span>
+        </a>
+        
+        <a href="/tr/index.html" class="text-gold serif-font text-lg md:text-xl uppercase tracking-[0.2em] hover:text-white transition-colors absolute left-1/2 transform -translate-x-1/2 font-bold">SANTIS</a>
+        
+        <a href="/admin-dashboard.html" class="flex items-center gap-2 text-xs md:text-sm text-gray-400 hover:text-gold uppercase tracking-widest transition-colors font-semibold group" title="Sovereign Radar">
+            <svg class="w-4 h-4 text-gold group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8V7a4 4 0 00-8 0v4h8z"></path></svg>
+            <span class="hidden md:inline">Sovereign OS</span>
+        </a>
+    </nav>
+
+    <header class="pt-32 pb-16 text-center border-b border-green-900/40 relative overflow-hidden">
+        <div class="relative z-10">
+            <h1 class="text-5xl md:text-7xl text-white mb-2 tracking-widest uppercase serif-font drop-shadow-lg">Santis Club</h1>
+            <p class="text-xl md:text-2xl text-emerald-400/90 tracking-[0.3em] uppercase mb-6 font-light">Fitness & Spa</p>
+            <p class="text-gold italic serif-font text-xl md:text-2xl max-w-2xl mx-auto px-4">"We will relax your body with scrub peeling & massage"</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+        
+        <div class="glass-panel rounded-2xl p-6 mb-16 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4 text-center md:text-left">
+            <div>
+                <span class="block text-gold font-semibold uppercase tracking-wider mb-1">Location</span>
+                IBEROSTAR WAVES SLAVIJA BUDVA, 7. FLOOR
+            </div>
+            <div class="hidden md:block w-px h-10 bg-green-900/50"></div>
+            <div>
+                <span class="block text-gold font-semibold uppercase tracking-wider mb-1">Contact</span>
+                068 543 237 / ROOM: 220
+            </div>
+            <div class="hidden md:block w-px h-10 bg-green-900/50"></div>
+            <div>
+                <span class="block text-gold font-semibold uppercase tracking-wider mb-1">Hours</span>
+                Everyday 09:00h - 20:00h
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+            <!-- SOL SÜTUN -->
+            <div class="space-y-12">
+                
+                <!-- SPA PROGRAMS -->
+                <div class="glass-panel rounded-2xl p-8 shadow-2xl">
+                    <h2 class="text-2xl text-emerald-400 mb-8 uppercase tracking-widest border-b border-green-900/50 pb-4 serif-font">Spa Programs</h2>
+                    
+                    <div class="space-y-8">
+                        <div class="group cursor-pointer">
+                            <div class="flex justify-between items-end mb-2">
+                                <h3 class="text-lg text-white tracking-wide serif-font group-hover:text-gold transition-colors">CHILD CARE PROGRAM</h3>
+                                <span class="text-xl font-bold text-gold">80 €</span>
+                            </div>
+                            <ul class="text-sm text-gray-400 space-y-1 font-light group-hover:text-gray-300 transition-colors">
+                                <li class="flex justify-between"><span>Chocolate and foam massage</span> <span>30 min</span></li>
+                                <li class="flex justify-between"><span>Kid's massage</span> <span>30 min</span></li>
+                                <li class="flex justify-between"><span>Face mask</span> <span>15 min</span></li>
+                            </ul>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="flex justify-between items-end mb-2">
+                                <h3 class="text-lg text-white tracking-wide serif-font group-hover:text-gold transition-colors">RELAX PROGRAM</h3>
+                                <span class="text-xl font-bold text-gold">100 €</span>
+                            </div>
+                            <ul class="text-sm text-gray-400 space-y-1 font-light group-hover:text-gray-300 transition-colors">
+                                <li class="flex justify-between"><span>Peeling and foam massage</span> <span>30 min</span></li>
+                                <li class="flex justify-between"><span>Classic full body massage</span> <span>50 min</span></li>
+                                <li class="flex justify-between"><span>Face mask</span> <span>15 min</span></li>
+                            </ul>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="flex justify-between items-end mb-2">
+                                <h3 class="text-lg text-white tracking-wide serif-font group-hover:text-gold transition-colors">MEDICAL PROGRAM</h3>
+                                <span class="text-xl font-bold text-gold">115 €</span>
+                            </div>
+                            <ul class="text-sm text-gray-400 space-y-1 font-light group-hover:text-gray-300 transition-colors">
+                                <li class="flex justify-between"><span>Sea salt peeling and foam massage</span> <span>30 min</span></li>
+                                <li class="flex justify-between"><span>Medical massage</span> <span>50 min</span></li>
+                                <li class="flex justify-between"><span>Face mask</span> <span>15 min</span></li>
+                            </ul>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="flex justify-between items-end mb-2">
+                                <h3 class="text-lg text-white tracking-wide serif-font group-hover:text-gold transition-colors">BRONZE PROGRAM</h3>
+                                <span class="text-xl font-bold text-gold">105 €</span>
+                            </div>
+                            <ul class="text-sm text-gray-400 space-y-1 font-light group-hover:text-gray-300 transition-colors">
+                                <li class="flex justify-between"><span>Coffee peeling and foam massage</span> <span>30 min</span></li>
+                                <li class="flex justify-between"><span>Bronze massage</span> <span>50 min</span></li>
+                                <li class="flex justify-between"><span>Face mask</span> <span>15 min</span></li>
+                            </ul>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="flex justify-between items-end mb-2">
+                                <h3 class="text-lg text-white tracking-wide serif-font group-hover:text-gold transition-colors">DELUX PROGRAM</h3>
+                                <span class="text-xl font-bold text-gold">175 €</span>
+                            </div>
+                            <ul class="text-sm text-gray-400 space-y-1 font-light group-hover:text-gray-300 transition-colors">
+                                <li class="flex justify-between"><span>Coffee, sea salt peeling & Algen mask</span> <span>50 min</span></li>
+                                <li class="flex justify-between"><span>Combination massage</span> <span>50 min</span></li>
+                                <li class="flex justify-between"><span>Face mask</span> <span>15 min</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TURKISH BATH -->
+                <div class="glass-panel rounded-2xl p-8 shadow-2xl cursor-default">
+                    <h2 class="text-2xl text-emerald-400 mb-6 uppercase tracking-widest border-b border-green-900/50 pb-4 serif-font">Turkish Bath Program</h2>
+                    <ul class="space-y-4 text-sm md:text-base">
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Peeling and Foam Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">45 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Foam Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">45 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Coffee Peeling and Foam</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">50 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Sea Salt Peeling and Foam</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">50 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Honey and Foam Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">55 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Chocolate and Foam Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">55 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Algen and Foam Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">55 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gold font-medium">Ottoman Hamam Tradition</span><div class="leader-line border-gold"></div><span class="text-gray-400 w-16 text-right">50 min</span><span class="text-gold font-bold w-12 text-right">90 €</span></li>
+                    </ul>
+                </div>
+                
+                <!-- CLASSIC MASSAGES -->
+                <div class="glass-panel rounded-2xl p-8 shadow-2xl cursor-default">
+                    <h2 class="text-2xl text-emerald-400 mb-6 uppercase tracking-widest border-b border-green-900/50 pb-4 serif-font">Classic Massages</h2>
+                    <ul class="space-y-4 text-sm md:text-base">
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Classic Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">50 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Feet Reflex Zone Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">50 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Classic Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">80 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Anti-Stress Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">80 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Aroma Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">80 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Bronze Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">80 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Sport Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">90 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Anti Cellulite Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">90 €</span></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- SAĞ SÜTUN -->
+            <div class="space-y-12">
+                
+                <!-- ASIAN MASSAGE -->
+                <div class="glass-panel rounded-2xl p-8 shadow-2xl cursor-default">
+                    <h2 class="text-2xl text-emerald-400 mb-6 uppercase tracking-widest border-b border-green-900/50 pb-4 serif-font">Asian Massage</h2>
+                    <ul class="space-y-4 text-sm md:text-base">
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Thai Reflexology Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">55 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Indian Head Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">55 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Bali Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">90 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Bali Aroma Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">90 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Traditional Thai Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">100 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Ayurveda Massage</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">90 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Shiatsu</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">100 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gold font-medium">Mandara Massage (4 Hand)</span><div class="leader-line border-gold"></div><span class="text-gray-400 w-16 text-right">50 min</span><span class="text-gold font-bold w-12 text-right">150 €</span></li>
+                    </ul>
+                </div>
+
+                <!-- FACE CARE PROGRAM -->
+                <div class="glass-panel rounded-2xl p-8 shadow-2xl cursor-default">
+                    <h2 class="text-2xl text-emerald-400 mb-6 uppercase tracking-widest border-b border-green-900/50 pb-4 serif-font">Face Care Program</h2>
+                    <ul class="space-y-4 text-sm md:text-base">
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Vitamin Mask</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">50 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Moisturizing Mask</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">50 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Face Firming Mask</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">50 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Renewal (Collagen) Mask</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">30 min</span><span class="text-emerald-300 font-medium w-12 text-right">50 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Vitamin Care</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">80 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Eye Care</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">80 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Classic Face Care</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">80 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">G5</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">95 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Eye Care Active Couture</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">80 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Collagen Treatment</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">95 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Moisture Treatment</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">50 min</span><span class="text-emerald-300 font-medium w-12 text-right">95 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Extra Moisture Treatment</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">90 min</span><span class="text-emerald-300 font-medium w-12 text-right">110 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Skin Repair Care</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">90 min</span><span class="text-emerald-300 font-medium w-12 text-right">130 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Ultra Firming Treatment</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">90 min</span><span class="text-emerald-300 font-medium w-12 text-right">130 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Couperose Treatment</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">90 min</span><span class="text-emerald-300 font-medium w-12 text-right">130 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Oily and Acne Skin Care</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">90 min</span><span class="text-emerald-300 font-medium w-12 text-right">150 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Anti-Aging (Wrinkles)</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">90 min</span><span class="text-emerald-300 font-medium w-12 text-right">160 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gray-300 font-light">Anti-Aging (Age Spots)</span><div class="leader-line"></div><span class="text-gray-500 w-16 text-right">90 min</span><span class="text-emerald-300 font-medium w-12 text-right">160 €</span></li>
+                        <li class="flex items-end menu-item"><span class="text-gold font-medium">Deluxe Care</span><div class="leader-line border-gold"></div><span class="text-gray-400 w-16 text-right">90 min</span><span class="text-gold font-bold w-12 text-right">170 €</span></li>
+                    </ul>
+                </div>
+
+                <!-- EXTRA & EFFECTIVE -->
+                <div class="bg-gradient-to-br from-[#102416] to-[#0a140d] border border-gold/40 rounded-2xl p-8 text-center shadow-lg relative overflow-hidden hover:scale-[1.02] transition-transform duration-300">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-bl-full"></div>
+                    <h3 class="text-2xl text-gold serif-font mb-2 uppercase tracking-widest relative z-10">Extra & Effective</h3>
+                    <p class="text-gray-400 italic mb-6 relative z-10">Special deep tissue & therapies</p>
+                    <ul class="space-y-3 text-sm md:text-base text-left mx-auto relative z-10">
+                        <li class="flex justify-between border-b border-green-900/50 pb-2"><span class="text-gray-300">Local Deep Tissue (30')</span><span class="text-emerald-400 font-bold">55 €</span></li>
+                        <li class="flex justify-between border-b border-green-900/50 pb-2"><span class="text-gray-300">Hot Stone Massage (50')</span><span class="text-emerald-400 font-bold">90 €</span></li>
+                        <li class="flex justify-between border-b border-green-900/50 pb-2"><span class="text-gray-300">Deep Tissue Massage (50')</span><span class="text-emerald-400 font-bold">90 €</span></li>
+                        <li class="flex justify-between border-b border-green-900/50 pb-2"><span class="text-gray-300">Lymphatic Drainage (50')</span><span class="text-emerald-400 font-bold">90 €</span></li>
+                        <li class="flex justify-between border-b border-green-900/50 pb-2"><span class="text-gray-300">Combination Massage (50')</span><span class="text-emerald-400 font-bold">100 €</span></li>
+                        <li class="flex justify-between border-b border-green-900/50 pb-2"><span class="text-gray-300">Combination Massage (90')</span><span class="text-emerald-400 font-bold">130 €</span></li>
+                        <li class="flex justify-between pt-1"><span class="text-gray-300">Mix Manuel Therapy (90')</span><span class="text-gold font-bold">180 €</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-12 text-center text-sm text-gray-500 tracking-widest uppercase">
+            Sauna • Steam Room • Turkish Bath • Fitness
+        </div>
+    </main>
+
+    <!-- UPSELL MODAL (SESSİZ LÜKS) -->
+    <div id="upsell-modal" class="fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 bg-black/60 backdrop-blur-md">
+        <div id="upsell-content" class="glass-panel p-8 rounded-2xl max-w-md w-full mx-4 transform scale-95 transition-transform duration-300 text-center relative font-light">
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors cursor-pointer">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div id="modal-body">
+                <h3 class="text-2xl text-gold serif-font mb-3">Sessiz Lüks Dokunuşu</h3>
+                <p class="text-gray-300 mb-8 leading-relaxed"><span id="upsell-service-name" class="font-medium text-emerald-400 italic font-serif"></span> deneyiminizi daha da zenginleştirmek ister misiniz? Sadece <span class="text-gold font-bold">20€</span> farkla hücrelerinizi uyandıran Sıcak Taş Terapisi veya Yüz Maskesi ayrıcalığını ritüelinize ekleyebiliriz.</p>
+                <div class="flex flex-col gap-3">
+                    <button id="btn-accept" class="w-full py-3 bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-500/30 rounded-xl text-emerald-100 transition-colors font-medium tracking-wide shadow-lg">Evet Lütfen</button>
+                    <button id="btn-decline" class="w-full py-3 bg-transparent hover:bg-white/5 border border-white/10 rounded-xl text-gray-400 transition-colors tracking-wide">Şimdilik Hayır, Teşekkürler</button>
+                </div>
+            </div>
+            <div id="modal-success" class="hidden flex-col items-center justify-center py-6">
+                <div class="w-16 h-16 bg-emerald-900/50 rounded-full flex items-center justify-center mb-4 border border-emerald-500/30">
+                    <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h3 class="text-xl text-emerald-400 serif-font mb-2">Kusursuz Seçim</h3>
+                <p class="text-gray-400 font-light text-sm">Ayrıcalığınız ritüelinize başarıyla kilitlendi.</p>
+            </div>
+            
+            <!-- REZERVASYON FORMU (DUAL FUNNEL) -->
+            <div id="modal-reservation-form" class="hidden flex-col text-left">
+                <h3 class="text-xl text-gold serif-font mb-4 text-center">Ritüelinizi Mühürleyin</h3>
+                <p class="text-gray-400 font-light text-sm text-center mb-6">Müsaitlik durumu için sizi WhatsApp üzerinden Spa Asistanımıza yönlendiriyoruz.</p>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-emerald-500 mb-1">Oda Numaranız</label>
+                        <input type="text" id="room-number" placeholder="Örn: 402" class="w-full bg-black/20 border border-emerald-900/50 rounded-xl px-4 py-3 text-gray-200 outline-none focus:border-emerald-500/50 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-emerald-500 mb-1">Tercih Edilen Saat</label>
+                        <input type="text" id="preferred-time" placeholder="Örn: 16:30 veya Yarın Sabah" class="w-full bg-black/20 border border-emerald-900/50 rounded-xl px-4 py-3 text-gray-200 outline-none focus:border-emerald-500/50 transition-colors">
+                    </div>
+                    <button id="btn-whatsapp" class="w-full mt-2 py-3 bg-[#128C7E] hover:bg-[#075E54] rounded-xl text-white font-medium transition-colors flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/20">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.12.553 4.195 1.603 6.012L.35 24l6.113-1.603a12.008 12.008 0 005.568 1.365h.004c6.645 0 12.03-5.385 12.03-12.031S18.676 0 12.031 0zm0 21.734c-1.802 0-3.568-.485-5.116-1.403l-.367-.217-3.805.998.998-3.804-.216-.367A9.99 9.99 0 012.03 12.03c0-5.518 4.49-10.01 10.002-10.01 5.514 0 10.003 4.49 10.003 10.01 0 5.517-4.489 10.01-10.004 10.01zm5.498-7.513c-.302-.15-1.785-.88-2.062-.98-.276-.1-.476-.15-.678.15-.202.302-.781.98-.957 1.18-.176.2-.352.226-.654.076-2.146-1.073-3.666-2.046-5.184-4.524-.176-.277.172-.256.762-1.439.075-.15.038-.276-.038-.426-.076-.15-.678-1.63-.929-2.232-.244-.587-.492-.507-.678-.517-.176-.01-.376-.01-.577-.01-.2 0-.527.076-.803.377-.276.301-1.053 1.028-1.053 2.507 0 1.48 1.078 2.91 1.229 3.111.15.201 2.122 3.235 5.14 4.537.718.31 1.278.495 1.716.634.721.23 1.378.197 1.897.12.578-.086 1.785-.73 2.036-1.435.251-.705.251-1.308.176-1.435-.075-.125-.276-.2-.578-.35z"></path></svg>
+                        Asistan'a Gönder
+                    </button>
+                    <button id="btn-cancel-reservation" class="w-full py-2 bg-transparent text-gray-500 hover:text-gray-300 transition-colors text-sm">Vazgeç</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SALES MACHINE LOGIC -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('upsell-modal');
+            const content = document.getElementById('upsell-content');
+            const modalBody = document.getElementById('modal-body');
+            const modalSuccess = document.getElementById('modal-success');
+            const serviceNameSpan = document.getElementById('upsell-service-name');
+            const closeBtn = document.getElementById('close-modal');
+            const acceptBtn = document.getElementById('btn-accept');
+            const declineBtn = document.getElementById('btn-decline');
+
+            const modalReservationForm = document.getElementById('modal-reservation-form');
+            const roomNumberInput = document.getElementById('room-number');
+            const preferredTimeInput = document.getElementById('preferred-time');
+            const whatsappBtn = document.getElementById('btn-whatsapp');
+            const cancelResBtn = document.getElementById('btn-cancel-reservation');
+
+            let currentServiceName = '';
+            let currentServicePrice = 0;
+            let isUpsellAccepted = false;
+
+            // Tüm masaj ve menü öğelerini hedefle
+            document.querySelectorAll('.menu-item, .group').forEach(item => {
+                item.classList.add('cursor-pointer', 'upsell-trigger');
+                
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    let serviceName = '';
+                    let servicePrice = 0;
+                    const nameEl = this.querySelector('h3, .text-gray-300, .text-gold.font-medium, .text-gray-300');
+                    if (nameEl) {
+                        serviceName = nameEl.innerText.split(' (')[0].trim(); 
+                    } else if (this.innerText) {
+                        serviceName = this.innerText.split('\n')[0].trim();
+                    }
+                    
+                    const pEl = Array.from(this.querySelectorAll('span')).find(s => s.innerText.includes('€'));
+                    if (pEl) {
+                        servicePrice = parseInt(pEl.innerText.replace(/[^\d]/g, '')) || 0;
+                    }
+
+                    if(this.tagName === 'H2') return;
+                    if(serviceName) openModal(serviceName, servicePrice);
+                });
+            });
+
+            function openModal(name, price) {
+                currentServiceName = name;
+                currentServicePrice = price;
+                serviceNameSpan.innerText = name;
+                isUpsellAccepted = false;
+                
+                // Form alanlarını sıfırla
+                roomNumberInput.value = '';
+                preferredTimeInput.value = '';
+
+                // Görünümleri sıfırla
+                modalBody.classList.remove('hidden');
+                modalSuccess.classList.add('hidden');
+                modalSuccess.classList.remove('flex');
+                modalReservationForm.classList.add('hidden');
+                modalReservationForm.classList.remove('flex');
+                
+                // Transition (Glassmorphism Modal Açılış)
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                setTimeout(() => content.classList.remove('scale-95'), 10);
+            }
+
+            function closeModal() {
+                content.classList.add('scale-95');
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }
+
+            // Kapatma tetikleyicileri
+            closeBtn.addEventListener('click', closeModal);
+            cancelResBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if(e.target === modal) closeModal();
+            });
+
+            // "Şimdilik Hayır" Tıklaması (Sadece form ekranına ilerle)
+            declineBtn.onclick = function() {
+                // Upsell istemedi, sadece ana ritüeli (0€ ekstra) kaydet
+                localStorage.setItem('santis_pending_booking', JSON.stringify({
+                    ritual: currentServiceName || 'Özel Masaj',
+                    price: 0
+                }));
+
+                // Modalı yumuşakça kapat ve direkt Huni'ye geç
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                content.classList.remove('scale-100');
+                content.classList.add('scale-95');
+                
+                setTimeout(() => {
+                    document.body.style.transition = 'opacity 0.6s ease';
+                    document.body.style.opacity = '0';
+                    setTimeout(() => { window.location.href = 'spa-booking.html'; }, 600);
+                }, 300);
+            };
+
+            // "Evet Lütfen" Tıklaması
+            acceptBtn.onclick = function() {
+                // 1. Telemetriyi bekletiyoruz, sadece misafirin niyetini kaydediyoruz.
+                localStorage.setItem('santis_pending_booking', JSON.stringify({
+                    ritual: currentServiceName || 'Özel Masaj',
+                    price: 20 // The Upsell Value
+                }));
+
+                // 2. Modalı "Kilitlendi" Hazzına Geçir
+                content.innerHTML = `
+                    <div class="text-center transform transition-all scale-110 p-8">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-900/50 mb-4 border border-emerald-500/30 shadow-[0_0_30px_rgba(16,185,129,0.3)]">
+                            <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <h3 class="font-serif text-2xl text-emerald-400 mb-2">Ayrıcalığınız Kilitlendi.</h3>
+                        <p class="text-gray-400 text-sm font-light">Zamanı belirlemek üzere yönlendiriliyorsunuz...</p>
+                    </div>
+                `;
+
+                // 3. Ekranı yavaşça karartarak Lüks Rezervasyon Hunisine yönlendir (Pürüzsüz Geçiş)
+                setTimeout(() => {
+                    document.body.style.transition = 'opacity 0.6s ease';
+                    document.body.style.opacity = '0';
+                    setTimeout(() => { window.location.href = 'spa-booking.html'; }, 600);
+                }, 2000);
+            };
+
+            // WhatsApp Bağlantı Motoru ve Telemetry Sync
+            whatsappBtn.addEventListener('click', () => {
+                const room = roomNumberInput.value.trim() || 'Belirtilmedi';
+                const time = preferredTimeInput.value.trim() || 'Belirtilmedi';
+                const upsellText = isUpsellAccepted ? ' (+ Özel Yüz/Taş Ayrıcalığı eklendi)' : '';
+
+                const message = `Merhaba Santis Spa, rezervasyon yapmak istiyorum:\n\n📍 *Oda:* ${room}\n🕒 *Saat:* ${time}\n✨ *Ritüel:* ${currentServiceName}${upsellText}`;
+                
+                // +382068543237 Lüks Karadağ (Montenegro) Numarası Formatı
+                const waUrl = `https://wa.me/38268543237?text=${encodeURIComponent(message)}`;
+                
+                window.open(waUrl, '_blank');
+                closeModal();
+            });
+        });
+    </script>
+
+    <!-- SANTIS SHADOW WORKER REGISTRATION (PWA) -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('🌑 [Santis PWA] Shadow Worker zırhı dijital menüye başarıyla mühürlendi.', registration.scope);
+                }).catch(err => {
+                    console.error('🔴 PWA Registration Mührü Kırıldı:', err);
+                });
+            });
+        }
+    </script>
+    <!-- [BETA PROTOKOLÜ] MIDAS SURGE LISTENER -->
+    <script>
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'santis_surge_pricing') {
+                const isActive = e.newValue === 'active';
+                dispatchMidasSurgeEffect(isActive);
+            }
+        });
+
+        function dispatchMidasSurgeEffect(isActive) {
+            const priceElements = document.querySelectorAll('span, p, div');
+            priceElements.forEach(el => {
+                if (el.innerText.trim().endsWith('€') && el.innerText.length < 10) {
+                    let originalPrice = el.getAttribute('data-original-price');
+                    if (!originalPrice) {
+                        const match = el.innerText.match(/\d+/);
+                        if (match) {
+                            originalPrice = parseInt(match[0]);
+                            el.setAttribute('data-original-price', originalPrice);
+                        }
+                    }
+                    if (!originalPrice) return;
+                    
+                    if (isActive) {
+                        const newPrice = Math.floor(parseInt(originalPrice) * 1.18);
+                        el.innerText = newPrice + ' €';
+                        
+                        // Cyber-Luxury Gold Flash
+                        el.classList.add('transition-all', 'duration-1000');
+                        el.style.color = '#fbbf24'; 
+                        el.style.transform = 'scale(1.1)';
+                        el.style.textShadow = '0 0 15px rgba(251,191,36,0.8)';
+                        setTimeout(() => { el.style.transform = 'scale(1)'; }, 300);
+                        
+                    } else {
+                        el.innerText = originalPrice + ' €';
+                        el.style.color = '';
+                        el.style.transform = 'scale(1)';
+                        el.style.textShadow = '';
+                    }
+                }
+            });
+        }
+
+        // Check on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('santis_surge_pricing') === 'active') {
+                setTimeout(() => dispatchMidasSurgeEffect(true), 200);
+            }
+        });
+    </script>
+</body>
+</html>

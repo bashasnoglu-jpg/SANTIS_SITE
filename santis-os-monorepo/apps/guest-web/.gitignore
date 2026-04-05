@@ -1,0 +1,15 @@
+# Next.js build
+.next/
+out/
+build/
+
+# Node
+node_modules/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Env files (NEVER COMMIT .env.local)
+.env*.local
+.env
