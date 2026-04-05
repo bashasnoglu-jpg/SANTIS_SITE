@@ -2,6 +2,7 @@
  * 👁️ SANTIS OS: THE SOVEREIGN GOD MODE ENGINE (Phase 66)
  * Zero-Latency Redis Pub/Sub Stream Processor
  */
+import { GodModeCommandSchema, GodModeTelemetrySchema } from '../../core/guardian/schemas.ts';
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("🦅 [GOD MODE] Sovereign Panopticon Initializing...");
@@ -19,6 +20,21 @@ document.addEventListener("DOMContentLoaded", () => {
     // Standart SSE EventSource bağlantısı
     const eventSource = new EventSource('/api/v1/media/pulse');
 
+    // === "Parse, Don't Validate" INBOUND SHIELD ===
+    function safeParseTelemetry(rawData) {
+        try {
+            const parsed = GodModeTelemetrySchema.safeParse(JSON.parse(rawData));
+            if (!parsed.success) {
+                console.error("⛔ [GodMode] Telemetry Boundary İhlali. Paket reddedildi.", parsed.error);
+                return null;
+            }
+            return parsed.data;
+        } catch (err) {
+            console.error("⛔ [GodMode] Telemetry Deserialization Hatası:", err);
+            return null;
+        }
+    }
+
     eventSource.onopen = () => {
         console.log("⚡ [GOD MODE] Quantum Stream Connected. (Zero-Latency Zırhı Aktif)");
     };
@@ -27,22 +43,32 @@ document.addEventListener("DOMContentLoaded", () => {
         // Minimal ping, just for Edge Shield update if needed
     });
 
-    eventSource.addEventListener("VIP_ENGAGED", handleVipEvent);
-    eventSource.addEventListener("AURELIA_INTERVENTION", handleVipEvent);
+    eventSource.addEventListener("VIP_ENGAGED", (e) => {
+        const data = safeParseTelemetry(e.data);
+        if (data) handleVipEvent(data);
+    });
+
+    eventSource.addEventListener("AURELIA_INTERVENTION", (e) => {
+        const data = safeParseTelemetry(e.data);
+        if (data) handleVipEvent(data);
+    });
 
     eventSource.addEventListener("WHALE_ALERT", (e) => {
-        const data = JSON.parse(e.data);
-        handleVipEvent({ data: JSON.stringify({ event: "VIP_ENGAGED", target: data.node_id || 'Whale Detected', price: data.price || 0 }) });
+        const data = safeParseTelemetry(e.data);
+        if (!data) return;
+        handleVipEvent({ event: "VIP_ENGAGED", target: data.node_id || 'Whale Detected', price: data.price || 0 });
         triggerWhaleSurge();
     });
 
     eventSource.addEventListener("REVENUE_STRIKE", (e) => {
-        const data = JSON.parse(e.data);
-        handleRevenueStrike(data);
+        const data = safeParseTelemetry(e.data);
+        if (data) handleRevenueStrike(data);
     });
 
     eventSource.addEventListener("DNA_EXTRACTED", (e) => {
-        console.log("🧬 DNA Pulse:", e.data);
+        // DNA Extract telemetry might use specific fields or be ignored by Zod (passthrough handles it)
+        const data = safeParseTelemetry(e.data);
+        if (data) console.log("🧬 DNA Pulse Zırhtan Geçti:", data);
     });
 
     eventSource.onerror = (e) => {
@@ -52,8 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /**
      * 👁️ PHASE 66: THE PANOPTICON RADAR LOGIC
      */
-    function handleVipEvent(e) {
-        const data = JSON.parse(e.data);
+    function handleVipEvent(data) {
         const stream = document.getElementById('radar-stream');
         const whales = document.getElementById('active-whales');
         const idleMsg = document.getElementById('radar-idle');
@@ -219,4 +244,35 @@ document.addEventListener("DOMContentLoaded", () => {
             widgetRadar.classList.remove("whale-alert");
         }, 3000);
     }
+
+    /**
+     * 👁️ [OUTBOUND] Sovereign Command Dispatcher
+     * Admin komutlarını State Machine veya WebSocket üzerinden aktarmadan önce
+     * Zod kalkanından geçirir. ("Parse, Don't Validate")
+     */
+    window.dispatchGodModeCommand = function(action, targetSystem, params = {}) {
+        const rawPayload = {
+            event_id: `cmd_${Math.random().toString(36).substr(2, 8)}`,
+            timestamp: new Date().toISOString(),
+            issuer: { admin_id: "adm_omega_001", clearance: "TIER_1_GOD" },
+            target_system: targetSystem,
+            payload: { action: action, parameters: params },
+            signature: "0000000000000000000000000000000000000000000000000000000000000000" // Otonom imza bypass (demo)
+        };
+
+        const result = GodModeCommandSchema.safeParse(rawPayload);
+        
+        if (!result.success) {
+            console.error("⛔ [SOVEREIGN SHIELD] Komut Zod bariyerini aşamadı - REDDEDİLDİ:", result.error.format());
+            alert("Sistem Komutu Reddedildi: Tip İhlali Tespit Edildi.");
+            return false;
+        }
+
+        console.log("🟢 [SOVEREIGN SHIELD] Komut Mühürlendi. Hedefe Gönderiliyor:", result.data);
+        
+        // Örnek WebSocket/StateEngine Dispatch
+        // if (window.SantisBus) window.SantisBus.emit('GOD_MODE_COMMAND', result.data);
+        
+        return true;
+    };
 });

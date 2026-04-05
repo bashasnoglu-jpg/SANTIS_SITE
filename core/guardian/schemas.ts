@@ -92,3 +92,16 @@ export const GodModeCommandSchema = z.object({
 });
 
 export type GodModeCommand = z.infer<typeof GodModeCommandSchema>;
+
+// === SOVEREIGN TELEMETRY BOUNDARY (INBOUND) ===
+export const GodModeTelemetrySchema = z.object({
+  node_id: z.string().optional(),
+  client_id: z.string().optional(),
+  target: z.string().optional(),
+  product_id: z.string().optional(),
+  price: z.number().nonnegative().optional(),
+  original_price: z.number().nonnegative().optional(),
+  event: z.string().optional(),
+}).passthrough(); // Sık sık değişen stream paketleri için esneklik
+
+export type GodModeTelemetry = z.infer<typeof GodModeTelemetrySchema>;

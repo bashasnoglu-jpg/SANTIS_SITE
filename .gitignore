@@ -60,3 +60,16 @@ inject_*.py
 
 # Vite Cache
 .vite/
+
+# 🛑 Zombie/Quarantine Graveyard (Do Not Track)
+_dev_archives/
+_quarantine/
+_archive/
+_backup/
+backup_assets/
+backups/
+quarantine_zone/
+Quarantine/
+*.bak
+*.tmp
+*.old
