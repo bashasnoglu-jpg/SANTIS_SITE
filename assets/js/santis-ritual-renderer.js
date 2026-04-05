@@ -100,12 +100,12 @@ export class SovereignRitualRenderer {
                 card.className = 'ritual-card';
                 card.style.cssText = 'min-width:280px;scroll-snap-align:start;flex-shrink:0;';
                 card.innerHTML = `
-                    <img src="${item.image || '/assets/img/cards/santis_card_massage_lux.webp'}"
+                    <img class="w-full" src="${item.image || '/assets/img/cards/santis_card_massage_lux.webp'}"
                          alt="${item.title || item.name}" loading="lazy" decoding="async"
-                         width="280" height="350" style="width:100%;height:350px;object-fit:cover;border-radius:4px;">
+                         width="280" height="350" style="height:350px; object-fit:cover; border-radius:4px;">
                     <div style="padding:.75rem 0">
-                        <h3 style="font-size:.9rem;color:#fff;margin-bottom:.25rem">${item.title || item.name}</h3>
-                        <span style="color:#D4AF37;font-size:.8rem">${item.price_eur ? '€' + item.price_eur : 'VIP'}</span>
+                        <h3 class="text-white" style="font-size:.9rem; margin-bottom:.25rem;">${item.title || item.name}</h3>
+                        <span class="text-[#d4af37]" style="font-size:.8rem;">${item.price_eur ? '€' + item.price_eur : 'VIP'}</span>
                     </div>`;
                 setTimeout(() => container.appendChild(card), i * 30);
             });
@@ -158,12 +158,12 @@ export class SovereignRitualRenderer {
                 card.href = url;
                 card.style.cssText = 'flex:0 0 300px;scroll-snap-align:start;position:relative;height:420px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);display:block;text-decoration:none;cursor:pointer;';
                 card.innerHTML = `
-                    <img src="${img}" alt="${title}" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;" loading="lazy">
+                    <img class="top-0 w-full" src="${img}" alt="${title}" style="position:absolute; left:0; height:100%; object-fit:cover;" loading="lazy">
                     <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.1) 60%);"></div>
                     <div style="position:absolute;bottom:0;left:0;right:0;padding:1.5rem;">
-                        <p style="color:#D4AF37;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.25rem;">${(item.category || 'Hammam').toUpperCase()}</p>
+                        <p class="text-[#d4af37]" style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:0.25rem;">${(item.category || 'Hammam').toUpperCase()}</p>
                         <h3 style="color:white;font-family:serif;font-size:1.1rem;line-height:1.3;margin-bottom:0.5rem;">${title}</h3>
-                        <span style="color:#D4AF37;font-size:0.85rem;font-weight:500;">${price}</span>
+                        <span class="text-[#d4af37]" style="font-size:0.85rem; font-weight:500;">${price}</span>
                     </div>
                 `;
                 container.appendChild(card);

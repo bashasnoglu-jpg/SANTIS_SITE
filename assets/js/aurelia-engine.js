@@ -54,34 +54,34 @@ class AureliaConcierge {
         document.head.appendChild(sdfStyle);
 
         const htmlRaw = `
-            <div id="aurelia-hyper-overlay" style="position:fixed; inset:0; z-index:99998; opacity:0; pointer-events:none; transition:opacity 0.8s ease-out; background:rgba(0,0,0,0.8); backdrop-filter:blur(15px);">
+            <div class="fixed" id="aurelia-hyper-overlay" style="inset:0; z-index:99998; opacity:0; pointer-events:none; transition:opacity 0.8s ease-out; background:rgba(0,0,0,0.8); backdrop-filter:blur(15px);">
                 <div id="aurelia-sdf-distortion" style="position:absolute; inset:0; mix-blend-mode:overlay; opacity:0.6;"></div>
             </div>
 
-            <div id="aurelia-glass-panel" style="position: fixed; inset: 0; opacity: 0; pointer-events: none; z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease-out;">
-                <div id="aurelia-vector-panel" style="position:relative; background: #050505; border: 1px solid rgba(212,175,55,0.4); border-radius: 16px; padding: 40px; width: 90%; max-width: 600px; box-shadow: 0 0 80px rgba(212,175,55,0.2); overflow:hidden;">
+            <div class="fixed flex" id="aurelia-glass-panel" style="inset: 0; opacity: 0; pointer-events: none; z-index: 99999; align-items: center; justify-content: center; transition: opacity 0.5s ease-out;">
+                <div class="relative" id="aurelia-vector-panel" style="background: #050505; border: 1px solid rgba(212,175,55,0.4); border-radius: 16px; padding: 40px; width: 90%; max-width: 600px; box-shadow: 0 0 80px rgba(212,175,55,0.2); overflow:hidden;">
                     
                     <div style="position:absolute; inset:0; background:radial-gradient(ellipse at top, rgba(201,169,110,0.1), transparent 70%); pointer-events:none;"></div>
                     
-                    <div class="aurelia-header" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(212,175,55,0.3); padding-bottom:16px; margin-bottom:24px;">
-                        <div class="aurelia-identity" style="display:flex; align-items:center; gap:12px;">
+                    <div class="flex aurelia-header" style="justify-content:space-between; align-items:center; border-bottom:1px solid rgba(212,175,55,0.3); padding-bottom:16px; margin-bottom:24px;">
+                        <div class="flex aurelia-identity" style="align-items:center; gap:12px;">
                             <div class="aurelia-status-dot" id="aurelia-pulse" style="width:8px; height:8px; background:#D4AF37; border-radius:50%; box-shadow:0 0 10px #D4AF37;"></div>
                             <div>
-                                <div class="aurelia-title" style="color:#D4AF37; font-family:monospace; font-size:14px; font-weight:bold; letter-spacing:2px; text-transform:uppercase;">Aurelia AI</div>
+                                <div class="text-[#d4af37] aurelia-title" style="font-family:monospace; font-size:14px; font-weight:bold; letter-spacing:2px; text-transform:uppercase;">Aurelia AI</div>
                                 <div class="aurelia-subtitle" style="color:#888; font-family:monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase;">Sovereign Interceptor</div>
                             </div>
                         </div>
-                        <button id="aurelia-btn-close" style="background:transparent; border:none; color:#888; font-family:monospace; font-size:16px; cursor:pointer;">✕</button>
+                        <button class="cursor-pointer" id="aurelia-btn-close" style="background:transparent; border:none; color:#888; font-family:monospace; font-size:16px;">✕</button>
                     </div>
                     
-                    <div class="aurelia-body" id="aurelia-text-container" style="min-height:100px; text-align:center; padding:20px 0;">
-                        <span id="aurelia-text" style="color:#FFF; font-size:18px; font-weight:300; line-height:1.6; letter-spacing:0.5px;"></span>
+                    <div class="text-center aurelia-body" id="aurelia-text-container" style="min-height:100px; padding:20px 0;">
+                        <span class="text-white" id="aurelia-text" style="font-size:18px; font-weight:300; line-height:1.6; letter-spacing:0.5px;"></span>
                         <span class="aurelia-cursor" id="aurelia-cursor" style="display:inline-block; width:6px; height:18px; background:#D4AF37; margin-left:8px; vertical-align:middle; animation:pulse 1s infinite alternate;"></span>
                     </div>
                     
-                    <div class="aurelia-actions" style="display:flex; gap:16px; margin-top:20px;">
-                        <button class="aurelia-btn decline" id="aurelia-btn-decline" style="flex:1; padding:16px; background:transparent; border:1px solid #333; color:#888; border-radius:8px; font-family:monospace; font-size:11px; text-transform:uppercase; letter-spacing:2px; cursor:pointer;">Sessizlik Lütfen</button>
-                        <button class="aurelia-btn accept" id="aurelia-btn-accept" style="flex:2; padding:16px; background:#D4AF37; border:none; color:#000; font-weight:bold; border-radius:8px; font-family:monospace; font-size:12px; text-transform:uppercase; letter-spacing:2px; cursor:pointer; box-shadow:0 0 20px rgba(212,175,55,0.4);">Ayrıcalığı Kabul Et</button>
+                    <div class="flex aurelia-actions" style="gap:16px; margin-top:20px;">
+                        <button class="cursor-pointer aurelia-btn decline" id="aurelia-btn-decline" style="flex:1; padding:16px; background:transparent; border:1px solid #333; color:#888; border-radius:8px; font-family:monospace; font-size:11px; text-transform:uppercase; letter-spacing:2px;">Sessizlik Lütfen</button>
+                        <button class="cursor-pointer aurelia-btn accept" id="aurelia-btn-accept" style="flex:2; padding:16px; background:#D4AF37; border:none; color:#000; font-weight:bold; border-radius:8px; font-family:monospace; font-size:12px; text-transform:uppercase; letter-spacing:2px; box-shadow:0 0 20px rgba(212,175,55,0.4);">Ayrıcalığı Kabul Et</button>
                     </div>
                 </div>
             </div>

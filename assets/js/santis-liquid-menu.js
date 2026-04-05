@@ -94,10 +94,10 @@
         if (!slot) return '';
 
         const linksHTML = slot.links.map(link => `
-            <a href="${link.href}" class="liquid-link"
+            <a href="${link.href}" class="flex liquid-link"
                ${link.external ? 'target="_blank" rel="noopener"' : ''}
-               style="display: flex; align-items: center; gap: 12px; font-size: 1.1rem;">
-                <span style="font-size: 1.2rem; width: 28px; text-align: center;">${link.icon}</span>
+               style="align-items: center; gap: 12px; font-size: 1.1rem;">
+                <span class="text-center" style="font-size: 1.2rem; width: 28px;">${link.icon}</span>
                 <span>${link.label}</span>
             </a>
         `).join('');

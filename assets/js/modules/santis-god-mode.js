@@ -218,10 +218,10 @@ class SovereignGodModeComponent extends HTMLElement {
                 <div class="god-bento-cell god-killswitch">
                     <span class="god-cell-title" style="color:var(--god-danger);">SOVEREIGN OVERRIDE</span>
                     <button class="btn-killswitch" id="btn-quarantine">
-                        <span style="position:relative; z-index:2;">[ 3 SN. HOLD ] KARANTİNA</span>
+                        <span class="relative" style="z-index:2;">[ 3 SN. HOLD ] KARANTİNA</span>
                     </button>
                     <!-- Dinamik pseudo-element alternatifi div barı, ShadowDOM uyumu için -->
-                    <div id="hold-bar" style="position:absolute; top:0; left:0; height:100%; width:0%; background:rgba(239, 68, 68, 0.8); z-index:0; transition: width 0.1s linear; border-radius:50vw; pointer-events:none;"></div>
+                    <div class="top-0" id="hold-bar" style="position:absolute; left:0; height:100%; width:0%; background:rgba(239, 68, 68, 0.8); z-index:0; transition: width 0.1s linear; border-radius:50vw; pointer-events:none;"></div>
                 </div>
             </div>
         `;

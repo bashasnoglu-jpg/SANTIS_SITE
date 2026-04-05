@@ -316,14 +316,14 @@
         const pkg = mood.package;
 
         banner.innerHTML = `
-            <div style="display: flex; align-items: flex-start; gap: 20px;">
+            <div class="flex" style="align-items: flex-start; gap: 20px;">
                 <div style="flex-shrink: 0; width: 52px; height: 52px; border-radius: 14px;
                      background: ${mood.gradient}; display: flex; align-items: center;
                      justify-content: center; font-size: 1.5rem; box-shadow: 0 4px 16px ${mood.color}33;">
                     ${mood.emoji}
                 </div>
                 <div style="flex: 1; min-width: 0;">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                    <div class="flex" style="align-items: center; gap: 10px; margin-bottom: 6px;">
                         <span style="font-family: 'Inter', sans-serif; font-size: 0.65rem;
                                font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
                                color: ${mood.color}; background: ${mood.color}18; padding: 3px 10px;

@@ -40,7 +40,7 @@ class SovereignBoutique {
 
         } catch (error) {
             console.error("🛑 [Sovereign Boutique] Initialization Failed:", error);
-            this.rootMatrix.innerHTML = `<p style="color:#d4af37; text-align:center;">Mağazaya şu an ulaşılamıyor. Lütfen resepsiyon ile görüşün.</p>`;
+            this.rootMatrix.innerHTML = `<p class="text-[#d4af37] text-center">Mağazaya şu an ulaşılamıyor. Lütfen resepsiyon ile görüşün.</p>`;
         }
     }
 

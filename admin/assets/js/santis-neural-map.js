@@ -107,9 +107,9 @@ class SiteNeuralMapEngine {
         // Tooltip (Zero-Friction HTML Tooltip)
         const titleContent = document.createElement('div');
         titleContent.innerHTML = `
-            <div style="background: rgba(10,10,10,0.95); border: 1px solid ${t.bg}; padding: 8px; border-radius: 6px; font-family: Inter, sans-serif; color: #fff; min-width: 150px; box-shadow: 0 0 15px ${t.glow};">
+            <div class="text-white" style="background: rgba(10,10,10,0.95); border: 1px solid ${t.bg}; padding: 8px; border-radius: 6px; font-family: Inter, sans-serif; min-width: 150px; box-shadow: 0 0 15px ${t.glow};">
                 <div style="font-size: 11px; color: ${t.bg}; font-weight: bold; margin-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 2px;">${node.label.toUpperCase()}</div>
-                <div style="font-size: 10px; color: #9ca3af; margin-bottom: 2px;">Anlık Ziyaretçi: <span style="color: #fff; font-weight: bold;">${node.metrics?.visitors || 0}</span></div>
+                <div style="font-size: 10px; color: #9ca3af; margin-bottom: 2px;">Anlık Ziyaretçi: <span class="text-white" style="font-weight: bold;">${node.metrics?.visitors || 0}</span></div>
                 <div style="font-size: 10px; color: #9ca3af;">Dönüşüm (CVR): <span style="color: #10b981; font-weight: bold;">%${node.metrics?.cvr || 0}</span></div>
                 ${node.type === 'bounce' ? '<div style="font-size: 9px; color: #ef4444; margin-top: 4px; font-style: italic;">⚠️ Tıkanıklık Tespit Edildi</div>' : ''}
             </div>

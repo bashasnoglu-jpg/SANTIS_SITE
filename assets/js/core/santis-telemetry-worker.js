@@ -48,18 +48,18 @@ self.onmessage = function(e) {
         let statusColor = tti > 300 ? '#ef4444' : fps < 45 ? '#f59e0b' : '#10b981';
         
         const html = `
-            <div style="display:flex; justify-content:space-between; margin-bottom: 2px;">
+            <div class="flex" style="justify-content:space-between; margin-bottom: 2px;">
                 <span style="color:#6b7280">BOOT</span> <strong style="color:${tti > 300 ? '#ef4444' : '#10b981'}">${tti.toFixed(1)}ms</strong>
             </div>
-            <div style="display:flex; justify-content:space-between; margin-bottom: 2px;">
+            <div class="flex" style="justify-content:space-between; margin-bottom: 2px;">
                 <span style="color:#6b7280">FPS / RAM</span> 
                 <span>
                     <strong style="color:${fps < 45 ? '#ef4444' : '#10b981'}">${fps}</strong> 
                     <span style="color:#374151">|</span> 
-                    <strong style="color:#d4af37">${memoryMB.toFixed(1)}MB</strong>
+                    <strong class="text-[#d4af37]">${memoryMB.toFixed(1)}MB</strong>
                 </span>
             </div>
-            <div style="display:flex; justify-content:space-between;">
+            <div class="flex" style="justify-content:space-between;">
                 <span style="color:#6b7280">WS PING / LK</span> 
                 <span>
                     <strong style="color:${wsLatency > 100 ? '#ef4444' : wsLatency > 0 ? '#10b981' : '#6b7280'}">${wsLatency > 0 ? wsLatency + 'ms' : 'N/A'}</strong> 
@@ -67,7 +67,7 @@ self.onmessage = function(e) {
                     <strong style="color:${totalLongTasks > 0 ? '#ef4444' : '#10b981'}">${totalLongTasks}</strong>
                 </span>
             </div>
-            ${isLoadShedding ? '<div style="color:#ef4444; font-size:9px; text-align:center; margin-top:4px; padding-top:2px; border-top:1px dashed #ef4444;">SHEDDING ACTIVE</div>' : ''}
+            ${isLoadShedding ? '<div class="text-center" style="color:#ef4444; font-size:9px; margin-top:4px; padding-top:2px; border-top:1px dashed #ef4444;">SHEDDING ACTIVE</div>' : ''}
         `;
 
         self.postMessage({

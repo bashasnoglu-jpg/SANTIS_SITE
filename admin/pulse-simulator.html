@@ -154,7 +154,7 @@
     <div class="node guest" id="node-guest" style="top: 150px; left: 120px;">
         <div class="node-header">👤 User Stream</div>
         <div style="font-size: 12px; color: #999;">Node: London</div>
-        <div style="font-size: 11px; margin-top: 5px; height: 16px; color: #fff;" id="ui-guest-action">Idle</div>
+        <div class="text-white" style="font-size: 11px; margin-top: 5px; height: 16px;" id="ui-guest-action">Idle</div>
     </div>
 
     <!-- 2. GHOST SCORE -->
@@ -179,7 +179,7 @@
         <div class="node-header">🗄️ The Black Room</div>
         <div style="font-size: 10px; color: #888;">Neural Pricing & Vault</div>
         <div id="ui-sku" style="font-family: monospace; font-size: 12px; color: #9D00FF; margin-top: 8px;">[ LCKD ]</div>
-        <div id="ui-discount" style="font-size: 14px; color: #fff; font-weight: bold;">--</div>
+        <div class="text-white" id="ui-discount" style="font-size: 14px; font-weight: bold;">--</div>
     </div>
 
     <!-- 5. THE WAR ROOM -->
@@ -187,17 +187,17 @@
         <div class="node-header">🏛️ The War Room</div>
         <div style="font-size: 10px; color: #888;">Global SaaS Dashboard</div>
         <div style="margin-top: 10px;">
-            <div style="font-size: 8px; color: #D4AF37; letter-spacing: 2px;">MRR (EUR)</div>
-            <div class="node-val" id="ui-mrr" style="color: #fff;">€1,240,000</div>
+            <div class="text-[#d4af37]" style="font-size: 8px; letter-spacing: 2px;">MRR (EUR)</div>
+            <div class="text-white node-val" id="ui-mrr">€1,240,000</div>
         </div>
     </div>
 
     <!-- 6. RESOURCE CONTROLLER -->
     <div class="node resource" id="node-resource" style="top: 150px; left: 1150px; border-color: rgba(212,175,55,0.2);">
-        <div class="node-header" style="color:#D4AF37;">🔥 Sovereign Resource</div>
+        <div class="text-[#d4af37] node-header">🔥 Sovereign Resource</div>
         <div style="font-size: 10px; color: #888;">Auto-Pilot Bütçe & Trafik</div>
-        <div id="ui-budget" style="font-family: monospace; font-size: 14px; color: #D4AF37; margin-top: 8px;">[ STANDBY ]</div>
-        <div id="ui-flow" style="font-size: 10px; color: #fff; margin-top: 5px;">Hazine Bekliyor</div>
+        <div class="text-[#d4af37]" id="ui-budget" style="font-family: monospace; font-size: 14px; margin-top: 8px;">[ STANDBY ]</div>
+        <div class="text-white" id="ui-flow" style="font-size: 10px; margin-top: 5px;">Hazine Bekliyor</div>
     </div>
     
     <!-- 7. VIRAL ENGINE (SCREAMING GROWTH) -->
@@ -205,7 +205,7 @@
         <div class="node-header" style="color:#50C878;">🚀 Viral Engine</div>
         <div style="font-size: 10px; color: #888;">Sovereign Ambassador Subsystem</div>
         <div id="ui-viral-status" style="font-family: monospace; font-size: 12px; color: #50C878; margin-top: 8px;">[ STANDBY ]</div>
-        <div id="ui-viral-growth" style="font-size: 14px; color: #fff; font-weight: bold; margin-top: 5px;">--</div>
+        <div class="text-white" id="ui-viral-growth" style="font-size: 14px; font-weight: bold; margin-top: 5px;">--</div>
     </div>
     
     <!-- 8. AMBASSADOR COMMAND CENTER -->
@@ -213,17 +213,17 @@
         <div class="node-header" style="color:#FFD700;">👑 Ambassador Command</div>
         <div style="font-size: 10px; color: #888; margin-bottom: 10px;">Live Viral Metrics</div>
         
-        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px;">
+        <div class="flex" style="justify-content: space-between; font-size: 11px; margin-bottom: 5px;">
             <span style="color: #ccc;">Active Elite:</span>
             <span id="ui-amb-count" style="color: #FFD700; font-family: monospace;">[ CALC ]</span>
         </div>
-        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px;">
+        <div class="flex" style="justify-content: space-between; font-size: 11px; margin-bottom: 5px;">
             <span style="color: #ccc;">Network Reach:</span>
             <span id="ui-amb-reach" style="color: #50C878; font-family: monospace;">--</span>
         </div>
-        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 10px;">
+        <div class="flex" style="justify-content: space-between; font-size: 11px; margin-bottom: 10px;">
             <span style="color: #ccc;">Viral ROI:</span>
-            <span id="ui-amb-roi" style="color: #D4AF37; font-weight: bold; font-family: monospace;">--</span>
+            <span class="text-[#d4af37]" id="ui-amb-roi" style="font-weight: bold; font-family: monospace;">--</span>
         </div>
 
         <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; font-size: 10px; text-align: left;">
@@ -316,7 +316,7 @@
             document.getElementById('node-aurelia').classList.add('active');
             document.getElementById('ui-aurelia-status').innerText = '🔥 AURELIA AWAKE';
             document.getElementById('ui-aurelia-status').style.color = '#D4AF37';
-            document.getElementById('ui-aurelia-desc').innerHTML = 'Sovereign Hand-Off <br> <span style="color:#fff">Target: High Value</span>';
+            document.getElementById('ui-aurelia-desc').innerHTML = 'Sovereign Hand-Off <br> <span class="text-white">Target: High Value</span>';
             logMsg('santis:aurelia_wakeup Event Fired', 'gold');
 
             // PHASE 3: The Black Room Müzakere
@@ -398,7 +398,7 @@
             document.getElementById('ui-amb-list').innerHTML = `
                 <div style="color: #FFD700;">[ghost_vip_1] ➔ 14 conversions</div>
                 <div style="color: #50C878;">[ghost_vip_8] ➔ 9 conversions</div>
-                <div style="color: #fff;">[ghost_vip_3] ➔ 7 conversions</div>
+                <div class="text-white">[ghost_vip_3] ➔ 7 conversions</div>
             `;
             logMsg('[COMMAND CENTER] Global Ambassador Network Synced', 'gold');
 

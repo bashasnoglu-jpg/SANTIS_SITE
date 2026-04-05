@@ -47,7 +47,7 @@
 
         detailRoot.innerHTML = `
 
-        <div style="text-align:center; padding:60px;">
+        <div class="text-center" style="padding:60px;">
 
           <h2 style="color:var(--accent); margin-bottom:16px;">Hizmet Bulunamadı</h2>
 

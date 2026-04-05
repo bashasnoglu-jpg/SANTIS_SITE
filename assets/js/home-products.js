@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="prod-details">
                 <span class="prod-cat">${product.cat || 'Santis Atelier'}</span>
                 <h4>${product.name}</h4>
-                <p class="prod-desc" style="display:none;">${product.desc || ''}</p> 
+                <p class="hidden prod-desc">${product.desc || ''}</p> 
                 <div class="prod-bottom">
                     <span class="prod-price">${product.price === 'Bilgi Al' ? 'İncele' : product.price + '₺'}</span>
                     <a href="/urunler/detay.html?id=${product.id}" class="prod-btn">İncele</a>

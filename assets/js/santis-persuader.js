@@ -462,14 +462,14 @@ class SantisPersuader {
         header.style.zIndex = '2';
 
         header.innerHTML = `
-            <div style="display: flex; gap: 16px; align-items: center;">
+            <div class="flex" style="gap: 16px; align-items: center;">
                 <div style="width: 50px; height: 50px; border-radius: 50%; background: url('/assets/img/hero-general.webp') center/cover; border: 2px solid ${themeColor}; box-shadow: 0 0 15px rgba(212,175,55,0.2);"></div>
                 <div>
                     <div style="color: ${themeColor}; font-family: 'Cinzel', serif; font-size: 15px; letterSpacing: 0.15em; font-weight: 700; text-transform: uppercase;">Aurelia — Sovereign Concierge</div>
                     <div style="color: #888; font-size: 11px; letterSpacing: 0.08em; text-transform: uppercase; margin-top:2px;">Sadece size özel bir ayrıcalık</div>
                 </div>
             </div>
-            <button id="closeAgenticBubble" style="background: none; border: none; color: #666; font-size: 24px; cursor: pointer; padding: 0; line-height: 1; transition: color 0.3s;" onmouseover="this.style.color='${themeColor}'" onmouseout="this.style.color='#666'">&times;</button>
+            <button class="cursor-pointer" id="closeAgenticBubble" style="background: none; border: none; color: #666; font-size: 24px; padding: 0; line-height: 1; transition: color 0.3s;" onmouseover="this.style.color='${themeColor}'" onmouseout="this.style.color='#666'">&times;</button>
         `;
 
         // Mesaj Gövdesi: Dinamik Fiyat ve Kupon ile "Sanal Sepet (SKU)" görünümü
@@ -487,11 +487,11 @@ class SantisPersuader {
             <p style="margin-bottom: 20px; font-style: italic;">"Ruhunuzun aradığı sükuneti ve kusursuz deneyimi hissettiğinizi biliyoruz. Bu özel arınma yolculuğuna eksiksiz bir adım atmanız için, şahsınıza tahsis edilmiş Sovereign Anahtarı'nı takdim etmekten onur duyarım."</p>
             
             <div style="background: rgba(212,175,55,0.05); padding: 15px; border-radius: 8px; border: 1px dashed rgba(212,175,55,0.3); margin-bottom: 20px;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <div class="flex" style="justify-content: space-between; margin-bottom: 8px;">
                     <span style="color: #888; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;">Virtual SKU</span>
                     <span style="color: ${themeColor}; font-family: 'Space Grotesk', monospace; font-size: 13px;">${virtualSku}</span>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <div class="flex" style="justify-content: space-between; align-items: baseline;">
                     <span style="color: #888; font-size: 16px; text-decoration: line-through;">€${orgPrice}</span>
                     <span style="color: white; font-size: 24px; font-weight: 600;">€${dynamicPrice}</span>
                 </div>

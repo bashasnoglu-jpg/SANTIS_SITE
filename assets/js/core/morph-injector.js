@@ -41,18 +41,18 @@ class MorphInjector {
 
         // Build the dynamic Morph Card
         const cardHTML = `
-            <div class="santis-concierge-morph-box" style="margin-top: 4rem; text-align: center; border-top: 1px solid rgba(212,175,55,0.2); padding-top: 3rem;">
+            <div class="text-center santis-concierge-morph-box" style="margin-top: 4rem; border-top: 1px solid rgba(212,175,55,0.2); padding-top: 3rem;">
                 <span style="font-size: 0.75rem; letter-spacing: 0.2rem; color: #8b7a5e; text-transform: uppercase;">
                     Sizin İçin Önerilen
                 </span>
-                <div class="santis-card" style="max-width: 400px; margin: 2rem auto; text-align: left; cursor: pointer;">
+                <div class="cursor-pointer santis-card" style="max-width: 400px; margin: 2rem auto; text-align: left;">
                     <a href="${rec.url}" class="card-link" style="text-decoration: none; color: inherit; display: block;">
                         <div style="overflow: hidden; border-radius: 4px;">
-                            <img src="${rec.image}" alt="${rec.title}" class="bento-image" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s ease;" />
+                            <img src="${rec.image}" alt="${rec.title}" class="w-full bento-image" style="height: 250px; object-fit: cover; transition: transform 0.6s ease;" />
                         </div>
                         <h3 class="bento-title" style="margin-top: 1rem; font-family: 'Playfair Display', serif; font-size: 1.5rem;">${rec.title}</h3>
                         <p style="color: #666; font-size: 0.9rem; line-height: 1.5;">${rec.description}</p>
-                        <span style="display: inline-block; margin-top: 1rem; color: #d4af37; font-weight: bold;">${rec.price}</span>
+                        <span class="text-[#d4af37]" style="display: inline-block; margin-top: 1rem; font-weight: bold;">${rec.price}</span>
                     </a>
                 </div>
             </div>

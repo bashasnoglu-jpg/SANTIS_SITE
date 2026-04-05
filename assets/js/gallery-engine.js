@@ -546,7 +546,7 @@
       console.log("[Gallery Engine] Init finished natively without crash.");
     } catch (e) {
       console.error("[Gallery Engine] FATAL INIT ERROR:", e);
-      document.body.insertAdjacentHTML('afterbegin', `<div style="padding:20px;background:red;color:white;z-index:99999;position:relative"><strong>Gallery Crash:</strong> ${e.message}<br/>${e.stack}</div>`);
+      document.body.insertAdjacentHTML('afterbegin', `<div class="relative" style="padding:20px; background:red; color:white; z-index:99999;"><strong>Gallery Crash:</strong> ${e.message}<br/>${e.stack}</div>`);
     }
   }
 

@@ -62,13 +62,13 @@ class AureliaHunter {
         barrier.id = 'aurelia-trap';
         // Tüm Matrix'i durduran lüks zaman donması (Sovereign Glass Kapanı)
         barrier.innerHTML = `
-            <div style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(10,10,12,0.95); backdrop-filter:blur(20px); z-index:999999; display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; transition:opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);">
-                <div style="text-align:center; transform:translateY(30px); transition:all 1.2s cubic-bezier(0.16, 1, 0.3, 1);" id="trap-content">
-                    <h2 style="color:#D4AF37; font-family:'Playfair Display', serif; font-size:3rem; letter-spacing:2px; margin-bottom:15px; text-shadow:0 0 30px rgba(212,175,55,0.4);">HENÜZ GİTMİYORSUNUZ.</h2>
+            <div class="fixed top-0 flex" style="left:0; width:100vw; height:100vh; background:rgba(10,10,12,0.95); backdrop-filter:blur(20px); z-index:999999; flex-direction:column; align-items:center; justify-content:center; opacity:0; transition:opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);">
+                <div class="text-center" style="transform:translateY(30px); transition:all 1.2s cubic-bezier(0.16, 1, 0.3, 1);" id="trap-content">
+                    <h2 class="text-[#d4af37]" style="font-family:;'Playfair Display', serif; font-size:3rem; letter-spacing:2px; margin-bottom:15px; text-shadow:0 0 30px rgba(212,175,55,0.4);">HENÜZ GİTMİYORSUNUZ.</h2>
                     <p style="color:#E0E0E0; font-family:sans-serif; font-size:1.1rem; max-width:550px; line-height:1.6; margin-bottom:40px;">Santis Club'ın gizli ritüellerini keşfetmeden çıkış yapıyorsunuz. Sizin için hazırlanan <strong>150€'luk Sovereign Ayrıcalığı</strong> sekme kapandığında sonsuza dek buharlaşacaktır.</p>
-                    <div style="display:flex; gap:20px; justify-content:center;">
-                        <button style="background:#D4AF37; border:none; color:#000; padding:15px 40px; font-size:1rem; font-weight:bold; letter-spacing:2px; cursor:pointer; text-transform:uppercase; transition:all 0.4s; box-shadow:0 0 20px rgba(212,175,55,0.3);" onclick="document.getElementById('aurelia-trap').style.opacity='0'; setTimeout(()=>document.getElementById('aurelia-trap').remove(), 800);">Ayrıcalığı Kabul Et</button>
-                        <button style="background:transparent; border:1px solid #444; color:#888; padding:15px 40px; font-size:1rem; cursor:pointer; transition:all 0.4s;" onmouseover="this.style.color='#E0E0E0'; this.style.borderColor='#888'" onmouseout="this.style.color='#888'; this.style.borderColor='#444'" onclick="document.getElementById('aurelia-trap').style.opacity='0'; setTimeout(()=>document.getElementById('aurelia-trap').remove(), 800);">Sıradanlığa Dön</button>
+                    <div class="flex" style="gap:20px; justify-content:center;">
+                        <button class="cursor-pointer" style="background:#D4AF37; border:none; color:#000; padding:15px 40px; font-size:1rem; font-weight:bold; letter-spacing:2px; text-transform:uppercase; transition:all 0.4s; box-shadow:0 0 20px rgba(212,175,55,0.3);" onclick="document.getElementById('aurelia-trap').style.opacity='0'; setTimeout(()=>document.getElementById('aurelia-trap').remove(), 800);">Ayrıcalığı Kabul Et</button>
+                        <button class="cursor-pointer" style="background:transparent; border:1px solid #444; color:#888; padding:15px 40px; font-size:1rem; transition:all 0.4s;" onmouseover="this.style.color='#E0E0E0'; this.style.borderColor='#888'" onmouseout="this.style.color='#888'; this.style.borderColor='#444'" onclick="document.getElementById('aurelia-trap').style.opacity='0'; setTimeout(()=>document.getElementById('aurelia-trap').remove(), 800);">Sıradanlığa Dön</button>
                     </div>
                 </div>
             </div>

@@ -238,7 +238,7 @@ export class AegisShield {
             pointerEvents: 'all' // UI Layout Shift yok, fixed container overlay
         });
 
-        let logsHtml = `<h2 style="color:#d4af37; border-bottom:1px solid #333; padding-bottom:10px;">👁️ GOD'S EYE TELEMETRY (Aegis Log: ${this.shadowCount})</h2><ul style="list-style:none; padding:0; margin-top:20px;">`;
+        let logsHtml = `<h2 class="text-[#d4af37]" style="border-bottom:1px solid #333; padding-bottom:10px;">👁️ GOD'S EYE TELEMETRY (Aegis Log: ${this.shadowCount})</h2><ul style="list-style:none; padding:0; margin-top:20px;">`;
         
         // Ring buffer'dan kronolojik sırada oku
         for (let i = 0; i < this.shadowCount; i++) {
@@ -250,7 +250,7 @@ export class AegisShield {
                 <div style="color:#a4b0be; font-size:11px; margin-top:4px;">${log.stack}</div>
             </li>`;
         }
-        logsHtml += `</ul><button id="close-gods-eye" style="position:absolute; top:20px; right:20px; background:transparent; color:#fff; border:1px solid #555; padding:5px 15px; cursor:pointer;">[X] BAĞLANTIYI KES</button>`;
+        logsHtml += `</ul><button class="text-white cursor-pointer" id="close-gods-eye" style="position:absolute; top:20px; right:20px; background:transparent; border:1px solid #555; padding:5px 15px;">[X] BAĞLANTIYI KES</button>`;
         
         terminal.innerHTML = logsHtml;
         document.body.appendChild(terminal);

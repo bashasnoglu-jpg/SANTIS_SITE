@@ -46,18 +46,18 @@ export class SovereignPanopticon {
             <div id="pan-v8-health" style="margin-bottom: 4px;">V8 EVENT LOOP: CALCULATING...</div>
             <div id="pan-peb-status">PEB BUDGET: CALCULATING...</div>
             
-            <div style="margin-top: 15px; border-bottom: 1px solid #27272a; padding-bottom: 5px; color: #fff;">🧬 TEMPORAL DIFF INSPECTOR</div>
-            <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px;">
-                <div style="display: flex; justify-content: space-between;"><span>VISUAL (Illusion):</span> <span id="pan-visual" style="color:#fff;">0.000</span></div>
-                <div style="display: flex; justify-content: space-between;"><span>PHANTOM (Future):</span> <span id="pan-phantom" style="color:#8b5cf6;">0.000</span></div>
-                <div style="display: flex; justify-content: space-between;"><span>TRUTH (Ledger):</span> <span id="pan-truth" style="color:#10b981;">0.000</span></div>
-                <div style="display: flex; justify-content: space-between;"><span>DRIFT (Error):</span> <span id="pan-drift" style="color:#ef4444;">0.000</span></div>
+            <div class="text-white" style="margin-top: 15px; border-bottom: 1px solid #27272a; padding-bottom: 5px;">🧬 TEMPORAL DIFF INSPECTOR</div>
+            <div class="flex" style="flex-direction: column; gap: 4px; margin-top: 8px;">
+                <div class="flex" style="justify-content: space-between;"><span>VISUAL (Illusion):</span> <span class="text-white" id="pan-visual">0.000</span></div>
+                <div class="flex" style="justify-content: space-between;"><span>PHANTOM (Future):</span> <span id="pan-phantom" style="color:#8b5cf6;">0.000</span></div>
+                <div class="flex" style="justify-content: space-between;"><span>TRUTH (Ledger):</span> <span id="pan-truth" style="color:#10b981;">0.000</span></div>
+                <div class="flex" style="justify-content: space-between;"><span>DRIFT (Error):</span> <span id="pan-drift" style="color:#ef4444;">0.000</span></div>
             </div>
 
-            <div style="margin-top: 15px; height: 6px; border-radius: 3px; background: #27272a; position: relative; overflow: hidden;">
-                <div id="bar-drift" style="position:absolute; top:0; left:0; height:100%; width:0%; background:#ef4444; transition: width 0.1s;"></div>
+            <div class="relative" style="margin-top: 15px; height: 6px; border-radius: 3px; background: #27272a; overflow: hidden;">
+                <div class="top-0" id="bar-drift" style="position:absolute; left:0; height:100%; width:0%; background:#ef4444; transition: width 0.1s;"></div>
             </div>
-            <div style="margin-top: 10px; font-size: 9px; color: #52525b; text-align: center;">
+            <div class="text-center" style="margin-top: 10px; font-size: 9px; color: #52525b;">
                 Time-Travel: window.PANOPTICON.freezeAndReplay(60)
             </div>
         `;

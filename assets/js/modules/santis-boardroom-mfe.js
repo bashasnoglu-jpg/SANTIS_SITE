@@ -351,8 +351,8 @@ function injectMockMFE() {
     `;
     bookingsMFE.innerHTML = `
         <h3 style="margin-top:0; color: #60A5FA; font-size:14px;">🏨 [Live Bookings MFE]</h3>
-        <button id="mock-btn-vip" style="background:rgba(37, 99, 235, 0.2); color:#60A5FA; border:1px solid #2563EB; padding:8px; cursor:pointer; width:100%; border-radius:4px; font-weight:bold; transition:all 0.2s;">+ VIP REZERVASYON (Yayınla)</button>
-        <button id="mock-btn-halt" style="background:rgba(220, 38, 38, 0.2); color:#F87171; border:1px solid #DC2626; padding:8px; cursor:pointer; width:100%; margin-top:10px; border-radius:4px; font-weight:bold; transition:all 0.2s;">☢️ KORSAN: SYSTEM_HALT TETİKLE</button>
+        <button class="cursor-pointer w-full" id="mock-btn-vip" style="background:rgba(37, 99, 235, 0.2); color:#60A5FA; border:1px solid #2563EB; padding:8px; border-radius:4px; font-weight:bold; transition:all 0.2s;">+ VIP REZERVASYON (Yayınla)</button>
+        <button class="cursor-pointer w-full" id="mock-btn-halt" style="background:rgba(220, 38, 38, 0.2); color:#F87171; border:1px solid #DC2626; padding:8px; margin-top:10px; border-radius:4px; font-weight:bold; transition:all 0.2s;">☢️ KORSAN: SYSTEM_HALT TETİKLE</button>
         <div id="bookings-log" style="margin-top:10px; font-size:11px; background:#000; padding:10px; height:80px; overflow-y:auto; border-radius:4px; border:1px solid #111;"></div>
     `;
 
@@ -364,7 +364,7 @@ function injectMockMFE() {
     `;
     crmMFE.innerHTML = `
         <h3 style="margin-top:0; color: #E879F9; font-size:14px;">💼 [CRM MFE]</h3>
-        <button id="mock-btn-crm" style="background:rgba(192, 38, 211, 0.2); color:#E879F9; border:1px solid #C026D3; padding:8px; cursor:pointer; width:100%; border-radius:4px; font-weight:bold; transition:all 0.2s;">⭐ MİSAFİRİ GÜNCELLE (Yayınla)</button>
+        <button class="cursor-pointer w-full" id="mock-btn-crm" style="background:rgba(192, 38, 211, 0.2); color:#E879F9; border:1px solid #C026D3; padding:8px; border-radius:4px; font-weight:bold; transition:all 0.2s;">⭐ MİSAFİRİ GÜNCELLE (Yayınla)</button>
         <div id="crm-log" style="margin-top:10px; font-size:11px; background:#000; padding:10px; height:120px; overflow-y:auto; border-radius:4px; border:1px solid #111;"></div>
     `;
 

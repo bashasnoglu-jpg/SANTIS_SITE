@@ -548,23 +548,23 @@
 <div id="chameleon-panel" style="display:none;position:fixed;top:70px;right:20px;z-index:9999;width:300px;
     background:rgba(8,12,20,0.97);border:1px solid rgba(0,217,255,0.2);border-radius:14px;
     padding:20px;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,0.6);">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+<div class="flex" style="justify-content:space-between; align-items:center; margin-bottom:16px;">
 <div style="font-size:11px;font-weight:700;color:var(--br-cyan);text-transform:uppercase;letter-spacing:0.12em;">🎨 Chameleon Theme</div>
-<button onclick="toggleChameleonPanel()" style="background:none;border:none;color:var(--br-muted);cursor:pointer;font-size:18px;line-height:1;">×</button>
+<button class="cursor-pointer" onclick="toggleChameleonPanel()" style="background:none; border:none; color:var(--br-muted); font-size:18px; line-height:1;">×</button>
 </div>
 <!-- Renk Seçici -->
 <div style="margin-bottom:14px;">
 <label style="font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--br-muted);display:block;margin-bottom:6px;">Kurumsal Renk</label>
-<div style="display:flex;gap:8px;align-items:center;">
-<input id="brand-color-picker" style="width:40px;height:32px;border:none;border-radius:6px;cursor:pointer;background:none;padding:0;" type="color" value="#d4af37"/>
+<div class="flex" style="gap:8px; align-items:center;">
+<input class="cursor-pointer" id="brand-color-picker" style="width:40px; height:32px; border:none; border-radius:6px; background:none; padding:0;" type="color" value="#d4af37"/>
 <input id="brand-color-hex" maxlength="7" oninput="syncColorInput(this.value)" placeholder="#d4af37" style="flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--br-border);
           color:#fff;padding:7px 10px;border-radius:7px;font-size:12px;font-family:'JetBrains Mono',mono;" type="text"/>
 <!-- Preset colors -->
-<div style="display:flex;gap:4px;">
-<div onclick="applyPreset('#d4af37')" style="width:18px;height:18px;border-radius:4px;background:#d4af37;cursor:pointer;" title="Altın"></div>
-<div onclick="applyPreset('#00d9ff')" style="width:18px;height:18px;border-radius:4px;background:#00d9ff;cursor:pointer;" title="Cyan"></div>
-<div onclick="applyPreset('#9b59b6')" style="width:18px;height:18px;border-radius:4px;background:#9b59b6;cursor:pointer;" title="Mor"></div>
-<div onclick="applyPreset('#e74c3c')" style="width:18px;height:18px;border-radius:4px;background:#e74c3c;cursor:pointer;" title="Kırmızı"></div>
+<div class="flex" style="gap:4px;">
+<div class="cursor-pointer" onclick="applyPreset('#d4af37')" style="width:18px; height:18px; border-radius:4px; background:#d4af37;" title="Altın"></div>
+<div class="cursor-pointer" onclick="applyPreset('#00d9ff')" style="width:18px; height:18px; border-radius:4px; background:#00d9ff;" title="Cyan"></div>
+<div class="cursor-pointer" onclick="applyPreset('#9b59b6')" style="width:18px; height:18px; border-radius:4px; background:#9b59b6;" title="Mor"></div>
+<div class="cursor-pointer" onclick="applyPreset('#e74c3c')" style="width:18px; height:18px; border-radius:4px; background:#e74c3c;" title="Kırmızı"></div>
 </div>
 </div>
 </div>
@@ -586,7 +586,7 @@
 <div id="preview-logo" style="width:32px;height:32px;border-radius:6px;background:#d4af37;
         display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#000;">S</div>
 <div>
-<div id="preview-name" style="font-size:12px;font-weight:600;color:#fff;">Santis Master OS</div>
+<div class="text-white" id="preview-name" style="font-size:12px; font-weight:600;">Santis Master OS</div>
 <div style="font-size:9px;color:var(--br-muted);">The Black Room</div>
 </div>
 </div>
@@ -597,7 +597,7 @@
       letter-spacing:0.08em;text-transform:uppercase;transition:all 0.2s;">
       🦎 Chameleon Uygula
     </button>
-<div style="margin-top:8px;font-size:9px;color:var(--br-muted);text-align:center;">Tüm açık paneller anlık güncellenir</div>
+<div class="text-center" style="margin-top:8px; font-size:9px; color:var(--br-muted);">Tüm açık paneller anlık güncellenir</div>
 </div>
 <!-- MAIN GRID -->
 <main class="br-main">
@@ -693,7 +693,7 @@
 <div class="br-card-badge">CANLI</div>
 </div>
 <div class="br-neural-scroll" id="neural-feed">
-<div class="br-neural-item" style="text-align:center;padding:40px;color:var(--br-muted)">
+<div class="text-center br-neural-item" style="padding:40px; color:var(--br-muted);">
           Komuta akışı yükleniyor...
         </div>
 </div>
@@ -720,7 +720,7 @@
 </div>
 <div class="br-card-body">
 <div id="heatmap-container"></div>
-<div style="display:flex;align-items:center;gap:8px;margin-top:16px;">
+<div class="flex" style="align-items:center; gap:8px; margin-top:16px;">
 <span style="font-size:10px;color:var(--br-muted);">Seyrek</span>
 <div style="flex:1;height:6px;border-radius:999px;background:linear-gradient(90deg,rgba(0,255,136,0.1),var(--br-green));"></div>
 <span style="font-size:10px;color:var(--br-muted);">Yoğun</span>
@@ -772,16 +772,16 @@
 <div style="padding: 0 40px 48px;">
 <div class="br-card br-oracle">
 <div class="br-card-header">
-<div style="display:flex;align-items:center;gap:12px;">
+<div class="flex" style="align-items:center; gap:12px;">
 <div class="br-card-title">🔮 Revenue Oracle</div>
 <div class="br-oracle-legend">
 <span><span class="br-legend-dot" style="background:var(--br-gold);"></span>Geçmiş 30 Gün</span>
 <span><span class="br-legend-dot" style="background:var(--br-cyan);border-top:2px dashed var(--br-cyan);height:0;"></span>AI Tahmini 14 Gün</span>
 </div>
 </div>
-<div style="display:flex;gap:8px;align-items:center;">
+<div class="flex" style="gap:8px; align-items:center;">
 <div class="br-card-badge" id="oracle-status">Yükleniyor...</div>
-<button onclick="fetchOracle()" style="background:rgba(255,255,255,0.04);border:1px solid var(--br-border);color:var(--br-muted);padding:4px 10px;border-radius:6px;font-size:10px;cursor:pointer;">↻ Yenile</button>
+<button class="cursor-pointer" onclick="fetchOracle()" style="background:rgba(255,255,255,0.04); border:1px solid var(--br-border); color:var(--br-muted); padding:4px 10px; border-radius:6px; font-size:10px;">↻ Yenile</button>
 </div>
 </div>
 <div class="br-oracle-body">

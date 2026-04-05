@@ -88,14 +88,14 @@ class SantisApexGod {
     renderNavigation() {
         if (!this.DOM.navSkeleton) return;
         this.DOM.navSkeleton.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 40px; height: 100%; border-bottom: 1px solid var(--border);">
-                <div style="display: flex; align-items: center;">
+            <div class="flex" style="justify-content: space-between; align-items: center; padding: 0 40px; height: 100%; border-bottom: 1px solid var(--border);">
+                <div class="flex" style="align-items: center;">
                     <div id="nav-pulse" class="pulse-dot" style="background: #00FF9D; box-shadow: 0 0 10px #00FF9D;"></div>
                     <div style="color: var(--gold); font-weight: 300; letter-spacing: 4px; font-size: 1.1rem;">
-                        SANTIS <span style="color:#fff; font-weight: 700;">LIVE CORE</span>
+                        SANTIS <span class="text-white" style="font-weight: 700;">LIVE CORE</span>
                     </div>
                 </div>
-                <div style="display: flex; align-items: center; gap: 24px;">
+                <div class="flex" style="align-items: center; gap: 24px;">
                     <a href="gods-eye-vision.html" style="color: #C9A96E; text-decoration: none; border: 1px solid rgba(201,169,110,0.5); padding: 6px 16px; border-radius: 4px; font-size: 0.70rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s; background: rgba(201,169,110,0.05);" onmouseover="this.style.background='rgba(201, 169, 110, 0.2)'" onmouseout="this.style.background='rgba(201,169,110,0.05)'">
                         👁️ God's Eye Vision
                     </a>
@@ -120,12 +120,12 @@ class SantisApexGod {
             card.innerHTML = `
                 <div style="position: absolute; top: -40px; right: -40px; width: 150px; height: 150px; background: ${metric.color}; opacity: 0.05; border-radius: 50%; filter: blur(30px); pointer-events: none;"></div>
                 
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div class="flex" style="justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <span style="font-size: 0.75rem; letter-spacing: 2px; color: #888; text-transform: uppercase;">${metric.title}</span>
                     <span style="font-size: 1.5rem; filter: drop-shadow(0 0 8px ${metric.color}88);">${metric.icon}</span>
                 </div>
                 
-                <div style="position: relative; z-index: 2;">
+                <div class="relative" style="z-index: 2;">
                     <div class="metric-val" style="color: ${metric.color};">
                         <span id="val-${metric.id}">${metric.value}</span><span class="metric-sub" id="sub-${metric.id}">${metric.sub}</span>
                     </div>

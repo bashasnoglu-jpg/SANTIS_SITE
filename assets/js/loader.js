@@ -66,7 +66,7 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
 
     const FALLBACK_FOOTER_HTML = `
 
-<footer class="footer" style="padding:40px 20px; background:#0b0d11; text-align:center; color:#666;">
+<footer class="bg-[#0b0d11] text-center footer" style="padding:40px 20px; color:#666;">
 
     <p>&copy; 2026 Santis Club. Quiet Luxury.</p>
 
@@ -190,7 +190,7 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
             }
     
             targetEl.innerHTML = `
-                <div style="padding:10px; border-bottom:1px solid #333; color:#d4af37; font-size:11px; text-align:center;">
+                <div class="text-[#d4af37] text-center" style="padding:10px; border-bottom:1px solid #333; font-size:11px;">
                     ⚠️ <strong>Server Required</strong>: For full features, run 'BASLAT.bat'. (Viewing in Basic Mode)
                 </div>`;
             return;

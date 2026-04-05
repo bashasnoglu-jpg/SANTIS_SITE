@@ -112,10 +112,10 @@ window.ScoreRadar = {
         if (!el) return;
 
         el.innerHTML = this._rescueLog.map(r => `
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px;margin-bottom:3px;background:rgba(212,175,55,0.06);border-left:2px solid #D4AF37;border-radius:0 4px 4px 0;font-size:9px;">
+            <div class="flex" style="justify-content:space-between; align-items:center; padding:4px 8px; margin-bottom:3px; background:rgba(212,175,55,0.06); border-left:2px solid #D4AF37; border-radius:0 4px 4px 0; font-size:9px;">
                 <span style="color:rgba(255,255,255,0.5);font-family:monospace;">${r.time}</span>
-                <span style="color:#fff;font-weight:600;">${r.city}</span>
-                <span style="color:#D4AF37;font-family:monospace;">${r.score}</span>
+                <span class="text-white" style="font-weight:600;">${r.city}</span>
+                <span class="text-[#d4af37]" style="font-family:monospace;">${r.score}</span>
                 <span style="color:rgba(255,255,255,0.3);font-size:8px;">${r.persona}</span>
             </div>
         `).join('');

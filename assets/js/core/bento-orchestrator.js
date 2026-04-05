@@ -129,7 +129,7 @@ class BentoOrchestrator {
         }
         
         if (!payload || payload.length === 0) {
-            this.container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: Inter;">Bu kriterlere uygun koleksiyon bulunamadı.</div>`;
+            this.container.innerHTML = `<div class="text-center" style="grid-column: 1/-1; padding: 40px; color: rgba(255,255,255,0.5); font-family: Inter;">Bu kriterlere uygun koleksiyon bulunamadı.</div>`;
             return;
         }
 

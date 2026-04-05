@@ -72,9 +72,9 @@ window.BoutiqueQuickView = {
 
                 <!-- IMAGE -->
                 ${!isMobile ? `
-                <div style="width:50%;position:relative;min-height:480px;background:#000;overflow:hidden;flex-shrink:0;">
-                    <img src="${imgUrl}" alt="${title}"
-                         style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
+                <div class="relative" style="width:50%; min-height:480px; background:#000; overflow:hidden; flex-shrink:0;">
+                    <img class="top-0 w-full" src="${imgUrl}" alt="${title}"
+                         style="position:absolute; left:0; height:100%; object-fit:cover;">
                     <div style="position:absolute;inset:0;background:linear-gradient(to right,transparent,#0a0a09);"></div>
                 </div>` : ''}
 

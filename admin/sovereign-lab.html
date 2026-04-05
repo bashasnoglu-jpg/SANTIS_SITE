@@ -386,7 +386,7 @@
         </div>
 
         <!-- Selected Card Info -->
-        <div class="diag-card" id="focus-card" style="display:none;">
+        <div class="hidden diag-card" id="focus-card">
             <div class="diag-label"><span class="dot" style="background:var(--gold)"></span> Focus Entity</div>
             <div id="focus-name" style="font-size:16px; font-weight:600; margin-bottom:4px;">—</div>
             <div id="focus-score" style="font-size:12px; color:var(--gold); font-family:monospace;">Score: —</div>
@@ -408,7 +408,7 @@
         <!-- Phase 15: Sovereign Lab V3 -->
         <div class="control-group" style="padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 8px;">
             <label style="color:var(--gold)">⚖️ Neural Pricing Surge</label>
-            <div style="display:flex; gap: 8px; align-items:center;">
+            <div class="flex" style="gap: 8px; align-items:center;">
                 <input type="range" id="surge-slider" min="1.0" max="3.0" step="0.05" value="1.0" style="flex:1;">
                 <span id="surge-display" style="font-family:monospace; font-size:14px; color:var(--gold); font-weight:bold;">x1.00</span>
             </div>
@@ -419,13 +419,13 @@
         <button class="btn btn-danger" onclick="resetLab()">🔄 Reset Lab</button>
 
         <!-- Navigation -->
-        <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">
-            <a href="boardroom.html" style="display:block;text-align:center;font-size:10px;padding:8px 12px;border:1px solid rgba(212,175,55,0.4);color:#D4AF37;border-radius:6px;text-decoration:none;letter-spacing:2px;font-weight:600;transition:all 0.3s;" onmouseover="this.style.background='#D4AF37';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#D4AF37'">♟️ BOARDROOM</a>
-            <a href="/" style="display:block;text-align:center;font-size:10px;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);border-radius:6px;text-decoration:none;letter-spacing:2px;transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.3)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.4)'">❖ ADMIN PANEL</a>
+        <div class="flex" style="flex-direction:column; gap:6px; margin-top:8px;">
+            <a class="text-center text-[#d4af37]" href="boardroom.html" style="display:block; font-size:10px; padding:8px 12px; border:1px solid rgba(212,175,55,0.4); border-radius:6px; text-decoration:none; letter-spacing:2px; font-weight:600; transition:all 0.3s;" onmouseover="this.style.background='#D4AF37';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#D4AF37'">♟️ BOARDROOM</a>
+            <a class="text-center" href="/" style="display:block; font-size:10px; padding:8px 12px; border:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.4); border-radius:6px; text-decoration:none; letter-spacing:2px; transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.3)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.4)'">❖ ADMIN PANEL</a>
         </div>
 
         <!-- Event Log -->
-        <div class="diag-card" style="flex:1; display:flex; flex-direction:column;">
+        <div class="flex diag-card" style="flex:1; flex-direction:column;">
             <div class="diag-label"><span class="dot"></span> Event Stream</div>
             <div class="event-log" id="event-log"></div>
         </div>

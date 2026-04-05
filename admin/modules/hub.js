@@ -430,7 +430,7 @@ export default class HubModule {
                         </div>
 
                         <!-- MULTIPLIER GAUGE -->
-                        <div id="multiplier-card" class="rounded-xl border border-amber-900/30 bg-gray-950/60 p-4 flex flex-col items-center justify-center transition-all duration-700" style="position:relative;overflow:hidden;">
+                        <div id="multiplier-card" class="relative rounded-xl border border-amber-900/30 bg-gray-950/60 p-4 flex flex-col items-center justify-center transition-all duration-700" style="overflow:hidden;">
                             <div id="multiplier-glow" class="absolute inset-0 pointer-events-none" style="border-radius:0.75rem;transition:box-shadow 1s ease;"></div>
                             <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">Demand Multiplier</p>
                             <p id="multiplier-value" class="text-5xl font-black tracking-tight text-amber-400 transition-all duration-700">1.35<span class="text-xl text-gray-600">×</span></p>
@@ -454,8 +454,8 @@ export default class HubModule {
                                 <button onclick="loadDNA(false)" class="text-xs px-3 py-1.5 rounded border border-violet-800/50 text-violet-500 hover:bg-violet-900/20 hover:border-violet-500 font-mono transition">⟳ Scan</button>
                                 <button onclick="loadDNA(true)" id="btn-dna-ai" class="text-xs px-3 py-1.5 rounded border border-amber-700/40 text-amber-600 hover:bg-amber-900/20 hover:border-amber-500 font-mono transition">✦ AI Labels</button>
                                 <a href="/index.html?lang=tr" target="_blank" id="btn-exec-report"
-                                   class="text-xs px-3 py-1.5 rounded font-mono transition flex items-center gap-1"
-                                   style="border:1px solid #C9A96E55;color:#C9A96E;background:linear-gradient(135deg,#1a140800,#C9A96E18);position:relative;overflow:hidden;"
+                                   class="relative text-xs px-3 py-1.5 rounded font-mono transition flex items-center gap-1"
+                                   style="border:1px solid #C9A96E55; color:#C9A96E; background:linear-gradient(135deg,#1a140800,#C9A96E18); overflow:hidden;"
                                    onmouseover="this.style.background='linear-gradient(135deg,#C9A96E22,#C9A96E33)'"
                                    onmouseout="this.style.background='linear-gradient(135deg,#1a140800,#C9A96E18)'"
                                    onclick="pushNeural('Phase R ∷ Executive Briefing PDF generating...','info')">

@@ -133,7 +133,7 @@ class SantisPrestigeGlassCanvas {
                 card.id = 'vip-reserve-card';
                 card.className = 'bento-card-v6 vip-revealed';
                 card.style.cssText = 'grid-column:span 2; border:1px solid rgba(212,175,55,0.5) !important;';
-                card.innerHTML = `<div style="padding:2rem; text-align:center;"><span style="color:#D4AF37; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.2em;">Private Reserves</span><h3 style="font-family:'Cinzel',serif; font-size:1.8rem; margin:10px 0; color:#fff;">Sovereign Estates</h3><p style="color:#a0a0a0; font-size: 0.9rem; font-weight: 300;">Yalnızca davetiye ile erişilebilen usta işi dokunuşlar.</p></div>`;
+                card.innerHTML = `<div class="text-center" style="padding:2rem;"><span class="text-[#d4af37]" style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.2em;">Private Reserves</span><h3 style="font-family:'Cinzel',serif; font-size:1.8rem; margin:10px 0; color:#fff;">Sovereign Estates</h3><p style="color:#a0a0a0; font-size: 0.9rem; font-weight: 300;">Yalnızca davetiye ile erişilebilen usta işi dokunuşlar.</p></div>`;
                 grid.appendChild(card);
             }
             

@@ -158,24 +158,24 @@ const SHOP = {
         drawer.style.zIndex = '10005';
 
         drawer.innerHTML = `
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid rgba(255,255,255,0.1);">
+            <div class="flex" style="justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid rgba(255,255,255,0.1);">
                 <h2 style="font-family:var(--font-heading); margin:0; font-size:1.5rem; color:var(--text-main);">Shopping Bag</h2>
-                <button onclick="SHOP.closeCart()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:1.5rem;">&times;</button>
+                <button class="cursor-pointer" onclick="SHOP.closeCart()" style="background:none; border:none; color:var(--text-muted); font-size:1.5rem;">&times;</button>
             </div>
             
-            <div id="shop-items" style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:15px; padding-bottom:20px;">
+            <div class="flex" id="shop-items" style="flex:1; overflow-y:auto; flex-direction:column; gap:15px; padding-bottom:20px;">
                 <!-- Items go here -->
             </div>
 
             <div style="margin-top:auto; padding-top:20px; border-top:1px solid rgba(255,255,255,0.1); background:var(--surface);">
-                <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:1.2rem; font-weight:600;">
+                <div class="flex" style="justify-content:space-between; margin-bottom:10px; font-size:1.2rem; font-weight:600;">
                     <span>Total</span>
                     <span id="shop-total" style="color:var(--accent-gold);">0€</span>
                 </div>
-                <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:20px; text-align:center;">
+                <div class="text-center" style="font-size:0.75rem; color:var(--text-muted); margin-bottom:20px;">
                     * Toplam tutar ve stok durumu concierge onayıyla kesinleşir.
                 </div>
-                <button onclick="SHOP.checkout()" style="width:100%; padding:14px; background:var(--accent-gold); border:none; border-radius:8px; color:#000; font-weight:bold; cursor:pointer; font-size:1rem; letter-spacing:1px; text-transform:uppercase; transition:all 0.2s;">
+                <button class="w-full cursor-pointer" onclick="SHOP.checkout()" style="padding:14px; background:var(--accent-gold); border:none; border-radius:8px; color:#000; font-weight:bold; font-size:1rem; letter-spacing:1px; text-transform:uppercase; transition:all 0.2s;">
                     WHATSAPP ORDER
                 </button>
             </div>
@@ -191,26 +191,26 @@ const SHOP = {
         if (totalEl) totalEl.textContent = this.getCartTotal() + '€';
 
         if (this.state.cart.length === 0) {
-            container.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:40px;">Your bag is empty.</div>`;
+            container.innerHTML = `<div class="text-center" style="color:var(--text-muted); padding:40px;">Your bag is empty.</div>`;
             return;
         }
 
         container.innerHTML = this.state.cart.map(item => `
-            <div style="display:flex; gap:12px; align-items:center; background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+            <div class="flex" style="gap:12px; align-items:center; background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
                 <div style="width:60px; height:60px; border-radius:6px; overflow:hidden; flex-shrink:0;">
-                    <img src="${item.img}" style="width:100%; height:100%; object-fit:cover;" />
+                    <img class="w-full" src="${item.img}" style="height:100%; object-fit:cover;" />
                 </div>
                 <div style="flex:1;">
                     <div style="font-weight:600; font-size:0.95rem; margin-bottom:4px;">${item.name?.tr || item.name}</div>
                     <div style="color:var(--accent-gold); font-size:0.9rem;">${item.price}€</div>
                 </div>
-                <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
-                   <div style="display:flex; align-items:center; gap:8px; background:rgba(0,0,0,0.3); border-radius:4px; padding:2px;">
-                        <button onclick="SHOP.updateQty('${item.id}', -1)" style="width:24px; height:24px; background:none; border:none; color:#fff; cursor:pointer;">-</button>
+                <div class="flex" style="flex-direction:column; gap:4px; align-items:center;">
+                   <div class="flex" style="align-items:center; gap:8px; background:rgba(0,0,0,0.3); border-radius:4px; padding:2px;">
+                        <button class="text-white cursor-pointer" onclick="SHOP.updateQty('${item.id}', -1)" style="width:24px; height:24px; background:none; border:none;">-</button>
                         <span style="font-size:0.9rem;">${item.qty}</span>
-                        <button onclick="SHOP.updateQty('${item.id}', 1)" style="width:24px; height:24px; background:none; border:none; color:#fff; cursor:pointer;">+</button>
+                        <button class="text-white cursor-pointer" onclick="SHOP.updateQty('${item.id}', 1)" style="width:24px; height:24px; background:none; border:none;">+</button>
                    </div>
-                   <button onclick="SHOP.removeFromCart('${item.id}')" style="font-size:0.75rem; color:var(--text-muted); background:none; border:none; cursor:pointer; text-decoration:underline; opacity:0.7;">remove</button>
+                   <button class="cursor-pointer" onclick="SHOP.removeFromCart('${item.id}')" style="font-size:0.75rem; color:var(--text-muted); background:none; border:none; text-decoration:underline; opacity:0.7;">remove</button>
                 </div>
             </div>
         `).join('');
@@ -329,17 +329,17 @@ const SHOP = {
         modal.style.zIndex = '10010'; // Above everything
 
         modal.innerHTML = `
-            <div class="modal-content" style="max-width:500px; width:95%; background:#111; border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:25px; position:relative;">
-                <button onclick="SHOP.closeCheckoutModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#fff; font-size:20px; cursor:pointer;">&times;</button>
+            <div class="relative modal-content" style="max-width:500px; width:95%; background:#111; border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:25px;">
+                <button class="text-white cursor-pointer" onclick="SHOP.closeCheckoutModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:20px;">&times;</button>
                 
-                <h2 style="font-family:var(--font-heading); margin-top:0; color:#fff; font-size:1.4rem;">Checkout</h2>
+                <h2 class="text-white" style="font-family:var(--font-heading); margin-top:0; font-size:1.4rem;">Checkout</h2>
                 
                 <!-- Delivery Type Toggle -->
-                <div style="display:flex; gap:10px; margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:15px;">
-                    <button id="btn-hotel" onclick="SHOP.toggleDeliveryType('hotel')" class="lux-chip active" style="flex:1; text-align:center; justify-content:center; background:rgba(212,175,55,0.2); border-color:#d4af37;">
+                <div class="flex" style="gap:10px; margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:15px;">
+                    <button id="btn-hotel" onclick="SHOP.toggleDeliveryType('hotel')" class="text-center lux-chip active" style="flex:1; justify-content:center; background:rgba(212,175,55,0.2); border-color:#d4af37;">
                         🏨 In Hotel
                     </button>
-                    <button id="btn-delivery" onclick="SHOP.toggleDeliveryType('delivery')" class="lux-chip" style="flex:1; text-align:center; justify-content:center;">
+                    <button id="btn-delivery" onclick="SHOP.toggleDeliveryType('delivery')" class="text-center lux-chip" style="flex:1; justify-content:center;">
                         🚚 Delivery
                     </button>
                 </div>
@@ -350,7 +350,7 @@ const SHOP = {
                     <!-- Common Fields -->
                     <div class="form-group" style="margin-bottom:15px;">
                         <label style="display:block; color:#aaa; font-size:0.85rem; margin-bottom:5px;">Full Name</label>
-                        <input type="text" id="cust-name" required placeholder="Guest Name" style="width:100%; padding:10px; background:rgba(255,255,255,0.05); border:1px solid #333; color:#fff; border-radius:6px;">
+                        <input class="w-full text-white" type="text" id="cust-name" required placeholder="Guest Name" style="padding:10px; background:rgba(255,255,255,0.05); border:1px solid #333; border-radius:6px;">
                     </div>
 
                     <!-- Hotel Specific -->
@@ -358,11 +358,11 @@ const SHOP = {
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:15px;">
                             <div class="form-group">
                                 <label style="display:block; color:#aaa; font-size:0.85rem; margin-bottom:5px;">Room Number</label>
-                                <input type="text" id="cust-room" placeholder="101" style="width:100%; padding:10px; background:rgba(255,255,255,0.05); border:1px solid #333; color:#fff; border-radius:6px;">
+                                <input class="w-full text-white" type="text" id="cust-room" placeholder="101" style="padding:10px; background:rgba(255,255,255,0.05); border:1px solid #333; border-radius:6px;">
                             </div>
                             <div class="form-group">
                                 <label style="display:block; color:#aaa; font-size:0.85rem; margin-bottom:5px;">Time</label>
-                                <select id="cust-time" style="width:100%; padding:10px; background:rgba(255,255,255,0.05); border:1px solid #333; color:#fff; border-radius:6px;">
+                                <select class="w-full text-white" id="cust-time" style="padding:10px; background:rgba(255,255,255,0.05); border:1px solid #333; border-radius:6px;">
                                     <option value="ASAP">ASAP (Immediate)</option>
                                     <option value="30min">In 30 mins</option>
                                     <option value="1hour">In 1 hour</option>
@@ -373,28 +373,28 @@ const SHOP = {
                     </div>
 
                     <!-- Delivery Specific (Hidden by default) -->
-                    <div id="delivery-fields" style="display:none;">
+                    <div class="hidden" id="delivery-fields">
                         <div class="form-group" style="margin-bottom:15px;">
                             <label style="display:block; color:#aaa; font-size:0.85rem; margin-bottom:5px;">Full Address</label>
-                            <textarea id="cust-address" rows="3" placeholder="Street, City, Country" style="width:100%; padding:10px; background:rgba(255,255,255,0.05); border:1px solid #333; color:#fff; border-radius:6px;"></textarea>
+                            <textarea class="w-full text-white" id="cust-address" rows="3" placeholder="Street, City, Country" style="padding:10px; background:rgba(255,255,255,0.05); border:1px solid #333; border-radius:6px;"></textarea>
                         </div>
                         <div class="form-group" style="margin-bottom:15px;">
                             <label style="display:block; color:#aaa; font-size:0.85rem; margin-bottom:5px;">Phone (WhatsApp)</label>
-                            <input type="tel" id="cust-phone" placeholder="+90 ..." style="width:100%; padding:10px; background:rgba(255,255,255,0.05); border:1px solid #333; color:#fff; border-radius:6px;">
+                            <input class="w-full text-white" type="tel" id="cust-phone" placeholder="+90 ..." style="padding:10px; background:rgba(255,255,255,0.05); border:1px solid #333; border-radius:6px;">
                         </div>
                     </div>
 
                     <div class="form-group" style="margin-bottom:20px;">
                         <label style="display:block; color:#aaa; font-size:0.85rem; margin-bottom:5px;">Notes</label>
-                        <input type="text" id="cust-notes" placeholder="Gift wrap, allergies, etc." style="width:100%; padding:10px; background:rgba(255,255,255,0.05); border:1px solid #333; color:#fff; border-radius:6px;">
+                        <input class="w-full text-white" type="text" id="cust-notes" placeholder="Gift wrap, allergies, etc." style="padding:10px; background:rgba(255,255,255,0.05); border:1px solid #333; border-radius:6px;">
                     </div>
 
-                    <div style="background:rgba(212,175,55,0.1); padding:10px; border-radius:6px; margin-bottom:20px; font-size:0.85rem; color:#d4af37; text-align:center;">
+                    <div class="text-[#d4af37] text-center" style="background:rgba(212,175,55,0.1); padding:10px; border-radius:6px; margin-bottom:20px; font-size:0.85rem;">
                         Total to Pay: <strong id="modal-total">0€</strong>
                         <div style="font-size:0.75rem; color:#aaa; margin-top:4px;">Payment is processed upon confirmation.</div>
                     </div>
 
-                    <button type="submit" class="btn-submit" style="width:100%; padding:14px; background:#d4af37; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
+                    <button type="submit" class="w-full cursor-pointer btn-submit" style="padding:14px; background:#d4af37; border:none; border-radius:8px; font-weight:bold;">
                         SEND ORDER (WhatsApp)
                     </button>
                 </form>

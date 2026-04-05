@@ -124,10 +124,10 @@ function createTrendCard(trend, index) {
     // MEDIA LAYER (Matte Finish)
     let mediaHtml = '';
     if (trend.isVideo) {
-        mediaHtml = `<video class="santis-trend-bg" src="${trend.image}" autoplay loop muted playsinline poster="/assets/img/poster_trend.webp" 
-        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.75; filter: brightness(0.7) saturate(0.8); pointer-events: none;"></video>`;
+        mediaHtml = `<video class="top-0 w-full santis-trend-bg" src="${trend.image}" autoplay loop muted playsinline poster="/assets/img/poster_trend.webp" 
+        style="position: absolute; left: 0; height: 100%; object-fit: cover; opacity: 0.75; filter: brightness(0.7) saturate(0.8); pointer-events: none;"></video>`;
     } else {
-        mediaHtml = `<div class="santis-trend-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('${trend.image}'); background-size: cover; background-position: center; opacity: 0.75; filter: brightness(0.7) saturate(0.8); pointer-events: none;"></div>`;
+        mediaHtml = `<div class="top-0 w-full santis-trend-bg" style="position: absolute; left: 0; height: 100%; background-image: url(;'${trend.image}'); background-size: cover; background-position: center; opacity: 0.75; filter: brightness(0.7) saturate(0.8); pointer-events: none;"></div>`;
     }
 
     // BADGE (Modern Pill)

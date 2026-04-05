@@ -84,7 +84,7 @@ function renderGallery(filter = 'all') {
     grid.innerHTML = '';
 
     if (items.length === 0) {
-        grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:100px; color:#666;">Bu kategoride görsel bulunamadı.</div>';
+        grid.innerHTML = '<div class="text-center" style="grid-column:1/-1; padding:100px; color:#666;">Bu kategoride görsel bulunamadı.</div>';
         return;
     }
 

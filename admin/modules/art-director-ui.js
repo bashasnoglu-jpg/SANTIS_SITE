@@ -31,7 +31,7 @@ async function bootDashboard() {
 function renderKPIs(metrics) {
     const grid = document.getElementById('kpi-grid');
     grid.innerHTML = `
-        <div class="card"><span class="kicker">ORTALAMA SKOR</span><p class="value" style="color:#D4AF37">${metrics.avgScore}</p></div>
+        <div class="card"><span class="kicker">ORTALAMA SKOR</span><p class="text-[#d4af37] value">${metrics.avgScore}</p></div>
         <div class="card"><span class="kicker">RED ORANI (REJECT)</span><p class="value">${(metrics.rejectRate*100).toFixed(0)}%</p></div>
         <div class="card"><span class="kicker">REGENERATION AVG</span><p class="value">${metrics.regenerationAvg}</p></div>
         <div class="card"><span class="kicker">ORT. RENDER SÜRESİ</span><p class="value">${metrics.avgRenderTime}</p></div>
@@ -99,7 +99,7 @@ function renderAnalytics(metrics) {
     const rejectHtml = Object.entries(metrics.rejectReasons)
         .sort((a,b) => b[1] - a[1]) // highest first
         .map(([key, val]) => `
-            <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size: 0.9rem;">
+            <div class="flex" style="justify-content:space-between; margin-bottom:12px; font-size: 0.9rem;">
                 <span style="text-transform: capitalize;">${key.replace('_',' ')}</span>
                 <span style="color:#f87171; background: rgba(248, 113, 113, 0.1); padding: 2px 8px; border-radius: 4px;">${val} İhlal</span>
             </div>
@@ -109,7 +109,7 @@ function renderAnalytics(metrics) {
     // 2. Top Performers
     const topHtml = metrics.topPerformers
         .map(p => `
-            <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size: 0.9rem;">
+            <div class="flex" style="justify-content:space-between; margin-bottom:12px; font-size: 0.9rem;">
                 <span style="font-family:monospace; color:#ccc;">${p.id}</span>
                 <span style="color:#60a5fa; background: rgba(96, 165, 250, 0.1); padding: 2px 8px; border-radius: 4px;">Score: ${p.score}</span>
             </div>
@@ -119,15 +119,15 @@ function renderAnalytics(metrics) {
     // 3. User Impact
     const impactColor = '#4ade80';
     document.getElementById('userImpact').innerHTML = `
-        <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size: 0.9rem; align-items:center;">
+        <div class="flex" style="justify-content:space-between; margin-bottom:12px; font-size: 0.9rem; align-items:center;">
             <span>Etkileşim Süresi (Dwell)</span>
             <span style="color:${impactColor}; font-weight:600; font-size:1.1rem;">${metrics.userImpact.dwellTime}</span>
         </div>
-        <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size: 0.9rem; align-items:center;">
+        <div class="flex" style="justify-content:space-between; margin-bottom:12px; font-size: 0.9rem; align-items:center;">
             <span>Kaydırma Derinliği (Depth)</span>
             <span style="color:${impactColor}; font-weight:600; font-size:1.1rem;">${metrics.userImpact.scrollDepth}</span>
         </div>
-        <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size: 0.9rem; align-items:center;">
+        <div class="flex" style="justify-content:space-between; margin-bottom:12px; font-size: 0.9rem; align-items:center;">
             <span>Dönüşüm Artışı (Conv)</span>
             <span style="color:${impactColor}; font-weight:600; font-size:1.1rem;">${metrics.userImpact.conversionLift}</span>
         </div>

@@ -191,20 +191,20 @@ class HamamHybridRenderer {
 
             html += `
             <div class="hamam-item matrix-service-card" data-item='${dataPayload}' style="flex-shrink: 0; scroll-snap-align: start; width: 480px; height: 620px; border-radius: 20px; overflow: hidden; border: ${isPriority ? '2px solid #d4af37' : '2px solid transparent'}; position: relative; background: #080808; cursor: pointer; opacity: 0; animation: fadeIn 0.5s ease forwards ${idx * 0.1}s; display: flex; flex-direction: column; justify-content: flex-end; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
-                <img class="sv-cover" src="${imagePath}" alt="${trContent.title}" style="position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); z-index: 0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                <div class="card-gradient" style="position: absolute; top:0; left:0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(5,5,5,0.98) 100%); z-index: 1;"></div>
+                <img class="top-0 w-full sv-cover" src="${imagePath}" alt="${trContent.title}" style="position: absolute; left:0; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); z-index: 0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <div class="top-0 w-full card-gradient" style="position: absolute; left:0; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(5,5,5,0.98) 100%); z-index: 1;"></div>
                 
-                ${isPriority ? `<div style="position: absolute; top: 20px; right: 20px; z-index: 3; background: rgba(212,175,55,0.9); backdrop-filter: blur(4px); padding: 6px 14px; border-radius: 20px; display: flex; align-items: center; gap: 6px;">
+                ${isPriority ? `<div class="flex" style="position: absolute; top: 20px; right: 20px; z-index: 3; background: rgba(212,175,55,0.9); backdrop-filter: blur(4px); padding: 6px 14px; border-radius: 20px; align-items: center; gap: 6px;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
                     <span style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #fff; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">${item._biometricFlag}</span>
                 </div>` : ''}
 
-                <div style="position: relative; z-index: 2; padding: 40px 32px; display: flex; flex-direction: column; gap: 12px; width: 100%;">
+                <div class="relative flex w-full" style="z-index: 2; padding: 40px 32px; flex-direction: column; gap: 12px;">
                     <span class="sv-subtitle" style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #d4af37; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;">${dur} RİTÜELİ</span>
                     <h3 class="sv-title" style="font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #fff; margin:0; line-height: 1.1; font-weight: 400;">${trContent.title}</h3>
                     <p class="sv-desc" style="font-family: 'Inter', sans-serif; font-size: 1.05rem; color: rgba(255,255,255,0.6); margin:0; line-height: 1.5; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${shortDesc}</p>
                     
-                    <div style="margin-top: 8px; display: flex; align-items: center; justify-content: space-between;">
+                    <div class="flex" style="margin-top: 8px; align-items: center; justify-content: space-between;">
                         <div class="apple-link-btn select-btn" style="display: inline-flex; align-items: center; gap: 8px; color: #0071e3; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.1rem; cursor: pointer; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
                             Ritüeli Yapılandır
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
@@ -212,13 +212,13 @@ class HamamHybridRenderer {
                     </div>
 
                     <div class="sv-spec-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);">
-                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 6px;">
+                        <div class="flex" style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; flex-direction: column; gap: 6px;">
                             <span style="color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Süre</span>
-                            <span class="sv-spec-duration" style="color: #fff; font-size: 1.1rem; font-family: 'Inter', sans-serif;">${item.duration || '30'} Dakika</span>
+                            <span class="text-white sv-spec-duration" style="font-size: 1.1rem; font-family:;'Inter', sans-serif;">${item.duration || '30'} Dakika</span>
                         </div>
-                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 6px;">
+                        <div class="flex" style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; flex-direction: column; gap: 6px;">
                             <span style="color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Yatırım</span>
-                            <span class="sv-price" style="color: #d4af37; font-size: 1.1rem; font-family: 'Inter', sans-serif; font-weight: 500;">${price > 0 ? price + ' €' : 'Özel'}</span>
+                            <span class="text-[#d4af37] sv-price" style="font-size: 1.1rem; font-family:;'Inter', sans-serif; font-weight: 500;">${price > 0 ? price + ' €' : 'Özel'}</span>
                         </div>
                     </div>
                 </div>
@@ -296,15 +296,15 @@ class HamamHybridRenderer {
             card.style.cssText = `flex-shrink: 0; scroll-snap-align: start; width: 480px; height: 620px; border-radius: 20px; overflow: hidden; position: relative; display: none; flex-direction: column; justify-content: flex-end; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; border: 2px solid transparent; background: #080808;`;
 
             card.innerHTML = `
-                <img class="sv-cover" src="" alt="Santis Service" style="position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); z-index: 0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                <div class="card-gradient" style="position: absolute; top:0; left:0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(5,5,5,0.98) 100%); z-index: 1;"></div>
+                <img class="top-0 w-full sv-cover" src="" alt="Santis Service" style="position: absolute; left:0; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); z-index: 0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <div class="top-0 w-full card-gradient" style="position: absolute; left:0; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(5,5,5,0.98) 100%); z-index: 1;"></div>
                 
-                <div style="position: relative; z-index: 2; padding: 40px 32px; display: flex; flex-direction: column; gap: 12px; width: 100%;">
+                <div class="relative flex w-full" style="z-index: 2; padding: 40px 32px; flex-direction: column; gap: 12px;">
                     <span class="sv-subtitle" style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #d4af37; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;">SPA RİTÜELİ</span>
                     <h3 class="sv-title" style="font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #fff; margin:0; line-height: 1.1; font-weight: 400;"></h3>
                     <p class="sv-desc" style="font-family: 'Inter', sans-serif; font-size: 1.05rem; color: rgba(255,255,255,0.6); margin:0; line-height: 1.5; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"></p>
                     
-                    <div style="margin-top: 8px; display: flex; align-items: center; justify-content: space-between;">
+                    <div class="flex" style="margin-top: 8px; align-items: center; justify-content: space-between;">
                         <div class="apple-link-btn select-btn" style="display: inline-flex; align-items: center; gap: 8px; color: #0071e3; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.1rem; cursor: pointer; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
                             Ritüeli Yapılandır
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
@@ -312,13 +312,13 @@ class HamamHybridRenderer {
                     </div>
 
                     <div class="sv-spec-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);">
-                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 6px;">
+                        <div class="flex" style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; flex-direction: column; gap: 6px;">
                             <span style="color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Süre</span>
-                            <span class="sv-spec-duration" style="color: #fff; font-size: 1.1rem; font-family: 'Inter', sans-serif;">60 Dakika</span>
+                            <span class="text-white sv-spec-duration" style="font-size: 1.1rem; font-family:;'Inter', sans-serif;">60 Dakika</span>
                         </div>
-                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 6px;">
+                        <div class="flex" style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; flex-direction: column; gap: 6px;">
                             <span style="color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Yatırım</span>
-                            <span class="sv-price" style="color: #d4af37; font-size: 1.1rem; font-family: 'Inter', sans-serif; font-weight: 500;"></span>
+                            <span class="text-[#d4af37] sv-price" style="font-size: 1.1rem; font-family:;'Inter', sans-serif; font-weight: 500;"></span>
                         </div>
                     </div>
                 </div>
@@ -596,14 +596,14 @@ class HamamHybridRenderer {
         this.masks.forEach(m => {
             const dataPayload = JSON.stringify({ id: m.id, title: m.title, price: m.price });
             html += `
-            <div class="mask-item" data-item='${dataPayload}' style="min-width: 280px; width: 280px; border-radius: 16px; overflow: hidden; background: #111; position: relative; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transition: border-color 0.3s ease;">
-                <img src="${m.img}" alt="${m.title}" style="width: 100%; height: 180px; object-fit: cover; opacity: 0.8;">
+            <div class="relative cursor-pointer mask-item" data-item='${dataPayload}' style="min-width: 280px; width: 280px; border-radius: 16px; overflow: hidden; background: #111; border: 1px solid rgba(255,255,255,0.05); transition: border-color 0.3s ease;">
+                <img class="w-full" src="${m.img}" alt="${m.title}" style="height: 180px; object-fit: cover; opacity: 0.8;">
                 <div style="padding: 20px;">
                     <h4 style="font-family: 'Playfair Display', serif; color: #fff; margin:0 0 8px 0; font-size: 1.2rem;">${m.title}</h4>
                     <p style="color: rgba(255,255,255,0.6); font-family: 'Inter', sans-serif; font-size: 0.85rem; margin:0 0 16px 0;">${m.desc}</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="color: #d4af37; font-size: 1.1rem; font-family: 'Inter', sans-serif;">+${m.price} €</span>
-                        <div class="select-indicator" style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;"></div>
+                    <div class="flex" style="justify-content: space-between; align-items: center;">
+                        <span class="text-[#d4af37]" style="font-size: 1.1rem; font-family:;'Inter', sans-serif;">+${m.price} €</span>
+                        <div class="flex select-indicator" style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); align-items: center; justify-content: center; transition: all 0.3s ease;"></div>
                     </div>
                 </div>
             </div>`;
@@ -870,7 +870,7 @@ class HamamHybridRenderer {
             // Haptic Payment Success
             if (navigator.vibrate) navigator.vibrate([50, 100, 50, 100, 50]);
 
-            checkoutBtn.innerHTML = '<span style="display: flex; align-items: center; gap: 8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> APPLE WALLET EKLENDİ</span>';
+            checkoutBtn.innerHTML = '<span class="flex" style="align-items: center; gap: 8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> APPLE WALLET EKLENDİ</span>';
             checkoutBtn.style.pointerEvents = 'none';
         });
 

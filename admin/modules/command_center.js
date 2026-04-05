@@ -731,7 +731,7 @@ export async function mount(viewport, ctx) {
 <h3 class="text-[#D4AF37] font-bold text-[10px] tracking-[0.2em] uppercase">[ Cognitive Resonance Radar ]</h3>
 <span class="text-green-400 text-[9px] animate-pulse">● LIVE METRICS</span>
 </div>
-<div class="relative z-10" id="echarts-revenue-radar" style="width: 100%; height: 240px;"></div>
+<div class="w-full relative z-10" id="echarts-revenue-radar" style="height: 240px;"></div>
 </div>
 <div class="relative bg-[#0a0a0c]/90 border border-[#D4AF37]/30 rounded-xl p-4 backdrop-blur-md shadow-[0_0_15px_rgba(212,175,55,0.05)] transition-all duration-500 hover:shadow-[0_0_25px_rgba(212,175,55,0.15)] hover:-translate-y-1 group">
 <div class="absolute inset-0 bg-[#D4AF37]/5 blur-xl group-hover:bg-[#D4AF37]/10 transition-all duration-500 rounded-xl pointer-events-none"></div>
@@ -739,7 +739,7 @@ export async function mount(viewport, ctx) {
 <h3 class="text-[#D4AF37] font-bold text-[10px] tracking-[0.2em] uppercase">[ Liquid SAS Pulse Flow ]</h3>
 <span class="text-[#D4AF37] text-[9px]">MRR Lift (30s)</span>
 </div>
-<div class="relative z-10" id="echarts-pulse-flow" style="width: 100%; height: 200px;"></div>
+<div class="w-full relative z-10" id="echarts-pulse-flow" style="height: 200px;"></div>
 </div>
 </div>
 <!-- SOVEREIGN LIVE MESH (Phase 48) -->

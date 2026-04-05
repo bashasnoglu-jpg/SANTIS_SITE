@@ -442,10 +442,10 @@
             </div>
             <div id="santis-focus-card">
                 <div class="santis-glow-layer"></div>
-                <div style="position:relative; z-index:1; text-align:center;">
+                <div class="relative text-center" style="z-index:1;">
                     <div id="santis-focus-icon" style="font-size:28px; margin-bottom:6px;">💎</div>
                     <div id="santis-focus-name" style="font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.5);">Awaiting Signal...</div>
-                    <div id="santis-focus-score" style="font-size:10px; color:#D4AF37; margin-top:4px; font-family:monospace;"></div>
+                    <div class="text-[#d4af37]" id="santis-focus-score" style="font-size:10px; margin-top:4px; font-family:monospace;"></div>
                 </div>
             </div>
         </section>
@@ -490,7 +490,7 @@
                     <div class="kpi-label">Events</div>
                 </div>
                 <div class="score-kpi">
-                    <div class="kpi-val" style="color:#D4AF37;" id="score-rescue-count">0</div>
+                    <div class="text-[#d4af37] kpi-val" id="score-rescue-count">0</div>
                     <div class="kpi-label">Rescues</div>
                 </div>
                 <div class="score-kpi">
@@ -498,20 +498,20 @@
                     <div class="kpi-label">Peak</div>
                 </div>
             </div>
-            <div id="score-velocity-chart" style="width:100%;height:100px;"></div>
+            <div class="w-full" id="score-velocity-chart" style="height:100px;"></div>
             <div id="score-rescue-timeline" style="margin-top:8px;max-height:120px;overflow-y:auto;"></div>
         </section>
 
         <!-- PHASE 11: SOVEREIGN ROUTE REGISTRY (DRAG & DROP) -->
         <section id="route-mapping-panel" style="margin-top: 16px; padding: 12px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px;">
             <div class="score-radar-header">
-                <span class="score-radar-label" style="color: #D4AF37;">🗺️ Sovereign Route Mapping</span>
-                <span class="score-radar-badge" style="background: rgba(212,175,55,0.1); border-color: rgba(212,175,55,0.2); color: #D4AF37;">DB SYNC</span>
+                <span class="text-[#d4af37] score-radar-label">🗺️ Sovereign Route Mapping</span>
+                <span class="text-[#d4af37] score-radar-badge" style="background: rgba(212,175,55,0.1); border-color: rgba(212,175,55,0.2);">DB SYNC</span>
             </div>
             <div style="font-size: 9px; color: rgba(255,255,255,0.5); margin-bottom: 8px;">Drag slots to assign standard physical routes dynamically. Updates reflect globally without deployment.</div>
             
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="route-slots-container">
-                <div style="text-align: center; width: 100%; font-size: 10px; color: gray; padding: 10px;">Loading Live SQL Routes...</div>
+            <div class="flex" style="gap: 8px; flex-wrap: wrap;" id="route-slots-container">
+                <div class="text-center w-full" style="font-size: 10px; color: gray; padding: 10px;">Loading Live SQL Routes...</div>
             </div>
         </section>
 
@@ -1183,7 +1183,7 @@
                 
                 container.innerHTML = '';
                 if (!data.routes || data.routes.length === 0) {
-                    container.innerHTML = '<div style="color:gray; width:100%; text-align:center;">No routes found.</div>';
+                    container.innerHTML = '<div class="w-full text-center" style="color:gray;">No routes found.</div>';
                     return;
                 }
 
@@ -1200,11 +1200,11 @@
                     const badge = route.is_global ? '<span style="color:#00D1FF; font-size:7px; border:1px solid #00D1FF; padding:1px 3px; border-radius:3px;">GLOBAL</span>' : '<span style="color:#50C878; font-size:7px; border:1px solid #50C878; padding:1px 3px; border-radius:3px;">LOCAL</span>';
                     
                     el.innerHTML = `
-                        <div style="font-size: 8px; color: gray; letter-spacing: 1px; display:flex; justify-content:space-between;">
+                        <div class="flex" style="font-size: 8px; color: gray; letter-spacing: 1px; justify-content:space-between;">
                             <span>${route.slot_key.toUpperCase()}</span>
                             ${badge}
                         </div>
-                        <div style="font-size: 11px; margin-top: 4px; color: white; display: flex; justify-content: space-between; align-items: center;">
+                        <div class="flex" style="font-size: 11px; margin-top: 4px; color: white; justify-content: space-between; align-items: center;">
                             <span style="font-family: monospace; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 80%;">${route.page_route}</span>
                             <span style="font-size:10px;">✏️</span>
                         </div>
@@ -1214,7 +1214,7 @@
                     container.appendChild(el);
                 });
             } catch (err) {
-                container.innerHTML = '<div style="color:red; width:100%; text-align:center;">Failed to load routes.</div>';
+                container.innerHTML = '<div class="w-full text-center" style="color:red;">Failed to load routes.</div>';
             }
         }
 

@@ -31,12 +31,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header style="margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">
+    <header class="flex" style="margin-bottom: 3rem; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">
         <div>
             <span class="kicker" style="color:#888;">PHASE 43: Autonomous Aesthetics</span>
             <h1 style="margin: 0; font-family: 'Cinzel', serif; font-size: 2.5rem; color: #D4AF37; font-weight: 400;">SANTIS ART DIRECTOR</h1>
         </div>
-        <div style="text-align: right; display: flex; align-items: center; gap: 10px;">
+        <div class="flex" style="text-align: right; align-items: center; gap: 10px;">
             <div style="width: 8px; height: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 10px #4ade80;"></div>
             <span style="color: #4ade80; font-family: monospace; font-size: 0.85rem; letter-spacing: 0.1em;">LIVE PIPELINE ACTIVE</span>
         </div>
@@ -47,11 +47,11 @@
     </div>
 
     <div class="main-layout">
-        <div class="panel" style="display: flex; flex-direction: column;">
+        <div class="flex panel" style="flex-direction: column;">
             <span class="kicker">Aesthetic Score Radar (Gemini 2.5 Pro)</span>
             <div id="scoreRadar" style="flex-grow: 1; min-height: 480px; margin-top: 1rem;"></div>
         </div>
-        <div class="panel" style="display: flex; flex-direction: column;">
+        <div class="flex panel" style="flex-direction: column;">
             <span class="kicker">Live Pipeline Feed</span>
             <div id="liveFeed" style="margin-top: 1rem; flex-grow: 1; overflow-y: auto; max-height: 480px;">
                 <!-- Rendered via JS -->

@@ -73,7 +73,7 @@ function initQuickView() {
 
                             </div>
 
-                            <div class="qv-dur" id="qv-dur-row" style="display:none;">
+                            <div class="hidden qv-dur" id="qv-dur-row">
 
                                 <strong>Süre:</strong> <span id="qv-dur">--</span>
 

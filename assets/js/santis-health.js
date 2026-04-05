@@ -45,7 +45,7 @@ class SantisHealth {
             display: none;
         `;
         div.innerHTML = `
-            <div style="border-bottom: 1px solid #333; padding-bottom: 5px; margin-bottom: 10px; display:flex; justify-content:space-between;">
+            <div class="flex" style="border-bottom: 1px solid #333; padding-bottom: 5px; margin-bottom: 10px; justify-content:space-between;">
                 <strong>SANTIS OS v6.0-ORACLE</strong>
                 <span id="hud-clock">00:00:00</span>
             </div>
@@ -53,14 +53,14 @@ class SantisHealth {
             <!-- AMYGDALA (Emotion) -->
             <div style="margin-bottom: 10px;">
                 <div style="color: #aaa;">🧠 AMYGDALA (Biometrics)</div>
-                <div style="display:flex; align-items:center; margin-top:2px;">
+                <div class="flex" style="align-items:center; margin-top:2px;">
                     <span style="width:50px;">STRS:</span>
                     <div style="flex:1; height:4px; background:#333;">
                         <div id="hud-stress-bar" style="width:0%; height:100%; background:#f00; transition: width 0.2s;"></div>
                     </div>
                     <span id="hud-stress-val" style="width:30px; text-align:right;">0%</span>
                 </div>
-                <div style="display:flex; align-items:center; margin-top:2px;">
+                <div class="flex" style="align-items:center; margin-top:2px;">
                     <span style="width:50px;">FOCS:</span>
                     <div style="flex:1; height:4px; background:#333;">
                         <div id="hud-focus-bar" style="width:0%; height:100%; background:#00f; transition: width 0.2s;"></div>
@@ -72,7 +72,7 @@ class SantisHealth {
             <!-- ORACLE (Decision) -->
             <div style="margin-bottom: 10px;">
                 <div style="color: #aaa;">🔮 ORACLE (Prophecy)</div>
-                <div id="hud-oracle-latest" style="color: #D4AF37; margin-top: 2px;">Waiting for vision...</div>
+                <div class="text-[#d4af37]" id="hud-oracle-latest" style="margin-top: 2px;">Waiting for vision...</div>
                 <div id="hud-oracle-reason" style="color: #666; font-style: italic;">...</div>
             </div>
 
@@ -86,9 +86,9 @@ class SantisHealth {
             <!-- SIMULATION TOOLS -->
             <div style="margin-top: 15px; border-top: 1px solid #333; pt-2;">
                 <div style="color: #aaa; margin-bottom: 5px;">🎮 SIMULATION</div>
-                <button onclick="window.SantisHealth.simulate('stress')" style="background:#500; color:#fff; border:none; padding:2px 5px; cursor:pointer;">High Stress</button>
-                <button onclick="window.SantisHealth.simulate('zen')" style="background:#005; color:#fff; border:none; padding:2px 5px; cursor:pointer;">Deep Zen</button>
-                <button onclick="window.SantisHealth.simulate('reset')" style="background:#333; color:#ccc; border:none; padding:2px 5px; cursor:pointer;">Reset</button>
+                <button class="text-white cursor-pointer" onclick="window.SantisHealth.simulate('stress')" style="background:#500; border:none; padding:2px 5px;">High Stress</button>
+                <button class="text-white cursor-pointer" onclick="window.SantisHealth.simulate('zen')" style="background:#005; border:none; padding:2px 5px;">Deep Zen</button>
+                <button class="cursor-pointer" onclick="window.SantisHealth.simulate('reset')" style="background:#333; color:#ccc; border:none; padding:2px 5px;">Reset</button>
             </div>
         `;
         document.body.appendChild(div);

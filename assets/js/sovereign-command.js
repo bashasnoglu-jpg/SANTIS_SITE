@@ -176,7 +176,7 @@
 
             overlay.innerHTML = `
                 <div style="padding: 24px 24px 20px;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                    <div class="flex" style="justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
                         <span style="font-size: 0.6rem; font-weight: 700; letter-spacing: 2.5px;
                             text-transform: uppercase; color: ${color}; background: ${color}15;
                             padding: 4px 12px; border-radius: 20px;">
@@ -266,7 +266,7 @@
             `;
 
             seal.innerHTML = `
-                <div style="text-align: center; max-width: 500px; padding: 40px;">
+                <div class="text-center" style="max-width: 500px; padding: 40px;">
                     <div style="width: 80px; height: 80px; margin: 0 auto 24px;
                         border: 2px solid #d4af37; border-radius: 50%;
                         display: flex; align-items: center; justify-content: center;

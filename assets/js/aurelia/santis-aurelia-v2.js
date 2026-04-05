@@ -41,13 +41,13 @@ export class AureliaConciergeV2 {
         this.uiKnot.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)'; // Sovereign Easing
 
         this.uiKnot.innerHTML = `
-            <div style="display:flex; align-items:center; gap: 15px; margin-bottom: 10px;">
+            <div class="flex" style="align-items:center; gap: 15px; margin-bottom: 10px;">
                 <div style="width: 10px; height: 10px; border-radius: 50%; background-color:#b39b59; box-shadow: 0 0 10px #b39b59;"></div>
                 <span style="font-family: monospace; font-size: 0.8rem; letter-spacing: 0.1em; color: #b39b59; text-transform: uppercase;">Aurelia Concierge</span>
             </div>
             <p id="aurelia-message" style="font-size: 0.95rem; line-height: 1.5; font-weight: 300;">Dinliyorum...</p>
-            <div id="aurelia-actions" style="margin-top: 15px; display: none; gap: 10px;">
-                <button style="background: transparent; color: #b39b59; border: 1px solid #b39b59; padding: 8px 15px; font-size: 0.8rem; cursor: pointer; text-transform: uppercase;">Ayrıcalığı Kullan</button>
+            <div class="hidden" id="aurelia-actions" style="margin-top: 15px; gap: 10px;">
+                <button class="cursor-pointer" style="background: transparent; color: #b39b59; border: 1px solid #b39b59; padding: 8px 15px; font-size: 0.8rem; text-transform: uppercase;">Ayrıcalığı Kullan</button>
             </div>
         `;
 
@@ -94,7 +94,7 @@ export class AureliaConciergeV2 {
 
         messageEl.innerText = "Zamanın durduğu bu ritüelde kararsız mı kaldınız? Uzman terapistlerimize danışabilirsiniz.";
         actionsEl.style.display = 'flex';
-        actionsEl.innerHTML = `<button onclick="window.CheckoutVault?.open()" style="background: #b39b59; color: #0a0a09; border: none; padding: 8px 15px; font-size: 0.8rem; cursor: pointer; text-transform: uppercase;">Mühürle</button>`;
+        actionsEl.innerHTML = `<button class="cursor-pointer" onclick="window.CheckoutVault?.open()" style="background: #b39b59; color: #0a0a09; border: none; padding: 8px 15px; font-size: 0.8rem; text-transform: uppercase;">Mühürle</button>`;
 
         this.awakenUI();
     }

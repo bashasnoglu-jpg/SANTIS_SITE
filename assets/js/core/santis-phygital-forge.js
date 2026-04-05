@@ -81,21 +81,21 @@ class SantisPhygitalForge {
         ticket.innerHTML = `
             <div id="hologram-glare" style="position:absolute; top:-100%; left:-100%; width:300%; height:300%; background: radial-gradient(circle, ${aura.glow} 0%, transparent 60%); opacity: 0.4; pointer-events:none; transition: transform 0.1s; mix-blend-mode: screen;"></div>
             
-            <div style="text-align: center; z-index: 2;">
+            <div class="text-center" style="z-index: 2;">
                 <h2 style="font-size: 22px; margin: 0; letter-spacing: 4px; text-shadow: 0 0 10px ${aura.glow};">SANTIS</h2>
                 <div style="font-size: 10px; opacity: 0.6; margin-top: 5px; letter-spacing: 6px;">LIVING TICKET</div>
             </div>
             
-            <div style="text-align: center; margin-top: 30px; z-index: 2;">
+            <div class="text-center" style="margin-top: 30px; z-index: 2;">
                 <div style="font-size: 11px; opacity: 0.8; font-family: sans-serif; letter-spacing: 2px; margin-bottom: 8px;">${aura.label}</div>
-                <h3 style="font-size: 26px; margin: 0; color: #fff;">${ritualData.title || 'Kuantum Mührü'}</h3>
+                <h3 class="text-white" style="font-size: 26px; margin: 0;">${ritualData.title || 'Kuantum Mührü'}</h3>
             </div>
 
-            <div style="width: 160px; height: 160px; background: #fff; border-radius: 12px; margin: 40px 0; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); z-index: 2;">
+            <div class="flex" style="width: 160px; height: 160px; background: #fff; border-radius: 12px; margin: 40px 0; align-items: center; justify-content: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); z-index: 2;">
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=SANTIS-VIP-${Date.now()}" style="width:140px; height:140px; opacity: 0.9; mix-blend-mode: multiply;">
             </div>
 
-            <button class="santis-wallet-btn" style="background: rgba(255,255,255,0.1); color: ${aura.text}; border: 1px solid ${aura.glow}; padding: 15px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; width: 100%; transition: all 0.3s ease; backdrop-filter: blur(5px); z-index: 2;">CÜZDANA EKLE</button>
+            <button class="cursor-pointer w-full santis-wallet-btn" style="background: rgba(255,255,255,0.1); color: ${aura.text}; border: 1px solid ${aura.glow}; padding: 15px 30px; border-radius: 30px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s ease; backdrop-filter: blur(5px); z-index: 2;">CÜZDANA EKLE</button>
         `;
 
         overlay.appendChild(ticket);

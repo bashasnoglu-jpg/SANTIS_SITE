@@ -88,15 +88,15 @@
         const nudge = document.createElement('div');
         nudge.id = 'cortex-nudge';
         nudge.innerHTML = `
-            <div style="font-size: 11px; color: #d4af37; margin-bottom: 10px; display:flex; align-items:center; gap:6px; letter-spacing: 1px;">
+            <div class="text-[#d4af37] flex" style="font-size: 11px; margin-bottom: 10px; align-items:center; gap:6px; letter-spacing: 1px;">
                 <span style="width:8px; height:8px; background:#d4af37; border-radius:50%; box-shadow:0 0 10px #d4af37; animation:cortex-pulse 1s infinite;"></span>
                 OTONOM İŞ ZEKASI TESPİTİ
             </div>
-            <div style="font-size: 16px; color: #FFF; font-weight: bold; margin-bottom: 16px; text-shadow: 0 0 15px rgba(255,255,255,0.4);">${reason}</div>
-            <button id="nudge-btn" style="width:100%; padding:14px; background:rgba(0,255,204,0.1); border:1px solid #00FFCC; color:#00FFCC; font-family:monospace; font-weight:bold; cursor:pointer; border-radius:4px; transition:all 0.3s; letter-spacing: 1px; box-shadow: inset 0 0 10px rgba(0,255,204,0.1);">
+            <div class="text-white" style="font-size: 16px; font-weight: bold; margin-bottom: 16px; text-shadow: 0 0 15px rgba(255,255,255,0.4);">${reason}</div>
+            <button class="w-full cursor-pointer" id="nudge-btn" style="padding:14px; background:rgba(0,255,204,0.1); border:1px solid #00FFCC; color:#00FFCC; font-family:monospace; font-weight:bold; border-radius:4px; transition:all 0.3s; letter-spacing: 1px; box-shadow: inset 0 0 10px rgba(0,255,204,0.1);">
                 > ${actionText}
             </button>
-            <div id="nudge-dismiss" style="text-align:center; margin-top:12px; font-size:10px; color:#666; cursor:pointer; letter-spacing:1px; transition: color 0.2s;">[ GÖRMEZDEN GEL ]</div>
+            <div class="text-center cursor-pointer" id="nudge-dismiss" style="margin-top:12px; font-size:10px; color:#666; letter-spacing:1px; transition: color 0.2s;">[ GÖRMEZDEN GEL ]</div>
         `;
 
         Object.assign(nudge.style, {
