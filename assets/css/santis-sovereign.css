@@ -1125,6 +1125,7 @@
   }
   .h-screen {
     height: 100vh;
+    height: 100svh;
   }
   .max-h-24 {
     max-height: calc(var(--spacing) * 24);
@@ -1182,6 +1183,7 @@
   }
   .min-h-screen {
     min-height: 100vh;
+    min-height: 100svh;
   }
   .w-0\.5 {
     width: calc(var(--spacing) * 0.5);

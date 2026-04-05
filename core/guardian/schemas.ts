@@ -71,3 +71,24 @@ export const LocationServiceSchema = z.object({
 export type Service = z.infer<typeof ServiceSchema>;
 export type Location = z.infer<typeof LocationSchema>;
 export type LocationService = z.infer<typeof LocationServiceSchema>;
+
+// === SOVEREIGN GOD MODE BOUNDARY (PHASE 66) ===
+const ClearanceEnum = z.enum(["TIER_1_GOD", "TIER_2_ELITE", "TIER_3_MOD"]);
+const ActionEnum = z.enum(["FORCE_RESTART", "PURGE_CACHE", "OVERRIDE_STATE", "LOCKDOWN"]);
+
+export const GodModeCommandSchema = z.object({
+  event_id: z.string().startsWith("cmd_", { message: "Geçersiz komut ID formatı." }),
+  timestamp: z.string().datetime({ message: "Geçerli bir ISO 8601 zaman damgası gerekli." }),
+  issuer: z.object({
+    admin_id: z.string().min(5),
+    clearance: ClearanceEnum,
+  }),
+  target_system: z.string().min(1, { message: "Hedef sistem belirtilmelidir." }),
+  payload: z.object({
+    action: ActionEnum,
+    parameters: z.record(z.union([z.string(), z.number(), z.boolean()])).optional(),
+  }),
+  signature: z.string().min(64, { message: "Güvenlik imzası eksik veya geçersiz." }),
+});
+
+export type GodModeCommand = z.infer<typeof GodModeCommandSchema>;

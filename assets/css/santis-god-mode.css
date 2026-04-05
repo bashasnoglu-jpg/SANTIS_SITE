@@ -31,6 +31,7 @@
     gap: var(--bento-gap);
     width: 100%;
     height: 100vh;
+    height: 100svh;
     padding: 2vw;
     background-color: var(--god-bg);
     color: var(--god-text-primary);

@@ -26,7 +26,8 @@
         /* Container Query for dynamic flex/grid sizing. Media Queries are dead. */
         container-type: inline-size;
         position: relative;
-        min-height: 100vh; /* Will be managed by JS virtual-rail */
+        min-height: 100vh;
+        min-height: 100svh; /* Will be managed by JS virtual-rail */
         width: 100%;
         overflow-x: hidden;
         padding: var(--space-xl) 0;

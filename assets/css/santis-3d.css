@@ -43,6 +43,7 @@ body {
     position: relative;
 
     height: 100vh;
+    height: 100svh;
 
     transform-style: preserve-3d;
 
