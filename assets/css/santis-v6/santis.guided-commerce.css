@@ -1,0 +1,208 @@
+/* /assets/css/santis-v6/santis.guided-commerce.css */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   1. SOVEREIGN CATEGORY BAND (Discover Layer)
+   ───────────────────────────────────────────────────────────────────────────── */
+.santis-category-band {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem 5%;
+    overflow-x: auto;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    align-items: center;
+    position: sticky;
+    top: 70px;
+    z-index: 40;
+    transition: background 0.4s ease;
+}
+
+.santis-category-band::-webkit-scrollbar {
+    display: none;
+}
+
+.category-btn {
+    background: transparent;
+    border: none;
+    color: #888;
+    font-family: var(--font-primary, 'Cinzel', serif);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.category-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: #d4af37; /* Muted Gold */
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.category-btn:hover {
+    color: #e0e0e0;
+}
+
+.category-btn.active {
+    color: #d4af37;
+}
+
+.category-btn.active::after {
+    width: 100%;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   2. REFINEMENT PANEL (Need layer)
+   ───────────────────────────────────────────────────────────────────────────── */
+.santis-refinement-panel {
+    background: #0a0a0a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2rem 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.santis-refinement-panel.hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    margin-top: -100px;
+    padding: 0 5%;
+    height: 0;
+    overflow: hidden;
+    border-bottom: none;
+}
+
+.refinement-header {
+    margin-bottom: 0.5rem;
+}
+
+.refinement-label {
+    font-family: var(--font-primary, 'Cinzel', serif);
+    color: #b0b0b0;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.refinement-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+}
+
+.santis-refine-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.santis-refine-group-label {
+    font-family: var(--font-secondary, 'Inter', sans-serif);
+    font-size: 0.8rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.santis-refine-group-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.santis-refine-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ccc;
+    font-family: var(--font-secondary, 'Inter', sans-serif);
+    font-size: 0.85rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.santis-refine-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.santis-refine-btn.active {
+    background: #d4af37;
+    border-color: #d4af37;
+    color: #000;
+    font-weight: 500;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .santis-category-band {
+        padding: 1rem 1.5rem;
+    }
+    
+    .santis-refinement-panel {
+        padding: 1.5rem;
+    }
+    
+    .refinement-options {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   3. SOVEREIGN QUANTUM REVEAL (Soul Flash)
+   ───────────────────────────────────────────────────────────────────────────── */
+.santis-reveal-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.santis-reveal-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   4. SOVEREIGN VAULT PULSE (Quiet Luxury Sepet Ritüeli)
+   ───────────────────────────────────────────────────────────────────────────── */
+@keyframes sovereign-vault-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 20px 2px rgba(212, 175, 55, 0.1);
+    background: rgba(212, 175, 55, 0.03);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+    background: transparent;
+  }
+}
+
+.vault-pulse-active {
+  animation: sovereign-vault-pulse 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  border-radius: 4px;
+}

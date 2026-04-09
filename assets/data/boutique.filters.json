@@ -1,0 +1,250 @@
+{
+  "FACE": {
+    "panel_label": "Ritüelinizi rafine edin",
+    "groups": [
+      {
+        "id": "concern",
+        "label": "Güzellikle ilgili endişeler",
+        "type": "single-select",
+        "options": [
+          { "id": "hydration", "label": "Nem İhtiyacı" },
+          { "id": "sensitivity", "label": "Hassas Cilt" },
+          { "id": "glow-loss", "label": "Işıltı Kaybı" },
+          { "id": "anti-aging", "label": "Anti-Aging" },
+          { "id": "firming", "label": "Sıkılık Kaybı" },
+          { "id": "uneven-tone", "label": "Ton Eşitsizliği" }
+        ]
+      },
+      {
+        "id": "skin_type",
+        "label": "Cilt tipleri",
+        "type": "single-select",
+        "options": [
+          { "id": "dry", "label": "Kuru" },
+          { "id": "normal", "label": "Normal" },
+          { "id": "combination", "label": "Karma" },
+          { "id": "oily", "label": "Yağlı" },
+          { "id": "sensitive", "label": "Hassas" }
+        ]
+      },
+      {
+        "id": "subcategory",
+        "label": "Alt kategori",
+        "type": "single-select",
+        "options": [
+          { "id": "cleanser", "label": "Temizleme" },
+          { "id": "serum", "label": "Serum" },
+          { "id": "cream", "label": "Krem" },
+          { "id": "mask", "label": "Maske" },
+          { "id": "eye-care", "label": "Göz Çevresi" }
+        ]
+      }
+    ]
+  },
+
+  "BODY": {
+    "panel_label": "Ritüelinizi rafine edin",
+    "groups": [
+      {
+        "id": "need",
+        "label": "İhtiyaç",
+        "type": "single-select",
+        "options": [
+          { "id": "relaxation", "label": "Gevşeme" },
+          { "id": "recovery", "label": "Toparlanma" },
+          { "id": "firming", "label": "Sıkılaşma" },
+          { "id": "nourishment", "label": "Besleme" },
+          { "id": "detox", "label": "Arınma" }
+        ]
+      },
+      {
+        "id": "texture",
+        "label": "Doku tercihi",
+        "type": "single-select",
+        "options": [
+          { "id": "oil", "label": "Yağ" },
+          { "id": "cream", "label": "Krem" },
+          { "id": "balm", "label": "Balm" },
+          { "id": "gel", "label": "Jel" }
+        ]
+      },
+      {
+        "id": "subcategory",
+        "label": "Alt kategori",
+        "type": "single-select",
+        "options": [
+          { "id": "body-oil", "label": "Vücut Yağı" },
+          { "id": "body-cream", "label": "Vücut Kremi" },
+          { "id": "scrub", "label": "Peeling" },
+          { "id": "wrap", "label": "Sargı / Wrap" }
+        ]
+      }
+    ]
+  },
+
+  "PRESTIGE": {
+    "panel_label": "Ritüelinizi rafine edin",
+    "groups": [
+      {
+        "id": "ritual_level",
+        "label": "Ritüel seviyesi",
+        "type": "single-select",
+        "options": [
+          { "id": "signature", "label": "İmza Ritüeller" },
+          { "id": "intensive", "label": "Yoğun Bakım" },
+          { "id": "cellular", "label": "Hücresel Yenileme" },
+          { "id": "couture", "label": "Couture Bakım" }
+        ]
+      },
+      {
+        "id": "benefit",
+        "label": "Beklenen sonuç",
+        "type": "single-select",
+        "options": [
+          { "id": "radiance", "label": "Işıltı" },
+          { "id": "firmness", "label": "Sıkılık" },
+          { "id": "renewal", "label": "Yenilenme" },
+          { "id": "sensory-luxury", "label": "Duyusal Lüks" }
+        ]
+      }
+    ]
+  },
+
+  "ORGANICS": {
+    "panel_label": "Ritüelinizi rafine edin",
+    "groups": [
+      {
+        "id": "organic_goal",
+        "label": "Doğal bakım ihtiyacı",
+        "type": "single-select",
+        "options": [
+          { "id": "purity", "label": "Doğal Arınma" },
+          { "id": "balance", "label": "Dengeleme" },
+          { "id": "botanical-glow", "label": "Botanik Işıltı" },
+          { "id": "calming", "label": "Yatıştırma" }
+        ]
+      },
+      {
+        "id": "subcategory",
+        "label": "Alt kategori",
+        "type": "single-select",
+        "options": [
+          { "id": "clean-beauty", "label": "Clean Beauty" },
+          { "id": "organic-face", "label": "Organik Yüz" },
+          { "id": "organic-body", "label": "Organik Vücut" }
+        ]
+      }
+    ]
+  },
+
+  "MEN": {
+    "panel_label": "Ritüelinizi rafine edin",
+    "groups": [
+      {
+        "id": "male_need",
+        "label": "İhtiyaç",
+        "type": "single-select",
+        "options": [
+          { "id": "daily-care", "label": "Günlük Bakım" },
+          { "id": "tired-look", "label": "Yorgun Görünüm" },
+          { "id": "recovery", "label": "Toparlanma" },
+          { "id": "post-shave", "label": "Tıraş Sonrası Konfor" },
+          { "id": "energy", "label": "Enerji" }
+        ]
+      },
+      {
+        "id": "subcategory",
+        "label": "Alt kategori",
+        "type": "single-select",
+        "options": [
+          { "id": "face-care", "label": "Yüz Bakımı" },
+          { "id": "beard-shave", "label": "Sakal / Tıraş" },
+          { "id": "recovery-line", "label": "Recovery Line" }
+        ]
+      }
+    ]
+  },
+
+  "ATHLETICS": {
+    "panel_label": "Ritüelinizi rafine edin",
+    "groups": [
+      {
+        "id": "performance_need",
+        "label": "Performans ihtiyacı",
+        "type": "single-select",
+        "options": [
+          { "id": "muscle-fatigue", "label": "Kas Yorgunluğu" },
+          { "id": "post-workout", "label": "Egzersiz Sonrası Toparlanma" },
+          { "id": "heavy-legs", "label": "Ağır Bacak Hissi" },
+          { "id": "mobility", "label": "Mobilite Desteği" },
+          { "id": "warmup-cooldown", "label": "Isınma / Soğuma" }
+        ]
+      },
+      {
+        "id": "subcategory",
+        "label": "Alt kategori",
+        "type": "single-select",
+        "options": [
+          { "id": "balm", "label": "Balm" },
+          { "id": "gel", "label": "Jel" },
+          { "id": "spray", "label": "Sprey" },
+          { "id": "oil", "label": "Yağ" }
+        ]
+      }
+    ]
+  },
+
+  "SUNCARE": {
+    "panel_label": "Ritüelinizi rafine edin",
+    "groups": [
+      {
+        "id": "sun_goal",
+        "label": "Güneş bakım ihtiyacı",
+        "type": "single-select",
+        "options": [
+          { "id": "protection", "label": "Koruma" },
+          { "id": "after-sun", "label": "Güneş Sonrası Onarım" },
+          { "id": "comfort", "label": "Konfor" },
+          { "id": "glow-tan", "label": "Işıltılı Bronzluk" }
+        ]
+      },
+      {
+        "id": "subcategory",
+        "label": "Alt kategori",
+        "type": "single-select",
+        "options": [
+          { "id": "spf-face", "label": "Yüz SPF" },
+          { "id": "spf-body", "label": "Vücut SPF" },
+          { "id": "after-sun-care", "label": "After-Sun" }
+        ]
+      }
+    ]
+  },
+
+  "SEASONAL": {
+    "panel_label": "Ritüelinizi rafine edin",
+    "groups": [
+      {
+        "id": "seasonal_mood",
+        "label": "Mevsimsel yönelim",
+        "type": "single-select",
+        "options": [
+          { "id": "spring-renewal", "label": "Bahar Yenilenmesi" },
+          { "id": "summer-radiance", "label": "Yaz Işıltısı" },
+          { "id": "autumn-repair", "label": "Sonbahar Onarımı" },
+          { "id": "winter-comfort", "label": "Kış Konforu" }
+        ]
+      },
+      {
+        "id": "subcategory",
+        "label": "Alt kategori",
+        "type": "single-select",
+        "options": [
+          { "id": "limited-edition", "label": "Sınırlı Seri" },
+          { "id": "ritual-set", "label": "Ritüel Seti" },
+          { "id": "seasonal-care", "label": "Mevsim Bakımı" }
+        ]
+      }
+    ]
+  }
+}

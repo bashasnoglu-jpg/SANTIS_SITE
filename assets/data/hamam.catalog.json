@@ -1,0 +1,93 @@
+[
+  {
+    "id": "hamam_peeling_foam_30",
+    "title": "Peeling and Foam Massage",
+    "slug": "peeling-foam-30",
+    "category": "HAMMAM",
+    "intent": "ALL",
+    "tier": "entry",
+    "duration_min": 30,
+    "price_eur": 45,
+    "cta": "Hamama Giriş",
+    "summary": "Kese ve köpük uygulamasını içeren baz hamam deneyimi."
+  },
+  {
+    "id": "hamam_foam_30",
+    "title": "Foam Massage",
+    "slug": "foam-30",
+    "category": "HAMMAM",
+    "intent": "RELAX",
+    "tier": "entry",
+    "duration_min": 30,
+    "price_eur": 45,
+    "summary": "Saf zeytinyağı sabunundan elde edilen bulut gibi köpükle rahatlatıcı masaj."
+  },
+  {
+    "id": "hamam_coffee_peeling_30",
+    "title": "Coffee Peeling and Foam",
+    "slug": "coffee-peeling-30",
+    "category": "HAMMAM",
+    "intent": "RECOVERY",
+    "tier": "anchor",
+    "duration_min": 30,
+    "price_eur": 50,
+    "summary": "Türk kahvesi tanecikleriyle hücre yenileyen, kan dolaşımını hızlandıran peeling ritüeli."
+  },
+  {
+    "id": "hamam_sea_salt_30",
+    "title": "Sea Salt Peeling and Foam",
+    "slug": "sea-salt-30",
+    "category": "HAMMAM",
+    "intent": "RECOVERY",
+    "tier": "anchor",
+    "duration_min": 30,
+    "price_eur": 50,
+    "summary": "Okyanus tuzlarıyla gözenekleri arındıran derin arınma seremonisi."
+  },
+  {
+    "id": "hamam_honey_30",
+    "title": "Honey and Foam Massage",
+    "slug": "honey-foam-30",
+    "category": "HAMMAM",
+    "intent": "SIGNATURE",
+    "tier": "anchor",
+    "duration_min": 30,
+    "price_eur": 55,
+    "visual_slot": "HONEY_DROP",
+    "summary": "Gerçek balın besleyici etkisiyle cildi neme doyuran özel hamam terapisi."
+  },
+  {
+    "id": "hamam_choco_30",
+    "title": "Chocolate and Foam Massage",
+    "slug": "choco-foam-30",
+    "category": "HAMMAM",
+    "intent": "RELAX",
+    "tier": "anchor",
+    "duration_min": 30,
+    "price_eur": 55,
+    "summary": "Endorfin salgısını artıran saf çikolata özleriyle lüks bakım."
+  },
+  {
+    "id": "hamam_algen_30",
+    "title": "Algen and Foam Massage",
+    "slug": "algen-foam-30",
+    "category": "HAMMAM",
+    "intent": "RECOVERY",
+    "tier": "anchor",
+    "duration_min": 30,
+    "price_eur": 55,
+    "summary": "Deniz yosunu mineralleriyle cilde esneklik kazandıran ritüel."
+  },
+  {
+    "id": "hamam_ottoman_tradition_50",
+    "title": "Ottoman Hamam Tradition",
+    "slug": "ottoman-tradition-50",
+    "category": "HAMMAM",
+    "intent": "SIGNATURE",
+    "tier": "sovereign",
+    "duration_min": 50,
+    "price_eur": 90,
+    "cta": "Saray Ritüeli",
+    "summary": "Osmanlı saray banyosu geleneğini baştan sona aslına uygun yaşatan premium seremoni."
+  }
+]

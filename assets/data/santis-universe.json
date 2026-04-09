@@ -1,0 +1,44 @@
+{
+  "system_config": {
+    "version": "V8.0_APEX",
+    "active_season": "AUTUMN_RENEWAL",
+    "global_currency": "EUR"
+  },
+  "experiences": {
+    "rituals": [
+      {
+        "id": "exp_hamam_01",
+        "title": "Royal Ottoman Hammam",
+        "intent": "RECOVERY",
+        "visual_slot": "THERAPY_TEXTURE",
+        "duration_min": 90,
+        "base_price": 250,
+        "description": "Sıcak mermer ve okaliptüs buharının iyileştirici gücü."
+      }
+    ],
+    "boutique": {
+      "signature_series": [
+        {
+          "id": "btq_sig_01",
+          "title": "L'Art de Vivre Elixir",
+          "intent": "SIGNATURE",
+          "visual_slot": "PRESTIGE_MACRO",
+          "tier": "PRESTIGE",
+          "price": 185,
+          "description": "Santis'in en seçkin ve yüksek marjlı prestij koleksiyonu."
+        }
+      ],
+      "skin_wellness": [
+        {
+          "id": "btq_skin_01",
+          "title": "Cellular Recovery Cream",
+          "intent": "RELAX",
+          "visual_slot": "CLEAN_TEXTURE",
+          "tier": "DAILY",
+          "price": 95,
+          "description": "Cildinizin doğal florasını destekleyen hücresel yenilenme."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,289 @@
+/* ==========================================================================
+   💎 SANTIS BOUTIQUE - SOVEREIGN OS V6 CSS MODULE
+   Felsefe: Quiet Luxury & Sıfır Tailwind Yaması
+   ========================================================================== */
+
+/* --- BOUTIQUE HERO --- */
+.santis-boutique-hero {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 5rem;
+}
+.santis-boutique-hero .hero-bg-wrapper {
+    position: absolute;
+    inset: 0;
+    background-color: #000;
+}
+/* Kinetik Render (V8) için mix-blend-luminosity yerine native opacity tercih edilmiştir */
+.santis-boutique-hero .hero-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    transform: scale(1.05);
+    transition: transform 20s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.santis-boutique-hero:hover .hero-bg-img {
+    transform: scale(1);
+}
+.santis-boutique-hero .hero-bg-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #0a0a09, rgba(10, 10, 9, 0.6), #0a0a09);
+}
+.santis-boutique-hero .hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 0 1rem;
+    max-width: 56rem;
+    margin: 0 auto;
+    margin-top: 2.5rem;
+}
+.santis-boutique-hero .hero-subtitle {
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    color: #D4AF37;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.santis-boutique-hero .hero-title {
+    font-size: 3rem;
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+    filter: drop-shadow(0 25px 25px rgba(0,0,0,0.15));
+}
+@media (min-width: 768px) {
+    .santis-boutique-hero .hero-title { font-size: 4.5rem; }
+}
+.santis-boutique-hero .hero-desc {
+    color: #9ca3af;
+    font-weight: 300;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    max-width: 42rem;
+    margin: 0 auto;
+}
+
+/* --- BOUTIQUE EDITORIAL SECTIONS (Top-Down Luxury Navigation) --- */
+.santis-editorial-section {
+    padding: 120px 5%; /* Yukarıdan aşağıya devasa boşluklar (XXL) */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Hayalet Sınır */
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: #FAFAFA;
+}
+
+.section-header p {
+    color: #9ca3af;
+    font-weight: 300;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    margin-top: 10px;
+}
+
+/* Mikro Filtreler (Section İçi Hibrit Yapı) */
+.micro-filter-nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 24px;
+}
+
+.micro-filter-nav button {
+    background: transparent;
+    border: none;
+    color: #8f9095; /* Muted Ash */
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.micro-filter-nav button.active,
+.micro-filter-nav button:hover {
+    color: #c6a96b; /* Muted Gold Vurgu */
+    text-shadow: 0 0 10px rgba(198, 169, 107, 0.4);
+}
+
+/* Keşif Blokları (Sinematik) */
+.santis-discovery-blocks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px; /* Sinematik yapışık görünüm için ince bir çizgi */
+    height: 70vh;
+}
+
+.discovery-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    /* Koyu bir overlay katmanı ekliyoruz */
+    box-shadow: inset 0 0 0 2000px rgba(20, 20, 22, 0.6); 
+    transition: box-shadow 0.4s ease;
+}
+
+.discovery-card:hover {
+    box-shadow: inset 0 0 0 2000px rgba(20, 20, 22, 0.4); 
+}
+
+.discovery-card h2 {
+    font-size: 2rem;
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.discovery-card p {
+    color: #d6d6d8;
+    margin-bottom: 2rem;
+    max-width: 80%;
+}
+
+.santis-btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(198, 169, 107, 0.6);
+    color: #c6a96b;
+    padding: 12px 30px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.santis-btn-ghost:hover {
+    background: rgba(198, 169, 107, 0.1);
+    border-color: #c6a96b;
+}
+
+/* CTA Şeridi (Revenue Hook) */
+.santis-cta-strip {
+    background-color: #141416; /* Koyu Abyss zeminine uyumlu */
+    padding: 80px 20px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.santis-cta-strip h3 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.santis-cta-strip p {
+    color: #9ca3af;
+    margin-bottom: 30px;
+}
+
+.santis-btn-solid {
+    background-color: #c6a96b;
+    color: #141416;
+    border: none;
+    padding: 15px 40px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.santis-btn-solid:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(198, 169, 107, 0.2);
+}
+
+/* Grid Layout container (Santis Signature Cards render target) */
+.santis-bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Santis Experience Card (Boutique Special) */
+.santis-experience-card {
+    position: relative;
+    background: #141416;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+}
+
+.santis-experience-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    border-color: rgba(198, 169, 107, 0.2);
+}
+
+.card-image-wrapper {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.santis-experience-card:hover .card-image-wrapper img {
+    transform: scale(1.05);
+}
+
+.card-meta {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-meta h3 {
+    font-size: 1.25rem;
+    color: #FAFAFA;
+    font-weight: 300;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+}
+
+.luxury-tier {
+    font-size: 0.75rem;
+    color: #c6a96b;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+}

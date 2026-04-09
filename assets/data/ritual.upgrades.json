@@ -1,0 +1,101 @@
+[
+  {
+    "id": "herbal_heat",
+    "title": "Herbal Heat Upgrade",
+    "category": "UPGRADE",
+    "price_eur": 20,
+    "duration_add_min": 10,
+    "applies_to": ["HAMMAM", "MASSAGE"],
+    "summary": "Bitkisel sıcak uygulama ile rahatlama ve toparlanma etkisini derinleştirir."
+  },
+  {
+    "id": "signature_oil_finish",
+    "title": "Signature Oil Finish",
+    "category": "UPGRADE",
+    "price_eur": 25,
+    "duration_add_min": 10,
+    "applies_to": ["HAMMAM", "MASSAGE"],
+    "summary": "Ritüeli duyusal ve premium bir yağ bitişiyle tamamlar."
+  },
+  {
+    "id": "foot_recovery",
+    "title": "Foot Recovery Ritual",
+    "category": "UPGRADE",
+    "price_eur": 15,
+    "duration_add_min": 10,
+    "applies_to": ["HAMMAM", "MASSAGE"],
+    "summary": "Ayak tabanına odaklı kısa toparlanma ve rahatlatma uzantısı."
+  },
+  {
+    "id": "peeling_upgrade",
+    "title": "Deep Peeling Extension",
+    "category": "UPGRADE",
+    "price_eur": 18,
+    "duration_add_min": 10,
+    "applies_to": ["HAMMAM"],
+    "summary": "Arınma etkisini yoğunlaştıran kese uzantısı."
+  },
+  {
+    "id": "foam_extension",
+    "title": "Foam Ritual Extension",
+    "category": "UPGRADE",
+    "price_eur": 15,
+    "duration_add_min": 10,
+    "applies_to": ["HAMMAM"],
+    "summary": "Köpük fazını uzatarak daha yumuşak ve duyusal bir deneyim sunar."
+  },
+  {
+    "id": "body_mask",
+    "title": "Body Mask Addition",
+    "category": "UPGRADE",
+    "price_eur": 30,
+    "duration_add_min": 15,
+    "applies_to": ["HAMMAM"],
+    "summary": "Hamam ritüeline bakım ve mineral destek katmanı ekler."
+  },
+  {
+    "id": "aroma_upgrade",
+    "title": "Aroma Enhancement",
+    "category": "UPGRADE",
+    "price_eur": 20,
+    "duration_add_min": 0,
+    "applies_to": ["MASSAGE"],
+    "summary": "Esansiyel yağlarla zihinsel rahatlama etkisini güçlendirir."
+  },
+  {
+    "id": "face_refresh",
+    "title": "Face Refresh Therapy",
+    "category": "UPGRADE",
+    "price_eur": 25,
+    "duration_add_min": 15,
+    "applies_to": ["MASSAGE"],
+    "summary": "Yüz bölgesine kısa bakım ve canlanma desteği ekler."
+  },
+  {
+    "id": "hot_stone_extension",
+    "title": "Hot Stone Extension",
+    "category": "UPGRADE",
+    "price_eur": 25,
+    "duration_add_min": 10,
+    "applies_to": ["MASSAGE"],
+    "summary": "Terapötik çalışmayı sıcak taş desteğiyle tamamlar."
+  },
+  {
+    "id": "couple_suite",
+    "title": "Private Couple Suite",
+    "category": "UPGRADE",
+    "price_eur": 40,
+    "duration_add_min": 0,
+    "applies_to": ["HAMMAM"],
+    "summary": "Ritüeli özel bir suit deneyimine taşır."
+  },
+  {
+    "id": "tea_ceremony",
+    "title": "Tea Ceremony Finish",
+    "category": "UPGRADE",
+    "price_eur": 12,
+    "duration_add_min": 10,
+    "applies_to": ["HAMMAM", "MASSAGE"],
+    "summary": "Deneyimi sakin bir kapanış seremonisiyle tamamlar."
+  }
+]

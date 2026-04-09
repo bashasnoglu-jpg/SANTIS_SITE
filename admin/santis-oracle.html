@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-white/90">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANTIS ORACLE | Sovereign God Mode</title>
+    
+    <!-- Core Styling -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <!-- Tailwind (Sovereign Configuration) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        santis: { 
+                            gold: '#d4af37', 
+                            gray: '#1a1a1a', 
+                            light: '#e0e0e0', 
+                            dark: '#0a0a0a',
+                            matrix: '#0f172a' // Slate 900
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'Roboto Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: theme('colors.santis.dark'); font-family: 'Inter', sans-serif; }
+        .sovereign-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .oracle-header { border-bottom: 1px solid rgba(255,255,255,0.05); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col p-6 overflow-x-hidden">
+
+    <!-- ORACLE HEADER -->
+    <header class="oracle-header flex justify-between items-center pb-6 mb-8">
+        <div>
+            <h1 class="text-3xl font-bold tracking-widest text-santis-light">
+                <span class="text-santis-gold mr-2">SANTIS</span>ORACLE
+            </h1>
+            <p class="text-xs text-white/40 uppercase tracking-[0.3em] mt-1 font-mono">
+                Sovereign Event Matrix & Command Radar
+            </p>
+        </div>
+        
+        <div class="flex items-center space-x-6">
+            <div class="flex flex-col items-end">
+                <span class="text-xs text-white/50 uppercase tracking-widest font-mono">Live Bridge</span>
+                <span id="oracle-status-badge" class="text-xs font-bold text-amber-500 animate-pulse mt-1">INITIALIZING...</span>
+            </div>
+            <div class="h-10 w-px bg-white/10"></div>
+            <!-- REVENUE PULSE (Top Right Injection) -->
+            <sovereign-revenue-pulse class="w-64"></sovereign-revenue-pulse>
+        </div>
+    </header>
+
+    <!-- MATRIX GRID -->
+    <main class="sovereign-grid w-full max-w-7xl mx-auto flex-grow">
+        
+        <!-- COLUMN 1: INTENT & FALLBACK RADAR -->
+        <div class="space-y-6 flex flex-col">
+            <div class="bg-white/5 border border-white/10 rounded-xl p-5 backdrop-blur-sm">
+                <h2 class="text-xs uppercase tracking-widest text-white/40 mb-4 font-mono">
+                    System Vulnerability Radar
+                </h2>
+                <!-- FALLBACK RADAR -->
+                <sovereign-fallback-panel></sovereign-fallback-panel>
+            </div>
+        </div>
+
+        <!-- COLUMN 2: COMMAND INJECTION & FOCUS TARGET -->
+        <div class="space-y-6 flex flex-col">
+            <!-- TARGET FOCUS CARD -->
+            <div class="bg-white/5 border border-white/10 rounded-xl p-5 backdrop-blur-sm h-full shadow-2xl relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-b from-santis-gold/5 target-overlay"></div>
+                <h2 class="text-xs uppercase tracking-widest text-santis-gold/60 mb-4 font-mono relative z-10 flex items-center justify-between">
+                    <span>Active Intent Target</span>
+                    <span class="w-2 h-2 rounded-full bg-santis-gold/50 animate-pulse"></span>
+                </h2>
+                
+                <div class="relative z-10 w-full">
+                     <sovereign-focus-card></sovereign-focus-card>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUMN 3: TEST POLYGON & SIMULATOR -->
+        <div class="space-y-6 flex flex-col">
+            <div class="bg-black/40 border border-santis-gold/20 rounded-xl p-5 shadow-inner">
+                <h2 class="text-xs uppercase tracking-widest text-[#d4af37] mb-4 font-mono flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    Test Polygon
+                </h2>
+                <div class="p-4 bg-[#0a0a0a] rounded border border-white/5 mb-4">
+                    <p class="text-[10px] text-white/40 mb-3 font-mono leading-relaxed">
+                        // Sovereign Architecture Interaction Testing<br>
+                        // Bu panel üzerinden niyet vektörü fırlatarak Focus Card ve SSE hattını otonom test edebilirsiniz.
+                    </p>
+                    <sovereign-mood-selector></sovereign-mood-selector>
+                </div>
+
+                <div class="p-4 bg-[#0a0a0a] rounded border border-white/5">
+                     <button id="btn-mock-whale" class="w-full text-xs font-mono uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 py-3 rounded transition duration-300">
+                        Trigger: WHALE ALERT 🐋
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Kuantum Çekirdek Bağlantıları -->
+    <script type="module">
+        import { sovereignStore } from '../core/state/sovereignStore.js';
+        import { SovereignStreamer } from '../core/api/sovereignStreamer.js';
+        
+        // Komponent Kayıtları
+        import '../assets/js/components/SovereignFallbackPanel.js';
+        import '../assets/js/components/SovereignFocusCard.js';
+        import '../assets/js/components/SovereignRevenuePulse.js';
+        import '../assets/js/components/SovereignMoodSelector.js';
+
+        // Durum Göstergesini Store'a bağla
+        sovereignStore.subscribe('telemetryStatus', (status) => {
+            const badge = document.getElementById('oracle-status-badge');
+            if (status === 'ONLINE') {
+                badge.innerText = "CONNECTED (LIVE)";
+                badge.className = "text-xs font-bold text-green-400 mt-1";
+            } else {
+                badge.innerText = "CONNECTION LOST";
+                badge.className = "text-xs font-bold text-red-500 animate-pulse mt-1";
+            }
+        });
+
+        // Whale Alert Simulator (Poligondaki Button için)
+        document.getElementById('btn-mock-whale').addEventListener('click', () => {
+            sovereignStore.update('revenueMetrics', { 
+                totalRevenue: sovereignStore.getState().revenueMetrics.totalRevenue + 4500, 
+                trend: 'up', 
+                delta: 18.4 
+            });
+            console.log("🐋 [MOCK] WHALE ALERT Tetiklendi.");
+        });
+
+        // Sayfa Tümüyle Hazır Olunca SSE Fiber Optik Hattı Bağla
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("🌌 [SANTIS ORACLE] Boot Sequence Initiated...");
+            
+            // SSE Hattını Aç
+            SovereignStreamer.connect();
+        });
+    </script>
+</body>
+</html>

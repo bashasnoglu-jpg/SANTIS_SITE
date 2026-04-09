@@ -1,0 +1,125 @@
+{
+  "catalog_id": "santis_master_inventory_v1",
+  "currency": "EUR",
+  "facilities": ["Sauna", "Steam Room", "Turkish Bath", "Fitness"],
+  
+  "journeys": {
+    "category_name": "Spa Programs",
+    "intent": "Curated multi-step wellness journeys",
+    "items": [
+      {
+        "id": "prg_child_care",
+        "name": "Child Care Program",
+        "total_price": 80,
+        "includes": ["Chocolate and foam massage (30')", "Kid's massage (30')", "Face mask (15')"]
+      },
+      {
+        "id": "prg_relax",
+        "name": "Relax Program",
+        "total_price": 100,
+        "includes": ["Peeling and foam massage (30')", "Classic full body massage (50')", "Face mask (15')"]
+      },
+      {
+        "id": "prg_medical",
+        "name": "Medical Program",
+        "total_price": 115,
+        "includes": ["Sea salt peeling and foam massage (30')", "Medical massage (50')", "Face mask (15')"]
+      },
+      {
+        "id": "prg_bronze",
+        "name": "Bronze Program",
+        "total_price": 105,
+        "includes": ["Coffee peeling and foam massage (30')", "Bronze massage (50')", "Face mask (15')"]
+      },
+      {
+        "id": "prg_delux",
+        "name": "Delux Program",
+        "total_price": 175,
+        "includes": ["Coffee, sea salt peeling & Algen mask (50')", "Combination massage (50')", "Face mask (15')"]
+      }
+    ]
+  },
+
+  "services": [
+    {
+      "category_id": "cat_turkish_bath",
+      "category_name": "Turkish Bath Program",
+      "items": [
+        { "id": "tb_peeling_foam", "name": "Peeling and Foam Massage", "duration_minutes": 30, "price": 45 },
+        { "id": "tb_foam", "name": "Foam Massage", "duration_minutes": 30, "price": 45 },
+        { "id": "tb_coffee_foam", "name": "Coffee Peeling and Foam", "duration_minutes": 30, "price": 50 },
+        { "id": "tb_sea_salt_foam", "name": "Sea Salt Peeling and Foam", "duration_minutes": 30, "price": 50 },
+        { "id": "tb_honey_foam", "name": "Honey and Foam Massage", "duration_minutes": 30, "price": 55 },
+        { "id": "tb_choc_foam", "name": "Chocolate and Foam Massage", "duration_minutes": 30, "price": 55 },
+        { "id": "tb_algen_foam", "name": "Algen and Foam Massage", "duration_minutes": 30, "price": 55 },
+        { "id": "tb_ottoman", "name": "Ottoman Hamam Tradition", "duration_minutes": 50, "price": 90 }
+      ]
+    },
+    {
+      "category_id": "cat_classic_massages",
+      "category_name": "Classic Massages",
+      "items": [
+        { "id": "cm_classic_30", "name": "Classic Massage", "duration_minutes": 30, "price": 50 },
+        { "id": "cm_feet_reflex", "name": "Feet Reflex Zone Massage", "duration_minutes": 30, "price": 50 },
+        { "id": "cm_classic_50", "name": "Classic Massage", "duration_minutes": 50, "price": 80 },
+        { "id": "cm_anti_stress", "name": "Anti-Stress Massage", "duration_minutes": 50, "price": 80 },
+        { "id": "cm_aroma", "name": "Aroma Massage", "duration_minutes": 50, "price": 80 },
+        { "id": "cm_bronze", "name": "Bronze Massage", "duration_minutes": 50, "price": 80 },
+        { "id": "cm_sport", "name": "Sport Massage", "duration_minutes": 50, "price": 90 },
+        { "id": "cm_anti_cellulite", "name": "Anti Cellulite Massage", "duration_minutes": 50, "price": 90 }
+      ]
+    },
+    {
+      "category_id": "cat_asian_massages",
+      "category_name": "Asian Massage",
+      "items": [
+        { "id": "am_thai_reflex", "name": "Thai Reflexology Massage", "duration_minutes": 30, "price": 55 },
+        { "id": "am_indian_head", "name": "Indian Head Massage", "duration_minutes": 30, "price": 55 },
+        { "id": "am_bali", "name": "Bali Massage", "duration_minutes": 50, "price": 90 },
+        { "id": "am_bali_aroma", "name": "Bali Aroma Massage", "duration_minutes": 50, "price": 90 },
+        { "id": "am_thai_trad", "name": "Traditional Thai Massage", "duration_minutes": 50, "price": 100 },
+        { "id": "am_ayurveda", "name": "Ayurveda Massage", "duration_minutes": 50, "price": 90 },
+        { "id": "am_shiatsu", "name": "Shiatsu", "duration_minutes": 50, "price": 100 },
+        { "id": "am_mandara", "name": "Mandara Massage (4 Hand)", "duration_minutes": 50, "price": 150 }
+      ]
+    },
+    {
+      "category_id": "cat_face_care",
+      "category_name": "Face Care Program",
+      "items": [
+        { "id": "fc_vit_mask", "name": "Vitamin Mask", "duration_minutes": 30, "price": 50 },
+        { "id": "fc_moist_mask", "name": "Moisturizing Mask", "duration_minutes": 30, "price": 50 },
+        { "id": "fc_firm_mask", "name": "Face Firming Mask", "duration_minutes": 30, "price": 50 },
+        { "id": "fc_renewal_mask", "name": "Renewal (Collagen) Mask", "duration_minutes": 30, "price": 50 },
+        { "id": "fc_vit_care", "name": "Vitamin Care", "duration_minutes": 50, "price": 80 },
+        { "id": "fc_eye_care", "name": "Eye Care", "duration_minutes": 50, "price": 80 },
+        { "id": "fc_classic_care", "name": "Classic Face Care", "duration_minutes": 50, "price": 80 },
+        { "id": "fc_g5", "name": "G5", "duration_minutes": 50, "price": 95 },
+        { "id": "fc_eye_active", "name": "Eye Care Active Couture", "duration_minutes": 50, "price": 80 },
+        { "id": "fc_collagen_treat", "name": "Collagen Treatment", "duration_minutes": 50, "price": 95 },
+        { "id": "fc_moist_treat", "name": "Moisture Treatment", "duration_minutes": 50, "price": 95 },
+        { "id": "fc_extra_moist", "name": "Extra Moisture Treatment", "duration_minutes": 90, "price": 110 },
+        { "id": "fc_skin_repair", "name": "Skin Repair Care", "duration_minutes": 90, "price": 130 },
+        { "id": "fc_ultra_firm", "name": "Ultra Firming Treatment", "duration_minutes": 90, "price": 130 },
+        { "id": "fc_couperose", "name": "Couperose Treatment", "duration_minutes": 90, "price": 130 },
+        { "id": "fc_oily_acne", "name": "Oily and Acne Skin Care", "duration_minutes": 90, "price": 150 },
+        { "id": "fc_anti_aging_wrinkles", "name": "Anti-Aging (Wrinkles)", "duration_minutes": 90, "price": 160 },
+        { "id": "fc_anti_aging_spots", "name": "Anti-Aging (Age Spots)", "duration_minutes": 90, "price": 160 },
+        { "id": "fc_deluxe", "name": "Deluxe Care", "duration_minutes": 90, "price": 170 }
+      ]
+    },
+    {
+      "category_id": "cat_extra_effective",
+      "category_name": "Extra & Effective Therapies",
+      "items": [
+        { "id": "ee_local_deep", "name": "Local Deep Tissue", "duration_minutes": 30, "price": 55 },
+        { "id": "ee_hot_stone", "name": "Hot Stone Massage", "duration_minutes": 50, "price": 90 },
+        { "id": "ee_deep_tissue", "name": "Deep Tissue Massage", "duration_minutes": 50, "price": 90 },
+        { "id": "ee_lymph_drainage", "name": "Lymphatic Drainage", "duration_minutes": 50, "price": 90 },
+        { "id": "ee_combo_50", "name": "Combination Massage", "duration_minutes": 50, "price": 100 },
+        { "id": "ee_combo_90", "name": "Combination Massage", "duration_minutes": 90, "price": 130 },
+        { "id": "ee_mix_manuel", "name": "Mix Manuel Therapy", "duration_minutes": 90, "price": 180 }
+      ]
+    }
+  ]
+}

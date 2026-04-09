@@ -1,0 +1,91 @@
+[
+  {
+    "id": "ALL",
+    "label": "Tümünü Görüntüle",
+    "slug": "all",
+    "visual_mode": "mixed",
+    "refinement_enabled": false,
+    "sort_order": 0,
+    "is_default": true
+  },
+  {
+    "id": "PRESTIGE",
+    "label": "Prestij",
+    "slug": "prestige",
+    "visual_mode": "editorial",
+    "visual_slot": "PRESTIGE_MACRO",
+    "refinement_enabled": true,
+    "sort_order": 1,
+    "headline": "Yüksek dokunuşlu, küratörlü lüks ritüeller."
+  },
+  {
+    "id": "FACE",
+    "label": "Yüz",
+    "slug": "face",
+    "visual_mode": "clean",
+    "visual_slot": "CLEAN_TEXTURE",
+    "refinement_enabled": true,
+    "sort_order": 2,
+    "headline": "Cilt kalitesi, ışıltı ve hücresel bakım."
+  },
+  {
+    "id": "BODY",
+    "label": "Vücut",
+    "slug": "body",
+    "visual_mode": "sensory",
+    "visual_slot": "THERAPY_TEXTURE",
+    "refinement_enabled": true,
+    "sort_order": 3,
+    "headline": "Bedeni saran bakım, gevşeme ve toparlanma."
+  },
+  {
+    "id": "ORGANICS",
+    "label": "Sothys Organics®",
+    "slug": "organics",
+    "visual_mode": "botanical",
+    "visual_slot": "ORGANIC_BOTANICAL",
+    "refinement_enabled": true,
+    "sort_order": 4,
+    "headline": "Doğal içeriklerle arınma ve dengeli bakım."
+  },
+  {
+    "id": "MEN",
+    "label": "Eden Park'tan Erkekler",
+    "slug": "men",
+    "visual_mode": "minimal-performance",
+    "visual_slot": "THERAPY_TEXTURE",
+    "refinement_enabled": true,
+    "sort_order": 5,
+    "headline": "Günlük performans, bakım ve toparlanma."
+  },
+  {
+    "id": "ATHLETICS",
+    "label": "Sothys Athletics™",
+    "slug": "athletics",
+    "visual_mode": "recovery",
+    "visual_slot": "THERAPY_TEXTURE",
+    "refinement_enabled": true,
+    "sort_order": 6,
+    "headline": "Kas yorgunluğu, mobilite ve performans desteği."
+  },
+  {
+    "id": "SUNCARE",
+    "label": "Güneş Bakımı",
+    "slug": "sun-care",
+    "visual_mode": "light-editorial",
+    "visual_slot": "CLEAN_TEXTURE",
+    "refinement_enabled": true,
+    "sort_order": 7,
+    "headline": "Koruma, konfor ve güneş sonrası onarım."
+  },
+  {
+    "id": "SEASONAL",
+    "label": "Mevsimsel Tedavi",
+    "slug": "seasonal-treatment",
+    "visual_mode": "limited-edition",
+    "visual_slot": "ORGANIC_BOTANICAL",
+    "refinement_enabled": true,
+    "sort_order": 8,
+    "headline": "Dönemin ruhuna göre küratörlü ritüeller."
+  }
+]

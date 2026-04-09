@@ -1,0 +1,189 @@
+[
+  {
+    "id": "prog_child_care",
+    "title": "Child Care Program",
+    "category": "PROGRAMS",
+    "intent": "SIGNATURE",
+    "tier": "sovereign",
+    "duration_min": 75,
+    "price_eur": 80,
+    "cta": "Hemen Başla",
+    "summary": "Kid's massage, Chocolate and foam massage ve Face mask ile çocuklarımız için tam bir bakım programı."
+  },
+  {
+    "id": "prog_relax",
+    "title": "Relax Program",
+    "category": "PROGRAMS",
+    "intent": "RELAX",
+    "tier": "sovereign",
+    "duration_min": 95,
+    "price_eur": 100,
+    "cta": "Keşfet",
+    "summary": "Peeling and foam massage, Classic full body massage ve Face mask ile derin rahatlama."
+  },
+  {
+    "id": "prog_medical",
+    "title": "Medical Program",
+    "category": "PROGRAMS",
+    "intent": "RECOVERY",
+    "tier": "sovereign",
+    "duration_min": 95,
+    "price_eur": 115,
+    "cta": "İyileşme Odaklı",
+    "summary": "Sea salt peeling, Medical massage ve Face mask ile bedensel toparlanma."
+  },
+  {
+    "id": "prog_bronze",
+    "title": "Bronze Program",
+    "category": "PROGRAMS",
+    "intent": "SIGNATURE",
+    "tier": "sovereign",
+    "duration_min": 95,
+    "price_eur": 105,
+    "cta": "Bronzlaştıran Dokunuş",
+    "summary": "Coffee peeling and foam, Bronze massage ve Face mask ritüeli."
+  },
+  {
+    "id": "prog_delux",
+    "title": "Delux Program",
+    "category": "PROGRAMS",
+    "intent": "SIGNATURE",
+    "tier": "sovereign",
+    "duration_min": 115,
+    "price_eur": 175,
+    "cta": "Sovereign Seçimi",
+    "summary": "Coffee/sea salt peeling & Algen mask, Combination massage ve Face mask ile premium bakım."
+  },
+  {
+    "id": "massage_classic_30",
+    "title": "Classic Massage (30')",
+    "category": "MASSAGES",
+    "intent": "RELAX",
+    "tier": "anchor",
+    "duration_min": 30,
+    "price_eur": 50,
+    "summary": "Sırt veya bacaklara odaklanan dinlendirici klasik masaj."
+  },
+  {
+    "id": "massage_classic_50",
+    "title": "Classic Massage (50')",
+    "category": "MASSAGES",
+    "intent": "RELAX",
+    "tier": "anchor",
+    "duration_min": 50,
+    "price_eur": 80,
+    "summary": "Tüm vücuda uygulanan, kas gerginliğini azaltan klasik terapi."
+  },
+  {
+    "id": "massage_anti_stress",
+    "title": "Anti-Stress Massage",
+    "category": "MASSAGES",
+    "intent": "RELAX",
+    "tier": "anchor",
+    "duration_min": 50,
+    "price_eur": 80,
+    "summary": "Yavaş ve ritmik dokunuşlarla stresten arınma seansı."
+  },
+  {
+    "id": "massage_aroma",
+    "title": "Aroma Massage",
+    "category": "MASSAGES",
+    "intent": "RELAX",
+    "tier": "anchor",
+    "duration_min": 50,
+    "price_eur": 80,
+    "summary": "Doğal esansiyel yağlarla yapılan derin duyusal masaj."
+  },
+  {
+    "id": "massage_sport",
+    "title": "Sport Massage",
+    "category": "MASSAGES",
+    "intent": "RECOVERY",
+    "tier": "anchor",
+    "duration_min": 50,
+    "price_eur": 90,
+    "summary": "Kaslardaki laktik asidi atmaya yardımcı sert ve etkili masaj."
+  },
+  {
+    "id": "massage_asian_bali",
+    "title": "Bali Massage",
+    "category": "ASIAN MASSAGE",
+    "intent": "RECOVERY",
+    "tier": "anchor",
+    "duration_min": 50,
+    "price_eur": 90,
+    "summary": "Geleneksel Bali ritüeli ile enerji akışını dengeleme."
+  },
+  {
+    "id": "massage_asian_thai",
+    "title": "Traditional Thai Massage",
+    "category": "ASIAN MASSAGE",
+    "intent": "MOBILITY",
+    "tier": "anchor",
+    "duration_min": 50,
+    "price_eur": 100,
+    "summary": "Esneme ve baskı teknikleriyle bedeni hizalayan Tayland terapisi."
+  },
+  {
+    "id": "massage_asian_shiatsu",
+    "title": "Shiatsu",
+    "category": "ASIAN MASSAGE",
+    "intent": "RECOVERY",
+    "tier": "anchor",
+    "duration_min": 50,
+    "price_eur": 100,
+    "summary": "Akupunktur noktalarına parmak baskısıyla uygulanan Japon tekniği."
+  },
+  {
+    "id": "face_care_classic",
+    "title": "Classic Face Care",
+    "category": "FACE CARE",
+    "intent": "SIGNATURE",
+    "tier": "entry",
+    "duration_min": 50,
+    "price_eur": 80,
+    "summary": "Cilt temizliği ve nem dengesi için klasik yüz bakımı."
+  },
+  {
+    "id": "face_care_anti_aging",
+    "title": "Anti-Aging (Wrinkles)",
+    "category": "FACE CARE",
+    "intent": "RECOVERY",
+    "tier": "sovereign",
+    "duration_min": 90,
+    "price_eur": 160,
+    "summary": "Kırışıklık karşıtı yoğun hücre onarım maskesi ve lifting.",
+    "cta": "Kırışıklık Karşıtı Bakım"
+  },
+  {
+    "id": "extra_hot_stone",
+    "title": "Hot Stone Massage",
+    "category": "EXTRA DEEP TISSUE",
+    "intent": "RELAX",
+    "tier": "anchor",
+    "duration_min": 50,
+    "price_eur": 90,
+    "summary": "Sıcak volkanik taşlarla uygulanan derin ısı terapisi."
+  },
+  {
+    "id": "extra_lymphatic",
+    "title": "Lymphatic Drainage",
+    "category": "EXTRA DEEP TISSUE",
+    "intent": "RECOVERY",
+    "tier": "anchor",
+    "duration_min": 50,
+    "price_eur": 90,
+    "summary": "Ödem atmayı ve detoksu destekleyen lenf drenaj masajı."
+  },
+  {
+    "id": "extra_mix_manuel",
+    "title": "Mix Manuel Therapy",
+    "category": "EXTRA DEEP TISSUE",
+    "intent": "RECOVERY",
+    "tier": "sovereign",
+    "duration_min": 90,
+    "price_eur": 180,
+    "summary": "Farklı masaj tekniklerinin harmanlandığı özel Sovereign terapisi.",
+    "cta": "Gerçek Rahatlama"
+  }
+]
