@@ -1,6 +1,6 @@
 import './index.css';
 import { bootLegacyBridge } from './legacy/legacy-bridge';
-import './legacy/santis-whisper-entry';
+
 
 // ... mevcut React render akışı (örnek skeleton)
 import React from 'react';
