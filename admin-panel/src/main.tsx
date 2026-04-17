@@ -1,4 +1,4 @@
-import './styles.css';
+import './index.css';
 import { bootLegacyBridge } from './legacy/legacy-bridge';
 import './legacy/santis-whisper-entry';
 
