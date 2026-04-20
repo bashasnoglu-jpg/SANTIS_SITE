@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr" data-lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Boardroom | Telemetry</title>
+    
+    <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* --- SANTIS V6 BOARDROOM CORE --- */
+        :root {
+            --santis-dark: #050505;
+            --santis-brass: #c6a96b;
+            --santis-danger: #8a2e2e;
+            --santis-text: #e0e0e3;
+            --santis-muted: #8e8e93;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --border-radius: 1.5rem;
+        }
+
+        body {
+            margin: 0; padding: 2.5rem;
+            background-color: var(--santis-dark);
+            color: var(--santis-text);
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- HEADER & STATUS --- */
+        .boardroom-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--glass-border); padding-bottom: 1.5rem; margin-bottom: 3rem;
+        }
+
+        .boardroom-header h1 {
+            color: var(--santis-text); font-weight: 300; letter-spacing: 3px; margin: 0;
+            font-family: 'Cinzel', serif; font-size: 1.8rem;
+        }
+
+        .status-container {
+            display: flex; align-items: center; gap: 0.8rem;
+            font-family: monospace; color: var(--santis-muted); letter-spacing: 1px; font-size: 0.85rem;
+        }
+
+        .status-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background-color: var(--santis-muted);
+            box-shadow: 0 0 8px var(--santis-muted);
+            transition: background-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .status-dot.active {
+            background-color: var(--santis-brass);
+            box-shadow: 0 0 10px rgba(198, 169, 107, 0.6);
+        }
+
+        .status-dot.error {
+            background-color: #ff4d4d;
+            box-shadow: 0 0 10px rgba(255, 77, 77, 0.6);
+        }
+
+        /* --- BENTO GRID --- */
+        .dashboard-grid {
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 2rem;
+            max-width: 1600px; margin: 0 auto;
+        }
+
+        .panel-glass {
+            background: var(--glass-bg); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: var(--border-radius);
+            padding: 2rem;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+
+        .panel-glass h3 { margin-top: 0; color: var(--santis-muted); font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 400; margin-bottom: 1.5rem; }
+
+        .metric-value { font-size: 2.5rem; margin: 0; color: var(--santis-text); font-weight: 300; font-family: 'Cinzel', serif; }
+        
+        .metric-highlight { color: var(--santis-brass); }
+        .metric-danger { color: #ff6b6b; }
+
+        /* --- LIVE FEED --- */
+        .feed-panel { grid-column: span 2; grid-row: span 2; }
+        .chart-panel { grid-column: span 2; grid-row: span 2; display: flex; flex-direction: column; }
+        .chart-container { flex-grow: 1; position: relative; width: 100%; min-height: 250px; }
+
+        .live-feed-list { list-style: none; padding: 0; margin: 0; max-height: 400px; overflow-y: auto; padding-right: 1rem; }
+        .live-feed-item {
+            padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.02);
+            font-size: 0.85rem; display: flex; align-items: flex-start;
+        }
+        .feed-time { color: var(--santis-muted); font-family: monospace; white-space: nowrap; margin-right: 1rem; font-size: 0.8rem; }
+        
+        /* Cyberpunk vurgular */
+        .feed-desc { flex-grow: 1; color: var(--santis-text); line-height: 1.4; word-break: break-all; }
+        .feed-desc.critical { color: #ff6b6b; font-weight: 500; }
+        .feed-desc.warn { color: var(--santis-brass); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <header class="boardroom-header">
+        <h1>SOVEREIGN BOARDROOM</h1>
+        <div style="display: flex; gap: 2rem; align-items: center;">
+            <div class="command-buttons" style="display: flex; gap: 1rem;">
+                <button id="btn-reaper" style="background: transparent; color: var(--santis-text); border: 1px solid var(--glass-border); padding: 0.5rem 1rem; cursor: pointer; border-radius: 0.5rem; transition: background 0.3s, color 0.3s; font-family: Outfit; letter-spacing: 1px; font-size: 0.8rem; text-transform: uppercase;">İnfazı Başlat</button>
+                <button id="btn-seal" style="background: transparent; color: var(--santis-danger); border: 1px solid rgba(138, 46, 46, 0.4); padding: 0.5rem 1rem; cursor: pointer; border-radius: 0.5rem; transition: background 0.3s, border-color 0.3s; font-family: Outfit; letter-spacing: 1px; font-size: 0.8rem; text-transform: uppercase;">Mührü Kapat</button>
+            </div>
+            <div class="status-container">
+                <div class="status-dot" id="sync-dot"></div>
+                <span id="sync-text">INITIALIZING</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-grid">
+        <!-- TOP STATS -->
+        <div class="panel-glass">
+            <h3>Sistem Gecikmesi</h3>
+            <div>
+                <h2 id="metric-latency" class="metric-value">0 <span style="font-size: 1rem; color: var(--santis-muted)">ms</span></h2>
+                <div style="font-size: 0.8rem; color: var(--santis-muted); margin-top: 0.5rem; text-transform: uppercase;">Ortalama Phase</div>
+            </div>
+        </div>
+
+        <div class="panel-glass">
+            <h3>Reddedilen Eylemler</h3>
+            <div>
+                <h2 id="metric-denials" class="metric-value">0</h2>
+                <div style="font-size: 0.8rem; color: var(--santis-muted); margin-top: 0.5rem; text-transform: uppercase;">Son 1 Saatteki Bloklar</div>
+            </div>
+        </div>
+
+        <div class="panel-glass">
+            <h3>Aktif Vakalar</h3>
+            <div>
+                <h2 id="metric-incidents" class="metric-value">0</h2>
+                <div style="font-size: 0.8rem; color: var(--santis-muted); margin-top: 0.5rem; text-transform: uppercase;">Incident State (OPEN)</div>
+            </div>
+        </div>
+
+        <div class="panel-glass">
+            <h3>Reaper Temizliği</h3>
+            <div>
+                <h2 id="metric-orphans" class="metric-value metric-highlight">0</h2>
+                <div style="font-size: 0.8rem; color: var(--santis-muted); margin-top: 0.5rem; text-transform: uppercase;">Son 24H Öksüz Kıyımı</div>
+            </div>
+        </div>
+
+        <!-- MAIN MATRIX & LIVE FEED -->
+        <div class="panel-glass chart-panel">
+            <h3>Zaman Çizelgesi (Latency)</h3>
+            <div class="chart-container">
+                <canvas id="mainChart"></canvas>
+            </div>
+        </div>
+
+        <div class="panel-glass feed-panel">
+            <h3>Canlı Akış (Live Feed)</h3>
+            <ul class="live-feed-list" id="live-feed">
+                <!-- Feed items will be injected here via DOM Pruning -->
+                <li class="live-feed-item"><span class="feed-time">--:--:--</span><span class="feed-desc" style="color: var(--santis-muted);">Bağlantı Kuruluyor...</span></li>
+            </ul>
+        </div>
+    </main>
+
+    <script type="module" src="js/boardroom-engine.js"></script>
+</body>
+</html>
+

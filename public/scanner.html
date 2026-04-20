@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis OS V28 - Holographic Scanner</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #141416;
+            overflow: hidden;
+            font-family: 'Share Tech Mono', monospace, Arial;
+        }
+        #gui-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #c6a96b;
+            z-index: 10;
+        }
+        button {
+            background: transparent;
+            color: #c6a96b;
+            border: 1px solid #c6a96b;
+            padding: 10px 20px;
+            font-family: inherit;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #c6a96b;
+            color: #141416;
+        }
+        #telemetry-status {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 10px;
+        }
+        #calm-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #1e3a8a;
+            font-size: 24px;
+            letter-spacing: 4px;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            pointer-events: none;
+            z-index: 5;
+            text-shadow: 0 0 10px rgba(30, 58, 138, 0.5);
+        }
+        #checkout-btn {
+            display: none;
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #c6a96b;
+            color: #141416;
+            font-weight: bold;
+            padding: 15px 30px;
+            font-size: 18px;
+            letter-spacing: 2px;
+            z-index: 20;
+            box-shadow: 0 0 20px rgba(198,169,107,0.4);
+        }
+        #checkout-btn:hover { background: #e0bc7a; }
+    </style>
+    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+    <div id="gui-overlay">
+        <h2>[V28] VISAGEX QUANTUM SCANNER</h2>
+        <p id="status-text">SYSTEM STANDBY. AWAITING UPLINK ENGAGEMENT.</p>
+        <p id="telemetry-status">N/A</p>
+        <button id="start-btn" onclick="engageScanner()">ENGAGE UPLINK</button>
+    </div>
+
+    <div id="calm-message">SANTIS IS WITH YOU. BREATHE.</div>
+    <button id="checkout-btn" onclick="sealAndCommit()">ANALİZİ MÜHÜRLE</button>
+
+    <script>
+        let scene, camera, renderer;
+        let audioContext, analyser, dataArray;
+        let sphere;
+        let ws;
+        let lastPulseTime = 0;
+
+        let isCalmMode = false;
+        let calmTargetIntensity = 0.04;
+        let targetColor = new THREE.Color(0xc6a96b);
+
+        const uniforms = {
+            uTime: { value: 0.0 },
+            uAudioIntensity: { value: 0.0 },
+            uColor: { value: new THREE.Color(0xc6a96b) }
+        };
+
+        function connectTelemetry() {
+            ws = new WebSocket('ws://localhost:4040');
+            ws.onopen = () => {
+                document.getElementById('telemetry-status').innerText = 'CORE GATEWAY (4040) CONNECTED.';
+                document.getElementById('telemetry-status').style.color = '#00FF00';
+                ws.send(JSON.stringify({ type: 'AUTH', role: 'GHOST_CELL', payload: { tenantId: 'tn_santis_v28_kiosk' } }));
+            };
+            ws.onerror = () => {
+                document.getElementById('telemetry-status').innerText = 'CORE GATEWAY TIMEOUT.';
+                document.getElementById('telemetry-status').style.color = 'red';
+            };
+            ws.onmessage = (event) => {
+                try {
+                    const message = JSON.parse(event.data);
+                    if (message.type === "PROTOCOL_CALM" || (message.payload && message.payload.type === "PROTOCOL_CALM")) {
+                        activateCalmMode(message.payload || message);
+                    }
+                } catch(e) {}
+            };
+        }
+
+        function activateCalmMode(settings) {
+            isCalmMode = true;
+            calmTargetIntensity = settings.intensityLimit || 0.02;
+            targetColor = new THREE.Color(settings.targetColor || 0x1e3a8a);
+            document.getElementById('calm-message').style.opacity = '1';
+            document.getElementById('checkout-btn').style.display = 'block'; // Fiyat matrisi tetiklenir (mühür simülasyonu)
+            console.log("Santis Protocol: Calm Mode Activated. 🌊");
+        }
+
+        async function setupAudio() {
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const source = audioContext.createMediaStreamSource(stream);
+                analyser = audioContext.createAnalyser();
+                analyser.fftSize = 256; 
+                source.connect(analyser);
+                const bufferLength = analyser.frequencyBinCount;
+                dataArray = new Uint8Array(bufferLength);
+                document.getElementById('status-text').innerText = "SANTIS AUDIO UPLINK: ACTIVE 🎙️.";
+                document.getElementById('start-btn').style.display = 'none';
+                connectTelemetry();
+            } catch (err) {
+                document.getElementById('status-text').innerText = "UPLINK FAILED.";
+            }
+        }
+
+        function init3D() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            // PRESERVE DRAWING BUFFER IS CRITICAL FOR THE SNAPSHOT
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            const vertexShader = `
+                varying vec2 vUv;
+                uniform float uTime;
+                uniform float uAudioIntensity;
+                float noise(vec3 p) { return sin(p.x * 10.0 + uTime) * sin(p.y * 10.0 + uTime) * uAudioIntensity * 0.5; }
+                void main() {
+                    vUv = uv;
+                    vec3 newPosition = position + normal * noise(position);
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+                }
+            `;
+            const fragmentShader = `
+                varying vec2 vUv;
+                uniform vec3 uColor;
+                void main() { gl_FragColor = vec4(uColor, 0.8); }
+            `;
+
+            sphere = new THREE.Mesh(new THREE.SphereGeometry(1.5, 64, 64), new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                vertexShader: vertexShader,
+                fragmentShader: fragmentShader,
+                wireframe: true,
+                transparent: true
+            }));
+            scene.add(sphere);
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            let rawIntensity = 0.04;
+            if (analyser && dataArray) {
+                analyser.getByteFrequencyData(dataArray);
+                let sum = 0;
+                for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
+                rawIntensity = sum / dataArray.length / 50.0;
+                if (ws && ws.readyState === WebSocket.OPEN && !isCalmMode) {
+                    const now = Date.now();
+                    if (now - lastPulseTime > 500) {
+                        ws.send(JSON.stringify({ type: 'TELEMETRY_EMIT', payload: { event: 'VISAGEX_CORTISOL_PULSE', data: { cortisolIntensity: rawIntensity.toFixed(4), stressLevel: Math.floor(rawIntensity * 100) } } }));
+                        lastPulseTime = now;
+                    }
+                }
+            } 
+            uniforms.uAudioIntensity.value = THREE.MathUtils.lerp(uniforms.uAudioIntensity.value, isCalmMode ? calmTargetIntensity : rawIntensity, 0.05);
+            uniforms.uColor.value.lerp(targetColor, 0.02);
+            uniforms.uTime.value += isCalmMode ? 0.005 : 0.01;
+            sphere.rotation.y += isCalmMode ? 0.001 : 0.003;
+            sphere.rotation.z += 0.001;
+            renderer.render(scene, camera);
+        }
+
+        async function sealAndCommit() {
+            document.getElementById('checkout-btn').innerText = "İŞLENİYOR... 📸";
+            const snapshotBase64 = renderer.domElement.toDataURL('image/png');
+            const payload = {
+                tenantId: "tn_santis_club",
+                assetId: \`as_\${Math.random().toString(36).substr(2, 9)}\`,
+                stressLevel: Math.floor(uniforms.uAudioIntensity.value * 100),
+                planName: "Sovereign Choice",
+                snapshotBase64: snapshotBase64
+            };
+            try {
+                // Orbital Forge Certificate Matrix
+                const response = await fetch('http://localhost:5052/api/v1/payment/confirm', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                if (result.status === "SUCCESS") {
+                    document.getElementById('checkout-btn').innerText = "TAMAMLANDI. İNDİRİLİYOR...";
+                    window.location.href = result.downloadUrl; 
+                }
+            } catch (error) {
+                console.error("Mühürleme hatası:", error);
+                document.getElementById('checkout-btn').innerText = "HATA. LOGLARI KONTROL EDİN.";
+            }
+        }
+
+        async function engageScanner() { await setupAudio(); }
+        init3D();
+        window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
+    </script>
+</body>
+</html>
+

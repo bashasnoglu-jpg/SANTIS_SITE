@@ -1,0 +1,10 @@
+{
+  "targets": [
+    {
+      "path": "server/core/flight-risk/flight-risk-engine.js",
+      "mode": "import",
+      "cwd": "server",
+      "timeout_seconds": 8
+    }
+  ]
+}

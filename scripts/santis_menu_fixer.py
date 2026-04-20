@@ -63,9 +63,12 @@ def cerrahi_mudahale():
                     hizmet["duration"] = yeni_veriler["duration"]
                 
                 # Content Localizations
-                if "content" not in hizmet: hizmet["content"] = {}
-                if "en" not in hizmet["content"]: hizmet["content"]["en"] = {}
-                if "tr" not in hizmet["content"]: hizmet["content"]["tr"] = {}
+                if "content" not in hizmet:
+                    hizmet["content"] = {}
+                if "en" not in hizmet["content"]:
+                    hizmet["content"]["en"] = {}
+                if "tr" not in hizmet["content"]:
+                    hizmet["content"]["tr"] = {}
                 
                 hizmet["content"]["en"]["title"] = yeni_veriler["name"]
 

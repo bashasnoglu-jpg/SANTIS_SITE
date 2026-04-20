@@ -1,0 +1,18 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /admin-panel/
+Disallow: /packages/
+Disallow: /gravity-ux-engine/
+Disallow: /tenant-dashboard/
+Disallow: /hq-dashboard/
+Disallow: /api/
+Disallow: /components/
+Disallow: /_dev_archives/
+Disallow: /_tools/
+Disallow: /generator/
+
+Allow: /
+Allow: /assets/
+Allow: /sitemap.xml
+
+Sitemap: https://santis.club/sitemap.xml

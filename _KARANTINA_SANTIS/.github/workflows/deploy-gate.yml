@@ -1,0 +1,81 @@
+# SANTIS DEPLOY GATE — GitHub Actions CI
+# Runs quality gate on every push to main
+# GO → deploys | NO-GO → blocks + notifies
+
+name: Deploy Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  deploy-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Run Deploy Gate
+        id: gate
+        run: |
+          python deploy_gate.py --skip-sync 2>&1 | tee deploy_gate_output.txt
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+
+      - name: Upload Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deploy-gate-report
+          path: |
+            reports/deploy_gate_last.json
+            deploy_gate_output.txt
+          retention-days: 30
+
+      - name: Gate Check
+        if: steps.gate.outputs.exit_code != '0'
+        run: |
+          echo "❌ Deploy Gate returned NO-GO"
+          echo "Check the deploy_gate_output.txt artifact for details"
+          exit 1
+
+  # Optional: Full sync on scheduled runs
+  full-sync:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Full Pipeline (with sync)
+        run: python deploy_gate.py
+
+      - name: Link Depth Report
+        run: python link_depth.py --json > reports/link_depth_latest.json
+
+      - name: Commit Reports
+        run: |
+          git config user.name "Deploy Gate Bot"
+          git config user.email "bot@santis.club"
+          git add reports/
+          git diff --cached --quiet || git commit -m "🤖 Auto: deploy gate reports"
+          git push

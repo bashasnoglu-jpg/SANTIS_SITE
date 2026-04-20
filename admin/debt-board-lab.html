@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Debt Matrix | Santis OS</title>
+    <!-- Quiet Luxury Base Styles -->
+    <style>
+        body {
+            background-color: #050608;
+            color: #d6d6d8;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            margin: 0;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        button, input, select { font-family: inherit; }
+
+        .debt-board { display: grid; gap: 24px; color: #d6d6d8; max-width: 1400px; margin: 0 auto; }
+        .debt-board__top, .debt-board__toolbar, .debt-board__stats { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+        .debt-board__title-wrap h1 { color: #D4AF37; font-size: 24px; margin: 5px 0 0 0; text-transform: uppercase; letter-spacing: 0.1em; }
+        .debt-board__eyebrow { color: #8f9095; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; margin: 0; }
+        .debt-board__body { display: grid; grid-template-columns: minmax(340px, 480px) 1fr; gap: 24px; }
+        .debt-board__list, .debt-board__detail { min-height: 560px; }
+        .debt-board__list { display: grid; gap: 14px; align-content: start; max-height: 800px; overflow-y: auto; padding-right: 8px; }
+        .debt-board__list::-webkit-scrollbar { width: 4px; }
+        .debt-board__list::-webkit-scrollbar-track { background: transparent; }
+        .debt-board__list::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.2); border-radius: 4px; }
+
+        .debt-card, .debt-detail, .debt-panel, .debt-stat { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 18px; }
+        .debt-card { cursor: pointer; transition: transform 180ms ease, border-color 180ms ease, background 180ms ease; }
+        .debt-card:hover, .debt-card.is-selected { transform: translateY(-2px); border-color: rgba(212,175,55,0.35); background: rgba(212,175,55,0.05); box-shadow: 0 4px 20px rgba(212,175,55,0.05); }
+
+        .debt-card__header, .debt-detail__header, .debt-card__meta, .debt-card__badges, .debt-detail__badges, .debt-chip-row, .debt-board__actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+        .debt-card__header, .debt-detail__header { justify-content: space-between; }
+        .debt-card__title, .debt-detail__title { margin: 0; font-size: 15px; color: #fff; }
+        .debt-card__id, .debt-detail__eyebrow { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.5; margin-top: 4px; }
+        .debt-card__reason, .debt-panel p, .debt-empty-state p { color: #8f9095; font-size: 13px; line-height: 1.5; }
+
+        .debt-badge, .debt-chip { display: inline-flex; align-items: center; padding: 4px 8px; border-radius: 4px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); white-space: nowrap; }
+        .debt-badge--severity-p1 { border-color: rgba(239,68,68,0.5); color: #ef4444; background: rgba(239,68,68,0.1); }
+        .debt-badge--severity-p2 { border-color: rgba(245,158,11,0.5); color: #f59e0b; background: rgba(245,158,11,0.1); }
+        .debt-badge--severity-p3 { border-color: rgba(212,175,55,0.5); color: #d4af37; background: rgba(212,175,55,0.1); }
+        .debt-badge--severity-p4 { border-color: rgba(255,255,255,0.15); }
+
+        .debt-stat { min-width: 120px; text-align: center; }
+        .debt-stat strong { display: block; font-size: 28px; color: #D4AF37; }
+        .debt-stat span { color: #8f9095; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; }
+
+        .debt-detail__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+        .debt-panel h3 { font-size: 12px; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 6px; margin-top: 0; }
+        .debt-list { margin: 0; padding-left: 18px; font-size: 13px; color: #d6d6d8; }
+        .debt-list li { margin-bottom: 4px; }
+        .debt-empty-state { padding: 40px; text-align: center; opacity: 0.7; }
+        .debt-empty-state h3 { color: #d4af37; font-weight: normal; }
+
+        /* UI Edit Patch CSS extensions */
+        .debt-inline-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .debt-inline-field {
+            display: grid;
+            gap: 8px;
+        }
+
+        .debt-inline-field span {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #8f9095;
+        }
+
+        .debt-inline-field select,
+        .debt-board__toolbar input,
+        .debt-board__toolbar select,
+        .debt-board__actions button,
+        .debt-board__bulk select,
+        .debt-board__bulk button {
+            background: rgba(255,255,255,0.04);
+            color: #d6d6d8;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 10px 12px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .debt-board__actions button,
+        .debt-board__bulk button {
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 12px;
+        }
+
+        .debt-board__actions button:hover,
+        .debt-board__bulk button:hover,
+        .debt-inline-field select:hover,
+        .debt-board__toolbar input:focus,
+        .debt-board__toolbar select:focus,
+        .debt-board__bulk select:hover {
+            border-color: rgba(212,175,55,0.4);
+        }
+
+        /* Bulk and Priority extensions */
+        .debt-board__bulk,
+        .debt-board__bulk-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .debt-board__bulk {
+            justify-content: space-between;
+            margin-top: 4px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .debt-card__check {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .debt-card__check input[type="checkbox"] {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            accent-color: #d4af37;
+        }
+
+        .debt-priority-editor {
+            display: grid;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .debt-priority-editor input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+            accent-color: #d4af37;
+        }
+
+        .debt-priority-value {
+            color: #8f9095;
+            font-size: 13px;
+        }
+
+        /* Audit CSS patches */
+        .debt-board__audit-shell,
+        .debt-board__audit-grid,
+        .debt-board__audit-stats {
+          display: grid;
+          gap: 16px;
+        }
+
+        .debt-board__audit-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .debt-board__audit-panel {
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 24px;
+          padding: 18px;
+          min-height: 320px;
+        }
+
+        .debt-board__audit-head {
+          margin-bottom: 14px;
+        }
+
+        .debt-board__section-title {
+          margin: 0;
+        }
+
+        .debt-board__audit-list {
+          display: grid;
+          gap: 12px;
+        }
+
+        .debt-audit-event {
+          background: rgba(255,255,255,0.025);
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 18px;
+          padding: 14px;
+        }
+
+        .debt-audit-event__header,
+        .debt-audit-event__meta,
+        .debt-audit__change,
+        .debt-audit__diff {
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+
+        .debt-audit-event__header {
+          justify-content: space-between;
+          align-items: flex-start;
+        }
+
+        .debt-audit-event__type {
+          font-size: 12px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #8f9095;
+        }
+
+        .debt-audit-event__summary {
+          font-weight: 600;
+        }
+
+        .debt-audit-event__meta,
+        .debt-audit-event__at,
+        .debt-audit__field,
+        .debt-audit__nochange {
+          color: #8f9095;
+          font-size: 13px;
+        }
+
+        .debt-audit__changes {
+          display: grid;
+          gap: 10px;
+          margin-top: 10px;
+        }
+
+        .debt-audit__change {
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .debt-audit__field {
+          min-width: 120px;
+        }
+
+        .debt-audit__before {
+          color: #caa0a0;
+        }
+
+        .debt-audit__after {
+          color: #b7d4a7;
+        }
+
+        .debt-audit__arrow {
+          opacity: 0.7;
+        }
+
+        @media (max-width: 1024px) {
+            .debt-board__body, .debt-detail__grid { grid-template-columns: 1fr; }
+            .debt-board__audit-grid {
+              grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<section class="debt-board" data-debt-board>
+    <header class="debt-board__top">
+        <div class="debt-board__title-wrap">
+            <p class="debt-board__eyebrow">Santis Governance</p>
+            <h1 class="debt-board__title">Sovereign Debt Matrix</h1>
+        </div>
+
+        <div class="debt-board__actions">
+            <!-- UI Edit Patch buttons -->
+            <button type="button" data-debt-action="undo">Undo</button>
+            <button type="button" data-debt-action="redo">Redo</button>
+            <button type="button" data-debt-action="clear-filters">Clear Filters</button>
+            <button type="button" data-debt-action="reset-storage">Reset Storage</button>
+        </div>
+    </header>
+
+    <section class="debt-board__stats" data-debt-stats></section>
+
+    <section class="debt-board__toolbar" data-debt-toolbar>
+        <input type="search" placeholder="🔍 Search debt..." data-debt-filter="query" style="flex: 1; min-width: 200px;" />
+        <select data-debt-filter="severity"></select>
+        <select data-debt-filter="category"></select>
+        <select data-debt-filter="status"></select>
+        <select data-debt-filter="owner"></select>
+        <select data-debt-filter="scope"></select>
+    </section>
+
+    <!-- UI V5.2.2 Bulk Section -->
+    <section class="debt-board__bulk">
+        <div class="debt-board__bulk-group">
+            <select data-debt-bulk="status">
+                <option value="">Bulk Status</option>
+                <option value="OPEN">OPEN</option>
+                <option value="IN_PROGRESS">IN_PROGRESS</option>
+                <option value="BLOCKED">BLOCKED</option>
+                <option value="RESOLVED">RESOLVED</option>
+                <option value="ACCEPTED">ACCEPTED</option>
+            </select>
+
+            <select data-debt-bulk="owner">
+                <option value="">Bulk Owner</option>
+                <option value="Frontend">Frontend</option>
+                <option value="Backend">Backend</option>
+                <option value="Design">Design</option>
+                <option value="Infra">Infra</option>
+                <option value="Shared">Shared</option>
+                <option value="Unassigned">Unassigned</option>
+            </select>
+
+            <button type="button" data-debt-action="select-visible">Select Visible</button>
+            <button type="button" data-debt-action="clear-selection">Clear Selection</button>
+            <button type="button" data-debt-action="apply-bulk">Apply Bulk</button>
+        </div>
+
+        <div class="debt-board__bulk-group">
+            <button type="button" data-debt-action="export-json">Export JSON</button>
+            <button type="button" data-debt-action="import-json">Import JSON</button>
+            <input type="file" accept="application/json" data-debt-import-file hidden />
+        </div>
+    </section>
+
+    <section class="debt-board__body">
+        <div class="debt-board__list" data-debt-list></div>
+        <aside class="debt-board__detail" data-debt-detail></aside>
+    </section>
+
+    <!-- Audit Section -->
+    <section class="debt-board__audit-shell">
+        <div class="debt-board__audit-stats" data-debt-audit-stats></div>
+
+        <div class="debt-board__audit-grid">
+          <section class="debt-board__audit-panel">
+            <header class="debt-board__audit-head">
+              <p class="debt-board__eyebrow">Global Audit</p>
+              <h2 class="debt-board__section-title">Activity Timeline</h2>
+            </header>
+            <div class="debt-board__audit-list" data-debt-audit-timeline></div>
+          </section>
+
+          <section class="debt-board__audit-panel">
+            <header class="debt-board__audit-head">
+              <p class="debt-board__eyebrow">Selected Record</p>
+              <h2 class="debt-board__section-title">Changed Fields Diff</h2>
+            </header>
+            <div class="debt-board__audit-list" data-debt-record-timeline></div>
+          </section>
+        </div>
+    </section>
+</section>
+
+<script type="module">
+    import { bootSovereignDebtEngine } from '/assets/js/core/SovereignDebtEngine.js';
+    import { createSovereignDebtBoardUI } from '/assets/js/core/SovereignDebtBoardUI.js';
+
+    console.log('[DebtMatrix] Booting Sovereign Governance System...');
+
+    const engine = await bootSovereignDebtEngine({
+        seedUrl: '/assets/json/debt-seed.json',
+        storageKey: 'santis:debt-board:v1',
+        autoLoadSeed: true,
+        installTraps: true,
+        snapshotLimit: 50,
+    });
+
+    const ui = createSovereignDebtBoardUI(engine, {
+        root: document.querySelector('[data-debt-board]'),
+    });
+
+    ui.mount();
+    window.__SANTIS_DEBT_UI__ = ui;
+
+    console.log('[DebtMatrix] Bound UI & Ready to capture operational flaws.', engine.getPublicState());
+</script>
+
+</body>
+</html>

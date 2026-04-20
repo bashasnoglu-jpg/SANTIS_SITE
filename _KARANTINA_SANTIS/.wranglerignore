@@ -1,0 +1,11 @@
+venv/
+_build/
+_legacy_content/
+.git/
+.gemini/
+node_modules/
+__pycache__/
+*.py
+*.pyc
+*.log
+PROMPT_DROP_ZONE.txt

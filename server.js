@@ -383,18 +383,43 @@ function handleAPI(req, res) {
     if (url === '/api/v1/telemetry/beacon' && method === 'POST') {
         let body = '';
         req.on('data', c => body += c);
-        req.on('end', () => {
+        req.on('end', async () => {
             try {
-                const data = JSON.parse(body);
+                // Dynamically import the zod schema since this is commonjs
+                const { TelemetryPayloadSchema } = await import('./server/core/concierge/telemetry/telemetry.schemas.ts');
+                
+                const rawData = JSON.parse(body);
+                const payload = TelemetryPayloadSchema.parse(rawData);
+
+                console.log('[telemetry.beacon]', {
+                    event: payload.event,
+                    tenantId: payload.context.tenantId,
+                    sessionId: payload.context.sessionId,
+                    visitorId: payload.context.visitorId ?? null,
+                    requestId: payload.context.requestId ?? null,
+                    quoteId: payload.context.quoteId ?? null,
+                    intentId: payload.context.intentId ?? null,
+                    degraded: payload.context.degraded ?? null,
+                });
+
                 global.V36_TELEMETRY_STREAM.push({
-                    level: data.level || 'INFO',
-                    message: data.message || 'Heartbeat signal',
-                    page: data.page || 'unknown',
-                    time: Date.now()
+                    level: 'INFO',
+                    message: payload.event,
+                    page: payload.context.source || 'unknown',
+                    time: Date.now(),
+                    context: payload.context
                 });
                 if (global.V36_TELEMETRY_STREAM.length > 200) global.V36_TELEMETRY_STREAM.shift();
-                json({ received: true });
-            } catch(e) { json({received: false}, 400); }
+
+                res.setHeader('Content-Type', 'application/json');
+                res.writeHead(202);
+                res.end(JSON.stringify({ ok: true, accepted: true }));
+            } catch(error) { 
+                console.error('[telemetry.beacon] failed', error);
+                res.setHeader('Content-Type', 'application/json');
+                res.writeHead(400);
+                res.end(JSON.stringify({ ok: false, error: 'BAD_TELEMETRY_PAYLOAD' }));
+            }
         });
         return true;
     }

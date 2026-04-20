@@ -1,0 +1,23 @@
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  server: {
+    port: 5500, // Matching the Live Server port
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      },
+    },
+  },
+  build: {
+    // Generate a manifest so it can be integrated with other systems if needed
+    manifest: true,
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        boardroom: 'admin/boardroom.html',
+      },
+    },
+  },
+});

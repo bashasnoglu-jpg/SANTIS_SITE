@@ -1,0 +1,56 @@
+name: Sovereign Cloud Ignition Pipeline (CI/CD)
+
+on:
+  push:
+    branches:
+      - production
+      - master
+      - main
+  workflow_dispatch: # Manuel tetikleme (God Mode Kasten Ateşleme)
+
+jobs:
+  build-and-deploy:
+    name: Build & Push Sovereign OS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Karargâh Kodunu Klonla (Checkout)
+        uses: actions/checkout@v4
+
+      - name: Docker Bulut Motorlarını Kur (Set up Docker Buildx)
+        uses: docker/setup-buildx-action@v3
+
+      - name: AWS / DigitalOcean / Vercel Kayıt Ağecisine Giriş Yap (Login to Registry)
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io # Konfigürasyon hedefe göre değiştirilebilir (örn: ecr.aws)
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sovereign Nginx Kernel'i Derle ve Yörüngeye Fırlat (Build and Push)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile.sovereign
+          push: true
+          tags: ghcr.io/${{ github.repository }}/santis-sovereign-os:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # UYARI: Hedef sunucuya aktarım kısmı (SSH ile bağlanıp docker-compose pull yapma) 
+      # Kurumun seçeceği sunucuya göre (AWS EC2, DO Droplet vb.) ayarlanacaktır.
+      - name: Hedef Bulut Düğümüne Kamikaze Dalışı (Remote SSH Deployment)
+        uses: appleboy/ssh-action@master
+        if: env.SSH_PRIVATE_KEY != '' # Sadece secret tanımlıysa çalışır
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            echo "[SİSTEM LOGU] Sovereign Cloud Deployment Başladı!"
+            cd /opt/santis_karargah
+            docker pull ghcr.io/${{ github.repository }}/santis-sovereign-os:latest
+            docker-compose -f docker-compose.sovereign.yml up -d --build
+            echo "[SİSTEM LOGU] Karadağ Hedef Noktası Vuruldu. Sıfır Kesinti Sağlandı."

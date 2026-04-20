@@ -1,0 +1,1132 @@
+[
+  {
+    "id": "INC-1770576948",
+    "time": "2026-02-08T21:55:48.860641",
+    "component": "SECURITY",
+    "issue": "HTTPS Kullan\u0131lm\u0131yor",
+    "severity": "CRITICAL",
+    "status": "DETECTED",
+    "details": "Prod\u00fcksiyonda mutlaka SSL sertifikas\u0131 (LetsEncrypt) kullan\u0131n.",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770576948",
+    "time": "2026-02-08T21:55:48.847071",
+    "component": "SECURITY",
+    "issue": "MIME Sniffing Korumas\u0131 Eksik",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770576948",
+    "time": "2026-02-08T21:55:48.831030",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770576948",
+    "time": "2026-02-08T21:55:48.816071",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "Taray\u0131c\u0131lar\u0131 HTTPS kullanmaya zorlay\u0131n.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770576948",
+    "time": "2026-02-08T21:55:48.801521",
+    "component": "SECURITY",
+    "issue": "Clickjacking Korumas\u0131 Yok (X-Frame-Options)",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770576948",
+    "time": "2026-02-08T21:55:48.785436",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770576948",
+    "time": "2026-02-08T21:55:48.770924",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "XSS korumas\u0131 i\u00e7in server.py'a CSP middleware ekleyin.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770576347",
+    "time": "2026-02-08T21:45:47.678453",
+    "component": "SECURITY",
+    "issue": "HTTPS Kullan\u0131lm\u0131yor",
+    "severity": "CRITICAL",
+    "status": "DETECTED",
+    "details": "Prod\u00fcksiyonda mutlaka SSL sertifikas\u0131 (LetsEncrypt) kullan\u0131n.",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770576347",
+    "time": "2026-02-08T21:45:47.665587",
+    "component": "SECURITY",
+    "issue": "MIME Sniffing Korumas\u0131 Eksik",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770576347",
+    "time": "2026-02-08T21:45:47.647930",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770576347",
+    "time": "2026-02-08T21:45:47.628914",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "Taray\u0131c\u0131lar\u0131 HTTPS kullanmaya zorlay\u0131n.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770576347",
+    "time": "2026-02-08T21:45:47.612944",
+    "component": "SECURITY",
+    "issue": "Clickjacking Korumas\u0131 Yok (X-Frame-Options)",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770576347",
+    "time": "2026-02-08T21:45:47.595697",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770576347",
+    "time": "2026-02-08T21:45:47.578065",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "XSS korumas\u0131 i\u00e7in server.py'a CSP middleware ekleyin.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770575746",
+    "time": "2026-02-08T21:35:46.550505",
+    "component": "SECURITY",
+    "issue": "HTTPS Kullan\u0131lm\u0131yor",
+    "severity": "CRITICAL",
+    "status": "DETECTED",
+    "details": "Prod\u00fcksiyonda mutlaka SSL sertifikas\u0131 (LetsEncrypt) kullan\u0131n.",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770575746",
+    "time": "2026-02-08T21:35:46.539835",
+    "component": "SECURITY",
+    "issue": "MIME Sniffing Korumas\u0131 Eksik",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770575746",
+    "time": "2026-02-08T21:35:46.526525",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770575746",
+    "time": "2026-02-08T21:35:46.512660",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "Taray\u0131c\u0131lar\u0131 HTTPS kullanmaya zorlay\u0131n.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770575746",
+    "time": "2026-02-08T21:35:46.502925",
+    "component": "SECURITY",
+    "issue": "Clickjacking Korumas\u0131 Yok (X-Frame-Options)",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770575746",
+    "time": "2026-02-08T21:35:46.489090",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770575746",
+    "time": "2026-02-08T21:35:46.473443",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "XSS korumas\u0131 i\u00e7in server.py'a CSP middleware ekleyin.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770575145",
+    "time": "2026-02-08T21:25:45.444475",
+    "component": "SECURITY",
+    "issue": "HTTPS Kullan\u0131lm\u0131yor",
+    "severity": "CRITICAL",
+    "status": "DETECTED",
+    "details": "Prod\u00fcksiyonda mutlaka SSL sertifikas\u0131 (LetsEncrypt) kullan\u0131n.",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770575145",
+    "time": "2026-02-08T21:25:45.435152",
+    "component": "SECURITY",
+    "issue": "MIME Sniffing Korumas\u0131 Eksik",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770575145",
+    "time": "2026-02-08T21:25:45.419542",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770575145",
+    "time": "2026-02-08T21:25:45.407436",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "Taray\u0131c\u0131lar\u0131 HTTPS kullanmaya zorlay\u0131n.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770575145",
+    "time": "2026-02-08T21:25:45.397607",
+    "component": "SECURITY",
+    "issue": "Clickjacking Korumas\u0131 Yok (X-Frame-Options)",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770575145",
+    "time": "2026-02-08T21:25:45.385090",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770575145",
+    "time": "2026-02-08T21:25:45.371222",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "XSS korumas\u0131 i\u00e7in server.py'a CSP middleware ekleyin.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770574544",
+    "time": "2026-02-08T21:15:44.336998",
+    "component": "SECURITY",
+    "issue": "HTTPS Kullan\u0131lm\u0131yor",
+    "severity": "CRITICAL",
+    "status": "DETECTED",
+    "details": "Prod\u00fcksiyonda mutlaka SSL sertifikas\u0131 (LetsEncrypt) kullan\u0131n.",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770574544",
+    "time": "2026-02-08T21:15:44.327821",
+    "component": "SECURITY",
+    "issue": "MIME Sniffing Korumas\u0131 Eksik",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770574544",
+    "time": "2026-02-08T21:15:44.315611",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770574544",
+    "time": "2026-02-08T21:15:44.302678",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "Taray\u0131c\u0131lar\u0131 HTTPS kullanmaya zorlay\u0131n.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770574544",
+    "time": "2026-02-08T21:15:44.293518",
+    "component": "SECURITY",
+    "issue": "Clickjacking Korumas\u0131 Yok (X-Frame-Options)",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770574544",
+    "time": "2026-02-08T21:15:44.280717",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770574544",
+    "time": "2026-02-08T21:15:44.267234",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "XSS korumas\u0131 i\u00e7in server.py'a CSP middleware ekleyin.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770573943",
+    "time": "2026-02-08T21:05:43.231242",
+    "component": "SECURITY",
+    "issue": "HTTPS Kullan\u0131lm\u0131yor",
+    "severity": "CRITICAL",
+    "status": "DETECTED",
+    "details": "Prod\u00fcksiyonda mutlaka SSL sertifikas\u0131 (LetsEncrypt) kullan\u0131n.",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770573943",
+    "time": "2026-02-08T21:05:43.221090",
+    "component": "SECURITY",
+    "issue": "MIME Sniffing Korumas\u0131 Eksik",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770573943",
+    "time": "2026-02-08T21:05:43.208503",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770573943",
+    "time": "2026-02-08T21:05:43.196836",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "Taray\u0131c\u0131lar\u0131 HTTPS kullanmaya zorlay\u0131n.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770573943",
+    "time": "2026-02-08T21:05:43.186816",
+    "component": "SECURITY",
+    "issue": "Clickjacking Korumas\u0131 Yok (X-Frame-Options)",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770573943",
+    "time": "2026-02-08T21:05:43.172759",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770573943",
+    "time": "2026-02-08T21:05:43.154430",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "XSS korumas\u0131 i\u00e7in server.py'a CSP middleware ekleyin.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770573342",
+    "time": "2026-02-08T20:55:42.144888",
+    "component": "SECURITY",
+    "issue": "HTTPS Kullan\u0131lm\u0131yor",
+    "severity": "CRITICAL",
+    "status": "DETECTED",
+    "details": "Prod\u00fcksiyonda mutlaka SSL sertifikas\u0131 (LetsEncrypt) kullan\u0131n.",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770573342",
+    "time": "2026-02-08T20:55:42.133676",
+    "component": "SECURITY",
+    "issue": "MIME Sniffing Korumas\u0131 Eksik",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770573342",
+    "time": "2026-02-08T20:55:42.120638",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770573342",
+    "time": "2026-02-08T20:55:42.105872",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "Taray\u0131c\u0131lar\u0131 HTTPS kullanmaya zorlay\u0131n.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770573342",
+    "time": "2026-02-08T20:55:42.095710",
+    "component": "SECURITY",
+    "issue": "Clickjacking Korumas\u0131 Yok (X-Frame-Options)",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770573342",
+    "time": "2026-02-08T20:55:42.082692",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770573342",
+    "time": "2026-02-08T20:55:42.068155",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "XSS korumas\u0131 i\u00e7in server.py'a CSP middleware ekleyin.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770572741",
+    "time": "2026-02-08T20:45:41.071195",
+    "component": "SECURITY",
+    "issue": "HTTPS Kullan\u0131lm\u0131yor",
+    "severity": "CRITICAL",
+    "status": "DETECTED",
+    "details": "Prod\u00fcksiyonda mutlaka SSL sertifikas\u0131 (LetsEncrypt) kullan\u0131n.",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770572741",
+    "time": "2026-02-08T20:45:41.062096",
+    "component": "SECURITY",
+    "issue": "MIME Sniffing Korumas\u0131 Eksik",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770572741",
+    "time": "2026-02-08T20:45:41.048179",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770572741",
+    "time": "2026-02-08T20:45:41.034694",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "Taray\u0131c\u0131lar\u0131 HTTPS kullanmaya zorlay\u0131n.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770572741",
+    "time": "2026-02-08T20:45:41.021776",
+    "component": "SECURITY",
+    "issue": "Clickjacking Korumas\u0131 Yok (X-Frame-Options)",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770572741",
+    "time": "2026-02-08T20:45:41.008221",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770572740",
+    "time": "2026-02-08T20:45:40.993278",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "XSS korumas\u0131 i\u00e7in server.py'a CSP middleware ekleyin.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770572140",
+    "time": "2026-02-08T20:35:40.014170",
+    "component": "SECURITY",
+    "issue": "HTTPS Kullan\u0131lm\u0131yor",
+    "severity": "CRITICAL",
+    "status": "DETECTED",
+    "details": "Prod\u00fcksiyonda mutlaka SSL sertifikas\u0131 (LetsEncrypt) kullan\u0131n.",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770572140",
+    "time": "2026-02-08T20:35:40.004301",
+    "component": "SECURITY",
+    "issue": "MIME Sniffing Korumas\u0131 Eksik",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770572139",
+    "time": "2026-02-08T20:35:39.990356",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770572139",
+    "time": "2026-02-08T20:35:39.976411",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "Taray\u0131c\u0131lar\u0131 HTTPS kullanmaya zorlay\u0131n.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770572139",
+    "time": "2026-02-08T20:35:39.966645",
+    "component": "SECURITY",
+    "issue": "Clickjacking Korumas\u0131 Yok (X-Frame-Options)",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770572139",
+    "time": "2026-02-08T20:35:39.951945",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770572139",
+    "time": "2026-02-08T20:35:39.937653",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "XSS korumas\u0131 i\u00e7in server.py'a CSP middleware ekleyin.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770571538",
+    "time": "2026-02-08T20:25:38.962300",
+    "component": "SECURITY",
+    "issue": "HTTPS Kullan\u0131lm\u0131yor",
+    "severity": "CRITICAL",
+    "status": "DETECTED",
+    "details": "Prod\u00fcksiyonda mutlaka SSL sertifikas\u0131 (LetsEncrypt) kullan\u0131n.",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770571538",
+    "time": "2026-02-08T20:25:38.954338",
+    "component": "SECURITY",
+    "issue": "MIME Sniffing Korumas\u0131 Eksik",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770571538",
+    "time": "2026-02-08T20:25:38.945159",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770571538",
+    "time": "2026-02-08T20:25:38.936073",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "Taray\u0131c\u0131lar\u0131 HTTPS kullanmaya zorlay\u0131n.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770571538",
+    "time": "2026-02-08T20:25:38.928116",
+    "component": "SECURITY",
+    "issue": "Clickjacking Korumas\u0131 Yok (X-Frame-Options)",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770571538",
+    "time": "2026-02-08T20:25:38.919560",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770571538",
+    "time": "2026-02-08T20:25:38.911078",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "XSS korumas\u0131 i\u00e7in server.py'a CSP middleware ekleyin.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770567479",
+    "time": "2026-02-08T19:17:59.061503",
+    "component": "SECURITY",
+    "issue": "HTTPS Kullan\u0131lm\u0131yor",
+    "severity": "CRITICAL",
+    "status": "DETECTED",
+    "details": "Prod\u00fcksiyonda mutlaka SSL sertifikas\u0131 (LetsEncrypt) kullan\u0131n.",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770567479",
+    "time": "2026-02-08T19:17:59.049890",
+    "component": "SECURITY",
+    "issue": "MIME Sniffing Korumas\u0131 Eksik",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770567479",
+    "time": "2026-02-08T19:17:59.037366",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770567479",
+    "time": "2026-02-08T19:17:59.025435",
+    "component": "SECURITY",
+    "issue": "HSTS Eksik (Strict-Transport-Security)",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "Taray\u0131c\u0131lar\u0131 HTTPS kullanmaya zorlay\u0131n.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770567479",
+    "time": "2026-02-08T19:17:59.016394",
+    "component": "SECURITY",
+    "issue": "Clickjacking Korumas\u0131 Yok (X-Frame-Options)",
+    "severity": "MEDIUM",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770567479",
+    "time": "2026-02-08T19:17:59.006584",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "FIXED",
+    "details": "Header already present in code.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770567478",
+    "time": "2026-02-08T19:17:58.997424",
+    "component": "SECURITY",
+    "issue": "Content-Security-Policy (CSP) Eksik",
+    "severity": "HIGH",
+    "status": "DETECTED",
+    "details": "XSS korumas\u0131 i\u00e7in server.py'a CSP middleware ekleyin.",
+    "auto_fix_possible": true
+  },
+  {
+    "id": "INC-1770560194",
+    "time": "2026-02-08T17:16:34.133662",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770560179",
+    "time": "2026-02-08T17:16:19.501836",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770560179",
+    "time": "2026-02-08T17:16:19.123748",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770560178",
+    "time": "2026-02-08T17:16:18.673726",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770560178",
+    "time": "2026-02-08T17:16:18.098852",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770560177",
+    "time": "2026-02-08T17:16:17.586790",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770558825",
+    "time": "2026-02-08T16:53:45.782159",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770558825",
+    "time": "2026-02-08T16:53:45.316100",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770558824",
+    "time": "2026-02-08T16:53:44.882217",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770558824",
+    "time": "2026-02-08T16:53:44.461928",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770558823",
+    "time": "2026-02-08T16:53:43.963763",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770558032",
+    "time": "2026-02-08T16:40:32.027113",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770558004",
+    "time": "2026-02-08T16:40:04.997858",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770558004",
+    "time": "2026-02-08T16:40:04.925276",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770558004",
+    "time": "2026-02-08T16:40:04.097938",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770558003",
+    "time": "2026-02-08T16:40:03.824590",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770558003",
+    "time": "2026-02-08T16:40:03.236825",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770557432",
+    "time": "2026-02-08T16:30:32.013608",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770557404",
+    "time": "2026-02-08T16:30:04.965878",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770557404",
+    "time": "2026-02-08T16:30:04.911282",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770557404",
+    "time": "2026-02-08T16:30:04.070009",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770557403",
+    "time": "2026-02-08T16:30:03.816966",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770557403",
+    "time": "2026-02-08T16:30:03.224375",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770556831",
+    "time": "2026-02-08T16:20:31.998623",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770556804",
+    "time": "2026-02-08T16:20:04.949195",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770556804",
+    "time": "2026-02-08T16:20:04.895428",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770556804",
+    "time": "2026-02-08T16:20:04.048558",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770556803",
+    "time": "2026-02-08T16:20:03.794456",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770556803",
+    "time": "2026-02-08T16:20:03.206903",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770556231",
+    "time": "2026-02-08T16:10:31.981369",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770556204",
+    "time": "2026-02-08T16:10:04.924569",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770556204",
+    "time": "2026-02-08T16:10:04.886245",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770556204",
+    "time": "2026-02-08T16:10:04.027544",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770556203",
+    "time": "2026-02-08T16:10:03.787081",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770556203",
+    "time": "2026-02-08T16:10:03.187333",
+    "component": "SYSTEM",
+    "issue": "Sentinel Crash",
+    "severity": "CRITICAL",
+    "status": "FAILED",
+    "details": "",
+    "auto_fix_possible": false
+  },
+  {
+    "id": "INC-1770553475",
+    "time": "2026-02-08T15:24:35.405794",
+    "component": "UNKNOWN",
+    "issue": "Test Incident",
+    "severity": "LOW",
+    "status": "TEST",
+    "details": "",
+    "auto_fix_possible": false
+  }
+]

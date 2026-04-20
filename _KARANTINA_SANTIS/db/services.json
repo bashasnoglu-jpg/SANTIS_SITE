@@ -1,0 +1,31 @@
+[
+    {
+        "id": "thai-massage-v1",
+        "slug": "royal-thai-massage",
+        "title_tr": "Kraliyet Thai Masajı",
+        "desc_tr": "Nuad Boran tekniği ile enerji hatlarını açan, 2500 yıllık geleneksel germe masajı.",
+        "category": "massage",
+        "cultural_world": "thai",
+        "image": "santis_card_thai_v1.webp",
+        "price": 3500,
+        "duration": 60,
+        "tags": [
+            "stretch",
+            "energy"
+        ],
+        "badge": "BEST"
+    },
+    {
+        "id": "svc_1770406778295",
+        "slug": "",
+        "title_tr": "",
+        "desc_tr": "Write for 'Spa Service'. Type: desc. — (warm mode) Otomatik üretilmiş örnek metin.",
+        "category": "hammam",
+        "cultural_world": null,
+        "image": "santis_card_massage_v1.webp",
+        "price": 0,
+        "duration": 60,
+        "tags": [],
+        "badge": ""
+    }
+]

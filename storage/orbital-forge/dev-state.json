@@ -1,0 +1,102 @@
+{
+  "assets": {
+    "ast_531516ef6e30689e": {
+      "assetId": "ast_531516ef6e30689e",
+      "publicId": "as_016fae07d406",
+      "tenantId": "tn_santis_club",
+      "originalFilename": "smoke.png",
+      "mimeType": "image/png",
+      "byteSize": 68,
+      "storageKey": "storage/orbital-forge/staging/upl_b4e48abdb55864c7.png",
+      "checksumSha256": "deadbeef",
+      "publicationState": "draft",
+      "visibility": "private",
+      "intent": "SMOKE",
+      "surfaceHint": "codex",
+      "createdAt": 1776627029272,
+      "updatedAt": 1776627029272,
+      "stagingPath": null,
+      "publishedPath": null
+    },
+    "ast_0b14ab5e4e3e7c38": {
+      "assetId": "ast_0b14ab5e4e3e7c38",
+      "publicId": "as_b5d000362d49",
+      "tenantId": "tn_santis_club",
+      "originalFilename": "orbital-forge-smoke.png",
+      "mimeType": "image/png",
+      "byteSize": 68,
+      "storageKey": "storage/uploads/published/as_b5d000362d49.png",
+      "checksumSha256": "e2a6478ffc2e9b9cb252b44d935b6db5cd3475bd62bb3c421ab0178c0d4cbfc3",
+      "publicationState": "published",
+      "visibility": "public-deliverable",
+      "intent": "SMOKE_TEST",
+      "surfaceHint": "codex/in-situ",
+      "createdAt": 1776627060353,
+      "updatedAt": 1776627060377,
+      "stagingPath": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\storage\\orbital-forge\\staging\\upl_c2b0169a6bc0007b.png",
+      "publishedPath": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\storage\\uploads\\published\\as_b5d000362d49.png",
+      "uploadedChecksumSha256": "e2a6478ffc2e9b9cb252b44d935b6db5cd3475bd62bb3c421ab0178c0d4cbfc3"
+    },
+    "ast_2b7f059d856fd738": {
+      "assetId": "ast_2b7f059d856fd738",
+      "publicId": "as_88a43d6163f9",
+      "tenantId": "tn_santis_club",
+      "originalFilename": "probe.png",
+      "mimeType": "image/png",
+      "byteSize": 1,
+      "storageKey": "storage/orbital-forge/staging/upl_f75b9c4c54269492.png",
+      "checksumSha256": "00",
+      "publicationState": "draft",
+      "visibility": "private",
+      "intent": null,
+      "surfaceHint": null,
+      "createdAt": 1776627147192,
+      "updatedAt": 1776627147192,
+      "stagingPath": null,
+      "publishedPath": null
+    },
+    "ast_562e47e4121a07ca": {
+      "assetId": "ast_562e47e4121a07ca",
+      "publicId": "as_45cc651475b5",
+      "tenantId": "tn_santis_club",
+      "originalFilename": "orbital-forge-smoke.png",
+      "mimeType": "image/png",
+      "byteSize": 68,
+      "storageKey": "storage/uploads/published/as_45cc651475b5.png",
+      "checksumSha256": "e2a6478ffc2e9b9cb252b44d935b6db5cd3475bd62bb3c421ab0178c0d4cbfc3",
+      "publicationState": "published",
+      "visibility": "public-deliverable",
+      "intent": "SMOKE_TEST",
+      "surfaceHint": "codex/vite-proxy",
+      "createdAt": 1776627355213,
+      "updatedAt": 1776627355247,
+      "stagingPath": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\storage\\orbital-forge\\staging\\upl_5c846555acf23b83.png",
+      "publishedPath": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\storage\\uploads\\published\\as_45cc651475b5.png",
+      "uploadedChecksumSha256": "e2a6478ffc2e9b9cb252b44d935b6db5cd3475bd62bb3c421ab0178c0d4cbfc3"
+    }
+  },
+  "seals": {
+    "upl_b4e48abdb55864c7": {
+      "uploadId": "upl_b4e48abdb55864c7",
+      "assetId": "ast_531516ef6e30689e",
+      "tenantId": "tn_santis_club",
+      "tokenHash": "bf06fbc3bf0ba5e93b87ddb415c48a165349e2bdb8ecc0ab28bfffd4a17b89cb",
+      "uploadTokenHash": "697866643d95ef5c999bed854caf2884768c7d7850bc497c9b52f4ef531e40dd",
+      "checksumSha256": "deadbeef",
+      "createdAt": 1776627029276,
+      "expiresAt": 1776630629276,
+      "locked": false
+    },
+    "upl_f75b9c4c54269492": {
+      "uploadId": "upl_f75b9c4c54269492",
+      "assetId": "ast_2b7f059d856fd738",
+      "tenantId": "tn_santis_club",
+      "tokenHash": "a6275a4fe29031f4199ae18dd2840666b08bec01d0f077fec872322a19198b63",
+      "uploadTokenHash": "f61d059cda078ffe49f831f460efd7a80f3fba50aa51a27daf64e5ef9f1e42b5",
+      "checksumSha256": "00",
+      "createdAt": 1776627147194,
+      "expiresAt": 1776630747194,
+      "locked": false
+    }
+  }
+}

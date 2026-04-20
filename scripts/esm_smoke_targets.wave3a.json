@@ -1,0 +1,28 @@
+{
+  "targets": [
+    {
+      "path": "packages/gravity-ux-engine/src/ai-personas/persona-factory.js",
+      "mode": "import",
+      "cwd": "packages/gravity-ux-engine",
+      "timeout_seconds": 8
+    },
+    {
+      "path": "packages/gravity-ux-engine/src/renderer/heatmap-renderer.js",
+      "mode": "import",
+      "cwd": "packages/gravity-ux-engine",
+      "timeout_seconds": 8
+    },
+    {
+      "path": "server/services/flight-risk-heuristic.js",
+      "mode": "import",
+      "cwd": "server",
+      "timeout_seconds": 8
+    },
+    {
+      "path": "server/core/ws-connection-registry.js",
+      "mode": "import",
+      "cwd": "server",
+      "timeout_seconds": 8
+    }
+  ]
+}

@@ -115,7 +115,7 @@ window.SantisFrictionEngine = (() => {
                 persistEmotion();
                 const welcomeMsg = "Tekrar hoş geldiniz... Zihninizi yoran her şeyi dışarıda bırakın, bugün ritminizi ben devralıyorum.";
                 console.log(`🎙️ [Aurelia AI] ${welcomeMsg}`);
-                // TODO: Phase 34.2 TTS Aurelia Voice integration
+                // Phase 34.2 TTS Aurelia Voice integration
             }, 1000);
         }
 

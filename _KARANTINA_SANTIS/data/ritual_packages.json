@@ -1,0 +1,82 @@
+{
+    "rituals": [
+        {
+            "id": "ottoman-apex",
+            "label": "Ottoman Apex Ritual",
+            "is_apex": true,
+            "category": "hamam",
+            "duration_minutes": 110,
+            "prices": {
+                "original": 150,
+                "sovereign": 125
+            },
+            "phases": {
+                "act_1": {
+                    "name": "Arınma",
+                    "detail": "Deniz tuzu ve lüks yağlar ile peeling."
+                },
+                "act_2": {
+                    "name": "Öz",
+                    "detail": "Geleneksel köpük ve derin doku masajı."
+                },
+                "act_3": {
+                    "name": "Mühür",
+                    "detail": "Volkanik maske ve aromaterapi."
+                }
+            },
+            "intent_tag": "luxury_stay"
+        },
+        {
+            "id": "deep-relax",
+            "label": "Deep Relax Program",
+            "is_apex": false,
+            "category": "massage",
+            "duration_minutes": 60,
+            "prices": {
+                "original": 110,
+                "sovereign": 95
+            },
+            "phases": {
+                "act_1": {
+                    "name": "Hazırlık",
+                    "detail": "Sıcak havlu kompresi."
+                },
+                "act_2": {
+                    "name": "Terapi",
+                    "detail": "İsveç masajı teknikleri."
+                },
+                "act_3": {
+                    "name": "Denge",
+                    "detail": "Bitki çayı ve ses banyosu."
+                }
+            },
+            "intent_tag": "mental"
+        },
+        {
+            "id": "royal-detox",
+            "label": "Royal Detox Therapy",
+            "is_apex": false,
+            "category": "spa",
+            "duration_minutes": 90,
+            "prices": {
+                "original": 130,
+                "sovereign": 105
+            },
+            "phases": {
+                "act_1": {
+                    "name": "Flora",
+                    "detail": "Organik yosun peeling ile detoksifikasyon."
+                },
+                "act_2": {
+                    "name": "Akış",
+                    "detail": "Lenfatik drenaj teknikleri."
+                },
+                "act_3": {
+                    "name": "Revital",
+                    "detail": "Ozon terapisi ve özel serum."
+                }
+            },
+            "intent_tag": "mental"
+        }
+    ]
+}

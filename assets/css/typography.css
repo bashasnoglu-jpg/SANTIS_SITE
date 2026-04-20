@@ -1,0 +1,35 @@
+:root {
+  --font-ui: "Santis Sans", "Santis Sans Fallback", Arial, sans-serif;
+  --font-display: "Santis Serif", "Santis Serif Fallback", Georgia, serif;
+
+  --line-body: 1.5;
+  --line-display: 1.04;
+  --tracking-kicker: 0.24em;
+}
+
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body,
+input,
+button,
+textarea,
+select {
+  font-family: var(--font-ui);
+  line-height: var(--line-body);
+}
+
+h1, h2, h3,
+.santis-display,
+.santis-editorial {
+  font-family: var(--font-display);
+  line-height: var(--line-display);
+}
+
+.santis-kicker {
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+}

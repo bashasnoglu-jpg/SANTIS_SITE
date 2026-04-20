@@ -1,0 +1,2611 @@
+{
+  "engine": "SANTIS Motion CSS Audit",
+  "version": "1.0.0",
+  "scanned_files": 442,
+  "changed_files": 0,
+  "safe_replacements_count": 0,
+  "manual_review_count": 287,
+  "findings_by_category": {
+    "transition-heavy-visual": 113,
+    "will-change-risk": 10,
+    "transition-layout-prop": 44,
+    "transition-property-all": 3,
+    "transition-property-heavy-visual": 8,
+    "transition-all": 95,
+    "inline-transition-all": 12,
+    "animation-risk": 2
+  },
+  "findings_by_severity": {
+    "medium": 133,
+    "high": 154
+  },
+  "summary": {
+    "status": "needs_review"
+  },
+  "safe_replacements": [],
+  "manual_review_items": [
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\animations.css",
+      "line": 147,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.8s ease-out, opacity 0.8s ease-out, color 0.8s ease-out, background-color 0.8s ease-out, border-color 0.8s ease-out, box-shadow 0.8s ease-out;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\aurelia-chat.css",
+      "line": 35,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1), color 0.6s cubic-bezier(0.19, 1, 0.22, 1), background-color 0.6s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.6s c",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\aurelia-chat.css",
+      "line": 182,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\bento-grid.css",
+      "line": 144,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\bento-grid.css",
+      "line": 187,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.8s ease, filter 0.8s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\bento-grid.css",
+      "line": 466,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), color 0.6s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.6s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.6s c",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\bento-grid.css",
+      "line": 483,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), color 0.6s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.6s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.6s c",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\bento-grid.css",
+      "line": 515,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s ease, opacity 0.4s ease, color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\bento-grid.css",
+      "line": 143,
+      "category": "will-change-risk",
+      "severity": "medium",
+      "snippet": "will-change: transform, opacity, border-color, box-shadow;",
+      "action": "manual-review",
+      "reason": "will-change maliyetli bir property'e işaret ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\bento-grid.css",
+      "line": 186,
+      "category": "will-change-risk",
+      "severity": "medium",
+      "snippet": "will-change: transform, filter;",
+      "action": "manual-review",
+      "reason": "will-change maliyetli bir property'e işaret ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\card-effects.css",
+      "line": 57,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\card-effects.css",
+      "line": 169,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s ease, opacity 0.4s ease, color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\card-effects.css",
+      "line": 227,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: left 0.8s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\card-effects.css",
+      "line": 291,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\card-effects.css",
+      "line": 445,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\category-listing.css",
+      "line": 58,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: color 0.35s ease, background 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\category-listing.css",
+      "line": 166,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: border-color 0.4s ease, box-shadow 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\checkout.css",
+      "line": 79,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "Transition: Cinematic Blur Logic */ .act-timeline { width: 100%;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\checkout.css",
+      "line": 94,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\checkout.css",
+      "line": 142,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: backdrop-filter 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\checkout.css",
+      "line": 230,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), border-",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\checkout.css",
+      "line": 311,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), border-",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\checkout.css",
+      "line": 331,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\components.css",
+      "line": 264,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\concierge.css",
+      "line": 60,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-colo",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\concierge.css",
+      "line": 390,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.2s, opacity 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s, box-shadow 0.2s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\concierge.css",
+      "line": 876,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\editorial-zigzag.css",
+      "line": 185,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: filter 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\editorial-zigzag.css",
+      "line": 497,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\editorial-zigzag.css",
+      "line": 895,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.5s ease 0.1s, opacity 0.5s ease 0.1s, color 0.5s ease 0.1s, background-color 0.5s ease 0.1s, border-color 0.5s ease 0.1s, box-shadow 0.5s ease 0.1s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\editorial-zigzag.css",
+      "line": 935,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.5s ease, opacity 0.5s ease, color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\editorial.css",
+      "line": 209,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.6s var(--ease-out-expo), box-shadow 0.6s var(--ease-out-expo);",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\editorial.css",
+      "line": 245,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 1.2s var(--ease-out-expo), filter 0.6s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\gallery.css",
+      "line": 50,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\gallery.css",
+      "line": 58,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.8s ease, opacity 0.8s ease, color 0.8s ease, background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\gallery.css",
+      "line": 246,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.8s ease, opacity 0.8s ease, color 0.8s ease, background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\gallery.css",
+      "line": 549,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), width 0.2s, height 0.2s, background-color 0.2s;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\gallery.css",
+      "line": 659,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: background-color 0.4s ease, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\gallery.css",
+      "line": 756,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\GodsEye.css",
+      "line": 81,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\hero-slider.css",
+      "line": 151,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 1s ease 0.5s, opacity 1s ease 0.5s, color 1s ease 0.5s, background-color 1s ease 0.5s, border-color 1s ease 0.5s, box-shadow 1s ease 0.5s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\hero-slider.css",
+      "line": 177,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 1s ease 0.8s, opacity 1s ease 0.8s, color 1s ease 0.8s, background-color 1s ease 0.8s, border-color 1s ease 0.8s, box-shadow 1s ease 0.8s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\hero-slider.css",
+      "line": 215,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.1s linear;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\luxury-cards.css",
+      "line": 263,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform var(--duration-normal) var(--ease-luxury), box-shadow var(--duration-normal) var(--ease-luxury), border-color var(--duration-fast) var(--ease-luxury);",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\luxury-cards.css",
+      "line": 371,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform var(--duration-slow) var(--ease-luxury), filter var(--duration-normal) var(--ease-luxury);",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\luxury-cards.css",
+      "line": 449,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform var(--duration-fast) var(--ease-luxury), opacity var(--duration-fast) var(--ease-luxury), color var(--duration-fast) var(--ease-luxury), background-color var(--duration-fast) var(--ease-luxury), bor",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\luxury-cards.css",
+      "line": 753,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform var(--duration-fast) var(--ease-luxury), opacity var(--duration-fast) var(--ease-luxury), color var(--duration-fast) var(--ease-luxury), background-color var(--duration-fast) var(--ease-luxury), bor",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\luxury-cards.css",
+      "line": 1101,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform var(--duration-fast) var(--ease-bounce), opacity var(--duration-fast) var(--ease-bounce), color var(--duration-fast) var(--ease-bounce), background-color var(--duration-fast) var(--ease-bounce), bor",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\luxury-cards.css",
+      "line": 1195,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform var(--duration-fast) var(--ease-luxury), opacity var(--duration-fast) var(--ease-luxury), color var(--duration-fast) var(--ease-luxury), background-color var(--duration-fast) var(--ease-luxury), bor",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\luxury_engine.css",
+      "line": 22,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: right 400ms cubic-bezier(0.175, 0.885, 0.32, 1.15);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\luxury_engine.css",
+      "line": 105,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\luxury_engine.css",
+      "line": 176,
+      "category": "will-change-risk",
+      "severity": "medium",
+      "snippet": "will-change: transform, opacity, filter;",
+      "action": "manual-review",
+      "reason": "will-change maliyetli bir property'e işaret ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\master-cards.css",
+      "line": 45,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s, opacity 0.3s, color 0.3s, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\moods.css",
+      "line": 202,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s ease, opacity 0.4s ease, color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\output.css",
+      "line": 4857,
+      "category": "transition-property-all",
+      "severity": "high",
+      "snippet": "transition-property: all;",
+      "action": "safe-replace-candidate",
+      "reason": "transition-property: all açıkça yasaklı."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\output.css",
+      "line": 4849,
+      "category": "transition-property-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;",
+      "action": "manual-review",
+      "reason": "transition-property box-shadow/filter/backdrop-filter içeriyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\output.css",
+      "line": 4850,
+      "category": "transition-property-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;",
+      "action": "manual-review",
+      "reason": "transition-property box-shadow/filter/backdrop-filter içeriyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\output.css",
+      "line": 4851,
+      "category": "transition-property-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;",
+      "action": "manual-review",
+      "reason": "transition-property box-shadow/filter/backdrop-filter içeriyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\output.css",
+      "line": 4875,
+      "category": "transition-property-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition-property: box-shadow;",
+      "action": "manual-review",
+      "reason": "transition-property box-shadow/filter/backdrop-filter içeriyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\preloader-cinema.css",
+      "line": 37,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 1.2s ease-out, opacity 1.2s ease-out, color 1.2s ease-out, background-color 1.2s ease-out, border-color 1.2s ease-out, box-shadow 1.2s ease-out;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\preloader-cinema.css",
+      "line": 55,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.5s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-accordion.css",
+      "line": 41,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s cubic",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-accordion.css",
+      "line": 74,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: max-height 0.6s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.6s ease, transform 0.6s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-god-mode.css",
+      "line": 81,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-god-mode.css",
+      "line": 195,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.1s linear;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-rail.css",
+      "line": 97,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-rail.css",
+      "line": 357,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: filter 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-soul.css",
+      "line": 142,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-sovereign-ui.css",
+      "line": 36,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-sovereign.css",
+      "line": 6278,
+      "category": "transition-property-all",
+      "severity": "high",
+      "snippet": "transition-property: all;",
+      "action": "safe-replace-candidate",
+      "reason": "transition-property: all açıkça yasaklı."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-sovereign.css",
+      "line": 6273,
+      "category": "transition-property-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, r",
+      "action": "manual-review",
+      "reason": "transition-property box-shadow/filter/backdrop-filter içeriyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-sovereign.css",
+      "line": 6293,
+      "category": "transition-property-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition-property: box-shadow;",
+      "action": "manual-review",
+      "reason": "transition-property box-shadow/filter/backdrop-filter içeriyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\service-detail.css",
+      "line": 258,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: max-height 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\style-admin.css",
+      "line": 134,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\style-admin.css",
+      "line": 280,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.2s, opacity 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s, box-shadow 0.2s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\style-admin.css",
+      "line": 580,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s, opacity 0.3s, color 0.3s, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\style-admin.css",
+      "line": 761,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.2s, opacity 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s, box-shadow 0.2s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\style-admin.css",
+      "line": 879,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\style-admin.css",
+      "line": 934,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.4s ease-out;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\style-admin.css",
+      "line": 1020,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\style.css",
+      "line": 113,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: box-shadow 0.1s linear;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\style.css",
+      "line": 303,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: opacity 0.1s ease-out, backdrop-filter 0.1s ease-out;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\style.css",
+      "line": 339,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease, border-color 0.6s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\style.css",
+      "line": 411,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), width 0.6s cubic-bezier(0.22, 1, 0.36, 1), height 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-radius 0.6s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\style.css",
+      "line": 415,
+      "category": "will-change-risk",
+      "severity": "medium",
+      "snippet": "will-change: transform, width, height, border-radius;",
+      "action": "manual-review",
+      "reason": "will-change maliyetli bir property'e işaret ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\style.css",
+      "line": 525,
+      "category": "will-change-risk",
+      "severity": "medium",
+      "snippet": "will-change: transform, width, height, border-radius;",
+      "action": "manual-review",
+      "reason": "will-change maliyetli bir property'e işaret ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\vault_scarcity_v1.css",
+      "line": 88,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s ease, box-shadow 0.4s ease !important;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\video-hero.css",
+      "line": 409,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\base\\grid-engine.css",
+      "line": 103,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\base\\grid-engine.css",
+      "line": 127,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), filter 0.8s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\modules\\cards.css",
+      "line": 75,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)), box-shadow 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\modules\\cards.css",
+      "line": 96,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\modules\\cards.css",
+      "line": 213,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s, opacity 0.3s, color 0.3s, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\modules\\cards.css",
+      "line": 256,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: left 0.8s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\modules\\cards.css",
+      "line": 379,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s ease, opacity 0.4s ease, color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\modules\\cards.css",
+      "line": 380,
+      "category": "will-change-risk",
+      "severity": "medium",
+      "snippet": "will-change: transform, box-shadow;",
+      "action": "manual-review",
+      "reason": "will-change maliyetli bir property'e işaret ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\modules\\global-trends.css",
+      "line": 82,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\modules\\global-trends.css",
+      "line": 123,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.8s ease, filter 0.8s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\modules\\global-trends.css",
+      "line": 83,
+      "category": "will-change-risk",
+      "severity": "medium",
+      "snippet": "will-change: transform, box-shadow;",
+      "action": "manual-review",
+      "reason": "will-change maliyetli bir property'e işaret ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\modules\\global-trends.css",
+      "line": 124,
+      "category": "will-change-risk",
+      "severity": "medium",
+      "snippet": "will-change: transform, filter;",
+      "action": "manual-review",
+      "reason": "will-change maliyetli bir property'e işaret ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\modules\\signature-cards.css",
+      "line": 36,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\modules\\signature-cards.css",
+      "line": 37,
+      "category": "will-change-risk",
+      "severity": "medium",
+      "snippet": "will-change: transform, box-shadow;",
+      "action": "manual-review",
+      "reason": "will-change maliyetli bir property'e işaret ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\modules\\testimonials.css",
+      "line": 30,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\modules\\testimonials.css",
+      "line": 31,
+      "category": "will-change-risk",
+      "severity": "medium",
+      "snippet": "will-change: transform, box-shadow;",
+      "action": "manual-review",
+      "reason": "will-change maliyetli bir property'e işaret ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.bento-grid.css",
+      "line": 23,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.boutique.css",
+      "line": 150,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: box-shadow 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.boutique.css",
+      "line": 216,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.boutique.css",
+      "line": 242,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.components.css",
+      "line": 111,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.components.css",
+      "line": 226,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 1.8s var(--ease-lux), filter 1.8s var(--ease-lux), opacity 1.8s var(--ease-lux);",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.components.css",
+      "line": 280,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 1s var(--ease-lux);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.cursor.css",
+      "line": 43,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.guided-commerce.css",
+      "line": 53,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 204,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s var(--ease-out-expo), opacity 0.4s var(--ease-out-expo), color 0.4s var(--ease-out-expo), background-color 0.4s var(--ease-out-expo), border-color 0.4s var(--ease-out-expo), box-shadow 0.4s var",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 256,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 267,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.4s var(--ease-out-expo);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 298,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.5s var(--ease-out-expo), opacity 0.5s var(--ease-out-expo), color 0.5s var(--ease-out-expo), background-color 0.5s var(--ease-out-expo), border-color 0.5s var(--ease-out-expo), box-shadow 0.5s var",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 417,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 491,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 576,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 833,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s c",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 997,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s ease, opacity 0.4s ease, color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 1200,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 1235,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.2s, opacity 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s, box-shadow 0.2s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 1271,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.2s, opacity 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s, box-shadow 0.2s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 1481,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 1501,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s, opacity 0.3s, color 0.3s, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 1700,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.8s ease-out, opacity 0.8s ease-out, color 0.8s ease-out, background-color 0.8s ease-out, border-color 0.8s ease-out, box-shadow 0.8s ease-out;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 1750,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 1907,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 2286,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: filter 1s ease, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\assets\\css\\santis-v6\\santis.legacy-compat.css",
+      "line": 2306,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.15s linear, box-shadow 0.4s ease, border-color 0.4s ease, opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\index.html",
+      "line": 708,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition:all 0.4s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\index.html",
+      "line": 32,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: filter 0.8s ease-out, opacity 0.8s ease-out;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\index.html",
+      "line": 852,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition:background 0.25s ease, border-color 0.25s ease', 'backdrop-filter:blur(6px)' ].join(';",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\index.html",
+      "line": 708,
+      "category": "inline-transition-all",
+      "severity": "high",
+      "snippet": "style=\"border:1px solid #d4af37; color:#d4af37; padding:15px 40px; font-size:14px; letter-spacing:2px; display:inline-block; transition:all 0.4s ease; background:rgba(212,175,55,0.05); text-decoration:none;\"",
+      "action": "manual-review",
+      "reason": "Inline style içinde transition: all bulundu; otomatik düzeltme güvenli değil."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\longevity-membership.html",
+      "line": 57,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\longevity-membership.html",
+      "line": 193,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\build-your-ritual\\index.html",
+      "line": 35,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\collections\\index.html",
+      "line": 36,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.4s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\collections\\index.html",
+      "line": 45,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\hamam\\index.html",
+      "line": 466,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\hamam\\index.html",
+      "line": 661,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\hediye-karti\\index.html",
+      "line": 53,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\hediye-karti\\index.html",
+      "line": 92,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\paketler\\index.html",
+      "line": 124,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform var(--transition-kinetic, 0.6s), box-shadow var(--transition-kinetic, 0.6s), border-color var(--transition-fast, 0.2s);",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\paketler\\index.html",
+      "line": 153,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.8s var(--ease-spring, cubic-bezier(0.23,1,0.32,1)), filter 0.8s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\rezervasyon\\index.html",
+      "line": 177,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\rituals\\success.html",
+      "line": 113,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.4s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\urunler\\detay.html",
+      "line": 126,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition:all .3s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\urunler\\detay.html",
+      "line": 126,
+      "category": "inline-transition-all",
+      "severity": "high",
+      "snippet": "style=\"padding:1.25rem 3rem;background:linear-gradient(135deg,#D4AF37,#aa8a2a);color:#000;font-weight:700;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;border:none;cursor:pointer;border-radius:2px;transiti",
+      "action": "manual-review",
+      "reason": "Inline style içinde transition: all bulundu; otomatik düzeltme güvenli değil."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\paketler\\bronze\\index.html",
+      "line": 82,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition:background 0.3s,box-shadow 0.3s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\paketler\\child-care\\index.html",
+      "line": 135,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: background 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\paketler\\delux\\index.html",
+      "line": 256,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: background 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\paketler\\medical\\index.html",
+      "line": 82,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition:background 0.3s,box-shadow 0.3s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tr\\paketler\\relax\\index.html",
+      "line": 82,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition:background 0.3s,box-shadow 0.3s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\billing-success.html",
+      "line": 158,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\billing-success.html",
+      "line": 166,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\black-room.html",
+      "line": 104,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\black-room.html",
+      "line": 232,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\black-room.html",
+      "line": 379,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\black-room.html",
+      "line": 432,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\black-room.html",
+      "line": 449,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\black-room.html",
+      "line": 494,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\black-room.html",
+      "line": 597,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition:all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\black-room.html",
+      "line": 262,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\black-room.html",
+      "line": 346,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\black-room.html",
+      "line": 594,
+      "category": "inline-transition-all",
+      "severity": "high",
+      "snippet": "style=\"width:100%;padding:10px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer; background:linear-gradient(135deg,rgba(0,217,255,0.2),rgba(0,217,255,0.1)); border:1px solid rgba(0,217,255,0.35);color:var(",
+      "action": "manual-review",
+      "reason": "Inline style içinde transition: all bulundu; otomatik düzeltme güvenli değil."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\boardroom.html",
+      "line": 33,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\boardroom.html",
+      "line": 88,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\boardroom.html",
+      "line": 133,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\boardroom.html",
+      "line": 194,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\boardroom.html",
+      "line": 249,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\boardroom.html",
+      "line": 598,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition:all .25s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\boardroom.html",
+      "line": 611,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition:all .25s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\boardroom.html",
+      "line": 1303,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\boardroom.html",
+      "line": 592,
+      "category": "inline-transition-all",
+      "severity": "high",
+      "snippet": "style=\" width:100%;padding:10px 14px;margin-bottom:8px; background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2); color:#D4AF37;border-radius:8px;font-size:10px;font-weight:600; letter-spacing:1.5px;text-tran",
+      "action": "manual-review",
+      "reason": "Inline style içinde transition: all bulundu; otomatik düzeltme güvenli değil."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\boardroom.html",
+      "line": 605,
+      "category": "inline-transition-all",
+      "severity": "high",
+      "snippet": "style=\" width:100%;padding:10px 14px; background:rgba(255,59,48,.04);border:1px solid rgba(255,59,48,.15); color:rgba(255,99,88,.8);border-radius:8px;font-size:10px;font-weight:600; letter-spacing:1.5px;text-transform:up",
+      "action": "manual-review",
+      "reason": "Inline style içinde transition: all bulundu; otomatik düzeltme güvenli değil."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\chameleon-settings.html",
+      "line": 102,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\chameleon-settings.html",
+      "line": 230,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\chameleon-settings.html",
+      "line": 377,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\chameleon-settings.html",
+      "line": 430,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\chameleon-settings.html",
+      "line": 447,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\chameleon-settings.html",
+      "line": 492,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\chameleon-settings.html",
+      "line": 599,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition:all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\chameleon-settings.html",
+      "line": 260,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\chameleon-settings.html",
+      "line": 344,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\chameleon-settings.html",
+      "line": 596,
+      "category": "inline-transition-all",
+      "severity": "high",
+      "snippet": "style=\"width:100%;padding:10px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer; background:linear-gradient(135deg,rgba(0,217,255,0.2),rgba(0,217,255,0.1)); border:1px solid rgba(0,217,255,0.35);color:var(",
+      "action": "manual-review",
+      "reason": "Inline style içinde transition: all bulundu; otomatik düzeltme güvenli değil."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\command-center.html",
+      "line": 51,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\command-center.html",
+      "line": 122,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\command-center.html",
+      "line": 165,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.5s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\command-center.html",
+      "line": 217,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\command-center.html",
+      "line": 110,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: height 0.3s ease-in-out;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\command-center.html",
+      "line": 534,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\dashboard-analytics.js",
+      "line": 97,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s, box-shadow 0.3s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\dashboard-analytics.js",
+      "line": 120,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 1s ease-out;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\gallery-upload.html",
+      "line": 63,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\gallery-upload.html",
+      "line": 85,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\god-mode.html",
+      "line": 85,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\god-mode.html",
+      "line": 307,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\god-mode.html",
+      "line": 324,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\god-mode.html",
+      "line": 300,
+      "category": "inline-transition-all",
+      "severity": "high",
+      "snippet": "style=\" background: linear-gradient(90deg, #001a33, #002244); color: #0A84FF; border: 1px solid #0A84FF; padding: 10px 12px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; border-radius: 6px; box-shadow: 0",
+      "action": "manual-review",
+      "reason": "Inline style içinde transition: all bulundu; otomatik düzeltme güvenli değil."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\god-mode.html",
+      "line": 317,
+      "category": "inline-transition-all",
+      "severity": "high",
+      "snippet": "style=\" background: transparent; color: #FF3B30; border: 1px solid #FF3B30; padding: 10px 12px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; opacity: 0.4; border-radius: 6px; display: flex; justify-conte",
+      "action": "manual-review",
+      "reason": "Inline style içinde transition: all bulundu; otomatik düzeltme güvenli değil."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\i18n-dashboard.js",
+      "line": 202,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition:all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\inline-panels.js",
+      "line": 709,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition:width 0.5s;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\page-builder.js",
+      "line": 63,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition:all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\page-builder.js",
+      "line": 63,
+      "category": "inline-transition-all",
+      "severity": "high",
+      "snippet": "style = \"background:#1a1a1a; margin-bottom:15px; border:1px solid #333; border-radius:8px; overflow:hidden; transition:all 0.2s;\"",
+      "action": "manual-review",
+      "reason": "Inline style içinde transition: all bulundu; otomatik düzeltme güvenli değil."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\pulse-simulator.html",
+      "line": 38,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\pulse-simulator.html",
+      "line": 69,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\pulse-simulator.html",
+      "line": 106,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\pulse-simulator.html",
+      "line": 166,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.3s;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\resilience-simulator.html",
+      "line": 31,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease-in-out;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\revenue.html",
+      "line": 224,
+      "category": "animation-risk",
+      "severity": "medium",
+      "snippet": "Animation: { enabled: true, speed: 350 } } }, colors: ['#06b6d4'], // Cyan-500 fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.7, opacityTo: 0.1, stops: [0, 90, 100], colorStops: [ { offset: 0, co",
+      "action": "manual-review",
+      "reason": "Animation deklarasyonu riskli property kombinasyonlarıyla ilişkili olabilir."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\semantic-simulator.html",
+      "line": 46,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\sovereign-control-plane.html",
+      "line": 41,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.3s;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\sovereign-dashboard.html",
+      "line": 159,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\sovereign-lab.html",
+      "line": 171,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\sovereign-lab.html",
+      "line": 423,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition:all 0.3s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\sovereign-lab.html",
+      "line": 424,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition:all 0.3s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\sovereign-lab.html",
+      "line": 282,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: filter 0.8s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\sovereign-lab.html",
+      "line": 423,
+      "category": "inline-transition-all",
+      "severity": "high",
+      "snippet": "style=\"display:block; font-size:10px; padding:8px 12px; border:1px solid rgba(212,175,55,0.4); border-radius:6px; text-decoration:none; letter-spacing:2px; font-weight:600; transition:all 0.3s;\"",
+      "action": "manual-review",
+      "reason": "Inline style içinde transition: all bulundu; otomatik düzeltme güvenli değil."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\sovereign-lab.html",
+      "line": 424,
+      "category": "inline-transition-all",
+      "severity": "high",
+      "snippet": "style=\"display:block; font-size:10px; padding:8px 12px; border:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.4); border-radius:6px; text-decoration:none; letter-spacing:2px; transition:all 0.3s;\"",
+      "action": "manual-review",
+      "reason": "Inline style içinde transition: all bulundu; otomatik düzeltme güvenli değil."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\sovereign-quorum.html",
+      "line": 22,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\sovereign-quorum.html",
+      "line": 49,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\style-admin.css",
+      "line": 279,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "safe-replace-candidate",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\style-admin.css",
+      "line": 579,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s;",
+      "action": "safe-replace-candidate",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\style-admin.css",
+      "line": 760,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "safe-replace-candidate",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\style-admin.css",
+      "line": 1019,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "safe-replace-candidate",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\style-admin.css",
+      "line": 133,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\style-admin.css",
+      "line": 878,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.3s ease, box-shadow 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\style-admin.css",
+      "line": 933,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.4s ease-out;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\style-v2.css",
+      "line": 138,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "safe-replace-candidate",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\style-v2.css",
+      "line": 161,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s 0.1s;",
+      "action": "safe-replace-candidate",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\style-v2.css",
+      "line": 268,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "safe-replace-candidate",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\style-v2.css",
+      "line": 365,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s;",
+      "action": "safe-replace-candidate",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\style-v2.css",
+      "line": 769,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "safe-replace-candidate",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\style-v2.css",
+      "line": 99,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.4s var(--ease-out-expo);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\style-v2.css",
+      "line": 812,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.6s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\world_table.html",
+      "line": 89,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\core\\health-overlay.js",
+      "line": 27,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition:all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\css\\admin-omni-nav.css",
+      "line": 98,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s ease;",
+      "action": "safe-replace-candidate",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\css\\admin-omni-nav.css",
+      "line": 159,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "safe-replace-candidate",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\css\\admin-omni-nav.css",
+      "line": 3,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: filter 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\modules\\command_center.js",
+      "line": 315,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\modules\\hub.js",
+      "line": 434,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition:box-shadow 1s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\omniverse\\council-arena.html",
+      "line": 73,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.3s;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\omniverse\\evolution-arena.html",
+      "line": 47,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.3s;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\omniverse\\oracle-console.html",
+      "line": 51,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.3s;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\gods-eye-command.html",
+      "line": 132,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\gods-eye-v2.html",
+      "line": 166,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.5s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\gods-eye-v2.html",
+      "line": 435,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\gods-eye-v2.html",
+      "line": 139,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: opacity 0.6s ease, filter 0.6s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\gods-eye-v2.html",
+      "line": 363,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\gods-eye-v3.html",
+      "line": 98,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\gods-eye-v3.html",
+      "line": 195,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\gods-eye.html",
+      "line": 26,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\gods-eye.html",
+      "line": 31,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.25s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\gods-eye.html",
+      "line": 36,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.25s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\gods-eye.html",
+      "line": 51,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\prototype-cms-v5.html",
+      "line": 56,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\prototype-cms-v5.html",
+      "line": 149,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.1s ease-out;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\prototype-cms-v5.html",
+      "line": 292,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\prototype-cms-v5.html",
+      "line": 299,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\prototype-cms-v5.html",
+      "line": 349,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\prototype-cms-v5.html",
+      "line": 384,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_quarantine\\zombie_scripts_v1\\core\\health-overlay.js",
+      "line": 27,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition:all 0.3s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\prototypes\\pulse-simulator.html",
+      "line": 38,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\prototypes\\pulse-simulator.html",
+      "line": 69,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\prototypes\\pulse-simulator.html",
+      "line": 106,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\prototypes\\pulse-simulator.html",
+      "line": 167,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.3s;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\prototypes\\resilience-simulator.html",
+      "line": 31,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s ease-in-out;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\_archive\\prototypes\\semantic-simulator.html",
+      "line": 46,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\omniverse\\css\\omniverse.css",
+      "line": 145,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.2s ease;",
+      "action": "safe-replace-candidate",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\gods-eye\\components\\GodsEye.css",
+      "line": 103,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: width 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\gods-eye\\components\\MatrixImage.jsx",
+      "line": 34,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: 'opacity 0.4s ease-in-out', // Siberpunk Fade-in filter: isLoaded ? 'none' : 'blur(10px)', }} loading=\"lazy\" // Tarayıcı sadece ekrana girdiğinde çeker decoding=\"async\" // Main thread'i tıkamaz /> </div> );",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\boardroom\\components\\AnomalyBanner.tsx",
+      "line": 88,
+      "category": "animation-risk",
+      "severity": "medium",
+      "snippet": "animation: hasCritical ? 'anomaly-pulse 2s ease-in-out infinite' : 'none', }}> {/* Banner header */} <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 14px', background: ",
+      "action": "manual-review",
+      "reason": "Animation deklarasyonu riskli property kombinasyonlarıyla ilişkili olabilir."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\boardroom\\components\\BoardroomTelemetry.tsx",
+      "line": 198,
+      "category": "transition-layout-prop",
+      "severity": "high",
+      "snippet": "transition: 'background 0.1s', }} onMouseEnter={e => (e.currentTarget.style.background = '#1e1e26')} onMouseLeave={e => (e.currentTarget.style.background = 'transparent')} > <div> <div style={{ fontSize: 12, color: '#f59",
+      "action": "manual-review",
+      "reason": "Transition içinde layout-affecting property tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\assets\\css\\tailwind-admin.css",
+      "line": 6859,
+      "category": "transition-property-all",
+      "severity": "high",
+      "snippet": "transition-property: all;",
+      "action": "safe-replace-candidate",
+      "reason": "transition-property: all açıkça yasaklı."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\assets\\css\\tailwind-admin.css",
+      "line": 6854,
+      "category": "transition-property-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, r",
+      "action": "manual-review",
+      "reason": "transition-property box-shadow/filter/backdrop-filter içeriyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\assets\\css\\tailwind-admin.css",
+      "line": 6874,
+      "category": "transition-property-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition-property: box-shadow;",
+      "action": "manual-review",
+      "reason": "transition-property box-shadow/filter/backdrop-filter içeriyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\assets\\js\\admin-nav.js",
+      "line": 87,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.15s ease;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\assets\\js\\admin-nav.js",
+      "line": 137,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.15s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\assets\\js\\admin-nav.js",
+      "line": 177,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.1s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\assets\\js\\admin-nav.js",
+      "line": 259,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition:all 0.15s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\assets\\js\\santis-apex-admin.js",
+      "line": 99,
+      "category": "transition-all",
+      "severity": "high",
+      "snippet": "transition: all 0.3s;",
+      "action": "manual-review",
+      "reason": "transition: all composite-only motion disiplinini ihlal ediyor."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\assets\\js\\santis-apex-admin.js",
+      "line": 64,
+      "category": "transition-heavy-visual",
+      "severity": "medium",
+      "snippet": "transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.3s ease;",
+      "action": "manual-review",
+      "reason": "Transition içinde box-shadow/filter/backdrop-filter tespit edildi."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\admin\\assets\\js\\santis-apex-admin.js",
+      "line": 99,
+      "category": "inline-transition-all",
+      "severity": "high",
+      "snippet": "style=\"color: #C9A96E; text-decoration: none; border: 1px solid rgba(201,169,110,0.5); padding: 6px 16px; border-radius: 4px; font-size: 0.70rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; transit",
+      "action": "manual-review",
+      "reason": "Inline style içinde transition: all bulundu; otomatik düzeltme güvenli değil."
+    }
+  ]
+}

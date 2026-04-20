@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Yöneticisi | Satış Radarı V10</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#050505">
+    
+    <script type="module" src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="hq-dashboard/css/hq-cyber-luxury.css">
+    
+    <script>
+        tailwind.config = { theme: { extend: { colors: { santisBlack: '#050505', santisEmerald: '#10b981', santisGold: '#d4af37' }, fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] } } } }
+    </script>
+</head>
+<body class="bg-santisBlack text-white min-h-screen overflow-x-hidden p-4 md:p-8 selection:bg-santisEmerald/30 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.05),transparent_40%),radial-gradient(circle_at_bottom_left,rgba(212,175,55,0.03),transparent_40%)]">
+    
+    <div class="max-w-7xl mx-auto relative z-10">
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 transition-all duration-700 opacity-0 translate-y-4" id="ui-header">
+            <div>
+                <h2 class="text-santisGold text-xs uppercase tracking-[0.3em] font-semibold mb-2" id="reset-trigger" style="cursor:crosshair;">Sovereign Yöneticisi</h2>
+                <h1 class="font-serif text-3xl md:text-5xl text-white tracking-wide">Satış Radarı<span class="text-santisEmerald text-4xl leading-none">.</span></h1>
+            </div>
+            <div class="mt-4 md:mt-0 glass-panel px-5 py-2.5 rounded-full border border-santisEmerald/20 flex items-center gap-3 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                <span class="relative flex h-2.5 w-2.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-santisEmerald opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-santisEmerald"></span>
+                </span>
+                <span class="text-xs tracking-widest text-santisEmerald font-medium uppercase">CQRS Senkronizasyonu Aktif</span>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 transition-all duration-700 delay-100 opacity-0 translate-y-4" id="ui-vitals">
+            <div class="glass-panel p-6 relative overflow-hidden group">
+                <div class="absolute -right-6 -top-6 w-32 h-32 bg-santisEmerald/10 rounded-full blur-2xl transition-all duration-700 group-hover:bg-santisEmerald/20"></div>
+                <h3 class="text-cyber-muted text-[10px] font-medium mb-2 uppercase tracking-widest">Günün Cirosu / Projeksiyon</h3>
+                <div class="flex items-baseline gap-2">
+                    <span class="font-serif text-4xl text-white transition-all duration-500" id="vital-revenue">Yükleniyor...</span>
+                    <span class="text-xl text-gray-500">€</span>
+                </div>
+            </div>
+            <div class="glass-panel p-6 relative overflow-hidden group border-b-2 border-santisGold/20">
+                <div class="absolute -right-6 -top-6 w-32 h-32 bg-santisGold/10 rounded-full blur-2xl transition-all duration-700 group-hover:bg-santisGold/20"></div>
+                <h3 class="text-cyber-muted text-[10px] font-medium mb-2 uppercase tracking-widest">Otonom İkna Oranı</h3>
+                <div class="flex items-baseline gap-1">
+                    <span class="font-serif text-4xl text-santisGold">%<span id="vital-conversion">0</span></span>
+                </div>
+            </div>
+            <div class="glass-panel p-6">
+                <h3 class="text-cyber-muted text-[10px] font-medium mb-2 uppercase tracking-widest">Aktif Operasyon Kapasitesi</h3>
+                <div class="flex items-baseline gap-1 mb-3">
+                    <span class="font-serif text-4xl text-white" id="vital-capacity">85</span><span class="text-xl text-gray-500">%</span>
+                </div>
+                <div class="w-full bg-black/50 rounded-full h-1.5 border border-white/5 overflow-hidden">
+                    <div class="bg-gradient-to-r from-santisEmerald/50 to-santisEmerald h-1.5 rounded-full transition-all duration-1000" id="capacity-bar" style="width: 85%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 transition-all duration-700 delay-200 opacity-0 translate-y-4" id="ui-core">
+            <div class="glass-panel p-6 lg:col-span-2">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-white font-serif text-xl">Satış Projeksiyonu</h3>
+                </div>
+                <div class="h-64 w-full"><canvas id="revenueChart"></canvas></div>
+            </div>
+            <div class="glass-panel p-6 overflow-hidden flex flex-col h-full hq-modal-layer">
+                <h3 class="text-white font-serif text-xl border-b border-white/5 pb-4 mb-4">Canlı Radar Akışı</h3>
+                <div class="flex-1 overflow-y-auto wss-feed-container space-y-3" id="live-feed-list" style="max-height: 256px;">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="hq-dashboard/js/admin-radar.js"></script>
+    <script type="module" src="/admin/js/core/admin-command-launcher.js"></script>
+</body>
+</html>
+

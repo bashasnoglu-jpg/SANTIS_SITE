@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANTIS | Sovereign UI Lab</title>
+    <!-- Reset & Core Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- UI Kit CSS -->
+    <link rel="stylesheet" href="./assets/css/santis-sovereign-ui.css">
+    
+    <style>
+        /* Lab Environment Reset */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #050505;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .lab-container {
+            width: 100%;
+            max-width: 900px;
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .section-title {
+            color: #666;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-bottom: 2rem;
+            text-align: center;
+            border-bottom: 1px solid #222;
+            padding-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lab-container">
+        <!-- 1. Magnetic Button V3 -->
+        <div>
+            <div class="section-title">1. Manyetik Çekim Alanı (Apex CTA)</div>
+            <button class="btn-magnetic">WHATSAPP İLE ONAYLA</button>
+        </div>
+
+        <!-- 2. Whisper Input -->
+        <div style="width: 100%; max-width: 400px;">
+            <div class="section-title">2. Whisper Input (Zero Border)</div>
+            
+            <div class="whisper-group">
+                <input type="text" id="name" class="input-whisper" autocomplete="off">
+                <label for="name" class="label-whisper">Adınız Soyadınız</label>
+            </div>
+            
+            <div class="whisper-group">
+                <input type="tel" id="tel" class="input-whisper" autocomplete="off">
+                <label for="tel" class="label-whisper">Telefon Numaranız</label>
+            </div>
+        </div>
+
+        <!-- 3. Glass Modal Trigger -->
+        <div>
+            <div class="section-title">3. Sovereign Glass Modal</div>
+            <a href="#" class="btn-magnetic" style="border-color: #555; color: #ccc;" onclick="openModal(event)">
+                KAPILARI AÇ
+            </a>
+        </div>
+    </div>
+
+    <!-- The Glass Modal Skeleton -->
+    <div class="modal-glass-backdrop" id="demo-modal" onclick="closeModal(event)">
+        <!-- Prevent click propagation inside modal -->
+        <div class="modal-glass" onclick="event.stopPropagation()">
+            <h2 style="font-weight: 300; font-size: 28px; margin-bottom: 10px;">Sovereign Protocol</h2>
+            <p style="color: #999; font-size: 14px; line-height: 1.6; margin-bottom: 30px;">
+                Bu katman Absolute Metal felsefesiyle inşa edilmiştir. Sıfır JavaScript Reflow ile tamamen GPU üzerinde render edilir. Katı cisim hissini korur.
+            </p>
+            <div style="display: flex; justify-content: flex-end; gap: 15px;">
+                <button onclick="closeModal(event)" style="background:none; border:none; color: #666; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer;">İptal</button>
+                <button class="btn-magnetic" onclick="closeModal(event)" style="padding: 12px 24px; font-size: 10px; border-color: #D4AF37;">MÜHÜRLE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- UI Engine Injection -->
+    <script type="module" src="./assets/js/core/santis-ui-engine.js"></script>
+    <script>
+        function openModal(e) {
+            e.preventDefault();
+            document.getElementById('demo-modal').classList.add('is-active');
+        }
+        function closeModal(e) {
+            e.preventDefault();
+            document.getElementById('demo-modal').classList.remove('is-active');
+        }
+    </script>
+</body>
+</html>
+

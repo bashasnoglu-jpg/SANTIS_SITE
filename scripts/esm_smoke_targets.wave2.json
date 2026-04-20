@@ -1,0 +1,34 @@
+{
+  "targets": [
+    {
+      "path": "server/santis-delivery-config.js",
+      "mode": "import",
+      "cwd": "server",
+      "timeout_seconds": 8
+    },
+    {
+      "path": "server/santis-shadow-analytics.js",
+      "mode": "import",
+      "cwd": "server",
+      "timeout_seconds": 8
+    },
+    {
+      "path": "server/certificate-generator.js",
+      "mode": "import",
+      "cwd": "server",
+      "timeout_seconds": 10
+    },
+    {
+      "path": "server/santis-db-vault.js",
+      "mode": "import",
+      "cwd": "server",
+      "timeout_seconds": 8
+    },
+    {
+      "path": "server/santis-slot-engine.js",
+      "mode": "import",
+      "cwd": "server",
+      "timeout_seconds": 8
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+    "targets": [
+        {
+            "path": "scripts/ast_css_extractor.js",
+            "mode": "import",
+            "timeout_seconds": 12
+        },
+        {
+            "path": "scripts/ast_css_transformer.js",
+            "mode": "import",
+            "timeout_seconds": 12
+        },
+        {
+            "path": "scripts/ast_zombie_scanner.js",
+            "mode": "import",
+            "timeout_seconds": 12
+        },
+        {
+            "path": "scripts/project_sanitization.js",
+            "mode": "import",
+            "timeout_seconds": 12
+        },
+        {
+            "path": "scripts/force_utf8_recursive.js",
+            "mode": "import",
+            "timeout_seconds": 12
+        }
+    ]
+}

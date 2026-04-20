@@ -1,0 +1,80 @@
+name: Sovereign Diagnostic Engine 🦅
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    # Her gün gece yarısı 03:00'da otonom test
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Manuel tetikleme (God Mode)
+
+jobs:
+  quantum_diagnostics:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Sovereign Code Checkout
+      uses: actions/checkout@v4
+
+    - name: ⚙️ Boot Node.js Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+        cache: 'npm'
+
+    - name: 📦 Armor Up (Install Dependencies)
+      run: npm ci
+
+    - name: 🎭 Mount Playwright Browsers
+      run: npx playwright install --with-deps chromium
+
+    - name: ⚡ Ignite Santis OS Local Engine
+      run: |
+        # Arka planda Edge SSR Mock Server ve Statik sunucuyu ayağa kaldır
+        npm install -g http-server
+        http-server ./ -p 8080 -d false -c-1 --silent &
+        node tools/edge_ssr_worker.js &
+        sleep 5 # Kuantum raylarının ısınması için bekle
+
+    - name: 🛡️ Execute Sovereign Diagnostic (Human Mode)
+      run: node tests/santis-diagnostic.js http://localhost:8080/tr/rituals/index.html
+      continue-on-error: true # Test patlasa bile logları yakala
+
+    - name: 🕷️ Execute Sovereign Edge SSR (Bot Mode)
+      run: node tests/santis-diagnostic.js http://localhost:8080/tr/rituals/index.html --bot
+      continue-on-error: true
+
+    - name: 📦 Export Sovereign Incident Payload (Artifact)
+      uses: actions/upload-artifact@v4
+      if: always() # Her durumda (başarılı/başarısız) raporu oluştur
+      with:
+        name: sovereign-diagnostics-${{ github.sha }}
+        path: |
+          logs/sovereign-incident-payload.json
+          logs/incident-snapshot-*.png
+          logs/network-trace.har
+        retention-days: 7
+        
+    - name: 🚨 Evaluate Kill-Switch Metrics
+      if: always()
+      run: |
+        # Incident payload üzerinden kritik metrikleri Node.js ile analiz et
+        # isKillSwitchEngaged true veya networkErrors > 0 ise pipeline'ı kır ve uyar!
+        node -e "
+        const fs = require('fs');
+        const payload = JSON.parse(fs.readFileSync('logs/sovereign-incident-payload.json', 'utf8'));
+        
+        console.log('\n--- 🦅 SOVEREIGN VITAL SIGNS ---');
+        console.log('Cards Injected: ' + payload.santisMetrics.domCardsInjected);
+        console.log('Kill-Switch: ' + (payload.santisMetrics.isKillSwitchEngaged ? 'ENGAGED 🔴' : 'SAFE 🟢'));
+        console.log('Safe Mode UI: ' + (payload.santisMetrics.isSafeMode ? 'ACTIVE 🛡️' : 'OFF'));
+        console.log('Missing/404 Assets: ' + payload.networkErrors.length);
+        
+        if (payload.santisMetrics.isKillSwitchEngaged || payload.networkErrors.length > 5) {
+            console.error('\n💥 CRITICAL: MATRIX BREACH DETECTED. See artifact payload for details.');
+            process.exit(1);
+        }
+        "

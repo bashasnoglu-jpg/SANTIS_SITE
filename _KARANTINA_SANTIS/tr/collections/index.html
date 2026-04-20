@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis Club | Signature Collections</title>
+    <!-- Quiet Luxury Aesthetic -->
+    <style>
+        :root {
+            --santis-bg: #1c1a19;
+            --santis-surface: #262423;
+            --santis-text: #ddd7d2;
+            --santis-muted: #8b8886;
+            --santis-accent: #b59f84;
+        }
+        body {
+            background-color: var(--santis-bg);
+            color: var(--santis-text);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        header { width: 100%; padding: 60px 20px; text-align: center; border-bottom: 1px solid #333; }
+        h1 { margin: 0; font-weight: 300; letter-spacing: 3px; font-size: 2rem; color: #fff; }
+        p.subtitle { color: var(--santis-muted); font-size: 0.95rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 15px;}
+        
+        main {
+            width: 100%; max-width: 1200px; padding: 60px 20px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;
+        }
+        
+        .collection-card {
+            background-color: var(--santis-surface);
+            padding: 40px 30px;
+            border: 1px solid #3a3836;
+            transition: all 0.4s ease;
+        }
+        .collection-card:hover { border-color: var(--santis-accent); }
+        .collection-card h3 { margin-top: 0; color: var(--santis-accent); font-weight: 300; letter-spacing: 1px; font-size: 1.4rem;}
+        .collection-card .price { font-size: 1.8rem; margin: 25px 0; font-weight: 300; color: #fff;}
+        .btn-buy {
+            background-color: transparent; color: var(--santis-accent);
+            border: 1px solid var(--santis-accent);
+            padding: 14px 24px; cursor: pointer; width: 100%;
+            transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;
+        }
+        .btn-buy:hover { background-color: var(--santis-accent); color: var(--santis-bg); }
+        
+        #checkout-notice {
+            position: fixed; bottom: 30px; right: 30px; background: var(--santis-accent); color: #1a1a1a;
+            padding: 20px 25px; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>SIGNATURE COLLECTIONS</h1>
+        <p class="subtitle">Küratörlükle Hazırlanmış Dinlenme Sanatı</p>
+    </header>
+
+    <main id="collections-container"></main>
+    <div id="checkout-notice"></div>
+
+    <script type="module" src="../../assets/js/core/santis-spaos.js"></script>
+    <script type="module" src="../../assets/js/core/santis-revenue-engine.js"></script>
+    <script type="module" src="../../assets/js/core/santis-commission-engine.js"></script>
+    <script type="module" src="../../assets/js/core/santis-crm-engine.js"></script>
+    <script type="module" src="../../assets/js/core/santis-telemetry-client.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const db = window.SantisSpaOS.getDatabase();
+                const container = document.getElementById('collections-container');
+                
+                if (db.packages.length === 0) {
+                    container.innerHTML = "<p>Veriler yükleniyor...</p>";
+                }
+
+                db.packages.forEach(pkg => {
+                    const card = document.createElement('div');
+                    card.className = 'collection-card';
+                    card.innerHTML = `
+                        <h3>${pkg.name}</h3>
+                        <p style="color:#8b8886; font-size:0.85rem; letter-spacing: 1px; text-transform:uppercase;">Odak: ${pkg.goal}</p>
+                        <p class="price">${pkg.price} ${pkg.currency}</p>
+                        <ul style="font-size:0.9rem; color:#aaa; padding-left:20px; line-height:1.8; min-height:100px;">
+                            ${pkg.components.map(c => `<li>${c.serviceId} <span style="color:#666; font-size:0.8rem;">(x${c.quantity})</span></li>`).join('')}
+                        </ul>
+                        <button class="btn-buy" onclick='purchasePackage(${JSON.stringify(pkg)})'>Koleksiyonu Edin</button>
+                    `;
+                    container.appendChild(card);
+                    
+                    // 📡 1. Telemetry Radarına Ekle (Davranış takibi)
+                    if(window.SantisTelemetry) {
+                        window.SantisTelemetry.watchElement(card, pkg.name, 'collection_card');
+                    }
+                });
+            }, 800);
+        });
+
+        function purchasePackage(pkg) {
+            const customerDetails = { id: 'CUST-VIP1', name: 'Premium Üye' };
+            window.SantisSpaOS.triggerCheckout(pkg, customerDetails);
+            
+            const notice = document.getElementById('checkout-notice');
+            notice.innerHTML = `<strong style="letter-spacing:1px; display:block; margin-bottom:5px;">RİTÜEL ONAYI</strong> 
+            ${pkg.name} eklendi.<br><span style="font-size:0.8rem; opacity:0.8;">(SpaOS Motorları ateşlendi)</span>`;
+            notice.style.display = 'block';
+            
+            setTimeout(() => { notice.style.display = 'none'; }, 4000);
+        }
+    </script>
+</body>
+</html>
+

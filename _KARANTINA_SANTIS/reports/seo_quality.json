@@ -1,0 +1,17 @@
+{
+  "ts": "2026-02-17T05:49:41.723995Z",
+  "pages": [
+    {
+      "url": "http://localhost:8000/",
+      "title_len": 0,
+      "desc_len": 0,
+      "h1_count": 0,
+      "missing_alt": 0,
+      "canonical": false,
+      "hreflang": false,
+      "schema": false,
+      "word_count": 2,
+      "internal_links": 0
+    }
+  ]
+}

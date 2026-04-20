@@ -1,0 +1,41 @@
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://js.stripe.com https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.stripe.com https://api.whatsapp.com; frame-src https://js.stripe.com; worker-src 'self' blob:;
+
+# ── HTML: Her zaman anında doğrula (asla bayat HTML gösterme) ────────────────
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Robots-Tag: index, follow
+
+# ── Vite Hashli Varlıklar: 1 Yıl Kilitle (immutable) ───────────────────────
+# Vite her build'de benzersiz [hash] ekler → bayat dosya gösterme riski SIFIR
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# ── Görseller: 1 Yıl (hashsiz ama nadiren değişir) ──────────────────────────
+/assets/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# ── Web Worker: Her zaman taze (Comlink güvenliği) ───────────────────────────
+/assets/js/workers/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# ── JSON Data: 5 dakika cache, arka planda yenile ───────────────────────────
+/assets/data/*
+  Cache-Control: public, max-age=300, stale-while-revalidate=60
+
+# ── Service Worker: Asla cache'leme ─────────────────────────────────────────
+/santis-sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate

@@ -1,0 +1,38 @@
+# Root Redirect (Removed for Language Gateway)
+# / /tr/index.html 301
+
+# Force HTTPS
+# http://* https://santis-club.pages.dev/:splat 301
+# http://* https://santis-club.com/:splat 301
+
+# Fix 403 Error for Audit Report
+/audit-report.html /audit_report.pdf 301
+
+# Massage slug fallback
+/tr/masajlar/aromaterapi.html /tr/masajlar/aromaterapi-masaji.html 301
+/tr/masajlar/derin-doku.html /tr/masajlar/derin-doku-masaji.html 301
+/tr/masajlar/klasik-rahatlama.html /tr/masajlar/klasik-masaj.html 301
+/tr/masajlar/klasik-tum-vucut-masaji.html /tr/masajlar/klasik-masaj.html 301
+/tr/masajlar/anti-stress.html /tr/masajlar/anti-stress-masaji.html 301
+
+# =====================================================
+# 🦅 SANTIS OS: EDGE LEVEL 301 REDIRECT ARMOR
+# =====================================================
+
+# 1. Ölü Dil Gezegenlerini Omni-Language Yörüngesine Çek
+/en/*                /?lang=en        301
+/ru/*                /?lang=ru        301
+/de/*                /?lang=de        301
+/fr/*                /?lang=fr        301
+/ar/*                /?lang=ar        301
+
+# 2. Kanayan Legacy (Eski) Damarları Ana Sayfaya Dağla
+/_legacy_archive/*   /                301
+/_legacy_content/*   /                301
+/v18_demo/*          /                301
+/components/*        /                301
+
+# 3. SPA Fallback Kalkanı (Kuantum Çekirdeği Koruması)
+# Geri kalan tüm tanımlanmamış rotaları SPA motoruna (index.html) aktar
+# Bu kural Darwinian Traffic Router'ın çalışması için hayatidir!
+/*                   /index.html      200

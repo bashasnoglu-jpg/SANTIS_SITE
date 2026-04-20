@@ -1,0 +1,80 @@
+[
+  {
+    "response_time_ms": 50,
+    "error_count": 0,
+    "health_score": 95,
+    "time": "2026-02-08T17:06:45.838622"
+  },
+  {
+    "response_time_ms": 600,
+    "error_count": 0,
+    "health_score": 40,
+    "time": "2026-02-08T17:06:45.886084"
+  },
+  {
+    "response_time_ms": 1163.8667583465576,
+    "error_count": 1,
+    "health_score": 17,
+    "time": "2026-02-08T19:17:59.063073"
+  },
+  {
+    "response_time_ms": 1017.8573131561279,
+    "error_count": 1,
+    "health_score": 99,
+    "time": "2026-02-08T20:25:38.963807"
+  },
+  {
+    "response_time_ms": 1041.1193370819092,
+    "error_count": 1,
+    "health_score": 99,
+    "time": "2026-02-08T20:35:40.016893"
+  },
+  {
+    "response_time_ms": 1050.816297531128,
+    "error_count": 1,
+    "health_score": 99,
+    "time": "2026-02-08T20:45:41.073277"
+  },
+  {
+    "response_time_ms": 1060.4259967803955,
+    "error_count": 1,
+    "health_score": 99,
+    "time": "2026-02-08T20:55:42.147266"
+  },
+  {
+    "response_time_ms": 1080.5799961090088,
+    "error_count": 1,
+    "health_score": 99,
+    "time": "2026-02-08T21:05:43.233751"
+  },
+  {
+    "response_time_ms": 1087.3892307281494,
+    "error_count": 1,
+    "health_score": 99,
+    "time": "2026-02-08T21:15:44.339606"
+  },
+  {
+    "response_time_ms": 1091.8927192687988,
+    "error_count": 1,
+    "health_score": 99,
+    "time": "2026-02-08T21:25:45.446979"
+  },
+  {
+    "response_time_ms": 1095.9110260009766,
+    "error_count": 1,
+    "health_score": 99,
+    "time": "2026-02-08T21:35:46.553150"
+  },
+  {
+    "response_time_ms": 1111.074686050415,
+    "error_count": 1,
+    "health_score": 99,
+    "time": "2026-02-08T21:45:47.681458"
+  },
+  {
+    "response_time_ms": 1172.501564025879,
+    "error_count": 1,
+    "health_score": 99,
+    "time": "2026-02-08T21:55:48.863457"
+  }
+]

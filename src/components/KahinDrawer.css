@@ -1,0 +1,64 @@
+/* Arka planı karartan ve tıklamaları yakalayan katman */
+.santis-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* Hafif karanlık lüks hissi */
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  backdrop-filter: blur(4px); /* Arka planı hafifçe bulanıklaştırır */
+}
+
+.santis-drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Sağdan kayarak gelen ana Kahin Odası modülü */
+.santis-drawer-content {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-width: 450px; /* Mobilde tam ekran, masaüstünde 450px genişlik */
+  height: 100vh;
+  background-color: #1a1a1a; /* Koyu, asil bir arka plan */
+  color: #f0f0f0;
+  z-index: 1001;
+  transform: translateX(100%); /* Başlangıçta ekranın sağında gizli */
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Pürüzsüz kayma animasyonu */
+  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.santis-drawer-content.open {
+  transform: translateX(0); /* Açıldığında ekrana girer */
+}
+
+/* Kapatma butonu stili */
+.santis-drawer-close-btn {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: #c9a771; /* Santis altın sarısı vurgu */
+  font-size: 24px;
+  cursor: pointer;
+  padding: 15px 20px;
+  transition: opacity 0.2s;
+}
+
+.santis-drawer-close-btn:hover {
+  opacity: 0.7;
+}
+
+/* İçerik alanı */
+.santis-drawer-body {
+  padding: 20px;
+  flex-grow: 1;
+  overflow-y: auto; /* İçerik uzarsa kaydırma çubuğu çıksın */
+}

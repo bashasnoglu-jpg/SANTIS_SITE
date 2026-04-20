@@ -1,0 +1,31 @@
+{
+  "engine": "SANTIS ESM Smoke Runner",
+  "version": "1.0.0",
+  "targets_total": 1,
+  "targets_passed": 1,
+  "targets_failed": 0,
+  "targets_timed_out": 0,
+  "status": "pass",
+  "results": [
+    {
+      "path": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\server\\core\\vip-risk\\vip-risk-engine.js",
+      "mode": "import",
+      "cwd": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\server",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "--input-type=module",
+        "-e",
+        "import { pathToFileURL } from 'url';import(pathToFileURL(process.argv[1]).href).then(() => { console.log('[esm-smoke] import-ok'); process.exit(0); }).catch((err) => { console.error(err && err.stack ? err.stack : String(err)); process.exit(1); });",
+        "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\server\\core\\vip-risk\\vip-risk-engine.js"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "timed_out": false,
+      "passed": true,
+      "duration_ms": 48,
+      "stdout": "[esm-smoke] import-ok\n",
+      "stderr": "",
+      "detected_errors": []
+    }
+  ]
+}

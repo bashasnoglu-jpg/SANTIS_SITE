@@ -1,0 +1,138 @@
+/* GodsEye.css - Sovereign OS Cyberpunk Theme */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+.gods-eye-wrapper {
+    background-color: #050505;
+    color: #e0e0e0;
+    font-family: 'Share Tech Mono', monospace;
+    min-height: 100vh;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Koyu Yeşil/Mavi Scanline Efekti (CRT Monitör Hissi) */
+.gods-eye-wrapper::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+.panel {
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid #333;
+    padding: 1.5rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.panel-title {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* THREAT RADAR (Kan Kırmızısı) */
+.threat-panel {
+    border-top: 3px solid #ff2a2a;
+}
+
+.threat-panel .panel-title {
+    color: #ff2a2a;
+    text-shadow: 0 0 8px rgba(255, 42, 42, 0.5);
+}
+
+.threat-card {
+    background: rgba(255, 42, 42, 0.1);
+    border-left: 4px solid #ff2a2a;
+    padding: 0.8rem;
+    font-size: 0.85rem;
+    animation: glitch-blink 0.2s linear 3;
+}
+
+.threat-card .ip {
+    color: #ff8080;
+}
+
+/* ORBITAL STREAM (Yeşil/Mavi Matrix) */
+.orbital-panel {
+    border-top: 3px solid #00ffcc;
+}
+
+.orbital-panel .panel-title {
+    color: #00ffcc;
+    text-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
+}
+
+.stream-card {
+    border: 1px solid #004433;
+    padding: 1rem;
+    position: relative;
+}
+
+.stream-bar-bg {
+    background: #111;
+    height: 8px;
+    margin-top: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.stream-bar-fill {
+    background: #00ffcc;
+    height: 100%;
+    box-shadow: 0 0 10px #00ffcc;
+    transition: width 0.3s ease;
+}
+
+/* DEGRADATION FEED (Sarı Uyarı) */
+.deg-panel {
+    border-top: 3px solid #ffcc00;
+}
+
+.deg-panel .panel-title {
+    color: #ffcc00;
+    text-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+}
+
+.deg-card {
+    border-left: 4px solid #ffcc00;
+    background: rgba(255, 204, 0, 0.05);
+    padding: 0.8rem;
+    font-size: 0.85rem;
+    color: #ddb800;
+}
+
+@keyframes glitch-blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+        background: #ff2a2a;
+        color: #fff;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,2262 @@
+{
+  "index-hero": {
+    "assets": [
+      {
+        "asset_id": "98c3acc7-2179-4fd1-a9f1-a0985a3fe9e2",
+        "url": "/assets/img/hero/hero_world.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "card-hamam": {
+    "assets": [
+      {
+        "asset_id": "750d3c10-7f3c-499d-8a16-fb0e510756b1",
+        "url": "/assets/img/uploads/daf528b06584462f93825f8d3f4e36d1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "thai-masaji": {
+    "assets": [
+      {
+        "asset_id": "08a11f3f-5f50-4f06-be5e-fc9f2f871df3",
+        "url": "/assets/img/uploads/ec56bf0c137d4a77bf9f8ee5970bba8f.webp"
+      },
+      {
+        "asset_id": "510cc733-b34e-414f-9ef8-561c4fcb7b26",
+        "url": "/assets/img/hero-general.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/masaj.html"
+  },
+  "classic-facial": {
+    "assets": [
+      {
+        "asset_id": "d881a704-4ff0-480f-95ff-07b006d38059",
+        "url": "/assets/img/uploads/f0dcba6c1a9a425894b82fae3b5c4472.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/cilt-bakimi.html"
+  },
+  "philosophy-hero": {
+    "assets": [
+      {
+        "asset_id": "93209cf1-76c6-4bc3-9c52-00599ea7cc0d",
+        "url": "/assets/img/uploads/3d25cba61f6c4d278f998df76818ca37.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "card-atolye": {
+    "assets": [
+      {
+        "asset_id": "b6ec1f3e-689e-47b1-b49a-49bfaaf5757d",
+        "url": "/assets/img/uploads/00ffe68da9cc448a8d538536b5378fa0.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "cikolata-bakimi": {
+    "assets": [
+      {
+        "asset_id": "b24dcbb0-56b5-4914-8430-ca9ccd4a0f83",
+        "url": "/assets/img/uploads/18b48cf2258d4df0ad1c0dbff0449f8e.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/hamam.html"
+  },
+  "kese-ve-kopuk-masaji": {
+    "assets": [
+      {
+        "asset_id": "2c9dbf94-cab9-4ff8-be55-1b42d069a3d7",
+        "url": "/assets/img/uploads/578a6655f9264534a8a5a9b3a770dd29.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/hamam.html"
+  },
+  "kopuk-masaji": {
+    "assets": [
+      {
+        "asset_id": "2b0d88b6-db4d-4c27-80fc-e39998b0a01c",
+        "url": "/assets/img/uploads/d85f1daad596403085b24de0ca3f5d01.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/hamam.html"
+  },
+  "derin-doku-masaji": {
+    "assets": [
+      {
+        "asset_id": "28f67420-989d-4e7d-a3f8-66b064dac15a",
+        "url": "/assets/img/uploads/fef9f6f39bf44f11b9bbbf86180782fc.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/masaj.html"
+  },
+  "anti-stress-masaji": {
+    "assets": [
+      {
+        "asset_id": "b264bea2-9e7d-4cd2-83a5-e0b9396238fe",
+        "url": "/assets/img/uploads/a2d8e98c4f29453395d6e36911087596.webp"
+      },
+      {
+        "asset_id": "eedc5e60-124c-42b6-8d15-5b09ee2d9cf5",
+        "url": "/assets/img/uploads/82a285d664c047feb86aebbe9986137c.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/masaj.html"
+  },
+  "card-masaj": {
+    "assets": [
+      {
+        "asset_id": "85588ef1-7f36-4d04-8148-3d791e127c70",
+        "url": "/assets/img/uploads/19e08349880f4113ad3f201772becf03.webp"
+      },
+      {
+        "asset_id": "6d705b34-0d76-48fd-8476-3b99313011e3",
+        "url": "/assets/cdn_mock/373b8999-d833-40ef-9dd1-eef5ecb37d69/general/687b96de7b19_1920w.webp"
+      },
+      {
+        "asset_id": "8fb6db0c-00e9-4851-a97f-b732e4338636",
+        "url": "/assets/img/gallery/06d0dc885f824e8eb693b4827bc48071.jpg"
+      },
+      {
+        "asset_id": "43099745-2b3b-4a3e-b0bd-48a0e3e5df35",
+        "url": "/assets/img/gallery/c4403e4afa9e44beab0c9c197d32d5eb.jpg"
+      },
+      {
+        "asset_id": "5c9ed568-296e-42da-b423-50c3bfbef9c1",
+        "url": "/assets/img/gallery/6e82b277185548309b7f7eb4f7f5430e.jpg"
+      },
+      {
+        "asset_id": "a0152978-65bb-4ee9-a4ab-208c84671734",
+        "url": "/assets/img/gallery/1186d96f5ac340bd8f24ffc6a64b5152.jpg"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "card-cilt": {
+    "assets": [
+      {
+        "asset_id": "d9d97cc3-5215-4071-b48e-72b66d31a7f1",
+        "url": "/assets/img/uploads/6ba36913c96d4523b4c0929f9818628e.webp"
+      },
+      {
+        "asset_id": "c417e521-f718-404f-be6c-6fb18a46ad7b",
+        "url": "/assets/cdn_mock/373b8999-d833-40ef-9dd1-eef5ecb37d69/general/3512f1aed98f_1920w.webp"
+      },
+      {
+        "asset_id": "e0767b7e-a082-4c19-896e-6aa9d9139058",
+        "url": "/assets/img/gallery/3dbcae959606491aa8b652f0b3185a49.jpg"
+      },
+      {
+        "asset_id": "5e7e72cb-34da-4b72-a24d-be47f2fe10cb",
+        "url": "/assets/cdn_mock/373b8999d83340ef9dd1eef5ecb37d69/general/3512f1aed98f_1920w.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "aromaterapi-masaji": {
+    "assets": [
+      {
+        "asset_id": "98c2c4a9-e4a0-410e-bb58-f067c3d44963",
+        "url": "/assets/img/uploads/856598aece904475a345c22a60df1006.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/masaj.html"
+  },
+  "Code-of-silence - Hamam hero Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-b776e7d5",
+        "url": "/assets/img/hamam-hero.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Code-of-silence - Santis_hero_main_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-63721ed3",
+        "url": "/assets/img/santis_hero_main_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Dunya-ritueli - Santis_card_thai_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-201f5055",
+        "url": "/assets/img/cards/santis_card_thai_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Dunya-ritueli - Santis_card_massage_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-e21ed1b2",
+        "url": "/assets/img/cards/santis_card_massage_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Dunya-ritueli - Santis_card_shirodhara_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-2c075cda",
+        "url": "/assets/img/cards/santis_card_shirodhara_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Dunya-ritueli - Santis_card_hammam_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-6f3942e9",
+        "url": "/assets/img/cards/santis_card_hammam_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Index - Hammam Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-fc449682",
+        "url": "/assets/img/cards/hammam.webp"
+      },
+      {
+        "asset_id": "s-asset-026332f8",
+        "url": "/assets/img/cards/hammam.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Index - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-c3df0052",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Index - Facial Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-408e44df",
+        "url": "/assets/img/cards/facial.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Index - Atelier Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-468d5c94",
+        "url": "/assets/img/cards/atelier.webp"
+      },
+      {
+        "asset_id": "e21e10c9-5f35-47ae-9f54-70479ac971a5",
+        "url": "/assets/cdn_mock/373b8999d83340ef9dd1eef5ecb37d69/general/135c1b4ac0f8_1920w.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Index - Santis_card_thai_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-8418971a",
+        "url": "/assets/img/cards/santis_card_thai_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-d69f0063",
+        "url": "/..//assets/img/cards/santis_card_thai_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-a7af5044",
+        "url": "/..//assets/img/cards/santis_card_thai_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-80277e37",
+        "url": "/..//assets/img/cards/santis_card_thai_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Index - Santis_card_deeptissue_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-865fdd0c",
+        "url": "/assets/img/cards/santis_card_deeptissue_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-72e515ee",
+        "url": "/..//assets/img/cards/santis_card_deeptissue_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-9da6a99a",
+        "url": "/..//assets/img/cards/santis_card_deeptissue_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Index - Santis_card_skincare_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-677f3cf3",
+        "url": "/assets/img/cards/santis_card_skincare_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Bal-masaji - Santis_card_hammam_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-cbd94c07",
+        "url": "/assets/img/cards/santis_card_hammam_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Cikolata-bakimi - Santis_card_massage_oil_v2 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-7c6bb102",
+        "url": "/assets/img/cards/santis_card_massage_oil_v2.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Index - Santis_card_hammam_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-219faaf8",
+        "url": "/assets/img/cards/santis_card_hammam_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-6e0cdace",
+        "url": "/..//assets/img/cards/santis_card_hammam_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-bc4b97b0",
+        "url": "/..//assets/img/cards/santis_card_hammam_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kahve-detox - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-a41e32a3",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-45bacb94",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kahve-detox - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-5a1b82dc",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-aa8f04aa",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kahve-peeling - Santis_card_hamam_kese_v2 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-6b12b050",
+        "url": "/assets/img/cards/santis_card_hamam_kese_v2.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kahve-peeling - Santis_card_hammam_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-c7f8b986",
+        "url": "/assets/img/cards/santis_card_hammam_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kese-kopuk - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-8b19e6d5",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-01c3307f",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-699669e2",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-b55134f0",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-8257db04",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kese-kopuk - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-2be0663f",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-d04f63f8",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-4ac2e3cf",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-526f0d5b",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kese-ve-kopuk-masaji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-65df8f27",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kese-ve-kopuk-masaji - Santis_card_foam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-8f3a1469",
+        "url": "/assets/img/cards/santis_card_foam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kese-ve-kopuk-masaji - Santis_card_hammam_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-3982004d",
+        "url": "/assets/img/cards/santis_card_hammam_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kese-ve-kopuk-masaji - Santis_card_hamam_kese_v2 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-44545faa",
+        "url": "/assets/img/cards/santis_card_hamam_kese_v2.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kopuk-masaji - Santis_card_foam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-77058974",
+        "url": "/assets/img/cards/santis_card_foam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Osmanli-hamam-gelenegi - Santis_card_hammam_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-49c2130a",
+        "url": "/assets/img/cards/santis_card_hammam_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Osmanli-hamam-gelenegi - Santis_card_skincare_clay_v2 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-19572f2c",
+        "url": "/assets/img/cards/santis_card_skincare_clay_v2.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Osmanli-ritueli - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-ccd32b58",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-fabf9b58",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-753c7001",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-ba562051",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-47ec4035",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Osmanli-ritueli - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-1b1fa45d",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-5191c700",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-4bad6238",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-b07a3383",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-24f42571",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Santis-pasa - Santis_hero_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-525e7de2",
+        "url": "/assets/img/cards/santis_hero_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Santis-pasa - Santis_card_massage_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-94eab19d",
+        "url": "/assets/img/cards/santis_card_massage_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Tuz-peeling - Santis_card_hamam_scrub_v2 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-94634b75",
+        "url": "/assets/img/cards/santis_card_hamam_scrub_v2.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Yosun-bakimi - Santis_card_skincare_clay_v2 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-fab1ed50",
+        "url": "/assets/img/cards/santis_card_skincare_clay_v2.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Index - Santis_card_massage_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-df43e665",
+        "url": "/..//assets/img/cards/santis_card_massage_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-cdbb3a27",
+        "url": "/..//assets/img/cards/santis_card_massage_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-c9340a4b",
+        "url": "/..//assets/img/cards/santis_card_massage_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-84c3faab",
+        "url": "/..//assets/img/cards/santis_card_massage_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-f60cb5ae",
+        "url": "/..//assets/img/cards/santis_card_massage_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-d1adc41c",
+        "url": "/..//assets/img/cards/santis_card_massage_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-e1e2ebfb",
+        "url": "/..//assets/img/cards/santis_card_massage_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-6d5ecfa6",
+        "url": "/..//assets/img/cards/santis_card_massage_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-baee1a06",
+        "url": "/..//assets/img/cards/santis_card_massage_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-727aefae",
+        "url": "/..//assets/img/cards/santis_card_massage_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Index - Santis_card_shirodhara_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-f37eca7d",
+        "url": "/..//assets/img/cards/santis_card_shirodhara_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-6d75d66f",
+        "url": "/..//assets/img/cards/santis_card_shirodhara_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-fa6762aa",
+        "url": "/..//assets/img/cards/santis_card_shirodhara_v1.webp"
+      },
+      {
+        "asset_id": "s-asset-11cb3cf0",
+        "url": "/..//assets/img/cards/santis_card_shirodhara_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Paketler - Santis_card_hammam_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-866342ce",
+        "url": "/assets/img/cards/santis_card_hammam_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Paketler - Santis_card_skincare_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-33e62a85",
+        "url": "/assets/img/cards/santis_card_skincare_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Paketler - Santis_card_massage_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-295b7697",
+        "url": "/assets/img/cards/santis_card_massage_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Anne-cocuk-masaji - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-5b0cf0e5",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Anne-cocuk-masaji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-10e80dfb",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Anti-stress-masaji - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-420940df",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Anti-stress-masaji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-aa22afc4",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Aromaterapi-masaji - Santis_card_massage_oil_v2 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-b19a878c",
+        "url": "/assets/img/cards/santis_card_massage_oil_v2.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Aromaterapi-masaji - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-53e8fd79",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Aromaterapi - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-fa4f654d",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-0bb1433c",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "6685b6fa-01c0-4e04-a51d-0965c68d11d7",
+        "url": "/assets/img/gallery/2105c7dc2d804ada9ed26663a7a81eb5.jpg"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Aromaterapi - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-cafeaa5d",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-514f7fc3",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-4cc69ba8",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Ayak-refleksoloji - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-d2c4cd06",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Ayak-refleksoloji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-d0685db1",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Bali-masaji - Santis_card_massage_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-91b8e29b",
+        "url": "/assets/img/cards/santis_card_massage_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Bali-masaji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-e56443de",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Bali-terapi - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-cccb3425",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "b8a9866e-d950-4b3d-acc9-7e03f0fb75c0",
+        "url": "/assets/img/gallery/6220df3a74e44a4c83dec0a67f249c57.jpg"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Bali-terapi - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-9efacc3b",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Bas-boyun-omuz-masaji - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-9392a97d",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Bas-boyun-omuz-masaji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-d57a9839",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Bronz-masaji - Santis_card_massage_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-935618b9",
+        "url": "/assets/img/cards/santis_card_massage_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Bronz-masaji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-4a04fbe5",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Cift-rituel - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-f840e87a",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Cift-rituel - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-f01f7ecb",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Cift-senkron-masaji - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-bf6b9325",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Cift-senkron-masaji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-dbd141d0",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Derin-doku-masaji - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-d7cbc8c9",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Derin-doku-masaji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-46789ed4",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Derin-doku - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-00f622f1",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Derin-doku - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-2796d27c",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Isvec-full-body - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-05ebd369",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Isvec-full-body - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-43cc5e7a",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kids-nazik-masaji - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-e38f2e4f",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kids-nazik-masaji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-3a59f024",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Klasik-masaj - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-201a5652",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-2d632902",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Klasik-rahatlama - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-8ef572e9",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Klasik-rahatlama - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-ebd60b13",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Klasik-sirt - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-59754cd6",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Klasik-sirt - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-1f759140",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kombine-masaj - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-3c3e1eef",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-0b363dcf",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kranyo-sakral-terapi - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-4d4b7e8d",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kranyo-sakral-terapi - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-84e22251",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Lenf-drenaj - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-119c6986",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Lenf-drenaj - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-cf51dd85",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Lokal-derin-doku - Santis_card_deeptissue_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-adabe0c8",
+        "url": "/assets/img/cards/santis_card_deeptissue_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Lokal-derin-doku - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-2958cbf0",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Lokal-sicak-tas - Santis_card_massage_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-725a0f44",
+        "url": "/assets/img/cards/santis_card_massage_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Lokal-sicak-tas - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-c4d4d62b",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Manuel-terapi - Santis_card_massage_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-b17c915f",
+        "url": "/assets/img/cards/santis_card_massage_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Myofascial-release - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-9ebaa089",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-241d4ca8",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Selulit-masaji - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-ea097600",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Selulit-masaji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-58e29b83",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Shiatsu-masaji - Santis_card_massage_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-4eed9dda",
+        "url": "/assets/img/cards/santis_card_massage_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Shiatsu-masaji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-ca05dfc2",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Shiatsu-terapi - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-9e42d396",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Shiatsu-terapi - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-7242922d",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Sicak-tas-masaji - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-8908c670",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Sicak-tas-masaji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-75996c10",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Signature-rituel - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-9b2a644f",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Signature-rituel - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-87d278e2",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Sirt-terapi-masaji - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-37ef6ea2",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Sirt-terapi-masaji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-8662560a",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Spor-terapi - Santis_card_deeptissue_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-46c80021",
+        "url": "/assets/img/cards/santis_card_deeptissue_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Spor-terapi - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-54e90291",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Tetik-nokta-terapi - Santis_card_deeptissue_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-1f1e05e9",
+        "url": "/assets/img/cards/santis_card_deeptissue_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Tetik-nokta-terapi - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-9e61f79e",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Thai-masaji - Santis_card_massage_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-a873c8e3",
+        "url": "/assets/img/cards/santis_card_massage_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Thai-masaji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-4b03f836",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Index - Santis_card_reflexology_v1 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-dc4e85b3",
+        "url": "/..//assets/img/cards/santis_card_reflexology_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Index - Santis_hero_main_v2 Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-1009ed6a",
+        "url": "/assets/img/hero/santis_hero_main_v2.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Anne-cocuk - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-82d8aa3c",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-4dcd2da6",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-be74a655",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Anne-cocuk - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-2643db0e",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-1dbab6c0",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-fab5733e",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Anti-selulit - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-28f9c8fd",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Anti-stress - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-968913a5",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Cift-senkron - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-75473786",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-a5f96a6f",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-34b350ac",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Classic-swedish - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-bc4639a7",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Classic-swedish - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-055a0888",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kranyo-sakral - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-ca82c353",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kranyo-sakral - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-f9a45473",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Refleksoloji - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-b504f778",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Refleksoloji - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-82bdc6bd",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Shiatsu - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-24618edf",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-119d45f7",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Shiatsu - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-39d926da",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-ba473372",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Sicak-tas - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-071e9f7d",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Sicak-tas - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-7c830f3b",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Sirt-terapi - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-91a44bbf",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Sirt-terapi - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-bbcf2183",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Tetik-nokta - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-80e421da",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-1d2c65ec",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-6b0105f2",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Tetik-nokta - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-54dde88e",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-8119e401",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-338f56ab",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Thai - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-6cf5209c",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-60b950cf",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Thai - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-36b2692c",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-95e020b7",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-ddaccb97",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Bali - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-a2d00a80",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-0b209371",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Bali - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-45c16dfb",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      },
+      {
+        "asset_id": "s-asset-59b60cbb",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Cift-senkron - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-5d86a887",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-42fd71e0",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kids-nazik - Massage Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-9f25e5e5",
+        "url": "/assets/img/cards/massage.webp"
+      },
+      {
+        "asset_id": "s-asset-cd897e1b",
+        "url": "/assets/img/cards/massage.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Kids-nazik - Santis_card_hammam_lux Slot": {
+    "assets": [
+      {
+        "asset_id": "s-asset-1383853d",
+        "url": "/assets/img/cards/santis_card_hammam_lux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Rituel-homme-equilibre - Green Slot": {
+    "assets": [
+      {
+        "asset_id": "6de5ff27-1141-41e9-8bad-4b881466cdd4",
+        "url": "/assets/img/gallery/d540781a35da44bfbc4e6e4e763ebc0d.jpg"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Skin-men-facial - Cream Slot": {
+    "assets": [
+      {
+        "asset_id": "b30509c3-0e7e-4a77-be47-1d5a4318da8e",
+        "url": "/assets/img/gallery/60205555fc264040867116e03db21231.jpg"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "Skin-lip-care - Cream Slot": {
+    "assets": [
+      {
+        "asset_id": "b0781bff-c593-408d-aa39-cdf73318fe8c",
+        "url": "/assets/img/gallery/9b916111eaeb4ccc8e067957bea619e1.jpg"
+      },
+      {
+        "asset_id": "037ecb77-ad5a-40cf-a3dc-baecf5fe8d52",
+        "url": "/assets/img/gallery/b3092657a8234a839c8c61ec3cc7230e.jpg"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "test_slot": {
+    "assets": [
+      {
+        "asset_id": "9e4e156c-7d21-404a-bdf0-9b3ab5daed0c",
+        "url": "/assets/img/gallery/5e0deff2553243c08c9ad6b30bce9002.jpg"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "hero_home": {
+    "assets": [
+      {
+        "asset_id": "8b41e1c4-1c44-4671-9fc4-7f98a6a6b215",
+        "url": "/assets/img/gallery/feac5bf7040d43e5a5ae65cbc7c053a5.jpg"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "card_hamam_1": {
+    "assets": [
+      {
+        "asset_id": "0ccec8df-fce8-4bfe-935c-97229f1ad889",
+        "url": "/assets/img/gallery/santis_card_hammam_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "card_masaj_1": {
+    "assets": [
+      {
+        "asset_id": "5bd05d52-9a9d-4bf0-b847-d8600aae1a13",
+        "url": "/assets/img/gallery/santis_card_couple_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "card_skincare_1": {
+    "assets": [
+      {
+        "asset_id": "191d7c41-b144-4d01-b22f-a429a86c99a8",
+        "url": "/assets/img/gallery/santis_card_skincare_v1.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "gallery_node_1": {
+    "assets": [
+      {
+        "asset_id": "623447eb-3e02-4754-9fc5-7003517908b9",
+        "url": "/assets/img/gallery/Hammamda k\u00f6p\u00fck masaj\u0131 huzuru.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "gallery_node_2": {
+    "assets": [
+      {
+        "asset_id": "d0cf92f0-03aa-4abb-8d38-dc5d5aaf7443",
+        "url": "/assets/img/gallery/Alt\u0131n ya\u011f\u0131 ve ellerin zarafeti.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "gallery_node_3": {
+    "assets": [
+      {
+        "asset_id": "d5927788-f3db-4b08-9de4-a1b9e47d4c7d",
+        "url": "/assets/img/gallery/\u015eirodhara terapi an\u0131.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "gallery_node_4": {
+    "assets": [
+      {
+        "asset_id": "6a837b42-e26f-422e-a5e6-b2f8a755fe23",
+        "url": "/assets/img/gallery/Santis-face-mask-4x5-1080x1350.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "gallery_node_5": {
+    "assets": [
+      {
+        "asset_id": "cafb0ed2-369f-488c-95eb-3b6970ef4308",
+        "url": "/assets/img/gallery/Santis_cellulite_yatay_3x2_quietlux.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "gallery_node_6": {
+    "assets": [
+      {
+        "asset_id": "46d23943-1fcd-45bc-a4a4-09f8d89884f6",
+        "url": "/assets/img/gallery/Anjali Mudra with soft lighting.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "gallery_node_7": {
+    "assets": [
+      {
+        "asset_id": "607b39cb-4505-490b-b463-5262ee55e1dc",
+        "url": "/assets/img/gallery/Namaste elleri ve t\u00fcts\u00fc duman\u0131.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "gallery_node_8": {
+    "assets": [
+      {
+        "asset_id": "5d8e68ac-870e-4510-b345-8c8087a7b717",
+        "url": "/assets/img/gallery/Gemini_Generated_Image_gw02fdgw02fdgw02.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  },
+  "gallery_node_9": {
+    "assets": [
+      {
+        "asset_id": "40f2e7bb-2676-474c-a0e8-0093208f25a1",
+        "url": "/assets/img/gallery/Gemini_Generated_Image_jq8hzwjq8hzwjq8h.webp"
+      }
+    ],
+    "is_scarce": false,
+    "scarcity_message": null,
+    "price_surge": 0.0,
+    "page_route": "/tr/index.html"
+  }
+}

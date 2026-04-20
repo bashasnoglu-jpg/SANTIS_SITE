@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis OS V28 - Longevity Revenue Matrix</title>
+    <!-- Sovereign Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css"> <!-- Fallback Master CSS -->
+    <style>
+        body {
+            background-color: #141416; /* Santis Dark Mode */
+            margin: 0;
+            padding: 80px 0;
+            font-family: 'Inter', sans-serif;
+            color: #ececec;
+        }
+        .revenue-matrix-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .rm-header {
+            margin-bottom: 80px;
+        }
+        .rm-header h2 {
+            font-family: 'Share Tech Mono', monospace;
+            color: #c6a96b; /* Santis Brass/Gold */
+            font-size: 36px;
+            letter-spacing: 3px;
+        }
+        .rm-header p {
+            color: #888;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 10px auto;
+            line-height: 1.6;
+        }
+
+        /* Sovereign Matrix Grid */
+        .pricing-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(198, 169, 107, 0.15);
+            border-radius: 4px;
+            padding: 50px 30px;
+            width: 320px;
+            text-align: left;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            backdrop-filter: blur(10px);
+            opacity: 0.9;
+        }
+
+        .pricing-card:hover {
+            border-color: rgba(198, 169, 107, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            opacity: 1;
+        }
+
+        /* 
+         * DECOY EFFECT CORE: The Sovereign Choice 
+         * Asıl satılmak istenen plan. Scale edilerek psikolojik ağırlık kazandırılır.
+         */
+        .pricing-card.sovereign-choice {
+            border: 1px solid rgba(198, 169, 107, 0.8);
+            background: linear-gradient(180deg, rgba(198, 169, 107, 0.08) 0%, rgba(20, 20, 22, 1) 100%);
+            transform: scale(1.05); /* Altın Oran Büyütme (Matrix Scale) */
+            z-index: 2;
+            box-shadow: 0 0 40px rgba(198, 169, 107, 0.15);
+            opacity: 1;
+        }
+
+        .pricing-card.sovereign-choice:hover {
+            transform: scale(1.08); /* Hover'da daha fazla büyüme */
+            box-shadow: 0 0 60px rgba(198, 169, 107, 0.25);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #c6a96b;
+            color: #141416;
+            font-family: 'Share Tech Mono', monospace;
+            padding: 6px 18px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(198, 169, 107, 0.3);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .sovereign-choice .card-title {
+            color: #c6a96b;
+            font-weight: 600;
+        }
+
+        .card-price {
+            font-size: 46px;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 400;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: baseline;
+            color: #fff;
+        }
+        
+        .card-price span {
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            color: #888;
+            margin-left: 8px;
+        }
+
+        .card-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin: 30px 0;
+        }
+
+        .sovereign-choice .card-divider {
+            background: rgba(198, 169, 107, 0.3);
+        }
+
+        .card-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+            color: #aaa;
+            line-height: 1.9;
+        }
+
+        .card-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        .card-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: rgba(255,255,255,0.2);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+        }
+
+        .sovereign-choice .card-list li::before {
+            color: #c6a96b;
+            text-shadow: 0 0 10px rgba(198, 169, 107, 0.5);
+        }
+        
+        .card-list li.missing {
+            text-decoration: line-through;
+            opacity: 0.3;
+        }
+        .card-list li.missing::before {
+            content: "✕";
+        }
+
+        .card-action {
+            display: block;
+            width: 100%;
+            padding: 18px 0;
+            margin-top: 50px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+
+        .card-action:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .sovereign-choice .card-action {
+            background: #c6a96b;
+            color: #141416;
+            border-color: #c6a96b;
+            font-weight: bold;
+        }
+
+        .sovereign-choice .card-action:hover {
+            background: #e0bc7a;
+            box-shadow: 0 0 25px rgba(198, 169, 107, 0.4);
+        }
+        
+        @media(max-width: 900px) {
+            .pricing-grid {
+                flex-direction: column;
+            }
+            .pricing-card.sovereign-choice {
+                transform: scale(1);
+                margin: 30px 0;
+            }
+            .pricing-card.sovereign-choice:hover {
+                transform: scale(1.02);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="revenue-matrix-container">
+    <div class="rm-header">
+        <h2>LONGEVITY MEDICAL PASSPORT</h2>
+        <p>Telemetri verileriniz The God's Eye sunucularında mühürlendi. Biyolojik sağlığınız ve kuantum stres izolasyonunuzu güvence altına alacak Sovereign Modüllerini seçin.</p>
+    </div>
+
+    <div class="pricing-grid">
+        
+        <!-- CARD 1: THE ENTRY (Eksikleri Vurgula) -->
+        <div class="pricing-card">
+            <div class="card-title">AURA ENTRY</div>
+            <div class="card-price">€2,500<span>/yıl</span></div>
+            <div class="card-divider"></div>
+            <ul class="card-list">
+                <li>Temel Kiosk Biyometrik Ölçümleri</li>
+                <li>Montenegro Tesislerine Giriş Kontrolü</li>
+                <li>Biyolojik Stres Veri Kaydı</li>
+                <li class="missing">The Calm Protocol (Otonom Dönüşüm)</li>
+                <li class="missing">God's Eye Telemetri Takibi</li>
+                <li class="missing">Quantum Three.js VisAgeX</li>
+            </ul>
+            <a href="#" class="card-action">İNİSİYASYON</a>
+        </div>
+
+        <!-- CARD 2: THE SOVEREIGN CHOICE (Target Matrix - Otonom Pulse) -->
+        <div class="pricing-card sovereign-choice" id="target-package">
+            <div class="card-badge">CLINICAL RECOMMENDATION</div>
+            <div class="card-title">SOVEREIGN CHOICE</div>
+            <div class="card-price">€15,000<span>/yıl</span></div>
+            <div class="card-divider"></div>
+            <ul class="card-list">
+                <li>VisAgeX Holografik Kuantum Tarayıcı Ağı</li>
+                <li>The Calm Protocol (Otonom Dinginleşme)</li>
+                <li>God's Eye Radarında Özel 7/24 Klinik Takip</li>
+                <li>Sınırsız Premium Longevity Terapileri</li>
+                <li>Edge Worker Ağında Sınırlandırılmış Şifreleme</li>
+                <li>Santis Kuantum Telemetri Biletleri</li>
+            </ul>
+            <a href="#" class="card-action">ZIRHI KUŞAN</a>
+        </div>
+
+        <!-- CARD 3: THE GOD ANCHOR (Yem/Decoy: Mükemmel Planı Ucuz Gösterir) -->
+        <div class="pricing-card">
+            <div class="card-title">THE GOD ANCHOR</div>
+            <div class="card-price">€150,000<span>/yıl</span></div>
+            <div class="card-divider"></div>
+            <ul class="card-list">
+                <li>Sovereign Choice Tüm Ayrıcalıkları</li>
+                <li>Global Edge Sunucularında Dedicated İzolasyon</li>
+                <li>Shadow Worker Özel Helikopter/Kurye Ağı</li>
+                <li>Karadağ'da Sınırsız VIP Rezidans Kapanması</li>
+                <li>Sovereign Otonom Medikal Savunma Gücü</li>
+                <li>Sistem Mimarları ile Özel Doğrudan Hat</li>
+            </ul>
+            <a href="#" class="card-action">NETWORK'E BAĞLAN</a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    /**
+     * OTONOM VURGULAMA MATRİSİ
+     * Kiosk'tan geçen müşterinin 'stres' verisi yüksek çıktıysa
+     * 'Sovereign Choice' kartını pulse animasyonuyla nefes aldırarak
+     * tek tıklanabilir ve görünür seçenekmiş gibi beynine kodlar.
+     */
+    setTimeout(() => {
+        // Pseudo-logic: Telemetriden stresin ulaştığı varsayılıyor.
+        const stressDetected = true; 
+        if (stressDetected) {
+            const scCard = document.getElementById('target-package');
+            // CSS Pulse class'ı veya inline soft glow
+            scCard.style.boxShadow = "0 0 80px rgba(198, 169, 107, 0.4)";
+            scCard.style.transition = "all 1s cubic-bezier(0.25, 0.8, 0.25, 1)";
+        }
+    }, 2000);
+</script>
+
+</body>
+</html>
+

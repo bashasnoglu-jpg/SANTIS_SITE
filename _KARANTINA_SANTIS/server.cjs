@@ -1,0 +1,1616 @@
+/**
+ * ═══════════════════════════════════════════════════════════
+ * SANTIS SOVEREIGN SERVER v1.0
+ * ═══════════════════════════════════════════════════════════
+ * Tek dosya: Statik dosyalar + API + WebSocket
+ * Node.js — sıfır bağımlılık (zero npm install)
+ *
+ * Kullanım:
+ *   node server.js
+ *   → http://localhost:8080
+ *
+ * Sağladığı endpoint'ler:
+ *   GET  /api/v1/analytics/metrics
+ *   GET  /api/v1/analytics/god/health
+ *   POST /api/v1/analytics/simulate
+ *   GET  /api/v1/media/assets
+ *   GET  /api/v1/media/filters
+ *   GET  /api/v1/media/slots/health
+ *   PATCH /api/v1/services/update
+ *   POST /api/v1/telemetry/beacon
+ *   POST /api/v1/telemetry/aurelia-mock
+ *   GET  /api/v1/admin/bookings
+ *   WS   /ws
+ */
+
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const crypto = require('crypto');
+const mediaManifest = require('./admin/omniverse/media-manifest-engine.cjs');
+
+const PORT = 8080;
+const ROOT = __dirname;
+
+// ── SOVEREIGN ROUTING MANIFESTO (P4) ──
+let RUNTIME_MANIFEST = { routes: [] };
+const manifestPath = path.join(ROOT, 'routes.json');
+try {
+    const rawData = fs.readFileSync(manifestPath, 'utf8');
+    RUNTIME_MANIFEST = JSON.parse(rawData);
+    console.log(`🦅 [Sovereign Core] Rota Manifestosu (routes.json) yüklendi. (v${RUNTIME_MANIFEST.config.version} - ${RUNTIME_MANIFEST.routes.length} rota)`);
+
+    // 🔥 HOT-RELOAD MANIFEST
+    fs.watch(manifestPath, (eventType, filename) => {
+        if (eventType === 'change') {
+            try {
+                const freshData = fs.readFileSync(manifestPath, 'utf8');
+                RUNTIME_MANIFEST = JSON.parse(freshData);
+                console.log(`🦅 [Sovereign Core] Rota Manifestosu HOT-RELOADED. (${RUNTIME_MANIFEST.routes.length} rota)`);
+            } catch (err) {
+                console.error('🚨 [HOT-RELOAD] Manifest parse error:', err);
+            }
+        }
+    });
+} catch (err) {
+    console.error('🚨 [CRITICAL FAILURE] Sovereign Manifestosu okunamadı veya JSON geçersiz!');
+    console.error(err.message);
+    process.exit(1); // Directive Gamma: Kesin Ölüm Protokolü
+}
+
+// ── MIME Types ─────────────────────────────────────────────
+const MIME = {
+    '.html': 'text/html; charset=utf-8',
+    '.css': 'text/css; charset=utf-8',
+    '.js': 'application/javascript; charset=utf-8',
+    '.json': 'application/json; charset=utf-8',
+    '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.gif': 'image/gif',
+    '.svg': 'image/svg+xml',
+    '.webp': 'image/webp',
+    '.ico': 'image/x-icon',
+    '.woff': 'font/woff',
+    '.woff2': 'font/woff2',
+    '.ttf': 'font/ttf',
+    '.mp3': 'audio/mpeg',
+    '.mp4': 'video/mp4',
+    '.webm': 'video/webm',
+    '.pdf': 'application/pdf',
+    '.csv': 'text/csv',
+    '.bat': 'text/plain',
+};
+
+// ── Mock Data ──────────────────────────────────────────────
+const mockMetrics = () => ({
+    visitors: 1280 + Math.floor(Math.random() * 200),
+    pageviews: 4850 + Math.floor(Math.random() * 500),
+    cvr: (14 + Math.random() * 8).toFixed(1),
+    revenue: 12400 + Math.floor(Math.random() * 3000),
+    bounceRate: (22 + Math.random() * 10).toFixed(1),
+    avgSession: '4m 12s',
+    topPage: '/masaj.html',
+    timestamp: new Date().toISOString()
+});
+
+const mockBookings = () => Array.from({ length: 8 }, (_, i) => ({
+    id: `BK-${1000 + i}`,
+    guest: `Misafir ${i + 1}`,
+    service: ['Sultan Hamamı', 'Bali Masajı', 'Deep Tissue', 'Sothys Cilt', 'Ayurveda'][i % 5],
+    date: new Date(Date.now() + i * 86400000).toISOString().split('T')[0],
+    time: `${10 + i}:00`,
+    status: i < 5 ? 'confirmed' : 'pending',
+    price_eur: [180, 120, 140, 95, 200][i % 5]
+}));
+
+const mockFilters = () => ({
+    categories: ['ritual-hammam', 'massage-relaxation', 'massage-premium', 'skincare', 'ritual'],
+    languages: ['tr', 'en'],
+    slots: ['hero', 'card', 'gallery', 'detail']
+});
+
+const mockAssets = () => ({
+    items: Array.from({ length: 12 }, (_, i) => ({
+        id: `asset-${i}`,
+        filename: `card-${i + 1}.jpg`,
+        path: `/assets/img/cards/card-${i + 1}.jpg`,
+        category: ['hamam', 'massage', 'skincare', 'ritual'][i % 4],
+        slot: ['hero', 'card', 'gallery'][i % 3],
+        lang: 'tr'
+    })),
+    total: 12
+});
+
+// ── Cerberus Gate — Zero-Dependency Auth ───────────────────
+const { createHmac, timingSafeEqual } = crypto;
+const CERBERUS_SECRET   = process.env.CERBERUS_SECRET  || 'sovereign-dev-secret-2026';
+const ADMIN_PASSCODE    = process.env.ADMIN_PASSCODE   || 'SOVEREIGN2026';
+const CERBERUS_COOKIE   = 'cerberus_token';
+const CERBERUS_TTL_MS   = 4 * 60 * 60 * 1000; // 4 saat
+const IS_PROD           = process.env.NODE_ENV === 'production';
+
+function cerberusSign(payload) {
+    return createHmac('sha256', CERBERUS_SECRET).update(payload).digest('hex');
+}
+function cerberusIssue() {
+    const ts  = Date.now().toString();
+    return `${ts}.${cerberusSign(ts)}`;
+}
+function cerberusVerify(token) {
+    if (!token) return false;
+    const dot = token.indexOf('.');
+    if (dot === -1) return false;
+    const ts  = token.slice(0, dot);
+    const sig = token.slice(dot + 1);
+    try {
+        const a = Buffer.from(sig,                 'hex');
+        const b = Buffer.from(cerberusSign(ts),    'hex');
+        if (a.length !== b.length) return false;
+        if (!timingSafeEqual(a, b)) return false;
+    } catch { return false; }
+    const age = Date.now() - parseInt(ts, 10);
+    return age > 0 && age < CERBERUS_TTL_MS;
+}
+function parseCookies(header) {
+    const map = {};
+    if (!header) return map;
+    for (const pair of header.split(';')) {
+        const idx = pair.indexOf('=');
+        if (idx < 1) continue;
+        const k = pair.slice(0, idx).trim();
+        const v = pair.slice(idx + 1).trim();
+        try { map[k] = decodeURIComponent(v); } catch { map[k] = v; }
+    }
+    return map;
+}
+function cerberusGuard(req, res) {
+    const cookies = parseCookies(req.headers.cookie);
+    const token   = cookies[CERBERUS_COOKIE];
+    if (cerberusVerify(token)) return true; // geçerli
+
+    const path = (req.url || '/').split('?')[0];
+    if (path.startsWith('/api/')) {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Unauthorized. The Cerberus Gate is sealed.' }));
+    } else {
+        console.warn(`[Cerberus] Yetkisiz: ${path} | IP: ${req.socket?.remoteAddress}`);
+        res.writeHead(302, { 'Location': '/admin/login.html' });
+        res.end();
+    }
+    return false;
+}
+
+// ── API Router ─────────────────────────────────────────────
+function handleAPI(req, res) {
+    const url = req.url.split('?')[0];
+    const method = req.method;
+
+    // CORS
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    if (method === 'OPTIONS') { res.writeHead(204); res.end(); return true; }
+
+    const json = (data, code = 200) => {
+        res.writeHead(code, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(data));
+    };
+
+    // ── Cerberus Gate Login (PUBLIC — Cerberus guard'ın dışında) ──
+    if (url === '/api/auth/login' && method === 'POST') {
+        let body = '';
+        req.on('data', c => { body += c; });
+        req.on('end', () => {
+            let passcode = '';
+            try { passcode = JSON.parse(body).passcode || ''; } catch {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: 'Invalid JSON' })); return;
+            }
+            if (!passcode || passcode !== ADMIN_PASSCODE) {
+                console.warn(`[Cerberus] ❌ Hatalı passcode. IP: ${req.socket?.remoteAddress}`);
+                res.writeHead(401, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: 'ACCESS_DENIED' })); return;
+            }
+            const token = cerberusIssue();
+            const cookieStr = [
+                `${CERBERUS_COOKIE}=${encodeURIComponent(token)}`,
+                'HttpOnly', 'SameSite=Strict', 'Path=/admin', 'Max-Age=14400',
+                ...(IS_PROD ? ['Secure'] : []),
+            ].join('; ');
+            console.log(`[Cerberus] ✅ Giriş onaylandı. IP: ${req.socket?.remoteAddress}`);
+            res.writeHead(200, { 'Content-Type': 'application/json', 'Set-Cookie': cookieStr });
+            res.end(JSON.stringify({ ok: true, redirect: '/admin/boardroom.html' }));
+        });
+        return true;
+    }
+
+    // ── Boardroom API'leri → Cerberus guard ──
+    if (url.startsWith('/api/v1/boardroom/')) {
+        if (!cerberusGuard(req, res)) return true;
+        // Guard geçildi — boardroom handler'ına düşer (aşağıda)
+    }
+
+    // ── Analytics ──
+    if (url === '/api/v1/analytics/metrics' && method === 'GET') {
+        json(mockMetrics()); return true;
+    }
+    if (url === '/api/v1/analytics/god/health' && method === 'GET') {
+        json({ status: 'online', mode: 'sovereign', uptime: '4h 22m', activeSessions: 3 }); return true;
+    }
+    if (url === '/api/v1/analytics/simulate' && method === 'POST') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+            const input = body ? JSON.parse(body) : {};
+            const surge = input.surge_multiplier || 1.0;
+            json({
+                success: true,
+                predicted_mrr: Math.round(24500 * surge),
+                predicted_bookings: Math.round(180 * surge),
+                predicted_occupancy_pct: Math.min(99, Math.round(72 * surge)),
+                dynamic_price: `€${(150 * surge).toFixed(0)}`,
+                message: 'Sandbox simulation completed.'
+            });
+        });
+        return true;
+    }
+
+    // ── Media ──
+    if (url === '/api/v1/media/manifest' && method === 'GET') {
+        json({ success: true, manifest: mediaManifest.manifest });
+        return true;
+    }
+
+    // ── Sovereign Navigation (Directive Beta) ──
+    if (url === '/api/nav-manifest' && method === 'GET') {
+        // Intelligence Secrecy: Only return routes with nav.show === true
+        const publicNav = RUNTIME_MANIFEST.routes.filter(r => r.nav && r.nav.show);
+        json({ success: true, routes: publicNav });
+        return true;
+    }
+
+    // ── Autonomous Sitemap (P4.4) ──
+    if (url === '/sitemap.xml' && method === 'GET') {
+        let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+        const domain = 'https://www.santis-spa.com';
+
+        RUNTIME_MANIFEST.routes.forEach(r => {
+            if (r.type !== 'external' && !(r.guards && r.guards.includes('admin')) && !r.authRequired) {
+                xml += `  <url>\n    <loc>${domain}${r.path}</loc>\n    <changefreq>daily</changefreq>\n    <priority>${r.path === '/' ? '1.0' : '0.8'}</priority>\n  </url>\n`;
+            }
+        });
+
+        xml += `</urlset>`;
+
+        res.writeHead(200, { 'Content-Type': 'application/xml; charset=utf-8' });
+        res.end(xml);
+        return true;
+    }
+
+    // ── Art Director Observability (Phase 43) ──
+    if (url === '/api/v1/art-director/metrics' && method === 'GET') {
+        json({
+            avgScore: 0.94,
+            rejectRate: 0.12,
+            regenerationAvg: 1.2,
+            avgRenderTime: "1.4s",
+            scoreBreakdown: { luxury: 0.95, minimalism: 0.90, lighting: 0.92, brandFit: 0.98 },
+            rejectReasons: { "low_luxury": 4, "bad_lighting": 7, "too_cluttered": 2 },
+            userImpact: { dwellTime: "+24%", scrollDepth: "+18%", conversionLift: "+11%" },
+            topPerformers: [
+                { id: "hero-index.a8f3x9", score: 0.98 },
+                { id: "texture-oil.b92x1", score: 0.95 },
+                { id: "massage-card.c4f8y2", score: 0.93 }
+            ]
+        });
+        return true;
+    }
+    if (url === '/api/v1/art-director/feed' && method === 'GET') {
+        json([
+            { timestamp: Date.now() - 12000, prompt: "macro shot of warm basalt stone with steam...", score: 0.95, status: "accepted", iterations: 1 },
+            { timestamp: Date.now() - 45000, prompt: "luxury spa interior with gold accents...", score: 0.65, status: "rejected", iterations: 2 },
+            { timestamp: Date.now() - 89000, prompt: "minimalist white towel on dark marble...", score: 0.91, status: "accepted", iterations: 1 }
+        ]);
+        return true;
+    }
+
+    if (url === '/api/v1/media/assets' && method === 'GET') {
+        json(mockAssets()); return true;
+    }
+    if (url === '/api/v1/media/filters' && method === 'GET') {
+        json(mockFilters()); return true;
+    }
+    if (url === '/api/v1/media/slots/health' && method === 'GET') {
+        json({
+            status: 'online',
+            total_slots: 48,
+            critical_count: 1,
+            empty_count: 1,
+            filled: 46,
+            slots: [
+                { slot: 'hero_home', status: 'optimal', sas_score: 9.94, filename: 'hero_home_video.mp4' },
+                { slot: 'card_hamam_1', status: 'optimal', sas_score: 9.88, filename: 'hammam_ritual.webp' },
+                { slot: 'card_masaj_1', status: 'optimal', sas_score: 9.75, filename: 'massage_therapy.webp' },
+                { slot: 'card_cilt_1', status: 'at_risk', sas_score: 8.42, filename: 'skincare_basic.webp' },
+                { slot: 'highlight_home', status: 'empty', sas_score: 0.0, filename: null },
+                { slot: 'hero_hamam', status: 'critical', sas_score: 1.20, filename: 'old_hamam_distorted.jpg' }
+            ]
+        });
+        return true;
+    }
+    if (url === '/api/v1/media/upload' && method === 'POST') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+            try {
+                const payload = JSON.parse(body);
+                if (!payload.filename || !payload.contentBase64) {
+                    json({ success: false, error: 'Missing filename or contentBase64' }, 400);
+                    return;
+                }
+                const base64Data = payload.contentBase64.split(';base64,').pop();
+                const savePath = path.join(ROOT, 'assets', 'img', payload.filename);
+
+                fs.writeFile(savePath, base64Data, { encoding: 'base64' }, (err) => {
+                    if (err) {
+                        console.error('Upload Error:', err);
+                        json({ success: false, error: 'Failed to save file' }, 500);
+                    } else {
+                        console.log(`🖼️ [Upload Success] Saved to: ${savePath}`);
+                        json({ status: 'SCANNING', success: true, message: 'Media successfully ingested.', asset_id: payload.filename });
+                    }
+                });
+            } catch (e) {
+                console.error(e);
+                json({ success: false, error: 'Invalid upload JSON' }, 400);
+            }
+        });
+        return true;
+    }
+
+    // ── Simulation Engine ──
+    if (url.startsWith('/api/v1/analytics/simulate_move') && method === 'GET') {
+        json({
+            status: 'ok',
+            simulation: {
+                target_persona: 'Luxury Explorer',
+                resonance: (Math.random() * (99.0 - 85.0) + 85.0).toFixed(1),
+                projected_mrr_lift: Math.floor(Math.random() * 5000) - 1000
+            }
+        });
+        return true;
+    }
+
+    // ── Concierge AI Suggestions ──
+    if (url === '/api/v1/concierge/suggestions' && method === 'GET') {
+        json({
+            status: 'active',
+            recommendations: [
+                {
+                    url: '/masaj.htmlsothys-cilt-bakimi.html',
+                    image: '/assets/img/cards/santis_card_skincare_v1.webp',
+                    title: 'Sothys Özel Cilt Terapisi',
+                    description: 'Ritüelinizin ardından, derinlemesine oksijen terapisiyle cildinizi yenileyin. Sovereign üyeliğinize özel tavsiyedir.',
+                    price: '€180'
+                }
+            ]
+        });
+        return true;
+    }
+
+    // ── Services ──
+    if (url === '/api/v1/services/update' && method === 'PATCH') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+            try {
+                const payload = JSON.parse(body);
+                json({ success: true, message: `"${payload.title || payload.id}" başarıyla güncellendi.`, updated: payload });
+            } catch (e) { json({ error: 'Geçersiz JSON' }, 400); }
+        });
+        return true;
+    }
+    // ── Billing / Checkout (Black Room) ──
+    if (url === '/api/v1/billing/checkout' && method === 'POST') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+            json({
+                success: true,
+                checkout_url: 'https://billing.stripe.com/p/session/mock_session_santis_v18',
+                message: 'Stripe Gateway Mock Initiated'
+            });
+        });
+        return true;
+    }
+
+    // ── Tenant Branding (Black Room) ──
+    if (url === '/api/v1/admin/tenant-branding' && method === 'PATCH') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+            json({
+                success: true,
+                message: 'Chameleon Modeli Başarıyla Vektörel Hafızaya İşlendi.'
+            });
+        });
+        return true;
+    }
+
+    // ── Neural Action Log (Black Room) ──
+    if (url === '/api/v1/admin/neural-action/log' && method === 'GET') {
+        json({
+            success: true,
+            logs: [
+                { id: "LOG-" + Date.now(), action: "Sovereign Analytics Raporu Oluşturuldu", timestamp: new Date().toISOString() },
+                { id: "LOG-" + (Date.now() - 360000), action: "Chameleon Brand Engine Senkronize Edildi", timestamp: new Date(Date.now() - 360000).toISOString() }
+            ]
+        });
+        return true;
+    }
+
+    // ── Telemetry & Sentience (V36 Sovereign Observability) ──
+    global.V36_TELEMETRY_STREAM = global.V36_TELEMETRY_STREAM || [];
+
+    if (url === '/api/v1/telemetry/decision' && method === 'POST') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+            try {
+                const data = JSON.parse(body);
+                global.V36_TELEMETRY_STREAM.push({
+                    level: 'DECISION',
+                    module: data.module,
+                    decision: data.decision,
+                    meta: data.meta,
+                    time: data.time || Date.now()
+                });
+                if (global.V36_TELEMETRY_STREAM.length > 200) global.V36_TELEMETRY_STREAM.shift();
+                json({ received: true });
+            } catch (e) { json({ received: false }, 400); }
+        });
+        return true;
+    }
+
+    if (url === '/api/v1/telemetry/beacon' && method === 'POST') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+            try {
+                const data = JSON.parse(body);
+                global.V36_TELEMETRY_STREAM.push({
+                    level: data.level || 'INFO',
+                    message: data.message || 'Heartbeat signal',
+                    page: data.page || 'unknown',
+                    time: Date.now()
+                });
+                if (global.V36_TELEMETRY_STREAM.length > 200) global.V36_TELEMETRY_STREAM.shift();
+                json({ received: true });
+            } catch (e) { json({ received: false }, 400); }
+        });
+        return true;
+    }
+
+    if (url === '/api/v1/admin/telemetry/stream' && method === 'GET') {
+        const events = global.V36_TELEMETRY_STREAM.splice(0, global.V36_TELEMETRY_STREAM.length); // Send and clear queue
+        json({ events });
+        return true;
+    }
+
+    if (url === '/api/v1/telemetry/ingest' && method === 'POST') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => json({ status: 'INGESTED', timestamp: new Date().toISOString() }));
+        return true;
+    }
+    if (url === '/api/v1/telemetry/aurelia-mock' && method === 'POST') {
+        json({ deployed: true, agent: 'aurelia', message: 'Rescue mission initiated.' }); return true;
+    }
+    if (url === '/api/v1/analytics/engage_sentience' && method === 'POST') {
+        // Return a mock optimization opportunity to trigger the modal
+        json({
+            status: 'OPPORTUNITY',
+            message: 'Sovereign Intelligence: Kesişim Uyumsuzluğu Tespit Edildi.',
+            recommendation: {
+                projected_mrr_lift: 1250,
+                agent_id: '8XF-9021-NEURO',
+                agent_sas: 'Aurelia Alpha',
+                target_slot: 'hero_home',
+                old_resonance: '74%',
+                new_resonance: '92%'
+            }
+        });
+        return true;
+    }
+
+    // ── Bookings ──
+    if (url === '/api/v1/admin/bookings' && method === 'GET') {
+        json({ bookings: mockBookings(), total: 8 }); return true;
+    }
+
+    // ── Hotels ──
+    if (url === '/api/v1/admin/hotels' && method === 'GET') {
+        json({
+            status: 'success', hotels: [
+                { id: 1, name: 'Santis Club HQ', location: 'Antalya, TR', status: 'Online', guests: 24, revenue: 14500, ai_conv: '18%' },
+                { id: 2, name: 'The Vendôme Spa', location: 'Paris, FR', status: 'Online', guests: 8, revenue: 8200, ai_conv: '12%' },
+                { id: 3, name: 'Zenith Retreat', location: 'Tokyo, JP', status: 'Offline', guests: 0, revenue: 0, ai_conv: '--' }
+            ]
+        }); return true;
+    }
+    if (url === '/api/v1/admin/hotels' && method === 'POST') {
+        let body = ''; req.on('data', c => body += c);
+        req.on('end', () => json({ status: 'success', message: 'Hotel node deployed.' }));
+        return true;
+    }
+
+    // ── Health / Panel Audit (God Mode) ──
+    if (url === '/api/v1/health/panel-audit' && method === 'GET') {
+        json({
+            status: 'healthy', panels: [
+                { name: 'Command Center', status: 'online', lastPing: Date.now() },
+                { name: 'God Mode', status: 'online', lastPing: Date.now() },
+                { name: 'Revenue', status: 'online', lastPing: Date.now() }
+            ], quarantine: []
+        }); return true;
+    }
+
+    // ── God Mode Stream (SSE stub) ──
+    if (url === '/api/v1/god-mode/stream' && method === 'GET') {
+        res.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', 'Connection': 'keep-alive' });
+        res.write('data: {"type":"heartbeat","status":"sovereign","timestamp":' + Date.now() + '}\n\n');
+        const interval = setInterval(() => {
+            if (res.destroyed) { clearInterval(interval); return; }
+            res.write('data: {"type":"pulse","visitors":' + Math.floor(Math.random() * 5) + ',"timestamp":' + Date.now() + '}\n\n');
+        }, 5000);
+        req.on('close', () => clearInterval(interval));
+        return true;
+    }
+
+    // ── Yield Status ──
+    if (url === '/api/v1/admin/yield-status' && method === 'GET') {
+        json({ yield_score: 87, trend: 'up', daily_target: 18000, current: 14500, pct: 80.6 }); return true;
+    }
+
+    // ── Services Live ──
+    if (url === '/api/v1/services-live' && method === 'GET') {
+        json({ services: 24, active: 18, paused: 6, top: 'Sultan Hamamı' }); return true;
+    }
+
+    // ── Guest Clusters ──
+    if (url === '/api/v1/guests/clusters' && method === 'GET') {
+        json({
+            clusters: [
+                { name: 'Recovery Seeker', count: 12, pct: 40 },
+                { name: 'Sovereign Guest', count: 8, pct: 27 },
+                { name: 'Luxury Explorer', count: 10, pct: 33 }
+            ]
+        }); return true;
+    }
+
+    // ── VIP Roster ──
+    if (url === '/api/v1/admin/vip-roster' && method === 'GET') {
+        json({
+            vips: [
+                { name: 'VIP Guest 1', score: 94, ltv: 4200, lastVisit: '2026-03-10' },
+                { name: 'VIP Guest 2', score: 88, ltv: 3100, lastVisit: '2026-03-09' },
+                { name: 'VIP Guest 3', score: 76, ltv: 1800, lastVisit: '2026-03-05' }
+            ]
+        }); return true;
+    }
+
+    // ── CRM AI Insights ──
+    if (url === '/api/v1/admin/ai-insights' && method === 'GET') {
+        json({
+            success: true,
+            insights: [
+                { id: 'ai_1', type: 'churn_risk', title: 'High Churn Risk: VIP Guest 2', detail: 'No bookings in the last 45 days. Recommendation: Send targeted recovery offer.', action: 'Deploy Rescue Campaign' },
+                { id: 'ai_2', type: 'upsell', title: 'Upsell Opportunity: VIP Guest 1', detail: 'Frequent massage bookings. Propensity to buy luxury skincare > 80%.', action: 'Offer Skincare Upgrade' },
+                { id: 'ai_3', type: 'anomaly', title: 'Booking Anomaly: Friday 18:00', detail: 'Lower than expected bookings for upcoming Friday evening. Recommend yield override.', action: 'Review Yield Pricing' }
+            ]
+        }); return true;
+    }
+
+    // ── Black Room APIs ──
+    if (url === '/api/v1/billing/plans' && method === 'GET') {
+        json({
+            success: true, plans: [
+                { id: 'starter', name: 'Sovereign Core', price: 99 },
+                { id: 'pro', name: 'Quantum Yield', price: 299 },
+                { id: 'enterprise', name: 'Omniverse Node', price: 999 }
+            ]
+        }); return true;
+    }
+
+    if (url === '/api/v1/admin/system/health' && method === 'GET') {
+        // More comprehensive health endpoint for Black Room
+        json({
+            status: 'operational',
+            cpu_load: '12%',
+            memory: '48%',
+            network: 'stable',
+            active_nodes: 18,
+            encryption: 'AES-GCM-256'
+        }); return true;
+    }
+
+    if (url === '/api/v1/admin/tenant-branding' && method === 'GET') {
+        json({
+            success: true,
+            theme: 'dark-gold',
+            logo: '/assets/img/logo.svg',
+            fonts: ['Inter', 'Space Grotesk']
+        }); return true;
+    }
+
+    if (url === '/api/v1/admin/neural-action' && method === 'POST') {
+        json({ success: true, status: 'EXECUTED', message: 'Neural command deployed successfully.' });
+        return true;
+    }
+
+    if (url === '/api/v1/admin/yield-override' && method === 'POST') {
+        json({ success: true, status: 'OVERRIDDEN', message: 'Yield pricing rules bypassed.' });
+        return true;
+    }
+
+    // ── Neural Surge & Phygital Control ──
+    if (url === '/api/v1/booking/admin/surge' && method === 'GET') {
+        json({ success: true, surge_multiplier: 1.0 });
+        return true;
+    }
+
+    if (url === '/api/v1/booking/admin/surge' && method === 'POST') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+            // Just mock success to please the frontend
+            json({ success: true, status: 'LOCKED', message: 'Neural Pricing Surge locked.' });
+        });
+        return true;
+    }
+
+    // ── Phase 11: Sovereign Route Mapping Registry ──
+    if (url === '/api/v1/media/slot-routes' && method === 'GET') {
+        json({
+            success: true,
+            routes: [
+                { slot_key: 'hero_main', page_route: '/index.html', is_global: true },
+                { slot_key: 'hamam_ritual', page_route: '/hamam.html', is_global: false },
+                { slot_key: 'massage_vip', page_route: '/masaj.html', is_global: false }
+            ]
+        });
+        return true;
+    }
+
+    // ── Revenue Forecast & LTV ──
+    if (url === '/api/v1/revenue/forecast' && method === 'GET') {
+        json({ today: 14500, forecast_tomorrow: 16200, weekly: 98000, monthly_target: 420000, monthly_actual: 312000 }); return true;
+    }
+    if (url === '/api/v1/revenue/ltv-churn' && method === 'GET') {
+        json({ avg_ltv: 1850, churn_rate: 4.2, retention_90d: 78, cohort_growth: 12.5 }); return true;
+    }
+    if (url === '/api/v1/revenue/admin/revenue' && method === 'GET') {
+        const period = (req.url.split('period=')[1] || 'today').split('&')[0];
+        const data = {
+            today: { revenue: 14500, bookings: 42, avg_ticket: 345, top_service: 'Sultan Hamamı' },
+            week: { revenue: 98000, bookings: 280, avg_ticket: 350, top_service: 'Deep Tissue' },
+            month: { revenue: 312000, bookings: 920, avg_ticket: 339, top_service: 'Sultan Hamamı' },
+            quarter: { revenue: 890000, bookings: 2650, avg_ticket: 336, top_service: 'Aromaterapi' }
+        };
+        json({ status: 'success', period, ...(data[period] || data.today) }); return true;
+    }
+
+    return false; // Not an API route
+}
+
+// ── Static File Server ─────────────────────────────────────
+function serveStatic(req, res) {
+    let urlPath = req.url.split('?')[0];
+
+    // Yönlendirme ve Uzantı Kurtarma Mantığı (Extensionless)
+    if (urlPath === '/rezervasyon' || urlPath === '/rezervasyon/') {
+        urlPath = '/booking.html'; // Master rezervasyon rotası
+    } else if (urlPath.endsWith('/')) {
+        urlPath += 'index.html';
+    } else if (!path.extname(urlPath)) {
+        urlPath += '.html';
+    }
+
+    // --- DICTATORIAL ROUTING (Directive Delta) ---
+    // Enforce Absolute Whitelist on HTML files
+    const extRaw = path.extname(urlPath).toLowerCase();
+    if (extRaw === '.html' || extRaw === '') {
+        const routePath = req.url.split('?')[0];
+
+        // 🛡️ Auto-Redirect old admin routes to the Sovereign HQ Dashboard
+        if (routePath === '/admin/index.html' || routePath === '/admin' || routePath === '/admin/') {
+            res.writeHead(302, { 'Location': '/hq-dashboard' });
+            res.end();
+            return;
+        }
+
+        // Match path against Manifest (exact match, explicit HTML check, or root index)
+        const manifestRoute = RUNTIME_MANIFEST.routes.find(r => r.path === routePath || r.path === routePath.replace(/\/$/, '') || (r.path === '/' && urlPath === '/index.html') || r.path === routePath + '.html');
+
+        let isAdminRoute = routePath.startsWith('/admin/');
+        let isComponent = routePath.startsWith('/components/');
+        let isReactDashboard = routePath.startsWith('/admin-panel') || routePath.startsWith('/hq-dashboard');
+
+        if (manifestRoute || isAdminRoute || isComponent || isReactDashboard) {
+            // Rewrite URL to physical template if it's in the manifest
+            if (manifestRoute) {
+                urlPath = manifestRoute.template.startsWith('/') ? manifestRoute.template : '/' + manifestRoute.template;
+            } else {
+                // If it's a dynamic admin route or component, use the routePath directly
+                urlPath = routePath;
+            }
+
+            // 🛡️ LEX AEGIS: Admin Armor (Zero-Trust Shield)
+            const requiresAuth = isAdminRoute || (manifestRoute && (manifestRoute.authRequired || (manifestRoute.guards && manifestRoute.guards.includes('admin'))));
+
+            if (requiresAuth) {
+                const auth = req.headers['authorization'];
+                if (!auth || auth !== 'Basic c292ZXJlaWduOnF1YW50dW0yMDI2') {
+                    res.writeHead(401, { 'WWW-Authenticate': 'Basic realm="Lex Aegis Sovereign Shield"' });
+                    res.end('Access Restricted by Lex Aegis Central Command. Unauthorized Entity.');
+                    return;
+                }
+            }
+        } else {
+            // Absolute Execution: Ghost routes are ruthlessly terminated
+            res.writeHead(404, { 'Content-Type': 'text/plain' });
+            res.end('Ghost Route Terminated by Sovereign Command. 404 Not Found.');
+            return;
+        }
+    }
+
+    const filePath = path.join(ROOT, decodeURIComponent(urlPath));
+    const ext = path.extname(filePath).toLowerCase();
+
+    // Güvenlik: root dışına çıkma engeli
+    if (!filePath.startsWith(ROOT)) { res.writeHead(403); res.end('Forbidden'); return; }
+
+    fs.stat(filePath, (err, stats) => {
+        if (err || !stats.isFile()) {
+            res.writeHead(404, { 'Content-Type': 'text/plain' });
+            res.end('File not found: ' + urlPath);
+            return;
+        }
+        res.writeHead(200, {
+            'Content-Type': MIME[ext] || 'application/octet-stream',
+            'Cache-Control': 'no-cache'
+        });
+        fs.createReadStream(filePath).pipe(res);
+    });
+}
+
+// ═══════════════════════════════════════════════════════════
+// 🛡️ SOVEREIGN WEBSOCKET SHIELD v2.0 (Production-Grade)
+// ═══════════════════════════════════════════════════════════
+// 7-Layer Defense: Origin · IP Limit · Rate Limit · Heartbeat
+//                  Zombie Cleanup · Payload Limit · Multiplex Router
+// ═══════════════════════════════════════════════════════════
+
+// ========================================
+// SANTIS WS STATE — Sovereign Channel Core
+// ========================================
+
+const wsClients = new Map();
+const recentConnectionBursts = new Map();
+
+function safeJsonParse(raw) {
+    try { return JSON.parse(raw); } catch { return null; }
+}
+
+function makeClientFingerprint(req) {
+    const ip = req.socket?.remoteAddress || 'unknown';
+    const origin = req.headers.origin || 'unknown';
+    const ua = req.headers['user-agent'] || 'unknown';
+    return `${ip}__${origin}__${ua}`;
+}
+
+function noteConnectionAttempt(req) {
+    const key = makeClientFingerprint(req);
+    const now = Date.now();
+    const windowMs = 8000;
+
+    if (!recentConnectionBursts.has(key)) recentConnectionBursts.set(key, []);
+    const attempts = recentConnectionBursts.get(key);
+    attempts.push(now);
+
+    while (attempts.length && now - attempts[0] > windowMs) attempts.shift();
+    return attempts.length;
+}
+
+function registerWsClient(ws, req, type = 'frontend') {
+    const cryptoUuid = (typeof crypto !== 'undefined') ? crypto.randomUUID?.() : null;
+    const id = cryptoUuid || `ws_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+    const ip = req.socket?.remoteAddress || 'unknown';
+    const origin = req.headers.origin || 'unknown';
+    const userAgent = req.headers['user-agent'] || 'unknown';
+    const pathname = (() => {
+        try { return new URL(req.url, `http://${req.headers.host}`).pathname; } catch { return req.url || '/ws'; }
+    })();
+
+    const client = {
+        id, type, ip, origin, userAgent, pathname,
+        connectedAt: Date.now(),
+        channels: new Set(),
+        instanceId: null, appName: 'unknown',
+        sessionKey: makeClientFingerprint(req),
+    };
+    wsClients.set(ws, client);
+    return client;
+}
+
+function getWsClient(ws) { return wsClients.get(ws) || null; }
+function unregisterWsClient(ws) { wsClients.delete(ws); }
+
+function findDuplicateClient(currentClient) {
+    for (const [otherWs, otherClient] of wsClients.entries()) {
+        if (otherClient.id === currentClient.id) continue;
+        
+        // 1. Kesin Eşleşme (Aynı Instance)
+        const sameInstance = currentClient.instanceId && otherClient.instanceId && currentClient.instanceId === otherClient.instanceId;
+        if (sameInstance) return { ws: otherWs, client: otherClient };
+        
+        // 2. Agresif Parmak İzi ve Zaman Örtüşmesi Koruması (Tab Refresh Yakalayıcı)
+        const sameFingerprint = 
+            currentClient.sessionKey === otherClient.sessionKey &&
+            currentClient.pathname === otherClient.pathname;
+            
+        const recentOverlap = 
+            Math.abs(Date.now() - otherClient.connectedAt) < 15000;
+            
+        if (sameFingerprint && recentOverlap) {
+            return { ws: otherWs, client: otherClient };
+        }
+    }
+    return null;
+}
+
+function logWsClose(ws, code, reason = '') {
+    const client = getWsClient(ws);
+    if (!client) return;
+    const lifetimeMs = Date.now() - client.connectedAt;
+    console.log(
+        `📡 [WS] Bağlantı kapandı. ID: ${client.id} | Type: ${client.type} | Path: ${client.pathname} | IP: ${client.ip} | ` +
+        `Origin: ${client.origin} | Instance: ${client.instanceId || 'unknown'} | App: ${client.appName || 'unknown'} | ` +
+        `Kanallar: ${Array.from(client.channels).join(',') || '-'} | Ömür: ${lifetimeMs}ms | Code: ${code} | Reason: ${reason || '-'} | Aktif: ${Math.max(wsClients.size - 1, 0)}`
+    );
+}
+
+function broadcastToChannel(channel, payload, meta = {}) {
+    const packet = { channel, payload, meta: { ts: Date.now(), source: 'santis-sovereign-server', ...meta } };
+    let delivered = 0;
+    for (const [ws, client] of wsClients.entries()) {
+        if (ws.destroyed || !client.channels.has(channel)) continue;
+        if (typeof wsSend !== 'undefined') { wsSend(ws, packet); delivered++; }
+    }
+    return delivered;
+}
+
+function handleWsMessage(ws, raw) {
+    const client = getWsClient(ws);
+    if (!client) return;
+
+    const msg = safeJsonParse(raw?.toString?.() || raw);
+    if (!msg || typeof msg !== 'object') {
+        if (typeof wsSend !== 'undefined') wsSend(ws, { type: 'ERROR', error: 'INVALID_JSON', meta: { ts: Date.now() } });
+        return;
+    }
+
+    if (msg.type === 'HELLO') {
+        client.instanceId = msg?.meta?.instanceId || null;
+        client.appName = msg?.meta?.app || 'unknown';
+
+        console.log(`🛰️ [WS Router] HELLO | Client: ${client.id} | Instance: ${client.instanceId || 'none'} | App: ${client.appName}`);
+
+        const duplicate = findDuplicateClient(client);
+        if (duplicate) {
+            wsSend(duplicate.ws, { type: 'DUPLICATE_CONNECTION_EVICTED', reason: 'superseded_by_newer_connection', meta: { ts: Date.now() } });
+            // ✅ destroy() değil close(4409) — client bu kodu görünce reconnect etmez
+            try { duplicate.ws.close(4409, 'duplicate_evicted'); } catch (error) {}
+            console.warn(`🛡️ [WS SHIELD] Duplicate evicted (4409) | Old: ${duplicate.client.id} | New: ${client.id} | Instance: ${client.instanceId || 'unknown'}`);
+
+        }
+        wsSend(ws, { type: 'HELLO_ACK', clientId: client.id, channels: Array.from(client.channels), meta: { ts: Date.now() } });
+        return;
+    }
+
+    if (msg.type === 'SUBSCRIBE') {
+        const channels = Array.isArray(msg.channels) ? msg.channels : [];
+        const cleaned = channels.filter((ch) => typeof ch === 'string' && ch.trim().length > 0).slice(0, 50);
+        
+        console.log(`🛰️ [WS Router] SUBSCRIBE | Client: ${client.id} | Channels: ${cleaned.join(', ') || '-'}`);
+        
+        client.channels = new Set(cleaned);
+        wsSend(ws, { type: 'SUBSCRIBE_ACK', channels: Array.from(client.channels), meta: { ts: Date.now() } });
+        console.log(`🛰️ [WS] SUBSCRIBE_ACK | Client: ${client.id} | Channels: ${Array.from(client.channels).join(', ') || '-'}`);
+        return;
+    }
+
+    if (msg.type === 'PING') {
+        wsSend(ws, { type: 'PONG', meta: { ts: Date.now() } });
+        return;
+    }
+
+    wsSend(ws, { type: 'ERROR', error: 'UNKNOWN_MESSAGE_TYPE', receivedType: msg.type || null, meta: { ts: Date.now() } });
+}
+
+const wsRateMap = new Map();        // IP → { count, resetTime } (connection rate)
+const ipConnections = new Map();    // IP → active connection count (concurrent)
+
+// ── CONFIG ─────────────────────────────────────────────────
+const WS_CONFIG = {
+    // 🛡️ Origin Whitelist (CSWSH Koruması)
+    ALLOWED_ORIGINS: new Set([
+        'http://localhost:8080',
+        'http://127.0.0.1:8080',
+        'http://localhost:5173',
+        'http://127.0.0.1:5173',
+        'https://santisclub.com',
+        'https://www.santisclub.com',
+        'https://admin.santisclub.com',
+    ]),
+    ALLOW_NULL_ORIGIN: true,           // file:// ve yerel geliştirme için
+
+    // 🚫 Limits
+    MAX_CONNECTIONS_PER_IP: 50,         // Eş zamanlı bağlantı limiti (DevTools refresh toleransı için artırıldı)
+    MAX_CONNECT_RATE_PER_MIN: 120,      // Dakikada max yeni bağlantı (local dev: 120)
+    MAX_MESSAGES_PER_MIN: 100,         // Bağlantı başına mesaj hız limiti
+    MAX_PAYLOAD_BYTES: 32 * 1024,      // 32 KB max mesaj boyutu
+
+    // ❤️ Heartbeat
+    HEARTBEAT_INTERVAL_MS: 30000,      // 30 saniye ping/pong
+    TELEMETRY_INTERVAL_MS: 10000,      // 10 saniye mock telemetry
+};
+
+// ── 1️⃣ ORIGIN SHIELD (CSWSH Koruması) ─────────────────────
+function verifyOrigin(origin) {
+    if (origin === null || origin === undefined) {
+        return WS_CONFIG.ALLOW_NULL_ORIGIN;
+    }
+    return WS_CONFIG.ALLOWED_ORIGINS.has(origin);
+}
+
+// ── 2️⃣ IP CONNECTION LIMIT ────────────────────────────────
+function canConnect(ip) {
+    const count = ipConnections.get(ip) || 0;
+    if (count >= WS_CONFIG.MAX_CONNECTIONS_PER_IP) return false;
+    ipConnections.set(ip, count + 1);
+    return true;
+}
+
+function releaseConnection(ip) {
+    const count = ipConnections.get(ip) || 1;
+    if (count <= 1) {
+        ipConnections.delete(ip);
+    } else {
+        ipConnections.set(ip, count - 1);
+    }
+}
+
+// ── 3️⃣ CONNECTION RATE LIMIT ──────────────────────────────
+function checkConnectionRate(ip) {
+    const now = Date.now();
+    let entry = wsRateMap.get(ip);
+    if (!entry || now > entry.resetTime) {
+        entry = { count: 0, resetTime: now + 60000 };
+        wsRateMap.set(ip, entry);
+    }
+    entry.count++;
+    return entry.count <= WS_CONFIG.MAX_CONNECT_RATE_PER_MIN;
+}
+
+// Rate map temizliği — her 5 dakikada eski kayıtları sil
+setInterval(() => {
+    const now = Date.now();
+    for (const [ip, entry] of wsRateMap) {
+        if (now > entry.resetTime) wsRateMap.delete(ip);
+    }
+}, 300000);
+
+// ── FULL VERIFY CLIENT ─────────────────────────────────────
+function verifyClient(req, socket) {
+    const origin = req.headers.origin || null;
+    const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress;
+
+    // 1. ORIGIN KONTROLÜ
+    if (!verifyOrigin(origin)) {
+        console.warn(`🚫 [WS SHIELD] Origin reddedildi: ${origin} | IP: ${ip}`);
+        socket.write('HTTP/1.1 403 Forbidden\r\n\r\n');
+        socket.destroy();
+        return null;
+    }
+
+    // 2. CONNECTION RATE LIMIT
+    if (!checkConnectionRate(ip)) {
+        console.warn(`🚫 [WS SHIELD] Bağlantı hız limiti aşıldı: ${ip}`);
+        socket.write('HTTP/1.1 429 Too Many Requests\r\n\r\n');
+        socket.destroy();
+        return null;
+    }
+
+    // 3. CONCURRENT CONNECTION LIMIT
+    if (!canConnect(ip)) {
+        console.warn(`🚫 [WS SHIELD] Eş zamanlı bağlantı limiti aşıldı: ${ip} (max ${WS_CONFIG.MAX_CONNECTIONS_PER_IP})`);
+        socket.write('HTTP/1.1 429 Too Many Requests\r\n\r\n');
+        socket.destroy();
+        return null;
+    }
+
+    return ip; // Doğrulanmış IP döndür
+}
+
+// ── 8️⃣ SOVEREIGN MULTIPLEX ROUTER ─────────────────────────
+function routeMessage(socket, parsed) {
+    const channel = parsed.channel || parsed.type || 'unknown';
+    const client = getWsClient(socket) || { type: 'frontend' };
+    
+    switch (channel) {
+        case 'INIT':
+            socket._wsIsVerified = true;
+            wsSend(socket, { type: 'ACK', status: 'verified', timestamp: Date.now() });
+            console.log(`🔐 [WS Router] Sovereign Identity Onaylandı. Namespace: ${parsed.namespace}`);
+            break;
+
+        case 'telemetry':
+            // Telemetri verisi — logla ve admin client'lara forward et
+            console.log(`📊 [WS Router] Telemetry: ${JSON.stringify(parsed.payload || {}).substring(0, 80)}`);
+            // 🧬 Darwinian + Ghost telemetriyi admin radar'a ilet
+            for (const [c, meta] of wsClients.entries()) {
+                if (c !== socket && !c.destroyed && meta.type === 'admin') {
+                    wsSend(c, { type: 'TELEMETRY_BEACON', payload: parsed.payload });
+                }
+            }
+            break;
+
+        case 'data':
+            // Veri güncelleme — Store'a yönlendir
+            for (const [c, meta] of wsClients.entries()) {
+                if (c !== socket && !c.destroyed) {
+                    wsSend(c, { type: 'data_update', payload: parsed.payload });
+                }
+            }
+            break;
+
+        case 'system':
+            // Sistem komutları — admin panelden gelen emirler
+            console.log(`⚙️ [WS Router] System: ${parsed.action || 'unknown'}`);
+
+            // 🧬 APEX LOCK: Admin en başarılı varyantı tüm kullanıcılara kilitler
+            if (parsed.action === 'apex_lock' && client.type === 'admin') {
+                console.log(`👑 [APEX LOCK] Varyant kilitlendi: ${parsed.payload?.variantHash}`);
+                broadcastToChannel('THREAT_PULSE', {
+                    severity: 'low',
+                    zone: 'apex-lock',
+                    detail: `lock contention detected: ${parsed.payload?.variantHash}`,
+                    action: 'APEX_LOCK'
+                });
+                for (const [c, meta] of wsClients.entries()) {
+                    if (!c.destroyed && meta.type !== 'admin') {
+                        wsSend(c, { type: 'APEX_LOCK', payload: parsed.payload });
+                    }
+                }
+                // Admin'e onay
+                wsSend(socket, { type: 'APEX_LOCK_CONFIRMED', payload: parsed.payload });
+            }
+            // 🔓 APEX UNLOCK: Otonom evrime geri dön
+            else if (parsed.action === 'apex_unlock' && client.type === 'admin') {
+                console.log(`🔓 [APEX UNLOCK] Otonom evrim yeniden aktif`);
+                broadcastToChannel('THREAT_PULSE', {
+                    severity: 'low',
+                    zone: 'apex-unlock',
+                    detail: 'lock released',
+                    action: 'APEX_UNLOCK'
+                });
+                for (const [c, meta] of wsClients.entries()) {
+                    if (!c.destroyed && meta.type !== 'admin') {
+                        wsSend(c, { type: 'APEX_UNLOCK' });
+                    }
+                }
+                wsSend(socket, { type: 'APEX_UNLOCK_CONFIRMED' });
+            }
+            break;
+
+        case 'ping':
+            // Uygulama seviyesi ping/pong
+            wsSend(socket, { type: 'pong', t: Date.now() });
+            break;
+
+        default:
+            // Bilinmeyen kanal — broadcast et (geriye uyumluluk)
+            for (const [c, meta] of wsClients.entries()) {
+                if (c !== socket && !c.destroyed) {
+                    wsSend(c, { type: 'broadcast', data: parsed });
+                }
+            }
+            break;
+    }
+}
+
+// ── UPGRADE HANDLER ────────────────────────────────────────
+function handleUpgrade(req, socket) {
+    // 🛡️ ZERO TRUST: Handshake öncesi 3 katmanlı doğrulama
+    const ip = verifyClient(req, socket);
+    if (!ip) return;
+
+    const key = req.headers['sec-websocket-key'];
+    if (!key) { releaseConnection(ip); socket.destroy(); return; }
+
+    const accept = crypto.createHash('sha1')
+        .update(key + '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')
+        .digest('base64');
+
+    socket.write(
+        'HTTP/1.1 101 Switching Protocols\r\n' +
+        'Upgrade: websocket\r\n' +
+        'Connection: Upgrade\r\n' +
+        'Sec-WebSocket-Accept: ' + accept + '\r\n\r\n'
+    );
+
+    // ── Connection State ──
+    socket._wsIp = ip;
+    socket._wsAlive = true;
+    socket._wsMsgCount = 0;
+    socket._wsConnectedAt = Date.now();
+
+    // 🏷️ Client Sınıflandırma: admin paneli mi, frontend mi?
+    const urlObj = new URL(req.url, `http://${req.headers.host}`);
+    const pathname = urlObj.pathname;
+    let type = pathname.includes('god-mode') ? 'god-mode' : 'frontend';
+    type = urlObj.searchParams.get('client_type') || type;
+
+    const client = registerWsClient(socket, req, type);
+
+    // /ws/god-mode transition support
+    if (client.pathname.includes('god-mode')) {
+        client.channels.add('THREAT_PULSE');
+        client.channels.add('ORBITAL_STREAM');
+        client.channels.add('SYSTEM_HEALTH');
+    }
+
+    console.log(
+        `📡 [WS] Bağlantı kabul edildi. ` +
+        `ID: ${client.id} | ` +
+        `Type: ${client.type} | ` +
+        `URL: ${client.pathname} | ` +
+        `Origin: ${client.origin} | ` +
+        `IP: ${client.ip} | ` +
+        `User-Agent: ${client.userAgent} | ` +
+        `Aktif: ${wsClients.size}`
+    );
+
+    wsSend(socket, {
+        type: 'GATEWAY_READY',
+        payload: {
+            clientId: client.id,
+            server: 'santis-sovereign-server',
+            protocol: ['HELLO', 'SUBSCRIBE', 'PING'],
+        },
+        meta: { ts: Date.now() },
+    });
+
+    // Welcome message
+    wsSend(socket, { type: 'SYSTEM_BOOT', payload: { message: 'Sovereign Bus Online', version: '2.0', timestamp: Date.now() } });
+
+    // ── 4️⃣ DATA HANDLER + 5️⃣ MESSAGE RATE LIMIT ──
+    socket.on('data', (buf) => {
+        try {
+            // Protocol-level pong cevabı (opcode 0xA)
+            if (buf.length >= 2 && (buf[0] & 0x0F) === 0x0A) {
+                socket._wsAlive = true;
+                return;
+            }
+
+            const msg = wsDecodeFrame(buf);
+            if (!msg) return;
+
+            // 🚫 Payload boyut kontrolü
+            if (Buffer.byteLength(msg, 'utf8') > WS_CONFIG.MAX_PAYLOAD_BYTES) {
+                console.warn(`🚫 [WS SHIELD] Payload aşırı büyük — bağlantı kapatılıyor: ${ip}`);
+                socket.destroy();
+                return;
+            }
+
+            // 🚫 Message rate limit
+            socket._wsMsgCount++;
+            if (socket._wsMsgCount > WS_CONFIG.MAX_MESSAGES_PER_MIN) {
+                console.warn(`🚫 [WS SHIELD] Mesaj hız limiti aşıldı: ${ip} (${socket._wsMsgCount}/${WS_CONFIG.MAX_MESSAGES_PER_MIN}/dk)`);
+                wsSend(socket, { type: 'error', code: 1008, message: 'Rate limit exceeded' });
+                socket.destroy();
+                return;
+            }
+
+            // Parse & route
+            try {
+                const parsed = safeJsonParse(msg);
+                if (!parsed || typeof parsed !== 'object') {
+                    wsSend(socket, { type: 'ERROR', error: 'INVALID_JSON', meta: { ts: Date.now() } });
+                    return;
+                }
+                
+                if (parsed.type === 'HELLO' || parsed.type === 'SUBSCRIBE' || parsed.type === 'PING') {
+                    handleWsMessage(socket, msg);
+                    return;
+                }
+
+                routeMessage(socket, parsed);
+            } catch (e) {
+                console.error('❌ [WS] Message handling failed:', e);
+                wsSend(socket, { type: 'ERROR', error: 'MESSAGE_HANDLER_FAILURE', meta: { ts: Date.now() } });
+            }
+        } catch (e) { }
+    });
+
+    // ── 7️⃣ CONNECTION CLEANUP ──
+    socket.on('close', (code, reasonBuffer) => {
+        const reason = reasonBuffer?.toString?.() || '';
+        logWsClose(socket, code, reason);
+        unregisterWsClient(socket);
+        releaseConnection(ip);
+    });
+    socket.on('error', (error) => {
+        const client = getWsClient(socket);
+        console.error('❌ [WS] Socket error:', {
+            id: client?.id || 'unknown',
+            ip: client?.ip || 'unknown',
+            origin: client?.origin || 'unknown',
+            pathname: client?.pathname || 'unknown',
+            message: error?.message || String(error),
+        });
+        unregisterWsClient(socket);
+        releaseConnection(ip);
+    });
+}
+
+// ── 5️⃣ MESSAGE RATE RESET (60 saniyelik döngü) ───────────
+setInterval(() => {
+    for (const [socket, client] of wsClients.entries()) {
+        if (!socket.destroyed) socket._wsMsgCount = 0;
+    }
+}, 60000);
+
+// ── 6️⃣ HEARTBEAT — ZOMBIE CONNECTION KILLER ───────────────
+// Protocol-level Ping (opcode 0x9) — RFC 6455 uyumlu
+function wsPing(socket) {
+    try {
+        if (!socket.destroyed) {
+            const pingFrame = Buffer.from([0x89, 0x00]); // opcode 0x9 (ping), 0 byte payload
+            socket.write(pingFrame);
+        }
+    } catch (e) { }
+}
+
+setInterval(() => {
+    let zombieCount = 0;
+    for (const [socket, client] of wsClients.entries()) {
+        if (!socket._wsAlive) {
+            // ☠️ Zombi tespit edildi — öldür
+            zombieCount++;
+            console.warn(`☠️ [HEARTBEAT] Zombi bağlantı temizlendi: ${socket._wsIp}`);
+            socket.destroy();
+            unregisterWsClient(socket);
+            releaseConnection(socket._wsIp);
+            continue;
+        }
+        // Canlılık bayrağını indir ve ping at
+        socket._wsAlive = false;
+        wsPing(socket);
+    }
+    if (zombieCount > 0) {
+        console.log(`🧹 [HEARTBEAT] ${zombieCount} zombi temizlendi. Aktif: ${wsClients.size}`);
+    }
+}, WS_CONFIG.HEARTBEAT_INTERVAL_MS);
+
+// ── WS ENCODING / DECODING ─────────────────────────────────
+function wsSend(socket, obj) {
+    try {
+        const str = JSON.stringify(obj);
+        const buf = Buffer.from(str, 'utf8');
+        const frame = Buffer.alloc(2 + (buf.length > 125 ? 2 : 0) + buf.length);
+        frame[0] = 0x81; // text frame
+        if (buf.length > 125) {
+            frame[1] = 126;
+            frame.writeUInt16BE(buf.length, 2);
+            buf.copy(frame, 4);
+        } else {
+            frame[1] = buf.length;
+            buf.copy(frame, 2);
+        }
+        if (!socket.destroyed) socket.write(frame);
+    } catch (e) { }
+}
+
+function wsDecodeFrame(buf) {
+    if (buf.length < 2) return null;
+    const opcode = buf[0] & 0x0F;
+    // Close frame (0x8) — bağlantıyı kapat
+    if (opcode === 0x08) return null;
+    // Ping frame (0x9) — protokol seviyesi, routeMessage'a geçme
+    if (opcode === 0x09) return null;
+    // Pong frame (0xA) — zaten data handler'da yakalanıyor
+    if (opcode === 0x0A) return null;
+
+    const masked = (buf[1] & 0x80) !== 0;
+    let len = buf[1] & 0x7f;
+    let offset = 2;
+    if (len === 126) { len = buf.readUInt16BE(2); offset = 4; }
+    if (masked) {
+        const mask = buf.slice(offset, offset + 4); offset += 4;
+        const data = buf.slice(offset, offset + len);
+        for (let i = 0; i < data.length; i++) data[i] ^= mask[i % 4];
+        return data.toString('utf8');
+    }
+    return buf.slice(offset, offset + len).toString('utf8');
+}
+
+// ── TELEMETRY BROADCAST (Mock — 10 saniyelik döngü) ────────
+setInterval(() => {
+    const event = {
+        type: 'LIVE_PULSE',
+        data: {
+            activeGuests: Math.floor(Math.random() * 8) + 1,
+            revenueForecast: 14500 + Math.floor(Math.random() * 3000),
+        },
+        timestamp: Date.now()
+    };
+    broadcastToChannel('SYSTEM_HEALTH', event);
+}, WS_CONFIG.TELEMETRY_INTERVAL_MS);
+
+
+// ── HYBRID SEO ENGINE (Phase 9) ────────────────────────────
+const preRenderCache = new Map();
+
+const seoDictionary = {
+    'tr': {
+        '/index.html': { title: 'Santis Club • Spa & Wellness', desc: 'Antalya\'da özel lüks spa, hamam ritüelleri ve terapötik wellness deneyimi.' },
+        'default': { title: 'Santis Club', desc: 'Santis Club Özel Deneyimi' }
+    },
+    'en': {
+        '/index.html': { title: 'Santis Club • Spa & Wellness', desc: 'Exclusive luxury spa, hammam rituals, and therapeutic wellness experience in Antalya.' },
+        'default': { title: 'Santis Club', desc: 'Santis Club Exclusive Experience' }
+    }
+};
+
+function serveSovereignSEO(req, res, lang, virtualPath) {
+    const fullUrl = `${req.url}`;
+
+    // Check Cache
+    if (preRenderCache.has(fullUrl)) {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(preRenderCache.get(fullUrl));
+        return true;
+    }
+
+    // Map all requests to the single source of truth (currently in /tr/)
+    if (virtualPath === '/') virtualPath = '/index.html';
+    let physicalPath = path.join(ROOT, 'tr', virtualPath);
+
+    fs.stat(physicalPath, (err, stats) => {
+        // Eğer bir dizinse veya dosya bulunamadıysa (uzantısız bir URL ise), index.html ekle
+        if (err || !stats.isFile()) {
+            if (!virtualPath.endsWith('.html')) {
+                const altVirtualPath = virtualPath.endsWith('/') ? virtualPath + 'index.html' : virtualPath + '/index.html';
+                const altPhysicalPath = path.join(ROOT, 'tr', altVirtualPath);
+
+                fs.stat(altPhysicalPath, (altErr, altStats) => {
+                    if (altErr || !altStats.isFile()) {
+                        res.writeHead(404, { 'Content-Type': 'text/plain' });
+                        res.end('File not found: ' + req.url);
+                        return;
+                    }
+                    servePhysicalPath(altPhysicalPath, altVirtualPath);
+                });
+                return;
+            } else {
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.end('File not found: ' + req.url);
+                return;
+            }
+        } else {
+            servePhysicalPath(physicalPath, virtualPath);
+        }
+
+        function servePhysicalPath(finalPhysicalPath, finalVirtualPath) {
+            fs.readFile(finalPhysicalPath, 'utf8', (err, html) => {
+                if (err) {
+                    res.writeHead(500); res.end('Server Error'); return;
+                }
+
+                const dict = seoDictionary[lang][finalVirtualPath] || seoDictionary[lang]['default'];
+
+                /*
+                 * 1. Inject lang attribute
+                 * 2. Inject Title & Meta Description
+                 * 3. Inject Canonical & Hreflang
+                 */
+                let processedHtml = html
+                    .replace(/<html[^>]*>/i, `<html lang="${lang}">`)
+                    .replace(/<title>.*?<\/title>/i, `<title>${dict.title}</title>`)
+                    .replace(/<meta\s+name="description"\s+content="[^"]*"/ig, `<meta name="description" content="${dict.desc}"`);
+
+                // Inject SEO Head Tags safely before </head>
+                const seoTags = `
+        <!-- PHASE 9: HYBRID SEO ENGINE -->
+        <link rel="canonical" href="https://santis.club/${lang}${finalVirtualPath.replace('/index.html', '/')}" />
+        <link rel="alternate" hreflang="tr" href="https://santis.club/tr${finalVirtualPath.replace('/index.html', '/')}" />
+        <link rel="alternate" hreflang="en" href="https://santis.club/en${finalVirtualPath.replace('/index.html', '/')}" />
+        <link rel="alternate" hreflang="x-default" href="https://santis.club/en${finalVirtualPath.replace('/index.html', '/')}" />
+        <script>window.__SANTIS_LANG__ = '${lang}';</script>
+    </head>`;
+                processedHtml = processedHtml.replace(/<\/head>/i, seoTags);
+
+                preRenderCache.set(fullUrl, processedHtml);
+
+                res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+                res.end(processedHtml);
+            });
+        }
+    });
+
+    return true;
+}
+
+// ── HTTP Server ────────────────────────────────────────────
+const server = http.createServer((req, res) => {
+    // 🏥 ROOT HEALTH ENDPOINT — JSON sağlık raporu
+    if (req.url === '/health' || req.url === '/health/') {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+            status: 'online',
+            server: 'Santis Sovereign Server v1.0',
+            uptime_seconds: Math.round(process.uptime()),
+            uptime_human: formatUptime(process.uptime()),
+            memory_mb: Math.round(process.memoryUsage().rss / 1024 / 1024),
+            ws: {
+                activeClients: wsClients.size,
+                clients: Array.from(wsClients.values()).map((client) => ({
+                    id: client.id,
+                    type: client.type,
+                    ip: client.ip,
+                    origin: client.origin,
+                    pathname: client.pathname,
+                    instanceId: client.instanceId,
+                    appName: client.appName,
+                    channels: Array.from(client.channels),
+                    connectedAt: client.connectedAt,
+                    uptimeMs: Date.now() - client.connectedAt,
+                })),
+            },
+            node_version: process.version,
+            timestamp: new Date().toISOString()
+        }));
+        return;
+    }
+
+    // API routes
+    if (req.url.startsWith('/api/')) {
+        // 🚨 GOD'S EYE v2 - TELEMETRY & HOT LEAD INTERCEPTOR
+        if (req.url === '/api/intelligence/hot-lead' && req.method === 'POST') {
+            let body = '';
+            req.on('data', chunk => { body += chunk; });
+            req.on('end', () => {
+                try {
+                    const lead = JSON.parse(body);
+                    if (lead.mood) {
+                        if (lead.mood === 'buying' && lead.confidence >= 0.85) {
+                            console.log(`\n🚨 [GOD'S EYE: HOT LEAD] ======================`);
+                            console.log(`👤 Hedef: ${lead.sessionId}`);
+                            console.log(`📍 Konum: ${lead.url}`);
+                            console.log(`🔥 Durum: ALMAYA HAZIR (%${Math.round(lead.confidence * 100)})`);
+                            console.log(`==============================================\n`);
+                        } else if (lead.mood === 'exit_intent' || lead.mood === 'abandoned_session') {
+                            console.warn(`⚠️ [GOD'S EYE: FLIGHT RISK] Müşteri ${lead.sessionId}, ${lead.url} sayfasından çıkış yaptı veya yapmaya çalışıyor.`);
+                        }
+                    }
+                } catch (e) { /* ignore parse error from beacon */ }
+                res.writeHead(204);
+                res.end();
+            });
+            return;
+        }
+
+        if (typeof handleAPI !== 'undefined' && !handleAPI(req, res)) {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Unknown API endpoint', path: req.url }));
+        } else if (typeof handleAPI === 'undefined') {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Unknown API endpoint', path: req.url }));
+        }
+        return;
+    }
+
+    // Admin sidebar redirects
+    const redirects = {
+        '/tenant-dashboard': '/admin/hotels.html',
+        '/guest-zen': '/'
+    };
+    let cleanUrl = req.url.split('?')[0];
+    if (redirects[cleanUrl]) {
+        res.writeHead(302, { 'Location': redirects[cleanUrl] });
+        res.end(); return;
+    }
+
+    // ── PHASE 9: HYBRID SEO ROUTER ──
+    // Match /tr/something or /en/something
+    const langMatch = cleanUrl.match(/^\/(tr|en)(\/.*)?$/);
+    if (langMatch) {
+        const lang = langMatch[1];
+        const virtualPath = langMatch[2] || '/';
+        // Only intercept HTML requests
+        if (!virtualPath.includes('.') || virtualPath.endsWith('.html')) {
+            serveSovereignSEO(req, res, lang, virtualPath);
+            return;
+        }
+    }
+
+    // Static files
+    serveStatic(req, res);
+});
+
+// 🛡️ Uptime Formatter
+function formatUptime(seconds) {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+    return `${h}h ${m}m ${s}s`;
+}
+
+// 🛡️ CRASH SHIELD: Sunucu hiçbir hatada çökmez
+process.on('uncaughtException', (err) => {
+    console.error('🚨 [CRASH SHIELD] Uncaught Exception yakalandı (sunucu ayakta):', err.message);
+});
+process.on('unhandledRejection', (reason) => {
+    console.error('🚨 [CRASH SHIELD] Unhandled Rejection yakalandı (sunucu ayakta):', reason);
+});
+
+// WebSocket upgrade
+server.on('upgrade', (req, socket, head) => {
+    if (req.url.startsWith('/ws')) {
+        const recentCount = noteConnectionAttempt(req);
+
+        if (recentCount > 8) {
+            console.warn('🛡️ [WS SHIELD] Connection burst blocked:', {
+                ip: req.socket?.remoteAddress || 'unknown',
+                origin: req.headers.origin || 'unknown',
+                count: recentCount,
+                url: req.url,
+            });
+
+            try {
+                socket.write('HTTP/1.1 429 Too Many Requests\r\n\r\n');
+            } catch {}
+
+            socket.destroy();
+            return;
+        }
+
+        handleUpgrade(req, socket);
+    } else {
+        socket.destroy();
+    }
+});
+
+server.listen(PORT, () => {
+    console.log('');
+    console.log('  ╔═══════════════════════════════════════════════════╗');
+    console.log('  ║  👑 SANTIS SOVEREIGN SERVER v1.0                  ║');
+    console.log('  ║  Static + API + WebSocket — Zero Dependencies     ║');
+    console.log('  ╠═══════════════════════════════════════════════════╣');
+    console.log(`  ║  🌐 http://localhost:${PORT}                        ║`);
+    console.log(`  ║  📡 ws://localhost:${PORT}/ws                       ║`);
+    console.log('  ║  📊 /api/v1/analytics/metrics                     ║');
+    console.log('  ║  🛡️  /api/v1/analytics/god/health                  ║');
+    console.log('  ║  🎯 /api/v1/analytics/simulate                    ║');
+    console.log('  ║  🖼️  /api/v1/media/assets                         ║');
+    console.log('  ║  🔍 /api/v1/media/filters                        ║');
+    console.log('  ║  📡 /api/v1/media/slots/health                    ║');
+    console.log('  ║  💾 /api/v1/services/update (PATCH)               ║');
+    console.log('  ║  📊 /api/v1/telemetry/beacon (POST)               ║');
+    console.log('  ║  📅 /api/v1/admin/bookings                       ║');
+    console.log('  ╚═══════════════════════════════════════════════════╝');
+    console.log('');
+});

@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-03-11T20:00:00Z",
+  "layout": [
+    { "id": "hero-main", "position": { "x": 600, "y": 100 }, "mass": 100, "priority": 1 },
+    { "id": "hero-cta-scroll", "position": { "x": 600, "y": 350 }, "mass": 80, "priority": 2 },
+    { "id": "card-hamam", "position": { "x": 200, "y": 550 }, "mass": 70, "priority": 3 },
+    { "id": "card-massage", "position": { "x": 500, "y": 550 }, "mass": 65, "priority": 4 },
+    { "id": "card-skincare", "position": { "x": 800, "y": 550 }, "mass": 60, "priority": 5 },
+    { "id": "card-atelier", "position": { "x": 1100, "y": 550 }, "mass": 55, "priority": 6 },
+    { "id": "cta-whatsapp-booking", "position": { "x": 600, "y": 750 }, "mass": 90, "priority": 1 },
+    { "id": "sticky-booking-bar", "position": { "x": 600, "y": 900 }, "mass": 85, "priority": 2 }
+  ],
+  "fitness": {
+    "cvr": 18.4,
+    "bounce": 22.1,
+    "energyCost": 380,
+    "score": 0.87
+  }
+}

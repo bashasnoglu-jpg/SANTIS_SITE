@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr" data-lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Boardroom | Mühür Kapısı</title>
+    <style>
+        :root {
+            --santis-dark: #050505;
+            --santis-brass: #c6a96b;
+            --santis-text: #e0e0e3;
+            --santis-muted: #8e8e93;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--santis-dark);
+            color: var(--santis-text);
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex; align-items: center; justify-content: center;
+            height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .login-glass {
+            background: var(--glass-bg); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 1.5rem;
+            padding: 3.5rem; width: 100%; max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .login-glass h1 {
+            color: var(--santis-text); font-weight: 300; letter-spacing: 5px; margin: 0 0 0.5rem 0;
+            font-family: 'Cinzel', serif; font-size: 1.6rem; text-transform: uppercase;
+        }
+
+        .login-glass p {
+            color: var(--santis-muted); font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 3rem;
+            text-transform: uppercase;
+        }
+
+        .input-group {
+            position: relative; margin-bottom: 2rem;
+        }
+
+        input[type="password"] {
+            width: 100%; background: transparent; 
+            border: none; border-bottom: 1px solid var(--glass-border);
+            color: var(--santis-brass); font-family: monospace; font-size: 1.2rem;
+            padding: 0.8rem 0; text-align: center; letter-spacing: 10px;
+            outline: none; transition: border-color 0.4s ease, box-shadow 0.4s ease;
+            box-sizing: border-box;
+        }
+
+        input[type="password"]:focus {
+            border-bottom: 1px solid var(--santis-brass);
+            box-shadow: 0 4px 10px -8px var(--santis-brass);
+        }
+
+        input[type="password"]::placeholder {
+            color: rgba(255,255,255,0.1); letter-spacing: 3px; font-family: 'Outfit', sans-serif;
+        }
+
+        .shimmer-line {
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 0%; height: 1px; background: var(--santis-brass);
+            transition: width 0.4s ease;
+        }
+
+        input[type="password"]:focus ~ .shimmer-line { width: 100%; }
+
+        button {
+            width: 100%; background: transparent; border: 1px solid var(--glass-border);
+            color: var(--santis-text); font-family: 'Outfit', sans-serif; font-size: 0.9rem;
+            letter-spacing: 2px; padding: 1rem; border-radius: 0.5rem; cursor: pointer;
+            text-transform: uppercase; transition: all 0.3s ease;
+        }
+
+        button:hover {
+            border-color: rgba(198, 169, 107, 0.4);
+            color: var(--santis-brass); background: rgba(198, 169, 107, 0.05);
+        }
+
+        #error-msg {
+            color: #ff6b6b; font-size: 0.8rem; letter-spacing: 1px;
+            margin-top: 1.5rem; opacity: 0; transition: opacity 0.3s ease;
+            text-transform: uppercase; font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-glass">
+        <h1>CERBERUS GATE</h1>
+        <p>Sovereign System Mühürü</p>
+
+        <form id="login-form">
+            <div class="input-group">
+                <input type="password" id="passcode" placeholder="ENTER KEY" autocomplete="off" autofocus required>
+                <div class="shimmer-line"></div>
+            </div>
+            <button type="submit" id="submit-btn">Mührü Aç</button>
+            <div id="error-msg">ACCESS DENIED</div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const passcode = document.getElementById('passcode').value;
+            const errorMsg = document.getElementById('error-msg');
+            const submitBtn = document.getElementById('submit-btn');
+
+            errorMsg.style.opacity = '0';
+            submitBtn.innerText = 'DOĞRULANIYOR...';
+            submitBtn.style.color = 'var(--santis-muted)';
+
+            try {
+                const response = await fetch('/api/v1/boardroom/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ passcode })
+                });
+
+                if (response.ok) {
+                    submitBtn.innerText = 'MÜHÜR AÇILDI';
+                    submitBtn.style.color = 'var(--santis-brass)';
+                    setTimeout(() => { window.location.href = 'boardroom.html'; }, 600);
+                } else {
+                    throw new Error('Unauthorized');
+                }
+            } catch (err) {
+                errorMsg.style.opacity = '1';
+                submitBtn.innerText = 'MÜHRÜ AÇ';
+                submitBtn.style.color = 'var(--santis-text)';
+            }
+        });
+    </script>
+</body>
+</html>
+

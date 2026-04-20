@@ -1,0 +1,227 @@
+{
+  "engine": "SANTIS CJS -> ESM Codemod",
+  "version": "1.0.0",
+  "scanned_files": 5,
+  "changed_files": 5,
+  "safe_replacements_count": 12,
+  "manual_review_count": 12,
+  "findings_by_category": {
+    "require-assign": 10,
+    "dirname-usage": 2
+  },
+  "findings_by_severity": {
+    "low": 10,
+    "medium": 2
+  },
+  "summary": {
+    "status": "needs_review"
+  },
+  "safe_replacements": [
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\ast_css_extractor.js",
+      "line": 1,
+      "category": "require-assign",
+      "before": "const fs = require('fs');",
+      "after": "import fs from \"node:fs\";",
+      "reason": "require assign -> default import"
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\ast_css_extractor.js",
+      "line": 2,
+      "category": "require-assign",
+      "before": "const path = require('path');",
+      "after": "import path from \"node:path\";",
+      "reason": "require assign -> default import"
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\ast_css_transformer.js",
+      "line": 1,
+      "category": "require-assign",
+      "before": "const fs = require('fs');",
+      "after": "import fs from \"node:fs\";",
+      "reason": "require assign -> default import"
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\ast_css_transformer.js",
+      "line": 2,
+      "category": "require-assign",
+      "before": "const path = require('path');",
+      "after": "import path from \"node:path\";",
+      "reason": "require assign -> default import"
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\ast_zombie_scanner.js",
+      "line": 6,
+      "category": "require-assign",
+      "before": "const fs = require('fs');",
+      "after": "import fs from \"node:fs\";",
+      "reason": "require assign -> default import"
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\ast_zombie_scanner.js",
+      "line": 8,
+      "category": "require-assign",
+      "before": "const path = require('path');",
+      "after": "import path from \"node:path\";",
+      "reason": "require assign -> default import"
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\ast_zombie_scanner.js",
+      "line": 1,
+      "category": "dirname-filename-bridge",
+      "before": "[inject ESM dirname bridge]",
+      "after": "[fileURLToPath/import.meta.url bridge injected]",
+      "reason": "__dirname/__filename usage requires ESM bridge"
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\project_sanitization.js",
+      "line": 1,
+      "category": "require-assign",
+      "before": "const fs = require('fs');",
+      "after": "import fs from \"node:fs\";",
+      "reason": "require assign -> default import"
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\project_sanitization.js",
+      "line": 2,
+      "category": "require-assign",
+      "before": "const path = require('path');",
+      "after": "import path from \"node:path\";",
+      "reason": "require assign -> default import"
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\force_utf8_recursive.js",
+      "line": 1,
+      "category": "require-assign",
+      "before": "const fs = require('fs');",
+      "after": "import fs from \"node:fs\";",
+      "reason": "require assign -> default import"
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\force_utf8_recursive.js",
+      "line": 2,
+      "category": "require-assign",
+      "before": "const path = require('path');",
+      "after": "import path from \"node:path\";",
+      "reason": "require assign -> default import"
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\force_utf8_recursive.js",
+      "line": 1,
+      "category": "dirname-filename-bridge",
+      "before": "[inject ESM dirname bridge]",
+      "after": "[fileURLToPath/import.meta.url bridge injected]",
+      "reason": "__dirname/__filename usage requires ESM bridge"
+    }
+  ],
+  "manual_review_items": [
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\ast_css_extractor.js",
+      "line": 1,
+      "category": "require-assign",
+      "severity": "low",
+      "snippet": "const fs = require('fs');",
+      "action": "safe-replace-candidate",
+      "reason": "Tekil require import'a çevrilebilir."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\ast_css_extractor.js",
+      "line": 2,
+      "category": "require-assign",
+      "severity": "low",
+      "snippet": "const path = require('path');",
+      "action": "safe-replace-candidate",
+      "reason": "Tekil require import'a çevrilebilir."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\ast_css_transformer.js",
+      "line": 1,
+      "category": "require-assign",
+      "severity": "low",
+      "snippet": "const fs = require('fs');",
+      "action": "safe-replace-candidate",
+      "reason": "Tekil require import'a çevrilebilir."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\ast_css_transformer.js",
+      "line": 2,
+      "category": "require-assign",
+      "severity": "low",
+      "snippet": "const path = require('path');",
+      "action": "safe-replace-candidate",
+      "reason": "Tekil require import'a çevrilebilir."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\ast_zombie_scanner.js",
+      "line": 1,
+      "category": "dirname-usage",
+      "severity": "medium",
+      "snippet": "__dirname",
+      "action": "safe-replace-candidate",
+      "reason": "__dirname ESM'de doğrudan yok."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\ast_zombie_scanner.js",
+      "line": 6,
+      "category": "require-assign",
+      "severity": "low",
+      "snippet": "const fs = require('fs');",
+      "action": "safe-replace-candidate",
+      "reason": "Tekil require import'a çevrilebilir."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\ast_zombie_scanner.js",
+      "line": 8,
+      "category": "require-assign",
+      "severity": "low",
+      "snippet": "const path = require('path');",
+      "action": "safe-replace-candidate",
+      "reason": "Tekil require import'a çevrilebilir."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\project_sanitization.js",
+      "line": 1,
+      "category": "require-assign",
+      "severity": "low",
+      "snippet": "const fs = require('fs');",
+      "action": "safe-replace-candidate",
+      "reason": "Tekil require import'a çevrilebilir."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\project_sanitization.js",
+      "line": 2,
+      "category": "require-assign",
+      "severity": "low",
+      "snippet": "const path = require('path');",
+      "action": "safe-replace-candidate",
+      "reason": "Tekil require import'a çevrilebilir."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\force_utf8_recursive.js",
+      "line": 1,
+      "category": "dirname-usage",
+      "severity": "medium",
+      "snippet": "__dirname",
+      "action": "safe-replace-candidate",
+      "reason": "__dirname ESM'de doğrudan yok."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\force_utf8_recursive.js",
+      "line": 1,
+      "category": "require-assign",
+      "severity": "low",
+      "snippet": "const fs = require('fs');",
+      "action": "safe-replace-candidate",
+      "reason": "Tekil require import'a çevrilebilir."
+    },
+    {
+      "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\scripts\\force_utf8_recursive.js",
+      "line": 2,
+      "category": "require-assign",
+      "severity": "low",
+      "snippet": "const path = require('path');",
+      "action": "safe-replace-candidate",
+      "reason": "Tekil require import'a çevrilebilir."
+    }
+  ]
+}

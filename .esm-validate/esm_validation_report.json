@@ -1,0 +1,11 @@
+{
+  "engine": "SANTIS ESM Validator",
+  "version": "1.0.0",
+  "strict_mode": true,
+  "scanned_files": 1,
+  "issues_count": 0,
+  "issues_by_category": {},
+  "issues_by_severity": {},
+  "status": "pass",
+  "issues": []
+}

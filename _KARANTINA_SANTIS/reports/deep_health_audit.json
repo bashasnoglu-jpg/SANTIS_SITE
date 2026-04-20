@@ -1,0 +1,861 @@
+{
+  "missing_refs": [
+    {
+      "file": "bio.html",
+      "ref": "assets/img/og-santis.webp",
+      "resolved": "assets\\img\\og-santis.webp"
+    },
+    {
+      "file": "index.html",
+      "ref": "/en/index.html",
+      "resolved": "en\\index.html"
+    },
+    {
+      "file": "index.html",
+      "ref": "/de/index.html",
+      "resolved": "de\\index.html"
+    },
+    {
+      "file": "index.html",
+      "ref": "/fr/index.html",
+      "resolved": "fr\\index.html"
+    },
+    {
+      "file": "index.html",
+      "ref": "/ru/index.html",
+      "resolved": "ru\\index.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/index.html",
+      "resolved": "de\\index.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/acne-balance.html",
+      "resolved": "de\\hautpflege\\acne-balance.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/anti-aging-pro.html",
+      "resolved": "de\\hautpflege\\anti-aging-pro.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/barrier-repair.html",
+      "resolved": "de\\hautpflege\\barrier-repair.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/brightening-spot.html",
+      "resolved": "de\\hautpflege\\brightening-spot.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/classic-facial.html",
+      "resolved": "de\\hautpflege\\classic-facial.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/collagen-lift.html",
+      "resolved": "de\\hautpflege\\collagen-lift.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/deep-cleanse.html",
+      "resolved": "de\\hautpflege\\deep-cleanse.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/detox-charcoal.html",
+      "resolved": "de\\hautpflege\\detox-charcoal.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/enzyme-peel.html",
+      "resolved": "de\\hautpflege\\enzyme-peel.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/eye-contour.html",
+      "resolved": "de\\hautpflege\\eye-contour.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/glass-skin.html",
+      "resolved": "de\\hautpflege\\glass-skin.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/gold-mask-ritual.html",
+      "resolved": "de\\hautpflege\\gold-mask-ritual.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/hyaluron-hydrate.html",
+      "resolved": "de\\hautpflege\\hyaluron-hydrate.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/led-rejuvenation.html",
+      "resolved": "de\\hautpflege\\led-rejuvenation.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/lip-care.html",
+      "resolved": "de\\hautpflege\\lip-care.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/men-facial.html",
+      "resolved": "de\\hautpflege\\men-facial.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/micro-polish.html",
+      "resolved": "de\\hautpflege\\micro-polish.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/oxygen-boost.html",
+      "resolved": "de\\hautpflege\\oxygen-boost.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/sensitive-soothe.html",
+      "resolved": "de\\hautpflege\\sensitive-soothe.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/vitamin-c-glow.html",
+      "resolved": "de\\hautpflege\\vitamin-c-glow.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/acne-balance.html",
+      "resolved": "de\\hautpflege\\acne-balance.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/anti-aging-pro.html",
+      "resolved": "de\\hautpflege\\anti-aging-pro.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/barrier-repair.html",
+      "resolved": "de\\hautpflege\\barrier-repair.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/brightening-spot.html",
+      "resolved": "de\\hautpflege\\brightening-spot.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/classic-facial.html",
+      "resolved": "de\\hautpflege\\classic-facial.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/collagen-lift.html",
+      "resolved": "de\\hautpflege\\collagen-lift.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/deep-cleanse.html",
+      "resolved": "de\\hautpflege\\deep-cleanse.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/detox-charcoal.html",
+      "resolved": "de\\hautpflege\\detox-charcoal.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/enzyme-peel.html",
+      "resolved": "de\\hautpflege\\enzyme-peel.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/eye-contour.html",
+      "resolved": "de\\hautpflege\\eye-contour.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/glass-skin.html",
+      "resolved": "de\\hautpflege\\glass-skin.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/gold-mask-ritual.html",
+      "resolved": "de\\hautpflege\\gold-mask-ritual.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/hyaluron-hydrate.html",
+      "resolved": "de\\hautpflege\\hyaluron-hydrate.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/index.html",
+      "resolved": "de\\hautpflege\\index.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/led-rejuvenation.html",
+      "resolved": "de\\hautpflege\\led-rejuvenation.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/lip-care.html",
+      "resolved": "de\\hautpflege\\lip-care.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/men-facial.html",
+      "resolved": "de\\hautpflege\\men-facial.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/micro-polish.html",
+      "resolved": "de\\hautpflege\\micro-polish.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/oxygen-boost.html",
+      "resolved": "de\\hautpflege\\oxygen-boost.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/sensitive-soothe.html",
+      "resolved": "de\\hautpflege\\sensitive-soothe.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/hautpflege/vitamin-c-glow.html",
+      "resolved": "de\\hautpflege\\vitamin-c-glow.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/about/index.html",
+      "resolved": "de\\about\\index.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/contact.html",
+      "resolved": "de\\contact.html"
+    },
+    {
+      "file": "site-haritasi.html",
+      "ref": "/de/galerie/index.html",
+      "resolved": "de\\galerie\\index.html"
+    }
+  ],
+  "js_issues": [
+    {
+      "file": "assets\\js\\core\\santis-data-sanitizer.js",
+      "count": 1,
+      "type": "relative_path"
+    }
+  ],
+  "json_issues": [],
+  "lang_issues": [
+    {
+      "lang": "en",
+      "issue": "index.html missing",
+      "severity": "critical"
+    },
+    {
+      "lang": "de",
+      "issue": "index.html missing",
+      "severity": "critical"
+    },
+    {
+      "lang": "fr",
+      "issue": "index.html missing",
+      "severity": "critical"
+    },
+    {
+      "lang": "ru",
+      "issue": "index.html missing",
+      "severity": "critical"
+    },
+    {
+      "lang": "sr",
+      "issue": "Directory missing",
+      "severity": "critical"
+    }
+  ],
+  "endpoint_issues": [],
+  "import_issues": [
+    {
+      "module": "warnings",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "log",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "FastAPI",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "StaticFiles",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "FileResponse",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "CORSMiddleware",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "BaseModel",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Path",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "TenantResolverMiddleware",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "asynccontextmanager",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "setup_logging",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "ensure_indexes",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AsyncSessionLocal",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "text",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "VALID_SLOTS",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "event_dispatcher",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "intelligence_worker",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "start_media_watchdog",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "auto_pilot",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "resource_manager",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "viral_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "nightly_scheduler",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Response",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AsyncSessionLocal",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "text",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AsyncSessionLocal",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "text",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "BaseHTTPMiddleware",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "JSONResponse",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AsyncSessionLocal",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "text",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AsyncSessionLocal",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "text",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "slowapi",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "_rate_limit_exceeded_handler",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "slowapi",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "RateLimitExceeded",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "limiter",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "security_logger",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "JSONResponse",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Request",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "BaseHTTPMiddleware",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "GlobalAuditMiddleware",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "JSONResponse",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "security_logger",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "subdomain",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "TenantRouterMiddleware",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "the",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Booking",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Service",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Customer",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "func",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Customer",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "func",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "func",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AuditService",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "func",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Booking",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AsyncSessionLocal",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "select",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "selectinload",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AsyncSession",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Depends",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "get_db",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Customer",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Service",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "date",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "List",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "ConnectionManager",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "select",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "ContentRegistry",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "the",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "UploadFile",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Customer",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "load_dotenv",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "google",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Tenant",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Customer",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "selectinload",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "BaseModel",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Room",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "shadow_rituals",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "func",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Service",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "high",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "booking",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "select",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "date",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "selectinload",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Tenant",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "DailyRevenue",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Booking",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "google",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "settings",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "get_db",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Depends",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AsyncSession",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "load_dotenv",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "RedirectResponse",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "AsyncSessionLocal",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "commerce",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "FileResponse",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "generate_executive_pdf",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "Customer",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "create_booking",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "pulse_engine",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "load_dotenv",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "google",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "ever",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "shadowing",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "load_dotenv",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "google",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "sqlalchemy",
+      "issue": "Imported in server.py but file not found"
+    },
+    {
+      "module": "func",
+      "issue": "Imported in server.py but file not found"
+    }
+  ],
+  "summary": {
+    "total_issues": 4534,
+    "critical": 146,
+    "html_scanned": 1388
+  }
+}

@@ -1,0 +1,9 @@
+# /santis-quantum-os/Dockerfile.sovereign
+# Santis OS - Sovereign Edge & UI Container v1.0
+
+FROM node:20-alpine
+WORKDIR /santis-quantum-os
+COPY package*.json pnpm-lock.yaml* ./
+RUN npm install -g pnpm && pnpm install --ignore-scripts
+COPY . .
+CMD ["pnpm", "run", "dev:ui"]

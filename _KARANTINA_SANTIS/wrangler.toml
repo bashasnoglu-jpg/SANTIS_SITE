@@ -1,0 +1,21 @@
+name = "santis-sovereign-edge"
+main = "workers/santis_edge_os.js"
+compatibility_date = "2024-05-12"
+
+# Phase 45: Edge-Side Rendering for Zero Latency Content Injection
+# Bu yapı, Phantom Injector işlemlerinin istemci tarayıcısında değil,
+# Cloudflare sunucularında (Edge) yapılmasını simüle/konfigüre eder.
+
+[env.production]
+name = "santis-sovereign-production"
+route = "santis-club.com/*"
+
+[vars]
+ENVIRONMENT = "production"
+API_ENDPOINT = "https://api.santis-club.com/api/v1/gallery/slots"
+
+# KV Cache for Lightning-Fast Slot Reads
+[[kv_namespaces]]
+binding = "SANTIS_MEDIA_GRAPH"
+id = "mock_kv_id_for_santis_media_graph"
+preview_id = "mock_preview_kv_id"

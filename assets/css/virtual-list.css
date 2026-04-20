@@ -1,0 +1,121 @@
+.santis-virtual-list {
+  position: relative;
+  overflow: auto;
+  min-height: 240px;
+  scrollbar-width: thin;
+}
+
+.santis-vlist-viewport {
+  position: relative;
+  width: 100%;
+}
+
+.santis-vlist-spacer {
+  position: relative;
+  width: 100%;
+}
+
+.santis-vlist-content {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  will-change: transform;
+}
+
+.santis-vlist-empty {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.santis-vlist-empty-copy {
+  color: #8f9095;
+  letter-spacing: 0.03em;
+}
+
+.santis-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 0 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  background: transparent;
+  color: #d6d6d8;
+  transform: translateZ(0);
+}
+
+.santis-row:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+.santis-row__primary,
+.santis-row__secondary,
+.santis-row__meta {
+  min-width: 0;
+}
+
+.santis-row__title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+}
+
+.santis-row__sub {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #8f9095;
+  font-size: 13px;
+}
+
+.santis-row__pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 84px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(198,169,107,0.22);
+  color: #c6a96b;
+  background: rgba(198,169,107,0.06);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.santis-row__action {
+  height: 38px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+  color: #d6d6d8;
+  cursor: pointer;
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.24s linear;
+}
+
+.santis-row__action:hover {
+  transform: translateY(-1px);
+}
+
+.santis-row__action:active {
+  transform: translateY(0);
+}
+
+.santis-row--selected {
+  background: rgba(198,169,107,0.08);
+}
+
+.santis-row--critical .santis-row__pill {
+  color: #f0c6c6;
+  border-color: rgba(240,198,198,0.25);
+  background: rgba(240,198,198,0.08);
+}

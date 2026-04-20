@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign OS - 3D Kuantum Laboratuvarı</title>
+    <style>
+        /* 1. Laboratuvar Ortamı (Derin Uzay) */
+        body {
+            margin: 0; padding: 0;
+            background-color: #0a0a0c;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden;
+            --sq-spring: cubic-bezier(0.16, 1, 0.3, 1); /* Apple Yay Fiziği */
+        }
+
+        /* 2. 3D Sahne (Carousel Kapsayıcısı) */
+        .santis-carousel-stage {
+            position: relative;
+            width: 100%; max-width: 1200px; height: 600px;
+            display: flex; justify-content: center; align-items: center;
+            perspective: 1200px; /* 3D Derinlik Hissi İçin Şart */
+            transform-style: preserve-3d;
+        }
+
+        /* 3. V44 Zırhlı Kartlar (Bento DNA'sı) */
+        .santis-stack-card {
+            position: absolute; /* Yan yana değil, merkeze üst üste binerler */
+            width: 340px; height: 480px;
+            cursor: pointer;
+            
+            /* V44 Squircle & Glassmorphism Başarımız */
+            border-radius: 24px;
+            background: rgba(20, 20, 22, 0.45);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 
+                        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+                        0 20px 40px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            
+            display: flex; flex-direction: column; justify-content: flex-end;
+            overflow: hidden;
+            
+            /* Bütün büyü burada: Yer değişimleri Apple fiziğiyle akacak */
+            transition: transform 0.8s var(--sq-spring), 
+                        opacity 0.8s var(--sq-spring),
+                        box-shadow 0.8s var(--sq-spring);
+            
+            will-change: transform, opacity;
+        }
+
+        /* Kart İçeriği & Koruyucu Degrade */
+        .card-bg {
+            position: absolute; inset: 0; background-size: cover; background-position: center;
+            z-index: 0; opacity: 0.6; transition: opacity 0.8s ease;
+        }
+        .card-protector {
+            position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0) 60%); z-index: 1;
+        }
+        .card-content {
+            position: relative; z-index: 2; padding: 32px; color: white;
+        }
+        .card-subtitle { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+        .card-title { font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; }
+
+        /* Kuantum Parlaması (Glare Katmanı) */
+        .santis-stack-card::after {
+            content: ''; position: absolute; inset: 0; border-radius: inherit;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.15), transparent 40%);
+            opacity: 0; transition: opacity 0.6s var(--sq-spring);
+            pointer-events: none; z-index: 3; will-change: background, opacity;
+        }
+        .santis-stack-card:hover::after { opacity: 1; }
+
+        /* 4. MERKEZ KART (Odak Noktası - Altın Aura) */
+        .santis-stack-card.is-active {
+            box-shadow: inset 0 1px 1px rgba(255, 215, 0, 0.4), 
+                        inset 0 0 0 1px rgba(255, 215, 0, 0.2), /* Altın Çerçeve */
+                        0 40px 80px rgba(0, 0, 0, 0.8),
+                        0 0 60px rgba(255, 215, 0, 0.15); /* Dış Parlama */
+        }
+        .santis-stack-card.is-active .card-bg { opacity: 1; } /* Sadece merkezdeki kart tam aydınlık */
+    </style>
+</head>
+<body>
+
+    <div class="santis-carousel-stage">
+        <div class="santis-stack-card">
+            <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800');"></div>
+            <div class="card-protector"></div>
+            <div class="card-content"><div class="card-subtitle">Sovereign Estate</div><h3 class="card-title">Dubai Palm<br>Villa</h3></div>
+        </div>
+        <div class="santis-stack-card">
+            <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800');"></div>
+            <div class="card-protector"></div>
+            <div class="card-content"><div class="card-subtitle">Global Hub</div><h3 class="card-title">Downtown<br>Penthouse</h3></div>
+        </div>
+        <div class="santis-stack-card">
+            <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800');"></div>
+            <div class="card-protector"></div>
+            <div class="card-content"><div class="card-subtitle">Bosphorus</div><h3 class="card-title">Istanbul<br>Waterside</h3></div>
+        </div>
+        <div class="santis-stack-card">
+            <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800');"></div>
+            <div class="card-protector"></div>
+            <div class="card-content"><div class="card-subtitle">Alpine Retreat</div><h3 class="card-title">Swiss<br>Chalet</h3></div>
+        </div>
+        <div class="santis-stack-card">
+            <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800');"></div>
+            <div class="card-protector"></div>
+            <div class="card-content"><div class="card-subtitle">Private Island</div><h3 class="card-title">Maldives<br>Sanctuary</h3></div>
+        </div>
+    </div>
+
+    <script>
+        /* ==========================================================================
+           KUANTUM DAĞITICI (3D Diziliş Algoritması & Point-Focus)
+           ========================================================================== */
+        let activeIndex = 2; // Başlangıçta 3. kart (İstanbul) merkezde
+        const cards = document.querySelectorAll('.santis-stack-card');
+
+        function updateSovereignStack() {
+            cards.forEach((card, index) => {
+                const diff = index - activeIndex; 
+                const absDiff = Math.abs(diff);
+
+                // Matematiksel Derinlik ve Yığılma (Cover Flow)
+                // Uzaklaştıkça X ekseninde itilir ama absDiff'e bölünerek iskambil gibi birbirine girer
+                let translateX = diff * (115 - absDiff * 15); 
+                let translateZ = -absDiff * 80; // Z ekseninde arkaya it (Derinlik)
+                let rotateY = Math.sign(diff) * -10; // Hafifçe merkeze doğru bükülme
+                
+                let scale = 1 - (absDiff * 0.1); // Logaritmik küçülme
+                let opacity = 1 - (absDiff * 0.35); // Logaritmik kararma
+                let zIndex = 100 - absDiff; // Merkez her zaman en üstte
+
+                if (opacity < 0) opacity = 0;
+
+                // GPU Gücüyle Karta Uygula
+                card.style.transform = `translateX(${translateX}%) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
+                card.style.opacity = opacity;
+                card.style.zIndex = zIndex;
+
+                // Aktif Sınıfı Yönetimi (Altın Aura İçin)
+                if (diff === 0) {
+                    card.classList.add('is-active');
+                } else {
+                    card.classList.remove('is-active');
+                }
+            });
+        }
+
+        // 1. Etkileşim: Sadece Tıklama (Point & Focus)
+        cards.forEach((card, index) => {
+            card.addEventListener('click', () => {
+                activeIndex = index;
+                updateSovereignStack(); // Tıklandığında dizilimi yeniden hesapla
+            });
+        });
+
+        // 2. V44 Kuantum Parlaması Motoru (Laboratuvara Entegre)
+        window.addEventListener('mousemove', (e) => {
+            const targetCard = e.target.closest('.santis-stack-card');
+            if (!targetCard) return;
+
+            const rect = targetCard.getBoundingClientRect();
+            requestAnimationFrame(() => {
+                targetCard.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                targetCard.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            });
+        }, { passive: true });
+
+        // Sistemi İlk Kez Başlat
+        updateSovereignStack();
+    </script>
+</body>
+</html>
+

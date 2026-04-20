@@ -1,0 +1,32 @@
+{
+    "version": "1.2.0",
+    "strategy": "Luxury Revenue Funnel",
+    "PACK_ORDER": [
+        "hamam",
+        "signature",
+        "massage",
+        "face-sothys",
+        "recovery",
+        "kids",
+        "kids.premium",
+        "teen",
+        "ayurveda",
+        "seasonal-detox",
+        "signature-family-teen",
+        "brand-look"
+    ],
+    "ALIASES": {
+        "massage": {
+            "target": "signature",
+            "label": "Sovereign Massage Ritual"
+        },
+        "teen": {
+            "target": "signature-family-teen",
+            "label": "Young Sovereign (Teen) Program"
+        },
+        "kids.family.ascii": {
+            "target": "kids",
+            "label": "The Family Ritual (Classic)"
+        }
+    }
+}

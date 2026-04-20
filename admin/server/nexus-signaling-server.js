@@ -64,7 +64,7 @@ async function handleDatagrams(session) {
             const posX = buffer[1];
             const posY = buffer[2];
 
-            // TODO: Bu veri saniyede 60 kez gelir. Redis'e veya The Matrix Engine'e fırlatılır.
+            // Bu veri saniyede 60 kez gelir. Redis'e veya The Matrix Engine'e fırlatılır.
             // Zerre kadar RAM biriktirmez, direkt geçer. (The Great Bypass)
         }
     } catch (e) {

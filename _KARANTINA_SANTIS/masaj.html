@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Santis Sovereign | Omni-OS V18</title>
+
+    <link rel="preconnect" href="https://santisclub.com" crossorigin>
+    <link rel="dns-prefetch" href="https://santisclub.com">
+
+    <style>
+        :root { --vanta-black: #050505; --liquid-gold: #d4af37; }
+        body { margin: 0; padding: 0; background-color: var(--vanta-black); color: #fff; font-family: 'Playfair Display', serif; overflow-x: hidden; }
+        
+        /* CLS (Düzen Kayması) önleyici iskeletler */
+        .santis-header-ghost { height: 80px; width: 100%; position: absolute; top: 0; z-index: 9999; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
+        .santis-hero-skeleton { position: relative; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--vanta-black); z-index: 1;}
+        .santis-hero-skeleton img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.8; z-index: 0; }
+        
+        /* Worker'ın kartları basacağı Arena (İlk başta karanlıkta) */
+        .santis-matrix-container { min-height: 50vh; padding: 4rem 5vw; position: relative; z-index: 2; opacity: 0; transition: opacity 0.8s ease; }
+    </style>
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/modules/signature-cards.css">
+    <link rel="stylesheet" href="/assets/css/modules/cards.css">
+    <link rel="stylesheet" href="/assets/css/santis-v6/santis.bento-grid.css">
+    <noscript><link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/modules/signature-cards.css"></noscript>
+
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
+<!-- SOVEREIGN ZERO-JANK VIEW TRANSITIONS -->
+<meta name="view-transition" content="same-origin">
+</head>
+
+<body class="solid-nav-page" data-page="massage">
+
+    <canvas id="santis-god-canvas" style="position:fixed; inset:0; width:100vw; height:100vh; pointer-events:none; z-index:0;"></canvas>
+
+<header id="site-header" role="banner">
+  <div id="navbar-container"></div>
+</header>
+
+
+    <main id="sovereign-page-root" style="padding-top: 120px; position: relative; z-index: 2;">
+        
+        <!-- V45 COVER FLOW STAGE: SIGNATURE RITUALS (MASAJ) -->
+        <section class="santis-container">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span class="santis-kicker">RİTÜELLER</span>
+                <h2 class="santis-title" style="font-size: 2.2rem;">Öne Çıkan Masajlar</h2>
+            </div>
+            <div class="santis-native-grid" id="sov-3d-stage" >
+                <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Deep Tissue" style="filter: none;" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Deep Tissue</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">Derin Rahatlama</span>
+    </div>
+</a>
+                <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Thai Masajı" style="filter: hue-rotate(40deg);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Thai Masajı</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">Esneklik ve Enerji</span>
+    </div>
+</a>
+                <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Sıcak Taş" style="filter: grayscale(50%);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Sıcak Taş</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">Volkanik Terapi</span>
+    </div>
+</a>
+                <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Aromaterapi" style="filter: sepia(30%);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Aromaterapi</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">Ruhsal Dinlenme</span>
+    </div>
+</a>
+                <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Bali Masajı" style="filter: contrast(120%);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Bali Masajı</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">Geleneksel Dokunuş</span>
+    </div>
+</a>
+            </div>
+        </section>
+
+        <!-- COVER FLOW CATEGORY CAROUSELS (MASAJLAR) -->
+<section class="santis-container" style="margin-bottom: 5rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 class="santis-title" style="font-size: 2.2rem;">Klasik Masajlar</h2>
+        <span class="santis-kicker">Kusursuz Başlangıçlar</span>
+    </div>
+    <div class="santis-native-grid" id="sov-3d-stage-klasik" >
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="İsveç Masajı" style="filter: brightness(0.9);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">İsveç Masajı</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€80</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Aromaterapi Masajı" style="filter: contrast(110%);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Aromaterapi Masajı</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€95</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Anti-Stres Masajı" style="filter: brightness(0.9);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Anti-Stres Masajı</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€75</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Lenf Drenaj Masajı" style="filter: sepia(20%);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Lenf Drenaj Masajı</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€110</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Sırt ve Boyun Terapi" style="filter: hue-rotate(-15deg);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Sırt ve Boyun Terapi</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€60</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Klasik Vücut Masajı" style="filter: hue-rotate(-15deg);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Klasik Vücut Masajı</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€85</span>
+    </div>
+</a>
+    </div>
+</section>
+<section class="santis-container" style="margin-bottom: 5rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 class="santis-title" style="font-size: 2.2rem;">Spor ve Terapi</h2>
+        <span class="santis-kicker">Derinlemesine İyileşme</span>
+    </div>
+    <div class="santis-native-grid" id="sov-3d-stage-spor-terapi" >
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Derin Doku Masajı" style="filter: hue-rotate(15deg);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Derin Doku Masajı</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€120</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Spor Terapi Masajı" style="filter: contrast(110%);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Spor Terapi Masajı</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€115</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Tetik Nokta Terapisi" style="filter: hue-rotate(15deg);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Tetik Nokta Terapisi</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€105</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Sıcak Taş Terapisi" style="filter: brightness(0.9);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Sıcak Taş Terapisi</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€130</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Medikal Masaj" style="filter: hue-rotate(-15deg);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Medikal Masaj</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€140</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Myofascial Release" style="filter: grayscale(20%);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Myofascial Release</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€125</span>
+    </div>
+</a>
+    </div>
+</section>
+<section class="santis-container" style="margin-bottom: 5rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 class="santis-title" style="font-size: 2.2rem;">Asya Masajları</h2>
+        <span class="santis-kicker">Egzotik ve Geleneksel Ritm</span>
+    </div>
+    <div class="santis-native-grid" id="sov-3d-stage-asya" >
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Geleneksel Bali Masajı" style="filter: hue-rotate(-15deg);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Geleneksel Bali Masajı</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€110</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Kraliyet Thai Masajı" style="filter: grayscale(20%);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Kraliyet Thai Masajı</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€135</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Shiatsu Terapi" style="filter: contrast(110%);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Shiatsu Terapi</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€150</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Ayak Refleksolojisi" style="filter: brightness(0.9);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Ayak Refleksolojisi</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€70</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Abhyanga (Ayurvedik)" style="filter: hue-rotate(-15deg);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Abhyanga (Ayurvedik)</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€160</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Thai Herbal Compress" style="filter: brightness(0.9);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Thai Herbal Compress</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€145</span>
+    </div>
+</a>
+    </div>
+</section>
+
+<section class="santis-container" style="margin-bottom: 5rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 class="santis-title" style="font-size: 2.2rem;">Bölgesel Masajlar</h2>
+        <span class="santis-kicker">Odaklanmış Rahatlama</span>
+    </div>
+    <div class="santis-native-grid" id="sov-3d-stage-bolgesel" >
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Sırt ve Boyun Masajı" style="filter: hue-rotate(15deg);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Sırt ve Boyun Masajı</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€60</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Hint Baş Masajı" style="filter: grayscale(20%);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Hint Baş Masajı</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€50</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Omuz ve Kollar" style="filter: contrast(110%);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Omuz ve Kollar</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€55</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Lokal Bacak Masajı" style="filter: sepia(20%);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Lokal Bacak Masajı</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€65</span>
+    </div>
+</a>
+        <a href="#" class="santis-signature-card santis-reveal-up">
+    <div class="santis-signature-visual">
+        <img src="/assets/img/cards/santis_hero_massage_lux.webp" alt="Yüz ve Dekolte" style="filter: saturate(120%);" loading="lazy" decoding="async">
+        <div class="santis-signature-overlay"></div>
+    </div>
+    <div class="santis-signature-info">
+        <h3 class="santis-signature-name">Yüz ve Dekolte</h3>
+        <p class="santis-signature-desc">Sovereign Sessiz Lüks Deneyimi</p>
+        <span class="santis-signature-cta">€45</span>
+    </div>
+</a>
+    </div>
+</section>
+
+<script>
+// Sovereign OS Module Sync (Interaction Engine Yüklenmesini Bekle)
+(function awaitSovereignInteraction() {
+    if (typeof window.initCoverFlowCarousel === 'function') {
+        window.initCoverFlowCarousel();
+        console.log("🎡 Sovereign B2B Cover Flow Carousels Inited via Retry.");
+    } else {
+        setTimeout(awaitSovereignInteraction, 100);
+    }
+})();
+</script>
+
+    </main>
+
+<div id="footer-container"></div>
+
+<!-- CORE SCRIPTS -->
+<script type="module" src="/assets/js/santis-data-bridge.js" defer></script>
+<script type="module" src="/assets/js/core/santis-core.js" defer></script>
+<script type="module" src="/assets/js/app.js" defer></script>
+
+
+<!-- SOVEREIGN OS BOOTLOADER (V18 KERNEL) -->
+<script type="module" src="/assets/js/core/view-transition-handler.js" defer></script>
+<!-- MOOD ENGINE V1.0 — Smart Funnel -->
+<script type="module" src="/assets/js/ui/santis-mood-engine.js" defer></script>
+
+<!-- SOVEREIGN COMMAND V1.0 — Realtime Control Receiver -->
+<script type="module" src="/assets/js/sovereign-command.js" defer></script>
+
+
+<!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
+</body>
+</html>
+

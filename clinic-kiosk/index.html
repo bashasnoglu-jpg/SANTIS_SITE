@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Santis OS V28 - Sovereign Longevity</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: #141416; /* Santis İsli Sıcak Gri */
+            color: #c6a96b; /* Santis Mat Pirinç */
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Scroll engellendi, tam otonomi */
+            cursor: none; /* Sovereign Kiosk Modu */
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 1;
+            background: radial-gradient(circle, rgba(20,20,22,1) 0%, rgba(5,5,6,1) 90%);
+        }
+
+        #ui-overlay {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            pointer-events: none; /* UI elementleri canvas'ı engellemez */
+        }
+
+        /* BIO-HANDSHAKE BUTTON */
+        .bio-handshake-btn {
+            pointer-events: auto;
+            border: 1px solid rgba(198, 169, 107, 0.4);
+            background: rgba(20, 20, 22, 0.8);
+            color: #c6a96b;
+            padding: 20px 40px;
+            font-size: 14px;
+            letter-spacing: 4px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            text-transform: uppercase;
+        }
+
+        .bio-handshake-btn:hover {
+            background: rgba(198, 169, 107, 0.1);
+            border-color: rgba(198, 169, 107, 0.8);
+            box-shadow: 0 0 20px rgba(198, 169, 107, 0.2);
+        }
+
+        /* DECOY MATRIX - GİZLİ BAŞLANGIÇTA */
+        #decoy-matrix {
+            display: none;
+            position: absolute;
+            bottom: 10vh;
+            width: 80%;
+            pointer-events: auto;
+            display: flex; /* Hide logic JS içinde kontrol edilecek */
+            gap: 20px;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 2s ease-in;
+        }
+
+        .decoy-card {
+            border: 1px solid rgba(198, 169, 107, 0.2);
+            background: rgba(20, 20, 22, 0.5);
+            padding: 30px;
+            width: 250px;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            transition: all 0.4s ease;
+            cursor: none;
+        }
+
+        .decoy-card h3 {
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .decoy-card.target {
+            border-color: rgba(198, 169, 107, 0.8);
+            transform: scale(1.05);
+            background: rgba(20, 20, 22, 0.9);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    
+    <div id="ui-overlay">
+        <!-- Secure Handshake Girişi -->
+        <button id="init-btn" class="bio-handshake-btn">
+            SECURE BIO-HANDSHAKE
+        </button>
+
+        <!-- Sovereign Matrix Satış Paneli -->
+        <div id="decoy-matrix" style="display: none;">
+            <div class="decoy-card" data-package="anchor">
+                <h3>LONGEVITY PRIME</h3>
+                <p style="font-size: 24px; color: #fff;">$25.000</p>
+                <div class="scramble-target" data-hover-text="Sınırları aşın.">Tüm biyobelirteçlerin sıfırlanması.</div>
+            </div>
+            
+            <div class="decoy-card target" data-package="sovereign">
+                <h3>SOVEREIGN CHOICE</h3>
+                <p style="font-size: 24px; color: #fff;">$8.500</p>
+                <div class="scramble-target" data-hover-text="Tükenmişliği reddedin. Mitokondriyal dirilişiniz için tam zamanı.">NAD+ ve Kök Hücre Sinerjisi. Hedeflenen onarım.</div>
+            </div>
+
+            <div class="decoy-card" data-package="entry">
+                <h3>VITALITY ESSENCE</h3>
+                <p style="font-size: 24px; color: #fff;">$3.500</p>
+                <div class="scramble-target" data-hover-text="Sıradanlıktan uyanın.">Temel mitokondriyal destek.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT INJECTIONS -->
+    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Post Processing for Hologram Blur -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+
+    <script type="module" src="js/santis-neuro-ui.js"></script>
+    <script type="module" src="js/santis-vocal-scanner.js"></script>
+    <script type="module" src="js/santis-quantum-cell.js"></script>
+    <script type="module" src="js/santis-decoy-matrix.js"></script>
+</body>
+</html>
+
