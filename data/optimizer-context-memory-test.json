@@ -1,0 +1,40 @@
+{
+  "scoresByContextKey": {
+    "exp_1|segment:vip|device:mobile|latency:high|visitor:returning": [
+      {
+        "experimentId": "exp_1",
+        "variantId": "variant_a",
+        "contextKey": "exp_1|segment:vip|device:mobile|latency:high|visitor:returning",
+        "context": {
+          "segment": "vip",
+          "device": "mobile",
+          "latencyTier": "high",
+          "visitorType": "returning"
+        },
+        "upliftScore": 18,
+        "riskScore": 2,
+        "confidenceScore": 93,
+        "finalScore": 14,
+        "evaluatedAt": "2026-04-20T21:11:09.303Z"
+      }
+    ],
+    "exp_1|segment:standard|device:desktop|latency:low|visitor:first_time": [
+      {
+        "experimentId": "exp_1",
+        "variantId": "variant_b",
+        "contextKey": "exp_1|segment:standard|device:desktop|latency:low|visitor:first_time",
+        "context": {
+          "segment": "standard",
+          "device": "desktop",
+          "latencyTier": "low",
+          "visitorType": "first_time"
+        },
+        "upliftScore": 20,
+        "riskScore": 1,
+        "confidenceScore": 95,
+        "finalScore": 18,
+        "evaluatedAt": "2026-04-20T21:11:09.307Z"
+      }
+    ]
+  }
+}

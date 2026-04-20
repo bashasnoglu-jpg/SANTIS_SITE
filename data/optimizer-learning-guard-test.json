@@ -1,0 +1,22 @@
+{
+  "scoresByContextKey": {
+    "exp_1|segment:vip|device:mobile": [
+      {
+        "experimentId": "exp_1",
+        "variantId": "variant_c",
+        "contextKey": "exp_1|segment:vip|device:mobile",
+        "context": {
+          "segment": "vip",
+          "device": "mobile",
+          "latencyTier": "medium",
+          "visitorType": "unknown"
+        },
+        "upliftScore": 15,
+        "riskScore": 8,
+        "confidenceScore": 86,
+        "finalScore": 12,
+        "evaluatedAt": "2026-04-20T21:21:44.757Z"
+      }
+    ]
+  }
+}

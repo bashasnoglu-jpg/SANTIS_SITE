@@ -85,6 +85,22 @@ async function main(): Promise<void> {
     readStringEnv('ROLLOUT_OPTIMIZER_MEMORY_FILE', './data/optimizer-memory-state.json')!
   );
 
+  const contextualOptimizerMemoryFilePath = path.resolve(
+    readStringEnv('ROLLOUT_CONTEXTUAL_MEMORY_FILE', './data/optimizer-context-memory-state.json')!
+  );
+
+  const learningAuditStoreFilePath = path.resolve(
+    readStringEnv('ROLLOUT_LEARNING_AUDIT_FILE', './data/optimizer-learning-rejections.jsonl')!
+  );
+
+  const aggregatedOptimizerMemoryFilePath = path.resolve(
+    readStringEnv('ROLLOUT_AGGREGATED_MEMORY_FILE', './data/optimizer-aggregated-memory-state.json')!
+  );
+
+  const emaOptimizerMemoryFilePath = path.resolve(
+    readStringEnv('ROLLOUT_EMA_MEMORY_FILE', './data/optimizer-ema-memory-state.json')!
+  );
+
   logger.info('rollout.daemon.booting', {
     mode: 'sidecar',
     enabled,
@@ -96,6 +112,10 @@ async function main(): Promise<void> {
     approvalStoreFilePath: repositoryMode === 'file' ? approvalStoreFilePath : null,
     healthWindowStoreFilePath: repositoryMode === 'file' ? healthWindowStoreFilePath : null,
     optimizerMemoryFilePath: repositoryMode === 'file' ? optimizerMemoryFilePath : null,
+    contextualOptimizerMemoryFilePath: repositoryMode === 'file' ? contextualOptimizerMemoryFilePath : null,
+    learningAuditStoreFilePath: repositoryMode === 'file' ? learningAuditStoreFilePath : null,
+    aggregatedOptimizerMemoryFilePath: repositoryMode === 'file' ? aggregatedOptimizerMemoryFilePath : null,
+    emaOptimizerMemoryFilePath: repositoryMode === 'file' ? emaOptimizerMemoryFilePath : null,
   });
 
   const metricsObserver = new NoopMetricsObserver();
@@ -111,6 +131,10 @@ async function main(): Promise<void> {
       approvalStoreFilePath,
       healthWindowStoreFilePath,
       optimizerMemoryFilePath: repositoryMode === 'file' ? optimizerMemoryFilePath : undefined,
+      contextualOptimizerMemoryFilePath: repositoryMode === 'file' ? contextualOptimizerMemoryFilePath : undefined,
+      learningAuditStoreFilePath: repositoryMode === 'file' ? learningAuditStoreFilePath : undefined,
+      aggregatedOptimizerMemoryFilePath: repositoryMode === 'file' ? aggregatedOptimizerMemoryFilePath : undefined,
+      emaOptimizerMemoryFilePath: repositoryMode === 'file' ? emaOptimizerMemoryFilePath : undefined,
     },
     {
       metricsObserver,

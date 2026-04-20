@@ -1,0 +1,40 @@
+{
+  "scoresByContextKey": {
+    "exp_1|segment:vip|device:mobile": [
+      {
+        "experimentId": "exp_1",
+        "variantId": "variant_a",
+        "contextKey": "exp_1|segment:vip|device:mobile",
+        "context": {
+          "segment": "vip",
+          "device": "mobile",
+          "latencyTier": "unknown",
+          "visitorType": "unknown"
+        },
+        "upliftScore": 16,
+        "riskScore": 2,
+        "confidenceScore": 92,
+        "finalScore": 12,
+        "evaluatedAt": "2026-04-20T21:16:45.612Z"
+      }
+    ],
+    "exp_1|global": [
+      {
+        "experimentId": "exp_1",
+        "variantId": "variant_b",
+        "contextKey": "exp_1|global",
+        "context": {
+          "segment": "unknown",
+          "device": "unknown",
+          "latencyTier": "unknown",
+          "visitorType": "unknown"
+        },
+        "upliftScore": 8,
+        "riskScore": 1,
+        "confidenceScore": 88,
+        "finalScore": 6,
+        "evaluatedAt": "2026-04-20T21:16:45.615Z"
+      }
+    ]
+  }
+}

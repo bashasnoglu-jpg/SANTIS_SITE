@@ -1,0 +1,30 @@
+{
+  "records": [
+    {
+      "experimentId": "exp_1",
+      "variantId": "variant_a",
+      "contextKey": "exp_1|segment:vip|device:mobile|latency:high|visitor:returning",
+      "level": "exact",
+      "sampleCount": 12,
+      "avgUpliftScore": 22,
+      "avgRiskScore": 8,
+      "avgConfidenceScore": 91,
+      "avgFinalScore": 18,
+      "lastEvaluatedAt": "2026-04-10T21:28:08.238Z",
+      "updatedAt": "2026-04-20T21:28:08.238Z"
+    },
+    {
+      "experimentId": "exp_1",
+      "variantId": "variant_b",
+      "contextKey": "exp_1|segment:vip|device:mobile|latency:high|visitor:returning",
+      "level": "exact",
+      "sampleCount": 10,
+      "avgUpliftScore": 18,
+      "avgRiskScore": 6,
+      "avgConfidenceScore": 89,
+      "avgFinalScore": 16,
+      "lastEvaluatedAt": "2026-04-20T19:28:08.238Z",
+      "updatedAt": "2026-04-20T21:28:08.243Z"
+    }
+  ]
+}
