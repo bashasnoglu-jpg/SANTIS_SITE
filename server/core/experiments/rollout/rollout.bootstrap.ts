@@ -23,6 +23,7 @@ import { TemporalAggregatedOptimizerAdapter } from '../optimizer/optimizer.tempo
 import { FileBackedEMAOptimizerMemory } from '../optimizer/optimizer.memory.aggregate.ema.file.ts';
 import { EMAOptimizerMemoryWriter } from '../optimizer/optimizer.memory.aggregate.ema.writer.ts';
 import { TemporalEMAOptimizerAdapter } from '../optimizer/optimizer.temporal.ema.adapter.ts';
+import { OptimizerBanditAdapter } from '../optimizer/optimizer.bandit.adapter.ts';
 
 export interface RolloutBootstrapConfig {
   enabled: boolean;
@@ -71,6 +72,7 @@ export interface RolloutBootstrapContainer {
   emaOptimizerMemory?: FileBackedEMAOptimizerMemory;
   emaOptimizerMemoryWriter?: EMAOptimizerMemoryWriter;
   temporalEMAOptimizerAdapter?: TemporalEMAOptimizerAdapter;
+  optimizerBanditAdapter?: OptimizerBanditAdapter;
 }
 
 let singletonContainer: RolloutBootstrapContainer | null = null;
@@ -198,6 +200,15 @@ export function createRolloutBootstrapContainer(
       })
     : undefined;
 
+  const optimizerBanditAdapter = new OptimizerBanditAdapter({
+    strategy: 'thompson_sampling',
+    thompsonPriorAlpha: 1,
+    thompsonPriorBeta: 1,
+    ucbExplorationConstant: 1.4,
+    maxExplorationBonus: 0.2,
+    minLearnedWeightForExploration: 0.55,
+  });
+
   const scheduler = new RolloutScheduler({
     repository,
     guardrailProvider,
@@ -239,6 +250,7 @@ export function createRolloutBootstrapContainer(
     emaOptimizerMemory,
     emaOptimizerMemoryWriter,
     temporalEMAOptimizerAdapter,
+    optimizerBanditAdapter,
   };
 }
 
