@@ -1,0 +1,57 @@
+{
+  "plansByRolloutId": {
+    "rollout_test_1": {
+      "rolloutId": "rollout_test_1",
+      "experimentId": "exp_quote_latency",
+      "winnerVariantId": "variant_a",
+      "controlVariantId": "control",
+      "createdAt": "2026-04-20T20:51:08.318Z",
+      "createdBy": "system",
+      "requiresHumanApprovalAt100": false,
+      "stages": [
+        10,
+        25,
+        50,
+        100
+      ],
+      "currentStage": 50,
+      "status": "running",
+      "baselinePolicyVersion": "v1.0.0",
+      "candidatePolicyVersion": "v1.1.0"
+    }
+  },
+  "rolloutIdByExperimentId": {
+    "exp_quote_latency": "rollout_test_1"
+  },
+  "decisionRecordsByRolloutId": {
+    "rollout_test_1": [
+      {
+        "rolloutId": "rollout_test_1",
+        "timestamp": "2026-04-20T20:51:08.322Z",
+        "fromStage": 50,
+        "proposedDecision": "hold",
+        "finalDecision": "hold",
+        "reason": "minimum_sample_not_met"
+      }
+    ]
+  },
+  "auditEventsByRolloutId": {
+    "rollout_test_1": [
+      {
+        "eventId": "audit_dpmvncgd",
+        "rolloutId": "rollout_test_1",
+        "timestamp": "2026-04-20T20:51:08.322Z",
+        "eventType": "rollout_held",
+        "payload": {
+          "fromStage": 50,
+          "toStage": 50,
+          "previousStatus": "running",
+          "nextStatus": "running",
+          "proposedDecision": "hold",
+          "finalDecision": "hold",
+          "reason": "minimum_sample_not_met"
+        }
+      }
+    ]
+  }
+}

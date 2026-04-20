@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { useConciergeTelemetry } from '../../hooks/useConciergeTelemetry';
 import { useAutonomousConcierge } from '../../hooks/useAutonomousConcierge';
 import { TelemetryDebugStrip } from '../boardroom/TelemetryDebugStrip.jsx';

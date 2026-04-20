@@ -1,0 +1,14 @@
+{
+  "scores": {
+    "exp_1": [
+      {
+        "experimentId": "exp_1",
+        "variantId": "variant_a",
+        "upliftScore": 79.99999999999999,
+        "riskScore": 26.4,
+        "confidenceScore": 95,
+        "finalScore": 50.91999999999999
+      }
+    ]
+  }
+}

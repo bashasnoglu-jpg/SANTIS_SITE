@@ -7,6 +7,9 @@ import type { RolloutRepository } from './rollout.repository.ts';
 import { buildRolloutHealthSnapshot, type MetricsObserver } from './rollout.telemetry-bridge.ts';
 import { evaluateAndApplyRollout } from './rollout.controller.ts';
 import { createRolloutDecisionAuditEvent } from './rollout.audit.ts';
+import type { FeedbackEngine } from '../optimizer/optimizer.feedback.engine.ts';
+import type { FeedbackSignal } from '../optimizer/optimizer.feedback.contract.ts';
+import type { RolloutHealthSnapshot } from './rollout.contract.ts';
 
 export interface RolloutGuardrailProvider {
   getForExperiment(experimentId: string): Promise<RolloutGuardrails>;
@@ -34,6 +37,7 @@ export interface RolloutSchedulerDeps {
     warn(message: string, meta?: Record<string, unknown>): void;
     error(message: string, meta?: Record<string, unknown>): void;
   };
+  feedbackEngine?: FeedbackEngine;
 }
 
 export interface TickSingleRolloutInput {
@@ -53,6 +57,27 @@ function isHealthyDecision(decision: RolloutDecisionRecord['finalDecision']): bo
 
 function shouldResetHealthyWindows(decision: RolloutDecisionRecord['finalDecision']): boolean {
   return decision === 'rollback' || decision === 'pause';
+}
+
+function buildFeedbackSignalFromPlan(
+  plan: RolloutPlan,
+  snapshot: RolloutHealthSnapshot
+): FeedbackSignal {
+  return {
+    experimentId: plan.experimentId,
+    rolloutId: plan.rolloutId,
+    variantId: plan.winnerVariantId ?? plan.candidateVariantId,
+    baselineConversion: snapshot.control.conversionRate,
+    candidateConversion: snapshot.candidate.conversionRate,
+    baselineErrorRate: snapshot.control.errorRate,
+    candidateErrorRate: snapshot.candidate.errorRate,
+    baselineLatencyMs: snapshot.control.p95LatencyMs,
+    candidateLatencyMs: snapshot.candidate.p95LatencyMs,
+    sampleSize: snapshot.sampleSize,
+    confidenceScore: snapshot.confidenceScore,
+    outcome: plan.winnerVariantId === plan.candidateVariantId ? 'win' : (plan.winnerVariantId === plan.controlVariantId ? 'loss' : 'neutral'),
+    evaluatedAt: snapshot.timestamp,
+  };
 }
 
 export class RolloutScheduler {
@@ -133,6 +158,12 @@ export class RolloutScheduler {
       decision: result.decisionRecord.finalDecision,
       reason: result.decisionRecord.reason,
     });
+
+    if (result.nextPlan.status === 'completed' && this.deps.feedbackEngine) {
+      const feedbackSignal = buildFeedbackSignalFromPlan(result.nextPlan, snapshot);
+      await this.deps.feedbackEngine.process(feedbackSignal);
+      this.deps.logger?.info('optimizer.feedback.processed', { rolloutId: plan.rolloutId });
+    }
 
     return {
       previousPlan: plan,

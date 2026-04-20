@@ -1,0 +1,9 @@
+{
+  "approvals": {
+    "test-r1": {
+      "rolloutId": "test-r1",
+      "requestedStage": 100,
+      "approved": false
+    }
+  }
+}

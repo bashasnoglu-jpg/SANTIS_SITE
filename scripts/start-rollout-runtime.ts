@@ -81,6 +81,10 @@ async function main(): Promise<void> {
     readStringEnv('ROLLOUT_HEALTH_STORE_FILE', './data/rollout-health-state.json')!
   );
 
+  const optimizerMemoryFilePath = path.resolve(
+    readStringEnv('ROLLOUT_OPTIMIZER_MEMORY_FILE', './data/optimizer-memory-state.json')!
+  );
+
   logger.info('rollout.daemon.booting', {
     mode: 'sidecar',
     enabled,
@@ -91,6 +95,7 @@ async function main(): Promise<void> {
     repositoryFilePath: repositoryMode === 'file' ? repositoryFilePath : null,
     approvalStoreFilePath: repositoryMode === 'file' ? approvalStoreFilePath : null,
     healthWindowStoreFilePath: repositoryMode === 'file' ? healthWindowStoreFilePath : null,
+    optimizerMemoryFilePath: repositoryMode === 'file' ? optimizerMemoryFilePath : null,
   });
 
   const metricsObserver = new NoopMetricsObserver();
@@ -105,6 +110,7 @@ async function main(): Promise<void> {
       repositoryFilePath,
       approvalStoreFilePath,
       healthWindowStoreFilePath,
+      optimizerMemoryFilePath: repositoryMode === 'file' ? optimizerMemoryFilePath : undefined,
     },
     {
       metricsObserver,

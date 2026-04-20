@@ -9,6 +9,9 @@ import { RolloutScheduler } from './rollout.scheduler.ts';
 import { createRolloutRuntime, type RolloutRuntime } from './rollout.runtime.ts';
 import type { MetricsObserver } from './rollout.telemetry-bridge.ts';
 import type { RolloutRuntimeLogger } from './rollout.runtime.ts';
+import { FileBackedOptimizerMemory } from '../optimizer/optimizer.memory.file.ts';
+import { FeedbackEngine } from '../optimizer/optimizer.feedback.engine.ts';
+import { OptimizerAdapter } from '../optimizer/optimizer.adapter.ts';
 
 export interface RolloutBootstrapConfig {
   enabled: boolean;
@@ -19,6 +22,7 @@ export interface RolloutBootstrapConfig {
   repositoryFilePath?: string;
   approvalStoreFilePath?: string;
   healthWindowStoreFilePath?: string;
+  optimizerMemoryFilePath?: string;
 }
 
 export interface RolloutBootstrapDeps {
@@ -41,6 +45,7 @@ export interface RolloutBootstrapContainer {
   guardrailProvider: StaticRolloutGuardrailProvider;
   scheduler: RolloutScheduler;
   runtime: RolloutRuntime;
+  optimizerAdapter?: OptimizerAdapter;
 }
 
 let singletonContainer: RolloutBootstrapContainer | null = null;
@@ -102,6 +107,14 @@ export function createRolloutBootstrapContainer(
   const healthWindowStore = createHealthWindowStore(config);
   const guardrailProvider = new StaticRolloutGuardrailProvider();
 
+  const feedbackEngine = config.optimizerMemoryFilePath
+    ? new FeedbackEngine(new FileBackedOptimizerMemory(config.optimizerMemoryFilePath))
+    : undefined;
+
+  const optimizerAdapter = config.optimizerMemoryFilePath
+    ? new OptimizerAdapter(new FileBackedOptimizerMemory(config.optimizerMemoryFilePath))
+    : undefined;
+
   const scheduler = new RolloutScheduler({
     repository,
     guardrailProvider,
@@ -109,6 +122,7 @@ export function createRolloutBootstrapContainer(
     approvalStore,
     healthWindowStore,
     logger: deps.logger,
+    feedbackEngine,
   });
 
   const runtime = createRolloutRuntime(
@@ -131,6 +145,7 @@ export function createRolloutBootstrapContainer(
     guardrailProvider,
     scheduler,
     runtime,
+    optimizerAdapter,
   };
 }
 
