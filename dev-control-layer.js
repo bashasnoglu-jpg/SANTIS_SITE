@@ -12,11 +12,26 @@ console.log('━━━━━━━━━━━━━━━━━━━━━━�
 // 🔥 ZOMBIE KILLER (EADDRINUSE Guard)
 try {
     if (isWin) {
-        console.log('\x1b[33m[NEXUS] Port 8080, 4040, 5050 ve 5173 Zombi Taraması Yapılıyor (npx kill-port)...\x1b[0m');
-        execSync(`npx kill-port 8080`, { stdio: 'ignore' });
-        execSync(`npx kill-port 4040`, { stdio: 'ignore' });
-        execSync(`npx kill-port 5050`, { stdio: 'ignore' });
-        execSync(`npx kill-port 5173`, { stdio: 'ignore' });
+        console.log('\x1b[33m[NEXUS] Port 8080, 4040, 5050 ve 5173 Zombi Taraması Yapılıyor (Native Netstat)...\x1b[0m');
+        const killPortWin = (port) => {
+            try {
+                const out = execSync(`netstat -ano | findstr LISTENING | findstr :${port}`);
+                const lines = out.toString().split('\n');
+                for (const line of lines) {
+                    const parts = line.trim().split(/\s+/);
+                    if (parts.length >= 5 && parts[1].endsWith(`:${port}`)) {
+                        const pid = parts[4];
+                        if (pid !== '0') {
+                            execSync(`taskkill /F /PID ${pid} >nul 2>&1`);
+                        }
+                    }
+                }
+            } catch(e) {}
+        };
+        killPortWin(8080);
+        killPortWin(4040);
+        killPortWin(5050);
+        killPortWin(5173);
     } else {
         execSync('npx kill-port 8080 4040 5050 5173', { stdio: 'ignore' });
     }
