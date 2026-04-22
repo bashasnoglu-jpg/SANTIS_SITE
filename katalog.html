@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Spa | Editorial Catalog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           CORE VARIABLES & LIQUID WEIGHT PHILOSOPHY
+           ========================================= */
+        :root {
+            --ease-liquid: cubic-bezier(0.22, 1, 0.36, 1);
+            --gold: #d4af37;
+            --gold-dim: rgba(212, 175, 55, 0.3);
+            --bg-dark: #050505;
+            --text-light: #f4f0e6;
+            --text-dim: #a09d96;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* TIER 1: AMBIENT NOISE */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* TIER 2: SECTIONAL REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            filter: blur(6px);
+            transition: opacity 1.4s var(--ease-liquid), 
+                        transform 1.4s var(--ease-liquid), 
+                        filter 1.4s var(--ease-liquid);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        /* LANGUAGE TOGGLE SYSTEM */
+        html[lang="tr"] .lang-en { display: none !important; }
+        html[lang="en"] .lang-tr { display: none !important; }
+
+        .lang-btn {
+            transition: color 0.4s var(--ease-liquid);
+        }
+        .lang-btn.active {
+            color: var(--gold);
+            pointer-events: none;
+        }
+
+        /* CHAPTER DIVIDERS (100vh Parallax & Ghost Typography) */
+        .chapter-divider {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            clip-path: inset(0); /* Crucial for parallax containment */
+        }
+        .parallax-bg {
+            position: absolute;
+            top: -20%; left: 0; width: 100%; height: 140%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4;
+            will-change: transform;
+            /* JS will handle the 78% relative speed transform */
+        }
+        .parallax-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, #050505 0%, transparent 20%, transparent 80%, #050505 100%);
+        }
+        .ghost-text {
+            position: relative;
+            font-size: 14vw;
+            font-weight: 500;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--gold-dim);
+            text-transform: uppercase;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+            will-change: transform;
+            z-index: 10;
+            opacity: 0.8;
+            /* JS will handle the 90% relative speed transform */
+        }
+
+        /* MODEL A: BUNDLE TIMELINE */
+        .model-a-card {
+            position: relative;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            background: linear-gradient(145deg, rgba(20,20,20,0.8) 0%, rgba(5,5,5,0.9) 100%);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+        .model-a-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.08), transparent);
+            transform: skewX(-25deg);
+            animation: shimmer 8s var(--ease-liquid) infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -150%; }
+            50% { left: 150%; }
+            100% { left: 150%; }
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 1px dashed var(--gold-dim);
+        }
+        .timeline-item:last-child {
+            border-left-color: transparent;
+            padding-bottom: 0;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -4px; top: 0;
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 10px var(--gold-dim);
+        }
+
+        /* MODEL B: FLAGSHIP CARDS */
+        .model-b-card {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .model-b-img {
+            position: absolute; inset: 0;
+            background-size: cover; background-position: center;
+            filter: grayscale(80%) contrast(1.1) brightness(0.7);
+            transition: transform 1.2s var(--ease-liquid), filter 1.2s var(--ease-liquid);
+        }
+        .model-b-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.4) 40%, transparent 100%);
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 2.5rem;
+        }
+        .model-b-desc {
+            max-height: 0; opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.8s var(--ease-liquid);
+            overflow: hidden;
+        }
+        /* Hover Effects */
+        .model-b-card:hover .model-b-img {
+            transform: scale(1.03); /* Exact 1.03 zoom */
+            filter: grayscale(0%) contrast(1) brightness(0.9); /* Color clarification */
+        }
+        .model-b-card:hover .model-b-desc {
+            max-height: 150px;
+            opacity: 1;
+            transform: translateY(0);
+            margin-top: 1rem;
+        }
+
+        /* MODEL C: MINIMAL LISTS (Fine Dining Menu) */
+        .model-c-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .menu-item {
+            display: flex;
+            align-items: baseline;
+            width: 100%;
+        }
+        .menu-leader {
+            flex-grow: 1;
+            border-bottom: 1px dotted rgba(255,255,255,0.2);
+            margin: 0 1rem;
+            position: relative;
+            top: -4px;
+        }
+        .menu-title {
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+            transition: color 0.4s ease;
+        }
+        .menu-item:hover .menu-title {
+            color: var(--gold);
+        }
+        .menu-meta {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- TIER 1: Ambient Noise -->
+    <div class="noise-overlay"></div>
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 w-full z-50 mix-blend-difference py-6 px-8 flex justify-between items-center">
+        <div class="text-xl serif tracking-widest text-white">SOVEREIGN</div>
+        <div class="flex gap-4 text-xs font-medium tracking-widest text-gray-400">
+            <button onclick="setLang('tr')" id="btn-tr" class="lang-btn active hover:text-white transition">TR</button>
+            <span>/</span>
+            <button onclick="setLang('en')" id="btn-en" class="lang-btn hover:text-white transition">EN</button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-30 transform scale-105"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#050505]"></div>
+        
+        <div class="relative z-10 reveal" style="transition-delay: 200ms;">
+            <p class="text-[var(--gold)] text-sm tracking-[0.3em] uppercase mb-6">
+                <span class="lang-tr">Sovereign Spa Kataloğu</span>
+                <span class="lang-en">Sovereign Spa Catalog</span>
+            </p>
+            <h1 class="text-6xl md:text-8xl lg:text-9xl serif mb-8 leading-tight">
+                Sovereign<br>
+                <span class="italic font-light text-gray-300">Editorial</span>
+            </h1>
+            <p class="max-w-md mx-auto text-gray-400 font-light tracking-wide">
+                <span class="lang-tr">Likit ağırlık felsefesiyle tasarlanmış, her dokunuşta nefes alan bir iyileşme güncesi.</span>
+                <span class="lang-en">A healing journal designed with the philosophy of liquid weight, breathing with every touch.</span>
+            </p>
+        </div>
+        
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 reveal" style="transition-delay: 800ms;">
+            <span class="text-xs tracking-widest text-gray-500 uppercase">
+                <span class="lang-tr">Aşağı Kaydır</span>
+                <span class="lang-en">Scroll Down</span>
+            </span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-gray-500 to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         DIVIDER 1: PROGRAMS
+         ========================================== -->
+    <section class="chapter-divider">
+        <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=2070&auto=format&fit=crop');"></div>
+        <div class="parallax-overlay"></div>
+        <h2 class="ghost-text">Programs</h2>
+    </section>
+
+    <!-- CONTENT 1: MODEL A (BUNDLE TIMELINE) -->
+    <section class="py-32 px-6 md:px-20 max-w-7xl mx-auto">
+        <div class="text-center mb-24 reveal">
+            <h3 class="text-4xl md:text-5xl serif mb-4">
+                <span class="lang-tr">Spa Programları</span>
+                <span class="lang-en">Spa Programs</span>
+            </h3>
+            <p class="text-gray-400 tracking-widest text-sm uppercase">Signature Ritual Bundles</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-16">
+            <!-- Child Care -->
+            <div class="model-a-card p-10 md:p-14 reveal" style="transition-delay: 100ms;">
+                <h4 class="text-3xl serif text-[var(--gold)] mb-2">
+                    <span class="lang-tr">Çocuk Bakım Programı</span>
+                    <span class="lang-en">Child Care Program</span>
+                </h4>
+                <p class="text-sm text-gray-400 mb-10 tracking-widest">75 MIN / 80 €</p>
+                <div class="flex flex-col text-gray-300 font-light">
+                    <div class="timeline-item">
+                        <h5 class="text-white font-medium mb-1"><span class="lang-tr">Çikolata ve Köpük Masajı</span><span class="lang-en">Chocolate and foam massage</span></h5>
+                        <p class="text-sm text-[var(--gold)]">30 MIN</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5 class="text-white font-medium mb-1"><span class="lang-tr">Çocuk Masajı</span><span class="lang-en">Kid's massage</span></h5>
+                        <p class="text-sm text-[var(--gold)]">30 MIN</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5 class="text-white font-medium mb-1"><span class="lang-tr">Yüz Maskesi</span><span class="lang-en">Face mask</span></h5>
+                        <p class="text-sm text-[var(--gold)]">15 MIN</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Relax Program -->
+            <div class="model-a-card p-10 md:p-14 reveal" style="transition-delay: 200ms;">
+                <h4 class="text-3xl serif text-[var(--gold)] mb-2">
+                    <span class="lang-tr">Rahatlama Programı</span>
+                    <span class="lang-en">Relax Program</span>
+                </h4>
+                <p class="text-sm text-gray-400 mb-10 tracking-widest">95 MIN / 100 €</p>
+                <div class="flex flex-col text-gray-300 font-light">
+                    <div class="timeline-item">
+                        <h5 class="text-white font-medium mb-1"><span class="lang-tr">Kese ve Köpük Masajı</span><span class="lang-en">Peeling and foam massage</span></h5>
+                        <p class="text-sm text-[var(--gold)]">30 MIN</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5 class="text-white font-medium mb-1"><span class="lang-tr">Klasik Tüm Vücut Masajı</span><span class="lang-en">Classic full body massage</span></h5>
+                        <p class="text-sm text-[var(--gold)]">50 MIN</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5 class="text-white font-medium mb-1"><span class="lang-tr">Yüz Maskesi</span><span class="lang-en">Face mask</span></h5>
+                        <p class="text-sm text-[var(--gold)]">15 MIN</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medical Program -->
+            <div class="model-a-card p-10 md:p-14 reveal" style="transition-delay: 100ms;">
+                <h4 class="text-3xl serif text-[var(--gold)] mb-2">
+                    <span class="lang-tr">Medikal Program</span>
+                    <span class="lang-en">Medical Program</span>
+                </h4>
+                <p class="text-sm text-gray-400 mb-10 tracking-widest">95 MIN / 115 €</p>
+                <div class="flex flex-col text-gray-300 font-light">
+                    <div class="timeline-item">
+                        <h5 class="text-white font-medium mb-1"><span class="lang-tr">Deniz Tuzu Kesesi ve Köpük</span><span class="lang-en">Sea salt peeling and foam massage</span></h5>
+                        <p class="text-sm text-[var(--gold)]">30 MIN</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5 class="text-white font-medium mb-1"><span class="lang-tr">Medikal Masaj</span><span class="lang-en">Medical massage</span></h5>
+                        <p class="text-sm text-[var(--gold)]">50 MIN</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5 class="text-white font-medium mb-1"><span class="lang-tr">Yüz Maskesi</span><span class="lang-en">Face mask</span></h5>
+                        <p class="text-sm text-[var(--gold)]">15 MIN</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bronze Program -->
+            <div class="model-a-card p-10 md:p-14 reveal" style="transition-delay: 200ms;">
+                <h4 class="text-3xl serif text-[var(--gold)] mb-2">
+                    <span class="lang-tr">Bronz Program</span>
+                    <span class="lang-en">Bronze Program</span>
+                </h4>
+                <p class="text-sm text-gray-400 mb-10 tracking-widest">95 MIN / 105 €</p>
+                <div class="flex flex-col text-gray-300 font-light">
+                    <div class="timeline-item">
+                        <h5 class="text-white font-medium mb-1"><span class="lang-tr">Kahve Kesesi ve Köpük</span><span class="lang-en">Coffee peeling and foam massage</span></h5>
+                        <p class="text-sm text-[var(--gold)]">30 MIN</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5 class="text-white font-medium mb-1"><span class="lang-tr">Bronz Masaj</span><span class="lang-en">Bronze massage</span></h5>
+                        <p class="text-sm text-[var(--gold)]">50 MIN</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5 class="text-white font-medium mb-1"><span class="lang-tr">Yüz Maskesi</span><span class="lang-en">Face mask</span></h5>
+                        <p class="text-sm text-[var(--gold)]">15 MIN</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delux Program (Full Width) -->
+            <div class="model-a-card p-10 md:p-14 reveal md:col-span-2" style="transition-delay: 100ms;">
+                <h4 class="text-3xl md:text-4xl serif text-[var(--gold)] mb-2">
+                    <span class="lang-tr">Delux Program</span>
+                    <span class="lang-en">Delux Program</span>
+                </h4>
+                <p class="text-sm text-gray-400 mb-10 tracking-widest">115 MIN / 175 €</p>
+                <div class="flex flex-col md:flex-row gap-8 md:gap-24 text-gray-300 font-light">
+                    <div class="flex-1">
+                        <div class="timeline-item">
+                            <h5 class="text-white font-medium mb-1"><span class="lang-tr">Kahve, Deniz Tuzu Kesesi & Yosun Maskesi</span><span class="lang-en">Coffee, sea salt peeling & Algen mask</span></h5>
+                            <p class="text-sm text-[var(--gold)]">50 MIN</p>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="timeline-item">
+                            <h5 class="text-white font-medium mb-1"><span class="lang-tr">Kombinasyon Masajı</span><span class="lang-en">Combination massage</span></h5>
+                            <p class="text-sm text-[var(--gold)]">50 MIN</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5 class="text-white font-medium mb-1"><span class="lang-tr">Yüz Maskesi</span><span class="lang-en">Face mask</span></h5>
+                            <p class="text-sm text-[var(--gold)]">15 MIN</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         DIVIDER 2: HAMAM
+         ========================================== -->
+    <section class="chapter-divider">
+        <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1583416750470-965b2707b355?q=80&w=2070&auto=format&fit=crop'); filter: grayscale(30%);"></div>
+        <div class="parallax-overlay"></div>
+        <h2 class="ghost-text">Hammam</h2>
+    </section>
+
+    <!-- CONTENT 2: HAMAM (FLAGSHIP & MINIMAL) -->
+    <section class="py-32 px-6 md:px-20 max-w-[90rem] mx-auto">
+        <div class="text-center mb-24 reveal">
+            <h3 class="text-4xl md:text-5xl serif mb-4">
+                <span class="lang-tr">Geleneksel Türk Hamamı</span>
+                <span class="lang-en">Traditional Turkish Bath</span>
+            </h3>
+            <p class="text-gray-400 tracking-widest text-sm uppercase">Authentic Cleansing</p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <!-- Flagship Card for Ottoman Hamam -->
+            <div class="model-b-card reveal group h-[500px]" style="transition-delay: 100ms;">
+                <div class="model-b-img" style="background-image: url('https://images.unsplash.com/photo-1544161515-4ae6ce6fe858?q=80&w=2070&auto=format&fit=crop');"></div>
+                <div class="model-b-overlay">
+                    <p class="text-[var(--gold)] text-xs tracking-[0.2em] mb-2">50 MIN / 90 €</p>
+                    <h4 class="text-3xl serif text-white">
+                        <span class="lang-tr">Osmanlı Hamam Geleneği</span>
+                        <span class="lang-en">Ottoman Hamam Tradition</span>
+                    </h4>
+                    <div class="model-b-desc">
+                        <p class="text-sm text-gray-300 font-light leading-relaxed">
+                            <span class="lang-tr">Saraylara layık, derinlemesine kese ve lüks aromatik köpük masajının birleştiği asil arınma ritüeli.</span>
+                            <span class="lang-en">A noble purification ritual combining deep peeling and luxurious aromatic foam massage, fit for palaces.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model C List for other Hamam treatments -->
+            <div class="model-c-menu reveal" style="transition-delay: 200ms;">
+                <div class="menu-item">
+                    <span class="menu-title uppercase font-light"><span class="lang-tr">Kese ve Köpük Masajı</span><span class="lang-en">Peeling and Foam Massage</span></span>
+                    <div class="menu-leader"></div>
+                    <span class="menu-meta">30 Min <span class="text-[var(--gold)] ml-2">45 €</span></span>
+                </div>
+                <div class="menu-item">
+                    <span class="menu-title uppercase font-light"><span class="lang-tr">Köpük Masajı</span><span class="lang-en">Foam Massage</span></span>
+                    <div class="menu-leader"></div>
+                    <span class="menu-meta">30 Min <span class="text-[var(--gold)] ml-2">45 €</span></span>
+                </div>
+                <div class="menu-item">
+                    <span class="menu-title uppercase font-light"><span class="lang-tr">Kahve Kesesi ve Köpük</span><span class="lang-en">Coffee Peeling and Foam</span></span>
+                    <div class="menu-leader"></div>
+                    <span class="menu-meta">30 Min <span class="text-[var(--gold)] ml-2">50 €</span></span>
+                </div>
+                <div class="menu-item">
+                    <span class="menu-title uppercase font-light"><span class="lang-tr">Deniz Tuzu Kesesi ve Köpük</span><span class="lang-en">Sea Salt Peeling and Foam</span></span>
+                    <div class="menu-leader"></div>
+                    <span class="menu-meta">30 Min <span class="text-[var(--gold)] ml-2">50 €</span></span>
+                </div>
+                <div class="menu-item">
+                    <span class="menu-title uppercase font-light"><span class="lang-tr">Bal ve Köpük Masajı</span><span class="lang-en">Honey and Foam Massage</span></span>
+                    <div class="menu-leader"></div>
+                    <span class="menu-meta">30 Min <span class="text-[var(--gold)] ml-2">55 €</span></span>
+                </div>
+                <div class="menu-item">
+                    <span class="menu-title uppercase font-light"><span class="lang-tr">Çikolata ve Köpük Masajı</span><span class="lang-en">Chocolate and Foam Massage</span></span>
+                    <div class="menu-leader"></div>
+                    <span class="menu-meta">30 Min <span class="text-[var(--gold)] ml-2">55 €</span></span>
+                </div>
+                <div class="menu-item">
+                    <span class="menu-title uppercase font-light"><span class="lang-tr">Yosun ve Köpük Masajı</span><span class="lang-en">Algen and Foam Massage</span></span>
+                    <div class="menu-leader"></div>
+                    <span class="menu-meta">30 Min <span class="text-[var(--gold)] ml-2">55 €</span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         DIVIDER 3: ASIAN
+         ========================================== -->
+    <section class="chapter-divider">
+        <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=1974&auto=format&fit=crop'); filter: grayscale(10%) sepia(20%);"></div>
+        <div class="parallax-overlay"></div>
+        <h2 class="ghost-text">Asian Touch</h2>
+    </section>
+
+    <!-- CONTENT 3: ASIAN (FLAGSHIP & MINIMAL) -->
+    <section class="py-32 px-6 md:px-20 max-w-[90rem] mx-auto">
+        <div class="text-center mb-24 reveal">
+            <h3 class="text-4xl md:text-5xl serif mb-4">
+                <span class="lang-tr">Uzak Doğu Masajları</span>
+                <span class="lang-en">Asian Massages</span>
+            </h3>
+            <p class="text-gray-400 tracking-widest text-sm uppercase">Eastern Philosophy</p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
+            <!-- Flagship: Mandara -->
+            <div class="model-b-card reveal group aspect-[4/3]" style="transition-delay: 100ms;">
+                <div class="model-b-img" style="background-image: url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070&auto=format&fit=crop');"></div>
+                <div class="model-b-overlay">
+                    <p class="text-[var(--gold)] text-xs tracking-[0.2em] mb-2">50 MIN / 150 €</p>
+                    <h4 class="text-3xl serif text-white">
+                        <span class="lang-tr">Mandara Masajı (4 El)</span>
+                        <span class="lang-en">Mandara Massage (4 Hand)</span>
+                    </h4>
+                    <div class="model-b-desc">
+                        <p class="text-sm text-gray-300 font-light leading-relaxed">
+                            <span class="lang-tr">İki terapistin senkronize hareketleriyle uygulanan kusursuz enerji dengesi.</span>
+                            <span class="lang-en">Flawless energy balance applied with the synchronized movements of two therapists.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flagship: Traditional Thai -->
+            <div class="model-b-card reveal group aspect-[4/3]" style="transition-delay: 300ms;">
+                <div class="model-b-img" style="background-image: url('https://images.unsplash.com/photo-1611558709798-e009c8fd7706?q=80&w=1975&auto=format&fit=crop');"></div>
+                <div class="model-b-overlay">
+                    <p class="text-[var(--gold)] text-xs tracking-[0.2em] mb-2">50 MIN / 100 €</p>
+                    <h4 class="text-3xl serif text-white">
+                        <span class="lang-tr">Geleneksel Thai Masajı</span>
+                        <span class="lang-en">Traditional Thai Massage</span>
+                    </h4>
+                    <div class="model-b-desc">
+                        <p class="text-sm text-gray-300 font-light leading-relaxed">
+                            <span class="lang-tr">Uzak Doğu'nun pasif yoga tekniği. Esnetme ve baskı hareketleriyle bedeni yeniden yapılandırır.</span>
+                            <span class="lang-en">The passive yoga technique of the Far East. Restructures the body with stretching and pressure movements.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Asian Minimal List -->
+        <div class="model-c-menu reveal max-w-4xl mx-auto" style="transition-delay: 400ms;">
+            <div class="grid md:grid-cols-2 gap-x-16 gap-y-6">
+                <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Bali Masajı</span><span class="lang-en">Bali Massage</span></span><div class="menu-leader"></div><span class="menu-meta">50 Min <span class="text-[var(--gold)] ml-2">90 €</span></span></div>
+                <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Bali Aroma Masajı</span><span class="lang-en">Bali Aroma Massage</span></span><div class="menu-leader"></div><span class="menu-meta">50 Min <span class="text-[var(--gold)] ml-2">90 €</span></span></div>
+                <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Ayurveda Masajı</span><span class="lang-en">Ayurveda Massage</span></span><div class="menu-leader"></div><span class="menu-meta">50 Min <span class="text-[var(--gold)] ml-2">90 €</span></span></div>
+                <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Shiatsu Masajı</span><span class="lang-en">Shiatsu</span></span><div class="menu-leader"></div><span class="menu-meta">50 Min <span class="text-[var(--gold)] ml-2">100 €</span></span></div>
+                <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Thai Refleksoloji</span><span class="lang-en">Thai Reflexology</span></span><div class="menu-leader"></div><span class="menu-meta">30 Min <span class="text-[var(--gold)] ml-2">55 €</span></span></div>
+                <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Hint Baş Masajı</span><span class="lang-en">Indian Head Massage</span></span><div class="menu-leader"></div><span class="menu-meta">30 Min <span class="text-[var(--gold)] ml-2">55 €</span></span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         DIVIDER 4: CLASSIC & EXTRA
+         ========================================== -->
+    <section class="chapter-divider">
+        <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?q=80&w=1964&auto=format&fit=crop'); filter: grayscale(40%);"></div>
+        <div class="parallax-overlay"></div>
+        <h2 class="ghost-text">Classic & Extra</h2>
+    </section>
+
+    <!-- CONTENT 4: CLASSIC & EXTRA (MODEL C) -->
+    <section class="py-32 px-6 md:px-20 max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-24">
+            
+            <!-- Category: Classic Massages -->
+            <div class="reveal" style="transition-delay: 100ms;">
+                <h3 class="text-3xl serif text-[var(--gold)] mb-12 flex items-center gap-4">
+                    <span class="w-8 h-[1px] bg-[var(--gold)]"></span>
+                    <span class="lang-tr">Klasik Masajlar</span>
+                    <span class="lang-en">Classic Massages</span>
+                </h3>
+                <div class="model-c-menu">
+                    <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Klasik Masaj</span><span class="lang-en">Classic Massage</span></span><div class="menu-leader"></div><span class="menu-meta">30 Min <span class="text-[var(--gold)] ml-2">50 €</span></span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Klasik Masaj</span><span class="lang-en">Classic Massage</span></span><div class="menu-leader"></div><span class="menu-meta">50 Min <span class="text-[var(--gold)] ml-2">80 €</span></span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Ayak Refleksoloji</span><span class="lang-en">Feet Reflex Zone</span></span><div class="menu-leader"></div><span class="menu-meta">30 Min <span class="text-[var(--gold)] ml-2">50 €</span></span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Anti-Stres Masajı</span><span class="lang-en">Anti-Stress Massage</span></span><div class="menu-leader"></div><span class="menu-meta">50 Min <span class="text-[var(--gold)] ml-2">80 €</span></span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Aroma Masajı</span><span class="lang-en">Aroma Massage</span></span><div class="menu-leader"></div><span class="menu-meta">50 Min <span class="text-[var(--gold)] ml-2">80 €</span></span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Bronz Masaj</span><span class="lang-en">Bronze Massage</span></span><div class="menu-leader"></div><span class="menu-meta">50 Min <span class="text-[var(--gold)] ml-2">80 €</span></span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Spor Masajı</span><span class="lang-en">Sport Massage</span></span><div class="menu-leader"></div><span class="menu-meta">50 Min <span class="text-[var(--gold)] ml-2">90 €</span></span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Anti-Selülit Masajı</span><span class="lang-en">Anti Cellulite Massage</span></span><div class="menu-leader"></div><span class="menu-meta">50 Min <span class="text-[var(--gold)] ml-2">90 €</span></span></div>
+                </div>
+            </div>
+
+            <!-- Category: Extra & Effective -->
+            <div class="reveal" style="transition-delay: 200ms;">
+                <h3 class="text-3xl serif text-[var(--gold)] mb-12 flex items-center gap-4">
+                    <span class="w-8 h-[1px] bg-[var(--gold)]"></span>
+                    <span class="lang-tr">Ekstra & Etkili Terapiler</span>
+                    <span class="lang-en">Extra & Effective</span>
+                </h3>
+                <div class="model-c-menu">
+                    <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Lokal Derin Doku</span><span class="lang-en">Local Deep Tissue</span></span><div class="menu-leader"></div><span class="menu-meta">30 Min <span class="text-[var(--gold)] ml-2">55 €</span></span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Sıcak Taş Masajı</span><span class="lang-en">Hot Stone Massage</span></span><div class="menu-leader"></div><span class="menu-meta">50 Min <span class="text-[var(--gold)] ml-2">90 €</span></span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Derin Doku Masajı</span><span class="lang-en">Deep Tissue Massage</span></span><div class="menu-leader"></div><span class="menu-meta">50 Min <span class="text-[var(--gold)] ml-2">90 €</span></span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Lenf Drenaj Masajı</span><span class="lang-en">Lymphatic Drainage</span></span><div class="menu-leader"></div><span class="menu-meta">50 Min <span class="text-[var(--gold)] ml-2">90 €</span></span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Kombinasyon Masajı</span><span class="lang-en">Combination Massage</span></span><div class="menu-leader"></div><span class="menu-meta">50 Min <span class="text-[var(--gold)] ml-2">100 €</span></span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light"><span class="lang-tr">Kombinasyon Masajı</span><span class="lang-en">Combination Massage</span></span><div class="menu-leader"></div><span class="menu-meta">90 Min <span class="text-[var(--gold)] ml-2">130 €</span></span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-[var(--gold)]"><span class="lang-tr">Miks Manuel Terapi</span><span class="lang-en">Mix Manuel Therapy</span></span><div class="menu-leader"></div><span class="menu-meta">90 Min <span class="text-[var(--gold)] ml-2">180 €</span></span></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================
+         DIVIDER 5: FACE CARE
+         ========================================== -->
+    <section class="chapter-divider">
+        <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=2070&auto=format&fit=crop'); filter: grayscale(10%) brightness(0.6);"></div>
+        <div class="parallax-overlay"></div>
+        <h2 class="ghost-text">Face Care</h2>
+    </section>
+
+    <!-- CONTENT 5: FACE CARE (MODEL C) -->
+    <section class="py-32 px-6 md:px-20 max-w-7xl mx-auto mb-20">
+        <div class="text-center mb-24 reveal">
+            <h3 class="text-4xl md:text-5xl serif mb-4">
+                <span class="lang-tr">Cilt & Yüz Bakımı</span>
+                <span class="lang-en">Face Care Program</span>
+            </h3>
+            <p class="text-gray-400 tracking-widest text-sm uppercase">Clinical Radiance</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-16">
+            
+            <!-- 30 Min Express -->
+            <div class="reveal" style="transition-delay: 100ms;">
+                <h3 class="text-2xl serif text-[var(--gold)] mb-8 flex items-center gap-4">
+                    <span class="w-8 h-[1px] bg-[var(--gold)]"></span>Express (30')
+                </h3>
+                <div class="model-c-menu">
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Vitamin Maskesi</span><span class="lang-en">Vitamin Mask</span></span><div class="menu-leader"></div><span class="menu-meta">50 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Nemlendirici Maske</span><span class="lang-en">Moisturizing Mask</span></span><div class="menu-leader"></div><span class="menu-meta">50 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Yüz Sıkılaştırıcı Maske</span><span class="lang-en">Face Firming Mask</span></span><div class="menu-leader"></div><span class="menu-meta">50 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Yenileyici (Kolajen) Maske</span><span class="lang-en">Renewal (Collagen) Mask</span></span><div class="menu-leader"></div><span class="menu-meta">50 €</span></div>
+                </div>
+            </div>
+
+            <!-- 50 Min Standard -->
+            <div class="reveal" style="transition-delay: 200ms;">
+                <h3 class="text-2xl serif text-[var(--gold)] mb-8 flex items-center gap-4">
+                    <span class="w-8 h-[1px] bg-[var(--gold)]"></span>Standard (50')
+                </h3>
+                <div class="model-c-menu">
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Vitamin Bakımı</span><span class="lang-en">Vitamin Care</span></span><div class="menu-leader"></div><span class="menu-meta">80 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Göz Çevresi Bakımı</span><span class="lang-en">Eye Care</span></span><div class="menu-leader"></div><span class="menu-meta">80 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Klasik Yüz Bakımı</span><span class="lang-en">Classic Face Care</span></span><div class="menu-leader"></div><span class="menu-meta">80 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Aktif Göz Çevresi Bakımı</span><span class="lang-en">Eye Care Active Couture</span></span><div class="menu-leader"></div><span class="menu-meta">80 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">G5 Masajı</span><span class="lang-en">G5</span></span><div class="menu-leader"></div><span class="menu-meta">95 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Kolajen Tedavisi</span><span class="lang-en">Collagen Treatment</span></span><div class="menu-leader"></div><span class="menu-meta">95 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Nem Tedavisi</span><span class="lang-en">Moisture Treatment</span></span><div class="menu-leader"></div><span class="menu-meta">95 €</span></div>
+                </div>
+            </div>
+
+            <!-- 90 Min Premium -->
+            <div class="reveal" style="transition-delay: 300ms;">
+                <h3 class="text-2xl serif text-[var(--gold)] mb-8 flex items-center gap-4">
+                    <span class="w-8 h-[1px] bg-[var(--gold)]"></span>Premium (90')
+                </h3>
+                <div class="model-c-menu">
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Ekstra Nem Bakımı</span><span class="lang-en">Extra Moisture Treatment</span></span><div class="menu-leader"></div><span class="menu-meta">110 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Cilt Onarım Bakımı</span><span class="lang-en">Skin Repair Care</span></span><div class="menu-leader"></div><span class="menu-meta">130 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Ultra Sıkılaştırıcı Bakım</span><span class="lang-en">Ultra Firming Treatment</span></span><div class="menu-leader"></div><span class="menu-meta">130 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Kılcal Damar Bakımı</span><span class="lang-en">Couperose Treatment</span></span><div class="menu-leader"></div><span class="menu-meta">130 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Yağlı ve Akneli Cilt Bakımı</span><span class="lang-en">Oily and Acne Skin Care</span></span><div class="menu-leader"></div><span class="menu-meta">150 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Kırışıklık Karşıtı Bakım</span><span class="lang-en">Anti-Aging (Wrinkles)</span></span><div class="menu-leader"></div><span class="menu-meta">160 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm"><span class="lang-tr">Leke Karşıtı Bakım</span><span class="lang-en">Anti-Aging (Age Spots)</span></span><div class="menu-leader"></div><span class="menu-meta">160 €</span></div>
+                    <div class="menu-item"><span class="menu-title uppercase font-light text-sm text-[var(--gold)]"><span class="lang-tr">Deluxe Bakım</span><span class="lang-en">Deluxe Care</span></span><div class="menu-leader"></div><span class="menu-meta">170 €</span></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-20 py-12 border-t border-white/5 text-center reveal">
+        <h2 class="serif text-2xl text-[var(--gold)] mb-4 tracking-widest">SOVEREIGN</h2>
+        <p class="text-xs text-gray-500 tracking-widest font-light">
+            <span class="lang-tr">© 2026 SOVEREIGN SPA. TÜM HAKLARI SAKLIDIR. LİKİT AĞIRLIK MİMARİSİ İLE ÜRETİLMİŞTİR.</span>
+            <span class="lang-en">© 2026 SOVEREIGN SPA. ALL RIGHTS RESERVED. CRAFTED WITH LIQUID WEIGHT ARCHITECTURE.</span>
+        </p>
+    </footer>
+
+    <!-- INTERACTION & PARALLAX ENGINE -->
+    <script>
+        // --- 1. LANGUAGE TOGGLE SYSTEM (Instantaneous, No Refresh) ---
+        function setLang(lang) {
+            document.documentElement.setAttribute('lang', lang);
+            
+            // Update button states
+            document.getElementById('btn-tr').classList.toggle('active', lang === 'tr');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        }
+
+        // --- 2. TIER 2: SECTIONAL REVEAL (Intersection Observer) ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15 // Triggers when 15% of the element is visible
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Reveal only once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // --- 3. PARALLAX & GHOST TYPOGRAPHY ENGINE (requestAnimationFrame for butter smooth 144hz) ---
+        function runParallax() {
+            const vh = window.innerHeight;
+            
+            document.querySelectorAll('.chapter-divider').forEach(divider => {
+                const rect = divider.getBoundingClientRect();
+                
+                // Only animate if element is in viewport
+                if (rect.top < vh && rect.bottom > 0) {
+                    // Calculate progress: 0 (just entering bottom) to 1 (just leaving top)
+                    const progress = (vh - rect.top) / (vh + rect.height);
+                    
+                    const bg = divider.querySelector('.parallax-bg');
+                    const text = divider.querySelector('.ghost-text');
+                    
+                    if (bg) {
+                        // 78% speed background (moves slightly slower than scroll)
+                        const yMoveBg = (progress - 0.5) * 40; 
+                        bg.style.transform = `translate3d(0, ${yMoveBg}%, 0)`;
+                    }
+                    
+                    if (text) {
+                        // 90% speed text
+                        const yMoveText = (progress - 0.5) * 20;
+                        text.style.transform = `translate3d(0, ${yMoveText}%, 0)`;
+                    }
+                }
+            });
+            
+            requestAnimationFrame(runParallax);
+        }
+        
+        // Start animation loop
+        requestAnimationFrame(runParallax);
+
+        // --- Initialize default lang just in case ---
+        setLang('tr');
+    </script>
+</body>
+</html>
