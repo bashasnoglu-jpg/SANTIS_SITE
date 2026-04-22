@@ -30,7 +30,7 @@ const Operations = () => {
                 const start = moment(date).startOf('month').subtract(1, 'month').format();
                 const end = moment(date).endOf('month').add(1, 'month').format();
 
-                const response = await api.get('/bookings/', {
+                const response = await api.get('/admin/bookings', {
                     params: {
                         start_date: start,
                         end_date: end
@@ -38,7 +38,8 @@ const Operations = () => {
                 });
 
                 if (response.data) {
-                    const mappedEvents = response.data.map(booking => ({
+                    const bookingsList = Array.isArray(response.data) ? response.data : (response.data.bookings || []);
+                    const mappedEvents = bookingsList.map(booking => ({
                         id: booking.id,
                         // Use nested objects if available, fallback to direct fields if legacy
                         title: `${booking.customer?.full_name || booking.customer_name || 'Guest'} - ${booking.service?.name || 'Service'}`,

@@ -4,23 +4,93 @@
 
 @layer base {
   body {
-    @apply bg-santis-bg text-santis-text antialiased;
+    /* Eski 'bg-santis-bg' yerine yeni onaylı ilkel paletimizi (sovereign-dark) kullanıyoruz */
+    @apply bg-sovereign-dark text-sovereign-muted antialiased selection:bg-sovereign-brass/30 selection:text-white;
   }
 }
 
-/* Custom Scrollbar for Santis Feel */
-::-webkit-scrollbar {
-  width: 8px;
+/* Scrollbar için Sessiz Lüks (Quiet Luxury) İzolasyonu */
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
-::-webkit-scrollbar-track {
-  @apply bg-santis-bg;
+/* ==========================================================================
+   SOVEREIGN DASHBOARD - QUIET LUXURY PALETTE & CINEMATIC RITUAL
+   ========================================================================== */
+:root {
+  /* Quiet Luxury Palette */
+  --nv-anthracite: #1E1F22;
+  --nv-brushed-gold: #D4AF37;
+  --nv-text-muted: #8E9096;
+  --nv-text-light: #F8F9FA;
+  /* Kusursuz Sinematik Akış */
+  --cinematic-easing: all 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-::-webkit-scrollbar-thumb {
-  @apply bg-santis-border rounded-full;
+body {
+  background-color: var(--nv-anthracite);
+  color: var(--nv-text-light);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+  transition: var(--cinematic-easing);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-santis-muted;
+/* Risk Deltası > 0.5 Olduğunda Devreye Girecek Sınıf (Cinematic Ritual) */
+body.cinematic-ritual {
+  background-color: #101113; /* Çok daha derin, dramatik bir karanlık */
+  box-shadow: inset 0 0 150px rgba(212, 175, 55, 0.03); /* Çok hafif bir altın ışıma */
+}
+
+/* Nabız (Pulse) Animasyonu */
+.pulse-icon {
+  width: 14px;
+  height: 14px;
+  background-color: var(--nv-brushed-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+  animation: gold-pulse 2.5s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.pulse-icon:hover {
+  transform: scale(1.2);
+}
+
+@keyframes gold-pulse {
+  to { box-shadow: 0 0 0 18px rgba(212, 175, 55, 0); }
+}
+
+/* Hayalet Operasyonlar Paneli */
+.ghost-drawer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 380px;
+  height: 100vh;
+  background-color: rgba(30, 31, 34, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-left: 1px solid rgba(212, 175, 55, 0.15);
+  transition: right 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+  z-index: 1000;
+  padding: 2.5rem 2rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.ghost-drawer.open {
+  right: 0;
+}
+
+.ghost-drawer::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }

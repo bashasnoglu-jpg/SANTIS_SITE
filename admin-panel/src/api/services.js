@@ -7,17 +7,28 @@ import api from './axios';
 export const ServiceAPI = {
     // 🖼️ Görsel Yükleme Endpoint'i (Progress Bar Destekli)
     uploadMedia: async (file, onUploadProgress) => {
-        const formData = new FormData();
-        formData.append("file", file);
+        // Backend (server.js) multipart/form-data yerine JSON ({ filename, contentBase64 }) bekliyor
+        const toBase64 = (f) => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(f);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
 
-        const res = await api.post('/media/upload', formData, {
-            headers: { "Content-Type": "multipart/form-data" },
+        const base64Str = await toBase64(file);
+        const payload = {
+            filename: file.name,
+            contentBase64: base64Str
+        };
+
+        const res = await api.post('/media/upload', payload, {
+            headers: { "Content-Type": "application/json" },
             onUploadProgress: (progressEvent) => {
                 const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                 if (onUploadProgress) onUploadProgress(percentCompleted);
             }
         });
-        return res.data; // { success: true, path: '/assets/img/cards/...' }
+        return res.data; // { success: true, message: '...' }
     },
 
     // ⚡ CRUD İşlemleri (Backend'de SQLite'a yazar ve SSE MUTATION fırlatır)

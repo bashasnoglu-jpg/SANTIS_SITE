@@ -91,7 +91,7 @@ class SantisMenuEngine {
 
             // 3. CTA Yönlendirmesini Güvenceye Al
             if (ctaNode) {
-                const expectedHref = `/spa-booking.html?service=${serviceId}`;
+                const expectedHref = `/rezervasyon.html?service=${serviceId}`;
                 if (ctaNode.getAttribute('href') !== expectedHref) {
                     ctaNode.setAttribute('href', expectedHref);
                 }

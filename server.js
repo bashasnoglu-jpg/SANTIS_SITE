@@ -111,15 +111,49 @@ const mockFilters = () => ({
 });
 
 const mockAssets = () => ({
-    items: Array.from({ length: 12 }, (_, i) => ({
-        id: `asset-${i}`,
-        filename: `card-${i + 1}.jpg`,
-        path: `/assets/img/cards/card-${i + 1}.jpg`,
-        category: ['hamam','massage','skincare','ritual'][i % 4],
-        slot: ['hero','card','gallery'][i % 3],
-        lang: 'tr'
-    })),
-    total: 12
+    items: [
+        {
+            id: 'asset-1',
+            title: 'Sultan Hamamı',
+            meta: 'Geleneksel Miras',
+            description: 'Geleneksel Miras dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor.',
+            imageUrl: '/assets/img/cards/hammam.webp',
+            filter: 'grayscale(20%) sepia(30%)',
+            duration: '60 Dk',
+            region: 'Tüm Beden'
+        },
+        {
+            id: 'asset-2',
+            title: 'Aura Aromaterapi',
+            meta: 'Zihinsel Denge',
+            description: 'Zihinsel Denge dünyasına hoş geldiniz. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.',
+            imageUrl: '/assets/img/cards/massage.webp',
+            filter: 'hue-rotate(40deg)',
+            duration: '60 Dk',
+            region: 'Tüm Beden'
+        },
+        {
+            id: 'asset-3',
+            title: 'Safir Işıltı',
+            meta: 'Premium Cilt Bakımı',
+            description: 'Premium Cilt Bakımı dünyasına hoş geldiniz. Bu özel ritüel ruhunuzu derin bir sessizliğe davet ediyor.',
+            imageUrl: '/assets/img/cards/Santis-face-mask-4x5-1080x1350.webp',
+            filter: 'grayscale(50%)',
+            duration: '45 Dk',
+            region: 'Yüz ve Dekolte'
+        },
+        {
+            id: 'asset-4',
+            title: 'Ayurvedik Dokunuş',
+            meta: 'İçsel Huzur',
+            description: 'İçsel Huzur dünyasına hoş geldiniz. Bedeninizi ve zihninizi dengeleyen antik ritüellerle tanışın.',
+            imageUrl: '/assets/img/cards/Santis-spa-rest-graded-clean.webp',
+            filter: 'sepia(30%)',
+            duration: '90 Dk',
+            region: 'Tüm Beden'
+        }
+    ],
+    total: 4
 });
 
 // ── API Router ─────────────────────────────────────────────
@@ -137,6 +171,11 @@ function handleAPI(req, res) {
         res.writeHead(code, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(data));
     };
+
+    // ── Auth ──
+    if (url === '/api/v1/auth/login' && method === 'POST') {
+        json({ access_token: "sovereign-mock-token-xyz", token_type: "bearer" }); return true;
+    }
 
     // ── Analytics ──
     if (url === '/api/v1/analytics/metrics' && method === 'GET') {
@@ -608,6 +647,25 @@ function handleAPI(req, res) {
     // ── Revenue Forecast & LTV ──
     if (url === '/api/v1/revenue/forecast' && method === 'GET') {
         json({ today: 14500, forecast_tomorrow: 16200, weekly: 98000, monthly_target: 420000, monthly_actual: 312000 }); return true;
+    }
+    if (url === '/api/v1/revenue/daily' && method === 'GET') {
+        json({
+            revenue_stats: {
+                total_revenue: 12400,
+                total_bookings: 34,
+                daily_breakdown: [
+                    { date: "2026-04-16", revenue: 1200 },
+                    { date: "2026-04-17", revenue: 1400 },
+                    { date: "2026-04-18", revenue: 1100 }
+                ],
+            },
+            top_staff: [
+                { id: "1", name: "Aurelia", revenue: 4500 },
+                { id: "2", "name": "Julieta", revenue: 3200 }
+            ],
+            top_services: []
+        }); 
+        return true;
     }
     if (url === '/api/v1/revenue/ltv-churn' && method === 'GET') {
         json({ avg_ltv: 1850, churn_rate: 4.2, retention_90d: 78, cohort_growth: 12.5 }); return true;

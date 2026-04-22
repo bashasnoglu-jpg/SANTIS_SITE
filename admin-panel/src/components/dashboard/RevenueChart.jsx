@@ -12,7 +12,7 @@ const RevenueChart = ({ data }) => {
         <div className="bg-santis-card p-6 rounded-xl border border-santis-border shadow-lg">
             <h3 className="text-lg font-semibold text-white mb-6">Revenue Trend</h3>
             <div className="h-[300px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height={300} minWidth={100} minHeight={100}>
                     <AreaChart data={data}>
                         <defs>
                             <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">

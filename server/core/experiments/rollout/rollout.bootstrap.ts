@@ -24,6 +24,8 @@ import { FileBackedEMAOptimizerMemory } from '../optimizer/optimizer.memory.aggr
 import { EMAOptimizerMemoryWriter } from '../optimizer/optimizer.memory.aggregate.ema.writer.ts';
 import { TemporalEMAOptimizerAdapter } from '../optimizer/optimizer.temporal.ema.adapter.ts';
 import { OptimizerBanditAdapter } from '../optimizer/optimizer.bandit.adapter.ts';
+import { ConstraintAwareBanditAdapter } from '../optimizer/optimizer.bandit.constraint-aware.adapter.ts';
+import { OptimizerPortfolioAdapter } from '../optimizer/optimizer.portfolio.adapter.ts';
 
 export interface RolloutBootstrapConfig {
   enabled: boolean;
@@ -73,6 +75,8 @@ export interface RolloutBootstrapContainer {
   emaOptimizerMemoryWriter?: EMAOptimizerMemoryWriter;
   temporalEMAOptimizerAdapter?: TemporalEMAOptimizerAdapter;
   optimizerBanditAdapter?: OptimizerBanditAdapter;
+  constraintAwareBanditAdapter?: ConstraintAwareBanditAdapter;
+  optimizerPortfolioAdapter?: OptimizerPortfolioAdapter;
 }
 
 let singletonContainer: RolloutBootstrapContainer | null = null;
@@ -209,6 +213,21 @@ export function createRolloutBootstrapContainer(
     minLearnedWeightForExploration: 0.55,
   });
 
+  const constraintAwareBanditAdapter = new ConstraintAwareBanditAdapter({
+    maxRiskScoreAllowed: 30,
+    maxTrafficSharePerVariant: 0.25,
+    maxWinnersPerFamily: 1,
+    minGuardrailScoreRequired: 0.8,
+  });
+
+  const optimizerPortfolioAdapter = new OptimizerPortfolioAdapter({
+    maxPortfolioSize: 3,
+    maxTotalRiskScore: 45,
+    maxPerFamily: 1,
+    diversityPenaltyPerExtraFamilyMember: 12,
+    blockedCandidatePenalty: 1000,
+  });
+
   const scheduler = new RolloutScheduler({
     repository,
     guardrailProvider,
@@ -251,6 +270,8 @@ export function createRolloutBootstrapContainer(
     emaOptimizerMemoryWriter,
     temporalEMAOptimizerAdapter,
     optimizerBanditAdapter,
+    constraintAwareBanditAdapter,
+    optimizerPortfolioAdapter,
   };
 }
 

@@ -16,6 +16,7 @@ import { URL } from 'node:url';
 import { z } from 'zod';
 import { buildConciergeSnapshot } from './core/concierge/resolvers/build-concierge-snapshot.ts';
 import { getConciergeHealth } from './core/concierge/health/concierge.health.ts';
+import { pushToSink } from './core/telemetry/sovereign-bq-sink.ts';
 
 const emptyToUndefined = (v) => (v === '' ? undefined : v);
 
@@ -36,9 +37,49 @@ const { AdvisoryStore } = advisoryStoreModule;
 
 PriceController.init();
 
-// Bellek İçi (In-Memory) Radar Kayıtları
 const activeAdmins = new Set();
 const activeGhosts = new Map();
+
+// --- RATE LIMITER KURULUMU (Sessiz Lüks Kalkanı) ---
+const ipRateLimits = new Map();
+const RATE_LIMIT_WINDOW_MS = 60000; // 1 dakika
+const MAX_REQUESTS_PER_WINDOW = 5; // Dakikada maksimum 5 fısıltı
+
+function isRateLimited(ip) {
+    if (!ip) return false;
+    
+    const now = Date.now();
+    const record = ipRateLimits.get(ip);
+
+    if (!record) {
+        ipRateLimits.set(ip, { count: 1, timestamp: now });
+        return false;
+    }
+
+    if (now - record.timestamp > RATE_LIMIT_WINDOW_MS) {
+        // Zaman penceresi dolduysa sıfırla
+        ipRateLimits.set(ip, { count: 1, timestamp: now });
+        return false;
+    }
+
+    record.count++;
+    if (record.count > MAX_REQUESTS_PER_WINDOW) {
+        return true; // Kalkan devreye girdi
+    }
+
+    return false;
+}
+
+// --- RING BUFFER KURULUMU (Cold Boot State) ---
+const MAX_BUFFER_SIZE = 50;
+let recentAnomalies = []; // Hafızada tutulacak son 50 log
+
+function addAnomalyToBuffer(anomalyData) {
+    if (recentAnomalies.length >= MAX_BUFFER_SIZE) {
+        recentAnomalies.shift(); 
+    }
+    recentAnomalies.push(anomalyData);
+}
 
 function toOptionalString(value) {
     if (typeof value !== 'string') {
@@ -64,6 +105,35 @@ function broadcastEnvelope(envelope) {
         }
     });
 }
+
+// 🔥 SOVEREIGN OTONOM SMOKE TEST (V3.8 Rollout Worker)
+setInterval(() => {
+    const risk = Math.random(); // Risk deltasını simüle ediyoruz
+    const payload = {
+        isActive: risk <= 0.5,
+        percentage: 10,
+        riskDelta: risk > 0.5 ? `+${risk.toFixed(2)}` : `+${(risk * 0.4).toFixed(2)}`,
+        status: risk > 0.5 ? 'rolling_back' : 'stable',
+        timestamp: Date.now()
+    };
+
+    // 0. Halka Tampona (Ring Buffer) Ekle (Cold Boot İçin)
+    addAnomalyToBuffer(payload);
+
+    // 1. Zero-Latency Sink'e akıt (BigQuery Simülatörü)
+    pushToSink(payload);
+
+    // 2. Nöral Köprü'ye (Frontend) zarifçe fırlat
+    broadcastEnvelope({
+        id: randomUUID(),
+        type: MessageType.EVENT,
+        payload: {
+            subject: 'ROLLOUT_STATUS',
+            action: 'STATUS_UPDATE',
+            data: payload
+        }
+    });
+}, 3000);
 
 function buildPriceAdjustedEnvelope(commandEnvelope, overrideEntry) {
     return {
@@ -256,6 +326,17 @@ server.on('request', async (req, res) => {
         return;
     }
 
+    if (pathname === '/api/v1/telemetry/recent' && req.method === 'GET') {
+        res.setHeader('Content-Type', 'application/json');
+        res.writeHead(200);
+        const reversedAnomalies = [...recentAnomalies].reverse();
+        res.end(JSON.stringify({
+            success: true,
+            data: reversedAnomalies
+        }));
+        return;
+    }
+
     if (pathname === '/api/concierge/health' && req.method === 'GET') {
         const rawHealth = getConciergeHealth();
         const health = {
@@ -344,6 +425,59 @@ server.on('request', async (req, res) => {
                 error: message,
             });
         }
+        return;
+    }
+
+    if (pathname === '/api/v1/telemetry/lead' && req.method === 'POST') {
+        const clientIp = req.socket.remoteAddress || req.headers['x-forwarded-for'];
+        
+        // Sessiz Kalkan Devrede: Bot saldırısı varsa hissettirmeden 204 dön
+        if (isRateLimited(clientIp)) {
+            console.warn(`[SOVEREIGN SHIELD] Sessiz Kalkan devrede. Aşırı fısıltı yutuldu (IP: ${clientIp}).`);
+            res.writeHead(204);
+            res.end();
+            return;
+        }
+
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        req.on('end', () => {
+            try {
+                const data = JSON.parse(body);
+                
+                const payload = {
+                    isActive: true,
+                    percentage: 100,
+                    riskDelta: "+0.00",
+                    status: data.type === "VIP_LEAD" ? "vip_lead" : "lead",
+                    message: data.message,
+                    cartSize: data.cartSize,
+                    timestamp: Date.now()
+                };
+
+                addAnomalyToBuffer(payload);
+                pushToSink(payload);
+
+                broadcastEnvelope({
+                    id: randomUUID(),
+                    type: MessageType.EVENT,
+                    payload: {
+                        subject: 'LEAD_CONVERSION',
+                        action: 'NEW_LEAD',
+                        data: payload
+                    }
+                });
+
+                res.setHeader('Content-Type', 'application/json');
+                res.writeHead(200);
+                res.end(JSON.stringify({ success: true }));
+            } catch (err) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "BAD_REQUEST" }));
+            }
+        });
         return;
     }
 

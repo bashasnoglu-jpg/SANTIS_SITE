@@ -1,12 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import Dashboard from './pages/Dashboard';
+import SantisBoardroom from './components/dashboard/SantisBoardroom';
 import Login from './pages/Login';
 import Operations from './pages/Operations';
 import Finance from './pages/Finance';
 import ServiceManager from './pages/ServiceManager';
 import useAuthStore from './store/useAuthStore';
+import ClinicScanner from './components/dashboard/ClinicScanner';
 
 // Create a client
 const queryClient = new QueryClient();
@@ -22,12 +23,22 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
+          {/* KIOSK MODU (İzole Rota - Navigasyon Yok) */}
+          <Route 
+            path="/scanner" 
+            element={
+              <div style={{ width: '100vw', height: '100vh', backgroundColor: 'var(--os-karanlik-madde, #0a0a0b)', overflow: 'hidden' }}>
+                <ClinicScanner />
+              </div>
+            } 
+          />
+          
           <Route path="/login" element={<Login />} />
           <Route
             path="/"
             element={
               <PrivateRoute>
-                <Dashboard />
+                <SantisBoardroom />
               </PrivateRoute>
             }
           />

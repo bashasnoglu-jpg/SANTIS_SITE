@@ -1,6 +1,6 @@
-import type { ServiceCatalogAdapter } from '../service-catalog.adapter.ts';
-import type { NormalizedService } from '../../../schemas/normalized.schemas.ts';
-import { mapRawServiceToNormalized } from '../../../mappers/service.mapper.ts';
+import type { ServiceCatalogAdapter } from '../service-catalog.adapter';
+import type { NormalizedService } from '../../../schemas/normalized.schemas';
+import { mapRawServiceToNormalized } from '../../../mappers/service.mapper';
 
 export class MockServiceCatalogProvider implements ServiceCatalogAdapter {
   async getServices(_: {
