@@ -52,7 +52,7 @@ export default function ServiceImageUpload({ currentImage, onImageUploaded }) {
         <div className="w-full mb-6">
             <label className="block text-sm font-medium text-gray-300 mb-2 uppercase tracking-wide">Ritüel Görseli (Sovereign Oranı: 4/5)</label>
             <div
-                className={`relative flex flex-col items-center justify-center w-full aspect-[4/5] max-h-80 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-300 overflow-hidden ${isDragging ? 'border-[#D4AF37] bg-[#D4AF37]/10' : 'border-gray-600 bg-sovereign-black hover:border-gray-400'
+                className={`relative flex flex-col items-center justify-center w-full aspect-[4/5] max-h-80 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-300 overflow-hidden ${isDragging ? 'border-sovereign-gold-strong bg-sovereign-gold-strong/10' : 'border-gray-600 bg-sovereign-black hover:border-gray-400'
                     }`}
                 onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
                 onDragLeave={() => setIsDragging(false)}
@@ -70,8 +70,8 @@ export default function ServiceImageUpload({ currentImage, onImageUploaded }) {
                     </>
                 ) : (
                     <div className="flex flex-col items-center justify-center pt-5 pb-6 text-gray-400">
-                        <svg className="w-12 h-12 mb-3 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                        <p className="mb-2 text-sm"><span className="font-semibold text-[#D4AF37]">Tıkla</span> veya Sürükle Bırak</p>
+                        <svg className="w-12 h-12 mb-3 text-sovereign-gold-strong" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                        <p className="mb-2 text-sm"><span className="font-semibold text-sovereign-gold-strong">Tıkla</span> veya Sürükle Bırak</p>
                         <p className="text-xs">WEBP, PNG, JPG (Maks. 5MB)</p>
                     </div>
                 )}
@@ -79,9 +79,9 @@ export default function ServiceImageUpload({ currentImage, onImageUploaded }) {
                 {/* İlerleme Çubuğu */}
                 {isUploading && progress > 0 && (
                     <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-20">
-                        <span className="text-[#D4AF37] font-bold text-3xl mb-4">{progress}%</span>
+                        <span className="text-sovereign-gold-strong font-bold text-3xl mb-4">{progress}%</span>
                         <div className="w-2/3 bg-gray-800 h-2 rounded-full overflow-hidden">
-                            <div className="bg-[#D4AF37] h-full transition-all duration-300 shadow-accent-glow" style={{ width: `${progress}%` }}></div>
+                            <div className="bg-sovereign-gold-strong h-full transition-all duration-300 shadow-accent-glow" style={{ width: `${progress}%` }}></div>
                         </div>
                     </div>
                 )}

@@ -26,7 +26,7 @@ export default function FunnelHintBar({
       </div>
 
       {explanationCodes?.length > 0 && (
-        <div className="mt-2 text-[11px] text-neutral-500 font-mono">
+        <div className="mt-2 text-micro text-neutral-500 font-mono">
           Signals: {explanationCodes.join(', ')}
         </div>
       )}

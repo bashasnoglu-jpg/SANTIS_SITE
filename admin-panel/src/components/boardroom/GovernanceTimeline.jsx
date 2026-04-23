@@ -19,7 +19,7 @@ export default function GovernanceTimeline({ attribution }) {
               <span className="font-semibold">{item.actionType}</span>
               <span className="text-2xs font-bold tracking-widest text-sky-400">{item.outcomeEvent}</span>
             </div>
-            <div className="mt-1 text-[11px] text-neutral-500 font-mono">
+            <div className="mt-1 text-micro text-neutral-500 font-mono">
               Revenue: €{item.attributedRevenue ?? 0}
             </div>
           </div>

@@ -199,7 +199,7 @@ export default function Concierge() {
                  <button 
                    onClick={() => handleAnalysis()}
                    disabled={isAnalyzing}
-                   className="w-full mt-6 bg-sovereign-gold text-black py-5 rounded-xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:bg-white transition-all shadow-xl shadow-[#c6a96b]/10 disabled:opacity-50"
+                   className="w-full mt-6 bg-sovereign-gold text-black py-5 rounded-xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:bg-white transition-all shadow-xl shadow-accent-glow/10 disabled:opacity-50"
                  >
                    ✨ AI Teşhisi ve Reçete Oluştur ✨
                  </button>

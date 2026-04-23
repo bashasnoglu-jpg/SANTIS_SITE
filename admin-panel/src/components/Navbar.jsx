@@ -12,7 +12,7 @@ const Navbar = () => {
         : "text-gray-400 hover:text-white";
 
     return (
-        <nav className="bg-[#1a1a1a] border-b border-[#333] px-8 py-4 flex justify-between items-center mb-8">
+        <nav className="bg-sovereign-obsidian border-b border-sovereign-line px-8 py-4 flex justify-between items-center mb-8">
             <div className="flex items-center space-x-8">
                 <div className="text-xl font-bold text-white tracking-widest">SANTIS <span className="text-santis-gold">OS</span></div>
                 <div className="flex space-x-6 text-sm font-medium">

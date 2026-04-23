@@ -18,11 +18,11 @@ export default function ExperimentVariantTable({ experiments }) {
               <span>{exp.status}</span>
             </div>
 
-            <div className="mt-2 text-[11px] text-neutral-500">
+            <div className="mt-2 text-micro text-neutral-500">
               control={exp.trafficAllocation.control} · variant_a={exp.trafficAllocation.variant_a}
             </div>
 
-            <div className="mt-2 text-[11px] text-neutral-400">
+            <div className="mt-2 text-micro text-neutral-400">
               targetMetric: {exp.targetMetric}
             </div>
           </div>

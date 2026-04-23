@@ -30,11 +30,11 @@ export function SovereignDashboard() {
   const cardBorderAndShadow = isRollingBack || isHighRisk
     ? 'border-zinc-800 shadow-[0_0_40px_rgba(39,39,42,0.15)] bg-zinc-50' 
     : rolloutData.isActive
-      ? 'border-[#C5A059]/40 shadow-[0_0_35px_rgba(197,160,89,0.12)] bg-white/60'
+      ? 'border-sovereign-gold-deep/40 shadow-[0_0_35px_rgba(197,160,89,0.12)] bg-white/60'
       : 'border-stone-200/50 shadow-sm bg-white/60';
 
-  const textColor = isRollingBack || isHighRisk ? 'text-zinc-800' : 'text-[#C5A059]';
-  const pulseColor = isRollingBack || isHighRisk ? 'bg-zinc-800' : 'bg-[#C5A059]';
+  const textColor = isRollingBack || isHighRisk ? 'text-zinc-800' : 'text-sovereign-gold-deep';
+  const pulseColor = isRollingBack || isHighRisk ? 'bg-zinc-800' : 'bg-sovereign-gold-deep';
 
   return (
     <div className="font-sans text-zinc-800 mb-12">

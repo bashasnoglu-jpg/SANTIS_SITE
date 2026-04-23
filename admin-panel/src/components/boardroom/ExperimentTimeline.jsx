@@ -17,7 +17,7 @@ export default function ExperimentTimeline({ experiments }) {
               <span>{exp.key}</span>
               <span>{exp.status}</span>
             </div>
-            <div className="mt-1 text-[11px] text-neutral-500">
+            <div className="mt-1 text-micro text-neutral-500">
               {exp.startAt} {exp.endAt ? `→ ${exp.endAt}` : ''}
             </div>
           </div>

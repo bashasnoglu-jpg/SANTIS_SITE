@@ -26,7 +26,7 @@ export default function ActionQueueTable({ items, onSelect }) {
           >
             <div>
               <div className="text-sm font-semibold text-neutral-200">{item.type}</div>
-              <div className="mt-1 text-[11px] font-mono text-neutral-500">
+              <div className="mt-1 text-micro font-mono text-neutral-500">
                 {(item.explanationCodes ?? []).join(', ') || '—'}
               </div>
             </div>

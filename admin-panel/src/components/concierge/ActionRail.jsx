@@ -21,7 +21,7 @@ export default function ActionRail({ actions }) {
                 {action.autoExecutable ? 'AUTO' : 'ADVISORY'}
               </span>
             </div>
-            <div className="mt-1 text-[11px] text-neutral-500 font-mono">
+            <div className="mt-1 text-micro text-neutral-500 font-mono">
               {(action.explanationCodes ?? []).join(', ') || '—'}
             </div>
           </div>

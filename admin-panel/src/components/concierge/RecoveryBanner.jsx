@@ -12,7 +12,7 @@ export default function RecoveryBanner({ quoteLatencyMs, visible }) {
         Quote flow slowed down. A simplified recovery path is available.
       </div>
       {quoteLatencyMs != null && (
-        <div className="mt-2 text-[11px] text-neutral-400">
+        <div className="mt-2 text-micro text-neutral-400">
           Last observed quote latency: {quoteLatencyMs} ms
         </div>
       )}

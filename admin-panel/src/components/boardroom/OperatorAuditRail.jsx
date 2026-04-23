@@ -20,7 +20,7 @@ export default function OperatorAuditRail({ decisions }) {
                 <span className="font-bold tracking-wider text-2xs uppercase text-sky-300">{decision.decision}</span>
                 <span className="text-2xs text-neutral-400">{decision.operatorId}</span>
               </div>
-              <div className="mt-1 text-[11px] text-neutral-500">
+              <div className="mt-1 text-micro text-neutral-500">
                 {decision.reason || '—'}
               </div>
             </div>

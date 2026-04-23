@@ -33,7 +33,7 @@ function DebugItem({ label, value }) {
       <div className="mb-1 text-2xs uppercase tracking-[0.18em] text-neutral-500">
         {label}
       </div>
-      <div className="truncate font-mono text-[11px] text-neutral-200" title={value}>
+      <div className="truncate font-mono text-micro text-neutral-200" title={value}>
         {value}
       </div>
     </div>

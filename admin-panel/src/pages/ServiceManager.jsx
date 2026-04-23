@@ -39,8 +39,8 @@ export default function ServiceManager() {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-8 bg-[#080808] border border-gray-800 rounded-2xl shadow-2xl text-white mt-10">
-            <h1 className="text-3xl font-serif mb-8 text-[#D4AF37] tracking-widest uppercase border-b border-gray-800 pb-4">
+        <div className="max-w-4xl mx-auto p-8 bg-sovereign-graphite border border-gray-800 rounded-2xl shadow-2xl text-white mt-10">
+            <h1 className="text-3xl font-serif mb-8 text-sovereign-gold-strong tracking-widest uppercase border-b border-gray-800 pb-4">
                 Yeni Ritüel Yarat
             </h1>
 
@@ -58,14 +58,14 @@ export default function ServiceManager() {
                     <div>
                         <label className="block text-sm text-gray-400 mb-2 uppercase tracking-wide">Ritüel Adı</label>
                         <input type="text" required value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })}
-                            className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] outline-none transition"
+                            className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-sovereign-gold-strong focus:ring-1 focus:ring-[#D4AF37] outline-none transition"
                             placeholder="Örn: Royal Bali Masajı" />
                     </div>
 
                     <div>
                         <label className="block text-sm text-gray-400 mb-2 uppercase tracking-wide">Kategori (Rail)</label>
                         <select value={formData.category} onChange={e => setFormData({ ...formData, category: e.target.value })}
-                            className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-[#D4AF37] outline-none transition">
+                            className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-sovereign-gold-strong outline-none transition">
                             <option value="asian">Asya Ritüelleri</option>
                             <option value="classical">Klasik Medikal</option>
                             <option value="specialty">Signature & Çift</option>
@@ -78,12 +78,12 @@ export default function ServiceManager() {
                         <div>
                             <label className="block text-sm text-gray-400 mb-2 uppercase tracking-wide">Fiyat (€)</label>
                             <input type="number" required min="0" value={formData.price_eur} onChange={e => setFormData({ ...formData, price_eur: Number(e.target.value) })}
-                                className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-[#D4AF37] outline-none transition" />
+                                className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-sovereign-gold-strong outline-none transition" />
                         </div>
                         <div>
                             <label className="block text-sm text-gray-400 mb-2 uppercase tracking-wide">Süre</label>
                             <input type="text" required value={formData.duration} onChange={e => setFormData({ ...formData, duration: e.target.value })}
-                                className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-[#D4AF37] outline-none transition"
+                                className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-sovereign-gold-strong outline-none transition"
                                 placeholder="60 Min" />
                         </div>
                     </div>

@@ -20,7 +20,7 @@ export default function OptimizerInsightRail({ recommendations }) {
               <span className={`text-2xs font-bold tracking-widest ${item.direction === 'hold' ? 'text-neutral-500' : 'text-amber-400'}`}>{item.direction.toUpperCase()}</span>
             </div>
 
-            <div className="mt-1 text-[11px] text-neutral-500">
+            <div className="mt-1 text-micro text-neutral-500">
               {(item.reasonCodes ?? []).join(', ') || '—'}
             </div>
           </div>

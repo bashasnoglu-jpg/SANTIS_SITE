@@ -22,7 +22,7 @@ export default function DecisionTimeline({ events }) {
               </span>
             </div>
 
-            <div className="mt-1 text-[11px] text-neutral-500 font-mono">
+            <div className="mt-1 text-micro text-neutral-500 font-mono">
               {(event.explanationCodes ?? []).join(', ') || '—'}
             </div>
           </div>

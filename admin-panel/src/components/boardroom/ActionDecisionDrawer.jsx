@@ -23,7 +23,7 @@ export default function ActionDecisionDrawer({ item, onDecision }) {
       </div>
 
       <div className="mb-2 text-sm font-semibold text-neutral-100">{item.type}</div>
-      <div className="mb-3 text-[11px] font-mono text-neutral-500">
+      <div className="mb-3 text-micro font-mono text-neutral-500">
         {(item.explanationCodes ?? []).join(', ') || '—'}
       </div>
 

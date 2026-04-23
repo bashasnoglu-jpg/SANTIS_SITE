@@ -11,7 +11,7 @@ export function ConciergeAssistBanner(props) {
         Concierge Assist
       </div>
       <div>{message}</div>
-      <div className="mt-2 text-[11px] text-neutral-400 font-mono">
+      <div className="mt-2 text-micro text-neutral-400 font-mono">
         Signals: {props.explanationCodes?.join(', ') || 'NONE'}
       </div>
     </div>
