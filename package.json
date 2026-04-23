@@ -13,6 +13,7 @@
         "build:vite": "vite build",
         "build:kernel": "node build.mjs --kernel-only",
         "build": "node build.mjs",
+        "build:esbuild": "echo 'Sovereign ESBuild Pipeline eklenecek' && node build.mjs",
         "health": "node -e \"fetch('http://localhost:8080/health').then(r=>r.json()).then(d=>console.log(JSON.stringify(d,null,2))).catch(()=>console.log('Server offline'))\"",
         "test": "pnpm build && node full-e2e-report.js && python audit_site.py",
         "dev:ui": "vite --port 3000 --host 0.0.0.0",

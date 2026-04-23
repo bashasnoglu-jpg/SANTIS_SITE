@@ -33,7 +33,8 @@ export default function SantisBoardroom() {
 
   // 1. STATE İZOLASYONU (Cold Boot): Sayfa açıldığında Ring Buffer'ı çek
   useEffect(() => {
-    fetch('http://localhost:4040/api/v1/telemetry/recent')
+    const telemetryApiUrl = import.meta.env.VITE_TELEMETRY_API_URL || 'http://localhost:4040';
+    fetch(`${telemetryApiUrl}/api/v1/telemetry/recent`)
       .then(res => res.json())
       .then(json => {
         if (json.success && json.data.length > 0) {
@@ -53,7 +54,8 @@ export default function SantisBoardroom() {
     const MAX_RECONNECT_DELAY = 30000;
 
     const connectWebSocket = () => {
-      ws = new WebSocket('ws://localhost:4040');
+      const telemetryWsUrl = import.meta.env.VITE_TELEMETRY_WS_URL || 'ws://localhost:4040';
+      ws = new WebSocket(telemetryWsUrl);
 
       ws.onopen = () => {
         reconnectAttempts = 0;

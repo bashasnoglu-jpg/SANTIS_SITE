@@ -428,7 +428,15 @@ function handleAPI(req, res) {
                 const { TelemetryPayloadSchema } = await import('./server/core/concierge/telemetry/telemetry.schemas.ts');
                 
                 const rawData = JSON.parse(body);
-                const payload = TelemetryPayloadSchema.parse(rawData);
+                const parseResult = TelemetryPayloadSchema.safeParse(rawData);
+                
+                if (!parseResult.success) {
+                    console.warn(`\x1b[33m[TELEMETRY] Invalid Payload Detected:\x1b[0m`, JSON.stringify(parseResult.error.issues));
+                    json({ error: 'INVALID_TELEMETRY_PAYLOAD', issues: parseResult.error.issues }, 400);
+                    return;
+                }
+                
+                const payload = parseResult.data;
 
                 console.log('[telemetry.beacon]', {
                     event: payload.event,

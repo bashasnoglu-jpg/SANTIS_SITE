@@ -1,18 +1,48 @@
 const { spawn, execSync, exec } = require('child_process');
 const path = require('path');
 const os = require('os');
+const fs = require('fs');
 
 const isWin = os.platform() === 'win32';
 const NPM_CMD = isWin ? 'npm.cmd' : 'npm'; // use exact cmd for Windows
 
 console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-console.log('🔥 SANTIS PROCESS SUPERVISOR v3');
+console.log('🔥 SANTIS PROCESS SUPERVISOR v3 (HARDENED)');
 console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
+// ─── SSOT: PORTS ─────────────────────────────────────────────────
+const PORTS = {
+    backend: 8080,
+    gateway: 4040,
+    forge: 5050,
+    vite: 5173
+};
+
+// ─── LOCK MECHANISM (Prevent Double Spawn) ───────────────────────
+const LOCK_FILE = path.join(__dirname, '.nexus-lock');
+
+if (fs.existsSync(LOCK_FILE)) {
+    try {
+        const existingPid = fs.readFileSync(LOCK_FILE, 'utf8').trim();
+        // Check if process is actually running
+        process.kill(existingPid, 0); 
+        console.error(`\x1b[31m[CRITICAL]\x1b[0m Supervisor is already running (PID: ${existingPid}).`);
+        console.error('Aborting double spawn to prevent EADDRINUSE crash loop.');
+        process.exit(1);
+    } catch (e) {
+        // If process.kill throws, the process is dead. We can safely remove the stale lock.
+        console.log('\x1b[33m[SUPERVISOR]\x1b[0m Stale lock file found. Cleaning up...');
+        fs.unlinkSync(LOCK_FILE);
+    }
+}
+// Write our lock
+fs.writeFileSync(LOCK_FILE, process.pid.toString(), 'utf8');
+
 
 // 🔥 ZOMBIE KILLER (EADDRINUSE Guard)
 try {
     if (isWin) {
-        console.log('\x1b[33m[NEXUS] Port 8080, 4040, 5050 ve 5173 Zombi Taraması Yapılıyor (Native Netstat)...\x1b[0m');
+        console.log('\x1b[33m[SUPERVISOR]\x1b[0m Port Zombi Taraması Yapılıyor (Native Netstat)...\x1b[0m');
         const killPortWin = (port) => {
             try {
                 const out = execSync(`netstat -ano | findstr LISTENING | findstr :${port}`);
@@ -23,17 +53,15 @@ try {
                         const pid = parts[4];
                         if (pid !== '0') {
                             execSync(`taskkill /F /PID ${pid} >nul 2>&1`);
+                            console.log(`\x1b[32m[CLEANUP]\x1b[0m Killed zombie on port ${port} (PID: ${pid})`);
                         }
                     }
                 }
             } catch(e) {}
         };
-        killPortWin(8080);
-        killPortWin(4040);
-        killPortWin(5050);
-        killPortWin(5173);
+        Object.values(PORTS).forEach(killPortWin);
     } else {
-        execSync('npx kill-port 8080 4040 5050 5173', { stdio: 'ignore' });
+        execSync(`npx kill-port ${Object.values(PORTS).join(' ')}`, { stdio: 'ignore' });
     }
 } catch (e) {
     // Ignore
@@ -46,14 +74,15 @@ const processes = {
         args: ['server.js'],
         cwd: process.cwd(),
         color: '\x1b[32m', // Green
-        shell: false, // Node does NOT need a shell, prevents zombies
+        shell: false, 
         ref: null,
         restarts: 0
     },
     gateway: {
         name: 'SOVEREIGN_GATEWAY',
         cmd: 'node',
-        args: ['--experimental-transform-types', 'server/santis-core-gateway.js'],
+        // Changed to .mjs to fix MODULE_TYPELESS_PACKAGE_JSON warning
+        args: ['--experimental-transform-types', 'server/santis-core-gateway.mjs'],
         cwd: process.cwd(),
         color: '\x1b[35m', // Magenta
         shell: false,
@@ -63,7 +92,8 @@ const processes = {
     forge: {
         name: 'ORBITAL_FORGE',
         cmd: 'node',
-        args: ['--experimental-transform-types', 'server/santis-orbital-forge.js'],
+        // Changed to .mjs to fix MODULE_TYPELESS_PACKAGE_JSON warning
+        args: ['--experimental-transform-types', 'server/santis-orbital-forge.mjs'],
         cwd: process.cwd(),
         color: '\x1b[33m', // Yellow
         shell: false,
@@ -76,14 +106,16 @@ const processes = {
         args: ['run', 'dev'],
         cwd: path.join(process.cwd(), 'admin-panel'),
         color: '\x1b[36m', // Cyan
-        shell: isWin, // npm.cmd needs shell (but we will tree-kill it later)
+        shell: isWin, 
         ref: null,
         restarts: 0
     }
 };
 
+let isShuttingDown = false;
+
 function killProcessTree(childProcess) {
-    if (!childProcess) return;
+    if (!childProcess || childProcess.killed) return;
     try {
         if (isWin) {
             execSync(`taskkill /pid ${childProcess.pid} /t /f >nul 2>&1`);
@@ -94,6 +126,8 @@ function killProcessTree(childProcess) {
 }
 
 function launchProcess(key) {
+    if (isShuttingDown) return;
+    
     const config = processes[key];
     console.log(`${config.color}▶ [${config.name}] Başlatılıyor...\x1b[0m`);
 
@@ -104,15 +138,17 @@ function launchProcess(key) {
     config.ref = child;
 
     child.stdout.on('data', (data) => {
-        require('fs').appendFileSync('master-debug.log', `[${config.name} STDOUT] ${data.toString()}`);
+        fs.appendFileSync('master-debug.log', `[${config.name} STDOUT] ${data.toString()}`);
         process.stdout.write(`${config.color}[${config.name}]\x1b[0m ${data}`);
     });
     child.stderr.on('data', (data) => {
-        require('fs').appendFileSync('master-debug.log', `[${config.name} STDERR] ${data.toString()}`);
+        fs.appendFileSync('master-debug.log', `[${config.name} STDERR] ${data.toString()}`);
         process.stderr.write(`\x1b[31m[${config.name} ERROR]\x1b[0m ${data}`);
     });
 
     child.on('close', (code) => {
+        if (isShuttingDown) return;
+        
         console.log(`\x1b[33m[${config.name}] Kapandı (Kod: ${code}).\x1b[0m`);
         if (config.restarts < 5) {
             config.restarts++;
@@ -126,7 +162,6 @@ function launchProcess(key) {
     });
 
     child.on('error', (err) => {
-        const fs = require('fs');
         fs.appendFileSync('daemon-error.log', `[${config.name} DAEMON ERROR] ${err.message}\n`);
         console.error(`\x1b[31m[${config.name} DAEMON ERROR]\x1b[0m ${err.message}`);
     });
@@ -143,17 +178,36 @@ setTimeout(() => {
     setTimeout(() => {
         console.log(`\x1b[35m[NEXUS ROUTER]\x1b[0m Tarayıcı Yönlendiriliyor...`);
         const startCmd = isWin ? 'start' : (os.platform() === 'darwin' ? 'open' : 'xdg-open');
-        spawn(startCmd, ['http://localhost:5173/login'], { shell: true });
+        spawn(startCmd, [`http://localhost:${PORTS.vite}/login`], { shell: true });
     }, 4000);
 }, 4500);
 
+const shutdownGracefully = () => {
+    if (isShuttingDown) return;
+    isShuttingDown = true;
+    
+    console.log(`\n\x1b[31m[NEXUS SHUTDOWN]\x1b[0m Process Supervisor zarifçe kapatılıyor...`);
+    
+    // Kill all child processes
+    Object.values(processes).forEach(p => killProcessTree(p.ref));
+    
+    // Remove lock file
+    try {
+        if (fs.existsSync(LOCK_FILE)) {
+            fs.unlinkSync(LOCK_FILE);
+            console.log(`\x1b[32m[CLEANUP]\x1b[0m Nexus kilidi (.nexus-lock) başarıyla kaldırıldı.`);
+        }
+    } catch(e) {}
+    
+    setTimeout(() => process.exit(0), 1000); // Wait for tree kill to settle
+};
+
 ['SIGINT', 'SIGTERM', 'SIGQUIT'].forEach(signal => {
-    process.on(signal, () => {
-        console.log(`\n\x1b[31m[NEXUS SHUTDOWN]\x1b[0m Process Supervisor kapatılıyor...`);
-        killProcessTree(processes.backend.ref);
-        killProcessTree(processes.gateway.ref);
-        killProcessTree(processes.forge.ref);
-        killProcessTree(processes.frontend.ref);
-        process.exit(0);
-    });
+    process.on(signal, shutdownGracefully);
+});
+
+// Also handle uncaught exceptions to clean up lock file
+process.on('uncaughtException', (err) => {
+    console.error('\x1b[31m[SUPERVISOR FATAL]\x1b[0m', err);
+    shutdownGracefully();
 });
