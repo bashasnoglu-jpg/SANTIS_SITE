@@ -9,6 +9,7 @@ const parseTelemetryBeacon = (body: any) => body;
 import { execFile } from "child_process";
 import fs from "fs/promises";
 import path from "path";
+import themeGovernanceRoutes from "./modules/theme-governance/theme-governance.routes";
 
 export type TelemetryFeedItem = {
   traceId: string;
@@ -835,6 +836,9 @@ wss.on("connection", (ws: any) => {
   console.log("🕸️ [SANTIS API WS] Sinyal Ağına Yeni Bir Ghost Katıldı.");
   ws.send(JSON.stringify({ type: "HELLO", state: "SECURE" }));
 });
+
+// Register Theme Governance Routes
+app.use("/api/theme", themeGovernanceRoutes);
 
 // Serve frontend static files
 app.use(express.static(process.cwd()));
