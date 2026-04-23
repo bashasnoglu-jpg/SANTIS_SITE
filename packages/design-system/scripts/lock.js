@@ -1,18 +1,16 @@
 const fs = require('fs');
-const path = require('path');
 const crypto = require('crypto');
-
-const manifestPath = path.join(__dirname, '..', 'theme-manifest.json');
-const lockPath = path.join(__dirname, '..', 'theme-manifest.lock.json');
+const { readManifest, readManifestRaw, lockPath } = require('../index');
 
 function sha256(content) {
   return crypto.createHash('sha256').update(content).digest('hex');
 }
 
 function main() {
-  const raw = fs.readFileSync(manifestPath, 'utf8');
+  readManifest();
+
   const lock = {
-    hash: sha256(raw),
+    hash: sha256(readManifestRaw()),
     lockedAt: new Date().toISOString()
   };
 

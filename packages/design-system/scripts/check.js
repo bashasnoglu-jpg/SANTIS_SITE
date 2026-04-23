@@ -1,33 +1,24 @@
 const fs = require('fs');
-const path = require('path');
 const crypto = require('crypto');
-
-const manifestPath = path.join(__dirname, '..', 'theme-manifest.json');
-const lockPath = path.join(__dirname, '..', 'theme-manifest.lock.json');
+const { readManifest, readManifestRaw, lockPath } = require('../index');
 
 function sha256(content) {
   return crypto.createHash('sha256').update(content).digest('hex');
 }
 
 function main() {
-  if (!fs.existsSync(manifestPath)) {
-    console.error('[stitch:check] theme-manifest.json bulunamadı.');
+  readManifest();
+
+  if (!fs.existsSync(lockPath)) {
+    console.error('\x1b[31m[stitch:check] Lock dosyası yok. Önce stitch:lock çalıştırın.\x1b[0m');
     process.exit(1);
   }
 
-  const manifestRaw = fs.readFileSync(manifestPath, 'utf8');
-  const manifestHash = sha256(manifestRaw);
-
-  if (!fs.existsSync(lockPath)) {
-    console.warn('[stitch:check] lock dosyası yok. Önce stitch:lock çalıştırın.');
-    process.exit(0);
-  }
-
+  const manifestHash = sha256(readManifestRaw());
   const lock = JSON.parse(fs.readFileSync(lockPath, 'utf8'));
-  const lockedHash = lock.hash;
 
-  if (manifestHash !== lockedHash) {
-    console.warn('[stitch:check] Manifest ile lock arasında fark var.');
+  if (manifestHash !== lock.hash) {
+    console.error('\x1b[31m[stitch:check] Manifest ile lock arasında fark var.\x1b[0m');
     process.exit(1);
   }
 

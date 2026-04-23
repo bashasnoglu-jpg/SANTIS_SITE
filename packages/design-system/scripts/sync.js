@@ -1,22 +1,35 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
+const { manifestPath, readManifestJson } = require('../index');
+const { ThemeManifestSchema } = require('../theme-manifest.schema');
 
-const manifestPath = path.join(__dirname, '..', 'theme-manifest.json');
+function atomicWriteJson(targetPath, data) {
+  const dir = path.dirname(targetPath);
+  const tmpPath = path.join(
+    dir,
+    `.tmp-${process.pid}-${Date.now()}-${Math.random().toString(16).slice(2)}.json`
+  );
+
+  fs.writeFileSync(tmpPath, JSON.stringify(data, null, 2) + os.EOL, 'utf8');
+  fs.renameSync(tmpPath, targetPath);
+}
 
 function main() {
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  const current = readManifestJson();
 
-  const nextManifest = {
-    ...manifest,
+  const nextManifest = ThemeManifestSchema.parse({
+    ...current,
     meta: {
-      ...manifest.meta,
+      ...current.meta,
       source: 'stitch-manual',
       updatedAt: new Date().toISOString()
     }
-  };
+  });
 
-  fs.writeFileSync(manifestPath, JSON.stringify(nextManifest, null, 2));
-  console.log('\x1b[36m[stitch:sync] Manifest güncellendi.\x1b[0m');
+  atomicWriteJson(manifestPath, nextManifest);
+
+  console.log('\x1b[36m[stitch:sync] Manifest atomik olarak güncellendi.\x1b[0m');
 }
 
 main();
