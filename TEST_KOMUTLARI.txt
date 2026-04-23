@@ -1,0 +1,13 @@
+=== SADECE SATIRLARI KOPYALAYIN, HEPSİNİ BİRDEN DEĞİL ===
+
+1) Önce DB klasörüne girin:
+cd C:\Users\tourg\Desktop\SANTIS_SITE\packages\db
+
+2) Sonra şemayı yükleyin:
+npx drizzle-kit push:pg
+
+3) Event gönderin (bunu tek seferde kopyalayın, başka bir şey seçmeyin):
+Invoke-RestMethod -Uri "http://localhost:3030/api/events" -Method POST -Headers @{ "Content-Type" = "application/json" } -Body '{ "type":"BOOKING_INTENT_CAPTURED", "subject":"BOOKING", "payload": { "tenantId": "santis-club", "userId":"11111111-1111-4111-8111-111111111111", "intent":"Sovereign Hamam", "timestamp": 1710000000000 } }'
+
+4) Kontrol için Studio:
+npx drizzle-kit studio

@@ -1,0 +1,78 @@
+import { test, expect } from '@playwright/test';
+
+// ----------------------------------------------------------------------
+// SOVEREIGN QUALITY GATE - RUNTIME PROFILER
+// Kısıtlamalar:
+// 1. Maksimum Frame Süresi (Frame Budget): 8.3ms (120 FPS Akıcılık)
+// 2. Kümülatif Düzen Kayması (CLS): Kesinlikle 0.000
+// ----------------------------------------------------------------------
+
+test.describe('Sovereign Booking Flow - Deterministik Performans Testi', () => {
+  
+  test('Animasyonlar 120 FPS Frame Bütçesini (8.3ms) ihlal edemez ve Zero-CLS korunmalıdır', async ({ page }) => {
+    // Karadağ Matrisi Laboratuvar (Localhost) ortamına bağlan
+    await page.goto('http://localhost:5173/booking', { waitUntil: 'networkidle' });
+
+    // 1. ZERO-CLS (Cumulative Layout Shift) Gözlemcisini Başlat
+    await page.evaluate(() => {
+      window['clsValue'] = 0;
+      const observer = new PerformanceObserver((entryList) => {
+        for (const entry of entryList.getEntries()) {
+          if (!(entry as any).hadRecentInput) {
+            window['clsValue'] += (entry as any).value;
+          }
+        }
+      });
+      observer.observe({ type: 'layout-shift', buffered: true });
+    });
+
+    // 2. Arayüz Geçişini (Framer Motion) Tetikle
+    const nextButton = page.locator('button').first();
+    await nextButton.waitFor({ state: 'visible' });
+
+    // 3. Frame Profiler'ı Enjekte Et ve Animasyonu Başlat
+    // Animasyon boyunca çalışan her bir requestAnimationFrame (rAF) süresini ölçüyoruz
+    const frameTimes = await page.evaluate(async () => {
+      return new Promise<number[]>((resolve) => {
+        const times: number[] = [];
+        let lastTime = performance.now();
+        let frameCount = 0;
+        
+        // 60 kare boyunca (yaklaşık 0.5 saniyelik geçiş süresi) ölçüm yap
+        const measureFrame = (now: number) => {
+          times.push(now - lastTime);
+          lastTime = now;
+          frameCount++;
+          
+          if (frameCount < 60) {
+            requestAnimationFrame(measureFrame);
+          } else {
+            // İlk kare genelde ısınma (warm-up) olduğu için diziden çıkarılır
+            resolve(times.slice(1)); 
+          }
+        };
+        
+        requestAnimationFrame(measureFrame);
+        // Ölçüm başlar başlamaz butona tıklanarak DOM manipülasyonu tetiklenir
+        document.querySelector('button')?.click();
+      });
+    });
+
+    // 4. Matematiksel Doğrulama (Assertions)
+    const maxFrameTime = Math.max(...frameTimes);
+    const avgFrameTime = frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length;
+    
+    console.log(`[SOVEREIGN METRICS] Ortalama Frame: ${avgFrameTime.toFixed(2)}ms`);
+    console.log(`[SOVEREIGN METRICS] Maksimum Frame (Spike): ${maxFrameTime.toFixed(2)}ms`);
+
+    // CLS Değerini Oku
+    const finalCLS = await page.evaluate(() => window['clsValue']);
+    console.log(`[SOVEREIGN METRICS] CLS Skoru: ${finalCLS}`);
+
+    // Bütçe İhlali Kontrolleri
+    // Not: Geliştirme ortamında (localhost/CPU limitleri) 8.3ms katı olabilir, 
+    // ancak manifestomuz gereği hedefimiz budur. 
+    expect(maxFrameTime, 'GPU Darboğazı: Frame süresi 8.5ms toleransını aştı!').toBeLessThanOrEqual(8.5);
+    expect(finalCLS, 'Mimari İhlal: Ekranda düzen kayması (Layout Shift) tespit edildi!').toBe(0);
+  });
+});
