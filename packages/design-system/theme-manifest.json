@@ -18,7 +18,28 @@
     "sovereign-bronze": "#857B74",
     "sovereign-accent": "#C2A878",
     "sovereign-earth": "#6E5946",
-    "sovereign-black": "#0a0a0b"
+    "sovereign-black": "#0a0a0b",
+    "sovereign-void": "#0A0908",
+    "sovereign-coal": "#141211",
+    "sovereign-obsidian": "#1A1817",
+    "sovereign-line": "#333333",
+    "sovereign-line-soft": "#444444",
+    "sovereign-gold-strong": "#D4AF37",
+    "sovereign-gold-deep": "#C5A059",
+    "sovereign-gold-pressed": "#B5952F",
+    "sovereign-graphite": "#080808",
+    "sovereign-neutral-200": "#e5e5e5",
+    "sovereign-neutral-300": "#dddddd",
+    "sovereign-neutral-400": "#cccccc",
+    "sovereign-neutral-500": "#a3a3a3",
+    "sovereign-neutral-600": "#666666",
+    "sovereign-neutral-700": "#444444",
+    "sovereign-neutral-800": "#404040",
+    "sovereign-neutral-900": "#262626",
+    "sovereign-danger": "#ff3b30",
+    "sovereign-success": "#10b981",
+    "sovereign-success-deep": "#059669",
+    "sovereign-warning": "#d97706"
   },
   "fontFamily": {
     "heading": [
@@ -31,6 +52,7 @@
     ]
   },
   "fontSize": {
+    "micro": "0.6875rem",
     "2xs": "0.625rem",
     "xs": "0.75rem",
     "sm": "0.875rem",

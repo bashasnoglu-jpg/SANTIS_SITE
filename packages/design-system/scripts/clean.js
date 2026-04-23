@@ -69,7 +69,52 @@ const REPLACEMENTS = [
     from: /shadow-\[0_0_10px_#d4af37\]/gi,
     to: 'shadow-accent-glow',
     kind: 'auto'
-  }
+  },
+  { from: /shadow-\[#c6a96b\]/gi, to: 'shadow-accent-glow', kind: 'auto' },
+
+  // Typography
+  { from: /text-\[11px\]/g, to: 'text-micro', kind: 'auto' },
+
+  // New dark backgrounds
+  { from: /bg-\[#0a0908\]/gi, to: 'bg-sovereign-void', kind: 'auto' },
+  { from: /bg-\[#141211\]/gi, to: 'bg-sovereign-coal', kind: 'auto' },
+  { from: /bg-\[#1a1817\]/gi, to: 'bg-sovereign-obsidian', kind: 'auto' },
+  { from: /bg-\[#080808\]/gi, to: 'bg-sovereign-graphite', kind: 'auto' },
+  { from: /bg-\[#1a1a1a\]/gi, to: 'bg-sovereign-obsidian', kind: 'auto' },
+  { from: /bg-\[#2a2a2a\]/gi, to: 'bg-sovereign-panel', kind: 'auto' },
+  { from: /bg-\[#111\]/gi, to: 'bg-sovereign-graphite', kind: 'auto' },
+
+  // New text colors
+  { from: /text-\[#d4af37\]/gi, to: 'text-sovereign-gold-strong', kind: 'auto' },
+  { from: /text-\[#c5a059\]/gi, to: 'text-sovereign-gold-deep', kind: 'auto' },
+  { from: /text-\[#b5952f\]/gi, to: 'text-sovereign-gold-pressed', kind: 'auto' },
+  { from: /text-\[#333\]/gi, to: 'text-sovereign-line', kind: 'auto' },
+  { from: /text-\[#444\]/gi, to: 'text-sovereign-line-soft', kind: 'auto' },
+  { from: /text-\[#222\]/gi, to: 'text-sovereign-graphite', kind: 'auto' },
+  { from: /text-\[#ccc\]/gi, to: 'text-sovereign-neutral-400', kind: 'auto' },
+  { from: /text-\[#ddd\]/gi, to: 'text-sovereign-neutral-300', kind: 'auto' },
+  { from: /text-\[#eee\]/gi, to: 'text-sovereign-neutral-200', kind: 'auto' },
+  { from: /text-\[#fff\]/gi, to: 'text-white', kind: 'auto' },
+
+  // Borders
+  { from: /border-\[#d4af37\]/gi, to: 'border-sovereign-gold-strong', kind: 'auto' },
+  { from: /border-\[#c5a059\]/gi, to: 'border-sovereign-gold-deep', kind: 'auto' },
+  { from: /border-\[#b5952f\]/gi, to: 'border-sovereign-gold-pressed', kind: 'auto' },
+  { from: /border-\[#333\]/gi, to: 'border-sovereign-line', kind: 'auto' },
+  { from: /border-\[#444\]/gi, to: 'border-sovereign-line-soft', kind: 'auto' },
+  { from: /border-\[#ccc\]/gi, to: 'border-sovereign-neutral-400', kind: 'auto' },
+  { from: /border-\[#ddd\]/gi, to: 'border-sovereign-neutral-300', kind: 'auto' },
+
+  // Backgrounds: gold and neutrals
+  { from: /bg-\[#d4af37\]/gi, to: 'bg-sovereign-gold-strong', kind: 'auto' },
+  { from: /bg-\[#c5a059\]/gi, to: 'bg-sovereign-gold-deep', kind: 'auto' },
+  { from: /bg-\[#b5952f\]/gi, to: 'bg-sovereign-gold-pressed', kind: 'auto' },
+  { from: /bg-\[#333\]/gi, to: 'bg-sovereign-line', kind: 'auto' },
+  { from: /bg-\[#444\]/gi, to: 'bg-sovereign-line-soft', kind: 'auto' },
+  { from: /bg-\[#ccc\]/gi, to: 'bg-sovereign-neutral-400', kind: 'auto' },
+  { from: /bg-\[#ddd\]/gi, to: 'bg-sovereign-neutral-300', kind: 'auto' },
+  { from: /bg-\[#eee\]/gi, to: 'bg-sovereign-neutral-200', kind: 'auto' },
+  { from: /bg-\[#fff\]/gi, to: 'bg-white', kind: 'auto' }
 ];
 
 // Raw hex replacements outside className strings are deliberately conservative.
@@ -85,7 +130,24 @@ const RAW_HEX_REPLACEMENTS = [
   { from: /#6e5946/gi, to: 'var(--sovereign-earth)', kind: 'report-preferred' },
   { from: /#2a2624/gi, to: 'var(--sovereign-panel)', kind: 'report-preferred' },
   { from: /#0a0a0a/gi, to: 'var(--sovereign-black)', kind: 'report-preferred' },
-  { from: /#0a0a0b/gi, to: 'var(--sovereign-black)', kind: 'report-preferred' }
+  { from: /#0a0a0b/gi, to: 'var(--sovereign-black)', kind: 'report-preferred' },
+
+  { from: /#0a0908/gi, to: 'var(--sovereign-void)', kind: 'report-preferred' },
+  { from: /#141211/gi, to: 'var(--sovereign-coal)', kind: 'report-preferred' },
+  { from: /#1a1817/gi, to: 'var(--sovereign-obsidian)', kind: 'report-preferred' },
+  { from: /#080808/gi, to: 'var(--sovereign-graphite)', kind: 'report-preferred' },
+  { from: /#333333/gi, to: 'var(--sovereign-line)', kind: 'report-preferred' },
+  { from: /#333\b/gi, to: 'var(--sovereign-line)', kind: 'report-preferred' },
+  { from: /#444444/gi, to: 'var(--sovereign-line-soft)', kind: 'report-preferred' },
+  { from: /#444\b/gi, to: 'var(--sovereign-line-soft)', kind: 'report-preferred' },
+  { from: /#d4af37/gi, to: 'var(--sovereign-gold-strong)', kind: 'report-preferred' },
+  { from: /#c5a059/gi, to: 'var(--sovereign-gold-deep)', kind: 'report-preferred' },
+  { from: /#b5952f/gi, to: 'var(--sovereign-gold-pressed)', kind: 'report-preferred' },
+  { from: /#ccc\b/gi, to: 'var(--sovereign-neutral-400)', kind: 'report-preferred' },
+  { from: /#ddd\b/gi, to: 'var(--sovereign-neutral-300)', kind: 'report-preferred' },
+  { from: /#eee\b/gi, to: 'var(--sovereign-neutral-200)', kind: 'report-preferred' },
+  { from: /#fff\b/gi, to: 'var(--color-white)', kind: 'report-preferred' },
+  { from: /#222\b/gi, to: 'var(--sovereign-graphite)', kind: 'report-preferred' }
 ];
 
 // Risky layout utilities: never auto-fix
