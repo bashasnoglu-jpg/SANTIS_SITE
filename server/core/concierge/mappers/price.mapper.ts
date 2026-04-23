@@ -1,8 +1,8 @@
-import { RawPriceSchema, type RawPrice } from '../schemas/raw-provider.schemas';
+import { RawPriceSchema, type RawPrice } from '../schemas/raw-provider.schemas.ts';
 import {
   NormalizedPriceSchema,
   type NormalizedPrice,
-} from '../schemas/normalized.schemas';
+} from '../schemas/normalized.schemas.ts';
 
 function coerceBoolean(value: unknown): boolean {
   if (typeof value === 'boolean') return value;

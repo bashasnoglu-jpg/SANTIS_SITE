@@ -1,11 +1,11 @@
 import {
   RawAvailabilitySlotSchema,
   type RawAvailabilitySlot,
-} from '../schemas/raw-provider.schemas';
+} from '../schemas/raw-provider.schemas.ts';
 import {
   NormalizedAvailabilitySlotSchema,
   type NormalizedAvailabilitySlot,
-} from '../schemas/normalized.schemas';
+} from '../schemas/normalized.schemas.ts';
 
 function clamp01(value: number): number {
   return Math.max(0, Math.min(1, value));

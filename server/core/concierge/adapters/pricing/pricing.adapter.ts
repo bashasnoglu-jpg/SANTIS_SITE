@@ -1,6 +1,6 @@
-import type { CurrencyCode, MemberTier } from '../../contracts/snapshot.contract';
-import type { NormalizedPrice } from '../../schemas/normalized.schemas';
-import { MockPricingProvider } from './providers/mock-pricing.provider';
+import type { CurrencyCode, MemberTier } from '../../contracts/snapshot.contract.ts';
+import type { NormalizedPrice } from '../../schemas/normalized.schemas.ts';
+import { MockPricingProvider } from './providers/mock-pricing.provider.ts';
 
 export interface PricingAdapter {
   getPrices(input: {

@@ -1,7 +1,7 @@
-import { serviceCatalogAdapter } from '../adapters/service-catalog/service-catalog.adapter';
-import { pricingAdapter } from '../adapters/pricing/pricing.adapter';
-import { availabilityAdapter } from '../adapters/availability/availability.adapter';
-import { deriveDegradedCapabilities } from '../policies/degraded-mode';
+import { serviceCatalogAdapter } from '../adapters/service-catalog/service-catalog.adapter.ts';
+import { pricingAdapter } from '../adapters/pricing/pricing.adapter.ts';
+import { availabilityAdapter } from '../adapters/availability/availability.adapter.ts';
+import { deriveDegradedCapabilities } from '../policies/degraded-mode.ts';
 
 export function getConciergeHealth() {
   return {

@@ -1,8 +1,8 @@
-import { RawServiceSchema, type RawService } from '../schemas/raw-provider.schemas';
+import { RawServiceSchema, type RawService } from '../schemas/raw-provider.schemas.ts';
 import {
   NormalizedServiceSchema,
   type NormalizedService,
-} from '../schemas/normalized.schemas';
+} from '../schemas/normalized.schemas.ts';
 
 function coerceBoolean(value: unknown): boolean {
   if (typeof value === 'boolean') return value;

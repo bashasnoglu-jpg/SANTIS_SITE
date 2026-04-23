@@ -2,22 +2,22 @@ import type {
   ConciergeServiceCard,
   ConciergeSnapshot,
   SnapshotRequestContext,
-} from '../contracts/snapshot.contract';
-import { serviceCatalogAdapter } from '../adapters/service-catalog/service-catalog.adapter';
-import { pricingAdapter } from '../adapters/pricing/pricing.adapter';
-import { availabilityAdapter } from '../adapters/availability/availability.adapter';
-import { computeServiceRank, markRecommendedServices } from '../ranking/service-rank';
-import { rankSlots } from '../ranking/slot-rank';
-import { deriveDegradedCapabilities } from '../policies/degraded-mode';
-import { createRequestId } from '../utils/request-id';
-import { nowIso } from '../utils/datetime';
-import { maxNumberOrUndefined } from '../utils/money';
-import { buildWarnings } from '../utils/warnings';
+} from '../contracts/snapshot.contract.ts';
+import { serviceCatalogAdapter } from '../adapters/service-catalog/service-catalog.adapter.ts';
+import { pricingAdapter } from '../adapters/pricing/pricing.adapter.ts';
+import { availabilityAdapter } from '../adapters/availability/availability.adapter.ts';
+import { computeServiceRank, markRecommendedServices } from '../ranking/service-rank.ts';
+import { rankSlots } from '../ranking/slot-rank.ts';
+import { deriveDegradedCapabilities } from '../policies/degraded-mode.ts';
+import { createRequestId } from '../utils/request-id.ts';
+import { nowIso } from '../utils/datetime.ts';
+import { maxNumberOrUndefined } from '../utils/money.ts';
+import { buildWarnings } from '../utils/warnings.ts';
 import type {
   NormalizedAvailabilitySlot,
   NormalizedPrice,
   NormalizedService,
-} from '../schemas/normalized.schemas';
+} from '../schemas/normalized.schemas.ts';
 
 function groupBestAvailabilityByService(
   slots: NormalizedAvailabilitySlot[]

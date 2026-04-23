@@ -1,6 +1,6 @@
-import type { PricingAdapter } from '../pricing.adapter';
-import type { NormalizedPrice } from '../../../schemas/normalized.schemas';
-import { mapRawPriceToNormalized } from '../../../mappers/price.mapper';
+import type { PricingAdapter } from '../pricing.adapter.ts';
+import type { NormalizedPrice } from '../../../schemas/normalized.schemas.ts';
+import { mapRawPriceToNormalized } from '../../../mappers/price.mapper.ts';
 
 export class MockPricingProvider implements PricingAdapter {
   async getPrices(input: {
