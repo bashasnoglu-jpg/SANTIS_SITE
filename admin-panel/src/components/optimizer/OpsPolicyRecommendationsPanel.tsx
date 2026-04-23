@@ -94,10 +94,10 @@ export function OpsPolicyRecommendationsPanel({
   return (
     <div
       style={{
-        border: '1px solid #ddd',
+        border: '1px solid var(--sovereign-neutral-300)',
         borderRadius: 10,
         padding: 16,
-        background: '#fff',
+        background: 'var(--sovereign-surface)',
       }}
     >
       <h3 style={{ marginTop: 0 }}>Counterfactual Policy Recommendations</h3>
@@ -106,10 +106,10 @@ export function OpsPolicyRecommendationsPanel({
           <div
             key={item.candidate.candidateId}
             style={{
-              border: '1px solid #eee',
+              border: '1px solid var(--sovereign-neutral-200)',
               borderRadius: 8,
               padding: 12,
-              background: index === 0 ? '#f8fafc' : '#fff',
+              background: index === 0 ? 'var(--sovereign-dark)' : 'var(--sovereign-surface)',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
@@ -137,7 +137,7 @@ export function OpsPolicyRecommendationsPanel({
               <ul style={{ paddingLeft: 20, marginTop: 4, fontFamily: 'monospace' }}>
                 {item.candidate.patch.ops.map((op, idx) => (
                   <li key={idx}>
-                    <span style={{color:'#666'}}>{op.path}:</span> {String(op.previousValue)} ➔ <strong>{String(op.value)}</strong>
+                    <span style={{color:'var(--sovereign-neutral-600)'}}>{op.path}:</span> {String(op.previousValue)} ➔ <strong>{String(op.value)}</strong>
                   </li>
                 ))}
               </ul>
@@ -153,8 +153,8 @@ export function OpsPolicyRecommendationsPanel({
               <button
                 style={{
                   padding: '6px 12px',
-                  background: busyId === item.candidate.candidateId ? '#ccc' : '#10b981',
-                  color: '#fff',
+                  background: busyId === item.candidate.candidateId ? 'var(--sovereign-neutral-400)' : 'var(--sovereign-success)',
+                  color: 'var(--sovereign-surface)',
                   border: 'none',
                   borderRadius: 4,
                   cursor: busyId === item.candidate.candidateId ? 'not-allowed' : 'pointer',
@@ -168,7 +168,7 @@ export function OpsPolicyRecommendationsPanel({
             </div>
 
             {resultById[item.candidate.candidateId] && (
-              <div style={{ marginTop: 8, fontSize: 13, color: '#059669', fontWeight: 500 }}>
+              <div style={{ marginTop: 8, fontSize: 13, color: 'var(--sovereign-success-deep)', fontWeight: 500 }}>
                 ✓ {resultById[item.candidate.candidateId].message}
                 {resultById[item.candidate.candidateId].proposalId && (
                   <OpsPolicyRolloutPanel proposalId={resultById[item.candidate.candidateId].proposalId!} />

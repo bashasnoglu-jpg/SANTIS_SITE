@@ -6,13 +6,13 @@ const RevenueChart = ({ data }) => {
     // Data format expected: [{ date: '2023-01-01', revenue: 100, bookings: 2 }]
 
     if (!data || data.length === 0) {
-        return <div className="h-[300px] flex items-center justify-center text-santis-muted">No data available</div>;
+        return <div className="layout-h-300 flex items-center justify-center text-santis-muted">No data available</div>;
     }
 
     return (
         <div className="bg-santis-card p-6 rounded-xl border border-santis-border shadow-lg">
             <h3 className="text-lg font-semibold text-white mb-6">Revenue Trend</h3>
-            <div className="h-[300px] w-full">
+            <div className="layout-h-300 w-full">
                 <ResponsiveContainer width="100%" height={300} minWidth={100} minHeight={100}>
                     <AreaChart data={data}>
                         <defs>

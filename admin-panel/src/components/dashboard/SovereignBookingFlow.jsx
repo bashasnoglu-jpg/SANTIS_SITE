@@ -358,7 +358,7 @@ export function SovereignBookingFlow() {
               </button>
             </div>
           ) : (
-            <div className="bg-white/5 border border-sovereign-gold/30 p-6 rounded-xl inline-block text-left min-w-[300px]">
+            <div className="bg-white/5 border border-sovereign-gold/30 p-6 rounded-xl inline-block text-left layout-minw-300">
               <div className="text-2xs text-sovereign-gold uppercase tracking-widest mb-4">Confirmed Quote ({quoteLatency}ms)</div>
               <div className="flex justify-between items-end mb-4">
                 <span className="text-sm text-slate-300">Final Price</span>

@@ -28,9 +28,9 @@ export function SovereignDashboard() {
 
   // Lüks antrasit kararması (Rollback veya High Risk durumu)
   const cardBorderAndShadow = isRollingBack || isHighRisk
-    ? 'border-zinc-800 shadow-[0_0_40px_rgba(39,39,42,0.15)] bg-zinc-50' 
+    ? 'border-zinc-800 fx-shadow-panel bg-zinc-50' 
     : rolloutData.isActive
-      ? 'border-sovereign-gold-deep/40 shadow-[0_0_35px_rgba(197,160,89,0.12)] bg-white/60'
+      ? 'border-sovereign-gold-deep/40 fx-glow-medium-gold bg-white/60'
       : 'border-stone-200/50 shadow-sm bg-white/60';
 
   const textColor = isRollingBack || isHighRisk ? 'text-zinc-800' : 'text-sovereign-gold-deep';
@@ -43,7 +43,7 @@ export function SovereignDashboard() {
         <div 
           className={`relative backdrop-blur-2xl border rounded-2xl p-10 cursor-pointer 
             transition-all duration-1000 ease-in-out hover:-translate-y-1 
-            hover:shadow-[0_12px_48px_0_rgba(44,44,44,0.08)] 
+            hover:fx-shadow-panel 
             ${cardBorderAndShadow}`}
         >
           {/* Lüks Kart İçeriği */}

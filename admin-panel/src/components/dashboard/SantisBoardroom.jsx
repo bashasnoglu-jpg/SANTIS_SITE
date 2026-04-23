@@ -302,7 +302,7 @@ export default function SantisBoardroom() {
                   </div>
                   <p className="text-sovereign-bronze text-xs leading-relaxed mb-auto">Farklı kopya metinlerinin (A/B Test) Concierge'e dönüşüm oranları.</p>
                   
-                  <ul className="mt-6 space-y-0 divide-y divide-[#2A2624]">
+                  <ul className="mt-6 space-y-0 divide-y divide-[var(--sovereign-panel)]">
                     <li className="py-4 flex justify-between items-center">
                       <span className="text-sovereign-bronze text-sm">Varyant A <span className="text-2xs uppercase ml-1">(Rehber)</span></span>
                       <span className="text-sovereign-accent font-medium text-sm">12.4% CTR</span>
@@ -334,7 +334,7 @@ export default function SantisBoardroom() {
                   </div>
                   <p className="text-sovereign-bronze text-xs leading-relaxed mb-auto">Müdahale katmanından WhatsApp veya canlı destek ekibine geçiş yapanların oranı.</p>
                   
-                  <ul className="mt-6 space-y-0 divide-y divide-[#2A2624]">
+                  <ul className="mt-6 space-y-0 divide-y divide-[var(--sovereign-panel)]">
                     <li className="py-4 flex justify-between items-center">
                       <span className="text-sovereign-bronze text-sm">Toplam Yönlendirme</span>
                       <span className="text-sovereign-ink text-sm font-medium">86 (Bugün)</span>
@@ -354,7 +354,7 @@ export default function SantisBoardroom() {
                   </div>
                   <p className="text-sovereign-bronze text-xs leading-relaxed mb-6">Müşteriler 4 adımlı Journey Builder (Sepet) akışında nereden çıkıyor?</p>
                   
-                  <div className="mt-auto space-y-0 divide-y divide-[#2A2624]">
+                  <div className="mt-auto space-y-0 divide-y divide-[var(--sovereign-panel)]">
                     <div className="py-3 flex justify-between items-center">
                       <span className="text-sovereign-sand text-sm">1. Kişiselleştirme</span>
                       <span className="text-sovereign-ink text-sm font-medium">100%</span>
@@ -387,7 +387,7 @@ export default function SantisBoardroom() {
                   </div>
                   <p className="text-sovereign-bronze text-xs leading-relaxed mb-auto">Psikolojik katman etkileşimi veya Journey eklentileri (Add-ons) ile üretilen toplam gelir.</p>
                   
-                  <ul className="mt-6 space-y-0 divide-y divide-[#2A2624]">
+                  <ul className="mt-6 space-y-0 divide-y divide-[var(--sovereign-panel)]">
                     <li className="py-4 flex justify-between items-center">
                       <span className="text-sovereign-bronze text-sm">Küratör Eklentisi (Uplift)</span>
                       <span className="text-sovereign-accent font-medium text-sm">+€2,850</span>

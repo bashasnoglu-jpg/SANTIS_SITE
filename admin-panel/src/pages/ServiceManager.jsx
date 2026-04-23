@@ -58,7 +58,7 @@ export default function ServiceManager() {
                     <div>
                         <label className="block text-sm text-gray-400 mb-2 uppercase tracking-wide">Ritüel Adı</label>
                         <input type="text" required value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })}
-                            className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-sovereign-gold-strong focus:ring-1 focus:ring-[#D4AF37] outline-none transition"
+                            className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white focus:border-sovereign-gold-strong focus:ring-1 focus:ring-sovereign-gold-strong outline-none transition"
                             placeholder="Örn: Royal Bali Masajı" />
                     </div>
 
@@ -90,12 +90,12 @@ export default function ServiceManager() {
 
                     <label className="flex items-center space-x-3 cursor-pointer pt-2 bg-gray-900 p-4 rounded border border-gray-800">
                         <input type="checkbox" checked={formData.is_signature} onChange={e => setFormData({ ...formData, is_signature: e.target.checked })}
-                            className="w-5 h-5 accent-[#D4AF37] bg-black border-gray-700 rounded" />
+                            className="w-5 h-5 accent-sovereign-gold-strong bg-black border-gray-700 rounded" />
                         <span className="text-gray-300 font-serif text-lg tracking-wide">Sovereign Signature Ritüeli</span>
                     </label>
 
                     <button type="submit" disabled={isSaving || !formData.image}
-                        className="w-full py-4 mt-6 bg-gradient-to-r from-[#D4AF37] to-[#b5952f] text-black font-bold tracking-[0.2em] uppercase rounded-lg shadow-lg hover:shadow-[#D4AF37]/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02]">
+                        className="w-full py-4 mt-6 bg-gradient-to-r from-sovereign-gold-strong to-sovereign-gold-pressed text-black font-bold tracking-[0.2em] uppercase rounded-lg shadow-lg hover:shadow-sovereign-gold-strong/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02]">
                         {isSaving ? 'Mühürleniyor...' : 'SİSTEME MÜHÜRLE VE YAYINLA'}
                     </button>
                 </div>

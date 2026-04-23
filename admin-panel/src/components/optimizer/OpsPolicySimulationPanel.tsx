@@ -61,10 +61,10 @@ export function OpsPolicySimulationPanel({ proposal }: Props): JSX.Element | nul
     return (
       <div
         style={{
-          border: '1px solid #ddd',
+          border: '1px solid var(--sovereign-neutral-300)',
           borderRadius: 10,
           padding: 16,
-          background: '#fff',
+          background: 'var(--sovereign-surface)',
         }}
       >
         <h3 style={{ marginTop: 0 }}>Policy Simulation</h3>
@@ -84,10 +84,10 @@ export function OpsPolicySimulationPanel({ proposal }: Props): JSX.Element | nul
   return (
     <div
       style={{
-        border: '1px solid #ddd',
+        border: '1px solid var(--sovereign-neutral-300)',
         borderRadius: 10,
         padding: 16,
-        background: '#fff',
+        background: 'var(--sovereign-surface)',
       }}
     >
       <h3 style={{ marginTop: 0 }}>Policy Simulation</h3>

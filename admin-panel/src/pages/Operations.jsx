@@ -107,7 +107,7 @@ const Operations = () => {
 
     // Custom styling for calendar events
     const eventPropGetter = (event) => {
-        const backgroundColor = '#d4af37'; // Santis Gold
+        const backgroundColor = 'var(--sovereign-gold-strong)'; // Santis Gold
         return { style: { backgroundColor, color: 'black', border: 'none' } };
     };
 

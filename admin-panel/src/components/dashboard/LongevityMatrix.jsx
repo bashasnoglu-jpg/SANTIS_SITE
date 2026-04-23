@@ -68,7 +68,7 @@ export default function LongevityMatrix({ userStressScore }) {
         {/* 2. SOVEREIGN CHOICE (HEDEF) - Algısal olarak en mantıklı seçenek */}
         <motion.div variants={cardVariants} className={`flex-1 w-full max-w-md p-10 rounded-2xl border ${THEME.colors.borderHighlight} ${THEME.colors.bgCard} transform lg:-translate-y-4 relative z-10`}>
           {/* Dikkat çekici rozet */}
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-sovereign-gold text-[#141416] px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-sovereign-gold text-sovereign-dark px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg">
             Sovereign Optimum
           </div>
           
@@ -86,7 +86,7 @@ export default function LongevityMatrix({ userStressScore }) {
             <li className="flex items-center gap-3"><span className="text-sovereign-gold">✓</span> 7/24 Biyometrik Takip</li>
             <li className="flex items-center gap-3"><span className="text-sovereign-gold">✓</span> Karadağ VIP Transfer</li>
           </ul>
-          <button className="w-full py-4 rounded-lg bg-sovereign-gold text-[#141416] font-semibold text-sm tracking-widest uppercase hover:bg-white hover:shadow-lg hover:shadow-white/20 transition-all">
+          <button className="w-full py-4 rounded-lg bg-sovereign-gold text-sovereign-dark font-semibold text-sm tracking-widest uppercase hover:bg-white hover:shadow-lg hover:shadow-white/20 transition-all">
             Klinik Kaydı Başlat
           </button>
         </motion.div>

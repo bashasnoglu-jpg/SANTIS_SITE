@@ -27,7 +27,7 @@ function App() {
           <Route 
             path="/scanner" 
             element={
-              <div style={{ width: '100vw', height: '100vh', backgroundColor: 'var(--os-karanlik-madde, #0a0a0b)', overflow: 'hidden' }}>
+              <div style={{ width: '100vw', height: '100vh', backgroundColor: 'var(--os-karanlik-madde, var(--sovereign-black))', overflow: 'hidden' }}>
                 <ClinicScanner />
               </div>
             } 

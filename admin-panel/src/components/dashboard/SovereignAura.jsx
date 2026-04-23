@@ -66,8 +66,8 @@ export default function SovereignAura({ intensity = 0 }) {
   const uniforms = useMemo(() => ({
     u_time: { value: 0.0 },
     u_intensity: { value: intensity },
-    u_colorBase: { value: new THREE.Color('#c6a96b') },   // Ana Renk: Mat Pirinç
-    u_colorGlow: { value: new THREE.Color('#e0c98f') }    // Parlama Rengi: Sıcak Pirinç
+    u_colorBase: { value: new THREE.Color('var(--sovereign-gold)') },   // Ana Renk: Mat Pirinç
+    u_colorGlow: { value: new THREE.Color('var(--sovereign-sand)') }    // Parlama Rengi: Sıcak Pirinç
   }), []);
 
   useFrame((state) => {

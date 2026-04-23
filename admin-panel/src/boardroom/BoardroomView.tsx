@@ -10,7 +10,7 @@ export function BoardroomView({
   return (
     <div className="relative">
       {origin === 'mock' && (
-        <div className="mb-3 text-[10px] tracking-[0.24em] uppercase text-amber-300/80">
+        <div className="mb-3 text-2xs tracking-[0.24em] uppercase text-amber-300/80">
           Simulated Data
         </div>
       )}

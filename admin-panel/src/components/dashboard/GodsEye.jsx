@@ -25,7 +25,7 @@ const GodsEye = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 border border-santis-gold/20 p-6 rounded-xl bg-black/60 relative overflow-hidden fx-glow-soft-gold">
       <div className="absolute top-0 left-0 w-full fx-divider-hairline-gold"></div>
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[30px] bg-santis-gold/20 blur-[30px] rounded-full"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 layout-h-30px bg-santis-gold/20 blur-[30px] rounded-full"></div>
       
       <div className="md:col-span-2 mb-2 flex items-center justify-between">
         <h2 className="text-xl font-bold text-white tracking-widest flex items-center gap-3 uppercase">

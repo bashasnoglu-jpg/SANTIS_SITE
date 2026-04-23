@@ -62,7 +62,7 @@ export function OpsApprovalQueue({ experimentId, actor, onSelectProposal }: Prop
   }
 
   return (
-    <div style={{ border: '1px solid #ddd', borderRadius: 10, padding: 16, background: '#fff' }}>
+    <div style={{ border: '1px solid var(--sovereign-neutral-300)', borderRadius: 10, padding: 16, background: 'var(--sovereign-surface)' }}>
       <h3 style={{ marginTop: 0 }}>Policy Approval Queue</h3>
 
       {error ? <div style={{ color: 'crimson' }}>{error}</div> : null}

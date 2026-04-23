@@ -42,11 +42,11 @@ export default function GhostDrawer({ isOpen, onClose, anomalies }) {
               let textWeight = 300;
 
               if (isLead) {
-                borderColor = '#50C878'; // Zümrüt Yeşili
+                borderColor = 'var(--sovereign-success)'; // Zümrüt Yeşili
                 bgColor = 'rgba(80, 200, 120, 0.05)';
                 textColor = 'var(--nv-text-light)';
                 opacity = 1;
-                highlightColor = '#50C878';
+                highlightColor = 'var(--sovereign-success)';
                 textWeight = 500;
               } else if (isCritical) {
                 borderColor = 'var(--nv-brushed-gold)';

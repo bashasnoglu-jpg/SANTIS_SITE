@@ -158,8 +158,8 @@ export default function ClinicScanner() {
       uniforms: {
         u_time: { value: 0.0 },
         u_audioIntensity: { value: 0.0 },
-        u_baseColor: { value: new THREE.Color('#c6a96b') },  // Mat Pirinç
-        u_stressColor: { value: new THREE.Color('#141416') } // İsli Gri (Yıpranma)
+        u_baseColor: { value: new THREE.Color('var(--sovereign-gold)') },  // Mat Pirinç
+        u_stressColor: { value: new THREE.Color('var(--sovereign-dark)') } // İsli Gri (Yıpranma)
       },
       wireframe: true // Siberpunk estetiği için kafes görünümü
     });
@@ -219,16 +219,16 @@ export default function ClinicScanner() {
 
   // --- UI Render ---
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '50px', backgroundColor: 'var(--os-isli-gri, #141416)', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '50px', backgroundColor: 'var(--os-isli-gri, var(--sovereign-dark))', minHeight: '100vh' }}>
       
-      <h1 style={{ color: 'var(--os-mat-pirinc, #c6a96b)', fontWeight: 300, transition: 'all 0.5s', textAlign: 'center' }}>
+      <h1 style={{ color: 'var(--os-mat-pirinc, var(--sovereign-gold))', fontWeight: 300, transition: 'all 0.5s', textAlign: 'center' }}>
         {headline}
       </h1>
 
       <div ref={mountRef} style={{ margin: '30px 0', filter: 'drop-shadow(0 0 20px rgba(198, 169, 107, 0.2))' }}></div>
 
-      <div style={{ marginBottom: '40px', fontSize: '14px', letterSpacing: '2px', color: '#e5e5ea' }}>
-        ANLIK KORTİZOL PUANI: <span style={{ color: cortisolScore > 50 ? '#ff3b30' : 'var(--os-mat-pirinc, #c6a96b)', fontWeight: 'bold' }}>{cortisolScore}</span>
+      <div style={{ marginBottom: '40px', fontSize: '14px', letterSpacing: '2px', color: 'var(--sovereign-neutral-200)' }}>
+        ANLIK KORTİZOL PUANI: <span style={{ color: cortisolScore > 50 ? 'var(--sovereign-danger)' : 'var(--os-mat-pirinc, var(--sovereign-gold))', fontWeight: 'bold' }}>{cortisolScore}</span>
       </div>
 
       <div style={{ display: 'flex', gap: '30px', alignItems: 'center' }}>
@@ -236,7 +236,7 @@ export default function ClinicScanner() {
           onClick={startAudioScan} 
           className="vip-concierge-btn" 
           style={{ 
-              backgroundColor: '#141416', color: '#c6a96b', border: '1px solid #c6a96b', 
+              backgroundColor: 'var(--sovereign-dark)', color: 'var(--sovereign-gold)', border: '1px solid var(--sovereign-gold)', 
               padding: '16px 32px', borderRadius: '4px', cursor: 'pointer', letterSpacing: '1px' 
           }}
         >
@@ -247,12 +247,12 @@ export default function ClinicScanner() {
           onMouseEnter={handleHoverStart} 
           onMouseLeave={handleHoverEnd}
           style={{ 
-              padding: '20px 30px', border: '1px solid #c6a96b', borderRadius: '8px', 
+              padding: '20px 30px', border: '1px solid var(--sovereign-gold)', borderRadius: '8px', 
               cursor: 'crosshair', transition: 'all 0.3s ease', backgroundColor: 'rgba(198, 169, 107, 0.05)'
           }}
         >
-          <h3 style={{ margin: 0, color: '#c6a96b', fontSize: '18px', fontWeight: 400 }}>NAD+ Infusion</h3>
-          <p style={{ margin: '8px 0 0 0', color: '#8E8E93', fontSize: '12px', letterSpacing: '1px' }}>SOVEREIGN CHOICE - $8.500</p>
+          <h3 style={{ margin: 0, color: 'var(--sovereign-gold)', fontSize: '18px', fontWeight: 400 }}>NAD+ Infusion</h3>
+          <p style={{ margin: '8px 0 0 0', color: 'var(--sovereign-muted)', fontSize: '12px', letterSpacing: '1px' }}>SOVEREIGN CHOICE - $8.500</p>
         </div>
       </div>
 

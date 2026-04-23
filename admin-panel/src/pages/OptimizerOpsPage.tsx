@@ -28,7 +28,7 @@ export default function OptimizerOpsPage(): JSX.Element {
             value={experimentId}
             onChange={(event) => setExperimentId(event.target.value)}
             placeholder="exp_demo"
-            style={{ padding: 10, borderRadius: 8, border: '1px solid #ccc' }}
+            style={{ padding: 10, borderRadius: 8, border: '1px solid var(--sovereign-neutral-400)' }}
           />
         </label>
 
@@ -38,7 +38,7 @@ export default function OptimizerOpsPage(): JSX.Element {
             value={requestId}
             onChange={(event) => setRequestId(event.target.value)}
             placeholder="req_123"
-            style={{ padding: 10, borderRadius: 8, border: '1px solid #ccc' }}
+            style={{ padding: 10, borderRadius: 8, border: '1px solid var(--sovereign-neutral-400)' }}
           />
         </label>
 
@@ -56,9 +56,9 @@ export default function OptimizerOpsPage(): JSX.Element {
           style={{
             padding: '10px 14px',
             borderRadius: 8,
-            border: '1px solid #222',
-            background: '#222',
-            color: '#fff',
+            border: '1px solid var(--sovereign-graphite)',
+            background: 'var(--sovereign-graphite)',
+            color: 'var(--sovereign-surface)',
             cursor: 'pointer',
           }}
         >

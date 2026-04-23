@@ -10,7 +10,7 @@ export function OpsAnomalyBanner({ anomalies }: Props): JSX.Element | null {
   return (
     <div style={{
       border: '1px solid red',
-      background: '#fff5f5',
+      background: 'var(--sovereign-dark)',
       padding: 12,
       borderRadius: 8
     }}>

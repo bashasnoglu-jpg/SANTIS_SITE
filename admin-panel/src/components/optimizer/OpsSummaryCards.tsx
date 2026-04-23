@@ -42,10 +42,10 @@ export function OpsSummaryCards({ data }: Props): JSX.Element {
         <div
           key={card.label}
           style={{
-            border: '1px solid #ddd',
+            border: '1px solid var(--sovereign-neutral-300)',
             borderRadius: 10,
             padding: 16,
-            background: '#fff',
+            background: 'var(--sovereign-surface)',
           }}
         >
           <div style={{ fontSize: 12, opacity: 0.7 }}>{card.label}</div>

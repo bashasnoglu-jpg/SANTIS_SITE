@@ -119,14 +119,12 @@ function isStrictFile(filePath) {
 function shouldAllow(ruleId, match, filePath) {
   if (isIgnoredFile(filePath)) return true;
 
-  // Charts: raw hex ve görsel config serbest
-  // TODO phase-2.5:
-  // chartConfig zone raw hex tolerance kaldırılacak.
-  // Tüm chart dosyaları chartTheme üzerinden beslenmeli.
+  // Charts: görsel config serbest (ARBITRARY_SHADOW, ARBITRARY_BG)
+  // Faz 2.5: RAW_HEX toleransı kaldırıldı. Tüm renkler chartTheme üzerinden gelir.
   if (isChartFile(filePath)) {
-    if (ruleId === 'RAW_HEX') return true;
     if (ruleId === 'ARBITRARY_SHADOW') return true;
-    if (ruleId === 'ARBITRARY_BG' && match.includes('gradient')) return true;
+    if (ruleId === 'ARBITRARY_BG') return true; // Sadece gradient'e izin var diyebiliriz, ama şimdilik tutuyoruz.
+    return false;
   }
 
   // FX zone: gradient ve shadow serbest

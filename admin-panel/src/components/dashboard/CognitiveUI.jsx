@@ -120,7 +120,7 @@ export default function CognitiveUI({ isListening, onStartScan }) {
             variants={breathingVariants}
             animate="animate"
             onClick={onStartScan}
-            className={`px-8 py-4 rounded-full border border-sovereign-gold/50 text-sovereign-gold text-sm tracking-[0.15em] uppercase hover:bg-sovereign-gold hover:text-[#141416] transition-colors duration-500`}
+            className={`px-8 py-4 rounded-full border border-sovereign-gold/50 text-sovereign-gold text-sm tracking-[0.15em] uppercase hover:bg-sovereign-gold hover:text-sovereign-dark transition-colors duration-500`}
           >
             VIP Concierge'i Başlat
           </motion.button>

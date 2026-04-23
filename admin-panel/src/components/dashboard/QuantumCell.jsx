@@ -73,8 +73,8 @@ export default function QuantumCell({ stressLevel = 0 }) {
   const uniforms = useMemo(() => ({
     u_time: { value: 0.0 },
     u_stress: { value: normalizedStress },
-    u_colorBase: { value: new THREE.Color('#c6a96b') },   // Mat Pirinç
-    u_colorStress: { value: new THREE.Color('#141416') }  // İsli Sıcak Gri
+    u_colorBase: { value: new THREE.Color('var(--sovereign-gold)') },   // Mat Pirinç
+    u_colorStress: { value: new THREE.Color('var(--sovereign-dark)') }  // İsli Sıcak Gri
   }), []);
 
   // Animasyon Döngüsü (120 FPS hedefine kilitli R3F render loop)

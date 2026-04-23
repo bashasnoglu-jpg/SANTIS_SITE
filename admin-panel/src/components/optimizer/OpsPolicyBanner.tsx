@@ -14,8 +14,8 @@ export function OpsPolicyBanner({ data }: Props): JSX.Element | null {
   return (
     <div
       style={{
-        border: `1px solid ${isMitigated ? '#d97706' : '#ddd'}`,
-        background: isMitigated ? '#fff7ed' : '#f8fafc',
+        border: `1px solid ${isMitigated ? 'var(--sovereign-warning)' : 'var(--sovereign-neutral-300)'}`,
+        background: isMitigated ? 'var(--sovereign-surface)' : 'var(--sovereign-dark)',
         borderRadius: 10,
         padding: 16,
       }}
