@@ -45,12 +45,13 @@ try {
         console.log('\x1b[33m[SUPERVISOR]\x1b[0m Port Zombi Taraması Yapılıyor (Native Netstat)...\x1b[0m');
         const killPortWin = (port) => {
             try {
-                const out = execSync(`netstat -ano | findstr LISTENING | findstr :${port}`);
+                // Windows dilinden bağımsız olmak için LISTENING aramıyoruz.
+                const out = execSync(`netstat -ano | findstr :${port}`);
                 const lines = out.toString().split('\n');
                 for (const line of lines) {
                     const parts = line.trim().split(/\s+/);
                     if (parts.length >= 5 && parts[1].endsWith(`:${port}`)) {
-                        const pid = parts[4];
+                        const pid = parts[parts.length - 1]; // PID her zaman son elemandır
                         if (pid !== '0') {
                             execSync(`taskkill /F /PID ${pid} >nul 2>&1`);
                             console.log(`\x1b[32m[CLEANUP]\x1b[0m Killed zombie on port ${port} (PID: ${pid})`);

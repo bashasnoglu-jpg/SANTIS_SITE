@@ -1319,6 +1319,10 @@ function formatUptime(seconds) {
 
 // 🛡️ CRASH SHIELD: Sunucu hiçbir hatada çökmez
 process.on('uncaughtException', (err) => {
+    if (err.code === 'EADDRINUSE' || err.message.includes('EADDRINUSE')) {
+        console.error('🚨 [FATAL] Port in use, exiting so supervisor can retry:', err.message);
+        process.exit(1);
+    }
     console.error('🚨 [CRASH SHIELD] Uncaught Exception yakalandı (sunucu ayakta):', err.message);
 });
 process.on('unhandledRejection', (reason) => {

@@ -4,6 +4,7 @@ export default defineConfig({
   schema: './server/db/schema/*.ts',
   out: './server/db/migrations',
   dialect: 'postgresql',
+  tablesFilter: ['*theme*'],
   dbCredentials: {
     url: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/sovereign',
   },

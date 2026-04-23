@@ -1,18 +1,30 @@
 version: '3.8'
 
 services:
-  santis-sovereign:
-    build: .
-    container_name: santis-sovereign-gateway
-    restart: always
-    ports:
-      - "8080:8080"
+  postgres:
+    image: postgres:15-alpine
+    container_name: santis-sovereign-db
     environment:
-      - NODE_ENV=production
-      - PORT=8080
-    networks:
-      - sovereign-net
+      POSTGRES_USER: santis_admin
+      POSTGRES_PASSWORD: supersecretpassword
+      POSTGRES_DB: santis_core
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
-networks:
-  sovereign-net:
-    driver: bridge
+  quality-gate:
+    image: mcr.microsoft.com/playwright:v1.40.0-jammy
+    container_name: santis-quality-gate
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: ["npm", "run", "test:quality:runtime"]
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+
+volumes:
+  pgdata:

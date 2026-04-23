@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const TelemetryEventSchema = z.enum([
+  'BOOTLOADER_EVENT',
   'SNAPSHOT_VIEWED',
   'SERVICE_OPENED',
   'SLOT_SELECTED',
@@ -15,12 +16,7 @@ export const TelemetryEventSchema = z.enum([
   'HUMAN_CONCIERGE_REQUESTED',
 ]);
 
-export const TelemetrySourceSchema = z.enum([
-  'direct',
-  'hotel',
-  'concierge',
-  'campaign',
-]);
+export const TelemetrySourceSchema = z.string();
 
 export const TelemetryContextSchema = z.object({
   tenantId: z.string().min(1),

@@ -843,7 +843,7 @@ app.use("/api/theme", themeGovernanceRoutes);
 // Serve frontend static files
 app.use(express.static(process.cwd()));
 // Rewrite routes so 404 goes to index.html logic
-app.get('*', (req, res) => {
+app.get('/{*splat}', (req, res) => {
   if(req.url.startsWith('/admin')) {
     res.sendFile(path.join(process.cwd(), 'admin', 'index.html'));
   } else {

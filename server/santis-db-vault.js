@@ -4,7 +4,7 @@ const { Pool } = pg;
 
 // Sovereign DB Connection
 export const dbVault = new Pool({
-    connectionString: process.env.DATABASE_URL, // Örn: postgresql://user:pass@localhost:5432/sovereign
+    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/sovereign', // Örn: postgresql://user:pass@localhost:5432/sovereign
     max: 20, // Zero-bloat connection pooling
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,

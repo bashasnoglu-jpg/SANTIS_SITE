@@ -56,3 +56,17 @@ export const AuditActions = {
   TENANT_OVERRIDE_CREATED: 'TENANT_OVERRIDE_CREATED',
   SEED_INITIAL_THEME: 'SEED_INITIAL_THEME'
 } as const;
+
+export const ListThemeAuditQuerySchema = z.object({
+  limit: z.coerce.number().int().positive().max(200).optional(),
+  versionId: z.coerce.number().int().positive().optional()
+});
+
+export const ListThemeVersionsQuerySchema = z.object({
+  limit: z.coerce.number().int().positive().max(200).optional()
+});
+
+export const ThemeGovernanceActorSchema = z.object({
+  actor: z.string().min(1),
+  role: z.enum(['admin', 'system', 'operator']).optional()
+});

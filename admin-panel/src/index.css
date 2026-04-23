@@ -5,7 +5,7 @@
 @layer base {
   body {
     /* Eski 'bg-santis-bg' yerine yeni onaylı ilkel paletimizi (sovereign-dark) kullanıyoruz */
-    @apply bg-sovereign-dark text-sovereign-muted antialiased selection:bg-sovereign-brass/30 selection:text-white;
+    @apply bg-sovereign-dark text-sovereign-muted antialiased selection:bg-sovereign-gold/30 selection:text-white;
   }
 }
 

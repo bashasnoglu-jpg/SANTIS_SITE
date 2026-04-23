@@ -1,0 +1,7 @@
+{
+  "name": "@santis/event-dictionary",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

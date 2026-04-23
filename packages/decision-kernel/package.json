@@ -1,0 +1,13 @@
+{
+  "name": "@santis/decision-kernel",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/index.ts",
+    "./concierge": "./src/concierge/concierge.machine.ts"
+  },
+  "dependencies": {
+    "xstate": "^5.0.0",
+    "@santis/domain-schema": "workspace:*",
+    "@santis/event-dictionary": "workspace:*"
+  }
+}

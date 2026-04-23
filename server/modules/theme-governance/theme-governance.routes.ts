@@ -3,9 +3,12 @@ import {
   syncManifestToDatabase,
   activateThemeVersion,
   resolveThemeForTenant,
-  createTenantThemeOverrideVersion
+  createTenantThemeOverrideVersion,
+  listThemeVersionsForRead,
+  listThemeAuditForRead
 } from './theme-governance.service';
-import { listThemeVersions } from './theme-governance.repository';
+import { requireThemeWriteAccess } from './theme-governance.guard';
+import { ListThemeVersionsQuerySchema, ListThemeAuditQuerySchema } from './theme-governance.schemas';
 
 const router = Router();
 
@@ -28,19 +31,30 @@ router.get('/resolved', async (req: Request, res: Response, next: NextFunction) 
   }
 });
 
-router.get('/versions', async (_req: Request, res: Response, next: NextFunction) => {
+router.get('/versions', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const versions = await listThemeVersions();
+    const query = ListThemeVersionsQuerySchema.parse(req.query);
+    const versions = await listThemeVersionsForRead(query);
     res.json({ ok: true, data: versions });
   } catch (err) {
     next(err);
   }
 });
 
-router.post('/sync', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/audit', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const query = ListThemeAuditQuerySchema.parse(req.query);
+    const logs = await listThemeAuditForRead(query);
+    res.json({ ok: true, data: logs });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/sync', requireThemeWriteAccess, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const row = await syncManifestToDatabase({
-      deployedBy: req.body.deployedBy,
+      deployedBy: (req as any).themeActor,
       source: req.body.source,
       notes: req.body.notes
     });
@@ -51,20 +65,20 @@ router.post('/sync', async (req: Request, res: Response, next: NextFunction) => 
   }
 });
 
-router.post('/activate', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/activate', requireThemeWriteAccess, async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const row = await activateThemeVersion(req.body.versionId, req.body.actor);
+    const row = await activateThemeVersion(req.body.versionId, (req as any).themeActor);
     res.json({ ok: true, data: row });
   } catch (err) {
     next(err);
   }
 });
 
-router.post('/override', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/override', requireThemeWriteAccess, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const row = await createTenantThemeOverrideVersion({
       tenantId: req.body.tenantId,
-      approvedBy: req.body.approvedBy,
+      approvedBy: (req as any).themeActor,
       overridePayload: req.body.overridePayload
     });
 

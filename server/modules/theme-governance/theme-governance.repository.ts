@@ -24,9 +24,10 @@ export async function findThemeVersionById(id: number) {
   });
 }
 
-export async function listThemeVersions() {
+export async function listThemeVersions(params?: { limit?: number }) {
   return db.query.themeVersions.findMany({
-    orderBy: [desc(themeVersions.deployedAt)]
+    orderBy: [desc(themeVersions.deployedAt)],
+    limit: params?.limit
   });
 }
 
@@ -75,6 +76,28 @@ export async function insertThemeAuditLog(input: {
   }).returning();
 
   return row;
+}
+
+export async function listThemeAuditLog(params?: {
+  limit?: number;
+  versionId?: number;
+}) {
+  const queryLimit = params?.limit ?? 100;
+  
+  const conditions = [];
+  if (params?.versionId) {
+    conditions.push(eq(themeAuditLog.versionId, params.versionId));
+  }
+
+  const whereClause = conditions.length > 0 
+    ? (conditions.length === 1 ? conditions[0] : and(...conditions))
+    : undefined;
+
+  return db.query.themeAuditLog.findMany({
+    where: whereClause,
+    orderBy: [desc(themeAuditLog.createdAt)],
+    limit: queryLimit
+  });
 }
 
 export async function findActiveTenantOverride(tenantId: string) {

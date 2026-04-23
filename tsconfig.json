@@ -8,7 +8,12 @@
         "strict": true,
         "skipLibCheck": true,
         "outDir": "./dist",
-        "rootDir": "./"
+        "rootDir": "./",
+        "jsx": "react-jsx",
+        "baseUrl": ".",
+        "paths": {
+            "@santis/domain-schema/*": ["packages/domain-schema/src/*"]
+        }
     },
     "ts-node": {
         "esm": true

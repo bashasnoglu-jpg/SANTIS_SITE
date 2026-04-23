@@ -10,8 +10,17 @@ import {
   insertThemeAuditLog,
   findActiveTenantOverride,
   deactivateTenantOverrides,
-  createTenantOverride
+  createTenantOverride,
+  listThemeVersions,
+  listThemeAuditLog
 } from './theme-governance.repository';
+import {
+  getCache,
+  setCache,
+  deleteCache,
+  clearByPrefix,
+  buildResolvedThemeCacheKey
+} from './theme-governance.cache';
 import {
   RuntimeThemeManifestSchema,
   TenantThemeOverrideSchema,
@@ -80,13 +89,24 @@ export async function activateThemeVersion(versionId: number, actor: string) {
     details: { actor }
   });
 
+  deleteCache('active-theme');
+  clearByPrefix('resolved-theme:');
+
   return active;
 }
 
 export async function resolveThemeForTenant(tenantId?: string | null) {
-  const active = await findActiveThemeVersion();
+  const cacheKey = buildResolvedThemeCacheKey(tenantId);
+  const cached = getCache(cacheKey);
+  if (cached) return cached;
+
+  let active = getCache('active-theme') as Awaited<ReturnType<typeof findActiveThemeVersion>>;
   if (!active) {
-    throw new Error('No active theme version found');
+    active = await findActiveThemeVersion();
+    if (!active) {
+      throw new Error('No active theme version found');
+    }
+    setCache('active-theme', active);
   }
 
   const baseManifest = RuntimeThemeManifestSchema.parse(active.manifestPayload);
@@ -99,10 +119,14 @@ export async function resolveThemeForTenant(tenantId?: string | null) {
     }
   }
 
-  return resolveRuntimeTheme({
+  const resolved = resolveRuntimeTheme({
     baseManifest,
     tenantOverride: overridePayload
   });
+
+  setCache(cacheKey, resolved);
+
+  return resolved;
 }
 
 export async function createTenantThemeOverrideVersion(input: {
@@ -130,6 +154,8 @@ export async function createTenantThemeOverrideVersion(input: {
     }
   });
 
+  deleteCache(buildResolvedThemeCacheKey(input.tenantId));
+
   return row;
 }
 
@@ -156,4 +182,28 @@ export async function logViolation(versionHash: string, details: unknown) {
     action: AuditActions.VIOLATION_DETECTED,
     details: { versionHash, ...((typeof details === 'object' && details !== null) ? details : { raw: details }) }
   });
+}
+
+export async function listThemeVersionsForRead(params?: { limit?: number }) {
+  const versions = await listThemeVersions(params);
+  return versions.map(v => ({
+    id: v.id,
+    versionHash: v.versionHash,
+    isActive: v.isActive,
+    source: v.source,
+    notes: v.notes,
+    deployedAt: v.deployedAt,
+    deployedBy: v.deployedBy
+  }));
+}
+
+export async function listThemeAuditForRead(params?: { limit?: number; versionId?: number }) {
+  const logs = await listThemeAuditLog(params);
+  return logs.map(l => ({
+    id: l.id,
+    versionId: l.versionId,
+    action: l.action,
+    details: l.details,
+    createdAt: l.createdAt
+  }));
 }

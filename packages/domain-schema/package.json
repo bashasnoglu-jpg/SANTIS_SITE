@@ -1,0 +1,19 @@
+{
+  "name": "@santis/domain-schema",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/index.ts",
+    "./telemetry": "./src/telemetry/signal.schema.ts"
+  },
+  "scripts": {
+    "db:push": "drizzle-kit push"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.30.0",
+    "drizzle-zod": "^0.5.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.20.0"
+  }
+}

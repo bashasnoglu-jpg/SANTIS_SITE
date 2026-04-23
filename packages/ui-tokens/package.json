@@ -1,0 +1,10 @@
+{
+  "name": "@santis/ui-tokens",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/preset.ts"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}

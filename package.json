@@ -1,65 +1,31 @@
 {
-    "name": "santis-os",
-    "private": true,
-    "packageManager": "pnpm@8.15.5",
-    "workspaces": [
-        "apps/*",
-        "packages/*"
-    ],
-    "scripts": {
-        "start": "node server.js",
-        "dev": "node server.js",
-        "dev:vite": "vite --port 5173",
-        "build:vite": "vite build",
-        "build:kernel": "node build.mjs --kernel-only",
-        "build": "node build.mjs",
-        "build:esbuild": "echo 'Sovereign ESBuild Pipeline eklenecek' && node build.mjs",
-        "stitch:validate": "node packages/design-system/scripts/validate.js",
-        "stitch:check": "node packages/design-system/scripts/check.js",
-        "stitch:sync": "node packages/design-system/scripts/sync.js",
-        "stitch:lock": "node packages/design-system/scripts/lock.js",
-        "stitch:guard": "node packages/design-system/scripts/guard.js",
-        "stitch:clean": "node packages/design-system/scripts/clean.js",
-        "stitch:purge": "npm run stitch:clean && npm run stitch:enforce",
-        "stitch:refresh": "npm run stitch:sync && npm run stitch:validate && npm run stitch:lock && npm run stitch:check",
-        "stitch:enforce": "npm run stitch:validate && npm run stitch:check && npm run stitch:guard",
-        "health": "node -e \"fetch('http://localhost:8080/health').then(r=>r.json()).then(d=>console.log(JSON.stringify(d,null,2))).catch(()=>console.log('Server offline'))\"",
-        "test": "pnpm build && node full-e2e-report.js && python audit_site.py",
-        "dev:ui": "vite --port 3000 --host 0.0.0.0",
-        "dev:edge": "miniflare workers/santis-edge-worker.js --port 8787 --watch",
-        "dev:karata": "miniflare workers/santis-karata-worker.js --port 8788 --watch",
-        "clean:cache": "echo 🧹 Vercel ve Local onbellekleri imha ediliyor... [BASARILI]",
-        "lint:matrix": "echo 🧬 Kuantum kod agaci taraniyor... [KUSURSUZ]",
-        "test:chaos": "echo 🌪️ The Crucible (Celik Sinavi) Baslatiliyor... [Sinav Gecildi]",
-        "build:quantum": "node build.mjs",
-        "launch:sync": "node server.js",
-        "launch:sovereign": "npm-run-all -s clean:cache lint:matrix test:chaos build:quantum launch:sync"
-    },
-    "dependencies": {
-        "@google/generative-ai": "^0.24.1",
-        "@types/pg": "^8.20.0",
-        "cors": "^2.8.6",
-        "dotenv": "^17.3.1",
-        "drizzle-orm": "^0.45.2",
-        "express": "^5.2.1",
-        "jsdom": "^28.1.0",
-        "minimatch": "^10.2.5",
-        "node-fetch": "^3.3.2",
-        "pg": "^8.20.0",
-        "puppeteer": "^24.37.5",
-        "ws": "^8.19.0"
-    },
-    "devDependencies": {
-        "@babel/parser": "^7.29.2",
-        "@babel/traverse": "^7.29.0",
-        "autoprefixer": "^10.4.27",
-        "cross-env": "^10.1.0",
-        "drizzle-kit": "^0.31.10",
-        "miniflare": "latest",
-        "npm-run-all": "^4.1.5",
-        "postcss": "^8.5.8",
-        "tailwindcss": "^4.2.1",
-        "tsx": "^4.21.0",
-        "vite": "latest"
-    }
+  "name": "santis-sovereign-os",
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.1.0",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "db:push": "pnpm --filter @santis/domain-schema db:push",
+    "test:quality:static": "turbo run test:quality:static",
+    "test:quality:runtime": "turbo run test:quality:runtime"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.535.0",
+    "@aws-sdk/s3-request-presigner": "^3.535.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "pg": "^8.11.3",
+    "ws": "^8.16.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "turbo": "^1.13.0",
+    "typescript": "^5.4.0"
+  }
 }

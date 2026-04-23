@@ -233,7 +233,7 @@ export function SovereignBookingFlow() {
   };
 
   if (loading) {
-    return <div className="text-slate-400 p-12 text-center animate-pulse font-serif tracking-widest uppercase text-sm">Sovereign Gateway Bağlanıyor...</div>;
+    return <div className="text-text-secondary p-12 text-center animate-pulse font-serif tracking-widest uppercase text-sm">Sovereign Gateway Bağlanıyor...</div>;
   }
 
   if (!snapshot) {
@@ -280,9 +280,9 @@ export function SovereignBookingFlow() {
 
       {/* 2. Services Grid */}
       <div className="space-y-6">
-        <div className="flex items-center justify-between border-b border-white/10 pb-4">
-          <h3 className="text-sovereign-gold text-2xs font-black tracking-widest uppercase">Select Ritual</h3>
-          <span className="text-xs text-slate-500">{visibleServices.length} Available</span>
+        <div className="flex items-center justify-between border-b border-border-decorative pb-4">
+          <h3 className="text-accent-gold text-2xs font-black tracking-widest uppercase">Select Ritual</h3>
+          <span className="text-xs text-text-secondary">{visibleServices.length} Available</span>
         </div>
 
         <ServiceChoiceRail reduced={decision.shouldReduceChoices} visibleCount={visibleServices.length} totalCount={snapshot.services?.length || 0} />
@@ -294,15 +294,15 @@ export function SovereignBookingFlow() {
               onClick={() => handleServiceClick(svc, idx)}
               className={`text-left p-6 rounded-xl border transition-all duration-300 ${
                 selectedService?.id === svc.id 
-                  ? 'bg-white/10 border-sovereign-gold' 
-                  : 'bg-black/40 border-white/5 hover:border-white/20'
+                  ? 'bg-interactive-selected border-accent-gold' 
+                  : 'bg-surface-panel border-border-decorative hover:border-interactive-hover'
               }`}
             >
               <div className="flex justify-between items-start mb-2">
-                <span className="font-serif text-xl text-white">{svc.title}</span>
-                <span className="text-sovereign-gold font-serif text-lg">€{svc.price}</span>
+                <span className="font-serif text-xl text-text-primary">{svc.title}</span>
+                <span className="text-accent-gold font-serif text-lg">€{svc.price}</span>
               </div>
-              <div className="text-xs text-slate-400 uppercase tracking-widest flex justify-between">
+              <div className="text-xs text-text-secondary uppercase tracking-widest flex justify-between">
                 <span>{svc.category}</span>
                 <span>{svc.durationMin} MIN</span>
               </div>
@@ -314,9 +314,9 @@ export function SovereignBookingFlow() {
       {/* 3. Slot Selection (Visible if service selected) */}
       {selectedService && (
         <div className="space-y-6 animate-in slide-in-from-bottom-4 duration-500">
-           <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <h3 className="text-sovereign-gold text-2xs font-black tracking-widest uppercase">Available Slots</h3>
-              <span className="text-xs text-slate-500">For {selectedService.title}</span>
+           <div className="flex items-center justify-between border-b border-border-decorative pb-4">
+              <h3 className="text-accent-gold text-2xs font-black tracking-widest uppercase">Available Slots</h3>
+              <span className="text-xs text-text-secondary">For {selectedService.title}</span>
            </div>
 
            <SlotConfidenceHint minConfidence={decision.minSlotConfidence} hiddenCount={hiddenSlotCount} />
@@ -330,8 +330,8 @@ export function SovereignBookingFlow() {
                    onClick={() => handleSlotClick(slot)}
                    className={`px-6 py-3 rounded-lg border text-sm transition-all duration-300 ${
                      selectedSlot?.startIso === slot.startIso
-                       ? 'bg-sovereign-gold text-black border-sovereign-gold font-bold'
-                       : 'bg-black/40 border-white/10 text-slate-300 hover:border-white/30'
+                       ? 'bg-accent-gold text-text-on-gold border-accent-gold font-bold'
+                       : 'bg-surface-panel border-border-decorative text-text-primary hover:border-interactive-hover'
                    }`}
                  >
                    {time}
@@ -344,7 +344,7 @@ export function SovereignBookingFlow() {
 
       {/* 4. Request Quote & Intent Confirmation */}
       {selectedSlot && (
-        <div className="pt-8 border-t border-white/10 text-right animate-in slide-in-from-bottom-4 duration-500">
+        <div className="pt-8 border-t border-border-decorative text-right animate-in slide-in-from-bottom-4 duration-500">
           {!quote ? (
             <div className="flex flex-col items-end gap-3">
               {decision.shouldShowUrgency && (
@@ -352,17 +352,17 @@ export function SovereignBookingFlow() {
               )}
               <button 
                 onClick={handleRequestQuote}
-                className="bg-white text-black px-12 py-4 rounded-xl text-2xs font-bold uppercase tracking-widest hover:bg-sovereign-gold transition-all"
+                className="bg-text-primary text-bg-primary px-12 py-4 rounded-xl text-2xs font-bold uppercase tracking-widest hover:bg-accent-gold transition-all"
               >
                 Verify Availability & Get Quote
               </button>
             </div>
           ) : (
-            <div className="bg-white/5 border border-sovereign-gold/30 p-6 rounded-xl inline-block text-left layout-minw-300">
-              <div className="text-2xs text-sovereign-gold uppercase tracking-widest mb-4">Confirmed Quote ({quoteLatency}ms)</div>
+            <div className="bg-interactive-selected border border-accent-gold/30 p-6 rounded-xl inline-block text-left layout-minw-300">
+              <div className="text-2xs text-accent-gold uppercase tracking-widest mb-4">Confirmed Quote ({quoteLatency}ms)</div>
               <div className="flex justify-between items-end mb-4">
-                <span className="text-sm text-slate-300">Final Price</span>
-                <span className="text-3xl font-serif text-white">€{quote.finalPrice.amount}</span>
+                <span className="text-sm text-text-secondary">Final Price</span>
+                <span className="text-3xl font-serif text-text-primary">€{quote.finalPrice.amount}</span>
               </div>
               <div className="text-xs text-green-400 flex items-center gap-2 mb-6">
                 <div className="w-2 h-2 rounded-full bg-green-400"></div>
@@ -373,7 +373,7 @@ export function SovereignBookingFlow() {
                 <button 
                   onClick={handleConfirmIntent}
                   disabled={intentStatus === 'SUBMITTED'}
-                  className="w-full bg-sovereign-gold text-black px-6 py-3 rounded-lg text-2xs font-bold uppercase tracking-widest hover:bg-white transition-all disabled:opacity-50"
+                  className="w-full bg-accent-gold text-text-on-gold px-6 py-3 rounded-lg text-2xs font-bold uppercase tracking-widest hover:bg-text-primary hover:text-bg-primary transition-all disabled:opacity-50"
                 >
                   {intentStatus === 'SUBMITTED' ? 'Confirming...' : 'Confirm Intent & Pay'}
                 </button>

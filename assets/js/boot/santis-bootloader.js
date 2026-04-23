@@ -212,7 +212,12 @@
             fetch('/api/v1/telemetry/beacon', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ level, message, page: window.location.pathname }),
+                body: JSON.stringify({ 
+                    event: 'BOOTLOADER_EVENT',
+                    ts: new Date().toISOString(),
+                    context: { tenantId: 'santis-club', sessionId: 'boot', source: window.location.pathname },
+                    meta: { level, message }
+                }),
                 keepalive: true
             }).catch(() => {});
         }

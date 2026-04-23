@@ -5,6 +5,10 @@ import {
 import { insertThemeAuditLog } from '../../modules/theme-governance/theme-governance.repository';
 import { AuditActions } from '../../modules/theme-governance/theme-governance.schemas';
 
+if (!process.env.DATABASE_URL) {
+  process.env.DATABASE_URL = 'postgresql://postgres:postgres@localhost:5432/sovereign';
+}
+
 async function main() {
   console.log('Seeding theme governance...');
   
