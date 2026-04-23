@@ -10,7 +10,7 @@ const THEME = {
   colors: {
     bgCard: "bg-sovereign-dark/80 backdrop-blur-xl",
     borderBase: "border-white/5",
-    borderHighlight: "border-sovereign-gold/50 shadow-[0_0_30px_rgba(198,169,107,0.15)]",
+    borderHighlight: "border-sovereign-gold/50 fx-glow-soft-gold",
     textBrass: "text-sovereign-gold",
     textWhite: "text-zinc-50",
     textMuted: "text-zinc-500"

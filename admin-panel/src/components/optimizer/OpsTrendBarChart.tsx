@@ -1,3 +1,5 @@
+import { chartTheme } from '../../../../packages/design-system/chart-theme';
+
 interface Bar {
   label: string;
   value: number;
@@ -12,7 +14,7 @@ export function OpsTrendBarChart({ title, bars }: Props): JSX.Element {
   const max = Math.max(1, ...bars.map((bar) => bar.value));
 
   return (
-    <div style={{ border: '1px solid #ddd', borderRadius: 10, padding: 16, background: '#fff' }}>
+    <div style={{ border: `1px solid ${chartTheme.grid}`, borderRadius: 10, padding: 16, background: chartTheme.surface }}>
       <h3 style={{ marginTop: 0 }}>{title}</h3>
 
       {bars.length === 0 ? (
@@ -25,12 +27,12 @@ export function OpsTrendBarChart({ title, bars }: Props): JSX.Element {
                 <span>{bar.label}</span>
                 <strong>{bar.value}</strong>
               </div>
-              <div style={{ height: 10, background: '#eee', borderRadius: 999 }}>
+              <div style={{ height: 10, background: chartTheme.neutral200, borderRadius: 999 }}>
                 <div
                   style={{
                     width: `${(bar.value / max) * 100}%`,
                     height: '100%',
-                    background: '#222',
+                    background: chartTheme.primaryStrong,
                     borderRadius: 999,
                   }}
                 />

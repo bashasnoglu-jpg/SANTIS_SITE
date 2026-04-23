@@ -1,0 +1,73 @@
+:root {
+  --sovereign-dark: #141416;
+  --sovereign-surface: #202024;
+  --sovereign-panel: #2A2624;
+  --sovereign-obsidian: #1A1817;
+
+  --sovereign-gold: #c6a96b;
+  --sovereign-gold-strong: #D4AF37;
+  --sovereign-gold-deep: #C5A059;
+  --sovereign-gold-pressed: #B5952F;
+
+  --sovereign-ink: #E5E0D8;
+  --sovereign-text: #d6d6d8;
+  --sovereign-muted: #8f9095;
+
+  --sovereign-neutral-200: #e5e5e5;
+  --sovereign-neutral-300: #dddddd;
+  --sovereign-neutral-400: #cccccc;
+  --sovereign-neutral-500: #a3a3a3;
+  --sovereign-neutral-600: #666666;
+  --sovereign-neutral-700: #444444;
+  --sovereign-neutral-800: #404040;
+  --sovereign-neutral-900: #262626;
+
+  --sovereign-success: #10b981;
+  --sovereign-success-deep: #059669;
+  --sovereign-warning: #d97706;
+  --sovereign-danger: #ff3b30;
+}
+
+.fx-glow-soft-gold {
+  box-shadow: 0 0 30px rgba(212,175,55,0.05);
+}
+
+.fx-glow-medium-gold {
+  box-shadow: 0 0 10px rgba(212,175,55,0.5);
+}
+
+.fx-glow-accent {
+  box-shadow: 0 0 8px rgba(194,168,120,0.45);
+}
+
+.fx-shadow-panel {
+  box-shadow: 0 12px 48px 0 rgba(44,44,44,0.08);
+}
+
+.fx-shadow-luxury {
+  box-shadow: 0 18px 60px rgba(0,0,0,0.28);
+}
+
+.fx-bg-boardroom-radial {
+  background: radial-gradient(circle, rgba(194,168,120,0.03) 0%, transparent 70%);
+}
+
+.fx-divider-hairline-gold {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.35) 50%,
+    transparent 100%
+  );
+}
+
+.fx-divider-hairline-muted {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.08) 50%,
+    transparent 100%
+  );
+}

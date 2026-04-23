@@ -142,7 +142,7 @@ export default function Concierge() {
       </nav>
 
       {/* HERO */}
-      <header className="relative h-[70vh] flex items-center justify-center overflow-hidden">
+      <header className="relative layout-h-70vh flex items-center justify-center overflow-hidden">
         <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=2000" className="absolute inset-0 w-full h-full object-cover opacity-50" alt="Hero" />
         <div className="relative z-10 text-center px-6">
           <p className="text-sovereign-gold text-2xs tracking-[0.5em] uppercase font-bold mb-4">The Global Massage Atlas</p>
@@ -172,7 +172,7 @@ export default function Concierge() {
                     <button className="text-sovereign-gold text-2xs font-bold uppercase tracking-widest border-b border-sovereign-gold pb-1 hover:text-white hover:border-white transition-all">Devamını Oku</button>
                   </div>
                   <div className="flex-1 w-full">
-                    <img src={art.image} className="w-full h-[500px] object-cover rounded-sm shadow-2xl grayscale-[30%] hover:grayscale-0 transition-all duration-700" alt={art.title} />
+                    <img src={art.image} className="w-full layout-h-500 object-cover rounded-sm shadow-2xl grayscale-[30%] hover:grayscale-0 transition-all duration-700" alt={art.title} />
                   </div>
                 </div>
               ))}

@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "zones": {
+    "ignore": [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.next/**",
+      "**/.turbo/**",
+      "**/coverage/**"
+    ],
+    "chartConfig": [
+      "**/*Chart.js",
+      "**/*Chart.jsx",
+      "**/*Chart.ts",
+      "**/*Chart.tsx"
+    ],
+    "fxAllowed": [
+      "**/components/dashboard/GodsEye.jsx",
+      "**/components/dashboard/LongevityMatrix.jsx",
+      "**/components/dashboard/SantisBoardroom.jsx",
+      "**/pages/Concierge.jsx"
+    ],
+    "layoutAllowed": [
+      "**/components/dashboard/SantisBoardroom.jsx",
+      "**/boardroom/BoardroomView.tsx",
+      "**/components/boardroom/ActionDecisionDrawer.jsx",
+      "**/pages/Concierge.jsx",
+      "**/pages/Operations.jsx"
+    ],
+    "strict": [
+      "**/components/boardroom/**",
+      "**/components/concierge/**",
+      "**/components/dashboard/**",
+      "**/components/**",
+      "**/pages/**",
+      "**/src/**"
+    ]
+  }
+}

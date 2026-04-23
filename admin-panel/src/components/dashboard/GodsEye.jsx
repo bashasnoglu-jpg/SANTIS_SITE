@@ -23,13 +23,13 @@ const GodsEye = () => {
   const hotService = viewingServices.length > 0 ? viewingServices[0] : 'Radar Sessiz';
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 border border-santis-gold/20 p-6 rounded-xl bg-black/60 relative overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.05)]">
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-santis-gold/50 to-transparent"></div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 border border-santis-gold/20 p-6 rounded-xl bg-black/60 relative overflow-hidden fx-glow-soft-gold">
+      <div className="absolute top-0 left-0 w-full fx-divider-hairline-gold"></div>
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[30px] bg-santis-gold/20 blur-[30px] rounded-full"></div>
       
       <div className="md:col-span-2 mb-2 flex items-center justify-between">
         <h2 className="text-xl font-bold text-white tracking-widest flex items-center gap-3 uppercase">
-          <Eye className="text-santis-gold animate-pulse shadow-[0_0_10px_rgba(212,175,55,0.5)] rounded-full" size={24} />
+          <Eye className="text-santis-gold animate-pulse fx-glow-medium-gold rounded-full" size={24} />
           The God's Eye
         </h2>
         <span className="text-2xs text-santis-gold border border-santis-gold/30 bg-santis-gold/10 px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">

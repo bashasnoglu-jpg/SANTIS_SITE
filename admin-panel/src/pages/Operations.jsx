@@ -125,7 +125,7 @@ const Operations = () => {
                     </div>
                 </div>
 
-                <div className="bg-white/5 p-6 rounded-xl border border-santis-border shadow-lg h-[800px] text-white">
+                <div className="bg-white/5 p-6 rounded-xl border border-santis-border shadow-lg layout-h-800 text-white">
                     <DnDCalendar
                         localizer={localizer}
                         events={events}

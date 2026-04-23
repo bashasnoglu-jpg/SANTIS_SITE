@@ -190,7 +190,7 @@ export default function SantisBoardroom() {
       <main className="flex-1 flex flex-col min-h-screen overflow-hidden relative">
         
         {/* Ambient Glow */}
-        <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(194,168,120,0.03)_0%,transparent_70%)] rounded-full pointer-events-none z-0"></div>
+        <div className="absolute top-[-20%] right-[-10%] layout-panel-600 fx-bg-boardroom-radial rounded-full pointer-events-none z-0"></div>
 
         {/* ÜST BİLGİ ÇUBUĞU (Header) */}
         <header className="h-24 px-8 border-b border-sovereign-panel flex items-center justify-between bg-sovereign-coal/80 backdrop-blur-md z-10 sticky top-0">
@@ -250,12 +250,12 @@ export default function SantisBoardroom() {
                   <div className="mt-8 space-y-3">
                     <div className="flex items-center gap-3">
                       <span className="w-16 text-2xs uppercase text-sovereign-bronze tracking-widest">Gösterildi</span>
-                      <div className="flex-1 h-1.5 bg-sovereign-coal rounded-full overflow-hidden"><div className="h-full bg-sovereign-accent w-[24%]"></div></div>
+                      <div className="flex-1 h-1.5 bg-sovereign-coal rounded-full overflow-hidden"><div className="h-full bg-sovereign-accent layout-rail-left"></div></div>
                       <span className="w-8 text-right text-xs text-sovereign-ink">842</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <span className="w-16 text-2xs uppercase text-sovereign-bronze tracking-widest">Sessiz</span>
-                      <div className="flex-1 h-1.5 bg-sovereign-coal rounded-full overflow-hidden"><div className="h-full bg-sovereign-earth w-[76%]"></div></div>
+                      <div className="flex-1 h-1.5 bg-sovereign-coal rounded-full overflow-hidden"><div className="h-full bg-sovereign-earth layout-rail-main"></div></div>
                       <span className="w-8 text-right text-xs text-sovereign-ink">2.6k</span>
                     </div>
                   </div>
@@ -275,21 +275,21 @@ export default function SantisBoardroom() {
                         <span className="text-sovereign-ink">Bunalmış (Overwhelmed)</span>
                         <span className="text-sovereign-accent">45%</span>
                       </div>
-                      <div className="w-full h-1.5 bg-sovereign-coal rounded-full overflow-hidden"><div className="h-full bg-sovereign-accent w-[45%]"></div></div>
+                      <div className="w-full h-1.5 bg-sovereign-coal rounded-full overflow-hidden"><div className="h-full bg-sovereign-accent layout-split-45"></div></div>
                     </div>
                     <div>
                       <div className="flex justify-between text-xs mb-2">
                         <span className="text-sovereign-ink">Kararsız (Hesitant)</span>
                         <span className="text-sovereign-sand">35%</span>
                       </div>
-                      <div className="w-full h-1.5 bg-sovereign-coal rounded-full overflow-hidden"><div className="h-full bg-sovereign-sand w-[35%]"></div></div>
+                      <div className="w-full h-1.5 bg-sovereign-coal rounded-full overflow-hidden"><div className="h-full bg-sovereign-sand layout-split-35"></div></div>
                     </div>
                     <div>
                       <div className="flex justify-between text-xs mb-2">
                         <span className="text-sovereign-ink">Analitik (Analytical)</span>
                         <span className="text-sovereign-earth">20%</span>
                       </div>
-                      <div className="w-full h-1.5 bg-sovereign-coal rounded-full overflow-hidden"><div className="h-full bg-sovereign-earth w-[20%]"></div></div>
+                      <div className="w-full h-1.5 bg-sovereign-coal rounded-full overflow-hidden"><div className="h-full bg-sovereign-earth layout-split-20"></div></div>
                     </div>
                   </div>
                 </div>

@@ -31,7 +31,7 @@ export default function ActionDecisionDrawer({ item, onDecision }) {
         value={reason}
         onChange={(e) => setReason(e.target.value)}
         placeholder="Operator note..."
-        className="mb-3 min-h-[90px] w-full rounded-xl border border-white/10 bg-black/10 px-3 py-2 text-sm text-neutral-200 outline-none focus:border-white/20"
+        className="mb-3 layout-minh-90 w-full rounded-xl border border-white/10 bg-black/10 px-3 py-2 text-sm text-neutral-200 outline-none focus:border-white/20"
       />
 
       <div className="flex flex-wrap gap-2">

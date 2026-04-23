@@ -1,3 +1,5 @@
+import { chartTheme } from '../../../../packages/design-system/chart-theme';
+
 interface Point {
   label: string;
   value: number;
@@ -40,19 +42,19 @@ export function OpsTrendLineChart({
     .join(' ');
 
   return (
-    <div style={{ border: '1px solid #ddd', borderRadius: 10, padding: 16, background: '#fff' }}>
+    <div style={{ border: `1px solid ${chartTheme.grid}`, borderRadius: 10, padding: 16, background: chartTheme.surface }}>
       <h3 style={{ marginTop: 0 }}>{title}</h3>
       {points.length === 0 ? (
         <div>No trend data.</div>
       ) : (
         <>
           <svg width="100%" viewBox={`0 0 ${width} ${height}`}>
-            <path d={d} fill="none" stroke="#222" strokeWidth="2" />
+            <path d={d} fill="none" stroke={chartTheme.primaryStrong} strokeWidth="2" />
             {points.map((point, index) => {
               const x = padding + index * xStep;
               const y = toY(point.value);
 
-              return <circle key={`${point.label}-${index}`} cx={x} cy={y} r="3" fill="#222" />;
+              return <circle key={`${point.label}-${index}`} cx={x} cy={y} r="3" fill={chartTheme.primaryStrong} />;
             })}
           </svg>
           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, opacity: 0.7 }}>

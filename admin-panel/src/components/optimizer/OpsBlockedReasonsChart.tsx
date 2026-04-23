@@ -1,5 +1,5 @@
 import type { OptimizerOpsResponse } from '../../types/optimizer-ops';
-
+import { chartTheme } from '../../../../packages/design-system/chart-theme';
 interface Props {
   data: OptimizerOpsResponse;
 }
@@ -9,7 +9,7 @@ export function OpsBlockedReasonsChart({ data }: Props): JSX.Element {
   const maxValue = Math.max(1, ...entries.map(([, count]) => count));
 
   return (
-    <div style={{ border: '1px solid #ddd', borderRadius: 10, padding: 16, background: '#fff' }}>
+    <div style={{ border: `1px solid ${chartTheme.grid}`, borderRadius: 10, padding: 16, background: chartTheme.surface }}>
       <h3 style={{ marginTop: 0 }}>Blocked Reasons</h3>
 
       {entries.length === 0 ? (
@@ -22,12 +22,12 @@ export function OpsBlockedReasonsChart({ data }: Props): JSX.Element {
                 <span>{reason}</span>
                 <strong>{count}</strong>
               </div>
-              <div style={{ height: 10, background: '#eee', borderRadius: 999 }}>
+              <div style={{ height: 10, background: chartTheme.neutral200, borderRadius: 999 }}>
                 <div
                   style={{
                     width: `${(count / maxValue) * 100}%`,
                     height: '100%',
-                    background: '#222',
+                    background: chartTheme.primaryStrong,
                     borderRadius: 999,
                   }}
                 />
