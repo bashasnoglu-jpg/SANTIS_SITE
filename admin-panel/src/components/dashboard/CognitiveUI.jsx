@@ -8,10 +8,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const THEME = {
   colors: {
-    textBrass: "text-[#c6a96b]",
-    bgBrass: "bg-[#c6a96b]",
-    borderBrass: "border-[#c6a96b]/30",
-    textMuted: "text-[#c6a96b]/60"
+    textBrass: "text-sovereign-gold",
+    bgBrass: "bg-sovereign-gold",
+    borderBrass: "border-sovereign-gold/30",
+    textMuted: "text-sovereign-gold/60"
   }
 };
 
@@ -120,7 +120,7 @@ export default function CognitiveUI({ isListening, onStartScan }) {
             variants={breathingVariants}
             animate="animate"
             onClick={onStartScan}
-            className={`px-8 py-4 rounded-full border border-[#c6a96b]/50 text-[#c6a96b] text-sm tracking-[0.15em] uppercase hover:bg-[#c6a96b] hover:text-[#141416] transition-colors duration-500`}
+            className={`px-8 py-4 rounded-full border border-sovereign-gold/50 text-sovereign-gold text-sm tracking-[0.15em] uppercase hover:bg-sovereign-gold hover:text-[#141416] transition-colors duration-500`}
           >
             VIP Concierge'i Başlat
           </motion.button>
@@ -130,7 +130,7 @@ export default function CognitiveUI({ isListening, onStartScan }) {
             animate={{ opacity: 1 }}
             className="flex items-center justify-center space-x-3"
           >
-            <div className="w-2 h-2 bg-[#c6a96b] rounded-full animate-ping"></div>
+            <div className="w-2 h-2 bg-sovereign-gold rounded-full animate-ping"></div>
             <span className={`text-sm tracking-widest uppercase ${THEME.colors.textBrass}`}>
               Biyobelirteçler Analiz Ediliyor...
             </span>

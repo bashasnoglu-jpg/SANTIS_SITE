@@ -5,7 +5,7 @@ export default function OptimizerInsightRail({ recommendations }) {
 
   return (
     <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div className="mb-3 text-[10px] uppercase tracking-[0.24em] text-neutral-500">
+      <div className="mb-3 text-2xs uppercase tracking-[0.24em] text-neutral-500">
         Optimizer Insights
       </div>
 
@@ -17,7 +17,7 @@ export default function OptimizerInsightRail({ recommendations }) {
           >
             <div className="flex items-center justify-between">
               <span className="font-semibold">{item.thresholdKey}</span>
-              <span className={`text-[10px] font-bold tracking-widest ${item.direction === 'hold' ? 'text-neutral-500' : 'text-amber-400'}`}>{item.direction.toUpperCase()}</span>
+              <span className={`text-2xs font-bold tracking-widest ${item.direction === 'hold' ? 'text-neutral-500' : 'text-amber-400'}`}>{item.direction.toUpperCase()}</span>
             </div>
 
             <div className="mt-1 text-[11px] text-neutral-500">

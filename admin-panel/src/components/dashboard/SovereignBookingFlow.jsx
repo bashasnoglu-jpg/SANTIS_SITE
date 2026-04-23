@@ -281,7 +281,7 @@ export function SovereignBookingFlow() {
       {/* 2. Services Grid */}
       <div className="space-y-6">
         <div className="flex items-center justify-between border-b border-white/10 pb-4">
-          <h3 className="text-[#c6a96b] text-[10px] font-black tracking-widest uppercase">Select Ritual</h3>
+          <h3 className="text-sovereign-gold text-2xs font-black tracking-widest uppercase">Select Ritual</h3>
           <span className="text-xs text-slate-500">{visibleServices.length} Available</span>
         </div>
 
@@ -294,13 +294,13 @@ export function SovereignBookingFlow() {
               onClick={() => handleServiceClick(svc, idx)}
               className={`text-left p-6 rounded-xl border transition-all duration-300 ${
                 selectedService?.id === svc.id 
-                  ? 'bg-white/10 border-[#c6a96b]' 
+                  ? 'bg-white/10 border-sovereign-gold' 
                   : 'bg-black/40 border-white/5 hover:border-white/20'
               }`}
             >
               <div className="flex justify-between items-start mb-2">
                 <span className="font-serif text-xl text-white">{svc.title}</span>
-                <span className="text-[#c6a96b] font-serif text-lg">€{svc.price}</span>
+                <span className="text-sovereign-gold font-serif text-lg">€{svc.price}</span>
               </div>
               <div className="text-xs text-slate-400 uppercase tracking-widest flex justify-between">
                 <span>{svc.category}</span>
@@ -315,7 +315,7 @@ export function SovereignBookingFlow() {
       {selectedService && (
         <div className="space-y-6 animate-in slide-in-from-bottom-4 duration-500">
            <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <h3 className="text-[#c6a96b] text-[10px] font-black tracking-widest uppercase">Available Slots</h3>
+              <h3 className="text-sovereign-gold text-2xs font-black tracking-widest uppercase">Available Slots</h3>
               <span className="text-xs text-slate-500">For {selectedService.title}</span>
            </div>
 
@@ -330,7 +330,7 @@ export function SovereignBookingFlow() {
                    onClick={() => handleSlotClick(slot)}
                    className={`px-6 py-3 rounded-lg border text-sm transition-all duration-300 ${
                      selectedSlot?.startIso === slot.startIso
-                       ? 'bg-[#c6a96b] text-black border-[#c6a96b] font-bold'
+                       ? 'bg-sovereign-gold text-black border-sovereign-gold font-bold'
                        : 'bg-black/40 border-white/10 text-slate-300 hover:border-white/30'
                    }`}
                  >
@@ -352,14 +352,14 @@ export function SovereignBookingFlow() {
               )}
               <button 
                 onClick={handleRequestQuote}
-                className="bg-white text-black px-12 py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-[#c6a96b] transition-all"
+                className="bg-white text-black px-12 py-4 rounded-xl text-2xs font-bold uppercase tracking-widest hover:bg-sovereign-gold transition-all"
               >
                 Verify Availability & Get Quote
               </button>
             </div>
           ) : (
-            <div className="bg-white/5 border border-[#c6a96b]/30 p-6 rounded-xl inline-block text-left min-w-[300px]">
-              <div className="text-[10px] text-[#c6a96b] uppercase tracking-widest mb-4">Confirmed Quote ({quoteLatency}ms)</div>
+            <div className="bg-white/5 border border-sovereign-gold/30 p-6 rounded-xl inline-block text-left min-w-[300px]">
+              <div className="text-2xs text-sovereign-gold uppercase tracking-widest mb-4">Confirmed Quote ({quoteLatency}ms)</div>
               <div className="flex justify-between items-end mb-4">
                 <span className="text-sm text-slate-300">Final Price</span>
                 <span className="text-3xl font-serif text-white">€{quote.finalPrice.amount}</span>
@@ -373,19 +373,19 @@ export function SovereignBookingFlow() {
                 <button 
                   onClick={handleConfirmIntent}
                   disabled={intentStatus === 'SUBMITTED'}
-                  className="w-full bg-[#c6a96b] text-black px-6 py-3 rounded-lg text-[10px] font-bold uppercase tracking-widest hover:bg-white transition-all disabled:opacity-50"
+                  className="w-full bg-sovereign-gold text-black px-6 py-3 rounded-lg text-2xs font-bold uppercase tracking-widest hover:bg-white transition-all disabled:opacity-50"
                 >
                   {intentStatus === 'SUBMITTED' ? 'Confirming...' : 'Confirm Intent & Pay'}
                 </button>
               )}
               
               {intentStatus === 'CONFIRMED' && (
-                <div className="w-full text-center border border-green-500/50 bg-green-500/10 text-green-400 px-6 py-3 rounded-lg text-[10px] font-bold uppercase tracking-widest">
+                <div className="w-full text-center border border-green-500/50 bg-green-500/10 text-green-400 px-6 py-3 rounded-lg text-2xs font-bold uppercase tracking-widest">
                   Intent Confirmed - Boardroom Updated
                 </div>
               )}
               {intentStatus === 'FAILED' && (
-                <div className="w-full text-center border border-red-500/50 bg-red-500/10 text-red-400 px-6 py-3 rounded-lg text-[10px] font-bold uppercase tracking-widest mt-2">
+                <div className="w-full text-center border border-red-500/50 bg-red-500/10 text-red-400 px-6 py-3 rounded-lg text-2xs font-bold uppercase tracking-widest mt-2">
                   Intent Failed - Try Again
                 </div>
               )}

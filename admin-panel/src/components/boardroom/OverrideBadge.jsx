@@ -11,7 +11,7 @@ export default function OverrideBadge({ status, severity, autoExecutable }) {
   }[status] || 'text-neutral-400';
 
   return (
-    <div className="flex flex-col items-end gap-1 text-[10px] uppercase tracking-[0.18em]">
+    <div className="flex flex-col items-end gap-1 text-2xs uppercase tracking-[0.18em]">
       <span className={autoExecutable ? 'text-amber-400' : 'text-neutral-300'}>{autoExecutable ? 'AUTO' : 'ADVISORY'}</span>
       <span className="text-neutral-500">{severity}</span>
       <span className={`font-bold ${statusColor}`}>{status}</span>

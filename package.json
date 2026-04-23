@@ -19,6 +19,8 @@
         "stitch:sync": "node packages/design-system/scripts/sync.js",
         "stitch:lock": "node packages/design-system/scripts/lock.js",
         "stitch:guard": "node packages/design-system/scripts/guard.js",
+        "stitch:clean": "node packages/design-system/scripts/clean.js",
+        "stitch:purge": "npm run stitch:clean && npm run stitch:enforce",
         "stitch:refresh": "npm run stitch:sync && npm run stitch:validate && npm run stitch:lock && npm run stitch:check",
         "stitch:enforce": "npm run stitch:validate && npm run stitch:check && npm run stitch:guard",
         "health": "node -e \"fetch('http://localhost:8080/health').then(r=>r.json()).then(d=>console.log(JSON.stringify(d,null,2))).catch(()=>console.log('Server offline'))\"",

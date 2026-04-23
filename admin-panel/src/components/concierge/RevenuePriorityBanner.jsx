@@ -5,7 +5,7 @@ export default function RevenuePriorityBanner({ service, showAnchorPrice }) {
 
   return (
     <div className="rounded-2xl border border-amber-400/15 bg-amber-400/8 px-4 py-4 text-neutral-200">
-      <div className="mb-1 text-[10px] uppercase tracking-[0.24em] text-amber-300/80">
+      <div className="mb-1 text-2xs uppercase tracking-[0.24em] text-amber-300/80">
         Best Fit Right Now
       </div>
 

@@ -7,7 +7,7 @@ export function ConciergeAssistBanner(props) {
 
   return (
     <div className="rounded-2xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-neutral-200 mb-4 animate-in fade-in duration-500">
-      <div className="mb-1 text-[10px] uppercase tracking-[0.24em] text-amber-300/80">
+      <div className="mb-1 text-2xs uppercase tracking-[0.24em] text-amber-300/80">
         Concierge Assist
       </div>
       <div>{message}</div>

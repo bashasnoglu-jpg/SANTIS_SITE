@@ -3,7 +3,7 @@
     "name": "Santis Visual Truth",
     "version": "1.0.0",
     "source": "stitch-manual",
-    "updatedAt": "2026-04-23T07:00:00Z"
+    "updatedAt": "2026-04-23T06:07:16.752Z"
   },
   "colors": {
     "sovereign-dark": "#141416",
@@ -11,13 +11,27 @@
     "sovereign-gold": "#c6a96b",
     "sovereign-text": "#d6d6d8",
     "sovereign-muted": "#8f9095",
-    "sovereign-border": "rgba(255,255,255,0.06)"
+    "sovereign-border": "rgba(255,255,255,0.06)",
+    "sovereign-panel": "#2A2624",
+    "sovereign-ink": "#E5E0D8",
+    "sovereign-sand": "#B7ADA1",
+    "sovereign-bronze": "#857B74",
+    "sovereign-accent": "#C2A878",
+    "sovereign-earth": "#6E5946",
+    "sovereign-black": "#0a0a0b"
   },
   "fontFamily": {
-    "heading": ["Cinzel", "serif"],
-    "body": ["Inter", "sans-serif"]
+    "heading": [
+      "Cinzel",
+      "serif"
+    ],
+    "body": [
+      "Inter",
+      "sans-serif"
+    ]
   },
   "fontSize": {
+    "2xs": "0.625rem",
     "xs": "0.75rem",
     "sm": "0.875rem",
     "base": "1rem",
@@ -50,7 +64,8 @@
   },
   "shadow": {
     "soft": "0 10px 30px rgba(0,0,0,0.18)",
-    "luxury": "0 18px 60px rgba(0,0,0,0.28)"
+    "luxury": "0 18px 60px rgba(0,0,0,0.28)",
+    "accent-glow": "0 0 8px rgba(194,168,120,0.45)"
   },
   "easing": {
     "sovereign": "cubic-bezier(0.22, 1, 0.36, 1)"

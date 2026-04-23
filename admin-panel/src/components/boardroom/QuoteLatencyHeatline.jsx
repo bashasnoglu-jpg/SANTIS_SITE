@@ -5,7 +5,7 @@ export default function QuoteLatencyHeatline({ avgQuoteLatencyMs }) {
   
   return (
     <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div className="mb-3 text-[10px] uppercase tracking-[0.24em] text-neutral-500">
+      <div className="mb-3 text-2xs uppercase tracking-[0.24em] text-neutral-500">
         Quote Latency Heatline
       </div>
 

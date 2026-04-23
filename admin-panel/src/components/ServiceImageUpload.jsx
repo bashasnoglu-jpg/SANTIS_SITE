@@ -52,7 +52,7 @@ export default function ServiceImageUpload({ currentImage, onImageUploaded }) {
         <div className="w-full mb-6">
             <label className="block text-sm font-medium text-gray-300 mb-2 uppercase tracking-wide">Ritüel Görseli (Sovereign Oranı: 4/5)</label>
             <div
-                className={`relative flex flex-col items-center justify-center w-full aspect-[4/5] max-h-80 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-300 overflow-hidden ${isDragging ? 'border-[#D4AF37] bg-[#D4AF37]/10' : 'border-gray-600 bg-[#0a0a0a] hover:border-gray-400'
+                className={`relative flex flex-col items-center justify-center w-full aspect-[4/5] max-h-80 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-300 overflow-hidden ${isDragging ? 'border-[#D4AF37] bg-[#D4AF37]/10' : 'border-gray-600 bg-sovereign-black hover:border-gray-400'
                     }`}
                 onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
                 onDragLeave={() => setIsDragging(false)}
@@ -81,7 +81,7 @@ export default function ServiceImageUpload({ currentImage, onImageUploaded }) {
                     <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-20">
                         <span className="text-[#D4AF37] font-bold text-3xl mb-4">{progress}%</span>
                         <div className="w-2/3 bg-gray-800 h-2 rounded-full overflow-hidden">
-                            <div className="bg-[#D4AF37] h-full transition-all duration-300 shadow-[0_0_10px_#D4AF37]" style={{ width: `${progress}%` }}></div>
+                            <div className="bg-[#D4AF37] h-full transition-all duration-300 shadow-accent-glow" style={{ width: `${progress}%` }}></div>
                         </div>
                     </div>
                 )}

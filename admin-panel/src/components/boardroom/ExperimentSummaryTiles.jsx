@@ -19,7 +19,7 @@ export default function ExperimentSummaryTiles({
 function Tile({ label, value }) {
   return (
     <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-3">
-      <div className="mb-1 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
+      <div className="mb-1 text-2xs uppercase tracking-[0.18em] text-neutral-500">
         {label}
       </div>
       <div className="text-sm font-medium text-neutral-200">{value}</div>

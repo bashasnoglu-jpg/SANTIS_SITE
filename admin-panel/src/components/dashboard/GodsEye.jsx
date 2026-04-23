@@ -32,7 +32,7 @@ const GodsEye = () => {
           <Eye className="text-santis-gold animate-pulse shadow-[0_0_10px_rgba(212,175,55,0.5)] rounded-full" size={24} />
           The God's Eye
         </h2>
-        <span className="text-[10px] text-santis-gold border border-santis-gold/30 bg-santis-gold/10 px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">
+        <span className="text-2xs text-santis-gold border border-santis-gold/30 bg-santis-gold/10 px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">
           Live Radar
         </span>
       </div>

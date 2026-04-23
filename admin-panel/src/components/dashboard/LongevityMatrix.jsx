@@ -8,10 +8,10 @@ import { motion } from 'framer-motion';
 
 const THEME = {
   colors: {
-    bgCard: "bg-[#141416]/80 backdrop-blur-xl",
+    bgCard: "bg-sovereign-dark/80 backdrop-blur-xl",
     borderBase: "border-white/5",
-    borderHighlight: "border-[#c6a96b]/50 shadow-[0_0_30px_rgba(198,169,107,0.15)]",
-    textBrass: "text-[#c6a96b]",
+    borderHighlight: "border-sovereign-gold/50 shadow-[0_0_30px_rgba(198,169,107,0.15)]",
+    textBrass: "text-sovereign-gold",
     textWhite: "text-zinc-50",
     textMuted: "text-zinc-500"
   }
@@ -68,7 +68,7 @@ export default function LongevityMatrix({ userStressScore }) {
         {/* 2. SOVEREIGN CHOICE (HEDEF) - Algısal olarak en mantıklı seçenek */}
         <motion.div variants={cardVariants} className={`flex-1 w-full max-w-md p-10 rounded-2xl border ${THEME.colors.borderHighlight} ${THEME.colors.bgCard} transform lg:-translate-y-4 relative z-10`}>
           {/* Dikkat çekici rozet */}
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#c6a96b] text-[#141416] px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-sovereign-gold text-[#141416] px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg">
             Sovereign Optimum
           </div>
           
@@ -82,11 +82,11 @@ export default function LongevityMatrix({ userStressScore }) {
             <span className={`text-5xl font-light ${THEME.colors.textBrass}`}>$8,500</span>
           </div>
           <ul className="space-y-4 mb-8 text-sm text-zinc-400">
-            <li className="flex items-center gap-3"><span className="text-[#c6a96b]">✓</span> Sothys Paris Entegrasyonu</li>
-            <li className="flex items-center gap-3"><span className="text-[#c6a96b]">✓</span> 7/24 Biyometrik Takip</li>
-            <li className="flex items-center gap-3"><span className="text-[#c6a96b]">✓</span> Karadağ VIP Transfer</li>
+            <li className="flex items-center gap-3"><span className="text-sovereign-gold">✓</span> Sothys Paris Entegrasyonu</li>
+            <li className="flex items-center gap-3"><span className="text-sovereign-gold">✓</span> 7/24 Biyometrik Takip</li>
+            <li className="flex items-center gap-3"><span className="text-sovereign-gold">✓</span> Karadağ VIP Transfer</li>
           </ul>
-          <button className="w-full py-4 rounded-lg bg-[#c6a96b] text-[#141416] font-semibold text-sm tracking-widest uppercase hover:bg-white hover:shadow-lg hover:shadow-white/20 transition-all">
+          <button className="w-full py-4 rounded-lg bg-sovereign-gold text-[#141416] font-semibold text-sm tracking-widest uppercase hover:bg-white hover:shadow-lg hover:shadow-white/20 transition-all">
             Klinik Kaydı Başlat
           </button>
         </motion.div>

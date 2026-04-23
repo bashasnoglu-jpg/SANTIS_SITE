@@ -82,8 +82,8 @@ const MenuItem = ({ name, desc, time, price, dark = false }) => (
       {desc && <p className={`text-xs font-light mt-1 ${dark ? 'text-white/40' : 'text-slate-500'}`}>{desc}</p>}
     </div>
     <div className="flex gap-4 items-baseline mt-2 md:mt-0">
-      <span className="text-[10px] tracking-widest uppercase text-slate-500">{time}</span>
-      <span className={`font-serif text-lg ${dark ? 'text-[#c6a96b]' : 'text-slate-900'}`}>{price}</span>
+      <span className="text-2xs tracking-widest uppercase text-slate-500">{time}</span>
+      <span className={`font-serif text-lg ${dark ? 'text-sovereign-gold' : 'text-slate-900'}`}>{price}</span>
     </div>
   </li>
 );
@@ -126,16 +126,16 @@ export default function Concierge() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0b] text-slate-300 font-sans selection:bg-[#c6a96b] selection:text-black">
+    <div className="min-h-screen bg-sovereign-black text-slate-300 font-sans selection:bg-sovereign-gold selection:text-black">
       
       {/* NAVIGATION */}
       <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-black/90 backdrop-blur-md py-4' : 'bg-transparent py-8'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <div className="text-2xl font-serif tracking-[0.3em] text-white uppercase">SANTIS</div>
-          <div className="hidden md:flex gap-8 text-[10px] tracking-[0.2em] font-bold uppercase">
-            <button onClick={() => setActiveTab('magazine')} className={`hover:text-[#c6a96b] ${activeTab === 'magazine' ? 'text-[#c6a96b]' : ''}`}>Dergi</button>
-            <button onClick={() => setActiveTab('concierge')} className={`hover:text-[#c6a96b] ${activeTab === 'concierge' ? 'text-[#c6a96b]' : ''}`}>AI Concierge</button>
-            <button onClick={() => setActiveTab('menu')} className={`hover:text-[#c6a96b] ${activeTab === 'menu' ? 'text-[#c6a96b]' : ''}`}>Menü</button>
+          <div className="hidden md:flex gap-8 text-2xs tracking-[0.2em] font-bold uppercase">
+            <button onClick={() => setActiveTab('magazine')} className={`hover:text-sovereign-gold ${activeTab === 'magazine' ? 'text-sovereign-gold' : ''}`}>Dergi</button>
+            <button onClick={() => setActiveTab('concierge')} className={`hover:text-sovereign-gold ${activeTab === 'concierge' ? 'text-sovereign-gold' : ''}`}>AI Concierge</button>
+            <button onClick={() => setActiveTab('menu')} className={`hover:text-sovereign-gold ${activeTab === 'menu' ? 'text-sovereign-gold' : ''}`}>Menü</button>
           </div>
           <button className="md:hidden text-white"><Menu /></button>
         </div>
@@ -145,10 +145,10 @@ export default function Concierge() {
       <header className="relative h-[70vh] flex items-center justify-center overflow-hidden">
         <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=2000" className="absolute inset-0 w-full h-full object-cover opacity-50" alt="Hero" />
         <div className="relative z-10 text-center px-6">
-          <p className="text-[#c6a96b] text-[10px] tracking-[0.5em] uppercase font-bold mb-4">The Global Massage Atlas</p>
+          <p className="text-sovereign-gold text-2xs tracking-[0.5em] uppercase font-bold mb-4">The Global Massage Atlas</p>
           <h1 className="text-5xl md:text-7xl font-serif text-white mb-6 uppercase tracking-tighter">Dokunuşun Sanatı</h1>
           <div className="flex justify-center gap-4">
-             <button onClick={() => setActiveTab('concierge')} className="bg-[#c6a96b] text-black px-8 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-white transition-all">Sistemi Başlat</button>
+             <button onClick={() => setActiveTab('concierge')} className="bg-sovereign-gold text-black px-8 py-3 text-2xs font-bold uppercase tracking-widest hover:bg-white transition-all">Sistemi Başlat</button>
           </div>
         </div>
       </header>
@@ -163,13 +163,13 @@ export default function Concierge() {
               {articles.map((art, idx) => (
                 <div key={art.id} className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-16 items-center`}>
                   <div className="flex-1 space-y-6">
-                    <div className="flex items-center gap-3 text-[#c6a96b]">
+                    <div className="flex items-center gap-3 text-sovereign-gold">
                       <art.icon size={20} />
-                      <span className="text-[10px] tracking-[0.3em] font-bold uppercase">{art.kicker}</span>
+                      <span className="text-2xs tracking-[0.3em] font-bold uppercase">{art.kicker}</span>
                     </div>
                     <h2 className="text-4xl font-serif text-white">{art.title}</h2>
                     <p className="text-slate-400 font-light leading-relaxed text-lg">{art.content}</p>
-                    <button className="text-[#c6a96b] text-[10px] font-bold uppercase tracking-widest border-b border-[#c6a96b] pb-1 hover:text-white hover:border-white transition-all">Devamını Oku</button>
+                    <button className="text-sovereign-gold text-2xs font-bold uppercase tracking-widest border-b border-sovereign-gold pb-1 hover:text-white hover:border-white transition-all">Devamını Oku</button>
                   </div>
                   <div className="flex-1 w-full">
                     <img src={art.image} className="w-full h-[500px] object-cover rounded-sm shadow-2xl grayscale-[30%] hover:grayscale-0 transition-all duration-700" alt={art.title} />
@@ -186,20 +186,20 @@ export default function Concierge() {
              {step === 1 && (
                <div className="bg-white/5 border border-white/10 p-12 rounded-2xl backdrop-blur-xl">
                  <div className="text-center mb-10">
-                   <Bot className="mx-auto mb-4 text-[#c6a96b]" size={48} />
+                   <Bot className="mx-auto mb-4 text-sovereign-gold" size={48} />
                    <h2 className="text-3xl font-serif text-white mb-2">Size nasıl yardımcı olabiliriz?</h2>
                    <p className="text-slate-500 font-light text-sm">Bedeninizin veya zihninizin problemini kısaca anlatın.</p>
                  </div>
                  <textarea 
                    value={aiInput}
                    onChange={(e) => setAiInput(e.target.value)}
-                   className="w-full bg-black/50 border border-white/10 rounded-xl p-6 h-40 text-white focus:border-[#c6a96b] outline-none transition-all resize-none text-lg"
+                   className="w-full bg-black/50 border border-white/10 rounded-xl p-6 h-40 text-white focus:border-sovereign-gold outline-none transition-all resize-none text-lg"
                    placeholder="Örn: Boynum kilitlendi, çok stresliyim..."
                  />
                  <button 
                    onClick={() => handleAnalysis()}
                    disabled={isAnalyzing}
-                   className="w-full mt-6 bg-[#c6a96b] text-black py-5 rounded-xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:bg-white transition-all shadow-xl shadow-[#c6a96b]/10 disabled:opacity-50"
+                   className="w-full mt-6 bg-sovereign-gold text-black py-5 rounded-xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:bg-white transition-all shadow-xl shadow-[#c6a96b]/10 disabled:opacity-50"
                  >
                    ✨ AI Teşhisi ve Reçete Oluştur ✨
                  </button>
@@ -208,20 +208,20 @@ export default function Concierge() {
 
              {step === 2 && (
                <div className="py-32 text-center space-y-8">
-                 <Activity className="mx-auto text-[#c6a96b] animate-pulse" size={64} />
+                 <Activity className="mx-auto text-sovereign-gold animate-pulse" size={64} />
                  <p className="text-2xl font-serif text-white animate-pulse">Santis AI zihinsel ve fiziksel yükünüzü analiz ediyor...</p>
                </div>
              )}
 
              {step === 3 && activeDiagnosis && (
                <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden shadow-2xl animate-in zoom-in-95">
-                 <div className="bg-[#c6a96b] p-10 text-black">
-                    <p className="text-[10px] font-black tracking-widest uppercase opacity-60 mb-2">✨ Yapay Zeka Klinik Analiz Sonucu</p>
+                 <div className="bg-sovereign-gold p-10 text-black">
+                    <p className="text-2xs font-black tracking-widest uppercase opacity-60 mb-2">✨ Yapay Zeka Klinik Analiz Sonucu</p>
                     <h2 className="text-3xl font-serif leading-snug">"{activeDiagnosis.diagnosis}"</h2>
                  </div>
                  <div className="p-10 space-y-8">
                     <div>
-                      <h3 className="text-[10px] font-bold text-[#c6a96b] tracking-widest uppercase mb-4">Önerilen Reset Ritüeli</h3>
+                      <h3 className="text-2xs font-bold text-sovereign-gold tracking-widest uppercase mb-4">Önerilen Reset Ritüeli</h3>
                       <div className="flex justify-between items-center border-b border-white/10 pb-4">
                         <div>
                           <span className="block text-2xl font-serif text-white">{activeDiagnosis.ritual.name}</span>
@@ -232,7 +232,7 @@ export default function Concierge() {
                     </div>
                     {activeDiagnosis.addons && activeDiagnosis.addons.length > 0 && (
                       <div>
-                        <h3 className="text-[10px] font-bold text-[#c6a96b] tracking-widest uppercase mb-3">Tavsiye Edilen Eklemeler</h3>
+                        <h3 className="text-2xs font-bold text-sovereign-gold tracking-widest uppercase mb-3">Tavsiye Edilen Eklemeler</h3>
                         <div className="flex flex-wrap gap-2">
                           {activeDiagnosis.addons.map((addon, idx) => (
                             <span key={idx} className="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-slate-300">
@@ -242,7 +242,7 @@ export default function Concierge() {
                         </div>
                       </div>
                     )}
-                    <button onClick={() => setStep(1)} className="w-full bg-white text-black py-4 rounded-xl font-bold uppercase tracking-widest text-[10px] hover:bg-[#c6a96b] transition-colors">Yeniden Analiz Et</button>
+                    <button onClick={() => setStep(1)} className="w-full bg-white text-black py-4 rounded-xl font-bold uppercase tracking-widest text-2xs hover:bg-sovereign-gold transition-colors">Yeniden Analiz Et</button>
                  </div>
                </div>
              )}
@@ -253,9 +253,9 @@ export default function Concierge() {
         {activeTab === 'menu' && (
           <section className="py-24 px-6 max-w-5xl mx-auto animate-in fade-in duration-700">
              <div className="text-center mb-16">
-               <Crown className="mx-auto mb-4 text-[#c6a96b]" size={32} />
+               <Crown className="mx-auto mb-4 text-sovereign-gold" size={32} />
                <h2 className="text-4xl font-serif text-white">Sovereign Live Booking</h2>
-               <p className="text-slate-500 text-[10px] tracking-[0.3em] uppercase mt-2">Telemetry Powered Live Gateway</p>
+               <p className="text-slate-500 text-2xs tracking-[0.3em] uppercase mt-2">Telemetry Powered Live Gateway</p>
              </div>
 
              <SovereignBookingFlow />
@@ -273,13 +273,13 @@ export default function Concierge() {
              <p className="text-slate-500 text-sm font-light">+382 68 543 237</p>
            </div>
            <div className="text-center">
-             <div className="text-2xl font-serif text-[#c6a96b] uppercase tracking-[0.4em]">Santis</div>
-             <p className="text-[10px] text-slate-600 tracking-widest mt-2 uppercase">Human Reset OS</p>
+             <div className="text-2xl font-serif text-sovereign-gold uppercase tracking-[0.4em]">Santis</div>
+             <p className="text-2xs text-slate-600 tracking-widest mt-2 uppercase">Human Reset OS</p>
            </div>
            <div className="flex justify-center md:justify-end gap-6">
-              <span className="text-[10px] font-bold text-slate-500 tracking-widest uppercase">Sauna</span>
-              <span className="text-[10px] font-bold text-slate-500 tracking-widest uppercase">Steam</span>
-              <span className="text-[10px] font-bold text-slate-500 tracking-widest uppercase">Fitness</span>
+              <span className="text-2xs font-bold text-slate-500 tracking-widest uppercase">Sauna</span>
+              <span className="text-2xs font-bold text-slate-500 tracking-widest uppercase">Steam</span>
+              <span className="text-2xs font-bold text-slate-500 tracking-widest uppercase">Fitness</span>
            </div>
         </div>
       </footer>

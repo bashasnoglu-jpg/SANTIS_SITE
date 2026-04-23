@@ -40,7 +40,7 @@ export default function GodSystemScanner() {
   }, [isListening, cortisolScore, stopScan]);
 
   return (
-    <main className="relative w-full h-screen bg-[#141416] overflow-hidden selection:bg-[#c6a96b]/30 font-sans">
+    <main className="relative w-full h-screen bg-sovereign-dark overflow-hidden selection:bg-sovereign-gold/30 font-sans">
       
       {/* 1. KATMAN: Görsel Gerçeklik (Holografik Kuantum Hücresi) */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-90">

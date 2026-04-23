@@ -5,7 +5,7 @@ export default function RecoveryBanner({ quoteLatencyMs, visible }) {
 
   return (
     <div className="rounded-2xl border border-rose-400/20 bg-rose-400/10 px-4 py-3 text-sm text-neutral-200">
-      <div className="mb-1 text-[10px] uppercase tracking-[0.24em] text-rose-300/80">
+      <div className="mb-1 text-2xs uppercase tracking-[0.24em] text-rose-300/80">
         Recovery Path
       </div>
       <div>

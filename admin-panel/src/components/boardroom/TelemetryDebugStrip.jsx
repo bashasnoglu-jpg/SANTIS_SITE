@@ -3,7 +3,7 @@ import React from 'react';
 export function TelemetryDebugStrip(props) {
   return (
     <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-neutral-300">
-      <div className="mb-2 text-[10px] uppercase tracking-[0.24em] text-neutral-500">
+      <div className="mb-2 text-2xs uppercase tracking-[0.24em] text-neutral-500">
         Telemetry Debug Strip
       </div>
 
@@ -30,7 +30,7 @@ export function TelemetryDebugStrip(props) {
 function DebugItem({ label, value }) {
   return (
     <div className="min-w-0">
-      <div className="mb-1 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
+      <div className="mb-1 text-2xs uppercase tracking-[0.18em] text-neutral-500">
         {label}
       </div>
       <div className="truncate font-mono text-[11px] text-neutral-200" title={value}>
