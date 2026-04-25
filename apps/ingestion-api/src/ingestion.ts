@@ -48,12 +48,10 @@ export async function ingestEvent(raw: unknown) {
     payload: {
       id: insertedRecord.id,
       tenantId: insertedRecord.tenantId,
-      type: insertedRecord.type,
+      type: signalType,
       subject: insertedRecord.subject,
-      payload: insertedRecord.payload as any,
-      createdAt: insertedRecord.createdAt,
-      signalType,
-      decision
+      payload: { ...insertedRecord.payload as any, decision },
+      createdAt: insertedRecord.createdAt
     }
   });
 

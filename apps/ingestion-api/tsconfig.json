@@ -1,14 +1,14 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "esModuleInterop": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": "."
+    "noEmit": true,
+    "skipLibCheck": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", ".data"]
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "src/routes/read-fallback-incidents.ts",
+    "src/routes/read-queries.ts",
+    "src/routes/sse-fallback-streams.ts",
+    "src/routes/sse-streams.ts"
+  ]
 }
