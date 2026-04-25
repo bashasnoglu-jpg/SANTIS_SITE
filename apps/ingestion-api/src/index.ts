@@ -1,32 +1,39 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 
-import { SovereignBus } from "../../../packages/sovereign-bus/src/index.js";
-import { CommandIngressService } from "./services/command-ingress.js";
-import { createIngressRouter } from "./routes/ingress.js";
+import { SovereignBus } from "../../../packages/sovereign-bus/src/index";
+import { CommandIngressService } from "./services/command-ingress";
+import { createIngressRouter } from "./routes/ingress";
+import { evaluateConciergeRules, deriveSignalFromDecision } from './decision-kernel';
+import { broadcastToGodMode } from "./routes/sse-streams";
 
-import { createReadRoutes } from "./routes/read-queries.js";
-import { createSseRoutes } from "./routes/sse-streams.js";
-import { createFallbackIncidentsReadRouter } from "./routes/read-fallback-incidents.js";
-import { createFallbackSseRouter } from "./routes/sse-fallback-streams.js";
+import { createReadRoutes } from "./routes/read-queries";
+import { createHistoryReadRouter } from "./routes/read-history";
+import { createSseRoutes } from "./routes/sse-streams";
+import { createFallbackIncidentsReadRouter } from "./routes/read-fallback-incidents";
+import { createFallbackSseRouter } from "./routes/sse-fallback-streams";
+import pricingRouter from "./routes/pricing.route";
+import streamRoutes from "./routes/stream.route";
+import { registerCoreStateRoute } from "./routes/core-state";
+import { createCoreStateStreamRouter } from "./routes/core-state-stream";
 
-import { boardroomRouter } from "./routes/boardroom.js";
-import { registerBoardroomProjections } from "./projections/boardroom-projections.js";
+import { boardroomRouter } from "./routes/boardroom";
+import { registerBoardroomProjections } from "./projections/boardroom-projections";
 
-import { EventStore } from "./infrastructure/event-store.js";
-import { projectEvent } from "./projections/boardroom-projections.js";
+import { EventStore } from "./infrastructure/event-store";
+import { projectEvent } from "./projections/boardroom-projections";
 
-import { FallbackSseRegistry } from "./services/fallback-sse-registry.js";
+import { FallbackSseRegistry } from "./services/fallback-sse-registry";
 import {
   InMemoryIntentSnapshotRepository,
   InMemoryOutboxRepository,
   InMemoryMoodReadModelRepository,
   InMemoryGuestSessionRepository,
-} from "../../../tests/helpers/in-memory-fakes.js";
-import { InMemoryUnitOfWork } from "../../../packages/application/src/uow/in-memory-uow.js";
-import { registerGuestSelectMoodFlow } from "../../../packages/application/src/bootstrap/register-guest-select-mood.js";
+} from "../../../tests/helpers/in-memory-fakes";
+import { InMemoryUnitOfWork } from "../../../packages/application/src/uow/in-memory-uow";
+import { registerGuestSelectMoodFlow } from "../../../packages/application/src/bootstrap/register-guest-select-mood";
 
-import { sendNack } from "./utils/http-contract.js";
+import { sendNack } from "./utils/http-contract";
 
 async function bootstrap() {
   console.log("⚡ [Ingestion API] Booting Sovereign Backend...");
@@ -43,6 +50,25 @@ async function bootstrap() {
       await EventStore.append(event).catch(err => 
         console.error("🚨 [Event Store] Kritik Yazma Hatası!", err)
       );
+
+      // --- Zeka Katmanı Entegrasyonu ---
+      const payloadData = (event.payload || {}) as Record<string, any>;
+      const metrics = {
+        hesitation_index: Number(payloadData.hesitation_index || 0),
+        abandon_risk: Number(payloadData.abandon_risk || 0),
+        stress_index: Number(payloadData.stress_index || 0),
+        therapist_stress: Number(payloadData.therapist_stress || 0),
+      };
+      
+      const decision = evaluateConciergeRules(metrics);
+      const signalType = deriveSignalFromDecision(decision);
+
+      // God Mode Radar'a Fırlat
+      broadcastToGodMode("EVENT_STREAM", {
+        ...event,
+        signalType,
+        decision
+      });
     }
   });
 
@@ -104,9 +130,15 @@ async function bootstrap() {
   // --- Otoriter Gümrük Kapısı (COMMAND ROTASI) ---
   app.use("/api/v1", createIngressRouter(bus));
   app.use("/api/v1/boardroom", boardroomRouter);
+  app.use("/api/v1/rituals/pricing", pricingRouter);
+  app.use("/api/v1/stream", streamRoutes);
+  
+  registerCoreStateRoute(app);
+  app.use("/api/v1", createCoreStateStreamRouter());
 
   // --- PROJECTION (OKUMA) ROTALARI ---
   app.use("/api/v1/read", createReadRoutes(intentSnapshotRepo));
+  app.use("/api/v1/read", createHistoryReadRouter());
   app.use("/", createFallbackIncidentsReadRouter({ repo: fallbackRepo }));
 
   // --- SSE (CANLI AKIŞ) ROTALARI ---
@@ -127,8 +159,8 @@ async function bootstrap() {
     }, 500);
   });
 
-  // 5. Sunucuyu Başlat (Orijinal limanımız port 8080)
-  const PORT = process.env.PORT || 8080;
+  // 5. Sunucuyu Başlat (Orijinal limanımız port 3030)
+  const PORT = process.env.PORT || 3030;
   app.listen(PORT, () => {
     console.log(`
   ╔═══════════════════════════════════════════════════╗

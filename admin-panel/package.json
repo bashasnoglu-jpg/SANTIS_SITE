@@ -7,9 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "check": "pnpm run lint && pnpm run build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@santis/event-dictionary": "workspace:*",
+    "@santis/ui": "workspace:*",
     "@tanstack/react-query": "^5.90.21",
     "axios": "^1.13.5",
     "clsx": "^2.1.1",

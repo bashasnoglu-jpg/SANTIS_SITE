@@ -13,7 +13,6 @@ console.log('━━━━━━━━━━━━━━━━━━━━━━�
 // ─── SSOT: PORTS ─────────────────────────────────────────────────
 const PORTS = {
     backend: 8080,
-    gateway: 4040,
     forge: 5050,
     vite: 5173
 };
@@ -79,17 +78,7 @@ const processes = {
         ref: null,
         restarts: 0
     },
-    gateway: {
-        name: 'SOVEREIGN_GATEWAY',
-        cmd: 'node',
-        // Changed to .mjs to fix MODULE_TYPELESS_PACKAGE_JSON warning
-        args: ['--experimental-transform-types', 'server/santis-core-gateway.mjs'],
-        cwd: process.cwd(),
-        color: '\x1b[35m', // Magenta
-        shell: false,
-        ref: null,
-        restarts: 0
-    },
+
     forge: {
         name: 'ORBITAL_FORGE',
         cmd: 'node',
@@ -170,7 +159,7 @@ function launchProcess(key) {
 
 // 1. Backend
 launchProcess('backend');
-setTimeout(() => launchProcess('gateway'), 1500);
+
 setTimeout(() => launchProcess('forge'), 3000);
 
 // 2. Frontend ve Tarayıcı

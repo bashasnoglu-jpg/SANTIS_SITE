@@ -30,6 +30,15 @@
     <script type="module" src="/assets/js/core/santis-vocal-dna.js" defer></script>
 </head>
 <body class="bg-gray-900 text-gray-200 font-sans antialiased relative">
+    <!-- 🛑 DEPRECATION OVERLAY 🛑 -->
+    <div style="position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 99999; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <h1 style="color: #ef4444; font-size: 3rem; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase;">Sistem Donduruldu</h1>
+        <p style="color: #9ca3af; font-size: 1.2rem; margin-top: 1rem; max-width: 600px; text-align: center;">Bu Legacy Admin Paneli Phase 70 operasyonuyla mühürlenmiştir. Lütfen yeni nesil Vite/React tabanlı HQ Dashboard'a geçiş yapın.</p>
+        <a href="http://localhost:5174" style="margin-top: 2rem; padding: 1rem 2rem; background: #0891b2; color: white; text-decoration: none; border-radius: 0.5rem; font-weight: bold; font-size: 1.1rem; border: 1px solid #22d3ee; box-shadow: 0 0 15px rgba(34,211,238,0.4);">
+            ⎈ HQ Dashboard'a Git
+        </a>
+    </div>
+    <!-- /DEPRECATION OVERLAY -->
     <!-- MATRIX CANVAS (Hidden until activated) -->
     <canvas id="matrix-canvas" class="fixed inset-0 z-0 opacity-0 transition-opacity duration-[2000ms] pointer-events-none"></canvas>
 

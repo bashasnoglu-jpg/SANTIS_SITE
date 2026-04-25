@@ -39,7 +39,11 @@
     "sovereign-danger": "#ff3b30",
     "sovereign-success": "#10b981",
     "sovereign-success-deep": "#059669",
-    "sovereign-warning": "#d97706"
+    "sovereign-warning": "#d97706",
+    "sovereign-signal-stress": "#b91c1c",
+    "sovereign-signal-hesitation": "#f59e0b",
+    "sovereign-signal-abandon": "#c026d3",
+    "sovereign-signal-therapist": "#3730a3"
   },
   "fontFamily": {
     "heading": [

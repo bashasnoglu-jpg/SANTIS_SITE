@@ -14,6 +14,8 @@ out/
 .vercel/
 .wrangler/
 .miniflare/
+.turbo/
+apps/ingestion-api/.data/
 *.log
 
 # Neural Credentials & Environment Variables
@@ -70,6 +72,8 @@ backup_assets/
 backups/
 quarantine_zone/
 Quarantine/
+_KARANTINA_SANTIS/
 *.bak
 *.tmp
 *.old
+*.backup

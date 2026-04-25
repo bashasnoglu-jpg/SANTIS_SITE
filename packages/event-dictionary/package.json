@@ -1,7 +1,9 @@
 {
   "name": "@santis/event-dictionary",
   "version": "1.0.0",
+  "main": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./command-result": "./src/command-result.ts"
   }
 }

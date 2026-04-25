@@ -51,5 +51,34 @@ export const EventStore = {
     const duration = (performance.now() - start).toFixed(2);
     console.log(`✅ [Event Store] ${eventCount} olay ${duration}ms içinde başarıyla re-hidrate edildi!`);
     return eventCount;
+  },
+
+  /**
+   * 3. AKAŞİK KAYITLAR (History): Sadece en son olayları okur (GodMode için)
+   */
+  async getTail(limit: number = 50): Promise<SantisEvent[]> {
+    if (!existsSync(STORE_FILE)) {
+      return [];
+    }
+
+    const events: SantisEvent[] = [];
+    const fileStream = createReadStream(STORE_FILE);
+    const rl = readline.createInterface({ input: fileStream, crlfDelay: Infinity });
+
+    for await (const line of rl) {
+      if (line.trim() === "") continue;
+      try {
+        const event = JSON.parse(line) as SantisEvent;
+        events.push(event);
+        // Çok büyük dosyalarda performansı korumak için sadece sondakileri tut
+        if (events.length > limit) {
+          events.shift(); // En eski olanı at
+        }
+      } catch (error) {
+        // Bozuk satırı yoksay
+      }
+    }
+
+    return events;
   }
 };

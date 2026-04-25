@@ -1,4 +1,8 @@
 /**
+ * 🛑 DEPRECATED / FROZEN (PHASE 70) 🛑
+ * This module is part of the legacy admin panel.
+ * Do NOT use this for new features. All new logic should be implemented in React/Vite (/admin-panel/).
+ *
  * Santis Master OS - Sovereign State Machine (Neural Bridge)
  * Phase 4.5: Autonomous updating with Gold Glow Pulse
  */
@@ -13,6 +17,14 @@ class SantisSovereign {
     }
 
     _connectWS() {
+        if (!window.SANTIS_ENABLE_COMMAND_WS) {
+            if (!this._wsWarned) {
+                console.log('%c🔌 [Neural Bridge] Command WS disabled. SSE owns truth stream.', 'color: #6b7280; font-style: italic;');
+                this._wsWarned = true;
+            }
+            return;
+        }
+
         // 🛡️ Localhost Guard: Backend yokken WebSocket spam'ini engelle
         const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
         if (isLocal) {
@@ -51,7 +63,44 @@ class SantisSovereign {
 
     async init() {
         await this.syncStats(); // Fetch initial data
-        this.listen(); // Start listening to WebSocket
+        
+        // Connect to the new SSE Stream
+        if (window.SantisApi) {
+            window.SantisApi.connectCoreStateStream();
+        }
+
+        window.addEventListener("SANTIS_CORE_STATE_PATCH", (e) => {
+            this.applyCoreStatePatch(e.detail);
+        });
+
+        this.listen(); // Start listening to WebSocket (if enabled)
+    }
+
+    applyCoreStatePatch(patch) {
+        if (!patch) return;
+        
+        // Update core state
+        this.state.coreState = { ...this.state.coreState, ...patch };
+        
+        // Extract top level updates
+        if (patch.revenue) this.state.revenue = patch.revenue;
+        if (patch.sessions) this.state.sessions = patch.sessions;
+        if (patch.therapists) this.state.therapists = patch.therapists;
+        if (patch.alerts) this.state.alerts = patch.alerts;
+        if (patch.system) this.state.system = patch.system;
+
+        // UI Widget Updates
+        if (patch.revenue && patch.revenue.today !== undefined) {
+             const el = document.querySelector(`#metric-revenue`);
+             if (el) el.textContent = parseFloat(patch.revenue.today).toFixed(2);
+        }
+        if (patch.sessions && patch.sessions.active !== undefined) {
+             const el = document.querySelector(`#metric-visitors`);
+             if (el) el.textContent = Math.round(patch.sessions.active);
+        }
+
+        window.dispatchEvent(new CustomEvent("SANTIS_ADMIN_STATE_SYNCED", { detail: this.state.coreState }));
+        console.log("⚡ [Admin Core] CoreState patched.", patch);
     }
 
     async apiFetch(endpoint, options = {}) {
@@ -108,21 +157,33 @@ class SantisSovereign {
 
     async syncStats() {
         try {
-            const response = await this.apiFetch('/api/v1/analytics/metrics');
+            const api = window.SantisApi;
 
-            if (response.ok) {
-                const data = await response.json();
-                this.updateState({
-                    revenue: data.today_revenue || 0,
-                    capacity: data.current_capacity || 0,
-                    heat: data.demand_heat || 0,
-                    visitors: data.active_visitors || 0
-                });
-            } else {
-                console.warn("[Neural Bridge] Failed to sync stats from Backend");
+            if (!api || typeof api.getCoreState !== "function") {
+                throw new Error("SantisApi.getCoreState unavailable");
             }
+
+            const state = await api.getCoreState();
+
+            this.state = {
+                ...this.state,
+                coreState: state,
+                revenue: state.revenue,
+                sessions: state.sessions,
+                therapists: state.therapists,
+                alerts: state.alerts,
+                system: state.system,
+            };
+
+            window.dispatchEvent(
+                new CustomEvent("SANTIS_ADMIN_STATE_SYNCED", {
+                    detail: state,
+                })
+            );
+
+            console.log("✅ [Admin Core] CoreState synced.", state.meta);
         } catch (error) {
-            console.error("[Neural Bridge] Connection error:", error);
+            console.error("❌ [Admin Core] CoreState sync failed:", error);
         }
     }
 
@@ -156,11 +217,6 @@ class SantisSovereign {
         this.socket.onmessage = (event) => {
             try {
                 const pulse = JSON.parse(event.data);
-
-                // If it's a booking or a visual ingest, sync stats again
-                if (pulse.type === "BOOKING_CREATED" || pulse.type === "VISUAL_INGESTED") {
-                    this.syncStats();
-                }
 
                 // Silently process heartbeat pulses (don't spam the stream)
                 if (pulse.type === "INTELLIGENCE_PULSE") {

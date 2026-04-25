@@ -627,8 +627,8 @@ export default class HubModule {
 
         try {
             await Promise.all([
-                loadScript("https://d3js.org/d3.v7.min.js"),
-                loadScript("https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js")
+                loadScript("/assets/vendor/d3.v7.min.js"),
+                loadScript("/assets/vendor/echarts.min.js")
             ]);
         } catch(e) {
             console.warn("Dependencies failed to load in hub", e);

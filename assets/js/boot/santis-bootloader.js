@@ -96,6 +96,10 @@
         e.preventDefault(); // Hatanın yayılmasını engelle
     });
     window.addEventListener('unhandledrejection', (e) => {
+        if (e.reason && e.reason.name === "AbortError") {
+            e.preventDefault();
+            return;
+        }
         console.error('🚨 [CRASH SHIELD] Promise Rejection yakalandı:', e.reason);
         e.preventDefault();
     });
@@ -107,13 +111,17 @@
         }
 
         const t0 = performance.now();
-        const page = document.body?.dataset?.page || 'unknown';
+        let page = document.body?.dataset?.page;
+        if (!page) {
+            page = location.pathname.includes("hq-dashboard") || location.pathname.includes("/admin") ? "admin" : "public";
+        }
+        const surface = page === "admin" ? "ADMIN_HQ" : page.toUpperCase();
 
     console.log(
         "%c🦅 [V8 OMEGA] Deterministic Boot Sequence Initiated...",
         "color: #d4af37; font-weight: bold; background: #050505; padding: 4px 10px; border: 1px solid #d4af37;"
     );
-    console.log(`%c⏱️ [T+0ms] Cephe: [${page.toUpperCase()}]`, "color: #3b82f6");
+    console.log(`%c⏱️ [T+0ms] Cephe: ${surface}`, "color: #3b82f6");
 
     // ── Sovereign Global State ────────────────────────────────────────────────
     window.Santis = window.Santis || {
@@ -741,39 +749,48 @@ function scheduleShadowClusters(t0) {
         fired = true;
 
         console.log(`%c🌙 [T+${Math.round(performance.now() - t0)}ms] Gölge Kümeler Uyanıyor! Tetik: ${trigger}`, "color: #6b7280");
-        try {
-            // 🟣 FİZİK KÜMESİ — Parçacık efektleri & animasyonlar
-            await loadModuleOnce('quantum-engine', () => import('../core/quantum-engine.js?v=V8_OMEGA'));
-            await loadModuleOnce('fibonacci-swarm', () => import('../core/fibonacci-swarm.js?v=V8_OMEGA'));
+        
+        const loadClusters = async () => {
+            try {
+                // 🟣 FİZİK KÜMESİ — Parçacık efektleri & animasyonlar
+                await loadModuleOnce('quantum-engine', () => import('../core/quantum-engine.js?v=V8_OMEGA'));
+                await loadModuleOnce('fibonacci-swarm', () => import('../core/fibonacci-swarm.js?v=V8_OMEGA'));
 
-            // 🔵 TİCARET KÜMESİ — Checkout & wallet
-            await loadModuleOnce('checkout-ritual', () => import('../core/checkout-ritual.js?v=V8_OMEGA'));
-            await loadModuleOnce('wallet-bridge', () => import('../core/wallet-bridge.js?v=V8_OMEGA'));
-            await loadModuleOnce('boutique-infection', () => import('../core/boutique-infection.js?v=V8_OMEGA'));
+                // 🔵 TİCARET KÜMESİ — Checkout & wallet
+                await loadModuleOnce('checkout-ritual', () => import('../core/checkout-ritual.js?v=V8_OMEGA'));
+                await loadModuleOnce('wallet-bridge', () => import('../core/wallet-bridge.js?v=V8_OMEGA'));
+                await loadModuleOnce('boutique-infection', () => import('../core/boutique-infection.js?v=V8_OMEGA'));
 
-            // 🟠 DENEYİM KÜMESİ — Nöral detay & akustik
-            await loadModuleOnce('neuro-detail', () => import('../core/neuro-detail.js?v=V8_OMEGA'));
-            await loadModuleOnce('sovereign-acoustics', () => import('../core/sovereign-acoustics.js?v=V8_OMEGA'));
+                // 🟠 DENEYİM KÜMESİ — Nöral detay & akustik
+                await loadModuleOnce('neuro-detail', () => import('../core/neuro-detail.js?v=V8_OMEGA'));
+                await loadModuleOnce('sovereign-acoustics', () => import('../core/sovereign-acoustics.js?v=V8_OMEGA'));
 
-            // 🟢 İSTİHBARAT — Piksel & skor
-            await loadModuleOnce('santis-pixel-engine', () => import('../santis-pixel-engine.js?v=V8_OMEGA'));
-            await loadModuleOnce('santis-score-engine', () => import('../santis-score-engine.js?v=V8_OMEGA'));
+                // 🟢 İSTİHBARAT — Piksel & skor
+                await loadModuleOnce('santis-pixel-engine', () => import('../santis-pixel-engine.js?v=V8_OMEGA'));
+                await loadModuleOnce('santis-score-engine', () => import('../santis-score-engine.js?v=V8_OMEGA'));
 
-            // 🛡️ SANTIS OS V34 KÜMESİ — Otonom Runtime & Adaptive Gelişmeler
-            await loadModuleOnce('santis-self-healing', () => import('../core/santis-self-healing.js?v=V34_OMEGA'));
-            await loadModuleOnce('santis-adaptive-ui', () => import('../core/santis-adaptive-ui.js?v=V34_OMEGA'));
-            await loadModuleOnce('santis-quantum-jump', () => import('../core/santis-quantum-jump.js?v=V34_OMEGA'));
+                // 🛡️ SANTIS OS V34 KÜMESİ — Otonom Runtime & Adaptive Gelişmeler
+                await loadModuleOnce('santis-self-healing', () => import('../core/santis-self-healing.js?v=V34_OMEGA'));
+                await loadModuleOnce('santis-adaptive-ui', () => import('../core/santis-adaptive-ui.js?v=V34_OMEGA'));
+                await loadModuleOnce('santis-quantum-jump', () => import('../core/santis-quantum-jump.js?v=V34_OMEGA'));
 
-            // 🌐 SANTIS OS V35 SENSORY RESONANCE (T+3500ms)
-            setTimeout(async () => {
-                await loadModuleOnce('santis-eco-zen', () => import('../core/santis-eco-zen.js?v=V35_OMEGA'));
-                await loadModuleOnce('santis-haptic-resonance', () => import('../core/santis-haptic-resonance.js?v=V35_OMEGA'));
-                await loadModuleOnce('santis-hypnagogic-protocol', () => import('../core/santis-hypnagogic-protocol.js?v=V35_OMEGA'));
-                console.log(`%c✨ [T+${Math.round(performance.now() - t0)}ms] V35 Duyusal Rezonans Çevrimiçi (Organik Boyutlar)`, "color: #d4af37");
-            }, 1000);
+                // 🌐 SANTIS OS V35 SENSORY RESONANCE (T+3500ms)
+                setTimeout(async () => {
+                    await loadModuleOnce('santis-eco-zen', () => import('../core/santis-eco-zen.js?v=V35_OMEGA'));
+                    await loadModuleOnce('santis-haptic-resonance', () => import('../core/santis-haptic-resonance.js?v=V35_OMEGA'));
+                    await loadModuleOnce('santis-hypnagogic-protocol', () => import('../core/santis-hypnagogic-protocol.js?v=V35_OMEGA'));
+                    console.log(`%c✨ [T+${Math.round(performance.now() - t0)}ms] V35 Duyusal Rezonans Çevrimiçi (Organik Boyutlar)`, "color: #d4af37");
+                }, 1000);
 
-            console.log(`%c✅ [T+${Math.round(performance.now() - t0)}ms] Tüm Gölge Kümeler Çevrimiçi`, "color: #10b981");
-        } catch (e) { /* Sessiz hata yakalama */ }
+                console.log(`%c✅ [T+${Math.round(performance.now() - t0)}ms] Tüm Gölge Kümeler Çevrimiçi`, "color: #10b981");
+            } catch (e) { /* Sessiz hata yakalama */ }
+        };
+
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(loadClusters);
+        } else {
+            setTimeout(loadClusters, 1500);
+        }
     };
 
     // 🅰️ SCROLL TETİĞİ

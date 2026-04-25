@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Eye, Brain, Split, Headset, Filter, TrendingUp, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut } from 'lucide-react';
 import GhostDrawer from './GhostDrawer';
+import LiveIntentMonitor from '../boardroom/LiveIntentMonitor';
 
 // ============================================================================
 // DUMMY DATA FOR TELEMETRY
@@ -32,78 +33,7 @@ export default function SantisBoardroom() {
     return () => clearInterval(interval);
   }, []);
 
-  // 1. STATE İZOLASYONU (Cold Boot): Sayfa açıldığında Ring Buffer'ı çek
-  useEffect(() => {
-    const telemetryApiUrl = import.meta.env.VITE_TELEMETRY_API_URL || 'http://localhost:4040';
-    fetch(`${telemetryApiUrl}/api/v1/telemetry/recent`)
-      .then(res => res.json())
-      .then(json => {
-        if (json.success && json.data.length > 0) {
-          setAnomalies(json.data);
-          const lastRisk = parseFloat(json.data[json.data.length - 1].riskDelta);
-          setLatestRisk(isNaN(lastRisk) ? 0 : lastRisk);
-        }
-      })
-      .catch(err => console.error("Sovereign Kalkanı: Geçmiş veriler alınamadı", err));
-  }, []);
 
-  // 2. CANLI AKIŞ: WebSocket Entegrasyonu (Exponential Backoff + Jitter)
-  useEffect(() => {
-    let ws;
-    let reconnectTimeout;
-    let reconnectAttempts = 0;
-    const MAX_RECONNECT_DELAY = 30000;
-
-    const connectWebSocket = () => {
-      const telemetryWsUrl = import.meta.env.VITE_TELEMETRY_WS_URL || 'ws://localhost:4040';
-      ws = new WebSocket(telemetryWsUrl);
-
-      ws.onopen = () => {
-        reconnectAttempts = 0;
-      };
-
-      ws.onmessage = (event) => {
-        try {
-          const payload = JSON.parse(event.data);
-          if (payload.type === 'EVENT' && payload.payload?.action === 'STATUS_UPDATE') {
-            const newAnomaly = payload.payload.data;
-            
-            setAnomalies(prev => {
-              const updated = [...prev, newAnomaly];
-              return updated.length > 50 ? updated.slice(updated.length - 50) : updated;
-            });
-            
-            const newRisk = parseFloat(newAnomaly.riskDelta);
-            if (!isNaN(newRisk)) {
-              setLatestRisk(newRisk);
-              if (!isDrawerOpen && newRisk > 0.5) {
-                setHasUnreadPulse(true);
-              }
-            }
-          }
-        } catch (err) {
-          console.error('[Sovereign] WS parsing error:', err);
-        }
-      };
-
-      ws.onclose = () => {
-        const baseDelay = Math.min(1000 * (2 ** reconnectAttempts), MAX_RECONNECT_DELAY);
-        const jitter = Math.random() * 500; 
-        const totalDelay = baseDelay + jitter;
-        reconnectTimeout = setTimeout(() => {
-          reconnectAttempts++;
-          connectWebSocket();
-        }, totalDelay);
-      };
-    };
-
-    connectWebSocket();
-
-    return () => {
-      clearTimeout(reconnectTimeout);
-      if (ws) ws.close();
-    };
-  }, [isDrawerOpen]);
 
   // 3. CINEMATIC RITUAL: Risk > 0.5 ise tüm ekran derinleşir
   useEffect(() => {
@@ -235,6 +165,13 @@ export default function SantisBoardroom() {
             {/* TELEMETRİ ÖZETİ EKRANI (Tüm Widgetlar) */}
             {(activeTab === 'telemetry' || activeTab === 'psychology') && (
               <>
+                {/* NEW: Live Intent Monitor (SSE + REST) */}
+                {activeTab === 'telemetry' && (
+                  <div className="md:col-span-2 xl:col-span-3 mb-2 animate-fade-in" style={{ animationDelay: '0ms' }}>
+                    <LiveIntentMonitor />
+                  </div>
+                )}
+
                 {/* WIDGET 1: Müdahale Gösterimi */}
                 <div className="bg-sovereign-obsidian border border-sovereign-panel hover:border-sovereign-earth/50 rounded-sm p-8 flex flex-col transition-colors animate-fade-in" style={{ animationDelay: '0ms' }}>
                   <div className="flex items-center gap-3 mb-6 border-b border-sovereign-panel pb-4">

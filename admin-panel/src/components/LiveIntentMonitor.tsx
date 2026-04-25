@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { useSovereignWebSocket } from '../hooks/useSovereignWebSocket.js';
+import { useSovereignWebSocket } from '../hooks/useSovereignWebSocket';
 import type { SovereignEventRecord } from '@santis/event-dictionary';
+import { SignalBadge } from './SignalBadge';
+import { SignalType } from '../lib/signal-token-map';
 
 export function LiveIntentMonitor() {
   const { status, latestMessage } = useSovereignWebSocket();
@@ -24,7 +26,7 @@ export function LiveIntentMonitor() {
       
       if (latestMessage.type === 'EVENT_REPLAY') {
         // Geçmişi yükle (Deduplication id ile otomatik çözülür)
-        latestMessage.payload.forEach(event => {
+        latestMessage.payload.forEach((event: any) => {
           newMap.set(event.id, event);
         });
       } else if (latestMessage.type === 'EVENT_STREAM') {
@@ -85,7 +87,12 @@ export function LiveIntentMonitor() {
                 style={{ animation: 'fadeIn 0.4s ease-out forwards' }}
               >
                 <div className="flex justify-between items-start mb-1.5">
-                  <span className="text-[10px] font-mono text-gray-400 bg-white/5 px-1.5 py-0.5 rounded">{intent.type}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-mono text-gray-400 bg-white/5 px-1.5 py-0.5 rounded">{intent.type}</span>
+                    {intent.payload?.signalType && (
+                      <SignalBadge type={intent.payload.signalType as SignalType} />
+                    )}
+                  </div>
                   <span className="text-[9px] font-mono text-gray-500">
                     {new Date(intent.createdAt).toLocaleTimeString('tr-TR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 })}
                   </span>

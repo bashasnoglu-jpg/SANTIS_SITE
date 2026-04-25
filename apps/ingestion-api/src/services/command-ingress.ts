@@ -1,6 +1,6 @@
-import { SantisCommandSchema } from "../../../../packages/event-dictionary/src/index.js";
-import type { SovereignCommandBus } from "../../../../packages/sovereign-bus/src/index.js";
-import type { CommandResult } from "../../../../packages/event-dictionary/src/command-result.js";
+import { SantisCommandSchema } from "@santis/event-dictionary";
+import type { SovereignCommandBus } from "../../../../packages/sovereign-bus/src/index";
+import type { CommandResult } from "@santis/event-dictionary/command-result";
 
 export type CommandIngressResult =
   | {

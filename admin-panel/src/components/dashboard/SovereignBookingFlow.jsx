@@ -5,6 +5,12 @@ import { TelemetryDebugStrip } from '../boardroom/TelemetryDebugStrip.jsx';
 import { ConciergeAssistBanner } from '../concierge/ConciergeAssistBanner.jsx';
 import { SlotConfidenceHint } from '../concierge/SlotConfidenceHint.jsx';
 import { ServiceChoiceRail } from '../concierge/ServiceChoiceRail.jsx';
+import { SovereignCard, SovereignQuoteSummary } from '@santis/ui';
+
+const initialUpsells = [
+  { id: 'sothys_elixir', title: 'Sothys Paris Post-Treatment Elixir', price: 450, isSelected: false },
+  { id: 'genetic_kit', title: 'Longevity DNA Kit', price: 1200, isSelected: false }
+];
 
 export function SovereignBookingFlow() {
   const { telemetryContext, updateFromSnapshotResponse, emit, setQuoteId, setIntentId, startQuoteTimer, endQuoteTimer } = useConciergeTelemetry({
@@ -19,6 +25,12 @@ export function SovereignBookingFlow() {
   const [quoteLatency, setQuoteLatency] = useState(null);
   const [intentStatus, setIntentStatus] = useState(null); // 'STARTED' | 'SUBMITTED' | 'CONFIRMED' | 'FAILED'
   const [loading, setLoading] = useState(true);
+  const [upsells, setUpsells] = useState(initialUpsells);
+  const [isPricingLocked, setIsPricingLocked] = useState(false);
+
+  const handleToggleUpsell = (id) => {
+    setUpsells(upsells.map(u => u.id === id ? { ...u, isSelected: !u.isSelected } : u));
+  };
 
   // Behavioral Counters
   const [serviceOpenCount, setServiceOpenCount] = useState(0);
@@ -91,6 +103,25 @@ export function SovereignBookingFlow() {
           'http://localhost:4040/api/concierge/snapshot?tenantId=santis-club&locale=tr&currency=EUR&date=2026-04-20&partySize=2&memberTier=gold'
         );
         const data = await response.json();
+
+        console.log('[SOVEREIGN KIOSK] Gateway ile Nöral Köprü kuruluyor...');
+        const servicesWithNeuralPricing = await Promise.all((data.services || []).map(async (svc) => {
+          try {
+            const priceRes = await fetch(`http://localhost:3030/api/v1/rituals/pricing?ritualId=${svc.id}&basePrice=${svc.price}&guestSegment=UHNWI`);
+            if (priceRes.ok) {
+                const priceJson = await priceRes.json();
+                return { ...svc, price: priceJson.data.finalPrice };
+            }
+          } catch (error) {
+            console.error(`[SOVEREIGN ZIRHI] ${svc.id} için fiyat bağlantısı koptu.`, error);
+          }
+          return svc;
+        }));
+        
+        data.services = servicesWithNeuralPricing;
+        setIsPricingLocked(true);
+        console.log('[SOVEREIGN KIOSK] Prestij Vektörleri ekrana mühürlendi.');
+
         const responseTimeMs = Math.round(performance.now() - startedAt);
 
         updateFromSnapshotResponse({
@@ -121,6 +152,7 @@ export function SovereignBookingFlow() {
     setSelectedService(service);
     setSelectedSlot(null);
     setQuote(null);
+    setUpsells(initialUpsells); // Reset upsells on new service
     await emit('SERVICE_OPENED', {
       serviceId: service.id,
       serviceTitle: service.title,
@@ -202,35 +234,80 @@ export function SovereignBookingFlow() {
     if (!quote || !selectedService) return;
 
     setIntentStatus('SUBMITTED');
-    const mockIntentId = `int_${crypto.randomUUID()}`;
+    const mockIntentId = `int_${window.crypto.randomUUID()}`;
     setIntentId(mockIntentId);
+
+    const totalUpsellPrice = upsells.filter(u => u.isSelected).reduce((acc, curr) => acc + curr.price, 0);
 
     await emit('BOOKING_INTENT_SUBMITTED', {
       serviceId: selectedService.id,
       slotStartIso: selectedSlot.startIso,
+      upsellAmount: totalUpsellPrice,
       hasEmail: true,
       hasPhone: true,
     });
 
-    // Simulate backend intent confirmation
-    setTimeout(async () => {
-      // 90% success rate mock
-      if (Math.random() > 0.1) {
-        setIntentStatus('CONFIRMED');
-        markFlowCompleted(); // Explicitly clear abandonment risk
-        await emit('INTENT_CONFIRMED', {
-          serviceId: selectedService.id,
-          slotStartIso: selectedSlot.startIso,
-        });
-      } else {
-        setIntentStatus('FAILED');
-        await emit('INTENT_FAILED', {
-          serviceId: selectedService.id,
-          reason: 'PAYMENT_REJECTED',
-        });
+    try {
+      // 1. Zod Uyumlu Sentetik Event Hazırlığı
+      const syntheticEvent = {
+        eventId: window.crypto.randomUUID(),
+        eventType: "commerce.upsell.therapist_accepted",
+        occurredAt: new Date().toISOString(),
+        traceId: window.crypto.randomUUID(),
+        sessionId: "kiosk-session",
+        tenant: {
+          hotelId: "123e4567-e89b-12d3-a456-426614174000",
+          hotelCode: "SANTIS",
+          region: "EU",
+          locale: "tr",
+          currency: "EUR",
+          activePolicies: [],
+          fallbackMode: false
+        },
+        intent: {
+          isReturningGuest: true,
+          segment: "vip",
+          moodAffinity: [],
+          premiumThreshold: 100
+        },
+        payload: {
+          therapistId: "123e4567-e89b-12d3-a456-426614174001", // Zod UUID beklentisi
+          upsellAmount: totalUpsellPrice,
+          originalPackageId: "123e4567-e89b-12d3-a456-426614174002" // Zod UUID beklentisi
+        }
+      };
+
+      // 2. Gateway'e Fırlatma
+      const res = await fetch("http://localhost:3030/api/v1/test-event", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(syntheticEvent)
+      });
+
+      if (!res.ok) {
+        throw new Error("Nöral Fısıltı İletilemedi!");
       }
-    }, 800);
+
+      setIntentStatus('CONFIRMED');
+      markFlowCompleted();
+      await emit('INTENT_CONFIRMED', {
+        serviceId: selectedService.id,
+        slotStartIso: selectedSlot.startIso,
+        grandTotal: selectedService.price + totalUpsellPrice
+      });
+      
+      console.log("Nöral Fısıltı Başarıyla İletildi. GodMode Radar'ı kontrol edin.");
+
+    } catch (err) {
+      console.error(err);
+      setIntentStatus('FAILED');
+      await emit('INTENT_FAILED', {
+        serviceId: selectedService.id,
+        reason: 'GATEWAY_REJECTED',
+      });
+    }
   };
+
 
   if (loading) {
     return <div className="text-text-secondary p-12 text-center animate-pulse font-serif tracking-widest uppercase text-sm">Sovereign Gateway Bağlanıyor...</div>;
@@ -289,24 +366,16 @@ export function SovereignBookingFlow() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {visibleServices.map((svc, idx) => (
-            <button 
-              key={svc.id}
-              onClick={() => handleServiceClick(svc, idx)}
-              className={`text-left p-6 rounded-xl border transition-all duration-300 ${
-                selectedService?.id === svc.id 
-                  ? 'bg-interactive-selected border-accent-gold' 
-                  : 'bg-surface-panel border-border-decorative hover:border-interactive-hover'
-              }`}
-            >
-              <div className="flex justify-between items-start mb-2">
-                <span className="font-serif text-xl text-text-primary">{svc.title}</span>
-                <span className="text-accent-gold font-serif text-lg">€{svc.price}</span>
-              </div>
-              <div className="text-xs text-text-secondary uppercase tracking-widest flex justify-between">
-                <span>{svc.category}</span>
-                <span>{svc.durationMin} MIN</span>
-              </div>
-            </button>
+            <div key={svc.id} className={`transition-opacity duration-1000 ease-in-out ${isPricingLocked ? 'opacity-100' : 'opacity-0'}`}>
+              <SovereignCard
+                state={selectedService?.id === svc.id ? 'selected' : 'default'}
+                title={svc.title}
+                price={svc.price}
+                category={svc.category}
+                durationMin={svc.durationMin}
+                onClick={() => isPricingLocked && handleServiceClick(svc, idx)}
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -358,34 +427,27 @@ export function SovereignBookingFlow() {
               </button>
             </div>
           ) : (
-            <div className="bg-interactive-selected border border-accent-gold/30 p-6 rounded-xl inline-block text-left layout-minw-300">
-              <div className="text-2xs text-accent-gold uppercase tracking-widest mb-4">Confirmed Quote ({quoteLatency}ms)</div>
-              <div className="flex justify-between items-end mb-4">
-                <span className="text-sm text-text-secondary">Final Price</span>
-                <span className="text-3xl font-serif text-text-primary">€{quote.finalPrice.amount}</span>
-              </div>
-              <div className="text-xs text-green-400 flex items-center gap-2 mb-6">
-                <div className="w-2 h-2 rounded-full bg-green-400"></div>
-                Slot Reserved
+            <div className="w-full">
+              <div className="text-2xs text-accent-gold uppercase tracking-widest mb-2 text-right">
+                Verified Availability ({quoteLatency}ms)
               </div>
               
-              {intentStatus !== 'CONFIRMED' && (
-                <button 
-                  onClick={handleConfirmIntent}
-                  disabled={intentStatus === 'SUBMITTED'}
-                  className="w-full bg-accent-gold text-text-on-gold px-6 py-3 rounded-lg text-2xs font-bold uppercase tracking-widest hover:bg-text-primary hover:text-bg-primary transition-all disabled:opacity-50"
-                >
-                  {intentStatus === 'SUBMITTED' ? 'Confirming...' : 'Confirm Intent & Pay'}
-                </button>
-              )}
+              <SovereignQuoteSummary 
+                ritualTitle={selectedService.title}
+                ritualPrice={selectedService.price}
+                upsells={upsells}
+                onToggleUpsell={handleToggleUpsell}
+                onConfirm={handleConfirmIntent}
+                isConfirming={intentStatus === 'SUBMITTED'}
+              />
               
               {intentStatus === 'CONFIRMED' && (
-                <div className="w-full text-center border border-green-500/50 bg-green-500/10 text-green-400 px-6 py-3 rounded-lg text-2xs font-bold uppercase tracking-widest">
+                <div className="w-full text-center border border-green-500/50 bg-green-500/10 text-green-400 px-6 py-3 rounded-lg text-2xs font-bold uppercase tracking-widest mt-4">
                   Intent Confirmed - Boardroom Updated
                 </div>
               )}
               {intentStatus === 'FAILED' && (
-                <div className="w-full text-center border border-red-500/50 bg-red-500/10 text-red-400 px-6 py-3 rounded-lg text-2xs font-bold uppercase tracking-widest mt-2">
+                <div className="w-full text-center border border-red-500/50 bg-red-500/10 text-red-400 px-6 py-3 rounded-lg text-2xs font-bold uppercase tracking-widest mt-4">
                   Intent Failed - Try Again
                 </div>
               )}

@@ -43,7 +43,14 @@ function resolveTailwindTheme() {
         danger: manifest.colors['sovereign-danger'],
         success: manifest.colors['sovereign-success'],
         'success-deep': manifest.colors['sovereign-success-deep'],
-        warning: manifest.colors['sovereign-warning']
+        warning: manifest.colors['sovereign-warning'],
+
+        signal: {
+          stress: manifest.colors['sovereign-signal-stress'],
+          hesitation: manifest.colors['sovereign-signal-hesitation'],
+          abandon: manifest.colors['sovereign-signal-abandon'],
+          therapist: manifest.colors['sovereign-signal-therapist']
+        }
       }
     },
     fontFamily: {

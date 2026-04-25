@@ -13,18 +13,12 @@
     "typecheck": "turbo run typecheck",
     "db:push": "pnpm --filter @santis/domain-schema db:push",
     "test:quality:static": "turbo run test:quality:static",
-    "test:quality:runtime": "turbo run test:quality:runtime"
-  },
-  "dependencies": {
-    "@aws-sdk/client-s3": "^3.535.0",
-    "@aws-sdk/s3-request-presigner": "^3.535.0",
-    "cors": "^2.8.5",
-    "express": "^4.19.2",
-    "pg": "^8.11.3",
-    "ws": "^8.16.0",
-    "zod": "^3.22.4"
+    "test:quality:runtime": "turbo run test:quality:runtime",
+    "audit:runtime": "node scripts/audit-runtime-contract.js"
   },
   "devDependencies": {
+    "esbuild": "^0.28.0",
+    "tsx": "^4.7.1",
     "turbo": "^1.13.0",
     "typescript": "^5.4.0"
   }

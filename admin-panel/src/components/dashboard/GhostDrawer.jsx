@@ -1,5 +1,25 @@
 import React from 'react';
+import { SignalBadge } from '../SignalBadge';
 
+/**
+ * @typedef {import('../../lib/signal-token-map').SignalType} SignalType
+ * 
+ * @typedef {Object} Anomaly
+ * @property {string} [id]
+ * @property {number|string} timestamp
+ * @property {number} riskDelta
+ * @property {string} [status]
+ * @property {number} [cartSize]
+ * @property {string} [message]
+ * @property {SignalType} [signalType]
+ */
+
+/**
+ * @param {Object} props
+ * @param {boolean} props.isOpen
+ * @param {() => void} props.onClose
+ * @param {Anomaly[]} props.anomalies
+ */
 export default function GhostDrawer({ isOpen, onClose, anomalies }) {
   return (
     <>
@@ -67,8 +87,13 @@ export default function GhostDrawer({ isOpen, onClose, anomalies }) {
                   animationDelay: `${idx * 50}ms`,
                   transition: 'opacity 0.3s ease, background 0.3s ease'
                 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.75rem', color: 'var(--nv-text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                    <span>{new Date(anomaly.timestamp).toLocaleTimeString()}</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.75rem', color: 'var(--nv-text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <span>{new Date(anomaly.timestamp).toLocaleTimeString()}</span>
+                      {anomaly.signalType && (
+                        <SignalBadge type={anomaly.signalType} />
+                      )}
+                    </div>
                     <span style={{ color: highlightColor, fontWeight: textWeight }}>
                       {isLead ? `VIP Lead (Sepet: ${anomaly.cartSize || 0})` : `Δ ${Number(anomaly.riskDelta).toFixed(2)}`}
                     </span>

@@ -3,6 +3,7 @@ import { events } from '@santis/db';
 import { SovereignEvent } from '@santis/event-dictionary';
 import { projectBooking } from './projection-engine.js';
 import { broadcastEvent } from './realtime.js';
+import { evaluateConciergeRules, deriveSignalFromDecision } from '@santis/decision-kernel';
 
 export async function ingestEvent(raw: unknown) {
   // 1. Zod Otokrasisi: "Parse, Don't Validate"
@@ -29,6 +30,19 @@ export async function ingestEvent(raw: unknown) {
 
   // 4. Neural Bridge (WebSocket Broadcast)
   // Sadece DB'ye yazılan ve Projection'ı tamamlanan kayıt anons edilir.
+  
+  // 4.1 Decision Kernel Entegrasyonu
+  const payloadData = (parsed.payload || {}) as Record<string, any>;
+  const metrics = {
+    hesitation_index: Number(payloadData.hesitation_index || 0),
+    abandon_risk: Number(payloadData.abandon_risk || 0),
+    stress_index: Number(payloadData.stress_index || 0),
+    therapist_stress: Number(payloadData.therapist_stress || 0),
+  };
+  
+  const decision = evaluateConciergeRules(metrics);
+  const signalType = deriveSignalFromDecision(decision);
+
   broadcastEvent({
     type: "EVENT_STREAM",
     payload: {
@@ -38,6 +52,8 @@ export async function ingestEvent(raw: unknown) {
       subject: insertedRecord.subject,
       payload: insertedRecord.payload as any,
       createdAt: insertedRecord.createdAt,
+      signalType,
+      decision
     }
   });
 

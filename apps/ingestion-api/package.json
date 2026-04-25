@@ -1,12 +1,13 @@
 {
   "name": "@santis/ingestion-api",
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "start": "node --loader ts-node/esm src/index.ts",
-    "dev": "nodemon --watch src --ext ts --exec node --loader ts-node/esm src/index.ts"
+    "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
+    "@santis/decision-kernel": "workspace:*",
+    "@santis/event-dictionary": "workspace:*",
     "express": "^4.18.2",
     "cors": "^2.8.5",
     "zod": "^3.22.4"
@@ -16,6 +17,6 @@
     "@types/cors": "^2.8.17",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
-    "nodemon": "^3.0.3"
+    "tsx": "^4.7.1"
   }
 }

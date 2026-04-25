@@ -22,110 +22,29 @@ function getSantisRootPath() {
 }
 
 /* ─── 2. CONTENT LOADER — Data Bridge + API Client ──────────────────────── */
-async function loadContent() {
-    // Fallback data — önce fetch, yoksa boş obje
-    if (!window.SANTIS_FALLBACK) {
-        try {
-            const res = await fetch(window.location.origin + '/assets/data/fallback_data.json');
-            if (res.ok) window.SANTIS_FALLBACK = await res.json();
-        } catch (_) {
-            window.SANTIS_FALLBACK = { global: {} };
-        }
-    }
-    const localFallbackData = window.SANTIS_FALLBACK || { global: {} };
+async function hydratePageFromCoreState() {
+  const api = window.SantisApi;
 
-    try {
-        // API Client dinamik yükle
-        if (!window.SantisAPI) {
-            await new Promise(resolve => {
-                const s = document.createElement('script');
-                s.src = '/assets/js/api-client.js';
-                s.onload  = resolve;
-                s.onerror = resolve; // hata durumunda bile devam et
-                document.head.appendChild(s);
-            });
-        }
+  if (!api || typeof api.getCoreState !== "function") {
+    throw new Error("[Page Router] SantisApi.getCoreState unavailable");
+  }
 
-        // Fallback data fetch
-        let base = {};
-        if (location.protocol === 'file:') {
-            base = window.SANTIS_FALLBACK || { global: {} };
-        } else {
-            const DATA_URL = `/assets/data/fallback-data.json?v=${Date.now()}`;
-            const res = await fetch(DATA_URL, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Cache-Control': 'no-cache, no-store, must-revalidate',
-                    'Pragma': 'no-cache',
-                    'Expires': '0'
-                }
-            });
-            if (!res.ok) throw new Error('JSON Fetch Failed');
-            const data = await res.json();
-            base = data.global ? data : { global: data };
-        }
+  const state = await api.getCoreState();
 
-        // Servis kataloğunu normalleştir
-        if (!base.global.services) {
-            base.global.services = {};
-            const keys = [
-                'hammam', 'classicMassages', 'extraEffective', 'faceSothys',
-                'asianMassages', 'sportsTherapy', 'ayurveda', 'signatureCouples', 'kidsFamily'
-            ];
-            window.productCatalog = [];
-            keys.forEach(key => {
-                if (Array.isArray(base.global[key])) {
-                    base.global[key].forEach(svc => {
-                        if (svc.id) {
-                            base.global.services[svc.id] = svc;
-                            svc.categoryId = key;
-                            window.productCatalog.push(svc);
-                        }
-                    });
-                }
-            });
-        }
+  window.SantisCoreState = state;
+  window.productCatalog = state.catalog;
 
-        // API mode — canlı veri
-        if (window.SantisAPI && window.SANTIS_API_ONLINE) {
-            const currentHotel = (window._routerState?.hotel) || localStorage.getItem('santis_hotel');
-            let apiData = null;
-            if (currentHotel) {
-                const menuData = await window.SantisAPI.getHotelMenu(currentHotel);
-                if (menuData?.menu) apiData = menuData.menu;
-            }
-            if (!apiData) apiData = await window.SantisAPI.getMasterCatalog();
-            if (Array.isArray(apiData) && apiData.length > 0) {
-                window.productCatalog = apiData;
-                base.global.services = {};
-                apiData.forEach(svc => {
-                    if (svc.id) {
-                        if (svc.category && !svc.categoryId) svc.categoryId = svc.category;
-                        base.global.services[svc.id] = svc;
-                    }
-                });
-                console.log('[Router] API Data injected. Items:', apiData.length);
-            }
-        }
+  window.dispatchEvent(
+    new CustomEvent("SANTIS_DATA_READY", {
+      detail: {
+        source: "CoreState",
+        catalog: state.catalog,
+        state,
+      },
+    })
+  );
 
-        // Global data-ready sinyali
-        if (window.productCatalog?.length > 0) {
-            window.SANTIS_DATA_READY = true;
-            document.dispatchEvent(new Event('santis-data-ready'));
-            window.dispatchEvent(new Event('santis-data-ready'));
-            console.log(`[Router] 🌌 Product Seed Broadcasted. Items: ${window.productCatalog.length}`);
-        }
-
-        return base;
-
-    } catch (e) {
-        console.error('[Router] Primary data fetch failed. Falling back cautiously.', e.message);
-        if (Object.keys(localFallbackData).length === 0 && !sessionStorage.getItem('santis_safe_load_retried')) {
-            sessionStorage.setItem('santis_safe_load_retried', 'true');
-            setTimeout(() => window.location.reload(true), 500);
-        }
-        return window.SANTIS_FALLBACK || localFallbackData;
-    }
+  console.log("[Page Router] ✅ Hydrated from CoreState.");
 }
 
 /* ─── 3. PAGE INIT ───────────────────────────────────────────────────────── */
@@ -142,8 +61,12 @@ async function _routerInit() {
         ? (localStorage.setItem('santis_hotel', params.get('hotel')), params.get('hotel'))
         : (localStorage.getItem('santis_hotel') || '');
 
-    const CONTENT = await loadContent();
-    if (!CONTENT) return;
+    try {
+        await hydratePageFromCoreState();
+    } catch (e) {
+        console.error("Failed to hydrate page:", e);
+        return;
+    }
 
     // Service catalog sayfaları
     const isServicePage = !!(
