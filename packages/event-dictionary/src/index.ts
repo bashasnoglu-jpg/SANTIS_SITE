@@ -245,3 +245,5 @@ export function safeParseSantisEvent(input: unknown) {
 export function safeParseSantisCommand(input: unknown) {
   return SantisCommandSchema.safeParse(input);
 }
+
+export * from './event.types';

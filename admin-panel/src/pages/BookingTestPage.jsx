@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { SovereignBookingFlow } from '../../../apps/web/src/components/SovereignBookingFlow';
+import { SovereignBookingFlow } from '../components/dashboard/SovereignBookingFlow';
 
 export default function BookingTestPage() {
-  const [step, setStep] = useState('idle');
+  const [step] = useState('idle');
   const [selectedId, setSelectedId] = useState(null);
 
   const packages = [

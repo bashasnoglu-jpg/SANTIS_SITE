@@ -212,7 +212,14 @@ importers:
         specifier: ^0.20.0
         version: 0.20.18
 
-  packages/event-dictionary: {}
+  packages/event-dictionary:
+    dependencies:
+      '@santis/domain-schema':
+        specifier: workspace:*
+        version: link:../domain-schema
+      zod:
+        specifier: ^3.22.4
+        version: 3.25.76
 
   packages/gravity-ux-engine: {}
 

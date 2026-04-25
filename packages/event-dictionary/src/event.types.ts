@@ -47,7 +47,7 @@ export const SovereignEventRecordSchema = z.object({
   type: z.string(),
   subject: z.string(),
   payload: z.record(z.any()),
-  createdAt: z.union([z.string(), z.date()]).transform(val => new Date(val)),
+  createdAt: z.union([z.string(), z.date()]).transform((val: string | Date) => new Date(val)),
 });
 
 export type SovereignEventRecord = z.infer<typeof SovereignEventRecordSchema>;

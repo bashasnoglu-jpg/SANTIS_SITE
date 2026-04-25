@@ -23,6 +23,7 @@ const primitives = {
 };
 
 export const quietLuxuryPreset = {
+  content: [],
   theme: {
     // --- 2. SPACING & GRID (8pt Core + 4pt Sub-grid Esnekliği) ---
     spacing: {
