@@ -2,6 +2,7 @@
   "name": "@santis/ingestion-api",
   "version": "1.0.0",
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "start": "node --loader ts-node/esm src/index.ts",
     "dev": "tsx watch src/index.ts"
   },

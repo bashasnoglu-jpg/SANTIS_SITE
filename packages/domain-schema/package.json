@@ -6,6 +6,7 @@
     "./telemetry": "./src/telemetry/signal.schema.ts"
   },
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "db:push": "drizzle-kit push"
   },
   "dependencies": {

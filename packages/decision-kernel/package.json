@@ -6,6 +6,9 @@
     ".": "./src/index.ts",
     "./concierge": "./src/concierge/concierge.machine.ts"
   },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
     "xstate": "^5.0.0",
     "@santis/domain-schema": "workspace:*",

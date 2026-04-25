@@ -4,6 +4,9 @@
   "exports": {
     ".": "./src/preset.ts"
   },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
     "tailwindcss": "^3.4.0"
   }

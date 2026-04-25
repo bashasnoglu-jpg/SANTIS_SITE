@@ -8,6 +8,9 @@
     ".": "./src/index.ts",
     "./schema": "./src/schema.ts"
   },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
     "drizzle-orm": "^0.30.0",
     "pg": "^8.11.3"

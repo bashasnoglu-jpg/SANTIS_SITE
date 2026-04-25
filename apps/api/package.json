@@ -2,6 +2,7 @@
     "name": "api",
     "type": "module",
     "scripts": {
+        "typecheck": "tsc --noEmit",
         "dev": "tsx watch src/server.ts",
         "build": "tsc"
     },
