@@ -6,9 +6,8 @@ on:
   pull_request:
     branches: [ "main" ]
   schedule:
-    # Her gün gece yarısı 03:00'da otonom test
     - cron: '0 3 * * *'
-  workflow_dispatch: # Manuel tetikleme (God Mode)
+  workflow_dispatch:
 
 jobs:
   quantum_diagnostics:
@@ -22,26 +21,25 @@ jobs:
     - name: ⚙️ Boot Node.js Environment
       uses: actions/setup-node@v4
       with:
-        node-version: lts/*
+        node-version: 20
         cache: 'npm'
 
     - name: 📦 Armor Up (Install Dependencies)
-      run: npm ci
+      run: npm install
 
     - name: 🎭 Mount Playwright Browsers
       run: npx playwright install --with-deps chromium
 
     - name: ⚡ Ignite Santis OS Local Engine
       run: |
-        # Arka planda Edge SSR Mock Server ve Statik sunucuyu ayağa kaldır
         npm install -g http-server
         http-server ./ -p 8080 -d false -c-1 --silent &
         node tools/edge_ssr_worker.js &
-        sleep 5 # Kuantum raylarının ısınması için bekle
+        sleep 5
 
     - name: 🛡️ Execute Sovereign Diagnostic (Human Mode)
       run: node tests/santis-diagnostic.js http://localhost:8080/tr/rituals/index.html
-      continue-on-error: true # Test patlasa bile logları yakala
+      continue-on-error: true
 
     - name: 🕷️ Execute Sovereign Edge SSR (Bot Mode)
       run: node tests/santis-diagnostic.js http://localhost:8080/tr/rituals/index.html --bot
@@ -49,7 +47,7 @@ jobs:
 
     - name: 📦 Export Sovereign Incident Payload (Artifact)
       uses: actions/upload-artifact@v4
-      if: always() # Her durumda (başarılı/başarısız) raporu oluştur
+      if: always()
       with:
         name: sovereign-diagnostics-${{ github.sha }}
         path: |
@@ -61,8 +59,6 @@ jobs:
     - name: 🚨 Evaluate Kill-Switch Metrics
       if: always()
       run: |
-        # Incident payload üzerinden kritik metrikleri Node.js ile analiz et
-        # isKillSwitchEngaged true veya networkErrors > 0 ise pipeline'ı kır ve uyar!
         node -e "
         const fs = require('fs');
         const payload = JSON.parse(fs.readFileSync('logs/sovereign-incident-payload.json', 'utf8'));
