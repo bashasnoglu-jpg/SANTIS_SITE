@@ -24,6 +24,23 @@
 @import url('media-skeleton.css');
 @import url('view-transitions.css');
 
+/* PAGE MODULES — Temporary compatibility imports while HTML entrypoints converge */
+@import url('editorial.css');
+@import url('bento-grid.css');
+@import url('santis-v6/santis.bento-grid.css');
+@import url('modules/cards.css');
+@import url('gallery.css');
+@import url('video-hero.css');
+@import url('hero-slider.css');
+@import url('modules/global-trends.css');
+@import url('concierge.css');
+@import url('modules/testimonials.css');
+@import url('modules/sticky-booking.css');
+@import url('modules/signature-cards.css');
+@import url('santis-soul.css');
+@import url('modules/santis-cinematic.css');
+
+
 /* --- Z-Index Master Map & Variables --- */
 :root {
   --z-overlay: 9998;
