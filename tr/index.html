@@ -2,6 +2,8 @@
 
 <html lang="tr">
 <head>
+<script src="/assets/js/santis-config.js"></script>
+<script src="/assets/js/api-client.js"></script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Santis Club • Spa &amp; Wellness</title>
@@ -81,6 +83,7 @@ html { font-display: optional; }
   <link rel="preload" href="/assets/css/santis-soul.css" as="style">
   <link rel="stylesheet" href="/assets/css/santis-soul.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="/assets/css/santis-soul.css"></noscript>
+  <link rel="stylesheet" href="/assets/css/modules/santis-cinematic.css">
 <meta content="/assets/img/og-standard.webp" property="og:image"/>
 <meta content="Santis Club – Spa &amp; Wellness" property="og:title"/>
 <meta content="Santis Club – Antalya'da özel lüks spa, hamam ritüelleri ve terapötik wellness deneyimi." property="og:description"/>
@@ -128,7 +131,7 @@ html { font-display: optional; }
 }
 </script>
 </head>
-<body class="editorial-mode" data-page="index" data-barba="wrapper">
+<body class="santis-cinematic-lock">
 <!-- Page Overlay for Cinematic Transitions -->
 <div class="page-overlay"></div>
 <!-- 🌌 V17 THE GOD CANVAS (Quantum Renderer) 🌌 -->
@@ -136,17 +139,17 @@ html { font-display: optional; }
 <header id="santis-header" class="santis-navbar" role="banner">
   <div id="navbar-container"></div>
 </header>
-<main id="santis-main" data-barba="container" data-barba-namespace="home" style="display: block; position: relative; width: 100%;">
+<main id="santis-cinematic-stage">
 <h1 class="sr-only">Santis Club</h1>
 <!-- SECTION 1: HERO (V8 CINEMATIC ENGINE) -->
-<section class="santis-hero hero-main" data-gravity-id="hero-main" style="position: relative; overflow: hidden; background: #1B263B; aspect-ratio: 16 / 9;">
+<section class="santis-hero hero-main sovereign-frame active" data-frame="hero" data-gravity-id="hero-main" style="position: relative; overflow: hidden; background: #1B263B; aspect-ratio: 16 / 9;">
     <picture>
-        <img src="/assets/img/santis_hero_main_v1.webp" 
+        <img src="/assets/img/santis_hero_main_v1.webp"
             alt="Sovereign Sessiz Lüks Deneyimi - Kuantum Sentezi"
-            width="1920" 
-            height="1080" 
-            fetchpriority="high" 
-            loading="eager" 
+            width="1920"
+            height="1080"
+            fetchpriority="high"
+            loading="eager"
             decoding="sync"
             class="hero-visual"
             data-inertia="0.15"
@@ -161,7 +164,7 @@ html { font-display: optional; }
     </div>
 </section>
 <!-- SECTION 2: SIGNATURE EXPERIENCES (V45 COVER FLOW MULTI-CARD) -->
-<section class="santis-section" id="imza-deneyimler-v45" style="padding:6rem 0; overflow:hidden;">
+<section class="santis-section sovereign-frame" data-frame="signature-rituals" id="imza-deneyimler-v45" style="padding:6rem 0; overflow:hidden;">
   <div class="santis-container" style="overflow: visible;">
       <div class="santis-section-header reveal-up" style="text-align: center; margin-bottom: 2rem;">
           <span class="santis-kicker" style="color:#D4AF37;">İMZA DENEYİMLER</span>
@@ -172,10 +175,10 @@ html { font-display: optional; }
       </div>
 
       <div class="santis-carousel-stage custom-cover-flow" id="sov-3d-stage-elements" style="height: 60vh; min-height: 400px; width: 100%; position: relative;">
-          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_card_recovery_lotion_v2.webp'); filter: hue-rotate(180deg) saturate(150%);">
+          <div class="santis-stack-card" data-santis-bg="/assets/img/cards/santis_card_recovery_lotion_v2.webp" style="filter: hue-rotate(180deg) saturate(150%);">
               <h3 data-morph="title">Su: Arınma Şelalesi</h3>
               <span class="santis-stack-meta">Hidroterapi</span>
-          
+
               <div class="santis-reveal-data">
                   <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Su: Arınma Şelalesi</h2>
                   <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -196,10 +199,10 @@ html { font-display: optional; }
                   </a>
               </div>
           </div>
-          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/massage.webp'); filter: sepia(50%) hue-rotate(-20deg) contrast(120%);">
+          <div class="santis-stack-card" data-santis-bg="/assets/img/cards/massage.webp" style="filter: sepia(50%) hue-rotate(-20deg) contrast(120%);">
               <h3 data-morph="title">Ateş: Volkanik Taş</h3>
               <span class="santis-stack-meta">Termoterapi</span>
-          
+
               <div class="santis-reveal-data">
                   <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Ateş: Volkanik Taş</h2>
                   <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -220,10 +223,10 @@ html { font-display: optional; }
                   </a>
               </div>
           </div>
-          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/hammam.webp'); filter: grayscale(20%) sepia(30%);">
+          <div class="santis-stack-card" data-santis-bg="/assets/img/cards/hammam.webp" style="filter: grayscale(20%) sepia(30%);">
               <h3 data-morph="title">Toprak: Kırmızı Kil</h3>
               <span class="santis-stack-meta">Detoks</span>
-          
+
               <div class="santis-reveal-data">
                   <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Toprak: Kırmızı Kil</h2>
                   <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -244,10 +247,10 @@ html { font-display: optional; }
                   </a>
               </div>
           </div>
-          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/skincare.webp'); filter: hue-rotate(40deg) brightness(1.1);">
+          <div class="santis-stack-card" data-santis-bg="/assets/img/cards/skincare.webp" style="filter: hue-rotate(40deg) brightness(1.1);">
               <h3 data-morph="title">Hava: Oksijen İnfüzyonu</h3>
               <span class="santis-stack-meta">Hücresel Yenilenme</span>
-          
+
               <div class="santis-reveal-data">
                   <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Hava: Oksijen İnfüzyonu</h2>
                   <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -268,10 +271,10 @@ html { font-display: optional; }
                   </a>
               </div>
           </div>
-          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_card_massage_asian.webp'); filter: hue-rotate(280deg) saturate(200%);">
+          <div class="santis-stack-card" data-santis-bg="/assets/img/cards/santis_card_massage_asian.webp" style="filter: hue-rotate(280deg) saturate(200%);">
               <h3 data-morph="title">Kristal: Ametist Frekansı</h3>
               <span class="santis-stack-meta">Enerji Dengeleme</span>
-          
+
               <div class="santis-reveal-data">
                   <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Kristal: Ametist Frekansı</h2>
                   <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -292,10 +295,10 @@ html { font-display: optional; }
                   </a>
               </div>
           </div>
-          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_card_thai_v1.webp'); filter: sepia(40%) hue-rotate(20deg);">
+          <div class="santis-stack-card" data-santis-bg="/assets/img/cards/santis_card_thai_v1.webp" style="filter: sepia(40%) hue-rotate(20deg);">
               <h3 data-morph="title">Odun: Bambu Masajı</h3>
               <span class="santis-stack-meta">Derin Doku</span>
-          
+
               <div class="santis-reveal-data">
                   <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Odun: Bambu Masajı</h2>
                   <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -316,10 +319,10 @@ html { font-display: optional; }
                   </a>
               </div>
           </div>
-          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/Santis-face-mask-4x5-1080x1350.webp'); filter: contrast(110%) brightness(0.9);">
+          <div class="santis-stack-card" data-santis-bg="/assets/img/cards/Santis-face-mask-4x5-1080x1350.webp" style="filter: contrast(110%) brightness(0.9);">
               <h3 data-morph="title">Metal: Altın İğne V2</h3>
               <span class="santis-stack-meta">Kolajen Aktivasyonu</span>
-          
+
               <div class="santis-reveal-data">
                   <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Metal: Altın İğne V2</h2>
                   <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -340,10 +343,10 @@ html { font-display: optional; }
                   </a>
               </div>
           </div>
-          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/shirodhara.webp'); filter: hue-rotate(250deg) saturate(180%);">
+          <div class="santis-stack-card" data-santis-bg="/assets/img/cards/santis_card_shirodhara_v1.webp" style="filter: hue-rotate(250deg) saturate(180%);">
               <h3 data-morph="title">Eter: Kuantum Dokunuş</h3>
               <span class="santis-stack-meta">Sovereign İmzası</span>
-          
+
               <div class="santis-reveal-data">
                   <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Eter: Kuantum Dokunuş</h2>
                   <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -364,10 +367,10 @@ html { font-display: optional; }
                   </a>
               </div>
           </div>
-          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_card_skincare_v1.webp'); filter: grayscale(60%) brightness(0.7);">
+          <div class="santis-stack-card" data-santis-bg="/assets/img/cards/santis_card_skincare_v1.webp" style="filter: grayscale(60%) brightness(0.7);">
               <h3 data-morph="title">Ay: Gece Onarımı</h3>
               <span class="santis-stack-meta">Melatonin Sentezi</span>
-          
+
               <div class="santis-reveal-data">
                   <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Ay: Gece Onarımı</h2>
                   <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -388,10 +391,10 @@ html { font-display: optional; }
                   </a>
               </div>
           </div>
-          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/Santis-spa-rest-graded-clean.webp'); filter: sepia(50%) contrast(130%) saturate(150%);">
+          <div class="santis-stack-card" data-santis-bg="/assets/img/cards/Santis-spa-rest-graded-clean.webp" style="filter: sepia(50%) contrast(130%) saturate(150%);">
               <h3 data-morph="title">Güneş: Bronz Işıltı</h3>
               <span class="santis-stack-meta">Altın Oran Terapisi</span>
-          
+
               <div class="santis-reveal-data">
                   <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Güneş: Bronz Işıltı</h2>
                   <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -416,155 +419,10 @@ html { font-display: optional; }
   </div>
 </section>
 
-<!-- Initialization Script Sync -->
-<!-- [CLS FIX] V45 Carousel Style already active holistically -->
-<!-- SECTION 2b: SOVEREIGN 3D COVER FLOW (V45) -->
-<section class="santis-section" id="ritual-stack" style="padding:6rem 0; overflow:hidden;">
-  <div class="santis-container" style="overflow: visible;">
-      <div style="text-align: center; margin-bottom: 2rem;">
-          <span class="santis-kicker" style="color:#D4AF37;">RİTÜEL KEŞFEDİCİ</span>
-          <h2 class="santis-title" style="font-size: 2.8rem; margin:16px 0 20px;">Sovereign Koleksiyonu</h2>
-          <p style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.8; max-width:480px; margin: 0 auto 32px;">
-              Dört imza ritüelimiz. Kaydırın — her kart bir dünya kapısı açar.
-          </p>
-      </div>
-
-      <!-- V45 COVER FLOW STAGE: SIGNATURE RITUALS (ANASAYFA) -->
-      <div class="santis-carousel-stage" id="sov-3d-stage" style="height: 60vh; min-height: 400px; width: 100%; position: relative;">
-          <div class="santis-stack-card" style="background-image: url('/assets/img/cards/hammam.webp');">
-              <h3 data-morph="title">Sultan Hamamı</h3>
-              <span class="santis-stack-meta">Geleneksel Miras</span>
-          
-              <div class="santis-reveal-data">
-                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Sultan Hamamı</h2>
-                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
-                      Geleneksel Miras dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
-                  </p>
-                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
-                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
-                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
-                          <strong style="font-size: 1.3rem;">60 Dk</strong>
-                      </div>
-                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
-                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
-                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
-                      </div>
-                  </div>
-                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
-                      HEMEN REZERVASYON
-                  </a>
-              </div>
-          </div>
-          <div class="santis-stack-card" data-reveal="aura-aromaterapi" style="background-image: url('/assets/img/cards/massage.webp'); filter: hue-rotate(40deg);">
-              <h3 data-morph="title">Aura Aromaterapi</h3>
-              <span class="santis-stack-meta">Zihinsel Denge</span>
-          
-              <div class="santis-reveal-data">
-                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Aura Aromaterapi</h2>
-                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
-                      Zihinsel Denge dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
-                  </p>
-                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
-                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
-                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
-                          <strong style="font-size: 1.3rem;">60 Dk</strong>
-                      </div>
-                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
-                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
-                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
-                      </div>
-                  </div>
-                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
-                      HEMEN REZERVASYON
-                  </a>
-              </div>
-          </div>
-          <div class="santis-stack-card" data-reveal="safir-isilti" style="background-image: url('/assets/img/cards/Santis-face-mask-4x5-1080x1350.webp'); filter: grayscale(50%);">
-              <h3 data-morph="title">Safir Işıltı</h3>
-              <span class="santis-stack-meta">Premium Cilt Bakımı</span>
-          
-              <div class="santis-reveal-data">
-                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Safir Işıltı</h2>
-                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
-                      Premium Cilt Bakımı dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
-                  </p>
-                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
-                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
-                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
-                          <strong style="font-size: 1.3rem;">60 Dk</strong>
-                      </div>
-                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
-                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
-                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
-                      </div>
-                  </div>
-                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
-                      HEMEN REZERVASYON
-                  </a>
-              </div>
-          </div>
-          <div class="santis-stack-card" data-reveal="ayurvedik-dokunus" style="background-image: url('/assets/img/cards/Santis-spa-rest-graded-clean.webp'); filter: sepia(30%);">
-              <h3 data-morph="title">Ayurvedik Dokunuş</h3>
-              <span class="santis-stack-meta">İçsel Huzur</span>
-          
-              <div class="santis-reveal-data">
-                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Ayurvedik Dokunuş</h2>
-                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
-                      İçsel Huzur dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
-                  </p>
-                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
-                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
-                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
-                          <strong style="font-size: 1.3rem;">60 Dk</strong>
-                      </div>
-                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
-                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
-                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
-                      </div>
-                  </div>
-                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
-                      HEMEN REZERVASYON
-                  </a>
-              </div>
-          </div>
-          <div class="santis-stack-card" data-reveal="sothys-paris" style="background-image: url('/assets/img/cards/skincare.webp'); filter: contrast(120%);">
-              <h3 data-morph="title">Sothys Paris</h3>
-              <span class="santis-stack-meta">Dermatolojik Lüks</span>
-          
-              <div class="santis-reveal-data">
-                  <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Sothys Paris</h2>
-                  <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
-                      Dermatolojik Lüks dünyasına hoş geldiniz. Bu özel ritüel, bedensel yorgunluğunuzu atarken ruhunuzu derin bir sessizliğe davet ediyor. Sovereign Club ayrıcalıklarıyla donatılmış premium bir dokunuş hissedeceksiniz.
-                  </p>
-                  <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 50px;">
-                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
-                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">SÜRE</span>
-                          <strong style="font-size: 1.3rem;">60 Dk</strong>
-                      </div>
-                      <div style="background: rgba(0,0,0,0.4); padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px);">
-                          <span style="display: block; font-size: 0.8rem; color: #D4AF37; letter-spacing: 2px;">BÖLGE</span>
-                          <strong style="font-size: 1.3rem;">Tüm Beden</strong>
-                      </div>
-                  </div>
-                  <a href="https://wa.me/905348350169" target="_blank" class="santis-btn santis-btn-primary santis-magnetic" style="padding: 16px 40px; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(212,175,55,0.2);">
-                      HEMEN REZERVASYON
-                  </a>
-              </div>
-          </div>
-      </div>
-      
-      <div style="text-align: center; margin-top: 4rem;">
-          <a href="/hamam.html" class="santis-btn santis-btn-outline santis-magnetic" style="display:inline-block;">
-            Tüm Ritüelleri İncele
-          </a>
-      </div>
-  </div>
-</section>
-
 <!-- SECTION 3: PHILOSOPHY -->
-<section class="santis-philosophy santis-section" id="felsefe">
+<section class="santis-philosophy santis-section sovereign-frame" data-frame="philosophy" id="felsefe">
 <div class="santis-container"><div class="santis-philosophy-grid">
-<div class="santis-philosophy-visual depth-1"><img alt="Santis Club Spa" decoding="async" height="800" loading="lazy" src="/assets/img/cards/Santis-spa-rest-graded-clean.webp" width="600"></div>
+<div class="santis-philosophy-visual depth-1"><img alt="Santis Club Spa" decoding="async" height="800" loading="lazy" data-santis-src="/assets/img/cards/Santis-spa-rest-graded-clean.webp" width="600"></div>
 <div class="santis-philosophy-content depth-1">
 <span class="santis-kicker">İYİ OLMA SANATI</span>
 <h2 class="santis-title">Bedeninizi Dinleyin.<br/>Sessizliği Biz Sunuyoruz.</h2>
@@ -575,7 +433,7 @@ html { font-display: optional; }
 </div></div>
 </section>
 <!-- SECTION 4: GLOBAL TRENDS -->
-<div class="santis-container santis-section santis-gap-y-trends" id="global-trends">
+<section class="santis-container santis-section santis-gap-y-trends sovereign-frame" data-frame="global-inspiration" id="global-trends">
     <div class="santis-section-header reveal-up">
         <span class="santis-kicker">KÜRESEL İLHAM</span>
         <h2 class="santis-title">Dünyanın Dört Bir Yanından Ritüeller</h2>
@@ -583,10 +441,10 @@ html { font-display: optional; }
 
     <div class="santis-carousel-stage" style="height: 60vh; min-height: 400px; width: 100%; position: relative; margin-top:40px;">
         <!-- Wabi Sabi Katmanı (Wide) -->
-        <div class="santis-stack-card" data-reveal="wabi-sabi" style="background-image: url('/assets/img/cards/santis_card_massage_asian.webp'); display:block; text-decoration:none;">
+        <div class="santis-stack-card" data-reveal="wabi-sabi" data-santis-bg="/assets/img/cards/santis_card_massage_asian.webp" style="display:block; text-decoration:none;">
             <h3 data-morph="title">Wabi-Sabi</h3>
             <span class="santis-stack-meta">Japon Estetiği</span>
-        
+
               <div class="santis-reveal-data">
                   <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Wabi-Sabi</h2>
                   <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -609,10 +467,10 @@ html { font-display: optional; }
           </div>
 
         <!-- Wat Pho (Small) -->
-        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_card_thai_v1.webp'); filter: hue-rotate(20deg); display:block; text-decoration:none;">
+        <div class="santis-stack-card" data-santis-bg="/assets/img/cards/santis_card_thai_v1.webp" style="filter: hue-rotate(20deg); display:block; text-decoration:none;">
             <h3 data-morph="title">Wat Pho Masajı</h3>
             <span class="santis-stack-meta">Tayland</span>
-        
+
               <div class="santis-reveal-data">
                   <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Wat Pho Masajı</h2>
                   <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -635,10 +493,10 @@ html { font-display: optional; }
           </div>
 
         <!-- Roma (Small) -->
-        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_card_skincare_v1.webp'); filter: sepia(30%); display:block; text-decoration:none;">
+        <div class="santis-stack-card" data-santis-bg="/assets/img/cards/santis_card_skincare_v1.webp" style="filter: sepia(30%); display:block; text-decoration:none;">
             <h3 data-morph="title">Roma Termal</h3>
             <span class="santis-stack-meta">İTALYA</span>
-        
+
               <div class="santis-reveal-data">
                   <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Roma Termal</h2>
                   <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -661,10 +519,10 @@ html { font-display: optional; }
           </div>
 
         <!-- Sothys (Wide) -->
-        <div class="santis-stack-card" style="background-image: url('/assets/img/cards/santis_card_skincare_cover.webp'); filter: grayscale(20%); display:block; text-decoration:none;">
+        <div class="santis-stack-card" data-santis-bg="/assets/img/cards/santis_card_skincare_cover.webp" style="filter: grayscale(20%); display:block; text-decoration:none;">
             <h3 data-morph="title">Sothys: Paris Zarafeti</h3>
             <span class="santis-stack-meta">BİLİM VE DOĞA</span>
-        
+
               <div class="santis-reveal-data">
                   <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; color: #fff;">Sothys: Paris Zarafeti</h2>
                   <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -695,69 +553,10 @@ html { font-display: optional; }
     </a>
 </div>
 <!-- /SANTIS WORLD GATEWAY -->
-</div>
-
-<!-- SECTION 5: IMMERSIVE EXPERIENCE BLOCK (V10) -->
-<section class="santis-experience">
-  <div class="santis-container" style="position:relative; width:100%; height:100%;">
-    <video muted loop playsinline class="experience-video" style="display:none">
-      <!-- <source src="/assets/video/spa-hero.mp4" type="video/mp4"> -->
-    </video>
-    <div class="experience-overlay"></div>
-    <div class="experience-content">
-      <span class="hero-kicker" style="font-size:12px; letter-spacing:0.2em; opacity:0.8; margin-bottom:12px; display:block;">DERİNLEŞEN BAĞ</span>
-      <h2 style="font-family:'Cormorant Garamond', serif; font-size:44px; margin-bottom:16px;">Bir Ritüel, Bin Duygu</h2>
-      <p style="font-size:16px; opacity:0.8; max-width:500px; margin:0 auto;">Suyun, taşın ve sessizliğin uyumuyla bedeninizi yeniden keşfedin. Her nefes, yeni bir başlangıçtır.</p>
-    </div>
-  </div>
 </section>
 
-<!-- SECTION 6: V8.5 SOVEREIGN RAILS (Atelier Product Grid) -->
-<section style="padding:5rem 0;background:#050505;overflow:hidden">
-  <div class="santis-container" style="max-width:1280px;margin:0 auto">
-
-    <!-- Masaj Rail -->
-    <div style="margin-bottom:4rem">
-      <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:1.25rem;margin-bottom:2rem">
-        <div>
-          <span style="color:#D4AF37;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;display:block;margin-bottom:.5rem">Premium Deneyim</span>
-          <h2 style="color:#fff;font-size:1.75rem;font-family:'Cinzel',serif;margin:0">Sovereign Masajlar</h2>
-        </div>
-        <a href="/masaj.html" style="color:#888;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#888'">Tümünü Gör &rarr;</a>
-      </div>
-      <div class="santis-matrix-container santis-carousel-stage" id="santis-massage-matrix" data-layout="coverflow" data-category="massage" data-limit="6" style="height: 60vh; min-height: 400px; width: 100%; position: relative;"></div>
-    </div>
-
-    <!-- Skincare Rail -->
-    <div>
-      <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:1.25rem;margin-bottom:2rem">
-        <div>
-          <span style="color:#D4AF37;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;display:block;margin-bottom:.5rem">Sothys Paris</span>
-          <h2 style="color:#fff;font-size:1.75rem;font-family:'Cinzel',serif;margin:0">Özel Cilt Bakımı</h2>
-        </div>
-        <a href="/cilt-bakimi.html" style="color:#888;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#888'">Tümünü Gör &rarr;</a>
-      </div>
-      <div class="santis-matrix-container santis-carousel-stage" id="santis-skincare-matrix" data-layout="coverflow" data-category="skincare" data-limit="6" style="height: 60vh; min-height: 400px; width: 100%; position: relative;"></div>
-    </div>
-
-  </div>
-</section>
-<!-- /SECTION 4b -->
-
-
-
-<!-- SECTION 5: TESTIMONIALS -->
-
-<section class="santis-testimonials" id="testimonials">
-<div class="santis-container"><div class="santis-section-header"><span class="santis-kicker">MİSAFİR DENEYİMLERİ</span><h2 class="santis-title">Huzurun Yankıları</h2></div>
-<div class="santis-testimonial-grid">
-<div class="santis-testimonial-card depth-1"><div class="santis-testimonial-stars">★★★★★</div><blockquote class="santis-testimonial-quote">"Hayatımın en huzurlu 2 saatiydi. Geleneksel Hamam ritüeli eşsiz bir deneyimdi."</blockquote><div class="santis-testimonial-author"><span class="santis-testimonial-name">Ayşe K.</span><span class="santis-testimonial-location">Istanbul</span></div></div>
-<div class="santis-testimonial-card depth-1"><div class="santis-testimonial-stars">★★★★★</div><blockquote class="santis-testimonial-quote">"Aromaterapi masajından sonra vücudum yeniden doğmuş gibi hissetti. Çok profesyonel."</blockquote><div class="santis-testimonial-author"><span class="santis-testimonial-name">Mehmet T.</span><span class="santis-testimonial-location">Antalya</span></div></div>
-<div class="santis-testimonial-card depth-1"><div class="santis-testimonial-stars">★★★★★</div><blockquote class="santis-testimonial-quote">"Sothys cilt bakım seansı muhteşemdi. Cildim hiç bu kadar parlak ve sağlıklı olmamıştı."</blockquote><div class="santis-testimonial-author"><span class="santis-testimonial-name">Elena M.</span><span class="santis-testimonial-location">Moskova</span></div></div>
-</div></div>
-</section>
 <!-- SECTION 6: BOOKING CTA -->
-<section class="santis-booking-cta" id="bookingCta">
+<section class="santis-booking-cta sovereign-frame" data-frame="concierge" id="bookingCta">
 <div class="santis-container" style="text-align:center;padding:80px 20px;">
 <span class="santis-kicker">RİTÜELİNİZİ PLANLAYIN</span>
 <h2 class="santis-title" style="margin-bottom:12px;">Huzur sadece bir arama uzağınızda</h2>
@@ -768,8 +567,6 @@ html { font-display: optional; }
 </div>
 </div>
 </section>
-<!-- SECTION 7: STICKY BAR -->
-<div class="santis-sticky-booking" id="stickyBooking" data-gravity-id="sticky-booking-bar"><div class="santis-sticky-booking-inner"><span class="santis-sticky-booking-text">Ritüelinizi planlayın</span><a class="santis-btn santis-btn-primary santis-btn-sm santis-magnetic" href="https://wa.me/905348350169" rel="noopener noreferrer" target="_blank">Rezervasyon</a></div></div>
 <div id="footer-container"></div>
 
 <script>
@@ -783,12 +580,15 @@ html { font-display: optional; }
 })();
 </script>
 
+  <nav id="ghost-pagination" aria-label="Cinematic frame navigation"></nav>
 </main>
 
 <div class="modal-overlay" hidden="" id="bookingModal"></div>
 
-<!-- PAGE TRANSITION ENGINES (GSAP & Barba.js) -->
+<!-- CINEMATIC ENGINE (Local GSAP + Observer, single init) -->
 <script src="/assets/vendor/gsap.min.js" defer></script>
+<script src="/assets/vendor/Observer.min.js" defer></script>
+<script src="/assets/js/santis-cinematic-engine.js" defer></script>
 <script src="/assets/vendor/core.js" defer></script>
 
 <!-- CORE SCRIPTS -->

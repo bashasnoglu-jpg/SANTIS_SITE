@@ -346,29 +346,197 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ─── V45 3D STACKED CAROUSEL ENGINE (COVER FLOW) ─── */
+const SANTIS_CAROUSEL_SELECTION_KEY = 'santis_signature_carousel_selection';
+
+function getCoverFlowCardIdentity(card) {
+    if (!card) return '';
+
+    return (
+        card.dataset.productId ||
+        card.dataset.serviceId ||
+        card.dataset.reveal ||
+        card.dataset.id ||
+        card.querySelector('h3')?.textContent?.trim() ||
+        ''
+    );
+}
+
+function readPersistedCoverFlowSelection() {
+    try {
+        const rawValue = localStorage.getItem(SANTIS_CAROUSEL_SELECTION_KEY);
+        if (!rawValue) return null;
+
+        if (rawValue.trim().startsWith('{')) return JSON.parse(rawValue);
+        return { productId: rawValue };
+    } catch (e) {
+        console.warn('[Interaction Engine] Carousel selection restore skipped:', e);
+        return null;
+    }
+}
+
+function persistCoverFlowSelection(detail) {
+    try {
+        localStorage.setItem(SANTIS_CAROUSEL_SELECTION_KEY, JSON.stringify(detail));
+    } catch (e) {
+        console.warn('[Interaction Engine] Carousel selection persistence skipped:', e);
+    }
+}
+
+function resolveInitialCoverFlowIndex(stage, stackCards) {
+    const cardList = Array.from(stackCards || []);
+    const persisted = readPersistedCoverFlowSelection();
+    if (!persisted || cardList.length === 0) return 0;
+
+    const candidateIds = new Set([
+        persisted.productId,
+        persisted.serviceId,
+        persisted.reveal,
+        persisted.cardId,
+    ].filter(Boolean));
+
+    const persistedStageId = persisted.stageId || persisted.stage;
+    if (persistedStageId && stage?.id && persistedStageId !== stage.id) return 0;
+
+    const matchIndex = cardList.findIndex((card) => {
+        return [
+            card.dataset.productId,
+            card.dataset.serviceId,
+            card.dataset.reveal,
+            getCoverFlowCardIdentity(card),
+        ].some((id) => candidateIds.has(id));
+    });
+
+    return matchIndex >= 0 ? matchIndex : 0;
+}
+
+function normalizeHexColor(color, fallback) {
+    if (typeof color !== 'string') return fallback;
+
+    const value = color.trim();
+    if (/^#[0-9a-f]{6}$/i.test(value)) return value;
+    if (/^#[0-9a-f]{3}$/i.test(value)) {
+        return `#${value.slice(1).split('').map((char) => char + char).join('')}`;
+    }
+    return fallback;
+}
+
+function hexToRgba(color, alpha) {
+    const value = normalizeHexColor(color, '#D4AF37').slice(1);
+    const red = parseInt(value.slice(0, 2), 16);
+    const green = parseInt(value.slice(2, 4), 16);
+    const blue = parseInt(value.slice(4, 6), 16);
+
+    return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+}
+
+function syncCoverFlowStateStores(detail) {
+    window.__SANTIS_LAST_CAROUSEL_SELECTION__ = detail;
+
+    if (window.SantisCoreState && typeof window.SantisCoreState === 'object') {
+        window.SantisCoreState.ui = {
+            ...(window.SantisCoreState.ui || {}),
+            lastInteractedProduct: detail.productId,
+            activeCarouselProduct: detail,
+        };
+    }
+
+    if (window.SantisState && typeof window.SantisState.set === 'function') {
+        window.SantisState.set('lastInteractedProduct', detail.productId);
+        window.SantisState.set('activeCarouselProduct', detail);
+    } else if (window.SantisState && typeof window.SantisState === 'object') {
+        window.SantisState.lastInteractedProduct = detail.productId;
+        window.SantisState.activeCarouselProduct = detail;
+    } else if (!window.SantisState) {
+        window.SantisState = {
+            lastInteractedProduct: detail.productId,
+            activeCarouselProduct: detail,
+        };
+    }
+}
+
+function syncCoverFlowStageTheme(stage, detail) {
+    if (!stage || !detail) return;
+
+    const themeColor = normalizeHexColor(detail.themeColor, '#12100D');
+    const accentColor = normalizeHexColor(detail.accentColor, '#D4AF37');
+    const accentSoft = hexToRgba(accentColor, 0.14);
+    const accentGlow = hexToRgba(accentColor, 0.24);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hasGSAP = typeof window.gsap !== 'undefined';
+
+    stage.classList.add('santis-theme-synced');
+    stage.style.setProperty('--santis-stage-accent-soft', accentSoft);
+    stage.style.setProperty('--santis-stage-accent-glow', accentGlow);
+    stage.style.setProperty('--santis-stage-accent', accentColor);
+
+    if (hasGSAP && !prefersReducedMotion) {
+        gsap.to(stage, {
+            backgroundColor: themeColor,
+            duration: 1.1,
+            ease: 'power2.inOut',
+            overwrite: 'auto',
+        });
+    } else {
+        stage.style.backgroundColor = themeColor;
+    }
+}
+
+function syncCoverFlowActiveState(stage, activeCard, activeIndex, totalCards) {
+    if (!stage || !activeCard) return;
+    if (!activeCard.dataset.productId) return;
+
+    const productId = getCoverFlowCardIdentity(activeCard);
+    const syncKey = `${activeIndex}:${productId}`;
+    if (stage._santisActiveSyncKey === syncKey) return;
+    stage._santisActiveSyncKey = syncKey;
+
+    const detail = {
+        stageId: stage.id || null,
+        productId,
+        serviceId: activeCard.dataset.serviceId || productId,
+        reveal: activeCard.dataset.reveal || null,
+        title: activeCard.querySelector('h3')?.textContent?.trim() || productId,
+        themeColor: activeCard.dataset.themeColor || '#12100D',
+        accentColor: activeCard.dataset.accentColor || '#D4AF37',
+        activeIndex,
+        totalCards,
+        ts: Date.now(),
+    };
+
+    stage.dataset.activeProductId = detail.productId;
+    stage.dataset.activeReveal = detail.reveal || '';
+    stage.dataset.activeIndex = String(activeIndex);
+
+    syncCoverFlowStateStores(detail);
+    persistCoverFlowSelection(detail);
+    syncCoverFlowStageTheme(stage, detail);
+
+    window.dispatchEvent(new CustomEvent('SANTIS_CAROUSEL_ACTIVE_CHANGE', { detail }));
+}
+
 window.initCoverFlowCarousel = function() {
     const stackStages = document.querySelectorAll('.santis-carousel-stage');
     if (!stackStages || stackStages.length === 0) return; // Silent abort if not present
 
     stackStages.forEach((stage) => {
         // Safe Listener Purge without Detaching Virtual DOM References
-        if (stage._coverFlowAborter) {
-            stage._coverFlowAborter.abort();
-        }
+        cleanupCoverFlowStage(stage);
+
         stage._coverFlowAborter = new AbortController();
         const signal = stage._coverFlowAborter.signal;
-
         let isStackDragging = false;
         let stackStartX = 0;
         let activeIndex = 0;
         const stackCards = stage.querySelectorAll('.santis-stack-card');
-        
+
         // Skip setup until the worker injects cards
         if (!stackCards || stackCards.length === 0) return;
-        
+
+        activeIndex = resolveInitialCoverFlowIndex(stage, stackCards);
+
         function updateSovereignStack() {
             stackCards.forEach((card, index) => {
-                const diff = index - activeIndex; 
+                const diff = index - activeIndex;
                 const absDiff = Math.abs(diff);
 
                 // Logarithmic distance calculation
@@ -380,7 +548,7 @@ window.initCoverFlowCarousel = function() {
                 if (scale < 0) scale = 0;
                 if (opacity < 0) opacity = 0;
 
-                card.style.transform = `translateX(${translateX}%) scale(${scale}) translate(var(--mx, 0px), var(--my, 0px))`;
+                card.style.transform = `translateX(${translateX}%) rotateX(var(--santis-tilt-x, 0deg)) rotateY(var(--santis-tilt-y, 0deg)) scale(${scale}) translate(var(--mx, 0px), var(--my, 0px))`;
                 card.style.opacity = opacity;
                 card.style.zIndex = zIndex;
 
@@ -396,10 +564,16 @@ window.initCoverFlowCarousel = function() {
                     }
                 }
             });
+
+            syncCoverFlowActiveState(stage, stackCards[activeIndex], activeIndex, stackCards.length);
         }
 
         // Initial render hook
         requestAnimationFrame(updateSovereignStack);
+        stage._coverFlowCleanup = composeCoverFlowCleanups(
+            bindSovereignCardHover(stage, stackCards, signal),
+            bindSovereignGyroscope(stage, stackCards, signal, () => stackCards[activeIndex])
+        );
 
         // Friction Engine: Click Focus
         stackCards.forEach((card, i) => {
@@ -492,6 +666,385 @@ window.triggerSovereignReveal === 'function') window.triggerSovereignReveal(card
     
     console.log("🎡 [Interaction Engine] Sovereign 3D Carousel (Cover Flow) Multi-Stage Engaged.");
 };
+
+function composeCoverFlowCleanups(...cleanups) {
+    let didCleanup = false;
+
+    return () => {
+        if (didCleanup) return;
+        didCleanup = true;
+        cleanups.forEach((cleanup) => {
+            if (typeof cleanup === 'function') cleanup();
+        });
+    };
+}
+
+function cleanupCoverFlowStage(stage) {
+    if (!stage) return;
+
+    if (stage._coverFlowAborter) {
+        stage._coverFlowAborter.abort();
+        stage._coverFlowAborter = null;
+    }
+
+    if (typeof stage._coverFlowCleanup === 'function') {
+        stage._coverFlowCleanup();
+        stage._coverFlowCleanup = null;
+    }
+}
+
+function bindSovereignCardHover(stage, stackCards, signal) {
+    if (!stage || !stackCards || stackCards.length === 0) return null;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    const cardList = Array.from(stackCards);
+
+    if (prefersReducedMotion || isCoarsePointer) {
+        cardList.forEach((card) => card.classList.add('santis-hover-ready'));
+        return () => {
+            cardList.forEach((card) => {
+                card.classList.remove('santis-hover-ready', 'is-hovering');
+                delete card._santisHoverBound;
+            });
+        };
+    }
+
+    const hasGSAP = typeof window.gsap !== 'undefined';
+    const gsapContext = hasGSAP && typeof gsap.context === 'function'
+        ? gsap.context(() => {}, stage)
+        : null;
+    const cleanupTasks = [];
+
+    const resetCardVars = (card) => {
+        card.style.setProperty('--santis-tilt-x', '0deg');
+        card.style.setProperty('--santis-tilt-y', '0deg');
+        card.style.setProperty('--santis-spot-x', '50%');
+        card.style.setProperty('--santis-spot-y', '50%');
+        card.style.setProperty('--santis-bg-shift-x', '0px');
+        card.style.setProperty('--santis-bg-shift-y', '0px');
+    };
+
+    cardList.forEach((card, index) => {
+        if (card._santisHoverBound) return;
+        card._santisHoverBound = true;
+        card.classList.add('santis-hover-ready');
+
+        const copy = card.querySelectorAll('h3, .santis-stack-meta');
+        let moveFrame = null;
+        let lastPointer = null;
+
+        const animateCard = (vars) => {
+            if (hasGSAP) {
+                gsap.to(card, vars);
+            } else {
+                Object.entries(vars).forEach(([property, value]) => {
+                    if (property.startsWith('--')) card.style.setProperty(property, value);
+                });
+            }
+        };
+
+        const animateCopy = (vars) => {
+            if (hasGSAP && copy.length) gsap.to(copy, vars);
+        };
+
+        const animateDepthLayers = (depthX, depthY, baseLift = -10) => {
+            animateCopy({
+                x: depthX * 18,
+                y: baseLift + depthY * 12,
+                autoAlpha: 1,
+                duration: 0.42,
+                stagger: 0.035,
+                ease: 'power3.out',
+                overwrite: 'auto'
+            });
+        };
+
+        const applyPointerTilt = () => {
+            moveFrame = null;
+            if (!lastPointer) return;
+
+            const rect = card.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+
+            const relX = (lastPointer.clientX - rect.left) / rect.width;
+            const relY = (lastPointer.clientY - rect.top) / rect.height;
+            const depthX = relX - 0.5;
+            const depthY = relY - 0.5;
+            const tiltY = (relX - 0.5) * 8;
+            const tiltX = (0.5 - relY) * 7;
+
+            animateCard({
+                '--santis-tilt-x': `${tiltX}deg`,
+                '--santis-tilt-y': `${tiltY}deg`,
+                '--santis-spot-x': `${relX * 100}%`,
+                '--santis-spot-y': `${relY * 100}%`,
+                '--santis-bg-shift-x': `${depthX * -14}px`,
+                '--santis-bg-shift-y': `${depthY * -10}px`,
+                duration: 0.42,
+                ease: 'power3.out',
+                overwrite: 'auto'
+            });
+            animateDepthLayers(depthX, depthY);
+        };
+
+        const moveHandlerName = `coverFlowMove${index}`;
+        const enterHandlerName = `coverFlowEnter${index}`;
+        const leaveHandlerName = `coverFlowLeave${index}`;
+
+        let move = (event) => {
+            lastPointer = { clientX: event.clientX, clientY: event.clientY };
+            if (!moveFrame) moveFrame = requestAnimationFrame(applyPointerTilt);
+        };
+
+        let enter = () => {
+            card.classList.add('is-hovering');
+            animateCopy({
+                x: 0,
+                y: -10,
+                autoAlpha: 1,
+                duration: 0.5,
+                stagger: 0.045,
+                ease: 'power3.out',
+                overwrite: 'auto'
+            });
+        };
+
+        let leave = () => {
+            card.classList.remove('is-hovering');
+            lastPointer = null;
+            if (moveFrame) {
+                cancelAnimationFrame(moveFrame);
+                moveFrame = null;
+            }
+
+            animateCard({
+                '--santis-tilt-x': '0deg',
+                '--santis-tilt-y': '0deg',
+                '--santis-spot-x': '50%',
+                '--santis-spot-y': '50%',
+                '--santis-bg-shift-x': '0px',
+                '--santis-bg-shift-y': '0px',
+                duration: 0.55,
+                ease: 'power3.out',
+                overwrite: 'auto'
+            });
+            animateCopy({
+                x: 0,
+                y: 0,
+                autoAlpha: 1,
+                duration: 0.55,
+                ease: 'power3.out',
+                overwrite: 'auto'
+            });
+        };
+
+        if (gsapContext && typeof gsapContext.add === 'function') {
+            gsapContext.add(moveHandlerName, move);
+            gsapContext.add(enterHandlerName, enter);
+            gsapContext.add(leaveHandlerName, leave);
+            move = gsapContext[moveHandlerName] || move;
+            enter = gsapContext[enterHandlerName] || enter;
+            leave = gsapContext[leaveHandlerName] || leave;
+        }
+
+        card.addEventListener('mouseenter', enter, { signal });
+        card.addEventListener('mousemove', move, { passive: true, signal });
+        card.addEventListener('mouseleave', leave, { signal });
+
+        cleanupTasks.push(() => {
+            if (moveFrame) cancelAnimationFrame(moveFrame);
+            if (hasGSAP) gsap.killTweensOf([card, ...copy]);
+            card.classList.remove('santis-hover-ready', 'is-hovering');
+            resetCardVars(card);
+            delete card._santisHoverBound;
+        });
+    });
+
+    let didCleanup = false;
+    const cleanup = () => {
+        if (didCleanup) return;
+        didCleanup = true;
+        cleanupTasks.forEach((task) => task());
+        if (gsapContext && typeof gsapContext.revert === 'function') {
+            gsapContext.revert();
+        }
+    };
+
+    signal.addEventListener('abort', cleanup, { once: true });
+    return cleanup;
+}
+
+function bindSovereignGyroscope(stage, stackCards, signal, getActiveCard) {
+    if (!stage || !stackCards || stackCards.length === 0) return null;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
+    if (typeof window.DeviceOrientationEvent === 'undefined') return null;
+
+    const hasTouchIntent = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+    if (!hasTouchIntent) return null;
+
+    const hasGSAP = typeof window.gsap !== 'undefined';
+    const clamp = hasGSAP && gsap.utils && typeof gsap.utils.clamp === 'function'
+        ? gsap.utils.clamp
+        : (min, max, value) => Math.max(min, Math.min(max, value));
+
+    const cardList = Array.from(stackCards);
+    let orientationStarted = false;
+    let permissionRequested = false;
+    let permissionDenied = false;
+    let gyroFrame = null;
+    let lastOrientation = null;
+    let activeGyroCard = null;
+
+    const resetGyroCard = (card, animateCopyReset = false) => {
+        if (!card) return;
+        card.classList.remove('is-gyro-active');
+        card.style.setProperty('--santis-tilt-x', '0deg');
+        card.style.setProperty('--santis-tilt-y', '0deg');
+        card.style.setProperty('--santis-spot-x', '50%');
+        card.style.setProperty('--santis-spot-y', '50%');
+        card.style.setProperty('--santis-bg-shift-x', '0px');
+        card.style.setProperty('--santis-bg-shift-y', '0px');
+
+        if (hasGSAP && animateCopyReset) {
+            const copy = card.querySelectorAll('h3, .santis-stack-meta');
+            gsap.to(copy, {
+                x: 0,
+                y: 0,
+                duration: 0.45,
+                ease: 'power3.out',
+                overwrite: 'auto'
+            });
+        }
+    };
+
+    const animateCard = (card, vars) => {
+        if (!card) return;
+
+        if (hasGSAP) {
+            gsap.to(card, vars);
+        } else {
+            Object.entries(vars).forEach(([property, value]) => {
+                if (property.startsWith('--')) card.style.setProperty(property, value);
+            });
+        }
+    };
+
+    const animateDepthLayers = (card, depthX, depthY) => {
+        if (!hasGSAP || !card) return;
+
+        const copy = card.querySelectorAll('h3, .santis-stack-meta');
+        if (!copy.length) return;
+
+        gsap.to(copy, {
+            x: depthX * 14,
+            y: depthY * 10,
+            autoAlpha: 1,
+            duration: 0.55,
+            stagger: 0.035,
+            ease: 'power2.out',
+            overwrite: 'auto'
+        });
+    };
+
+    const applyGyroTilt = () => {
+        gyroFrame = null;
+        if (!lastOrientation) return;
+
+        const beta = Number(lastOrientation.beta);
+        const gamma = Number(lastOrientation.gamma);
+        if (!Number.isFinite(beta) || !Number.isFinite(gamma)) return;
+
+        const activeCard = typeof getActiveCard === 'function' ? getActiveCard() : null;
+        if (!activeCard || !activeCard.classList.contains('is-active')) return;
+
+        if (activeGyroCard && activeGyroCard !== activeCard) {
+            resetGyroCard(activeGyroCard, true);
+        }
+        activeGyroCard = activeCard;
+        activeCard.classList.add('is-gyro-active');
+
+        const tiltX = clamp(-7, 7, (45 - beta) * 0.18);
+        const tiltY = clamp(-8, 8, gamma * 0.22);
+        const spotX = clamp(18, 82, 50 + tiltY * 3.4);
+        const spotY = clamp(18, 82, 50 - tiltX * 3.4);
+        const depthX = clamp(-1, 1, tiltY / 8);
+        const depthY = clamp(-1, 1, -tiltX / 7);
+
+        animateCard(activeCard, {
+            '--santis-tilt-x': `${tiltX}deg`,
+            '--santis-tilt-y': `${tiltY}deg`,
+            '--santis-spot-x': `${spotX}%`,
+            '--santis-spot-y': `${spotY}%`,
+            '--santis-bg-shift-x': `${depthX * -12}px`,
+            '--santis-bg-shift-y': `${depthY * -9}px`,
+            duration: 0.55,
+            ease: 'power2.out',
+            overwrite: 'auto'
+        });
+        animateDepthLayers(activeCard, depthX, depthY);
+    };
+
+    const handleOrientation = (event) => {
+        lastOrientation = {
+            beta: event.beta,
+            gamma: event.gamma
+        };
+
+        if (!gyroFrame) gyroFrame = requestAnimationFrame(applyGyroTilt);
+    };
+
+    const startOrientation = () => {
+        if (orientationStarted || permissionDenied) return;
+        orientationStarted = true;
+        window.addEventListener('deviceorientation', handleOrientation, { passive: true, signal });
+        stage.classList.add('santis-gyro-enabled');
+    };
+
+    const requestGyroAccess = async () => {
+        if (orientationStarted || permissionRequested || permissionDenied) return;
+        permissionRequested = true;
+
+        try {
+            const orientationEvent = window.DeviceOrientationEvent;
+            if (typeof orientationEvent.requestPermission === 'function') {
+                const permission = await orientationEvent.requestPermission();
+                if (permission !== 'granted') {
+                    permissionDenied = true;
+                    return;
+                }
+            }
+
+            startOrientation();
+        } catch (error) {
+            permissionDenied = true;
+            console.debug('[CoverFlow] Gyroscope access unavailable:', error);
+        }
+    };
+
+    stage.addEventListener('pointerdown', requestGyroAccess, { signal });
+    stage.addEventListener('touchstart', requestGyroAccess, { passive: true, signal });
+
+    let didCleanup = false;
+    const cleanup = () => {
+        if (didCleanup) return;
+        didCleanup = true;
+        if (gyroFrame) cancelAnimationFrame(gyroFrame);
+        window.removeEventListener('deviceorientation', handleOrientation);
+        if (hasGSAP) {
+            const animatedNodes = cardList.flatMap((card) => [
+                card,
+                ...card.querySelectorAll('h3, .santis-stack-meta')
+            ]);
+            gsap.killTweensOf(animatedNodes);
+        }
+        cardList.forEach(resetGyroCard);
+        stage.classList.remove('santis-gyro-enabled');
+    };
+
+    signal.addEventListener('abort', cleanup, { once: true });
+    return cleanup;
+}
 
 
 

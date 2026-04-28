@@ -3,6 +3,9 @@
    ========================================================================== */
 
 .santis-carousel-stage {
+    --santis-stage-accent: #d4af37;
+    --santis-stage-accent-soft: rgba(212,175,55,0.14);
+    --santis-stage-accent-glow: rgba(212,175,55,0.24);
     position: relative;
     width: 100%;
     height: 450px;
@@ -14,14 +17,40 @@
     margin: 2rem 0;
     user-select: none;
     -webkit-user-select: none;
+    isolation: isolate;
+    transition: background-color 1.1s ease;
+}
+
+.santis-carousel-stage::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    background:
+        radial-gradient(circle at 50% 42%, var(--santis-stage-accent-glow), transparent 34%),
+        radial-gradient(circle at 50% 72%, var(--santis-stage-accent-soft), transparent 52%);
+    transform: translateZ(0);
+    transition: opacity 0.9s ease;
+}
+
+.santis-carousel-stage.santis-theme-synced::before {
+    opacity: 1;
 }
 
 .santis-stack-card {
     position: absolute;
     width: 280px;
     height: 380px;
+    --santis-tilt-x: 0deg;
+    --santis-tilt-y: 0deg;
+    --santis-spot-x: 50%;
+    --santis-spot-y: 50%;
+    --santis-bg-shift-x: 0px;
+    --santis-bg-shift-y: 0px;
     background-size: cover;
-    background-position: center;
+    background-position: calc(50% + var(--santis-bg-shift-x)) calc(50% + var(--santis-bg-shift-y));
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     background-image: var(--card-img);
@@ -39,11 +68,34 @@
     padding: 1.5rem;
     overflow: hidden;
     border: 1px solid rgba(255,255,255,0.05);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    contain: layout paint style;
 }
 
 .santis-stack-card.is-active {
     box-shadow: 0 15px 40px rgba(0,0,0,0.7), 0 0 20px rgba(212,175,55,0.2);
     border-color: rgba(212,175,55,0.4);
+}
+
+.santis-stack-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: 1;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: 0;
+    background:
+        radial-gradient(circle at var(--santis-spot-x) var(--santis-spot-y), rgba(255,255,255,0.2), transparent 28%),
+        linear-gradient(135deg, rgba(212,175,55,0.18), transparent 44%);
+    mix-blend-mode: screen;
+    transition: opacity 0.45s ease;
+}
+
+.santis-stack-card.is-hovering::before,
+.santis-stack-card.is-gyro-active::before {
+    opacity: 1;
 }
 
 /* Gradient Overlay For Legibility */
@@ -66,8 +118,10 @@
     color: #fff;
     text-shadow: 0 2px 4px rgba(0,0,0,0.8);
     position: relative;
-    z-index: 2;
+    z-index: 3;
     margin-bottom: 0.2rem;
+    will-change: auto;
+    pointer-events: none;
 }
 
 .santis-stack-card .santis-stack-meta {
@@ -76,8 +130,32 @@
     color: #d4af37;
     text-shadow: 0 1px 3px rgba(0,0,0,0.8);
     position: relative;
-    z-index: 2;
+    z-index: 3;
     letter-spacing: 1px;
+    will-change: auto;
+    pointer-events: none;
+}
+
+.santis-stack-card.is-hovering .santis-stack-meta,
+.santis-stack-card.is-gyro-active .santis-stack-meta {
+    color: #f0d978;
+}
+
+.santis-stack-card.is-hovering h3,
+.santis-stack-card.is-hovering .santis-stack-meta,
+.santis-stack-card.is-gyro-active h3,
+.santis-stack-card.is-gyro-active .santis-stack-meta {
+    will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .santis-stack-card {
+        transition: opacity 0.2s ease;
+    }
+
+    .santis-stack-card::before {
+        display: none;
+    }
 }
 
 /* Mobile Optimization */
@@ -96,4 +174,11 @@
     .santis-stack-card .santis-stack-meta {
         font-size: 0.8rem;
     }
+}
+
+/* Metinlerin mouse koordinatlarını bozmasını engeller */
+.santis-card .card-content-wrapper {
+    pointer-events: none;
+    user-select: none;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }

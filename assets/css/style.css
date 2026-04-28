@@ -330,6 +330,12 @@ body::after {
     position: absolute;
     width: 340px;
     height: 440px;
+    --santis-tilt-x: 0deg;
+    --santis-tilt-y: 0deg;
+    --santis-spot-x: 50%;
+    --santis-spot-y: 50%;
+    --santis-bg-shift-x: 0px;
+    --santis-bg-shift-y: 0px;
     background: #111;
     border-radius: 24px;
     border: 1px solid rgba(255,255,255,0.1);
@@ -346,8 +352,30 @@ body::after {
     color: #fff;
     user-select: none;
     background-size: cover;
-    background-position: center;
+    background-position: calc(50% + var(--santis-bg-shift-x)) calc(50% + var(--santis-bg-shift-y));
     box-shadow: inset 0 -150px 100px -20px rgba(0,0,0,0.85); /* Derin Inner Gölge */
+    overflow: hidden;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    contain: layout paint style;
+}
+.santis-stack-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: 1;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: 0;
+    background:
+        radial-gradient(circle at var(--santis-spot-x) var(--santis-spot-y), rgba(255,255,255,0.2), transparent 28%),
+        linear-gradient(135deg, rgba(212,175,55,0.18), transparent 44%);
+    mix-blend-mode: screen;
+    transition: opacity 0.45s ease;
+}
+.santis-stack-card.is-hovering::before,
+.santis-stack-card.is-gyro-active::before {
+    opacity: 1;
 }
 .santis-stack-card h3 {
     font-size: 1.8rem;
@@ -355,7 +383,9 @@ body::after {
     letter-spacing: 1px;
     margin: 0 0 0.5rem 0;
     position: relative;
-    z-index: 2;
+    z-index: 3;
+    will-change: auto;
+    pointer-events: none;
 }
 .santis-stack-card.is-active {
     border-color: rgba(212, 175, 55, 0.5); /* Gold Frame */
@@ -367,7 +397,29 @@ body::after {
     text-transform: uppercase;
     letter-spacing: 2px;
     position: relative;
-    z-index: 2;
+    z-index: 3;
+    will-change: auto;
+    pointer-events: none;
+}
+.santis-stack-card.is-hovering .santis-stack-meta,
+.santis-stack-card.is-gyro-active .santis-stack-meta {
+    color: #f0d978;
+}
+.santis-stack-card.is-hovering h3,
+.santis-stack-card.is-hovering .santis-stack-meta,
+.santis-stack-card.is-gyro-active h3,
+.santis-stack-card.is-gyro-active .santis-stack-meta {
+    will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .santis-stack-card {
+        transition: opacity 0.2s ease;
+    }
+
+    .santis-stack-card::before {
+        display: none;
+    }
 }
 
 /* =========================================

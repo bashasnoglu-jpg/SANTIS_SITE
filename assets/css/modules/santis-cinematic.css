@@ -1,0 +1,122 @@
+/* Phase 73 Cinematic Engine Mühür */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body.santis-cinematic-lock {
+  overscroll-behavior: none;
+  background: #050505;
+  overflow: hidden;
+  touch-action: none; /* Mobil bounce önleyici */
+}
+
+/* Z-Index & Layout Sync */
+.santis-navbar, .santis-booking-cta {
+  z-index: 9999; /* Cinematic frame'lerin üzerinde kalmalı */
+  position: fixed;
+}
+
+#santis-cinematic-stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.sovereign-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(0, 100%, 0);
+  will-change: transform, opacity;
+}
+
+.sovereign-frame.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate3d(0, 0, 0);
+}
+
+#ghost-pagination {
+  position: fixed;
+  right: 28px;
+  top: 50%;
+  z-index: 40;
+  display: grid;
+  gap: 14px;
+  transform: translateY(-50%);
+}
+
+.ghost-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(214, 194, 143, 0.45);
+  background: rgba(255, 255, 255, 0.08);
+  transition: transform 0.45s ease, background 0.45s ease, box-shadow 0.45s ease;
+}
+
+.ghost-dot.active {
+  background: #d6c28f;
+  transform: scale(1.65);
+  box-shadow: 0 0 18px rgba(214, 194, 143, 0.5);
+  position: relative;
+}
+
+.ghost-dot.active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: dotPulse 2s infinite;
+}
+
+@keyframes dotPulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+  #ghost-pagination {
+    right: 16px;
+  }
+}
+
+/* Placeholder Shimmer Efekti */
+[data-santis-src], [data-santis-bg] {
+    background-color: #1a1a1a; /* Santis Dark Theme */
+    position: relative;
+    overflow: hidden;
+}
+
+[data-santis-src]::after, [data-santis-bg]::after {
+    content: "";
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.05) 20%,
+        rgba(255, 255, 255, 0.1) 60%,
+        rgba(255, 255, 255, 0)
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    100% { transform: translateX(100%); }
+}
