@@ -28,8 +28,11 @@
         --radius-xl: 32px;
         
         /* ── TYPOGRAPHY ── */
-        --font-primary: 'Montserrat', 'Inter', 'Inter-fallback', system-ui, sans-serif;
-        --font-secondary: 'Cinzel', 'Cinzel-fallback', serif;
+        --font-sans: 'Inter', 'Inter-fallback', system-ui, sans-serif;
+        --font-serif: 'Playfair Display', 'Cormorant Garamond', 'Cormorant Garamond-fallback', serif;
+        --font-editorial: 'Cormorant Garamond', 'Cormorant Garamond-fallback', serif;
+        --font-primary: var(--font-sans);
+        --font-secondary: var(--font-serif);
         --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
         /* ── EXPERIENCES (MOTION) ── */
