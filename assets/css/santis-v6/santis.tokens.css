@@ -28,9 +28,14 @@
         --radius-xl: 32px;
         
         /* ── TYPOGRAPHY ── */
-        --font-primary: 'Montserrat', 'Inter', 'Inter-fallback', system-ui, sans-serif;
-        --font-secondary: 'Cinzel', 'Cinzel-fallback', serif;
-        --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+        --font-sans: 'Inter', 'Inter-fallback', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+        --font-editorial: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+        --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+        /* Backward-compatible aliases */
+        --font-primary: var(--font-sans);
+        --font-secondary: var(--font-serif);
 
         /* ── EXPERIENCES (MOTION) ── */
         --ease-lux: cubic-bezier(0.19, 1, 0.22, 1);
@@ -59,6 +64,6 @@
 
     /* Quantum / Anti-Grid Overrides */
     :root[data-quantum="on"] {
-        --lux-gold: #e2c88f; /* Slightly brighter for active physics states */
+        --lux-gold: #e2c88f;
     }
 }
