@@ -35,6 +35,23 @@
         .glass-panel {
             background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.05);
+            opacity: 0;
+            transform: translate3d(0, 18px, 0) scale(0.985);
+            animation: santisBookingReveal 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.16s forwards;
+        }
+
+        .glass-panel::before {
+            content: "";
+            position: absolute;
+            top: -20%;
+            bottom: -20%;
+            left: -55%;
+            width: 38%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.16), rgba(255, 255, 255, 0.12), transparent);
+            pointer-events: none;
+            transform: skewX(-16deg);
+            animation: santisBookingShimmer 1.75s ease-out 0.42s both;
+            z-index: 20;
         }
 
         /* Adım Geçiş Animasyonları */
@@ -61,6 +78,30 @@
         }
         .ghost-input:focus { outline: none; border-bottom-color: #10b981; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        @keyframes santisBookingReveal {
+            to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+        }
+
+        @keyframes santisBookingShimmer {
+            0% { transform: translateX(0) skewX(-16deg); opacity: 0; }
+            22% { opacity: 1; }
+            100% { transform: translateX(420%) skewX(-16deg); opacity: 0; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            body,
+            .glass-panel,
+            .glass-panel::before {
+                animation: none !important;
+            }
+
+            body,
+            .glass-panel {
+                opacity: 1;
+                transform: none;
+            }
+        }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center p-4 md:p-8">

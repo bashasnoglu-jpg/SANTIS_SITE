@@ -548,7 +548,7 @@ window.initCoverFlowCarousel = function() {
                 if (scale < 0) scale = 0;
                 if (opacity < 0) opacity = 0;
 
-                card.style.transform = `translateX(${translateX}%) rotateX(var(--santis-tilt-x, 0deg)) rotateY(var(--santis-tilt-y, 0deg)) scale(${scale}) translate(var(--mx, 0px), var(--my, 0px))`;
+                card.style.transform = `translateX(${translateX}%) rotateX(var(--santis-tilt-x, 0deg)) rotateY(var(--santis-tilt-y, 0deg)) scale(${scale}) translate(var(--mx, 0px), var(--my, 0px)) translateY(var(--santis-reveal-y, 0px))`;
                 card.style.opacity = opacity;
                 card.style.zIndex = zIndex;
 
@@ -666,6 +666,88 @@ window.triggerSovereignReveal === 'function') window.triggerSovereignReveal(card
     
     console.log("🎡 [Interaction Engine] Sovereign 3D Carousel (Cover Flow) Multi-Stage Engaged.");
 };
+
+function revealSovereignCarouselStage(stage, source = 'data-ready') {
+    if (!stage || stage.dataset.santisRevealComplete === 'true') return;
+
+    const cards = Array.from(stage.querySelectorAll('.santis-stack-card'));
+    if (cards.length === 0) return;
+
+    const veil = stage.querySelector('.santis-reveal-veil');
+    const skeletons = veil ? veil.querySelectorAll('.skeleton-card-wire') : [];
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    stage.dataset.santisRevealComplete = 'true';
+    stage.dataset.santisRevealSource = source;
+    stage.classList.add('is-revealing');
+    stage.setAttribute('aria-busy', 'false');
+
+    cards.forEach((card, index) => {
+        card.style.setProperty('--santis-reveal-delay', `${Math.min(index, 7) * 86}ms`);
+    });
+
+    let revealFailsafe = null;
+    const finishReveal = () => {
+        if (stage.classList.contains('is-revealed') && !stage.classList.contains('is-revealing')) return;
+        if (revealFailsafe) {
+            window.clearTimeout(revealFailsafe);
+            revealFailsafe = null;
+        }
+        stage.classList.remove('is-loading', 'is-revealing');
+        stage.classList.add('is-revealed');
+        if (veil && veil.parentNode) veil.remove();
+        cards.forEach((card) => {
+            card.style.removeProperty('transition-delay');
+        });
+    };
+
+    if (prefersReducedMotion || typeof window.gsap === 'undefined') {
+        stage.classList.remove('is-loading');
+        finishReveal();
+        return;
+    }
+
+    const animatedTargets = [veil, ...skeletons, ...cards].filter(Boolean);
+    gsap.killTweensOf(animatedTargets);
+    revealFailsafe = window.setTimeout(finishReveal, 3800);
+
+    const tl = gsap.timeline({
+        defaults: { overwrite: 'auto' },
+        onComplete: finishReveal
+    });
+
+    tl.to(skeletons, {
+        autoAlpha: 0,
+        scale: 0.96,
+        duration: 0.85,
+        stagger: 0.055,
+        ease: 'power2.inOut'
+    }, 0)
+    .to(veil, {
+        autoAlpha: 0,
+        duration: 2.1,
+        ease: 'expo.inOut'
+    }, 0.15)
+    .call(() => {
+        stage.classList.remove('is-loading');
+    }, null, 0.62);
+}
+
+function scheduleSovereignCarouselReveal(event) {
+    const stage = document.querySelector('#sov-3d-stage-elements.santis-carousel-stage');
+    if (!stage) return;
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => revealSovereignCarouselStage(stage, event?.type || 'data-ready'));
+    });
+}
+
+window.addEventListener('SANTIS_DATA_READY', scheduleSovereignCarouselReveal);
+window.addEventListener('SANTIS_CAROUSEL_SYNCED', scheduleSovereignCarouselReveal);
+
+if (window.SANTIS_DATA_READY) {
+    scheduleSovereignCarouselReveal({ type: 'boot-replay' });
+}
 
 function composeCoverFlowCleanups(...cleanups) {
     let didCleanup = false;

@@ -306,6 +306,7 @@ function createSignatureCarouselCard(product = {}, index = 0) {
     card.dataset.themeColor = theme.themeColor;
     card.dataset.accentColor = theme.accentColor;
     card.dataset.assetPriority = index < 3 ? 'eager' : 'lazy';
+    card.style.setProperty('--santis-reveal-delay', `${Math.min(index, 7) * 86}ms`);
     card.style.setProperty('--card-img', `url("${imagePath.replace(/["\\]/g, '\\$&')}")`);
     card.style.backgroundImage = `url("${imagePath.replace(/["\\]/g, '\\$&')}")`;
     card.style.filter = SIGNATURE_CAROUSEL_FILTERS[index % SIGNATURE_CAROUSEL_FILTERS.length];
@@ -318,6 +319,27 @@ function createSignatureCarouselCard(product = {}, index = 0) {
 
     card.append(heading, meta, createSignatureRevealData(product, title));
     return card;
+}
+
+function createSignatureRevealVeil() {
+    const veil = document.createElement('div');
+    const positions = ['left', 'center', 'right'];
+
+    veil.className = 'santis-reveal-veil';
+    veil.setAttribute('aria-hidden', 'true');
+
+    positions.forEach((position) => {
+        const wire = document.createElement('div');
+        wire.className = `skeleton-card-wire skeleton-card-wire--${position}`;
+        veil.appendChild(wire);
+    });
+
+    return veil;
+}
+
+function ensureSignatureRevealVeil(stage) {
+    if (!stage) return null;
+    return stage.querySelector('.santis-reveal-veil') || createSignatureRevealVeil();
 }
 
 function primeSignatureCarouselAssets(stage, products = []) {
@@ -347,11 +369,19 @@ function syncSignatureCarouselWithCatalog(products = []) {
     }
 
     const fragment = document.createDocumentFragment();
+    const shouldShowReveal = stage.dataset.santisRevealComplete !== 'true';
+    const revealVeil = shouldShowReveal ? ensureSignatureRevealVeil(stage) : null;
+
     selectedProducts.forEach((product, index) => {
         fragment.appendChild(createSignatureCarouselCard(product, index));
     });
 
     stage.replaceChildren(fragment);
+    if (revealVeil) {
+        stage.appendChild(revealVeil);
+        stage.classList.add('is-loading');
+        stage.setAttribute('aria-busy', 'true');
+    }
     stage.dataset.santisCatalogSync = signature;
     stage.dataset.santisCatalogCount = String(selectedProducts.length);
     primeSignatureCarouselAssets(stage, selectedProducts);

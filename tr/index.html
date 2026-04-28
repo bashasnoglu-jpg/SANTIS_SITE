@@ -186,7 +186,12 @@ html { font-display: optional; }
           </p>
       </div>
 
-      <div class="santis-carousel-stage custom-cover-flow" id="sov-3d-stage-elements" style="height: 60vh; min-height: 400px; width: 100%; position: relative;">
+      <div class="santis-carousel-stage custom-cover-flow is-loading" id="sov-3d-stage-elements" aria-busy="true" style="height: 60vh; min-height: 400px; width: 100%; position: relative;">
+          <div class="santis-reveal-veil" aria-hidden="true">
+              <div class="skeleton-card-wire skeleton-card-wire--left"></div>
+              <div class="skeleton-card-wire skeleton-card-wire--center"></div>
+              <div class="skeleton-card-wire skeleton-card-wire--right"></div>
+          </div>
           <div class="santis-stack-card" data-santis-bg="/assets/img/cards/santis_card_recovery_lotion_v2.webp" style="filter: hue-rotate(180deg) saturate(150%);">
               <h3 data-morph="title">Su: Arınma Şelalesi</h3>
               <span class="santis-stack-meta">Hidroterapi</span>

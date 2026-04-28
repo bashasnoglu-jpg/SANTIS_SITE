@@ -131,6 +131,48 @@
       "hooks": { "onEnter": "null", "onExit": "null" }
     },
     {
+      "id": "reservation_clean",
+      "type": "static",
+      "path": "/rezervasyon",
+      "template": "rezervasyon.html",
+      "title": { "tr": "Rezervasyon", "en": "Reservation" },
+      "authRequired": false,
+      "nav": { "show": false, "group": "action", "weight": 91 },
+      "seo": { "description": "Hızlı Rezervasyon", "canonical": "/rezervasyon.html", "ogImage": "" },
+      "layout": { "hero": { "ratio": "none", "required": false } },
+      "assets": { "preload": [] },
+      "guards": ["guest"],
+      "hooks": { "onEnter": "null", "onExit": "null" }
+    },
+    {
+      "id": "booking_legacy",
+      "type": "static",
+      "path": "/booking.html",
+      "template": "booking.html",
+      "title": { "tr": "Rezervasyon", "en": "Booking" },
+      "authRequired": false,
+      "nav": { "show": false, "group": "action", "weight": 92 },
+      "seo": { "description": "Online rezervasyon", "canonical": "/booking.html", "ogImage": "" },
+      "layout": { "hero": { "ratio": "none", "required": false } },
+      "assets": { "preload": [] },
+      "guards": ["guest"],
+      "hooks": { "onEnter": "null", "onExit": "null" }
+    },
+    {
+      "id": "spa_booking",
+      "type": "static",
+      "path": "/spa-booking.html",
+      "template": "spa-booking.html",
+      "title": { "tr": "Ritüel Konfigürasyonu", "en": "Ritual Configuration" },
+      "authRequired": false,
+      "nav": { "show": false, "group": "action", "weight": 93 },
+      "seo": { "description": "Spa rezervasyon konfigürasyonu", "canonical": "/spa-booking.html", "ogImage": "" },
+      "layout": { "hero": { "ratio": "none", "required": false } },
+      "assets": { "preload": [] },
+      "guards": ["guest"],
+      "hooks": { "onEnter": "null", "onExit": "null" }
+    },
+    {
       "id": "hamam",
       "type": "static",
       "path": "/hamam.html",
