@@ -7,7 +7,7 @@
  *
  * Kullanım:
  *   node server.js
- *   → http://localhost:8080
+ *   → http://localhost:3030
  *
  * Sağladığı endpoint'ler:
  *   GET  /api/v1/analytics/metrics
@@ -28,9 +28,57 @@ const fs   = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const mediaManifest = require('./admin/omniverse/media-manifest-engine.js');
+const { CoreStateSnapshot } = require('./server/core/state/core-state.snapshot.js');
 
-const PORT = 8080;
+const PORT = 3030;
 const ROOT = __dirname;
+
+// ── SSE DELTA HYDRATION POOL (Phase 78 & 79) ──
+global.SSE_CLIENTS = global.SSE_CLIENTS || new Set();
+global.SSE_SEQ = global.SSE_SEQ || 0;
+
+function emitSSEPatch(topic, patch) {
+    global.SSE_SEQ++;
+    const payload = { 
+        topic, 
+        patch, 
+        ts: Date.now(),
+        seq: global.SSE_SEQ,
+        timestamp: new Date().toISOString() 
+    };
+    const message = `event: ${topic}\ndata: ${JSON.stringify(payload)}\n\n`;
+    for (const client of global.SSE_CLIENTS) {
+        if (!client.destroyed) {
+            client.write(message);
+        } else {
+            global.SSE_CLIENTS.delete(client);
+        }
+    }
+}
+
+// Heartbeat & Patch Simulation (Delta Hydration)
+setInterval(() => {
+    if (global.SSE_CLIENTS.size === 0) return;
+    
+    // Simulate a metrics patch (shallow)
+    const metricsPatch = {
+        revenue: 14200 + Math.floor(Math.random() * 500),
+        interventionRate: parseFloat((24.2 + (Math.random() - 0.5)).toFixed(1)),
+        dropoff: {
+            step2: 85 + Math.floor(Math.random() * 10),
+            step4: 45 + Math.floor(Math.random() * 5)
+        }
+    };
+    emitSSEPatch('metrics', metricsPatch);
+
+    // Simulate a core-state patch occasionally
+    if (Math.random() > 0.7) {
+        const corePatch = {
+            timestamp: new Date().toISOString()
+        };
+        emitSSEPatch('core-state', corePatch);
+    }
+}, 3000);
 
 // ── SOVEREIGN ROUTING MANIFESTO (P4) ──
 let RUNTIME_MANIFEST = { routes: [] };
@@ -424,45 +472,12 @@ function handleAPI(req, res) {
         req.on('data', c => body += c);
         req.on('end', async () => {
             try {
-                // Dynamically import the zod schema since this is commonjs
-                const { TelemetryPayloadSchema } = await import('./server/core/concierge/telemetry/telemetry.schemas.ts');
-                
-                const rawData = JSON.parse(body);
-                const parseResult = TelemetryPayloadSchema.safeParse(rawData);
-                
-                if (!parseResult.success) {
-                    console.warn(`\x1b[33m[TELEMETRY] Invalid Payload Detected:\x1b[0m`, JSON.stringify(parseResult.error.issues));
-                    json({ error: 'INVALID_TELEMETRY_PAYLOAD', issues: parseResult.error.issues }, 400);
-                    return;
-                }
-                
-                const payload = parseResult.data;
-
-                console.log('[telemetry.beacon]', {
-                    event: payload.event,
-                    tenantId: payload.context.tenantId,
-                    sessionId: payload.context.sessionId,
-                    visitorId: payload.context.visitorId ?? null,
-                    requestId: payload.context.requestId ?? null,
-                    quoteId: payload.context.quoteId ?? null,
-                    intentId: payload.context.intentId ?? null,
-                    degraded: payload.context.degraded ?? null,
-                });
-
-                global.V36_TELEMETRY_STREAM.push({
-                    level: 'INFO',
-                    message: payload.event,
-                    page: payload.context.source || 'unknown',
-                    time: Date.now(),
-                    context: payload.context
-                });
-                if (global.V36_TELEMETRY_STREAM.length > 200) global.V36_TELEMETRY_STREAM.shift();
-
+                const payload = JSON.parse(body);
+                console.log('[telemetry.beacon] Tolerant Mode:', payload);
                 res.setHeader('Content-Type', 'application/json');
                 res.writeHead(202);
                 res.end(JSON.stringify({ ok: true, accepted: true }));
             } catch(error) { 
-                console.error('[telemetry.beacon] failed', error);
                 res.setHeader('Content-Type', 'application/json');
                 res.writeHead(400);
                 res.end(JSON.stringify({ ok: false, error: 'BAD_TELEMETRY_PAYLOAD' }));
@@ -503,6 +518,57 @@ function handleAPI(req, res) {
         return true;
     }
 
+    // ── Telemetry Beacon (Tolerant Mode) ──
+    if (url === '/api/v1/telemetry/beacon' && method === 'POST') {
+        let body = ''; req.on('data', c => body += c);
+        req.on('end', () => {
+            // Geçiçi tolerans (Zod öncesi spam engeli)
+            json({ ok: true, accepted: true }, 202);
+        });
+        return true;
+    }
+
+    // ── Auth Login Mock ──
+    if (url === '/api/v1/auth/login' && method === 'POST') {
+        let body = '';
+        req.on('data', c => body += c);
+        req.on('end', () => {
+            json({
+                access_token: 'sovereign-mock-jwt-token-777',
+                token_type: 'bearer'
+            });
+        });
+        return true;
+    }
+
+    // ── Core State ──
+    if (url === '/api/v1/core-state' && method === 'GET') {
+        // Asgari hydrate verisi, strict schema: core-state.schema.ts
+        json(CoreStateSnapshot.get());
+        return true;
+    }
+
+    // ── Boardroom Metrics ──
+    if (url === '/api/v1/boardroom/metrics' && method === 'GET') {
+        json({
+            revenue: 14200,
+            conversion: 10.2,
+            dropoff: {
+                step1: 100,
+                step2: 88,
+                step3: 53,
+                step4: 48
+            },
+            interventionRate: 24.2,
+            cognitiveDistribution: {
+                overwhelmed: 45,
+                hesitant: 35,
+                analytical: 20
+            }
+        });
+        return true;
+    }
+
     // ── Bookings ──
     if (url === '/api/v1/admin/bookings' && method === 'GET') {
         json({ bookings: mockBookings(), total: 8 }); return true;
@@ -540,6 +606,34 @@ function handleAPI(req, res) {
             res.write('data: {"type":"pulse","visitors":' + Math.floor(Math.random()*5) + ',"timestamp":' + Date.now() + '}\n\n');
         }, 5000);
         req.on('close', () => clearInterval(interval));
+        return true;
+    }
+
+    // ── Events Stream (Dashboard SSE) ──
+    if (url === '/api/v1/stream/events' && method === 'GET') {
+        res.writeHead(200, {
+            'Content-Type': 'text/event-stream',
+            'Cache-Control': 'no-cache, no-transform',
+            'Connection': 'keep-alive'
+        });
+        res.flushHeaders?.();
+        
+        global.SSE_SEQ = global.SSE_SEQ || 0;
+        const connectedPayload = {
+            topic: 'connected',
+            seq: ++global.SSE_SEQ,
+            ts: Date.now(),
+            patch: { ok: true, source: 'santis-stream' },
+            timestamp: new Date().toISOString()
+        };
+        res.write(`event: connected\n`);
+        res.write(`data: ${JSON.stringify(connectedPayload)}\n\n`);
+        
+        global.SSE_CLIENTS.add(res);
+        
+        req.on('close', () => {
+            global.SSE_CLIENTS.delete(res);
+        });
         return true;
     }
 
@@ -788,8 +882,8 @@ const ipConnections = new Map();    // IP → active connection count (concurren
 const WS_CONFIG = {
     // 🛡️ Origin Whitelist (CSWSH Koruması)
     ALLOWED_ORIGINS: new Set([
-        'http://localhost:8080',
-        'http://127.0.0.1:8080',
+        'http://localhost:3030',
+        'http://127.0.0.1:3030',
         'https://santisclub.com',
         'https://www.santisclub.com',
         'https://admin.santisclub.com',
@@ -1270,6 +1364,8 @@ const server = http.createServer((req, res) => {
             });
             return;
         }
+
+
 
         if (typeof handleAPI !== 'undefined' && !handleAPI(req, res)) {
             res.writeHead(404, { 'Content-Type': 'application/json' });
