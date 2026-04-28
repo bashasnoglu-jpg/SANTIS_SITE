@@ -2,6 +2,18 @@
 
 <html lang="tr">
 <head>
+<script>
+if (window.location.protocol === 'file:') {
+  const normalizedPath = window.location.pathname.replace(/\\/g, '/');
+  const marker = '/santis_site/';
+  const markerIndex = normalizedPath.toLowerCase().lastIndexOf(marker);
+  const routePath = markerIndex >= 0
+    ? normalizedPath.slice(markerIndex + marker.length - 1)
+    : '/tr/index.html';
+
+  window.location.replace(`http://localhost:3030${routePath}${window.location.search}${window.location.hash}`);
+}
+</script>
 <script src="/assets/js/santis-config.js"></script>
 <script src="/assets/js/api-client.js"></script>
 <meta charset="utf-8"/>
