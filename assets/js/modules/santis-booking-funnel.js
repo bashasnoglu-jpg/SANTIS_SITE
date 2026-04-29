@@ -254,7 +254,28 @@
     `;
 
     renderUpsell();
+    updateScarcity();
     persistState();
+  }
+
+  function updateScarcity() {
+    const scarcityEl = document.querySelector('[data-booking-scarcity]');
+    if (!scarcityEl) return;
+
+    if (state.time === 'Bugün' || state.time === 'Yarın') {
+      scarcityEl.innerHTML = 'Yakın zamanlı talepler için <strong>son 2 sessiz saat aralığı</strong> önerilebilir.';
+      scarcityEl.style.color = 'var(--nv-gold, #CFA968)';
+      return;
+    }
+
+    if (state.ritual) {
+      scarcityEl.innerHTML = `${state.ritual} deneyimi için sınırlı concierge kapasitesi bulunmaktadır.`;
+      scarcityEl.style.color = '';
+      return;
+    }
+
+    scarcityEl.innerHTML = 'Talepleriniz için VIP Concierge kapasitesi sınırlı tutulmaktadır.';
+    scarcityEl.style.color = '';
   }
 
   function createDrawer() {
@@ -311,6 +332,8 @@
         </section>
 
         <div class="santis-booking-summary" data-booking-summary></div>
+
+        <div class="santis-booking-scarcity" data-booking-scarcity></div>
 
         <button class="santis-booking-submit" type="button" data-booking-submit>
           WhatsApp Concierge’e Gönder
