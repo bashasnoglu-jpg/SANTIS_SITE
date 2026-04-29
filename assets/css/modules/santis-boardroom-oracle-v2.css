@@ -47,6 +47,33 @@
   letter-spacing: 0.01em;
 }
 
+.oracle-decision-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.oracle-decision-row span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 0.55rem;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  border-radius: 4px;
+  color: #d4af37;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.oracle-suggested-action {
+  margin-top: 0.75rem;
+  color: #f1f1f1;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
 .pulse-animation {
   animation: subtlePulse 1s ease-out;
 }
