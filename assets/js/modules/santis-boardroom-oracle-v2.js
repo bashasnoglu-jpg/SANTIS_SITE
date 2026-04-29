@@ -4,11 +4,15 @@
  */
 import { RevenueAnomalyDetector } from './santis-revenue-anomaly-detector.js';
 import { VipBehaviorInference } from './santis-vip-behavior-inference.js';
+import { SantisOracleConfidenceEngine } from './santis-oracle-confidence-engine.js';
+import { SantisOracleActionRail } from './santis-oracle-action-rail.js';
 
 class BoardroomOracleV2 {
   constructor() {
     this.anomalyDetector = new RevenueAnomalyDetector();
     this.vipInference = new VipBehaviorInference();
+    this.confidenceEngine = new SantisOracleConfidenceEngine();
+    this.actionRail = new SantisOracleActionRail();
     this.container = document.getElementById('oracle-insights-container');
     
     this.init();
@@ -26,8 +30,29 @@ class BoardroomOracleV2 {
 
     // Listen to the system-wide patch event from the CoreState stream
     window.addEventListener('santis:corestate:patch', (e) => {
-      this.evaluateState(e.detail.patch.boardroom);
+      this.evaluateState(this.resolveBoardroomMetrics(e.detail));
     });
+  }
+
+  resolveBoardroomMetrics(payload) {
+    if (!payload) return null;
+    if (payload.patch?.boardroom) return payload.patch.boardroom;
+    if (payload.boardroom) return payload.boardroom;
+
+    return {
+      ...payload,
+      revenue: payload.revenue ?? payload.totalRevenue,
+      bookings: payload.bookings ?? payload.bookingCount,
+      vipLeads: payload.vipLeads ?? (Array.isArray(payload.vipSegments) ? payload.vipSegments.length : 0),
+      averageLeadValue: payload.averageLeadValue ?? this.resolveAverageLeadValue(payload),
+    };
+  }
+
+  resolveAverageLeadValue(metrics) {
+    const revenue = Number(metrics.revenue ?? metrics.totalRevenue ?? 0);
+    const bookings = Number(metrics.bookings ?? metrics.bookingCount ?? 0);
+
+    return bookings > 0 ? revenue / bookings : 0;
   }
 
   evaluateState(boardroomMetrics) {
@@ -36,10 +61,14 @@ class BoardroomOracleV2 {
     const anomalyInsights = this.anomalyDetector.analyze(boardroomMetrics);
     const vipInsights = this.vipInference.analyze(boardroomMetrics);
 
-    const allInsights = [...anomalyInsights, ...vipInsights];
+    const allInsights = this.confidenceEngine.enrich(
+      [...anomalyInsights, ...vipInsights],
+      boardroomMetrics
+    );
     
     if (allInsights.length > 0) {
       this.renderInsights(allInsights);
+      this.actionRail.render(allInsights);
     }
   }
 
@@ -71,6 +100,11 @@ class BoardroomOracleV2 {
         <div class="oracle-insight-icon">${this.getIconForType(insight.type)}</div>
         <div class="oracle-insight-content">
           <p>${insight.message}</p>
+          <div class="oracle-decision-row">
+            <span>${insight.confidenceScore}% confidence</span>
+            <span>${insight.riskLevel} risk</span>
+          </div>
+          <div class="oracle-suggested-action">${insight.suggestedAction}</div>
         </div>
       `;
       

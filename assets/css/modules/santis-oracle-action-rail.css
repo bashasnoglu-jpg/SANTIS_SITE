@@ -1,0 +1,112 @@
+/*
+  Santis Oracle Action Rail
+  Executive recommendation queue for Boardroom Oracle v2.
+*/
+
+.santis-boardroom-action-rail {
+  background: var(--boardroom-surface);
+  border: 1px solid var(--boardroom-border);
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+
+.oracle-action-rail {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.oracle-action-card {
+  min-height: 190px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 2px solid #8b7355;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.025);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.oracle-action-card.oracle-risk-high {
+  border-left-color: var(--boardroom-accent);
+  background: linear-gradient(145deg, rgba(212, 175, 55, 0.08), rgba(255, 255, 255, 0.02));
+}
+
+.oracle-action-card.oracle-risk-medium {
+  border-left-color: #b89062;
+}
+
+.oracle-action-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--boardroom-accent);
+  font-size: 13px;
+}
+
+.oracle-risk-label {
+  color: var(--boardroom-text-muted);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.oracle-action-card h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.oracle-action-card p {
+  margin: 0;
+  color: #ddd;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.oracle-action-card ul {
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.oracle-action-card li {
+  color: var(--boardroom-text-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.oracle-action-card li::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--boardroom-accent);
+  vertical-align: 1px;
+}
+
+.oracle-action-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 96px;
+  color: var(--boardroom-text-muted);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .santis-boardroom-action-rail {
+    padding: 20px;
+  }
+}
