@@ -131,6 +131,13 @@ export class SantisOracleConfidenceEngine {
   }
 
   createInsightId(insight) {
-    return `${insight.type || 'signal'}:${insight.severity || 'low'}:${insight.message}`;
+    const source = `${insight.type || 'signal'}:${insight.severity || 'low'}:${insight.message}`;
+    let hash = 0;
+
+    for (let index = 0; index < source.length; index += 1) {
+      hash = ((hash << 5) - hash + source.charCodeAt(index)) | 0;
+    }
+
+    return `oracle-action-${Math.abs(hash).toString(36)}`;
   }
 }
