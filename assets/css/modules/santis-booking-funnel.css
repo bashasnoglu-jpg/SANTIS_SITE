@@ -224,3 +224,17 @@
   background: var(--lux-gold, #c6a96b);
   color: #111;
 }
+
+.santis-booking-scarcity {
+  margin: 24px 0 16px;
+  color: var(--color-text-muted, #a1a1aa);
+  font-size: 0.72rem;
+  text-align: center;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+  transition: color 0.4s ease;
+}
+
+.santis-booking-scarcity strong {
+  font-weight: 500;
+}
