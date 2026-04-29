@@ -102,87 +102,73 @@
     return '[STANDARD]';
   }
 
-  function getIntentProfile() {
-    const text = `${state.intent} ${state.ritual}`.toLowerCase();
-
-    if (text.includes('hamam') || text.includes('köpük') || text.includes('kese')) {
-      return {
-        archetype: 'purification',
-        label: 'Arınma',
-        tone: 'bedeni hafifleten, zihni sadeleştiren',
-        suggestion: 'hamam ritüelinden sonra kısa bir dinlenme aralığı ile deneyimi tamamlamak',
-      };
-    }
-
-    if (text.includes('bali') || text.includes('rahatlama') || text.includes('relax')) {
-      return {
-        archetype: 'deep-relaxation',
-        label: 'Derin Rahatlama',
-        tone: 'sinir sistemini yavaşlatan, ritmi sakinleştiren',
-        suggestion: 'daha yumuşak basınç ve sessiz bir oda atmosferiyle ilerlemek',
-      };
-    }
-
-    if (text.includes('cilt') || text.includes('skin') || text.includes('maske') || text.includes('glow')) {
-      return {
-        archetype: 'skin-renewal',
-        label: 'Cilt Yenilenmesi',
-        tone: 'ışıltıyı ve tazeliği öne çıkaran',
-        suggestion: 'bakımı nem ve parlaklık odaklı bir final ile tamamlamak',
-      };
-    }
-
-    if (text.includes('çift') || text.includes('couple') || Number(state.guests) >= 2) {
-      return {
-        archetype: 'shared-ritual',
-        label: 'Paylaşılan Deneyim',
-        tone: 'iki kişi için senkron ve sakin bir akış oluşturan',
-        suggestion: 'aynı zaman aralığında, uyumlu terapist planlamasıyla ilerlemek',
-      };
-    }
-
-    if (text.includes('signature')) {
-      return {
-        archetype: 'signature',
-        label: 'Signature Deneyim',
-        tone: 'daha özel, daha katmanlı ve yüksek temaslı',
-        suggestion: 'ritüeli concierge önerisiyle kişiselleştirmek',
-      };
-    }
-
-    return {
-      archetype: 'concierge-led',
-      label: 'Concierge Önerisi',
-      tone: 'ihtiyacınıza göre sade ve kişisel',
-      suggestion: 'en uygun ritüeli concierge ekibinin önermesi',
+  function enrichIntentProfile(stateObj) {
+    const profile = {
+      intent: 'neutral',
+      energy: 'medium',
+      luxury: false,
+      social: false
     };
+
+    if (stateObj.ritual?.includes('Bali') || stateObj.ritual?.includes('Aroma')) {
+      profile.intent = 'deep_relaxation';
+      profile.energy = 'low';
+    }
+
+    if (stateObj.ritual?.includes('Hamam')) {
+      profile.intent = 'purification';
+      profile.energy = 'reset';
+    }
+
+    if (Number(stateObj.guests) >= 2) {
+      profile.social = true;
+    }
+
+    if (stateObj.upsell) {
+      profile.luxury = true;
+    }
+
+    return profile;
   }
 
-  function composeConciergeNote() {
-    const profile = getIntentProfile();
-    const upsellLine = state.upsell
-      ? ` ${state.upsell} eklentisi bu akışı daha bütünlüklü hale getirebilir.`
-      : '';
+  function resolveTone(profile) {
+    if (profile.luxury) return 'elevated';
+    if (profile.intent === 'purification') return 'clean';
+    if (profile.intent === 'deep_relaxation') return 'soft';
+    return 'neutral';
+  }
 
-    const timeLine = state.time && state.time !== 'Concierge önerisi'
-      ? ` ${state.time} tercihiniz için en sakin saat aralığı kontrol edilecektir.`
-      : ' Concierge ekibimiz sizin için en uygun ve sakin saat aralığını önerecektir.';
+  function composeConciergeMessage(stateObj) {
+    const profile = enrichIntentProfile(stateObj);
+    const tone = resolveTone(profile);
 
-    const guestLine = Number(state.guests) >= 2
-      ? ` ${state.guests} kişi için uyumlu bir terapist ve oda akışı planlanacaktır.`
-      : '';
+    let message = '';
 
-    return [
-      `${profile.label} odağınız için ${profile.tone} bir akış öneriyoruz. `,
-      `En doğru başlangıç, ${profile.suggestion} olacaktır.`,
-      upsellLine,
-      guestLine,
-      timeLine,
-    ].join('').replace(/\s+/g, ' ').trim();
+    if (tone === 'elevated') {
+      message += 'Seçiminiz premium bir deneyim yönünde şekilleniyor. ';
+    }
+
+    if (profile.intent === 'deep_relaxation') {
+      message += 'Derin gevşeme odaklı bir ritüel planlanıyor. ';
+    }
+
+    if (profile.intent === 'purification') {
+      message += 'Arınma ve yenilenme odaklı bir deneyim öneriliyor. ';
+    }
+
+    if (profile.social) {
+      message += 'Bu deneyim senkronize bir şekilde planlanacaktır. ';
+    }
+
+    if (stateObj.upsell) {
+      message += `${stateObj.upsell} ile deneyiminiz üst seviyeye taşınacaktır.`;
+    }
+
+    return message.trim() || 'Santis Concierge sizin için en uygun deneyimi hazırlayacaktır.';
   }
 
   function refreshConciergeNote() {
-    state.conciergeNote = composeConciergeNote();
+    state.conciergeNote = composeConciergeMessage(state);
 
     const noteEl = document.querySelector('[data-concierge-note]');
     if (noteEl) {
@@ -280,27 +266,73 @@
     renderUpsell();
   }
 
-  function buildMessage() {
-    const leadTag = getLeadTag();
-    const score = calculateLeadScore();
-    const note = state.conciergeNote || composeConciergeNote();
+  function getTimeScore(stateObj) {
+    if (stateObj.time === 'Bugün') return 3;
+    if (stateObj.time === 'Yarın') return 2;
+    return 1;
+  }
 
-    return [
-      `${leadTag} Merhaba Santis Concierge,`,
-      '',
-      'Santis Club üzerinden bir ritüel talebi oluşturmak istiyorum.',
-      '',
-      `Niyet: ${state.intent || 'Concierge önerisi'}`,
-      `Ritüel: ${state.ritual || 'Concierge önerisi'}`,
-      `Zaman tercihi: ${state.time || 'Concierge önerisi'}`,
-      `Kişi sayısı: ${state.guests || '1'}`,
-      state.upsell ? `Premium ekleme: ${state.upsell}` : 'Premium ekleme: Concierge önerisi',
-      `Concierge notu: ${note}`,
-      '',
-      `Lead skoru: ${score}`,
-      '',
-      'Benim için en uygun saat ve deneyim önerisini paylaşır mısınız?',
-    ].join('\n');
+  function calculateDynamicPrice(basePrice, stateObj) {
+    let multiplier = 1;
+
+    const timeScore = getTimeScore(stateObj);
+
+    if (timeScore === 3) multiplier += 0.25;
+    if (Number(stateObj.guests) >= 2) multiplier += 0.15;
+    if (stateObj.upsell) multiplier += 0.20;
+
+    return Math.round(basePrice * multiplier);
+  }
+
+  function getSlotPressure(stateObj) {
+    const timeScore = getTimeScore(stateObj);
+
+    if (timeScore === 3) return 'high';
+    if (timeScore === 2) return 'medium';
+    return 'low';
+  }
+
+  function enhanceMessageWithEconomics(stateObj, message) {
+    const pressure = getSlotPressure(stateObj);
+
+    if (pressure === 'high') {
+      message += '\n\nYakın zamanlı talepler için concierge kapasitesi hızla dolmaktadır.';
+    }
+
+    if (stateObj.dynamicPrice) {
+      message += `\n\nPlanlanan premium deneyim: ~${stateObj.dynamicPrice}€ seviyesindedir.`;
+    }
+
+    return message;
+  }
+
+  function buildWhatsAppPayload(stateObj) {
+    const conciergeNote = composeConciergeMessage(stateObj);
+
+    return `
+${stateObj.vipTag || ''}
+
+Ritüel: ${stateObj.ritual || 'Concierge önerisi'}
+Kişi: ${stateObj.guests}
+Upsell: ${stateObj.upsell || '-'}
+
+Not:
+${conciergeNote}
+    `.trim();
+  }
+
+  function buildMessage() {
+    state.vipTag = `${getLeadTag()} (Score: ${calculateLeadScore()})`;
+    
+    let basePrice = 200;
+    if (state.ritual === 'Signature Ritual') basePrice = 400;
+    else if (state.ritual === 'Bali Masajı') basePrice = 250;
+    else if (state.ritual === 'Derin Doku Masajı') basePrice = 280;
+
+    state.dynamicPrice = calculateDynamicPrice(basePrice, state);
+
+    const baseMessage = buildWhatsAppPayload(state);
+    return enhanceMessageWithEconomics(state, baseMessage);
   }
 
   function openWhatsApp() {
