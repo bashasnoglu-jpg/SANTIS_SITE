@@ -6,7 +6,9 @@
     avgRevenue: document.getElementById('val-avg-revenue'),
     eventLogBody: document.getElementById('event-log-body'),
     emptyState: document.getElementById('empty-state'),
-    clearBtn: document.getElementById('btn-clear-data')
+    clearBtn: document.getElementById('btn-clear-data'),
+    oracleContainer: document.getElementById('oracle-insights-container'),
+    vipList: document.getElementById('vip-segment-list')
   };
 
   function formatCurrency(value) {
@@ -79,6 +81,70 @@
     elements.eventLogBody.innerHTML = html;
   }
 
+  function renderVIPSegment(events) {
+    if (!elements.vipList) return;
+    const vipEvents = events.filter(evt => evt.leadScore >= 75 || evt.leadTag === '[VIP-LEAD]');
+    
+    if (vipEvents.length === 0) {
+      elements.vipList.innerHTML = '<div class="empty-state">No VIP leads detected yet.</div>';
+      return;
+    }
+
+    const sortedVip = [...vipEvents].reverse();
+    const html = sortedVip.slice(0, 5).map(evt => `
+      <div class="vip-card">
+        <div class="vip-info">
+          <span class="vip-ritual">${evt.ritual}</span>
+          <span class="vip-meta">${formatDate(evt.timestamp)} • ${evt.guests} Guests</span>
+        </div>
+        <div class="vip-value">${formatCurrency(evt.estimatedValue)}</div>
+      </div>
+    `).join('');
+
+    elements.vipList.innerHTML = html;
+  }
+
+  function renderOracleInsights(events) {
+    if (!elements.oracleContainer) return;
+    
+    if (events.length === 0) {
+      elements.oracleContainer.innerHTML = '<div class="oracle-message empty">Awaiting data to generate insights...</div>';
+      return;
+    }
+
+    const insights = [];
+    let totalRevenue = 0;
+    const ritualCounts = {};
+    let upsellCount = 0;
+
+    events.forEach(evt => {
+      totalRevenue += evt.estimatedValue || 0;
+      ritualCounts[evt.ritual] = (ritualCounts[evt.ritual] || 0) + 1;
+      if (evt.upsell && evt.upsell !== 'None') upsellCount++;
+    });
+
+    // Insight 1: Most popular ritual
+    const topRitual = Object.keys(ritualCounts).reduce((a, b) => ritualCounts[a] > ritualCounts[b] ? a : b);
+    insights.push(`<strong>Demand Shift:</strong> "${topRitual}" is currently the highest converting intent with ${ritualCounts[topRitual]} handoffs.`);
+
+    // Insight 2: Upsell conversion
+    const upsellRate = Math.round((upsellCount / events.length) * 100);
+    if (upsellRate > 30) {
+      insights.push(`<strong>Upsell Efficiency:</strong> Upsell attachment rate is strong at ${upsellRate}%. Consider introducing a secondary premium tier.`);
+    } else if (events.length >= 3) {
+      insights.push(`<strong>Revenue Opportunity:</strong> Upsell rate is ${upsellRate}%. Try increasing urgency or scarcity signals in the funnel.`);
+    }
+
+    // Insight 3: High Value Alert
+    const avgValue = totalRevenue / events.length;
+    if (avgValue > 500) {
+      insights.push(`<strong>VIP Momentum:</strong> Average lead value is extremely high (${formatCurrency(avgValue)}). Keep funnel friction low for maximum conversion.`);
+    }
+
+    const html = insights.map(text => `<div class="oracle-message">${text}</div>`).join('');
+    elements.oracleContainer.innerHTML = html;
+  }
+
   function refresh() {
     if (!window.SantisRevenueTracker) {
       console.error('SantisRevenueTracker not found');
@@ -88,6 +154,8 @@
     const events = window.SantisRevenueTracker.getEvents();
     renderMetrics(events);
     renderTable(events);
+    renderVIPSegment(events);
+    renderOracleInsights(events);
   }
 
   // Setup event listeners
