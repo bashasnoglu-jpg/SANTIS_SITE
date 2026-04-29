@@ -7,6 +7,7 @@ import { VipBehaviorInference } from './santis-vip-behavior-inference.js';
 import { SantisOracleConfidenceEngine } from './santis-oracle-confidence-engine.js';
 import { SantisOracleActionRail } from './santis-oracle-action-rail.js';
 import { SantisOracleHumanApprovalLoop } from './santis-oracle-human-approval-loop.js';
+import { SantisOracleExecutiveNarrative } from './santis-oracle-executive-narrative.js';
 
 class BoardroomOracleV2 {
   constructor() {
@@ -15,6 +16,7 @@ class BoardroomOracleV2 {
     this.confidenceEngine = new SantisOracleConfidenceEngine();
     this.humanApprovalLoop = new SantisOracleHumanApprovalLoop();
     this.actionRail = new SantisOracleActionRail();
+    this.executiveNarrative = new SantisOracleExecutiveNarrative();
     this.container = document.getElementById('oracle-insights-container');
     
     this.init();
@@ -71,6 +73,7 @@ class BoardroomOracleV2 {
     if (allInsights.length > 0) {
       this.renderInsights(allInsights);
       this.actionRail.render(allInsights);
+      this.executiveNarrative.render(allInsights, boardroomMetrics);
     }
   }
 

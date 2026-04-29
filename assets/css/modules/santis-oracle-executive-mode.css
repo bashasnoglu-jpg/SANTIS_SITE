@@ -1,0 +1,118 @@
+/*
+  Santis Oracle Executive Mode
+  CEO cockpit narrative, strategic alerts, and revenue playbook.
+*/
+
+.santis-boardroom-executive-mode {
+  background: var(--boardroom-surface);
+  border: 1px solid var(--boardroom-border);
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+
+.oracle-executive-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.oracle-executive-brief {
+  padding: 18px;
+  border-left: 2px solid var(--boardroom-accent);
+  border-radius: 4px;
+  background: rgba(212, 175, 55, 0.055);
+}
+
+.oracle-executive-kicker {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--boardroom-accent);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.oracle-executive-brief p {
+  margin: 0;
+  color: #f1f1f1;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.oracle-executive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.oracle-executive-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.oracle-executive-panel h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.oracle-strategic-alert,
+.oracle-playbook-card {
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.oracle-strategic-alert {
+  border-left: 2px solid #8b7355;
+}
+
+.oracle-strategic-alert.oracle-alert-high {
+  border-left-color: var(--boardroom-accent);
+}
+
+.oracle-strategic-alert strong,
+.oracle-playbook-card strong {
+  display: block;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.oracle-strategic-alert p,
+.oracle-playbook-card p {
+  margin: 8px 0 0;
+  color: var(--boardroom-text-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.oracle-playbook-card span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--boardroom-accent);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.oracle-executive-empty {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  color: var(--boardroom-text-muted);
+  font-size: 13px;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .oracle-executive-grid {
+    grid-template-columns: 1fr;
+  }
+}
