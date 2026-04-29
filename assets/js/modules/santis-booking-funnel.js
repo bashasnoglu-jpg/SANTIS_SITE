@@ -7,6 +7,7 @@
     time: '',
     guests: '1',
     upsell: '',
+    conciergeNote: '',
   };
 
   const copy = {
@@ -99,6 +100,94 @@
     if (score >= 75) return '[VIP-LEAD]';
     if (score >= 45) return '[PRIORITY]';
     return '[STANDARD]';
+  }
+
+  function getIntentProfile() {
+    const text = `${state.intent} ${state.ritual}`.toLowerCase();
+
+    if (text.includes('hamam') || text.includes('köpük') || text.includes('kese')) {
+      return {
+        archetype: 'purification',
+        label: 'Arınma',
+        tone: 'bedeni hafifleten, zihni sadeleştiren',
+        suggestion: 'hamam ritüelinden sonra kısa bir dinlenme aralığı ile deneyimi tamamlamak',
+      };
+    }
+
+    if (text.includes('bali') || text.includes('rahatlama') || text.includes('relax')) {
+      return {
+        archetype: 'deep-relaxation',
+        label: 'Derin Rahatlama',
+        tone: 'sinir sistemini yavaşlatan, ritmi sakinleştiren',
+        suggestion: 'daha yumuşak basınç ve sessiz bir oda atmosferiyle ilerlemek',
+      };
+    }
+
+    if (text.includes('cilt') || text.includes('skin') || text.includes('maske') || text.includes('glow')) {
+      return {
+        archetype: 'skin-renewal',
+        label: 'Cilt Yenilenmesi',
+        tone: 'ışıltıyı ve tazeliği öne çıkaran',
+        suggestion: 'bakımı nem ve parlaklık odaklı bir final ile tamamlamak',
+      };
+    }
+
+    if (text.includes('çift') || text.includes('couple') || Number(state.guests) >= 2) {
+      return {
+        archetype: 'shared-ritual',
+        label: 'Paylaşılan Deneyim',
+        tone: 'iki kişi için senkron ve sakin bir akış oluşturan',
+        suggestion: 'aynı zaman aralığında, uyumlu terapist planlamasıyla ilerlemek',
+      };
+    }
+
+    if (text.includes('signature')) {
+      return {
+        archetype: 'signature',
+        label: 'Signature Deneyim',
+        tone: 'daha özel, daha katmanlı ve yüksek temaslı',
+        suggestion: 'ritüeli concierge önerisiyle kişiselleştirmek',
+      };
+    }
+
+    return {
+      archetype: 'concierge-led',
+      label: 'Concierge Önerisi',
+      tone: 'ihtiyacınıza göre sade ve kişisel',
+      suggestion: 'en uygun ritüeli concierge ekibinin önermesi',
+    };
+  }
+
+  function composeConciergeNote() {
+    const profile = getIntentProfile();
+    const upsellLine = state.upsell
+      ? ` ${state.upsell} eklentisi bu akışı daha bütünlüklü hale getirebilir.`
+      : '';
+
+    const timeLine = state.time && state.time !== 'Concierge önerisi'
+      ? ` ${state.time} tercihiniz için en sakin saat aralığı kontrol edilecektir.`
+      : ' Concierge ekibimiz sizin için en uygun ve sakin saat aralığını önerecektir.';
+
+    const guestLine = Number(state.guests) >= 2
+      ? ` ${state.guests} kişi için uyumlu bir terapist ve oda akışı planlanacaktır.`
+      : '';
+
+    return [
+      `${profile.label} odağınız için ${profile.tone} bir akış öneriyoruz. `,
+      `En doğru başlangıç, ${profile.suggestion} olacaktır.`,
+      upsellLine,
+      guestLine,
+      timeLine,
+    ].join('').replace(/\s+/g, ' ').trim();
+  }
+
+  function refreshConciergeNote() {
+    state.conciergeNote = composeConciergeNote();
+
+    const noteEl = document.querySelector('[data-concierge-note]');
+    if (noteEl) {
+      noteEl.textContent = state.conciergeNote;
+    }
   }
 
   function renderUpsell() {
@@ -194,6 +283,7 @@
   function buildMessage() {
     const leadTag = getLeadTag();
     const score = calculateLeadScore();
+    const note = state.conciergeNote || composeConciergeNote();
 
     return [
       `${leadTag} Merhaba Santis Concierge,`,
@@ -205,6 +295,7 @@
       `Zaman tercihi: ${state.time || 'Concierge önerisi'}`,
       `Kişi sayısı: ${state.guests || '1'}`,
       state.upsell ? `Premium ekleme: ${state.upsell}` : 'Premium ekleme: Concierge önerisi',
+      `Concierge notu: ${note}`,
       '',
       `Lead skoru: ${score}`,
       '',
@@ -254,6 +345,7 @@
     `;
 
     renderUpsell();
+    refreshConciergeNote();
     updateScarcity();
     persistState();
   }
@@ -329,6 +421,14 @@
           <button type="button" class="santis-booking-upsell-button" data-upsell-accept>
             Bu eklemeyi dahil et
           </button>
+        </section>
+
+        <section class="santis-booking-ai-note">
+          <p class="santis-booking-ai-kicker">CONCIERGE PREVIEW</p>
+          <h3>Santis Concierge notu</h3>
+          <p data-concierge-note>
+            Seçimlerinize göre concierge notu burada hazırlanacaktır.
+          </p>
         </section>
 
         <div class="santis-booking-summary" data-booking-summary></div>
