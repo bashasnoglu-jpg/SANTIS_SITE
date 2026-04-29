@@ -1,0 +1,206 @@
+:root {
+  --boardroom-bg: #050505;
+  --boardroom-surface: #101010;
+  --boardroom-border: #222;
+  --boardroom-text: #fff;
+  --boardroom-text-muted: #888;
+  --boardroom-accent: #D4AF37;
+  --boardroom-danger: #ff4a4a;
+}
+
+body {
+  margin: 0;
+  background-color: var(--boardroom-bg);
+  color: var(--boardroom-text);
+  font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.santis-boardroom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.santis-boardroom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--boardroom-border);
+}
+
+.santis-boardroom-brand h1 {
+  margin: 0 0 5px;
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.santis-boardroom-brand h1 span {
+  color: var(--boardroom-accent);
+  font-weight: 600;
+  font-size: 14px;
+  vertical-align: top;
+}
+
+.santis-boardroom-brand p {
+  margin: 0;
+  color: var(--boardroom-text-muted);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.santis-btn-danger {
+  background: transparent;
+  border: 1px solid var(--boardroom-danger);
+  color: var(--boardroom-danger);
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+
+.santis-btn-danger:hover {
+  background: var(--boardroom-danger);
+  color: #fff;
+}
+
+.santis-boardroom-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.metric-card {
+  background: var(--boardroom-surface);
+  border: 1px solid var(--boardroom-border);
+  padding: 24px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-label {
+  color: var(--boardroom-text-muted);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.metric-value {
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--boardroom-accent);
+}
+
+.santis-boardroom-log {
+  background: var(--boardroom-surface);
+  border: 1px solid var(--boardroom-border);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.log-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.pulse-indicator {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: #4aff8a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.pulse-indicator::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #4aff8a;
+  border-radius: 50%;
+  margin-right: 8px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(74, 255, 138, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(74, 255, 138, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(74, 255, 138, 0); }
+}
+
+.log-table-wrapper {
+  overflow-x: auto;
+}
+
+.santis-boardroom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+.santis-boardroom-table th,
+.santis-boardroom-table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--boardroom-border);
+}
+
+.santis-boardroom-table th {
+  color: var(--boardroom-text-muted);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+}
+
+.santis-boardroom-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.text-right {
+  text-align: right;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  background: #333;
+}
+
+.tag.vip {
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--boardroom-accent);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.tag.priority {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: var(--boardroom-text-muted);
+}

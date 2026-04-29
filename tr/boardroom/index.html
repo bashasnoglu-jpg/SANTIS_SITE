@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Santis Boardroom Lite</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="/assets/css/fonts.css" />
+  <link rel="stylesheet" href="/assets/css/modules/santis-boardroom-lite.css" />
+</head>
+<body>
+  <div class="santis-boardroom">
+    <header class="santis-boardroom-header">
+      <div class="santis-boardroom-brand">
+        <h1>Sovereign Boardroom <span>LITE</span></h1>
+        <p>Revenue Intelligence Engine</p>
+      </div>
+      <div class="santis-boardroom-actions">
+        <button id="btn-clear-data" class="santis-btn-danger">Clear Analytics</button>
+      </div>
+    </header>
+
+    <main class="santis-boardroom-content">
+      <section class="santis-boardroom-metrics">
+        <div class="metric-card">
+          <span class="metric-label">Total Pipeline Revenue</span>
+          <strong class="metric-value" id="val-total-revenue">€0</strong>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Total Leads</span>
+          <strong class="metric-value" id="val-total-leads">0</strong>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">VIP Leads (Score ≥ 75)</span>
+          <strong class="metric-value" id="val-vip-leads">0</strong>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Avg. Value per Lead</span>
+          <strong class="metric-value" id="val-avg-revenue">€0</strong>
+        </div>
+      </section>
+
+      <section class="santis-boardroom-log">
+        <div class="log-header">
+          <h2>Recent Handoffs</h2>
+          <span class="pulse-indicator">Live</span>
+        </div>
+        
+        <div class="log-table-wrapper">
+          <table class="santis-boardroom-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Intent / Ritual</th>
+                <th>Guests</th>
+                <th>Upsell</th>
+                <th>Segment</th>
+                <th class="text-right">Est. Value</th>
+              </tr>
+            </thead>
+            <tbody id="event-log-body">
+              <!-- JS injected -->
+            </tbody>
+          </table>
+          <div id="empty-state" class="empty-state" hidden>
+            <p>No revenue data collected yet.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/assets/js/modules/santis-revenue-tracker.js"></script>
+  <script src="/assets/js/modules/santis-boardroom-lite.js"></script>
+</body>
+</html>
