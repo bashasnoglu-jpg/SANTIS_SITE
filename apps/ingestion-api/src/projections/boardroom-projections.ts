@@ -50,6 +50,8 @@ export const projectEvent = (event: SantisEvent) => {
   }
 };
 
+import { broadcastCoreStatePatch } from "../routes/core-state-stream";
+
 /**
  * 📡 PROJECTION SUBSCRIBERS (Event Dinleyicileri)
  */
@@ -57,6 +59,17 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
   console.log("📈 [Projections] Boardroom Dinleyicileri Aktif.");
 
   // Canlı (Live) eventleri dinle ve projeksiyona uygula
-  bus.events.subscribe("experience.interaction.mood_selected", async (e: any) => projectEvent(e));
-  bus.events.subscribe("commerce.upsell.therapist_accepted", async (e: any) => projectEvent(e));
+  bus.events.subscribe("experience.interaction.mood_selected", async (e: any) => {
+    projectEvent(e);
+  });
+  
+  bus.events.subscribe("commerce.upsell.therapist_accepted", async (e: any) => {
+    projectEvent(e);
+    
+    // Broadcast live delta to the Boardroom PRO Cockpit
+    broadcastCoreStatePatch({
+      totalRevenue: BoardroomReadModels.revenueMetrics.totalRevenue,
+      bookingCount: Math.floor(BoardroomReadModels.revenueMetrics.totalRevenue / 1500), // Mock booking count for now
+    });
+  });
 };
