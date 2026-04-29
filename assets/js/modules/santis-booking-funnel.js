@@ -337,6 +337,19 @@ ${conciergeNote}
 
   function openWhatsApp() {
     const message = encodeURIComponent(buildMessage());
+
+    if (window.SantisRevenueTracker) {
+      window.SantisRevenueTracker.track({
+        type: 'booking_handoff',
+        ritual: state.ritual || 'Concierge önerisi',
+        guests: Number(state.guests || 1),
+        upsell: state.upsell || '',
+        leadTag: getLeadTag(),
+        leadScore: calculateLeadScore(),
+        estimatedValue: state.dynamicPrice || 0
+      });
+    }
+
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   }
