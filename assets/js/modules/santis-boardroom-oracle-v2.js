@@ -6,12 +6,14 @@ import { RevenueAnomalyDetector } from './santis-revenue-anomaly-detector.js';
 import { VipBehaviorInference } from './santis-vip-behavior-inference.js';
 import { SantisOracleConfidenceEngine } from './santis-oracle-confidence-engine.js';
 import { SantisOracleActionRail } from './santis-oracle-action-rail.js';
+import { SantisOracleHumanApprovalLoop } from './santis-oracle-human-approval-loop.js';
 
 class BoardroomOracleV2 {
   constructor() {
     this.anomalyDetector = new RevenueAnomalyDetector();
     this.vipInference = new VipBehaviorInference();
     this.confidenceEngine = new SantisOracleConfidenceEngine();
+    this.humanApprovalLoop = new SantisOracleHumanApprovalLoop();
     this.actionRail = new SantisOracleActionRail();
     this.container = document.getElementById('oracle-insights-container');
     

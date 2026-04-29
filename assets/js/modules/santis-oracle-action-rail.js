@@ -25,6 +25,9 @@ export class SantisOracleActionRail {
     }
 
     this.container.innerHTML = actions.map((action) => this.renderAction(action)).join('');
+    window.dispatchEvent(new CustomEvent('santis:oracle:actions:rendered', {
+      detail: { actions },
+    }));
   }
 
   toAction(insight) {
@@ -66,7 +69,10 @@ export class SantisOracleActionRail {
       .join('');
 
     return `
-      <article class="oracle-action-card oracle-risk-${this.escapeHtml(action.riskLevel)}">
+      <article
+        class="oracle-action-card oracle-risk-${this.escapeHtml(action.riskLevel)}"
+        data-oracle-action-id="${this.escapeHtml(action.id)}"
+      >
         <div class="oracle-action-meta">
           <span class="oracle-risk-label">${this.escapeHtml(action.riskLevel)} risk</span>
           <strong>${Number(action.confidenceScore || 0)}%</strong>
@@ -74,6 +80,12 @@ export class SantisOracleActionRail {
         <h3>${this.escapeHtml(action.title)}</h3>
         <p>${this.escapeHtml(action.suggestedAction)}</p>
         <ul>${evidence}</ul>
+        <div class="oracle-human-controls" aria-label="Oracle human decision controls">
+          <button class="oracle-human-decision-btn" type="button" data-oracle-decision="approved">Approve</button>
+          <button class="oracle-human-decision-btn" type="button" data-oracle-decision="dismissed">Dismiss</button>
+          <button class="oracle-human-decision-btn" type="button" data-oracle-decision="escalated">Escalate</button>
+        </div>
+        <div class="oracle-human-decision-status" data-oracle-decision-status>Awaiting human decision</div>
       </article>
     `;
   }

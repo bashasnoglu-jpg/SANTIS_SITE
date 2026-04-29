@@ -1,0 +1,78 @@
+/*
+  Santis Oracle Human Approval Loop
+  HACI controls for Oracle Action Rail decisions.
+*/
+
+.oracle-human-controls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.oracle-human-decision-btn {
+  min-height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #f5f5f5;
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.oracle-human-decision-btn:hover:not(:disabled),
+.oracle-human-decision-btn:focus-visible:not(:disabled) {
+  border-color: rgba(212, 175, 55, 0.55);
+  background: rgba(212, 175, 55, 0.12);
+  color: #fff;
+  outline: none;
+}
+
+.oracle-human-decision-btn:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.oracle-human-decision-btn[data-oracle-decision="approved"] {
+  color: #79e6a1;
+}
+
+.oracle-human-decision-btn[data-oracle-decision="dismissed"] {
+  color: #b9b9b9;
+}
+
+.oracle-human-decision-btn[data-oracle-decision="escalated"] {
+  color: #d4af37;
+}
+
+.oracle-human-decision-status {
+  min-height: 18px;
+  color: var(--boardroom-text-muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.oracle-action-card-decided {
+  border-color: rgba(212, 175, 55, 0.24);
+}
+
+.oracle-action-card[data-oracle-decision-state="approved"] .oracle-human-decision-status {
+  color: #79e6a1;
+}
+
+.oracle-action-card[data-oracle-decision-state="dismissed"] .oracle-human-decision-status {
+  color: #b9b9b9;
+}
+
+.oracle-action-card[data-oracle-decision-state="escalated"] .oracle-human-decision-status {
+  color: #d4af37;
+}
+
+@media (max-width: 560px) {
+  .oracle-human-controls {
+    grid-template-columns: 1fr;
+  }
+}
