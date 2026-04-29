@@ -238,3 +238,34 @@
 .santis-booking-scarcity strong {
   font-weight: 500;
 }
+
+.santis-booking-ai-note {
+  margin: 28px 0;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025)),
+    rgba(255, 255, 255, 0.025);
+}
+
+.santis-booking-ai-kicker {
+  margin: 0 0 10px;
+  color: rgba(198, 169, 107, 0.82);
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.santis-booking-ai-note h3 {
+  margin: 0 0 10px;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+}
+
+.santis-booking-ai-note p {
+  margin: 0;
+  color: var(--color-text-muted, #a1a1aa);
+  line-height: 1.7;
+}
