@@ -2,8 +2,11 @@
  * santis-oracle-confidence-engine.js
  * Converts raw Oracle insights into decision-grade recommendations.
  */
+import { SantisOracleLearningLoop } from './santis-oracle-learning-loop.js';
+
 export class SantisOracleConfidenceEngine {
-  constructor() {
+  constructor({ learningLoop = new SantisOracleLearningLoop() } = {}) {
+    this.learningLoop = learningLoop;
     this.severityWeight = {
       high: 24,
       medium: 14,
@@ -17,14 +20,23 @@ export class SantisOracleConfidenceEngine {
       const confidenceScore = this.calculateConfidence(insight, metrics, evidenceTrail);
       const riskLevel = this.resolveRiskLevel(insight, confidenceScore, metrics);
       const suggestedAction = this.resolveSuggestedAction(insight, riskLevel, confidenceScore);
+      const id = this.createInsightId(insight);
+      const learning = this.learningLoop.calibrate(id, {
+        confidenceScore,
+        riskLevel,
+        suggestedAction,
+        evidenceTrail,
+      });
 
       return {
         ...insight,
-        id: this.createInsightId(insight),
-        confidenceScore,
+        id,
+        confidenceScore: learning.confidenceScore,
         evidenceTrail,
-        riskLevel,
+        riskLevel: learning.riskLevel,
         suggestedAction,
+        learningSummary: learning.learningSummary,
+        learningFeedback: learning.learningFeedback,
       };
     });
   }
