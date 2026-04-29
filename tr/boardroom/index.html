@@ -12,8 +12,8 @@
   <div class="santis-boardroom">
     <header class="santis-boardroom-header">
       <div class="santis-boardroom-brand">
-        <h1>Sovereign Boardroom <span>LITE</span></h1>
-        <p>Revenue Intelligence Engine</p>
+        <h1>Sovereign Boardroom <span>PRO</span></h1>
+        <p>Real-Time Intelligence & Oracle</p>
       </div>
       <div class="santis-boardroom-actions">
         <button id="btn-clear-data" class="santis-btn-danger">Clear Analytics</button>
@@ -39,6 +39,28 @@
           <strong class="metric-value" id="val-avg-revenue">€0</strong>
         </div>
       </section>
+
+      <div class="santis-boardroom-pro-grid">
+        <section class="santis-boardroom-oracle">
+          <div class="log-header">
+            <h2>Boardroom Oracle <span class="ai-badge">AI</span></h2>
+          </div>
+          <div class="oracle-insights" id="oracle-insights-container">
+            <!-- JS injected -->
+            <div class="oracle-message empty">Awaiting data to generate insights...</div>
+          </div>
+        </section>
+
+        <section class="santis-boardroom-vip-segment">
+          <div class="log-header">
+            <h2>VIP Segment</h2>
+          </div>
+          <div class="vip-list" id="vip-segment-list">
+             <!-- JS injected -->
+             <div class="empty-state">No VIP leads detected yet.</div>
+          </div>
+        </section>
+      </div>
 
       <section class="santis-boardroom-log">
         <div class="log-header">

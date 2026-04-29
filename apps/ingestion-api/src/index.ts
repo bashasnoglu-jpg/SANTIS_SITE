@@ -161,7 +161,7 @@ async function bootstrap() {
 
   // 5. Sunucuyu Başlat (Orijinal limanımız port 3030)
   const PORT = process.env.PORT || 3030;
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`
   ╔═══════════════════════════════════════════════════╗
   ║  👑 SANTIS INGESTION GATEWAY v1.0                 ║
@@ -171,6 +171,18 @@ async function bootstrap() {
   ║  🛡️  Endpoint: POST /api/v1/commands              ║
   ╚═══════════════════════════════════════════════════╝
     `);
+  });
+
+  server.on('error', (e: any) => {
+    if (e.code === 'EADDRINUSE') {
+      console.error(`\n❌ [Ingestion API] Port ${PORT} already in use.`);
+      console.error(`Run: netstat -ano | findstr :${PORT}`);
+      console.error(`Then: taskkill /PID <PID> /F\n`);
+      process.exit(1);
+    } else {
+      console.error('❌ [Ingestion API] Server error:', e);
+      process.exit(1);
+    }
   });
 }
 
