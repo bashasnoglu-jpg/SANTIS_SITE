@@ -31,6 +31,64 @@
     ],
   };
 
+  const STORAGE_KEY = 'santis_booking_state_v1';
+
+  function persistState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function restoreState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+
+      const parsed = JSON.parse(raw);
+      Object.assign(state, parsed);
+    } catch (e) {
+      console.warn('State restore failed', e);
+    }
+  }
+
+  function hydrateFromDataset(el) {
+    if (!el || !el.dataset) return;
+
+    if (el.dataset.bookingIntent) {
+      state.intent = el.dataset.bookingIntent;
+    }
+
+    if (el.dataset.bookingRitual) {
+      state.ritual = el.dataset.bookingRitual;
+    }
+
+    if (el.dataset.bookingTime) {
+      state.time = el.dataset.bookingTime;
+    }
+
+    if (el.dataset.bookingGuests) {
+      state.guests = el.dataset.bookingGuests;
+    }
+  }
+
+  function applySelectionsToUI() {
+    document.querySelectorAll('.santis-booking-option').forEach((btn) => {
+      const group = btn.dataset.group;
+      const value = btn.textContent;
+
+      if (state[group] === value) {
+        btn.classList.add('is-active');
+      } else {
+        btn.classList.remove('is-active');
+      }
+    });
+
+    const countEl = document.querySelector('[data-guest-count]');
+    if (countEl) {
+      countEl.textContent = state.guests;
+    }
+
+    updateSummary();
+  }
+
   function buildMessage() {
     return [
       'Merhaba Santis Concierge,',
@@ -84,6 +142,8 @@
       <span>Zaman: <strong>${state.time || 'Seçilmedi'}</strong></span>
       <span>Kişi: <strong>${state.guests || '1'}</strong></span>
     `;
+
+    persistState();
   }
 
   function createDrawer() {
@@ -174,7 +234,12 @@
   }
 
   function openDrawer(event) {
-    if (event) event.preventDefault();
+    restoreState();
+
+    if (event) {
+      event.preventDefault();
+      hydrateFromDataset(event.currentTarget);
+    }
 
     createDrawer();
 
@@ -182,6 +247,8 @@
     drawer.classList.add('is-open');
     drawer.setAttribute('aria-hidden', 'false');
     document.body.classList.add('santis-booking-open');
+
+    applySelectionsToUI();
   }
 
   function closeDrawer() {
