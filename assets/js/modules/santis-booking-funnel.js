@@ -6,6 +6,7 @@
     ritual: '',
     time: '',
     guests: '1',
+    upsell: '',
   };
 
   const copy = {
@@ -30,6 +31,106 @@
       ['concierge', 'Concierge önerisi'],
     ],
   };
+
+  const upsellRules = [
+    {
+      match: ['Bali Masajı', 'Derin Rahatlama'],
+      label: 'Altın Yüz Maskesi',
+      value: 'gold-mask',
+      copy: 'Bu deneyimi 30 dakikalık Altın Yüz Maskesi ile taçlandırmak ister misiniz?',
+      score: 25,
+    },
+    {
+      match: ['Hamam Kese & Köpük', 'Hamam Ritüeli'],
+      label: 'Deniz Tuzu Peelingi',
+      value: 'sea-salt-peeling',
+      copy: 'Hamam ritüelinize Deniz Tuzu Peelingi ekleyerek arınma etkisini derinleştirebilirsiniz.',
+      score: 20,
+    },
+    {
+      match: ['Signature Ritual', 'Çift Deneyimi'],
+      label: 'Private Ritual Suite',
+      value: 'private-suite',
+      copy: 'Bu ritüeli Private Ritual Suite ile daha sessiz ve kişisel bir deneyime dönüştürebilirsiniz.',
+      score: 35,
+    },
+    {
+      match: ['Cilt Yenilenmesi'],
+      label: 'LED Glow Therapy',
+      value: 'led-glow',
+      copy: 'Cilt yenilenmesini LED Glow Therapy ile daha görünür bir ışıltıya taşıyabilirsiniz.',
+      score: 20,
+    },
+  ];
+
+  function getActiveUpsell() {
+    return upsellRules.find((rule) => {
+      return rule.match.some((token) => {
+        return state.intent === token || state.ritual === token;
+      });
+    });
+  }
+
+  function calculateLeadScore() {
+    let score = 10;
+
+    const guests = Number(state.guests || 1);
+
+    if (guests >= 2) score += 20;
+    if (guests >= 4) score += 15;
+
+    if (state.ritual === 'Signature Ritual') score += 35;
+    if (state.ritual === 'Bali Masajı') score += 20;
+    if (state.ritual === 'Derin Doku Masajı') score += 15;
+    if (state.ritual === 'Hamam Kese & Köpük') score += 15;
+
+    if (state.time === 'Bugün') score += 15;
+    if (state.time === 'Concierge önerisi') score += 10;
+
+    const upsell = getActiveUpsell();
+    if (state.upsell && upsell) score += upsell.score;
+
+    return score;
+  }
+
+  function getLeadTag() {
+    const score = calculateLeadScore();
+
+    if (score >= 75) return '[VIP-LEAD]';
+    if (score >= 45) return '[PRIORITY]';
+    return '[STANDARD]';
+  }
+
+  function renderUpsell() {
+    const box = document.querySelector('[data-booking-upsell]');
+    if (!box) return;
+
+    const active = getActiveUpsell();
+
+    if (!active) {
+      box.hidden = true;
+      return;
+    }
+
+    box.hidden = false;
+
+    const title = box.querySelector('[data-upsell-title]');
+    const copyEl = box.querySelector('[data-upsell-copy]');
+    const btn = box.querySelector('[data-upsell-accept]');
+
+    title.textContent = active.label;
+    copyEl.textContent = active.copy;
+
+    btn.classList.toggle('is-active', state.upsell === active.label);
+    btn.textContent = state.upsell === active.label
+      ? 'Premium ekleme seçildi'
+      : 'Bu eklemeyi dahil et';
+
+    btn.onclick = () => {
+      state.upsell = state.upsell === active.label ? '' : active.label;
+      updateSummary();
+    };
+  }
 
   const STORAGE_KEY = 'santis_booking_state_v1';
 
@@ -87,11 +188,15 @@
     }
 
     updateSummary();
+    renderUpsell();
   }
 
   function buildMessage() {
+    const leadTag = getLeadTag();
+    const score = calculateLeadScore();
+
     return [
-      'Merhaba Santis Concierge,',
+      `${leadTag} Merhaba Santis Concierge,`,
       '',
       'Santis Club üzerinden bir ritüel talebi oluşturmak istiyorum.',
       '',
@@ -99,6 +204,9 @@
       `Ritüel: ${state.ritual || 'Concierge önerisi'}`,
       `Zaman tercihi: ${state.time || 'Concierge önerisi'}`,
       `Kişi sayısı: ${state.guests || '1'}`,
+      state.upsell ? `Premium ekleme: ${state.upsell}` : 'Premium ekleme: Concierge önerisi',
+      '',
+      `Lead skoru: ${score}`,
       '',
       'Benim için en uygun saat ve deneyim önerisini paylaşır mısınız?',
     ].join('\n');
@@ -141,8 +249,11 @@
       <span>Ritüel: <strong>${state.ritual || 'Seçilmedi'}</strong></span>
       <span>Zaman: <strong>${state.time || 'Seçilmedi'}</strong></span>
       <span>Kişi: <strong>${state.guests || '1'}</strong></span>
+      <span>Premium: <strong>${state.upsell || 'Seçilmedi'}</strong></span>
+      <span>Lead: <strong>${getLeadTag()} / ${calculateLeadScore()}</strong></span>
     `;
 
+    renderUpsell();
     persistState();
   }
 
@@ -188,6 +299,15 @@
             <strong data-guest-count>1</strong>
             <button type="button" data-guest-plus>+</button>
           </div>
+        </section>
+
+        <section class="santis-booking-upsell" data-booking-upsell hidden>
+          <p class="santis-booking-upsell-kicker">SANTIS ÖNERİSİ</p>
+          <h3 data-upsell-title>Deneyimi yükseltin</h3>
+          <p data-upsell-copy></p>
+          <button type="button" class="santis-booking-upsell-button" data-upsell-accept>
+            Bu eklemeyi dahil et
+          </button>
         </section>
 
         <div class="santis-booking-summary" data-booking-summary></div>
