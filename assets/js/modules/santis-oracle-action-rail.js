@@ -39,6 +39,8 @@ export class SantisOracleActionRail {
       riskLevel: insight.riskLevel,
       suggestedAction: insight.suggestedAction,
       evidenceTrail: insight.evidenceTrail || [],
+      learningSummary: insight.learningSummary || '',
+      learningFeedback: insight.learningFeedback || null,
     };
   }
 
@@ -80,6 +82,7 @@ export class SantisOracleActionRail {
         <h3>${this.escapeHtml(action.title)}</h3>
         <p>${this.escapeHtml(action.suggestedAction)}</p>
         <ul>${evidence}</ul>
+        ${this.renderLearningSummary(action)}
         <div class="oracle-human-controls" aria-label="Oracle human decision controls">
           <button class="oracle-human-decision-btn" type="button" data-oracle-decision="approved">Approve</button>
           <button class="oracle-human-decision-btn" type="button" data-oracle-decision="dismissed">Dismiss</button>
@@ -87,6 +90,20 @@ export class SantisOracleActionRail {
         </div>
         <div class="oracle-human-decision-status" data-oracle-decision-status>Awaiting human decision</div>
       </article>
+    `;
+  }
+
+  renderLearningSummary(action) {
+    if (!action.learningSummary) return '';
+
+    const delta = Number(action.learningFeedback?.confidenceDelta || 0);
+    const deltaLabel = delta === 0 ? 'neutral' : `${delta > 0 ? '+' : ''}${delta}%`;
+
+    return `
+      <div class="oracle-learning-summary">
+        ${this.escapeHtml(action.learningSummary)}
+        <span class="oracle-learning-chip">Calibration ${this.escapeHtml(deltaLabel)}</span>
+      </div>
     `;
   }
 

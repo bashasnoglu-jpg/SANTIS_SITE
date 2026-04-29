@@ -1,0 +1,37 @@
+/*
+  Santis Oracle Learning Loop
+  Displays confidence calibration evidence without auto-applying actions.
+*/
+
+.oracle-learning-summary {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #b8b8b8;
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.oracle-learning-summary::before {
+  content: 'Learning loop';
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--boardroom-accent);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.oracle-learning-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  margin-top: 0.5rem;
+  padding: 0 0.5rem;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 4px;
+  color: #d4af37;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

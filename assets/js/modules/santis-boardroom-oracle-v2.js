@@ -107,6 +107,7 @@ class BoardroomOracleV2 {
             <span>${insight.riskLevel} risk</span>
           </div>
           <div class="oracle-suggested-action">${insight.suggestedAction}</div>
+          ${this.renderLearningSummary(insight)}
         </div>
       `;
       
@@ -128,6 +129,12 @@ class BoardroomOracleV2 {
       case 'warning': return '📉';
       default: return '💡';
     }
+  }
+
+  renderLearningSummary(insight) {
+    if (!insight.learningSummary) return '';
+
+    return `<div class="oracle-learning-summary">${insight.learningSummary}</div>`;
   }
 }
 
