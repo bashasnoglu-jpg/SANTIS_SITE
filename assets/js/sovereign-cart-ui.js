@@ -1,5 +1,18 @@
 // assets/js/sovereign-cart-ui.js
 
+/**
+ * SANTIS_CONFIG öncelikli, fallback hardcoded değer.
+ * Production'da window.SANTIS_CONFIG = { whatsappNumber: '9053...', apiBase: 'https://api.santis.club' }
+ * olarak sayfa başında tanımlanmalıdır.
+ */
+function getSantisConfig() {
+  const config = window.SANTIS_CONFIG || {};
+  return {
+    whatsappNumber: String(config.whatsappNumber || '905348350169').replace(/[^\d]/g, ''),
+    apiBase: config.apiBase || '', // Boş string = telemetry devre dışı
+  };
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   // 1. Otonom Arayüz İnşası: Sepet İkonu ve Çekmeceyi DOM'a enjekte et
   const uiContainer = document.createElement("div");
@@ -50,6 +63,16 @@ document.addEventListener("DOMContentLoaded", () => {
   closeBtn.addEventListener("click", () => toggleCart(false));
   overlay.addEventListener("click", () => toggleCart(false));
 
+  // Event delegation — inline onclick yerine tek CSP uyumlu listener
+  itemsContainer.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-cart-item-id]");
+    if (!button) return;
+    const itemId = button.getAttribute("data-cart-item-id");
+    if (itemId && window.SovereignCart?.removeItem) {
+      window.SovereignCart.removeItem(itemId);
+    }
+  });
+
   // 4. Havaya Fırlatılan Sinyali Yakalama (Core Logic)
   window.addEventListener("sovereignCartUpdated", (event) => {
     const cart = event.detail.cart;
@@ -75,12 +98,22 @@ document.addEventListener("DOMContentLoaded", () => {
     cart.forEach(item => {
       const itemEl = document.createElement("div");
       itemEl.style.cssText = "display: flex; justify-content: space-between; align-items: center; padding: 12px; background-color: #1E1F22; border: 1px solid #2A2B2E; border-radius: 6px;";
-      itemEl.innerHTML = `
-        <div>
-          <h4 style="color: #E5E5EA; font-size: 13px; margin: 0 0 5px 0; font-weight: 400;">${item.title}</h4>
-        </div>
-        <button onclick="SovereignCart.removeItem('${item.id}')" style="background: none; border: none; color: #8E8E93; cursor: pointer; font-size: 16px;">✕</button>
-      `;
+
+      const titleWrap = document.createElement("div");
+      const title = document.createElement("h4");
+      title.style.cssText = "color: #E5E5EA; font-size: 13px; margin: 0 0 5px 0; font-weight: 400;";
+      title.textContent = String(item.title ?? '');
+      titleWrap.appendChild(title);
+
+      const removeButton = document.createElement("button");
+      removeButton.className = "santis-cart-remove";
+      removeButton.dataset.cartItemId = String(item.id ?? '');
+      removeButton.style.cssText = "background: none; border: none; color: #8E8E93; cursor: pointer; font-size: 16px;";
+      removeButton.type = "button";
+      removeButton.textContent = "✕";
+
+      itemEl.appendChild(titleWrap);
+      itemEl.appendChild(removeButton);
       itemsContainer.appendChild(itemEl);
     });
   });
@@ -109,21 +142,25 @@ document.addEventListener("DOMContentLoaded", () => {
     
     message += "\nLütfen uygunluk durumunu benimle paylaşın.";
 
-    // Sovereign VIP Hattı (Kendi numaranızla güncellendi)
-    const sovereignWhatsAppNumber = "905348350169"; 
+    // Sovereign VIP Hattı
+    const { whatsappNumber, apiBase } = getSantisConfig();
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${sovereignWhatsAppNumber}?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-    // Nöral Fısıltı (Telemetry Ping)
-    fetch("http://localhost:4040/api/v1/telemetry/lead", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        type: "VIP_LEAD",
-        message: "Sovereign Club WhatsApp kanalına yeni bir misafir geçiş yaptı.",
-        cartSize: cart.length
-      })
-    }).catch(() => {}); // Hata olursa misafire hissettirme (Sessiz Lüks sessiz kalır)
+    // Nöral Fısıltı (Telemetry Ping) — yalnızca apiBase tanımlıysa çalışır
+    if (apiBase) {
+      fetch(`${apiBase}/api/v1/telemetry/lead`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "VIP_LEAD",
+          message: "Sovereign Club WhatsApp kanalına yeni bir misafir geçiş yaptı.",
+          cartSize: cart.length
+        })
+      }).catch((err) => {
+        console.warn("[Santis Cart] Telemetry lead failed:", err);
+      });
+    }
 
     // Yeni sekmede WhatsApp'a süzül
     window.open(whatsappUrl, '_blank');

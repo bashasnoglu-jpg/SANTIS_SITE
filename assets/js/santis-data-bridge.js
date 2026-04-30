@@ -242,8 +242,6 @@ const SantisDataBridge = {
 // V17 & Legacy Global Export
 window.SantisDataBridge = SantisDataBridge;
 
-window.SantisDataBridge = SantisDataBridge;
-
 window.SovereignDataBridge = { injectMatrix: (ep) => SantisDataBridge.bootMatrix(ep, '#santis-app') };
 
 /**
@@ -405,10 +403,10 @@ class SantisQuantumBridge {
                         this.applyRefraction(el);
                     };
                 } else {
-                    // Metin tabanlı rehidrasyon
-                    if(bindKey === 'price') el.innerHTML = `${value} ₺`;
-                    else if(bindKey === 'duration') el.innerHTML = `${value} Dk.`;
-                    else el.innerHTML = value;
+                    // Metin tabanlı rehidrasyon — textContent ile XSS riski önlendi
+                    if(bindKey === 'price') el.textContent = `${value} ₺`;
+                    else if(bindKey === 'duration') el.textContent = `${value} Dk.`;
+                    else el.textContent = String(value ?? '');
                     
                     this.applyRefraction(el);
                 }
