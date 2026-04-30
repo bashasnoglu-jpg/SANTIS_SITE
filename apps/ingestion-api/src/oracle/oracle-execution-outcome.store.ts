@@ -45,6 +45,8 @@ export class OracleExecutionOutcomeStore {
 
     const intelligenceScore = Math.round((economicAccuracy * 0.6) + (confidenceAccuracy * 0.4));
 
+    const advisoryCalibration = this.computeAdvisory(intelligenceScore, averageRevenueDelta, averageConfidenceDelta, outcomes.length);
+
     return {
       outcomeCount: outcomes.length,
       averageRevenueDelta,
@@ -56,9 +58,46 @@ export class OracleExecutionOutcomeStore {
         confidenceAccuracy,
         decisionQuality: this.resolveDecisionQuality(intelligenceScore, outcomes.length),
         sampleSize: outcomes.length,
+        advisoryCalibration,
       },
       latestOutcome: outcomes[0] || null,
       outcomes,
+    };
+  }
+
+  computeAdvisory(score: number, revenueDelta: number, confidenceDelta: number, sample: number) {
+    if (sample < 5) {
+      return {
+        mode: "collect_more_data",
+        recommendedAdjustment: 0,
+        requiresHumanApproval: true,
+        rationale: "Insufficient sample size for calibration",
+      };
+    }
+
+    if (score < 50) {
+      return {
+        mode: "reduce_confidence",
+        recommendedAdjustment: -10,
+        requiresHumanApproval: true,
+        rationale: "System is overestimating outcomes",
+      };
+    }
+
+    if (score > 85) {
+      return {
+        mode: "increase_confidence",
+        recommendedAdjustment: +5,
+        requiresHumanApproval: true,
+        rationale: "System is underestimating outcomes",
+      };
+    }
+
+    return {
+      mode: "hold_thresholds",
+      recommendedAdjustment: 0,
+      requiresHumanApproval: true,
+      rationale: "System is calibrated within acceptable range",
     };
   }
 
