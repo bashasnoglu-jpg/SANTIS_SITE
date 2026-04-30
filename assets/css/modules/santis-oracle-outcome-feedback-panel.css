@@ -1,0 +1,104 @@
+/*
+  Santis Oracle Outcome Feedback Panel
+  Forecast vs reality tracking for approved execution outcomes.
+*/
+
+.santis-boardroom-outcome-feedback {
+  background: var(--boardroom-surface);
+  border: 1px solid var(--boardroom-border);
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+
+.oracle-outcome-feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.oracle-outcome-brief {
+  padding: 18px;
+  border-left: 2px solid var(--boardroom-accent);
+  border-radius: 4px;
+  background: rgba(212, 175, 55, 0.055);
+}
+
+.oracle-outcome-brief span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--boardroom-accent);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.oracle-outcome-brief p {
+  margin: 0;
+  color: #f1f1f1;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.oracle-outcome-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.oracle-outcome-metric,
+.oracle-outcome-card {
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.oracle-outcome-metric span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--boardroom-text-muted);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.oracle-outcome-metric strong,
+.oracle-outcome-card strong {
+  color: #fff;
+  font-size: 14px;
+}
+
+.oracle-outcome-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.oracle-outcome-card {
+  border-left: 2px solid #8b7355;
+}
+
+.oracle-outcome-card p,
+.oracle-outcome-empty {
+  color: var(--boardroom-text-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.oracle-outcome-card p {
+  margin: 8px 0 0;
+}
+
+.oracle-outcome-empty {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .oracle-outcome-grid {
+    grid-template-columns: 1fr;
+  }
+}
