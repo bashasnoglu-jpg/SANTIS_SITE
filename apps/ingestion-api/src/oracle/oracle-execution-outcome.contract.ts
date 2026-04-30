@@ -19,11 +19,20 @@ export const OracleExecutionOutcomeRecordSchema = OracleExecutionOutcomeSchema.e
   recordedAt: z.string().datetime(),
 });
 
+export const BoardroomIntelligenceSummarySchema = z.object({
+  intelligenceScore: z.number().int().min(0).max(100),
+  economicAccuracy: z.number().int().min(0).max(100),
+  confidenceAccuracy: z.number().int().min(0).max(100),
+  decisionQuality: z.enum(["awaiting_data", "critical", "watch", "stable", "excellent"]),
+  sampleSize: z.number().int().nonnegative(),
+});
+
 export const OracleExecutionOutcomeSummarySchema = z.object({
   outcomeCount: z.number().int().nonnegative(),
   averageRevenueDelta: z.number(),
   averageConfidenceDelta: z.number(),
   calibrationSignal: z.enum(["awaiting_outcomes", "over_forecast", "under_forecast", "aligned"]),
+  boardroomIntelligence: BoardroomIntelligenceSummarySchema,
   latestOutcome: OracleExecutionOutcomeRecordSchema.nullable(),
   outcomes: z.array(OracleExecutionOutcomeRecordSchema),
 });
@@ -36,4 +45,5 @@ export const OracleExecutionOutcomeResponseSchema = z.object({
 
 export type OracleExecutionOutcome = z.infer<typeof OracleExecutionOutcomeSchema>;
 export type OracleExecutionOutcomeRecord = z.infer<typeof OracleExecutionOutcomeRecordSchema>;
+export type BoardroomIntelligenceSummary = z.infer<typeof BoardroomIntelligenceSummarySchema>;
 export type OracleExecutionOutcomeSummary = z.infer<typeof OracleExecutionOutcomeSummarySchema>;
