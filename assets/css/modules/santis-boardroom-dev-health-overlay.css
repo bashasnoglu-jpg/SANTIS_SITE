@@ -1,0 +1,133 @@
+/*
+  Boardroom Dev Health Overlay
+  Lightweight runtime cockpit for local development diagnostics.
+*/
+
+.boardroom-dev-health {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9999;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.dev-health-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  border-radius: 999px;
+  background: rgba(10, 11, 14, 0.94);
+  color: #f1f1f1;
+  cursor: pointer;
+  font-size: 12px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.28);
+}
+
+.dev-health-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d4af37;
+}
+
+.dev-health-dot[data-status="ok"] {
+  background: #7fbc8c;
+}
+
+.dev-health-dot[data-status="warn"] {
+  background: #d4af37;
+}
+
+.dev-health-dot[data-status="error"] {
+  background: #c57f7f;
+}
+
+.dev-health-panel {
+  position: absolute;
+  right: 0;
+  bottom: 48px;
+  width: min(420px, calc(100vw - 36px));
+  padding: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: 8px;
+  background: rgba(13, 15, 20, 0.98);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.4);
+}
+
+.dev-health-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.dev-health-header strong {
+  color: #fff;
+  font-size: 13px;
+}
+
+.dev-health-header span {
+  color: #d4af37;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.dev-health-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.dev-health-item {
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 2px solid #8b7355;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.dev-health-item[data-status="ok"] {
+  border-left-color: #7fbc8c;
+}
+
+.dev-health-item[data-status="warn"],
+.dev-health-item[data-status="checking"] {
+  border-left-color: #d4af37;
+}
+
+.dev-health-item[data-status="error"] {
+  border-left-color: #c57f7f;
+}
+
+.dev-health-item span {
+  display: block;
+  color: #f1f1f1;
+  font-size: 12px;
+}
+
+.dev-health-item strong {
+  display: block;
+  margin: 4px 0;
+  color: #d4af37;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dev-health-item p {
+  margin: 0;
+  color: #aeb4c0;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+  .boardroom-dev-health {
+    right: 12px;
+    bottom: 12px;
+  }
+}
