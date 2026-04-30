@@ -8,6 +8,7 @@ import { SantisOracleConfidenceEngine } from './santis-oracle-confidence-engine.
 import { SantisOracleActionRail } from './santis-oracle-action-rail.js';
 import { SantisOracleHumanApprovalLoop } from './santis-oracle-human-approval-loop.js';
 import { SantisOracleExecutiveNarrative } from './santis-oracle-executive-narrative.js';
+import { SantisOracleGlobalExecutiveView } from './santis-oracle-global-executive-view.js';
 
 class BoardroomOracleV2 {
   constructor() {
@@ -17,6 +18,7 @@ class BoardroomOracleV2 {
     this.humanApprovalLoop = new SantisOracleHumanApprovalLoop();
     this.actionRail = new SantisOracleActionRail();
     this.executiveNarrative = new SantisOracleExecutiveNarrative();
+    this.globalExecutiveView = new SantisOracleGlobalExecutiveView();
     this.container = document.getElementById('oracle-insights-container');
     
     this.init();
@@ -24,6 +26,7 @@ class BoardroomOracleV2 {
 
   init() {
     if (!this.container) return;
+    this.globalExecutiveView.init();
     
     // Initial state
     this.container.innerHTML = `

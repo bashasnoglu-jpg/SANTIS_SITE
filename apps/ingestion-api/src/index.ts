@@ -20,6 +20,7 @@ import { createCoreStateStreamRouter } from "./routes/core-state-stream";
 import { boardroomRouter } from "./routes/boardroom";
 import { oracleActionMemoryRouter } from "./oracle/oracle-action-memory.routes";
 import { oracleNodeSyncRouter } from "./oracle/oracle-node-sync.routes";
+import { oracleGlobalAggregationRouter } from "./oracle/oracle-global-aggregation.routes";
 import { registerBoardroomProjections } from "./projections/boardroom-projections";
 
 import { EventStore } from "./infrastructure/event-store";
@@ -134,6 +135,7 @@ async function bootstrap() {
   app.use("/api/v1/boardroom", boardroomRouter);
   app.use("/api/v1/oracle", oracleActionMemoryRouter);
   app.use("/api/v1/oracle", oracleNodeSyncRouter);
+  app.use("/api/v1/oracle", oracleGlobalAggregationRouter);
   app.use("/api/v1/rituals/pricing", pricingRouter);
   app.use("/api/v1/stream", streamRoutes);
   
