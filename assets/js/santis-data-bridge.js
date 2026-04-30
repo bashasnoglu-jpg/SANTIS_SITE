@@ -57,10 +57,8 @@ window.SANTIS_DATA.skincare = [
     }
 ];
 
-(function loadSantisCatalogBridge() {
+(function () {
     "use strict";
-
-    if (window.SantisDataBridge) return;
 
     const currentScript = document.currentScript;
     const src = currentScript && currentScript.src ? currentScript.src : "";
@@ -68,38 +66,21 @@ window.SANTIS_DATA.skincare = [
         ? src.slice(0, src.indexOf("/assets/js/"))
         : "";
 
-    const script = document.createElement("script");
-    script.src = `${baseUrl}/assets/js/modules/santis-catalog-bridge.js`;
-    script.async = false;
-    script.defer = false;
-    script.dataset.santisBridge = "catalog";
+    function loadBridge(id, urlPath, globalCheck) {
+        if (window[globalCheck]) return;
 
-    script.onerror = function () {
-        console.warn("[SantisDataBridge] Catalog bridge failed to load.");
-    };
+        const script = document.createElement("script");
+        script.src = `${baseUrl}${urlPath}`;
+        script.defer = false; // Catalog/PDP'nin senkron davranışı için
+        script.dataset.santisBridge = id;
 
-    document.head.appendChild(script);
-})();
+        script.onerror = function () {
+            console.warn(`[SantisDataBridge] ${id} bridge failed to load.`);
+        };
 
-(function loadSantisPdpBridge() {
-    "use strict";
+        document.head.appendChild(script);
+    }
 
-    if (window.SantisQuantumBridge) return;
-
-    const currentScript = document.currentScript;
-    const src = currentScript && currentScript.src ? currentScript.src : "";
-    const baseUrl = src.includes("/assets/js/")
-        ? src.slice(0, src.indexOf("/assets/js/"))
-        : "";
-
-    const script = document.createElement("script");
-    script.src = `${baseUrl}/assets/js/modules/santis-pdp-bridge.js`;
-    script.defer = false;
-    script.dataset.santisBridge = "pdp";
-
-    script.onerror = function () {
-        console.warn("[SantisDataBridge] PDP bridge failed to load.");
-    };
-
-    document.head.appendChild(script);
+    loadBridge("catalog", "/assets/js/modules/santis-catalog-bridge.js", "SantisDataBridge");
+    loadBridge("pdp", "/assets/js/modules/santis-pdp-bridge.js", "SantisQuantumBridge");
 })();
