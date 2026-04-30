@@ -1,0 +1,130 @@
+/*
+  Santis Oracle Strategy Simulation Panel
+  Read-only executive preview for scenario outcome projection.
+*/
+
+.santis-boardroom-simulation {
+  background: var(--boardroom-surface);
+  border: 1px solid var(--boardroom-border);
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+
+.oracle-simulation-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.oracle-simulation-brief {
+  padding: 18px;
+  border-left: 2px solid var(--boardroom-accent);
+  border-radius: 4px;
+  background: rgba(212, 175, 55, 0.055);
+}
+
+.oracle-simulation-brief span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--boardroom-accent);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.oracle-simulation-brief p {
+  margin: 0;
+  color: #f1f1f1;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.oracle-simulation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.oracle-simulation-card {
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.oracle-simulation-card-recommended {
+  border-color: rgba(212, 175, 55, 0.42);
+}
+
+.oracle-simulation-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.oracle-simulation-card-header strong {
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.oracle-simulation-card-header span {
+  color: var(--boardroom-accent);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.oracle-simulation-card p,
+.oracle-simulation-card li,
+.oracle-simulation-empty {
+  color: var(--boardroom-text-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.oracle-simulation-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.oracle-simulation-metrics div {
+  padding: 10px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.oracle-simulation-metrics span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--boardroom-text-muted);
+  font-size: 10px;
+}
+
+.oracle-simulation-metrics strong {
+  color: #fff;
+  font-size: 14px;
+}
+
+.oracle-simulation-card ol {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.oracle-simulation-empty {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .oracle-simulation-grid,
+  .oracle-simulation-metrics {
+    grid-template-columns: 1fr;
+  }
+}
