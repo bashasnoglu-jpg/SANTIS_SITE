@@ -10,6 +10,7 @@ import { SantisOracleHumanApprovalLoop } from './santis-oracle-human-approval-lo
 import { SantisOracleExecutiveNarrative } from './santis-oracle-executive-narrative.js';
 import { SantisOracleGlobalExecutiveView } from './santis-oracle-global-executive-view.js';
 import { SantisOracleSimulationPanel } from './santis-oracle-simulation-panel.js';
+import { SantisOracleExecutionPlanPanel } from './santis-oracle-execution-plan-panel.js';
 
 class BoardroomOracleV2 {
   constructor() {
@@ -21,6 +22,7 @@ class BoardroomOracleV2 {
     this.executiveNarrative = new SantisOracleExecutiveNarrative();
     this.globalExecutiveView = new SantisOracleGlobalExecutiveView();
     this.simulationPanel = new SantisOracleSimulationPanel();
+    this.executionPlanPanel = new SantisOracleExecutionPlanPanel();
     this.container = document.getElementById('oracle-insights-container');
     
     this.init();
@@ -30,6 +32,7 @@ class BoardroomOracleV2 {
     if (!this.container) return;
     this.globalExecutiveView.init();
     this.simulationPanel.init();
+    this.executionPlanPanel.init();
     
     // Initial state
     this.container.innerHTML = `
