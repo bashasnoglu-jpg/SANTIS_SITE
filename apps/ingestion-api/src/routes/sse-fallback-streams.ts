@@ -1,15 +1,15 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import crypto from "node:crypto";
-import type { FallbackIncidentsReadModelRepository } from "../../../packages/application/src/projections/fallback-incidents/repository.js";
+import type { FallbackIncidentsReadModelRepository } from "@santis/application/projections/fallback-incidents/repository";
 import type { FallbackSseRegistry } from "../services/fallback-sse-registry.js";
 
 export function createFallbackSseRouter(params: {
   repo: FallbackIncidentsReadModelRepository;
   registry: FallbackSseRegistry;
-}) {
+}): import('express').Router {
   const router = Router();
 
-  router.get("/api/v1/streams/fallback-incidents/:tenantId", async (req, res) => {
+  router.get("/api/v1/streams/fallback-incidents/:tenantId", async (req: Request, res: Response) => {
     const tenantId = req.params.tenantId;
     const windowRaw = String(req.query.window ?? "5m");
     const window =

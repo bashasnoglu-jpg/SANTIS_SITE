@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 
 const activeStreams = new Set<Response>();
 
-export function createCoreStateStreamRouter() {
+export function createCoreStateStreamRouter(): import('express').Router {
   const router = Router();
 
   router.get("/core-state/stream", (req: Request, res: Response) => {

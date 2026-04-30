@@ -59,6 +59,13 @@ export const FallbackReasonSchema = z.enum([
   "device_constraint",
 ]);
 
+export const ExperienceFlowSchema = z.enum([
+  "guided_ritual",
+  "express_booking",
+  "concierge_chat",
+  "direct_catalog"
+]);
+
 export type Region = z.infer<typeof RegionSchema>;
 export type Locale = z.infer<typeof LocaleSchema>;
 export type Currency = z.infer<typeof CurrencySchema>;
@@ -67,6 +74,7 @@ export type GuestSegment = z.infer<typeof GuestSegmentSchema>;
 export type ExperienceSource = z.infer<typeof ExperienceSourceSchema>;
 export type AnimationMode = z.infer<typeof AnimationModeSchema>;
 export type FallbackReason = z.infer<typeof FallbackReasonSchema>;
+export type ExperienceFlow = z.infer<typeof ExperienceFlowSchema>;
 
 /**
  * ============================================================================
@@ -184,11 +192,38 @@ export const FallbackEngagedEventSchema = BaseEventSchema.extend({
   payload: FallbackEngagedPayloadSchema,
 });
 
+export const RoutingPolicyAppliedEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("routing.policy.applied"),
+  payload: z.object({
+    assignedFlow: z.string(),
+    animationTier: z.string(),
+    premiumRevealed: z.boolean(),
+    policyId: z.string().optional(),
+    resolutionReason: z.string(),
+    prestigeMultiplier: z.number().optional(),
+  }),
+});
+
+export type RoutingPolicyAppliedEvent = z.infer<typeof RoutingPolicyAppliedEventSchema>;
+
+export const PricingMidasEngagedEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("pricing.midas.engaged"),
+  payload: z.object({
+    prestigeMultiplier: z.number(),
+    dominantMood: MoodSchema,
+    thresholdSurpassed: z.number(),
+  }),
+});
+
+export type PricingMidasEngagedEvent = z.infer<typeof PricingMidasEngagedEventSchema>;
+
 export const SantisEventSchema = z.discriminatedUnion("eventType", [
   MoodSelectedEventSchema,
   FlowAbandonedEventSchema,
   TherapistUpsellAcceptedEventSchema,
   FallbackEngagedEventSchema,
+  RoutingPolicyAppliedEventSchema,
+  PricingMidasEngagedEventSchema,
 ]);
 
 export type SantisEvent = z.infer<typeof SantisEventSchema>;
@@ -216,9 +251,19 @@ export const CalculateOfferCommandSchema = BaseCommandSchema.extend({
   }),
 });
 
+export const ResolveExperienceCommandSchema = BaseCommandSchema.extend({
+  commandType: z.literal("routing.resolve_experience"),
+  payload: z.object({
+    intent: GuestIntentSchema,
+  }),
+});
+
+export type ResolveExperienceCommand = z.infer<typeof ResolveExperienceCommandSchema>;
+
 export const SantisCommandSchema = z.discriminatedUnion("commandType", [
   SelectMoodCommandSchema,
   CalculateOfferCommandSchema,
+  ResolveExperienceCommandSchema,
 ]);
 
 export type SantisCommand = z.infer<typeof SantisCommandSchema>;
@@ -247,3 +292,4 @@ export function safeParseSantisCommand(input: unknown) {
 }
 
 export * from './event.types';
+export * from './command-result';

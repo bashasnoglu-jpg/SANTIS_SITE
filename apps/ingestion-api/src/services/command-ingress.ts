@@ -1,5 +1,5 @@
 import { SantisCommandSchema } from "@santis/event-dictionary";
-import type { SovereignCommandBus } from "../../../../packages/sovereign-bus/src/index";
+import type { SovereignCommandBus } from "@santis/sovereign-bus";
 import type { CommandResult } from "@santis/event-dictionary/command-result";
 
 export type CommandIngressResult =

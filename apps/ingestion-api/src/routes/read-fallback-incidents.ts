@@ -1,12 +1,12 @@
-import { Router } from "express";
-import type { FallbackIncidentsReadModelRepository } from "../../../packages/application/src/projections/fallback-incidents/repository.js";
+import { Router, Request, Response } from "express";
+import type { FallbackIncidentsReadModelRepository } from "@santis/application/projections/fallback-incidents/repository";
 
 export function createFallbackIncidentsReadRouter(params: {
   repo: FallbackIncidentsReadModelRepository;
-}) {
+}): import('express').Router {
   const router = Router();
 
-  router.get("/api/v1/read/fallback-incidents/:tenantId", async (req, res) => {
+  router.get("/api/v1/read/fallback-incidents/:tenantId", async (req: Request, res: Response) => {
     const tenantId = req.params.tenantId;
     const windowRaw = String(req.query.window ?? "5m");
     const window =

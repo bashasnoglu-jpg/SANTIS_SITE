@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { oracleActionMemoryStore } from "./oracle-action-memory.store.js";
 import { oracleGlobalAggregationStore } from "./oracle-global-aggregation.store.js";
 
-export const oracleGlobalAggregationRouter = Router();
+export const oracleGlobalAggregationRouter: import('express').Router = Router();
 
 oracleGlobalAggregationRouter.get("/global-aggregation", async (req: Request, res: Response) => {
   const limit = Number(req.query.limit || 250);

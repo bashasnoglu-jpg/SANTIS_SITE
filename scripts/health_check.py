@@ -20,9 +20,8 @@ import json
 import sys
 import time
 from pathlib import Path
-from typing import Any
 
-import httpx
+import httpx  # type: ignore
 
 # ── Renkli terminal çıktısı ───────────────────────────────────
 GREEN  = "\033[92m"
@@ -80,7 +79,7 @@ async def check_health(client: httpx.AsyncClient) -> dict | None:
 
 async def check_tenant_resolve(client: httpx.AsyncClient, slug: str) -> str | None:
     try:
-        r = await client.get(f"/api/v1/tenants/resolve", params={"slug": slug}, timeout=15)
+        r = await client.get("/api/v1/tenants/resolve", params={"slug": slug}, timeout=15)
         if r.status_code == 200:
             data = r.json()
             tid = data.get("tenant_id") or data.get("id")
@@ -147,7 +146,7 @@ async def check_analytics(client: httpx.AsyncClient, token: str | None, tenant_i
     try:
         r = await client.get("/api/v1/analytics/metrics", headers=headers, timeout=5)
         if r.status_code == 200:
-            record("pass", f"Analytics Metrics → OK (tenant-scoped)")
+            record("pass", "Analytics Metrics → OK (tenant-scoped)")
         elif r.status_code in (401, 403):
             record("warn", f"Analytics → {r.status_code} Unauthorized")
         else:
@@ -167,7 +166,7 @@ async def check_db_isolation():
         return
 
     try:
-        import aiosqlite
+        import aiosqlite  # type: ignore
 
         async with aiosqlite.connect(str(DB_PATH)) as db:
             db.row_factory = aiosqlite.Row
@@ -204,7 +203,7 @@ async def check_db_isolation():
             else:
                 # Çoklu tenant var — cross-query testi
                 tenants = [r[0] for r in rows]
-                t_a, t_b = tenants[0], tenants[1]
+                t_a = tenants[0]
 
                 # Tenant A'nın verisi B'nin kayıtlarını içeriyor mu?
                 async with db.execute(

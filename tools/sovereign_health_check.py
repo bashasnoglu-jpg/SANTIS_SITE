@@ -5,7 +5,6 @@ Gerçek endpoint path'leri ile test eder.
 import urllib.request
 import urllib.error
 import json
-import sys
 
 BASE = "http://localhost:8000"
 
@@ -39,7 +38,7 @@ for method, path, label in ENDPOINTS:
         code = e.code
         body = ""
     except Exception as e:
-        code = f"ERR"
+        code = "ERR"
         body = str(e)[:60]
 
     # Stripe webhook: 200 veya 400/422 kabul edilir (signature required), 500 = hata

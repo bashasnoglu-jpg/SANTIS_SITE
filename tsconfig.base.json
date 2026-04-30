@@ -9,6 +9,17 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@santis/event-dictionary": ["packages/event-dictionary/src/index.ts"],
+      "@santis/event-dictionary/*": ["packages/event-dictionary/src/*"],
+      "@santis/sovereign-bus": ["packages/sovereign-bus/src/index.ts"],
+      "@santis/sovereign-bus/*": ["packages/sovereign-bus/src/*"],
+      "@santis/application": ["packages/application/src/index.ts"],
+      "@santis/application/*": ["packages/application/src/*"],
+      "@santis/openr": ["packages/openr/src/index.ts"],
+      "@santis/openr/*": ["packages/openr/src/*"]
+    }
   }
 }

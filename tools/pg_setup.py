@@ -2,7 +2,8 @@
 Santis – Sovereign DB Setup
 PostgreSQL'de santisdb veritabanını ve gerekli extension'ları hazırlar.
 """
-import subprocess, sys, os
+import subprocess
+import os
 
 PG_BIN = r"C:\Program Files\PostgreSQL\18\bin"
 PSQL = os.path.join(PG_BIN, "psql.exe")

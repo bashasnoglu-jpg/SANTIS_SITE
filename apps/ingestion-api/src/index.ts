@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 
-import { SovereignBus } from "../../../packages/sovereign-bus/src/index";
+import { SovereignBus } from "@santis/sovereign-bus";
 import { CommandIngressService } from "./services/command-ingress";
 import { createIngressRouter } from "./routes/ingress";
 import { evaluateConciergeRules, deriveSignalFromDecision } from './decision-kernel';
@@ -38,8 +38,8 @@ import {
   InMemoryMoodReadModelRepository,
   InMemoryGuestSessionRepository,
 } from "../../../tests/helpers/in-memory-fakes";
-import { InMemoryUnitOfWork } from "../../../packages/application/src/uow/in-memory-uow";
-import { registerGuestSelectMoodFlow } from "../../../packages/application/src/bootstrap/register-guest-select-mood";
+import { InMemoryUnitOfWork } from "@santis/application/uow/in-memory-uow";
+import { registerGuestSelectMoodFlow } from "@santis/application/bootstrap/register-guest-select-mood";
 
 import { sendNack } from "./utils/http-contract";
 
@@ -123,7 +123,7 @@ async function bootstrap() {
   app.use(express.json({ limit: "100kb" })); 
 
   // --- HEALTH CHECK ---
-  app.get("/api/v1/analytics/god/health", (req, res) => {
+  app.get("/api/v1/analytics/god/health", (req: Request, res: Response) => {
     res.json({
       status: "SOVEREIGN_OS_ONLINE",
       version: "1.0.0",

@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { oracleActionMemoryStore } from "./oracle-action-memory.store.js";
 import { oracleStrategySimulationStore } from "./oracle-strategy-simulation.store.js";
 
-export const oracleStrategySimulationRouter = Router();
+export const oracleStrategySimulationRouter: import('express').Router = Router();
 
 oracleStrategySimulationRouter.get("/strategy-simulation", async (req: Request, res: Response) => {
   const limit = Number(req.query.limit || 250);

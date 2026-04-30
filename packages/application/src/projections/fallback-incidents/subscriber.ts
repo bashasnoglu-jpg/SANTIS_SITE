@@ -1,4 +1,4 @@
-import type { EventOfType } from "../../../sovereign-bus/src/index.js";
+import type { EventOfType } from "@santis/sovereign-bus";
 import type { FallbackIncidentsReadModelRepository } from "./repository.js";
 
 export function createFallbackIncidentsProjection(

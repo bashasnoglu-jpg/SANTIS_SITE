@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { oracleActionMemoryStore } from "./oracle-action-memory.store.js";
 import { oracleNodeSyncStore } from "./oracle-node-sync.store.js";
 
-export const oracleNodeSyncRouter = Router();
+export const oracleNodeSyncRouter: import('express').Router = Router();
 
 oracleNodeSyncRouter.get("/node-sync", async (req: Request, res: Response) => {
   const limit = Number(req.query.limit || 250);
