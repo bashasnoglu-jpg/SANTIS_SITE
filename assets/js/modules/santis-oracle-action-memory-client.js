@@ -5,8 +5,10 @@
 export class SantisOracleActionMemoryClient {
   constructor({
     baseUrl = 'http://localhost:3030/api/v1/oracle/action-memory',
+    nodeSyncUrl = 'http://localhost:3030/api/v1/oracle/node-sync',
   } = {}) {
     this.baseUrl = baseUrl;
+    this.nodeSyncUrl = nodeSyncUrl;
   }
 
   async readAll() {
@@ -39,5 +41,23 @@ export class SantisOracleActionMemoryClient {
 
     const body = await response.json();
     return body.data;
+  }
+
+  async readNodeSync({ nodeId = 'global', limit = 250 } = {}) {
+    const url = new URL(this.nodeSyncUrl);
+    url.searchParams.set('nodeId', nodeId);
+    url.searchParams.set('limit', String(limit));
+
+    const response = await fetch(url.toString(), {
+      method: 'GET',
+      headers: { Accept: 'application/json' },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Oracle node sync read failed: ${response.status}`);
+    }
+
+    const body = await response.json();
+    return body.data || { nodes: [], decisions: [] };
   }
 }
