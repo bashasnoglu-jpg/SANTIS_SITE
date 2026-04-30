@@ -25,7 +25,7 @@ export function initRealtime(server: Server) {
       // böylece UI kronolojik olarak doğru işler.
       const replayPayload: RealtimeEnvelope = {
         type: "EVENT_REPLAY",
-        payload: lastEvents.reverse().map(e => ({
+        payload: lastEvents.reverse().map((e: any) => ({
           ...e,
           payload: e.payload as any
         }))
