@@ -4,6 +4,7 @@
  */
 
 export const SantisBoardroomProCoreStateAdapter = (function() {
+  const CORESTATE_PATCH_EVENT = 'SANTIS_CORE_STATE_PATCH';
   
   // Local state cache mirroring the remote core state relevant to Boardroom
   const liveState = {
@@ -15,8 +16,8 @@ export const SantisBoardroomProCoreStateAdapter = (function() {
   };
 
   function init() {
-    window.addEventListener('santis:corestate:patch', handleCoreStatePatch);
-    console.log('[Santis Boardroom Adapter] Initialized and listening for live patches.');
+    window.addEventListener(CORESTATE_PATCH_EVENT, handleCoreStatePatch);
+    console.log(`[Santis Boardroom Adapter] Initialized and listening for ${CORESTATE_PATCH_EVENT}.`);
   }
 
   function handleCoreStatePatch(event) {
