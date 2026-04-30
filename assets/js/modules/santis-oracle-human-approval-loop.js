@@ -3,14 +3,17 @@
  * Captures human decisions for Oracle Action Rail recommendations.
  */
 import { SantisOracleActionMemory } from './santis-oracle-action-memory.js';
+import { SantisOracleNodeContext } from './santis-oracle-node-context.js';
 
 export class SantisOracleHumanApprovalLoop {
   constructor({
     container = document.getElementById('oracle-action-rail-container'),
     memory = new SantisOracleActionMemory(),
+    nodeContext = new SantisOracleNodeContext(),
   } = {}) {
     this.container = container;
     this.memory = memory;
+    this.nodeContext = nodeContext;
     this.actions = new Map();
     this.handleDecisionClick = this.handleDecisionClick.bind(this);
     this.handleActionsRendered = this.handleActionsRendered.bind(this);
@@ -66,6 +69,7 @@ export class SantisOracleHumanApprovalLoop {
       suggestedAction: action.suggestedAction,
       evidence: action.evidenceTrail || [],
       timestamp: new Date().toISOString(),
+      node: this.nodeContext.resolve(),
     };
   }
 

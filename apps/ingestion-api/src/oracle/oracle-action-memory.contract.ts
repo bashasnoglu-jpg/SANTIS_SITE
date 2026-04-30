@@ -1,4 +1,13 @@
 import { z } from "zod";
+import { OracleNodeContextSchema } from "./oracle-node.contract.js";
+
+export const DefaultOracleNodeContext = {
+  nodeId: "budva-primary",
+  nodeCode: "BUDVA",
+  location: "Budva",
+  region: "Montenegro",
+  role: "primary",
+} as const;
 
 export const OracleActionDecisionSchema = z.object({
   type: z.literal("ORACLE_ACTION_DECISION"),
@@ -9,6 +18,7 @@ export const OracleActionDecisionSchema = z.object({
   suggestedAction: z.string().min(1),
   evidence: z.array(z.string()).default([]),
   timestamp: z.string().datetime(),
+  node: OracleNodeContextSchema.default(DefaultOracleNodeContext),
 });
 
 export const OracleActionMemoryRecordSchema = OracleActionDecisionSchema.extend({
