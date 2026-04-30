@@ -9,12 +9,14 @@ export class SantisOracleActionMemoryClient {
     globalAggregationUrl = 'http://localhost:3030/api/v1/oracle/global-aggregation',
     crossNodeLearningUrl = 'http://localhost:3030/api/v1/oracle/cross-node-learning',
     strategySimulationUrl = 'http://localhost:3030/api/v1/oracle/strategy-simulation',
+    executionGuardUrl = 'http://localhost:3030/api/v1/oracle/execution-guard',
   } = {}) {
     this.baseUrl = baseUrl;
     this.nodeSyncUrl = nodeSyncUrl;
     this.globalAggregationUrl = globalAggregationUrl;
     this.crossNodeLearningUrl = crossNodeLearningUrl;
     this.strategySimulationUrl = strategySimulationUrl;
+    this.executionGuardUrl = executionGuardUrl;
   }
 
   async readAll() {
@@ -112,6 +114,23 @@ export class SantisOracleActionMemoryClient {
 
     if (!response.ok) {
       throw new Error(`Oracle strategy simulation read failed: ${response.status}`);
+    }
+
+    const body = await response.json();
+    return body.data || null;
+  }
+
+  async readExecutionGuard({ limit = 250 } = {}) {
+    const url = new URL(this.executionGuardUrl);
+    url.searchParams.set('limit', String(limit));
+
+    const response = await fetch(url.toString(), {
+      method: 'GET',
+      headers: { Accept: 'application/json' },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Oracle execution guard read failed: ${response.status}`);
     }
 
     const body = await response.json();

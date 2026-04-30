@@ -1,0 +1,126 @@
+/*
+  Santis Oracle Execution Plan Panel
+  Guarded, read-only execution planning. Human approval remains mandatory.
+*/
+
+.santis-boardroom-execution-plan {
+  background: var(--boardroom-surface);
+  border: 1px solid var(--boardroom-border);
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+
+.oracle-execution-plan {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.oracle-execution-brief {
+  padding: 18px;
+  border-left: 2px solid var(--boardroom-accent);
+  border-radius: 4px;
+  background: rgba(212, 175, 55, 0.055);
+}
+
+.oracle-execution-brief span,
+.oracle-execution-human-gate {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--boardroom-accent);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.oracle-execution-brief p,
+.oracle-guardrail p,
+.oracle-execution-steps p,
+.oracle-execution-empty {
+  color: var(--boardroom-text-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.oracle-execution-brief p {
+  margin: 0;
+  color: #f1f1f1;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.oracle-execution-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.oracle-execution-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.oracle-execution-panel h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.oracle-guardrail,
+.oracle-execution-steps li {
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 2px solid #8b7355;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.oracle-guardrail-pass {
+  border-left-color: #7fbc8c;
+}
+
+.oracle-guardrail-block {
+  border-left-color: #c57f7f;
+}
+
+.oracle-guardrail strong,
+.oracle-execution-steps strong {
+  color: #fff;
+  font-size: 13px;
+}
+
+.oracle-guardrail p,
+.oracle-execution-steps p {
+  margin: 8px 0 0;
+}
+
+.oracle-execution-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style-position: inside;
+}
+
+.oracle-execution-human-gate {
+  margin: 4px 0 0;
+}
+
+.oracle-execution-empty {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .oracle-execution-grid {
+    grid-template-columns: 1fr;
+  }
+}
