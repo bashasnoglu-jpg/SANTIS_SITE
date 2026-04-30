@@ -18,11 +18,16 @@ class SantisApiClient {
       try {
         const data = JSON.parse(event.data);
         if (data.type === "CORE_STATE_PATCH") {
-            window.dispatchEvent(
-                new CustomEvent("SANTIS_CORE_STATE_PATCH", {
-                    detail: data.patch,
-                })
-            );
+          if (!this.validateCoreStatePatch(data.patch)) {
+            this.logDroppedCoreStatePatch(data.patch);
+            return;
+          }
+
+          window.dispatchEvent(
+            new CustomEvent("SANTIS_CORE_STATE_PATCH", {
+              detail: data.patch,
+            })
+          );
         }
       } catch (err) {
         console.warn("[CoreState Stream] Invalid SSE payload", err);
@@ -258,6 +263,54 @@ class SantisApiClient {
         data.system &&
         typeof data.system.status === "string"
     );
+  }
+
+  validateCoreStatePatch(patch) {
+    if (!patch || typeof patch !== "object" || Array.isArray(patch)) return false;
+
+    const allowedTopLevelKeys = new Set([
+      "meta",
+      "revenue",
+      "sessions",
+      "therapists",
+      "catalog",
+      "alerts",
+      "system",
+      "totalRevenue",
+      "bookingCount",
+      "conversionRate",
+      "vipSegments",
+      "oracleInsights",
+    ]);
+
+    const keys = Object.keys(patch);
+    if (keys.length === 0) return false;
+    if (!keys.every((key) => allowedTopLevelKeys.has(key))) return false;
+
+    if (patch.meta !== undefined && (!patch.meta || typeof patch.meta !== "object" || Array.isArray(patch.meta))) return false;
+    if (patch.revenue !== undefined && (!patch.revenue || typeof patch.revenue !== "object" || Array.isArray(patch.revenue))) return false;
+    if (patch.sessions !== undefined && (!patch.sessions || typeof patch.sessions !== "object" || Array.isArray(patch.sessions))) return false;
+    if (patch.therapists !== undefined && !Array.isArray(patch.therapists)) return false;
+    if (patch.catalog !== undefined && (!patch.catalog || typeof patch.catalog !== "object" || Array.isArray(patch.catalog))) return false;
+    if (patch.alerts !== undefined && !Array.isArray(patch.alerts)) return false;
+    if (patch.system !== undefined && (!patch.system || typeof patch.system !== "object" || Array.isArray(patch.system))) return false;
+    if (patch.totalRevenue !== undefined && typeof patch.totalRevenue !== "number") return false;
+    if (patch.bookingCount !== undefined && typeof patch.bookingCount !== "number") return false;
+    if (patch.conversionRate !== undefined && typeof patch.conversionRate !== "number") return false;
+    if (patch.vipSegments !== undefined && !Array.isArray(patch.vipSegments)) return false;
+    if (patch.oracleInsights !== undefined && !Array.isArray(patch.oracleInsights)) return false;
+
+    return true;
+  }
+
+  logDroppedCoreStatePatch(patch) {
+    const summary = {
+      reason: "INVALID_CORESTATE_PATCH",
+      keys: patch && typeof patch === "object" ? Object.keys(patch) : [],
+      receivedType: Array.isArray(patch) ? "array" : typeof patch,
+    };
+
+    console.warn("[CoreState Stream] Dropped invalid patch", summary);
   }
 
   getCoreStateValidationErrors(data) {
