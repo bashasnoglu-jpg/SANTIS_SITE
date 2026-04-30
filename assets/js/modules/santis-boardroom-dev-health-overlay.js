@@ -141,6 +141,7 @@ class SantisBoardroomDevHealthOverlay {
       'strategy-simulation',
       'execution-guard',
       'execution-outcomes',
+      'statistical-forecast',
     ];
 
     try {

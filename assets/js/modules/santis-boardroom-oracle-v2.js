@@ -12,6 +12,7 @@ import { SantisOracleGlobalExecutiveView } from './santis-oracle-global-executiv
 import { SantisOracleSimulationPanel } from './santis-oracle-simulation-panel.js';
 import { SantisOracleExecutionPlanPanel } from './santis-oracle-execution-plan-panel.js';
 import { SantisOracleOutcomeFeedbackPanel } from './santis-oracle-outcome-feedback-panel.js';
+import { SantisOracleForecastPanel } from './santis-oracle-forecast-panel.js';
 
 class BoardroomOracleV2 {
   constructor() {
@@ -25,6 +26,7 @@ class BoardroomOracleV2 {
     this.simulationPanel = new SantisOracleSimulationPanel();
     this.executionPlanPanel = new SantisOracleExecutionPlanPanel();
     this.outcomeFeedbackPanel = new SantisOracleOutcomeFeedbackPanel();
+    this.forecastPanel = new SantisOracleForecastPanel();
     this.container = document.getElementById('oracle-insights-container');
     
     this.init();
@@ -36,6 +38,7 @@ class BoardroomOracleV2 {
     this.simulationPanel.init();
     this.executionPlanPanel.init();
     this.outcomeFeedbackPanel.init();
+    this.forecastPanel.init();
     
     // Initial state
     this.container.innerHTML = `
