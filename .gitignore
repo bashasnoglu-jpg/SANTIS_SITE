@@ -14,7 +14,9 @@ out/
 .vercel/
 .wrangler/
 .miniflare/
+.next/
 .turbo/
+coverage/
 apps/ingestion-api/.data/
 *.log
 
@@ -73,6 +75,7 @@ backups/
 quarantine_zone/
 Quarantine/
 _KARANTINA_SANTIS/
+_deploy_stage/
 *.bak
 *.tmp
 *.old
