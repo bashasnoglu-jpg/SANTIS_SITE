@@ -16,6 +16,15 @@ export const OracleExecutionStepSchema = z.object({
   status: z.literal("proposed"),
 });
 
+export const OracleExecutionGovernanceSchema = z.object({
+  executionPolicy: z.literal("human_gated"),
+  approvalRequired: z.literal(true),
+  approvedBy: z.null(),
+  approvedAt: z.null(),
+  autoApplyAllowed: z.literal(false),
+  auditReason: z.string().min(1),
+});
+
 export const OracleExecutionPlanSchema = z.object({
   planId: z.string().min(1),
   generatedAt: z.string().datetime(),
@@ -25,6 +34,7 @@ export const OracleExecutionPlanSchema = z.object({
   scenarioId: z.string().nullable(),
   targetNodeId: z.string().nullable(),
   rationale: z.string().min(1),
+  governance: OracleExecutionGovernanceSchema,
   guardrails: z.array(OracleExecutionGuardrailSchema),
   steps: z.array(OracleExecutionStepSchema),
 });
@@ -37,4 +47,5 @@ export const OracleExecutionGuardResponseSchema = z.object({
 
 export type OracleExecutionGuardrail = z.infer<typeof OracleExecutionGuardrailSchema>;
 export type OracleExecutionStep = z.infer<typeof OracleExecutionStepSchema>;
+export type OracleExecutionGovernance = z.infer<typeof OracleExecutionGovernanceSchema>;
 export type OracleExecutionPlan = z.infer<typeof OracleExecutionPlanSchema>;
