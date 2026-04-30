@@ -1,69 +1,65 @@
 /**
  * SANTIS CORESTATE STREAM CLIENT
- * Handles Server-Sent Events (SSE) connection to the Ingestion API
- * True Streaming Intelligence Foundation
+ * Compatibility facade for the canonical SantisApi CoreState SSE client.
+ *
+ * Canonical stream contract:
+ * - URL: /api/v1/core-state/stream
+ * - Patch event: SANTIS_CORE_STATE_PATCH
+ *
+ * Legacy consumers may still listen to:
+ * - santis:corestate:patch
  */
 
 export const SantisCoreStateStreamClient = (function() {
-  let eventSource = null;
-  const STREAM_URL = 'http://localhost:3030/api/v1/core-state/stream';
+  let connected = false;
+  let legacyPatchBridgeInstalled = false;
+
+  function installLegacyPatchBridge() {
+    if (legacyPatchBridgeInstalled) return;
+
+    window.addEventListener('SANTIS_CORE_STATE_PATCH', (event) => {
+      window.dispatchEvent(new CustomEvent('santis:corestate:patch', {
+        detail: event.detail
+      }));
+    });
+
+    legacyPatchBridgeInstalled = true;
+  }
 
   function connect() {
-    if (eventSource) {
-      console.warn('[Santis CoreState Stream] Already connected.');
+    installLegacyPatchBridge();
+
+    if (!window.SantisApi || typeof window.SantisApi.connectCoreStateStream !== 'function') {
+      console.warn('[Santis CoreState Stream] Canonical SantisApi client is unavailable.');
+      window.dispatchEvent(new CustomEvent('santis:corestate:error', {
+        detail: { reason: 'SANTIS_API_CLIENT_UNAVAILABLE' }
+      }));
       return;
     }
 
-    console.log(`[Santis CoreState Stream] Connecting to ${STREAM_URL}...`);
-    eventSource = new EventSource(STREAM_URL);
+    if (connected) {
+      console.warn('[Santis CoreState Stream] Already connected via SantisApi.');
+      return;
+    }
 
-    eventSource.onopen = (e) => {
-      console.log('[Santis CoreState Stream] Connection established (True Streaming Intelligence active).');
-      window.dispatchEvent(new CustomEvent('santis:corestate:connected'));
-    };
+    window.SantisApi.connectCoreStateStream();
+    connected = true;
 
-    eventSource.onmessage = (e) => {
-      try {
-        const data = JSON.parse(e.data);
-        console.log('[Santis CoreState Stream] Raw data received:', data);
-        
-        // Handle systemic events
-        if (data.type === 'SYSTEM') {
-          console.log('[Santis CoreState Stream] System Message:', data.payload);
-          return;
-        }
-
-        // Handle specific patch payloads
-        if (data.type === 'CORE_STATE_PATCH' && data.patch) {
-            // Dispatch the corestate patch so adapters can consume it
-            window.dispatchEvent(new CustomEvent('santis:corestate:patch', {
-            detail: data.patch
-            }));
-        } else {
-             // Fallback if the patch is sent directly (legacy mode)
-             window.dispatchEvent(new CustomEvent('santis:corestate:patch', {
-                detail: data
-              }));
-        }
-
-      } catch (err) {
-        console.error('[Santis CoreState Stream] Failed to parse stream data:', err);
-      }
-    };
-
-    eventSource.onerror = (e) => {
-      console.error('[Santis CoreState Stream] Connection error or disconnected. Attempting reconnect...');
-      // EventSource automatically attempts to reconnect.
-      window.dispatchEvent(new CustomEvent('santis:corestate:error', { detail: e }));
-    };
+    window.dispatchEvent(new CustomEvent('santis:corestate:connected', {
+      detail: { source: 'SantisApi', event: 'SANTIS_CORE_STATE_PATCH' }
+    }));
   }
 
   function disconnect() {
-    if (eventSource) {
-      eventSource.close();
-      eventSource = null;
-      console.log('[Santis CoreState Stream] Disconnected manually.');
+    const source = window.SantisApi && window.SantisApi.coreStateEventSource;
+
+    if (source && typeof source.close === 'function') {
+      source.close();
+      window.SantisApi.coreStateEventSource = null;
     }
+
+    connected = false;
+    console.log('[Santis CoreState Stream] Disconnected canonical SantisApi stream.');
   }
 
   return {
