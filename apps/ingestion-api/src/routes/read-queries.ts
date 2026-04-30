@@ -1,5 +1,5 @@
-import { Router } from "express";
-import type { IntentSnapshotRepository } from "../../../packages/application/src/repositories/intent-snapshot-repository.js";
+import { Router, Request, Response } from "express";
+import type { IntentSnapshotRepository } from "@santis/application/repositories/intent-snapshot-repository";
 
 /**
  * Creates the read model (projection) HTTP endpoints for the Kuantum API.
@@ -8,14 +8,14 @@ import type { IntentSnapshotRepository } from "../../../packages/application/src
  */
 export function createReadRoutes(
   intentSnapshotRepo: IntentSnapshotRepository
-) {
+): import('express').Router {
   const router = Router();
 
   /**
    * GET /api/v1/read/intent/:sessionId
    * Exposes the canonical view of a guest's intent.
    */
-  router.get("/intent/:sessionId", async (req, res) => {
+  router.get("/intent/:sessionId", async (req: Request, res: Response) => {
     try {
       const sessionId = req.params.sessionId;
 

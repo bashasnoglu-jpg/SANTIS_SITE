@@ -1,4 +1,4 @@
-import type { SovereignBus } from "../../sovereign-bus/src/index.js";
+import type { SovereignBus } from "@santis/sovereign-bus";
 import { SelectMoodApplicationService } from "../commands/guest-select-mood/service.js";
 import { createGuestSelectMoodHandler } from "../commands/guest-select-mood/handler.js";
 import { createMoodReadModelProjection } from "../projections/mood-read-model/subscriber.js";

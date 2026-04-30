@@ -2,7 +2,7 @@ import { appendFile, mkdir } from "fs/promises";
 import { createReadStream, existsSync } from "fs";
 import * as readline from "readline";
 import * as path from "path";
-import { SantisEvent } from "../../../../packages/event-dictionary/src/index.js";
+import { SantisEvent } from "@santis/event-dictionary";
 
 const STORE_DIR = path.join(process.cwd(), ".data");
 const STORE_FILE = path.join(STORE_DIR, "sovereign-events.jsonl");

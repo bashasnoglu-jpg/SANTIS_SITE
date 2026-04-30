@@ -1,15 +1,12 @@
 import sys
 import os
-import asyncio
 from pathlib import Path
 
 # PYTHONPATH setup
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from app.core.config import settings
-from app.db.base import Base
-from sqlalchemy import create_engine, text, MetaData
-from sqlalchemy.orm import sessionmaker
+from app.db.base import Base  # type: ignore
+from sqlalchemy import create_engine, text  # type: ignore
 import sqlite3
 
 # 1. PostgreSQL Engine Oluşturma (Sync)

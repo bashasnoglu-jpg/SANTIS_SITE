@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { oracleActionMemoryStore } from "./oracle-action-memory.store.js";
 import { oracleExecutionGuardStore } from "./oracle-execution-guard.store.js";
 
-export const oracleExecutionGuardRouter = Router();
+export const oracleExecutionGuardRouter: import('express').Router = Router();
 
 oracleExecutionGuardRouter.get("/execution-guard", async (req: Request, res: Response) => {
   const limit = Number(req.query.limit || 250);

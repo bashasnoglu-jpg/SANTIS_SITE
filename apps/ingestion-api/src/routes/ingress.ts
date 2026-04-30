@@ -2,11 +2,11 @@ import { Router, Request, Response, NextFunction } from "express";
 import { z } from "zod";
 import crypto from "crypto";
 import { SantisCommandSchema, SantisEventSchema } from "@santis/event-dictionary";
-import { SovereignBus } from "../../../../packages/sovereign-bus/src/index";
+import { SovereignBus } from "@santis/sovereign-bus";
 import { sendAck, sendNack } from "../utils/http-contract.js";
 
 // Factory pattern to inject the bus since we bootstrap it in index.ts
-export const createIngressRouter = (sovereignBus: SovereignBus) => {
+export const createIngressRouter = (sovereignBus: SovereignBus): import('express').Router => {
   const ingressRouter = Router();
 
   // Test / Bypass endpoint for direct Event injection

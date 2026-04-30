@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import { BoardroomReadModels } from "../projections/boardroom-projections.js";
 
-export const boardroomRouter = Router();
+export const boardroomRouter: import('express').Router = Router();
 
 // Zırhlı Boardroom rotaları (İleride Role-Based Access eklenebilir)
 boardroomRouter.get("/revenue", (req: Request, res: Response) => {

@@ -1,10 +1,10 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import { intentSseRegistry } from "../services/sse-registry.js";
-import type { IntentSnapshotRepository } from "../../../packages/application/src/repositories/intent-snapshot-repository.js";
+import type { IntentSnapshotRepository } from "@santis/application/repositories/intent-snapshot-repository";
 
 export function createSseRoutes(
   intentSnapshotRepo: IntentSnapshotRepository
-) {
+): import('express').Router {
   const router = Router();
 
   /**
@@ -12,7 +12,7 @@ export function createSseRoutes(
    * Establishes a Server-Sent Events (SSE) stream for God Mode 
    * to watch real-time canonical projection updates for a specific session.
    */
-  router.get("/intent/:sessionId", async (req, res) => {
+  router.get("/intent/:sessionId", async (req: Request, res: Response) => {
     const sessionId = req.params.sessionId;
 
     if (!sessionId) {
@@ -70,7 +70,7 @@ export function createSseRoutes(
    * GET /api/v1/streams/god
    * Universal God Mode stream for overarching alerts (Revenue Pulse, System Radar, etc.)
    */
-  router.get("/god", (req, res) => {
+  router.get("/god", (req: Request, res: Response) => {
     console.log("📡 [Matrix] Yeni bir God Mode Radarı (SSE) bağlandı.");
 
     // SSE için zorunlu olan HTTP Başlıkları (Fiber Optik Standartları)

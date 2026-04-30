@@ -1,0 +1,14 @@
+{
+  "name": "@santis/sovereign-bus",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@santis/event-dictionary": "workspace:*"
+  }
+}

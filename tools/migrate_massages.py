@@ -260,47 +260,44 @@ def process_file(source_dir, filename, lang, config):
     lower_dir = source_dir.lower()
     
     # Defaults
-    category_slug = "massages"
     category_label = config['labels']['ui_massages']
     breadcrumb_link = f"../../{lang}/massages/index.html"
 
     if "hamam" in lower_dir or "hammam" in lower_dir:
-        category = "hammam"
         hero_image = "../../assets/img/cards/hammam.webp"
         sub_image = "../../assets/img/cards/hammam_detail.webp"
         subtitle = config['labels']['subtitle_hammam']
         focus = config['labels']['focus_body']
         quote = config['labels']['quote_massage'] 
         
-        category_slug = "hammam"
         category_label = config['labels']['ui_hammam']
         breadcrumb_link = f"../../{lang}/hammam/index.html"
 
     elif "cilt" in lower_dir or "skin" in lower_dir or "soin" in lower_dir or "haut" in lower_dir:
-        category = "skincare"
         hero_image = "../../assets/img/cards/facial.webp"
         sub_image = "../../assets/img/cards/skincare_detail.webp"
         subtitle = config['labels']['subtitle_skincare']
         focus = config['labels']['focus_face']
         quote = config['labels']['quote_skincare']
 
-        category_slug = "skincare"
         category_label = config['labels']['ui_skincare']
         breadcrumb_link = f"../../{lang}/skincare/index.html" # Note: 'skincare' might need to be 'soins-visage' for link?
         # TODO: Fix breadcrumb link for localized folders if needed
-        if lang == 'fr': breadcrumb_link = f"../../fr/soins-visage/index.html"
-        if lang == 'de': breadcrumb_link = f"../../de/hautpflege/index.html"
+        if lang == 'fr':
+            breadcrumb_link = "../../fr/soins-visage/index.html"
+        if lang == 'de':
+            breadcrumb_link = "../../de/hautpflege/index.html"
 
     else:
         # Massage default
-        category = "massage"
         hero_image = "../../assets/img/cards/massage.webp"
         sub_image = "../../assets/img/cards/sauna.webp"
         subtitle = config['labels']['subtitle_massage']
         focus = config['labels']['focus_body']
         quote = config['labels']['quote_massage']
         
-        if lang == 'de': breadcrumb_link = f"../../de/massagen/index.html"
+        if lang == 'de':
+            breadcrumb_link = "../../de/massagen/index.html"
         # fr uses 'massages' which is default
 
     # --- TEMPLATE INJECTION ---
@@ -380,7 +377,8 @@ if __name__ == "__main__":
     for lang in targets:
         print(f"\n🚀 STARTING LANGUAGE: {lang.upper()}")
         cfg = LANG_CONFIG.get(lang)
-        if not cfg: continue
+        if not cfg:
+            continue
         
         for d in cfg['dirs']:
             if os.path.exists(d):

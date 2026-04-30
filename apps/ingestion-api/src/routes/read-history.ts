@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import { EventStore } from "../infrastructure/event-store.js";
 
-export function createHistoryReadRouter() {
+export function createHistoryReadRouter(): import('express').Router {
   const router = Router();
 
   /**

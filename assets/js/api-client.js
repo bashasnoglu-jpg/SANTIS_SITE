@@ -161,8 +161,13 @@ class SantisApiClient {
     }
 
     try {
-      const response = await fetch("/assets/data/services.json", {
-        headers: { Accept: "application/json" },
+      const response = await fetch("/api/v1/core-state/resolve", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({ action: "fetch_catalog" }),
         cache: "no-store",
       });
 

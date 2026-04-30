@@ -1,6 +1,5 @@
 import os
 import shutil
-import re
 
 # Goal: Standardize Gift Card URLs
 # TR: hediye-karti/index.html
@@ -36,7 +35,7 @@ def move_to_folder(file_path, target_folder_path):
              # Remove old empty dir
              try:
                  os.rmdir(file_path)
-             except:
+             except Exception:
                  pass
     else:
         # Case: Source is a file (TR/EN case)
@@ -55,10 +54,12 @@ def move_to_folder(file_path, target_folder_path):
 
 def update_component_links():
     for comp_dir in COMPONENTS_DIRS:
-        if not os.path.exists(comp_dir): continue
+        if not os.path.exists(comp_dir):
+            continue
         
         for filename in os.listdir(comp_dir):
-            if not filename.endswith('.html'): continue
+            if not filename.endswith('.html'):
+                continue
             
             path = os.path.join(comp_dir, filename)
             with open(path, 'r', encoding='utf-8') as f:

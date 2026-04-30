@@ -5,7 +5,11 @@ import type {
 import {
   RoutingPolicyAppliedEventSchema,
 } from "@santis/event-dictionary";
-import type { SovereignBus } from "@santis/sovereign-bus";
+export interface SovereignBus {
+  events: {
+    publish(event: any): Promise<void> | void;
+  };
+}
 // Mocked createEvent since it's likely internal
 const createEvent = (data: any) => ({
   eventId: "11111111-1111-1111-1111-111111111111", // Use UUID generator in production
@@ -33,24 +37,13 @@ export class ExperienceRouter {
   ) {}
 
   public async resolve(input: ResolveExperienceInput): Promise<RoutingPolicyAppliedEvent> {
-    const { command, deviceTier } = input;
-    const { tenantId, traceId, sessionId } = command;
-    // Note: Use simplified tenant from actual system or repo in production context
-    const tenant = {
-      hotelId: tenantId,
-      hotelCode: "SNT1",
-      region: "EU" as const,
-      locale: "tr" as const,
-      currency: "EUR" as const,
-      activePolicies: [],
-      fallbackMode: false
-    };
-    const intent = command.payload.intent;
+    const { tenant, traceId, sessionId } = input.command;
+    const intent = input.command.payload.intent;
 
     const resolution = this.policyEngine.resolveExperience({
       tenant,
       intent,
-      deviceTier,
+      deviceTier: input.deviceTier,
       ambientMoodState: input.ambientMoodState,
     });
 
@@ -84,7 +77,7 @@ export class ExperienceRouter {
     const event = createEvent(eventPayload);
     const parsedEvent = RoutingPolicyAppliedEventSchema.parse(event);
 
-    await this.bus.publish(parsedEvent);
+    await this.bus.events.publish(parsedEvent);
 
     // Faz 7: Eğer katsayı varsa UI için PricingMidasEngagedEvent fırlat!
     if (finalOutcome.prestigeMultiplier && (finalOutcome.prestigeMultiplier as number) > 1) {
@@ -101,7 +94,7 @@ export class ExperienceRouter {
           thresholdSurpassed: 0.40, 
         }
       });
-      await this.bus.publish(surgeEvent);
+      await this.bus.events.publish(surgeEvent);
     }
 
     return parsedEvent;

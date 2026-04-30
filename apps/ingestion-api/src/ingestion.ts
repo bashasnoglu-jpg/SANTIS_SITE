@@ -48,7 +48,7 @@ export async function ingestEvent(raw: unknown) {
     payload: {
       id: insertedRecord.id,
       tenantId: insertedRecord.tenantId,
-      type: signalType,
+      type: signalType || "UNKNOWN_SIGNAL",
       subject: insertedRecord.subject,
       payload: { ...insertedRecord.payload as any, decision },
       createdAt: insertedRecord.createdAt

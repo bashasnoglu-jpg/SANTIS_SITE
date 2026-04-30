@@ -4,7 +4,7 @@ import {
 } from "./oracle-execution-outcome.contract.js";
 import { oracleExecutionOutcomeStore } from "./oracle-execution-outcome.store.js";
 
-export const oracleExecutionOutcomeRouter = Router();
+export const oracleExecutionOutcomeRouter: import('express').Router = Router();
 
 oracleExecutionOutcomeRouter.get("/execution-outcomes", async (req: Request, res: Response) => {
   const limit = Number(req.query.limit || 50);

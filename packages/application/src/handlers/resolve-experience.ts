@@ -1,6 +1,6 @@
-import type { ResolveExperienceCommand } from "../../event-dictionary/src/index.js";
-import { ResolveExperienceCommandSchema } from "../../event-dictionary/src/index.js";
-import type { ExperienceRouter } from "../../openr/src/experience-router.js";
+import type { ResolveExperienceCommand } from "@santis/event-dictionary";
+import { ResolveExperienceCommandSchema } from "@santis/event-dictionary";
+import type { ExperienceRouter } from "@santis/openr";
 
 export interface MoodHeatmapProvider {
   getAmbientMoodState(): Record<string, number>;

@@ -7,7 +7,6 @@ import sqlite3
 import psycopg2
 import sys
 import os
-import traceback
 
 SQLITE_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "santis.db")
 PG_DSN = "host=localhost port=5432 dbname=santisdb user=santis password=santis1234"
@@ -29,7 +28,7 @@ try:
     pg_conn = psycopg2.connect(PG_DSN)
     pg_conn.autocommit = True   # Her statement kendi transaction'ı
     pg_cur = pg_conn.cursor()
-    print(f"✅ PostgreSQL: santisdb bağlantısı OK")
+    print("✅ PostgreSQL: santisdb bağlantısı OK")
 except Exception as e:
     print(f"❌ PostgreSQL hatası: {e}")
     sys.exit(1)
@@ -131,9 +130,9 @@ for table in all_tables:
     total_ok += inserted
 
 # ── Final Doğrulama ───────────────────────────────────────────────────
-print(f"\n─── PostgreSQL Doğrulama ──────────────────────────────────────────")
+print("\n─── PostgreSQL Doğrulama ──────────────────────────────────────────")
 for table in all_tables:
-    pg_cur.execute(f"SELECT COUNT(*) FROM information_schema.tables WHERE table_name=%s AND table_schema='public'", (table,))
+    pg_cur.execute("SELECT COUNT(*) FROM information_schema.tables WHERE table_name=%s AND table_schema='public'", (table,))
     if pg_cur.fetchone()[0] == 0:
         continue
     try:

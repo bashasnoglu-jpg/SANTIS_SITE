@@ -4,11 +4,8 @@
     "noEmit": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": [
-    "src/routes/read-fallback-incidents.ts",
-    "src/routes/read-queries.ts",
-    "src/routes/sse-fallback-streams.ts",
-    "src/routes/sse-streams.ts"
+  "include": [
+    "src/**/*.ts",
+    "../../packages/application/src/**/*.ts"
   ]
 }

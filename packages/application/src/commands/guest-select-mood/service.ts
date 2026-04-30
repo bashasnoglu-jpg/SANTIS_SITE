@@ -35,14 +35,14 @@ export class SelectMoodApplicationService {
         const now = new Date().toISOString();
 
         await this.deps.guestSessionRepo.markMoodSelected({
-          tenantId: command.tenantId,
+          tenantId: command.tenant.hotelId,
           sessionId: command.sessionId,
           mood: command.payload.mood,
           selectedAt: now,
         });
 
         await this.deps.intentSnapshotRepo.upsertIntentSnapshot({
-          tenantId: command.tenantId,
+          tenantId: command.tenant.hotelId,
           sessionId: command.sessionId,
           moodAffinity: [command.payload.mood],
           updatedAt: now,
@@ -51,7 +51,7 @@ export class SelectMoodApplicationService {
         const event = mapSelectMoodCommandToEvent({
           command,
           tenant: {
-            hotelId: command.tenantId,
+            hotelId: command.tenant.hotelId,
             hotelCode: "SANTIS01",
             region: "EU",
             locale: "tr",

@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 
-const router = Router();
+const router: import('express').Router = Router();
 
 // GodMode radarına bağlanan tüm aktif komuta merkezlerini (istemcileri) hafızada tutarız
 export const activeRadars = new Set<Response>();

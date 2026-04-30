@@ -1,5 +1,4 @@
 import re
-import os
 
 # Script to fix broken links in fr/massages/index.html
 # Consolidates TR slugs -> FR folders
@@ -48,7 +47,6 @@ def fix_links():
     # Matches: https://santis-club.com/fr/massages/SLUG.html
     
     def replacer(match):
-        full_match = match.group(0) # e.g. /fr/massages/aromaterapi.html
         slug = match.group(2) # aromaterapi
         
         if slug in SLUG_MAP:

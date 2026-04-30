@@ -1,14 +1,14 @@
-import express from 'express';
+import express, { Request, Response, Router } from 'express';
 import { SovereignPricingService } from '../services/pricing.service';
 
-const router = express.Router();
+const router: import('express').Router = Router();
 const pricingService = new SovereignPricingService();
 
 /**
  * GET /api/v1/rituals/pricing
  * Kiosk bu rotaya istek atarak ritüelin otonom fiyatını (Prestij Vektörü) çeker.
  */
-router.get('/', (req, res) => {
+router.get('/', (req: Request, res: Response) => {
   try {
     const { ritualId, basePrice, guestSegment } = req.query;
 

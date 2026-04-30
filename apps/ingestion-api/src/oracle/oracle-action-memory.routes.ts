@@ -3,7 +3,7 @@ import { z } from "zod";
 import { OracleActionDecisionSchema } from "./oracle-action-memory.contract.js";
 import { oracleActionMemoryStore } from "./oracle-action-memory.store.js";
 
-export const oracleActionMemoryRouter = Router();
+export const oracleActionMemoryRouter: import('express').Router = Router();
 
 oracleActionMemoryRouter.get("/action-memory", async (req: Request, res: Response) => {
   const limit = Number(req.query.limit || 100);

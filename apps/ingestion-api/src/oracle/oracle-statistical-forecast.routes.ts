@@ -2,7 +2,11 @@ import { Router, Request, Response } from "express";
 import { oracleExecutionOutcomeStore } from "./oracle-execution-outcome.store.js";
 import { oracleStatisticalForecastEngine } from "./oracle-statistical-forecast.engine.js";
 
+<<<<<<< HEAD
 export const oracleStatisticalForecastRouter = Router();
+=======
+export const oracleStatisticalForecastRouter: import('express').Router = Router();
+>>>>>>> main
 
 oracleStatisticalForecastRouter.get("/statistical-forecast", async (req: Request, res: Response) => {
   const limit = Number(req.query.limit || 90);

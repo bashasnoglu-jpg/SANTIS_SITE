@@ -1,5 +1,5 @@
-import type { SovereignBus } from "../../../../packages/sovereign-bus/src/index.js";
-import type { SantisEvent } from "../../../../packages/event-dictionary/src/index.js";
+import type { SovereignBus } from "@santis/sovereign-bus";
+import type { SantisEvent } from "@santis/event-dictionary";
 
 /**
  * 📊 IN-MEMORY READ MODELS (Projections)

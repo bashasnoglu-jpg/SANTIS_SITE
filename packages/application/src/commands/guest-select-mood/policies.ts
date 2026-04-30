@@ -7,7 +7,7 @@ type SelectMoodCommand = Extract<
 >;
 
 export function assertSelectMoodPolicy(command: SelectMoodCommand): void {
-  if (!command.tenantId) {
+  if (!command.tenant?.hotelId) {
     throw new SelectMoodPolicyError("tenantId is required");
   }
 

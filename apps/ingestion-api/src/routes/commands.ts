@@ -1,12 +1,12 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import { dispatchCommandHandler } from "../handlers/ingest-command.js";
 import type { CommandIngressService } from "../services/command-ingress.js";
 
-export function createCommandRoutes(ingress: CommandIngressService) {
+export function createCommandRoutes(ingress: CommandIngressService): import('express').Router {
   const router = Router();
 
   // Auth middleware (Bearer token) would be registered before or here
-  router.post("/", async (req, res) => {
+  router.post("/", async (req: Request, res: Response) => {
     try {
       const response = await dispatchCommandHandler(req.body, ingress);
 
