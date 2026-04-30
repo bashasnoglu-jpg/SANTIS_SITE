@@ -144,7 +144,22 @@
                 this._scheduleReconnect();
             };
 
-            this._ws.onerror = () => {};
+            this._ws.onerror = (event) => {
+                this._handleSocketError(event);
+            };
+        },
+
+        _handleSocketError(event) {
+            const payload = {
+                type: 'bus:error',
+                readyState: this._ws ? this._ws.readyState : null,
+                reconnectAttempts: this._reconnectAttempts,
+                timestamp: new Date().toISOString()
+            };
+
+            console.warn('[Sovereign Bus] WebSocket error detected.', payload, event);
+            this._dispatch(payload);
+            window.dispatchEvent(new CustomEvent('santis:sovereign-bus:error', { detail: payload }));
         },
 
         /** Tip bazlı mesaj dağıtımı */
