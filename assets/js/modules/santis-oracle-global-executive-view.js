@@ -4,6 +4,8 @@
  */
 import { SantisOracleActionMemoryClient } from './santis-oracle-action-memory-client.js';
 import { SantisOracleGlobalContext } from './santis-oracle-global-context.js';
+import { SantisOracleCrossNodeLearning } from './santis-oracle-cross-node-learning.js';
+import { SantisOracleNetworkStrategy } from './santis-oracle-network-strategy.js';
 
 export class SantisOracleGlobalExecutiveView {
   constructor({
@@ -11,10 +13,14 @@ export class SantisOracleGlobalExecutiveView {
     client = new SantisOracleActionMemoryClient(),
     globalContext = new SantisOracleGlobalContext(),
     limit = 250,
+    crossNodeLearning = new SantisOracleCrossNodeLearning({ client, limit }),
+    networkStrategy = new SantisOracleNetworkStrategy(),
   } = {}) {
     this.container = container;
     this.client = client;
     this.globalContext = globalContext;
+    this.crossNodeLearning = crossNodeLearning;
+    this.networkStrategy = networkStrategy;
     this.limit = limit;
     this.refresh = this.refresh.bind(this);
   }
@@ -31,15 +37,18 @@ export class SantisOracleGlobalExecutiveView {
     if (!this.container) return;
 
     try {
-      const data = await this.client.readGlobalAggregation({ limit: this.limit });
-      this.render(data);
+      const [data, learning] = await Promise.all([
+        this.client.readGlobalAggregation({ limit: this.limit }),
+        this.crossNodeLearning.read(),
+      ]);
+      this.render(data, learning);
     } catch (error) {
       console.warn('[Oracle Global Executive View] Failed to read global aggregation.', error);
       this.renderUnavailable();
     }
   }
 
-  render(data) {
+  render(data, learning = null) {
     const context = this.globalContext.resolve();
     const signals = Array.isArray(data?.signals) ? data.signals.slice(0, 3) : [];
 
@@ -58,6 +67,10 @@ export class SantisOracleGlobalExecutiveView {
           ${this.renderMetricCard('Nodes', data?.nodeCount ?? 0, 'Tagged Oracle memory sources')}
           ${this.renderMetricCard('Global Approval', `${data?.globalApprovalRate ?? 0}%`, 'Approved decision density')}
           ${this.renderMetricCard('Escalation', `${data?.globalEscalationRate ?? 0}%`, 'Human risk review pressure')}
+        </div>
+        <div class="oracle-executive-panel">
+          <h3>Cross-node Learning</h3>
+          ${this.renderLearningSummary(learning)}
         </div>
       </div>
     `;
@@ -91,6 +104,29 @@ export class SantisOracleGlobalExecutiveView {
       <div class="oracle-playbook-card">
         <strong>${this.escapeHtml(label)} - ${this.escapeHtml(String(value))}</strong>
         <p>${this.escapeHtml(detail)}</p>
+      </div>
+    `;
+  }
+
+  renderLearningSummary(learning) {
+    const transfers = Array.isArray(learning?.transfers) ? learning.transfers.slice(0, 3) : [];
+    const summary = this.networkStrategy.summarize(learning);
+
+    return `
+      <div class="oracle-playbook-card">
+        <strong>Network Strategy</strong>
+        <p>${this.escapeHtml(summary)}</p>
+      </div>
+      ${transfers.map((transfer) => this.renderTransfer(transfer)).join('')}
+    `;
+  }
+
+  renderTransfer(transfer) {
+    return `
+      <div class="oracle-playbook-card">
+        <strong>${this.escapeHtml(transfer.targetNodeId)} - ${Number(transfer.adjustedConfidence || 0)}%</strong>
+        <p>${this.escapeHtml(transfer.recommendation)}</p>
+        <span>${this.escapeHtml(transfer.riskBoundary)} boundary - ${Number(transfer.contextFit || 0)}% context fit</span>
       </div>
     `;
   }
