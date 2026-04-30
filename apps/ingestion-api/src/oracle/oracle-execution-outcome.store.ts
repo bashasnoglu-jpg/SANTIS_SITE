@@ -31,18 +31,32 @@ export class OracleExecutionOutcomeStore {
 
   async summarize(limit: number = 50): Promise<OracleExecutionOutcomeSummary> {
     const outcomes = await this.replay(limit);
-    const averageRevenueDelta = this.average(outcomes.map((outcome) =>
-      outcome.actualRevenueLift - outcome.forecastRevenueLift
+
+    const averageRevenueDelta = this.average(outcomes.map((o) =>
+      o.actualRevenueLift - o.forecastRevenueLift
     ));
-    const averageConfidenceDelta = this.average(outcomes.map((outcome) =>
-      outcome.actualConfidence - outcome.forecastConfidence
+
+    const averageConfidenceDelta = this.average(outcomes.map((o) =>
+      o.actualConfidence - o.forecastConfidence
     ));
+
+    const economicAccuracy = this.scoreAccuracy(averageRevenueDelta);
+    const confidenceAccuracy = this.scoreAccuracy(averageConfidenceDelta);
+
+    const intelligenceScore = Math.round((economicAccuracy * 0.6) + (confidenceAccuracy * 0.4));
 
     return {
       outcomeCount: outcomes.length,
       averageRevenueDelta,
       averageConfidenceDelta,
       calibrationSignal: this.resolveCalibrationSignal(outcomes.length, averageRevenueDelta, averageConfidenceDelta),
+      boardroomIntelligence: {
+        intelligenceScore,
+        economicAccuracy,
+        confidenceAccuracy,
+        decisionQuality: this.resolveDecisionQuality(intelligenceScore, outcomes.length),
+        sampleSize: outcomes.length,
+      },
       latestOutcome: outcomes[0] || null,
       outcomes,
     };
@@ -72,15 +86,29 @@ export class OracleExecutionOutcomeStore {
       .slice(0, limit);
   }
 
-  resolveCalibrationSignal(
-    outcomeCount: number,
-    averageRevenueDelta: number,
-    averageConfidenceDelta: number,
-  ): OracleExecutionOutcomeSummary["calibrationSignal"] {
-    if (outcomeCount === 0) return "awaiting_outcomes";
-    if (averageRevenueDelta <= -5 || averageConfidenceDelta <= -8) return "over_forecast";
-    if (averageRevenueDelta >= 5 || averageConfidenceDelta >= 8) return "under_forecast";
+  resolveCalibrationSignal(count: number, revenueDelta: number, confidenceDelta: number) {
+    if (count === 0) return "awaiting_outcomes";
+    if (revenueDelta <= -5 || confidenceDelta <= -8) return "over_forecast";
+    if (revenueDelta >= 5 || confidenceDelta >= 8) return "under_forecast";
     return "aligned";
+  }
+
+  resolveDecisionQuality(score: number, sample: number) {
+    if (sample === 0) return "awaiting_data";
+    if (score < 40) return "critical";
+    if (score < 60) return "watch";
+    if (score < 80) return "stable";
+    return "excellent";
+  }
+
+  scoreAccuracy(delta: number) {
+    const abs = Math.abs(delta);
+    if (abs >= 20) return 0;
+    if (abs >= 15) return 20;
+    if (abs >= 10) return 40;
+    if (abs >= 5) return 60;
+    if (abs >= 2) return 80;
+    return 100;
   }
 
   average(values: number[]): number {
