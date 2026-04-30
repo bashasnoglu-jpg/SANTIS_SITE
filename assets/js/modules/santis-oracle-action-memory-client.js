@@ -6,9 +6,11 @@ export class SantisOracleActionMemoryClient {
   constructor({
     baseUrl = 'http://localhost:3030/api/v1/oracle/action-memory',
     nodeSyncUrl = 'http://localhost:3030/api/v1/oracle/node-sync',
+    globalAggregationUrl = 'http://localhost:3030/api/v1/oracle/global-aggregation',
   } = {}) {
     this.baseUrl = baseUrl;
     this.nodeSyncUrl = nodeSyncUrl;
+    this.globalAggregationUrl = globalAggregationUrl;
   }
 
   async readAll() {
@@ -59,5 +61,22 @@ export class SantisOracleActionMemoryClient {
 
     const body = await response.json();
     return body.data || { nodes: [], decisions: [] };
+  }
+
+  async readGlobalAggregation({ limit = 250 } = {}) {
+    const url = new URL(this.globalAggregationUrl);
+    url.searchParams.set('limit', String(limit));
+
+    const response = await fetch(url.toString(), {
+      method: 'GET',
+      headers: { Accept: 'application/json' },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Oracle global aggregation read failed: ${response.status}`);
+    }
+
+    const body = await response.json();
+    return body.data || null;
   }
 }
