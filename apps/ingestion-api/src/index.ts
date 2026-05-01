@@ -8,6 +8,7 @@ import { CommandIngressService } from "./services/command-ingress";
 import { createIngressRouter } from "./routes/ingress";
 import { evaluateConciergeRules, deriveSignalFromDecision } from './decision-kernel';
 import { broadcastToGodMode } from "./routes/sse-streams";
+import { resolveWebSocketGatewayConfig } from "./config/websocket-gateway.config";
 
 import { createReadRoutes } from "./routes/read-queries";
 import { createHistoryReadRouter } from "./routes/read-history";
@@ -59,8 +60,12 @@ async function bootstrap() {
   registerCommandHandlers(bus);
 
   // --- WEBSOCKET GATEWAY (Port 8080) ---
-  const WS_PORT = process.env.WS_PORT || 8080;
-  const wss = new WebSocketServer({ port: Number(WS_PORT) });
+  const wsConfig = resolveWebSocketGatewayConfig();
+  const wss = new WebSocketServer({ 
+    host: wsConfig.WS_HOST,
+    port: wsConfig.WS_PORT,
+    path: wsConfig.WS_PATH
+  });
   
   wss.on('connection', (ws) => {
     console.log(`🔌 [WebSocket Gateway] İstemci bağlandı.`);
@@ -74,7 +79,9 @@ async function bootstrap() {
   console.log(`
   ╔═══════════════════════════════════════════════════╗
   ║  📡 WEBSOCKET GATEWAY ONLINE                      ║
-  ║  Port: ${WS_PORT}                                       ║
+  ║  Host: ${wsConfig.WS_HOST}
+  ║  Port: ${wsConfig.WS_PORT}
+  ║  Path: ${wsConfig.WS_PATH}
   ╚═══════════════════════════════════════════════════╝
   `);
   
