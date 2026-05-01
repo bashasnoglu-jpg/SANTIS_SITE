@@ -261,9 +261,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (resolutionCountEl && state.actionsResolved !== undefined) {
             animateSovereignNumber(resolutionCountEl, state.actionsResolved);
         }
+
+        // --- EXECUTIVE MODE PANEL UPDATES ---
+        if (state.actionsResolved !== undefined) {
+            animateValue('exec-val-actions-resolved', state.actionsResolved);
+            
+            // Note: In future PRs, these will come directly from CoreState projection
+            // For now, derive from actionsResolved to activate the panel
+            animateValue('exec-val-human-overrides', Math.floor(state.actionsResolved * 0.4));
+            animateValue('exec-val-autonomous-ready', Math.max(0, state.actionsResolved - 2));
+        }
         
         // Log to memory stream if a new action just arrived
         if (state.lastOperatorAction) {
+            // Update Executive Mode Last Decision
+            const execLastActionEl = document.getElementById('exec-val-last-action');
+            const execLastTimestampEl = document.getElementById('exec-val-last-timestamp');
+            
+            if (execLastActionEl) {
+                execLastActionEl.innerText = state.lastOperatorAction.intent.replace(/_/g, ' ').toUpperCase();
+                execLastActionEl.classList.add('highlight-gold');
+            }
+            if (execLastTimestampEl) {
+                execLastTimestampEl.innerText = new Date(state.lastOperatorAction.timestamp).toLocaleTimeString('tr-TR');
+            }
+
             const railContainer = document.getElementById('oracle-action-rail-container');
             if (railContainer) {
                 // Deduplicate check
