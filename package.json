@@ -17,6 +17,9 @@
     "test:quality:runtime": "turbo run test:quality:runtime",
     "audit:runtime": "node scripts/audit-runtime-contract.js"
   },
+  "dependencies": {
+    "zod": "^3.22.4"
+  },
   "devDependencies": {
     "esbuild": "^0.28.0",
     "tsx": "^4.7.1",

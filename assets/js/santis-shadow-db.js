@@ -9,7 +9,7 @@
 
 window.SovereignShadowDB = (function () {
     const DB_NAME = 'SantisShadowDB';
-    const DB_VERSION = 1;
+    const DB_VERSION = 5;
     const STORE_NAME = 'dwell_memory';
     let db = null;
     let initPromise = null;

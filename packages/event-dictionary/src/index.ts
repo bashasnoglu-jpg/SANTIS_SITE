@@ -217,6 +217,39 @@ export const PricingMidasEngagedEventSchema = BaseEventSchema.extend({
 
 export type PricingMidasEngagedEvent = z.infer<typeof PricingMidasEngagedEventSchema>;
 
+export const CheckoutCompletedEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("commerce.checkout.completed"),
+  payload: z.object({
+    guestId: z.string(),
+    totalAmount: z.number().nonnegative(),
+    currency: CurrencySchema,
+    services: z.array(z.string()).default([]),
+  }),
+});
+
+export const RiskSignalTriggeredEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("risk.signal_triggered"),
+  payload: z.object({
+    userId: z.string(),
+    riskScore: z.number().min(0).max(100),
+    reason: z.string(),
+  }),
+});
+
+import { PricingRecommendationSchema } from "./pricing.schemas";
+
+export const PricingRecommendationEmittedEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("pricing.recommendation.emitted"),
+  payload: PricingRecommendationSchema
+});
+
+import { PricingOverrideAppliedSchema } from "./pricing.schemas";
+
+export const PricingOverrideAppliedEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("pricing.override.applied"),
+  payload: PricingOverrideAppliedSchema.shape.payload
+});
+
 export const SantisEventSchema = z.discriminatedUnion("eventType", [
   MoodSelectedEventSchema,
   FlowAbandonedEventSchema,
@@ -224,6 +257,10 @@ export const SantisEventSchema = z.discriminatedUnion("eventType", [
   FallbackEngagedEventSchema,
   RoutingPolicyAppliedEventSchema,
   PricingMidasEngagedEventSchema,
+  CheckoutCompletedEventSchema,
+  RiskSignalTriggeredEventSchema,
+  PricingRecommendationEmittedEventSchema,
+  PricingOverrideAppliedEventSchema,
 ]);
 
 export type SantisEvent = z.infer<typeof SantisEventSchema>;
@@ -260,10 +297,34 @@ export const ResolveExperienceCommandSchema = BaseCommandSchema.extend({
 
 export type ResolveExperienceCommand = z.infer<typeof ResolveExperienceCommandSchema>;
 
+export const CommerceRecordCheckoutCommandSchema = BaseCommandSchema.extend({
+  commandType: z.literal("commerce.record_checkout"),
+  payload: z.object({
+    guestId: z.string(),
+    totalAmount: z.number().nonnegative(),
+    currency: CurrencySchema,
+    services: z.array(z.string()).default([]),
+  }),
+});
+
+export const TriggerRiskSignalCommandSchema = BaseCommandSchema.extend({
+  commandType: z.literal("risk.trigger_signal"),
+  payload: z.object({
+    userId: z.string(),
+    riskScore: z.number().min(0).max(100),
+    reason: z.string(),
+  }),
+});
+
+import { PricingOverrideCommandSchema } from "./pricing.schemas";
+
 export const SantisCommandSchema = z.discriminatedUnion("commandType", [
   SelectMoodCommandSchema,
   CalculateOfferCommandSchema,
   ResolveExperienceCommandSchema,
+  CommerceRecordCheckoutCommandSchema,
+  TriggerRiskSignalCommandSchema,
+  PricingOverrideCommandSchema,
 ]);
 
 export type SantisCommand = z.infer<typeof SantisCommandSchema>;
@@ -293,3 +354,5 @@ export function safeParseSantisCommand(input: unknown) {
 
 export * from './event.types';
 export * from './command-result';
+export * from './scp.schemas';
+export * from './pricing.schemas';

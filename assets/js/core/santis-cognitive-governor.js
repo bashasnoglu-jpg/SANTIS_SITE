@@ -85,7 +85,11 @@ class SafetyFatigueMonitor {
         if (window.__SANTIS_DECISION_LOG__) {
             const entry = { module: 'safety_governor', decision: 'prompt_safemode', time: performance.now() }; // meta is entirely removed!
             window.__SANTIS_DECISION_LOG__.push(entry);
-            if (navigator.sendBeacon) navigator.sendBeacon('/api/v1/telemetry/decision', JSON.stringify(entry));
+            if (navigator.sendBeacon) {
+                const isLocal = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+                const endpoint = isLocal ? "http://127.0.0.1:3030/api/v1/telemetry/decision" : "/api/v1/telemetry/decision";
+                navigator.sendBeacon(endpoint, JSON.stringify(entry));
+            }
         }
 
         // Elegant UI injection

@@ -5,8 +5,10 @@ import { SantisCommandSchema, SantisEventSchema } from "@santis/event-dictionary
 import { SovereignBus } from "@santis/sovereign-bus";
 import { sendAck, sendNack } from "../utils/http-contract.js";
 
+import { CommandIngressService } from "../services/command-ingress";
+
 // Factory pattern to inject the bus since we bootstrap it in index.ts
-export const createIngressRouter = (sovereignBus: SovereignBus): import('express').Router => {
+export const createIngressRouter = (sovereignBus: SovereignBus, commandIngress: CommandIngressService): import('express').Router => {
   const ingressRouter = Router();
 
   // Test / Bypass endpoint for direct Event injection
@@ -82,39 +84,25 @@ export const createIngressRouter = (sovereignBus: SovereignBus): import('express
     console.log(`\n🛡️ [Ingress Gate] Sinyal tespit edildi. Trace: ${traceId}`);
 
     try {
-      const rawPayload = req.body;
+      const result = await commandIngress.ingest(req.body, traceId, sessionId);
 
-      // 2. ZOD GATE (Parse, Don't Validate)
-      // Eğer payload bozuksa, bu satırda ZodError fırlatır ve catch bloğuna düşer.
-      const validCommand = SantisCommandSchema.parse(rawPayload);
+      if (!result.ok) {
+        if (result.status === 400) {
+          console.warn(`🛑 [Ingress Gate] Zod Kalkanı Devrede! Payload reddedildi. Trace: ${traceId}`);
+          return sendNack(res, traceId, { type: "ValidationFailed", issues: result.error.details }, 400);
+        }
+        return sendNack(res, traceId, { type: "CommandRejected", reason: result.error }, result.status);
+      }
 
-      // 3. Güvenlik Zırhı: Dışarıdan gelen Trace/Session ID'yi zarfa fiziksel olarak mühürle
-      const commandToDispatch = {
-        ...validCommand,
-        traceId,
-        sessionId
-      };
+      console.log(`✅ [Ingress Gate] Gümrük geçildi. Command Result: ${result.result.status}`);
 
-      console.log(`✅ [Ingress Gate] Gümrük geçildi. Command: ${commandToDispatch.commandType}`);
-
-      // 4. COMMAND DISPATCH (Otoriter Bus'a fırlat)
-      await sovereignBus.commands.dispatch(commandToDispatch);
-
-      // 5. ACKNOWLEDGE (Arayüze/Edge'e "Kabul Edildi" sinyali dön)
       return sendAck(res, traceId, {
         status: "ACCEPTED",
-        commandId: commandToDispatch.commandId,
+        commandId: result.result.commandId,
         timestamp: new Date().toISOString()
       });
 
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        console.warn(`🛑 [Ingress Gate] Zod Kalkanı Devrede! Payload reddedildi. Trace: ${traceId}`);
-        // Zod hatalarını arayüzün/istemcinin anlayacağı şekilde formatla
-        const issues = error.errors.map(e => ({ path: e.path.join("."), message: e.message }));
-        return sendNack(res, traceId, { type: "ValidationFailed", issues }, 400);
-      }
-      
       // İş kuralları veya sistem hataları için bir sonraki Dead-Letter middleware'e aktar
       next(error);
     }

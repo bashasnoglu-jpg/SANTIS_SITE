@@ -215,7 +215,12 @@ class SovereignCognitiveRouter {
         try {
             if (window.SantisBus && window.SantisBus.emit) window.SantisBus.emit('router:navigation-start', { path });
 
-            const response = await fetch(path);
+            const response = await fetch(path, { 
+                headers: { 
+                    'Accept': 'text/html',
+                    'X-SPA-Navigation': 'true' 
+                } 
+            });
             if (!response.ok) throw new Error('Ağ yanıtı başarısız.');
             const htmlString = await response.text();
 
@@ -256,12 +261,9 @@ class SovereignCognitiveRouter {
 
             if (document.startViewTransition && !isNativeSwipe) {
                 try {
-                    const transition = document.startViewTransition(() => executeSwap().catch(() => {}));
-                    transition.ready.catch(() => {});
-                    transition.updateCallbackDone.catch(() => {});
-                    await transition.finished.catch(() => {});
+                    await document.startViewTransition(() => executeSwap().catch(() => {})).finished;
                 } catch (e) {
-                    await executeSwap().catch(() => {});
+                    console.warn("[SANTIS L10] Transition skipped", e);
                 }
             } else {
                 await executeSwap().catch(() => {});

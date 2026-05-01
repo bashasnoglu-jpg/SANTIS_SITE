@@ -1,12 +1,48 @@
 class SantisApiClient {
   constructor() {
-    this.baseUrl = "/api/v1"; // Defaults to the local gateway API path
+    const isLocal = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+    this.baseUrl = isLocal ? "http://127.0.0.1:3030/api/v1" : "/api/v1";
     this.coreStateCache = null;
     this.coreStateVersion = "68.0.0";
     this.coreStateEventSource = null;
-    this.catalogCache = null;
+    this.catalogCache = null;    this.ws = null;
 
     console.log("🦅 Santis API Client v68 — CoreState Mode Initialized.");
+    this.initWebSocket();
+  }
+
+  initWebSocket() {
+    // 8080 Portundaki Gateway'e bağlanıyoruz
+    const wsUrl = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+      ? 'ws://127.0.0.1:8080'
+      : `wss://${window.location.host}/ws`;
+
+    this.ws = new WebSocket(wsUrl);
+
+    this.ws.onopen = () => {
+        console.log('🦅 [API Client] Kuantum Bağlantısı Aktif (WebSocket).');
+    };
+
+    this.ws.onmessage = (event) => {
+        try {
+            const data = JSON.parse(event.data);
+            
+            // Gelen veriyi tüm sisteme duyuruyoruz
+            const santisEvent = new CustomEvent('santis-update', { 
+                detail: data 
+            });
+            window.dispatchEvent(santisEvent);
+            
+            console.log('📡 [API Client] Yeni Veri Paketi Dağıtıldı:', data.type || 'Bilinmiyor');
+        } catch (e) {
+            console.warn('[API Client] WS payload parsing hatası', e);
+        }
+    };
+
+    this.ws.onclose = () => {
+        console.warn('⚠️ [API Client] Bağlantı koptu. 5 saniye içinde yeniden denenecek...');
+        setTimeout(() => this.initWebSocket(), 5000);
+    };
   }
 
   connectCoreStateStream() {
@@ -374,6 +410,45 @@ class SantisApiClient {
 
   async getDashboardState() {
     return this.getCoreState();
+  }
+
+  /**
+   * SANTIS API CLIENT - Command Dispatcher
+   * Oracle tarafından onaylanan kararları sisteme iletir.
+   */
+  async sendCommand(commandType, payload) {
+    console.log(`🦅 [Sovereign Command] Gönderiliyor: ${commandType}`);
+    
+    try {
+      // Use this.baseUrl or hardcode as requested, but standardizing to relative/baseUrl is safer if proxy exists.
+      // The user snippet uses 'http://127.0.0.1:3030/api/v1/commands'. I'll use it since it's local env specific, or use this.baseUrl.
+      const url = `${this.baseUrl}/commands`;
+      
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          type: commandType,
+          payload: payload,
+          timestamp: new Date().toISOString()
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Komut reddedildi. HTTP ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('✅ [Sovereign Command] Başarıyla yürütüldü:', result);
+      return result;
+
+    } catch (error) {
+      console.error('🚨 [Sovereign Command] Başarısız:', error.message);
+      throw error;
+    }
   }
 }
 

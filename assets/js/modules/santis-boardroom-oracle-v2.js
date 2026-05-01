@@ -100,6 +100,8 @@ class BoardroomOracleV2 {
       this.container.innerHTML = ''; 
     }
 
+    const newCards = [];
+
     insights.forEach(insight => {
       // Prevent duplicates by checking if exact message already exists
       const existing = Array.from(this.container.querySelectorAll('.oracle-insight-content p'))
@@ -114,8 +116,10 @@ class BoardroomOracleV2 {
         return;
       }
 
+      const planId = `plan_${Math.random().toString(36).substr(2, 9)}`;
+      
       const card = document.createElement('div');
-      card.className = `oracle-insight-card oracle-severity-${insight.severity}`;
+      card.className = `oracle-insight-card oracle-severity-${insight.severity} card-${planId}`;
       card.innerHTML = `
         <div class="oracle-insight-icon">${this.getIconForType(insight.type)}</div>
         <div class="oracle-insight-content">
@@ -126,16 +130,111 @@ class BoardroomOracleV2 {
           </div>
           <div class="oracle-suggested-action">${insight.suggestedAction}</div>
           ${this.renderLearningSummary(insight)}
+          <div class="operator-actions" id="actions-${planId}">
+            <button class="btn-santis btn-approve" data-plan="${planId}" data-decision="APPROVED">Approve</button>
+            <button class="btn-santis btn-reject" data-plan="${planId}" data-decision="REJECTED">Reject</button>
+          </div>
         </div>
       `;
       
+      // Attach decision listeners
+      const approveBtn = card.querySelector('.btn-approve');
+      const rejectBtn = card.querySelector('.btn-reject');
+      
+      approveBtn.addEventListener('click', () => this.processDecision(planId, 'APPROVED'));
+      rejectBtn.addEventListener('click', () => this.processDecision(planId, 'REJECTED'));
+      
       // Prepend so newest is on top
       this.container.insertBefore(card, this.container.firstChild);
+      newCards.push(card);
 
       // Keep max 5 insights
       if (this.container.children.length > 5) {
         this.container.lastChild.remove();
       }
+    });
+
+    if (newCards.length > 0 && typeof gsap !== 'undefined') {
+      gsap.fromTo(newCards, 
+        { opacity: 0, y: -15 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8, 
+          stagger: 0.15, 
+          ease: 'power3.out',
+          clearProps: 'transform',
+          onComplete: () => {
+            // Fade in buttons sequentially after card lands
+            newCards.forEach(c => {
+               gsap.to(c.querySelector('.operator-actions'), {
+                   opacity: 1, duration: 0.4, ease: 'power2.out'
+               });
+            });
+          }
+        }
+      );
+    }
+  }
+
+  async processDecision(planId, decision) {
+    console.log(`[Boardroom Operator] Decision for ${planId}: ${decision}`);
+    
+    // Select the card to animate out
+    const card = document.querySelector(`.card-${planId}`);
+    if (!card) return;
+
+    // Send decision to backend kernel (Non-blocking, UI-first)
+    fetch('http://localhost:3030/api/v1/decision-kernel/execute', { 
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ planId, decision, timestamp: Date.now() }) 
+    }).catch(err => console.error('[KERNEL ERROR] Failed to record decision:', err));
+    // Add success glow and stamp before sliding out
+    const actionsContainer = card.querySelector('.operator-actions');
+    const isApproved = decision === 'APPROVED';
+    
+    if (actionsContainer) {
+        actionsContainer.innerHTML = `
+            <div class="santis-synced-stamp ${isApproved ? '' : 'rejected'}">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span>${isApproved ? 'APPROVED' : 'REJECTED'} & SYNCED</span>
+            </div>
+        `;
+        
+        gsap.fromTo(actionsContainer.querySelector('.santis-synced-stamp'), 
+            { opacity: 0, scale: 0.9 }, 
+            { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.7)' }
+        );
+    }
+
+    if (isApproved) {
+        gsap.to(card, {
+            backgroundColor: 'rgba(0, 255, 128, 0.05)',
+            borderColor: 'rgba(0, 255, 128, 0.4)',
+            duration: 0.3
+        });
+    } else {
+        gsap.to(card, {
+            backgroundColor: 'rgba(255, 48, 48, 0.05)',
+            borderColor: 'rgba(255, 48, 48, 0.4)',
+            duration: 0.3
+        });
+    }
+
+    // Slide out based on decision, with enough delay to read the stamp
+    gsap.to(card, {
+        opacity: 0,
+        x: isApproved ? 80 : -80,
+        y: -10,
+        filter: 'blur(5px)',
+        duration: 0.6,
+        delay: 0.9,
+        ease: "power4.in",
+        onComplete: () => card.remove()
     });
   }
 

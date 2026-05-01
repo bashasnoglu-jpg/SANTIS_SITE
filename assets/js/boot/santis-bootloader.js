@@ -215,9 +215,15 @@
             }
         ];
 
+        const getBackendUrl = () => {
+            const isLocal = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+            return isLocal ? "http://127.0.0.1:3030/api/v1" : "/api/v1";
+        };
+
         function dispatchTelemetry(level, message) {
             // Background telemetry dispatch (fire and forget)
-            fetch('/api/v1/telemetry/beacon', {
+            const endpoint = `${getBackendUrl()}/telemetry/beacon`;
+            fetch(endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
@@ -317,7 +323,8 @@
             
             // 📡 V42 Telemetry Bridge (Fire & Forget)
             if (navigator.sendBeacon) {
-                navigator.sendBeacon('/api/v1/telemetry/decision', JSON.stringify({
+                const endpoint = typeof getBackendUrl !== "undefined" ? `${getBackendUrl()}/telemetry/decision` : '/api/v1/telemetry/decision';
+                navigator.sendBeacon(endpoint, JSON.stringify({
                     module: name, decision: decision, meta: meta, time: Date.now()
                 }));
             }
