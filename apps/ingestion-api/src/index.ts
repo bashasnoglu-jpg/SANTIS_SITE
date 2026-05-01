@@ -3,6 +3,7 @@ import cors from "cors";
 import { WebSocketServer } from "ws";
 
 import { SovereignBus } from "@santis/sovereign-bus";
+import { registerCommandHandlers } from "./handlers/register-command-handlers";
 import { CommandIngressService } from "./services/command-ingress";
 import { createIngressRouter } from "./routes/ingress";
 import { evaluateConciergeRules, deriveSignalFromDecision } from './decision-kernel';
@@ -55,6 +56,7 @@ async function bootstrap() {
 
   // 2. Core Altyapı
   const bus = new SovereignBus();
+  registerCommandHandlers(bus);
 
   // --- WEBSOCKET GATEWAY (Port 8080) ---
   const WS_PORT = process.env.WS_PORT || 8080;
