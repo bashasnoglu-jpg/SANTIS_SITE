@@ -53,10 +53,10 @@ export function LiveIntentMonitor() {
 
   // Health State UI
   const healthConfig = {
-    OPEN: { color: 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse', label: 'NEURAL BRIDGE ONLINE' },
-    CONNECTING: { color: 'bg-yellow-500 animate-pulse', label: 'ESTABLISHING LINK...' },
-    CLOSED: { color: 'bg-gray-600', label: 'BRIDGE SUSPENDED' },
-    ERROR: { color: 'bg-red-600 shadow-[0_0_8px_rgba(220,38,38,0.8)] animate-pulse', label: 'CONNECTION DEAD' },
+    OPEN: { color: 'bg-sovereign-success animate-pulse', label: 'NEURAL BRIDGE ONLINE' },
+    CONNECTING: { color: 'bg-sovereign-warning animate-pulse', label: 'ESTABLISHING LINK...' },
+    CLOSED: { color: 'bg-sovereign-neutral-600', label: 'BRIDGE SUSPENDED' },
+    ERROR: { color: 'bg-sovereign-danger animate-pulse', label: 'CONNECTION DEAD' },
   };
 
   const currentHealth = healthConfig[status] || healthConfig.CLOSED;
@@ -67,16 +67,16 @@ export function LiveIntentMonitor() {
     <div className="fixed bottom-4 right-4 z-[9999] pointer-events-none flex flex-col items-end">
       <div className="p-4 bg-black/80 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl w-full max-w-sm pointer-events-auto">
         <div className="flex items-center justify-between mb-4 border-b border-white/5 pb-3">
-          <h2 className="text-[11px] font-semibold tracking-[0.25em] text-gold-500 uppercase">Live Intent Monitor</h2>
+          <h2 className="text-micro font-semibold tracking-[0.25em] text-sovereign-gold uppercase">Live Intent Monitor</h2>
           <div className="flex items-center gap-2 px-2 py-1 bg-white/5 rounded-full border border-white/5">
             <span className={`w-2 h-2 rounded-full ${currentHealth.color}`} />
-            <span className="text-[9px] font-mono tracking-widest text-gray-300">{currentHealth.label}</span>
+            <span className="text-2xs font-mono tracking-widest text-sovereign-neutral-300">{currentHealth.label}</span>
           </div>
         </div>
 
-        <div className="space-y-2 min-h-[150px] relative">
+        <div className="space-y-2 min-h-40 relative">
           {intents.length === 0 ? (
-            <div className="absolute inset-0 flex items-center justify-center text-[10px] font-mono text-gray-600 opacity-50 tracking-widest">
+            <div className="absolute inset-0 flex items-center justify-center text-2xs font-mono text-sovereign-neutral-600 opacity-50 tracking-widest">
               [ WAITING FOR NEURAL BRIDGE ]
             </div>
           ) : (
@@ -88,23 +88,23 @@ export function LiveIntentMonitor() {
               >
                 <div className="flex justify-between items-start mb-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono text-gray-400 bg-white/5 px-1.5 py-0.5 rounded">{intent.type}</span>
+                    <span className="text-2xs font-mono text-sovereign-neutral-400 bg-white/5 px-1.5 py-0.5 rounded">{intent.type}</span>
                     {intent.payload?.signalType && (
                       <SignalBadge type={intent.payload.signalType as SignalType} />
                     )}
                   </div>
-                  <span className="text-[9px] font-mono text-gray-500">
+                  <span className="text-2xs font-mono text-sovereign-neutral-500">
                     {new Date(intent.createdAt).toLocaleTimeString('tr-TR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 })}
                   </span>
                 </div>
-                <span className="text-sm font-medium text-gold-300 tracking-wide">{intent.payload.intent || intent.subject}</span>
-                <span className="text-[8px] font-mono text-gray-600 mt-1 truncate">ID: {intent.id}</span>
+                <span className="text-sm font-medium text-sovereign-gold-deep tracking-wide">{intent.payload.intent || intent.subject}</span>
+                <span className="text-2xs font-mono text-sovereign-neutral-600 mt-1 truncate">ID: {intent.id}</span>
               </div>
             ))
           )}
         </div>
       </div>
-      <div className="mt-2 text-[8px] font-mono text-gray-600 tracking-widest pointer-events-auto">PRESS 'M' TO TOGGLE HUD</div>
+      <div className="mt-2 text-2xs font-mono text-sovereign-neutral-600 tracking-widest pointer-events-auto">PRESS 'M' TO TOGGLE HUD</div>
     </div>
   );
 }
