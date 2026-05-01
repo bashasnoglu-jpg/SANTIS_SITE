@@ -4,8 +4,8 @@
  * Connects Frontend to Python/FastAPI Backbone.
  */
 (function () {
-    const API_ROOT = 'http://127.0.0.1:8000/api/v1';
-
+    const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
+    const API_ROOT = config.apiBaseUrl || '/api/v1';
     // JS'in okuyabildiği csrf_token çerezini alır
     function getCookie(name) {
         const value = `; ${document.cookie}`;

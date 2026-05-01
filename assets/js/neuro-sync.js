@@ -181,7 +181,7 @@ import { Store } from './santis-store.js';
 let _sseClient = null;
 let _reconnectAttempts = 0;
 const SSE_MAX_DELAY = 30_000;
-const SSE_ENDPOINT = 'http://127.0.0.1:8000/api/v1/stream?tenant_id=santis_hq';
+// SSE_ENDPOINT moved inside initNeuroSync to use dynamic config
 
 export function initNeuroSync() {
     if (window.__NEURO_SYNC_KILLED__) return;
@@ -192,7 +192,10 @@ export function initNeuroSync() {
     const connectQuantumSocket = () => {
         try {
             // Sizin sunucunuzun loglarda tam olarak beklediği "guest" (müşteri) kapısı!
-            _sseClient = new WebSocket('ws://127.0.0.1:8000/ws?client_type=guest');
+            const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsBase = config.wsUrl || `${protocol}//${window.location.host}/ws`;
+            _sseClient = new WebSocket(`${wsBase}?client_type=guest`);
 
             _sseClient.onopen = () => {
                 console.log("🟢 [Neuro-Sync WS] Bağlantı aktif.");

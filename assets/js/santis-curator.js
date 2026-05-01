@@ -9,9 +9,9 @@
 
 
 window.SantisCurator = (function () {
-
-    const API_URL = "http://localhost:8000/api/generate-text";
-
+    const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
+    const apiBaseUrl = config.apiBaseUrl || '/api/v1';
+    const API_URL = `${apiBaseUrl.replace('/api/v1', '')}/api/generate-text`;
 
 
     // 1. GENERATE TEXT (Creative AI)

@@ -34,15 +34,6 @@ const excludeList = [
 // They are explicitly whitelisted here so the CI doesn't block, but they should be cleaned up eventually.
 const legacyPendingMigration = [
   "assets/js/workers/server/job-queue.js",
-  "assets/js/santis-vault.js",
-  "assets/js/santis-telemetry.js",
-  "assets/js/santis-seal.js",
-  "assets/js/santis-nav.js",
-  "assets/js/santis-curator.js",
-  "assets/js/santis-config.js",
-  "assets/js/santis-api.js",
-  "assets/js/santis-ai-chatbot.js",
-  "assets/js/neuro-sync.js",
   "assets/js/modules/santis-boardroom-dev-health-overlay.js",
   "assets/js/modules/santis-boardroom-pro-live.js",
   "assets/js/modules/santis-oracle-action-memory-client.js",

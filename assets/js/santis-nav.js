@@ -53,7 +53,9 @@ function initNavAndFooter() {
                         // The 'prefix' is calculated based on depth.
                         // If we are at depth 2 (tr/masajlar), prefix is ../../
                         // So /assets/img becomes ../../assets/img
-                        if (isFileProtocol || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                        const isLocalHost = window.location.hostname.includes('local') || window.location.hostname.startsWith('127.');
+                        if (isFileProtocol || isLocalHost) {
+                            console.warn('⚠️ [Sovereign Router] Local environment detected. Using fallback.');
                             // Remove leading slash and prepend prefix
                             const cleanVal = val.substring(1);
                             node.setAttribute(attr, prefix + cleanVal);
@@ -160,7 +162,9 @@ function initNavAndFooter() {
             let manifest;
             try {
                 // Backend 3030 üzerinden JSON verisini çek
-                const res = await fetch('http://127.0.0.1:3030/api/v1/nav-manifest');
+                const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
+                const apiBase = config.apiBaseUrl || '/api/v1';
+                const res = await fetch(`${apiBase}/nav-manifest`);
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 manifest = await res.json();
             } catch (err) {
