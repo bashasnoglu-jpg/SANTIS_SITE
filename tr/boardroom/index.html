@@ -51,7 +51,7 @@
       </div>
     </header>
 
-    <main class="santis-boardroom-content">
+    <main class="santis-boardroom-content santis-scene-wrapper santis-scene-enter" id="santis-boardroom-main">
       <section class="santis-boardroom-metrics">
         <div class="metric-card">
           <span class="metric-label">Total Pipeline Revenue</span>
@@ -68,6 +68,56 @@
         <div class="metric-card">
           <span class="metric-label">Avg. Value per Lead</span>
           <strong class="metric-value" id="val-avg-revenue">€0</strong>
+        </div>
+        <div class="metric-card scp-block">
+          <span class="metric-label">SCP Score</span>
+          <strong id="scp-score" class="metric-value">0</strong>
+        </div>
+        <div class="metric-card scp-block">
+          <span class="metric-label">Net Contribution</span>
+          <div class="metric-row" style="display: flex; align-items: baseline; gap: 4px;">
+            <strong id="scp-net" class="metric-value">0</strong>
+            <span class="metric-currency" style="color: #8b92a5; font-size: 16px; font-weight: 500;">€</span>
+          </div>
+        </div>
+        <div class="metric-card scp-block">
+          <span class="metric-label">Pricing Action</span>
+          <strong id="pricing-action" class="metric-value" style="font-size: 18px; color: #d4af37; text-transform: uppercase;">—</strong>
+        </div>
+        <div class="metric-card scp-block">
+          <span class="metric-label">Confidence</span>
+          <strong id="pricing-confidence" class="metric-value" style="font-size: 20px;">—</strong>
+        </div>
+        <div class="metric-card scp-block">
+          <span class="metric-label">Brand Risk</span>
+          <strong id="pricing-brand-risk" class="metric-value" style="font-size: 16px; text-transform: uppercase;">—</strong>
+        </div>
+        <div class="metric-card scp-block">
+          <span class="metric-label">Luxury Guardrail</span>
+          <strong id="pricing-luxury-integrity" class="metric-value" style="font-size: 16px;">—</strong>
+        </div>
+        <div class="metric-card scp-block" id="pricing-override-controls" style="display: none; grid-column: span 2; padding: 12px; background: rgba(212, 175, 55, 0.05); border: 1px solid rgba(212, 175, 55, 0.2);">
+          <span class="metric-label" style="margin-bottom: 8px;">Operator Decision (Gate)</span>
+          <div style="display: flex; gap: 8px;">
+            <button id="btn-approve-pricing" class="btn-santis btn-approve" style="flex: 1; padding: 10px; background: #2e7d32; border: 1px solid #4caf50; color: #fff; cursor: pointer; border-radius: 4px; font-weight: 600;">APPROVE</button>
+            <button id="btn-reject-pricing" class="btn-santis btn-reject" style="flex: 1; padding: 10px; background: #c62828; border: 1px solid #f44336; color: #fff; cursor: pointer; border-radius: 4px; font-weight: 600;">REJECT</button>
+          </div>
+        </div>
+        <div class="metric-card scp-block">
+          <span class="metric-label">Machine Decision (Shadow)</span>
+          <strong id="shadow-action" class="metric-value" style="font-size: 16px; color: #8b92a5; text-transform: uppercase;">—</strong>
+        </div>
+        <div class="metric-card scp-block">
+          <span class="metric-label">Human vs Machine</span>
+          <strong id="shadow-diff" class="metric-value" style="font-size: 16px;">—</strong>
+        </div>
+        <div class="metric-card scp-block">
+          <span class="metric-label">Model Accuracy</span>
+          <strong id="model-accuracy" class="metric-value" style="font-size: 16px;">—</strong>
+        </div>
+        <div class="metric-card scp-block">
+          <span class="metric-label">Confidence Bias</span>
+          <strong id="model-bias" class="metric-value" style="font-size: 16px;">—</strong>
         </div>
       </section>
 
@@ -196,6 +246,27 @@
   </div>
   <div class="boardroom-dev-health" id="boardroom-dev-health-overlay"></div>
 
+  <!-- Oracle Action Memory Overlay -->
+  <div class="oracle-action-overlay" id="oracle-action-overlay">
+    <div class="oracle-action-modal">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="ai-badge">Oracle Intelligence</span>
+          <h2 id="oracle-modal-title">Strategic Recommendation</h2>
+        </div>
+        <button class="modal-close" id="oracle-modal-close">×</button>
+      </div>
+      <div class="modal-body" id="oracle-modal-body">
+        <!-- JS Injected Content -->
+      </div>
+      <div class="modal-footer" id="oracle-modal-footer">
+        <!-- JS Injected Actions -->
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous"></script>
+  <script src="/assets/js/api-client.js"></script>
   <script src="/assets/js/modules/santis-revenue-tracker.js"></script>
   <script src="/assets/js/modules/santis-boardroom-lite.js"></script>
   <script type="module" src="/assets/js/modules/santis-boardroom-pro-live.js"></script>
