@@ -2,5 +2,8 @@
   "name": "@santis/design-system",
   "version": "1.0.0",
   "type": "commonjs",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "minimatch": "^9.0.3"
+  }
 }
