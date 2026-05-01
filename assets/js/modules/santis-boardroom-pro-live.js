@@ -200,34 +200,53 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     },
 
-    // Shadow Autonomous Mode UI Update
-    shadow: (s, humanAction) => {
-        const actionEl = document.getElementById('shadow-action');
-        const diffEl = document.getElementById('shadow-diff');
+    // Strategy Simulation UI Update (shadowPricing)
+    simulation: (s) => {
+        const actionEl = document.getElementById('sim-val-action');
+        const deltaEl = document.getElementById('sim-val-delta');
+        const revenueEl = document.getElementById('sim-val-revenue');
+        const confidenceEl = document.getElementById('sim-val-confidence');
         
-        if (actionEl) actionEl.innerText = s.simulatedAction.replace(/_/g, ' ').toUpperCase();
+        if (actionEl) {
+            const actionText = (s.simulatedAction || s.action || '--').replace(/_/g, ' ').toUpperCase();
+            actionEl.innerText = actionText;
+        }
         
-        if (diffEl) {
-            let result = "AWAITING HUMAN";
-            let color = "#8b92a5";
+        if (deltaEl && s.suggestedDelta !== undefined) {
+            const prefix = s.suggestedDelta > 0 ? '+' : '';
+            deltaEl.innerText = `${prefix}${s.suggestedDelta}`;
+        }
+        
+        if (revenueEl && s.expectedRevenueImpact !== undefined) {
+            // Using animateSovereignNumber for smooth currency counting if possible,
+            // but since it might be negative or have a plus sign, we handle it custom or just innerText
+            const prefix = s.expectedRevenueImpact > 0 ? '+' : '';
+            // formatting as currency
+            const formatted = new Intl.NumberFormat('de-DE', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 0
+            }).format(Math.abs(s.expectedRevenueImpact));
             
-            if (humanAction) {
-                // Determine if human matched the shadow action.
-                // Normally humanAction is "approved" / "rejected".
-                if (humanAction === "approved") {
-                    result = "MATCH (ACCEPTED)";
-                    color = "#4caf50";
-                } else if (humanAction === "rejected") {
-                    result = "DIVERGENCE (REJECTED)";
-                    color = "#f44336";
-                } else {
-                    result = `DIVERGENCE (${humanAction.toUpperCase()})`;
-                    color = "#ff9800";
-                }
+            revenueEl.innerText = `${prefix}${formatted}`;
+            revenueEl.style.color = s.expectedRevenueImpact > 0 ? '#4caf50' : (s.expectedRevenueImpact < 0 ? '#f44336' : '#e0e0e0');
+        }
+        
+        if (confidenceEl && s.confidence !== undefined) {
+            const conf = Math.round(s.confidence * 100);
+            confidenceEl.innerText = `${conf}%`;
+            confidenceEl.style.color = conf >= 80 ? '#00ff80' : (conf >= 50 ? '#d4af37' : '#f44336');
+        }
+
+        // GSAP highlight animation for the simulation grid to reflect "live update"
+        if (typeof window.gsap !== 'undefined') {
+            const cards = document.querySelectorAll('.simulation-metric-card');
+            if (cards.length > 0) {
+                window.gsap.fromTo(cards, 
+                    { borderColor: 'rgba(212, 175, 55, 0.5)', backgroundColor: 'rgba(212, 175, 55, 0.05)' },
+                    { borderColor: 'rgba(255, 255, 255, 0.05)', backgroundColor: 'rgba(18, 18, 18, 0.6)', duration: 1.5, ease: 'power2.out', stagger: 0.1 }
+                );
             }
-            
-            diffEl.innerText = result;
-            diffEl.style.color = color;
         }
     },
 
@@ -364,7 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (metrics.pricingRecommendations && metrics.pricingRecommendations[metrics.shadowPricing.sessionId]) {
             humanAction = metrics.pricingRecommendations[metrics.shadowPricing.sessionId].status;
         }
-        uiUpdaters.shadow(metrics.shadowPricing, humanAction);
+        uiUpdaters.simulation(metrics.shadowPricing);
     }
     
     if (metrics.calibration !== undefined) {
