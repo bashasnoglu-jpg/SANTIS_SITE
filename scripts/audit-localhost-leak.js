@@ -21,7 +21,13 @@ const excludeList = [
   ".next",
   "build",
   "apps/web/tests", // Test fixtures are allowed to use localhost
-  "assets/js/_archive" // Archive files shouldn't fail the build
+
+  // ARCHIVE POLICY:
+  // The assets/js/_archive directory contains zombie/legacy code that is NOT part of the
+  // active runtime. We exclude it from localhost audits because refactoring inactive code
+  // is an anti-pattern. If any archive file is ever restored to the active runtime, it MUST
+  // be moved out of _archive and modernized to use getRuntimeConfig() and pass the audit.
+  "assets/js/_archive"
 ].map(p => path.normalize(p));
 
 // These files are legacy or dev-only fixtures pending migration to getRuntimeConfig().
