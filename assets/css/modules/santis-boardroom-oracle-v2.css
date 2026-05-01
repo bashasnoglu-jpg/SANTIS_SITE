@@ -420,3 +420,62 @@
     margin-bottom: 24px;
     color: #e0e0e0;
 }
+
+/* ==========================================================================
+   SANTIS SOVEREIGN OS - Executive Mode Panel
+   ========================================================================== */
+
+.oracle-executive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    width: 100%;
+}
+
+.executive-metric-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), background 0.4s ease, border-color 0.4s ease;
+    will-change: transform;
+}
+
+.executive-metric-card:hover {
+    background: rgba(212, 175, 55, 0.05);
+    border-color: rgba(212, 175, 55, 0.3);
+    transform: translateY(-2px);
+}
+
+.executive-metric-label {
+    font-size: 0.75rem;
+    color: #8b92a5;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.executive-metric-value {
+    font-size: 1.5rem;
+    color: #e0e0e0;
+    font-weight: 300;
+    font-variant-numeric: tabular-nums;
+}
+
+.executive-metric-value.highlight-gold {
+    color: #d4af37;
+}
+
+.executive-metric-value.highlight-green {
+    color: #4caf50;
+}
+
+.executive-metric-subtext {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: auto;
+    font-family: monospace;
+}
+

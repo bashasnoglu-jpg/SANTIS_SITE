@@ -131,7 +131,33 @@
           <span class="ai-badge">Strategy</span>
         </div>
         <div class="oracle-executive-mode" id="oracle-executive-mode-container">
-          <div class="oracle-executive-empty">Awaiting decision-grade Oracle signal.</div>
+          <div class="oracle-executive-grid">
+            <div class="executive-metric-card">
+              <span class="executive-metric-label">Oracle Actions Resolved</span>
+              <strong class="executive-metric-value highlight-gold" id="exec-val-actions-resolved">0</strong>
+              <span class="executive-metric-subtext">Total System Intelligence</span>
+            </div>
+            <div class="executive-metric-card">
+              <span class="executive-metric-label">Last Operator Action</span>
+              <strong class="executive-metric-value" id="exec-val-last-action" style="font-size: 1.1rem;">AWAITING</strong>
+              <span class="executive-metric-subtext">System Guardrail</span>
+            </div>
+            <div class="executive-metric-card">
+              <span class="executive-metric-label">Last Decision Timestamp</span>
+              <strong class="executive-metric-value" id="exec-val-last-timestamp" style="font-size: 1.1rem;">--</strong>
+              <span class="executive-metric-subtext">Time of Action</span>
+            </div>
+            <div class="executive-metric-card">
+              <span class="executive-metric-label">Human-Gated Overrides</span>
+              <strong class="executive-metric-value highlight-green" id="exec-val-human-overrides">0</strong>
+              <span class="executive-metric-subtext">Manual Interventions</span>
+            </div>
+            <div class="executive-metric-card">
+              <span class="executive-metric-label">Autonomous Ready Queue</span>
+              <strong class="executive-metric-value" id="exec-val-autonomous-ready">0</strong>
+              <span class="executive-metric-subtext">Pending Execution</span>
+            </div>
+          </div>
         </div>
       </section>
 
