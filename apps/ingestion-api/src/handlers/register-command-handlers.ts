@@ -68,4 +68,41 @@ export function registerCommandHandlers(bus: SovereignBus): void {
 
     return ack(command);
   });
+  bus.commands.registerHandler("boardroom.oracle.execute", async (command: CommandOfType<"boardroom.oracle.execute">) => {
+    await bus.events.publish({
+      eventId: crypto.randomUUID(),
+      eventType: "boardroom.oracle.executed",
+      occurredAt: new Date().toISOString(),
+      traceId: command.traceId,
+      sessionId: command.sessionId,
+      schemaVersion: "v1",
+      tenant: command.tenant || {
+        hotelId: "system",
+        hotelCode: "SYS",
+        region: "GLOBAL",
+        locale: "en",
+        currency: "EUR",
+        activePolicies: [],
+        fallbackMode: false,
+      },
+      intent: {
+        guestId: "system",
+        isReturningGuest: true,
+        segment: "vip",
+        moodAffinity: [],
+        premiumThreshold: 100,
+      },
+      payload: {
+        actionId: command.payload.actionId,
+        sourceEventId: command.payload.sourceEventId,
+        actionType: command.payload.actionType,
+        operatorId: command.payload.operatorId,
+        accepted: true,
+        executedAt: new Date().toISOString(),
+        metadata: command.payload.metadata,
+      },
+    } as any);
+
+    return ack(command);
+  });
 }

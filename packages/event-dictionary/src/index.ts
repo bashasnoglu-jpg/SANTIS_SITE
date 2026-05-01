@@ -255,6 +255,22 @@ export const PricingOverrideAppliedEventSchema = BaseEventSchema.extend({
   payload: PricingOverrideAppliedSchema.shape.payload
 });
 
+export const BoardroomOracleExecutedPayloadSchema = z.object({
+  actionId: z.string(),
+  sourceEventId: z.string().optional(),
+  actionType: z.string(),
+  operatorId: z.string(),
+  accepted: z.literal(true),
+  executedAt: z.string().datetime(),
+  metadata: z.record(z.unknown()).optional(),
+});
+
+export const BoardroomOracleExecutedEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("boardroom.oracle.executed"),
+  payload: BoardroomOracleExecutedPayloadSchema,
+});
+
+
 export const SantisEventSchema = z.discriminatedUnion("eventType", [
   MoodSelectedEventSchema,
   FlowAbandonedEventSchema,
@@ -267,6 +283,7 @@ export const SantisEventSchema = z.discriminatedUnion("eventType", [
   PricingRecommendationEmittedEventSchema,
   PricingAutonomousRecommendedEventSchema,
   PricingOverrideAppliedEventSchema,
+  BoardroomOracleExecutedEventSchema,
 ]);
 
 export type SantisEvent = z.infer<typeof SantisEventSchema>;
@@ -324,6 +341,27 @@ export const TriggerRiskSignalCommandSchema = BaseCommandSchema.extend({
 
 import { PricingOverrideCommandSchema } from "./pricing.schemas";
 
+export const BoardroomOracleExecutePayloadSchema = z.object({
+  actionId: z.string(),
+  sourceEventId: z.string().optional(),
+  actionType: z.enum([
+    "acknowledge",
+    "suppress",
+    "escalate",
+    "apply_pricing_override",
+    "lock_recommendation"
+  ]),
+  operatorId: z.string(),
+  reason: z.string().optional(),
+  metadata: z.record(z.unknown()).optional(),
+});
+
+export const BoardroomOracleExecuteCommandSchema = BaseCommandSchema.extend({
+  commandType: z.literal("boardroom.oracle.execute"),
+  payload: BoardroomOracleExecutePayloadSchema,
+});
+
+
 export const SantisCommandSchema = z.discriminatedUnion("commandType", [
   SelectMoodCommandSchema,
   CalculateOfferCommandSchema,
@@ -331,6 +369,7 @@ export const SantisCommandSchema = z.discriminatedUnion("commandType", [
   CommerceRecordCheckoutCommandSchema,
   TriggerRiskSignalCommandSchema,
   PricingOverrideCommandSchema,
+  BoardroomOracleExecuteCommandSchema,
 ]);
 
 export type SantisCommand = z.infer<typeof SantisCommandSchema>;

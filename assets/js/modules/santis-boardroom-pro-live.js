@@ -441,6 +441,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (type === 'TELEMETRY' && payload && payload.value !== undefined) {
         uiUpdaters.counter('telemetry-count', payload.value);
     }
+
+    // Loopback ACK dinleyicisi
+    if (type === 'ORACLE_LOOPBACK_ACK') {
+        // UI Pulse animasyonu (sadece Action Memory loglarında)
+        const logStream = document.getElementById('oracle-log-stream');
+        if (logStream && typeof gsap !== 'undefined') {
+            gsap.fromTo(logStream, 
+                { backgroundColor: 'rgba(212, 175, 55, 0.1)' },
+                { backgroundColor: 'transparent', duration: 1.5, ease: 'power2.out' }
+            );
+        }
+        logOracleAction('SYSTEM_CONFIRM', `Kernel Ack: İşlem doğrulandı (ID: ${value})`);
+    }
   });
 
   /**
@@ -521,15 +534,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
               try {
                   // Komutu Backend'e gönder (window.SantisApi kullanıyoruz api-client.js deki tanımımız)
-                  await window.SantisApi.sendCommand('ExecuteOracleAction', {
-                      originalEvent: eventData.type,
-                      chosenAction: actionText,
-                      context: eventData.payload || {}
+                  let actionType = "acknowledge";
+                  if (actionText.includes("İndirim")) actionType = "apply_pricing_override";
+                  else if (actionText.includes("Askı")) actionType = "suppress";
+                  else if (actionText.includes("Ata") || actionText.includes("Güvenlik")) actionType = "escalate";
+                  
+                  await window.SantisApi.sendCommand('boardroom.oracle.execute', {
+                      actionId: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15),
+                      actionType: actionType,
+                      operatorId: "boardroom-operator",
+                      metadata: {
+                          originalEvent: eventData.type,
+                          chosenAction: actionText,
+                          context: eventData.payload || {}
+                      }
                   });
 
-                  // Başarı durumunda modalı kapat ve logger'a mesaj düş
+                  // Başarı durumunda modalı kapat, log'u loop-back ACK'dan alacağız, buraya success log koymaya gerek yok.
                   closeOracleModal();
-                  logOracleAction('SYSTEM_CONFIRM', `Onaylandı: ${actionText}`);
 
               } catch (err) {
                   // Hata durumunda kartı kırmızıya boyayalım
@@ -577,18 +599,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const sessionId = controls.dataset.sessionId || 'session-unknown';
       const traceId = controls.dataset.traceId || crypto.randomUUID();
 
-      const payload = {
-          commandId: crypto.randomUUID(),
-          commandType: 'pricing.override.apply',
-          requestedAt: new Date().toISOString(),
-          traceId,
-          sessionId,
-          payload: {
-              recommendationId,
-              decision
-          }
-      };
-
       try {
           // Geri bildirim: butonları pasif yap
           const btns = controls.querySelectorAll('button');
@@ -597,13 +607,12 @@ document.addEventListener('DOMContentLoaded', () => {
               btn.style.opacity = '0.5';
           });
 
-          const response = await fetch('http://localhost:3030/api/v1/commands', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload)
+          // Artık fetch localhost yerine api client kullanıyoruz
+          await window.SantisApi.sendCommand('pricing.override.apply', {
+              recommendationId,
+              decision,
+              operatorId: "boardroom-operator"
           });
-
-          if (!response.ok) throw new Error('Kernel override failed');
 
           logOracleAction('SYSTEM_CONFIRM', `Pricing Override Sent: ${decision}`);
           

@@ -158,7 +158,11 @@ async function bootstrap() {
       } else if (decision.includes('risk') || decision.includes('escalate')) {
          wsPayloadType = "RISK_SIGNAL";
          wsPayloadValue = Math.floor(metrics.abandon_risk * 100) || 85;
+      } else if (evtType === 'boardroom.oracle.executed') {
+         wsPayloadType = "ORACLE_LOOPBACK_ACK";
+         wsPayloadValue = payloadData.actionId || 1;
       }
+
 
       const wsMessage = JSON.stringify({
           type: wsPayloadType,
