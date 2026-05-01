@@ -592,7 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // GSAP ile 0-Jank Açılış
       if (typeof gsap !== 'undefined') {
-          const modal = overlay.querySelector('.oracle-action-modal');
+          const modal = overlay.querySelector('.oracle-modal');
           gsap.to(overlay, { opacity: 1, duration: 0.5 });
           if (modal) {
               gsap.fromTo(modal, 
@@ -612,7 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!overlay) return;
 
       if (typeof gsap !== 'undefined') {
-          const modal = overlay.querySelector('.oracle-action-modal');
+          const modal = overlay.querySelector('.oracle-modal');
           if (modal) {
               gsap.to(modal, { y: 20, opacity: 0, scale: 0.95, duration: 0.3, ease: "power2.in" });
           }
