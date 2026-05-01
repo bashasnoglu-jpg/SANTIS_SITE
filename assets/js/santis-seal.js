@@ -2,8 +2,8 @@
 // 💳 PHASE 68 & 84: THE SOVEREIGN SEAL (ZERO-FRICTION CHECKOUT + FLUID ROLLING)
 // ==========================================
 
-const _SEAL_IS_LOCAL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-const _SEAL_API_BASE = window.__API_BASE__ || (_SEAL_IS_LOCAL ? 'http://localhost:8080/api/v1' : 'https://api.sovereign-os.com/api/v1');
+const _sealConfig = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
+const _SEAL_API_BASE = _sealConfig.apiBaseUrl || '/api/v1';
 
 const SovereignCardEngine = {
     timers: {},

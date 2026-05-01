@@ -78,8 +78,10 @@ window.SantisVault = window.SantisVault || (() => {
 
     try {
       const amount = 250;
+      const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
+      const apiBaseUrl = config.apiBaseUrl || '/api/v1';
       const response = await fetch(
-        "http://localhost:8000/api/v1/payments/create-checkout-session",
+        `${apiBaseUrl}/payments/create-checkout-session`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

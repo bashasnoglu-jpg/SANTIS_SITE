@@ -286,9 +286,8 @@
         // Fetch AI Response (Python Backend)
         try {
             // Updated to use the correct v1/ai/concierge-chat endpoint
-            const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
-            // Gateway'i otomatik olarak origin üzerinden çözer
-            const backendOrigin = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost' ? 'http://127.0.0.1:8000' : `${protocol}//${window.location.host}`;
+            const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
+            const backendOrigin = config.apiBaseUrl ? config.apiBaseUrl.replace('/api/v1', '') : `${window.location.protocol === 'https:' ? 'https:' : 'http:'}//${window.location.host}`;
 
             const res = await fetch(`${backendOrigin}/api/v1/ai/concierge-chat`, {
                 method: 'POST',
