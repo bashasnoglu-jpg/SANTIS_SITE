@@ -20,7 +20,8 @@ const excludeList = [
   "dist",
   ".next",
   "build",
-  "apps/web/tests" // Test fixtures are allowed to use localhost
+  "apps/web/tests", // Test fixtures are allowed to use localhost
+  "assets/js/_archive" // Archive files shouldn't fail the build
 ].map(p => path.normalize(p));
 
 // These files are legacy or dev-only fixtures pending migration to getRuntimeConfig().
