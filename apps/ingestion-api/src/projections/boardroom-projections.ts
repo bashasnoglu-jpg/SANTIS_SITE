@@ -118,7 +118,12 @@ export const BoardroomReadModels = {
     couple_connection: 0
   },
   pricingRecommendations: {} as Record<string, any>,
-  latestCalibration: null as any
+  latestCalibration: null as any,
+  oracleIntelligence: {
+    actionsResolved: 0,
+    lastOperatorAction: null as any,
+    actionMemory: [] as any[]
+  }
 };
 
 /**
@@ -309,4 +314,25 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
       }
     });
   });
+
+  // 5. Oracle Action Resolved (Boardroom Loop-back Projection)
+  bus.events.subscribe("boardroom.oracle.executed", async (e: any) => {
+    BoardroomReadModels.oracleIntelligence.actionsResolved += 1;
+    BoardroomReadModels.oracleIntelligence.lastOperatorAction = e.payload;
+    
+    // Keep last 10 actions in memory
+    BoardroomReadModels.oracleIntelligence.actionMemory.unshift(e.payload);
+    if (BoardroomReadModels.oracleIntelligence.actionMemory.length > 10) {
+      BoardroomReadModels.oracleIntelligence.actionMemory.pop();
+    }
+
+    console.log(`🧠 [Projection: Oracle] Operator Action Resolved: ${e.payload.actionType} | Total: ${BoardroomReadModels.oracleIntelligence.actionsResolved}`);
+
+    broadcastCoreStatePatch({
+      boardroom: {
+        oracleIntelligence: BoardroomReadModels.oracleIntelligence
+      }
+    });
+  });
 };
+
