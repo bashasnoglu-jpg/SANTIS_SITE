@@ -1,7 +1,7 @@
 class SantisApiClient {
   constructor() {
-    const isLocal = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
-    this.baseUrl = isLocal ? "http://127.0.0.1:3030/api/v1" : "/api/v1";
+    const config = window.getRuntimeConfig ? window.getRuntimeConfig() : { apiBaseUrl: "/api/v1" };
+    this.baseUrl = config.apiBaseUrl;
     this.coreStateCache = null;
     this.coreStateVersion = "68.0.0";
     this.coreStateEventSource = null;
@@ -12,10 +12,9 @@ class SantisApiClient {
   }
 
   initWebSocket() {
-    // 8080 Portundaki Gateway'e bağlanıyoruz
-    const wsUrl = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
-      ? 'ws://127.0.0.1:8080'
-      : `wss://${window.location.host}/ws`;
+    // Config üzerinden Gateway'e bağlanıyoruz
+    const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
+    const wsUrl = config.wsUrl || `wss://${window.location.host}/ws`;
 
     this.ws = new WebSocket(wsUrl);
 
@@ -421,7 +420,7 @@ class SantisApiClient {
     
     try {
       // Use this.baseUrl or hardcode as requested, but standardizing to relative/baseUrl is safer if proxy exists.
-      // The user snippet uses 'http://127.0.0.1:3030/api/v1/commands'. I'll use it since it's local env specific, or use this.baseUrl.
+      // The user snippet uses a local command fallback. I'll use it since it's local env specific, or use this.baseUrl.
       const url = `${this.baseUrl}/commands`;
       
       const response = await fetch(url, {

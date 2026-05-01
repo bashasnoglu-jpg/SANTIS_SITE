@@ -5,8 +5,6 @@
 import { sovereignStore } from '../state/sovereignStore.js';
 
 export const SovereignStreamer = (() => {
-    // API'mizde tasarladığın gerçek God Mode stream uç noktası
-    const STREAM_URL = 'http://localhost:3000/api/v1/streams/god'; 
     let eventSource = null;
 
     const connect = () => {
@@ -14,6 +12,10 @@ export const SovereignStreamer = (() => {
 
         console.log("📡 [Sovereign Streamer] Fiber optik hat çekiliyor... Matrix'e bağlanılıyor.");
         
+        // Config üzerinden URL alıyoruz
+        const config = window.getRuntimeConfig ? window.getRuntimeConfig() : { streamGodUrl: '/api/v1/streams/god' };
+        const STREAM_URL = config.streamGodUrl;
+
         // Native SSE Bağlantısı
         eventSource = new EventSource(STREAM_URL);
 
