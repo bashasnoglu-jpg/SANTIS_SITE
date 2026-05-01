@@ -55,7 +55,8 @@ class SantisIAMForesight {
         // 2. Fiziksel Dünyaya Bükülme Gönder (MQTT Fastify Köprüsü Simülasyonu)
         // Eğer cihazda Fastify/MQTT bağlantısı varsa fiziksel ışıkları yatıştır ve Kokuyu (Olfactory) tetikle
         try {
-            fetch('http://localhost:3000/api/physical-command', {
+            const config = window.getRuntimeConfig ? window.getRuntimeConfig() : { physicalCommandUrl: '/api/physical-command' };
+            fetch(config.physicalCommandUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ action: 'SET_AMBIENT_WARM' }) // Kokuyu da kapsayacak şekilde backend'de genişletilebilir
