@@ -6,6 +6,7 @@ import crypto from "crypto";
 import { computeCalibration, segmentConfidence } from "./calibration-engine";
 export function derivePricingRecommendation(input: {
   scp: any;
+  calibration?: any;
   demandIndex?: number;
   hesitationIndex?: number;
   capacityUtilization?: number;
@@ -14,6 +15,7 @@ export function derivePricingRecommendation(input: {
 }) {
   const {
     scp,
+    calibration,
     demandIndex = 0.5,
     hesitationIndex = 0.5,
     capacityUtilization = 0.5,
@@ -67,11 +69,23 @@ export function derivePricingRecommendation(input: {
 
   const luxuryIntegrity = brandRisk !== "high" && stabilityFactor >= 0.7;
 
+  let mode = "advisory";
+  let autonomousReady = false;
+  let requiresHumanSeal = true;
+
+  if (calibration && calibration.matchRate > 0.80 && calibration.calibrationError < 0.10 && brandRisk === "low") {
+    mode = "autonomous_ready";
+    autonomousReady = true;
+  }
+
   return {
     action,
     suggestedDeltaPct: Math.min(delta, 0.2),
     confidence: Math.min(confidence, 1),
     reasonCodes: reasons,
+    mode,
+    autonomousReady,
+    requiresHumanSeal,
     guardrails: {
       requiresHumanApproval: true,
       maxDeltaPct: 0.2,
@@ -103,7 +117,8 @@ export const BoardroomReadModels = {
     beauty: 0,
     couple_connection: 0
   },
-  pricingRecommendations: {} as Record<string, any>
+  pricingRecommendations: {} as Record<string, any>,
+  latestCalibration: null as any
 };
 
 /**
@@ -185,6 +200,7 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
 
     const pricing = derivePricingRecommendation({
       scp,
+      calibration: BoardroomReadModels.latestCalibration,
       demandIndex: 0.6,
       hesitationIndex: 0.3,
       capacityUtilization: 0.7,
@@ -197,7 +213,6 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
       id: crypto.randomUUID(),
       sessionId: e.sessionId || "session-unknown",
       traceId: e.traceId || crypto.randomUUID(),
-      mode: "advisory",
       createdAt: new Date().toISOString(),
       evidence: {
         scpScore: scp.score,
@@ -216,7 +231,7 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
       traceId: e.traceId || crypto.randomUUID(),
       sessionId: e.sessionId,
       schemaVersion: "v1",
-      eventType: "pricing.recommendation.emitted",
+      eventType: recommendationPayload.mode === "autonomous_ready" ? "pricing.autonomous.recommended" : "pricing.recommendation.emitted",
       payload: recommendationPayload
     } as any);
   });
@@ -234,7 +249,7 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
   }
 
   // 3. Render pricing intelligence in UI
-  bus.events.subscribe("pricing.recommendation.emitted", async (e: any) => {
+  const handleRecommendation = async (e: any) => {
     BoardroomReadModels.pricingRecommendations[e.sessionId] = e.payload;
     
     const shadow = deriveShadowDecision(e.payload);
@@ -253,7 +268,10 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
         shadowPricing: shadowPricing
       }
     });
-  });
+  };
+
+  bus.events.subscribe("pricing.recommendation.emitted", handleRecommendation);
+  bus.events.subscribe("pricing.autonomous.recommended", handleRecommendation);
 
   function deriveCurrentCalibration() {
     const pairs = Object.values(BoardroomReadModels.pricingRecommendations)
@@ -263,7 +281,9 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
         match: r.status === 'approved'
       }));
     
-    return computeCalibration(pairs);
+    const calibration = computeCalibration(pairs);
+    BoardroomReadModels.latestCalibration = calibration;
+    return calibration;
   }
 
   // 4. Operator Override Applied

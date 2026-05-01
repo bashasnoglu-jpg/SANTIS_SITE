@@ -18,7 +18,9 @@ export const PricingRecommendationSchema = z.object({
   sessionId: z.string(),
   traceId: z.string().uuid(),
 
-  mode: z.literal("advisory"),
+  mode: z.enum(["advisory", "autonomous_ready"]),
+  autonomousReady: z.boolean().optional(),
+  requiresHumanSeal: z.boolean().optional(),
 
   action: z.enum([
     "increase_price",

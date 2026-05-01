@@ -243,6 +243,11 @@ export const PricingRecommendationEmittedEventSchema = BaseEventSchema.extend({
   payload: PricingRecommendationSchema
 });
 
+export const PricingAutonomousRecommendedEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("pricing.autonomous.recommended"),
+  payload: PricingRecommendationSchema
+});
+
 import { PricingOverrideAppliedSchema } from "./pricing.schemas";
 
 export const PricingOverrideAppliedEventSchema = BaseEventSchema.extend({
@@ -260,6 +265,7 @@ export const SantisEventSchema = z.discriminatedUnion("eventType", [
   CheckoutCompletedEventSchema,
   RiskSignalTriggeredEventSchema,
   PricingRecommendationEmittedEventSchema,
+  PricingAutonomousRecommendedEventSchema,
   PricingOverrideAppliedEventSchema,
 ]);
 
