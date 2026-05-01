@@ -60,16 +60,30 @@ export const PricingRecommendationSchema = z.object({
 export const PricingOverrideCommandSchema = z.object({
   commandId: z.string().uuid(),
   commandType: z.literal("pricing.override.apply"),
-  recommendationId: z.string().uuid(),
-  decision: z.enum([
-    "approve",
-    "reject",
-    "adjust"
-  ]),
-  appliedDeltaPct: z.number().optional(),
-  operatorId: z.string(),
-  reason: z.string().optional(),
-  createdAt: z.string()
+  requestedAt: z.string().datetime(),
+  tenant: z.object({
+    hotelId: z.string().uuid(),
+    hotelCode: z.string().min(2).max(32),
+    region: z.enum(["EU", "MEA", "APAC"]),
+    locale: z.enum(["tr", "en", "de", "ru"]),
+    currency: z.enum(["EUR", "USD", "TRY", "GBP"]),
+    activePolicies: z.array(z.string()).default([]),
+    fallbackMode: z.boolean().default(false),
+  }),
+  sessionId: z.string().min(8),
+  traceId: z.string().uuid(),
+  schemaVersion: z.literal("v1").default("v1"),
+  payload: z.object({
+    recommendationId: z.string().uuid(),
+    decision: z.enum([
+      "approve",
+      "reject",
+      "adjust"
+    ]),
+    appliedDeltaPct: z.number().optional(),
+    operatorId: z.string(),
+    reason: z.string().optional(),
+  })
 });
 
 export const PricingOverrideAppliedSchema = z.object({
@@ -77,6 +91,7 @@ export const PricingOverrideAppliedSchema = z.object({
   payload: z.object({
     recommendationId: z.string(),
     finalAction: z.string(),
+    decision: z.enum(["approve", "reject", "adjust"]).optional(),
     appliedDeltaPct: z.number(),
     operatorId: z.string()
   })

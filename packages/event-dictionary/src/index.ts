@@ -270,18 +270,30 @@ export const BoardroomOracleExecutedEventSchema = BaseEventSchema.extend({
   payload: BoardroomOracleExecutedPayloadSchema,
 });
 
+export const BoardroomStrategySchema = z.object({
+  type: z.literal("price_adjustment"),
+  deltaPct: z.number(),
+  expectedRevenueDelta: z.number(),
+});
+
+export const BoardroomStrategyOperatorContextSchema = z.object({
+  operatorId: z.string().optional(),
+  source: z.literal("boardroom-ui"),
+});
+
+export const BoardroomStrategyMetaSchema = z.object({
+  confidence: z.number(),
+  trigger: z.string(),
+});
+
 export const BoardroomStrategyAppliedPayloadSchema = z.object({
-  strategyId: z.string(),
-  sourceRecommendationId: z.string().optional(),
-  sourceSessionId: z.string().optional(),
-  appliedAction: z.string(),
-  appliedDeltaPct: z.number().optional(),
-  expectedRevenueDelta: z.number().optional(),
-  confidence: z.number().optional(),
-  operatorId: z.string(),
-  humanSeal: z.literal(true),
+  recommendationId: z.string().min(1),
+  sessionId: z.string().min(8),
+  strategy: BoardroomStrategySchema,
+  decision: z.enum(["approve", "reject"]),
+  operatorContext: BoardroomStrategyOperatorContextSchema,
+  meta: BoardroomStrategyMetaSchema.optional(),
   appliedAt: z.string().datetime(),
-  metadata: z.record(z.unknown()).optional(),
 });
 
 export const BoardroomStrategyAppliedEventSchema = BaseEventSchema.extend({
@@ -382,17 +394,12 @@ export const BoardroomOracleExecuteCommandSchema = BaseCommandSchema.extend({
 });
 
 export const BoardroomStrategyApplyPayloadSchema = z.object({
-  strategyId: z.string(),
-  sourceRecommendationId: z.string().optional(),
-  sourceSessionId: z.string().optional(),
-  simulatedAction: z.string(),
-  simulatedDeltaPct: z.number().optional(),
-  expectedRevenueDelta: z.number().optional(),
-  confidence: z.number().optional(),
-  operatorId: z.string(),
-  humanSeal: z.literal(true),
-  reason: z.string().optional(),
-  metadata: z.record(z.unknown()).optional(),
+  recommendationId: z.string().min(1),
+  sessionId: z.string().min(8),
+  strategy: BoardroomStrategySchema,
+  decision: z.enum(["approve", "reject"]),
+  operatorContext: BoardroomStrategyOperatorContextSchema,
+  meta: BoardroomStrategyMetaSchema.optional(),
 });
 
 export const BoardroomStrategyApplyCommandSchema = BaseCommandSchema.extend({

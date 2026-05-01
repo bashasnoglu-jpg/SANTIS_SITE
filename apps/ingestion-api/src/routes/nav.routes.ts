@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 
-export const navRouter = Router();
+export const navRouter: Router = Router();
 
 const navManifest = {
   version: "v2.1",

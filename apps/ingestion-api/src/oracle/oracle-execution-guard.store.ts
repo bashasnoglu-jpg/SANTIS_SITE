@@ -23,6 +23,7 @@ export class OracleExecutionGuardStore {
         scenarioId: null,
         targetNodeId: null,
         rationale: "No strategy scenario is strong enough for guarded execution planning yet.",
+        governance: this.buildGovernance("No executable strategy signal has passed the Boardroom guard."),
         guardrails: [],
         steps: [],
       };
@@ -40,8 +41,23 @@ export class OracleExecutionGuardStore {
       scenarioId: scenario.scenarioId,
       targetNodeId: scenario.targetNodeId,
       rationale: this.buildRationale(scenario, executable),
+      governance: this.buildGovernance(executable
+        ? "Human approval is required before strategy execution."
+        : "Guardrails blocked execution; approval remains unavailable."
+      ),
       guardrails,
       steps: executable ? this.buildSteps(scenario) : [],
+    };
+  }
+
+  buildGovernance(auditReason: string) {
+    return {
+      executionPolicy: "human_gated" as const,
+      approvalRequired: true as const,
+      approvedBy: null,
+      approvedAt: null,
+      autoApplyAllowed: false as const,
+      auditReason,
     };
   }
 

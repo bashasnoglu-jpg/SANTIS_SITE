@@ -8,6 +8,7 @@ import {
   OracleExecutionOutcomeRecord,
   OracleExecutionOutcomeRecordSchema,
   OracleExecutionOutcomeSummary,
+  AdvisoryCalibration,
 } from "./oracle-execution-outcome.contract.js";
 
 const STORE_DIR = path.join(process.cwd(), ".data");
@@ -65,7 +66,7 @@ export class OracleExecutionOutcomeStore {
     };
   }
 
-  computeAdvisory(score: number, revenueDelta: number, confidenceDelta: number, sample: number) {
+  computeAdvisory(score: number, revenueDelta: number, confidenceDelta: number, sample: number): AdvisoryCalibration {
     if (sample < 5) {
       return {
         mode: "collect_more_data",
