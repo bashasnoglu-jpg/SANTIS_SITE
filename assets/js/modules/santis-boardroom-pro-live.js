@@ -248,6 +248,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 );
             }
         }
+        
+        // Hide empty state and show grid
+        const emptyState = document.getElementById('sim-empty-state');
+        const gridState = document.getElementById('sim-grid-state');
+        if (emptyState && gridState) {
+            emptyState.style.display = 'none';
+            gridState.style.display = 'grid';
+        }
+
+        // Bind data to the Guarded Apply button
+        const applyBtn = document.getElementById('btn-guarded-strategy-apply');
+        if (applyBtn) {
+            applyBtn.disabled = false;
+            applyBtn.dataset.strategyId = s.id || 'sim-' + Date.now();
+            applyBtn.dataset.sourceRecommendationId = s.recommendationId || '';
+            applyBtn.dataset.sourceSessionId = s.sessionId || '';
+            applyBtn.dataset.simulatedAction = s.simulatedAction || s.action || '';
+            applyBtn.dataset.simulatedDeltaPct = s.suggestedDelta || 0;
+            applyBtn.dataset.expectedRevenueDelta = s.expectedRevenueImpact || 0;
+            applyBtn.dataset.confidence = s.confidence || 0;
+        }
     },
 
     // Kuantum risk / telemetri sinyallerini günceller
@@ -561,6 +582,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         logOracleAction('SYSTEM_CONFIRM', `Kernel Ack: İşlem doğrulandı (ID: ${value})`);
     }
+
+    if (type === 'STRATEGY_APPLY_ACK') {
+        const logStream = document.getElementById('oracle-log-stream');
+        if (logStream && typeof gsap !== 'undefined') {
+            gsap.fromTo(logStream, 
+                { backgroundColor: 'rgba(76, 175, 80, 0.2)' },
+                { backgroundColor: 'transparent', duration: 1.5, ease: 'power2.out' }
+            );
+        }
+        logOracleAction('SYSTEM_CONFIRM', `Strategy Ack: Human Seal verified (ID: ${value})`);
+    }
   });
 
   /**
@@ -758,5 +790,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const btnRejectPricing = document.getElementById('btn-reject-pricing');
   if (btnRejectPricing) btnRejectPricing.addEventListener('click', () => sendPricingOverride('REJECTED'));
+
+  // Strategy Simulation Guarded Apply logic
+  const btnStrategyApply = document.getElementById('btn-guarded-strategy-apply');
+  if (btnStrategyApply) {
+      btnStrategyApply.addEventListener('click', async () => {
+          try {
+              btnStrategyApply.disabled = true;
+              btnStrategyApply.style.opacity = '0.5';
+              
+              const payload = {
+                  strategyId: btnStrategyApply.dataset.strategyId,
+                  sourceRecommendationId: btnStrategyApply.dataset.sourceRecommendationId,
+                  sourceSessionId: btnStrategyApply.dataset.sourceSessionId,
+                  simulatedAction: btnStrategyApply.dataset.simulatedAction,
+                  simulatedDeltaPct: parseFloat(btnStrategyApply.dataset.simulatedDeltaPct),
+                  expectedRevenueDelta: parseFloat(btnStrategyApply.dataset.expectedRevenueDelta),
+                  confidence: parseFloat(btnStrategyApply.dataset.confidence),
+                  operatorId: 'boardroom-operator',
+                  humanSeal: true
+              };
+
+              await window.SantisApi.sendCommand('boardroom.strategy.apply', payload);
+              
+              logOracleAction('SYSTEM_CONFIRM', `Strategy Applied: ${payload.simulatedAction.toUpperCase()} (Human Seal Attached)`);
+              
+              if (typeof gsap !== 'undefined') {
+                  gsap.to(btnStrategyApply, { backgroundColor: 'rgba(76, 175, 80, 0.2)', color: '#4caf50', duration: 0.3, onComplete: () => {
+                      setTimeout(() => {
+                          btnStrategyApply.disabled = false;
+                          btnStrategyApply.style.opacity = '1';
+                          btnStrategyApply.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
+                          btnStrategyApply.style.color = '#d4af37';
+                      }, 2000);
+                  }});
+              }
+          } catch (err) {
+              console.error('[Strategy Apply] Error:', err);
+              logOracleAction('RISK_SIGNAL', `Strategy Apply Failed`);
+              btnStrategyApply.disabled = false;
+              btnStrategyApply.style.opacity = '1';
+          }
+      });
+  }
 
 });
