@@ -19,14 +19,19 @@ jobs:
     - name: 📥 Sovereign Code Checkout
       uses: actions/checkout@v4
 
+    - name: 📦 Install pnpm
+      uses: pnpm/action-setup@v3
+      with:
+        version: 8
+
     - name: ⚙️ Boot Node.js Environment
       uses: actions/setup-node@v4
       with:
         node-version: lts/*
-        cache: 'npm'
+        cache: 'pnpm'
 
     - name: 📦 Armor Up (Install Dependencies)
-      run: npm ci
+      run: pnpm install --frozen-lockfile
 
     - name: 🎭 Mount Playwright Browsers
       run: npx playwright install --with-deps chromium
