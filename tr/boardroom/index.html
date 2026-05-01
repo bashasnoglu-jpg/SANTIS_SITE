@@ -9,7 +9,7 @@
     (function () {
       if (window.location.protocol !== 'file:') return;
 
-      var recommendedUrl = 'http://127.0.0.1:8080/tr/boardroom/';
+      var recommendedUrl = 'http://127.0.0.1:5500/tr/boardroom/';
 
       document.documentElement.style.background = '#08090b';
       document.addEventListener('DOMContentLoaded', function () {
@@ -19,7 +19,7 @@
           + '<p style="margin:0 0 10px;color:#d4af37;font-size:11px;letter-spacing:.14em;text-transform:uppercase;">Boardroom Runtime Guard</p>'
           + '<h1 style="margin:0 0 14px;font-size:28px;line-height:1.15;font-weight:500;">Boardroom cannot run from file://</h1>'
           + '<p style="margin:0 0 18px;color:#b9bdc7;font-size:14px;line-height:1.6;">CSS root paths and ES module scripts require an HTTP origin. Start the local static server from the repository root, then open the Boardroom URL below.</p>'
-          + '<pre style="white-space:pre-wrap;margin:0 0 18px;padding:14px;border-radius:6px;background:#050608;color:#d7dbe5;font-size:13px;">python -m http.server 8080 --bind 127.0.0.1</pre>'
+          + '<pre style="white-space:pre-wrap;margin:0 0 18px;padding:14px;border-radius:6px;background:#050608;color:#d7dbe5;font-size:13px;">python -m http.server 5500 --bind 127.0.0.1</pre>'
           + '<a href="' + recommendedUrl + '" style="display:inline-block;color:#08090b;background:#d4af37;border-radius:4px;padding:12px 16px;text-decoration:none;font-size:13px;font-weight:700;">Open ' + recommendedUrl + '</a>'
           + '</section>'
           + '</main>';
