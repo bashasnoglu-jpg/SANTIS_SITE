@@ -20,6 +20,9 @@ import streamRoutes from "./routes/stream.route";
 import { registerCoreStateRoute } from "./routes/core-state";
 import { createCoreStateStreamRouter } from "./routes/core-state-stream";
 
+import { authRouter } from "./routes/auth.routes";
+import { verifySessionToken } from "./security/crypto-token";
+
 import { boardroomRouter } from "./routes/boardroom";
 import { oracleActionMemoryRouter } from "./oracle/oracle-action-memory.routes";
 import { oracleNodeSyncRouter } from "./oracle/oracle-node-sync.routes";
@@ -64,7 +67,37 @@ async function bootstrap() {
   const wss = new WebSocketServer({ 
     host: wsConfig.WS_HOST,
     port: wsConfig.WS_PORT,
-    path: wsConfig.WS_PATH
+    path: wsConfig.WS_PATH,
+    verifyClient: (info, callback) => {
+      const origin = info.origin;
+      const isAllowedExact = origin && wsConfig.WS_ALLOWED_ORIGINS.includes(origin);
+      const isAllowedPattern = origin && wsConfig.WS_ALLOWED_ORIGIN_PATTERNS.some(pattern => new RegExp(pattern).test(origin));
+
+      if (!isAllowedExact && !isAllowedPattern) {
+        console.warn(`🚨 [Security] WS Rejected: Unauthorized origin -> ${origin || 'UNKNOWN'}`);
+        return callback(false, 403, "Forbidden Origin");
+      }
+
+      // Token check
+      try {
+        const urlObj = new URL(info.req.url || "", `http://${info.req.headers.host || "localhost"}`);
+        const token = urlObj.searchParams.get("token");
+
+        if (!token) {
+          console.warn(`🚨 [Security] WS Rejected: Missing bearer query token`);
+          return callback(false, 401, "Unauthorized - Missing Token");
+        }
+
+        const payload = verifySessionToken(token);
+        // Extend info.req to store session context if needed later
+        (info.req as any).session = payload;
+        
+        callback(true);
+      } catch (err: any) {
+        console.warn(`🚨 [Security] WS Rejected: Invalid or expired token -> ${err.message}`);
+        return callback(false, 403, "Forbidden Token");
+      }
+    }
   });
   
   wss.on('connection', (ws) => {
@@ -211,6 +244,7 @@ async function bootstrap() {
   app.use("/api/v1/oracle", oracleStatisticalForecastRouter);
   app.use("/api/v1/decision-kernel", oracleDecisionKernelRouter);
   app.use("/api/v1", telemetryRouter);
+  app.use("/api/v1/auth", authRouter);
   app.use("/api/v1", navRouter);
   app.use("/api/v1/rituals/pricing", pricingRouter);
   app.use("/api/v1/stream", streamRoutes);

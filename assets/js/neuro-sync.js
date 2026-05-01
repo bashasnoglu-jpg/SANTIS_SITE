@@ -189,13 +189,30 @@ export function initNeuroSync() {
 
     console.log('📡 [Neuro-Sync WS] Kuantum Köprüsü kuruluyor...');
 
-    const connectQuantumSocket = () => {
+    const connectQuantumSocket = async () => {
         try {
             // Sizin sunucunuzun loglarda tam olarak beklediği "guest" (müşteri) kapısı!
             const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
             const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
             const wsBase = config.wsUrl || `${protocol}//${window.location.host}/ws`;
-            _sseClient = new WebSocket(`${wsBase}?client_type=guest`);
+            const apiBase = config.apiUrl || `${window.location.protocol}//${window.location.host}/api/v1`;
+            
+            // 1. Session Token al
+            let token = null;
+            try {
+                const res = await fetch(`${apiBase}/auth/session`);
+                if (res.ok) {
+                    const data = await res.json();
+                    token = data.token;
+                } else {
+                    console.warn('⚠️ [Neuro-Sync WS] Token alınamadı. Yetkisiz giriş deneniyor...');
+                }
+            } catch (err) {
+                console.warn('⚠️ [Neuro-Sync WS] Auth servisine ulaşılamadı:', err.message);
+            }
+
+            const tokenParam = token ? `&token=${token}` : '';
+            _sseClient = new WebSocket(`${wsBase}?client_type=guest${tokenParam}`);
 
             _sseClient.onopen = () => {
                 console.log("🟢 [Neuro-Sync WS] Bağlantı aktif.");
