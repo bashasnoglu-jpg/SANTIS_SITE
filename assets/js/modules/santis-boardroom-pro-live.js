@@ -253,6 +253,68 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (el) {
             el.innerText = value;
         }
+    },
+    
+    // Oracle CoreState Integration
+    oracleState: (state) => {
+        const resolutionCountEl = document.getElementById('val-oracle-interventions');
+        if (resolutionCountEl && state.actionsResolved !== undefined) {
+            animateSovereignNumber(resolutionCountEl, state.actionsResolved);
+        }
+        
+        // Log to memory stream if a new action just arrived
+        if (state.lastOperatorAction) {
+            const railContainer = document.getElementById('oracle-action-rail-container');
+            if (railContainer) {
+                // Deduplicate check
+                const lastIdAttr = railContainer.getAttribute('data-last-action-id');
+                if (lastIdAttr === state.lastOperatorAction.id) {
+                    return; // Already rendered this action
+                }
+                railContainer.setAttribute('data-last-action-id', state.lastOperatorAction.id);
+
+                // Check if empty state needs to be removed
+                const emptyState = railContainer.querySelector('.oracle-action-empty');
+                if (emptyState) {
+                    emptyState.remove();
+                }
+
+                // Create action card
+                const actionCard = document.createElement('div');
+                actionCard.className = 'oracle-action-card santis-scene-enter';
+                actionCard.style.padding = '12px';
+                actionCard.style.marginBottom = '8px';
+                actionCard.style.background = 'rgba(212, 175, 55, 0.08)';
+                actionCard.style.borderLeft = '3px solid #d4af37';
+                actionCard.style.borderRadius = '4px';
+
+                const timestamp = new Date(state.lastOperatorAction.timestamp).toLocaleTimeString('tr-TR');
+                
+                actionCard.innerHTML = `
+                  <div style="font-size: 11px; color: #8b92a5; margin-bottom: 4px;">${timestamp} • ID: ${state.lastOperatorAction.id.substring(0, 8)}</div>
+                  <strong style="color: #d4af37; font-size: 14px; text-transform: uppercase;">${state.lastOperatorAction.intent}</strong>
+                  <div style="font-size: 13px; color: #e0e0e0; margin-top: 4px;">Operator: ${state.lastOperatorAction.operatorId}</div>
+                `;
+
+                // Add to top of rail
+                railContainer.insertBefore(actionCard, railContainer.firstChild);
+
+                // Keep only last 5 actions to prevent overflow
+                while (railContainer.children.length > 5) {
+                    railContainer.removeChild(railContainer.lastChild);
+                }
+                
+                // Animate entrance
+                if (typeof window.gsap !== 'undefined') {
+                    window.gsap.from(actionCard, {
+                        y: -10,
+                        opacity: 0,
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+                }
+            }
+        }
     }
   };
 
@@ -298,6 +360,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (metrics.bookingCount !== undefined) {
         uiUpdaters.counter('val-total-leads', metrics.bookingCount);
+    }
+
+    if (metrics.oracleIntelligence !== undefined) {
+        uiUpdaters.oracleState(metrics.oracleIntelligence);
     }
 
     if (typeof window.SantisBoardroomLite !== 'undefined') {
