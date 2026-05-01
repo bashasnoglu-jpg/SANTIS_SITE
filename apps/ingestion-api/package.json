@@ -10,6 +10,7 @@
     "@santis/db": "workspace:^",
     "@santis/decision-kernel": "workspace:*",
     "@santis/event-dictionary": "workspace:*",
+    "@google-cloud/bigquery": "^7.9.0",
     "cors": "^2.8.5",
     "drizzle-orm": "^0.30.0",
     "express": "^4.18.2",

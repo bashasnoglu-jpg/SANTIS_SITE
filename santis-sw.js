@@ -124,6 +124,34 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
+    // ── HTML Sayfaları & SPA Yönlendirmeleri → Network-First (Timeout'lu) ─────────
+    const isNavigation = request.mode === 'navigate' || request.headers.get('X-SPA-Navigation') === 'true' || (request.headers.get('accept') && request.headers.get('accept').includes('text/html'));
+    
+    if (isNavigation) {
+        event.respondWith(
+            Promise.race([
+                fetch(request).catch(() => fetch(request.url)),
+                new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 3000))
+            ])
+            .then(networkResponse => {
+                if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+                    const toCache = networkResponse.clone();
+                    caches.open(DYNAMIC_CACHE).then(cache => cache.put(request, toCache).catch(() => {}));
+                }
+                return networkResponse;
+            })
+            .catch(() => caches.match(request, { ignoreSearch: true }).then(res => {
+                return res || caches.match('/index.html', { ignoreSearch: true }).then(indexRes => {
+                    return indexRes || new Response(
+                        '<html><body style="background:#0a0a0a;color:#d4af37;font-family:monospace;text-align:center;padding:50px;"><h2>SANTIS OFFLINE</h2><p>Sistem çevrimdışı. Bağlantı geldiğinde sayfayı yenileyiniz.</p><button onclick="location.reload()" style="background:#d4af37;border:none;padding:10px;margin-top:20px;cursor:pointer;font-weight:bold;">Tazele</button></body></html>',
+                        { status: 200, headers: { 'Content-Type': 'text/html;charset=utf-8' } }
+                    );
+                });
+            }))
+        );
+        return;
+    }
+
     // ── Diğer statik dosyalar (CSS, img, font) → Cache-First ─────────────────
     event.respondWith(
         caches.match(request, { ignoreSearch: true }).then((cachedResponse) => {
@@ -145,14 +173,6 @@ self.addEventListener('fetch', (event) => {
                 caches.open(DYNAMIC_CACHE).then(cache => cache.put(request, toCache).catch(() => {}));
                 return networkResponse;
             }).catch(() => {
-                if (request.mode === 'navigate') {
-                    return caches.match('/index.html', { ignoreSearch: true }).then(res => {
-                        return res || new Response(
-                            '<html><body style="background:#0a0a0a;color:#d4af37;font-family:monospace;text-align:center;padding:50px;"><h2>SANTIS OFFLINE</h2><p>Sistem çevrimdışı. Bağlantı geldiğinde sayfayı yenileyiniz.</p><button onclick="location.reload()" style="background:#d4af37;border:none;padding:10px;margin-top:20px;cursor:pointer;font-weight:bold;">Tazele</button></body></html>',
-                            { status: 200, headers: { 'Content-Type': 'text/html;charset=utf-8' } }
-                        );
-                    });
-                }
                 return new Response('', {status: 408, statusText: 'Request Timeout'});
             });
         })

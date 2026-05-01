@@ -157,8 +157,26 @@ function initNavAndFooter() {
             
             const lang = document.documentElement.lang || 'tr';
             
-            const res = await fetch('/api/nav-manifest');
-            const manifest = await res.json();
+            let manifest;
+            try {
+                // Backend 3030 üzerinden JSON verisini çek
+                const res = await fetch('http://127.0.0.1:3030/api/v1/nav-manifest');
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                manifest = await res.json();
+            } catch (err) {
+                console.warn('⚠️ [Sovereign Router] Backend bağlantısı başarısız, statik fallback devrede.', err);
+                manifest = {
+                    version: "fallback",
+                    routes: [
+                        { path: "/", title: { tr: "Ana Sayfa", en: "Home" }, nav: { group: "brand", weight: 1 }, hooks: { onEnter: "fade" } },
+                        { path: "/masajlar/index.html", title: { tr: "Masajlar", en: "Massages" }, nav: { group: "service", weight: 10, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/hamam/index.html", title: { tr: "Hamam", en: "Turkish Bath" }, nav: { group: "service", weight: 20, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/cilt-bakimi/index.html", title: { tr: "Cilt Bakımı", en: "Skin Care" }, nav: { group: "service", weight: 30, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/felsefe/index.html", title: { tr: "Felsefemiz", en: "Our Philosophy" }, nav: { group: "brand", weight: 40 }, hooks: { onEnter: "fade" } },
+                        { path: "/iletisim/index.html", title: { tr: "İletişim", en: "Contact" }, nav: { group: "action", weight: 100 }, hooks: { onEnter: "fade" } }
+                    ]
+                };
+            }
             
             const navRoot = document.getElementById('navRoot');
             const serviceRoot = document.getElementById('serviceRoot');

@@ -1,6 +1,6 @@
-import type { AvailabilityAdapter } from '../availability.adapter.ts';
-import type { NormalizedAvailabilitySlot } from '../../../schemas/normalized.schemas.ts';
-import { mapRawAvailabilityToNormalized } from '../../../mappers/availability.mapper.ts';
+import type { AvailabilityAdapter } from '../availability.adapter';
+import type { NormalizedAvailabilitySlot } from '../../../schemas/normalized.schemas';
+import { mapRawAvailabilityToNormalized } from '../../../mappers/availability.mapper';
 
 export class MockAvailabilityProvider implements AvailabilityAdapter {
   async getAvailability(input: {

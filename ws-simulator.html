@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis OS | Sovereign WebSocket Flow Simulator</title>
+    <style>
+        /* Sovereign UI - Cinematic High-Tech Aesthetics */
+        :root {
+            --bg-base: #050505;
+            --surface-elevated: rgba(255, 255, 255, 0.03);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --text-primary: #EAEAEA;
+            --text-muted: #888888;
+            --accent-glow: rgba(200, 200, 200, 0.15);
+            --signal-active: rgba(255, 255, 255, 0.8);
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .simulator-container {
+            width: 100%;
+            max-width: 900px;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 2rem;
+            height: 100%;
+        }
+
+        /* Top Panel - Controls */
+        .control-panel {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-panel h2 {
+            margin: 0;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        button {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+            padding: 0.5rem 1.2rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        button:hover {
+            background: var(--surface-elevated);
+            border-color: var(--text-muted);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* Middle Panel - Signal Flow */
+        .signal-flow-area {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 4rem;
+        }
+
+        .node {
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .node-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .node-value {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+        }
+
+        .track {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border-subtle);
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        .signal-particle {
+            position: absolute;
+            top: 50%;
+            left: 100px;
+            width: 8px;
+            height: 8px;
+            background: var(--signal-active);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px 2px var(--signal-active);
+            opacity: 0;
+            z-index: 3;
+        }
+
+        /* Animation class for particle */
+        @keyframes travel {
+            0% { left: 15%; opacity: 0; }
+            10% { opacity: 1; box-shadow: 0 0 20px 4px var(--signal-active); }
+            90% { opacity: 1; }
+            100% { left: 85%; opacity: 0; box-shadow: 0 0 0px 0px var(--signal-active); }
+        }
+
+        .firing {
+            animation: travel 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        /* Bottom Panel - Boardroom Pro Widget */
+        .boardroom-widget {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 1rem;
+        }
+
+        .widget-title {
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: #4ade80;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #4ade80;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .metric-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+        }
+
+        .metric-value {
+            font-family: var(--font-mono);
+            font-size: 2rem;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .log-area {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-subtle);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            height: 60px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .log-entry {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .highlight {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+    </style>
+</head>
+<body>
+
+<div class="simulator-container">
+    <!-- Top Controls -->
+    <div class="control-panel">
+        <h2>Santis Ingestion Orchestrator</h2>
+        <div class="btn-group">
+            <button onclick="fireEvent('TELEMETRY', 'Aura Check-in Detected', { value: 1 })">Send Telemetry</button>
+            <button onclick="fireEvent('REVENUE', 'High-Value Booking', { revenue: 850 })">Send Finance</button>
+            <button onclick="fireEvent('SYSTEM', 'Quantum Re-hydration Complete', { status: 'OPTIMAL' })">Send System</button>
+        </div>
+    </div>
+
+    <!-- Signal Flow Diagram -->
+    <div class="signal-flow-area">
+        <div class="track"></div>
+        <div class="signal-particle" id="particle"></div>
+
+        <div class="node">
+            <div class="node-title">Ingestion API</div>
+            <div class="node-value">Port 3030</div>
+        </div>
+
+        <div class="node">
+            <div class="node-title">WS Gateway</div>
+            <div class="node-value">Port 8080</div>
+        </div>
+
+        <div class="node">
+            <div class="node-title">API Client</div>
+            <div class="node-value">Frontend</div>
+        </div>
+    </div>
+
+    <!-- Boardroom Pro Target UI -->
+    <div class="boardroom-widget">
+        <div class="widget-header">
+            <div class="widget-title">Boardroom Pro Live Cockpit</div>
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span id="boardroom-status">SİSTEM: ONLINE</span>
+            </div>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Live Events</div>
+                <div class="metric-value" id="telemetry-count">5</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Session Revenue</div>
+                <div class="metric-value" id="revenue-count">€12,400</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Last Signal</div>
+                <div class="metric-value" style="font-size: 1rem; margin-top: auto; padding-bottom: 0.5rem;" id="last-signal-type">INIT</div>
+            </div>
+        </div>
+
+        <div class="log-area" id="signal-log">
+            <div class="log-entry"><span>[System]</span> Re-hydration Complete</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let eventCount = 5;
+    let totalRevenue = 12400;
+
+    function fireEvent(type, message, payload) {
+        // 1. Animate particle
+        const particle = document.getElementById('particle');
+        particle.classList.remove('firing');
+        void particle.offsetWidth; // trigger reflow
+        particle.classList.add('firing');
+
+        // 2. Simulate network delay (1.2s for animation to reach frontend)
+        setTimeout(() => {
+            processEventInClient(type, message, payload);
+        }, 1100);
+    }
+
+    function processEventInClient(type, message, payload) {
+        // Update Status
+        document.getElementById('boardroom-status').innerText = `SİSTEM: ${type}`;
+        
+        // Update Last Signal Type
+        const signalEl = document.getElementById('last-signal-type');
+        signalEl.innerText = type;
+        flashElement(signalEl);
+
+        // Update specific counters based on event type
+        if (type === 'TELEMETRY' && payload.value) {
+            eventCount += payload.value;
+            const el = document.getElementById('telemetry-count');
+            el.innerText = eventCount;
+            flashElement(el);
+        } else if (type === 'REVENUE' && payload.revenue) {
+            totalRevenue += payload.revenue;
+            const el = document.getElementById('revenue-count');
+            el.innerText = `€${totalRevenue.toLocaleString('en-US')}`;
+            flashElement(el);
+        }
+
+        // Add to logs
+        const signalLog = document.getElementById('signal-log');
+        const entry = document.createElement('div');
+        entry.className = 'log-entry highlight';
+        const time = new Date().toLocaleTimeString('tr-TR', { hour12: false });
+        entry.innerHTML = `<span>[${time}]</span> ${message}`;
+        signalLog.prepend(entry);
+
+        // Remove highlight class after a short delay
+        setTimeout(() => {
+            entry.classList.remove('highlight');
+        }, 2000);
+
+        // Keep log clean (max 3 items)
+        if (signalLog.children.length > 3) {
+            signalLog.removeChild(signalLog.lastChild);
+        }
+    }
+
+    function flashElement(el) {
+        el.style.color = '#fff';
+        el.style.textShadow = '0 0 15px rgba(255,255,255,0.8)';
+        setTimeout(() => {
+            el.style.color = '';
+            el.style.textShadow = '';
+        }, 800);
+    }
+</script>
+
+</body>
+</html>

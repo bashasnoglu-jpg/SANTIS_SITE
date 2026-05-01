@@ -166,13 +166,29 @@ document.addEventListener('DOMContentLoaded', () => {
             luxuryIntegrityEl.style.color = p.guardrails.luxuryIntegrity ? '#d4af37' : '#f44336';
         }
 
+        // Autonomous Ready visual indicator
+        const pricingLabel = actionEl ? actionEl.previousElementSibling : null;
+        if (p.mode === 'autonomous_ready') {
+            if (pricingLabel) pricingLabel.innerHTML = 'Pricing Action <span style="background:#00ff80;color:#000;padding:2px 6px;border-radius:4px;font-size:10px;margin-left:8px;font-weight:bold;">AUTONOMOUS READY</span>';
+            if (actionEl) actionEl.style.color = '#00ff80';
+        } else {
+            if (pricingLabel) pricingLabel.innerHTML = 'Pricing Action <span style="background:rgba(212,175,55,0.2);color:#d4af37;padding:2px 6px;border-radius:4px;font-size:10px;margin-left:8px;font-weight:bold;">ADVISORY</span>';
+            if (actionEl) actionEl.style.color = '#d4af37';
+        }
+
         // Show Operator Gate controls if there's a valid non-hold recommendation waiting
         if (overrideControls) {
-            if (p.id && p.action !== 'hold_price' && p.mode === 'advisory') {
+            const isActionable = p.id && p.action !== 'hold_price' && (p.mode === 'advisory' || p.mode === 'autonomous_ready');
+            if (isActionable) {
                 overrideControls.style.display = 'flex';
                 overrideControls.dataset.recommendationId = p.id;
                 overrideControls.dataset.sessionId = p.sessionId || '';
                 overrideControls.dataset.traceId = p.traceId || '';
+                
+                const gateLabel = overrideControls.querySelector('.metric-label');
+                if (gateLabel) {
+                    gateLabel.innerText = p.mode === 'autonomous_ready' ? 'Human Seal Required (Auto-Ready)' : 'Operator Decision (Gate)';
+                }
             } else {
                 overrideControls.style.display = 'none';
             }
@@ -180,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Sadece aksiyon varsa log at, "hold" log spam yapmasın
         if (p.action !== 'hold_price') {
-             logOracleAction('REVENUE_EVENT', `[PRICING ADVISORY] Action: ${p.action} | Confidence: ${Math.round(p.confidence * 100)}% | Risk: ${p.guardrails?.brandRisk || 'N/A'}`);
+             logOracleAction('REVENUE_EVENT', `[PRICING ${p.mode === 'autonomous_ready' ? 'AUTONOMOUS' : 'ADVISORY'}] Action: ${p.action} | Confidence: ${Math.round(p.confidence * 100)}% | Risk: ${p.guardrails?.brandRisk || 'N/A'}`);
         }
     },
 

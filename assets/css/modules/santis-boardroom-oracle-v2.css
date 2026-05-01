@@ -19,7 +19,6 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-left: 2px solid #5a5a5a;
   border-radius: 4px;
-  animation: slideInDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
   transform: translateY(-10px);
 }
@@ -111,4 +110,313 @@
 @keyframes breathing {
   0%, 100% { opacity: 0.3; transform: scale(0.9); }
   50% { opacity: 1; transform: scale(1.1); }
+}
+
+/**
+/**
+ * SANTIS SOVEREIGN OS - Oracle Action Memory UI
+ * Style: Quiet Luxury / Cinematic High-Performance
+ * Architecture: 4pt Sub-grid System
+ */
+
+:root {
+    --santis-charcoal: #121212;
+    --santis-forest: #1b2e1b;
+    --santis-gold-subtle: rgba(212, 175, 55, 0.15);
+    --santis-glass: rgba(255, 255, 255, 0.03);
+    --santis-border: rgba(255, 255, 255, 0.08);
+    --santis-blur: 20px;
+    /* Santis Hareket Parametreleri */
+    --santis-transition-duration: 1.2s;
+    --santis-liquid-easing: cubic-bezier(0.22, 1, 0.36, 1);
+    --santis-initial-blur: 15px;
+    --santis-initial-scale: 1.05;
+}
+
+/* Oracle Ana Panel Konteynırı */
+.oracle-viewport {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px; /* 4pt rhythm: 4 x 4 */
+    padding: 32px;
+    background-color: var(--santis-charcoal);
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif; /* Editorial Typography */
+    color: #e0e0e0;
+}
+
+/* Glassmorphism Widget Kartı */
+.oracle-widget {
+    grid-column: span 4;
+    background: var(--santis-glass);
+    backdrop-filter: blur(var(--santis-blur));
+    -webkit-backdrop-filter: blur(var(--santis-blur));
+    border: 1px solid var(--santis-border);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); /* Liquid Motion */
+    will-change: transform; /* GPU Optimization */
+}
+
+.oracle-widget:hover {
+    transform: translateY(-4px); /* Subtle hover lift */
+    border-color: rgba(27, 46, 27, 0.5); /* Forest Green glow */
+}
+
+/* Sinyal Tipi Göstergesi (Risk/Opportunity) */
+.signal-indicator {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.signal-opportunity { color: #4caf50; }
+.signal-risk { color: #f44336; }
+
+/* Dinamik Veri Akışı (GSAP ile beslenecek alan) */
+.oracle-data-value {
+    font-size: 2.5rem;
+    font-weight: 300; /* Light weight for luxury feel */
+    margin: 12px 0;
+    font-variant-numeric: tabular-nums; /* Rakamların kaymasını engeller */
+}
+
+/* Alt Bilgi Akışı */
+.oracle-footer {
+    font-size: 0.8rem;
+    opacity: 0.5;
+    border-top: 1px solid var(--santis-border);
+    margin-top: 16px;
+    padding-top: 12px;
+}
+
+/* RISK_SIGNAL - Kuantum Nabız Efekti */
+@keyframes oracleRiskPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4);
+        border-color: rgba(244, 67, 54, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px 5px rgba(244, 67, 54, 0.2);
+        border-color: rgba(244, 67, 54, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4);
+        border-color: rgba(244, 67, 54, 0.5);
+    }
+}
+
+/* Aktif Risk Sınıfı */
+.oracle-widget.is-risk-active {
+    animation: oracleRiskPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    background: rgba(244, 67, 54, 0.05); /* Arka plana çok hafif kırmızı bir ton */
+}
+
+/* ==========================================================================
+   SANTIS SOVEREIGN OS - Action Memory Logger (Akaşik Kayıt)
+   ========================================================================== */
+
+.oracle-memory-logger {
+    grid-column: span 12;
+    background: var(--santis-glass);
+    backdrop-filter: blur(var(--santis-blur));
+    -webkit-backdrop-filter: blur(var(--santis-blur));
+    border: 1px solid var(--santis-border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 16px;
+    height: 250px;
+    overflow: hidden; /* Eski eventlerin dışarı taşmasını engeller */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.oracle-memory-header {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--santis-gold-subtle);
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--santis-border);
+    padding-bottom: 8px;
+    font-weight: 500;
+}
+
+.oracle-log-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: hidden; /* Sadece GSAP ile kaydıracağız */
+    flex: 1;
+}
+
+.oracle-log-entry {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.85rem;
+    padding: 10px 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border-left: 2px solid transparent; /* Sinyal tipine göre renk alacak */
+    will-change: transform, opacity; /* GPU optimizasyonu */
+}
+
+.oracle-log-entry.log-revenue { border-left-color: #4caf50; }
+.oracle-log-entry.log-risk { border-left-color: #f44336; }
+.oracle-log-entry.log-telemetry { border-left-color: #2196f3; }
+
+.log-time {
+    opacity: 0.4;
+    font-variant-numeric: tabular-nums;
+    font-family: monospace;
+    font-size: 0.8rem;
+}
+
+.log-message {
+    flex: 1;
+    color: #e0e0e0;
+    font-weight: 300;
+}
+
+/* Sahne Konteynırı */
+.santis-scene-wrapper {
+    will-change: transform, opacity, filter;
+    transition: 
+        transform var(--santis-transition-duration) var(--santis-liquid-easing),
+        opacity var(--santis-transition-duration) var(--santis-liquid-easing),
+        filter var(--santis-transition-duration) var(--santis-liquid-easing);
+}
+
+/* Sahne Giriş Durumu (Enter) */
+.santis-scene-enter {
+    opacity: 0;
+    transform: scale(var(--santis-initial-scale)) translateY(20px);
+    filter: blur(var(--santis-initial-blur));
+}
+
+/* Sahne Aktif Durumu (Active) */
+.santis-scene-active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+}
+
+/* Sahne Çıkış Durumu (Exit) */
+.santis-scene-exit {
+    opacity: 0;
+    transform: scale(0.98) translateY(-10px);
+    filter: blur(5px);
+}
+
+/**
+ * SANTIS OPERATOR LAYER - Action Buttons
+ */
+.operator-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    opacity: 0; /* Animated in by GSAP */
+}
+
+.btn-santis {
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    color: #d0d0d0;
+}
+
+.btn-approve:hover {
+    background: rgba(0, 255, 128, 0.05);
+    border-color: rgba(0, 255, 128, 0.4);
+    color: #00ff80;
+    box-shadow: 0 0 15px rgba(0, 255, 128, 0.1);
+}
+
+.btn-reject:hover {
+    background: rgba(255, 48, 48, 0.05);
+    border-color: rgba(255, 48, 48, 0.4);
+    color: #ff3030;
+    box-shadow: 0 0 15px rgba(255, 48, 48, 0.1);
+}
+
+/* Data Synced Stamp */
+.santis-synced-stamp {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #00ff80;
+    background: rgba(0, 255, 128, 0.05);
+    border: 1px solid rgba(0, 255, 128, 0.3);
+    padding: 6px 12px;
+    border-radius: 4px;
+    will-change: transform, opacity;
+}
+.santis-synced-stamp.rejected {
+    color: #ff3030;
+    background: rgba(255, 48, 48, 0.05);
+    border-color: rgba(255, 48, 48, 0.3);
+}
+
+/* ORACLE ACTION OVERLAY */
+.oracle-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    display: none; /* JS ile kontrol edilecek */
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+}
+
+.oracle-modal {
+    width: 500px;
+    background: var(--santis-glass);
+    border: 1px solid var(--santis-border);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.action-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--santis-border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-card:hover {
+    background: rgba(27, 46, 27, 0.4); /* Forest Green vurgusu */
+    border-color: rgba(27, 46, 27, 0.8);
+    transform: translateX(8px);
+}
+
+.oracle-modal h2 {
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    color: #e0e0e0;
 }

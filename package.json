@@ -13,9 +13,13 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "db:push": "pnpm --filter @santis/domain-schema db:push",
+    "stitch:enforce": "node packages/design-system/scripts/validate.js && node packages/design-system/scripts/check.js && node packages/design-system/scripts/guard.js",
     "test:quality:static": "turbo run test:quality:static",
     "test:quality:runtime": "turbo run test:quality:runtime",
     "audit:runtime": "node scripts/audit-runtime-contract.js"
+  },
+  "dependencies": {
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "esbuild": "^0.28.0",

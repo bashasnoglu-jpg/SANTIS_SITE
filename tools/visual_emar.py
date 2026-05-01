@@ -1,4 +1,4 @@
-﻿import os
+import os
 import re
 from collections import defaultdict
 
@@ -6,10 +6,14 @@ def scan_html_for_images(directory):
     html_files = []
     # Ignore specific directories
     for root, dirs, files in os.walk(directory):
-        if "node_modules" in dirs: dirs.remove("node_modules")
-        if "venv" in dirs: dirs.remove("venv")
-        if ".git" in dirs: dirs.remove(".git")
-        if "admin" in root or "tools" in root: continue
+        if "node_modules" in dirs:
+            dirs.remove("node_modules")
+        if "venv" in dirs:
+            dirs.remove("venv")
+        if ".git" in dirs:
+            dirs.remove(".git")
+        if "admin" in root or "tools" in root:
+            continue
         for file in files:
             if file.endswith(".html"):
                 html_files.append(os.path.join(root, file))
@@ -40,7 +44,8 @@ def scan_html_for_images(directory):
                 # Check for slot
                 slot_match = slot_regex.search(img_tag)
                 slot = slot_match.group(1) if slot_match else None
-                if slot: total_slots_found += 1
+                if slot:
+                    total_slots_found += 1
                 
                 # Try to determine if its a Hero or Card image based on basic heuristics or class names
                 is_hero = "hero" in img_tag.lower() or "fetchpriority=\"high\"" in img_tag.lower()
@@ -53,7 +58,7 @@ def scan_html_for_images(directory):
                     "slot": slot,
                     "type": "Hero (High Prio)" if is_hero else "Card/Gallery" if is_card else "Standard"
                 })
-        except Exception as e:
+        except Exception:
             pass
 
     return {

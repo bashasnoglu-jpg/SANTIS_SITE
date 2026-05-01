@@ -119,10 +119,11 @@ export class SovereignRouter {
         };
 
         if (document.startViewTransition) {
-            const vt = document.startViewTransition(executeSwap);
-            // Sessizce yut: Eğer kullanıcı hızlıca başka sayfaya tıklarsa (veya tarayıcı animasyonu atlarsa) AbortError fırlatılmasın.
-            vt.finished.catch(() => {});
-            vt.ready.catch(() => {});
+            try {
+                await document.startViewTransition(executeSwap).finished;
+            } catch (e) {
+                console.warn("[SANTIS L10] Transition skipped", e);
+            }
         } else {
             executeSwap(); // API desteklemeyen tarayıcılar için anında kesme (Fallback)
         }
@@ -157,7 +158,12 @@ export class SovereignRouter {
     let fetchPath = cleanPath;
     if (!fetchPath.endsWith('.html') && !fetchPath.endsWith('/')) fetchPath += '.html';
 
-    const response = await fetch(fetchPath);
+    const response = await fetch(fetchPath, {
+        headers: {
+            'Accept': 'text/html',
+            'X-SPA-Navigation': 'true'
+        }
+    });
     if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
     
     const htmlText = await response.text();

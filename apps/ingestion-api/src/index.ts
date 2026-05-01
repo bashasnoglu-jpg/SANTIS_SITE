@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
+import { WebSocketServer } from "ws";
 
 import { SovereignBus } from "@santis/sovereign-bus";
 import { CommandIngressService } from "./services/command-ingress";
@@ -26,6 +27,9 @@ import { oracleStrategySimulationRouter } from "./oracle/oracle-strategy-simulat
 import { oracleExecutionGuardRouter } from "./oracle/oracle-execution-guard.routes";
 import { oracleExecutionOutcomeRouter } from "./oracle/oracle-execution-outcome.routes";
 import { oracleStatisticalForecastRouter } from "./oracle/oracle-statistical-forecast.routes";
+import { oracleDecisionKernelRouter } from "./oracle/oracle-decision-kernel.routes";
+import { telemetryRouter } from "./telemetry.routes";
+import { navRouter } from "./routes/nav.routes";
 import { registerBoardroomProjections } from "./projections/boardroom-projections";
 
 import { EventStore } from "./infrastructure/event-store";
@@ -51,6 +55,26 @@ async function bootstrap() {
 
   // 2. Core Altyapı
   const bus = new SovereignBus();
+
+  // --- WEBSOCKET GATEWAY (Port 8080) ---
+  const WS_PORT = process.env.WS_PORT || 8080;
+  const wss = new WebSocketServer({ port: Number(WS_PORT) });
+  
+  wss.on('connection', (ws) => {
+    console.log(`🔌 [WebSocket Gateway] İstemci bağlandı.`);
+    ws.send(JSON.stringify({ type: "CONNECTION_ACK", message: "Sovereign WS Gateway Connected." }));
+    
+    ws.on('error', (err) => {
+      console.error('[WS Gateway] Hata:', err);
+    });
+  });
+
+  console.log(`
+  ╔═══════════════════════════════════════════════════╗
+  ║  📡 WEBSOCKET GATEWAY ONLINE                      ║
+  ║  Port: ${WS_PORT}                                       ║
+  ╚═══════════════════════════════════════════════════╝
+  `);
   
   // 3. FIREHOSE: Bundan sonra olacak HER ŞEYİ silinmez deftere kaydet
   bus.addObserver({
@@ -76,6 +100,36 @@ async function bootstrap() {
         ...event,
         signalType,
         decision
+      });
+
+      // --- WEBSOCKET CANLI YAYINI (BROADCAST) ---
+      // Frontend (Boardroom Pro) UI updaters ile eşleşen format
+      let wsPayloadType = "TELEMETRY";
+      let wsPayloadValue = 1; // Default sayım
+      
+      const evtType = (event as any).eventType || (event as any).type;
+
+      // Event tipine göre payload hazırlama
+      if (evtType === 'GuestCheckoutCompleted' || evtType === 'RevenueGenerated' || evtType === 'commerce.upsell.therapist_accepted' || evtType === 'commerce.checkout.completed') {
+         wsPayloadType = "REVENUE_UPDATE";
+         wsPayloadValue = payloadData.totalAmount || payloadData.amount || payloadData.revenue || payloadData.upsellAmount || Math.floor(Math.random() * 500) + 150;
+      } else if (decision.includes('risk') || decision.includes('escalate')) {
+         wsPayloadType = "RISK_SIGNAL";
+         wsPayloadValue = Math.floor(metrics.abandon_risk * 100) || 85;
+      }
+
+      const wsMessage = JSON.stringify({
+          type: wsPayloadType,
+          message: `Olay: ${evtType} (${signalType})`,
+          payload: { value: wsPayloadValue },
+          value: wsPayloadValue
+      });
+
+      // Bağlı olan tüm WS istemcilerine fırlat
+      wss.clients.forEach(client => {
+          if (client.readyState === 1) { // 1 = OPEN
+              client.send(wsMessage);
+          }
       });
     }
   });
@@ -112,7 +166,7 @@ async function bootstrap() {
   });
 
   // 3. Servisler & Registry'ler
-  const commandIngress = new CommandIngressService(bus.commands);
+  const commandIngress = new CommandIngressService(bus);
   const fallbackSseRegistry = new FallbackSseRegistry();
 
   // 4. Express App
@@ -136,7 +190,7 @@ async function bootstrap() {
   registerBoardroomProjections(bus);
 
   // --- Otoriter Gümrük Kapısı (COMMAND ROTASI) ---
-  app.use("/api/v1", createIngressRouter(bus));
+  app.use("/api/v1", createIngressRouter(bus, commandIngress));
   app.use("/api/v1/boardroom", boardroomRouter);
   app.use("/api/v1/oracle", oracleActionMemoryRouter);
   app.use("/api/v1/oracle", oracleNodeSyncRouter);
@@ -146,6 +200,9 @@ async function bootstrap() {
   app.use("/api/v1/oracle", oracleExecutionGuardRouter);
   app.use("/api/v1/oracle", oracleExecutionOutcomeRouter);
   app.use("/api/v1/oracle", oracleStatisticalForecastRouter);
+  app.use("/api/v1/decision-kernel", oracleDecisionKernelRouter);
+  app.use("/api/v1", telemetryRouter);
+  app.use("/api/v1", navRouter);
   app.use("/api/v1/rituals/pricing", pricingRouter);
   app.use("/api/v1/stream", streamRoutes);
   
@@ -200,6 +257,9 @@ async function bootstrap() {
       process.exit(1);
     }
   });
+
+  // WS Gateway moved to top of bootstrap
+
 }
 
 bootstrap().catch((err) => {

@@ -34,8 +34,8 @@ export default function LiveIntentMonitor() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0b] p-10 font-sans">
-      <h2 className="text-[#c6a96b] font-serif text-2xl mb-8 font-light tracking-widest uppercase">
+    <div className="min-h-screen bg-sovereign-black p-10 font-sans">
+      <h2 className="text-sovereign-gold font-serif text-2xl mb-8 font-light tracking-widest uppercase">
         Sovereign GodMode Radarı
       </h2>
       
@@ -49,15 +49,15 @@ export default function LiveIntentMonitor() {
               key={`${evt.traceId}-${index}`} 
               className={`p-6 rounded-md border transition-all duration-1000 ease-in-out flex justify-between items-center ${
                 isSecured 
-                  ? 'bg-[#10b981]/5 border-[#10b981] shadow-[0_0_20px_rgba(16,185,129,0.15)]' // Zümrüt Aurası
-                  : 'bg-[#141416] border-[#333333] hover:border-[#c6a96b]/50' // Standart Vanta/Mat Pirinç
+                  ? 'bg-sovereign-success/5 border-sovereign-success' // Zümrüt Aurası
+                  : 'bg-sovereign-dark border-sovereign-line hover:border-sovereign-gold/50' // Standart Vanta/Mat Pirinç
               }`}
             >
               <div className="flex flex-col gap-2">
-                <span className="text-[#8e8e93] text-[10px] tracking-[0.2em] uppercase font-medium">
+                <span className="text-sovereign-muted text-2xs tracking-widest uppercase font-medium">
                   Trace ID: {evt.traceId}
                 </span>
-                <span className={`text-lg font-serif tracking-wide ${isSecured ? 'text-[#10b981]' : 'text-[#e5e5ea]'}`}>
+                <span className={`text-lg font-serif tracking-wide ${isSecured ? 'text-sovereign-success' : 'text-sovereign-ink'}`}>
                   {evt.payload?.intent || evt.eventType}
                 </span>
               </div>
@@ -66,13 +66,13 @@ export default function LiveIntentMonitor() {
               <div className="flex items-center gap-6">
                 {isSecured ? (
                   <div className="flex items-center gap-2 animate-pulse">
-                    <div className="w-2 h-2 rounded-full bg-[#10b981] shadow-[0_0_10px_#10b981]" />
-                    <span className="text-[#10b981] font-mono text-xs tracking-widest">CONVERSION SECURED</span>
+                    <div className="w-2 h-2 rounded-full bg-sovereign-success" />
+                    <span className="text-sovereign-success font-mono text-xs tracking-widest">CONVERSION SECURED</span>
                   </div>
                 ) : (
                   <div className="flex flex-col items-end">
-                    <span className="text-[#c6a96b] text-sm font-mono tracking-widest">PENDING CONVERSION</span>
-                    <span className="text-[#8e8e93] text-[10px] tracking-widest uppercase">Bekleniyor...</span>
+                    <span className="text-sovereign-gold text-sm font-mono tracking-widest">PENDING CONVERSION</span>
+                    <span className="text-sovereign-muted text-2xs tracking-widest uppercase">Bekleniyor...</span>
                   </div>
                 )}
               </div>
