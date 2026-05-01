@@ -21,6 +21,7 @@ const excludeList = [
   ".next",
   "build",
   "apps/web/tests", // Test fixtures are allowed to use localhost
+  "apps/ingestion-api/src/config/websocket-gateway.config.ts", // Backend config needs local dev defaults
 
   // ARCHIVE POLICY:
   // The assets/js/_archive directory contains zombie/legacy code that is NOT part of the
