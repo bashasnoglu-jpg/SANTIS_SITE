@@ -9,20 +9,52 @@
 
 class SantisTelemetryClient {
     constructor() {
-        this.wsUrl = 'ws://localhost:8080/ws';
+        const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
+        this.wsUrl = config.wsUrl || 'ws://localhost:8080/ws';
+        this.apiBaseUrl = config.apiBaseUrl || '/api/v1';
         this.reconnectTimeout = null;
         this.reconnectAttempts = 0;
         this.maxReconnectAttempts = 3;
         this.initConnection();
     }
 
-    initConnection() {
+    async resolveAuthenticatedWsUrl() {
+        let token = null;
+
+        if (window.SantisApi && typeof window.SantisApi.getSessionToken === 'function') {
+            token = await window.SantisApi.getSessionToken();
+        }
+
+        if (!token) {
+            try {
+                const response = await fetch(`${this.apiBaseUrl}/auth/session`, {
+                    headers: { Accept: 'application/json' },
+                    cache: 'no-store',
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    token = data.token || null;
+                }
+            } catch (error) {
+                console.warn('[Telemetry Client] Session token alınamadı:', error.message);
+            }
+        }
+
+        if (!token) return this.wsUrl;
+
+        const url = new URL(this.wsUrl, window.location.href);
+        url.searchParams.set('client_type', 'telemetry');
+        url.searchParams.set('token', token);
+        return url.toString();
+    }
+
+    async initConnection() {
         // İstemci tarafında bağlantı fırtınasını engelleyen Singleton Kalkanı
         if (!window.SantisSocket || window.SantisSocket.readyState === WebSocket.CLOSED) {
             console.log(`🛡️ [Telemetry Client] Singleton Kalkanı aktif ediliyor. Bağlantı başlatılıyor... (Deneme: ${this.reconnectAttempts + 1}/${this.maxReconnectAttempts + 1})`);
             
             try {
-                window.SantisSocket = new WebSocket(this.wsUrl);
+                window.SantisSocket = new WebSocket(await this.resolveAuthenticatedWsUrl());
             } catch (e) {
                 console.error("🚨 [Telemetry Client] Socket oluşturma hatası:", e);
                 this.scheduleReconnect();
