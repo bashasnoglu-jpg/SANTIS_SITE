@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-# This workflow will install Deno then run `deno lint` and `deno test`.
+# This workflow installs Deno, then lints/tests only explicit Deno sources.
 # For more information see: https://github.com/denoland/setup-deno
 
 name: Deno
@@ -35,8 +35,28 @@ jobs:
       # - name: Verify formatting
       #   run: deno fmt --check
 
+      - name: Detect Deno sources
+        id: deno_sources
+        shell: bash
+        run: |
+          mapfile -t sources < <(git ls-files \
+            '**/*.deno.ts' \
+            '**/*.deno.tsx' \
+            '**/*.deno.js' \
+            '**/*.deno.jsx')
+
+          if [ "${#sources[@]}" -eq 0 ]; then
+            echo "has_sources=false" >> "$GITHUB_OUTPUT"
+            echo "No Deno-specific sources found; skipping Deno lint/test."
+          else
+            printf '%s\n' "${sources[@]}" > deno-sources.txt
+            echo "has_sources=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Run linter
-        run: deno lint
+        if: steps.deno_sources.outputs.has_sources == 'true'
+        run: xargs deno lint < deno-sources.txt
 
       - name: Run tests
-        run: deno test -A
+        if: steps.deno_sources.outputs.has_sources == 'true'
+        run: xargs deno test -A < deno-sources.txt
