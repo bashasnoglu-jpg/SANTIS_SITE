@@ -34,7 +34,9 @@ jobs:
       run: pnpm install --frozen-lockfile
 
     - name: 🎭 Mount Playwright Browsers
-      run: npx playwright install --with-deps chromium
+      run: |
+        timeout 180s npx playwright install --with-deps chromium \
+          || npx playwright install chromium
 
     - name: ⚡ Ignite Santis OS Local Engine
       run: |
