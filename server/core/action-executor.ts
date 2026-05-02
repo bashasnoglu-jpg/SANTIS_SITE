@@ -9,11 +9,8 @@ import {
   type SovereignEventEnvelope,
 } from "./telemetry.ts";
 import { ingestSovereignEnvelope } from "./telemetry-gateway.ts";
-import { appendEvent as telemetryRepoAppendEvent } from "../repositories/telemetry-repository.js";
-import { upsertVisitor as visitorRepoUpsertVisitor } from "../repositories/visitor-repository.js";
-
-const telemetryRepo = { appendEvent: telemetryRepoAppendEvent };
-const visitorRepo = { upsertVisitor: visitorRepoUpsertVisitor };
+import * as telemetryRepo from "../repositories/telemetry-repository.js";
+import * as visitorRepo from "../repositories/visitor-repository.js";
 
 type DeliveryPaths = {
   hero?: string;
