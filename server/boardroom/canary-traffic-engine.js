@@ -1,17 +1,15 @@
-'use strict';
-
 /**
  * Santis OS Canary Deployment Engine + Traffic Split AI
  * Deterministic canary planning, traffic allocation and promotion governance.
  */
 
-const { simulateDeployment } = require('./deploy-simulation-engine.js');
-const { scoreDeployRisk } = require('./deploy-risk-engine.js');
-const { evaluateApprovalPolicy } = require('./approval-policy-engine.js');
+import { simulateDeployment } from './deploy-simulation-engine.js';
+import { scoreDeployRisk } from './deploy-risk-engine.js';
+import { evaluateApprovalPolicy } from './approval-policy-engine.js';
 
-const CANARY_SCHEMA_VERSION = '1.0.0';
+export const CANARY_SCHEMA_VERSION = '1.0.0';
 
-const DEFAULT_CANARY_POLICY = Object.freeze({
+export const DEFAULT_CANARY_POLICY = Object.freeze({
   initialSplitPct: 5,
   maxSplitPct: 50,
   promoteStepPct: 10,
@@ -33,7 +31,7 @@ function toNumber(value, fallback = 0) {
   return typeof value === 'number' && Number.isFinite(value) ? value : fallback;
 }
 
-function evaluateGuardrails(metrics = {}, policy = DEFAULT_CANARY_POLICY) {
+export function evaluateGuardrails(metrics = {}, policy = DEFAULT_CANARY_POLICY) {
   const guardrails = { ...DEFAULT_CANARY_POLICY.guardrails, ...(policy.guardrails || {}) };
   const violations = [];
 
@@ -86,7 +84,7 @@ function deriveInitialSplit(simulation, policy = DEFAULT_CANARY_POLICY) {
   return Math.min(policy.initialSplitPct + 10, policy.maxSplitPct);
 }
 
-function createCanaryPlan(input = {}) {
+export function createCanaryPlan(input = {}) {
   const policy = { ...DEFAULT_CANARY_POLICY, ...(input.policy || {}) };
   const simulation = simulateDeployment({
     ...input,
@@ -124,7 +122,7 @@ function createCanaryPlan(input = {}) {
   };
 }
 
-function decideCanaryProgress(input = {}) {
+export function decideCanaryProgress(input = {}) {
   const policy = { ...DEFAULT_CANARY_POLICY, ...(input.policy || {}) };
   const currentCandidatePct = clamp(toNumber(input.currentCandidatePct, policy.initialSplitPct), 0, 100);
   const stableSha = input.stableSha || input.rollbackTargetSha || null;
@@ -198,11 +196,3 @@ function decideCanaryProgress(input = {}) {
     decidedAt: new Date().toISOString(),
   };
 }
-
-module.exports = {
-  CANARY_SCHEMA_VERSION,
-  DEFAULT_CANARY_POLICY,
-  evaluateGuardrails,
-  createCanaryPlan,
-  decideCanaryProgress,
-};
