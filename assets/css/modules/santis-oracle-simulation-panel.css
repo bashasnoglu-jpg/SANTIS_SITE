@@ -17,6 +17,213 @@
   gap: 18px;
 }
 
+.simulation-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 4px;
+}
+
+.simulation-metric-card {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.simulation-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #a0a0a0;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.simulation-value {
+  color: #e0e0e0;
+  font-size: 20px;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.simulation-value-accent {
+  color: var(--boardroom-accent);
+}
+
+.simulation-value-positive {
+  color: #4caf50;
+}
+
+.simulation-action-rail {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-queue-strategy,
+.strategy-queue-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--boardroom-accent);
+  cursor: pointer;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-queue-strategy {
+  padding: 10px 20px;
+}
+
+.btn-queue-strategy:disabled,
+.strategy-queue-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.strategy-approval-queue {
+  display: grid;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.strategy-queue-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.strategy-queue-header span {
+  color: var(--boardroom-text-muted);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.strategy-queue-header strong {
+  min-width: 32px;
+  color: var(--boardroom-accent);
+  font-size: 18px;
+  text-align: right;
+}
+
+.strategy-queue-list {
+  display: grid;
+  gap: 10px;
+}
+
+.strategy-queue-empty,
+.strategy-queue-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.strategy-queue-empty {
+  padding: 14px;
+  color: var(--boardroom-text-muted);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.strategy-queue-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  padding: 14px;
+}
+
+.strategy-queue-card.is-applying {
+  border-color: rgba(212, 175, 55, 0.42);
+}
+
+.strategy-queue-card.is-sealed {
+  border-color: rgba(76, 175, 80, 0.45);
+}
+
+.strategy-queue-card.is-rejected {
+  border-color: rgba(244, 67, 54, 0.38);
+}
+
+.strategy-queue-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.strategy-queue-title strong {
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.strategy-queue-status {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--boardroom-accent);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.strategy-queue-status.is-sealed {
+  background: rgba(76, 175, 80, 0.12);
+  color: #4caf50;
+}
+
+.strategy-queue-status.is-rejected {
+  background: rgba(244, 67, 54, 0.12);
+  color: #f44336;
+}
+
+.strategy-queue-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--boardroom-text-muted);
+  font-size: 12px;
+}
+
+.strategy-queue-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.strategy-queue-action {
+  min-width: 86px;
+  padding: 8px 12px;
+}
+
+.strategy-queue-action-approve {
+  border-color: rgba(76, 175, 80, 0.45);
+  background: rgba(76, 175, 80, 0.12);
+  color: #4caf50;
+}
+
+.strategy-queue-action-reject {
+  border-color: rgba(244, 67, 54, 0.38);
+  background: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+}
+
 .oracle-simulation-brief {
   padding: 18px;
   border-left: 2px solid var(--boardroom-accent);
@@ -123,8 +330,28 @@
 }
 
 @media (max-width: 768px) {
+  .simulation-grid,
   .oracle-simulation-grid,
   .oracle-simulation-metrics {
     grid-template-columns: 1fr;
+  }
+
+  .simulation-action-rail {
+    justify-content: stretch;
+  }
+
+  .btn-queue-strategy,
+  .strategy-queue-actions,
+  .strategy-queue-action {
+    width: 100%;
+  }
+
+  .strategy-queue-card,
+  .strategy-queue-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .strategy-queue-actions {
+    display: grid;
   }
 }
