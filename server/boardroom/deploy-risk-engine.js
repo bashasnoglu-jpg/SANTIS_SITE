@@ -1,19 +1,17 @@
-'use strict';
-
 /**
  * Santis OS Deploy Risk Engine
  * Deterministic infrastructure risk scoring for Boardroom deployment governance.
  */
 
-const DEPLOY_RISK_SCHEMA_VERSION = '1.0.0';
+export const DEPLOY_RISK_SCHEMA_VERSION = '1.0.0';
 
-const DEFAULT_THRESHOLDS = Object.freeze({
+export const DEFAULT_THRESHOLDS = Object.freeze({
   warning: 55,
   critical: 75,
   rollback: 85,
 });
 
-const DEFAULT_WEIGHTS = Object.freeze({
+export const DEFAULT_WEIGHTS = Object.freeze({
   deploymentFailed: 34,
   rollbackFailed: 45,
   repeatedFailure: 12,
@@ -61,7 +59,7 @@ function deriveSeverity(score, thresholds = DEFAULT_THRESHOLDS) {
   return 'stable';
 }
 
-function scoreDeployRisk(input = {}) {
+export function scoreDeployRisk(input = {}) {
   const weights = { ...DEFAULT_WEIGHTS, ...(input.weights || {}) };
   const thresholds = { ...DEFAULT_THRESHOLDS, ...(input.thresholds || {}) };
   const deployment = normalizeDeploymentEvent(input.deployment);
@@ -171,10 +169,3 @@ function scoreDeployRisk(input = {}) {
     assessedAt: new Date().toISOString(),
   };
 }
-
-module.exports = {
-  DEPLOY_RISK_SCHEMA_VERSION,
-  DEFAULT_THRESHOLDS,
-  DEFAULT_WEIGHTS,
-  scoreDeployRisk,
-};
