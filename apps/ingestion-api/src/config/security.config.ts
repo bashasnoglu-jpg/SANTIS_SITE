@@ -9,7 +9,13 @@ const SecurityEnvSchema = z.object({
 
 export type SecurityConfig = z.infer<typeof SecurityEnvSchema>;
 
+let cachedSecurityConfig: SecurityConfig | null = null;
+
 export function resolveSecurityConfig(env: NodeJS.ProcessEnv = process.env): SecurityConfig {
+  if (cachedSecurityConfig) {
+    return cachedSecurityConfig;
+  }
+
   const parsed = SecurityEnvSchema.safeParse(env);
 
   if (!parsed.success) {
@@ -30,5 +36,6 @@ export function resolveSecurityConfig(env: NodeJS.ProcessEnv = process.env): Sec
     console.warn(`⚠️ [Security Config] Missing SESSION_SECRET in development. A pseudo-random ephemeral secret is being used. Tokens will be invalidated upon restart.`);
   }
 
-  return data;
+  cachedSecurityConfig = data;
+  return cachedSecurityConfig;
 }

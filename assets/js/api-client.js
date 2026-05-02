@@ -5,16 +5,18 @@ class SantisApiClient {
     this.coreStateCache = null;
     this.coreStateVersion = "68.0.0";
     this.coreStateEventSource = null;
-    this.catalogCache = null;    this.ws = null;
+    this.catalogCache = null;
+    this.ws = null;
+    this.sessionToken = null;
 
     console.log("🦅 Santis API Client v68 — CoreState Mode Initialized.");
     this.initWebSocket();
   }
 
-  initWebSocket() {
+  async initWebSocket() {
     // Config üzerinden Gateway'e bağlanıyoruz
     const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
-    const wsUrl = config.wsUrl || `wss://${window.location.host}/ws`;
+    const wsUrl = await this.getAuthenticatedWebSocketUrl(config.wsUrl || `wss://${window.location.host}/ws`);
 
     this.ws = new WebSocket(wsUrl);
 
@@ -42,6 +44,43 @@ class SantisApiClient {
         console.warn('⚠️ [API Client] Bağlantı koptu. 5 saniye içinde yeniden denenecek...');
         setTimeout(() => this.initWebSocket(), 5000);
     };
+  }
+
+  async getAuthenticatedWebSocketUrl(wsUrl) {
+    const token = await this.getSessionToken();
+    if (!token) return wsUrl;
+
+    const url = new URL(wsUrl, window.location.href);
+    if (!url.searchParams.has("client_type")) {
+      url.searchParams.set("client_type", "boardroom");
+    }
+    url.searchParams.set("token", token);
+    return url.toString();
+  }
+
+  async getSessionToken() {
+    if (this.sessionToken) return this.sessionToken;
+
+    try {
+      const response = await fetch(`${this.baseUrl}/auth/session`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
+        cache: "no-store",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      this.sessionToken = data.token || null;
+      return this.sessionToken;
+    } catch (error) {
+      console.warn("[API Client] Session token alınamadı:", error.message);
+      return null;
+    }
   }
 
   connectCoreStateStream() {
@@ -321,6 +360,7 @@ class SantisApiClient {
       "conversionRate",
       "vipSegments",
       "oracleInsights",
+      "boardroom",
     ]);
 
     const keys = Object.keys(patch);
@@ -339,6 +379,7 @@ class SantisApiClient {
     if (patch.conversionRate !== undefined && typeof patch.conversionRate !== "number") return false;
     if (patch.vipSegments !== undefined && !Array.isArray(patch.vipSegments)) return false;
     if (patch.oracleInsights !== undefined && !Array.isArray(patch.oracleInsights)) return false;
+    if (patch.boardroom !== undefined && (!patch.boardroom || typeof patch.boardroom !== "object" || Array.isArray(patch.boardroom))) return false;
 
     return true;
   }

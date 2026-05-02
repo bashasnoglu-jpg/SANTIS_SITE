@@ -17,7 +17,7 @@
             ingestionBaseUrl: cfg.ingestionBaseUrl || (devFallbackUrl ? `${devFallbackUrl}/ingestion` : "/ingestion"),
             coreStateUrl: cfg.coreStateUrl || (devFallbackUrl ? `${devFallbackUrl}/api/v1/core-state` : "/api/v1/core-state"),
             coreStateStreamUrl: cfg.coreStateStreamUrl || (devFallbackUrl ? `${devFallbackUrl}/api/v1/core-state/stream` : "/api/v1/core-state/stream"),
-            wsUrl: cfg.wsUrl || (devFallbackWs ? devFallbackWs : `${wsProtocol}://${window.location.host}/ws`),
+            wsUrl: cfg.wsUrl || (devFallbackWs ? `${devFallbackWs}/ws` : `${wsProtocol}://${window.location.host}/ws`),
             eventsWsUrl: cfg.eventsWsUrl || (devFallbackWs ? `${devFallbackWs}/events` : `${wsProtocol}://${window.location.host}/events`),
             physicalCommandUrl: cfg.physicalCommandUrl || (devFallbackUrl ? `${devFallbackUrl}/api/physical-command` : "/api/physical-command"),
             streamGodUrl: cfg.streamGodUrl || (devFallbackUrl ? `${devFallbackUrl}/api/v1/streams/god` : "/api/v1/streams/god")

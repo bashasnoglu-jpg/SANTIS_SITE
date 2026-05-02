@@ -35,7 +35,9 @@ class BoardroomOracleV2 {
   init() {
     if (!this.container) return;
     this.globalExecutiveView.init();
-    this.simulationPanel.init();
+    if (!document.getElementById('btn-apply-simulation')) {
+      this.simulationPanel.init();
+    }
     this.executionPlanPanel.init();
     this.outcomeFeedbackPanel.init();
     this.forecastPanel.init();
