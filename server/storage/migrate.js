@@ -1,8 +1,10 @@
-const fs = require('fs');
-const path = require('path');
-const db = require('./sqlite');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import db from './sqlite.js';
 
-const MIGRATIONS = path.join(__dirname,'migrations');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const MIGRATIONS = path.join(__dirname, 'migrations');
 
 function runMigrations(){
     const files = fs.readdirSync(MIGRATIONS).sort();

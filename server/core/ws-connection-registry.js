@@ -135,4 +135,4 @@ class WsConnectionRegistry {
   }
 }
 
-module.exports = { WsConnectionRegistry };
+export { WsConnectionRegistry };

@@ -6,14 +6,8 @@
 import {
   createRevenueAdvisorySuggestion,
 } from "./revenue-engine.ts";
-import advisoryStoreModule from "./advisory-store.js";
+import { AdvisoryStore } from "./advisory-store.js";
 import type { AdvisorySuggestion } from "./telemetry.ts";
-
-const { AdvisoryStore } = advisoryStoreModule as {
-  AdvisoryStore?: {
-    push: (suggestion: AdvisorySuggestion, options?: Record<string, unknown>) => unknown;
-  };
-};
 
 export const AnomalyEngine = {
     /**

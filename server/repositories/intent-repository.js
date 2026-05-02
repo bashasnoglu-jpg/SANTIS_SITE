@@ -1,9 +1,5 @@
-const db = require('../storage/sqlite');
-const crypto = require('crypto');
-
-function uuid() {
-  return crypto.randomUUID();
-}
+import db from '../storage/sqlite.js';
+import { randomUUID as uuid } from 'crypto';
 
 function insertIntentSignal(signal) {
   return new Promise((resolve, reject) => {
@@ -41,6 +37,6 @@ function insertIntentSignal(signal) {
   });
 }
 
-module.exports = {
+export {
   insertIntentSignal,
 };

@@ -1,7 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
-import { createRequire } from "node:module";
 
 import { ConstitutionalGuard } from "./adapter.ts";
 import { HybridBrain } from "./hybrid-brain.ts";
@@ -17,6 +16,9 @@ import {
   type SovereignEventEnvelope,
   type SovereignEventPayload,
 } from "./telemetry.ts";
+import { SelfTuningStore } from "./self-tuning-store.js";
+import { appendEvent } from "../repositories/telemetry-repository.js";
+import { upsertVisitor } from "../repositories/visitor-repository.js";
 
 type ShadowPriceUpdatePayload = Extract<
   SovereignEventPayload,
@@ -42,32 +44,6 @@ export interface HybridEvaluationResult {
   evaluation?: Extract<SovereignEventPayload, { action: "HYBRID_EVALUATION" }>;
 }
 
-type TelemetryPersistence = {
-  telemetryRepo: {
-    appendEvent(event: {
-      type: string;
-      visitorId: string;
-      sessionId: string;
-      page: string;
-      source: string;
-      data: Record<string, unknown>;
-      timestamp: string;
-    }): Promise<void>;
-  };
-  visitorRepo: {
-    upsertVisitor(visitorId: string): Promise<void>;
-  };
-};
-
-type SelfTuningStoreModule = {
-  SelfTuningStore: {
-    hasOutcomeId(outcomeId: string): boolean;
-    recordEvaluation(input: Record<string, unknown>): Record<string, unknown>;
-  };
-};
-
-const require = createRequire(import.meta.url);
-
 const TELEMETRY_STORAGE_PATH = path.resolve(
   process.cwd(),
   "storage",
@@ -79,9 +55,6 @@ const LEARNING_RATE = 0.005;
 const HOLD_SHIFT_THRESHOLD = 0.000001;
 const MIN_WEIGHT = 0.05;
 const MAX_WEIGHT = 0.95;
-
-let cachedTelemetryPersistence: TelemetryPersistence | null | undefined;
-let cachedSelfTuningStore: SelfTuningStoreModule | null | undefined;
 
 const roundProbability = (value: number) =>
   Number(Math.max(0, Math.min(1, value)).toFixed(6));
@@ -112,50 +85,6 @@ const toOptionalNumber = (value: unknown): number | undefined => {
 
 const normalizeTenantId = (value: unknown) =>
   toOptionalString(value) ?? DEFAULT_TENANT_ID;
-
-function getTelemetryPersistence(): TelemetryPersistence | null {
-  if (cachedTelemetryPersistence !== undefined) {
-    return cachedTelemetryPersistence;
-  }
-
-  try {
-    const telemetryRepo = require("../repositories/telemetry-repository.js");
-    const visitorRepo = require("../repositories/visitor-repository.js");
-
-    cachedTelemetryPersistence = {
-      telemetryRepo,
-      visitorRepo,
-    };
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "unknown_persistence_boot_error";
-    console.warn(
-      `[SELF_TUNER] Telemetry persistence unavailable. Hybrid evaluations will stay file-backed only. ${message}`
-    );
-    cachedTelemetryPersistence = null;
-  }
-
-  return cachedTelemetryPersistence;
-}
-
-function getSelfTuningStore(): SelfTuningStoreModule | null {
-  if (cachedSelfTuningStore !== undefined) {
-    return cachedSelfTuningStore;
-  }
-
-  try {
-    cachedSelfTuningStore = require("./self-tuning-store.js");
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "unknown_self_tuning_store_error";
-    console.warn(
-      `[SELF_TUNER] Self-tuning ledger unavailable. Evaluations will not be mirrored into a dedicated ledger. ${message}`
-    );
-    cachedSelfTuningStore = null;
-  }
-
-  return cachedSelfTuningStore ?? null;
-}
 
 function parseTelemetryLine(rawLine: string): SovereignEnvelope | null {
   try {
@@ -429,9 +358,9 @@ export const SelfTuningEngine = {
       const occurredAt = toOptionalNumber(input.occurredAt) ?? Date.now();
       const maxShadowAgeHours =
         toOptionalNumber(input.maxShadowAgeHours) ?? DEFAULT_MAX_SHADOW_AGE_HOURS;
-      const ledgerStore = getSelfTuningStore();
+      const ledgerStore = SelfTuningStore;
 
-      if (ledgerStore?.SelfTuningStore?.hasOutcomeId(outcomeId)) {
+      if (ledgerStore.hasOutcomeId(outcomeId)) {
         return {
           success: false,
           reason: "OUTCOME_ALREADY_EVALUATED",
@@ -479,27 +408,23 @@ export const SelfTuningEngine = {
 
       const telemetryEvent = buildTelemetryEvent(envelope, payload);
       let telemetryPersisted = false;
-      const persistence = getTelemetryPersistence();
-
-      if (persistence) {
-        try {
-          await persistence.visitorRepo.upsertVisitor(telemetryEvent.visitorId);
-          await persistence.telemetryRepo.appendEvent(telemetryEvent);
-          telemetryPersisted = true;
-        } catch (error) {
-          const message =
-            error instanceof Error
-              ? error.message
-              : "unknown_self_tuning_persistence_error";
-          console.warn(
-            `[SELF_TUNER] Hybrid evaluation ${envelope.id} could not be persisted to SQLite. ${message}`
-          );
-        }
+      try {
+        await upsertVisitor(telemetryEvent.visitorId);
+        await appendEvent(telemetryEvent);
+        telemetryPersisted = true;
+      } catch (error) {
+        const message =
+          error instanceof Error
+            ? error.message
+            : "unknown_self_tuning_persistence_error";
+        console.warn(
+          `[SELF_TUNER] Hybrid evaluation ${envelope.id} could not be persisted to SQLite. ${message}`
+        );
       }
 
       let ledgerRecorded = false;
-      if (ledgerStore?.SelfTuningStore?.recordEvaluation) {
-        ledgerStore.SelfTuningStore.recordEvaluation({
+      if (ledgerStore.recordEvaluation) {
+        ledgerStore.recordEvaluation({
           id: envelope.id,
           timestamp: payload.timestamp,
           outcomeId: payload.outcomeId,

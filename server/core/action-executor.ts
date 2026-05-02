@@ -1,5 +1,4 @@
 import { randomUUID } from "node:crypto";
-import { createRequire } from "node:module";
 
 import { ConstitutionalGuard } from "./adapter.ts";
 import {
@@ -10,10 +9,11 @@ import {
   type SovereignEventEnvelope,
 } from "./telemetry.ts";
 import { ingestSovereignEnvelope } from "./telemetry-gateway.ts";
+import { appendEvent as telemetryRepoAppendEvent } from "../repositories/telemetry-repository.js";
+import { upsertVisitor as visitorRepoUpsertVisitor } from "../repositories/visitor-repository.js";
 
-const require = createRequire(import.meta.url);
-const telemetryRepo = require("../repositories/telemetry-repository.js");
-const visitorRepo = require("../repositories/visitor-repository.js");
+const telemetryRepo = { appendEvent: telemetryRepoAppendEvent };
+const visitorRepo = { upsertVisitor: visitorRepoUpsertVisitor };
 
 type DeliveryPaths = {
   hero?: string;
