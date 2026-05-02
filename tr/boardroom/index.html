@@ -177,30 +177,39 @@
           <span class="ai-badge">Preview</span>
         </div>
         <div class="oracle-simulation-panel" id="oracle-strategy-simulation-container">
-          <div class="simulation-grid" id="sim-grid-state" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1rem;">
-            <div class="simulation-metric-card" style="padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px;">
-              <span class="simulation-label" style="display: block; font-size: 0.75rem; color: #a0a0a0; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">Simulated Action</span>
-              <strong class="simulation-value" id="sim-val-action" style="font-size: 1.25rem; color: #d4af37;">--</strong>
+          <div class="simulation-grid" id="sim-grid-state">
+            <div class="simulation-metric-card">
+              <span class="simulation-label">Simulated Action</span>
+              <strong class="simulation-value simulation-value-accent" id="sim-val-action">--</strong>
             </div>
-            <div class="simulation-metric-card" style="padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px;">
-              <span class="simulation-label" style="display: block; font-size: 0.75rem; color: #a0a0a0; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">Price Delta</span>
-              <strong class="simulation-value" id="sim-val-delta" style="font-size: 1.25rem; color: #e0e0e0;">--</strong>
+            <div class="simulation-metric-card">
+              <span class="simulation-label">Price Delta</span>
+              <strong class="simulation-value" id="sim-val-delta">--</strong>
             </div>
-            <div class="simulation-metric-card" style="padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px;">
-              <span class="simulation-label" style="display: block; font-size: 0.75rem; color: #a0a0a0; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">Expected Revenue</span>
-              <strong class="simulation-value" id="sim-val-revenue" style="font-size: 1.25rem; color: #4caf50;">--</strong>
+            <div class="simulation-metric-card">
+              <span class="simulation-label">Expected Revenue</span>
+              <strong class="simulation-value simulation-value-positive" id="sim-val-revenue">--</strong>
             </div>
-            <div class="simulation-metric-card" style="padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px;">
-              <span class="simulation-label" style="display: block; font-size: 0.75rem; color: #a0a0a0; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">Confidence</span>
-              <strong class="simulation-value" id="sim-val-confidence" style="font-size: 1.25rem; color: #e0e0e0;">--</strong>
+            <div class="simulation-metric-card">
+              <span class="simulation-label">Confidence</span>
+              <strong class="simulation-value" id="sim-val-confidence">--</strong>
             </div>
           </div>
           
-          <div class="simulation-action-rail" id="simulation-guarded-apply-container" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; display: flex; justify-content: flex-end;">
-            <button id="btn-apply-simulation" class="btn-oracle-override" disabled style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.4); color: #d4af37; padding: 10px 20px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; font-family: 'Cinzel', serif; letter-spacing: 1px;">
+          <div class="simulation-action-rail" id="simulation-guarded-apply-container">
+            <button id="btn-apply-simulation" class="btn-oracle-override btn-queue-strategy" disabled>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-              GUARDED APPLY
+              <span id="btn-apply-simulation-label">Queue Strategy</span>
             </button>
+          </div>
+          <div class="strategy-approval-queue" id="strategy-approval-queue">
+            <div class="strategy-queue-header">
+              <span>Pending Human Seal</span>
+              <strong id="strategy-queue-count">0</strong>
+            </div>
+            <div class="strategy-queue-list" id="strategy-queue-list">
+              <div class="strategy-queue-empty">No queued strategy decisions.</div>
+            </div>
           </div>
         </div>
       </section>

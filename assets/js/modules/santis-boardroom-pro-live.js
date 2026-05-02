@@ -8,6 +8,9 @@ import { SantisBoardroomProCoreStateAdapter } from './santis-boardroom-pro-cores
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🚀 Bootstrapping Boardroom PRO Live Nervous System...');
 
+  let pendingStrategyApply = null;
+  const strategyApprovalQueue = [];
+
   // Initialize the adapter first so it's ready to catch events
   SantisBoardroomProCoreStateAdapter.init();
 
@@ -266,10 +269,12 @@ document.addEventListener('DOMContentLoaded', () => {
             applyBtn.dataset.recommendationId = recommendationId;
             applyBtn.dataset.sessionId = sessionId;
             applyBtn.dataset.traceId = s.traceId || '';
+            applyBtn.dataset.action = s.simulatedAction || s.action || 'strategy';
             applyBtn.dataset.delta = simulatedDelta;
             applyBtn.dataset.expectedRevenueDelta = expectedRevenueDelta;
             applyBtn.dataset.confidence = s.confidence || 0;
             applyBtn.dataset.trigger = s.trigger || s.reasonCodes?.[0] || 'shadow_pricing';
+            updateQueueButtonState();
         }
     },
 
@@ -484,8 +489,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Başlangıçta logları yükle
   loadOracleLogsFromMemory();
 
-  let pendingStrategyApply = null;
-
   function logOracleAction(type, message) {
       const streamContainer = document.getElementById('oracle-log-stream');
       if (!streamContainer) return;
@@ -552,6 +555,200 @@ document.addEventListener('DOMContentLoaded', () => {
       pending.button.innerHTML = pending.originalHtml;
   }
 
+  function escapeHtml(value) {
+      return String(value ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+  }
+
+  function createStrategyQueueId() {
+      if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+          return window.crypto.randomUUID();
+      }
+
+      return `strategy-${Date.now()}-${Math.round(Math.random() * 100000)}`;
+  }
+
+  function formatDeltaPct(value) {
+      const numeric = Number(value) || 0;
+      const rounded = Math.round(numeric * 100);
+      return rounded > 0 ? `+${rounded}%` : `${rounded}%`;
+  }
+
+  function formatRevenueDelta(value) {
+      const numeric = Number(value) || 0;
+      const prefix = numeric > 0 ? '+' : '';
+      return `${prefix}${formatCurrency(Math.abs(numeric))}`;
+  }
+
+  function getQueuedStrategyByRecommendation(recommendationId) {
+      return strategyApprovalQueue.find((item) => item.recommendationId === recommendationId);
+  }
+
+  function updateQueueButtonState() {
+      const btn = document.getElementById('btn-apply-simulation') || document.getElementById('btn-guarded-strategy-apply');
+      if (!btn) return;
+
+      const recommendationId = btn.dataset.recommendationId;
+      const sessionId = btn.dataset.sessionId;
+      const queued = recommendationId ? getQueuedStrategyByRecommendation(recommendationId) : null;
+      const label = document.getElementById('btn-apply-simulation-label');
+
+      btn.disabled = !(recommendationId && sessionId) || Boolean(queued && queued.status !== 'rejected');
+      btn.classList.toggle('is-queued', Boolean(queued && queued.status !== 'rejected'));
+      if (label) {
+          label.innerText = queued && queued.status !== 'rejected' ? 'Queued' : 'Queue Strategy';
+      }
+  }
+
+  function createStrategyQueueItemFromButton(button) {
+      const recommendationId = button.dataset.recommendationId;
+      const sessionId = button.dataset.sessionId;
+      const simulatedDeltaPct = parseFloat(button.dataset.delta);
+      const expectedRevenueDelta = parseFloat(button.dataset.expectedRevenueDelta);
+      const confidence = parseFloat(button.dataset.confidence);
+
+      if (!recommendationId || !sessionId) {
+          throw new Error('Strategy queue requires recommendationId and sessionId');
+      }
+
+      return {
+          id: createStrategyQueueId(),
+          recommendationId,
+          sessionId,
+          traceId: button.dataset.traceId || '',
+          simulatedAction: button.dataset.action || 'strategy',
+          simulatedDeltaPct: Number.isFinite(simulatedDeltaPct) ? simulatedDeltaPct : 0,
+          expectedRevenueDelta: Number.isFinite(expectedRevenueDelta) ? expectedRevenueDelta : 0,
+          confidence: Number.isFinite(confidence) ? confidence : 0,
+          trigger: button.dataset.trigger || 'shadow_pricing',
+          status: 'pending',
+          createdAt: new Date().toISOString(),
+      };
+  }
+
+  function renderStrategyApprovalQueue() {
+      const queueList = document.getElementById('strategy-queue-list');
+      const queueCount = document.getElementById('strategy-queue-count');
+      if (!queueList) return;
+
+      const activeCount = strategyApprovalQueue.filter((item) => item.status === 'pending' || item.status === 'applying').length;
+      if (queueCount) queueCount.innerText = String(activeCount);
+
+      if (strategyApprovalQueue.length === 0) {
+          queueList.innerHTML = '<div class="strategy-queue-empty">No queued strategy decisions.</div>';
+          updateQueueButtonState();
+          return;
+      }
+
+      queueList.innerHTML = strategyApprovalQueue.map((item) => {
+          const statusLabel = item.status === 'applying'
+              ? 'Applying'
+              : item.status === 'sealed'
+                  ? 'Sealed'
+                  : item.status === 'rejected'
+                      ? 'Rejected'
+                      : 'Pending';
+          const canAct = item.status === 'pending';
+          const disabledAttr = canAct ? '' : ' disabled';
+
+          return `
+              <article class="strategy-queue-card is-${escapeHtml(item.status)}" data-queue-id="${escapeHtml(item.id)}">
+                  <div>
+                      <div class="strategy-queue-title">
+                          <strong>${escapeHtml(String(item.simulatedAction || 'strategy').replace(/_/g, ' ').toUpperCase())}</strong>
+                          <span class="strategy-queue-status is-${escapeHtml(item.status)}">${escapeHtml(statusLabel)}</span>
+                      </div>
+                      <div class="strategy-queue-meta">
+                          <span>${escapeHtml(formatDeltaPct(item.simulatedDeltaPct))}</span>
+                          <span>${escapeHtml(formatRevenueDelta(item.expectedRevenueDelta))}</span>
+                          <span>${Math.round((Number(item.confidence) || 0) * 100)}% confidence</span>
+                      </div>
+                  </div>
+                  <div class="strategy-queue-actions">
+                      <button class="strategy-queue-action strategy-queue-action-approve" data-queue-action="approve" data-queue-id="${escapeHtml(item.id)}"${disabledAttr}>Approve</button>
+                      <button class="strategy-queue-action strategy-queue-action-reject" data-queue-action="reject" data-queue-id="${escapeHtml(item.id)}"${disabledAttr}>Reject</button>
+                  </div>
+              </article>
+          `;
+      }).join('');
+
+      updateQueueButtonState();
+  }
+
+  function buildStrategyApplyPayload(item) {
+      return {
+          recommendationId: item.recommendationId,
+          sessionId: item.sessionId,
+          traceId: item.traceId,
+          strategy: {
+              type: 'price_adjustment',
+              deltaPct: item.simulatedDeltaPct,
+              expectedRevenueDelta: item.expectedRevenueDelta
+          },
+          decision: 'approve',
+          operatorContext: {
+              operatorId: 'boardroom-operator',
+              source: 'boardroom-ui'
+          },
+          meta: {
+              confidence: item.confidence,
+              trigger: item.trigger
+          }
+      };
+  }
+
+  async function approveQueuedStrategy(item) {
+      const panel = document.getElementById('oracle-strategy-simulation-container');
+      item.status = 'applying';
+      renderStrategyApprovalQueue();
+
+      if (typeof gsap !== 'undefined' && panel) {
+          gsap.fromTo(panel,
+              { boxShadow: '0 0 0 rgba(212, 175, 55, 0)', borderColor: 'rgba(212, 175, 55, 0.72)' },
+              { boxShadow: '0 0 32px rgba(212, 175, 55, 0.2)', borderColor: 'rgba(212, 175, 55, 0.38)', duration: 0.45, ease: 'power2.out' }
+          );
+      }
+
+      const payload = buildStrategyApplyPayload(item);
+      pendingStrategyApply = {
+          itemId: item.id,
+          panel,
+          payload,
+          timeoutId: null
+      };
+
+      pendingStrategyApply.timeoutId = setTimeout(() => {
+          if (!pendingStrategyApply || pendingStrategyApply.itemId !== item.id) return;
+          pendingStrategyApply = null;
+          item.status = 'pending';
+          renderStrategyApprovalQueue();
+          logOracleAction('RISK_SIGNAL', 'Strategy Apply ACK timeout');
+      }, 8000);
+
+      try {
+          await window.SantisApi.sendCommand('boardroom.strategy.apply', payload);
+      } catch (err) {
+          console.error('[Strategy Queue] Apply failed:', err);
+          if (pendingStrategyApply?.timeoutId) {
+              clearTimeout(pendingStrategyApply.timeoutId);
+          }
+          pendingStrategyApply = null;
+          item.status = 'pending';
+          renderStrategyApprovalQueue();
+          logOracleAction('RISK_SIGNAL', 'Strategy Apply Failed');
+      }
+  }
+
+  function rejectQueuedStrategy(item) {
+      item.status = 'rejected';
+      renderStrategyApprovalQueue();
+      logOracleAction('STRATEGY_REJECTED', `Strategy Rejected: ${formatDeltaPct(item.simulatedDeltaPct)} price adjustment`);
+  }
+
   function resolvePendingStrategyApply(ackId) {
       if (!pendingStrategyApply) return false;
 
@@ -564,6 +761,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const deltaPct = Math.round((pending.payload.strategy.deltaPct || 0) * 100);
       const deltaText = deltaPct > 0 ? `+${deltaPct}%` : `${deltaPct}%`;
+      const item = strategyApprovalQueue.find((queued) => queued.id === pending.itemId || queued.recommendationId === ackId);
+      if (item) {
+          item.status = 'sealed';
+      }
 
       if (typeof gsap !== 'undefined') {
           if (pending.panel) {
@@ -573,18 +774,21 @@ document.addEventListener('DOMContentLoaded', () => {
               );
           }
 
-          gsap.to(pending.button, {
-              backgroundColor: 'rgba(76, 175, 80, 0.2)',
-              color: '#4caf50',
-              duration: 0.25,
-              onComplete: () => {
-                  setTimeout(() => restoreStrategyApplyButton(pending), 2000);
+          if (item) {
+              const card = Array.from(document.querySelectorAll('[data-queue-id]'))
+                  .find((candidate) => candidate.dataset.queueId === item.id);
+              if (card) {
+                  gsap.fromTo(card,
+                      { backgroundColor: 'rgba(76, 175, 80, 0.12)' },
+                      { backgroundColor: 'rgba(255, 255, 255, 0.025)', duration: 1.2, ease: 'power2.out' }
+                  );
               }
-          });
+          }
       } else {
           restoreStrategyApplyButton(pending);
       }
 
+      renderStrategyApprovalQueue();
       logOracleAction('STRATEGY_APPLIED', `Strategy Applied: ${deltaText} price adjustment (ACK: ${ackId})`);
       return true;
   }
@@ -846,84 +1050,47 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnRejectPricing = document.getElementById('btn-reject-pricing');
   if (btnRejectPricing) btnRejectPricing.addEventListener('click', () => sendPricingOverride('reject'));
 
-  // Strategy Simulation Guarded Apply logic
+  // Strategy Simulation Queue logic
   const btnStrategyApply = document.getElementById('btn-apply-simulation') || document.getElementById('btn-guarded-strategy-apply');
   if (btnStrategyApply) {
-      btnStrategyApply.addEventListener('click', async () => {
-          const panel = document.getElementById('oracle-strategy-simulation-container');
-          const originalHtml = btnStrategyApply.innerHTML;
-
+      btnStrategyApply.addEventListener('click', () => {
           try {
-              const recommendationId = btnStrategyApply.dataset.recommendationId;
-              const sessionId = btnStrategyApply.dataset.sessionId;
-              const deltaPct = parseFloat(btnStrategyApply.dataset.delta);
-              const expectedRevenueDelta = parseFloat(btnStrategyApply.dataset.expectedRevenueDelta);
-              const confidence = parseFloat(btnStrategyApply.dataset.confidence);
+              const item = createStrategyQueueItemFromButton(btnStrategyApply);
+              const existing = getQueuedStrategyByRecommendation(item.recommendationId);
 
-              if (!recommendationId || !sessionId) {
-                  throw new Error('Strategy apply requires recommendationId and sessionId');
+              if (existing && existing.status !== 'rejected') {
+                  updateQueueButtonState();
+                  return;
               }
 
-              btnStrategyApply.disabled = true;
-              btnStrategyApply.style.opacity = '0.5';
-              btnStrategyApply.innerHTML = 'APPLYING...';
-
-              if (typeof gsap !== 'undefined' && panel) {
-                  gsap.fromTo(panel,
-                      { boxShadow: '0 0 0 rgba(212, 175, 55, 0)', borderColor: 'rgba(212, 175, 55, 0.72)' },
-                      { boxShadow: '0 0 32px rgba(212, 175, 55, 0.2)', borderColor: 'rgba(212, 175, 55, 0.38)', duration: 0.45, ease: 'power2.out' }
-                  );
-              }
-              
-              const payload = {
-                  recommendationId,
-                  sessionId,
-                  traceId: btnStrategyApply.dataset.traceId,
-                  strategy: {
-                      type: 'price_adjustment',
-                      deltaPct: Number.isFinite(deltaPct) ? deltaPct : 0,
-                      expectedRevenueDelta: Number.isFinite(expectedRevenueDelta) ? expectedRevenueDelta : 0
-                  },
-                  decision: 'approve',
-                  operatorContext: {
-                      operatorId: 'boardroom-operator',
-                      source: 'boardroom-ui'
-                  },
-                  meta: {
-                      confidence: Number.isFinite(confidence) ? confidence : 0,
-                      trigger: btnStrategyApply.dataset.trigger || 'shadow_pricing'
-                  }
-              };
-
-              pendingStrategyApply = {
-                  button: btnStrategyApply,
-                  panel,
-                  originalHtml,
-                  payload,
-                  timeoutId: null
-              };
-
-              pendingStrategyApply.timeoutId = setTimeout(() => {
-                  if (!pendingStrategyApply) return;
-                  const pending = pendingStrategyApply;
-                  pendingStrategyApply = null;
-                  restoreStrategyApplyButton(pending);
-                  logOracleAction('RISK_SIGNAL', 'Strategy Apply ACK timeout');
-              }, 8000);
-
-              await window.SantisApi.sendCommand('boardroom.strategy.apply', payload);
+              strategyApprovalQueue.unshift(item);
+              renderStrategyApprovalQueue();
+              logOracleAction('STRATEGY_QUEUED', `Strategy Queued: ${formatDeltaPct(item.simulatedDeltaPct)} price adjustment`);
           } catch (err) {
-              console.error('[Strategy Apply] Error:', err);
-              logOracleAction('RISK_SIGNAL', `Strategy Apply Failed`);
-              if (pendingStrategyApply?.timeoutId) {
-                  clearTimeout(pendingStrategyApply.timeoutId);
-              }
-              pendingStrategyApply = null;
-              btnStrategyApply.disabled = false;
-              btnStrategyApply.style.opacity = '1';
-              btnStrategyApply.innerHTML = originalHtml;
+              console.error('[Strategy Queue] Queue failed:', err);
+              logOracleAction('RISK_SIGNAL', 'Strategy Queue Failed');
           }
       });
   }
+
+  const strategyQueueList = document.getElementById('strategy-queue-list');
+  if (strategyQueueList) {
+      strategyQueueList.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          const actionButton = event.target.closest('[data-queue-action]');
+          if (!actionButton) return;
+
+          const item = strategyApprovalQueue.find((queued) => queued.id === actionButton.dataset.queueId);
+          if (!item || item.status !== 'pending') return;
+
+          if (actionButton.dataset.queueAction === 'approve') {
+              approveQueuedStrategy(item);
+          } else if (actionButton.dataset.queueAction === 'reject') {
+              rejectQueuedStrategy(item);
+          }
+      });
+  }
+
+  renderStrategyApprovalQueue();
 
 });
