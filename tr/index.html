@@ -11,9 +11,10 @@ if (window.location.protocol === 'file:') {
     ? normalizedPath.slice(markerIndex + marker.length - 1)
     : '/tr/index.html';
 
-  window.location.replace(`http://localhost:3030${routePath}${window.location.search}${window.location.hash}`);
+  window.location.replace(`http://127.0.0.1:5500${routePath}${window.location.search}${window.location.hash}`);
 }
 </script>
+<script src="/assets/js/core/santis-runtime-resolver.js"></script>
 <script src="/assets/js/santis-config.js"></script>
 <script src="/assets/js/api-client.js"></script>
 <script src="/assets/js/santis-public-runtime-shim.js"></script>
