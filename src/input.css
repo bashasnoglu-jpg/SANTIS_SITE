@@ -1,6 +1,102 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
+/* ==========================================================================
+   SANTIS SOVEREIGN OS V6.1 — TOKEN CONSTITUTION
+   Consistency is Luxury. Protocol over decoration.
+   ========================================================================== */
+
+:root {
+    /* Chromatic Sovereignty */
+    --santis-obsidian-950: #0a0a0a;
+    --santis-carbon-900: #11100e;
+    --santis-smoke-800: #1a1815;
+    --santis-smoke-700: #2a2722;
+
+    --santis-gold-500: #c6a96b;
+    --santis-gold-400: #d4ba7a;
+    --santis-gold-300: #e0c98a;
+
+    --santis-ivory-100: #f3efe6;
+    --santis-mist-300: #b8b0a3;
+
+    --santis-danger-500: #b75c4a;
+    --santis-success-500: #8fae7b;
+
+    /* Luminance Shield — perceptual contrast under OLED/LCD variance */
+    --santis-text-primary: var(--santis-ivory-100);
+    --santis-text-secondary: color-mix(
+        in oklch,
+        var(--santis-ivory-100) 68%,
+        var(--santis-obsidian-950)
+    );
+    --santis-text-muted: color-mix(
+        in oklch,
+        var(--santis-mist-300) 78%,
+        var(--santis-obsidian-950)
+    );
+
+    --santis-surface-base: var(--santis-obsidian-950);
+    --santis-surface-raised: color-mix(
+        in oklch,
+        var(--santis-carbon-900) 88%,
+        var(--santis-gold-500)
+    );
+    --santis-surface-glass: color-mix(
+        in oklch,
+        var(--santis-carbon-900) 82%,
+        transparent
+    );
+    --santis-border-soft: color-mix(
+        in oklch,
+        var(--santis-gold-500) 24%,
+        transparent
+    );
+
+    /* Ritual Motion */
+    --santis-ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+    --santis-duration-instant: 120ms;
+    --santis-duration-fast: 180ms;
+    --santis-duration-ritual: 720ms;
+    --santis-duration-cinematic: 1200ms;
+
+    /* 4pt Rhythm — rem based */
+    --santis-space-1: 0.25rem;
+    --santis-space-2: 0.5rem;
+    --santis-space-3: 0.75rem;
+    --santis-space-4: 1rem;
+    --santis-space-6: 1.5rem;
+    --santis-space-8: 2rem;
+    --santis-space-12: 3rem;
+    --santis-space-16: 4rem;
+    --santis-space-24: 6rem;
+
+    /* Sovereign Radius */
+    --santis-radius-sm: 0.375rem;
+    --santis-radius-md: 0.75rem;
+    --santis-radius-lg: 1.25rem;
+    --santis-radius-xl: 2rem;
+
+    /* Executive Depth */
+    --santis-shadow-soft: 0 1.5rem 4rem rgb(0 0 0 / 32%);
+    --santis-shadow-gold: 0 0 0 1px rgb(198 169 107 / 20%);
+}
+
+@supports not (color: color-mix(in oklch, white, black)) {
+    :root {
+        --santis-text-secondary: var(--santis-mist-300);
+        --santis-text-muted: #8f877a;
+        --santis-surface-raised: var(--santis-carbon-900);
+        --santis-surface-glass: rgb(17 16 14 / 82%);
+        --santis-border-soft: rgb(198 169 107 / 24%);
+    }
+}
+
+html {
+    background: var(--santis-surface-base);
+    color: var(--santis-text-primary);
+}
+
 /* 🚨 PRECOG HAYATTA KALMA KALKANI (SURVIVAL MODE) */
 html.santis-survival-mode * {
     /* CPU/GPU'yu boğan tüm cam efektlerini (backdrop-filter) ve animasyonları anında kes! */
