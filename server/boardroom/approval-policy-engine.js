@@ -1,13 +1,11 @@
-'use strict';
-
 /**
  * Santis OS Approval Policy Engine
  * Converts deploy risk assessments into deterministic governance decisions.
  */
 
-const APPROVAL_POLICY_SCHEMA_VERSION = '1.0.0';
+export const APPROVAL_POLICY_SCHEMA_VERSION = '1.0.0';
 
-const DEFAULT_POLICY = Object.freeze({
+export const DEFAULT_POLICY = Object.freeze({
   autoRollbackEnabled: false,
   emergencyAutoRollbackEnabled: true,
   emergencyRollbackScore: 95,
@@ -22,7 +20,7 @@ function isAllowedOperator(operator, policy) {
   return typeof operator === 'string' && policy.allowedOperators.includes(operator);
 }
 
-function evaluateApprovalPolicy(input = {}) {
+export function evaluateApprovalPolicy(input = {}) {
   const policy = { ...DEFAULT_POLICY, ...(input.policy || {}) };
   const assessment = input.assessment || {};
   const operator = input.operator || 'SYSTEM';
@@ -136,9 +134,3 @@ function evaluateApprovalPolicy(input = {}) {
     decidedAt: new Date().toISOString(),
   };
 }
-
-module.exports = {
-  APPROVAL_POLICY_SCHEMA_VERSION,
-  DEFAULT_POLICY,
-  evaluateApprovalPolicy,
-};
