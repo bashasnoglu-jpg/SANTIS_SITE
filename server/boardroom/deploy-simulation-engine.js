@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Santis OS Deploy Simulation Engine
  * Pre-deployment deterministic simulation layer.
@@ -7,12 +5,12 @@
  * the Approval Policy Engine.
  */
 
-const { scoreDeployRisk } = require('./deploy-risk-engine.js');
-const { evaluateApprovalPolicy } = require('./approval-policy-engine.js');
+import { scoreDeployRisk } from './deploy-risk-engine.js';
+import { evaluateApprovalPolicy } from './approval-policy-engine.js';
 
-const DEPLOY_SIMULATION_SCHEMA_VERSION = '1.0.0';
+export const DEPLOY_SIMULATION_SCHEMA_VERSION = '1.0.0';
 
-const DEFAULT_SIMULATION_WEIGHTS = Object.freeze({
+export const DEFAULT_SIMULATION_WEIGHTS = Object.freeze({
   packageChange: 12,
   workflowChange: 18,
   serverChange: 14,
@@ -53,7 +51,7 @@ function buildSyntheticDeployment(input) {
   };
 }
 
-function scoreChangeSurface(input = {}) {
+export function scoreChangeSurface(input = {}) {
   const weights = { ...DEFAULT_SIMULATION_WEIGHTS, ...(input.weights || {}) };
   const files = normalizeFiles(input.changedFiles);
   const diffStats = input.diffStats && typeof input.diffStats === 'object' ? input.diffStats : {};
@@ -139,7 +137,7 @@ function scoreChangeSurface(input = {}) {
   };
 }
 
-function simulateDeployment(input = {}) {
+export function simulateDeployment(input = {}) {
   const changeRisk = scoreChangeSurface(input);
 
   const metrics = {
@@ -227,10 +225,3 @@ function deriveSimulationRecommendation(assessment, policyDecision) {
 
   return 'GO';
 }
-
-module.exports = {
-  DEPLOY_SIMULATION_SCHEMA_VERSION,
-  DEFAULT_SIMULATION_WEIGHTS,
-  scoreChangeSurface,
-  simulateDeployment,
-};
