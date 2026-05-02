@@ -31,7 +31,11 @@ export const SantisBoardroomProCoreStateAdapter = (function() {
         if (patch.boardroom.metrics.scp) liveState.scp = patch.boardroom.metrics.scp;
       }
       if (patch.boardroom.pricingFeedback) liveState.pricingFeedback = patch.boardroom.pricingFeedback;
+      if (patch.boardroom.pricingRecommendations) liveState.pricingRecommendations = patch.boardroom.pricingRecommendations;
       if (patch.boardroom.pricingRecommendation) liveState.pricingRecommendation = patch.boardroom.pricingRecommendation;
+      if (patch.boardroom.pricingOverride) liveState.pricingOverride = patch.boardroom.pricingOverride;
+      if (patch.boardroom.shadowPricing) liveState.shadowPricing = patch.boardroom.shadowPricing;
+      if (patch.boardroom.calibration) liveState.calibration = patch.boardroom.calibration;
       if (patch.boardroom.oracleIntelligence) liveState.oracleIntelligence = patch.boardroom.oracleIntelligence;
     }
 
