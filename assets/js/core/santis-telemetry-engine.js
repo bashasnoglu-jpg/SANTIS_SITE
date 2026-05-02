@@ -14,6 +14,9 @@ class SantisTelemetryEngine {
   }
 
   init() {
+    if (this.routeChangeBound) return;
+    this.routeChangeBound = true;
+
     // 1. Sovereign Bus (Olay Yolu) Üzerinden Kuantum Dinlemeleri
     document.addEventListener('santis:vault:updated', (e) => this.trackVaultDebounced(e.detail));
     document.addEventListener('santis:handoff:success', (e) => this.track('API_HANDOFF_SUCCESS', e.detail));
@@ -24,6 +27,15 @@ class SantisTelemetryEngine {
       if (document.visibilityState === 'hidden') {
         this.track('SESSION_PAUSED_OR_ENDED', { timeOnPageSec: Math.round(performance.now() / 1000) });
       }
+    });
+
+    // 3. SPA Route Takibi (Sovereign Router)
+    document.addEventListener("santis:route-changed", (event) => {
+      this.track("SPA_ROUTE_CHANGED", {
+        ...(event.detail || {}),
+        source: "santis-sovereign-router",
+        occurredAt: new Date().toISOString()
+      });
     });
 
     console.log(`👁️ [God's Eye] Telemetri Motoru Devrede. Oturum: ${this.sessionId}`);
