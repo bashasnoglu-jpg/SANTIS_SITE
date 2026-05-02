@@ -243,9 +243,11 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
 
   function deriveShadowDecision(pricingRecommendation: any) {
     return {
+      recommendationId: pricingRecommendation.id,
       simulatedAction: pricingRecommendation.action,
       simulatedDeltaPct: pricingRecommendation.suggestedDeltaPct,
       confidence: pricingRecommendation.confidence,
+      trigger: pricingRecommendation.reasonCodes?.[0] || "pricing_recommendation",
       expectedOutcome: {
         expectedRevenueDelta: pricingRecommendation.suggestedDeltaPct * 0.7,
         expectedScpDelta: pricingRecommendation.suggestedDeltaPct * 0.5
@@ -334,5 +336,33 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
       }
     });
   });
-};
 
+  bus.events.subscribe("boardroom.strategy.applied", async (e: any) => {
+    const operatorId = e.payload.operatorContext?.operatorId || e.payload.operatorContext?.source || "boardroom-ui";
+    const memoryRecord = {
+      id: e.payload.recommendationId,
+      intent: `strategy_${e.payload.decision}`,
+      operatorId,
+      timestamp: e.payload.appliedAt,
+      metadata: {
+        strategy: e.payload.strategy,
+        meta: e.payload.meta,
+      },
+    };
+
+    BoardroomReadModels.oracleIntelligence.actionsResolved += 1;
+    BoardroomReadModels.oracleIntelligence.lastOperatorAction = memoryRecord;
+    BoardroomReadModels.oracleIntelligence.actionMemory.unshift(memoryRecord);
+
+    if (BoardroomReadModels.oracleIntelligence.actionMemory.length > 10) {
+      BoardroomReadModels.oracleIntelligence.actionMemory.pop();
+    }
+
+    broadcastCoreStatePatch({
+      boardroom: {
+        oracleIntelligence: BoardroomReadModels.oracleIntelligence,
+        strategyApply: e.payload,
+      }
+    });
+  });
+};

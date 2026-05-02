@@ -206,30 +206,32 @@ document.addEventListener('DOMContentLoaded', () => {
         const deltaEl = document.getElementById('sim-val-delta');
         const revenueEl = document.getElementById('sim-val-revenue');
         const confidenceEl = document.getElementById('sim-val-confidence');
+        const simulatedDelta = Number(s.simulatedDeltaPct ?? s.suggestedDelta ?? 0);
+        const expectedRevenueDelta = Number(s.expectedOutcome?.expectedRevenueDelta ?? s.expectedRevenueImpact ?? 0);
         
         if (actionEl) {
             const actionText = (s.simulatedAction || s.action || '--').replace(/_/g, ' ').toUpperCase();
             actionEl.innerText = actionText;
         }
         
-        if (deltaEl && s.suggestedDelta !== undefined) {
-            const prefix = s.suggestedDelta > 0 ? '+' : '';
-            deltaEl.innerText = `${prefix}${s.suggestedDelta}`;
+        if (deltaEl) {
+            const prefix = simulatedDelta > 0 ? '+' : '';
+            deltaEl.innerText = `${prefix}${Math.round(simulatedDelta * 100)}%`;
         }
         
-        if (revenueEl && s.expectedRevenueImpact !== undefined) {
+        if (revenueEl) {
             // Using animateSovereignNumber for smooth currency counting if possible,
             // but since it might be negative or have a plus sign, we handle it custom or just innerText
-            const prefix = s.expectedRevenueImpact > 0 ? '+' : '';
+            const prefix = expectedRevenueDelta > 0 ? '+' : '';
             // formatting as currency
             const formatted = new Intl.NumberFormat('de-DE', {
                 style: 'currency',
                 currency: 'EUR',
                 minimumFractionDigits: 0
-            }).format(Math.abs(s.expectedRevenueImpact));
+            }).format(Math.abs(expectedRevenueDelta));
             
             revenueEl.innerText = `${prefix}${formatted}`;
-            revenueEl.style.color = s.expectedRevenueImpact > 0 ? '#4caf50' : (s.expectedRevenueImpact < 0 ? '#f44336' : '#e0e0e0');
+            revenueEl.style.color = expectedRevenueDelta > 0 ? '#4caf50' : (expectedRevenueDelta < 0 ? '#f44336' : '#e0e0e0');
         }
         
         if (confidenceEl && s.confidence !== undefined) {
@@ -247,6 +249,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     { borderColor: 'rgba(255, 255, 255, 0.05)', backgroundColor: 'rgba(18, 18, 18, 0.6)', duration: 1.5, ease: 'power2.out', stagger: 0.1 }
                 );
             }
+        }
+        
+        const gridState = document.getElementById('sim-grid-state');
+        if (gridState) {
+            gridState.style.display = 'grid';
+        }
+
+        // Bind data to the Guarded Apply button
+        const applyBtn = document.getElementById('btn-apply-simulation') || document.getElementById('btn-guarded-strategy-apply');
+        if (applyBtn) {
+            const recommendationId = s.recommendationId || s.sourceRecommendationId || '';
+            const sessionId = s.sessionId || '';
+
+            applyBtn.disabled = !(recommendationId && sessionId);
+            applyBtn.dataset.recommendationId = recommendationId;
+            applyBtn.dataset.sessionId = sessionId;
+            applyBtn.dataset.traceId = s.traceId || '';
+            applyBtn.dataset.delta = simulatedDelta;
+            applyBtn.dataset.expectedRevenueDelta = expectedRevenueDelta;
+            applyBtn.dataset.confidence = s.confidence || 0;
+            applyBtn.dataset.trigger = s.trigger || s.reasonCodes?.[0] || 'shadow_pricing';
         }
     },
 
@@ -461,6 +484,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Başlangıçta logları yükle
   loadOracleLogsFromMemory();
 
+  let pendingStrategyApply = null;
+
   function logOracleAction(type, message) {
       const streamContainer = document.getElementById('oracle-log-stream');
       if (!streamContainer) return;
@@ -517,6 +542,53 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   }
 
+  function restoreStrategyApplyButton(pending) {
+      if (!pending || !pending.button) return;
+
+      pending.button.disabled = false;
+      pending.button.style.opacity = '1';
+      pending.button.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
+      pending.button.style.color = '#d4af37';
+      pending.button.innerHTML = pending.originalHtml;
+  }
+
+  function resolvePendingStrategyApply(ackId) {
+      if (!pendingStrategyApply) return false;
+
+      const pending = pendingStrategyApply;
+      pendingStrategyApply = null;
+
+      if (pending.timeoutId) {
+          clearTimeout(pending.timeoutId);
+      }
+
+      const deltaPct = Math.round((pending.payload.strategy.deltaPct || 0) * 100);
+      const deltaText = deltaPct > 0 ? `+${deltaPct}%` : `${deltaPct}%`;
+
+      if (typeof gsap !== 'undefined') {
+          if (pending.panel) {
+              gsap.fromTo(pending.panel,
+                  { boxShadow: '0 0 0 rgba(76, 175, 80, 0)', borderColor: 'rgba(76, 175, 80, 0.65)' },
+                  { boxShadow: '0 0 38px rgba(76, 175, 80, 0.18)', borderColor: 'rgba(255, 255, 255, 0.08)', duration: 0.9, ease: 'power2.out' }
+              );
+          }
+
+          gsap.to(pending.button, {
+              backgroundColor: 'rgba(76, 175, 80, 0.2)',
+              color: '#4caf50',
+              duration: 0.25,
+              onComplete: () => {
+                  setTimeout(() => restoreStrategyApplyButton(pending), 2000);
+              }
+          });
+      } else {
+          restoreStrategyApplyButton(pending);
+      }
+
+      logOracleAction('STRATEGY_APPLIED', `Strategy Applied: ${deltaText} price adjustment (ACK: ${ackId})`);
+      return true;
+  }
+
   window.addEventListener('santis-update', (e) => {
     const data = e.detail;
     const { type, message, payload, value } = data;
@@ -560,6 +632,19 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         }
         logOracleAction('SYSTEM_CONFIRM', `Kernel Ack: İşlem doğrulandı (ID: ${value})`);
+    }
+
+    if (type === 'STRATEGY_APPLY_ACK') {
+        const logStream = document.getElementById('oracle-log-stream');
+        if (logStream && typeof gsap !== 'undefined') {
+            gsap.fromTo(logStream, 
+                { backgroundColor: 'rgba(76, 175, 80, 0.2)' },
+                { backgroundColor: 'transparent', duration: 1.5, ease: 'power2.out' }
+            );
+        }
+        if (!resolvePendingStrategyApply(value)) {
+            logOracleAction('STRATEGY_APPLIED', `Strategy Applied (ACK: ${value})`);
+        }
     }
   });
 
@@ -717,7 +802,9 @@ document.addEventListener('DOMContentLoaded', () => {
           // Artık fetch localhost yerine api client kullanıyoruz
           await window.SantisApi.sendCommand('pricing.override.apply', {
               recommendationId,
-              decision,
+              decision: decision.toLowerCase(),
+              sessionId,
+              traceId,
               operatorId: "boardroom-operator"
           });
 
@@ -754,9 +841,89 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const btnApprovePricing = document.getElementById('btn-approve-pricing');
-  if (btnApprovePricing) btnApprovePricing.addEventListener('click', () => sendPricingOverride('APPROVED'));
+  if (btnApprovePricing) btnApprovePricing.addEventListener('click', () => sendPricingOverride('approve'));
 
   const btnRejectPricing = document.getElementById('btn-reject-pricing');
-  if (btnRejectPricing) btnRejectPricing.addEventListener('click', () => sendPricingOverride('REJECTED'));
+  if (btnRejectPricing) btnRejectPricing.addEventListener('click', () => sendPricingOverride('reject'));
+
+  // Strategy Simulation Guarded Apply logic
+  const btnStrategyApply = document.getElementById('btn-apply-simulation') || document.getElementById('btn-guarded-strategy-apply');
+  if (btnStrategyApply) {
+      btnStrategyApply.addEventListener('click', async () => {
+          const panel = document.getElementById('oracle-strategy-simulation-container');
+          const originalHtml = btnStrategyApply.innerHTML;
+
+          try {
+              const recommendationId = btnStrategyApply.dataset.recommendationId;
+              const sessionId = btnStrategyApply.dataset.sessionId;
+              const deltaPct = parseFloat(btnStrategyApply.dataset.delta);
+              const expectedRevenueDelta = parseFloat(btnStrategyApply.dataset.expectedRevenueDelta);
+              const confidence = parseFloat(btnStrategyApply.dataset.confidence);
+
+              if (!recommendationId || !sessionId) {
+                  throw new Error('Strategy apply requires recommendationId and sessionId');
+              }
+
+              btnStrategyApply.disabled = true;
+              btnStrategyApply.style.opacity = '0.5';
+              btnStrategyApply.innerHTML = 'APPLYING...';
+
+              if (typeof gsap !== 'undefined' && panel) {
+                  gsap.fromTo(panel,
+                      { boxShadow: '0 0 0 rgba(212, 175, 55, 0)', borderColor: 'rgba(212, 175, 55, 0.72)' },
+                      { boxShadow: '0 0 32px rgba(212, 175, 55, 0.2)', borderColor: 'rgba(212, 175, 55, 0.38)', duration: 0.45, ease: 'power2.out' }
+                  );
+              }
+              
+              const payload = {
+                  recommendationId,
+                  sessionId,
+                  traceId: btnStrategyApply.dataset.traceId,
+                  strategy: {
+                      type: 'price_adjustment',
+                      deltaPct: Number.isFinite(deltaPct) ? deltaPct : 0,
+                      expectedRevenueDelta: Number.isFinite(expectedRevenueDelta) ? expectedRevenueDelta : 0
+                  },
+                  decision: 'approve',
+                  operatorContext: {
+                      operatorId: 'boardroom-operator',
+                      source: 'boardroom-ui'
+                  },
+                  meta: {
+                      confidence: Number.isFinite(confidence) ? confidence : 0,
+                      trigger: btnStrategyApply.dataset.trigger || 'shadow_pricing'
+                  }
+              };
+
+              pendingStrategyApply = {
+                  button: btnStrategyApply,
+                  panel,
+                  originalHtml,
+                  payload,
+                  timeoutId: null
+              };
+
+              pendingStrategyApply.timeoutId = setTimeout(() => {
+                  if (!pendingStrategyApply) return;
+                  const pending = pendingStrategyApply;
+                  pendingStrategyApply = null;
+                  restoreStrategyApplyButton(pending);
+                  logOracleAction('RISK_SIGNAL', 'Strategy Apply ACK timeout');
+              }, 8000);
+
+              await window.SantisApi.sendCommand('boardroom.strategy.apply', payload);
+          } catch (err) {
+              console.error('[Strategy Apply] Error:', err);
+              logOracleAction('RISK_SIGNAL', `Strategy Apply Failed`);
+              if (pendingStrategyApply?.timeoutId) {
+                  clearTimeout(pendingStrategyApply.timeoutId);
+              }
+              pendingStrategyApply = null;
+              btnStrategyApply.disabled = false;
+              btnStrategyApply.style.opacity = '1';
+              btnStrategyApply.innerHTML = originalHtml;
+          }
+      });
+  }
 
 });

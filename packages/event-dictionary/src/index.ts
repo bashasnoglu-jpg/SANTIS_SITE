@@ -270,6 +270,37 @@ export const BoardroomOracleExecutedEventSchema = BaseEventSchema.extend({
   payload: BoardroomOracleExecutedPayloadSchema,
 });
 
+export const BoardroomStrategySchema = z.object({
+  type: z.literal("price_adjustment"),
+  deltaPct: z.number(),
+  expectedRevenueDelta: z.number(),
+});
+
+export const BoardroomStrategyOperatorContextSchema = z.object({
+  operatorId: z.string().optional(),
+  source: z.literal("boardroom-ui"),
+});
+
+export const BoardroomStrategyMetaSchema = z.object({
+  confidence: z.number(),
+  trigger: z.string(),
+});
+
+export const BoardroomStrategyAppliedPayloadSchema = z.object({
+  recommendationId: z.string().min(1),
+  sessionId: z.string().min(8),
+  strategy: BoardroomStrategySchema,
+  decision: z.enum(["approve", "reject"]),
+  operatorContext: BoardroomStrategyOperatorContextSchema,
+  meta: BoardroomStrategyMetaSchema.optional(),
+  appliedAt: z.string().datetime(),
+});
+
+export const BoardroomStrategyAppliedEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("boardroom.strategy.applied"),
+  payload: BoardroomStrategyAppliedPayloadSchema,
+});
+
 
 export const SantisEventSchema = z.discriminatedUnion("eventType", [
   MoodSelectedEventSchema,
@@ -284,6 +315,7 @@ export const SantisEventSchema = z.discriminatedUnion("eventType", [
   PricingAutonomousRecommendedEventSchema,
   PricingOverrideAppliedEventSchema,
   BoardroomOracleExecutedEventSchema,
+  BoardroomStrategyAppliedEventSchema,
 ]);
 
 export type SantisEvent = z.infer<typeof SantisEventSchema>;
@@ -361,6 +393,20 @@ export const BoardroomOracleExecuteCommandSchema = BaseCommandSchema.extend({
   payload: BoardroomOracleExecutePayloadSchema,
 });
 
+export const BoardroomStrategyApplyPayloadSchema = z.object({
+  recommendationId: z.string().min(1),
+  sessionId: z.string().min(8),
+  strategy: BoardroomStrategySchema,
+  decision: z.enum(["approve", "reject"]),
+  operatorContext: BoardroomStrategyOperatorContextSchema,
+  meta: BoardroomStrategyMetaSchema.optional(),
+});
+
+export const BoardroomStrategyApplyCommandSchema = BaseCommandSchema.extend({
+  commandType: z.literal("boardroom.strategy.apply"),
+  payload: BoardroomStrategyApplyPayloadSchema,
+});
+
 
 export const SantisCommandSchema = z.discriminatedUnion("commandType", [
   SelectMoodCommandSchema,
@@ -370,6 +416,7 @@ export const SantisCommandSchema = z.discriminatedUnion("commandType", [
   TriggerRiskSignalCommandSchema,
   PricingOverrideCommandSchema,
   BoardroomOracleExecuteCommandSchema,
+  BoardroomStrategyApplyCommandSchema,
 ]);
 
 export type SantisCommand = z.infer<typeof SantisCommandSchema>;

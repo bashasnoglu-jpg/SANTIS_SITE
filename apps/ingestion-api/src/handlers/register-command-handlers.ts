@@ -7,7 +7,9 @@ function ack(command: { commandId: string; traceId?: string }): CommandResult {
     status: "ack",
     commandId: command.commandId,
     traceId: command.traceId || "no-trace-id",
-    processedAt: new Date().toISOString(),
+    acceptedAt: new Date().toISOString(),
+    mode: "sync_completed",
+    resultingEventTypes: [],
   };
 }
 
@@ -61,6 +63,7 @@ export function registerCommandHandlers(bus: SovereignBus): void {
       payload: {
         recommendationId: command.payload.recommendationId,
         decision: command.payload.decision,
+        finalAction: command.payload.decision,
         appliedDeltaPct: command.payload.appliedDeltaPct || 0,
         operatorId: command.payload.operatorId || "system",
       },
@@ -100,6 +103,49 @@ export function registerCommandHandlers(bus: SovereignBus): void {
         accepted: true,
         executedAt: new Date().toISOString(),
         metadata: command.payload.metadata,
+      },
+    } as any);
+
+    return ack(command);
+  });
+
+  bus.commands.registerHandler("boardroom.strategy.apply", async (command: CommandOfType<"boardroom.strategy.apply">) => {
+    const operatorContext = {
+      ...command.payload.operatorContext,
+      operatorId: command.payload.operatorContext.operatorId || "boardroom-operator",
+    };
+
+    await bus.events.publish({
+      eventId: crypto.randomUUID(),
+      eventType: "boardroom.strategy.applied",
+      occurredAt: new Date().toISOString(),
+      traceId: command.traceId,
+      sessionId: command.sessionId,
+      schemaVersion: "v1",
+      tenant: command.tenant || {
+        hotelId: "system",
+        hotelCode: "SYS",
+        region: "GLOBAL",
+        locale: "en",
+        currency: "EUR",
+        activePolicies: [],
+        fallbackMode: false,
+      },
+      intent: {
+        guestId: "system",
+        isReturningGuest: true,
+        segment: "vip",
+        moodAffinity: [],
+        premiumThreshold: 100,
+      },
+      payload: {
+        recommendationId: command.payload.recommendationId,
+        sessionId: command.payload.sessionId,
+        strategy: command.payload.strategy,
+        decision: command.payload.decision,
+        operatorContext,
+        meta: command.payload.meta,
+        appliedAt: new Date().toISOString(),
       },
     } as any);
 

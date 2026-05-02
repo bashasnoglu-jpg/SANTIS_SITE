@@ -161,6 +161,9 @@ async function bootstrap() {
       } else if (evtType === 'boardroom.oracle.executed') {
          wsPayloadType = "ORACLE_LOOPBACK_ACK";
          wsPayloadValue = payloadData.actionId || 1;
+      } else if (evtType === 'boardroom.strategy.applied') {
+         wsPayloadType = "STRATEGY_APPLY_ACK";
+         wsPayloadValue = payloadData.recommendationId || payloadData.sessionId || "strategy-unknown";
       }
 
 

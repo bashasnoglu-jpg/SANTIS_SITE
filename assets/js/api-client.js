@@ -419,19 +419,29 @@ class SantisApiClient {
     console.log(`🦅 [Sovereign Command] Gönderiliyor: ${commandType}`);
     
     try {
-      // Use this.baseUrl or hardcode as requested, but standardizing to relative/baseUrl is safer if proxy exists.
-      // The user snippet uses a local command fallback. I'll use it since it's local env specific, or use this.baseUrl.
       const url = `${this.baseUrl}/commands`;
+      const commandId = this.createCommandId();
+      const traceId = payload?.traceId || this.createCommandId();
+      const sessionId = payload?.sessionId || payload?.sourceSessionId || "boardroom-session";
+      const commandPayload = { ...(payload || {}) };
+      delete commandPayload.traceId;
       
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-Trace-Id': traceId,
+          'X-Session-Id': sessionId
         },
         body: JSON.stringify({
-          type: commandType,
-          payload: payload,
-          timestamp: new Date().toISOString()
+          commandId,
+          commandType,
+          requestedAt: new Date().toISOString(),
+          tenant: this.getDefaultTenantContext(),
+          sessionId,
+          traceId,
+          schemaVersion: "v1",
+          payload: commandPayload
         })
       });
 
@@ -448,6 +458,28 @@ class SantisApiClient {
       console.error('🚨 [Sovereign Command] Başarısız:', error.message);
       throw error;
     }
+  }
+
+  createCommandId() {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") {
+      return window.crypto.randomUUID();
+    }
+
+    return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, (c) =>
+      (Number(c) ^ (Math.random() * 16 >> (Number(c) / 4))).toString(16)
+    );
+  }
+
+  getDefaultTenantContext() {
+    return {
+      hotelId: "123e4567-e89b-12d3-a456-426614174002",
+      hotelCode: "SANTIS",
+      region: "EU",
+      locale: "tr",
+      currency: "EUR",
+      activePolicies: [],
+      fallbackMode: false
+    };
   }
 }
 
