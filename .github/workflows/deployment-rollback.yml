@@ -1,0 +1,111 @@
+name: Rollback Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_sha:
+        description: Commit SHA or image SHA tag to restore
+        required: true
+        type: string
+      reason:
+        description: Operator rollback reason
+        required: true
+        type: string
+      operator:
+        description: Boardroom operator id
+        required: true
+        default: SOVEREIGN_ADMIN
+        type: string
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: bashasnoglu-jpg/santis-sovereign-os
+  TELEMETRY_ENDPOINT: http://localhost:3030/api/v1/telemetry/beacon
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Normalize rollback image contract
+        run: |
+          echo "IMAGE_NAME=${IMAGE_NAME,,}" >> "$GITHUB_ENV"
+          if [[ "${IMAGE_NAME,,}" =~ [A-Z] ]]; then
+            echo "Image name must be lowercase: ${IMAGE_NAME,,}"
+            exit 1
+          fi
+
+      - name: Emit ROLLBACK_REQUESTED
+        run: |
+          curl -X POST $TELEMETRY_ENDPOINT \
+          -H "Content-Type: application/json" \
+          -d '{
+            "event":"ROLLBACK_REQUESTED",
+            "status":"requested",
+            "repository":"${{ github.repository }}",
+            "workflow":"deployment-rollback",
+            "runId":"${{ github.run_id }}",
+            "runUrl":"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+            "sha":"${{ inputs.target_sha }}",
+            "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ inputs.target_sha }}",
+            "operator":"${{ inputs.operator }}",
+            "reason":"${{ inputs.reason }}",
+            "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
+          }'
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull target rollback image
+        run: docker pull $REGISTRY/$IMAGE_NAME:sha-${{ inputs.target_sha }}
+
+      - name: Re-tag target image as latest
+        run: |
+          docker tag $REGISTRY/$IMAGE_NAME:sha-${{ inputs.target_sha }} $REGISTRY/$IMAGE_NAME:latest
+          docker push $REGISTRY/$IMAGE_NAME:latest
+
+      - name: Emit ROLLBACK_COMPLETED
+        if: success()
+        run: |
+          curl -X POST $TELEMETRY_ENDPOINT \
+          -H "Content-Type: application/json" \
+          -d '{
+            "event":"ROLLBACK_COMPLETED",
+            "status":"completed",
+            "repository":"${{ github.repository }}",
+            "workflow":"deployment-rollback",
+            "runId":"${{ github.run_id }}",
+            "runUrl":"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+            "sha":"${{ inputs.target_sha }}",
+            "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest",
+            "operator":"${{ inputs.operator }}",
+            "reason":"${{ inputs.reason }}",
+            "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
+          }'
+
+      - name: Emit ROLLBACK_FAILED
+        if: failure()
+        run: |
+          curl -X POST $TELEMETRY_ENDPOINT \
+          -H "Content-Type: application/json" \
+          -d '{
+            "event":"ROLLBACK_FAILED",
+            "status":"failed",
+            "repository":"${{ github.repository }}",
+            "workflow":"deployment-rollback",
+            "runId":"${{ github.run_id }}",
+            "runUrl":"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+            "sha":"${{ inputs.target_sha }}",
+            "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ inputs.target_sha }}",
+            "operator":"${{ inputs.operator }}",
+            "reason":"${{ inputs.reason }}",
+            "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
+          }'
