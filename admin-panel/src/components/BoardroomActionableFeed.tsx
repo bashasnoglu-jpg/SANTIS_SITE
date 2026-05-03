@@ -232,7 +232,7 @@ export default function BoardroomActionableFeed() {
           <div className="mb-4 border border-sovereign-accent/20 bg-sovereign-coal/30 p-4 rounded-sm">
             <div className="text-xs uppercase tracking-widest text-sovereign-accent mb-3 flex items-center justify-between">
               <span>Strategy Simulation (v3.0)</span>
-              <span className="text-[10px] bg-sovereign-accent/10 px-2 py-0.5 rounded text-sovereign-sand">SAFE AUTONOMY</span>
+              <span className="text-xs bg-sovereign-accent/10 px-2 py-0.5 rounded text-sovereign-sand">SAFE AUTONOMY</span>
             </div>
 
             {strategy.variants.map((v: any) => (
@@ -246,7 +246,7 @@ export default function BoardroomActionableFeed() {
               >
                 <div>
                   <div className="text-sm font-medium text-sovereign-sand">{v.label}</div>
-                  <div className="text-[10px] flex gap-3 mt-1 uppercase tracking-widest">
+                  <div className="text-xs flex gap-3 mt-1 uppercase tracking-widest">
                     <span className="text-yellow-400">Risk: {v.riskScore.toFixed(2)}</span>
                     <span className="text-blue-400">Conf: {v.confidence.toFixed(2)}</span>
                   </div>
@@ -257,7 +257,7 @@ export default function BoardroomActionableFeed() {
                     Δ: +€{Math.round(v.expectedDelta)}
                   </div>
                   {v.id === strategy.recommendedVariantId && (
-                    <button className="text-[10px] uppercase tracking-widest border border-sovereign-accent text-sovereign-accent px-2 py-1 rounded-sm hover:bg-sovereign-accent/20 transition-colors">
+                    <button className="text-xs uppercase tracking-widest border border-sovereign-accent text-sovereign-accent px-2 py-1 rounded-sm hover:bg-sovereign-accent/20 transition-colors">
                       Simulate
                     </button>
                   )}
@@ -337,28 +337,28 @@ export default function BoardroomActionableFeed() {
                             </div>
                             {temporal && !revenueResolved.isSuppressed && (
                               <>
-                                <div className="text-[10px] uppercase tracking-widest text-sovereign-bronze opacity-80 mt-2 border-t border-sovereign-panel/20 pt-2">
+                                <div className="text-xs uppercase tracking-widest text-sovereign-bronze opacity-80 mt-2 border-t border-sovereign-panel/20 pt-2">
                                   wave x{temporal.waveFactor.toFixed(2)}
                                 </div>
-                                <div className="opacity-30 text-[10px]">
+                                <div className="opacity-30 text-xs">
                                   segment: {temporal.segment}
                                 </div>
                               </>
                             )}
                             {revenueResolved.isSuppressed && (
-                              <div className="text-[10px] uppercase tracking-widest text-red-400 opacity-80 mt-2 border-t border-red-500/20 pt-2">
+                              <div className="text-xs uppercase tracking-widest text-red-400 opacity-80 mt-2 border-t border-red-500/20 pt-2">
                                 constraint: {revenueResolved.suppressionReason?.replaceAll('_', ' ')}
                               </div>
                             )}
 
                             {revenueResolved.policy && (
-                              <div className="text-[10px] text-red-400 mt-1">
+                              <div className="text-xs text-red-400 mt-1">
                                 policy: {revenueResolved.policy.reasons.join(", ")}
                               </div>
                             )}
 
                             {/* REASONING EXPLAINABILITY */}
-                            <div className="mt-3 text-[10px] opacity-60 border-t border-sovereign-panel/10 pt-2 space-y-1">
+                            <div className="mt-3 text-xs opacity-60 border-t border-sovereign-panel/10 pt-2 space-y-1">
                               {revenueResolved.reasoning.map((line: string, i: number) => (
                                 <div key={i} className="font-mono">{line}</div>
                               ))}
