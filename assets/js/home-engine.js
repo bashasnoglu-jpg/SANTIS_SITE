@@ -26,7 +26,7 @@ function renderHomeSections(data) {
 
   // 🛡️ Auto-Depth Calculation for Assets
 
-  // This ensures assets load correctly from ANY depth (e.g. tr/cilt-bakimi/)
+  // This ensures assets load correctly from ANY depth (e.g. tr/tr/cilt-bakimi/)
 
   const getRoot = () => {
 

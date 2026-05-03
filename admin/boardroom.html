@@ -884,15 +884,33 @@
         // 3. The Pulse (WebSocket Connection to Sovereign Kernel)
         let wsRetryCount = 0;
         const MAX_WS_RETRIES = 3;
-        function igniteThePulse() {
+        async function getSovereignSessionToken() {
+            const res = await fetch('/api/v1/auth/session', {
+                headers: { 'Accept': 'application/json' },
+                cache: 'no-store'
+            });
+            if (!res.ok) throw new Error(`Session token failed: HTTP ${res.status}`);
+            const data = await res.json();
+            if (!data.token) throw new Error('Session token missing');
+            return data.token;
+        }
+
+        async function igniteThePulse() {
             const feed = document.getElementById('pulse-feed');
             
             // Auto-detect protocol (ws vs wss)
             const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-            // Force God Mode test token specifically for this Dashboard
-            const token = 'hq_boardroom_token';
-            // Use dynamic host to prevent CORS overlaps between 127.0.0.1 and localhost
-            const wsUrl = `${protocol}//${window.location.host}/ws/global/hq?token=${token}`;
+            let token;
+            try {
+                token = await getSovereignSessionToken();
+            } catch (err) {
+                console.warn('Pulse session token alınamadı:', err.message);
+                return;
+            }
+            const wsHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? `${window.location.hostname}:8080`
+                : window.location.host;
+            const wsUrl = `${protocol}//${wsHost}/ws?client_type=hq&token=${encodeURIComponent(token)}`;
             
             console.log("Igniting The Pulse at:", wsUrl);
             const ws = new WebSocket(wsUrl);

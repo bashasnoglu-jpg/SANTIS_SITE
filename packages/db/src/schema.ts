@@ -1,4 +1,5 @@
 import { pgTable, uuid, text, jsonb, timestamp } from "drizzle-orm/pg-core";
+export { waveMemory } from "../schema/wave-memory.js";
 
 // ==========================================
 // KUTSAL KAYIT (EVENT STORE)

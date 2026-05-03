@@ -238,7 +238,7 @@ export const sovereignDebtSeed = [
       "severity": "P3",
       "status": "OPEN",
       "owner": "Frontend",
-      "reason": "tr/hamam/index.html gibi sayfalarda aynı data-bridge veya observer script'i birden çok kez import edilmiş.",
+      "reason": "tr/tr/hamam/index.html gibi sayfalarda aynı data-bridge veya observer script'i birden çok kez import edilmiş.",
       "impact": "Browser thread üzerinde fazladan AST parse payload yükü bindirir (Duplicate Parse/Compile). Ağ bazında time-to-interactive TTI değerini şişirir.",
       "nextAction": "HTML Node parser ile sayfalardaki <script> tagleri unique-map üzerinden taranacak ve tekrarlı bloklar silinecek.",
       "evidence": [

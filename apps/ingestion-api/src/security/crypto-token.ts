@@ -47,9 +47,14 @@ export function verifySessionToken(token: string): SessionTokenPayload {
 
   const [encodedPayload, signature] = parts;
   const expectedSignature = createSignature(encodedPayload, getSecret());
+  const signatureBuffer = Buffer.from(signature);
+  const expectedSignatureBuffer = Buffer.from(expectedSignature);
 
   // Use timing-safe equal to prevent timing attacks
-  if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
+  if (
+    signatureBuffer.length !== expectedSignatureBuffer.length ||
+    !crypto.timingSafeEqual(signatureBuffer, expectedSignatureBuffer)
+  ) {
     throw new Error("Invalid token signature");
   }
 

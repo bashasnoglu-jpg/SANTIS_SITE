@@ -1,5 +1,6 @@
 import { z } from "zod";
-import crypto from "crypto";
+
+const DEVELOPMENT_SESSION_SECRET = "santis-local-development-session-secret-not-for-production";
 
 const SecurityEnvSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
@@ -32,8 +33,8 @@ export function resolveSecurityConfig(env: NodeJS.ProcessEnv = process.env): Sec
   }
 
   if (!data.SESSION_SECRET) {
-    data.SESSION_SECRET = crypto.randomBytes(32).toString("hex");
-    console.warn(`⚠️ [Security Config] Missing SESSION_SECRET in development. A pseudo-random ephemeral secret is being used. Tokens will be invalidated upon restart.`);
+    data.SESSION_SECRET = DEVELOPMENT_SESSION_SECRET;
+    console.warn(`⚠️ [Security Config] Missing SESSION_SECRET in development. Using deterministic local fallback. Set SESSION_SECRET to silence this warning.`);
   }
 
   cachedSecurityConfig = data;

@@ -5,7 +5,7 @@
                 {
                     "image": "assets/img/cards/santis_card_hamam_kese_v2.webp",
                     "title": "Kese Ritüeli",
-                    "link": "tr/hamam/",
+                    "link": "tr/tr/hamam/",
                     "badge": "",
                     "subtitle": "Geleneksel Türk hamamı kese uygulaması",
                     "layout_class": "gallery-item"
@@ -13,7 +13,7 @@
                 {
                     "image": "assets/img/cards/santis_card_hamam_scrub_v2.webp",
                     "title": "Vücut Peeling",
-                    "link": "tr/hamam/",
+                    "link": "tr/tr/hamam/",
                     "badge": "",
                     "subtitle": "Vücut peeling uygulaması bacak detayı",
                     "layout_class": "gallery-item"
@@ -25,7 +25,7 @@
                 {
                     "image": "assets/img/cards/santis_card_massage_oil_v2.webp",
                     "title": "Aroma Terapi",
-                    "link": "tr/masajlar/",
+                    "link": "tr/tr/masajlar/",
                     "badge": "",
                     "subtitle": "Sıcak yağ masajı detayı, lüks spa",
                     "layout_class": "gallery-item"
@@ -33,7 +33,7 @@
                 {
                     "image": "assets/img/cards/santis_card_deep_relax_v2.webp",
                     "title": "Deep Relax",
-                    "link": "tr/masajlar/",
+                    "link": "tr/tr/masajlar/",
                     "badge": "",
                     "subtitle": "Masaj dokusu detay, havlu ve cilt",
                     "layout_class": "gallery-item"
@@ -45,7 +45,7 @@
                 {
                     "image": "assets/img/cards/santis_card_skincare_clay_v2.webp",
                     "title": "Kil Bakımı",
-                    "link": "tr/cilt-bakimi/",
+                    "link": "tr/tr/cilt-bakimi/",
                     "badge": "",
                     "subtitle": "Kil maskesi uygulanan kişi, üstten görünüm",
                     "layout_class": "gallery-item"
@@ -53,7 +53,7 @@
                 {
                     "image": "assets/img/cards/santis_card_skincare_detail_v2.webp",
                     "title": "Detox Maske",
-                    "link": "tr/cilt-bakimi/",
+                    "link": "tr/tr/cilt-bakimi/",
                     "badge": "",
                     "subtitle": "Kil maskesi detay profil görünümü",
                     "layout_class": "gallery-item"

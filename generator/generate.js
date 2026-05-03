@@ -278,7 +278,7 @@ function build() {
 
             // Depth = number of segments in relDirPath.
 
-            // e.g. tr/masajlar/klasik -> 3 segments -> ../../../
+            // e.g. tr/tr/masajlar/klasik -> 3 segments -> ../../../
 
             const depth = relDirPath.split(path.sep).length;
 

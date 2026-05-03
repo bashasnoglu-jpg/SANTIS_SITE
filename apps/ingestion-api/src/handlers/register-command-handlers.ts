@@ -1,6 +1,10 @@
 import crypto from "crypto";
 import type { SovereignBus, CommandOfType } from "@santis/sovereign-bus";
 import type { CommandResult } from "@santis/event-dictionary/command-result";
+import {
+  buildPriceAdjustmentStrategyKey,
+  strategyLearningStore,
+} from "../revenue/strategy-learning.store.js";
 
 function ack(command: { commandId: string; traceId?: string }): CommandResult {
   return {
@@ -114,6 +118,15 @@ export function registerCommandHandlers(bus: SovereignBus): void {
       ...command.payload.operatorContext,
       operatorId: command.payload.operatorContext.operatorId || "boardroom-operator",
     };
+    const strategyKey = buildPriceAdjustmentStrategyKey(command.payload.strategy.deltaPct);
+
+    await strategyLearningStore.recordOperatorDecision({
+      strategyId: command.payload.recommendationId,
+      variantId: command.payload.recommendationId,
+      strategyKey,
+      segment: command.tenant?.hotelCode || "default",
+      decision: command.payload.decision,
+    });
 
     await bus.events.publish({
       eventId: crypto.randomUUID(),
