@@ -9,6 +9,7 @@
     "./schema": "./src/schema.ts"
   },
   "scripts": {
+    "audit:contract": "node scripts/active/audit-contract.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
