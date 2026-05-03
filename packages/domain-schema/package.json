@@ -7,7 +7,8 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "audit:contract": "node scripts/active/audit-contract.mjs"
   },
   "dependencies": {
     "drizzle-orm": "^0.30.0",

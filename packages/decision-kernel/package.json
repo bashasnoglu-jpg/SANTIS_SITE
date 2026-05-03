@@ -7,7 +7,8 @@
     "./concierge": "./src/concierge/concierge.machine.ts"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "audit:contract": "node scripts/active/audit-contract.mjs"
   },
   "dependencies": {
     "xstate": "^5.0.0",

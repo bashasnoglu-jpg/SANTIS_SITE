@@ -4,7 +4,8 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "start": "node --loader ts-node/esm src/index.ts",
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "audit:contract": "node scripts/active/audit-contract.mjs"
   },
   "dependencies": {
     "@santis/db": "workspace:^",
