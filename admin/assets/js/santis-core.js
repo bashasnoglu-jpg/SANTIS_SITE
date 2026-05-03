@@ -103,6 +103,28 @@ class SantisCore {
     
     // Global Error & Memory Leak Monitor
     window.addEventListener('unhandledrejection', this.handleCoreError.bind(this));
+
+    // Zero-Drift Seal: Expose as global for SSE consumer
+    window.SantisCore = this;
+    this.injectZeroDriftStyles();
+  }
+
+  injectZeroDriftStyles() {
+    const style = document.createElement('style');
+    style.id = 'santis-zero-drift-styles';
+    style.textContent = `
+        @keyframes gold-flash-anim {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+            30% { box-shadow: 0 0 30px 5px rgba(212, 175, 55, 0.6); border-color: rgba(212, 175, 55, 0.8); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+        .gold-flash {
+            animation: gold-flash-anim 1s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            z-index: 50;
+        }
+    `;
+    document.head.appendChild(style);
   }
 
   // ----------------------------------------
@@ -126,6 +148,59 @@ class SantisCore {
   
   getState(key) {
       return this.state.get(key);
+  }
+
+  // ----------------------------------------
+  // Zero-Drift Strategy Feedback Loop
+  // ----------------------------------------
+  async rehydrate() {
+    console.log('♻️ [Santis Core] Rehydrating state from Sovereign Kernel...');
+    try {
+        const response = await fetch('/api/v1/core-state');
+        if (response.ok) {
+            const data = await response.json();
+            // CoreState flattening or deep injection logic
+            Object.entries(data).forEach(([key, value]) => {
+                this.setState(key, value);
+            });
+            
+            // Explicitly sync metrics if present
+            if (data.revenue) {
+                this.setState('metrics', {
+                    revenueToday: data.revenue.today,
+                    abandonRisk: (data.sessions || {}).conversionRisk === 'high' ? 0.8 : 0.1
+                });
+            }
+
+            console.log('✅ [Santis Core] Sovereign State synchronized.');
+        }
+    } catch (e) {
+        console.error('Rehydration failed:', e);
+    }
+  }
+
+  triggerVisualFeedback(scope) {
+    // 1. Emit Global Event for specific modules
+    const event = new CustomEvent('santis:visual-feedback', { detail: { scope } });
+    window.dispatchEvent(event);
+
+    // 2. Apply Gold-Flash to relevant UI markers
+    let target = null;
+    if (scope === 'revenue' || scope === 'revenue_update') {
+        target = document.getElementById('global-revenue') || document.querySelector('.bento-card[data-revenue]');
+    } else if (scope === 'core_state' || scope === 'risk_signal') {
+        target = document.getElementById('santis-focus-card') || document.getElementById('score-radar-panel');
+    } else if (scope === 'strategy' || scope === 'strategy_apply_ack') {
+        target = document.getElementById('sovereign-insights');
+    }
+
+    if (target) this.applyGoldFlash(target);
+  }
+
+  applyGoldFlash(el) {
+    if (!el) return;
+    el.classList.add('gold-flash');
+    setTimeout(() => el.classList.remove('gold-flash'), 1000);
   }
 
   // ----------------------------------------
@@ -380,6 +455,7 @@ const SOVEREIGN_CORE_MODULES = [
     '/assets/js/core/santis-vocal-dna.js',
     '/assets/js/core/santis-semantic-engine.js',
     '/assets/js/core/santis-edge-pipeline.js',
+    '/assets/js/core/santis-live-feed.js',
 ];
 
 Promise.allSettled(
