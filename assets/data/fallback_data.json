@@ -3,7 +3,7 @@
         "defaultCurrency": "EUR",
         "routes": {
             "home": "index.html",
-            "hammam": "/tr/hamam/index.html",
+            "hammam": "/hamam.html",
             "massages": "/tr/masajlar/index.html",
             "classic": "/tr/masajlar/index.html",
             "sports": "/tr/masajlar/index.html",
@@ -3199,25 +3199,6 @@
                 "advancedAesthetics",
                 "miniPrograms"
             ]
-        }
-    },
-    "tr": {
-        "nav": {
-            "home": "ANA SAYFA",
-            "hammam": "HAMAM",
-            "massages": "MASAJLAR",
-            "classicMassages": "KLASİK",
-            "sportsTherapy": "SPOR",
-            "asianMassages": "UZAK DOĞU",
-            "ayurveda": "AYURVEDA",
-            "signatureCouples": "PREMIUM",
-            "kidsFamily": "AİLE",
-            "faceSothys": "CİLT BAKIMI",
-            "products": "ÜRÜNLER",
-            "gallery": "GALERİ",
-            "about": "HAKKIMIZDA",
-            "team": "EKİBİMİZ",
-            "bookingWhatsapp": "HEMEN REZERVASYON"
         }
     }
 }

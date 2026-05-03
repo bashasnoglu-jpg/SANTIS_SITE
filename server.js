@@ -23,12 +23,21 @@
  *   WS   /ws
  */
 
-const http = require('http');
-const fs   = require('fs');
-const path = require('path');
-const crypto = require('crypto');
-const mediaManifest = require('./admin/omniverse/media-manifest-engine.js');
-const { CoreStateSnapshot } = require('./server/core/state/core-state.snapshot.js');
+import http from 'http';
+import fs from 'fs';
+import path from 'path';
+import crypto from 'crypto';
+import mediaManifest from './admin/omniverse/media-manifest-engine.js';
+import { CoreStateSnapshot } from './server/core/state/core-state.snapshot.js';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+console.error('\n🚨 [KILL SWITCH ACTIVATED] 🚨');
+console.error('server.js has been deprecated in favor of the new Sovereign Backend Topology.');
+console.error('Please run the backend via apps/ingestion-api.');
+process.exit(1);
 
 const PORT = 3030;
 const ROOT = __dirname;

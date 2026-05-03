@@ -1,7 +1,11 @@
-const { spawn, execSync, exec } = require('child_process');
-const path = require('path');
-const os = require('os');
-const fs = require('fs');
+import { spawn, execSync, exec } from 'child_process';
+import path from 'path';
+import os from 'os';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const isWin = os.platform() === 'win32';
 const NPM_CMD = isWin ? 'npm.cmd' : 'npm'; // use exact cmd for Windows
@@ -70,11 +74,23 @@ try {
 const processes = {
     backend: {
         name: 'SOVEREIGN_SERVER',
-        cmd: 'node',
-        args: ['server.js'],
-        cwd: process.cwd(),
+        cmd: NPM_CMD,
+        args: ['run', 'dev'],
+        cwd: path.join(process.cwd(), 'apps', 'ingestion-api'),
         color: '\x1b[32m', // Green
-        shell: false, 
+        shell: isWin, 
+        env: {
+            ...process.env,
+            SESSION_SECRET: process.env.SESSION_SECRET || 'santis-local-dev-session-secret-override-in-env',
+            WS_ALLOWED_ORIGINS: process.env.WS_ALLOWED_ORIGINS || [
+                'http://localhost:5173',
+                'http://127.0.0.1:5173',
+                'http://localhost:5500',
+                'http://127.0.0.1:5500',
+                'http://localhost:3030',
+                'http://127.0.0.1:3030',
+            ].join(','),
+        },
         ref: null,
         restarts: 0
     },
@@ -123,7 +139,8 @@ function launchProcess(key) {
 
     const child = spawn(config.cmd, config.args, { 
         cwd: config.cwd,
-        shell: config.shell 
+        shell: config.shell,
+        env: config.env || process.env,
     });
     config.ref = child;
 
@@ -160,7 +177,7 @@ function launchProcess(key) {
 // 1. Backend
 launchProcess('backend');
 
-setTimeout(() => launchProcess('forge'), 3000);
+// setTimeout(() => launchProcess('forge'), 3000); // OPTIONAL - Disabled in dev
 
 // 2. Frontend ve Tarayıcı
 setTimeout(() => {

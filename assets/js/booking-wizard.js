@@ -25,34 +25,34 @@ if (typeof window.BOOKING_WIZARD === 'undefined') {
         // Keys match santis-core.js mood IDs
         recommendations: {
             'fatigued': [
-                { slug: 'signature-rituel', name: 'Signature Ritüel', desc: 'Santis İmzalı Bütüncül Terapi (75dk)', url: 'tr/masajlar/signature-rituel.html' },
-                { slug: 'hammam-ottoman', name: 'Osmanlı Hamam Geleneği', desc: 'Sıcak taş ve köpük ile tam arınma', url: 'tr/hamam/osmanli-hamam-gelenegi.html' },
-                { slug: 'hammam-peeling', name: 'Peeling + Köpük', desc: 'Hızlı ve etkili yenilenme', url: 'tr/hamam/kese-kopuk.html' },
-                { slug: 'massage-deep', name: 'Derin Doku (Spor) Masajı', desc: 'Kas gerginliği ve laktik asit atılımı', url: 'tr/masajlar/spor-masaji.html' }
+                { slug: 'signature-rituel', name: 'Signature Ritüel', desc: 'Santis İmzalı Bütüncül Terapi (75dk)', url: 'tr/tr/masajlar/signature-rituel.html' },
+                { slug: 'hammam-ottoman', name: 'Osmanlı Hamam Geleneği', desc: 'Sıcak taş ve köpük ile tam arınma', url: 'tr/tr/hamam/osmanli-hamam-gelenegi.html' },
+                { slug: 'hammam-peeling', name: 'Peeling + Köpük', desc: 'Hızlı ve etkili yenilenme', url: 'tr/tr/hamam/kese-kopuk.html' },
+                { slug: 'massage-deep', name: 'Derin Doku (Spor) Masajı', desc: 'Kas gerginliği ve laktik asit atılımı', url: 'tr/tr/masajlar/spor-masaji.html' }
             ],
 
             'stressed': [
-                { slug: 'signature-rituel', name: 'Signature Ritüel', desc: 'Santis İmzalı Bütüncül Terapi (75dk)', url: 'tr/masajlar/signature-rituel.html' },
-                { slug: 'massage-foam', name: 'Köpük Masajı', desc: 'Nazik ve rahatlatıcı', url: 'tr/hamam/kopuk-masaji.html' },
-                { slug: 'massage-aroma', name: 'Aromaterapi Masajı', desc: 'Kokularla zihinsel dinginlik', url: 'tr/masajlar/aromaterapi-masaji.html' },
-                { slug: 'massage-head', name: 'Hint Baş Masajı', desc: 'Zihni boşaltmak için', url: 'tr/masajlar/bas-boyun-omuz.html' },
-                { slug: 'facial-sensitive', name: 'Sothys Hassas Bakım', desc: 'Cildi yatıştırır', url: 'tr/cilt-bakimi/sensitive-soothe.html' }
+                { slug: 'signature-rituel', name: 'Signature Ritüel', desc: 'Santis İmzalı Bütüncül Terapi (75dk)', url: 'tr/tr/masajlar/signature-rituel.html' },
+                { slug: 'massage-foam', name: 'Köpük Masajı', desc: 'Nazik ve rahatlatıcı', url: 'tr/tr/hamam/kopuk-masaji.html' },
+                { slug: 'massage-aroma', name: 'Aromaterapi Masajı', desc: 'Kokularla zihinsel dinginlik', url: 'tr/tr/masajlar/aromaterapi-masaji.html' },
+                { slug: 'massage-head', name: 'Hint Baş Masajı', desc: 'Zihni boşaltmak için', url: 'tr/tr/masajlar/bas-boyun-omuz.html' },
+                { slug: 'facial-sensitive', name: 'Sothys Hassas Bakım', desc: 'Cildi yatıştırır', url: 'tr/tr/cilt-bakimi/sensitive-soothe.html' }
             ],
 
             'drained': [
-                { slug: 'hammam-coffee', name: 'Kahve Peeling', desc: 'Canlandırıcı etki', url: 'tr/hamam/kahve-detox.html' },
-                { slug: 'massage-detox', name: 'Detox Masajı', desc: 'Toksin atımı ve enerji', url: 'tr/masajlar/lenf-drenaj.html' },
-                { slug: 'sothys-glow', name: 'Sothys Glow & Detox', desc: 'Cilde ışıltı verir', url: 'tr/cilt-bakimi/vitamin-c-glow.html' }
+                { slug: 'hammam-coffee', name: 'Kahve Peeling', desc: 'Canlandırıcı etki', url: 'tr/tr/hamam/kahve-detox.html' },
+                { slug: 'massage-detox', name: 'Detox Masajı', desc: 'Toksin atımı ve enerji', url: 'tr/tr/masajlar/lenf-drenaj.html' },
+                { slug: 'sothys-glow', name: 'Sothys Glow & Detox', desc: 'Cilde ışıltı verir', url: 'tr/tr/cilt-bakimi/vitamin-c-glow.html' }
             ],
 
             'sensitive': [
-                { slug: 'facial-calm', name: 'Sothys Yatıştırıcı Bakım', desc: 'Kızarıklık karşıtı', url: 'tr/cilt-bakimi/sensitive-soothe.html' },
-                { slug: 'massage-soft', name: 'Relax Masajı', desc: 'Yumuşak dokunuşlar', url: 'tr/masajlar/klasik-masaj.html' }
+                { slug: 'facial-calm', name: 'Sothys Yatıştırıcı Bakım', desc: 'Kızarıklık karşıtı', url: 'tr/tr/cilt-bakimi/sensitive-soothe.html' },
+                { slug: 'massage-soft', name: 'Relax Masajı', desc: 'Yumuşak dokunuşlar', url: 'tr/tr/masajlar/klasik-masaj.html' }
             ],
 
             'care': [
-                { slug: 'sothys-hydra', name: 'Sothys Hydra 4Ha', desc: 'Yoğun nem desteği', url: 'tr/cilt-bakimi/hyaluron-hydrate.html' },
-                { slug: 'sothys-antiage', name: 'Sothys Gençlik Bakımı', desc: 'Premium anti-aging', url: 'tr/cilt-bakimi/anti-aging-pro.html' }
+                { slug: 'sothys-hydra', name: 'Sothys Hydra 4Ha', desc: 'Yoğun nem desteği', url: 'tr/tr/cilt-bakimi/hyaluron-hydrate.html' },
+                { slug: 'sothys-antiage', name: 'Sothys Gençlik Bakımı', desc: 'Premium anti-aging', url: 'tr/tr/cilt-bakimi/anti-aging-pro.html' }
             ]
 
         },

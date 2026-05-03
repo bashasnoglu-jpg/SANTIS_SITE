@@ -5,10 +5,11 @@ import { resolveRevenueDecision } from "../revenue/revenue-decision-engine.js";
 import { resolveConflicts } from "../revenue/conflict-resolution-engine.js";
 import { resolveTemporalWave } from "../revenue/temporal-wave-engine.js";
 import { buildPricingCurve } from "../revenue/pricing-curve-engine.js";
-import { applyConstraints } from "../revenue/constraint-engine.js";
+import { applyConstraints, type ConstrainedDecision } from "../revenue/constraint-engine.js";
+import { applyPolicy } from "../revenue/policy-engine.js";
 import { recordDecision, getLedger } from "../revenue/revenue-audit-ledger.js";
 
-export const revenueRouter = Router();
+export const revenueRouter: Router = Router();
 
 type RevenueBroadcast = (message: unknown) => void;
 let broadcastRevenueMessage: RevenueBroadcast = () => {};
@@ -59,9 +60,23 @@ revenueRouter.get("/recommendations", async (req: Request, res: Response) => {
   const ranked = rankRevenueDecisions(signals);
   const resolved = resolveConflicts(ranked);
 
+  const coreState = {
+    boardroom: { vipSessions: 1 }, // mock
+    hesitationIndex: 80,
+    clinical: { requires_host_review: false }
+  };
+
+  const segment =
+    coreState.boardroom.vipSessions > 0
+      ? "vip"
+      : coreState.hesitationIndex > 70
+      ? "new_user"
+      : "default";
+
   const temporal = await resolveTemporalWave({
     timestamp: Date.now(),
     demandLevel: "high", // Boardroom/CoreState’ten gelecek
+    segment,
   });
 
   // Mock Constraint Context
@@ -73,7 +88,7 @@ revenueRouter.get("/recommendations", async (req: Request, res: Response) => {
     priceFloor: 80, // max 20% decrease
   };
 
-  let final = resolved;
+  let final: ConstrainedDecision | null = null;
 
   if (resolved) {
     const adjustedNet = resolved.netValue * temporal.waveFactor;
@@ -89,6 +104,35 @@ revenueRouter.get("/recommendations", async (req: Request, res: Response) => {
     };
 
     final = applyConstraints(temporarilyAdjusted, context);
+
+    if (final && !final.isSuppressed) {
+      const policy = applyPolicy({
+        action: final.finalAction,
+        value: final.netValue,
+        segment,
+        isVIP: coreState.boardroom.vipSessions > 0,
+        medicalAlert: coreState.clinical.requires_host_review,
+        priceCeiling: 0.25,
+        priceFloor: -0.25,
+      });
+
+      if (!policy.allowed) {
+        final = {
+          ...final,
+          isSuppressed: true,
+          suppressionReason: policy.reasons[0],
+          reasoning: [...final.reasoning, ...policy.reasons],
+        } as any;
+      } else {
+        final = {
+          ...final,
+          netValue: policy.adjustedValue ?? final.netValue,
+          reasoning: [...final.reasoning, ...policy.reasons],
+        };
+      }
+
+      (final as any).policy = { action: policy.action, reasons: policy.reasons };
+    }
   }
 
   const curve = final ? buildPricingCurve(final.netValue) : null;
@@ -101,6 +145,7 @@ revenueRouter.get("/recommendations", async (req: Request, res: Response) => {
       wave: temporal,
       constraints: context,
       final: final.netValue,
+      policy: (final as any).policy,
       timestamp: Date.now(),
     });
   }

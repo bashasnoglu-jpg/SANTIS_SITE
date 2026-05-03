@@ -19,6 +19,7 @@ import pricingRouter from "./routes/pricing.route";
 import streamRoutes from "./routes/stream.route";
 import { registerCoreStateRoute } from "./routes/core-state";
 import { createCoreStateStreamRouter } from "./routes/core-state-stream";
+import strategyRoutes from "./routes/strategy.js";
 
 import { authRouter } from "./routes/auth.routes";
 import { verifySessionToken } from "./security/crypto-token";
@@ -255,6 +256,7 @@ async function bootstrap() {
   app.use("/api/v1", navRouter);
   app.use("/api/v1/rituals/pricing", pricingRouter);
   app.use("/api/v1/stream", streamRoutes);
+  app.use("/api/v1/strategy", strategyRoutes);
   
   registerCoreStateRoute(app);
   app.use("/api/v1", createCoreStateStreamRouter());

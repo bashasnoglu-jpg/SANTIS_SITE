@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { CheckCircle2, ShieldAlert, Zap } from 'lucide-react';
 import { useSovereignWebSocket } from '../hooks/useSovereignWebSocket';
 import { useRevenueRecommendations } from '../hooks/useRevenueRecommendations';
+import { useStrategy } from '../hooks/useStrategy';
 
 type BoardroomDecisionSeverity = 'low' | 'medium' | 'high' | 'critical';
 type BoardroomDecisionReason =
@@ -66,6 +67,7 @@ export default function BoardroomActionableFeed() {
   const { latestMessage } = useSovereignWebSocket();
   const [recommendations, setRecommendations] = useState<BoardroomRecommendation[]>([]);
   const { ranked: revenue, resolved: revenueResolved, temporal } = useRevenueRecommendations();
+  const strategy = useStrategy();
   const [busyId, setBusyId] = useState<string | null>(null);
   const [sealedIds, setSealedIds] = useState<Set<string>>(new Set());
   const [feedbackById, setFeedbackById] = useState<Record<string, number>>({});
@@ -226,7 +228,44 @@ export default function BoardroomActionableFeed() {
       )}
 
       <div className="space-y-3">
+        {strategy && (
+          <div className="mb-4 border border-sovereign-accent/20 bg-sovereign-coal/30 p-4 rounded-sm">
+            <div className="text-xs uppercase tracking-widest text-sovereign-accent mb-3 flex items-center justify-between">
+              <span>Strategy Simulation (v3.0)</span>
+              <span className="text-[10px] bg-sovereign-accent/10 px-2 py-0.5 rounded text-sovereign-sand">SAFE AUTONOMY</span>
+            </div>
 
+            {strategy.variants.map((v: any) => (
+              <div
+                key={v.id}
+                className={`p-3 mb-2 border rounded-sm flex items-center justify-between ${
+                  v.id === strategy.recommendedVariantId
+                    ? "border-sovereign-accent/60 bg-sovereign-accent/10"
+                    : "border-sovereign-panel/30 opacity-50"
+                }`}
+              >
+                <div>
+                  <div className="text-sm font-medium text-sovereign-sand">{v.label}</div>
+                  <div className="text-[10px] flex gap-3 mt-1 uppercase tracking-widest">
+                    <span className="text-yellow-400">Risk: {v.riskScore.toFixed(2)}</span>
+                    <span className="text-blue-400">Conf: {v.confidence.toFixed(2)}</span>
+                  </div>
+                </div>
+
+                <div className="text-right flex items-center gap-4">
+                  <div className="text-sm font-bold text-green-400">
+                    Δ: +€{Math.round(v.expectedDelta)}
+                  </div>
+                  {v.id === strategy.recommendedVariantId && (
+                    <button className="text-[10px] uppercase tracking-widest border border-sovereign-accent text-sovereign-accent px-2 py-1 rounded-sm hover:bg-sovereign-accent/20 transition-colors">
+                      Simulate
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
         {orderedRecommendations.length === 0 ? (
           <div className="text-sm text-sovereign-bronze py-6 text-center border border-dashed border-sovereign-panel rounded-sm">
@@ -297,13 +336,24 @@ export default function BoardroomActionableFeed() {
                               </div>
                             </div>
                             {temporal && !revenueResolved.isSuppressed && (
-                              <div className="text-[10px] uppercase tracking-widest text-sovereign-bronze opacity-80 mt-2 border-t border-sovereign-panel/20 pt-2">
-                                wave x{temporal.waveFactor.toFixed(2)}
-                              </div>
+                              <>
+                                <div className="text-[10px] uppercase tracking-widest text-sovereign-bronze opacity-80 mt-2 border-t border-sovereign-panel/20 pt-2">
+                                  wave x{temporal.waveFactor.toFixed(2)}
+                                </div>
+                                <div className="opacity-30 text-[10px]">
+                                  segment: {temporal.segment}
+                                </div>
+                              </>
                             )}
                             {revenueResolved.isSuppressed && (
                               <div className="text-[10px] uppercase tracking-widest text-red-400 opacity-80 mt-2 border-t border-red-500/20 pt-2">
                                 constraint: {revenueResolved.suppressionReason?.replaceAll('_', ' ')}
+                              </div>
+                            )}
+
+                            {revenueResolved.policy && (
+                              <div className="text-[10px] text-red-400 mt-1">
+                                policy: {revenueResolved.policy.reasons.join(", ")}
                               </div>
                             )}
 

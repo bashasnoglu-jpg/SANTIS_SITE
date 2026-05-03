@@ -71,7 +71,7 @@
 
     // 🛡️ DOKU UYUŞMAZLIĞI KALKANI (Tissue Rejection Bypass)
     // Sadece Matrix Pano sayfalarında SPA geçerlidir. Detay sayfalarında klasik DOM yüklenmeli.
-    const isPublicDetail = link.pathname.includes('.html') || link.pathname.includes('/massages/') || link.pathname.includes('/hamam/') || link.hasAttribute('data-hard-nav');
+    const isPublicDetail = link.pathname.includes('.html') || link.pathname.includes('/massages/') || link.pathname.includes('/tr/hamam/') || link.hasAttribute('data-hard-nav');
     
     // Eğer "/admin" yolunda değilsek ve detay sayfalarından birine gidiyorsak bypass et:
     if (isPublicDetail && !link.pathname.startsWith('/admin')) {

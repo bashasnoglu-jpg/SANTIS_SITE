@@ -12,31 +12,31 @@ const navManifest = {
       hooks: { onEnter: "fade" }
     },
     {
-      path: "/masajlar/index.html",
+      path: "/tr/masajlar/index.html",
       title: { tr: "Masajlar", en: "Massages" },
       nav: { group: "service", weight: 10, menu: "mega-services" },
       hooks: { onEnter: "liquid-wave" }
     },
     {
-      path: "/hamam/index.html",
+      path: "/tr/hamam/index.html",
       title: { tr: "Hamam", en: "Turkish Bath" },
       nav: { group: "service", weight: 20, menu: "mega-services" },
       hooks: { onEnter: "liquid-wave" }
     },
     {
-      path: "/cilt-bakimi/index.html",
+      path: "/tr/cilt-bakimi/index.html",
       title: { tr: "Cilt Bakımı", en: "Skin Care" },
       nav: { group: "service", weight: 30, menu: "mega-services" },
       hooks: { onEnter: "liquid-wave" }
     },
     {
-      path: "/felsefe/index.html",
-      title: { tr: "Felsefemiz", en: "Our Philosophy" },
+      path: "/tr/hakkimizda/index.html",
+      title: { tr: "Hakkımızda", en: "About Us" },
       nav: { group: "brand", weight: 40 },
       hooks: { onEnter: "fade" }
     },
     {
-      path: "/iletisim/index.html",
+      path: "/iletisim.html",
       title: { tr: "İletişim", en: "Contact" },
       nav: { group: "action", weight: 100 },
       hooks: { onEnter: "fade" }

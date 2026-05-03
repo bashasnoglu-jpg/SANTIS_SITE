@@ -27,6 +27,4 @@ function appendEvent(event){
     });
 }
 
-export {
-    appendEvent
-};
+export { appendEvent };

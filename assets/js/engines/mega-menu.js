@@ -15,7 +15,7 @@
  *         <button aria-expanded="false" aria-controls="panel-hamam">Hamam</button>
  *         <div id="panel-hamam" role="region" aria-label="Hamam Menüsü" hidden>
  *           <a href="/hamam">Sultan Hamamı</a>
- *           <a href="/hamam/ritual">Hamam Ritüeli</a>
+ *           <a href="/tr/hamam/ritual">Hamam Ritüeli</a>
  *         </div>
  *       </li>
  *     </ul>

@@ -1,8 +1,9 @@
-import { getWaveSuccessRate } from "./wave-memory.js";
+import { resolveSegmentedSuccessRate, buildKey } from "./wave-memory.js";
 
 export interface TemporalContext {
   timestamp: number;
   demandLevel: "low" | "normal" | "high";
+  segment: string;
 }
 
 export interface WaveResult {
@@ -11,6 +12,7 @@ export interface WaveResult {
   successRate: number;
   key: string;
   band: string;
+  segment: string;
 }
 
 export async function resolveTemporalWave(input: TemporalContext): Promise<WaveResult> {
@@ -35,10 +37,10 @@ export async function resolveTemporalWave(input: TemporalContext): Promise<WaveR
   const day = date.getDay();
   if (day === 0 || day === 6) { factor += 0.15; r.push("weekend"); }
 
-  const key = `${band}|${input.demandLevel}`;
+  const key = buildKey(input.segment, band, input.demandLevel);
 
   // 🔥 GLOBAL MEMORY READ
-  const successRate = await getWaveSuccessRate(key);
+  const successRate = await resolveSegmentedSuccessRate(input.segment, band, input.demandLevel);
 
   factor = factor * (0.8 + successRate * 0.4);
 
@@ -47,6 +49,7 @@ export async function resolveTemporalWave(input: TemporalContext): Promise<WaveR
 
   return {
     band,
+    segment: input.segment,
     waveFactor: factor,
     successRate,
     key,

@@ -3,6 +3,10 @@ import {
   OracleExecutionOutcomeSchema,
 } from "./oracle-execution-outcome.contract.js";
 import { oracleExecutionOutcomeStore } from "./oracle-execution-outcome.store.js";
+import {
+  inferStrategyKeyFromVariantId,
+  strategyLearningStore,
+} from "../revenue/strategy-learning.store.js";
 
 export const oracleExecutionOutcomeRouter: import('express').Router = Router();
 
@@ -29,10 +33,24 @@ oracleExecutionOutcomeRouter.post("/execution-outcomes", async (req: Request, re
   }
 
   const record = await oracleExecutionOutcomeStore.append(parsed.data);
+  const learningRecord = await strategyLearningStore.recordExecutionOutcome({
+    strategyId: record.planId,
+    variantId: record.scenarioId || record.planId,
+    strategyKey: inferStrategyKeyFromVariantId(record.scenarioId || record.planId),
+    segment: record.targetNodeId || "default",
+    executionStatus: record.executionStatus,
+    forecastRevenueLift: record.forecastRevenueLift,
+    actualRevenueLift: record.actualRevenueLift,
+    forecastConfidence: record.forecastConfidence,
+    actualConfidence: record.actualConfidence,
+  });
 
   return res.status(201).json({
     success: true,
     timestamp: new Date().toISOString(),
-    data: record,
+    data: {
+      outcome: record,
+      learning: learningRecord,
+    },
   });
 });

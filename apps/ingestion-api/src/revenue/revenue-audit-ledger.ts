@@ -6,6 +6,7 @@ interface AuditEntry {
   resolved: any;
   wave: any;
   constraints: any;
+  policy?: any;
   final: number;
   timestamp: number;
 }
