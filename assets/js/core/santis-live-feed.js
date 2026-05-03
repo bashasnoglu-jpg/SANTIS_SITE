@@ -41,6 +41,16 @@ class SantisLiveFeed {
             // Heartbeat received, no action needed but confirms connection health
         });
 
+        // 🎯 Command Acknowledgment Listener
+        this.source.addEventListener("command_ack", (event) => {
+            try {
+                const envelope = JSON.parse(event.data);
+                this.handleCommandAck(envelope.data);
+            } catch (err) {
+                console.error("🚨 [Santis SSE] Command Ack parse error:", err);
+            }
+        });
+
         this.source.onopen = () => {
             console.log("%c✅ [Santis SSE] Core Stream Established.", "color: #00ff00;");
             this.reconnectAttempts = 0;
@@ -93,6 +103,23 @@ class SantisLiveFeed {
 
         // Apply Patch to Global State & UI
         this.applyPatch(scope, patch);
+    }
+
+    /**
+     * Handles command acknowledgments for bidirectional C2 feedback.
+     */
+    handleCommandAck(data) {
+        const { patch } = data;
+        console.log(`%c🎯 [SSE] Command Ack Received | Action: ${patch.action}`, "color: #00ffc2; font-weight: bold;");
+
+        window.dispatchEvent(new CustomEvent("santis:command-ack", {
+            detail: {
+                action: patch.action,
+                status: patch.status,
+                commandId: patch.commandId,
+                timestamp: Date.now()
+            }
+        }));
     }
 
     applyPatch(scope, patch) {

@@ -301,6 +301,30 @@ export const BoardroomStrategyAppliedEventSchema = BaseEventSchema.extend({
   payload: BoardroomStrategyAppliedPayloadSchema,
 });
 
+export const BoardroomOverrideAppliedPayloadSchema = z.object({
+  action: z.enum([
+    "force_reduce_ui",
+    "handoff_to_human",
+    "lock_recommendation",
+    "suppress_upsell",
+    "freeze_session",
+  ]),
+  reason: z.enum([
+    "high_hesitation",
+    "pricing_risk",
+    "vip_exception",
+    "operator_intervention",
+  ]),
+  operatorId: z.string(),
+  appliedAt: z.string().datetime(),
+  meta: z.record(z.unknown()).optional(),
+});
+
+export const BoardroomOverrideAppliedEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("boardroom.override.applied"),
+  payload: BoardroomOverrideAppliedPayloadSchema,
+});
+
 
 export const SantisEventSchema = z.discriminatedUnion("eventType", [
   MoodSelectedEventSchema,
@@ -316,6 +340,7 @@ export const SantisEventSchema = z.discriminatedUnion("eventType", [
   PricingOverrideAppliedEventSchema,
   BoardroomOracleExecutedEventSchema,
   BoardroomStrategyAppliedEventSchema,
+  BoardroomOverrideAppliedEventSchema,
 ]);
 
 export type SantisEvent = z.infer<typeof SantisEventSchema>;
@@ -407,6 +432,29 @@ export const BoardroomStrategyApplyCommandSchema = BaseCommandSchema.extend({
   payload: BoardroomStrategyApplyPayloadSchema,
 });
 
+export const BoardroomOverrideApplyPayloadSchema = z.object({
+  action: z.enum([
+    "force_reduce_ui",
+    "handoff_to_human",
+    "lock_recommendation",
+    "suppress_upsell",
+    "freeze_session",
+  ]),
+  reason: z.enum([
+    "high_hesitation",
+    "pricing_risk",
+    "vip_exception",
+    "operator_intervention",
+  ]),
+  operatorId: z.string().optional(),
+  meta: z.record(z.unknown()).optional(),
+});
+
+export const BoardroomOverrideApplyCommandSchema = BaseCommandSchema.extend({
+  commandType: z.literal("boardroom.override.apply"),
+  payload: BoardroomOverrideApplyPayloadSchema,
+});
+
 
 export const SantisCommandSchema = z.discriminatedUnion("commandType", [
   SelectMoodCommandSchema,
@@ -417,6 +465,7 @@ export const SantisCommandSchema = z.discriminatedUnion("commandType", [
   PricingOverrideCommandSchema,
   BoardroomOracleExecuteCommandSchema,
   BoardroomStrategyApplyCommandSchema,
+  BoardroomOverrideApplyCommandSchema,
 ]);
 
 export type SantisCommand = z.infer<typeof SantisCommandSchema>;
