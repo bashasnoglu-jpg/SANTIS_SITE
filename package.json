@@ -15,7 +15,11 @@
     "db:push": "pnpm --filter @santis/domain-schema db:push",
     "test:quality:static": "turbo run test:quality:static",
     "test:quality:runtime": "turbo run test:quality:runtime",
-    "audit:runtime": "node scripts/audit-runtime-contract.js"
+    "audit:runtime": "node scripts/audit-runtime-contract.js",
+    "audit:env": "node scripts/active/audit-environment.js",
+    "audit:workspace": "node scripts/active/audit-workspace-scripts.js",
+    "audit:all": "pnpm run audit:env && pnpm run audit:workspace",
+    "prebuild": "pnpm run audit:all"
   },
   "dependencies": {
     "zod": "^3.22.4"
