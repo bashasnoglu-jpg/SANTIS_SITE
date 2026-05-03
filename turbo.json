@@ -21,6 +21,10 @@
     "test:quality:runtime": {
       "dependsOn": ["^build"],
       "outputs": ["playwright-report/**", "test-results/**"]
+    },
+    "audit:contract": {
+      "cache": false,
+      "inputs": ["scripts/active/*.mjs", "package.json"]
     }
   }
 }
