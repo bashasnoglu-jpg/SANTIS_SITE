@@ -1,25 +1,34 @@
-# Sovereign V18 Production Turbine
-FROM node:20-alpine AS builder
+# Sovereign Production Turbine v2.1
+# Optimized for pnpm Monorepo and Zero-Jank deployment
 
+FROM node:20-slim AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
+FROM base AS builder
 WORKDIR /app
-
-# Sadece backend bağımlılıklarını kur (hızlı önbellek)
-COPY backend/package*.json ./backend/
-RUN cd backend && npm ci
-
-# Tüm projeyi kopyala (Frontend + Backend)
 COPY . .
+RUN pnpm install --frozen-lockfile
 
-# Final imajı
-FROM node:20-alpine
+# Use pnpm deploy to isolate the ingestion-api and its production dependencies
+RUN pnpm --filter=@santis/ingestion-api --prod deploy /prod/ingestion-api
 
+# Production Runner
+FROM node:20-slim AS runner
 WORKDIR /app
-COPY --from=builder /app /app
+
+# Enable corepack and install runtime TS engines globally
+RUN corepack enable && pnpm add -g ts-node typescript
+
+# Copy the standalone deployment bundle
+COPY --from=builder /prod/ingestion-api ./
 
 ENV NODE_ENV=production
-ENV PORT=8080
+ENV PORT=3030
 
-EXPOSE 8080
+EXPOSE 3030
 
-# Sovereign Gateway'i Başlat
-CMD ["node", "backend/src/gateway.js"]
+# Sovereign Ingestion API'yi Başlat
+# We use ts-node-esm for direct execution of TS files in production
+CMD ["ts-node-esm", "src/index.ts"]
