@@ -6,12 +6,16 @@ export interface SovereignContext {
   timestamp: number;
 }
 
+export type SovereignAction<TPayload, TResult> = (
+  ctx: SovereignContext,
+  payload: TPayload
+) => Promise<TResult>;
+
 export interface CoreState {
   activeTenants: Map<string, SovereignContext>;
   suspendTenant: (tenantId: string, reason: string) => void;
 }
 
-// Minimal default in-memory implementation (non-invasive)
 export const createCoreState = (): CoreState => {
   const activeTenants = new Map<string, SovereignContext>();
 
