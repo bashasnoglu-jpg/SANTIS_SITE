@@ -1,0 +1,39 @@
+name: "Santis OS — Sovereign CI/CD"
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  seal:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout Sovereign Source"
+        uses: actions/checkout@v4
+
+      - name: "Initialize Node & Corepack"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: "Enable Corepack"
+        run: corepack enable
+
+      - name: "Resolve pnpm version"
+        run: corepack prepare pnpm@9.1.0 --activate
+
+      - name: "Sovereign Dependency Fetch"
+        run: pnpm fetch
+
+      - name: "Install Dependencies (Offline/Frozen)"
+        run: pnpm install --offline --frozen-lockfile
+
+      - name: "🛡️ Execute Sovereign Guards"
+        run: pnpm run audit:all
+
+      - name: "Build Sovereign Artifacts"
+        run: pnpm run build
