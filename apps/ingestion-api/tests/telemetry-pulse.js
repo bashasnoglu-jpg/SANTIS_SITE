@@ -10,7 +10,13 @@ const TEST_PAYLOAD = {
 
 async function firePulse() {
   try {
-    const response = await fetch("http://localhost:3030/api/v1/telemetry/pulse", {
+    const baseUrl = process.env.SANTIS_INGESTION_API_URL;
+
+    if (!baseUrl) {
+      throw new Error("SANTIS_INGESTION_API_URL is required for telemetry pulse tests.");
+    }
+
+    const response = await fetch(`${baseUrl}/api/v1/telemetry/pulse`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
