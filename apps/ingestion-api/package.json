@@ -11,7 +11,6 @@
   "dependencies": {
     "@santis/db": "workspace:^",
     "@santis/decision-kernel": "workspace:*",
-    "@santis/domain-schema": "workspace:*",
     "@santis/event-dictionary": "workspace:*",
     "@google-cloud/bigquery": "^7.9.0",
     "cors": "^2.8.5",

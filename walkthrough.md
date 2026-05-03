@@ -9,7 +9,7 @@ I have modernized and standardized the Docker deployment pipeline for Santis OS,
     - Base image switched to `node:20-slim`.
     - Enabled `Corepack` for automatic `pnpm` management.
     - Implemented `pnpm --prod deploy` to create a lightweight, standalone production bundle for `@santis/ingestion-api`.
-- **ingestion-api/package.json**: Restored to use devDependencies for TS engines to maintain lockfile sync, while handling production execution via `npm install -g` in the Docker runner stage (avoiding `pnpm` global bin issues).
+- **ingestion-api/package.json**: Restored to match the exact state of `pnpm-lock.yaml` (including removing `@santis/domain-schema` which was out of sync), while handling production execution via `npm install -g` in the Docker runner stage.
 
 ### GitHub Actions Workflow
 - **.github/workflows/docker-publish.yml**:
