@@ -1,5 +1,4 @@
 import { randomUUID } from "node:crypto";
-import { createRequire } from "node:module";
 
 import { ConstitutionalGuard } from "./adapter.ts";
 import {
@@ -27,6 +26,9 @@ import {
   type StandardRevenueExecutePayload,
   type SovereignEventEnvelope,
 } from "./telemetry.ts";
+import { AdvisoryStore } from "./advisory-store.js";
+import { appendEvent } from "../repositories/telemetry-repository.js";
+import { upsertVisitor } from "../repositories/visitor-repository.js";
 
 export interface ShadowPriceSimulationInput {
   ritualId: string;
@@ -86,34 +88,9 @@ export interface RevenueAdvisorySuggestionInput {
   impactArea?: AdvisorySuggestion["impactArea"];
 }
 
-const require = createRequire(import.meta.url);
-
 const DEFAULT_LOOKAHEAD_HOURS = 6;
 const DEFAULT_TENANT_ID = "tn_santis_club";
 const SYSTEM_VISITOR_PREFIX = "system:revenue-engine";
-
-type TelemetryPersistence = {
-  telemetryRepo: {
-    appendEvent(event: {
-      type: string;
-      visitorId: string;
-      sessionId: string;
-      page: string;
-      source: string;
-      data: Record<string, unknown>;
-      timestamp: string;
-    }): Promise<void>;
-  };
-  visitorRepo: {
-    upsertVisitor(visitorId: string): Promise<void>;
-  };
-};
-
-let cachedTelemetryPersistence: TelemetryPersistence | null | undefined;
-let cachedAdvisoryStore:
-  | { AdvisoryStore: { push: (suggestion: AdvisorySuggestion, options?: Record<string, unknown>) => { id: string } | null } }
-  | null
-  | undefined;
 
 const roundCurrency = (value: number) => Number(value.toFixed(2));
 const clampPercent = (value: number) => Math.max(0, Math.min(100, value));
@@ -146,50 +123,6 @@ const normalizeCommandMultiplier = (value: unknown): number | null => {
 
   return Number(value.toFixed(3));
 };
-
-function getTelemetryPersistence(): TelemetryPersistence | null {
-  if (cachedTelemetryPersistence !== undefined) {
-    return cachedTelemetryPersistence;
-  }
-
-  try {
-    const telemetryRepo = require("../repositories/telemetry-repository.js");
-    const visitorRepo = require("../repositories/visitor-repository.js");
-
-    cachedTelemetryPersistence = {
-      telemetryRepo,
-      visitorRepo,
-    };
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "unknown_persistence_boot_error";
-    console.warn(
-      `[REVENUE_ENGINE] Telemetry persistence unavailable. Shadow events will stay ephemeral. ${message}`
-    );
-    cachedTelemetryPersistence = null;
-  }
-
-  return cachedTelemetryPersistence;
-}
-
-function getAdvisoryStore() {
-  if (cachedAdvisoryStore !== undefined) {
-    return cachedAdvisoryStore;
-  }
-
-  try {
-    cachedAdvisoryStore = require("./advisory-store.js");
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "unknown_advisory_store_boot_error";
-    console.warn(
-      `[REVENUE_ENGINE] Advisory store unavailable. Shadow suggestions will not reach Boardroom. ${message}`
-    );
-    cachedAdvisoryStore = null;
-  }
-
-  return cachedAdvisoryStore;
-}
 
 function findRitualById(ritualId: string): RitualRecord | null {
   return RitualRegistry.findRitual(ritualId);
@@ -576,22 +509,18 @@ export const RevenueEngine = {
 
       const telemetryEvent = buildTelemetryEvent(envelope, simulation);
       let telemetryPersisted = false;
-      const persistence = getTelemetryPersistence();
-
-      if (persistence) {
-        try {
-          await persistence.visitorRepo.upsertVisitor(telemetryEvent.visitorId);
-          await persistence.telemetryRepo.appendEvent(telemetryEvent);
-          telemetryPersisted = true;
-        } catch (error) {
-          const message =
-            error instanceof Error
-              ? error.message
-              : "unknown_persistence_write_error";
-          console.warn(
-            `[REVENUE_ENGINE] Shadow event ${envelope.id} could not be persisted. ${message}`
-          );
-        }
+      try {
+        await upsertVisitor(telemetryEvent.visitorId);
+        await appendEvent(telemetryEvent);
+        telemetryPersisted = true;
+      } catch (error) {
+        const message =
+          error instanceof Error
+            ? error.message
+            : "unknown_persistence_write_error";
+        console.warn(
+          `[REVENUE_ENGINE] Shadow event ${envelope.id} could not be persisted. ${message}`
+        );
       }
 
       let advisoryStored = false;
@@ -614,9 +543,8 @@ export const RevenueEngine = {
           riskScore: Number(Math.max(0.1, 1 - simulation.confidence).toFixed(2)),
         });
 
-        const advisoryStore = getAdvisoryStore();
-        if (suggestion && advisoryStore?.AdvisoryStore?.push) {
-          const stored = advisoryStore.AdvisoryStore.push(suggestion, {
+        if (suggestion && AdvisoryStore.push) {
+          const stored = AdvisoryStore.push(suggestion, {
             source: "revenue-engine.shadow",
             context: {
               ritualTitle: simulation.ritualTitle,

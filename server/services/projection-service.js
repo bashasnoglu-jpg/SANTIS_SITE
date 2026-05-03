@@ -1,6 +1,6 @@
-const intentRepo = require('../repositories/intent-repository');
-const visitorRepo = require('../repositories/visitor-repository');
-const sessionRepo = require('../repositories/session-repository');
+import * as intentRepo from '../repositories/intent-repository.js';
+import * as visitorRepo from '../repositories/visitor-repository.js';
+import * as sessionRepo from '../repositories/session-repository.js';
 
 const EVENT_SCORES = {
   'page.view': 2,
@@ -121,6 +121,6 @@ async function ensureIdentity(event) {
   }
 }
 
-module.exports = {
+export {
   projectEvent,
 };

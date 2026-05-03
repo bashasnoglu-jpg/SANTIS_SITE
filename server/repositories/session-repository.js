@@ -1,4 +1,4 @@
-const db = require('../storage/sqlite');
+import db from '../storage/sqlite.js';
 
 function ensureSession({ sessionId, visitorId, entryPage, deviceType, userAgent }) {
   const startedAt = new Date().toISOString();
@@ -59,7 +59,7 @@ function endSession({ sessionId, exitPage }) {
   });
 }
 
-module.exports = {
+export {
   ensureSession,
   endSession,
 };

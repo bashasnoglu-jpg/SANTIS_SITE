@@ -1,4 +1,4 @@
-const db = require('../storage/sqlite');
+import db from '../storage/sqlite.js';
 
 function upsertVisitor(visitorId) {
   const now = new Date().toISOString();
@@ -64,7 +64,7 @@ function updateVisitorIntent(visitorId, intentScore, status) {
   });
 }
 
-module.exports = {
+export {
   upsertVisitor,
   incrementVisitorSessionCount,
   updateVisitorIntent,

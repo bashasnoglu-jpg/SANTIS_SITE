@@ -1,9 +1,5 @@
-const db = require('../storage/sqlite');
-const crypto = require('crypto');
-
-function uuid(){
-    return crypto.randomUUID();
-}
+import db from '../storage/sqlite.js';
+import { randomUUID as uuid } from 'crypto';
 
 function appendEvent(event){
     return new Promise((resolve,reject)=>{
@@ -31,6 +27,6 @@ function appendEvent(event){
     });
 }
 
-module.exports = {
+export {
     appendEvent
 };

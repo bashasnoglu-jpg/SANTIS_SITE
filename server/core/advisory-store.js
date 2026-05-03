@@ -1,6 +1,6 @@
-const fs = require("fs");
-const path = require("path");
-const { randomUUID } = require("crypto");
+import fs from "fs";
+import path from "path";
+import { randomUUID } from "crypto";
 
 const STORAGE_DIR = path.resolve(process.cwd(), "storage");
 const STORE_LOG_PATH = path.join(STORAGE_DIR, "advisory-store.jsonl");
@@ -295,6 +295,6 @@ const AdvisoryStore = {
   },
 };
 
-module.exports = {
+export {
   AdvisoryStore,
 };

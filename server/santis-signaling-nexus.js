@@ -7,7 +7,7 @@
  * Doktrin: "Asla veriye dokunma. Sadece tanıştır ve aradan çekil."
  * ==============================================================================
  */
-const WebSocket = require('ws');
+import WebSocket from 'ws';
 
 const wss = new WebSocket.Server({ port: 8080 }, () => {
     console.log("🕸️ [SANTIS NEXUS] Kör Çöpçatan (Signaling) 8080 portunda uyandı.");
