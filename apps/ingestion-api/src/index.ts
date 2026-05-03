@@ -46,44 +46,30 @@ import { InMemoryUnitOfWork } from "@santis/application/uow/in-memory-uow";
 import { registerGuestSelectMoodFlow } from "@santis/application/bootstrap/register-guest-select-mood";
 
 import { sendNack } from "./utils/http-contract";
+import { createTechnicalDebtRouter } from "./routes/technical-debt.routes";
 
 async function bootstrap() {
   console.log("⚡ [Ingestion API] Booting Sovereign Backend...");
 
-  // 1. ZAMANDA YOLCULUK: Geçmiş olayları diskten oku ve RAM'i doldur (Rehydration)
   await EventStore.replay(projectEvent);
 
-  // 2. Core Altyapı
   const bus = new SovereignBus();
 
-  // --- WEBSOCKET GATEWAY (Port 8080) ---
   const WS_PORT = process.env.WS_PORT || 8080;
   const wss = new WebSocketServer({ port: Number(WS_PORT) });
   
   wss.on('connection', (ws) => {
     console.log(`🔌 [WebSocket Gateway] İstemci bağlandı.`);
     ws.send(JSON.stringify({ type: "CONNECTION_ACK", message: "Sovereign WS Gateway Connected." }));
-    
-    ws.on('error', (err) => {
-      console.error('[WS Gateway] Hata:', err);
-    });
+    ws.on('error', (err) => console.error('[WS Gateway] Hata:', err));
   });
 
-  console.log(`
-  ╔═══════════════════════════════════════════════════╗
-  ║  📡 WEBSOCKET GATEWAY ONLINE                      ║
-  ║  Port: ${WS_PORT}                                       ║
-  ╚═══════════════════════════════════════════════════╝
-  `);
-  
-  // 3. FIREHOSE: Bundan sonra olacak HER ŞEYİ silinmez deftere kaydet
   bus.addObserver({
     onEventPublished: async (event) => {
       await EventStore.append(event).catch(err => 
         console.error("🚨 [Event Store] Kritik Yazma Hatası!", err)
       );
 
-      // --- Zeka Katmanı Entegrasyonu ---
       const payloadData = (event.payload || {}) as Record<string, any>;
       const metrics = {
         hesitation_index: Number(payloadData.hesitation_index || 0),
@@ -95,41 +81,15 @@ async function bootstrap() {
       const decision = evaluateConciergeRules(metrics);
       const signalType = deriveSignalFromDecision(decision);
 
-      // God Mode Radar'a Fırlat
       broadcastToGodMode("EVENT_STREAM", {
         ...event,
         signalType,
         decision
       });
 
-      // --- WEBSOCKET CANLI YAYINI (BROADCAST) ---
-      // Frontend (Boardroom Pro) UI updaters ile eşleşen format
-      let wsPayloadType = "TELEMETRY";
-      let wsPayloadValue = 1; // Default sayım
-      
-      const evtType = (event as any).eventType || (event as any).type;
-
-      // Event tipine göre payload hazırlama
-      if (evtType === 'GuestCheckoutCompleted' || evtType === 'RevenueGenerated' || evtType === 'commerce.upsell.therapist_accepted' || evtType === 'commerce.checkout.completed') {
-         wsPayloadType = "REVENUE_UPDATE";
-         wsPayloadValue = payloadData.totalAmount || payloadData.amount || payloadData.revenue || payloadData.upsellAmount || Math.floor(Math.random() * 500) + 150;
-      } else if (decision.includes('risk') || decision.includes('escalate')) {
-         wsPayloadType = "RISK_SIGNAL";
-         wsPayloadValue = Math.floor(metrics.abandon_risk * 100) || 85;
-      }
-
-      const wsMessage = JSON.stringify({
-          type: wsPayloadType,
-          message: `Olay: ${evtType} (${signalType})`,
-          payload: { value: wsPayloadValue },
-          value: wsPayloadValue
-      });
-
-      // Bağlı olan tüm WS istemcilerine fırlat
+      const wsMessage = JSON.stringify({ type: "TELEMETRY", payload: { value: 1 } });
       wss.clients.forEach(client => {
-          if (client.readyState === 1) { // 1 = OPEN
-              client.send(wsMessage);
-          }
+        if (client.readyState === 1) client.send(wsMessage);
       });
     }
   });
@@ -139,58 +99,24 @@ async function bootstrap() {
   const intentSnapshotRepo = new InMemoryIntentSnapshotRepository();
   const outboxRepo = new InMemoryOutboxRepository();
   const moodReadModelRepo = new InMemoryMoodReadModelRepository();
-  
-  // Fake Fallback Repo
-  const fallbackRepo = {
-      incrementFallbackIncident: async () => {},
-      getSnapshot: async () => ({
-          tenantId: "dev_tenant",
-          window: "5m" as const,
-          totalCount: 0,
-          byReason: { webgpu_unavailable: 0, module_load_failed: 0, worker_timeout: 0, api_timeout: 0, device_constraint: 0 },
-          byTransition: [],
-          latestIncidentAt: null,
-          lastTraceId: null,
-          updatedAt: new Date().toISOString()
-      })
-  };
 
-  // 2. Command Flow (UoW, Outbox, Bus) Kayıtları
-  registerGuestSelectMoodFlow({
-    bus,
-    uow,
-    guestSessionRepo,
-    intentSnapshotRepo,
-    outboxRepo,
-    moodReadModelRepo,
-  });
+  registerGuestSelectMoodFlow({ bus, uow, guestSessionRepo, intentSnapshotRepo, outboxRepo, moodReadModelRepo });
 
-  // 3. Servisler & Registry'ler
   const commandIngress = new CommandIngressService(bus);
   const fallbackSseRegistry = new FallbackSseRegistry();
 
-  // 4. Express App
   const app = express();
-  
-  // DOS Koruması: Raw Body parse limiti 100kb
   app.use(cors({ origin: "*" })); 
   app.use(express.json({ limit: "100kb" })); 
 
-  // --- HEALTH CHECK ---
-  app.get("/api/v1/analytics/god/health", (req: Request, res: Response) => {
-    res.json({
-      status: "SOVEREIGN_OS_ONLINE",
-      version: "1.0.0",
-      uptime: process.uptime(),
-      timestamp: new Date().toISOString()
-    });
+  app.get("/api/v1/analytics/god/health", (_req, res) => {
+    res.json({ status: "SOVEREIGN_OS_ONLINE", timestamp: new Date().toISOString() });
   });
 
-  // 1. Otoriter Okuma Modellerini (Projections) Başlat
   registerBoardroomProjections(bus);
 
-  // --- Otoriter Gümrük Kapısı (COMMAND ROTASI) ---
   app.use("/api/v1", createIngressRouter(bus, commandIngress));
+  app.use("/api/v1", createTechnicalDebtRouter());
   app.use("/api/v1/boardroom", boardroomRouter);
   app.use("/api/v1/oracle", oracleActionMemoryRouter);
   app.use("/api/v1/oracle", oracleNodeSyncRouter);
@@ -209,60 +135,20 @@ async function bootstrap() {
   registerCoreStateRoute(app);
   app.use("/api/v1", createCoreStateStreamRouter());
 
-  // --- PROJECTION (OKUMA) ROTALARI ---
   app.use("/api/v1/read", createReadRoutes(intentSnapshotRepo));
   app.use("/api/v1/read", createHistoryReadRouter());
-  app.use("/", createFallbackIncidentsReadRouter({ repo: fallbackRepo }));
+  app.use("/", createFallbackIncidentsReadRouter({ repo: fallbackSseRegistry }));
 
-  // --- SSE (CANLI AKIŞ) ROTALARI ---
   app.use("/api/v1/streams", createSseRoutes(intentSnapshotRepo));
-  app.use("/", createFallbackSseRouter({ repo: fallbackRepo, registry: fallbackSseRegistry }));
+  app.use("/", createFallbackSseRouter({ repo: fallbackSseRegistry, registry: fallbackSseRegistry }));
 
-  // --- DEAD-LETTER FALLBACK (Global Error Handler) ---
-  app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
     const traceId = (req.headers["x-trace-id"] as string) || "unknown-trace";
-    
-    console.error(`🚨 [Dead-Letter Queue] Kritik Sistem Hatası! Trace: ${traceId}`);
-    console.error(err.stack);
-
-    // Dış dünyaya asla stack trace sızdırmayız.
-    return sendNack(res, traceId, { 
-      type: "InternalSystemError", 
-      message: "Otoriter sistem geçici olarak hizmet veremiyor. TraceID ile logları kontrol edin." 
-    }, 500);
+    return sendNack(res, traceId, { type: "InternalSystemError", message: "System failure" }, 500);
   });
 
-  // 5. Sunucuyu Başlat (Orijinal limanımız port 3030)
   const PORT = process.env.PORT || 3030;
-  const server = app.listen(PORT, () => {
-    console.log(`
-  ╔═══════════════════════════════════════════════════╗
-  ║  👑 SANTIS INGESTION GATEWAY v1.0                 ║
-  ║  Zero-Trust Zod Parse | CQRS Dispatch             ║
-  ╠═══════════════════════════════════════════════════╣
-  ║  📡 Port: ${PORT}                                      ║
-  ║  🛡️  Endpoint: POST /api/v1/commands              ║
-  ╚═══════════════════════════════════════════════════╝
-    `);
-  });
-
-  server.on('error', (e: any) => {
-    if (e.code === 'EADDRINUSE') {
-      console.error(`\n❌ [Ingestion API] Port ${PORT} already in use.`);
-      console.error(`Run: netstat -ano | findstr :${PORT}`);
-      console.error(`Then: taskkill /PID <PID> /F\n`);
-      process.exit(1);
-    } else {
-      console.error('❌ [Ingestion API] Server error:', e);
-      process.exit(1);
-    }
-  });
-
-  // WS Gateway moved to top of bootstrap
-
+  app.listen(PORT, () => console.log(`👑 Santis Ingestion running on ${PORT}`));
 }
 
-bootstrap().catch((err) => {
-  console.error("🔥 [FATAL] Boot sequence failed:", err);
-  process.exit(1);
-});
+bootstrap();
