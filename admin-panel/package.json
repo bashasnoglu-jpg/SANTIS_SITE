@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "audit:contract": "node scripts/active/audit-contract.mjs",
     "typecheck": "tsc --noEmit",
     "dev": "vite",
     "build": "vite build",
