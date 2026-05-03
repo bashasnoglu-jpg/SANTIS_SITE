@@ -9,6 +9,8 @@ import { createIngressRouter } from "./routes/ingress";
 import { evaluateConciergeRules, deriveSignalFromDecision } from './decision-kernel';
 import { broadcastToGodMode } from "./routes/sse-streams";
 import { resolveWebSocketGatewayConfig } from "./config/websocket-gateway.config";
+import { sseManager } from "./services/sse-manager.js";
+
 
 import { createReadRoutes } from "./routes/read-queries";
 import { createHistoryReadRouter } from "./routes/read-history";
@@ -18,7 +20,6 @@ import { createFallbackSseRouter } from "./routes/sse-fallback-streams";
 import pricingRouter from "./routes/pricing.route";
 import streamRoutes from "./routes/stream.route";
 import { registerCoreStateRoute } from "./routes/core-state";
-import { createCoreStateStreamRouter } from "./routes/core-state-stream";
 import strategyRoutes from "./routes/strategy.js";
 
 import { authRouter } from "./routes/auth.routes";
@@ -181,8 +182,20 @@ async function bootstrap() {
               client.send(wsMessage);
           }
       });
+
+      // --- SSE CORE-STATE BROADCAST (Zero-Drift Feed) ---
+      if (["REVENUE_UPDATE", "RISK_SIGNAL", "STRATEGY_APPLY_ACK"].includes(wsPayloadType)) {
+        const scope = wsPayloadType === "STRATEGY_APPLY_ACK" ? "strategy" : "revenue";
+        sseManager.broadcastPatch(scope as any, {
+          value: wsPayloadValue,
+          eventType: evtType,
+          occurredAt: event.occurredAt,
+          traceId: event.traceId
+        });
+      }
     }
   });
+
 
   const uow = new InMemoryUnitOfWork();
   const guestSessionRepo = new InMemoryGuestSessionRepository();
@@ -258,8 +271,13 @@ async function bootstrap() {
   app.use("/api/v1/stream", streamRoutes);
   app.use("/api/v1/strategy", strategyRoutes);
   
+  // Otoriter CoreState Stream (SSE)
+  app.get("/api/v1/core-state/stream", (req: Request, res: Response) => {
+    sseManager.addClient(res);
+  });
+
+  
   registerCoreStateRoute(app);
-  app.use("/api/v1", createCoreStateStreamRouter());
 
   // --- PROJECTION (OKUMA) ROTALARI ---
   app.use("/api/v1/read", createReadRoutes(intentSnapshotRepo));
