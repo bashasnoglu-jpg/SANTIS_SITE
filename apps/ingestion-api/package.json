@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "typecheck": "tsc --noEmit",
+    "audit:contract": "tsc -p tsconfig.json --noEmit",
     "start": "node --loader ts-node/esm src/index.ts",
     "dev": "tsx watch src/index.ts"
   },

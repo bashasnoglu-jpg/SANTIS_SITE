@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
+    "audit:contract": "tsc -p tsconfig.json --noEmit",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
