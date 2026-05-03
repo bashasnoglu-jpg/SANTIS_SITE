@@ -9,7 +9,7 @@ I have modernized and standardized the Docker deployment pipeline for Santis OS,
     - Base image switched to `node:20-slim`.
     - Enabled `Corepack` for automatic `pnpm` management.
     - Implemented `pnpm --prod deploy` to create a lightweight, standalone production bundle for `@santis/ingestion-api`.
-- **ingestion-api/package.json**: Restored to use devDependencies for TS engines to maintain lockfile sync, while handling production execution via global installs in the Docker runner stage.
+- **ingestion-api/package.json**: Restored to match the exact state of `pnpm-lock.yaml` (including removing `@santis/domain-schema` which was out of sync), while handling production execution via `npm install -g` in the Docker runner stage.
 
 ### GitHub Actions Workflow
 - **.github/workflows/docker-publish.yml**:
@@ -26,7 +26,11 @@ I have modernized and standardized the Docker deployment pipeline for Santis OS,
 - The GitHub Actions workflow logic was verified to ensure that `${{ env.IMAGE_NAME }}` and `${{ env.REPO_LC }}` are used consistently.
 
 ### Manual Verification Required
+<<<<<<< HEAD
+- **Local Build Test**: Run `docker build -t santis-sovereign-os:local .` locally to confirm that `pnpm install` and `pnpm deploy` work correctly with the current `pnpm-lock.yaml`.
+=======
 - **Local Build Test**: Run `docker build -t santis-sovereign-os .` locally to confirm that `pnpm install` and `pnpm deploy` work correctly with the current `pnpm-lock.yaml`.
+>>>>>>> main
 - **CI/CD Run**: After pushing these changes, monitor the first run of the "Build and Publish Docker Image" action in GitHub to ensure successful GHCR publication and lowercase telemetry emission.
 
 ---
