@@ -26,7 +26,11 @@ I have modernized and standardized the Docker deployment pipeline for Santis OS,
 - The GitHub Actions workflow logic was verified to ensure that `${{ env.IMAGE_NAME }}` and `${{ env.REPO_LC }}` are used consistently.
 
 ### Manual Verification Required
+<<<<<<< HEAD
 - **Local Build Test**: Run `docker build -t santis-sovereign-os:local .` locally to confirm that `pnpm install` and `pnpm deploy` work correctly with the current `pnpm-lock.yaml`.
+=======
+- **Local Build Test**: Run `docker build -t santis-sovereign-os .` locally to confirm that `pnpm install` and `pnpm deploy` work correctly with the current `pnpm-lock.yaml`.
+>>>>>>> main
 - **CI/CD Run**: After pushing these changes, monitor the first run of the "Build and Publish Docker Image" action in GitHub to ensure successful GHCR publication and lowercase telemetry emission.
 
 ---
