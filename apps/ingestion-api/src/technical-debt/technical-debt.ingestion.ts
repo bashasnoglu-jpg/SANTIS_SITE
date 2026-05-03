@@ -1,9 +1,10 @@
-import { TechnicalDebtSignalSchema, TechnicalDebtSnapshot } from "./technical-debt.contract";
+import type { SovereignAction } from "@santis/domain-schema/src/core-state.interface";
+import { TechnicalDebtSignalSchema, TechnicalDebtSnapshot, type TechnicalDebtSignal } from "./technical-debt.contract";
 import { persistTechnicalDebtSignal, readTechnicalDebtSignals } from "./technical-debt.repository";
 
-const inMemorySignals: any[] = [];
+const inMemorySignalsByTenant = new Map<string, TechnicalDebtSignal[]>();
 
-export async function ingestTechnicalDebtSignal(raw: unknown) {
+export const ingestTechnicalDebtSignal: SovereignAction<unknown, TechnicalDebtSignal> = async (ctx, raw) => {
   const parsed = TechnicalDebtSignalSchema.safeParse(raw);
 
   if (!parsed.success) {
@@ -11,26 +12,27 @@ export async function ingestTechnicalDebtSignal(raw: unknown) {
   }
 
   const signal = parsed.data;
+  const tenantId = ctx.tenant.tenantId;
+  const tenantSignals = inMemorySignalsByTenant.get(tenantId) ?? [];
 
-  // Always keep in-memory for local/dev continuity
-  inMemorySignals.push(signal);
+  tenantSignals.push(signal);
+  inMemorySignalsByTenant.set(tenantId, tenantSignals);
 
-  // Attempt persistence (non-blocking philosophy)
   try {
-    await persistTechnicalDebtSignal(signal);
-  } catch (err) {
-    console.warn("[MEMORY] Persistence failed, falling back to in-memory only.");
+    await persistTechnicalDebtSignal(ctx, signal);
+  } catch {
+    console.warn(`[MEMORY] Persistence failed for tenant ${tenantId}, falling back to in-memory only.`);
   }
 
   return signal;
-}
+};
 
-export async function getTechnicalDebtSnapshot(): Promise<TechnicalDebtSnapshot> {
-  // Prefer DB if available
-  let signals = await readTechnicalDebtSignals();
+export async function getTechnicalDebtSnapshot(ctx: Parameters<typeof ingestTechnicalDebtSignal>[0]): Promise<TechnicalDebtSnapshot> {
+  const tenantId = ctx.tenant.tenantId;
+  let signals = await readTechnicalDebtSignals(ctx);
 
   if (!signals) {
-    signals = [...inMemorySignals];
+    signals = [...(inMemorySignalsByTenant.get(tenantId) ?? [])];
   }
 
   const critical = signals.filter(s => s.severity === "critical").length;
