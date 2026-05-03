@@ -18,8 +18,8 @@ RUN pnpm --filter=@santis/ingestion-api --prod deploy /prod/ingestion-api
 FROM node:20-slim AS runner
 WORKDIR /app
 
-# Enable corepack and install runtime TS engines globally
-RUN corepack enable && pnpm add -g ts-node typescript
+# Install runtime TS engines globally using npm (more stable in containers for global bins)
+RUN npm install -g ts-node typescript
 
 # Copy the standalone deployment bundle
 COPY --from=builder /prod/ingestion-api ./
