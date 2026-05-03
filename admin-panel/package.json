@@ -10,7 +10,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "check": "pnpm run lint && pnpm run build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "audit:contract": "node scripts/active/audit-contract.mjs"
   },
   "dependencies": {
     "@santis/event-dictionary": "workspace:*",

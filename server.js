@@ -1,18 +1,17 @@
-/**
- * ═══════════════════════════════════════════════════════════
- * QUARANTINED — DO NOT USE
- * ═══════════════════════════════════════════════════════════
- * This legacy monolithic server has been moved to:
- *   archive/legacy/server.js
- *
- * All active API surface is now served through:
- *   apps/ingestion-api   — TypeScript API server (port 4000)
- *   apps/api             — REST gateway
- *
- * Start the stack with: pnpm dev
- * ═══════════════════════════════════════════════════════════
- */
-throw new Error(
-  '[SANTIS] server.js has been quarantined. Run `pnpm dev` to start the current stack. ' +
-  'Legacy source preserved in archive/legacy/server.js.'
-);
+#!/usr/bin/env node
+
+console.error(`
+[SANTIS_RUNTIME_GUARD] Deprecated entrypoint blocked.
+
+server.js is no longer the canonical backend runtime.
+Use the Sovereign runtime instead:
+
+  pnpm dev
+
+or run the ingestion API workspace directly.
+
+Canonical backend: apps/ingestion-api
+Legacy snapshot: legacy/server.js
+`);
+
+process.exit(1);
