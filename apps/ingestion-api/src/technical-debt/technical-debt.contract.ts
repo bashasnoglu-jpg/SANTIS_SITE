@@ -10,11 +10,12 @@ export const TechnicalDebtSignalTypeSchema = z.enum([
   "bundle_size_regression",
   "security_advisory",
   "runtime_contract_violation",
+  "forced_bypass",
 ]);
 
 export const TechnicalDebtSignalSchema = z.object({
   id: z.string().min(1),
-  source: z.enum(["ci", "docker", "local", "runtime"]),
+  source: z.enum(["ci", "docker", "local", "runtime", "boardroom"]),
   type: TechnicalDebtSignalTypeSchema,
   severity: TechnicalDebtSeveritySchema,
   title: z.string().min(1),
