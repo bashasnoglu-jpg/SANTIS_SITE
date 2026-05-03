@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "topic": "deployment",
+  "description": "Santis OS Boardroom Deployment Telemetry Feed contract.",
+  "requiredFields": [
+    "event",
+    "status",
+    "repository",
+    "workflow",
+    "runId",
+    "runUrl",
+    "sha",
+    "image",
+    "timestamp"
+  ],
+  "allowedEvents": [
+    "DEPLOYMENT_STARTED",
+    "IMAGE_PUBLISHED",
+    "DEPLOYMENT_FAILED"
+  ],
+  "allowedStatuses": [
+    "started",
+    "published",
+    "failed"
+  ],
+  "imageNamePattern": "^ghcr\\.io/[a-z0-9._-]+/[a-z0-9._/-]+:[a-z0-9._-]+$"
+}

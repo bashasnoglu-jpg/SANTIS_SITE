@@ -1,4 +1,4 @@
-const projectionService = require('./projection-service');
+import * as projectionService from './projection-service.js';
 
 class FlightRiskHeuristic {
   constructor({ gracePeriodMs = 10000 } = {}) {
@@ -105,4 +105,4 @@ class FlightRiskHeuristic {
   }
 }
 
-module.exports = { FlightRiskHeuristic };
+export { FlightRiskHeuristic };

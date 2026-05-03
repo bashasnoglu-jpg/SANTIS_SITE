@@ -8,7 +8,7 @@
   },
   "packageManager": "pnpm@9.1.0",
   "scripts": {
-    "build": "pnpm run audit:localhost && turbo run build",
+    "build": "pnpm run audit:all && turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
@@ -16,8 +16,12 @@
     "stitch:enforce": "node packages/design-system/scripts/validate.js && node packages/design-system/scripts/check.js && node packages/design-system/scripts/guard.js",
     "test:quality:static": "turbo run test:quality:static",
     "test:quality:runtime": "turbo run test:quality:runtime",
+    "audit:environment": "node scripts/active/audit-environment.mjs",
+    "audit:workspace": "node scripts/active/audit-workspace-scripts.mjs",
+    "audit:contract": "turbo run audit:contract",
     "audit:runtime": "node scripts/audit-runtime-contract.js",
-    "audit:localhost": "node scripts/audit-localhost-leak.js"
+    "audit:localhost": "node scripts/audit-localhost-leak.js",
+    "audit:all": "pnpm run audit:environment && pnpm run audit:workspace && pnpm run audit:contract && pnpm run audit:localhost"
   },
   "dependencies": {
     "zod": "^3.22.4"

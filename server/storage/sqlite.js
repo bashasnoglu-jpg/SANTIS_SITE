@@ -1,7 +1,12 @@
-const path = require('path');
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 const sqlite3 = require('sqlite3').verbose();
 
-const DB_PATH = path.join(__dirname,'santis.db');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const DB_PATH = path.join(__dirname, 'santis.db');
 
 const db = new sqlite3.Database(DB_PATH,(err)=>{
     if(err){
@@ -78,4 +83,4 @@ db.serialize(()=>{
     });
 });
 
-module.exports = db;
+export default db;

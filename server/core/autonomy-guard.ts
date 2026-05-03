@@ -1,5 +1,4 @@
 import { randomUUID } from "node:crypto";
-import { createRequire } from "node:module";
 
 import WebSocket from "ws";
 
@@ -21,8 +20,8 @@ import {
   type SovereignCommandEnvelope,
   type SovereignEventEnvelope,
 } from "./telemetry.ts";
-
-const require = createRequire(import.meta.url);
+import { AutonomyStore } from "./autonomy-store.js";
+import { AdvisoryStore } from "./advisory-store.js";
 
 const POLICY_ID = "NARROW_CORRIDOR_V1";
 const DEFAULT_TENANT_ID = "tn_santis_club";
@@ -48,20 +47,6 @@ type AutonomyStoreRecord = {
   previousPrice?: number | null;
   newPrice?: number | null;
   timestamp?: number | null;
-};
-
-type AutonomyStoreModule = {
-  AutonomyStore?: {
-    recordAutoAdjustment: (input: Record<string, unknown>) => AutonomyStoreRecord;
-    recordRollback: (input: Record<string, unknown>) => AutonomyStoreRecord;
-    getActivePosition: (ritualId: string) => AutonomyStoreRecord | null;
-  };
-};
-
-type AdvisoryStoreModule = {
-  AdvisoryStore?: {
-    remove: (id: string) => boolean;
-  };
 };
 
 export type ComparatorVerdict =
@@ -108,9 +93,6 @@ export interface RollbackResult {
   gatewayMode?: "GATEWAY" | "DIRECT";
 }
 
-let cachedAutonomyStore: AutonomyStoreModule | null | undefined;
-let cachedAdvisoryStore: AdvisoryStoreModule | null | undefined;
-
 const toOptionalString = (value: unknown): string | undefined => {
   if (typeof value !== "string") {
     return undefined;
@@ -143,44 +125,6 @@ const normalizeDropRatio = (value: unknown): number | undefined => {
 
   return Number(Math.min(1, ratio).toFixed(3));
 };
-
-function getAutonomyStore() {
-  if (cachedAutonomyStore !== undefined) {
-    return cachedAutonomyStore;
-  }
-
-  try {
-    cachedAutonomyStore = require("./autonomy-store.js") as AutonomyStoreModule;
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "unknown_autonomy_store_boot_error";
-    console.warn(
-      `[AUTONOMY_GUARD] Autonomy store unavailable. ${message}`
-    );
-    cachedAutonomyStore = null;
-  }
-
-  return cachedAutonomyStore;
-}
-
-function getAdvisoryStore() {
-  if (cachedAdvisoryStore !== undefined) {
-    return cachedAdvisoryStore;
-  }
-
-  try {
-    cachedAdvisoryStore = require("./advisory-store.js") as AdvisoryStoreModule;
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "unknown_advisory_store_boot_error";
-    console.warn(
-      `[AUTONOMY_GUARD] Advisory store unavailable. ${message}`
-    );
-    cachedAdvisoryStore = null;
-  }
-
-  return cachedAdvisoryStore;
-}
 
 function toAdvisoryActionId(advisoryId: string | undefined): string {
   return advisoryId
@@ -226,7 +170,7 @@ function buildPolicyReasons(simulation: ShadowPriceSimulation): string[] {
 
   const activePosition =
     canonicalId != null
-      ? getAutonomyStore()?.AutonomyStore?.getActivePosition(canonicalId)
+      ? AutonomyStore.getActivePosition(canonicalId)
       : null;
 
   if (activePosition) {
@@ -550,7 +494,7 @@ function removeRelatedAdvisory(advisoryId: string | undefined) {
     return;
   }
 
-  getAdvisoryStore()?.AdvisoryStore?.remove(advisoryId);
+  AdvisoryStore.remove(advisoryId);
 }
 
 export const AutonomyGuard = {
@@ -610,7 +554,7 @@ export const AutonomyGuard = {
     );
 
     const storedRecord =
-      getAutonomyStore()?.AutonomyStore?.recordAutoAdjustment({
+      AutonomyStore.recordAutoAdjustment({
         actionId,
         advisoryId: input.advisoryId,
         ritualId: input.simulation.ritualId,
@@ -660,7 +604,7 @@ export const AutonomyGuard = {
     }
 
     const position =
-      getAutonomyStore()?.AutonomyStore?.getActivePosition(canonicalId) ?? null;
+      AutonomyStore.getActivePosition(canonicalId) ?? null;
     if (!position) {
       return {
         evaluated: true,
@@ -739,7 +683,7 @@ export const AutonomyGuard = {
       "autonomy-guard/autonomous-rollback"
     );
 
-    getAutonomyStore()?.AutonomyStore?.recordRollback({
+    AutonomyStore.recordRollback({
       actionId,
       originalActionId: position.actionId,
       ritualId: canonicalId,

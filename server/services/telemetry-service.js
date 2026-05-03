@@ -1,6 +1,6 @@
-const telemetryRepo = require('../repositories/telemetry-repository');
-const visitorRepo = require('../repositories/visitor-repository');
-const projectionService = require('./projection-service');
+import * as telemetryRepo from '../repositories/telemetry-repository.js';
+import * as visitorRepo from '../repositories/visitor-repository.js';
+import * as projectionService from './projection-service.js';
 
 async function ingestEvent(event) {
   try {
@@ -28,6 +28,11 @@ async function ingestEvent(event) {
   }
 }
 
-module.exports = {
+function logDecisionEvent(traceObject) {
+  console.log('🧠 [DECISION EVENT]', JSON.stringify(traceObject));
+}
+
+export {
   ingestEvent,
+  logDecisionEvent,
 };

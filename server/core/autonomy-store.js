@@ -1,6 +1,6 @@
-const fs = require("fs");
-const path = require("path");
-const { randomUUID } = require("crypto");
+import fs from "fs";
+import path from "path";
+import { randomUUID } from "crypto";
 
 const STORAGE_DIR = path.resolve(process.cwd(), "storage");
 const LEDGER_PATH = path.join(STORAGE_DIR, "autonomy-ledger.jsonl");
@@ -219,6 +219,6 @@ const AutonomyStore = {
   },
 };
 
-module.exports = {
+export {
   AutonomyStore,
 };
