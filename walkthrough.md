@@ -1,37 +1,31 @@
-# Walkthrough - Sovereign Docker Pipeline Standardization
+# Walkthrough - Sovereign Docker Pipeline & Boardroom Action Rail
 
-I have modernized and standardized the Docker deployment pipeline for Santis OS, ensuring strict lowercase naming for GitHub Container Registry (GHCR) and adopting `pnpm` for a deterministic build environment.
+I have modernized the Docker deployment pipeline and implemented the Boardroom Action Rail architecture to enable adaptive strategy execution.
 
 ## Changes Made
 
-### Docker Infrastructure
-- **Dockerfile**: Completely refactored to use a multi-stage `pnpm deploy` strategy.
-    - Base image switched to `node:20-slim`.
-    - Enabled `Corepack` for automatic `pnpm` management.
-    - Implemented `pnpm --prod deploy` to create a lightweight, standalone production bundle for `@santis/ingestion-api`.
-- **ingestion-api/package.json**: Restored to match the exact state of `pnpm-lock.yaml` (including removing `@santis/domain-schema` which was out of sync), while handling production execution via `npm install -g` in the Docker runner stage.
+### Docker Infrastructure & Pipeline
+- **Dockerfile**: Refactored to a multi-stage `pnpm deploy` strategy using `node:20-slim`.
+- **GitHub Actions**: Standardized `IMAGE_NAME` to lowercase `bashasnoglu-jpg/santis-sovereign-os` and added mandatory lowercase enforcement guards.
+- **Telemetry**: Updated all payloads to use `${{ env.REPO_LC }}` for 100% naming consistency.
 
-### GitHub Actions Workflow
-- **.github/workflows/docker-publish.yml**:
-    - Standardized `IMAGE_NAME` to `bashasnoglu-jpg/santis-sovereign-os` (strictly lowercase).
-    - Added a normalization step to create `REPO_LC` (lowercase repository name).
-    - Added a guard step (`Enforce lowercase image contract`) that fails the build if any uppercase characters are detected in the image name.
-    - **Final Polish**: Updated all telemetry payloads to use `${{ env.REPO_LC }}` instead of `${{ github.repository }}`, ensuring 100% lowercase consistency in all external signals.
-    - Ensured all telemetry payloads and image tags use the standardized lowercase path.
+### Boardroom Action Rail (Feature)
+- **Contracts**: Created `boardroom-state.contract.ts` and extended `sse-envelope.contract.ts` for `action_rail_update` events.
+- **Ingestion API**: 
+    - Updated `package.json` to include `@santis/domain-schema` for contract integrity.
+    - **boardroom-projections.ts**: Refactored projection logic to use `sseManager` for live action broadcasts.
+    - **strategy.ts**: Refactored to a factory pattern for decoupled event publishing via `SovereignBus`.
 
 ## Validation Results
 
 ### Automated Verification
-- The Dockerfile now follows the standard `pnpm` monorepo production pattern.
-- The GitHub Actions workflow logic was verified to ensure that `${{ env.IMAGE_NAME }}` and `${{ env.REPO_LC }}` are used consistently.
+- Dockerfile verified with standard `pnpm` monorepo production patterns.
+- GitHub Actions logic checked for lowercase consistency.
 
 ### Manual Verification Required
-<<<<<<< HEAD
-- **Local Build Test**: Run `docker build -t santis-sovereign-os:local .` locally to confirm that `pnpm install` and `pnpm deploy` work correctly with the current `pnpm-lock.yaml`.
-=======
-- **Local Build Test**: Run `docker build -t santis-sovereign-os .` locally to confirm that `pnpm install` and `pnpm deploy` work correctly with the current `pnpm-lock.yaml`.
->>>>>>> main
-- **CI/CD Run**: After pushing these changes, monitor the first run of the "Build and Publish Docker Image" action in GitHub to ensure successful GHCR publication and lowercase telemetry emission.
+- **Local Build Test**: Run `docker build -t santis-sovereign-os:local .` locally to confirm the build pipeline.
+- **CI/CD Run**: Monitor the first GHCR publication to ensure successful lowercase telemetry emission.
+- **Action Rail Live Test**: Verify that `pricing.recommendation.created` events trigger SSE broadcasts to the cockpit.
 
 ---
 

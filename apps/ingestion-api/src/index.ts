@@ -20,7 +20,7 @@ import { createFallbackSseRouter } from "./routes/sse-fallback-streams";
 import pricingRouter from "./routes/pricing.route";
 import streamRoutes from "./routes/stream.route";
 import { registerCoreStateRoute } from "./routes/core-state";
-import strategyRoutes from "./routes/strategy.js";
+import { createStrategyRouter } from "./routes/strategy.js";
 
 import { authRouter } from "./routes/auth.routes";
 import { verifySessionToken } from "./security/crypto-token";
@@ -166,6 +166,9 @@ async function bootstrap() {
       } else if (evtType === 'boardroom.strategy.applied') {
          wsPayloadType = "STRATEGY_APPLY_ACK";
          wsPayloadValue = payloadData.recommendationId || payloadData.sessionId || "strategy-unknown";
+      } else if (evtType === 'pricing.recommendation.created') {
+         wsPayloadType = "ACTION_RAIL_UPDATE";
+         wsPayloadValue = payloadData.id || 1;
       }
 
 
@@ -184,8 +187,9 @@ async function bootstrap() {
       });
 
       // --- SSE CORE-STATE BROADCAST (Zero-Drift Feed) ---
-      if (["REVENUE_UPDATE", "RISK_SIGNAL", "STRATEGY_APPLY_ACK"].includes(wsPayloadType)) {
-        const scope = wsPayloadType === "STRATEGY_APPLY_ACK" ? "strategy" : "revenue";
+      if (["REVENUE_UPDATE", "RISK_SIGNAL", "STRATEGY_APPLY_ACK", "ACTION_RAIL_UPDATE"].includes(wsPayloadType)) {
+        const scope = wsPayloadType === "STRATEGY_APPLY_ACK" ? "strategy" : 
+                      wsPayloadType === "ACTION_RAIL_UPDATE" ? "action_rail" : "revenue";
         sseManager.broadcastPatch(scope as any, {
           value: wsPayloadValue,
           eventType: evtType,
@@ -269,7 +273,7 @@ async function bootstrap() {
   app.use("/api/v1", navRouter);
   app.use("/api/v1/rituals/pricing", pricingRouter);
   app.use("/api/v1/stream", streamRoutes);
-  app.use("/api/v1/strategy", strategyRoutes);
+  app.use("/api/v1/strategy", createStrategyRouter(bus));
   
   // Otoriter CoreState Stream (SSE)
   app.get("/api/v1/core-state/stream", (req: Request, res: Response) => {

@@ -1,6 +1,7 @@
 import type { SovereignBus } from "@santis/sovereign-bus";
 import type { SantisEvent } from "@santis/event-dictionary";
 import { calculateSCP } from "@santis/application/engines/scp-engine";
+import type { ActionRecommendation } from "@santis/domain-schema";
 
 import crypto from "crypto";
 import { computeCalibration, segmentConfidence } from "./calibration-engine";
@@ -118,6 +119,7 @@ export const BoardroomReadModels = {
     couple_connection: 0
   },
   pricingRecommendations: {} as Record<string, any>,
+  activeActions: [] as ActionRecommendation[], // 🔥 Typed: Boardroom Action Rail
   latestCalibration: null as any,
   oracleIntelligence: {
     actionsResolved: 0,
@@ -162,6 +164,7 @@ function updateRevenue(amount: number, traceId: string) {
     console.log(`💰 [Projection: Revenue] Kasa güncellendi: +€${amount}. Toplam: €${BoardroomReadModels.revenueMetrics.totalRevenue}`);
 }
 
+import { sseManager } from "../services/sse-manager";
 import { broadcastCoreStatePatch } from "../routes/core-state-stream";
 
 /**
@@ -236,7 +239,7 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
       traceId: e.traceId || crypto.randomUUID(),
       sessionId: e.sessionId,
       schemaVersion: "v1",
-      eventType: recommendationPayload.mode === "autonomous_ready" ? "pricing.autonomous.recommended" : "pricing.recommendation.emitted",
+      eventType: recommendationPayload.mode === "autonomous_ready" ? "pricing.autonomous.recommended" : "pricing.recommendation.created",
       payload: recommendationPayload
     } as any);
   });
@@ -268,16 +271,43 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
       createdAt: new Date().toISOString()
     };
 
-    broadcastCoreStatePatch({
+    // 🔥 Action Rail Integration
+    const actionId = e.payload.id || crypto.randomUUID();
+    const actionItem = {
+      id: actionId,
+      type: "pricing_adjustment",
+      title: `Fiyat Optimizasyonu: ${e.payload.action}`,
+      description: `${(e.payload.suggestedDeltaPct * 100).toFixed(1)}% değişim öneriliyor. Neden: ${e.payload.reasonCodes?.join(", ")}`,
+      impactScore: e.payload.confidence,
+      priority: e.payload.confidence > 0.8 ? "high" : "medium",
+      payload: e.payload,
+      createdAt: new Date().toISOString()
+    };
+
+    // Add to active actions if not already there
+    if (!BoardroomReadModels.activeActions.find(a => a.id === actionId)) {
+      BoardroomReadModels.activeActions.unshift(actionItem);
+      // Limit to 20 active actions
+      if (BoardroomReadModels.activeActions.length > 20) BoardroomReadModels.activeActions.pop();
+    }
+
+    sseManager.broadcastPatch("core_state", {
       boardroom: {
         pricingRecommendations: BoardroomReadModels.pricingRecommendations,
-        pricingRecommendation: e.payload, // Keep for backward compatibility with old UI
+        activeActions: BoardroomReadModels.activeActions,
+        pricingRecommendation: e.payload, 
         shadowPricing: shadowPricing
       }
     });
+
+    // Also notify the specific action_rail scope
+    sseManager.broadcastPatch("action_rail", {
+      type: "new_recommendation",
+      action: actionItem
+    });
   };
 
-  bus.events.subscribe("pricing.recommendation.emitted", handleRecommendation);
+  bus.events.subscribe("pricing.recommendation.created", handleRecommendation);
   bus.events.subscribe("pricing.autonomous.recommended", handleRecommendation);
 
   function deriveCurrentCalibration() {
@@ -306,11 +336,20 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
       };
     }
 
+    // 🔥 Remove from Action Rail
+    const recommendationId = recommendation?.id || e.payload.recommendationId;
+    if (recommendationId) {
+      BoardroomReadModels.activeActions = BoardroomReadModels.activeActions.filter(
+        a => a.id !== recommendationId && a.payload?.id !== recommendationId
+      );
+    }
+
     const calibration = deriveCurrentCalibration();
 
-    broadcastCoreStatePatch({
+    sseManager.broadcastPatch("core_state", {
       boardroom: {
         pricingRecommendations: BoardroomReadModels.pricingRecommendations,
+        activeActions: BoardroomReadModels.activeActions,
         pricingOverride: e.payload, // Keep for backward compatibility
         calibration
       }

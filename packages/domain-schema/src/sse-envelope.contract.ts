@@ -6,11 +6,11 @@ import { z } from "zod";
  * a timestamp (ts), a scope for selective UI updates, and the patch payload.
  */
 export const SsePatchEnvelopeSchema = z.object({
-  event: z.enum(["strategy_update", "command_ack"]),
+  event: z.enum(["strategy_update", "command_ack", "action_rail_update"]),
   data: z.object({
     seq: z.number(),
     ts: z.number(),
-    scope: z.enum(["strategy", "revenue", "core_state", "command"]),
+    scope: z.enum(["strategy", "revenue", "core_state", "command", "action_rail"]),
     patch: z.record(z.any())
   })
 });
