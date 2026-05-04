@@ -30,3 +30,8 @@ I have modernized the Docker deployment pipeline and implemented the Boardroom A
 ---
 
 Santis OS is now equipped with a production-grade, "Zero-Jank" container pipeline that strictly adheres to registry standards.
+
+### Final CI/CD Stabilization
+- **Lockfile Synchronization**: Implemented `lockfile-regen.yml` GitHub Action to automatically resolve `ERR_PNPM_OUTDATED_LOCKFILE` and bypass local Windows `EBUSY` limitations.
+- **Docker Telemetry Patch**: Made `curl` telemetry emissions in `docker-publish.yml` best-effort (`|| true`) to prevent build failures when `localhost:3030` is unavailable on the CI runner.
+- **PR #89 Created**: Successfully triggered the regeneration and opened PR #89 to merge the synchronized `pnpm-lock.yaml` back into `main`.
