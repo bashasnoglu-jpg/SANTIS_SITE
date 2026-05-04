@@ -1,0 +1,38 @@
+name: Lockfile Regeneration Tool
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lockfile-regen-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (PR branch)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Setup Node + pnpm cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Regenerate pnpm-lock.yaml (non-frozen)
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Auto-commit lockfile if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(ci): synchronize pnpm-lock.yaml"
+          file_pattern: "pnpm-lock.yaml"

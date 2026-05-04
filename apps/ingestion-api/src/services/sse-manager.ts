@@ -54,11 +54,15 @@ export class SseManager {
    * Broadcasts a deterministic state patch to all registered clients.
    * Follows the Santis SSE Core Law (seq, ts, scope, patch).
    */
-  broadcastPatch(scope: "strategy" | "revenue" | "core_state", patch: Record<string, any>) {
+  broadcastPatch(
+    scope: "strategy" | "revenue" | "core_state" | "command" | "action_rail", 
+    patch: Record<string, any>,
+    event: "strategy_update" | "command_ack" | "action_rail_update" = "strategy_update"
+  ) {
     const seq = nextSeq();
     
     const payloadRaw = {
-      event: "strategy_update" as const,
+      event,
       data: {
         seq,
         ts: Math.floor(Date.now() / 1000),
@@ -82,7 +86,7 @@ export class SseManager {
       }
     });
 
-    console.log(`[SSE] Broadcasted patch seq:${seq} scope:${scope}`);
+    console.log(`[SSE] Broadcasted ${event} seq:${seq} scope:${scope}`);
   }
 
   getConnectedCount(): number {

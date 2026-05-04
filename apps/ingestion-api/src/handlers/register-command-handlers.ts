@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { sseManager } from "../services/sse-manager.js";
 import type { SovereignBus, CommandOfType } from "@santis/sovereign-bus";
 import type { CommandResult } from "@santis/event-dictionary/command-result";
 import {
@@ -161,6 +162,51 @@ export function registerCommandHandlers(bus: SovereignBus): void {
         appliedAt: new Date().toISOString(),
       },
     } as any);
+
+    return ack(command);
+  });
+  
+  bus.commands.registerHandler("boardroom.override.apply", async (command: CommandOfType<"boardroom.override.apply">) => {
+    const operatorId = command.payload.operatorId || "boardroom-operator";
+    
+    await bus.events.publish({
+      eventId: crypto.randomUUID(),
+      eventType: "boardroom.override.applied",
+      occurredAt: new Date().toISOString(),
+      traceId: command.traceId,
+      sessionId: command.sessionId,
+      schemaVersion: "v1",
+      tenant: command.tenant || {
+        hotelId: "system",
+        hotelCode: "SYS",
+        region: "GLOBAL",
+        locale: "en",
+        currency: "EUR",
+        activePolicies: [],
+        fallbackMode: false,
+      },
+      intent: {
+        guestId: "system",
+        isReturningGuest: true,
+        segment: "vip",
+        moodAffinity: [],
+        premiumThreshold: 100,
+      },
+      payload: {
+        action: command.payload.action,
+        reason: command.payload.reason,
+        operatorId,
+        appliedAt: new Date().toISOString(),
+        meta: command.payload.meta,
+      },
+    } as any);
+
+    // Broadcast ACK via SSE for real-time feedback
+    sseManager.broadcastPatch("command", {
+      commandId: command.commandId,
+      action: command.payload.action,
+      status: "executed"
+    }, "command_ack");
 
     return ack(command);
   });

@@ -204,6 +204,57 @@ class SantisCore {
   }
 
   // ----------------------------------------
+  // Command & Control (C2) - Action Rail
+  // ----------------------------------------
+  async dispatchOverride(action, reason) {
+      console.log(`📡 [Santis C2] Dispatching Override: ${action} | Reason: ${reason}`);
+      
+      const command = {
+          commandId: crypto.randomUUID(),
+          commandType: "boardroom.override.apply",
+          requestedAt: new Date().toISOString(),
+          tenant: {
+              hotelId: "d689b657-3f33-424a-9b16-96a9287c866c", // Santis Standard UUID
+              hotelCode: "SANTIS_01",
+              region: "EU",
+              locale: "en",
+              currency: "EUR"
+          },
+          sessionId: this.getState('activeSessionId') || "boardroom-op-session",
+          traceId: crypto.randomUUID(),
+          payload: {
+              action,
+              reason,
+              operatorId: "SANTIS_OPERATOR_01",
+              meta: {
+                  clientTs: Date.now(),
+                  userAgent: navigator.userAgent
+              }
+          }
+      };
+
+      try {
+          const response = await fetch('/api/v1/commands', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(command)
+          });
+
+          if (!response.ok) {
+              const err = await response.json();
+              throw new Error(err.error?.message || 'Dispatch failed');
+          }
+
+          const result = await response.json();
+          console.log(`✅ [Santis C2] Command accepted: ${command.commandId}`);
+          return result;
+      } catch (err) {
+          console.error(`❌ [Santis C2] Override failed:`, err);
+          throw err;
+      }
+  }
+
+  // ----------------------------------------
   // Socket Layer
   // ----------------------------------------
   initSocket(url) {
