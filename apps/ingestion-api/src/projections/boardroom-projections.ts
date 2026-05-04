@@ -164,8 +164,7 @@ function updateRevenue(amount: number, traceId: string) {
     console.log(`💰 [Projection: Revenue] Kasa güncellendi: +€${amount}. Toplam: €${BoardroomReadModels.revenueMetrics.totalRevenue}`);
 }
 
-import { sseManager } from "../services/sse-manager";
-import { broadcastCoreStatePatch } from "../routes/core-state-stream";
+import { sseManager } from "../services/sse-manager.js";
 
 /**
  * 📡 PROJECTION SUBSCRIBERS (Event Dinleyicileri)
@@ -182,7 +181,7 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
     projectEvent(e);
     
     // Broadcast live delta to the Boardroom PRO Cockpit
-    broadcastCoreStatePatch({
+    sseManager.broadcastPatch("core_state", {
       totalRevenue: BoardroomReadModels.revenueMetrics.totalRevenue,
       bookingCount: Math.floor(BoardroomReadModels.revenueMetrics.totalRevenue / 1500), // Mock booking count for now
     });
@@ -197,7 +196,7 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
     });
 
     // 1. Broadcast SCP live patch
-    broadcastCoreStatePatch({
+    sseManager.broadcastPatch("core_state", {
       boardroom: {
         metrics: {
           totalRevenue: BoardroomReadModels.revenueMetrics.totalRevenue,
@@ -369,7 +368,7 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
 
     console.log(`🧠 [Projection: Oracle] Operator Action Resolved: ${e.payload.actionType} | Total: ${BoardroomReadModels.oracleIntelligence.actionsResolved}`);
 
-    broadcastCoreStatePatch({
+    sseManager.broadcastPatch("core_state", {
       boardroom: {
         oracleIntelligence: BoardroomReadModels.oracleIntelligence
       }
@@ -397,7 +396,7 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
       BoardroomReadModels.oracleIntelligence.actionMemory.pop();
     }
 
-    broadcastCoreStatePatch({
+    sseManager.broadcastPatch("core_state", {
       boardroom: {
         oracleIntelligence: BoardroomReadModels.oracleIntelligence,
         strategyApply: e.payload,

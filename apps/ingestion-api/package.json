@@ -5,13 +5,13 @@
     "audit:contract": "node scripts/active/audit-contract.mjs",
     "typecheck": "tsc --noEmit",
     "start": "node --loader ts-node/esm src/index.ts",
-    "dev": "tsx watch src/index.ts",
-    "audit:contract": "node scripts/active/audit-contract.mjs"
+    "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
     "@santis/db": "workspace:^",
     "@santis/decision-kernel": "workspace:*",
     "@santis/event-dictionary": "workspace:*",
+    "@santis/domain-schema": "workspace:*",
     "@google-cloud/bigquery": "^7.9.0",
     "cors": "^2.8.5",
     "drizzle-orm": "^0.30.0",

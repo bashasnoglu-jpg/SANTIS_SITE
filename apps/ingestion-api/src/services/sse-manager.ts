@@ -55,9 +55,9 @@ export class SseManager {
    * Follows the Santis SSE Core Law (seq, ts, scope, patch).
    */
   broadcastPatch(
-    scope: "strategy" | "revenue" | "core_state" | "command", 
+    scope: "strategy" | "revenue" | "core_state" | "command" | "action_rail", 
     patch: Record<string, any>,
-    event: "strategy_update" | "command_ack" = "strategy_update"
+    event: "strategy_update" | "command_ack" | "action_rail_update" = "strategy_update"
   ) {
     const seq = nextSeq();
     

@@ -341,6 +341,8 @@ export const SantisEventSchema = z.discriminatedUnion("eventType", [
   BoardroomOracleExecutedEventSchema,
   BoardroomStrategyAppliedEventSchema,
   BoardroomOverrideAppliedEventSchema,
+  z.object({ eventType: z.literal("pricing.recommendation.created") }).passthrough(),
+  z.object({ eventType: z.literal("pricing.autonomous.recommended") }).passthrough(),
 ]);
 
 export type SantisEvent = z.infer<typeof SantisEventSchema>;
