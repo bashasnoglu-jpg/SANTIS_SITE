@@ -4,7 +4,8 @@
   "scripts": {
     "audit:contract": "node scripts/active/audit-contract.mjs",
     "typecheck": "tsc --noEmit",
-    "start": "node --loader ts-node/esm src/index.ts",
+    "build": "esbuild src/index.ts --bundle --platform=node --format=cjs --target=node20 --external:pg-native --outfile=dist/index.cjs",
+    "start": "node dist/index.cjs",
     "dev": "tsx watch src/index.ts"
   },
   "dependencies": {

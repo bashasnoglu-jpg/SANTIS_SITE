@@ -183,6 +183,9 @@ importers:
       '@types/express':
         specifier: ^4.17.21
         version: 4.17.25
+      '@types/node':
+        specifier: ^20.12.7
+        version: 20.19.39
       '@types/pg':
         specifier: ^8.11.0
         version: 8.20.0
@@ -191,7 +194,7 @@ importers:
         version: 8.18.1
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@types/node@25.5.0)(typescript@5.9.3)
+        version: 10.9.2(@types/node@20.19.39)(typescript@5.9.3)
       tsx:
         specifier: ^4.7.1
         version: 4.21.0
@@ -4257,6 +4260,7 @@ snapshots:
   '@types/node@25.5.0':
     dependencies:
       undici-types: 7.18.2
+    optional: true
 
   '@types/pg@8.20.0':
     dependencies:
@@ -6179,14 +6183,14 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3):
+  ts-node@10.9.2(@types/node@20.19.39)(typescript@5.9.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.12
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 25.5.0
+      '@types/node': 20.19.39
       acorn: 8.16.0
       acorn-walk: 8.3.5
       arg: 4.1.3
@@ -6254,7 +6258,8 @@ snapshots:
 
   undici-types@6.21.0: {}
 
-  undici-types@7.18.2: {}
+  undici-types@7.18.2:
+    optional: true
 
   unpipe@1.0.0: {}
 
