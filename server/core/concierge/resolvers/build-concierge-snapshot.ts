@@ -18,6 +18,7 @@ import type {
   NormalizedPrice,
   NormalizedService,
 } from '../schemas/normalized.schemas.ts';
+import { RevenuePricingAdapter } from '../adapters/revenue-pricing.adapter.ts';
 
 function groupBestAvailabilityByService(
   slots: NormalizedAvailabilitySlot[]
@@ -111,7 +112,15 @@ export async function buildConciergeSnapshot(
   const pricingOk = pricesResult.status === 'fulfilled';
   const availabilityOk = availabilityResult.status === 'fulfilled';
 
-  const prices = pricingOk ? pricesResult.value : [];
+  let prices = pricingOk ? pricesResult.value : [];
+
+  if (pricingOk && input.sessionId) {
+    prices = prices.map((p) => ({
+      ...p,
+      amount: RevenuePricingAdapter.applyRevenueLogic(p.amount, input.sessionId),
+    }));
+  }
+
   const availabilitySlots = availabilityOk ? availabilityResult.value : [];
 
   const capabilities = deriveDegradedCapabilities({

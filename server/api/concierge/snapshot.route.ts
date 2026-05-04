@@ -4,6 +4,7 @@ import { buildConciergeSnapshot } from '../../core/concierge/resolvers/build-con
 
 const SnapshotQuerySchema = z.object({
   tenantId: z.string().min(1),
+  sessionId: z.string().min(1).optional(),
   locale: z.string().default('tr'),
   currency: z.enum(['EUR']).default('EUR'),
   date: z.string().optional(),

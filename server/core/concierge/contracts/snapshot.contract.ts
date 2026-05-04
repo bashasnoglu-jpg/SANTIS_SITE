@@ -4,6 +4,7 @@ export type CurrencyCode = 'EUR';
 
 export type SnapshotRequestContext = {
   tenantId: string;
+  sessionId?: string;
   locale: string;
   currency: CurrencyCode;
   date?: string;
