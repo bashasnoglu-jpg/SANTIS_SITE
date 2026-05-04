@@ -11,7 +11,7 @@ services:
     environment:
       POSTGRES_DB: santis_db
       POSTGRES_USER: santis
-      POSTGRES_PASSWORD: sovereign_password
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-santis_dev_password}
     ports:
       - "5432:5432"
     volumes:

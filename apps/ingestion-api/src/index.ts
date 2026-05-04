@@ -49,7 +49,7 @@ import {
   InMemoryIntentSnapshotRepository,
   InMemoryMoodReadModelRepository,
   InMemoryGuestSessionRepository,
-} from "../../../tests/helpers/in-memory-fakes";
+} from "./infrastructure/in-memory-adapters.js";
 import { InMemoryUnitOfWork } from "@santis/application/uow/in-memory-uow";
 import { registerGuestSelectMoodFlow } from "@santis/application/bootstrap/register-guest-select-mood";
 

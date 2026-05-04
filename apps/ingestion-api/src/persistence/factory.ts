@@ -1,8 +1,6 @@
 import { PostgresEventStore } from "./event-store.postgres.js";
 import { PostgresOutboxRepository } from "./outbox.postgres.js";
-import {
-  InMemoryOutboxRepository,
-} from "../../../../tests/helpers/in-memory-fakes.js"; // Based on index.ts path
+import { InMemoryOutboxRepository } from "../infrastructure/in-memory-adapters.js";
 import { EventStore as InMemoryEventStore } from "../infrastructure/event-store.js";
 
 // Currently index.ts has its own InMemoryEventStore mapped via static object `EventStore`.
