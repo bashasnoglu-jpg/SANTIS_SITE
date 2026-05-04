@@ -152,6 +152,9 @@ importers:
       '@santis/decision-kernel':
         specifier: workspace:*
         version: link:../../packages/decision-kernel
+      '@santis/domain-schema':
+        specifier: workspace:*
+        version: link:../../packages/domain-schema
       '@santis/event-dictionary':
         specifier: workspace:*
         version: link:../../packages/event-dictionary
