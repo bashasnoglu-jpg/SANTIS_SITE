@@ -2,14 +2,14 @@ import { z } from "zod";
 
 export const ActionRecommendationSchema = z.object({
   id: z.string(),
-  type: z.enum(["pricing_adjustment", "inventory_alert", "vip_service_alert", "manual_intervention"]),
+  type: z.enum(["pricing_adjustment", "reduce_choice", "concierge_handoff", "risk_review"]),
   title: z.string(),
   description: z.string(),
   impactScore: z.number().min(0).max(1), // 0 to 1
   priority: z.enum(["low", "medium", "high", "critical"]),
-  payload: z.record(z.any()),
-  expiresAt: z.string().optional(),
-  createdAt: z.string()
+  expiresAt: z.string(),
+  createdAt: z.string(),
+  payload: z.record(z.unknown()).optional()
 });
 
 export type ActionRecommendation = z.infer<typeof ActionRecommendationSchema>;
@@ -17,12 +17,12 @@ export type ActionRecommendation = z.infer<typeof ActionRecommendationSchema>;
 export interface BoardroomState {
   metrics: {
     totalRevenue: number;
-    scp: any;
+    scp: Record<string, unknown>;
   };
   activeActions: ActionRecommendation[];
   oracleIntelligence: {
     actionsResolved: number;
-    lastOperatorAction: any;
-    actionMemory: any[];
+    lastOperatorAction: Record<string, unknown> | null;
+    actionMemory: Record<string, unknown>[];
   };
 }
