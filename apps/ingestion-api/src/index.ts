@@ -1,6 +1,9 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
-import { WebSocketServer } from "ws";
+import type { IncomingMessage } from "http";
+import { WebSocket, WebSocketServer } from "ws";
+import { dynamicCorsDelegate, isOriginAllowed } from "./security/origin-policy";
+import { SantisEventEnvelope, EventPayloadRecord } from "./types";
 
 import { SovereignBus } from "@santis/sovereign-bus";
 import { registerCommandHandlers } from "./handlers/register-command-handlers";
@@ -23,7 +26,7 @@ import { registerCoreStateRoute } from "./routes/core-state";
 import { createStrategyRouter } from "./routes/strategy.js";
 
 import { authRouter } from "./routes/auth.routes";
-import { verifySessionToken } from "./security/crypto-token";
+import { verifySessionToken, type SessionTokenPayload } from "./security/crypto-token";
 
 import { boardroomRouter } from "./routes/boardroom";
 import { oracleActionMemoryRouter } from "./oracle/oracle-action-memory.routes";
@@ -39,13 +42,11 @@ import { telemetryRouter } from "./telemetry.routes";
 import { navRouter } from "./routes/nav.routes";
 import { registerBoardroomProjections } from "./projections/boardroom-projections";
 
-import { EventStore } from "./infrastructure/event-store";
 import { projectEvent } from "./projections/boardroom-projections";
 
 import { FallbackSseRegistry } from "./services/fallback-sse-registry";
 import {
   InMemoryIntentSnapshotRepository,
-  InMemoryOutboxRepository,
   InMemoryMoodReadModelRepository,
   InMemoryGuestSessionRepository,
 } from "../../../tests/helpers/in-memory-fakes";
@@ -53,9 +54,18 @@ import { InMemoryUnitOfWork } from "@santis/application/uow/in-memory-uow";
 import { registerGuestSelectMoodFlow } from "@santis/application/bootstrap/register-guest-select-mood";
 
 import { sendNack } from "./utils/http-contract";
+import { createPersistenceAdapters } from "./persistence/factory.js";
+
+type WebSocketUpgradeRequest = IncomingMessage & { session?: SessionTokenPayload };
+type VerifyClientInfo = {
+  origin?: string;
+  req: WebSocketUpgradeRequest;
+};
+type VerifyClientCallback = (verified: boolean, code?: number, message?: string) => void;
 
 async function bootstrap() {
-  console.log("⚡ [Ingestion API] Booting Sovereign Backend...");
+  const { eventStore: EventStore, outboxRepo, mode } = createPersistenceAdapters();
+  console.log(`⚡ [Ingestion API] Booting Sovereign Backend in ${mode.toUpperCase()} mode...`);
 
   // 1. ZAMANDA YOLCULUK: Geçmiş olayları diskten oku ve RAM'i doldur (Rehydration)
   await EventStore.replay(projectEvent);
@@ -70,13 +80,17 @@ async function bootstrap() {
     host: wsConfig.WS_HOST,
     port: wsConfig.WS_PORT,
     path: wsConfig.WS_PATH,
-    verifyClient: (info, callback) => {
+    verifyClient: (info: VerifyClientInfo, callback: VerifyClientCallback) => {
       const origin = info.origin;
-      const isAllowedExact = origin && wsConfig.WS_ALLOWED_ORIGINS.includes(origin);
-      const isAllowedPattern = origin && wsConfig.WS_ALLOWED_ORIGIN_PATTERNS.some(pattern => new RegExp(pattern).test(origin));
+      const isAllowed = origin && isOriginAllowed(origin, wsConfig.WS_ALLOWED_ORIGIN_PATTERNS);
 
-      if (!isAllowedExact && !isAllowedPattern) {
-        console.warn(`🚨 [Security] WS Rejected: Unauthorized origin -> ${origin || 'UNKNOWN'}`);
+      if (!isAllowed) {
+        console.warn(JSON.stringify({
+          event: "WS_CORS_REJECTED",
+          severity: "WARNING",
+          timestamp: new Date().toISOString(),
+          origin: origin || "UNKNOWN"
+        }));
         return callback(false, 403, "Forbidden Origin");
       }
 
@@ -92,21 +106,22 @@ async function bootstrap() {
 
         const payload = verifySessionToken(token);
         // Extend info.req to store session context if needed later
-        (info.req as any).session = payload;
+        info.req.session = payload;
         
         callback(true);
-      } catch (err: any) {
-        console.warn(`🚨 [Security] WS Rejected: Invalid or expired token -> ${err.message}`);
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : String(err);
+        console.warn(`🚨 [Security] WS Rejected: Invalid or expired token -> ${message}`);
         return callback(false, 403, "Forbidden Token");
       }
     }
   });
   
-  wss.on('connection', (ws) => {
+  wss.on('connection', (ws: WebSocket) => {
     console.log(`🔌 [WebSocket Gateway] İstemci bağlandı.`);
     ws.send(JSON.stringify({ type: "CONNECTION_ACK", message: "Sovereign WS Gateway Connected." }));
     
-    ws.on('error', (err) => {
+    ws.on('error', (err: Error) => {
       console.error('[WS Gateway] Hata:', err);
     });
   });
@@ -128,7 +143,7 @@ async function bootstrap() {
       );
 
       // --- Zeka Katmanı Entegrasyonu ---
-      const payloadData = (event.payload || {}) as Record<string, any>;
+      const payloadData = (event.payload || {}) as EventPayloadRecord;
       const metrics = {
         hesitation_index: Number(payloadData.hesitation_index || 0),
         abandon_risk: Number(payloadData.abandon_risk || 0),
@@ -149,9 +164,9 @@ async function bootstrap() {
       // --- WEBSOCKET CANLI YAYINI (BROADCAST) ---
       // Frontend (Boardroom Pro) UI updaters ile eşleşen format
       let wsPayloadType = "TELEMETRY";
-      let wsPayloadValue = 1; // Default sayım
+      let wsPayloadValue: unknown = 1; // Default sayım
       
-      const evtType = (event as any).eventType || (event as any).type;
+      const evtType = (event as SantisEventEnvelope).eventType || (event as SantisEventEnvelope).type;
 
       // Event tipine göre payload hazırlama
       if (evtType === 'GuestCheckoutCompleted' || evtType === 'RevenueGenerated' || evtType === 'commerce.upsell.therapist_accepted' || evtType === 'commerce.checkout.completed') {
@@ -180,17 +195,21 @@ async function bootstrap() {
       });
 
       // Bağlı olan tüm WS istemcilerine fırlat
-      wss.clients.forEach(client => {
-          if (client.readyState === 1) { // 1 = OPEN
+      wss.clients.forEach((client) => {
+          if (client.readyState === WebSocket.OPEN) {
               client.send(wsMessage);
           }
       });
 
       // --- SSE CORE-STATE BROADCAST (Zero-Drift Feed) ---
       if (["REVENUE_UPDATE", "RISK_SIGNAL", "STRATEGY_APPLY_ACK", "ACTION_RAIL_UPDATE"].includes(wsPayloadType)) {
-        const scope = wsPayloadType === "STRATEGY_APPLY_ACK" ? "strategy" : 
-                      wsPayloadType === "ACTION_RAIL_UPDATE" ? "action_rail" : "revenue";
-        sseManager.broadcastPatch(scope as any, {
+        const scope: Parameters<typeof sseManager.broadcastPatch>[0] =
+          wsPayloadType === "STRATEGY_APPLY_ACK"
+            ? "strategy"
+            : wsPayloadType === "ACTION_RAIL_UPDATE"
+              ? "action_rail"
+              : "revenue";
+        sseManager.broadcastPatch(scope, {
           value: wsPayloadValue,
           eventType: evtType,
           occurredAt: event.occurredAt,
@@ -204,9 +223,8 @@ async function bootstrap() {
   const uow = new InMemoryUnitOfWork();
   const guestSessionRepo = new InMemoryGuestSessionRepository();
   const intentSnapshotRepo = new InMemoryIntentSnapshotRepository();
-  const outboxRepo = new InMemoryOutboxRepository();
   const moodReadModelRepo = new InMemoryMoodReadModelRepository();
-  
+
   // Fake Fallback Repo
   const fallbackRepo = {
       incrementFallbackIncident: async () => {},
@@ -238,19 +256,41 @@ async function bootstrap() {
 
   // 4. Express App
   const app = express();
-  
+
   // DOS Koruması: Raw Body parse limiti 100kb
-  app.use(cors({ origin: "*" })); 
-  app.use(express.json({ limit: "100kb" })); 
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    res.setHeader("Vary", "Origin");
+    next();
+  });
+  app.use(cors(dynamicCorsDelegate));
+  app.use(express.json({ limit: "100kb" }));
 
   // --- HEALTH CHECK ---
-  app.get("/api/v1/analytics/god/health", (req: Request, res: Response) => {
-    res.json({
-      status: "SOVEREIGN_OS_ONLINE",
-      version: "1.0.0",
-      uptime: process.uptime(),
-      timestamp: new Date().toISOString()
-    });
+  app.get("/api/v1/health/public", (req: Request, res: Response) => {
+    res.json({ status: "OK", version: "1.0.0" });
+  });
+
+  app.get("/api/v1/health/god", (req: Request, res: Response) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ error: "Missing or invalid token" });
+    }
+    const token = authHeader.split(" ")[1];
+    try {
+      const payload = verifySessionToken(token);
+      if (payload.role !== "admin" && (payload.role as string) !== "god") {
+        return res.status(403).json({ error: "Forbidden: Admin access required" });
+      }
+      res.json({
+        status: "SOVEREIGN_OS_ONLINE",
+        version: "1.0.0",
+        uptime: process.uptime(),
+        timestamp: new Date().toISOString()
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      return res.status(403).json({ error: `Forbidden: ${message}` });
+    }
   });
 
   // 1. Otoriter Okuma Modellerini (Projections) Başlat
@@ -277,7 +317,7 @@ async function bootstrap() {
   
   // Otoriter CoreState Stream (SSE)
   app.get("/api/v1/core-state/stream", (req: Request, res: Response) => {
-    sseManager.addClient(res);
+    sseManager.addClient(req, res);
   });
 
   
@@ -320,7 +360,7 @@ async function bootstrap() {
     `);
   });
 
-  server.on('error', (e: any) => {
+  server.on('error', (e: NodeJS.ErrnoException) => {
     if (e.code === 'EADDRINUSE') {
       console.error(`\n❌ [Ingestion API] Port ${PORT} already in use.`);
       console.error(`Run: netstat -ano | findstr :${PORT}`);

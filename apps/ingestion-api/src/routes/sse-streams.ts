@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { intentSseRegistry } from "../services/sse-registry.js";
 import type { IntentSnapshotRepository } from "@santis/application/repositories/intent-snapshot-repository";
+import { isOriginAllowed } from "../security/origin-policy.js";
 
 export function createSseRoutes(
   intentSnapshotRepo: IntentSnapshotRepository
@@ -72,13 +73,17 @@ export function createSseRoutes(
    */
   router.get("/god", (req: Request, res: Response) => {
     console.log("📡 [Matrix] Yeni bir God Mode Radarı (SSE) bağlandı.");
+    const origin = req.header("Origin");
+    const allowedOrigin = origin && isOriginAllowed(origin) ? origin : undefined;
 
     // SSE için zorunlu olan HTTP Başlıkları (Fiber Optik Standartları)
     res.setHeader("Content-Type", "text/event-stream");
     res.setHeader("Cache-Control", "no-cache");
     res.setHeader("Connection", "keep-alive");
-    // CORS sorunları yaşamamak için
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    if (allowedOrigin) {
+      res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+      res.setHeader("Access-Control-Allow-Credentials", "true");
+    }
 
     // Flush headers
     res.flushHeaders();
@@ -111,7 +116,7 @@ export const activeGodStreamClients = new Set<any>();
 // ============================================================================
 // Otonom Event Fırlatıcı (Outbox Worker veya Application Service bunu çağıracak)
 // ============================================================================
-export function broadcastToGodMode(eventType: string, payload: any) {
+export function broadcastToGodMode(eventType: string, payload: unknown) {
   const eventString = `data: ${JSON.stringify({ eventType, payload })}\n\n`;
   activeGodStreamClients.forEach(client => client.write(eventString));
 }

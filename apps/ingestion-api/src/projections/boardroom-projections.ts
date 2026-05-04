@@ -5,9 +5,57 @@ import type { ActionRecommendation } from "@santis/domain-schema";
 
 import crypto from "crypto";
 import { computeCalibration, segmentConfidence } from "./calibration-engine";
+
+type PricingRecommendationRecord = {
+  id: string;
+  sessionId: string;
+  action: string;
+  suggestedDeltaPct: number;
+  confidence: number;
+  reasonCodes: string[];
+  status?: "approved" | "rejected";
+  appliedDeltaPct?: number;
+};
+
+type PricingRecommendationAction =
+  | "increase_price"
+  | "hold_price"
+  | "add_value_upgrade"
+  | "suppress_discount";
+
+type PricingReasonCode =
+  | "high_scp_margin"
+  | "low_scp_margin"
+  | "premium_intent"
+  | "vip_signal"
+  | "low_hesitation"
+  | "high_hesitation"
+  | "capacity_pressure"
+  | "low_demand"
+  | "discount_risk"
+  | "luxury_brand_guard";
+
+type PricingRecommendationEvent = Extract<
+  SantisEvent,
+  { eventType: "pricing.recommendation.created" | "pricing.autonomous.recommended" }
+>;
+
+type CalibrationSnapshot = {
+  matchRate: number;
+  calibrationError: number;
+} | null;
+
+type OracleMemoryRecord = {
+  id: string;
+  intent: string;
+  operatorId: string;
+  timestamp: string;
+  metadata?: Record<string, unknown>;
+};
+
 export function derivePricingRecommendation(input: {
-  scp: any;
-  calibration?: any;
+  scp: { score: number; margin: number; grossRevenue: number; [key: string]: unknown };
+  calibration?: CalibrationSnapshot;
   demandIndex?: number;
   hesitationIndex?: number;
   capacityUtilization?: number;
@@ -24,9 +72,9 @@ export function derivePricingRecommendation(input: {
     stabilityFactor = 0.9
   } = input;
 
-  let action = "hold_price";
+  let action: PricingRecommendationAction = "hold_price";
   let delta = 0;
-  let reasons: string[] = [];
+  let reasons: PricingReasonCode[] = [];
 
   // 🔥 CORE DECISION LOGIC
 
@@ -63,14 +111,14 @@ export function derivePricingRecommendation(input: {
 
   // 🎯 GUARDRAILS
 
-  const brandRisk =
+  const brandRisk: "low" | "medium" | "high" =
     delta > 0.15 ? "high" :
     delta > 0.08 ? "medium" :
     "low";
 
   const luxuryIntegrity = brandRisk !== "high" && stabilityFactor >= 0.7;
 
-  let mode = "advisory";
+  let mode: "advisory" | "autonomous_ready" = "advisory";
   let autonomousReady = false;
   let requiresHumanSeal = true;
 
@@ -88,7 +136,7 @@ export function derivePricingRecommendation(input: {
     autonomousReady,
     requiresHumanSeal,
     guardrails: {
-      requiresHumanApproval: true,
+      requiresHumanApproval: true as const,
       maxDeltaPct: 0.2,
       brandRisk,
       luxuryIntegrity,
@@ -118,13 +166,13 @@ export const BoardroomReadModels = {
     beauty: 0,
     couple_connection: 0
   },
-  pricingRecommendations: {} as Record<string, any>,
+  pricingRecommendations: {} as Record<string, PricingRecommendationRecord>,
   activeActions: [] as ActionRecommendation[], // 🔥 Typed: Boardroom Action Rail
-  latestCalibration: null as any,
+  latestCalibration: null as CalibrationSnapshot,
   oracleIntelligence: {
     actionsResolved: 0,
-    lastOperatorAction: null as any,
-    actionMemory: [] as any[]
+    lastOperatorAction: null as OracleMemoryRecord | null,
+    actionMemory: [] as OracleMemoryRecord[]
   }
 };
 
@@ -173,11 +221,11 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
   console.log("📈 [Projections] Boardroom Dinleyicileri Aktif.");
 
   // Canlı (Live) eventleri dinle ve projeksiyona uygula
-  bus.events.subscribe("experience.interaction.mood_selected", async (e: any) => {
+  bus.events.subscribe("experience.interaction.mood_selected", async (e) => {
     projectEvent(e);
   });
   
-  bus.events.subscribe("commerce.upsell.therapist_accepted", async (e: any) => {
+  bus.events.subscribe("commerce.upsell.therapist_accepted", async (e) => {
     projectEvent(e);
     
     // Broadcast live delta to the Boardroom PRO Cockpit
@@ -187,7 +235,7 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
     });
   });
 
-  bus.events.subscribe("commerce.checkout.completed", async (e: any) => {
+  bus.events.subscribe("commerce.checkout.completed", async (e) => {
     projectEvent(e);
     
     const scp = calculateSCP({
@@ -240,10 +288,10 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
       schemaVersion: "v1",
       eventType: recommendationPayload.mode === "autonomous_ready" ? "pricing.autonomous.recommended" : "pricing.recommendation.created",
       payload: recommendationPayload
-    } as any);
+    });
   });
 
-  function deriveShadowDecision(pricingRecommendation: any) {
+  function deriveShadowDecision(pricingRecommendation: PricingRecommendationRecord) {
     return {
       recommendationId: pricingRecommendation.id,
       simulatedAction: pricingRecommendation.action,
@@ -258,7 +306,7 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
   }
 
   // 3. Render pricing intelligence in UI
-  const handleRecommendation = async (e: any) => {
+  const handleRecommendation = async (e: PricingRecommendationEvent) => {
     BoardroomReadModels.pricingRecommendations[e.sessionId] = e.payload;
     
     const shadow = deriveShadowDecision(e.payload);
@@ -272,13 +320,14 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
 
     // 🔥 Action Rail Integration
     const actionId = e.payload.id || crypto.randomUUID();
-    const actionItem = {
+    const actionItem: ActionRecommendation = {
       id: actionId,
       type: "pricing_adjustment",
       title: `Fiyat Optimizasyonu: ${e.payload.action}`,
       description: `${(e.payload.suggestedDeltaPct * 100).toFixed(1)}% değişim öneriliyor. Neden: ${e.payload.reasonCodes?.join(", ")}`,
       impactScore: e.payload.confidence,
       priority: e.payload.confidence > 0.8 ? "high" : "medium",
+      expiresAt: new Date(Date.now() + 1000 * 60 * 10).toISOString(),
       payload: e.payload,
       createdAt: new Date().toISOString()
     };
@@ -311,8 +360,8 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
 
   function deriveCurrentCalibration() {
     const pairs = Object.values(BoardroomReadModels.pricingRecommendations)
-      .filter((r: any) => r.status && (r.status === 'approved' || r.status === 'rejected'))
-      .map((r: any) => ({
+      .filter((r) => r.status && (r.status === 'approved' || r.status === 'rejected'))
+      .map((r) => ({
         confidence: r.confidence || 0,
         match: r.status === 'approved'
       }));
@@ -323,14 +372,14 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
   }
 
   // 4. Operator Override Applied
-  bus.events.subscribe("pricing.override.applied", async (e: any) => {
-    const sessionId = e.sessionId || e.payload.sessionId;
+  bus.events.subscribe("pricing.override.applied", async (e) => {
+    const sessionId = e.sessionId;
     const recommendation = BoardroomReadModels.pricingRecommendations[sessionId];
     
     if (recommendation) {
       BoardroomReadModels.pricingRecommendations[sessionId] = {
         ...recommendation,
-        status: e.payload.decision.toLowerCase(),
+        status: e.payload.decision === "reject" ? "rejected" : "approved",
         appliedDeltaPct: e.payload.appliedDeltaPct
       };
     }
@@ -356,12 +405,19 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
   });
 
   // 5. Oracle Action Resolved (Boardroom Loop-back Projection)
-  bus.events.subscribe("boardroom.oracle.executed", async (e: any) => {
+  bus.events.subscribe("boardroom.oracle.executed", async (e) => {
+    const memoryRecord: OracleMemoryRecord = {
+      id: e.payload.actionId,
+      intent: e.payload.actionType,
+      operatorId: e.payload.operatorId,
+      timestamp: e.payload.executedAt,
+      metadata: e.payload.metadata,
+    };
     BoardroomReadModels.oracleIntelligence.actionsResolved += 1;
-    BoardroomReadModels.oracleIntelligence.lastOperatorAction = e.payload;
+    BoardroomReadModels.oracleIntelligence.lastOperatorAction = memoryRecord;
     
     // Keep last 10 actions in memory
-    BoardroomReadModels.oracleIntelligence.actionMemory.unshift(e.payload);
+    BoardroomReadModels.oracleIntelligence.actionMemory.unshift(memoryRecord);
     if (BoardroomReadModels.oracleIntelligence.actionMemory.length > 10) {
       BoardroomReadModels.oracleIntelligence.actionMemory.pop();
     }
@@ -375,7 +431,7 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
     });
   });
 
-  bus.events.subscribe("boardroom.strategy.applied", async (e: any) => {
+  bus.events.subscribe("boardroom.strategy.applied", async (e) => {
     const operatorId = e.payload.operatorContext?.operatorId || e.payload.operatorContext?.source || "boardroom-ui";
     const memoryRecord = {
       id: e.payload.recommendationId,

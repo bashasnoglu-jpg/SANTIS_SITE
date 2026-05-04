@@ -20,13 +20,14 @@ export const createIngressRouter = (sovereignBus: SovereignBus, commandIngress: 
         console.log(`\n🧪 [Test Gate] Sentetik test eventi firlatildi: ${validEvent.eventType}`);
         await sovereignBus.events.publish(validEvent);
         res.json({ status: "TEST_EVENT_FIRED", eventType: validEvent.eventType });
-      } catch (error: any) {
+      } catch (error: unknown) {
         if (error instanceof z.ZodError) {
           console.error("❌ [Test Gate] Validation Hatası:", error.errors);
           return res.status(400).json({ error: "Validation Failed", details: error.errors });
         }
-        console.error("❌ [Test Gate] Hata:", error.message);
-        res.status(400).json({ error: error.message });
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        console.error("❌ [Test Gate] Hata:", errorMessage);
+        res.status(400).json({ error: errorMessage });
       }
     });
 
@@ -63,17 +64,19 @@ export const createIngressRouter = (sovereignBus: SovereignBus, commandIngress: 
             moodAffinity: [],
             premiumThreshold: 100
           },
+          schemaVersion: "v1",
           payload: {
             therapistId: crypto.randomUUID(),
             upsellAmount: 8500, // VIP Helikopter Transfer Bedeli (Temsili)
             originalPackageId: crypto.randomUUID()
           }
-        } as any); // Type bypass for simplicity in demo
+        });
 
         res.status(200).json({ success: true, message: "Katalizör onaylandı ve sahaya gönderildi." });
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error("❌ [Sovereign] Override Hatası:", err);
-        res.status(500).json({ success: false, error: err.message });
+        const errorMessage = err instanceof Error ? err.message : String(err);
+        res.status(500).json({ success: false, error: errorMessage });
       }
     });
   }

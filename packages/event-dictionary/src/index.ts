@@ -238,8 +238,8 @@ export const RiskSignalTriggeredEventSchema = BaseEventSchema.extend({
 
 import { PricingRecommendationSchema } from "./pricing.schemas";
 
-export const PricingRecommendationEmittedEventSchema = BaseEventSchema.extend({
-  eventType: z.literal("pricing.recommendation.emitted"),
+export const PricingRecommendationCreatedEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("pricing.recommendation.created"),
   payload: PricingRecommendationSchema
 });
 
@@ -335,14 +335,12 @@ export const SantisEventSchema = z.discriminatedUnion("eventType", [
   PricingMidasEngagedEventSchema,
   CheckoutCompletedEventSchema,
   RiskSignalTriggeredEventSchema,
-  PricingRecommendationEmittedEventSchema,
+  PricingRecommendationCreatedEventSchema,
   PricingAutonomousRecommendedEventSchema,
   PricingOverrideAppliedEventSchema,
   BoardroomOracleExecutedEventSchema,
   BoardroomStrategyAppliedEventSchema,
   BoardroomOverrideAppliedEventSchema,
-  z.object({ eventType: z.literal("pricing.recommendation.created") }).passthrough(),
-  z.object({ eventType: z.literal("pricing.autonomous.recommended") }).passthrough(),
 ]);
 
 export type SantisEvent = z.infer<typeof SantisEventSchema>;

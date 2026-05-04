@@ -1,9 +1,8 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { SsePatchEnvelopeSchema } from "@santis/domain-schema";
+import { isOriginAllowed } from "../security/origin-policy.js";
 
-// Persistent sequence ID across module reloads (Hot Reload Safe)
-(global as any).SANTIS_SEQ = (global as any).SANTIS_SEQ ?? 0;
-const nextSeq = () => ++(global as any).SANTIS_SEQ;
+// Sequence ID for deterministic patching
 
 /**
  * SseManager (Production-Grade Strategy Feed)
@@ -11,6 +10,7 @@ const nextSeq = () => ++(global as any).SANTIS_SEQ;
  */
 export class SseManager {
   private clients = new Set<Response>();
+  private sequence = 0;
 
   constructor() {
     // Global Heartbeat to prevent proxy timeouts
@@ -21,13 +21,17 @@ export class SseManager {
    * Registers a new SSE client.
    * Ensures headers are set for persistent streaming as per Santis OS Sovereign Standards.
    */
-  addClient(res: Response) {
+  addClient(req: Request, res: Response) {
+    const origin = req.header("Origin");
+    const allowedOrigin = origin && isOriginAllowed(origin) ? origin : undefined;
+
     res.writeHead(200, {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache, no-transform",
       "Connection": "keep-alive",
       "X-Accel-Buffering": "no", // Disable buffering for Nginx/Proxies
-      "Access-Control-Allow-Origin": "*",
+      ...(allowedOrigin ? { "Access-Control-Allow-Origin": allowedOrigin } : {}),
+      ...(allowedOrigin ? { "Access-Control-Allow-Credentials": "true" } : {}),
     });
 
     // Send an initial handshake
@@ -56,10 +60,10 @@ export class SseManager {
    */
   broadcastPatch(
     scope: "strategy" | "revenue" | "core_state" | "command" | "action_rail", 
-    patch: Record<string, any>,
+    patch: Record<string, unknown>,
     event: "strategy_update" | "command_ack" | "action_rail_update" = "strategy_update"
   ) {
-    const seq = nextSeq();
+    const seq = ++this.sequence;
     
     const payloadRaw = {
       event,

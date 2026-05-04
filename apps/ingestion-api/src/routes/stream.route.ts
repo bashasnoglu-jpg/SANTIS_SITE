@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { isOriginAllowed } from "../security/origin-policy.js";
 
 const router: import('express').Router = Router();
 
@@ -10,13 +11,18 @@ export const activeRadars = new Set<Response>();
  * GodMode Server-Sent Events (SSE) Bağlantı Noktası
  */
 router.get('/events', (req: Request, res: Response) => {
+  const origin = req.header("Origin");
+  const allowedOrigin = origin && isOriginAllowed(origin) ? origin : undefined;
+
   // Sessiz Lüks SSE (Server-Sent Events) Başlıkları
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
   
-  // CORS ve güvenlik zırhı eklentileri (gerekirse)
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  if (allowedOrigin) {
+    res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+  }
 
   // Radar bağlantısı kurulduğunda ilk fısıltıyı (Otonom Selamlama) gönder
   res.write(`data: ${JSON.stringify({ 

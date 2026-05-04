@@ -10,7 +10,10 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "audit:contract": "node scripts/active/audit-contract.mjs"
+    "audit:contract": "node scripts/active/audit-contract.mjs",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:push": "drizzle-kit push:pg",
+    "db:migrate": "node scripts/migrate.mjs"
   },
   "dependencies": {
     "drizzle-orm": "^0.30.0",

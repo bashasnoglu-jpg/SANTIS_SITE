@@ -8,5 +8,5 @@ export default defineConfig({
     connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/sovereign',
   },
   verbose: true,
-  strict: true,
+  strict: false,
 });

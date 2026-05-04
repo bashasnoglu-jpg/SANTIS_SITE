@@ -18,6 +18,28 @@ function ack(command: { commandId: string; traceId?: string }): CommandResult {
   };
 }
 
+function createSystemIntent() {
+  return {
+    guestId: "system",
+    isReturningGuest: true,
+    segment: "vip" as const,
+    moodAffinity: [],
+    premiumThreshold: 100,
+  };
+}
+
+function createSystemTenant() {
+  return {
+    hotelId: "system",
+    hotelCode: "SYS",
+    region: "EU" as const,
+    locale: "en" as const,
+    currency: "EUR" as const,
+    activePolicies: [],
+    fallbackMode: false,
+  };
+}
+
 export function registerCommandHandlers(bus: SovereignBus): void {
   bus.commands.registerHandler("commerce.record_checkout", async (command: CommandOfType<"commerce.record_checkout">) => {
     await bus.events.publish({
@@ -26,17 +48,14 @@ export function registerCommandHandlers(bus: SovereignBus): void {
       occurredAt: new Date().toISOString(),
       tenant: command.tenant,
       intent: {
+        ...createSystemIntent(),
         guestId: command.payload.guestId,
-        isReturningGuest: true,
-        segment: "vip",
-        moodAffinity: [],
-        premiumThreshold: 100,
       },
       traceId: command.traceId,
       sessionId: command.sessionId,
       schemaVersion: "v1",
       payload: command.payload,
-    } as any);
+    });
 
     return ack(command);
   });
@@ -49,22 +68,8 @@ export function registerCommandHandlers(bus: SovereignBus): void {
       traceId: command.traceId,
       sessionId: command.sessionId,
       schemaVersion: "v1",
-      tenant: {
-        hotelId: "system",
-        hotelCode: "SYS",
-        region: "GLOBAL",
-        locale: "en",
-        currency: "EUR",
-        activePolicies: [],
-        fallbackMode: false,
-      },
-      intent: {
-        guestId: "system",
-        isReturningGuest: true,
-        segment: "vip",
-        moodAffinity: [],
-        premiumThreshold: 100,
-      },
+      tenant: createSystemTenant(),
+      intent: createSystemIntent(),
       payload: {
         recommendationId: command.payload.recommendationId,
         decision: command.payload.decision,
@@ -72,7 +77,7 @@ export function registerCommandHandlers(bus: SovereignBus): void {
         appliedDeltaPct: command.payload.appliedDeltaPct || 0,
         operatorId: command.payload.operatorId || "system",
       },
-    } as any);
+    });
 
     return ack(command);
   });
@@ -84,22 +89,8 @@ export function registerCommandHandlers(bus: SovereignBus): void {
       traceId: command.traceId,
       sessionId: command.sessionId,
       schemaVersion: "v1",
-      tenant: command.tenant || {
-        hotelId: "system",
-        hotelCode: "SYS",
-        region: "GLOBAL",
-        locale: "en",
-        currency: "EUR",
-        activePolicies: [],
-        fallbackMode: false,
-      },
-      intent: {
-        guestId: "system",
-        isReturningGuest: true,
-        segment: "vip",
-        moodAffinity: [],
-        premiumThreshold: 100,
-      },
+      tenant: command.tenant || createSystemTenant(),
+      intent: createSystemIntent(),
       payload: {
         actionId: command.payload.actionId,
         sourceEventId: command.payload.sourceEventId,
@@ -109,7 +100,7 @@ export function registerCommandHandlers(bus: SovereignBus): void {
         executedAt: new Date().toISOString(),
         metadata: command.payload.metadata,
       },
-    } as any);
+    });
 
     return ack(command);
   });
@@ -136,22 +127,8 @@ export function registerCommandHandlers(bus: SovereignBus): void {
       traceId: command.traceId,
       sessionId: command.sessionId,
       schemaVersion: "v1",
-      tenant: command.tenant || {
-        hotelId: "system",
-        hotelCode: "SYS",
-        region: "GLOBAL",
-        locale: "en",
-        currency: "EUR",
-        activePolicies: [],
-        fallbackMode: false,
-      },
-      intent: {
-        guestId: "system",
-        isReturningGuest: true,
-        segment: "vip",
-        moodAffinity: [],
-        premiumThreshold: 100,
-      },
+      tenant: command.tenant || createSystemTenant(),
+      intent: createSystemIntent(),
       payload: {
         recommendationId: command.payload.recommendationId,
         sessionId: command.payload.sessionId,
@@ -161,7 +138,7 @@ export function registerCommandHandlers(bus: SovereignBus): void {
         meta: command.payload.meta,
         appliedAt: new Date().toISOString(),
       },
-    } as any);
+    });
 
     return ack(command);
   });
@@ -176,22 +153,8 @@ export function registerCommandHandlers(bus: SovereignBus): void {
       traceId: command.traceId,
       sessionId: command.sessionId,
       schemaVersion: "v1",
-      tenant: command.tenant || {
-        hotelId: "system",
-        hotelCode: "SYS",
-        region: "GLOBAL",
-        locale: "en",
-        currency: "EUR",
-        activePolicies: [],
-        fallbackMode: false,
-      },
-      intent: {
-        guestId: "system",
-        isReturningGuest: true,
-        segment: "vip",
-        moodAffinity: [],
-        premiumThreshold: 100,
-      },
+      tenant: command.tenant || createSystemTenant(),
+      intent: createSystemIntent(),
       payload: {
         action: command.payload.action,
         reason: command.payload.reason,
@@ -199,7 +162,7 @@ export function registerCommandHandlers(bus: SovereignBus): void {
         appliedAt: new Date().toISOString(),
         meta: command.payload.meta,
       },
-    } as any);
+    });
 
     // Broadcast ACK via SSE for real-time feedback
     sseManager.broadcastPatch("command", {
