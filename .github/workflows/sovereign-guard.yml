@@ -15,6 +15,17 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
+      - name: Sovereign Architecture Guard
+        run: |
+          if grep -qR "origin: \"\*\"" apps/ingestion-api/src packages; then
+            echo "❌ Wildcard CORS detected!"
+            exit 1
+          fi
+          if grep -qR "\.passthrough()" packages/event-dictionary/src; then
+            echo "❌ passthrough() detected in event-dictionary!"
+            exit 1
+          fi
+          echo "✅ Sovereign Architecture Guard passed."
       - run: pnpm audit:all
         env:
           NODE_ENV: test

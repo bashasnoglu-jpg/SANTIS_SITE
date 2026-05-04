@@ -39,9 +39,11 @@ jobs:
           fi
 
       - name: Emit DEPLOYMENT_STARTED
+        continue-on-error: true
         run: |
           curl -X POST $TELEMETRY_ENDPOINT \
           -H "Content-Type: application/json" \
+          --fail-with-body --show-error \
           -d '{
             "event":"DEPLOYMENT_STARTED",
             "status":"started",
@@ -52,7 +54,7 @@ jobs:
             "sha":"${{ github.sha }}",
             "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest",
             "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
-          }' || true
+          }'
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
@@ -76,9 +78,11 @@ jobs:
 
       - name: Emit IMAGE_PUBLISHED
         if: success()
+        continue-on-error: true
         run: |
           curl -X POST $TELEMETRY_ENDPOINT \
           -H "Content-Type: application/json" \
+          --fail-with-body --show-error \
           -d '{
             "event":"IMAGE_PUBLISHED",
             "status":"published",
@@ -89,13 +93,15 @@ jobs:
             "sha":"${{ github.sha }}",
             "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest",
             "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
-          }' || true
+          }'
 
       - name: Emit DEPLOYMENT_FAILED
         if: failure()
+        continue-on-error: true
         run: |
           curl -X POST $TELEMETRY_ENDPOINT \
           -H "Content-Type: application/json" \
+          --fail-with-body --show-error \
           -d '{
             "event":"DEPLOYMENT_FAILED",
             "status":"failed",
@@ -106,4 +112,4 @@ jobs:
             "sha":"${{ github.sha }}",
             "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest",
             "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
-          }' || true
+          }'
