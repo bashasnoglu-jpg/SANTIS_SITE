@@ -33,7 +33,7 @@ jobs:
           context: .
           file: ./Dockerfile.sovereign
           push: true
-          tags: ghcr.io/${{ github.repository }}/santis-sovereign-os:latest
+          tags: ghcr.io/bashasnoglu-jpg/santis-sovereign-os:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -51,6 +51,6 @@ jobs:
           script: |
             echo "[SİSTEM LOGU] Sovereign Cloud Deployment Başladı!"
             cd /opt/santis_karargah
-            docker pull ghcr.io/${{ github.repository }}/santis-sovereign-os:latest
+            docker pull ghcr.io/bashasnoglu-jpg/santis-sovereign-os:latest
             docker-compose -f docker-compose.sovereign.yml up -d --build
             echo "[SİSTEM LOGU] Karadağ Hedef Noktası Vuruldu. Sıfır Kesinti Sağlandı."
