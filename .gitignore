@@ -80,3 +80,30 @@ _deploy_stage/
 *.tmp
 *.old
 *.backup
+
+# 📊 Generated Reports (tracked historically, now ignored)
+reports/*.html
+reports/*.csv
+reports/*.json
+
+# 📋 Debug & Runtime Logs (committed before *.log rule existed in this repo)
+master-debug.log
+dev-server.log
+dev-server.err.log
+debug_api.log
+gateway-crash.log
+test*.log
+.ingestion-api.*.log
+.runtime-*.log
+
+# 📦 Stale Archives & Dumps
+*.zip
+telemetry-dump.json
+forecast*.json
+slots_response.json
+omni_asset_vault.json
+SANTIS_SITE_GRAPH_VISUAL.html
+index_backup.html
+cilt-bakimi.diff
+git-diff-stat-before-clean.txt
+git-status-before-clean.txt
