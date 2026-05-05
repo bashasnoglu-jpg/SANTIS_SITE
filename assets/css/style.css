@@ -74,6 +74,33 @@ section, .santis-section {
     transform: translateY(0) !important; /* Prevent scroll-hidden */
 }
 
+@media (min-width: 769px) {
+    .sovereign-brand-links,
+    .sovereign-links,
+    .sovereign-service-bar,
+    .sovereign-service-bar .sovereign-nav-container {
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    .sovereign-brand-links {
+        gap: 1vw !important;
+        flex: 1 1 auto !important;
+        justify-content: center !important;
+        min-width: 0 !important;
+    }
+
+    .sovereign-brand-links .sovereign-link-item {
+        font-size: 10px !important;
+        letter-spacing: 0.06em !important;
+    }
+
+    .hamburger-btn {
+        display: none !important;
+    }
+}
+
 
 /* 
    ⚠️ BABA YAGA PROTOKOLÜ UYARISI: 
