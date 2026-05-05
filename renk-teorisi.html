@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Renk Teorisi Masterclass • Santis OS</title>
+    <meta content="Dijital tasarımda renk teorisi: Klasik Newton modellerinden modern HCT algoritmalarına ve WCAG erişilebilirlik standartlarına kapsamlı bir yolculuk." name="description"/>
+    
+    <!-- FONTS -->
+    <link href="/assets/css/fonts.css" rel="stylesheet"/>
+    <link rel="preload" href="/assets/css/style.css" as="style">
+    <link href="/assets/css/style.css" rel="stylesheet"/>
+    
+    <style>
+        :root {
+            --santis-gold: #d4af37;
+            --santis-bg: #101010;
+            --santis-text: #ffffff;
+            --santis-gray: #a0a0a0;
+        }
+
+        body {
+            background-color: var(--santis-bg);
+            color: var(--santis-text);
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .masterclass-hero {
+            position: relative;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .hero-visual {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-kicker {
+            font-size: 0.8rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--santis-gold);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--santis-gray);
+            margin-top: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        @media (max-width: 968px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero-title { font-size: 3rem; }
+        }
+
+        .section-tag {
+            color: var(--santis-gold);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+
+        .section-text {
+            color: var(--santis-gray);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Interactive HCT Simulator (Visual Only for now) */
+        .hct-sim {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .color-preview {
+            height: 240px;
+            background: linear-gradient(135deg, var(--santis-gold), #8e6d1c);
+            margin-bottom: 30px;
+            border-radius: 2px;
+            transition: background 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .sim-range {
+            width: 100%;
+            -webkit-appearance: none;
+            background: rgba(255,255,255,0.1);
+            height: 2px;
+            outline: none;
+        }
+
+        .sim-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: var(--santis-gold);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .sim-range::-webkit-slider-thumb:hover {
+            transform: scale(1.3);
+        }
+
+        /* 60-30-10 Rule Visualizer */
+        .rule-visualizer {
+            display: flex;
+            height: 100px;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 40px;
+        }
+
+        .rule-60 { flex: 0 0 60%; background: #1a1a1a; }
+        .rule-30 { flex: 0 0 30%; background: #333333; }
+        .rule-10 { flex: 0 0 10%; background: var(--santis-gold); }
+
+        /* WCAG Checker UI */
+        .wcag-card {
+            background: #fff;
+            color: #000;
+            padding: 30px;
+            border-radius: 4px;
+        }
+
+        .wcag-status {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .status-pass { color: #2e7d32; font-weight: 700; }
+    </style>
+</head>
+<body class="editorial-mode">
+
+    <header id="site-header" role="banner">
+        <div id="navbar-container"></div>
+    </header>
+
+    <main id="sovereign-page-root">
+        <!-- HERO -->
+        <section class="masterclass-hero">
+            <img src="/assets/img/color-theory-hero.png" alt="Renk Teorisi Hero" class="hero-visual" fetchpriority="high">
+            <div class="hero-content">
+                <span class="hero-kicker">Santis OS Academy</span>
+                <h1 class="hero-title">Dijital Tasarımda<br>Renk Teorisi</h1>
+                <p class="hero-subtitle">Kuantum fiziğinden algısal psikolojiye, ışığın dijital evrimi.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 1: TARİHSEL TEMELLER -->
+        <section class="section-container">
+            <div class="grid-2">
+                <div>
+                    <span class="section-tag">01. Temeller</span>
+                    <h2 class="section-title">Işığın Ayrışması:<br>Newton'dan Itten'a</h2>
+                    <p class="section-text">
+                        Isaac Newton'un 1666'da prizma ile ışığı renklerine ayırması, modern renk biliminin miladı kabul edilir. 
+                        Ardından Johannes Itten, Bauhaus bünyesinde renklerin birbirleriyle olan matematiksel ve psikolojik ilişkilerini 
+                        "Renk Çemberi" ile sistematize etmiştir.
+                    </p>
+                </div>
+                <div style="text-align: center;">
+                    <svg viewBox="0 0 200 200" width="300" height="300" style="opacity: 0.8;">
+                        <circle cx="100" cy="100" r="80" fill="none" stroke="var(--santis-gold)" stroke-width="0.5" />
+                        <!-- Simplified Color Wheel Representation -->
+                        <path d="M100 20 A80 80 0 0 1 180 100 L100 100 Z" fill="rgba(212, 175, 55, 0.2)" />
+                        <path d="M180 100 A80 80 0 0 1 100 180 L100 100 Z" fill="rgba(212, 175, 55, 0.4)" />
+                        <path d="M100 180 A80 80 0 0 1 20 100 L100 100 Z" fill="rgba(212, 175, 55, 0.6)" />
+                        <path d="M20 100 A80 80 0 0 1 100 20 L100 100 Z" fill="rgba(212, 175, 55, 0.8)" />
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: MODERN DEVRİM -->
+        <section class="section-container" style="background: #080808;">
+            <div class="grid-2">
+                <div class="hct-sim">
+                    <div class="color-preview" id="hct-preview">HCT Active Field</div>
+                    
+                    <div class="sim-control">
+                        <span style="font-size: 0.7rem; color: var(--santis-gray); display: block; margin-bottom: 5px;">HUE (Renk Özü): <span id="hue-val">42</span>°</span>
+                        <input type="range" min="0" max="360" value="42" class="sim-range" id="hue-slider">
+                    </div>
+
+                    <div class="sim-control" style="margin-top: 20px;">
+                        <span style="font-size: 0.7rem; color: var(--santis-gray); display: block; margin-bottom: 5px;">CHROMA (Kroma): <span id="chroma-val">80</span></span>
+                        <input type="range" min="0" max="100" value="80" class="sim-range" id="chroma-slider">
+                    </div>
+
+                    <div class="sim-control" style="margin-top: 20px;">
+                        <span style="font-size: 0.7rem; color: var(--santis-gray); display: block; margin-bottom: 5px;">TONE (Ton/Parlaklık): <span id="tone-val">70</span></span>
+                        <input type="range" min="0" max="100" value="70" class="sim-range" id="tone-slider">
+                    </div>
+                </div>
+                <div>
+                    <span class="section-tag">02. Modern Algoritma</span>
+                    <h2 class="section-title">HCT Sistemi ve<br>Material Design 3</h2>
+                    <p class="section-text">
+                        Geleneksel HSL sistemi, insan gözünün farklı renkleri farklı parlaklıkta algılamasını (örneğin sarının maviden daha parlak görünmesi) 
+                        hesaba katmaz. Google'ın HCT (Hue, Chroma, Tone) algoritması, CAM16 renk modelini kullanarak 
+                        algısal doğruluğu matematiksel kesinlikle birleştirir.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: STRATEJİK UYGULAMA -->
+        <section class="section-container">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <span class="section-tag">03. Kompozisyon</span>
+                <h2 class="section-title">60-30-10 Kuralı</h2>
+                <p class="section-text">
+                    Görsel dengenin altın formülü. %60 Baskın Renk (genellikle nötr), %30 İkincil Renk (karakter katan) 
+                    ve %10 Vurgu Rengi (aksiyon çağrısı için). Bu dağılım, kullanıcının bilişsel yükünü azaltır ve 
+                    arayüz hiyerarşisini netleştirir.
+                </p>
+                <div class="rule-visualizer">
+                    <div class="rule-60"></div>
+                    <div class="rule-30"></div>
+                    <div class="rule-10"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-top: 15px; font-size: 0.8rem; color: var(--santis-gray);">
+                    <span>Baskın (%60)</span>
+                    <span>İkincil (%30)</span>
+                    <span>Vurgu (%10)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: ERİŞİLEBİLİRLİK -->
+        <section class="section-container" style="background: #080808;">
+            <div class="grid-2">
+                <div>
+                    <span class="section-tag">04. Teknik Standart</span>
+                    <h2 class="section-title">WCAG 2.2 ve<br>Okunabilirlik</h2>
+                    <p class="section-text">
+                        Erişilebilirlik bir tercih değil, zorunluluktur. WCAG 2.2 standartları, metin ve arka plan arasında 
+                        en az 4.5:1 (AA) veya 7:1 (AAA) kontrast oranı gerektirir. Santis OS, her pikselde 
+                        bu evrensel tasarımı merkezine alır.
+                    </p>
+                </div>
+                <div class="wcag-card">
+                    <h4 style="margin-top: 0;">Accessibility Report</h4>
+                    <div class="wcag-status">
+                        <span>Normal Text Contrast</span>
+                        <span class="status-pass">PASS (7.2:1)</span>
+                    </div>
+                    <div class="wcag-status">
+                        <span>Large Text Contrast</span>
+                        <span class="status-pass">PASS (12.4:1)</span>
+                    </div>
+                    <div class="wcag-status">
+                        <span>UI Component Contrast</span>
+                        <span class="status-pass">PASS</span>
+                    </div>
+                    <p style="font-size: 0.75rem; color: #666; margin-top: 20px;">*WCAG 2.2 Level AAA Compliant</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="site-footer" role="contentinfo">
+        <div id="footer-container"></div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="/assets/js/app.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hSlider = document.getElementById('hue-slider');
+            const cSlider = document.getElementById('chroma-slider');
+            const tSlider = document.getElementById('tone-slider');
+            const preview = document.getElementById('hct-preview');
+            
+            const hVal = document.getElementById('hue-val');
+            const cVal = document.getElementById('chroma-val');
+            const tVal = document.getElementById('tone-val');
+
+            function updateHCT() {
+                const h = hSlider.value;
+                const c = cSlider.value;
+                const t = tSlider.value;
+
+                hVal.textContent = h;
+                cVal.textContent = c;
+                tVal.textContent = t;
+
+                // Simulate HCT with HSL for visual representation
+                // In a real app, we'd use the Material HCT library
+                const l = t; 
+                const s = c; 
+                preview.style.background = `hsl(${h}, ${s}%, ${l}%)`;
+                
+                if (l > 60) {
+                    preview.style.color = 'rgba(0,0,0,0.2)';
+                } else {
+                    preview.style.color = 'rgba(255,255,255,0.1)';
+                }
+            }
+
+            hSlider.addEventListener('input', updateHCT);
+            cSlider.addEventListener('input', updateHCT);
+            tSlider.addEventListener('input', updateHCT);
+            
+            updateHCT();
+        });
+    </script>
+</body>
+</html>
