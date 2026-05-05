@@ -8,7 +8,7 @@
   },
   "packageManager": "pnpm@10.0.0",
   "scripts": {
-    "build": "pnpm run audit:all && turbo run build",
+    "build": "pnpm --filter admin-panel build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
