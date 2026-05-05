@@ -16,7 +16,7 @@ class SantisApiClient {
   async initWebSocket() {
     // Config üzerinden Gateway'e bağlanıyoruz
     const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
-    const wsUrl = await this.getAuthenticatedWebSocketUrl(config.wsUrl || `wss://${window.location.host}/ws`);
+    const wsUrl = await this.getAuthenticatedWebSocketUrl(config.wsUrl || `ws://127.0.0.1:3030/events`);
 
     this.ws = new WebSocket(wsUrl);
 

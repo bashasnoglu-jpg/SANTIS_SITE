@@ -46,6 +46,11 @@ if (window.location.protocol === 'file:') {
 <link rel="stylesheet" href="/assets/css/style.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/css/style.css"></noscript>
 
+<!-- Swiper CSS — Carousel & Slider temel stilleri -->
+<link rel="preload" href="/assets/vendor/swiper-bundle.min.css" as="style">
+<link rel="stylesheet" href="/assets/vendor/swiper-bundle.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/assets/vendor/swiper-bundle.min.css"></noscript>
+
 <style id="critical-css">
 /* Temel sıfırlama ve tipografi iskeleti */
 body { margin: 0; background-color: #101010; font-family: 'Outfit', 'Inter', system-ui, sans-serif; color: #fff; }
@@ -56,6 +61,70 @@ body { margin: 0; background-color: #101010; font-family: 'Outfit', 'Inter', sys
 .hero-visual { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 1; }
 /* Font yükleme kaymalarını (CLS) engellemek için */
 html { font-display: optional; }
+
+/* ── COVER FLOW FAILSAFE ── */
+/* Skeleton veil: JS motoru başlamasa bile 3sn sonra gizle */
+@keyframes veil-fade-out { to { opacity: 0; pointer-events: none; visibility: hidden; } }
+.santis-reveal-veil {
+  position: absolute; inset: 0; z-index: 10;
+  display: flex; gap: 24px; align-items: center; justify-content: center;
+  background: transparent;
+  animation: veil-fade-out 0.4s ease forwards 3s;
+}
+.skeleton-card-wire {
+  width: 300px; height: 420px; border-radius: 20px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid rgba(212,175,55,0.15);
+  flex-shrink: 0;
+}
+/* Stack kartları her zaman visible — JS aktifleşince transform ekler */
+.santis-stack-card {
+  position: absolute;
+  width: 320px; height: 440px;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  background-color: #1a1a1a;
+  transition: transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease;
+  display: flex; flex-direction: column;
+  justify-content: flex-end; padding: 28px;
+  color: #fff;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+  left: 50%; top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  opacity: 0.9;
+}
+.santis-stack-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; font-weight: 400;
+  margin: 0 0 6px; color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+.santis-stack-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem; letter-spacing: 3px;
+  text-transform: uppercase; color: #D4AF37;
+}
+.santis-reveal-data { display: none; }
+/* Carousel stage base */
+.santis-carousel-stage {
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+/* Fallback horizontal scroll grid when JS hasn't run */
+/* is-loading: kartlar flat grid olarak görünür (JS init olmadan) */
+.santis-carousel-stage.is-loading .santis-stack-card {
+  position: relative; left: auto; top: auto;
+  transform: none !important; opacity: 1 !important;
+  margin: 8px;
+}
+.santis-carousel-stage.is-loading {
+  flex-wrap: wrap;
+  height: auto !important;
+  min-height: 0 !important;
+}
 </style>
 
 <!-- SCHEMA: Service -->
@@ -104,7 +173,20 @@ html { font-display: optional; }
 <!-- 🌌 V17 THE GOD CANVAS (Quantum Renderer) 🌌 -->
 <canvas id="santis-god-canvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:-1;"></canvas>
 <header id="santis-header" class="santis-navbar" role="banner">
-  <div id="navbar-container"></div>
+  <div id="navbar-container">
+    <!-- STATIC FALLBACK — JS injection gelene kadar görünür, ardından replace edilir -->
+    <nav class="santis-nav santis-nav--fallback" aria-label="Ana navigasyon" style="display:flex;align-items:center;gap:1.5rem;padding:0 2rem;height:86px;background:rgba(0,0,0,0.85);">
+      <a href="/tr/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Ana Sayfa</a>
+      <a href="/tr/masajlar/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Masajlar</a>
+      <a href="/tr/hamam/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Hamam</a>
+      <a href="/tr/cilt-bakimi/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Cilt Bakımı</a>
+      <a href="/tr/rituals/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Dünya Ritüeli</a>
+      <a href="/tr/galeri/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Galeri</a>
+      <a href="/tr/hakkimizda/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Hakkımızda</a>
+      <a href="/tr/iletisim.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">İletişim</a>
+      <a href="#reservation" style="margin-left:auto;background:#d4af37;color:#000;padding:.5rem 1.25rem;border-radius:99px;font-size:.8rem;font-family:'Inter',sans-serif;font-weight:600;text-decoration:none;">Rezervasyon</a>
+    </nav>
+  </div>
 </header>
 <main id="santis-cinematic-stage">
 <h1 class="sr-only">Santis Club</h1>
@@ -127,7 +209,7 @@ html { font-display: optional; }
         <span class="hero-kicker">SANTIS CLUB</span>
         <h2 class="hero-title">The Ritual of Stillness</h2>
         <p class="hero-subtitle">Where water, stone and silence meet.</p>
-        <a class="hero-cta" href="/rezervasyon" data-booking-open>Ritüeli Keşfet</a>
+        <a class="hero-cta" href="#reservation" data-booking-open>Ritüeli Keşfet</a>
     </div>
 </section>
 <!-- SECTION 2: SIGNATURE EXPERIENCES (V45 COVER FLOW MULTI-CARD) -->
@@ -520,7 +602,7 @@ html { font-display: optional; }
 <!-- SANTIS WORLD GATEWAY -->
 <div class="santis-container reveal-up" style="text-align:center; padding-top:50px;">
     <p style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-style:italic; color:#888; margin-bottom:15px;">Tüm dünya miraslarını tek bir ritüelde birleştirdik.</p>
-    <a href="/dunya-ritueli.html" class="santis-btn santis-magnetic" style="border:1px solid #d4af37; color:#d4af37; padding:15px 40px; font-size:14px; letter-spacing:2px; display:inline-block; transition:all 0.4s ease; background:rgba(212,175,55,0.05); text-decoration:none;">
+    <a href="/tr/rituals/index.html" class="santis-btn santis-magnetic" style="border:1px solid #d4af37; color:#d4af37; padding:15px 40px; font-size:14px; letter-spacing:2px; display:inline-block; transition:all 0.4s ease; background:rgba(212,175,55,0.05); text-decoration:none;">
         SANTIS WORLD'Ü KEŞFET
     </a>
 </div>
@@ -528,7 +610,7 @@ html { font-display: optional; }
 </section>
 
 <!-- SECTION 6: BOOKING CTA -->
-<section class="santis-booking-cta sovereign-frame" data-frame="concierge" id="bookingCta">
+<section class="santis-booking-cta sovereign-frame" data-frame="concierge" id="reservation">
 <div class="santis-container" style="text-align:center;padding:80px 20px;">
 <span class="santis-kicker">RİTÜELİNİZİ PLANLAYIN</span>
 <h2 class="santis-title" style="margin-bottom:12px;">Huzur sadece bir arama uzağınızda</h2>
@@ -541,16 +623,8 @@ html { font-display: optional; }
 </section>
 <div id="footer-container"></div>
 
-<script>
-(function awaitSovereignInteraction() {
-    if (typeof window.initCoverFlowCarousel === 'function') {
-        window.initCoverFlowCarousel();
-        console.log("🎡 Sovereign B2B Cover Flow Carousels Inited globally on Homepage.");
-    } else {
-        setTimeout(awaitSovereignInteraction, 100);
-    }
-})();
-</script>
+<!-- 💫 COVER FLOW FAILSAFE ENGINE v1.0 — Phase 75.3 (single authority) -->
+<script defer src="/assets/js/santis-coverflow-failsafe.js"></script>
 
   <nav id="ghost-pagination" aria-label="Cinematic frame navigation"></nav>
 </main>
@@ -657,6 +731,8 @@ if ('serviceWorker' in navigator) {
 <!-- 💧 SANTIS LIQUID CURSOR ENGINE v1.0 -->
 <div id="santis-cursor-dot"></div>
 <div id="santis-cursor-ring"><span class="santis-cursor-label"></span></div>
+<!-- Phase 75.4: duplicate failsafe removed — single authority above -->
 
 </body>
+
 </html>

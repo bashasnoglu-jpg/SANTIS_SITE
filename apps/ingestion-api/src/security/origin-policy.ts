@@ -10,12 +10,12 @@ let cachedPatterns: string[] = [];
  * and optional regex patterns (WS_ALLOWED_ORIGIN_PATTERNS).
  */
 export const isOriginAllowed = (origin: string, patterns: string[] = []): boolean => {
-  const currentOriginsStr = process.env.ALLOWED_ORIGINS || "";
+  const currentOriginsStr = process.env.ALLOWED_ORIGINS || "http://localhost:5173,http://127.0.0.1:5173,http://localhost:5500,http://127.0.0.1:5500,http://localhost:3030,http://127.0.0.1:3030";
 
   // Rebuild exact match Set if env var changed (e.g., hot reload or first run)
   if (currentOriginsStr !== cachedOriginsStr) {
-    if (!currentOriginsStr) {
-      console.warn('⚠️ [Origin Policy] ALLOWED_ORIGINS environment variable is empty or not set!');
+    if (!process.env.ALLOWED_ORIGINS) {
+      console.warn('⚠️ [Origin Policy] ALLOWED_ORIGINS environment variable is empty. Using development fallback origins!');
     }
 
     cachedOriginsSet = new Set<string>(

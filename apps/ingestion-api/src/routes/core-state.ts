@@ -1,4 +1,5 @@
 import { Express, Request, Response } from "express";
+import { BoardroomReadModels } from "../projections/boardroom-projections";
 
 export function registerCoreStateRoute(app: Express) {
   const coreStateHandler = async (req: Request, res: Response) => {
@@ -6,39 +7,35 @@ export function registerCoreStateRoute(app: Express) {
 
     const coreState = {
       meta: {
-        version: "68.0.0",
+        version: "1.0.0",
         generatedAt: now,
         surface: "ADMIN_HQ",
         source: "sovereign-core",
       },
 
       revenue: {
-        today: 0,
-        hourlyRateTarget: 150,
+        today: BoardroomReadModels.revenueMetrics.totalRevenue,
+        hourlyRateTarget: BoardroomReadModels.revenueMetrics.dailyTarget / 12, // Hourly approximation
         currency: "EUR",
+        trend: BoardroomReadModels.revenueMetrics.trend,
+        delta: BoardroomReadModels.revenueMetrics.delta
       },
 
       sessions: {
-        active: 0,
-        hesitationIndex: 0,
-        stressIndex: 0,
-        conversionRisk: "low",
+        active: Object.keys(BoardroomReadModels.sessions).length,
+        hesitationIndex: Object.values(BoardroomReadModels.sessions).reduce((acc, s) => acc + s.hesitationIndex, 0) / (Object.keys(BoardroomReadModels.sessions).length || 1),
+        stressIndex: Object.values(BoardroomReadModels.sessions).reduce((acc, s) => acc + s.stressIndex, 0) / (Object.keys(BoardroomReadModels.sessions).length || 1),
+        conversionRisk: Object.values(BoardroomReadModels.sessions).some(s => s.conversionRisk === "high") ? "high" : "low",
       },
 
-      therapists: [],
+      therapists: BoardroomReadModels.therapists,
 
-      catalog: {
-        programs: [],
-        hammam: [],
-        massages: [],
-        skincare: [],
-        extras: [],
-      },
+      catalog: BoardroomReadModels.catalog,
 
       alerts: [],
 
       system: {
-        status: "online",
+        status: "ready",
         websocket: "connected",
         integrity: 100,
       },

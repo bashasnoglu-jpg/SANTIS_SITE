@@ -7,6 +7,10 @@ const SantisEngine = {
   stage: null,
   pagination: null,
   observer: null,
+  config: {
+    transitionDuration: 1.2,
+    ease: "power4.inOut"
+  },
 
   init() {
     this.stage = document.querySelector("#santis-cinematic-stage");
@@ -54,8 +58,18 @@ const SantisEngine = {
       const dot = document.createElement("button");
       dot.className = "ghost-dot";
       dot.type = "button";
+      dot.setAttribute("role", "button");
+      dot.setAttribute("tabindex", "0");
       dot.setAttribute("aria-label", `Frame ${index + 1}`);
+      
       dot.addEventListener("click", () => this.goToFrame(index));
+      dot.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            this.goToFrame(index);
+        }
+      });
+      
       if (this.pagination) this.pagination.appendChild(dot);
       return dot;
     });
@@ -68,7 +82,7 @@ const SantisEngine = {
   },
 
   setupObserver() {
-    const dynamicTolerance = window.innerWidth < 1024 ? 35 : 24;
+    const dynamicTolerance = window.innerWidth < 1024 ? 50 : 24; // Increased threshold for touch
     this.observer = Observer.create({
       target: window,
       type: "wheel,touch,pointer",
@@ -77,8 +91,12 @@ const SantisEngine = {
       preventClicks: false,
       wheelSpeed: -1,
       tolerance: dynamicTolerance,
-      onDown: () => this.goToFrame(this.currentFrame + 1),
-      onUp: () => this.goToFrame(this.currentFrame - 1),
+      onDown: () => {
+          if (!this.isLocked) this.goToFrame(this.currentFrame + 1);
+      },
+      onUp: () => {
+          if (!this.isLocked) this.goToFrame(this.currentFrame - 1);
+      },
     });
   },
 
@@ -97,11 +115,23 @@ const SantisEngine = {
 
   setupKeyboardListener() {
     window.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowDown" || event.key === "PageDown") {
-        this.goToFrame(this.currentFrame + 1);
-      }
-      if (event.key === "ArrowUp" || event.key === "PageUp") {
-        this.goToFrame(this.currentFrame - 1);
+      if (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA") return;
+      
+      const isCinematic = document.body.classList.contains('santis-cinematic-lock');
+      
+      const isDown = event.key === "ArrowDown" || event.key === "PageDown" || event.key === " ";
+      const isUp = event.key === "ArrowUp" || event.key === "PageUp";
+      const isHome = event.key === "Home";
+      const isEnd = event.key === "End";
+
+      if (isDown || isUp || isHome || isEnd) {
+        if (isCinematic) event.preventDefault();
+        if (this.isLocked) return;
+
+        if (isDown) this.goToFrame(this.currentFrame + 1);
+        if (isUp) this.goToFrame(this.currentFrame - 1);
+        if (isHome) this.goToFrame(0);
+        if (isEnd) this.goToFrame(this.frames.length - 1);
       }
     });
   },
@@ -191,6 +221,10 @@ const SantisEngine = {
       const previousFrame = this.frames[this.currentFrame];
       const direction = index > this.currentFrame ? 1 : -1;
 
+      // Prefers Reduced Motion check
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const appliedDuration = prefersReducedMotion ? 0.1 : this.config.transitionDuration;
+
       // Telemetry
       const frameId = targetFrame.dataset.frame || `frame-${index}`;
       window.dispatchEvent(new CustomEvent('santis-frame-change', {
@@ -210,8 +244,8 @@ const SantisEngine = {
 
       const tl = gsap.timeline({
         defaults: {
-          duration: 1.35,
-          ease: "power4.inOut",
+          duration: appliedDuration,
+          ease: this.config.ease,
         },
         onComplete: () => {
             clearTimeout(failsafe);

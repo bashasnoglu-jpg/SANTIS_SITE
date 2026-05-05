@@ -10,6 +10,7 @@ import { registerCommandHandlers } from "./handlers/register-command-handlers";
 import { CommandIngressService } from "./services/command-ingress";
 import { createIngressRouter } from "./routes/ingress";
 import { evaluateConciergeRules, deriveSignalFromDecision } from './decision-kernel';
+import { IntentEngine } from "./engine/intent.engine";
 import { broadcastToGodMode } from "./routes/sse-streams";
 import { resolveWebSocketGatewayConfig } from "./config/websocket-gateway.config";
 import { sseManager } from "./services/sse-manager.js";
@@ -73,6 +74,7 @@ async function bootstrap() {
   // 2. Core Altyapı
   const bus = new SovereignBus();
   registerCommandHandlers(bus);
+  IntentEngine.init(bus);
 
   // --- WEBSOCKET GATEWAY (Port 8080) ---
   const wsConfig = resolveWebSocketGatewayConfig();

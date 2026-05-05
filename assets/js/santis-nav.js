@@ -1,6 +1,7 @@
 /**
- * SANTIS NAVIGATION MODULE v2.1
+ * SANTIS NAVIGATION MODULE v2.2 — Phase 75 Nav Manifest Seal (2026-05-05)
  * Standardized Header/Footer Injection with Defensive Pathing.
+ * Fallback: Santis V1 SSOT (9 routes, /tr/ prefix, hash guard, CTA action group).
  */
 if (window._SANTIS_NAV_LOADED) { /* Çift yükleme koruması — sessizce atla */ } else {
 window._SANTIS_NAV_LOADED = true;
@@ -170,14 +171,17 @@ function initNavAndFooter() {
             } catch (err) {
                 console.warn('⚠️ [Sovereign Router] Backend bağlantısı başarısız, statik fallback devrede.', err);
                 manifest = {
-                    version: "fallback",
+                    version: "fallback-v1",
                     routes: [
-                        { path: "/", title: { tr: "Ana Sayfa", en: "Home" }, nav: { group: "brand", weight: 1 }, hooks: { onEnter: "fade" } },
-                        { path: "/tr/masajlar/index.html", title: { tr: "Masajlar", en: "Massages" }, nav: { group: "service", weight: 10, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
-                        { path: "/tr/hamam/index.html", title: { tr: "Hamam", en: "Turkish Bath" }, nav: { group: "service", weight: 20, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
-                        { path: "/tr/cilt-bakimi/index.html", title: { tr: "Cilt Bakımı", en: "Skin Care" }, nav: { group: "service", weight: 30, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
-                        { path: "/tr/hakkimizda/index.html", title: { tr: "Hakkımızda", en: "About Us" }, nav: { group: "brand", weight: 40 }, hooks: { onEnter: "fade" } },
-                        { path: "/iletisim.html", title: { tr: "İletişim", en: "Contact" }, nav: { group: "action", weight: 100 }, hooks: { onEnter: "fade" } }
+                        { path: "/tr/index.html",              title: { tr: "Ana Sayfa",     en: "Home" },           nav: { group: "brand",   weight: 10 }, hooks: { onEnter: "fade" } },
+                        { path: "/tr/masajlar/index.html",     title: { tr: "Masajlar",      en: "Massages" },       nav: { group: "service", weight: 20, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/tr/hamam/index.html",        title: { tr: "Hamam",         en: "Turkish Bath" },   nav: { group: "service", weight: 30, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/tr/cilt-bakimi/index.html",  title: { tr: "Cilt Bakımı",   en: "Skin Care" },      nav: { group: "service", weight: 40, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/tr/rituals/index.html",      title: { tr: "Dünya Ritüeli", en: "World Ritual" },   nav: { group: "service", weight: 50, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/tr/galeri/index.html",       title: { tr: "Galeri",        en: "Gallery" },        nav: { group: "brand",   weight: 60 }, hooks: { onEnter: "fade" } },
+                        { path: "/tr/hakkimizda/index.html",   title: { tr: "Hakkımızda",    en: "About Us" },       nav: { group: "brand",   weight: 70 }, hooks: { onEnter: "fade" } },
+                        { path: "/tr/iletisim.html",           title: { tr: "İletişim",      en: "Contact" },        nav: { group: "brand",   weight: 80 }, hooks: { onEnter: "fade" } },
+                        { path: "#reservation",                title: { tr: "Rezervasyon",   en: "Book Now" },       nav: { group: "action",  weight: 90, cta: true }, hooks: { onEnter: "fade" } }
                     ]
                 };
             }
@@ -187,46 +191,55 @@ function initNavAndFooter() {
             const mobileRoot = document.getElementById('mobileRoot');
             
             // Sort by weight
-            const visibleRoutes = manifest.routes
+            const routes = Array.isArray(manifest?.routes) ? manifest.routes : [];
+            const visibleRoutes = routes
                 .sort((a, b) => a.nav.weight - b.nav.weight);
                 
             visibleRoutes.forEach(r => {
-                let href = r.type === 'external' ? r.path : (depthPrefix + r.path.replace(/^\//, ''));
-                if(r.path === '/') href = depthPrefix; // Root fallback
-                
+                // Hash links (#reservation) should not get the depth prefix
+                let href = r.path.startsWith('#')
+                    ? r.path
+                    : r.type === 'external'
+                        ? r.path
+                        : (depthPrefix + r.path.replace(/^\//, ''));
+                if (r.path === '/') href = depthPrefix; // Root fallback
+
                 const title = r.title && r.title[lang] ? r.title[lang] : (r.title.tr || r.title);
-                
+
                 const a = document.createElement('a');
                 a.href = href;
                 a.className = 'nav-link liquid-trigger';
                 a.textContent = title;
                 a.dataset.target = r.path; // For liquid menu matching
-                
+
                 // Re-bind the Mega Menu Hooks for the Liquid Engine
                 if (r.nav && r.nav.menu) {
                     a.dataset.menu = r.nav.menu;
                 }
-                
+
                 if (r.hooks && r.hooks.onEnter) a.dataset.hook = r.hooks.onEnter;
-                
+
                 if (r.nav.group === 'brand') {
                     a.classList.add('sovereign-link-item');
                     if (navRoot) navRoot.appendChild(a);
                 } else if (r.nav.group === 'service') {
-                    // Add sovereign-link-item to trigger the querySelector in santis-liquid-menu.js
                     a.classList.replace('nav-link', 'service-link');
                     a.classList.add('sovereign-link-item');
                     if (serviceRoot) serviceRoot.appendChild(a);
+                } else if (r.nav.group === 'action') {
+                    // Desktop CTA butonu
+                    a.className = 'santis-btn santis-btn-primary santis-nav-cta';
+                    if (navRoot) navRoot.appendChild(a);
                 }
-                
+
+                // Mobile: tüm gruplar
                 if (r.nav.group === 'brand' || r.nav.group === 'service' || r.nav.group === 'action') {
                     if (mobileRoot) {
                         const m = a.cloneNode(true);
                         m.className = 'mobile-link nav-link';
-                        if(r.nav.group === 'action') m.style.color = '#d4af37';
-                        // Insert before the static PDF link
+                        if (r.nav.group === 'action') m.style.color = '#d4af37';
                         const pdfLink = mobileRoot.querySelector('a[href*="santis-spa-menu.pdf"]');
-                        if(pdfLink) mobileRoot.insertBefore(m, pdfLink);
+                        if (pdfLink) mobileRoot.insertBefore(m, pdfLink);
                         else mobileRoot.appendChild(m);
                     }
                 }

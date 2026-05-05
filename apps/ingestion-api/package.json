@@ -6,7 +6,7 @@
     "typecheck": "tsc --noEmit",
     "build": "esbuild src/index.ts --bundle --platform=node --format=cjs --target=node20 --external:pg-native --outfile=dist/index.cjs",
     "start": "node dist/index.cjs",
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch --env-file .env src/index.ts"
   },
   "dependencies": {
     "@santis/db": "workspace:^",

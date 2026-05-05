@@ -10,7 +10,7 @@
 class SantisTelemetryClient {
     constructor() {
         const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
-        this.wsUrl = config.wsUrl || 'ws://localhost:8080/ws';
+        this.wsUrl = config.wsUrl || 'ws://127.0.0.1:3030/events';
         this.apiBaseUrl = config.apiBaseUrl || '/api/v1';
         this.reconnectTimeout = null;
         this.reconnectAttempts = 0;

@@ -6,6 +6,12 @@ import { randomUUID } from "crypto";
 export class IntentEngine {
   // O(1) erişim için In-Memory State
   private static decisions = new Map<string, RevenueDecision>();
+  private static bus: any; // SovereignBus type assumed
+
+  static init(bus: any) {
+    this.bus = bus;
+    console.log("🧠 [Intent Engine] Sovereign Bus Connection Established.");
+  }
 
   /**
    * Telemetri verisini analiz eder ve bir karar üretir.
@@ -64,6 +70,22 @@ export class IntentEngine {
             action: decision.action,
             finalValue: decision.finalValue
           }));
+
+          // 📡 Sovereign Event Pipeline Integration
+          if (this.bus) {
+            this.bus.events.publish({
+              eventId: randomUUID(),
+              occurredAt: new Date().toISOString(),
+              eventType: "telemetry.event_captured",
+              sessionId,
+              payload: {
+                event,
+                hesitationIndex: hesitationIndex / 100, // Normalize to 0-1
+                stressIndex: hesitationIndex > 50 ? 0.6 : 0.1, // Proxy logic
+                conversionRisk: hesitationIndex > 80 ? "high" : "low"
+              }
+            });
+          }
         }
       }
     } catch (error) {

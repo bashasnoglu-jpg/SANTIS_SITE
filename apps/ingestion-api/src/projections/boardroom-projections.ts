@@ -157,8 +157,17 @@ export const BoardroomReadModels = {
     dailyTarget: 50000,
     trend: "neutral" as "up" | "down" | "neutral",
     delta: 0,
+    currency: "EUR",
+    hourlyRateTarget: 150,
     lastUpdateTraceId: null as string | null
   },
+  sessions: {} as Record<string, {
+    active: boolean;
+    hesitationIndex: number;
+    stressIndex: number;
+    conversionRisk: "low" | "medium" | "high";
+    lastActivity: string;
+  }>,
   moodHeatmap: {
     deep_relaxation: 0,
     recovery: 0,
@@ -173,6 +182,59 @@ export const BoardroomReadModels = {
     actionsResolved: 0,
     lastOperatorAction: null as OracleMemoryRecord | null,
     actionMemory: [] as OracleMemoryRecord[]
+  },
+
+  // --- SOVEREIGN MEMORY (Phase 79) ---
+  auditLog: [] as {
+    id: string;
+    type: "action.approved" | "action.rejected";
+    actionId: string;
+    operatorId: string;
+    traceId: string;
+    reason?: string;
+    payload?: any;
+    occurredAt: string;
+  }[],
+  
+  snapshots: [] as {
+    timestamp: string;
+    revenue: number;
+    activeSessionsCount: number;
+    resolvedActionId: string;
+  }[],
+
+  // --- COGNITIVE GOVERNOR (Phase 81) ---
+  cognitiveInsights: [] as CognitiveInsight[],
+
+  therapists: [
+    { id: "th-01", name: "Elena", specialty: "Ayurveda & Detox", status: "busy", sessionsToday: 4, stressIndex: 0.15 },
+    { id: "th-02", name: "Marcus", specialty: "Deep Tissue & Sports", status: "ready", sessionsToday: 2, stressIndex: 0.05 },
+    { id: "th-03", name: "Selin", specialty: "Hamam Master & Scrub", status: "ready", sessionsToday: 5, stressIndex: 0.25 },
+    { id: "th-04", name: "David", specialty: "Bio-Energy & Reiki", status: "break", sessionsToday: 1, stressIndex: 0.10 }
+  ],
+
+  // 📖 CANONICAL CATALOG (Sovereign Service Dictionary)
+  catalog: {
+    programs: [
+      { id: "pr-01", title: "Sovereign Recovery", duration: "180 min", price: 450 },
+      { id: "pr-02", title: "Deep Silence Retreat", duration: "120 min", price: 320 }
+    ],
+    hammam: [
+      { id: "hm-01", title: "Traditional Ottoman Ritual", duration: "60 min", price: 120 },
+      { id: "hm-02", title: "Santis Signature Scrub", duration: "45 min", price: 95 }
+    ],
+    massages: [
+      { id: "ms-01", title: "Quiet Luxury Massage", duration: "90 min", price: 180 },
+      { id: "ms-02", title: "Nordic Recovery", duration: "60 min", price: 140 }
+    ],
+    skincare: [
+      { id: "sk-01", title: "Sothys Hydrating Fluid", duration: "60 min", price: 160 },
+      { id: "sk-02", title: "Sovereign Glow", duration: "45 min", price: 130 }
+    ],
+    extras: [
+      { id: "ex-01", title: "CBD Oil Upgrade", price: 25 },
+      { id: "ex-02", title: "Hot Stone Add-on", price: 35 }
+    ]
   }
 };
 
@@ -197,6 +259,32 @@ export const projectEvent = (event: SantisEvent) => {
   if (event.eventType === "commerce.checkout.completed") {
     const amount = event.payload.totalAmount;
     updateRevenue(amount, event.traceId);
+  }
+
+  // 📡 TELEMETRY PROJECTION (Zero-Drift Intent Tracking)
+  if (event.eventType === "telemetry.event_captured") {
+    const { sessionId } = event;
+    const { hesitationIndex = 0, stressIndex = 0 } = event.payload;
+    
+    if (!BoardroomReadModels.sessions[sessionId]) {
+      BoardroomReadModels.sessions[sessionId] = {
+        active: true,
+        hesitationIndex: 0,
+        stressIndex: 0,
+        conversionRisk: "low",
+        lastActivity: new Date().toISOString()
+      };
+    }
+
+    const session = BoardroomReadModels.sessions[sessionId];
+    session.hesitationIndex = hesitationIndex;
+    session.stressIndex = stressIndex;
+    session.lastActivity = event.occurredAt;
+
+    // Derived Logic
+    if (hesitationIndex > 0.7) session.conversionRisk = "high";
+    else if (hesitationIndex > 0.4) session.conversionRisk = "medium";
+    else session.conversionRisk = "low";
   }
 };
 
@@ -223,6 +311,15 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
   // Canlı (Live) eventleri dinle ve projeksiyona uygula
   bus.events.subscribe("experience.interaction.mood_selected", async (e) => {
     projectEvent(e);
+  });
+
+  bus.events.subscribe("telemetry.event_captured", async (e) => {
+    projectEvent(e);
+    
+    // Broadcast live telemetry update
+    sseManager.broadcastPatch("core_state", {
+      sessions: BoardroomReadModels.sessions
+    });
   });
   
   bus.events.subscribe("commerce.upsell.therapist_accepted", async (e) => {
@@ -459,4 +556,117 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
       }
     });
   });
+
+  // --- ACTION RAIL COMMAND RESOLVERS (Phase 78) ---
+
+  /**
+   * Simülasyon Onayı: Aksiyonu listeden kaldır, hafızaya mühürle ve UI'yı güncelle
+   */
+  bus.events.subscribe("action.approval.simulated", async (e) => {
+    const { actionId } = e.payload;
+    console.log(`✅ [Projection: ActionRail] Action Simulated Approved: ${actionId}`);
+
+    // 1. Memory Seal (Audit Log)
+    const auditEntry = {
+        id: crypto.randomUUID(),
+        type: "action.approved" as const,
+        actionId,
+        operatorId: e.payload.operatorId || "system",
+        traceId: e.traceId,
+        reason: e.payload.note,
+        payload: e.payload,
+        occurredAt: new Date().toISOString()
+    };
+    BoardroomReadModels.auditLog.unshift(auditEntry);
+    if (BoardroomReadModels.auditLog.length > 50) BoardroomReadModels.auditLog.pop();
+
+    // 2. Snapshot (Time-Travel için durum kaydı)
+    BoardroomReadModels.snapshots.unshift({
+        timestamp: auditEntry.occurredAt,
+        revenue: BoardroomReadModels.revenueMetrics.totalRevenue,
+        activeSessionsCount: Object.values(BoardroomReadModels.sessions).filter(s => s.active).length,
+        resolvedActionId: actionId
+    });
+
+    // 3. Projeksiyonu güncelle: Aksiyonu listeden çıkar
+    BoardroomReadModels.activeActions = BoardroomReadModels.activeActions.filter(a => a.id !== actionId);
+
+    // 4. Tüm ekranlara fısılda (Patch)
+    const patch = { 
+        activeActions: BoardroomReadModels.activeActions,
+        resolvedActionId: actionId,
+        resolutionType: "approved_simulated",
+        auditLog: BoardroomReadModels.auditLog
+    };
+
+    sseManager.broadcastPatch("core_state", { boardroom: patch });
+    sseManager.broadcastPatch("action_rail", { type: "action_resolved", ...patch });
+    
+    // 🔥 Phase 81: Compute Cognitive Insights after state change
+    computeCognitiveInsights();
+  });
+
+  /**
+   * Aksiyon Reddi: Aksiyonu listeden kaldır, hafızaya mühürle ve UI'yı güncelle
+   */
+  bus.events.subscribe("pricing.recommendation.rejected", async (e) => {
+    const { actionId } = e.payload;
+    console.log(`❌ [Projection: ActionRail] Action Rejected: ${actionId}`);
+
+    // 1. Memory Seal (Audit Log)
+    const auditEntry = {
+        id: crypto.randomUUID(),
+        type: "action.rejected" as const,
+        actionId,
+        operatorId: e.payload.operatorId || "system",
+        traceId: e.traceId,
+        reason: "User manual rejection",
+        payload: e.payload,
+        occurredAt: new Date().toISOString()
+    };
+    BoardroomReadModels.auditLog.unshift(auditEntry);
+
+    // 2. Projeksiyonu güncelle
+    BoardroomReadModels.activeActions = BoardroomReadModels.activeActions.filter(a => a.id !== actionId);
+
+    const patch = { 
+        activeActions: BoardroomReadModels.activeActions,
+        resolvedActionId: actionId,
+        resolutionType: "rejected",
+        auditLog: BoardroomReadModels.auditLog
+    };
+
+    sseManager.broadcastPatch("core_state", { boardroom: patch });
+    sseManager.broadcastPatch("action_rail", { type: "action_resolved", ...patch });
+    
+    // 🔥 Phase 81: Compute Cognitive Insights after state change
+    computeCognitiveInsights();
+  });
 };
+
+import { CognitiveGovernor, CognitiveInsight } from "../services/cognitive-governor";
+
+function computeCognitiveInsights() {
+    console.log("🧠 [CognitiveGovernor] Analyzing historical patterns for new insights...");
+    
+    const currentState = {
+        revenue: BoardroomReadModels.revenueMetrics.totalRevenue,
+        activeSessionsCount: Object.values(BoardroomReadModels.sessions).filter(s => s.active).length
+    };
+
+    const insights = CognitiveGovernor.analyze(
+        currentState,
+        BoardroomReadModels.auditLog,
+        BoardroomReadModels.snapshots
+    );
+
+    BoardroomReadModels.cognitiveInsights = insights;
+
+    // Broadcast the new wisdom
+    sseManager.broadcastPatch("action_rail", {
+        type: "cognitive_insights_update",
+        insights: BoardroomReadModels.cognitiveInsights
+    });
+}
+
+
