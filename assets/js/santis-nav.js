@@ -18,9 +18,6 @@ async function yieldToMain() {
 
 function initNavAndFooter() {
     // --- HELPER FUNCTIONS ---
-    const pathParts = window.location.pathname.split('/').filter(p => p !== '');
-    const isLiveServerRoot = pathParts[0] === 'SANTIS_SITE';
-
     // Depth calculation strictly relying on slash count.
     // E.g. /masaj.html -> length is 3. tr, masajlar, index.html.
     // We want depth = 2. So we subtract 1 for the file itself.
@@ -50,14 +47,12 @@ function initNavAndFooter() {
 
                     // Case 1: Path starts with / (Absolute relative to root)
                     if (val.startsWith('/')) {
-                        // Only convert to relative if on file protocol OR if we are in a subfolder structure locally
-                        // The 'prefix' is calculated based on depth.
-                        // If we are at depth 2 (tr/masajlar), prefix is ../../
-                        // So /assets/img becomes ../../assets/img
-                        const isLocalHost = window.location.hostname.includes('local') || window.location.hostname.startsWith('127.');
-                        if (isFileProtocol || isLocalHost) {
-                            console.warn('⚠️ [Sovereign Router] Local environment detected. Using fallback.');
-                            // Remove leading slash and prepend prefix
+                        // Absolute paths are correct for root-mounted HTTP servers
+                        // such as http://127.0.0.1:5500/tr/index.html.
+                        // Convert only when there is no HTTP root or the repo is served
+                        // below a /SANTIS_SITE/ mount point.
+                        const isSubdirMount = window.location.pathname.split('/').filter(Boolean)[0] === 'SANTIS_SITE';
+                        if (isFileProtocol || isSubdirMount) {
                             const cleanVal = val.substring(1);
                             node.setAttribute(attr, prefix + cleanVal);
                         }
@@ -153,10 +148,14 @@ function initNavAndFooter() {
     async function buildSovereignNav(container) {
         try {
             const pathParts = window.location.pathname.split('/').filter(p => p !== '');
+            const isFileProtocol = window.location.protocol === 'file:';
+            const isSubdirMount = pathParts[0] === 'SANTIS_SITE';
             let baseDepth = pathParts.length;
-            if (pathParts[0] === 'SANTIS_SITE') baseDepth--; // Dev folder bypass
-            if (window.location.pathname.endsWith('.html') || window.location.pathname.endsWith('/')) baseDepth--; 
-            const depthPrefix = baseDepth > 0 ? "../".repeat(baseDepth) : "/";
+            if (isSubdirMount) baseDepth--; // Dev folder bypass
+            if (window.location.pathname.endsWith('.html') || window.location.pathname.endsWith('/')) baseDepth--;
+            const depthPrefix = (isFileProtocol || isSubdirMount) && baseDepth > 0
+                ? "../".repeat(baseDepth)
+                : "/";
             
             const lang = document.documentElement.lang || 'tr';
             
