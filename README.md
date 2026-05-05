@@ -20,6 +20,7 @@ See [`docs/REPO_BOUNDARY.md`](docs/REPO_BOUNDARY.md).
 
 ## Architecture
 This project uses a Vite-powered Multi-Page Application architecture.
+The main application lives in the `admin-panel/` directory, which is the primary Vite workspace built and deployed.
 Primary concerns:
 - SEO-safe static page delivery
 - Fast cinematic frontend loading
@@ -27,10 +28,17 @@ Primary concerns:
 - Luxury-grade visual presentation
 - Public booking intent capture
 
+## Build
+```bash
+pnpm install --frozen-lockfile
+pnpm run build
+```
+The production build output is written to `admin-panel/dist/`.
+
 ## Deployment
 Recommended deployment targets:
+- Vercel (configured via `vercel.json`; serves `admin-panel/dist`)
 - Cloudflare Pages
-- Vercel
 - Static edge hosting with CDN-backed media delivery
 
 ## Brand Boundary
