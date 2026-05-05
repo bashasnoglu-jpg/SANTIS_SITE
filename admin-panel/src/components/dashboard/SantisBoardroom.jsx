@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Eye, Brain, Split, Headset, Filter, TrendingUp, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut } from 'lucide-react';
+import { Eye, Brain, Split, Headset, Filter, TrendingUp, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut, BookOpen } from 'lucide-react';
 import GhostDrawer from './GhostDrawer';
 import LiveIntentMonitor from '../boardroom/LiveIntentMonitor';
+import SovereignMemoryPanel from './SovereignMemoryPanel';
 
 // ============================================================================
 // DUMMY DATA FOR TELEMETRY
@@ -92,6 +93,12 @@ export default function SantisBoardroom() {
             >
               <Filter className="w-4 h-4" /> Journey Hunisi
             </button>
+            <button
+              onClick={() => setActiveTab('memory')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm text-sm transition-colors ${activeTab === 'memory' ? 'bg-sovereign-obsidian border border-sovereign-accent/30 text-sovereign-accent' : 'bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink'}`}
+            >
+              <BookOpen className="w-4 h-4" /> Sovereign Memory
+            </button>
             <button className="w-full flex items-center gap-3 bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink px-4 py-3 rounded-sm text-sm transition-colors">
               <Settings className="w-4 h-4" /> Ayarlar
             </button>
@@ -129,6 +136,7 @@ export default function SantisBoardroom() {
               {activeTab === 'telemetry' && 'Telemetri Özeti'}
               {activeTab === 'psychology' && 'Psikolojik Katman'}
               {activeTab === 'journey' && 'Journey Hunisi'}
+              {activeTab === 'memory' && 'Sovereign Memory'}
             </h2>
             <div className="flex items-center text-sovereign-bronze text-2xs uppercase tracking-widest mt-1">
               <Activity className="w-3 h-3 mr-2 text-sovereign-accent animate-pulse" /> 
@@ -336,6 +344,11 @@ export default function SantisBoardroom() {
                   </ul>
                 </div>
               </>
+            )}
+
+            {/* SOVEREIGN MEMORY TAB */}
+            {activeTab === 'memory' && (
+              <SovereignMemoryPanel />
             )}
 
           </div>

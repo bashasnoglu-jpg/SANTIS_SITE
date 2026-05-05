@@ -625,8 +625,17 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
         occurredAt: new Date().toISOString()
     };
     BoardroomReadModels.auditLog.unshift(auditEntry);
+    if (BoardroomReadModels.auditLog.length > 50) BoardroomReadModels.auditLog.pop();
 
-    // 2. Projeksiyonu güncelle
+    // 2. Snapshot (Time-Travel için durum kaydı)
+    BoardroomReadModels.snapshots.unshift({
+        timestamp: auditEntry.occurredAt,
+        revenue: BoardroomReadModels.revenueMetrics.totalRevenue,
+        activeSessionsCount: Object.values(BoardroomReadModels.sessions).filter(s => s.active).length,
+        resolvedActionId: actionId
+    });
+
+    // 3. Projeksiyonu güncelle
     BoardroomReadModels.activeActions = BoardroomReadModels.activeActions.filter(a => a.id !== actionId);
 
     const patch = { 
