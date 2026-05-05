@@ -4,9 +4,9 @@
   "type": "module",
   "engines": {
     "node": ">=20.0.0",
-    "pnpm": ">=9.0.0"
+    "pnpm": ">=10.0.0"
   },
-  "packageManager": "pnpm@9.1.0",
+  "packageManager": "pnpm@10.24.0",
   "scripts": {
     "build": "pnpm run audit:all && turbo run build",
     "dev": "turbo run dev --parallel",
