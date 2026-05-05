@@ -8,6 +8,10 @@ on:
       - main
   workflow_dispatch: # Manuel tetikleme (God Mode Kasten Ateşleme)
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-and-deploy:
     name: Build & Push Sovereign OS
@@ -37,7 +41,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      # UYARI: Hedef sunucuya aktarım kısmı (SSH ile bağlanıp docker-compose pull yapma) 
+      # UYARI: Hedef sunucuya aktarım kısmı (SSH ile bağlanıp docker-compose pull yapma)
       # Kurumun seçeceği sunucuya göre (AWS EC2, DO Droplet vb.) ayarlanacaktır.
       - name: Hedef Bulut Düğümüne Kamikaze Dalışı (Remote SSH Deployment)
         uses: appleboy/ssh-action@master
