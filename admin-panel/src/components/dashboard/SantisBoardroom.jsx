@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Eye, Brain, Split, Headset, Filter, TrendingUp, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut } from 'lucide-react';
 import GhostDrawer from './GhostDrawer';
 import LiveIntentMonitor from '../boardroom/LiveIntentMonitor';
+import { BoardroomChronos } from '../../features/boardroom/components/BoardroomChronos';
+import { History, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut, Eye, Brain, Split, Headset, TrendingUp } from 'lucide-react';
+import { useBoardroomMode } from '../../features/boardroom/context/BoardroomModeContext';
 
 // ============================================================================
 // DUMMY DATA FOR TELEMETRY
@@ -15,6 +17,8 @@ const liveEvents = [
 ];
 
 export default function SantisBoardroom() {
+  const { mode } = useBoardroomMode();
+  const isHistorical = mode === 'HISTORICAL';
   const [timeRange, setTimeRange] = useState('Bu Hafta');
   const [liveEventIndex, setLiveEventIndex] = useState(0);
   const [activeTab, setActiveTab] = useState('telemetry');
@@ -51,7 +55,7 @@ export default function SantisBoardroom() {
   };
 
   return (
-    <div className="min-h-screen bg-sovereign-void text-sovereign-ink font-sans flex selection:bg-sovereign-accent/30 selection:text-sovereign-ink">
+    <div className={`min-h-screen bg-sovereign-void text-sovereign-ink font-sans flex selection:bg-sovereign-accent/30 selection:text-sovereign-ink ${isHistorical ? 'nv-historical' : ''}`}>
       
       <style dangerouslySetInnerHTML={{__html: `
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap');
@@ -61,6 +65,15 @@ export default function SantisBoardroom() {
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .nv-historical { filter: saturate(0.6) brightness(0.9); transition: filter 0.4s ease; }
+        .nv-historical-badge { 
+          position: fixed; top: 24px; right: 180px; z-index: 100;
+          padding: 8px 16px; border: 1px solid rgba(212, 175, 55, 0.4);
+          background: rgba(212, 175, 55, 0.15); color: #d4af37;
+          border-radius: 999px; font-size: 10px; letter-spacing: 0.2em;
+          animation: badgePulse 2s infinite;
+        }
+        @keyframes badgePulse { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
       `}} />
 
       {/* ========================================================= */}
@@ -91,6 +104,12 @@ export default function SantisBoardroom() {
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm text-sm transition-colors ${activeTab === 'journey' ? 'bg-sovereign-obsidian border border-sovereign-accent/30 text-sovereign-accent' : 'bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink'}`}
             >
               <Filter className="w-4 h-4" /> Journey Hunisi
+            </button>
+            <button 
+              onClick={() => setActiveTab('chronos')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm text-sm transition-colors ${activeTab === 'chronos' ? 'bg-sovereign-obsidian border border-sovereign-accent/30 text-sovereign-accent' : 'bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink'}`}
+            >
+              <History className="w-4 h-4" /> Chronos & Logic
             </button>
             <button className="w-full flex items-center gap-3 bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink px-4 py-3 rounded-sm text-sm transition-colors">
               <Settings className="w-4 h-4" /> Ayarlar
@@ -129,6 +148,7 @@ export default function SantisBoardroom() {
               {activeTab === 'telemetry' && 'Telemetri Özeti'}
               {activeTab === 'psychology' && 'Psikolojik Katman'}
               {activeTab === 'journey' && 'Journey Hunisi'}
+              {activeTab === 'chronos' && 'Chronos & Visual Truth'}
             </h2>
             <div className="flex items-center text-sovereign-bronze text-2xs uppercase tracking-widest mt-1">
               <Activity className="w-3 h-3 mr-2 text-sovereign-accent animate-pulse" /> 
@@ -157,6 +177,12 @@ export default function SantisBoardroom() {
             </button>
           </div>
         </header>
+
+        {isHistorical && (
+          <div className="nv-historical-badge">
+            TEMPORAL ISOLATION: HISTORICAL MODE ACTIVE
+          </div>
+        )}
 
         {/* WIDGET GRID */}
         <div className="flex-1 overflow-y-auto p-8 z-10 hide-scrollbar">
@@ -338,6 +364,12 @@ export default function SantisBoardroom() {
               </>
             )}
 
+            {/* CHRONOS & VISUAL TRUTH LAYER */}
+            {activeTab === 'chronos' && (
+              <div className="md:col-span-2 xl:col-span-3 animate-fade-in">
+                <BoardroomChronos />
+              </div>
+            )}
           </div>
           
           {/* Footer Warning */}

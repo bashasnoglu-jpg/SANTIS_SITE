@@ -8,6 +8,7 @@ import Finance from './pages/Finance';
 import ServiceManager from './pages/ServiceManager';
 import useAuthStore from './store/useAuthStore';
 import ClinicScanner from './components/dashboard/ClinicScanner';
+import { BoardroomModeProvider } from './features/boardroom/context/BoardroomModeContext';
 
 // Create a client
 const queryClient = new QueryClient();
@@ -21,8 +22,9 @@ const PrivateRoute = ({ children }) => {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <Routes>
+      <BoardroomModeProvider>
+        <Router>
+          <Routes>
           {/* KIOSK MODU (İzole Rota - Navigasyon Yok) */}
           <Route 
             path="/scanner" 

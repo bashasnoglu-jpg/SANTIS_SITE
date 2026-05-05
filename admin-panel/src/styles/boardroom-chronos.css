@@ -1,0 +1,330 @@
+.nv-chronos {
+  border: 1px solid rgba(212, 175, 55, 0.14);
+  background:
+    radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 34%),
+    rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(18px);
+  border-radius: 28px;
+  padding: 24px;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  min-height: 500px;
+}
+
+.nv-historical-mode {
+  filter: saturate(0.6) brightness(0.92);
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: inset 0 0 40px rgba(212, 175, 55, 0.05);
+}
+
+.nv-chronos__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.nv-chronos__header h2 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.nv-chronos__status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nv-chronos__grid {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 24px;
+  height: 600px;
+}
+
+.nv-kicker {
+  color: #d4af37;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.nv-badge {
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+}
+
+.nv-badge--live {
+  color: #7fffd4;
+  background: rgba(127, 255, 212, 0.05);
+  border-color: rgba(127, 255, 212, 0.2);
+}
+
+.nv-badge--history {
+  color: #d4af37;
+  border-color: rgba(212, 175, 55, 0.4);
+  background: rgba(212, 175, 55, 0.1);
+  box-shadow: 0 0 24px rgba(212, 175, 55, 0.12);
+}
+
+.nv-go-live {
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: #d4af37;
+  background: rgba(212, 175, 55, 0.06);
+  border-radius: 999px;
+  padding: 6px 18px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nv-go-live:hover {
+  background: rgba(212, 175, 55, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Timeline */
+.nv-timeline {
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  padding-right: 20px;
+  overflow: hidden;
+}
+
+.nv-timeline__scroll {
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.nv-timeline__scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.nv-timeline__scroll::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.2);
+  border-radius: 4px;
+}
+
+.nv-timeline-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nv-timeline-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(212, 175, 55, 0.2);
+}
+
+.nv-timeline-card--selected {
+  background: rgba(212, 175, 55, 0.08);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.nv-timeline-card__meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.nv-timeline-card__time {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: monospace;
+}
+
+.nv-timeline-card__type {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+.nv-timeline-card__type--approved {
+  color: #7fffd4;
+}
+
+.nv-timeline-card__type--rejected {
+  color: #ff6b6b;
+}
+
+.nv-timeline-card__title {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.nv-timeline-card__reason {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.4;
+}
+
+/* Replay Panel */
+.nv-replay-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nv-replay-panel__placeholder {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+}
+
+.nv-replay-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.nv-replay-panel__timestamp {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.nv-replay-panel__metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.nv-metric-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.nv-metric-card__label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 8px;
+}
+
+.nv-metric-card__value {
+  font-size: 24px;
+  font-weight: 300;
+  color: #d4af37;
+}
+
+/* Governor Panel */
+.nv-governor-panel {
+  background: rgba(212, 175, 55, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.nv-governor-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.nv-governor-panel__header h4 {
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.nv-confidence {
+  text-align: right;
+}
+
+.nv-confidence__label {
+  display: block;
+  font-size: 9px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.nv-confidence__value {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.nv-text--gold { color: #d4af37; }
+.nv-text--warn { color: #ffcc00; }
+
+.nv-reasoning-block {
+  margin-bottom: 20px;
+}
+
+.nv-reasoning-block h5 {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.7);
+  margin: 0 0 8px 0;
+}
+
+.nv-reasoning-block p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.nv-reasoning-meta {
+  display: flex;
+  gap: 24px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 16px;
+}
+
+.nv-reasoning-meta strong {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Utils */
+.nv-spinner-pulse {
+  width: 20px;
+  height: 20px;
+  background: #7fffd4;
+  border-radius: 50%;
+  margin-bottom: 16px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.5; box-shadow: 0 0 0 0 rgba(127, 255, 212, 0.7); }
+  70% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 10px rgba(127, 255, 212, 0); }
+  100% { transform: scale(0.95); opacity: 0.5; box-shadow: 0 0 0 0 rgba(127, 255, 212, 0); }
+}
+
+.nv-spinner {
+  width: 30px;
+  height: 30px;
+  border: 2px solid rgba(212, 175, 55, 0.1);
+  border-top-color: #d4af37;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
