@@ -44,6 +44,7 @@ import { oracleStatisticalForecastRouter } from "./oracle/oracle-statistical-for
 import { oracleDecisionKernelRouter } from "./oracle/oracle-decision-kernel.routes";
 import { telemetryRouter } from "./telemetry.routes";
 import { navRouter } from "./routes/nav.routes";
+import { adminReplayRouter } from "./routes/admin-replay.js"; // Sprint D
 import { registerBoardroomProjections } from "./projections/boardroom-projections";
 
 import { projectEvent } from "./projections/boardroom-projections";
@@ -271,8 +272,13 @@ async function bootstrap() {
   app.use(express.json({ limit: "100kb" }));
 
   // --- HEALTH CHECK ---
+  // Canonical: /api/v1/health/public (authenticated)
   app.get("/api/v1/health/public", (req: Request, res: Response) => {
     res.json({ status: "OK", version: "1.0.0" });
+  });
+  // Alias: /health — monitoring / test-api-drift.mjs
+  app.get("/health", (_req: Request, res: Response) => {
+    res.json({ status: "operational", service: "ingestion-api", timestamp: new Date().toISOString() });
   });
 
   app.get("/api/v1/health/god", (req: Request, res: Response) => {
@@ -322,6 +328,8 @@ async function bootstrap() {
   app.use("/api/v1/rituals/pricing", pricingRouter);
   app.use("/api/v1/stream", streamRoutes);
   app.use("/api/v1/strategy", createStrategyRouter(bus));
+  // Sprint D: Sovereign Replay Engine admin surface
+  app.use("/admin", adminReplayRouter);
   
   // Otoriter CoreState Stream (SSE)
   app.get("/api/v1/core-state/stream", (req: Request, res: Response) => {

@@ -94,6 +94,40 @@ create table if not exists wave_memory (
 
 try {
   await pool.query(statements);
+
+  // ── Sprint D: Additive migrations (safe to re-run) ──────────────────────
+  await pool.query(`
+    ALTER TABLE event_store
+      ADD COLUMN IF NOT EXISTS seq SERIAL NOT NULL;
+  `);
+  await pool.query(`
+    CREATE UNIQUE INDEX IF NOT EXISTS event_store_seq_idx
+      ON event_store (seq);
+  `);
+  await pool.query(`
+    CREATE INDEX IF NOT EXISTS event_store_occurred_at_idx
+      ON event_store (occurred_at);
+  `);
+  console.log('[db:migrate] Sprint D: event_store seq column + indexes ensured.');
+  // ────────────────────────────────────────────────────────────────────────
+
+  // ── Phase 4: Multi-tenant isolation (safe to re-run) ────────────────────
+  await pool.query(`
+    ALTER TABLE event_store
+      ADD COLUMN IF NOT EXISTS tenant_id TEXT NOT NULL DEFAULT 'santis';
+  `);
+  await pool.query(`
+    CREATE INDEX IF NOT EXISTS event_store_tenant_idx
+      ON event_store (tenant_id);
+  `);
+  await pool.query(`
+    CREATE INDEX IF NOT EXISTS event_store_tenant_seq_idx
+      ON event_store (tenant_id, seq);
+  `);
+  console.log('[db:migrate] Phase 4: event_store tenant_id column + indexes ensured.');
+  // ────────────────────────────────────────────────────────────────────────
+
+
   const result = await pool.query(
     "select table_name from information_schema.tables where table_schema = 'public' order by table_name"
   );

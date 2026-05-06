@@ -213,6 +213,15 @@ function initNavAndFooter() {
             const isSubdirMount = pathParts[0] === 'SANTIS_SITE';
             let baseDepth = pathParts.length;
             if (isSubdirMount) baseDepth--; // Dev folder bypass
+    
+    // --- SOVEREIGN ROUTER: ZERO-TOUCH NAVIGATION (P4.2) ---
+    async function buildSovereignNav(container) {
+        try {
+            const pathParts = window.location.pathname.split('/').filter(p => p !== '');
+            const isFileProtocol = window.location.protocol === 'file:';
+            const isSubdirMount = pathParts[0] === 'SANTIS_SITE';
+            let baseDepth = pathParts.length;
+            if (isSubdirMount) baseDepth--; // Dev folder bypass
             if (window.location.pathname.endsWith('.html') || window.location.pathname.endsWith('/')) baseDepth--;
             const depthPrefix = (isFileProtocol || isSubdirMount) && baseDepth > 0
                 ? "../".repeat(baseDepth)
@@ -222,12 +231,33 @@ function initNavAndFooter() {
             
             let manifest;
             try {
-                // Backend 3030 üzerinden JSON verisini çek
-                const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
+                // ── Issue #39: Cascade Nav Manifest Loader ─────────────────
+                // Adım 1: Mevcut origin/runtime apiBase (relative veya 3030)
+                // Adım 2: Sovereign Runtime explicit port (Live Server 5500 → 3030 köprüsü)
+                // Adım 3: Statik JSON fallback (offline / file:// protocol)
+                const config  = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
                 const apiBase = config.apiBaseUrl || '/api/v1';
-                const res = await fetch(`${apiBase}/nav-manifest`);
-                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-                manifest = await res.json();
+                const CASCADE = [
+                    `${apiBase}/nav-manifest`,
+                    'http://127.0.0.1:3030/api/v1/nav-manifest',
+                    '/data/nav-manifest.json',
+                ];
+                let loaded = false;
+                for (const url of CASCADE) {
+                    try {
+                        const res = await fetch(url, { signal: AbortSignal.timeout(2000) });
+                        if (res.ok) {
+                            manifest = await res.json();
+                            console.log(`[Nav] Manifest loaded from: ${url}`);
+                            loaded = true;
+                            break;
+                        }
+                    } catch (_) {
+                        // continue to next URL in cascade
+                    }
+                }
+                if (!loaded) throw new Error('All cascade endpoints failed');
+                // ────────────────────────────────────────────────────────────
             } catch (err) {
                 console.warn('⚠️ [Sovereign Router] Backend bağlantısı başarısız, statik fallback devrede.', err);
                 manifest = {

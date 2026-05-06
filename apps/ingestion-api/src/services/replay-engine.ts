@@ -1,13 +1,26 @@
 import type { SantisEvent } from '@santis/event-dictionary';
 
 export type ReplayEvent = SantisEvent & {
-  seq?: number;
+  seq: number; // monotonic — guaranteed by event_store serial column
 };
 
-export type ReplayEventSource = (options: {
-  fromSeq?: number;
-  toSeq?: number;
-}) => Promise<ReplayEvent[]>;
+/**
+ * ReplayEventSource contract.
+ * Implemented by PostgresReplayEventSource (production) and
+ * the default async () => [] stub (test / boot-safe fallback).
+ */
+export interface ReplayEventSource {
+  getEvents(options: { fromSeq?: number; toSeq?: number }): Promise<ReplayEvent[]>;
+}
+
+/** Convenience: wrap a plain function as a ReplayEventSource */
+export function fnSource(
+  fn: (opts: { fromSeq?: number; toSeq?: number }) => Promise<ReplayEvent[]>,
+): ReplayEventSource {
+  return { getEvents: fn };
+}
+
+
 
 /**
  * SovereignReplayEngine
@@ -17,16 +30,21 @@ export type ReplayEventSource = (options: {
  * routes can compile without binding to stale @santis/db exports.
  */
 export class SovereignReplayEngine {
-  constructor(private readonly eventSource: ReplayEventSource = async () => []) {}
+  constructor(
+    private readonly eventSource: ReplayEventSource = fnSource(async () => []),
+  ) {}
 
   /**
    * Belirli bir aralıktaki eventleri monotonic sırada getirir.
    */
-  async getEventStream(options: { fromSeq?: number; toSeq?: number } = {}): Promise<ReplayEvent[]> {
-    const { fromSeq = 0, toSeq } = options;
-    const events = await this.eventSource({ fromSeq, toSeq });
-
-    return [...events].sort((a, b) => (a.seq ?? 0) - (b.seq ?? 0));
+  async getEventStream(options: {
+    fromSeq?: number;
+    toSeq?: number;
+    tenantId?: string;
+  } = {}): Promise<ReplayEvent[]> {
+    const events = await this.eventSource.getEvents(options);
+    // DB already orders by seq ASC — defensive sort here as safety net
+    return [...events].sort((a, b) => a.seq - b.seq);
   }
 
   /**
@@ -36,16 +54,16 @@ export class SovereignReplayEngine {
   async hydrateState<T>(
     initialState: T,
     reducer: (state: T, event: ReplayEvent) => T,
-    options: { toSeq?: number } = {}
+    options: { toSeq?: number; tenantId?: string } = {}
   ): Promise<{ state: T; lastSeq: number }> {
-    const stream = await this.getEventStream({ toSeq: options.toSeq });
+    const stream = await this.getEventStream(options);
 
     let currentState = initialState;
     let lastSeq = 0;
 
     for (const event of stream) {
       currentState = reducer(currentState, event);
-      lastSeq = event.seq ?? lastSeq;
+      lastSeq = event.seq;
     }
 
     return { state: currentState, lastSeq };
