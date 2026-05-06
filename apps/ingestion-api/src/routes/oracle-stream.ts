@@ -3,8 +3,10 @@
  *
  * Route: GET /api/v1/streams/oracle
  *
- * Tüm bağlı Boardroom operatörlerine gerçek zamanlı oracle_delta
- * event'leri iletir. SseManager'ın oracle_delta scope'unu kullanır.
+ * Boardroom operatörlerine SSE üzerinden gerçek zamanlı oracle_delta event'leri
+ * iletir. Bağlanan istemciler SseManager'ın global feed'ine dahil edilir;
+ * oracle_delta dışındaki event'ler (strategy_update vb.) de bu bağlantı
+ * üzerinden iletilebilir.
  */
 
 import { Router, Request, Response } from "express";

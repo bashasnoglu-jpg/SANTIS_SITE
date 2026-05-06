@@ -16,8 +16,7 @@ import type { CognitiveDecisionEnvelope } from "../types/boardroom.types";
 import { useBoardroomMode } from "../context/BoardroomModeContext";
 
 const SSE_BASE =
-  (import.meta as unknown as { env: Record<string, string | undefined> }).env
-    .VITE_INGESTION_API_BASE_URL ?? "http://localhost:3030/api/v1";
+  import.meta.env.VITE_INGESTION_API_BASE_URL ?? "http://localhost:3030/api/v1";
 
 interface OracleDeltaPatch {
   actionId: string;
@@ -55,14 +54,14 @@ export function useLiveOracle(watchActionId?: string): UseLiveOracleResult {
 
   const handleDelta = useCallback(
     (patch: OracleDeltaPatch) => {
+      // Belirli bir actionId izleniyorsa önce filtrele
+      if (watchActionId && patch.actionId !== watchActionId) return;
+
       // Temporal Isolation: HISTORICAL modda UI'ı güncelleme
       if (mode === "HISTORICAL") {
         pendingBuffer.current.push(patch);
         return;
       }
-
-      // Belirli bir actionId izleniyorsa filtrele
-      if (watchActionId && patch.actionId !== watchActionId) return;
 
       setLatestDelta(patch);
       setDeltaCount((n) => n + 1);
@@ -70,7 +69,13 @@ export function useLiveOracle(watchActionId?: string): UseLiveOracleResult {
     [mode, watchActionId]
   );
 
-  // LIVE moda döndüğünde buffer'ı uygula
+  // SSE listener'ının her zaman güncel handleDelta'yı çağırması için ref
+  const latestHandler = useRef(handleDelta);
+  useEffect(() => {
+    latestHandler.current = handleDelta;
+  }, [handleDelta]);
+
+  // LIVE moda döndüğünde buffer'ı uygula — watchActionId zaten buffer'a girmeden filtrelendi
   useEffect(() => {
     if (mode === "LIVE" && pendingBuffer.current.length > 0) {
       const last = pendingBuffer.current[pendingBuffer.current.length - 1];
@@ -88,14 +93,16 @@ export function useLiveOracle(watchActionId?: string): UseLiveOracleResult {
     const es = new EventSource(url);
     esRef.current = es;
 
-    es.addEventListener("oracle_delta", (e: MessageEvent) => {
+    const listener = (e: MessageEvent) => {
       try {
         const parsed = JSON.parse(e.data) as OracleDeltaEvent;
-        handleDelta(parsed.data.patch);
-      } catch {
-        // Malformed delta — sessizce geç
+        latestHandler.current(parsed.data.patch);
+      } catch (err) {
+        console.error("[useLiveOracle] Failed to parse SSE message:", err);
       }
-    });
+    };
+
+    es.addEventListener("oracle_delta", listener);
 
     es.addEventListener("heartbeat", () => {
       setConnectionStatus("connected");
@@ -108,6 +115,7 @@ export function useLiveOracle(watchActionId?: string): UseLiveOracleResult {
     };
 
     return () => {
+      es.removeEventListener("oracle_delta", listener);
       es.close();
       esRef.current = null;
       setConnectionStatus("offline");

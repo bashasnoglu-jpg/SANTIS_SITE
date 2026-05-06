@@ -5,6 +5,7 @@ import type { ActionRecommendation } from "@santis/domain-schema";
 
 import crypto from "crypto";
 import { computeCalibration, segmentConfidence } from "./calibration-engine";
+import { broadcastOracleDelta } from "../oracle/oracle-delta.broadcaster.js";
 
 type PricingRecommendationRecord = {
   id: string;
@@ -601,6 +602,13 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
 
     sseManager.broadcastPatch("core_state", { boardroom: patch });
     sseManager.broadcastPatch("action_rail", { type: "action_resolved", ...patch });
+
+    // 🔥 Phase 84: Broadcast cognitive delta to CognitiveOverlay subscribers
+    broadcastOracleDelta(
+      auditEntry,
+      BoardroomReadModels.snapshots[0],
+      BoardroomReadModels.snapshots[1]
+    );
     
     // 🔥 Phase 81: Compute Cognitive Insights after state change
     computeCognitiveInsights();
@@ -638,6 +646,16 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
 
     sseManager.broadcastPatch("core_state", { boardroom: patch });
     sseManager.broadcastPatch("action_rail", { type: "action_resolved", ...patch });
+
+    // 🔥 Phase 84: Broadcast cognitive delta to CognitiveOverlay subscribers
+    const rejectionSnapshot = {
+      timestamp: auditEntry.occurredAt,
+      revenue: BoardroomReadModels.revenueMetrics.totalRevenue,
+      activeSessionsCount: Object.values(BoardroomReadModels.sessions).filter(s => s.active).length,
+      resolutionType: "rejected",
+      resolvedActionId: actionId,
+    };
+    broadcastOracleDelta(auditEntry, rejectionSnapshot, BoardroomReadModels.snapshots[0]);
     
     // 🔥 Phase 81: Compute Cognitive Insights after state change
     computeCognitiveInsights();
