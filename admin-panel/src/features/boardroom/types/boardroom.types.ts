@@ -62,10 +62,14 @@ export interface CognitiveSignificance {
 }
 
 export interface CognitiveDecisionEnvelope {
+  /** Backend Oracle Feed tarafından üretilir */
+  actionId: string;
+  snapshotId: string | null;
   confidence: number;
   reasoning: CognitiveReasoningStep[];
   delta: CognitiveDecisionDelta;
   significance: CognitiveSignificance;
+  generatedAt: string;
 }
 
 export interface CognitiveInsight {
