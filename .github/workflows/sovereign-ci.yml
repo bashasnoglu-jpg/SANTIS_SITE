@@ -24,7 +24,7 @@ jobs:
         run: corepack enable
 
       - name: "Resolve pnpm version"
-        run: corepack prepare pnpm@9.1.0 --activate
+        run: corepack prepare pnpm@10.24.0 --activate
 
       - name: "Sovereign Dependency Fetch"
         run: pnpm fetch
