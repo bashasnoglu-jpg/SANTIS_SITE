@@ -6,51 +6,71 @@ on:
       - production
       - master
       - main
-  workflow_dispatch: # Manuel tetikleme (God Mode Kasten Ateşleme)
+      - develop
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE_NAME: ghcr.io/bashasnoglu-jpg/santis-sovereign-os
 
 jobs:
-  build-and-deploy:
-    name: Build & Push Sovereign OS
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Karargâh Kodunu Klonla (Checkout)
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Docker Bulut Motorlarını Kur (Set up Docker Buildx)
-        uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v3
 
-      - name: AWS / DigitalOcean / Vercel Kayıt Ağecisine Giriş Yap (Login to Registry)
-        uses: docker/login-action@v3
+      - uses: docker/login-action@v3
         with:
-          registry: ghcr.io # Konfigürasyon hedefe göre değiştirilebilir (örn: ecr.aws)
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Sovereign Nginx Kernel'i Derle ve Yörüngeye Fırlat (Build and Push)
+      - name: Derive Tags
+        id: meta
+        run: |
+          SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)
+          BRANCH=${GITHUB_REF##*/}
+
+          TAGS="${IMAGE_NAME}:latest,${IMAGE_NAME}:${SHORT_SHA}"
+
+          if [ "$BRANCH" = "main" ]; then
+            TAGS="$TAGS,${IMAGE_NAME}:production"
+          elif [ "$BRANCH" = "develop" ]; then
+            TAGS="$TAGS,${IMAGE_NAME}:staging"
+          fi
+
+          echo "tags=$TAGS" >> $GITHUB_OUTPUT
+
+      - name: Build & Push
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile.sovereign
           push: true
-          tags: ghcr.io/bashasnoglu-jpg/santis-sovereign-os:latest
+          tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      # UYARI: Hedef sunucuya aktarım kısmı (SSH ile bağlanıp docker-compose pull yapma) 
-      # Kurumun seçeceği sunucuya göre (AWS EC2, DO Droplet vb.) ayarlanacaktır.
-      - name: Hedef Bulut Düğümüne Kamikaze Dalışı (Remote SSH Deployment)
-        uses: appleboy/ssh-action@master
-        if: env.SSH_PRIVATE_KEY != '' # Sadece secret tanımlıysa çalışır
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+  rollback:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: failure()
+
+    steps:
+      - uses: docker/login-action@v3
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          script: |
-            echo "[SİSTEM LOGU] Sovereign Cloud Deployment Başladı!"
-            cd /opt/santis_karargah
-            docker pull ghcr.io/bashasnoglu-jpg/santis-sovereign-os:latest
-            docker-compose -f docker-compose.sovereign.yml up -d --build
-            echo "[SİSTEM LOGU] Karadağ Hedef Noktası Vuruldu. Sıfır Kesinti Sağlandı."
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Rollback to stable
+        run: |
+          docker pull ${IMAGE_NAME}:production
+          docker tag ${IMAGE_NAME}:production ${IMAGE_NAME}:latest
+          docker push ${IMAGE_NAME}:latest

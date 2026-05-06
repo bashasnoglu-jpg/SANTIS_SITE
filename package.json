@@ -6,7 +6,11 @@
     "node": "20.x",
     "pnpm": "10.x"
   },
+<<<<<<< HEAD
   "packageManager": "pnpm@10.0.0",
+=======
+  "packageManager": "pnpm@10.24.0",
+>>>>>>> origin/main
   "scripts": {
     "build": "pnpm --filter admin-panel build",
     "dev": "turbo run dev --parallel",

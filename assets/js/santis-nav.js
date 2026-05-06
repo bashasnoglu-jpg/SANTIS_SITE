@@ -18,9 +18,6 @@ async function yieldToMain() {
 
 function initNavAndFooter() {
     // --- HELPER FUNCTIONS ---
-    const pathParts = window.location.pathname.split('/').filter(p => p !== '');
-    const isLiveServerRoot = pathParts[0] === 'SANTIS_SITE';
-
     // Depth calculation strictly relying on slash count.
     // E.g. /masaj.html -> length is 3. tr, masajlar, index.html.
     // We want depth = 2. So we subtract 1 for the file itself.
@@ -50,14 +47,12 @@ function initNavAndFooter() {
 
                     // Case 1: Path starts with / (Absolute relative to root)
                     if (val.startsWith('/')) {
-                        // Only convert to relative if on file protocol OR if we are in a subfolder structure locally
-                        // The 'prefix' is calculated based on depth.
-                        // If we are at depth 2 (tr/masajlar), prefix is ../../
-                        // So /assets/img becomes ../../assets/img
-                        const isLocalHost = window.location.hostname.includes('local') || window.location.hostname.startsWith('127.');
-                        if (isFileProtocol || isLocalHost) {
-                            console.warn('⚠️ [Sovereign Router] Local environment detected. Using fallback.');
-                            // Remove leading slash and prepend prefix
+                        // Absolute paths are correct for root-mounted HTTP servers
+                        // such as http://127.0.0.1:5500/tr/index.html.
+                        // Convert only when there is no HTTP root or the repo is served
+                        // below a /SANTIS_SITE/ mount point.
+                        const isSubdirMount = window.location.pathname.split('/').filter(Boolean)[0] === 'SANTIS_SITE';
+                        if (isFileProtocol || isSubdirMount) {
                             const cleanVal = val.substring(1);
                             node.setAttribute(attr, prefix + cleanVal);
                         }
@@ -147,16 +142,81 @@ function initNavAndFooter() {
         });
     }
 
+    function forceGlobalNavVisibility() {
+        if (window.innerWidth < 769) return;
+
+        const navRoot = document.getElementById('navRoot');
+        const serviceRoot = document.getElementById('serviceRoot');
+        const mainNav = document.getElementById('santis-main-nav');
+        const brandBar = document.querySelector('.sovereign-brand-bar');
+        const serviceBar = document.querySelector('.sovereign-service-bar');
+        const brandContainer = document.querySelector('.sovereign-brand-bar .sovereign-nav-container');
+        const serviceContainer = document.querySelector('.sovereign-service-bar .sovereign-nav-container');
+        const hamburger = document.getElementById('hamburger');
+
+        [mainNav, brandBar, serviceBar, brandContainer, serviceContainer, navRoot, serviceRoot].forEach((el) => {
+            if (!el) return;
+            el.style.setProperty('display', 'flex', 'important');
+            el.style.setProperty('opacity', '1', 'important');
+            el.style.setProperty('visibility', 'visible', 'important');
+        });
+
+        if (mainNav) {
+            mainNav.style.setProperty('transform', 'translateY(0)', 'important');
+        }
+
+        if (brandContainer) {
+            brandContainer.style.setProperty('align-items', 'center', 'important');
+            brandContainer.style.setProperty('justify-content', 'space-between', 'important');
+            brandContainer.style.setProperty('gap', '24px', 'important');
+            brandContainer.style.setProperty('width', '100%', 'important');
+            brandContainer.style.setProperty('max-width', '1280px', 'important');
+        }
+
+        if (navRoot) {
+            navRoot.style.setProperty('flex', '1 1 auto', 'important');
+            navRoot.style.setProperty('align-items', 'center', 'important');
+            navRoot.style.setProperty('justify-content', 'center', 'important');
+            navRoot.style.setProperty('gap', '14px', 'important');
+            navRoot.style.setProperty('min-width', '0', 'important');
+            navRoot.style.setProperty('overflow', 'visible', 'important');
+        }
+
+        if (serviceRoot) {
+            serviceRoot.style.setProperty('align-items', 'center', 'important');
+            serviceRoot.style.setProperty('justify-content', 'center', 'important');
+            serviceRoot.style.setProperty('gap', '42px', 'important');
+            serviceRoot.style.setProperty('width', '100%', 'important');
+            serviceRoot.style.setProperty('overflow', 'visible', 'important');
+        }
+
+        document.querySelectorAll('#navRoot a, #serviceRoot a').forEach((link) => {
+            link.style.setProperty('display', 'inline-flex', 'important');
+            link.style.setProperty('opacity', '1', 'important');
+            link.style.setProperty('visibility', 'visible', 'important');
+            link.style.setProperty('color', 'rgba(245, 245, 247, 0.86)', 'important');
+            link.style.setProperty('font-size', '11px', 'important');
+            link.style.setProperty('line-height', '1', 'important');
+            link.style.setProperty('white-space', 'nowrap', 'important');
+        });
+
+        if (hamburger) hamburger.style.setProperty('display', 'none', 'important');
+    }
+
     // --- MAIN LOGIC ---
     
     // --- SOVEREIGN ROUTER: ZERO-TOUCH NAVIGATION (P4.2) ---
     async function buildSovereignNav(container) {
         try {
             const pathParts = window.location.pathname.split('/').filter(p => p !== '');
+            const isFileProtocol = window.location.protocol === 'file:';
+            const isSubdirMount = pathParts[0] === 'SANTIS_SITE';
             let baseDepth = pathParts.length;
-            if (pathParts[0] === 'SANTIS_SITE') baseDepth--; // Dev folder bypass
-            if (window.location.pathname.endsWith('.html') || window.location.pathname.endsWith('/')) baseDepth--; 
-            const depthPrefix = baseDepth > 0 ? "../".repeat(baseDepth) : "/";
+            if (isSubdirMount) baseDepth--; // Dev folder bypass
+            if (window.location.pathname.endsWith('.html') || window.location.pathname.endsWith('/')) baseDepth--;
+            const depthPrefix = (isFileProtocol || isSubdirMount) && baseDepth > 0
+                ? "../".repeat(baseDepth)
+                : "/";
             
             const lang = document.documentElement.lang || 'tr';
             
@@ -185,16 +245,18 @@ function initNavAndFooter() {
                     ]
                 };
             }
-            
+
             const navRoot = document.getElementById('navRoot');
             const serviceRoot = document.getElementById('serviceRoot');
             const mobileRoot = document.getElementById('mobileRoot');
-            
+            if (navRoot) navRoot.innerHTML = '';
+            if (serviceRoot) serviceRoot.innerHTML = '';
+
             // Sort by weight
             const routes = Array.isArray(manifest?.routes) ? manifest.routes : [];
             const visibleRoutes = routes
                 .sort((a, b) => a.nav.weight - b.nav.weight);
-                
+
             visibleRoutes.forEach(r => {
                 // Hash links (#reservation) should not get the depth prefix
                 let href = r.path.startsWith('#')
@@ -227,9 +289,9 @@ function initNavAndFooter() {
                     a.classList.add('sovereign-link-item');
                     if (serviceRoot) serviceRoot.appendChild(a);
                 } else if (r.nav.group === 'action') {
-                    // Desktop CTA butonu
+                    // Desktop CTA already exists in the static action rail.
+                    // Keep manifest action only for the mobile menu clone below.
                     a.className = 'santis-btn santis-btn-primary santis-nav-cta';
-                    if (navRoot) navRoot.appendChild(a);
                 }
 
                 // Mobile: tüm gruplar
@@ -244,7 +306,7 @@ function initNavAndFooter() {
                     }
                 }
             });
-            
+
             const resBtn = document.createElement('a');
             resBtn.className = 'santis-btn santis-btn-primary santis-magnetic mt-4';
             resBtn.href = 'https://wa.me/905348350169';
@@ -252,13 +314,14 @@ function initNavAndFooter() {
             resBtn.rel = 'noopener noreferrer';
             resBtn.textContent = 'HEMEN REZERVASYON';
             if (mobileRoot) mobileRoot.appendChild(resBtn);
-            
+
         } catch (e) {
             console.error('[Sovereign Router] Failed to construct Zero-Touch Layout:', e);
         } finally {
             if (container) updateHomeLinks(container);
+            forceGlobalNavVisibility();
             initNavbarInteractions();
-            
+
             // --- IFF SWARM CALIBRATION (P4.3) ---
             // Inform the Self-Healing Swarm that the Genesis DOM is ready
             document.dispatchEvent(new CustomEvent('santis:nav:ready'));
@@ -293,6 +356,7 @@ function initNavAndFooter() {
             if (container) {
                 fixPaths(container);
                 bindImageFallbacks(container);
+                forceGlobalNavVisibility();
                 await buildSovereignNav(container);
             }
             loadAncillaryScripts();
@@ -302,6 +366,7 @@ function initNavAndFooter() {
         const container = document.getElementById('santis-main-nav');
         fixPaths(container);
         bindImageFallbacks(container);
+        forceGlobalNavVisibility();
         buildSovereignNav(container).then(() => {
             loadAncillaryScripts();
         });

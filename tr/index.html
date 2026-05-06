@@ -13,11 +13,26 @@ if (window.location.protocol === 'file:') {
 
   window.location.replace(`http://127.0.0.1:5500${routePath}${window.location.search}${window.location.hash}`);
 }
+
+if (['127.0.0.1', 'localhost'].includes(window.location.hostname)) {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations()
+      .then((registrations) => registrations.forEach((registration) => registration.unregister()))
+      .catch(() => {});
+  }
+  if ('caches' in window) {
+    caches.keys()
+      .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
+      .catch(() => {});
+  }
+}
 </script>
 <script src="/assets/js/core/santis-runtime-resolver.js"></script>
 <script src="/assets/js/santis-config.js"></script>
 <script src="/assets/js/api-client.js"></script>
 <script src="/assets/js/santis-public-runtime-shim.js"></script>
+<script src="/assets/js/loader.js?v=nav-3a6f8730" defer></script>
+<script src="/assets/js/santis-nav.js?v=nav-inline-visible-2" defer></script>
 
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -166,6 +181,7 @@ html { font-display: optional; }
   }]
 }
 </script>
+<link href="/assets/css/nav-final.css?v=nav-3a6f8730" rel="stylesheet"/>
 </head>
 <body class="santis-cinematic-lock">
 <!-- Page Overlay for Cinematic Transitions -->
@@ -642,6 +658,7 @@ html { font-display: optional; }
 <script src="/assets/js/sovereign-cart.js" defer></script>
 <script src="/assets/js/sovereign-cart-ui.js" defer></script>
 <script src="/assets/js/sovereign-cards.js" defer></script>
+<script src="/assets/js/home-page-seal.js?v=e4e6e10b" defer></script>
 <!-- <script src="/assets/js/core/sovereign-scroll.js" defer></script> -->
 <script src="/assets/js/santis-data-bridge.js" defer></script>
 <script src="/assets/js/santis-quantum-nexus.js" defer></script>

@@ -19,7 +19,7 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
-    command: ["npm", "run", "test:quality:runtime"]
+    command: ["pnpm", "run", "test:quality:runtime"]
     deploy:
       resources:
         limits:

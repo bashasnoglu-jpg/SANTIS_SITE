@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import SantisBoardroom from './components/dashboard/SantisBoardroom';
 import Login from './pages/Login';
 import Operations from './pages/Operations';
@@ -68,9 +69,15 @@ function App() {
               </PrivateRoute>
             }
           />
+<<<<<<< HEAD
           </Routes>
         </Router>
       </BoardroomModeProvider>
+=======
+        </Routes>
+        <SpeedInsights />
+      </Router>
+>>>>>>> origin/main
     </QueryClientProvider>
   );
 }

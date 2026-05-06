@@ -1,8 +1,8 @@
 {
   "framework": "vite",
-  "installCommand": "pnpm install --frozen-lockfile",
-  "buildCommand": "pnpm run build",
-  "outputDirectory": "dist",
+  "installCommand": "corepack enable && corepack pnpm install --frozen-lockfile",
+  "buildCommand": "corepack pnpm --filter admin-panel build",
+  "outputDirectory": "admin-panel/dist",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [

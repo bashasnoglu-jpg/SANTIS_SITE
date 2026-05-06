@@ -277,6 +277,10 @@ class BentoOrchestrator {
 
 window.initBentoCards = function() {
     if (!document.getElementById('santis-bento-universe')) return;
+    if (window.SovereignBentoOrchestrator && document.querySelector('#santis-bento-universe .bento-card-v6')) return;
+    if (window.SovereignBentoOrchestrator?.worker?.terminate) {
+        window.SovereignBentoOrchestrator.worker.terminate();
+    }
     window.SovereignBentoOrchestrator = new BentoOrchestrator();
     console.log("💎 [Bento Orchestrator] Attached to DOM.");
 };

@@ -1,0 +1,68 @@
+/* Final navbar contract: keep the global TR nav visible on desktop/tablet widths. */
+@media (min-width: 769px) {
+  .sovereign-nav {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+  }
+
+  .sovereign-brand-bar,
+  .sovereign-service-bar {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .sovereign-brand-bar .sovereign-nav-container,
+  .sovereign-service-bar .sovereign-nav-container {
+    display: flex !important;
+    max-width: 1280px !important;
+    width: 100% !important;
+    padding: 0 28px !important;
+  }
+
+  .sovereign-brand-links,
+  .sovereign-links {
+    display: flex !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: clamp(10px, 1vw, 18px) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    overflow: visible !important;
+  }
+
+  .sovereign-brand-links .sovereign-link-item,
+  .sovereign-service-bar .service-link {
+    display: inline-flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    color: rgba(245, 245, 247, 0.78) !important;
+    font-size: 10px !important;
+    letter-spacing: 0.06em !important;
+    white-space: nowrap !important;
+  }
+
+  .sovereign-service-bar .sovereign-nav-container {
+    justify-content: center !important;
+    gap: clamp(18px, 3vw, 48px) !important;
+  }
+
+  .hamburger-btn {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .sovereign-brand-links,
+  .sovereign-links {
+    display: none !important;
+  }
+
+  .hamburger-btn {
+    display: flex !important;
+  }
+}
