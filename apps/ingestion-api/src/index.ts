@@ -30,7 +30,10 @@ import { authRouter } from "./routes/auth.routes";
 import { verifySessionToken, type SessionTokenPayload } from "./security/crypto-token";
 
 import { boardroomRouter } from "./routes/boardroom";
+import { cognitiveBoardroomRouter } from "./routes/boardroom-cognitive-analysis.js"; // Phase 83
+import { oracleStreamRouter } from "./routes/oracle-stream.js"; // Phase 84
 import { oracleActionMemoryRouter } from "./oracle/oracle-action-memory.routes";
+
 import { oracleNodeSyncRouter } from "./oracle/oracle-node-sync.routes";
 import { oracleGlobalAggregationRouter } from "./oracle/oracle-global-aggregation.routes";
 import { oracleCrossNodeLearningRouter } from "./oracle/oracle-cross-node-learning.routes";
@@ -301,7 +304,10 @@ async function bootstrap() {
   // --- Otoriter Gümrük Kapısı (COMMAND ROTASI) ---
   app.use("/api/v1", createIngressRouter(bus, commandIngress));
   app.use("/api/v1/boardroom", boardroomRouter);
+  app.use("/api/v1/boardroom", cognitiveBoardroomRouter); // Phase 83: Oracle Feed
+  app.use("/api/v1/streams", oracleStreamRouter);         // Phase 84: Live Oracle Stream
   app.use("/api/v1/oracle", oracleActionMemoryRouter);
+
   app.use("/api/v1/oracle", oracleNodeSyncRouter);
   app.use("/api/v1/oracle", oracleGlobalAggregationRouter);
   app.use("/api/v1/oracle", oracleCrossNodeLearningRouter);
