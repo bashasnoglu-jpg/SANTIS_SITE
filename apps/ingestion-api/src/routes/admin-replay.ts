@@ -1,11 +1,12 @@
 import { Router } from 'express';
+import type { Router as ExpressRouter } from 'express';
 import { SovereignReplayEngine } from '../services/replay-engine';
 import {
   boardroomReducer,
   createInitialBoardroomState,
 } from '../services/boardroom-replay-state.js';
 
-const router = Router();
+const router: ExpressRouter = Router();
 const replayEngine = new SovereignReplayEngine();
 
 /**
@@ -49,4 +50,4 @@ router.get('/evidence/:eventId', async (_req, res) => {
   res.json({ message: 'Evidence chain reconstruction is coming in Phase 4.2' });
 });
 
-export const adminReplayRoutes = router;
+export const adminReplayRoutes: ExpressRouter = router;
