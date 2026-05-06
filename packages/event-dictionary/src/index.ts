@@ -236,6 +236,17 @@ export const RiskSignalTriggeredEventSchema = BaseEventSchema.extend({
   }),
 });
 
+export const TelemetryEventCapturedEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("telemetry.event_captured"),
+  payload: z.object({
+    hesitationIndex: z.number().min(0).max(1).default(0),
+    stressIndex: z.number().min(0).max(1).default(0),
+    source: z.string().min(1).optional(),
+    action: z.string().min(1).optional(),
+    metadata: z.record(z.unknown()).optional(),
+  }),
+});
+
 import { PricingRecommendationSchema } from "./pricing.schemas";
 
 export const PricingRecommendationCreatedEventSchema = BaseEventSchema.extend({
@@ -263,6 +274,7 @@ export const ActionApprovalSimulatedEventSchema = BaseEventSchema.extend({
   payload: z.object({
     actionId: z.string().min(1),
     status: z.literal("simulated_approved"),
+    operatorId: z.string().optional(),
     note: z.string().optional(),
   }),
 });
@@ -354,6 +366,7 @@ export const SantisEventSchema = z.discriminatedUnion("eventType", [
   PricingMidasEngagedEventSchema,
   CheckoutCompletedEventSchema,
   RiskSignalTriggeredEventSchema,
+  TelemetryEventCapturedEventSchema,
   PricingRecommendationCreatedEventSchema,
   PricingAutonomousRecommendedEventSchema,
   PricingRecommendationRejectedEventSchema,
