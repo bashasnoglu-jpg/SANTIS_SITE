@@ -69,15 +69,10 @@ function App() {
               </PrivateRoute>
             }
           />
-<<<<<<< HEAD
           </Routes>
         </Router>
       </BoardroomModeProvider>
-=======
-        </Routes>
-        <SpeedInsights />
-      </Router>
->>>>>>> origin/main
+      <SpeedInsights />
     </QueryClientProvider>
   );
 }
