@@ -669,4 +669,34 @@ function computeCognitiveInsights() {
     }, "action_rail_update");
 }
 
+// Sprint C: Reducer stubs for admin-replay.ts hydrateState()
+export type BoardroomState = typeof BoardroomReadModels;
 
+export function createInitialBoardroomState(): BoardroomState {
+  return {
+    ...BoardroomReadModels,
+    sessions: {},
+    moodHeatmap: { deep_relaxation: 0, recovery: 0, detox: 0, beauty: 0, couple_connection: 0 },
+    pricingRecommendations: {},
+    activeActions: [],
+    latestCalibration: null,
+    oracleIntelligence: { actionsResolved: 0, lastOperatorAction: null, actionMemory: [] },
+    auditLog: [],
+    snapshots: [],
+    cognitiveInsights: [],
+    revenueMetrics: {
+      totalRevenue: 0,
+      dailyTarget: 50000,
+      trend: "neutral" as const,
+      delta: 0,
+      currency: "EUR",
+      hourlyRateTarget: 150,
+      lastUpdateTraceId: null
+    },
+  };
+}
+
+export function boardroomReducer(state: BoardroomState, event: SantisEvent): BoardroomState {
+  projectEvent(event);
+  return state;
+}
