@@ -1,7 +1,7 @@
 import crypto from "crypto";
-import { sseManager } from "../services/sse-manager.js";
 import type { SovereignBus, CommandOfType } from "@santis/sovereign-bus";
 import type { CommandResult } from "@santis/event-dictionary/command-result";
+import type { SseManager } from "../services/sse-manager.js";
 import {
   buildPriceAdjustmentStrategyKey,
   strategyLearningStore,
@@ -40,7 +40,7 @@ function createSystemTenant() {
   };
 }
 
-export function registerCommandHandlers(bus: SovereignBus): void {
+export function registerCommandHandlers(bus: SovereignBus, sseManager: SseManager): void {
   bus.commands.registerHandler("commerce.record_checkout", async (command: CommandOfType<"commerce.record_checkout">) => {
     await bus.events.publish({
       eventId: crypto.randomUUID(),
