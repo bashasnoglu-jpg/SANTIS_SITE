@@ -14,17 +14,22 @@ jobs:
       - name: "Checkout Sovereign Source"
         uses: actions/checkout@v4
 
-      - name: "Initialize Node & Corepack"
+      - name: "Initialize Node"
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
 
       - name: "Enable Corepack"
         run: corepack enable
 
       - name: "Resolve pnpm version"
         run: corepack prepare pnpm@10.24.0 --activate
+
+      - name: "Setup pnpm cache"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
 
       - name: "Sovereign Dependency Fetch"
         run: pnpm fetch
