@@ -16,7 +16,8 @@ class SantisApiClient {
   async initWebSocket() {
     // Config üzerinden Gateway'e bağlanıyoruz
     const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
-    const wsUrl = await this.getAuthenticatedWebSocketUrl(config.wsUrl || `ws://127.0.0.1:3030/events`);
+    const wsEndpoint = config.wsUrl || this.deriveWebSocketUrlFromLocation();
+    const wsUrl = await this.getAuthenticatedWebSocketUrl(wsEndpoint);
 
     this.ws = new WebSocket(wsUrl);
 
@@ -44,6 +45,11 @@ class SantisApiClient {
         console.warn('⚠️ [API Client] Bağlantı koptu. 5 saniye içinde yeniden denenecek...');
         setTimeout(() => this.initWebSocket(), 5000);
     };
+  }
+
+  deriveWebSocketUrlFromLocation() {
+    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    return `${protocol}//${window.location.host}/events`;
   }
 
   async getAuthenticatedWebSocketUrl(wsUrl) {
