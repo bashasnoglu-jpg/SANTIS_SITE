@@ -131,20 +131,14 @@ class RadarEngine {
         this.sseSource.addEventListener('action_rail_update', (e) => {
             try {
                 const payload = JSON.parse(e.data);
-                this.addToLiveFeed(payload.data?.patch);
-            } catch (err) { console.error('Action Rail Error:', err); }
-        });
-
-        // 🔥 Phase 81: Cognitive Insights Listener
-        this.sseSource.addEventListener('action_rail', (e) => {
-            try {
-                const payload = JSON.parse(e.data);
-                if (payload.data?.type === 'cognitive_insights_update') {
-                    this.renderCognitiveInsights(payload.data.insights);
+                const patch = payload.data?.patch;
+                if (!patch) return;
+                if (patch.type === 'cognitive_insights_update') {
+                    this.renderCognitiveInsights(patch.insights);
                 } else {
-                    this.addToLiveFeed(payload.data);
+                    this.addToLiveFeed(patch);
                 }
-            } catch (err) { console.error('Cognitive Insights Error:', err); }
+            } catch (err) { console.error('Action Rail Error:', err); }
         });
 
         this.sseSource.onerror = () => {
