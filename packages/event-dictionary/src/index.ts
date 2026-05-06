@@ -248,6 +248,25 @@ export const PricingAutonomousRecommendedEventSchema = BaseEventSchema.extend({
   payload: PricingRecommendationSchema
 });
 
+export const PricingRecommendationRejectedEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("pricing.recommendation.rejected"),
+  payload: z.object({
+    actionId: z.string().min(1),
+    status: z.literal("rejected"),
+    operatorId: z.string().optional(),
+    note: z.string().optional(),
+  }),
+});
+
+export const ActionApprovalSimulatedEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("action.approval.simulated"),
+  payload: z.object({
+    actionId: z.string().min(1),
+    status: z.literal("simulated_approved"),
+    note: z.string().optional(),
+  }),
+});
+
 import { PricingOverrideAppliedSchema } from "./pricing.schemas";
 
 export const PricingOverrideAppliedEventSchema = BaseEventSchema.extend({
@@ -337,6 +356,8 @@ export const SantisEventSchema = z.discriminatedUnion("eventType", [
   RiskSignalTriggeredEventSchema,
   PricingRecommendationCreatedEventSchema,
   PricingAutonomousRecommendedEventSchema,
+  PricingRecommendationRejectedEventSchema,
+  ActionApprovalSimulatedEventSchema,
   PricingOverrideAppliedEventSchema,
   BoardroomOracleExecutedEventSchema,
   BoardroomStrategyAppliedEventSchema,
