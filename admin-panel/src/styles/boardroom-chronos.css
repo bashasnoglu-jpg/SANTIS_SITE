@@ -682,4 +682,263 @@
   font-family: monospace;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   PHASE 84.1 — ORACLE TIMELINE PANEL
+   ═══════════════════════════════════════════════════════════ */
 
+.nv-oracle-timeline-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  background: rgba(212, 175, 55, 0.03);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 24px;
+}
+
+.nv-oracle-timeline-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.nv-oracle-timeline-panel__title h4 {
+  margin: 4px 0 0;
+  font-weight: 300;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+}
+
+.nv-oracle-timeline-panel__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 13px;
+}
+
+/* ── Status indicator ────────────────────────── */
+.nv-oracle-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+}
+
+.nv-oracle-status__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.nv-pulse {
+  animation: oracle-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes oracle-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ── Stats row ───────────────────────────────── */
+.nv-oracle-timeline-panel__stats {
+  display: flex;
+  gap: 20px;
+}
+
+.nv-oracle-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nv-oracle-stat__label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.nv-oracle-stat__value {
+  font-size: 20px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.85);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Sparkline ───────────────────────────────── */
+.nv-oracle-sparkline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+}
+
+.nv-oracle-sparkline__label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.3);
+  white-space: nowrap;
+}
+
+.nv-oracle-sparkline__svg {
+  flex: 1;
+  min-width: 0;
+}
+
+.nv-oracle-sparkline__value {
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ── Scrubber ────────────────────────────────── */
+.nv-oracle-scrubber {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.nv-oracle-scrubber--active {
+  border-color: rgba(212, 175, 55, 0.25);
+  background: rgba(212, 175, 55, 0.04);
+}
+
+.nv-oracle-scrubber__controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nv-oracle-scrubber__btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.nv-oracle-scrubber__btn:hover {
+  border-color: rgba(212, 175, 55, 0.35);
+  color: #d4af37;
+}
+
+.nv-oracle-scrubber__track {
+  position: relative;
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 3px;
+}
+
+.nv-oracle-scrubber__fill {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  background: rgba(212, 175, 55, 0.4);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.nv-oracle-scrubber__range {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  opacity: 0;
+  cursor: pointer;
+  height: 100%;
+}
+
+.nv-oracle-scrubber__live-btn {
+  padding: 4px 12px;
+  border: 1px solid rgba(127, 255, 212, 0.35);
+  border-radius: 999px;
+  background: rgba(127, 255, 212, 0.06);
+  color: #7fffd4;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.nv-oracle-scrubber__live-btn:hover {
+  background: rgba(127, 255, 212, 0.12);
+}
+
+.nv-oracle-scrubber__meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: monospace;
+}
+
+.nv-oracle-scrubber__frozen {
+  color: #d4af37;
+  letter-spacing: 0.1em;
+}
+
+/* ── Patch Card ──────────────────────────────── */
+.nv-oracle-patch-card {
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nv-oracle-patch-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nv-oracle-patch-card__label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #7fffd4;
+}
+
+.nv-oracle-patch-card__id {
+  font-size: 10px;
+  font-family: monospace;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.nv-oracle-patch-card__confidence {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.nv-oracle-patch-card__narrative {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+  margin: 0;
+}
