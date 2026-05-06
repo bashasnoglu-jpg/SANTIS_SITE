@@ -1,6 +1,9 @@
 import { Router } from 'express';
 import { SovereignReplayEngine } from '../services/replay-engine';
-import { boardroomReducer, createInitialBoardroomState } from '../projections/boardroom-projections';
+import {
+  boardroomReducer,
+  createInitialBoardroomState,
+} from '../services/boardroom-replay-state.js';
 
 const router = Router();
 const replayEngine = new SovereignReplayEngine();
@@ -13,9 +16,9 @@ const replayEngine = new SovereignReplayEngine();
 router.get('/boardroom', async (req, res) => {
   try {
     const toSeq = req.query.toSeq ? parseInt(req.query.toSeq as string) : undefined;
-    
+
     console.log(`⏳ [Admin: Replay] Boardroom durumu yeniden inşaa ediliyor... Hedef Seq: ${toSeq || 'LATEST'}`);
-    
+
     const startTime = Date.now();
     const { state, lastSeq } = await replayEngine.hydrateState(
       createInitialBoardroomState(),
@@ -30,8 +33,10 @@ router.get('/boardroom', async (req, res) => {
       lastSeq,
       state
     });
-  } catch (error: any) {
-    res.status(500).json({ success: false, error: error.message });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+
+    res.status(500).json({ success: false, error: message });
   }
 });
 
@@ -39,9 +44,9 @@ router.get('/boardroom', async (req, res) => {
  * GET /admin/replay/evidence/:eventId
  * Belirli bir olayın neden oluştuğunu (causality) kanıt zinciriyle döner.
  */
-router.get('/evidence/:eventId', async (req, res) => {
+router.get('/evidence/:eventId', async (_req, res) => {
   // Gelecek aşamada: causationId ve correlationId üzerinden kök neden analizi
-  res.json({ message: "Evidence chain reconstruction is coming in Phase 4.2" });
+  res.json({ message: 'Evidence chain reconstruction is coming in Phase 4.2' });
 });
 
 export const adminReplayRoutes = router;
