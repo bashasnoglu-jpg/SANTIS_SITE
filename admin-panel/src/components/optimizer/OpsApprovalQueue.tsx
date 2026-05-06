@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { OptimizerPolicyProposal } from '../../types/optimizer-policy-approval';
+import { useBoardroomMode } from '../../features/boardroom/context/BoardroomModeContext';
 
 interface Props {
   experimentId: string;
@@ -8,6 +9,8 @@ interface Props {
 }
 
 export function OpsApprovalQueue({ experimentId, actor, onSelectProposal }: Props): JSX.Element {
+  const { mode } = useBoardroomMode();
+  const isHistorical = mode === 'HISTORICAL';
   const [items, setItems] = useState<OptimizerPolicyProposal[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,15 +31,19 @@ export function OpsApprovalQueue({ experimentId, actor, onSelectProposal }: Prop
   }
 
   useEffect(() => {
+    if (isHistorical) return;
+
     void load();
     const timer = window.setInterval(() => {
       void load();
     }, 10000);
 
     return () => window.clearInterval(timer);
-  }, [experimentId]);
+  }, [experimentId, isHistorical]);
 
   async function approve(proposalId: string): Promise<void> {
+    if (isHistorical) return;
+
     await fetch('/api/optimizer/policy/approvals/approve', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -47,6 +54,8 @@ export function OpsApprovalQueue({ experimentId, actor, onSelectProposal }: Prop
   }
 
   async function reject(proposalId: string): Promise<void> {
+    if (isHistorical) return;
+
     const reason = window.prompt('Rejection reason?');
     if (!reason) {
       return;
@@ -93,13 +102,19 @@ export function OpsApprovalQueue({ experimentId, actor, onSelectProposal }: Prop
                   >
                     Preview
                   </button>
-                  <button type="button" onClick={() => void approve(item.proposalId)}>
+                  <button 
+                    type="button" 
+                    onClick={() => void approve(item.proposalId)}
+                    disabled={isHistorical}
+                    style={{ opacity: isHistorical ? 0.5 : 1, cursor: isHistorical ? 'not-allowed' : 'pointer' }}
+                  >
                     Approve
                   </button>
                   <button
                     type="button"
                     onClick={() => void reject(item.proposalId)}
-                    style={{ marginLeft: 8 }}
+                    disabled={isHistorical}
+                    style={{ marginLeft: 8, opacity: isHistorical ? 0.5 : 1, cursor: isHistorical ? 'not-allowed' : 'pointer' }}
                   >
                     Reject
                   </button>

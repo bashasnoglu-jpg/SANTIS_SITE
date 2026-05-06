@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { SovereignButton } from "@santis/ui";
+import { useBoardroomMode } from "../../features/boardroom/context/BoardroomModeContext";
 
 export default function LiveIntentMonitor() {
+  const { mode } = useBoardroomMode();
   const [events, setEvents] = useState([]);
+  const eventBuffer = React.useRef([]);
 
   useEffect(() => {
     const eventSource = new EventSource('http://localhost:3030/api/v1/stream/events');
@@ -11,19 +14,22 @@ export default function LiveIntentMonitor() {
       try {
         const incomingData = JSON.parse(event.data);
         
+        // TEMPORAL ISOLATION: Eğer geçmişteyse, event'leri sadece bellekte tut (buffer)
+        if (mode === 'HISTORICAL') {
+          eventBuffer.current = [incomingData, ...eventBuffer.current].slice(0, 50);
+          return;
+        }
+
         // EĞER GELEN FISILTI "TESLİMAT BAŞARILI" SİNYALİYSE:
         if (incomingData.eventType === 'communication.whatsapp.delivered') {
           setEvents(prevEvents => prevEvents.map(evt => 
-            // Aynı Trace ID'ye sahip orijinal "Niyet Onaylandı" satırını bul ve Mühürle!
             evt.traceId === incomingData.traceId 
               ? { ...evt, deliveryStatus: 'SECURED' } 
               : evt
           ));
-          console.log('[SOVEREIGN KALKANI] Zümrüt Işıması Tetiklendi: Teslimat Başarılı.');
         } 
-        // DİĞER STANDART FISILTILAR (Örn: Niyet Onayı)
         else {
-          setEvents(prevEvents => [incomingData, ...prevEvents]);
+          setEvents(prevEvents => [incomingData, ...prevEvents].slice(0, 100));
         }
       } catch (error) {
         console.error('[SOVEREIGN KALKANI] Fısıltı deşifre edilemedi:', error);
@@ -31,7 +37,14 @@ export default function LiveIntentMonitor() {
     };
 
     return () => eventSource.close();
-  }, []);
+  }, [mode]);
+
+  useEffect(() => {
+    if (mode === 'LIVE' && eventBuffer.current.length > 0) {
+      setEvents(prev => [...eventBuffer.current, ...prev].slice(0, 100));
+      eventBuffer.current = [];
+    }
+  }, [mode]);
 
   return (
     <div className="min-h-screen bg-sovereign-black p-10 font-sans">
