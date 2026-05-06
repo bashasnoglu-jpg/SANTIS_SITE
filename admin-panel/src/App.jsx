@@ -68,8 +68,9 @@ function App() {
               </PrivateRoute>
             }
           />
-        </Routes>
-      </Router>
+          </Routes>
+        </Router>
+      </BoardroomModeProvider>
     </QueryClientProvider>
   );
 }

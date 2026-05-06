@@ -1,5 +1,5 @@
 import { BoardroomTimeline } from "./BoardroomTimeline";
-import { SnapshotReplayPanel } from "./SnapshotReplayPanel";
+import { SnapshotReplayPanel } from "./replay/SnapshotReplayPanel";
 import { useBoardroomChronos } from "../hooks/useBoardroomChronos";
 import "../../../styles/boardroom-chronos.css";
 

@@ -42,6 +42,32 @@ export interface ReconstructedBoardroomState {
   state: BoardroomSnapshot;
 }
 
+// ─── Phase 82.3: Cognitive Overlay Contract ───────────────────────────────
+
+export interface CognitiveReasoningStep {
+  cause: string;
+  context: string;
+  outcome: string;
+}
+
+export interface CognitiveDecisionDelta {
+  projectedRevenueImpact: number;
+  projectedRetentionImpact: number;
+  projectedHesitationReduction: number;
+}
+
+export interface CognitiveSignificance {
+  level: "low" | "medium" | "high" | "critical";
+  narrative: string;
+}
+
+export interface CognitiveDecisionEnvelope {
+  confidence: number;
+  reasoning: CognitiveReasoningStep[];
+  delta: CognitiveDecisionDelta;
+  significance: CognitiveSignificance;
+}
+
 export interface CognitiveInsight {
   id: string;
   type: string;
