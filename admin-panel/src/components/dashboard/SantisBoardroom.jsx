@@ -2,7 +2,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import GhostDrawer from './GhostDrawer';
 import LiveIntentMonitor from '../boardroom/LiveIntentMonitor';
 import { BoardroomChronos } from '../../features/boardroom/components/BoardroomChronos';
-import { History, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut, Eye, Brain, Split, Headset, TrendingUp, GitBranch } from 'lucide-react';
+import { History, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut, Eye, Brain, Split, Headset, TrendingUp, GitBranch, Filter } from 'lucide-react';
 import { useBoardroomMode } from '../../features/boardroom/context/BoardroomModeContext';
 
 // ── Admin-only: lazy-loaded, feature-gated Time Travel Replay UI ──────────────
