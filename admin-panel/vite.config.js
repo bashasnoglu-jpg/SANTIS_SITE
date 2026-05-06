@@ -32,5 +32,50 @@ export default defineConfig({
         secure: false,
       }
     }
-  }
+  },
+  build: {
+    // Phase 83.1 — Oracle Feed Performance Rail
+    // Hedef: 1.23 MB monoblok → parçalı lazy katmanlar
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          // ── Tier 1: React core (küçük, hızlı, her zaman gerekli) ──
+          if (id.includes('node_modules/react/') ||
+              id.includes('node_modules/react-dom/') ||
+              id.includes('node_modules/react-router-dom/') ||
+              id.includes('node_modules/scheduler/')) {
+            return 'vendor-react';
+          }
+
+          // ── Tier 2: State & query (BoardroomModeContext, TanStack) ──
+          if (id.includes('node_modules/@tanstack/') ||
+              id.includes('node_modules/zustand/')) {
+            return 'vendor-query';
+          }
+
+          // ── Tier 3: Charting (recharts + dependencies) ──
+          if (id.includes('node_modules/recharts/') ||
+              id.includes('node_modules/d3') ||
+              id.includes('node_modules/victory')) {
+            return 'vendor-charts';
+          }
+
+          // ── Tier 4: 3D / Calendar (en ağır, sadece lazım olunca) ──
+          if (id.includes('node_modules/three/') ||
+              id.includes('node_modules/react-big-calendar/') ||
+              id.includes('node_modules/moment/')) {
+            return 'vendor-3d-calendar';
+          }
+
+          // ── Tier 5: Boardroom Oracle Feed (Phase 82-83 modülleri) ──
+          if (id.includes('/features/boardroom/')) {
+            return 'oracle';
+          }
+        },
+      },
+    },
+    // Uyarı eşiğini geçici olarak yükselt (chunking sonrası kaldırılacak)
+    chunkSizeWarningLimit: 600,
+  },
 })
+

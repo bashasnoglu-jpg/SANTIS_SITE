@@ -623,3 +623,63 @@
   line-height: 1.5;
 }
 
+/* ── Phase 83: Oracle Fetch States ───────────────────── */
+.nv-cognitive-overlay__state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px 20px;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  font-size: 13px;
+}
+
+.nv-cognitive-overlay__state--error {
+  color: rgba(224, 92, 92, 0.8);
+}
+
+.nv-cognitive-overlay__error-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.nv-cognitive-overlay__error-hint {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.25);
+  margin-top: 4px;
+}
+
+/* ── Phase 83: Oracle Provenance Stamp ───────────────── */
+.nv-oracle-stamp {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 12px;
+  background: rgba(212, 175, 55, 0.03);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.08em;
+}
+
+.nv-oracle-stamp > span:first-child {
+  color: rgba(212, 175, 55, 0.5);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.nv-oracle-stamp__id {
+  font-family: monospace;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.nv-oracle-stamp__time {
+  margin-left: auto;
+  font-family: monospace;
+}
+
+
