@@ -279,6 +279,8 @@ export const ActionApprovalSimulatedEventSchema = BaseEventSchema.extend({
   }),
 });
 
+export type ActionApprovalSimulatedEvent = z.infer<typeof ActionApprovalSimulatedEventSchema>;
+
 import { PricingOverrideAppliedSchema } from "./pricing.schemas";
 
 export const PricingOverrideAppliedEventSchema = BaseEventSchema.extend({
@@ -356,42 +358,6 @@ export const BoardroomOverrideAppliedEventSchema = BaseEventSchema.extend({
   payload: BoardroomOverrideAppliedPayloadSchema,
 });
 
-
-export const ActionApprovalSimulatedEventSchema = BaseEventSchema.extend({
-  eventType: z.literal("action.approval.simulated"),
-  payload: z.object({
-    actionId: z.string(),
-    status: z.literal("simulated_approved"),
-    operatorId: z.string().optional(),
-    note: z.string().optional(),
-  }),
-});
-
-export type ActionApprovalSimulatedEvent = z.infer<typeof ActionApprovalSimulatedEventSchema>;
-
-export const PricingRecommendationRejectedEventSchema = BaseEventSchema.extend({
-  eventType: z.literal("pricing.recommendation.rejected"),
-  payload: z.object({
-    actionId: z.string(),
-    status: z.literal("rejected"),
-    operatorId: z.string().optional(),
-    note: z.string().optional(),
-  }),
-});
-
-export type PricingRecommendationRejectedEvent = z.infer<typeof PricingRecommendationRejectedEventSchema>;
-
-export const TelemetryEventCapturedEventSchema = BaseEventSchema.extend({
-  eventType: z.literal("telemetry.event_captured"),
-  payload: z.object({
-    hesitationIndex: z.number().min(0).max(1).optional(),
-    stressIndex: z.number().min(0).max(1).optional(),
-    source: z.string().optional(),
-  }),
-});
-
-export type TelemetryEventCapturedEvent = z.infer<typeof TelemetryEventCapturedEventSchema>;
-
 export const SantisEventSchema = z.discriminatedUnion("eventType", [
   MoodSelectedEventSchema,
   FlowAbandonedEventSchema,
@@ -410,9 +376,6 @@ export const SantisEventSchema = z.discriminatedUnion("eventType", [
   BoardroomOracleExecutedEventSchema,
   BoardroomStrategyAppliedEventSchema,
   BoardroomOverrideAppliedEventSchema,
-  ActionApprovalSimulatedEventSchema,
-  PricingRecommendationRejectedEventSchema,
-  TelemetryEventCapturedEventSchema,
 ]);
 
 
