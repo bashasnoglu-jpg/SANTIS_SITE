@@ -77,4 +77,8 @@ router.get('/evidence/:eventId', async (_req, res) => {
   res.json({ message: 'Evidence chain reconstruction is coming in Phase 4.2' });
 });
 
+<<<<<<< HEAD
 export const adminReplayRouter: ExpressRouter = router;
+=======
+export const adminReplayRoutes: ExpressRouter = router;
+>>>>>>> c0d39d7d (fix(ingestion-api): resolve merge conflicts — keep origin/main refactors + Sprint B hard-fail guard)
