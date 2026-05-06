@@ -449,7 +449,7 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
     sseManager.broadcastPatch("action_rail", {
       type: "new_recommendation",
       action: actionItem
-    });
+    }, "action_rail_update");
   };
 
   bus.events.subscribe("pricing.recommendation.created", handleRecommendation);
@@ -600,7 +600,7 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
     };
 
     sseManager.broadcastPatch("core_state", { boardroom: patch });
-    sseManager.broadcastPatch("action_rail", { type: "action_resolved", ...patch });
+    sseManager.broadcastPatch("action_rail", { type: "action_resolved", ...patch }, "action_rail_update");
     
     // 🔥 Phase 81: Compute Cognitive Insights after state change
     computeCognitiveInsights();
@@ -637,7 +637,7 @@ export const registerBoardroomProjections = (bus: SovereignBus) => {
     };
 
     sseManager.broadcastPatch("core_state", { boardroom: patch });
-    sseManager.broadcastPatch("action_rail", { type: "action_resolved", ...patch });
+    sseManager.broadcastPatch("action_rail", { type: "action_resolved", ...patch }, "action_rail_update");
     
     // 🔥 Phase 81: Compute Cognitive Insights after state change
     computeCognitiveInsights();
@@ -666,7 +666,7 @@ function computeCognitiveInsights() {
     sseManager.broadcastPatch("action_rail", {
         type: "cognitive_insights_update",
         insights: BoardroomReadModels.cognitiveInsights
-    });
+    }, "action_rail_update");
 }
 
 

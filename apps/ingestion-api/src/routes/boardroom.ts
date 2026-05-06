@@ -5,8 +5,9 @@ import { SovereignBus } from "@santis/sovereign-bus";
 export const boardroomRouter: import('express').Router = Router();
 
 // --- CONFIG & FLAGS (Phase 78) ---
-const ENABLE_ACTION_RAIL_SIMULATION = process.env.ENABLE_ACTION_RAIL_SIMULATION === 'true' || true;
-const ENABLE_ACTION_RAIL_APPROVAL = process.env.ENABLE_ACTION_RAIL_APPROVAL === 'true' || false;
+// Default: simulation ON (safe), can be disabled via ENABLE_ACTION_RAIL_SIMULATION=false
+const ENABLE_ACTION_RAIL_SIMULATION = process.env.ENABLE_ACTION_RAIL_SIMULATION !== 'false';
+const ENABLE_ACTION_RAIL_APPROVAL = process.env.ENABLE_ACTION_RAIL_APPROVAL === 'true';
 
 // --- READ ROUTES ---
 boardroomRouter.get("/revenue", (req: Request, res: Response) => {
