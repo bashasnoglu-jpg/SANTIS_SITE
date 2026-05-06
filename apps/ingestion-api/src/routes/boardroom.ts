@@ -1,12 +1,60 @@
+import { randomUUID } from "node:crypto";
 import { Router, Request, Response } from "express";
 import { BoardroomReadModels } from "../projections/boardroom-projections.js";
 import { SovereignBus } from "@santis/sovereign-bus";
+import type { SantisEvent, TenantContext, GuestIntent } from "@santis/event-dictionary";
 
 export const boardroomRouter: import('express').Router = Router();
 
 // --- CONFIG & FLAGS (Phase 78) ---
 const ENABLE_ACTION_RAIL_SIMULATION = process.env.ENABLE_ACTION_RAIL_SIMULATION === 'true' || true;
 const ENABLE_ACTION_RAIL_APPROVAL = process.env.ENABLE_ACTION_RAIL_APPROVAL === 'true' || false;
+
+const DEFAULT_TENANT: TenantContext = {
+  hotelId: "123e4567-e89b-12d3-a456-426614174002",
+  hotelCode: "SANTIS",
+  region: "EU",
+  locale: "tr",
+  currency: "EUR",
+  activePolicies: [],
+  fallbackMode: false,
+};
+
+const DEFAULT_INTENT: GuestIntent = {
+  isReturningGuest: false,
+  segment: "premium_intent",
+  moodAffinity: [],
+  premiumThreshold: 75,
+};
+
+type ActionRailEventType = Extract<
+  SantisEvent,
+  { eventType: "action.approval.simulated" | "pricing.recommendation.rejected" }
+>;
+
+function resolveTraceId(req: Request, fallbackPrefix: string): string {
+  const incomingTraceId = req.headers["x-trace-id"];
+  return typeof incomingTraceId === "string" && incomingTraceId.length > 0
+    ? incomingTraceId
+    : randomUUID();
+}
+
+function createActionRailEvent(
+  event: Pick<ActionRailEventType, "eventType" | "payload">,
+  req: Request,
+): ActionRailEventType {
+  return {
+    eventId: randomUUID(),
+    eventType: event.eventType,
+    occurredAt: new Date().toISOString(),
+    tenant: DEFAULT_TENANT,
+    intent: DEFAULT_INTENT,
+    traceId: resolveTraceId(req, "boardroom"),
+    sessionId: `boardroom-${event.payload.actionId}`,
+    schemaVersion: "v1",
+    payload: event.payload,
+  } as ActionRailEventType;
+}
 
 // --- READ ROUTES ---
 boardroomRouter.get("/revenue", (req: Request, res: Response) => {
@@ -41,7 +89,6 @@ boardroomRouter.get("/snapshot", (req: Request, res: Response) => {
  */
 boardroomRouter.post("/actions/:id/approve", async (req: Request, res: Response) => {
   const { id } = req.params;
-  const traceId = (req.headers["x-trace-id"] as string) || `cmd-${Date.now()}`;
 
   console.log(`[BOARDROOM] Action Approval Request: ${id} (Simulation: ${ENABLE_ACTION_RAIL_SIMULATION})`);
 
@@ -49,24 +96,24 @@ boardroomRouter.post("/actions/:id/approve", async (req: Request, res: Response)
     // 1. Simülasyon Kontrolü
     if (ENABLE_ACTION_RAIL_SIMULATION) {
       // Sovereign Bus üzerinden simülasyon onay event'i yayınla
-      const bus = new SovereignBus(); 
-      await bus.publish({
-        type: "action.approval.simulated",
+      const bus = new SovereignBus();
+      const event = createActionRailEvent({
         eventType: "action.approval.simulated",
-        occurredAt: new Date().toISOString(),
-        traceId,
-        payload: { 
+        payload: {
           actionId: id,
           status: "simulated_approved",
           note: "Action approved in simulation mode. No live pricing changes applied."
         }
-      });
+      }, req);
+
+      await bus.events.publish(event);
 
       return res.status(200).json({
         success: true,
         message: "Action approved (SIMULATION MODE)",
         actionId: id,
-        traceId
+        eventId: event.eventId,
+        traceId: event.traceId
       });
     }
 
@@ -90,26 +137,25 @@ boardroomRouter.post("/actions/:id/approve", async (req: Request, res: Response)
  */
 boardroomRouter.post("/actions/:id/reject", async (req: Request, res: Response) => {
   const { id } = req.params;
-  const traceId = (req.headers["x-trace-id"] as string) || `cmd-rej-${Date.now()}`;
 
   try {
     const bus = new SovereignBus();
-    await bus.publish({
-      type: "pricing.recommendation.rejected",
+    const event = createActionRailEvent({
       eventType: "pricing.recommendation.rejected",
-      occurredAt: new Date().toISOString(),
-      traceId,
-      payload: { 
+      payload: {
         actionId: id,
         status: "rejected"
       }
-    });
+    }, req);
+
+    await bus.events.publish(event);
 
     return res.status(200).json({
       success: true,
       message: "Action rejected and removed from rail",
       actionId: id,
-      traceId
+      eventId: event.eventId,
+      traceId: event.traceId
     });
   } catch (err) {
     console.error(`[BOARDROOM] Rejection Error for ${id}:`, err);

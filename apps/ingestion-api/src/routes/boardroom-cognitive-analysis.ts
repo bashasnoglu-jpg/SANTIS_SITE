@@ -58,9 +58,9 @@ cognitiveBoardroomRouter.get("/cognitive-analysis", (req: Request, res: Response
         (s: { timestamp: string }) => new Date(s.timestamp).getTime() <= ts
       );
       if (found) snapshot = found;
-    } else if (auditEntry.payload?.snapshotId) {
+    } else if (auditEntry.actionId) {
       const found = snapshots.find(
-        (s: { snapshotId?: string }) => s.snapshotId === auditEntry.payload?.snapshotId
+        (s: { resolvedActionId: string }) => s.resolvedActionId === auditEntry.actionId
       );
       if (found) snapshot = found;
     }

@@ -14,17 +14,22 @@ jobs:
       - name: "Checkout Sovereign Source"
         uses: actions/checkout@v4
 
-      - name: "Initialize Node & Corepack"
+      - name: "Initialize Node"
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
 
       - name: "Enable Corepack"
         run: corepack enable
 
       - name: "Resolve pnpm version"
-        run: corepack prepare pnpm@9.1.0 --activate
+        run: corepack prepare pnpm@10.24.0 --activate
+
+      - name: "Setup pnpm cache"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
 
       - name: "Sovereign Dependency Fetch"
         run: pnpm fetch
@@ -33,10 +38,13 @@ jobs:
         run: pnpm install --offline --frozen-lockfile
 
       - name: "🧠 Boardroom Intelligence — Telemetry Bridge"
-        env:
-          SANTIS_TELEMETRY_KEY: ${{ secrets.SANTIS_TELEMETRY_KEY }}
-          SANTIS_API_URL: ${{ secrets.SANTIS_API_URL }}
-        run: node scripts/ci-telemetry-bridge.js
+        continue-on-error: true
+        run: |
+          if [ -f scripts/ci-telemetry-bridge.js ]; then
+            node scripts/ci-telemetry-bridge.js
+          else
+            echo "Telemetry bridge unavailable; skipping optional CI telemetry."
+          fi
 
       - name: "🛡️ Execute Sovereign Guards"
         run: pnpm run audit:all
