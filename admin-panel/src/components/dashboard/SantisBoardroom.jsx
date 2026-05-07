@@ -75,7 +75,7 @@ export default function SantisBoardroom() {
         .nv-historical-badge { 
           position: fixed; top: 24px; right: 180px; z-index: 100;
           padding: 8px 16px; border: 1px solid rgba(212, 175, 55, 0.4);
-          background: rgba(212, 175, 55, 0.15); color: #d4af37;
+          background: rgba(212, 175, 55, 0.15); color: var(--color-sovereign-gold-strong);
           border-radius: 999px; font-size: 10px; letter-spacing: 0.2em;
           animation: badgePulse 2s infinite;
         }
