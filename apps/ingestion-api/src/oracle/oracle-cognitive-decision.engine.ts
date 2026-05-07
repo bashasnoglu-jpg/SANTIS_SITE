@@ -15,7 +15,7 @@ import type {
   CognitiveReasoningStep,
   CognitiveDecisionDelta,
   CognitiveSignificance,
-} from "../oracle-cognitive-decision.contract.js";
+} from "./oracle-cognitive-decision.contract.js";
 
 // ─── Input Types ─────────────────────────────────────────────────────────────
 

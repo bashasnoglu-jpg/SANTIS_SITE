@@ -15,8 +15,18 @@ export const isOriginAllowed = (origin: string, patterns: string[] = []): boolea
   // Rebuild exact match Set if env var changed (e.g., hot reload or first run)
   if (currentOriginsStr !== cachedOriginsStr) {
     if (!process.env.ALLOWED_ORIGINS) {
-      console.warn('⚠️ [Origin Policy] ALLOWED_ORIGINS environment variable is empty. No external browser origins will be allowed.');
+      if (process.env.NODE_ENV === "production") {
+        // Hard fail — misconfigured prod deploy must not silently reject all origins
+        throw new Error(
+          "[FATAL] ALLOWED_ORIGINS environment variable is required in production. Boot aborted."
+        );
+      }
+      console.warn(
+        "⚠️ [Origin Policy] ALLOWED_ORIGINS environment variable is empty. Using development fallback origins!"
+      );
+
     }
+
 
     cachedOriginsSet = new Set<string>(
       currentOriginsStr.split(",").map((o: string) => {

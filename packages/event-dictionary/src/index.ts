@@ -279,6 +279,8 @@ export const ActionApprovalSimulatedEventSchema = BaseEventSchema.extend({
   }),
 });
 
+export type ActionApprovalSimulatedEvent = z.infer<typeof ActionApprovalSimulatedEventSchema>;
+
 import { PricingOverrideAppliedSchema } from "./pricing.schemas";
 
 export const PricingOverrideAppliedEventSchema = BaseEventSchema.extend({
@@ -356,7 +358,6 @@ export const BoardroomOverrideAppliedEventSchema = BaseEventSchema.extend({
   payload: BoardroomOverrideAppliedPayloadSchema,
 });
 
-
 export const SantisEventSchema = z.discriminatedUnion("eventType", [
   MoodSelectedEventSchema,
   FlowAbandonedEventSchema,
@@ -376,6 +377,7 @@ export const SantisEventSchema = z.discriminatedUnion("eventType", [
   BoardroomStrategyAppliedEventSchema,
   BoardroomOverrideAppliedEventSchema,
 ]);
+
 
 export type SantisEvent = z.infer<typeof SantisEventSchema>;
 export type SantisEventType = SantisEvent["eventType"];

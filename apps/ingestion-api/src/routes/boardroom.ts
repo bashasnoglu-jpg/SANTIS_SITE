@@ -219,5 +219,3 @@ boardroomRouter.get("/reconstruct", (req: Request, res: Response) => {
         state: closestSnapshot
     });
 });
-
-
