@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "zones": {
     "ignore": [
       "**/node_modules/**",
@@ -7,7 +7,9 @@
       "**/build/**",
       "**/.next/**",
       "**/.turbo/**",
-      "**/coverage/**"
+      "**/coverage/**",
+      "**/.git/**",
+      "**/.vercel/**"
     ],
     "chartConfig": [
       "**/*Chart.js",
@@ -29,12 +31,19 @@
       "**/pages/Operations.jsx"
     ],
     "strict": [
-      "**/components/boardroom/**",
-      "**/components/concierge/**",
-      "**/components/dashboard/**",
+      "**/admin-panel/**",
       "**/components/**",
       "**/pages/**",
-      "**/src/**"
+      "**/src/**",
+      "**/assets/js/**",
+      "**/assets/css/**",
+      "**/tr/**/*.html",
+      "**/*.tsx",
+      "**/*.jsx",
+      "**/*.ts",
+      "**/*.js",
+      "**/*.css",
+      "**/*.html"
     ]
   }
 }
