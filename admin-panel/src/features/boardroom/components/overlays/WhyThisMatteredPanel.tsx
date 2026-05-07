@@ -13,27 +13,28 @@ const LEVEL_CONFIG = {
     icon: "◎",
   },
   medium: {
-    color: "#f0c040",
+    color: "var(--color-sovereign-signal-hesitation)",
     border: "rgba(240,192,64,0.25)",
     bg: "rgba(240,192,64,0.04)",
     label: "MEDIUM SIGNIFICANCE",
     icon: "◉",
   },
   high: {
-    color: "#d4af37",
+    color: "var(--color-sovereign-gold-strong)",
     border: "rgba(212,175,55,0.35)",
     bg: "rgba(212,175,55,0.07)",
     label: "HIGH SIGNIFICANCE",
     icon: "⬟",
   },
   critical: {
-    color: "#e05c5c",
+    color: "var(--color-sovereign-danger)",
     border: "rgba(224,92,92,0.4)",
     bg: "rgba(224,92,92,0.07)",
     label: "CRITICAL",
     icon: "⬛",
   },
 };
+
 
 export function WhyThisMatteredPanel({ significance }: WhyThisMatteredPanelProps) {
   const cfg = LEVEL_CONFIG[significance.level];
