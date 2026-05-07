@@ -213,15 +213,6 @@ function initNavAndFooter() {
             const isSubdirMount = pathParts[0] === 'SANTIS_SITE';
             let baseDepth = pathParts.length;
             if (isSubdirMount) baseDepth--; // Dev folder bypass
-    
-    // --- SOVEREIGN ROUTER: ZERO-TOUCH NAVIGATION (P4.2) ---
-    async function buildSovereignNav(container) {
-        try {
-            const pathParts = window.location.pathname.split('/').filter(p => p !== '');
-            const isFileProtocol = window.location.protocol === 'file:';
-            const isSubdirMount = pathParts[0] === 'SANTIS_SITE';
-            let baseDepth = pathParts.length;
-            if (isSubdirMount) baseDepth--; // Dev folder bypass
             if (window.location.pathname.endsWith('.html') || window.location.pathname.endsWith('/')) baseDepth--;
             const depthPrefix = (isFileProtocol || isSubdirMount) && baseDepth > 0
                 ? "../".repeat(baseDepth)
