@@ -239,7 +239,6 @@ function initNavAndFooter() {
                 const apiBase = config.apiBaseUrl || '/api/v1';
                 const CASCADE = [
                     `${apiBase}/nav-manifest`,
-                    'http://127.0.0.1:3030/api/v1/nav-manifest',
                     '/data/nav-manifest.json',
                 ];
                 let loaded = false;
