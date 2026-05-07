@@ -38,13 +38,11 @@ jobs:
         run: pnpm install --offline --frozen-lockfile
 
       - name: "🧠 Boardroom Intelligence — Telemetry Bridge"
-        continue-on-error: true
-        run: |
-          if [ -f scripts/ci-telemetry-bridge.js ]; then
-            node scripts/ci-telemetry-bridge.js
-          else
-            echo "Telemetry bridge unavailable; skipping optional CI telemetry."
-          fi
+        if: ${{ hashFiles('scripts/ci-telemetry-bridge.js') != '' && secrets.SANTIS_TELEMETRY_KEY != '' && secrets.SANTIS_API_URL != '' }}
+        env:
+          SANTIS_TELEMETRY_KEY: ${{ secrets.SANTIS_TELEMETRY_KEY }}
+          SANTIS_API_URL: ${{ secrets.SANTIS_API_URL }}
+        run: node scripts/ci-telemetry-bridge.js
 
       - name: "🛡️ Execute Sovereign Guards"
         run: pnpm run audit:all
