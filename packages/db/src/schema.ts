@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, jsonb, timestamp, integer } from "drizzle-orm/pg-core";
+import { pgTable, uuid, text, jsonb, timestamp, integer, serial, index } from "drizzle-orm/pg-core";
 
 export const waveMemory = pgTable("wave_memory", {
   key: text("key").primaryKey(),
@@ -13,6 +13,10 @@ export const waveMemory = pgTable("wave_memory", {
 // ==========================================
 export const eventStore = pgTable("event_store", {
   id: uuid("id").defaultRandom().primaryKey(),
+  // Monotonic sequence — replay determinism guarantee
+  seq: serial("seq").notNull(),
+  // Multi-tenant isolation — Phase 4
+  tenantId: text("tenant_id").notNull().default("santis"),
   eventId: text("event_id").notNull().unique(),
   eventType: text("event_type").notNull(),
   aggregateId: text("aggregate_id").notNull(),
@@ -20,7 +24,11 @@ export const eventStore = pgTable("event_store", {
   traceId: text("trace_id").notNull(),
   occurredAt: timestamp("occurred_at").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+}, (table) => ({
+  seqIdx:       index("event_store_seq_idx").on(table.seq),
+  occurredAtIdx: index("event_store_occurred_at_idx").on(table.occurredAt),
+  tenantIdx:    index("event_store_tenant_idx").on(table.tenantId),
+}));
 
 // ==========================================
 // LEGACY REALTIME EVENT STREAM

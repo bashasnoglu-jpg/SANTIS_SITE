@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import GhostDrawer from './GhostDrawer';
 import LiveIntentMonitor from '../boardroom/LiveIntentMonitor';
 import { BoardroomChronos } from '../../features/boardroom/components/BoardroomChronos';
-import { History, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut, Eye, Brain, Split, Headset, TrendingUp } from 'lucide-react';
+import { History, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut, Eye, Brain, Split, Headset, TrendingUp, GitBranch } from 'lucide-react';
 import { useBoardroomMode } from '../../features/boardroom/context/BoardroomModeContext';
+
+// ── Admin-only: lazy-loaded, feature-gated Time Travel Replay UI ──────────────
+const TimeTravelReplayPanel = lazy(() =>
+  import('../../features/boardroom/components/replay/TimeTravelReplayPanel')
+    .then((m) => ({ default: m.TimeTravelReplayPanel }))
+);
 
 // ============================================================================
 // DUMMY DATA FOR TELEMETRY
@@ -111,6 +117,13 @@ export default function SantisBoardroom() {
             >
               <History className="w-4 h-4" /> Chronos & Logic
             </button>
+            {/* Admin-only: Time Travel Replay tab */}
+            <button 
+              onClick={() => setActiveTab('replay')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm text-sm transition-colors ${activeTab === 'replay' ? 'bg-sovereign-obsidian border border-sovereign-accent/30 text-sovereign-accent' : 'bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink'}`}
+            >
+              <GitBranch className="w-4 h-4" /> Replay Engine
+            </button>
             <button className="w-full flex items-center gap-3 bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink px-4 py-3 rounded-sm text-sm transition-colors">
               <Settings className="w-4 h-4" /> Ayarlar
             </button>
@@ -149,6 +162,7 @@ export default function SantisBoardroom() {
               {activeTab === 'psychology' && 'Psikolojik Katman'}
               {activeTab === 'journey' && 'Journey Hunisi'}
               {activeTab === 'chronos' && 'Chronos & Visual Truth'}
+              {activeTab === 'replay' && 'Replay Engine — Time Travel'}
             </h2>
             <div className="flex items-center text-sovereign-bronze text-2xs uppercase tracking-widest mt-1">
               <Activity className="w-3 h-3 mr-2 text-sovereign-accent animate-pulse" /> 
@@ -368,6 +382,29 @@ export default function SantisBoardroom() {
             {activeTab === 'chronos' && (
               <div className="md:col-span-2 xl:col-span-3 animate-fade-in">
                 <BoardroomChronos />
+              </div>
+            )}
+
+            {/* ADMIN REPLAY ENGINE — Time Travel (feature-gated, lazy-loaded) */}
+            {activeTab === 'replay' && (
+              <div className="md:col-span-2 xl:col-span-3 animate-fade-in" style={{ animationDelay: '0ms' }}>
+                <div className="mb-4 flex items-center gap-2">
+                  <span className="text-2xs uppercase tracking-widest text-sovereign-bronze border border-sovereign-panel/50 px-2 py-0.5 rounded-sm">
+                    Admin · Debug Affordance
+                  </span>
+                  <span className="text-2xs text-sovereign-bronze opacity-50">
+                    Backend DB wiring pending — seq returns empty stream until PostgreSQL event-store is wired.
+                  </span>
+                </div>
+                <Suspense
+                  fallback={
+                    <div className="bg-sovereign-obsidian border border-sovereign-panel rounded-sm p-8 text-xs text-sovereign-bronze animate-pulse">
+                      Replay engine yükleniyor…
+                    </div>
+                  }
+                >
+                  <TimeTravelReplayPanel />
+                </Suspense>
               </div>
             )}
           </div>

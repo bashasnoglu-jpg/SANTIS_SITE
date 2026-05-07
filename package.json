@@ -3,11 +3,13 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": "20.x",
-    "pnpm": "10.x"
+    "node": ">=20.0.0 <21.0.0",
+    "pnpm": ">=9.0.0"
   },
   "packageManager": "pnpm@10.24.0",
   "scripts": {
+    "env:check": "node -v",
+    "onboard": "fnm use && pnpm install",
     "build": "pnpm --filter admin-panel build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",

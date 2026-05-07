@@ -1,11 +1,89 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* ─── Sovereign Design System Tokens (from packages/design-system/theme-manifest.json) ─── */
+@theme {
+    /* Core */
+    --color-sovereign-dark:    #141416;
+    --color-sovereign-surface: #202024;
+    --color-sovereign-gold:    #c6a96b;
+    --color-sovereign-text:    #d6d6d8;
+    --color-sovereign-muted:   #8f9095;
+    --color-sovereign-border:  rgba(255,255,255,0.06);
+
+    /* Surfaces */
+    --color-sovereign-panel:   #2A2624;
+    --color-sovereign-ink:     #E5E0D8;
+    --color-sovereign-sand:    #B7ADA1;
+    --color-sovereign-bronze:  #857B74;
+    --color-sovereign-accent:  #C2A878;
+    --color-sovereign-earth:   #6E5946;
+    --color-sovereign-black:   #0a0a0b;
+
+    /* Depths */
+    --color-sovereign-void:     #0A0908;
+    --color-sovereign-coal:     #141211;
+    --color-sovereign-obsidian: #1A1817;
+    --color-sovereign-graphite: #080808;
+
+    /* Lines */
+    --color-sovereign-line:      #333333;
+    --color-sovereign-line-soft: #444444;
+
+    /* Gold Scale */
+    --color-sovereign-gold-strong:  #D4AF37;
+    --color-sovereign-gold-deep:    #C5A059;
+    --color-sovereign-gold-pressed: #B5952F;
+
+    /* Neutrals */
+    --color-sovereign-neutral-200: #e5e5e5;
+    --color-sovereign-neutral-300: #dddddd;
+    --color-sovereign-neutral-400: #cccccc;
+    --color-sovereign-neutral-500: #a3a3a3;
+    --color-sovereign-neutral-600: #666666;
+    --color-sovereign-neutral-700: #444444;
+    --color-sovereign-neutral-800: #404040;
+    --color-sovereign-neutral-900: #262626;
+
+    /* Semantic */
+    --color-sovereign-danger:       #ff3b30;
+    --color-sovereign-success:      #10b981;
+    --color-sovereign-success-deep: #059669;
+    --color-sovereign-warning:      #d97706;
+
+    /* Signal Intelligence */
+    --color-sovereign-signal-stress:      #b91c1c;
+    --color-sovereign-signal-hesitation:  #f59e0b;
+    --color-sovereign-signal-abandon:     #c026d3;
+    --color-sovereign-signal-therapist:   #3730a3;
+
+    /* Typography */
+    --font-heading: 'Cinzel', serif;
+    --font-body:    'Inter', sans-serif;
+
+    /* Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-2xl: 2rem;
+
+    /* Shadows */
+    --shadow-soft:        0 10px 30px rgba(0,0,0,0.18);
+    --shadow-luxury:      0 18px 60px rgba(0,0,0,0.28);
+    --shadow-accent-glow: 0 0 8px rgba(194,168,120,0.45);
+
+    /* Easing */
+    --ease-sovereign: cubic-bezier(0.22, 1, 0.36, 1);
+}
 
 @layer base {
   body {
-    /* Eski 'bg-santis-bg' yerine yeni onaylı ilkel paletimizi (sovereign-dark) kullanıyoruz */
-    @apply bg-sovereign-dark text-sovereign-muted antialiased selection:bg-sovereign-gold/30 selection:text-white;
+    @apply bg-sovereign-dark text-sovereign-muted antialiased;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-sovereign-gold) 30%, transparent);
+    color: white;
   }
 }
 

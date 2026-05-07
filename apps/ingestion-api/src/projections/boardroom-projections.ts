@@ -4,7 +4,7 @@ import { calculateSCP } from "@santis/application/engines/scp-engine";
 import type { ActionRecommendation } from "@santis/domain-schema";
 
 import crypto from "crypto";
-import { computeCalibration, segmentConfidence } from "./calibration-engine";
+import { computeCalibration, segmentConfidence } from "./calibration-engine.js";
 
 type PricingRecommendationRecord = {
   id: string;

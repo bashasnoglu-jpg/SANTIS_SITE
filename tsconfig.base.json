@@ -19,7 +19,15 @@
       "@santis/application": ["packages/application/src/index.ts"],
       "@santis/application/*": ["packages/application/src/*"],
       "@santis/openr": ["packages/openr/src/index.ts"],
-      "@santis/openr/*": ["packages/openr/src/*"]
+      "@santis/openr/*": ["packages/openr/src/*"],
+      "@santis/db": ["packages/db/src/index.ts"],
+      "@santis/db/*": ["packages/db/src/*"],
+      "@santis/domain-schema": ["packages/domain-schema/src/index.ts"],
+      "@santis/domain-schema/*": ["packages/domain-schema/src/*"],
+      "@santis/decision-kernel": ["packages/decision-kernel/src/index.ts"],
+      "@santis/decision-kernel/*": ["packages/decision-kernel/src/*"],
+      "@santis/ui": ["packages/ui/src/index.ts"],
+      "@santis/ui/*": ["packages/ui/src/*"]
     }
   }
 }
