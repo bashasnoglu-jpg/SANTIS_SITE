@@ -6,50 +6,52 @@ import { dynamicCorsDelegate, isOriginAllowed } from "./security/origin-policy";
 import { SantisEventEnvelope, EventPayloadRecord } from "./types";
 
 import { SovereignBus } from "@santis/sovereign-bus";
-import { registerCommandHandlers } from "./handlers/register-command-handlers";
-import { CommandIngressService } from "./services/command-ingress";
-import { createIngressRouter } from "./routes/ingress";
-import { evaluateConciergeRules, deriveSignalFromDecision } from './decision-kernel';
-import { IntentEngine } from "./engine/intent.engine";
-import { broadcastToGodMode } from "./routes/sse-streams";
-import { resolveWebSocketGatewayConfig } from "./config/websocket-gateway.config";
+import { registerCommandHandlers } from "./handlers/register-command-handlers.js";
+import { CommandIngressService } from "./services/command-ingress.js";
+import { createIngressRouter } from "./routes/ingress.js";
+import { evaluateConciergeRules, deriveSignalFromDecision } from './decision-kernel.js';
+import { IntentEngine } from "./engine/intent.engine.js";
+import { broadcastToGodMode } from "./routes/sse-streams.js";
+import { resolveWebSocketGatewayConfig } from "./config/websocket-gateway.config.js";
+
 import { sseManager } from "./services/sse-manager.js";
 
 
-import { createReadRoutes } from "./routes/read-queries";
-import { createHistoryReadRouter } from "./routes/read-history";
-import { createSseRoutes } from "./routes/sse-streams";
-import { createFallbackIncidentsReadRouter } from "./routes/read-fallback-incidents";
-import { createFallbackSseRouter } from "./routes/sse-fallback-streams";
-import pricingRouter from "./routes/pricing.route";
-import streamRoutes from "./routes/stream.route";
-import { registerCoreStateRoute } from "./routes/core-state";
+import { createReadRoutes } from "./routes/read-queries.js";
+import { createHistoryReadRouter } from "./routes/read-history.js";
+import { createSseRoutes } from "./routes/sse-streams.js";
+import { createFallbackIncidentsReadRouter } from "./routes/read-fallback-incidents.js";
+import { createFallbackSseRouter } from "./routes/sse-fallback-streams.js";
+import pricingRouter from "./routes/pricing.route.js";
+import streamRoutes from "./routes/stream.route.js";
+import { registerCoreStateRoute } from "./routes/core-state.js";
 import { createStrategyRouter } from "./routes/strategy.js";
 
-import { authRouter } from "./routes/auth.routes";
-import { verifySessionToken, type SessionTokenPayload } from "./security/crypto-token";
+import { authRouter } from "./routes/auth.routes.js";
+import { verifySessionToken, type SessionTokenPayload } from "./security/crypto-token.js";
 
-import { boardroomRouter } from "./routes/boardroom";
-import { cognitiveBoardroomRouter } from "./routes/boardroom-cognitive-analysis.js"; // Phase 83
-import { oracleStreamRouter } from "./routes/oracle-stream.js"; // Phase 84
-import { oracleActionMemoryRouter } from "./oracle/oracle-action-memory.routes";
+import { boardroomRouter } from "./routes/boardroom.js";
+import { cognitiveBoardroomRouter } from "./routes/boardroom-cognitive-analysis.js";
+import { oracleStreamRouter } from "./routes/oracle-stream.js";
+import { oracleActionMemoryRouter } from "./oracle/oracle-action-memory.routes.js";
+import { oracleNodeSyncRouter } from "./oracle/oracle-node-sync.routes.js";
+import { oracleGlobalAggregationRouter } from "./oracle/oracle-global-aggregation.routes.js";
+import { oracleCrossNodeLearningRouter } from "./oracle/oracle-cross-node-learning.routes.js";
+import { oracleStrategySimulationRouter } from "./oracle/oracle-strategy-simulation.routes.js";
+import { oracleExecutionGuardRouter } from "./oracle/oracle-execution-guard.routes.js";
+import { oracleExecutionOutcomeRouter } from "./oracle/oracle-execution-outcome.routes.js";
+import { oracleStatisticalForecastRouter } from "./oracle/oracle-statistical-forecast.routes.js";
+import { oracleDecisionKernelRouter } from "./oracle/oracle-decision-kernel.routes.js";
+import { telemetryRouter } from "./telemetry.routes.js";
+import { navRouter } from "./routes/nav.routes.js";
+import { adminReplayRouter } from "./routes/admin-replay.js";
+import { registerBoardroomProjections } from "./projections/boardroom-projections.js";
 
-import { oracleNodeSyncRouter } from "./oracle/oracle-node-sync.routes";
-import { oracleGlobalAggregationRouter } from "./oracle/oracle-global-aggregation.routes";
-import { oracleCrossNodeLearningRouter } from "./oracle/oracle-cross-node-learning.routes";
-import { oracleStrategySimulationRouter } from "./oracle/oracle-strategy-simulation.routes";
-import { oracleExecutionGuardRouter } from "./oracle/oracle-execution-guard.routes";
-import { oracleExecutionOutcomeRouter } from "./oracle/oracle-execution-outcome.routes";
-import { oracleStatisticalForecastRouter } from "./oracle/oracle-statistical-forecast.routes";
-import { oracleDecisionKernelRouter } from "./oracle/oracle-decision-kernel.routes";
-import { telemetryRouter } from "./telemetry.routes";
-import { navRouter } from "./routes/nav.routes";
-import { adminReplayRouter } from "./routes/admin-replay.js"; // Sprint D
-import { registerBoardroomProjections } from "./projections/boardroom-projections";
+import { EventStore } from "./infrastructure/event-store.js";
+import { projectEvent } from "./projections/boardroom-projections.js";
 
-import { projectEvent } from "./projections/boardroom-projections";
 
-import { FallbackSseRegistry } from "./services/fallback-sse-registry";
+import { FallbackSseRegistry } from "./services/fallback-sse-registry.js";
 import {
   InMemoryIntentSnapshotRepository,
   InMemoryMoodReadModelRepository,
@@ -58,7 +60,7 @@ import {
 import { InMemoryUnitOfWork } from "@santis/application/uow/in-memory-uow";
 import { registerGuestSelectMoodFlow } from "@santis/application/bootstrap/register-guest-select-mood";
 
-import { sendNack } from "./utils/http-contract";
+import { sendNack } from "./utils/http-contract.js";
 import { createPersistenceAdapters } from "./persistence/factory.js";
 
 type WebSocketUpgradeRequest = IncomingMessage & { session?: SessionTokenPayload };
@@ -67,6 +69,7 @@ type VerifyClientInfo = {
   req: WebSocketUpgradeRequest;
 };
 type VerifyClientCallback = (verified: boolean, code?: number, message?: string) => void;
+
 
 async function bootstrap() {
   const { eventStore: EventStore, outboxRepo, mode } = createPersistenceAdapters();
