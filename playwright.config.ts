@@ -8,8 +8,9 @@
 
 import { defineConfig, devices } from '@playwright/test';
 
-// Lokal dev: Live Server (VS Code) veya docker-compose nginx
-const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
+// Port SSOT: E2E_BASE_URL env var → CI/staging override mümkün
+// Marketing site static HTML → port 8081 (admin-panel Vite = 8080, ayrı product)
+const BASE_URL = process.env.E2E_BASE_URL ?? process.env.BASE_URL ?? 'http://localhost:8081';
 
 export default defineConfig({
 
@@ -66,10 +67,13 @@ export default defineConfig({
   // ── Output ─────────────────────────────────────────────────────────────────
   outputDir: 'tests/artifacts',
 
-  // ── Web Server (opsiyonel — Live Server çalışmıyorsa) ──────────────────────
-  // webServer: {
-  //   command: 'npx serve . -p 8080',
-  //   port:    8080,
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  // ── Web Server — Statik marketing site HTML dosyalarını serve eder ───────────────────
+  webServer: {
+    // node serve.cjs — projenin kendi zero-dependency static serveri, Windows uyumlu
+    // Port argümanı ile 8081'de başlatılır (serve.cjs: PORT = process.argv[2] || 3030)
+    command: 'node serve.cjs 8081',
+    port:    8081,
+    timeout: 30_000,
+    reuseExistingServer: !process.env.CI, // Lokalde zaten çalışıyorsa tekrar başlatma
+  },
 });

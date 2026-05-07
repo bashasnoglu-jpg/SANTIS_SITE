@@ -16,10 +16,27 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 
-// ── Konfigürasyon ──────────────────────────────────────────────────────────────
-const WS_GATEWAY   = 'ws://localhost:8080';
-const WS_TOKEN     = 'SANTIS-CORE-TX99';
-const WS_ROLE      = 'watcher';
+// ── Runtime Config Resolver ────────────────────────────────────────────────────
+// [SEC-01/02] Hardcoded WS_GATEWAY + WS_TOKEN kaldırıldı.
+// Öncelik sırası: window.__SANTIS_CONFIG__ → window.__WS_BASE__ → same-origin
+function _resolveWsBase() {
+  if (typeof window === 'undefined') return '';
+  const cfg = window.__SANTIS_CONFIG__;
+  if (cfg?.WS_BASE) return cfg.WS_BASE.replace(/\/$/, '');
+  if (window.__WS_BASE__) return window.__WS_BASE__.replace(/\/$/, '');
+  const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+  return `${proto}//${window.location.host}`;
+}
+
+function _resolveWsToken() {
+  if (typeof window === 'undefined') return null;
+  const cfg = window.__SANTIS_CONFIG__;
+  return cfg?.WS_TOKEN
+    || window.__SESSION_TOKEN__
+    || localStorage.getItem('santis_session_token')
+    || null;
+}
+
 const MAX_THREATS  = 5;   // useMockRadar ile aynı limit
 const MAX_DEGS     = 5;   // useMockRadar ile aynı limit
 const RECONNECT_MS = 3000; // Bağlantı koptuğunda kaç ms sonra yeniden dene
@@ -91,9 +108,18 @@ export function useLiveRadar() {
         if (!mountedRef.current) return;
         if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) return;
 
+        const wsBase = _resolveWsBase();
+        const token  = _resolveWsToken();
+
+        if (!token) {
+          console.error('[Live Radar] WS token bulunamadı. Bağlantı iptal edildi. window.__SANTIS_CONFIG__.WS_TOKEN veya localStorage[santis_session_token] set edin.');
+          setConnectionStatus('OFFLINE');
+          return;
+        }
+
         setConnectionStatus('CONNECTING');
 
-        const url = `${WS_GATEWAY}/?role=${WS_ROLE}&token=${WS_TOKEN}`;
+        const url = `${wsBase}/?role=watcher&token=${encodeURIComponent(token)}`;
         const ws  = new WebSocket(url);
         wsRef.current = ws;
 

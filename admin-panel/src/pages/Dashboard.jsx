@@ -53,6 +53,7 @@ const Dashboard = () => {
         daily_breakdown: [],
     };
     const top_staff = data?.top_staff ?? [];
+    // eslint-disable-next-line no-unused-vars
     const top_services = data?.top_services ?? [];
 
     const { total_revenue, total_bookings, daily_breakdown } = revenue_stats;

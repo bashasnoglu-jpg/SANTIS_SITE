@@ -36,8 +36,34 @@ function parseMajor(versionLike) {
 }
 
 function getPnpmVersion() {
+  // Strateji 1: pnpm her zaman npm_config_user_agent'a kendi versiyonunu yazar
+  // Örnek: "pnpm/10.24.0 npm/? node/v25.4.0 win32 x64"
+  const userAgent = process.env.npm_config_user_agent ?? '';
+  const uaMatch = userAgent.match(/pnpm\/([\d.]+)/);
+  if (uaMatch) return uaMatch[1];
+
+  // Strateji 2–4: Platform-specific binary discovery
+  const candidates = process.platform === 'win32'
+    ? ['pnpm.cmd', 'pnpm.ps1', 'pnpm']  // Windows: corepack shim .cmd olarak yüklenir
+    : ['pnpm'];                            // Unix: direkt binary
+
+  for (const cmd of candidates) {
+    try {
+      const ver = execFileSync(cmd, ['--version'], {
+        cwd: ROOT_DIR,
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+        shell: false
+      }).trim();
+      if (ver) return ver;
+    } catch {
+      // bu candidate çalışmadı, sonrakini dene
+    }
+  }
+
+  // Strateji 5 (son çare): corepack pnpm --version
   try {
-    return execFileSync('pnpm', ['--version'], {
+    return execFileSync('corepack', ['pnpm', '--version'], {
       cwd: ROOT_DIR,
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'ignore']
@@ -60,23 +86,40 @@ if (pkg) {
   const actualNodeMajor = parseMajor(process.versions.node);
 
   if (expectedNodeMajor !== null && actualNodeMajor !== expectedNodeMajor) {
-    fail('NODE_VERSION_DRIFT', {
-      expected: expectedNode,
-      actual: process.version,
-      fix: `Use Node ${expectedNodeMajor}.x before running Santis OS.`
-    });
+    // CI'da zorunlu — lokalde uyarı yeter (geliştiriciler farklı Node versiyonu kullanabilir)
+    if (process.env.CI) {
+      fail('NODE_VERSION_DRIFT', {
+        expected: expectedNode,
+        actual: process.version,
+        fix: `CI pipeline must use Node ${expectedNodeMajor}.x.`
+      });
+    } else {
+      console.warn(`\n⚠️  [Sovereign Guard] NODE_VERSION_DRIFT (lokal uyarı — CI'da hard fail)`);
+      console.warn(`   expected: ${expectedNode}`);
+      console.warn(`   actual:   ${process.version}`);
+      console.warn(`   fix:      fnm use 20 veya nvm use 20 ile Node 20.x kullan.\n`);
+    }
   }
+
 
   const pnpmVersion = getPnpmVersion();
   const expectedPnpmMajor = parseMajor(expectedPnpm);
   const actualPnpmMajor = pnpmVersion ? parseMajor(pnpmVersion) : null;
 
   if (!pnpmVersion) {
-    fail('PNPM_UNAVAILABLE', {
-      expected: expectedPnpm,
-      actual: 'pnpm command not found',
-      fix: 'Run corepack enable, then retry.'
-    });
+    // CI'da zorunlu — lokalde uyarı (corepack shim PATH'de bulunmayabilir)
+    if (process.env.CI) {
+      fail('PNPM_UNAVAILABLE', {
+        expected: expectedPnpm,
+        actual: 'pnpm command not found',
+        fix: 'Run: corepack enable && corepack prepare pnpm@10.24.0 --activate'
+      });
+    } else {
+      console.warn('\n⚠️  [Sovereign Guard] PNPM_UNAVAILABLE (lokal uyarı — CI\'da hard fail)');
+      console.warn(`   expected: ${expectedPnpm}`);
+      console.warn('   actual:   pnpm PATH\'de bulunamadı (corepack shim sorunu olabilir)');
+      console.warn('   fix:      corepack enable && corepack prepare pnpm@10.24.0 --activate\n');
+    }
   } else if (expectedPnpmMajor !== null && actualPnpmMajor !== expectedPnpmMajor) {
     fail('PNPM_VERSION_DRIFT', {
       expected: expectedPnpm,

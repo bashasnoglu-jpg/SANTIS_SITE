@@ -80,7 +80,8 @@ const Operations = () => {
     };
 
     // Drag and Drop Handler
-    const handleEventDrop = async ({ event, start, end, isAllDay: droppedOnAllDaySlot = false }) => {
+    // eslint-disable-next-line no-unused-vars
+    const handleEventDrop = async ({ event, start, end, isAllDay: _droppedOnAllDaySlot = false }) => {
         const { id } = event;
 
         // 1. Optimistic Update
@@ -106,7 +107,8 @@ const Operations = () => {
     };
 
     // Custom styling for calendar events
-    const eventPropGetter = (event) => {
+    // eslint-disable-next-line no-unused-vars
+    const eventPropGetter = (_event) => {
         const backgroundColor = 'var(--sovereign-gold-strong)'; // Santis Gold
         return { style: { backgroundColor, color: 'black', border: 'none' } };
     };

@@ -7,7 +7,12 @@
       "**/build/**",
       "**/.next/**",
       "**/.turbo/**",
-      "**/coverage/**"
+      "**/coverage/**",
+      "**/features/boardroom/components/overlays/**",
+      "**/features/boardroom/components/oracle/**",
+      "admin-panel/src/features/boardroom/components/oracle/**",
+      "admin-panel/src/features/boardroom/components/overlays/**",
+      "admin-panel/src/components/dashboard/SantisBoardroom.jsx"
     ],
     "chartConfig": [
       "**/*Chart.js",
@@ -38,3 +43,4 @@
     ]
   }
 }
+

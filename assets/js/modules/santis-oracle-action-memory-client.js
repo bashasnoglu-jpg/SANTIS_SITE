@@ -1,23 +1,37 @@
 /**
  * santis-oracle-action-memory-client.js
  * Server-side Oracle action memory transport for the Boardroom.
+ *
+ * [SEC-01] URL Resolution:
+ * Hardcoded localhost:3030 kaldırıldı. API base URL şu öncelikle çözülür:
+ *   1. window.__API_BASE__  — prod/staging'de sayfa render'ı sırasında set edilmeli
+ *   2. '/api/v1'            — same-origin fallback (Vercel, Docker, etc.)
+ * Geliştirme ortamında window.__API_BASE__ = 'http://localhost:3030/api/v1' set et.
  */
+
+function _resolveApiBase() {
+  return (typeof window !== 'undefined' && window.__API_BASE__)
+    ? window.__API_BASE__.replace(/\/$/, '')
+    : '/api/v1';
+}
+
 export class SantisOracleActionMemoryClient {
   constructor({
-    baseUrl = 'http://localhost:3030/api/v1/oracle/action-memory',
-    nodeSyncUrl = 'http://localhost:3030/api/v1/oracle/node-sync',
-    globalAggregationUrl = 'http://localhost:3030/api/v1/oracle/global-aggregation',
-    crossNodeLearningUrl = 'http://localhost:3030/api/v1/oracle/cross-node-learning',
-    strategySimulationUrl = 'http://localhost:3030/api/v1/oracle/strategy-simulation',
-    executionGuardUrl = 'http://localhost:3030/api/v1/oracle/execution-guard',
+    baseUrl               = `${_resolveApiBase()}/oracle/action-memory`,
+    nodeSyncUrl           = `${_resolveApiBase()}/oracle/node-sync`,
+    globalAggregationUrl  = `${_resolveApiBase()}/oracle/global-aggregation`,
+    crossNodeLearningUrl  = `${_resolveApiBase()}/oracle/cross-node-learning`,
+    strategySimulationUrl = `${_resolveApiBase()}/oracle/strategy-simulation`,
+    executionGuardUrl     = `${_resolveApiBase()}/oracle/execution-guard`,
   } = {}) {
-    this.baseUrl = baseUrl;
-    this.nodeSyncUrl = nodeSyncUrl;
-    this.globalAggregationUrl = globalAggregationUrl;
-    this.crossNodeLearningUrl = crossNodeLearningUrl;
+    this.baseUrl               = baseUrl;
+    this.nodeSyncUrl           = nodeSyncUrl;
+    this.globalAggregationUrl  = globalAggregationUrl;
+    this.crossNodeLearningUrl  = crossNodeLearningUrl;
     this.strategySimulationUrl = strategySimulationUrl;
-    this.executionGuardUrl = executionGuardUrl;
+    this.executionGuardUrl     = executionGuardUrl;
   }
+
 
   async readAll() {
     const response = await fetch(this.baseUrl, {

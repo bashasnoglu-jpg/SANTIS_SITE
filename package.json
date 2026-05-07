@@ -19,6 +19,7 @@
     "stitch:enforce": "node packages/design-system/scripts/validate.js && node packages/design-system/scripts/check.js && node packages/design-system/scripts/guard.js",
     "test:quality:static": "turbo run test:quality:static",
     "test:quality:runtime": "turbo run test:quality:runtime",
+    "test:e2e": "pnpm exec playwright test",
     "audit:environment": "node scripts/active/audit-environment.mjs",
     "audit:workspace": "node scripts/active/audit-workspace-scripts.mjs",
     "audit:contract": "turbo run audit:contract",
@@ -30,7 +31,9 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
     "esbuild": "^0.28.0",
+    "serve": "^14.2.4",
     "tsx": "^4.7.1",
     "turbo": "^1.13.0",
     "typescript": "^5.4.0"

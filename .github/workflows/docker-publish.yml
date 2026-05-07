@@ -14,7 +14,10 @@ env:
   REGISTRY: ghcr.io
   # Hardcoded lowercase name for production stability
   IMAGE_NAME: bashasnoglu-jpg/santis-sovereign-os
-  TELEMETRY_ENDPOINT: http://localhost:3030/api/v1/telemetry/beacon
+  # [SEC-03] localhost:3030 kaldırıldı.
+  # GitHub Actions → Settings → Variables → TELEMETRY_ENDPOINT olarak set et.
+  # Set edilmemişse telemetry adımları continue-on-error ile sessizce atlanır.
+  TELEMETRY_ENDPOINT: ${{ vars.TELEMETRY_ENDPOINT || '' }}
 
 jobs:
   docker:

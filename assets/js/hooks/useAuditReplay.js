@@ -1,11 +1,21 @@
-// hooks/useAuditReplay.js — v2.1
+// hooks/useAuditReplay.js — v2.2
 // Audit JSONL fetch + replay + search + date filter + session grouping
+// [SEC-01] localhost:8080 hardcode kaldırıldı — runtime config'den çözülür.
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { groupAuditEntries } from '../lib/groupAuditEntries';
 
-const AUDIT_URL    = 'http://localhost:8080/audit';
+// Öncelik: window.__SANTIS_CONFIG__?.AUDIT_BASE → window.__API_BASE__ → '/api/v1'
+function _resolveAuditUrl() {
+  if (typeof window === 'undefined') return '/api/v1/audit';
+  const cfg = window.__SANTIS_CONFIG__;
+  if (cfg?.AUDIT_BASE) return cfg.AUDIT_BASE.replace(/\/$/, '');
+  const apiBase = window.__API_BASE__?.replace(/\/$/, '') ?? '/api/v1';
+  return `${apiBase}/audit`;
+}
+
 const REPLAY_SPEED = 800; // ms per event
+
 
 export function useAuditReplay() {
   const [entries,   setEntries]   = useState([]);  // Ham, sıralı kayıtlar
@@ -28,7 +38,7 @@ export function useAuditReplay() {
     setLoading(true);
     setError(null);
     try {
-      const res  = await fetch(AUDIT_URL);
+      const res  = await fetch(_resolveAuditUrl());
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       // Eskiden yeniye sırala

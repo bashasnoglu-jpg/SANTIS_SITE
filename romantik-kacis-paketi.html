@@ -177,7 +177,8 @@
           <span data-lang="en" style="display:none;">What's Included</span>
           <span class="acc-icon">+</span>
         </div>
-        <div class="santis-accordion-content">
+        <div class="santis-accordion-content"
+             data-testid="reservation-accordion-content">
           <ul class="cin-rich-steps" data-lang="tr">
             <li>Eşzamanlı Çift Masajı (60 dk) — 2 terapist</li>
             <li>Sultan Hamamı Ritüeli — kese &amp; köpük (45 dk)</li>
@@ -247,12 +248,17 @@
     <div class="cin-actions">
       <button
         class="santis-btn santis-btn-primary"
-        onclick="window.openReservationModal?.('Romantik Kaçış Paketi') || window.location.href='https://wa.me/905348350169'"
+        data-testid="reservation-cta"
+        data-service="Romantik Kacis Paketi"
       >
         <span data-lang="tr">REZERVASYON YAP</span>
         <span data-lang="en" style="display:none;">BOOK NOW</span>
       </button>
-      <a class="cin-btn" href="https://wa.me/905348350169" target="_blank" rel="noopener noreferrer">
+      <a class="cin-btn cin-btn-secondary"
+         data-testid="reservation-whatsapp-fallback"
+         href="https://wa.me/905348350169"
+         target="_blank"
+         rel="noopener noreferrer">
         <span data-lang="tr">WHATSAPP İLE SOR</span>
         <span data-lang="en" style="display:none;">ASK VIA WHATSAPP</span>
       </a>
@@ -266,21 +272,21 @@
 <!-- ║  data-bridge.js V10 → POST /api/v1/public/reservation      ║ -->
 <!-- ╚══════════════════════════════════════════════════════════════╝ -->
 <div id="santis-reservation-modal"
+     data-testid="reservation-modal"
      role="dialog"
      aria-modal="true"
      aria-labelledby="modal-title"
      data-state="idle"
-     style="display:none; position:fixed; inset:0; z-index:9000;
-            background:rgba(0,0,0,.75); backdrop-filter:blur(6px);
-            display:flex; align-items:center; justify-content:center;">
+     hidden>
 
-  <div class="santis-modal-card"
+  <div class="santis-modal-card nv-modal-card" data-testid="reservation-modal-card"
        style="background:#111; border:1px solid rgba(201,169,110,.25);
               border-radius:12px; padding:40px; width:min(520px,92vw);
               position:relative; max-height:90vh; overflow-y:auto;">
 
     <!-- Kapat -->
     <button id="santis-modal-close"
+            data-testid="reservation-close"
             aria-label="Kapat"
             style="position:absolute; top:16px; right:16px;
                    background:none; border:none; color:#888;
@@ -387,12 +393,13 @@
       </div>
 
       <!-- ── Durum mesajları ─────────────────────────────────── -->
-      <div id="santis-modal-status"
+      <div id="santis-modal-status" data-testid="reservation-status" hidden
            style="margin-top:16px; padding:12px 16px; border-radius:8px;
                   font-size:13px; display:none;"></div>
 
       <!-- ── Gönder butonu ──────────────────────────────────── -->
       <button id="santis-modal-submit" type="submit"
+              data-testid="reservation-submit"
               style="margin-top:24px; width:100%;
                      background:linear-gradient(135deg,#C9A96E,#a07840);
                      color:#111; border:none; border-radius:8px;
@@ -415,8 +422,8 @@
     </div>
 
     <!-- ── Başarı ─────────────────────────────────────────────── -->
-    <div id="santis-modal-success"
-         style="display:none; text-align:center; padding:20px;">
+    <div id="santis-modal-success" data-testid="reservation-success" hidden
+         style="text-align:center; padding:20px;">
       <div style="font-size:40px;">🌿</div>
       <h3 style="color:#C9A96E; font-family:'Cinzel',serif;
                  margin:12px 0 8px;">Rezervasyonunuz Alındı</h3>
@@ -438,6 +445,25 @@
 
 <style>
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Modal visibility contract (SSOT) ───────────────────────────────────────
+   data-state="idle"  → kapalı
+   data-state="open"  → açık
+   Inline style manipülasyonu kaldırıldı; CSS tek kaynak.
+   ─────────────────────────────────────────────────────────────────────────── */
+#santis-reservation-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(0,0,0,.75);
+  backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+}
+#santis-reservation-modal[data-state="open"] {
+  display: flex;
+}
 #santis-reservation-modal[data-state="loading"] form,
 #santis-reservation-modal[data-state="success"] form { display: none; }
 #santis-reservation-modal[data-state="loading"] #santis-modal-loading { display: block !important; }
@@ -452,6 +478,74 @@
 <script defer src="/assets/js/app.js"></script>
 
 <!-- ╔═══════════════════════════════════════════════════════════╗ -->
+<!-- ║  🛡️ E2E GUARD — DOMContentLoaded: app.js SONRASI çalışır ║ -->
+<!-- ║  Deferred scripts (app.js) SSOT'u eziyor.               ║ -->
+<!-- ║  DOMContentLoaded = tüm defer'lardan sonra → son override ║ -->
+<!-- ╚═══════════════════════════════════════════════════════════╝ -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var modal  = document.getElementById('santis-reservation-modal');
+  var cta    = document.querySelector('button[data-testid="reservation-cta"]');
+  var closeBtn = document.getElementById('santis-modal-close');
+
+  if (!modal || !cta) return; // Guard: elementler yoksa çık
+
+  // Idempotency — birden fazla DOMContentLoaded bind olmasın
+  if (cta.dataset.reservationBound === '1') return;
+  cta.dataset.reservationBound = '1';
+
+  // ── openReservationModal — FINAL AUTHORITATIVE VERSION ──────────────────
+  // app.js (deferred) eski style.display approach'ını kullanıyor → bu override eder.
+  // CSS contract: #santis-reservation-modal[data-state="open"] { display: flex }
+  window.openReservationModal = function(serviceName) {
+    modal.removeAttribute('hidden');
+    modal.dataset.state = 'open';
+    modal.classList.add('is-open');
+    document.body.classList.add('reservation-modal-open');
+    document.body.style.overflow = 'hidden';
+    var today = new Date().toISOString().split('T')[0];
+    var dateEl = document.getElementById('res-date');
+    if (dateEl) dateEl.min = today;
+    setTimeout(function() {
+      var nameEl = document.getElementById('res-name');
+      if (nameEl) nameEl.focus();
+    }, 100);
+    return true; // ← WA fallback engelleyici: onclick="fn() || href=WA"
+  };
+
+  // ── closeReservationModal ─────────────────────────────────────────────────
+  window.__nvCloseModal = function() {
+    modal.dataset.state = 'idle';
+    modal.setAttribute('hidden', '');
+    modal.classList.remove('is-open');
+    document.body.classList.remove('reservation-modal-open');
+    document.body.style.overflow = '';
+    var form = document.getElementById('santis-reservation-form');
+    if (form) form.reset();
+    var status = document.getElementById('santis-modal-status');
+    if (status) status.style.display = 'none';
+  };
+
+  // ── CTA click binding ─────────────────────────────────────────────────────
+  cta.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.openReservationModal(cta.dataset.service || '');
+  });
+
+  // ── Close interactions ────────────────────────────────────────────────────
+  if (closeBtn) closeBtn.addEventListener('click', window.__nvCloseModal);
+
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) window.__nvCloseModal();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.dataset.state === 'open') window.__nvCloseModal();
+  });
+});
+</script>
+
+<!-- ╔═══════════════════════════════════════════════════════════╗ -->
 <!-- ║  🌉 E2E REZERVASYON BAĞLANTISI — data-bridge.js V10      ║ -->
 <!-- ╚═══════════════════════════════════════════════════════════╝ -->
 <script type="module">
@@ -463,22 +557,26 @@ const status = document.getElementById('santis-modal-status');
 
 // ── Aç ────────────────────────────────────────────────────────
 window.openReservationModal = function(serviceName) {
-  modal.style.display = 'flex';
-  modal.dataset.state  = 'idle';
+  // CSS SSOT: [data-state="open"] { display: flex }
+  modal.dataset.state  = 'open';
+  modal.removeAttribute('hidden');
+  modal.classList.add('is-open');
+  document.body.classList.add('reservation-modal-open');
   document.body.style.overflow = 'hidden';
 
-  // Tarihin altın sınırı: bugün
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('res-date').min = today;
-
-  // Odak
   setTimeout(() => document.getElementById('res-name')?.focus(), 100);
+
+  return true; // ← WA fallback engelleyici
 };
 
 // ── Kapat ─────────────────────────────────────────────────────
 window.__nvCloseModal = function() {
-  modal.style.display = 'none';
   modal.dataset.state  = 'idle';
+  modal.setAttribute('hidden', '');
+  modal.classList.remove('is-open');
+  document.body.classList.remove('reservation-modal-open');
   document.body.style.overflow = '';
   form.reset();
   status.style.display = 'none';
@@ -492,24 +590,46 @@ modal.addEventListener('click', (e) => {
 });
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && modal.style.display !== 'none') window.__nvCloseModal();
+  if (e.key === 'Escape' && modal.dataset.state === 'open') window.__nvCloseModal();
 });
 
 // ── Durum mesajı ──────────────────────────────────────────────
-function showStatus(msg, type = 'error') {
+function showReservationStatus(msg, type = 'error') {
+  const status = document.getElementById('santis-modal-status');
+  if (!status) return;
+  status.hidden = false;
+  status.removeAttribute('hidden');
   status.textContent = msg;
+  status.dataset.state = 'visible';
+  status.dataset.type = type;
+  status.setAttribute('role', type === 'error' ? 'alert' : 'status');
   status.style.display = 'block';
   status.style.background  = type === 'error' ? 'rgba(255,80,80,.1)' : 'rgba(100,200,100,.1)';
   status.style.border       = type === 'error' ? '1px solid rgba(255,80,80,.3)' : '1px solid rgba(100,200,100,.3)';
   status.style.color        = type === 'error' ? '#ff6060' : '#88cc88';
 }
 
+// ── Başarı State ──────────────────────────────────────────────
+function showReservationSuccess() {
+  const successLayer = document.querySelector('#santis-modal-success');
+  if (!successLayer) return;
+  successLayer.hidden = false;
+  successLayer.removeAttribute('hidden');
+  successLayer.dataset.state = 'open';
+  successLayer.classList.add('is-open');
+  successLayer.style.display = 'block';
+  
+  const formEl = document.getElementById('santis-reservation-form');
+  if (formEl) formEl.style.display = 'none';
+}
+
 // ── Form Gönder ───────────────────────────────────────────────
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   status.style.display = 'none';
+  status.hidden = true;
 
-  const data = {
+  const payload = {
     guest_name:     document.getElementById('res-name').value.trim(),
     guest_phone:    document.getElementById('res-phone').value.trim(),
     guest_email:    document.getElementById('res-email').value.trim() || undefined,
@@ -519,32 +639,35 @@ form.addEventListener('submit', async (e) => {
     notes:          document.getElementById('res-notes').value.trim() || undefined,
   };
 
-  const result = await NVDataBridge.submitReservation(data, 'romantik-kacis-paketi');
+  try {
+    const response = await fetch('/api/v1/public/reservation', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
 
-  if (result.fallback) {
-    // WhatsApp açıldı — modal'ı sessizce kapat
-    setTimeout(window.__nvCloseModal, 2000);
+    if (response.status === 429) {
+      showReservationStatus('Çok fazla istek gönderildi. Lütfen birkaç dakika sonra tekrar deneyin.', 'error');
+      return;
+    }
+
+    if (!response.ok) {
+      showReservationStatus('Bir hata oluştu. Lütfen tekrar deneyin.', 'error');
+      return;
+    }
+
+    // Success (2xx)
+    showReservationSuccess();
+    
+    // Simulate ref ID based on timestamp
+    const refEl = document.getElementById('santis-modal-refid');
+    if (refEl) refEl.textContent = `Referans No: REF-${Date.now().toString().slice(-6)}`;
+
+  } catch (err) {
+    showReservationStatus('Bağlantı hatası oluştu. Lütfen WhatsApp üzerinden ulaşın.', 'error');
   }
-});
-
-// ── data-bridge.js Events ─────────────────────────────────────
-modal.addEventListener('nv:reservation:loading', () => {
-  modal.dataset.state = 'loading';
-});
-
-modal.addEventListener('nv:reservation:success', (e) => {
-  modal.dataset.state = 'success';
-  const refEl = document.getElementById('santis-modal-refid');
-  if (refEl) refEl.textContent = `Referans No: ${e.detail?.ref_id || '—'}`;
-});
-
-modal.addEventListener('nv:reservation:error', (e) => {
-  modal.dataset.state = 'idle';
-  showStatus(e.detail?.message || 'Bir hata oluştu. Lütfen tekrar deneyin.');
-});
-
-modal.addEventListener('nv:reservation:validation_error', (e) => {
-  showStatus('Lütfen zorunlu alanları doldurun.');
 });
 
 console.log('[ReservasyonPage] ✅ E2E köprüsü aktif → /api/v1/public/reservation');

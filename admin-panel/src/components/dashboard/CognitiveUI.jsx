@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion'; // eslint-disable-line no-unused-vars
+
 
 // ----------------------------------------------------------------------
 // KOGNİTİF TASARIM MANİFESTOSU (Single Source of Truth)

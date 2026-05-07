@@ -37,6 +37,33 @@ jobs:
       - name: "Install Dependencies (Offline/Frozen)"
         run: pnpm install --offline --frozen-lockfile
 
+      # ── Quality Gate 1: TypeCheck ────────────────────────────────────────────
+      # [DEPLOY-01] Type hatası main'e geçmesin.
+      - name: "🔷 TypeCheck — Zero Type Errors"
+        run: pnpm run typecheck
+
+      # ── Quality Gate 2: Lint ─────────────────────────────────────────────────
+      - name: "🔷 Lint — Code Style Enforcement"
+        run: pnpm run lint
+
+      # ── Quality Gate 3: Sovereign Audit Guards ───────────────────────────────
+      - name: "🛡️ Execute Sovereign Guards"
+        run: pnpm run audit:all
+
+      # ── Quality Gate 4: Design Token Enforcement ─────────────────────────────
+      # stitch:enforce: arbitrary hex / raw token bypass tespiti.
+      # Script yoksa adım atlanır (continue-on-error: false olduğunda zorla kırar).
+      - name: "🎨 Stitch:Enforce — Token Discipline"
+        if: ${{ hashFiles('packages/design-system/scripts/validate.js') != '' }}
+        run: pnpm run stitch:enforce
+
+      # ── Quality Gate 5: Runtime / E2E Tests ─────────────────────────────────
+      # Playwright E2E — booking flow ve SSE akışları doğrulanır.
+      - name: "🧪 Runtime Quality Test (E2E)"
+        if: ${{ hashFiles('playwright.config.ts') != '' }}
+        run: pnpm run test:quality:runtime
+
+      # ── Boardroom Telemetry (isteğe bağlı) ──────────────────────────────────
       - name: "🧠 Boardroom Intelligence — Telemetry Bridge"
         if: ${{ hashFiles('scripts/ci-telemetry-bridge.js') != '' && secrets.SANTIS_TELEMETRY_KEY != '' && secrets.SANTIS_API_URL != '' }}
         env:
@@ -44,8 +71,7 @@ jobs:
           SANTIS_API_URL: ${{ secrets.SANTIS_API_URL }}
         run: node scripts/ci-telemetry-bridge.js
 
-      - name: "🛡️ Execute Sovereign Guards"
-        run: pnpm run audit:all
-
+      # ── Build ────────────────────────────────────────────────────────────────
       - name: "Build Sovereign Artifacts"
         run: pnpm run build
+

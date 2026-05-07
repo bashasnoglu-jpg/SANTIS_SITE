@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
+// eslint-disable-next-line no-unused-vars
 const StatCard = ({ title, value, icon: Icon, trend, trendValue, color = "text-santis-gold" }) => {
     return (
         <div className="bg-santis-card p-6 rounded-xl border border-santis-border shadow-lg hover:border-santis-gold/50 transition-colors">

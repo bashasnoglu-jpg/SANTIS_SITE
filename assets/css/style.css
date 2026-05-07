@@ -579,7 +579,8 @@ body::after {
    ========================================= */
 
 body.ghost-active {
-    overflow: hidden !important;\n    pointer-events: none;
+    overflow: hidden !important;
+    pointer-events: none;
 }
 
 .santis-ghost-overlay {
@@ -800,3 +801,13 @@ body.cursor-snap-hover #santis-cursor-dot {
     opacity: 0; /* dissolve dot into the button */
 }
 
+/* =========================================
+   RESERVATION MODAL CONTRACT
+   ========================================= */
+[data-testid="reservation-modal"][hidden] {
+  display: none !important;
+}
+
+[data-testid="reservation-modal"][data-state="open"] {
+  display: flex;
+}

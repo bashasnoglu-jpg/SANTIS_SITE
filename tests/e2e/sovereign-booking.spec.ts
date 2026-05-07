@@ -10,8 +10,9 @@ import { test, expect } from '@playwright/test';
 test.describe('Sovereign Booking Flow - Deterministik Performans Testi', () => {
   
   test('Animasyonlar 120 FPS Frame Bütçesini (8.3ms) ihlal edemez ve Zero-CLS korunmalıdır', async ({ page }) => {
-    // Karadağ Matrisi Laboratuvar (Localhost) ortamına bağlan
-    await page.goto('http://localhost:5173/booking', { waitUntil: 'networkidle' });
+    // baseURL playwright.config.ts'den gelir (E2E_BASE_URL ?? 'http://localhost:8081')
+    // /booking.html → statik rezervasyon wizard sayfası
+    await page.goto('/booking.html', { waitUntil: 'networkidle' });
 
     // 1. ZERO-CLS (Cumulative Layout Shift) Gözlemcisini Başlat
     await page.evaluate(() => {
@@ -26,9 +27,14 @@ test.describe('Sovereign Booking Flow - Deterministik Performans Testi', () => {
       observer.observe({ type: 'layout-shift', buffered: true });
     });
 
-    // 2. Arayüz Geçişini (Framer Motion) Tetikle
-    const nextButton = page.locator('button').first();
-    await nextButton.waitFor({ state: 'visible' });
+    // Sayfanın DOM olarak hazır olmasını bekle
+    await page.waitForLoadState('domcontentloaded');
+
+    // data-testid="booking-next" (disabled) veya ilk aktif buton
+    // booking.html'de btnPrev (GERI) her zaman enabled — performans testi için geçerli
+    const nextButton = page.getByTestId('booking-next');
+    // Görünür olması yeterli — disabled olsa da frame zamanlama için tıklayabiliriz
+    await nextButton.waitFor({ state: 'visible', timeout: 15_000 });
 
     // 3. Frame Profiler'ı Enjekte Et ve Animasyonu Başlat
     // Animasyon boyunca çalışan her bir requestAnimationFrame (rAF) süresini ölçüyoruz

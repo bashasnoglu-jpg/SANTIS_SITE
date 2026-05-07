@@ -73,12 +73,14 @@ export function registerEventObservers(deps: ObserverDeps): void {
         evtType === "commerce.checkout.completed"
       ) {
         wsPayloadType = "REVENUE_UPDATE";
+        // Sovereign Truth: payload'da gerçek tutar yoksa 0 döner.
+        // Math.random() ile sahte revenue üretmek Boardroom kararlarını bozar. [ARCH-02]
         wsPayloadValue =
-          payloadData.totalAmount ||
-          payloadData.amount ||
-          payloadData.revenue ||
-          payloadData.upsellAmount ||
-          Math.floor(Math.random() * 500) + 150;
+          payloadData.totalAmount ??
+          payloadData.amount ??
+          payloadData.revenue ??
+          payloadData.upsellAmount ??
+          0;
       } else if (decision.includes("risk") || decision.includes("escalate")) {
         wsPayloadType = "RISK_SIGNAL";
         wsPayloadValue = Math.floor(metrics.abandon_risk * 100) || 85;

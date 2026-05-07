@@ -1,10 +1,17 @@
 /**
  * santis-oracle-execution-outcome-client.js
  * Transport for Oracle execution outcome feedback.
+ * [SEC-01] localhost:3030 kaldırıldı — window.__API_BASE__ veya relative path kullanılır.
  */
+function _resolveApiBase() {
+  return (typeof window !== 'undefined' && window.__API_BASE__)
+    ? window.__API_BASE__.replace(/\/$/, '')
+    : '/api/v1';
+}
+
 export class SantisOracleExecutionOutcomeClient {
   constructor({
-    baseUrl = 'http://localhost:3030/api/v1/oracle/execution-outcomes',
+    baseUrl = `${_resolveApiBase()}/oracle/execution-outcomes`,
   } = {}) {
     this.baseUrl = baseUrl;
   }

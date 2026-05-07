@@ -16,6 +16,8 @@ export default defineConfig({
     },
   },
   server: {
+    port: 8080,
+    strictPort: true, // Playwright parity: playwright.config.ts baseURL = localhost:8080
     proxy: {
       '/api': {
         target: 'http://localhost:3030',

@@ -1,10 +1,17 @@
 /**
  * santis-oracle-statistical-forecast-client.js
  * Read-only client for Oracle statistical forecast baseline.
+ * [SEC-01] localhost:3030 kaldırıldı — window.__API_BASE__ veya relative path kullanılır.
  */
+function _resolveApiBase() {
+  return (typeof window !== 'undefined' && window.__API_BASE__)
+    ? window.__API_BASE__.replace(/\/$/, '')
+    : '/api/v1';
+}
+
 export class SantisOracleStatisticalForecastClient {
   constructor({
-    baseUrl = 'http://localhost:3030/api/v1/oracle/statistical-forecast',
+    baseUrl = `${_resolveApiBase()}/oracle/statistical-forecast`,
   } = {}) {
     this.baseUrl = baseUrl;
   }

@@ -23,12 +23,13 @@ export function useGodModeStream(limit = 50) {
         setEvents(data.data.reverse());
       }
       setIsHistoryLoaded(true);
-    } catch (err) {
-      console.error('[GodMode] History fetch error:', err);
-      setError(err);
-      setIsHistoryLoaded(true); // Hata olsa da loading bitsin
+    } catch (_err) {
+      console.error('[GodMode] History fetch error:', _err);
+      setError(_err);
+      setIsHistoryLoaded(true);
     }
   }, [limit]);
+
 
   // Canlı Nöral Akışa (SSE) Bağlan
   useEffect(() => {
@@ -60,12 +61,13 @@ export function useGodModeStream(limit = 50) {
             const newArray = [data, ...prevEvents];
             return newArray.slice(0, limit); // Sınırı koru
           });
-        } catch (err) {
+        } catch {
           // Parse hatası (genelde heartbeat kaynaklı) yoksay
         }
       };
 
-      sse.onerror = (err) => {
+      // eslint-disable-next-line no-unused-vars
+      sse.onerror = (_err) => {
         setIsConnected(false);
         sse.close();
         // Otonom Yeniden Bağlanma (Auto-Healing)
@@ -74,9 +76,11 @@ export function useGodModeStream(limit = 50) {
     };
 
     // Önce tarihi çek, sonra akışa bağlan
-    fetchHistory().then(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void fetchHistory().then(() => {
       connectSSE();
     });
+
 
     return () => {
       if (sse) sse.close();

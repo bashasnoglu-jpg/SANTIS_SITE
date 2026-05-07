@@ -57,15 +57,12 @@ test.describe('Sayfa Yüklenmesi', () => {
         const pg = new ReservasyonPage(page);
         await pg.goto();
 
-        const content = page.locator('.nv-accordion-content').first();
-        // content ya hidden ya max-height:0
-        const isHidden = await content.evaluate(el => {
-            const style = getComputedStyle(el);
-            return style.display === 'none' || style.maxHeight === '0px' || style.overflow === 'hidden';
-        });
-        // Akordeon kapalı ise hidden sayılır (implementasyona göre)
-        // Sadece visible olmama kontrolü
-        expect(true).toBe(true); // Akordeon davranışı CSS'e bağlı, DOM kontrolü yeterli
+        // Accordion JS: 'is-active' class ile açılır (santis-accordion.js)
+        // Başlangıçta is-active yok → accordion kapalı
+        // max-height:0 ile collapse ediyorsa toBeHidden() çalışmaz — class kontrolü güvenli
+        const accordionItem = page.locator('.santis-accordion-item').first();
+        const isActive = await accordionItem.evaluate(el => el.classList.contains('is-active'));
+        expect(isActive).toBe(false); // Başlangıçta kapalı olmalı
     });
 
 });
@@ -239,7 +236,7 @@ test.describe('Happy Path — API Başarılı', () => {
         await expect(pg.successLayer).toBeVisible({ timeout: 15_000 });
 
         // Success panelindeki "Kapat" butonu
-        await page.locator('#nv-modal-success button').click();
+        await page.locator('#santis-modal-success button').click();
         await expect(pg.modal).toBeHidden();
     });
 

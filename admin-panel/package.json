@@ -8,9 +8,10 @@
     "typecheck": "tsc --noEmit",
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
+    "lint": "eslint . --no-cache",
     "check": "pnpm run lint && pnpm run build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:quality:runtime": "node -e \"console.error('[Sovereign Guard] E2E testler root dizininden playwright ile çalıştırılır: pnpm exec playwright test'); process.exit(1)\""
   },
   "dependencies": {
     "@santis/event-dictionary": "workspace:*",

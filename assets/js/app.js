@@ -114,34 +114,101 @@ window.SANTIS_API_ONLINE = false;
 })();
 
 /* ==========================================================================
-   SANTIS – RESERVATION MODAL MASTER BLOĞU v1.1 (WhatsApp Entegre)
+   SANTIS – RESERVATION MODAL MASTER BLOĞU v1.3 (Runtime Controller Fix)
    ========================================================================== */
-(function setupReservationModal() {
-  window.openReservationModal = function (serviceName = 'Genel Rezervasyon') {
-    console.log(`[SANTIS] Open Reservation Modal triggered for: ${serviceName}`);
-    const modal = document.getElementById('santis-reservation-modal') || document.getElementById('bookingModal');
-    if (modal) {
-      modal.classList.add('active');
-      const input = document.getElementById('res-service-input');
-      if (input) input.value = serviceName;
-    } else {
-      // Fallback: WhatsApp direct redirect
-      const phone = window.SANTIS_CONCIERGE_NUMBER || "905348350169";
-      const msg = encodeURIComponent(`Merhaba, ${serviceName} hakkında bilgi almak istiyorum.`);
-      window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
-    }
-  };
+(function initSantisReservationModalController() {
+  function bind() {
+    const modal = document.querySelector('[data-testid="reservation-modal"]') || document.getElementById('santis-reservation-modal') || document.getElementById('bookingModal');
+    const ctas = document.querySelectorAll('[data-testid="reservation-cta"], [data-booking-trigger], .btn-rezervasyon');
+    const closeBtn = document.querySelector('[data-testid="reservation-close"]') || document.querySelector('.modal-close-btn');
 
-  // Ekranda "rezervasyon" veya "book" butonu olan click'leri dinle
-  document.addEventListener('click', (e) => {
-      const target = e.target.closest('[data-booking-trigger], .btn-rezervasyon');
-      if (target) {
-          e.preventDefault();
-          const service = target.dataset.service || 'Genel Rezervasyon';
-          window.openReservationModal(service);
+    if (!modal || ctas.length === 0) return;
+
+    window.openReservationModal = (eventOrServiceName) => {
+      let serviceName = 'Genel Rezervasyon';
+      if (eventOrServiceName && eventOrServiceName.preventDefault) {
+        eventOrServiceName.preventDefault();
+        eventOrServiceName.stopPropagation();
+        const target = eventOrServiceName.currentTarget || eventOrServiceName.target.closest('[data-booking-trigger], .btn-rezervasyon, [data-testid="reservation-cta"]');
+        if (target && target.dataset && target.dataset.service) {
+           serviceName = target.dataset.service;
+        }
+      } else if (typeof eventOrServiceName === 'string') {
+        serviceName = eventOrServiceName;
       }
-  });
-  console.log('[SANTIS] Reservation Modal v1.1 Active & Bound.');
+
+      modal.hidden = false;
+      modal.removeAttribute('hidden');
+      modal.dataset.state = 'open';
+      modal.classList.add('is-open', 'active');
+      document.body.classList.add('reservation-modal-open');
+      document.body.style.overflow = 'hidden';
+
+      const today = new Date().toISOString().split('T')[0];
+      const dateEl = document.getElementById('res-date') || modal.querySelector('[data-testid="reservation-date"]');
+      if (dateEl) dateEl.min = today;
+      const input = document.getElementById('res-service-input') || modal.querySelector('[data-testid="reservation-service"]');
+      if (input) input.value = serviceName;
+
+      const firstInput = modal.querySelector(
+        '[data-testid="reservation-name"], input[name="name"], input, textarea, select'
+      );
+
+      if (firstInput && typeof firstInput.focus === 'function') {
+        setTimeout(() => firstInput.focus(), 100);
+      }
+    };
+
+    window.__nvCloseModal = window.closeReservationModal = () => {
+      modal.dataset.state = 'idle';
+      modal.classList.remove('is-open', 'active');
+      modal.hidden = true;
+      modal.setAttribute('hidden', '');
+      document.body.classList.remove('reservation-modal-open');
+      document.body.style.overflow = '';
+      const form = document.getElementById('santis-reservation-form') || modal.querySelector('form');
+      if (form) form.reset();
+    };
+
+    ctas.forEach((cta) => {
+      if (cta.dataset.reservationBound === '1') return;
+      cta.addEventListener('click', window.openReservationModal);
+      cta.dataset.reservationBound = '1';
+    });
+
+    if (closeBtn && closeBtn.dataset.reservationBound !== '1') {
+      closeBtn.addEventListener('click', window.__nvCloseModal);
+      closeBtn.dataset.reservationBound = '1';
+    }
+
+    if (modal.dataset.escapeBound !== '1') {
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.dataset.state === 'open') {
+          window.__nvCloseModal();
+        }
+      });
+      modal.dataset.escapeBound = '1';
+    }
+
+    if (modal.dataset.backdropBound !== '1') {
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal || event.target.classList.contains('modal-backdrop')) {
+          window.__nvCloseModal();
+        }
+      });
+      modal.dataset.backdropBound = '1';
+    }
+
+    if (window.SANTIS && window.SANTIS.debug) {
+      console.info('[reservation] modal controller bound');
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bind, { once: true });
+  } else {
+    bind();
+  }
 })();
 
 /* ==========================================================================

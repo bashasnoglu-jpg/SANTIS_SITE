@@ -1,4 +1,4 @@
-import axios from 'axios';
+// axios import removed: unused. API calls use the shared 'api' (./axios) instance.
 
 // Kendi yetkilendirilmiş (Bearer token vs) axios instance'ımız var, ama örnekteki gibi kullanmak için:
 // Eğer api/axios.js kullanıyorsak onu çağırabiliriz. Dosya yapısındaki tutarlılık için api/axios.js'i import edelim:

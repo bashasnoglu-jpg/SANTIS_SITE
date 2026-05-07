@@ -30,9 +30,11 @@ export default function SantisBoardroom() {
   const [activeTab, setActiveTab] = useState('telemetry');
 
   // Sovereign Ghost Operations State
+  // eslint-disable-next-line no-unused-vars
   const [anomalies, setAnomalies] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [latestRisk, setLatestRisk] = useState(0);
+  // eslint-disable-next-line no-unused-vars
+  const [_latestRisk, setLatestRisk] = useState(0);
   const [hasUnreadPulse, setHasUnreadPulse] = useState(false);
 
   // Canlı Telemetri Ticker Simülasyonu
@@ -45,15 +47,15 @@ export default function SantisBoardroom() {
 
 
 
-  // 3. CINEMATIC RITUAL: Risk > 0.5 ise tüm ekran derinleşir
   useEffect(() => {
-    if (latestRisk > 0.5) {
+    if (_latestRisk > 0.5) {
       document.body.classList.add('cinematic-ritual');
     } else {
       document.body.classList.remove('cinematic-ritual');
     }
     return () => document.body.classList.remove('cinematic-ritual');
-  }, [latestRisk]);
+  }, [_latestRisk]);
+
 
   const handleOpenDrawer = () => {
     setIsDrawerOpen(true);
@@ -75,7 +77,7 @@ export default function SantisBoardroom() {
         .nv-historical-badge { 
           position: fixed; top: 24px; right: 180px; z-index: 100;
           padding: 8px 16px; border: 1px solid rgba(212, 175, 55, 0.4);
-          background: rgba(212, 175, 55, 0.15); color: #d4af37;
+          background: rgba(212, 175, 55, 0.15); color: var(--color-sovereign-gold-strong);
           border-radius: 999px; font-size: 10px; letter-spacing: 0.2em;
           animation: badgePulse 2s infinite;
         }

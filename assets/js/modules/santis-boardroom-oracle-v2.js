@@ -187,7 +187,11 @@ class BoardroomOracleV2 {
     if (!card) return;
 
     // Send decision to backend kernel (Non-blocking, UI-first)
-    fetch('http://localhost:3030/api/v1/decision-kernel/execute', { 
+    // [SEC-01] localhost:3030 kaldırıldı — window.__API_BASE__ veya relative path kullanılır.
+    const _apiBase = (typeof window !== 'undefined' && window.__API_BASE__)
+      ? window.__API_BASE__.replace(/\/$/, '')
+      : '/api/v1';
+    fetch(`${_apiBase}/decision-kernel/execute`, { 
       method: 'POST', 
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ planId, decision, timestamp: Date.now() }) 
