@@ -11,27 +11,17 @@ type EventStoreRow = typeof eventStore.$inferSelect;
 // ─── Row → ReplayEvent mapper ─────────────────────────────────────────────────
 
 function rowToReplayEvent(row: EventStoreRow): ReplayEvent {
-  const payload = row.payload as Record<string, unknown>;
+  // The payload JSONB column stores the full SantisEvent body as written by the bus.
+  // Spread it directly and attach the monotonic seq from the DB row.
+  // This avoids manual field mapping and the resulting intent/payload type mismatches.
+  const santisEvent = row.payload as unknown as SantisEvent;
 
-  // Reconstruct a SantisEvent-compatible envelope from the stored row.
-  // The payload JSONB column holds the full event body as written by the bus.
-  const event: ReplayEvent = {
-    eventId:      row.eventId,
-    eventType:    row.eventType as SantisEvent['eventType'],
-    occurredAt:   row.occurredAt.toISOString(),
-    traceId:      row.traceId,
-    // Scalar fields from payload (best-effort, may be absent for older events)
-    sessionId:    typeof payload['sessionId'] === 'string' ? payload['sessionId'] : 'unknown',
-    tenant:       row.tenantId,
-    intent:       typeof payload['intent']    === 'string' ? payload['intent']    : 'system',
-    schemaVersion: typeof payload['schemaVersion'] === 'string' ? payload['schemaVersion'] : 'v1',
-    payload:      (payload['payload'] ?? payload) as SantisEvent['payload'],
-    // Attach monotonic seq for replay ordering
-    seq:          row.seq,
-  } as ReplayEvent;
-
-  return event;
+  return {
+    ...santisEvent,
+    seq: row.seq,
+  };
 }
+
 
 // ─── PostgresReplayEventSource ───────────────────────────────────────────────
 

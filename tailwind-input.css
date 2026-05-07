@@ -1,0 +1,24 @@
+/*
+ * ╔══════════════════════════════════════════════════════════════╗
+ * ║  🏭 SANTIS OS — Tailwind v4 CSS-First Config                ║
+ * ║  Tüm tema ayarları buraya taşındı (tailwind.config.js RIP)  ║
+ * ╚══════════════════════════════════════════════════════════════╝
+ *
+ * Tailwind v4'te `tailwind.config.js` artık yok.
+ * Tema, renkler ve fontlar doğrudan @theme bloğuyla tanımlanır.
+ */
+
+@import "tailwindcss";
+
+/* ─── Sovereign Design Tokens ─────────────────────────────────────────────── */
+@theme {
+    /* Brand Colors */
+    --color-santis-gold: #D4AF37;
+    --color-santis-dark: #0b0d11;
+    --color-santis-warm: #1a1612;
+
+    /* Typography */
+    --font-sans:  'Inter', sans-serif;
+    --font-serif: '"Playfair Display"', serif;
+    --font-mono:  'Space Mono', sans-serif;
+}

@@ -9,6 +9,7 @@ import { defineConfig } from 'vite';
 import { resolve, join, relative } from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import tailwindcss from '@tailwindcss/vite';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
@@ -64,12 +65,10 @@ export default defineConfig({
     root:    __dirname,
     base:    '/',
 
-    // PostCSS — tailwindcss'i pas geç, Vite'ın varsayılanını kullan
-    css: {
-        postcss: {
-            plugins: []  // Admin panel'in tailwind config'ini global'e taşıma
-        }
-    },
+    // 🌟 Tailwind v4 Vite Eklentisi (PostCSS-free)
+    plugins: [
+        tailwindcss(),
+    ],
 
     // ── Dev Server ──────────────────────────────────────────────────────────
     server: {
