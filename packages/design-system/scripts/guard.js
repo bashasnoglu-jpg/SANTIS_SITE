@@ -4,11 +4,29 @@ const { minimatch } = require('minimatch');
 
 const ROOT = process.cwd();
 
+/**
+ * DNA MUHAFIZLIĞI — Visual Truth coverage
+ *
+ * Guard artık yalnızca admin-panel React yüzeyini değil, public Santis
+ * yüzeylerini de tarar. Amaç: raw hex, arbitrary Tailwind spacing/color,
+ * shadow/radius/width kaçaklarını tüm ürün gövdesinde erken yakalamak.
+ */
 const TARGET_DIRS = [
-  path.join(ROOT, 'admin-panel', 'src')
+  path.join(ROOT, 'admin-panel', 'src'),
+  path.join(ROOT, 'assets', 'css'),
+  path.join(ROOT, 'assets', 'js'),
+  path.join(ROOT, 'components'),
+  path.join(ROOT, 'tr')
 ];
 
-const TARGET_EXTENSIONS = new Set(['.js', '.jsx', '.ts', '.tsx']);
+const TARGET_EXTENSIONS = new Set([
+  '.css',
+  '.html',
+  '.js',
+  '.jsx',
+  '.ts',
+  '.tsx'
+]);
 
 const IGNORE_DIR_NAMES = new Set([
   'node_modules',
@@ -16,7 +34,9 @@ const IGNORE_DIR_NAMES = new Set([
   'build',
   '.next',
   '.turbo',
-  'coverage'
+  'coverage',
+  '.git',
+  '.vercel'
 ]);
 
 const zonesPath = path.join(ROOT, 'packages', 'design-system', 'stitch.zones.json');
@@ -37,7 +57,7 @@ const violations = [];
 const RULES = [
   {
     id: 'RAW_HEX',
-    description: 'Raw hex color kullanımı yasak.',
+    description: 'Raw hex color kullanımı yasak. Theme manifest / CSS token kullan.',
     regex: /#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\b/g
   },
   {
@@ -123,7 +143,7 @@ function shouldAllow(ruleId, match, filePath) {
   // Faz 2.5: RAW_HEX toleransı kaldırıldı. Tüm renkler chartTheme üzerinden gelir.
   if (isChartFile(filePath)) {
     if (ruleId === 'ARBITRARY_SHADOW') return true;
-    if (ruleId === 'ARBITRARY_BG') return true; // Sadece gradient'e izin var diyebiliriz, ama şimdilik tutuyoruz.
+    if (ruleId === 'ARBITRARY_BG') return true;
     return false;
   }
 
@@ -176,7 +196,7 @@ function inspectFile(filePath) {
         if (shouldAllow(rule.id, match, filePath)) return;
 
         violations.push({
-          filePath,
+          filePath: toRelative(filePath),
           line: index + 1,
           ruleId: rule.id,
           description: rule.description,
