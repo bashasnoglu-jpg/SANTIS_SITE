@@ -3,10 +3,10 @@ import type { OracleDeltaPatch } from "../../hooks/useLiveOracle";
 
 // ── Connection Status Badge ───────────────────────────────────────────────────
 const STATUS_CONFIG = {
-  connected: { color: "#7fffd4", label: "LIVE", pulse: true },
-  connecting: { color: "#f0c040", label: "CONNECTING", pulse: true },
-  gap_detected: { color: "#e8964a", label: "GAP", pulse: false },
-  error: { color: "#e05c5c", label: "ERROR", pulse: false },
+  connected: { color: "var(--color-sovereign-success)", label: "LIVE", pulse: true },
+  connecting: { color: "var(--color-sovereign-signal-hesitation)", label: "CONNECTING", pulse: true },
+  gap_detected: { color: "var(--color-sovereign-warning)", label: "GAP", pulse: false },
+  error: { color: "var(--color-sovereign-danger)", label: "ERROR", pulse: false },
   offline: { color: "rgba(255,255,255,0.3)", label: "OFFLINE", pulse: false },
 } as const;
 
@@ -31,7 +31,7 @@ function ConfidenceSparkline({ patches }: { patches: OracleDeltaPatch[] }) {
 
   const lastConf = values[values.length - 1];
   const trend = values.length > 1 ? lastConf - values[values.length - 2] : 0;
-  const trendColor = trend >= 0 ? "#d4af37" : "#e05c5c";
+  const trendColor = trend >= 0 ? "var(--color-sovereign-gold-strong)" : "var(--color-sovereign-danger)";
 
   return (
     <div className="nv-oracle-sparkline">
@@ -152,7 +152,7 @@ export function OracleTimelinePanel() {
         </div>
         <div className="nv-oracle-stat">
           <span className="nv-oracle-stat__label">Dropped</span>
-          <span className="nv-oracle-stat__value" style={{ color: droppedCount > 0 ? "#e05c5c" : undefined }}>
+          <span className="nv-oracle-stat__value" style={{ color: droppedCount > 0 ? "var(--color-sovereign-danger)" : undefined }}>
             {droppedCount}
           </span>
         </div>
@@ -196,7 +196,7 @@ export function OracleTimelinePanel() {
           </div>
           <div className="nv-oracle-patch-card__confidence">
             <span>Confidence</span>
-            <strong style={{ color: "#d4af37" }}>
+            <strong style={{ color: "var(--color-sovereign-gold-strong)" }}>
               {Math.round(viewedPatch.envelope.confidence * 100)}%
             </strong>
           </div>
