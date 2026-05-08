@@ -811,3 +811,23 @@ body.cursor-snap-hover #santis-cursor-dot {
 [data-testid="reservation-modal"][data-state="open"] {
   display: flex;
 }
+
+/* SANTIS — Reservation Modal Mobile Width Contract */
+[data-testid="reservation-modal"][data-state="open"] .nv-modal-card,
+[data-testid="reservation-modal"][data-state="open"] [data-testid="reservation-modal-card"] {
+  width: min(520px, 92vw) !important;
+  max-width: 92vw !important;
+  box-sizing: border-box;
+}
+
+/* SANTIS — Reservation E2E Mobile Width Final Seal */
+@media (max-width: 480px) {
+  [data-testid="reservation-modal"][data-state="open"] .nv-modal-card,
+  #santis-reservation-modal[data-state="open"] .nv-modal-card,
+  #santis-reservation-modal[data-state="open"] [data-testid="reservation-modal-card"] {
+    width: 92vw !important;
+    max-width: 92vw !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+}
