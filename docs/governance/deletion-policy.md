@@ -1,31 +1,127 @@
 # SANTIS OS — Safe Deletion Policy
 
 ## 1. No Blind Delete
-Under no circumstances shall any code, script, or configuration file be deleted based purely on assumptions or automated cleanup sweeps.
+Under no circumstances shall any code, script, configuration file, or branch be deleted based purely on assumptions, automated sweeps, merge status alone, or stale date alone.
 
-## 2. File State Classifications
-Before any file is slated for removal, it must be classified into one of the following states:
-- **Alive:** Actively imported, executed, or served in production/development.
-- **Dormant:** Not actively used but maintained for compatibility, legacy fallback, or pending integration.
-- **Dead:** Proven to be fully unreferenced, inaccessible, or obsoleted by a newer canonical system.
-- **Unknown:** The purpose or integration points of the file cannot be definitively proven.
+---
 
-## 3. The Quarantine-First Policy
-Files classified as **Dead** must not be deleted immediately.
-1. They must first be moved to a designated quarantine directory (e.g., `_archive/phase-0-dead-code/`).
-2. This ensures the file is removed from the active build path while remaining recoverable via version control if an edge case is triggered.
+## 2. Branch Classification States
 
-## 4. Build/Test Before Deletion
-Following any quarantine action, a full application build and test suite run must occur (`pnpm run audit:all`, `turbo run build`). Deletion or quarantine PRs are rejected if tests fail.
+All branches must be classified before any action is taken.
 
-## 5. Unknown is Never Deleted
-If a file is classified as **Unknown**, it remains untouched until further evidence classifies it as Alive or Dead.
+| State | Definition |
+| :--- | :--- |
+| **KEEP** | Canonical or actively used branch. Must not be touched. |
+| **REVIEW** | Insufficient evidence to classify further. Default state when any criterion is unknown. |
+| **ARCHIVE-CANDIDATE** | Not active, not ready for deletion, but holds historical, governance, audit, or recovery value. |
+| **DELETE-CANDIDATE** | All 5 deletion criteria are proven true with evidence. Requires Boardroom approval before execution. |
 
-## 6. Production Files Require Explicit Approval
-Any file that currently resides in a core domain directory (`spaos-core/`, `components/`, `server/`) requires explicit human/Boardroom approval before moving to Quarantine.
+> **Default Rule:** When in doubt, classify as REVIEW. Never assume DELETE-CANDIDATE.
 
-## 7. Current Dead-Code Candidates (Phase 0 Validation)
-Based on the Reality Lock audit, the following files must follow this protocol:
-- `server/services/vip-risk-heuristic.js`
-- `server/services/ritual-recommendation-heuristic.js`
-- `scripts/cjs_to_esm_codemod.py`
+---
+
+## 3. Five-Criteria Branch Deletion Formula
+
+A branch may only be marked **DELETE-CANDIDATE** if **all five criteria** are simultaneously true and proven with evidence:
+
+| # | Criterion | Definition |
+| :--- | :--- | :--- |
+| 1 | **merged** | The branch is fully merged into `main` or `develop`. Verified via `git branch -r --merged`. |
+| 2 | **stale** | The last commit on the branch is older than the defined staleness threshold (default: 30 days). |
+| 3 | **no active reference** | There is no open PR, open issue, active downstream branch dependency, or known task reference pointing to this branch. |
+| 4 | **no deployment dependency** | The branch is not used by Vercel preview deployments, CI workflows, GitHub Actions triggers, deployment automation, or environment configuration. |
+| 5 | **no governance value** | The branch does not preserve audit trails, migration history, incident-response records, historical architecture decisions, or recovery checkpoints. |
+
+### Formula
+
+```
+merged ✅
++ stale ✅
++ no active reference ✅
++ no deployment dependency ✅
++ no governance value ✅
+─────────────────────────────
+= DELETE-CANDIDATE
+```
+
+> **If any single criterion is unknown or unverifiable → classify as REVIEW, not DELETE-CANDIDATE.**
+
+---
+
+## 4. Absolute Rules
+
+### Rule A: Merge status alone is never enough for deletion.
+A branch merged into `main` retains its commit history only as long as the remote ref exists. Deletion removes the ref permanently. Merge status proves the code is safe, not that the branch is disposable.
+
+### Rule B: Stale date alone is never enough for deletion.
+A branch with an old last-commit date may still hold deployment references, open PRs, or governance value. Age is one signal, not a verdict.
+
+### Rule C: `copilot/*` branches require the same 5-criteria validation before deletion.
+GitHub Copilot bot-generated branches are not exempt from this policy. Even if they appear automated and redundant, each `copilot/*` branch must pass all 5 criteria before being marked DELETE-CANDIDATE.
+
+---
+
+## 5. File-Level Deletion Policy
+
+Before any **file** is deleted, it must be classified into one of the following states:
+
+| State | Definition |
+| :--- | :--- |
+| **Alive** | Actively imported, executed, or served in production or development. |
+| **Dormant** | Not actively used but maintained for compatibility, legacy fallback, or pending integration. |
+| **Dead** | Proven to be fully unreferenced, inaccessible, or replaced by a canonical system. |
+| **Unknown** | Purpose or integration points cannot be definitively proven. |
+
+> **Unknown files are never deleted.** Classify first, act second.
+
+---
+
+## 6. Quarantine-First Policy
+
+Files or branches classified as **Dead** or **DELETE-CANDIDATE** must not be removed immediately.
+
+1. Move files to `_archive/` quarantine directory (if `.gitignore` permits).
+2. For branches: document the deletion intent in a `chore/branch-cleanup-*` PR before executing.
+3. Validate with `pnpm run audit:all` and full build after any quarantine action.
+4. Wait for explicit **Boardroom approval** before permanent deletion.
+
+---
+
+## 7. Production-Grade Files and Branches
+
+Any file or branch residing in or directly affecting:
+
+- `spaos-core/`
+- `components/`
+- `server/`
+- `apps/`
+- `packages/`
+- `main` branch
+- `develop` branch
+
+...requires **explicit human Boardroom approval** before any quarantine or deletion step.
+
+---
+
+## 8. Current Dead-Code Candidates (Phase 0 Validation)
+
+The following files have been identified as dead-code candidates based on Phase 0 audit evidence. They are **not yet deleted**. Quarantine-first policy applies.
+
+| File | Evidence | Status |
+| :--- | :--- | :--- |
+| `server/services/vip-risk-heuristic.js` | `// ⚠️ LEGACY COMPAT LAYER` header. Zero import references found. | Dead-Candidate |
+| `server/services/ritual-recommendation-heuristic.js` | `// ⚠️ LEGACY COMPAT LAYER` header. Zero import references found. | Dead-Candidate |
+| `scripts/cjs_to_esm_codemod.py` | ESM migration complete (`type: "module"` in package.json). No active invocation. | Dead-Candidate |
+
+---
+
+## 9. Evidence Log Requirement
+
+Every DELETE-CANDIDATE classification must be accompanied by:
+
+- `git branch -r --merged origin/main` output confirming merge
+- `git for-each-ref` output confirming staleness date
+- PR/issue search confirming no active reference
+- CI/Vercel config scan confirming no deployment dependency
+- Governance review confirming no historical value
+- Boardroom approval timestamp
