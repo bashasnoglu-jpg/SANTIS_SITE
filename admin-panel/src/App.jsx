@@ -4,12 +4,15 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import SantisBoardroom from './components/dashboard/SantisBoardroom';
 import Login from './pages/Login';
-import Operations from './pages/Operations';
-import Finance from './pages/Finance';
-import ServiceManager from './pages/ServiceManager';
 import useAuthStore from './store/useAuthStore';
 import ClinicScanner from './components/dashboard/ClinicScanner';
 import { BoardroomModeProvider } from './features/boardroom/context/BoardroomModeContext';
+import {
+  AdminLazyBoundary,
+  LazyOperations,
+  LazyFinance,
+  LazyServiceManager,
+} from './routes/lazy-routes';
 
 // Create a client
 const queryClient = new QueryClient();
@@ -49,7 +52,9 @@ function App() {
             path="/operations"
             element={
               <PrivateRoute>
-                <Operations />
+                <AdminLazyBoundary>
+                  <LazyOperations />
+                </AdminLazyBoundary>
               </PrivateRoute>
             }
           />
@@ -57,7 +62,9 @@ function App() {
             path="/services"
             element={
               <PrivateRoute>
-                <ServiceManager />
+                <AdminLazyBoundary>
+                  <LazyServiceManager />
+                </AdminLazyBoundary>
               </PrivateRoute>
             }
           />
@@ -65,7 +72,9 @@ function App() {
             path="/finance"
             element={
               <PrivateRoute>
-                <Finance />
+                <AdminLazyBoundary>
+                  <LazyFinance />
+                </AdminLazyBoundary>
               </PrivateRoute>
             }
           />
