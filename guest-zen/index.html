@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -32,6 +32,7 @@
             darkMode: 'class',
             theme: {
                 extend: {
+                    fontSize: { micro: '10px' },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
@@ -123,12 +124,12 @@
         <!-- Header -->
         <header class="p-8 flex justify-between items-center relative z-10 pt-12">
             <div>
-                <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mb-1">Welcome to Santis</p>
+                <p class="text-micro uppercase tracking-[0.3em] text-slate-400 mb-1">Welcome to Santis</p>
                 <h2 class="text-2xl font-light"><span id="guest-name">Loading</span> <span class="text-blue-400">.</span></h2>
             </div>
             <div class="flex items-center gap-4">
                 <!-- App Switcher / Exit Component -->
-                <a href="/hq-dashboard" class="hidden md:inline-block text-[10px] text-white/50 hover:text-white uppercase tracking-widest border border-white/10 px-3 py-1.5 rounded-full backdrop-blur-md bg-white/5 transition">Exit to HQ Menu</a>
+                <a href="/hq-dashboard" class="hidden md:inline-block text-micro text-white/50 hover:text-white uppercase tracking-widest border border-white/10 px-3 py-1.5 rounded-full backdrop-blur-md bg-white/5 transition">Exit to HQ Menu</a>
                 
                 <div class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center backdrop-blur-md bg-white/5 shadow-[0_0_15px_rgba(255,255,255,0.05)] cursor-pointer hover:bg-white/10 transition">
                     <span class="text-xs font-mono font-bold text-white/80" id="guest-room">...</span>
@@ -375,7 +376,7 @@
 
                             const delayMs = index * 100;
 
-                            const originalPriceInfo = isSurging ? ` <span class="line-through text-slate-500 text-[10px] ml-2">€${parseFloat(originalAmt).toFixed(0)}</span>` : '';
+                            const originalPriceInfo = isSurging ? ` <span class="line-through text-slate-500 text-micro ml-2">€${parseFloat(originalAmt).toFixed(0)}</span>` : '';
                             const priceClass = isSurging ? 'text-emerald-400 font-bold' : 'text-white';
                             const surgeTag = isSurging ? `<span class="inline-block px-2 py-0.5 bg-emerald-500/20 text-emerald-400 text-[9px] uppercase tracking-widest rounded-full absolute -top-3 right-6 border border-emerald-500/30">Luxe Demand</span>` : '';
 
@@ -387,7 +388,7 @@
                                     <div>
                                         ${surgeTag}
                                         <div class="flex justify-between items-start mb-3">
-                                            <span class="text-[10px] uppercase font-mono tracking-widest text-slate-400 z-10 relative">${svc.duration_minutes || svc.duration || 50} MIN</span>
+                                            <span class="text-micro uppercase font-mono tracking-widest text-slate-400 z-10 relative">${svc.duration_minutes || svc.duration || 50} MIN</span>
                                             <span class="text-sm ${priceClass} z-10 relative">€${priceFmt}${originalPriceInfo}</span>
                                         </div>
                                         <h4 class="text-xl font-medium tracking-tight leading-snug mb-2 z-10 relative">${svcName}</h4>
