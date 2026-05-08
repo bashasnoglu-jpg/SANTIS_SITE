@@ -68,7 +68,7 @@ export default function SovereignAura({ intensity = 0 }) {
     u_intensity: { value: intensity },
     u_colorBase: { value: new THREE.Color('var(--sovereign-gold)') },   // Ana Renk: Mat Pirinç
     u_colorGlow: { value: new THREE.Color('var(--sovereign-sand)') }    // Parlama Rengi: Sıcak Pirinç
-  }), []);
+  }), [intensity]);
 
   useFrame((state) => {
     const { clock } = state;

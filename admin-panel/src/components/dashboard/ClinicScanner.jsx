@@ -137,6 +137,8 @@ export default function ClinicScanner() {
 
   // --- 4. Three.js & WebGL Render Motoru ---
   useEffect(() => {
+    const mountNode = mountRef.current;
+    
     // Sahne, Kamera ve Render Kurulumu
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 400, 0.1, 1000);
@@ -144,8 +146,8 @@ export default function ClinicScanner() {
     
     renderer.setSize(window.innerWidth / 2, 400);
     renderer.setPixelRatio(window.devicePixelRatio);
-    if (mountRef.current) {
-        mountRef.current.appendChild(renderer.domElement);
+    if (mountNode) {
+        mountNode.appendChild(renderer.domElement);
     }
 
     // Pürüzsüz bükülme için poligon sayısını artırılmış Küre
@@ -207,8 +209,8 @@ export default function ClinicScanner() {
     // Temizlik (Component Unmount)
     return () => {
       cancelAnimationFrame(animationFrameId);
-      if (mountRef.current && renderer.domElement) {
-        mountRef.current.removeChild(renderer.domElement);
+      if (mountNode && renderer.domElement) {
+        mountNode.removeChild(renderer.domElement);
       }
       geometry.dispose();
       material.dispose();
