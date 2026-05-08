@@ -57,6 +57,7 @@
   },
   "fontSize": {
     "micro": "10px",
+    "nano": "9px",
     "2xs": "0.625rem",
     "xs": "0.75rem",
     "sm": "0.875rem",
