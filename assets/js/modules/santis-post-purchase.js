@@ -31,33 +31,33 @@ export class PostPurchaseModule {
     // Arayüz iskeletini " Quiet Luxury" tonlarında oluştur.
     // Başlangıçta CSS ile opacity: 0 ve transform: translateY(50px) verilmiştir.
     return `
-      <div id="santis-digital-pass" class="fixed inset-0 z-[999] bg-[#111827] flex items-center justify-center p-6 opacity-0 translate-y-[50px] transition-all duration-1000 ease-in-out">
-        <div class="bg-white p-12 rounded-[2.5rem] shadow-2xl max-w-2xl w-full relative overflow-hidden">
+      <div id="santis-digital-pass" class="santis-digital-pass fixed inset-0 flex items-center justify-center p-6 opacity-0 santis-pass-offset transition-all duration-1000 ease-in-out">
+        <div class="santis-pass-card p-12 shadow-2xl max-w-2xl w-full relative overflow-hidden">
           
-          <div class="absolute -top-40 -left-40 w-96 h-96 bg-[#D4AF37] opacity-10 rounded-full blur-[100px]"></div>
+          <div class="santis-pass-aura absolute -top-40 -left-40 w-96 h-96 opacity-10 rounded-full"></div>
           
-          <header class="flex justify-between items-start mb-12 relative z-10 border-b border-gray-100 pb-8">
+          <header class="santis-pass-section-border flex justify-between items-start mb-12 relative z-10 border-b pb-8">
             <div>
-              <h1 class="text-xs font-bold uppercase tracking-[0.2em] text-[#D4AF37] mb-2">Rezervasyon Onayı</h1>
-              <p class="text-5xl font-light text-[#111827] tracking-tight">VIP Dijital Bilet</p>
+              <h1 class="santis-pass-kicker text-xs font-bold uppercase mb-2">Rezervasyon Onayı</h1>
+              <p class="santis-pass-title text-5xl font-light tracking-tight">VIP Dijital Bilet</p>
             </div>
-            <p class="text-right text-xs text-gray-400 font-mono">CODE: ${this.engine.getState('visitorId') || 'UNKNWN'}</p>
+            <p class="santis-pass-muted text-right text-xs font-mono">CODE: ${this.engine.getState('visitorId') || 'UNKNWN'}</p>
           </header>
 
           <main class="grid grid-cols-2 gap-x-12 gap-y-8 mb-12 relative z-10">
             <div>
-              <span class="block text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-1">HİZMET</span>
-              <p class="text-xl font-light text-[#111827]">${this.engine.getState('cartData')?.serviceName || 'Santis Elite Spa'}</p>
+              <span class="santis-pass-label block uppercase mb-1">HİZMET</span>
+              <p class="santis-pass-title text-xl font-light">${this.engine.getState('cartData')?.serviceName || 'Santis Elite Spa'}</p>
             </div>
             <div>
-              <span class="block text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-1">TARİH & SAAT</span>
-              <p class="text-xl font-light text-[#111827]">Gelecekte Belirlenecek</p>
+              <span class="santis-pass-label block uppercase mb-1">TARİH & SAAT</span>
+              <p class="santis-pass-title text-xl font-light">Gelecekte Belirlenecek</p>
             </div>
           </main>
 
-          <footer class="flex items-center justify-between gap-12 relative z-10 border-t border-gray-100 pt-10">
-            <div id="reservation-qrcode" class="w-32 h-32 bg-gray-50 p-2 rounded-xl flex items-center justify-center">
-              <span class="animate-pulse text-xs text-gray-400">QR Yükleniyor...</span>
+          <footer class="santis-pass-section-border flex items-center justify-between gap-12 relative z-10 border-t pt-10">
+            <div id="reservation-qrcode" class="santis-pass-qr w-32 h-32 p-2 rounded-xl flex items-center justify-center">
+              <span class="santis-pass-muted animate-pulse text-xs">QR Yükleniyor...</span>
             </div>
             
             <div class="flex-1 space-y-4">
@@ -93,7 +93,7 @@ export class PostPurchaseModule {
       
       // Önceki element sönümlendikten sonra bileti yükselt
       setTimeout(() => {
-        pass.classList.remove('opacity-0', 'translate-y-[50px]');
+        pass.classList.remove('opacity-0', 'santis-pass-offset');
         pass.classList.add('opacity-100', 'translate-y-0');
         this.generateReservationQRCode();
       }, 700);
