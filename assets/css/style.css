@@ -8,7 +8,14 @@
 
 /* ÇEKİRDEK SİNİR SİSTEMİ BAĞLANTILARI */
 /* ✨ TAILWIND v4 ENGINE — Sovereign Utility Sistemi */
-@import url('tailwind-input.css');
+@import "tailwindcss";
+
+@theme {
+    --color-santis-gold: #D4AF37;
+    --font-sans: 'Inter', sans-serif;
+    --font-serif: '"Playfair Display"', serif;
+    --font-mono: 'Space Mono', sans-serif;
+}
 
 @import url('santis-v6/santis.reset.css');
 @import url('santis-v6/santis.tokens.css');
