@@ -57,17 +57,8 @@ const LiveFeedTicker = () => {
 
   return (
     <>
-    <style>{`
-      @keyframes scanline {
-        0% { transform: translateY(-100%); }
-        100% { transform: translateY(100%); }
-      }
-      .animate-scanline {
-        animation: scanline 8s linear infinite;
-      }
-    `}</style>
-    <div className="bg-black border-t border-[#c6a96b]/30 p-4 font-mono text-[10px] h-48 overflow-hidden relative">
-      <div className="absolute top-0 left-4 bg-black px-2 -translate-y-1/2 text-[#c6a96b] tracking-widest border border-[#c6a96b]/30 z-10">
+    <div className="bg-black border-t border-sbr-gold/30 p-4 font-mono text-micro h-48 overflow-hidden relative">
+      <div className="absolute top-0 left-4 bg-black px-2 -translate-y-1/2 text-sbr-gold tracking-widest border border-sbr-gold/30 z-10">
         LIVE_TELEMETRY_STREAM
       </div>
       
@@ -76,7 +67,7 @@ const LiveFeedTicker = () => {
           <div 
             key={log.id} 
             className={`flex items-center space-x-2 animate-in fade-in slide-in-from-left-2 duration-500 ${
-              log.isCritical ? 'text-[#ff4d4d]' : 'text-[#c6a96b]/70'
+              log.isCritical ? 'text-sbr-danger' : 'text-sbr-gold opacity-70'
             }`}
           >
             <span className="opacity-50">[{new Date(log.id).toLocaleTimeString()}]</span>
@@ -87,7 +78,7 @@ const LiveFeedTicker = () => {
       </div>
 
       {/* Tarama Efekti (CRT Scanline) */}
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-[#c6a96b]/5 to-transparent opacity-20 h-full w-full animate-scanline z-20"></div>
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-sbr-gold/5 to-transparent opacity-20 h-full w-full animate-scanline z-20"></div>
     </div>
     </>
   );

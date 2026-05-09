@@ -1,0 +1,74 @@
+/* boardroom-tokens.css — Phase 3B Visual Truth Seal
+ * Canonical kaynak: packages/design-system/theme-manifest.json
+ * Bu dosya GodsEye.css ile paralel token köprüsüdür.
+ * Boardroom component yüzeyi için sovereign-gold renk ailesi.
+ */
+
+/* ── CSS Custom Properties (Boardroom Token Registry) ─────────────────────── */
+:root {
+  /* Boardroom surface family */
+  --sbr-dark:        #141416;   /* sovereign-dark */
+  --sbr-surface:     #1c1c1f;   /* sovereign-surface variant */
+  --sbr-gold:        #c6a96b;   /* sovereign-gold */
+  --sbr-gold-hover:  #d4bc8d;   /* sovereign-gold-deep */
+  --sbr-danger:      #ff4d4d;   /* sovereign-danger variant */
+  --sbr-neutral:     #4d4d4d;   /* sovereign-neutral-800 */
+  --sbr-grid:        #2a2a2d;   /* chart grid color */
+}
+
+/* ── Background tokens ────────────────────────────────────────────────────── */
+.bg-sbr-dark    { background-color: var(--sbr-dark) !important; }
+.bg-sbr-surface { background-color: var(--sbr-surface) !important; }
+.bg-sbr-gold    { background-color: var(--sbr-gold) !important; }
+.bg-sbr-gold\/10 { background-color: rgba(198, 169, 107, 0.1) !important; }
+
+/* ── Text tokens ──────────────────────────────────────────────────────────── */
+.text-sbr-gold   { color: var(--sbr-gold) !important; }
+.text-sbr-danger { color: var(--sbr-danger) !important; }
+
+/* ── Border tokens ────────────────────────────────────────────────────────── */
+.border-sbr-gold       { border-color: var(--sbr-gold) !important; }
+.border-sbr-gold\/20   { border-color: rgba(198, 169, 107, 0.20) !important; }
+.border-sbr-gold\/30   { border-color: rgba(198, 169, 107, 0.30) !important; }
+.border-sbr-gold\/50   { border-color: rgba(198, 169, 107, 0.50) !important; }
+
+/* ── Gradient tokens ──────────────────────────────────────────────────────── */
+.via-sbr-gold\/5 { --tw-gradient-via: rgba(198, 169, 107, 0.05); }
+
+/* ── Shadow tokens ────────────────────────────────────────────────────────── */
+/* shadow-sbr-gold-selected → replaces shadow-[0_0_30px_rgba(198,169,107,0.1)] */
+.shadow-sbr-gold-selected {
+  box-shadow: 0 0 30px rgba(198, 169, 107, 0.1) !important;
+}
+/* shadow-sbr-gold-glow → replaces shadow-[0_0_20px_rgba(198,169,107,0.3)] */
+.shadow-sbr-gold-glow {
+  box-shadow: 0 0 20px rgba(198, 169, 107, 0.3) !important;
+}
+
+/* ── Hover variants ───────────────────────────────────────────────────────── */
+.hover\:bg-sbr-gold-hover:hover { background-color: var(--sbr-gold-hover) !important; }
+.hover\:border-sbr-gold:hover   { border-color: var(--sbr-gold) !important; }
+
+/* ── Size tokens (replaces Tailwind arbitrary) ────────────────────────────── */
+.h-boardroom-chart { height: 400px; }    /* h-[400px] */
+.min-h-offer-body  { min-height: 100px; } /* min-h-[100px] */
+
+/* ── Typography token ─────────────────────────────────────────────────────── */
+/* text-micro replaces text-[10px] (also defined in GodsEye.css context) */
+.text-micro { font-size: 10px; }
+
+/* tracking-boardroom replaces tracking-[0.3em] / tracking-[0.5em] */
+.tracking-boardroom  { letter-spacing: 0.3em; }
+.tracking-sovereign  { letter-spacing: 0.5em; }
+
+/* tracking-cta replaces tracking-[0.2em] */
+.tracking-cta { letter-spacing: 0.2em; }
+
+/* ── CRT Scanline animation (LiveFeedTicker) ─────────────────────────────── */
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+.animate-scanline {
+  animation: scanline 8s linear infinite;
+}
