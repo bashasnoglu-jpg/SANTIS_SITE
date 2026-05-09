@@ -4,6 +4,8 @@
  * Distributed Cognitive Admin OS
  */
 
+import { escapeHtml, setText, toSafeNumber } from './safe-render.js';
+
 const BOOT_TIME = performance.now();
 const BOARDROOM_MFE_COLORS = {
     ink: 'rgb(226, 232, 240)',
@@ -140,7 +142,7 @@ class CommandPalette {
         } else {
             this.overlay.style.opacity = "0";
             this.input.value = "";
-            this.resultArea.innerText = "";
+            setText(this.resultArea, "");
             setTimeout(() => this.overlay.style.display = "none", 300);
         }
     }
@@ -157,7 +159,7 @@ class CommandPalette {
     // AI Intent Layer Simülasyonu
     analyzeIntent(query) {
         if (!query.trim()) {
-            this.resultArea.innerText = "";
+            setText(this.resultArea, "");
             return;
         }
 
@@ -177,7 +179,7 @@ class CommandPalette {
             setTimeout(() => this.triggerGodMode(), 1000);
         }
 
-        this.resultArea.innerHTML = `🧠 <b>Niyet Saptanıyor:</b> <span style="color: ${BOARDROOM_MFE_COLORS.success};">[${intent}]</span> - ${actionStr}`;
+        this.resultArea.innerHTML = `🧠 <b>Niyet Saptanıyor:</b> <span style="color: ${BOARDROOM_MFE_COLORS.success};">[${escapeHtml(intent)}]</span> - ${escapeHtml(actionStr)}`;
     }
 
     triggerGodMode() {
@@ -243,13 +245,13 @@ class TelemetryHUD {
         const now = performance.now();
         this.frames++;
         if (now >= this.lastTime + 1000) {
-            this.fps = this.frames;
+            this.fps = toSafeNumber(this.frames);
             this.frames = 0;
             this.lastTime = now;
             
             // Renk Kodlaması (Yeşil, Sarı, Kırmızı)
             const color = this.fps >= 50 ? BOARDROOM_MFE_COLORS.success : (this.fps > 30 ? BOARDROOM_MFE_COLORS.warn : BOARDROOM_MFE_COLORS.danger);
-            this.fpsEl.innerHTML = `FPS: <b style="color:${color}">${this.fps}</b>`;
+            this.fpsEl.innerHTML = `FPS: <b style="color:${color}">${escapeHtml(Math.round(this.fps))}</b>`;
 
             // Bellek Okuması (Destekleyen Tarayıcılar İçin)
             if (performance.memory) {
@@ -322,8 +324,8 @@ class OmniverseSync {
         
         // Telemetry HUD varsa son sinyali oraya da yaz
         if (window.SovereignHUD && window.SovereignHUD.busEl) {
-            window.SovereignHUD.busEl.innerHTML = `BUS: <span style="color:${BOARDROOM_MFE_COLORS.bus}">${topic}</span>`;
-            setTimeout(() => { if (window.SovereignHUD) window.SovereignHUD.busEl.innerHTML = "BUS: SLEEP"; }, 2000);
+            window.SovereignHUD.busEl.innerHTML = `BUS: <span style="color:${BOARDROOM_MFE_COLORS.bus}">${escapeHtml(topic)}</span>`;
+            setTimeout(() => { if (window.SovereignHUD) setText(window.SovereignHUD.busEl, "BUS: SLEEP"); }, 2000);
         }
 
         return true;
@@ -396,7 +398,7 @@ function injectMockMFE() {
     const cLog = document.getElementById('crm-log');
 
     const appendLog = (el, text, color) => {
-        el.innerHTML += `<div style="color:${color}; border-bottom:1px dashed ${BOARDROOM_MFE_COLORS.logLine}; padding:3px 0;">> ${text}</div>`;
+        el.innerHTML += `<div style="color:${color}; border-bottom:1px dashed ${BOARDROOM_MFE_COLORS.logLine}; padding:3px 0;">  ${escapeHtml(text)}</div>`;
         el.scrollTop = el.scrollHeight;
     };
 
