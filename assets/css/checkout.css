@@ -221,6 +221,39 @@ body.checkout-open .checkout-modal {
     background: var(--santis-pass-qr-bg, rgb(249, 250, 251));
 }
 
+/* Phase 4B: checkout/revenue JS template token classes */
+.santis-cta-hot {
+    color: var(--santis-cta-hot-text, rgb(255, 255, 255));
+    background: var(--santis-cta-hot-bg, rgb(220, 38, 38));
+}
+
+.santis-cta-waiting {
+    color: var(--santis-cta-waiting-text, rgb(255, 255, 255));
+    background: var(--santis-cta-waiting-bg, rgb(17, 24, 39));
+}
+
+.santis-checkout-discount-active {
+    background: var(--santis-checkout-discount-bg, rgba(254, 252, 232, 0.3));
+}
+
+.santis-checkout-previous-total {
+    color: var(--santis-checkout-muted, rgb(156, 163, 175));
+}
+
+.santis-checkout-toast {
+    z-index: 999;
+    color: var(--santis-toast-text, rgb(255, 255, 255));
+    background: var(--santis-toast-bg, rgb(17, 24, 39));
+}
+
+.santis-checkout-skeleton {
+    background: var(--santis-checkout-skeleton-bg, rgb(243, 244, 246));
+}
+
+.santis-checkout-error {
+    color: var(--santis-checkout-error, rgb(220, 38, 38));
+}
+
 /* Phase 68.1: Fluid Number Rolling */
 .sovereign-price {
     display: inline-block;

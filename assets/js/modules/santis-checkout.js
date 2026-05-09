@@ -47,7 +47,7 @@ export class CheckoutManagerModule {
       // Gerekirse sepet görünümüne VIP rozeti ekle
       const checkoutBox = document.getElementById('santis-checkout-summary');
       if (checkoutBox) {
-        checkoutBox.classList.add('border-santis-gold', 'bg-yellow-50/30');
+        checkoutBox.classList.add('border-santis-gold', 'santis-checkout-discount-active');
       }
     });
   }
@@ -67,7 +67,7 @@ export class CheckoutManagerModule {
       // Toplam fiyat animasyonu (Eskisini çiz, yenisini yaz)
       if (totalEl) {
         totalEl.innerHTML = `
-          <span class="text-gray-400 line-through text-lg mr-2">${subtotal.toLocaleString('tr-TR')} ₺</span>
+          <span class="santis-checkout-previous-total line-through text-lg mr-2">${subtotal.toLocaleString('tr-TR')} ₺</span>
           <span class="text-3xl text-santis-gold font-light animate-fade-in">${total.toLocaleString('tr-TR')} ₺</span>
         `;
       }
@@ -79,7 +79,7 @@ export class CheckoutManagerModule {
   showSuccessToast(msg) {
     // Sağ üst köşede beliren minimalist bildirim
     const toast = document.createElement('div');
-    toast.className = 'fixed top-5 right-5 z-[999] bg-gray-900 text-white px-6 py-4 rounded shadow-lg transform translate-x-10 opacity-0 transition-all duration-500 font-light tracking-wide text-sm';
+    toast.className = 'santis-checkout-toast fixed top-5 right-5 px-6 py-4 rounded shadow-lg transform translate-x-10 opacity-0 transition-all duration-500 font-light tracking-wide text-sm';
     toast.textContent = msg;
     
     document.body.appendChild(toast);
