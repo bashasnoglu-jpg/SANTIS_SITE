@@ -14,6 +14,12 @@
   --sbr-danger:      #ff4d4d;   /* sovereign-danger variant */
   --sbr-neutral:     #4d4d4d;   /* sovereign-neutral-800 */
   --sbr-grid:        #2a2a2d;   /* chart grid color */
+
+  /* ── Phase 4A extended semantic tokens ─────────────────────── */
+  --sbr-success:      #4ade80;  /* status-ok, positive delta (#4caf50 / #00ff80 alias) */
+  --sbr-warn:         #f59e0b;  /* advisory, medium risk (#ff9800 / #f0a500 alias) */
+  --sbr-info:         #00ffcc;  /* boardroom overlay accent */
+  --sbr-neutral-text: #9ca3af;  /* muted label, secondary text (#6b7280 / #8b92a5 alias) */
 }
 
 /* ── Background tokens ────────────────────────────────────────────────────── */
@@ -23,8 +29,12 @@
 .bg-sbr-gold\/10 { background-color: rgba(198, 169, 107, 0.1) !important; }
 
 /* ── Text tokens ──────────────────────────────────────────────────────────── */
-.text-sbr-gold   { color: var(--sbr-gold) !important; }
-.text-sbr-danger { color: var(--sbr-danger) !important; }
+.text-sbr-gold         { color: var(--sbr-gold) !important; }
+.text-sbr-danger       { color: var(--sbr-danger) !important; }
+.text-sbr-success      { color: var(--sbr-success) !important; }
+.text-sbr-warn         { color: var(--sbr-warn) !important; }
+.text-sbr-info         { color: var(--sbr-info) !important; }
+.text-sbr-neutral-text { color: var(--sbr-neutral-text) !important; }
 
 /* ── Border tokens ────────────────────────────────────────────────────────── */
 .border-sbr-gold       { border-color: var(--sbr-gold) !important; }
