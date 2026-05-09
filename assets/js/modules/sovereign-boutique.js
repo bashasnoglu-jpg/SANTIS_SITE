@@ -207,9 +207,9 @@ function escapeHtml(value) {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+        .replace(/'/g, '&apos;');
 }
 
 function escapeAttribute(value) {
-    return escapeHtml(value).replace(/`/g, '&#096;');
+    return escapeHtml(value).replace(/`/g, '&#96;');
 }

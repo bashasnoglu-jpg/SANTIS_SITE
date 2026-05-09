@@ -260,7 +260,7 @@ function createSignatureRevealData(product = {}, title = '') {
         fontFamily: "'Playfair Display', serif",
         fontSize: '3.5rem',
         marginBottom: '20px',
-        color: '#fff',
+        color: 'rgb(255, 255, 255)',
     });
     heading.dataset.morph = 'title';
     heading.textContent = title;
