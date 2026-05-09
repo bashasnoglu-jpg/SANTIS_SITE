@@ -5,6 +5,26 @@
  */
 
 const BOOT_TIME = performance.now();
+const BOARDROOM_MFE_COLORS = {
+    ink: 'rgb(226, 232, 240)',
+    muted: 'rgb(148, 163, 184)',
+    line: 'rgb(71, 85, 105)',
+    success: 'rgb(16, 185, 129)',
+    warn: 'rgb(245, 158, 11)',
+    danger: 'rgb(239, 68, 68)',
+    bus: 'rgb(217, 70, 239)',
+    bookingsText: 'rgb(147, 197, 253)',
+    bookingsAccent: 'rgb(96, 165, 250)',
+    bookingsBorder: 'rgb(37, 99, 235)',
+    bookingsDangerText: 'rgb(248, 113, 113)',
+    bookingsDangerBorder: 'rgb(220, 38, 38)',
+    crmText: 'rgb(240, 171, 252)',
+    crmAccent: 'rgb(232, 121, 249)',
+    crmBorder: 'rgb(192, 38, 211)',
+    logLine: 'rgb(34, 34, 34)',
+    logBg: 'rgb(0, 0, 0)',
+    logBorder: 'rgb(17, 17, 17)',
+};
 
 // ============================================================================
 // 🛡️ 1. GÜVENLİK KATMANI (Zero Trust & Signature Verification)
@@ -72,7 +92,7 @@ class CommandPalette {
         box.style.cssText = `
             width: 600px; background: rgba(30,35,32,0.9); border: 1px solid rgba(80,100,90,0.5);
             border-radius: 12px; padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            color: #E2E8F0; font-family: system-ui, sans-serif;
+            color: ${BOARDROOM_MFE_COLORS.ink}; font-family: system-ui, sans-serif;
         `;
 
         const input = document.createElement("input");
@@ -81,12 +101,12 @@ class CommandPalette {
         input.placeholder = "Bir Sovereign Komutu girin... (Örn: 'Ahmet iptal')";
         input.style.cssText = `
             width: 100%; padding: 15px; background: transparent; border: none; 
-            border-bottom: 1px solid #475569; font-size: 1.2rem; outline: none; color: #10B981;
+            border-bottom: 1px solid ${BOARDROOM_MFE_COLORS.line}; font-size: 1.2rem; outline: none; color: ${BOARDROOM_MFE_COLORS.success};
         `;
 
         const intentResult = document.createElement("div");
         intentResult.id = "intent-result";
-        intentResult.style.cssText = "margin-top: 15px; font-size: 0.9rem; color: #94A3B8;";
+        intentResult.style.cssText = `margin-top: 15px; font-size: 0.9rem; color: ${BOARDROOM_MFE_COLORS.muted};`;
 
         box.appendChild(input);
         box.appendChild(intentResult);
@@ -157,7 +177,7 @@ class CommandPalette {
             setTimeout(() => this.triggerGodMode(), 1000);
         }
 
-        this.resultArea.innerHTML = `🧠 <b>Niyet Saptanıyor:</b> <span style="color: #10B981;">[${intent}]</span> - ${actionStr}`;
+        this.resultArea.innerHTML = `🧠 <b>Niyet Saptanıyor:</b> <span style="color: ${BOARDROOM_MFE_COLORS.success};">[${intent}]</span> - ${actionStr}`;
     }
 
     triggerGodMode() {
@@ -198,7 +218,7 @@ class TelemetryHUD {
         el.style.cssText = `
             position: fixed; bottom: 20px; right: 20px; background: rgba(15, 20, 25, 0.85);
             backdrop-filter: blur(8px); border: 1px solid rgba(16, 185, 129, 0.4);
-            padding: 10px 15px; border-radius: 8px; color: #10B981; font-family: monospace;
+            padding: 10px 15px; border-radius: 8px; color: ${BOARDROOM_MFE_COLORS.success}; font-family: monospace;
             font-size: 11px; z-index: 99998; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             display: flex; flex-direction: column; gap: 5px; pointer-events: none;
         `;
@@ -228,7 +248,7 @@ class TelemetryHUD {
             this.lastTime = now;
             
             // Renk Kodlaması (Yeşil, Sarı, Kırmızı)
-            const color = this.fps >= 50 ? "#10B981" : (this.fps > 30 ? "#F59E0B" : "#EF4444");
+            const color = this.fps >= 50 ? BOARDROOM_MFE_COLORS.success : (this.fps > 30 ? BOARDROOM_MFE_COLORS.warn : BOARDROOM_MFE_COLORS.danger);
             this.fpsEl.innerHTML = `FPS: <b style="color:${color}">${this.fps}</b>`;
 
             // Bellek Okuması (Destekleyen Tarayıcılar İçin)
@@ -302,7 +322,7 @@ class OmniverseSync {
         
         // Telemetry HUD varsa son sinyali oraya da yaz
         if (window.SovereignHUD && window.SovereignHUD.busEl) {
-            window.SovereignHUD.busEl.innerHTML = `BUS: <span style="color:#D946EF">${topic}</span>`;
+            window.SovereignHUD.busEl.innerHTML = `BUS: <span style="color:${BOARDROOM_MFE_COLORS.bus}">${topic}</span>`;
             setTimeout(() => { if (window.SovereignHUD) window.SovereignHUD.busEl.innerHTML = "BUS: SLEEP"; }, 2000);
         }
 
@@ -347,25 +367,25 @@ function injectMockMFE() {
     const bookingsMFE = document.createElement('div');
     bookingsMFE.style.cssText = `
         background: rgba(15,20,30,0.85); padding: 15px; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.5);
-        color: #93C5FD; width: 320px; backdrop-filter: blur(8px); pointer-events: auto;
+        color: ${BOARDROOM_MFE_COLORS.bookingsText}; width: 320px; backdrop-filter: blur(8px); pointer-events: auto;
     `;
     bookingsMFE.innerHTML = `
-        <h3 style="margin-top:0; color: #60A5FA; font-size:14px;">🏨 [Live Bookings MFE]</h3>
-        <button class="cursor-pointer w-full" id="mock-btn-vip" style="background:rgba(37, 99, 235, 0.2); color:#60A5FA; border:1px solid #2563EB; padding:8px; border-radius:4px; font-weight:bold; transition:all 0.2s;">+ VIP REZERVASYON (Yayınla)</button>
-        <button class="cursor-pointer w-full" id="mock-btn-halt" style="background:rgba(220, 38, 38, 0.2); color:#F87171; border:1px solid #DC2626; padding:8px; margin-top:10px; border-radius:4px; font-weight:bold; transition:all 0.2s;">☢️ KORSAN: SYSTEM_HALT TETİKLE</button>
-        <div id="bookings-log" style="margin-top:10px; font-size:11px; background:#000; padding:10px; height:80px; overflow-y:auto; border-radius:4px; border:1px solid #111;"></div>
+        <h3 style="margin-top:0; color: ${BOARDROOM_MFE_COLORS.bookingsAccent}; font-size:14px;">🏨 [Live Bookings MFE]</h3>
+        <button class="cursor-pointer w-full" id="mock-btn-vip" style="background:rgba(37, 99, 235, 0.2); color:${BOARDROOM_MFE_COLORS.bookingsAccent}; border:1px solid ${BOARDROOM_MFE_COLORS.bookingsBorder}; padding:8px; border-radius:4px; font-weight:bold; transition:all 0.2s;">+ VIP REZERVASYON (Yayınla)</button>
+        <button class="cursor-pointer w-full" id="mock-btn-halt" style="background:rgba(220, 38, 38, 0.2); color:${BOARDROOM_MFE_COLORS.bookingsDangerText}; border:1px solid ${BOARDROOM_MFE_COLORS.bookingsDangerBorder}; padding:8px; margin-top:10px; border-radius:4px; font-weight:bold; transition:all 0.2s;">☢️ KORSAN: SYSTEM_HALT TETİKLE</button>
+        <div id="bookings-log" style="margin-top:10px; font-size:11px; background:${BOARDROOM_MFE_COLORS.logBg}; padding:10px; height:80px; overflow-y:auto; border-radius:4px; border:1px solid ${BOARDROOM_MFE_COLORS.logBorder};"></div>
     `;
 
     // CRM MFE
     const crmMFE = document.createElement('div');
     crmMFE.style.cssText = `
         background: rgba(30,15,30,0.85); padding: 15px; border-radius: 8px; border: 1px solid rgba(217, 70, 239, 0.5);
-        color: #F0ABFC; width: 320px; backdrop-filter: blur(8px); pointer-events: auto;
+        color: ${BOARDROOM_MFE_COLORS.crmText}; width: 320px; backdrop-filter: blur(8px); pointer-events: auto;
     `;
     crmMFE.innerHTML = `
-        <h3 style="margin-top:0; color: #E879F9; font-size:14px;">💼 [CRM MFE]</h3>
-        <button class="cursor-pointer w-full" id="mock-btn-crm" style="background:rgba(192, 38, 211, 0.2); color:#E879F9; border:1px solid #C026D3; padding:8px; border-radius:4px; font-weight:bold; transition:all 0.2s;">⭐ MİSAFİRİ GÜNCELLE (Yayınla)</button>
-        <div id="crm-log" style="margin-top:10px; font-size:11px; background:#000; padding:10px; height:120px; overflow-y:auto; border-radius:4px; border:1px solid #111;"></div>
+        <h3 style="margin-top:0; color: ${BOARDROOM_MFE_COLORS.crmAccent}; font-size:14px;">💼 [CRM MFE]</h3>
+        <button class="cursor-pointer w-full" id="mock-btn-crm" style="background:rgba(192, 38, 211, 0.2); color:${BOARDROOM_MFE_COLORS.crmAccent}; border:1px solid ${BOARDROOM_MFE_COLORS.crmBorder}; padding:8px; border-radius:4px; font-weight:bold; transition:all 0.2s;">⭐ MİSAFİRİ GÜNCELLE (Yayınla)</button>
+        <div id="crm-log" style="margin-top:10px; font-size:11px; background:${BOARDROOM_MFE_COLORS.logBg}; padding:10px; height:120px; overflow-y:auto; border-radius:4px; border:1px solid ${BOARDROOM_MFE_COLORS.logBorder};"></div>
     `;
 
     container.appendChild(bookingsMFE);
@@ -376,35 +396,35 @@ function injectMockMFE() {
     const cLog = document.getElementById('crm-log');
 
     const appendLog = (el, text, color) => {
-        el.innerHTML += `<div style="color:${color}; border-bottom:1px dashed #222; padding:3px 0;">> ${text}</div>`;
+        el.innerHTML += `<div style="color:${color}; border-bottom:1px dashed ${BOARDROOM_MFE_COLORS.logLine}; padding:3px 0;">> ${text}</div>`;
         el.scrollTop = el.scrollHeight;
     };
 
     // ABONELİKLER
     window.Omniverse.subscribe('VIP_BOOKING_CREATED', (payload, callerId, isRemote) => {
-        appendLog(cLog, `[SINYAL] YENI VIP: ${payload.guestName} (Oda: ${payload.roomId})`, '#4ADE80');
+        appendLog(cLog, `[SINYAL] YENI VIP: ${payload.guestName} (Oda: ${payload.roomId})`, BOARDROOM_MFE_COLORS.success);
     }, 'crm');
 
     window.Omniverse.subscribe('CRM_GUEST_UPDATE', (payload, callerId, isRemote) => {
-        appendLog(bLog, `[SINYAL] KONUK PUANI: ${payload.guestName} -> ${payload.points} Puan`, '#F472B6');
+        appendLog(bLog, `[SINYAL] KONUK PUANI: ${payload.guestName} -> ${payload.points} Puan`, 'rgb(244, 114, 182)');
     }, 'live_bookings');
 
     // YAYINLAR
     document.getElementById('mock-btn-vip').onclick = () => {
-        appendLog(bLog, `[YAYIN] VIP_BOOKING_CREATED`, '#60A5FA');
+        appendLog(bLog, `[YAYIN] VIP_BOOKING_CREATED`, BOARDROOM_MFE_COLORS.bookingsAccent);
         window.Omniverse.publish('VIP_BOOKING_CREATED', 'live_bookings', { guestName: "Alexander Yılmaz", roomId: "KING_101" });
     };
 
     document.getElementById('mock-btn-crm').onclick = () => {
-        appendLog(cLog, `[YAYIN] CRM_GUEST_UPDATE`, '#E879F9');
+        appendLog(cLog, `[YAYIN] CRM_GUEST_UPDATE`, BOARDROOM_MFE_COLORS.crmAccent);
         window.Omniverse.publish('CRM_GUEST_UPDATE', 'crm', { guestName: "Alexander Yılmaz", points: 8500 });
     };
 
     document.getElementById('mock-btn-halt').onclick = () => {
-        appendLog(bLog, `[KORSAN DENEME] SYSTEM_HALT YEMLİYOR...`, '#DC2626');
+        appendLog(bLog, `[KORSAN DENEME] SYSTEM_HALT YEMLİYOR...`, BOARDROOM_MFE_COLORS.bookingsDangerBorder);
         const success = window.Omniverse.publish('SYSTEM_HALT', 'live_bookings', { attack: true });
         if(!success) {
-            appendLog(bLog, `[SECURITY SHIELD] REDDEDİLDİ: YETKİ YOK!`, '#EF4444');
+            appendLog(bLog, `[SECURITY SHIELD] REDDEDİLDİ: YETKİ YOK!`, BOARDROOM_MFE_COLORS.danger);
         }
     };
 }
