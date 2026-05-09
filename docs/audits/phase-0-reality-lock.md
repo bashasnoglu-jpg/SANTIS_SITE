@@ -1,82 +1,46 @@
-# SANTIS OS — Phase 0 Reality Lock Audit
+# SANTIS OS — Phase 0 Reality Lock
 
-## 1. Executive Summary
-This document serves as the canonical record of the Santis OS repository state during the Phase 0 Reality Lock. It establishes a baseline of the current technical debt, branch architecture, and dead code candidates without making destructive changes. The ultimate goal is to stabilize the repository and enforce strict governance policies moving forward.
+## Date
+2026-05-09 (Audit initiated at 23:06:54+02:00)
 
-## 2. Validated Findings
-| Area | Finding | Confidence |
-| :--- | :--- | :--- |
-| **Branch Architecture** | `develop` branch is missing. | High |
-| **Package Management** | `pnpm` is the canonical package manager. | High |
-| **Design Drift** | Hardcoded `#D4AF37` Tailwind/color drift exists. | High |
-| **Duplicate UI** | `navbar.html` and `navbar-en.html` are duplicate UI systems. | High |
-| **Duplicate UI** | `footer.html` and `footer-en.html` are likely duplicate UI systems. | High |
-| **Dead Code** | `server/services/vip-risk-heuristic.js` is a dead-code candidate. | High |
-| **Dead Code** | `server/services/ritual-recommendation-heuristic.js` is a dead-code candidate. | High |
-| **Dead Code** | `scripts/cjs_to_esm_codemod.py` is a dead tooling candidate. | High |
+## Goal
+Measure technical debt, identify dead code, stabilize Git flow, and define canonical development rules.
 
-## 3. Weakened Claims
-| Claim | Adjustment | Reason |
-| :--- | :--- | :--- |
-| **Zustand Violation** | Treat as isolated local state. | Not a critical architecture violation of CoreState unless proven otherwise. |
-| **api-mock.ts Dead Code** | Treat as dev/test dependency. | Contains active references for local environment mock simulation. |
-| **Python Scripts Dead** | Classify individually. | Some are active reporting/generator tools, not all are dead. |
+## Current Canonical Branch
+- main: production / stable (Current: 55914218)
+- develop: integration / staging
+- phase-e-prod-deployment-readiness-seal: latest validated baseline branch
 
-## 4. Rejected Claims
-| Claim | Rejection Reason |
-| :--- | :--- |
-| **Blind Script Deletion** | We cannot assume all `.py` files are dead; each must be proven inactive. |
+## Repo Health Snapshot (2026-05-09)
 
-## 5. Still Unknown
-| Area | Unknown Status | Next Check Required |
-| :--- | :--- | :--- |
-| **Working Tree Cleanliness** | Relies on manual user checks. | Requires final local `git status --short` verification before executing PRs. |
+### Git Status
+```text
+On branch main
+Your branch is up to date with 'origin/main'.
+nothing to commit, working tree clean
+```
 
-## 6. Technical Debt Register
-| ID | Category | Description | Severity | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| TD-01 | UI Duplication | Language-based duplication of header/footer components. | High | Awaiting Resolution |
-| TD-02 | Color Drift | Arbitrary inline Tailwind colors (e.g., `#D4AF37`). | Medium | Awaiting Resolution |
-| TD-03 | Git Governance | Absence of `develop` branch and non-standard branch prefixes. | Medium | Awaiting Resolution |
+### Active Phase Tags
+- `phase-e-deployment-baseline-seal` (55914218) ✅
+- `phase-d-port-ssot-env-hygiene-seal` (e5b5f72e) ✅
+- `phase-b-zombie-code-archive-seal` (f0e76a57) ✅
+- `phase-4-runtime-visual-truth-seal` (5ff22cbb) ✅
 
-## 7. Dead Code Candidates
-| Candidate Path | Status | Recommendation |
-| :--- | :--- | :--- |
-| `server/services/vip-risk-heuristic.js` | Dead-Candidate | Quarantine into `_archive/phase-0-dead-code/` (pending PR). |
-| `server/services/ritual-recommendation-heuristic.js` | Dead-Candidate | Quarantine into `_archive/phase-0-dead-code/` (pending PR). |
-| `scripts/cjs_to_esm_codemod.py` | Dead-Candidate | Quarantine into `_archive/phase-0-dead-code/` (pending PR). |
+### Branch Sprawl Audit
+- Total remote branches detected: 110+
+- Heavy Copilot/Automated branch activity (80+ branches)
+- Active feature/fix branches awaiting cleanup.
 
-## 8. Duplicate UI Systems
-| Component Type | Duplicate Paths | Risk |
-| :--- | :--- | :--- |
-| **Navigation** | `components/navbar.html`, `components/navbar-en.html` | SSOT violation, maintenance drift. |
-| **Footer** | `components/footer.html`, `components/footer-en.html` | SSOT violation, maintenance drift. |
+## Audit Areas
+- Branch sprawl (High Priority)
+- Dead files (In-progress via _archive)
+- Duplicate UI systems (Legacy V5 vs V6)
+- Unused JavaScript (Build-blocking scripts detected)
+- Broken imports (PostCSS/Tailwind v4 sequence)
+- Mixed package managers (pnpm standard enforced)
+- Build/deploy instability (Unified Build established)
+- Design token drift (Stitch enforced)
+- Navigation/menu drift (Master JS blocks in app.js)
 
-## 9. Design Token Drift
-| Property | Value | Instances Found | Action Required |
-| :--- | :--- | :--- | :--- |
-| **Color** | `#D4AF37` | 200+ | Canonicalize via design system token (`gold` or `brand`). |
-
-## 10. Git Flow Risks
-| Risk Area | Description | Impact |
-| :--- | :--- | :--- |
-| **Integration Flow** | Missing `develop` branch for staging environment. | Features might hit `main` untested. |
-| **Naming Conventions** | Wildcard branches like `phase-85`, `vercel`, `tech-debt` exist. | Cluttered history, breaks automated CI hooks. |
-
-## 11. Safe Cleanup Plan
-1. **Classify:** Identify files as Alive, Dormant, Dead, or Unknown.
-2. **Quarantine:** Move Dead/Dormant files to `_archive/phase-0-dead-code/`.
-3. **Build/Test:** Run `pnpm run audit:all` to ensure no active code was broken.
-4. **Verify:** Check manual paths and governance limits.
-5. **Delete:** Permanently remove quarantine directory *only* after explicit Boardroom approval.
-6. **Document:** Commit the outcome.
-
-## 12. Phase 0 Exit Criteria
-- Reality Lock documentation generated.
-- Git flow and deletion policies formally established in `docs/governance/`.
-- Quarantine folder structure initialized (`_archive/`).
-- Initial governance PR merged.
-
-## 13. Next PR Recommendation
-**PR Title:** `chore: establish phase 0 reality lock governance`
-**Scope:** Commits the current baseline documents without modifying application code.
+---
+*Snapshot captured during Phase E closure and transition to Phase F.*
