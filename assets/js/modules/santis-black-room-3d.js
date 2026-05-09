@@ -5,7 +5,7 @@
  * Veri sadece rakam değildir. Fiziksel bir varlıktır.
  */
 (function initBlackRoom3D() {
-    console.log("%c[THE BLACK ROOM] WebGL Kuantum Matriksi Başlatıldı 🌌", "color: #00FFCC; font-weight: bold;");
+    console.log("%c[THE BLACK ROOM] WebGL Kuantum Matriksi Başlatıldı 🌌", "color: rgb(0, 255, 204); font-weight: bold;");
 
     if (!window.THREE) return console.error("Three.js bulunamadı! Matriks çöküyor.");
 
