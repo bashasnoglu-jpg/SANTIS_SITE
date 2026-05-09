@@ -4,6 +4,7 @@
  */
 import { SantisCoreStateStreamClient } from './santis-corestate-stream-client.js';
 import { SantisBoardroomProCoreStateAdapter } from './santis-boardroom-pro-corestate-adapter.js';
+import { escapeHtml, setText, toSafeNumber } from './safe-render.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🚀 Bootstrapping Boardroom PRO Live Nervous System...');
@@ -372,9 +373,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const timestamp = new Date(state.lastOperatorAction.timestamp).toLocaleTimeString('tr-TR');
                 
                 actionCard.innerHTML = `
-                  <div style="font-size: 11px; color: ${BOARDROOM_RUNTIME_COLORS.muted}; margin-bottom: 4px;">${timestamp} • ID: ${state.lastOperatorAction.id.substring(0, 8)}</div>
-                  <strong style="color: ${BOARDROOM_RUNTIME_COLORS.gold}; font-size: 14px; text-transform: uppercase;">${state.lastOperatorAction.intent}</strong>
-                  <div style="font-size: 13px; color: ${BOARDROOM_RUNTIME_COLORS.neutral}; margin-top: 4px;">Operator: ${state.lastOperatorAction.operatorId}</div>
+                  <div style="font-size: 11px; color: ${BOARDROOM_RUNTIME_COLORS.muted}; margin-bottom: 4px;">${escapeHtml(timestamp)} • ID: ${escapeHtml(state.lastOperatorAction.id.substring(0, 8))}</div>
+                  <strong style="color: ${BOARDROOM_RUNTIME_COLORS.gold}; font-size: 14px; text-transform: uppercase;">${escapeHtml(state.lastOperatorAction.intent)}</strong>
+                  <div style="font-size: 13px; color: ${BOARDROOM_RUNTIME_COLORS.neutral}; margin-top: 4px;">Operator: ${escapeHtml(state.lastOperatorAction.operatorId)}</div>
                 `;
 
                 // Add to top of rail
@@ -489,8 +490,8 @@ document.addEventListener('DOMContentLoaded', () => {
           else entry.classList.add('log-telemetry');
 
           entry.innerHTML = `
-              <div class="log-time">[${log.time}]</div>
-              <div class="log-message">${log.message}</div>
+              <div class="log-time">[${escapeHtml(log.time)}]</div>
+              <div class="log-message">${escapeHtml(log.message)}</div>
           `;
           
           // Re-hydration sırasında animasyon yapmıyoruz (0-Jank)
@@ -516,8 +517,8 @@ document.addEventListener('DOMContentLoaded', () => {
       else entry.classList.add('log-telemetry');
 
       entry.innerHTML = `
-          <div class="log-time">[${time}]</div>
-          <div class="log-message">${message}</div>
+          <div class="log-time">[${escapeHtml(time)}]</div>
+          <div class="log-message">${escapeHtml(message)}</div>
       `;
 
       // Listenin en üstüne ekle
@@ -567,15 +568,6 @@ document.addEventListener('DOMContentLoaded', () => {
       pending.button.innerHTML = pending.originalHtml;
   }
 
-  function escapeHtml(value) {
-      return String(value ?? '')
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&apos;');
-  }
-
   function createStrategyQueueId() {
       if (window.crypto && typeof window.crypto.randomUUID === 'function') {
           return window.crypto.randomUUID();
@@ -585,13 +577,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function formatDeltaPct(value) {
-      const numeric = Number(value) || 0;
+      const numeric = toSafeNumber(value);
       const rounded = Math.round(numeric * 100);
       return rounded > 0 ? `+${rounded}%` : `${rounded}%`;
   }
 
   function formatRevenueDelta(value) {
-      const numeric = Number(value) || 0;
+      const numeric = toSafeNumber(value);
       const prefix = numeric > 0 ? '+' : '';
       return `${prefix}${formatCurrency(Math.abs(numeric))}`;
   }
@@ -611,17 +603,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
       btn.disabled = !(recommendationId && sessionId) || Boolean(queued && queued.status !== 'rejected');
       btn.classList.toggle('is-queued', Boolean(queued && queued.status !== 'rejected'));
-      if (label) {
-          label.innerText = queued && queued.status !== 'rejected' ? 'Queued' : 'Queue Strategy';
-      }
+      setText(label, queued && queued.status !== 'rejected' ? 'Queued' : 'Queue Strategy');
   }
 
   function createStrategyQueueItemFromButton(button) {
       const recommendationId = button.dataset.recommendationId;
       const sessionId = button.dataset.sessionId;
-      const simulatedDeltaPct = parseFloat(button.dataset.delta);
-      const expectedRevenueDelta = parseFloat(button.dataset.expectedRevenueDelta);
-      const confidence = parseFloat(button.dataset.confidence);
+      const simulatedDeltaPct = toSafeNumber(button.dataset.delta);
+      const expectedRevenueDelta = toSafeNumber(button.dataset.expectedRevenueDelta);
+      const confidence = toSafeNumber(button.dataset.confidence);
 
       if (!recommendationId || !sessionId) {
           throw new Error('Strategy queue requires recommendationId and sessionId');
@@ -633,9 +623,9 @@ document.addEventListener('DOMContentLoaded', () => {
           sessionId,
           traceId: button.dataset.traceId || '',
           simulatedAction: button.dataset.action || 'strategy',
-          simulatedDeltaPct: Number.isFinite(simulatedDeltaPct) ? simulatedDeltaPct : 0,
-          expectedRevenueDelta: Number.isFinite(expectedRevenueDelta) ? expectedRevenueDelta : 0,
-          confidence: Number.isFinite(confidence) ? confidence : 0,
+          simulatedDeltaPct,
+          expectedRevenueDelta,
+          confidence,
           trigger: button.dataset.trigger || 'shadow_pricing',
           status: 'pending',
           createdAt: new Date().toISOString(),
@@ -648,7 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!queueList) return;
 
       const activeCount = strategyApprovalQueue.filter((item) => item.status === 'pending' || item.status === 'applying').length;
-      if (queueCount) queueCount.innerText = String(activeCount);
+      setText(queueCount, activeCount);
 
       if (strategyApprovalQueue.length === 0) {
           queueList.innerHTML = '<div class="strategy-queue-empty">No queued strategy decisions.</div>';
@@ -677,7 +667,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       <div class="strategy-queue-meta">
                           <span>${escapeHtml(formatDeltaPct(item.simulatedDeltaPct))}</span>
                           <span>${escapeHtml(formatRevenueDelta(item.expectedRevenueDelta))}</span>
-                          <span>${Math.round((Number(item.confidence) || 0) * 100)}% confidence</span>
+                          <span>${escapeHtml(Math.round(toSafeNumber(item.confidence) * 100))}% confidence</span>
                       </div>
                   </div>
                   <div class="strategy-queue-actions">
@@ -876,7 +866,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!overlay || !modalTitle || !modalBody) return;
       
       // Modal başlığını ayarla
-      modalTitle.innerText = `ORACLE KARARI: ${eventData.type}`;
+      setText(modalTitle, `ORACLE KARARI: ${eventData.type}`);
       
       // Akıllı Karar Motoru (Dinamik Logic için temel)
       let actionHtml = '';
@@ -885,7 +875,7 @@ document.addEventListener('DOMContentLoaded', () => {
           : ["Özel İndirim Tanımla", "Genişletilmiş Oda Servisi Sun", "Bir Sonraki Ziyaret Notu Ekle"];
 
       recommendations.forEach(rec => {
-          actionHtml += `<div class="action-card" style="cursor:pointer; padding:12px; margin:8px 0; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:4px; transition:all 0.3s ease;"><span>⚡</span> ${rec}</div>`;
+          actionHtml += `<div class="action-card" style="cursor:pointer; padding:12px; margin:8px 0; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:4px; transition:all 0.3s ease;"><span>⚡</span> ${escapeHtml(rec)}</div>`;
       });
 
       modalBody.innerHTML = actionHtml;
