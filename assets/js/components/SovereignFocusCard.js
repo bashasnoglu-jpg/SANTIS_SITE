@@ -72,7 +72,7 @@ export class SovereignFocusCard extends HTMLElement {
 
     renderSkeleton() {
         this.innerHTML = `
-            <div class="w-full max-w-sm rounded-lg border border-gray-800 bg-[#0A0D11] p-4 shadow-xl font-mono">
+            <div class="w-full max-w-sm rounded-lg border border-gray-800 bg-nv-void p-4 shadow-xl font-mono">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-gray-300 text-xs tracking-widest uppercase">God Mode: Session Focus</h3>
                     <div title="SSE Status">
@@ -80,7 +80,7 @@ export class SovereignFocusCard extends HTMLElement {
                     </div>
                 </div>
                 <!-- Reaktif Veri Konteyneri -->
-                <div id="focus-content" class="min-h-[60px] flex items-center justify-center">
+                <div id="focus-content" class="min-h-14 flex items-center justify-center">
                     <span class="text-gray-600 text-sm">Matrix Yükleniyor...</span>
                 </div>
             </div>
