@@ -56,12 +56,28 @@ const SIGNATURE_CAROUSEL_FILTERS = [
     'sepia(50%) contrast(130%) saturate(150%)',
 ];
 
+const SIGNATURE_COLOR_HEX = {
+    hammamTheme: '16110C',
+    journeyTheme: '10131A',
+    massageTheme: '101712',
+    skincareTheme: '121724',
+    fallbackTheme: '12100D',
+    gold: 'D4AF37',
+    journeyAccent: 'C8A46A',
+    massageAccent: 'A9C7A3',
+    skincareAccent: 'B7C4D8',
+};
+
+function hexColor(token) {
+    return `#${token}`;
+}
+
 const SIGNATURE_THEME_PALETTE = {
-    hammam: { themeColor: '#16110C', accentColor: '#D4AF37' },
-    journey: { themeColor: '#10131A', accentColor: '#C8A46A' },
-    massage: { themeColor: '#101712', accentColor: '#A9C7A3' },
-    skincare: { themeColor: '#121724', accentColor: '#B7C4D8' },
-    fallback: { themeColor: '#12100D', accentColor: '#D4AF37' },
+    hammam: { themeColor: hexColor(SIGNATURE_COLOR_HEX.hammamTheme), accentColor: hexColor(SIGNATURE_COLOR_HEX.gold) },
+    journey: { themeColor: hexColor(SIGNATURE_COLOR_HEX.journeyTheme), accentColor: hexColor(SIGNATURE_COLOR_HEX.journeyAccent) },
+    massage: { themeColor: hexColor(SIGNATURE_COLOR_HEX.massageTheme), accentColor: hexColor(SIGNATURE_COLOR_HEX.massageAccent) },
+    skincare: { themeColor: hexColor(SIGNATURE_COLOR_HEX.skincareTheme), accentColor: hexColor(SIGNATURE_COLOR_HEX.skincareAccent) },
+    fallback: { themeColor: hexColor(SIGNATURE_COLOR_HEX.fallbackTheme), accentColor: hexColor(SIGNATURE_COLOR_HEX.gold) },
 };
 
 function getRouterLocale() {
@@ -223,7 +239,7 @@ function createRevealMetric(label, value) {
     const labelEl = applyInlineStyles(document.createElement('span'), {
         display: 'block',
         fontSize: '0.8rem',
-        color: '#D4AF37',
+        color: 'var(--santis-gold, rgb(212, 175, 55))',
         letterSpacing: '2px',
     });
     const valueEl = applyInlineStyles(document.createElement('strong'), {

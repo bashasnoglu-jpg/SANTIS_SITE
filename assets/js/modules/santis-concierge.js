@@ -12,18 +12,18 @@ export class ConciergeModule {
 
   render() {
     return `
-      <div id="concierge-root" class="fixed bottom-6 right-6 z-[999]">
-        <div id="concierge-box" class="hidden glassmorphism-panel p-6 rounded-2xl shadow-xl w-[360px] bg-[#111827]/95 border border-[rgba(212,175,55,0.2)] backdrop-blur-md">
+      <div id="concierge-root" class="fixed bottom-6 right-6 z-50">
+        <div id="concierge-box" class="hidden glassmorphism-panel p-6 rounded-2xl shadow-xl w-96 bg-black/95 border border-santis-gold/20 backdrop-blur-md">
           <div id="concierge-messages" class="space-y-3 mb-4 max-h-64 overflow-y-auto text-white"></div>
           
           <input 
             id="concierge-input"
-            class="w-full bg-[rgba(255,255,255,0.05)] text-white border border-[rgba(212,175,55,0.3)] p-3 rounded-lg text-sm outline-none focus:border-[#D4AF37] transition-all"
+            class="w-full bg-white/5 text-white border border-santis-gold/30 p-3 rounded-lg text-sm outline-none focus:border-santis-gold transition-all"
             placeholder="Nasıl hissediyorsunuz?"
           />
         </div>
 
-        <button id="concierge-toggle" class="w-14 h-14 rounded-full bg-black text-[#D4AF37] border border-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.3)] flex items-center justify-center text-2xl transition-transform hover:scale-110 ml-auto mt-4">
+        <button id="concierge-toggle" class="w-14 h-14 rounded-full bg-black text-santis-gold border border-santis-gold shadow-accent-glow flex items-center justify-center text-2xl transition-transform hover:scale-110 ml-auto mt-4">
           ✦
         </button>
       </div>
@@ -79,7 +79,7 @@ export class ConciergeModule {
         
         const container = document.getElementById('concierge-messages');
         if (container) {
-            container.innerHTML = `<div class='p-3 bg-[rgba(255,255,255,0.05)] rounded-lg text-sm text-[#D4AF37]'>${data.reason === 'idle_confusion' ? 'Kararsız kaldığınızı seziyorum. Ruhunuzun ihtiyacı olan sessizliği bulmanıza yardım edebilir miyim?' : 'Size nasıl yardımcı olabilirim?'}</div>`;
+            container.innerHTML = `<div class='p-3 bg-white/5 rounded-lg text-sm text-santis-gold'>${data.reason === 'idle_confusion' ? 'Kararsız kaldığınızı seziyorum. Ruhunuzun ihtiyacı olan sessizliği bulmanıza yardım edebilir miyim?' : 'Size nasıl yardımcı olabilirim?'}</div>`;
         }
     });
 
@@ -103,7 +103,7 @@ export class ConciergeModule {
 
   handleInput(text) {
     const container = document.getElementById('concierge-messages');
-    container.innerHTML += `<div class='p-3 bg-[rgba(212,175,55,0.1)] rounded-lg text-sm text-white ml-auto w-3/4 mb-2'>${text}</div>`;
+    container.innerHTML += `<div class='p-3 bg-santis-gold/10 rounded-lg text-sm text-white ml-auto w-3/4 mb-2'>${escapeHtml(text)}</div>`;
       
     // Simüle edilmiş AI Analizi
     const result = window.SantisConciergeAI.analyze(text);
@@ -141,8 +141,8 @@ export class ConciergeModule {
     // 🟢 STANDART LİSTELEME
     suggestions.forEach(item => {
       const el = document.createElement('div');
-      el.className = 'p-3 bg-[rgba(255,255,255,0.05)] border border-[rgba(212,175,55,0.2)] rounded-lg text-sm mb-2 cursor-pointer hover:bg-[rgba(212,175,55,0.1)] transition-colors';
-      el.innerHTML = `<span class="text-[#D4AF37] font-bold">ÖNERİ:</span> ${item.name}`;
+      el.className = 'p-3 bg-white/5 border border-santis-gold/20 rounded-lg text-sm mb-2 cursor-pointer hover:bg-santis-gold/10 transition-colors';
+      el.innerHTML = `<span class="text-santis-gold font-bold">ÖNERİ:</span> ${escapeHtml(item.name)}`;
       
       el.onclick = () => {
           this.handleInput(`Hemen ${item.name} rezerve etmek istiyorum.`);
@@ -156,22 +156,22 @@ export class ConciergeModule {
   // 💳 SATIŞ KAPATICI KART (Tek Tıkla Ödeme Tüneli)
   renderFrictionlessCheckoutCard(container, product) {
     const card = document.createElement('div');
-    card.className = 'p-5 bg-gray-900 rounded-2xl shadow-2xl text-white transform transition-all duration-500 scale-95 opacity-0 animate-fade-in-up mt-2';
+    card.className = 'p-5 bg-black rounded-2xl shadow-2xl text-white transform transition-all duration-500 scale-95 opacity-0 animate-fade-in-up mt-2';
     
     card.innerHTML = `
       <div class="flex justify-between items-start mb-4">
         <div>
-          <span class="block text-[10px] uppercase tracking-[0.2em] text-[#D4AF37] mb-1">SİZE ÖZEL HAZIRLANDI</span>
-          <h4 class="text-lg font-light">${product.name}</h4>
+          <span class="block text-micro uppercase tracking-cta text-santis-gold mb-1">SİZE ÖZEL HAZIRLANDI</span>
+          <h4 class="text-lg font-light">${escapeHtml(product.name)}</h4>
         </div>
         <div class="text-right">
-          <span class="block text-sm text-gray-400 line-through">${(product.price * 1.15).toFixed(0)} ₺</span>
-          <span class="text-xl font-light text-[#D4AF37]">${product.price} ₺</span>
+          <span class="block text-sm text-white/50 line-through">${(product.price * 1.15).toFixed(0)} ₺</span>
+          <span class="text-xl font-light text-santis-gold">${product.price} ₺</span>
         </div>
       </div>
-      <p class="text-xs text-gray-400 mb-6 font-light">Semptomlarınıza yönelik en ideal ritüel. %15 Concierge ayrıcalığı anında tanımlandı.</p>
+      <p class="text-xs text-white/50 mb-6 font-light">Semptomlarınıza yönelik en ideal ritüel. %15 Concierge ayrıcalığı anında tanımlandı.</p>
       
-      <button id="ai-auto-checkout-btn" class="w-full py-3 bg-white text-gray-900 text-sm uppercase tracking-widest rounded-lg hover:bg-[#D4AF37] hover:text-white transition-colors font-bold">
+      <button id="ai-auto-checkout-btn" class="w-full py-3 bg-white text-black text-sm uppercase tracking-widest rounded-lg hover:bg-santis-gold hover:text-white transition-colors font-bold">
         Tek Tıkla Rezerve Et
       </button>
     `;
@@ -241,4 +241,13 @@ export class ConciergeModule {
     const root = document.getElementById('concierge-root');
     if (root) root.remove();
   }
+}
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
