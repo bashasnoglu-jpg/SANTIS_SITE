@@ -20,8 +20,21 @@ const EXCLUDE_DIRS = new Set([
     'backup', 'backups', 'backup_assets', 'SantisV5.5_Backup',
     'Quarantine', 'quarantine', 'quarantine_zone',
     'visual_checkpoints', 'test-results', '_deploy_stage',
-    'demo', 'trends', 'print', 'sr',
+    'demo', 'trends', 'print', 'sr', 'clinic-kiosk', 'guest-zen', 'tr', 'en',
+    'tools', 'templates', 'packages', 'apps', 'admin-panel',
     'app', 'api', 'alembic',
+]);
+
+const EXCLUDE_FILES = new Set([
+    'admin-dashboard.html',
+    'hq-dashboard.html',
+    'index_backup.html',
+    'index_v1.html',
+    'index_v2.html',
+    'sovereign-terminal.html',
+    'SANTIS_SITE_GRAPH_VISUAL.html',
+    'spaos-hero-demo.html',
+    'spaos-vertical-demo.html'
 ]);
 
 function getHtmlEntries(dir: string, fileList: Record<string, string> = {}, rootDir = dir) {
@@ -38,6 +51,7 @@ function getHtmlEntries(dir: string, fileList: Record<string, string> = {}, root
         if (entry.isDirectory()) {
             getHtmlEntries(fullPath, fileList, rootDir);
         } else if (entry.name.endsWith('.html')) {
+            if (EXCLUDE_FILES.has(entry.name)) continue;
             const rel = relative(rootDir, fullPath).replace(/\\/g, '/').replace('.html', '');
             const key = rel.replace(/[\/\-\.\s]/g, '_').replace(/^_/, '');
             fileList[key] = resolve(rootDir, fullPath);
