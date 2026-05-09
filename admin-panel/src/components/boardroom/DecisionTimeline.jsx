@@ -5,7 +5,7 @@ export default function DecisionTimeline({ events }) {
 
   return (
     <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div className="mb-3 text-2xs uppercase tracking-[0.24em] text-neutral-500">
+      <div className="mb-3 text-2xs uppercase tracking-queue text-neutral-500">
         Decision Timeline
       </div>
 
@@ -16,8 +16,8 @@ export default function DecisionTimeline({ events }) {
             className="rounded-xl border border-white/5 bg-black/10 px-3 py-2 text-xs"
           >
             <div className="flex items-center justify-between text-neutral-300">
-              <span className="font-medium text-amber-100">{event.event}</span>
-              <span className={`text-2xs uppercase font-bold tracking-wider ${event.decisionMode === 'ASSIST' ? 'text-amber-400' : 'text-emerald-400'}`}>
+              <span className="font-medium text-sbr-amber-muted">{event.event}</span>
+              <span className={`text-2xs uppercase font-bold tracking-wider ${event.decisionMode === 'ASSIST' ? 'text-sbr-amber' : 'text-sbr-emerald'}`}>
                 {event.decisionMode ?? 'NORMAL'}
               </span>
             </div>

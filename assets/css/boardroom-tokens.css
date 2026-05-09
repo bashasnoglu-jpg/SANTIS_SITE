@@ -74,6 +74,18 @@
 /* tracking-cta replaces tracking-[0.2em] */
 .tracking-cta { letter-spacing: 0.2em; }
 
+/* tracking-queue replaces tracking-[0.24em] (timeline/queue headers) */
+.tracking-queue { letter-spacing: 0.24em; }
+
+/* ── Semantic color aliases (Batch 1 — timeline surfaces) ────────────────── */
+/* text-sbr-amber → amber-100 / amber-400 (ASSIST mode label) */
+.text-sbr-amber-muted  { color: rgb(254 243 199) !important; }   /* amber-100 */
+.text-sbr-amber        { color: rgb(251 191  36) !important; }   /* amber-400 */
+/* text-sbr-emerald → emerald-400 (AUTONOMOUS mode label) */
+.text-sbr-emerald      { color: rgb( 52 211 153) !important; }   /* emerald-400 */
+/* text-sbr-sky → sky-400 (governance outcome label) */
+.text-sbr-sky          { color: rgb( 56 189 248) !important; }   /* sky-400 */
+
 /* ── CRT Scanline animation (LiveFeedTicker) ─────────────────────────────── */
 @keyframes scanline {
   0%   { transform: translateY(-100%); }

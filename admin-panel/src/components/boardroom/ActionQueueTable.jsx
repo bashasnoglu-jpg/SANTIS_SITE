@@ -12,7 +12,7 @@ export default function ActionQueueTable({ items, onSelect }) {
 
   return (
     <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div className="mb-3 text-2xs uppercase tracking-[0.24em] text-neutral-500">
+      <div className="mb-3 text-2xs uppercase tracking-queue text-neutral-500">
         Action Queue
       </div>
 

@@ -5,7 +5,7 @@ export default function GovernanceTimeline({ attribution }) {
 
   return (
     <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div className="mb-3 text-2xs uppercase tracking-[0.24em] text-neutral-500">
+      <div className="mb-3 text-2xs uppercase tracking-queue text-neutral-500">
         Governance Timeline
       </div>
 
@@ -17,7 +17,7 @@ export default function GovernanceTimeline({ attribution }) {
           >
             <div className="flex items-center justify-between">
               <span className="font-semibold">{item.actionType}</span>
-              <span className="text-2xs font-bold tracking-widest text-sky-400">{item.outcomeEvent}</span>
+              <span className="text-2xs font-bold tracking-widest text-sbr-sky">{item.outcomeEvent}</span>
             </div>
             <div className="mt-1 text-micro text-neutral-500 font-mono">
               Revenue: €{item.attributedRevenue ?? 0}
