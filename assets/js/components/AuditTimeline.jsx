@@ -1,5 +1,6 @@
-// components/AuditTimeline.jsx — v4.0
+// components/AuditTimeline.jsx — v4.1
 // Flat list + Session Grouping + date/search filter + Export (JSON, CSV, Report)
+// Visual Truth Seal: raw hex → CSS class tokens
 
 import React, { useState } from 'react';
 import { useAuditReplay }    from '../hooks/useAuditReplay';
@@ -8,11 +9,13 @@ import { exportJSON, exportCSV, exportIncidentReport } from '../lib/exportAudit'
 import '../../css/GodsEye.css';
 
 // ─── Sabitler ────────────────────────────────────────────────────────────────
+// color değerleri artık CSS class adına dönüştürüldü; raw hex kaldırıldı
 const ACTION_STYLE = {
-  ACK:      { color: '#10b981', icon: '✓', label: 'ACK' },
-  MUTE:     { color: '#555',    icon: '⊘', label: 'MUTE' },
-  ESCALATE: { color: '#ff2a2a', icon: '↑', label: 'ESCALATE' },
+  ACK:      { cls: 'action-ack',      icon: '✓', label: 'ACK' },
+  MUTE:     { cls: 'action-mute',     icon: '⊘', label: 'MUTE' },
+  ESCALATE: { cls: 'action-escalate', icon: '↑', label: 'ESCALATE' },
 };
+const ACTION_FALLBACK_CLS = 'action-unknown';
 const ACTION_FILTERS = ['ALL', 'ACK', 'MUTE', 'ESCALATE'];
 
 function fmt(ts)     { return ts ? new Date(ts).toLocaleString('tr-TR',  { hour12: false }) : '—'; }
@@ -20,20 +23,20 @@ function fmtTime(ts) { return ts ? new Date(ts).toLocaleTimeString('tr-TR', { ho
 
 // ─── Düz liste satırı ────────────────────────────────────────────────────────
 function FlatEntry({ entry }) {
-  const s = ACTION_STYLE[entry.action] || { color: '#888', icon: '?', label: '?' };
+  const s = ACTION_STYLE[entry.action] || { cls: ACTION_FALLBACK_CLS, icon: '?', label: '?' };
   const latency = entry.processedAt ? `+${entry.processedAt - entry.timestamp}ms` : null;
   return (
     <div className="audit-entry">
-      <span className="audit-icon" style={{ color: s.color }}>{s.icon}</span>
+      <span className={`audit-icon ${s.cls}`}>{s.icon}</span>
       <div className="audit-body">
         <div>
-          <span style={{ color: s.color, fontWeight: 'bold' }}>{entry.action}</span>
-          <span style={{ color: '#333' }}> → </span>
+          <span className={`${s.cls} font-bold`}>{entry.action}</span>
+          <span className="audit-separator"> → </span>
           <span className="audit-evtid">#{(entry.targetEventId ?? '?').slice(-10)}</span>
         </div>
         <div className="audit-meta">
           {entry.operatorId ?? '—'} · {fmt(entry.timestamp)}
-          {latency && <span style={{ color: '#2a2a2a' }}> · {latency}</span>}
+          {latency && <span className="audit-latency"> · {latency}</span>}
         </div>
       </div>
     </div>
@@ -43,15 +46,15 @@ function FlatEntry({ entry }) {
 // ─── Gruplu incident kartı ───────────────────────────────────────────────────
 function GroupCard({ group }) {
   const [open, setOpen] = useState(false);
-  const primary = ACTION_STYLE[group.primaryState] || { color: '#888', icon: '?', label: '?' };
+  const primary = ACTION_STYLE[group.primaryState] || { cls: ACTION_FALLBACK_CLS, icon: '?', label: '?' };
   const summary = summarizeActions(group.actions);
 
   return (
-    <div className={`incident-card ${open ? 'expanded' : ''}`} style={{ borderLeftColor: primary.color }}>
+    <div className={`incident-card incident-border-${primary.cls} ${open ? 'expanded' : ''}`}>
 
       {/* Kart başlığı — tıklanınca aç/kapat */}
       <button className="incident-header" onClick={() => setOpen(o => !o)}>
-        <span className="incident-state" style={{ color: primary.color }}>
+        <span className={`incident-state ${primary.cls}`}>
           {primary.icon} {primary.label}
         </span>
         <span className="incident-id">#{group.targetEventId.slice(-10)}</span>
@@ -60,7 +63,7 @@ function GroupCard({ group }) {
           {Object.entries(summary).map(([action, count]) => {
             const st = ACTION_STYLE[action];
             return (
-              <span key={action} style={{ color: st?.color ?? '#aaa' }}>
+              <span key={action} className={st?.cls ?? ACTION_FALLBACK_CLS}>
                 {action} ×{count}
               </span>
             );
@@ -80,10 +83,10 @@ function GroupCard({ group }) {
       {open && (
         <div className="incident-actions">
           {group.actions.map((a, i) => {
-            const as = ACTION_STYLE[a.action] || { color: '#888', icon: '?' };
+            const as = ACTION_STYLE[a.action] || { cls: ACTION_FALLBACK_CLS, icon: '?' };
             return (
               <div key={i} className="incident-action-row">
-                <span style={{ color: as.color }}>{as.icon} {a.action}</span>
+                <span className={as.cls}>{as.icon} {a.action}</span>
                 <span className="audit-meta">{a.operatorId} · {fmtTime(a.timestamp)}</span>
                 {a.processedAt && (
                   <span className="audit-meta">+{a.processedAt - a.timestamp}ms</span>
