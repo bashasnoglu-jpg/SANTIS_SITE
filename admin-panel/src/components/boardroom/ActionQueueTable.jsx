@@ -4,15 +4,15 @@ import OverrideBadge from './OverrideBadge';
 export default function ActionQueueTable({ items, onSelect }) {
   if (!items || items.length === 0) {
      return (
-       <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center text-sm text-neutral-500">
+       <div className="rounded-2xl border border-sovereign-panel bg-sovereign-obsidian/50 p-4 text-center text-sm text-sovereign-bronze">
          No autonomous actions generated in the current flow.
        </div>
      );
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div className="mb-3 text-2xs uppercase tracking-queue text-neutral-500">
+    <div className="rounded-2xl border border-sovereign-panel bg-sovereign-obsidian/50 p-4">
+      <div className="mb-3 text-2xs uppercase tracking-widest text-sovereign-bronze">
         Action Queue
       </div>
 
@@ -22,11 +22,11 @@ export default function ActionQueueTable({ items, onSelect }) {
             key={item.id}
             type="button"
             onClick={() => onSelect?.(item)}
-            className="flex w-full items-center justify-between rounded-xl border border-white/5 bg-black/10 px-3 py-3 text-left transition hover:bg-white/5"
+            className="flex w-full items-center justify-between rounded-xl border border-sovereign-panel/50 bg-sovereign-coal/50 px-3 py-3 text-left transition hover:bg-sovereign-panel/70"
           >
             <div>
-              <div className="text-sm font-semibold text-neutral-200">{item.type}</div>
-              <div className="mt-1 text-micro font-mono text-neutral-500">
+              <div className="text-sm font-semibold text-sovereign-ink">{item.type}</div>
+              <div className="mt-1 text-micro font-mono text-sovereign-bronze">
                 {(item.explanationCodes ?? []).join(', ') || '—'}
               </div>
             </div>
