@@ -1,0 +1,1104 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\playwright.config.ts",
+    "rootDir": "C:/Users/tourg/Desktop/SANTIS_SITE/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 4
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/tourg/Desktop/SANTIS_SITE/tests/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/tourg/Desktop/SANTIS_SITE/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/tourg/Desktop/SANTIS_SITE/tests/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/tourg/Desktop/SANTIS_SITE/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/tourg/Desktop/SANTIS_SITE/tests/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "mobile-safari",
+        "name": "mobile-safari",
+        "testDir": "C:/Users/tourg/Desktop/SANTIS_SITE/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/tourg/Desktop/SANTIS_SITE/tests/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "mobile-chrome",
+        "name": "mobile-chrome",
+        "testDir": "C:/Users/tourg/Desktop/SANTIS_SITE/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "tests/reports/html",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "tests/reports/results.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.59.1",
+    "workers": 4,
+    "webServer": {
+      "command": "node serve.cjs 8081",
+      "port": 8081,
+      "timeout": 30000,
+      "reuseExistingServer": true
+    }
+  },
+  "suites": [
+    {
+      "title": "reservation.spec.ts",
+      "file": "reservation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Sayfa Yüklenmesi",
+          "file": "reservation.spec.ts",
+          "line": 30,
+          "column": 6,
+          "specs": [
+            {
+              "title": "başlık ve meta doğru yükleniyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1221,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:05.579Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-8c517077cc1f85284eb4",
+              "file": "reservation.spec.ts",
+              "line": 32,
+              "column": 5
+            },
+            {
+              "title": "hero görseli yükleniyor (LCP)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1299,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:05.547Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-f889dd1a5113fae68c01",
+              "file": "reservation.spec.ts",
+              "line": 46,
+              "column": 5
+            },
+            {
+              "title": "akordeon başlangıçta kapalı",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1286,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:05.580Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-bd237cb2e491fb5dd476",
+              "file": "reservation.spec.ts",
+              "line": 56,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "Modal UX",
+          "file": "reservation.spec.ts",
+          "line": 73,
+          "column": 6,
+          "specs": [
+            {
+              "title": "CTA butonu modali açıyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 4155,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:05.580Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-7b65f5df518c0bdb65f5",
+              "file": "reservation.spec.ts",
+              "line": 75,
+              "column": 5
+            },
+            {
+              "title": "×  butonu modali kapatıyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4136,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:06.951Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-d27133b8c254a47356e0",
+              "file": "reservation.spec.ts",
+              "line": 85,
+              "column": 5
+            },
+            {
+              "title": "ESC tuşu modali kapatıyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 3988,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:06.977Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-cd3b071ce091df247b77",
+              "file": "reservation.spec.ts",
+              "line": 97,
+              "column": 5
+            },
+            {
+              "title": "backdrop tıklaması modali kapatıyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 4230,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:07.007Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-6e5da361b546934fe5b8",
+              "file": "reservation.spec.ts",
+              "line": 106,
+              "column": 5
+            },
+            {
+              "title": "modal açıldığında name inputuna odaklanıyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 4119,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:09.879Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-4325f8b24c3c40c196b2",
+              "file": "reservation.spec.ts",
+              "line": 116,
+              "column": 5
+            },
+            {
+              "title": "tarih alanı min bugün olarak ayarlanıyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 3843,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:10.988Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-222d3918a439cc985ec2",
+              "file": "reservation.spec.ts",
+              "line": 127,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "Form Validasyon",
+          "file": "reservation.spec.ts",
+          "line": 141,
+          "column": 6,
+          "specs": [
+            {
+              "title": "boş form gönderilemiyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4063,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:11.110Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-60a9026eb5c4c6795dee",
+              "file": "reservation.spec.ts",
+              "line": 143,
+              "column": 5
+            },
+            {
+              "title": "sadece telefon eksikken form gönderilemiyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 4029,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:11.255Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-e26085458c3325e50e22",
+              "file": "reservation.spec.ts",
+              "line": 156,
+              "column": 5
+            },
+            {
+              "title": "geçersiz e-posta formatı tarayıcı tarafından yakalanıyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 3941,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:14.027Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-40cf217b75dd4e5b0a95",
+              "file": "reservation.spec.ts",
+              "line": 169,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "Happy Path — API Başarılı",
+          "file": "reservation.spec.ts",
+          "line": 192,
+          "column": 6,
+          "specs": [
+            {
+              "title": "form doldur → gönder → success durumu görünüyor",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "failed",
+                      "duration": 9021,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#santis-modal-refid')\nExpected substring: \u001b[32m\"SANTIS-2026-TEST-001\"\u001b[39m\nReceived string:    \u001b[31m\"Referans No: REF-338610\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#santis-modal-refid')\u001b[22m\n\u001b[2m    9 × locator resolved to <p id=\"santis-modal-refid\">Referans No: REF-338610</p>\u001b[22m\n\u001b[2m      - unexpected value \"Referans No: REF-338610\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#santis-modal-refid')\nExpected substring: \u001b[32m\"SANTIS-2026-TEST-001\"\u001b[39m\nReceived string:    \u001b[31m\"Referans No: REF-338610\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#santis-modal-refid')\u001b[22m\n\u001b[2m    9 × locator resolved to <p id=\"santis-modal-refid\">Referans No: REF-338610</p>\u001b[22m\n\u001b[2m      - unexpected value \"Referans No: REF-338610\"\u001b[22m\n\n    at C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\e2e\\reservation.spec.ts:217:34",
+                        "location": {
+                          "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\e2e\\reservation.spec.ts",
+                          "column": 34,
+                          "line": 217
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 215 |\u001b[39m         \u001b[90m// Loading → Success geçişi\u001b[39m\n \u001b[90m 216 |\u001b[39m         \u001b[36mawait\u001b[39m expect(pg\u001b[33m.\u001b[39msuccessLayer)\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m15\u001b[39m_000 })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 217 |\u001b[39m         \u001b[36mawait\u001b[39m expect(pg\u001b[33m.\u001b[39mrefIdEl)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'SANTIS-2026-TEST-001'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 218 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 219 |\u001b[39m\n \u001b[90m 220 |\u001b[39m     test(\u001b[32m'başarı sonrası kapat butonu çalışıyor'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\e2e\\reservation.spec.ts",
+                            "column": 34,
+                            "line": 217
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#santis-modal-refid')\nExpected substring: \u001b[32m\"SANTIS-2026-TEST-001\"\u001b[39m\nReceived string:    \u001b[31m\"Referans No: REF-338610\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#santis-modal-refid')\u001b[22m\n\u001b[2m    9 × locator resolved to <p id=\"santis-modal-refid\">Referans No: REF-338610</p>\u001b[22m\n\u001b[2m      - unexpected value \"Referans No: REF-338610\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 215 |\u001b[39m         \u001b[90m// Loading → Success geçişi\u001b[39m\n \u001b[90m 216 |\u001b[39m         \u001b[36mawait\u001b[39m expect(pg\u001b[33m.\u001b[39msuccessLayer)\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m15\u001b[39m_000 })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 217 |\u001b[39m         \u001b[36mawait\u001b[39m expect(pg\u001b[33m.\u001b[39mrefIdEl)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'SANTIS-2026-TEST-001'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 218 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 219 |\u001b[39m\n \u001b[90m 220 |\u001b[39m     test(\u001b[32m'başarı sonrası kapat butonu çalışıyor'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\e2e\\reservation.spec.ts:217:34\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:14.856Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\artifacts\\reservation-Happy-Path-—-A-affbd--→-success-durumu-görünüyor-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\artifacts\\reservation-Happy-Path-—-A-affbd--→-success-durumu-görünüyor-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\artifacts\\reservation-Happy-Path-—-A-affbd--→-success-durumu-görünüyor-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\e2e\\reservation.spec.ts",
+                        "column": 34,
+                        "line": 217
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-f2beaabbf77e10fabfb2",
+              "file": "reservation.spec.ts",
+              "line": 194,
+              "column": 5
+            },
+            {
+              "title": "başarı sonrası kapat butonu çalışıyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4252,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:15.195Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-09b3e26ace71f06843da",
+              "file": "reservation.spec.ts",
+              "line": 220,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "WhatsApp Fallback — API Kapalı",
+          "file": "reservation.spec.ts",
+          "line": 248,
+          "column": 6,
+          "specs": [
+            {
+              "title": "API 500 hatasında WhatsApp penceresi açılıyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 15327,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:15.298Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-50bcbfadb253ad0b7c78",
+              "file": "reservation.spec.ts",
+              "line": 250,
+              "column": 5
+            },
+            {
+              "title": "API timeout (network yavaş) WhatsApp fallback tetikliyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 22267,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:17.993Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-8cc15182ec5a0189cfef",
+              "file": "reservation.spec.ts",
+              "line": 281,
+              "column": 5
+            },
+            {
+              "title": "rate limit (429) hatasında kullanıcıya mesaj gösteriliyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6918,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:19.462Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-951e3e549f545cb0d0cc",
+              "file": "reservation.spec.ts",
+              "line": 310,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "API İstek Doğrulama",
+          "file": "reservation.spec.ts",
+          "line": 343,
+          "column": 6,
+          "specs": [
+            {
+              "title": "doğru endpoint ve payload gönderiliyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 4272,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:25.002Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-973e0693df03e71d9609",
+              "file": "reservation.spec.ts",
+              "line": 345,
+              "column": 5
+            },
+            {
+              "title": "Content-Type application/json olarak gönderilmeli",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4134,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:26.393Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-8e8fa0ffce51d768c101",
+              "file": "reservation.spec.ts",
+              "line": 376,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "Erişilebilirlik",
+          "file": "reservation.spec.ts",
+          "line": 404,
+          "column": 6,
+          "specs": [
+            {
+              "title": "modal ARIA nitelikleri doğru",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 3962,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:29.404Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-2c92f6d4143154072db5",
+              "file": "reservation.spec.ts",
+              "line": 406,
+              "column": 5
+            },
+            {
+              "title": "kapat butonu aria-label içeriyor",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3868,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:30.546Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-d92db7745b644feb209b",
+              "file": "reservation.spec.ts",
+              "line": 417,
+              "column": 5
+            },
+            {
+              "title": "hero görselinin alt metni açıklayıcı",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1131,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:30.642Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-6d0f54888b40d69afa34",
+              "file": "reservation.spec.ts",
+              "line": 425,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "Mobil Deneyim",
+          "file": "reservation.spec.ts",
+          "line": 439,
+          "column": 6,
+          "specs": [
+            {
+              "title": "modal mobilde tam genişlik açılıyor",
+              "ok": false,
+              "tags": [
+                "mobile"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "failed",
+                      "duration": 3765,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m400\u001b[39m\nReceived:    \u001b[31m520\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m400\u001b[39m\nReceived:    \u001b[31m520\u001b[39m\n    at C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\e2e\\reservation.spec.ts:451:28",
+                        "location": {
+                          "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\e2e\\reservation.spec.ts",
+                          "column": 28,
+                          "line": 451
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 449 |\u001b[39m\n \u001b[90m 450 |\u001b[39m         \u001b[90m// min(520px, 92vw) — 390px ekranda 92*390/100 ≈ 359px\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 451 |\u001b[39m         expect(box\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mwidth)\u001b[33m.\u001b[39mtoBeLessThanOrEqual(\u001b[35m400\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 452 |\u001b[39m         expect(box\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mwidth)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m300\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 453 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 454 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\e2e\\reservation.spec.ts",
+                            "column": 28,
+                            "line": 451
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m400\u001b[39m\nReceived:    \u001b[31m520\u001b[39m\n\n\u001b[0m \u001b[90m 449 |\u001b[39m\n \u001b[90m 450 |\u001b[39m         \u001b[90m// min(520px, 92vw) — 390px ekranda 92*390/100 ≈ 359px\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 451 |\u001b[39m         expect(box\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mwidth)\u001b[33m.\u001b[39mtoBeLessThanOrEqual(\u001b[35m400\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 452 |\u001b[39m         expect(box\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mwidth)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m300\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 453 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 454 |\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\e2e\\reservation.spec.ts:451:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:31.794Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\artifacts\\reservation-Mobil-Deneyim--e3ccf-bilde-tam-genişlik-açılıyor-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\artifacts\\reservation-Mobil-Deneyim--e3ccf-bilde-tam-genişlik-açılıyor-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\artifacts\\reservation-Mobil-Deneyim--e3ccf-bilde-tam-genişlik-açılıyor-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Users\\tourg\\Desktop\\SANTIS_SITE\\tests\\e2e\\reservation.spec.ts",
+                        "column": 28,
+                        "line": 451
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-7f4997f90053ad22cfe0",
+              "file": "reservation.spec.ts",
+              "line": 441,
+              "column": 5
+            },
+            {
+              "title": "form input'ları mobilde touchable (≥44px)",
+              "ok": true,
+              "tags": [
+                "mobile"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 3706,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T22:02:33.387Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3612482aaacd88f2e168-ad6bf2a8772cbc431f13",
+              "file": "reservation.spec.ts",
+              "line": 455,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-05-07T22:02:04.475Z",
+    "duration": 36072.712999999996,
+    "expected": 22,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}
