@@ -22,7 +22,7 @@ const EXCLUDE_DIRS = new Set([
     'visual_checkpoints', 'test-results', '_deploy_stage',
     'demo', 'trends', 'print', 'sr', 'clinic-kiosk', 'guest-zen', 'tr', 'en',
     'tools', 'templates', 'packages', 'apps', 'admin-panel',
-    'app', 'api', 'alembic',
+    'app', 'api', 'alembic', 'tests', 'reports',
 ]);
 
 const EXCLUDE_FILES = new Set([
