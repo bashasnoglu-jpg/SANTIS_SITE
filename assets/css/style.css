@@ -8,33 +8,18 @@
 
 /* ÇEKİRDEK SİNİR SİSTEMİ BAĞLANTILARI */
 /* ✨ TAILWIND v4 ENGINE — Sovereign Utility Sistemi */
-@import "tailwindcss";
-
-@theme {
-    --color-santis-gold: #D4AF37;
-    --font-sans: 'Inter', sans-serif;
-    --font-serif: '"Playfair Display"', serif;
-    --font-mono: 'Space Mono', sans-serif;
-}
 
 @import url('santis-v6/santis.reset.css');
 @import url('santis-v6/santis.tokens.css');
 @import url('santis-v6/santis.engines.css');
-
-/* ESTETİK VE BİLEŞENLER */
 @import url('santis-v6/santis.base.css');
 @import url('santis-v6/santis.components.css');
 @import url('santis-v6/santis.utilities.css');
 @import url('santis-v6/santis.overrides.css');
-
-/* V5 UYUMLULUK KATMANI — V6 modülleri tüm kuralları kapsayana dek aktif */
 @import url('santis-v6/santis.legacy-compat.css');
 @import url('components.css'); /* GLOBAL ORPHAN FIX: Restores .santis-chip, Navbar Z-Index, and Legacy Cards */
-
 @import url('media-skeleton.css');
 @import url('view-transitions.css');
-
-/* PAGE MODULES — Temporary compatibility imports while HTML entrypoints converge */
 @import url('editorial.css');
 @import url('bento-grid.css');
 @import url('santis-v6/santis.bento-grid.css');
@@ -50,6 +35,16 @@
 @import url('santis-soul.css');
 @import url('modules/santis-cinematic.css');
 @import url('modules/santis-booking-funnel.css');
+
+@import "tailwindcss";
+
+@theme {
+    --color-santis-gold: #D4AF37;
+    --font-sans: 'Inter', sans-serif;
+    --font-serif: '"Playfair Display"', serif;
+    --font-mono: 'Space Mono', sans-serif;
+}
+
 
 
 /* --- Z-Index Master Map & Variables --- */

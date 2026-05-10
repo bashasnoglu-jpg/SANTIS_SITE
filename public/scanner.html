@@ -219,7 +219,7 @@
             const snapshotBase64 = renderer.domElement.toDataURL('image/png');
             const payload = {
                 tenantId: "tn_santis_club",
-                assetId: \`as_\${Math.random().toString(36).substr(2, 9)}\`,
+                assetId: `as_${Math.random().toString(36).substr(2, 9)}`,
                 stressLevel: Math.floor(uniforms.uAudioIntensity.value * 100),
                 planName: "Sovereign Choice",
                 snapshotBase64: snapshotBase64
