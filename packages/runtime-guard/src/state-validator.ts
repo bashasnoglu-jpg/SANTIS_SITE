@@ -25,7 +25,7 @@ export const CoreStateRuntimeSchema = z.object({
     hesitationAlerts: z.number().min(0).optional(),
     demandLevel: z.enum(['low', 'normal', 'high']).optional()
   }).partial().optional()
-}).passthrough();
+});
 
 export type CoreStateRuntime = z.infer<typeof CoreStateRuntimeSchema>;
 

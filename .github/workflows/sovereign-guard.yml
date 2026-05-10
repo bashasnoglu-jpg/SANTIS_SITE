@@ -65,7 +65,7 @@ jobs:
           import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
           import { join } from 'node:path';
 
-          const roots = ['apps', 'packages', 'src'];
+          const roots = ['apps', 'packages', 'src', 'core'];
           const allowedExtensions = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs']);
           const ignoredDirs = new Set(['node_modules', '.git', 'dist', 'build', '.next', 'coverage']);
           const patterns = [
