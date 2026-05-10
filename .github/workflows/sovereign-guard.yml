@@ -116,3 +116,6 @@ jobs:
 
           console.log('Sovereign Guard security checks passed.');
           NODE
+
+      - name: Deployment Simulation — Admin Panel
+        run: pnpm run build:vercel-admin-sim

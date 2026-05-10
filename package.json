@@ -12,6 +12,7 @@
     "onboard": "fnm use && pnpm install",
     "build": "pnpm build:mpa && turbo run build",
     "build:mpa": "pnpm exec vite build",
+    "build:vercel-admin-sim": "node scripts/build-vercel-admin-sim.mjs",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
