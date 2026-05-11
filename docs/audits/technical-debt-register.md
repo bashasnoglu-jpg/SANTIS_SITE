@@ -8,4 +8,4 @@
 | **D001** | Tasarım Sapması Adayı | `src/styles/colors.js` | Yüksek | Belirtilen dosya adı bulunamadı. Hardcoded HEX/design-token sapması için global Stitch/design-token taraması gerekir. | Stitch guard ve raw HEX taramasıyla gerçek sapmalar tespit edilecek. | ⚠️ Ghost Debt / Doğrulama Gerekli |
 | **E001** | Araç Borcu | `package-lock.json` & `pnpm-lock.yaml` | Yüksek | `Test-Path package-lock.json, pnpm-lock.yaml` sonucu: `False`, `True`. | Pnpm tek kaynak olarak korunacak; npm lockfile yeniden oluşursa gate ihlali sayılacak. | ✅ Çözüldü (package-lock yok) |
 | **F001** | Git Borcu | Dal isimlendirmesi | Orta | Standart dışı branch isimleri. | ABNF prefix sistemini uygula. | ⏳ Beklemede |
-| **G001** | Yönetişim Borcu | Repo Ayarları | Orta | PR şablonu ve CODEOWNERS eksikliği. | Standart şablon ve kuralları tanımla. | ⏳ Beklemede |
+| **G001** | Yönetişim Borcu | Repo Ayarları | Orta | PR şablonu ve CODEOWNERS eksikliği. | Standart şablon ve kuralları tanımla. | ✅ Çözüldü (Şablon oluşturuldu) |
