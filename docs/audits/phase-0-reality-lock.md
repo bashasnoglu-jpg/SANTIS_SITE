@@ -1,4 +1,4 @@
-# SANTIS OS — Phase 0 Reality Lock
+﻿# SANTIS OS — Phase 0 Reality Lock
 
 ## Date
 2026-05-09 (Audit initiated at 23:06:54+02:00)
@@ -6,10 +6,21 @@
 ## Goal
 Measure technical debt, identify dead code, stabilize Git flow, and define canonical development rules.
 
+<<<<<<< HEAD
 ## Current Canonical Branch
 - main: production / stable (Current: 55914218)
 - develop: integration / staging
 - phase-e-prod-deployment-readiness-seal: latest validated baseline branch
+=======
+| ID | Kategori | Dosya / Alan | Kritiklik | Kanıt | Önerilen Aksiyon | Durum |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **A001** | Ölü Kod Adayı | `src/telemetry/legacyWebsocket.js` | Kritik | Dosya fiziksel olarak bulunamadı (Ghost Debt). | Import graph üzerinden zombi logic analizi. |  Doğrulama Gerekli |
+| **B001** | Kopya UI Adayı | `src/components/NavbarOld.tsx` | Yüksek | Dosya fiziksel olarak bulunamadı (Ghost Debt). | Alternatif Navbar yolları taranmalı. |  Doğrulama Gerekli |
+| **C001** | Durum Sapması Adayı | `src/state/localStorageCache.ts` | Orta | Dosya fiziksel olarak bulunamadı (Ghost Debt). | CoreState dışı cache logic'leri taranmalı. |  Doğrulama Gerekli |
+| **D001** | Tasarım Sapması Adayı | `src/styles/colors.js` | Yüksek | Dosya fiziksel olarak bulunamadı (Ghost Debt). | Global HEX taraması ile gerçek sapmalar tespit edilmeli. |  Doğrulama Gerekli |
+| **E001** | Araç Borcu | `package-lock.json` & `pnpm-lock.yaml` | Yüksek | `Test-Path` sonucu: `False`, `True`. | Pnpm tek kaynak olarak korunacak. |  Çözüldü (package-lock yok) |
+| **G001** | Yönetişim Borcu | Repo Ayarları | Orta | PR şablonu eksikliği. | Standart şablon ve kuralları tanımla. |  Çözüldü (Şablon oluşturuldu) |
+>>>>>>> 7c720fc2 (docs(audit): align phase 0 reality lock with ghost debt status)
 
 ## Repo Health Snapshot (2026-05-09)
 
@@ -43,6 +54,7 @@ nothing to commit, working tree clean
 - Navigation/menu drift (Master JS blocks in app.js)
 
 ---
+<<<<<<< HEAD
 *Snapshot captured during Phase E closure and transition to Phase F.*
 
 ## 1. Gerçeklik Anlık Görüntüsü ve Sistemsel Analiz (Reality Snapshot Summary - 2026-05-11 Update)
@@ -87,3 +99,6 @@ Standart bir Çekme İsteği Şablonu (`.github/PULL_REQUEST_TEMPLATE.md`) ve Bi
 
 ## 10. Güvenli Temizlik ve Otomasyon
 Tüm temizlik işlemleri `_archive/` dizini üzerinden takip edilecek ve her dosya hareketi `archive-manifest.md` dosyasına kaydedilecektir.
+=======
+*Snapshot captured during Phase 0 Reality Lock baseline establishment.*
+>>>>>>> 7c720fc2 (docs(audit): align phase 0 reality lock with ghost debt status)
