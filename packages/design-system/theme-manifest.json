@@ -1,9 +1,9 @@
 {
   "meta": {
     "name": "Santis Visual Truth",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "source": "stitch-manual",
-    "updatedAt": "2026-05-11T11:30:00.000Z"
+    "updatedAt": "2026-05-11T12:00:00.000Z"
   },
   "colors": {
     "sovereign-dark": "#141416",
@@ -127,6 +127,14 @@
     "gold-inset-soft": "inset 0 0 80px rgba(212,175,55,0.10)",
     "gold-inset-medium": "inset 0 0 120px rgba(212,175,55,0.20)",
     "gold-inset-strong": "inset 0 0 150px rgba(212,175,55,0.30)"
+  },
+  "surface": {
+    "glass-dark": "rgba(10,10,10,0.85)",
+    "glass-nav": "rgba(18,16,14,0.95)",
+    "glass-nav-strong": "rgba(18,16,14,0.98)",
+    "glass-light": "rgba(255,255,255,0.05)",
+    "overlay-dim": "rgba(0,0,0,0.60)",
+    "overlay-heavy": "rgba(5,5,5,0.92)"
   },
   "zIndex": {
     "base": "0",
