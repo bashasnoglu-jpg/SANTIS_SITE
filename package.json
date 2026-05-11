@@ -10,7 +10,8 @@
   "scripts": {
     "env:check": "node -v",
     "onboard": "fnm use && pnpm install",
-    "prebuild": "pnpm run audit:visual",
+    "tokens:css": "node scripts/build-css-tokens.js",
+    "prebuild": "pnpm run tokens:css && pnpm run audit:visual",
     "build": "pnpm build:mpa && turbo run build",
     "build:mpa": "pnpm exec vite build",
     "build:vercel-admin-sim": "node scripts/build-vercel-admin-sim.mjs",
