@@ -68,7 +68,8 @@ inject_*.py
 # 🛑 Zombie/Quarantine Graveyard (Do Not Track)
 _dev_archives/
 _quarantine/
-_archive/
+# _archive/ is now tracked for Phase 0 Quarantine
+!_archive/phase-0-dead-code/.gitkeep
 _backup/
 backup_assets/
 backups/
