@@ -36,31 +36,16 @@ img {
     aspect-ratio: attr(width) / attr(height);
 }
 
-/*
- * ✅ CLS FIX #1: overflow-x:hidden MUST run before first paint.
- * When added via JS class (body.editorial-mode), removing the scrollbar
- * widens the layout by ~15px → triggers CLS 0.3-0.6 on Windows.
- * Setting it unconditionally here (in <head>-loaded CSS) prevents this.
- */
 html,
 body {
     overflow-x: hidden;
 }
 
-/*
- * ✅ CLS FIX #2: Pre-reserve header height so async navbar load
- * doesn't push main#santis-main down after first paint.
- */
 #santis-header {
     min-height: 90px;
     contain: layout style;
 }
 
-/*
- * ✅ CLS FIX #3: .sr-only MUST be position:absolute.
- * Without this, h1.sr-only is a normal block element that
- * takes up layout space → causes CLS when JS adds it after paint.
- */
 .sr-only {
     position: absolute !important;
     width: 1px !important;
@@ -73,964 +58,371 @@ body {
     border: 0 !important;
 }
 
-/*
- * ✅ CLS FIX #4: Hero section — contain:layout prevents cascade
- * when navbar pushes main down; hero doesn’t propagate the shift.
- */
 .santis-hero-campaign {
     contain: layout;
 }
 
-/* 1. TYPOGRAPHY (Editorial Override) */
 body.editorial-mode {
-    /* ✅ CLS Zero: JS artık inline style değil, sadece bu CSS property'yi değiştirir */
     background-color: var(--santis-v10-bg, var(--santis-bg, #0a0a09));
     color: var(--santis-ink);
-    /* overflow-x: hidden — removed: now pre-set on html/body above ✅ */
-    /* Sadece background-color paint katmanını izole et */
     will-change: background-color;
-    /* JS persona geçişlerinde layout kayması olmadan renk animasyonu */
     transition: background-color 4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-
-
 .editorial-title {
-
-    font-family: 'Playfair Display', serif;
-
-    /* Or similar serif */
-
+    font-family: var(--typography-families-editorial);
+    font-size: var(--typography-ladder-h1);
     font-weight: 500;
-
-    letter-spacing: -0.02em;
-
-    line-height: 1.1;
-
+    letter-spacing: var(--typography-letter-spacing-tight);
+    line-height: var(--typography-line-height-heading);
+    color: var(--colors-sovereign-ink);
+    z-index: var(--z-index-content);
 }
-
-
 
 .editorial-sub {
-
-    font-family: 'Inter', sans-serif;
-
+    font-family: var(--typography-families-body);
     text-transform: uppercase;
-
-    letter-spacing: 0.08em;
-
-    font-size: 0.85rem;
-
+    letter-spacing: var(--typography-letter-spacing-wide);
+    font-size: var(--typography-ladder-body-small);
     color: var(--santis-stone);
-
 }
-
-
 
 /* 2. GRAIN & ATMOSPHERE */
 
 .santis-grain-overlay {
-
     position: fixed;
-
     top: 0;
-
     left: 0;
-
     width: 100%;
-
     height: 100%;
-
     pointer-events: none;
-
-    z-index: var(--z-modal);
-    /* AUTO-CAPPED BY OMNI-CORE */
-
+    z-index: var(--z-index-modal);
     opacity: 0.04;
-
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-
     mix-blend-mode: multiply;
-
 }
-
-
 
 /* 3. BENTO GRID ENGINE */
 
 .editorial-grid-engine {
-
     width: 100%;
-
     max-width: 1440px;
-
     margin: 0 auto;
-
     padding: 0 4vw;
-
     box-sizing: border-box;
-
 }
-
-
 
 .main-grid {
-
     display: grid;
-
-    /* 12 col grid for desktop flexibility */
-
     grid-template-columns: repeat(12, 1fr);
-
     gap: 24px;
-
     grid-auto-rows: minmax(300px, auto);
-
 }
-
-
-
-/* Card Base (V3 Refined) */
 
 .bento-card {
-
     position: relative;
-
     border-radius: var(--radius-card);
-
-    /* 6px */
-
     overflow: hidden;
-
     background: #D8D6D1;
-
-    /* Placeholder gray */
-
     transition: transform 0.6s var(--ease-out-expo), box-shadow 0.6s var(--ease-out-expo);
-
     isolation: isolate;
-
     cursor: pointer;
-
     text-decoration: none;
-
     color: inherit;
-
     display: block;
-
-
-
-    /* V3 Luxury Border & Shadow */
-
     border: 1px solid rgba(255, 255, 255, 0.05);
-
-    /* Glass edge */
-
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-
-    /* Soft lift */
-
 }
-
-
 
 .bento-card img {
-
     width: 100%;
-
     height: 100%;
-
     object-fit: cover;
-
     transition: transform 1.2s var(--ease-out-expo), filter 0.6s ease;
-
     display: block;
-
 }
 
+.g-col-6 { grid-column: span 6; }
+.g-col-4 { grid-column: span 4; }
+.g-col-3 { grid-column: span 3; }
+.g-col-8 { grid-column: span 8; }
+.g-col-12 { grid-column: span 12; }
 
-
-/* Layout Variations (Classes from JSON) */
-
-.g-col-6 {
-
-    grid-column: span 6;
-
-}
-
-
-
-.g-col-4 {
-
-    grid-column: span 4;
-
-}
-
-
-
-.g-col-3 {
-
-    grid-column: span 3;
-
-}
-
-
-
-.g-col-8 {
-
-    grid-column: span 8;
-
-}
-
-
-
-.g-col-12 {
-
-    grid-column: span 12;
-
-}
-
-
-
-/* Aspect Ratios */
-
-.ratio-square {
-
-    aspect-ratio: 1 / 1;
-
-}
-
-
-
-.ratio-portrait {
-
-    aspect-ratio: 4 / 5;
-
-}
-
-
-
-.ratio-landscape {
-
-    aspect-ratio: 16 / 9;
-
-}
-
-
-
-.ratio-panoramic {
-
-    aspect-ratio: 21 / 9;
-
-}
-
-
-
-/* 4. SANTIS PHYSICS (Hover Effects) */
+.ratio-square { aspect-ratio: 1 / 1; }
+.ratio-portrait { aspect-ratio: 4 / 5; }
+.ratio-landscape { aspect-ratio: 16 / 9; }
+.ratio-panoramic { aspect-ratio: 21 / 9; }
 
 @media (hover: hover) {
-
     .bento-card:hover {
-
         transform: translateY(-4px) scale(1.005);
-
         box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
-
-        z-index: 2;
-
+        z-index: var(--z-index-content);
     }
-
-
 
     .bento-card:hover img {
-
         transform: scale(1.08);
-
-        /* Slow zoom */
-
         filter: contrast(1.05);
-
     }
-
 }
-
-
-
-/* 5. TYPOGRAPHY OVERLAY (Inside Card) */
 
 .card-overlay {
-
     position: absolute;
-
     bottom: 0;
-
     left: 0;
-
     width: 100%;
-
     padding: 32px;
-
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
-
-    color: white;
-
+    background: linear-gradient(to top, var(--glow-ink-shadow) 0%, transparent 100%);
+    color: var(--colors-sovereign-ink);
     transform: translateY(10px);
-
     opacity: 0.9;
-
     transition: transform 0.5s var(--ease-out-expo), opacity 0.5s ease;
-
+    z-index: var(--z-index-overlay);
 }
-
-
 
 .bento-card:hover .card-overlay {
-
     transform: translateY(0);
-
     opacity: 1;
-
 }
-
-
 
 .card-title {
-
-    font-family: 'Playfair Display', serif;
-
-    font-size: 1.8rem;
-
+    font-family: var(--typography-families-editorial);
+    font-size: var(--typography-ladder-h3);
+    line-height: var(--typography-line-height-heading);
+    color: var(--colors-sovereign-ink);
     margin: 0 0 8px 0;
-
     font-weight: 400;
-
+    z-index: var(--z-index-content);
 }
-
-
 
 .card-subtitle {
-
-    font-family: 'Inter', sans-serif;
-
-    font-size: 0.8rem;
-
-    letter-spacing: 0.1em;
-
+    font-family: var(--typography-families-body);
+    font-size: var(--typography-ladder-body-small);
+    letter-spacing: var(--typography-letter-spacing-wide);
     text-transform: uppercase;
-
     opacity: 0.8;
-
 }
-
-
-
-/* 6. UTILITIES */
 
 .reveal-on-scroll {
-
     opacity: 0;
-
     transform: translateY(30px);
-
     transition: opacity 1s ease, transform 1s var(--ease-out-expo);
-
 }
-
-
 
 .reveal-visible {
-
     opacity: 1;
-
     transform: translateY(0);
-
 }
 
-
-
-/* Stagger Delays */
-
-.reveal-delay-1 {
-
-    transition-delay: 0.1s;
-
-}
-
-
-
-.reveal-delay-2 {
-
-    transition-delay: 0.2s;
-
-}
-
-
-
-.reveal-delay-3 {
-
-    transition-delay: 0.3s;
-
-}
-
-
-
-/* RESPONSIVE */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
 
 @media (max-width: 1024px) {
-
-    .main-grid {
-
-        grid-template-columns: repeat(6, 1fr);
-
-    }
-
-
-
+    .main-grid { grid-template-columns: repeat(6, 1fr); }
     .g-col-4,
-
-    .g-col-3 {
-
-        grid-column: span 3;
-
-    }
-
-
-
-    /* 2 per row */
-
+    .g-col-3 { grid-column: span 3; }
     .g-col-6,
-
-    .g-col-8 {
-
-        grid-column: span 6;
-
-    }
-
-
-
-    /* Full width */
-
+    .g-col-8 { grid-column: span 6; }
 }
 
-
-
 @media (max-width: 768px) {
-
-    .editorial-grid-engine {
-
-        padding: 0 20px;
-
-    }
-
-
+    .editorial-grid-engine { padding: 0 20px; }
 
     .main-grid {
-
         display: flex;
-
         flex-direction: column;
-
         gap: 32px;
-
     }
-
-
 
     .bento-card {
-
         aspect-ratio: 4/5 !important;
-
-        /* Force portrait on mobile for impact */
-
         max-height: 60vh;
-
     }
 
-
-
-    /* Mobile Snap Scroll (Active Module) */
-
     .main-grid {
-
         display: grid;
-
         grid-auto-flow: column;
-
         grid-auto-columns: 85%;
-
         overflow-x: auto;
-
         scroll-snap-type: x mandatory;
-
         padding-bottom: 20px;
-
         gap: 16px;
-
-        /* Reduced gap for mobile */
-
-        /* Hide scrollbar */
-
         -ms-overflow-style: none;
 
-
-
-        /* IE and Edge */
-
-        /* Hide scrollbar Firefox */
-
         @supports (scrollbar-width: none) {
-
             scrollbar-width: none;
-
         }
-
     }
 
-
-
-    .main-grid::-webkit-scrollbar {
-
-        display: none;
-
-        /* Chrome, Safari and Opera */
-
-    }
-
-
+    .main-grid::-webkit-scrollbar { display: none; }
 
     .bento-card {
-
         scroll-snap-align: center;
-
-        /* Ensure aspect ratio handles content */
-
         aspect-ratio: 4/5;
-
         width: 100%;
-
     }
-
 }
-
-
-
-/* 7. CINEMATIC HERO (Video Background) */
 
 .cinematic-hero {
-
     position: relative;
-
     width: 100%;
-
     height: 90vh;
-
-    /* Fullscreen impact */
-
     min-height: 600px;
-
     overflow: hidden;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     text-align: center;
-
-    background: #000;
-
-    /* Preload bg */
-
+    background: var(--colors-sovereign-black);
 }
-
-
 
 .hero-video-container {
-
     position: absolute;
-
     top: 0;
-
     left: 0;
-
     width: 100%;
-
     height: 100%;
-
-    z-index: 1;
-
+    z-index: var(--z-index-base);
 }
-
-
 
 .hero-video {
-
     width: 100%;
-
     height: 100%;
-
     object-fit: cover;
-
     opacity: 0.7;
-
-    /* Dim video slightly */
-
 }
-
-
 
 .hero-fallback-img {
-
     display: none;
-
-    /* Shown via JS or CSS media query */
-
     width: 100%;
-
     height: 100%;
-
     object-fit: cover;
-
 }
-
-
-
-/* Gradient Overlay for Text Readability */
 
 .hero-gradient-overlay {
-
     position: absolute;
-
     top: 0;
-
     left: 0;
-
     width: 100%;
-
     height: 100%;
-
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 50%);
-
-    z-index: 2;
-
+    background: linear-gradient(to top, var(--glow-ink-shadow), transparent 50%);
+    z-index: var(--z-index-overlay);
 }
-
-
 
 .cinematic-hero .santis-grain-overlay {
-
-    z-index: 3;
-
-    /* Grain on top of video */
-
+    z-index: var(--z-index-overlay);
 }
-
-
 
 .hero-content {
-
     position: relative;
-
-    z-index: 10;
-
-    color: #fff;
-
+    z-index: var(--z-index-content);
+    color: var(--colors-sovereign-ink);
     max-width: 800px;
-
 }
-
-
 
 .santis-kicker {
-
     display: block;
-
-    font-family: 'Inter', sans-serif;
-
-    font-size: 0.85rem;
-
-    letter-spacing: 0.2em;
-
+    font-family: var(--typography-families-body);
+    font-size: var(--typography-ladder-kicker);
+    letter-spacing: var(--typography-letter-spacing-kicker);
     text-transform: uppercase;
-
-    color: rgba(255, 255, 255, 0.8);
-
+    color: var(--colors-sovereign-gold);
     margin-bottom: 24px;
-
 }
-
-
 
 .hero-title {
-
-    font-family: 'Playfair Display', serif;
-
-    font-size: 5rem;
-
-    line-height: 1.1;
-
+    font-family: var(--typography-families-heading);
+    font-size: var(--typography-ladder-hero);
+    line-height: var(--typography-line-height-heading);
     font-weight: 500;
-
     margin-bottom: 24px;
-
-    letter-spacing: -0.02em;
-
+    letter-spacing: var(--typography-letter-spacing-tight);
+    color: var(--colors-sovereign-ink);
 }
-
-
 
 .hero-subtitle {
-
-    font-family: 'Inter', sans-serif;
-
-    font-size: 1.1rem;
-
+    font-family: var(--typography-families-body);
+    font-size: var(--typography-ladder-body-large);
     font-weight: 300;
-
-    color: rgba(255, 255, 255, 0.9);
-
+    color: var(--colors-sovereign-text);
     max-width: 600px;
-
     margin: 0 auto;
-
-    line-height: 1.6;
-
+    line-height: var(--typography-line-height-body);
 }
-
-
-
-/* Scroll Indication */
 
 .scroll-indicator {
-
     position: absolute;
-
     bottom: 40px;
-
     left: 50%;
-
     transform: translateX(-50%);
-
-    z-index: 10;
-
+    z-index: var(--z-index-content);
     opacity: 0.7;
-
     animation: bounce 2s infinite;
-
 }
-
-
 
 .mouse-icon {
-
     display: block;
-
     width: 26px;
-
     height: 42px;
-
     border: 2px solid rgba(255, 255, 255, 0.6);
-
     border-radius: 14px;
-
     position: relative;
-
 }
-
-
 
 .mouse-icon::after {
-
     content: '';
-
     position: absolute;
-
     top: 6px;
-
     left: 50%;
-
     margin-left: -2px;
-
     width: 4px;
-
     height: 4px;
-
-    background: #fff;
-
+    background: var(--colors-sovereign-ink);
     border-radius: 50%;
-
     animation: scrollWheel 2s infinite;
-
 }
-
-
 
 @keyframes scrollWheel {
-
-    0% {
-
-        transform: translateY(0);
-
-        opacity: 1;
-
-    }
-
-
-
-    100% {
-
-        transform: translateY(12px);
-
-        opacity: 0;
-
-    }
-
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(12px); opacity: 0; }
 }
-
-
 
 @keyframes bounce {
-
-
-
-    0%,
-
-    20%,
-
-    50%,
-
-    80%,
-
-    100% {
-
-        transform: translateX(-50%) translateY(0);
-
-    }
-
-
-
-    40% {
-
-        transform: translateX(-50%) translateY(10px);
-
-    }
-
-
-
-    60% {
-
-        transform: translateX(-50%) translateY(5px);
-
-    }
-
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(10px); }
+    60% { transform: translateX(-50%) translateY(5px); }
 }
 
-
-
-/* Animation Utilities */
-
-.slide-up-1 {
-
-    animation: fadeInUp 1s ease 0.2s backwards;
-
-}
-
-
-
-.slide-up-2 {
-
-    animation: fadeInUp 1s ease 0.4s backwards;
-
-}
-
-
-
-.slide-up-3 {
-
-    animation: fadeInUp 1s ease 0.6s backwards;
-
-}
-
-
+.slide-up-1 { animation: fadeInUp 1s ease 0.2s backwards; }
+.slide-up-2 { animation: fadeInUp 1s ease 0.4s backwards; }
+.slide-up-3 { animation: fadeInUp 1s ease 0.6s backwards; }
 
 @keyframes fadeInUp {
-
-    from {
-
-        opacity: 0;
-
-        transform: translateY(30px);
-
-    }
-
-
-
-    to {
-
-        opacity: 1;
-
-        transform: translateY(0);
-
-    }
-
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-
-
 
 @media (max-width: 768px) {
-
     .cinematic-hero {
-
         height: 80vh;
-
         min-height: 500px;
-
     }
-
-
 
     .hero-title {
-
-        font-size: 3.2rem;
-
-        line-height: 1.15;
-
+        font-size: var(--typography-ladder-h1);
+        line-height: var(--typography-line-height-heading);
     }
-
-
 
     .hero-subtitle {
-
-        font-size: 1rem;
-
+        font-size: var(--typography-ladder-body-base);
         padding: 0 20px;
-
     }
 
-
-
-    /* MOBILE POWER SAVING & PERFORMANCE */
-
-    /* Hide video completely from layout on mobile primarily for battery/data */
-
-    .hero-video {
-
-        display: none !important;
-
-    }
-
-
-
-    .hero-fallback-img {
-
-        display: block !important;
-
-    }
-
+    .hero-video { display: none !important; }
+    .hero-fallback-img { display: block !important; }
 }
 
-/* 8. SOVEREIGN SKELETON UI (V2.2.1) */
 .skeleton-card {
     background: linear-gradient(90deg, #141416 25%, #1e1e20 50%, #141416 75%);
     background-size: 200% 100%;
@@ -1043,16 +435,10 @@ body.editorial-mode {
 }
 
 @keyframes sovereign-shimmer {
-    0% {
-        background-position: 200% 0;
-    }
-
-    100% {
-        background-position: -200% 0;
-    }
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
 
-/* --- 9. DUNYA RITUELI: CULTURE VISUAL LAYOUT FIX --- */
 .culture-visual {
     border-radius: 16px;
     overflow: hidden;
@@ -1069,13 +455,11 @@ body.editorial-mode {
     border-radius: 16px;
 }
 
-/* SANTIS OMNIVERSE - ZERO-JANK DİL MATRİSİ [PHASE 37] */
 html[lang="tr"] [data-lang="en"],
 html[lang="en"] [data-lang="tr"] {
     display: none !important;
 }
 
-/* Kuantum Kırılma (Refraction) Efekti - Dil değişirken sıvı gibi belirir */
 .santis-lang-shifting [data-lang] {
     animation: santis-text-refraction 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
@@ -1085,13 +469,12 @@ html[lang="en"] [data-lang="tr"] {
     100% { opacity: 1; filter: blur(0); transform: translateY(0); }
 }
 
-/* SANTIS AURELIA VISUAL FEEDBACK [PHASE 38] */
 body.santis-aurelia-listening::after,
 body.santis-aurelia-speaking::after {
     content: '';
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh; height: 100svh;
-    box-shadow: inset 0 0 100px rgba(212, 175, 55, 0.15); /* Vanta Gold Glow */
+    box-shadow: inset 0 0 100px rgba(212, 175, 55, 0.15);
     pointer-events: none;
     z-index: 9999;
 }
@@ -1113,16 +496,9 @@ body.santis-aurelia-speaking::after {
     0% { box-shadow: inset 0 0 80px rgba(212, 175, 55, 0.1); opacity: 0.5;}
     100% { box-shadow: inset 0 0 120px rgba(212, 175, 55, 0.2); opacity: 1;}
 }
-/* EMERGENCY FIX: Navbar Görünürlüğü */
+
 body.solid-nav-page .sovereign-brand-bar { background: rgba(18, 16, 14, 0.95) !important; }
 body.solid-nav-page .sovereign-nav { z-index: 9999 !important; }
-
-
-/* EMERGENCY FIX: Global Padding Bypass */
 body.editorial-mode main#santis-main { padding-top: 120px !important; }
-
-
-/* POINTER EVENTS OVERRIDE */
 body.solid-nav-page #navbar-container { z-index: 2147483647 !important; pointer-events: auto !important; }
 body.solid-nav-page .sovereign-nav { pointer-events: auto !important; }
-
