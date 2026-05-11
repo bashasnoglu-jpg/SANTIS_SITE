@@ -1,9 +1,9 @@
 {
   "meta": {
     "name": "Santis Visual Truth",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "source": "stitch-manual",
-    "updatedAt": "2026-04-23T06:13:13.984Z"
+    "updatedAt": "2026-05-11T10:00:00.000Z"
   },
   "colors": {
     "sovereign-dark": "#141416",
@@ -46,14 +46,8 @@
     "sovereign-signal-therapist": "#3730a3"
   },
   "fontFamily": {
-    "heading": [
-      "Cinzel",
-      "serif"
-    ],
-    "body": [
-      "Inter",
-      "sans-serif"
-    ]
+    "heading": ["Cinzel", "serif"],
+    "body": ["Inter", "sans-serif"]
   },
   "fontSize": {
     "micro": "10px",
@@ -67,6 +61,34 @@
     "2xl": "1.5rem",
     "3xl": "1.875rem",
     "4xl": "2.25rem"
+  },
+  "typography": {
+    "families": {
+      "heading": "Cinzel, serif",
+      "editorial": "Playfair Display, serif",
+      "body": "Inter, sans-serif"
+    },
+    "ladder": {
+      "hero": "clamp(3rem, 7vw, 5rem)",
+      "h1": "clamp(2.5rem, 5vw, 4rem)",
+      "h2": "clamp(2rem, 4vw, 3.5rem)",
+      "h3": "clamp(1.5rem, 3vw, 2.5rem)",
+      "body-large": "1.125rem",
+      "body-base": "1rem",
+      "body-small": "0.875rem",
+      "kicker": "0.75rem"
+    },
+    "letterSpacing": {
+      "tight": "-0.03em",
+      "normal": "0",
+      "wide": "0.05em",
+      "kicker": "0.16em"
+    },
+    "lineHeight": {
+      "tight": "1.05",
+      "heading": "1.1",
+      "body": "1.7"
+    }
   },
   "spacing": {
     "0": "0rem",
@@ -93,6 +115,28 @@
     "soft": "0 10px 30px rgba(0,0,0,0.18)",
     "luxury": "0 18px 60px rgba(0,0,0,0.28)",
     "accent-glow": "0 0 8px rgba(194,168,120,0.45)"
+  },
+  "zIndex": {
+    "base": "0",
+    "content": "10",
+    "nav": "100",
+    "overlay": "300",
+    "modal": "500",
+    "command": "800",
+    "emergency": "999"
+  },
+  "opacity": {
+    "transparent": "0",
+    "subtle": "0.15",
+    "soft": "0.30",
+    "medium": "0.50",
+    "heavy": "0.80",
+    "solid": "1"
+  },
+  "glow": {
+    "gold-soft": "rgba(212,175,55,0.15)",
+    "gold-strong": "rgba(212,175,55,0.40)",
+    "ink-shadow": "rgba(10,10,10,0.80)"
   },
   "easing": {
     "sovereign": "cubic-bezier(0.22, 1, 0.36, 1)"
