@@ -1,4 +1,4 @@
-# SANTIS OS Branch Policy
+﻿# SANTIS OS Branch Policy
 
 ## Protected Branches
 
@@ -29,6 +29,7 @@ Valid:
 - refactor/corestate-contracts
 - docs/recovery-roadmap
 - hotfix/cors-origin-policy
+- archive/legacy-feature
 
 Invalid:
 
