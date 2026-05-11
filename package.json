@@ -10,6 +10,7 @@
   "scripts": {
     "env:check": "node -v",
     "onboard": "fnm use && pnpm install",
+    "prebuild": "pnpm run audit:visual",
     "build": "pnpm build:mpa && turbo run build",
     "build:mpa": "pnpm exec vite build",
     "build:vercel-admin-sim": "node scripts/build-vercel-admin-sim.mjs",
@@ -27,7 +28,8 @@
     "audit:contract": "turbo run audit:contract",
     "audit:runtime": "node scripts/audit-runtime-contract.js",
     "audit:localhost": "node scripts/audit-localhost-leak.js",
-    "audit:all": "pnpm run audit:environment && pnpm run audit:workspace && pnpm run audit:contract && pnpm run audit:localhost"
+    "audit:visual": "node scripts/audit-visual-hierarchy.js",
+    "audit:all": "pnpm run audit:environment && pnpm run audit:workspace && pnpm run audit:contract && pnpm run audit:localhost && pnpm run audit:visual"
   },
   "dependencies": {
     "postcss": "^8.5.14",
