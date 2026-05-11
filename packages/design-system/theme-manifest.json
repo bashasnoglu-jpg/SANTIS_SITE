@@ -1,9 +1,9 @@
 {
   "meta": {
     "name": "Santis Visual Truth",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "source": "stitch-manual",
-    "updatedAt": "2026-05-11T10:30:00.000Z"
+    "updatedAt": "2026-05-11T11:00:00.000Z"
   },
   "colors": {
     "sovereign-dark": "#141416",
@@ -114,7 +114,12 @@
   "shadow": {
     "soft": "0 10px 30px rgba(0,0,0,0.18)",
     "luxury": "0 18px 60px rgba(0,0,0,0.28)",
-    "accent-glow": "0 0 8px rgba(194,168,120,0.45)"
+    "accent-glow": "0 0 8px rgba(194,168,120,0.45)",
+    "lift-soft": "0 10px 40px rgba(0,0,0,0.05)",
+    "lift-hover": "0 20px 40px -10px rgba(0,0,0,0.15)",
+    "gold-inset-soft": "inset 0 0 80px rgba(212,175,55,0.10)",
+    "gold-inset-medium": "inset 0 0 120px rgba(212,175,55,0.20)",
+    "gold-inset-strong": "inset 0 0 150px rgba(212,175,55,0.30)"
   },
   "zIndex": {
     "base": "0",
@@ -144,7 +149,15 @@
       "fast": "240ms",
       "normal": "400ms",
       "slow": "800ms",
-      "cinematic": "1400ms"
+      "cinematic": "1400ms",
+      "ambient": "3000ms"
+    },
+    "delay": {
+      "none": "0ms",
+      "short": "100ms",
+      "medium": "200ms",
+      "long": "400ms",
+      "extended": "600ms"
     },
     "distance": {
       "micro": "4px",
