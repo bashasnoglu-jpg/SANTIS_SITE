@@ -1,4 +1,4 @@
-﻿# SANTIS OS  Phase 0 Reality Lock
+# SANTIS OS — Phase 0 Reality Lock
 
 ## 1. Reality Snapshot Summary
 
@@ -6,16 +6,16 @@ SANTIS_SITE deposunda CoreState SSOT ve deterministik mimari hedeflerini baltala
 
 Bu raporun amacı kod silmek değil; önce gerçekliği mühürlemek, aday borçları sınıflandırmak, kanıtı olmayan iddiaları "Ghost Debt" olarak işaretlemek ve güvenli temizlik sürecini tanımlamaktır.
 
-## 2. Technical Debt Register  Reality Lock View
+## 2. Technical Debt Register — Reality Lock View
 
 | ID | Kategori | Dosya / Alan | Kritiklik | Kanıt | Önerilen Aksiyon | Durum |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **A001** | Ölü Kod Adayı | `src/telemetry/legacyWebsocket.js` | Kritik | Dosya fiziksel olarak bulunamadı (Ghost Debt). | Import graph üzerinden zombi logic analizi. |  Doğrulama Gerekli |
-| **B001** | Kopya UI Adayı | `src/components/NavbarOld.tsx` | Yüksek | Dosya fiziksel olarak bulunamadı (Ghost Debt). | Alternatif Navbar yolları taranmalı. |  Doğrulama Gerekli |
-| **C001** | Durum Sapması Adayı | `src/state/localStorageCache.ts` | Orta | Dosya fiziksel olarak bulunamadı (Ghost Debt). | CoreState dışı cache logic'leri taranmalı. |  Doğrulama Gerekli |
-| **D001** | Tasarım Sapması Adayı | `src/styles/colors.js` | Yüksek | Dosya fiziksel olarak bulunamadı (Ghost Debt). | Global HEX taraması ile gerçek sapmalar tespit edilmeli. |  Doğrulama Gerekli |
-| **E001** | Araç Borcu | `package-lock.json` & `pnpm-lock.yaml` | Yüksek | `Test-Path` sonucu: `False`, `True`. | Pnpm tek kaynak olarak korunacak. |  Çözüldü (package-lock yok) |
-| **G001** | Yönetişim Borcu | Repo Ayarları | Orta | PR şablonu eksikliği. | Standart şablon ve kuralları tanımla. |  Çözüldü (Şablon oluşturuldu) |
+| **A001** | Ölü Kod Adayı | `src/telemetry/legacyWebsocket.js` | Kritik | Dosya fiziksel olarak bulunamadı (Ghost Debt). | Import graph üzerinden zombi logic analizi. | Doğrulama Gerekli |
+| **B001** | Kopya UI Adayı | `src/components/NavbarOld.tsx` | Yüksek | Dosya fiziksel olarak bulunamadı (Ghost Debt). | Alternatif Navbar yolları taranmalı. | Doğrulama Gerekli |
+| **C001** | Durum Sapması Adayı | `src/state/localStorageCache.ts` | Orta | Dosya fiziksel olarak bulunamadı (Ghost Debt). | CoreState dışı cache logic'leri taranmalı. | Doğrulama Gerekli |
+| **D001** | Tasarım Sapması Adayı | `src/styles/colors.js` | Yüksek | Dosya fiziksel olarak bulunamadı (Ghost Debt). | Global HEX taraması ile gerçek sapmalar tespit edilmeli. | Doğrulama Gerekli |
+| **E001** | Araç Borcu | `package-lock.json` & `pnpm-lock.yaml` | Yüksek | `Test-Path` sonucu: `False`, `True`. | Pnpm tek kaynak olarak korunacak. | Çözüldü (package-lock yok) |
+| **G001** | Yönetişim Borcu | Repo Ayarları | Orta | PR şablonu eksikliği. | Standart şablon ve kuralları tanımla. | Çözüldü (Şablon oluşturuldu) |
 
 ## 3. Additional Phase 0 Audit Buckets
 
