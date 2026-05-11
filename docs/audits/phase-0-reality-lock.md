@@ -1,15 +1,54 @@
 # SANTIS OS — Phase 0 Reality Lock
 
-## 1. Gerçeklik Anlık Görüntüsü ve Sistemsel Analiz (Reality Snapshot Summary)
+## Date
+2026-05-09 (Audit initiated at 23:06:54+02:00)
+
+## Goal
+Measure technical debt, identify dead code, stabilize Git flow, and define canonical development rules.
+
+## Current Canonical Branch
+- main: production / stable (Current: 55914218)
+- develop: integration / staging
+- phase-e-prod-deployment-readiness-seal: latest validated baseline branch
+
+## Repo Health Snapshot (2026-05-09)
+
+### Git Status
+```text
+On branch main
+Your branch is up to date with 'origin/main'.
+nothing to commit, working tree clean
+```
+
+### Active Phase Tags
+- `phase-e-deployment-baseline-seal` (55914218) ✅
+- `phase-d-port-ssot-env-hygiene-seal` (e5b5f72e) ✅
+- `phase-b-zombie-code-archive-seal` (f0e76a57) ✅
+- `phase-4-runtime-visual-truth-seal` (5ff22cbb) ✅
+
+### Branch Sprawl Audit
+- Total remote branches detected: 110+
+- Heavy Copilot/Automated branch activity (80+ branches)
+- Active feature/fix branches awaiting cleanup.
+
+## Audit Areas
+- Branch sprawl (High Priority)
+- Dead files (In-progress via _archive)
+- Duplicate UI systems (Legacy V5 vs V6)
+- Unused JavaScript (Build-blocking scripts detected)
+- Broken imports (PostCSS/Tailwind v4 sequence)
+- Mixed package managers (pnpm standard enforced)
+- Build/deploy instability (Unified Build established)
+- Design token drift (Stitch enforced)
+- Navigation/menu drift (Master JS blocks in app.js)
+
+---
+*Snapshot captured during Phase E closure and transition to Phase F.*
+
+## 1. Gerçeklik Anlık Görüntüsü ve Sistemsel Analiz (Reality Snapshot Summary - 2026-05-11 Update)
 SANTIS_SITE deposu üzerinde gerçekleştirilen kapsamlı mimari denetim, mevcut kod tabanında Tek Kaynaktan Doğruluk (Single Source of Truth - SSOT) ve deterministik mimari hedeflerini baltalayan kritik yapısal sorunları gün yüzüne çıkarmıştır. Sistemin mevcut durumunda, geliştirme süreçlerini yavaşlatan, bakım maliyetlerini artıran ve sürüm yönetimini istikrarsızlaştıran çok sayıda teknik borç ve mimari sapma tespit edilmiştir. Yazılım mühendisliği literatüründe "yazılım çürümesi" (software rot veya code decay) olarak adlandırılan bu durum, kod tabanının zaman içinde yeni gereksinimlere uyum sağlayamaması, eski tasarım kararlarının tortulaşması ve sürekli yeniden yapılandırma (refactoring) eksikliği nedeniyle ortaya çıkmaktadır. SANTIS_SITE deposunda gözlemlenen bu çürüme, özellikle dal (branch) yönetimindeki karmaşıklık, standart bir önek (prefix) sisteminin bulunmaması ve işlevini yitirmiş eski phase dallarının depoda birikmesiyle versiyon kontrol sisteminin sağlığını ciddi şekilde tehdit etmektedir.
 
-Kod tabanının derinlemesine analizi, kullanılmayan bileşenlerin ve eski (legacy) kod bloklarının (örneğin, aktif olmayan WebSocket ve telemetri modülleri) depoda birikerek ciddi bir "ölü kod" (dead code) veya "zombi kod" (zombie code) yükü oluşturduğunu göstermektedir. Ölü kod, projenin derleme süresini uzatan, bağımlılık ağacını şişiren ve bakım maliyetlerini katlanarak artıran ciddi bir anti-desendir (anti-pattern). Ölü kodların depoda tutulması, yalnızca teknik bir kalabalık yaratmakla kalmaz, aynı zamanda gelecekteki yeniden yapılandırma çabalarında geliştiricilerin bilişsel yükünü (cognitive load) artırır ve beklenmedik mantıksal hatalara zemin hazırlar.
-
-Kullanıcı arayüzü (UI) bileşenlerinde birden fazla navigasyon (navbar), alt bilgi (footer) ve menü sisteminin aynı anda var olması, "Kopya UI" (Duplicate UI) sorununu doğurmaktadır. Bu tür yapısal tekrarlar, uygulamanın görsel tutarlılığını bozmakla kalmaz, aynı zamanda durum (state) yönetiminde senkronizasyon hatalarına yol açar.
-
-Ayrıca, sistem genelinde ciddi tasarım kararlılık sapmaları (Design Drift) gözlenmiştir. Stil dosyalarında ve React bileşenlerinde doğrudan kodlanmış (hardcoded) HEX renk değerlerinin (örneğin #FF0000) kullanılması, tasarım sisteminin (Design System) tek merkezden yönetilebilirliğini ortadan kaldırmaktadır.
-
-Özetle, SANTIS_SITE deposunun mevcut mimarisi, üretime hazır ve tamamen deterministik bir ürün sisteminden uzaktır. Sorunlu dosyaların, dalların ve mimari darboğazların güvenli bir şekilde belgelendirilip aşamalı bir temizlik (Safe Cleanup) sürecine tabi tutulması gerekmektedir.
+Kod tabanının derinlemesine analizi, kullanılmayan bileşenlerin ve eski (legacy) kod bloklarının (örneğin, aktif olmayan WebSocket ve telemetri modülleri) depoda birikerek ciddi bir "ölü kod" (dead code) veya "zombi kod" (zombie code) yükü oluşturduğunu göstermektedir. Ölü kod, projenin derleme süresini uzatan, bağımlılık ağacını şişiren ve bakım maliyetlerini katlanarak artıran ciddi bir anti-desendir (anti-pattern).
 
 ## 2. Teknik Borç Kaydı ve Derinlemesine Analiz (Technical Debt Register)
 *Bkz. [Technical Debt Register](./technical-debt-register.md)*
