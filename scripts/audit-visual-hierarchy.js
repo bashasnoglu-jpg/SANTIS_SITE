@@ -25,8 +25,8 @@ const RULES = [
   },
   {
     name: 'Raw Font Size',
-    regex: /font-size:\\s*\\d+(rem|px|em|vh|vw)/g,
-    message: 'Token dışı font-size bulundu.'
+    regex: /font-size:\\s*\\d*\\.?\\d+(rem|px|em|vh|vw)/g,
+    message: 'Manuel font-size tespit edildi. Tipografi merdiveni tokenlarını kullanın.'
   }
 ];
 
