@@ -44,7 +44,22 @@ if (!fs.existsSync(manifestPath)) {
 }
 
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-const tokenSections = ['colors', 'fontFamily', 'fontSize', 'typography', 'spacing', 'radius', 'shadow', 'zIndex', 'opacity', 'glow', 'easing'];
+
+const tokenSections = [
+  'colors',
+  'fontFamily',
+  'fontSize',
+  'typography',
+  'spacing',
+  'radius',
+  'shadow',
+  'zIndex',
+  'opacity',
+  'glow',
+  'motion',
+  'easing'
+];
+
 const tokens = [];
 
 tokenSections.forEach(section => {
