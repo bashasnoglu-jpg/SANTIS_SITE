@@ -56,6 +56,7 @@ const tokenSections = [
   'zIndex',
   'opacity',
   'glow',
+  'surface',
   'motion',
   'easing'
 ];
