@@ -34,6 +34,11 @@ const RULES = [
     message: 'Raw motion duration bulundu. Motion kernel duration tokenlarını kullanın.'
   },
   {
+    name: 'Raw Motion Delay',
+    regex: /(transition-delay|animation-delay)\\s*:\\s*\\d*\\.?\\d+s/g,
+    message: 'Raw motion delay bulundu. Motion kernel delay tokenlarını kullanın.'
+  },
+  {
     name: 'Raw Transform Distance',
     regex: /translate[XY]?\\(\\d+px\\)/g,
     message: 'Raw transform distance bulundu. Motion kernel distance tokenlarını kullanın.'
@@ -42,6 +47,11 @@ const RULES = [
     name: 'Raw Blur Value',
     regex: /blur\\(\\d+px\\)/g,
     message: 'Raw blur değeri bulundu. Motion kernel blur tokenlarını kullanın.'
+  },
+  {
+    name: 'Raw Box Shadow',
+    regex: /box-shadow:\\s*(?!var\\()([^;]+)/g,
+    message: 'Raw box-shadow bulundu. Shadow orchestration tokenlarını kullanın.'
   }
 ];
 
