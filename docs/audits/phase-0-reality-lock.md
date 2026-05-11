@@ -1,46 +1,27 @@
-# SANTIS OS — Phase 0 Reality Lock
+﻿# SANTIS OS — Phase 0 Reality Lock
 
-## Date
-2026-05-09 (Audit initiated at 23:06:54+02:00)
+## Technical Debt Register
 
-## Goal
-Measure technical debt, identify dead code, stabilize Git flow, and define canonical development rules.
+| ID | Category | File/Area | Severity | Evidence | Action |
+|---|---|---|---|---|---|
+| TD-001 | Git | old phase branches | High | multiple long-running branches | classify/archive |
+| TD-002 | Tooling | package-lock.json | High | pnpm is canonical | remove if pnpm-lock exists |
+| TD-003 | UI | duplicate nav systems | Critical | multiple nav files | select SSOT |
+| TD-004 | Design | hardcoded colors | Medium | hex values found | migrate to tokens |
+| TD-005 | State | legacy websocket | High | duplicate realtime channels | normalize to SSE/CoreState |
 
-## Current Canonical Branch
-- main: production / stable (Current: 55914218)
-- develop: integration / staging
-- phase-e-prod-deployment-readiness-seal: latest validated baseline branch
-
-## Repo Health Snapshot (2026-05-09)
-
-### Git Status
-```text
-On branch main
-Your branch is up to date with 'origin/main'.
-nothing to commit, working tree clean
-```
-
-### Active Phase Tags
-- `phase-e-deployment-baseline-seal` (55914218) ✅
-- `phase-d-port-ssot-env-hygiene-seal` (e5b5f72e) ✅
-- `phase-b-zombie-code-archive-seal` (f0e76a57) ✅
-- `phase-4-runtime-visual-truth-seal` (5ff22cbb) ✅
-
-### Branch Sprawl Audit
-- Total remote branches detected: 110+
-- Heavy Copilot/Automated branch activity (80+ branches)
-- Active feature/fix branches awaiting cleanup.
-
-## Audit Areas
-- Branch sprawl (High Priority)
-- Dead files (In-progress via _archive)
-- Duplicate UI systems (Legacy V5 vs V6)
-- Unused JavaScript (Build-blocking scripts detected)
-- Broken imports (PostCSS/Tailwind v4 sequence)
-- Mixed package managers (pnpm standard enforced)
-- Build/deploy instability (Unified Build established)
-- Design token drift (Stitch enforced)
-- Navigation/menu drift (Master JS blocks in app.js)
+## Phase 0 Bitiş Kriteri
+Phase 0 bitmiş sayılmaz; şu şartlar sağlanınca mühürlenir:
+[ ] main ve develop ayrıldı
+[x] branch prefix standardı yazıldı
+[ ] eski branch’ler sınıflandırıldı
+[x] teknik borç raporu oluşturuldu
+[ ] dead code adayları karantinaya alındı
+[x] package manager canonical hale getirildi
+[ ] duplicate UI kaynakları listelendi
+[x] build en az bir kere temiz çalıştı
+[x] GitHub branch protection açıldı
+[ ] Phase 0 PR ile merge edildi
 
 ---
-*Snapshot captured during Phase E closure and transition to Phase F.*
+*Snapshot captured during Phase 0 Reality Lock baseline establishment.*
