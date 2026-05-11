@@ -27,6 +27,21 @@ const RULES = [
     name: 'Raw Font Size',
     regex: /font-size:\\s*\\d*\\.?\\d+(rem|px|em|vh|vw)/g,
     message: 'Manuel font-size tespit edildi. Tipografi merdiveni tokenlarını kullanın.'
+  },
+  {
+    name: 'Raw Motion Duration',
+    regex: /(transition|animation)(-duration)?\\s*:[^;]*\\b\\d*\\.?\\d+s\\b/g,
+    message: 'Raw motion duration bulundu. Motion kernel duration tokenlarını kullanın.'
+  },
+  {
+    name: 'Raw Transform Distance',
+    regex: /translate[XY]?\\(\\d+px\\)/g,
+    message: 'Raw transform distance bulundu. Motion kernel distance tokenlarını kullanın.'
+  },
+  {
+    name: 'Raw Blur Value',
+    regex: /blur\\(\\d+px\\)/g,
+    message: 'Raw blur değeri bulundu. Motion kernel blur tokenlarını kullanın.'
   }
 ];
 
