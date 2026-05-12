@@ -6,14 +6,14 @@
             "voice_tone": "neutral",
             "navigation": [
                 { "label": "Ana Sayfa",     "url": "/tr/index.html" },
-                { "label": "Masajlar",      "url": "/tr/masajlar/index.html" },
-                { "label": "Hamam",         "url": "/tr/hamam/index.html" },
-                { "label": "Cilt Bakımı",   "url": "/tr/cilt-bakimi/index.html" },
-                { "label": "Dünya Ritüeli", "url": "/tr/rituals/index.html" },
-                { "label": "Galeri",        "url": "/tr/galeri/index.html" },
-                { "label": "Hakkımızda",    "url": "/tr/hakkimizda/index.html" },
-                { "label": "İletişim",      "url": "/tr/iletisim.html" },
-                { "label": "Rezervasyon",   "url": "#reservation", "is_cta": true }
+                { "label": "Body Recovery Sequences", "url": "/tr/masajlar/index.html" },
+                { "label": "Heat Purification Rituals", "url": "/tr/hamam/index.html" },
+                { "label": "Radiance Renewal Protocols", "url": "/tr/cilt-bakimi/index.html" },
+                { "label": "Global Ritual Mastery", "url": "/tr/rituals/index.html" },
+                { "label": "Atmosfer Notları", "url": "/tr/galeri/index.html" },
+                { "label": "Felsefemiz",    "url": "/tr/hakkimizda/index.html" },
+                { "label": "Kişisel Rehberiniz", "url": "/tr/iletisim.html" },
+                { "label": "Akışı Mühürle",   "url": "#reservation", "is_cta": true }
             ]
         },
         "luxury_stay": {

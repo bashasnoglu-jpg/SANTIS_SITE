@@ -254,14 +254,14 @@ function initNavAndFooter() {
                     version: "fallback-v1",
                     routes: [
                         { path: "/tr/index.html",              title: { tr: "Ana Sayfa",     en: "Home" },           nav: { group: "brand",   weight: 10 }, hooks: { onEnter: "fade" } },
-                        { path: "/tr/masajlar/index.html",     title: { tr: "Masajlar",      en: "Massages" },       nav: { group: "service", weight: 20, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
-                        { path: "/tr/hamam/index.html",        title: { tr: "Hamam",         en: "Turkish Bath" },   nav: { group: "service", weight: 30, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
-                        { path: "/tr/cilt-bakimi/index.html",  title: { tr: "Cilt Bakımı",   en: "Skin Care" },      nav: { group: "service", weight: 40, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
-                        { path: "/tr/rituals/index.html",      title: { tr: "Dünya Ritüeli", en: "World Ritual" },   nav: { group: "service", weight: 50, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
-                        { path: "/tr/galeri/index.html",       title: { tr: "Galeri",        en: "Gallery" },        nav: { group: "brand",   weight: 60 }, hooks: { onEnter: "fade" } },
-                        { path: "/tr/hakkimizda/index.html",   title: { tr: "Hakkımızda",    en: "About Us" },       nav: { group: "brand",   weight: 70 }, hooks: { onEnter: "fade" } },
-                        { path: "/tr/iletisim.html",           title: { tr: "İletişim",      en: "Contact" },        nav: { group: "brand",   weight: 80 }, hooks: { onEnter: "fade" } },
-                        { path: "#reservation",                title: { tr: "Rezervasyon",   en: "Book Now" },       nav: { group: "action",  weight: 90, cta: true }, hooks: { onEnter: "fade" } }
+                        { path: "/tr/masajlar/index.html",     title: { tr: "Body Recovery Sequences", en: "Massages" },       nav: { group: "service", weight: 20, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/tr/hamam/index.html",        title: { tr: "Heat Purification Rituals", en: "Turkish Bath" },   nav: { group: "service", weight: 30, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/tr/cilt-bakimi/index.html",  title: { tr: "Radiance Renewal Protocols", en: "Skin Care" },      nav: { group: "service", weight: 40, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/tr/rituals/index.html",      title: { tr: "Global Ritual Mastery", en: "World Ritual" },   nav: { group: "service", weight: 50, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/tr/galeri/index.html",       title: { tr: "Atmosfer Notları", en: "Gallery" },        nav: { group: "brand",   weight: 60 }, hooks: { onEnter: "fade" } },
+                        { path: "/tr/hakkimizda/index.html",   title: { tr: "Felsefemiz",    en: "About Us" },       nav: { group: "brand",   weight: 70 }, hooks: { onEnter: "fade" } },
+                        { path: "/tr/iletisim.html",           title: { tr: "Kişisel Rehberiniz", en: "Contact" },        nav: { group: "brand",   weight: 80 }, hooks: { onEnter: "fade" } },
+                        { path: "#reservation",                title: { tr: "Akışı Mühürle", en: "Book Now" },       nav: { group: "action",  weight: 90, cta: true }, hooks: { onEnter: "fade" } }
                     ]
                 };
             }
