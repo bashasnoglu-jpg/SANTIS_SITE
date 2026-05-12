@@ -100,4 +100,4 @@ Mevcut kategori yapısı aşağıdaki şekilde "Ritüel Dünyaları"na map edile
 - `santis-bootloader.js` (Sistem çekirdeği).
 
 ## 9. Next Safe Action
-`assets/data/ritual-worlds.json` dosyasının taslak (mock) verilerle oluşturulması ve `santis-data-bridge.js` üzerinden bu veriye erişim yeteneğinin test edilmesi.
+`assets/data/ritual-worlds.json` dosyasının taslak (mock) verilerle oluşturulması ve `santis-data-bridge.js` üzerinden bu veriye erişim yeteneğinin test edilmesi (window.SantisRitualWorlds üzerinden).
