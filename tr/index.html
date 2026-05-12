@@ -750,39 +750,73 @@ if ('serviceWorker' in navigator) {
 <div id="santis-cursor-ring"><span class="santis-cursor-label"></span></div>
 <!-- Phase 75.4: duplicate failsafe removed — single authority above -->
 
-<!-- PHASE 2.3B: RITUAL WORLDS DEV-GATE (Sovereign Injection) -->
+<!-- PHASE 3.1B: RITUAL WORLDS DEV-GATE (Sovereign Injection) -->
 <script>
   (() => {
-    const isDevHost =
-      location.hostname === 'localhost' ||
-      location.hostname === '127.0.0.1';
-
+    const isDevHost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     if (!isDevHost) return;
-    if (window.SantisRitualWorlds) return;
 
-    const loader = document.createElement('script');
-    loader.src = '/assets/js/core/ritual-worlds-loader.js';
-    loader.defer = true;
+    // Helper to load scripts sequentially
+    const loadScript = (src) => new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.defer = true;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
 
-    loader.onload = async () => {
+    const initDevRituals = async () => {
       try {
-        if (!window.SantisRitualWorlds?.init) {
-          console.warn('[RitualWorlds] Loader loaded but API is unavailable.');
-          return;
+        // 1. Create Dev Mount Container
+        if (!document.getElementById('ritual-worlds-dev-mount')) {
+          const mount = document.createElement('section');
+          mount.id = 'ritual-worlds-dev-mount';
+          mount.setAttribute('data-santis-dev-only', 'ritual-worlds-view');
+          mount.style.cssText = 'padding: 40px; margin: 20px auto; max-width: 1200px; border: 1px dashed rgba(212,175,55,0.3); background: rgba(0,0,0,0.4); display: none; color: #fff; text-align: center; font-family: sans-serif;';
+          document.body.appendChild(mount);
         }
 
-        await window.SantisRitualWorlds.init();
-        console.info('[RitualWorlds] Dev-mode emotional layer initialized.');
-      } catch (error) {
-        console.warn('[RitualWorlds] Dev-mode initialization skipped:', error);
+        // 2. Load Loader if missing
+        if (!window.SantisRitualWorlds) {
+          await loadScript('/assets/js/core/ritual-worlds-loader.js');
+        }
+
+        // 3. Init Loader
+        if (window.SantisRitualWorlds?.init) {
+          await window.SantisRitualWorlds.init();
+        }
+
+        // 4. Load View if missing
+        if (!window.SantisRitualWorldsView) {
+          await loadScript('/assets/js/components/ritual-worlds-view.js');
+        }
+
+        // 5. Init View
+        if (window.SantisRitualWorldsView?.init) {
+          const mount = document.getElementById('ritual-worlds-dev-mount');
+          if (mount) {
+            mount.style.display = 'block';
+            mount.innerHTML = '<p style="opacity: 0.5; font-size: 10px; letter-spacing: 2px;">SOVEREIGN RITUAL UI LAB</p>';
+          }
+          
+          window.SantisRitualWorldsView.init({ mount });
+          console.info('🦅 [RitualUI] Dev-mode View Engine initialized.');
+          
+          // Initial Render Test
+          window.SantisRitualWorldsView.render('body-recovery');
+        }
+      } catch (err) {
+        console.warn('⚠️ [RitualUI] Dev-integration failed:', err);
       }
     };
 
-    loader.onerror = () => {
-      console.warn('[RitualWorlds] Dev-mode loader failed to load.');
-    };
-
-    document.head.appendChild(loader);
+    // DOM ready check before init
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDevRituals);
+    } else {
+      initDevRituals();
+    }
   })();
 </script>
 
