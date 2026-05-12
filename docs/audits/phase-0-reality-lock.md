@@ -31,14 +31,6 @@ nothing to commit, working tree clean
 - Heavy Copilot/Automated branch activity (80+ branches)
 - Active feature/fix branches awaiting cleanup.
 
-## 2. Technical Debt Register — Reality Lock View
-
-| ID | Kategori | Dosya / Alan | Kritiklik | Kanıt | Önerilen Aksiyon | Durum |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **A001** | Ölü Kod Adayı | `src/telemetry/legacyWebsocket.js` | Kritik | Dosya fiziksel olarak bulunamadı (Ghost Debt). | Import graph üzerinden zombi logic analizi. | Doğrulama Gerekli |
-| **A001-R1** | Verified Runtime Drift | `assets/js/core/santis-ws-manager.js`, `santis-socket-registry.js`, `santis-ws-orchestrator.js`, `santis-bootloader.js` | Yüksek | Runtime loglarında tokenless WS ve `{}` telemetry görüldü. | WS token gate + empty payload guard uygulandı. | ✅ Çözüldü |
-| **B001** | Kopya UI Adayı | `src/components/NavbarOld.tsx` | Yüksek | Dosya fiziksel olarak bulunamadı (Ghost Debt). | Alternatif Navbar yolları taranmalı. | Doğrulama Gerekli |
-
 ## Audit Areas
 - Branch sprawl (High Priority)
 - Dead files (In-progress via _archive)
@@ -51,4 +43,4 @@ nothing to commit, working tree clean
 - Navigation/menu drift (Master JS blocks in app.js)
 
 ---
-*Snapshot captured during Phase 0 Reality Lock baseline establishment.*
+*Snapshot captured during Phase E closure and transition to Phase F.*

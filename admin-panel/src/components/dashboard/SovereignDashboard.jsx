@@ -29,8 +29,7 @@ export default function SovereignDashboard() {
     const MAX_RECONNECT_DELAY = 30000;
 
     const connectWebSocket = () => {
-      const token = window.SANTIS_WS_TOKEN || localStorage.getItem("SANTIS_WS_TOKEN") || "santis-dev-token";
-      ws = new WebSocket(`ws://localhost:8080/ws?token=${encodeURIComponent(token)}`);
+      ws = new WebSocket('ws://localhost:4040');
 
       ws.onopen = () => {
         console.log("Sovereign Kalkanı: Nöral Köprü Aktif.");

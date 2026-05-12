@@ -19,10 +19,7 @@
  */
 
 const WS_CFG = {
-  url: (() => {
-    const token = window.SANTIS_WS_TOKEN || localStorage.getItem("SANTIS_WS_TOKEN") || "santis-dev-token";
-    return `ws://localhost:8080/ws?role=watcher&token=${encodeURIComponent(token)}`;
-  })(),
+  url:              'ws://localhost:8080/?role=watcher&token=SANTIS-CORE-TX99',
   maxRetries:       8,
   baseBackoffMs:    1_000,
   maxBackoffMs:     30_000,

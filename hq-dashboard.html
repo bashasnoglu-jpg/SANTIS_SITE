@@ -285,8 +285,7 @@
             
             const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
             const port = window.location.port ? `:${window.location.port}` : '';
-            const token = window.SANTIS_WS_TOKEN || localStorage.getItem("SANTIS_WS_TOKEN") || "santis-dev-token";
-            const wsUrl = `${wsProtocol}//${window.location.hostname}:8080/ws?token=${encodeURIComponent(token)}`;
+            const wsUrl = `${wsProtocol}//${window.location.hostname}:8080/ws`;
             
             const ws = new WebSocket(wsUrl);
 
@@ -367,6 +366,6 @@
 
         connectSovereignWS();
     </script>
-    <script type="module" src="/admin/js/core/sovereign-command.js"></script>
+    <script type="module" src="/admin/js/core/admin-command-launcher.js"></script>
 </body>
 </html>

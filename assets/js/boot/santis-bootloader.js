@@ -322,7 +322,7 @@
             }
             
             // 📡 V42 Telemetry Bridge (Fire & Forget)
-            if (navigator.sendBeacon && name && decision) {
+            if (navigator.sendBeacon) {
                 const endpoint = typeof getBackendUrl !== "undefined" ? `${getBackendUrl()}/telemetry/decision` : '/api/v1/telemetry/decision';
                 navigator.sendBeacon(endpoint, JSON.stringify({
                     module: name, decision: decision, meta: meta, time: Date.now()

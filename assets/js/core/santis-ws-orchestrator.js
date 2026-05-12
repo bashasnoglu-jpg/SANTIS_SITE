@@ -269,7 +269,7 @@ class SantisStreamProtocol {
       const initPayload = JSON.stringify({
           type: 'INIT',
           namespace: role,
-          token: window.SANTIS_WS_TOKEN || localStorage.getItem("SANTIS_WS_TOKEN") || "santis-dev-token",
+          token: this.token || 'ANONYMOUS',
           visitorId: this.identity?.visitorId,
           sessionId: this.identity?.sessionId,
           connectionId: this.identity?.connectionId,
@@ -649,8 +649,9 @@ class SantisStreamProtocol {
 
 // Auto-discover the correct WS endpoint based on current protocol
 const getDefaultUrl = () => {
-    const token = window.SANTIS_WS_TOKEN || localStorage.getItem("SANTIS_WS_TOKEN") || "santis-dev-token";
-    return `${protocol}//${window.location.hostname}:8080/ws?token=${encodeURIComponent(token)}`; 
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    // 🛡️ V3: URL Payload izole edildi. Artık Anonymous başlar, Handshake ile kimliklenir.
+    return `${protocol}//${window.location.hostname}:8080/ws`; 
 };
 
 // 🌐 HARDENED EXPORT (Sovereign V3) + Singleton Guard

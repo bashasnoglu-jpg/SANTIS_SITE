@@ -9,8 +9,8 @@ const CLOSE_MANUAL            = 4000;
 
 const DEFAULT_CONFIG = {
   url: (() => {
-    const token = window.SANTIS_WS_TOKEN || localStorage.getItem("SANTIS_WS_TOKEN") || "santis-dev-token";
-    return `${protocol}//${window.location.host}/ws?token=${encodeURIComponent(token)}`;
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    return `${protocol}//${window.location.host}/ws`;
   })(),
   reconnectBaseMs:     2_000,   // ilk bekle: 2s (önceki 1.2s çok agresifti)
   reconnectMaxMs:     30_000,   // max: 30s
