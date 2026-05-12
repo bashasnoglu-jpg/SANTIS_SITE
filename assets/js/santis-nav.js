@@ -18,6 +18,11 @@ async function yieldToMain() {
 
 function initNavAndFooter() {
     // --- HELPER FUNCTIONS ---
+    function forceGlobalNavVisibility() {
+        // Intentionally no-op: CSS now owns navbar visibility.
+        // Kept as a compatibility shim for existing navbar init calls.
+    }
+
     // Depth calculation strictly relying on slash count.
     // E.g. /masaj.html -> length is 3. tr, masajlar, index.html.
     // We want depth = 2. So we subtract 1 for the file itself.
