@@ -94,7 +94,7 @@ self.addEventListener('fetch', (event) => {
                     // Admin sayfası için path fallback'i (örn: /admin/ istenirse /admin/index.html bak)
                     const searchPath = (url.pathname === '/admin/' || url.pathname === '/admin') ? '/admin/index.html' : request;
                     return caches.match(searchPath, { ignoreSearch: true }).then(res => {
-                        return res || caches.match('/offline.html', { ignoreSearch: true });
+                        return res || caches.match('/offline.html', { ignoreSearch: true }).then(off => off || new Response('Admin Offline', { status: 503 }));
                     });
                 })
         );
@@ -140,7 +140,9 @@ self.addEventListener('fetch', (event) => {
             })
             .catch(() => caches.match(request, { ignoreSearch: true }).then(res => {
                 return res || caches.match('/offline.html', { ignoreSearch: true }).then(offlineRes => {
-                    return offlineRes || caches.match('/index.html', { ignoreSearch: true });
+                    return offlineRes || caches.match('/index.html', { ignoreSearch: true }).then(indexRes => {
+                        return indexRes || new Response('Santis Offline Sanctuary', { status: 503 });
+                    });
                 });
             }))
         );
