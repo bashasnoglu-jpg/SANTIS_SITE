@@ -1,0 +1,176 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "passive",
+  "runtimeEnabled": false,
+  "lastUpdated": "2026-05-12",
+  "description": {
+    "tr": "Santis OS Ritüel Dünyaları için pasif duygusal veri katmanı.",
+    "en": "Passive emotional data layer for Santis OS Ritual Worlds."
+  },
+  "ritualWorlds": [
+    {
+      "id": "body-recovery",
+      "slug": "body-recovery-sequences",
+      "title": {
+        "tr": "Vücut İyileştirme Sekansları",
+        "en": "Body Recovery Sequences"
+      },
+      "displayTitle": {
+        "tr": "Body Recovery Sequences",
+        "en": "Body Recovery Sequences"
+      },
+      "emotionalTarget": {
+        "tr": "Bedenin Yeniden Keşfi",
+        "en": "Reclaiming the Body"
+      },
+      "atmosphereNote": {
+        "tr": "Sedir kokusu, loş kehribar ışık, nabız ritminde sesler.",
+        "en": "Cedar scent, dim amber light, pulse-rhythmic sounds."
+      },
+      "journeyFlow": [
+        { "step": "Arrival", "label": { "tr": "Eşik", "en": "Threshold" } },
+        { "step": "Sequence", "label": { "tr": "Onarım Sekansı", "en": "Recovery Sequence" } },
+        { "step": "Integration", "label": { "tr": "Bütünleşme", "en": "Integration" } }
+      ],
+      "ritualTempo": {
+        "entry": "slow",
+        "intensity": "medium",
+        "return": "soft"
+      },
+      "quietCTA": {
+        "tr": "Ritüeli Başlat",
+        "en": "Begin the Ritual"
+      },
+      "safetyNotes": {
+        "tr": "Hamilelik, tansiyon veya cilt hassasiyeti durumunda ritüel rehberine danışın.",
+        "en": "Consult your ritual guide in case of pregnancy, blood pressure concerns, or skin sensitivity."
+      },
+      "sourceCategoryIds": ["massages"],
+      "displayPriority": 10,
+      "localeStatus": "active"
+    },
+    {
+      "id": "heat-purification",
+      "slug": "heat-purification-rituals",
+      "title": {
+        "tr": "Isı ile Arınma Ritüelleri",
+        "en": "Heat Purification Rituals"
+      },
+      "displayTitle": {
+        "tr": "Heat Purification Rituals",
+        "en": "Heat Purification Rituals"
+      },
+      "emotionalTarget": {
+        "tr": "Zihinsel Arınma & Hafiflik",
+        "en": "Mental Purification & Lightness"
+      },
+      "atmosphereNote": {
+        "tr": "Mermer sıcaklığı, yoğun buhar, su damlası yankısı.",
+        "en": "Marble warmth, dense steam, echo of water drops."
+      },
+      "journeyFlow": [
+        { "step": "Steam", "label": { "tr": "Buhar Geçidi", "en": "Steam Gateway" } },
+        { "step": "Purification", "label": { "tr": "Arınma Ritüeli", "en": "Purification Ritual" } },
+        { "step": "Cooling", "label": { "tr": "Serinleme", "en": "Cooling" } }
+      ],
+      "ritualTempo": {
+        "entry": "slow",
+        "intensity": "high",
+        "return": "soft"
+      },
+      "quietCTA": {
+        "tr": "Sessizliği Deneyimle",
+        "en": "Experience the Silence"
+      },
+      "safetyNotes": {
+        "tr": "Kalp rahatsızlığı veya astım durumunda uzman görüşü alınız.",
+        "en": "Please consult a specialist in case of heart conditions or asthma."
+      },
+      "sourceCategoryIds": ["hammam"],
+      "displayPriority": 20,
+      "localeStatus": "active"
+    },
+    {
+      "id": "radiance-renewal",
+      "slug": "radiance-renewal-protocols",
+      "title": {
+        "tr": "Işıltı ve Yenilenme Protokolleri",
+        "en": "Radiance Renewal Protocols"
+      },
+      "displayTitle": {
+        "tr": "Radiance Renewal Protocols",
+        "en": "Radiance Renewal Protocols"
+      },
+      "emotionalTarget": {
+        "tr": "Hücresel Işıltı & Canlılık",
+        "en": "Cellular Glow & Vitality"
+      },
+      "atmosphereNote": {
+        "tr": "Taze çiçek notaları, beyaz ışık, yumuşak dokular.",
+        "en": "Fresh floral notes, white light, soft textures."
+      },
+      "journeyFlow": [
+        { "step": "Analysis", "label": { "tr": "Cilt Analizi", "en": "Skin Analysis" } },
+        { "step": "Protocol", "label": { "tr": "Yenileme Protokolü", "en": "Renewal Protocol" } },
+        { "step": "Protection", "label": { "tr": "Koruma", "en": "Protection" } }
+      ],
+      "ritualTempo": {
+        "entry": "soft",
+        "intensity": "low",
+        "return": "bright"
+      },
+      "quietCTA": {
+        "tr": "Işıltıyı Keşfet",
+        "en": "Discover the Glow"
+      },
+      "safetyNotes": {
+        "tr": "Alerjik reaksiyon geçmişinizi lütfen paylaşınız.",
+        "en": "Please share your history of allergic reactions."
+      },
+      "sourceCategoryIds": ["skincare"],
+      "displayPriority": 30,
+      "localeStatus": "active"
+    },
+    {
+      "id": "global-mastery",
+      "slug": "global-ritual-mastery",
+      "title": {
+        "tr": "Küresel Ritüel Uzmanlığı",
+        "en": "Global Ritual Mastery"
+      },
+      "displayTitle": {
+        "tr": "Global Ritual Mastery",
+        "en": "Global Ritual Mastery"
+      },
+      "emotionalTarget": {
+        "tr": "Kültürel Derinlik & Denge",
+        "en": "Cultural Depth & Balance"
+      },
+      "atmosphereNote": {
+        "tr": "Egzotik baharatlar, mistik tütsü, dünya müzikleri.",
+        "en": "Exotic spices, mystic incense, world music."
+      },
+      "journeyFlow": [
+        { "step": "Gateway", "label": { "tr": "Dünya Kapısı", "en": "Global Gateway" } },
+        { "step": "Ritual", "label": { "tr": "Ritüel Uygulaması", "en": "Ritual Practice" } },
+        { "step": "Return", "label": { "tr": "Geri Dönüş", "en": "The Return" } }
+      ],
+      "ritualTempo": {
+        "entry": "moderate",
+        "intensity": "medium",
+        "return": "balanced"
+      },
+      "quietCTA": {
+        "tr": "Yolculuğa Başla",
+        "en": "Begin the Journey"
+      },
+      "safetyNotes": {
+        "tr": "Bazı ritüeller yoğun fiziksel hareket içerebilir.",
+        "en": "Some rituals may involve intensive physical movement."
+      },
+      "sourceCategoryIds": ["rituals"],
+      "displayPriority": 40,
+      "localeStatus": "active"
+    }
+  ]
+}
