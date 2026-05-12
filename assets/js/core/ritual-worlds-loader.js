@@ -116,8 +116,19 @@ class RitualWorldsLoader {
 
 // Global Singleton Initialization
 // Not: Henüz bootloader'a bağlanmadığı için manuel veya DOMContentLoaded ile tetiklenebilir.
-document.addEventListener('DOMContentLoaded', () => {
-    const loader = new RitualWorldsLoader();
-    // Phase 2.1 gereği pasif kalması için init() burada otomatik çağrılmıyor.
-    // Gelecek fazlarda santis-bootloader.js üzerinden tetiklenecektir.
-});
+/**
+ * AUTO-INITIALIZATION ENGINE
+ * Bloğu güvenli bir şekilde ayağa kaldırır.
+ */
+const initSantisRituals = () => {
+    if (!window.SantisRitualWorlds) {
+        new RitualWorldsLoader();
+        console.log("🦅 [RitualWorlds] Loader instance created.");
+    }
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSantisRituals);
+} else {
+    initSantisRituals();
+}

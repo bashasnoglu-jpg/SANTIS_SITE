@@ -750,6 +750,42 @@ if ('serviceWorker' in navigator) {
 <div id="santis-cursor-ring"><span class="santis-cursor-label"></span></div>
 <!-- Phase 75.4: duplicate failsafe removed — single authority above -->
 
+<!-- PHASE 2.3B: RITUAL WORLDS DEV-GATE (Sovereign Injection) -->
+<script>
+  (() => {
+    const isDevHost =
+      location.hostname === 'localhost' ||
+      location.hostname === '127.0.0.1';
+
+    if (!isDevHost) return;
+    if (window.SantisRitualWorlds) return;
+
+    const loader = document.createElement('script');
+    loader.src = '/assets/js/core/ritual-worlds-loader.js';
+    loader.defer = true;
+
+    loader.onload = async () => {
+      try {
+        if (!window.SantisRitualWorlds?.init) {
+          console.warn('[RitualWorlds] Loader loaded but API is unavailable.');
+          return;
+        }
+
+        await window.SantisRitualWorlds.init();
+        console.info('[RitualWorlds] Dev-mode emotional layer initialized.');
+      } catch (error) {
+        console.warn('[RitualWorlds] Dev-mode initialization skipped:', error);
+      }
+    };
+
+    loader.onerror = () => {
+      console.warn('[RitualWorlds] Dev-mode loader failed to load.');
+    };
+
+    document.head.appendChild(loader);
+  })();
+</script>
+
 </body>
 
 </html>
