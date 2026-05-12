@@ -11,6 +11,7 @@ const DYNAMIC_CACHE = 'santis-dynamic-v51-ghost-v1.4';
 const CORE_ASSETS = [
     '/',
     '/index.html',
+    '/offline.html',
     '/manifest.json',
     '/assets/data/fallback-data.json'
 ];
@@ -93,10 +94,7 @@ self.addEventListener('fetch', (event) => {
                     // Admin sayfası için path fallback'i (örn: /admin/ istenirse /admin/index.html bak)
                     const searchPath = (url.pathname === '/admin/' || url.pathname === '/admin') ? '/admin/index.html' : request;
                     return caches.match(searchPath, { ignoreSearch: true }).then(res => {
-                        return res || new Response(
-                            '<html><body style="background:#0a0a0a;color:#d4af37;font-family:monospace;text-align:center;padding:50px;"><h2>SANTIS OFFLINE</h2><p>Çevrimdışı Mod. Sunucuya erişilemiyor.</p><button onclick="location.reload()" style="background:#d4af37;border:none;padding:10px;margin-top:20px;cursor:pointer;">Tekrar Dene</button></body></html>',
-                            { status: 200, headers: { 'Content-Type': 'text/html;charset=utf-8' } }
-                        );
+                        return res || caches.match('/offline.html', { ignoreSearch: true });
                     });
                 })
         );
@@ -141,11 +139,8 @@ self.addEventListener('fetch', (event) => {
                 return networkResponse;
             })
             .catch(() => caches.match(request, { ignoreSearch: true }).then(res => {
-                return res || caches.match('/index.html', { ignoreSearch: true }).then(indexRes => {
-                    return indexRes || new Response(
-                        '<html><body style="background:#0a0a0a;color:#d4af37;font-family:monospace;text-align:center;padding:50px;"><h2>SANTIS OFFLINE</h2><p>Sistem çevrimdışı. Bağlantı geldiğinde sayfayı yenileyiniz.</p><button onclick="location.reload()" style="background:#d4af37;border:none;padding:10px;margin-top:20px;cursor:pointer;font-weight:bold;">Tazele</button></body></html>',
-                        { status: 200, headers: { 'Content-Type': 'text/html;charset=utf-8' } }
-                    );
+                return res || caches.match('/offline.html', { ignoreSearch: true }).then(offlineRes => {
+                    return offlineRes || caches.match('/index.html', { ignoreSearch: true });
                 });
             }))
         );

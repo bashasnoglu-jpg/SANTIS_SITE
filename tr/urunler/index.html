@@ -164,6 +164,10 @@
 
 <meta name="theme-color" content="#000000">
 <link rel="manifest" href="/manifest.json">
+<script type="module" src="/assets/js/core/santis-runtime-resolver.js"></script>
+<script type="module" src="/assets/js/santis-config.js"></script>
+<script type="module" src="/assets/js/api-client.js"></script>
+<script type="module" src="/assets/js/santis-public-runtime-shim.js"></script>
 <script type="module" src="/assets/js/loader.js?v=nav-3a6f8730" defer></script>
 <script type="module" src="/assets/js/santis-nav.js?v=nav-inline-visible-2" defer></script>
 <link href="/assets/css/nav-final.css?v=nav-3a6f8730" rel="stylesheet"/>
@@ -223,11 +227,10 @@
 <!-- FOOTER -->
 <div id="footer-container"></div>
 <!-- CORE SCRIPTS -->
-<!-- THE TRINITY STACK -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" crossorigin="anonymous"></script>
-<!-- ENGINES -->
+<!-- ENGINES (Sovereign Core) -->
+<script src="/assets/vendor/three.min.js" defer></script>
+<script src="/assets/vendor/gsap.min.js" defer></script>
+<script src="/assets/vendor/lenis.min.js" defer></script>
 <!-- ENGINES (V5.5 Data Bridge Stack) -->
 <script defer src="/assets/js/santis-data-bridge.js"></script>
 <script defer src="/assets/js/core/santis-momentum.js"></script>

@@ -1,32 +1,201 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="santis-offline-mode">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sovereign OS | Bağlantı Koptu</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Kuantum Nefes Alma Efekti */
-    .pulse-glow { animation: pulse 2s infinite; }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-      70% { box-shadow: 0 0 20px 10px rgba(239, 68, 68, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANTIS — Çevrimdışı Tapınak</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        :root {
+            --nv-bg: #0a0a0a;
+            --nv-gold: #d4af37;
+            --nv-text-muted: rgba(212, 175, 55, 0.6);
+            --nv-gray-smoky: #1a1a1a;
+        }
+
+        body.nv-offline-body {
+            background: var(--nv-bg);
+            color: var(--nv-gold);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+        }
+
+        .offline-sanctuary {
+            max-width: 600px;
+            padding: 40px;
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: sanctuaryReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes sanctuaryReveal {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sanctuary-logo {
+            width: 80px;
+            margin-bottom: 40px;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.2));
+        }
+
+        .sanctuary-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .sanctuary-desc {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--nv-text-muted);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .sanctuary-ritual-list {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .ritual-item {
+            width: 100px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .ritual-item:hover {
+            background: rgba(212, 175, 55, 0.05);
+            border-color: var(--nv-gold);
+            transform: translateY(-5px);
+        }
+
+        .ritual-icon {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .ritual-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .retry-btn {
+            background: transparent;
+            border: 1px solid var(--nv-gold);
+            color: var(--nv-gold);
+            padding: 15px 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .retry-btn:hover {
+            background: var(--nv-gold);
+            color: var(--nv-bg);
+        }
+
+        .ambient-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Sovereign Pulse Animation */
+        .pulse {
+            width: 12px;
+            height: 12px;
+            background: var(--nv-gold);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .pulse::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: 1px solid var(--nv-gold);
+            border-radius: 50%;
+            animation: pulseWave 2s infinite;
+        }
+
+        @keyframes pulseWave {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+    </style>
 </head>
-<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center font-sans">
+<body class="nv-offline-body">
+    <div class="ambient-glow"></div>
 
-  <div class="relative overflow-hidden backdrop-blur-xl bg-white/5 border border-red-500/30 rounded-3xl p-10 shadow-2xl text-center max-w-md pulse-glow">
-    <div class="text-5xl mb-4 opacity-80">📡</div>
-    <h1 class="text-2xl tracking-widest uppercase mb-2">Bağlantı Koptu</h1>
-    <p class="text-slate-400 mb-8">
-      Karargâh ile telemetri bağlantınız geçici olarak kesildi. Ancak endişelenmeyin, <b>Sovereign Zırhları</b> sizi koruyor.
-    </p>
-    <button onclick="window.location.reload()" class="bg-white/10 hover:bg-white/20 border border-white/20 transition-all px-6 py-2 rounded-full tracking-wider uppercase text-sm">
-      Kuantum Sinyalini Yenile
-    </button>
-  </div>
+    <div class="offline-sanctuary">
+        <div class="pulse"></div>
+        
+        <h1 class="sanctuary-title">Sessiz Bekleyiş</h1>
+        <p class="sanctuary-desc">
+            Sovereign OS şu an çevrimdışı modda. Dış dünyayla bağlantımız geçici olarak koptu, 
+            ancak buradaki huzur devam ediyor. Çevrimdışı kullanılabilir ritüellerimize göz atabilir 
+            veya bağlantı geri geldiğinde sistemi tazeleyebilirsiniz.
+        </p>
 
+        <div class="sanctuary-ritual-list">
+            <a href="/" class="ritual-item">
+                <span class="ritual-icon">🏛️</span>
+                <span class="ritual-label">Anasayfa</span>
+            </a>
+            <a href="/magaza.html" class="ritual-item">
+                <span class="ritual-icon">💎</span>
+                <span class="ritual-label">Boutique</span>
+            </a>
+            <a href="/tr/rituals/index.html" class="ritual-item">
+                <span class="ritual-icon">🕯️</span>
+                <span class="ritual-label">Ritüeller</span>
+            </a>
+        </div>
+
+        <button class="retry-btn" onclick="location.reload()">Bağlantıyı Tazele</button>
+    </div>
+
+    <script>
+        // Online olunca otomatik yenile
+        window.addEventListener('online', () => {
+            console.log("🌐 Sovereign Link Restore edildi. Yenileniyor...");
+            location.reload();
+        });
+    </script>
 </body>
 </html>

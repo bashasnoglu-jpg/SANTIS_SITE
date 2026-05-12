@@ -12,7 +12,8 @@
     window.__SANTIS_BOOT_ACTIVE__ = true;
 
     // 🛡️ V40 APEX SURVIVAL TRIGGER (GLOBAL HALT)
-    if (performance.memory?.usedJSHeapSize > 220000000) {
+    // Increased to 350MB to accommodate rich 3D aesthetics and multi-layered shaders.
+    if (performance.memory?.usedJSHeapSize > 350000000) {
         console.warn("🛑 [V40] Apex Survival Triggered (Memory Breach). System Halting.");
         return;
     }
@@ -71,11 +72,16 @@
         }
     };
     
-    // 🛡️ V39.2 FORCE REFLOW KATİLİ (GLOBAL PATCH)
+    // 🛡️ V39.3 FORCE REFLOW KATİLİ (GLOBAL PATCH — TRUST SURFACE AWARE)
     const originalGetBounding = Element.prototype.getBoundingClientRect;
     Element.prototype.getBoundingClientRect = function() {
         if (window.SantisDOM && window.SantisDOM.phase === "write") {
-            console.warn("⚠️ [V39.2] Forced layout read blocked!");
+            // 🔓 Diplomatik İstisna: Stripe, GTM veya manuel bypass işaretli elementler okuyabilir.
+            const isTrusted = this.hasAttribute('data-santis-bypass') || 
+                              this.closest('[data-santis-bypass], .StripeElement, .santis-trust-surface');
+            if (isTrusted) return originalGetBounding.apply(this);
+
+            console.warn("⚠️ [V39.3] Forced layout read blocked (Sovereign Governance Active)!");
             return { top: 0, left: 0, right: 0, bottom: 0, width: 0, height: 0, x: 0, y: 0 };
         }
         return originalGetBounding.apply(this);
@@ -111,62 +117,120 @@
         }
 
         const t0 = performance.now();
-        let page = document.body?.dataset?.page;
+        try {
+            let page = document.body?.dataset?.page;
         if (!page) {
             page = location.pathname.includes("hq-dashboard") || location.pathname.includes("/admin") ? "admin" : "public";
         }
         const surface = page === "admin" ? "ADMIN_HQ" : page.toUpperCase();
 
-    console.log(
-        "%c🦅 [V8 OMEGA] Deterministic Boot Sequence Initiated...",
-        "color: #d4af37; font-weight: bold; background: #050505; padding: 4px 10px; border: 1px solid #d4af37;"
-    );
-    console.log(`%c⏱️ [T+0ms] Cephe: ${surface}`, "color: #3b82f6");
+        console.log(
+            "%c🦅 [V8 OMEGA] Deterministic Boot Sequence Initiated...",
+            "color: #d4af37; font-weight: bold; background: #050505; padding: 4px 10px; border: 1px solid #d4af37;"
+        );
 
-    // ── Sovereign Global State ────────────────────────────────────────────────
-    window.Santis = window.Santis || {
-        State: { page, scroll: 0 },
-        Workers: {},
-        Engines: {},
-        UI: {}
-    };
+        // ── Sovereign Global State ────────────────────────────────────────────────
+        window.Santis = window.Santis || {
+            State: { page, scroll: 0 },
+            Workers: {},
+            Engines: {},
+            UI: {}
+        };
 
-    // ══════════════════════════════════════════════════════════════════════
-    // 🛡️ FAIL-SAFE: 3 saniye içinde boot tamamlanmazsa perdeyi yine de aç!
-    // CSS'teki html:not(.app-ready) body { visibility: hidden } kuralını
-    // her halükarda kaldırır — kara ekran ASLA kalıcı olamaz.
-    // ══════════════════════════════════════════════════════════════════════
-    const failSafeTimer = setTimeout(() => {
-        if (!document.documentElement.classList.contains('app-ready')) {
-            console.warn("⚠️ [V8 OMEGA] FAIL-SAFE: Boot 3s'de tamamlanamadı — perde zorla kaldırılıyor!");
-            document.documentElement.classList.add('app-ready');
-        }
-    }, 3000);
-
-    // ── waitForPaint: Tarayıcının ilk pikseli çizdiği ana kadar bekle ─────────
-    function waitForPaint() {
-        return new Promise((resolve) => {
-            if (document.readyState === 'complete') return requestAnimationFrame(resolve);
-            let resolved = false;
-            const done = () => { if (!resolved) { resolved = true; resolve(); } };
-            if ('PerformanceObserver' in window) {
-                try {
-                    const po = new PerformanceObserver((list) => {
-                        if (list.getEntries().length > 0) { po.disconnect(); done(); }
-                    });
-                    po.observe({ type: 'paint', buffered: true });
-                    setTimeout(() => { po.disconnect(); done(); }, 250); // Güvenlik ağı
-                } catch { done(); }
-            } else {
-                requestAnimationFrame(() => requestAnimationFrame(done)); // Eski tarayıcı fallback
+        // Helper: Autonomous Injection
+        async function loadModuleOnce(name, loader) {
+            window.__SANTIS_MODULE_STATE__ = window.__SANTIS_MODULE_STATE__ || {};
+            const state = window.__SANTIS_MODULE_STATE__;
+            if (state[name] === "loaded" || state[name] === "loading") return;
+            
+            state[name] = "loading";
+            try {
+                await loader();
+                state[name] = "loaded";
+                console.log(`%c🛡️ [V40] Autonomous Injection: [${name}]`, "color: #eab308; font-weight: bold;");
+            } catch (e) {
+                state[name] = "error";
+                console.error(`❌ [V40] Module failed: ${name}`, e);
             }
-        });
-    }
+        }
 
-    try {
+        async function enforceSovereignModules() {
+            // Registry needs to be defined for this to work
+            const registry = [
+                {
+                    id: 'foundation',
+                    selectors: ['body'],
+                    dependencies: [
+                        '/assets/js/core/santis-runtime-resolver.js',
+                        '/assets/js/santis-config.js',
+                        '/assets/js/api-client.js',
+                        '/assets/js/santis-public-runtime-shim.js'
+                    ],
+                    loaded: !!(window.SantisApi && window.getRuntimeConfig)
+                },
+                {
+                    id: 'nav',
+                    selectors: ['#navbar-container', '#santis-main-nav'],
+                    dependencies: ['/assets/js/loader.js', '/assets/js/santis-nav.js'],
+                    loaded: window.__SANTIS_NAV_READY__ || false
+                }
+            ];
+
+            for (const module of registry) {
+                const isPresent = module.selectors.some(s => document.querySelector(s));
+                if (isPresent && !module.loaded) {
+                    await loadModuleOnce(module.id, async () => {
+                        for (const src of module.dependencies) {
+                            if (!document.querySelector(`script[src*="${src}"]`)) {
+                                await new Promise((resolve, reject) => {
+                                    const s = document.createElement('script');
+                                    s.src = src;
+                                    s.defer = true;
+                                    s.onload = resolve;
+                                    s.onerror = reject;
+                                    document.head.appendChild(s);
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
         // ══════════════════════════════════════════════════════════════════════
-        // FAZ 0: SANTIS OS v3 KERNEL BOOT (Non-blocking, paralel)
+        // 🛡️ FAIL-SAFE: 3 saniye içinde boot tamamlanmazsa perdeyi yine de aç!
         // ══════════════════════════════════════════════════════════════════════
+        const failSafeTimer = setTimeout(() => {
+            if (!document.documentElement.classList.contains('app-ready')) {
+                console.warn("⚠️ [V8 OMEGA] FAIL-SAFE: Boot 3s'de tamamlanamadı — perde zorla kaldırılıyor!");
+                document.documentElement.classList.add('app-ready');
+            }
+        }, 3000);
+
+        function waitForPaint() {
+            return new Promise((resolve) => {
+                if (document.readyState === 'complete') return requestAnimationFrame(resolve);
+                let resolved = false;
+                const done = () => { if (!resolved) { resolved = true; resolve(); } };
+                if ('PerformanceObserver' in window) {
+                    try {
+                        const po = new PerformanceObserver((list) => {
+                            if (list.getEntries().length > 0) { po.disconnect(); done(); }
+                        });
+                        po.observe({ type: 'paint', buffered: true });
+                        setTimeout(() => { po.disconnect(); done(); }, 250); 
+                    } catch { done(); }
+                } else {
+                    requestAnimationFrame(() => requestAnimationFrame(done));
+                }
+            });
+        }
+
+        // ══════════════════════════════════════════════════════════════════════
+        // FAZ 0: FOUNDATION ENFORCEMENT & KERNEL BOOT
+        // ══════════════════════════════════════════════════════════════════════
+        await enforceSovereignModules();
+
         import('/assets/js/core/santis-core.js?v=V3')
             .then(m => m.default?.boot?.())
             .catch(e => console.error('[V8 OMEGA] Kernel import failed (non-fatal):', e));
@@ -177,12 +241,6 @@
         window.__SANTIS_VERSION__ = window.__SANTIS_VERSION__ || 'v36.0';
 
         const SOVEREIGN_REGISTRY = [
-            {
-                id: 'nav',
-                selectors: ['#navbar-container', '#santis-main-nav'],
-                dependencies: ['/assets/js/loader.js', '/assets/js/santis-nav.js'],
-                loaded: window.__SANTIS_NAV_READY__ || false
-            },
             {
                 id: 'bento',
                 selectors: ['#santis-bento-universe'],
@@ -452,63 +510,7 @@
         }
 
         // ⏱️ V40 LOAD HOOK (EN KRİTİK PARÇA)
-        async function loadModuleOnce(name, loader) {
-            window.__SANTIS_MODULE_STATE__ = window.__SANTIS_MODULE_STATE__ || {};
-            const state = window.__SANTIS_MODULE_STATE__;
 
-            // V3 Kernel Sync - If kernel already loaded it, stop phantom retries
-            if (window.__SANTIS__ && window.__SANTIS__.modules && window.__SANTIS__.modules.has(name)) {
-                state[name] = "loaded";
-            }
-
-            if (state[name] === "loaded" || state[name] === "loading") return;
-
-            if (!shouldLoadModule(name)) {
-                if (state[name] !== "skipped") {
-                    if (window.SANTIS && window.SANTIS.debug) console.warn("🧠 [V40] Module skipped natively:", name);
-                    state[name] = "skipped";
-                }
-                return;
-            }
-
-            state[name] = "loading";
-            const t0 = performance.now();
-            try {
-                await loader();
-                const t1 = performance.now();
-                trackModulePerformance(name, t1 - t0);
-                
-                state[name] = "loaded";
-                if(name === 'nav') window.__SANTIS_NAV_READY__ = true;
-                
-                console.log(`%c🛡️ [V40] Autonomous Injection: [${name}] (${(t1 - t0).toFixed(1)}ms)`, "color: #eab308; font-weight: bold;");
-                dispatchTelemetry('HEAL', `Autonomy Injection: [${name}]`);
-            } catch (e) {
-                state[name] = "error";
-                console.error("❌ [V40] Module failed:", name, e);
-                dispatchTelemetry('WARN', `Failed to inject: [${name}]`);
-            }
-        }
-
-        async function enforceSovereignModules() {
-            for (const module of SOVEREIGN_REGISTRY) {
-                let isPresent = false;
-                for (const selector of module.selectors) {
-                    if (document.querySelector(selector)) { 
-                        isPresent = true; 
-                        break; 
-                    }
-                }
-                
-                if (isPresent) {
-                    await loadModuleOnce(module.id, async () => {
-                        for (const src of module.dependencies) {
-                            await loadScriptV36(src);
-                        }
-                    });
-                }
-            }
-        }
 
         // 1. Initial Organ Scan
         enforceSovereignModules();
@@ -626,6 +628,15 @@
         }
 
         document.body.addEventListener('mousemove', cognitivePrefetch, { passive: true });
+        document.body.addEventListener('touchstart', cognitivePrefetch, { passive: true });
+
+        // 🧹 V41.2 MEMORY FLUSH: SPA Transition Cleanup
+        window.addEventListener('santis-page-change', () => {
+            console.log("🧹 [V41.2] Memory Flush: Clearing prefetch sets and heal queue.");
+            prefetchedScripts.clear();
+            healQueue.clear();
+            lastMoves = [];
+        });
 
         // ══════════════════════════════════════════════════════════════════════
         // FAZ 0.8: AUTONOMOUS SECURITY LAYER (V36 SHIELD)
@@ -811,12 +822,12 @@ function scheduleShadowClusters(t0) {
     }
 }
 
-// 🌑 [V26] SOVEREIGN PWA INJECTION (Hayalet İşçi Uyanışı)
+// ── PWA GÖLGE İŞÇİ ENJEKSİYONU ────────────────────────────────────────────────
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/santis-sw.js')
             .then((registration) => {
-                console.log('🛡️ [PWA Zırhı] Shadow Worker devrede! Sovereign Kapsamı:', registration.scope);
+                console.log('🛡️ [PWA Zırhı] Shadow Worker devrede! Kapsam:', registration.scope);
             })
             .catch((error) => {
                 console.error('🚨 [PWA Hatası] Gölge İşçi uyanamadı:', error);
@@ -824,13 +835,11 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// ⚔️ SİSTEMİ ATEŞLE — DOM hazır olduğu an boot et
-// ══════════════════════════════════════════════════════════════════════════════
+// ⚔️ SİSTEMİ ATEŞLE
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', igniteSantisOS);
 } else {
     igniteSantisOS();
 }
 
-})(); // End of V37 Execution Governor
+})();
