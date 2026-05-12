@@ -38,7 +38,8 @@ async function resolveAuthenticatedUrl(url: string) {
   }
 
   wsUrl.searchParams.set('client_type', wsUrl.searchParams.get('client_type') || 'admin-panel');
-  wsUrl.searchParams.set('token', data.token);
+  const token = data.token || window.SANTIS_WS_TOKEN || localStorage.getItem("SANTIS_WS_TOKEN") || "santis-dev-token";
+  wsUrl.searchParams.set('token', token);
   return wsUrl.toString();
 }
 
