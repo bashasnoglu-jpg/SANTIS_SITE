@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { SovereignBus } from "../../packages/sovereign-bus/src/index.js";
 import { InMemoryUnitOfWork } from "../../packages/application/src/uow/in-memory-uow.js";
 import { registerGuestSelectMoodFlow } from "../../packages/application/src/bootstrap/register-guest-select-mood.js";
-import { CommandIngressService } from "../../apps/ingestion-api/src/services/command-ingress.js";
+
 import { makeRawSelectMoodCommand } from "../helpers/fixtures.js";
 import {
   InMemoryGuestSessionRepository,
@@ -10,6 +10,7 @@ import {
   InMemoryMoodReadModelRepository,
   InMemoryOutboxRepository,
   InMemoryProcessedCommandStore,
+  MockCommandIngressService,
 } from "../helpers/in-memory-fakes.js";
 
 describe("guest.select_mood - idempotency", () => {
@@ -31,7 +32,7 @@ describe("guest.select_mood - idempotency", () => {
       moodReadModelRepo,
     });
 
-    const ingress = new CommandIngressService(bus.commands);
+    const ingress = new MockCommandIngressService(bus.commands);
     const rawCommand = makeRawSelectMoodCommand();
 
     async function idempotentIngest(raw: unknown) {
