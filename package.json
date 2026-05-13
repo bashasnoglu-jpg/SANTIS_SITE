@@ -25,7 +25,8 @@
     "audit:contract": "turbo run audit:contract",
     "audit:runtime": "node scripts/audit-runtime-contract.js",
     "audit:localhost": "node scripts/audit-localhost-leak.js",
-    "audit:all": "pnpm run audit:environment && pnpm run audit:workspace && pnpm run audit:contract && pnpm run audit:localhost"
+    "audit:repo-boundary": "node scripts/active/audit-repo-boundary.mjs",
+    "audit:all": "pnpm run audit:environment && pnpm run audit:workspace && pnpm run audit:contract && pnpm run audit:localhost && pnpm run audit:repo-boundary"
   },
   "dependencies": {
     "zod": "^3.22.4"
