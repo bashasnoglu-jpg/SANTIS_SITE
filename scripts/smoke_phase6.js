@@ -1,45 +1,52 @@
-import { getSovereignCommand } from "../server/services/decision-service.js";
-import { logOutcomeEvent } from "../server/services/telemetry-service.js";
+import { runWithPrivateServerBoundary } from './helpers/smoke-server-boundary.mjs';
 
-async function runLtvSmokeTest() {
-  console.log("🔥 RUNNING LTV TRACE TEST: VIP Margin Push");
+await runWithPrivateServerBoundary({
+  context: 'Smoke Phase 6 (LTV Trace)',
+  requiredPaths: [
+    'server/services/decision-service.js',
+    'server/services/telemetry-service.js'
+  ],
+  run: async () => {
+    const { getSovereignCommand } = await import("../server/services/decision-service.js");
+    const { logOutcomeEvent } = await import("../server/services/telemetry-service.js");
 
-  // 1. Otonom Karar Anı
-  const decisionResult = await getSovereignCommand("GUEST_VIP_001", {
-    pricing: {
-      baseCost: 100,
-      listedPrice: 200,
-      demandScore: 90,
-      requestedDiscountPercent: 0,
-    },
-    vip: {
-      complaintCount: 0,
-      hasDowngradeRisk: true,
-      daysSinceLastVisit: 5,
-      isHighSpender: true,
-    },
-    ritual: {
-      currentServices: [],
-      recentHistory: [],
-      guestProfile: {},
-      healthFlags: [],
-      candidateService: "Signature Massage",
-    },
-  });
+    console.log("🔥 RUNNING LTV TRACE TEST: VIP Margin Push");
 
-  console.log(`\n[Test] Sovereign Command Output: `);
-  console.log(JSON.stringify(decisionResult, null, 2));
+    // 1. Otonom Karar Anı
+    const decisionResult = await getSovereignCommand("GUEST_VIP_001", {
+      pricing: {
+        baseCost: 100,
+        listedPrice: 200,
+        demandScore: 90,
+        requestedDiscountPercent: 0,
+      },
+      vip: {
+        complaintCount: 0,
+        hasDowngradeRisk: true,
+        daysSinceLastVisit: 5,
+        isHighSpender: true,
+      },
+      ritual: {
+        currentServices: [],
+        recentHistory: [],
+        guestProfile: {},
+        healthFlags: [],
+        candidateService: "Signature Massage",
+      },
+    });
 
-  // O saniyede veri Data Lake'e traceID ile yazıldı.
+    console.log(`\n[Test] Sovereign Command Output: `);
+    console.log(JSON.stringify(decisionResult, null, 2));
 
-  // 2. 60 Gün Sonrası (Simülasyon)
-  console.log("\n⌛ Simulating 60 Days Later...");
+    // O saniyede veri Data Lake'e traceID ile yazıldı.
 
-  // VIP misafir Fiyat zorlamasından sonra bir daha "gelmedi" (Sadakat Erozyonu gerçekleşti).
-  logOutcomeEvent(decisionResult.traceId, "CHURNED_AFTER_60D");
+    // 2. 60 Gün Sonrası (Simülasyon)
+    console.log("\n⌛ Simulating 60 Days Later...");
 
-  console.log("\n✅ THE LTV TRACE COMPLETED.");
-  // Shadow Analyzer by Outcome'ları okuduğunda CHURNED olduğu için Advisory (Tavsiye) ateşleyecek.
-}
+    // VIP misafir Fiyat zorlamasından sonra bir daha "gelmedi" (Sadakat Erozyonu gerçekleşti).
+    logOutcomeEvent(decisionResult.traceId, "CHURNED_AFTER_60D");
 
-runLtvSmokeTest();
+    console.log("\n✅ THE LTV TRACE COMPLETED.");
+    // Shadow Analyzer by Outcome'ları okuduğunda CHURNED olduğu için Advisory (Tavsiye) ateşleyecek.
+  }
+});
