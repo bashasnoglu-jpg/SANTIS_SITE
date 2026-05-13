@@ -58,8 +58,8 @@ Executed Phase D2-B2. The mission was to decouple root smoke and rollout scripts
 | `pnpm run lint` | ✅ PASS | 0 errors. |
 | `pnpm run stitch:enforce` | ✅ PASS | Visual truth synced. |
 | `node scripts/smoke_phase5.js` | ✅ PASS | Successfully executed with server presence. |
-| `node scripts/smoke_phase6.js` | ⚠️ SKIPPED | Attempted execution but failed due to missing `sqlite3` dependency in server-side storage layer. Boundary check passed. |
-| `pnpm exec tsx scripts/start-rollout-runtime.ts` | ⚠️ FAIL | Attempted execution. ESM-safe `__dirname` successfully resolved. Execution failed during server-side compilation due to existing syntax error in `server/core/experiments/optimizer/optimizer.hierarchical.adapter.ts:20:0`. |
+| `node scripts/smoke_phase6.js` | ⚠️ SERVER_DEPENDENCY_FAILURE | Boundary check passed; execution reached private server layer but failed due to missing `sqlite3` dependency in server-side storage layer. This is not a boundary failure. |
+| `pnpm exec tsx scripts/start-rollout-runtime.ts` | ⚠️ SERVER_COMPILE_FAILURE | ESM-safe `__dirname` resolved successfully; dynamic import reached private server layer but failed due to existing syntax error in `server/core/experiments/optimizer/optimizer.hierarchical.adapter.ts:20:0`. This is not a boundary failure. |
 
 ## Final Governance Statement
 "D2-B2 decouples smoke/rollout scripts from hard server presence. Infrastructure migration remains blocked until D2-B3/D2-B4."
