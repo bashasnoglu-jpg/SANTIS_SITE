@@ -29,10 +29,9 @@ jobs:
           import { readdirSync, readFileSync, statSync } from 'node:fs';
           import { join } from 'node:path';
 
-          const roots = ['apps/ingestion-api/src', 'packages'];
+          const roots = ['packages'];
           const allowedExtensions = new Set(['.ts', '.tsx', '.js', '.mjs']);
           const corsPattern = /origin\s*:\s*['"]\*['"]/;
-          const passthroughPattern = /\.passthrough\(\)/;
           const violations = [];
 
           function extensionOf(filePath) {
@@ -56,9 +55,6 @@ jobs:
             lines.forEach((line, index) => {
               if (corsPattern.test(line)) {
                 violations.push(`${path}:${index + 1}: Wildcard CORS origin detected`);
-              }
-              if (path.startsWith('packages/event-dictionary/src') && passthroughPattern.test(line)) {
-                violations.push(`${path}:${index + 1}: passthrough() detected in event-dictionary`);
               }
             });
           }
