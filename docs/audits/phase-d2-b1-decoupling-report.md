@@ -41,8 +41,7 @@ Executed Phase D2-B1. The goal was to isolate public tests and GitHub workflows 
 | `pnpm run audit:all` | ✅ PASS | CI pipeline remains stable. |
 | `pnpm run lint` | ✅ PASS | 0 errors. |
 | `pnpm run stitch:enforce` | ✅ PASS | Visual truth synced. |
-
-*Targeted tests: Vitest execution of `guest-select-mood.*.test.ts` passes via the global `test` pipeline if run.*
+| `pnpm exec vitest run tests/integration/guest-select-mood.trace-lifecycle.test.ts tests/integration/guest-select-mood.idempotency.test.ts tests/integration/guest-select-mood.validation-fail.test.ts` | ✅ PASS | Targeted guest-select-mood integration tests passed using MockCommandIngressService. |
 
 ## Final Governance Statement
 "D2-B1 decouples test/workflow references only. Infrastructure migration remains blocked until subsequent D2-B steps."
