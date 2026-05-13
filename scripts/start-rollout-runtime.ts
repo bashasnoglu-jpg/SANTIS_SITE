@@ -1,7 +1,14 @@
 import path from 'node:path';
+import { existsSync } from 'node:fs';
 
-import { getOrCreateRolloutBootstrapContainer } from '../server/core/experiments/rollout/rollout.bootstrap.ts';
-import type { MetricsObserver } from '../server/core/experiments/rollout/rollout.telemetry-bridge.ts';
+// Decoupled interface to avoid importing from private server
+interface MetricsObserver {
+  getConversionRate(): Promise<number>;
+  getErrorRate(): Promise<number>;
+  getP95LatencyMs(): Promise<number>;
+  getSampleSize(): Promise<number>;
+  getConfidenceScore(): Promise<number>;
+}
 
 const logger = {
   info(message: string, meta: Record<string, unknown> = {}) {
@@ -56,6 +63,16 @@ function readStringEnv(name: string, fallback?: string): string | undefined {
 }
 
 async function main(): Promise<void> {
+  const serverPath = path.resolve(__dirname, '../server/core/experiments/rollout/rollout.bootstrap.ts');
+  
+  if (!existsSync(serverPath)) {
+    console.warn('[SKIPPED_PRIVATE_OS_DEPENDENCY] Rollout Runtime: Server bootstrap missing. Skipping execution.');
+    process.exit(0);
+  }
+
+  // Dynamic import to avoid early crash if server directory is missing
+  const { getOrCreateRolloutBootstrapContainer } = await import('../server/core/experiments/rollout/rollout.bootstrap.ts');
+
   const enabled = readBooleanEnv('ROLLOUT_RUNTIME_ENABLED', true);
   const dryRun = readBooleanEnv('ROLLOUT_RUNTIME_DRY_RUN', true);
   const tickIntervalMs = readNumberEnv('ROLLOUT_RUNTIME_TICK_MS', 15_000);
