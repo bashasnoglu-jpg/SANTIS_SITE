@@ -16,7 +16,7 @@ Executed Phase D2-B2. The mission was to decouple root smoke and rollout scripts
 | `scripts/dev-sovereign-shadow.mjs` | Static import from `../server/core/advisory-ingress.ts` | Wrapped with `runWithPrivateServerBoundary` + dynamic `import()`. | Runs shadow advisory check. | Logs skip message and exits 0. | Low |
 | `scripts/dev-sovereign-self-tune.mjs` | Static import from `../server/core/self-tuner.ts` | Wrapped with `runWithPrivateServerBoundary` + dynamic `import()`. | Runs self-tuning evaluation. | Logs skip message and exits 0. | Low |
 | `scripts/dev-sovereign-rollback.mjs` | Static import from `../server/core/autonomy-guard.ts` | Wrapped with `runWithPrivateServerBoundary` + dynamic `import()`. | Runs rollback signal evaluation. | Logs skip message and exits 0. | Low |
-| `scripts/start-rollout-runtime.ts` | Static imports from `../server/core/experiments/rollout/` | Local interface definition + `existsSync` check + dynamic `import()`. | Starts rollout daemon. | Logs skip message and exits 0. | Low |
+| `scripts/start-rollout-runtime.ts` | Static imports from `../server/core/experiments/rollout/` | Local interface definition + ESM-safe `__dirname` + `existsSync` check + dynamic `import()`. | Starts rollout daemon. | Logs skip message and exits 0. | Low |
 
 ## Files Changed Table
 
@@ -28,7 +28,7 @@ Executed Phase D2-B2. The mission was to decouple root smoke and rollout scripts
 | `scripts/dev-sovereign-shadow.mjs` | Modified | `server/` | Refactored for dynamic server dependency. |
 | `scripts/dev-sovereign-self-tune.mjs` | Modified | `server/` | Refactored for dynamic server dependency. |
 | `scripts/dev-sovereign-rollback.mjs` | Modified | `server/` | Refactored for dynamic server dependency. |
-| `scripts/start-rollout-runtime.ts` | Modified | `server/` | Refactored for dynamic server dependency. |
+| `scripts/start-rollout-runtime.ts` | Modified | `server/` | Refactored for dynamic server dependency. Added ESM-safe `__dirname` resolution. |
 
 ## Explicit Non-Actions
 - No deletion.
@@ -58,7 +58,8 @@ Executed Phase D2-B2. The mission was to decouple root smoke and rollout scripts
 | `pnpm run lint` | ✅ PASS | 0 errors. |
 | `pnpm run stitch:enforce` | ✅ PASS | Visual truth synced. |
 | `node scripts/smoke_phase5.js` | ✅ PASS | Successfully executed with server presence. |
-| `node scripts/smoke_phase6.js` | ✅ PASS | Successfully executed with server presence. |
+| `node scripts/smoke_phase6.js` | ⚠️ SKIPPED | Attempted execution but failed due to missing `sqlite3` dependency in server-side storage layer. Boundary check passed. |
+| `pnpm exec tsx scripts/start-rollout-runtime.ts` | ⚠️ FAIL | Attempted execution. ESM-safe `__dirname` successfully resolved. Execution failed during server-side compilation due to existing syntax error in `server/core/experiments/optimizer/optimizer.hierarchical.adapter.ts:20:0`. |
 
 ## Final Governance Statement
 "D2-B2 decouples smoke/rollout scripts from hard server presence. Infrastructure migration remains blocked until D2-B3/D2-B4."

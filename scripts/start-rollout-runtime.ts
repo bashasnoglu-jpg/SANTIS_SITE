@@ -1,5 +1,9 @@
 import path from 'node:path';
 import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Decoupled interface to avoid importing from private server
 interface MetricsObserver {
