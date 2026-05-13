@@ -4,12 +4,25 @@
  */
 import { SantisCoreStateStreamClient } from './santis-corestate-stream-client.js';
 import { SantisBoardroomProCoreStateAdapter } from './santis-boardroom-pro-corestate-adapter.js';
+import { escapeHtml, setText, toSafeNumber } from './safe-render.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🚀 Bootstrapping Boardroom PRO Live Nervous System...');
 
   let pendingStrategyApply = null;
   const strategyApprovalQueue = [];
+  const BOARDROOM_RUNTIME_COLORS = {
+    danger: 'rgb(244, 67, 54)',
+    dangerStrong: 'rgb(255, 48, 48)',
+    neutral: 'rgb(224, 224, 224)',
+    muted: 'rgb(139, 146, 165)',
+    warning: 'rgb(255, 152, 0)',
+    warningSoft: 'rgb(240, 165, 0)',
+    success: 'rgb(76, 175, 80)',
+    successStrong: 'rgb(0, 255, 128)',
+    gold: 'rgb(212, 175, 55)',
+    black: 'rgb(0, 0, 0)',
+  };
 
   // Initialize the adapter first so it's ready to catch events
   SantisBoardroomProCoreStateAdapter.init();
@@ -108,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // GSAP ile içerikteki metni hafifçe kırmızıya çekelim
           const valueDisplay = widget.querySelector('.oracle-data-value') || widget.querySelector('.stat-value');
           if(valueDisplay && typeof gsap !== 'undefined') {
-              gsap.to(valueDisplay, { color: '#f44336', duration: 0.5 });
+              gsap.to(valueDisplay, { color: BOARDROOM_RUNTIME_COLORS.danger, duration: 0.5 });
           }
       } else {
           // Riski kaldır
@@ -117,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // Rengi eski lüks gri/beyaz tonuna geri döndür
           const valueDisplay = widget.querySelector('.oracle-data-value') || widget.querySelector('.stat-value');
           if(valueDisplay && typeof gsap !== 'undefined') {
-              gsap.to(valueDisplay, { color: '#e0e0e0', duration: 1 });
+              gsap.to(valueDisplay, { color: BOARDROOM_RUNTIME_COLORS.neutral, duration: 1 });
           }
       }
   }
@@ -161,22 +174,22 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (brandRiskEl && p.guardrails && p.guardrails.brandRisk) {
             brandRiskEl.innerText = p.guardrails.brandRisk.toUpperCase();
-            brandRiskEl.style.color = p.guardrails.brandRisk === 'high' ? '#f44336' : p.guardrails.brandRisk === 'medium' ? '#ff9800' : '#4caf50';
+            brandRiskEl.style.color = p.guardrails.brandRisk === 'high' ? BOARDROOM_RUNTIME_COLORS.danger : p.guardrails.brandRisk === 'medium' ? BOARDROOM_RUNTIME_COLORS.warning : BOARDROOM_RUNTIME_COLORS.success;
         }
         
         if (luxuryIntegrityEl && p.guardrails && typeof p.guardrails.luxuryIntegrity !== 'undefined') {
             luxuryIntegrityEl.innerText = p.guardrails.luxuryIntegrity ? "INTACT" : "COMPROMISED";
-            luxuryIntegrityEl.style.color = p.guardrails.luxuryIntegrity ? '#d4af37' : '#f44336';
+            luxuryIntegrityEl.style.color = p.guardrails.luxuryIntegrity ? BOARDROOM_RUNTIME_COLORS.gold : BOARDROOM_RUNTIME_COLORS.danger;
         }
 
         // Autonomous Ready visual indicator
         const pricingLabel = actionEl ? actionEl.previousElementSibling : null;
         if (p.mode === 'autonomous_ready') {
-            if (pricingLabel) pricingLabel.innerHTML = 'Pricing Action <span style="background:#00ff80;color:#000;padding:2px 6px;border-radius:4px;font-size:10px;margin-left:8px;font-weight:bold;">AUTONOMOUS READY</span>';
-            if (actionEl) actionEl.style.color = '#00ff80';
+            if (pricingLabel) pricingLabel.innerHTML = `Pricing Action <span style="background:${BOARDROOM_RUNTIME_COLORS.successStrong};color:${BOARDROOM_RUNTIME_COLORS.black};padding:2px 6px;border-radius:4px;font-size:10px;margin-left:8px;font-weight:bold;">AUTONOMOUS READY</span>`;
+            if (actionEl) actionEl.style.color = BOARDROOM_RUNTIME_COLORS.successStrong;
         } else {
-            if (pricingLabel) pricingLabel.innerHTML = 'Pricing Action <span style="background:rgba(212,175,55,0.2);color:#d4af37;padding:2px 6px;border-radius:4px;font-size:10px;margin-left:8px;font-weight:bold;">ADVISORY</span>';
-            if (actionEl) actionEl.style.color = '#d4af37';
+            if (pricingLabel) pricingLabel.innerHTML = `Pricing Action <span style="background:rgba(212,175,55,0.2);color:${BOARDROOM_RUNTIME_COLORS.gold};padding:2px 6px;border-radius:4px;font-size:10px;margin-left:8px;font-weight:bold;">ADVISORY</span>`;
+            if (actionEl) actionEl.style.color = BOARDROOM_RUNTIME_COLORS.gold;
         }
 
         // Show Operator Gate controls if there's a valid non-hold recommendation waiting
@@ -234,13 +247,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }).format(Math.abs(expectedRevenueDelta));
             
             revenueEl.innerText = `${prefix}${formatted}`;
-            revenueEl.style.color = expectedRevenueDelta > 0 ? '#4caf50' : (expectedRevenueDelta < 0 ? '#f44336' : '#e0e0e0');
+            revenueEl.style.color = expectedRevenueDelta > 0 ? BOARDROOM_RUNTIME_COLORS.success : (expectedRevenueDelta < 0 ? BOARDROOM_RUNTIME_COLORS.danger : BOARDROOM_RUNTIME_COLORS.neutral);
         }
         
         if (confidenceEl && s.confidence !== undefined) {
             const conf = Math.round(s.confidence * 100);
             confidenceEl.innerText = `${conf}%`;
-            confidenceEl.style.color = conf >= 80 ? '#00ff80' : (conf >= 50 ? '#d4af37' : '#f44336');
+            confidenceEl.style.color = conf >= 80 ? BOARDROOM_RUNTIME_COLORS.successStrong : (conf >= 50 ? BOARDROOM_RUNTIME_COLORS.gold : BOARDROOM_RUNTIME_COLORS.danger);
         }
 
         // GSAP highlight animation for the simulation grid to reflect "live update"
@@ -283,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const el = document.getElementById('stat-risk-level');
         if (el) {
             el.innerText = `%${value}`;
-            el.style.color = value > 70 ? '#ff3030' : '#00ff80';
+            el.style.color = value > 70 ? BOARDROOM_RUNTIME_COLORS.dangerStrong : BOARDROOM_RUNTIME_COLORS.successStrong;
         }
     },
     
@@ -354,15 +367,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 actionCard.style.padding = '12px';
                 actionCard.style.marginBottom = '8px';
                 actionCard.style.background = 'rgba(212, 175, 55, 0.08)';
-                actionCard.style.borderLeft = '3px solid #d4af37';
+                actionCard.style.borderLeft = `3px solid ${BOARDROOM_RUNTIME_COLORS.gold}`;
                 actionCard.style.borderRadius = '4px';
 
                 const timestamp = new Date(state.lastOperatorAction.timestamp).toLocaleTimeString('tr-TR');
                 
                 actionCard.innerHTML = `
-                  <div style="font-size: 11px; color: #8b92a5; margin-bottom: 4px;">${timestamp} • ID: ${state.lastOperatorAction.id.substring(0, 8)}</div>
-                  <strong style="color: #d4af37; font-size: 14px; text-transform: uppercase;">${state.lastOperatorAction.intent}</strong>
-                  <div style="font-size: 13px; color: #e0e0e0; margin-top: 4px;">Operator: ${state.lastOperatorAction.operatorId}</div>
+                  <div style="font-size: 11px; color: ${BOARDROOM_RUNTIME_COLORS.muted}; margin-bottom: 4px;">${escapeHtml(timestamp)} • ID: ${escapeHtml(state.lastOperatorAction.id.substring(0, 8))}</div>
+                  <strong style="color: ${BOARDROOM_RUNTIME_COLORS.gold}; font-size: 14px; text-transform: uppercase;">${escapeHtml(state.lastOperatorAction.intent)}</strong>
+                  <div style="font-size: 13px; color: ${BOARDROOM_RUNTIME_COLORS.neutral}; margin-top: 4px;">Operator: ${escapeHtml(state.lastOperatorAction.operatorId)}</div>
                 `;
 
                 // Add to top of rail
@@ -419,11 +432,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const biasEl = document.getElementById('model-bias');
         if (accuracyEl) {
             accuracyEl.innerText = `${(metrics.calibration.matchRate * 100).toFixed(1)}%`;
-            accuracyEl.style.color = metrics.calibration.matchRate > 0.8 ? '#00ff80' : (metrics.calibration.matchRate < 0.5 ? '#ff3030' : '#f0a500');
+            accuracyEl.style.color = metrics.calibration.matchRate > 0.8 ? BOARDROOM_RUNTIME_COLORS.successStrong : (metrics.calibration.matchRate < 0.5 ? BOARDROOM_RUNTIME_COLORS.dangerStrong : BOARDROOM_RUNTIME_COLORS.warningSoft);
         }
         if (biasEl) {
             biasEl.innerText = metrics.calibration.calibrationError.toFixed(3);
-            biasEl.style.color = metrics.calibration.calibrationError < 0.1 ? '#00ff80' : (metrics.calibration.calibrationError > 0.25 ? '#ff3030' : '#f0a500');
+            biasEl.style.color = metrics.calibration.calibrationError < 0.1 ? BOARDROOM_RUNTIME_COLORS.successStrong : (metrics.calibration.calibrationError > 0.25 ? BOARDROOM_RUNTIME_COLORS.dangerStrong : BOARDROOM_RUNTIME_COLORS.warningSoft);
         }
     }
     
@@ -477,8 +490,8 @@ document.addEventListener('DOMContentLoaded', () => {
           else entry.classList.add('log-telemetry');
 
           entry.innerHTML = `
-              <div class="log-time">[${log.time}]</div>
-              <div class="log-message">${log.message}</div>
+              <div class="log-time">[${escapeHtml(log.time)}]</div>
+              <div class="log-message">${escapeHtml(log.message)}</div>
           `;
           
           // Re-hydration sırasında animasyon yapmıyoruz (0-Jank)
@@ -504,8 +517,8 @@ document.addEventListener('DOMContentLoaded', () => {
       else entry.classList.add('log-telemetry');
 
       entry.innerHTML = `
-          <div class="log-time">[${time}]</div>
-          <div class="log-message">${message}</div>
+          <div class="log-time">[${escapeHtml(time)}]</div>
+          <div class="log-message">${escapeHtml(message)}</div>
       `;
 
       // Listenin en üstüne ekle
@@ -551,17 +564,8 @@ document.addEventListener('DOMContentLoaded', () => {
       pending.button.disabled = false;
       pending.button.style.opacity = '1';
       pending.button.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
-      pending.button.style.color = '#d4af37';
+      pending.button.style.color = BOARDROOM_RUNTIME_COLORS.gold;
       pending.button.innerHTML = pending.originalHtml;
-  }
-
-  function escapeHtml(value) {
-      return String(value ?? '')
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#039;');
   }
 
   function createStrategyQueueId() {
@@ -573,13 +577,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function formatDeltaPct(value) {
-      const numeric = Number(value) || 0;
+      const numeric = toSafeNumber(value);
       const rounded = Math.round(numeric * 100);
       return rounded > 0 ? `+${rounded}%` : `${rounded}%`;
   }
 
   function formatRevenueDelta(value) {
-      const numeric = Number(value) || 0;
+      const numeric = toSafeNumber(value);
       const prefix = numeric > 0 ? '+' : '';
       return `${prefix}${formatCurrency(Math.abs(numeric))}`;
   }
@@ -599,17 +603,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
       btn.disabled = !(recommendationId && sessionId) || Boolean(queued && queued.status !== 'rejected');
       btn.classList.toggle('is-queued', Boolean(queued && queued.status !== 'rejected'));
-      if (label) {
-          label.innerText = queued && queued.status !== 'rejected' ? 'Queued' : 'Queue Strategy';
-      }
+      setText(label, queued && queued.status !== 'rejected' ? 'Queued' : 'Queue Strategy');
   }
 
   function createStrategyQueueItemFromButton(button) {
       const recommendationId = button.dataset.recommendationId;
       const sessionId = button.dataset.sessionId;
-      const simulatedDeltaPct = parseFloat(button.dataset.delta);
-      const expectedRevenueDelta = parseFloat(button.dataset.expectedRevenueDelta);
-      const confidence = parseFloat(button.dataset.confidence);
+      const simulatedDeltaPct = toSafeNumber(button.dataset.delta);
+      const expectedRevenueDelta = toSafeNumber(button.dataset.expectedRevenueDelta);
+      const confidence = toSafeNumber(button.dataset.confidence);
 
       if (!recommendationId || !sessionId) {
           throw new Error('Strategy queue requires recommendationId and sessionId');
@@ -621,9 +623,9 @@ document.addEventListener('DOMContentLoaded', () => {
           sessionId,
           traceId: button.dataset.traceId || '',
           simulatedAction: button.dataset.action || 'strategy',
-          simulatedDeltaPct: Number.isFinite(simulatedDeltaPct) ? simulatedDeltaPct : 0,
-          expectedRevenueDelta: Number.isFinite(expectedRevenueDelta) ? expectedRevenueDelta : 0,
-          confidence: Number.isFinite(confidence) ? confidence : 0,
+          simulatedDeltaPct,
+          expectedRevenueDelta,
+          confidence,
           trigger: button.dataset.trigger || 'shadow_pricing',
           status: 'pending',
           createdAt: new Date().toISOString(),
@@ -636,7 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!queueList) return;
 
       const activeCount = strategyApprovalQueue.filter((item) => item.status === 'pending' || item.status === 'applying').length;
-      if (queueCount) queueCount.innerText = String(activeCount);
+      setText(queueCount, activeCount);
 
       if (strategyApprovalQueue.length === 0) {
           queueList.innerHTML = '<div class="strategy-queue-empty">No queued strategy decisions.</div>';
@@ -665,7 +667,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       <div class="strategy-queue-meta">
                           <span>${escapeHtml(formatDeltaPct(item.simulatedDeltaPct))}</span>
                           <span>${escapeHtml(formatRevenueDelta(item.expectedRevenueDelta))}</span>
-                          <span>${Math.round((Number(item.confidence) || 0) * 100)}% confidence</span>
+                          <span>${escapeHtml(Math.round(toSafeNumber(item.confidence) * 100))}% confidence</span>
                       </div>
                   </div>
                   <div class="strategy-queue-actions">
@@ -864,7 +866,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!overlay || !modalTitle || !modalBody) return;
       
       // Modal başlığını ayarla
-      modalTitle.innerText = `ORACLE KARARI: ${eventData.type}`;
+      setText(modalTitle, `ORACLE KARARI: ${eventData.type}`);
       
       // Akıllı Karar Motoru (Dinamik Logic için temel)
       let actionHtml = '';
@@ -873,7 +875,7 @@ document.addEventListener('DOMContentLoaded', () => {
           : ["Özel İndirim Tanımla", "Genişletilmiş Oda Servisi Sun", "Bir Sonraki Ziyaret Notu Ekle"];
 
       recommendations.forEach(rec => {
-          actionHtml += `<div class="action-card" style="cursor:pointer; padding:12px; margin:8px 0; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:4px; transition:all 0.3s ease;"><span>⚡</span> ${rec}</div>`;
+          actionHtml += `<div class="action-card" style="cursor:pointer; padding:12px; margin:8px 0; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:4px; transition:all 0.3s ease;"><span>⚡</span> ${escapeHtml(rec)}</div>`;
       });
 
       modalBody.innerHTML = actionHtml;

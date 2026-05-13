@@ -85,7 +85,7 @@ export class RevenueEngineModule {
           if (intentData.mood === 'buying' && intentData.confidence >= 0.85) {
             // SALDIRI: Kullanıcı satın almaya hazır
             mainCtaBtn.textContent = 'Şimdi Rezervasyon Yap (Son 1 Yer)';
-            mainCtaBtn.className = 'w-full py-4 text-white bg-red-600 font-bold transition-all duration-300 animate-pulse';
+            mainCtaBtn.className = 'w-full py-4 santis-cta-hot font-bold transition-all duration-300 animate-pulse';
           } 
           else if (intentData.mood === 'exit_intent' && intentData.confidence >= 0.80) {
             // KURTARMA: Kullanıcı kaçıyor
@@ -95,7 +95,7 @@ export class RevenueEngineModule {
           else {
             // BEKLEME: Standart "Quiet Luxury" modu
             mainCtaBtn.textContent = 'Sessizliğe Adım At';
-            mainCtaBtn.className = 'w-full py-4 text-white bg-gray-900 font-light transition-all duration-1000';
+            mainCtaBtn.className = 'w-full py-4 santis-cta-waiting font-light transition-all duration-1000';
           }
         }
 

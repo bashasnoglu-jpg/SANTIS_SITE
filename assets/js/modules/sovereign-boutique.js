@@ -40,7 +40,7 @@ class SovereignBoutique {
 
         } catch (error) {
             console.error("🛑 [Sovereign Boutique] Initialization Failed:", error);
-            this.rootMatrix.innerHTML = `<p class="text-[#d4af37] text-center">Mağazaya şu an ulaşılamıyor. Lütfen resepsiyon ile görüşün.</p>`;
+            this.rootMatrix.innerHTML = `<p class="text-santis-gold text-center">Mağazaya şu an ulaşılamıyor. Lütfen resepsiyon ile görüşün.</p>`;
         }
     }
 
@@ -116,26 +116,28 @@ class SovereignBoutique {
         // Construct HTML for all products in this department
         let htmlBuffer = '';
         products.forEach(item => {
-            const displayTitle = item.title || 'Sovereign Selection';
-            const imgTarget = (item.image && item.image.length > 5) ? item.image : '/assets/img/cards/santis_card_massage_lux.webp';
+            const displayTitle = escapeHtml(item.title || 'Sovereign Selection');
+            const imgTarget = escapeAttribute((item.image && item.image.length > 5) ? item.image : '/assets/img/cards/santis_card_massage_lux.webp');
+            const productId = escapeAttribute(item.id || '');
+            const productPrice = escapeAttribute(item.price || '');
             
             htmlBuffer += `
-                <article class="boutique-card" data-product-id="${item.id}">
+                <article class="boutique-card" data-product-id="${productId}">
                     <div class="boutique-img-wrapper">
-                        ${item.badge ? `<span class="boutique-badge">${item.badge}</span>` : ''}
+                        ${item.badge ? `<span class="boutique-badge">${escapeHtml(item.badge)}</span>` : ''}
                         <img src="${imgTarget}" alt="${displayTitle}" loading="lazy" decoding="async">
                         
                         <!-- Ghost Interactivity Wrapper -->
                         <div class="boutique-ghost-cta-wrapper">
-                            <button class="boutique-add-bag" data-id="${item.id}" data-title="${displayTitle}" data-price="${item.price}">Sovereign Çantaya Ekle</button>
+                            <button class="boutique-add-bag" data-id="${productId}" data-title="${displayTitle}" data-price="${productPrice}">Sovereign Çantaya Ekle</button>
                         </div>
                     </div>
                     
                     <div class="boutique-content">
                         <h3 class="boutique-title">${displayTitle}</h3>
-                        <span class="boutique-meta">${item.meta || ''}</span>
-                        <p style="font-size:0.85rem; color:#a0a0a0; line-height:1.5; margin-bottom:1rem;">${item.description || ''}</p>
-                        <span class="boutique-price">${item.price || 'Fiyat Alınız'}</span>
+                        <span class="boutique-meta">${escapeHtml(item.meta || '')}</span>
+                        <p class="boutique-description">${escapeHtml(item.description || '')}</p>
+                        <span class="boutique-price">${escapeHtml(item.price || 'Fiyat Alınız')}</span>
                     </div>
                 </article>
             `;
@@ -198,3 +200,16 @@ class SovereignBoutique {
 document.addEventListener('DOMContentLoaded', () => {
     window.SantisBoutiqueEngine = new SovereignBoutique();
 });
+
+function escapeHtml(value) {
+    return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
+}
+
+function escapeAttribute(value) {
+    return escapeHtml(value).replace(/`/g, '&#96;');
+}

@@ -8,19 +8,62 @@ const PerformanceOverlay = (() => {
     let frameCount = 0;
     let lastTime = performance.now();
     let container;
+    let fpsValue;
+    let memValue;
+    let nodesValue;
+    let stressValue;
+    let fpsBar;
 
     const createHUD = () => {
+        const style = document.createElement('style');
+        style.textContent = `
+            #santis-perf-hud {
+                position: fixed; top: 10px; right: 10px; z-index: 99999;
+                background: rgba(0, 0, 0, 0.85); border: 1px solid var(--sbr-gold, rgb(197, 160, 89));
+                color: var(--sbr-gold, rgb(197, 160, 89)); font-family: 'JetBrains Mono', monospace;
+                padding: 10px; font-size: 10px; border-radius: 4px;
+                backdrop-filter: blur(10px); pointer-events: none;
+                display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+                min-width: 180px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            }
+            .santis-perf-fps[data-health="ok"] { color: var(--sbr-success, rgb(76, 175, 80)); }
+            .santis-perf-fps[data-health="warn"] { color: var(--sbr-warn, rgb(255, 193, 7)); }
+            .santis-perf-fps[data-health="error"] { color: var(--sbr-danger, rgb(244, 67, 54)); }
+            .santis-perf-meter {
+                grid-column: span 2; height: 2px; background: var(--sbr-neutral, rgb(51, 51, 51)); margin-top: 5px;
+            }
+            .santis-perf-meter__bar {
+                height: 100%; transition: width 0.3s; background: var(--sbr-success, rgb(76, 175, 80));
+            }
+            .santis-perf-meter__bar[data-health="warn"] { background: var(--sbr-warn, rgb(255, 193, 7)); }
+            .santis-perf-meter__bar[data-health="error"] { background: var(--sbr-danger, rgb(244, 67, 54)); }
+        `;
+        document.head.appendChild(style);
+
         container = document.createElement('div');
         container.id = 'santis-perf-hud';
-        container.style = `
-            position: fixed; top: 10px; right: 10px; z-index: 99999;
-            background: rgba(0, 0, 0, 0.85); border: 1px solid #c5a059;
-            color: #c5a059; font-family: 'JetBrains Mono', monospace;
-            padding: 10px; font-size: 10px; border-radius: 4px;
-            backdrop-filter: blur(10px); pointer-events: none;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-            min-width: 180px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        `;
+
+        fpsValue = document.createElement('span');
+        fpsValue.className = 'santis-perf-fps';
+        memValue = document.createElement('span');
+        nodesValue = document.createElement('span');
+        stressValue = document.createElement('span');
+        fpsBar = document.createElement('div');
+        fpsBar.className = 'santis-perf-meter__bar';
+
+        const fpsCell = document.createElement('div');
+        fpsCell.append('FPS: ', fpsValue);
+        const memCell = document.createElement('div');
+        memCell.append('MEM: ', memValue);
+        const nodesCell = document.createElement('div');
+        nodesCell.append('DOM: ', nodesValue);
+        const stressCell = document.createElement('div');
+        stressCell.append('STRESS: ', stressValue);
+        const meter = document.createElement('div');
+        meter.className = 'santis-perf-meter';
+        meter.appendChild(fpsBar);
+
+        container.append(fpsCell, memCell, nodesCell, stressCell, meter);
         document.body.appendChild(container);
     };
 
@@ -42,17 +85,15 @@ const PerformanceOverlay = (() => {
 
     const render = () => {
         if (!container) return;
-        const fpsColor = stats.fps > 55 ? '#4CAF50' : stats.fps > 30 ? '#FFC107' : '#F44336';
-        
-        container.innerHTML = `
-            <div>FPS: <span style="color:${fpsColor}">${stats.fps}</span></div>
-            <div>MEM: ${stats.mem}MB</div>
-            <div>DOM: ${stats.nodes}</div>
-            <div>STRESS: ${stats.nodes > 3000 ? 'HIGH' : 'LOW'}</div>
-            <div style="grid-column: span 2; height: 2px; background: #333; margin-top: 5px;">
-                <div style="width: ${Math.min((stats.fps / 60) * 100, 100)}%; height: 100%; background: ${fpsColor}; transition: width 0.3s;"></div>
-            </div>
-        `;
+        const fpsHealth = stats.fps > 55 ? 'ok' : stats.fps > 30 ? 'warn' : 'error';
+
+        fpsValue.dataset.health = fpsHealth;
+        fpsValue.textContent = String(stats.fps);
+        memValue.textContent = `${stats.mem}MB`;
+        nodesValue.textContent = String(stats.nodes);
+        stressValue.textContent = stats.nodes > 3000 ? 'HIGH' : 'LOW';
+        fpsBar.dataset.health = fpsHealth;
+        fpsBar.style.width = `${Math.min((stats.fps / 60) * 100, 100)}%`;
     };
 
     return {

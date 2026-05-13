@@ -1,5 +1,12 @@
 // 🧠 Santis God Mode Dashboard
 (function () {
+    const GODMODE_COLORS = {
+      info: 'rgb(0, 255, 204)',
+      title: 'rgb(0, 255, 170)',
+      ink: 'rgb(255, 255, 255)',
+      warn: 'rgb(255, 170, 0)',
+      danger: 'rgb(255, 68, 68)',
+    };
 
     const ENABLED =
       location.search.includes("admin=true") ||
@@ -26,7 +33,7 @@
   
     // 🎨 STYLE
     const style = document.createElement("style");
-    style.innerHTML = `
+    style.textContent = `
       #santis-godmode {
         position: fixed;
         bottom: 12px;
@@ -38,7 +45,7 @@
         -webkit-backdrop-filter: blur(10px);
         font-family: monospace;
         font-size: 12px;
-        color: #00ffcc;
+        color: ${GODMODE_COLORS.info};
         z-index: 999999;
         border-radius: 8px;
         box-shadow: 0 0 20px rgba(0,255,200,0.2);
@@ -49,7 +56,7 @@
       .gm-title {
         font-weight: bold;
         margin-bottom: 8px;
-        color: #00ffaa;
+        color: ${GODMODE_COLORS.title};
         border-bottom: 1px solid rgba(0,255,200,0.3);
         padding-bottom: 4px;
         text-align: center;
@@ -61,7 +68,7 @@
       }
       #santis-godmode span {
         font-weight: bold;
-        color: #fff;
+        color: ${GODMODE_COLORS.ink};
       }
     `;
     document.head.appendChild(style);
@@ -115,7 +122,7 @@
       const fpsEl = document.getElementById("gm-fps");
       if (fpsEl) {
           fpsEl.textContent = fps;
-          fpsEl.style.color = fps < 40 ? '#ff4444' : fps < 55 ? '#ffaa00' : '#00ffcc';
+          fpsEl.style.color = fps < 40 ? GODMODE_COLORS.danger : fps < 55 ? GODMODE_COLORS.warn : GODMODE_COLORS.info;
       }
 
       document.getElementById("gm-mem").textContent =
@@ -127,7 +134,7 @@
       const taskEl = document.getElementById("gm-task");
       if (taskEl) {
           taskEl.textContent = window.__LONG_TASKS__;
-          if (window.__LONG_TASKS__ > 5) taskEl.style.color = '#ff4444';
+          if (window.__LONG_TASKS__ > 5) taskEl.style.color = GODMODE_COLORS.danger;
       }
   
       document.getElementById("gm-ws").textContent =

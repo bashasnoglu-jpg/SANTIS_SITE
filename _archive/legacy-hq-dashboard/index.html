@@ -38,6 +38,7 @@
             darkMode: 'class',
             theme: {
                 extend: {
+                    fontSize: { micro: '10px', nano: '9px' },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
@@ -192,7 +193,7 @@
             
             <div class="flex gap-6 items-center border-l border-slate-700/50 pl-6 relative z-10">
                 <div class="text-right">
-                    <p class="text-[10px] text-slate-500 uppercase tracking-widest mb-1">System Engine</p>
+                    <p class="text-micro text-slate-500 uppercase tracking-widest mb-1">System Engine</p>
                     <p class="text-emerald-400 font-mono text-sm flex items-center justify-end gap-2">
                         <span class="relative flex h-3 w-3">
                           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -340,11 +341,11 @@
                         <div class="flex items-center gap-2 mb-1 justify-between md:pr-4">
                             <div class="flex items-center gap-2">
                                 <h3 class="text-xs font-bold uppercase tracking-widest text-purple-400">The AI Commander</h3>
-                                <span class="px-1.5 py-0.5 bg-purple-500/20 text-[9px] text-purple-200 border border-purple-500/30 rounded font-mono">FINANCIAL PREDICTION</span>
+                                <span class="px-1.5 py-0.5 bg-purple-500/20 text-nano text-purple-200 border border-purple-500/30 rounded font-mono">FINANCIAL PREDICTION</span>
                             </div>
                             <div class="flex items-center gap-1.5 opacity-80" id="ai-latency-container" style="display: none;">
                                 <div class="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_5px_#22d3ee] animate-pulse"></div>
-                                <span class="text-[10px] uppercase font-mono tracking-widest text-cyan-400" id="ai-latency-ms">0ms</span>
+                                <span class="text-micro uppercase font-mono tracking-widest text-cyan-400" id="ai-latency-ms">0ms</span>
                             </div>
                         </div>
                         <p id="stat-ai-insight-panel" class="text-sm md:text-base text-slate-300 font-light leading-relaxed mb-3 pr-4">
@@ -357,7 +358,7 @@
                                  <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                              </div>
                              <div>
-                                 <h4 class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold mb-0.5">Predictive Staffing</h4>
+                                 <h4 class="text-micro uppercase tracking-widest text-indigo-400 font-bold mb-0.5">Predictive Staffing</h4>
                                  <p class="text-xs text-slate-300" id="ai-staffing-text">Analiz ediliyor...</p>
                              </div>
                         </div>
@@ -404,7 +405,7 @@
                 </div>
 
                 <!-- Overlay Legend (Moved over Mapbox) -->
-                <div class="absolute bottom-10 left-8 right-8 flex justify-around p-2 bg-slate-900/80 backdrop-blur rounded-lg border border-slate-700 text-[10px] font-mono uppercase tracking-wider text-slate-400 z-10 pointer-events-none">
+                <div class="absolute bottom-10 left-8 right-8 flex justify-around p-2 bg-slate-900/80 backdrop-blur rounded-lg border border-slate-700 text-micro font-mono uppercase tracking-wider text-slate-400 z-10 pointer-events-none">
                         <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Profit Node</div>
                         <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-cyan-500"></span> Stable</div>
                         <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Alert</div>
@@ -429,11 +430,11 @@
                         <!-- Core Metrics -->
                         <div class="grid grid-cols-2 gap-4 mb-6">
                             <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
-                                <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-1">Financial State</p>
+                                <p class="text-micro text-slate-400 uppercase tracking-widest mb-1">Financial State</p>
                                 <p id="zoom-revenue" class="text-xl font-mono text-emerald-400">€0</p>
                             </div>
                             <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
-                                <p class="text-[10px] text-amber-500 uppercase tracking-widest mb-1 flex items-center gap-1.5">
+                                <p class="text-micro text-amber-500 uppercase tracking-widest mb-1 flex items-center gap-1.5">
                                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     Time Mode
                                 </p>
@@ -461,7 +462,7 @@
                            <div class="absolute -right-4 -top-4 opacity-10 group-hover:opacity-20 transition-opacity">
                                <svg class="w-24 h-24 text-purple-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
                            </div>
-                           <h5 class="text-[10px] text-purple-400 font-bold uppercase tracking-widest mb-2 flex items-center gap-2">
+                           <h5 class="text-micro text-purple-400 font-bold uppercase tracking-widest mb-2 flex items-center gap-2">
                                <svg class="w-3 h-3 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                                Proactive Intel
                            </h5>
@@ -727,7 +728,7 @@
                         
                         // Add Popup
                         const popup = new maplibregl.Popup({ offset: 25, closeButton: false, closeOnClick: false })
-                        .setHTML(`<div class="font-bold text-slate-100">${node.name}</div><div class="text-[10px] uppercase tracking-widest text-${node.status}-400">${node.text}</div>`);
+                        .setHTML(`<div class="font-bold text-slate-100">${node.name}</div><div class="text-micro uppercase tracking-widest text-${node.status}-400">${node.text}</div>`);
                     
                     const marker = new maplibregl.Marker({
                         element: el,
@@ -766,9 +767,9 @@
                                 const barColor = isPeak ? 'bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.4)]' : 'bg-cyan-500/50';
                                 return `
                                     <div class="flex flex-col items-center justify-end h-full gap-2 w-full group/bar cursor-default">
-                                        <span class="text-[10px] text-slate-400 opacity-0 group-hover/bar:opacity-100 transition-opacity">${val}%</span>
+                                        <span class="text-micro text-slate-400 opacity-0 group-hover/bar:opacity-100 transition-opacity">${val}%</span>
                                         <div class="w-full ${barColor} rounded-t-sm transition-all duration-700" style="height: ${percent}%"></div>
-                                        <span class="text-[10px] font-mono text-slate-500">+${i+1}h</span>
+                                        <span class="text-micro font-mono text-slate-500">+${i+1}h</span>
                                     </div>
                                 `;
                             }).join('');
@@ -924,10 +925,10 @@
                         latencyContainer.style.display = 'flex';
                         latencyText.innerText = `${insightData.neural_latency_ms.toFixed(0)} ms`;
                         if(insightData.neural_latency_ms < 1500) {
-                            latencyText.className = 'text-[10px] uppercase font-mono tracking-widest text-emerald-400';
+                            latencyText.className = 'text-micro uppercase font-mono tracking-widest text-emerald-400';
                             latencyContainer.querySelector('div').className = 'w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_5px_#10b981] animate-pulse';
                         } else {
-                            latencyText.className = 'text-[10px] uppercase font-mono tracking-widest text-amber-400';
+                            latencyText.className = 'text-micro uppercase font-mono tracking-widest text-amber-400';
                             latencyContainer.querySelector('div').className = 'w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_5px_#f59e0b] animate-pulse';
                         }
                     }
@@ -1168,7 +1169,7 @@
                         body.innerHTML = `
                             <div class="space-y-6">
                                 <div>
-                                    <p class="text-[10px] text-cyan-400 uppercase tracking-widest font-bold mb-1">Target Identity</p>
+                                    <p class="text-micro text-cyan-400 uppercase tracking-widest font-bold mb-1">Target Identity</p>
                                     <h2 class="text-4xl font-light text-white mb-2">${d.guest_name || 'Walk-in Guest'}</h2>
                                     <div class="flex gap-2">
                                         <span class="bg-slate-800 border border-slate-700 px-3 py-1 rounded text-xs text-slate-300 font-mono">${d.hotel_name}</span>
@@ -1184,7 +1185,7 @@
                             </div>
                             <div class="space-y-6 flex flex-col justify-between">
                                 <div>
-                                    <p class="text-[10px] text-emerald-400 uppercase tracking-widest font-bold mb-1">Financial State</p>
+                                    <p class="text-micro text-emerald-400 uppercase tracking-widest font-bold mb-1">Financial State</p>
                                     <p class="text-3xl font-mono text-emerald-400 mb-1">€${d.price_charged}</p>
                                     <p class="text-xs text-slate-500">Service: ${d.service_name}</p>
                                     <p class="text-xs text-slate-500 mb-4">Time: ${d.time_formatted}</p>
@@ -1266,7 +1267,7 @@
                 <div class="flex justify-between items-center mb-6">
                     <div>
                         <h2 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent tracking-tight">Deploy New Node</h2>
-                        <p class="text-slate-400 text-sm mt-1 font-mono uppercase tracking-widest text-[10px]">Santis Network Injection</p>
+                        <p class="text-slate-400 text-sm mt-1 font-mono uppercase tracking-widest text-micro">Santis Network Injection</p>
                     </div>
                     <button onclick="closeDeployModal()" class="text-slate-500 hover:text-white transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -1408,7 +1409,7 @@
                                 <td class="py-4 px-6 text-slate-400"><span class="bg-emerald-800 border border-emerald-700 px-2 py-0.5 rounded text-xs text-emerald-100">HQ</span></td>
                                 <td class="py-4 px-6 text-emerald-200">New Node [${payload.name}] activated in ${payload.city}. AI Directives inherited.</td>
                                 <td class="py-4 px-6">
-                                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-[10px] font-mono text-emerald-400 border border-emerald-500/20">
+                                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-micro font-mono text-emerald-400 border border-emerald-500/20">
                                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> 
                                         ONLINE
                                     </span>
@@ -1585,7 +1586,7 @@
                                     <td class="py-4 px-6 text-slate-400"><span class="bg-cyan-900/40 border border-cyan-700/50 px-2 py-0.5 rounded text-xs text-cyan-200">NODE_TX</span></td>
                                     <td class="py-4 px-6 text-cyan-100">${data.service}</td>
                                     <td class="py-4 px-6">
-                                        <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-[10px] font-mono text-emerald-400 border border-emerald-500/20">
+                                        <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-micro font-mono text-emerald-400 border border-emerald-500/20">
                                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                                             CONFIRMED
                                         </span>
@@ -1690,22 +1691,22 @@
             </div>
             <div class="text-right">
                 <p id="pdf-date" class="text-sm font-mono text-cyan-400 mb-1">YYYY-MM-DD HH:MM</p>
-                <p class="text-[10px] text-slate-500 uppercase tracking-widest border border-slate-800 bg-slate-900/50 px-2 py-1 rounded">Confidential</p>
+                <p class="text-micro text-slate-500 uppercase tracking-widest border border-slate-800 bg-slate-900/50 px-2 py-1 rounded">Confidential</p>
             </div>
         </div>
 
         <!-- Metric Grid -->
         <div class="grid grid-cols-3 gap-6 mb-10">
             <div class="border border-[#d4af37]/20 bg-[#1a1a1a]/80 p-5 rounded-lg">
-                <p class="text-[10px] text-[#d4af37] uppercase tracking-widest mb-2 font-bold">Global Gross Revenue</p>
+                <p class="text-micro text-[#d4af37] uppercase tracking-widest mb-2 font-bold">Global Gross Revenue</p>
                 <h2 id="pdf-rev" class="text-3xl font-mono text-white">€0</h2>
             </div>
             <div class="border border-slate-800 bg-[#1a1a1a]/80 p-5 rounded-lg">
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-2 font-bold">Total Operations</p>
+                <p class="text-micro text-slate-400 uppercase tracking-widest mb-2 font-bold">Total Operations</p>
                 <h2 id="pdf-bookings" class="text-3xl font-mono text-cyan-400">0</h2>
             </div>
             <div class="border border-slate-800 bg-[#1a1a1a]/80 p-5 rounded-lg">
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-2 font-bold">Active Grid Nodes</p>
+                <p class="text-micro text-slate-400 uppercase tracking-widest mb-2 font-bold">Active Grid Nodes</p>
                 <h2 id="pdf-nodes" class="text-3xl font-mono text-slate-200">0/0</h2>
             </div>
         </div>
@@ -1844,7 +1845,7 @@
                     <div class="text-7xl mb-4 animate-bounce select-none">🐋</div>
 
                     <!-- Badge -->
-                    <div class="inline-flex items-center gap-2 bg-[#d4af37]/15 border border-[#d4af37]/40 text-[#d4af37] text-[10px] font-mono uppercase tracking-[0.3em] px-4 py-1.5 rounded-full mb-5">
+                    <div class="inline-flex items-center gap-2 bg-[#d4af37]/15 border border-[#d4af37]/40 text-[#d4af37] text-micro font-mono uppercase tracking-[0.3em] px-4 py-1.5 rounded-full mb-5">
                         <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-ping"></span>
                         Sovereign Alert — High Value Guest
                     </div>
@@ -1867,7 +1868,7 @@
 
                     <!-- Nudge Message -->
                     <div class="bg-slate-900/60 border border-[#d4af37]/20 rounded-xl p-4 mb-6 text-left">
-                        <p class="text-[10px] text-[#d4af37] uppercase tracking-widest font-bold mb-1">AI Önerisi</p>
+                        <p class="text-micro text-[#d4af37] uppercase tracking-widest font-bold mb-1">AI Önerisi</p>
                         <p id="whale-alert-nudge"
                            class="text-sm text-slate-300 leading-relaxed">
                            Özel protokol hazırlanıyor...
@@ -1905,7 +1906,7 @@
                              class="h-full bg-[#d4af37]/60 rounded-full"
                              style="width:100%; transition: width 8s linear;"></div>
                     </div>
-                    <p class="text-[10px] text-slate-600 mt-1 font-mono">Auto-dismiss in 8s</p>
+                    <p class="text-micro text-slate-600 mt-1 font-mono">Auto-dismiss in 8s</p>
                 </div>
             </div>
         </div>
