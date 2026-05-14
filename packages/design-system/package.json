@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "type": "commonjs",
   "private": true,
+  "scripts": {
+    "audit:contract": "node ../../scripts/active/audit-contract.mjs"
+  },
   "dependencies": {
     "minimatch": "^9.0.3"
   }
