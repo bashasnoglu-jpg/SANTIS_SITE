@@ -1,0 +1,122 @@
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../../node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!../../node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./components/SovereignCard/SovereignCard.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.SovereignCard_card__92ugA {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  
+  width: 280px; /* Ya da viewport clamp */
+  aspect-ratio: var(--sovereign-card-ratio);
+  border-radius: var(--sovereign-card-radius);
+  
+  background-color: #1a1a1c;
+  overflow: hidden;
+  cursor: pointer;
+  
+  /* Animasyon tokenları */
+  transition: transform var(--sovereign-duration-base) var(--sovereign-ease-out),
+              box-shadow var(--sovereign-duration-base) var(--sovereign-ease-out);
+}
+
+/* Hover Efekti (Sovereign Rail sürüklendiğinde .is-dragging class'ı eklenir 
+   ve pointer-events kapatılır, böylece hover tetiklenmez) */
+.SovereignCard_card__92ugA:hover {
+  transform: translateY(var(--sovereign-lift-amount)) scale(var(--sovereign-scale-hover));
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+}
+
+.SovereignCard_card__92ugA:active {
+  transform: scale(var(--sovereign-scale-press));
+}
+
+.SovereignCard_image__Y5X_V {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: center;
+  object-fit: cover;
+  z-index: var(--sovereign-z-base);
+  pointer-events: none;
+}
+
+.SovereignCard_overlay__rTo1F {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
+  z-index: var(--sovereign-z-overlay);
+  pointer-events: none;
+}
+
+.SovereignCard_content__7o5GY {
+  position: relative;
+  z-index: var(--sovereign-z-controls);
+  padding: var(--sovereign-space-lg);
+  color: #fff;
+  pointer-events: none;
+}
+
+.SovereignCard_title__RzcHz {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.SovereignCard_subtitle__bktVW {
+  margin: var(--sovereign-space-xs) 0 0 0;
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../../node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!../../node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./components/SovereignRail/SovereignRail.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.SovereignRail_railWrapper__eIyeb {
+  position: relative;
+  width: 100%;
+}
+
+.SovereignRail_railContainer__D1DUb {
+  display: flex;
+  gap: var(--sovereign-rail-gap);
+  padding: var(--sovereign-space-sm) var(--sovereign-rail-padding-x) var(--sovereign-space-xl) var(--sovereign-rail-padding-x);
+  
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  
+  /* Scrollbar Gizleme */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.SovereignRail_railContainer__D1DUb::-webkit-scrollbar {
+  display: none;
+}
+
+.SovereignRail_railContainer__D1DUb > * {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+}
+
+/* 
+ * Sürüklenme sırasında pointer-events: none yaparak 
+ * alt komponentlerin (Card) hover state'lerini öldürüyoruz! 
+ */
+.SovereignRail_isDragging__0LGL4 {
+  scroll-snap-type: none; /* Drag anında snap zorunluluğunu kaldırır */
+  scroll-behavior: auto;
+  cursor: grabbing;
+}
+
+.SovereignRail_isDragging__0LGL4 > * {
+  pointer-events: none;
+}
+
