@@ -61,7 +61,7 @@ jobs:
       # Playwright E2E — booking flow ve SSE akışları doğrulanır.
       - name: "🧪 Runtime Quality Test (E2E)"
         if: ${{ hashFiles('playwright.config.ts') != '' }}
-        run: pnpm run test:quality:runtime
+        run: pnpm run test:e2e
 
       # ── Boardroom Telemetry (isteğe bağlı) ──────────────────────────────────
       - name: "🧠 Boardroom Intelligence — Telemetry Bridge"
