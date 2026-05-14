@@ -65,7 +65,7 @@ jobs:
 
       # ── Boardroom Telemetry (isteğe bağlı) ──────────────────────────────────
       - name: "🧠 Boardroom Intelligence — Telemetry Bridge"
-        if: ${{ hashFiles('scripts/ci-telemetry-bridge.js') != '' && secrets.SANTIS_TELEMETRY_KEY != '' && secrets.SANTIS_API_URL != '' }}
+        if: ${{ hashFiles('scripts/ci-telemetry-bridge.js') != '' }}
         env:
           SANTIS_TELEMETRY_KEY: ${{ secrets.SANTIS_TELEMETRY_KEY }}
           SANTIS_API_URL: ${{ secrets.SANTIS_API_URL }}
