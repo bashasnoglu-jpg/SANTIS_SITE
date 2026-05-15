@@ -27,6 +27,17 @@
   will-change: transform;
 }
 
+/* 🌊 Ripple Layer */
+.aurelia-ripple {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid var(--color-base-gold);
+  opacity: 0;
+  pointer-events: none;
+}
+
 .aurelia-orb {
   position: relative;
   width: 100%;
@@ -88,6 +99,13 @@
 .is-relaxed { --nv-orb-anim-speed: 6s; }
 .is-alert { --nv-orb-anim-speed: 2s; }
 .is-listening { --nv-orb-anim-speed: 0.8s; }
+.is-thinking { --nv-orb-anim-speed: 1.5s; }
+
+/* Listening State: Cyan Core Pulse */
+#aurelia-orb-container.is-listening .aurelia-orb::before {
+  background: radial-gradient(circle, #00ced1 0%, transparent 70%);
+  opacity: 0.4;
+}
 
 /* 🎭 Contextual Page Identity (Presence Slice 2) */
 #aurelia-orb-container.is-page-hamam { --nv-orb-glow: radial-gradient(circle, var(--color-base-gold) 0%, transparent 70%); }
