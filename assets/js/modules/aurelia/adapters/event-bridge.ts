@@ -1,10 +1,11 @@
 /**
  * ╔══════════════════════════════════════════════════════════════╗
- * ║  🧠 AURELIA — RUNTIME STRESS RESISTANCE (PHASE I2)           ║
- * ║  Saturation Protection · Frame Guard · Panic Suppression    ║
+ * ║  🧠 AURELIA — RUNTIME SELF-HEALING (PHASE I3)                ║
+ * ║  Stale State Watchdog · Soft Reset · Lifecycle Recovery     ║
  * ╚══════════════════════════════════════════════════════════════╝
  * 
  * 🛡️ GOVERNANCE: Core panic edebilir, Orb panic etmez.
+ * 🛡️ RECOVERY: Bozulduğunda zarif şekilde toparlanabilmek.
  */
 
 export enum AureliaExperienceEvent {
@@ -21,6 +22,7 @@ class AureliaTelemetry {
         refractoryBlocks: 0,
         topologyViolations: 0,
         saturationBlocks: 0,
+        selfHeals: 0,
         reducedMotionActive: window.matchMedia('(prefers-reduced-motion: reduce)').matches
     };
 
@@ -37,6 +39,11 @@ class AureliaTelemetry {
         this.sync();
     }
 
+    public reportSelfHeal(): void {
+        this.metrics.selfHeals++;
+        this.sync();
+    }
+
     private sync(): void {
         (window as any).__AURELIA_METRICS__ = this.metrics;
     }
@@ -45,7 +52,7 @@ class AureliaTelemetry {
 const telemetry = new AureliaTelemetry();
 
 /**
- * 🛡️ Frame Guard: Monitors UI performance to detect congestion.
+ * 🛡️ Frame Guard: Monitors UI performance.
  */
 class FrameGuard {
     private lastFrameTime = performance.now();
@@ -58,7 +65,6 @@ class FrameGuard {
     private monitor(): void {
         const check = (now: number) => {
             const delta = now - this.lastFrameTime;
-            // If frame delta > 32ms (~30fps threshold), we are congested
             this.isCongested = delta > 32;
             this.lastFrameTime = now;
             requestAnimationFrame(check);
@@ -74,13 +80,15 @@ class FrameGuard {
 const frameGuard = new FrameGuard();
 
 /**
- * Visual Scheduler: Enforces composure and saturation protection.
+ * Visual Scheduler: Enforces composure, saturation protection, and self-healing.
  */
 class VisualScheduler {
     private orb: any;
     private lastTransitionTime: number = 0;
     private readonly BASE_REFRACTORY = 120;
     private currentState: string = 'idle';
+    private staleWatchdog: any = null;
+    private readonly STALE_TIMEOUT = 10000; // 10s (Maximum time in non-idle state)
 
     private readonly ALLOWED_TRANSITIONS: Record<string, string[]> = {
         'idle':     ['thinking', 'active'],
@@ -101,12 +109,9 @@ class VisualScheduler {
         const multiplier = frameGuard.getSaturationMultiplier();
         const effectiveRefractory = this.BASE_REFRACTORY * multiplier;
 
-        if (multiplier > 1) {
-            // System under load, extra caution applied
-            if (now - this.lastTransitionTime < effectiveRefractory) {
-                telemetry.reportDrop('saturation');
-                return;
-            }
+        if (multiplier > 1 && now - this.lastTransitionTime < effectiveRefractory) {
+            telemetry.reportDrop('saturation');
+            return;
         }
 
         // 2. Base Rate Limiting
@@ -122,16 +127,47 @@ class VisualScheduler {
             return;
         }
 
-        // 4. Execution
+        this.executeTransition(targetState);
+    }
+
+    /**
+     * Executes the visual transition and resets the stale watchdog.
+     */
+    private executeTransition(targetState: string): void {
         this.currentState = targetState;
-        this.lastTransitionTime = now;
+        this.lastTransitionTime = performance.now();
         
+        // 🛡️ Stale Watchdog: Clear existing timer
+        if (this.staleWatchdog) {
+            clearTimeout(this.staleWatchdog);
+            this.staleWatchdog = null;
+        }
+
+        // 🛡️ Stale Watchdog: Set new timer for non-idle states
+        if (targetState !== 'idle') {
+            this.staleWatchdog = setTimeout(() => {
+                this.softReset('stale state detected');
+            }, this.STALE_TIMEOUT);
+        }
+
         requestAnimationFrame(() => {
             if (this.orb && typeof this.orb.setState === 'function') {
                 this.orb.setState(targetState);
                 telemetry.logTransition();
             }
         });
+    }
+
+    /**
+     * 🛡️ Soft Reset: Emergency return to idle state.
+     * Bypasses transition matrix to ensure recovery.
+     */
+    public softReset(reason: string): void {
+        if (this.currentState === 'idle') return;
+        
+        console.warn(`🛡️ [Aurelia Recovery] Soft Reset: ${reason}`);
+        telemetry.reportSelfHeal();
+        this.executeTransition('idle');
     }
 }
 
@@ -171,6 +207,11 @@ export function initSovereignBridge(orb: any): void {
     if (orb.registerCleanup) {
         orb.registerCleanup(cleanup);
     }
+
+    // Expose reset for I3 manual audit
+    (window as any).__AURELIA_RECOVERY__ = {
+        softReset: () => scheduler.softReset('manual trigger')
+    };
 
     (window as any).__AURELIA_METRICS__ = telemetry.metrics;
 }
