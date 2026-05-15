@@ -34,11 +34,27 @@
   background: var(--color-base-obsidian);
   border-radius: 50%;
   border: 1px solid var(--color-base-gold);
-  box-shadow: 0 0 20px var(--color-composite-gold-glow);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Glow is now handled by .aurelia-glow pseudo-layer */
+}
+
+/* 🌟 Compositor-Friendly Glow Layer */
+.aurelia-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: var(--nv-orb-glow);
+  filter: blur(20px);
+  opacity: 0.4;
+  z-index: -1;
+  pointer-events: none;
+  will-change: opacity, transform;
 }
 
 /* 🧬 Breathing Core */
@@ -49,7 +65,7 @@
   height: 140%;
   background: radial-gradient(circle, var(--color-base-gold) 0%, transparent 70%);
   opacity: 0.15;
-  animation: orb-breathing 4s ease-in-out infinite;
+  animation: orb-breathing var(--nv-orb-anim-speed) ease-in-out infinite;
   will-change: transform, opacity;
 }
 
@@ -64,8 +80,14 @@
   border: 1px solid var(--color-base-gold);
   opacity: 0.3;
   transform: scale(1.1);
-  animation: orb-ring-pulse 8s linear infinite;
+  animation: orb-ring-pulse calc(var(--nv-orb-anim-speed) * 2) linear infinite;
+  will-change: transform, opacity;
 }
+
+/* 🧠 Interaction States */
+.is-relaxed { --nv-orb-anim-speed: 6s; }
+.is-alert { --nv-orb-anim-speed: 2s; }
+.is-listening { --nv-orb-anim-speed: 0.8s; }
 
 @keyframes orb-breathing {
   0%, 100% { transform: scale(0.8); opacity: 0.15; }

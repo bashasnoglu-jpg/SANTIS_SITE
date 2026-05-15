@@ -38,6 +38,7 @@ export class SovereignOrb {
         this.container.setAttribute('role', 'button');
 
         this.container.innerHTML = `
+            <div class="aurelia-glow"></div>
             <div class="aurelia-orb-ring"></div>
             <div class="aurelia-orb">
                 <div class="aurelia-core"></div>
@@ -55,15 +56,49 @@ export class SovereignOrb {
             console.log("🌌 [Aurelia] Interaction Sovereignty triggered.");
             this.pulse();
         }, { passive: true });
+
+        // Presence Layer: Proximity Detection
+        window.addEventListener('mousemove', (e) => this.handleProximity(e), { passive: true });
+    }
+
+    private handleProximity(e: MouseEvent): void {
+        if (!this.container || typeof gsap === 'undefined') return;
+
+        const rect = this.container.getBoundingClientRect();
+        const orbX = rect.left + rect.width / 2;
+        const orbY = rect.top + rect.height / 2;
+        
+        const dist = Math.sqrt(
+            Math.pow(e.clientX - orbX, 2) + 
+            Math.pow(e.clientY - orbY, 2)
+        );
+
+        // 150px yarıçapında etki başlasın
+        const proximity = Math.max(0, 1 - dist / 300); 
+        
+        gsap.to(this.container, {
+            scale: 1 + (proximity * 0.15),
+            duration: 0.4,
+            ease: "power2.out",
+            overwrite: "auto"
+        });
+
+        // 🌟 GPU-Optimized Glow Animation (Opacity only)
+        gsap.to('.aurelia-glow', {
+            opacity: 0.4 + (proximity * 0.6),
+            scale: 1 + (proximity * 0.5),
+            duration: 0.4,
+            overwrite: "auto"
+        });
     }
 
     private pulse(): void {
-        if (typeof gsap === 'undefined') return;
+        if (!this.container || typeof gsap === 'undefined') return;
 
         gsap.to(this.container, {
-            scale: 1.2,
-            duration: 0.3,
-            ease: "power2.out",
+            scale: 1.3,
+            duration: 0.2,
+            ease: "back.out(2)",
             yoyo: true,
             repeat: 1
         });
