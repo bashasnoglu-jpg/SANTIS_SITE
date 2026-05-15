@@ -1,5 +1,6 @@
 import { initSovereignBridge } from './adapters/event-bridge';
 import { initNetworkBridge } from './adapters/network-bridge';
+import { PersistenceBridge } from './adapters/persistence-bridge';
 
 export class SovereignOrb {
     private container: HTMLElement | null = null;
@@ -50,6 +51,9 @@ export class SovereignOrb {
 
         // 🛡️ Mount Network Bridge (Phase J1)
         initNetworkBridge(this);
+
+        // 🗄️ Initialize Persistence (Phase J3)
+        this.restoreState();
 
         // 🫁 Initialize Breathing Rhythm (Phase J2 Refinement)
         this.initBreathing();
@@ -159,6 +163,9 @@ export class SovereignOrb {
         console.log(`🌌 [Aurelia] Visual Transition: ${state}`);
         this.container.dataset.state = state;
 
+        // 🗄️ Save State (Phase J3)
+        PersistenceBridge.getInstance().save('orb_state', { state, timestamp: Date.now() });
+
         switch (state) {
             case 'thinking':
                 gsap.to(".aurelia-glow", { 
@@ -190,6 +197,9 @@ export class SovereignOrb {
 
         console.log(`🛡️ [Aurelia Circuit Breaker] Status: ${status}`);
         
+        // 🗄️ Save Network Status (Phase J3)
+        PersistenceBridge.getInstance().save('network_status', { status, timestamp: Date.now() });
+
         if (status === 'disconnected') {
             // Sovereign Dormant Mode
             gsap.to(this.container, { 
@@ -222,6 +232,22 @@ export class SovereignOrb {
             if (this.breathingAnim) {
                 gsap.to(this.breathingAnim, { timeScale: 1, duration: 1, ease: "power2.out" });
             }
+        }
+    }
+
+    private async restoreState(): Promise<void> {
+        const vault = PersistenceBridge.getInstance();
+        const savedState = await vault.load('orb_state');
+        const savedNetwork = await vault.load('network_status');
+
+        if (savedState?.state) {
+            console.log(`🗄️ [Aurelia] Restoring state: ${savedState.state}`);
+            this.setState(savedState.state);
+        }
+
+        if (savedNetwork?.status) {
+            console.log(`🗄️ [Aurelia] Restoring network status: ${savedNetwork.status}`);
+            this.setNetworkStatus(savedNetwork.status);
         }
     }
 
