@@ -1,4 +1,5 @@
 import { initSovereignBridge } from './adapters/event-bridge';
+import { initNetworkBridge } from './adapters/network-bridge';
 
 export class SovereignOrb {
     private container: HTMLElement | null = null;
@@ -45,6 +46,9 @@ export class SovereignOrb {
         
         // 🛰️ Mount Intelligence Bridge
         initSovereignBridge(this);
+
+        // 🛡️ Mount Network Bridge (Phase J1)
+        initNetworkBridge(this);
     }
 
     private initSetters(): void {
