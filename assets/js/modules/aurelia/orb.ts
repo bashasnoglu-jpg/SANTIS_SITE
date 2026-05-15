@@ -27,6 +27,7 @@ export class SovereignOrb {
         this.container = document.createElement('div');
         this.container.id = 'aurelia-orb-container';
         this.container.innerHTML = `
+            <div class="aurelia-ripple"></div>
             <div class="aurelia-glow"></div>
             <div class="aurelia-orb-ring"></div>
             <div class="aurelia-orb">
@@ -50,9 +51,38 @@ export class SovereignOrb {
     private bindEvents(): void {
         if (!this.container) return;
 
-        // Presence Layer: Proximity & Scroll Only
+        this.container.addEventListener('click', () => {
+            this.pulse();
+            this.ripple();
+        }, { passive: true });
+
+        // Presence Layer: Proximity & Scroll
         window.addEventListener('mousemove', (e) => this.handleProximity(e), { passive: true });
         window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
+    }
+
+    private pulse(): void {
+        if (!this.container || typeof gsap === 'undefined') return;
+        
+        gsap.to(this.container, {
+            scale: 1.3,
+            duration: 0.2,
+            ease: "back.out(2)",
+            yoyo: true,
+            repeat: 1
+        });
+    }
+
+    private ripple(): void {
+        if (!this.container || typeof gsap === 'undefined') return;
+        
+        const rippleEl = this.container.querySelector('.aurelia-ripple');
+        if (rippleEl) {
+            gsap.fromTo(rippleEl, 
+                { scale: 0.8, opacity: 0.8 },
+                { scale: 2.5, opacity: 0, duration: 0.8, ease: "power2.out" }
+            );
+        }
     }
 
     private handleProximity(e: MouseEvent): void {

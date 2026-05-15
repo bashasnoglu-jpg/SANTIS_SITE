@@ -28,6 +28,18 @@
   will-change: transform;
 }
 
+/* 🌊 Ripple Layer (Interaction Layer H1-C) */
+.aurelia-ripple {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid var(--color-base-gold);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
 .aurelia-orb {
   position: relative;
   width: 100%;
