@@ -1,7 +1,8 @@
-/* 
- * 🌌 AURELIA — SOVEREIGN ORB v1.0 (Passive State)
- * Governance: Phase H1-A
- * Performance: GPU Composited (Transform/Opacity only)
+/**
+ * ╔══════════════════════════════════════════════════════════════╗
+ * ║  🌌 AURELIA — SOVEREIGN ORB (PHASE H1-B: PRESENCE)           ║
+ * ║  Quiet Luxury Visual Shell · GPU-Composited · 120 FPS       ║
+ * ╚══════════════════════════════════════════════════════════════╝
  */
 
 :root {
@@ -27,17 +28,6 @@
   will-change: transform;
 }
 
-/* 🌊 Ripple Layer */
-.aurelia-ripple {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 1px solid var(--color-base-gold);
-  opacity: 0;
-  pointer-events: none;
-}
-
 .aurelia-orb {
   position: relative;
   width: 100%;
@@ -49,7 +39,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Glow is now handled by .aurelia-glow pseudo-layer */
 }
 
 /* 🌟 Compositor-Friendly Glow Layer */
@@ -95,18 +84,6 @@
   will-change: transform, opacity;
 }
 
-/* 🧠 Interaction States */
-.is-relaxed { --nv-orb-anim-speed: 6s; }
-.is-alert { --nv-orb-anim-speed: 2s; }
-.is-listening { --nv-orb-anim-speed: 0.8s; }
-.is-thinking { --nv-orb-anim-speed: 1.5s; }
-
-/* Listening State: Cyan Core Pulse */
-#aurelia-orb-container.is-listening .aurelia-orb::before {
-  background: radial-gradient(circle, #00ced1 0%, transparent 70%);
-  opacity: 0.4;
-}
-
 /* 🎭 Contextual Page Identity (Presence Slice 2) */
 #aurelia-orb-container.is-page-hamam { --nv-orb-glow: radial-gradient(circle, var(--color-base-gold) 0%, transparent 70%); }
 #aurelia-orb-container.is-page-massage { --nv-orb-glow: radial-gradient(circle, #00ced1 0%, transparent 70%); }
@@ -119,18 +96,8 @@
 }
 
 @keyframes orb-ring-pulse {
-  0% { transform: scale(1.05) rotate(0deg); opacity: 0.3; }
-  50% { transform: scale(1.15) rotate(180deg); opacity: 0.1; }
-  100% { transform: scale(1.05) rotate(360deg); opacity: 0.3; }
-}
-
-/* Hover Interaction (Token-Driven) */
-#aurelia-orb-container:hover {
-  transform: scale(1.1);
-}
-
-#aurelia-orb-container:hover .aurelia-orb {
-  box-shadow: 0 0 30px var(--color-composite-gold-glow);
+  0% { transform: scale(1.1) rotate(0deg); opacity: 0.3; }
+  100% { transform: scale(1.2) rotate(360deg); opacity: 0.1; }
 }
 
 /* ♿ Accessibility: Reduced Motion */
