@@ -475,7 +475,7 @@ body::after {
 }
 .santis-stack-card {
     position: absolute;
-    width: 340px;
+    width: clamp(280px, 85vw, 340px);
     height: 440px;
     --santis-tilt-x: 0deg;
     --santis-tilt-y: 0deg;
