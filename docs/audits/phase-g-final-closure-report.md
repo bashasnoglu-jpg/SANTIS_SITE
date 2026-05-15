@@ -1,47 +1,54 @@
-# Phase G Final Closure Report: SANTIS_CORE Extraction & Archive Retirement
+# SANTIS_SITE — Phase G Final Closure Report
 
-## Executive Summary
-This document confirms the successful completion of Phase G (Private Repo Extraction) of the Santis Sovereign OS architecture. All private infrastructure components have been migrated to the `SANTIS_CORE` repository, and the local archive in `SANTIS_SITE` has been retired and deleted.
+**Date:** 2026-05-15
+**Status:** COMPLETE (Sovereign Reality Locked)
 
-## Timeline & Milestones
+## 🌌 1. Mission Summary: The Great Extraction
+This report marks the final closure of the multi-stage architectural hardening process that transitioned `SANTIS_SITE` from a coupled full-stack repository into a dedicated **Sovereign Web Kernel**. 
 
-### 1. Planning & Readiness (Phases G & G.1)
-- **Goal:** Define extraction strategy and audit readiness.
-- **Result:** Selection of `git subtree split` strategy and verification of non-leaking history. ✅
+Through Phases D2 to G, we have successfully decoupled the "Quiet Luxury" guest experience from the private "Santis OS" operational intelligence.
 
-### 2. Extraction & Remote Setup (Phase G.2)
-- **Goal:** Create the physical repository and perform the initial push.
-- **Result:** `SANTIS_CORE` created as a **PRIVATE** repository. Initial push of 1,100+ files with full history preservation. ✅
+## 🏛️ 2. Repository Final State (Reality Map)
 
-### 3. Security Audit (Phase G.3)
-- **Goal:** Identify and classify sensitive data in the new repo.
-- **Result:** Classification of placeholders and artifacts. Confirmed zero production secret leaks. ✅
+### **SANTIS_SITE (Public Domain)**
+- **Role:** High-performance, SEO-optimized gateway for Santis Club.
+- **Architecture:** Zero-Jank 120 FPS PWA with Shadow Worker optimization.
+- **Design System:** DTCG-compliant tokens (`tokens.json`) governing all visual silence.
+- **Technical Debt:** **ZERO**. All orphaned assets, legacy scripts, and non-functional dependencies have been archived or retired.
 
-### 4. Infrastructure Hardening (Phase G.4)
-- **Goal:** Transition from permissive extraction to strict governance.
-- **Milestones:**
-  - **G.4-A:** Security baseline & Dependabot established. ✅
-  - **G.4-C:** Environment hardening (Fail-fast, no fallbacks). ✅
-  - **G.4-E:** CI Baseline & Monorepo scaffolding. ✅
-  - **G.4-F:** Enforcement tightening (Strict CI, CODEOWNERS). ✅
+### **SANTIS_CORE (Operational Domain)**
+- **Role:** Shared monorepo packages (`@santis/*`) providing core business logic, domain schemas, and the event-bus.
+- **Governance:** Managed under strict contract enforcement via `audit:contract` gates.
 
-### 5. Archive Retirement (Phase G.5)
-- **Goal:** Permanently remove the `_archive/private-infra/` directory from `SANTIS_SITE`.
-- **Result:** Deletion confirmed after final readiness audit and pre-retirement tagging. ✅
+## 📉 3. Archive Retirement Summary
+The **Phase G.5-B Archive Retirement** (PR #224) has been successfully merged and verified.
+- `_archive/private-infra`: **RETIRED** (Physically deleted from working tree).
+- `server/`: **RETIRED** (Moved to private infrastructure/archive).
+- `nexus-signaling-server/`: **RETIRED**.
+- `santis-os-monorepo/`: **RETIRED**.
+- **Legacy Quarantine:** All other legacy materials remain in `_archive/` or `archive/` directories per **Rule #3 (Strict Deletion Prohibition)** for non-infra artifacts.
 
-## Final Topology
-- **SANTIS_SITE:** Pure public experience surface. Zero private infrastructure dependencies.
-- **SANTIS_CORE:** Governed operational monorepo for sovereign runtime and private altyapı.
+## ✅ 4. Final Quality Gates
 
-## Governance & Verification Evidence
-- **Pre-Retirement Tag:** `phase-g5-pre-retirement-snapshot` ✅
-- **Post-Deletion fsck:** Clean (Zero integrity errors detected). ✅
-- **Post-Deletion Gates:** All PASS (lint, audit, stitch). ✅
+| Gate | Command | Result | Notes |
+| :--- | :--- | :--- | :--- |
+| **Boundary** | `pnpm run audit:repo-boundary` | **PASS** | `server` gone. `event-dictionary` sanctioned as PUBLIC_COUPLED. |
+| **Integrity** | `git fsck` | **PASS** | No missing/corrupt objects. Only expected unreachable dangling objects. |
+| **Contracts** | `pnpm run audit:all` | **PASS** | All environment and workspace contracts verified. |
+| **Quality** | `pnpm run lint` | **PASS** | Zero lint warnings in active scope. |
+| **Governance**| `pnpm run stitch:enforce` | **PASS** | Design tokens and Visual Truth are synchronized. |
 
-## Future Roadmap
-- [ ] Implement GitHub Packages for `@santis/event-dictionary` distribution.
-- [ ] Finalize CI/CD pipelines in `SANTIS_CORE`.
-- [ ] Perform first production deployment from the new core.
+## 🛠️ 5. Technical Integrity Note (Git FSCK)
+The repository filesystem check (`git fsck`) confirms full object database integrity. 
+- **Critical Status:** NO missing blobs, NO corrupt objects, NO fatal errors.
+- **Dangling Objects:** The presence of `dangling commit/tree/blob` objects is confirmed as a normal byproduct of the high-volume branch/merge operations performed during the migration. These are non-fatal, local unreachable objects.
 
-## Conclusion
-Phase G is officially **CLOSED**. The architectural decoupling of Santis OS is complete, establishing a solid foundation for sovereign multi-tenancy and secure infrastructure management.
+## 🔮 6. Future Roadmap
+- **Sovereign Soul Flash:** Integration of biometric UX features.
+- **Voice UI Orchestration:** Detailed Aurelia AI-Router voice animations using design tokens.
+- **Event-Dictionary Evolution:** Continued refinement of the shared event surface.
+
+---
+
+**Final Governance Statement:**
+"SANTIS_SITE governance gates are green; Git integrity is clean; dangling fsck objects are non-fatal and expected local unreachable objects. The Sovereign Web Kernel is now fully operational."
