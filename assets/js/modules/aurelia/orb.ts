@@ -1,6 +1,9 @@
+import { initSovereignBridge } from './adapters/event-bridge';
+
 export class SovereignOrb {
     private container: HTMLElement | null = null;
     private setters: any = {};
+    private cleanups: Array<() => void> = [];
 
     constructor() {
         if ((window as any).__AURELIA_ORB_ACTIVE__) {
@@ -12,7 +15,7 @@ export class SovereignOrb {
 
     private init(): void {
         (window as any).__AURELIA_ORB_ACTIVE__ = true;
-        console.log("🌌 [Aurelia] Initializing Presence Layer (H1-B - Sealed)...");
+        console.log("🌌 [Aurelia] Initializing Experience Bridge (H1-D-C - Mounted)...");
         
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => this.createElements());
@@ -39,6 +42,9 @@ export class SovereignOrb {
         this.initSetters();
         this.bindEvents();
         this.applyContext();
+        
+        // 🛰️ Mount Intelligence Bridge
+        initSovereignBridge(this);
     }
 
     private initSetters(): void {
@@ -121,6 +127,49 @@ export class SovereignOrb {
         const page = document.body.dataset.page || 'index';
         this.container?.classList.add(`is-page-${page}`);
         console.log(`🌌 [Aurelia] Context applied: ${page}`);
+    }
+
+    /**
+     * Updates the Orb's visual state based on system-wide signals.
+     * 🛡️ Governance: Compositor-only, Non-authoritative.
+     */
+    public setState(state: string): void {
+        if (!this.container || typeof gsap === 'undefined') return;
+
+        console.log(`🌌 [Aurelia] Visual Transition: ${state}`);
+        this.container.dataset.state = state;
+
+        switch (state) {
+            case 'thinking':
+                gsap.to(".aurelia-glow", { 
+                    opacity: 0.8, 
+                    scale: 1.4, 
+                    duration: 0.6, 
+                    repeat: -1, 
+                    yoyo: true, 
+                    ease: "sine.inOut" 
+                });
+                break;
+            case 'active':
+                this.pulse();
+                this.ripple();
+                break;
+            case 'idle':
+            default:
+                gsap.killTweensOf(".aurelia-glow");
+                gsap.to(".aurelia-glow", { opacity: 0.4, scale: 1, duration: 1 });
+                break;
+        }
+    }
+
+    public registerCleanup(fn: () => void): void {
+        this.cleanups.push(fn);
+    }
+
+    public destroy(): void {
+        this.cleanups.forEach(fn => fn());
+        this.container?.remove();
+        (window as any).__AURELIA_ORB_ACTIVE__ = false;
     }
 }
 
