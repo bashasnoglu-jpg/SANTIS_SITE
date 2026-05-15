@@ -1,0 +1,100 @@
+/* 
+ * 🌌 AURELIA — SOVEREIGN ORB v1.0 (Passive State)
+ * Governance: Phase H1-A
+ * Performance: GPU Composited (Transform/Opacity only)
+ */
+
+:root {
+  --nv-orb-size: 64px;
+  --nv-orb-glow: var(--color-composite-gold-glow);
+  --nv-orb-z: 11000;
+  --nv-orb-anim-speed: 4s;
+}
+
+#aurelia-orb-container {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: var(--nv-orb-size);
+  height: var(--nv-orb-size);
+  z-index: var(--nv-orb-z);
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+.aurelia-orb {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--color-base-obsidian);
+  border-radius: 50%;
+  border: 1px solid var(--color-base-gold);
+  box-shadow: 0 0 20px var(--color-composite-gold-glow);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 🧬 Breathing Core */
+.aurelia-orb::before {
+  content: '';
+  position: absolute;
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(circle, var(--color-base-gold) 0%, transparent 70%);
+  opacity: 0.15;
+  animation: orb-breathing 4s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* 🪐 Liquid Ring (Sovereign Guard) */
+.aurelia-orb-ring {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  border: 1px solid var(--color-base-gold);
+  opacity: 0.3;
+  transform: scale(1.1);
+  animation: orb-ring-pulse 8s linear infinite;
+}
+
+@keyframes orb-breathing {
+  0%, 100% { transform: scale(0.8); opacity: 0.15; }
+  50% { transform: scale(1.1); opacity: 0.3; }
+}
+
+@keyframes orb-ring-pulse {
+  0% { transform: scale(1.05) rotate(0deg); opacity: 0.3; }
+  50% { transform: scale(1.15) rotate(180deg); opacity: 0.1; }
+  100% { transform: scale(1.05) rotate(360deg); opacity: 0.3; }
+}
+
+/* Hover Interaction (Token-Driven) */
+#aurelia-orb-container:hover {
+  transform: scale(1.1);
+}
+
+#aurelia-orb-container:hover .aurelia-orb {
+  box-shadow: 0 0 30px var(--color-composite-gold-glow);
+}
+
+/* ♿ Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .aurelia-orb::before,
+  .aurelia-orb-ring {
+    animation: none !important;
+    opacity: 0.2;
+  }
+  #aurelia-orb-container {
+    transition: none !important;
+  }
+}

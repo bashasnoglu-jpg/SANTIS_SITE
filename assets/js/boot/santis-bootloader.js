@@ -212,6 +212,13 @@
                 selectors: ['body'],
                 dependencies: ['/assets/js/core/santis-cognitive-governor.js'],
                 loaded: false
+            },
+            {
+                id: 'aurelia',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/aurelia/orb.ts'],
+                isModule: true,
+                loaded: false
             }
         ];
 
@@ -236,7 +243,7 @@
             }).catch(() => {});
         }
 
-        function loadScriptV36(src) {
+        function loadScriptV36(src, isModule = false) {
             return new Promise((resolve, reject) => {
                 if (document.querySelector(`script[src*="${src}"]`)) {
                     resolve();
@@ -244,6 +251,7 @@
                 }
                 const s = document.createElement('script');
                 s.src = src;
+                if (isModule || src.endsWith('.ts')) s.type = 'module';
                 s.defer = true;
                 s.onload = resolve;
                 s.onerror = reject;
@@ -503,7 +511,7 @@
                 if (isPresent) {
                     await loadModuleOnce(module.id, async () => {
                         for (const src of module.dependencies) {
-                            await loadScriptV36(src);
+                            await loadScriptV36(src, module.isModule);
                         }
                     });
                 }
