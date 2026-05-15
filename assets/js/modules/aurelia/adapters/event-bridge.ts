@@ -1,11 +1,10 @@
 /**
  * ╔══════════════════════════════════════════════════════════════╗
- * ║  🧠 AURELIA — RUNTIME OBSERVABILITY (PHASE I1)               ║
- * ║  Health Counters · Transition Logs · Zero Outbound          ║
+ * ║  🧠 AURELIA — RUNTIME STRESS RESISTANCE (PHASE I2)           ║
+ * ║  Saturation Protection · Frame Guard · Panic Suppression    ║
  * ╚══════════════════════════════════════════════════════════════╝
  * 
- * 🛡️ GOVERNANCE: Inbound metrics only. 
- * PRINCIPLE: Zero outbound telemetry unless approved.
+ * 🛡️ GOVERNANCE: Core panic edebilir, Orb panic etmez.
  */
 
 export enum AureliaExperienceEvent {
@@ -14,9 +13,6 @@ export enum AureliaExperienceEvent {
     ERROR_VISUALIZE  = 'santis:experience.error.visualize'
 }
 
-/**
- * 🛰️ Aurelia Telemetry Service (Local Only)
- */
 class AureliaTelemetry {
     public metrics = {
         eventsReceived: 0,
@@ -24,19 +20,24 @@ class AureliaTelemetry {
         transitionsExecuted: 0,
         refractoryBlocks: 0,
         topologyViolations: 0,
+        saturationBlocks: 0,
         reducedMotionActive: window.matchMedia('(prefers-reduced-motion: reduce)').matches
     };
 
-    public logTransition(from: string, to: string): void {
+    public logTransition(): void {
         this.metrics.transitionsExecuted++;
-        // Quiet Luxury: Silent logging to window only for audit
-        (window as any).__AURELIA_METRICS__ = this.metrics;
+        this.sync();
     }
 
-    public reportDrop(reason: 'refractory' | 'topology'): void {
+    public reportDrop(reason: 'refractory' | 'topology' | 'saturation'): void {
         this.metrics.eventsDropped++;
         if (reason === 'refractory') this.metrics.refractoryBlocks++;
         if (reason === 'topology') this.metrics.topologyViolations++;
+        if (reason === 'saturation') this.metrics.saturationBlocks++;
+        this.sync();
+    }
+
+    private sync(): void {
         (window as any).__AURELIA_METRICS__ = this.metrics;
     }
 }
@@ -44,12 +45,41 @@ class AureliaTelemetry {
 const telemetry = new AureliaTelemetry();
 
 /**
- * Visual Scheduler: Enforces composure and valid visual topology.
+ * 🛡️ Frame Guard: Monitors UI performance to detect congestion.
+ */
+class FrameGuard {
+    private lastFrameTime = performance.now();
+    private isCongested = false;
+
+    constructor() {
+        this.monitor();
+    }
+
+    private monitor(): void {
+        const check = (now: number) => {
+            const delta = now - this.lastFrameTime;
+            // If frame delta > 32ms (~30fps threshold), we are congested
+            this.isCongested = delta > 32;
+            this.lastFrameTime = now;
+            requestAnimationFrame(check);
+        };
+        requestAnimationFrame(check);
+    }
+
+    public getSaturationMultiplier(): number {
+        return this.isCongested ? 2 : 1;
+    }
+}
+
+const frameGuard = new FrameGuard();
+
+/**
+ * Visual Scheduler: Enforces composure and saturation protection.
  */
 class VisualScheduler {
     private orb: any;
     private lastTransitionTime: number = 0;
-    private readonly REFRACTORY_PERIOD = 120; // ms
+    private readonly BASE_REFRACTORY = 120;
     private currentState: string = 'idle';
 
     private readonly ALLOWED_TRANSITIONS: Record<string, string[]> = {
@@ -67,41 +97,46 @@ class VisualScheduler {
         telemetry.metrics.eventsReceived++;
         const now = performance.now();
 
-        // 1. Rate Limiting
-        if (now - this.lastTransitionTime < this.REFRACTORY_PERIOD) {
+        // 1. Dynamic Saturation Protection
+        const multiplier = frameGuard.getSaturationMultiplier();
+        const effectiveRefractory = this.BASE_REFRACTORY * multiplier;
+
+        if (multiplier > 1) {
+            // System under load, extra caution applied
+            if (now - this.lastTransitionTime < effectiveRefractory) {
+                telemetry.reportDrop('saturation');
+                return;
+            }
+        }
+
+        // 2. Base Rate Limiting
+        if (now - this.lastTransitionTime < this.BASE_REFRACTORY) {
             telemetry.reportDrop('refractory');
             return;
         }
 
-        // 2. Transition Validation
+        // 3. Transition Validation
         const allowed = this.ALLOWED_TRANSITIONS[this.currentState] || [];
         if (!allowed.includes(targetState)) {
             telemetry.reportDrop('topology');
             return;
         }
 
-        // 3. Execution
-        const fromState = this.currentState;
+        // 4. Execution
         this.currentState = targetState;
         this.lastTransitionTime = now;
         
         requestAnimationFrame(() => {
             if (this.orb && typeof this.orb.setState === 'function') {
                 this.orb.setState(targetState);
-                telemetry.logTransition(fromState, targetState);
+                telemetry.logTransition();
             }
         });
     }
 }
 
-/**
- * 🛰️ Sovereign Bridge — Inbound Listener Logic
- */
 export function initSovereignBridge(orb: any): void {
-    if (!orb || typeof orb.setState !== 'function') {
-        console.warn('⚠️ [Aurelia Bridge] Invalid Orb instance. Bridge aborted.');
-        return;
-    }
+    if (!orb || typeof orb.setState !== 'function') return;
 
     const scheduler = new VisualScheduler(orb);
 
@@ -137,6 +172,5 @@ export function initSovereignBridge(orb: any): void {
         orb.registerCleanup(cleanup);
     }
 
-    // Expose metrics for I1-A audit
     (window as any).__AURELIA_METRICS__ = telemetry.metrics;
 }
