@@ -1,11 +1,11 @@
 /**
  * ╔══════════════════════════════════════════════════════════════╗
- * ║  🧠 AURELIA — RUNTIME SELF-HEALING (PHASE I3)                ║
- * ║  Stale State Watchdog · Soft Reset · Lifecycle Recovery     ║
+ * ║  🧠 AURELIA — LIFECYCLE INTEGRITY (PHASE I5)                 ║
+ * ║  Duplicate Guard · HMR Safety · Orphan Cleanup Audit        ║
  * ╚══════════════════════════════════════════════════════════════╝
  * 
- * 🛡️ GOVERNANCE: Core panic edebilir, Orb panic etmez.
- * 🛡️ RECOVERY: Bozulduğunda zarif şekilde toparlanabilmek.
+ * 🛡️ GOVERNANCE: Single Source of Bridge Truth.
+ * 🛡️ INTEGRITY: No duplicate listeners, no orphan timers.
  */
 
 export enum AureliaExperienceEvent {
@@ -57,6 +57,7 @@ const telemetry = new AureliaTelemetry();
 class FrameGuard {
     private lastFrameTime = performance.now();
     private isCongested = false;
+    private active: boolean = true;
 
     constructor() {
         this.monitor();
@@ -64,6 +65,7 @@ class FrameGuard {
 
     private monitor(): void {
         const check = (now: number) => {
+            if (!this.active) return;
             const delta = now - this.lastFrameTime;
             this.isCongested = delta > 32;
             this.lastFrameTime = now;
@@ -75,9 +77,13 @@ class FrameGuard {
     public getSaturationMultiplier(): number {
         return this.isCongested ? 2 : 1;
     }
+
+    public destroy(): void {
+        this.active = false;
+    }
 }
 
-const frameGuard = new FrameGuard();
+let frameGuardInstance: FrameGuard | null = null;
 
 /**
  * Visual Scheduler: Enforces composure, saturation protection, and self-healing.
@@ -88,7 +94,7 @@ class VisualScheduler {
     private readonly BASE_REFRACTORY = 120;
     private currentState: string = 'idle';
     private staleWatchdog: any = null;
-    private readonly STALE_TIMEOUT = 10000; // 10s (Maximum time in non-idle state)
+    private readonly STALE_TIMEOUT = 10000;
 
     private readonly ALLOWED_TRANSITIONS: Record<string, string[]> = {
         'idle':     ['thinking', 'active'],
@@ -105,8 +111,7 @@ class VisualScheduler {
         telemetry.metrics.eventsReceived++;
         const now = performance.now();
 
-        // 1. Dynamic Saturation Protection
-        const multiplier = frameGuard.getSaturationMultiplier();
+        const multiplier = frameGuardInstance ? frameGuardInstance.getSaturationMultiplier() : 1;
         const effectiveRefractory = this.BASE_REFRACTORY * multiplier;
 
         if (multiplier > 1 && now - this.lastTransitionTime < effectiveRefractory) {
@@ -114,13 +119,11 @@ class VisualScheduler {
             return;
         }
 
-        // 2. Base Rate Limiting
         if (now - this.lastTransitionTime < this.BASE_REFRACTORY) {
             telemetry.reportDrop('refractory');
             return;
         }
 
-        // 3. Transition Validation
         const allowed = this.ALLOWED_TRANSITIONS[this.currentState] || [];
         if (!allowed.includes(targetState)) {
             telemetry.reportDrop('topology');
@@ -130,20 +133,15 @@ class VisualScheduler {
         this.executeTransition(targetState);
     }
 
-    /**
-     * Executes the visual transition and resets the stale watchdog.
-     */
     private executeTransition(targetState: string): void {
         this.currentState = targetState;
         this.lastTransitionTime = performance.now();
         
-        // 🛡️ Stale Watchdog: Clear existing timer
         if (this.staleWatchdog) {
             clearTimeout(this.staleWatchdog);
             this.staleWatchdog = null;
         }
 
-        // 🛡️ Stale Watchdog: Set new timer for non-idle states
         if (targetState !== 'idle') {
             this.staleWatchdog = setTimeout(() => {
                 this.softReset('stale state detected');
@@ -158,21 +156,38 @@ class VisualScheduler {
         });
     }
 
-    /**
-     * 🛡️ Soft Reset: Emergency return to idle state.
-     * Bypasses transition matrix to ensure recovery.
-     */
     public softReset(reason: string): void {
         if (this.currentState === 'idle') return;
-        
         console.warn(`🛡️ [Aurelia Recovery] Soft Reset: ${reason}`);
         telemetry.reportSelfHeal();
         this.executeTransition('idle');
     }
+
+    public destroy(): void {
+        if (this.staleWatchdog) {
+            clearTimeout(this.staleWatchdog);
+            this.staleWatchdog = null;
+        }
+    }
 }
 
+/**
+ * 🛰️ Sovereign Bridge — Global Instance Guard
+ */
+let activeBridgeCleanup: (() => void) | null = null;
+
 export function initSovereignBridge(orb: any): void {
+    // 🛡️ Duplicate Guard: Ensure old bridge is destroyed before new one starts
+    if (activeBridgeCleanup) {
+        console.warn('🛡️ [Aurelia Bridge] Duplicate mount detected. Cleaning up old bridge...');
+        activeBridgeCleanup();
+    }
+
     if (!orb || typeof orb.setState !== 'function') return;
+
+    if (!frameGuardInstance) {
+        frameGuardInstance = new FrameGuard();
+    }
 
     const scheduler = new VisualScheduler(orb);
 
@@ -202,15 +217,23 @@ export function initSovereignBridge(orb: any): void {
         Object.values(AureliaExperienceEvent).forEach(eventType => {
             document.removeEventListener(eventType, handleEvent);
         });
+        scheduler.destroy();
+        if (frameGuardInstance) {
+            frameGuardInstance.destroy();
+            frameGuardInstance = null;
+        }
+        activeBridgeCleanup = null;
     };
+
+    activeBridgeCleanup = cleanup;
 
     if (orb.registerCleanup) {
         orb.registerCleanup(cleanup);
     }
 
-    // Expose reset for I3 manual audit
     (window as any).__AURELIA_RECOVERY__ = {
-        softReset: () => scheduler.softReset('manual trigger')
+        softReset: () => scheduler.softReset('manual trigger'),
+        destroy: () => cleanup()
     };
 
     (window as any).__AURELIA_METRICS__ = telemetry.metrics;
