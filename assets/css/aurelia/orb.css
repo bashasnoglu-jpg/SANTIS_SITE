@@ -89,6 +89,12 @@
 .is-alert { --nv-orb-anim-speed: 2s; }
 .is-listening { --nv-orb-anim-speed: 0.8s; }
 
+/* 🎭 Contextual Page Identity (Presence Slice 2) */
+#aurelia-orb-container.is-page-hamam { --nv-orb-glow: radial-gradient(circle, var(--color-base-gold) 0%, transparent 70%); }
+#aurelia-orb-container.is-page-massage { --nv-orb-glow: radial-gradient(circle, #00ced1 0%, transparent 70%); }
+#aurelia-orb-container.is-page-skincare { --nv-orb-glow: radial-gradient(circle, #e0f7fa 0%, transparent 70%); }
+#aurelia-orb-container.is-page-rituals { --nv-orb-glow: radial-gradient(circle, #d4af37 0%, transparent 70%); }
+
 @keyframes orb-breathing {
   0%, 100% { transform: scale(0.8); opacity: 0.15; }
   50% { transform: scale(1.1); opacity: 0.3; }

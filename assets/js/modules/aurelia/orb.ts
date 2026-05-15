@@ -16,11 +16,12 @@ export class SovereignOrb {
         this.init();
     }
 
+    private setters: any = {};
+
     private init(): void {
         (window as any).__AURELIA_ORB_ACTIVE__ = true;
-        console.log("🌌 [Aurelia] Initializing Passive Sovereign Orb (Stabilization Pass H1-A)...");
+        console.log("🌌 [Aurelia] Initializing Presence Layer (H1-B)...");
         
-        // Ensure DOM is ready if not called from bootloader
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => this.createElements());
         } else {
@@ -29,14 +30,10 @@ export class SovereignOrb {
     }
 
     private createElements(): void {
-        // Final DOM safety check
         if (document.getElementById('aurelia-orb-container')) return;
 
         this.container = document.createElement('div');
         this.container.id = 'aurelia-orb-container';
-        this.container.setAttribute('aria-label', 'Aurelia AI Interface');
-        this.container.setAttribute('role', 'button');
-
         this.container.innerHTML = `
             <div class="aurelia-glow"></div>
             <div class="aurelia-orb-ring"></div>
@@ -46,50 +43,63 @@ export class SovereignOrb {
         `;
 
         document.body.appendChild(this.container);
+        this.initSetters();
         this.bindEvents();
+        this.applyContext();
+    }
+
+    private initSetters(): void {
+        if (typeof gsap === 'undefined') return;
+        // 🚀 High-performance setters (No layout thrashing)
+        this.setters.scale = gsap.quickSetter(this.container, "scale");
+        this.setters.glowOpacity = gsap.quickSetter(".aurelia-glow", "opacity");
+        this.setters.glowScale = gsap.quickSetter(".aurelia-glow", "scale");
     }
 
     private bindEvents(): void {
         if (!this.container) return;
 
-        this.container.addEventListener('click', () => {
-            console.log("🌌 [Aurelia] Interaction Sovereignty triggered.");
-            this.pulse();
-        }, { passive: true });
+        this.container.addEventListener('click', () => this.pulse(), { passive: true });
 
-        // Presence Layer: Proximity Detection
+        // Presence Layer: Proximity & Scroll
         window.addEventListener('mousemove', (e) => this.handleProximity(e), { passive: true });
+        window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
     }
 
     private handleProximity(e: MouseEvent): void {
-        if (!this.container || typeof gsap === 'undefined') return;
+        if (!this.container || !this.setters.scale) return;
 
         const rect = this.container.getBoundingClientRect();
         const orbX = rect.left + rect.width / 2;
         const orbY = rect.top + rect.height / 2;
         
-        const dist = Math.sqrt(
-            Math.pow(e.clientX - orbX, 2) + 
-            Math.pow(e.clientY - orbY, 2)
-        );
+        const dist = Math.sqrt(Math.pow(e.clientX - orbX, 2) + Math.pow(e.clientY - orbY, 2));
+        const proximity = Math.max(0, 1 - dist / 400); 
 
-        // 150px yarıçapında etki başlasın
-        const proximity = Math.max(0, 1 - dist / 300); 
+        // Apply via quickSetters (120 FPS target)
+        this.setters.scale(1 + (proximity * 0.2));
+        this.setters.glowOpacity(0.3 + (proximity * 0.7));
+        this.setters.glowScale(1 + (proximity * 0.8));
+    }
+
+    private handleScroll(): void {
+        if (typeof gsap === 'undefined') return;
         
-        gsap.to(this.container, {
-            scale: 1 + (proximity * 0.15),
-            duration: 0.4,
-            ease: "power2.out",
-            overwrite: "auto"
+        const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight || 1);
+        
+        // Scroll-reactive aura (Subtle breathing shift)
+        gsap.to('.aurelia-orb-ring', {
+            scale: 1.1 + (scrollPercent * 0.3),
+            opacity: 0.2 + (scrollPercent * 0.4),
+            duration: 1,
+            ease: "sine.out"
         });
+    }
 
-        // 🌟 GPU-Optimized Glow Animation (Opacity only)
-        gsap.to('.aurelia-glow', {
-            opacity: 0.4 + (proximity * 0.6),
-            scale: 1 + (proximity * 0.5),
-            duration: 0.4,
-            overwrite: "auto"
-        });
+    private applyContext(): void {
+        const page = document.body.dataset.page || 'index';
+        this.container?.classList.add(`is-page-${page}`);
+        console.log(`🌌 [Aurelia] Context applied: ${page}`);
     }
 
     private pulse(): void {
