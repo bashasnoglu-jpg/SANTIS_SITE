@@ -23,13 +23,17 @@ The Aurelia Orb is restricted to the following visual state transitions. Any sta
 
 ## 3. Governance Boundaries
 
-*   **No Business Semantic Interpretation:** The Orb reacts to "types" of events (intent, success, error) but must not know the *content* of those events. It should not "know" which specific ritual is being booked or which user is logged in.
+*   **No Business Semantic Interpretation:** The Orb reacts to "types" of events (intent, success, error) but must not know the *content* of those events.
 *   **No State Persistence:** Visual mapping is transient. The Orb must not store history of past events or create a visual "memory" of interactions.
-*   **No Blocking UI:** Mapping logic must run on the Main Thread but prioritized via `requestAnimationFrame` or `requestIdleCallback` to ensure 120 FPS shell integrity.
+*   **No Blocking UI:** Mapping logic must run on the Main Thread but prioritized via `requestAnimationFrame`.
 
----
+## 4. Visual Mapping Rate Limits & Composure
 
-## 4. Resilience Policy (Fail-Silent)
+*   **Refractory Period:** The Orb shall not change its visual state more than once every **120ms** to prevent strobe effects during event storms.
+*   **Transition Smoothing:** Instant state flips (e.g., `ERROR` -> `ACTIVE`) are forbidden. Transitions must pass through a brief neutral state or use a fade-out/fade-in cycle.
+*   **Panic Suppression:** In the event of rapid inbound signals, the Orb must maintain a steady rhythm. **"Core panic edebilir, Orb panic etmez."** (The core may panic; the Orb maintains composure).
 
-*   **Silent Drop:** If an inbound event contains malformed metadata or an unsupported mapping type, it must be dropped silently without visual glitch or error reporting.
-*   **Visual Silence:** The experience shell maintains the "Quiet Luxury" aesthetic. No aggressive flashes, high-saturation colors, or sudden jarring transitions.
+## 5. Resilience Policy (Fail-Silent)
+
+*   **Silent Drop:** If an inbound event contains malformed metadata or an unsupported mapping type, it must be dropped silently.
+*   **Visual Silence:** The experience shell maintains the "Quiet Luxury" aesthetic. No aggressive flashes or high-saturation colors.
