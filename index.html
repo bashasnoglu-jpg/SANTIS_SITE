@@ -10,15 +10,17 @@
 <meta name="theme-color" content="#000000">
 <link rel="manifest" href="/manifest.json">
 <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<!-- Design Tokens -->
+<link href="/assets/css/tokens.css" rel="stylesheet"/>
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Outfit:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <style>
         :root {
-            --gold: #D4AF37;
-            --dark: #0a0a0a;
-            --text: #e0e0e0;
+            --gold: var(--color-base-gold);
+            --dark: var(--color-base-obsidian);
+            --text: var(--color-text-inverse);
             --overlay: rgba(0, 0, 0, 0.75);
         }
 
