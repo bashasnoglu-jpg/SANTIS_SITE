@@ -11,6 +11,7 @@
 *   **Intelligence Sovereignty:** The public-facing site (`SANTIS_SITE`) shall never host inference logic, personal data processing, or decision-making algorithms.
 *   **Passive Interaction (Visualize-Only):** The Experience Shell is a passive observer of system-wide events. It reacts visually but does not initiate state changes, generate intents, or trigger decisions in the core.
 *   **Adapter Isolation:** All connectivity to the Intelligence Engine must pass through a "Sealed Adapter" with a strict event whitelist.
+*   **Non-Authoritative Resilience:** Visual events are **advisory-only** and non-authoritative. Dropped events or adapter failures **must fail silently**. The core system functionality shall never depend on the state or availability of the experience shell.
 
 ## 2. Permitted Event Surface (The Visual-Only Contract)
 
