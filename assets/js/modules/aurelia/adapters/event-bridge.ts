@@ -1,11 +1,11 @@
 /**
  * ╔══════════════════════════════════════════════════════════════╗
- * ║  🧠 AURELIA — MEMORY & ALLOCATION DISCIPLINE (PHASE I6)      ║
- * ║  Closure Reduction · Static Extraction · Resource Pooling    ║
+ * ║  🧠 AURELIA — SCHEDULER DETERMINISM (PHASE I7)               ║
+ * ║  RAF Drift · Jitter Analytics · Frame Attribution           ║
  * ╚══════════════════════════════════════════════════════════════╝
  * 
- * 🛡️ GOVERNANCE: Zero Memory Creep.
- * 🛡️ DISCIPLINE: Minimize allocations in high-frequency paths.
+ * 🛡️ GOVERNANCE: Observation, not Adaptation.
+ * 🛡️ SCIENCE: Deterministic timing instrumentation.
  */
 
 export enum AureliaExperienceEvent {
@@ -15,7 +15,7 @@ export enum AureliaExperienceEvent {
 }
 
 /**
- * 🛰️ Metrics Registry (Static Memory Allocation)
+ * 🛰️ Metrics & Analytics (Static Memory Allocation)
  */
 const METRICS = {
     eventsReceived: 0,
@@ -28,19 +28,29 @@ const METRICS = {
     reducedMotionActive: window.matchMedia('(prefers-reduced-motion: reduce)').matches
 };
 
+const ANALYTICS = {
+    avgFrameDrift: 0,
+    maxFrameDrift: 0,
+    longFramesDetected: 0,
+    avgTransitionLatency: 0,
+    totalFrameCount: 0
+};
+
 const syncMetrics = () => {
-    (window as any).__AURELIA_METRICS__ = METRICS;
+    (window as any).__AURELIA_METRICS__ = { ...METRICS, analytics: ANALYTICS };
 };
 
 /**
- * 🛡️ Frame Guard: Monitors UI performance.
- * Singleton instance to prevent multiple RAF loops.
+ * 🛡️ Frame Guard: Monitors UI performance and RAF drift.
  */
 class FrameGuard {
     private static instance: FrameGuard | null = null;
     private lastFrameTime = performance.now();
     private isCongested = false;
     private active: boolean = true;
+    
+    private readonly IDEAL_FRAME = 16.666;
+    private driftSum = 0;
 
     private constructor() {
         this.monitor();
@@ -55,7 +65,17 @@ class FrameGuard {
     private monitor(): void {
         const check = (now: number) => {
             if (!this.active) return;
+            
             const delta = now - this.lastFrameTime;
+            const drift = Math.abs(delta - this.IDEAL_FRAME);
+
+            // 🛰️ Analytics: Drift & Long Frame Tracking
+            ANALYTICS.totalFrameCount++;
+            this.driftSum += drift;
+            ANALYTICS.avgFrameDrift = this.driftSum / ANALYTICS.totalFrameCount;
+            if (drift > ANALYTICS.maxFrameDrift) ANALYTICS.maxFrameDrift = drift;
+            if (delta > 32) ANALYTICS.longFramesDetected++;
+
             this.isCongested = delta > 32;
             this.lastFrameTime = now;
             requestAnimationFrame(check);
@@ -74,7 +94,6 @@ class FrameGuard {
 
 /**
  * Visual Scheduler: Enforces composure and saturation protection.
- * Extracted static logic to reduce instance memory pressure.
  */
 class VisualScheduler {
     private static readonly ALLOWED_TRANSITIONS: Record<string, string[]> = {
@@ -91,26 +110,28 @@ class VisualScheduler {
     private lastTransitionTime: number = 0;
     private currentState: string = 'idle';
     private staleWatchdog: any = null;
+    
+    private totalLatencySum = 0;
 
     constructor(orb: any) {
         this.orb = orb;
     }
 
     public schedule(targetState: string): void {
+        const scheduleTime = performance.now();
         METRICS.eventsReceived++;
-        const now = performance.now();
 
         const multiplier = FrameGuard.getInstance().getSaturationMultiplier();
         const effectiveRefractory = VisualScheduler.BASE_REFRACTORY * multiplier;
 
-        if (multiplier > 1 && now - this.lastTransitionTime < effectiveRefractory) {
+        if (multiplier > 1 && scheduleTime - this.lastTransitionTime < effectiveRefractory) {
             METRICS.eventsDropped++;
             METRICS.saturationBlocks++;
             syncMetrics();
             return;
         }
 
-        if (now - this.lastTransitionTime < VisualScheduler.BASE_REFRACTORY) {
+        if (scheduleTime - this.lastTransitionTime < VisualScheduler.BASE_REFRACTORY) {
             METRICS.eventsDropped++;
             METRICS.refractoryBlocks++;
             syncMetrics();
@@ -125,16 +146,14 @@ class VisualScheduler {
             return;
         }
 
-        this.executeTransition(targetState);
+        this.executeTransition(targetState, scheduleTime);
     }
 
-    private executeTransition(targetState: string): void {
+    private executeTransition(targetState: string, scheduleTime: number): void {
         this.currentState = targetState;
         this.lastTransitionTime = performance.now();
         
-        if (this.staleWatchdog) {
-            clearTimeout(this.staleWatchdog);
-        }
+        if (this.staleWatchdog) clearTimeout(this.staleWatchdog);
 
         if (targetState !== 'idle') {
             this.staleWatchdog = setTimeout(() => this.softReset('stale state detected'), VisualScheduler.STALE_TIMEOUT);
@@ -144,6 +163,13 @@ class VisualScheduler {
 
         requestAnimationFrame(() => {
             if (this.orb?.setState) {
+                const executionTime = performance.now();
+                
+                // 🛰️ Analytics: Transition Latency
+                const latency = executionTime - scheduleTime;
+                this.totalLatencySum += latency;
+                ANALYTICS.avgTransitionLatency = this.totalLatencySum / (METRICS.transitionsExecuted + 1);
+
                 this.orb.setState(targetState);
                 METRICS.transitionsExecuted++;
                 syncMetrics();
@@ -155,7 +181,7 @@ class VisualScheduler {
         if (this.currentState === 'idle') return;
         console.warn(`🛡️ [Aurelia Recovery] Soft Reset: ${reason}`);
         METRICS.selfHeals++;
-        this.executeTransition('idle');
+        this.executeTransition('idle', performance.now());
     }
 
     public destroy(): void {
@@ -172,16 +198,12 @@ class VisualScheduler {
 let activeBridgeCleanup: (() => void) | null = null;
 
 export function initSovereignBridge(orb: any): void {
-    if (activeBridgeCleanup) {
-        activeBridgeCleanup();
-    }
-
+    if (activeBridgeCleanup) activeBridgeCleanup();
     if (!orb?.setState) return;
 
     const scheduler = new VisualScheduler(orb);
     const frameGuard = FrameGuard.getInstance();
 
-    // 🛡️ Closure Pressure Reduction: Static Handler
     const handleEvent = (event: Event) => {
         switch (event.type) {
             case AureliaExperienceEvent.INTENT_VISUALIZE:
