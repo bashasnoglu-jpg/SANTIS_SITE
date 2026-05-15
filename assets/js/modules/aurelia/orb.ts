@@ -166,6 +166,39 @@ export class SovereignOrb {
         }
     }
 
+    /**
+     * 🛡️ Circuit Breaker: Visually reflects the network connectivity state.
+     */
+    public setNetworkStatus(status: 'stable' | 'disconnected'): void {
+        if (!this.container || typeof gsap === 'undefined') return;
+
+        console.log(`🛡️ [Aurelia Circuit Breaker] Status: ${status}`);
+        
+        if (status === 'disconnected') {
+            // Sovereign Dormant Mode
+            gsap.to(this.container, { 
+                filter: "grayscale(0.6) brightness(0.8)", 
+                duration: 1.5, 
+                ease: "power2.inOut" 
+            });
+            gsap.to(".aurelia-glow", { 
+                backgroundColor: "#555", 
+                duration: 2 
+            });
+        } else {
+            // Stable Return
+            gsap.to(this.container, { 
+                filter: "grayscale(0) brightness(1)", 
+                duration: 1, 
+                ease: "power2.out" 
+            });
+            gsap.to(".aurelia-glow", { 
+                backgroundColor: "rgba(212, 175, 55, 0.4)", // Sovereign Gold
+                duration: 1 
+            });
+        }
+    }
+
     public registerCleanup(fn: () => void): void {
         this.cleanups.push(fn);
     }
