@@ -26,14 +26,16 @@ export function initNetworkBridge(orb: any): void {
 
     // 2. Connectivity Telemetry
     const dispatchStatus = (status: 'stable' | 'disconnected') => {
-        // We notify the scheduler via a custom event that the scheduler/bridge will handle
+        // Trigger Visual Circuit Breaker (Phase J2)
+        if (orb && typeof orb.setNetworkStatus === 'function') {
+            orb.setNetworkStatus(status);
+        }
+
         const event = new CustomEvent('santis:experience:network', {
             detail: { status, timestamp: performance.now() }
         });
         document.dispatchEvent(event);
         
-        // Optionally trigger a visual state if needed, 
-        // but typically network status is an advisory metric for the Orb.
         if (status === 'disconnected') {
             console.warn('🛡️ [Network Bridge] Mode: Sovereign Local (Offline)');
         }

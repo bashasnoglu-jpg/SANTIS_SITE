@@ -5,6 +5,7 @@ export class SovereignOrb {
     private container: HTMLElement | null = null;
     private setters: any = {};
     private cleanups: Array<() => void> = [];
+    private breathingAnim: gsap.core.Tween | null = null;
 
     constructor() {
         if ((window as any).__AURELIA_ORB_ACTIVE__) {
@@ -49,6 +50,21 @@ export class SovereignOrb {
 
         // 🛡️ Mount Network Bridge (Phase J1)
         initNetworkBridge(this);
+
+        // 🫁 Initialize Breathing Rhythm (Phase J2 Refinement)
+        this.initBreathing();
+    }
+
+    private initBreathing(): void {
+        if (!this.container || typeof gsap === 'undefined') return;
+        
+        this.breathingAnim = gsap.to(".aurelia-orb", {
+            scale: 1.08,
+            duration: 2.5,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1
+        });
     }
 
     private initSetters(): void {
@@ -166,11 +182,55 @@ export class SovereignOrb {
         }
     }
 
+    /**
+     * 🛡️ Circuit Breaker: Visually reflects the network connectivity state.
+     */
+    public setNetworkStatus(status: 'stable' | 'disconnected'): void {
+        if (!this.container || typeof gsap === 'undefined') return;
+
+        console.log(`🛡️ [Aurelia Circuit Breaker] Status: ${status}`);
+        
+        if (status === 'disconnected') {
+            // Sovereign Dormant Mode
+            gsap.to(this.container, { 
+                filter: "grayscale(0.6) brightness(0.8)", 
+                duration: 1.5, 
+                ease: "power2.inOut" 
+            });
+            gsap.to(".aurelia-glow", { 
+                backgroundColor: "#555", 
+                duration: 2 
+            });
+
+            // 🫁 Slow down breathing
+            if (this.breathingAnim) {
+                gsap.to(this.breathingAnim, { timeScale: 0.4, duration: 1.5, ease: "power2.inOut" });
+            }
+        } else {
+            // Stable Return
+            gsap.to(this.container, { 
+                filter: "grayscale(0) brightness(1)", 
+                duration: 1, 
+                ease: "power2.out" 
+            });
+            gsap.to(".aurelia-glow", { 
+                backgroundColor: "rgba(212, 175, 55, 0.4)", // Sovereign Gold
+                duration: 1 
+            });
+
+            // 🫁 Restore breathing rhythm
+            if (this.breathingAnim) {
+                gsap.to(this.breathingAnim, { timeScale: 1, duration: 1, ease: "power2.out" });
+            }
+        }
+    }
+
     public registerCleanup(fn: () => void): void {
         this.cleanups.push(fn);
     }
 
     public destroy(): void {
+        if (this.breathingAnim) this.breathingAnim.kill();
         this.cleanups.forEach(fn => fn());
         this.container?.remove();
         (window as any).__AURELIA_ORB_ACTIVE__ = false;
