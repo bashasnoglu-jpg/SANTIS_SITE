@@ -5,7 +5,7 @@ export default defineConfig({
     port: 5500, // Matching the Live Server port
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'http://localhost:3030',
         changeOrigin: true,
       },
     },

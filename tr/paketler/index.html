@@ -52,23 +52,26 @@
 <!-- Sayfa geçişleri için inline stil: CLS sıfır -->
 <style>
     .pkg-hero {
-        min-height: 52svh;
+        min-height: 65svh;
         display: flex;
         align-items: flex-end;
         padding: var(--space-10, 64px) var(--grid-margin-lg, 64px) var(--space-8, 40px);
         position: relative;
         overflow: hidden;
-        background: #07060a;
+        background: #000;
+        z-index: 1;
     }
     .pkg-hero-bg {
-        position: absolute; inset: 0;
+        position: absolute; 
+        top: 0; left: 0;
         width: 100%; height: 100%;
         object-fit: cover;
         object-position: center 30%;
-        filter: brightness(0.45) saturate(0.7);
-        z-index: 0;
+        filter: brightness(0.4) saturate(0.8);
+        z-index: -1; /* İçeriğin arkasına kilitledik */
+        pointer-events: none;
     }
-    .pkg-hero-content { position: relative; z-index: 1; max-width: 680px; }
+    .pkg-hero-content { position: relative; z-index: 2; max-width: 800px; width: 100%; }
     .pkg-hero-eyebrow {
         font-size: var(--fs-xs, 0.75rem);
         letter-spacing: var(--ls-widest, 0.25em);
@@ -264,36 +267,32 @@
     }
 </style>
 <script src="/assets/js/loader.js?v=nav-3a6f8730" defer></script>
-<script src="/assets/js/santis-nav.js?v=nav-inline-visible-2" defer></script>
 <link href="/assets/css/nav-final.css?v=nav-3a6f8730" rel="stylesheet"/>
 </head>
 
 <body class="cinematic-mode">
-<div id="navbar-container"></div>
+<!-- Navbar sadece bir kez, merkezi sistem tarafından enjekte edilecek -->
+<div id="nv-header"></div> 
 
 <!-- ── HERO ───────────────────────────────────────────────────────────── -->
 <header class="pkg-hero" role="banner">
   <img
-    class="pkg-hero-bg"
+    class="pkg-hero-bg santis-cinematic-media"
     src="/assets/img/cards/santis_card_hammam_lux.webp"
-    alt="Santis Club – lüks spa iç mekan"
+    alt="Santis Club – Lüks Spa Deneyimi"
     decoding="async"
     fetchpriority="high"
     loading="eager"
     width="1920"
     height="1080"
-    data-focal="0.5 0.3"
   />
   <div class="pkg-hero-content">
-    <span class="pkg-hero-eyebrow" data-lang="tr">ÖZEL KÜRASYONlar</span>
+    <span class="pkg-hero-eyebrow" data-lang="tr">ÖZEL KÜRASYONLAR</span>
     <span class="pkg-hero-eyebrow" data-lang="en" style="display:none;">CURATED RITUALS</span>
-    <h1 class="pkg-hero-title" data-lang="tr">Spa Paketleri</h1>
-    <h1 class="pkg-hero-title" data-lang="en" style="display:none;">Spa Packages</h1>
-    <p class="pkg-hero-desc" data-lang="tr">
-      Santis Club'ın özenle hazırladığı paketleriyle bütünsel bir yenilenme deneyimine adım atın. Her paket; masaj, hamam ve cilt bakımının en uyumlu kombinasyonundan oluşur.
-    </p>
-    <p class="pkg-hero-desc" data-lang="en" style="display:none;">
-      Step into a holistic renewal experience with Santis Club's meticulously curated packages. Each package combines massage, hammam and skin care in perfect harmony.
+    <h1 class="pkg-hero-title santis-cinematic-text" data-lang="tr">Spa Paketleri</h1>
+    <h1 class="pkg-hero-title santis-cinematic-text" data-lang="en" style="display:none;">Spa Packages</h1>
+    <p class="pkg-hero-desc santis-cinematic-text" data-lang="tr">
+      Santis Club'ın özenle hazırladığı paketleriyle bütünsel bir yenilenme deneyimine adım atın. Masaj, hamam ve cilt bakımının lüks kombinasyonları.
     </p>
   </div>
 </header>
@@ -314,155 +313,115 @@
 <section class="pkg-grid-section" aria-label="Spa Paketleri">
   <div class="pkg-grid" role="list">
 
-    <!-- 1. Romantik Kaçış (Feature – geniş) -->
-    <a class="pkg-card santis-reveal"
-       href="/romantik-kacis-paketi.html"
-       role="listitem"
-       aria-label="Romantik Kaçış Paketi — 280 EUR, 150 dakika">
+    <!-- 1. Romantik Kaçış -->
+    <article class="santis-pkg-card santis-reveal santis-cinematic-text" role="listitem">
       <img
-        class="pkg-card-img"
+        class="pkg-card-img santis-cinematic-media"
         src="/assets/img/cards/santis_card_massage_v1.webp"
-        alt="Romantik Kaçış Paketi – çift eşzamanlı masaj"
+        alt="Romantik Kaçış"
         loading="eager"
         decoding="async"
-        fetchpriority="high"
         width="1024" height="576"
-        data-focal="0.5 0.25"
       />
-      <div class="pkg-card-overlay" aria-hidden="true"></div>
-      <div class="pkg-card-body">
-        <span class="pkg-card-tag" data-lang="tr">ÇİFT PAKETİ</span>
-        <span class="pkg-card-tag" data-lang="en" style="display:none;">COUPLES PACKAGE</span>
-        <h2 class="pkg-card-name" data-lang="tr">Romantik Kaçış</h2>
-        <h2 class="pkg-card-name" data-lang="en" style="display:none;">Romantic Escape</h2>
+      <div class="pkg-content-wrapper">
+        <span class="pkg-card-tag">ÇİFT PAKETİ</span>
+        <h2 class="santis-pkg-title">Romantik Kaçış</h2>
         <div class="pkg-card-meta">
-          <span class="pkg-card-price">280 €</span>
-          <span class="pkg-card-dur" data-lang="tr">· 150 dk · 2 Kişi</span>
-          <span class="pkg-card-dur" data-lang="en" style="display:none;">· 150 min · 2 People</span>
+          <div class="pkg-card-price" data-base-price="180">180 €</div>
+          <span class="pkg-card-dur">· 150 dk · 2 Kişi</span>
         </div>
-        <p class="pkg-card-desc" data-lang="tr">Eşzamanlı masaj, Sultan Hamamı ve Sothys cilt bakımı.</p>
-        <p class="pkg-card-desc" data-lang="en" style="display:none;">Simultaneous massage, Sultan Hammam and Sothys facial.</p>
+        <p class="santis-pkg-desc">Eşzamanlı masaj, Sultan Hamamı ve Sothys cilt bakımı.</p>
       </div>
-    </a>
+      <a href="/romantik-kacis-paketi.html" class="santis-nav-cta" style="margin-left: 0; align-self: flex-start; margin-top: auto;">Detayları Keşfet</a>
+    </article>
 
-    <!-- 2. Günlük Terapi (dikey kart) -->
-    <a class="pkg-card santis-reveal"
-       href="/masaj.html"
-       role="listitem"
-       aria-label="Günlük Terapi Paketi — 140 EUR, 90 dakika">
+    <!-- 2. Günlük Terapi -->
+    <article class="santis-pkg-card santis-reveal santis-cinematic-text" role="listitem">
       <img
-        class="pkg-card-img"
+        class="pkg-card-img santis-cinematic-media"
         src="/assets/img/cards/santis_card_massage_v1.webp"
-        alt="Günlük Terapi Paketi – masaj ve cilt bakımı"
+        alt="Günlük Terapi"
         loading="lazy"
         decoding="async"
         width="600" height="800"
-        data-focal="0.5 0.2"
       />
-      <div class="pkg-card-overlay" aria-hidden="true"></div>
-      <div class="pkg-card-body">
-        <span class="pkg-card-tag" data-lang="tr">GÜNDELİK TERAPI</span>
-        <span class="pkg-card-tag" data-lang="en" style="display:none;">DAILY THERAPY</span>
-        <h2 class="pkg-card-name" data-lang="tr">Günlük Terapi</h2>
-        <h2 class="pkg-card-name" data-lang="en" style="display:none;">Daily Therapy</h2>
+      <div class="pkg-content-wrapper">
+        <span class="pkg-card-tag">GÜNDELİK TERAPI</span>
+        <h2 class="santis-pkg-title">Günlük Terapi</h2>
         <div class="pkg-card-meta">
-          <span class="pkg-card-price">140 €</span>
-          <span class="pkg-card-dur" data-lang="tr">· 90 dk</span>
-          <span class="pkg-card-dur" data-lang="en" style="display:none;">· 90 min</span>
+          <div class="pkg-card-price" data-base-price="145">145 €</div>
+          <span class="pkg-card-dur">· 90 dk</span>
         </div>
-        <p class="pkg-card-desc" data-lang="tr">Derin doku masajı ve nemlendirici yüz bakımı.</p>
-        <p class="pkg-card-desc" data-lang="en" style="display:none;">Deep tissue massage and moisturizing facial.</p>
+        <p class="santis-pkg-desc">Derin doku masajı ve nemlendirici yüz bakımı.</p>
       </div>
-    </a>
+      <a href="/masaj.html" class="santis-nav-cta" style="margin-left: 0; align-self: flex-start; margin-top: auto;">Keşfet</a>
+    </article>
 
     <!-- 3. Detoks Ritüeli -->
-    <a class="pkg-card santis-reveal"
-       href="/tr/hamam/kahve-detox.html"
-       role="listitem"
-       aria-label="Detoks Ritüeli — 160 EUR, 100 dakika">
+    <article class="santis-pkg-card santis-reveal santis-cinematic-text" role="listitem">
       <img
-        class="pkg-card-img"
+        class="pkg-card-img santis-cinematic-media"
         src="/assets/img/cards/santis_card_hammam_lux.webp"
-        alt="Detoks Ritüeli – kahve peelingi ve hamam"
+        alt="Detoks Ritüeli"
         loading="lazy"
         decoding="async"
         width="600" height="600"
-        data-focal="0.4 0.35"
       />
-      <div class="pkg-card-overlay" aria-hidden="true"></div>
-      <div class="pkg-card-body">
-        <span class="pkg-card-tag" data-lang="tr">DETOKS</span>
-        <span class="pkg-card-tag" data-lang="en" style="display:none;">DETOX</span>
-        <h2 class="pkg-card-name" data-lang="tr">Detoks Ritüeli</h2>
-        <h2 class="pkg-card-name" data-lang="en" style="display:none;">Detox Ritual</h2>
+      <div class="pkg-content-wrapper">
+        <span class="pkg-card-tag">DETOKS</span>
+        <h2 class="santis-pkg-title">Detoks Ritüeli</h2>
         <div class="pkg-card-meta">
-          <span class="pkg-card-price">160 €</span>
-          <span class="pkg-card-dur" data-lang="tr">· 100 dk</span>
-          <span class="pkg-card-dur" data-lang="en" style="display:none;">· 100 min</span>
+          <div class="pkg-card-price" data-base-price="160">160 €</div>
+          <span class="pkg-card-dur">· 100 dk</span>
         </div>
-        <p class="pkg-card-desc" data-lang="tr">Kahve peelingi, hamam ve aromaterapi masajı.</p>
-        <p class="pkg-card-desc" data-lang="en" style="display:none;">Coffee peeling, hammam and aromatherapy massage.</p>
+        <p class="santis-pkg-desc">Kahve peelingi, hamam ve aromaterapi masajı.</p>
       </div>
-    </a>
+      <a href="/tr/hamam/kahve-detox.html" class="santis-nav-cta" style="margin-left: 0; align-self: flex-start; margin-top: auto;">Ritüeli İncele</a>
+    </article>
 
     <!-- 4. Tam Rahatlama -->
-    <a class="pkg-card santis-reveal"
-       href="/tr/masajlar/aromaterapi-masaji.html"
-       role="listitem"
-       aria-label="Tam Rahatlama Paketi — 190 EUR, 120 dakika">
+    <article class="santis-pkg-card santis-reveal santis-cinematic-text" role="listitem">
       <img
-        class="pkg-card-img"
+        class="pkg-card-img santis-cinematic-media"
         src="/assets/img/cards/santis_card_massage_v1.webp"
-        alt="Tam Rahatlama – aromaterapi masajı ve bakım"
+        alt="Tam Rahatlama"
         loading="lazy"
         decoding="async"
         width="600" height="600"
-        data-focal="0.5 0.3"
       />
-      <div class="pkg-card-overlay" aria-hidden="true"></div>
-      <div class="pkg-card-body">
-        <span class="pkg-card-tag" data-lang="tr">TAM RAHATLAMA</span>
-        <span class="pkg-card-tag" data-lang="en" style="display:none;">FULL RELAXATION</span>
-        <h2 class="pkg-card-name" data-lang="tr">Tam Rahatlama</h2>
-        <h2 class="pkg-card-name" data-lang="en" style="display:none;">Full Relaxation</h2>
+      <div class="pkg-content-wrapper">
+        <span class="pkg-card-tag">TAM RAHATLAMA</span>
+        <h2 class="santis-pkg-title">Tam Rahatlama</h2>
         <div class="pkg-card-meta">
-          <span class="pkg-card-price">190 €</span>
-          <span class="pkg-card-dur" data-lang="tr">· 120 dk</span>
-          <span class="pkg-card-dur" data-lang="en" style="display:none;">· 120 min</span>
+          <div class="pkg-card-price" data-base-price="190">190 €</div>
+          <span class="pkg-card-dur">· 120 dk</span>
         </div>
-        <p class="pkg-card-desc" data-lang="tr">Aromaterapi masajı, kese ve saç bakımı paketi.</p>
-        <p class="pkg-card-desc" data-lang="en" style="display:none;">Aromatherapy massage, scrub and hair care package.</p>
+        <p class="santis-pkg-desc">Aromaterapi masajı, kese ve saç bakımı paketi.</p>
       </div>
-    </a>
+      <a href="/tr/masajlar/aromaterapi-masaji.html" class="santis-nav-cta" style="margin-left: 0; align-self: flex-start; margin-top: auto;">Detaylar</a>
+    </article>
 
     <!-- 5. Sothys Premium -->
-    <a class="pkg-card santis-reveal"
-       href="/masaj.html"
-       role="listitem"
-       aria-label="Sothys Premium Paketi — 220 EUR, 120 dakika">
+    <article class="santis-pkg-card santis-reveal santis-cinematic-text" role="listitem">
       <img
-        class="pkg-card-img"
+        class="pkg-card-img santis-cinematic-media"
         src="/assets/img/cards/santis_card_hammam_lux.webp"
-        alt="Sothys Premium – lüks cilt bakımı ve masaj"
+        alt="Sothys Premium"
         loading="lazy"
         decoding="async"
         width="600" height="600"
-        data-focal="0.55 0.3"
       />
-      <div class="pkg-card-overlay" aria-hidden="true"></div>
-      <div class="pkg-card-body">
+      <div class="pkg-content-wrapper">
         <span class="pkg-card-tag">SOTHYS PREMIUM</span>
-        <h2 class="pkg-card-name" data-lang="tr">Sothys Premium</h2>
-        <h2 class="pkg-card-name" data-lang="en" style="display:none;">Sothys Premium</h2>
+        <h2 class="santis-pkg-title">Sothys Premium</h2>
         <div class="pkg-card-meta">
-          <span class="pkg-card-price">220 €</span>
-          <span class="pkg-card-dur" data-lang="tr">· 120 dk</span>
-          <span class="pkg-card-dur" data-lang="en" style="display:none;">· 120 min</span>
+          <div class="pkg-card-price" data-base-price="220">220 €</div>
+          <span class="pkg-card-dur">· 120 dk</span>
         </div>
-        <p class="pkg-card-desc" data-lang="tr">Sothys lüks yüz bakımı ve full body masaj.</p>
-        <p class="pkg-card-desc" data-lang="en" style="display:none;">Sothys luxury facial and full body massage.</p>
+        <p class="santis-pkg-desc">Sothys lüks yüz bakımı ve full body masaj.</p>
       </div>
-    </a>
+      <a href="/masaj.html" class="santis-nav-cta" style="margin-left: 0; align-self: flex-start; margin-top: auto;">İncele</a>
+    </article>
 
   </div><!-- /pkg-grid -->
 </section>
@@ -482,8 +441,43 @@
 <div id="footer-container"></div>
 
 <!-- SCRIPTS -->
+<script src="/assets/vendor/gsap.min.js"></script>
+<script src="/assets/vendor/ScrollTrigger.min.js"></script>
 <script type="module" src="/assets/js/core/santis-core.js"></script>
+<script type="module">
+    import { SantisDynamicPricing } from '/assets/js/modules/santis-dynamic-pricing.js';
+    import { SantisNudgeEngine } from '/assets/js/modules/santis-nudge-engine.js';
+    import { SantisMotionLayer } from '/assets/js/modules/santis-motion-layer.js';
+    import { SantisAestheticTracker } from '/assets/js/modules/santis-aesthetic-tracker.js';
+    import { SantisAtmosphereEngine } from '/assets/js/modules/santis-atmosphere.js';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        window.SantisPricing = new SantisDynamicPricing();
+        window.SantisNudge = new SantisNudgeEngine();
+        window.SantisMotion = new SantisMotionLayer();
+        window.SantisAesthetic = new SantisAestheticTracker();
+        window.SantisAtmosphere = new SantisAtmosphereEngine();
+    });
+</script>
+
+<!-- Sovereign Mood Toggle (Minimal Luxury) -->
+<button 
+    onclick="window.SantisAtmosphere.toggleAtmosphere()" 
+    style="position:fixed; bottom: 100px; right: var(--spacing-2xl); z-index: 9998; background: var(--color-surface-glass); border: 1px solid var(--color-border-glass); color: var(--color-text-primary); padding: 8px 12px; border-radius: var(--radius-pill); cursor: pointer; font-size: 10px; letter-spacing: 0.1em; backdrop-filter: blur(var(--blur-md)); transition: all 0.3s ease; box-shadow: var(--shadow-base);"
+    onmouseover="this.style.borderColor='var(--lux-gold)'"
+    onmouseout="this.style.borderColor='var(--color-border-glass)'">
+    ATMOSPHERE SYNC
+</button>
+
 <script defer src="/assets/js/app.js"></script>
+
+<!-- Spatial Engine Initiation -->
+<script type="module">
+  import { SantisSpatialEngine } from '/assets/js/modules/santis-spatial-engine.js';
+  document.addEventListener('DOMContentLoaded', () => {
+    new SantisSpatialEngine();
+  });
+</script>
 
 <!-- Focal Point: data-focal → CSS vars -->
 <script type="module">
