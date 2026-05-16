@@ -1,10 +1,13 @@
 {
   "framework": "vite",
   "installCommand": "pnpm install --frozen-lockfile",
-  "buildCommand": "pnpm build:mpa",
+  "buildCommand": "pnpm build && mkdir -p dist/admin && cp -rv admin-panel/dist/* dist/admin/",
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/admin/:path*", "destination": "/admin/index.html" }
+  ],
   "headers": [
     {
       "source": "/assets/fonts/(.*)",
