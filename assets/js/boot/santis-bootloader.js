@@ -219,6 +219,12 @@
                 dependencies: ['/assets/js/modules/aurelia/orb.ts'],
                 isModule: true,
                 loaded: false
+            },
+            {
+                id: 'reveal',
+                selectors: ['.sovereign-reveal-item'],
+                dependencies: ['/assets/js/modules/santis-reveal-engine.js'],
+                loaded: false
             }
         ];
 
@@ -261,6 +267,7 @@
 
         // 🧬 V40 DECISION MATRIX (SAFE VERSION)
         window.__SANTIS_DECISION_MATRIX__ ??= {
+            reveal: { priority: 110, critical: true },
             nav: { priority: 100, critical: true },
             checkout: { priority: 90, critical: true },
             bento: { priority: 70, critical: true },

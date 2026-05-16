@@ -371,3 +371,33 @@
         }
     }
 }
+
+/* ── SOVEREIGN REVEAL CEREMONY ── */
+.sovereign-reveal-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.sovereign-reveal-item.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay Utilites for Staggering */
+.reveal-delay-100 { transition-delay: 100ms; }
+.reveal-delay-200 { transition-delay: 200ms; }
+.reveal-delay-300 { transition-delay: 300ms; }
+.reveal-delay-400 { transition-delay: 400ms; }
+.reveal-delay-500 { transition-delay: 500ms; }
+
+/* Accessibility Guard */
+@media (prefers-reduced-motion: reduce) {
+  .sovereign-reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
