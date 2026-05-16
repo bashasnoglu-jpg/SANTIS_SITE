@@ -20,7 +20,7 @@ const EXCLUDE_DIRS = new Set([
     'backup', 'backups', 'backup_assets', 'SantisV5.5_Backup',
     'Quarantine', 'quarantine', 'quarantine_zone',
     'visual_checkpoints', 'test-results', '_deploy_stage',
-    'demo', 'trends', 'print', 'sr', 'clinic-kiosk', 'guest-zen', 'tr', 'en',
+    'demo', 'trends', 'print', 'sr', 'clinic-kiosk', 'guest-zen',
     'tools', 'templates', 'packages', 'apps', 'admin-panel',
     'app', 'api', 'alembic', 'tests', 'reports',
 ]);
