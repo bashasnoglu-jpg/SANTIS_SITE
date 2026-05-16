@@ -115,6 +115,30 @@
         --shadow-elevated: 0 10px 40px rgba(0, 0, 0, 0.1);
     }
 
+    /* Twilight: Alacakaranlık / Gizemli Altın */
+    :root[data-theme="twilight"] {
+        --color-bg: #1a1423;
+        --color-surface: #261f32;
+        --color-surface-elevated: #312841;
+        --color-text: #e0d7ff;
+        --color-text-muted: #a394c5;
+        --lux-gold: #e2c07d;
+        --color-border: rgba(226, 192, 125, 0.1);
+        --shadow-base: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Dawn: Şafak / Sisli Pembe */
+    :root[data-theme="dawn"] {
+        --color-bg: #f2e9e9;
+        --color-surface: #ffffff;
+        --color-surface-elevated: #e8dede;
+        --color-text: #4a3f3f;
+        --color-text-muted: #8c7a7a;
+        --lux-gold: #d4af37;
+        --color-border: rgba(212, 175, 55, 0.15);
+        --shadow-base: 0 4px 20px rgba(198, 169, 107, 0.05);
+    }
+
     /* Tüm temel elementlerin geçiş kurallarına saygı duymasını sağlıyoruz */
     body, section, article, div, h1, h2, h3, p, span, a, button {
         transition: var(--theme-transition, none);
