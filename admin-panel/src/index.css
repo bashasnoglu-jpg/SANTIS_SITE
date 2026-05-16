@@ -74,6 +74,36 @@
 
     /* Easing */
     --ease-sovereign: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-lux: var(--ease-sovereign);
+    --duration-normal: 0.3s;
+
+    /* Semantic Feedback (Quiet Luxury Palette) */
+    --color-success-text: #10b981;
+    --color-success-bg-subtle: rgba(16, 185, 129, 0.05);
+    
+    --color-warning-text: #f59e0b;
+    --color-warning-bg-subtle: rgba(245, 158, 11, 0.05);
+    
+    --color-danger-text: #ff3b30;
+    --color-danger-bg-subtle: rgba(255, 59, 48, 0.05);
+
+    /* Spacing & Typography Bridge */
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    --text-lg: 1.125rem;
+    --text-base: 0.875rem;
+    --text-2xl: 2.2rem;
+    
+    --blur-lg: 24px;
+    
+    --color-surface-glass-dark: rgba(10, 10, 11, 0.85);
+    --color-danger-border: rgba(255, 59, 48, 0.4);
+
+    --font-display: 'Cinzel', serif;
+    --font-body: 'Inter', sans-serif;
 }
 
 @layer base {
