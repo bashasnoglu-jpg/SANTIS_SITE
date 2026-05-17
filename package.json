@@ -41,7 +41,8 @@
     "audit:payment-readiness": "node scripts/audit-payment-readiness-ui.cjs",
     "audit:payment-readiness-ledger": "node scripts/audit-payment-readiness-ledger.cjs",
     "audit:stripe-session-shell": "node scripts/audit-stripe-session-shell.cjs",
-    "audit:pricing-readiness": "node scripts/audit-pricing-readiness.cjs"
+    "audit:pricing-readiness": "node scripts/audit-pricing-readiness.cjs",
+    "audit:billing-checkout": "node scripts/audit-billing-checkout-session.cjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",
