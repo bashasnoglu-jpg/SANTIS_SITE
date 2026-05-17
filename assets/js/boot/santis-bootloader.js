@@ -246,6 +246,13 @@
                 loaded: false
             },
             {
+                id: 'checkout-ceremony',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-checkout-ceremony.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
                 id: 'journey',
                 selectors: ['body'],
                 dependencies: ['/assets/js/modules/santis-journey-orchestrator.js'],
@@ -294,7 +301,8 @@
         window.__SANTIS_DECISION_MATRIX__ ??= {
             reveal: { priority: 110, critical: true },
             vault: { priority: 109, critical: true },
-            journey: { priority: 108, critical: true },
+            "checkout-ceremony": { priority: 108, critical: true },
+            journey: { priority: 107, critical: true },
             atmosphere: { priority: 105, critical: true },
             nav: { priority: 100, critical: true },
             checkout: { priority: 90, critical: true },
