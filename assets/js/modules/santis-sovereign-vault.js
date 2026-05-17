@@ -1,3 +1,6 @@
+// Vault v1 stores experience continuity only.
+// Do not store payment data, email, phone, health data, or identity data here.
+
 const STORAGE_KEY = "santis:journey:v1";
 
 export class SantisSovereignVault {
