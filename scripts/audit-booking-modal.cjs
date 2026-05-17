@@ -17,6 +17,7 @@ const bootloader = read("assets/js/boot/santis-bootloader.js");
 const availabilityJs = read("assets/js/modules/santis-booking-availability.js");
 const holdJs = read("assets/js/modules/santis-booking-confirmation-hold.js");
 const ledgerJs = read("assets/js/modules/santis-booking-ledger.js");
+const apiAdapterJs = read("assets/js/modules/santis-booking-api-adapter.js");
 
 [
   "data-booking-modal",
@@ -31,6 +32,9 @@ assertIncludes(modalJs, "guest:booking_handoff_requested", "handoff event listen
 assertIncludes(modalJs, "guest:booking_intent_submitted", "intent submit event emission");
 assertIncludes(availabilityJs, "guest:booking_availability_checked", "availability event emission");
 assertIncludes(availabilityJs, "checkMockAvailability", "mock availability check");
+assertIncludes(availabilityJs, "SantisBookingAPI.checkAvailability", "API adapter usage");
+assertIncludes(apiAdapterJs, "/api/v1/booking/availability", "API endpoint contract");
+assertIncludes(apiAdapterJs, "falling back to mock availability", "fallback warning log");
 assertIncludes(holdJs, "guest:booking_confirmation_hold_created", "hold event emission");
 assertIncludes(ledgerJs, "santis:booking-ledger:v1", "ledger storage key");
 assertIncludes(ledgerJs, "guest:booking_confirmation_hold_created", "ledger hold tracking");
