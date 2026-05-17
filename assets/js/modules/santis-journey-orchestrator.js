@@ -62,6 +62,30 @@ class GuestJourneyOrchestrator {
     this.intent = e.detail?.intent;
     console.log(`[Journey] Intent Captured: ${this.intent}`);
     this.transitionTo(JourneyState.INTENT_CAPTURED);
+    
+    // Step 3: Align Atmosphere
+    this.alignAtmosphere(this.intent);
+  }
+
+  alignAtmosphere(intent) {
+    const atmosphereMap = {
+      "recover": "adriatic-night",
+      "calm": "mediterranean-zen",
+      "glow": "dawn",
+      "deep-reset": "twilight",
+      "couple-ritual": "adriatic-night"
+    };
+
+    const targetTheme = atmosphereMap[intent] || "mediterranean-zen";
+    
+    if (window.SantisAtmosphere && typeof window.SantisAtmosphere.setTheme === 'function') {
+        window.SantisAtmosphere.setTheme(targetTheme, `Journey Orchestrator (Intent: ${intent})`);
+        
+        // Broadcast the alignment
+        document.dispatchEvent(new CustomEvent("guest:atmosphere_aligned", { detail: { theme: targetTheme } }));
+    } else {
+        console.warn("[Journey] SantisAtmosphere module not found. Atmosphere cannot be aligned.");
+    }
   }
 
   handleAtmosphereAligned(e) {
