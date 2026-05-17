@@ -5,8 +5,10 @@
  */
 export class AntigravityPrompter {
     constructor() {
-      // Artık istekler doğrudan AI motoruna değil, Truth Layer Proxy'sine (3030) gidiyor
-      this.aiEndpoint = 'http://localhost:3030/api/antigravity/proxy'; 
+      // Artık istekler doğrudan AI motoruna değil, Truth Layer Proxy'sine gidiyor
+      const config = window.getRuntimeConfig ? window.getRuntimeConfig() : { apiBaseUrl: '/api/v1' };
+      const baseUrl = config.apiBaseUrl.replace('/v1', '');
+      this.aiEndpoint = `${baseUrl}/antigravity/proxy`;
       
       this.systemPrompt = `
         Sen "Antigravity" AI çalışma ortamısın.
