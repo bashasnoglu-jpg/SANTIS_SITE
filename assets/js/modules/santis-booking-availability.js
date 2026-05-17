@@ -1,3 +1,5 @@
+import { SantisBookingAPI } from "./santis-booking-api-adapter.js";
+
 export function checkMockAvailability(payload) {
   const hour = Number(String(payload.preferredTime || "").split(":")[0]);
 
@@ -41,11 +43,17 @@ function renderAvailability(result) {
 }
 
 function bindAvailabilityAdapter() {
-  document.addEventListener("guest:booking_intent_submitted", (e) => {
+  document.addEventListener("guest:booking_intent_submitted", async (e) => {
     const payload = e.detail;
     if (!payload) return;
     
-    const result = checkMockAvailability(payload);
+    // First try the API
+    let result = await SantisBookingAPI.checkAvailability(payload);
+
+    // If API fails or is not available, fallback to mock
+    if (!result) {
+      result = checkMockAvailability(payload);
+    }
 
     renderAvailability(result);
 
