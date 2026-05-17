@@ -17,6 +17,7 @@ class GuestJourneyOrchestrator {
   constructor() {
     this.currentState = JourneyState.IDLE;
     this.intent = null;
+    this.currentRecommendation = null;
     this.init();
   }
 
@@ -58,6 +59,32 @@ class GuestJourneyOrchestrator {
         }
       });
     });
+
+    this.bindItineraryActions();
+  }
+
+  bindItineraryActions() {
+    const button = document.querySelector("[data-add-itinerary]");
+    const preview = document.querySelector("[data-itinerary-preview]");
+
+    if (!button || !preview) return;
+
+    button.addEventListener("click", () => {
+      if (!this.currentRecommendation) return;
+
+      preview.hidden = false;
+      preview.querySelector("[data-itinerary-title]").textContent = this.currentRecommendation.title;
+      preview.querySelector("[data-itinerary-meta]").textContent =
+        `${this.currentRecommendation.category} · ${this.currentRecommendation.duration}`;
+
+      window.SantisBus?.emit?.("guest:itinerary_ready", {
+        ritual: this.currentRecommendation,
+        timestamp: Date.now()
+      });
+      
+      // Dispatch local event for state machine
+      document.dispatchEvent(new CustomEvent("guest:itinerary_ready", { detail: { ritual: this.currentRecommendation } }));
+    });
   }
 
   handleIntentSelected(e) {
@@ -77,6 +104,8 @@ class GuestJourneyOrchestrator {
     const panel = document.querySelector("[data-ritual-recommendation]");
 
     if (!panel || !ritual) return;
+    
+    this.currentRecommendation = ritual;
 
     panel.hidden = false;
     panel.querySelector("[data-ritual-title]").textContent = ritual.title;
