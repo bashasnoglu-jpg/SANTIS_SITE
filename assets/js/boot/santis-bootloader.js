@@ -239,6 +239,13 @@
                 loaded: false
             },
             {
+                id: 'vault',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-sovereign-vault.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
                 id: 'journey',
                 selectors: ['body'],
                 dependencies: ['/assets/js/modules/santis-journey-orchestrator.js'],
@@ -286,6 +293,7 @@
         // 🧬 V40 DECISION MATRIX (SAFE VERSION)
         window.__SANTIS_DECISION_MATRIX__ ??= {
             reveal: { priority: 110, critical: true },
+            vault: { priority: 109, critical: true },
             journey: { priority: 108, critical: true },
             atmosphere: { priority: 105, critical: true },
             nav: { priority: 100, critical: true },

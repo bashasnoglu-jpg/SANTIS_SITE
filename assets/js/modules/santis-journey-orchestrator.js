@@ -4,6 +4,7 @@
    ========================================================================== */
 
 import { getRitualRecommendation } from "./santis-ritual-recommender.js";
+import { SantisSovereignVault } from "./santis-sovereign-vault.js";
 
 const JourneyState = {
   IDLE: "idle",
@@ -32,6 +33,44 @@ class GuestJourneyOrchestrator {
     
     // Bind UI
     this.attachUIBindings();
+    
+    // Restore from Vault
+    this.hydrate();
+  }
+
+  hydrate() {
+    const restored = SantisSovereignVault.loadJourney();
+    if (restored && restored.intent) {
+      console.log("🦅 [Journey Orchestrator] Hydrating state from Sovereign Vault:", restored);
+      
+      this.intent = restored.intent;
+      
+      // 1. Restore Intent Chip
+      const btn = document.querySelector(`[data-intent="${restored.intent}"]`);
+      if (btn) btn.classList.add("is-selected");
+      
+      // 2. Restore Atmosphere
+      if (restored.atmosphere && window.SantisAtmosphere) {
+        window.SantisAtmosphere.setTheme(restored.atmosphere, "Vault Hydration");
+      }
+      
+      // 3. Render Recommendation
+      this.renderRecommendation(restored.intent);
+      
+      // 4. Render Itinerary Preview if it was saved
+      // (The user instruction said "Itinerary preview tekrar oluşsun")
+      if (restored.ritual) {
+        const preview = document.querySelector("[data-itinerary-preview]");
+        if (preview) {
+          preview.hidden = false;
+          preview.querySelector("[data-itinerary-title]").textContent = restored.ritual.title;
+          preview.querySelector("[data-itinerary-meta]").textContent =
+            `${restored.ritual.category} · ${restored.ritual.duration}`;
+        }
+      }
+      
+      this.transitionTo(JourneyState.ITINERARY_READY);
+    }
   }
 
   attachUIBindings() {
@@ -93,10 +132,17 @@ class GuestJourneyOrchestrator {
     this.transitionTo(JourneyState.INTENT_CAPTURED);
     
     // Step 3: Align Atmosphere
-    this.alignAtmosphere(this.intent);
+    const atmosphere = this.alignAtmosphere(this.intent);
     
     // Step 4: Recommend Ritual
     this.renderRecommendation(this.intent);
+    
+    // Step 5: Save to Vault
+    SantisSovereignVault.saveJourney({
+      intent: this.intent,
+      atmosphere: atmosphere,
+      ritual: this.currentRecommendation
+    });
   }
 
   renderRecommendation(intent) {
@@ -141,6 +187,8 @@ class GuestJourneyOrchestrator {
     } else {
         console.warn("[Journey] SantisAtmosphere module not found. Atmosphere cannot be aligned.");
     }
+    
+    return targetTheme;
   }
 
   handleAtmosphereAligned(e) {
