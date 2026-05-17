@@ -19,15 +19,19 @@ jobs:
     - name: 📥 Sovereign Code Checkout
       uses: actions/checkout@v4
 
-    - name: 📦 Install pnpm
-      uses: pnpm/action-setup@v3
+    - name: Enable Corepack
+      run: corepack enable
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
       with:
         version: 10.24.0
+        run_install: false
 
     - name: ⚙️ Boot Node.js Environment
       uses: actions/setup-node@v4
       with:
-        node-version: '20.x'
+        node-version: "20"
         cache: 'pnpm'
 
     - name: 📦 Armor Up (Install Dependencies)
@@ -41,8 +45,7 @@ jobs:
     - name: ⚡ Ignite Santis OS Local Engine
       run: |
         # Arka planda Edge SSR Mock Server ve Statik sunucuyu ayağa kaldır
-        npm install -g http-server
-        http-server ./ -p 8080 -d false -c-1 --silent &
+        pnpm dlx http-server ./ -p 8080 -d false -c-1 --silent &
         node tools/edge_ssr_worker.js &
         sleep 5 # Kuantum raylarının ısınması için bekle
 

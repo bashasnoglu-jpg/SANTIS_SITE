@@ -16,10 +16,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
           version: 10.24.0
+          run_install: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -31,4 +35,4 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Validate & Enforce Theme Manifest
-        run: npm run stitch:enforce
+        run: pnpm run stitch:enforce
