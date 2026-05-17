@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 import {
   RadarEventSchema,
@@ -18,6 +18,20 @@ export function SovereignSocketProvider({ children }) {
   });
   const [pricingLogs, setPricingLogs] = useState([]);
   const [predictionData, setPredictionData] = useState(null);
+
+  const emitSocketEvent = useCallback((eventName, payload) => {
+    socketRef.current?.emit(eventName, payload);
+  }, []);
+
+  const onSocketEvent = useCallback((eventName, handler) => {
+    const socket = socketRef.current;
+
+    if (!socket) return undefined;
+
+    socket.on(eventName, handler);
+
+    return () => socket.off(eventName, handler);
+  }, []);
 
   useEffect(() => {
     const socket = io('http://localhost:3030');
@@ -76,13 +90,14 @@ export function SovereignSocketProvider({ children }) {
 
   const value = useMemo(
     () => ({
-      socket: socketRef.current,
+      emitSocketEvent,
+      onSocketEvent,
       radarData,
       financeData,
       pricingLogs,
       predictionData,
     }),
-    [radarData, financeData, pricingLogs, predictionData],
+    [emitSocketEvent, onSocketEvent, radarData, financeData, pricingLogs, predictionData],
   );
 
   return (
