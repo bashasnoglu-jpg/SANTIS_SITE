@@ -2,10 +2,12 @@
 
 set -e
 
-if git diff HEAD^ HEAD --quiet admin-panel/ packages/ package.json pnpm-lock.yaml pnpm-workspace.yaml; then
-  echo "🛑 No admin-panel or shared dependency changes detected. Skipping Vercel build."
+WATCH_PATHS="admin-panel/ packages/ package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json vercel.json"
+
+if [[ -n "$VERCEL_GIT_PREVIOUS_SHA" ]] && git diff "$VERCEL_GIT_PREVIOUS_SHA" HEAD --quiet $WATCH_PATHS; then
+  echo "🛑 No admin-panel, shared dependency, or deployment config changes detected. Skipping Vercel build."
   exit 0
 fi
 
-echo "✅ Relevant admin-panel changes detected. Running Vercel build."
+echo "✅ Relevant admin-panel, shared dependency, or deployment config changes detected. Running Vercel build."
 exit 1
