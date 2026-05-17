@@ -172,6 +172,33 @@
   opacity: 0.72;
 }
 
+.santis-billing-session-status {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 22px;
+  border: 1px solid color-mix(in srgb, var(--color-gold, #d4af37) 18%, transparent);
+  background: color-mix(in srgb, var(--color-ink, #0b0f14) 58%, transparent);
+  backdrop-filter: blur(18px);
+}
+
+.santis-billing-session-eyebrow {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.68;
+}
+
+.santis-billing-session-status h3 {
+  margin: 0;
+  font-size: clamp(1.15rem, 2.4vw, 1.65rem);
+  font-weight: 400;
+}
+
+.santis-billing-session-status p {
+  opacity: 0.72;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .santis-booking-modal,
   .santis-booking-modal-content {
