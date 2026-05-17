@@ -1,4 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  SovereignEventHandler,
+  SovereignEventName,
+  SovereignEventPayloads,
+} from '../types/socketEvents';
 
 type SovereignWebSocketState = 'CONNECTING' | 'OPEN' | 'CLOSED' | 'ERROR';
 
@@ -147,7 +152,10 @@ async function connect(url: string) {
   };
 }
 
-function sendSocketEnvelope(eventName: string, payload?: unknown) {
+function sendSocketEnvelope<K extends SovereignEventName>(
+  eventName: K,
+  payload?: SovereignEventPayloads[K],
+) {
   if (!globalWs || globalWs.readyState !== WebSocket.OPEN) {
     console.warn(`[Sovereign WS] Cannot emit "${eventName}" because socket is not open.`);
     return false;
@@ -161,9 +169,9 @@ function sendSocketEnvelope(eventName: string, payload?: unknown) {
   return true;
 }
 
-function subscribeSocketEvent<TPayload = unknown>(
-  eventName: string,
-  handler: SovereignSocketHandler<TPayload>,
+function subscribeSocketEvent<K extends SovereignEventName>(
+  eventName: K,
+  handler: SovereignEventHandler<K>,
 ) {
   const typedHandler = handler as SovereignSocketHandler;
   const listeners = eventListeners.get(eventName) ?? new Set<SovereignSocketHandler>();
@@ -204,13 +212,16 @@ export function useSovereignWebSocket(url: string = 'ws://localhost:8080/ws') {
     };
   }, [url]);
 
-  const emitSocketEvent = useCallback((eventName: string, payload?: unknown) => {
+  const emitSocketEvent = useCallback(<K extends SovereignEventName>(
+    eventName: K,
+    payload?: SovereignEventPayloads[K],
+  ) => {
     return sendSocketEnvelope(eventName, payload);
   }, []);
 
-  const onSocketEvent = useCallback(<TPayload = unknown>(
-    eventName: string,
-    handler: SovereignSocketHandler<TPayload>,
+  const onSocketEvent = useCallback(<K extends SovereignEventName>(
+    eventName: K,
+    handler: SovereignEventHandler<K>,
   ) => {
     return subscribeSocketEvent(eventName, handler);
   }, []);
