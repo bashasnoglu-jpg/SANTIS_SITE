@@ -59,6 +59,10 @@ jobs:
 
       # ── Quality Gate 5: Runtime / E2E Tests ─────────────────────────────────
       # Playwright E2E — booking flow ve SSE akışları doğrulanır.
+      - name: "🎭 Install Playwright Browsers"
+        if: ${{ hashFiles('playwright.config.ts') != '' }}
+        run: pnpm exec playwright install --with-deps
+
       - name: "🧪 Runtime Quality Test (E2E)"
         if: ${{ hashFiles('playwright.config.ts') != '' }}
         run: pnpm run test:e2e
@@ -74,4 +78,3 @@ jobs:
       # ── Build ────────────────────────────────────────────────────────────────
       - name: "Build Sovereign Artifacts"
         run: pnpm run build
-
