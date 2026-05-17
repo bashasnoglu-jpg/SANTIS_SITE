@@ -182,7 +182,9 @@ html { font-display: optional; }
 }
 </script>
 <link href="/assets/css/nav-final.css?v=nav-3a6f8730" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/css/santis-v6/santis.journey.css">
+    <!-- Journey & Checkout Orchestrator Styles -->
+    <link rel="stylesheet" href="/assets/css/santis-v6/santis.journey.css">
+    <link rel="stylesheet" href="/assets/css/santis-v6/santis.checkout.css">
 </head>
 <body class="santis-cinematic-lock">
 <!-- Page Overlay for Cinematic Transitions -->
@@ -291,12 +293,31 @@ html { font-display: optional; }
               <p data-itinerary-meta></p>
             </div>
 
-            <a class="santis-itinerary-continue" href="/tr/paketler/">
+            <button type="button" class="santis-itinerary-continue" data-checkout-request>
               Planı tamamla
-            </a>
+            </button>
             
             <button type="button" class="santis-vault-clear" data-vault-clear>
               Yeniden Başla
+            </button>
+          </div>
+        </section>
+
+        <!-- FAZ 1.5: RITUAL CHECKOUT CEREMONY -->
+        <section class="santis-checkout-ceremony sovereign-reveal-item reveal-delay-600" data-checkout-ceremony hidden aria-live="polite">
+          <p class="santis-checkout-eyebrow">Ritüel onayı</p>
+          <h3 data-checkout-title></h3>
+          <p class="santis-checkout-meta" data-checkout-meta></p>
+          <p class="santis-checkout-message">
+            Ritüeliniz hazır. Son adımda zaman, tercih ve müsaitlik bilgileri netleştirilecektir.
+          </p>
+
+          <div class="santis-checkout-actions">
+            <a class="santis-checkout-primary" data-checkout-link href="/tr/paketler/">
+              Ritüeli onayla
+            </a>
+            <button type="button" class="santis-checkout-secondary" data-checkout-cancel>
+              Geri dön
             </button>
           </div>
         </section>

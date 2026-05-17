@@ -25,12 +25,33 @@ export class SantisCheckoutCeremony {
     }
 
     console.log("[Checkout Ceremony] Guest is eligible. Proceeding to Ritual Confirmation.");
-    this.transitionToConfirmation();
+    this.transitionToConfirmation(this.ritual);
   }
 
-  transitionToConfirmation() {
+  transitionToConfirmation(ritual) {
     console.log("[Checkout Ceremony] Ritual Confirmation step active.");
-    // Shell implementation - UI logic will go here
+    
+    const panel = document.querySelector("[data-checkout-ceremony]");
+    if (!panel || !ritual) return;
+
+    panel.hidden = false;
+    panel.querySelector("[data-checkout-title]").textContent = ritual.title;
+    panel.querySelector("[data-checkout-meta]").textContent =
+      `${ritual.category} · ${ritual.duration}`;
+
+    const link = panel.querySelector("[data-checkout-link]");
+    if (link && ritual.href) {
+      link.href = ritual.href;
+    }
+    
+    // Bind Cancel
+    const cancelBtn = panel.querySelector("[data-checkout-cancel]");
+    if (cancelBtn && !cancelBtn.dataset.bound) {
+        cancelBtn.dataset.bound = "true";
+        cancelBtn.addEventListener("click", () => {
+            panel.hidden = true;
+        });
+    }
   }
 }
 
