@@ -309,6 +309,13 @@
                 loaded: false
             },
             {
+                id: 'pricing-readiness',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-pricing-readiness.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
                 id: 'journey',
                 selectors: ['body'],
                 dependencies: ['/assets/js/modules/santis-journey-orchestrator.js'],
@@ -362,6 +369,7 @@
             "booking-availability": { priority: 106, critical: true },
             "booking-confirmation-hold": { priority: 105, critical: true },
             "booking-ledger": { priority: 104, critical: true },
+            "pricing-readiness": { priority: 103.5, critical: true },
             "payment-eligibility": { priority: 103, critical: true },
             "payment-readiness-ui": { priority: 102, critical: true },
             "payment-readiness-ledger": { priority: 101, critical: true },
