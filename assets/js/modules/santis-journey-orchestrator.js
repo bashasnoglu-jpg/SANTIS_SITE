@@ -3,6 +3,8 @@
    Phase 1: Deterministic State Machine for Guest Intent
    ========================================================================== */
 
+import { getRitualRecommendation } from "./santis-ritual-recommender.js";
+
 const JourneyState = {
   IDLE: "idle",
   INTENT_CAPTURED: "intent_captured",
@@ -65,6 +67,30 @@ class GuestJourneyOrchestrator {
     
     // Step 3: Align Atmosphere
     this.alignAtmosphere(this.intent);
+    
+    // Step 4: Recommend Ritual
+    this.renderRecommendation(this.intent);
+  }
+
+  renderRecommendation(intent) {
+    const ritual = getRitualRecommendation(intent);
+    const panel = document.querySelector("[data-ritual-recommendation]");
+
+    if (!panel || !ritual) return;
+
+    panel.hidden = false;
+    panel.querySelector("[data-ritual-title]").textContent = ritual.title;
+    panel.querySelector("[data-ritual-meta]").textContent = `${ritual.category} · ${ritual.duration}`;
+    panel.querySelector("[data-ritual-promise]").textContent = ritual.promise;
+
+    const link = panel.querySelector("[data-ritual-link]");
+    if (link) link.href = ritual.href;
+
+    window.SantisBus?.emit?.("guest:ritual_recommended", {
+      intent,
+      ritual,
+      timestamp: Date.now()
+    });
   }
 
   alignAtmosphere(intent) {
