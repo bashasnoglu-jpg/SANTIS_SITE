@@ -281,6 +281,13 @@
                 loaded: false
             },
             {
+                id: 'payment-eligibility',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-payment-eligibility.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
                 id: 'journey',
                 selectors: ['body'],
                 dependencies: ['/assets/js/modules/santis-journey-orchestrator.js'],
@@ -334,8 +341,9 @@
             "booking-availability": { priority: 106, critical: true },
             "booking-confirmation-hold": { priority: 105, critical: true },
             "booking-ledger": { priority: 104, critical: true },
-            journey: { priority: 103, critical: true },
-            atmosphere: { priority: 102, critical: true },
+            "payment-eligibility": { priority: 103, critical: true },
+            journey: { priority: 102, critical: true },
+            atmosphere: { priority: 101, critical: true },
             nav: { priority: 100, critical: true },
             checkout: { priority: 90, critical: true },
             bento: { priority: 70, critical: true },
