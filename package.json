@@ -34,7 +34,8 @@
     "audit:guest-journey": "node scripts/audit-guest-journey.cjs",
     "audit:vault": "node scripts/audit-sovereign-vault.cjs",
     "audit:checkout": "node scripts/audit-checkout-ceremony.cjs",
-    "audit:booking": "node scripts/audit-booking-modal.cjs"
+    "audit:booking": "node scripts/audit-booking-modal.cjs",
+    "audit:booking-api": "node scripts/audit-booking-api.cjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",
