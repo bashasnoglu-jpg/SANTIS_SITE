@@ -35,7 +35,8 @@
     "audit:vault": "node scripts/audit-sovereign-vault.cjs",
     "audit:checkout": "node scripts/audit-checkout-ceremony.cjs",
     "audit:booking": "node scripts/audit-booking-modal.cjs",
-    "audit:booking-api": "node scripts/audit-booking-api.cjs"
+    "audit:booking-api": "node scripts/audit-booking-api.cjs",
+    "audit:booking-api-contract": "node scripts/audit-booking-api-contract.cjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",
