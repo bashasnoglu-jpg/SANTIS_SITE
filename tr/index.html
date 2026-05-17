@@ -182,6 +182,7 @@ html { font-display: optional; }
 }
 </script>
 <link href="/assets/css/nav-final.css?v=nav-3a6f8730" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/santis-v6/santis.journey.css">
 </head>
 <body class="santis-cinematic-lock">
 <!-- Page Overlay for Cinematic Transitions -->
@@ -231,43 +232,39 @@ html { font-display: optional; }
         <p class="hero-subtitle sovereign-reveal-item reveal-delay-300">Where water, stone and silence meet.</p>
         
         <!-- FAZ 1: GUEST JOURNEY ORCHESTRATOR - INTENT CHIPS -->
-        <div class="santis-intent-orchestrator sovereign-reveal-item reveal-delay-400" style="margin-top: 32px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
-            <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: rgba(255,255,255,0.6); font-style: italic; letter-spacing: 1px;">Bugün neye ihtiyacınız var?</span>
-            <div class="santis-intent-chips" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; max-width: 600px;">
-                <button class="santis-intent-chip" data-intent="recover" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(212,175,55,0.2); color: #fff; padding: 10px 24px; border-radius: 30px; font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 2px; cursor: pointer; transition: all 0.4s ease; text-transform: uppercase; backdrop-filter: blur(4px);">Recover</button>
-                <button class="santis-intent-chip" data-intent="calm" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(212,175,55,0.2); color: #fff; padding: 10px 24px; border-radius: 30px; font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 2px; cursor: pointer; transition: all 0.4s ease; text-transform: uppercase; backdrop-filter: blur(4px);">Calm</button>
-                <button class="santis-intent-chip" data-intent="glow" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(212,175,55,0.2); color: #fff; padding: 10px 24px; border-radius: 30px; font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 2px; cursor: pointer; transition: all 0.4s ease; text-transform: uppercase; backdrop-filter: blur(4px);">Glow</button>
-                <button class="santis-intent-chip" data-intent="deep_reset" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(212,175,55,0.2); color: #fff; padding: 10px 24px; border-radius: 30px; font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 2px; cursor: pointer; transition: all 0.4s ease; text-transform: uppercase; backdrop-filter: blur(4px);">Deep Reset</button>
-                <button class="santis-intent-chip" data-intent="couple" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(212,175,55,0.2); color: #fff; padding: 10px 24px; border-radius: 30px; font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 2px; cursor: pointer; transition: all 0.4s ease; text-transform: uppercase; backdrop-filter: blur(4px);">Couple Ritual</button>
-            </div>
-            <style>
-                .santis-intent-chip:hover {
-                    background: rgba(212,175,55,0.15) !important;
-                    border-color: rgba(212,175,55,0.6) !important;
-                    transform: translateY(-2px);
-                    box-shadow: 0 4px 15px rgba(212,175,55,0.1);
-                }
-                .santis-intent-chip.active {
-                    background: rgba(212,175,55,0.2) !important;
-                    border-color: #d4af37 !important;
-                    color: #d4af37;
-                    box-shadow: 0 0 20px rgba(212,175,55,0.15);
-                }
-            </style>
-            <script>
-                // Journey Orchestrator tetikleyicisi
-                document.querySelectorAll('.santis-intent-chip').forEach(chip => {
-                    chip.addEventListener('click', (e) => {
-                        const intent = e.target.dataset.intent;
-                        // Seçim görselleştirme
-                        document.querySelectorAll('.santis-intent-chip').forEach(c => c.classList.remove('active'));
-                        e.target.classList.add('active');
-                        // Sistemi uyar
-                        document.dispatchEvent(new CustomEvent('guest:intent_selected', { detail: { intent } }));
-                    });
-                });
-            </script>
-        </div>
+        <section class="santis-intent-strip sovereign-reveal-item reveal-delay-4" aria-labelledby="guest-intent-title">
+          <p class="santis-intent-kicker">Kişisel ritüel yönlendirme</p>
+          <h2 id="guest-intent-title" class="santis-intent-title">Bugün neye ihtiyacınız var?</h2>
+
+          <div class="santis-intent-chips" role="list" aria-label="Ritüel niyeti seçimi">
+            <button type="button" class="santis-intent-chip" data-intent="recover">
+              Recover
+              <span>bedeni toparla</span>
+            </button>
+
+            <button type="button" class="santis-intent-chip" data-intent="calm">
+              Calm
+              <span>zihni sakinleştir</span>
+            </button>
+
+            <button type="button" class="santis-intent-chip" data-intent="glow">
+              Glow
+              <span>cildi canlandır</span>
+            </button>
+
+            <button type="button" class="santis-intent-chip" data-intent="deep-reset">
+              Deep Reset
+              <span>derin yenilenme</span>
+            </button>
+
+            <button type="button" class="santis-intent-chip" data-intent="couple-ritual">
+              Couple Ritual
+              <span>birlikte deneyim</span>
+            </button>
+          </div>
+
+          <p class="santis-intent-result" data-journey-result aria-live="polite"></p>
+        </section>
 
         <a class="hero-cta sovereign-reveal-item reveal-delay-500" href="#reservation" data-booking-open style="margin-top: 32px;">Ritüeli Keşfet</a>
     </div>

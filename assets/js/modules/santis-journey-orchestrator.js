@@ -26,6 +26,36 @@ class GuestJourneyOrchestrator {
     document.addEventListener("guest:atmosphere_aligned", this.handleAtmosphereAligned.bind(this));
     document.addEventListener("guest:ritual_recommended", this.handleRitualRecommended.bind(this));
     document.addEventListener("guest:itinerary_ready", this.handleItineraryReady.bind(this));
+    
+    // Bind UI
+    this.attachUIBindings();
+  }
+
+  attachUIBindings() {
+    const intentButtons = document.querySelectorAll("[data-intent]");
+    const resultNode = document.querySelector("[data-journey-result]");
+
+    intentButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const intent = button.dataset.intent;
+
+        intentButtons.forEach((item) => item.classList.remove("is-selected"));
+        button.classList.add("is-selected");
+
+        window.SantisBus?.emit?.("guest:intent_selected", {
+          intent,
+          source: "homepage",
+          timestamp: Date.now()
+        });
+        
+        // Ensure local state machine catches it if SantisBus isn't bridged
+        document.dispatchEvent(new CustomEvent("guest:intent_selected", { detail: { intent } }));
+
+        if (resultNode) {
+          resultNode.textContent = "Niyetiniz alındı. Size en uygun ritüel atmosferi hazırlanıyor.";
+        }
+      });
+    });
   }
 
   handleIntentSelected(e) {
