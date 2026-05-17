@@ -109,6 +109,15 @@
   opacity: 0.6;
 }
 
+.santis-booking-availability {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--color-gold, #d4af37) 18%, transparent);
+  opacity: 0.78;
+  font-size: 0.85rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .santis-booking-modal,
   .santis-booking-modal-content {
