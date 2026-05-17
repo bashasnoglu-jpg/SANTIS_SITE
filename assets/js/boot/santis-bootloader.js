@@ -237,6 +237,12 @@
                 selectors: ['body'],
                 dependencies: ['/assets/js/modules/santis-atmosphere.js'],
                 loaded: false
+            },
+            {
+                id: 'journey',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-journey-orchestrator.js'],
+                loaded: false
             }
         ];
 
@@ -280,6 +286,7 @@
         // 🧬 V40 DECISION MATRIX (SAFE VERSION)
         window.__SANTIS_DECISION_MATRIX__ ??= {
             reveal: { priority: 110, critical: true },
+            journey: { priority: 108, critical: true },
             atmosphere: { priority: 105, critical: true },
             nav: { priority: 100, critical: true },
             checkout: { priority: 90, critical: true },
