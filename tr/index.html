@@ -182,6 +182,7 @@ html { font-display: optional; }
 }
 </script>
 <link href="/assets/css/nav-final.css?v=nav-3a6f8730" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/santis-v6/santis.journey.css">
 </head>
 <body class="santis-cinematic-lock">
 <!-- Page Overlay for Cinematic Transitions -->
@@ -229,7 +230,74 @@ html { font-display: optional; }
         <span class="hero-kicker sovereign-reveal-item reveal-delay-100">SANTIS CLUB</span>
         <h2 class="hero-title sovereign-reveal-item reveal-delay-200">The Ritual of Stillness</h2>
         <p class="hero-subtitle sovereign-reveal-item reveal-delay-300">Where water, stone and silence meet.</p>
-        <a class="hero-cta sovereign-reveal-item reveal-delay-400" href="#reservation" data-booking-open>Ritüeli Keşfet</a>
+        
+        <!-- FAZ 1: GUEST JOURNEY ORCHESTRATOR - INTENT CHIPS -->
+        <section class="santis-intent-strip sovereign-reveal-item reveal-delay-4" aria-labelledby="guest-intent-title">
+          <p class="santis-intent-kicker">Kişisel ritüel yönlendirme</p>
+          <h2 id="guest-intent-title" class="santis-intent-title">Bugün neye ihtiyacınız var?</h2>
+
+          <div class="santis-intent-chips" role="list" aria-label="Ritüel niyeti seçimi">
+            <button type="button" class="santis-intent-chip" data-intent="recover">
+              Recover
+              <span>bedeni toparla</span>
+            </button>
+
+            <button type="button" class="santis-intent-chip" data-intent="calm">
+              Calm
+              <span>zihni sakinleştir</span>
+            </button>
+
+            <button type="button" class="santis-intent-chip" data-intent="glow">
+              Glow
+              <span>cildi canlandır</span>
+            </button>
+
+            <button type="button" class="santis-intent-chip" data-intent="deep-reset">
+              Deep Reset
+              <span>derin yenilenme</span>
+            </button>
+
+            <button type="button" class="santis-intent-chip" data-intent="couple-ritual">
+              Couple Ritual
+              <span>birlikte deneyim</span>
+            </button>
+          </div>
+
+          <p class="santis-intent-result" data-journey-result aria-live="polite"></p>
+        </section>
+
+        <!-- FAZ 1: GUEST JOURNEY ORCHESTRATOR - RITUAL RECOMMENDATION -->
+        <section class="santis-ritual-recommendation sovereign-reveal-item reveal-delay-500" data-ritual-recommendation hidden aria-live="polite">
+          <p class="santis-ritual-eyebrow">Sizin için önerilen ritüel</p>
+          <h3 data-ritual-title></h3>
+          <p class="santis-ritual-meta" data-ritual-meta></p>
+          <p class="santis-ritual-promise" data-ritual-promise></p>
+
+          <div class="santis-ritual-actions">
+            <a class="santis-ritual-link" data-ritual-link href="#">Ritüel detayını gör</a>
+            <button type="button" class="santis-ritual-itinerary" data-add-itinerary>
+              Itinerary'e ekle
+            </button>
+          </div>
+        </section>
+
+        <!-- FAZ 1: GUEST JOURNEY ORCHESTRATOR - ITINERARY PREVIEW -->
+        <section class="santis-itinerary-preview sovereign-reveal-item reveal-delay-600" data-itinerary-preview hidden aria-live="polite">
+          <p class="santis-itinerary-eyebrow">Ritüel planınız</p>
+
+          <div class="santis-itinerary-card">
+            <div>
+              <h3 data-itinerary-title></h3>
+              <p data-itinerary-meta></p>
+            </div>
+
+            <a class="santis-itinerary-continue" href="/tr/paketler/">
+              Planı tamamla
+            </a>
+          </div>
+        </section>
+
+        <a class="hero-cta sovereign-reveal-item reveal-delay-500" href="#reservation" data-booking-open style="margin-top: 32px;">Ritüeli Keşfet</a>
     </div>
 </section>
 <!-- SECTION 2: SIGNATURE EXPERIENCES (V45 COVER FLOW MULTI-CARD) -->
