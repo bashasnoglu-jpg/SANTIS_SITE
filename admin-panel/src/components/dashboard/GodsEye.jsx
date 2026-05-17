@@ -32,7 +32,7 @@ export default function GodsEye() {
             <Eye className="text-santis-gold animate-pulse" size={20} />
             The God's Eye Radar
           </h2>
-          <span className={`text-[10px] px-3 py-1 rounded-full uppercase tracking-tighter border ${radarData ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-red-500/10 border-red-500/30 text-red-400'}`}>
+          <span className={`text-xs px-3 py-1 rounded-full uppercase tracking-tighter border ${radarData ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-red-500/10 border-red-500/30 text-red-400'}`}>
             {connectionStatus}
           </span>
         </div>
@@ -47,19 +47,19 @@ export default function GodsEye() {
               <div className="text-3xl font-serif text-white tracking-tighter">
                   {ftrScore.toFixed(4)}
               </div>
-              <div className="mt-2 text-[10px] text-white/30 italic">
+              <div className="mt-2 text-xs text-white/30 italic">
                   * Explanation Depth Priority Flow
               </div>
           </div>
 
           {/* Live Event Log */}
-          <div className="bg-black/20 p-4 rounded-xl border border-white/5 max-h-[140px] overflow-hidden">
-              <div className="flex items-center gap-3 text-[11px] animate-in fade-in slide-in-from-right-2">
+          <div className="bg-black/20 p-4 rounded-xl border border-white/5 max-h-36 overflow-hidden">
+              <div className="flex items-center gap-3 text-xs animate-in fade-in slide-in-from-right-2">
                   <span className="text-santis-gold/50 font-mono">{lastEvent.timestamp}</span>
                   <span className="text-white/70 truncate">{lastEvent.action}</span>
                   <Activity size={10} className="ml-auto text-emerald-500/50" />
               </div>
-              <div className="mt-4 text-[10px] text-white/20 uppercase tracking-widest">
+              <div className="mt-4 text-xs text-white/20 uppercase tracking-widest">
                   Son Otonom Olay İzleniyor
               </div>
           </div>

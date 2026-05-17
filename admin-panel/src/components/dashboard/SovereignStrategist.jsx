@@ -43,7 +43,7 @@ export default function SovereignStrategist() {
         <button
           onClick={requestSynthesis}
           disabled={isGenerating}
-          className={`px-6 py-2 rounded-full text-[10px] uppercase tracking-widest transition-all duration-500 border ${isGenerating ? 'bg-white/5 border-white/10 text-white/30 cursor-wait' : 'bg-santis-gold/10 border-santis-gold/30 text-santis-gold hover:bg-santis-gold/20'}`}
+          className={`px-6 py-2 rounded-full text-xs uppercase tracking-widest transition-all duration-500 border ${isGenerating ? 'bg-white/5 border-white/10 text-white/30 cursor-wait' : 'bg-santis-gold/10 border-santis-gold/30 text-santis-gold hover:bg-santis-gold/20'}`}
         >
           {isGenerating ? 'Sentezleniyor...' : 'Makro Sentez Talep Et'}
         </button>
@@ -81,13 +81,13 @@ export default function SovereignStrategist() {
                 <span className="text-2xl font-serif text-white tracking-tighter">
                   %{report.confidenceScore}
                 </span>
-                <span className="text-[8px] text-white/40 uppercase tracking-tighter">
+                <span className="text-xs text-white/40 uppercase tracking-tighter">
                   Confidence
                 </span>
               </div>
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-4 w-full text-[9px] uppercase tracking-tighter text-white/50">
+            <div className="mt-4 grid grid-cols-2 gap-4 w-full text-xs uppercase tracking-tighter text-white/50">
               <div className="flex items-center gap-2">
                 <div className="w-1 h-1 bg-santis-gold rounded-full"></div>
                 Profit
@@ -108,7 +108,7 @@ export default function SovereignStrategist() {
           </div>
 
           <div className="lg:col-span-2 space-y-6">
-            <div className="flex items-center gap-4 text-[10px] text-white/40 uppercase tracking-widest border-b border-white/5 pb-2">
+            <div className="flex items-center gap-4 text-xs text-white/40 uppercase tracking-widest border-b border-white/5 pb-2">
               <span>Dönem: {report.period}</span>
               <span className="ml-auto text-emerald-500 flex items-center gap-1">
                 <TrendingUp size={12} /> Stable Growth
@@ -121,13 +121,13 @@ export default function SovereignStrategist() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-3">
-                <h4 className="flex items-center gap-2 text-[11px] text-santis-gold uppercase tracking-widest font-semibold">
+                <h4 className="flex items-center gap-2 text-xs text-santis-gold uppercase tracking-widest font-semibold">
                   <Sparkles size={14} /> Kritik İçgörüler
                 </h4>
 
                 <ul className="space-y-2">
                   {report.keyInsights.map((insight, idx) => (
-                    <li key={idx} className="text-[11px] text-white/60 leading-snug flex gap-2">
+                    <li key={idx} className="text-xs text-white/60 leading-snug flex gap-2">
                       <span className="text-santis-gold">•</span>
                       {insight}
                     </li>
@@ -137,11 +137,11 @@ export default function SovereignStrategist() {
 
               <div className="bg-santis-gold/5 border border-santis-gold/20 p-4 rounded-xl flex flex-col justify-between">
                 <div>
-                  <h4 className="flex items-center gap-2 text-[11px] text-santis-gold uppercase tracking-widest font-semibold mb-2">
+                  <h4 className="flex items-center gap-2 text-xs text-santis-gold uppercase tracking-widest font-semibold mb-2">
                     <Target size={14} /> Otonom Eylem
                   </h4>
 
-                  <p className="text-[11px] text-white/90 leading-relaxed mb-4">
+                  <p className="text-xs text-white/90 leading-relaxed mb-4">
                     {report.recommendedAction}
                   </p>
                 </div>
@@ -151,7 +151,7 @@ export default function SovereignStrategist() {
                     emitSocketEvent('admin:execute_strategy', { reportId: report.reportId });
                     alert('⚡ Sovereign Command: Stratejik eylem tüm ekosisteme yayılıyor.');
                   }}
-                  className="w-full py-3 bg-gradient-to-r from-santis-gold/40 to-santis-gold/10 hover:from-santis-gold/60 hover:to-santis-gold/20 text-white text-[10px] uppercase tracking-widest rounded-lg border border-santis-gold/40 transition-all duration-300 shadow-[0_0_20px_rgba(198,169,107,0.2)] hover:shadow-[0_0_30px_rgba(198,169,107,0.4)]"
+                  className="w-full py-3 bg-gradient-to-r from-santis-gold/40 to-santis-gold/10 hover:from-santis-gold/60 hover:to-santis-gold/20 text-white text-xs uppercase tracking-widest rounded-lg border border-santis-gold/40 transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
                   Stratejiyi Tüm Sisteme Yay
                 </button>

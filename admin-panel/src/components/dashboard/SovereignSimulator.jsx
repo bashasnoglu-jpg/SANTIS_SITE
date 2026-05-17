@@ -38,7 +38,7 @@ export default function SovereignSimulator() {
   return (
     <div className="bg-black/40 backdrop-blur-2xl border border-white/5 p-8 rounded-3xl mt-8 relative overflow-hidden">
       {/* Decorative Glow */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-santis-gold/5 blur-[100px] -mr-32 -mt-32 rounded-full"></div>
+      <div className="absolute top-0 right-0 w-64 h-64 bg-santis-gold/5 blur-3xl -mr-32 -mt-32 rounded-full"></div>
 
       <div className="flex items-center justify-between mb-8 relative z-10">
         <h3 className="flex items-center gap-3 text-white font-serif text-xl tracking-wide">
@@ -48,7 +48,7 @@ export default function SovereignSimulator() {
         <button 
           onClick={runSimulation}
           disabled={isRunning || !socket}
-          className={`px-6 py-2 rounded-full text-[10px] uppercase tracking-widest transition-all duration-700 border ${isRunning ? 'bg-white/5 border-white/10 text-white/30 cursor-wait' : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20'}`}
+          className={`px-6 py-2 rounded-full text-xs uppercase tracking-widest transition-all duration-700 border ${isRunning ? 'bg-white/5 border-white/10 text-white/30 cursor-wait' : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20'}`}
         >
           {isRunning ? 'Gelecek Hesaplanıyor...' : 'Geleceği Simüle Et'}
         </button>
@@ -63,7 +63,7 @@ export default function SovereignSimulator() {
       {isRunning && (
         <div className="flex flex-col items-center justify-center py-12 relative z-10">
             <div className="w-12 h-12 border-2 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin mb-4"></div>
-            <p className="text-emerald-500/60 text-[10px] uppercase tracking-[0.3em] animate-pulse">Veri Matrisi Analiz Ediliyor</p>
+            <p className="text-emerald-500/60 text-xs uppercase tracking-widest animate-pulse">Veri Matrisi Analiz Ediliyor</p>
         </div>
       )}
 
@@ -71,33 +71,33 @@ export default function SovereignSimulator() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-in fade-in zoom-in-95 duration-1000 relative z-10">
           
           <div className="bg-white/5 border border-white/10 p-6 rounded-2xl group hover:border-emerald-500/30 transition-colors">
-            <div className="flex items-center gap-2 mb-3 text-white/40 text-[10px] uppercase tracking-widest">
+            <div className="flex items-center gap-2 mb-3 text-white/40 text-xs uppercase tracking-widest">
                 <TrendingUp size={14} className="text-emerald-400" />
                 Tahmini 30 Günlük Ciro
             </div>
             <div className="text-3xl font-serif text-white tracking-tighter group-hover:text-emerald-400 transition-colors">
               €{simulation.projectedRevenue.toLocaleString()}
             </div>
-            <div className="mt-2 text-[9px] text-white/20 italic uppercase tracking-tighter">
+            <div className="mt-2 text-xs text-white/20 italic uppercase tracking-tighter">
                 * Mevcut strateji korunursa
             </div>
           </div>
           
           <div className="bg-white/5 border border-white/10 p-6 rounded-2xl group hover:border-santis-gold/30 transition-colors">
-            <div className="flex items-center gap-2 mb-3 text-white/40 text-[10px] uppercase tracking-widest">
+            <div className="flex items-center gap-2 mb-3 text-white/40 text-xs uppercase tracking-widest">
                 <BarChart3 size={14} className="text-santis-gold" />
                 Beklenen F_TR Skoru
             </div>
             <div className="text-3xl font-serif text-white tracking-tighter group-hover:text-santis-gold transition-colors">
               {simulation.projectedFtr.toFixed(2)}
             </div>
-            <div className="mt-2 text-[9px] text-white/20 italic uppercase tracking-tighter">
+            <div className="mt-2 text-xs text-white/20 italic uppercase tracking-tighter">
                 * Reality Stability Prediction
             </div>
           </div>
 
           <div className="lg:col-span-3 bg-emerald-500/5 border-l-2 border-emerald-500/40 p-6 rounded-r-2xl">
-            <h4 className="flex items-center gap-2 text-[11px] text-emerald-400 uppercase tracking-widest font-semibold mb-3">
+            <h4 className="flex items-center gap-2 text-xs text-emerald-400 uppercase tracking-widest font-semibold mb-3">
                 <Info size={14} /> Stratejik Simülasyon İçgörüsü
             </h4>
             <p className="text-white/80 text-sm leading-relaxed font-light">

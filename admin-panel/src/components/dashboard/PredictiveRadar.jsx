@@ -95,7 +95,7 @@ export default function PredictiveRadar() {
             <div style={{ color: 'var(--color-text-primary)', fontSize: 'var(--text-lg)', fontWeight: 'bold' }}>
               {predictionData.probability}
             </div>
-            <div style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-[10px])' }}>PROB</div>
+            <div style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-xs)' }}>PROB</div>
           </div>
         </div>
 
@@ -121,7 +121,7 @@ export default function PredictiveRadar() {
         paddingTop: 'var(--spacing-md)', 
         borderTop: '1px solid var(--color-border-subtle)',
         color: 'var(--color-text-secondary)',
-        fontSize: 'var(--text-[10px])',
+        fontSize: 'var(--text-xs)',
         display: 'flex',
         justifyContent: 'space-between'
       }}>

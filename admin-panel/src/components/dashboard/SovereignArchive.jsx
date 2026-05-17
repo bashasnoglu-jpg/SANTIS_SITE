@@ -56,22 +56,22 @@ export default function SovereignArchive() {
           {archiveLogs.map((log) => (
             <div key={log.id} className="relative group">
               {/* Timeline Indicator */}
-              <div className="absolute -left-[37px] top-1 w-4 h-4 bg-black border border-santis-gold/50 rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(198,169,107,0.3)] group-hover:scale-125 transition-transform">
+              <div className="absolute -left-10 top-1 w-4 h-4 bg-black border border-santis-gold/50 rounded-full flex items-center justify-center shadow-lg group-hover:scale-125 transition-transform">
                 {getIcon(log.type)}
               </div>
               
               <div className="space-y-1">
-                <span className="text-[10px] text-white/30 uppercase tracking-widest font-mono">
+                <span className="text-xs text-white/30 uppercase tracking-widest font-mono">
                   {new Date(log.timestamp).toLocaleString('tr-TR')}
                 </span>
                 <h4 className="text-white/90 text-sm font-medium tracking-wide group-hover:text-santis-gold transition-colors">
                   {log.description}
                 </h4>
                 <div className="flex items-center gap-2 mt-1">
-                    <div className="px-2 py-0.5 bg-santis-gold/10 border border-santis-gold/20 rounded text-[9px] text-santis-gold uppercase tracking-tighter">
+                    <div className="px-2 py-0.5 bg-santis-gold/10 border border-santis-gold/20 rounded text-xs text-santis-gold uppercase tracking-tighter">
                         Etki Analizi
                     </div>
-                    <p className="text-emerald-400/80 text-[11px] font-light italic">
+                    <p className="text-emerald-400/80 text-xs font-light italic">
                         {log.impact}
                     </p>
                 </div>
