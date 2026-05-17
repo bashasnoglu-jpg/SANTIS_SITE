@@ -36,7 +36,8 @@
     "audit:checkout": "node scripts/audit-checkout-ceremony.cjs",
     "audit:booking": "node scripts/audit-booking-modal.cjs",
     "audit:booking-api": "node scripts/audit-booking-api.cjs",
-    "audit:booking-api-contract": "node scripts/audit-booking-api-contract.cjs"
+    "audit:booking-api-contract": "node scripts/audit-booking-api-contract.cjs",
+    "audit:payment-eligibility": "node scripts/audit-payment-eligibility.cjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",
