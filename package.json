@@ -4,9 +4,9 @@
   "type": "module",
   "engines": {
     "node": ">=20.0.0 <21.0.0",
-    "pnpm": ">=10.0.0"
+    "pnpm": ">=9.0.0"
   },
-  "packageManager": "pnpm@10.24.0",
+  "packageManager": "pnpm@9.1.0",
   "scripts": {
     "env:check": "node -v",
     "onboard": "fnm use && pnpm install",
