@@ -20,11 +20,13 @@ const bootloader = read("assets/js/boot/santis-bootloader.js");
   "data-checkout-request",
   "data-checkout-ceremony",
   "data-checkout-title",
-  "data-checkout-meta"
+  "data-checkout-meta",
+  "data-checkout-confirm"
 ].forEach(needle => assertIncludes(index, needle, "HTML checkout contract"));
 
 assertIncludes(orchestrator, "guest:checkout_requested", "journey checkout event emission");
 assertIncludes(ceremony, "guest:checkout_requested", "ceremony event binding");
+assertIncludes(ceremony, "guest:booking_handoff_requested", "ceremony handoff event emission");
 assertIncludes(ceremony, "santis-checkout-eligibility.js", "eligibility module dependency");
 assertIncludes(bootloader, "santis-checkout-ceremony.js", "bootloader checkout module");
 assertIncludes(css, "prefers-reduced-motion", "reduced motion guard");
