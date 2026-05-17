@@ -185,6 +185,7 @@ html { font-display: optional; }
     <!-- Journey & Checkout Orchestrator Styles -->
     <link rel="stylesheet" href="/assets/css/santis-v6/santis.journey.css">
     <link rel="stylesheet" href="/assets/css/santis-v6/santis.checkout.css">
+    <link rel="stylesheet" href="/assets/css/santis-v6/santis.booking.css">
 </head>
 <body class="santis-cinematic-lock">
 <!-- Page Overlay for Cinematic Transitions -->
@@ -325,6 +326,42 @@ html { font-display: optional; }
         <a class="hero-cta sovereign-reveal-item reveal-delay-500" href="#reservation" data-booking-open style="margin-top: 32px;">Ritüeli Keşfet</a>
     </div>
 </section>
+
+<!-- FAZ 2: BOOKING MODAL SHELL -->
+<div class="santis-booking-modal" data-booking-modal hidden aria-modal="true" role="dialog" aria-labelledby="booking-modal-title">
+  <div class="santis-booking-modal-content">
+    <p class="santis-booking-eyebrow">Rezervasyon Niyeti</p>
+    <h2 id="booking-modal-title" class="santis-booking-title" data-booking-ritual-title>Ritüel Rezervasyonu</h2>
+    
+    <form class="santis-booking-form" data-booking-form>
+      <div>
+        <label for="preferredDate">Tercih Edilen Tarih</label>
+        <input type="date" id="preferredDate" name="preferredDate" required>
+      </div>
+      <div>
+        <label for="preferredTime">Tercih Edilen Saat</label>
+        <input type="time" id="preferredTime" name="preferredTime" required>
+      </div>
+      <div>
+        <label for="partySize">Kişi Sayısı</label>
+        <select id="partySize" name="partySize" required>
+          <option value="1">1 Kişi</option>
+          <option value="2">2 Kişi</option>
+          <option value="3">3 Kişi</option>
+          <option value="4+">4 veya daha fazla</option>
+        </select>
+      </div>
+      <div>
+        <label for="note">Özel İstekler veya Tercih Notu (İsteğe Bağlı)</label>
+        <textarea id="note" name="note" rows="3" placeholder="Sakinleştirici veya meditatif özel istekler..."></textarea>
+      </div>
+      <div class="santis-booking-actions">
+        <button type="button" class="santis-booking-cancel" data-booking-cancel>İptal</button>
+        <button type="submit" class="santis-booking-submit" data-booking-submit>Devam Et</button>
+      </div>
+    </form>
+  </div>
+</div>
 <!-- SECTION 2: SIGNATURE EXPERIENCES (V45 COVER FLOW MULTI-CARD) -->
 <section class="santis-section sovereign-frame" data-frame="signature-rituals" id="imza-deneyimler-v45" style="padding:6rem 0; overflow:hidden;">
   <div class="santis-container" style="overflow: visible;">

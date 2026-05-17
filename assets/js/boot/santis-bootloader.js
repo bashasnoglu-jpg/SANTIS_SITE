@@ -253,6 +253,13 @@
                 loaded: false
             },
             {
+                id: 'booking-modal',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-booking-modal.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
                 id: 'journey',
                 selectors: ['body'],
                 dependencies: ['/assets/js/modules/santis-journey-orchestrator.js'],
@@ -302,7 +309,8 @@
             reveal: { priority: 110, critical: true },
             vault: { priority: 109, critical: true },
             "checkout-ceremony": { priority: 108, critical: true },
-            journey: { priority: 107, critical: true },
+            "booking-modal": { priority: 107, critical: true },
+            journey: { priority: 106, critical: true },
             atmosphere: { priority: 105, critical: true },
             nav: { priority: 100, critical: true },
             checkout: { priority: 90, critical: true },
