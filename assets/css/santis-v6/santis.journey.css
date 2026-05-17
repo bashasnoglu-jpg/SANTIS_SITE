@@ -175,3 +175,33 @@
     flex-direction: column;
   }
 }
+
+.santis-vault-clear {
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  opacity: 0.52;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.28em;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.santis-vault-clear:hover,
+.santis-vault-clear:focus-visible {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .santis-vault-clear {
+    transition: none;
+  }
+
+  .santis-vault-clear:hover,
+  .santis-vault-clear:focus-visible {
+    transform: none;
+  }
+}

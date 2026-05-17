@@ -100,6 +100,7 @@ class GuestJourneyOrchestrator {
     });
 
     this.bindItineraryActions();
+    this.bindVaultClearAction();
   }
 
   bindItineraryActions() {
@@ -123,6 +124,41 @@ class GuestJourneyOrchestrator {
       
       // Dispatch local event for state machine
       document.dispatchEvent(new CustomEvent("guest:itinerary_ready", { detail: { ritual: this.currentRecommendation } }));
+    });
+  }
+
+  bindVaultClearAction() {
+    const button = document.querySelector("[data-vault-clear]");
+
+    if (!button) return;
+
+    button.addEventListener("click", () => {
+      SantisSovereignVault.clearJourney();
+
+      document.querySelectorAll("[data-intent]").forEach((item) => {
+        item.classList.remove("is-selected");
+      });
+
+      const recommendation = document.querySelector("[data-ritual-recommendation]");
+      const itinerary = document.querySelector("[data-itinerary-preview]");
+      const result = document.querySelector("[data-journey-result]");
+
+      if (recommendation) recommendation.hidden = true;
+      if (itinerary) itinerary.hidden = true;
+      if (result) result.textContent = "Yolculuğunuz sıfırlandı. Yeni bir niyet seçebilirsiniz.";
+
+      if (window.SantisAtmosphere && typeof window.SantisAtmosphere.setTheme === 'function') {
+        window.SantisAtmosphere.setTheme("mediterranean-zen", "Vault Reset");
+      }
+
+      window.SantisBus?.emit?.("guest:journey_reset", {
+        source: "vault-clear",
+        timestamp: Date.now()
+      });
+      
+      this.intent = null;
+      this.currentRecommendation = null;
+      this.transitionTo(JourneyState.IDLE);
     });
   }
 
