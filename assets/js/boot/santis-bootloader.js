@@ -295,6 +295,13 @@
                 loaded: false
             },
             {
+                id: 'payment-readiness-ledger',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-payment-readiness-ledger.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
                 id: 'journey',
                 selectors: ['body'],
                 dependencies: ['/assets/js/modules/santis-journey-orchestrator.js'],
@@ -350,8 +357,9 @@
             "booking-ledger": { priority: 104, critical: true },
             "payment-eligibility": { priority: 103, critical: true },
             "payment-readiness-ui": { priority: 102, critical: true },
-            journey: { priority: 101, critical: true },
-            atmosphere: { priority: 100, critical: true },
+            "payment-readiness-ledger": { priority: 101, critical: true },
+            journey: { priority: 100, critical: true },
+            atmosphere: { priority: 99, critical: true },
             nav: { priority: 100, critical: true },
             checkout: { priority: 90, critical: true },
             bento: { priority: 70, critical: true },
