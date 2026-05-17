@@ -19,6 +19,15 @@ type SovereignSocketEnvelope<TPayload = unknown> = {
 
 type SovereignSocketHandler<TPayload = unknown> = (payload: TPayload, rawMessage: unknown) => void;
 type SovereignSocketEventMap = Map<string, Set<SovereignSocketHandler>>;
+type EventNamesWithOptionalPayload = {
+  [K in SovereignEventName]: undefined extends SovereignEventPayloads[K] ? K : never;
+}[SovereignEventName];
+type EventNamesWithRequiredPayload = Exclude<SovereignEventName, EventNamesWithOptionalPayload>;
+
+type EmitSocketEvent = {
+  <K extends EventNamesWithOptionalPayload>(eventName: K, payload?: SovereignEventPayloads[K]): boolean;
+  <K extends EventNamesWithRequiredPayload>(eventName: K, payload: SovereignEventPayloads[K]): boolean;
+};
 
 // Singleton WebSocket Instance
 let globalWs: WebSocket | null = null;
@@ -197,6 +206,14 @@ async function connect(url: string) {
   };
 }
 
+function sendSocketEnvelope<K extends EventNamesWithOptionalPayload>(
+  eventName: K,
+  payload?: SovereignEventPayloads[K],
+): boolean;
+function sendSocketEnvelope<K extends EventNamesWithRequiredPayload>(
+  eventName: K,
+  payload: SovereignEventPayloads[K],
+): boolean;
 function sendSocketEnvelope<K extends SovereignEventName>(
   eventName: K,
   payload?: SovereignEventPayloads[K],
@@ -257,12 +274,15 @@ export function useSovereignWebSocket(url: string = 'ws://localhost:8080/ws') {
     };
   }, [url]);
 
-  const emitSocketEvent = useCallback(<K extends SovereignEventName>(
-    eventName: K,
-    payload?: SovereignEventPayloads[K],
+  const emitSocketEvent = useCallback(((
+    eventName: SovereignEventName,
+    payload?: SovereignEventPayloads[SovereignEventName],
   ) => {
-    return sendSocketEnvelope(eventName, payload);
-  }, []);
+    return sendSocketEnvelope(
+      eventName as EventNamesWithOptionalPayload,
+      payload as SovereignEventPayloads[EventNamesWithOptionalPayload],
+    );
+  }) as EmitSocketEvent, []);
 
   const onSocketEvent = useCallback(<K extends SovereignEventName>(
     eventName: K,
