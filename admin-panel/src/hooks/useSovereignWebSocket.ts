@@ -29,7 +29,13 @@ let eventListeners: SovereignSocketEventMap = new Map();
 let isConnecting = false;
 
 function emitStatus(status: SovereignWebSocketState) {
-  statusListeners.forEach((listener) => listener(status));
+  statusListeners.forEach((listener) => {
+    try {
+      listener(status);
+    } catch (error) {
+      console.error('[Sovereign WS] Error in status listener:', error);
+    }
+  });
 }
 
 function resolveEventName(message: SovereignSocketEnvelope) {
@@ -41,7 +47,13 @@ function resolvePayload(message: SovereignSocketEnvelope) {
 }
 
 function dispatchSocketMessage(message: unknown) {
-  activeListeners.forEach((listener) => listener(message));
+  activeListeners.forEach((listener) => {
+    try {
+      listener(message);
+    } catch (error) {
+      console.error('[Sovereign WS] Error in active listener:', error);
+    }
+  });
 
   if (!message || typeof message !== 'object') return;
 
@@ -69,7 +81,11 @@ function dispatchSocketMessage(message: unknown) {
   if (!listeners) return;
 
   listeners.forEach((handler) => {
-    handler(validationResult.payload, message);
+    try {
+      handler(validationResult.payload, message);
+    } catch (error) {
+      console.error(`[Sovereign WS] Error in event listener for "${eventName}":`, error);
+    }
   });
 }
 
@@ -119,6 +135,10 @@ async function connect(url: string) {
     isConnecting = false;
     emitStatus('ERROR');
 
+    if (reconnectTimer) {
+      clearTimeout(reconnectTimer);
+    }
+
     reconnectTimer = window.setTimeout(() => {
       connect(url);
     }, 5000);
@@ -130,6 +150,8 @@ async function connect(url: string) {
   globalWs = activeSocket;
 
   activeSocket.onopen = () => {
+    if (globalWs !== activeSocket) return;
+
     isConnecting = false;
     emitStatus('OPEN');
 
@@ -140,6 +162,8 @@ async function connect(url: string) {
   };
 
   activeSocket.onmessage = (event) => {
+    if (globalWs !== activeSocket) return;
+
     try {
       const data = JSON.parse(event.data);
       dispatchSocketMessage(data);
@@ -149,12 +173,15 @@ async function connect(url: string) {
   };
 
   activeSocket.onclose = () => {
-    if (globalWs === activeSocket) {
-      globalWs = null;
-    }
+    if (globalWs !== activeSocket) return;
 
+    globalWs = null;
     isConnecting = false;
     emitStatus('CLOSED');
+
+    if (reconnectTimer) {
+      clearTimeout(reconnectTimer);
+    }
 
     reconnectTimer = window.setTimeout(() => {
       connect(url);
@@ -162,7 +189,10 @@ async function connect(url: string) {
   };
 
   activeSocket.onerror = () => {
-    emitStatus('ERROR');
+    if (globalWs === activeSocket) {
+      emitStatus('ERROR');
+    }
+
     activeSocket.close();
   };
 }
