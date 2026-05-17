@@ -11,12 +11,10 @@ export default function SovereignStrategist() {
   const [report, setReport] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
 
-  const { socket } = useSovereignSocket();
+  const { emitSocketEvent, onSocketEvent } = useSovereignSocket();
 
   useEffect(() => {
-    if (!socket) return;
-
-    socket.on('admin:strategy_report_ready', (rawData) => {
+    const unsubscribe = onSocketEvent('admin:strategy_report_ready', (rawData) => {
       try {
         const validatedReport = StrategyReportSchema.parse(rawData);
         setReport(validatedReport);
@@ -27,14 +25,12 @@ export default function SovereignStrategist() {
       }
     });
 
-    return () => socket.off('admin:strategy_report_ready');
-  }, [socket]);
+    return () => unsubscribe?.();
+  }, [onSocketEvent]);
 
   const requestSynthesis = () => {
-    if (!socket) return;
-
     setIsGenerating(true);
-    socket.emit('admin:request_strategy_synthesis');
+    emitSocketEvent('admin:request_strategy_synthesis');
   };
 
   return (
@@ -46,7 +42,7 @@ export default function SovereignStrategist() {
         </h3>
         <button
           onClick={requestSynthesis}
-          disabled={isGenerating || !socket}
+          disabled={isGenerating}
           className={`px-6 py-2 rounded-full text-[10px] uppercase tracking-widest transition-all duration-500 border ${isGenerating ? 'bg-white/5 border-white/10 text-white/30 cursor-wait' : 'bg-santis-gold/10 border-santis-gold/30 text-santis-gold hover:bg-santis-gold/20'}`}
         >
           {isGenerating ? 'Sentezleniyor...' : 'Makro Sentez Talep Et'}
@@ -152,7 +148,7 @@ export default function SovereignStrategist() {
 
                 <button
                   onClick={() => {
-                    socket.emit('admin:execute_strategy', { reportId: report.reportId });
+                    emitSocketEvent('admin:execute_strategy', { reportId: report.reportId });
                     alert('⚡ Sovereign Command: Stratejik eylem tüm ekosisteme yayılıyor.');
                   }}
                   className="w-full py-3 bg-gradient-to-r from-santis-gold/40 to-santis-gold/10 hover:from-santis-gold/60 hover:to-santis-gold/20 text-white text-[10px] uppercase tracking-widest rounded-lg border border-santis-gold/40 transition-all duration-300 shadow-[0_0_20px_rgba(198,169,107,0.2)] hover:shadow-[0_0_30px_rgba(198,169,107,0.4)]"
