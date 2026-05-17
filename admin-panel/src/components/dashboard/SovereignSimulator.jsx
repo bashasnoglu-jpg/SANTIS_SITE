@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSovereignSocket } from '../../context/SovereignSocketContext';
+import { useSovereignSocket } from '../../context/SovereignSocketContext.js';
 import { SimulationResultSchema } from '../../contracts/sovereign-schemas';
 import { CrystalBall, TrendingUp, BarChart3, Info } from 'lucide-react';
 

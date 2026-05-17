@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSovereignSocket } from '../../context/SovereignSocketContext';
+import { useSovereignSocket } from '../../context/SovereignSocketContext.js';
 import { ArchiveLogSchema } from '../../contracts/sovereign-schemas';
 import { z } from 'zod';
 import { History, ShieldCheck, Zap, Lock } from 'lucide-react';

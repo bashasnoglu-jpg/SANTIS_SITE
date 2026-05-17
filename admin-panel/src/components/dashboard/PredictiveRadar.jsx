@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSovereignSocket } from '../../context/SovereignSocketContext';
+import { useSovereignSocket } from '../../context/SovereignSocketContext.js';
 import { Radar, Target, TrendingUp } from 'lucide-react';
 
 /**

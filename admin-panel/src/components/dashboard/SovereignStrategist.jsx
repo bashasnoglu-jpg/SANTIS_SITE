@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSovereignSocket } from '../../context/SovereignSocketContext';
+import { useSovereignSocket } from '../../context/SovereignSocketContext.js';
 import { StrategyReportSchema } from '../../contracts/sovereign-schemas';
 import { BrainCircuit, Target, Sparkles, TrendingUp } from 'lucide-react';
 

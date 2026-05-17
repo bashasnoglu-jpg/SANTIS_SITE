@@ -1,6 +1,6 @@
 import React from 'react';
 import { Eye, Activity, ShieldCheck } from 'lucide-react';
-import { useSovereignSocket } from '../../context/SovereignSocketContext';
+import { useSovereignSocket } from '../../context/SovereignSocketContext.js';
 import DecisionMatrix from './DecisionMatrix';
 import RevenueIntelligence from './RevenueIntelligence';
 import StrategistJournal from './StrategistJournal';

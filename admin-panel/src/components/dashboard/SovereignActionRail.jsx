@@ -1,6 +1,6 @@
 import React from 'react';
 import { Zap, Wind, ShieldAlert, RefreshCw, Cpu } from 'lucide-react';
-import { useSovereignSocket } from '../../context/SovereignSocketContext';
+import { useSovereignSocket } from '../../context/SovereignSocketContext.js';
 
 /**
  * ⚡ SOVEREIGN ACTION RAIL
