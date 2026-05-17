@@ -16,6 +16,7 @@ const modalJs = read("assets/js/modules/santis-booking-modal.js");
 const bootloader = read("assets/js/boot/santis-bootloader.js");
 const availabilityJs = read("assets/js/modules/santis-booking-availability.js");
 const holdJs = read("assets/js/modules/santis-booking-confirmation-hold.js");
+const ledgerJs = read("assets/js/modules/santis-booking-ledger.js");
 
 [
   "data-booking-modal",
@@ -31,9 +32,13 @@ assertIncludes(modalJs, "guest:booking_intent_submitted", "intent submit event e
 assertIncludes(availabilityJs, "guest:booking_availability_checked", "availability event emission");
 assertIncludes(availabilityJs, "checkMockAvailability", "mock availability check");
 assertIncludes(holdJs, "guest:booking_confirmation_hold_created", "hold event emission");
+assertIncludes(ledgerJs, "santis:booking-ledger:v1", "ledger storage key");
+assertIncludes(ledgerJs, "guest:booking_confirmation_hold_created", "ledger hold tracking");
+assertIncludes(ledgerJs, "BookingLedger", "ledger class name");
 assertIncludes(bootloader, "santis-booking-modal.js", "bootloader booking module");
 assertIncludes(bootloader, "santis-booking-availability.js", "bootloader availability module");
 assertIncludes(bootloader, "santis-booking-confirmation-hold.js", "bootloader hold module");
+assertIncludes(bootloader, "santis-booking-ledger.js", "bootloader ledger module");
 assertIncludes(css, "prefers-reduced-motion", "reduced motion guard");
 
 console.log("✅ Booking Modal audit passed");

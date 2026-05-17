@@ -274,6 +274,13 @@
                 loaded: false
             },
             {
+                id: 'booking-ledger',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-booking-ledger.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
                 id: 'journey',
                 selectors: ['body'],
                 dependencies: ['/assets/js/modules/santis-journey-orchestrator.js'],
@@ -326,8 +333,9 @@
             "booking-modal": { priority: 107, critical: true },
             "booking-availability": { priority: 106, critical: true },
             "booking-confirmation-hold": { priority: 105, critical: true },
-            journey: { priority: 104, critical: true },
-            atmosphere: { priority: 103, critical: true },
+            "booking-ledger": { priority: 104, critical: true },
+            journey: { priority: 103, critical: true },
+            atmosphere: { priority: 102, critical: true },
             nav: { priority: 100, critical: true },
             checkout: { priority: 90, critical: true },
             bento: { priority: 70, critical: true },
