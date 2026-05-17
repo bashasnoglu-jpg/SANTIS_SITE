@@ -302,6 +302,13 @@
                 loaded: false
             },
             {
+                id: 'stripe-session-shell',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-stripe-session-shell.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
                 id: 'journey',
                 selectors: ['body'],
                 dependencies: ['/assets/js/modules/santis-journey-orchestrator.js'],
@@ -358,8 +365,9 @@
             "payment-eligibility": { priority: 103, critical: true },
             "payment-readiness-ui": { priority: 102, critical: true },
             "payment-readiness-ledger": { priority: 101, critical: true },
-            journey: { priority: 100, critical: true },
-            atmosphere: { priority: 99, critical: true },
+            "stripe-session-shell": { priority: 100, critical: true },
+            journey: { priority: 99, critical: true },
+            atmosphere: { priority: 98, critical: true },
             nav: { priority: 100, critical: true },
             checkout: { priority: 90, critical: true },
             bento: { priority: 70, critical: true },

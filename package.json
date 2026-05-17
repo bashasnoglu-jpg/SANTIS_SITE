@@ -39,7 +39,8 @@
     "audit:booking-api-contract": "node scripts/audit-booking-api-contract.cjs",
     "audit:payment-eligibility": "node scripts/audit-payment-eligibility.cjs",
     "audit:payment-readiness": "node scripts/audit-payment-readiness-ui.cjs",
-    "audit:payment-readiness-ledger": "node scripts/audit-payment-readiness-ledger.cjs"
+    "audit:payment-readiness-ledger": "node scripts/audit-payment-readiness-ledger.cjs",
+    "audit:stripe-session-shell": "node scripts/audit-stripe-session-shell.cjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",
