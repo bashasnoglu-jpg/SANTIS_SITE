@@ -1,16 +1,56 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 type SovereignWebSocketState = 'CONNECTING' | 'OPEN' | 'CLOSED' | 'ERROR';
+
+type SovereignSocketEnvelope<TPayload = unknown> = {
+  eventName?: string;
+  type?: string;
+  payload?: TPayload;
+  data?: TPayload;
+};
+
+type SovereignSocketHandler<TPayload = unknown> = (payload: TPayload, rawMessage: unknown) => void;
+type SovereignSocketEventMap = Map<string, Set<SovereignSocketHandler>>;
 
 // Singleton WebSocket Instance
 let globalWs: WebSocket | null = null;
 let reconnectTimer: number | null = null;
-let activeListeners: Set<(data: any) => void> = new Set();
+let activeListeners: Set<(data: unknown) => void> = new Set();
 let statusListeners: Set<(status: SovereignWebSocketState) => void> = new Set();
+let eventListeners: SovereignSocketEventMap = new Map();
 let isConnecting = false;
 
 function emitStatus(status: SovereignWebSocketState) {
-  statusListeners.forEach(listener => listener(status));
+  statusListeners.forEach((listener) => listener(status));
+}
+
+function resolveEventName(message: SovereignSocketEnvelope) {
+  return message.eventName || message.type;
+}
+
+function resolvePayload(message: SovereignSocketEnvelope) {
+  return message.payload ?? message.data ?? message;
+}
+
+function dispatchSocketMessage(message: unknown) {
+  activeListeners.forEach((listener) => listener(message));
+
+  if (!message || typeof message !== 'object') return;
+
+  const envelope = message as SovereignSocketEnvelope;
+  const eventName = resolveEventName(envelope);
+
+  if (!eventName) return;
+
+  const listeners = eventListeners.get(eventName);
+
+  if (!listeners) return;
+
+  const payload = resolvePayload(envelope);
+
+  listeners.forEach((handler) => {
+    handler(payload, message);
+  });
 }
 
 async function resolveAuthenticatedUrl(url: string) {
@@ -33,92 +73,152 @@ async function resolveAuthenticatedUrl(url: string) {
   }
 
   const data = await response.json();
+
   if (!data?.token) {
     throw new Error('Session token response did not include token');
   }
 
   wsUrl.searchParams.set('client_type', wsUrl.searchParams.get('client_type') || 'admin-panel');
   wsUrl.searchParams.set('token', data.token);
+
   return wsUrl.toString();
 }
 
 async function connect(url: string) {
   if (globalWs || isConnecting) return;
+
   isConnecting = true;
   emitStatus('CONNECTING');
 
   let authenticatedUrl: string;
+
   try {
     authenticatedUrl = await resolveAuthenticatedUrl(url);
   } catch (error) {
     console.warn('Failed to prepare Sovereign WS connection:', error);
     isConnecting = false;
     emitStatus('ERROR');
+
     reconnectTimer = window.setTimeout(() => {
       connect(url);
     }, 5000);
+
     return;
   }
 
-  globalWs = new WebSocket(authenticatedUrl);
-  
-  globalWs.onopen = () => {
+  const activeSocket = new WebSocket(authenticatedUrl);
+  globalWs = activeSocket;
+
+  activeSocket.onopen = () => {
     isConnecting = false;
     emitStatus('OPEN');
+
     if (reconnectTimer) {
       clearTimeout(reconnectTimer);
       reconnectTimer = null;
     }
   };
 
-  globalWs.onmessage = (event) => {
+  activeSocket.onmessage = (event) => {
     try {
       const data = JSON.parse(event.data);
-      activeListeners.forEach(listener => listener(data));
-    } catch (e) {
-      console.warn("Failed to parse Sovereign WS message:", e);
+      dispatchSocketMessage(data);
+    } catch (error) {
+      console.warn('Failed to parse Sovereign WS message:', error);
     }
   };
 
-  globalWs.onclose = () => {
-    globalWs = null;
+  activeSocket.onclose = () => {
+    if (globalWs === activeSocket) {
+      globalWs = null;
+    }
+
     isConnecting = false;
     emitStatus('CLOSED');
-    // Exponential backoff reconnect
+
     reconnectTimer = window.setTimeout(() => {
       connect(url);
-    }, 5000); // 5s sabiti veya backoff eklenebilir
+    }, 5000);
   };
 
-  globalWs.onerror = () => {
+  activeSocket.onerror = () => {
     emitStatus('ERROR');
-    if (globalWs) {
-      globalWs.close();
+    activeSocket.close();
+  };
+}
+
+function sendSocketEnvelope(eventName: string, payload?: unknown) {
+  if (!globalWs || globalWs.readyState !== WebSocket.OPEN) {
+    console.warn(`[Sovereign WS] Cannot emit "${eventName}" because socket is not open.`);
+    return false;
+  }
+
+  globalWs.send(JSON.stringify({
+    eventName,
+    payload,
+  }));
+
+  return true;
+}
+
+function subscribeSocketEvent<TPayload = unknown>(
+  eventName: string,
+  handler: SovereignSocketHandler<TPayload>,
+) {
+  const typedHandler = handler as SovereignSocketHandler;
+  const listeners = eventListeners.get(eventName) ?? new Set<SovereignSocketHandler>();
+
+  listeners.add(typedHandler);
+  eventListeners.set(eventName, listeners);
+
+  return () => {
+    const activeListenersForEvent = eventListeners.get(eventName);
+
+    if (!activeListenersForEvent) return;
+
+    activeListenersForEvent.delete(typedHandler);
+
+    if (activeListenersForEvent.size === 0) {
+      eventListeners.delete(eventName);
     }
   };
 }
 
 export function useSovereignWebSocket(url: string = 'ws://localhost:8080/ws') {
   const [status, setStatus] = useState<SovereignWebSocketState>('CLOSED');
-  const [latestMessage, setLatestMessage] = useState<any>(null);
+  const [latestMessage, setLatestMessage] = useState<unknown>(null);
 
   useEffect(() => {
-    // Component mount olduğunda global bağlantıyı tetikle (zaten varsa bir şey yapmaz)
     connect(url);
 
-    // Kendi listener'ımızı set'e ekle
-    const messageListener = (data: any) => {
+    const messageListener = (data: unknown) => {
       setLatestMessage(data);
     };
+
     activeListeners.add(messageListener);
     statusListeners.add(setStatus);
 
-    // Unmount anında listener'ı temizle (WS bağlantısını kapatma, singleton kalmalı)
     return () => {
       activeListeners.delete(messageListener);
       statusListeners.delete(setStatus);
     };
   }, [url]);
 
-  return { status, latestMessage };
+  const emitSocketEvent = useCallback((eventName: string, payload?: unknown) => {
+    return sendSocketEnvelope(eventName, payload);
+  }, []);
+
+  const onSocketEvent = useCallback(<TPayload = unknown>(
+    eventName: string,
+    handler: SovereignSocketHandler<TPayload>,
+  ) => {
+    return subscribeSocketEvent(eventName, handler);
+  }, []);
+
+  return useMemo(() => ({
+    status,
+    latestMessage,
+    emitSocketEvent,
+    onSocketEvent,
+  }), [status, latestMessage, emitSocketEvent, onSocketEvent]);
 }
