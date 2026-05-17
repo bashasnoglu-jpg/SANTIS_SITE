@@ -101,6 +101,25 @@ class GuestJourneyOrchestrator {
 
     this.bindItineraryActions();
     this.bindVaultClearAction();
+    this.bindCheckoutRequest();
+  }
+
+  bindCheckoutRequest() {
+    const button = document.querySelector("[data-checkout-request]");
+
+    if (!button) return;
+
+    button.addEventListener("click", () => {
+      if (!this.currentRecommendation) return;
+
+      window.SantisBus?.emit?.("guest:checkout_requested", {
+        ritual: this.currentRecommendation,
+        source: "itinerary-preview",
+        timestamp: Date.now()
+      });
+      
+      document.dispatchEvent(new CustomEvent("guest:checkout_requested", { detail: { ritual: this.currentRecommendation } }));
+    });
   }
 
   bindItineraryActions() {

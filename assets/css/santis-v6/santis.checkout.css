@@ -1,0 +1,58 @@
+.santis-checkout-ceremony {
+  margin: 1rem auto 0;
+  max-width: 980px;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: 28px;
+  border: 1px solid color-mix(in srgb, var(--color-gold, #d4af37) 24%, transparent);
+  background: color-mix(in srgb, var(--color-ink, #0b0f14) 70%, transparent);
+  backdrop-filter: blur(20px);
+}
+
+.santis-checkout-eyebrow {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.68;
+}
+
+.santis-checkout-ceremony h3 {
+  margin: 0;
+  font-size: clamp(1.35rem, 3vw, 2.2rem);
+  font-weight: 400;
+}
+
+.santis-checkout-meta,
+.santis-checkout-message {
+  opacity: 0.72;
+}
+
+.santis-checkout-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.santis-checkout-primary,
+.santis-checkout-secondary {
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-gold, #d4af37) 24%, transparent);
+  color: inherit;
+  background: transparent;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.santis-checkout-primary {
+  border-color: var(--color-gold, #d4af37);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .santis-checkout-primary,
+  .santis-checkout-secondary {
+    transition: none;
+  }
+}
