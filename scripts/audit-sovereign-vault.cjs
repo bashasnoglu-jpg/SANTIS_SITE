@@ -24,6 +24,12 @@ const bootloader = read("assets/js/boot/santis-bootloader.js");
   "Do not store payment data"
 ].forEach((needle) => assertIncludes(vault, needle, "vault contract"));
 
+[
+  "data-vault-clear",
+  "clearJourney",
+  "guest:journey_reset"
+].forEach((needle) => assertIncludes(orchestrator, needle, "clear memory UX"));
+
 assertIncludes(bootloader, "santis-sovereign-vault.js", "bootloader vault module");
 assertIncludes(orchestrator, "SantisSovereignVault.saveJourney", "orchestrator save usage");
 assertIncludes(orchestrator, "SantisSovereignVault.loadJourney", "orchestrator load usage");
