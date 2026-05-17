@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
+  parseSovereignSocketPayload,
+} from '../schemas/socketSchemas';
+import {
   SovereignEventHandler,
   SovereignEventName,
   SovereignEventPayloads,
@@ -47,14 +50,26 @@ function dispatchSocketMessage(message: unknown) {
 
   if (!eventName) return;
 
+  const payload = resolvePayload(envelope);
+
+  const validationResult = parseSovereignSocketPayload(eventName, payload);
+
+  if (!validationResult.success) {
+    console.error(
+      '[Sovereign Runtime Guard] Invalid socket payload received:',
+      eventName,
+      validationResult.error,
+    );
+
+    return;
+  }
+
   const listeners = eventListeners.get(eventName);
 
   if (!listeners) return;
 
-  const payload = resolvePayload(envelope);
-
   listeners.forEach((handler) => {
-    handler(payload, message);
+    handler(validationResult.payload, message);
   });
 }
 
