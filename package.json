@@ -37,7 +37,8 @@
     "audit:booking": "node scripts/audit-booking-modal.cjs",
     "audit:booking-api": "node scripts/audit-booking-api.cjs",
     "audit:booking-api-contract": "node scripts/audit-booking-api-contract.cjs",
-    "audit:payment-eligibility": "node scripts/audit-payment-eligibility.cjs"
+    "audit:payment-eligibility": "node scripts/audit-payment-eligibility.cjs",
+    "audit:payment-readiness": "node scripts/audit-payment-readiness-ui.cjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",
