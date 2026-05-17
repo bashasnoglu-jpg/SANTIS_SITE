@@ -30,7 +30,8 @@
     "audit:localhost": "node scripts/audit-localhost-leak.js",
     "audit:repo-boundary": "node scripts/active/audit-repo-boundary.mjs",
     "audit:all": "pnpm run audit:repo-boundary && pnpm run audit:environment && pnpm run audit:workspace && pnpm run audit:contract && pnpm run audit:localhost",
-    "verify:ports": "node scripts/verify-ports.mjs"
+    "verify:ports": "node scripts/verify-ports.mjs",
+    "audit:guest-journey": "node scripts/audit-guest-journey.cjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",
