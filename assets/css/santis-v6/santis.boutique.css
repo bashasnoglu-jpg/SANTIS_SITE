@@ -287,3 +287,10 @@
     letter-spacing: 0.15em;
     font-weight: 600;
 }
+
+.boutique-description {
+    color: var(--santis-boutique-muted, rgb(160, 160, 160));
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}

@@ -358,3 +358,81 @@
   50% { opacity: 0; background: #ff2a2a; color: #fff; }
   100% { opacity: 1; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   PHASE 3A — VISUAL TRUTH SEAL
+   Token class'lar; raw hex inline style yerine className'den erişilir.
+   Canonical kaynak: GodsEye.css (bu blok)
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* ── CSS Custom Properties (Sovereign Token Registry) ─────────────────────── */
+:root {
+  --nv-accent:        #00ffcc;
+  --nv-gold:          #d4af37;
+  --nv-void:          #0a0d11;
+  --nv-danger:        #ff2a2a;
+  --nv-warn:          #ffcc00;
+  --nv-mute:          #555555;
+  --nv-unknown:       #888888;
+}
+
+/* ── Tailwind-compatible utility aliases ──────────────────────────────────── */
+/* These classes bridge Tailwind arbitrary usage to token references          */
+.text-nv-accent  { color: var(--nv-accent) !important; }
+.text-nv-gold    { color: var(--nv-gold) !important; }
+.bg-nv-void      { background-color: var(--nv-void) !important; }
+.bg-nv-accent    { background-color: var(--nv-accent) !important; }
+.from-nv-accent  { --tw-gradient-from: var(--nv-accent); }
+.from-nv-gold    { --tw-gradient-from: var(--nv-gold); }
+.border-nv-gold  { border-color: var(--nv-gold) !important; }
+
+/* shadow-nv-gold-glow → replaces shadow-[0_0_25px_rgba(212,175,55,0.6)] */
+.shadow-nv-gold-glow {
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.6) !important;
+}
+
+/* ── ACTION token classes (replaces inline style color in AuditTimeline) ─── */
+.action-ack      { color: #10b981; }   /* emerald-500 */
+.action-mute     { color: #555555; }   /* muted gray  */
+.action-escalate { color: #ff2a2a; }   /* danger red  */
+.action-unknown  { color: #888888; }   /* fallback    */
+
+/* Incident card left-border per action type */
+.incident-border-action-ack      { border-left-color: #10b981; }
+.incident-border-action-mute     { border-left-color: #555555; }
+.incident-border-action-escalate { border-left-color: #ff2a2a; }
+.incident-border-action-unknown  { border-left-color: #888888; }
+
+/* ── STATUS BADGE token classes (replaces inline style in GodsEyeDashboard) */
+.status-connecting   { color: var(--nv-unknown); }
+.status-live         { color: var(--nv-accent);  }
+.status-reconnecting { color: var(--nv-warn);    }
+.status-mock         { color: var(--nv-warn);    }
+.status-error        { color: var(--nv-danger);  }
+.status-closed       { color: var(--nv-danger);  }
+
+/* ── AUDIT SEPARATOR / LATENCY (replaces inline style color) ─────────────── */
+.audit-separator { color: #333; }
+.audit-latency   { color: #444; }
+
+/* ── MODE TOGGLE — right-aligned variant ─────────────────────────────────── */
+.mode-toggle--right { margin-left: auto; }
+
+/* ── REPLAY full-column layout ───────────────────────────────────────────── */
+.replay-full-column { grid-column: 1 / -1; }
+
+/* ── STREAM CARD layout helpers ──────────────────────────────────────────── */
+.stream-card-header {
+  display: flex;
+  justify-content: space-between;
+}
+.stream-card-footer {
+  text-align: right;
+  margin-top: 5px;
+  font-size: 1.2rem;
+  color: var(--nv-accent);
+}
+
+/* ── THREAT SPOOF ROW ─────────────────────────────────────────────────────── */
+.threat-spoof-row { margin: 5px 0; }
+

@@ -46,25 +46,25 @@ const SantisDynamicOffer = ({ stressLevel }) => {
     }, [stressLevel]);
 
     return (
-        <div className="bg-[#1c1c1f] border border-[#c6a96b]/30 p-6 font-mono text-xs md:text-sm">
+        <div className="bg-sbr-surface border border-sbr-gold/30 p-6 font-mono text-xs md:text-sm">
             <div className="flex items-center mb-4">
                 <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse mr-2"></div>
-                <span className="text-[#c6a96b] tracking-widest uppercase">Kuantum Analiz Raporu</span>
+                <span className="text-sbr-gold tracking-widest uppercase">Kuantum Analiz Raporu</span>
             </div>
 
-            <div className="text-zinc-300 leading-relaxed min-h-[100px] mb-6">
+            <div className="text-zinc-300 leading-relaxed min-h-offer-body mb-6">
                 {displayText}
                 <span className="animate-ping">|</span>
             </div>
 
             {isComplete && (
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000">
-                    <div className="bg-[#c6a96b]/10 border border-[#c6a96b]/50 p-4 mb-6">
-                        <span className="text-[#c6a96b] block font-bold mb-1">HEDİYE TANIMLANDI:</span>
+                    <div className="bg-sbr-gold/10 border border-sbr-gold/50 p-4 mb-6">
+                        <span className="text-sbr-gold block font-bold mb-1">HEDİYE TANIMLANDI:</span>
                         <span className="text-white uppercase tracking-tighter">{offer.module}</span>
                     </div>
 
-                    <button className="w-full bg-[#c6a96b] text-black font-bold py-4 tracking-[0.2em] uppercase hover:bg-[#d4bc8d] transition-colors shadow-[0_0_20px_rgba(198,169,107,0.3)]">
+                    <button className="w-full bg-sbr-gold text-black font-bold py-4 tracking-cta uppercase hover:bg-sbr-gold-hover transition-colors shadow-sbr-gold-glow">
                         Analizi Onayla ve Planı Mühürle
                     </button>
                 </div>

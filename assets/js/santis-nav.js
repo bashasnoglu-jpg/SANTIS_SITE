@@ -18,6 +18,11 @@ async function yieldToMain() {
 
 function initNavAndFooter() {
     // --- HELPER FUNCTIONS ---
+    function forceGlobalNavVisibility() {
+        // Intentionally no-op: CSS now owns navbar visibility.
+        // Kept as a compatibility shim for existing navbar init calls.
+    }
+
     // Depth calculation strictly relying on slash count.
     // E.g. /masaj.html -> length is 3. tr, masajlar, index.html.
     // We want depth = 2. So we subtract 1 for the file itself.
@@ -142,66 +147,7 @@ function initNavAndFooter() {
         });
     }
 
-    function forceGlobalNavVisibility() {
-        if (window.innerWidth < 769) return;
 
-        const navRoot = document.getElementById('navRoot');
-        const serviceRoot = document.getElementById('serviceRoot');
-        const mainNav = document.getElementById('santis-main-nav');
-        const brandBar = document.querySelector('.sovereign-brand-bar');
-        const serviceBar = document.querySelector('.sovereign-service-bar');
-        const brandContainer = document.querySelector('.sovereign-brand-bar .sovereign-nav-container');
-        const serviceContainer = document.querySelector('.sovereign-service-bar .sovereign-nav-container');
-        const hamburger = document.getElementById('hamburger');
-
-        [mainNav, brandBar, serviceBar, brandContainer, serviceContainer, navRoot, serviceRoot].forEach((el) => {
-            if (!el) return;
-            el.style.setProperty('display', 'flex', 'important');
-            el.style.setProperty('opacity', '1', 'important');
-            el.style.setProperty('visibility', 'visible', 'important');
-        });
-
-        if (mainNav) {
-            mainNav.style.setProperty('transform', 'translateY(0)', 'important');
-        }
-
-        if (brandContainer) {
-            brandContainer.style.setProperty('align-items', 'center', 'important');
-            brandContainer.style.setProperty('justify-content', 'space-between', 'important');
-            brandContainer.style.setProperty('gap', '24px', 'important');
-            brandContainer.style.setProperty('width', '100%', 'important');
-            brandContainer.style.setProperty('max-width', '1280px', 'important');
-        }
-
-        if (navRoot) {
-            navRoot.style.setProperty('flex', '1 1 auto', 'important');
-            navRoot.style.setProperty('align-items', 'center', 'important');
-            navRoot.style.setProperty('justify-content', 'center', 'important');
-            navRoot.style.setProperty('gap', '14px', 'important');
-            navRoot.style.setProperty('min-width', '0', 'important');
-            navRoot.style.setProperty('overflow', 'visible', 'important');
-        }
-
-        if (serviceRoot) {
-            serviceRoot.style.setProperty('align-items', 'center', 'important');
-            serviceRoot.style.setProperty('justify-content', 'center', 'important');
-            serviceRoot.style.setProperty('gap', '42px', 'important');
-            serviceRoot.style.setProperty('width', '100%', 'important');
-            serviceRoot.style.setProperty('overflow', 'visible', 'important');
-        }
-
-        document.querySelectorAll('#navRoot a, #serviceRoot a').forEach((link) => {
-            link.style.setProperty('display', 'inline-flex', 'important');
-            link.style.setProperty('opacity', '1', 'important');
-            link.style.setProperty('visibility', 'visible', 'important');
-            link.style.setProperty('color', 'rgba(245, 245, 247, 0.86)', 'important');
-            link.style.setProperty('font-size', '11px', 'important');
-            link.style.setProperty('line-height', '1', 'important');
-            link.style.setProperty('white-space', 'nowrap', 'important');
-        });
-
-        if (hamburger) hamburger.style.setProperty('display', 'none', 'important');
-    }
 
     // --- MAIN LOGIC ---
     

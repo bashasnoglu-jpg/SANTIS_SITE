@@ -9,6 +9,12 @@
 // ===============================================================
 // 📈 1. SOVEREIGN OPTICS (Canvas Sparkline Renderer)
 // ===============================================================
+const GOD_MODE_COLORS = {
+    canvasBg: 'rgb(10, 15, 12)',
+    success: 'rgb(16, 185, 129)',
+    danger: 'rgb(239, 68, 68)',
+};
+
 class SovereignOpticsRenderer {
     constructor(canvasElement) {
         this.canvas = canvasElement;
@@ -37,7 +43,7 @@ class SovereignOpticsRenderer {
     }
 
     loop() {
-        this.ctx.fillStyle = '#0A0F0C';
+        this.ctx.fillStyle = GOD_MODE_COLORS.canvasBg;
         this.ctx.fillRect(0, 0, this.width, this.height);
 
         this.ctx.beginPath();
@@ -54,7 +60,7 @@ class SovereignOpticsRenderer {
             this.ctx.lineTo(x, this.points[i]);
         }
         this.ctx.lineWidth = 1.5;
-        this.ctx.strokeStyle = '#10B981'; 
+        this.ctx.strokeStyle = GOD_MODE_COLORS.success;
         this.ctx.stroke();
 
         this.ctx.lineTo(this.width, this.height);
@@ -318,7 +324,7 @@ class SovereignGodModeComponent extends HTMLElement {
         dashboard.classList.add('is-quarantined');
         const log = this.shadowRoot.getElementById('ai-log');
         log.innerText = "💀 CRITICAL OVERRIDE: Sovereign OS Boardroom karantinaya alındı. Kuantum bağı kesildi.";
-        log.style.color = '#EF4444'; 
+        log.style.color = GOD_MODE_COLORS.danger;
         
         this.radar.nodes.forEach(n => { n.status = 'WARNING'; n.vx = 0; n.vy = 0; });
         console.warn("💀 [God's Eye] KARANTİNA KAPSÜLÜ BAŞARIYLA TETİKLENDİ. Shadow DOM İzole Edildi.");

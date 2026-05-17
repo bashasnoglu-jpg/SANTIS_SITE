@@ -29,7 +29,7 @@ export class StripeGatewayModule {
     if (!container) return;
 
     // Yükleniyor animasyonu
-    container.innerHTML = '<div class="animate-pulse h-40 bg-gray-100 rounded-xl"></div>';
+    container.innerHTML = '<div class="santis-checkout-skeleton animate-pulse h-40 rounded-xl"></div>';
 
     try {
       // 1. Sunucudan client_secret talep et
@@ -50,15 +50,15 @@ export class StripeGatewayModule {
         theme: 'flat',
         variables: {
           fontFamily: 'Inter, sans-serif',
-          colorBackground: '#ffffff',
-          colorText: '#111827',
-          colorPrimary: '#D4AF37', // santis-gold
+          colorBackground: 'rgb(255, 255, 255)',
+          colorText: 'rgb(17, 24, 39)',
+          colorPrimary: 'rgb(212, 175, 55)',
           borderRadius: '8px',
           spacingUnit: '4px',
         },
         rules: {
-          '.Input': { border: '1px solid #E5E7EB', boxShadow: 'none' },
-          '.Input:focus': { border: '1px solid #111827' }
+          '.Input': { border: '1px solid rgb(229, 231, 235)', boxShadow: 'none' },
+          '.Input:focus': { border: '1px solid rgb(17, 24, 39)' }
         }
       };
 
@@ -73,7 +73,7 @@ export class StripeGatewayModule {
       this.bindSubmitEvent();
 
     } catch (err) {
-      container.innerHTML = `<p class="text-red-600 text-sm">${err.message}</p>`;
+      container.innerHTML = `<p class="santis-checkout-error text-sm">${err.message}</p>`;
     }
   }
 

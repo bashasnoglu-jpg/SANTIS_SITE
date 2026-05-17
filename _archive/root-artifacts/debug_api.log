@@ -1,0 +1,31 @@
+⚡ [Ingestion API] Booting Sovereign Backend...
+⏪ [Event Store] Akaşik Kayıtlar okunuyor... Zamanda yolculuk başlatıldı.
+🔥 [Projection: Mood] Isı haritası güncellendi: deep_relaxation (1)
+🔥 [Projection: Mood] Isı haritası güncellendi: deep_relaxation (2)
+🔥 [Projection: Mood] Isı haritası güncellendi: deep_relaxation (3)
+🔥 [Projection: Mood] Isı haritası güncellendi: deep_relaxation (4)
+🔥 [Projection: Mood] Isı haritası güncellendi: deep_relaxation (5)
+✅ [Event Store] 5 olay 3.05ms içinde başarıyla re-hidrate edildi!
+📈 [Projections] Boardroom Dinleyicileri Aktif.
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3030
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\tourg\Desktop\SANTIS_SITE\node_modules\.pnpm\express@4.22.1\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\tourg\Desktop\SANTIS_SITE\apps\ingestion-api\src\index.ts:172:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3030
+}
+
+Node.js v25.4.0

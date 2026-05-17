@@ -8,26 +8,18 @@
 
 /* ÇEKİRDEK SİNİR SİSTEMİ BAĞLANTILARI */
 /* ✨ TAILWIND v4 ENGINE — Sovereign Utility Sistemi */
-@import url('tailwind-input.css');
 
 @import url('santis-v6/santis.reset.css');
 @import url('santis-v6/santis.tokens.css');
 @import url('santis-v6/santis.engines.css');
-
-/* ESTETİK VE BİLEŞENLER */
 @import url('santis-v6/santis.base.css');
 @import url('santis-v6/santis.components.css');
 @import url('santis-v6/santis.utilities.css');
 @import url('santis-v6/santis.overrides.css');
-
-/* V5 UYUMLULUK KATMANI — V6 modülleri tüm kuralları kapsayana dek aktif */
 @import url('santis-v6/santis.legacy-compat.css');
 @import url('components.css'); /* GLOBAL ORPHAN FIX: Restores .santis-chip, Navbar Z-Index, and Legacy Cards */
-
 @import url('media-skeleton.css');
 @import url('view-transitions.css');
-
-/* PAGE MODULES — Temporary compatibility imports while HTML entrypoints converge */
 @import url('editorial.css');
 @import url('bento-grid.css');
 @import url('santis-v6/santis.bento-grid.css');
@@ -43,6 +35,16 @@
 @import url('santis-soul.css');
 @import url('modules/santis-cinematic.css');
 @import url('modules/santis-booking-funnel.css');
+
+@import "tailwindcss";
+
+@theme {
+    --color-santis-gold: #D4AF37;
+    --font-sans: 'Inter', sans-serif;
+    --font-serif: '"Playfair Display"', serif;
+    --font-mono: 'Space Mono', sans-serif;
+}
+
 
 
 /* --- Z-Index Master Map & Variables --- */
@@ -810,4 +812,24 @@ body.cursor-snap-hover #santis-cursor-dot {
 
 [data-testid="reservation-modal"][data-state="open"] {
   display: flex;
+}
+
+/* SANTIS — Reservation Modal Mobile Width Contract */
+[data-testid="reservation-modal"][data-state="open"] .nv-modal-card,
+[data-testid="reservation-modal"][data-state="open"] [data-testid="reservation-modal-card"] {
+  width: min(520px, 92vw) !important;
+  max-width: 92vw !important;
+  box-sizing: border-box;
+}
+
+/* SANTIS — Reservation E2E Mobile Width Final Seal */
+@media (max-width: 480px) {
+  [data-testid="reservation-modal"][data-state="open"] .nv-modal-card,
+  #santis-reservation-modal[data-state="open"] .nv-modal-card,
+  #santis-reservation-modal[data-state="open"] [data-testid="reservation-modal-card"] {
+    width: 92vw !important;
+    max-width: 92vw !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
 }

@@ -44,26 +44,26 @@
     `;
 
     const style = document.createElement("style");
-    style.innerHTML = `
+    style.textContent = `
         #santis-boardroom {
             position: fixed; top: 20px; left: 20px; width: 340px;
             background: rgba(5,8,16,0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(0, 255, 204, 0.2); border-radius: 12px;
-            color: #00ffcc; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            color: var(--sbr-info, rgb(0, 255, 204)); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
             z-index: 9999999; box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 20px rgba(0, 255, 204, 0.1);
             padding: 16px; pointer-events: none; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             user-select: none;
         }
         .boardroom-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,255,204,0.15); padding-bottom: 8px; margin-bottom: 12px; }
         .boardroom-title { font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
-        .boardroom-status { font-size: 10px; background: rgba(0,255,204,0.1); padding: 2px 6px; border-radius: 4px; color: #00ffcc; }
+        .boardroom-status { font-size: 10px; background: rgba(0,255,204,0.1); padding: 2px 6px; border-radius: 4px; color: var(--sbr-info, rgb(0, 255, 204)); }
         .blink { animation: b-blink 2s infinite; }
         @keyframes b-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
         .boardroom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
         .b-card { background: rgba(255,255,255,0.02); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
-        .b-label { display: block; font-size: 9px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
-        .b-value { display: block; font-size: 18px; font-weight: 700; color: #f8fafc; }
-        #b-fps { color: #00ffcc; }
+        .b-label { display: block; font-size: 9px; color: var(--sbr-neutral-text, rgb(156, 163, 175)); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+        .b-value { display: block; font-size: 18px; font-weight: 700; color: var(--sbr-boardroom-ink, rgb(248, 250, 252)); }
+        #b-fps { color: var(--sbr-info, rgb(0, 255, 204)); }
         .boardroom-chart { height: 100px; width: 100%; margin-top: 8px; }
     `;
     document.head.appendChild(style);
@@ -142,6 +142,8 @@
         };
 
         myChart = echarts.init(chartDOM, 'dark', { renderer: 'canvas' });
+        const rootStyles = getComputedStyle(document.documentElement);
+        const boardroomInfo = rootStyles.getPropertyValue('--sbr-info').trim() || 'rgb(0, 255, 204)';
         
         const option = {
             backgroundColor: 'transparent',
@@ -154,7 +156,7 @@
                 data: chartData,
                 smooth: true,
                 symbol: 'none',
-                lineStyle: { width: 2, color: '#00ffcc', shadowColor: 'rgba(0, 255, 204, 0.5)', shadowBlur: 10 },
+                lineStyle: { width: 2, color: boardroomInfo, shadowColor: 'rgba(0, 255, 204, 0.5)', shadowBlur: 10 },
                 areaStyle: {
                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                         { offset: 0, color: 'rgba(0, 255, 204, 0.3)' },
@@ -182,7 +184,7 @@
             const currentFps = Math.min(Math.round((frames * 1000) / (now - lastTime)), 120);
             
             document.getElementById("b-fps").innerText = currentFps;
-            document.getElementById("b-fps").style.color = currentFps < 50 ? "#ff4444" : "#00ffcc";
+            document.getElementById("b-fps").style.color = currentFps < 50 ? "var(--sbr-danger)" : "var(--sbr-info)";
 
             if (performance.memory) {
                 document.getElementById("b-ram").innerText = (performance.memory.usedJSHeapSize / 1048576).toFixed(1);

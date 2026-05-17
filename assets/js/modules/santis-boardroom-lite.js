@@ -69,12 +69,12 @@
 
     const html = sorted.map(evt => `
       <tr>
-        <td style="color: #888;">${formatDate(evt.timestamp)}</td>
+        <td class="boardroom-table-muted">${formatDate(evt.timestamp)}</td>
         <td><strong>${evt.ritual}</strong></td>
         <td>${evt.guests}</td>
-        <td><span style="color: #bbb;">${evt.upsell || '-'}</span></td>
+        <td><span class="boardroom-table-soft">${evt.upsell || '-'}</span></td>
         <td><span class="tag ${getTagClass(evt.leadTag)}">${evt.leadTag}</span></td>
-        <td class="text-right" style="color: var(--boardroom-accent);">${formatCurrency(evt.estimatedValue)}</td>
+        <td class="text-right boardroom-table-accent">${formatCurrency(evt.estimatedValue)}</td>
       </tr>
     `).join('');
 

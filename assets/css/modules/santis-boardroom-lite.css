@@ -176,6 +176,18 @@ body {
   background: rgba(255, 255, 255, 0.02);
 }
 
+.boardroom-table-muted {
+  color: var(--boardroom-text-muted);
+}
+
+.boardroom-table-soft {
+  color: var(--boardroom-text-soft, rgb(187, 187, 187));
+}
+
+.boardroom-table-accent {
+  color: var(--boardroom-accent);
+}
+
 .text-right {
   text-align: right;
 }
