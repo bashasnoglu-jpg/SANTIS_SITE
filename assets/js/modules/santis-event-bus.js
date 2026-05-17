@@ -12,7 +12,10 @@ class SovereignEventBus {
       console.log('📡 [Sovereign Event Bus]: Merkezi sinir sistemi başlatılıyor...');
       
       // Merkezi socket bağlantısı (Singleton)
-      this.socket = io('http://localhost:3030', {
+      const config = window.getRuntimeConfig ? window.getRuntimeConfig() : { apiBaseUrl: '/api/v1' };
+      const socketUrl = config.apiBaseUrl.includes('http') ? new URL(config.apiBaseUrl).origin : '';
+      
+      this.socket = io(socketUrl, {
         transports: ['websocket'],
         reconnectionAttempts: 5,
         reconnectionDelay: 1000
