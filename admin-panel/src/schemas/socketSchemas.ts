@@ -16,6 +16,18 @@ const BoardroomStateSchema = z.object({
   recommendedActions: z.array(BoardroomRecommendationSchema),
 });
 
+export const BoardroomRevenueTickSchema = z.object({
+  amount: z.number().positive(),
+  currency: z.string().min(3).max(3),
+  serviceCategory: z.enum(['REPAIR', 'GLOW', 'DETOX', 'RELAX']),
+  timestamp: z.string().datetime(),
+});
+
+export const BoardroomStaffStatusSchema = z.object({
+  therapistId: z.string().uuid(),
+  status: z.enum(['AVAILABLE', 'IN_SESSION', 'OFF_DUTY']),
+});
+
 export const SovereignSocketPayloadSchemas = {
   'admin:strategy_report_ready': z.unknown(),
   'admin:request_strategy_synthesis': z.undefined(),
@@ -39,6 +51,8 @@ export const SovereignSocketPayloadSchemas = {
     severity: z.enum(['info', 'warning', 'critical']),
     timestamp: z.string().optional(),
   }),
+  'boardroom:revenue_tick': BoardroomRevenueTickSchema,
+  'boardroom:staff_status_change': BoardroomStaffStatusSchema,
 } satisfies Record<SovereignEventName, z.ZodTypeAny>;
 
 export function parseSovereignSocketPayload(
