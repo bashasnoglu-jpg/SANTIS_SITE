@@ -309,6 +309,13 @@
                 loaded: false
             },
             {
+                id: 'billing-session-adapter',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-billing-session-adapter.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
                 id: 'pricing-readiness',
                 selectors: ['body'],
                 dependencies: ['/assets/js/modules/santis-pricing-readiness.js'],
@@ -374,8 +381,9 @@
             "payment-readiness-ui": { priority: 102, critical: true },
             "payment-readiness-ledger": { priority: 101, critical: true },
             "stripe-session-shell": { priority: 100, critical: true },
-            journey: { priority: 99, critical: true },
-            atmosphere: { priority: 98, critical: true },
+            "billing-session-adapter": { priority: 99, critical: true },
+            journey: { priority: 98, critical: true },
+            atmosphere: { priority: 97, critical: true },
             nav: { priority: 100, critical: true },
             checkout: { priority: 90, critical: true },
             bento: { priority: 70, critical: true },
