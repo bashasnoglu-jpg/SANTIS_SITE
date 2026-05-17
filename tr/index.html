@@ -84,7 +84,7 @@ html { font-display: optional; }
   position: absolute; inset: 0; z-index: 10;
   display: flex; gap: 24px; align-items: center; justify-content: center;
   background: transparent;
-  animation: veil-fade-out 0.4s ease forwards 3s;
+  animation: veil-fade-out 0.4s ease forwards 1.5s;
 }
 .skeleton-card-wire {
   width: 300px; height: 420px; border-radius: 20px;
@@ -95,7 +95,7 @@ html { font-display: optional; }
 /* Stack kartları her zaman visible — JS aktifleşince transform ekler */
 .santis-stack-card {
   position: absolute;
-  width: 320px; height: 440px;
+  width: 320px; max-width: 85vw; height: 440px;
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
@@ -200,7 +200,7 @@ html { font-display: optional; }
       <a href="/tr/galeri/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Galeri</a>
       <a href="/tr/hakkimizda/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Hakkımızda</a>
       <a href="/tr/iletisim.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">İletişim</a>
-      <a href="#reservation" style="margin-left:auto;border:1px solid #d4af37;color:#d4af37;padding:.5rem 1.25rem;border-radius:99px;font-size:.8rem;font-family:'Inter',sans-serif;font-weight:600;text-decoration:none;background:transparent;">Rezervasyon</a>
+      <a href="#reservation" class="santis-nav-cta">Rezervasyon</a>
     </nav>
   </div>
 </header>
@@ -245,7 +245,7 @@ html { font-display: optional; }
               <div class="skeleton-card-wire skeleton-card-wire--center"></div>
               <div class="skeleton-card-wire skeleton-card-wire--right"></div>
           </div>
-          <div class="santis-stack-card" data-santis-bg="/assets/img/cards/santis_card_recovery_lotion_v2.webp" style="filter: hue-rotate(180deg) saturate(150%);">
+          <div class="santis-stack-card" data-santis-bg="/assets/img/cards/santis_card_recovery_lotion_v2.webp" style="filter: hue-rotate(180deg) saturate(100%);">
               <h3 data-morph="title">Su: Arınma Şelalesi</h3>
               <span class="santis-stack-meta">Hidroterapi</span>
 
@@ -681,6 +681,8 @@ html { font-display: optional; }
     <script src="/assets/js/app.js" defer></script>
 <script src="/assets/js/modules/santis-revenue-tracker.js"></script>
 <script src="/assets/js/modules/santis-booking-funnel.js"></script>
+<script src="/assets/js/modules/santis-liquid-reveal.js" defer></script>
+<script src="/assets/js/test-ai-integration.js" type="module"></script>
 
 <!-- Phase 42(B): Real-Time Art Director Personalization -->
 <script type="module" src="/assets/js/core/santis-art-director-client.js" defer></script>

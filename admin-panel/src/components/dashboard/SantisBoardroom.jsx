@@ -4,6 +4,8 @@ import LiveIntentMonitor from '../boardroom/LiveIntentMonitor';
 import { BoardroomChronos } from '../../features/boardroom/components/BoardroomChronos';
 import { History, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut, Eye, Brain, Split, Headset, TrendingUp, GitBranch, Filter } from 'lucide-react';
 import { useBoardroomMode } from '../../features/boardroom/context/BoardroomModeContext';
+import BoardroomRevealCeremony from './BoardroomRevealCeremony';
+import SovereignActionRail from './SovereignActionRail';
 
 // ── Admin-only: lazy-loaded, feature-gated Time Travel Replay UI ──────────────
 const TimeTravelReplayPanel = lazy(() =>
@@ -28,6 +30,7 @@ export default function SantisBoardroom() {
   const [timeRange, setTimeRange] = useState('Bu Hafta');
   const [liveEventIndex, setLiveEventIndex] = useState(0);
   const [activeTab, setActiveTab] = useState('telemetry');
+  const [isRevealed, setIsRevealed] = useState(false);
 
   // Sovereign Ghost Operations State
   // eslint-disable-next-line no-unused-vars
@@ -65,6 +68,10 @@ export default function SantisBoardroom() {
   return (
     <div className={`min-h-screen bg-sovereign-void text-sovereign-ink font-sans flex selection:bg-sovereign-accent/30 selection:text-sovereign-ink ${isHistorical ? 'nv-historical' : ''}`}>
       
+      {!isRevealed && <BoardroomRevealCeremony onComplete={() => setIsRevealed(true)} />}
+      
+      <SovereignActionRail />
+
       <style dangerouslySetInnerHTML={{__html: `
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap');
         .font-serif { font-family: 'Playfair Display', serif; }
@@ -82,12 +89,13 @@ export default function SantisBoardroom() {
           animation: badgePulse 2s infinite;
         }
         @keyframes badgePulse { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
+        .animate-reveal { opacity: 0; transform: translateY(20px); will-change: opacity, transform; }
       `}} />
 
       {/* ========================================================= */}
       {/* SOL MENÜ (SIDEBAR)                                         */}
       {/* ========================================================= */}
-      <aside className="w-64 bg-sovereign-coal border-r border-sovereign-panel hidden lg:flex flex-col">
+      <aside className="w-64 bg-sovereign-coal border-r border-sovereign-panel hidden lg:flex flex-col animate-reveal">
         <div className="h-24 flex items-center justify-center border-b border-sovereign-panel">
           <h1 className="text-xl tracking-[0.3em] font-light text-sovereign-ink">SANTIS</h1>
         </div>
@@ -157,7 +165,7 @@ export default function SantisBoardroom() {
         <div className="absolute top-[-20%] right-[-10%] layout-panel-600 fx-bg-boardroom-radial rounded-full pointer-events-none z-0"></div>
 
         {/* ÜST BİLGİ ÇUBUĞU (Header) */}
-        <header className="h-24 px-8 border-b border-sovereign-panel flex items-center justify-between bg-sovereign-coal/80 backdrop-blur-md z-10 sticky top-0">
+        <header className="h-24 px-8 border-b border-sovereign-panel flex items-center justify-between bg-sovereign-coal/80 backdrop-blur-md z-10 sticky top-0 animate-reveal">
           <div>
             <h2 className="font-serif text-2xl text-sovereign-ink">
               {activeTab === 'telemetry' && 'Telemetri Özeti'}
@@ -201,7 +209,7 @@ export default function SantisBoardroom() {
         )}
 
         {/* WIDGET GRID */}
-        <div className="flex-1 overflow-y-auto p-8 z-10 hide-scrollbar">
+        <div className="flex-1 overflow-y-auto p-8 z-10 hide-scrollbar animate-reveal">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             
             {/* TELEMETRİ ÖZETİ EKRANI (Tüm Widgetlar) */}

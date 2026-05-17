@@ -23,6 +23,11 @@ export default defineConfig({
         target: 'http://localhost:3030',
         changeOrigin: true,
         secure: false,
+      },
+      '/socket.io': {
+        target: 'http://localhost:3030',
+        ws: true,
+        changeOrigin: true,
       }
     }
   },

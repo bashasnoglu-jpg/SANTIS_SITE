@@ -178,6 +178,12 @@
 
         const SOVEREIGN_REGISTRY = [
             {
+                id: 'api',
+                selectors: ['body'], // Her zaman yükle
+                dependencies: ['/assets/js/api-client.js'],
+                loaded: !!window.SantisApi
+            },
+            {
                 id: 'nav',
                 selectors: ['#navbar-container', '#santis-main-nav'],
                 dependencies: ['/assets/js/loader.js', '/assets/js/santis-nav.js'],
