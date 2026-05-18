@@ -58,6 +58,60 @@ const truthLayer = http.createServer((req, res) => {
     return;
   }
 
+  // 2.1 RVS Telemetry Endpoint Stub (RVS-8 Enforced)
+  if (req.url === '/api/v1/telemetry/rvs' && req.method === 'POST') {
+    let body = '';
+    let bytesReceived = 0;
+    const maxBytes = 8192; // 8KB Guard
+
+    req.on('data', chunk => {
+      bytesReceived += chunk.length;
+      if (bytesReceived > maxBytes) {
+        res.writeHead(413, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Payload Too Large: Maximum size is 8KB.' }));
+        req.destroy();
+      } else {
+        body += chunk.toString();
+      }
+    });
+
+    req.on('end', () => {
+      if (bytesReceived > maxBytes) return;
+
+      try {
+        const envelope = JSON.parse(body);
+        
+        // Envelope validation according to Telemetry Endpoint Contract (v1.0)
+        const allowedTypes = new Set(['LAYOUT_REFLOW_ANOMALY', 'CINEMATIC_BUDGET_WARNING', 'SCENE_ENTROPY_SHIFT']);
+        
+        const isValid = !!(
+          envelope &&
+          allowedTypes.has(envelope.type) &&
+          typeof envelope.timestamp === 'number' &&
+          typeof envelope.sessionToken === 'string' &&
+          typeof envelope.normalizedPath === 'string' &&
+          typeof envelope.details === 'object' &&
+          envelope.details !== null
+        );
+
+        if (!isValid) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Bad Request: Malformed telemetry envelope structure.' }));
+          return;
+        }
+
+        console.log(`🛡️ [RVS Telemetry Backend] Received telemetry payload: type=${envelope.type}, path=${envelope.normalizedPath}`);
+        
+        res.writeHead(204);
+        res.end();
+      } catch (error) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Bad Request: Invalid JSON payload.' }));
+      }
+    });
+    return;
+  }
+
   // 3. Socket.io Handshake (Vite üzerinden 8080 -> 3030 aktarımı için)
   if (req.url.startsWith('/socket.io/')) {
     res.writeHead(200);
