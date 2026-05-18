@@ -50,7 +50,8 @@
     "audit:rvs-cinematic-budget": "node scripts/active/audit-cinematic-budget.mjs",
     "audit:rvs-cinematic-budget:strict": "node scripts/active/audit-cinematic-budget.mjs --strict",
     "audit:rvs-scene-entropy-contract": "node scripts/active/audit-scene-entropy-contract.mjs",
-    "audit:rvs-telemetry-endpoint-contract": "node scripts/active/audit-rvs-telemetry-endpoint-contract.mjs"
+    "audit:rvs-telemetry-endpoint-contract": "node scripts/active/audit-rvs-telemetry-endpoint-contract.mjs",
+    "audit:rvs-client-telemetry-dispatcher": "node scripts/active/audit-rvs-client-telemetry-dispatcher.mjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",
