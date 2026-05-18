@@ -170,6 +170,7 @@ if (hasViolations) {
     'will-change',
     'requestAnimationFrame',
     'setInterval',
+    'setTimeout',
     'particle-density-exceeded'
   ];
   for (const r of rulesList) {
