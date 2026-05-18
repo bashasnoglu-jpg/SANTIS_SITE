@@ -33,7 +33,6 @@
   "devDependencies": {
     "@playwright/test": "^1.52.0",
     "esbuild": "^0.28.0",
-    "serve": "^14.2.4",
     "tsx": "^4.7.1",
     "turbo": "^1.13.0",
     "typescript": "^5.4.0"
