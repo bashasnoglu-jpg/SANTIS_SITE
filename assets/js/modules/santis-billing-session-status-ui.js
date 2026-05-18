@@ -6,21 +6,26 @@ function renderBillingStatus(e) {
 
   if (!panel || !title || !message) return;
 
-  panel.hidden = false;
-
   const session = payload?.billingSession;
+  const writeDOM = window.SantisDOM?.write || ((fn) => requestAnimationFrame(fn));
 
   if (session?.ready) {
-    title.textContent = "Ödeme oturumu hazır.";
-    message.textContent = session.message || "Ödeme adımı hazırlanıyor.";
+    writeDOM(() => {
+      panel.hidden = false;
+      title.textContent = "Ödeme oturumu hazır.";
+      message.textContent = session.message || "Ödeme adımı hazırlanıyor.";
+    });
     return;
   }
 
-  title.textContent = "Ödeme oturumu henüz hazır değil.";
-  message.textContent =
-    session?.message ||
-    payload?.message ||
-    "Spa ekibi fiyat ve zaman bilgisini teyit ettikten sonra ödeme oturumu açılacaktır.";
+  writeDOM(() => {
+    panel.hidden = false;
+    title.textContent = "Ödeme oturumu henüz hazır değil.";
+    message.textContent =
+      session?.message ||
+      payload?.message ||
+      "Spa ekibi fiyat ve zaman bilgisini teyit ettikten sonra ödeme oturumu açılacaktır.";
+  });
 }
 
 function bindBillingSessionStatusUI() {
