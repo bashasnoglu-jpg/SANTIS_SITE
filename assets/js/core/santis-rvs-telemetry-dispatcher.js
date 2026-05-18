@@ -1,15 +1,17 @@
 /**
  * ═══════════════════════════════════════════════════════════
- * 🤫 SANTIS OS - RVS TELEMETRY DISPATCHER (v1.0)
+ * 🤫 SANTIS OS - RVS TELEMETRY DISPATCHER (v1.1)
  * ═══════════════════════════════════════════════════════════
  * Visual stability telemetry client-side governor.
  * Fully compliant with docs/governance/telemetry-endpoint-contract.md.
  * 
  * Guarantees:
- * - Zero PII Transmission (Aggrerssive scrubbing and rejection)
- * - 8KB Payload Size limit
+ * - Zero PII Transmission (Aggrerssive scrubbing and validation allowlist)
+ * - Strict UTF-8 Byte Size limit (8KB)
  * - 10 Payload/min Throttling
  * - 3 Payload/500ms Burst protection
+ * - Bounded memory safety (Max 50 queue items)
+ * - Circular reference guard
  * - navigator.sendBeacon with Fetch keepalive fallback
  * - Memory-safe debounced queue drainage
  */
@@ -23,11 +25,36 @@
     const THROTTLE_WINDOW = 60000;  // 1 minute in ms
     const BURST_LIMIT = 3;          // Max 3 payloads per 500ms
     const BURST_WINDOW = 500;       // 500ms in ms
+    const MAX_QUEUE_SIZE = 50;      // Bounded queue ceiling
 
     // State managers
     const localQueue = [];
     const dispatchTimestamps = [];
     let queueDrainTimeout = null;
+
+    // Allowed Telemetry Schema Keys (to prevent sessionToken / dynamic key false positives)
+    const ALLOWED_TELEMETRY_KEYS = new Set([
+        'type',
+        'timestamp',
+        'sessionToken',
+        'normalizedPath',
+        'details',
+        'targetNode',
+        'durationMs',
+        'violatingProperty',
+        'entropyScore',
+        'activeComponents',
+        'rafLoops',
+        'particleCount',
+        'heavyFilters'
+    ]);
+
+    // Allowed Telemetry Types (Basic Envelope Schema Guard)
+    const ALLOWED_TYPES = new Set([
+        'LAYOUT_REFLOW_ANOMALY',
+        'CINEMATIC_BUDGET_WARNING',
+        'SCENE_ENTROPY_SHIFT'
+    ]);
 
     // Common PII Key markers (case-insensitive checks)
     const PII_KEYS_PATTERN = /email|password|pass|token|phone|card|address|ssn|user|name|surname|fullname|credentials|auth/i;
@@ -38,11 +65,28 @@
     const PHONE_REGEX = /\b(?:\+\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/;
 
     /**
+     * Basic envelope schema validator to reject unaligned raw payloads immediately.
+     * @param {Object} envelope - The target envelope.
+     * @returns {boolean} True if matching the standard contract schema.
+     */
+    function validateEnvelope(envelope) {
+        return !!(
+            envelope &&
+            ALLOWED_TYPES.has(envelope.type) &&
+            typeof envelope.timestamp === 'number' &&
+            typeof envelope.normalizedPath === 'string' &&
+            typeof envelope.details === 'object' &&
+            envelope.details !== null
+        );
+    }
+
+    /**
      * Recursively checks if an object or value contains PII markers.
      * @param {*} value - The object or value to scan.
+     * @param {WeakSet} seen - Set to guard against circular references.
      * @returns {boolean} True if PII is detected.
      */
-    function scanForPii(value) {
+    function scanForPii(value, seen = new WeakSet()) {
         if (value === null || value === undefined) {
             return false;
         }
@@ -50,15 +94,20 @@
         const valueType = typeof value;
 
         if (valueType === 'object') {
+            if (seen.has(value)) {
+                return false; // circular dependency guard
+            }
+            seen.add(value);
+
             for (const key in value) {
                 if (Object.prototype.hasOwnProperty.call(value, key)) {
-                    // Check if key is a PII marker
-                    if (PII_KEYS_PATTERN.test(key)) {
+                    // Check if key matches PII pattern AND is not in allowlist
+                    if (!ALLOWED_TELEMETRY_KEYS.has(key) && PII_KEYS_PATTERN.test(key)) {
                         console.warn(`[SANTIS_PII_GUARD] Rejected key: "${key}" matches forbidden PII patterns.`);
                         return true;
                     }
                     // Recursively check value
-                    if (scanForPii(value[key])) {
+                    if (scanForPii(value[key], seen)) {
                         return true;
                     }
                 }
@@ -149,23 +198,36 @@
     }
 
     /**
+     * Adds a payload to the bounded localQueue.
+     * @param {string} stringifiedPayload - Stringified JSON payload.
+     */
+    function pushToQueue(stringifiedPayload) {
+        if (localQueue.length >= MAX_QUEUE_SIZE) {
+            localQueue.shift(); // discard oldest to maintain bounded memory footprint
+            console.warn('[SANTIS_TELEMETRY_DISPATCHER] Bounded queue maximum size exceeded. Discarded oldest payload.');
+        }
+        localQueue.push(stringifiedPayload);
+    }
+
+    /**
      * Main telemetry dispatch handler. Exposes robust validations and throttling.
      * @param {Object} envelope - The RVS telemetry payload.
      * @returns {boolean} True if successfully sent or queued.
      */
     function dispatchRvsTelemetry(envelope) {
-        if (!envelope) {
-            console.warn('[SANTIS_TELEMETRY_DISPATCHER] Ignored empty envelope.');
+        // 1. Basic Envelope Schema Guard
+        if (!validateEnvelope(envelope)) {
+            console.warn('[SANTIS_TELEMETRY_DISPATCHER] Invalid RVS telemetry envelope. Aborted.');
             return false;
         }
 
-        // 1. Zero PII Guard
+        // 2. Zero PII Guard
         if (scanForPii(envelope)) {
             console.error('[SANTIS_PII_GUARD] Reverted: Telemetry payload contains potential PII leakage. Dispatch aborted.');
             return false;
         }
 
-        // 2. 8KB Size Guard
+        // 3. Strict UTF-8 Byte Size Guard (8KB limit)
         let stringified;
         try {
             stringified = JSON.stringify(envelope);
@@ -174,25 +236,29 @@
             return false;
         }
 
-        const byteSize = stringified.length; // Approximate byte size using string length
+        // Calculate actual byte size for UTF-8
+        const byteSize = typeof TextEncoder !== 'undefined'
+            ? new TextEncoder().encode(stringified).length
+            : stringified.length;
+
         if (byteSize > MAX_PAYLOAD_BYTES) {
             console.error(`[SANTIS_TELEMETRY_DISPATCHER] Payload rejected: size (${byteSize} bytes) exceeds the 8KB limit.`);
             return false;
         }
 
-        // 3. Throttle / Queue Management
+        // 4. Throttle / Queue Management
         if (isRateLimited() || localQueue.length > 0) {
             // Buffer to queue
-            localQueue.push(stringified);
+            pushToQueue(stringified);
             scheduleQueueDrain();
             return true;
         }
 
-        // 4. Immediate Send
+        // 5. Immediate Send
         const sent = executeNetworkSend(stringified);
         if (!sent) {
             // Buffer to queue if both primary and secondary failed
-            localQueue.push(stringified);
+            pushToQueue(stringified);
             scheduleQueueDrain();
         }
 
