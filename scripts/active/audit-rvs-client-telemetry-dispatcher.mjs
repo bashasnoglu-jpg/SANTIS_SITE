@@ -83,8 +83,9 @@ assert(
 // 9. Verify basic envelope validation (validateEnvelope)
 assert(
   fileContent.includes('validateEnvelope') &&
-  fileContent.includes('ALLOWED_TYPES'),
-  'Module enforces basic RVS envelope schema validation.'
+  fileContent.includes('ALLOWED_TYPES') &&
+  fileContent.includes('envelope.sessionToken === \'string\''),
+  'Module enforces basic RVS envelope schema validation including sessionToken verification.'
 );
 
 console.log('\n[SANTIS_RVS_DISPATCHER_AUDIT] Audit Scan Completed.');

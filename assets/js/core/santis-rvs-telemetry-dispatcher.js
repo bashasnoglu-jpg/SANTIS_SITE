@@ -74,6 +74,7 @@
             envelope &&
             ALLOWED_TYPES.has(envelope.type) &&
             typeof envelope.timestamp === 'number' &&
+            typeof envelope.sessionToken === 'string' &&
             typeof envelope.normalizedPath === 'string' &&
             typeof envelope.details === 'object' &&
             envelope.details !== null
