@@ -124,6 +124,28 @@ const missingTypeEnvelope = {
 };
 await assertResponse('Test 5: Schema Violation (Missing type)', missingTypeEnvelope, 400);
 
+// Test Case 6: normalizedPath Type Violation
+const invalidPathEnvelope = {
+  type: 'LAYOUT_REFLOW_ANOMALY',
+  timestamp: Date.now(),
+  sessionToken: 'anon_session_path',
+  normalizedPath: 'invalid-route-no-slash',
+  details: {
+    targetNode: 'main#nv-main'
+  }
+};
+await assertResponse('Test 6: normalizedPath Type Violation (No leading slash)', invalidPathEnvelope, 400);
+
+// Test Case 7: details Type Violation (Is Array)
+const invalidDetailsEnvelope = {
+  type: 'LAYOUT_REFLOW_ANOMALY',
+  timestamp: Date.now(),
+  sessionToken: 'anon_session_details',
+  normalizedPath: '/spa-booking',
+  details: ['invalid-details-array']
+};
+await assertResponse('Test 7: details Type Violation (Is Array)', invalidDetailsEnvelope, 400);
+
 // Cleanup
 serverProcess.kill();
 console.log('🔌 Test Ingestion Server terminated.');

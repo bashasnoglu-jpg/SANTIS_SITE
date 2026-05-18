@@ -104,6 +104,14 @@ const truthLayer = http.createServer((req, res) => {
           throw new Error('sessionToken must be an anonymous token starting with "anon_"');
         }
 
+        if (typeof normalizedPath !== 'string' || !normalizedPath.startsWith('/')) {
+          throw new Error('normalizedPath must be a normalized route string starting with "/"');
+        }
+
+        if (!details || typeof details !== 'object' || Array.isArray(details)) {
+          throw new Error('details must be a telemetry details object');
+        }
+
         // PII Guard (Zero PII Compliance)
         const PII_KEYS_PATTERN = /email|password|pass|token|phone|card|address|ssn|user|name|surname|fullname|credentials|auth/i;
         const ALLOWED_TELEMETRY_KEYS = new Set([
@@ -154,7 +162,10 @@ const truthLayer = http.createServer((req, res) => {
         console.log(`\n\x1b[38;2;140;140;140m─── [SANTIS RVS INGESTION] ───────────────────────────\x1b[0m`);
         console.log(`\x1b[38;2;180;180;180mType:\x1b[0m      \x1b[38;2;220;220;220m${type}\x1b[0m`);
         console.log(`\x1b[38;2;180;180;180mRoute:\x1b[0m     \x1b[38;2;200;200;200m${normalizedPath}\x1b[0m`);
-        console.log(`\x1b[38;2;180;180;180mToken:\x1b[0m     \x1b[38;2;160;160;160m${sessionToken}\x1b[0m`);
+        const maskedSessionToken = sessionToken.length > 13 
+          ? `${sessionToken.slice(0, 9)}…${sessionToken.slice(-4)}`
+          : sessionToken;
+        console.log(`\x1b[38;2;180;180;180mToken:\x1b[0m     \x1b[38;2;160;160;160m${maskedSessionToken}\x1b[0m`);
         if (details.durationMs) {
           console.log(`\x1b[38;2;180;180;180mDuration:\x1b[0m  \x1b[38;2;240;100;100m${details.durationMs}ms\x1b[0m`);
         }
