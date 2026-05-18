@@ -70,17 +70,17 @@ function scanJsFile(filePath) {
 
     // A. Check for requestAnimationFrame
     if (cleanLine.includes('requestAnimationFrame') && !line.includes('@bypass-budget') && !line.includes('SantisDOM')) {
-      logViolation(filePath, lineIndex + 1, 'requestAnimationFrame', 'Ungoverned animation loop detected. Animation frames must be scheduled through window.SantisDOM or marked with // @bypass-budget.');
+      logViolation(filePath, lineIndex + 1, 'requestAnimationFrame', 'Ungoverned animation loop detected. Animation frames must be scheduled through window.SantisDOM or marked with // @bypass-budget.', line);
     }
 
     // B. Check for setInterval
     if (cleanLine.includes('setInterval') && !line.includes('@bypass-budget')) {
-      logViolation(filePath, lineIndex + 1, 'setInterval', 'setInterval animation/ticker detected. Timers bypass the rendering budget. Use requestAnimationFrame or SantisDOM.');
+      logViolation(filePath, lineIndex + 1, 'setInterval', 'setInterval animation/ticker detected. Timers bypass the rendering budget. Use requestAnimationFrame or SantisDOM.', line);
     }
 
     // C. Check for setTimeout used for loops
     if (cleanLine.includes('setTimeout') && (cleanLine.includes('loop') || cleanLine.includes('animate') || cleanLine.includes('render')) && !line.includes('@bypass-budget')) {
-      logViolation(filePath, lineIndex + 1, 'setTimeout', 'setTimeout-based animation loop detected. Use governed SantisDOM schedulers.');
+      logViolation(filePath, lineIndex + 1, 'setTimeout', 'setTimeout-based animation loop detected. Use governed SantisDOM schedulers.', line);
     }
 
     // D. Check for Particle Density limit > 300
@@ -88,7 +88,7 @@ function scanJsFile(filePath) {
     if (particleMatch) {
       const count = parseInt(particleMatch[2], 10);
       if (count > 300 && !line.includes('@bypass-budget')) {
-        logViolation(filePath, lineIndex + 1, 'particle-density-exceeded', `Excessive particle count detected (${count} particles). Santis OS budget limit is 300 particles to protect GPU memory.`);
+        logViolation(filePath, lineIndex + 1, 'particle-density-exceeded', `Excessive particle count detected (${count} particles). Santis OS budget limit is 300 particles to protect GPU memory.`, line);
       }
     }
   });
@@ -121,27 +121,32 @@ function scanCssFile(filePath) {
     // A. Check for transition: all
     if ((cleanLine.includes('transition:') && cleanLine.includes('all')) || cleanLine.includes('transition-property: all') || cleanLine.includes('transition-all')) {
       if (!line.includes('@bypass-budget') && !line.includes('@allow-transition-all')) {
-        logViolation(filePath, lineIndex + 1, 'transition-all', 'transition: all property detected. This triggers layout recalculations for all properties. Specify transitions explicitly.');
+        logViolation(filePath, lineIndex + 1, 'transition-all', 'transition: all property detected. This triggers layout recalculations for all properties. Specify transitions explicitly.', line);
       }
     }
 
     // B. Check for excessive will-change
     if (cleanLine.includes('will-change') && !line.includes('@bypass-budget')) {
       // Warn on will-change to prevent memory bloating
-      logViolation(filePath, lineIndex + 1, 'will-change', 'will-change rule detected. Compositor layers must be managed defensively. Ensure it is cleaned up or bypass with // @bypass-budget.');
+      logViolation(filePath, lineIndex + 1, 'will-change', 'will-change rule detected. Compositor layers must be managed defensively. Ensure it is cleaned up or bypass with // @bypass-budget.', line);
     }
 
     // C. Check for expensive filter/backdrop-filter
     if ((cleanLine.includes('backdrop-filter') || cleanLine.includes('filter:')) && !line.includes('@bypass-budget')) {
-      logViolation(filePath, lineIndex + 1, 'heavy-gpu-filter', 'Expensive GPU filter/backdrop-filter detected. Use sparingly to maintain cinematic 60FPS.');
+      logViolation(filePath, lineIndex + 1, 'heavy-gpu-filter', 'Expensive GPU filter/backdrop-filter detected. Use sparingly to maintain cinematic 60FPS.', line);
     }
   });
 }
 
-function logViolation(filePath, lineNo, rule, description) {
+const ruleCounts = new Map();
+
+function logViolation(filePath, lineNo, rule, description, lineText) {
   const relativePath = path.relative(ROOT_DIR, filePath);
+  
+  ruleCounts.set(rule, (ruleCounts.get(rule) || 0) + 1);
+
   console.error(`[BUDGET VIOLATION] [${rule}] in ${relativePath}:${lineNo}`);
-  console.error(`  > Line ${lineNo}: ${fs.readFileSync(filePath, 'utf-8').split('\n')[lineNo - 1].trim()}`);
+  console.error(`  > Line ${lineNo}: ${lineText.trim()}`);
   console.error(`  Reason: ${description}`);
   hasViolations = true;
   violationsCount++;
@@ -158,6 +163,19 @@ console.log(`- Scanned CSS files: ${scannedCssCount}`);
 const STRICT_MODE = process.argv.includes('--strict');
 
 if (hasViolations) {
+  console.log('\n[SANTIS_RVS_BUDGET] Summary by rule:');
+  const rulesList = [
+    'heavy-gpu-filter',
+    'transition-all',
+    'will-change',
+    'requestAnimationFrame',
+    'setInterval',
+    'particle-density-exceeded'
+  ];
+  for (const r of rulesList) {
+    console.log(`- ${r}: ${ruleCounts.get(r) || 0}`);
+  }
+
   console.error(`\n[WARN] Render Budget Scan found ${violationsCount} potential rendering bottlenecks.`);
   console.warn('NOTE: This scanner is line-based. False positives can be bypassed using // @bypass-budget.');
 
