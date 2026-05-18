@@ -7,7 +7,7 @@ import Login from './pages/Login';
 import useAuthStore from './store/useAuthStore';
 import ClinicScanner from './components/dashboard/ClinicScanner';
 import { BoardroomModeProvider } from './features/boardroom/context/BoardroomModeContext';
-import { SovereignSocketProvider } from './context/SovereignSocketContext';
+import { SovereignSocketProvider } from './context/SovereignSocketProvider';
 import {
   AdminLazyBoundary,
   LazyOperations,
