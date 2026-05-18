@@ -1,86 +1,21 @@
 name: Autonomous Edge Reliability Orchestrator (Predictive Engine)
 
+# Disabled as an automatic deployment path.
+# Vercel GitHub App is the source of truth for deployments.
+# This workflow is kept for manual diagnostics only to avoid duplicate deploys,
+# missing VERCEL_TOKEN failures, and unnecessary Vercel deployment quota usage.
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
-  contents: write
-  deployments: write
+  contents: read
+  deployments: read
 
 jobs:
-  Deploy-to-Edge:
+  deploy-path-disabled:
     runs-on: ubuntu-latest
     steps:
-      - name: 🦅 Sovereign Orbit Checkout
-        uses: actions/checkout@v4
-
-      - name: 🌌 Ascend to Vercel Edge (Zero-CLI)
-        uses: amondnet/vercel-action@v25
-        id: deploy
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
-
-      - name: 🩺 Multi-Signal Health Validation (Anti-False-Positive)
-        id: health_check
+      - name: Deployment path intentionally disabled
         run: |
-          # Hedef, Vercel Action'ın ürettiği production veya preview URL'sidir.
-          TARGET_URL="${{ steps.deploy.outputs.preview-url }}"
-          
-          echo "Scanning Edge Consciousness at $TARGET_URL..."
-          echo "Initiating 15-second Propagation Immunity (Cold Start Shield)..."
-          sleep 15
-          
-          MAX_RETRIES=3
-          RETRY_COUNT=0
-          HEALTH_PASSED=false
-          CONSECUTIVE_FAILS=0
-          
-          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
-            echo "Attempt $((RETRY_COUNT+1)) of $MAX_RETRIES..."
-            
-            # SIGNAL 1: Root DOM Ping
-            STATUS_ROOT=$(curl -o /dev/null -s -w "%{http_code}" $TARGET_URL/)
-            
-            # SIGNAL 2: Kernel Health Ping
-            STATUS_HEALTH=$(curl -o /dev/null -s -w "%{http_code}" $TARGET_URL/health)
-            
-            # SIGNAL 3: Edge Latency
-            LATENCY=$(curl -o /dev/null -s -w "%{time_total}" $TARGET_URL/)
-            
-            echo "ROOT: $STATUS_ROOT | HEALTH: $STATUS_HEALTH | LATENCY: ${LATENCY}s"
-            
-            # Başarı Kriteri: Router ve Health API aynı anda 200 dönecek ve Gecikme stabil olacak
-            if [ "$STATUS_ROOT" = "200" ] && [ "$STATUS_HEALTH" = "200" ]; then
-                HEALTH_PASSED=true
-                echo "✅ [SUCCESS] Edge Signals Green. Pulse acquired in ${LATENCY}s."
-                break
-            else
-                CONSECUTIVE_FAILS=$((CONSECUTIVE_FAILS+1))
-                echo "⚠️ [WARNING] Transient Signal anomaly. Incrementing Fail Counter: $CONSECUTIVE_FAILS"
-            fi
-            
-            if [ $CONSECUTIVE_FAILS -ge 2 ]; then
-                echo "🚨 [FATAL] 2 Consecutive Signal Failures Detected. Triggering Rollback Immunity..."
-                HEALTH_PASSED=false
-                break
-            fi
-            
-            RETRY_COUNT=$((RETRY_COUNT+1))
-            sleep 10
-          done
-          
-          if [ "$HEALTH_PASSED" = false ]; then
-            echo "🚨 Pipeline Halted. Self-Healing Requires Rollback Action."
-            # amondnet/vercel-action does not natively rollback via CLI inside the same runner easily, 
-            # so we exit 1 to mark the deployment as failed and prevent GitHub environment success.
-            # In a mature GitOps flow, this triggers an automated Revert PR or Alert via Webhook.
-            exit 1
-          else
-            echo "🌌 Sovereign Architecture Mühürlendi. Continuous Evolution achieved."
-          fi
+          echo "GitHub Actions Vercel deployment is disabled."
+          echo "Use the Vercel GitHub App deployment pipeline instead."
