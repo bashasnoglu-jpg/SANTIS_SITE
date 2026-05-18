@@ -46,7 +46,9 @@
     "audit:billing-session-adapter": "node scripts/audit-billing-session-adapter.cjs",
     "audit:billing-session-status": "node scripts/audit-billing-session-status-ui.cjs",
     "audit:rvs-layout-reflow": "node scripts/active/audit-layout-reflow.mjs",
-    "audit:rvs-layout-reflow:strict": "node scripts/active/audit-layout-reflow.mjs --strict"
+    "audit:rvs-layout-reflow:strict": "node scripts/active/audit-layout-reflow.mjs --strict",
+    "audit:rvs-cinematic-budget": "node scripts/active/audit-cinematic-budget.mjs",
+    "audit:rvs-cinematic-budget:strict": "node scripts/active/audit-cinematic-budget.mjs --strict"
   },
   "dependencies": {
     "gsap": "^3.15.0",
