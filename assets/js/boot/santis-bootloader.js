@@ -79,15 +79,19 @@
             if (duration > 16.6) {
                 console.warn(`⚠️ [RVS Telemetry] Jank detected: ${type} task '${task.context}' took ${duration.toFixed(2)}ms.`);
                 
+                const runtimeConfig = typeof window.getRuntimeConfig === 'function' ? window.getRuntimeConfig() : null;
                 const isEnabled = window.SANTIS_RVS_TELEMETRY_ENABLED !== false && 
-                                  (!window.getRuntimeConfig || window.getRuntimeConfig().rvsTelemetryEnabled !== false);
+                                  runtimeConfig?.rvsTelemetryEnabled !== false;
 
                 if (isEnabled && typeof window.dispatchRvsTelemetry === 'function') {
                     // Generate anonymous session token for Zero PII compliance
                     window.SantisRvsSessionToken = window.SantisRvsSessionToken || 'anon_' + Math.random().toString(36).substring(2, 15);
                     
-                    // Simple path scrub to eliminate raw IDs or params
-                    const scrubbedPath = window.location.pathname.replace(/\/\d+/g, '/:id');
+                    // Multi-layer path scrub to eliminate raw IDs, UUIDs, or email-like slugs for Zero PII compliance
+                    const scrubbedPath = window.location.pathname
+                        .replace(/\/\d+/g, '/:id')
+                        .replace(/\/[0-9a-f]{8,}(?=\/|$)/gi, '/:id')
+                        .replace(/\/[^/]*@[^/]*(?=\/|$)/g, '/:id');
 
                     const envelope = {
                         type: 'LAYOUT_REFLOW_ANOMALY',

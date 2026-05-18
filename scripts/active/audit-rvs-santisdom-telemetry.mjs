@@ -53,9 +53,17 @@ assert(
 
 // 5. Verify feature flag check
 assert(
-  fileContent.includes('SANTIS_RVS_TELEMETRY_ENABLED') || 
-  fileContent.includes('rvsTelemetryEnabled'),
-  'SantisDOM executeWithTelemetry implements rvsTelemetryEnabled feature flag checks.'
+  fileContent.includes('SANTIS_RVS_TELEMETRY_ENABLED') && 
+  fileContent.includes('runtimeConfig?.rvsTelemetryEnabled'),
+  'SantisDOM executeWithTelemetry implements runtimeConfig?.rvsTelemetryEnabled feature flag checks.'
+);
+
+// 6. Verify robust path scrubbing for PII protection
+assert(
+  fileContent.includes('replace(/\\/\\d+/g') &&
+  fileContent.includes('replace(/\\/[0-9a-f]{8,}(?=\\/|$)/gi') &&
+  fileContent.includes('replace(/\\/[^/]*@[^/]*(?=\\/|$)/g'),
+  'SantisDOM executeWithTelemetry implements robust multi-layer path scrubbing to eliminate IDs, UUIDs, and email-like slugs.'
 );
 
 console.log('\n[SANTIS_RVS_DOM_AUDIT] Audit Scan Completed.');
