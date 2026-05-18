@@ -107,3 +107,9 @@ index_backup.html
 cilt-bakimi.diff
 git-diff-stat-before-clean.txt
 git-status-before-clean.txt
+
+# 🎭 Playwright & Test Artifacts
+tests/artifacts/
+tests/reports/
+playwright-report/
+.cache/

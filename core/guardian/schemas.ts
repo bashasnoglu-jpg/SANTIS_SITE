@@ -102,6 +102,6 @@ export const GodModeTelemetrySchema = z.object({
   price: z.number().nonnegative().optional(),
   original_price: z.number().nonnegative().optional(),
   event: z.string().optional(),
-}).passthrough(); // Sık sık değişen stream paketleri için esneklik
+}); // Sık sık değişen stream paketleri için esneklik
 
 export type GodModeTelemetry = z.infer<typeof GodModeTelemetrySchema>;

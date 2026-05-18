@@ -437,6 +437,7 @@ test.describe('Erişilebilirlik', () => {
 // 8. MOBİL (iPhone 14)
 // ────────────────────────────────────────────────────────────────────────────────
 test.describe('Mobil Deneyim', { tag: '@mobile' }, () => {
+    test.use({ viewport: { width: 390, height: 844 } });
 
     test('modal mobilde tam genişlik açılıyor', async ({ page }) => {
         // Viewport zaten playwright.config'deki mobile-safari projesi ile ayarlanır

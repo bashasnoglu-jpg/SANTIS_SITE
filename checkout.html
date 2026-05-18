@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     
     <!-- 🛡️ Stripe Elements Çekirdeği (Kasa'nın Anahtarı) -->
-    <script src="/assets/vendor/.js" defer></script>
+    <script src="https://js.stripe.com/v3/" defer></script>
     <style>
         .vault-body {
             background-color: #1a1a1a;
@@ -151,8 +151,8 @@
     </footer>
 
     <!-- Kasa Mantığını (Logic) Yönetecek Özel JS Dosyamız -->
-    <script src="assets/js/santis-vault.js" defer></script>
-    <script src="/assets/js/ghost-concierge.js?v=V21_GHOST_2" defer></script>
+    <script type="module" src="assets/js/santis-vault.js" defer></script>
+    <script type="module" src="/assets/js/ghost-concierge.js?v=V21_GHOST_2" defer></script>
 
 <!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
 <script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>

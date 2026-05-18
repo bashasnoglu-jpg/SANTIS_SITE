@@ -9,7 +9,7 @@ export default function ServiceImageUpload({ currentImage, onImageUploaded }) {
     const [error, setError] = useState(null);
     const fileInputRef = useRef(null);
 
-    const handleFile = async (file) => {
+    const handleFile = useCallback(async (file) => {
         if (!file) return;
         if (!file.type.startsWith('image/')) {
             return setError('Sadece görsel dosyaları (JPG/PNG/WEBP) kabul edilir.');
@@ -38,7 +38,7 @@ export default function ServiceImageUpload({ currentImage, onImageUploaded }) {
         } finally {
             setTimeout(() => { setIsUploading(false); setProgress(0); }, 1000); // Barı sıfırla ve gizle
         }
-    };
+    }, [currentImage, onImageUploaded]);
 
     const onDrop = useCallback((e) => {
         e.preventDefault();
@@ -46,7 +46,7 @@ export default function ServiceImageUpload({ currentImage, onImageUploaded }) {
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
             handleFile(e.dataTransfer.files[0]);
         }
-    }, [currentImage, onImageUploaded]);
+    }, [handleFile]);
 
     return (
         <div className="w-full mb-6">

@@ -17,13 +17,13 @@ export default function ActionDecisionDrawer({ item, onDecision }) {
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div className="mb-2 text-2xs uppercase tracking-[0.24em] text-neutral-500">
+    <div className="rounded-2xl border border-sovereign-panel bg-sovereign-obsidian/50 p-4">
+      <div className="mb-2 text-2xs uppercase tracking-widest text-sovereign-bronze">
         Action Decision
       </div>
 
-      <div className="mb-2 text-sm font-semibold text-neutral-100">{item.type}</div>
-      <div className="mb-3 text-micro font-mono text-neutral-500">
+      <div className="mb-2 text-sm font-semibold text-sovereign-ink">{item.type}</div>
+      <div className="mb-3 text-micro font-mono text-sovereign-bronze">
         {(item.explanationCodes ?? []).join(', ') || '—'}
       </div>
 
@@ -31,14 +31,14 @@ export default function ActionDecisionDrawer({ item, onDecision }) {
         value={reason}
         onChange={(e) => setReason(e.target.value)}
         placeholder="Operator note..."
-        className="mb-3 layout-minh-90 w-full rounded-xl border border-white/10 bg-black/10 px-3 py-2 text-sm text-neutral-200 outline-none focus:border-white/20"
+        className="mb-3 layout-minh-90 w-full rounded-xl border border-sovereign-panel bg-sovereign-coal/50 px-3 py-2 text-sm text-sovereign-ink outline-none focus:border-sovereign-earth"
       />
 
       <div className="flex flex-wrap gap-2">
         <button
           type="button"
           onClick={() => submit('APPROVE')}
-          className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-200 transition hover:bg-emerald-500/20"
+          className="rounded-xl border border-sovereign-success/30 bg-sovereign-success/10 px-3 py-2 text-xs text-sovereign-success transition hover:bg-sovereign-success/20"
         >
           Approve
         </button>
@@ -46,7 +46,7 @@ export default function ActionDecisionDrawer({ item, onDecision }) {
         <button
           type="button"
           onClick={() => submit('REJECT')}
-          className="rounded-xl border border-rose-500/20 bg-rose-500/10 px-3 py-2 text-xs text-rose-200 transition hover:bg-rose-500/20"
+          className="rounded-xl border border-sovereign-danger/30 bg-sovereign-danger/10 px-3 py-2 text-xs text-sovereign-danger transition hover:bg-sovereign-danger/20"
         >
           Reject
         </button>
@@ -54,7 +54,7 @@ export default function ActionDecisionDrawer({ item, onDecision }) {
         <button
           type="button"
           onClick={() => submit('OVERRIDE')}
-          className="rounded-xl border border-amber-500/20 bg-amber-500/10 px-3 py-2 text-xs text-amber-200 transition hover:bg-amber-500/20"
+          className="rounded-xl border border-sovereign-warning/30 bg-sovereign-warning/10 px-3 py-2 text-xs text-sovereign-warning transition hover:bg-sovereign-warning/20"
         >
           Override
         </button>
@@ -62,7 +62,7 @@ export default function ActionDecisionDrawer({ item, onDecision }) {
         <button
           type="button"
           onClick={() => submit('DISMISS')}
-          className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-neutral-300 transition hover:bg-white/10"
+          className="rounded-xl border border-sovereign-panel bg-sovereign-coal/50 px-3 py-2 text-xs text-sovereign-sand transition hover:bg-sovereign-panel"
         >
           Dismiss
         </button>

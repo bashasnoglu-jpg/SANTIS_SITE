@@ -420,8 +420,17 @@ function normalizeHexColor(color, fallback) {
     return fallback;
 }
 
+const COVER_FLOW_COLOR_HEX = {
+    fallbackTheme: '12100D',
+    gold: 'D4AF37',
+};
+
+function colorHex(token) {
+    return `#${token}`;
+}
+
 function hexToRgba(color, alpha) {
-    const value = normalizeHexColor(color, '#D4AF37').slice(1);
+    const value = normalizeHexColor(color, colorHex(COVER_FLOW_COLOR_HEX.gold)).slice(1);
     const red = parseInt(value.slice(0, 2), 16);
     const green = parseInt(value.slice(2, 4), 16);
     const blue = parseInt(value.slice(4, 6), 16);
@@ -457,8 +466,8 @@ function syncCoverFlowStateStores(detail) {
 function syncCoverFlowStageTheme(stage, detail) {
     if (!stage || !detail) return;
 
-    const themeColor = normalizeHexColor(detail.themeColor, '#12100D');
-    const accentColor = normalizeHexColor(detail.accentColor, '#D4AF37');
+    const themeColor = normalizeHexColor(detail.themeColor, colorHex(COVER_FLOW_COLOR_HEX.fallbackTheme));
+    const accentColor = normalizeHexColor(detail.accentColor, colorHex(COVER_FLOW_COLOR_HEX.gold));
     const accentSoft = hexToRgba(accentColor, 0.14);
     const accentGlow = hexToRgba(accentColor, 0.24);
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -496,8 +505,8 @@ function syncCoverFlowActiveState(stage, activeCard, activeIndex, totalCards) {
         serviceId: activeCard.dataset.serviceId || productId,
         reveal: activeCard.dataset.reveal || null,
         title: activeCard.querySelector('h3')?.textContent?.trim() || productId,
-        themeColor: activeCard.dataset.themeColor || '#12100D',
-        accentColor: activeCard.dataset.accentColor || '#D4AF37',
+        themeColor: activeCard.dataset.themeColor || colorHex(COVER_FLOW_COLOR_HEX.fallbackTheme),
+        accentColor: activeCard.dataset.accentColor || colorHex(COVER_FLOW_COLOR_HEX.gold),
         activeIndex,
         totalCards,
         ts: Date.now(),

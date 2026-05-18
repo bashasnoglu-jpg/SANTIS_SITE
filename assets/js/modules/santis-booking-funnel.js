@@ -401,7 +401,7 @@ ${conciergeNote}
 
     if (state.time === 'Bugün' || state.time === 'Yarın') {
       scarcityEl.innerHTML = 'Yakın zamanlı talepler için <strong>son 2 sessiz saat aralığı</strong> önerilebilir.';
-      scarcityEl.style.color = 'var(--nv-gold, #CFA968)';
+      scarcityEl.style.color = 'var(--nv-gold, rgb(207, 169, 104))';
       return;
     }
 

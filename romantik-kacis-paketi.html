@@ -469,13 +469,19 @@
 #santis-reservation-modal[data-state="loading"] #santis-modal-loading { display: block !important; }
 #santis-reservation-modal[data-state="success"] #santis-modal-success { display: block !important; }
 #santis-modal-submit:hover { opacity: .85; transform: translateY(-1px); }
+
+.nv-modal-card,
+[data-testid="reservation-modal-card"] {
+  width: min(520px, 92vw) !important;
+  max-width: 92vw !important;
+}
 </style>
 
 <!-- SCRIPTS -->
-<script src="/assets/js/santis-accordion.js" defer></script>
-<script src="/assets/js/pages/service-detail-init.js" defer></script>
+<script type="module" src="/assets/js/santis-accordion.js" defer></script>
+<script type="module" src="/assets/js/pages/service-detail-init.js" defer></script>
 <script type="module" src="/assets/js/core/santis-core.js" defer></script>
-<script defer src="/assets/js/app.js"></script>
+<script type="module" defer src="/assets/js/app.js"></script>
 
 <!-- ╔═══════════════════════════════════════════════════════════╗ -->
 <!-- ║  🛡️ E2E GUARD — DOMContentLoaded: app.js SONRASI çalışır ║ -->
@@ -659,11 +665,20 @@ form.addEventListener('submit', async (e) => {
     }
 
     // Success (2xx)
+    let responseData = {};
+    try {
+      responseData = await response.json();
+    } catch (e) {
+      console.warn('Response JSON parse error:', e);
+    }
+
     showReservationSuccess();
     
-    // Simulate ref ID based on timestamp
+    const fallbackRef = `REF-${Date.now().toString().slice(-6)}`;
+    const referenceId = responseData.referenceId || responseData.refId || responseData.ref_id || responseData.id || fallbackRef;
+
     const refEl = document.getElementById('santis-modal-refid');
-    if (refEl) refEl.textContent = `Referans No: REF-${Date.now().toString().slice(-6)}`;
+    if (refEl) refEl.textContent = `Referans No: ${referenceId}`;
 
   } catch (err) {
     showReservationStatus('Bağlantı hatası oluştu. Lütfen WhatsApp üzerinden ulaşın.', 'error');

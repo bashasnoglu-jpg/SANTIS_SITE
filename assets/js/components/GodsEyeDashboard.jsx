@@ -8,13 +8,14 @@ import AuditTimeline       from './AuditTimeline';
 import '../../css/GodsEye.css';
 
 // ─── Sabitler ────────────────────────────────────────────────────────────────
+// cls → GodsEye.css'de tanımlı token sınıfları; raw hex kaldırıldı
 const STATUS_BADGE = {
-  connecting:   { color: '#888',    label: '◌ CONNECTING'   },
-  live:         { color: '#00ffcc', label: '● LIVE'         },
-  reconnecting: { color: '#ffcc00', label: '↺ RECONNECTING' },
-  mock:         { color: '#ffcc00', label: '● MOCK'         },
-  error:        { color: '#ff2a2a', label: '● ERROR'        },
-  closed:       { color: '#ff2a2a', label: '○ CLOSED'       },
+  connecting:   { cls: 'status-connecting',   label: '◌ CONNECTING'   },
+  live:         { cls: 'status-live',          label: '● LIVE'         },
+  reconnecting: { cls: 'status-reconnecting',  label: '↺ RECONNECTING' },
+  mock:         { cls: 'status-mock',          label: '● MOCK'         },
+  error:        { cls: 'status-error',         label: '● ERROR'        },
+  closed:       { cls: 'status-closed',        label: '○ CLOSED'       },
 };
 
 const FILTERS = ['ALL', 'THREAT_PULSE', 'DEGRADATION_WARN', 'ORBITAL_STREAM'];
@@ -88,7 +89,7 @@ export default function GodsEyeDashboard() {
 
       {/* ── HEALTH STRIP ────────────────────────────────────────────────── */}
       <div className="health-strip">
-        <span style={{ color: badge.color, fontWeight: 'bold' }}>
+        <span className={`${badge.cls} font-bold`}>
           {badge.label}
           {status === 'reconnecting' && retryCount > 0 && ` [${retryCount}/8]`}
         </span>
@@ -97,7 +98,7 @@ export default function GodsEyeDashboard() {
         <span className="health-meta">Events: {totalEvents}</span>
 
         {/* LIVE / REPLAY toggle */}
-        <div className="mode-toggle" style={{ marginLeft: 'auto' }}>
+        <div className="mode-toggle mode-toggle--right">
           <button
             className={`mode-btn ${viewMode === 'live' ? 'active' : ''}`}
             onClick={() => setViewMode('live')}
@@ -111,7 +112,7 @@ export default function GodsEyeDashboard() {
 
       {/* ── REPLAY MODU ─────────────────────────────────────────────────── */}
       {viewMode === 'replay' && (
-        <div style={{ gridColumn: '1 / -1' }}>
+        <div className="replay-full-column">
           <AuditTimeline />
         </div>
       )}
@@ -162,14 +163,14 @@ export default function GodsEyeDashboard() {
             ? <span className="empty-state">Awaiting payload injection...</span>
             : streams.map(stream => (
               <div key={stream.fileId} className="stream-card">
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div className="stream-card-header">
                   <span>ID: {stream.visitorId} | {stream.fileId}</span>
                   <span>{stream.speed}</span>
                 </div>
                 <div className="stream-bar-bg">
                   <div className="stream-bar-fill" style={{ width: `${stream.percent}%` }} />
                 </div>
-                <div style={{ textAlign: 'right', marginTop: '5px', fontSize: '1.2rem', color: '#00ffcc' }}>
+                <div className="stream-card-footer">
                   {stream.percent}%
                 </div>
               </div>
@@ -198,7 +199,7 @@ export default function GodsEyeDashboard() {
                 >
                   {s.escalated && <div className="escalate-pin">↑ ESCALATED</div>}
                   <div><strong className="ip">HOST:</strong> {threat.client?.ip || '—'} [{threat.client?.visitorId}]</div>
-                  <div style={{ margin: '5px 0' }}><strong>SPOOF:</strong> {threat.payload?.spoofedName}</div>
+                  <div className="threat-spoof-row"><strong>SPOOF:</strong> {threat.payload?.spoofedName}</div>
                   <div><strong>HEX:</strong> {threat.payload?.detectedHex} — {threat.payload?.action}</div>
                   <div className="ts">{fmt(threat.timestamp)}</div>
                   <AckBar eventId={threat.id} state={s} ack={ack} mute={mute} escalate={escalate} resolve={resolve} reset={reset} />
