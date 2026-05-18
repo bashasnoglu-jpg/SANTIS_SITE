@@ -6,7 +6,7 @@
  * deterministik önbellek yönetimini sağlamak için optimize edilmiştir.
  */
 
-const CACHE_VERSION = 'v28-ultra-fluid';
+const CACHE_VERSION = 'v11.2.7';
 const CORE_CACHE_NAME = `santis-core-${CACHE_VERSION}`;
 const DYNAMIC_CACHE_NAME = `santis-dynamic-${CACHE_VERSION}`;
 

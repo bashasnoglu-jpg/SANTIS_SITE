@@ -6,7 +6,7 @@
  * Vanta-Black zemin üzerinde "Ambient Mode" sığınağı sunar.
  */
 
-const CACHE_NAME = 'sovereign-sanctuary-v2';
+const CACHE_NAME = 'sovereign-sanctuary-v11.2.7';
 const SANCTUARY_URL = '/offline-sanctuary.html';
 
 self.addEventListener('install', event => {
