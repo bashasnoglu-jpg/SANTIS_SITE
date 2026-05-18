@@ -1,23 +1,43 @@
+let cachedPaymentNodes = null;
+
+function getPaymentNodes() {
+  if (
+    !cachedPaymentNodes ||
+    !cachedPaymentNodes.panel?.isConnected
+  ) {
+    cachedPaymentNodes = {
+      panel: document.querySelector("[data-payment-readiness]"),
+      title: document.querySelector("[data-payment-readiness-title]"),
+      message: document.querySelector("[data-payment-readiness-message]")
+    };
+  }
+  return cachedPaymentNodes;
+}
+
 function renderPaymentReadiness(e) {
   const payload = e.detail;
-  const panel = document.querySelector("[data-payment-readiness]");
-  const title = document.querySelector("[data-payment-readiness-title]");
-  const message = document.querySelector("[data-payment-readiness-message]");
+  const { panel, title, message } = getPaymentNodes();
 
   if (!panel || !payload?.paymentEligibility) return;
 
-  panel.hidden = false;
+  const writeDOM = window.SantisDOM?.write || ((fn) => requestAnimationFrame(fn));
 
   if (payload.paymentEligibility.eligible) {
-    title.textContent = "Ödeme adımı hazırlanıyor.";
-    message.textContent = payload.paymentEligibility.message || "Ödeme adımı için ön koşullar tamamlandı.";
+    writeDOM(() => {
+      panel.hidden = false;
+      title.textContent = "Ödeme adımı hazırlanıyor.";
+      message.textContent = payload.paymentEligibility.message || "Ödeme adımı için ön koşullar tamamlandı.";
+    }, "PaymentReadinessUI:eligible");
     return;
   }
 
-  title.textContent = "Ödeme adımı şu anda kapalı.";
-  message.textContent =
-    payload.paymentEligibility.message ||
-    "Spa ekibi ritüel zamanınızı ve fiyat bilgisini teyit ettikten sonra ödeme adımı açılacaktır.";
+  writeDOM(() => {
+    panel.hidden = false;
+    title.textContent = "Ödeme adımı şu anda kapalı.";
+    message.textContent =
+      payload.paymentEligibility.message ||
+      "Spa ekibi ritüel zamanınızı ve fiyat bilgisini teyit ettikten sonra ödeme adımı açılacaktır.";
+  }, "PaymentReadinessUI:ineligible");
 }
 
 function bindPaymentReadinessUI() {

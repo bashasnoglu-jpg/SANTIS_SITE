@@ -43,31 +43,49 @@
         else pressureLevel = 0;
     }
 
-    // 🛡️ V38 OMNI-SCHEDULER: Global Read/Write Batching
+    // 🛡️ V38 OMNI-SCHEDULER: Global Read/Write Batching (RVS-1 Enforced)
     window.SantisDOM = {
         reads: [], writes: [], scheduled: false,
-        read(fn) { this.reads.push(fn); this.schedule(); },
-        write(fn) { this.writes.push(fn); this.schedule(); },
+        read(fn, context = "unknown") { this.reads.push({fn, context}); this.schedule(); },
+        write(fn, context = "unknown") { this.writes.push({fn, context}); this.schedule(); },
         schedule() {
             if (this.scheduled) return;
             this.scheduled = true;
             requestAnimationFrame((now) => {
                 updatePressure(now);
-                const reads = this.reads.slice(); const writes = this.writes.slice();
-                this.reads.length = 0; this.writes.length = 0; this.scheduled = false;
+                const reads = this.reads.splice(0, this.reads.length);
+                const writes = this.writes.splice(0, this.writes.length);
+                this.scheduled = false;
                 
                 this.phase = "read";
-                reads.forEach(fn => { try { fn(); } catch(e) {} });
+                reads.forEach(task => this.executeWithTelemetry(task, "read"));
 
                 this.phase = "write";
                 if (pressureLevel >= 2 && writes.length > 0) {
                     this.writes.push(...writes);
                     this.schedule();
                 } else {
-                    writes.forEach(fn => { try { fn(); } catch(e) {} });
+                    writes.forEach(task => this.executeWithTelemetry(task, "write"));
                 }
                 this.phase = "idle";
             });
+        },
+        executeWithTelemetry(task, type) {
+            const t0 = window.performance?.now ? performance.now() : Date.now();
+            try { task.fn(); } catch(e) { console.error(`🚨 [SantisDOM] Error in ${type} task (${task.context}):`, e); }
+            const duration = (window.performance?.now ? performance.now() : Date.now()) - t0;
+            
+            // Phase RVS-2 Hook: Layout Reflow Telemetry
+            if (duration > 16.6) {
+                console.warn(`⚠️ [RVS Telemetry] Jank detected: ${type} task '${task.context}' took ${duration.toFixed(2)}ms.`);
+                if (navigator.sendBeacon) {
+                    const payload = JSON.stringify({
+                        event: "LAYOUT_REFLOW_ANOMALY", context: task.context, type, duration, url: window.location.href
+                    });
+                    const blob = new Blob([payload], { type: "application/json" });
+                    navigator.sendBeacon("/api/v1/telemetry/rvs", blob);
+                }
+            }
         }
     };
     
