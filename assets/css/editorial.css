@@ -29,6 +29,8 @@
     --santis-accent: var(--gold, #D4AF37);
     --ease-santis: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --z-editorial-feedback: var(--z-modal);
+    --z-editorial-nav: var(--z-modal);
 }
 
 /* 🟢 PHASE 40 GLOBAL CLS KİLİT MEKANİZMASI */
@@ -1093,7 +1095,7 @@ body.santis-aurelia-speaking::after {
     top: 0; left: 0; width: 100vw; height: 100vh; height: 100svh;
     box-shadow: inset 0 0 100px rgba(212, 175, 55, 0.15); /* Vanta Gold Glow */
     pointer-events: none;
-    z-index: 9999;
+    z-index: var(--z-editorial-feedback);
 }
 
 body.santis-aurelia-listening::after {
@@ -1115,7 +1117,7 @@ body.santis-aurelia-speaking::after {
 }
 /* EMERGENCY FIX: Navbar Görünürlüğü */
 body.solid-nav-page .sovereign-brand-bar { background: rgba(18, 16, 14, 0.95) !important; }
-body.solid-nav-page .sovereign-nav { z-index: 9999 !important; }
+body.solid-nav-page .sovereign-nav { z-index: var(--z-editorial-nav) !important; }
 
 
 /* EMERGENCY FIX: Global Padding Bypass */
@@ -1123,6 +1125,6 @@ body.editorial-mode main#santis-main { padding-top: 120px !important; }
 
 
 /* POINTER EVENTS OVERRIDE */
-body.solid-nav-page #navbar-container { z-index: 2147483647 !important; pointer-events: auto !important; }
+body.solid-nav-page #navbar-container { z-index: var(--z-editorial-nav) !important; pointer-events: auto !important; }
 body.solid-nav-page .sovereign-nav { pointer-events: auto !important; }
 

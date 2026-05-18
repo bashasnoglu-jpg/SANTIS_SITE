@@ -13,7 +13,7 @@ body, a, button, input, .santis-magnetic, [data-santis-cursor] {
     top: 0;
     left: 0;
     pointer-events: none; /* Tıklamaları engellememesi için transparan yap */
-    z-index: 99999;
+    z-index: var(--z-quantum-cursor, var(--z-modal, 900));
     border-radius: 50%;
     transform: translate3d(-50%, -50%, 0); /* Tam merkeze oturt */
     opacity: 0; /* JS ile görünür hale gelecek */
