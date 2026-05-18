@@ -75,15 +75,37 @@
             try { task.fn(); } catch(e) { console.error(`🚨 [SantisDOM] Error in ${type} task (${task.context}):`, e); }
             const duration = (window.performance?.now ? performance.now() : Date.now()) - t0;
             
-            // Phase RVS-2 Hook: Layout Reflow Telemetry
+            // Phase RVS-7 Hook: SantisDOM Telemetry Integration
             if (duration > 16.6) {
                 console.warn(`⚠️ [RVS Telemetry] Jank detected: ${type} task '${task.context}' took ${duration.toFixed(2)}ms.`);
-                if (navigator.sendBeacon) {
-                    const payload = JSON.stringify({
-                        event: "LAYOUT_REFLOW_ANOMALY", context: task.context, type, duration, url: window.location.href
-                    });
-                    const blob = new Blob([payload], { type: "application/json" });
-                    navigator.sendBeacon("/api/v1/telemetry/rvs", blob);
+                
+                const runtimeConfig = typeof window.getRuntimeConfig === 'function' ? window.getRuntimeConfig() : null;
+                const isEnabled = window.SANTIS_RVS_TELEMETRY_ENABLED !== false && 
+                                  runtimeConfig?.rvsTelemetryEnabled !== false;
+
+                if (isEnabled && typeof window.dispatchRvsTelemetry === 'function') {
+                    // Generate anonymous session token for Zero PII compliance
+                    window.SantisRvsSessionToken = window.SantisRvsSessionToken || 'anon_' + Math.random().toString(36).substring(2, 15);
+                    
+                    // Multi-layer path scrub to eliminate raw IDs, UUIDs, or email-like slugs for Zero PII compliance
+                    const scrubbedPath = window.location.pathname
+                        .replace(/\/\d+/g, '/:id')
+                        .replace(/\/[0-9a-f]{8,}(?=\/|$)/gi, '/:id')
+                        .replace(/\/[^/]*@[^/]*(?=\/|$)/g, '/:id');
+
+                    const envelope = {
+                        type: 'LAYOUT_REFLOW_ANOMALY',
+                        timestamp: Date.now(),
+                        sessionToken: window.SantisRvsSessionToken,
+                        normalizedPath: scrubbedPath,
+                        details: {
+                            targetNode: task.context || 'unknown',
+                            durationMs: parseFloat(duration.toFixed(2)),
+                            violatingProperty: type // read or write phase
+                        }
+                    };
+
+                    window.dispatchRvsTelemetry(envelope);
                 }
             }
         }
