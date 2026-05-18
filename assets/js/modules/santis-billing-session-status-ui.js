@@ -1,3 +1,22 @@
+const BILLING_STATUS_COPY = {
+  sessionReady: {
+    title: "Ödeme oturumu hazır.",
+    message: "Ödeme adımı hazırlanıyor.",
+  },
+  sessionBlocked: {
+    title: "Ödeme oturumu henüz hazır değil.",
+    message: "Spa ekibi fiyat ve zaman bilgisini teyit ettikten sonra ödeme oturumu açılacaktır.",
+  },
+};
+
+function t(key, fallback) {
+  return (
+    window.SantisI18n?.t?.(`billing.sessionStatus.${key}`) ||
+    window.SantisI18N?.t?.(`billing.sessionStatus.${key}`) ||
+    fallback
+  );
+}
+
 let cachedNodes = null;
 
 function getNodes() {
@@ -23,19 +42,19 @@ function renderBillingStatus(e) {
   if (session?.ready) {
     writeDOM(() => {
       panel.hidden = false;
-      title.textContent = "Ödeme oturumu hazır.";
-      message.textContent = session.message || "Ödeme adımı hazırlanıyor.";
+      title.textContent = t("sessionReady.title", BILLING_STATUS_COPY.sessionReady.title);
+      message.textContent = session.message || t("sessionReady.message", BILLING_STATUS_COPY.sessionReady.message);
     });
     return;
   }
 
   writeDOM(() => {
     panel.hidden = false;
-    title.textContent = "Ödeme oturumu henüz hazır değil.";
+    title.textContent = t("sessionBlocked.title", BILLING_STATUS_COPY.sessionBlocked.title);
     message.textContent =
       session?.message ||
       payload?.message ||
-      "Spa ekibi fiyat ve zaman bilgisini teyit ettikten sonra ödeme oturumu açılacaktır.";
+      t("sessionBlocked.message", BILLING_STATUS_COPY.sessionBlocked.message);
   });
 }
 
