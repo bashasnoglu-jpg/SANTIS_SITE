@@ -1,8 +1,19 @@
+let cachedNodes = null;
+
+function getNodes() {
+  if (!cachedNodes) {
+    cachedNodes = {
+      panel: document.querySelector("[data-billing-session-status]"),
+      title: document.querySelector("[data-billing-session-title]"),
+      message: document.querySelector("[data-billing-session-message]")
+    };
+  }
+  return cachedNodes;
+}
+
 function renderBillingStatus(e) {
   const payload = e.detail;
-  const panel = document.querySelector("[data-billing-session-status]");
-  const title = document.querySelector("[data-billing-session-title]");
-  const message = document.querySelector("[data-billing-session-message]");
+  const { panel, title, message } = getNodes();
 
   if (!panel || !title || !message) return;
 
