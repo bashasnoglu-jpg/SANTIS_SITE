@@ -71,17 +71,19 @@
             });
         },
         executeWithTelemetry(task, type) {
-            const t0 = performance.now();
+            const t0 = window.performance?.now ? performance.now() : Date.now();
             try { task.fn(); } catch(e) { console.error(`🚨 [SantisDOM] Error in ${type} task (${task.context}):`, e); }
-            const duration = performance.now() - t0;
+            const duration = (window.performance?.now ? performance.now() : Date.now()) - t0;
             
             // Phase RVS-2 Hook: Layout Reflow Telemetry
             if (duration > 16.6) {
                 console.warn(`⚠️ [RVS Telemetry] Jank detected: ${type} task '${task.context}' took ${duration.toFixed(2)}ms.`);
                 if (navigator.sendBeacon) {
-                    navigator.sendBeacon("/api/v1/telemetry/rvs", JSON.stringify({
+                    const payload = JSON.stringify({
                         event: "LAYOUT_REFLOW_ANOMALY", context: task.context, type, duration, url: window.location.href
-                    }));
+                    });
+                    const blob = new Blob([payload], { type: "application/json" });
+                    navigator.sendBeacon("/api/v1/telemetry/rvs", blob);
                 }
             }
         }

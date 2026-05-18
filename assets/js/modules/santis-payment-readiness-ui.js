@@ -1,7 +1,10 @@
 let cachedPaymentNodes = null;
 
 function getPaymentNodes() {
-  if (!cachedPaymentNodes) {
+  if (
+    !cachedPaymentNodes ||
+    !cachedPaymentNodes.panel?.isConnected
+  ) {
     cachedPaymentNodes = {
       panel: document.querySelector("[data-payment-readiness]"),
       title: document.querySelector("[data-payment-readiness-title]"),
