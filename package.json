@@ -44,7 +44,8 @@
     "audit:pricing-readiness": "node scripts/audit-pricing-readiness.cjs",
     "audit:billing-checkout": "node scripts/audit-billing-checkout-session.cjs",
     "audit:billing-session-adapter": "node scripts/audit-billing-session-adapter.cjs",
-    "audit:billing-session-status": "node scripts/audit-billing-session-status-ui.cjs"
+    "audit:billing-session-status": "node scripts/audit-billing-session-status-ui.cjs",
+    "audit:rvs-layout-reflow": "node scripts/active/audit-layout-reflow.mjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",
