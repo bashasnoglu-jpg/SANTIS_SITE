@@ -174,7 +174,8 @@
         // ══════════════════════════════════════════════════════════════════════
         // FAZ 0.6: GLOBAL MODULE AUTONOMY REGISTRY (V36 GOVERNANCE)
         // ══════════════════════════════════════════════════════════════════════
-        window.__SANTIS_VERSION__ = window.__SANTIS_VERSION__ || 'v36.0';
+        window.__SANTIS_VERSION__ = window.__SANTIS_VERSION__ || 'v11.2.7';
+        window.SANTIS_RUNTIME_VERSION = '11.2.7';
 
         const SOVEREIGN_REGISTRY = [
             {
