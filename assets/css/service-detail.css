@@ -4,6 +4,10 @@
    Focus: Negative Space, Soft Motion, Anti-Fatigue UI
 */
 
+:root {
+    --z-service-nav: var(--z-modal);
+}
+
 /* WRAPPER - More subtle background */
 #cinematic-wrapper {
     background: #fcfcfc;
@@ -430,10 +434,10 @@
 /* --- Z-INDEX FIX FOR OMNI-NAVBAR OVERLAP --- */
 #navbar-container,
 #santis-main-nav.navbar {
-    z-index: 9999 !important;
+    z-index: var(--z-service-nav) !important;
 }
 
 /* HOTFIX FOR NAVBAR OVERLAP */
-#navbar-container { position: relative; width: 100%; z-index: 10000; }
-#santis-main-nav.navbar { z-index: 10000 !important; }
+#navbar-container { position: relative; width: 100%; z-index: var(--z-service-nav); }
+#santis-main-nav.navbar { z-index: var(--z-service-nav) !important; }
 
