@@ -113,6 +113,7 @@ All AI agents (Antigravity, Copilot, Codex, or any future agent) must declare an
 | Rule Area | Document |
 | :--- | :--- |
 | Git Flow | `docs/governance/git-flow.md` |
+| Commit Policy | `docs/governance/commit-policy.md` |
 | Branch Policy | `docs/governance/branch-policy.md` |
 | Deletion Policy | `docs/governance/deletion-policy.md` |
 | Branch Audit | `docs/audits/branch-governance-audit.md` |

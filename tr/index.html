@@ -27,12 +27,12 @@ if (['127.0.0.1', 'localhost'].includes(window.location.hostname)) {
   }
 }
 </script>
-<script src="/assets/js/core/santis-runtime-resolver.js"></script>
-<script src="/assets/js/santis-config.js"></script>
-<script src="/assets/js/api-client.js"></script>
-<script src="/assets/js/santis-public-runtime-shim.js"></script>
-<script src="/assets/js/loader.js?v=nav-3a6f8730" defer></script>
-<script src="/assets/js/santis-nav.js?v=nav-inline-visible-2" defer></script>
+<script type="module" src="/assets/js/core/santis-runtime-resolver.js"></script>
+<script type="module" src="/assets/js/santis-config.js"></script>
+<script type="module" src="/assets/js/api-client.js"></script>
+<script type="module" src="/assets/js/santis-public-runtime-shim.js"></script>
+<script type="module" src="/assets/js/loader.js?v=nav-3a6f8730" defer></script>
+<script type="module" src="/assets/js/santis-nav.js?v=nav-inline-visible-2" defer></script>
 
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -84,7 +84,7 @@ html { font-display: optional; }
   position: absolute; inset: 0; z-index: 10;
   display: flex; gap: 24px; align-items: center; justify-content: center;
   background: transparent;
-  animation: veil-fade-out 0.4s ease forwards 1.5s;
+  animation: veil-fade-out 0.4s ease forwards 3s;
 }
 .skeleton-card-wire {
   width: 300px; height: 420px; border-radius: 20px;
@@ -95,7 +95,7 @@ html { font-display: optional; }
 /* Stack kartları her zaman visible — JS aktifleşince transform ekler */
 .santis-stack-card {
   position: absolute;
-  width: 320px; max-width: 85vw; height: 440px;
+  width: 320px; height: 440px;
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
@@ -162,7 +162,7 @@ html { font-display: optional; }
 <link rel="alternate" hreflang="x-default" href="https://santis.club/" />
 
 <!-- RUM: Core Web Vitals Gözlemcisi -->
-<script src="/assets/js/santis-vitals.js" async></script>
+<script type="module" src="/assets/js/santis-vitals.js" async></script>
 
 <script type="speculationrules">
 {
@@ -182,10 +182,6 @@ html { font-display: optional; }
 }
 </script>
 <link href="/assets/css/nav-final.css?v=nav-3a6f8730" rel="stylesheet"/>
-    <!-- Journey & Checkout Orchestrator Styles -->
-    <link rel="stylesheet" href="/assets/css/santis-v6/santis.journey.css">
-    <link rel="stylesheet" href="/assets/css/santis-v6/santis.checkout.css">
-    <link rel="stylesheet" href="/assets/css/santis-v6/santis.booking.css">
 </head>
 <body class="santis-cinematic-lock">
 <!-- Page Overlay for Cinematic Transitions -->
@@ -204,7 +200,7 @@ html { font-display: optional; }
       <a href="/tr/galeri/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Galeri</a>
       <a href="/tr/hakkimizda/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Hakkımızda</a>
       <a href="/tr/iletisim.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">İletişim</a>
-      <a href="#reservation" class="santis-nav-cta">Rezervasyon</a>
+      <a href="#reservation" style="margin-left:auto;background:#d4af37;color:#000;padding:.5rem 1.25rem;border-radius:99px;font-size:.8rem;font-family:'Inter',sans-serif;font-weight:600;text-decoration:none;">Rezervasyon</a>
     </nav>
   </div>
 </header>
@@ -222,178 +218,22 @@ html { font-display: optional; }
             decoding="sync"
             class="hero-visual"
             data-inertia="0.15"
-            data-atmosphere-src-night="/assets/img/hero/hero-main.webp"
-            data-atmosphere-src-zen="/assets/img/hero/santis_hero_main.webp"
-            data-atmosphere-src-twilight="/assets/img/hero/santis_hero_main_v2.webp"
-            data-atmosphere-src-dawn="/assets/img/hero/hero-general.webp"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform; transition: opacity 1s var(--ease-lux);">
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform;">
     </picture>
     <div class="santis-hero-overlay"></div>
     <div class="santis-hero-content">
-        <span class="hero-kicker sovereign-reveal-item reveal-delay-100">SANTIS CLUB</span>
-        <h2 class="hero-title sovereign-reveal-item reveal-delay-200">The Ritual of Stillness</h2>
-        <p class="hero-subtitle sovereign-reveal-item reveal-delay-300">Where water, stone and silence meet.</p>
-        
-        <!-- FAZ 1: GUEST JOURNEY ORCHESTRATOR - INTENT CHIPS -->
-        <section class="santis-intent-strip sovereign-reveal-item reveal-delay-4" aria-labelledby="guest-intent-title">
-          <p class="santis-intent-kicker">Kişisel ritüel yönlendirme</p>
-          <h2 id="guest-intent-title" class="santis-intent-title">Bugün neye ihtiyacınız var?</h2>
-
-          <div class="santis-intent-chips" role="list" aria-label="Ritüel niyeti seçimi">
-            <button type="button" class="santis-intent-chip" data-intent="recover">
-              Recover
-              <span>bedeni toparla</span>
-            </button>
-
-            <button type="button" class="santis-intent-chip" data-intent="calm">
-              Calm
-              <span>zihni sakinleştir</span>
-            </button>
-
-            <button type="button" class="santis-intent-chip" data-intent="glow">
-              Glow
-              <span>cildi canlandır</span>
-            </button>
-
-            <button type="button" class="santis-intent-chip" data-intent="deep-reset">
-              Deep Reset
-              <span>derin yenilenme</span>
-            </button>
-
-            <button type="button" class="santis-intent-chip" data-intent="couple-ritual">
-              Couple Ritual
-              <span>birlikte deneyim</span>
-            </button>
-          </div>
-
-          <p class="santis-intent-result" data-journey-result aria-live="polite"></p>
-        </section>
-
-        <!-- FAZ 1: GUEST JOURNEY ORCHESTRATOR - RITUAL RECOMMENDATION -->
-        <section class="santis-ritual-recommendation sovereign-reveal-item reveal-delay-500" data-ritual-recommendation hidden aria-live="polite">
-          <p class="santis-ritual-eyebrow">Sizin için önerilen ritüel</p>
-          <h3 data-ritual-title></h3>
-          <p class="santis-ritual-meta" data-ritual-meta></p>
-          <p class="santis-ritual-promise" data-ritual-promise></p>
-
-          <div class="santis-ritual-actions">
-            <a class="santis-ritual-link" data-ritual-link href="#">Ritüel detayını gör</a>
-            <button type="button" class="santis-ritual-itinerary" data-add-itinerary>
-              Itinerary'e ekle
-            </button>
-          </div>
-        </section>
-
-        <!-- FAZ 1: GUEST JOURNEY ORCHESTRATOR - ITINERARY PREVIEW -->
-        <section class="santis-itinerary-preview sovereign-reveal-item reveal-delay-600" data-itinerary-preview hidden aria-live="polite">
-          <p class="santis-itinerary-eyebrow">Ritüel planınız</p>
-
-          <div class="santis-itinerary-card">
-            <div>
-              <h3 data-itinerary-title></h3>
-              <p data-itinerary-meta></p>
-            </div>
-
-            <button type="button" class="santis-itinerary-continue" data-checkout-request>
-              Planı tamamla
-            </button>
-            
-            <button type="button" class="santis-vault-clear" data-vault-clear>
-              Yeniden Başla
-            </button>
-          </div>
-        </section>
-
-        <!-- FAZ 1.5: RITUAL CHECKOUT CEREMONY -->
-        <section class="santis-checkout-ceremony sovereign-reveal-item reveal-delay-600" data-checkout-ceremony hidden aria-live="polite">
-          <p class="santis-checkout-eyebrow">Ritüel onayı</p>
-          <h3 data-checkout-title></h3>
-          <p class="santis-checkout-meta" data-checkout-meta></p>
-          <p class="santis-checkout-message">
-            Ritüeliniz hazır. Son adımda zaman, tercih ve müsaitlik bilgileri netleştirilecektir.
-          </p>
-
-          <div class="santis-checkout-actions">
-            <button type="button" class="santis-checkout-primary" data-checkout-confirm>
-              Ritüeli onayla
-            </button>
-            <button type="button" class="santis-checkout-secondary" data-checkout-cancel>
-              Geri dön
-            </button>
-          </div>
-        </section>
-
-        <a class="hero-cta sovereign-reveal-item reveal-delay-500" href="#reservation" data-booking-open style="margin-top: 32px;">Ritüeli Keşfet</a>
+        <span class="hero-kicker">SANTIS CLUB</span>
+        <h2 class="hero-title">The Ritual of Stillness</h2>
+        <p class="hero-subtitle">Where water, stone and silence meet.</p>
+        <a class="hero-cta" href="#reservation" data-booking-open>Ritüeli Keşfet</a>
     </div>
 </section>
-
-<!-- FAZ 2: BOOKING MODAL SHELL -->
-<div class="santis-booking-modal" data-booking-modal hidden aria-modal="true" role="dialog" aria-labelledby="booking-modal-title">
-  <div class="santis-booking-modal-content">
-    <p class="santis-booking-eyebrow">Rezervasyon Niyeti</p>
-    <h2 id="booking-modal-title" class="santis-booking-title" data-booking-ritual-title>Ritüel Rezervasyonu</h2>
-    
-    <form class="santis-booking-form" data-booking-form>
-      <div>
-        <label for="preferredDate">Tercih Edilen Tarih</label>
-        <input type="date" id="preferredDate" name="preferredDate" required>
-      </div>
-      <div>
-        <label for="preferredTime">Tercih Edilen Saat</label>
-        <input type="time" id="preferredTime" name="preferredTime" required>
-      </div>
-      <div>
-        <label for="partySize">Kişi Sayısı</label>
-        <select id="partySize" name="partySize" required>
-          <option value="1">1 Kişi</option>
-          <option value="2">2 Kişi</option>
-          <option value="3">3 Kişi</option>
-          <option value="4+">4 veya daha fazla</option>
-        </select>
-      </div>
-      <div>
-        <label for="note">Özel İstekler veya Tercih Notu (İsteğe Bağlı)</label>
-        <textarea id="note" name="note" rows="3" placeholder="Sakinleştirici veya meditatif özel istekler..."></textarea>
-      </div>
-      <div class="santis-booking-actions">
-        <button type="button" class="santis-booking-cancel" data-booking-cancel>İptal</button>
-        <button type="submit" class="santis-booking-submit" data-booking-submit>Devam Et</button>
-      </div>
-    </form>
-    
-    <div class="santis-booking-availability" data-booking-availability hidden aria-live="polite"></div>
-    
-    <section class="santis-booking-hold" data-booking-hold hidden aria-live="polite">
-      <p class="santis-booking-hold-eyebrow">Ön uygunluk alındı</p>
-      <h3 data-booking-hold-title>Ritüel zamanınız incelemeye alındı.</h3>
-      <p data-booking-hold-message>
-        Spa ekibi seçtiğiniz ritüel, tarih ve saat bilgisini teyit edecek.
-      </p>
-    </section>
-
-    <section class="santis-payment-readiness" data-payment-readiness hidden aria-live="polite">
-      <p class="santis-payment-readiness-eyebrow">Ödeme durumu</p>
-      <h3 data-payment-readiness-title>Ödeme adımı şu anda kapalı.</h3>
-      <p data-payment-readiness-message>
-        Spa ekibi ritüel zamanınızı ve fiyat bilgisini teyit ettikten sonra ödeme adımı açılacaktır.
-      </p>
-    </section>
-
-    <section class="santis-billing-session-status" data-billing-session-status hidden aria-live="polite">
-      <p class="santis-billing-session-eyebrow">Ödeme oturumu</p>
-      <h3 data-billing-session-title>Ödeme oturumu henüz hazır değil.</h3>
-      <p data-billing-session-message>
-        Spa ekibi fiyat ve zaman bilgisini teyit ettikten sonra ödeme oturumu açılacaktır.
-      </p>
-    </section>
-  </div>
-</div>
 <!-- SECTION 2: SIGNATURE EXPERIENCES (V45 COVER FLOW MULTI-CARD) -->
 <section class="santis-section sovereign-frame" data-frame="signature-rituals" id="imza-deneyimler-v45" style="padding:6rem 0; overflow:hidden;">
   <div class="santis-container" style="overflow: visible;">
       <div class="santis-section-header reveal-up" style="text-align: center; margin-bottom: 2rem;">
-          <span class="santis-kicker sovereign-reveal-item" style="color:#D4AF37;">İMZA DENEYİMLER</span>
-          <h2 class="santis-title sovereign-reveal-item reveal-delay-100" style="font-size: 2.8rem; margin:16px 0 20px;">Elementlerin Ritüeli</h2>
+          <span class="santis-kicker" style="color:#D4AF37;">İMZA DENEYİMLER</span>
+          <h2 class="santis-title" style="font-size: 2.8rem; margin:16px 0 20px;">Elementlerin Ritüeli</h2>
           <p style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.8; max-width:480px; margin: 0 auto 32px;">
               Doğanın temel güçlerinden ilham alan 10 Sovereign dönüştürücü ritüeli.
           </p>
@@ -405,7 +245,7 @@ html { font-display: optional; }
               <div class="skeleton-card-wire skeleton-card-wire--center"></div>
               <div class="skeleton-card-wire skeleton-card-wire--right"></div>
           </div>
-          <div class="santis-stack-card" data-santis-bg="/assets/img/cards/santis_card_recovery_lotion_v2.webp" style="filter: hue-rotate(180deg) saturate(100%);">
+          <div class="santis-stack-card" data-santis-bg="/assets/img/cards/santis_card_recovery_lotion_v2.webp" style="filter: hue-rotate(180deg) saturate(150%);">
               <h3 data-morph="title">Su: Arınma Şelalesi</h3>
               <span class="santis-stack-meta">Hidroterapi</span>
 
@@ -654,8 +494,8 @@ html { font-display: optional; }
 <div class="santis-container"><div class="santis-philosophy-grid">
 <div class="santis-philosophy-visual depth-1"><img alt="Santis Club Spa" decoding="async" height="800" loading="lazy" data-santis-src="/assets/img/cards/Santis-spa-rest-graded-clean.webp" width="600"></div>
 <div class="santis-philosophy-content depth-1">
-<span class="santis-kicker sovereign-reveal-item">İYİ OLMA SANATI</span>
-<h2 class="santis-title sovereign-reveal-item reveal-delay-100">Bedeninizi Dinleyin.<br/>Sessizliği Biz Sunuyoruz.</h2>
+<span class="santis-kicker">İYİ OLMA SANATI</span>
+<h2 class="santis-title">Bedeninizi Dinleyin.<br/>Sessizliği Biz Sunuyoruz.</h2>
 <p class="santis-brand-story-text">Santis Club, geleneksel hamam ritüellerini ve modern spa terapilerini eşsiz bir anlayışla buluşturur. Burada zaman yavaşlar, beden dinlenir, zihin berraklaşır.</p>
 <p class="santis-brand-story-text">Her ritüel, yüzyılların bilgeliğiyle tasarlanmış bir iyi olma yolculuğudur. Sessizlik burada lüks değil — bir yaşam biçimi.</p>
 <a class="santis-btn santis-btn-outline santis-magnetic" href="/hakkimizda.html" style="margin-top:24px;">Hikâyemizi Keşfedin</a>
@@ -665,8 +505,8 @@ html { font-display: optional; }
 <!-- SECTION 4: GLOBAL TRENDS -->
 <section class="santis-container santis-section santis-gap-y-trends sovereign-frame" data-frame="global-inspiration" id="global-trends">
     <div class="santis-section-header reveal-up">
-        <span class="santis-kicker sovereign-reveal-item">KÜRESEL İLHAM</span>
-        <h2 class="santis-title sovereign-reveal-item reveal-delay-100">Dünyanın Dört Bir Yanından Ritüeller</h2>
+        <span class="santis-kicker">KÜRESEL İLHAM</span>
+        <h2 class="santis-title">Dünyanın Dört Bir Yanından Ritüeller</h2>
     </div>
 
     <div class="santis-carousel-stage" style="height: 60vh; min-height: 400px; width: 100%; position: relative; margin-top:40px;">
@@ -810,18 +650,18 @@ html { font-display: optional; }
 <!-- CINEMATIC ENGINE (Local GSAP + Observer, single init) -->
 <script src="/assets/vendor/gsap.min.js" defer></script>
 <script src="/assets/vendor/Observer.min.js" defer></script>
-<script src="/assets/js/santis-cinematic-engine.js" defer></script>
+<script type="module" src="/assets/js/santis-cinematic-engine.js" defer></script>
 <script src="/assets/vendor/core.js" defer></script>
 
 <!-- CORE SCRIPTS -->
-<script src="/assets/js/ghost-concierge.js?v=V21_GHOST_2" defer></script>
-<script src="/assets/js/sovereign-cart.js" defer></script>
-<script src="/assets/js/sovereign-cart-ui.js" defer></script>
-<script src="/assets/js/sovereign-cards.js" defer></script>
-<script src="/assets/js/home-page-seal.js?v=e4e6e10b" defer></script>
-<!-- <script src="/assets/js/core/sovereign-scroll.js" defer></script> -->
-<script src="/assets/js/santis-data-bridge.js" defer></script>
-<script src="/assets/js/santis-quantum-nexus.js" defer></script>
+<script type="module" src="/assets/js/ghost-concierge.js?v=V21_GHOST_2" defer></script>
+<script type="module" src="/assets/js/sovereign-cart.js" defer></script>
+<script type="module" src="/assets/js/sovereign-cart-ui.js" defer></script>
+<script type="module" src="/assets/js/sovereign-cards.js" defer></script>
+<script type="module" src="/assets/js/home-page-seal.js?v=e4e6e10b" defer></script>
+<!-- <script type="module" src="/assets/js/core/sovereign-scroll.js" defer></script> -->
+<script type="module" src="/assets/js/santis-data-bridge.js" defer></script>
+<script type="module" src="/assets/js/santis-quantum-nexus.js" defer></script>
 <script src="/assets/vendor/swiper-bundle.min.js" defer></script>
 <script defer>
   document.addEventListener('DOMContentLoaded', function() {
@@ -838,11 +678,11 @@ html { font-display: optional; }
 </script>
 <script type="module" src="/assets/js/core/santis-lang.js" defer></script>
 <script type="module" src="/assets/js/core/santis-core.js" defer></script>
-    <script src="/assets/js/app.js" defer></script>
-<script src="/assets/js/modules/santis-revenue-tracker.js"></script>
-<script src="/assets/js/modules/santis-booking-funnel.js"></script>
-<script src="/assets/js/modules/santis-liquid-reveal.js" defer></script>
-<script src="/assets/js/test-ai-integration.js" type="module"></script>
+    <script type="module" src="/assets/js/app.js" defer></script>
+<script type="module" src="/assets/js/modules/santis-revenue-tracker.js"></script>
+<script type="module" src="/assets/js/modules/santis-booking-funnel.js"></script>
+<script type="module" src="/assets/js/modules/santis-liquid-reveal.js" defer></script>
+<script type="module" src="/assets/js/test-ai-integration.js"></script>
 
 <!-- Phase 42(B): Real-Time Art Director Personalization -->
 <script type="module" src="/assets/js/core/santis-art-director-client.js" defer></script>
@@ -905,7 +745,7 @@ if ('serviceWorker' in navigator) {
 <!-- <script src="/admin/omniverse/darwinian-traffic-router.js" defer></script> -->
 
 <!-- SOVEREIGN OS BOOTLOADER (V35 KERNEL) -->
-<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V36_OMEGA" defer></script>
+<script type="module" src="/assets/js/boot/santis-bootloader.js?v=V35_OMEGA" defer></script>
 
 <!-- 💧 SANTIS LIQUID CURSOR ENGINE v1.0 -->
 <div id="santis-cursor-dot"></div>
