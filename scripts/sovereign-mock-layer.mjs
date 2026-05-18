@@ -1,4 +1,5 @@
 import http from 'http';
+import { Server } from 'socket.io';
 
 // --- Port 3030: Single Truth Layer & Intelligence Bridge ---
 const truthLayer = http.createServer((req, res) => {
@@ -55,6 +56,122 @@ const truthLayer = http.createServer((req, res) => {
         decision: 'Sovereign_Continue', 
         status: 'accepted' 
     }));
+    return;
+  }
+
+  // 2.1 RVS Telemetry Ingestion API (RVS-8 Stub)
+  if (req.url === '/api/v1/telemetry/rvs' && req.method === 'POST') {
+    let body = '';
+    let byteLength = 0;
+
+    req.on('data', chunk => {
+      byteLength += chunk.length;
+      if (byteLength > 8192) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Payload size limit exceeded (Max 8KB)' }));
+        req.destroy();
+        return;
+      }
+      body += chunk.toString();
+    });
+
+    req.on('end', () => {
+      if (byteLength > 8192) return;
+
+      try {
+        const envelope = JSON.parse(body);
+
+        if (!envelope || typeof envelope !== 'object') {
+          throw new Error('Payload must be a valid JSON object');
+        }
+
+        const { type, timestamp, sessionToken, normalizedPath, details } = envelope;
+
+        if (!type || !timestamp || !sessionToken || !normalizedPath || !details) {
+          throw new Error('Missing mandatory envelope fields (type, timestamp, sessionToken, normalizedPath, details)');
+        }
+
+        const ALLOWED_TYPES = new Set(['LAYOUT_REFLOW_ANOMALY', 'CINEMATIC_BUDGET_WARNING', 'SCENE_ENTROPY_SHIFT']);
+        if (!ALLOWED_TYPES.has(type)) {
+          throw new Error(`Invalid telemetry type: ${type}`);
+        }
+
+        if (typeof timestamp !== 'number' || timestamp <= 0) {
+          throw new Error('Timestamp must be a valid positive number');
+        }
+
+        if (typeof sessionToken !== 'string' || !sessionToken.startsWith('anon_')) {
+          throw new Error('sessionToken must be an anonymous token starting with "anon_"');
+        }
+
+        // PII Guard (Zero PII Compliance)
+        const PII_KEYS_PATTERN = /email|password|pass|token|phone|card|address|ssn|user|name|surname|fullname|credentials|auth/i;
+        const ALLOWED_TELEMETRY_KEYS = new Set([
+          'type',
+          'timestamp',
+          'sessionToken',
+          'normalizedPath',
+          'details',
+          'targetNode',
+          'durationMs',
+          'violatingProperty',
+          'entropyScore',
+          'activeComponents',
+          'rafLoops',
+          'particleCount',
+          'heavyFilters'
+        ]);
+
+        const scanObject = (obj, seen = new WeakSet()) => {
+          if (!obj || typeof obj !== 'object') return;
+          if (seen.has(obj)) return;
+          seen.add(obj);
+
+          for (const key of Object.keys(obj)) {
+            if (PII_KEYS_PATTERN.test(key) && key !== 'sessionToken') {
+              throw new Error(`PII violation detected in payload key: "${key}"`);
+            }
+            if (!ALLOWED_TELEMETRY_KEYS.has(key)) {
+              if (isNaN(key)) {
+                throw new Error(`PII Guard: Forbidden key detected in telemetry envelope: "${key}"`);
+              }
+            }
+            const val = obj[key];
+            if (typeof val === 'string') {
+              const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
+              if (emailPattern.test(val)) {
+                throw new Error('PII violation detected: email-like string found in values');
+              }
+            } else if (typeof val === 'object' && val !== null) {
+              scanObject(val, seen);
+            }
+          }
+        };
+
+        scanObject(envelope);
+
+        // Quiet Luxury premium console logging
+        console.log(`\n\x1b[38;2;140;140;140m─── [SANTIS RVS INGESTION] ───────────────────────────\x1b[0m`);
+        console.log(`\x1b[38;2;180;180;180mType:\x1b[0m      \x1b[38;2;220;220;220m${type}\x1b[0m`);
+        console.log(`\x1b[38;2;180;180;180mRoute:\x1b[0m     \x1b[38;2;200;200;200m${normalizedPath}\x1b[0m`);
+        console.log(`\x1b[38;2;180;180;180mToken:\x1b[0m     \x1b[38;2;160;160;160m${sessionToken}\x1b[0m`);
+        if (details.durationMs) {
+          console.log(`\x1b[38;2;180;180;180mDuration:\x1b[0m  \x1b[38;2;240;100;100m${details.durationMs}ms\x1b[0m`);
+        }
+        if (details.violatingProperty) {
+          console.log(`\x1b[38;2;180;180;180mProperty:\x1b[0m  \x1b[38;2;220;180;100m${details.violatingProperty}\x1b[0m`);
+        }
+        console.log(`\x1b[38;2;140;140;140m────────────────────────────────────────────────────\x1b[0m`);
+
+        res.writeHead(204);
+        res.end();
+
+      } catch (err) {
+        console.error(`❌ [SANTIS RVS INGESTION ERROR] Validation failed: ${err.message}`);
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+      }
+    });
     return;
   }
 
@@ -217,6 +334,7 @@ truthLayer.listen(3030, async () => {
             console.log('✅ [Strategist AI]: Stratejik makro sentez tamamlandı ve iletildi.');
         }, 2500); 
     });
+  });
 
 // --- Reality Globals ---
 let basePriceMultiplier = 1.0;
