@@ -35,9 +35,12 @@ Where:
 ## 3. Telemetry Schema (`SceneEntropyPayload`)
 When the visual engine detects structural entropy shifts (e.g., transitions, particle bursts, page navigation), it reports telemetry payloads to `/api/v1/telemetry/rvs` using `navigator.sendBeacon`.
 
+> [!NOTE]
+> This document defines the TypeScript-aligned contract. Runtime Zod enforcement will be introduced in a later implementation PR.
+
 ```typescript
 interface SceneEntropyPayload {
-  /** ISO timestamp of telemetry capture */
+  /** Unix epoch timestamp in milliseconds */
   timestamp: number;
   
   /** Unique identifier of the current visual route/module */
@@ -71,7 +74,7 @@ interface SceneEntropyPayload {
 ---
 
 ## 4. Governance States & Budget Reclamation
-The Santis Visual Engine automatically changes visual state to preserve the 60FPS target:
+The Santis Visual Engine may progressively change visual state to preserve the 60FPS target:
 
 ### A. SILENT ($H_s < 0.4$)
 - **Visual Behavior**: Full cinematic expression. High-fidelity drop-shadows, full particle limits, elegant backdrop blurs, organic easing transitions.
