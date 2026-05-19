@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 10000;
+  z-index: var(--z-booking-modal, var(--z-modal, 900));
   background: color-mix(in srgb, var(--color-ink, #0b0f14) 80%, transparent);
   backdrop-filter: blur(12px);
   display: flex;

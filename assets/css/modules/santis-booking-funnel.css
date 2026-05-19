@@ -5,7 +5,7 @@
 .santis-booking-drawer {
   position: fixed;
   inset: 0;
-  z-index: 2147483000;
+  z-index: var(--z-booking-drawer, var(--z-modal, 900));
   pointer-events: none;
   opacity: 0;
   transition: opacity 320ms var(--ease-lux, ease);

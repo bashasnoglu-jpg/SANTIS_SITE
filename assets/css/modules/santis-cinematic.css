@@ -15,7 +15,7 @@ body.santis-cinematic-lock {
 
 /* Z-Index & Layout Sync */
 .santis-navbar, .santis-booking-cta {
-  z-index: 9999; /* Cinematic frame'lerin üzerinde kalmalı */
+  z-index: var(--z-cinematic-nav, var(--z-modal, 900)); /* Cinematic frame'lerin üzerinde kalmalı */
   position: fixed;
 }
 

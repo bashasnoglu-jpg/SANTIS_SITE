@@ -13,7 +13,7 @@
     background-color: #1a1a1a;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
-    z-index: 9999;
+    z-index: var(--z-intervention-float, var(--z-modal, 900));
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     transition: transform 0.3s ease;
