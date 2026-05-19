@@ -29,12 +29,12 @@ graph TD
 Isolates build contexts recursively using wildcard expressions (`**/node_modules`) to prevent local host-compiled dependency leakage and broken symlinks inside container boundaries.
 
 ### 2. `compose.yml`
-Defines orchestration for all 5 services with internal service linking, environment injection, port maps, and health checks:
-- **`api`**: Custom FastAPI container exposed on port `8000`.
-- **`web`**: Static Nginx container exposed on port `8080`.
-- **`admin-panel`**: Static Nginx container exposed on port `8081`.
-- **`postgres`**: PostgreSQL 16 exposed on `5432`.
-- **`redis`**: Redis 7 mapped to host port `16379` to prevent conflicts.
+Defines local/dev orchestration for all 5 services with internal service linking, environment injection, port maps, and health checks:
+- **`api`**: Custom FastAPI container exposed on host port `8000`.
+- **`web`**: Static Nginx container exposed on host port `8080`.
+- **`admin-panel`**: Static Nginx container exposed on host port `8081`.
+- **`postgres`**: PostgreSQL 16 exposed on host port `5432` for local tooling.
+- **`redis`**: Redis 7 mapped to host port `16379` to prevent local conflicts.
 
 ### 3. `docker/api/Dockerfile`
 - Base: `python:3.12-slim`
@@ -54,8 +54,8 @@ Defines orchestration for all 5 services with internal service linking, environm
 ## 🔑 3. Port Mapping and Hardening (WSL2 / Hyper-V Mitigation)
 
 To prevent port allocation conflicts on Windows dev machines:
-- **Redis Exclusion Bypass**: The host port is mapped to `16379:6379`. This avoids Hyper-V / WSL2 administered port exclusion ranges (e.g. `6354-6453`) that block host binding.
-- **Internal Service Communication**: The API backend continues to reference `redis:6379` within the container network mesh (`santis_network`), keeping data paths completely isolated.
+- **Redis Exclusion Bypass**: The local host port is mapped to `16379:6379`. This avoids Hyper-V / WSL2 administered port exclusion ranges (e.g. `6354-6453`) that block host binding.
+- **Internal Service Communication**: The API backend continues to reference `redis:6379` within the container network mesh, keeping data paths isolated.
 
 ---
 
@@ -75,7 +75,7 @@ pnpm run audit:all
 # Build the images
 docker compose build
 
-# Launch the orchestrator in the background
+# Launch the local orchestrator in the background
 docker compose up -d
 
 # Inspect active services
@@ -98,7 +98,7 @@ curl.exe -I http://localhost:8081
 
 ## 🔒 5. Production Hardening: Non-Root Execution (TD-008.1)
 
-To protect the container environment from privilege escalation and runtime compromise, all application containers run completely as secure, unprivileged non-root users, ensuring that privilege escalation and host exposure risks are significantly reduced.
+To protect the container environment from privilege escalation and runtime compromise, all application containers run as secure, unprivileged non-root users, ensuring that privilege escalation and host exposure risks are significantly reduced.
 
 ### 1. API Container (`docker/api/Dockerfile`)
 - An unprivileged system user/group `santis:santis` (UID/GID `10001`) is created during the build.
@@ -113,22 +113,54 @@ To protect the container environment from privilege escalation and runtime compr
 
 ---
 
-## 🛡️ 6. Production Orchestration: compose.prod.yml (TD-008.2)
+## 🛡️ 6. Production Orchestration: `compose.prod.yml` (TD-008.2)
 
-For enterprise-grade production environments, `compose.prod.yml` isolates dev-reload features and sets strict filesystem hardening safeguards:
+`compose.prod.yml` is a production-oriented overlay for Docker Compose. It keeps `compose.yml` as the local/dev runtime and applies stricter production boundaries only when explicitly included:
 
-### 1. Read-Only Container Filesystems (`read_only: true`)
-All application containers run with fully read-only root filesystems to prevent arbitrary runtime code modifications.
+```bash
+DATABASE_URL=postgresql://santis:<secret>@postgres:5432/santis \
+POSTGRES_PASSWORD=<secret> \
+docker compose -f compose.yml -f compose.prod.yml up -d --build
+```
 
-### 2. Ephemeral In-Memory Storage (`tmpfs` mounts with `mode: 0777`)
-To allow unprivileged users (`nginx` and `santis`) to write required temp/lock files, highly constrained `tmpfs` mounts are defined:
-- **API Backend**: `/tmp`
-- **Nginx Web & Admin**: `/tmp`, `/var/cache/nginx` (with `mode: 0777`), and `/var/run` (with `mode: 0777`).
+### 1. Production Port Isolation
+- Public web, admin panel, and API host exposure remain explicit and documented.
+- PostgreSQL and Redis host port mappings from the local compose file are reset in the production overlay.
+- Data services remain reachable only through the internal Docker network.
 
-### 3. Production Service Isolation & Recovery
-- **Database Volumes**: Isolated PostgreSQL production data directory mapping (`santis_postgres_prod`).
-- **Redis Access**: Production Redis cache has no external mapped host ports, keeping memory caches completely isolated within `santis_network`.
-- **Restart Policy**: Enabled automatic container recovery (`restart: unless-stopped`).
-- **Secrets Strategy Note**: All high-entropy production credentials and variables must be dynamically injected via secure cloud secrets managers or orchestrators (e.g. AWS Secrets Manager, GitHub Secrets) rather than static `.env` environment files.
+### 2. Read-Only Container Filesystems (`read_only: true`)
+Application containers run with read-only root filesystems to reduce arbitrary runtime mutation risk:
+- `api`
+- `web`
+- `admin-panel`
 
+### 3. Ephemeral In-Memory Storage (`tmpfs`)
+Constrained `tmpfs` mounts are defined only where the runtime needs writable paths:
+- **API Backend**: `/tmp:size=64m,mode=1777`
+- **Nginx Web & Admin**: `/tmp:size=64m,mode=1777`, `/var/cache/nginx:size=64m,mode=1777`, `/var/run:size=16m,mode=1777`
 
+### 4. Production Service Recovery
+All runtime services use automatic recovery semantics:
+
+```yaml
+restart: unless-stopped
+```
+
+### 5. Secrets Strategy
+`compose.prod.yml` does not commit real production secrets. High-entropy values must be injected by the runtime/orchestrator:
+- `DATABASE_URL`
+- `POSTGRES_PASSWORD`
+- optional `POSTGRES_DB`, `POSTGRES_USER`, `REDIS_URL`, and `SANTIS_API_APP` overrides
+
+### 6. Production Overlay Validation
+Use the Compose config renderer to verify the merged production graph before launch:
+
+```bash
+docker compose -f compose.yml -f compose.prod.yml config
+```
+
+Expected production result:
+- `postgres` has no host `ports` mapping.
+- `redis` has no host `ports` mapping.
+- `api`, `web`, and `admin-panel` retain explicit external exposure.
+- application containers retain non-root runtime users from their Dockerfiles.
