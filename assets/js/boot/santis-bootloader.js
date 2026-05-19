@@ -43,31 +43,71 @@
         else pressureLevel = 0;
     }
 
-    // 🛡️ V38 OMNI-SCHEDULER: Global Read/Write Batching
+    // 🛡️ V38 OMNI-SCHEDULER: Global Read/Write Batching (RVS-1 Enforced)
     window.SantisDOM = {
         reads: [], writes: [], scheduled: false,
-        read(fn) { this.reads.push(fn); this.schedule(); },
-        write(fn) { this.writes.push(fn); this.schedule(); },
+        read(fn, context = "unknown") { this.reads.push({fn, context}); this.schedule(); },
+        write(fn, context = "unknown") { this.writes.push({fn, context}); this.schedule(); },
         schedule() {
             if (this.scheduled) return;
             this.scheduled = true;
             requestAnimationFrame((now) => {
                 updatePressure(now);
-                const reads = this.reads.slice(); const writes = this.writes.slice();
-                this.reads.length = 0; this.writes.length = 0; this.scheduled = false;
+                const reads = this.reads.splice(0, this.reads.length);
+                const writes = this.writes.splice(0, this.writes.length);
+                this.scheduled = false;
                 
                 this.phase = "read";
-                reads.forEach(fn => { try { fn(); } catch(e) {} });
+                reads.forEach(task => this.executeWithTelemetry(task, "read"));
 
                 this.phase = "write";
                 if (pressureLevel >= 2 && writes.length > 0) {
                     this.writes.push(...writes);
                     this.schedule();
                 } else {
-                    writes.forEach(fn => { try { fn(); } catch(e) {} });
+                    writes.forEach(task => this.executeWithTelemetry(task, "write"));
                 }
                 this.phase = "idle";
             });
+        },
+        executeWithTelemetry(task, type) {
+            const t0 = window.performance?.now ? performance.now() : Date.now();
+            try { task.fn(); } catch(e) { console.error(`🚨 [SantisDOM] Error in ${type} task (${task.context}):`, e); }
+            const duration = (window.performance?.now ? performance.now() : Date.now()) - t0;
+            
+            // Phase RVS-7 Hook: SantisDOM Telemetry Integration
+            if (duration > 16.6) {
+                console.warn(`⚠️ [RVS Telemetry] Jank detected: ${type} task '${task.context}' took ${duration.toFixed(2)}ms.`);
+                
+                const runtimeConfig = typeof window.getRuntimeConfig === 'function' ? window.getRuntimeConfig() : null;
+                const isEnabled = window.SANTIS_RVS_TELEMETRY_ENABLED !== false && 
+                                  runtimeConfig?.rvsTelemetryEnabled !== false;
+
+                if (isEnabled && typeof window.dispatchRvsTelemetry === 'function') {
+                    // Generate anonymous session token for Zero PII compliance
+                    window.SantisRvsSessionToken = window.SantisRvsSessionToken || 'anon_' + Math.random().toString(36).substring(2, 15);
+                    
+                    // Multi-layer path scrub to eliminate raw IDs, UUIDs, or email-like slugs for Zero PII compliance
+                    const scrubbedPath = window.location.pathname
+                        .replace(/\/\d+/g, '/:id')
+                        .replace(/\/[0-9a-f]{8,}(?=\/|$)/gi, '/:id')
+                        .replace(/\/[^/]*@[^/]*(?=\/|$)/g, '/:id');
+
+                    const envelope = {
+                        type: 'LAYOUT_REFLOW_ANOMALY',
+                        timestamp: Date.now(),
+                        sessionToken: window.SantisRvsSessionToken,
+                        normalizedPath: scrubbedPath,
+                        details: {
+                            targetNode: task.context || 'unknown',
+                            durationMs: parseFloat(duration.toFixed(2)),
+                            violatingProperty: type // read or write phase
+                        }
+                    };
+
+                    window.dispatchRvsTelemetry(envelope);
+                }
+            }
         }
     };
     
@@ -174,7 +214,8 @@
         // ══════════════════════════════════════════════════════════════════════
         // FAZ 0.6: GLOBAL MODULE AUTONOMY REGISTRY (V36 GOVERNANCE)
         // ══════════════════════════════════════════════════════════════════════
-        window.__SANTIS_VERSION__ = window.__SANTIS_VERSION__ || 'v36.0';
+        window.__SANTIS_VERSION__ = window.__SANTIS_VERSION__ || 'v11.2.7';
+        window.SANTIS_RUNTIME_VERSION = '11.2.7';
 
         const SOVEREIGN_REGISTRY = [
             {

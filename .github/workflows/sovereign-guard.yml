@@ -1,37 +1,78 @@
-name: Sovereign Guard
+name: Sovereign Guard Truth Layer
 
 on:
+  push:
+    branches: [main, develop]
   pull_request:
     branches: [main, develop]
 
 jobs:
-  audit:
+  truth-gate:
+    name: Typecheck, Lint, Build and Security Gate
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Initialize Node
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - name: Enable Corepack
         run: corepack enable
+
       - name: Resolve pnpm version
         run: corepack prepare pnpm@10.24.0 --activate
+
       - name: Setup pnpm cache
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile
-      - name: Sovereign Architecture Guard
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Enforce pnpm exclusivity
+        run: |
+          if [ -f package-lock.json ] || [ -f yarn.lock ]; then
+            echo "Only pnpm lockfile is allowed in Santis OS."
+            exit 1
+          fi
+
+      - name: Run Stitch enforcement
+        run: pnpm run stitch:enforce
+
+      - name: Run global audit
+        run: pnpm run audit:all
+        env:
+          NODE_ENV: test
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Build gate
+        run: pnpm run build
+
+      - name: Sovereign Guard security checks
         run: |
           node --input-type=module <<'NODE'
-          import { readdirSync, readFileSync, statSync } from 'node:fs';
+          import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
           import { join } from 'node:path';
 
-          const roots = ['packages'];
-          const allowedExtensions = new Set(['.ts', '.tsx', '.js', '.mjs']);
-          const corsPattern = /origin\s*:\s*['"]\*['"]/;
+          const roots = ['apps', 'packages', 'src', 'core'];
+          const allowedExtensions = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs']);
+          const ignoredDirs = new Set(['node_modules', '.git', 'dist', 'build', '.next', 'coverage']);
+          const patterns = [
+            { label: 'Wildcard CORS origin detected', regex: /origin\s*:\s*['"]\*['"]/ },
+            { label: 'Wildcard Access-Control-Allow-Origin detected', regex: /Access-Control-Allow-Origin['"]?\s*[:,]\s*['"]\*/ },
+            { label: 'Unsafe Zod passthrough detected', regex: /\.passthrough\(\)/ }
+          ];
           const violations = [];
 
           function extensionOf(filePath) {
@@ -42,6 +83,8 @@ jobs:
           function walk(path) {
             const stats = statSync(path);
             if (stats.isDirectory()) {
+              const dirName = path.split(/[\\/]/).pop();
+              if (ignoredDirs.has(dirName)) return;
               for (const entry of readdirSync(path)) {
                 walk(join(path, entry));
               }
@@ -53,22 +96,26 @@ jobs:
             const content = readFileSync(path, 'utf8');
             const lines = content.split(/\r?\n/);
             lines.forEach((line, index) => {
-              if (corsPattern.test(line)) {
-                violations.push(`${path}:${index + 1}: Wildcard CORS origin detected`);
+              for (const pattern of patterns) {
+                if (pattern.regex.test(line)) {
+                  violations.push(`${path}:${index + 1}: ${pattern.label}`);
+                }
               }
             });
           }
 
-          for (const root of roots) walk(root);
+          for (const root of roots) {
+            if (existsSync(root)) walk(root);
+          }
 
           if (violations.length > 0) {
-            console.error('❌ Sovereign Architecture Guard failed.');
+            console.error('Sovereign Guard security checks failed.');
             console.error(violations.join('\n'));
             process.exit(1);
           }
 
-          console.log('✅ Sovereign Architecture Guard passed.');
+          console.log('Sovereign Guard security checks passed.');
           NODE
-      - run: pnpm audit:all
-        env:
-          NODE_ENV: test
+
+      - name: Deployment Simulation — Admin Panel
+        run: pnpm run build:vercel-admin-sim

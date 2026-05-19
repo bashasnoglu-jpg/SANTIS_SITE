@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename)
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/admin/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
