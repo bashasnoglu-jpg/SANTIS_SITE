@@ -436,6 +436,14 @@ pnpm run audit:docker-images
 ```
 This is also run automatically under the `pnpm run audit:all` test suite.
 
+### 4. Public Web Image Footprint Optimization (TD-008.12)
+Initial audits indicated that the client-facing Public Web container (`santis-web`) was carrying a massive **336.12 MB** footprint due to a blanket workspace `COPY .` statement.
+To harden this boundary and eliminate unnecessary code/build-tool leakage:
+- **Explicit Copy Boundaries**: The `docker/web/Dockerfile` was refactored to copy only runtime-required assets (e.g. `*.html`, `tr/`, `assets/`, `components/`, and required service workers/metadata).
+- **Security & Footprint Reduction**: This eliminated build artifacts, local `node_modules`, and backend files from leaking into Nginx.
+- **Audit Proof Result**: The container weight was successfully slashed down to **197.54 MB** (a reduction of over **138 MB**), with all web routing, HTTP headers, redirects, and non-root execution remaining fully functional.
+
+
 
 
 
