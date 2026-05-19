@@ -93,3 +93,21 @@ curl.exe -I http://localhost:8080
 # Verify Admin Panel Static Page
 curl.exe -I http://localhost:8081
 ```
+
+---
+
+## 🔒 5. Production Hardening: Non-Root Execution (TD-008.1)
+
+To protect the container environment from privilege escalation and runtime compromise, all application containers run completely as secure, unprivileged non-root users:
+
+### 1. API Container (`docker/api/Dockerfile`)
+- An unprivileged system user/group `santis:santis` (UID/GID `10001`) is created during the build.
+- The `WORKDIR /app` and all application source files are owned by the `santis` user using `COPY --chown=santis:santis`.
+- The container runtime strictly enforces `USER santis` before launching Uvicorn on unprivileged port `8000`.
+
+### 2. Static Web & Admin-Panel Containers (`docker/web/` & `docker/admin-panel/`)
+- By default, standard Nginx binds to privileged port `80` and requires root privileges.
+- Both web server configurations are modified to listen on unprivileged port `8080` internally (`listen 8080;` in `nginx.conf`).
+- During build, permissions for Nginx run-time paths (`/var/run/nginx.pid`, `/var/cache/nginx`, `/var/log/nginx`, `/usr/share/nginx/html`, `/etc/nginx/conf.d`) are recursively changed to unprivileged user `nginx`.
+- The container runtime strictly enforces `USER nginx` and executes with zero root privileges on exposed host ports (`8080:8080` for public web, `8081:8080` for admin panel).
+

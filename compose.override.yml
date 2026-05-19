@@ -13,9 +13,10 @@ services:
   # ── WEB: Expose secondary dev port ─────────────────────────────────────────
   web:
     ports:
-      - "8080:80"
+      - "8080:8080"
 
   # ── ADMIN PANEL: Expose secondary dev port ──────────────────────────────────
   admin-panel:
     ports:
-      - "8081:80"
+      - "8081:8080"
+

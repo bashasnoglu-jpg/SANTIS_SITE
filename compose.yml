@@ -21,7 +21,7 @@ services:
       context: .
       dockerfile: docker/web/Dockerfile
     ports:
-      - "8080:80"
+      - "8080:8080"
     depends_on:
       - api
 
@@ -30,9 +30,10 @@ services:
       context: .
       dockerfile: docker/admin-panel/Dockerfile
     ports:
-      - "8081:80"
+      - "8081:8080"
     depends_on:
       - api
+
 
   postgres:
     image: postgres:16-alpine
