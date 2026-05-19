@@ -10,7 +10,9 @@
   "scripts": {
     "env:check": "node -v",
     "onboard": "fnm use && pnpm install",
-    "build": "pnpm --filter admin-panel build",
+    "build": "pnpm build:mpa && turbo run build",
+    "build:mpa": "pnpm exec vite build",
+    "build:vercel-admin-sim": "node scripts/build-vercel-admin-sim.mjs",
     "dev:mock": "node scripts/sovereign-mock-layer.mjs",
     "dev": "turbo run dev --parallel",
     "dev:site": "vite",
@@ -44,12 +46,24 @@
     "audit:pricing-readiness": "node scripts/audit-pricing-readiness.cjs",
     "audit:billing-checkout": "node scripts/audit-billing-checkout-session.cjs",
     "audit:billing-session-adapter": "node scripts/audit-billing-session-adapter.cjs",
-    "audit:billing-session-status": "node scripts/audit-billing-session-status-ui.cjs"
+    "audit:billing-session-status": "node scripts/audit-billing-session-status-ui.cjs",
+    "audit:rvs-layout-reflow": "node scripts/active/audit-layout-reflow.mjs",
+    "audit:rvs-layout-reflow:strict": "node scripts/active/audit-layout-reflow.mjs --strict",
+    "audit:rvs-cinematic-budget": "node scripts/active/audit-cinematic-budget.mjs",
+    "audit:rvs-cinematic-budget:strict": "node scripts/active/audit-cinematic-budget.mjs --strict",
+    "audit:rvs-scene-entropy-contract": "node scripts/active/audit-scene-entropy-contract.mjs",
+    "audit:rvs-telemetry-endpoint-contract": "node scripts/active/audit-rvs-telemetry-endpoint-contract.mjs",
+    "audit:rvs-telemetry-endpoint-behavior": "node scripts/active/audit-rvs-telemetry-endpoint-behavior.mjs",
+    "audit:rvs-client-telemetry-dispatcher": "node scripts/active/audit-rvs-client-telemetry-dispatcher.mjs",
+    "audit:rvs-santisdom-telemetry": "node scripts/active/audit-rvs-santisdom-telemetry.mjs",
+    "audit:rvs-telemetry-backend-stub": "node scripts/active/audit-rvs-telemetry-backend-stub.mjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",
     "lenis": "^1.3.23",
+    "postcss": "^8.5.14",
     "socket.io-client": "^4.8.3",
+    "tailwindcss": "^4.3.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {
@@ -63,6 +77,6 @@
     "tsx": "^4.7.1",
     "turbo": "^1.13.0",
     "typescript": "^5.4.0",
-    "vite": "^5.4.21"
+    "vite": "^7.3.2"
   }
 }

@@ -12,7 +12,7 @@ export function SovereignDashboard() {
   });
 
   useEffect(() => {
-    if (latestMessage && latestMessage.type === 'ROLLOUT_STATUS_UPDATE' && latestMessage.data) {
+    if (latestMessage && latestMessage.type === 'ROLLOUT_STATUS_UPDATE') {
       const p = latestMessage.data;
       setRolloutData({
         isActive: p.status === 'running',

@@ -108,24 +108,25 @@ export default function BoardroomActionableFeed() {
   }, []);
 
   useEffect(() => {
-    if (latestMessage?.type !== 'OVERRIDE_APPLY_ACK' || !latestMessage.recommendationId) {
+    if (!latestMessage) {
       return;
     }
 
-    setSealedIds((prev) => new Set(prev).add(latestMessage.recommendationId));
-    setBusyId((current) => current === latestMessage.recommendationId ? null : current);
-  }, [latestMessage]);
-
-  useEffect(() => {
-    if (latestMessage?.type !== 'FEEDBACK_CALCULATED' || !latestMessage.decisionId) {
-      return;
-    }
-
-    if (typeof latestMessage.feedbackScore === 'number') {
-      setFeedbackById((prev) => ({
-        ...prev,
-        [latestMessage.decisionId]: latestMessage.feedbackScore,
-      }));
+    switch (latestMessage.type) {
+      case 'OVERRIDE_APPLY_ACK':
+        setSealedIds((prev) => new Set(prev).add(latestMessage.recommendationId));
+        setBusyId((current) => current === latestMessage.recommendationId ? null : current);
+        break;
+      case 'FEEDBACK_CALCULATED':
+        if (typeof latestMessage.feedbackScore === 'number') {
+          setFeedbackById((prev) => ({
+            ...prev,
+            [latestMessage.decisionId]: latestMessage.feedbackScore,
+          }));
+        }
+        break;
+      default:
+        break;
     }
   }, [latestMessage]);
 

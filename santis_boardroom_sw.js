@@ -3,7 +3,7 @@
  * Boka Biyosferi: Çevrimdışı (Offline) Dayanıklılık ve Webpack MFE Önbellekleme
  */
 
-const BOARDROOM_VERSION = 'v1.0.0';
+const BOARDROOM_VERSION = 'v11.2.7';
 const MFE_CACHE_NAME = `sovereign_mfe_cache_${BOARDROOM_VERSION}`;
 const API_CACHE_NAME = `sovereign_api_cache_${BOARDROOM_VERSION}`;
 
