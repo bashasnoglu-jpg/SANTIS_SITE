@@ -1,7 +1,18 @@
 from fastapi import FastAPI
-from app.api.v1.endpoints import booking_engine, billing
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from app.api.v1.endpoints import booking_engine, billing, aurelia_whisper
 
 app = FastAPI(title="Santis OS API")
+
+# Live Server ve harici portlardan gelen CORS isteklerini desteklemek için:
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/health")
 def health_check():
@@ -9,3 +20,9 @@ def health_check():
 
 app.include_router(booking_engine.router, prefix="/api/v1")
 app.include_router(billing.router, prefix="/api/v1")
+app.include_router(aurelia_whisper.router, prefix="/api/v1")
+
+# Arayüzü tek bir port üzerinden (CORS sorunu olmaksızın) sunmak için statik dosyaları bağla:
+app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
+

@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis OS | Sovereign Temporal Archive V28</title>
+    
+    <!-- SEO & Performance -->
+    <meta name="description" content="Santis OS Tarihsel Biyometrik ve Duygusal Hafıza Haritası">
+    <meta name="theme-color" content="#050505">
+    
+    <!-- Master CSS (Quiet Luxury) -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        /* ==========================================================================
+           💎 SOVEREIGN ARCHIVE V28 - QUIET LUXURY INTERFACE
+           ========================================================================== */
+        
+        :root {
+            --bg-dark: #050505;
+            --bg-card: rgba(18, 16, 14, 0.6);
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.15);
+            --gray-subtle: #8a8885;
+            --hrv-color: #00e5ff;
+            --sleep-color: #a855f7;
+            --recovery-color: #d4af37;
+            --breath-color: #10b981;
+            --panel-bg: rgba(10, 10, 10, 0.95);
+            
+            /* Dynamic Atmosphere Engine default tokens */
+            --santis-bg-aura: rgba(212, 175, 55, 0.03);
+            --santis-breathing-speed: 6s;
+            --santis-active-glow: 4px;
+            --santis-active-glow-color: rgba(212, 175, 55, 0.6);
+            --santis-bridge-flow-speed: 0s;
+            --santis-bridge-flow-direction: normal;
+        }
+
+        body.santis-archive-body {
+            background-color: var(--bg-dark);
+            color: #e5e5e5;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* 1. Dynamic Atmosphere Aura layer */
+        #santis-atmosphere-aura {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background: radial-gradient(circle at 50% 30%, var(--santis-bg-aura) 0%, #050505 85%);
+            transition: background 2s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
+        }
+
+        .ambient-breathing-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.08;
+            mix-blend-mode: overlay;
+            background-image: radial-gradient(circle at center, #fff 0%, transparent 100%);
+            animation: breath-cycle var(--santis-breathing-speed) ease-in-out infinite alternate;
+            will-change: transform, opacity;
+        }
+
+        @keyframes breath-cycle {
+            0% { opacity: 0.02; transform: scale(0.98); }
+            100% { opacity: 0.10; transform: scale(1.02); }
+        }
+
+        /* 2. Header Styling */
+        #nv-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 5, 5, 0.85);
+        }
+
+        .header-title-area {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .header-title-area h1 {
+            font-family: 'Playfair Display', 'Didot', serif;
+            font-size: 1.6rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: var(--gold);
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .header-title-area p {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--gray-subtle);
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .continuity-seal {
+            font-family: 'Playfair Display', 'Didot', serif;
+            font-style: italic;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            color: rgba(212, 175, 55, 0.5);
+            text-transform: uppercase;
+            margin-top: 8px;
+            text-align: left;
+            border-top: 1px dashed rgba(212, 175, 55, 0.15);
+            padding-top: 6px;
+            width: fit-content;
+        }
+
+        .system-badge {
+            background: rgba(212, 175, 55, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.12);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 500;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.05);
+        }
+
+        /* 3. Main Layout Grid */
+        #nv-main {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 50px;
+            padding: 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 120px);
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 1024px) {
+            #nv-main {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 30px 20px;
+            }
+        }
+
+        /* 4. Timeline Area */
+        .timeline-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            color: #fff;
+            margin-bottom: 30px;
+            border-left: 2px solid var(--gold);
+            padding-left: 15px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding-left: 10px;
+        }
+
+        /* 5. Day Node styling */
+        .day-node {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 24px;
+            backdrop-filter: blur(12px);
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .day-node::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 3px; height: 100%;
+            background: transparent;
+            transition: background 0.3s ease;
+        }
+
+        .day-node:hover {
+            border-color: rgba(212, 175, 55, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 175, 55, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .day-node.is-active {
+            border-color: var(--gold);
+            background: rgba(25, 23, 20, 0.85);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 35px var(--gold-glow);
+        }
+
+        .day-node.is-active::before {
+            background: var(--gold);
+        }
+
+        .day-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .day-label {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+
+        .day-subinfo {
+            font-size: 0.75rem;
+            color: var(--gray-subtle);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .day-state-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            width: fit-content;
+            margin-top: 4px;
+        }
+
+        .tag-regulated { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .tag-restored { background: rgba(0, 229, 255, 0.1); color: #00e5ff; border: 1px solid rgba(0, 229, 255, 0.2); }
+        .tag-strained { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+        .tag-elevated { background: rgba(212, 175, 55, 0.1); color: #d4af37; border: 1px solid rgba(212, 175, 55, 0.2); }
+
+        /* 6. Biometric Concentric Rings SVG inside node */
+        .ring-visualizer {
+            position: relative;
+            transition: transform 0.4s ease;
+        }
+
+        .day-node:hover .ring-visualizer {
+            transform: scale(1.05);
+        }
+
+        .metric-ring {
+            transition: stroke-dashoffset 1s ease-in-out, filter 0.6s ease;
+        }
+
+        .day-node.is-active .metric-ring {
+            filter: drop-shadow(0 0 var(--santis-active-glow) var(--santis-active-glow-color));
+        }
+
+        /* 7. Days Connection Bridge styling with flow motion */
+        .context-bridge-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 6px 0;
+            position: relative;
+        }
+
+        .context-bridge {
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(212, 175, 55, 0.2), rgba(255, 255, 255, 0.05));
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .context-bridge::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+            opacity: 0.6;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Flowing keyframe active on bridges */
+        .context-bridge.is-flowing::before {
+            animation: bridge-flow-animation var(--santis-bridge-flow-speed) linear infinite;
+            animation-direction: var(--santis-bridge-flow-direction);
+        }
+
+        @keyframes bridge-flow-animation {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .context-bridge::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px; height: 8px;
+            background: var(--bg-dark);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            transition: all 0.4s ease;
+            z-index: 5;
+        }
+
+        .context-bridge:hover::after, .context-bridge.is-active::after {
+            transform: translate(-50%, -50%) scale(1.6);
+            background: var(--gold);
+            box-shadow: 0 0 20px var(--gold);
+        }
+
+        .context-bridge:hover, .context-bridge.is-active {
+            width: 4px;
+            background: linear-gradient(to bottom, rgba(212, 175, 55, 0.2), var(--gold), rgba(212, 175, 55, 0.2));
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        /* 8. Details Panel (Editorial Sidebar) */
+        .detail-panel {
+            background: var(--panel-bg);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            padding: 40px;
+            backdrop-filter: blur(25px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            position: sticky;
+            top: 130px;
+            height: fit-content;
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .detail-panel::-webkit-scrollbar {
+            width: 4px;
+        }
+        .detail-panel::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .detail-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .detail-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #fff;
+            margin: 0 0 8px 0;
+            text-transform: uppercase;
+        }
+
+        .detail-title p {
+            font-size: 0.8rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .detail-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .detail-section-title {
+            font-size: 0.75rem;
+            color: var(--gray-subtle);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+            padding-bottom: 6px;
+        }
+
+        /* Biometric Stat Bars */
+        .stat-bars-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 640px) {
+            .stat-bars-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stat-bar-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .stat-bar-label {
+            font-size: 0.75rem;
+            color: #ccc;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .stat-bar-track {
+            height: 3px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stat-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            width: 0;
+            transition: width 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Editorial Diarist Whisper Area */
+        .whisper-box {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.03) 0%, transparent 100%);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+        }
+
+        .whisper-box::before {
+            content: '“';
+            position: absolute;
+            top: 10px; left: 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: rgba(212, 175, 55, 0.1);
+            line-height: 1;
+        }
+
+        .whisper-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #e5e5e5;
+            line-height: 1.6;
+            margin: 0 0 12px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .whisper-tone {
+            font-size: 0.7rem;
+            color: var(--gold);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* Info Grid styling */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .info-card-label {
+            font-size: 0.65rem;
+            color: var(--gray-subtle);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .info-card-val {
+            font-size: 0.85rem;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+
+        /* Tags list */
+        .flex-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .small-tag {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: #ccc;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 9. Animations & Utilities */
+        .santis-refracted {
+            animation: santis-fade-in-blur 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes santis-fade-in-blur {
+            0% { opacity: 0; filter: blur(12px); transform: translateY(15px) scale(0.98); }
+            100% { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
+        }
+
+        /* Transition utility */
+        .transition-all-mid {
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+    </style>
+</head>
+<body class="santis-archive-body">
+
+    <!-- Ambient Breathing Overlay (Breathing Atmosphere Engine) -->
+    <div class="ambient-breathing-overlay"></div>
+    
+    <!-- Atmospheric Aura layer (Gradient Sis) -->
+    <div id="santis-atmosphere-aura"></div>
+
+    <!-- nv-header: Quiet Luxury Header standards -->
+    <header id="nv-header">
+        <div class="header-title-area">
+            <h1>Santis Club</h1>
+            <p>Sovereign Temporal Archive V28</p>
+            <div class="continuity-seal">
+                "Santis Archive is not a timeline. It is a continuity field."
+            </div>
+        </div>
+        <div class="system-badge">
+            Reality Lock Active
+        </div>
+    </header>
+
+    <!-- nv-main: Standard body content structure -->
+    <main id="nv-main">
+        
+        <!-- Left Part: Historical Memory Map -->
+        <div class="timeline-section">
+            <h2 class="section-header">Temporal Memory Stream</h2>
+            <div class="timeline-container" id="timeline-flow">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </div>
+
+        <!-- Right Part: Editorial Details Side Panel -->
+        <div class="detail-panel santis-refracted" id="details-panel-container">
+            <!-- Populated dynamically based on click -->
+            <div style="text-align: center; padding: 50px 0; color: var(--gray-subtle);">
+                <p style="letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem;">
+                    Biyolojik süreklilik halkalarından veya günler arası kuantum köprülerden birini seçin.
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Sovereign Footer -->
+    <footer style="border-top: 1px solid rgba(255, 255, 255, 0.02); padding: 40px; text-align: center; font-size: 0.7rem; color: var(--gray-subtle); letter-spacing: 2px; text-transform: uppercase; margin-top: 50px;">
+        &copy; 2026 SANTIS CLUB & OS. ALL RIGHTS RESERVED.
+    </footer>
+
+    <!-- Core Engine Scripts -->
+    <script>
+        /**
+         * ==========================================================================
+         * 🧠 SOVEREIGN ENGINE: MEMORY MAP ENGINE (Phase 28.2 & 28.3)
+         * ==========================================================================
+         */
+        class MemoryMapEngine {
+            constructor(history) {
+                this.history = history;
+            }
+
+            calculateDelta(current, next, key, group) {
+                const a = current?.[group]?.[key];
+                const b = next?.[group]?.[key];
+
+                if (typeof a !== 'number' || typeof b !== 'number') return null;
+
+                return b - a;
+            }
+
+            classifyTrend(delta, positiveLabel, negativeLabel, stableLabel = 'stable') {
+                if (delta === null) return 'unknown';
+                if (delta > 3) return positiveLabel;
+                if (delta < -3) return negativeLabel;
+                return stableLabel;
+            }
+
+            buildBridge(current, next) {
+                const hrvDelta = this.calculateDelta(current, next, 'hrv', 'biometrics');
+                const sleepDelta = this.calculateDelta(current, next, 'sleepScore', 'biometrics');
+                const moodDelta = this.calculateDelta(current, next, 'moodScore', 'emotion');
+                const recoveryDelta = this.calculateDelta(current, next, 'recoveryScore', 'biometrics');
+
+                return {
+                    from: current.date,
+                    to: next.date,
+
+                    deltas: {
+                        hrvDelta,
+                        sleepDelta,
+                        moodDelta,
+                        recoveryDelta
+                    },
+
+                    interpretation: {
+                        biologicalTrend: this.classifyTrend(
+                            recoveryDelta,
+                            'recovery_improving',
+                            'recovery_declining',
+                            'recovery_stable'
+                        ),
+
+                        emotionalTrend: this.classifyTrend(
+                            moodDelta,
+                            'emotional_softening',
+                            'emotional_tension',
+                            'emotional_stable'
+                        ),
+
+                        nervousSystemTrend: this.classifyTrend(
+                            hrvDelta,
+                            'more_regulated',
+                            'more_strained',
+                            'neutral'
+                        )
+                    },
+
+                    bridgeStrength: this.calculateBridgeStrength({
+                        hrvDelta,
+                        sleepDelta,
+                        moodDelta,
+                        recoveryDelta
+                    }),
+
+                    whisper: this.generateWhisper({
+                        hrvDelta,
+                        sleepDelta,
+                        moodDelta,
+                        recoveryDelta
+                    })
+                };
+            }
+
+            calculateBridgeStrength(deltas) {
+                const values = Object.values(deltas).filter(v => typeof v === 'number');
+
+                if (!values.length) return 0;
+
+                const positiveSignals = values.filter(v => v > 0).length;
+                return Number((positiveSignals / values.length).toFixed(2));
+            }
+
+            generateWhisper({ hrvDelta, sleepDelta, moodDelta, recoveryDelta }) {
+                const parts = [];
+
+                if (hrvDelta > 3) parts.push('HRV yükseldi');
+                if (hrvDelta < -3) parts.push('HRV hassaslaştı');
+
+                if (sleepDelta > 3) parts.push('uyku toparlandı');
+                if (sleepDelta < -3) parts.push('uyku dalgalandı');
+
+                if (moodDelta > 3) parts.push('duygusal ton yumuşadı');
+                if (moodDelta < -3) parts.push('duygusal yük arttı');
+
+                if (recoveryDelta > 3) parts.push('toparlanma güçlendi');
+                if (recoveryDelta < -3) parts.push('beden daha fazla destek istedi');
+
+                if (!parts.length) {
+                    return 'Bugünün halkası dünle sakin bir süreklilik içinde kaldı.';
+                }
+
+                return `${parts.join(', ')}.`;
+            }
+
+            buildMap() {
+                return this.history.map((node, index) => {
+                    const next = this.history[index + 1];
+
+                    return {
+                        node,
+                        bridgeToNext: next ? this.buildBridge(node, next) : null
+                    };
+                });
+            }
+        }
+
+        // Concentric rings generator function
+        function createRing(biometrics) {
+            const { hrv, sleepScore, recoveryScore, breathDepth } = biometrics;
+            
+            const size = 110;
+            const center = size / 2;
+            
+            const getStrokeDash = (value, radius) => {
+                const circumference = 2 * Math.PI * radius;
+                const strokeDashoffset = circumference - (value / 100) * circumference;
+                return `stroke-dasharray="${circumference}" stroke-dashoffset="${strokeDashoffset}"`;
+            };
+            
+            return `
+                <div class="ring-visualizer" style="width: ${size}px; height: ${size}px;">
+                    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+                        <!-- Concentric Background circles -->
+                        <circle cx="${center}" cy="${center}" r="44" stroke="rgba(255,255,255,0.02)" stroke-width="3" fill="none" />
+                        <circle cx="${center}" cy="${center}" r="34" stroke="rgba(255,255,255,0.02)" stroke-width="3" fill="none" />
+                        <circle cx="${center}" cy="${center}" r="24" stroke="rgba(255,255,255,0.02)" stroke-width="3" fill="none" />
+                        <circle cx="${center}" cy="${center}" r="14" stroke="rgba(255,255,255,0.02)" stroke-width="3" fill="none" />
+                        
+                        <!-- Concentric Active Metrics rings -->
+                        <!-- HRV: Cyan -->
+                        <circle cx="${center}" cy="${center}" r="44" stroke="var(--hrv-color)" stroke-width="3" fill="none" 
+                            class="metric-ring" ${getStrokeDash(Math.min(100, hrv), 44)} stroke-linecap="round" transform="rotate(-90 ${center} ${center})" />
+                        
+                        <!-- Sleep: Purple -->
+                        <circle cx="${center}" cy="${center}" r="34" stroke="var(--sleep-color)" stroke-width="3" fill="none" 
+                            class="metric-ring" ${getStrokeDash(Math.min(100, sleepScore), 34)} stroke-linecap="round" transform="rotate(-90 ${center} ${center})" />
+                        
+                        <!-- Recovery: Gold -->
+                        <circle cx="${center}" cy="${center}" r="24" stroke="var(--recovery-color)" stroke-width="3" fill="none" 
+                            class="metric-ring" ${getStrokeDash(Math.min(100, recoveryScore), 24)} stroke-linecap="round" transform="rotate(-90 ${center} ${center})" />
+                        
+                        <!-- Breath: Emerald -->
+                        <circle cx="${center}" cy="${center}" r="14" stroke="var(--breath-color)" stroke-width="3" fill="none" 
+                            class="metric-ring" ${getStrokeDash(Math.min(100, breathDepth), 14)} stroke-linecap="round" transform="rotate(-90 ${center} ${center})" />
+                    </svg>
+                </div>
+            `;
+        }
+
+        /**
+         * ==========================================================================
+         * 💾 DATA ARCHIVE: TEMPORAL HISTORY SEED WITH ATMOSPHERES (V28.3)
+         * ==========================================================================
+         */
+        const historySeed = [
+            {
+                date: '2026-03-04',
+                biometrics: {
+                    hrv: 62,
+                    sleepScore: 78,
+                    recoveryScore: 71,
+                    breathDepth: 64,
+                    nervousSystemState: 'regulated'
+                },
+                emotion: {
+                    primary: 'calm',
+                    secondary: 'reflective',
+                    moodScore: 74,
+                    emotionalShift: 'from_tension_to_softness'
+                },
+                ritual: {
+                    dominantRitual: 'thermal-reset',
+                    intensity: 0.68,
+                    bodyFocus: ['psoas', 'diaphragm', 'ankle-chain'],
+                    contraindications: []
+                },
+                environment: {
+                    location: 'Podgorica',
+                    weatherMood: 'cool-evening',
+                    lightTone: 'low-gold',
+                    scentProfile: 'cedar-mineral'
+                },
+                diarist: {
+                    whisper: 'Bugün beden daha yavaş açıldı; nefes derinleştiğinde halka sakinleşti.',
+                    tone: 'soft-observational'
+                },
+                atmosphere: {
+                    coherence: 0.72,
+                    nervousSystemLoad: 0.45,
+                    emotionalTemperature: 'cool-still',
+                    recoveryField: 'ascending'
+                }
+            },
+            {
+                date: '2026-03-05',
+                biometrics: {
+                    hrv: 68,
+                    sleepScore: 74,
+                    recoveryScore: 76,
+                    breathDepth: 68,
+                    nervousSystemState: 'regulated'
+                },
+                emotion: {
+                    primary: 'centered',
+                    secondary: 'serene',
+                    moodScore: 83,
+                    emotionalShift: 'from_softness_to_centeredness'
+                },
+                ritual: {
+                    dominantRitual: 'mineral-infusion',
+                    intensity: 0.72,
+                    bodyFocus: ['spine', 'shoulders'],
+                    contraindications: []
+                },
+                environment: {
+                    location: 'Podgorica',
+                    weatherMood: 'misty-morning',
+                    lightTone: 'diffused-silver',
+                    scentProfile: 'vetiver-moss'
+                },
+                diarist: {
+                    whisper: 'HRV yükseldi, uyku hafif dalgalandı; buna rağmen sinir sistemi daha regüle görünüyor.',
+                    tone: 'soft-observational'
+                },
+                atmosphere: {
+                    coherence: 0.78,
+                    nervousSystemLoad: 0.38,
+                    emotionalTemperature: 'warm-still',
+                    recoveryField: 'ascending'
+                }
+            },
+            {
+                date: '2026-03-06',
+                biometrics: {
+                    hrv: 64,
+                    sleepScore: 86,
+                    recoveryScore: 82,
+                    breathDepth: 72,
+                    nervousSystemState: 'restored'
+                },
+                emotion: {
+                    primary: 'rested',
+                    secondary: 'focused',
+                    moodScore: 80,
+                    emotionalShift: 'deep_restoration_integration'
+                },
+                ritual: {
+                    dominantRitual: 'sound-bath',
+                    intensity: 0.60,
+                    bodyFocus: ['amygdala', 'spine-alignment'],
+                    contraindications: []
+                },
+                environment: {
+                    location: 'Budva',
+                    weatherMood: 'sunny-sea-breeze',
+                    lightTone: 'warm-amber',
+                    scentProfile: 'myrrh-sea-salt'
+                },
+                diarist: {
+                    whisper: 'Derin uyku döngüleri toparlandı; beden dinginlik içinde entegre oluyor.',
+                    tone: 'peaceful-observational'
+                },
+                atmosphere: {
+                    coherence: 0.85,
+                    nervousSystemLoad: 0.28,
+                    emotionalTemperature: 'deep-rest',
+                    recoveryField: 'stable'
+                }
+            },
+            {
+                date: '2026-03-07',
+                biometrics: {
+                    hrv: 72,
+                    sleepScore: 82,
+                    recoveryScore: 89,
+                    breathDepth: 78,
+                    nervousSystemState: 'restored'
+                },
+                emotion: {
+                    primary: 'vital',
+                    secondary: 'clear-minded',
+                    moodScore: 89,
+                    emotionalShift: 'from_rest_to_activation'
+                },
+                ritual: {
+                    dominantRitual: 'cryo-kinetic-reset',
+                    intensity: 0.85,
+                    bodyFocus: ['quadriceps', 'thoracic-chain', 'fascia'],
+                    contraindications: []
+                },
+                environment: {
+                    location: 'Budva',
+                    weatherMood: 'clear-afternoon',
+                    lightTone: 'piercing-gold',
+                    scentProfile: 'pine-ozonic'
+                },
+                diarist: {
+                    whisper: 'Soğuk terapi sonrasında toparlanma tepe noktaya ulaştı; canlanma dalgası vücuda yayıldı.',
+                    tone: 'reinvigorated-precise'
+                },
+                atmosphere: {
+                    coherence: 0.94,
+                    nervousSystemLoad: 0.18,
+                    emotionalTemperature: 'vibrant-glow',
+                    recoveryField: 'ascending'
+                }
+            }
+        ];
+
+        // Global variables holding calculated memory data
+        let memoryMap = [];
+
+        /**
+         * ==========================================================================
+         * 🌀 TEMPORAL ATMOSPHERE ENGINE (Phase 28.3 Mutation Module)
+         * ==========================================================================
+         */
+        class TemporalAtmosphereEngine {
+            static updateAtmosphere(atmosphere) {
+                if (!atmosphere) return;
+
+                console.log("🌀 [AtmosphereEngine] Ambient shift initiated:", atmosphere);
+
+                const root = document.documentElement;
+
+                // 1. Dynamic Background Aura Gradient
+                let bgAura = 'rgba(212, 175, 55, 0.03)'; // Default gold
+                if (atmosphere.emotionalTemperature === 'cool-still') {
+                    bgAura = 'rgba(0, 229, 255, 0.02)'; // Cool Cyan
+                } else if (atmosphere.emotionalTemperature === 'deep-rest') {
+                    bgAura = 'rgba(168, 85, 247, 0.02)'; // Purple Calm
+                } else if (atmosphere.emotionalTemperature === 'vibrant-glow') {
+                    bgAura = 'rgba(16, 185, 129, 0.03)'; // Green Vitality
+                } else if (atmosphere.emotionalTemperature === 'warm-still') {
+                    bgAura = 'rgba(212, 175, 55, 0.03)'; // Warm Amber
+                }
+                root.style.setProperty('--santis-bg-aura', bgAura);
+
+                // 2. Ambient Breathing Animation Speed
+                // high coherence + low load = very slow breathing (8s cycle)
+                // low coherence + high load = faster breathing (3.5s cycle)
+                const breathDuration = 8 - (atmosphere.nervousSystemLoad * 4.5);
+                root.style.setProperty('--santis-breathing-speed', `${breathDuration.toFixed(2)}s`);
+
+                // 3. Ring Glow Intensity based on Coherence
+                const glowSize = Math.max(2, Math.round(atmosphere.coherence * 8));
+                root.style.setProperty('--santis-active-glow', `${glowSize}px`);
+                
+                let glowColor = 'rgba(212, 175, 55, 0.6)'; // Gold glow default
+                if (atmosphere.emotionalTemperature === 'cool-still') glowColor = 'rgba(0, 229, 255, 0.7)';
+                if (atmosphere.emotionalTemperature === 'deep-rest') glowColor = 'rgba(168, 85, 247, 0.7)';
+                if (atmosphere.emotionalTemperature === 'vibrant-glow') glowColor = 'rgba(16, 185, 129, 0.7)';
+                root.style.setProperty('--santis-active-glow-color', glowColor);
+
+                // 4. Bridge Flow Direction and Speed
+                let flowSpeed = '0s';
+                let flowDirection = 'normal';
+
+                if (atmosphere.recoveryField === 'ascending') {
+                    flowSpeed = '2.2s';
+                    flowDirection = 'reverse'; // Flows upward representing recovery ascending
+                } else if (atmosphere.recoveryField === 'descending') {
+                    flowSpeed = '2.8s';
+                    flowDirection = 'normal';  // Flows downward
+                } else if (atmosphere.recoveryField === 'stable') {
+                    flowSpeed = '0s'; // Steady static kilit
+                }
+
+                root.style.setProperty('--santis-bridge-flow-speed', flowSpeed);
+                root.style.setProperty('--santis-bridge-flow-direction', flowDirection);
+
+                // Update flow state on DOM
+                document.querySelectorAll('.context-bridge').forEach(bridge => {
+                    if (flowSpeed !== '0s') {
+                        bridge.classList.add('is-flowing');
+                    } else {
+                        bridge.classList.remove('is-flowing');
+                    }
+                });
+            }
+        }
+
+        // Render functions
+        function renderTimeline() {
+            const timelineFlow = document.getElementById('timeline-flow');
+            timelineFlow.innerHTML = '';
+            
+            memoryMap.forEach(({ node, bridgeToNext }, index) => {
+                const dayNodeId = `node-${node.date}`;
+                
+                // Day Node HTML
+                const dayEl = document.createElement('div');
+                dayEl.id = dayNodeId;
+                dayEl.className = 'day-node transition-all-mid';
+                dayEl.innerHTML = `
+                    <div class="day-meta">
+                        <div class="day-label">${formatDate(node.date)}</div>
+                        <div class="day-subinfo">Konum: ${node.environment.location}</div>
+                        <span class="day-state-tag tag-${node.biometrics.nervousSystemState}">
+                            ${node.biometrics.nervousSystemState}
+                        </span>
+                    </div>
+                    
+                    ${createRing(node.biometrics)}
+                `;
+                
+                // Click behavior for Day Node
+                dayEl.addEventListener('click', () => {
+                    selectNode(node.date, index);
+                });
+                
+                timelineFlow.appendChild(dayEl);
+                
+                // Connection Bridge HTML if next exists
+                if (bridgeToNext) {
+                    const bridgeId = `bridge-${node.date}-to-${bridgeToNext.to}`;
+                    const whisper = bridgeToNext.whisper || '';
+                    
+                    const bridgeWrapper = document.createElement('div');
+                    bridgeWrapper.className = 'context-bridge-wrapper';
+                    bridgeWrapper.innerHTML = `
+                        <div 
+                            id="${bridgeId}"
+                            class="context-bridge" 
+                            data-relationship="${whisper}" 
+                            data-strength="${bridgeToNext.bridgeStrength}"
+                            title="${whisper}">
+                        </div>
+                    `;
+                    
+                    // Click behavior for Bridge
+                    bridgeWrapper.querySelector('.context-bridge').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        selectBridge(bridgeToNext, index);
+                    });
+                    
+                    timelineFlow.appendChild(bridgeWrapper);
+                }
+            });
+        }
+
+        async function requestAureliaWhisper(memoryNode) {
+            try {
+                const response = await fetch('/api/v1/aurelia/whisper', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        date: memoryNode.date,
+                        biometrics: {
+                            hrv: memoryNode.biometrics.hrv,
+                            sleepScore: memoryNode.biometrics.sleepScore,
+                            recoveryScore: memoryNode.biometrics.recoveryScore,
+                            breathDepth: memoryNode.biometrics.breathDepth
+                        },
+                        emotion: {
+                            primary: memoryNode.emotion.primary,
+                            moodScore: memoryNode.emotion.moodScore
+                        },
+                        ritual: {
+                            dominantRitual: memoryNode.ritual.dominantRitual
+                        }
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Aurelia whisper request failed');
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.warn('⚠️ [Aurelia Bypass] Live endpoint unavailable, falling back to static diarist archive:', error.message);
+                return {
+                    whisper: memoryNode.diarist.whisper,
+                    tone: memoryNode.diarist.tone,
+                    risk: 'low',
+                    source: 'static-archive'
+                };
+            }
+        }
+
+        // Selected actions
+        async function selectNode(date, index) {
+            // Remove active classes
+            document.querySelectorAll('.day-node').forEach(el => el.classList.remove('is-active'));
+            document.querySelectorAll('.context-bridge').forEach(el => el.classList.remove('is-active'));
+            
+            const activeNode = document.getElementById(`node-${date}`);
+            if (activeNode) activeNode.classList.add('is-active');
+            
+            const item = memoryMap[index].node;
+            renderNodeDetails(item);
+
+            // Trigger Atmospheric shift based on selected day's climate
+            TemporalAtmosphereEngine.updateAtmosphere(item.atmosphere);
+
+            // Live fetch trigger with fallback
+            try {
+                const liveData = await requestAureliaWhisper(item);
+                const whisperBox = document.querySelector('.whisper-text');
+                const whisperTone = document.querySelector('.whisper-tone');
+                if (whisperBox && liveData?.whisper) {
+                    whisperBox.textContent = liveData.whisper;
+                    if (whisperTone) {
+                        whisperTone.textContent = `Mizaç: ${liveData.tone} | Kaynak: ${liveData.source}`;
+                    }
+                }
+            } catch (e) {
+                // gracefully fallback to rendering diarist data (already done by renderNodeDetails)
+            }
+        }
+
+
+        function selectBridge(bridgeData, index) {
+            // Remove active classes
+            document.querySelectorAll('.day-node').forEach(el => el.classList.remove('is-active'));
+            document.querySelectorAll('.context-bridge').forEach(el => el.classList.remove('is-active'));
+            
+            const activeBridge = document.getElementById(`bridge-${bridgeData.from}-to-${bridgeData.to}`);
+            if (activeBridge) activeBridge.classList.add('is-active');
+            
+            renderBridgeDetails(bridgeData);
+
+            // Bridge selection creates an intermediate atmosphere blend
+            const startAtmosphere = memoryMap[index].node.atmosphere;
+            const endAtmosphere = memoryMap[index + 1].node.atmosphere;
+            
+            const blendedAtmosphere = {
+                coherence: Number(((startAtmosphere.coherence + endAtmosphere.coherence) / 2).toFixed(2)),
+                nervousSystemLoad: Number(((startAtmosphere.nervousSystemLoad + endAtmosphere.nervousSystemLoad) / 2).toFixed(2)),
+                emotionalTemperature: startAtmosphere.emotionalTemperature, // Keep start tone
+                recoveryField: startAtmosphere.recoveryField
+            };
+            
+            TemporalAtmosphereEngine.updateAtmosphere(blendedAtmosphere);
+        }
+
+        // Details builders
+        function renderNodeDetails(node) {
+            const container = document.getElementById('details-panel-container');
+            
+            // Generate Somatic Chain Tags
+            const somaticTags = node.ritual.bodyFocus.map(focus => `<span class="small-tag">${focus}</span>`).join('');
+            
+            container.innerHTML = `
+                <div class="detail-header">
+                    <div class="detail-title">
+                        <h2>${formatDate(node.date)}</h2>
+                        <p>${node.environment.location} — ${node.environment.weatherMood}</p>
+                    </div>
+                    <span class="day-state-tag tag-${node.biometrics.nervousSystemState}">
+                        ${node.biometrics.nervousSystemState}
+                    </span>
+                </div>
+                
+                <!-- Diarist Whisper Box -->
+                <div class="whisper-box">
+                    <p class="whisper-text">${node.diarist.whisper}</p>
+                    <div class="whisper-tone">Mizaç: ${node.diarist.tone}</div>
+                </div>
+
+                <!-- Biyometrik Veriler -->
+                <div class="detail-section">
+                    <div class="detail-section-title">Temporal Biometrics</div>
+                    <div class="stat-bars-container">
+                        <div class="stat-bar-item">
+                            <div class="stat-bar-label">
+                                <span>HRV (Kalp Ritmi Değişkenliği)</span>
+                                <span>${node.biometrics.hrv} ms</span>
+                            </div>
+                            <div class="stat-bar-track">
+                                <div class="stat-bar-fill" style="width: ${node.biometrics.hrv}%; background-color: var(--hrv-color)"></div>
+                            </div>
+                        </div>
+                        <div class="stat-bar-item">
+                            <div class="stat-bar-label">
+                                <span>Uyku Kalitesi (Sleep Score)</span>
+                                <span>${node.biometrics.sleepScore}%</span>
+                            </div>
+                            <div class="stat-bar-track">
+                                <div class="stat-bar-fill" style="width: ${node.biometrics.sleepScore}%; background-color: var(--sleep-color)"></div>
+                            </div>
+                        </div>
+                        <div class="stat-bar-item">
+                            <div class="stat-bar-label">
+                                <span>Beden Yenilenmesi (Recovery)</span>
+                                <span>${node.biometrics.recoveryScore}%</span>
+                            </div>
+                            <div class="stat-bar-track">
+                                <div class="stat-bar-fill" style="width: ${node.biometrics.recoveryScore}%; background-color: var(--recovery-color)"></div>
+                            </div>
+                        </div>
+                        <div class="stat-bar-item">
+                            <div class="stat-bar-label">
+                                <span>Nefes Derinliği (Breath Depth)</span>
+                                <span>${node.biometrics.breathDepth}%</span>
+                            </div>
+                            <div class="stat-bar-track">
+                                <div class="stat-bar-fill" style="width: ${node.biometrics.breathDepth}%; background-color: var(--breath-color)"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Temporal Atmosphere Engine parameters inside UI -->
+                <div class="detail-section">
+                    <div class="detail-section-title">Nervous System Climate (Atmosphere)</div>
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <div class="info-card-label">Tutarlılık (Coherence)</div>
+                            <div class="info-card-val" style="color: var(--gold);">${Math.round(node.atmosphere.coherence * 100)}%</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-label">Sistem Yükü (Load)</div>
+                            <div class="info-card-val">${Math.round(node.atmosphere.nervousSystemLoad * 100)}%</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-label">İklim Sıcaklığı</div>
+                            <div class="info-card-val" style="text-transform: capitalize;">${node.atmosphere.emotionalTemperature.replace('-', ' ')}</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-label">Toparlanma Yönü</div>
+                            <div class="info-card-val" style="text-transform: capitalize;">${node.atmosphere.recoveryField}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ritüel ve Kas Odakları -->
+                <div class="detail-section">
+                    <div class="detail-section-title">Ritual & Somatic Focus</div>
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <div class="info-card-label">Dominant Ritüel</div>
+                            <div class="info-card-val" style="color: var(--gold); text-transform: capitalize;">
+                                ${node.ritual.dominantRitual.replace('-', ' ')}
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-label">Ritüel Yoğunluğu</div>
+                            <div class="info-card-val">${Math.round(node.ritual.intensity * 100)}%</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-card-label" style="margin-bottom: 8px;">Odaklanılan Somatik Zincir</div>
+                        <div class="flex-tags">
+                            ${somaticTags}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Çevresel Atmosfer -->
+                <div class="detail-section">
+                    <div class="detail-section-title">Atmospheric Resonance</div>
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <div class="info-card-label">Işık Frekansı (Tone)</div>
+                            <div class="info-card-val">${node.environment.lightTone}</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-label">Scent Profile (Koku)</div>
+                            <div class="info-card-val">${node.environment.scentProfile}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Re-apply reveal animation
+            container.classList.remove('santis-refracted');
+            void container.offsetWidth; // Trigger reflow
+            container.classList.add('santis-refracted');
+        }
+
+        function renderBridgeDetails(bridge) {
+            const container = document.getElementById('details-panel-container');
+            
+            const formatDelta = (val) => {
+                if (val === null || val === undefined) return '-';
+                return val > 0 ? `+${val}` : `${val}`;
+            };
+            
+            const getDeltaClass = (val) => {
+                if (val > 0) return 'text-emerald-400';
+                if (val < 0) return 'text-red-400';
+                return 'text-white/60';
+            };
+
+            container.innerHTML = `
+                <div class="detail-header">
+                    <div class="detail-title">
+                        <h2>Kuantum Bağlantı Köprüsü</h2>
+                        <p>${formatDate(bridge.from)} &mdash; ${formatDate(bridge.to)}</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 0.65rem; color: var(--gray-subtle); letter-spacing: 1px; text-transform: uppercase;">Bridge Strength</div>
+                        <div style="font-size: 1.4rem; color: var(--gold); font-weight: 300;">${Math.round(bridge.bridgeStrength * 100)}%</div>
+                    </div>
+                </div>
+
+                <!-- Diarist Bridge Whisper -->
+                <div class="whisper-box" style="border-color: rgba(0, 229, 255, 0.15); background: linear-gradient(135deg, rgba(0, 229, 255, 0.02) 0%, transparent 100%);">
+                    <p class="whisper-text" style="color: #fff;">${bridge.whisper}</p>
+                    <div class="whisper-tone" style="color: #00e5ff;">Köprü Tespiti: Süreklilik Analizi</div>
+                </div>
+
+                <!-- Delta Analizleri -->
+                <div class="detail-section">
+                    <div class="detail-section-title">Biyometrik Değişimler (Deltas)</div>
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <div class="info-card-label">HRV Delta</div>
+                            <div class="info-card-val ${getDeltaClass(bridge.deltas.hrvDelta)}">
+                                ${formatDelta(bridge.deltas.hrvDelta)} ms
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-label">Uyku Puanı Delta</div>
+                            <div class="info-card-val ${getDeltaClass(bridge.deltas.sleepDelta)}">
+                                ${formatDelta(bridge.deltas.sleepDelta)}%
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-label">Toparlanma Delta</div>
+                            <div class="info-card-val ${getDeltaClass(bridge.deltas.recoveryDelta)}">
+                                ${formatDelta(bridge.deltas.recoveryDelta)}%
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-label">Duygu Puanı Delta</div>
+                            <div class="info-card-val ${getDeltaClass(bridge.deltas.moodDelta)}">
+                                ${formatDelta(bridge.deltas.moodDelta)}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trend Yorumlamaları -->
+                <div class="detail-section">
+                    <div class="detail-section-title">Semantik Eğilimler (Trends)</div>
+                    <div class="info-grid" style="grid-template-columns: 1fr;">
+                        <div class="info-card" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div class="info-card-label" style="margin:0;">Biyolojik Eğilim (Biological Trend)</div>
+                            </div>
+                            <span class="small-tag" style="background: rgba(212,175,55,0.1); color: var(--gold); border-color: rgba(212,175,55,0.2);">
+                                ${bridge.interpretation.biologicalTrend.replace(/_/g, ' ')}
+                            </span>
+                        </div>
+                        
+                        <div class="info-card" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div class="info-card-label" style="margin:0;">Duygusal Eğilim (Emotional Trend)</div>
+                            </div>
+                            <span class="small-tag" style="background: rgba(168,85,247,0.1); color: #c084fc; border-color: rgba(168,85,247,0.2);">
+                                ${bridge.interpretation.emotionalTrend.replace(/_/g, ' ')}
+                            </span>
+                        </div>
+
+                        <div class="info-card" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div class="info-card-label" style="margin:0;">Sinir Sistemi Eğilimi (Nervous System)</div>
+                            </div>
+                            <span class="small-tag" style="background: rgba(16,185,129,0.1); color: #34d399; border-color: rgba(16,185,129,0.2);">
+                                ${bridge.interpretation.nervousSystemTrend.replace(/_/g, ' ')}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Re-apply reveal animation
+            container.classList.remove('santis-refracted');
+            void container.offsetWidth; // Trigger reflow
+            container.classList.add('santis-refracted');
+        }
+
+        // Helper: Format Date beautifully
+        function formatDate(dateStr) {
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('tr-TR', options).toUpperCase();
+        }
+
+        // Boot
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log("⏳ [MemoryMapEngine] Sovereign OS V28 bootloading...");
+            
+            // 1. Initialize Engine with Seed Data
+            const engine = new MemoryMapEngine(historySeed);
+            memoryMap = engine.buildMap();
+            
+            // 2. Render UI
+            renderTimeline();
+            
+            // 3. Auto-select first day node
+            if (memoryMap.length > 0) {
+                setTimeout(() => {
+                    selectNode(memoryMap[0].node.date, 0);
+                }, 200);
+            }
+        });
+    </script>
+</body>
+</html>
