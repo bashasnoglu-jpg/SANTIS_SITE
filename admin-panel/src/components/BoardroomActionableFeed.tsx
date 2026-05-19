@@ -108,23 +108,25 @@ export default function BoardroomActionableFeed() {
   }, []);
 
   useEffect(() => {
-    if (latestMessage?.type !== 'OVERRIDE_APPLY_ACK' || !latestMessage.recommendationId) {
+    const msg = latestMessage as any;
+    if (msg?.type !== 'OVERRIDE_APPLY_ACK' || !msg.recommendationId) {
       return;
     }
 
-    setSealedIds((prev) => new Set(prev).add(latestMessage.recommendationId));
-    setBusyId((current) => current === latestMessage.recommendationId ? null : current);
+    setSealedIds((prev) => new Set(prev).add(msg.recommendationId));
+    setBusyId((current) => current === msg.recommendationId ? null : current);
   }, [latestMessage]);
 
   useEffect(() => {
-    if (latestMessage?.type !== 'FEEDBACK_CALCULATED' || !latestMessage.decisionId) {
+    const msg = latestMessage as any;
+    if (msg?.type !== 'FEEDBACK_CALCULATED' || !msg.decisionId) {
       return;
     }
 
-    if (typeof latestMessage.feedbackScore === 'number') {
+    if (typeof msg.feedbackScore === 'number') {
       setFeedbackById((prev) => ({
         ...prev,
-        [latestMessage.decisionId]: latestMessage.feedbackScore,
+        [msg.decisionId]: msg.feedbackScore,
       }));
     }
   }, [latestMessage]);
