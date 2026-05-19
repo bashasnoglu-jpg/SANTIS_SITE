@@ -7,8 +7,8 @@
    ========================================================================== */
 
 /* ÇEKİRDEK SİNİR SİSTEMİ BAĞLANTILARI */
-/* ✨ TAILWIND v4 ENGINE — Sovereign Utility Sistemi */
-@import url('tailwind-input.css');
+/* ✨ TAILWIND ENGINE — Compiled runtime utility layer */
+@import url('output.css');
 
 @import url('santis-v6/santis.reset.css');
 @import url('santis-v6/santis.tokens.css');
