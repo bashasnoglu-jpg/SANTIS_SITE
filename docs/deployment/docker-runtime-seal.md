@@ -274,6 +274,37 @@ node scripts/active/audit-production-env.mjs
 
 This script automatically scans all tracked files in the workspace against regex signatures for Stripe live secret keys (`sk_live_...`), webhook signing secrets (`whsec_live_...`), and generic hardcoded keys, failing the deployment pipeline if any leak is detected.
 
+---
+
+## 💾 11. PostgreSQL Backup & Restore Protocol (TD-008.7)
+
+To ensure high-availability and prevent data loss, Santis OS utilizes a zero-dependency, automated backup and restore protocol designed to execute inside unprivileged container boundaries.
+
+### 1. Automated Backup (`backup-db.mjs`)
+Database dumps are generated without stopping services, compressed using gzip on-the-fly, and saved locally with timestamped filenames:
+
+```bash
+node scripts/active/backup-db.mjs
+```
+
+**Key Features**:
+- **Zero-downtime**: Executes `pg_dump` asynchronously without locking active schemas.
+- **Auto-Rotation**: Keeps only the last **7 daily backups** under the `./backups` directory, deleting older copies automatically to prevent disk overflow.
+
+### 2. Disaster Recovery & Restore (`restore-db.mjs`)
+To restore persistent state, the recovery script accepts a target compressed archive path, safely terminates active sessions to prevent database locks, and streams the restored data stream:
+
+```bash
+node scripts/active/restore-db.mjs backups/santis_backup_YYYY-MM-DD-HH-MM-SS.sql.gz
+```
+
+**Execution Steps**:
+1. **Connection Termination**: Drops open client connections to the `santis` database.
+2. **Database Recreation**: Drops and recreates the target database container schema.
+3. **Decompressed Stream Restore**: Decodes the `.sql.gz` dump and streams it directly to the active `psql` shell.
+4. **Verification**: Executes integrity checks to confirm full persistent state recovery.
+
+
 
 
 
