@@ -43,31 +43,71 @@
         else pressureLevel = 0;
     }
 
-    // 🛡️ V38 OMNI-SCHEDULER: Global Read/Write Batching
+    // 🛡️ V38 OMNI-SCHEDULER: Global Read/Write Batching (RVS-1 Enforced)
     window.SantisDOM = {
         reads: [], writes: [], scheduled: false,
-        read(fn) { this.reads.push(fn); this.schedule(); },
-        write(fn) { this.writes.push(fn); this.schedule(); },
+        read(fn, context = "unknown") { this.reads.push({fn, context}); this.schedule(); },
+        write(fn, context = "unknown") { this.writes.push({fn, context}); this.schedule(); },
         schedule() {
             if (this.scheduled) return;
             this.scheduled = true;
             requestAnimationFrame((now) => {
                 updatePressure(now);
-                const reads = this.reads.slice(); const writes = this.writes.slice();
-                this.reads.length = 0; this.writes.length = 0; this.scheduled = false;
+                const reads = this.reads.splice(0, this.reads.length);
+                const writes = this.writes.splice(0, this.writes.length);
+                this.scheduled = false;
                 
                 this.phase = "read";
-                reads.forEach(fn => { try { fn(); } catch(e) {} });
+                reads.forEach(task => this.executeWithTelemetry(task, "read"));
 
                 this.phase = "write";
                 if (pressureLevel >= 2 && writes.length > 0) {
                     this.writes.push(...writes);
                     this.schedule();
                 } else {
-                    writes.forEach(fn => { try { fn(); } catch(e) {} });
+                    writes.forEach(task => this.executeWithTelemetry(task, "write"));
                 }
                 this.phase = "idle";
             });
+        },
+        executeWithTelemetry(task, type) {
+            const t0 = window.performance?.now ? performance.now() : Date.now();
+            try { task.fn(); } catch(e) { console.error(`🚨 [SantisDOM] Error in ${type} task (${task.context}):`, e); }
+            const duration = (window.performance?.now ? performance.now() : Date.now()) - t0;
+            
+            // Phase RVS-7 Hook: SantisDOM Telemetry Integration
+            if (duration > 16.6) {
+                console.warn(`⚠️ [RVS Telemetry] Jank detected: ${type} task '${task.context}' took ${duration.toFixed(2)}ms.`);
+                
+                const runtimeConfig = typeof window.getRuntimeConfig === 'function' ? window.getRuntimeConfig() : null;
+                const isEnabled = window.SANTIS_RVS_TELEMETRY_ENABLED !== false && 
+                                  runtimeConfig?.rvsTelemetryEnabled !== false;
+
+                if (isEnabled && typeof window.dispatchRvsTelemetry === 'function') {
+                    // Generate anonymous session token for Zero PII compliance
+                    window.SantisRvsSessionToken = window.SantisRvsSessionToken || 'anon_' + Math.random().toString(36).substring(2, 15);
+                    
+                    // Multi-layer path scrub to eliminate raw IDs, UUIDs, or email-like slugs for Zero PII compliance
+                    const scrubbedPath = window.location.pathname
+                        .replace(/\/\d+/g, '/:id')
+                        .replace(/\/[0-9a-f]{8,}(?=\/|$)/gi, '/:id')
+                        .replace(/\/[^/]*@[^/]*(?=\/|$)/g, '/:id');
+
+                    const envelope = {
+                        type: 'LAYOUT_REFLOW_ANOMALY',
+                        timestamp: Date.now(),
+                        sessionToken: window.SantisRvsSessionToken,
+                        normalizedPath: scrubbedPath,
+                        details: {
+                            targetNode: task.context || 'unknown',
+                            durationMs: parseFloat(duration.toFixed(2)),
+                            violatingProperty: type // read or write phase
+                        }
+                    };
+
+                    window.dispatchRvsTelemetry(envelope);
+                }
+            }
         }
     };
     
@@ -174,9 +214,16 @@
         // ══════════════════════════════════════════════════════════════════════
         // FAZ 0.6: GLOBAL MODULE AUTONOMY REGISTRY (V36 GOVERNANCE)
         // ══════════════════════════════════════════════════════════════════════
-        window.__SANTIS_VERSION__ = window.__SANTIS_VERSION__ || 'v36.0';
+        window.__SANTIS_VERSION__ = window.__SANTIS_VERSION__ || 'v11.2.7';
+        window.SANTIS_RUNTIME_VERSION = '11.2.7';
 
         const SOVEREIGN_REGISTRY = [
+            {
+                id: 'api',
+                selectors: ['body'], // Her zaman yükle
+                dependencies: ['/assets/js/api-client.js'],
+                loaded: !!window.SantisApi
+            },
             {
                 id: 'nav',
                 selectors: ['#navbar-container', '#santis-main-nav'],
@@ -212,6 +259,122 @@
                 selectors: ['body'],
                 dependencies: ['/assets/js/core/santis-cognitive-governor.js'],
                 loaded: false
+            },
+            {
+                id: 'aurelia',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/aurelia/orb.ts'],
+                isModule: true,
+                loaded: false
+            },
+            {
+                id: 'reveal',
+                selectors: ['.sovereign-reveal-item'],
+                dependencies: ['/assets/js/modules/santis-reveal-engine.js'],
+                loaded: false
+            },
+            {
+                id: 'atmosphere',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-atmosphere.js'],
+                loaded: false
+            },
+            {
+                id: 'vault',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-sovereign-vault.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
+                id: 'checkout-ceremony',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-checkout-ceremony.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
+                id: 'booking-modal',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-booking-modal.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
+                id: 'booking-availability',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-booking-availability.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
+                id: 'booking-confirmation-hold',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-booking-confirmation-hold.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
+                id: 'booking-ledger',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-booking-ledger.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
+                id: 'payment-eligibility',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-payment-eligibility.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
+                id: 'payment-readiness-ui',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-payment-readiness-ui.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
+                id: 'payment-readiness-ledger',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-payment-readiness-ledger.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
+                id: 'stripe-session-shell',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-stripe-session-shell.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
+                id: 'billing-session-adapter',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-billing-session-adapter.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
+                id: 'billing-session-status-ui',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-billing-session-status-ui.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
+                id: 'pricing-readiness',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-pricing-readiness.js'],
+                isModule: true,
+                loaded: false
+            },
+            {
+                id: 'journey',
+                selectors: ['body'],
+                dependencies: ['/assets/js/modules/santis-journey-orchestrator.js'],
+                loaded: false
             }
         ];
 
@@ -236,7 +399,7 @@
             }).catch(() => {});
         }
 
-        function loadScriptV36(src) {
+        function loadScriptV36(src, isModule = false) {
             return new Promise((resolve, reject) => {
                 if (document.querySelector(`script[src*="${src}"]`)) {
                     resolve();
@@ -244,6 +407,7 @@
                 }
                 const s = document.createElement('script');
                 s.src = src;
+                if (isModule || src.endsWith('.ts')) s.type = 'module';
                 s.defer = true;
                 s.onload = resolve;
                 s.onerror = reject;
@@ -253,6 +417,22 @@
 
         // 🧬 V40 DECISION MATRIX (SAFE VERSION)
         window.__SANTIS_DECISION_MATRIX__ ??= {
+            reveal: { priority: 110, critical: true },
+            vault: { priority: 109, critical: true },
+            "checkout-ceremony": { priority: 108, critical: true },
+            "booking-modal": { priority: 107, critical: true },
+            "booking-availability": { priority: 106, critical: true },
+            "booking-confirmation-hold": { priority: 105, critical: true },
+            "booking-ledger": { priority: 104, critical: true },
+            "pricing-readiness": { priority: 103.5, critical: true },
+            "payment-eligibility": { priority: 103, critical: true },
+            "payment-readiness-ui": { priority: 102, critical: true },
+            "payment-readiness-ledger": { priority: 101, critical: true },
+            "stripe-session-shell": { priority: 100, critical: true },
+            "billing-session-adapter": { priority: 99, critical: true },
+            "billing-session-status-ui": { priority: 98, critical: true },
+            journey: { priority: 97, critical: true },
+            atmosphere: { priority: 96, critical: true },
             nav: { priority: 100, critical: true },
             checkout: { priority: 90, critical: true },
             bento: { priority: 70, critical: true },
@@ -503,7 +683,7 @@
                 if (isPresent) {
                     await loadModuleOnce(module.id, async () => {
                         for (const src of module.dependencies) {
-                            await loadScriptV36(src);
+                            await loadScriptV36(src, module.isModule);
                         }
                     });
                 }

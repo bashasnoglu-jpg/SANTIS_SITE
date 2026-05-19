@@ -176,6 +176,76 @@
         }
     }
 
+    /* ── 1E. NAV ACTION — Sovereign CTA ── */
+    .santis-nav-cta {
+        margin-left: auto;
+        border: 1px solid var(--color-primary-muted-border);
+        color: var(--color-primary-muted-text);
+        padding: var(--spacing-sm) var(--spacing-xl);
+        border-radius: var(--radius-pill);
+        font-size: var(--text-sm);
+        font-family: var(--font-primary);
+        font-weight: 600;
+        text-decoration: none;
+        background: transparent;
+        transition: all var(--transition-duration-normal) var(--transition-easing-smooth);
+    }
+    
+    .santis-nav-cta:hover {
+        border-color: var(--lux-gold);
+        background: var(--color-primary-muted-bg-hover);
+        color: var(--color-primary-text);
+    }
+
+    /* ── 1F. SPATIAL PKG CARD (TOKEN-ONLY) ── */
+    .santis-pkg-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 440px;
+        background-color: var(--color-surface-glass);
+        -webkit-backdrop-filter: blur(var(--blur-md));
+        backdrop-filter: blur(var(--blur-md));
+        
+        border: 1px solid var(--color-border-glass);
+        border-radius: var(--radius-xl);
+        padding: var(--spacing-2xl);
+        
+        /* 3D Performans & Kinetic Hints */
+        will-change: transform, opacity;
+        transform-style: preserve-3d;
+        
+        /* Fallback: JS yüklenmezse kartlar görünür kalsın */
+        opacity: 1;
+        transform: perspective(1200px) translateZ(0);
+
+        transition: border-color var(--duration-normal) var(--ease-lux),
+                    box-shadow var(--duration-normal) var(--ease-lux);
+    }
+
+    .santis-pkg-card:hover {
+        border-color: var(--lux-gold-dim);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .santis-pkg-title {
+        color: var(--color-text);
+        font-family: var(--font-display);
+        font-size: var(--text-2xl);
+        font-weight: var(--font-weight-bold);
+        margin: 0;
+        letter-spacing: 0.05em;
+    }
+
+    .santis-pkg-desc {
+        color: var(--color-text-muted);
+        font-family: var(--font-body);
+        font-size: var(--text-base);
+        line-height: var(--line-height-relaxed);
+        margin: 0;
+    }
+
     /* ── 2. V18 APEX SERVICE CARDS (EDITORIAL QUIET LUXURY) ── */
     .v18-card {
         position: relative;
@@ -370,4 +440,34 @@
             background: linear-gradient(to left, transparent 50%, rgba(6, 6, 8, 0.95) 100%);
         }
     }
+}
+
+/* ── SOVEREIGN REVEAL CEREMONY ── */
+.sovereign-reveal-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.sovereign-reveal-item.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay Utilites for Staggering */
+.reveal-delay-100 { transition-delay: 100ms; }
+.reveal-delay-200 { transition-delay: 200ms; }
+.reveal-delay-300 { transition-delay: 300ms; }
+.reveal-delay-400 { transition-delay: 400ms; }
+.reveal-delay-500 { transition-delay: 500ms; }
+
+/* Accessibility Guard */
+@media (prefers-reduced-motion: reduce) {
+  .sovereign-reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }

@@ -1,4 +1,10 @@
 packages:
-  - "apps/*"
-  - "packages/*"
+  - "packages/ui"
+  - "packages/sovereign-bus"
+  - "packages/openr"
+  - "packages/domain-schema"
+  - "packages/design-system"
+  - "packages/ui-tokens"
+  - "packages/gravity-ux-engine"
+  - "packages/event-dictionary"
   - "admin-panel"

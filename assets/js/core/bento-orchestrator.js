@@ -173,8 +173,9 @@ class BentoOrchestrator {
                 card.href = item.detailUrl || '#';
                 
                 // Manyetik ve Reveal sınıfları enjekte edildi
-                // FAZ 3.2: content-visibility çökmelerini engellemek için CSS sınıfına devrediyoruz
-                card.className = 'bento-card-v6 santis-magnetic santis-drag santis-virtual-node santis-await-reveal';
+                // Manyetik sınıf enjekte edildi, GSAP reveal için hazır
+                card.className = 'bento-card-v6 santis-magnetic santis-drag santis-virtual-node';
+
                 
                 // Sinematik Dalga Efekti (Staggered Delay)
                 card.style.transitionDelay = `${(globalIndex % 8) * 0.05}s`;
@@ -216,13 +217,6 @@ class BentoOrchestrator {
                     </div>
                 `;
                 
-                // DOM'a girdiği an Kuantum Görünürlük Kalkanını Çak (Opacity Lock Bypass)
-                setTimeout(() => {
-                    card.classList.add('is-revealed', 'revealed', 'active');
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0) rotateX(0deg)';
-                }, 50);
-                
                 // Observer'a ekle
                 this.virtualObserver.observe(card);
 
@@ -240,25 +234,26 @@ class BentoOrchestrator {
 
         console.log(`💎 [Omni-Orchestrator] ${payload.length} kart 0ms TBT ile (Chunking & Virtualization) aktarıldı.`);
 
-        // ─── SCROLL REVEAL: Kuantum Şelale Sensörü ───────────────────────────
-        // Kartlar ekrana girince sırayla yukarı süzülür (Fade-Up)
-        const revealObserver = new IntersectionObserver((entries, obs) => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                const card = entry.target;
-                // Kart görüş alanına girdiği anda revealed yap
-                card.classList.add('is-revealed');
-                obs.unobserve(card); // Bir kez çalışınca takibi bırak (CPU tasarrufu)
-            });
-        }, {
-            root: null,
-            rootMargin: '-40px 0px',   // Ekranın biraz içine girince tetikle
-            threshold: 0.05
-        });
+        // ─── SCROLL REVEAL: GSAP Staggered Reveal ───────────────────────────
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        // Görselsiz observer: tüm await-reveal kartları izlemeye al
-        document.querySelectorAll('.bento-card-v6.santis-await-reveal:not(.is-revealed)')
-            .forEach(card => revealObserver.observe(card));
+        if (!prefersReducedMotion && window.gsap && window.ScrollTrigger) {
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.from(".bento-card-v6", {
+                opacity: 0,
+                y: 28,
+                scale: 0.985,
+                duration: 0.8,
+                ease: "power3.out",
+                stagger: 0.08,
+                scrollTrigger: {
+                    trigger: "#santis-bento-universe",
+                    start: "top 82%",
+                    once: true
+                }
+            });
+        }
         // ─────────────────────────────────────────────────────────────────────
 
         // Kinetik motorun hesaplamalarını güncelle

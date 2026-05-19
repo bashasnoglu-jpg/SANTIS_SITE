@@ -1,61 +1,88 @@
-import React, { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
-import { Eye, Activity, Users } from 'lucide-react';
-import StatCard from './StatCard';
+import React from 'react';
+import { Eye, Activity, ShieldCheck } from 'lucide-react';
+import { useSovereignSocket } from '../../context/SovereignSocketContext';
+import DecisionMatrix from './DecisionMatrix';
+import RevenueIntelligence from './RevenueIntelligence';
+import StrategistJournal from './StrategistJournal';
+import PredictiveRadar from './PredictiveRadar';
+import SovereignStrategist from './SovereignStrategist';
+import SovereignArchive from './SovereignArchive';
+import SovereignSimulator from './SovereignSimulator';
 
-const GodsEye = () => {
-  const [activeUsers, setActiveUsers] = useState(0);
-  const [viewingServices, setViewingServices] = useState([]);
+/**
+ * 👁️ THE GOD'S EYE RADAR
+ * Merkezi SovereignSocket akışını kullanarak operasyonel verileri görselleştirir.
+ * Tüm otonom katmanların (Finans, Öngörü, Strateji, Arşiv) ana birleşme noktasıdır.
+ */
+export default function GodsEye() {
+  const { radarData } = useSovereignSocket();
 
-  useEffect(() => {
-    // Sadece Admin yetkisiyle Karargah'a baglan
-    const adminSocket = io(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:8080' : '/');
-
-    adminSocket.on('admin:radar_update', (ghosts) => {
-      setActiveUsers(ghosts.length);
-      const currentServices = ghosts.map(g => g[1].service);
-      setViewingServices(currentServices);
-    });
-
-    return () => adminSocket.disconnect();
-  }, []);
-
-  const hotService = viewingServices.length > 0 ? viewingServices[0] : 'Radar Sessiz';
+  // Radar verisi henüz gelmemişse 'Searching' durumunu gösteriyoruz
+  const lastEvent = radarData || { action: "Sovereign Radar Aranıyor...", timestamp: "--:--", ftrIndex: 1.0 };
+  const ftrScore = lastEvent.ftrIndex || 1.0;
+  const connectionStatus = radarData ? "Aktif (Sovereign Guard Kilitli)" : "Sinyal Bekleniyor...";
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 border border-santis-gold/20 p-6 rounded-xl bg-black/60 relative overflow-hidden fx-glow-soft-gold">
-      <div className="absolute top-0 left-0 w-full fx-divider-hairline-gold"></div>
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 layout-h-30px bg-santis-gold/20 blur-[30px] rounded-full"></div>
+    <div className="space-y-8 animate-in fade-in duration-1000">
       
-      <div className="md:col-span-2 mb-2 flex items-center justify-between">
-        <h2 className="text-xl font-bold text-white tracking-widest flex items-center gap-3 uppercase">
-          <Eye className="text-santis-gold animate-pulse fx-glow-medium-gold rounded-full" size={24} />
-          The God's Eye
-        </h2>
-        <span className="text-2xs text-santis-gold border border-santis-gold/30 bg-santis-gold/10 px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">
-          Live Radar
-        </span>
+      {/* ── ANA OPERASYONEL PANEL (God's Eye) ── */}
+      <div className="santis-pkg-card relative overflow-hidden bg-black/40 backdrop-blur-xl border border-white/5 p-6 rounded-2xl">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="santis-pkg-title flex items-center gap-3 text-white uppercase tracking-widest text-lg">
+            <Eye className="text-santis-gold animate-pulse" size={20} />
+            The God's Eye Radar
+          </h2>
+          <span className={`text-[10px] px-3 py-1 rounded-full uppercase tracking-tighter border ${radarData ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-red-500/10 border-red-500/30 text-red-400'}`}>
+            {connectionStatus}
+          </span>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* F_TR Metric Section */}
+          <div className="bg-white/5 border border-white/10 p-5 rounded-xl flex flex-col justify-center">
+              <div className="flex items-center gap-2 mb-2 text-white/50 text-xs uppercase tracking-widest">
+                  <ShieldCheck size={14} className="text-santis-gold" />
+                  F_TR Gerçeklik İndeksi
+              </div>
+              <div className="text-3xl font-serif text-white tracking-tighter">
+                  {ftrScore.toFixed(4)}
+              </div>
+              <div className="mt-2 text-[10px] text-white/30 italic">
+                  * Explanation Depth Priority Flow
+              </div>
+          </div>
+
+          {/* Live Event Log */}
+          <div className="bg-black/20 p-4 rounded-xl border border-white/5 max-h-[140px] overflow-hidden">
+              <div className="flex items-center gap-3 text-[11px] animate-in fade-in slide-in-from-right-2">
+                  <span className="text-santis-gold/50 font-mono">{lastEvent.timestamp}</span>
+                  <span className="text-white/70 truncate">{lastEvent.action}</span>
+                  <Activity size={10} className="ml-auto text-emerald-500/50" />
+              </div>
+              <div className="mt-4 text-[10px] text-white/20 uppercase tracking-widest">
+                  Son Otonom Olay İzleniyor
+              </div>
+          </div>
+        </div>
+
+        {/* Alt Katmanlar */}
+        <div className="mt-8 space-y-6">
+          <DecisionMatrix ftrScore={ftrScore} />
+          <RevenueIntelligence />
+        </div>
       </div>
 
-      <StatCard 
-        title="Canlı Ziyaretçi" 
-        value={activeUsers.toString()} 
-        icon={Users}
-        color={activeUsers > 0 ? "text-santis-gold" : "text-santis-muted"}
-        trend={activeUsers > 0 ? "up" : null}
-        trendValue={activeUsers > 0 ? "Radar Aktif" : "Sinyal Beklenmiyor"}
-      />
-      
-      <StatCard 
-        title="En Sıcak Ritüel" 
-        value={hotService.replace('massage-', '').replace(/-/g, ' ').toUpperCase()} 
-        icon={Activity} 
-        color={viewingServices.length > 0 ? "text-red-500 animate-pulse" : "text-santis-muted"} 
-        trend={viewingServices.length > 0 ? "up" : null}
-        trendValue={viewingServices.length > 0 ? "Sıcak Satış Fırsatı" : ""}
-      />
+      {/* ── ZEKA VE ÖNGÖRÜ KATMANI ── */}
+      <PredictiveRadar />
+
+      {/* ── STRATEJİK KOMUTA VE ARŞİV ── */}
+      <div className="grid grid-cols-1 gap-8">
+        <SovereignStrategist />
+        <SovereignArchive />
+        <SovereignSimulator />
+        <StrategistJournal />
+      </div>
+
     </div>
   );
-};
-
-export default GodsEye;
+}

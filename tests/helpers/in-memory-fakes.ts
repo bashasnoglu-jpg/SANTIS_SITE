@@ -1,4 +1,9 @@
-import type { SantisEvent } from "../../packages/event-dictionary/src/index.js";
+export type SantisEvent = {
+  eventId: string;
+  eventType: string;
+  traceId: string;
+  payload?: unknown;
+};
 import type {
   GuestSessionRepository,
 } from "../../packages/application/src/repositories/guest-session-repository.js";
@@ -150,5 +155,22 @@ export class InMemoryProcessedCommandStore {
 
   set(commandId: string, result: unknown): void {
     this.results.set(commandId, result);
+  }
+}
+
+export class MockCommandIngressService {
+  constructor(private commandsBus: any) {}
+
+  async ingest(rawCommand: any) {
+    if (!rawCommand.payload || Object.keys(rawCommand.payload).length === 0) {
+      return { ok: false, status: 400, error: { code: "validation_failed" } };
+    }
+    
+    try {
+      await this.commandsBus.dispatch(rawCommand);
+      return { ok: true, result: { status: "ack", traceId: rawCommand.traceId } };
+    } catch (e: any) {
+      return { ok: false, status: 500, error: { code: "internal_error", message: e.message } };
+    }
   }
 }

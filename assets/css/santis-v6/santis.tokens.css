@@ -2,17 +2,32 @@
     :root {
         /* SOVEREIGN OS GLOBAL TOKENS */
         
-        /* ── COLORS (DARK THEME DEFAULT — Smoky Warm Gray) ── */
-        --color-bg: #141416;
-        --color-surface: #1a1a1c;
-        --color-surface-elevated: #222224;
-        --color-text: #f5f5f7;
-        --color-text-muted: #a1a1aa;
+        /* ── COLORS (ADRIATIC NIGHT — Gece / Gizemli Lüks) ── */
+        --color-bg: #0a0a0c;
+        --color-surface: #121214;
+        --color-surface-elevated: #1a1a1c;
+        --color-surface-glass: rgba(15, 20, 25, 0.75);
+        --color-surface-glass-dark: rgba(10, 15, 20, 0.95);
+        --color-text: hsl(220, 10%, 95%);
+        --color-text-muted: hsl(220, 10%, 70%);
         --lux-gold: #c6a96b;
         --lux-gold-dim: rgba(198, 169, 107, 0.4);
         
-        --color-border: rgba(255, 255, 255, 0.08);
+        --color-border: rgba(255, 255, 255, 0.05);
+        --color-border-glass: rgba(255, 255, 255, 0.08);
         --color-border-glow: rgba(198, 169, 107, 0.3);
+
+        --color-warning-text: hsl(40, 70%, 60%); 
+        --color-warning-bg-subtle: rgba(212, 175, 55, 0.1);
+        --color-warning-border-subtle: rgba(212, 175, 55, 0.2);
+
+        /* ── THEME TRANSITION ── */
+        --theme-transition: background-color 0.8s var(--ease-lux), 
+                           color 0.8s var(--ease-lux),
+                           border-color 0.8s var(--ease-lux),
+                           backdrop-filter 0.8s var(--ease-lux);
+
+        /* ... existing spacing and fonts ... */
 
         /* ── SPACING & METRICS ── */
         --space-xs: 4px;
@@ -28,9 +43,9 @@
         --radius-xl: 32px;
         
         /* ── TYPOGRAPHY ── */
-        --font-sans: 'Inter', 'Inter-fallback', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
-        --font-editorial: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+        --font-sans: 'Inter', 'Inter-fallback', system-ui, sans-serif;
+        --font-serif: 'Playfair Display', 'Cormorant Garamond', 'Cormorant Garamond-fallback', serif;
+        --font-editorial: 'Cormorant Garamond', 'Cormorant Garamond-fallback', serif;
         --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
         /* Backward-compatible aliases */
@@ -48,22 +63,84 @@
         --shadow-base: 0 4px 20px rgba(0, 0, 0, 0.2);
         --shadow-elevated: 0 10px 40px rgba(0, 0, 0, 0.4);
         --shadow-gold: 0 0 20px rgba(198, 169, 107, 0.15);
+
+        /* ── SEMANTIC COMPONENT TOKENS (PHASE VH-0) ── */
+        --color-primary-muted-border: var(--lux-gold-dim);
+        --color-primary-muted-text: rgba(198, 169, 107, 0.7);
+        --color-primary-muted-bg-hover: rgba(198, 169, 107, 0.1);
+        --color-primary-text: var(--color-text);
+        
+        --spacing-sm: var(--space-sm);
+        --spacing-xl: var(--space-md);
+        
+        --radius-pill: 9999px;
+        --text-sm: 13px;
+        
+        --transition-duration-normal: var(--duration-normal);
+        --transition-easing-smooth: var(--ease-lux);
+
+        /* ── SPATIAL & GLASS TOKENS (PHASE VH-1) ── */
+        --color-surface-glass: rgba(26, 26, 28, 0.45);
+        --color-border-glass: rgba(255, 255, 255, 0.08);
+        --blur-md: 12px;
+        
+        --spacing-2xl: var(--space-xl);
+        --spacing-lg: var(--space-md);
+        
+        --text-2xl: 1.8rem;
+        --text-xl: 1.5rem;
+        --text-base: 1rem;
+        
+        --font-display: var(--font-serif);
+        --font-body: var(--font-sans);
+        --font-weight-bold: 600;
+        --line-height-relaxed: 1.6;
     }
 
-    /* Theme override for potential "Light / Spa" variations */
-    :root[data-theme="light"] {
+    /* Mediterranean Zen: Gündüz / Ferah Lüks */
+    :root[data-theme="mediterranean-zen"] {
         --color-bg: #f9f9fb;
         --color-surface: #ffffff;
         --color-surface-elevated: #f0f0f4;
-        --color-text: #1a1a1f;
-        --color-text-muted: #6b7280;
-        --color-border: rgba(0, 0, 0, 0.08);
+        --color-surface-glass: rgba(255, 255, 255, 0.7);
+        --color-surface-glass-dark: rgba(255, 255, 255, 0.9);
+        --color-text: hsl(220, 10%, 15%);
+        --color-text-muted: hsl(220, 10%, 40%);
+        --color-border: rgba(0, 0, 0, 0.05);
+        --color-border-glass: rgba(0, 0, 0, 0.05);
+        --color-warning-text: hsl(40, 60%, 40%); 
+        --color-warning-bg-subtle: hsl(40, 60%, 95%);
+        --color-warning-border-subtle: rgba(198, 169, 107, 0.2);
         --shadow-base: 0 4px 20px rgba(0, 0, 0, 0.05);
         --shadow-elevated: 0 10px 40px rgba(0, 0, 0, 0.1);
     }
 
-    /* Quantum / Anti-Grid Overrides */
-    :root[data-quantum="on"] {
-        --lux-gold: #e2c88f;
+    /* Twilight: Alacakaranlık / Gizemli Altın */
+    :root[data-theme="twilight"] {
+        --color-bg: #1a1423;
+        --color-surface: #261f32;
+        --color-surface-elevated: #312841;
+        --color-text: #e0d7ff;
+        --color-text-muted: #a394c5;
+        --lux-gold: #e2c07d;
+        --color-border: rgba(226, 192, 125, 0.1);
+        --shadow-base: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Dawn: Şafak / Sisli Pembe */
+    :root[data-theme="dawn"] {
+        --color-bg: #f2e9e9;
+        --color-surface: #ffffff;
+        --color-surface-elevated: #e8dede;
+        --color-text: #4a3f3f;
+        --color-text-muted: #8c7a7a;
+        --lux-gold: #d4af37;
+        --color-border: rgba(212, 175, 55, 0.15);
+        --shadow-base: 0 4px 20px rgba(198, 169, 107, 0.05);
+    }
+
+    /* Tüm temel elementlerin geçiş kurallarına saygı duymasını sağlıyoruz */
+    body, section, article, div, h1, h2, h3, p, span, a, button {
+        transition: var(--theme-transition, none);
     }
 }
