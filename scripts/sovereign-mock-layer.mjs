@@ -67,7 +67,7 @@ const truthLayer = http.createServer((req, res) => {
     req.on('data', chunk => {
       byteLength += chunk.length;
       if (byteLength > 8192) {
-        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.writeHead(413, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'Payload size limit exceeded (Max 8KB)' }));
         req.destroy();
         return;
@@ -87,7 +87,7 @@ const truthLayer = http.createServer((req, res) => {
 
         const { type, timestamp, sessionToken, normalizedPath, details } = envelope;
 
-        if (!type || !timestamp || !sessionToken || !normalizedPath || !details) {
+        if (!envelope.type || !envelope.timestamp || !envelope.sessionToken || !envelope.normalizedPath || !envelope.details) {
           throw new Error('Missing mandatory envelope fields (type, timestamp, sessionToken, normalizedPath, details)');
         }
 
