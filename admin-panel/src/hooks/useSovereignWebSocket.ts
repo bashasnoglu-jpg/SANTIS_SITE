@@ -6,6 +6,8 @@ import {
   SovereignEventHandler,
   SovereignEventName,
   SovereignEventPayloads,
+  SovereignWebSocketEvent,
+  isSovereignWebSocketEvent,
 } from '../types/socketEvents';
 
 type SovereignWebSocketState = 'CONNECTING' | 'OPEN' | 'CLOSED' | 'ERROR';
@@ -256,13 +258,17 @@ function subscribeSocketEvent<K extends SovereignEventName>(
 
 export function useSovereignWebSocket(url: string = 'ws://localhost:8080/ws') {
   const [status, setStatus] = useState<SovereignWebSocketState>('CLOSED');
-  const [latestMessage, setLatestMessage] = useState<unknown>(null);
+  const [latestMessage, setLatestMessage] = useState<SovereignWebSocketEvent | null>(null);
 
   useEffect(() => {
     connect(url);
 
     const messageListener = (data: unknown) => {
-      setLatestMessage(data);
+      if (isSovereignWebSocketEvent(data)) {
+        setLatestMessage(data);
+      } else {
+        console.warn('[Sovereign WS] Non-conforming message format received:', data);
+      }
     };
 
     activeListeners.add(messageListener);

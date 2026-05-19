@@ -66,3 +66,65 @@ export type SovereignEventHandler<K extends SovereignEventName> = (
   payload: SovereignEventPayloads[K],
   rawMessage: unknown,
 ) => void;
+
+export type SovereignWebSocketEvent =
+  | {
+      type: 'OVERRIDE_APPLY_ACK';
+      recommendationId: string;
+    }
+  | {
+      type: 'FEEDBACK_CALCULATED';
+      decisionId: string;
+      feedbackScore: number;
+    }
+  | {
+      type: 'EVENT_REPLAY';
+      payload: Array<{
+        id: string;
+        type: string;
+        createdAt: string;
+        subject?: string;
+        payload?: Record<string, unknown>;
+      }>;
+    }
+  | {
+      type: 'EVENT_STREAM';
+      payload: {
+        id: string;
+        type: string;
+        createdAt: string;
+        subject?: string;
+        payload?: Record<string, unknown>;
+      };
+    }
+  | {
+      type: 'ROLLOUT_STATUS_UPDATE';
+      data: {
+        status: 'pending' | 'running' | 'completed' | 'reverted';
+        scope?: {
+          rolloutPercentage?: number;
+        };
+        metrics?: {
+          riskDelta?: number;
+        };
+      };
+    };
+
+export function isSovereignWebSocketEvent(value: unknown): value is SovereignWebSocketEvent {
+  if (!value || typeof value !== 'object') {
+    return false;
+  }
+  const obj = value as Record<string, unknown>;
+  if (typeof obj.type !== 'string') {
+    return false;
+  }
+  const allowedTypes = new Set([
+    'OVERRIDE_APPLY_ACK',
+    'FEEDBACK_CALCULATED',
+    'EVENT_REPLAY',
+    'EVENT_STREAM',
+    'ROLLOUT_STATUS_UPDATE',
+  ]);
+  return allowedTypes.has(obj.type);
+}
+
