@@ -6,7 +6,7 @@ services:
     environment:
       - NODE_ENV=development
     volumes:
-      - ./app:/workspace/app
+      - ./app:/app/app
     ports:
       - "8000:8000"
 
