@@ -1412,18 +1412,34 @@
             return date.toLocaleDateString('tr-TR', options).toUpperCase();
         }
 
+        async function loadMemoryNodes() {
+            try {
+                const response = await fetch('/api/v1/memory/nodes');
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const data = await response.json();
+                console.log("📥 [SovereignMemory] Fetched temporal nodes from server:", data);
+                return data;
+            } catch (error) {
+                console.warn('⚠️ [SovereignMemory] Failed to fetch live memory nodes, falling back to static seed:', error);
+                return historySeed;
+            }
+        }
+
         // Boot
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', async () => {
             console.log("⏳ [MemoryMapEngine] Sovereign OS V28 bootloading...");
             
-            // 1. Initialize Engine with Seed Data
-            const engine = new MemoryMapEngine(historySeed);
+            // 1. Load data from Backend or Fallback
+            const memoryData = await loadMemoryNodes();
+
+            // 2. Initialize Engine with Memory Data
+            const engine = new MemoryMapEngine(memoryData);
             memoryMap = engine.buildMap();
             
-            // 2. Render UI
+            // 3. Render UI
             renderTimeline();
             
-            // 3. Auto-select first day node
+            // 4. Auto-select first day node
             if (memoryMap.length > 0) {
                 setTimeout(() => {
                     selectNode(memoryMap[0].node.date, 0);
