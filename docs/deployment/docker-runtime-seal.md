@@ -164,3 +164,36 @@ Expected production result:
 - `redis` has no host `ports` mapping.
 - `api`, `web`, and `admin-panel` retain explicit external exposure.
 - application containers retain non-root runtime users from their Dockerfiles.
+
+---
+
+## 🩺 7. Healthcheck Standardization (TD-008.3)
+
+To ensure high availability, fast failover, and strict startup ordering, lightweight healthchecks are standardized across all services:
+
+### 1. Light Nginx Health Endpoint (`/healthz`)
+Both `web` and `admin-panel` Nginx configurations contain a custom, ultra-lightweight `/healthz` block:
+```nginx
+location = /healthz {
+    access_log off;
+    add_header Content-Type text/plain;
+    return 200 'OK';
+}
+```
+This serves a plain `200 OK` response directly in-memory, completely bypassing local disk lookup and avoiding access log pollution.
+
+### 2. Standarized Healthcheck Commands
+All service health checks utilize lightweight tools native to each container, avoiding external loopback resolution gotchas (standardized to IPv4 loopback `127.0.0.1` to prevent IPv6 resolution traps on BusyBox shells):
+- **API backend**: `curl -f http://127.0.0.1:8000/health` (Debian-based curl)
+- **Static Nginx Web**: `wget --no-verbose --tries=1 --spider http://127.0.0.1:8080/healthz || exit 1` (Alpine-based BusyBox wget)
+- **Admin Panel SPA**: `wget --no-verbose --tries=1 --spider http://127.0.0.1:8080/healthz || exit 1` (Alpine-based BusyBox wget)
+- **PostgreSQL**: `pg_isready -U santis -d santis` (Built-in Postgres health utility)
+- **Redis**: `redis-cli ping` (Built-in Redis client ping)
+
+### 3. Startup Dependency Order (`condition: service_healthy`)
+To guarantee that consumer services only launch when their dependencies are fully initialized and ready to receive traffic:
+- **API** only starts after both **postgres** and **redis** report `healthy`.
+- **web** and **admin-panel** only start after the **api** backend reports `healthy`.
+
+This eliminates container startup race conditions and socket connection failures during deployments.
+
