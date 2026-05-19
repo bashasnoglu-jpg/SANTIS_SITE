@@ -69,3 +69,7 @@ jobs:
 
       - name: Build Admin Panel image
         run: docker build -f docker/admin-panel/Dockerfile -t santis-admin-panel:ci .
+
+      - name: Audit Docker Image Sizes & Compliance
+        run: node scripts/active/audit-docker-images.mjs
+

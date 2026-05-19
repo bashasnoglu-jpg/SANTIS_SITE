@@ -403,6 +403,40 @@ To mitigate credential leakage risks, all active secrets must be rotated systema
 2. **Database System Credentials**: Every **180 days** or immediately upon developer offboarding.
 3. **Session Signing Token**: Annually or in case of a token compromise incident.
 
+---
+
+## 📦 14. Docker Image Security, SBOM & Size Audit (TD-008.11)
+
+To optimize delivery pipeline efficiency, maintain lean runtime environments, and verify package dependencies, Santis OS enforces a lightweight, report-only Docker image size, SBOM, and security audit.
+
+### 1. Image Size Thresholds
+Every built image must reside within target footprint thresholds to ensure fast container startup and minimal server resource consumption:
+
+| Service / Container | Size Warning Threshold | Recommended Base Image |
+| :--- | :--- | :--- |
+| **API Backend** (`santis-api`) | **500 MB** | `python:3.12-slim` |
+| **Public Web** (`santis-web`) | **100 MB** | `nginx:1.27-alpine` |
+| **Admin Panel** (`santis-admin-panel`) | **250 MB** | `nginx:1.27-alpine` |
+
+*Warnings are triggered automatically during local development and CI runs if these thresholds are exceeded.*
+
+### 2. Software Bill of Materials (SBOM) Strategy
+To ensure transparent tracking of transitive packages and dependencies:
+- **SBOM Generation**: Triggered on-demand or during production release tag pipelines using lightweight container utility tools like **Syft** or **Docker Scout**:
+  ```bash
+  # Generate a JSON SBOM for the API container
+  syft santis-api:latest -o json > santis-api-sbom.json
+  ```
+- **Vulnerability Scans**: Checked using **Trivy** or native **Docker Scout** vulnerability scans. The CI gate operates in a `report-only` (non-blocking) fashion by default to allow flexible dependency resolution, reporting findings into console log outputs.
+
+### 3. Execution Run command
+Execute the size and security audit at any time in the repository root:
+```bash
+pnpm run audit:docker-images
+```
+This is also run automatically under the `pnpm run audit:all` test suite.
+
+
 
 
 
