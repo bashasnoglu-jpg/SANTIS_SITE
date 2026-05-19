@@ -3,7 +3,7 @@ import { SovereignBus } from "../../packages/sovereign-bus/src/index.js";
 import { InMemoryUnitOfWork } from "../../packages/application/src/uow/in-memory-uow.js";
 import { registerGuestSelectMoodFlow } from "../../packages/application/src/bootstrap/register-guest-select-mood.js";
 import { createMoodReadModelProjection } from "../../packages/application/src/projections/mood-read-model/subscriber.js";
-import { CommandIngressService } from "../../apps/ingestion-api/src/services/command-ingress.js";
+
 import { makeRawSelectMoodCommand } from "../helpers/fixtures.js";
 import {
   InMemoryGuestSessionRepository,
@@ -11,6 +11,7 @@ import {
   InMemoryMoodReadModelRepository,
   InMemoryOutboxRepository,
   TraceLogCollector,
+  MockCommandIngressService,
 } from "../helpers/in-memory-fakes.js";
 
 describe("guest.select_mood - trace lifecycle", () => {
@@ -65,7 +66,7 @@ describe("guest.select_mood - trace lifecycle", () => {
       }
     );
 
-    const ingress = new CommandIngressService(bus.commands);
+    const ingress = new MockCommandIngressService(bus.commands);
     const rawCommand = makeRawSelectMoodCommand();
 
     traceLogs.log({

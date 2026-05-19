@@ -1,32 +1,85 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sovereign OS | Bağlantı Koptu</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Kuantum Nefes Alma Efekti */
-    .pulse-glow { animation: pulse 2s infinite; }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-      70% { box-shadow: 0 0 20px 10px rgba(239, 68, 68, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santis OS — Sovereign Mode</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #d1d1d1;
+            --accent-color: #8c8c8c;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+        .container {
+            max-width: 400px;
+            padding: 2rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .logo {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            margin-bottom: 3rem;
+            opacity: 0.6;
+        }
+        h1 {
+            font-weight: 300;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        p {
+            font-weight: 300;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+        .status {
+            margin-top: 3rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .dot {
+            width: 4px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: inline-block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center font-sans">
-
-  <div class="relative overflow-hidden backdrop-blur-xl bg-white/5 border border-red-500/30 rounded-3xl p-10 shadow-2xl text-center max-w-md pulse-glow">
-    <div class="text-5xl mb-4 opacity-80">📡</div>
-    <h1 class="text-2xl tracking-widest uppercase mb-2">Bağlantı Koptu</h1>
-    <p class="text-slate-400 mb-8">
-      Karargâh ile telemetri bağlantınız geçici olarak kesildi. Ancak endişelenmeyin, <b>Sovereign Zırhları</b> sizi koruyor.
-    </p>
-    <button onclick="window.location.reload()" class="bg-white/10 hover:bg-white/20 border border-white/20 transition-all px-6 py-2 rounded-full tracking-wider uppercase text-sm">
-      Kuantum Sinyalini Yenile
-    </button>
-  </div>
-
+<body>
+    <div class="container">
+        <div class="logo">Santis OS</div>
+        <h1>Sovereign Local Mode</h1>
+        <p>Bağlantınız şu an için kesildi. Deneyiminiz kasanızdaki verilerle yerel modda devam ediyor.</p>
+        <div class="status">
+            <span class="dot"></span>
+            Disconnected but Stable
+        </div>
+    </div>
 </body>
 </html>

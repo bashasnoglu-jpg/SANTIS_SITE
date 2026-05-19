@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   seal:
@@ -59,13 +59,17 @@ jobs:
 
       # ── Quality Gate 5: Runtime / E2E Tests ─────────────────────────────────
       # Playwright E2E — booking flow ve SSE akışları doğrulanır.
+      - name: "Install Playwright Browsers"
+        if: ${{ hashFiles('playwright.config.ts') != '' }}
+        run: pnpm exec playwright install --with-deps
+
       - name: "🧪 Runtime Quality Test (E2E)"
         if: ${{ hashFiles('playwright.config.ts') != '' }}
-        run: pnpm run test:quality:runtime
+        run: pnpm run test:e2e
 
       # ── Boardroom Telemetry (isteğe bağlı) ──────────────────────────────────
       - name: "🧠 Boardroom Intelligence — Telemetry Bridge"
-        if: ${{ hashFiles('scripts/ci-telemetry-bridge.js') != '' && secrets.SANTIS_TELEMETRY_KEY != '' && secrets.SANTIS_API_URL != '' }}
+        if: ${{ hashFiles('scripts/ci-telemetry-bridge.js') != '' }}
         env:
           SANTIS_TELEMETRY_KEY: ${{ secrets.SANTIS_TELEMETRY_KEY }}
           SANTIS_API_URL: ${{ secrets.SANTIS_API_URL }}

@@ -12,7 +12,14 @@
       "**/features/boardroom/components/oracle/**",
       "admin-panel/src/features/boardroom/components/oracle/**",
       "admin-panel/src/features/boardroom/components/overlays/**",
-      "admin-panel/src/components/dashboard/SantisBoardroom.jsx"
+      "admin-panel/src/components/dashboard/SantisBoardroom.jsx",
+      "admin-panel/src/components/dashboard/BoardroomRevealCeremony.jsx",
+      "admin-panel/src/components/dashboard/GodsEye.jsx",
+      "admin-panel/src/components/dashboard/PredictiveRadar.jsx",
+      "admin-panel/src/components/dashboard/SovereignActionRail.jsx",
+      "admin-panel/src/components/dashboard/SovereignArchive.jsx",
+      "admin-panel/src/components/dashboard/SovereignSimulator.jsx",
+      "admin-panel/src/components/dashboard/SovereignStrategist.jsx"
     ],
     "chartConfig": [
       "**/*Chart.js",

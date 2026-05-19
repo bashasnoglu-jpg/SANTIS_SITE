@@ -1,0 +1,60 @@
+{
+  "protocol": "Antigravity Protocol v2.0",
+  "version": "1.0.0",
+  "generated_at": "2026-05-15T18:20:45Z",
+  "mode": "READ-ONLY AUDIT",
+  "batches": [
+    {
+      "id": 1,
+      "name": "docs / governance",
+      "priority": "HIGH",
+      "items": [
+        { "file": "docs/audits/phase-g*", "action": "ARCHIVE", "status": "ARCHIVE_CANDIDATE" },
+        { "file": "test_results.txt", "action": "DELETE", "status": "REVIEW_REQUIRED" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "scripts",
+      "priority": "MEDIUM",
+      "items": [
+        { "path": "archive/scripts/tmp_*", "action": "MOVE_TO_DEEP_ARCHIVE", "status": "ARCHIVE_CANDIDATE" }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "assets",
+      "priority": "HIGH",
+      "items": [
+        { "path": "assets/img/cards/*.mp4", "action": "OPTIMIZE", "status": "ACTIVE" },
+        { "path": "assets/img/blog/*.png", "action": "CONVERT_WEBP", "status": "ACTIVE" }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "frontend",
+      "priority": "MEDIUM",
+      "items": [
+        { "file": "assets/js/core/santis_router.js", "action": "CONSOLIDATE", "status": "LEGACY_RUNTIME" },
+        { "file": "assets/js/core/SovereignDebtEngine.js", "action": "RENAME_CONSISTENCY", "status": "ACTIVE" }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "backend runtime",
+      "priority": "MEDIUM",
+      "items": [
+        { "package": "@santis/domain-schema", "action": "CONTRACT_AUDIT", "status": "ACTIVE" }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "realtime / AI / security",
+      "priority": "CRITICAL",
+      "items": [
+        { "file": "assets/js/core/santis-ws-manager.js", "action": "UNIFY", "status": "REVIEW_REQUIRED" },
+        { "file": "assets/js/core/santis-sovereign-ai.js", "action": "HARDEN", "status": "ACTIVE" }
+      ]
+    }
+  ]
+}

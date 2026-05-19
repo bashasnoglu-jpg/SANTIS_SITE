@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import useAuthStore from './store/useAuthStore';
 import ClinicScanner from './components/dashboard/ClinicScanner';
 import { BoardroomModeProvider } from './features/boardroom/context/BoardroomModeContext';
+import { SovereignSocketProvider } from './context/SovereignSocketProvider';
 import {
   AdminLazyBoundary,
   LazyOperations,
@@ -27,7 +28,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BoardroomModeProvider>
-        <Router>
+        <SovereignSocketProvider>
+          <Router>
           <Routes>
           {/* KIOSK MODU (İzole Rota - Navigasyon Yok) */}
           <Route 
@@ -80,7 +82,8 @@ function App() {
           />
           </Routes>
         </Router>
-      </BoardroomModeProvider>
+      </SovereignSocketProvider>
+    </BoardroomModeProvider>
       <SpeedInsights />
     </QueryClientProvider>
   );
