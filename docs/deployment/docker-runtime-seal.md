@@ -98,7 +98,7 @@ curl.exe -I http://localhost:8081
 
 ## 🔒 5. Production Hardening: Non-Root Execution (TD-008.1)
 
-To protect the container environment from privilege escalation and runtime compromise, all application containers run completely as secure, unprivileged non-root users:
+To protect the container environment from privilege escalation and runtime compromise, all application containers run completely as secure, unprivileged non-root users, ensuring that privilege escalation and host exposure risks are significantly reduced.
 
 ### 1. API Container (`docker/api/Dockerfile`)
 - An unprivileged system user/group `santis:santis` (UID/GID `10001`) is created during the build.
@@ -110,4 +110,25 @@ To protect the container environment from privilege escalation and runtime compr
 - Both web server configurations are modified to listen on unprivileged port `8080` internally (`listen 8080;` in `nginx.conf`).
 - During build, permissions for Nginx run-time paths (`/var/run/nginx.pid`, `/var/cache/nginx`, `/var/log/nginx`, `/usr/share/nginx/html`, `/etc/nginx/conf.d`) are recursively changed to unprivileged user `nginx`.
 - The container runtime strictly enforces `USER nginx` and executes with zero root privileges on exposed host ports (`8080:8080` for public web, `8081:8080` for admin panel).
+
+---
+
+## 🛡️ 6. Production Orchestration: compose.prod.yml (TD-008.2)
+
+For enterprise-grade production environments, `compose.prod.yml` isolates dev-reload features and sets strict filesystem hardening safeguards:
+
+### 1. Read-Only Container Filesystems (`read_only: true`)
+All application containers run with fully read-only root filesystems to prevent arbitrary runtime code modifications.
+
+### 2. Ephemeral In-Memory Storage (`tmpfs` mounts with `mode: 0777`)
+To allow unprivileged users (`nginx` and `santis`) to write required temp/lock files, highly constrained `tmpfs` mounts are defined:
+- **API Backend**: `/tmp`
+- **Nginx Web & Admin**: `/tmp`, `/var/cache/nginx` (with `mode: 0777`), and `/var/run` (with `mode: 0777`).
+
+### 3. Production Service Isolation & Recovery
+- **Database Volumes**: Isolated PostgreSQL production data directory mapping (`santis_postgres_prod`).
+- **Redis Access**: Production Redis cache has no external mapped host ports, keeping memory caches completely isolated within `santis_network`.
+- **Restart Policy**: Enabled automatic container recovery (`restart: unless-stopped`).
+- **Secrets Strategy Note**: All high-entropy production credentials and variables must be dynamically injected via secure cloud secrets managers or orchestrators (e.g. AWS Secrets Manager, GitHub Secrets) rather than static `.env` environment files.
+
 
