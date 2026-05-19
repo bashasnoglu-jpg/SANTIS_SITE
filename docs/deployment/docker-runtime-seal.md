@@ -244,5 +244,36 @@ Every push or pull request targeting the `develop` or `main` branches triggers t
 
 This CI gate ensures that all container constraints remain permanently locked, secure, and regression-free.
 
+---
+
+## 🔑 10. Centralized Secrets Injection Strategy (TD-008.6)
+
+Production environment secrets are never committed to the repository. The boundary between local development variables and production-grade secrets is strictly enforced.
+
+### 1. Dev vs. Prod Secret Boundaries
+- **Local Development (`.env`)**: Uses insecure defaults defined in `.env.example`. Copied to a local `.env` file that is ignored by Git. Secure cookies are disabled locally (`SESSION_COOKIE_SECURE=false`).
+- **Production Secrets**: Injected dynamically at runtime via Secret Manager (e.g., AWS/GCP) or CI/CD pipelines. Never persisted to disk. Enforces `SESSION_COOKIE_SECURE=true`.
+
+### 2. GitHub Actions Production Secrets Map
+To deploy or validate the stack in production environments, the following secrets must be registered under **GitHub Actions Secrets**:
+
+| Secret Key | Description | Scope / Destination |
+| :--- | :--- | :--- |
+| `DATABASE_URL` | Production PostgreSQL connection URL (SSL/TLS enforced) | `api` container environment |
+| `POSTGRES_PASSWORD` | Cryptographically random root password for production Postgres | `postgres` container environment |
+| `SESSION_TOKEN_SECRET` | 32+ character high-entropy key for signing user sessions | `api` container environment |
+| `STRIPE_API_KEY` | Private production authorization key for Stripe API | `api` container environment |
+| `STRIPE_WEBHOOK_SECRET` | Signing secret used to authenticate incoming Stripe payment webhooks | `api` container environment |
+
+### 3. Automated Secret Leakage Audit
+Accidental commits of high-entropy keys are prevented by the expanded **Sovereign Environment & Secret Leakage Audit Script** at `scripts/active/audit-production-env.mjs`:
+
+```bash
+node scripts/active/audit-production-env.mjs
+```
+
+This script automatically scans all tracked files in the workspace against regex signatures for Stripe live secret keys (`sk_live_...`), webhook signing secrets (`whsec_live_...`), and generic hardcoded keys, failing the deployment pipeline if any leak is detected.
+
+
 
 
