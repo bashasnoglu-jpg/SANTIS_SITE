@@ -83,5 +83,5 @@ html.power-flow-survival body::after {
     letter-spacing: 2px;
     text-align: center;
     padding: 4px;
-    z-index: 999999;
+    z-index: var(--z-power-survival-banner, var(--z-modal, 900));
 }

@@ -671,7 +671,7 @@
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 99999;
+    z-index: var(--z-transition-overlay, var(--z-modal, 900));
     background: #050505;
     opacity: 0;
     transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
