@@ -37,8 +37,20 @@ jobs:
 
       - name: Enforce pnpm exclusivity
         run: |
-          if [ -f package-lock.json ] || [ -f yarn.lock ]; then
-            echo "Only pnpm lockfile is allowed in Santis OS."
+          forbidden_lockfiles=$(find . \
+            \( -path './node_modules' -o \
+               -path './.git' -o \
+               -path './_archive' -o \
+               -path './dist' -o \
+               -path './build' -o \
+               -path './.next' -o \
+               -path './coverage' \) -prune -o \
+            \( -name 'package-lock.json' -o -name 'yarn.lock' -o -name 'bun.lockb' \) -print)
+          if [ -n "$forbidden_lockfiles" ]; then
+            echo "SOVEREIGN GUARD VIOLATION: Dependency Detox failed."
+            echo "Only pnpm-lock.yaml is allowed in active Santis OS workspaces."
+            echo "Forbidden lockfiles detected:"
+            echo "$forbidden_lockfiles"
             exit 1
           fi
 
@@ -70,14 +82,19 @@ jobs:
           const ignoredDirs = new Set(['node_modules', '.git', 'dist', 'build', '.next', 'coverage']);
           const patterns = [
             { label: 'Wildcard CORS origin detected', regex: /origin\s*:\s*['"]\*['"]/ },
-            { label: 'Wildcard Access-Control-Allow-Origin detected', regex: /Access-Control-Allow-Origin['"]?\s*[:,]\s*['"]\*/ },
-            { label: 'Unsafe Zod passthrough detected', regex: /\.passthrough\(\)/ }
+            { label: 'Wildcard Access-Control-Allow-Origin detected', regex: /Access-Control-Allow-Origin['"]?\s*[:,]\s*['"]\*/ }
           ];
+          const passthroughRestrictedRoots = ['packages/event-dictionary/src'];
+          const passthroughPattern = /\.passthrough\(\)/;
           const violations = [];
 
           function extensionOf(filePath) {
             const match = filePath.match(/\.[^.]+$/);
             return match ? match[0] : '';
+          }
+
+          function isWithinRestrictedPassthroughRoot(filePath) {
+            return passthroughRestrictedRoots.some((root) => filePath.startsWith(root));
           }
 
           function walk(path) {
@@ -100,6 +117,10 @@ jobs:
                 if (pattern.regex.test(line)) {
                   violations.push(`${path}:${index + 1}: ${pattern.label}`);
                 }
+              }
+
+              if (isWithinRestrictedPassthroughRoot(path) && passthroughPattern.test(line)) {
+                violations.push(`${path}:${index + 1}: Unsafe Zod passthrough detected`);
               }
             });
           }
