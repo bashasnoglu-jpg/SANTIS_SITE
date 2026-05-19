@@ -41,16 +41,16 @@ jobs:
         env:
           DATABASE_URL: postgresql://santis:example@postgres:5432/santis
           POSTGRES_PASSWORD: example
-        run: docker compose -f compose.yml -f compose.prod.yml config > /tmp/santis-compose-prod.yml
+        run: docker compose -f compose.yml -f compose.prod.yml config --format json > /tmp/santis-compose-prod.json
 
       - name: Assert production data services are not exposed
         run: |
-          if awk '/postgres:/,/redis:/' /tmp/santis-compose-prod.yml | grep -q "published:"; then
+          if jq -e '.services.postgres.ports' /tmp/santis-compose-prod.json >/dev/null 2>&1; then
             echo "Postgres exposes a host port in production config."
             exit 1
           fi
 
-          if awk '/redis:/,/volumes:/' /tmp/santis-compose-prod.yml | grep -q "published:"; then
+          if jq -e '.services.redis.ports' /tmp/santis-compose-prod.json >/dev/null 2>&1; then
             echo "Redis exposes a host port in production config."
             exit 1
           fi
