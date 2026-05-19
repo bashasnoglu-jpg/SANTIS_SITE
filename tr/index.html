@@ -58,7 +58,7 @@ if (['127.0.0.1', 'localhost'].includes(window.location.hostname)) {
 <noscript><link rel="stylesheet" href="/assets/css/fonts.css"></noscript>
 
 <link rel="preload" href="/assets/css/style.css" as="style">
-<link rel="stylesheet" href="/assets/css/style.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="/assets/css/style.css">
 <noscript><link rel="stylesheet" href="/assets/css/style.css"></noscript>
 
 <!-- Swiper CSS — Carousel & Slider temel stilleri -->
@@ -190,18 +190,8 @@ html { font-display: optional; }
 <canvas id="santis-god-canvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:-1;"></canvas>
 <header id="santis-header" class="santis-navbar" role="banner">
   <div id="navbar-container">
-    <!-- STATIC FALLBACK — JS injection gelene kadar görünür, ardından replace edilir -->
-    <nav class="santis-nav santis-nav--fallback" aria-label="Ana navigasyon" style="display:flex;align-items:center;gap:1.5rem;padding:0 2rem;height:86px;background:rgba(0,0,0,0.85);">
-      <a href="/tr/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Ana Sayfa</a>
-      <a href="/tr/masajlar/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Masajlar</a>
-      <a href="/tr/hamam/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Hamam</a>
-      <a href="/tr/cilt-bakimi/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Cilt Bakımı</a>
-      <a href="/tr/rituals/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Dünya Ritüeli</a>
-      <a href="/tr/galeri/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Galeri</a>
-      <a href="/tr/hakkimizda/index.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">Hakkımızda</a>
-      <a href="/tr/iletisim.html" style="color:#fff;text-decoration:none;font-size:.875rem;font-family:'Inter',sans-serif;">İletişim</a>
-      <a href="#reservation" style="margin-left:auto;background:#d4af37;color:#000;padding:.5rem 1.25rem;border-radius:99px;font-size:.8rem;font-family:'Inter',sans-serif;font-weight:600;text-decoration:none;">Rezervasyon</a>
-    </nav>
+
+    <!-- Canonical owner: santis-nav.js injects components/navbar.html here. -->
   </div>
 </header>
 <main id="santis-cinematic-stage">
@@ -678,7 +668,7 @@ html { font-display: optional; }
 </script>
 <script type="module" src="/assets/js/core/santis-lang.js" defer></script>
 <script type="module" src="/assets/js/core/santis-core.js" defer></script>
-    <script type="module" src="/assets/js/app.js" defer></script>
+
 <script type="module" src="/assets/js/modules/santis-revenue-tracker.js"></script>
 <script type="module" src="/assets/js/modules/santis-booking-funnel.js"></script>
 <script type="module" src="/assets/js/modules/santis-liquid-reveal.js" defer></script>
