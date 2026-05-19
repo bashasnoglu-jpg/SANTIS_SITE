@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # ── API: Enable live reload and host access ────────────────────────────────
   api:
@@ -19,4 +17,3 @@ services:
   admin-panel:
     ports:
       - "8081:8080"
-

@@ -31,6 +31,9 @@ jobs:
       - name: Enable Docker BuildKit
         run: echo "DOCKER_BUILDKIT=1" >> "$GITHUB_ENV"
 
+      - name: Create Mock .env for Validation
+        run: cp .env.example .env
+
       - name: Validate Compose config
         run: docker compose -f compose.yml config
 
