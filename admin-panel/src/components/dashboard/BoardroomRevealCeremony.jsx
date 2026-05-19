@@ -65,18 +65,18 @@ const BoardroomRevealCeremony = ({ onComplete }) => {
   return (
     <div 
       ref={overlayRef}
-      className="fixed inset-0 z-[10000] bg-sovereign-void flex flex-col items-center justify-center pointer-events-auto"
+      className="fixed inset-0 z-50 bg-sovereign-void flex flex-col items-center justify-center pointer-events-auto"
     >
       <div className="text-center">
         <h1 
           ref={textRef}
-          className="text-sovereign-ink font-serif text-3xl tracking-[0.4em] mb-8"
+          className="text-sovereign-ink font-serif text-3xl tracking-widest mb-8"
         >
           SANTIS OS <br/>
-          <span className="text-xs font-sans tracking-[0.8em] text-sovereign-bronze opacity-60">SOVEREIGN ARCHITECT INITIALIZING</span>
+          <span className="text-xs font-sans tracking-widest text-sovereign-bronze opacity-60">SOVEREIGN ARCHITECT INITIALIZING</span>
         </h1>
         
-        <div className="w-64 h-[1px] bg-sovereign-panel relative overflow-hidden mx-auto">
+        <div className="w-64 h-px bg-sovereign-panel relative overflow-hidden mx-auto">
           <div 
             ref={progressRef}
             className="absolute inset-0 bg-sovereign-accent origin-left"
@@ -85,7 +85,7 @@ const BoardroomRevealCeremony = ({ onComplete }) => {
       </div>
 
       {/* Decorative Glows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-sovereign-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-sovereign-accent/5 rounded-full blur-3xl pointer-events-none"></div>
     </div>
   );
 };
