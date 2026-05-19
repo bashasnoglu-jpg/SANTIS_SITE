@@ -7,7 +7,7 @@ FROM python:3.11-slim AS runner
 
 WORKDIR /workspace
 
-# Install system dependencies if needed (e.g. curl for healthcheck)
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*

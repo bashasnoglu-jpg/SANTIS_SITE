@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  # ── API: Enable live reload and host access ────────────────────────────────
+  api:
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./app:/workspace/app
+    ports:
+      - "8000:8000"
+
+  # ── WEB: Expose secondary dev port ─────────────────────────────────────────
+  web:
+    ports:
+      - "8080:80"
+
+  # ── ADMIN PANEL: Expose secondary dev port ──────────────────────────────────
+  admin-panel:
+    ports:
+      - "8081:80"

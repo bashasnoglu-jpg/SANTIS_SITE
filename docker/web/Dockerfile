@@ -39,7 +39,7 @@ RUN chown -R nginx:nginx /usr/share/nginx/html && \
     chown nginx:nginx /var/run/nginx.pid
 
 # Copy our custom production-grade Nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker/web/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy Vite build output from builder
 COPY --from=builder --chown=nginx:nginx /app/dist .

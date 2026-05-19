@@ -39,7 +39,7 @@ RUN chown -R nginx:nginx /usr/share/nginx/html && \
     chown nginx:nginx /var/run/nginx.pid
 
 # Copy our custom production-grade Nginx configuration
-COPY docker/admin.nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker/admin-panel/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy admin Vite dist to subpath /usr/share/nginx/html/admin
 COPY --from=builder --chown=nginx:nginx /app/admin-panel/dist ./admin

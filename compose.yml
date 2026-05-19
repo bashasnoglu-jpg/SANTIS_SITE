@@ -6,15 +6,15 @@ services:
     image: postgres:16-alpine
     container_name: santis-postgres
     environment:
-      POSTGRES_USER: santis_admin
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-santis_secure_pass_2026}
-      POSTGRES_DB: santis_core
+      POSTGRES_USER: ${POSTGRES_USER:-santis_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+      POSTGRES_DB: ${POSTGRES_DB:-santis_core}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U santis_admin -d santis_core"]
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -41,11 +41,11 @@ services:
   api:
     build:
       context: .
-      dockerfile: docker/Dockerfile.api
+      dockerfile: docker/api/Dockerfile
     container_name: santis-api
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://santis_admin:${POSTGRES_PASSWORD:-santis_secure_pass_2026}@postgres:5432/santis_core
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-santis_admin}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-santis_core}
       - REDIS_URL=redis://redis:6379/0
       - PORT=8000
     depends_on:
@@ -56,40 +56,28 @@ services:
     networks:
       - santis_network
 
-  # ── WEB: Public Static Nginx Web Server ───────────────────────────────────
-  web:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile.web
-    container_name: santis-web
-    depends_on:
-      - api
-    networks:
-      - santis_network
-
   # ── ADMIN PANEL: Admin Dashboard Static Nginx Server ──────────────────────
   admin-panel:
     build:
       context: .
-      dockerfile: docker/Dockerfile.admin
+      dockerfile: docker/admin-panel/Dockerfile
     container_name: santis-admin-panel
     depends_on:
       - api
     networks:
       - santis_network
 
-  # ── REVERSE PROXY GATEWAY: Nginx Edge Router ──────────────────────────────
-  reverse-proxy:
+  # ── WEB: Public Static Nginx Web Server (Proxy and Edge Entrypoint) ────────
+  web:
     build:
       context: .
-      dockerfile: docker/Dockerfile.gateway
-    container_name: santis-gateway
+      dockerfile: docker/web/Dockerfile
+    container_name: santis-web
     ports:
       - "80:80"
     depends_on:
-      - web
-      - admin-panel
       - api
+      - admin-panel
     networks:
       - santis_network
 
