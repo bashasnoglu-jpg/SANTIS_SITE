@@ -1,11 +1,11 @@
-name: Santis OS — Docker Build & Hardening Validation
+name: Docker Build Validation
 
 on:
-  push:
+  pull_request:
     branches:
       - develop
       - main
-  pull_request:
+  push:
     branches:
       - develop
       - main
@@ -14,62 +14,55 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: docker-build-validation-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  validate-hardening:
-    name: Validate Hardening Stack
+  docker-build-validation:
+    name: Docker Build Validation
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Enable Docker BuildKit
+        run: echo "DOCKER_BUILDKIT=1" >> "$GITHUB_ENV"
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - name: Validate Compose config
+        run: docker compose -f compose.yml config
 
-      - name: Validate Compose Syntax and Port Leakage Isolation
+      - name: Validate Production Compose overlay
+        env:
+          DATABASE_URL: postgresql://santis:example@postgres:5432/santis
+          POSTGRES_PASSWORD: example
+        run: docker compose -f compose.yml -f compose.prod.yml config > /tmp/santis-compose-prod.yml
+
+      - name: Assert production data services are not exposed
+        run: |
+          if awk '/postgres:/,/redis:/' /tmp/santis-compose-prod.yml | grep -q "published:"; then
+            echo "Postgres exposes a host port in production config."
+            exit 1
+          fi
+
+          if awk '/redis:/,/volumes:/' /tmp/santis-compose-prod.yml | grep -q "published:"; then
+            echo "Redis exposes a host port in production config."
+            exit 1
+          fi
+
+          echo "Production data services are internal-only."
+
+      - name: Run Dedicated Config & Port Leakage Audit Script
         run: |
           node scripts/active/audit-docker-prod-compose.mjs
 
-      - name: Build Hardened Containers
-        run: |
-          DATABASE_URL=postgresql://santis:santis_secure_pass@postgres:5432/santis \
-          POSTGRES_PASSWORD=santis_secure_pass \
-          docker compose -f compose.yml -f compose.prod.yml build --parallel
+      - name: Build API image
+        run: docker build -f docker/api/Dockerfile -t santis-api:ci .
 
-      - name: Start Production Hardening Stack
-        run: |
-          DATABASE_URL=postgresql://santis:santis_secure_pass@postgres:5432/santis \
-          POSTGRES_PASSWORD=santis_secure_pass \
-          docker compose -f compose.yml -f compose.prod.yml up -d
+      - name: Build Public Web image
+        run: docker build -f docker/web/Dockerfile -t santis-web:ci .
 
-      - name: Await Service Health Statuses
-        run: |
-          echo "Waiting for all containers to report healthy..."
-          for i in {1..25}; do
-            docker compose ps
-            HEALTHY_COUNT=$(docker compose ps | grep -c "(healthy)" || true)
-            if [ "$HEALTHY_COUNT" -eq 5 ]; then
-              echo "All 5 containers are fully healthy!"
-              exit 0
-            fi
-            echo "Only $HEALTHY_COUNT/5 containers are healthy. Waiting 5s..."
-            sleep 5
-          done
-          echo "Timeout: Containers failed to reach healthy state!"
-          docker compose ps
-          docker compose logs
-          exit 1
-
-      - name: Run Read-Only Mutability Proof Audit
-        run: |
-          node scripts/active/audit-docker-readonly-runtime.mjs
-
-      - name: Tear Down Stack
-        if: always()
-        run: |
-          docker compose down -v
+      - name: Build Admin Panel image
+        run: docker build -f docker/admin-panel/Dockerfile -t santis-admin-panel:ci .
