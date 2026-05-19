@@ -1,49 +1,104 @@
 version: '3.8'
 
 services:
+  # ── DATABASE: PostgreSQL 16 ────────────────────────────────────────────────
   postgres:
-    image: postgres:15-alpine
-    container_name: santis-sovereign-db
+    image: postgres:16-alpine
+    container_name: santis-postgres
     environment:
       POSTGRES_USER: santis_admin
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-santis_secure_pass_2026}
       POSTGRES_DB: santis_core
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U santis_admin -d santis_core"]
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - santis_network
 
-  ingestion-api:
-    build: .
-    container_name: santis-ingestion-api
+  # ── CACHE: Redis 7 ─────────────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: santis-redis
     ports:
-      - "3030:3030"
-      - "4040:4040"
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - santis_network
+
+  # ── API: FastAPI Python Backend ────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    container_name: santis-api
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://santis_admin:${POSTGRES_PASSWORD}@postgres:5432/santis_core
-      - ADMIN_SECRET_TOKEN=${ADMIN_SECRET_TOKEN}
+      - DATABASE_URL=postgresql://santis_admin:${POSTGRES_PASSWORD:-santis_secure_pass_2026}@postgres:5432/santis_core
+      - REDIS_URL=redis://redis:6379/0
+      - PORT=8000
     depends_on:
       postgres:
         condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - santis_network
 
-  quality-gate:
-    image: mcr.microsoft.com/playwright:v1.40.0-jammy
-    container_name: santis-quality-gate
-    working_dir: /app
-    volumes:
-      - ./:/app
-    command: ["pnpm", "run", "test:quality:runtime"]
-    deploy:
-      resources:
-        limits:
-          cpus: '2.0'
-          memory: 4G
+  # ── WEB: Public Static Nginx Web Server ───────────────────────────────────
+  web:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.web
+    container_name: santis-web
+    depends_on:
+      - api
+    networks:
+      - santis_network
+
+  # ── ADMIN PANEL: Admin Dashboard Static Nginx Server ──────────────────────
+  admin-panel:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.admin
+    container_name: santis-admin-panel
+    depends_on:
+      - api
+    networks:
+      - santis_network
+
+  # ── REVERSE PROXY GATEWAY: Nginx Edge Router ──────────────────────────────
+  reverse-proxy:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.gateway
+    container_name: santis-gateway
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+      - admin-panel
+      - api
+    networks:
+      - santis_network
 
 volumes:
-  pgdata:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  santis_network:
+    driver: bridge
