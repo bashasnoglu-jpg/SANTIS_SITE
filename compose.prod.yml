@@ -1,92 +1,58 @@
+# Production overlay for Santis OS Docker Runtime.
+# Usage:
+#   DATABASE_URL=postgresql://santis:<secret>@postgres:5432/santis \
+#   POSTGRES_PASSWORD=<secret> \
+#   docker compose -f compose.yml -f compose.prod.yml up -d --build
+#
+# This file intentionally overlays compose.yml. It preserves the local/dev
+# runtime while removing production-unnecessary host exposure for data services.
+
 services:
   # ── API: Production Backend ────────────────────────────────────────────────
   api:
-    build:
-      context: .
-      dockerfile: docker/api/Dockerfile
+    env_file: !reset []
     environment:
-      - SANTIS_ENV=production
-      - SANTIS_API_APP=app.main:app
-      # DATABASE_URL/REDIS_URL must be injected via secure Secrets Manager at runtime
-
-    ports:
-      - "8000:8000"
-    # Enforce strict secure read-only container filesystem boundaries
+      SANTIS_ENV: production
+      SANTIS_API_APP: ${SANTIS_API_APP:-server:app}
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL must be injected by the runtime/orchestrator}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
     read_only: true
     tmpfs:
-      - /tmp
+      - /tmp:size=64m,mode=1777
     restart: unless-stopped
-    depends_on:
-      - postgres
-      - redis
 
   # ── WEB: Production Public Static Page ──────────────────────────────────────
   web:
-    build:
-      context: .
-      dockerfile: docker/web/Dockerfile
-    ports:
-      - "8080:8080"
-    # Enforce strict secure read-only container filesystem boundaries
     read_only: true
-    volumes:
-      - type: tmpfs
-        target: /var/cache/nginx
-        tmpfs:
-          mode: 0777
-      - type: tmpfs
-        target: /var/run
-        tmpfs:
-          mode: 0777
-      - type: tmpfs
-        target: /tmp
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+      - /var/cache/nginx:size=64m,mode=1777
+      - /var/run:size=16m,mode=1777
     restart: unless-stopped
-    depends_on:
-      - api
 
   # ── ADMIN PANEL: Production Dashboard SPA ───────────────────────────────────
   admin-panel:
-    build:
-      context: .
-      dockerfile: docker/admin-panel/Dockerfile
-    ports:
-      - "8081:8080"
-    # Enforce strict secure read-only container filesystem boundaries
     read_only: true
-    volumes:
-      - type: tmpfs
-        target: /var/cache/nginx
-        tmpfs:
-          mode: 0777
-      - type: tmpfs
-        target: /var/run
-        tmpfs:
-          mode: 0777
-      - type: tmpfs
-        target: /tmp
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+      - /var/cache/nginx:size=64m,mode=1777
+      - /var/run:size=16m,mode=1777
     restart: unless-stopped
-    depends_on:
-      - api
-
-
-
 
   # ── DATA LAYER: Production PostgreSQL 16 ────────────────────────────────────
   postgres:
-    image: postgres:16-alpine
+    ports: !reset []
     environment:
-      POSTGRES_DB: santis
-      POSTGRES_USER: santis
-      # SECRETS WARNING: In production, dynamically inject this secret from vault or secure container environment.
-      POSTGRES_PASSWORD: santis_prod_secure_password
+      POSTGRES_DB: ${POSTGRES_DB:-santis}
+      POSTGRES_USER: ${POSTGRES_USER:-santis}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be injected by the runtime/orchestrator}
     volumes:
       - santis_postgres_prod:/var/lib/postgresql/data
     restart: unless-stopped
 
   # ── DATA LAYER: Production Redis Cache ──────────────────────────────────────
   redis:
-    image: redis:7-alpine
-    # Exposing redis is disabled in production to isolate data boundaries within santis_network
+    ports: !reset []
     restart: unless-stopped
 
 volumes:
