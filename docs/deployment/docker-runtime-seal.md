@@ -334,6 +334,33 @@ For production clusters, configure a system cron job or orchestrator scheduler o
 0 3 * * * cd /path/to/santis && pnpm run db:backup >> /var/log/santis-backup.log 2>&1
 ```
 
+---
+
+## ☁️ 12. Offsite Backup Synchronization (TD-008.9)
+
+To ensure geographic redundancy and disaster resilience, Santis OS utilizes a secure, unprivileged dry-run capable offsite synchronization protocol.
+
+### 1. Execution
+The sync script scans `./backups` for local archive pairs, performs local SHA256 integrity verification, and syncs them to S3-compatible cloud storage.
+
+```bash
+# Dry-run execution (Default)
+SANTIS_OFFSITE_PROVIDER=CLOUDFLARE_R2 SANTIS_OFFSITE_BUCKET=santis-vault-prod pnpm run db:sync-offsite
+
+# Active synchronization execution
+SANTIS_OFFSITE_SYNC_CONFIRM=YES SANTIS_OFFSITE_PROVIDER=CLOUDFLARE_R2 SANTIS_OFFSITE_BUCKET=santis-vault-prod pnpm run db:sync-offsite
+```
+
+### 2. Supported Target Providers
+- **Cloudflare R2**: Utilizes Wrangler CLI command: `wrangler r2 object put`.
+- **AWS S3**: Utilizes AWS CLI copy command: `aws s3 cp`.
+- **Backblaze B2**: Utilizes B2 CLI upload command: `b2 upload-file`.
+
+### 3. Core Safety Rules
+1. **No Embedded Credentials**: Authentication keys (e.g. AWS access keys or R2 tokens) must never be embedded in code or committed to Git. Instead, the respective CLI environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, or wrangler configuration tokens) must be exposed via secure runtime environments.
+2. **Local Cryptographic Proof**: Sync will fail immediately if any local backup is missing its corresponding `.sha256` manifest, or if the pre-upload cryptographic check fails.
+
+
 
 
 
