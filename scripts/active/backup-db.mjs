@@ -3,6 +3,7 @@ import { spawn, execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import zlib from 'zlib';
+import crypto from 'crypto';
 
 const BACKUP_DIR = path.resolve(process.cwd(), 'backups');
 const MAX_BACKUPS = 7;
@@ -129,9 +130,24 @@ dumpProcess.on('close', (code) => {
     }
   }
 
+  // 7. Generate SHA256 Checksum Manifest File
+  try {
+    const fileBuffer = fs.readFileSync(backupFilePath);
+    const sha256Hash = crypto.createHash('sha256').update(fileBuffer).digest('hex');
+    const checksumPath = `${backupFilePath}.sha256`;
+    fs.writeFileSync(checksumPath, sha256Hash);
+    console.log(`  ${colors.green}✅  SHA256 checksum manifest generated: ${backupFilename}.sha256${colors.reset}`);
+  } catch (hashErr) {
+    console.error(`\n${colors.red}❌  Error: Failed to generate SHA256 checksum manifest: ${hashErr.message}${colors.reset}`);
+    if (fs.existsSync(backupFilePath)) {
+      fs.unlinkSync(backupFilePath);
+    }
+    process.exit(1);
+  }
+
   console.log(`\n${colors.green}✅  Backup successfully written and compressed: ${backupFilename}${colors.reset}`);
 
-  // 7. Perform Backup Retention Rotation (Keep last 7 backups)
+  // 8. Perform Backup Retention Rotation (Keep last 7 backups)
   try {
     const files = fs.readdirSync(BACKUP_DIR)
       .filter(f => f.startsWith('santis_backup_') && f.endsWith('.sql.gz'))
@@ -144,6 +160,13 @@ dumpProcess.on('close', (code) => {
       for (const file of filesToDelete) {
         fs.unlinkSync(file.path);
         console.log(`  Deleted expired backup: ${file.name}`);
+        
+        // Also delete corresponding .sha256 manifest if it exists
+        const checksumPath = `${file.path}.sha256`;
+        if (fs.existsSync(checksumPath)) {
+          fs.unlinkSync(checksumPath);
+          console.log(`  Deleted expired checksum manifest: ${file.name}.sha256`);
+        }
       }
     }
   } catch (err) {

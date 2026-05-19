@@ -3,6 +3,7 @@ import { spawn, execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import zlib from 'zlib';
+import crypto from 'crypto';
 
 const colors = {
   reset: '\x1b[0m',
@@ -55,7 +56,30 @@ if (!backupFileArg.endsWith('.sql.gz')) {
 
 console.log(`  Target backup file: ${colors.bold}${resolvedBackupPath}${colors.reset}`);
 
-// 5. Run gzip integrity check before restore
+// 5. Run SHA256 Checksum Manifest verification if present
+const checksumPath = `${resolvedBackupPath}.sha256`;
+if (fs.existsSync(checksumPath)) {
+  console.log(`  Verifying SHA256 checksum manifest...`);
+  try {
+    const expectedHash = fs.readFileSync(checksumPath, 'utf-8').trim();
+    const fileBuffer = fs.readFileSync(resolvedBackupPath);
+    const actualHash = crypto.createHash('sha256').update(fileBuffer).digest('hex');
+    if (actualHash !== expectedHash) {
+      console.error(`\n${colors.red}❌  Error: SHA256 checksum mismatch! The backup file is altered or corrupted.${colors.reset}`);
+      console.error(`  Expected: ${expectedHash}`);
+      console.error(`  Actual:   ${actualHash}`);
+      process.exit(1);
+    }
+    console.log(`  ${colors.green}✅  SHA256 checksum manifest verified successfully.${colors.reset}`);
+  } catch (hashErr) {
+    console.error(`\n${colors.red}❌  Error during SHA256 verification: ${hashErr.message}${colors.reset}`);
+    process.exit(1);
+  }
+} else {
+  console.log(`  ⚠️  Warning: No SHA256 checksum manifest file found. Skipping checksum verification.`);
+}
+
+// 6. Run gzip integrity check before restore
 console.log(`  Running gzip integrity validation...`);
 try {
   execSync(`gzip -t "${resolvedBackupPath}"`, { stdio: 'ignore' });
@@ -70,6 +94,7 @@ try {
     process.exit(1);
   }
 }
+
 
 // 6. Query container environment dynamically to fetch target user and DB
 console.log(`\n${colors.yellow}🔄  Querying postgres container environment...${colors.reset}`);
