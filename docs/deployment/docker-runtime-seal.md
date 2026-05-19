@@ -6,8 +6,8 @@ This document formalizes the deployment and containerization of the Santis OS ec
 
 ## 🛡️ 1. Architectural Overview
 
-
-The local Docker execution runtime containerizes the clean workspace state without altering the production cloud deployment paths (Vercel/Cloudflare). 
+The local Docker execution runtime containerizes the clean workspace state without altering the production cloud deployment paths (Vercel/Cloudflare).
+ 
 
 The environment orchestrates five services over a isolated network boundary:
 
