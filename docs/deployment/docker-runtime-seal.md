@@ -228,4 +228,21 @@ Even under maximum root read-only constraint enforcement, all service endpoints 
 - Public Web Server: `http://localhost:8080/healthz` -> `200 OK`
 - Admin Panel Server: `http://localhost:8081/healthz` -> `200 OK`
 
+---
+
+## 🚀 9. Automated CI/CD Validation (TD-008.5)
+
+To guarantee that no security regressions or build failures bypass the gateway, a dedicated GitHub Actions workflow is integrated at `.github/workflows/docker-build-validation.yml`.
+
+### 1. Verification Sequence
+Every push or pull request targeting the `develop` or `main` branches triggers the automated hardening pipeline:
+1. **Syntax Integrity**: Merges the compose definitions and validates syntax with `docker compose config`.
+2. **Parallel Compilation**: Compiles the entire monorepo Docker image stack in parallel with cached layers.
+3. **Boot & Health Check**: Boots up the Postgres, Redis, API, Web, and Admin-Panel stack, waiting for all 5 containers to report `healthy`.
+4. **Mutability Audit**: Executes the zero-dependency `/tmp` vs source directory mutability proof check via `node scripts/active/audit-docker-readonly-runtime.mjs`.
+5. **Teardown**: Gracefully tears down the network and database volumes after execution.
+
+This CI gate ensures that all container constraints remain permanently locked, secure, and regression-free.
+
+
 

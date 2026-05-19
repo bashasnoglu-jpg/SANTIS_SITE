@@ -1,0 +1,75 @@
+name: Santis OS — Docker Build & Hardening Validation
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+  pull_request:
+    branches:
+      - develop
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-hardening:
+    name: Validate Hardening Stack
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate Compose Syntax and Port Leakage Isolation
+        run: |
+          node scripts/active/audit-docker-prod-compose.mjs
+
+      - name: Build Hardened Containers
+        run: |
+          DATABASE_URL=postgresql://santis:santis_secure_pass@postgres:5432/santis \
+          POSTGRES_PASSWORD=santis_secure_pass \
+          docker compose -f compose.yml -f compose.prod.yml build --parallel
+
+      - name: Start Production Hardening Stack
+        run: |
+          DATABASE_URL=postgresql://santis:santis_secure_pass@postgres:5432/santis \
+          POSTGRES_PASSWORD=santis_secure_pass \
+          docker compose -f compose.yml -f compose.prod.yml up -d
+
+      - name: Await Service Health Statuses
+        run: |
+          echo "Waiting for all containers to report healthy..."
+          for i in {1..25}; do
+            docker compose ps
+            HEALTHY_COUNT=$(docker compose ps | grep -c "(healthy)" || true)
+            if [ "$HEALTHY_COUNT" -eq 5 ]; then
+              echo "All 5 containers are fully healthy!"
+              exit 0
+            fi
+            echo "Only $HEALTHY_COUNT/5 containers are healthy. Waiting 5s..."
+            sleep 5
+          done
+          echo "Timeout: Containers failed to reach healthy state!"
+          docker compose ps
+          docker compose logs
+          exit 1
+
+      - name: Run Read-Only Mutability Proof Audit
+        run: |
+          node scripts/active/audit-docker-readonly-runtime.mjs
+
+      - name: Tear Down Stack
+        if: always()
+        run: |
+          docker compose down -v
