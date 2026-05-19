@@ -197,3 +197,35 @@ To guarantee that consumer services only launch when their dependencies are full
 
 This eliminates container startup race conditions and socket connection failures during deployments.
 
+---
+
+## 🔒 8. Read-Only Runtime Mutability Proof (TD-008.4)
+
+The production overlay strictly validates that application containers cannot mutate their runtime source or static asset directories. Only explicitly declared `tmpfs` paths remain writable, preventing local code tampering and guaranteeing container immutability.
+
+### 1. Automated Mutability Proof Script
+A dedicated automated audit script is registered under `scripts/active/audit-docker-readonly-runtime.mjs`. This script performs automated live-write attempts inside active production containers to verify isolation constraints:
+
+```bash
+node scripts/active/audit-docker-readonly-runtime.mjs
+```
+
+### 2. Mutability Testing Matrix
+The actual validation tests yield the following exact PASS/FAIL matrix across all services:
+
+| Service | Target Directory | Path Type | Expected Writability | Live Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **api** | `/tmp` | Ephemeral `tmpfs` | **PASS** (Writable) | ✅ MATCHED |
+| **api** | `/app` | Source Code Root | **FAIL** (Read-Only) | ✅ MATCHED |
+| **web** | `/tmp` | Ephemeral `tmpfs` | **PASS** (Writable) | ✅ MATCHED |
+| **web** | `/usr/share/nginx/html` | Static Assets Root | **FAIL** (Read-Only) | ✅ MATCHED |
+| **admin-panel** | `/tmp` | Ephemeral `tmpfs` | **PASS** (Writable) | ✅ MATCHED |
+| **admin-panel** | `/usr/share/nginx/html` | SPA Static Assets Root | **FAIL** (Read-Only) | ✅ MATCHED |
+
+### 3. HTTP Endpoint Integrity
+Even under maximum root read-only constraint enforcement, all service endpoints remain completely functional and resolve with `200 OK`:
+- API Backend: `http://localhost:8000/health` -> `200 OK`
+- Public Web Server: `http://localhost:8080/healthz` -> `200 OK`
+- Admin Panel Server: `http://localhost:8081/healthz` -> `200 OK`
+
+
