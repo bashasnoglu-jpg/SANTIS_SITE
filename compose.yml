@@ -40,14 +40,14 @@ services:
   # ── API: FastAPI Python Backend ────────────────────────────────────────────
   api:
     build:
-      context: ./app
-      dockerfile: ../docker/api/Dockerfile
+      context: .
+      dockerfile: docker/api/Dockerfile
     container_name: santis-api
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgresql://${POSTGRES_USER:-santis_admin}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-santis_core}
       - REDIS_URL=redis://redis:6379/0
-      - SANTIS_API_APP=main:app
+      - SANTIS_API_APP=${SANTIS_API_APP:-app.main:app}
     depends_on:
       postgres:
         condition: service_healthy
