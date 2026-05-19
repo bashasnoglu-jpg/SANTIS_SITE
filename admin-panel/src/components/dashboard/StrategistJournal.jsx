@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSovereignSocket } from '../../context/SovereignSocketContext';
+import { useSovereignSocket } from '../../context/SovereignSocketContext.js';
 
 /**
  * Sovereign Strategist's Journal

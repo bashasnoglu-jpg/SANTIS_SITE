@@ -7,8 +7,8 @@
    ========================================================================== */
 
 /* ÇEKİRDEK SİNİR SİSTEMİ BAĞLANTILARI */
-/* ✨ TAILWIND v4 ENGINE — Sovereign Utility Sistemi */
-@import url('tailwind-input.css');
+/* ✨ TAILWIND ENGINE — Compiled runtime utility layer */
+@import url('output.css');
 
 @import url('santis-v6/santis.reset.css');
 @import url('santis-v6/santis.tokens.css');
@@ -49,6 +49,13 @@
 :root {
   --z-overlay: 9998;
   --z-ghost: 9999;
+  --z-nav-command: var(--z-ghost);
+  --z-voice-overlay: var(--z-ghost);
+  --z-memory-panel: var(--z-ghost);
+  --z-soul-flash: var(--z-ghost);
+  --z-ghost-close: var(--z-ghost);
+  --z-cursor-ring: var(--z-ghost);
+  --z-cursor-dot: var(--z-ghost);
 }
 
 /* --- Stacking Context Enforcer (God Canvas Z-Index Bugfix) --- */
@@ -66,12 +73,12 @@ section, .santis-section {
 }
 #navbar-container { 
     position: relative !important; 
-    z-index: 2147483647 !important; 
+    z-index: var(--z-nav-command) !important; 
     pointer-events: auto !important; 
 }
 .sovereign-nav { 
     pointer-events: auto !important; 
-    z-index: 2147483647 !important; 
+    z-index: var(--z-nav-command) !important; 
     opacity: 1 !important; 
     visibility: visible !important; 
     transform: translateY(0) !important; /* Prevent scroll-hidden */
@@ -272,7 +279,7 @@ section, .santis-section {
   font-family: inherit;
   font-weight: 500;
   letter-spacing: 1px;
-  z-index: 9999;
+  z-index: var(--z-voice-overlay);
   box-shadow: 0 0 20px rgba(0,255,194,0.4);
   border: 1px solid rgba(0,255,194,0.2);
 }
@@ -299,7 +306,7 @@ section, .santis-section {
   font-family: inherit;
   font-weight: 500;
   max-width: 300px;
-  z-index: 9999;
+  z-index: var(--z-memory-panel);
   font-size: 11px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   backdrop-filter: blur(10px);
@@ -340,7 +347,7 @@ body::after {
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 999999;
+    z-index: var(--z-soul-flash);
     background: radial-gradient(circle at center, rgba(212, 175, 55, var(--santis-soul-flash, 0)) 0%, transparent 60%);
     mix-blend-mode: screen;
     opacity: var(--santis-soul-flash, 0);
@@ -638,7 +645,7 @@ body.ghost-active {
     cursor: pointer;
     opacity: 0; transform: translateY(-20px) translateZ(0);
     transition: opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s, background 0.3s ease, color 0.3s ease;
-    z-index: 10000;
+    z-index: var(--z-ghost-close);
 }
 .santis-ghost-close:hover {
     background: rgba(255,255,255,0.2);
@@ -704,7 +711,7 @@ body.ghost-active {
     background: var(--color-base-gold);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 10001;
+    z-index: var(--z-cursor-dot);
     mix-blend-mode: difference;
     transform: translate(-50%, -50%);
     will-change: transform;
@@ -719,7 +726,7 @@ body.ghost-active {
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 10000;
+    z-index: var(--z-cursor-ring);
     mix-blend-mode: difference;
     display: flex; align-items: center; justify-content: center;
     transform-origin: center center;

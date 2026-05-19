@@ -51,7 +51,7 @@ PAGE OVERLAY (CINEMATIC TRANSITIONS)
     backdrop-filter: blur(12px);
     opacity: 0;
     pointer-events: none;
-    z-index: 9999;
+    z-index: var(--z-bento-page-overlay, var(--z-modal, 900));
     transition: opacity 0.6s cubic-bezier(.19,1,.22,1), transform 0.6s ease;
 }
 
@@ -443,7 +443,7 @@ V11 CURSOR ENGINE & SPATIAL INTERACTION
         border-radius: 50%;
         background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
         transform: translate(-50%, -50%);
-        z-index: 9999;
+        z-index: var(--z-bento-spotlight, var(--z-modal, 900));
         mix-blend-mode: screen;
         transition: width 0.2s ease, height 0.2s ease;
     }

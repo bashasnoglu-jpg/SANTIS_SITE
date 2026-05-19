@@ -1,0 +1,19 @@
+services:
+  # ── API: Enable live reload and host access ────────────────────────────────
+  api:
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./app:/app/app
+    ports:
+      - "8000:8000"
+
+  # ── WEB: Expose secondary dev port ─────────────────────────────────────────
+  web:
+    ports:
+      - "8080:8080"
+
+  # ── ADMIN PANEL: Expose secondary dev port ──────────────────────────────────
+  admin-panel:
+    ports:
+      - "8081:8080"

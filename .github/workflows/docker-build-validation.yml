@@ -1,0 +1,75 @@
+name: Docker Build Validation
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+  push:
+    branches:
+      - develop
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docker-build-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docker-build-validation:
+    name: Docker Build Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable Docker BuildKit
+        run: echo "DOCKER_BUILDKIT=1" >> "$GITHUB_ENV"
+
+      - name: Create Mock .env for Validation
+        run: cp .env.example .env
+
+      - name: Validate Compose config
+        run: docker compose -f compose.yml config
+
+      - name: Validate Production Compose overlay
+        env:
+          DATABASE_URL: postgresql://santis:example@postgres:5432/santis
+          POSTGRES_PASSWORD: example
+        run: docker compose -f compose.yml -f compose.prod.yml config --format json > /tmp/santis-compose-prod.json
+
+      - name: Assert production data services are not exposed
+        run: |
+          if jq -e '.services.postgres.ports' /tmp/santis-compose-prod.json >/dev/null 2>&1; then
+            echo "Postgres exposes a host port in production config."
+            exit 1
+          fi
+
+          if jq -e '.services.redis.ports' /tmp/santis-compose-prod.json >/dev/null 2>&1; then
+            echo "Redis exposes a host port in production config."
+            exit 1
+          fi
+
+          echo "Production data services are internal-only."
+
+      - name: Run Dedicated Config & Port Leakage Audit Script
+        run: |
+          node scripts/active/audit-docker-prod-compose.mjs
+
+      - name: Build API image
+        run: docker build -f docker/api/Dockerfile -t santis-api:ci .
+
+      - name: Build Public Web image
+        run: docker build -f docker/web/Dockerfile -t santis-web:ci .
+
+      - name: Build Admin Panel image
+        run: docker build -f docker/admin-panel/Dockerfile -t santis-admin-panel:ci .
+
+      - name: Audit Docker Image Sizes & Compliance
+        run: node scripts/active/audit-docker-images.mjs
+

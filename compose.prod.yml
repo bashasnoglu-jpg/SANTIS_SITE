@@ -1,0 +1,60 @@
+# Production overlay for Santis OS Docker Runtime.
+# Usage:
+#   DATABASE_URL=postgresql://santis:<secret>@postgres:5432/santis \
+#   POSTGRES_PASSWORD=<secret> \
+#   docker compose -f compose.yml -f compose.prod.yml up -d --build
+#
+# This file intentionally overlays compose.yml. It preserves the local/dev
+# runtime while removing production-unnecessary host exposure for data services.
+
+services:
+  # ── API: Production Backend ────────────────────────────────────────────────
+  api:
+    env_file: !reset []
+    environment:
+      SANTIS_ENV: production
+      SANTIS_API_APP: ${SANTIS_API_APP:-server:app}
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL must be injected by the runtime/orchestrator}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    restart: unless-stopped
+
+  # ── WEB: Production Public Static Page ──────────────────────────────────────
+  web:
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+      - /var/cache/nginx:size=64m,mode=1777
+      - /var/run:size=16m,mode=1777
+    restart: unless-stopped
+
+  # ── ADMIN PANEL: Production Dashboard SPA ───────────────────────────────────
+  admin-panel:
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+      - /var/cache/nginx:size=64m,mode=1777
+      - /var/run:size=16m,mode=1777
+    restart: unless-stopped
+
+  # ── DATA LAYER: Production PostgreSQL 16 ────────────────────────────────────
+  postgres:
+    ports: !reset []
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-santis}
+      POSTGRES_USER: ${POSTGRES_USER:-santis}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be injected by the runtime/orchestrator}
+    volumes:
+      - santis_postgres_prod:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # ── DATA LAYER: Production Redis Cache ──────────────────────────────────────
+  redis:
+    ports: !reset []
+    restart: unless-stopped
+
+volumes:
+  santis_postgres_prod:
+    name: santis_postgres_prod

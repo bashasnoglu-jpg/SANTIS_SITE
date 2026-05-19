@@ -12,9 +12,8 @@ export function SovereignDashboard() {
   });
 
   useEffect(() => {
-    const msg = latestMessage as any;
-    if (msg && msg.type === 'ROLLOUT_STATUS_UPDATE' && msg.data) {
-      const p = msg.data;
+    if (latestMessage && latestMessage.type === 'ROLLOUT_STATUS_UPDATE') {
+      const p = latestMessage.data;
       setRolloutData({
         isActive: p.status === 'running',
         percentage: p.scope?.rolloutPercentage || 10, // Canary değilse veya scope yoksa fallback

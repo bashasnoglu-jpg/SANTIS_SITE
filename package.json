@@ -10,6 +10,8 @@
   "scripts": {
     "env:check": "node -v",
     "onboard": "fnm use && pnpm install",
+    "tokens:css": "node scripts/build-css-tokens.js",
+    "tokens:css:check": "node scripts/build-css-tokens.js --check",
     "build": "pnpm build:mpa && turbo run build",
     "build:mpa": "pnpm exec vite build",
     "build:vercel-admin-sim": "node scripts/build-vercel-admin-sim.mjs",
@@ -19,6 +21,9 @@
     "dev:admin": "pnpm --filter admin-panel dev",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
+    "db:backup": "node scripts/active/backup-db.mjs",
+    "db:restore": "node scripts/active/restore-db.mjs",
+    "db:sync-offsite": "node scripts/active/sync-backups-offsite.mjs",
     "db:push": "node scripts/active/private-script-moved.mjs db:push",
     "db:migrate": "node scripts/active/private-script-moved.mjs db:migrate",
     "stitch:enforce": "node packages/design-system/scripts/validate.js && node packages/design-system/scripts/check.js && node packages/design-system/scripts/guard.js",
@@ -31,7 +36,12 @@
     "audit:runtime": "node scripts/audit-runtime-contract.js",
     "audit:localhost": "node scripts/audit-localhost-leak.js",
     "audit:repo-boundary": "node scripts/active/audit-repo-boundary.mjs",
-    "audit:all": "pnpm run audit:repo-boundary && pnpm run audit:environment && pnpm run audit:workspace && pnpm run audit:contract && pnpm run audit:localhost",
+    "audit:production-env": "node scripts/active/audit-production-env.mjs",
+    "audit:docker-images": "node scripts/active/audit-docker-images.mjs",
+    "audit:visual": "node scripts/audit-visual-hierarchy.js",
+    "audit:visual-hierarchy": "node scripts/audit-visual-hierarchy.js",
+    "audit:visual-hierarchy:strict": "node scripts/audit-visual-hierarchy.js --strict",
+    "audit:all": "pnpm run audit:repo-boundary && pnpm run audit:environment && pnpm run audit:workspace && pnpm run audit:contract && pnpm run audit:localhost && pnpm run audit:visual && pnpm run audit:production-env && pnpm run audit:docker-images",
     "verify:ports": "node scripts/verify-ports.mjs",
     "audit:guest-journey": "node scripts/audit-guest-journey.cjs",
     "audit:vault": "node scripts/audit-sovereign-vault.cjs",
@@ -55,7 +65,8 @@
     "audit:rvs-telemetry-endpoint-contract": "node scripts/active/audit-rvs-telemetry-endpoint-contract.mjs",
     "audit:rvs-telemetry-endpoint-behavior": "node scripts/active/audit-rvs-telemetry-endpoint-behavior.mjs",
     "audit:rvs-client-telemetry-dispatcher": "node scripts/active/audit-rvs-client-telemetry-dispatcher.mjs",
-    "audit:rvs-santisdom-telemetry": "node scripts/active/audit-rvs-santisdom-telemetry.mjs"
+    "audit:rvs-santisdom-telemetry": "node scripts/active/audit-rvs-santisdom-telemetry.mjs",
+    "audit:rvs-telemetry-backend-stub": "node scripts/active/audit-rvs-telemetry-backend-stub.mjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",

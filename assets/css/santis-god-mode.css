@@ -182,7 +182,7 @@
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     /* İzole edilmiş z-index (zombi tıklamaları için) */
-    z-index: 1000; 
+    z-index: var(--z-god-killswitch, var(--z-raised, 10)); 
 }
 
 /* Dolum (Hold) Animasyonu için Arka Plan Barı */

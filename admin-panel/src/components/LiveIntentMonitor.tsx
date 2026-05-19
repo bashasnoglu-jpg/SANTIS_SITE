@@ -19,20 +19,21 @@ export function LiveIntentMonitor() {
   }, []);
 
   useEffect(() => {
-    if (!latestMessage) return;
-    const msg = latestMessage as any;
+    if (!latestMessage) {
+      return;
+    }
 
     setEventMap((prevMap) => {
       const newMap = new Map(prevMap); // Immutable update
       
-      if (msg.type === 'EVENT_REPLAY') {
+      if (latestMessage.type === 'EVENT_REPLAY') {
         // Geçmişi yükle (Deduplication id ile otomatik çözülür)
-        msg.payload.forEach((event: any) => {
-          newMap.set(event.id, event);
+        latestMessage.payload.forEach((event) => {
+          newMap.set(event.id, event as unknown as SovereignEventRecord);
         });
-      } else if (msg.type === 'EVENT_STREAM') {
+      } else if (latestMessage.type === 'EVENT_STREAM') {
         // Canlı akışı ekle (Varsa günceller, yoksa ekler = Dup yok)
-        newMap.set(msg.payload.id, msg.payload);
+        newMap.set(latestMessage.payload.id, latestMessage.payload as unknown as SovereignEventRecord);
       }
       
       // Hafıza yönetimi: Çok şişmesin diye limit
