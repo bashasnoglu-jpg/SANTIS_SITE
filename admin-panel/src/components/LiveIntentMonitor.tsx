@@ -20,18 +20,19 @@ export function LiveIntentMonitor() {
 
   useEffect(() => {
     if (!latestMessage) return;
+    const msg = latestMessage as any;
 
     setEventMap((prevMap) => {
       const newMap = new Map(prevMap); // Immutable update
       
-      if (latestMessage.type === 'EVENT_REPLAY') {
+      if (msg.type === 'EVENT_REPLAY') {
         // Geçmişi yükle (Deduplication id ile otomatik çözülür)
-        latestMessage.payload.forEach((event: any) => {
+        msg.payload.forEach((event: any) => {
           newMap.set(event.id, event);
         });
-      } else if (latestMessage.type === 'EVENT_STREAM') {
+      } else if (msg.type === 'EVENT_STREAM') {
         // Canlı akışı ekle (Varsa günceller, yoksa ekler = Dup yok)
-        newMap.set(latestMessage.payload.id, latestMessage.payload);
+        newMap.set(msg.payload.id, msg.payload);
       }
       
       // Hafıza yönetimi: Çok şişmesin diye limit
