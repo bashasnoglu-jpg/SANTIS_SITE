@@ -74,7 +74,8 @@ try {
 const leakSignatures = [
   { name: "Stripe Live Secret Key", regex: /sk_live_[a-zA-Z0-9]{24,}/g },
   { name: "Stripe Live Webhook Secret", regex: /whsec_live_[a-zA-Z0-9]{24,}/g },
-  { name: "Generic Live Secret Key", regex: /SECRET_KEY\s*=\s*['"][a-zA-Z0-9]{32,}['"]/gi }
+  { name: "Generic Live Secret Key", regex: /SECRET_KEY\s*=\s*['"][a-zA-Z0-9]{32,}['"]/gi },
+  { name: "Active AWS/R2/B2 API Key Pattern", regex: /(?:AWS_SECRET_ACCESS_KEY|R2_SECRET_ACCESS_KEY|B2_APPLICATION_KEY)\s*=\s*['"](?!.*placeholder.*)[a-zA-Z0-9/+=]{30,}['"]/gi }
 ];
 
 try {

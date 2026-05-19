@@ -360,6 +360,50 @@ SANTIS_OFFSITE_SYNC_CONFIRM=YES SANTIS_OFFSITE_PROVIDER=CLOUDFLARE_R2 SANTIS_OFF
 1. **No Embedded Credentials**: Authentication keys (e.g. AWS access keys or R2 tokens) must never be embedded in code or committed to Git. Instead, the respective CLI environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, or wrangler configuration tokens) must be exposed via secure runtime environments.
 2. **Local Cryptographic Proof**: Sync will fail immediately if any local backup is missing its corresponding `.sha256` manifest, or if the pre-upload cryptographic check fails.
 
+---
+
+## 🔑 13. Secrets Strategy & Offsite Credential Boundary (TD-008.10)
+
+This section establishes the zero-trust secret management standard for Santis OS runtime environments and cloud storage backup infrastructure.
+
+### 1. Local Development vs. Production Secrets
+To maintain absolute security hygiene, there is a rigid boundary between local development configurations and production secret values:
+
+| Dimension | Local Development (`.env`) | Production Environment (`GCP/AWS/Secrets`) |
+| :--- | :--- | :--- |
+| **Storage Location** | Ignored local `.env` file | Managed Secret Vaults (GCP Secret Manager) |
+| **Database Credentials** | Dev defaults (`santis_dev_password`) | Encrypted, high-entropy random strings |
+| **API Keys (Stripe)** | Sandbox test keys (`sk_test_...`) | Active, live merchant keys (`sk_live_...`) |
+| **Cookie Strictness** | Secure flag disabled (`false`) | Enforced Secure & HTTPS-only (`true`) |
+| **Offsite Credentials** | Safe placeholders | Live, scope-restricted IAM access credentials |
+
+### 2. GitHub Secrets Naming Convention
+When configuring continuous integration or automated backup runners, the following standardized names must be configured under **GitHub Actions Secrets**:
+
+- `SANTIS_PROD_DATABASE_URL`: Production PostgreSQL connection string.
+- `SANTIS_PROD_REDIS_URL`: Production Redis cache connection string.
+- `SANTIS_PROD_SESSION_TOKEN_SECRET`: 32+ character JWT signing token.
+- `SANTIS_OFFSITE_PROVIDER`: Sync target provider (`CLOUDFLARE_R2`, `AWS_S3`, or `BACKBLAZE_B2`).
+- `SANTIS_OFFSITE_BUCKET`: Target bucket name.
+- `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`: Scope-restricted S3 upload credentials.
+- `R2_ACCESS_KEY_ID` / `R2_SECRET_ACCESS_KEY`: Cloudflare R2 restricted tokens.
+- `B2_APPLICATION_KEY_ID` / `B2_APPLICATION_KEY`: Backblaze B2 application-specific keys.
+
+### 3. Forbidden Codebase Secret Rules
+- **No Active Keys in Git**: Committing live Stripe secrets (`sk_live_...`), production database passwords, or unmasked cloud storage API keys is strictly prohibited.
+- **Automated Scanning Guard**: Every local build or CI gate automatically triggers the high-entropy leakage scanner:
+  ```bash
+  pnpm run audit:production-env
+  ```
+  This scanner performs static codebase signature checks and blocks commits if high-entropy live secret key patterns are detected.
+
+### 4. Rotation Schedule Recommendation
+To mitigate credential leakage risks, all active secrets must be rotated systematically:
+1. **API Keys & Object Storage Tokens**: Every **90 days**.
+2. **Database System Credentials**: Every **180 days** or immediately upon developer offboarding.
+3. **Session Signing Token**: Annually or in case of a token compromise incident.
+
+
 
 
 
