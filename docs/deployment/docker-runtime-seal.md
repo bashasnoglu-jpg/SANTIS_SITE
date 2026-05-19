@@ -278,31 +278,62 @@ This script automatically scans all tracked files in the workspace against regex
 
 ## 💾 11. PostgreSQL Backup & Restore Protocol (TD-008.7)
 
-To ensure high-availability and prevent data loss, Santis OS utilizes a zero-dependency, automated backup and restore protocol designed to execute inside unprivileged container boundaries.
+To prevent data loss and support disaster recovery, Santis OS utilizes a zero-dependency, automated protocol for **online backups** and **controlled maintenance restores** executing inside unprivileged container boundaries.
 
-### 1. Automated Backup (`backup-db.mjs`)
-Database dumps are generated without stopping services, compressed using gzip on-the-fly, and saved locally with timestamped filenames:
+### ⚠️ Critical Security Policies
+- **Backups are Never Committed to Git**: The `./backups/` directory is strictly ignored by Git and Docker context (`.gitignore` and `.dockerignore`) to prevent accidental exposure of raw data dumps.
+- **Destructive Operation Guard**: To prevent accidental data loss, the restore protocol strictly blocks execution unless explicitly authorized by setting `SANTIS_RESTORE_CONFIRM=YES` in the process environment.
 
-```bash
-node scripts/active/backup-db.mjs
-```
+---
 
-**Key Features**:
-- **Zero-downtime**: Executes `pg_dump` asynchronously without locking active schemas.
-- **Auto-Rotation**: Keeps only the last **7 daily backups** under the `./backups` directory, deleting older copies automatically to prevent disk overflow.
-
-### 2. Disaster Recovery & Restore (`restore-db.mjs`)
-To restore persistent state, the recovery script accepts a target compressed archive path, safely terminates active sessions to prevent database locks, and streams the restored data stream:
+### 1. Online Backup (`backup-db.mjs`)
+Database dumps are generated online without stopping active services, compressed via gzip on-the-fly, and saved locally with timestamped filenames:
 
 ```bash
-node scripts/active/restore-db.mjs backups/santis_backup_YYYY-MM-DD-HH-MM-SS.sql.gz
+pnpm run db:backup
+# or: node scripts/active/backup-db.mjs
 ```
 
-**Execution Steps**:
-1. **Connection Termination**: Drops open client connections to the `santis` database.
-2. **Database Recreation**: Drops and recreates the target database container schema.
-3. **Decompressed Stream Restore**: Decodes the `.sql.gz` dump and streams it directly to the active `psql` shell.
-4. **Verification**: Executes integrity checks to confirm full persistent state recovery.
+**Workflow Steps**:
+1. **Dynamic Environment Extraction**: Node queries the container's environment dynamically via `docker compose exec` to resolve the current `POSTGRES_USER` and `POSTGRES_DB` values.
+2. **Online pg_dump**: Spawns `pg_dump` with `--no-owner --no-privileges` to output clean, portable plain SQL.
+3. **Piped Compression**: Streams raw SQL stdout natively into Node's `zlib.createGzip()`, saving it to `backups/santis_backup_YYYYMMDD_HHMMSS.sql.gz`.
+4. **Integrity Verification**: Performs automatic file size check (> 0 bytes) and verifies archive integrity (`gzip -t` or native Node zlib decompress fallback).
+5. **Retention Rotation Policy**: Retains only the last **7 daily backups** to prevent disk space exhaustion, rotating older copies automatically.
+
+---
+
+### 2. Controlled Maintenance Restore (`restore-db.mjs`)
+Restoring persistent state is a **destructive maintenance operation** that requires planned downtime.
+
+```bash
+SANTIS_RESTORE_CONFIRM=YES pnpm run db:restore backups/santis_backup_YYYYMMDD_HHMMSS.sql.gz
+# or: SANTIS_RESTORE_CONFIRM=YES node scripts/active/restore-db.mjs backups/santis_backup_YYYYMMDD_HHMMSS.sql.gz
+```
+
+**Disaster Recovery Execution Steps**:
+1. **Destructive Guard Assert**: Blocks execution if `SANTIS_RESTORE_CONFIRM !== "YES"`.
+2. **Safe Input Sanitization**: Rejects path traversal and verifies that the file exists and has the `.sql.gz` extension.
+3. **Integrity Validation**: Runs a pre-restore `gzip -t` integrity validation check on the targeted archive file.
+4. **Target DB Termination**: Connects to the `postgres` maintenance database (instead of the target DB) and terminates all active client connections to prevent DB-busy errors.
+5. **Database Re-creation**: Drops the existing target database and recreates a clean database with the correct owner:
+   ```sql
+   DROP DATABASE IF EXISTS santis;
+   CREATE DATABASE santis OWNER santis;
+   ```
+6. **Streaming Decompression Restore**: Decodes the `.sql.gz` archive on-the-fly and streams plain SQL directly into the container's `psql` instance.
+7. **Post-Restore Integrity Check**: Runs a validation check (`SELECT 1;`) to confirm the recovered database is healthy and fully accessible.
+
+---
+
+### 3. Production Scheduler & Orchestrator Integration
+For production clusters, configure a system cron job or orchestrator scheduler on the host to automate daily backup capture:
+
+```bash
+# Example cron entry to run daily backup at 03:00 AM
+0 3 * * * cd /path/to/santis && pnpm run db:backup >> /var/log/santis-backup.log 2>&1
+```
+
 
 
 

@@ -21,6 +21,8 @@
     "dev:admin": "pnpm --filter admin-panel dev",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
+    "db:backup": "node scripts/active/backup-db.mjs",
+    "db:restore": "node scripts/active/restore-db.mjs",
     "db:push": "node scripts/active/private-script-moved.mjs db:push",
     "db:migrate": "node scripts/active/private-script-moved.mjs db:migrate",
     "stitch:enforce": "node packages/design-system/scripts/validate.js && node packages/design-system/scripts/check.js && node packages/design-system/scripts/guard.js",
