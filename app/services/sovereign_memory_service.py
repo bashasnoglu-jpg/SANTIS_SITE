@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from app.schemas.memory import MemoryNode
 
 _SEED_DATA = [
@@ -162,9 +162,8 @@ class SovereignMemoryService:
         return [MemoryNode(**node) for node in _SEED_DATA]
     
     @classmethod
-    def get_memory_node(cls, date: str) -> MemoryNode | None:
-        nodes = cls.get_memory_nodes()
-        for node in nodes:
-            if node.date == date:
-                return node
+    def get_memory_node(cls, date: str) -> Optional[MemoryNode]:
+        for node_data in _SEED_DATA:
+            if node_data["date"] == date:
+                return MemoryNode(**node_data)
         return None
