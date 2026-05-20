@@ -1412,15 +1412,38 @@
             return date.toLocaleDateString('tr-TR', options).toUpperCase();
         }
 
+        function isValidMemoryNode(node) {
+            return node &&
+                typeof node.date === 'string' &&
+                node.biometrics &&
+                node.emotion &&
+                node.ritual &&
+                node.environment &&
+                node.diarist &&
+                node.atmosphere;
+        }
+
         async function loadMemoryNodes() {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
+
             try {
-                const response = await fetch('/api/v1/memory/nodes');
+                const response = await fetch('/api/v1/memory/nodes', { signal: controller.signal });
+                clearTimeout(timeoutId);
+
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
                 const data = await response.json();
+                
+                if (!Array.isArray(data) || !data.every(isValidMemoryNode)) {
+                    throw new Error('Invalid memory node contract');
+                }
+
                 console.log("📥 [SovereignMemory] Fetched temporal nodes from server:", data);
                 return data;
             } catch (error) {
-                console.warn('⚠️ [SovereignMemory] Failed to fetch live memory nodes, falling back to static seed:', error);
+                clearTimeout(timeoutId);
+                console.warn('⚠️ [SovereignMemory] Failed to fetch live memory nodes, falling back to static seed:', error.message);
                 return historySeed;
             }
         }
