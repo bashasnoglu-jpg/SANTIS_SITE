@@ -6,8 +6,10 @@ This audit confirms the successful integration of the FastAPI backend with the V
 ## 2. Hardening Measures
 
 ### Platform Bridge Configuration
-- **Entrypoint Creation:** Added `api/index.py` which strictly exports the `app` object from `app.main`. This aligns with Vercel's zero-config requirements for Python Serverless Functions.
-- **Routing Rules:** Updated `vercel.json` rewrites to explicitly forward `/api/(.*)` to the `/api/index.py` entrypoint.
+- **Entrypoint Creation:** Added `api/index.py` as an isolated API-only FastAPI runtime.
+  It registers only backend routers and does not import `app.main`,
+  preventing static file/source exposure through the serverless API surface.
+- **Routing Rules:** Updated `vercel.json` rewrites to explicitly forward `/api/:path*` to the isolated `/api` Python function entrypoint.
 
 ## 3. Governance Checklist
 - [x] No modifications to existing `requirements.txt` (dependencies were already present).
