@@ -1,4 +1,4 @@
-﻿# Technical Debt Register
+# Technical Debt Register
 
 ## Santis Vite Recovery Fallback Debt
 
@@ -16,9 +16,11 @@
 
 ## Missing Admin Command Launcher Module
 
-Status: OPEN / REBUILD REQUIRED
+Status: RESOLVED CANDIDATE / REBUILT AS SAFE READ-ONLY COMMAND PALETTE
 
 admin-command-launcher.js is currently absent from the active admin dashboard path and could not be found in _archive. Its script reference in admin-dashboard.html was disabled to prevent a Vite development runtime 404. Future work should either rebuild the launcher module intentionally or permanently remove the feature path from the dashboard architecture.
+
+The missing admin-command-launcher.js module has been rebuilt as a safe, read-only command palette. It currently avoids backend mutations, storage writes, and destructive commands. Future work may connect privileged actions only after RBAC/session guards exist.
 
 Related file:
 - admin-dashboard.html
