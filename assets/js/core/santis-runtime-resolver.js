@@ -6,7 +6,7 @@
     const isDevHost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
     
     const devFallbackUrl = isDevHost ? "http://127.0.0.1:3030" : "";
-    const devFallbackWs = isDevHost ? "ws://127.0.0.1:8080" : "";
+    const devFallbackWs = isDevHost ? "ws://127.0.0.1:3030" : "";
   
     window.getRuntimeConfig = function() {
         const cfg = window.SANTIS_RUNTIME_CONFIG || {};

@@ -1,6 +1,7 @@
 class SantisApiClient {
   constructor() {
-    const config = window.getRuntimeConfig ? window.getRuntimeConfig() : { apiBaseUrl: "/api/v1" };
+    const isLocal = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+    const config = window.getRuntimeConfig ? window.getRuntimeConfig() : { apiBaseUrl: isLocal ? "http://127.0.0.1:3030/api/v1" : "/api/v1" };
     this.baseUrl = config.apiBaseUrl;
     this.coreStateCache = null;
     this.coreStateVersion = "68.0.0";
@@ -48,8 +49,11 @@ class SantisApiClient {
   }
 
   deriveWebSocketUrlFromLocation() {
+    if (this.baseUrl.includes("127.0.0.1:3030") || this.baseUrl.includes("localhost:3030")) {
+        return "ws://127.0.0.1:3030/ws";
+    }
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    return `${protocol}//${window.location.host}/events`;
+    return `${protocol}//${window.location.host}/ws`;
   }
 
   async getAuthenticatedWebSocketUrl(wsUrl) {

@@ -277,6 +277,7 @@
                 id: 'atmosphere',
                 selectors: ['body'],
                 dependencies: ['/assets/js/modules/santis-atmosphere.js'],
+                isModule: true,
                 loaded: false
             },
             {
@@ -374,6 +375,7 @@
                 id: 'journey',
                 selectors: ['body'],
                 dependencies: ['/assets/js/modules/santis-journey-orchestrator.js'],
+                isModule: true,
                 loaded: false
             }
         ];
