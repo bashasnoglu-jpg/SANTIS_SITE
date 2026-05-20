@@ -113,3 +113,6 @@ tests/artifacts/
 tests/reports/
 playwright-report/
 .cache/
+
+# Runtime session lock (auto-generated, machine-local)
+.nexus-lock
