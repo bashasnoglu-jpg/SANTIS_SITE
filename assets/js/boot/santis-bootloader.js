@@ -387,18 +387,17 @@
 
         function dispatchTelemetry(level, message) {
             // Background telemetry dispatch (fire and forget)
-            const endpoint = `${getBackendUrl()}/telemetry/beacon`;
-            fetch(endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    event: 'BOOTLOADER_EVENT',
-                    ts: new Date().toISOString(),
-                    context: { tenantId: 'santis-club', sessionId: 'boot', source: window.location.pathname },
-                    meta: { level, message }
-                }),
-                keepalive: true
-            }).catch(() => {});
+            if (window.__SANTIS_ENABLE_TELEMETRY_BEACON__ !== true) return;
+            const endpoint = typeof getBackendUrl !== "undefined" ? `${getBackendUrl()}/telemetry/beacon` : '/api/v1/telemetry/beacon';
+            if (navigator.sendBeacon) {
+                const payload = { 
+                    event_type: 'BOOTLOADER_EVENT',
+                    session_id: 'boot',
+                    client_time: new Date().toISOString(),
+                    metadata: { level, message, tenantId: 'santis-club', source: window.location.pathname }
+                };
+                navigator.sendBeacon(endpoint, new Blob([JSON.stringify(payload)], { type: 'application/json' }));
+            }
         }
 
         function loadScriptV36(src, isModule = false) {
@@ -504,11 +503,15 @@
             }
             
             // 📡 V42 Telemetry Bridge (Fire & Forget)
-            if (navigator.sendBeacon) {
-                const endpoint = typeof getBackendUrl !== "undefined" ? `${getBackendUrl()}/telemetry/decision` : '/api/v1/telemetry/decision';
-                navigator.sendBeacon(endpoint, JSON.stringify({
-                    module: name, decision: decision, meta: meta, time: Date.now()
-                }));
+            if (window.__SANTIS_ENABLE_TELEMETRY_BEACON__ === true && navigator.sendBeacon) {
+                const endpoint = typeof getBackendUrl !== "undefined" ? `${getBackendUrl()}/telemetry/beacon` : '/api/v1/telemetry/beacon';
+                const payload = {
+                    event_type: 'POLICY_DECISION',
+                    session_id: 'boot',
+                    client_time: new Date().toISOString(),
+                    metadata: { module: name, decision: decision, meta: meta }
+                };
+                navigator.sendBeacon(endpoint, new Blob([JSON.stringify(payload)], { type: 'application/json' }));
             }
         }
 

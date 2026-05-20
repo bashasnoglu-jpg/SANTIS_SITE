@@ -20,7 +20,8 @@
             wsUrl: cfg.wsUrl || (devFallbackWs ? `${devFallbackWs}/ws` : `${wsProtocol}://${window.location.host}/ws`),
             eventsWsUrl: cfg.eventsWsUrl || (devFallbackWs ? `${devFallbackWs}/events` : `${wsProtocol}://${window.location.host}/events`),
             physicalCommandUrl: cfg.physicalCommandUrl || (devFallbackUrl ? `${devFallbackUrl}/api/physical-command` : "/api/physical-command"),
-            streamGodUrl: cfg.streamGodUrl || (devFallbackUrl ? `${devFallbackUrl}/api/v1/streams/god` : "/api/v1/streams/god")
+            streamGodUrl: cfg.streamGodUrl || (devFallbackUrl ? `${devFallbackUrl}/api/v1/streams/god` : "/api/v1/streams/god"),
+            telemetryBeaconUrl: cfg.telemetryBeaconUrl || (devFallbackUrl ? `${devFallbackUrl}/api/v1/telemetry/beacon` : "/api/v1/telemetry/beacon")
         };
     };
 })();

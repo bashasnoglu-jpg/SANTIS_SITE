@@ -4,8 +4,8 @@
  */
 class SantisTelemetryEngine {
   constructor() {
-    // Sovereign Server telemetri rotası
-    this.endpoint = 'http://127.0.0.1:3030/api/v1/telemetry/beacon'; 
+    // Sovereign Server telemetri rotası (Runtime resolver'dan beslenir)
+    this.endpoint = typeof window.getRuntimeConfig === 'function' ? window.getRuntimeConfig().telemetryBeaconUrl : '/api/v1/telemetry/beacon'; 
     this.sessionId = this._generateSessionId();
     
     // Debounce kalkanı için zamanlayıcı (Timer) ve son hafıza
@@ -63,25 +63,32 @@ class SantisTelemetryEngine {
    * Veriyi ana iplikçiyi (main thread) bozmadan sunucuya ateşler
    */
   track(eventName, payload = {}) {
-    // 🛡️ Telemetry Feature Flag check to prevent 404 network noise in local dev
-    const TELEMETRY_BEACON_ENABLED = window.__SANTIS_ENABLE_TELEMETRY_BEACON__ === true;
-    if (!TELEMETRY_BEACON_ENABLED) {
+    // 🛡️ Telemetry Feature Flag check to prevent network noise in local dev and enforce opt-in
+    if (window.__SANTIS_ENABLE_TELEMETRY_BEACON__ !== true) {
         return false;
     }
 
     const data = {
+      event_type: eventName,
       session_id: this.sessionId,
-      event: eventName,
-      timestamp: new Date().toISOString(),
-      payload: payload
+      client_time: new Date().toISOString(),
+      metadata: payload
     };
 
-    // sendBeacon için veriyi Blob formatına çeviriyoruz
-    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    const payloadString = JSON.stringify(data);
     
-    // Tarayıcı bu işlemi arka planda otonom olarak yapar
-    navigator.sendBeacon(this.endpoint, blob);
-    console.log(`📡 [God's Eye] Sinyal Fırlatıldı: ${eventName}`);
+    // Payload limit guard (Max 45KB strictly on frontend to prevent 413 on backend)
+    if (new Blob([payloadString]).size > 45000) {
+        return false; 
+    }
+
+    // sendBeacon için veriyi Blob formatına çeviriyoruz
+    const blob = new Blob([payloadString], { type: 'application/json' });
+    
+    // Tarayıcı bu işlemi arka planda otonom olarak yapar, başarısız olursa retry fırtınası önlenir
+    if (navigator.sendBeacon) {
+        navigator.sendBeacon(this.endpoint, blob);
+    }
   }
 
   _generateSessionId() {
