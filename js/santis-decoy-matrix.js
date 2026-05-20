@@ -1,9 +1,14 @@
-﻿/**
+/**
  * SANTIS SOVEREIGN OS - DECOY MATRIX CONTROLLER
  * Kiosk Mode - Zero Storage - Zero Network - Sovereign Grade
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+if (window.SantisDecoyMatrixLoaded) {
+    console.warn('[Santis Decoy Matrix] Duplicate initialization prevented.');
+} else {
+    window.SantisDecoyMatrixLoaded = true;
+
+    document.addEventListener('DOMContentLoaded', () => {
     // 1. Safe DOM Retrieval
     const initBtn = document.getElementById('init-btn');
     const decoyMatrix = document.getElementById('decoy-matrix');
@@ -141,3 +146,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+}
