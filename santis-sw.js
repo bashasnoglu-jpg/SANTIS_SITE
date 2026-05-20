@@ -83,6 +83,9 @@ const fetchWithTimeout = (request, timeout = 1200) => {
 self.addEventListener('fetch', (event) => {
     const { request } = event;
 
+    // Non-HTTP Guard: Chrome-extension ve diğer non-http isteklerini yoksay
+    if (!request.url.startsWith('http')) return;
+
     // 1. Video & Range Request Bypass: Büyük medyalar ve Safari/iOS Range istekleri 
     // doğrudan ağa yönlendirilir. Önbellek şişmesi ve main-thread bloğu önlenir.
     if (request.destination === 'video' || request.headers.has('range')) {

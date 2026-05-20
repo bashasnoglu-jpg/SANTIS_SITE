@@ -1,4 +1,4 @@
-﻿/**
+/**
  * SANTIS SOVEREIGN OS - ADMIN RADAR CONTROLLER (V13)
  * Görev: SSE Canlı Akış (Primary) + Zaman Yolculuğu (Phase 80)
  * Status: Phase 80 - Sovereign Intelligence Ops Sealed
@@ -225,7 +225,16 @@ class RadarEngine {
             }
             const data = await response.json();
             this.updateState(data);
-        } catch (error) { console.warn('RadarEngine: Sync Error fallback:', error.message); }
+            this.fallbackFailures = 0;
+        } catch (error) {
+            this.fallbackFailures = (this.fallbackFailures || 0) + 1;
+            if (this.fallbackFailures < 3) {
+                console.warn('RadarEngine: Sync Error fallback:', error.message);
+            } else if (this.fallbackFailures === 3) {
+                console.warn('RadarEngine: Sync Error fallback suspended due to consecutive failures. (Circuit Breaker)');
+                this.stopSyncLoop();
+            }
+        }
     }
 
     startSyncLoop() {

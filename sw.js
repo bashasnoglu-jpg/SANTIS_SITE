@@ -28,6 +28,9 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+    // Non-HTTP Guard
+    if (!event.request.url.startsWith('http')) return;
+
     // Network First, Fallback to Cache (Veri güncelliği için)
     event.respondWith(
         fetch(event.request).catch(() => {
