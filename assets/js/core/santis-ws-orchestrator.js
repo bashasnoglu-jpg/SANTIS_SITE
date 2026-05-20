@@ -651,7 +651,7 @@ class SantisStreamProtocol {
 const getDefaultUrl = () => {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     // 🛡️ V3: URL Payload izole edildi. Artık Anonymous başlar, Handshake ile kimliklenir.
-    return `${protocol}//${window.location.hostname}:8080/ws`; 
+    return `${protocol}//${window.location.hostname}:3030/ws`; 
 };
 
 // 🌐 HARDENED EXPORT (Sovereign V3) + Singleton Guard

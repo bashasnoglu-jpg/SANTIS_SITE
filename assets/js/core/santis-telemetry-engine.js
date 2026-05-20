@@ -5,7 +5,7 @@
 class SantisTelemetryEngine {
   constructor() {
     // Sovereign Server telemetri rotası
-    this.endpoint = 'http://localhost:8080/api/v1/telemetry/beacon'; 
+    this.endpoint = 'http://127.0.0.1:3030/api/v1/telemetry/beacon'; 
     this.sessionId = this._generateSessionId();
     
     // Debounce kalkanı için zamanlayıcı (Timer) ve son hafıza
@@ -63,6 +63,12 @@ class SantisTelemetryEngine {
    * Veriyi ana iplikçiyi (main thread) bozmadan sunucuya ateşler
    */
   track(eventName, payload = {}) {
+    // 🛡️ Telemetry Feature Flag check to prevent 404 network noise in local dev
+    const TELEMETRY_BEACON_ENABLED = window.__SANTIS_ENABLE_TELEMETRY_BEACON__ === true;
+    if (!TELEMETRY_BEACON_ENABLED) {
+        return false;
+    }
+
     const data = {
       session_id: this.sessionId,
       event: eventName,
