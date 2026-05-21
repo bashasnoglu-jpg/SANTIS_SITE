@@ -33,7 +33,7 @@
 | :--- | :--- | :--- | :--- | :--- |
 | **P2-1** | **Tailwind Dependency Ownership** | MEDIUM | OPEN | `tailwindcss` exists in both `dependencies` and `devDependencies`. Needs normalization (chore PR). |
 | **P2-2** | **Nav Manifest & WebSocket Gateway** | MED-HIGH | OPEN | Frontend encounters `Unexpected token '<'` on 404 manifest. Telemetry client expects `ws://localhost:8080`. Needs fallback fix. |
-| **P2-3** | **Branch Policy Enforcement** | MEDIUM | OPEN | Orphaned `phase-*` branches need cleanup. GitHub settings need to match `docs/governance/branch-policy.md`. |
+| **P2-3** | **Branch Policy Enforcement** | MEDIUM | OPEN | Orphaned `phase-*` branches need cleanup. GitHub settings need to match `docs/governance/release-flow.md`. |
 
 ---
 
