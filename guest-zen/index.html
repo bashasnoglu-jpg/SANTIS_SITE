@@ -9,14 +9,6 @@
     <meta name="description" content="Santis | Guest Zen — Santis Club Spa & Wellness Antalya. Lüks hamam, masaj ve cilt bakımı deneyimleri Konyaaltı'nda.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Santis | Guest Zen</title>
-    <!-- Tailwind Warning Suppressor -->
-    <script>
-        const originalWarn = console.warn;
-        console.warn = function(...args) {
-            if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return;
-            originalWarn.apply(console, args);
-        };
-    </script>
     <!-- Tailwind CSS (CDN for rapid architecture) -->
     <script src="/assets/js/tailwindcss.min.js" crossorigin="anonymous" defer></script>
     <script defer="" src="/assets/js/perf-head.js"></script>
@@ -27,30 +19,6 @@
     <link rel="stylesheet" href="../assets/css/editorial.css?v=2.2.1">
     
     <!-- Tailwind Custom Configuration -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontSize: { micro: '10px', nano: '9px' },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
     <style>
         :root {
             --bg-app: #020617;

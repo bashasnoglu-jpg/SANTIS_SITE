@@ -45,6 +45,7 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+    if (!event.request.url.startsWith('http')) return;
     const url = new URL(event.request.url);
 
     // 📡 1. WEBSOCKET BAĞLANTILARI: BYPASS (Asla önbelleğe alma)
