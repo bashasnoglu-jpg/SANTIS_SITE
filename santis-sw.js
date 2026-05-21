@@ -81,6 +81,7 @@ const fetchWithTimeout = (request, timeout = 1200) => {
  * FETCH HOOK: İsteklerin yönlendirildiği ana trafik kontrolörü.
  */
 self.addEventListener('fetch', (event) => {
+    if (!event.request.url.startsWith('http')) return;
     const { request } = event;
 
     // 1. Video & Range Request Bypass: Büyük medyalar ve Safari/iOS Range istekleri 

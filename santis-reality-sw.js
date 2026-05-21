@@ -30,6 +30,7 @@ self.addEventListener('activate', (e) => {
 // 2. DYNAMIC MODULE INTERCEPTION
 // -----------------------------
 self.addEventListener('fetch', (event) => {
+    if (!event.request.url.startsWith('http')) return;
   const url = new URL(event.request.url);
 
   // Kural 1: Sadece JS modüllerini denetle
