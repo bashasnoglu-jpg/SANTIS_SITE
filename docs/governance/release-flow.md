@@ -9,7 +9,7 @@ This document outlines the canonical branching strategy and release flow for San
 
 ## Branch Prefixes & Workflows
 
-*   **`feature/*`**, **`fix/*`**, **`docs/*`**, **`chore/*`**:
+*   **`feature/*`**, **`fix/*`**, **`docs/*`**, **`chore/*`**, **`refactor/*`**, **`archive/*`**:
     *   **Target:** `develop`
     *   **Usage:** Standard daily development branches. Must be merged into `develop` via PR.
 *   **`hotfix/*`**:
