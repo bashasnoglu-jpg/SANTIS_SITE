@@ -79,7 +79,7 @@ test.describe('Sovereign Booking Flow - Deterministik Performans Testi', () => {
 
     // GitHub hosted runners do not expose stable 120 FPS GPU timing. Keep the
     // strict budget local, but treat CI frame timing as telemetry with a hang guard.
-    const frameBudget = isCI ? 500 : 8.5;
+    const frameBudget = isCI ? 750 : 8.5;
     const clsBudget = isCI ? 0.02 : 0;
 
     expect(maxFrameTime, 'GPU Darboğazı: Frame süresi bütçeyi aştı!').toBeLessThanOrEqual(frameBudget);
