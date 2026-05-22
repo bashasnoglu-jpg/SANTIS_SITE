@@ -19,7 +19,7 @@
  */
 
 const WS_CFG = {
-  url:              'ws://localhost:8080/?role=watcher&token=SANTIS-CORE-TX99',
+  url:              'ws://localhost:3030/?role=watcher&token=SANTIS-CORE-TX99',
   maxRetries:       8,
   baseBackoffMs:    1_000,
   maxBackoffMs:     30_000,

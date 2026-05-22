@@ -123,7 +123,9 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+    // Non-HTTP Guard
     if (!event.request.url.startsWith('http')) return;
+
     // Sadece Navigation (HTML Görüntüleme) isteklerini pusuya düşür
     if (event.request.mode === 'navigate') {
         event.respondWith(

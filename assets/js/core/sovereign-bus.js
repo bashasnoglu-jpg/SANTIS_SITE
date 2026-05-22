@@ -8,12 +8,12 @@ import { QuarantineBarrier, PRIORITY } from './sovereign-quarantine.js';
  */
 
 class SovereignNeuralBusCore {
-    constructor() {
+    constructor(config = {}) {
         if (SovereignNeuralBusCore.instance) {
             return SovereignNeuralBusCore.instance;
         }
 
-        this.url = 'ws://localhost:8080/ws';
+        this.url = 'ws://127.0.0.1:3030/ws';
         this.socket = null;
         this.subscribers = new Map();
         

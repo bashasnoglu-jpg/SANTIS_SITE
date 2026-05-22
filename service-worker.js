@@ -53,7 +53,6 @@ self.addEventListener('activate', (event) => {
  * 3. Fetching: Stale-While-Revalidate + Offline Fallback
  */
 self.addEventListener('fetch', (event) => {
-    if (!event.request.url.startsWith('http')) return;
     if (event.request.method !== 'GET') return;
 
     event.respondWith(

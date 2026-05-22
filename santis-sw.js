@@ -81,8 +81,10 @@ const fetchWithTimeout = (request, timeout = 1200) => {
  * FETCH HOOK: İsteklerin yönlendirildiği ana trafik kontrolörü.
  */
 self.addEventListener('fetch', (event) => {
-    if (!event.request.url.startsWith('http')) return;
     const { request } = event;
+
+    // Non-HTTP Guard: Chrome-extension ve diğer non-http isteklerini yoksay
+    if (!request.url.startsWith('http')) return;
 
     // 1. Video & Range Request Bypass: Büyük medyalar ve Safari/iOS Range istekleri 
     // doğrudan ağa yönlendirilir. Önbellek şişmesi ve main-thread bloğu önlenir.

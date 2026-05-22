@@ -6,7 +6,7 @@
     const isDevHost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
     
     const devFallbackUrl = isDevHost ? "http://127.0.0.1:3030" : "";
-    const devFallbackWs = isDevHost ? "ws://127.0.0.1:8080" : "";
+    const devFallbackWs = isDevHost ? "ws://127.0.0.1:3030" : "";
   
     window.getRuntimeConfig = function() {
         const cfg = window.SANTIS_RUNTIME_CONFIG || {};
@@ -20,7 +20,8 @@
             wsUrl: cfg.wsUrl || (devFallbackWs ? `${devFallbackWs}/ws` : `${wsProtocol}://${window.location.host}/ws`),
             eventsWsUrl: cfg.eventsWsUrl || (devFallbackWs ? `${devFallbackWs}/events` : `${wsProtocol}://${window.location.host}/events`),
             physicalCommandUrl: cfg.physicalCommandUrl || (devFallbackUrl ? `${devFallbackUrl}/api/physical-command` : "/api/physical-command"),
-            streamGodUrl: cfg.streamGodUrl || (devFallbackUrl ? `${devFallbackUrl}/api/v1/streams/god` : "/api/v1/streams/god")
+            streamGodUrl: cfg.streamGodUrl || (devFallbackUrl ? `${devFallbackUrl}/api/v1/streams/god` : "/api/v1/streams/god"),
+            telemetryBeaconUrl: cfg.telemetryBeaconUrl || (devFallbackUrl ? `${devFallbackUrl}/api/v1/telemetry/beacon` : "/api/v1/telemetry/beacon")
         };
     };
 })();

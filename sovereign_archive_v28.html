@@ -612,6 +612,53 @@
     <script>
         /**
          * ==========================================================================
+         * 📊 SANTIS OBSERVABILITY: LOCAL FALLBACK COUNTER (Phase 29.4)
+         * ==========================================================================
+         */
+        (function initSantisFallbackObservability() {
+            if (window.__SANTIS_OBSERVABILITY__) return;
+
+            window.__SANTIS_OBSERVABILITY__ = {
+                fallback: {
+                    total: 0,
+                    byReason: {},
+                    byModule: {},
+                    events: []
+                },
+
+                recordFallback({ module = "unknown", reason = "unknown", detail = null } = {}) {
+                    const fallback = this.fallback;
+
+                    fallback.total += 1;
+                    fallback.byReason[reason] = (fallback.byReason[reason] || 0) + 1;
+                    fallback.byModule[module] = (fallback.byModule[module] || 0) + 1;
+
+                    const event = {
+                        module,
+                        reason,
+                        detail,
+                        timestamp: new Date().toISOString()
+                    };
+
+                    fallback.events.push(event);
+
+                    if (fallback.events.length > 50) {
+                        fallback.events.shift();
+                    }
+
+                    console.warn("[Santis Observability] Graceful fallback recorded", {
+                        total: fallback.total,
+                        module,
+                        reason,
+                        detail,
+                        timestamp: event.timestamp
+                    });
+                }
+            };
+        })();
+
+        /**
+         * ==========================================================================
          * 🧠 SOVEREIGN ENGINE: MEMORY MAP ENGINE (Phase 28.2 & 28.3)
          * ==========================================================================
          */
@@ -1412,18 +1459,68 @@
             return date.toLocaleDateString('tr-TR', options).toUpperCase();
         }
 
+        function isValidMemoryNode(node) {
+            return node &&
+                typeof node.date === 'string' &&
+                node.biometrics &&
+                node.emotion &&
+                node.ritual &&
+                node.environment &&
+                node.diarist &&
+                node.atmosphere;
+        }
+
+        async function loadMemoryNodes() {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+            try {
+                const response = await fetch('/api/v1/memory/nodes', { signal: controller.signal });
+                clearTimeout(timeoutId);
+
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const data = await response.json();
+                
+                if (!Array.isArray(data) || !data.every(isValidMemoryNode)) {
+                    throw new Error('Invalid memory node contract');
+                }
+
+                console.log("📥 [SovereignMemory] Fetched temporal nodes from server:", data);
+                return data;
+            } catch (error) {
+                clearTimeout(timeoutId);
+                console.warn('⚠️ [SovereignMemory] Failed to fetch live memory nodes, falling back to static seed:', error.message);
+                
+                // Record Fallback Event Locally
+                const reason = error.name === 'AbortError' ? 'network_timeout' : 
+                               (error.message.includes('contract') ? 'invalid_contract' : 'fetch_error');
+                               
+                window.__SANTIS_OBSERVABILITY__?.recordFallback({
+                    module: "sovereign_archive",
+                    reason: reason,
+                    detail: error.message
+                });
+
+                return historySeed;
+            }
+        }
+
         // Boot
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', async () => {
             console.log("⏳ [MemoryMapEngine] Sovereign OS V28 bootloading...");
             
-            // 1. Initialize Engine with Seed Data
-            const engine = new MemoryMapEngine(historySeed);
+            // 1. Load data from Backend or Fallback
+            const memoryData = await loadMemoryNodes();
+
+            // 2. Initialize Engine with Memory Data
+            const engine = new MemoryMapEngine(memoryData);
             memoryMap = engine.buildMap();
             
-            // 2. Render UI
+            // 3. Render UI
             renderTimeline();
             
-            // 3. Auto-select first day node
+            // 4. Auto-select first day node
             if (memoryMap.length > 0) {
                 setTimeout(() => {
                     selectNode(memoryMap[0].node.date, 0);
