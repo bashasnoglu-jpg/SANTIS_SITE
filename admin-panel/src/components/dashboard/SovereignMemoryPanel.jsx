@@ -1,21 +1,27 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { BookOpen, RefreshCw, CheckCircle, XCircle, Clock } from 'lucide-react';
+import { BookOpen, RefreshCw, CheckCircle, XCircle, Clock, Info } from 'lucide-react';
+import { fetchBoardroomAuditLog } from '../../services/boardroomAuditLog';
 
 export default function SovereignMemoryPanel() {
   const [auditLog, setAuditLog] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [lastFetched, setLastFetched] = useState(null);
+  const [dataSource, setDataSource] = useState(null);
 
   const fetchAuditLog = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/v1/boardroom/audit-log');
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
-      setAuditLog(json.data || []);
+      const response = await fetchBoardroomAuditLog();
+      setAuditLog(response.data || []);
+      setDataSource(response.source);
       setLastFetched(new Date().toISOString());
+      
+      // We only show error if we didn't fallback gracefully
+      if (response.error && response.source !== 'mock') {
+         setError(response.error.message || String(response.error));
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -59,6 +65,11 @@ export default function SovereignMemoryPanel() {
           <Clock className="w-3 h-3" />
           Son güncelleme: {formatTime(lastFetched)}
           <span className="ml-2 text-sovereign-earth">{auditLog.length} / 50 kayıt</span>
+          {dataSource === 'mock' && (
+            <span className="ml-auto flex items-center gap-1.5 text-sovereign-accent opacity-80">
+              <Info className="w-3 h-3" /> Demo kayıtları / Backend bekleniyor
+            </span>
+          )}
         </div>
       )}
 
