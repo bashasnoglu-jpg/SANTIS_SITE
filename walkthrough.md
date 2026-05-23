@@ -43,7 +43,7 @@ You can verify the latest commit locally on `develop`:
 
 ### Boardroom Action Rail (Feature)
 - **Contracts**: Created `boardroom-state.contract.ts` and extended `sse-envelope.contract.ts` for `action_rail_update` events.
-- **Ingestion API**: 
+- **Ingestion API**:
     - Updated `package.json` to include `@santis/domain-schema` for contract integrity.
     - **boardroom-projections.ts**: Refactored projection logic to use `sseManager` for live action broadcasts.
     - **strategy.ts**: Refactored to a factory pattern for decoupled event publishing via `SovereignBus`.
@@ -72,3 +72,8 @@ Santis OS is now equipped with a production-grade, "Zero-Jank" container pipelin
 - Strict Canonical Events implemented
 - Envelope { data, meta } response introduced
 - Drizzle repository dynamic queries (filters + count) applied
+
+### Phase J-W1: Boardroom Audit Log Admin Read UX
+- Ayrı 'audit-logs.html' sayfası oluşturuldu
+- Vanilla JS ve CSS ile 'Quiet Luxury' tasarımı kodlandı
+- Filtre bar, payload drawer (slide-out), pagination entegre edildi
