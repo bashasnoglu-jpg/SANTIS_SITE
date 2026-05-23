@@ -2,13 +2,15 @@ import { buildServer } from './server.js';
 
 const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3030;
 
-// Temporarily use a mock DB until the full Postgres setup is implemented in a future phase
-const mockDb = {
-  insert: () => ({ values: (vals: any) => ({ returning: async () => [{ ...vals, id: "00000000-0000-0000-0000-000000000000", createdAt: new Date() }] }) }),
-  select: () => ({ from: () => ({ where: () => ({ orderBy: () => ({ limit: () => ({ offset: async () => [] }) }) }) }) })
-} as any;
+if (!process.env.DATABASE_URL) {
+  console.error("FATAL: DATABASE_URL is missing. Cannot start ingestion-api without a real database.");
+  process.exit(1);
+}
 
-const server = buildServer(mockDb);
+// TODO: Phase J-T or later will wire up the actual Postgres/Drizzle provider here.
+// For now, we fail fast if DATABASE_URL is missing, and if it's provided, we'd theoretically inject it.
+// Since we don't have the real provider implemented yet, this will just crash during route registration if we pass undefined.
+const server = buildServer();
 
 const start = async () => {
   try {

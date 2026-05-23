@@ -360,4 +360,15 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
     const createdLog = response.json();
     assert.strictEqual(createdLog.tenantId, realTenantId); // Spoofed tenantId should be replaced with real
   });
+
+  it("16. Fastify server fails to boot if db is not injected", async () => {
+    try {
+      // Build server without passing mockDb
+      const badServer = buildServer();
+      await badServer.ready();
+      assert.fail("Server should have thrown an error during boot because db is not injected");
+    } catch (err: any) {
+      assert.strictEqual(err.message, "server.db is not injected");
+    }
+  });
 });

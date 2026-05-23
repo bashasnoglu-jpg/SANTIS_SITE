@@ -1,6 +1,33 @@
 # Walkthrough - Sovereign Docker Pipeline & Boardroom Action Rail
 
-I have modernized the Docker deployment pipeline and implemented the Boardroom Action Rail architecture to enable adaptive strategy execution.
+# Phase J-S: Audit Log Route Initialization & Hardening
+
+We have successfully implemented the backend foundational work for the new Audit Log functionality across `@santis/domain-schema`, `@santis/database`, and `apps/ingestion-api`.
+
+## 1. Domain Schema Hardening (Phase J-S.1)
+- **Role Capability Matrix Update:** We added `audit-log:write` to `OperatorCapabilitySchema` to formally represent append-only log insertion privileges.
+- **Write Session Contract:** We defined a dedicated `BoardroomWritableSessionSchema` and `boardroomWriteAuthPreHandler`. The write logic mandates either an `admin/boardroom` role, or the `audit-log:write` capability.
+- **Query Contracts:** Added `AuditLogQuerySchema` strictly regulating query bounds (`limit: min 1, max 100, default 50` and `offset: min 0, default 0`).
+
+## 2. Ingestion API Service & Route Hardening (Phase J-S.1)
+- **Strict Parsing:** `AuditLogService.appendLog` and `getTenantLogs` now use strict Zod parsing instead of raw type casting (`AuditLogEntrySchema.parse(record)`), fully fulfilling our validation boundary contract.
+- **Authorization Enforcement:** The `POST /api/v1/boardroom/audit-log` route is protected by `boardroomWriteAuthPreHandler`.
+- **Tenant Scope Enforcement:** The `tenantId` is strictly extracted from the validated context (`request.santisContext.tenant.tenantId`) during insertion, overriding any spoofed body payload `tenantId`.
+
+## 3. Fastify Server Database Injection
+- The Fastify instance in `apps/ingestion-api` now formally decorates `server.db`. `AuditLogRepository` instantiation inside `boardroom.routes.ts` no longer uses an inline mock, but properly relies on this injected instance.
+
+## 4. Test Matrix Verification
+A total of **15 integration tests** have been implemented and are **passing**.
+Key tested paths include:
+1. Valid JWT lacking `admin/boardroom/audit-log:read` is rejected (403).
+2. Valid JWT with `concierge` role but `audit-log:read` capability is allowed to GET (200).
+3. Read-only token attempting to POST is rejected (403).
+4. Missing or explicitly forbidden payload keys (e.g. `password`) are caught (400).
+5. Attempting to spoof `tenantId` in the body payload seamlessly falls back to the canonical token scope.
+
+You can verify the latest commit locally on `develop`:
+`git log -1` -> `fix(audit-log): harden route authorization and database injection`
 
 ## Changes Made
 
