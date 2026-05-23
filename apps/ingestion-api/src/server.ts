@@ -1,5 +1,6 @@
 import fastify from 'fastify';
 import { healthResponseSchema } from './contracts/health.contract.js';
+import { boardroomRoutes } from './routes/boardroom.routes.js';
 
 export function buildServer() {
   const server = fastify({
@@ -13,6 +14,9 @@ export function buildServer() {
     healthResponseSchema.parse(response);
     return response;
   });
+
+  // Register route skeletons
+  server.register(boardroomRoutes, { prefix: '/api' });
 
   return server;
 }
