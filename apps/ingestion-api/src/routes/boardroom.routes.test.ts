@@ -18,7 +18,12 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
     process.env.SUPABASE_JWKS_URL = `${jwksServer.url}/auth/v1/.well-known/jwks.json`;
 
     // 3. Build fastify server
-    server = buildServer();
+    const mockDb = {
+      insert: () => ({ values: (vals: any) => ({ returning: async () => [{ ...vals, id: "00000000-0000-0000-0000-000000000000", createdAt: new Date() }] }) }),
+      select: () => ({ from: () => ({ where: () => ({ orderBy: () => ({ limit: () => ({ offset: async () => [] }) }) }) }) })
+    } as any;
+    
+    server = buildServer(mockDb);
   });
 
   after(async () => {
@@ -235,5 +240,124 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
 
     assert.strictEqual(response.statusCode, 401);
     assert.strictEqual(response.json().code, "ERR_UNAUTHORIZED");
+  });
+
+  it("12. Read-only capability cannot POST -> 403", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "00000000-0000-4000-8000-000000000000",
+      app_metadata: {
+        santis: {
+          operatorId: "op-read-only",
+          tenantId: "22222222-2222-2222-2222-222222222222",
+          roles: ["concierge"],
+          capabilities: ["audit-log:read"]
+        }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "POST",
+      url: "/api/v1/boardroom/audit-log",
+      headers: { authorization: `Bearer ${token}` },
+      payload: {
+        actorType: "user",
+        event: "test-event",
+        payload: {}
+      }
+    });
+
+    assert.strictEqual(response.statusCode, 403);
+    assert.strictEqual(response.json().code, "ERR_FORBIDDEN");
+  });
+
+  it("13. Write capability/admin can POST -> 201", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "00000000-0000-4000-8000-000000000000",
+      app_metadata: {
+        santis: {
+          operatorId: "op-admin",
+          tenantId: "22222222-2222-2222-2222-222222222222",
+          roles: ["admin"]
+        }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "POST",
+      url: "/api/v1/boardroom/audit-log",
+      headers: { authorization: `Bearer ${token}` },
+      payload: {
+        actorType: "user",
+        event: "test-event",
+        payload: {}
+      }
+    });
+
+    assert.strictEqual(response.statusCode, 201);
+  });
+
+  it("14. Forbidden payload key returns 400", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "00000000-0000-4000-8000-000000000000",
+      app_metadata: {
+        santis: {
+          operatorId: "op-admin",
+          tenantId: "22222222-2222-2222-2222-222222222222",
+          roles: ["admin"]
+        }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "POST",
+      url: "/api/v1/boardroom/audit-log",
+      headers: { authorization: `Bearer ${token}` },
+      payload: {
+        actorType: "user",
+        event: "test-event",
+        payload: {
+          password: "mysecretpassword"
+        }
+      }
+    });
+
+    assert.strictEqual(response.statusCode, 400);
+    assert.strictEqual(response.json().error, "Validation Error");
+  });
+
+  it("15. Body tenantId spoofing is ignored", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const realTenantId = "22222222-2222-2222-2222-222222222222";
+    const fakeTenantId = "99999999-9999-9999-9999-999999999999";
+    
+    const token = await jwksServer.signToken({
+      sub: "00000000-0000-4000-8000-000000000000",
+      app_metadata: {
+        santis: {
+          operatorId: "op-admin",
+          tenantId: realTenantId,
+          roles: ["admin"]
+        }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "POST",
+      url: "/api/v1/boardroom/audit-log",
+      headers: { authorization: `Bearer ${token}` },
+      payload: {
+        tenantId: fakeTenantId, // Try to spoof
+        actorType: "user",
+        event: "test-spoof",
+        payload: {}
+      }
+    });
+
+    assert.strictEqual(response.statusCode, 201);
+    const createdLog = response.json();
+    assert.strictEqual(createdLog.tenantId, realTenantId); // Spoofed tenantId should be replaced with real
   });
 });

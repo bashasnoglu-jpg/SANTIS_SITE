@@ -1,16 +1,12 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { BoardroomReadableSessionSchema } from "@santis/domain-schema/session.contract.js";
+import { BoardroomReadableSessionSchema, BoardroomWritableSessionSchema } from "@santis/domain-schema/session.contract.js";
 import { verifySupabaseJwt } from "./supabase-jwks.js";
 import { createSantisSessionContextFromJwtPayload } from "./session-context.js";
 import { ERR_UNAUTHORIZED, ERR_FORBIDDEN } from "./errors.js";
 import "./request-context.js";
 
-export async function boardroomAuthPreHandler(
-  request: FastifyRequest,
-  _reply: FastifyReply
-): Promise<void> {
+async function verifyAndGetSession(request: FastifyRequest) {
   const authHeader = request.headers.authorization;
-  
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     throw ERR_UNAUTHORIZED();
   }
@@ -20,19 +16,34 @@ export async function boardroomAuthPreHandler(
     throw ERR_UNAUTHORIZED();
   }
 
-  // Verify the JWT asymmetrically using JWKS
   const payload = await verifySupabaseJwt(token);
+  return createSantisSessionContextFromJwtPayload(payload);
+}
 
-  // Map the payload to the SantisSessionContext
-  const sessionContext = createSantisSessionContextFromJwtPayload(payload);
+export async function boardroomAuthPreHandler(
+  request: FastifyRequest,
+  _reply: FastifyReply
+): Promise<void> {
+  const sessionContext = await verifyAndGetSession(request);
 
-  // Enforce Boardroom Readability capabilities / roles
   const validationResult = BoardroomReadableSessionSchema.safeParse(sessionContext);
-  
   if (!validationResult.success) {
     throw ERR_FORBIDDEN();
   }
 
-  // Attach the verified and typed context to the request for downstream handlers
+  request.santisContext = validationResult.data;
+}
+
+export async function boardroomWriteAuthPreHandler(
+  request: FastifyRequest,
+  _reply: FastifyReply
+): Promise<void> {
+  const sessionContext = await verifyAndGetSession(request);
+
+  const validationResult = BoardroomWritableSessionSchema.safeParse(sessionContext);
+  if (!validationResult.success) {
+    throw ERR_FORBIDDEN();
+  }
+
   request.santisContext = validationResult.data;
 }

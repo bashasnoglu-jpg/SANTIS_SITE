@@ -1,24 +1,19 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
-import { boardroomAuthPreHandler } from '../auth/fastify-auth-prehandler.js';
+import { boardroomAuthPreHandler, boardroomWriteAuthPreHandler } from '../auth/fastify-auth-prehandler.js';
 import { AuditLogService } from '../services/audit-log.service.js';
 import { AuditLogRepository } from '@santis/database';
+import { AuditLogQuerySchema } from '@santis/domain-schema/audit-log.contract.js';
 
-// Note: In a real environment, `db` would be injected from Fastify plugins.
-// For the scope of Phase J-S, we instantiate with a dummy db if not present,
-// or we assume it's provided. 
 export const boardroomRoutes: FastifyPluginAsync = async (server: FastifyInstance) => {
-  // Normally: const repository = new AuditLogRepository(server.db);
-  // We'll use a mock for now to allow tests to run without an actual Postgres connection yet.
-  const mockDb = {
-    insert: () => ({ values: () => ({ returning: async () => [{ id: "mocked-id", createdAt: new Date() }] }) }),
-    select: () => ({ from: () => ({ where: () => ({ orderBy: () => ({ limit: () => ({ offset: async () => [] }) }) }) }) })
-  } as any;
-  
-  const repository = new AuditLogRepository(server.db || mockDb);
+  if (!server.db) {
+    throw new Error("server.db is not injected");
+  }
+
+  const repository = new AuditLogRepository(server.db);
   const service = new AuditLogService(repository);
 
   // POST /api/v1/boardroom/audit-log -> Append-only create
-  server.post('/v1/boardroom/audit-log', { preHandler: boardroomAuthPreHandler }, async (request, reply) => {
+  server.post('/v1/boardroom/audit-log', { preHandler: boardroomWriteAuthPreHandler }, async (request, reply) => {
     try {
       // 1. Extract tenantId directly from the validated session
       const tenantId = request.santisContext?.tenant?.tenantId;
@@ -52,11 +47,12 @@ export const boardroomRoutes: FastifyPluginAsync = async (server: FastifyInstanc
         return reply.status(403).send({ error: "Tenant context missing" });
       }
       
-      const query = request.query as any;
-      const limit = query.limit ? parseInt(query.limit, 10) : 50;
-      const offset = query.offset ? parseInt(query.offset, 10) : 0;
+      const queryParsed = AuditLogQuerySchema.safeParse(request.query);
+      if (!queryParsed.success) {
+        return reply.status(400).send({ error: "Invalid Query", details: queryParsed.error.errors });
+      }
 
-      const results = await service.getTenantLogs(tenantId, { limit, offset });
+      const results = await service.getTenantLogs(tenantId, queryParsed.data);
       return reply.status(200).send(results);
     } catch (error: any) {
       server.log.error(error);

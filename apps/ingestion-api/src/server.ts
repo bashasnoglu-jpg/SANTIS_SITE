@@ -2,10 +2,14 @@ import fastify from 'fastify';
 import { healthResponseSchema } from './contracts/health.contract.js';
 import { boardroomRoutes } from './routes/boardroom.routes.js';
 
-export function buildServer() {
+export function buildServer(db?: any) {
   const server = fastify({
     logger: true
   });
+
+  if (db) {
+    server.decorate('db', db);
+  }
 
   server.get('/health', async (request, reply) => {
     const response = { status: "ok", service: "ingestion-api" };

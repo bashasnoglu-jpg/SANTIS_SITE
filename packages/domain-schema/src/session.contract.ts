@@ -13,6 +13,7 @@ export const OperatorCapabilitySchema = z.enum([
   "boardroom:read",
   "boardroom:write",
   "audit-log:read",
+  "audit-log:write",
   "tenant:read",
   "tenant:write"
 ]);
@@ -49,9 +50,20 @@ export const BoardroomReadableSessionSchema = SantisSessionContextSchema.refine(
   message: "Session does not have adequate roles or capabilities for boardroom access."
 });
 
+export const BoardroomWritableSessionSchema = SantisSessionContextSchema.refine((session) => {
+  const hasValidRole = session.operator.roles.some((role) => role === "admin" || role === "boardroom");
+  const hasValidCapability = session.operator.capabilities.some(
+    (cap) => cap === "audit-log:write" || cap === "boardroom:write"
+  );
+  return hasValidRole || hasValidCapability;
+}, {
+  message: "Session does not have adequate roles or capabilities for boardroom write access."
+});
+
 export type OperatorRole = z.infer<typeof OperatorRoleSchema>;
 export type OperatorCapability = z.infer<typeof OperatorCapabilitySchema>;
 export type SessionOperator = z.infer<typeof SessionOperatorSchema>;
 export type SessionTenantScope = z.infer<typeof SessionTenantScopeSchema>;
 export type SantisSessionContext = z.infer<typeof SantisSessionContextSchema>;
 export type BoardroomReadableSession = z.infer<typeof BoardroomReadableSessionSchema>;
+export type BoardroomWritableSession = z.infer<typeof BoardroomWritableSessionSchema>;

@@ -53,6 +53,12 @@ export const AuditLogEntrySchema = CreateAuditLogEntrySchema.extend({
   createdAt: z.date(),
 });
 
+export const AuditLogQuerySchema = z.object({
+  limit: z.coerce.number().int().min(1).max(100).default(50),
+  offset: z.coerce.number().int().min(0).default(0)
+});
+
 export type CreateAuditLogEntry = z.infer<typeof CreateAuditLogEntrySchema>;
 export type AuditLogEntry = z.infer<typeof AuditLogEntrySchema>;
+export type AuditLogQuery = z.infer<typeof AuditLogQuerySchema>;
 

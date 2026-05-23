@@ -1,5 +1,5 @@
 import { AuditLogRepository } from "@santis/database";
-import { CreateAuditLogEntrySchema, CreateAuditLogEntry, AuditLogEntry } from "@santis/domain-schema/audit-log.contract";
+import { CreateAuditLogEntrySchema, AuditLogEntrySchema, AuditLogEntry } from "@santis/domain-schema/audit-log.contract.js";
 
 export class AuditLogService {
   constructor(private readonly repository: AuditLogRepository) {}
@@ -16,8 +16,8 @@ export class AuditLogService {
     // The DB will supply 'id' and 'createdAt'.
     const inserted = await this.repository.createLog(validatedEntry);
     
-    // We cast or parse the returned DB record to the read contract
-    return inserted as unknown as AuditLogEntry;
+    // We strictly parse the returned DB record to the read contract
+    return AuditLogEntrySchema.parse(inserted);
   }
 
   /**
@@ -32,6 +32,6 @@ export class AuditLogService {
     }
 
     const records = await this.repository.getLogsByTenant(tenantId, options);
-    return records as unknown as AuditLogEntry[];
+    return records.map(record => AuditLogEntrySchema.parse(record));
   }
 }
