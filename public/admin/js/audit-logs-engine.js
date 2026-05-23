@@ -2,6 +2,8 @@
  * public/admin/js/audit-logs-engine.js
  * Sovereign Boardroom Audit Logs Engine
  */
+import { AdminAuth } from "./admin-auth-adapter.js";
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // --- 1. State ---
@@ -43,20 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- 3. Placeholder Auth Adapter (Fail closed) ---
-    function getAuthToken() {
-        const token = localStorage.getItem('santis_admin_token');
-        return token || null;
-    }
+    // (Removed internal getAuthToken, using AdminAuth from adapter)
 
     // --- 4. Fetch & Render ---
     async function fetchLogs() {
         setUIState('loading');
-
-        const token = getAuthToken();
-        if (!token) {
-            setUIState('error', 'AUTHENTICATION REQUIRED. TOKEN MISSING.');
-            return;
-        }
 
         try {
             // Build query params
@@ -76,11 +69,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const headers = {
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Accept': 'application/json'
             };
 
-            const res = await fetch(`${ENDPOINT}?${params.toString()}`, {
+            const res = await AdminAuth.fetchWithAuth(`${ENDPOINT}?${params.toString()}`, {
                 method: 'GET',
                 headers: headers
             });
@@ -117,8 +109,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
         } catch (error) {
-            console.error('[Audit Logs Engine] Fetch Error:', error);
-            setUIState('error', 'NETWORK ERROR.');
+            if (error.message === 'AUTHENTICATION REQUIRED. TOKEN MISSING.') {
+                setUIState('error', error.message);
+            } else {
+                console.error('[Audit Logs Engine] Fetch Error:', error);
+                setUIState('error', 'NETWORK ERROR.');
+            }
         }
     }
 
@@ -257,8 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- 8. Init ---
     // Do not auto-fetch if token is missing
-    const token = getAuthToken();
-    if (!token) {
+    if (!AdminAuth.getAuthToken()) {
         setUIState('error', 'AUTHENTICATION REQUIRED. TOKEN MISSING.');
     } else {
         fetchLogs();
