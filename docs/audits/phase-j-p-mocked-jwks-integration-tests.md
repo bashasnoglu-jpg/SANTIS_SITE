@@ -22,9 +22,13 @@ We opted for Node.js native test runner (`node:test` via `tsx --test`) rather th
 | Missing header | No `Authorization` header | 401 `ERR_UNAUTHORIZED` | 401 `ERR_UNAUTHORIZED` |
 | Malformed header | `Authorization: Token foo` | 401 `ERR_UNAUTHORIZED` | 401 `ERR_UNAUTHORIZED` |
 | Invalid JWT signature | `Bearer invalid.signature` | 401 `ERR_UNAUTHORIZED` | 401 `ERR_UNAUTHORIZED` |
+| Truly Expired JWT | Valid JWT, `exp` in the past | 401 `ERR_UNAUTHORIZED` | 401 `ERR_UNAUTHORIZED` |
 | Missing App Metadata | Valid JWT, no `app_metadata.santis` | 401 `ERR_UNAUTHORIZED` | 401 `ERR_UNAUTHORIZED` |
 | Missing Tenant Scope | Valid JWT, no UUID `tenantId` | 403 `ERR_TENANT_SCOPE_REQUIRED` | 403 `ERR_TENANT_SCOPE_REQUIRED` |
+| Invalid UUID TenantId | Valid JWT, `tenantId` = `invalid-uuid-format` | 401 `ERR_UNAUTHORIZED` | 401 `ERR_UNAUTHORIZED` |
 | Insufficient RBAC | Valid JWT, roles: `[concierge]` | 403 `ERR_FORBIDDEN` | 403 `ERR_FORBIDDEN` |
+| Concierge w/ boardroom capability | Valid JWT, roles: `[concierge]`, capabilities: `[boardroom:read]` | 501 `ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED` | 501 `ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED` |
+| Concierge w/ audit capability | Valid JWT, roles: `[concierge]`, capabilities: `[audit-log:read]` | 501 `ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED` | 501 `ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED` |
 | Valid Boardroom Auth | Valid JWT, roles: `[admin]` | 501 `ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED` | 501 `ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED` |
 
 *Note: In Scenario 7, the authentication middleware passes successfully, and the route handler deterministically returns `501 Not Implemented` as mandated by our Zero Technical Debt / CoreState SSOT policy until the tenant-boundary logic is fully approved.*

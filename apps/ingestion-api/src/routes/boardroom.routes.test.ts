@@ -212,4 +212,28 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
     assert.strictEqual(response.statusCode, 401);
     assert.strictEqual(response.json().code, "ERR_UNAUTHORIZED");
   });
+
+  it("11. Truly Expired JWT -> 401", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "user-expired",
+      exp: Math.floor(Date.now() / 1000) - 3600, // 1 hour ago
+      app_metadata: {
+        santis: {
+          operatorId: "op-expired",
+          tenantId: "55555555-5555-5555-5555-555555555555",
+          roles: ["admin"],
+        }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "GET",
+      url: "/api/v1/boardroom/audit-log",
+      headers: { authorization: `Bearer ${token}` },
+    });
+
+    assert.strictEqual(response.statusCode, 401);
+    assert.strictEqual(response.json().code, "ERR_UNAUTHORIZED");
+  });
 });

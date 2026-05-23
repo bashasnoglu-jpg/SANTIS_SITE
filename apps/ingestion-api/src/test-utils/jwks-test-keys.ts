@@ -53,8 +53,11 @@ export class TestJwksServer {
     const jwt = new SignJWT(payload)
       .setProtectedHeader({ alg: "RS256", kid: this.kid })
       .setIssuedAt()
-      .setIssuer(issuer)
-      .setExpirationTime("2h");
+      .setIssuer(issuer);
+
+    if (!payload.exp) {
+      jwt.setExpirationTime("2h");
+    }
 
     if (audience) {
       jwt.setAudience(audience);
