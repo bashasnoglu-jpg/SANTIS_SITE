@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "exports": {
     ".": "./src/index.ts",
-    "./telemetry": "./src/telemetry/signal.schema.ts"
+    "./telemetry": "./src/telemetry/signal.schema.ts",
+    "./tenant.contract": "./src/tenant.contract.ts",
+    "./intent.contract": "./src/intent.contract.ts",
+    "./core-state.interface": "./src/core-state.interface.ts",
+    "./sse-envelope.contract": "./src/sse-envelope.contract.ts",
+    "./boardroom-state.contract": "./src/boardroom-state.contract.ts"
   },
   "scripts": {
     "audit:contract": "node ../../scripts/active/audit-contract.mjs",
