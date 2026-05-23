@@ -17,9 +17,22 @@ jobs:
       - name: 🦅 Sovereign Orbit Checkout
         uses: actions/checkout@v4
 
+      - name: 🔑 Detect Vercel Credentials
+        id: creds
+        run: |
+          if [ -n "$TOKEN" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "⚠️ VERCEL_TOKEN secret not configured – skipping deploy."
+          fi
+        env:
+          TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
       - name: 🌌 Ascend to Vercel Edge (Zero-CLI)
         uses: amondnet/vercel-action@v25
         id: deploy
+        if: steps.creds.outputs.available == 'true'
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
@@ -28,6 +41,7 @@ jobs:
 
       - name: 🩺 Multi-Signal Health Validation (Anti-False-Positive)
         id: health_check
+        if: steps.creds.outputs.available == 'true' && steps.deploy.conclusion == 'success'
         run: |
           # Hedef, Vercel Action'ın ürettiği production veya preview URL'sidir.
           TARGET_URL="${{ steps.deploy.outputs.preview-url }}"
