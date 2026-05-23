@@ -119,7 +119,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
     assert.strictEqual(response.json().code, "ERR_FORBIDDEN");
   });
 
-  it("7. Valid Boardroom-readable JWT -> 501 / ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED", async () => {
+  it("7. Valid Boardroom-readable JWT -> 200 / Empty Array", async () => {
     const issuer = "http://127.0.0.1:54321/auth/v1";
     const token = await jwksServer.signToken({
       sub: "00000000-0000-4000-8000-000000000000",
@@ -138,11 +138,11 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
       headers: { authorization: `Bearer ${token}` },
     });
 
-    assert.strictEqual(response.statusCode, 501);
-    assert.strictEqual(response.json().code, "ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED");
+    assert.strictEqual(response.statusCode, 200);
+    assert.deepStrictEqual(response.json(), []);
   });
 
-  it("8. Valid JWT with role concierge but capability boardroom:read -> 501", async () => {
+  it("8. Valid JWT with role concierge but capability boardroom:read -> 200", async () => {
     const issuer = "http://127.0.0.1:54321/auth/v1";
     const token = await jwksServer.signToken({
       sub: "22222222-2222-2222-2222-222222222222",
@@ -162,11 +162,11 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
       headers: { authorization: `Bearer ${token}` },
     });
 
-    assert.strictEqual(response.statusCode, 501);
-    assert.strictEqual(response.json().code, "ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED");
+    assert.strictEqual(response.statusCode, 200);
+    assert.deepStrictEqual(response.json(), []);
   });
 
-  it("9. Valid JWT with role concierge but capability audit-log:read -> 501", async () => {
+  it("9. Valid JWT with role concierge but capability audit-log:read -> 200", async () => {
     const issuer = "http://127.0.0.1:54321/auth/v1";
     const token = await jwksServer.signToken({
       sub: "33333333-3333-3333-3333-333333333333",
@@ -186,8 +186,8 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
       headers: { authorization: `Bearer ${token}` },
     });
 
-    assert.strictEqual(response.statusCode, 501);
-    assert.strictEqual(response.json().code, "ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED");
+    assert.strictEqual(response.statusCode, 200);
+    assert.deepStrictEqual(response.json(), []);
   });
 
   it("10. Valid JWT with tenantId but not UUID -> 401", async () => {

@@ -7,5 +7,6 @@ packages:
   - "packages/ui-tokens"
   - "packages/gravity-ux-engine"
   - "packages/event-dictionary"
+  - "packages/database"
   - "admin-panel"
   - "apps/ingestion-api"

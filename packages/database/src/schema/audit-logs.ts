@@ -1,6 +1,6 @@
 import { pgTable, uuid, varchar, jsonb, timestamp, integer, index } from "drizzle-orm/pg-core";
 
-export const auditLogEvents = pgTable("audit_log_events", {
+export const auditLogs = pgTable("audit_logs", {
   id: uuid("id").primaryKey().defaultRandom(),
   tenantId: uuid("tenant_id").notNull(),
   actorType: varchar("actor_type", { length: 32 }).notNull(), // "user", "system", "service", "ai", "webhook"

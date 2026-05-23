@@ -1,0 +1,37 @@
+import { AuditLogRepository } from "@santis/database";
+import { CreateAuditLogEntrySchema, CreateAuditLogEntry, AuditLogEntry } from "@santis/domain-schema/audit-log.contract";
+
+export class AuditLogService {
+  constructor(private readonly repository: AuditLogRepository) {}
+
+  /**
+   * Log an event into the audit trail.
+   * Validates the entry strictly against domain rules (e.g. payload restrictions).
+   */
+  async appendLog(entry: unknown): Promise<AuditLogEntry> {
+    // 1. Strict validation enforces our forbidden-key rules
+    const validatedEntry = CreateAuditLogEntrySchema.parse(entry);
+
+    // 2. Append to database
+    // The DB will supply 'id' and 'createdAt'.
+    const inserted = await this.repository.createLog(validatedEntry);
+    
+    // We cast or parse the returned DB record to the read contract
+    return inserted as unknown as AuditLogEntry;
+  }
+
+  /**
+   * Retrieve audit logs, strictly bounded by tenantId.
+   */
+  async getTenantLogs(
+    tenantId: string, 
+    options?: { limit?: number; offset?: number }
+  ): Promise<AuditLogEntry[]> {
+    if (!tenantId) {
+      throw new Error("Tenant context is missing");
+    }
+
+    const records = await this.repository.getLogsByTenant(tenantId, options);
+    return records as unknown as AuditLogEntry[];
+  }
+}
