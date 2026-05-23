@@ -439,4 +439,77 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
     assert.ok(csrfCookie, `${CSRF_COOKIE} must be present in response`);
     assert.strictEqual(csrfCookie.value, ""); // Cleared
   });
+
+  it("20. POST /api/v1/boardroom/audit-log with cookie auth but no CSRF fails -> 403", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "00000000-0000-4000-8000-000000000000",
+      app_metadata: {
+        santis: { operatorId: "op-admin", tenantId: "22222222-2222-2222-2222-222222222222", roles: ["admin"] }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "POST",
+      url: "/api/v1/boardroom/audit-log",
+      cookies: {
+        [SANTIS_SESSION_COOKIE]: token
+      },
+      payload: { actorType: "user", event: "auth.login", payload: {} }
+    });
+
+    assert.strictEqual(response.statusCode, 403);
+    assert.strictEqual(response.json().code, "ERR_FORBIDDEN");
+  });
+
+  it("21. POST /api/v1/boardroom/audit-log with cookie auth and mismatched CSRF fails -> 403", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "00000000-0000-4000-8000-000000000000",
+      app_metadata: {
+        santis: { operatorId: "op-admin", tenantId: "22222222-2222-2222-2222-222222222222", roles: ["admin"] }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "POST",
+      url: "/api/v1/boardroom/audit-log",
+      headers: {
+        "x-csrf-token": "wrong-token"
+      },
+      cookies: {
+        [SANTIS_SESSION_COOKIE]: token,
+        [CSRF_COOKIE]: "correct-token"
+      },
+      payload: { actorType: "user", event: "auth.login", payload: {} }
+    });
+
+    assert.strictEqual(response.statusCode, 403);
+    assert.strictEqual(response.json().code, "ERR_FORBIDDEN");
+  });
+
+  it("22. POST /api/v1/boardroom/audit-log with matching CSRF cookie/header passes -> 201", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "00000000-0000-4000-8000-000000000000",
+      app_metadata: {
+        santis: { operatorId: "op-admin", tenantId: "22222222-2222-2222-2222-222222222222", roles: ["admin"] }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "POST",
+      url: "/api/v1/boardroom/audit-log",
+      headers: {
+        "x-csrf-token": "valid-csrf-token"
+      },
+      cookies: {
+        [SANTIS_SESSION_COOKIE]: token,
+        [CSRF_COOKIE]: "valid-csrf-token"
+      },
+      payload: { actorType: "user", event: "auth.login", payload: {} }
+    });
+
+    assert.strictEqual(response.statusCode, 201);
+  });
 });

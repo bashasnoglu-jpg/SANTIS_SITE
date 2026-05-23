@@ -3,7 +3,7 @@ import { boardroomAuthPreHandler, boardroomWriteAuthPreHandler } from '../auth/f
 import { AuditLogService } from '../services/audit-log.service.js';
 import { AuditLogRepository } from '@santis/database';
 import { AuditLogQuerySchema } from '@santis/domain-schema/audit-log.contract.js';
-import { SANTIS_SESSION_COOKIE, CSRF_COOKIE } from '../auth/constants.js';
+import { SANTIS_SESSION_COOKIE, CSRF_COOKIE, CSRF_HEADER } from '../auth/constants.js';
 
 export const boardroomRoutes: FastifyPluginAsync = async (server: FastifyInstance) => {
   if (!server.db) {
@@ -25,6 +25,15 @@ export const boardroomRoutes: FastifyPluginAsync = async (server: FastifyInstanc
 
   // POST /api/v1/boardroom/logout -> Clears cookies
   server.post('/v1/boardroom/logout', async (request, reply) => {
+    // If user has a session cookie, require CSRF to logout (prevents forced-logout attacks)
+    if (request.cookies[SANTIS_SESSION_COOKIE]) {
+      const csrfCookie = request.cookies[CSRF_COOKIE];
+      const csrfHeader = request.headers[CSRF_HEADER];
+      if (!csrfCookie || !csrfHeader || csrfCookie !== csrfHeader) {
+        return reply.status(403).send({ error: "Forbidden", code: "ERR_FORBIDDEN" });
+      }
+    }
+
     reply.clearCookie(SANTIS_SESSION_COOKIE, { path: '/' });
     reply.clearCookie(CSRF_COOKIE, { path: '/' }); // For future J-X2 compatibility
     return reply.status(200).send({ ok: true });
