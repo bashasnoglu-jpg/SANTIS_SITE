@@ -67,3 +67,8 @@ Santis OS is now equipped with a production-grade, "Zero-Jank" container pipelin
 - **Lockfile Synchronization**: Implemented `lockfile-regen.yml` GitHub Action to automatically resolve `ERR_PNPM_OUTDATED_LOCKFILE` and bypass local Windows `EBUSY` limitations.
 - **Docker Telemetry Patch**: Made `curl` telemetry emissions in `docker-publish.yml` best-effort (`|| true`) to prevent build failures when `localhost:3030` is unavailable on the CI runner.
 - **PR #89 Created**: Successfully triggered the regeneration and opened PR #89 to merge the synchronized `pnpm-lock.yaml` back into `main`.
+
+### Phase J-W0: Audit Log Query Filters & Event Registry Seal
+- Strict Canonical Events implemented
+- Envelope { data, meta } response introduced
+- Drizzle repository dynamic queries (filters + count) applied

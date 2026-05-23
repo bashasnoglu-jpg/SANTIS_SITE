@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="tr" data-lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Boardroom | Audit Logs</title>
+    
+    <style>
+        /* --- SANTIS V6 BOARDROOM CORE --- */
+        :root {
+            --santis-dark: #050505;
+            --santis-brass: #c6a96b;
+            --santis-danger: #8a2e2e;
+            --santis-text: #e0e0e3;
+            --santis-muted: #8e8e93;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --border-radius: 1rem;
+        }
+
+        body {
+            margin: 0; padding: 2.5rem;
+            background-color: var(--santis-dark);
+            color: var(--santis-text);
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER --- */
+        .boardroom-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--glass-border); padding-bottom: 1.5rem; margin-bottom: 2rem;
+        }
+
+        .boardroom-header h1 {
+            color: var(--santis-text); font-weight: 300; letter-spacing: 3px; margin: 0;
+            font-family: 'Cinzel', serif; font-size: 1.8rem;
+            display: flex; align-items: center; gap: 1rem;
+        }
+
+        .header-links a {
+            color: var(--santis-muted); text-decoration: none; font-size: 0.85rem; 
+            letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; 
+            margin-right: 1.5rem;
+        }
+        .header-links a:hover, .header-links a.active { color: var(--santis-brass); }
+
+        /* --- LAYOUT --- */
+        .main-container {
+            display: flex; flex-direction: column; gap: 1.5rem;
+            max-width: 1600px; margin: 0 auto; position: relative;
+        }
+
+        .panel-glass {
+            background: var(--glass-bg); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: var(--border-radius);
+            padding: 1.5rem;
+        }
+
+        /* --- FILTERS --- */
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .filter-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .filter-group label {
+            font-size: 0.75rem; color: var(--santis-muted); letter-spacing: 1px; text-transform: uppercase;
+        }
+        .filter-group select, .filter-group input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            color: var(--santis-text);
+            padding: 0.6rem;
+            border-radius: 0.5rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .filter-group select:focus, .filter-group input:focus {
+            border-color: var(--santis-brass);
+        }
+
+        .btn-action {
+            background: transparent; color: var(--santis-text);
+            border: 1px solid var(--glass-border);
+            padding: 0.7rem 1.5rem; cursor: pointer; border-radius: 0.5rem;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+            font-family: inherit; letter-spacing: 1px; font-size: 0.8rem; text-transform: uppercase;
+            height: fit-content;
+        }
+        .btn-action.primary {
+            border-color: rgba(198, 169, 107, 0.4);
+            color: var(--santis-brass);
+        }
+        .btn-action.primary:hover {
+            background: rgba(198, 169, 107, 0.1);
+        }
+
+        /* --- TABLE --- */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 0.5rem;
+            border: 1px solid var(--glass-border);
+        }
+        table {
+            width: 100%; border-collapse: collapse; text-align: left;
+        }
+        th, td {
+            padding: 1rem; border-bottom: 1px solid var(--glass-border);
+            font-size: 0.85rem;
+        }
+        th {
+            background: rgba(255, 255, 255, 0.01);
+            color: var(--santis-muted);
+            font-weight: 400; text-transform: uppercase; letter-spacing: 1px;
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background: rgba(255, 255, 255, 0.02); }
+        
+        .tag {
+            display: inline-block; padding: 0.2rem 0.5rem; border-radius: 0.2rem;
+            font-size: 0.75rem; letter-spacing: 0.5px;
+            background: rgba(255, 255, 255, 0.05); color: var(--santis-muted);
+        }
+        .tag.event { background: rgba(198, 169, 107, 0.1); color: var(--santis-brass); }
+
+        .btn-inspect {
+            background: transparent; border: 1px solid var(--glass-border);
+            color: var(--santis-muted); padding: 0.3rem 0.6rem;
+            border-radius: 0.3rem; cursor: pointer; font-family: inherit; font-size: 0.75rem;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .btn-inspect:hover {
+            color: var(--santis-text); border-color: var(--santis-text);
+        }
+
+        /* --- PAGINATION --- */
+        .pagination {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 1rem;
+        }
+        .pagination-info { font-size: 0.85rem; color: var(--santis-muted); }
+        .pagination-controls { display: flex; gap: 0.5rem; align-items: center; }
+        .btn-page {
+            background: transparent; border: 1px solid var(--glass-border);
+            color: var(--santis-text); padding: 0.4rem 0.8rem;
+            border-radius: 0.3rem; cursor: pointer; font-family: inherit; font-size: 0.8rem;
+        }
+        .btn-page:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* --- DRAWER --- */
+        .drawer-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(2px);
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+            z-index: 100;
+        }
+        .drawer-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .drawer {
+            position: fixed; top: 0; right: -600px; bottom: 0; width: 500px;
+            background: var(--santis-dark); border-left: 1px solid var(--glass-border);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            transition: right 0.3s ease; z-index: 101;
+            display: flex; flex-direction: column;
+        }
+        .drawer.active { right: 0; }
+        
+        .drawer-header {
+            padding: 1.5rem; border-bottom: 1px solid var(--glass-border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .drawer-header h2 { margin: 0; font-size: 1.2rem; font-weight: 300; letter-spacing: 1px; color: var(--santis-text); }
+        .btn-close {
+            background: transparent; border: none; color: var(--santis-muted);
+            font-size: 1.5rem; cursor: pointer; transition: color 0.3s;
+        }
+        .btn-close:hover { color: var(--santis-text); }
+
+        .drawer-content {
+            padding: 1.5rem; overflow-y: auto; flex-grow: 1;
+        }
+        .drawer-content pre {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border);
+            padding: 1rem; border-radius: 0.5rem; overflow-x: auto;
+            color: var(--santis-text); font-family: monospace; font-size: 0.85rem; line-height: 1.4;
+        }
+        .detail-row {
+            display: flex; justify-content: space-between; padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            font-size: 0.85rem;
+        }
+        .detail-label { color: var(--santis-muted); text-transform: uppercase; letter-spacing: 1px; font-size: 0.75rem;}
+        .detail-value { color: var(--santis-text); font-family: monospace; }
+
+        /* --- STATUS STATES --- */
+        .state-container { padding: 3rem; text-align: center; color: var(--santis-muted); font-size: 0.9rem; letter-spacing: 1px;}
+        .state-container.error { color: var(--santis-danger); }
+        .hidden { display: none !important; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <header class="boardroom-header">
+        <h1>
+            SOVEREIGN BOARDROOM 
+            <span style="color: var(--santis-muted); font-size: 1rem;">/</span> 
+            <span style="color: var(--santis-brass); font-size: 1.2rem; font-family: Outfit; letter-spacing: 2px;">AUDIT LOGS</span>
+        </h1>
+        <div class="header-links">
+            <a href="boardroom.html">Dashboard</a>
+            <a href="audit-logs.html" class="active">Audit Logs</a>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- FILTERS -->
+        <div class="panel-glass">
+            <form id="filter-form" class="filters-grid">
+                <div class="filter-group">
+                    <label>Event</label>
+                    <select name="event" id="filter-event">
+                        <option value="">All Events</option>
+                        <option value="auth.login">auth.login</option>
+                        <option value="auth.logout">auth.logout</option>
+                        <option value="tenant.settings.updated">tenant.settings.updated</option>
+                        <option value="reservation.created">reservation.created</option>
+                        <option value="boardroom.override.applied">boardroom.override.applied</option>
+                        <option value="audit_log.viewed">audit_log.viewed</option>
+                        <option value="system.night_audit.completed">system.night_audit.completed</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Actor Type</label>
+                    <select name="actorType" id="filter-actor">
+                        <option value="">All Actors</option>
+                        <option value="user">User</option>
+                        <option value="system">System</option>
+                        <option value="service">Service</option>
+                        <option value="webhook">Webhook</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Source</label>
+                    <select name="source" id="filter-source">
+                        <option value="">All Sources</option>
+                        <option value="api">API</option>
+                        <option value="admin">Admin</option>
+                        <option value="system">System</option>
+                        <option value="worker">Worker</option>
+                        <option value="webhook">Webhook</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Start Date</label>
+                    <input type="datetime-local" name="startDate" id="filter-start">
+                </div>
+                <div class="filter-group">
+                    <label>End Date</label>
+                    <input type="datetime-local" name="endDate" id="filter-end">
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button type="submit" class="btn-action primary">Search</button>
+                    <button type="button" id="btn-reset" class="btn-action">Reset</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- TABLE -->
+        <div class="panel-glass" style="padding: 0;">
+            <div id="state-loading" class="state-container">LOADING AUDIT TRAIL...</div>
+            <div id="state-empty" class="state-container hidden">NO LOGS FOUND FOR GIVEN FILTERS.</div>
+            <div id="state-error" class="state-container error hidden">ERROR FETCHING AUDIT LOGS.</div>
+            
+            <div id="table-wrapper" class="table-container hidden">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Event</th>
+                            <th>Actor ID</th>
+                            <th>Actor Type</th>
+                            <th>Source</th>
+                            <th>IP Address</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logs-tbody">
+                        <!-- Rows injected via JS -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pagination hidden" id="pagination-container" style="padding: 1.5rem;">
+                <div class="pagination-info" id="pagination-info">Showing 0 of 0</div>
+                <div class="pagination-controls">
+                    <button id="btn-prev" class="btn-page" disabled>Prev</button>
+                    <span id="page-indicator" style="font-size: 0.85rem; color: var(--santis-text); font-family: monospace;">Page 1</span>
+                    <button id="btn-next" class="btn-page" disabled>Next</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- DRAWER -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="drawer" id="payload-drawer">
+        <div class="drawer-header">
+            <h2>Log Details</h2>
+            <button class="btn-close" id="btn-close-drawer">&times;</button>
+        </div>
+        <div class="drawer-content" id="drawer-content">
+            <!-- Injected via JS -->
+        </div>
+    </div>
+
+    <script type="module" src="js/audit-logs-engine.js"></script>
+</body>
+</html>

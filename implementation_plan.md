@@ -1,89 +1,40 @@
-# Phase J-W0 — Audit Log Query Filters & Event Registry Seal
+# Phase J-W1 — Boardroom Audit Log Admin Read UX
 
-Bu plan, `ingestion-api` için Audit Log okuma yeteneklerini genişleterek, Admin UI öncesinde gerçek bir SaaS standardında filtreleme, sayfalama ve canonical event altyapısını kurmayı hedefler.
+Bu plan, Boardroom yöneticilerine yönelik Audit Log okuma arayüzünü (UX/UI) Vanilla JS ve CSS ile geliştirmeyi amaçlar.
 
 ## Open Questions
-- **Event Registry Strictness**: `event` alanı için Zod şemasında (Create) `z.enum([...])` ile tam katı (strict) kısıtlama mı getirelim, yoksa `z.string()` kalıp sadece bir registry referans objesi mi sunalım? SaaS'larda genellikle strict enum tercih edilir, planda **strict enum** olarak tasarlandı.
-- **Date Format**: `startDate` ve `endDate` için ISO 8601 string bekleyeceğiz ve Zod'un `coerce.date()` fonksiyonuyla işleyeceğiz.
+- **Page vs Tab**: Audit log arayüzünü mevcut `boardroom.html` içine yeni bir sekme (tab) olarak mı ekleyelim, yoksa `audit-logs.html` adında yeni bir sayfa mı oluşturalım? Ayrı bir sayfa ve ayrı bir `audit-logs-engine.js` scripti, kod karmaşasını önlemek adına tavsiye edilir. Planda ayrı bir sayfa varsayılmıştır.
+- **Payload Drawer vs Modal**: Detaylara tıklandığında sağdan açılan bir Drawer (Slide-out panel) mi tercih edersiniz, yoksa ortada beliren bir Modal mı? Drawer, akışı bozmadığı için Audit log incelemelerinde genelde daha iyidir.
 
 ## Proposed Changes
 
-### @santis/domain-schema
+### 1. Navigation & Layout
+- `public/admin/boardroom.html` içerisine bir navigasyon (Sidebar veya Header linkleri) eklenerek "Dashboard" ve "Audit Logs" sayfaları arası geçiş sağlanacak.
 
-#### [NEW] `packages/domain-schema/src/audit-log.events.ts`
-- Canonical event registry objesini barındıracak:
-```typescript
-export const AuditLogEvents = [
-  "auth.login",
-  "auth.logout",
-  "user.created",
-  "user.updated",
-  "boardroom.settings.updated",
-  "tenant.created"
-] as const;
+### 2. [NEW] `public/admin/audit-logs.html`
+- Temel "Quiet Luxury / Cyberpunk" stili (`boardroom.html`'deki CSS değişkenleri ve yapı) korunacak.
+- **Filter Bar**: 
+  - `event` (Dropdown: auth.login, tenant.updated vs)
+  - `actorType` (Dropdown: user, system, service, webhook)
+  - `source` (Dropdown: api, admin, system, worker, webhook)
+  - `startDate`, `endDate` (Date picker)
+  - "Filtrele" ve "Temizle" butonları.
+- **Data Table / Timeline**:
+  - Kolonlar: Timestamp, Event, Actor, Source, IP, Actions (Inspect)
+- **Pagination Controls**:
+  - Toplam kayıt sayısı (Örn: "Total: 1250 logs")
+  - Previous / Next butonları ve sayfa numarası.
+- **Payload Detail Drawer**:
+  - Sağ taraftan kayarak açılan gizli bir div. İçerisinde `<pre><code>` formatında seçilen kaydın tam JSON payload'u, User Agent bilgileri vs. listelenecek.
 
-export type AuditLogEvent = typeof AuditLogEvents[number];
-```
-
-#### [MODIFY] `packages/domain-schema/src/audit-log.contract.ts`
-- `event` alanını `AuditLogEvents` enum'ı ile sınırla.
-- `AuditLogQuerySchema`'yı genişlet:
-  ```typescript
-  export const AuditLogQuerySchema = z.object({
-    limit: z.coerce.number().int().min(1).max(100).default(50),
-    offset: z.coerce.number().int().min(0).default(0),
-    event: z.enum(AuditLogEvents).optional(),
-    actorType: z.enum(["user", "system", "service", "ai", "webhook"]).optional(),
-    source: z.enum(["api", "admin", "system", "worker", "webhook"]).optional(),
-    startDate: z.coerce.date().optional(),
-    endDate: z.coerce.date().optional()
-  });
-  ```
-- Pagination envelope ekle:
-  ```typescript
-  export const AuditLogResponseEnvelopeSchema = z.object({
-    data: z.array(AuditLogEntrySchema),
-    meta: z.object({
-      total: z.number().int(),
-      limit: z.number().int(),
-      offset: z.number().int()
-    })
-  });
-  ```
-
----
-
-### @santis/database
-
-#### [MODIFY] `packages/database/src/repositories/audit-log.repository.ts`
-- `getLogsByTenant` imzasını ve implementasyonunu güncelle:
-  - Dinamik Drizzle `where` array'i oluştur:
-    ```typescript
-    const conditions = [eq(auditLogs.tenantId, tenantId)];
-    if (options.event) conditions.push(eq(auditLogs.event, options.event));
-    // ...actorType, source
-    if (options.startDate) conditions.push(gte(auditLogs.createdAt, options.startDate));
-    if (options.endDate) conditions.push(lte(auditLogs.createdAt, options.endDate));
-    ```
-  - Data query'si: `where(and(...conditions)).limit().offset()`
-  - Count query'si: `select({ count: count() }).from(auditLogs).where(and(...conditions))`
-  - Dönüş tipini `{ data, total }` olarak değiştir.
-
----
-
-### @santis/ingestion-api
-
-#### [MODIFY] `apps/ingestion-api/src/services/audit-log.service.ts`
-- `getTenantLogs` dönüş tipini `{ data, meta: { total, limit, offset } }` envelope formatına çevir.
-
-#### [MODIFY] `apps/ingestion-api/src/routes/boardroom.routes.ts`
-- GET endpoint'in yeni `AuditLogResponseEnvelopeSchema` formatını response olarak döndürmesini sağla.
-
-#### [MODIFY] `apps/ingestion-api/src/routes/boardroom.routes.test.ts`
-- Eski `assert.deepStrictEqual(response.json(), [])` kontrollerini `{ data: [], meta: { total: 0, limit: 50, offset: 0 } }` ile değiştir.
-- Geçerli valid test payloadlarındaki `event` field'larını yeni `AuditLogEvents` registry'sine uygun (ör. `auth.login`) yap.
+### 3. [NEW] `public/admin/js/audit-logs-engine.js`
+- Sayfa yüklendiğinde `/api/v1/boardroom/audit-log` endpoint'ine `limit=50&offset=0` ile istek atacak.
+- Dönen `AuditLogResponseEnvelopeSchema` ({ data, meta }) objesini parse edip tabloya (DOM) render edecek.
+- Empty State (filtre sonucu bulunamadı), Loading State (veriler yüklenirken skeleton veya spinner), Error State (401/403/500 durumlarında) senaryolarını yönetecek.
+- Drawer açma/kapatma event listener'larını yönetecek.
 
 ## Verification Plan
-1. **Drizzle Queries**: Unit/Integration testler sırasında `mockDb` ve repository metodunun dinamik where filtrelerini doğru inşaa ettiği doğrulanacak.
-2. **Integration Tests**: `pnpm --filter @santis/ingestion-api test` komutu çalıştırılarak, pagination meta verisinin ve envelope şemasının çalıştığı teyit edilecek.
-3. **Typecheck**: Domain-schema'nın katı tip (strict enum) kontrollerinin kırılmadığından emin olunacak.
+- Admin paneline tarayıcı üzerinden giriş yapılıp Audit Logs sekmesinin render olduğu görülecek.
+- Farklı filtre kombinasyonlarıyla backend'in doğru çalıştığı ve tablonun güncellendiği doğrulanacak.
+- Sayfalama (Prev/Next) işlemlerinin `offset` parametresini doğru hesapladığı ve `meta.total` verisine göre sınırları yönettiği test edilecek.
+- Herhangi bir log kaydında "Inspect" tuşuna basıldığında Drawer'ın sorunsuz JSON gösterdiği onaylanacak.
