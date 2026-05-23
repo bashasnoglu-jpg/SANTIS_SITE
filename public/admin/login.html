@@ -115,6 +115,7 @@
         </form>
     </div>
 
+    <script src="js/admin-env.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.43.4/dist/umd/supabase.min.js"></script>
     <script type="module">
         // DO NOT COMMIT REAL CREDENTIALS. USE PLACEHOLDERS.
@@ -130,6 +131,14 @@
             const submitBtn = document.getElementById('submit-btn');
 
             errorMsg.style.opacity = '0';
+            
+            // Check for configuration error
+            if (SUPABASE_URL === '__SUPABASE_URL__' || SUPABASE_URL === 'https://your-project-ref.supabase.co' || !SUPABASE_URL) {
+                errorMsg.innerText = 'ACCESS CONFIGURATION ERROR';
+                errorMsg.style.opacity = '1';
+                return;
+            }
+
             submitBtn.innerText = 'DOĞRULANIYOR...';
             submitBtn.style.color = 'var(--santis-muted)';
 
