@@ -8,3 +8,4 @@ packages:
   - "packages/gravity-ux-engine"
   - "packages/event-dictionary"
   - "admin-panel"
+  - "apps/ingestion-api"
