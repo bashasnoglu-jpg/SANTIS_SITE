@@ -25,19 +25,30 @@ export const AdminAuth = {
     },
 
     async fetchWithAuth(url, options = {}) {
-        const token = this.getAuthToken();
-        if (!token) {
-            return Promise.reject(new Error('AUTHENTICATION REQUIRED. TOKEN MISSING.'));
-        }
-
-        const headers = new Headers(options.headers || {});
-        headers.set('Authorization', `Bearer ${token}`);
-
         const config = {
             ...options,
-            headers
+            credentials: 'include' // Always include cookies for HttpOnly session mode
         };
 
+        const headers = new Headers(options.headers || {});
+
+        // 1. Dev-mode fallback: Bearer token from localStorage
+        const fallbackToken = this.getAuthToken();
+        if (fallbackToken) {
+            headers.set('Authorization', `Bearer ${fallbackToken}`);
+        }
+
+        // 2. CSRF Guard: Append x-csrf-token header for state-changing methods
+        const method = (options.method || 'GET').toUpperCase();
+        if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
+            const csrfCookie = document.cookie.split('; ').find(row => row.startsWith('csrf_token='));
+            if (csrfCookie) {
+                const csrfValue = csrfCookie.split('=')[1];
+                headers.set('x-csrf-token', csrfValue);
+            }
+        }
+
+        config.headers = headers;
         return fetch(url, config);
     }
 };

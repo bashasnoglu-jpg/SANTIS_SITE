@@ -2,8 +2,12 @@ import { FastifyInstance, FastifyPluginAsync } from 'fastify';
 import { boardroomAuthPreHandler, boardroomWriteAuthPreHandler } from '../auth/fastify-auth-prehandler.js';
 import { AuditLogService } from '../services/audit-log.service.js';
 import { AuditLogRepository } from '@santis/database';
+import crypto from 'node:crypto';
 import { AuditLogQuerySchema } from '@santis/domain-schema/audit-log.contract.js';
+import { BoardroomReadableSessionSchema } from '@santis/domain-schema/session.contract.js';
 import { SANTIS_SESSION_COOKIE, CSRF_COOKIE, CSRF_HEADER } from '../auth/constants.js';
+import { verifySupabaseJwt } from '../auth/supabase-jwks.js';
+import { createSantisSessionContextFromJwtPayload } from '../auth/session-context.js';
 
 export const boardroomRoutes: FastifyPluginAsync = async (server: FastifyInstance) => {
   if (!server.db) {
@@ -13,14 +17,60 @@ export const boardroomRoutes: FastifyPluginAsync = async (server: FastifyInstanc
   const repository = new AuditLogRepository(server.db);
   const service = new AuditLogService(repository);
 
-  // POST /api/v1/boardroom/login -> Skeleton for future credential validation
+  // POST /api/v1/boardroom/login -> JWT Exchange Endpoint
   server.post('/v1/boardroom/login', async (request, reply) => {
-    // Phase J-X1: This is a safe skeleton only.
-    // It returns 501 Not Implemented to indicate real provider integration is pending.
-    return reply.status(501).send({
-      error: "Not Implemented",
-      message: "Boardroom login provider integration is pending Phase J-X implementation."
+    try {
+      const body = request.body as { token?: string };
+      if (!body || typeof body.token !== 'string') {
+        return reply.status(401).send({ error: "Missing or invalid token" });
+      }
+
+      // Verify the Supabase JWT
+      const payload = await verifySupabaseJwt(body.token);
+      const sessionContext = createSantisSessionContextFromJwtPayload(payload);
+
+      // Validate that it meets Boardroom read requirements at minimum
+      const validationResult = BoardroomReadableSessionSchema.safeParse(sessionContext);
+      if (!validationResult.success) {
+        return reply.status(401).send({ error: "Insufficient permissions" });
+      }
+
+      // Issue CSRF Token
+      const csrfToken = crypto.randomUUID();
+
+      // Issue HttpOnly Session Cookie
+      reply.setCookie(SANTIS_SESSION_COOKIE, body.token, {
+        path: '/',
+        httpOnly: true,
+        secure: true,
+        sameSite: 'lax',
+      });
+
+      // Issue Readable CSRF Cookie
+      reply.setCookie(CSRF_COOKIE, csrfToken, {
+        path: '/',
+        httpOnly: false, // Must be readable by frontend JS
+        secure: true,
+        sameSite: 'lax',
+      });
+
+      return reply.status(200).send({ ok: true });
+    } catch (error) {
+      server.log.error(error);
+      return reply.status(401).send({ error: "Unauthorized" });
+    }
+  });
+
+  // GET /api/v1/boardroom/csrf -> Optional CSRF Token Refresh
+  server.get('/v1/boardroom/csrf', { preHandler: boardroomAuthPreHandler }, async (request, reply) => {
+    const csrfToken = crypto.randomUUID();
+    reply.setCookie(CSRF_COOKIE, csrfToken, {
+      path: '/',
+      httpOnly: false,
+      secure: true,
+      sameSite: 'lax',
     });
+    return reply.status(200).send({ ok: true });
   });
 
   // POST /api/v1/boardroom/logout -> Clears cookies

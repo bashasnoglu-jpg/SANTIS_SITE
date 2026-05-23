@@ -408,16 +408,81 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
     assert.deepStrictEqual(body.data, []);
   });
 
-  it("18. POST /api/v1/boardroom/login returns 501 skeleton", async () => {
+  it("18. POST /api/v1/boardroom/login without token fails -> 401", async () => {
     const response = await server.inject({
       method: "POST",
       url: "/api/v1/boardroom/login",
-      payload: { passcode: "1234" }
+      payload: { passcode: "1234" } // Legacy passcode
     });
 
-    assert.strictEqual(response.statusCode, 501);
-    const body = response.json();
-    assert.strictEqual(body.error, "Not Implemented");
+    assert.strictEqual(response.statusCode, 401);
+  });
+
+  it("18.1. POST /api/v1/boardroom/login with invalid token fails -> 401", async () => {
+    const response = await server.inject({
+      method: "POST",
+      url: "/api/v1/boardroom/login",
+      payload: { token: "invalid.token.here" }
+    });
+
+    assert.strictEqual(response.statusCode, 401);
+  });
+
+  it("18.2. POST /api/v1/boardroom/login with valid token issues cookies -> 200", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "00000000-0000-4000-8000-000000000000",
+      app_metadata: {
+        santis: { operatorId: "op-admin", tenantId: "22222222-2222-2222-2222-222222222222", roles: ["admin"] }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "POST",
+      url: "/api/v1/boardroom/login",
+      payload: { token }
+    });
+
+    assert.strictEqual(response.statusCode, 200);
+    const cookies = response.cookies;
+
+    const sessionCookie = cookies.find((c: any) => c.name === SANTIS_SESSION_COOKIE);
+    assert.ok(sessionCookie);
+    assert.strictEqual(sessionCookie.value, token);
+    assert.strictEqual(sessionCookie.httpOnly, true);
+    assert.strictEqual(sessionCookie.secure, true);
+    assert.strictEqual(sessionCookie.sameSite, 'Lax');
+
+    const csrfCookie = cookies.find((c: any) => c.name === CSRF_COOKIE);
+    assert.ok(csrfCookie);
+    assert.ok(csrfCookie.value.length > 10);
+    assert.ok(!csrfCookie.httpOnly); // Must be readable
+    assert.strictEqual(csrfCookie.secure, true);
+    assert.strictEqual(csrfCookie.sameSite, 'Lax');
+  });
+
+  it("18.3. GET /api/v1/boardroom/csrf issues refresh CSRF cookie -> 200", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "00000000-0000-4000-8000-000000000000",
+      app_metadata: {
+        santis: { operatorId: "op-admin", tenantId: "22222222-2222-2222-2222-222222222222", roles: ["admin"] }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "GET",
+      url: "/api/v1/boardroom/csrf",
+      cookies: {
+        [SANTIS_SESSION_COOKIE]: token
+      }
+    });
+
+    assert.strictEqual(response.statusCode, 200);
+    const cookies = response.cookies;
+    const csrfCookie = cookies.find((c: any) => c.name === CSRF_COOKIE);
+    assert.ok(csrfCookie);
+    assert.ok(csrfCookie.value.length > 10);
   });
 
   it("19. POST /api/v1/boardroom/logout clears cookies -> 200", async () => {
