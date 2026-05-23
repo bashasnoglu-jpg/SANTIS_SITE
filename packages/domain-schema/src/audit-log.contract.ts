@@ -45,7 +45,7 @@ export const CreateAuditLogEntrySchema = z.object({
   correlationId: z.string().max(255).nullable().optional(),
   ipAddress: z.string().max(64).nullable().optional(),
   userAgent: z.string().max(255).nullable().optional(),
-  source: z.enum(["api", "admin", "system", "worker", "webhook"]).optional(),
+  source: z.enum(["api", "admin", "system", "worker", "webhook"]).nullable().optional(),
 });
 
 export const AuditLogEntrySchema = CreateAuditLogEntrySchema.extend({
