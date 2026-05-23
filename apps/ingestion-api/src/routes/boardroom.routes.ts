@@ -1,8 +1,9 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
 import { ErrorResponseSchema } from '../contracts/boardroom-audit-log.contract.js';
+import { boardroomAuthPreHandler } from '../auth/fastify-auth-prehandler.js';
 
 export const boardroomRoutes: FastifyPluginAsync = async (server: FastifyInstance) => {
-  server.get('/v1/boardroom/audit-log', async (request, reply) => {
+  server.get('/v1/boardroom/audit-log', { preHandler: boardroomAuthPreHandler }, async (request, reply) => {
     const errorResponse = {
       error: "Not Implemented",
       code: "ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED",
