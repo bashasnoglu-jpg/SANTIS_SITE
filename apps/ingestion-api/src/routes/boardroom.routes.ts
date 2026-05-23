@@ -12,6 +12,24 @@ export const boardroomRoutes: FastifyPluginAsync = async (server: FastifyInstanc
   const repository = new AuditLogRepository(server.db);
   const service = new AuditLogService(repository);
 
+  // POST /api/v1/boardroom/login -> Skeleton for future credential validation
+  server.post('/v1/boardroom/login', async (request, reply) => {
+    // Phase J-X1: This is a safe skeleton only.
+    // It returns 501 Not Implemented to indicate real provider integration is pending.
+    return reply.status(501).send({
+      error: "Not Implemented",
+      message: "Boardroom login provider integration is pending Phase J-X implementation."
+    });
+  });
+
+  // POST /api/v1/boardroom/logout -> Clears cookies
+  server.post('/v1/boardroom/logout', async (request, reply) => {
+    reply.clearCookie('santis_session', { path: '/' });
+    reply.clearCookie('csrf_token', { path: '/' }); // For future J-X2 compatibility
+    return reply.status(200).send({ ok: true });
+  });
+
+
   // POST /api/v1/boardroom/audit-log -> Append-only create
   server.post('/v1/boardroom/audit-log', { preHandler: boardroomWriteAuthPreHandler }, async (request, reply) => {
     try {

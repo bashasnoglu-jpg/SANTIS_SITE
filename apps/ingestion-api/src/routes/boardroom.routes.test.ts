@@ -380,4 +380,62 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
       assert.strictEqual(err.message, "server.db is not injected");
     }
   });
+
+  it("17. Missing Bearer but valid santis_session cookie works -> 200", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "00000000-0000-4000-8000-000000000000",
+      app_metadata: {
+        santis: {
+          operatorId: "op-admin",
+          tenantId: "22222222-2222-2222-2222-222222222222",
+          roles: ["admin"],
+        }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "GET",
+      url: "/api/v1/boardroom/audit-log",
+      cookies: {
+        santis_session: token
+      }
+    });
+
+    assert.strictEqual(response.statusCode, 200);
+    const body = response.json();
+    assert.deepStrictEqual(body.data, []);
+  });
+
+  it("18. POST /api/v1/boardroom/login returns 501 skeleton", async () => {
+    const response = await server.inject({
+      method: "POST",
+      url: "/api/v1/boardroom/login",
+      payload: { passcode: "1234" }
+    });
+
+    assert.strictEqual(response.statusCode, 501);
+    const body = response.json();
+    assert.strictEqual(body.error, "Not Implemented");
+  });
+
+  it("19. POST /api/v1/boardroom/logout clears cookies -> 200", async () => {
+    const response = await server.inject({
+      method: "POST",
+      url: "/api/v1/boardroom/logout"
+    });
+
+    assert.strictEqual(response.statusCode, 200);
+    const cookies = response.cookies;
+
+    // Find santis_session cookie
+    const sessionCookie = cookies.find((c: any) => c.name === 'santis_session');
+    assert.ok(sessionCookie, "santis_session cookie must be present in response");
+    assert.strictEqual(sessionCookie.value, ""); // Cleared
+
+    // Find csrf_token cookie
+    const csrfCookie = cookies.find((c: any) => c.name === 'csrf_token');
+    assert.ok(csrfCookie, "csrf_token cookie must be present in response");
+    assert.strictEqual(csrfCookie.value, ""); // Cleared
+  });
 });

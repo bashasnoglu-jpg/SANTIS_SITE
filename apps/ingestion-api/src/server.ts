@@ -19,6 +19,12 @@ export function buildServer(db?: any) {
     return response;
   });
 
+  // Register cookie plugin for session bridge
+  server.register(import('@fastify/cookie'), {
+    secret: process.env.COOKIE_SECRET || 'fallback-dev-secret-do-not-use-in-prod', // optional, for signed cookies
+    parseOptions: {} // options parsed to cookie.parse
+  });
+
   // Register route skeletons
   server.register(boardroomRoutes, { prefix: '/api' });
 

@@ -6,12 +6,18 @@ import { ERR_UNAUTHORIZED, ERR_FORBIDDEN } from "./errors.js";
 import "./request-context.js";
 
 async function verifyAndGetSession(request: FastifyRequest) {
+  let token: string | undefined;
+
   const authHeader = request.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    throw ERR_UNAUTHORIZED();
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    token = authHeader.split(" ")[1];
   }
 
-  const token = authHeader.split(" ")[1];
+  // Fallback to cookie if Bearer is absent
+  if (!token && request.cookies && request.cookies.santis_session) {
+    token = request.cookies.santis_session;
+  }
+
   if (!token) {
     throw ERR_UNAUTHORIZED();
   }
