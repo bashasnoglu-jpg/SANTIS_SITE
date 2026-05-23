@@ -62,7 +62,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
 
   it("4. Valid JWT missing app_metadata.santis -> 401", async () => {
     const issuer = "http://127.0.0.1:54321/auth/v1";
-    const token = await jwksServer.signToken({ sub: "user-123" }, issuer);
+    const token = await jwksServer.signToken({ sub: "11111111-1111-1111-1111-111111111111" }, issuer);
 
     const response = await server.inject({
       method: "GET",
@@ -77,7 +77,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
   it("5. Valid JWT missing tenantId -> 403 / ERR_TENANT_SCOPE_REQUIRED", async () => {
     const issuer = "http://127.0.0.1:54321/auth/v1";
     const token = await jwksServer.signToken({
-      sub: "user-123",
+      sub: "11111111-1111-1111-1111-111111111111",
       app_metadata: {
         santis: {
           operatorId: "op-123",
@@ -99,7 +99,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
   it("6. Valid JWT lacking admin/boardroom/audit-log:read -> 403 / ERR_FORBIDDEN", async () => {
     const issuer = "http://127.0.0.1:54321/auth/v1";
     const token = await jwksServer.signToken({
-      sub: "user-123",
+      sub: "11111111-1111-1111-1111-111111111111",
       app_metadata: {
         santis: {
           operatorId: "op-123",
@@ -122,7 +122,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
   it("7. Valid Boardroom-readable JWT -> 501 / ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED", async () => {
     const issuer = "http://127.0.0.1:54321/auth/v1";
     const token = await jwksServer.signToken({
-      sub: "user-admin",
+      sub: "00000000-0000-4000-8000-000000000000",
       app_metadata: {
         santis: {
           operatorId: "op-admin",
@@ -145,7 +145,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
   it("8. Valid JWT with role concierge but capability boardroom:read -> 501", async () => {
     const issuer = "http://127.0.0.1:54321/auth/v1";
     const token = await jwksServer.signToken({
-      sub: "user-concierge",
+      sub: "22222222-2222-2222-2222-222222222222",
       app_metadata: {
         santis: {
           operatorId: "op-concierge",
@@ -169,7 +169,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
   it("9. Valid JWT with role concierge but capability audit-log:read -> 501", async () => {
     const issuer = "http://127.0.0.1:54321/auth/v1";
     const token = await jwksServer.signToken({
-      sub: "user-concierge-2",
+      sub: "33333333-3333-3333-3333-333333333333",
       app_metadata: {
         santis: {
           operatorId: "op-concierge-2",
@@ -193,7 +193,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
   it("10. Valid JWT with tenantId but not UUID -> 401", async () => {
     const issuer = "http://127.0.0.1:54321/auth/v1";
     const token = await jwksServer.signToken({
-      sub: "user-admin",
+      sub: "00000000-0000-4000-8000-000000000000",
       app_metadata: {
         santis: {
           operatorId: "op-admin",
@@ -216,7 +216,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
   it("11. Truly Expired JWT -> 401", async () => {
     const issuer = "http://127.0.0.1:54321/auth/v1";
     const token = await jwksServer.signToken({
-      sub: "user-expired",
+      sub: "44444444-4444-4444-4444-444444444444",
       exp: Math.floor(Date.now() / 1000) - 3600, // 1 hour ago
       app_metadata: {
         santis: {

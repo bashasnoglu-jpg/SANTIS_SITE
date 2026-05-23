@@ -10,6 +10,7 @@
     "test": "tsx --test src/routes/boardroom.routes.test.ts"
   },
   "dependencies": {
+    "drizzle-orm": "^0.30.10",
     "fastify": "^4.26.1",
     "jose": "^5.2.2",
     "zod": "^3.22.4"
