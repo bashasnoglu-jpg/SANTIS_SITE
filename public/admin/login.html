@@ -46,20 +46,23 @@
             position: relative; margin-bottom: 2rem;
         }
 
+        input[type="email"],
         input[type="password"] {
             width: 100%; background: transparent; 
             border: none; border-bottom: 1px solid var(--glass-border);
             color: var(--santis-brass); font-family: monospace; font-size: 1.2rem;
-            padding: 0.8rem 0; text-align: center; letter-spacing: 10px;
+            padding: 0.8rem 0; text-align: center; letter-spacing: 5px;
             outline: none; transition: border-color 0.4s ease, box-shadow 0.4s ease;
             box-sizing: border-box;
         }
 
+        input[type="email"]:focus,
         input[type="password"]:focus {
             border-bottom: 1px solid var(--santis-brass);
             box-shadow: 0 4px 10px -8px var(--santis-brass);
         }
 
+        input[type="email"]::placeholder,
         input[type="password"]::placeholder {
             color: rgba(255,255,255,0.1); letter-spacing: 3px; font-family: 'Outfit', sans-serif;
         }
@@ -70,6 +73,7 @@
             transition: width 0.4s ease;
         }
 
+        input[type="email"]:focus ~ .shimmer-line,
         input[type="password"]:focus ~ .shimmer-line { width: 100%; }
 
         button {
@@ -99,7 +103,11 @@
 
         <form id="login-form">
             <div class="input-group">
-                <input type="password" id="passcode" placeholder="ENTER KEY" autocomplete="off" autofocus required>
+                <input type="email" id="email" placeholder="IDENTITY" autocomplete="username" autofocus required>
+                <div class="shimmer-line"></div>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="PASSPHRASE" autocomplete="current-password" required>
                 <div class="shimmer-line"></div>
             </div>
             <button type="submit" id="submit-btn">Mührü Aç</button>
@@ -107,10 +115,17 @@
         </form>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.43.4/dist/umd/supabase.min.js"></script>
     <script type="module">
+        // DO NOT COMMIT REAL CREDENTIALS. USE PLACEHOLDERS.
+        const SUPABASE_URL = window.ENV?.SUPABASE_URL || '__SUPABASE_URL__';
+        const SUPABASE_ANON_KEY = window.ENV?.SUPABASE_ANON_KEY || '__SUPABASE_ANON_KEY__';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const passcode = document.getElementById('passcode').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
             const errorMsg = document.getElementById('error-msg');
             const submitBtn = document.getElementById('submit-btn');
 
@@ -119,10 +134,22 @@
             submitBtn.style.color = 'var(--santis-muted)';
 
             try {
+                // 1. Obtain Supabase Session
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email,
+                    password
+                });
+
+                if (error || !data.session) {
+                    throw new Error('Supabase Auth Failed');
+                }
+
+                // 2. Exchange Token with Fastify Backend
                 const response = await fetch('/api/v1/boardroom/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ passcode })
+                    credentials: 'include',
+                    body: JSON.stringify({ token: data.session.access_token })
                 });
 
                 if (response.ok) {
@@ -133,6 +160,7 @@
                     throw new Error('Unauthorized');
                 }
             } catch (err) {
+                console.error("[Login Error]", err);
                 errorMsg.style.opacity = '1';
                 submitBtn.innerText = 'MÜHRÜ AÇ';
                 submitBtn.style.color = 'var(--santis-text)';
