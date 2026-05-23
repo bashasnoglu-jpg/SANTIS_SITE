@@ -3,6 +3,7 @@ import { BoardroomReadableSessionSchema, BoardroomWritableSessionSchema } from "
 import { verifySupabaseJwt } from "./supabase-jwks.js";
 import { createSantisSessionContextFromJwtPayload } from "./session-context.js";
 import { ERR_UNAUTHORIZED, ERR_FORBIDDEN } from "./errors.js";
+import { SANTIS_SESSION_COOKIE } from "./constants.js";
 import "./request-context.js";
 
 async function verifyAndGetSession(request: FastifyRequest) {
@@ -14,8 +15,8 @@ async function verifyAndGetSession(request: FastifyRequest) {
   }
 
   // Fallback to cookie if Bearer is absent
-  if (!token && request.cookies && request.cookies.santis_session) {
-    token = request.cookies.santis_session;
+  if (!token && request.cookies && request.cookies[SANTIS_SESSION_COOKIE]) {
+    token = request.cookies[SANTIS_SESSION_COOKIE];
   }
 
   if (!token) {

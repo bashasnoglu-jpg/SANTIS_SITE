@@ -3,6 +3,7 @@ import * as assert from "node:assert";
 import { buildServer } from "../server.js";
 import { TestJwksServer } from "../test-utils/jwks-test-keys.js";
 import type { FastifyInstance } from "fastify";
+import { SANTIS_SESSION_COOKIE, CSRF_COOKIE } from "../auth/constants.js";
 
 describe("Boardroom Routes - Auth PreHandler Integration", () => {
   let server: FastifyInstance;
@@ -381,7 +382,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
     }
   });
 
-  it("17. Missing Bearer but valid santis_session cookie works -> 200", async () => {
+  it(`17. Missing Bearer but valid ${SANTIS_SESSION_COOKIE} works -> 200`, async () => {
     const issuer = "http://127.0.0.1:54321/auth/v1";
     const token = await jwksServer.signToken({
       sub: "00000000-0000-4000-8000-000000000000",
@@ -398,7 +399,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
       method: "GET",
       url: "/api/v1/boardroom/audit-log",
       cookies: {
-        santis_session: token
+        [SANTIS_SESSION_COOKIE]: token
       }
     });
 
@@ -429,13 +430,13 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
     const cookies = response.cookies;
 
     // Find santis_session cookie
-    const sessionCookie = cookies.find((c: any) => c.name === 'santis_session');
-    assert.ok(sessionCookie, "santis_session cookie must be present in response");
+    const sessionCookie = cookies.find((c: any) => c.name === SANTIS_SESSION_COOKIE);
+    assert.ok(sessionCookie, `${SANTIS_SESSION_COOKIE} must be present in response`);
     assert.strictEqual(sessionCookie.value, ""); // Cleared
 
     // Find csrf_token cookie
-    const csrfCookie = cookies.find((c: any) => c.name === 'csrf_token');
-    assert.ok(csrfCookie, "csrf_token cookie must be present in response");
+    const csrfCookie = cookies.find((c: any) => c.name === CSRF_COOKIE);
+    assert.ok(csrfCookie, `${CSRF_COOKIE} must be present in response`);
     assert.strictEqual(csrfCookie.value, ""); // Cleared
   });
 });

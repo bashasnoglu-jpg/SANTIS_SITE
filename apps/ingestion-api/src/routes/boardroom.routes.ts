@@ -3,6 +3,7 @@ import { boardroomAuthPreHandler, boardroomWriteAuthPreHandler } from '../auth/f
 import { AuditLogService } from '../services/audit-log.service.js';
 import { AuditLogRepository } from '@santis/database';
 import { AuditLogQuerySchema } from '@santis/domain-schema/audit-log.contract.js';
+import { SANTIS_SESSION_COOKIE, CSRF_COOKIE } from '../auth/constants.js';
 
 export const boardroomRoutes: FastifyPluginAsync = async (server: FastifyInstance) => {
   if (!server.db) {
@@ -24,8 +25,8 @@ export const boardroomRoutes: FastifyPluginAsync = async (server: FastifyInstanc
 
   // POST /api/v1/boardroom/logout -> Clears cookies
   server.post('/v1/boardroom/logout', async (request, reply) => {
-    reply.clearCookie('santis_session', { path: '/' });
-    reply.clearCookie('csrf_token', { path: '/' }); // For future J-X2 compatibility
+    reply.clearCookie(SANTIS_SESSION_COOKIE, { path: '/' });
+    reply.clearCookie(CSRF_COOKIE, { path: '/' }); // For future J-X2 compatibility
     return reply.status(200).send({ ok: true });
   });
 

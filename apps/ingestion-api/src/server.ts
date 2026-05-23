@@ -1,6 +1,7 @@
 import fastify from 'fastify';
 import { healthResponseSchema } from './contracts/health.contract.js';
 import { boardroomRoutes } from './routes/boardroom.routes.js';
+import fastifyCookie from '@fastify/cookie';
 
 export function buildServer(db?: any) {
   const server = fastify({
@@ -19,9 +20,17 @@ export function buildServer(db?: any) {
     return response;
   });
 
+  // Production strictness for cookie secret
+  const isProd = process.env.NODE_ENV === 'production';
+  const cookieSecret = process.env.COOKIE_SECRET;
+  
+  if (isProd && !cookieSecret) {
+    throw new Error("COOKIE_SECRET is required in production");
+  }
+
   // Register cookie plugin for session bridge
-  server.register(import('@fastify/cookie'), {
-    secret: process.env.COOKIE_SECRET || 'fallback-dev-secret-do-not-use-in-prod', // optional, for signed cookies
+  server.register(fastifyCookie, {
+    secret: cookieSecret || 'fallback-dev-secret-do-not-use-in-prod', // optional, for signed cookies
     parseOptions: {} // options parsed to cookie.parse
   });
 
