@@ -1,5 +1,5 @@
 import { AuditLogRepository } from "@santis/database";
-import { CreateAuditLogEntrySchema, AuditLogEntrySchema, AuditLogEntry } from "@santis/domain-schema/audit-log.contract.js";
+import { CreateAuditLogEntrySchema, AuditLogEntrySchema, AuditLogEntry, AuditLogResponseEnvelope } from "@santis/domain-schema/audit-log.contract.js";
 
 export class AuditLogService {
   constructor(private readonly repository: AuditLogRepository) {}
@@ -25,13 +25,29 @@ export class AuditLogService {
    */
   async getTenantLogs(
     tenantId: string, 
-    options?: { limit?: number; offset?: number }
-  ): Promise<AuditLogEntry[]> {
+    options?: { 
+      limit?: number; 
+      offset?: number;
+      event?: string;
+      actorType?: string;
+      source?: string;
+      startDate?: Date;
+      endDate?: Date;
+    }
+  ): Promise<AuditLogResponseEnvelope> {
     if (!tenantId) {
       throw new Error("Tenant context is missing");
     }
 
-    const records = await this.repository.getLogsByTenant(tenantId, options);
-    return records.map(record => AuditLogEntrySchema.parse(record));
+    const { data: records, total } = await this.repository.getLogsByTenant(tenantId, options);
+    
+    return {
+      data: records.map(record => AuditLogEntrySchema.parse(record)),
+      meta: {
+        total,
+        limit: options?.limit ?? 50,
+        offset: options?.offset ?? 0
+      }
+    };
   }
 }

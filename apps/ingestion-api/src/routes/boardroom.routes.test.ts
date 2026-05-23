@@ -20,7 +20,12 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
     // 3. Build fastify server
     const mockDb = {
       insert: () => ({ values: (vals: any) => ({ returning: async () => [{ ...vals, id: "00000000-0000-0000-0000-000000000000", createdAt: new Date() }] }) }),
-      select: () => ({ from: () => ({ where: () => ({ orderBy: () => ({ limit: () => ({ offset: async () => [] }) }) }) }) })
+      select: (fields?: any) => {
+        if (fields && fields.count) {
+          return { from: () => ({ where: async () => [{ count: 0 }] }) };
+        }
+        return { from: () => ({ where: () => ({ orderBy: () => ({ limit: () => ({ offset: async () => [] }) }) }) }) };
+      }
     } as any;
     
     server = buildServer(mockDb);
@@ -144,7 +149,9 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
     });
 
     assert.strictEqual(response.statusCode, 200);
-    assert.deepStrictEqual(response.json(), []);
+    const body = response.json();
+    assert.deepStrictEqual(body.data, []);
+    assert.strictEqual(body.meta.total, 0);
   });
 
   it("8. Valid JWT with role concierge but capability boardroom:read -> 200", async () => {
@@ -168,7 +175,8 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
     });
 
     assert.strictEqual(response.statusCode, 200);
-    assert.deepStrictEqual(response.json(), []);
+    const body = response.json();
+    assert.deepStrictEqual(body.data, []);
   });
 
   it("9. Valid JWT with role concierge but capability audit-log:read -> 200", async () => {
@@ -192,7 +200,8 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
     });
 
     assert.strictEqual(response.statusCode, 200);
-    assert.deepStrictEqual(response.json(), []);
+    const body = response.json();
+    assert.deepStrictEqual(body.data, []);
   });
 
   it("10. Valid JWT with tenantId but not UUID -> 401", async () => {
@@ -262,7 +271,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
       headers: { authorization: `Bearer ${token}` },
       payload: {
         actorType: "user",
-        event: "test-event",
+        event: "auth.login",
         payload: {}
       }
     });
@@ -290,7 +299,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
       headers: { authorization: `Bearer ${token}` },
       payload: {
         actorType: "user",
-        event: "test-event",
+        event: "auth.login",
         payload: {}
       }
     });
@@ -317,7 +326,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
       headers: { authorization: `Bearer ${token}` },
       payload: {
         actorType: "user",
-        event: "test-event",
+        event: "auth.login",
         payload: {
           password: "mysecretpassword"
         }
@@ -351,7 +360,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
       payload: {
         tenantId: fakeTenantId, // Try to spoof
         actorType: "user",
-        event: "test-spoof",
+        event: "auth.login",
         payload: {}
       }
     });

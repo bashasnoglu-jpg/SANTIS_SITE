@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { AuditLogEvents } from "./audit-log.events.js";
 
 const FORBIDDEN_PAYLOAD_KEYS = [
   "password",
@@ -38,7 +39,7 @@ export const CreateAuditLogEntrySchema = z.object({
   actorType: z.enum(["user", "system", "service", "ai", "webhook"]),
   actorId: z.string().uuid().nullable().optional(),
   operatorId: z.string().uuid().nullable().optional(),
-  event: z.string().max(255),
+  event: z.enum(AuditLogEvents),
   payload: PayloadSchema,
   payloadSchemaVersion: z.number().int().default(1),
   requestId: z.string().max(255).nullable().optional(),
@@ -55,10 +56,33 @@ export const AuditLogEntrySchema = CreateAuditLogEntrySchema.extend({
 
 export const AuditLogQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(50),
-  offset: z.coerce.number().int().min(0).default(0)
+  offset: z.coerce.number().int().min(0).default(0),
+  event: z.enum(AuditLogEvents).optional(),
+  actorType: z.enum(["user", "system", "service", "ai", "webhook"]).optional(),
+  source: z.enum(["api", "admin", "system", "worker", "webhook"]).optional(),
+  startDate: z.coerce.date().optional(),
+  endDate: z.coerce.date().optional()
+}).refine(data => {
+  if (data.startDate && data.endDate) {
+    return data.startDate <= data.endDate;
+  }
+  return true;
+}, {
+  message: "startDate cannot be after endDate",
+  path: ["startDate"]
+});
+
+export const AuditLogResponseEnvelopeSchema = z.object({
+  data: z.array(AuditLogEntrySchema),
+  meta: z.object({
+    total: z.number().int(),
+    limit: z.number().int(),
+    offset: z.number().int()
+  })
 });
 
 export type CreateAuditLogEntry = z.infer<typeof CreateAuditLogEntrySchema>;
 export type AuditLogEntry = z.infer<typeof AuditLogEntrySchema>;
 export type AuditLogQuery = z.infer<typeof AuditLogQuerySchema>;
+export type AuditLogResponseEnvelope = z.infer<typeof AuditLogResponseEnvelopeSchema>;
 

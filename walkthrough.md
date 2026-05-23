@@ -17,19 +17,24 @@ We have successfully implemented the backend foundational work for the new Audit
 ## 3. Fastify Server Database Injection
 - The Fastify instance in `apps/ingestion-api` now formally decorates `server.db`. `AuditLogRepository` instantiation inside `boardroom.routes.ts` no longer uses an inline mock, but properly relies on this injected instance.
 
-## 4. Test Matrix Verification
-A total of **15 integration tests** have been implemented and are **passing**.
+## 4. Real Postgres/Drizzle Provider & Migration Setup (Phase J-T)
+- **Database Client Injection:** The `postgres` package was introduced to `@santis/database` and we established a `createDbConnection(databaseUrl)` utility within `packages/database/src/client.ts`. This correctly configures a `postgres.js` pool customized to avoid prefetch issues.
+- **Migration Configuration:** We added a `drizzle.config.ts` into `@santis/database` capable of inferring schemas and generating SQL files natively, and hooked up `db:generate`, `db:push:local`, and `db:studio` to `packages/database/package.json`.
+- **Runtime Wiring:** The `apps/ingestion-api/src/index.ts` was finalized to initialize the actual Postgres instance if `process.env.DATABASE_URL` is detected, cleanly separating configuration from application testing.
+- **Schema Validation:** We successfully generated the SQL migration file (`packages/database/drizzle/0000_sudden_stature.sql`) validating that all Drizzle indices, JSONB payloads, and table layouts map correctly to Postgres native constraints.
+
+## 5. Test Matrix Verification
+A total of **16 integration tests** have been implemented and are **passing**.
 Key tested paths include:
 1. Valid JWT lacking `admin/boardroom/audit-log:read` is rejected (403).
 2. Valid JWT with `concierge` role but `audit-log:read` capability is allowed to GET (200).
 3. Read-only token attempting to POST is rejected (403).
 4. Missing or explicitly forbidden payload keys (e.g. `password`) are caught (400).
 5. Attempting to spoof `tenantId` in the body payload seamlessly falls back to the canonical token scope.
+6. Server crashes intentionally if `DATABASE_URL` (and consequently `server.db`) is not injected.
 
 You can verify the latest commit locally on `develop`:
-`git log -1` -> `fix(audit-log): harden route authorization and database injection`
-
-## Changes Made
+`git log -1` -> `feat(database): wire postgres provider and drizzle migrations`
 
 ### Docker Infrastructure & Pipeline
 - **Dockerfile**: Refactored to a multi-stage `pnpm deploy` strategy using `node:20-slim`.

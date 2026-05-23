@@ -1,4 +1,4 @@
-import { eq, and, desc } from "drizzle-orm";
+import { eq, and, desc, gte, lte, sql } from "drizzle-orm";
 import { auditLogs } from "../schema/audit-logs.js";
 
 // A generic interface for the Drizzle connection
@@ -26,16 +26,42 @@ export class AuditLogRepository {
    */
   async getLogsByTenant(
     tenantId: string, 
-    options?: { limit?: number; offset?: number }
-  ): Promise<(typeof auditLogs.$inferSelect)[]> {
+    options?: { 
+      limit?: number; 
+      offset?: number;
+      event?: string;
+      actorType?: string;
+      source?: string;
+      startDate?: Date;
+      endDate?: Date;
+    }
+  ): Promise<{ data: (typeof auditLogs.$inferSelect)[], total: number }> {
     const limit = options?.limit ?? 50;
     const offset = options?.offset ?? 0;
     
-    return this.db.select()
+    const conditions = [eq(auditLogs.tenantId, tenantId)];
+    
+    if (options?.event) conditions.push(eq(auditLogs.event, options.event));
+    if (options?.actorType) conditions.push(eq(auditLogs.actorType, options.actorType));
+    if (options?.source) conditions.push(eq(auditLogs.source, options.source));
+    if (options?.startDate) conditions.push(gte(auditLogs.createdAt, options.startDate));
+    if (options?.endDate) conditions.push(lte(auditLogs.createdAt, options.endDate));
+
+    const whereClause = and(...conditions);
+
+    const [countResult] = await this.db.select({ count: sql<number>`count(*)` })
       .from(auditLogs)
-      .where(eq(auditLogs.tenantId, tenantId))
+      .where(whereClause);
+
+    const total = Number(countResult?.count || 0);
+
+    const data = await this.db.select()
+      .from(auditLogs)
+      .where(whereClause)
       .orderBy(desc(auditLogs.createdAt))
       .limit(limit)
       .offset(offset);
+
+    return { data, total };
   }
 }
