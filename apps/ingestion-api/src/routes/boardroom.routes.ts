@@ -1,18 +1,16 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
-import { apiErrorSchema } from '../contracts/boardroomAuditLog.contract.js';
+import { ErrorResponseSchema } from '../contracts/boardroom-audit-log.contract.js';
 
 export const boardroomRoutes: FastifyPluginAsync = async (server: FastifyInstance) => {
-  // Phase J-D: Route exists but returns 501 Not Implemented 
-  // to ensure frontend gracefully falls back to mock data
   server.get('/v1/boardroom/audit-log', async (request, reply) => {
     const errorResponse = {
       error: "Not Implemented",
-      code: "ERR_NOT_IMPLEMENTED",
-      message: "Boardroom Audit Log endpoint is under construction. Future implementation requires proper tenant/admin boundaries."
+      code: "ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED",
+      message: "Sovereign Memory backend requires auth and tenant boundary implementation before live data can be served."
     };
     
-    // Ensure the error response matches our schema contract
-    apiErrorSchema.parse(errorResponse);
+    // Ensure the response matches our contract exactly
+    ErrorResponseSchema.parse(errorResponse);
     
     return reply.status(501).send(errorResponse);
   });
