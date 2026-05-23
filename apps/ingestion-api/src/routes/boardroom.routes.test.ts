@@ -451,14 +451,14 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
     assert.strictEqual(sessionCookie.value, token);
     assert.strictEqual(sessionCookie.httpOnly, true);
     assert.strictEqual(sessionCookie.secure, true);
-    assert.strictEqual(sessionCookie.sameSite, 'Lax');
+    assert.strictEqual(sessionCookie.sameSite, 'Strict');
 
     const csrfCookie = cookies.find((c: any) => c.name === CSRF_COOKIE);
     assert.ok(csrfCookie);
     assert.ok(csrfCookie.value.length > 10);
     assert.ok(!csrfCookie.httpOnly); // Must be readable
     assert.strictEqual(csrfCookie.secure, true);
-    assert.strictEqual(csrfCookie.sameSite, 'Lax');
+    assert.strictEqual(csrfCookie.sameSite, 'Strict');
   });
 
   it("18.3. GET /api/v1/boardroom/csrf issues refresh CSRF cookie -> 200", async () => {

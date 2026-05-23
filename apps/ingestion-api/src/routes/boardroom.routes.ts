@@ -43,7 +43,7 @@ export const boardroomRoutes: FastifyPluginAsync = async (server: FastifyInstanc
         path: '/',
         httpOnly: true,
         secure: true,
-        sameSite: 'lax',
+        sameSite: 'strict',
       });
 
       // Issue Readable CSRF Cookie
@@ -51,7 +51,7 @@ export const boardroomRoutes: FastifyPluginAsync = async (server: FastifyInstanc
         path: '/',
         httpOnly: false, // Must be readable by frontend JS
         secure: true,
-        sameSite: 'lax',
+        sameSite: 'strict',
       });
 
       return reply.status(200).send({ ok: true });
@@ -68,7 +68,7 @@ export const boardroomRoutes: FastifyPluginAsync = async (server: FastifyInstanc
       path: '/',
       httpOnly: false,
       secure: true,
-      sameSite: 'lax',
+      sameSite: 'strict',
     });
     return reply.status(200).send({ ok: true });
   });
