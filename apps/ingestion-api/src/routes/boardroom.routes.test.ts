@@ -141,4 +141,75 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
     assert.strictEqual(response.statusCode, 501);
     assert.strictEqual(response.json().code, "ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED");
   });
+
+  it("8. Valid JWT with role concierge but capability boardroom:read -> 501", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "user-concierge",
+      app_metadata: {
+        santis: {
+          operatorId: "op-concierge",
+          tenantId: "33333333-3333-3333-3333-333333333333",
+          roles: ["concierge"],
+          capabilities: ["boardroom:read"]
+        }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "GET",
+      url: "/api/v1/boardroom/audit-log",
+      headers: { authorization: `Bearer ${token}` },
+    });
+
+    assert.strictEqual(response.statusCode, 501);
+    assert.strictEqual(response.json().code, "ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED");
+  });
+
+  it("9. Valid JWT with role concierge but capability audit-log:read -> 501", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "user-concierge-2",
+      app_metadata: {
+        santis: {
+          operatorId: "op-concierge-2",
+          tenantId: "44444444-4444-4444-4444-444444444444",
+          roles: ["concierge"],
+          capabilities: ["audit-log:read"]
+        }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "GET",
+      url: "/api/v1/boardroom/audit-log",
+      headers: { authorization: `Bearer ${token}` },
+    });
+
+    assert.strictEqual(response.statusCode, 501);
+    assert.strictEqual(response.json().code, "ERR_BOARDROOM_AUDIT_LOG_NOT_IMPLEMENTED");
+  });
+
+  it("10. Valid JWT with tenantId but not UUID -> 401", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "user-admin",
+      app_metadata: {
+        santis: {
+          operatorId: "op-admin",
+          tenantId: "invalid-uuid-format", // Not a UUID
+          roles: ["admin"],
+        }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "GET",
+      url: "/api/v1/boardroom/audit-log",
+      headers: { authorization: `Bearer ${token}` },
+    });
+
+    assert.strictEqual(response.statusCode, 401);
+    assert.strictEqual(response.json().code, "ERR_UNAUTHORIZED");
+  });
 });
