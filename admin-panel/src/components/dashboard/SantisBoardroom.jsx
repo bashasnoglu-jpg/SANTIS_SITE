@@ -2,10 +2,11 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import GhostDrawer from './GhostDrawer';
 import LiveIntentMonitor from '../boardroom/LiveIntentMonitor';
 import { BoardroomChronos } from '../../features/boardroom/components/BoardroomChronos';
-import { History, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut, Eye, Brain, Split, Headset, TrendingUp, GitBranch, Filter } from 'lucide-react';
+import { History, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut, Eye, Brain, Split, Headset, TrendingUp, GitBranch, Filter, BookOpen } from 'lucide-react';
 import { useBoardroomMode } from '../../features/boardroom/context/BoardroomModeContext';
 import BoardroomRevealCeremony from './BoardroomRevealCeremony';
 import SovereignActionRail from './SovereignActionRail';
+import SovereignMemoryPanel from './SovereignMemoryPanel';
 
 // ── Admin-only: lazy-loaded, feature-gated Time Travel Replay UI ──────────────
 const TimeTravelReplayPanel = lazy(() =>
@@ -134,6 +135,12 @@ export default function SantisBoardroom() {
             >
               <GitBranch className="w-4 h-4" /> Replay Engine
             </button>
+            <button 
+              onClick={() => setActiveTab('memory')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm text-sm transition-colors ${activeTab === 'memory' ? 'bg-sovereign-obsidian border border-sovereign-accent/30 text-sovereign-accent' : 'bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink'}`}
+            >
+              <BookOpen className="w-4 h-4" /> Sovereign Memory
+            </button>
             <button className="w-full flex items-center gap-3 bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink px-4 py-3 rounded-sm text-sm transition-colors">
               <Settings className="w-4 h-4" /> Ayarlar
             </button>
@@ -173,6 +180,7 @@ export default function SantisBoardroom() {
               {activeTab === 'journey' && 'Journey Hunisi'}
               {activeTab === 'chronos' && 'Chronos & Visual Truth'}
               {activeTab === 'replay' && 'Replay Engine — Time Travel'}
+              {activeTab === 'memory' && 'Sovereign Memory'}
             </h2>
             <div className="flex items-center text-sovereign-bronze text-2xs uppercase tracking-widest mt-1">
               <Activity className="w-3 h-3 mr-2 text-sovereign-accent animate-pulse" /> 
@@ -417,6 +425,12 @@ export default function SantisBoardroom() {
                 </Suspense>
               </div>
             )}
+
+            {/* SOVEREIGN MEMORY TAB */}
+            {activeTab === 'memory' && (
+              <SovereignMemoryPanel />
+            )}
+
           </div>
           
           {/* Footer Warning */}
