@@ -9,7 +9,10 @@
     "./core-state.interface": "./src/core-state.interface.ts",
     "./sse-envelope.contract": "./src/sse-envelope.contract.ts",
     "./boardroom-state.contract": "./src/boardroom-state.contract.ts",
-    "./session.contract": "./src/session.contract.ts"
+    "./session.contract": "./src/session.contract.ts",
+    "./session.contract.js": "./src/session.contract.ts",
+    "./audit-log.contract": "./src/audit-log.contract.ts",
+    "./audit-log.contract.js": "./src/audit-log.contract.ts"
   },
   "scripts": {
     "audit:contract": "node ../../scripts/active/audit-contract.mjs",
