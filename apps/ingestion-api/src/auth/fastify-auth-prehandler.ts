@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { BoardroomReadableSessionSchema } from "@santis/domain-schema";
+import { BoardroomReadableSessionSchema } from "@santis/domain-schema/session.contract";
 import { verifySupabaseJwt } from "./supabase-jwks.js";
 import { createSantisSessionContextFromJwtPayload } from "./session-context.js";
 import { ERR_UNAUTHORIZED, ERR_FORBIDDEN } from "./errors.js";
