@@ -16,10 +16,10 @@
   },
   "scripts": {
     "audit:contract": "node ../../scripts/active/audit-contract.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/ensure-no-db.mjs && tsc --noEmit"
   },
   "dependencies": {
     "zod": "^3.22.0"
-  },
-  "devDependencies": {}
+  }
 }

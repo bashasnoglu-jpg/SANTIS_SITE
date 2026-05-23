@@ -1,4 +1,4 @@
-import { SantisSessionContext, SantisSessionContextSchema } from "@santis/domain-schema/session.contract";
+import { SantisSessionContext, SantisSessionContextSchema } from "@santis/domain-schema/session.contract.js";
 import { JWTPayload } from "jose";
 import { ERR_UNAUTHORIZED, ERR_TENANT_SCOPE_REQUIRED } from "./errors.js";
 
