@@ -156,7 +156,7 @@ importers:
         version: link:../../packages/database
       drizzle-orm:
         specifier: ^0.30.10
-        version: 0.30.10(@types/pg@8.20.0)(@types/react@19.2.14)(pg@8.20.0)(react@19.2.5)
+        version: 0.30.10(@types/pg@8.20.0)(@types/react@19.2.14)(pg@8.20.0)(postgres@3.4.9)(react@19.2.5)
       fastify:
         specifier: ^4.26.1
         version: 4.29.1
@@ -184,7 +184,10 @@ importers:
     dependencies:
       drizzle-orm:
         specifier: ^0.30.10
-        version: 0.30.10(@types/pg@8.20.0)(@types/react@19.2.14)(pg@8.20.0)(react@19.2.5)
+        version: 0.30.10(@types/pg@8.20.0)(@types/react@19.2.14)(pg@8.20.0)(postgres@3.4.9)(react@19.2.5)
+      postgres:
+        specifier: ^3.4.9
+        version: 3.4.9
     devDependencies:
       drizzle-kit:
         specifier: ^0.20.14
@@ -2895,6 +2898,10 @@ packages:
     resolution: {integrity: sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==}
     engines: {node: '>=0.10.0'}
 
+  postgres@3.4.9:
+    resolution: {integrity: sha512-GD3qdB0x1z9xgFI6cdRD6xu2Sp2WCOEoe3mtnyB5Ee0XrrL5Pe+e4CCnJrRMnL1zYtRDZmQQVbvOttLnKDLnaw==}
+    engines: {node: '>=12'}
+
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
@@ -4708,11 +4715,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.30.10(@types/pg@8.20.0)(@types/react@19.2.14)(pg@8.20.0)(react@19.2.5):
+  drizzle-orm@0.30.10(@types/pg@8.20.0)(@types/react@19.2.14)(pg@8.20.0)(postgres@3.4.9)(react@19.2.5):
     optionalDependencies:
       '@types/pg': 8.20.0
       '@types/react': 19.2.14
       pg: 8.20.0
+      postgres: 3.4.9
       react: 19.2.5
 
   dunder-proto@1.0.1:
@@ -5797,6 +5805,8 @@ snapshots:
     dependencies:
       xtend: 4.0.2
     optional: true
+
+  postgres@3.4.9: {}
 
   prelude-ls@1.2.1: {}
 
