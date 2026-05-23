@@ -1,6 +1,7 @@
 {
   "name": "@santis/domain-schema",
   "version": "1.0.0",
+  "type": "module",
   "exports": {
     ".": "./src/index.ts",
     "./telemetry": "./src/telemetry/signal.schema.ts",
