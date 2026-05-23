@@ -3,7 +3,7 @@
  * Sovereign Boardroom Audit Logs Engine
  */
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     // --- 1. State ---
     const ENDPOINT = '/api/v1/boardroom/audit-log';
     let currentLimit = 50;
@@ -24,42 +24,50 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnPrev = document.getElementById('btn-prev');
     const btnNext = document.getElementById('btn-next');
     const btnReset = document.getElementById('btn-reset');
-    
+
     // Drawer elements
     const drawerOverlay = document.getElementById('drawer-overlay');
     const drawer = document.getElementById('payload-drawer');
     const btnCloseDrawer = document.getElementById('btn-close-drawer');
     const drawerContent = document.getElementById('drawer-content');
 
+    // --- Helper: HTML Escaping ---
+    function escapeHtml(unsafe) {
+        if (unsafe === null || unsafe === undefined) return '-';
+        return String(unsafe)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
     // --- 3. Placeholder Auth Adapter (Fail closed) ---
-    // In a real scenario, the token would be retrieved from localStorage/sessionStorage.
     function getAuthToken() {
-        // Return a mock token for development purposes to pass JWT existence checks, 
-        // or return null to trigger "Authentication required".
-        // The user mentioned "If auth token is not available yet, use a safe placeholder auth adapter: fail closed".
-        // Assuming the admin dashboard uses cookie-based auth or local storage.
         const token = localStorage.getItem('santis_admin_token');
-        if (!token) {
-            console.warn('[Audit Logs Engine] Authentication required. Token missing.');
-        }
-        return token;
+        return token || null;
     }
 
     // --- 4. Fetch & Render ---
     async function fetchLogs() {
         setUIState('loading');
-        
+
+        const token = getAuthToken();
+        if (!token) {
+            setUIState('error', 'AUTHENTICATION REQUIRED. TOKEN MISSING.');
+            return;
+        }
+
         try {
             // Build query params
             const params = new URLSearchParams();
             params.append('limit', currentLimit);
             params.append('offset', currentOffset);
-            
+
             const formData = new FormData(form);
             for (let [key, value] of formData.entries()) {
                 if (value) {
                     if (key === 'startDate' || key === 'endDate') {
-                        // datetime-local returns YYYY-MM-DDThh:mm, append Z to convert to UTC if needed
                         params.append(key, new Date(value).toISOString());
                     } else {
                         params.append(key, value);
@@ -67,13 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            const token = getAuthToken();
             const headers = {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
             };
-            if (token) {
-                headers['Authorization'] = `Bearer ${token}`;
-            }
 
             const res = await fetch(`${ENDPOINT}?${params.toString()}`, {
                 method: 'GET',
@@ -92,16 +97,16 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const responseBody = await res.json();
-            // Expected { data: [...], meta: { total, limit, offset } }
-            
-            if (responseBody.meta) {
-                currentData = responseBody.data || [];
-                totalLogs = responseBody.meta.total || 0;
-            } else if (Array.isArray(responseBody)) {
-                // Fallback if backend hasn't implemented envelope yet
-                currentData = responseBody;
-                totalLogs = responseBody.length; // Approximate
+
+            // Defensive response validation
+            if (!responseBody.meta || !Array.isArray(responseBody.data)) {
+                console.error('[Audit Logs Engine] Invalid Response Contract:', responseBody);
+                setUIState('error', 'INVALID RESPONSE CONTRACT FROM SERVER.');
+                return;
             }
+
+            currentData = responseBody.data;
+            totalLogs = responseBody.meta.total || 0;
 
             if (currentData.length === 0) {
                 setUIState('empty');
@@ -121,13 +126,13 @@ document.addEventListener("DOMContentLoaded", () => {
         tbody.innerHTML = '';
         data.forEach(log => {
             const tr = document.createElement('tr');
-            
-            const timeString = new Date(log.created_at).toLocaleString('tr-TR');
-            const eventVal = log.event || 'UNKNOWN';
-            const actorVal = log.actor_id || '-';
-            const actorTypeVal = log.actor_type || '-';
-            const sourceVal = log.source || '-';
-            const ipVal = log.ip_address || '-';
+
+            const timeString = new Date(log.createdAt).toLocaleString('tr-TR');
+            const eventVal = escapeHtml(log.event || 'UNKNOWN');
+            const actorVal = escapeHtml(log.actorId);
+            const actorTypeVal = escapeHtml(log.actorType);
+            const sourceVal = escapeHtml(log.source);
+            const ipVal = escapeHtml(log.ipAddress);
 
             tr.innerHTML = `
                 <td style="font-family: monospace; color: var(--santis-muted);">${timeString}</td>
@@ -136,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>${actorTypeVal}</td>
                 <td>${sourceVal}</td>
                 <td style="font-family: monospace; color: var(--santis-muted);">${ipVal}</td>
-                <td><button class="btn-inspect" data-id="${log.id}">Inspect</button></td>
+                <td><button class="btn-inspect" data-id="${escapeHtml(log.id)}">Inspect</button></td>
             `;
             tbody.appendChild(tr);
         });
@@ -154,10 +159,10 @@ document.addEventListener("DOMContentLoaded", () => {
     function updatePaginationControls() {
         const currentPage = Math.floor(currentOffset / currentLimit) + 1;
         const totalPages = Math.ceil(totalLogs / currentLimit) || 1;
-        
+
         pageIndicator.innerText = `Page ${currentPage} of ${totalPages}`;
         paginationInfo.innerText = `Showing ${currentOffset + 1} to ${Math.min(currentOffset + currentLimit, totalLogs)} of ${totalLogs}`;
-        
+
         btnPrev.disabled = currentOffset === 0;
         btnNext.disabled = (currentOffset + currentLimit) >= totalLogs;
     }
@@ -196,20 +201,20 @@ document.addEventListener("DOMContentLoaded", () => {
             <div style="margin-bottom: 2rem;">
                 <div class="detail-row">
                     <span class="detail-label">ID</span>
-                    <span class="detail-value">${log.id}</span>
+                    <span class="detail-value">${escapeHtml(log.id)}</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Tenant ID</span>
-                    <span class="detail-value">${log.tenant_id}</span>
+                    <span class="detail-value">${escapeHtml(log.tenantId)}</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">User Agent</span>
-                    <span class="detail-value" style="text-align: right; max-width: 60%; word-break: break-all;">${log.user_agent || '-'}</span>
+                    <span class="detail-value" style="text-align: right; max-width: 60%; word-break: break-all;">${escapeHtml(log.userAgent)}</span>
                 </div>
             </div>
-            
+
             <span class="detail-label" style="display: block; margin-bottom: 0.5rem;">Payload</span>
-            <pre>${payloadStr}</pre>
+            <pre>${escapeHtml(payloadStr)}</pre>
         `;
         drawerOverlay.classList.add('active');
         drawer.classList.add('active');
@@ -251,5 +256,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // --- 8. Init ---
-    fetchLogs();
+    // Do not auto-fetch if token is missing
+    const token = getAuthToken();
+    if (!token) {
+        setUIState('error', 'AUTHENTICATION REQUIRED. TOKEN MISSING.');
+    } else {
+        fetchLogs();
+    }
 });
