@@ -1,6 +1,7 @@
 import fastify from 'fastify';
 import { healthResponseSchema } from './contracts/health.contract.js';
 import { boardroomRoutes } from './routes/boardroom.routes.js';
+import { schedulingRoutes } from './routes/scheduling.routes.js';
 import fastifyCookie from '@fastify/cookie';
 
 export function buildServer(db?: any) {
@@ -36,6 +37,7 @@ export function buildServer(db?: any) {
 
   // Register route skeletons
   server.register(boardroomRoutes, { prefix: '/api' });
+  server.register(schedulingRoutes, { prefix: '/api' });
 
   return server;
 }
