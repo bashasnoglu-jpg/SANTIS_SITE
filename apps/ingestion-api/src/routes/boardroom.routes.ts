@@ -1,4 +1,10 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
+
+declare module 'fastify' {
+  interface FastifyInstance {
+    db: any;
+  }
+}
 import { boardroomAuthPreHandler, boardroomWriteAuthPreHandler } from '../auth/fastify-auth-prehandler.js';
 import { AuditLogService } from '../services/audit-log.service.js';
 import { AuditLogRepository } from '@santis/database';

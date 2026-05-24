@@ -272,7 +272,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
       headers: { authorization: `Bearer ${token}` },
       payload: {
         actorType: "user",
-        event: "auth.login",
+        action: "auth.login",
         payload: {}
       }
     });
@@ -300,7 +300,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
       headers: { authorization: `Bearer ${token}` },
       payload: {
         actorType: "user",
-        event: "auth.login",
+        action: "auth.login",
         payload: {}
       }
     });
@@ -327,7 +327,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
       headers: { authorization: `Bearer ${token}` },
       payload: {
         actorType: "user",
-        event: "auth.login",
+        action: "auth.login",
         payload: {
           password: "mysecretpassword"
         }
@@ -361,7 +361,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
       payload: {
         tenantId: fakeTenantId, // Try to spoof
         actorType: "user",
-        event: "auth.login",
+        action: "auth.login",
         payload: {}
       }
     });
@@ -520,7 +520,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
       cookies: {
         [SANTIS_SESSION_COOKIE]: token
       },
-      payload: { actorType: "user", event: "auth.login", payload: {} }
+      payload: { actorType: "user", action: "auth.login", payload: {} }
     });
 
     assert.strictEqual(response.statusCode, 403);
@@ -546,7 +546,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
         [SANTIS_SESSION_COOKIE]: token,
         [CSRF_COOKIE]: "correct-token"
       },
-      payload: { actorType: "user", event: "auth.login", payload: {} }
+      payload: { actorType: "user", action: "auth.login", payload: {} }
     });
 
     assert.strictEqual(response.statusCode, 403);
@@ -572,7 +572,7 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
         [SANTIS_SESSION_COOKIE]: token,
         [CSRF_COOKIE]: "valid-csrf-token"
       },
-      payload: { actorType: "user", event: "auth.login", payload: {} }
+      payload: { actorType: "user", action: "auth.login", payload: {} }
     });
 
     assert.strictEqual(response.statusCode, 201);

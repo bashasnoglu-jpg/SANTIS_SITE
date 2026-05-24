@@ -6,7 +6,7 @@ import {
   TreatmentRoomSchema,
   TherapistSchema,
   ServiceSchema
-} from "./scheduling.contract";
+} from "./scheduling.contract.js";
 
 // --- RESOURCE LIST ---
 export const SchedulingResourcesRequestSchema = z.object({

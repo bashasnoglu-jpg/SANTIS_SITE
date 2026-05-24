@@ -29,7 +29,7 @@ export class AuditLogRepository {
     options?: { 
       limit?: number; 
       offset?: number;
-      event?: string;
+      action?: string;
       actorType?: string;
       source?: string;
       startDate?: Date;
@@ -41,7 +41,7 @@ export class AuditLogRepository {
     
     const conditions = [eq(auditLogs.tenantId, tenantId)];
     
-    if (options?.event) conditions.push(eq(auditLogs.event, options.event));
+    if (options?.action) conditions.push(eq(auditLogs.action, options.action));
     if (options?.actorType) conditions.push(eq(auditLogs.actorType, options.actorType));
     if (options?.source) conditions.push(eq(auditLogs.source, options.source));
     if (options?.startDate) conditions.push(gte(auditLogs.createdAt, options.startDate));

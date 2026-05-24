@@ -10,8 +10,8 @@ import {
   TherapistShift,
   Blocker,
   Booking
-} from "./scheduling.contract";
-import { AvailabilitySlot } from "./scheduling.api";
+} from "./scheduling.contract.js";
+import { AvailabilitySlot } from "./scheduling.api.js";
 
 export interface AvailabilityEngineContext {
   tenant_id: string;

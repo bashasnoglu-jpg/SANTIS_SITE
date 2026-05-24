@@ -37,16 +37,17 @@ const PayloadSchema = z.record(z.any())
 export const CreateAuditLogEntrySchema = z.object({
   tenantId: z.string().uuid(),
   actorType: z.enum(["user", "system", "service", "ai", "webhook"]),
-  actorId: z.string().uuid().nullable().optional(),
-  operatorId: z.string().uuid().nullable().optional(),
-  event: z.enum(AuditLogEvents),
+  actorOperatorId: z.string().uuid().nullable().optional(),
+  action: z.enum(AuditLogEvents),
   payload: PayloadSchema,
   payloadSchemaVersion: z.number().int().default(1),
   requestId: z.string().max(255).nullable().optional(),
   correlationId: z.string().max(255).nullable().optional(),
-  ipAddress: z.string().max(64).nullable().optional(),
-  userAgent: z.string().max(255).nullable().optional(),
+  ipHash: z.string().max(64).nullable().optional(),
+  userAgentHash: z.string().max(64).nullable().optional(),
   source: z.enum(["api", "admin", "system", "worker", "webhook"]).nullable().optional(),
+  resourceId: z.string().max(255).nullable().optional(),
+  resourceType: z.string().max(255).nullable().optional(),
 });
 
 export const AuditLogEntrySchema = CreateAuditLogEntrySchema.extend({
@@ -57,7 +58,7 @@ export const AuditLogEntrySchema = CreateAuditLogEntrySchema.extend({
 export const AuditLogQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(50),
   offset: z.coerce.number().int().min(0).default(0),
-  event: z.enum(AuditLogEvents).optional(),
+  action: z.enum(AuditLogEvents).optional(),
   actorType: z.enum(["user", "system", "service", "ai", "webhook"]).optional(),
   source: z.enum(["api", "admin", "system", "worker", "webhook"]).optional(),
   startDate: z.coerce.date().optional(),

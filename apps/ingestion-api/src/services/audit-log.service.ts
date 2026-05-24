@@ -28,7 +28,7 @@ export class AuditLogService {
     options?: { 
       limit?: number; 
       offset?: number;
-      event?: string;
+      action?: string;
       actorType?: string;
       source?: string;
       startDate?: Date;
@@ -42,7 +42,7 @@ export class AuditLogService {
     const { data: records, total } = await this.repository.getLogsByTenant(tenantId, options);
     
     return {
-      data: records.map(record => AuditLogEntrySchema.parse(record)),
+      data: records.map((record: any) => AuditLogEntrySchema.parse(record)),
       meta: {
         total,
         limit: options?.limit ?? 50,

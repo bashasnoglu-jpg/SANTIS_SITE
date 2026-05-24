@@ -10,7 +10,7 @@ import {
   TherapistShift,
   Blocker,
   Booking
-} from "./scheduling.contract";
+} from "./scheduling.contract.js";
 
 export type ConflictCode =
   | 'TENANT_SCOPE_VIOLATION'

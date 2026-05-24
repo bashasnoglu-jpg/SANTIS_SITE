@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import * as assert from "node:assert";
-import { evaluateBooking, ProposedBooking, BookingGuardContext } from "./scheduling.booking-guard";
+import { evaluateBooking, ProposedBooking, BookingGuardContext } from "./scheduling.booking-guard.js";
 import {
   MOCK_TENANT_ID,
   MOCK_LOCATION,
@@ -14,7 +14,7 @@ import {
   MOCK_SHIFTS,
   MOCK_BLOCKERS,
   MOCK_BOOKINGS
-} from "./scheduling.fixtures";
+} from "./scheduling.fixtures.js";
 
 describe("Phase K-6: Booking Guard Engine", () => {
   const baseContext: BookingGuardContext = {
