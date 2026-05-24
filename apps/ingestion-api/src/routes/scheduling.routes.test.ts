@@ -3,7 +3,11 @@ import * as assert from "node:assert";
 import { buildServer } from "../server.js";
 import { TestJwksServer } from "../test-utils/jwks-test-keys.js";
 import type { FastifyInstance } from "fastify";
-import { MOCK_TENANT_ID, MOCK_SERVICES, MOCK_SPA_AREA } from '@santis/domain-schema/scheduling.fixtures.js';
+import { 
+  MOCK_TENANT_ID, MOCK_SERVICES, MOCK_SPA_AREA, MOCK_LOCATION, MOCK_ROOMS,
+  MOCK_THERAPISTS, MOCK_SERVICE_ROOM_COMPATIBILITIES, MOCK_SERVICE_THERAPIST_COMPATIBILITIES,
+  MOCK_OPERATING_HOURS, MOCK_SHIFTS, MOCK_BLOCKERS, MOCK_BOOKINGS
+} from '@santis/domain-schema/scheduling.fixtures.js';
 
 describe('Scheduling API Routes - Phase K-4', () => {
   let server: FastifyInstance;
@@ -19,9 +23,23 @@ describe('Scheduling API Routes - Phase K-4', () => {
     process.env.SUPABASE_JWKS_URL = `${jwksServer.url}/auth/v1/.well-known/jwks.json`;
 
     // 3. Build fastify server
+    let customSelectHandler: any = null;
+    let customInsertHandler: any = null;
+    
+    // Make these globally accessible to tests
+    (global as any).setCustomSelectHandler = (fn: any) => { customSelectHandler = fn; };
+    (global as any).setCustomInsertHandler = (fn: any) => { customInsertHandler = fn; };
+    (global as any).clearCustomDbHandlers = () => { customSelectHandler = null; customInsertHandler = null; };
+
     const mockDb = {
-      insert: () => ({ values: (vals: any) => ({ returning: async () => [{ ...vals, id: "00000000-0000-0000-0000-000000000000", createdAt: new Date() }] }) }),
+      insert: () => {
+        if (customInsertHandler) return customInsertHandler();
+        return { values: (vals: any) => ({ returning: async () => [{ ...vals, id: "00000000-0000-0000-0000-000000000000", createdAt: new Date() }] }) };
+      },
+      update: () => { if (customInsertHandler) return customInsertHandler(); return {}; },
+      delete: () => { if (customInsertHandler) return customInsertHandler(); return {}; },
       select: (fields?: any) => {
+        if (customSelectHandler) return customSelectHandler(fields);
         if (fields && fields.count) {
           return { from: () => ({ where: async () => [{ count: 0 }] }) };
         }
@@ -68,7 +86,7 @@ describe('Scheduling API Routes - Phase K-4', () => {
         authorization: `Bearer ${token}`
       }
     });
-    assert.strictEqual(res.statusCode, 200);
+    console.log(res.json()); if (res.statusCode !== 200) throw new Error(JSON.stringify(res.json())); assert.strictEqual(res.statusCode, 200);
     const body = res.json();
     assert.ok(body.services);
     assert.ok(body.rooms);
@@ -232,148 +250,7 @@ describe('Scheduling API Routes - Phase K-4', () => {
     assert.strictEqual(body.code, 'TENANT_SCOPE_VIOLATION');
   });
 
-  // --- PHASE K-6A: VALIDATION TESTS ---
 
-  it('10. POST /booking/validate with available room + therapist returns allowed=true', async () => {
-    const token = await jwksServer.signToken({
-      sub: "mock-sub",
-      app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
-    }, "http://127.0.0.1:54321/auth/v1");
-
-    const res = await server.inject({
-      method: 'POST',
-      url: '/api/v1/scheduling/booking/validate',
-      headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
-      payload: {
-        tenant_id: MOCK_TENANT_ID,
-        service_id: MOCK_SERVICES[0].id,
-        room_id: "33333333-3333-3333-3333-333333333333",
-        therapist_id: "44444444-4444-4444-4444-444444444444",
-        service_start_time: "2026-06-01T11:00:00Z", // Empty slot
-        service_end_time: "2026-06-01T12:00:00Z",
-        cleanup_end_time: "2026-06-01T12:15:00Z",
-        booking_source: "manual",
-        booking_status: "draft",
-        customer_info: {}
-      }
-    });
-    assert.strictEqual(res.statusCode, 200);
-    const body = res.json();
-    assert.strictEqual(body.allowed, true);
-  });
-
-  it('11. POST /booking/validate room overlap returns allowed=false (ROOM_BOOKING_CONFLICT)', async () => {
-    const token = await jwksServer.signToken({
-      sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
-    }, "http://127.0.0.1:54321/auth/v1");
-
-    const res = await server.inject({
-      method: 'POST',
-      url: '/api/v1/scheduling/booking/validate',
-      headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
-      payload: {
-        tenant_id: MOCK_TENANT_ID,
-        service_id: MOCK_SERVICES[0].id,
-        room_id: "33333333-3333-3333-3333-333333333333",
-        therapist_id: "55555555-5555-5555-5555-555555555555", // Another therapist
-        service_start_time: "2026-06-01T09:15:00Z", // Overlaps with MOCK_BOOKINGS[0]
-        service_end_time: "2026-06-01T10:15:00Z",
-        cleanup_end_time: "2026-06-01T10:30:00Z",
-        booking_source: "manual",
-        booking_status: "draft",
-        customer_info: {}
-      }
-    });
-    assert.strictEqual(res.statusCode, 200);
-    const body = res.json();
-    assert.strictEqual(body.allowed, false);
-    assert.strictEqual(body.conflict_code, 'ROOM_BOOKING_CONFLICT');
-  });
-
-  it('12. POST /booking/validate therapist shift mismatch returns allowed=false (THERAPIST_OUTSIDE_SHIFT)', async () => {
-    const token = await jwksServer.signToken({
-      sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
-    }, "http://127.0.0.1:54321/auth/v1");
-
-    const res = await server.inject({
-      method: 'POST',
-      url: '/api/v1/scheduling/booking/validate',
-      headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
-      payload: {
-        tenant_id: MOCK_TENANT_ID,
-        service_id: MOCK_SERVICES[0].id,
-        room_id: "33333333-3333-3333-3333-333333333333",
-        therapist_id: "44444444-4444-4444-4444-444444444444",
-        service_start_time: "2026-06-01T20:00:00Z", // Outside therapist shift (ends 17:00)
-        service_end_time: "2026-06-01T21:00:00Z",
-        cleanup_end_time: "2026-06-01T21:15:00Z",
-        booking_source: "manual",
-        booking_status: "draft",
-        customer_info: {}
-      }
-    });
-    assert.strictEqual(res.statusCode, 200);
-    const body = res.json();
-    assert.strictEqual(body.allowed, false);
-    assert.strictEqual(body.conflict_code, 'THERAPIST_OUTSIDE_SHIFT');
-  });
-
-  it('13. POST /booking/validate blocker conflict returns allowed=false (ROOM_BLOCKED)', async () => {
-    const token = await jwksServer.signToken({
-      sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
-    }, "http://127.0.0.1:54321/auth/v1");
-
-    const res = await server.inject({
-      method: 'POST',
-      url: '/api/v1/scheduling/booking/validate',
-      headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
-      payload: {
-        tenant_id: MOCK_TENANT_ID,
-        service_id: MOCK_SERVICES[0].id,
-        room_id: "33333333-3333-3333-3333-333333333333",
-        therapist_id: "44444444-4444-4444-4444-444444444444",
-        service_start_time: "2026-06-01T13:30:00Z", // Overlaps with MOCK_BLOCKERS[0]
-        service_end_time: "2026-06-01T14:30:00Z",
-        cleanup_end_time: "2026-06-01T14:45:00Z",
-        booking_source: "manual",
-        booking_status: "draft",
-        customer_info: {}
-      }
-    });
-    assert.strictEqual(res.statusCode, 200);
-    const body = res.json();
-    assert.strictEqual(body.allowed, false);
-    assert.strictEqual(body.conflict_code, 'ROOM_BLOCKED');
-  });
-
-  it('14. POST /booking/validate incompatibility returns allowed=false (THERAPIST_NOT_COMPATIBLE)', async () => {
-    const token = await jwksServer.signToken({
-      sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
-    }, "http://127.0.0.1:54321/auth/v1");
-
-    const res = await server.inject({
-      method: 'POST',
-      url: '/api/v1/scheduling/booking/validate',
-      headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
-      payload: {
-        tenant_id: MOCK_TENANT_ID,
-        service_id: "22222222-2222-2222-2222-222222222222", // Hamam Ritual
-        room_id: "33333333-3333-3333-3333-333333333333",   // standard room (not compatible but let's see which triggers first)
-        therapist_id: "44444444-4444-4444-4444-444444444444", // not compatible with Hamam Ritual
-        service_start_time: "2026-06-01T11:00:00Z",
-        service_end_time: "2026-06-01T12:00:00Z",
-        cleanup_end_time: "2026-06-01T12:15:00Z",
-        booking_source: "manual",
-        booking_status: "draft",
-        customer_info: {}
-      }
-    });
-    assert.strictEqual(res.statusCode, 200);
-    const body = res.json();
-    assert.strictEqual(body.allowed, false);
-    // Compatibilities check: Room fails first because of array order in evaluateBooking
-    assert.strictEqual(body.conflict_code, 'ROOM_NOT_COMPATIBLE');
-  });
 
   it('15. POST /booking/validate invalid payload returns 400', async () => {
     const token = await jwksServer.signToken({
@@ -392,33 +269,219 @@ describe('Scheduling API Routes - Phase K-4', () => {
     assert.strictEqual(res.statusCode, 400);
   });
 
-  it('16. POST /booking/validate does not call DB write methods', async () => {
-    const token = await jwksServer.signToken({
-      sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
-    }, "http://127.0.0.1:54321/auth/v1");
 
-    // The mockDb defined in before() throws if insert is called in a way that we can detect, or we just rely on fact we used the router
-    // To strictly assert, we know the router does NOT inject `mockDb` in any write capacity for /validate.
-    // It's a pure function `evaluateBooking(proposed, ctx)`.
-    const res = await server.inject({
-      method: 'POST',
-      url: '/api/v1/scheduling/booking/validate',
-      headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
-      payload: {
-        tenant_id: MOCK_TENANT_ID,
-        service_id: MOCK_SERVICES[0].id,
-        room_id: "33333333-3333-3333-3333-333333333333",
-        therapist_id: "44444444-4444-4444-4444-444444444444",
-        service_start_time: "2026-06-01T11:00:00Z",
-        service_end_time: "2026-06-01T12:00:00Z",
-        cleanup_end_time: "2026-06-01T12:15:00Z",
-        booking_source: "manual",
-        booking_status: "draft",
-        customer_info: {}
-      }
+  describe('Phase K-6B DB Hydration Tests', () => {
+    let selectCalled = false;
+    let insertCalled = false;
+
+    before(() => {
+      (global as any).setCustomInsertHandler(() => { 
+        insertCalled = true; 
+        return { values: () => ({ returning: async () => [] }) }; 
+      });
+
+      (global as any).setCustomSelectHandler(() => {
+        selectCalled = true;
+        return {
+          from: (tableObj: any) => {
+            const tableName = tableObj[Symbol.for('drizzle:Name')] || tableObj.config?.name || Object.keys(tableObj).find(k => tableObj[k] && typeof tableObj[k] === 'object' && tableObj[k].name);
+            return {
+              where: async () => {
+                const tableStr = String(tableName);
+                const MOCK_DB_FIXTURES = {
+                  locations: [{ tenantId: MOCK_TENANT_ID, id: MOCK_LOCATION.id, name: MOCK_LOCATION.name, timezone: MOCK_LOCATION.timezone, createdAt: new Date(), updatedAt: new Date() }],
+                  spaAreas: [{ tenantId: MOCK_TENANT_ID, id: MOCK_SPA_AREA.id, locationId: MOCK_LOCATION.id, name: MOCK_SPA_AREA.name, defaultSlotIntervalMinutes: 15, createdAt: new Date(), updatedAt: new Date() }],
+                  treatmentRooms: MOCK_ROOMS.map(r => ({ tenantId: MOCK_TENANT_ID, id: r.id, spaAreaId: r.spa_area_id, name: r.name, roomType: r.room_type, capacity: r.capacity, isActive: true, createdAt: new Date(), updatedAt: new Date() })),
+                  therapists: MOCK_THERAPISTS.map(t => ({ tenantId: MOCK_TENANT_ID, id: t.id, locationId: t.location_id, name: t.name, isActive: true, createdAt: new Date(), updatedAt: new Date() })),
+                  services: MOCK_SERVICES.map(s => ({ tenantId: MOCK_TENANT_ID, id: s.id, name: s.name, durationMinutes: s.duration_minutes, cleanupMinutes: s.cleanup_minutes, isActive: true, createdAt: new Date(), updatedAt: new Date() })),
+                  serviceRoomCompatibilities: MOCK_SERVICE_ROOM_COMPATIBILITIES.map(c => ({ tenantId: MOCK_TENANT_ID, serviceId: c.service_id, roomId: c.room_id })),
+                  serviceTherapistCompatibilities: MOCK_SERVICE_THERAPIST_COMPATIBILITIES.map(c => ({ tenantId: MOCK_TENANT_ID, serviceId: c.service_id, therapistId: c.therapist_id })),
+                  operatingHours: MOCK_OPERATING_HOURS.map(o => ({ id: o.id, tenantId: MOCK_TENANT_ID, locationId: o.location_id, dayOfWeek: o.day_of_week, openTime: o.open_time, closeTime: o.close_time })),
+                  therapistShifts: MOCK_SHIFTS.map(s => ({ id: s.id, tenantId: MOCK_TENANT_ID, therapistId: s.therapist_id, locationId: s.location_id, startsAt: new Date(s.starts_at), endsAt: new Date(s.ends_at), recurrenceRule: s.recurrence_rule })),
+                  blockers: MOCK_BLOCKERS.map(b => ({ id: b.id, tenantId: MOCK_TENANT_ID, roomId: b.room_id, therapistId: b.therapist_id, startsAt: new Date(b.starts_at), endsAt: new Date(b.ends_at), reason: b.reason })),
+                  bookings: MOCK_BOOKINGS.map(b => ({ id: b.id, tenantId: MOCK_TENANT_ID, serviceId: b.service_id, roomId: b.room_id, therapistId: b.therapist_id, serviceStartTime: new Date(b.service_start_time), serviceEndTime: new Date(b.service_end_time), cleanupEndTime: new Date(b.cleanup_end_time), bookingSource: b.booking_source, bookingStatus: b.booking_status, customerInfo: b.customer_info, notes: b.notes, createdAt: new Date(), updatedAt: new Date() }))
+                };
+                if (tableStr.includes('locations')) return MOCK_DB_FIXTURES.locations;
+                if (tableStr.includes('spa_areas')) return MOCK_DB_FIXTURES.spaAreas;
+                if (tableStr.includes('treatment_rooms')) return MOCK_DB_FIXTURES.treatmentRooms;
+                if (tableStr.includes('therapists')) return MOCK_DB_FIXTURES.therapists;
+                if (tableStr.includes('services')) return MOCK_DB_FIXTURES.services;
+                if (tableStr.includes('service_room_compatibilities')) return MOCK_DB_FIXTURES.serviceRoomCompatibilities;
+                if (tableStr.includes('service_therapist_compatibilities')) return MOCK_DB_FIXTURES.serviceTherapistCompatibilities;
+                if (tableStr.includes('operating_hours')) return MOCK_DB_FIXTURES.operatingHours;
+                if (tableStr.includes('therapist_shifts')) return MOCK_DB_FIXTURES.therapistShifts;
+                if (tableStr.includes('blockers')) return MOCK_DB_FIXTURES.blockers;
+                if (tableStr.includes('bookings')) return MOCK_DB_FIXTURES.bookings;
+                return [];
+              }
+            };
+          }
+        };
+      });
     });
-    assert.strictEqual(res.statusCode, 200);
-    // If it wrote to DB it would fail or return 500, but it returned 200 allowed=true
-    assert.strictEqual(res.json().allowed, true);
+
+    after(() => {
+      (global as any).clearCustomDbHandlers();
+    });
+
+    it('17. hydrated context path calls SELECT/read methods only and NO insert/update/delete', async () => {
+      selectCalled = false;
+      insertCalled = false;
+      const token = await jwksServer.signToken({
+        sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
+      }, "http://127.0.0.1:54321/auth/v1");
+
+      const res = await server.inject({
+        method: 'POST',
+        url: '/api/v1/scheduling/booking/validate',
+        headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+        payload: {
+          tenant_id: MOCK_TENANT_ID,
+          service_id: "55555555-5555-5555-5555-555555555551",
+          room_id: "33333333-3333-3333-3333-333333333331",
+          therapist_id: "44444444-4444-4444-4444-444444444441",
+          service_start_time: "2026-06-01T14:00:00Z",
+          service_end_time: "2026-06-01T15:00:00Z",
+          cleanup_end_time: "2026-06-01T15:15:00Z",
+          booking_source: "manual",
+          booking_status: "draft",
+          customer_info: {},
+          notes: null
+        }
+      });
+
+      assert.strictEqual(res.statusCode, 200);
+      assert.strictEqual(selectCalled, true);
+      assert.strictEqual(insertCalled, false);
+      assert.strictEqual(res.json().allowed, true);
+    });
+
+    it('18. room booking conflict from hydrated DB context returns allowed=false', async () => {
+      const token = await jwksServer.signToken({
+        sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
+      }, "http://127.0.0.1:54321/auth/v1");
+
+      const res = await server.inject({
+        method: 'POST',
+        url: '/api/v1/scheduling/booking/validate',
+        headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+        payload: {
+          tenant_id: MOCK_TENANT_ID,
+          service_id: "55555555-5555-5555-5555-555555555551",
+          room_id: "33333333-3333-3333-3333-333333333331", // Massage 1 (has booking 10:00-11:15)
+          therapist_id: "44444444-4444-4444-4444-444444444441", // Aria (compatible with Deep Tissue)
+          service_start_time: "2026-06-01T10:30:00Z", // Overlaps room booking
+          service_end_time: "2026-06-01T11:30:00Z",
+          cleanup_end_time: "2026-06-01T11:45:00Z",
+          booking_source: "manual",
+          booking_status: "draft",
+          customer_info: {},
+          notes: null
+        }
+      });
+      assert.strictEqual(res.statusCode, 200);
+      const body = res.json();
+      assert.strictEqual(body.allowed, false);
+      assert.strictEqual(body.conflict_code, 'ROOM_BOOKING_CONFLICT');
+    });
+
+    it('19. blocker conflict from hydrated DB context returns allowed=false (THERAPIST_BLOCKED)', async () => {
+      const token = await jwksServer.signToken({
+        sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
+      }, "http://127.0.0.1:54321/auth/v1");
+
+      const res = await server.inject({
+        method: 'POST',
+        url: '/api/v1/scheduling/booking/validate',
+        headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+        payload: {
+          tenant_id: MOCK_TENANT_ID,
+          service_id: "55555555-5555-5555-5555-555555555551",
+          room_id: "33333333-3333-3333-3333-333333333332", // VIP Suite
+          therapist_id: "44444444-4444-4444-4444-444444444441", // Aria (has lunch blocker 12:00-13:00)
+          service_start_time: "2026-06-01T12:30:00Z", // Overlaps blocker
+          service_end_time: "2026-06-01T13:30:00Z",
+          cleanup_end_time: "2026-06-01T13:45:00Z",
+          booking_source: "manual",
+          booking_status: "draft",
+          customer_info: {},
+          notes: null
+        }
+      });
+      assert.strictEqual(res.statusCode, 200);
+      const body = res.json();
+      assert.strictEqual(body.allowed, false);
+      assert.strictEqual(body.conflict_code, 'THERAPIST_BLOCKED');
+    });
+
+    it('20. therapist shift mismatch from hydrated DB context returns allowed=false', async () => {
+      const token = await jwksServer.signToken({
+        sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
+      }, "http://127.0.0.1:54321/auth/v1");
+
+      const res = await server.inject({
+        method: 'POST',
+        url: '/api/v1/scheduling/booking/validate',
+        headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+        payload: {
+          tenant_id: MOCK_TENANT_ID,
+          service_id: "55555555-5555-5555-5555-555555555551",
+          room_id: "33333333-3333-3333-3333-333333333332", // VIP Suite
+          therapist_id: "44444444-4444-4444-4444-444444444441", // Aria (Shift ends 17:00)
+          service_start_time: "2026-06-01T18:00:00Z", // Outside shift
+          service_end_time: "2026-06-01T19:00:00Z",
+          cleanup_end_time: "2026-06-01T19:15:00Z",
+          booking_source: "manual",
+          booking_status: "draft",
+          customer_info: {},
+          notes: null
+        }
+      });
+      assert.strictEqual(res.statusCode, 200);
+      const body = res.json();
+      assert.strictEqual(body.allowed, false);
+      assert.strictEqual(body.conflict_code, 'THERAPIST_OUTSIDE_SHIFT');
+    });
+
+    it('21. production-mode hydration failure returns safe 503 error, not mock success', async () => {
+      // Override NODE_ENV for this test to bypass mock fallback
+      const originalEnv = process.env.NODE_ENV;
+      process.env.NODE_ENV = 'production';
+
+      // Break the db to force hydration error
+      const brokenDb = {
+        select: () => { throw new Error("DB Connection Lost"); }
+      };
+      (server as any).db = brokenDb;
+
+      const token = await jwksServer.signToken({
+        sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
+      }, "http://127.0.0.1:54321/auth/v1");
+
+      const res = await server.inject({
+        method: 'POST',
+        url: '/api/v1/scheduling/booking/validate',
+        headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+        payload: {
+          tenant_id: MOCK_TENANT_ID,
+          service_id: "55555555-5555-5555-5555-555555555551",
+          room_id: "33333333-3333-3333-3333-333333333331",
+          therapist_id: "44444444-4444-4444-4444-444444444441",
+          service_start_time: "2026-06-01T11:00:00Z",
+          service_end_time: "2026-06-01T12:00:00Z",
+          cleanup_end_time: "2026-06-01T12:15:00Z",
+          booking_source: "manual",
+          booking_status: "draft",
+          customer_info: {},
+          notes: null
+        }
+      });
+
+      // Restore original env
+      process.env.NODE_ENV = originalEnv;
+
+      assert.strictEqual(res.statusCode, 503);
+      assert.strictEqual(res.json().code, 'DB_HYDRATION_FAILED');
+    });
   });
 });

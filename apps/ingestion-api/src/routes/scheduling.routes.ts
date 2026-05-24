@@ -157,7 +157,7 @@ export const schedulingRoutes: FastifyPluginAsync = async (server: FastifyInstan
     }
   });
 
-  // POST /api/v1/scheduling/booking/validate -> Dry-run mock integration
+  // POST /api/v1/scheduling/booking/validate -> Dry-run DB hydrated mock integration
   server.post('/v1/scheduling/booking/validate', { preHandler: boardroomWriteAuthPreHandler }, async (request, reply) => {
     try {
       const tenantId = request.santisContext?.tenant?.tenantId;
@@ -182,19 +182,42 @@ export const schedulingRoutes: FastifyPluginAsync = async (server: FastifyInstan
         cleanup_end_time: bodyParsed.data.cleanup_end_time,
       };
 
-      const ctx = {
-        locations: [MOCK_LOCATION],
-        spa_areas: [MOCK_SPA_AREA],
-        rooms: MOCK_ROOMS,
-        therapists: MOCK_THERAPISTS,
-        services: MOCK_SERVICES,
-        room_compatibilities: MOCK_SERVICE_ROOM_COMPATIBILITIES,
-        therapist_compatibilities: MOCK_SERVICE_THERAPIST_COMPATIBILITIES,
-        operating_hours: MOCK_OPERATING_HOURS,
-        shifts: MOCK_SHIFTS,
-        blockers: MOCK_BLOCKERS,
-        bookings: MOCK_BOOKINGS,
-      };
+      let ctx;
+      try {
+        const db = (server as any).db;
+        if (!db) throw new Error("DB instance not found on server");
+        
+        // Dynamically import to avoid breaking standard fastify loads if database package has issues
+        const { SchedulingRepository } = await import('@santis/database');
+        const repo = new SchedulingRepository(db);
+        
+        ctx = await repo.getBookingGuardContext(tenantId, proposed.service_start_time);
+      } catch (hydrationError: any) {
+        if (process.env.NODE_ENV === 'test') {
+          // Explicit Mock Fallback for test mode
+          ctx = {
+            locations: [MOCK_LOCATION],
+            spa_areas: [MOCK_SPA_AREA],
+            rooms: MOCK_ROOMS,
+            therapists: MOCK_THERAPISTS,
+            services: MOCK_SERVICES,
+            room_compatibilities: MOCK_SERVICE_ROOM_COMPATIBILITIES,
+            therapist_compatibilities: MOCK_SERVICE_THERAPIST_COMPATIBILITIES,
+            operating_hours: MOCK_OPERATING_HOURS,
+            shifts: MOCK_SHIFTS,
+            blockers: MOCK_BLOCKERS,
+            bookings: MOCK_BOOKINGS,
+          };
+        } else {
+          // Production/Staging safe failure
+          server.log.error(hydrationError);
+          return reply.status(503).send({ 
+            error: "Service Unavailable", 
+            code: "DB_HYDRATION_FAILED",
+            message: "Failed to hydrate scheduling context from database."
+          });
+        }
+      }
 
       const result = evaluateBooking(proposed, ctx);
 

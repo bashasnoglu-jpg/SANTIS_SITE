@@ -7,7 +7,7 @@
     "dev": "tsx src/index.ts",
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test src/routes/boardroom.routes.test.ts"
+    "test": "tsx --test src/routes/boardroom.routes.test.ts src/routes/scheduling.routes.test.ts"
   },
   "dependencies": {
     "@fastify/cookie": "^9.4.0",
