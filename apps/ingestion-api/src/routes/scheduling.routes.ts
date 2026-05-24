@@ -3,9 +3,11 @@ import { boardroomAuthPreHandler, boardroomWriteAuthPreHandler } from '../auth/f
 import {
   SchedulingResourcesRequestSchema,
   AvailabilityRequestSchema,
-  CreateBookingRequestSchema
+  CreateBookingRequestSchema,
+  ValidateBookingRequestSchema
 } from '@santis/domain-schema/scheduling.api.js';
 import { calculateAvailability } from '@santis/domain-schema/scheduling.availability.js';
+import { evaluateBooking } from '@santis/domain-schema/scheduling.booking-guard.js';
 import {
   MOCK_SERVICES,
   MOCK_ROOMS,
@@ -146,6 +148,57 @@ export const schedulingRoutes: FastifyPluginAsync = async (server: FastifyInstan
         message: "Booking creation requires a DB transactional layer to prevent race conditions. Will be implemented in Phase K-5."
       });
 
+    } catch (error: any) {
+      if (error.code === 'TENANT_SCOPE_VIOLATION') {
+        return reply.status(403).send({ error: error.message, code: error.code });
+      }
+      server.log.error(error);
+      return reply.status(500).send({ error: "Internal Server Error" });
+    }
+  });
+
+  // POST /api/v1/scheduling/booking/validate -> Dry-run mock integration
+  server.post('/v1/scheduling/booking/validate', { preHandler: boardroomWriteAuthPreHandler }, async (request, reply) => {
+    try {
+      const tenantId = request.santisContext?.tenant?.tenantId;
+      if (!tenantId) {
+        return reply.status(403).send({ error: "Tenant context missing" });
+      }
+
+      const bodyParsed = ValidateBookingRequestSchema.safeParse(request.body);
+      if (!bodyParsed.success) {
+        return reply.status(400).send({ error: "Invalid Body", details: bodyParsed.error.errors });
+      }
+
+      validateTenantScope(bodyParsed.data.tenant_id, tenantId);
+
+      const proposed = {
+        tenant_id: tenantId,
+        service_id: bodyParsed.data.service_id,
+        room_id: bodyParsed.data.room_id,
+        therapist_id: bodyParsed.data.therapist_id,
+        service_start_time: bodyParsed.data.service_start_time,
+        service_end_time: bodyParsed.data.service_end_time,
+        cleanup_end_time: bodyParsed.data.cleanup_end_time,
+      };
+
+      const ctx = {
+        locations: [MOCK_LOCATION],
+        spa_areas: [MOCK_SPA_AREA],
+        rooms: MOCK_ROOMS,
+        therapists: MOCK_THERAPISTS,
+        services: MOCK_SERVICES,
+        room_compatibilities: MOCK_SERVICE_ROOM_COMPATIBILITIES,
+        therapist_compatibilities: MOCK_SERVICE_THERAPIST_COMPATIBILITIES,
+        operating_hours: MOCK_OPERATING_HOURS,
+        shifts: MOCK_SHIFTS,
+        blockers: MOCK_BLOCKERS,
+        bookings: MOCK_BOOKINGS,
+      };
+
+      const result = evaluateBooking(proposed, ctx);
+
+      return reply.status(200).send(result);
     } catch (error: any) {
       if (error.code === 'TENANT_SCOPE_VIOLATION') {
         return reply.status(403).send({ error: error.message, code: error.code });

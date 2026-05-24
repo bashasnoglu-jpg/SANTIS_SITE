@@ -59,6 +59,19 @@ export const CreateBookingResponseSchema = z.object({
   error: z.string().optional(),
 });
 
+// --- BOOKING VALIDATION (DRY-RUN) ---
+export const ValidateBookingRequestSchema = CreateBookingRequestSchema;
+
+export const ValidateBookingResponseSchema = z.object({
+  allowed: z.boolean(),
+  conflict_code: z.string().optional(),
+  conflict_reason: z.string().optional(),
+  conflicting_resource_type: z.enum(['room', 'therapist', 'service', 'tenant', 'time']).optional(),
+  conflicting_resource_id: z.string().optional(),
+  alternatives: z.array(z.any()).optional().default([]),
+});
+
+
 // --- BOOKING LIST ---
 export const BookingListRequestSchema = z.object({
   tenant_id: z.string().uuid(),
@@ -78,5 +91,7 @@ export type AvailabilitySlot = z.infer<typeof AvailabilitySlotSchema>;
 export type AvailabilityResponse = z.infer<typeof AvailabilityResponseSchema>;
 export type CreateBookingRequest = z.infer<typeof CreateBookingRequestSchema>;
 export type CreateBookingResponse = z.infer<typeof CreateBookingResponseSchema>;
+export type ValidateBookingRequest = z.infer<typeof ValidateBookingRequestSchema>;
+export type ValidateBookingResponse = z.infer<typeof ValidateBookingResponseSchema>;
 export type BookingListRequest = z.infer<typeof BookingListRequestSchema>;
 export type BookingListResponse = z.infer<typeof BookingListResponseSchema>;
