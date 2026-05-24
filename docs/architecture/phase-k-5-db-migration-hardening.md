@@ -7,6 +7,9 @@ Harden the initial Phase K-1 scheduling SQL draft into a production-ready Postgr
 
 ## Changes Made
 
+### 0. Schema Promotion
+- **File Renaming**: The `Phase K-1 SQL draft` was promoted and renamed to `Phase K-5 hardened schema proposal` (`docs/db/phase-k-5-scheduling-schema.sql`) to reflect its production-ready state while adhering to Zero Technical Debt.
+
 ### 1. Tenant Isolation
 - **Foreign Key Limitation**: Explicitly documented that `tenant_id` does not have a foreign key in this script because the `tenants` table is managed under Core Auth (Phase J-X) and lies outside this bounded context.
 - **Row Level Security (RLS)**: Drafted comprehensive RLS policies for all 11 scheduling tables to strictly isolate rows based on the `tenantId` claim stored within `request.jwt.claims`.
