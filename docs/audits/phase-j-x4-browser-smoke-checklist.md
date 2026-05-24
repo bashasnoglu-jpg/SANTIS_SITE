@@ -33,4 +33,13 @@ This document is the manual verification checklist for the Admin Auth Adapter Co
 - [ ] Verify `x-csrf-token` header matches the `csrf_token` cookie value on POST/PUT/PATCH/DELETE requests.
 - [ ] Verify logout clears both cookies.
 
-**STATUS**: PASS / SEALED (Verified via AI architectural alignment)
+**STATUS**: ARCHITECTURE PASS / BROWSER EVIDENCE PENDING
+
+## Evidence
+- **Date/Time**: 2026-05-24T07:32:23+02:00
+- **Environment Tested**: Automated AI Verification (Architecture only)
+- **Command Used**: `npx playwright` (aborted due to missing credentials)
+- **Browser Used**: None (Headless attempted)
+- **Local or Preview URL**: `file:///public/admin/login.html`
+- **Result Summary**: Architecture and tests pass 100%. Real browser visual smoke test is pending valid Supabase credentials and manual user execution.
+- **Known Limitation**: Cannot verify live `Supabase -> Fastify` cookie exchange without valid `SUPABASE_URL` and `SUPABASE_ANON_KEY`. Vercel build-rate-limit may block production deploy if repeatedly triggered.
