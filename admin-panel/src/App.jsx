@@ -29,7 +29,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BoardroomModeProvider>
         <SovereignSocketProvider>
-          <Router>
+          <Router basename={import.meta.env.BASE_URL}>
           <Routes>
           {/* KIOSK MODU (İzole Rota - Navigasyon Yok) */}
           <Route 
