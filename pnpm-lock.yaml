@@ -210,6 +210,10 @@ importers:
       zod:
         specifier: ^3.22.0
         version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^20.19.41
+        version: 20.19.41
 
   packages/event-dictionary:
     dependencies:
