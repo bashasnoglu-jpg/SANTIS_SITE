@@ -577,4 +577,81 @@ describe("Boardroom Routes - Auth PreHandler Integration", () => {
 
     assert.strictEqual(response.statusCode, 201);
   });
+  it("23. GET /api/v1/boardroom/audit-log accepts valid query parameters (limit, offset, action)", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "00000000-0000-4000-8000-000000000000",
+      app_metadata: {
+        santis: { operatorId: "op-admin", tenantId: "22222222-2222-2222-2222-222222222222", roles: ["admin"] }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "GET",
+      url: "/api/v1/boardroom/audit-log?limit=10&offset=5&action=auth.login",
+      headers: { authorization: `Bearer ${token}` }
+    });
+
+    assert.strictEqual(response.statusCode, 200);
+    const body = response.json();
+    assert.deepStrictEqual(body.data, []);
+    assert.strictEqual(body.meta.limit, 10);
+    assert.strictEqual(body.meta.offset, 5);
+  });
+
+  it("24. GET /api/v1/boardroom/audit-log accepts startDate and endDate filters", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "00000000-0000-4000-8000-000000000000",
+      app_metadata: {
+        santis: { operatorId: "op-admin", tenantId: "22222222-2222-2222-2222-222222222222", roles: ["admin"] }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "GET",
+      url: "/api/v1/boardroom/audit-log?startDate=2026-05-01T00:00:00Z&endDate=2026-05-31T23:59:59Z",
+      headers: { authorization: `Bearer ${token}` }
+    });
+
+    assert.strictEqual(response.statusCode, 200);
+  });
+
+  it("25. GET /api/v1/boardroom/audit-log rejects invalid action filter -> 400", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "00000000-0000-4000-8000-000000000000",
+      app_metadata: {
+        santis: { operatorId: "op-admin", tenantId: "22222222-2222-2222-2222-222222222222", roles: ["admin"] }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "GET",
+      url: "/api/v1/boardroom/audit-log?action=invalid.action.type",
+      headers: { authorization: `Bearer ${token}` }
+    });
+
+    assert.strictEqual(response.statusCode, 400);
+    assert.strictEqual(response.json().error, "Invalid Query");
+  });
+
+  it("26. GET /api/v1/boardroom/audit-log rejects startDate > endDate -> 400", async () => {
+    const issuer = "http://127.0.0.1:54321/auth/v1";
+    const token = await jwksServer.signToken({
+      sub: "00000000-0000-4000-8000-000000000000",
+      app_metadata: {
+        santis: { operatorId: "op-admin", tenantId: "22222222-2222-2222-2222-222222222222", roles: ["admin"] }
+      }
+    }, issuer);
+
+    const response = await server.inject({
+      method: "GET",
+      url: "/api/v1/boardroom/audit-log?startDate=2026-06-01T00:00:00Z&endDate=2026-05-01T00:00:00Z",
+      headers: { authorization: `Bearer ${token}` }
+    });
+
+    assert.strictEqual(response.statusCode, 400);
+    assert.strictEqual(response.json().error, "Invalid Query");
+  });
 });
