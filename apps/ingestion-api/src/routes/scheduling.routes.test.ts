@@ -3,7 +3,7 @@ import * as assert from "node:assert";
 import { buildServer } from "../server.js";
 import { TestJwksServer } from "../test-utils/jwks-test-keys.js";
 import type { FastifyInstance } from "fastify";
-import { 
+import {
   MOCK_TENANT_ID, MOCK_SERVICES, MOCK_SPA_AREA, MOCK_LOCATION, MOCK_ROOMS,
   MOCK_THERAPISTS, MOCK_SERVICE_ROOM_COMPATIBILITIES, MOCK_SERVICE_THERAPIST_COMPATIBILITIES,
   MOCK_OPERATING_HOURS, MOCK_SHIFTS, MOCK_BLOCKERS, MOCK_BOOKINGS
@@ -25,7 +25,7 @@ describe('Scheduling API Routes - Phase K-4', () => {
     // 3. Build fastify server
     let customSelectHandler: any = null;
     let customInsertHandler: any = null;
-    
+
     // Make these globally accessible to tests
     (global as any).setCustomSelectHandler = (fn: any) => { customSelectHandler = fn; };
     (global as any).setCustomInsertHandler = (fn: any) => { customInsertHandler = fn; };
@@ -46,7 +46,7 @@ describe('Scheduling API Routes - Phase K-4', () => {
         return { from: () => ({ where: () => ({ orderBy: () => ({ limit: () => ({ offset: async () => [] }) }) }) }) };
       }
     } as any;
-    
+
     server = buildServer(mockDb);
   });
 
@@ -274,9 +274,9 @@ describe('Scheduling API Routes - Phase K-4', () => {
     let insertCalled = false;
 
     before(() => {
-      (global as any).setCustomInsertHandler(() => { 
-        insertCalled = true; 
-        return { values: () => ({ returning: async () => [] }) }; 
+      (global as any).setCustomInsertHandler(() => {
+        insertCalled = true;
+        return { values: () => ({ returning: async () => [] }) };
       });
 
       (global as any).setCustomSelectHandler(() => {
@@ -492,7 +492,7 @@ describe('Scheduling API Routes - Phase K-4', () => {
       } else {
         process.env.NODE_ENV = originalEnv;
       }
-      
+
       // Restore the DB mock for subsequent tests
       (global as any).setCustomSelectHandler(() => {
         return {
@@ -694,11 +694,11 @@ describe('Scheduling API Routes - Phase K-4', () => {
     it('24. isHoldExpired helper accurately determines if hold is expired', async () => {
       // Dynamic import to avoid messing up the test scope too much
       const { isHoldExpired } = await import('@santis/domain-schema/scheduling.booking-guard.js');
-      
+
       const now = Date.now();
       const pastStr = new Date(now - 1000).toISOString();
       const futureStr = new Date(now + 1000).toISOString();
-      
+
       assert.strictEqual(isHoldExpired(pastStr, now), true);
       assert.strictEqual(isHoldExpired(futureStr, now), false);
       assert.strictEqual(isHoldExpired('invalid-date', now), true);
@@ -720,6 +720,58 @@ describe('Scheduling API Routes - Phase K-4', () => {
 
       // Depending on Fastify version and whether the route is registered at all, it's 404
       assert.strictEqual(res.statusCode, 404);
+    });
+
+    it('26. hashHoldToken is deterministic and does not return raw token', async () => {
+      const { hashHoldToken } = await import('@santis/database');
+      const token1 = 'my-secret-token-123';
+      const hash1 = hashHoldToken(token1);
+      const hash2 = hashHoldToken(token1);
+
+      assert.notStrictEqual(hash1, token1);
+      assert.strictEqual(hash1, hash2);
+      assert.strictEqual(hash1.length, 64); // SHA-256 is 64 hex chars
+    });
+
+    it('27. repository createHold calls insert only in isolated mock', async () => {
+      const { SchedulingRepository } = await import('@santis/database');
+
+      let insertCalled = false;
+      let insertedValues: any = null;
+
+      const isolatedMockDb: any = {
+        insert: () => {
+          insertCalled = true;
+          return {
+            values: (vals: any) => {
+              insertedValues = vals;
+              return {
+                returning: async () => [vals]
+              };
+            }
+          };
+        }
+      };
+
+      const repo = new SchedulingRepository(isolatedMockDb);
+      const holdData = {
+        tenantId: MOCK_TENANT_ID,
+        serviceId: '55555555-5555-5555-5555-555555555551',
+        roomId: '33333333-3333-3333-3333-333333333331',
+        therapistId: '44444444-4444-4444-4444-444444444441',
+        serviceStartTime: new Date(),
+        serviceEndTime: new Date(),
+        cleanupEndTime: new Date(),
+        holdTokenHash: 'mock-hash',
+        status: 'active' as any,
+        expiresAt: new Date()
+      };
+
+      const result = await repo.createHold(holdData);
+
+      assert.strictEqual(insertCalled, true);
+      assert.deepStrictEqual(insertedValues, holdData);
+      assert.deepStrictEqual(result, [holdData]);
     });
   });
 });

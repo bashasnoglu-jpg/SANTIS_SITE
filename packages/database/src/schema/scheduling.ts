@@ -26,6 +26,10 @@ export const bookingStatusEnum = pgEnum('booking_status', [
   'draft', 'confirmed', 'checked_in', 'in_progress', 'completed', 'cancelled', 'no_show'
 ]);
 
+export const bookingHoldStatusEnum = pgEnum('booking_hold_status', [
+  'active', 'expired', 'released', 'confirmed'
+]);
+
 // Tables
 export const locations = pgTable('locations', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -137,6 +141,22 @@ export const bookings = pgTable('bookings', {
   bookingStatus: bookingStatusEnum('booking_status').notNull(),
   customerInfo: jsonb('customer_info').notNull().default('{}'),
   notes: text('notes'),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow()
+});
+
+export const bookingHolds = pgTable('booking_holds', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  tenantId: uuid('tenant_id').notNull(),
+  serviceId: uuid('service_id').notNull().references(() => services.id),
+  roomId: uuid('room_id').notNull().references(() => treatmentRooms.id),
+  therapistId: uuid('therapist_id').notNull().references(() => therapists.id),
+  serviceStartTime: timestamp('service_start_time', { withTimezone: true }).notNull(),
+  serviceEndTime: timestamp('service_end_time', { withTimezone: true }).notNull(),
+  cleanupEndTime: timestamp('cleanup_end_time', { withTimezone: true }).notNull(),
+  holdTokenHash: text('hold_token_hash').notNull().unique(),
+  status: bookingHoldStatusEnum('status').notNull().default('active'),
+  expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow()
 });

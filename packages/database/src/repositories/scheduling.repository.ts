@@ -11,8 +11,14 @@ import {
   operatingHours, 
   therapistShifts, 
   blockers, 
-  bookings 
+  bookings,
+  bookingHolds
 } from '../schema/scheduling.js';
+import { createHash } from 'crypto';
+
+export function hashHoldToken(rawToken: string): string {
+  return createHash('sha256').update(rawToken).digest('hex');
+}
 
 // Define the shape that BookingGuardContext expects
 export interface HydratedBookingGuardContext {
@@ -27,6 +33,7 @@ export interface HydratedBookingGuardContext {
   shifts: any[];
   blockers: any[];
   bookings: any[];
+  booking_holds: any[];
 }
 
 export class SchedulingRepository {
@@ -68,6 +75,13 @@ export class SchedulingRepository {
       .from(bookings)
       .where(eq(bookings.tenantId, tenantId));
 
+    const dbHolds = await this.db.select()
+      .from(bookingHolds)
+      .where(and(
+        eq(bookingHolds.tenantId, tenantId),
+        eq(bookingHolds.status, 'active')
+      ));
+
     // Map DB rows to Domain schema structure (snakes case and stringifying dates)
     return {
       locations: dbLocations.map(l => ({ ...l, tenant_id: l.tenantId })),
@@ -93,7 +107,70 @@ export class SchedulingRepository {
         id: b.id, tenant_id: b.tenantId, service_id: b.serviceId, room_id: b.roomId, therapist_id: b.therapistId,
         service_start_time: b.serviceStartTime.toISOString(), service_end_time: b.serviceEndTime.toISOString(), cleanup_end_time: b.cleanupEndTime.toISOString(),
         booking_source: b.bookingSource, booking_status: b.bookingStatus, customer_info: b.customerInfo, notes: b.notes
+      })),
+      booking_holds: dbHolds.map(h => ({
+        id: h.id, tenant_id: h.tenantId, service_id: h.serviceId, room_id: h.roomId, therapist_id: h.therapistId,
+        service_start_time: h.serviceStartTime.toISOString(), service_end_time: h.serviceEndTime.toISOString(), cleanup_end_time: h.cleanupEndTime.toISOString(),
+        status: h.status, expires_at: h.expiresAt.toISOString()
       }))
     };
+  }
+
+  async findActiveConflictingHolds(
+    tenantId: string,
+    roomId: string,
+    therapistId: string,
+    startTime: Date,
+    endTime: Date,
+    cleanupTime: Date
+  ) {
+    const now = new Date();
+    // A hold overlaps if it uses the same room during [startTime, cleanupTime]
+    // OR uses the same therapist during [startTime, endTime]
+    return this.db.select().from(bookingHolds).where(
+      and(
+        eq(bookingHolds.tenantId, tenantId),
+        eq(bookingHolds.status, 'active'),
+        gte(bookingHolds.expiresAt, now),
+        or(
+          and(
+            eq(bookingHolds.roomId, roomId),
+            lte(bookingHolds.serviceStartTime, cleanupTime),
+            gte(bookingHolds.cleanupEndTime, startTime)
+          ),
+          and(
+            eq(bookingHolds.therapistId, therapistId),
+            lte(bookingHolds.serviceStartTime, endTime),
+            gte(bookingHolds.serviceEndTime, startTime)
+          )
+        )
+      )
+    );
+  }
+
+  async createHold(holdData: typeof bookingHolds.$inferInsert) {
+    return this.db.insert(bookingHolds).values(holdData).returning();
+  }
+
+  async findHoldByTokenHash(tenantId: string, tokenHash: string) {
+    const result = await this.db.select().from(bookingHolds).where(
+      and(
+        eq(bookingHolds.tenantId, tenantId),
+        eq(bookingHolds.holdTokenHash, tokenHash)
+      )
+    ).limit(1);
+    return result[0] || null;
+  }
+
+  async releaseHold(tenantId: string, holdId: string) {
+    return this.db.update(bookingHolds)
+      .set({ status: 'released', updatedAt: new Date() })
+      .where(
+        and(
+          eq(bookingHolds.tenantId, tenantId),
+          eq(bookingHolds.id, holdId)
+        )
+      )
+      .returning();
   }
 }
