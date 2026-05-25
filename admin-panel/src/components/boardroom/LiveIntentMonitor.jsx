@@ -8,35 +8,67 @@ export default function LiveIntentMonitor() {
   const eventBuffer = React.useRef([]);
 
   useEffect(() => {
-    const eventSource = new EventSource('http://localhost:3030/api/v1/stream/events');
+    let retryCount = 0;
+    const maxRetries = 3;
+    let eventSource;
+    let reconnectTimeout;
 
-    eventSource.onmessage = (event) => {
-      try {
-        const incomingData = JSON.parse(event.data);
-        
-        // TEMPORAL ISOLATION: Eğer geçmişteyse, event'leri sadece bellekte tut (buffer)
-        if (mode === 'HISTORICAL') {
-          eventBuffer.current = [incomingData, ...eventBuffer.current].slice(0, 50);
-          return;
-        }
+    const streamUrl = import.meta.env.VITE_STREAM_URL || 'http://localhost:3030/api/v1/stream/events';
 
-        // EĞER GELEN FISILTI "TESLİMAT BAŞARILI" SİNYALİYSE:
-        if (incomingData.eventType === 'communication.whatsapp.delivered') {
-          setEvents(prevEvents => prevEvents.map(evt => 
-            evt.traceId === incomingData.traceId 
-              ? { ...evt, deliveryStatus: 'SECURED' } 
-              : evt
-          ));
-        } 
-        else {
-          setEvents(prevEvents => [incomingData, ...prevEvents].slice(0, 100));
-        }
-      } catch (error) {
-        console.error('[SOVEREIGN KALKANI] Fısıltı deşifre edilemedi:', error);
+    const connectSSE = () => {
+      if (retryCount >= maxRetries) {
+        console.warn('[SOVEREIGN KALKANI] SSE Realtime stream unavailable. Falling back to offline mode.');
+        return;
       }
+      
+      eventSource = new EventSource(streamUrl);
+
+      eventSource.onopen = () => {
+        retryCount = 0; // reset on success
+      };
+
+      eventSource.onmessage = (event) => {
+        try {
+          const incomingData = JSON.parse(event.data);
+          
+          // TEMPORAL ISOLATION: Eğer geçmişteyse, event'leri sadece bellekte tut (buffer)
+          if (mode === 'HISTORICAL') {
+            eventBuffer.current = [incomingData, ...eventBuffer.current].slice(0, 50);
+            return;
+          }
+
+          // EĞER GELEN FISILTI "TESLİMAT BAŞARILI" SİNYALİYSE:
+          if (incomingData.eventType === 'communication.whatsapp.delivered') {
+            setEvents(prevEvents => prevEvents.map(evt => 
+              evt.traceId === incomingData.traceId 
+                ? { ...evt, deliveryStatus: 'SECURED' } 
+                : evt
+            ));
+          } 
+          else {
+            setEvents(prevEvents => [incomingData, ...prevEvents].slice(0, 100));
+          }
+        } catch (error) {
+          console.error('[SOVEREIGN KALKANI] Fısıltı deşifre edilemedi:', error);
+        }
+      };
+
+      eventSource.onerror = () => {
+        eventSource.close();
+        retryCount++;
+        if (retryCount <= maxRetries) {
+          console.warn(`[SOVEREIGN KALKANI] SSE bağlantısı koptu (Deneme ${retryCount}/${maxRetries})`);
+          reconnectTimeout = setTimeout(connectSSE, 3000 * retryCount);
+        }
+      };
     };
 
-    return () => eventSource.close();
+    connectSSE();
+
+    return () => {
+      if (eventSource) eventSource.close();
+      if (reconnectTimeout) clearTimeout(reconnectTimeout);
+    };
   }, [mode]);
 
   useEffect(() => {

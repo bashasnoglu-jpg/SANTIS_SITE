@@ -99,15 +99,17 @@ export function SovereignBookingFlow() {
     async function loadSnapshot() {
       try {
         const startedAt = performance.now();
+        const telemetryUrl = import.meta.env.VITE_TELEMETRY_API_URL || 'http://localhost:4040';
         const response = await fetch(
-          'http://localhost:4040/api/concierge/snapshot?tenantId=santis-club&locale=tr&currency=EUR&date=2026-04-20&partySize=2&memberTier=gold'
+          `${telemetryUrl}/api/concierge/snapshot?tenantId=santis-club&locale=tr&currency=EUR&date=2026-04-20&partySize=2&memberTier=gold`
         );
         const data = await response.json();
 
         console.log('[SOVEREIGN KIOSK] Gateway ile Nöral Köprü kuruluyor...');
         const servicesWithNeuralPricing = await Promise.all((data.services || []).map(async (svc) => {
           try {
-            const priceRes = await fetch(`http://localhost:3030/api/v1/rituals/pricing?ritualId=${svc.id}&basePrice=${svc.price}&guestSegment=UHNWI`);
+            const coreUrl = import.meta.env.VITE_CORE_API_URL || 'http://localhost:3030';
+            const priceRes = await fetch(`${coreUrl}/api/v1/rituals/pricing?ritualId=${svc.id}&basePrice=${svc.price}&guestSegment=UHNWI`);
             if (priceRes.ok) {
                 const priceJson = await priceRes.json();
                 return { ...svc, price: priceJson.data.finalPrice };
@@ -278,7 +280,8 @@ export function SovereignBookingFlow() {
       };
 
       // 2. Gateway'e Fırlatma
-      const res = await fetch("http://localhost:3030/api/v1/test-event", {
+      const coreUrl = import.meta.env.VITE_CORE_API_URL || 'http://localhost:3030';
+      const res = await fetch(`${coreUrl}/api/v1/test-event`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(syntheticEvent)

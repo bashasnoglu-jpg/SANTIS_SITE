@@ -34,8 +34,23 @@ export function SovereignSocketProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    const socket = io('http://localhost:3030');
+    const socketUrl = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3030';
+    
+    // Finite reconnection attempts and delays to prevent infinite spam
+    const socket = io(socketUrl, {
+      reconnectionAttempts: 3,
+      reconnectionDelay: 2000,
+      reconnectionDelayMax: 5000,
+    });
     socketRef.current = socket;
+
+    socket.io.on("error", () => {
+      console.warn('🚨 [Sovereign Socket] Connection failed, switching to fallback/mock mode.');
+    });
+    
+    socket.io.on("reconnect_failed", () => {
+      console.warn('🚨 [Sovereign Socket] Reconnection failed completely. Operating offline.');
+    });
 
     socket.on('admin:radar_update', (raw) => {
       try {

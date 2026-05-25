@@ -14,7 +14,8 @@ export function useGodModeStream(limit = 50) {
   // Akaşik Kayıtları (History) Çek
   const fetchHistory = useCallback(async () => {
     try {
-      const res = await fetch(`http://localhost:3030/api/v1/read/history?limit=${limit}`);
+      const apiUrl = import.meta.env.VITE_INGESTION_API_BASE_URL || import.meta.env.VITE_CORE_API_URL || 'http://localhost:3030';
+      const res = await fetch(`${apiUrl}/api/v1/read/history?limit=${limit}`);
       if (!res.ok) throw new Error('Akaşik kayıtlar okunamadı');
       const data = await res.json();
       
@@ -35,13 +36,17 @@ export function useGodModeStream(limit = 50) {
   useEffect(() => {
     let sse = null;
     let reconnectTimeout = null;
+    let retryCount = 0;
+    const maxRetries = 3;
 
     const connectSSE = () => {
-      sse = new EventSource('http://localhost:3030/api/v1/streams/god');
+      const streamUrl = import.meta.env.VITE_STREAM_URL || (import.meta.env.VITE_CORE_API_URL ? `${import.meta.env.VITE_CORE_API_URL}/api/v1/streams/god` : 'http://localhost:3030/api/v1/streams/god');
+      sse = new EventSource(streamUrl);
 
       sse.onopen = () => {
         setIsConnected(true);
         setError(null);
+        retryCount = 0;
       };
 
       sse.onmessage = (message) => {
@@ -67,11 +72,16 @@ export function useGodModeStream(limit = 50) {
       };
 
       // eslint-disable-next-line no-unused-vars
-      sse.onerror = (_err) => {
+      sse.onerror = () => {
         setIsConnected(false);
         sse.close();
-        // Otonom Yeniden Bağlanma (Auto-Healing)
-        reconnectTimeout = setTimeout(connectSSE, 3000);
+        retryCount++;
+        if (retryCount <= maxRetries) {
+          console.warn(`[GodMode] SSE stream error, retrying (${retryCount}/${maxRetries})...`);
+          reconnectTimeout = setTimeout(connectSSE, 3000 * retryCount);
+        } else {
+          console.warn(`[GodMode] SSE stream permanently failed after ${maxRetries} attempts.`);
+        }
       };
     };
 
