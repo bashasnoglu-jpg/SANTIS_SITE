@@ -44,6 +44,10 @@ describe('Scheduling API Routes - Phase K-4', () => {
           return { from: () => ({ where: async () => [{ count: 0 }] }) };
         }
         return { from: () => ({ where: () => ({ orderBy: () => ({ limit: () => ({ offset: async () => [] }) }) }) }) };
+      },
+      execute: async () => ({}),
+      transaction: async (cb: any) => {
+        return cb(mockDb);
       }
     } as any;
 
@@ -557,7 +561,8 @@ describe('Scheduling API Routes - Phase K-4', () => {
                   operatingHours: MOCK_OPERATING_HOURS.map(o => ({ id: o.id, tenantId: MOCK_TENANT_ID, locationId: o.location_id, dayOfWeek: o.day_of_week, openTime: o.open_time, closeTime: o.close_time })),
                   therapistShifts: MOCK_SHIFTS.map(s => ({ id: s.id, tenantId: MOCK_TENANT_ID, therapistId: s.therapist_id, locationId: s.location_id, startsAt: new Date(s.starts_at), endsAt: new Date(s.ends_at), recurrenceRule: s.recurrence_rule })),
                   blockers: MOCK_BLOCKERS.map(b => ({ id: b.id, tenantId: MOCK_TENANT_ID, roomId: b.room_id, therapistId: b.therapist_id, startsAt: new Date(b.starts_at), endsAt: new Date(b.ends_at), reason: b.reason })),
-                  bookings: MOCK_BOOKINGS.map(b => ({ id: b.id, tenantId: MOCK_TENANT_ID, serviceId: b.service_id, roomId: b.room_id, therapistId: b.therapist_id, serviceStartTime: new Date(b.service_start_time), serviceEndTime: new Date(b.service_end_time), cleanupEndTime: new Date(b.cleanup_end_time), bookingSource: b.booking_source, bookingStatus: b.booking_status, customerInfo: b.customer_info, notes: b.notes, createdAt: new Date(), updatedAt: new Date() }))
+                  bookings: MOCK_BOOKINGS.map(b => ({ id: b.id, tenantId: MOCK_TENANT_ID, serviceId: b.service_id, roomId: b.room_id, therapistId: b.therapist_id, serviceStartTime: new Date(b.service_start_time), serviceEndTime: new Date(b.service_end_time), cleanupEndTime: new Date(b.cleanup_end_time), bookingSource: b.booking_source, bookingStatus: b.booking_status, customerInfo: b.customer_info, notes: b.notes, createdAt: new Date(), updatedAt: new Date() })),
+                  bookingHolds: []
                 };
                 if (tableStr.includes('locations')) return MOCK_DB_FIXTURES.locations;
                 if (tableStr.includes('spa_areas')) return MOCK_DB_FIXTURES.spaAreas;
@@ -570,7 +575,11 @@ describe('Scheduling API Routes - Phase K-4', () => {
                 if (tableStr.includes('therapist_shifts')) return MOCK_DB_FIXTURES.therapistShifts;
                 if (tableStr.includes('blockers')) return MOCK_DB_FIXTURES.blockers;
                 if (tableStr.includes('bookings')) return MOCK_DB_FIXTURES.bookings;
+                if (tableStr.includes('booking_holds')) return MOCK_DB_FIXTURES.bookingHolds;
                 return [];
+              },
+              then: function(resolve: any) {
+                return this.where().then(resolve);
               }
             };
           }
@@ -774,4 +783,137 @@ describe('Scheduling API Routes - Phase K-4', () => {
       assert.deepStrictEqual(result, [holdData]);
     });
   });
+
+  describe('Phase K-6D-B2-A Persistent Hold Feature Flag Tests', () => {
+    before(() => {
+      process.env.ENABLE_PERSISTENT_HOLDS = 'true';
+      (global as any).setCustomSelectHandler(() => {
+        return {
+          from: (tableObj: any) => {
+            const tableName = tableObj[Symbol.for('drizzle:Name')] || tableObj.config?.name || Object.keys(tableObj).find(k => tableObj[k] && typeof tableObj[k] === 'object' && tableObj[k].name);
+            return {
+              where: async () => {
+                const tableStr = String(tableName);
+                const MOCK_DB_FIXTURES = {
+                  locations: [{ tenantId: MOCK_TENANT_ID, id: MOCK_LOCATION.id, name: MOCK_LOCATION.name, timezone: MOCK_LOCATION.timezone, createdAt: new Date(), updatedAt: new Date() }],
+                  spaAreas: [{ tenantId: MOCK_TENANT_ID, id: MOCK_SPA_AREA.id, locationId: MOCK_LOCATION.id, name: MOCK_SPA_AREA.name, defaultSlotIntervalMinutes: 15, createdAt: new Date(), updatedAt: new Date() }],
+                  treatmentRooms: MOCK_ROOMS.map(r => ({ tenantId: MOCK_TENANT_ID, id: r.id, spaAreaId: r.spa_area_id, name: r.name, roomType: r.room_type, capacity: r.capacity, isActive: true, createdAt: new Date(), updatedAt: new Date() })),
+                  therapists: MOCK_THERAPISTS.map(t => ({ tenantId: MOCK_TENANT_ID, id: t.id, locationId: t.location_id, name: t.name, isActive: true, createdAt: new Date(), updatedAt: new Date() })),
+                  services: MOCK_SERVICES.map(s => ({ tenantId: MOCK_TENANT_ID, id: s.id, name: s.name, durationMinutes: s.duration_minutes, cleanupMinutes: s.cleanup_minutes, isActive: true, createdAt: new Date(), updatedAt: new Date() })),
+                  serviceRoomCompatibilities: MOCK_SERVICE_ROOM_COMPATIBILITIES.map(c => ({ tenantId: MOCK_TENANT_ID, serviceId: c.service_id, roomId: c.room_id })),
+                  serviceTherapistCompatibilities: MOCK_SERVICE_THERAPIST_COMPATIBILITIES.map(c => ({ tenantId: MOCK_TENANT_ID, serviceId: c.service_id, therapistId: c.therapist_id })),
+                  operatingHours: MOCK_OPERATING_HOURS.map(o => ({ id: o.id, tenantId: MOCK_TENANT_ID, locationId: o.location_id, dayOfWeek: o.day_of_week, openTime: o.open_time, closeTime: o.close_time })),
+                  therapistShifts: MOCK_SHIFTS.map(s => ({ id: s.id, tenantId: MOCK_TENANT_ID, therapistId: s.therapist_id, locationId: s.location_id, startsAt: new Date(s.starts_at), endsAt: new Date(s.ends_at), recurrenceRule: s.recurrence_rule })),
+                  blockers: MOCK_BLOCKERS.map(b => ({ id: b.id, tenantId: MOCK_TENANT_ID, roomId: b.room_id, therapistId: b.therapist_id, startsAt: new Date(b.starts_at), endsAt: new Date(b.ends_at), reason: b.reason })),
+                  bookings: MOCK_BOOKINGS.map(b => ({ id: b.id, tenantId: MOCK_TENANT_ID, serviceId: b.service_id, roomId: b.room_id, therapistId: b.therapist_id, serviceStartTime: new Date(b.service_start_time), serviceEndTime: new Date(b.service_end_time), cleanupEndTime: new Date(b.cleanup_end_time), bookingSource: b.booking_source, bookingStatus: b.booking_status, customerInfo: b.customer_info, notes: b.notes, createdAt: new Date(), updatedAt: new Date() })),
+                  bookingHolds: []
+                };
+                if (tableStr.includes('locations')) return MOCK_DB_FIXTURES.locations;
+                if (tableStr.includes('spa_areas')) return MOCK_DB_FIXTURES.spaAreas;
+                if (tableStr.includes('treatment_rooms')) return MOCK_DB_FIXTURES.treatmentRooms;
+                if (tableStr.includes('therapists')) return MOCK_DB_FIXTURES.therapists;
+                if (tableStr.includes('services')) return MOCK_DB_FIXTURES.services;
+                if (tableStr.includes('service_room_compatibilities')) return MOCK_DB_FIXTURES.serviceRoomCompatibilities;
+                if (tableStr.includes('service_therapist_compatibilities')) return MOCK_DB_FIXTURES.serviceTherapistCompatibilities;
+                if (tableStr.includes('operating_hours')) return MOCK_DB_FIXTURES.operatingHours;
+                if (tableStr.includes('therapist_shifts')) return MOCK_DB_FIXTURES.therapistShifts;
+                if (tableStr.includes('blockers')) return MOCK_DB_FIXTURES.blockers;
+                if (tableStr.includes('bookings')) return MOCK_DB_FIXTURES.bookings;
+                if (tableStr.includes('booking_holds')) return MOCK_DB_FIXTURES.bookingHolds;
+                return [];
+              },
+              then: function(resolve: any) {
+                return this.where().then(resolve);
+              }
+            };
+          }
+        };
+      });
+    });
+
+    after(() => {
+      delete process.env.ENABLE_PERSISTENT_HOLDS;
+      (global as any).clearCustomDbHandlers();
+    });
+
+    it('28. POST /booking/hold with persistent flag ON returns dryRun=false and creates hold in mock', async () => {
+      const issuer = "http://127.0.0.1:54321/auth/v1";
+      const token = await jwksServer.signToken({
+        sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
+      }, issuer);
+
+      let insertCalled = false;
+      let executeCalled = false;
+
+      (global as any).setCustomInsertHandler(() => {
+        insertCalled = true;
+        return { values: (vals: any) => ({ returning: async () => [{ ...vals }] }) };
+      });
+
+      // We override db.execute locally to check if lock was taken
+      const originalExecute = (server as any).db.execute;
+      (server as any).db.execute = async (sql: any) => {
+        executeCalled = true;
+        return {};
+      };
+
+      const res = await server.inject({
+        method: 'POST',
+        url: '/api/v1/scheduling/booking/hold',
+        headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+        payload: {
+          tenant_id: MOCK_TENANT_ID,
+          service_id: "55555555-5555-5555-5555-555555555551",
+          room_id: "33333333-3333-3333-3333-333333333331",
+          therapist_id: "44444444-4444-4444-4444-444444444441",
+          service_start_time: "2026-06-01T14:00:00Z",
+          service_end_time: "2026-06-01T15:00:00Z",
+          cleanup_end_time: "2026-06-01T15:15:00Z",
+        }
+      });
+
+      // Restore
+      (server as any).db.execute = originalExecute;
+
+      assert.strictEqual(res.statusCode, 200);
+      const body = res.json();
+      assert.strictEqual(body.held, true);
+      assert.strictEqual(body.status, 'active');
+      assert.strictEqual(body.dryRun, false, 'dryRun should be false when persistent flag is ON');
+      assert.strictEqual(insertCalled, true, 'Mock DB insert should have been called');
+      assert.strictEqual(executeCalled, true, 'Advisory lock should have been taken');
+    });
+
+    it('29. POST /booking/hold with persistent flag ON but DB throws returns 503', async () => {
+      const issuer = "http://127.0.0.1:54321/auth/v1";
+      const token = await jwksServer.signToken({
+        sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
+      }, issuer);
+
+      (global as any).setCustomInsertHandler(() => {
+        const error = new Error('mock error') as any;
+        error.code = '42P01'; // Mock DB undefined table
+        throw error;
+      });
+
+      const res = await server.inject({
+        method: 'POST',
+        url: '/api/v1/scheduling/booking/hold',
+        headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+        payload: {
+          tenant_id: MOCK_TENANT_ID,
+          service_id: "55555555-5555-5555-5555-555555555551",
+          room_id: "33333333-3333-3333-3333-333333333331",
+          therapist_id: "44444444-4444-4444-4444-444444444441",
+          service_start_time: "2026-06-01T14:00:00Z",
+          service_end_time: "2026-06-01T15:00:00Z",
+          cleanup_end_time: "2026-06-01T15:15:00Z",
+        }
+      });
+
+      assert.strictEqual(res.statusCode, 503);
+      assert.strictEqual(res.json().message, "Database hold tables not yet migrated.");
+    });
+  });
 });
+

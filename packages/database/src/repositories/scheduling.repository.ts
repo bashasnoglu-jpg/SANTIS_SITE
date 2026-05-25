@@ -1,20 +1,21 @@
 import { eq, and, gte, lte, or } from 'drizzle-orm';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
-import { 
-  locations, 
-  spaAreas, 
-  treatmentRooms, 
-  therapists, 
-  services, 
-  serviceRoomCompatibilities, 
-  serviceTherapistCompatibilities, 
-  operatingHours, 
-  therapistShifts, 
-  blockers, 
+import {
+  locations,
+  spaAreas,
+  treatmentRooms,
+  therapists,
+  services,
+  serviceRoomCompatibilities,
+  serviceTherapistCompatibilities,
+  operatingHours,
+  therapistShifts,
+  blockers,
   bookings,
   bookingHolds
 } from '../schema/scheduling.js';
 import { createHash } from 'crypto';
+import { sql } from 'drizzle-orm';
 
 export function hashHoldToken(rawToken: string): string {
   return createHash('sha256').update(rawToken).digest('hex');
@@ -43,18 +44,18 @@ export class SchedulingRepository {
     tenantId: string,
     targetDateIso: string, // Not strictly filtering by date yet to match full hydrate, but could in future
   ): Promise<HydratedBookingGuardContext> {
-    
+
     // Read-only operations to hydrate the context
     const dbLocations = await this.db.select().from(locations).where(eq(locations.tenantId, tenantId));
     const dbSpaAreas = await this.db.select().from(spaAreas).where(eq(spaAreas.tenantId, tenantId));
     const dbRooms = await this.db.select().from(treatmentRooms).where(eq(treatmentRooms.tenantId, tenantId));
     const dbTherapists = await this.db.select().from(therapists).where(eq(therapists.tenantId, tenantId));
     const dbServices = await this.db.select().from(services).where(eq(services.tenantId, tenantId));
-    
+
     const dbRoomComps = await this.db.select()
       .from(serviceRoomCompatibilities)
       .where(eq(serviceRoomCompatibilities.tenantId, tenantId));
-      
+
     const dbTherapistComps = await this.db.select()
       .from(serviceTherapistCompatibilities)
       .where(eq(serviceTherapistCompatibilities.tenantId, tenantId));
@@ -91,9 +92,9 @@ export class SchedulingRepository {
       services: dbServices.map(s => ({ ...s, tenant_id: s.tenantId, duration_minutes: s.durationMinutes, cleanup_minutes: s.cleanupMinutes, is_active: s.isActive })),
       room_compatibilities: dbRoomComps.map(c => ({ tenant_id: c.tenantId, service_id: c.serviceId, room_id: c.roomId })),
       therapist_compatibilities: dbTherapistComps.map(c => ({ tenant_id: c.tenantId, service_id: c.serviceId, therapist_id: c.therapistId })),
-      operating_hours: dbOperatingHours.map(oh => ({ 
-        id: oh.id, tenant_id: oh.tenantId, location_id: oh.locationId, day_of_week: oh.dayOfWeek, 
-        open_time: oh.openTime, close_time: oh.closeTime 
+      operating_hours: dbOperatingHours.map(oh => ({
+        id: oh.id, tenant_id: oh.tenantId, location_id: oh.locationId, day_of_week: oh.dayOfWeek,
+        open_time: oh.openTime, close_time: oh.closeTime
       })),
       shifts: dbShifts.map(s => ({
         id: s.id, tenant_id: s.tenantId, therapist_id: s.therapistId, location_id: s.locationId,
@@ -150,6 +151,69 @@ export class SchedulingRepository {
 
   async createHold(holdData: typeof bookingHolds.$inferInsert) {
     return this.db.insert(bookingHolds).values(holdData).returning();
+  }
+
+  async createPersistentHoldTransaction(
+    tenantId: string,
+    roomId: string,
+    therapistId: string,
+    proposed: any,
+    evaluateFn: (proposed: any, ctx: HydratedBookingGuardContext) => any,
+    holdDataFn: (tokenHash: string) => typeof bookingHolds.$inferInsert,
+    rawToken: string
+  ) {
+    return this.db.transaction(async (tx: any) => {
+      const txRepo = new SchedulingRepository(tx);
+
+      // 1. Advisory Lock
+      const tenantInt = parseInt(createHash('md5').update(tenantId).digest('hex').substring(0, 8), 16) | 0;
+      const roomInt = parseInt(createHash('md5').update(roomId).digest('hex').substring(0, 8), 16) | 0;
+      await tx.execute(sql`SELECT pg_advisory_xact_lock(${tenantInt}, ${roomInt})`);
+
+      // 2. Re-hydrate context
+      const ctx = await txRepo.getBookingGuardContext(tenantId, proposed.service_start_time);
+
+      // 3. Re-run evaluateBooking inside transaction (checks active bookings, blockers, compat)
+      const validationResult = evaluateFn(proposed, ctx);
+      if (!validationResult.allowed) {
+        return { success: false, conflictCode: validationResult.conflictCode, validationResult };
+      }
+
+      // 4. Double check active non-expired holds
+      const startTime = new Date(proposed.service_start_time);
+      const endTime = new Date(proposed.service_end_time);
+      const cleanupTime = new Date(proposed.cleanup_end_time);
+
+      const conflictingHolds = await txRepo.findActiveConflictingHolds(
+        tenantId, roomId, therapistId, startTime, endTime, cleanupTime
+      );
+
+      if (conflictingHolds.length > 0) {
+        return {
+          success: false,
+          conflictCode: 'ROOM_BOOKING_CONFLICT', // treating hold conflict identically to booking conflict
+          validationResult: {
+            ...validationResult,
+            allowed: false,
+            conflictCode: 'ROOM_BOOKING_CONFLICT',
+            reason: 'Resource is currently held by another user',
+            severity: 'critical'
+          }
+        };
+      }
+
+      // 5. Hash token and Insert
+      const tokenHash = hashHoldToken(rawToken);
+      const holdToInsert = holdDataFn(tokenHash);
+
+      const inserted = await txRepo.createHold(holdToInsert);
+
+      return {
+        success: true,
+        hold: inserted[0],
+        validationResult
+      };
+    });
   }
 
   async findHoldByTokenHash(tenantId: string, tokenHash: string) {

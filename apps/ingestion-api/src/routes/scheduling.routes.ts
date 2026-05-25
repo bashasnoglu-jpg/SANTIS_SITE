@@ -99,7 +99,7 @@ export const schedulingRoutes: FastifyPluginAsync = async (server: FastifyInstan
       };
 
       const slots = calculateAvailability(ctx);
-      
+
       return reply.status(200).send({ slots });
     } catch (error: any) {
       if (error.code === 'TENANT_SCOPE_VIOLATION') {
@@ -187,11 +187,11 @@ export const schedulingRoutes: FastifyPluginAsync = async (server: FastifyInstan
       try {
         const db = (server as any).db;
         if (!db) throw new Error("DB instance not found on server");
-        
+
         // Dynamically import to avoid breaking standard fastify loads if database package has issues
         const { SchedulingRepository } = await import('@santis/database');
         const repo = new SchedulingRepository(db);
-        
+
         ctx = await repo.getBookingGuardContext(tenantId, proposed.service_start_time);
       } catch (hydrationError: any) {
         if (process.env.NODE_ENV === 'test') {
@@ -212,8 +212,8 @@ export const schedulingRoutes: FastifyPluginAsync = async (server: FastifyInstan
         } else {
           // Production/Staging safe failure
           server.log.error(hydrationError);
-          return reply.status(503).send({ 
-            error: "Service Unavailable", 
+          return reply.status(503).send({
+            error: "Service Unavailable",
             code: "DB_HYDRATION_FAILED",
             message: "Failed to hydrate scheduling context from database."
           });
@@ -270,10 +270,10 @@ export const schedulingRoutes: FastifyPluginAsync = async (server: FastifyInstan
       try {
         const db = (server as any).db;
         if (!db) throw new Error("DB instance not found on server");
-        
+
         const { SchedulingRepository } = await import('@santis/database');
         const repo = new SchedulingRepository(db);
-        
+
         ctx = await repo.getBookingGuardContext(tenantId, proposed.service_start_time);
       } catch (hydrationError: any) {
         if (process.env.NODE_ENV === 'test') {
@@ -292,8 +292,8 @@ export const schedulingRoutes: FastifyPluginAsync = async (server: FastifyInstan
           };
         } else {
           server.log.error(hydrationError);
-          return reply.status(503).send({ 
-            error: "Service Unavailable", 
+          return reply.status(503).send({
+            error: "Service Unavailable",
             code: "DB_HYDRATION_FAILED",
             message: "Failed to hydrate scheduling context from database."
           });
@@ -322,17 +322,91 @@ export const schedulingRoutes: FastifyPluginAsync = async (server: FastifyInstan
         });
       }
 
-      // Valid - create mock hold
       const crypto = await import('crypto');
-      const holdId = crypto.randomUUID();
-      const holdToken = crypto.randomBytes(32).toString('hex');
       const ttlSeconds = 600; // 10 minutes
+      const rawToken = crypto.randomBytes(32).toString('hex');
+      const holdId = crypto.randomUUID();
+
+      if (process.env.ENABLE_PERSISTENT_HOLDS === 'true') {
+        const db = (server as any).db;
+        if (!db) {
+          // Feature flag is on but DB is not available
+          return reply.status(503).send({ error: "Service Unavailable", message: "Database hold tables not yet migrated." });
+        }
+
+        const { SchedulingRepository } = await import('@santis/database');
+        const repo = new SchedulingRepository(db);
+
+        try {
+          const expiresAt = new Date(Date.now() + ttlSeconds * 1000);
+          const holdDataFn = (tokenHash: string) => ({
+            id: holdId,
+            tenantId: tenantId,
+            serviceId: proposed.service_id,
+            roomId: proposed.room_id,
+            therapistId: proposed.therapist_id,
+            serviceStartTime: new Date(proposed.service_start_time),
+            serviceEndTime: new Date(proposed.service_end_time),
+            cleanupEndTime: new Date(proposed.cleanup_end_time),
+            holdTokenHash: tokenHash,
+            status: 'active' as const,
+            expiresAt: expiresAt,
+          });
+
+          const txResult = await repo.createPersistentHoldTransaction(
+            tenantId,
+            proposed.room_id,
+            proposed.therapist_id,
+            proposed,
+            evaluateBooking,
+            holdDataFn,
+            rawToken
+          );
+
+          if (!txResult.success) {
+            return reply.status(409).send({
+              held: false,
+              status: 'validation_failed',
+              validation: {
+                ...txResult.validationResult,
+                dryRun: false
+              },
+              dryRun: false
+            });
+          }
+
+          return reply.status(200).send({
+            held: true,
+            holdId,
+            holdToken: rawToken,
+            status: 'active',
+            expiresAt: expiresAt.toISOString(),
+            ttlSeconds,
+            validation: {
+              ...txResult.validationResult,
+              dryRun: false
+            },
+            dryRun: false
+          });
+        } catch (dbError: any) {
+          if (dbError.code === '42P01') { // undefined_table
+            return reply.status(503).send({ error: "Service Unavailable", message: "Database hold tables not yet migrated." });
+          }
+          if (dbError.code === '23505') { // unique violation
+            return reply.status(409).send({ error: "Conflict", message: "Token collision, please retry." });
+          }
+          server.log.error(dbError);
+          return reply.status(503).send({ error: "Service Unavailable", message: "Failed to persist booking hold." });
+        }
+      }
+
+      // Valid - fallback to mock hold
       const expiresAt = new Date(Date.now() + ttlSeconds * 1000).toISOString();
 
       return reply.status(200).send({
         held: true,
         holdId,
-        holdToken,
+        holdToken: rawToken,
         status: 'active',
         expiresAt,
         ttlSeconds,
