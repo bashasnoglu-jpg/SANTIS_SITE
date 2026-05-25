@@ -192,3 +192,13 @@ export function evaluateBooking(proposed: ProposedBooking, ctx: BookingGuardCont
   // Allowed
   return { allowed: true, severity: 'info', conflictCode: null, reason: null, affectedResource: null, decisionTrace: trace };
 }
+
+export function isHoldExpired(expiresAt: string, nowMs: number = Date.now()): boolean {
+  try {
+    const expMs = parseTimeSafe(expiresAt);
+    return expMs <= nowMs;
+  } catch (e) {
+    // If expiresAt is invalid or missing, it's considered expired/invalid
+    return true;
+  }
+}

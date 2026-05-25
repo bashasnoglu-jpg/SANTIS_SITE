@@ -462,10 +462,7 @@ describe('Scheduling API Routes - Phase K-4', () => {
       process.env.NODE_ENV = 'production';
 
       // Break the db to force hydration error
-      const brokenDb = {
-        select: () => { throw new Error("DB Connection Lost"); }
-      };
-      (server as any).db = brokenDb;
+      (global as any).setCustomSelectHandler(() => { throw new Error("DB Connection Lost"); });
 
       const token = await jwksServer.signToken({
         sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
@@ -490,11 +487,174 @@ describe('Scheduling API Routes - Phase K-4', () => {
         }
       });
 
-      // Restore original env
-      process.env.NODE_ENV = originalEnv;
+      // Restore original env and DB mock
+      if (originalEnv === undefined) {
+        delete process.env.NODE_ENV;
+      } else {
+        process.env.NODE_ENV = originalEnv;
+      }
+      
+      // Restore the DB mock for subsequent tests
+      (global as any).setCustomSelectHandler(() => {
+        return {
+          from: (tableObj: any) => {
+            const tableName = tableObj[Symbol.for('drizzle:Name')] || tableObj.config?.name || Object.keys(tableObj).find(k => tableObj[k] && typeof tableObj[k] === 'object' && tableObj[k].name);
+            return {
+              where: async () => {
+                const tableStr = String(tableName);
+                const MOCK_DB_FIXTURES = {
+                  locations: [{ tenantId: MOCK_TENANT_ID, id: MOCK_LOCATION.id, name: MOCK_LOCATION.name, timezone: MOCK_LOCATION.timezone, createdAt: new Date(), updatedAt: new Date() }],
+                  spaAreas: [{ tenantId: MOCK_TENANT_ID, id: MOCK_SPA_AREA.id, locationId: MOCK_LOCATION.id, name: MOCK_SPA_AREA.name, defaultSlotIntervalMinutes: 15, createdAt: new Date(), updatedAt: new Date() }],
+                  treatmentRooms: MOCK_ROOMS.map(r => ({ tenantId: MOCK_TENANT_ID, id: r.id, spaAreaId: r.spa_area_id, name: r.name, roomType: r.room_type, capacity: r.capacity, isActive: true, createdAt: new Date(), updatedAt: new Date() })),
+                  therapists: MOCK_THERAPISTS.map(t => ({ tenantId: MOCK_TENANT_ID, id: t.id, locationId: t.location_id, name: t.name, isActive: true, createdAt: new Date(), updatedAt: new Date() })),
+                  services: MOCK_SERVICES.map(s => ({ tenantId: MOCK_TENANT_ID, id: s.id, name: s.name, durationMinutes: s.duration_minutes, cleanupMinutes: s.cleanup_minutes, isActive: true, createdAt: new Date(), updatedAt: new Date() })),
+                  serviceRoomCompatibilities: MOCK_SERVICE_ROOM_COMPATIBILITIES.map(c => ({ tenantId: MOCK_TENANT_ID, serviceId: c.service_id, roomId: c.room_id })),
+                  serviceTherapistCompatibilities: MOCK_SERVICE_THERAPIST_COMPATIBILITIES.map(c => ({ tenantId: MOCK_TENANT_ID, serviceId: c.service_id, therapistId: c.therapist_id })),
+                  operatingHours: MOCK_OPERATING_HOURS.map(o => ({ id: o.id, tenantId: MOCK_TENANT_ID, locationId: o.location_id, dayOfWeek: o.day_of_week, openTime: o.open_time, closeTime: o.close_time })),
+                  therapistShifts: MOCK_SHIFTS.map(s => ({ id: s.id, tenantId: MOCK_TENANT_ID, therapistId: s.therapist_id, locationId: s.location_id, startsAt: new Date(s.starts_at), endsAt: new Date(s.ends_at), recurrenceRule: s.recurrence_rule })),
+                  blockers: MOCK_BLOCKERS.map(b => ({ id: b.id, tenantId: MOCK_TENANT_ID, roomId: b.room_id, therapistId: b.therapist_id, startsAt: new Date(b.starts_at), endsAt: new Date(b.ends_at), reason: b.reason })),
+                  bookings: MOCK_BOOKINGS.map(b => ({ id: b.id, tenantId: MOCK_TENANT_ID, serviceId: b.service_id, roomId: b.room_id, therapistId: b.therapist_id, serviceStartTime: new Date(b.service_start_time), serviceEndTime: new Date(b.service_end_time), cleanupEndTime: new Date(b.cleanup_end_time), bookingSource: b.booking_source, bookingStatus: b.booking_status, customerInfo: b.customer_info, notes: b.notes, createdAt: new Date(), updatedAt: new Date() }))
+                };
+                if (tableStr.includes('locations')) return MOCK_DB_FIXTURES.locations;
+                if (tableStr.includes('spa_areas')) return MOCK_DB_FIXTURES.spaAreas;
+                if (tableStr.includes('treatment_rooms')) return MOCK_DB_FIXTURES.treatmentRooms;
+                if (tableStr.includes('therapists')) return MOCK_DB_FIXTURES.therapists;
+                if (tableStr.includes('services')) return MOCK_DB_FIXTURES.services;
+                if (tableStr.includes('service_room_compatibilities')) return MOCK_DB_FIXTURES.serviceRoomCompatibilities;
+                if (tableStr.includes('service_therapist_compatibilities')) return MOCK_DB_FIXTURES.serviceTherapistCompatibilities;
+                if (tableStr.includes('operating_hours')) return MOCK_DB_FIXTURES.operatingHours;
+                if (tableStr.includes('therapist_shifts')) return MOCK_DB_FIXTURES.therapistShifts;
+                if (tableStr.includes('blockers')) return MOCK_DB_FIXTURES.blockers;
+                if (tableStr.includes('bookings')) return MOCK_DB_FIXTURES.bookings;
+                return [];
+              }
+            };
+          }
+        };
+      });
 
       assert.strictEqual(res.statusCode, 503);
       assert.strictEqual(res.json().code, 'DB_HYDRATION_FAILED');
+    });
+  });
+
+  describe('Phase K-6D-A Hold Route Tests', () => {
+    before(() => {
+      (global as any).setCustomSelectHandler(() => {
+        return {
+          from: (tableObj: any) => {
+            const tableName = tableObj[Symbol.for('drizzle:Name')] || tableObj.config?.name || Object.keys(tableObj).find(k => tableObj[k] && typeof tableObj[k] === 'object' && tableObj[k].name);
+            return {
+              where: async () => {
+                const tableStr = String(tableName);
+                const MOCK_DB_FIXTURES = {
+                  locations: [{ tenantId: MOCK_TENANT_ID, id: MOCK_LOCATION.id, name: MOCK_LOCATION.name, timezone: MOCK_LOCATION.timezone, createdAt: new Date(), updatedAt: new Date() }],
+                  spaAreas: [{ tenantId: MOCK_TENANT_ID, id: MOCK_SPA_AREA.id, locationId: MOCK_LOCATION.id, name: MOCK_SPA_AREA.name, defaultSlotIntervalMinutes: 15, createdAt: new Date(), updatedAt: new Date() }],
+                  treatmentRooms: MOCK_ROOMS.map(r => ({ tenantId: MOCK_TENANT_ID, id: r.id, spaAreaId: r.spa_area_id, name: r.name, roomType: r.room_type, capacity: r.capacity, isActive: true, createdAt: new Date(), updatedAt: new Date() })),
+                  therapists: MOCK_THERAPISTS.map(t => ({ tenantId: MOCK_TENANT_ID, id: t.id, locationId: t.location_id, name: t.name, isActive: true, createdAt: new Date(), updatedAt: new Date() })),
+                  services: MOCK_SERVICES.map(s => ({ tenantId: MOCK_TENANT_ID, id: s.id, name: s.name, durationMinutes: s.duration_minutes, cleanupMinutes: s.cleanup_minutes, isActive: true, createdAt: new Date(), updatedAt: new Date() })),
+                  serviceRoomCompatibilities: MOCK_SERVICE_ROOM_COMPATIBILITIES.map(c => ({ tenantId: MOCK_TENANT_ID, serviceId: c.service_id, roomId: c.room_id })),
+                  serviceTherapistCompatibilities: MOCK_SERVICE_THERAPIST_COMPATIBILITIES.map(c => ({ tenantId: MOCK_TENANT_ID, serviceId: c.service_id, therapistId: c.therapist_id })),
+                  operatingHours: MOCK_OPERATING_HOURS.map(o => ({ id: o.id, tenantId: MOCK_TENANT_ID, locationId: o.location_id, dayOfWeek: o.day_of_week, openTime: o.open_time, closeTime: o.close_time })),
+                  therapistShifts: MOCK_SHIFTS.map(s => ({ id: s.id, tenantId: MOCK_TENANT_ID, therapistId: s.therapist_id, locationId: s.location_id, startsAt: new Date(s.starts_at), endsAt: new Date(s.ends_at), recurrenceRule: s.recurrence_rule })),
+                  blockers: MOCK_BLOCKERS.map(b => ({ id: b.id, tenantId: MOCK_TENANT_ID, roomId: b.room_id, therapistId: b.therapist_id, startsAt: new Date(b.starts_at), endsAt: new Date(b.ends_at), reason: b.reason })),
+                  bookings: MOCK_BOOKINGS.map(b => ({ id: b.id, tenantId: MOCK_TENANT_ID, serviceId: b.service_id, roomId: b.room_id, therapistId: b.therapist_id, serviceStartTime: new Date(b.service_start_time), serviceEndTime: new Date(b.service_end_time), cleanupEndTime: new Date(b.cleanup_end_time), bookingSource: b.booking_source, bookingStatus: b.booking_status, customerInfo: b.customer_info, notes: b.notes, createdAt: new Date(), updatedAt: new Date() }))
+                };
+                if (tableStr.includes('locations')) return MOCK_DB_FIXTURES.locations;
+                if (tableStr.includes('spa_areas')) return MOCK_DB_FIXTURES.spaAreas;
+                if (tableStr.includes('treatment_rooms')) return MOCK_DB_FIXTURES.treatmentRooms;
+                if (tableStr.includes('therapists')) return MOCK_DB_FIXTURES.therapists;
+                if (tableStr.includes('services')) return MOCK_DB_FIXTURES.services;
+                if (tableStr.includes('service_room_compatibilities')) return MOCK_DB_FIXTURES.serviceRoomCompatibilities;
+                if (tableStr.includes('service_therapist_compatibilities')) return MOCK_DB_FIXTURES.serviceTherapistCompatibilities;
+                if (tableStr.includes('operating_hours')) return MOCK_DB_FIXTURES.operatingHours;
+                if (tableStr.includes('therapist_shifts')) return MOCK_DB_FIXTURES.therapistShifts;
+                if (tableStr.includes('blockers')) return MOCK_DB_FIXTURES.blockers;
+                if (tableStr.includes('bookings')) return MOCK_DB_FIXTURES.bookings;
+                return [];
+              }
+            };
+          }
+        };
+      });
+    });
+
+    after(() => {
+      (global as any).clearCustomDbHandlers();
+    });
+    it('22. POST /booking/hold valid payload returns held=true, mock token, expiresAt', async () => {
+      const token = await jwksServer.signToken({
+        sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
+      }, "http://127.0.0.1:54321/auth/v1");
+
+      const res = await server.inject({
+        method: 'POST',
+        url: '/api/v1/scheduling/booking/hold',
+        headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+        payload: {
+          tenant_id: MOCK_TENANT_ID,
+          service_id: "55555555-5555-5555-5555-555555555551",
+          room_id: "33333333-3333-3333-3333-333333333331",
+          therapist_id: "44444444-4444-4444-4444-444444444441",
+          service_start_time: "2026-06-01T14:00:00Z",
+          service_end_time: "2026-06-01T15:00:00Z",
+          cleanup_end_time: "2026-06-01T15:15:00Z",
+        }
+      });
+
+      assert.strictEqual(res.statusCode, 200);
+      const body = res.json();
+      assert.strictEqual(body.held, true);
+      assert.strictEqual(body.status, 'active');
+      assert.ok(body.holdToken);
+      assert.ok(body.holdId);
+      assert.notStrictEqual(body.holdToken, body.holdId);
+      assert.ok(body.expiresAt);
+      assert.strictEqual(body.ttlSeconds, 600);
+      assert.strictEqual(body.dryRun, true);
+      assert.strictEqual(body.validation.allowed, true);
+    });
+
+    it('23. POST /booking/hold conflicting payload returns held=false, validation_failed', async () => {
+      const token = await jwksServer.signToken({
+        sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
+      }, "http://127.0.0.1:54321/auth/v1");
+
+      const res = await server.inject({
+        method: 'POST',
+        url: '/api/v1/scheduling/booking/hold',
+        headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+        payload: {
+          tenant_id: MOCK_TENANT_ID,
+          service_id: "55555555-5555-5555-5555-555555555551",
+          room_id: "33333333-3333-3333-3333-333333333331", // Overlaps with booking 10:00-11:15
+          therapist_id: "44444444-4444-4444-4444-444444444441",
+          service_start_time: "2026-06-01T10:30:00Z",
+          service_end_time: "2026-06-01T11:30:00Z",
+          cleanup_end_time: "2026-06-01T11:45:00Z",
+        }
+      });
+
+      assert.strictEqual(res.statusCode, 409);
+      const body = res.json();
+      assert.strictEqual(body.held, false);
+      assert.strictEqual(body.status, 'validation_failed');
+      assert.strictEqual(body.validation.allowed, false);
+      assert.strictEqual(body.validation.conflictCode, 'ROOM_BOOKING_CONFLICT');
+      assert.strictEqual(body.dryRun, true);
+    });
+
+    it('24. isHoldExpired helper accurately determines if hold is expired', async () => {
+      // Dynamic import to avoid messing up the test scope too much
+      const { isHoldExpired } = await import('@santis/domain-schema/scheduling.booking-guard.js');
+      
+      const now = Date.now();
+      const pastStr = new Date(now - 1000).toISOString();
+      const futureStr = new Date(now + 1000).toISOString();
+      
+      assert.strictEqual(isHoldExpired(pastStr, now), true);
+      assert.strictEqual(isHoldExpired(futureStr, now), false);
+      assert.strictEqual(isHoldExpired('invalid-date', now), true);
     });
   });
 });

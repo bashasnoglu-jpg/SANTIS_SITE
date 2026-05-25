@@ -73,6 +73,41 @@ export const ValidateBookingResponseSchema = z.object({
   dryRun: z.literal(true),
 });
 
+// --- BOOKING HOLD (DRY-RUN / MOCK IN K-6D-A) ---
+
+export const HoldStatusEnum = z.enum([
+  'requested',
+  'validation_failed',
+  'active',
+  'expired',
+  'released',
+  'confirmed'
+]);
+
+export const HoldBookingRequestSchema = z.object({
+  tenant_id: z.string().uuid(),
+  service_id: z.string().uuid(),
+  room_id: z.string().uuid(),
+  therapist_id: z.string().uuid(),
+  service_start_time: z.string().datetime(),
+  service_end_time: z.string().datetime(),
+  cleanup_end_time: z.string().datetime(),
+  customer_info: z.any().optional(),
+  notes: z.string().optional(),
+});
+
+export const HoldBookingResponseSchema = z.object({
+  held: z.boolean(),
+  holdId: z.string().uuid().optional(),
+  holdToken: z.string().optional(),
+  status: HoldStatusEnum,
+  expiresAt: z.string().datetime().optional(),
+  ttlSeconds: z.number().optional(),
+  validation: ValidateBookingResponseSchema.optional(),
+  dryRun: z.literal(true),
+});
+
+
 
 // --- BOOKING LIST ---
 export const BookingListRequestSchema = z.object({
@@ -97,3 +132,6 @@ export type ValidateBookingRequest = z.infer<typeof ValidateBookingRequestSchema
 export type ValidateBookingResponse = z.infer<typeof ValidateBookingResponseSchema>;
 export type BookingListRequest = z.infer<typeof BookingListRequestSchema>;
 export type BookingListResponse = z.infer<typeof BookingListResponseSchema>;
+export type HoldStatus = z.infer<typeof HoldStatusEnum>;
+export type HoldBookingRequest = z.infer<typeof HoldBookingRequestSchema>;
+export type HoldBookingResponse = z.infer<typeof HoldBookingResponseSchema>;
