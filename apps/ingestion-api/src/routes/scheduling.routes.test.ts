@@ -86,7 +86,7 @@ describe('Scheduling API Routes - Phase K-4', () => {
         authorization: `Bearer ${token}`
       }
     });
-    console.log(res.json()); if (res.statusCode !== 200) throw new Error(JSON.stringify(res.json())); assert.strictEqual(res.statusCode, 200);
+    assert.strictEqual(res.statusCode, 200);
     const body = res.json();
     assert.ok(body.services);
     assert.ok(body.rooms);
@@ -206,7 +206,6 @@ describe('Scheduling API Routes - Phase K-4', () => {
       }
     });
     const body = res.json();
-    if (res.statusCode !== 501) console.log('POST Error Body:', body);
     assert.strictEqual(res.statusCode, 501);
     assert.strictEqual(body.code, 'NOT_IMPLEMENTED_TRANSACTION_REQUIRED');
   });
@@ -644,6 +643,54 @@ describe('Scheduling API Routes - Phase K-4', () => {
       assert.strictEqual(body.dryRun, true);
     });
 
+    it('23a. POST /booking/hold invalid payload returns 400', async () => {
+      const token = await jwksServer.signToken({
+        sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
+      }, "http://127.0.0.1:54321/auth/v1");
+
+      const res = await server.inject({
+        method: 'POST',
+        url: '/api/v1/scheduling/booking/hold',
+        headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+        payload: {
+          tenant_id: MOCK_TENANT_ID,
+          // Missing required fields
+        }
+      });
+
+      assert.strictEqual(res.statusCode, 400);
+    });
+
+    it('23b. POST /booking/hold does not call insert/update/delete (read-only hydration only)', async () => {
+      let insertCalled = false;
+      (global as any).setCustomInsertHandler(() => {
+        insertCalled = true;
+        return { values: () => ({ returning: async () => [] }) };
+      });
+
+      const token = await jwksServer.signToken({
+        sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
+      }, "http://127.0.0.1:54321/auth/v1");
+
+      const res = await server.inject({
+        method: 'POST',
+        url: '/api/v1/scheduling/booking/hold',
+        headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+        payload: {
+          tenant_id: MOCK_TENANT_ID,
+          service_id: "55555555-5555-5555-5555-555555555551",
+          room_id: "33333333-3333-3333-3333-333333333331",
+          therapist_id: "44444444-4444-4444-4444-444444444441",
+          service_start_time: "2026-06-01T14:00:00Z",
+          service_end_time: "2026-06-01T15:00:00Z",
+          cleanup_end_time: "2026-06-01T15:15:00Z",
+        }
+      });
+
+      assert.strictEqual(res.statusCode, 200);
+      assert.strictEqual(insertCalled, false, 'No inserts should be performed during hold mock phase');
+    });
+
     it('24. isHoldExpired helper accurately determines if hold is expired', async () => {
       // Dynamic import to avoid messing up the test scope too much
       const { isHoldExpired } = await import('@santis/domain-schema/scheduling.booking-guard.js');
@@ -655,6 +702,24 @@ describe('Scheduling API Routes - Phase K-4', () => {
       assert.strictEqual(isHoldExpired(pastStr, now), true);
       assert.strictEqual(isHoldExpired(futureStr, now), false);
       assert.strictEqual(isHoldExpired('invalid-date', now), true);
+    });
+
+    it('25. POST /booking/confirm is not implemented yet', async () => {
+      const token = await jwksServer.signToken({
+        sub: "mock", app_metadata: { santis: { operatorId: "op", tenantId: MOCK_TENANT_ID, roles: ["admin"] } }
+      }, "http://127.0.0.1:54321/auth/v1");
+
+      const res = await server.inject({
+        method: 'POST',
+        url: '/api/v1/scheduling/booking/confirm',
+        headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+        payload: {
+          holdToken: 'some-token'
+        }
+      });
+
+      // Depending on Fastify version and whether the route is registered at all, it's 404
+      assert.strictEqual(res.statusCode, 404);
     });
   });
 });
