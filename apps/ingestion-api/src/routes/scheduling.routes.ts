@@ -221,7 +221,16 @@ export const schedulingRoutes: FastifyPluginAsync = async (server: FastifyInstan
 
       const result = evaluateBooking(proposed, ctx);
 
-      return reply.status(200).send(result);
+      return reply.status(200).send({
+        allowed: result.allowed,
+        conflictCode: result.conflictCode || null,
+        reason: result.reason || null,
+        severity: result.severity,
+        affectedResource: result.affectedResource || null,
+        decisionTrace: result.decisionTrace,
+        alternatives: [],
+        dryRun: true
+      });
     } catch (error: any) {
       if (error.code === 'TENANT_SCOPE_VIOLATION') {
         return reply.status(403).send({ error: error.message, code: error.code });

@@ -64,11 +64,13 @@ export const ValidateBookingRequestSchema = CreateBookingRequestSchema;
 
 export const ValidateBookingResponseSchema = z.object({
   allowed: z.boolean(),
-  conflict_code: z.string().optional(),
-  conflict_reason: z.string().optional(),
-  conflicting_resource_type: z.enum(['room', 'therapist', 'service', 'tenant', 'time']).optional(),
-  conflicting_resource_id: z.string().optional(),
-  alternatives: z.array(z.any()).optional().default([]),
+  conflictCode: z.string().nullable().optional(),
+  reason: z.string().nullable().optional(),
+  severity: z.enum(['info', 'warning', 'critical']),
+  affectedResource: z.enum(['room', 'therapist', 'service', 'tenant', 'time', 'blocker']).nullable().optional(),
+  decisionTrace: z.array(z.string()),
+  alternatives: z.array(z.any()).default([]),
+  dryRun: z.literal(true),
 });
 
 

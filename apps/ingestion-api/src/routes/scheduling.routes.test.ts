@@ -353,7 +353,11 @@ describe('Scheduling API Routes - Phase K-4', () => {
       assert.strictEqual(res.statusCode, 200);
       assert.strictEqual(selectCalled, true);
       assert.strictEqual(insertCalled, false);
-      assert.strictEqual(res.json().allowed, true);
+      const body = res.json();
+      assert.strictEqual(body.allowed, true);
+      assert.strictEqual(body.severity, 'info');
+      assert.strictEqual(body.dryRun, true);
+      assert.ok(body.decisionTrace.length > 0);
     });
 
     it('18. room booking conflict from hydrated DB context returns allowed=false', async () => {
@@ -382,7 +386,10 @@ describe('Scheduling API Routes - Phase K-4', () => {
       assert.strictEqual(res.statusCode, 200);
       const body = res.json();
       assert.strictEqual(body.allowed, false);
-      assert.strictEqual(body.conflict_code, 'ROOM_BOOKING_CONFLICT');
+      assert.strictEqual(body.conflictCode, 'ROOM_BOOKING_CONFLICT');
+      assert.strictEqual(body.severity, 'critical');
+      assert.strictEqual(body.affectedResource, 'room');
+      assert.strictEqual(body.dryRun, true);
     });
 
     it('19. blocker conflict from hydrated DB context returns allowed=false (THERAPIST_BLOCKED)', async () => {
@@ -411,7 +418,10 @@ describe('Scheduling API Routes - Phase K-4', () => {
       assert.strictEqual(res.statusCode, 200);
       const body = res.json();
       assert.strictEqual(body.allowed, false);
-      assert.strictEqual(body.conflict_code, 'THERAPIST_BLOCKED');
+      assert.strictEqual(body.conflictCode, 'THERAPIST_BLOCKED');
+      assert.strictEqual(body.severity, 'critical');
+      assert.strictEqual(body.affectedResource, 'blocker');
+      assert.strictEqual(body.dryRun, true);
     });
 
     it('20. therapist shift mismatch from hydrated DB context returns allowed=false', async () => {
@@ -440,7 +450,10 @@ describe('Scheduling API Routes - Phase K-4', () => {
       assert.strictEqual(res.statusCode, 200);
       const body = res.json();
       assert.strictEqual(body.allowed, false);
-      assert.strictEqual(body.conflict_code, 'THERAPIST_OUTSIDE_SHIFT');
+      assert.strictEqual(body.conflictCode, 'THERAPIST_OUTSIDE_SHIFT');
+      assert.strictEqual(body.severity, 'warning');
+      assert.strictEqual(body.affectedResource, 'therapist');
+      assert.strictEqual(body.dryRun, true);
     });
 
     it('21. production-mode hydration failure returns safe 503 error, not mock success', async () => {
