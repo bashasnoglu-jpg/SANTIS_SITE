@@ -59,6 +59,28 @@ const truthLayer = http.createServer((req, res) => {
     return;
   }
 
+  // 2.0 SSE Events Stream (Boardroom Live Intent Monitor)
+  if (req.url === '/api/v1/stream/events') {
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive'
+    });
+    
+    // Send initial connected event
+    res.write(`data: ${JSON.stringify({ type: 'CONNECTED', message: 'Mock SSE Stream connected' })}\n\n`);
+
+    const intervalId = setInterval(() => {
+        // Just a heartbeat to keep it alive
+        res.write(`data: ${JSON.stringify({ type: 'HEARTBEAT', ts: new Date().toISOString() })}\n\n`);
+    }, 15000);
+
+    req.on('close', () => {
+        clearInterval(intervalId);
+    });
+    return;
+  }
+
   // 2.1 RVS Telemetry Ingestion API (RVS-8 Stub)
   if (req.url === '/api/v1/telemetry/rvs' && req.method === 'POST') {
     let body = '';
