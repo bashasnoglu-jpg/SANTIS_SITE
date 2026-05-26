@@ -116,3 +116,4 @@ playwright-report/
 
 # Runtime session lock (auto-generated, machine-local)
 .nexus-lock
+.vercel
