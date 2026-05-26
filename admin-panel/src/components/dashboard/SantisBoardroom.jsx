@@ -73,25 +73,7 @@ export default function SantisBoardroom() {
       
       <SovereignActionRail />
 
-      <style dangerouslySetInnerHTML={{__html: `
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap');
-        .font-serif { font-family: 'Playfair Display', serif; }
-        .font-sans { font-family: 'Inter', sans-serif; }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .nv-historical { filter: saturate(0.6) brightness(0.9); transition: filter 0.4s ease; }
-        .nv-historical-badge { 
-          position: fixed; top: 24px; right: 180px; z-index: 100;
-          padding: 8px 16px; border: 1px solid rgba(212, 175, 55, 0.4);
-          background: rgba(212, 175, 55, 0.15); color: var(--color-sovereign-gold-strong);
-          border-radius: 999px; font-size: 10px; letter-spacing: 0.2em;
-          animation: badgePulse 2s infinite;
-        }
-        @keyframes badgePulse { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
-        .animate-reveal { opacity: 0; transform: translateY(20px); will-change: opacity, transform; }
-      `}} />
+
 
       {/* ========================================================= */}
       {/* SOL MENÜ (SIDEBAR)                                         */}

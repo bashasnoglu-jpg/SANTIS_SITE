@@ -31,6 +31,16 @@ export default function LiveIntentMonitor() {
         try {
           const incomingData = JSON.parse(event.data);
           
+          // BİLİŞSEL VE KONTROL FİLTRESİ: Heartbeat, bağlantı mesajları ve boş telemetry verilerini engelle
+          if (
+            !incomingData ||
+            incomingData.type === 'HEARTBEAT' ||
+            incomingData.type === 'CONNECTED' ||
+            (!incomingData.traceId && !incomingData.eventType && !incomingData.payload?.intent)
+          ) {
+            return;
+          }
+
           // TEMPORAL ISOLATION: Eğer geçmişteyse, event'leri sadece bellekte tut (buffer)
           if (mode === 'HISTORICAL') {
             eventBuffer.current = [incomingData, ...eventBuffer.current].slice(0, 50);
