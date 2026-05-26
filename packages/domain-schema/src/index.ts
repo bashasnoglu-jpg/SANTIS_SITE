@@ -6,3 +6,5 @@ export * from "./boardroom-state.contract.js";
 export * from "./audit-log.contract.js";
 export * from "./session.contract.js";
 export * from "./audit-log.events.js";
+export * from "./ritual-graph.js";
+export * from "./ritual-graph.fixtures.js";
