@@ -638,9 +638,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+SESSION_SECRET = os.getenv("SESSION_SECRET")
+if not SESSION_SECRET:
+    raise RuntimeError("SESSION_SECRET environment variable is required.")
+
 app.add_middleware(
     SessionMiddleware, 
-    secret_key=os.getenv("SESSION_SECRET", "super-secret-key"),
+    secret_key=SESSION_SECRET,
     https_only=False,
     same_site="lax"
 )
