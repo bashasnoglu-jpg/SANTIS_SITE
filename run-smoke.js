@@ -1,5 +1,8 @@
 import http from 'http';
 
+const SMOKE_BASE_URL = process.env.SMOKE_BASE_URL || "http://localhost:3030";
+
+
 function fetchJson(url) {
   return new Promise((resolve, reject) => {
     http.get(url, (res) => {
@@ -15,7 +18,7 @@ function fetchJson(url) {
 async function run() {
   console.log('=== HEALTH ENDPOINT ===');
   try {
-    const health = await fetchJson('http://localhost:4040/api/concierge/health');
+    const health = await fetchJson(`${SMOKE_BASE_URL}/api/health`);
     console.log('Status:', health.status);
     console.log('Body:', health.body);
   } catch (err) {
@@ -28,7 +31,7 @@ async function run() {
 
   console.log('\n=== SNAPSHOT ENDPOINT ===');
   try {
-    const snapshotUrl = 'http://localhost:4040/api/concierge/snapshot?tenantId=santis-club&locale=tr&currency=EUR&date=2026-04-20&partySize=2&memberTier=gold';
+    const snapshotUrl = `${SMOKE_BASE_URL}/api/v1/core-state?tenantId=santis-club&locale=tr&currency=EUR&date=2026-04-20&partySize=2&memberTier=gold`;
     const snapshot = await fetchJson(snapshotUrl);
     
     const santisHeaders = {};

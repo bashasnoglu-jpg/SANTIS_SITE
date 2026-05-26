@@ -10,7 +10,9 @@
   "scripts": {
     "env:check": "node -v",
     "smoke": "node run-smoke.js",
+    "smoke:mock": "node run-smoke.js",
     "smoke:telemetry": "node run-telemetry-smoke.js",
+    "smoke:telemetry:mock": "node run-telemetry-smoke.js",
     "onboard": "fnm use && pnpm install",
     "tokens:css": "node scripts/build-css-tokens.js",
     "tokens:css:check": "node scripts/build-css-tokens.js --check",

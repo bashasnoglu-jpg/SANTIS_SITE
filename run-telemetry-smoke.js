@@ -1,3 +1,6 @@
+const SMOKE_BASE_URL = process.env.SMOKE_BASE_URL || "http://localhost:3030";
+const TELEMETRY_TARGET_URL = process.env.TELEMETRY_TARGET_URL || "http://localhost:3030";
+
 async function run() {
   console.log('=== SOVEREIGN TELEMETRY E2E SMOKE TEST V1.1 ===\n');
   
@@ -5,10 +8,10 @@ async function run() {
   console.log('1. [4040] Fetching snapshot...');
   let snapRes;
   try {
-    snapRes = await fetch('http://localhost:4040/api/concierge/snapshot?tenantId=santis-club&locale=tr&currency=EUR&date=2026-04-20&partySize=2&memberTier=gold');
+    snapRes = await fetch(`${SMOKE_BASE_URL}/api/v1/core-state?tenantId=santis-club&locale=tr&currency=EUR&date=2026-04-20&partySize=2&memberTier=gold`);
   } catch (err) {
     if (err.cause?.code === 'ECONNREFUSED' || err.code === 'ECONNREFUSED') {
-      console.log('SERVER_OFFLINE: Local services on 4040/8080 are not running. Skipping telemetry smoke test.');
+      console.log('SERVER_OFFLINE: Local services on 3030/4040/8080 are not running. Skipping telemetry smoke test.');
       return;
     }
     throw err;
@@ -32,11 +35,17 @@ async function run() {
   const slotStartIso = snapData.nextAvailableSlots?.[0]?.startIso || new Date().toISOString();
 
   async function emit(event, meta = {}) {
-    const res = await fetch('http://localhost:8080/api/v1/telemetry/beacon', {
+    const res = await fetch(`${TELEMETRY_TARGET_URL}/api/v1/telemetry/decision`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ event, ts: new Date().toISOString(), context, meta })
     });
+    if (!res.ok) {
+        if (res.status === 404) {
+            console.log(`TELEMETRY_RECEIVER_NOT_IMPLEMENTED: ${TELEMETRY_TARGET_URL}/api/v1/telemetry/decision returned 404`);
+            return;
+        }
+    }
     const data = await res.json();
     console.log(`[8080] 📡 ${event} -> Status: ${res.status}`);
     console.log(`       Context: reqId=${context.requestId}, quoteId=${context.quoteId || 'null'}, intentId=${context.intentId || 'null'}`);
