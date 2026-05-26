@@ -9,6 +9,8 @@
   "packageManager": "pnpm@10.24.0",
   "scripts": {
     "env:check": "node -v",
+    "smoke": "node run-smoke.js",
+    "smoke:telemetry": "node run-telemetry-smoke.js",
     "onboard": "fnm use && pnpm install",
     "tokens:css": "node scripts/build-css-tokens.js",
     "tokens:css:check": "node scripts/build-css-tokens.js --check",

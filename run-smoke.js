@@ -1,4 +1,4 @@
-const http = require('http');
+import http from 'http';
 
 function fetchJson(url) {
   return new Promise((resolve, reject) => {
@@ -19,6 +19,10 @@ async function run() {
     console.log('Status:', health.status);
     console.log('Body:', health.body);
   } catch (err) {
+    if (err.code === 'ECONNREFUSED') {
+      console.error('SERVER_OFFLINE: Localhost 4040 is not running.');
+      return;
+    }
     console.error('HEALTH ERROR:', err);
   }
 
