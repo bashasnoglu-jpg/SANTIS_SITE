@@ -42,11 +42,7 @@ def hold_booking(payload: HoldBookingRequestSchema):
 
     validation_res = {
         "ok": True,
-        "errors": [
-            f"DEBUG_ENABLE: '{raw_enable}'",
-            f"DEBUG_URL: '{os.environ.get('SUPABASE_URL', 'MISSING')}'",
-            f"DEBUG_KEY: '{'SET' if os.environ.get('SUPABASE_SERVICE_ROLE_KEY') else 'MISSING'}'"
-        ]
+        "errors": []
     }
 
     if not enable_persistent:
