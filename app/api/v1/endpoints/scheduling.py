@@ -128,7 +128,7 @@ def hold_booking(payload: HoldBookingRequestSchema):
             timeout=10
         )
         if post_res.status_code >= 400:
-            raise HTTPException(status_code=500, detail="Failed to persist hold into the database.")
+            raise HTTPException(status_code=500, detail=f"Failed to persist hold into the database. Status: {post_res.status_code}, Body: {post_res.text}")
 
         inserted_rows = post_res.json()
         if not inserted_rows:
