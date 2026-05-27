@@ -33,7 +33,10 @@ class HoldBookingResponseSchema(BaseModel):
 
 @router.post("/booking/hold", response_model=HoldBookingResponseSchema)
 def hold_booking(payload: HoldBookingRequestSchema):
-    enable_persistent = os.environ.get("ENABLE_PERSISTENT_HOLDS", "false").lower() == "true"
+    raw_enable = os.environ.get("ENABLE_PERSISTENT_HOLDS", "false")
+    # Strip quotes and spaces, convert to lowercase
+    clean_enable = raw_enable.replace('"', '').replace("'", "").strip().lower()
+    enable_persistent = (clean_enable == "true")
     now = datetime.now(timezone.utc)
     expires_at = now + timedelta(minutes=10)
 
@@ -56,7 +59,9 @@ def hold_booking(payload: HoldBookingRequestSchema):
         )
 
     # Persistent Mode
-    supabase_url = os.environ.get("SUPABASE_URL")
+    supabase_url = os.environ.get("SUPABASE_URL", "")
+    supabase_url_clean = supabase_url.replace('"', '').replace("'", "").strip()
+    
     supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY") or os.environ.get("SUPABASE_KEY")
 
     if not supabase_url or not supabase_key:
@@ -75,7 +80,7 @@ def hold_booking(payload: HoldBookingRequestSchema):
     # 1. Conflict Check: fetch active holds for the same room that expire in the future
     try:
         res = requests.get(
-            f"{supabase_url}/rest/v1/booking_holds",
+            f"{supabase_url_clean}/rest/v1/booking_holds",
             params={
                 "room_id": f"eq.{payload.room_id}",
                 "status": "eq.active",
@@ -120,7 +125,7 @@ def hold_booking(payload: HoldBookingRequestSchema):
 
     try:
         post_res = requests.post(
-            f"{supabase_url}/rest/v1/booking_holds",
+            f"{supabase_url_clean}/rest/v1/booking_holds",
             headers=headers,
             json=insert_payload,
             timeout=10
