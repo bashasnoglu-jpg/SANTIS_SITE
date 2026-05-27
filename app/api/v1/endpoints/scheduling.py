@@ -98,8 +98,8 @@ def hold_booking(payload: HoldBookingRequestSchema):
             if hold_start < new_end and hold_end > new_start:
                 raise HTTPException(status_code=409, detail="A conflicting hold already exists for this room and time.")
 
-    except requests.RequestException:
-        raise HTTPException(status_code=503, detail="Failed to communicate with the database.")
+    except requests.RequestException as e:
+        raise HTTPException(status_code=503, detail=f"Failed to communicate with the database: {str(e)}")
 
     # 2. Insert new persistent hold
     raw_token = secrets.token_hex(32)
@@ -134,8 +134,8 @@ def hold_booking(payload: HoldBookingRequestSchema):
 
         hold_id = inserted_rows[0]["id"]
 
-    except requests.RequestException:
-        raise HTTPException(status_code=503, detail="Failed to communicate with the database.")
+    except requests.RequestException as e:
+        raise HTTPException(status_code=503, detail=f"Failed to communicate with the database: {str(e)}")
 
     return HoldBookingResponseSchema(
         held=True,
