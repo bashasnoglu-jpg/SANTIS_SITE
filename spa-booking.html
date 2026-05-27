@@ -348,6 +348,25 @@
         }
         function prevStep(step) { nextStep(step); }
 
+        // --- TARİH VE ZAMAN YARDIMCILARI ---
+        function getIsoDate(dateString, timeString) {
+            const date = new Date();
+            if (dateString.includes('Yarın')) {
+                date.setDate(date.getDate() + 1);
+            } else if (!dateString.includes('Bugün')) {
+                date.setDate(date.getDate() + 2);
+            }
+            const [hours, minutes] = timeString.split(':');
+            date.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
+            return date.toISOString();
+        }
+
+        function getEndTime(isoStartStr, durationMinutes) {
+            const d = new Date(isoStartStr);
+            d.setMinutes(d.getMinutes() + durationMinutes);
+            return d.toISOString();
+        }
+
         // 5. RADAR CASUSUNUN YENİ EVİ (MÜHÜRLEME & DOUBLE UPSELL)
         async function sealReservation() {
             document.getElementById('action-buttons').style.display = 'none';
@@ -386,7 +405,8 @@
             if(logs.length > 20) logs = logs.slice(0, 20); 
             localStorage.setItem('santis_upsell_logs', JSON.stringify(logs));
 
-            const payload = {
+            // Mevcut (Legacy) Payload - Radar/Local Storage İçin
+            const legacyPayload = {
                 ritual: menuMemory.ritual,
                 upsell: reservationData.therapistFee > 0 ? `+${reservationData.therapistFee}€ (Özel Seans)` : 'Standart',
                 status: menuMemory.price > 0 ? 'PAID_RESERVED' : 'GUEST_RESERVED',
@@ -396,19 +416,56 @@
                 timestamp: Date.now()
             };
 
-            // Ölümsüz Satış Motoru (Zero-Loss Booking)
+            // YENİ: Gerçek API Entegrasyonu (Scheduling) - Dry-Run Modu
+            const isoStart = getIsoDate(reservationData.date, reservationData.time);
+            const isoEnd = getEndTime(isoStart, 60); // 60 dk ritüel süresi varsayımı
+            const isoCleanup = getEndTime(isoEnd, 15); // 15 dk temizlik süresi
+            
+            const apiPayload = {
+                tenant_id: "00000000-0000-4000-8000-000000000001",
+                service_id: "00000000-0000-4000-8000-000000000002",
+                room_id: "00000000-0000-4000-8000-000000000003",
+                therapist_id: "00000000-0000-4000-8000-000000000004",
+                service_start_time: isoStart,
+                service_end_time: isoEnd,
+                cleanup_end_time: isoCleanup,
+                customer_info: { 
+                    guest_type: "Walk-in/UI", 
+                    room_number: reservationData.room 
+                },
+                notes: `Ritüel: ${menuMemory.ritual}`
+            };
+
+            try {
+                const response = await fetch('/api/v1/scheduling/booking/hold', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(apiPayload)
+                });
+                
+                if (!response.ok) {
+                    console.warn(`[API] Booking hold failed with status ${response.status}. Falling back to offline mode.`);
+                } else {
+                    const data = await response.json();
+                    console.log(`[API] Booking secured! Hold ID: ${data.holdId}`);
+                }
+            } catch (err) {
+                console.warn("[API] Network error during hold request. Falling back to offline mode.", err);
+            }
+
+            // Ölümsüz Satış Motoru (Zero-Loss Booking) - Graceful Fallback
             if ('serviceWorker' in navigator && 'SyncManager' in window && window.QuantumVault) {
                 try {
-                    await window.QuantumVault.saveBooking(payload);
+                    await window.QuantumVault.saveBooking(legacyPayload);
                     const registration = await navigator.serviceWorker.ready;
                     await registration.sync.register('sovereign-booking-sync');
                     console.log(`🛡️ [Zero-Loss]: Rezervasyon Mühürlendi. Kasa koruması devrede.`);
                 } catch(e) {
                     console.error("Kuantum Kasa Hatası:", e);
-                    localStorage.setItem('santis_new_booking', JSON.stringify(payload)); // Fallback
+                    localStorage.setItem('santis_new_booking', JSON.stringify(legacyPayload)); // Fallback
                 }
             } else {
-                localStorage.setItem('santis_new_booking', JSON.stringify(payload));
+                localStorage.setItem('santis_new_booking', JSON.stringify(legacyPayload));
             }
 
             localStorage.removeItem('santis_pending_booking');
