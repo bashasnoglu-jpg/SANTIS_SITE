@@ -90,48 +90,45 @@ def hold_booking(payload: HoldBookingRequestSchema):
             timeout=10
         )
         if res.status_code >= 400:
-            raise HTTPException(status_code=500, detail=f"Database read error during conflict check. Status: {res.status_code}, Body: {res.text}")
+            raise HTTPException(status_code=500, detail="Database read error during conflict check.")
 
         active_holds = res.json()
         new_start = datetime.fromisoformat(payload.service_start_time.replace("Z", "+00:00"))
         new_end = datetime.fromisoformat(payload.cleanup_end_time.replace("Z", "+00:00"))
 
         for hold in active_holds:
-            hold_start = datetime.fromisoformat(hold["service_start_time"].replace("Z", "+00:00"))
-            hold_end = datetime.fromisoformat(hold["cleanup_end_time"].replace("Z", "+00:00"))
+            exist_start = datetime.fromisoformat(hold["service_start_time"].replace("Z", "+00:00"))
+            exist_end = datetime.fromisoformat(hold["cleanup_end_time"].replace("Z", "+00:00"))
+            
+            if new_start < exist_end and new_end > exist_start:
+                raise HTTPException(status_code=409, detail="The requested time slot is no longer available.")
 
-            if hold_start < new_end and hold_end > new_start:
-                raise HTTPException(status_code=409, detail="A conflicting hold already exists for this room and time.")
+        # Hold token oluştur
+        raw_token = secrets.token_hex(16)
+        token_hash = hashlib.sha256(raw_token.encode()).hexdigest()
+        expires_at = now + timedelta(minutes=15)
 
-    except requests.RequestException as e:
-        raise HTTPException(status_code=503, detail=f"Failed to communicate with the database: {str(e)}")
+        insert_payload = {
+            "tenant_id": payload.tenant_id,
+            "service_id": payload.service_id,
+            "room_id": payload.room_id,
+            "therapist_id": payload.therapist_id,
+            "service_start_time": payload.service_start_time,
+            "service_end_time": payload.service_end_time,
+            "cleanup_end_time": payload.cleanup_end_time,
+            "hold_token_hash": token_hash,
+            "status": "active",
+            "expires_at": expires_at.isoformat()
+        }
 
-    # 2. Insert new persistent hold
-    raw_token = secrets.token_hex(32)
-    token_hash = hashlib.sha256(raw_token.encode('utf-8')).hexdigest()
-
-    insert_payload = {
-        "tenant_id": payload.tenant_id,
-        "service_id": payload.service_id,
-        "room_id": payload.room_id,
-        "therapist_id": payload.therapist_id,
-        "service_start_time": payload.service_start_time,
-        "service_end_time": payload.service_end_time,
-        "cleanup_end_time": payload.cleanup_end_time,
-        "hold_token_hash": token_hash,
-        "status": "active",
-        "expires_at": expires_at.isoformat()
-    }
-
-    try:
         post_res = requests.post(
             f"{supabase_url_clean}/rest/v1/booking_holds",
-            headers=headers,
             json=insert_payload,
+            headers=headers,
             timeout=10
         )
         if post_res.status_code >= 400:
-            raise HTTPException(status_code=500, detail=f"Failed to persist hold into the database. Status: {post_res.status_code}, Body: {post_res.text}")
+            raise HTTPException(status_code=500, detail="Failed to persist hold into the database.")
 
         inserted_rows = post_res.json()
         if not inserted_rows:
