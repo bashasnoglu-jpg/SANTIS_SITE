@@ -90,7 +90,7 @@ def hold_booking(payload: HoldBookingRequestSchema):
             timeout=10
         )
         if res.status_code >= 400:
-            raise HTTPException(status_code=500, detail="Database read error during conflict check.")
+            raise HTTPException(status_code=500, detail=f"Database read error during conflict check. Status: {res.status_code}, Body: {res.text}")
 
         active_holds = res.json()
         new_start = datetime.fromisoformat(payload.service_start_time.replace("Z", "+00:00"))
