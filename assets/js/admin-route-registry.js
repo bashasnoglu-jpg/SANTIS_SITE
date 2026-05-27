@@ -32,31 +32,69 @@ document.addEventListener('DOMContentLoaded', () => {
     const registryContainer = document.getElementById('santis-route-registry-console');
     if (!registryContainer) return;
 
-    let html = `<div style="padding: 20px; background: #111; color: #eee; border: 1px solid #333; border-radius: 8px; font-family: monospace;">`;
-    html += `<h2 style="color: #d4af37; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 0;">SANTIS OS - ROUTE CONSOLE</h2>`;
+    let html = `
+    <div class="p-6">
+        <h3 class="text-white font-serif text-xl border-b border-white/5 pb-4 mb-6 flex justify-between items-center">
+            SANTIS OS - ROUTE CONSOLE
+            <span class="text-[10px] text-santisGold font-mono uppercase tracking-widest">Global Navigation</span>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    `;
     
     // Public Pages
-    html += `<h3 style="color: #10b981; margin-top: 20px;">Public Pages</h3><ul>`;
+    html += `<div>
+        <h4 class="text-santisEmerald text-[10px] font-medium mb-4 uppercase tracking-widest flex items-center gap-2">
+            <div class="w-1.5 h-1.5 rounded-full bg-santisEmerald"></div>
+            Public Pages
+        </h4>
+        <ul class="space-y-3">`;
     SANTIS_ROUTE_REGISTRY.PUBLIC_PAGES.forEach(route => {
-        html += `<li style="margin-bottom: 5px;"><a href="${route.path}" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">${route.name} (${route.path})</a></li>`;
-    });
-    html += `</ul>`;
-
-    // Admin Pages
-    html += `<h3 style="color: #f59e0b; margin-top: 20px;">Admin Pages</h3><ul>`;
-    SANTIS_ROUTE_REGISTRY.ADMIN_PAGES.forEach(route => {
-        html += `<li style="margin-bottom: 5px;"><a href="${route.path}" target="_blank" rel="noopener" style="color: #60a5fa; text-decoration: none;">${route.name} (${route.path})</a></li>`;
-    });
-    html += `</ul>`;
-
-    // API Endpoints
-    html += `<h3 style="color: #ef4444; margin-top: 20px;">API Endpoints</h3><ul>`;
-    SANTIS_ROUTE_REGISTRY.API_ENDPOINTS.forEach(route => {
-        html += `<li style="margin-bottom: 5px; color: #9ca3af;">
-            <strong style="color: #e5e5e5;">${route.method}</strong> ${route.path} <em style="font-size: 0.9em;">- ${route.name}</em>
+        html += `<li>
+            <a href="${route.path}" target="_blank" rel="noopener" class="group flex flex-col hover:bg-white/5 p-2 rounded transition-colors duration-300">
+                <span class="text-sm text-gray-300 group-hover:text-white transition-colors">${route.name}</span>
+                <span class="text-[10px] text-gray-500 font-mono tracking-tighter">${route.path}</span>
+            </a>
         </li>`;
     });
     html += `</ul></div>`;
+
+    // Admin Pages
+    html += `<div>
+        <h4 class="text-santisGold text-[10px] font-medium mb-4 uppercase tracking-widest flex items-center gap-2">
+            <div class="w-1.5 h-1.5 rounded-full bg-santisGold"></div>
+            Admin Pages
+        </h4>
+        <ul class="space-y-3">`;
+    SANTIS_ROUTE_REGISTRY.ADMIN_PAGES.forEach(route => {
+        html += `<li>
+            <a href="${route.path}" target="_blank" rel="noopener" class="group flex flex-col hover:bg-white/5 p-2 rounded transition-colors duration-300">
+                <span class="text-sm text-gray-300 group-hover:text-white transition-colors">${route.name}</span>
+                <span class="text-[10px] text-gray-500 font-mono tracking-tighter">${route.path}</span>
+            </a>
+        </li>`;
+    });
+    html += `</ul></div>`;
+
+    // API Endpoints
+    html += `<div>
+        <h4 class="text-cyber-muted text-[10px] font-medium mb-4 uppercase tracking-widest flex items-center gap-2 text-gray-400">
+            <div class="w-1.5 h-1.5 rounded-full bg-gray-500"></div>
+            API Endpoints
+        </h4>
+        <ul class="space-y-3">`;
+    SANTIS_ROUTE_REGISTRY.API_ENDPOINTS.forEach(route => {
+        const methodColor = route.method === 'POST' ? 'text-santisEmerald' : 'text-santisGold';
+        html += `<li class="flex flex-col p-2 hover:bg-white/5 rounded transition-colors duration-300">
+            <div class="flex items-center gap-2 mb-1">
+                <span class="text-[9px] font-bold ${methodColor} bg-white/5 px-1.5 py-0.5 rounded uppercase tracking-widest border border-white/5">${route.method}</span>
+                <span class="text-sm text-gray-300">${route.name}</span>
+            </div>
+            <span class="text-[10px] text-gray-500 font-mono tracking-tighter">${route.path}</span>
+        </li>`;
+    });
+    html += `</ul></div>`;
+
+    html += `</div></div>`;
 
     registryContainer.innerHTML = html;
 });
