@@ -1,7 +1,7 @@
-/**
+﻿/**
  * SANTIS OS - SHADOW WORKER (V28_SANTIS_ULTRA_FLUID)
  * Architecture: Sovereign OS / Zero-Jank / 120 FPS Target
- * 
+ *
  * Bu servis çalışanı; ağ bağımsızlığını, performans bütünlüğünü ve
  * deterministik önbellek yönetimini sağlamak için optimize edilmiştir.
  */
@@ -27,10 +27,10 @@ const CORE_ASSETS = [
  */
 self.addEventListener('install', (event) => {
     console.log('[Shadow Worker] Installing Sovereign Cache...');
-    // Global skipWaiting() kullanımı bilinçli olarak bırakıldı, 
+    // Global skipWaiting() kullanımı bilinçli olarak bırakıldı,
     // ancak sayfa yenileme tetikleyicisi UI katmanında kontrol edilmelidir.
-    self.skipWaiting(); 
-    
+    self.skipWaiting();
+
     event.waitUntil(
         caches.open(CORE_CACHE_NAME).then((cache) => {
             return cache.addAll(CORE_ASSETS);
@@ -86,7 +86,7 @@ self.addEventListener('fetch', (event) => {
     // Non-HTTP Guard: Chrome-extension ve diğer non-http isteklerini yoksay
     if (!request.url.startsWith('http')) return;
 
-    // 1. Video & Range Request Bypass: Büyük medyalar ve Safari/iOS Range istekleri 
+    // 1. Video & Range Request Bypass: Büyük medyalar ve Safari/iOS Range istekleri
     // doğrudan ağa yönlendirilir. Önbellek şişmesi ve main-thread bloğu önlenir.
     if (request.destination === 'video' || request.headers.has('range')) {
         event.respondWith(fetch(request));
@@ -109,7 +109,15 @@ self.addEventListener('fetch', (event) => {
                     // Timeout veya ağ hatası: Sovereign Cache'den (veya fallback'ten) dön
                     console.warn('[Shadow Worker] Network threshold exceeded. Serving reality from cache.');
                     return caches.match(request).then((cachedResponse) => {
-                        return cachedResponse || caches.match('/index.html'); // Kırık linkler için güvenli liman
+                        if (cachedResponse) return cachedResponse;
+                        return caches.match('/index.html').then(indexResponse => {
+                            if (indexResponse) return indexResponse;
+                            // Son çare: Hiçbir şey yoksa Response dön ki Service Worker çökmesin.
+                            return new Response(
+                                '<html><body><h2>Sovereign OS - Offline</h2><p>Lütfen ağ bağlantınızı kontrol edin.</p></body></html>',
+                                { headers: { 'Content-Type': 'text/html' } }
+                            );
+                        });
                     });
                 })
         );
