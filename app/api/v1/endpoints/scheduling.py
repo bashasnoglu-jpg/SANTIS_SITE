@@ -2,24 +2,28 @@ import os
 import secrets
 import hashlib
 import requests
+import logging
 from datetime import datetime, timedelta, timezone
-from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, Field
+from fastapi import APIRouter, HTTPException, Request, status
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional, Dict, Any
 import uuid
 
 router = APIRouter(prefix="/scheduling", tags=["scheduling"])
+logger = logging.getLogger("santis.scheduling")
 
 class HoldBookingRequestSchema(BaseModel):
-    tenant_id: str
-    service_id: str
-    room_id: str
-    therapist_id: str
-    service_start_time: str
-    service_end_time: str
-    cleanup_end_time: str
-    customer_info: Optional[Dict[str, Any]] = None
-    notes: Optional[str] = None
+    tenant_id: str = Field(..., max_length=50)
+    service_id: str = Field(..., max_length=50)
+    room_id: str = Field(..., max_length=50)
+    therapist_id: str = Field(..., max_length=50)
+    service_start_time: str = Field(..., max_length=50)
+    service_end_time: str = Field(..., max_length=50)
+    cleanup_end_time: str = Field(..., max_length=50)
+    customer_info: Optional[Dict[str, Any]] = Field(default=None)
+    notes: Optional[str] = Field(None, max_length=500)
+
+    model_config = ConfigDict(extra="ignore")
 
 class HoldBookingResponseSchema(BaseModel):
     held: bool
@@ -31,10 +35,32 @@ class HoldBookingResponseSchema(BaseModel):
     validation: Dict[str, Any]
     dryRun: bool
 
+def redact_pii(data: Optional[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    if not data:
+        return data
+    safe_data = {}
+    forbidden_keys = ['phone', 'email', 'name', 'tc', 'passport', 'credit', 'card']
+    for k, v in data.items():
+        if any(fk in k.lower() for fk in forbidden_keys):
+            safe_data[k] = "[REDACTED]"
+        else:
+            safe_data[k] = v
+    return safe_data
+
 @router.post("/booking/hold", response_model=HoldBookingResponseSchema)
-def hold_booking(payload: HoldBookingRequestSchema):
+def hold_booking(request: Request, payload: HoldBookingRequestSchema):
+    # 1. Size Guard: Prevent abuse with oversized payloads
+    content_length = request.headers.get("content-length")
+    if content_length and int(content_length) > 10240:  # 10KB Limit
+        raise HTTPException(
+            status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+            detail="Payload too large"
+        )
+
+    safe_customer_info = redact_pii(payload.customer_info)
+    logger.info(f"Booking hold requested: tenant={payload.tenant_id} service={payload.service_id} room={payload.room_id} guest={safe_customer_info}")
+
     raw_enable = os.environ.get("ENABLE_PERSISTENT_HOLDS", "false")
-    # Strip quotes and spaces, convert to lowercase
     clean_enable = raw_enable.replace('"', '').replace("'", "").strip().lower()
     enable_persistent = (clean_enable == "true")
     now = datetime.now(timezone.utc)
@@ -65,9 +91,10 @@ def hold_booking(payload: HoldBookingRequestSchema):
     supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY") or os.environ.get("SUPABASE_KEY")
 
     if not supabase_url or not supabase_key:
+        logger.error("Persistent holds enabled but missing DB credentials.")
         raise HTTPException(
-            status_code=503,
-            detail="Persistent holds are enabled but database credentials (SUPABASE_URL, SUPABASE_KEY) are missing."
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Service currently unavailable."
         )
 
     headers = {
@@ -77,7 +104,7 @@ def hold_booking(payload: HoldBookingRequestSchema):
         "Prefer": "return=representation"
     }
 
-    # 1. Conflict Check: fetch active holds for the same room that expire in the future
+    # Conflict Check
     try:
         res = requests.get(
             f"{supabase_url_clean}/rest/v1/booking_holds",
@@ -90,7 +117,8 @@ def hold_booking(payload: HoldBookingRequestSchema):
             timeout=10
         )
         if res.status_code >= 400:
-            raise HTTPException(status_code=500, detail="Database read error during conflict check.")
+            logger.error(f"DB read error during conflict check: {res.status_code}")
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error.")
 
         active_holds = res.json()
         new_start = datetime.fromisoformat(payload.service_start_time.replace("Z", "+00:00"))
@@ -101,9 +129,10 @@ def hold_booking(payload: HoldBookingRequestSchema):
             exist_end = datetime.fromisoformat(hold["cleanup_end_time"].replace("Z", "+00:00"))
             
             if new_start < exist_end and new_end > exist_start:
-                raise HTTPException(status_code=409, detail="The requested time slot is no longer available.")
+                logger.warning(f"Conflict detected for room {payload.room_id}")
+                raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="The requested time slot is no longer available.")
 
-        # Hold token oluştur
+        # Create Hold Token
         raw_token = secrets.token_hex(16)
         token_hash = hashlib.sha256(raw_token.encode()).hexdigest()
         expires_at = now + timedelta(minutes=15)
@@ -128,16 +157,24 @@ def hold_booking(payload: HoldBookingRequestSchema):
             timeout=10
         )
         if post_res.status_code >= 400:
-            raise HTTPException(status_code=500, detail="Failed to persist hold into the database.")
+            logger.error(f"DB write error during persistence: {post_res.status_code}")
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error.")
 
         inserted_rows = post_res.json()
         if not inserted_rows:
-            raise HTTPException(status_code=500, detail="Failed to retrieve inserted hold from the database.")
+            logger.error("DB insertion returned no rows.")
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error.")
 
         hold_id = inserted_rows[0]["id"]
 
     except requests.RequestException as e:
-        raise HTTPException(status_code=503, detail=f"Failed to communicate with the database: {str(e)}")
+        logger.error(f"Database communication failed: {str(e)}")
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="Service currently unavailable.")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error("Unhandled exception in hold_booking", exc_info=True)
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error.")
 
     return HoldBookingResponseSchema(
         held=True,
