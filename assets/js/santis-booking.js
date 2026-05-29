@@ -41,7 +41,7 @@ function injectBookingModal() {
         <div class="text-white modal-content" style="background:#050505; border:1px solid rgba(212,175,55,0.3); box-shadow:0 25px 50px -12px rgba(0,0,0,1), 0 0 30px rgba(212,175,55,0.1); border-radius:12px; padding:32px; width:90%; max-width:500px; font-family:;'Outfit', sans-serif; position:relative;">
             <button class="cursor-pointer" id="bookingCloseBtn" onclick="closeBookingModal()" style="position:absolute; top:20px; right:20px; background:none; border:none; color:rgba(255,255,255,0.5); font-size:24px;" aria-label="Kapat">&times;</button>
             <div class="text-center" style="margin-bottom:24px;">
-                <span class="text-[#d4af37] santis-kicker" style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase;">SANTIS CLUB VIP</span>
+                <span class="text-lux-gold santis-kicker" style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase;">SANTIS CLUB VIP</span>
                 <h2 id="bookingModalTitle" style="font-family:'Cinzel', serif; font-size:24px; margin-top:8px; font-weight:400; letter-spacing:0.05em;">THE BLACK ROOM</h2>
                 <p id="bookingModalSub" style="color:rgba(255,255,255,0.6); font-size:13px; margin-top:4px;">Sovereign Executive</p>
             </div>
@@ -50,7 +50,7 @@ function injectBookingModal() {
                 <select class="w-full text-white" id="bookHotel" style="padding:14px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:6px; outline:none; -webkit-appearance:none; font-family:;'Outfit', sans-serif; font-size:14px; cursor:pointer;" aria-label="Konum">
                     <option value="santis_hq">Santis Club HQ [Merkez]</option>
                 </select>
-                <select class="w-full text-[#d4af37]" id="bookService" style="padding:14px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:6px; outline:none; -webkit-appearance:none; font-family:;'Outfit', sans-serif; font-size:14px; font-weight:500; cursor:pointer;" aria-label="Paket Adı">
+                <select class="w-full text-lux-gold" id="bookService" style="padding:14px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:6px; outline:none; -webkit-appearance:none; font-family:;'Outfit', sans-serif; font-size:14px; font-weight:500; cursor:pointer;" aria-label="Paket Adı">
                     <option value="">Lütfen Bekleyin...</option>
                 </select>
                 <div class="flex" style="gap:16px;">
@@ -65,7 +65,7 @@ function injectBookingModal() {
                 <!-- COGNITIVE UPSELL CONTAINER -->
                 <div class="hidden" id="cognitiveUpsellContainer" style="background:rgba(212,175,55,0.05); border:1px solid rgba(212,175,55,0.2); padding:12px; border-radius:6px; margin-bottom:4px; font-family:;'Outfit', sans-serif;"></div>
 
-                <textarea class="w-full text-[#d4af37]" id="bookNotes" rows="3" placeholder="Sistem Mührü" style="padding:14px; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.2); border-radius:6px; outline:none; font-family:;'Courier New', monospace; font-size:12px; resize:none;" aria-label="Mühür / Notlar"></textarea>
+                <textarea class="w-full text-lux-gold" id="bookNotes" rows="3" placeholder="Sistem Mührü" style="padding:14px; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.2); border-radius:6px; outline:none; font-family:;'Courier New', monospace; font-size:12px; resize:none;" aria-label="Mühür / Notlar"></textarea>
                 
                 <textarea id="waPreview" hidden aria-hidden="true"></textarea>
                 
@@ -708,12 +708,12 @@ window.renderCognitiveUpsell = function (serviceId) {
 
         upsellContainer.innerHTML = `
             <div>
-                <div class="text-[#d4af37]" style="font-size:10px; letter-spacing:1px; text-transform:uppercase;">AURELIA ÖNERİYOR (VIP)</div>
+                <div class="text-lux-gold" style="font-size:10px; letter-spacing:1px; text-transform:uppercase;">AURELIA ÖNERİYOR (VIP)</div>
                 <div class="text-white" style="font-size:14px; font-weight:500;">${upsell.label}</div>
             </div>
             <div class="flex" style="text-align:right; align-items:center; gap:12px;">
-                <div class="text-[#d4af37]" style="font-size:14px; font-family:;'Cinzel', serif; font-weight:600;">+€${upsell.price}</div>
-                <input class="cursor-pointer" type="checkbox" id="checkCognitiveUpsell" value="${upsell.label}|${upsell.price}" style="width:20px; height:20px; accent-color:#D4AF37;">
+                <div class="text-lux-gold" style="font-size:14px; font-family:;'Cinzel', serif; font-weight:600;">+€${upsell.price}</div>
+                <input class="cursor-pointer" type="checkbox" id="checkCognitiveUpsell" value="${upsell.label}|${upsell.price}" style="width:20px; height:20px; accent-color:#c6a96b;">
             </div>
         `;
 

@@ -336,7 +336,7 @@ const SHOP = {
                 
                 <!-- Delivery Type Toggle -->
                 <div class="flex" style="gap:10px; margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:15px;">
-                    <button id="btn-hotel" onclick="SHOP.toggleDeliveryType('hotel')" class="text-center lux-chip active" style="flex:1; justify-content:center; background:rgba(212,175,55,0.2); border-color:#d4af37;">
+                    <button id="btn-hotel" onclick="SHOP.toggleDeliveryType('hotel')" class="text-center lux-chip active" style="flex:1; justify-content:center; background:rgba(212,175,55,0.2); border-color:#c6a96b;">
                         🏨 In Hotel
                     </button>
                     <button id="btn-delivery" onclick="SHOP.toggleDeliveryType('delivery')" class="text-center lux-chip" style="flex:1; justify-content:center;">
@@ -389,12 +389,12 @@ const SHOP = {
                         <input class="w-full text-white" type="text" id="cust-notes" placeholder="Gift wrap, allergies, etc." style="padding:10px; background:rgba(255,255,255,0.05); border:1px solid #333; border-radius:6px;">
                     </div>
 
-                    <div class="text-[#d4af37] text-center" style="background:rgba(212,175,55,0.1); padding:10px; border-radius:6px; margin-bottom:20px; font-size:0.85rem;">
+                    <div class="text-lux-gold text-center" style="background:rgba(212,175,55,0.1); padding:10px; border-radius:6px; margin-bottom:20px; font-size:0.85rem;">
                         Total to Pay: <strong id="modal-total">0€</strong>
                         <div style="font-size:0.75rem; color:#aaa; margin-top:4px;">Payment is processed upon confirmation.</div>
                     </div>
 
-                    <button type="submit" class="w-full cursor-pointer btn-submit" style="padding:14px; background:#d4af37; border:none; border-radius:8px; font-weight:bold;">
+                    <button type="submit" class="w-full cursor-pointer btn-submit" style="padding:14px; background:#c6a96b; border:none; border-radius:8px; font-weight:bold;">
                         SEND ORDER (WhatsApp)
                     </button>
                 </form>

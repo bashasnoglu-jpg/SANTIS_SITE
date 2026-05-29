@@ -98,7 +98,7 @@ class SafetyFatigueMonitor {
         prompt.innerHTML = `
             <div class="flex" style="align-items: center; gap: 15px;">
                 <span>High interaction fatigue detected. Enable UI Safemode?</span>
-                <button class="text-[#d4af37] cursor-pointer" id="btn-enable-safemode" style="background: rgba(212, 175, 55, 0.1); border: 1px solid #d4af37; padding: 6px 16px; border-radius: 4px; font-weight: 600; transition: 0.3s; letter-spacing: 0.05em;">OPT IN</button>
+                <button class="text-lux-gold cursor-pointer" id="btn-enable-safemode" style="background: rgba(212, 175, 55, 0.1); border: 1px solid #c6a96b; padding: 6px 16px; border-radius: 4px; font-weight: 600; transition: 0.3s; letter-spacing: 0.05em;">OPT IN</button>
             </div>
         `;
         prompt.style.cssText = `

@@ -190,7 +190,7 @@ class HamamHybridRenderer {
             const dur = item.duration ? item.duration + ' DK.' : '30 DK. EXPRESS';
 
             html += `
-            <div class="hamam-item matrix-service-card" data-item='${dataPayload}' style="flex-shrink: 0; scroll-snap-align: start; width: 480px; height: 620px; border-radius: 20px; overflow: hidden; border: ${isPriority ? '2px solid #d4af37' : '2px solid transparent'}; position: relative; background: #080808; cursor: pointer; opacity: 0; animation: fadeIn 0.5s ease forwards ${idx * 0.1}s; display: flex; flex-direction: column; justify-content: flex-end; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div class="hamam-item matrix-service-card" data-item='${dataPayload}' style="flex-shrink: 0; scroll-snap-align: start; width: 480px; height: 620px; border-radius: 20px; overflow: hidden; border: ${isPriority ? '2px solid #c6a96b' : '2px solid transparent'}; position: relative; background: #080808; cursor: pointer; opacity: 0; animation: fadeIn 0.5s ease forwards ${idx * 0.1}s; display: flex; flex-direction: column; justify-content: flex-end; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
                 <img class="top-0 w-full sv-cover" src="${imagePath}" alt="${trContent.title}" style="position: absolute; left:0; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); z-index: 0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 <div class="top-0 w-full card-gradient" style="position: absolute; left:0; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(5,5,5,0.98) 100%); z-index: 1;"></div>
                 
@@ -200,7 +200,7 @@ class HamamHybridRenderer {
                 </div>` : ''}
 
                 <div class="relative flex w-full" style="z-index: 2; padding: 40px 32px; flex-direction: column; gap: 12px;">
-                    <span class="sv-subtitle" style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #d4af37; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;">${dur} RİTÜELİ</span>
+                    <span class="sv-subtitle" style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #c6a96b; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;">${dur} RİTÜELİ</span>
                     <h3 class="sv-title" style="font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #fff; margin:0; line-height: 1.1; font-weight: 400;">${trContent.title}</h3>
                     <p class="sv-desc" style="font-family: 'Inter', sans-serif; font-size: 1.05rem; color: rgba(255,255,255,0.6); margin:0; line-height: 1.5; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${shortDesc}</p>
                     
@@ -218,7 +218,7 @@ class HamamHybridRenderer {
                         </div>
                         <div class="flex" style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; flex-direction: column; gap: 6px;">
                             <span style="color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Yatırım</span>
-                            <span class="text-[#d4af37] sv-price" style="font-size: 1.1rem; font-family:;'Inter', sans-serif; font-weight: 500;">${price > 0 ? price + ' €' : 'Özel'}</span>
+                            <span class="text-lux-gold sv-price" style="font-size: 1.1rem; font-family:;'Inter', sans-serif; font-weight: 500;">${price > 0 ? price + ' €' : 'Özel'}</span>
                         </div>
                     </div>
                 </div>
@@ -300,7 +300,7 @@ class HamamHybridRenderer {
                 <div class="top-0 w-full card-gradient" style="position: absolute; left:0; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(5,5,5,0.98) 100%); z-index: 1;"></div>
                 
                 <div class="relative flex w-full" style="z-index: 2; padding: 40px 32px; flex-direction: column; gap: 12px;">
-                    <span class="sv-subtitle" style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #d4af37; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;">SPA RİTÜELİ</span>
+                    <span class="sv-subtitle" style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #c6a96b; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;">SPA RİTÜELİ</span>
                     <h3 class="sv-title" style="font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #fff; margin:0; line-height: 1.1; font-weight: 400;"></h3>
                     <p class="sv-desc" style="font-family: 'Inter', sans-serif; font-size: 1.05rem; color: rgba(255,255,255,0.6); margin:0; line-height: 1.5; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"></p>
                     
@@ -318,7 +318,7 @@ class HamamHybridRenderer {
                         </div>
                         <div class="flex" style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; flex-direction: column; gap: 6px;">
                             <span style="color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Yatırım</span>
-                            <span class="text-[#d4af37] sv-price" style="font-size: 1.1rem; font-family:;'Inter', sans-serif; font-weight: 500;"></span>
+                            <span class="text-lux-gold sv-price" style="font-size: 1.1rem; font-family:;'Inter', sans-serif; font-weight: 500;"></span>
                         </div>
                     </div>
                 </div>
@@ -602,7 +602,7 @@ class HamamHybridRenderer {
                     <h4 style="font-family: 'Playfair Display', serif; color: #fff; margin:0 0 8px 0; font-size: 1.2rem;">${m.title}</h4>
                     <p style="color: rgba(255,255,255,0.6); font-family: 'Inter', sans-serif; font-size: 0.85rem; margin:0 0 16px 0;">${m.desc}</p>
                     <div class="flex" style="justify-content: space-between; align-items: center;">
-                        <span class="text-[#d4af37]" style="font-size: 1.1rem; font-family:;'Inter', sans-serif;">+${m.price} €</span>
+                        <span class="text-lux-gold" style="font-size: 1.1rem; font-family:;'Inter', sans-serif;">+${m.price} €</span>
                         <div class="flex select-indicator" style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); align-items: center; justify-content: center; transition: all 0.3s ease;"></div>
                     </div>
                 </div>

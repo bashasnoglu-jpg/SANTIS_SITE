@@ -67,7 +67,7 @@ class AureliaConcierge {
                         <div class="flex aurelia-identity" style="align-items:center; gap:12px;">
                             <div class="aurelia-status-dot" id="aurelia-pulse" style="width:8px; height:8px; background:#D4AF37; border-radius:50%; box-shadow:0 0 10px #D4AF37;"></div>
                             <div>
-                                <div class="text-[#d4af37] aurelia-title" style="font-family:monospace; font-size:14px; font-weight:bold; letter-spacing:2px; text-transform:uppercase;">Aurelia AI</div>
+                                <div class="text-lux-gold aurelia-title" style="font-family:monospace; font-size:14px; font-weight:bold; letter-spacing:2px; text-transform:uppercase;">Aurelia AI</div>
                                 <div class="aurelia-subtitle" style="color:#888; font-family:monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase;">Sovereign Interceptor</div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@ class AureliaConcierge {
                     
                     <div class="text-center aurelia-body" id="aurelia-text-container" style="min-height:100px; padding:20px 0;">
                         <span class="text-white" id="aurelia-text" style="font-size:18px; font-weight:300; line-height:1.6; letter-spacing:0.5px;"></span>
-                        <span class="aurelia-cursor" id="aurelia-cursor" style="display:inline-block; width:6px; height:18px; background:#D4AF37; margin-left:8px; vertical-align:middle; animation:pulse 1s infinite alternate;"></span>
+                        <span class="aurelia-cursor" id="aurelia-cursor" style="display:inline-block; width:6px; height:18px; background:#c6a96b; margin-left:8px; vertical-align:middle; animation:pulse 1s infinite alternate;"></span>
                     </div>
                     
                     <div class="flex aurelia-actions" style="gap:16px; margin-top:20px;">
