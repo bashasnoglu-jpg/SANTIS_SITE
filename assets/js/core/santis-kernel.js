@@ -302,7 +302,7 @@ function showSovereignUpdateToast(newWorker) {
     }
 
     toast.innerHTML = `
-        <span style="display:block; width:5px; height:5px; background:#D4AF37; border-radius:50%; animation: santisPulse 2s infinite;"></span>
+        <span style="display:block; width:5px; height:5px; background:#c6a96b; border-radius:50%; animation: santisPulse 2s infinite;"></span>
         <span>AĞ GÜNCELLENDİ ▪ TIKLAYIN</span>
     `;
 

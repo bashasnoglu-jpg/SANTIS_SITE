@@ -175,7 +175,7 @@ class SantisRitualUIOrchestrator {
                 // Swap content with a subtle fade
                 strip.innerHTML = `
                     <div style="text-align: center; width: 100%; padding: 10px 0; animation: fade-in 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;">
-                        <h3 style="margin:0 0 8px 0; font-family:'Playfair Display', serif; font-size:1.6rem; color:#d4af37;">Santis Concierge Bilgilendirildi</h3>
+                        <h3 style="margin:0 0 8px 0; font-family:'Playfair Display', serif; font-size:1.6rem; color:#c6a96b;">Santis Concierge Bilgilendirildi</h3>
                         <p style="margin:0; font-family:'Inter', sans-serif; font-size:0.95rem; color:rgba(255,255,255,0.7);">Seçiminiz rezerve edildi. Kişisel asistanınız sizinle iletişime geçiyor.</p>
                     </div>
                 `;
@@ -203,7 +203,7 @@ class SantisRitualUIOrchestrator {
         return `
             <div class="santis-bento-card visual-slotted santis-reveal-item" style="background:#0a0a0a; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 24px; display: flex; flex-direction: column;">
                 <div style="flex:1;">
-                    <span style="font-family:'Inter', sans-serif; font-size:0.75rem; color:#d4af37; text-transform:uppercase; letter-spacing:1px;">${ritual.tier} TIER</span>
+                    <span style="font-family:'Inter', sans-serif; font-size:0.75rem; color:#c6a96b; text-transform:uppercase; letter-spacing:1px;">${ritual.tier} TIER</span>
                     <h3 style="font-family:'Playfair Display', serif; font-size:1.6rem; margin:12px 0 8px; color:#fff;">${ritual.title}</h3>
                     <p style="font-family:'Inter', sans-serif; font-size:0.9rem; color:rgba(255,255,255,0.6); line-height:1.5;">${ritual.summary}</p>
                     <div style="margin-top:16px; font-family:'Inter', sans-serif; font-size:0.85rem; color:#fff;">
@@ -293,7 +293,7 @@ class SantisRitualUIOrchestrator {
             <div class="santis-bento-card visual-slotted santis-reveal-item" style="background:#0a0a0a; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 24px; display: flex; flex-direction: column;">
                 <div style="flex:1;">
                     <h3 style="font-family:'Playfair Display', serif; font-size:1.6rem; margin:12px 0 8px; color:#fff;">${item.name}</h3>
-                    <div style="font-family:'Inter', sans-serif; font-size:0.85rem; color:#d4af37; letter-spacing:1px; margin-bottom: 12px;">
+                    <div style="font-family:'Inter', sans-serif; font-size:0.85rem; color:#c6a96b; letter-spacing:1px; margin-bottom: 12px;">
                         ${item.duration_info} &nbsp;|&nbsp; 💶 €${item.price}
                     </div>
                     ${item.description ? `<p style="font-family:'Inter', sans-serif; font-size:0.9rem; color:rgba(255,255,255,0.6); line-height:1.5;">${item.description}</p>` : ''}

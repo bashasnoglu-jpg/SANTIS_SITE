@@ -82,7 +82,7 @@ window.BoutiqueQuickView = {
                 <div style="flex:1;padding:${isMobile ? '2rem 1.5rem' : '3rem 2.5rem'};
                      display:flex;flex-direction:column;justify-content:center;overflow-y:auto;">
                     ${scarcityHtml}
-                    <p style="font-size:10px;letter-spacing:0.3em;color:#D4AF37;text-transform:uppercase;
+                    <p style="font-size:10px;letter-spacing:0.3em;color:#c6a96b;text-transform:uppercase;
                        margin-bottom:0.5rem;font-weight:600;">${category}</p>
                     <h2 style="font-size:${isMobile ? '1.5rem' : '2rem'};font-family:serif;color:#fff;
                        line-height:1.2;margin-bottom:1rem;">${title}</h2>
@@ -90,7 +90,7 @@ window.BoutiqueQuickView = {
                         ${desc}
                     </p>
                     <div style="margin-top:auto;">
-                        <div style="font-size:1.5rem;color:#D4AF37;font-weight:500;letter-spacing:0.05em;
+                        <div style="font-size:1.5rem;color:#c6a96b;font-weight:500;letter-spacing:0.05em;
                              margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.06);">
                             ${priceStr}
                         </div>

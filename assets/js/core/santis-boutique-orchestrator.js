@@ -80,7 +80,7 @@ class SantisBoutiqueOrchestrator {
                             <h3>${item.title}</h3>
                             <p class="card-headline" style="font-size:0.8rem; color:#888; margin-top:5px; margin-bottom:15px; font-style:italic;">${item.headline}</p>
                             <div class="card-action-bar" style="display:flex; justify-content:space-between; align-items:center;">
-                                <span class="crypto-price" style="color:#d4af37; font-family: var(--font-primary);">€${item.price}</span>
+                                <span class="crypto-price" style="color:#c6a96b; font-family: var(--font-primary);">€${item.price}</span>
                                 <button class="santis-btn-ghost" style="font-size:0.75rem;">Ritüeli Edin</button>
                             </div>
                         </div>

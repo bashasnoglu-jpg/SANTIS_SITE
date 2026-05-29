@@ -99,7 +99,7 @@ class SantisSovereignVault {
                 if(response) response.style.opacity = '0';
 
                 setTimeout(() => {
-                    waveform.innerHTML = `<span style="font-family:'Cinzel', serif; font-size:0.75rem; color:#D4AF37; letter-spacing:0.3em; filter:blur(10px); opacity:0; transition:all 1.5s ease;" id="sealed-text">MÜHÜRLENDİ</span>`;
+                    waveform.innerHTML = `<span style="font-family:'Cinzel', serif; font-size:0.75rem; color:#c6a96b; letter-spacing:0.3em; filter:blur(10px); opacity:0; transition:all 1.5s ease;" id="sealed-text">MÜHÜRLENDİ</span>`;
                     
                     setTimeout(() => {
                         const sealed = document.getElementById('sealed-text');
