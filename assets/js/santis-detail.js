@@ -11,7 +11,7 @@ const CinematicEngine = {
         console.log("🎬 [Cinematic Engine] Booting System...");
 
         // 1. Hydrate Data
-        const ritualId = window.RITUAL_ID;
+        const ritualId = document.querySelector('meta[name="santis:ritual-id"]')?.content || window.RITUAL_ID;
         if (!ritualId) {
             console.error("❌ Fatal: No RITUAL_ID injected.");
             return;
@@ -51,7 +51,7 @@ const CinematicEngine = {
         // 1. Build Hero
         let html = `
             <div class="hero-section min-h-screen flex flex-col items-center justify-center text-center w-full z-10 -mt-32">
-                <span class="inline-block px-3 py-1 bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-[10px] uppercase tracking-[5px] rounded-full mb-6 opacity-0 translate-y-4 gsap-hero-element">${data.category}</span>
+                <span class="inline-block px-3 py-1 bg-lux-gold/10 border border-lux-gold/30 text-lux-gold text-[10px] uppercase tracking-[5px] rounded-full mb-6 opacity-0 translate-y-4 gsap-hero-element">${data.category}</span>
                 <h1 class="text-5xl md:text-8xl font-serif text-white tracking-wide italic mb-4 gsap-hero-element opacity-0 translate-y-8 drop-shadow-2xl">${data.title}</h1>
                 <p class="font-sans text-lg md:text-xl text-gray-300 font-light max-w-2xl gsap-hero-element opacity-0 translate-y-4">${data.subtitle}</p>
                 <div class="mt-16 w-[1px] h-24 bg-gradient-to-b from-white/50 to-transparent mx-auto gsap-hero-element opacity-0"></div>
@@ -67,12 +67,12 @@ const CinematicEngine = {
                 html += `
                     <div class="timeline-item flex flex-col md:flex-row items-center gap-8 md:gap-16 w-full ${isLeft ? '' : 'md:flex-row-reverse'} opacity-0 translate-y-16">
                         <div class="flex-1 flex flex-col ${isLeft ? 'md:items-end text-left md:text-right' : 'md:items-start text-left'}">
-                            <span class="font-mono text-[#D4AF37] text-xl tracking-widest mb-2">${step.time}</span>
+                            <span class="font-mono text-lux-gold text-xl tracking-widest mb-2">${step.time}</span>
                             <h3 class="font-serif italic text-3xl md:text-5xl text-white tracking-wide mb-4">${step.title}</h3>
                             <p class="text-gray-400 font-sans text-sm md:text-base font-light max-w-sm">${step.description}</p>
                         </div>
                         <div class="hidden md:flex w-24 h-[1px] bg-white/10 relative">
-                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full border border-[#D4AF37] ${idx === data.timeline.length - 1 ? 'bg-[#D4AF37] shadow-[0_0_20px_#D4AF37]' : 'bg-[#111]'}"></div>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full border border-lux-gold ${idx === data.timeline.length - 1 ? 'bg-lux-gold shadow-[0_0_20px_#D4AF37]' : 'bg-[#111]'}"></div>
                         </div>
                         <div class="flex-1"></div>
                     </div>

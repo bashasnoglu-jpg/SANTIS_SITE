@@ -2,31 +2,12 @@
 
 <html lang="tr">
 <head>
-<script>
-if (window.location.protocol === 'file:') {
-  const normalizedPath = window.location.pathname.replace(/\\/g, '/');
-  const marker = '/santis_site/';
-  const markerIndex = normalizedPath.toLowerCase().lastIndexOf(marker);
-  const routePath = markerIndex >= 0
-    ? normalizedPath.slice(markerIndex + marker.length - 1)
-    : '/tr/index.html';
+<script src="/assets/js/santis-dev-check.js" async></script>
+<!-- MODULE PRELOADS -->
+<link rel="modulepreload" href="/assets/js/core/santis-runtime-resolver.js" />
+<link rel="modulepreload" href="/assets/js/santis-config.js" />
+<link rel="modulepreload" href="/assets/js/api-client.js" />
 
-  window.location.replace(`http://127.0.0.1:5500${routePath}${window.location.search}${window.location.hash}`);
-}
-
-if (['127.0.0.1', 'localhost'].includes(window.location.hostname)) {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations()
-      .then((registrations) => registrations.forEach((registration) => registration.unregister()))
-      .catch(() => {});
-  }
-  if ('caches' in window) {
-    caches.keys()
-      .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
-      .catch(() => {});
-  }
-}
-</script>
 <script src="/assets/js/core/santis-runtime-resolver.js" type="module"></script>
 <script src="/assets/js/santis-config.js" type="module"></script>
 <script src="/assets/js/api-client.js" type="module"></script>
@@ -150,14 +131,6 @@ html { font-display: optional; }
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type": "Question", "name": "Masaj seansı ne kadar sürer?", "acceptedAnswer": {"@type": "Answer", "text": "Masaj seanslarımız 30 ile 90 dakika arasında sürer. Süre seçilen terapiye bağlıdır."}},{"@type": "Question", "name": "Masaj öncesi ne yapmalıyım?", "acceptedAnswer": {"@type": "Answer", "text": "Bir saat önce ağır yemek yememenizi ve bol su içmenizi öneririz. Lütfen 15 dakika erken gelin."}},{"@type": "Question", "name": "Bana hangi masaj türü uygun?", "acceptedAnswer": {"@type": "Answer", "text": "Terapistlerimiz ilk görüşmede ihtiyaçlarınızı değerlendirir ve en uygun masajı önerir."}}]}</script>
 <!-- SCHEMA: HealthAndBeautyBusiness -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"HealthAndBeautyBusiness","name":"Santis Club Spa & Wellness","url":"https://santis.club","telephone":"+905348350169","address":{"@type":"PostalAddress","streetAddress":"Çolaklı Mah.","addressLocality":"Manavgat","addressRegion":"Antalya","postalCode":"07600","addressCountry":"TR"},"geo":{"@type":"GeoCoordinates","latitude":"36.7633","longitude":"31.3864"},"priceRange":"€€€","openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"09:00","closes":"22:00"}}</script>
-<!-- HREFLANG CLUSTER SYNC & SOVEREIGN SEO ARMOR -->
-<link href="https://santis.club/tr/" id="santis-canonical" rel="canonical"/>
-<link href="https://santis.club/tr/" hreflang="tr" rel="alternate"/>
-<link href="https://santis.club/ru/" hreflang="ru" rel="alternate"/>
-<link href="https://santis.club/de/" hreflang="de" rel="alternate"/>
-<link href="https://santis.club/ar/" hreflang="ar" rel="alternate"/>
-<link href="https://santis.club/fr/" hreflang="fr" rel="alternate"/>
-<link href="https://santis.club/" hreflang="x-default" rel="alternate"/>
 <!-- RUM: Core Web Vitals Gözlemcisi -->
 <script async="" src="/assets/js/santis-vitals.js" type="module"></script>
 <script type="speculationrules">
@@ -178,7 +151,7 @@ html { font-display: optional; }
 }
 </script>
 <link href="/assets/css/nav-final.css?v=nav-3a6f8730" rel="stylesheet"/>
-</meta></head>
+</head>
 <body class="santis-cinematic-lock">
 <!-- Page Overlay for Cinematic Transitions -->
 <div class="page-overlay"></div>
@@ -865,10 +838,10 @@ html { font-display: optional; }
 </script>
 <script defer="" src="/assets/js/core/santis-lang.js" type="module"></script>
 <script defer="" src="/assets/js/core/santis-core.js" type="module"></script>
-<script src="/assets/js/modules/santis-revenue-tracker.js" type="module"></script>
-<script src="/assets/js/modules/santis-booking-funnel.js" type="module"></script>
+<script defer src="/assets/js/modules/santis-revenue-tracker.js" type="module"></script>
+<script defer src="/assets/js/modules/santis-booking-funnel.js" type="module"></script>
 <script defer="" src="/assets/js/modules/santis-liquid-reveal.js" type="module"></script>
-<script src="/assets/js/test-ai-integration.js" type="module"></script>
+<script defer src="/assets/js/test-ai-integration.js" type="module"></script>
 <!-- Phase 42(B): Real-Time Art Director Personalization -->
 <script defer="" src="/assets/js/core/santis-art-director-client.js" type="module"></script>
 <!-- Phase 43/44: Predictive Orchestration (Kinematic Radar) -->

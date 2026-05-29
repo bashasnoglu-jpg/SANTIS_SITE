@@ -102,7 +102,7 @@ let currentBookingState = {
 window.legacyTriggerSovereignCheckout = function (cardId) {
     if (!cardId) return;
 
-    const ritualId = window.RITUAL_ID || cardId.replace('sig-card-', '').replace('hammam-card-', '').replace('therapy-card-', '');
+    const ritualId = document.querySelector('meta[name="santis:ritual-id"]')?.content || window.RITUAL_ID || cardId.replace('sig-card-', '').replace('hammam-card-', '').replace('therapy-card-', '');
     console.log(`🔒 [MATRIX INITIATED] Sovereign Ağ Geçidi Açılıyor: ${ritualId}`);
 
     let targetPrice = 150;
