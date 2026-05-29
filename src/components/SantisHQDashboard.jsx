@@ -64,12 +64,12 @@ export default function SantisHQDashboard() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white p-8 font-sans selection:bg-[#D4AF37] selection:text-black">
+    <div className="min-h-screen bg-[#050505] text-white p-8 font-sans selection:bg-lux-gold selection:text-black">
       
       {/* HEADER: Saat ve Operasyon Özeti */}
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 border-b border-[#D4AF37]/20 pb-6 gap-4">
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 border-b border-lux-gold/20 pb-6 gap-4">
         <div>
-          <h1 className="text-3xl font-light tracking-widest text-[#D4AF37] uppercase">Santis HQ</h1>
+          <h1 className="text-3xl font-light tracking-widest text-lux-gold uppercase">Santis HQ</h1>
           <p className="text-sm text-gray-500 font-light mt-1">Canlı Operasyon, Guest DNA ve IoT İzleme Merkezi</p>
         </div>
         <div className="flex items-center gap-6 bg-[#0f0f11] px-6 py-3 rounded-2xl border border-white/5 shadow-lg">
@@ -92,12 +92,12 @@ export default function SantisHQDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         
         {rooms.map(room => (
-          <div key={room.id} className="bg-[#0f0f11] rounded-2xl border border-white/5 p-6 hover:border-[#D4AF37]/30 transition-all duration-500 relative overflow-hidden group shadow-2xl">
+          <div key={room.id} className="bg-[#0f0f11] rounded-2xl border border-white/5 p-6 hover:border-lux-gold/30 transition-all duration-500 relative overflow-hidden group shadow-2xl">
             
             {/* Arka Plan İlerleme Çubuğu */}
             {room.currentSession.status === 'in_progress' && (
               <div 
-                className="absolute top-0 left-0 h-1 bg-gradient-to-r from-[#D4AF37]/20 to-[#D4AF37] transition-all duration-1000" 
+                className="absolute top-0 left-0 h-1 bg-gradient-to-r from-lux-gold/20 to-lux-gold transition-all duration-1000"
                 style={{ width: `${room.currentSession.progress}%` }}
               ></div>
             )}
@@ -111,7 +111,7 @@ export default function SantisHQDashboard() {
               <div>
                 <h2 className="text-xl font-light text-white flex items-center gap-2">
                   {room.name}
-                  {room.currentSession.status === 'in_progress' && <Sparkles size={14} className="text-[#D4AF37]" />}
+                  {room.currentSession.status === 'in_progress' && <Sparkles size={14} className="text-lux-gold" />}
                 </h2>
                 <div className="flex gap-4 mt-2 text-xs text-gray-500">
                   <span className="flex items-center gap-1"><Thermometer size={12}/> {room.temp} (IoT)</span>
@@ -122,7 +122,7 @@ export default function SantisHQDashboard() {
               {/* Durum Etiketi */}
               <div>
                 {room.currentSession.status === 'in_progress' && (
-                  <span className="px-3 py-1 bg-[#D4AF37]/10 text-[#D4AF37] text-[10px] tracking-widest rounded-full border border-[#D4AF37]/30 uppercase shadow-[0_0_10px_rgba(212,175,55,0.2)]">
+                  <span className="px-3 py-1 bg-lux-gold/10 text-lux-gold text-[10px] tracking-widest rounded-full border border-lux-gold/30 uppercase shadow-[0_0_10px_rgba(212,175,55,0.2)]">
                     Seansta ({room.currentSession.endTime})
                   </span>
                 )}
@@ -144,17 +144,17 @@ export default function SantisHQDashboard() {
               <div className="bg-black/60 rounded-xl p-4 border border-white/5 backdrop-blur-md mt-4">
                 <div className="flex justify-between items-center mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37]">
+                    <div className="w-10 h-10 rounded-full bg-lux-gold/10 flex items-center justify-center text-lux-gold">
                       <User size={18} />
                     </div>
                     <div>
                       <p className="text-sm font-medium text-white/90">{room.currentSession.guest}</p>
-                      <p className="text-[10px] text-[#D4AF37] uppercase tracking-wider">VIP DNA Yüklendi</p>
+                      <p className="text-[10px] text-lux-gold uppercase tracking-wider">VIP DNA Yüklendi</p>
                     </div>
                   </div>
                   
                   {/* Lüks İkram */}
-                  <div className="text-right flex items-center gap-2 text-xs text-[#D4AF37]/80">
+                  <div className="text-right flex items-center gap-2 text-xs text-lux-gold/80">
                     <Coffee size={14} />
                     {room.currentSession.drink} 
                   </div>

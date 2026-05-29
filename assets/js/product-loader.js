@@ -123,7 +123,7 @@ const QuantumDetailAssistant = {
             '<div class="flex text-center" style="min-height:100vh; align-items:center; justify-content:center; padding:2rem;">',
             '  <div>',
             '    <div class="flex" style="width:64px; height:64px; border:1px solid rgba(255,255,255,.1); border-radius:50%; align-items:center; justify-content:center; margin:0 auto 1.5rem; font-size:1.5rem;">🗝️</div>',
-            '    <h1 class="text-[#d4af37]" style="font-family:\;'Cinzel\',serif;font-size:2rem;margin-bottom:1rem">Gizli Formül Aranıyor</h1>',
+            '    <h1 class="text-lux-gold" style="font-family:\;'Cinzel\',serif;font-size:2rem;margin-bottom:1rem">Gizli Formül Aranıyor</h1>',
             '    <p style="color:#888;margin-bottom:2rem">Aradığınız ritüel (' + targetId + ') Sovereign kasasında güncellenmektedir.</p>',
             '    <a class="text-white" href="/urunler/index.html" style="display:inline-block; padding:.875rem 2.5rem; border:1px solid rgba(255,255,255,.15); text-decoration:none; font-size:.75rem; letter-spacing:.2em; text-transform:uppercase; transition:all .3s;" ',
             '       onmouseover="this.style.borderColor=\'#D4AF37\';this.style.color=\'#D4AF37\'" ',

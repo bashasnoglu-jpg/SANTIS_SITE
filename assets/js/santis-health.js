@@ -72,7 +72,7 @@ class SantisHealth {
             <!-- ORACLE (Decision) -->
             <div style="margin-bottom: 10px;">
                 <div style="color: #aaa;">🔮 ORACLE (Prophecy)</div>
-                <div class="text-[#d4af37]" id="hud-oracle-latest" style="margin-top: 2px;">Waiting for vision...</div>
+                <div class="text-lux-gold" id="hud-oracle-latest" style="margin-top: 2px;">Waiting for vision...</div>
                 <div id="hud-oracle-reason" style="color: #666; font-style: italic;">...</div>
             </div>
 

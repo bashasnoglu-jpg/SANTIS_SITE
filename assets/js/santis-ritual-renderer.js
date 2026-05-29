@@ -105,7 +105,7 @@ export class SovereignRitualRenderer {
                          width="280" height="350" style="height:350px; object-fit:cover; border-radius:4px;">
                     <div style="padding:.75rem 0">
                         <h3 class="text-white" style="font-size:.9rem; margin-bottom:.25rem;">${item.title || item.name}</h3>
-                        <span class="text-[#d4af37]" style="font-size:.8rem;">${item.price_eur ? '€' + item.price_eur : 'VIP'}</span>
+                        <span class="text-lux-gold" style="font-size:.8rem;">${item.price_eur ? '€' + item.price_eur : 'VIP'}</span>
                     </div>`;
                 setTimeout(() => container.appendChild(card), i * 30);
             });
@@ -161,9 +161,9 @@ export class SovereignRitualRenderer {
                     <img class="top-0 w-full" src="${img}" alt="${title}" style="position:absolute; left:0; height:100%; object-fit:cover;" loading="lazy">
                     <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.1) 60%);"></div>
                     <div style="position:absolute;bottom:0;left:0;right:0;padding:1.5rem;">
-                        <p class="text-[#d4af37]" style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:0.25rem;">${(item.category || 'Hammam').toUpperCase()}</p>
+                        <p class="text-lux-gold" style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:0.25rem;">${(item.category || 'Hammam').toUpperCase()}</p>
                         <h3 style="color:white;font-family:serif;font-size:1.1rem;line-height:1.3;margin-bottom:0.5rem;">${title}</h3>
-                        <span class="text-[#d4af37]" style="font-size:0.85rem; font-weight:500;">${price}</span>
+                        <span class="text-lux-gold" style="font-size:0.85rem; font-weight:500;">${price}</span>
                     </div>
                 `;
                 container.appendChild(card);

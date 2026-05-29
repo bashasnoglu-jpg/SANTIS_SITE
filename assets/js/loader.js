@@ -190,7 +190,7 @@ if (window.__NV_LOADER_LOADED) { /* already loaded, skip */ } else {
             }
     
             targetEl.innerHTML = `
-                <div class="text-[#d4af37] text-center" style="padding:10px; border-bottom:1px solid #333; font-size:11px;">
+                <div class="text-lux-gold text-center" style="padding:10px; border-bottom:1px solid #333; font-size:11px;">
                     ⚠️ <strong>Server Required</strong>: For full features, run 'BASLAT.bat'. (Viewing in Basic Mode)
                 </div>`;
             return;

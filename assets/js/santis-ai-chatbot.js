@@ -335,7 +335,7 @@
             bodyEl.removeChild(tMsg);
             const err = document.createElement('div');
             err.className = 'sc-msg bot';
-            err.innerHTML = "Sistem şu an meşgul. İletişim için: <a class="text-[#d4af37]" href='https://wa.me/905348350169' target='_blank' style='text-decoration: underline;'>WhatsApp üzerinden yazın</a>";
+            err.innerHTML = "Sistem şu an meşgul. İletişim için: <a class="text-lux-gold" href='https://wa.me/905348350169' target='_blank' style='text-decoration: underline;'>WhatsApp üzerinden yazın</a>";
             bodyEl.appendChild(err);
             bodyEl.scrollTop = bodyEl.scrollHeight;
         }
