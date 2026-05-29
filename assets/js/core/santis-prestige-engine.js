@@ -112,7 +112,7 @@ class SantisPrestigeGlassCanvas {
             const style = document.createElement('style');
             style.id = 'santis-obsidian-style';
             style.innerHTML = `
-                :root { --santis-bg: #09090b !important; --santis-text: #e5e5e5 !important; --santis-gold: #D4AF37 !important; }
+                :root { --santis-bg: #09090b !important; --santis-text: #e5e5e5 !important; --santis-gold: #c6a96b !important; }
                 body.santis-obsidian { background-color: var(--santis-bg) !important; color: var(--santis-text) !important; font-weight: 300 !important; }
                 body.santis-obsidian h1, body.santis-obsidian h2, body.santis-obsidian h3 { color: #f3f4f6 !important; font-weight: 300 !important; }
                 .santis-obsidian .bento-card-v6 { background: rgba(255,255,255,0.02) !important; border: 1px solid rgba(212,175,55,0.1) !important; }
@@ -133,7 +133,7 @@ class SantisPrestigeGlassCanvas {
                 card.id = 'vip-reserve-card';
                 card.className = 'bento-card-v6 vip-revealed';
                 card.style.cssText = 'grid-column:span 2; border:1px solid rgba(212,175,55,0.5) !important;';
-                card.innerHTML = `<div class="text-center" style="padding:2rem;"><span class="text-[#d4af37]" style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.2em;">Private Reserves</span><h3 style="font-family:'Cinzel',serif; font-size:1.8rem; margin:10px 0; color:#fff;">Sovereign Estates</h3><p style="color:#a0a0a0; font-size: 0.9rem; font-weight: 300;">Yalnızca davetiye ile erişilebilen usta işi dokunuşlar.</p></div>`;
+                card.innerHTML = `<div class="text-center" style="padding:2rem;"><span class="text-lux-gold" style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.2em;">Private Reserves</span><h3 style="font-family:'Cinzel',serif; font-size:1.8rem; margin:10px 0; color:#fff;">Sovereign Estates</h3><p style="color:#a0a0a0; font-size: 0.9rem; font-weight: 300;">Yalnızca davetiye ile erişilebilen usta işi dokunuşlar.</p></div>`;
                 grid.appendChild(card);
             }
             

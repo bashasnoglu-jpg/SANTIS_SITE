@@ -52,7 +52,7 @@ class MorphInjector {
                         </div>
                         <h3 class="bento-title" style="margin-top: 1rem; font-family: 'Playfair Display', serif; font-size: 1.5rem;">${rec.title}</h3>
                         <p style="color: #666; font-size: 0.9rem; line-height: 1.5;">${rec.description}</p>
-                        <span class="text-[#d4af37]" style="display: inline-block; margin-top: 1rem; font-weight: bold;">${rec.price}</span>
+                        <span class="text-lux-gold" style="display: inline-block; margin-top: 1rem; font-weight: bold;">${rec.price}</span>
                     </a>
                 </div>
             </div>

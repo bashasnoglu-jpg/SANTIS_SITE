@@ -15,12 +15,12 @@ export default function DetoxJourneyCard({ isUserLoggedIn }) {
 
   return (
     // CAM EFEKTİ (Glassmorphism) KAPSAYICI - Deep Charcoal & Gold
-    <div className="relative w-full max-w-md p-8 overflow-hidden rounded-3xl bg-[#121214]/80 backdrop-blur-xl border border-[#D4AF37]/30 shadow-2xl transition-all duration-500 hover:border-[#D4AF37]/60">
+    <div className="relative w-full max-w-md p-8 overflow-hidden rounded-3xl bg-[#121214]/80 backdrop-blur-xl border border-lux-gold/30 shadow-2xl transition-all duration-500 hover:border-lux-gold/60">
       
       <div className="flex justify-between items-center mb-6">
-        <span className="text-xs font-light tracking-widest text-[#D4AF37] uppercase">İmza Koleksiyon</span>
+        <span className="text-xs font-light tracking-widest text-lux-gold uppercase">İmza Koleksiyon</span>
         {isUserLoggedIn && (
-           <span className="px-3 py-1 bg-[#D4AF37]/10 text-[#D4AF37] text-[10px] rounded-full border border-[#D4AF37]/30">VIP ÜYE</span>
+           <span className="px-3 py-1 bg-lux-gold/10 text-lux-gold text-[10px] rounded-full border border-lux-gold/30">VIP ÜYE</span>
         )}
       </div>
 
@@ -42,14 +42,14 @@ export default function DetoxJourneyCard({ isUserLoggedIn }) {
           {/* ÜYE DEĞİLSE HAVUCU GÖSTER (FOMO) */}
           {!isUserLoggedIn ? (
             <div className="text-right">
-              <button className="text-[11px] uppercase tracking-wider text-[#D4AF37] hover:text-white transition-colors border-b border-[#D4AF37]/30 pb-0.5">
+              <button className="text-[11px] uppercase tracking-wider text-lux-gold hover:text-white transition-colors border-b border-lux-gold/30 pb-0.5">
                 Santis Club'a Katıl
               </button>
               <p className="text-[10px] text-gray-400 mt-1">Ekstra %5 indirimle <strong>€218</strong> öde</p>
             </div>
           ) : (
              <div className="text-right">
-               <p className="text-xs text-[#D4AF37] mt-1">✨ %15 Paket + %5 VIP İndirimi</p>
+               <p className="text-xs text-lux-gold mt-1">✨ %15 Paket + %5 VIP İndirimi</p>
              </div>
           )}
         </div>
@@ -61,7 +61,7 @@ export default function DetoxJourneyCard({ isUserLoggedIn }) {
         disabled={status !== "idle"}
         className={`w-full py-4 rounded-xl font-medium tracking-wide transition-all duration-300 flex justify-center items-center gap-2 text-sm
           ${status === "locked" ? "bg-emerald-900/80 text-emerald-200 border border-emerald-500/50" : 
-            "bg-gradient-to-r from-[#D4AF37] to-[#B08D28] text-black hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]"}`}
+            "bg-gradient-to-r from-lux-gold to-[#B08D28] text-black hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]"}`}
       >
         {status === "locking" ? "SİSTEM KİLİTLENİYOR..." : 
          status === "locked" ? "✓ YERİNİZ AYRILDI (10 DK)" : "HEMEN REZERVE ET"}

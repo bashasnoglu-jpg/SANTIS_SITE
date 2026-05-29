@@ -95,8 +95,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const isApex = targetName.toLowerCase().includes('ottoman') || targetName.toLowerCase().includes('apex');
 
         // Apex ise Altın Taç, diğerleri ise Kırmızı Balina Alarmı
-        const borderColor = isApex ? 'border-[#D4AF37]' : 'border-red-500';
-        const textColor = isApex ? 'text-[#D4AF37]' : 'text-red-500';
+        const borderColor = isApex ? 'border-lux-gold' : 'border-red-500';
+        const textColor = isApex ? 'text-lux-gold' : 'text-red-500';
         const icon = isApex ? '👑' : '🐋';
 
         entry.className = `radar-event p-3 rounded border-l-2 ${borderColor} flex justify-between items-center shrink-0 mb-1`;
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const targetName = data.target || 'Sovereign Ayrıcalığı';
         const price = data.price || 0;
 
-        entry.className = `radar-event p-3 rounded border-l-4 border-[#D4AF37] flex justify-between items-center shrink-0 mb-1 bg-[#D4AF37]/10`;
+        entry.className = `radar-event p-3 rounded border-l-4 border-lux-gold flex justify-between items-center shrink-0 mb-1 bg-lux-gold/10`;
 
         const time = new Date().toLocaleTimeString('en-GB', { hour12: false });
 
@@ -167,12 +167,12 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="flex items-center gap-3">
                 <span class="text-2xl drop-shadow-[0_0_12px_rgba(212,175,55,0.8)]">💳</span>
                 <div class="flex flex-col">
-                    <span class="text-[8px] font-mono text-[#D4AF37] tracking-widest">[${time}] REVENUE STRIKE</span>
+                    <span class="text-[8px] font-mono text-lux-gold tracking-widest">[${time}] REVENUE STRIKE</span>
                     <span class="text-sm font-bold text-white uppercase tracking-widest drop-shadow-[0_0_8px_currentColor]">${targetName.replace('-', ' ')}</span>
                 </div>
             </div>
             <div class="text-right">
-                <span class="text-xl font-mono font-bold text-[#D4AF37] drop-shadow-[0_0_8px_rgba(212,175,55,0.8)]">+${price} €</span>
+                <span class="text-xl font-mono font-bold text-lux-gold drop-shadow-[0_0_8px_rgba(212,175,55,0.8)]">+${price} €</span>
             </div>
         `;
 

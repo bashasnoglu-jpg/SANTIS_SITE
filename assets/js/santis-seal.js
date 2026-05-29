@@ -244,12 +244,12 @@ function generateMatrixDates() {
 
         const btn = document.createElement('button');
         btn.className = `flex-shrink-0 w-20 p-4 rounded-2xl border transition-all duration-300 flex flex-col items-center justify-center gap-2 group outline-none
-            ${isToday ? 'border-[#D4AF37]/50 bg-[#D4AF37]/10' : 'border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10'}`;
+            ${isToday ? 'border-lux-gold/50 bg-lux-gold/10' : 'border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10'}`;
         btn.dataset.date = fullDateStr;
         btn.onclick = () => selectMatrixDate(btn, fullDateStr);
 
         btn.innerHTML = `
-            <span class="text-[9px] uppercase tracking-widest ${isToday ? 'text-[#D4AF37]' : 'text-gray-500 group-hover:text-gray-300 transition-colors'}">${dayName}</span>
+            <span class="text-[9px] uppercase tracking-widest ${isToday ? 'text-lux-gold' : 'text-gray-500 group-hover:text-gray-300 transition-colors'}">${dayName}</span>
             <span class="text-2xl font-serif text-white">${dateNum}</span>
         `;
         fragment.appendChild(btn);
@@ -269,21 +269,21 @@ function selectMatrixDate(btn, dateStr) {
     requestAnimationFrame(() => {
         const allBtns = document.getElementById('matrix-dates').querySelectorAll('button');
         allBtns.forEach(b => {
-            b.classList.remove('border-[#D4AF37]', 'bg-[#D4AF37]/20');
+            b.classList.remove('border-lux-gold', 'bg-lux-gold/20');
             b.classList.add('border-white/10', 'bg-white/5');
             const label = b.querySelector('span:first-child');
             if (label && label.innerText !== 'TODAY') {
-                label.classList.remove('text-[#D4AF37]');
+                label.classList.remove('text-lux-gold');
                 label.classList.add('text-gray-500');
             }
         });
 
         btn.classList.remove('border-white/10', 'bg-white/5');
-        btn.classList.add('border-[#D4AF37]', 'bg-[#D4AF37]/20');
+        btn.classList.add('border-lux-gold', 'bg-lux-gold/20');
         const activeLabel = btn.querySelector('span:first-child');
         if (activeLabel && activeLabel.innerText !== 'TODAY') {
             activeLabel.classList.remove('text-gray-500');
-            activeLabel.classList.add('text-[#D4AF37]');
+            activeLabel.classList.add('text-lux-gold');
         }
     });
 
@@ -394,7 +394,7 @@ function initiateSovereignLock() {
     setTimeout(() => {
         requestAnimationFrame(() => {
             lockBtn.classList.remove('bg-white', 'text-black');
-            lockBtn.classList.add('bg-[#D4AF37]', 'text-black', 'border-[#D4AF37]');
+            lockBtn.classList.add('bg-lux-gold', 'text-black', 'border-lux-gold');
 
             lockBtn.innerHTML = `
                 <div class="flex items-center gap-3 justify-center text-black">
@@ -444,12 +444,12 @@ async function executePhase68Checkout() {
 
         const overlayHtml = `
             <div id="sovereign-seal-overlay" class="fixed inset-0 z-[9999] bg-[#050505]/85 backdrop-blur-2xl transition-opacity duration-[800ms] flex flex-col items-center justify-center pointer-events-auto" style="opacity: 1; transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);">
-                <div class="w-24 h-24 rounded-full bg-[#D4AF37]/5 flex items-center justify-center border border-[#D4AF37]/30 shadow-[0_0_50px_rgba(212,175,55,0.2)] mb-8 relative">
-                    <span class="absolute inset-0 rounded-full border border-[#D4AF37]/40 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite] opacity-20"></span>
-                    <span class="w-12 h-12 border-[3px] border-[#D4AF37]/80 border-t-transparent border-b-transparent rounded-full animate-spin"></span>
-                    <span class="absolute text-[12px] text-[#D4AF37] drop-shadow-[0_0_8px_rgba(212,175,55,0.8)]">👑</span>
+                <div class="w-24 h-24 rounded-full bg-lux-gold/5 flex items-center justify-center border border-lux-gold/30 shadow-[0_0_50px_rgba(212,175,55,0.2)] mb-8 relative">
+                    <span class="absolute inset-0 rounded-full border border-lux-gold/40 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite] opacity-20"></span>
+                    <span class="w-12 h-12 border-[3px] border-lux-gold/80 border-t-transparent border-b-transparent rounded-full animate-spin"></span>
+                    <span class="absolute text-[12px] text-lux-gold drop-shadow-[0_0_8px_rgba(212,175,55,0.8)]">👑</span>
                 </div>
-                <h3 class="font-serif text-3xl text-white italic tracking-wider drop-shadow-lg">Sovereign <span class="not-italic text-[#D4AF37]">Gateway</span></h3>
+                <h3 class="font-serif text-3xl text-white italic tracking-wider drop-shadow-lg">Sovereign <span class="not-italic text-lux-gold">Gateway</span></h3>
                 <p class="font-mono text-[9px] text-gray-500 uppercase tracking-[6px] mt-4 animate-pulse">Routing to Secure Ledger</p>
             </div>
         `;
@@ -486,7 +486,7 @@ async function executePhase68Checkout() {
             requestAnimationFrame(() => {
                 document.getElementById('sovereign-seal-overlay')?.remove();
                 btn.innerHTML = 'Hold For 10 Min';
-                btn.classList.remove('bg-[#D4AF37]', 'text-black', 'border-[#D4AF37]');
+                btn.classList.remove('bg-lux-gold', 'text-black', 'border-lux-gold');
                 btn.classList.add('bg-white/10', 'text-white/50');
                 btn.dataset.active = "false";
             });

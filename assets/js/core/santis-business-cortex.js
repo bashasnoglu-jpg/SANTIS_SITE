@@ -88,7 +88,7 @@
         const nudge = document.createElement('div');
         nudge.id = 'cortex-nudge';
         nudge.innerHTML = `
-            <div class="text-[#d4af37] flex" style="font-size: 11px; margin-bottom: 10px; align-items:center; gap:6px; letter-spacing: 1px;">
+            <div class="text-lux-gold flex" style="font-size: 11px; margin-bottom: 10px; align-items:center; gap:6px; letter-spacing: 1px;">
                 <span style="width:8px; height:8px; background:#d4af37; border-radius:50%; box-shadow:0 0 10px #d4af37; animation:cortex-pulse 1s infinite;"></span>
                 OTONOM İŞ ZEKASI TESPİTİ
             </div>

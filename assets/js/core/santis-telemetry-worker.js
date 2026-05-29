@@ -56,7 +56,7 @@ self.onmessage = function(e) {
                 <span>
                     <strong style="color:${fps < 45 ? '#ef4444' : '#10b981'}">${fps}</strong> 
                     <span style="color:#374151">|</span> 
-                    <strong class="text-[#d4af37]">${memoryMB.toFixed(1)}MB</strong>
+                    <strong class="text-lux-gold">${memoryMB.toFixed(1)}MB</strong>
                 </span>
             </div>
             <div class="flex" style="justify-content:space-between;">

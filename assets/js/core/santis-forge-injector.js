@@ -131,7 +131,7 @@ export class SovereignForgeInjector {
         // Template Literal ile Sessiz Lüks Mimarisi (Sovereign V6)
         const signatureClass = ritualDTO.is_signature ? 'is-santis-signature' : '';
         const armorLevel = ritualDTO.is_signature ? '50' : '10';
-        const signatureBadge = ritualDTO.is_signature ? '<span class="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-[#D4AF37] border border-[#D4AF37]/30 text-[10px] uppercase tracking-widest px-3 py-1 rounded-full z-30 shadow-[0_0_10px_rgba(212,175,55,0.2)]">Sovereign Ritual</span>' : '';
+        const signatureBadge = ritualDTO.is_signature ? '<span class="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-lux-gold border border-lux-gold/30 text-[10px] uppercase tracking-widest px-3 py-1 rounded-full z-30 shadow-[0_0_10px_rgba(212,175,55,0.2)]">Sovereign Ritual</span>' : '';
 
         // title first word logic exactly like the index page renderer
         const titleArr = ritualDTO.title ? ritualDTO.title.split(' ') : [''];
@@ -149,11 +149,11 @@ export class SovereignForgeInjector {
             <!-- İçerik Kalkanı -->
             <div class="santis-rail-card-content absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-20">
                 <div class="transform group-hover:-translate-y-56 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10 w-full">
-                    <span class="inline-block px-3 py-1 ${ritualDTO.is_signature ? 'bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37]' : 'bg-white/5 border border-white/10 text-gray-300'} text-[9px] uppercase tracking-[4px] rounded-full mb-4">
+                    <span class="inline-block px-3 py-1 ${ritualDTO.is_signature ? 'bg-lux-gold/10 border border-lux-gold/30 text-lux-gold' : 'bg-white/5 border border-white/10 text-gray-300'} text-[9px] uppercase tracking-[4px] rounded-full mb-4">
                         ${ritualDTO.is_signature ? 'SOVEREIGN APEX' : 'RECOVERY LAB'}
                     </span>
                     <h2 class="santis-rail-card-title font-serif text-3xl md:text-4xl ${ritualDTO.is_signature ? 'text-white' : 'text-[#b5a489]'} tracking-wide mb-2 italic">
-                        ${titleFirst} <span class="not-italic ${ritualDTO.is_signature ? 'text-[#D4AF37]' : 'text-white'}">${titleRest}</span>
+                        ${titleFirst} <span class="not-italic ${ritualDTO.is_signature ? 'text-lux-gold' : 'text-white'}">${titleRest}</span>
                     </h2>
                     <p class="santis-rail-card-meta font-sans text-sm text-gray-400 font-light mb-4 transition-opacity duration-300 group-hover:opacity-0">
                         <span class="santis-meta-time">${ritualDTO.duration}</span> | <span class="santis-meta-price">${ritualDTO.price}</span>
@@ -162,7 +162,7 @@ export class SovereignForgeInjector {
                 
                 <div class="absolute inset-x-8 bottom-8 opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-out z-20 delay-[200ms] pointer-events-none checkout-btn-wrapper">
                     <div class="flex flex-col gap-3 md:gap-4 border-t border-white/10 pt-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
-                        <button onclick="event.preventDefault(); window.CheckoutVault?.open();" class="santis-intent-btn mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-[#D4AF37] transition-colors pointer-events-auto" data-sovereign-intent="true" style="pointer-events: auto !important; z-index: 10001 !important; cursor: pointer !important;">
+                        <button onclick="event.preventDefault(); window.CheckoutVault?.open();" class="santis-intent-btn mt-4 w-full py-4 rounded-full bg-white text-black text-xs font-bold tracking-[2px] uppercase shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-lux-gold transition-colors pointer-events-auto" data-sovereign-intent="true" style="pointer-events: auto !important; z-index: 10001 !important; cursor: pointer !important;">
                             Ritüeli Mühürle
                         </button>
                     </div>
