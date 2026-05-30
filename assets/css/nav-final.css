@@ -48,6 +48,22 @@
     font-weight: bold;
   }
 
+  /* Mobile menu wrappers */
+  .mobile-primary-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .mobile-footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+  }
+
   @media (min-width: 769px) {
     .sovereign-nav {
       display: flex;

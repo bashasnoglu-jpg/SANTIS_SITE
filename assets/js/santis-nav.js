@@ -200,10 +200,12 @@ function initNavAndFooter() {
                     version: "fallback-v1",
                     routes: [
                         { path: "/tr/index.html",              title: { tr: "Ana Sayfa",     en: "Home" },           nav: { group: "brand",   weight: 10 }, hooks: { onEnter: "fade" } },
-                        { path: "/tr/masajlar/index.html",     title: { tr: "Masajlar",      en: "Massages" },       nav: { group: "service", weight: 20, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
-                        { path: "/tr/hamam/index.html",        title: { tr: "Hamam",         en: "Turkish Bath" },   nav: { group: "service", weight: 30, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
-                        { path: "/tr/cilt-bakimi/index.html",  title: { tr: "Cilt Bakımı",   en: "Skin Care" },      nav: { group: "service", weight: 40, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
-                        { path: "/tr/rituals/index.html",      title: { tr: "Dünya Ritüeli", en: "World Ritual" },   nav: { group: "service", weight: 50, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/katalog.html",  title: { tr: "Ritüel & Rahatlama",    en: "Ritual & Relaxation" },    nav: { group: "service", weight: 20, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/katalog.html",  title: { tr: "Performans & İyileşme", en: "Performance & Recovery" }, nav: { group: "service", weight: 30, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/katalog.html",  title: { tr: "Medikal Wellness",      en: "Medical Wellness" },       nav: { group: "service", weight: 40, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/katalog.html",  title: { tr: "Cilt & Estetik",        en: "Skin & Aesthetics" },      nav: { group: "service", weight: 50, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/katalog.html",  title: { tr: "Aile & Yaşam Tarzı",    en: "Family & Lifestyle" },     nav: { group: "service", weight: 55, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
+                        { path: "/katalog.html",  title: { tr: "Deneyim Programları",   en: "Experience Programs" },    nav: { group: "service", weight: 58, menu: "mega-services" }, hooks: { onEnter: "liquid-wave" } },
                         { path: "/tr/galeri/index.html",       title: { tr: "Galeri",        en: "Gallery" },        nav: { group: "brand",   weight: 60 }, hooks: { onEnter: "fade" } },
                         { path: "/tr/hakkimizda/index.html",   title: { tr: "Hakkımızda",    en: "About Us" },       nav: { group: "brand",   weight: 70 }, hooks: { onEnter: "fade" } },
                         { path: "/tr/iletisim.html",           title: { tr: "İletişim",      en: "Contact" },        nav: { group: "brand",   weight: 80 }, hooks: { onEnter: "fade" } },
@@ -261,13 +263,15 @@ function initNavAndFooter() {
                 }
 
                 // Mobile: tüm gruplar
+
+                // Mobile: tüm gruplar
                 if (r.nav.group === 'brand' || r.nav.group === 'service' || r.nav.group === 'action') {
                     if (mobileRoot) {
                         const m = a.cloneNode(true);
                         m.className = 'mobile-link nav-link';
                         if (r.nav.group === 'action') m.style.color = '#d4af37';
-                        const pdfLink = mobileRoot.querySelector('a[href*="santis-spa-menu.pdf"]');
-                        if (pdfLink) mobileRoot.insertBefore(m, pdfLink);
+                        const primaryNav = mobileRoot.querySelector('.mobile-primary-nav');
+                        if (primaryNav) primaryNav.appendChild(m);
                         else mobileRoot.appendChild(m);
                     }
                 }
@@ -275,7 +279,7 @@ function initNavAndFooter() {
 
             const resBtn = document.createElement('a');
             resBtn.className = 'santis-btn santis-btn-primary santis-magnetic mt-4';
-            resBtn.href = 'https://wa.me/905348350169';
+            resBtn.href = '/spa-booking.html';
             resBtn.target = '_blank';
             resBtn.rel = 'noopener noreferrer';
             resBtn.textContent = 'HEMEN REZERVASYON';
