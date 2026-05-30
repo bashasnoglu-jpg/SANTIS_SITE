@@ -212,7 +212,9 @@ const BookingEngine = {
             el.classList.toggle('active',   i + 1 === this.state.step);
             el.classList.toggle('selected', i + 1 < this.state.step);
         });
-        this.dom.prevBtn.style.visibility = this.state.step === 1 ? 'hidden' : 'visible';
+        if (this.dom.prevBtn) {
+            this.dom.prevBtn.style.visibility = this.state.step === 1 ? 'hidden' : 'visible';
+        }
         if (this.state.step === 3) this.renderSummary();
         this.validateStep();
     },
