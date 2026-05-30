@@ -13,6 +13,34 @@ import tailwindcss from '@tailwindcss/vite';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
+const NAVBAR_RUNTIME_STATIC_ALLOWLIST = [
+    'assets/js/loader.js',
+    'assets/js/navigation-flow.js',
+    'assets/js/santis-nav.js',
+    'assets/js/language-switcher.js',
+    'assets/js/santis-liquid-menu.js',
+] as const;
+
+function santisRuntimeStaticEmitPlugin(files: readonly string[]) {
+    return {
+        name: 'santis-runtime-static-emit',
+        writeBundle() {
+            for (const file of files) {
+                const source = resolve(__dirname, file);
+                const destination = resolve(__dirname, 'dist', file);
+                const destinationDirectory = resolve(destination, '..');
+
+                if (!fs.existsSync(source)) {
+                    throw new Error(`[Santis Runtime Emit] Missing required file: ${file}`);
+                }
+
+                fs.mkdirSync(destinationDirectory, { recursive: true });
+                fs.copyFileSync(source, destination);
+            }
+        },
+    };
+}
+
 // ─── MPA Entry Discovery ─────────────────────────────────────────────────────
 const EXCLUDE_DIRS = new Set([
     'node_modules', 'dist', 'venv', '.git', '.wrangler', 'tmp',
@@ -26,7 +54,6 @@ const EXCLUDE_DIRS = new Set([
 ]);
 
 const EXCLUDE_FILES = new Set([
-    'admin-dashboard.html',
     'index_backup.html',
     'index_v1.html',
     'index_v2.html',
@@ -66,6 +93,7 @@ export default defineConfig({
 
     plugins: [
         tailwindcss(),
+        santisRuntimeStaticEmitPlugin(NAVBAR_RUNTIME_STATIC_ALLOWLIST),
     ],
 
     // ── Dev Server (Port SSOT: 8081) ──────────────────────────────────────────
