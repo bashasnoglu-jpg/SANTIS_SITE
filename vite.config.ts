@@ -20,6 +20,9 @@ const NAVBAR_RUNTIME_STATIC_ALLOWLIST = [
     'assets/js/language-switcher.js',
     'assets/js/santis-liquid-menu.js',
     'santis-sw.js',
+    'assets/js/modules/santis-checkout-ceremony.js',
+    'assets/js/modules/santis-checkout-eligibility.js',
+    'assets/js/modules/santis-sovereign-vault.js',
 ] as const;
 
 function santisRuntimeStaticEmitPlugin(files: readonly string[]) {
