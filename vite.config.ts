@@ -19,6 +19,7 @@ const NAVBAR_RUNTIME_STATIC_ALLOWLIST = [
     'assets/js/santis-nav.js',
     'assets/js/language-switcher.js',
     'assets/js/santis-liquid-menu.js',
+    'santis-sw.js',
 ] as const;
 
 function santisRuntimeStaticEmitPlugin(files: readonly string[]) {
