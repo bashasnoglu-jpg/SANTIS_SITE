@@ -23,6 +23,7 @@ const NAVBAR_RUNTIME_STATIC_ALLOWLIST = [
     'assets/js/modules/santis-checkout-ceremony.js',
     'assets/js/modules/santis-booking-modal.js',
     'assets/js/modules/santis-booking-confirmation-hold.js',
+    'assets/js/modules/santis-booking-ledger.js',
     'assets/js/modules/santis-checkout-eligibility.js',
     'assets/js/modules/santis-sovereign-vault.js',
 ] as const;
