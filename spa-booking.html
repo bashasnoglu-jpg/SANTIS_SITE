@@ -239,7 +239,11 @@
         // --- TARİHLERİ DİNAMİK OLUŞTUR ---
         const initDates = () => {
             const todayEl = document.getElementById('date-today');
-            if (!todayEl) return; // Fallback aktifse veya DOM silinmişse işlemi durdur
+            const tomorrowEl = document.getElementById('date-tomorrow');
+            const afterEl = document.getElementById('date-after');
+            const dayAfterEl = document.getElementById('day-after');
+
+            if (!todayEl || !tomorrowEl || !afterEl || !dayAfterEl) return;
 
             const today = new Date();
             const tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate() + 1);
@@ -247,10 +251,10 @@
             
             const days = ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'];
             
-            document.getElementById('date-today').innerText = today.getDate().toString().padStart(2, '0');
-            document.getElementById('date-tomorrow').innerText = tomorrow.getDate().toString().padStart(2, '0');
-            document.getElementById('date-after').innerText = dayAfter.getDate().toString().padStart(2, '0');
-            document.getElementById('day-after').innerText = days[dayAfter.getDay()];
+            todayEl.innerText = today.getDate().toString().padStart(2, '0');
+            tomorrowEl.innerText = tomorrow.getDate().toString().padStart(2, '0');
+            afterEl.innerText = dayAfter.getDate().toString().padStart(2, '0');
+            dayAfterEl.innerText = days[dayAfter.getDay()];
         };
 
         // 1. HAFIZAYI OKU (Menüden ne seçerek geldi?)
