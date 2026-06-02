@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify';
 
 export async function streamRoutes(server: FastifyInstance) {
-  
+
   // 1. Live Intent Radar SSE
   server.get('/v1/stream/events', async (request, reply) => {
     reply.raw.writeHead(200, {
@@ -9,7 +9,7 @@ export async function streamRoutes(server: FastifyInstance) {
       'Cache-Control': 'no-cache, no-transform',
       'Connection': 'keep-alive'
     });
-    
+
     reply.raw.write('event: connected\n');
     reply.raw.write(`data: ${JSON.stringify({ type: 'connected', ts: Date.now(), source: 'santis-stream-rt2b-mock' })}\n\n`);
 
