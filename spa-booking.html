@@ -238,6 +238,9 @@
 
         // --- TARİHLERİ DİNAMİK OLUŞTUR ---
         const initDates = () => {
+            const todayEl = document.getElementById('date-today');
+            if (!todayEl) return; // Fallback aktifse veya DOM silinmişse işlemi durdur
+
             const today = new Date();
             const tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate() + 1);
             const dayAfter = new Date(today); dayAfter.setDate(dayAfter.getDate() + 2);
