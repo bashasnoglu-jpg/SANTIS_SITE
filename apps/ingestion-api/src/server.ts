@@ -3,6 +3,8 @@ import { healthResponseSchema } from './contracts/health.contract.js';
 import { boardroomRoutes } from './routes/boardroom.routes.js';
 import { schedulingRoutes } from './routes/scheduling.routes.js';
 import fastifyCookie from '@fastify/cookie';
+import cors from '@fastify/cors';
+import fastifySocketIO from 'fastify-socket.io';
 
 export function buildServer(db?: any) {
   const server = fastify({
@@ -33,6 +35,47 @@ export function buildServer(db?: any) {
   server.register(fastifyCookie, {
     secret: cookieSecret || 'fallback-dev-secret-do-not-use-in-prod', // optional, for signed cookies
     parseOptions: {} // options parsed to cookie.parse
+  });
+
+  // RT-2B: CORS Configuration
+  const allowedOrigins = process.env.ADMIN_ALLOWED_ORIGINS 
+    ? process.env.ADMIN_ALLOWED_ORIGINS.split(',').map(s => s.trim())
+    : ['http://localhost:8080', 'http://127.0.0.1:8080'];
+    
+  server.register(cors, {
+    origin: allowedOrigins,
+    credentials: true
+  });
+
+  // RT-2B: Socket.IO Mock Compatibility
+  // @ts-ignore
+  server.register(fastifySocketIO, {
+    cors: {
+      origin: allowedOrigins,
+      methods: ["GET", "POST"]
+    }
+  });
+
+  server.ready().then(() => {
+    // Only typed as any to bypass missing fastify-socket.io types if any
+    const io = (server as any).io;
+    if (io) {
+      io.on('connection', (socket: any) => {
+        // Send a minimal heartbeat to appease the SovereignSocketProvider connection
+        const interval = setInterval(() => {
+          // Send mock finance update to keep the connection visibly alive without crashing the schema
+          socket.emit('admin:finance_update', {
+            liveRevenue: 15400,
+            activeSessions: 3,
+            timestamp: new Date().toISOString()
+          });
+        }, 30000);
+
+        socket.on('disconnect', () => {
+          clearInterval(interval);
+        });
+      });
+    }
   });
 
   // Register route skeletons
