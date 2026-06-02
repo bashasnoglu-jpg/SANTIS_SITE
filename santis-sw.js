@@ -1,4 +1,4 @@
-﻿/**
+/**
  * SANTIS OS - SHADOW WORKER (V28_SANTIS_ULTRA_FLUID)
  * Architecture: Sovereign OS / Zero-Jank / 120 FPS Target
  *
@@ -47,7 +47,11 @@ self.addEventListener('activate', (event) => {
         caches.keys().then((cacheNames) => {
             return Promise.all(
                 cacheNames.map((cacheName) => {
-                    if (cacheName !== CORE_CACHE_NAME && cacheName !== DYNAMIC_CACHE_NAME) {
+                    const isSovereignOSCache = cacheName.startsWith('santis-') || cacheName.startsWith('sovereign-') || cacheName.startsWith('sovereign_');
+                    const isOwnLegacyCache = (cacheName.startsWith('santis-core-') && cacheName !== CORE_CACHE_NAME) ||
+                                             (cacheName.startsWith('santis-dynamic-') && cacheName !== DYNAMIC_CACHE_NAME);
+
+                    if (!isSovereignOSCache || isOwnLegacyCache) {
                         console.log(`[Shadow Worker] Purging legacy cache: ${cacheName}`);
                         return caches.delete(cacheName);
                     }
@@ -114,8 +118,8 @@ self.addEventListener('fetch', (event) => {
                             if (indexResponse) return indexResponse;
                             // Son çare: Hiçbir şey yoksa Response dön ki Service Worker çökmesin.
                             return new Response(
-                                '<html><body><h2>Sovereign OS - Offline</h2><p>Lütfen ağ bağlantınızı kontrol edin.</p></body></html>',
-                                { headers: { 'Content-Type': 'text/html' } }
+                                '<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"></head><body><h2>Sovereign OS - Offline</h2><p>Lütfen ağ bağlantınızı kontrol edin.</p></body></html>',
+                                { headers: { 'Content-Type': 'text/html; charset=utf-8' } }
                             );
                         });
                     });

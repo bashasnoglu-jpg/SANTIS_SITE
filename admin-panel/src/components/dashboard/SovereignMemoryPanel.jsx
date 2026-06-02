@@ -115,11 +115,11 @@ export default function SovereignMemoryPanel() {
                       </span>
                     )}
                   </td>
-                  <td className="py-3 pr-4 text-sovereign-sand font-mono text-xs truncate max-w-[120px]" title={entry.actionId}>
+                  <td className="py-3 pr-4 text-sovereign-sand font-mono text-xs truncate max-w-32" title={entry.actionId}>
                     {entry.actionId ?? '—'}
                   </td>
                   <td className="py-3 pr-4 text-sovereign-ink text-xs">{entry.operatorId ?? '—'}</td>
-                  <td className="py-3 pr-4 text-sovereign-bronze text-xs max-w-[200px] truncate" title={entry.reason}>
+                  <td className="py-3 pr-4 text-sovereign-bronze text-xs max-w-56 truncate" title={entry.reason}>
                     {entry.reason ?? '—'}
                   </td>
                   <td className="py-3 text-sovereign-earth text-xs whitespace-nowrap">{formatTime(entry.occurredAt)}</td>

@@ -19,7 +19,7 @@ const CORE_ASSETS = [
 self.addEventListener('install', (event) => {
     console.log(`[SW] Sovereign Boardroom Biyosferi Yükleniyor... (${BOARDROOM_VERSION})`);
     self.skipWaiting(); // Eski SW'yi anında öldür, yeniyi tak
-    
+
     event.waitUntil(
         caches.open(MFE_CACHE_NAME).then((cache) => {
             return cache.addAll(CORE_ASSETS);
@@ -34,7 +34,11 @@ self.addEventListener('activate', (event) => {
         caches.keys().then((cacheNames) => {
             return Promise.all(
                 cacheNames.map((cacheName) => {
-                    if (cacheName !== MFE_CACHE_NAME && cacheName !== API_CACHE_NAME) {
+                    const isSovereignOSCache = cacheName.startsWith('santis-') || cacheName.startsWith('sovereign-') || cacheName.startsWith('sovereign_');
+                    const isOwnLegacyCache = (cacheName.startsWith('sovereign_mfe_cache_') && cacheName !== MFE_CACHE_NAME) ||
+                                             (cacheName.startsWith('sovereign_api_cache_') && cacheName !== API_CACHE_NAME);
+
+                    if (!isSovereignOSCache || isOwnLegacyCache) {
                         console.warn(`[SW] Eski Cache İmha Ediliyor: ${cacheName}`);
                         return caches.delete(cacheName);
                     }
@@ -49,7 +53,7 @@ self.addEventListener('fetch', (event) => {
 
     // 📡 1. WEBSOCKET BAĞLANTILARI: BYPASS (Asla önbelleğe alma)
     if (url.protocol.startsWith('ws') || event.request.headers.get('upgrade') === 'websocket') {
-        return; 
+        return;
     }
 
     // 🧩 2. MFE MODULES (RemoteEntry.js & Chunks): STALE-WHILE-REVALIDATE Stratejisi
@@ -85,7 +89,7 @@ self.addEventListener('fetch', (event) => {
             }).catch(async () => {
                 // Ağ Vurulduğunda (Offline)
                 console.warn(`[SW] Şebeke Çöktü! API İsteği Önbellekten Sunuluyor: ${url.pathname}`);
-                
+
                 // Read-Only destek için offline cache'e bak
                 const cachedRes = await caches.match(event.request);
                 if (cachedRes) return cachedRes;
@@ -93,9 +97,9 @@ self.addEventListener('fetch', (event) => {
                 // Write isteklerini (POST/PUT) bir IndexedDB Queue'ya gönderip (Sync Agent) bekletmeliyiz.
                 if (event.request.method !== 'GET') {
                     // Not: Tam Sync API entegrasyonu "BackgroundSync" ile yapılır. Şimdilik simüle ediyoruz.
-                    return new Response(JSON.stringify({ 
-                        status: 'QUEUED', 
-                        message: 'Sistem şu an Çevrimdışı. Veriniz güvenli kilit altında tutuluyor.' 
+                    return new Response(JSON.stringify({
+                        status: 'QUEUED',
+                        message: 'Sistem şu an Çevrimdışı. Veriniz güvenli kilit altında tutuluyor.'
                     }), { headers: { 'Content-Type': 'application/json' } });
                 }
 
