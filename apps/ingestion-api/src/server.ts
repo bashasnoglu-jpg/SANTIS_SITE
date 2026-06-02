@@ -2,6 +2,8 @@ import fastify from 'fastify';
 import { healthResponseSchema } from './contracts/health.contract.js';
 import { boardroomRoutes } from './routes/boardroom.routes.js';
 import { schedulingRoutes } from './routes/scheduling.routes.js';
+import { streamRoutes } from './routes/stream.routes.js';
+import { paymentsRoutes } from './routes/payments.routes.js';
 import fastifyCookie from '@fastify/cookie';
 import cors from '@fastify/cors';
 import fastifySocketIO from 'fastify-socket.io';
@@ -81,6 +83,8 @@ export function buildServer(db?: any) {
   // Register route skeletons
   server.register(boardroomRoutes, { prefix: '/api' });
   server.register(schedulingRoutes, { prefix: '/api' });
+  server.register(streamRoutes, { prefix: '/api' });
+  server.register(paymentsRoutes, { prefix: '/api' });
 
   return server;
 }
