@@ -1,3 +1,4 @@
+import type React from 'react';
 import type { OptimizerOpsResponse } from '../../types/optimizer-ops';
 
 interface Props {
@@ -8,7 +9,7 @@ function formatPercent(value: number): string {
   return `${(value * 100).toFixed(1)}%`;
 }
 
-export function OpsSummaryCards({ data }: Props): JSX.Element {
+export function OpsSummaryCards({ data }: Props): React.JSX.Element {
   const cards = [
     {
       label: 'Total Candidates',

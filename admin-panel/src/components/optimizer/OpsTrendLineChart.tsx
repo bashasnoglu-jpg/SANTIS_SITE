@@ -1,3 +1,4 @@
+import type React from 'react';
 import { chartTheme } from '../../../../packages/design-system/chart-theme';
 
 interface Point {
@@ -15,7 +16,7 @@ export function OpsTrendLineChart({
   title,
   points,
   height = 180,
-}: Props): JSX.Element {
+}: Props): React.JSX.Element {
   const width = 600;
   const padding = 24;
 

@@ -44,7 +44,7 @@
 }
 
 .nv-kicker {
-  color: #d4af37;
+  color: #c6a96b;
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -68,7 +68,7 @@
 }
 
 .nv-badge--history {
-  color: #d4af37;
+  color: #c6a96b;
   border-color: rgba(212, 175, 55, 0.4);
   background: rgba(212, 175, 55, 0.1);
   box-shadow: 0 0 24px rgba(212, 175, 55, 0.12);
@@ -76,7 +76,7 @@
 
 .nv-go-live {
   border: 1px solid rgba(212, 175, 55, 0.35);
-  color: #d4af37;
+  color: #c6a96b;
   background: rgba(212, 175, 55, 0.06);
   border-radius: 999px;
   padding: 6px 18px;
@@ -225,7 +225,7 @@
 .nv-metric-card__value {
   font-size: 24px;
   font-weight: 300;
-  color: #d4af37;
+  color: #c6a96b;
 }
 
 /* Governor Panel */
@@ -265,7 +265,7 @@
   font-weight: 600;
 }
 
-.nv-text--gold { color: #d4af37; }
+.nv-text--gold { color: #c6a96b; }
 .nv-text--warn { color: #ffcc00; }
 
 .nv-reasoning-block {
@@ -319,7 +319,7 @@
   width: 30px;
   height: 30px;
   border: 2px solid rgba(212, 175, 55, 0.1);
-  border-top-color: #d4af37;
+  border-top-color: #c6a96b;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 16px;
@@ -469,7 +469,7 @@
 
 .nv-reasoning-step__index {
   font-size: 11px;
-  color: #d4af37;
+  color: #c6a96b;
   font-weight: 600;
 }
 
@@ -839,7 +839,7 @@
 
 .nv-oracle-scrubber__btn:hover {
   border-color: rgba(212, 175, 55, 0.35);
-  color: #d4af37;
+  color: #c6a96b;
 }
 
 .nv-oracle-scrubber__track {
@@ -895,7 +895,7 @@
 }
 
 .nv-oracle-scrubber__frozen {
-  color: #d4af37;
+  color: #c6a96b;
   letter-spacing: 0.1em;
 }
 

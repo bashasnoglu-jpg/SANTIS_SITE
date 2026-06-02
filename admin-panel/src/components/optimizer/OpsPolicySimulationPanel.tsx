@@ -1,3 +1,4 @@
+import type React from 'react';
 import { useEffect, useState } from 'react';
 import type { OptimizerPolicyProposal } from '../../types/optimizer-policy-approval';
 import type { PolicySimulationResponse } from '../../types/optimizer-policy-simulation';
@@ -11,7 +12,7 @@ function formatDelta(value: number): string {
   return `${sign}${value.toFixed(2)}`;
 }
 
-export function OpsPolicySimulationPanel({ proposal }: Props): JSX.Element | null {
+export function OpsPolicySimulationPanel({ proposal }: Props): React.JSX.Element | null {
   const [data, setData] = useState<PolicySimulationResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 

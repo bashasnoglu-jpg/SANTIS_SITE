@@ -18,7 +18,7 @@ import { useBoardroomMode } from "../context/BoardroomModeContext";
 
 const SSE_BASE =
   (import.meta as unknown as { env: Record<string, string | undefined> }).env
-    .VITE_INGESTION_API_BASE_URL ?? "http://localhost:3030/api/v1";
+    .VITE_INGESTION_API_BASE_URL ?? "/api/v1";
 
 // Sequence log'da tutulacak maksimum delta sayısı
 const MAX_SEQUENCE_LOG = 50;

@@ -1,10 +1,11 @@
+import type React from 'react';
 import type { OptimizerOpsResponse } from '../../types/optimizer-ops';
 
 interface Props {
   data: OptimizerOpsResponse;
 }
 
-export function OpsPortfolioPanel({ data }: Props): JSX.Element {
+export function OpsPortfolioPanel({ data }: Props): React.JSX.Element {
   return (
     <div style={{ border: '1px solid var(--sovereign-neutral-300)', borderRadius: 10, padding: 16, background: 'var(--sovereign-surface)' }}>
       <h3 style={{ marginTop: 0 }}>Selected Portfolio</h3>

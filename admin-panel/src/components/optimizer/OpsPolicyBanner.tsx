@@ -1,10 +1,11 @@
+import type React from 'react';
 import type { OptimizerPolicyResponse } from '../../types/optimizer-policy';
 
 interface Props {
   data: OptimizerPolicyResponse | null;
 }
 
-export function OpsPolicyBanner({ data }: Props): JSX.Element | null {
+export function OpsPolicyBanner({ data }: Props): React.JSX.Element | null {
   if (!data) {
     return null;
   }

@@ -13,7 +13,7 @@ export default function LiveIntentMonitor() {
     let eventSource;
     let reconnectTimeout;
 
-    const streamUrl = import.meta.env.VITE_STREAM_URL || 'http://localhost:3030/api/v1/stream/events';
+    const streamUrl = import.meta.env.VITE_STREAM_URL || '/api/v1/stream/events';
 
     const connectSSE = () => {
       if (retryCount >= maxRetries) {

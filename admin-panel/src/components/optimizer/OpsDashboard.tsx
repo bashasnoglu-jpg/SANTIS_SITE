@@ -1,3 +1,4 @@
+import type React from 'react';
 import { useEffect, useState } from 'react';
 import type { OptimizerOpsResponse } from '../../types/optimizer-ops';
 import { OpsSummaryCards } from './OpsSummaryCards';
@@ -26,7 +27,7 @@ export function OpsDashboard({
   experimentId,
   requestId,
   refreshMs = 10000,
-}: Props): JSX.Element {
+}: Props): React.JSX.Element {
   const [data, setData] = useState<OptimizerOpsResponse | null>(null);
   const [anomalies, setAnomalies] = useState<OptimizerAnomaly[]>([]);
   const [policy, setPolicy] = useState<OptimizerPolicyResponse | null>(null);

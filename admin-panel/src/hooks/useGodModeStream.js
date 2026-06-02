@@ -14,7 +14,7 @@ export function useGodModeStream(limit = 50) {
   // Akaşik Kayıtları (History) Çek
   const fetchHistory = useCallback(async () => {
     try {
-      const apiUrl = import.meta.env.VITE_INGESTION_API_BASE_URL || import.meta.env.VITE_CORE_API_URL || 'http://localhost:3030';
+      const apiUrl = import.meta.env.VITE_INGESTION_API_BASE_URL || import.meta.env.VITE_CORE_API_URL || '';
       const res = await fetch(`${apiUrl}/api/v1/read/history?limit=${limit}`);
       if (!res.ok) throw new Error('Akaşik kayıtlar okunamadı');
       const data = await res.json();
@@ -40,7 +40,7 @@ export function useGodModeStream(limit = 50) {
     const maxRetries = 3;
 
     const connectSSE = () => {
-      const streamUrl = import.meta.env.VITE_STREAM_URL || (import.meta.env.VITE_CORE_API_URL ? `${import.meta.env.VITE_CORE_API_URL}/api/v1/streams/god` : 'http://localhost:3030/api/v1/streams/god');
+      const streamUrl = import.meta.env.VITE_STREAM_URL || (import.meta.env.VITE_CORE_API_URL ? `${import.meta.env.VITE_CORE_API_URL}/api/v1/streams/god` : '/api/v1/streams/god');
       sse = new EventSource(streamUrl);
 
       sse.onopen = () => {

@@ -1,3 +1,4 @@
+import type React from 'react';
 import { chartTheme } from '../../../../packages/design-system/chart-theme';
 
 interface Bar {
@@ -10,7 +11,7 @@ interface Props {
   bars: Bar[];
 }
 
-export function OpsTrendBarChart({ title, bars }: Props): JSX.Element {
+export function OpsTrendBarChart({ title, bars }: Props): React.JSX.Element {
   const max = Math.max(1, ...bars.map((bar) => bar.value));
 
   return (

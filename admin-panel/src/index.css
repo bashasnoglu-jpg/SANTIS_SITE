@@ -4,11 +4,11 @@
 /* ─── Sovereign Design System Tokens (from packages/design-system/theme-manifest.json) ─── */
 @theme {
     /* Core */
-    --color-sovereign-dark:    #141416;
-    --color-sovereign-surface: #202024;
+    --color-sovereign-dark:    #0a0a0c;
+    --color-sovereign-surface: #121214;
     --color-sovereign-gold:    #c6a96b;
-    --color-sovereign-text:    #d6d6d8;
-    --color-sovereign-muted:   #8f9095;
+    --color-sovereign-text:    hsl(220, 10%, 95%);
+    --color-sovereign-muted:   hsl(220, 10%, 70%);
     --color-sovereign-border:  rgba(255,255,255,0.06);
 
     /* Surfaces */
@@ -31,7 +31,7 @@
     --color-sovereign-line-soft: #444444;
 
     /* Gold Scale */
-    --color-sovereign-gold-strong:  #D4AF37;
+    --color-sovereign-gold-strong:  #c6a96b;
     --color-sovereign-gold-deep:    #C5A059;
     --color-sovereign-gold-pressed: #B5952F;
 
@@ -58,7 +58,7 @@
     --color-sovereign-signal-therapist:   #3730a3;
 
     /* Typography */
-    --font-heading: 'Cinzel', serif;
+    --font-heading: 'Playfair Display', serif;
     --font-body:    'Inter', sans-serif;
 
     /* Radius */
@@ -103,7 +103,7 @@
     --color-surface-glass-dark: rgba(10, 10, 11, 0.85);
     --color-danger-border: rgba(255, 59, 48, 0.4);
 
-    --font-display: 'Cinzel', serif;
+    --font-display: 'Playfair Display', serif;
     --font-body: 'Inter', sans-serif;
 }
 
@@ -156,7 +156,7 @@
 :root {
   /* Quiet Luxury Palette */
   --nv-anthracite: #1E1F22;
-  --nv-brushed-gold: #D4AF37;
+  --nv-brushed-gold: #c6a96b;
   --nv-text-muted: #8E9096;
   --nv-text-light: #F8F9FA;
   /* Kusursuz Sinematik Akış */

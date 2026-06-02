@@ -1,3 +1,4 @@
+import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import type { PolicyRecommenderResponse, CompileRecommendationResponse } from '../../types/optimizer-policy-recommender';
 import { OpsPolicyRolloutPanel } from './OpsPolicyRolloutPanel';
@@ -15,7 +16,7 @@ function formatDelta(value: number): string {
 export function OpsPolicyRecommendationsPanel({
   experimentId,
   hours = 24,
-}: Props): JSX.Element {
+}: Props): React.JSX.Element {
   const [data, setData] = useState<PolicyRecommenderResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   

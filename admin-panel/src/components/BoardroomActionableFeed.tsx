@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { CheckCircle2, ShieldAlert, Zap } from 'lucide-react';
+import { CheckCircle2, ShieldAlert, Zap, Lock } from 'lucide-react';
 import { useSovereignWebSocket } from '../hooks/useSovereignWebSocket';
 import { useRevenueRecommendations } from '../hooks/useRevenueRecommendations';
 import { useStrategy } from '../hooks/useStrategy';
@@ -142,67 +142,11 @@ export default function BoardroomActionableFeed() {
   }, [recommendations]);
 
   async function applyOverride(recommendation: BoardroomRecommendation) {
-    setBusyId(recommendation.id);
-    setError(null);
-
-    try {
-      const response = await fetch('/api/v1/boardroom/override/apply', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          recommendationId: recommendation.id,
-          sessionId: recommendation.sessionId,
-          operatorId: 'boardroom-operator',
-          action: recommendation.action,
-          reason: recommendation.reason,
-          createdAt: new Date().toISOString(),
-        }),
-      });
-
-      const json = await response.json().catch(() => null);
-
-      if (!response.ok || json?.accepted !== true) {
-        throw new Error(json?.error || `HTTP ${response.status}`);
-      }
-    } catch (err) {
-      setBusyId(null);
-      setError(err instanceof Error ? err.message : 'Override failed');
-    }
+    console.warn('[Sovereign Guard] Command applyOverride is BROKEN and locked. Backend Reality Pending.');
   }
 
   async function applyRevenueDecision(decision: RevenueDecision) {
-    setBusyId(decision.id);
-    setError(null);
-
-    try {
-      const response = await fetch('/api/v1/boardroom/override/apply', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          recommendationId: decision.reasoning.sourceDecisionId ?? decision.id,
-          sessionId: decision.sessionId,
-          operatorId: 'boardroom-operator',
-          action: decision.baseAction === 'price_adjustment' ? 'suggest_price_increase' : 'lock_recommendation',
-          reason: decision.reasoning.demandLevel === 'high' ? 'demand_spike' : 'pricing_risk',
-          createdAt: new Date().toISOString(),
-        }),
-      });
-
-      const json = await response.json().catch(() => null);
-
-      if (!response.ok || json?.accepted !== true) {
-        throw new Error(json?.error || `HTTP ${response.status}`);
-      }
-    } catch (err) {
-      setBusyId(null);
-      setError(err instanceof Error ? err.message : 'Revenue override failed');
-    }
+    console.warn('[Sovereign Guard] Command applyRevenueDecision is BROKEN and locked. Backend Reality Pending.');
   }
 
   function formatPercent(value: number) {
@@ -258,8 +202,8 @@ export default function BoardroomActionableFeed() {
                     Δ: +€{Math.round(v.expectedDelta)}
                   </div>
                   {v.id === strategy.recommendedVariantId && (
-                    <button className="text-xs uppercase tracking-widest border border-sovereign-accent text-sovereign-accent px-2 py-1 rounded-sm hover:bg-sovereign-accent/20 transition-colors">
-                      Simulate
+                    <button disabled={true} className="text-xs uppercase tracking-widest border border-sovereign-panel text-sovereign-bronze bg-sovereign-coal opacity-50 px-2 py-1 rounded-sm cursor-not-allowed">
+                      Simulate (MOCK)
                     </button>
                   )}
                 </div>
@@ -381,17 +325,11 @@ export default function BoardroomActionableFeed() {
                   <button
                     type="button"
                     onClick={() => void applyOverride(recommendation)}
-                    disabled={busy || sealed || revenueResolved?.finalAction === 'neutral'}
-                    className={`shrink-0 inline-flex items-center gap-2 border rounded-sm px-3 py-2 text-xs uppercase tracking-widest transition-colors ${
-                      sealed
-                        ? 'border-emerald-500/40 text-emerald-300 bg-emerald-950/20'
-                        : revenueResolved?.finalAction === 'neutral'
-                        ? 'border-sovereign-panel text-sovereign-bronze bg-sovereign-coal opacity-50 cursor-not-allowed'
-                        : 'border-sovereign-accent text-sovereign-accent bg-sovereign-accent/10 hover:bg-sovereign-accent/20'
-                    } ${busy ? 'opacity-60 cursor-wait' : ''}`}
+                    disabled={true}
+                    className="shrink-0 inline-flex items-center gap-2 border rounded-sm px-3 py-2 text-xs uppercase tracking-widest transition-colors border-sovereign-panel text-sovereign-bronze bg-sovereign-coal opacity-50 cursor-not-allowed"
                   >
-                    {sealed ? <CheckCircle2 className="w-4 h-4" /> : <Zap className="w-4 h-4" />}
-                    {sealed ? 'Sealed' : busy ? 'Applying' : 'Apply Override'}
+                    <Lock className="w-4 h-4" />
+                    BACKEND PENDING
                   </button>
                 </div>
               </div>

@@ -16,7 +16,7 @@ export default function SovereignArchive() {
     if (!socket) return;
 
     // Bileşen yüklendiğinde mevcut arşivi talep et
-    socket.emit('admin:request_archive');
+    console.warn('[Sovereign Guard] Command request_archive is MOCK and locked.');
 
     socket.on('admin:archive_sync', (rawData) => {
       try {
@@ -44,12 +44,12 @@ export default function SovereignArchive() {
     <div className="bg-black/30 backdrop-blur-xl border border-white/5 p-8 rounded-3xl mt-8">
       <h3 className="flex items-center gap-3 text-white font-serif text-xl tracking-wide mb-8">
         <History className="text-santis-gold" size={24} />
-        Sovereign Archive (Tarihsel Hafıza)
+        Sovereign Archive [MOCK]
       </h3>
 
       {archiveLogs.length === 0 ? (
         <div className="text-center py-12 border border-dashed border-white/5 rounded-2xl">
-          <p className="text-white/30 text-sm italic">Kayıtlı stratejik eylem bulunamadı.</p>
+          <p className="text-white/30 text-sm italic">[Backend Reality Pending] Kilitli Arşiv.</p>
         </div>
       ) : (
         <div className="relative border-l border-white/10 pl-8 ml-2 space-y-8">

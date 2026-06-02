@@ -1,3 +1,4 @@
+import type React from 'react';
 import { useEffect, useState } from 'react';
 import type { OptimizerPolicyProposal } from '../../types/optimizer-policy-approval';
 import { useBoardroomMode } from '../../features/boardroom/context/BoardroomModeContext';
@@ -8,7 +9,7 @@ interface Props {
   onSelectProposal?: (proposal: OptimizerPolicyProposal | null) => void;
 }
 
-export function OpsApprovalQueue({ experimentId, actor, onSelectProposal }: Props): JSX.Element {
+export function OpsApprovalQueue({ experimentId, actor, onSelectProposal }: Props): React.JSX.Element {
   const { mode } = useBoardroomMode();
   const isHistorical = mode === 'HISTORICAL';
   const [items, setItems] = useState<OptimizerPolicyProposal[]>([]);

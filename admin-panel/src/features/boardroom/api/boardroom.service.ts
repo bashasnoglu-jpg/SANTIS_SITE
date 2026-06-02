@@ -6,7 +6,7 @@ import type {
 } from "../types/boardroom.types";
 
 const API_BASE =
-  import.meta.env.VITE_INGESTION_API_BASE_URL ?? "http://localhost:3030/api/v1";
+  import.meta.env.VITE_INGESTION_API_BASE_URL ?? "/api/v1";
 
 async function getJson<T>(path: string): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, {

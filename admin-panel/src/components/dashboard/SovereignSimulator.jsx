@@ -30,9 +30,7 @@ export default function SovereignSimulator() {
   }, [socket]);
 
   const runSimulation = () => {
-    if (!socket) return;
-    setIsRunning(true);
-    socket.emit('admin:run_simulation');
+    console.warn('[Sovereign Guard] Command run_simulation is MOCK and locked.');
   };
 
   return (
@@ -47,10 +45,11 @@ export default function SovereignSimulator() {
         </h3>
         <button 
           onClick={runSimulation}
-          disabled={isRunning || !socket}
-          className={`px-6 py-2 rounded-full text-xs uppercase tracking-widest transition-all duration-700 border ${isRunning ? 'bg-white/5 border-white/10 text-white/30 cursor-wait' : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20'}`}
+          disabled={true}
+          className="px-6 py-2 rounded-full text-xs uppercase tracking-widest transition-all duration-700 border bg-white/5 border-white/10 text-white/30 cursor-not-allowed grayscale"
+          title="Backend Reality Pending (P3-B)"
         >
-          {isRunning ? 'Gelecek Hesaplanıyor...' : 'Geleceği Simüle Et'}
+          Simülatör (MOCK)
         </button>
       </div>
 

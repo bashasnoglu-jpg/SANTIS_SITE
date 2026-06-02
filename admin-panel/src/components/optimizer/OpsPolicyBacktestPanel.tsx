@@ -1,3 +1,4 @@
+import type React from 'react';
 import { useEffect, useState } from 'react';
 import type { OptimizerPolicyProposal } from '../../types/optimizer-policy-approval';
 import type { PolicyBacktestResponse } from '../../types/optimizer-policy-backtest';
@@ -15,7 +16,7 @@ function formatDelta(value: number): string {
 export function OpsPolicyBacktestPanel({
   proposal,
   hours = 24,
-}: Props): JSX.Element | null {
+}: Props): React.JSX.Element | null {
   const [data, setData] = useState<PolicyBacktestResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 

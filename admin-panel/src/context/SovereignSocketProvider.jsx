@@ -34,7 +34,7 @@ export function SovereignSocketProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    const socketUrl = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3030';
+    const socketUrl = import.meta.env.VITE_SOCKET_URL || '';
     
     // Finite reconnection attempts and delays to prevent infinite spam
     const socket = io(socketUrl, {

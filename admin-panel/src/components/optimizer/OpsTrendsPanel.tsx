@@ -1,3 +1,4 @@
+import type React from 'react';
 import { useEffect, useState } from 'react';
 import type { OptimizerOpsTrendsResponse } from '../../types/optimizer-ops-trends';
 import { OpsTrendLineChart } from './OpsTrendLineChart';
@@ -20,7 +21,7 @@ export function OpsTrendsPanel({
   experimentId,
   hours = 1,
   refreshMs = 10000,
-}: Props): JSX.Element {
+}: Props): React.JSX.Element {
   const [data, setData] = useState<OptimizerOpsTrendsResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 

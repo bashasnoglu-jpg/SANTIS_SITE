@@ -1,10 +1,11 @@
+import type React from 'react';
 import type { OptimizerOpsResponse } from '../../types/optimizer-ops';
 import { chartTheme } from '../../../../packages/design-system/chart-theme';
 interface Props {
   data: OptimizerOpsResponse;
 }
 
-export function OpsBlockedReasonsChart({ data }: Props): JSX.Element {
+export function OpsBlockedReasonsChart({ data }: Props): React.JSX.Element {
   const entries = Object.entries(data.telemetry.blockedReasonCounts);
   const maxValue = Math.max(1, ...entries.map(([, count]) => count));
 

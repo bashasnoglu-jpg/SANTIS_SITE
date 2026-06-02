@@ -1,7 +1,8 @@
+import type React from 'react';
 import { useState } from 'react';
 import { OpsDashboard } from '../components/optimizer/OpsDashboard';
 
-export default function OptimizerOpsPage(): JSX.Element {
+export default function OptimizerOpsPage(): React.JSX.Element {
   const [experimentId, setExperimentId] = useState('exp_demo');
   const [requestId, setRequestId] = useState('');
 

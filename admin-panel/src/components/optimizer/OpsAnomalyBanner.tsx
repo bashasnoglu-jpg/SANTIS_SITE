@@ -1,10 +1,11 @@
+import type React from 'react';
 import type { OptimizerAnomaly } from '../../types/optimizer-ops-anomaly';
 
 interface Props {
   anomalies: OptimizerAnomaly[];
 }
 
-export function OpsAnomalyBanner({ anomalies }: Props): JSX.Element | null {
+export function OpsAnomalyBanner({ anomalies }: Props): React.JSX.Element | null {
   if (anomalies.length === 0) return null;
 
   return (
