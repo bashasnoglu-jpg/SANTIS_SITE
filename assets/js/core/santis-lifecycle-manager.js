@@ -19,7 +19,61 @@ class SantisLifecycleManager {
             teardowns: new Map()  // scopeName -> Set<id>
         };
 
+        this._legacyCounters = {
+            intervals: 0,
+            listeners: 0,
+            mutationObservers: 0,
+            intersectionObservers: 0,
+            resizeObservers: 0
+        };
+
+        this._enableLegacyProbes();
+
         console.log("🛡️ [Santis Lifecycle] Governance Engine Initialized.");
+    }
+
+    // --- LEGACY PROBES (STAB-03C-C) ---
+    _enableLegacyProbes() {
+        const self = this;
+        // 1. Intervals
+        const origSetInterval = window.setInterval;
+        window.setInterval = function(...args) {
+            self._legacyCounters.intervals++;
+            return origSetInterval.apply(this, args);
+        };
+
+        // 2. EventTarget (covers window, document, elements)
+        const origAddEventListener = EventTarget.prototype.addEventListener;
+        EventTarget.prototype.addEventListener = function(type, listener, options) {
+            // Sadece kritik sayacı artır (DOM elements vs)
+            self._legacyCounters.listeners++;
+            return origAddEventListener.call(this, type, listener, options);
+        };
+
+        // 3. Observers
+        if (typeof window.MutationObserver !== 'undefined') {
+            const origMutation = window.MutationObserver;
+            window.MutationObserver = function(cb) {
+                self._legacyCounters.mutationObservers++;
+                return new origMutation(cb);
+            };
+        }
+
+        if (typeof window.IntersectionObserver !== 'undefined') {
+            const origIntersection = window.IntersectionObserver;
+            window.IntersectionObserver = function(cb, opt) {
+                self._legacyCounters.intersectionObservers++;
+                return new origIntersection(cb, opt);
+            };
+        }
+
+        if (typeof window.ResizeObserver !== 'undefined') {
+            const origResize = window.ResizeObserver;
+            window.ResizeObserver = function(cb) {
+                self._legacyCounters.resizeObservers++;
+                return new origResize(cb);
+            };
+        }
     }
 
     // --- HELPER: Index by Scope ---
@@ -174,6 +228,7 @@ class SantisLifecycleManager {
             activeIntervals: this._intervals.size,
             activeObservers: this._observers.size,
             activeTeardowns: this._teardowns.size,
+            legacyAllocations: { ...this._legacyCounters },
             scopes: {
                 intervals: scopesIntervals,
                 observers: scopesObservers,

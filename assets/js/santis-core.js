@@ -9,6 +9,7 @@ import { SantisDiffEngine } from './santis-diff-v2.js';
 import { SovereignRouter } from './santis-router.js';
 import { SovereignDataBridge } from './santis-data-bridge.js';
 import { SovereignIntentEngine } from './santis-intent-engine.js';
+import './core/santis-lifecycle-manager.js'; // [STAB-03] Global Lifecycle Manager
 
 export class SantisCore {
     constructor() {
@@ -74,6 +75,12 @@ export class SantisCore {
      * Sistem içindeki olayları (Route değişimi, JSON yüklemesi) koordine eder
      */
     handleSystemEvent(event, data) {
+        if (event === 'lifecycle:pre-morph') {
+            console.log(`[Lifecycle] ROUTE=${data.target} | M_INT=${data.activeIntervals} | M_OBS=${data.activeObservers}`);
+            if (data.legacy) {
+                console.log(`[Legacy Leak Probe] INT=${data.legacy.intervals} | LST=${data.legacy.listeners} | MUT=${data.legacy.mutationObservers} | INT_OBS=${data.legacy.intersectionObservers} | RSZ=${data.legacy.resizeObservers}`);
+            }
+        }
         if (event === 'router:morphed' || event === 'matrix:injected') {
             console.log(`[Event Kernel] Sinyal Tespit Edildi: ${event}. Neuro-Tracker'ları hizalayın!`);
 

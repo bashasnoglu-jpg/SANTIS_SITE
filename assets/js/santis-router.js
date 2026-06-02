@@ -84,6 +84,21 @@ export class SovereignRouter {
             // Göz İllüzyonu: Geçişin "Lüks" Hissedilmesi İçin En Az Fade-Out Süresi Kadar Bekle
             await new Promise(resolve => setTimeout(resolve, 400));
 
+            // [STAB-03C-B] PASSIVE DIAGNOSTICS HOOK (PRE-MORPH)
+            // Sadece ölçüm.
+            if (window.Santis && window.Santis.Bus) {
+                window.Santis.Bus.emit('lifecycle:pre-morph', {
+                    activeIntervals: window.SantisLifecycle?.getDiagnostics()?.activeIntervals,
+                    activeObservers: window.SantisLifecycle?.getDiagnostics()?.activeObservers,
+                    legacy: window.SantisLifecycle?.getDiagnostics()?.legacyAllocations,
+                    target: targetUrl
+                });
+            }
+
+            // [STAB-03D] SCOPED PILOT TEARDOWN
+            // Clear only 'SPA_ROUTE' scoped intervals/observers before DOM patch
+            window.SantisLifecycle?.teardownScope?.('SPA_ROUTE');
+
             // 3. THE QUANTUM MORPH: Eski İçeriği Silmeden Diff Engine İle Yama (GPU Tütmeye Devam Ediyor)
             this.diffEngine.patchContainer(this.appContainer, newContainer);
 
