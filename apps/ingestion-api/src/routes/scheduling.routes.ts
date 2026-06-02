@@ -1,4 +1,5 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
+import { z } from 'zod';
 import { boardroomAuthPreHandler, boardroomWriteAuthPreHandler } from '../auth/fastify-auth-prehandler.js';
 import {
   SchedulingResourcesRequestSchema,
@@ -109,6 +110,54 @@ export const schedulingRoutes: FastifyPluginAsync = async (server: FastifyInstan
       return reply.status(500).send({ error: "Internal Server Error" });
     }
   });
+
+  // --- MIGRATED FROM FASTAPI (P6-MOD-C) ---
+  const GuestAvailabilityRequestSchema = z.object({
+    ritualTitle: z.string().min(2),
+    category: z.string().optional(),
+    duration: z.string().optional(),
+    intent: z.string().optional(),
+    atmosphere: z.string().optional(),
+    preferredDate: z.string().min(4),
+    preferredTime: z.string().min(4),
+    partySize: z.number().min(1).max(6).default(1),
+    source: z.string().default("booking-modal")
+  });
+
+  server.post('/v1/booking/availability', async (request, reply) => {
+    try {
+      const bodyParsed = GuestAvailabilityRequestSchema.safeParse(request.body);
+      if (!bodyParsed.success) {
+        return reply.status(400).send({ error: "Invalid Body", details: bodyParsed.error.errors });
+      }
+
+      // ACL Mapping: Map the string-based payload to the logic that SchedulingRepository would use.
+      // For now, retaining the hour-based mock logic from FastAPI inside Fastify to ensure zero frontend disruption.
+      // In phase K-5, this will be fully replaced by the calculateAvailability(ctx) logic.
+      const hourStr = bodyParsed.data.preferredTime.split(":")[0];
+      const hour = parseInt(hourStr, 10);
+
+      if (isNaN(hour) || hour < 10 || hour > 20) {
+        return reply.status(200).send({
+          available: false,
+          confirmationMode: "host-review",
+          message: "Bu saat aralığı dışında müsaitlik bulunmuyor.",
+          alternatives: ["11:00", "14:00", "17:30"],
+        });
+      }
+
+      return reply.status(200).send({
+        available: true,
+        confirmationMode: "host-review",
+        message: "Seçtiğiniz zaman ön uygunluk kontrolünden geçti. Spa ekibi tarafından teyit edilecektir.",
+        alternatives: [],
+      });
+    } catch (error: any) {
+      server.log.error(error);
+      return reply.status(500).send({ error: "Internal Server Error" });
+    }
+  });
+  // ----------------------------------------
 
   // GET /api/v1/scheduling/bookings -> Returns mock list
   server.get('/v1/scheduling/bookings', { preHandler: boardroomAuthPreHandler }, async (request, reply) => {
