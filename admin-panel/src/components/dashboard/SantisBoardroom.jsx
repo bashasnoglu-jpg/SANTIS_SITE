@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import GhostDrawer from './GhostDrawer';
 import LiveIntentMonitor from '../boardroom/LiveIntentMonitor';
 import AdvisorDebugFeed from '../boardroom/AdvisorDebugFeed';
+import CoreMetricsRevenueWidget from './CoreMetricsRevenueWidget';
 import { BoardroomChronos } from '../../features/boardroom/components/BoardroomChronos';
 import { History, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut, Eye, Brain, Split, Headset, TrendingUp, GitBranch, Filter, BookOpen } from 'lucide-react';
 import { useBoardroomMode } from '../../features/boardroom/context/BoardroomModeContext';
@@ -217,6 +218,13 @@ export default function SantisBoardroom() {
                 {activeTab === 'telemetry' && (
                   <div className="md:col-span-2 xl:col-span-3 mb-2 animate-fade-in" style={{ animationDelay: '0ms' }}>
                     <LiveIntentMonitor />
+                  </div>
+                )}
+
+                {/* NEW: Core Metrics & Revenue Widget */}
+                {activeTab === 'telemetry' && (
+                  <div className="md:col-span-2 xl:col-span-3 mb-2 animate-fade-in">
+                    <CoreMetricsRevenueWidget />
                   </div>
                 )}
 
