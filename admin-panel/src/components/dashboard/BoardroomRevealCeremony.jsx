@@ -63,7 +63,8 @@ const BoardroomRevealCeremony = ({ onComplete }) => {
     });
 
     return () => ctx.revert();
-  }, [onComplete]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import GhostDrawer from './GhostDrawer';
 import LiveIntentMonitor from '../boardroom/LiveIntentMonitor';
+import AdvisorDebugFeed from '../boardroom/AdvisorDebugFeed';
 import { BoardroomChronos } from '../../features/boardroom/components/BoardroomChronos';
 import { History, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut, Eye, Brain, Split, Headset, TrendingUp, GitBranch, Filter, BookOpen } from 'lucide-react';
 import { useBoardroomMode } from '../../features/boardroom/context/BoardroomModeContext';
@@ -205,6 +206,13 @@ export default function SantisBoardroom() {
             {/* TELEMETRİ ÖZETİ EKRANI (Tüm Widgetlar) */}
             {(activeTab === 'telemetry' || activeTab === 'psychology') && (
               <>
+                {/* NEW: Advisor Debug Feed (SSE) */}
+                {activeTab === 'telemetry' && (
+                  <div className="md:col-span-2 xl:col-span-3 animate-fade-in" style={{ animationDelay: '0ms' }}>
+                    <AdvisorDebugFeed />
+                  </div>
+                )}
+
                 {/* NEW: Live Intent Monitor (SSE + REST) */}
                 {activeTab === 'telemetry' && (
                   <div className="md:col-span-2 xl:col-span-3 mb-2 animate-fade-in" style={{ animationDelay: '0ms' }}>
