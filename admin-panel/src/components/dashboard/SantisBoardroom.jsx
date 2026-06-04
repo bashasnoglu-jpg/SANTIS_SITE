@@ -3,6 +3,8 @@ import GhostDrawer from './GhostDrawer';
 import LiveIntentMonitor from '../boardroom/LiveIntentMonitor';
 import AdvisorDebugFeed from '../boardroom/AdvisorDebugFeed';
 import CoreMetricsRevenueWidget from './CoreMetricsRevenueWidget';
+import ActiveConnectionsWidget from '../boardroom/ActiveConnectionsWidget';
+import FlightRiskRadarWidget from '../boardroom/FlightRiskRadarWidget';
 import { BoardroomChronos } from '../../features/boardroom/components/BoardroomChronos';
 import { History, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut, Eye, Brain, Split, Headset, TrendingUp, GitBranch, Filter, BookOpen } from 'lucide-react';
 import { useBoardroomMode } from '../../features/boardroom/context/BoardroomModeContext';
@@ -228,6 +230,13 @@ export default function SantisBoardroom() {
                   </div>
                 )}
 
+                {/* NEW: Active Connections (God Mode) Widget */}
+                {activeTab === 'telemetry' && (
+                  <div className="md:col-span-2 xl:col-span-3 mb-2 animate-fade-in">
+                    <ActiveConnectionsWidget />
+                  </div>
+                )}
+
                 {/* WIDGET 1: Müdahale Gösterimi */}
                 <div className="bg-sovereign-obsidian border border-sovereign-panel hover:border-sovereign-earth/50 rounded-sm p-8 flex flex-col transition-colors animate-fade-in" style={{ animationDelay: '0ms' }}>
                   <div className="flex items-center gap-3 mb-6 border-b border-sovereign-panel pb-4">
@@ -315,6 +324,11 @@ export default function SantisBoardroom() {
 
             {(activeTab === 'telemetry' || activeTab === 'journey') && (
               <>
+                {/* NEW: Flight Risk Radar Widget */}
+                <div className="md:col-span-2 xl:col-span-3 mb-6 animate-fade-in">
+                  <FlightRiskRadarWidget />
+                </div>
+
                 {/* WIDGET 4: Concierge Dönüşümü */}
                 <div className="bg-sovereign-obsidian border border-sovereign-panel hover:border-sovereign-earth/50 rounded-sm p-8 flex flex-col transition-colors animate-fade-in" style={{ animationDelay: '300ms' }}>
                   <div className="flex items-center gap-3 mb-6 border-b border-sovereign-panel pb-4">
