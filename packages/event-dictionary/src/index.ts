@@ -1,3 +1,4 @@
+// @ts-ignore
 import type { TelemetrySignal } from '@santis/domain-schema/telemetry';
 import { z } from "zod";
 
@@ -358,6 +359,20 @@ export const BoardroomOverrideAppliedEventSchema = BaseEventSchema.extend({
   payload: BoardroomOverrideAppliedPayloadSchema,
 });
 
+export const AdvisorIntentEvaluatedPayloadSchema = z.object({
+  tenantId: z.string(),
+  guestId: z.string().optional(),
+  currentAction: z.string(),
+  intentDetected: z.string().optional(),
+  recommendedMode: z.string().optional(),
+  confidence: z.number().optional(),
+});
+
+export const AdvisorIntentEvaluatedEventSchema = BaseEventSchema.extend({
+  eventType: z.literal("advisor.intent.evaluated"),
+  payload: AdvisorIntentEvaluatedPayloadSchema,
+});
+
 export const SantisEventSchema = z.discriminatedUnion("eventType", [
   MoodSelectedEventSchema,
   FlowAbandonedEventSchema,
@@ -376,6 +391,7 @@ export const SantisEventSchema = z.discriminatedUnion("eventType", [
   BoardroomOracleExecutedEventSchema,
   BoardroomStrategyAppliedEventSchema,
   BoardroomOverrideAppliedEventSchema,
+  AdvisorIntentEvaluatedEventSchema,
 ]);
 
 

@@ -8,11 +8,15 @@ import { advisorRoutes } from './routes/advisor.routes.js';
 import fastifyCookie from '@fastify/cookie';
 import cors from '@fastify/cors';
 import fastifySocketIO from 'fastify-socket.io';
+import { SovereignBus } from '@santis/sovereign-bus';
 
 export function buildServer(db?: any) {
   const server = fastify({
     logger: true
   });
+
+  const bus = new SovereignBus();
+  server.decorate('bus', bus);
 
   if (db) {
     server.decorate('db', db);

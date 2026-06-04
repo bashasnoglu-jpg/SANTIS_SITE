@@ -61,4 +61,35 @@ export async function streamRoutes(server: FastifyInstance) {
       clearInterval(interval);
     });
   });
+
+  // 4. Advisor Debug Stream SSE
+  server.get('/v1/stream/advisor', async (request, reply) => {
+    reply.raw.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache, no-transform',
+      'Connection': 'keep-alive'
+    });
+
+    reply.raw.write(`event: connected\n`);
+    reply.raw.write(`data: ${JSON.stringify({ type: 'connected', ts: Date.now() })}\n\n`);
+
+    // @ts-ignore
+    const bus = server.bus;
+    
+    // Subscribe to bus
+    const unsubscribe = bus?.events.subscribe('advisor.intent.evaluated', (evt: any) => {
+      reply.raw.write(`event: advisor_evaluated\n`);
+      reply.raw.write(`data: ${JSON.stringify(evt)}\n\n`);
+    });
+
+    const interval = setInterval(() => {
+      reply.raw.write('event: heartbeat\n');
+      reply.raw.write(`data: ${JSON.stringify({ ts: Date.now() })}\n\n`);
+    }, 10000);
+
+    request.raw.on('close', () => {
+      clearInterval(interval);
+      if (unsubscribe) unsubscribe();
+    });
+  });
 }

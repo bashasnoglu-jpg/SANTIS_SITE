@@ -5,7 +5,9 @@ import { IntentPayload } from '../advisor/types.js';
 export async function advisorRoutes(fastify: FastifyInstance) {
   // @ts-ignore
   const db = fastify.db;
-  const advisorService = new AdvisorService(db);
+  // @ts-ignore
+  const bus = fastify.bus;
+  const advisorService = new AdvisorService(db, bus);
 
   fastify.post('/advisor/intent', async (request, reply) => {
     const payload = request.body as IntentPayload;
