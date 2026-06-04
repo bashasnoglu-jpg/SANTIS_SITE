@@ -24,7 +24,7 @@ RUN pnpm --filter admin-panel build
 FROM nginx:1.27-alpine
 
 COPY docker/admin-panel/nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/admin-panel/dist /usr/share/nginx/html
+COPY --from=builder /app/admin-panel/dist /usr/share/nginx/html/admin
 
 # Adjust permissions for non-root runtime environment
 RUN touch /var/run/nginx.pid \
