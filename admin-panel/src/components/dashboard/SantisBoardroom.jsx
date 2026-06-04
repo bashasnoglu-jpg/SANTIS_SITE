@@ -5,6 +5,7 @@ import AdvisorDebugFeed from '../boardroom/AdvisorDebugFeed';
 import CoreMetricsRevenueWidget from './CoreMetricsRevenueWidget';
 import ActiveConnectionsWidget from '../boardroom/ActiveConnectionsWidget';
 import FlightRiskRadarWidget from '../boardroom/FlightRiskRadarWidget';
+import SovereignCommandPalette from '../boardroom/SovereignCommandPalette';
 import { BoardroomChronos } from '../../features/boardroom/components/BoardroomChronos';
 import { History, Activity, Bell, ChevronRight, LayoutDashboard, Settings, LogOut, Eye, Brain, Split, Headset, TrendingUp, GitBranch, Filter, BookOpen } from 'lucide-react';
 import { useBoardroomMode } from '../../features/boardroom/context/BoardroomModeContext';
@@ -71,7 +72,9 @@ export default function SantisBoardroom() {
   };
 
   return (
-    <div className={`min-h-screen bg-sovereign-void text-sovereign-ink font-sans flex selection:bg-sovereign-accent/30 selection:text-sovereign-ink ${isHistorical ? 'nv-historical' : ''}`}>
+    <>
+      <SovereignCommandPalette setActiveTab={setActiveTab} />
+      <div className={`min-h-screen bg-sovereign-void text-sovereign-ink font-sans flex selection:bg-sovereign-accent/30 selection:text-sovereign-ink ${isHistorical ? 'nv-historical' : ''}`}>
 
       {!isRevealed && <BoardroomRevealCeremony onComplete={() => setIsRevealed(true)} />}
 
@@ -460,5 +463,6 @@ export default function SantisBoardroom() {
         anomalies={anomalies}
       />
     </div>
+    </>
   );
 }
