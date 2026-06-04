@@ -19,7 +19,7 @@ export default function AdvisorDebugFeed() {
         console.warn('[SOVEREIGN ADVISOR] SSE Realtime stream unavailable.');
         return;
       }
-      
+
       eventSource = new EventSource(streamUrl);
 
       eventSource.onopen = () => {
@@ -30,7 +30,7 @@ export default function AdvisorDebugFeed() {
       eventSource.addEventListener('advisor_evaluated', (event) => {
         try {
           const incomingData = JSON.parse(event.data);
-          
+
           if (!incomingData || !incomingData.traceId || !incomingData.payload?.intentDetected) {
             return;
           }
@@ -82,12 +82,12 @@ export default function AdvisorDebugFeed() {
           Advisor Evaluation Feed
         </h3>
       </div>
-      
+
       <div className="space-y-4">
         {events.map((evt, index) => {
           return (
-            <div 
-              key={`${evt.traceId}-${index}`} 
+            <div
+              key={`${evt.traceId}-${index}`}
               className="p-6 rounded-md border border-sovereign-line bg-sovereign-dark flex justify-between items-center transition-all"
             >
               <div className="flex flex-col gap-2">
