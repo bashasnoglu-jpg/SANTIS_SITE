@@ -62,7 +62,15 @@ const BoardroomRevealCeremony = ({ onComplete }) => {
       }, "-=1.2");
     });
 
-    return () => ctx.revert();
+    // Failsafe: Tab arka planda kalırsa veya GSAP takılırsa 7 saniye sonra mutlaka aç
+    const failsafe = setTimeout(() => {
+      if (onComplete) onComplete();
+    }, 7000);
+
+    return () => {
+      clearTimeout(failsafe);
+      ctx.revert();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

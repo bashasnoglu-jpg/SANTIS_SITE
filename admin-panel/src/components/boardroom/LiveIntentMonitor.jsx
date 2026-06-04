@@ -19,7 +19,7 @@ export default function LiveIntentMonitor() {
         console.warn('[SOVEREIGN KALKANI] SSE Realtime stream unavailable. Falling back to offline mode.');
         return;
       }
-      
+
       eventSource = new EventSource(streamUrl);
 
       eventSource.onopen = () => {
@@ -29,7 +29,7 @@ export default function LiveIntentMonitor() {
       eventSource.addEventListener('advisor_evaluated', (event) => {
         try {
           const incomingData = JSON.parse(event.data);
-          
+
           if (!incomingData || !incomingData.traceId || !incomingData.payload?.intentDetected) {
             return;
           }
@@ -81,12 +81,12 @@ export default function LiveIntentMonitor() {
           Live Intent Monitor
         </h3>
       </div>
-      
+
       <div className="space-y-4">
         {events.map((evt, index) => {
           return (
-            <div 
-              key={`${evt.traceId}-${index}`} 
+            <div
+              key={`${evt.traceId}-${index}`}
               className="p-6 rounded-md border border-sovereign-line bg-sovereign-dark flex justify-between items-center transition-all hover:border-sovereign-gold/50"
             >
               <div className="flex flex-col gap-2">

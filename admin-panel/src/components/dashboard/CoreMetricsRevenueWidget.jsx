@@ -7,8 +7,8 @@ export default function CoreMetricsRevenueWidget() {
   const { liveRevenue = 0, activeSessions = 0 } = financeData || {};
 
   // Mock değerler, backend'den geldiğinde gerçek dataya bağlanacak.
-  const capacityPercent = Math.min(100, Math.round((activeSessions / 150) * 100)) || 85; 
-  const conversionRate = 14.2; 
+  const capacityPercent = Math.min(100, Math.round((activeSessions / 150) * 100)) || 85;
+  const conversionRate = 14.2;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -64,8 +64,8 @@ export default function CoreMetricsRevenueWidget() {
           <span className="text-lg text-sovereign-muted font-sans">%</span>
         </div>
         <div className="w-full bg-black/40 rounded-full h-1 border border-white/5 overflow-hidden">
-          <div 
-            className="bg-sovereign-earth h-1 rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(180,160,140,0.5)]" 
+          <div
+            className="bg-sovereign-earth h-1 rounded-full transition-all duration-1000"
             style={{ width: `${capacityPercent}%` }}
           ></div>
         </div>

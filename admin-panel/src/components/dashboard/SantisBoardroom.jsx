@@ -70,9 +70,9 @@ export default function SantisBoardroom() {
 
   return (
     <div className={`min-h-screen bg-sovereign-void text-sovereign-ink font-sans flex selection:bg-sovereign-accent/30 selection:text-sovereign-ink ${isHistorical ? 'nv-historical' : ''}`}>
-      
+
       {!isRevealed && <BoardroomRevealCeremony onComplete={() => setIsRevealed(true)} />}
-      
+
       <SovereignActionRail />
 
 
@@ -84,42 +84,42 @@ export default function SantisBoardroom() {
         <div className="h-24 flex items-center justify-center border-b border-sovereign-panel">
           <h1 className="text-xl tracking-[0.3em] font-light text-sovereign-ink">SANTIS</h1>
         </div>
-        
+
         <div className="p-6">
           <div className="text-sovereign-earth text-2xs uppercase tracking-widest mb-4">Boardroom OS</div>
           <nav className="space-y-2">
-            <button 
+            <button
               onClick={() => setActiveTab('telemetry')}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm text-sm transition-colors ${activeTab === 'telemetry' ? 'bg-sovereign-obsidian border border-sovereign-accent/30 text-sovereign-accent' : 'bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink'}`}
             >
               <LayoutDashboard className="w-4 h-4" /> Telemetri Özeti
             </button>
-            <button 
+            <button
               onClick={() => setActiveTab('psychology')}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm text-sm transition-colors ${activeTab === 'psychology' ? 'bg-sovereign-obsidian border border-sovereign-accent/30 text-sovereign-accent' : 'bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink'}`}
             >
               <Brain className="w-4 h-4" /> Psikolojik Katman
             </button>
-            <button 
+            <button
               onClick={() => setActiveTab('journey')}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm text-sm transition-colors ${activeTab === 'journey' ? 'bg-sovereign-obsidian border border-sovereign-accent/30 text-sovereign-accent' : 'bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink'}`}
             >
               <Filter className="w-4 h-4" /> Journey Hunisi
             </button>
-            <button 
+            <button
               onClick={() => setActiveTab('chronos')}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm text-sm transition-colors ${activeTab === 'chronos' ? 'bg-sovereign-obsidian border border-sovereign-accent/30 text-sovereign-accent' : 'bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink'}`}
             >
               <History className="w-4 h-4" /> Chronos & Logic
             </button>
             {/* Admin-only: Time Travel Replay tab */}
-            <button 
+            <button
               onClick={() => setActiveTab('replay')}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm text-sm transition-colors ${activeTab === 'replay' ? 'bg-sovereign-obsidian border border-sovereign-accent/30 text-sovereign-accent' : 'bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink'}`}
             >
               <GitBranch className="w-4 h-4" /> Replay Engine
             </button>
-            <button 
+            <button
               onClick={() => setActiveTab('memory')}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm text-sm transition-colors ${activeTab === 'memory' ? 'bg-sovereign-obsidian border border-sovereign-accent/30 text-sovereign-accent' : 'bg-transparent border border-transparent hover:bg-sovereign-obsidian hover:border-sovereign-panel text-sovereign-sand hover:text-sovereign-ink'}`}
             >
@@ -151,7 +151,7 @@ export default function SantisBoardroom() {
       {/* ANA İÇERİK ALANI                                           */}
       {/* ========================================================= */}
       <main className="flex-1 flex flex-col min-h-screen overflow-hidden relative">
-        
+
         {/* Ambient Glow */}
         <div className="absolute top-[-20%] right-[-10%] layout-panel-600 fx-bg-boardroom-radial rounded-full pointer-events-none z-0"></div>
 
@@ -167,15 +167,15 @@ export default function SantisBoardroom() {
               {activeTab === 'memory' && 'Sovereign Memory'}
             </h2>
             <div className="flex items-center text-sovereign-bronze text-2xs uppercase tracking-widest mt-1">
-              <Activity className="w-3 h-3 mr-2 text-sovereign-accent animate-pulse" /> 
+              <Activity className="w-3 h-3 mr-2 text-sovereign-accent animate-pulse" />
               Canlı Akış: <span className="ml-2 text-sovereign-sand normal-case tracking-normal">{liveEvents[liveEventIndex]}</span>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-4">
             <div className="flex bg-sovereign-obsidian border border-sovereign-panel rounded-sm p-1">
               {['Bugün', 'Bu Hafta', 'Bu Ay'].map(range => (
-                <button 
+                <button
                   key={range}
                   onClick={() => setTimeRange(range)}
                   className={`px-4 py-1.5 text-xs rounded-sm transition-colors ${timeRange === range ? 'bg-sovereign-coal text-sovereign-accent border border-sovereign-panel' : 'text-sovereign-bronze hover:text-sovereign-ink border border-transparent'}`}
@@ -184,7 +184,7 @@ export default function SantisBoardroom() {
                 </button>
               ))}
             </div>
-            <button 
+            <button
               onClick={handleOpenDrawer}
               className={`w-10 h-10 flex items-center justify-center border ${hasUnreadPulse ? 'border-sovereign-accent bg-sovereign-accent/10' : 'border-sovereign-panel bg-sovereign-obsidian'} hover:border-sovereign-earth rounded-sm text-sovereign-sand transition-colors relative`}
             >
@@ -203,7 +203,7 @@ export default function SantisBoardroom() {
         {/* WIDGET GRID */}
         <div className="flex-1 overflow-y-auto p-8 z-10 hide-scrollbar animate-reveal">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            
+
             {/* TELEMETRİ ÖZETİ EKRANI (Tüm Widgetlar) */}
             {(activeTab === 'telemetry' || activeTab === 'psychology') && (
               <>
@@ -239,7 +239,7 @@ export default function SantisBoardroom() {
                     <span className="text-sovereign-accent text-sm font-medium">+2.4%</span>
                   </div>
                   <p className="text-sovereign-bronze text-xs leading-relaxed mb-auto">Psikolojik katmanın kullanıcılara görünme oranı. Ziyaretçilerin dörtte biri rehberliğe ihtiyaç duyuyor.</p>
-                  
+
                   <div className="mt-8 space-y-3">
                     <div className="flex items-center gap-3">
                       <span className="w-16 text-2xs uppercase text-sovereign-bronze tracking-widest">Gösterildi</span>
@@ -261,7 +261,7 @@ export default function SantisBoardroom() {
                     <h3 className="text-sovereign-ink text-sm uppercase tracking-widest font-medium">Bilişsel Dağılım</h3>
                   </div>
                   <p className="text-sovereign-bronze text-xs leading-relaxed mb-8">Müdahale edilen kullanıcıların analiz edilen zihin durumu profilleri.</p>
-                  
+
                   <div className="space-y-5 mt-auto">
                     <div>
                       <div className="flex justify-between text-xs mb-2">
@@ -294,7 +294,7 @@ export default function SantisBoardroom() {
                     <h3 className="text-sovereign-ink text-sm uppercase tracking-widest font-medium">Metin Performansı</h3>
                   </div>
                   <p className="text-sovereign-bronze text-xs leading-relaxed mb-auto">Farklı kopya metinlerinin (A/B Test) Concierge'e dönüşüm oranları.</p>
-                  
+
                   <ul className="mt-6 space-y-0 divide-y divide-[var(--sovereign-panel)]">
                     <li className="py-4 flex justify-between items-center">
                       <span className="text-sovereign-bronze text-sm">Varyant A <span className="text-2xs uppercase ml-1">(Rehber)</span></span>
@@ -326,7 +326,7 @@ export default function SantisBoardroom() {
                     <span className="text-sovereign-accent text-sm font-medium">+1.1%</span>
                   </div>
                   <p className="text-sovereign-bronze text-xs leading-relaxed mb-auto">Müdahale katmanından WhatsApp veya canlı destek ekibine geçiş yapanların oranı.</p>
-                  
+
                   <ul className="mt-6 space-y-0 divide-y divide-[var(--sovereign-panel)]">
                     <li className="py-4 flex justify-between items-center">
                       <span className="text-sovereign-bronze text-sm">Toplam Yönlendirme</span>
@@ -346,7 +346,7 @@ export default function SantisBoardroom() {
                     <h3 className="text-sovereign-ink text-sm uppercase tracking-widest font-medium">Journey Terk Analizi</h3>
                   </div>
                   <p className="text-sovereign-bronze text-xs leading-relaxed mb-6">Müşteriler 4 adımlı Journey Builder (Sepet) akışında nereden çıkıyor?</p>
-                  
+
                   <div className="mt-auto space-y-0 divide-y divide-[var(--sovereign-panel)]">
                     <div className="py-3 flex justify-between items-center">
                       <span className="text-sovereign-sand text-sm">1. Kişiselleştirme</span>
@@ -379,7 +379,7 @@ export default function SantisBoardroom() {
                     <span className="text-sovereign-sand text-sm font-light uppercase tracking-widest">{timeRange}</span>
                   </div>
                   <p className="text-sovereign-bronze text-xs leading-relaxed mb-auto">Psikolojik katman etkileşimi veya Journey eklentileri (Add-ons) ile üretilen toplam gelir.</p>
-                  
+
                   <ul className="mt-6 space-y-0 divide-y divide-[var(--sovereign-panel)]">
                     <li className="py-4 flex justify-between items-center">
                       <span className="text-sovereign-bronze text-sm">Küratör Eklentisi (Uplift)</span>
@@ -430,7 +430,7 @@ export default function SantisBoardroom() {
             )}
 
           </div>
-          
+
           {/* Footer Warning */}
           <div className="max-w-7xl mx-auto mt-10 text-center animate-fade-in" style={{ animationDelay: '600ms' }}>
             <p className="text-sovereign-bronze text-sm font-light">
@@ -440,10 +440,10 @@ export default function SantisBoardroom() {
         </div>
       </main>
 
-      <GhostDrawer 
-        isOpen={isDrawerOpen} 
-        onClose={() => setIsDrawerOpen(false)} 
-        anomalies={anomalies} 
+      <GhostDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        anomalies={anomalies}
       />
     </div>
   );
