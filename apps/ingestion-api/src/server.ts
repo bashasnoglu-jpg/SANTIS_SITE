@@ -6,6 +6,7 @@ import { streamRoutes } from './routes/stream.routes.js';
 import { paymentsRoutes } from './routes/payments.routes.js';
 import { advisorRoutes } from './routes/advisor.routes.js';
 import { authRoutes } from './routes/auth.routes.js';
+import { coreRoutes } from './routes/core.routes.js';
 import fastifyCookie from '@fastify/cookie';
 import cors from '@fastify/cors';
 import fastifySocketIO from 'fastify-socket.io';
@@ -81,6 +82,7 @@ export function buildServer(db?: any) {
   server.register(paymentsRoutes, { prefix: '/api' });
   server.register(advisorRoutes, { prefix: '/api/v1' });
   server.register(authRoutes, { prefix: '/api' });
+  server.register(coreRoutes, { prefix: '/api' });
 
   return server;
 }
