@@ -9,6 +9,7 @@ import fastifyCookie from '@fastify/cookie';
 import cors from '@fastify/cors';
 import fastifySocketIO from 'fastify-socket.io';
 import { SovereignBus } from '@santis/sovereign-bus';
+import { BoardroomSocketService } from './services/boardroom.socket.js';
 
 export function buildServer(db?: any) {
   const server = fastify({
@@ -67,21 +68,8 @@ export function buildServer(db?: any) {
     // Only typed as any to bypass missing fastify-socket.io types if any
     const io = (server as any).io;
     if (io) {
-      io.on('connection', (socket: any) => {
-        // Send a minimal heartbeat to appease the SovereignSocketProvider connection
-        const interval = setInterval(() => {
-          // Send mock finance update to keep the connection visibly alive without crashing the schema
-          socket.emit('admin:finance_update', {
-            liveRevenue: 15400,
-            activeSessions: 3,
-            timestamp: new Date().toISOString()
-          });
-        }, 30000);
-
-        socket.on('disconnect', () => {
-          clearInterval(interval);
-        });
-      });
+      const boardroomSocket = new BoardroomSocketService(io);
+      boardroomSocket.initialize();
     }
   });
 
