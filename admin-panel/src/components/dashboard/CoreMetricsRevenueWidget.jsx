@@ -4,14 +4,26 @@ import { TrendingUp, Percent, Activity } from 'lucide-react';
 
 export default function CoreMetricsRevenueWidget() {
   const { financeData } = useSovereignSocket();
-  const { liveRevenue = 0, activeSessions = 0 } = financeData || {};
+  const hasRealData = financeData && (financeData.liveRevenue > 0 || financeData.activeSessions > 0);
+
+  const displayRevenue = hasRealData ? financeData.liveRevenue : 12450;
+  const displaySessions = hasRealData ? financeData.activeSessions : 127;
 
   // Mock değerler, backend'den geldiğinde gerçek dataya bağlanacak.
-  const capacityPercent = Math.min(100, Math.round((activeSessions / 150) * 100)) || 85;
+  const capacityPercent = Math.min(100, Math.round((displaySessions / 150) * 100)) || 85;
   const conversionRate = 14.2;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 relative">
+      {!hasRealData && (
+        <div className="absolute -top-3 right-0 z-10 flex flex-col items-end pointer-events-none">
+          <div className="flex items-center text-[10px] text-sovereign-gold font-mono uppercase tracking-widest bg-sovereign-gold/10 px-2 py-1 rounded-sm border border-sovereign-gold/20 backdrop-blur-md">
+            <Activity className="w-3 h-3 mr-1 animate-pulse" />
+            DEMO / FALLBACK
+          </div>
+          <div className="text-[9px] text-sovereign-muted mt-1 uppercase">Awaiting live finance stream</div>
+        </div>
+      )}
       {/* WIDGET 1: Günün Cirosu / Projeksiyon */}
       <div className="bg-sovereign-obsidian border border-sovereign-panel hover:border-sovereign-gold/50 rounded-sm p-6 relative overflow-hidden group transition-all duration-500 animate-fade-in">
         <div className="absolute -right-10 -top-10 w-32 h-32 bg-sovereign-gold/5 rounded-full blur-2xl transition-all duration-700 group-hover:bg-sovereign-gold/10"></div>
@@ -23,7 +35,7 @@ export default function CoreMetricsRevenueWidget() {
         </div>
         <div className="flex items-baseline gap-2">
           <span className="font-serif text-4xl text-sovereign-ink transition-all duration-500">
-            {liveRevenue.toLocaleString('tr-TR')}
+            {displayRevenue.toLocaleString('tr-TR')}
           </span>
           <span className="text-lg text-sovereign-muted font-sans">€</span>
         </div>
