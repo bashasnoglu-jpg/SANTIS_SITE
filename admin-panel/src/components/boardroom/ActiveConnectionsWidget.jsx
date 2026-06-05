@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Activity, ShieldAlert, Wifi } from 'lucide-react';
+import { SovereignSocketContext } from '../../context/SovereignSocketContext';
 
 export default function ActiveConnectionsWidget() {
+  const { connections } = useContext(SovereignSocketContext);
+
   // DEMO FIXTURES (UI-SHELL ONLY)
   const mockConnections = [
     { id: 'usr-001', page: '/spa/hamam', status: 'active', ipMask: '192.168.1.***' },
@@ -9,16 +12,21 @@ export default function ActiveConnectionsWidget() {
     { id: 'usr-003', page: '/', status: 'active', ipMask: '10.0.0.***' }
   ];
 
+  const hasRealData = connections && connections.length > 0;
+  const displayConnections = hasRealData ? connections : mockConnections;
+
   return (
     <div className="bg-sovereign-obsidian border border-sovereign-panel hover:border-sovereign-gold/30 rounded-sm flex flex-col transition-colors animate-fade-in">
       <div className="p-6 border-b border-sovereign-panel relative">
-        <div className="absolute top-4 right-4 flex flex-col items-end">
-          <div className="flex items-center text-[10px] text-sovereign-gold font-mono uppercase tracking-widest bg-sovereign-gold/10 px-2 py-1 rounded-sm">
-            <Wifi className="w-3 h-3 mr-1 animate-pulse" />
-            DEMO SIGNAL ONLY
+        {!hasRealData && (
+          <div className="absolute top-4 right-4 flex flex-col items-end">
+            <div className="flex items-center text-[10px] text-sovereign-gold font-mono uppercase tracking-widest bg-sovereign-gold/10 px-2 py-1 rounded-sm">
+              <Wifi className="w-3 h-3 mr-1 animate-pulse" />
+              DEMO SIGNAL ONLY
+            </div>
+            <div className="text-[9px] text-sovereign-muted mt-1 uppercase">Awaiting live SovereignSocket stream</div>
           </div>
-          <div className="text-[9px] text-sovereign-muted mt-1 uppercase">Awaiting live SovereignSocket stream</div>
-        </div>
+        )}
         <div className="flex items-center gap-3">
           <Activity className="w-5 h-5 text-sovereign-accent" />
           <h3 className="text-sovereign-ink text-sm uppercase tracking-widest font-medium">
@@ -38,7 +46,7 @@ export default function ActiveConnectionsWidget() {
             </tr>
           </thead>
           <tbody>
-            {mockConnections.map((conn) => (
+            {displayConnections.map((conn) => (
               <tr key={conn.id} className="border-b border-sovereign-panel/30 hover:bg-sovereign-panel/10 transition-colors">
                 <td className="py-3 text-xs font-mono text-sovereign-sand">{conn.id}</td>
                 <td className="py-3 text-xs text-sovereign-ink font-medium">{conn.page}</td>

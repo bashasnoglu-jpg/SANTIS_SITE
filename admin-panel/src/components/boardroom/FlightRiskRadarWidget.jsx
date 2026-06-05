@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { AlertTriangle, PlaneTakeoff, XCircle } from 'lucide-react';
+import { SovereignSocketContext } from '../../context/SovereignSocketContext';
 
 export default function FlightRiskRadarWidget() {
+  const { flightRisks } = useContext(SovereignSocketContext);
+
   // DEMO FIXTURES (UI-SHELL ONLY)
   const mockAnomalies = [
     { id: '1', type: 'code_1006', user: 'guest-01', detail: 'WebSocket Drop', time: '10:45:12' },
     { id: '2', type: 'soft_risk', user: 'guest-09', detail: 'Idle on Checkout (3m)', time: '10:43:05' }
   ];
 
+  const hasRealData = flightRisks && flightRisks.length > 0;
+  const displayAnomalies = hasRealData ? flightRisks : mockAnomalies;
+
   return (
     <div className="bg-sovereign-obsidian border border-sovereign-panel hover:border-sovereign-bronze/50 rounded-sm flex flex-col transition-colors animate-fade-in" style={{ animationDelay: '100ms' }}>
       <div className="p-6 border-b border-sovereign-panel relative">
-        <div className="absolute top-4 right-4 flex flex-col items-end">
-          <div className="flex items-center text-[10px] text-sovereign-gold font-mono uppercase tracking-widest bg-sovereign-gold/10 px-2 py-1 rounded-sm">
-            <PlaneTakeoff className="w-3 h-3 mr-1 animate-pulse" />
-            DEMO SIGNAL ONLY
+        {!hasRealData && (
+          <div className="absolute top-4 right-4 flex flex-col items-end">
+            <div className="flex items-center text-[10px] text-sovereign-gold font-mono uppercase tracking-widest bg-sovereign-gold/10 px-2 py-1 rounded-sm">
+              <PlaneTakeoff className="w-3 h-3 mr-1 animate-pulse" />
+              DEMO SIGNAL ONLY
+            </div>
+            <div className="text-[9px] text-sovereign-muted mt-1 uppercase">Awaiting live SovereignSocket stream</div>
           </div>
-          <div className="text-[9px] text-sovereign-muted mt-1 uppercase">Awaiting live SovereignSocket stream</div>
-        </div>
+        )}
         <div className="flex items-center gap-3">
           <AlertTriangle className="w-5 h-5 text-sovereign-bronze" />
           <h3 className="text-sovereign-ink text-sm uppercase tracking-widest font-medium">
@@ -27,12 +35,12 @@ export default function FlightRiskRadarWidget() {
       </div>
 
       <div className="p-6 space-y-3 flex-1">
-        {mockAnomalies.length === 0 && (
+        {displayAnomalies.length === 0 && (
           <div className="text-center text-sovereign-muted text-sm py-8 font-mono">
             No active anomalies detected
           </div>
         )}
-        {mockAnomalies.map((anom) => (
+        {displayAnomalies.map((anom) => (
           <div key={anom.id} className="flex items-center justify-between p-3 border border-sovereign-panel bg-sovereign-panel/5 rounded-sm">
             <div className="flex items-center gap-3">
               {anom.type === 'code_1006' ? (
