@@ -9,4 +9,3 @@ packages:
   - "packages/event-dictionary"
   - "packages/database"
   - "admin-panel"
-  - "apps/ingestion-api"
