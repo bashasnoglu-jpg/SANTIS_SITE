@@ -26,6 +26,38 @@ export default function SovereignCommandPalette({ setActiveTab, onToggleFocus })
     cmd.description.toLowerCase().includes(query.toLowerCase())
   );
 
+  const showToast = React.useCallback((title, message) => {
+    setToastMessage({ title, message });
+    setTimeout(() => setToastMessage(null), 4000);
+  }, []);
+
+  const executeCommand = React.useCallback((cmd) => {
+    if (!cmd || !cmd.enabled) return;
+
+    setIsOpen(false);
+
+    switch (cmd.id) {
+      case 'radar_open':
+        setActiveTab('journey');
+        break;
+      case 'radar_exit_history':
+        setActiveTab('telemetry');
+        break;
+      case 'sys_snapshot': {
+        const snapshot = `Time: ${new Date().toLocaleTimeString()} | Tab: Current | Radar: UI-Shell`;
+        console.info('[Sovereign System Snapshot]', snapshot);
+        showToast('System Snapshot', snapshot);
+        break;
+      }
+      case 'toggle_focus':
+        if (onToggleFocus) onToggleFocus();
+        showToast('Quiet Focus Mode', 'Toggled distraction-free interface.');
+        break;
+      default:
+        break;
+    }
+  }, [setActiveTab, onToggleFocus, showToast]);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
@@ -52,46 +84,18 @@ export default function SovereignCommandPalette({ setActiveTab, onToggleFocus })
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, filteredCommands, selectedIndex]);
+  }, [isOpen, filteredCommands, selectedIndex, executeCommand]);
 
   useEffect(() => {
     if (isOpen) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setQuery('');
       setSelectedIndex(0);
       setTimeout(() => inputRef.current?.focus(), 50);
     }
   }, [isOpen]);
 
-  const showToast = (title, message) => {
-    setToastMessage({ title, message });
-    setTimeout(() => setToastMessage(null), 4000);
-  };
 
-  const executeCommand = (cmd) => {
-    if (!cmd || !cmd.enabled) return;
-
-    setIsOpen(false);
-
-    switch (cmd.id) {
-      case 'radar_open':
-        setActiveTab('journey');
-        break;
-      case 'radar_exit_history':
-        setActiveTab('telemetry');
-        break;
-      case 'sys_snapshot':
-        const snapshot = `Time: ${new Date().toLocaleTimeString()} | Tab: Current | Radar: UI-Shell`;
-        console.info('[Sovereign System Snapshot]', snapshot);
-        showToast('System Snapshot', snapshot);
-        break;
-      case 'toggle_focus':
-        if (onToggleFocus) onToggleFocus();
-        showToast('Quiet Focus Mode', 'Toggled distraction-free interface.');
-        break;
-      default:
-        break;
-    }
-  };
 
   if (!isOpen && !toastMessage) return null;
 

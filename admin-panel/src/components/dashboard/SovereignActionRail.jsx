@@ -1,6 +1,6 @@
 import React from 'react';
 import { Zap, Wind, ShieldAlert, RefreshCw, Cpu } from 'lucide-react';
-import { useSovereignSocket } from '../../context/SovereignSocketContext.js';
+
 
 /**
  * ⚡ SOVEREIGN ACTION RAIL
@@ -8,9 +8,7 @@ import { useSovereignSocket } from '../../context/SovereignSocketContext.js';
  * 'Divine Interventions' (Tanrısal Müdahaleler) için hızlı erişim sağlar.
  */
 const SovereignActionRail = () => {
-  const { socket } = useSovereignSocket();
-
-  const handleDivineAction = (action, payload) => {
+  const handleDivineAction = (action) => {
     console.warn(`[Sovereign Guard] Command ${action} is MOCK and locked.`);
   };
 
@@ -33,7 +31,7 @@ const SovereignActionRail = () => {
           
           {/* Action Button */}
           <button
-            onClick={() => handleDivineAction(action.id, { timestamp: new Date().toISOString() })}
+            onClick={() => handleDivineAction(action.id)}
             disabled={true}
             className={`w-11 h-11 flex items-center justify-center bg-sovereign-coal/80 backdrop-blur-md border border-sovereign-panel rounded-full transition-all duration-300 shadow-xl opacity-50 cursor-not-allowed grayscale ${action.color}`}
             style={{ transitionDelay: `${index * 50}ms` }}

@@ -35,10 +35,12 @@ export default function LiveIntentMonitor() {
           }
 
           if (mode === 'HISTORICAL') {
+            if (!incomingData.occurredAt) incomingData.occurredAt = Date.now();
             eventBuffer.current = [incomingData, ...eventBuffer.current].slice(0, 50);
             return;
           }
 
+          if (!incomingData.occurredAt) incomingData.occurredAt = Date.now();
           setEvents(prevEvents => [incomingData, ...prevEvents].slice(0, 100));
         } catch (error) {
           console.error('[SOVEREIGN KALKANI] Fısıltı deşifre edilemedi:', error);
@@ -91,7 +93,7 @@ export default function LiveIntentMonitor() {
             >
               <div className="flex flex-col gap-2">
                 <span className="text-sovereign-muted text-2xs tracking-widest uppercase font-medium">
-                  Trace ID: {evt.traceId} • {new Date(evt.occurredAt || Date.now()).toLocaleTimeString()}
+                  Trace ID: {evt.traceId} • {new Date(evt.occurredAt).toLocaleTimeString()}
                 </span>
                 <span className="text-lg font-serif tracking-wide text-sovereign-ink">
                   {evt.payload.intentDetected}
