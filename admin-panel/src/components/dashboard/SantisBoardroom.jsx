@@ -12,6 +12,8 @@ import { useBoardroomMode } from '../../features/boardroom/context/BoardroomMode
 import BoardroomRevealCeremony from './BoardroomRevealCeremony';
 import SovereignActionRail from './SovereignActionRail';
 import SovereignMemoryPanel from './SovereignMemoryPanel';
+import RevenueFunnelWidget from '../boardroom/RevenueFunnelWidget';
+import OccupancyHeatmapWidget from '../boardroom/OccupancyHeatmapWidget';
 
 // ── Admin-only: lazy-loaded, feature-gated Time Travel Replay UI ──────────────
 const TimeTravelReplayPanel = lazy(() =>
@@ -356,58 +358,9 @@ export default function SantisBoardroom() {
                   </ul>
                 </div>
 
-                {/* WIDGET 5: Journey Sepet Terki (Drop-off) */}
-                <div className="bg-sovereign-obsidian border border-sovereign-panel hover:border-sovereign-earth/50 rounded-sm p-8 flex flex-col transition-colors animate-fade-in md:col-span-2 xl:col-span-1" style={{ animationDelay: '400ms' }}>
-                  <div className="flex items-center gap-3 mb-6 border-b border-sovereign-panel pb-4">
-                    <Filter className="w-5 h-5 text-sovereign-accent" />
-                    <h3 className="text-sovereign-ink text-sm uppercase tracking-widest font-medium">Journey Terk Analizi</h3>
-                  </div>
-                  <p className="text-sovereign-bronze text-xs leading-relaxed mb-6">Müşteriler 4 adımlı Journey Builder (Sepet) akışında nereden çıkıyor?</p>
-
-                  <div className="mt-auto space-y-0 divide-y divide-[var(--sovereign-panel)]">
-                    <div className="py-3 flex justify-between items-center">
-                      <span className="text-sovereign-sand text-sm">1. Kişiselleştirme</span>
-                      <span className="text-sovereign-ink text-sm font-medium">100%</span>
-                    </div>
-                    <div className="py-3 flex justify-between items-center">
-                      <span className="text-sovereign-sand text-sm flex items-center"><ChevronRight className="w-3 h-3 mr-1 text-sovereign-earth"/> 2. Zaman Çizelgesi</span>
-                      <div className="text-right"><span className="text-sovereign-ink text-sm font-medium">88%</span> <span className="text-sovereign-bronze text-xs ml-2">-12%</span></div>
-                    </div>
-                    <div className="py-3 flex justify-between items-center relative overflow-hidden bg-sovereign-earth/10 px-2 -mx-2 rounded">
-                      <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-sovereign-accent"></div>
-                      <span className="text-sovereign-accent text-sm flex items-center font-medium"><ChevronRight className="w-3 h-3 mr-1"/> 3. Misafir Bilgileri</span>
-                      <div className="text-right"><span className="text-sovereign-accent text-sm font-medium">53%</span> <span className="text-sovereign-accent text-xs ml-2 font-medium">-35% (Kritik)</span></div>
-                    </div>
-                    <div className="py-3 flex justify-between items-center">
-                      <span className="text-sovereign-sand text-sm flex items-center"><ChevronRight className="w-3 h-3 mr-1 text-sovereign-earth"/> 4. Onay Gönderimi</span>
-                      <div className="text-right"><span className="text-sovereign-ink text-sm font-medium">48%</span> <span className="text-sovereign-bronze text-xs ml-2">-5%</span></div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* WIDGET 6: Gelir Etkisi (Revenue) */}
-                <div className="bg-sovereign-obsidian border border-sovereign-panel hover:border-sovereign-earth/50 rounded-sm p-8 flex flex-col transition-colors animate-fade-in md:col-span-2 xl:col-span-1" style={{ animationDelay: '500ms' }}>
-                  <div className="flex items-center gap-3 mb-6 border-b border-sovereign-panel pb-4">
-                    <TrendingUp className="w-5 h-5 text-sovereign-accent" />
-                    <h3 className="text-sovereign-ink text-sm uppercase tracking-widest font-medium">Sistem Gelir Etkisi</h3>
-                  </div>
-                  <div className="mb-6 flex items-baseline gap-4">
-                    <span className="font-serif text-5xl text-sovereign-ink">€14.2k</span>
-                    <span className="text-sovereign-sand text-sm font-light uppercase tracking-widest">{timeRange}</span>
-                  </div>
-                  <p className="text-sovereign-bronze text-xs leading-relaxed mb-auto">Psikolojik katman etkileşimi veya Journey eklentileri (Add-ons) ile üretilen toplam gelir.</p>
-
-                  <ul className="mt-6 space-y-0 divide-y divide-[var(--sovereign-panel)]">
-                    <li className="py-4 flex justify-between items-center">
-                      <span className="text-sovereign-bronze text-sm">Küratör Eklentisi (Uplift)</span>
-                      <span className="text-sovereign-accent font-medium text-sm">+€2,850</span>
-                    </li>
-                    <li className="py-4 flex justify-between items-center border-b-0 pb-0">
-                      <span className="text-sovereign-bronze text-sm">En İyi Satan Eklenti</span>
-                      <span className="text-sovereign-ink text-sm font-medium">Salt Glow Peeling</span>
-                    </li>
-                  </ul>
-                </div>
+                {/* WIDGET 5 & 6 REPLACED BY PHASE F-1 LIVE SEED WIDGETS */}
+                <RevenueFunnelWidget />
+                <OccupancyHeatmapWidget />
               </>
             )}
 
