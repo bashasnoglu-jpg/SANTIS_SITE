@@ -102,20 +102,7 @@
       "guards": ["guest"],
       "hooks": { "onEnter": "null", "onExit": "null" }
     },
-    {
-      "id": "hq-dashboard",
-      "type": "static",
-      "path": "/hq-dashboard",
-      "template": "admin/index.html",
-      "title": { "tr": "Sisteme Giriş (HQ)", "en": "HQ Login" },
-      "authRequired": false,
-      "nav": { "show": true, "group": "action", "weight": 80 },
-      "seo": { "description": "HQ Giriş Kapısı", "canonical": "/hq-dashboard", "ogImage": "" },
-      "layout": { "hero": { "ratio": "none", "required": false } },
-      "assets": { "preload": [] },
-      "guards": ["guest"],
-      "hooks": { "onEnter": "null", "onExit": "null" }
-    },
+
     {
       "id": "reservation",
       "type": "static",

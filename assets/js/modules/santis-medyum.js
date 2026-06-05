@@ -30,7 +30,7 @@ class SantisMedyum {
         this.cursorVelocity = 0;
         this.intentGraph = JSON.parse(localStorage.getItem('santis_intent_graph') || '{}');
         this.currentPath = window.location.pathname;
-        this.CRITICAL_ROUTES = ['/tr/index.html', '/en/index.html', '/tr/contact.html', '/hq-dashboard.html'];
+        this.CRITICAL_ROUTES = ['/tr/index.html', '/en/index.html', '/tr/contact.html'];
 
         console.log(`🔮 [Santis Medyum V39] Uyanıyor... Hybrid God Mode (L1+L2) Aktif.`);
         this.init();
