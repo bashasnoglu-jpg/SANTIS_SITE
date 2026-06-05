@@ -32,4 +32,6 @@ jobs:
         run: pnpm build
         
       - name: Run Sentinel/Governance Checks
-        run: pnpm stitch:enforce
+        run: |
+          pnpm run guard
+          pnpm stitch:enforce
