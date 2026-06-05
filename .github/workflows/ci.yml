@@ -1,0 +1,35 @@
+name: Santis OS CI Lockdown
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build-and-audit:
+    name: Primal Security & Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.24.0
+
+      - name: Setup Node.js (v20 LTS)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install Dependencies (Frozen Lockfile Enforced)
+        run: pnpm install --frozen-lockfile
+
+      - name: Enforce Strict Build
+        run: pnpm build
+        
+      - name: Run Sentinel/Governance Checks
+        run: pnpm stitch:enforce

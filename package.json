@@ -8,6 +8,7 @@
   },
   "packageManager": "pnpm@10.24.0",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "env:check": "node -v",
     "smoke": "node run-smoke.js",
     "smoke:mock": "node run-smoke.js",
