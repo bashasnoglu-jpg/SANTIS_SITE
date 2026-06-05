@@ -48,7 +48,7 @@ export function buildServer(db?: any) {
   // RT-2B: CORS Configuration
   const allowedOrigins = process.env.ADMIN_ALLOWED_ORIGINS
     ? process.env.ADMIN_ALLOWED_ORIGINS.split(',').map(s => s.trim())
-    : ['http://localhost:8080', 'http://127.0.0.1:8080'];
+    : ['http://localhost:8080', 'http://127.0.0.1:8080', 'http://localhost:8081', 'http://127.0.0.1:8081'];
 
   server.register(cors, {
     origin: allowedOrigins,
