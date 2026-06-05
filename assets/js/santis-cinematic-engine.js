@@ -278,6 +278,8 @@ const SantisEngine = {
 };
 
 // Motoru başlat
-document.addEventListener("DOMContentLoaded", () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => SantisEngine.init());
+} else {
     SantisEngine.init();
-});
+}
