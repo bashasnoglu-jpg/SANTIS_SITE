@@ -41,6 +41,7 @@ export default function SantisBoardroom() {
   const [liveEventIndex, setLiveEventIndex] = useState(0);
   const [activeTab, setActiveTab] = useState('telemetry');
   const [isRevealed, setIsRevealed] = useState(false);
+  const [isFocusMode, setIsFocusMode] = useState(false);
 
   // Sovereign Ghost Operations State
   // eslint-disable-next-line no-unused-vars
@@ -77,8 +78,8 @@ export default function SantisBoardroom() {
 
   return (
     <>
-      <SovereignCommandPalette setActiveTab={setActiveTab} />
-      <div className={`min-h-screen bg-sovereign-void text-sovereign-ink font-sans flex selection:bg-sovereign-accent/30 selection:text-sovereign-ink ${isHistorical ? 'nv-historical' : ''}`}>
+      <SovereignCommandPalette setActiveTab={setActiveTab} onToggleFocus={() => setIsFocusMode(prev => !prev)} />
+      <div className={`min-h-screen bg-sovereign-void text-sovereign-ink font-sans flex selection:bg-sovereign-accent/30 selection:text-sovereign-ink ${isHistorical ? 'nv-historical' : ''} ${isFocusMode ? 'opacity-90 saturate-50' : ''}`}>
 
       {!isRevealed && <BoardroomRevealCeremony onComplete={() => setIsRevealed(true)} />}
 

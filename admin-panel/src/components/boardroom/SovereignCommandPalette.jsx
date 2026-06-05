@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, Terminal, Activity, ArrowRight, Lock } from 'lucide-react';
 
-export default function SovereignCommandPalette({ setActiveTab }) {
+export default function SovereignCommandPalette({ setActiveTab, onToggleFocus }) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -15,7 +15,10 @@ export default function SovereignCommandPalette({ setActiveTab }) {
     { id: 'radar_refresh', title: 'Refresh Radar View', description: 'Force a safe sync with backend state', enabled: false },
     { id: 'open_kiosk', title: 'Open Clinic Kiosk', description: 'Launch the patient kiosk interface', enabled: false },
     { id: 'open_debt', title: 'Open Technical Debt Register', description: 'View architectural records in console', enabled: false },
-    { id: 'toggle_focus', title: 'Toggle Quiet Focus Mode', description: 'Enable distraction-free admin view', enabled: false }
+    { id: 'toggle_focus', title: 'Toggle Quiet Focus Mode', description: 'Enable distraction-free admin view', enabled: true },
+    { id: 'yield_override', title: 'Override Yield Rules', description: 'Force backend capacity recalculation', enabled: false },
+    { id: 'price_change', title: 'Execute Price Adjustment', description: 'Apply new pricing matrix to live DB', enabled: false },
+    { id: 'capacity_lock', title: 'Lock System Capacity', description: 'Halt all new incoming connections', enabled: false }
   ];
 
   const filteredCommands = commands.filter(cmd =>
@@ -80,6 +83,10 @@ export default function SovereignCommandPalette({ setActiveTab }) {
         const snapshot = `Time: ${new Date().toLocaleTimeString()} | Tab: Current | Radar: UI-Shell`;
         console.info('[Sovereign System Snapshot]', snapshot);
         showToast('System Snapshot', snapshot);
+        break;
+      case 'toggle_focus':
+        if (onToggleFocus) onToggleFocus();
+        showToast('Quiet Focus Mode', 'Toggled distraction-free interface.');
         break;
       default:
         break;
