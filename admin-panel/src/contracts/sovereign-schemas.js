@@ -58,3 +58,43 @@ export const SimulationResultSchema = z.object({
   insight: z.string().min(10, "Simülasyon içgörüsü detaylı olmalıdır"),
   timestamp: z.string()
 });
+
+// 8. Active Connections (God Mode) Sözleşmesi
+export const ActiveConnectionSchema = z.object({
+  id: z.string(),
+  page: z.string(),
+  status: z.enum(['active', 'idle']),
+  ipMask: z.string(),
+  lastSeen: z.string().datetime()
+});
+
+export const ActiveConnectionsUpdateSchema = z.object({
+  connections: z.array(ActiveConnectionSchema),
+  timestamp: z.string().datetime()
+});
+
+// 9. Flight Risk Radar Sözleşmesi
+export const FlightRiskAnomalySchema = z.object({
+  id: z.string(),
+  type: z.enum(['code_1006', 'soft_risk', 'rapid_scroll']),
+  user: z.string(),
+  detail: z.string(),
+  severity: z.enum(['low', 'medium', 'high', 'critical']),
+  time: z.string().datetime()
+});
+
+export const FlightRiskUpdateSchema = z.object({
+  anomalies: z.array(FlightRiskAnomalySchema),
+  timestamp: z.string().datetime()
+});
+
+// 10. Sovereign Command Palette Sözleşmesi
+export const CommandExecutionSchema = z.object({
+  commandId: z.string(),
+  timestamp: z.string().datetime(),
+  authContext: z.object({
+    actorId: z.string().optional(),
+    role: z.string().optional(),
+    source: z.literal('sovereign-command-palette')
+  })
+});
