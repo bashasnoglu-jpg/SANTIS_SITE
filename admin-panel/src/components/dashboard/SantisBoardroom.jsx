@@ -14,6 +14,8 @@ import SovereignActionRail from './SovereignActionRail';
 import SovereignMemoryPanel from './SovereignMemoryPanel';
 import RevenueFunnelWidget from '../boardroom/RevenueFunnelWidget';
 import OccupancyHeatmapWidget from '../boardroom/OccupancyHeatmapWidget';
+import SystemHealthWidget from '../boardroom/SystemHealthWidget';
+import NeuralFeedWidget from '../boardroom/NeuralFeedWidget';
 
 // ── Admin-only: lazy-loaded, feature-gated Time Travel Replay UI ──────────────
 const TimeTravelReplayPanel = lazy(() =>
@@ -361,6 +363,10 @@ export default function SantisBoardroom() {
                 {/* WIDGET 5 & 6 REPLACED BY PHASE F-1 LIVE SEED WIDGETS */}
                 <RevenueFunnelWidget />
                 <OccupancyHeatmapWidget />
+
+                {/* PHASE F-2 WIDGETS */}
+                <SystemHealthWidget />
+                <NeuralFeedWidget />
               </>
             )}
 

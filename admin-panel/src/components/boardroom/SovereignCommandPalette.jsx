@@ -93,7 +93,7 @@ export default function SovereignCommandPalette({ setActiveTab }) {
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-8 right-8 z-[10000] flex flex-col pointer-events-none animate-fade-in">
-          <div className="bg-[#0a0a0a]/90 backdrop-blur-md border border-sovereign-gold/30 px-5 py-4 rounded-xl shadow-xl flex flex-col min-w-[280px]">
+          <div className="bg-sovereign-void/90 backdrop-blur-md border border-sovereign-gold/30 px-5 py-4 rounded-xl shadow-xl flex flex-col min-w-72">
             <span className="font-semibold text-sm text-sovereign-gold mb-1">{toastMessage.title}</span>
             <span className="text-xs text-white/60">{toastMessage.message}</span>
           </div>
@@ -103,11 +103,11 @@ export default function SovereignCommandPalette({ setActiveTab }) {
       {/* Command Palette Modal */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-[9999] flex items-start justify-center pt-[15vh] bg-[#050505]/40 backdrop-blur-sm animate-fade-in"
+          className="fixed inset-0 z-[9999] flex items-start justify-center pt-32 bg-black/40 backdrop-blur-sm animate-fade-in"
           onClick={() => setIsOpen(false)}
         >
           <div
-            className="w-full max-w-2xl bg-[#0a0a0a]/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden pointer-events-auto"
+            className="w-full max-w-2xl bg-sovereign-void/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden pointer-events-auto"
             onClick={e => e.stopPropagation()}
             style={{ boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(212, 175, 55, 0.1)' }}
           >
@@ -131,7 +131,7 @@ export default function SovereignCommandPalette({ setActiveTab }) {
               </div>
             </div>
 
-            <div className="max-h-[60vh] overflow-y-auto py-2 px-2 custom-scrollbar">
+            <div className="max-h-96 overflow-y-auto py-2 px-2 custom-scrollbar">
               {filteredCommands.length === 0 ? (
                 <div className="py-8 text-center text-white/30 text-sm font-light">
                   No sovereign commands found.
@@ -173,7 +173,7 @@ export default function SovereignCommandPalette({ setActiveTab }) {
                 })
               )}
             </div>
-            <div className="px-4 py-2 border-t border-white/5 bg-[#0a0a0a] flex items-center justify-between text-2xs text-sovereign-muted font-mono uppercase tracking-widest">
+            <div className="px-4 py-2 border-t border-white/5 bg-sovereign-void flex items-center justify-between text-2xs text-sovereign-muted font-mono uppercase tracking-widest">
               <div className="flex items-center">
                 <Terminal className="w-3 h-3 mr-2" />
                 Sovereign Command Engine

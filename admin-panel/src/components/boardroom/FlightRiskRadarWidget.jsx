@@ -19,11 +19,11 @@ export default function FlightRiskRadarWidget() {
       <div className="p-6 border-b border-sovereign-panel relative">
         {!hasRealData && (
           <div className="absolute top-4 right-4 flex flex-col items-end">
-            <div className="flex items-center text-[10px] text-sovereign-gold font-mono uppercase tracking-widest bg-sovereign-gold/10 px-2 py-1 rounded-sm">
+            <div className="flex items-center text-2xs text-sovereign-gold font-mono uppercase tracking-widest bg-sovereign-gold/10 px-2 py-1 rounded-sm">
               <PlaneTakeoff className="w-3 h-3 mr-1 animate-pulse" />
               DEMO SIGNAL ONLY
             </div>
-            <div className="text-[9px] text-sovereign-muted mt-1 uppercase">Awaiting live SovereignSocket stream</div>
+            <div className="text-2xs text-sovereign-muted mt-1 uppercase">Awaiting live SovereignSocket stream</div>
           </div>
         )}
         <div className="flex items-center gap-3">
@@ -44,13 +44,13 @@ export default function FlightRiskRadarWidget() {
           <div key={anom.id} className="flex items-center justify-between p-3 border border-sovereign-panel bg-sovereign-panel/5 rounded-sm">
             <div className="flex items-center gap-3">
               {anom.type === 'code_1006' ? (
-                <XCircle className="w-4 h-4 text-[#ff3366]" />
+                <XCircle className="w-4 h-4 text-red-500" />
               ) : (
                 <PlaneTakeoff className="w-4 h-4 text-sovereign-bronze" />
               )}
               <div>
                 <div className="text-xs text-sovereign-ink font-medium">{anom.user}</div>
-                <div className="text-[10px] text-sovereign-muted uppercase tracking-wider">{anom.detail}</div>
+                <div className="text-2xs text-sovereign-muted uppercase tracking-wider">{anom.detail}</div>
               </div>
             </div>
             <div className="text-2xs font-mono text-sovereign-sand opacity-60">{anom.time}</div>
@@ -58,9 +58,9 @@ export default function FlightRiskRadarWidget() {
         ))}
       </div>
       <div className="p-4 border-t border-sovereign-panel bg-sovereign-coal/50">
-        <div className="flex justify-between items-center text-[10px] uppercase tracking-widest">
+        <div className="flex justify-between items-center text-2xs uppercase tracking-widest">
           <span className="text-sovereign-muted">Current Risk Level</span>
-          <span className="text-[#ff3366] font-bold animate-pulse">ELEVATED</span>
+          <span className="text-red-500 font-bold animate-pulse">ELEVATED</span>
         </div>
       </div>
     </div>

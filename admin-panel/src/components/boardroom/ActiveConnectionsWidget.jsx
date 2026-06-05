@@ -20,11 +20,11 @@ export default function ActiveConnectionsWidget() {
       <div className="p-6 border-b border-sovereign-panel relative">
         {!hasRealData && (
           <div className="absolute top-4 right-4 flex flex-col items-end">
-            <div className="flex items-center text-[10px] text-sovereign-gold font-mono uppercase tracking-widest bg-sovereign-gold/10 px-2 py-1 rounded-sm">
+            <div className="flex items-center text-2xs text-sovereign-gold font-mono uppercase tracking-widest bg-sovereign-gold/10 px-2 py-1 rounded-sm">
               <Wifi className="w-3 h-3 mr-1 animate-pulse" />
               DEMO SIGNAL ONLY
             </div>
-            <div className="text-[9px] text-sovereign-muted mt-1 uppercase">Awaiting live SovereignSocket stream</div>
+            <div className="text-2xs text-sovereign-muted mt-1 uppercase">Awaiting live SovereignSocket stream</div>
           </div>
         )}
         <div className="flex items-center gap-3">
