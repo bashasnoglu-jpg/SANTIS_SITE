@@ -1,6 +1,5 @@
 import React from 'react';
 import { Zap, Wind, ShieldAlert, RefreshCw, Cpu } from 'lucide-react';
-import { useSovereignSocket } from '../../context/SovereignSocketContext.js';
 
 /**
  * ⚡ SOVEREIGN ACTION RAIL
@@ -8,9 +7,7 @@ import { useSovereignSocket } from '../../context/SovereignSocketContext.js';
  * 'Divine Interventions' (Tanrısal Müdahaleler) için hızlı erişim sağlar.
  */
 const SovereignActionRail = () => {
-  const { socket } = useSovereignSocket();
-
-  const handleDivineAction = (action, payload) => {
+  const handleDivineAction = (action) => {
     console.warn(`[Sovereign Guard] Command ${action} is MOCK and locked.`);
   };
 

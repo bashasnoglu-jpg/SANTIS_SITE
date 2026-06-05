@@ -71,7 +71,6 @@ export function useGodModeStream(limit = 50) {
         }
       };
 
-      // eslint-disable-next-line no-unused-vars
       sse.onerror = () => {
         setIsConnected(false);
         sse.close();
