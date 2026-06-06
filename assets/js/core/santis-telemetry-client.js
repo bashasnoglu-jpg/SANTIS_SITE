@@ -10,12 +10,17 @@
 class SantisTelemetryClient {
     constructor() {
         const config = window.getRuntimeConfig ? window.getRuntimeConfig() : {};
-        this.wsUrl = config.wsUrl || 'ws://127.0.0.1:3030/events';
+        // socket.io-client will automatically connect to this URL via its own protocols
+        this.wsUrl = config.wsUrl ? config.wsUrl.replace('/events', '') : 'http://127.0.0.1:3030';
         this.apiBaseUrl = config.apiBaseUrl || '/api/v1';
-        this.reconnectTimeout = null;
-        this.reconnectAttempts = 0;
-        this.maxReconnectAttempts = 3;
+        this.socket = null;
+        
+        // Phase K-3B: Flight Risk Buffer
+        this.riskBuffer = [];
+        this.lastRiskEmit = 0;
+        
         this.initConnection();
+        this.initRiskEngine();
     }
 
     async resolveAuthenticatedWsUrl() {
@@ -39,78 +44,138 @@ class SantisTelemetryClient {
                 console.warn('[Telemetry Client] Session token alınamadı:', error.message);
             }
         }
-
-        if (!token) return this.wsUrl;
-
-        const url = new URL(this.wsUrl, window.location.href);
-        url.searchParams.set('client_type', 'telemetry');
-        url.searchParams.set('token', token);
-        return url.toString();
+        return token;
     }
 
     async initConnection() {
-        // İstemci tarafında bağlantı fırtınasını engelleyen Singleton Kalkanı
-        if (!window.SantisSocket || window.SantisSocket.readyState === WebSocket.CLOSED) {
-            console.log(`🛡️ [Telemetry Client] Singleton Kalkanı aktif ediliyor. Bağlantı başlatılıyor... (Deneme: ${this.reconnectAttempts + 1}/${this.maxReconnectAttempts + 1})`);
-            
+        // Load socket.io client dynamically if not present
+        if (typeof window.io === 'undefined') {
             try {
-                window.SantisSocket = new WebSocket(await this.resolveAuthenticatedWsUrl());
+                await new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = 'https://cdn.socket.io/4.7.4/socket.io.min.js';
+                    script.onload = resolve;
+                    script.onerror = reject;
+                    document.head.appendChild(script);
+                });
             } catch (e) {
-                console.error("🚨 [Telemetry Client] Socket oluşturma hatası:", e);
-                this.scheduleReconnect();
+                console.error("🚨 [Telemetry Client] Socket.IO kütüphanesi yüklenemedi:", e);
                 return;
             }
-            
-            window.SantisSocket.onopen = () => {
-                console.log("👁️ [Telemetry Client] Kuantum Tüneli Açıldı (Singleton Guard).");
-                this.reconnectAttempts = 0; // Reset counter on success
-                clearTimeout(this.reconnectTimeout);
-            };
+        }
 
-            window.SantisSocket.onmessage = (event) => {
-                // Heartbeat / Pulse messages
-                try {
-                    const data = JSON.parse(event.data);
-                    if (data.type === "ping") {
-                        window.SantisSocket.send(JSON.stringify({ type: "pong", timestamp: Date.now() }));
+        if (!this.socket || this.socket.disconnected) {
+            console.log(`🛡️ [Telemetry Client] Singleton Kalkanı aktif ediliyor. Bağlantı başlatılıyor...`);
+            
+            const token = await this.resolveAuthenticatedWsUrl();
+            
+            this.socket = window.io(this.wsUrl, {
+                auth: { token },
+                query: { client_type: 'telemetry' },
+                reconnectionAttempts: 5,
+                reconnectionDelay: 2000
+            });
+            
+            this.socket.on("connect", () => {
+                console.log("👁️ [Telemetry Client] Kuantum Tüneli Açıldı (Socket.IO).");
+                
+                // Detect Node (Page) ID
+                const pathParts = window.location.pathname.split('/').filter(Boolean);
+                let node_id = pathParts[pathParts.length - 1] || "index";
+                const metaTag = document.querySelector('meta[name="santis-node-id"]');
+                if (metaTag) node_id = metaTag.getAttribute('content');
+                
+                // Emit initial registration
+                this.socket.emit("public:register_telemetry", {
+                    page: window.location.pathname,
+                    status: 'active'
+                });
+            });
+
+            this.socket.on("disconnect", (reason) => {
+                console.warn("⚠️ [Telemetry Client] Tünel Kapandı:", reason);
+            });
+
+            this.socket.on("connect_error", (err) => {
+                console.error("🚨 [Telemetry Client] WebSocket zafiyeti!", err.message);
+            });
+
+            // Handle visibility change to update status
+            document.addEventListener("visibilitychange", () => {
+                if (this.socket && this.socket.connected) {
+                    this.socket.emit('public:update_telemetry', {
+                        status: document.visibilityState === 'hidden' ? 'idle' : 'active'
+                    });
+                    if (document.visibilityState === 'hidden') {
+                        this.bufferAnomaly('idle', 'low', 40);
                     }
-                } catch (e) {}
-            };
-            
-            window.SantisSocket.onclose = () => {
-                window.SantisSocket = null; // Clean up reference
-                this.scheduleReconnect();
-            };
-
-            window.SantisSocket.onerror = (err) => {
-                console.error("🚨 [Telemetry Client] WebSocket zafiyeti!", err);
-            };
-        } else {
-            console.log("⚡ [Telemetry Client] Bağlantı zaten var. Çift bağlantı reddedildi.");
+                }
+            });
         }
     }
 
-    scheduleReconnect() {
-        if (this.reconnectTimeout) clearTimeout(this.reconnectTimeout);
-        
-        if (this.reconnectAttempts >= this.maxReconnectAttempts) {
-            console.warn(`🛑 [Telemetry Client] Maksimum bağlantı denemesine (${this.maxReconnectAttempts}) ulaşıldı. Kuantum Tüneli geçici olarak askıya alındı. Console Spam'i önlendi.`);
-            return;
-        }
+    // Phase K-3B: Silent Observer Risk Engine
+    initRiskEngine() {
+        // 1. Exit Intent (Mouse moving rapidly to top)
+        document.addEventListener('mouseout', (e) => {
+            if (e.clientY < 20 && e.relatedTarget == null) {
+                this.bufferAnomaly('exit_intent', 'high', 85);
+            }
+        }, { passive: true });
 
-        this.reconnectAttempts++;
-        console.warn(`⚠️ [Telemetry Client] Tünel Kapandı. Reconnect 5 saniye sonra (Debounced)...`);
-        
-        // Anında değil, gecikmeli bağlanma (Debounce & Backoff)
-        this.reconnectTimeout = setTimeout(() => {
-            this.initConnection();
-        }, 5000);
+        // 2. Rage Scroll
+        let lastScrollY = window.scrollY;
+        let lastScrollTime = Date.now();
+        document.addEventListener('scroll', () => {
+            requestAnimationFrame(() => {
+                const now = Date.now();
+                const deltaY = Math.abs(window.scrollY - lastScrollY);
+                const deltaTime = now - lastScrollTime;
+                if (deltaTime > 0 && deltaY > 0) {
+                    const speed = deltaY / deltaTime; // px/ms
+                    if (speed > 5) { // arbitrary threshold for erratic scroll
+                        this.bufferAnomaly('rage_scroll', 'medium', 65);
+                    }
+                }
+                lastScrollY = window.scrollY;
+                lastScrollTime = now;
+            });
+        }, { passive: true });
+
+        // Buffer flush interval (Max 1 per sec)
+        setInterval(() => this.flushRiskBuffer(), 1000);
+    }
+
+    bufferAnomaly(anomalyType, severity, riskScore) {
+        const existing = this.riskBuffer.find(a => a.anomalyType === anomalyType);
+        if (existing) {
+            if (riskScore > existing.riskScore) {
+                existing.riskScore = riskScore;
+                existing.severity = severity;
+            }
+        } else {
+            this.riskBuffer.push({ anomalyType, severity, riskScore });
+        }
+    }
+
+    flushRiskBuffer() {
+        if (!this.socket || !this.socket.connected || this.riskBuffer.length === 0) return;
+        const now = Date.now();
+        // Ensure we respect the 5 msg/sec hard deck by batching anomalies 1 per sec
+        if (now - this.lastRiskEmit >= 1000) {
+            this.riskBuffer.sort((a, b) => b.riskScore - a.riskScore);
+            const topAnomaly = this.riskBuffer[0];
+            
+            this.socket.emit('public:telemetry_anomaly', topAnomaly);
+            this.lastRiskEmit = now;
+            this.riskBuffer = [];
+        }
     }
 }
 
 // Auto-boot
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => new SantisTelemetryClient());
+    document.addEventListener('DOMContentLoaded', () => { window.santisTelemetry = new SantisTelemetryClient(); });
 } else {
-    new SantisTelemetryClient();
+    window.santisTelemetry = new SantisTelemetryClient();
 }

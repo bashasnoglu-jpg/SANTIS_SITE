@@ -4,8 +4,8 @@ import { useSovereignSocket } from '../../context/SovereignSocketContext';
 
 export default function RevenueFunnelWidget() {
   const { financeData } = useSovereignSocket();
-  const liveRevenue = financeData?.liveRevenue || 0;
-  const isFallback = liveRevenue === 0;
+  const dailyRevenue = financeData?.dailyRevenue || 0;
+  const isFallback = dailyRevenue === 0;
 
   return (
     <div className="bg-sovereign-obsidian border border-sovereign-panel hover:border-sovereign-earth/50 rounded-sm p-8 flex flex-col transition-colors animate-fade-in md:col-span-2 xl:col-span-1" style={{ animationDelay: '400ms' }}>
@@ -21,7 +21,7 @@ export default function RevenueFunnelWidget() {
         )}
       </div>
       <div className="mb-6 flex items-baseline gap-4">
-        <span className="font-serif text-5xl text-sovereign-ink">€{liveRevenue.toLocaleString()}</span>
+        <span className="font-serif text-5xl text-sovereign-ink">€{dailyRevenue.toLocaleString()}</span>
         <span className="text-sovereign-accent text-sm font-medium">Live Stream</span>
       </div>
       <p className="text-sovereign-bronze text-xs leading-relaxed mb-6">Müşteriler 4 adımlı Journey Builder (Sepet) akışında nereden çıkıyor?</p>

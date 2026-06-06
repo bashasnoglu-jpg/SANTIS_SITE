@@ -63,7 +63,8 @@ body {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  transition: all 0.2s;
+  transition: transform 0.2s, opacity 0.2s;
+  will-change: transform, opacity;
 }
 
 .santis-btn-danger:hover {

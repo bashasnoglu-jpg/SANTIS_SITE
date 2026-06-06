@@ -176,7 +176,8 @@
     letter-spacing: 0.1em;
     font-size: 0.85rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  will-change: transform, opacity;
 }
 
 .santis-btn-ghost:hover {

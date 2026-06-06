@@ -1,3 +1,4 @@
+import { formatSovereignPrice } from '/assets/js/core/currency-formatter.js';
 /**
  * ========================================================================
  * SOVEREIGN OS v10.1 - LAYER 4: DATA BRIDGE (PIPELINE HOOK)
@@ -404,7 +405,7 @@ class SantisQuantumBridge {
                     };
                 } else {
                     // Metin tabanlı rehidrasyon — textContent ile XSS riski önlendi
-                    if(bindKey === 'price') el.textContent = `${value} ₺`;
+                    if(bindKey === 'price') el.textContent = `${formatSovereignPrice(value)}`;
                     else if(bindKey === 'duration') el.textContent = `${value} Dk.`;
                     else el.textContent = String(value ?? '');
                     
@@ -460,7 +461,7 @@ class SantisQuantumBridge {
             activeSlug: this.currentSlug,
             activeTitle: title,
             price: price,
-            systemPrompt: `Şu an "${title}" detay sayfasındasınız. Doğrudan ${price} ₺/€ fiyatıyla VIP seviyesinde randevu oluşturmayı teklif et.`
+            systemPrompt: `Şu an "${title}" detay sayfasındasınız. Doğrudan ${formatSovereignPrice(price)}/€ fiyatıyla VIP seviyesinde randevu oluşturmayı teklif et.`
         };
         
         // Phase 25.1 Global Event Bus üzerinden (veya CustomEvent) sinyal yolla
@@ -478,3 +479,4 @@ document.addEventListener('DOMContentLoaded', () => {
         window.SantisDataCore.bootPDP();
     }
 });
+

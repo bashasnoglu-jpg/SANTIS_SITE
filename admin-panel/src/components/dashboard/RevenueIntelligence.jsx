@@ -39,7 +39,7 @@ export default function RevenueIntelligence() {
         <div>
           <span style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)' }}>Aktif Döngü Cirosu</span>
           <p style={{ color: 'var(--color-primary-text)', fontSize: 'var(--text-2xl)', margin: 'var(--spacing-xs) 0 0 0' }}>
-            €{financialData.liveRevenue.toLocaleString()}
+            €{financialData?.dailyRevenue ? financialData.dailyRevenue.toLocaleString('tr-TR') : '0'}
           </p>
         </div>
         

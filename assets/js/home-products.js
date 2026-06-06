@@ -1,3 +1,4 @@
+import { formatSovereignPrice } from '/assets/js/core/currency-formatter.js';
 /**
  * SANTIS CLUB - HOME PRODUCTS RENDERER
  * Ana sayfadaki "The Digital Atelier" bölümünü doldurur.
@@ -53,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h4>${product.name}</h4>
                 <p class="hidden prod-desc">${product.desc || ''}</p> 
                 <div class="prod-bottom">
-                    <span class="prod-price">${product.price === 'Bilgi Al' ? 'İncele' : product.price + '₺'}</span>
+                    <span class="prod-price">${product.price === 'Bilgi Al' ? 'İncele' : product.price + '€'}</span>
                     <a href="/urunler/detay.html?id=${product.id}" class="prod-btn">İncele</a>
                 </div>
             </div>
@@ -66,3 +67,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log(`[HomeProducts] ${featuredProducts.length} ürün ana sayfaya eklendi.`);
 });
+

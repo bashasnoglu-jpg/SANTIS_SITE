@@ -6,7 +6,8 @@
   backdrop-filter: blur(18px);
   border-radius: 28px;
   padding: 24px;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform, opacity;
   min-height: 500px;
 }
 
@@ -84,7 +85,8 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: transform 0.2s, opacity 0.2s;
+  will-change: transform, opacity;
 }
 
 .nv-go-live:hover {
@@ -121,7 +123,8 @@
   padding: 16px;
   margin-bottom: 12px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: transform 0.2s, opacity 0.2s;
+  will-change: transform, opacity;
 }
 
 .nv-timeline-card:hover {
@@ -400,7 +403,8 @@
   flex: 1;
   height: 10px;
   border-radius: 3px;
-  transition: all 0.3s;
+  transition: transform 0.3s, opacity 0.3s;
+  will-change: transform, opacity;
 }
 
 .nv-heatmap__badge {
@@ -834,7 +838,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: transform 0.2s, opacity 0.2s;
+  will-change: transform, opacity;
 }
 
 .nv-oracle-scrubber__btn:hover {
@@ -879,7 +884,8 @@
   letter-spacing: 0.15em;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.2s;
+  transition: transform 0.2s, opacity 0.2s;
+  will-change: transform, opacity;
 }
 
 .nv-oracle-scrubber__live-btn:hover {

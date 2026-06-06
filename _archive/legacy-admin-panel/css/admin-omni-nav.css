@@ -95,7 +95,8 @@
     padding: 12px 24px;
     cursor: pointer;
     border-left: 2px solid transparent;
-    transition: all 0.2s ease;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  will-change: transform, opacity;
 }
 
 .omni-nav-item.active,
@@ -156,7 +157,8 @@
     z-index: 99998;
     backdrop-filter: blur(10px);
     box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  will-change: transform, opacity;
 }
 
 .omni-nav-floating-btn:hover {

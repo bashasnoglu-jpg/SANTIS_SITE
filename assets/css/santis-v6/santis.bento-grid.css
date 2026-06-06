@@ -93,7 +93,8 @@ BENTO CARD (V44 APPLE-STYLE BENTO ARCHITECTURE)
     transform: translateZ(0); /* Donanım Hızlandırmayı (GPU) Zorla */
     
     /* Tüm basit geçişleri iptal et ve Apple Fiziğine bağla */
-    transition: all 0.6s var(--sq-spring);
+    transition: transform 0.6s var(--sq-spring), opacity 0.6s var(--sq-spring);
+  will-change: transform, opacity;
     will-change: transform, box-shadow;
 }
 

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { io } from 'socket.io-client';
 import {
   RadarEventSchema,
-  FinancialDataSchema,
+  FinancialVitalsSchema,
   PricingDecisionSchema,
   PredictionEventSchema,
   ActiveConnectionsUpdateSchema,
@@ -14,10 +14,7 @@ export function SovereignSocketProvider({ children }) {
   const socketRef = useRef(null);
 
   const [radarData, setRadarData] = useState(null);
-  const [financeData, setFinanceData] = useState({
-    liveRevenue: 0,
-    activeSessions: 0,
-  });
+  const [financeData, setFinanceData] = useState(null);
   const [pricingLogs, setPricingLogs] = useState([]);
   const [predictionData, setPredictionData] = useState(null);
 
@@ -77,12 +74,12 @@ export function SovereignSocketProvider({ children }) {
       }
     });
 
-    socket.on('admin:finance_update', (raw) => {
+    socket.on('admin:finance_pulse', (raw) => {
       try {
-        const validated = FinancialDataSchema.parse(raw);
+        const validated = FinancialVitalsSchema.parse(raw);
         setFinanceData(validated);
       } catch (e) {
-        console.error('🚨 [Sovereign Contract Breach] Finance Data rejected:', e.errors);
+        console.error('🚨 [Sovereign Contract Breach] Finance Pulse Data rejected:', e.errors);
       }
     });
 
@@ -125,7 +122,10 @@ export function SovereignSocketProvider({ children }) {
     socket.on('admin:flight_risk', (raw) => {
       try {
         const validated = FlightRiskUpdateSchema.parse(raw);
-        setFlightRisks(validated.anomalies);
+        setFlightRisks((prev) => {
+          const newRisks = [...validated.anomalies, ...prev];
+          return newRisks.slice(0, 10); // Keep last 10
+        });
       } catch (e) {
         console.error('🚨 [Sovereign Contract Breach] Flight Risk Data rejected:', e.errors);
       }

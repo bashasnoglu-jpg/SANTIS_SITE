@@ -13,12 +13,13 @@ export const RadarEventSchema = z.object({
   systemTime: z.string().optional()
 });
 
-// 2. Revenue Intelligence (Finansal Veri) Sözleşmesi
-export const FinancialDataSchema = z.object({
-  liveRevenue: z.number().nonnegative("Ciro negatif olamaz"),
-  activeSessions: z.number().int().nonnegative("Seans sayısı tam sayı ve pozitif olmalı"),
-  pendingCommissions: z.number().optional().default(0)
-});
+// 2. Revenue Intelligence (Finansal Veri) Sözleşmesi - PHASE K-6 (The Wealth Contract)
+export const FinancialVitalsSchema = z.object({
+  dailyRevenue: z.number().int().nonnegative("Ciro negatif olamaz"),
+  activeSessions: z.number().int().nonnegative("Seans sayısı negatif olamaz"),
+  capacityPercent: z.number().min(0).max(100),
+  conversionRate: z.number().min(0).max(100)
+}).strict();
 
 // 3. Strategist's Journal (AI Karar) Sözleşmesi
 export const PricingDecisionSchema = z.object({
@@ -76,12 +77,12 @@ export const ActiveConnectionsUpdateSchema = z.object({
 // 9. Flight Risk Radar Sözleşmesi
 export const FlightRiskAnomalySchema = z.object({
   id: z.string(),
-  type: z.enum(['code_1006', 'soft_risk', 'rapid_scroll']),
+  anomalyType: z.enum(['exit_intent', 'rage_scroll', 'idle']),
+  riskScore: z.number().min(0).max(100),
   user: z.string(),
-  detail: z.string(),
   severity: z.enum(['low', 'medium', 'high', 'critical']),
   time: z.string().datetime()
-});
+}).strict();
 
 export const FlightRiskUpdateSchema = z.object({
   anomalies: z.array(FlightRiskAnomalySchema),

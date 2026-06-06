@@ -124,7 +124,8 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 0.8rem;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  will-change: transform, opacity;
 }
 
 .santis-concierge-input-area button:hover:not(:disabled) {
