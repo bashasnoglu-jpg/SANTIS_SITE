@@ -816,7 +816,7 @@ function serveStatic(req, res) {
 
         // 🛡️ Auto-Redirect old admin routes to the Sovereign HQ Dashboard
         if (routePath === '/admin/index.html' || routePath === '/admin' || routePath === '/admin/') {
-            res.writeHead(302, { 'Location': '/hq-dashboard' });
+            res.writeHead(302, { 'Location': '/admin-panel' });
             res.end();
             return;
         }
@@ -826,7 +826,7 @@ function serveStatic(req, res) {
         
         let isAdminRoute = routePath.startsWith('/admin/');
         let isComponent = routePath.startsWith('/components/');
-        let isReactDashboard = routePath.startsWith('/admin-panel') || routePath.startsWith('/hq-dashboard');
+        let isReactDashboard = routePath.startsWith('/admin-panel') || routePath.startsWith('/admin-panel');
 
         if (manifestRoute || isAdminRoute || isComponent || isReactDashboard) {
             // Rewrite URL to physical template if it's in the manifest
