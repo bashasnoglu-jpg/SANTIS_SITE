@@ -5,7 +5,7 @@ version: "3.9"
 
 services:
   postgres-dev:
-    image: postgres:16-alpine
+    image: pgvector/pgvector:pg16
     container_name: santis_postgres_dev
     restart: unless-stopped
     environment:
@@ -13,7 +13,7 @@ services:
       POSTGRES_USER: santis
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-santis_dev_password}
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_dev_data:/var/lib/postgresql/data
 

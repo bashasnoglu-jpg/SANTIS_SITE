@@ -142,7 +142,8 @@ body.omniverse-body {
     font-size: 12px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  will-change: transform, opacity;
     letter-spacing: 0.5px;
 }
 

@@ -135,7 +135,8 @@ body::before {
     padding: 0 28px;
     color: var(--os-text-muted);
     text-decoration: none;
-    transition: all 0.2s;
+    transition: transform 0.2s, opacity 0.2s;
+  will-change: transform, opacity;
     position: relative;
     cursor: pointer;
     white-space: nowrap;
@@ -158,7 +159,8 @@ body::before {
 .os-nav-item .label {
     opacity: 0;
     transform: translateX(-10px);
-    transition: all 0.3s 0.1s;
+    transition: transform 0.3s 0.1s, opacity 0.3s 0.1s;
+  will-change: transform, opacity;
 }
 
 .os-sidebar:hover .os-nav-item .label {
@@ -265,7 +267,8 @@ body::before {
     cursor: pointer;
     font-size: 13px;
     font-weight: 500;
-    transition: all 0.2s;
+    transition: transform 0.2s, opacity 0.2s;
+  will-change: transform, opacity;
     position: relative;
 }
 
@@ -362,7 +365,8 @@ body::before {
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
+  will-change: transform, opacity;
 }
 
 .os-modal-overlay.active {
@@ -766,7 +770,8 @@ body.light-mode {
     color: #888;
     cursor: pointer;
     font-size: 11px;
-    transition: all 0.2s;
+    transition: transform 0.2s, opacity 0.2s;
+  will-change: transform, opacity;
 }
 
 .activity-filter-btn:hover,

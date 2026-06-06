@@ -276,7 +276,8 @@ body {
 
     font-size: 14px;
 
-    transition: all 0.2s;
+    transition: transform 0.2s, opacity 0.2s;
+  will-change: transform, opacity;
 
 }
 
@@ -576,7 +577,8 @@ td img {
 
     visibility: hidden;
 
-    transition: all 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
+  will-change: transform, opacity;
 
     z-index: 1000;
 
@@ -757,7 +759,8 @@ td img {
 
     color: var(--text-muted);
 
-    transition: all 0.2s;
+    transition: transform 0.2s, opacity 0.2s;
+  will-change: transform, opacity;
 
     margin-top: 5px;
 
@@ -1016,7 +1019,8 @@ td img {
     cursor: pointer;
     margin-left: 8px;
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  will-change: transform, opacity;
     display: inline-flex;
     align-items: center;
     gap: 4px;

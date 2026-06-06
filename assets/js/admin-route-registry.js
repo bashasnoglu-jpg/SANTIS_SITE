@@ -10,8 +10,7 @@ const SANTIS_ROUTE_REGISTRY = {
         { name: "Katalog", path: "/katalog.html" }
     ],
     ADMIN_PAGES: [
-        { name: "Admin Dashboard", path: "/admin-dashboard.html" },
-        { name: "HQ Dashboard", path: "/hq-dashboard.html" },
+
         { name: "Sovereign Terminal", path: "/sovereign-terminal.html" },
         { name: "UI/UX Lab", path: "/sovereign-ui-lab.html" },
         { name: "Santis World", path: "/santis-world.html" },

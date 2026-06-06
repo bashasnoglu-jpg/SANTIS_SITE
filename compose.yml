@@ -23,7 +23,7 @@ services:
       context: .
       dockerfile: docker/web/Dockerfile
     ports:
-      - "8080:8080"
+      - "3000:8080"
     depends_on:
       api:
         condition: service_healthy
@@ -38,7 +38,7 @@ services:
       context: .
       dockerfile: docker/admin-panel/Dockerfile
     ports:
-      - "8081:8080"
+      - "8080:8080"
     depends_on:
       api:
         condition: service_healthy

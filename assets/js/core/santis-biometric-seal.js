@@ -1,3 +1,4 @@
+import { formatSovereignPrice } from '/assets/js/core/currency-formatter.js';
 /**
  * SANTIS OS - THE SOVEREIGN SEAL [PHASE 35]
  * WebAuthn Passkeys, Biometric Checkout & Neuro-Pricing
@@ -31,7 +32,7 @@ class SantisBiometricSeal {
                 el.style.transition = "color 1s ease, text-shadow 1s ease";
                 el.style.color = "#d4af37"; // Vanta Gold
                 el.style.textShadow = "0 0 10px rgba(212,175,55,0.5)";
-                el.innerHTML = `${ritualData.price} ₺ (Zen Şifası)`;
+                el.innerHTML = `${formatSovereignPrice(ritualData.price)} (Zen Şifası)`;
             });
             
             // Wait for Aurelia to finish speaking roughly
@@ -142,3 +143,4 @@ class SantisBiometricSeal {
 document.addEventListener('DOMContentLoaded', () => {
     window.SantisSealCore = new SantisBiometricSeal();
 });
+

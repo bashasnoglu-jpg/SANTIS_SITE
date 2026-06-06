@@ -43,7 +43,7 @@ type ReplayResponse = {
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const API_BASE = '/admin/replay/boardroom';
+const API_BASE = '/api/v1/replay/boardroom';
 const MAX_SEQ  = 999;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -84,12 +84,17 @@ export function TimeTravelReplayPanel() {
     try {
       const url = seq >= MAX_SEQ ? API_BASE : `${API_BASE}?toSeq=${seq}`;
       const res = await fetch(url, { headers: { Accept: 'application/json' } });
-      const json: ReplayResponse = await res.json();
-      if (!res.ok || !json.success) throw new Error(json.error ?? `HTTP ${res.status}`);
-      setResult(json);
+      const json = await res.json().catch(() => null);
+      if (!res.ok || !json?.success) {
+         throw new Error(json?.error ?? `HTTP ${res.status}`);
+      }
+      setResult(json as ReplayResponse);
+      return true;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Replay failed');
       setResult(null);
+      setAutoPlay(false); // Stop autoplay on error
+      return false;
     } finally {
       setLoading(false);
     }
@@ -103,11 +108,14 @@ export function TimeTravelReplayPanel() {
       return;
     }
     setPlaySeq(0);
-    intervalRef.current = setInterval(() => {
+    intervalRef.current = setInterval(async () => {
       setPlaySeq((prev: number) => {
         const next = prev + 1;
         if (next > MAX_SEQ) { setAutoPlay(false); return prev; }
-        void fetchAt(next);
+        
+        // Use an IIFE or similar to fetch without blocking the state update
+        fetchAt(next);
+        
         return next;
       });
     }, 600);

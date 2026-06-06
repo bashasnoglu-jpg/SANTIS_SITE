@@ -2,9 +2,11 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { io } from 'socket.io-client';
 import {
   RadarEventSchema,
-  FinancialDataSchema,
+  FinancialVitalsSchema,
   PricingDecisionSchema,
   PredictionEventSchema,
+  ActiveConnectionsUpdateSchema,
+  FlightRiskUpdateSchema
 } from '../contracts/sovereign-schemas';
 import { SovereignSocketContext } from './SovereignSocketContext';
 
@@ -12,12 +14,13 @@ export function SovereignSocketProvider({ children }) {
   const socketRef = useRef(null);
 
   const [radarData, setRadarData] = useState(null);
-  const [financeData, setFinanceData] = useState({
-    liveRevenue: 0,
-    activeSessions: 0,
-  });
+  const [financeData, setFinanceData] = useState(null);
   const [pricingLogs, setPricingLogs] = useState([]);
   const [predictionData, setPredictionData] = useState(null);
+
+  const [connections, setConnections] = useState([]);
+  const [flightRisks, setFlightRisks] = useState([]);
+  const [socketStatus, setSocketStatus] = useState('offline');
 
   const emitSocketEvent = useCallback((eventName, payload) => {
     socketRef.current?.emit(eventName, payload);
@@ -35,7 +38,7 @@ export function SovereignSocketProvider({ children }) {
 
   useEffect(() => {
     const socketUrl = import.meta.env.VITE_SOCKET_URL || '';
-    
+
     // Finite reconnection attempts and delays to prevent infinite spam
     const socket = io(socketUrl, {
       reconnectionAttempts: 3,
@@ -44,12 +47,22 @@ export function SovereignSocketProvider({ children }) {
     });
     socketRef.current = socket;
 
+    socket.io.on("connect", () => {
+      setSocketStatus('online');
+    });
+
     socket.io.on("error", () => {
       console.warn('🚨 [Sovereign Socket] Connection failed, switching to fallback/mock mode.');
+      setSocketStatus('offline');
     });
-    
+
     socket.io.on("reconnect_failed", () => {
       console.warn('🚨 [Sovereign Socket] Reconnection failed completely. Operating offline.');
+      setSocketStatus('offline');
+    });
+
+    socket.on("disconnect", () => {
+      setSocketStatus('offline');
     });
 
     socket.on('admin:radar_update', (raw) => {
@@ -61,12 +74,12 @@ export function SovereignSocketProvider({ children }) {
       }
     });
 
-    socket.on('admin:finance_update', (raw) => {
+    socket.on('admin:finance_pulse', (raw) => {
       try {
-        const validated = FinancialDataSchema.parse(raw);
+        const validated = FinancialVitalsSchema.parse(raw);
         setFinanceData(validated);
       } catch (e) {
-        console.error('🚨 [Sovereign Contract Breach] Finance Data rejected:', e.errors);
+        console.error('🚨 [Sovereign Contract Breach] Finance Pulse Data rejected:', e.errors);
       }
     });
 
@@ -97,6 +110,27 @@ export function SovereignSocketProvider({ children }) {
       }
     });
 
+    socket.on('admin:connections_update', (raw) => {
+      try {
+        const validated = ActiveConnectionsUpdateSchema.parse(raw);
+        setConnections(validated.connections);
+      } catch (e) {
+        console.error('🚨 [Sovereign Contract Breach] Active Connections Data rejected:', e.errors);
+      }
+    });
+
+    socket.on('admin:flight_risk', (raw) => {
+      try {
+        const validated = FlightRiskUpdateSchema.parse(raw);
+        setFlightRisks((prev) => {
+          const newRisks = [...validated.anomalies, ...prev];
+          return newRisks.slice(0, 10); // Keep last 10
+        });
+      } catch (e) {
+        console.error('🚨 [Sovereign Contract Breach] Flight Risk Data rejected:', e.errors);
+      }
+    });
+
     return () => {
       socket.disconnect();
       socketRef.current = null;
@@ -111,8 +145,11 @@ export function SovereignSocketProvider({ children }) {
       financeData,
       pricingLogs,
       predictionData,
+      connections,
+      flightRisks,
+      socketStatus
     }),
-    [emitSocketEvent, onSocketEvent, radarData, financeData, pricingLogs, predictionData],
+    [emitSocketEvent, onSocketEvent, radarData, financeData, pricingLogs, predictionData, connections, flightRisks, socketStatus],
   );
 
   return (

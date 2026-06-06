@@ -243,4 +243,5 @@ body.cinematic-ritual {
   animation: badgePulse 2s infinite;
 }
 @keyframes badgePulse { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
-.animate-reveal { opacity: 0; transform: translateY(20px); will-change: opacity, transform; }
+/* GSAP will animate from 0 to default, no need to hardcode 0 which breaks after revert */
+.animate-reveal { will-change: opacity, transform; }

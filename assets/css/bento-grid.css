@@ -590,7 +590,8 @@
     gap: 8px;
     transform: translateY(10px);
     opacity: 0.9;
-    transition: all 0.4s ease;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  will-change: transform, opacity;
 }
 
 .sovereign-bento-grid .bento-card:hover .card-glass-overlay {

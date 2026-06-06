@@ -46,42 +46,33 @@ export class SchedulingRepository {
   ): Promise<HydratedBookingGuardContext> {
 
     // Read-only operations to hydrate the context
-    const dbLocations = await this.db.select().from(locations).where(eq(locations.tenantId, tenantId));
-    const dbSpaAreas = await this.db.select().from(spaAreas).where(eq(spaAreas.tenantId, tenantId));
-    const dbRooms = await this.db.select().from(treatmentRooms).where(eq(treatmentRooms.tenantId, tenantId));
-    const dbTherapists = await this.db.select().from(therapists).where(eq(therapists.tenantId, tenantId));
-    const dbServices = await this.db.select().from(services).where(eq(services.tenantId, tenantId));
-
-    const dbRoomComps = await this.db.select()
-      .from(serviceRoomCompatibilities)
-      .where(eq(serviceRoomCompatibilities.tenantId, tenantId));
-
-    const dbTherapistComps = await this.db.select()
-      .from(serviceTherapistCompatibilities)
-      .where(eq(serviceTherapistCompatibilities.tenantId, tenantId));
-
-    const dbOperatingHours = await this.db.select()
-      .from(operatingHours)
-      .where(eq(operatingHours.tenantId, tenantId));
-
-    const dbShifts = await this.db.select()
-      .from(therapistShifts)
-      .where(eq(therapistShifts.tenantId, tenantId));
-
-    const dbBlockers = await this.db.select()
-      .from(blockers)
-      .where(eq(blockers.tenantId, tenantId));
-
-    const dbBookings = await this.db.select()
-      .from(bookings)
-      .where(eq(bookings.tenantId, tenantId));
-
-    const dbHolds = await this.db.select()
-      .from(bookingHolds)
-      .where(and(
-        eq(bookingHolds.tenantId, tenantId),
-        eq(bookingHolds.status, 'active')
-      ));
+    const [
+      dbLocations,
+      dbSpaAreas,
+      dbRooms,
+      dbTherapists,
+      dbServices,
+      dbRoomComps,
+      dbTherapistComps,
+      dbOperatingHours,
+      dbShifts,
+      dbBlockers,
+      dbBookings,
+      dbHolds
+    ] = await Promise.all([
+      this.db.select().from(locations).where(eq(locations.tenantId, tenantId)),
+      this.db.select().from(spaAreas).where(eq(spaAreas.tenantId, tenantId)),
+      this.db.select().from(treatmentRooms).where(eq(treatmentRooms.tenantId, tenantId)),
+      this.db.select().from(therapists).where(eq(therapists.tenantId, tenantId)),
+      this.db.select().from(services).where(eq(services.tenantId, tenantId)),
+      this.db.select().from(serviceRoomCompatibilities).where(eq(serviceRoomCompatibilities.tenantId, tenantId)),
+      this.db.select().from(serviceTherapistCompatibilities).where(eq(serviceTherapistCompatibilities.tenantId, tenantId)),
+      this.db.select().from(operatingHours).where(eq(operatingHours.tenantId, tenantId)),
+      this.db.select().from(therapistShifts).where(eq(therapistShifts.tenantId, tenantId)),
+      this.db.select().from(blockers).where(eq(blockers.tenantId, tenantId)),
+      this.db.select().from(bookings).where(eq(bookings.tenantId, tenantId)),
+      this.db.select().from(bookingHolds).where(and(eq(bookingHolds.tenantId, tenantId), eq(bookingHolds.status, 'active')))
+    ]);
 
     // Map DB rows to Domain schema structure (snakes case and stringifying dates)
     return {

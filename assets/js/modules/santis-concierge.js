@@ -1,3 +1,4 @@
+import { formatSovereignPrice } from '/assets/js/core/currency-formatter.js';
 /**
  * SANTIS OS - MODULE: Concierge Engine V3 (Surgical Migration + Auto-Close)
  * Architecture: State-Driven, EventBus Connected, Voice Enabled, Zero-Friction Checkout
@@ -165,8 +166,8 @@ export class ConciergeModule {
           <h4 class="text-lg font-light">${escapeHtml(product.name)}</h4>
         </div>
         <div class="text-right">
-          <span class="block text-sm text-white/50 line-through">${(product.price * 1.15).toFixed(0)} ₺</span>
-          <span class="text-xl font-light text-santis-gold">${product.price} ₺</span>
+          <span class="block text-sm text-white/50 line-through">${formatSovereignPrice((product.price * 1.15).toFixed(0))}</span>
+          <span class="text-xl font-light text-santis-gold">${formatSovereignPrice(product.price)}</span>
         </div>
       </div>
       <p class="text-xs text-white/50 mb-6 font-light">Semptomlarınıza yönelik en ideal ritüel. %15 Concierge ayrıcalığı anında tanımlandı.</p>
@@ -196,7 +197,7 @@ export class ConciergeModule {
     this.engine.setState('cartData', {
       serviceName: product.name,
       subtotal: product.price,
-      currency: '₺'
+      currency: '€'
     });
 
     // 2. Phase 13 VIP İndirimini uygula
@@ -251,3 +252,4 @@ function escapeHtml(value) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
 }
+

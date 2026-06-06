@@ -3,6 +3,8 @@
  * Hyper-accurate scoring reading time, depth, mobile patterns, and exit intent.
  */
 
+import { AdvisorClient } from './advisor-client.js';
+
 const SantisIntent = {
     score: 0,
     startTime: Date.now(),
@@ -82,7 +84,12 @@ const SantisIntent = {
         }
 
         // Pass to the brain
-        SantisOffer.evaluate(this.score);
+        if (window.SantisOffer && window.SantisOffer.evaluate) {
+            SantisOffer.evaluate(this.score);
+        }
+        
+        // Phase 11G: Trigger Advisor Debug Bridge
+        AdvisorClient.evaluateIntent(`Exit Triggered via: [${reason}]`);
     }
 };
 

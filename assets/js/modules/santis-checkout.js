@@ -1,3 +1,4 @@
+import { formatSovereignPrice } from '/assets/js/core/currency-formatter.js';
 /**
  * SANTIS OS - MODULE: Checkout State Manager
  * Architecture: Reactive Pricing, Zero-Reload Validation
@@ -10,7 +11,7 @@ export class CheckoutManagerModule {
     this._subscriptions = [];
     
     // Varsayılan sepet verisi (Normalde API veya LocalStorage'dan gelir)
-    this.cartData = { subtotal: 4500, currency: '₺' }; 
+    this.cartData = { subtotal: 4500, currency: '€' }; 
   }
 
   mount() {
@@ -58,21 +59,21 @@ export class CheckoutManagerModule {
     const discountEl = document.getElementById('cart-discount-amount');
     const totalEl = document.getElementById('cart-total');
 
-    if (subtotalEl) subtotalEl.textContent = `${subtotal.toLocaleString('tr-TR')} ₺`;
+    if (subtotalEl) subtotalEl.textContent = `${formatSovereignPrice(subtotal.toLocaleString('tr-TR'))}`;
     
     if (discount > 0 && discountRow && discountEl) {
       discountRow.classList.remove('hidden'); // İndirim satırını göster
-      discountEl.textContent = `- ${discount.toLocaleString('tr-TR')} ₺`;
+      discountEl.textContent = `- ${formatSovereignPrice(discount.toLocaleString('tr-TR'))}`;
       
       // Toplam fiyat animasyonu (Eskisini çiz, yenisini yaz)
       if (totalEl) {
         totalEl.innerHTML = `
-          <span class="santis-checkout-previous-total line-through text-lg mr-2">${subtotal.toLocaleString('tr-TR')} ₺</span>
-          <span class="text-3xl text-santis-gold font-light animate-fade-in">${total.toLocaleString('tr-TR')} ₺</span>
+          <span class="santis-checkout-previous-total line-through text-lg mr-2">${formatSovereignPrice(subtotal.toLocaleString('tr-TR'))}</span>
+          <span class="text-3xl text-santis-gold font-light animate-fade-in">${formatSovereignPrice(total.toLocaleString('tr-TR'))}</span>
         `;
       }
     } else {
-      if (totalEl) totalEl.textContent = `${total.toLocaleString('tr-TR')} ₺`;
+      if (totalEl) totalEl.textContent = `${formatSovereignPrice(total.toLocaleString('tr-TR'))}`;
     }
   }
 
@@ -100,3 +101,4 @@ export class CheckoutManagerModule {
     this._subscriptions = [];
   }
 }
+

@@ -8,6 +8,7 @@
   },
   "packageManager": "pnpm@10.24.0",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "env:check": "node -v",
     "smoke": "node run-smoke.js",
     "smoke:mock": "node run-smoke.js",
@@ -23,6 +24,7 @@
     "dev": "turbo run dev --parallel",
     "dev:site": "vite",
     "dev:admin": "pnpm --filter admin-panel dev",
+    "guard": "node scripts/sovereign-guard.mjs $(git ls-files '*.js' '*.jsx' '*.ts' '*.tsx' '*.html' '*.mjs' '*.cjs')",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "db:backup": "node scripts/active/backup-db.mjs",
@@ -70,7 +72,8 @@
     "audit:rvs-telemetry-endpoint-behavior": "node scripts/active/audit-rvs-telemetry-endpoint-behavior.mjs",
     "audit:rvs-client-telemetry-dispatcher": "node scripts/active/audit-rvs-client-telemetry-dispatcher.mjs",
     "audit:rvs-santisdom-telemetry": "node scripts/active/audit-rvs-santisdom-telemetry.mjs",
-    "audit:rvs-telemetry-backend-stub": "node scripts/active/audit-rvs-telemetry-backend-stub.mjs"
+    "audit:rvs-telemetry-backend-stub": "node scripts/active/audit-rvs-telemetry-backend-stub.mjs",
+    "prepare": "husky"
   },
   "dependencies": {
     "gsap": "^3.15.0",
@@ -85,6 +88,8 @@
     "@tailwindcss/vite": "^4.2.4",
     "@vitejs/plugin-react": "^4.7.0",
     "esbuild": "^0.28.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
     "serve": "^14.2.4",
     "socket.io": "^4.8.3",
     "tailwindcss": "^4.0.0",
@@ -92,5 +97,10 @@
     "turbo": "^1.13.0",
     "typescript": "^5.4.0",
     "vite": "^7.3.2"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,html,mjs,cjs}": [
+      "node scripts/sovereign-guard.mjs"
+    ]
   }
 }

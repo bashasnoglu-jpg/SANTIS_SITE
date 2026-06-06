@@ -15,6 +15,13 @@
       "when": 1779655009300,
       "tag": "0001_smart_old_lace",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1780463188146,
+      "tag": "0002_gray_monster_badoon",
+      "breakpoints": true
     }
   ]
 }

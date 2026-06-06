@@ -1,6 +1,9 @@
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
-import * as schema from './schema/audit-logs.js'; // Expand this as more schemas are added
+import * as auditSchema from './schema/audit-logs.js';
+import * as guestMemorySchema from './schema/guest-memory.js';
+
+const schema = { ...auditSchema, ...guestMemorySchema };
 
 /**
  * Creates a Drizzle database connection using postgres.js.

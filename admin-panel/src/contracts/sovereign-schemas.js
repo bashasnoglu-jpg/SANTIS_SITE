@@ -13,12 +13,13 @@ export const RadarEventSchema = z.object({
   systemTime: z.string().optional()
 });
 
-// 2. Revenue Intelligence (Finansal Veri) Sözleşmesi
-export const FinancialDataSchema = z.object({
-  liveRevenue: z.number().nonnegative("Ciro negatif olamaz"),
-  activeSessions: z.number().int().nonnegative("Seans sayısı tam sayı ve pozitif olmalı"),
-  pendingCommissions: z.number().optional().default(0)
-});
+// 2. Revenue Intelligence (Finansal Veri) Sözleşmesi - PHASE K-6 (The Wealth Contract)
+export const FinancialVitalsSchema = z.object({
+  dailyRevenue: z.number().int().nonnegative("Ciro negatif olamaz"),
+  activeSessions: z.number().int().nonnegative("Seans sayısı negatif olamaz"),
+  capacityPercent: z.number().min(0).max(100),
+  conversionRate: z.number().min(0).max(100)
+}).strict();
 
 // 3. Strategist's Journal (AI Karar) Sözleşmesi
 export const PricingDecisionSchema = z.object({
@@ -57,4 +58,44 @@ export const SimulationResultSchema = z.object({
   projectedFtr: z.number().min(0).max(1.5),
   insight: z.string().min(10, "Simülasyon içgörüsü detaylı olmalıdır"),
   timestamp: z.string()
+});
+
+// 8. Active Connections (God Mode) Sözleşmesi
+export const ActiveConnectionSchema = z.object({
+  id: z.string(),
+  page: z.string(),
+  status: z.enum(['active', 'idle']),
+  ipMask: z.string(),
+  lastSeen: z.string().datetime()
+});
+
+export const ActiveConnectionsUpdateSchema = z.object({
+  connections: z.array(ActiveConnectionSchema),
+  timestamp: z.string().datetime()
+});
+
+// 9. Flight Risk Radar Sözleşmesi
+export const FlightRiskAnomalySchema = z.object({
+  id: z.string(),
+  anomalyType: z.enum(['exit_intent', 'rage_scroll', 'idle']),
+  riskScore: z.number().min(0).max(100),
+  user: z.string(),
+  severity: z.enum(['low', 'medium', 'high', 'critical']),
+  time: z.string().datetime()
+}).strict();
+
+export const FlightRiskUpdateSchema = z.object({
+  anomalies: z.array(FlightRiskAnomalySchema),
+  timestamp: z.string().datetime()
+});
+
+// 10. Sovereign Command Palette Sözleşmesi
+export const CommandExecutionSchema = z.object({
+  commandId: z.string(),
+  timestamp: z.string().datetime(),
+  authContext: z.object({
+    actorId: z.string().optional(),
+    role: z.string().optional(),
+    source: z.literal('sovereign-command-palette')
+  })
 });

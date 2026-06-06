@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Santis Club • Rezervasyon Onayı</title>
+<meta content="Santis Club rezervasyonunuz başarıyla alındı." name="description"/>
+<meta content="#000000" name="theme-color"/>
+<link href="/assets/img/icons/icon-192x192.webp" rel="apple-touch-icon"/>
+
+<link as="style" href="/assets/css/fonts.css" rel="preload"/>
+<link href="/assets/css/fonts.css" media="print" onload="this.media='all'" rel="stylesheet"/>
+<noscript><link href="/assets/css/fonts.css" rel="stylesheet"/></noscript>
+
+<link as="style" href="/assets/css/style.css" rel="preload"/>
+<link href="/assets/css/style.css" rel="stylesheet"/>
+<noscript><link href="/assets/css/style.css" rel="stylesheet"/></noscript>
+
+<style id="critical-css">
+/* Temel sıfırlama ve tipografi iskeleti - Zero CLS */
+body { margin: 0; background-color: #050505; font-family: 'Outfit', 'Inter', system-ui, sans-serif; color: #fff; overflow-x: hidden; }
+.santis-navbar { min-height: 86px; display: block; position: absolute; top: 0; width: 100%; z-index: 100; }
+.santis-hero { position: relative; overflow: hidden; background-color: #050505; width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; }
+.hero-visual { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 1; }
+html { font-display: optional; }
+
+/* Confirmation Specific Typography */
+.confirmation-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 800px;
+    padding: 0 24px;
+}
+.confirmation-kicker {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #D4AF37;
+    margin-bottom: 24px;
+    display: block;
+    opacity: 0;
+    transform: translateY(20px);
+}
+.confirmation-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    margin: 0 0 24px;
+    color: #fff;
+    line-height: 1.1;
+    opacity: 0;
+    transform: translateY(20px);
+}
+.confirmation-subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 auto 48px;
+    max-width: 500px;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(20px);
+}
+.santis-btn-outline {
+    opacity: 0;
+    transform: translateY(20px);
+}
+</style>
+
+<script type="module" src="/assets/js/core/santis-runtime-resolver.js"></script>
+<script type="module" src="/assets/js/santis-config.js"></script>
+<script type="module" src="/assets/js/api-client.js"></script>
+<script type="module" src="/assets/js/santis-public-runtime-shim.js"></script>
+<script type="module" defer src="/assets/js/loader.js?v=nav-3a6f8730"></script>
+<script type="module" defer src="/assets/js/santis-nav.js?v=nav-inline-visible-2"></script>
+
+<link href="/assets/css/nav-final.css?v=nav-3a6f8730" rel="stylesheet"/>
+</head>
+<body class="santis-cinematic-lock">
+<!-- Page Overlay for Cinematic Transitions -->
+<div class="page-overlay"></div>
+<!-- 🌌 V17 THE GOD CANVAS (Quantum Renderer) 🌌 -->
+<canvas id="santis-god-canvas"></canvas>
+
+<header class="santis-navbar" id="santis-header" role="banner">
+    <div id="navbar-container"></div>
+</header>
+
+<main id="santis-cinematic-stage">
+    <section class="santis-hero hero-main sovereign-frame active" data-frame="hero" data-gravity-id="confirmation-hero">
+        <picture>
+            <img alt="Sovereign Sessiz Lüks Deneyimi - Onay" class="hero-visual" data-inertia="0.15" decoding="sync" fetchpriority="high" src="/assets/img/santis_hero_main_v1.webp" width="1920" height="1080"/>
+        </picture>
+        <div class="santis-hero-overlay" style="background: linear-gradient(180deg, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.8) 100%); position: absolute; inset: 0; z-index: 2;"></div>
+        
+        <div class="confirmation-content">
+            <span class="confirmation-kicker" id="anim-kicker">RİTÜELİNİZ ONAYLANDI</span>
+            <h1 class="confirmation-title" id="anim-title">Sessizlik Sizi Bekliyor.</h1>
+            <p class="confirmation-subtitle" id="anim-subtitle">Talebiniz Sovereign Concierge sistemimize ulaştı. Özel temsilciniz, deneyiminizi kusursuzlaştırmak için en kısa sürede sizinle iletişime geçecek.</p>
+            <a class="santis-btn santis-btn-outline santis-magnetic" id="anim-btn" href="/tr/index.html">Ana Sayfaya Dön</a>
+        </div>
+    </section>
+</main>
+
+<script defer src="/assets/vendor/gsap.min.js"></script>
+<script type="module">
+    // Minimalist Cinematic Entry
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initial setup for 0 CLS was handled in CSS. Now we animate.
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        
+        // Wait for page overlay fade out (if any) or just start smoothly
+        tl.to('.hero-visual', { scale: 1.05, duration: 10, ease: "power1.inOut" }, 0)
+          .to('#anim-kicker', { opacity: 1, y: 0, duration: 1.2 }, 0.5)
+          .to('#anim-title', { opacity: 1, y: 0, duration: 1.2 }, 0.7)
+          .to('#anim-subtitle', { opacity: 1, y: 0, duration: 1.2 }, 0.9)
+          .to('#anim-btn', { opacity: 1, y: 0, duration: 1.2 }, 1.1);
+    });
+</script>
+
+<script type="module" src="/assets/js/santis-cinematic-engine.js"></script>
+</body>
+</html>
