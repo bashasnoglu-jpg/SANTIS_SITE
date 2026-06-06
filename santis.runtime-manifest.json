@@ -1,0 +1,18 @@
+{
+  "runtimeStatic": [
+    "assets/js/loader.js",
+    "assets/js/navigation-flow.js",
+    "assets/js/santis-nav.js",
+    "assets/js/language-switcher.js",
+    "assets/js/santis-liquid-menu.js",
+    "santis-sw.js",
+    "assets/js/modules/santis-checkout-ceremony.js",
+    "assets/js/modules/santis-booking-modal.js",
+    "assets/js/modules/santis-booking-confirmation-hold.js",
+    "assets/js/modules/santis-booking-ledger.js",
+    "assets/js/modules/santis-payment-eligibility.js",
+    "assets/js/modules/santis-payment-readiness-ui.js",
+    "assets/js/modules/santis-checkout-eligibility.js",
+    "assets/js/modules/santis-sovereign-vault.js"
+  ]
+}
