@@ -41,6 +41,7 @@ function App() {
             } 
           />
           
+          <Route path="/index.html" element={<Navigate to="/" replace />} />
           <Route path="/login" element={<Login />} />
           <Route
             path="/"
