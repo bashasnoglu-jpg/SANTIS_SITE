@@ -28,10 +28,23 @@ jobs:
       - name: Install Dependencies (Frozen Lockfile Enforced)
         run: pnpm install --frozen-lockfile
 
-      - name: Enforce Strict Build
-        run: pnpm build
-        
-      - name: Run Sentinel/Governance Checks
-        run: |
-          pnpm run guard
-          pnpm stitch:enforce
+      - name: Root Typecheck
+        run: pnpm typecheck
+
+      - name: Root Lint
+        run: pnpm lint
+
+      - name: Root MPA Build
+        run: pnpm build:mpa
+
+      - name: Admin Panel Typecheck
+        run: pnpm --filter admin-panel typecheck
+
+      - name: Admin Panel Lint
+        run: pnpm --filter admin-panel lint
+
+      - name: Admin Panel Build
+        run: pnpm --filter admin-panel build
+
+      - name: Stitch Enforce
+        run: pnpm stitch:enforce
