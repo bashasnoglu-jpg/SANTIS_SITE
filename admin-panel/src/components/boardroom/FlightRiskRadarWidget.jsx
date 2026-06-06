@@ -30,7 +30,7 @@ export default function FlightRiskRadarWidget() {
   // Get max risk score to determine overall panel color
   const maxScore = hasRealData ? Math.max(...flightRisks.map(r => r.riskScore)) : 0;
   
-  const headerGlow = maxScore >= 80 ? 'border-b-red-500/50 shadow-[0_4px_12px_rgba(239,68,68,0.1)]' : 
+  const headerGlow = maxScore >= 80 ? 'border-b-red-500/50 shadow-lg shadow-red-500/10' : 
                      maxScore >= 50 ? 'border-b-amber-500/50' : 'border-b-sovereign-panel';
 
   return (
@@ -53,7 +53,7 @@ export default function FlightRiskRadarWidget() {
         </div>
       </div>
 
-      <div className="p-6 space-y-3 flex-1 overflow-y-auto max-h-[300px]">
+      <div className="p-6 space-y-3 flex-1 overflow-y-auto max-h-80">
         {!hasRealData && (
           <div className="text-center text-sovereign-muted text-sm py-8 font-mono">
             No active anomalies detected
