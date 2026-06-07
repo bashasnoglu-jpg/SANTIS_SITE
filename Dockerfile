@@ -1,34 +1,40 @@
-# Sovereign Production Turbine v3.0
-# Production runtime executes compiled JavaScript only.
-
-FROM node:20-slim AS base
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
-
-FROM base AS builder
-WORKDIR /app
-COPY . .
-RUN pnpm install --frozen-lockfile
-
-# Build the ingestion API into dist/ before creating the deploy bundle.
-RUN pnpm --filter=@santis/ingestion-api build
-
-# Use pnpm deploy to isolate the ingestion-api and its production dependencies
-RUN pnpm --filter=@santis/ingestion-api --prod deploy /prod/ingestion-api
-RUN cp -R /app/apps/ingestion-api/dist /prod/ingestion-api/dist
-
-# Production Runner
-FROM node:20-slim AS runner
+﻿# --- STAGE 1: BUILDER ---
+FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy the standalone deployment bundle
-COPY --from=builder /prod/ingestion-api ./
+# Paket tanımlarını kopyala ve tüm bağımlılıkları yükle (dev dahil)
+COPY package*.json ./
+COPY tsconfig.json ./
+RUN npm install
 
+# Kaynak kodları kopyala ve build al
+COPY src ./src
+RUN npm run build
+
+# [KRİTİK MİMARİ HAMLESİ] Production için #imports yollarını src'den dist'e çevir
+RUN node -e "const fs=require('fs'); const p=JSON.parse(fs.readFileSync('package.json')); if(p.imports){ p.imports['#database/*']='./dist/database/*'; p.imports['#domain-schema/*']='./dist/domain-schema/*'; fs.writeFileSync('package.json', JSON.stringify(p, null, 2)); }"
+
+# --- STAGE 2: PRODUCTION RUNNER ---
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+# Güvenlik: Non-root user kullanımı ve Production ortamı
 ENV NODE_ENV=production
 ENV PORT=3030
 
+# Sadece gerekli üretim dosyalarını builder'dan çek (Mutasyona uğramış package.json dahil)
+COPY --from=builder /app/package*.json ./
+
+# Sadece Production bağımlılıklarını kur (Ultra-hafif imaj)
+RUN npm install --omit=dev
+
+# Derlenmiş saf JS dosyalarını al
+COPY --from=builder /app/dist ./dist
+
+# Alpine içindeki standart node kullanıcısına geçiş
+USER node
+
 EXPOSE 3030
 
-# Sovereign Ingestion API'yi compiled production bundle'dan başlat.
-CMD ["node", "dist/index.cjs"]
+# Uygulamayı Native Node.js ile ateşle
+CMD ["node", "dist/index.js"]

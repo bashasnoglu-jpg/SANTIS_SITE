@@ -1,0 +1,41 @@
+﻿version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: santis-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: santis
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d santis"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: santis-ingestion-api
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3030
+      # Docker network içindeki 'db' host ismini kullanıyoruz (localhost yerine)
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/santis
+      - SUPABASE_JWKS_URL=http://localhost:3000/jwks
+    ports:
+      - "3030:3030"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

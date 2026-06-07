@@ -215,7 +215,38 @@ const truthLayer = http.createServer((req, res) => {
     return;
   }
 
-  // 4. Health Check Rotası
+  // 4. Admin Bookings Mock
+  if (req.url.startsWith('/api/v1/admin/bookings') && req.method === 'GET') {
+    res.writeHead(200);
+    res.end(JSON.stringify({
+      bookings: [],
+      total: 0,
+      source: "mock",
+      status: "ok"
+    }));
+    return;
+  }
+
+  // 5. Advisor Intent Mock
+  if (req.url === '/api/v1/advisor/intent' && req.method === 'POST') {
+    res.writeHead(200);
+    res.end(JSON.stringify({
+      mode: "deterministic",
+      tenantId: "test-hotel",
+      traits: ["Anonymous Spa Explorer"],
+      intents: ["General Wellness Inquiry"],
+      recentSessions: ["First visit"],
+      activeMemory: ["No past visits on record."],
+      recommendation: {
+        suggestedServices: ["Deep Tissue Massage", "Organic Facial"],
+        messagingTone: "Welcoming & Relaxing",
+        nextBestAction: "Offer a personalized consultation"
+      }
+    }));
+    return;
+  }
+
+  // 6. Health Check Rotası
   if (req.url === '/api/health' || req.url === '/health') {
     res.writeHead(200);
     res.end(JSON.stringify({ 
