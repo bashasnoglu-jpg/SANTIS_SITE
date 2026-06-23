@@ -72,6 +72,9 @@ _archive/
 _backup/
 backup_assets/
 backups/
+Santis_OS_Backups/
+Santis_OS_Offline_Schedule/
+offline-schedule/
 quarantine_zone/
 Quarantine/
 _KARANTINA_SANTIS/
