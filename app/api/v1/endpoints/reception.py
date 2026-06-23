@@ -154,9 +154,9 @@ def _normalize(value: Any) -> str:
     if isinstance(value, list):
         return ", ".join(_normalize(item) for item in value if item is not None)
     if isinstance(value, dict):
-        extracted = value.get("name") or value.get("id")
-        if extracted is not None:
-            return _normalize(extracted)
+        if "name" in value or "id" in value:
+            extracted = value.get("name") or value.get("id")
+            return _normalize(extracted) if extracted is not None else ""
         return str(value).strip()
     return str(value).strip()
 
