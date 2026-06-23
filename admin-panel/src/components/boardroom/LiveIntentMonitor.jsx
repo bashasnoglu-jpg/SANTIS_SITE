@@ -4,19 +4,41 @@ import { useBoardroomMode } from "../../features/boardroom/context/BoardroomMode
 function ReceptionLiveToday() {
   const [data, setData] = useState(null);
   const [status, setStatus] = useState('loading');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
+    const controller = new AbortController();
     const params = new URLSearchParams({ locationName: 'budva', environment: 'Live' });
 
-    fetch(`/api/v1/reception/bookings/today?${params.toString()}`, {
-      headers: { Accept: 'application/json' },
-    })
-      .then((response) => response.json())
-      .then((payload) => {
+    const loadBookings = async () => {
+      try {
+        setStatus('loading');
+        setErrorMessage('');
+
+        const response = await fetch(`/api/v1/reception/bookings/today?${params.toString()}`, {
+          headers: { Accept: 'application/json' },
+          signal: controller.signal,
+        });
+        const payload = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(payload.detail || `Reception data could not be loaded (${response.status}).`);
+        }
+
         setData(payload);
         setStatus('ready');
-      })
-      .catch(() => setStatus('error'));
+      } catch (error) {
+        if (error?.name === 'AbortError') {
+          return;
+        }
+        setErrorMessage(error?.message || 'Reception data could not be loaded.');
+        setStatus('error');
+      }
+    };
+
+    loadBookings();
+
+    return () => controller.abort();
   }, []);
 
   const bookings = data?.bookings || [];
@@ -32,7 +54,7 @@ function ReceptionLiveToday() {
       </div>
 
       {status === 'loading' && <p className="text-sovereign-bronze text-sm">Live bookings are loading…</p>}
-      {status === 'error' && <p className="text-red-100 text-sm">Reception data could not be loaded.</p>}
+      {status === 'error' && <p className="text-red-100 text-sm">{errorMessage}</p>}
       {status === 'ready' && bookings.length === 0 && (
         <p className="text-sovereign-ink text-sm">Bugün bu şube için canlı rezervasyon bulunmuyor.</p>
       )}
