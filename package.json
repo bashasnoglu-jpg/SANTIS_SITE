@@ -31,6 +31,7 @@
     "db:restore": "node scripts/active/restore-db.mjs",
     "db:sync-offsite": "node scripts/active/sync-backups-offsite.mjs",
     "ops:backup:airtable": "node scripts/ops/export-airtable-backup.mjs",
+    "ops:offline-schedule": "node scripts/ops/generate-offline-daily-schedule.mjs",
     "db:push": "node scripts/active/private-script-moved.mjs db:push",
     "db:migrate": "node scripts/active/private-script-moved.mjs db:migrate",
     "stitch:enforce": "node packages/design-system/scripts/validate.js && node packages/design-system/scripts/check.js && node packages/design-system/scripts/guard.js",
