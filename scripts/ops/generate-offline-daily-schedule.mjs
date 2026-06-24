@@ -1,5 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { config } from 'dotenv';
+config({ path: '.env.local' });
+config({ path: '.env' });
 
 const AIRTABLE_API_URL = 'https://api.airtable.com/v0';
 const BASE_ID_ENV_KEYS = ['AIRTABLE_BASE_ID', 'AIRTABLE_SANTIS_BASE_ID'];

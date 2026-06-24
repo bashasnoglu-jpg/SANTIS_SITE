@@ -1,0 +1,111 @@
+table,record_id,primary_display,current_environment,recommended_environment,reason,confidence
+Bookings,rec1DjTto8ulHOqTr,89 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA,Test,Test,Record contains TEST/QA,High
+Bookings,rec2yqfuAksvgYrdQ,83 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA,Test,Test,Record contains TEST/QA,High
+Bookings,rec4HAbOSqWPUMAtv,42 12:30–13:30 | TEST Paket Misafir | Klasik Masaj | ŞABAN,Test,Test,Record contains TEST/QA,High
+Bookings,rec5EFR5LuyLf3Nqd,110,Test,Test,Record contains TEST/QA,High
+Bookings,rec5ZWP6pEqlo8Cj0,85 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA,Test,Test,Record contains TEST/QA,High
+Bookings,rec626axCVtTerdVk,20 09:00–10:00 | Mehmet Öz | Klasik Masaj | ARZU,Test,Test,Record contains TEST/QA,High
+Bookings,rec6vE2em0Ycw82XC,30 17:00–17:30 | Mehmet Öz | Face Mask | ARZU,Test,Test,Record contains TEST/QA,High
+Bookings,rec8QepvHjuZF3aPt,32 19:00–19:30 | Mehmet Öz | Algen and Foam Massage | ŞABAN,Test,Test,Record contains TEST/QA,High
+Bookings,recAZYxZw7s15z0Pv,25 11:00–12:00 | Anna Müller | Deep Tissue Massage | ARZU,Test,Test,Record contains TEST/QA,High
+Bookings,recC1Urvbfg34b9ZJ,84 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA,Test,Test,Record contains TEST/QA,High
+Bookings,recDdHOvCz3QLH7aR,87 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA,Test,Test,Record contains TEST/QA,High
+Bookings,recDmBvoEGby1CsSg,40 10:30–11:30 | TEST Paket Misafir | Klasik Masaj | ŞABAN,Test,Test,Record contains TEST/QA,High
+Bookings,recE9ljpxP8UXENJn,"80 20:00–20:50 | TEST Paket Misafir, TEST — Package Expiry Client — Do Not Use | Bali Massage | TAMA",Archive,Archive,Do Not Use marker,High
+Bookings,recFIsV0NdlsLdkLb,76 11:00–11:50 | TEST CRM - Elena Rossi | Relax Massage | TAMARA,Test,Test,Record contains TEST/QA,High
+Bookings,recFTGI1kZR5jlW4p,44 13:00–14:00 | Ali Işık | Klasik Masaj | TAMARA,Test,Test,Record contains TEST/QA,High
+Bookings,recFaXXZNNxvWEjjL,26 12:00–12:50 | Mehmet Öz | Classic Full Body Massage | ŞABAN,Test,Test,Record contains TEST/QA,High
+Bookings,recGpJ0BQpnNIItA4,46 13:30–14:30 | Ali Işık | Klasik Masaj | ŞABAN,Test,Test,Record contains TEST/QA,High
+Bookings,recHO1kQYDqLIHzMA,86 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA,Test,Test,Record contains TEST/QA,High
+Bookings,recKfAIPqPiaT1Ch2,107,Archive,Archive,No change needed,High
+Bookings,recL1gCr4Scv1lJw2,35 18:46–19:46 | TEST CRM - Maria Novak | Thai Massage | ARZU,Test,Test,Record contains TEST/QA,High
+Bookings,recLi6LQheu7Yfc6K,73 18:00–18:50 | TEST Paket Misafir | Relax Massage | BELA,Test,Test,Record contains TEST/QA,High
+Bookings,recMj2soEXZ2JoJRb,"59 12:00–13:00 | Anna Müller, Ali Işık | Deep Tissue Massage | ARZU, ŞABAN",Test,Test,Record contains TEST/QA,High
+Bookings,recOisXJRLVj1fyMF,"108 11:00 | Anna Müller | Peeling and Foam Massage, Relax Massage, Face Mask | DEVRİM",Test,Test,Record contains TEST/QA,High
+Bookings,recOmOiBWedW3nCJY,49 17:30–18:30 | Ali Işık | Klasik Masaj | ARZU,Test,Test,Record contains TEST/QA,High
+Bookings,recPrgrWQgdFdhzpc,96 15:00–16:00 | Latif ışık | Deep Tissue Massage | ŞABAN,Test,Test,Record contains TEST/QA,High
+Bookings,recQ1ftok3yp0G033,29 16:00–16:50 | Anna Müller | Combination Massage | TAMARA,Test,Test,Record contains TEST/QA,High
+Bookings,recQEJ2JRpC3Ln4BN,81 20:41–21:31 | Anna Müller | Lymphatic Drainage Massage | ZAHİDE,Test,Test,Record contains TEST/QA,High
+Bookings,recQU1sChhnSMeaFE,111,Test,Test,Record contains TEST/QA,High
+Bookings,recSEqmNIud0UbtOs,54 20:00–21:00 | Ali Işık | Klasik Masaj | TAMARA,Test,Test,Record contains TEST/QA,High
+Bookings,recSmz4lIZQVwbBrc,27 14:00–14:50 | Anna Müller | Facial Care | BELA,Test,Test,Record contains TEST/QA,High
+Bookings,recTdY39KIVlZaY5S,33 11:00–12:00 | Anna Müller | Mandara Massage (4 Hand) | DEVRİM,Test,Test,Record contains TEST/QA,High
+Bookings,recVOtwcofIGl8ese,48 16:30–17:30 | Ali Işık | Klasik Masaj | ŞABAN,Test,Test,Record contains TEST/QA,High
+Bookings,recWFKgb9vyUCMXZ2,74 10:21–11:11 | TEST Paket Misafir | Relax Massage | ŞABAN,Test,Test,Record contains TEST/QA,High
+Bookings,recWsbsiUS4D42bTN,77 16:00–17:00 | TEST CRM - Elena Rossi | Thai Massage | BELA,Test,Test,Record contains TEST/QA,High
+Bookings,recXF6lZoyj0QmwAm,52 19:00–20:00 | Ali Işık | Klasik Masaj | ŞORENA,Test,Test,Record contains TEST/QA,High
+Bookings,recY0OToKwF3r6Hbg,106 09:00–10:00 | TEST Antalya Guest — Do Not Use | Klasik Masaj | Antalya Therapist 1,Archive,Archive,Do Not Use marker,High
+Bookings,recYWzW1DQlXI7wuo,28 15:00–15:50 | Mehmet Öz | Relax Massage | ZAHİDE,Archive,Archive,Legacy bridge / Go-Live marker,High
+Bookings,reca3cI7cWb2GZiZk,51 18:30–19:30 | Ali Işık | Klasik Masaj | ARZU,Test,Test,Record contains TEST/QA,High
+Bookings,recamRfdnHcVn6iVC,109,Test,Test,Record contains TEST/QA,High
+Bookings,recbPxmQ63MXmHDBN,36 17:44–18:44 | Anna Müller | Deep Tissue Massage | ŞABAN,Test,Test,Record contains TEST/QA,High
+Bookings,reccNU4eS1NoMZZT7,41 11:30–12:30 | TEST Paket Misafir | Klasik Masaj | ARZU,Test,Test,Record contains TEST/QA,High
+Bookings,recceMoXaiN59d2Ps,90 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA,Test,Test,Record contains TEST/QA,High
+Bookings,recdFlG8a1Xu8MmEu,31 18:00–18:50 | Anna Müller | Eye Care Active Couture | BELA,Test,Test,Record contains TEST/QA,High
+Bookings,recdIKadwVA7zW8u3,104 12:00–13:00 | TEST Paket Misafir | Relax Massage | Mira Petrović,Test,Test,Record contains TEST/QA,High
+Bookings,recejFGdvKJe9YL6l,45 10:34–11:34 | Ali Işık | Klasik Masaj | ŞABAN,Test,Test,Record contains TEST/QA,High
+Bookings,receoa4gHDwKsQqj3,"79 10:00–10:50 | TEST Paket Misafir, TEST CRM - Elena Rossi | Relax Massage | ŞORENA",Test,Test,Record contains TEST/QA,High
+Bookings,recfKv74sPC7FMkT9,62 02:00–03:30 | TEST Paket Misafir | Relax Massage | ARZU,Test,Test,Record contains TEST/QA,High
+Bookings,recgUEifsaM7a238P,105 15:00–16:00 | TEST Paket Misafir | Deep Tissue Massage | Mira Petrović,Test,Test,Record contains TEST/QA,High
+Bookings,recghsUS9qectz8ze,69 16:00–17:00 | TEST CRM - Elena Rossi | Deep Tissue Massage | ŞABAN,Test,Test,Record contains TEST/QA,High
+Bookings,recguvAW2sJDa3ZYA,53 19:30–20:30 | Ali Işık | Klasik Masaj | ARZU,Test,Test,Record contains TEST/QA,High
+Bookings,reckHAFdaXuac83uN,95 20:15–21:15 | Baran Başhasanoğlu  | Facial Care | ARZU,Archive,Archive,Legacy bridge / Go-Live marker,High
+Bookings,reckIKu5ZgFqbUWSU,82 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA,Test,Test,Record contains TEST/QA,High
+Bookings,recmC7eahMFC3dsCa,47 15:30–16:30 | Ali Işık | Klasik Masaj | TAMARA,Test,Test,Record contains TEST/QA,High
+Bookings,recmvT3P8rDk6Y5dT,92 10:00–11:30 | TEST Paket Misafir | Thai Massage | BELA,Test,Test,Record contains TEST/QA,High
+Bookings,rect02M5DshQp7EMH,39 10:00–11:00 | TEST Paket Misafir | Klasik Masaj | ARZU,Test,Test,Record contains TEST/QA,High
+Bookings,rect3jaCEpFMllmkX,102 15:00–16:00 | TEST — Package Expiry Client — Do Not Use | Combination Massage | DEVRİM,Archive,Archive,Do Not Use marker,High
+Bookings,recvEaO0JWf9Z9iFf,88 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA,Test,Test,Record contains TEST/QA,High
+Bookings,recwArv6QBxcEbyoJ,50 18:00–19:00 | Ali Işık | Klasik Masaj | ŞABAN,Test,Test,Record contains TEST/QA,High
+Bookings,recwDObCAafiR3Cv3,55 18:00–19:00 | Anna Müller | Combination Massage | ZAHİDE,Test,Test,Record contains TEST/QA,High
+Bookings,recyH3Zg2pbuXIoo0,101 15:30–16:30 | Baran Başhasanoğlu  | Klasik Masaj | ŞORENA,Archive,Archive,Do Not Use marker,High
+Bookings,recyHKtgnVO3Vbv2N,57 15:00–16:00 | Anna Müller | Deep Tissue Massage | ARZU,Test,Test,Record contains TEST/QA,High
+Bookings,recyIQ0bEcr45yhZi,38 09:00–10:00 | TEST Paket Misafir | Klasik Masaj | ŞORENA,Test,Test,Record contains TEST/QA,High
+Client_Packages,rec8DCIEzKhOHoJZ5,Ali Işık — 10 Seans Klasik Masaj,Test,Test,Record contains TEST/QA,High
+Client_Packages,recB30gn1RzuI266w,TEST — Package Expiry — Do Not Use,Archive,Archive,Do Not Use marker,High
+Client_Packages,recOWojzSTXX0Bphl,Latif Işık — Deep Tissue 5 Sessions,Test,Test,Record contains TEST/QA,High
+Client_Packages,recr0upeJiG7ZSIAW,Test Client — Relax Program,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,rec07qjXDXv1avgHN,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,rec3Lk1S8BQghUepn,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,rec40BE7FKR6MggzR,PUL-0001 — Elena Rossi — Relax Program,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,rec6O7RKs53SDWxUP,TEST-NOSHOW-001,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,rec7BlRfTqhQN8RBd,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,rec7mRHLxchbQF9q4,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recBJAj6o9T72w2yJ,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recESZiSq02lx3oK6,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recJuWupPTKmGr90Y,TEST-BOOKING-62,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recLnpKDExVk9Vsqn,TEST-ALI-1-SEANS-2026-06-14,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recOoYcOEFj9vVMwk,101,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recQYJ0ktNLCXb2dy,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recRKan2iMeMBHZCV,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recRmRfpTdiEd7qxQ,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recS5aK0d7VAQEDPV,TEST-PUL-BOOKING-96-LATIF-2026-06-16,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recTMPzMgwcsaE37l,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recdIETlIH2R7SDWY,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recdqh7bRixS985rQ,TEST-USED-001,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recfjje4CZSoWNUZo,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recgcThefA4vCI8Ev,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recgiLr5efO7bYFQH,Kontrol Et,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recgpCsqcTaBpShwV,AUTO-MANUAL-TEST-rect02M5DshQp7EMH,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,rechcQgSYUlmeo3AZ,TEST-CANCEL-001,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,reciYM4OVEuYCiMwb,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recoFWIiTX6cdjq9m,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recomBa9PPbd8rawS,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recpMLPQM6zUM4hHp,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recrC6dNKw4HnblyW,TEST-BKG-LEDGER-001,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,recsA0dHhjOFQQUpH,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Package_Usage_Ledger,rectUWvKIIHACV2SJ,AUTO — Created from Booking automation,Test,Test,Record contains TEST/QA,High
+Payments,rec8NfqQyodQ7xTS8,PAY-BKG-260609-26 — QA/Test,Test,Test,Record contains TEST/QA,High
+Payments,recCcqs2cnR3YeEyl,PAY-Booking-105-Podgorica-Test,Test,Test,Record contains TEST/QA,High
+Payments,recJ7uKGEOcIIgCKG,PAY-BOOKING-3 — Anna Müller — Deep Tissue Massage,Test,Test,Record contains TEST/QA,High
+Payments,recOBqMrV1npdiUfa,PAY-BKG-260609-30 — QA/Test,Test,Test,Record contains TEST/QA,High
+Payments,recOt5Bj4UwSwuNec,LEGACY-BRIDGE-PAY-Booking-59-Budva,Archive,Archive,Legacy bridge / Go-Live marker,High
+Payments,recRtnjgj5Kc46cgv,PAY-GOLIVE-BOOKING-95-2026-06-17,Archive,Archive,Legacy bridge / Go-Live marker,High
+Payments,recStxhOQMj4nld43,PAY-BKG-260609-25 — QA/Test,Test,Test,Record contains TEST/QA,High
+Payments,recSz3P7rLZOZpfrI,PAY-BKG-260609-32 — QA/Test No-show,Test,Test,Record contains TEST/QA,High
+Payments,recYhq6hP71zCCpN8,PAY-BKG-260608-20 — Mehmet Öz — Live,Test,Test,Record contains TEST/QA,High
+Payments,recZRAFhQlvHVnjPT,LEGACY-BRIDGE-PAY-Booking-81-Budva,Archive,Archive,Legacy bridge / Go-Live marker,High
+Payments,recch5xtL9AAlahRu,PAY-GOLIVE-BOOKING-28-2026-06-17,Archive,Archive,Legacy bridge / Go-Live marker,High
+Payments,reccyByXhlHWxUmlR,PAY-BKG-260609-27 — QA/Test Conflict,Test,Test,Record contains TEST/QA,High
+Payments,recdkqGhmOvM1ndhh,PAY-BKG-260609-29 — QA/Test Completed,Test,Test,Record contains TEST/QA,High
+Payments,recg5nIe6xawAsE4W,PAY-BOOKING-3 — Anna Müller — Deep Tissue Massage,Archive,Archive,No change needed,High

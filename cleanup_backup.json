@@ -1,0 +1,210 @@
+{
+  "Bookings": [
+    {
+      "id": "recReE454aCXfuAzl",
+      "createdTime": "2026-06-24T20:43:48.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-24T20:43:47.775Z",
+        "Final Amount EUR": 0,
+        "Revenue Amount EUR": 0,
+        "Reception Priority Auto": "Normal",
+        "Room_Link": [
+          "recCFGRDgF7OixxtB"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Location Required Check": "✅ Location Set",
+        "Total Paid Display": 0,
+        "Reception Calendar Start": "2026-06-25T10:00:00.000Z",
+        "Reception_Notes": "Test Guest: Test Guest",
+        "Effective Duration Minutes": 0,
+        "Service Duration Auto": 0,
+        "Payment Closure Status": "REVIEW - Missing booking amount",
+        "Booking Time Window Check": "NOT READY",
+        "Service_Link": [
+          "recnUp5JlNHSKKXAb"
+        ],
+        "Location_Link": [
+          "recglzH6Z9R3E7vsh"
+        ],
+        "Timezone Readiness Check": "NOT READY - Missing spa timezone",
+        "Package Ledger Ready Check": "NOT PACKAGE - Standard payment flow",
+        "Today's Duration": 0,
+        "Reception Time Display": "12:00 |  | Alba Test Massage 60 | Alba Test Therapist 1",
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Start_DateTime": "2026-06-25T10:00:00.000Z",
+        "Balance_Due_EUR": 0,
+        "Environment": "Test",
+        "Revenue Date": "2026-06-25",
+        "Therapist Live Status Auto": "Unchecked",
+        "Reception Ready Reason": "NOT READY — client missing",
+        "Location Auto Fill Ready": "NO - non-live record",
+        "Therapist_Link": [
+          "recQdj89AiR18jP23"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "Confirmed",
+        "Auto Location Check": "LOCATION CHECK — room location unknown",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "🚨 Eşleştirilecek",
+        "Booking ID": 164,
+        "Faz 1-C Tenant Control": "Ready",
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Location Exception Status": "IGNORE - non-live record",
+        "Reception Ready Status": "NOT READY",
+        "Tenant_Link": [
+          "recXRJQPnS91LbURI"
+        ],
+        "Today's Revenue": 0,
+        "End_DateTime": "2026-06-25T10:00:00.000Z",
+        "Booking Code": "BKG-260624-164",
+        "Package Ledger Auto Trigger": "OK",
+        "Scheduler Live Clean Check": "NOT READY - Hide/Review",
+        "Therapist Shift Gate": "NOT READY - Scheduler hidden"
+      }
+    }
+  ],
+  "Staff_Shifts": [
+    {
+      "id": "recMtQkfNMJkX37og",
+      "createdTime": "2026-06-24T20:43:46.000Z",
+      "fields": {
+        "Shift Branch Hours Check": "NOT READY",
+        "Tenant_Link": [
+          "recXRJQPnS91LbURI"
+        ],
+        "Environment": "Test",
+        "Shift_End": "2026-06-25T18:00:00.000Z",
+        "Location_Link": [
+          "recglzH6Z9R3E7vsh"
+        ],
+        "Notes": "Days: Monday,Tuesday,Wednesday,Thursday,Friday, Break: 60 min",
+        "Shift_Start": "2026-06-25T09:00:00.000Z",
+        "Faz 3-B Shift Control": "Status Missing",
+        "Staff_Link": [
+          "recQdj89AiR18jP23"
+        ],
+        "Shift Readiness Check": "NOT READY - Missing shift data",
+        "Shift_Date": "2026-06-25",
+        "Daily Shift Standard Check": "NOT READY - Missing Required Field",
+        "Scheduler Visibility": "NOT READY - No Status"
+      }
+    }
+  ],
+  "Rooms": [
+    {
+      "id": "recCFGRDgF7OixxtB",
+      "createdTime": "2026-06-24T20:43:38.000Z",
+      "fields": {
+        "Tenant_Link": [
+          "recXRJQPnS91LbURI"
+        ],
+        "Occupancy %": 34,
+        "Cleaning_Buffer_Minutes": 10,
+        "Location Assignment Check": "✅ Location Set",
+        "Name": "Alba Test Room 1",
+        "Bookings": [
+          "recReE454aCXfuAzl"
+        ],
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Recommendation": "🥈 Second Choice",
+        "Today's Minutes": 164,
+        "Room_Type": "Massage Room",
+        "Today's Hours": 2.7,
+        "Dispatch Priority": 316,
+        "Location_Link": [
+          "recglzH6Z9R3E7vsh"
+        ],
+        "Availability": "🟡 Available",
+        "Capacity": 1,
+        "Faz 1-C Tenant Control": "Ready",
+        "Room_Status": "Available"
+      }
+    }
+  ],
+  "Services": [
+    {
+      "id": "recnUp5JlNHSKKXAb",
+      "createdTime": "2026-06-24T20:43:40.000Z",
+      "fields": {
+        "Name": "Alba Test Massage 60",
+        "Faz 1-C Tenant Control": "Ready",
+        "Price_EUR": 1500,
+        "Duration_Minutes": 60,
+        "Bookings": [
+          "recReE454aCXfuAzl"
+        ],
+        "Category": "Massage",
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Tenant_Link": [
+          "recXRJQPnS91LbURI"
+        ],
+        "Active": true
+      }
+    }
+  ],
+  "Therapists": [
+    {
+      "id": "recQdj89AiR18jP23",
+      "createdTime": "2026-06-24T20:43:42.000Z",
+      "fields": {
+        "Status": "Active",
+        "Current Load": "🟢 Empty",
+        "Staff_Role": "Therapist",
+        "Today's Bookings": 1,
+        "Skill_Tags": [
+          "Massage"
+        ],
+        "Today's Revenue": 0,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Active": true,
+        "Staff_Shifts": [
+          "recMtQkfNMJkX37og"
+        ],
+        "Today's Minutes": 0,
+        "Today's Minutes Rollup": 0,
+        "Today's Hours": 0,
+        "Bookings": [
+          "recReE454aCXfuAzl"
+        ],
+        "Recommendation": "🥇 First Choice",
+        "Name": "Alba Test Therapist 1",
+        "Performance Rank": "⚪ Empty",
+        "Priority Score": 0,
+        "Revenue Per Hour": 0,
+        "Location Assignment Check": "✅ Location Set",
+        "Location_Link": [
+          "recglzH6Z9R3E7vsh"
+        ],
+        "Remaining Hours": 8,
+        "Remaining Minutes": 480,
+        "Faz 1-C Tenant Control": "Ready",
+        "Staff Card Completeness": "⚠️ Missing Required Info",
+        "Tenant_Link": [
+          "recXRJQPnS91LbURI"
+        ],
+        "Utilization %": 0,
+        "Availability Status": "🟢 Available"
+      }
+    }
+  ]
+}

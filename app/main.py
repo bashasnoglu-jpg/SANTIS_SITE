@@ -1,7 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+<<<<<<< Updated upstream
 from app.api.v1.endpoints import billing, aurelia_whisper, sovereign_memory, reception, telemetry
+=======
+from app.api.v1.endpoints import billing, aurelia_whisper, sovereign_memory, telemetry, reception
+>>>>>>> Stashed changes
 
 app = FastAPI(title="Santis OS API")
 
@@ -23,6 +27,7 @@ app.include_router(aurelia_whisper.router, prefix="/api/v1")
 app.include_router(sovereign_memory.router, prefix="/api/v1")
 app.include_router(reception.router, prefix="/api/v1")
 app.include_router(telemetry.router, prefix="/api/v1/telemetry")
+app.include_router(reception.router, prefix="/api/v1")
 
 # Arayüzü tek bir port üzerinden (CORS sorunu olmaksızın) sunmak için statik dosyaları bağla:
 app.mount("/", StaticFiles(directory=".", html=True), name="static")

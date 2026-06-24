@@ -6,6 +6,7 @@ import useAuthStore from '../store/useAuthStore';
 const Navbar = () => {
     const location = useLocation();
     const logout = useAuthStore((state) => state.logout);
+    const user = useAuthStore((state) => state.user);
 
     const isActive = (path) => location.pathname === path
         ? "text-santis-gold border-b-2 border-santis-gold"
@@ -47,6 +48,15 @@ const Navbar = () => {
                         >
                             Finance
                         </Link>
+                        {user?.canAccessSetupWizard === true && (
+                            <Link 
+                                to="/setup" 
+                                className={`nv-nav-link ${isActive('/setup') ? 'nv-nav-link-active' : 'nv-nav-link-inactive'}`}
+                                aria-current={isActive('/setup') ? 'page' : undefined}
+                            >
+                                Kurulum Sihirbazı
+                            </Link>
+                        )}
                     </div>
                 </div>
                 <button

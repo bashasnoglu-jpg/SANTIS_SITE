@@ -1,0 +1,992 @@
+[
+  {
+    "table": "Bookings",
+    "record_id": "rec1DjTto8ulHOqTr",
+    "primary_display": "89 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "rec2yqfuAksvgYrdQ",
+    "primary_display": "83 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "rec4HAbOSqWPUMAtv",
+    "primary_display": "42 12:30–13:30 | TEST Paket Misafir | Klasik Masaj | ŞABAN",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "rec5EFR5LuyLf3Nqd",
+    "primary_display": "110",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "rec5ZWP6pEqlo8Cj0",
+    "primary_display": "85 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "rec626axCVtTerdVk",
+    "primary_display": "20 09:00–10:00 | Mehmet Öz | Klasik Masaj | ARZU",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "rec6vE2em0Ycw82XC",
+    "primary_display": "30 17:00–17:30 | Mehmet Öz | Face Mask | ARZU",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "rec8QepvHjuZF3aPt",
+    "primary_display": "32 19:00–19:30 | Mehmet Öz | Algen and Foam Massage | ŞABAN",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recAZYxZw7s15z0Pv",
+    "primary_display": "25 11:00–12:00 | Anna Müller | Deep Tissue Massage | ARZU",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recC1Urvbfg34b9ZJ",
+    "primary_display": "84 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recDdHOvCz3QLH7aR",
+    "primary_display": "87 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recDmBvoEGby1CsSg",
+    "primary_display": "40 10:30–11:30 | TEST Paket Misafir | Klasik Masaj | ŞABAN",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recE9ljpxP8UXENJn",
+    "primary_display": "80 20:00–20:50 | TEST Paket Misafir, TEST — Package Expiry Client — Do Not Use | Bali Massage | TAMA",
+    "current_environment": "Archive",
+    "recommended_environment": "Archive",
+    "reason": "Do Not Use marker",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recFIsV0NdlsLdkLb",
+    "primary_display": "76 11:00–11:50 | TEST CRM - Elena Rossi | Relax Massage | TAMARA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recFTGI1kZR5jlW4p",
+    "primary_display": "44 13:00–14:00 | Ali Işık | Klasik Masaj | TAMARA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recFaXXZNNxvWEjjL",
+    "primary_display": "26 12:00–12:50 | Mehmet Öz | Classic Full Body Massage | ŞABAN",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recGpJ0BQpnNIItA4",
+    "primary_display": "46 13:30–14:30 | Ali Işık | Klasik Masaj | ŞABAN",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recHO1kQYDqLIHzMA",
+    "primary_display": "86 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recKfAIPqPiaT1Ch2",
+    "primary_display": "107",
+    "current_environment": "Archive",
+    "recommended_environment": "Archive",
+    "reason": "No change needed",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recL1gCr4Scv1lJw2",
+    "primary_display": "35 18:46–19:46 | TEST CRM - Maria Novak | Thai Massage | ARZU",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recLi6LQheu7Yfc6K",
+    "primary_display": "73 18:00–18:50 | TEST Paket Misafir | Relax Massage | BELA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recMj2soEXZ2JoJRb",
+    "primary_display": "59 12:00–13:00 | Anna Müller, Ali Işık | Deep Tissue Massage | ARZU, ŞABAN",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recOisXJRLVj1fyMF",
+    "primary_display": "108 11:00 | Anna Müller | Peeling and Foam Massage, Relax Massage, Face Mask | DEVRİM",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recOmOiBWedW3nCJY",
+    "primary_display": "49 17:30–18:30 | Ali Işık | Klasik Masaj | ARZU",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recPrgrWQgdFdhzpc",
+    "primary_display": "96 15:00–16:00 | Latif ışık | Deep Tissue Massage | ŞABAN",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recQ1ftok3yp0G033",
+    "primary_display": "29 16:00–16:50 | Anna Müller | Combination Massage | TAMARA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recQEJ2JRpC3Ln4BN",
+    "primary_display": "81 20:41–21:31 | Anna Müller | Lymphatic Drainage Massage | ZAHİDE",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recQU1sChhnSMeaFE",
+    "primary_display": "111",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recSEqmNIud0UbtOs",
+    "primary_display": "54 20:00–21:00 | Ali Işık | Klasik Masaj | TAMARA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recSmz4lIZQVwbBrc",
+    "primary_display": "27 14:00–14:50 | Anna Müller | Facial Care | BELA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recTdY39KIVlZaY5S",
+    "primary_display": "33 11:00–12:00 | Anna Müller | Mandara Massage (4 Hand) | DEVRİM",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recVOtwcofIGl8ese",
+    "primary_display": "48 16:30–17:30 | Ali Işık | Klasik Masaj | ŞABAN",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recWFKgb9vyUCMXZ2",
+    "primary_display": "74 10:21–11:11 | TEST Paket Misafir | Relax Massage | ŞABAN",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recWsbsiUS4D42bTN",
+    "primary_display": "77 16:00–17:00 | TEST CRM - Elena Rossi | Thai Massage | BELA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recXF6lZoyj0QmwAm",
+    "primary_display": "52 19:00–20:00 | Ali Işık | Klasik Masaj | ŞORENA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recY0OToKwF3r6Hbg",
+    "primary_display": "106 09:00–10:00 | TEST Antalya Guest — Do Not Use | Klasik Masaj | Antalya Therapist 1",
+    "current_environment": "Archive",
+    "recommended_environment": "Archive",
+    "reason": "Do Not Use marker",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recYWzW1DQlXI7wuo",
+    "primary_display": "28 15:00–15:50 | Mehmet Öz | Relax Massage | ZAHİDE",
+    "current_environment": "Archive",
+    "recommended_environment": "Archive",
+    "reason": "Legacy bridge / Go-Live marker",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "reca3cI7cWb2GZiZk",
+    "primary_display": "51 18:30–19:30 | Ali Işık | Klasik Masaj | ARZU",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recamRfdnHcVn6iVC",
+    "primary_display": "109",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recbPxmQ63MXmHDBN",
+    "primary_display": "36 17:44–18:44 | Anna Müller | Deep Tissue Massage | ŞABAN",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "reccNU4eS1NoMZZT7",
+    "primary_display": "41 11:30–12:30 | TEST Paket Misafir | Klasik Masaj | ARZU",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recceMoXaiN59d2Ps",
+    "primary_display": "90 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recdFlG8a1Xu8MmEu",
+    "primary_display": "31 18:00–18:50 | Anna Müller | Eye Care Active Couture | BELA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recdIKadwVA7zW8u3",
+    "primary_display": "104 12:00–13:00 | TEST Paket Misafir | Relax Massage | Mira Petrović",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recejFGdvKJe9YL6l",
+    "primary_display": "45 10:34–11:34 | Ali Işık | Klasik Masaj | ŞABAN",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "receoa4gHDwKsQqj3",
+    "primary_display": "79 10:00–10:50 | TEST Paket Misafir, TEST CRM - Elena Rossi | Relax Massage | ŞORENA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recfKv74sPC7FMkT9",
+    "primary_display": "62 02:00–03:30 | TEST Paket Misafir | Relax Massage | ARZU",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recgUEifsaM7a238P",
+    "primary_display": "105 15:00–16:00 | TEST Paket Misafir | Deep Tissue Massage | Mira Petrović",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recghsUS9qectz8ze",
+    "primary_display": "69 16:00–17:00 | TEST CRM - Elena Rossi | Deep Tissue Massage | ŞABAN",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recguvAW2sJDa3ZYA",
+    "primary_display": "53 19:30–20:30 | Ali Işık | Klasik Masaj | ARZU",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "reckHAFdaXuac83uN",
+    "primary_display": "95 20:15–21:15 | Baran Başhasanoğlu  | Facial Care | ARZU",
+    "current_environment": "Archive",
+    "recommended_environment": "Archive",
+    "reason": "Legacy bridge / Go-Live marker",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "reckIKu5ZgFqbUWSU",
+    "primary_display": "82 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recmC7eahMFC3dsCa",
+    "primary_display": "47 15:30–16:30 | Ali Işık | Klasik Masaj | TAMARA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recmvT3P8rDk6Y5dT",
+    "primary_display": "92 10:00–11:30 | TEST Paket Misafir | Thai Massage | BELA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "rect02M5DshQp7EMH",
+    "primary_display": "39 10:00–11:00 | TEST Paket Misafir | Klasik Masaj | ARZU",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "rect3jaCEpFMllmkX",
+    "primary_display": "102 15:00–16:00 | TEST — Package Expiry Client — Do Not Use | Combination Massage | DEVRİM",
+    "current_environment": "Archive",
+    "recommended_environment": "Archive",
+    "reason": "Do Not Use marker",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recvEaO0JWf9Z9iFf",
+    "primary_display": "88 14:00–15:00 | Ali Işık | Classic Full Body Massage | TAMARA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recwArv6QBxcEbyoJ",
+    "primary_display": "50 18:00–19:00 | Ali Işık | Klasik Masaj | ŞABAN",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recwDObCAafiR3Cv3",
+    "primary_display": "55 18:00–19:00 | Anna Müller | Combination Massage | ZAHİDE",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recyH3Zg2pbuXIoo0",
+    "primary_display": "101 15:30–16:30 | Baran Başhasanoğlu  | Klasik Masaj | ŞORENA",
+    "current_environment": "Archive",
+    "recommended_environment": "Archive",
+    "reason": "Do Not Use marker",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recyHKtgnVO3Vbv2N",
+    "primary_display": "57 15:00–16:00 | Anna Müller | Deep Tissue Massage | ARZU",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Bookings",
+    "record_id": "recyIQ0bEcr45yhZi",
+    "primary_display": "38 09:00–10:00 | TEST Paket Misafir | Klasik Masaj | ŞORENA",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Client_Packages",
+    "record_id": "rec8DCIEzKhOHoJZ5",
+    "primary_display": "Ali Işık — 10 Seans Klasik Masaj",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Client_Packages",
+    "record_id": "recB30gn1RzuI266w",
+    "primary_display": "TEST — Package Expiry — Do Not Use",
+    "current_environment": "Archive",
+    "recommended_environment": "Archive",
+    "reason": "Do Not Use marker",
+    "confidence": "High"
+  },
+  {
+    "table": "Client_Packages",
+    "record_id": "recOWojzSTXX0Bphl",
+    "primary_display": "Latif Işık — Deep Tissue 5 Sessions",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Client_Packages",
+    "record_id": "recr0upeJiG7ZSIAW",
+    "primary_display": "Test Client — Relax Program",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "rec07qjXDXv1avgHN",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "rec3Lk1S8BQghUepn",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "rec40BE7FKR6MggzR",
+    "primary_display": "PUL-0001 — Elena Rossi — Relax Program",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "rec6O7RKs53SDWxUP",
+    "primary_display": "TEST-NOSHOW-001",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "rec7BlRfTqhQN8RBd",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "rec7mRHLxchbQF9q4",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recBJAj6o9T72w2yJ",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recESZiSq02lx3oK6",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recJuWupPTKmGr90Y",
+    "primary_display": "TEST-BOOKING-62",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recLnpKDExVk9Vsqn",
+    "primary_display": "TEST-ALI-1-SEANS-2026-06-14",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recOoYcOEFj9vVMwk",
+    "primary_display": "101",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recQYJ0ktNLCXb2dy",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recRKan2iMeMBHZCV",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recRmRfpTdiEd7qxQ",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recS5aK0d7VAQEDPV",
+    "primary_display": "TEST-PUL-BOOKING-96-LATIF-2026-06-16",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recTMPzMgwcsaE37l",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recdIETlIH2R7SDWY",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recdqh7bRixS985rQ",
+    "primary_display": "TEST-USED-001",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recfjje4CZSoWNUZo",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recgcThefA4vCI8Ev",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recgiLr5efO7bYFQH",
+    "primary_display": "Kontrol Et",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recgpCsqcTaBpShwV",
+    "primary_display": "AUTO-MANUAL-TEST-rect02M5DshQp7EMH",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "rechcQgSYUlmeo3AZ",
+    "primary_display": "TEST-CANCEL-001",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "reciYM4OVEuYCiMwb",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recoFWIiTX6cdjq9m",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recomBa9PPbd8rawS",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recpMLPQM6zUM4hHp",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recrC6dNKw4HnblyW",
+    "primary_display": "TEST-BKG-LEDGER-001",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "recsA0dHhjOFQQUpH",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Package_Usage_Ledger",
+    "record_id": "rectUWvKIIHACV2SJ",
+    "primary_display": "AUTO — Created from Booking automation",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Payments",
+    "record_id": "rec8NfqQyodQ7xTS8",
+    "primary_display": "PAY-BKG-260609-26 — QA/Test",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Payments",
+    "record_id": "recCcqs2cnR3YeEyl",
+    "primary_display": "PAY-Booking-105-Podgorica-Test",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Payments",
+    "record_id": "recJ7uKGEOcIIgCKG",
+    "primary_display": "PAY-BOOKING-3 — Anna Müller — Deep Tissue Massage",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Payments",
+    "record_id": "recOBqMrV1npdiUfa",
+    "primary_display": "PAY-BKG-260609-30 — QA/Test",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Payments",
+    "record_id": "recOt5Bj4UwSwuNec",
+    "primary_display": "LEGACY-BRIDGE-PAY-Booking-59-Budva",
+    "current_environment": "Archive",
+    "recommended_environment": "Archive",
+    "reason": "Legacy bridge / Go-Live marker",
+    "confidence": "High"
+  },
+  {
+    "table": "Payments",
+    "record_id": "recRtnjgj5Kc46cgv",
+    "primary_display": "PAY-GOLIVE-BOOKING-95-2026-06-17",
+    "current_environment": "Archive",
+    "recommended_environment": "Archive",
+    "reason": "Legacy bridge / Go-Live marker",
+    "confidence": "High"
+  },
+  {
+    "table": "Payments",
+    "record_id": "recStxhOQMj4nld43",
+    "primary_display": "PAY-BKG-260609-25 — QA/Test",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Payments",
+    "record_id": "recSz3P7rLZOZpfrI",
+    "primary_display": "PAY-BKG-260609-32 — QA/Test No-show",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Payments",
+    "record_id": "recYhq6hP71zCCpN8",
+    "primary_display": "PAY-BKG-260608-20 — Mehmet Öz — Live",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Payments",
+    "record_id": "recZRAFhQlvHVnjPT",
+    "primary_display": "LEGACY-BRIDGE-PAY-Booking-81-Budva",
+    "current_environment": "Archive",
+    "recommended_environment": "Archive",
+    "reason": "Legacy bridge / Go-Live marker",
+    "confidence": "High"
+  },
+  {
+    "table": "Payments",
+    "record_id": "recch5xtL9AAlahRu",
+    "primary_display": "PAY-GOLIVE-BOOKING-28-2026-06-17",
+    "current_environment": "Archive",
+    "recommended_environment": "Archive",
+    "reason": "Legacy bridge / Go-Live marker",
+    "confidence": "High"
+  },
+  {
+    "table": "Payments",
+    "record_id": "reccyByXhlHWxUmlR",
+    "primary_display": "PAY-BKG-260609-27 — QA/Test Conflict",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Payments",
+    "record_id": "recdkqGhmOvM1ndhh",
+    "primary_display": "PAY-BKG-260609-29 — QA/Test Completed",
+    "current_environment": "Test",
+    "recommended_environment": "Test",
+    "reason": "Record contains TEST/QA",
+    "confidence": "High"
+  },
+  {
+    "table": "Payments",
+    "record_id": "recg5nIe6xawAsE4W",
+    "primary_display": "PAY-BOOKING-3 — Anna Müller — Deep Tissue Massage",
+    "current_environment": "Archive",
+    "recommended_environment": "Archive",
+    "reason": "No change needed",
+    "confidence": "High"
+  }
+]

@@ -1,0 +1,1703 @@
+{
+  "schema": {
+    "tables": []
+  },
+  "records": [
+    {
+      "id": "rec4HAbOSqWPUMAtv",
+      "createdTime": "2026-06-09T21:53:35.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-09T21:53:35.220Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Location_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "⚠️ Missing Location",
+        "Internal_Notes_New": "FINAL AUTO BOOKING TEST — verifies Package and Package From Booking after lookup field creation.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "recWmUmc9SHkksMe3"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "rec3Lk1S8BQghUepn"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Environment": "Test",
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 42,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recbb0pzAiTZgk4fD"
+        ],
+        "Booking Code": "BKG-260609-42",
+        "Daily_Reception_Check": "⚠️ Missing therapist"
+      }
+    },
+    {
+      "id": "rec626axCVtTerdVk",
+      "createdTime": "2026-06-08T11:37:32.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-08T11:37:31.771Z",
+        "Final Amount EUR": 80,
+        "Revenue Amount EUR": 0,
+        "Booking_Date": "2026-06-08",
+        "Room_Link": [
+          "recD6pvi0ZivCO0HK"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Required Booking Fields Check": "✅ Complete",
+        "Location Required Check": "✅ Location Set",
+        "Effective Duration Minutes": 60,
+        "Internal_Notes_New": "QA TEST / Setup booking.\nSantis OS is still under construction; this is not a live operational booking.\nPreserved sample data: Client Mehmet Öz, Service Klasik Masaj, Therapist ARZU, Start time 09:00, Payment method Card.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Total Paid EUR": 0,
+        "Record_Mode": "QA / Test",
+        "Reception Time Display": "07:00–08:00 | Mehmet Öz | Klasik Masaj | ARZU | Budva Massage Room 4",
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Start_DateTime": "2026-06-08T07:00:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 80,
+        "Payments": [
+          "recYhq6hP71zCCpN8"
+        ],
+        "Environment": "Test",
+        "Revenue Date": "2026-06-08",
+        "Duration_Minutes_New": 60,
+        "Payment Method": "Card",
+        "Therapist_Link": [
+          "rec4UaeE7vHXWgJcV"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "Confirmed",
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Reception_View_Bucket": [
+          "Ödenmemişler"
+        ],
+        "Price EUR": 80,
+        "Booking ID": 20,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Calculated_Finish_DateTime": "2026-06-08T08:00:00.000Z",
+        "Client_Link": [
+          "rec1fJNUgzTNCvlk2"
+        ],
+        "Booking Code": "BKG-260608-20",
+        "Daily_Reception_Check": "✅ Ready for reception",
+        "Reception_Staff_Link": [
+          "recJZYz3OWwsdjthQ"
+        ],
+        "Payment_Status_New": "Unpaid"
+      }
+    },
+    {
+      "id": "rec6vE2em0Ycw82XC",
+      "createdTime": "2026-06-09T07:30:30.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T16:35:00.000Z",
+        "Final Amount EUR": 105,
+        "Booking_Date": "2026-06-10",
+        "Room_Link": [
+          "recDtzulc3lwYil8f"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Required Booking Fields Check": "✅ Complete",
+        "Package_Catalog_Link": [
+          "recWDJM4KG78Lo0G2"
+        ],
+        "Location Required Check": "✅ Location Set",
+        "Reception_Notes": "QA TEST 06 — VIP package booking.",
+        "Effective Duration Minutes": 30,
+        "Internal_Notes_New": "QA/Test booking cleanup 2026-06-09: Package booking mapped to Service_Link Face Mask because Package_Catalog_Link is Bronze Program and Services catalog contains Face Mask under Bronze Program at 105 EUR. Price EUR filled from service catalog.",
+        "Service_Link": [
+          "rec9OxdDDkYtxAkCc"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Record_Mode": "QA / Test",
+        "Reception Time Display": "15:00–15:30 | Mehmet Öz | Face Mask | ARZU | Budva Hamam",
+        "Booking_Selection_Check": "⚠️ Both service and package selected",
+        "Start_DateTime": "2026-06-10T15:00:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 105,
+        "Payments": [
+          "recOBqMrV1npdiUfa"
+        ],
+        "Environment": "Test",
+        "Revenue Date": "2026-06-10",
+        "Duration_Minutes_New": 30,
+        "Payment Method": "To be confirmed",
+        "Therapist_Link": [
+          "rec4UaeE7vHXWgJcV"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "Confirmed",
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Reception_View_Bucket": [
+          "Check-in bekleyenler",
+          "Ödenmemişler",
+          "VIP müşteriler"
+        ],
+        "Price EUR": 105,
+        "Booking ID": 30,
+        "Reception_Priority": "VIP",
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Calculated_Finish_DateTime": "2026-06-10T15:30:00.000Z",
+        "Reception_Status": "Confirmed",
+        "Client_Link": [
+          "rec1fJNUgzTNCvlk2"
+        ],
+        "Booking Code": "BKG-260609-30",
+        "Daily_Reception_Check": "⚠️ Booking selection issue",
+        "Booking_Type": "Package",
+        "Reception_Staff_Link": [
+          "recJZYz3OWwsdjthQ"
+        ],
+        "Payment_Status_New": "Unpaid"
+      }
+    },
+    {
+      "id": "rec8QepvHjuZF3aPt",
+      "createdTime": "2026-06-09T07:30:30.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T17:30:00.000Z",
+        "Final Amount EUR": 55,
+        "Booking_Date": "2026-06-10",
+        "Room_Link": [
+          "recDtzulc3lwYil8f"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Required Booking Fields Check": "✅ Complete",
+        "Location Required Check": "✅ Location Set",
+        "Reception_Notes": "QA TEST 08 — no-show scenario.",
+        "Effective Duration Minutes": 30,
+        "Internal_Notes_New": "QA/Test booking cleanup 2026-06-09: no-show scenario normalized; payment placeholder and reception staff filled. Price EUR auto-filled from linked service Algen and Foam Massage: 55 EUR.",
+        "Service_Link": [
+          "rec4AKYMwoIeNvsHk"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Record_Mode": "QA / Test",
+        "Reception Time Display": "17:00–17:30 | Mehmet Öz | Algen and Foam Massage | ŞABAN | Budva Hamam",
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Start_DateTime": "2026-06-10T17:00:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 55,
+        "Payments": [
+          "recSz3P7rLZOZpfrI"
+        ],
+        "Environment": "Test",
+        "Revenue Date": "2026-06-10",
+        "Duration_Minutes_New": 30,
+        "Payment Method": "To be confirmed",
+        "Therapist_Link": [
+          "recNnugIfgZGAUpSy"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "No-show",
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Reception_View_Bucket": [
+          "Ödenmemişler",
+          "No-show riski"
+        ],
+        "Price EUR": 55,
+        "Booking ID": 32,
+        "Reception_Priority": "Complaint Risk",
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Calculated_Finish_DateTime": "2026-06-10T17:30:00.000Z",
+        "Reception_Status": "No Show",
+        "Client_Link": [
+          "rec1fJNUgzTNCvlk2"
+        ],
+        "Booking Code": "BKG-260609-32",
+        "Daily_Reception_Check": "✅ Ready for reception",
+        "Booking_Type": "Single Service",
+        "Reception_Staff_Link": [
+          "recJZYz3OWwsdjthQ"
+        ],
+        "Payment_Status_New": "Unpaid"
+      }
+    },
+    {
+      "id": "recAZYxZw7s15z0Pv",
+      "createdTime": "2026-06-09T07:30:30.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T09:50:00.000Z",
+        "Final Amount EUR": 90,
+        "Booking_Date": "2026-06-10",
+        "Room_Link": [
+          "recD6pvi0ZivCO0HK"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Required Booking Fields Check": "✅ Complete",
+        "Location Required Check": "✅ Location Set",
+        "Reception_Notes": "QA TEST 01 — valid single service booking.",
+        "Effective Duration Minutes": 60,
+        "Internal_Notes_New": "QA/Test booking cleanup 2026-06-09: status, payment status, payment method placeholder, and reception staff filled. Price EUR auto-filled from linked service Deep Tissue Massage: 90 EUR.",
+        "Service_Link": [
+          "recFk6MDikfaDeTmv"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Record_Mode": "QA / Test",
+        "Reception Time Display": "09:00–10:00 | Anna Müller | Deep Tissue Massage | ARZU | Budva Massage Room 4",
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Start_DateTime": "2026-06-10T09:00:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 90,
+        "Payments": [
+          "recStxhOQMj4nld43"
+        ],
+        "Environment": "Test",
+        "Revenue Date": "2026-06-10",
+        "Duration_Minutes_New": 60,
+        "Payment Method": "To be confirmed",
+        "Therapist_Link": [
+          "rec4UaeE7vHXWgJcV"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "Confirmed",
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Reception_View_Bucket": [
+          "Check-in bekleyenler",
+          "Ödenmemişler"
+        ],
+        "Price EUR": 90,
+        "Booking ID": 25,
+        "Reception_Priority": "Normal",
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Calculated_Finish_DateTime": "2026-06-10T10:00:00.000Z",
+        "Reception_Status": "Confirmed",
+        "Client_Link": [
+          "rec0CehPDrNyQml3i"
+        ],
+        "Booking Code": "BKG-260609-25",
+        "Daily_Reception_Check": "✅ Ready for reception",
+        "Booking_Type": "Single Service",
+        "Reception_Staff_Link": [
+          "recJZYz3OWwsdjthQ"
+        ],
+        "Payment_Status_New": "Unpaid"
+      }
+    },
+    {
+      "id": "recDmBvoEGby1CsSg",
+      "createdTime": "2026-06-09T21:12:34.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-09T21:12:34.447Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Location_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "⚠️ Missing Location",
+        "Internal_Notes_New": "CLEAN AUTO BOOKING TEST — linked to CLEAN AUTO TEST package. Use only to test Airtable automation ON behavior.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "recWmUmc9SHkksMe3"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "recQYJ0ktNLCXb2dy"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Environment": "Test",
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 40,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recbb0pzAiTZgk4fD"
+        ],
+        "Booking Code": "BKG-260609-40",
+        "Daily_Reception_Check": "⚠️ Missing therapist"
+      }
+    },
+    {
+      "id": "recFTGI1kZR5jlW4p",
+      "createdTime": "2026-06-10T05:41:06.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T05:41:06.204Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "✅ Location Set",
+        "Internal_Notes_New": "LIVE TEST — Ali Işık paket düşüm canlı test rezervasyonu.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "recJj6ckRigqSKdd6"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "recRmRfpTdiEd7qxQ"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 44,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recJQ3PBTTJZyutDp"
+        ],
+        "Booking Code": "BKG-260610-44",
+        "Daily_Reception_Check": "⚠️ Missing therapist"
+      }
+    },
+    {
+      "id": "recFaXXZNNxvWEjjL",
+      "createdTime": "2026-06-09T07:30:30.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T11:35:00.000Z",
+        "Final Amount EUR": 100,
+        "Booking_Date": "2026-06-10",
+        "Room_Link": [
+          "recDtzulc3lwYil8f"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Required Booking Fields Check": "✅ Complete",
+        "Package_Catalog_Link": [
+          "recIFQujzV6dccj6C"
+        ],
+        "Location Required Check": "✅ Location Set",
+        "Reception_Notes": "QA TEST 02 — valid package booking.",
+        "Effective Duration Minutes": 50,
+        "Internal_Notes_New": "QA/Test booking cleanup 2026-06-09: Package booking mapped to Service_Link Classic Full Body Massage because Package_Catalog_Link is Relax Program and Services catalog contains Classic Full Body Massage under Relax Program at 100 EUR. Price EUR filled from service catalog.",
+        "Service_Link": [
+          "rec4xrJEW1tOHXnhj"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Record_Mode": "QA / Test",
+        "Reception Time Display": "10:00–10:50 | Mehmet Öz | Classic Full Body Massage | ŞABAN | Budva Hamam",
+        "Booking_Selection_Check": "⚠️ Both service and package selected",
+        "Start_DateTime": "2026-06-10T10:00:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 100,
+        "Payments": [
+          "rec8NfqQyodQ7xTS8"
+        ],
+        "Environment": "Test",
+        "Revenue Date": "2026-06-10",
+        "Duration_Minutes_New": 50,
+        "Payment Method": "To be confirmed",
+        "Therapist_Link": [
+          "recNnugIfgZGAUpSy"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "Confirmed",
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Reception_View_Bucket": [
+          "Check-in bekleyenler",
+          "Ödenmemişler"
+        ],
+        "Price EUR": 100,
+        "Booking ID": 26,
+        "Reception_Priority": "Normal",
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Calculated_Finish_DateTime": "2026-06-10T10:50:00.000Z",
+        "Reception_Status": "Confirmed",
+        "Client_Link": [
+          "rec1fJNUgzTNCvlk2"
+        ],
+        "Booking Code": "BKG-260609-26",
+        "Daily_Reception_Check": "⚠️ Booking selection issue",
+        "Booking_Type": "Package",
+        "Reception_Staff_Link": [
+          "recJZYz3OWwsdjthQ"
+        ],
+        "Payment_Status_New": "Unpaid"
+      }
+    },
+    {
+      "id": "recGpJ0BQpnNIItA4",
+      "createdTime": "2026-06-10T05:45:18.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T05:45:18.131Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "✅ Location Set",
+        "Internal_Notes_New": "ALI IŞIK PACKAGE PLAN — Session 2/10. Planned package reservation.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "recJj6ckRigqSKdd6"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "recTMPzMgwcsaE37l"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 46,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recJQ3PBTTJZyutDp"
+        ],
+        "Booking Code": "BKG-260610-46",
+        "Daily_Reception_Check": "⚠️ Missing therapist"
+      }
+    },
+    {
+      "id": "recL1gCr4Scv1lJw2",
+      "createdTime": "2026-06-09T13:34:43.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-09T13:34:42.680Z",
+        "Final Amount EUR": 0,
+        "Booking_Date": "2026-06-10",
+        "Room_Link": [
+          "reclALNSDpEMS39FD"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Total_Amount_EUR_New": 80,
+        "Required Booking Fields Check": "⚠️ Missing: Price EUR, Reception_Staff_Link",
+        "Location Required Check": "✅ Location Set",
+        "Effective Duration Minutes": 60,
+        "Service_Link": [
+          "recl6TNxXRf9J8RiB"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Reception Time Display": "16:46–17:46 | TEST CRM - Maria Novak | Thai Massage | ARZU | Budva Massage Room 2",
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Start_DateTime": "2026-06-09T16:46:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Environment": "Test",
+        "Revenue Date": "2026-06-09",
+        "Duration_Minutes_New": 60,
+        "Payment Method": "Card",
+        "Therapist_Link": [
+          "rec4UaeE7vHXWgJcV"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "Checked-in",
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 35,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Calculated_Finish_DateTime": "2026-06-09T17:46:00.000Z",
+        "Client_Link": [
+          "rec6aL7HyGgFx2WBo"
+        ],
+        "Booking Code": "BKG-260609-35",
+        "Daily_Reception_Check": "✅ Ready for reception",
+        "Payment_Status_New": "Paid"
+      }
+    },
+    {
+      "id": "recNIDYrIEYIdNNJy",
+      "createdTime": "2026-06-09T15:10:51.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-09T15:10:51.341Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Kontrol et",
+        "Required Booking Fields Check": "⚠️ Missing: Client_Link, Service_Link, Therapist_Link, Room_Link, Location_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "⚠️ Missing Location",
+        "Booking_Selection_Check": "⚠️ Missing service/package",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Environment": "Archive",
+        "Package Usage Count Safe": 0,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "🚨 Eşleştirilecek",
+        "Booking ID": 37,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Booking Code": "BKG-260609-37",
+        "Daily_Reception_Check": "⚠️ Missing client"
+      }
+    },
+    {
+      "id": "recOmOiBWedW3nCJY",
+      "createdTime": "2026-06-10T05:45:18.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T05:45:18.149Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "✅ Location Set",
+        "Internal_Notes_New": "ALI IŞIK PACKAGE PLAN — Session 5/10. Planned package reservation.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "recJj6ckRigqSKdd6"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "recgcThefA4vCI8Ev"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 49,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recJQ3PBTTJZyutDp"
+        ],
+        "Booking Code": "BKG-260610-49",
+        "Daily_Reception_Check": "⚠️ Missing therapist"
+      }
+    },
+    {
+      "id": "recQ1ftok3yp0G033",
+      "createdTime": "2026-06-09T07:30:30.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T14:50:00.000Z",
+        "Final Amount EUR": 100,
+        "Booking_Date": "2026-06-10",
+        "Room_Link": [
+          "recD6pvi0ZivCO0HK"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Required Booking Fields Check": "✅ Complete",
+        "Location Required Check": "✅ Location Set",
+        "Reception_Notes": "QA TEST 05 — completed booking, payment should be checked.",
+        "Effective Duration Minutes": 50,
+        "Internal_Notes_New": "QA/Test booking cleanup 2026-06-09: status, payment status, payment method placeholder, and reception staff filled. Price EUR auto-filled from linked service Combination Massage: 100 EUR.",
+        "Service_Link": [
+          "recET8ug1SZml79QC"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Record_Mode": "QA / Test",
+        "Reception Time Display": "14:00–14:50 | Anna Müller | Combination Massage | TAMARA | Budva Massage Room 4",
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Start_DateTime": "2026-06-10T14:00:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 100,
+        "Payments": [
+          "recdkqGhmOvM1ndhh"
+        ],
+        "Environment": "Test",
+        "Revenue Date": "2026-06-10",
+        "Duration_Minutes_New": 50,
+        "Payment Method": "To be confirmed",
+        "Therapist_Link": [
+          "rec1i82bTo38XmaXv"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "Completed",
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Reception_View_Bucket": [
+          "Ödenmemişler"
+        ],
+        "Price EUR": 100,
+        "Booking ID": 29,
+        "Reception_Priority": "Payment Attention",
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Calculated_Finish_DateTime": "2026-06-10T14:50:00.000Z",
+        "Reception_Status": "Completed",
+        "Client_Link": [
+          "rec0CehPDrNyQml3i"
+        ],
+        "Booking Code": "BKG-260609-29",
+        "Daily_Reception_Check": "⚠️ Completed but payment not paid",
+        "Booking_Type": "Single Service",
+        "Reception_Staff_Link": [
+          "recJZYz3OWwsdjthQ"
+        ],
+        "Payment_Status_New": "Unpaid"
+      }
+    },
+    {
+      "id": "recSEqmNIud0UbtOs",
+      "createdTime": "2026-06-10T05:45:18.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T05:45:18.177Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "✅ Location Set",
+        "Internal_Notes_New": "ALI IŞIK PACKAGE PLAN — Session 10/10. Planned package reservation.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "recJj6ckRigqSKdd6"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "rec07qjXDXv1avgHN"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 54,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recJQ3PBTTJZyutDp"
+        ],
+        "Booking Code": "BKG-260610-54",
+        "Daily_Reception_Check": "⚠️ Missing therapist"
+      }
+    },
+    {
+      "id": "recSmz4lIZQVwbBrc",
+      "createdTime": "2026-06-09T07:30:30.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T12:50:00.000Z",
+        "Final Amount EUR": 80,
+        "Booking_Date": "2026-06-10",
+        "Room_Link": [
+          "recAXBwwIzORwgh5h"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Required Booking Fields Check": "✅ Complete",
+        "Package_Catalog_Link": [
+          "rectMXiqbnQ9qzAxM"
+        ],
+        "Location Required Check": "✅ Location Set",
+        "Reception_Notes": "QA TEST 03 — intentional error: both service and package selected.",
+        "Effective Duration Minutes": 50,
+        "Internal_Notes_New": "QA/Test booking cleanup 2026-06-09: status, payment status, payment method placeholder, and reception staff filled. Price EUR auto-filled from linked service Facial Care: 80 EUR.",
+        "Service_Link": [
+          "recY6QxYHsHEQxPFI"
+        ],
+        "Location_Link": [
+          "recOPZ698pht6RHc5"
+        ],
+        "Record_Mode": "QA / Test",
+        "Reception Time Display": "12:00–12:50 | Anna Müller | Facial Care | BELA | Tivat Facial Room 1",
+        "Booking_Selection_Check": "⚠️ Both service and package selected",
+        "Start_DateTime": "2026-06-10T12:00:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 80,
+        "Payments": [
+          "reccyByXhlHWxUmlR"
+        ],
+        "Environment": "Test",
+        "Revenue Date": "2026-06-10",
+        "Duration_Minutes_New": 50,
+        "Payment Method": "To be confirmed",
+        "Therapist_Link": [
+          "recoIcC9OoHvT20f8"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "Hold - Conflict",
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Reception_View_Bucket": [
+          "Ödenmemişler",
+          "Oda/terapist çakışmaları"
+        ],
+        "Price EUR": 80,
+        "Booking ID": 27,
+        "Reception_Priority": "Schedule Risk",
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Calculated_Finish_DateTime": "2026-06-10T12:50:00.000Z",
+        "Reception_Status": "Needs Attention",
+        "Client_Link": [
+          "rec0CehPDrNyQml3i"
+        ],
+        "Booking Code": "BKG-260609-27",
+        "Daily_Reception_Check": "⚠️ Booking selection issue",
+        "Booking_Type": "Mixed / Manual Review",
+        "Reception_Staff_Link": [
+          "recJZYz3OWwsdjthQ"
+        ],
+        "Payment_Status_New": "Unpaid"
+      }
+    },
+    {
+      "id": "recTdY39KIVlZaY5S",
+      "createdTime": "2026-06-09T07:30:30.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-11T09:50:00.000Z",
+        "Final Amount EUR": 150,
+        "Booking_Date": "2026-06-11",
+        "Room_Link": [
+          "recTop4Dehpy7dKkI"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Required Booking Fields Check": "✅ Complete",
+        "Location Required Check": "✅ Location Set",
+        "Reception_Notes": "QA TEST 09 — four-hand/couple room scenario.",
+        "Effective Duration Minutes": 60,
+        "Service_Link": [
+          "rec08WWRBYl8a83GN"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Record_Mode": "QA / Test",
+        "Reception Time Display": "09:00–10:00 | Anna Müller | Mandara Massage (4 Hand) | DEVRİM | Budva Couple Room",
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Start_DateTime": "2026-06-11T09:00:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 150,
+        "Environment": "Live",
+        "Revenue Date": "2026-06-11",
+        "Duration_Minutes_New": 60,
+        "Payment Method": "To be confirmed",
+        "Therapist_Link": [
+          "rec3LYMrh77c87vnj"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "Confirmed",
+        "Conflict Control — LIVE": "✅ Ready for conflict review",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Reception_View_Bucket": [
+          "Check-in bekleyenler",
+          "Ödenmemişler"
+        ],
+        "Price EUR": 150,
+        "Booking ID": 33,
+        "Reception_Priority": "Normal",
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Calculated_Finish_DateTime": "2026-06-11T10:00:00.000Z",
+        "Reception_Status": "Confirmed",
+        "Client_Link": [
+          "rec0CehPDrNyQml3i"
+        ],
+        "Booking Code": "BKG-260609-33",
+        "Daily_Reception_Check": "✅ Ready for reception",
+        "Booking_Type": "Single Service",
+        "Reception_Staff_Link": [
+          "recJZYz3OWwsdjthQ"
+        ],
+        "Payment_Status_New": "Unpaid"
+      }
+    },
+    {
+      "id": "recVOtwcofIGl8ese",
+      "createdTime": "2026-06-10T05:45:18.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T05:45:18.143Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "✅ Location Set",
+        "Internal_Notes_New": "ALI IŞIK PACKAGE PLAN — Session 4/10. Planned package reservation.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "recJj6ckRigqSKdd6"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "reciYM4OVEuYCiMwb"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 48,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recJQ3PBTTJZyutDp"
+        ],
+        "Booking Code": "BKG-260610-48",
+        "Daily_Reception_Check": "⚠️ Missing therapist"
+      }
+    },
+    {
+      "id": "recXF6lZoyj0QmwAm",
+      "createdTime": "2026-06-10T05:45:18.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T05:45:18.166Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "✅ Location Set",
+        "Internal_Notes_New": "ALI IŞIK PACKAGE PLAN — Session 8/10. Planned package reservation.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "recJj6ckRigqSKdd6"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "recBJAj6o9T72w2yJ"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 52,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recJQ3PBTTJZyutDp"
+        ],
+        "Booking Code": "BKG-260610-52",
+        "Daily_Reception_Check": "⚠️ Missing therapist"
+      }
+    },
+    {
+      "id": "recYWzW1DQlXI7wuo",
+      "createdTime": "2026-06-09T07:30:30.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T13:50:00.000Z",
+        "Final Amount EUR": 0,
+        "Booking_Date": "2026-06-10",
+        "Room_Link": [
+          "recD6pvi0ZivCO0HK"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Availability_Status": "Available",
+        "Required Booking Fields Check": "⚠️ Missing: Price EUR, ",
+        "Location Required Check": "✅ Location Set",
+        "Reception_Notes": "Reception cleanup: previous Needs Attention / Schedule Risk cleared after conflict review. Booking kept as single service booking and moved to confirmed reception status.",
+        "Effective Duration Minutes": 50,
+        "Service_Link": [
+          "recdDhG02BciOT9nN"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Record_Mode": "QA / Test",
+        "Reception Time Display": "13:00–13:50 | Mehmet Öz | Relax Massage | ZAHİDE | Budva Massage Room 4",
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Start_DateTime": "2026-06-10T13:00:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Environment": "Live",
+        "Revenue Date": "2026-06-10",
+        "Duration_Minutes_New": 50,
+        "Payment Method": "Cash",
+        "Therapist_Link": [
+          "recClzUcFGJpPGNl7"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "Confirmed",
+        "Conflict Control — LIVE": "✅ Ready for conflict review",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Reception_View_Bucket": [
+          "Ödenmemişler",
+          "Oda/terapist çakışmaları"
+        ],
+        "Booking ID": 28,
+        "Reception_Priority": "Normal",
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Calculated_Finish_DateTime": "2026-06-10T13:50:00.000Z",
+        "Reception_Status": "Confirmed",
+        "Client_Link": [
+          "rec1fJNUgzTNCvlk2"
+        ],
+        "Booking Code": "BKG-260609-28",
+        "Daily_Reception_Check": "✅ Ready for reception",
+        "Booking_Type": "Service",
+        "Reception_Staff_Link": [
+          "recJZYz3OWwsdjthQ"
+        ],
+        "Payment_Status_New": "Deposit Paid"
+      }
+    },
+    {
+      "id": "reca3cI7cWb2GZiZk",
+      "createdTime": "2026-06-10T05:45:18.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T05:45:18.161Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "✅ Location Set",
+        "Internal_Notes_New": "ALI IŞIK PACKAGE PLAN — Session 7/10. Planned package reservation.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "recJj6ckRigqSKdd6"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "recsA0dHhjOFQQUpH"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 51,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recJQ3PBTTJZyutDp"
+        ],
+        "Booking Code": "BKG-260610-51",
+        "Daily_Reception_Check": "⚠️ Missing therapist"
+      }
+    },
+    {
+      "id": "recbPxmQ63MXmHDBN",
+      "createdTime": "2026-06-09T13:35:13.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-09T13:35:13.389Z",
+        "Final Amount EUR": 90,
+        "Booking_Date": "2026-06-10",
+        "Room_Link": [
+          "recpjMJZLsuEdM9zM"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Required Booking Fields Check": "✅ Complete",
+        "Location Required Check": "✅ Location Set",
+        "Effective Duration Minutes": 60,
+        "Service_Link": [
+          "recFk6MDikfaDeTmv"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Reception Time Display": "15:44–16:44 | Anna Müller | Deep Tissue Massage | ŞABAN | Budva Massage Room 1",
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Start_DateTime": "2026-06-09T15:44:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 90,
+        "Environment": "Live",
+        "Revenue Date": "2026-06-09",
+        "Duration_Minutes_New": 60,
+        "Payment Method": "To be confirmed",
+        "Therapist_Link": [
+          "recNnugIfgZGAUpSy"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "Draft",
+        "Conflict Control — LIVE": "✅ Ready for conflict review",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Price EUR": 90,
+        "Booking ID": 36,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Calculated_Finish_DateTime": "2026-06-09T16:44:00.000Z",
+        "Client_Link": [
+          "rec0CehPDrNyQml3i"
+        ],
+        "Booking Code": "BKG-260609-36",
+        "Daily_Reception_Check": "✅ Ready for reception",
+        "Reception_Staff_Link": [
+          "recJZYz3OWwsdjthQ"
+        ],
+        "Payment_Status_New": "Unpaid"
+      }
+    },
+    {
+      "id": "reccNU4eS1NoMZZT7",
+      "createdTime": "2026-06-09T21:34:51.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-09T21:34:51.179Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Location_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "⚠️ Missing Location",
+        "Internal_Notes_New": "CLEAN AUTO BOOKING TEST 2 — verifies Package = Linked Package mapping after automation correction.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "recWmUmc9SHkksMe3"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "recRKan2iMeMBHZCV"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Environment": "Test",
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 41,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recbb0pzAiTZgk4fD"
+        ],
+        "Booking Code": "BKG-260609-41",
+        "Daily_Reception_Check": "⚠️ Missing therapist"
+      }
+    },
+    {
+      "id": "recdFlG8a1Xu8MmEu",
+      "createdTime": "2026-06-09T07:30:30.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T16:50:00.000Z",
+        "Final Amount EUR": 80,
+        "Booking_Date": "2026-06-10",
+        "Room_Link": [
+          "recAXBwwIzORwgh5h"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Required Booking Fields Check": "✅ Complete",
+        "Location Required Check": "✅ Location Set",
+        "Reception_Notes": "QA TEST 07 — arrived/check-in completed facial service.",
+        "Effective Duration Minutes": 50,
+        "Service_Link": [
+          "rec9lUC9DuUgnhYEY"
+        ],
+        "Location_Link": [
+          "recOPZ698pht6RHc5"
+        ],
+        "Record_Mode": "QA / Test",
+        "Reception Time Display": "16:00–16:50 | Anna Müller | Eye Care Active Couture | BELA | Tivat Facial Room 1",
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Start_DateTime": "2026-06-10T16:00:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 80,
+        "Environment": "Live",
+        "Revenue Date": "2026-06-10",
+        "Duration_Minutes_New": 50,
+        "Payment Method": "To be confirmed",
+        "Therapist_Link": [
+          "recoIcC9OoHvT20f8"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "Checked-in",
+        "Conflict Control — LIVE": "✅ Ready for conflict review",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Reception_View_Bucket": [
+          "Ödenmemişler"
+        ],
+        "Price EUR": 80,
+        "Booking ID": 31,
+        "Reception_Priority": "Normal",
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Check_In_Completed": true,
+        "Calculated_Finish_DateTime": "2026-06-10T16:50:00.000Z",
+        "Reception_Status": "Arrived",
+        "Client_Link": [
+          "rec0CehPDrNyQml3i"
+        ],
+        "Booking Code": "BKG-260609-31",
+        "Daily_Reception_Check": "✅ Ready for reception",
+        "Booking_Type": "Single Service",
+        "Reception_Staff_Link": [
+          "recJZYz3OWwsdjthQ"
+        ],
+        "Payment_Status_New": "Unpaid"
+      }
+    },
+    {
+      "id": "recejFGdvKJe9YL6l",
+      "createdTime": "2026-06-10T05:45:18.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T05:45:18.122Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "✅ Location Set",
+        "Internal_Notes_New": "ALI IŞIK PACKAGE PLAN — Session 1/10. Planned package reservation.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "recJj6ckRigqSKdd6"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "recdIETlIH2R7SDWY"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 45,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recJQ3PBTTJZyutDp"
+        ],
+        "Booking Code": "BKG-260610-45",
+        "Daily_Reception_Check": "⚠️ Missing therapist"
+      }
+    },
+    {
+      "id": "recguvAW2sJDa3ZYA",
+      "createdTime": "2026-06-10T05:45:18.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T05:45:18.172Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "✅ Location Set",
+        "Internal_Notes_New": "ALI IŞIK PACKAGE PLAN — Session 9/10. Planned package reservation.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "recJj6ckRigqSKdd6"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "rec7mRHLxchbQF9q4"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 53,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recJQ3PBTTJZyutDp"
+        ],
+        "Booking Code": "BKG-260610-53",
+        "Daily_Reception_Check": "⚠️ Missing therapist"
+      }
+    },
+    {
+      "id": "recmC7eahMFC3dsCa",
+      "createdTime": "2026-06-10T05:45:18.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T05:45:18.138Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "✅ Location Set",
+        "Internal_Notes_New": "ALI IŞIK PACKAGE PLAN — Session 3/10. Planned package reservation.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "recJj6ckRigqSKdd6"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "recESZiSq02lx3oK6"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 47,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recJQ3PBTTJZyutDp"
+        ],
+        "Booking Code": "BKG-260610-47",
+        "Daily_Reception_Check": "⚠️ Missing therapist"
+      }
+    },
+    {
+      "id": "recoDToo8xyDvQN8d",
+      "createdTime": "2026-06-09T07:30:30.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-11T11:55:00.000Z",
+        "Final Amount EUR": 0,
+        "Booking_Date": "2026-06-11",
+        "Room_Link": [
+          "recTop4Dehpy7dKkI"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Required Booking Fields Check": "⚠️ Missing: Price EUR, ",
+        "Location Required Check": "✅ Location Set",
+        "Reception_Notes": "QA TEST 10 — Delux package booking.",
+        "Effective Duration Minutes": 50,
+        "Internal_Notes_New": "Daily operation cleanup: Package selection removed because this booking is kept as a single service booking. Service remains Classic Full Body Massage. Package-related links were cleared to resolve Booking_Selection_Check.",
+        "Service_Link": [
+          "rec4xrJEW1tOHXnhj"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Record_Mode": "QA / Test",
+        "Reception Time Display": "10:00–10:50 | Mehmet Öz | Classic Full Body Massage | ARZU | Budva Couple Room",
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Start_DateTime": "2026-06-11T10:00:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Environment": "Live",
+        "Revenue Date": "2026-06-11",
+        "Duration_Minutes_New": 50,
+        "Payment Method": "To be confirmed",
+        "Therapist_Link": [
+          "rec4UaeE7vHXWgJcV"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "Confirmed",
+        "Conflict Control — LIVE": "✅ Ready for conflict review",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Reception_View_Bucket": [
+          "Check-in bekleyenler",
+          "Ödenmemişler"
+        ],
+        "Booking ID": 34,
+        "Reception_Priority": "Normal",
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Calculated_Finish_DateTime": "2026-06-11T10:50:00.000Z",
+        "Reception_Status": "Confirmed",
+        "Client_Link": [
+          "rec1fJNUgzTNCvlk2"
+        ],
+        "Booking Code": "BKG-260609-34",
+        "Daily_Reception_Check": "✅ Ready for reception",
+        "Booking_Type": "Service",
+        "Reception_Staff_Link": [
+          "recJZYz3OWwsdjthQ"
+        ],
+        "Payment_Status_New": "Unpaid"
+      }
+    },
+    {
+      "id": "rect02M5DshQp7EMH",
+      "createdTime": "2026-06-09T20:57:18.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-09T20:57:18.551Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Location_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "⚠️ Missing Location",
+        "Internal_Notes_New": "TEST-AUTO-TRIGGER — created so Airtable automation has a matching preview record. Do not use for real operations.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "rec8Lkna1YFN0CAnP"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "recgpCsqcTaBpShwV"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Environment": "Test",
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 39,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recbb0pzAiTZgk4fD"
+        ],
+        "Booking Code": "BKG-260609-39",
+        "Daily_Reception_Check": "⚠️ Missing therapist",
+        "Payment_Status_New": "Paid"
+      }
+    },
+    {
+      "id": "recwArv6QBxcEbyoJ",
+      "createdTime": "2026-06-10T05:45:18.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T05:45:18.155Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Start_DateTime, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "✅ Location Set",
+        "Internal_Notes_New": "ALI IŞIK PACKAGE PLAN — Session 6/10. Planned package reservation.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Location_Link": [
+          "rec1qC31hFqbuLHZU"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "recJj6ckRigqSKdd6"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "recomBa9PPbd8rawS"
+        ],
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 50,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recJQ3PBTTJZyutDp"
+        ],
+        "Booking Code": "BKG-260610-50",
+        "Daily_Reception_Check": "⚠️ Missing therapist"
+      }
+    },
+    {
+      "id": "recwDObCAafiR3Cv3",
+      "createdTime": "2026-06-10T15:53:51.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-10T15:53:50.973Z",
+        "Final Amount EUR": 0,
+        "Room_Link": [
+          "recD6pvi0ZivCO0HK"
+        ],
+        "Booking Financial Status": "Kontrol et",
+        "Required Booking Fields Check": "⚠️ Missing: Location_Link, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "⚠️ Missing Location",
+        "Reception_Notes": "Test booking card for reception daily view.",
+        "Effective Duration Minutes": 60,
+        "Internal_Notes_New": "Git kart test oluşturuldu.",
+        "Service_Link": [
+          "rec038SUmXplIZp9k"
+        ],
+        "Reception Time Display": "16:00–17:00 | Anna Müller | Combination Massage | ZAHİDE | Budva Massage Room 4",
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Start_DateTime": "2026-06-10T16:00:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Revenue Date": "2026-06-10",
+        "Duration_Minutes_New": 60,
+        "Therapist_Link": [
+          "recClzUcFGJpPGNl7"
+        ],
+        "Package Usage Count Safe": 0,
+        "Status_New": "Confirmed",
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 55,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Calculated_Finish_DateTime": "2026-06-10T17:00:00.000Z",
+        "Client_Link": [
+          "rec0CehPDrNyQml3i"
+        ],
+        "Booking Code": "BKG-260610-55",
+        "Daily_Reception_Check": "⚠️ Missing location",
+        "Payment_Status_New": "Unpaid"
+      }
+    },
+    {
+      "id": "recyIQ0bEcr45yhZi",
+      "createdTime": "2026-06-09T19:59:43.000Z",
+      "fields": {
+        "Finish_DateTime": "2026-06-09T08:00:00.000Z",
+        "Final Amount EUR": 0,
+        "Booking Financial Status": "Paket seçildi — Ledger hazır",
+        "Sessions To Deduct": 1,
+        "Required Booking Fields Check": "⚠️ Missing: Therapist_Link, Room_Link, Location_Link, Status_New, Price EUR, Payment Method, Reception_Staff_Link",
+        "Location Required Check": "⚠️ Missing Location",
+        "Internal_Notes_New": "MANUEL TEST — package-covered booking trigger test. Gerçek operasyon kaydı değildir.",
+        "Service_Link": [
+          "recv8CxPNgzgKP1a5"
+        ],
+        "Package Use Mode": "Same Service Package",
+        "Linked Package": [
+          "rec8Lkna1YFN0CAnP"
+        ],
+        "Payment/Coverage Source": "Covered by Package",
+        "Package_Usage_Ledger": [
+          "recrC6dNKw4HnblyW"
+        ],
+        "Reception Time Display": "07:00 | TEST Paket Misafir | Klasik Masaj |  | ",
+        "Booking_Selection_Check": "✅ Single service booking",
+        "Ledger Created?": true,
+        "Start_DateTime": "2026-06-10T07:00:00.000Z",
+        "Ledger Should Be Created": "NO",
+        "Balance_Due_EUR": 0,
+        "Environment": "Test",
+        "Revenue Date": "2026-06-10",
+        "Package Usage Count Safe": 1,
+        "Conflict Control — LIVE": "Not Live",
+        "Payment Status": "🔴 Unpaid",
+        "Migration_Status": "✅ Temiz",
+        "Booking ID": 38,
+        "Attachment Summary": {
+          "state": "error",
+          "errorType": "emptyDependency",
+          "value": null,
+          "isStale": false
+        },
+        "Client_Link": [
+          "recbb0pzAiTZgk4fD"
+        ],
+        "Booking Code": "BKG-260609-38",
+        "Daily_Reception_Check": "⚠️ Missing therapist",
+        "Payment_Status_New": "Paid"
+      }
+    }
+  ]
+}

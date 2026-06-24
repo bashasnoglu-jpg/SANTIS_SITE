@@ -24,6 +24,10 @@
 | :--- | :--- | :--- | :--- | :--- |
 | **P1-1** | **Multiple Service Worker Architecture** | MEDIUM | OPEN | `sw.js`, `santis-sw.js`, `santis-sanctuary-sw.js`, `service-worker.js`, etc. Need audit-only phase to map active/legacy registrations. |
 | **P1-2** | **Color System & Design Token Fragmentation** | HIGH | OPEN | `#d4af37` hardcoded 159+ times. Tokens conflict between `editorial.css` and `style.css`. Needs Phase C1-C5 audit and refactor. |
+<<<<<<< Updated upstream
+=======
+| **P1-3** | **Airtable V2 Hardcoded Identifiers & O(N) Fetching** | HIGH | PARTIAL / READ-PATH RESOLVED | Read/day endpoint refactor completed; write/PATCH path requires valid Airtable write-scope token validation. |
+>>>>>>> Stashed changes
 
 ---
 

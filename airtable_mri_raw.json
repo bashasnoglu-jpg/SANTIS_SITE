@@ -1,0 +1,6 @@
+{
+  "error": {
+    "type": "UNAUTHORIZED",
+    "message": "Invalid authentication token"
+  }
+}

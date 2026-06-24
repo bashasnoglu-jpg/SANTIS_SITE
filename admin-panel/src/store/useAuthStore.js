@@ -21,7 +21,11 @@ const useAuthStore = create(
                     const result = await loginAdmin(email, password);
                     const access_token = result.access_token;
                     set({
-                        user: { email }, // We can fetch full profile later
+                        user: { 
+                            email,
+                            role: result.role,
+                            canAccessSetupWizard: result.canAccessSetupWizard
+                        }, // We can fetch full profile later
                         token: access_token,
                         isAuthenticated: true
                     });

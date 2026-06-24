@@ -14,6 +14,7 @@ import {
   LazyFinance,
   LazyServiceManager,
 } from './routes/lazy-routes';
+import TenantSetupWizard from './pages/TenantSetupWizard';
 
 // Create a client
 const queryClient = new QueryClient();
@@ -78,6 +79,14 @@ function App() {
                 <AdminLazyBoundary>
                   <LazyFinance />
                 </AdminLazyBoundary>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/setup"
+            element={
+              <PrivateRoute>
+                <TenantSetupWizard />
               </PrivateRoute>
             }
           />

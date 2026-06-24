@@ -77,3 +77,23 @@ Santis OS is now equipped with a production-grade, "Zero-Jank" container pipelin
 - Ayrı 'audit-logs.html' sayfası oluşturuldu
 - Vanilla JS ve CSS ile 'Quiet Luxury' tasarımı kodlandı
 - Filtre bar, payload drawer (slide-out), pagination entegre edildi
+
+### Phase 2-E: Package & Inventory Tenant Lock (Airtable / CoreState Data Migration)
+
+Phase 2-E sealed at Airtable schema/data level.
+
+Completed:
+- Tenant_Link added to Inventory, Inventory_Transactions, Package_Catalog, Client_Packages, Package_Usage_Ledger.
+- Environment added to Inventory and Package_Catalog.
+- Faz 2-E Tenant Control formulas added.
+- Existing records linked to Santis Club tenant.
+- Legacy/incomplete test records isolated as Archive - Not Operational.
+- Final validation shows 0 missing Tenant_Link, 0 missing required Location, and 0 missing Environment.
+
+Manual follow-up:
+- Create Airtable UI views for Santis Club and branch-safe operations (Airtable Meta API view oluşturmayı doğrudan desteklemediği için).
+
+### Phase 2-F: Airtable Interface / View Lock (Reception Task Queue)
+- **Schema Hardening**: `Tasks` tablosuna `Tenant_Link`, `Environment` ve `Location_Link` kilit alanları eklendi.
+- **Data Isolation**: Mevcut 40 IT, kurulum ve QA görevi `Environment = Test` ve `Tenant_Link = Santis Club` olarak etiketlendi (Şube spesifik görevlere ilgili `Location_Link` eklendi). Bu sayede canlı operasyon ekranları eski verilerden tamamen arındırıldı.
+- **View Configuration**: "Santis Club — Reception Task Queue" görünümü `Tenant_Link = Santis Club`, `Environment = Live`, `Status != Done` filtreleri ile standart hale getirildi. Live ortamda henüz görev olmadığı için ekranın boş gelmesi doğrulandı.

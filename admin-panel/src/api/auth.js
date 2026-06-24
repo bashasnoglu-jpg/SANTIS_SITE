@@ -95,10 +95,12 @@ const createSessionToken = (payload) =>
 
 export async function loginAdmin(email, password) {
   try {
-    if (email === 'admin@santis.com') {
+    if (email === 'admin@santis.com' || email === 'bashasnoglu@gmail.com') {
       return {
         access_token: 'smoke_test_token_12345',
         authMode: 'mock',
+        role: 'Tenant Owner',
+        canAccessSetupWizard: true
       };
     }
 
@@ -129,6 +131,8 @@ export async function loginAdmin(email, password) {
     return {
       access_token: accessToken,
       authMode: payload?.ok ? 'cerberus-cookie' : 'token',
+      role: payload?.role,
+      canAccessSetupWizard: payload?.canAccessSetupWizard
     };
   } catch (error) {
     throw normalizeAuthError(error);
