@@ -3,6 +3,7 @@ import { useBoardroomMode } from "../../features/boardroom/context/BoardroomMode
 
 const LOCATION_OPTIONS = [
   { label: 'Budva', value: 'budva' },
+  { label: 'Podgorica', value: 'podgorica' },
   { label: 'Kotor', value: 'kotor' },
   { label: 'Tivat', value: 'tivat' },
 ];
@@ -16,6 +17,11 @@ function getTodayDate() {
 function formatUpdatedAt(value) {
   if (!value) return '—';
   return value.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+}
+
+function formatMoney(value) {
+  const amount = Number(value || 0);
+  return amount.toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 }
 
 function ReceptionLiveToday() {
@@ -137,12 +143,28 @@ function ReceptionLiveToday() {
         <div className="space-y-3">
           {bookings.map((booking) => (
             <div key={booking.id} className="border border-sovereign-panel bg-sovereign-coal/30 rounded-sm p-4">
-              <div className="text-sovereign-ink text-sm">{booking.timeDisplay || booking.startDateTime}</div>
-              <div className="text-sovereign-bronze text-xs mt-2">
-                {booking.clientName || '—'} · {booking.serviceName || '—'} · {booking.therapistName || '—'}
-              </div>
-              <div className="text-sovereign-bronze text-xs mt-1">
-                {booking.paymentStatus || 'Payment Unknown'} · Due €{booking.balanceDueEur || 0}
+              <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+                <div>
+                  <div className="text-sovereign-ink text-sm">{booking.timeDisplay || booking.startDateTime}</div>
+                  <div className="text-sovereign-bronze text-xs mt-2">
+                    {booking.clientName || '—'} · {booking.serviceName || '—'} · {booking.therapistName || '—'}
+                  </div>
+                  <div className="text-sovereign-bronze text-xs mt-1">
+                    Oda: {booking.roomName || '—'} · Durum: {booking.status || '—'}
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2 md:justify-end">
+                  <span className="border border-sovereign-panel rounded-full px-3 py-1 text-sovereign-ink text-xs">
+                    Ödeme: {booking.paymentStatus || 'Unknown'}
+                  </span>
+                  <span className="border border-sovereign-panel rounded-full px-3 py-1 text-sovereign-ink text-xs">
+                    Kalan: €{formatMoney(booking.balanceDueEur)}
+                  </span>
+                  <span className="border border-sovereign-panel rounded-full px-3 py-1 text-sovereign-ink text-xs">
+                    Hazırlık: {booking.receptionReadyStatus || 'Unknown'}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
