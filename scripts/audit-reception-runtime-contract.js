@@ -58,12 +58,17 @@ if (frontend) {
   requireIncludes(frontend, "environment: 'Live'", FRONTEND_FILE);
   requireIncludes(frontend, "LOCATION_OPTIONS", FRONTEND_FILE);
   requireIncludes(frontend, "value: 'budva'", FRONTEND_FILE);
+  requireIncludes(frontend, "value: 'podgorica'", FRONTEND_FILE);
   requireIncludes(frontend, "value: 'kotor'", FRONTEND_FILE);
   requireIncludes(frontend, "value: 'tivat'", FRONTEND_FILE);
   requireIncludes(frontend, "type=\"date\"", FRONTEND_FILE);
   requireIncludes(frontend, "setRefreshToken", FRONTEND_FILE);
   requireIncludes(frontend, "Son güncelleme", FRONTEND_FILE);
   requireIncludes(frontend, "formatUpdatedAt", FRONTEND_FILE);
+  requireIncludes(frontend, "formatMoney", FRONTEND_FILE);
+  requireIncludes(frontend, "booking.paymentStatus", FRONTEND_FILE);
+  requireIncludes(frontend, "booking.balanceDueEur", FRONTEND_FILE);
+  requireIncludes(frontend, "booking.receptionReadyStatus", FRONTEND_FILE);
   requireIncludes(frontend, "response.ok", FRONTEND_FILE);
   requireIncludes(frontend, "AbortController", FRONTEND_FILE);
 
@@ -82,6 +87,8 @@ if (backend) {
   requireIncludes(backend, "date: str | None", BACKEND_FILE);
   requireIncludes(backend, "environment: str = Query(default=\"Live\")", BACKEND_FILE);
   requireIncludes(backend, "AIRTABLE_TOKEN_ENV_KEYS", BACKEND_FILE);
+  requireIncludes(backend, "Reception Ready Status", BACKEND_FILE);
+  requireIncludes(backend, "Payment_Status_New", BACKEND_FILE);
 }
 
 if (failed) {
