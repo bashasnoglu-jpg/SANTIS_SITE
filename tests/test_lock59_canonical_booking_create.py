@@ -95,7 +95,7 @@ def _payload(**overrides):
     return lock59.CanonicalBookingCreateRequest(**values)
 
 
-def test_dry_run_writes_only_canonical_links_and_does_not_forge_independent_guards(monkeypatch):
+def test_dry_run_writes_canonical_links_and_only_owned_branch_guard(monkeypatch):
     _install_fake_airtable(monkeypatch, _records())
 
     result = lock59.create_canonical_booking(_payload())
@@ -110,9 +110,13 @@ def test_dry_run_writes_only_canonical_links_and_does_not_forge_independent_guar
     assert fields["Room_Link"] == [ROOM_ID]
     assert fields["Branch_Config_Link"] == [CONFIG_ID]
     assert fields["Environment"] == "Test"
+    assert fields["Branch_Guard_Status"] == "PASS"
+    assert fields["Branch_Guard_Reason"].startswith("PASS - Canonical tenant/location/environment")
+    assert fields["Guard_Checked_At"]
+    assert result["evidence"]["branchGuard"]["status"] == "PASS"
     assert result["evidence"]["legacySelectorFieldsWritten"] == []
     assert not any("_Therapist_Select" in key or "_Room_Select" in key for key in fields)
-    assert "Branch_Guard_Status" not in fields
+    assert "Booking_Conflict_Status" not in fields
     assert "Therapist_Capability_Status" not in fields
     assert "Room_Capability_Status" not in fields
     assert "Quarantine_Status" not in fields
