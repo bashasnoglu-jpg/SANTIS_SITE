@@ -96,6 +96,7 @@ export default function AutomationControlCenter() {
 
   useEffect(() => {
     const controller = new AbortController();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadRegistry(controller.signal);
     return () => controller.abort();
   }, [loadRegistry]);
