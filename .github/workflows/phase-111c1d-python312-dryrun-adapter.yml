@@ -1,0 +1,68 @@
+name: Phase 111-C.1D Python 3.12 Dry-Run Adapter
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - feat/111c1c-pure-commission-builder
+    paths:
+      - "app/idempotency/commission_dry_run_adapter.py"
+      - "tests/test_commission_dry_run_adapter.py"
+      - ".github/workflows/phase-111c1d-python312-dryrun-adapter.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python312-adapter-seal:
+    name: Python 3.12 exact 14-test adapter seal
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout PR source
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Verify Python runtime
+        run: |
+          python --version
+          python - <<'PY'
+          import sys
+          assert sys.version_info[:2] == (3, 12), sys.version
+          print(f"PYTHON_312_RUNTIME_OK={sys.version.split()[0]}")
+          PY
+
+      - name: Install pytest only
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "pytest>=8,<9"
+
+      - name: Enforce exact 14-test collection
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pytest --collect-only -q \
+            tests/test_commission_dry_run_adapter.py \
+            | tee /tmp/phase111c1d-collect.txt
+
+          COLLECTED="$(grep -c '::test_' /tmp/phase111c1d-collect.txt || true)"
+          echo "COLLECTED_TESTS=${COLLECTED}"
+          test "${COLLECTED}" -eq 14
+
+      - name: Run exact 14 tests and require all passed
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pytest -q \
+            tests/test_commission_dry_run_adapter.py \
+            | tee /tmp/phase111c1d-test.txt
+
+          grep -Eq '(^|[[:space:]])14 passed in ' /tmp/phase111c1d-test.txt
+          echo "PHASE_111_C_1D_EXACT_RESULT=14_PASSED"
