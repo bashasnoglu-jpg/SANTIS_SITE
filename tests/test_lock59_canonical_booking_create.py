@@ -11,6 +11,7 @@ SERVICE_ID = "recEEEEEEEEEEEEEE"
 THERAPIST_ID = "recFFFFFFFFFFFFFF"
 ROOM_ID = "recGGGGGGGGGGGGGG"
 WRONG_LOCATION_ID = "recHHHHHHHHHHHHHH"
+WRONG_TENANT_ID = "recIIIIIIIIIIIIII"
 
 
 def _records(*, environment="Test", therapist_location=LOCATION_ID, booking_create_enabled=True):
@@ -127,6 +128,57 @@ def test_wrong_branch_therapist_is_blocked_before_booking_write(monkeypatch):
     assert "Therapist location mismatch" in exc_info.value.detail
 
 
+def test_wrong_branch_room_is_blocked_before_booking_write(monkeypatch):
+    records = _records()
+    records[(lock59.ROOMS_TABLE_ID, ROOM_ID)]["fields"]["Location_Link"] = [WRONG_LOCATION_ID]
+    _install_fake_airtable(monkeypatch, records)
+
+    with pytest.raises(HTTPException) as exc_info:
+        lock59.create_canonical_booking(_payload())
+
+    assert exc_info.value.status_code == 409
+    assert "Room location mismatch" in exc_info.value.detail
+
+
+def test_wrong_tenant_resource_is_blocked(monkeypatch):
+    records = _records()
+    records[(lock59.THERAPISTS_TABLE_ID, THERAPIST_ID)]["fields"]["Tenant_Link"] = [WRONG_TENANT_ID]
+    _install_fake_airtable(monkeypatch, records)
+
+    with pytest.raises(HTTPException) as exc_info:
+        lock59.create_canonical_booking(_payload())
+
+    assert exc_info.value.status_code == 409
+    assert "Therapist tenant mismatch" in exc_info.value.detail
+
+
+def test_environment_leak_is_blocked(monkeypatch):
+    records = _records()
+    records[(lock59.ROOMS_TABLE_ID, ROOM_ID)]["fields"]["Environment"] = "Live"
+    _install_fake_airtable(monkeypatch, records)
+
+    with pytest.raises(HTTPException) as exc_info:
+        lock59.create_canonical_booking(_payload())
+
+    assert exc_info.value.status_code == 409
+    assert "Room environment mismatch" in exc_info.value.detail
+
+
+def test_config_rejects_multiple_canonical_locations(monkeypatch):
+    records = _records()
+    records[(lock59.BRANCH_CONFIG_TABLE_ID, CONFIG_ID)]["fields"]["Location_Link"] = [
+        LOCATION_ID,
+        WRONG_LOCATION_ID,
+    ]
+    _install_fake_airtable(monkeypatch, records)
+
+    with pytest.raises(HTTPException) as exc_info:
+        lock59.create_canonical_booking(_payload())
+
+    assert exc_info.value.status_code == 409
+    assert "must contain exactly one canonical record link" in exc_info.value.detail
+
+
 def test_real_write_is_disabled_by_default_even_after_preflight(monkeypatch):
     _install_fake_airtable(monkeypatch, _records())
     monkeypatch.delenv(lock59.CANONICAL_CREATE_ENABLE_ENV, raising=False)
@@ -144,6 +196,26 @@ def test_real_write_is_disabled_by_default_even_after_preflight(monkeypatch):
 
     assert exc_info.value.status_code == 409
     assert lock59.CANONICAL_CREATE_ENABLE_ENV in exc_info.value.detail
+    assert created == []
+
+
+def test_disabled_branch_config_blocks_real_write(monkeypatch):
+    _install_fake_airtable(monkeypatch, _records(booking_create_enabled=False))
+    monkeypatch.setenv(lock59.CANONICAL_CREATE_ENABLE_ENV, "true")
+
+    created = []
+
+    def fake_create_record(table_id, fields):
+        created.append((table_id, fields))
+        return {"id": "recZZZZZZZZZZZZZZ"}
+
+    monkeypatch.setattr(lock59, "_airtable_create_record", fake_create_record)
+
+    with pytest.raises(HTTPException) as exc_info:
+        lock59.create_canonical_booking(_payload(dryRun=False))
+
+    assert exc_info.value.status_code == 409
+    assert "Booking_Create_Enabled is false" in exc_info.value.detail
     assert created == []
 
 
