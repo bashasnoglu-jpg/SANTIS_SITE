@@ -131,9 +131,42 @@ def _list_records() -> list[dict[str, Any]]:
             return records
 
 
+def _parse_number(value: Any) -> float | int | None:
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, (int, float)):
+        return value
+    if isinstance(value, str):
+        normalized = value.strip()
+        if not normalized:
+            return None
+        try:
+            return float(normalized) if "." in normalized else int(normalized)
+        except ValueError:
+            return None
+    return None
+
+
+def _parse_bool(value: Any) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return value in (1, 1.0)
+    if isinstance(value, str):
+        normalized = value.strip().lower()
+        if normalized in {"1", "1.0", "true", "yes", "on", "checked"}:
+            return True
+        if normalized in {"0", "0.0", "false", "no", "off", "unchecked", ""}:
+            return False
+        try:
+            return float(normalized) == 1.0
+        except ValueError:
+            return False
+    return False
+
+
 def _normalize_item(record: dict[str, Any]) -> dict[str, Any]:
     fields = record.get("fields") or {}
-    activation_order = fields.get("Activation Order")
 
     return {
         "id": record.get("id"),
@@ -145,16 +178,16 @@ def _normalize_item(record: dict[str, Any]) -> dict[str, Any]:
         "airtableStatus": fields.get("Airtable Status"),
         "santisStatus": fields.get("Santis OS Status"),
         "riskLevel": fields.get("Risk Level"),
-        "canActivate": bool(fields.get("Can Activate?", False)),
-        "activationOrder": activation_order if isinstance(activation_order, (int, float)) else None,
+        "canActivate": _parse_bool(fields.get("Can Activate?")),
+        "activationOrder": _parse_number(fields.get("Activation Order")),
         "tenant": fields.get("Tenant_Link"),
         "location": fields.get("Location_Link"),
         "triggerType": fields.get("Trigger_Type"),
         "lastRunAt": fields.get("Last_Run_At"),
         "lastResult": fields.get("Last_Result"),
         "errorLog": fields.get("Error_Log"),
-        "runRequested": bool(fields.get("Run_Request", False)),
-        "canRun": fields.get("Can_Run") in (1, 1.0, "1", True),
+        "runRequested": _parse_bool(fields.get("Run_Request")),
+        "canRun": _parse_bool(fields.get("Can_Run")),
     }
 
 
