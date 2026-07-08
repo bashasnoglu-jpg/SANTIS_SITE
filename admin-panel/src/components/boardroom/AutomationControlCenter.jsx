@@ -71,7 +71,13 @@ export default function AutomationControlCenter() {
         signal,
       });
 
-      const payload = await response.json().catch(() => null);
+      const payload = await response.json().catch(() => {
+        if (response.ok) {
+          throw new Error('Invalid JSON response from server.');
+        }
+        return null;
+      });
+
       if (!response.ok) {
         const message = payload?.detail || `Automation Control read failed (${response.status}).`;
         throw new Error(message);
@@ -133,7 +139,7 @@ export default function AutomationControlCenter() {
             className="inline-flex items-center justify-center gap-2 border border-sovereign-panel bg-sovereign-coal px-4 py-2 text-xs text-sovereign-sand hover:border-sovereign-earth disabled:opacity-50"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-            Yenile
+            Refresh
           </button>
         </div>
       </div>
@@ -149,7 +155,7 @@ export default function AutomationControlCenter() {
         <div className="bg-sovereign-obsidian border border-sovereign-earth/60 rounded-sm p-6 flex gap-3">
           <AlertTriangle className="w-5 h-5 text-sovereign-sand shrink-0" />
           <div>
-            <div className="text-sm text-sovereign-ink">Registry okunamadı</div>
+            <div className="text-sm text-sovereign-ink">Failed to read registry</div>
             <div className="mt-2 text-xs text-sovereign-bronze leading-relaxed">{error}</div>
           </div>
         </div>
@@ -157,7 +163,7 @@ export default function AutomationControlCenter() {
 
       {!error && loading && (
         <div className="bg-sovereign-obsidian border border-sovereign-panel rounded-sm p-8 text-xs text-sovereign-bronze animate-pulse">
-          Automation_Control registry yükleniyor…
+          Loading Automation_Control registry…
         </div>
       )}
 
@@ -222,7 +228,7 @@ export default function AutomationControlCenter() {
       )}
 
       <div className="text-2xs uppercase tracking-widest text-sovereign-bronze opacity-70">
-        Last observed: {observedAt ? new Date(observedAt).toLocaleString('tr-TR') : '—'}
+        Last observed: {observedAt ? new Date(observedAt).toLocaleString() : '—'}
       </div>
     </section>
   );
