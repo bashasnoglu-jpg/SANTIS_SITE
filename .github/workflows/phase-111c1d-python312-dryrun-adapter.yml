@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - develop
+      - feat/111c1c-pure-commission-builder
     paths:
       - "app/idempotency/commission_dry_run_adapter.py"
       - "tests/test_commission_dry_run_adapter.py"
