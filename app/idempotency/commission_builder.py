@@ -42,8 +42,7 @@ _COMMISSION_COMPONENTS = {
     "PAYMENT_COLLECTION_BONUS",
 }
 
-# Includes current Commission Ledger Source Event choices plus contract-approved
-# future-safe events. Values are canonicalized before membership checks.
+# Current Commission Ledger choices plus contract-approved source events.
 _SOURCE_EVENTS = {
     "BOOKING_COMPLETED",
     "PACKAGE_SOLD",
@@ -73,28 +72,19 @@ _CURRENCY_FIELDS = {
     "fixed_amount",
     "calculated_commission_amount",
 }
-
 _RATE_FIELDS = {"commission_rate"}
-_INTEGER_FIELDS: set[str] = set()
 _DATE_FIELDS = {"event_date"}
 _BOOLEAN_FIELDS = {"manual_override_flag"}
+_TEXT_FIELDS = {"rule_version"}
 
-_ENUM_FIELDS = {
-    "environment",
-    "source_anchor_type",
-    "beneficiary_type",
-    "source_event",
-    "commission_component",
+_GENERIC_ENUM_FIELDS = {
     "commission_type",
     "booking_status",
     "payment_status",
     "payout_status",
 }
 
-_TEXT_FIELDS = {"rule_version"}
-
-# Explicitly accepted as non-authoritative presentation context and omitted from
-# the fingerprint. A display-name change must not create state churn.
+# Presentation-only context is accepted but intentionally excluded from hashing.
 _DISPLAY_ONLY_FIELDS = {
     "beneficiary_display_name",
     "service_display_name",
@@ -132,6 +122,19 @@ _FINGERPRINT_FIELDS = (
 )
 
 _ALLOWED_INPUT_FIELDS = set(_FINGERPRINT_FIELDS) | _DISPLAY_ONLY_FIELDS
+
+# The fingerprint contains these identity fields, so dry-run must prove that they
+# match the key identity. This prevents key=Test/state=Live split-brain output.
+_IDENTITY_STATE_FIELDS = (
+    "tenant_id",
+    "environment",
+    "source_anchor_type",
+    "source_anchor_id",
+    "beneficiary_type",
+    "beneficiary_id",
+    "commission_component",
+    "source_event",
+)
 
 
 class CommissionIdentityError(ValueError):
@@ -177,8 +180,12 @@ def _fail(code: str, field: str, detail: str) -> CommissionIdentityError:
     return CommissionIdentityError(code=code, field=field, detail=detail)
 
 
+def _is_blank(value: Any) -> bool:
+    return value is None or (isinstance(value, str) and not value.strip())
+
+
 def _normalize_record_id(value: Any, *, field: str, required: bool) -> str | None:
-    if value is None or (isinstance(value, str) and not value.strip()):
+    if _is_blank(value):
         if required:
             raise _fail(
                 "IDEMPOTENCY_IDENTITY_INCOMPLETE",
@@ -198,20 +205,17 @@ def _normalize_record_id(value: Any, *, field: str, required: bool) -> str | Non
 
 
 def _tokenize(value: Any, *, field: str) -> str:
-    if value is None:
-        raise _fail("IDEMPOTENCY_INVALID_ENUM", field, "enum value is missing")
-    raw = str(value).strip()
-    if not raw:
-        raise _fail("IDEMPOTENCY_INVALID_ENUM", field, "enum value is blank")
-    token = re.sub(r"[^A-Za-z0-9]+", "_", raw).strip("_").upper()
+    if _is_blank(value):
+        raise _fail("IDEMPOTENCY_INVALID_ENUM", field, "enum value is missing or blank")
+    token = re.sub(r"[^A-Za-z0-9]+", "_", str(value).strip()).strip("_").upper()
     if not _CANONICAL_TOKEN_RE.fullmatch(token):
         raise _fail("IDEMPOTENCY_INVALID_ENUM", field, "cannot canonicalize enum value")
     return token
 
 
 def _normalize_environment(value: Any, *, field: str = "environment") -> str:
-    if value is None:
-        raise _fail("IDEMPOTENCY_INVALID_ENUM", field, "environment is missing")
+    if _is_blank(value):
+        raise _fail("IDEMPOTENCY_INVALID_ENUM", field, "environment is missing or blank")
     normalized = _ENVIRONMENT_ALIASES.get(str(value).strip().lower())
     if normalized is None:
         raise _fail(
@@ -222,12 +226,7 @@ def _normalize_environment(value: Any, *, field: str = "environment") -> str:
     return normalized
 
 
-def _normalize_known_token(
-    value: Any,
-    *,
-    field: str,
-    allowed: set[str],
-) -> str:
+def _normalize_known_token(value: Any, *, field: str, allowed: set[str]) -> str:
     token = _tokenize(value, field=field)
     if token not in allowed:
         raise _fail(
@@ -239,18 +238,13 @@ def _normalize_known_token(
 
 
 def _normalize_generic_enum(value: Any, *, field: str) -> str | None:
-    if value is None or (isinstance(value, str) and not value.strip()):
+    if _is_blank(value):
         return None
     return _tokenize(value, field=field)
 
 
-def _normalize_decimal(
-    value: Any,
-    *,
-    field: str,
-    places: int,
-) -> str | None:
-    if value is None or (isinstance(value, str) and not value.strip()):
+def _normalize_decimal(value: Any, *, field: str, places: int) -> str | None:
+    if _is_blank(value):
         return None
     if isinstance(value, bool):
         raise _fail("IDEMPOTENCY_INVALID_DECIMAL", field, "boolean is not a decimal")
@@ -268,22 +262,8 @@ def _normalize_decimal(
     return format(normalized, f".{places}f")
 
 
-def _normalize_integer(value: Any, *, field: str) -> int | None:
-    if value is None or (isinstance(value, str) and not value.strip()):
-        return None
-    if isinstance(value, bool):
-        raise _fail("IDEMPOTENCY_INVALID_INTEGER", field, "boolean is not an integer")
-    try:
-        decimal_value = Decimal(str(value).strip())
-    except (InvalidOperation, ValueError):
-        raise _fail("IDEMPOTENCY_INVALID_INTEGER", field, "invalid integer value") from None
-    if decimal_value != decimal_value.to_integral_value():
-        raise _fail("IDEMPOTENCY_INVALID_INTEGER", field, "fractional value is not allowed")
-    return int(decimal_value)
-
-
 def _normalize_date(value: Any, *, field: str) -> str | None:
-    if value is None or (isinstance(value, str) and not value.strip()):
+    if _is_blank(value):
         return None
     if isinstance(value, datetime):
         return value.date().isoformat()
@@ -323,7 +303,7 @@ def _normalize_date(value: Any, *, field: str) -> str | None:
 
 def normalize_datetime_utc(value: Any, *, field: str) -> str | None:
     """Normalize an optional aware datetime to UTC ISO 8601 with Z suffix."""
-    if value is None or (isinstance(value, str) and not value.strip()):
+    if _is_blank(value):
         return None
     if isinstance(value, datetime):
         dt = value
@@ -339,12 +319,11 @@ def normalize_datetime_utc(value: Any, *, field: str) -> str | None:
             field,
             "timezone-aware datetime is required",
         )
-    utc_value = dt.astimezone(timezone.utc)
-    return utc_value.isoformat().replace("+00:00", "Z")
+    return dt.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def _normalize_boolean(value: Any, *, field: str) -> bool | None:
-    if value is None or (isinstance(value, str) and not value.strip()):
+    if _is_blank(value):
         return None
     if isinstance(value, bool):
         return value
@@ -365,12 +344,7 @@ def _normalize_text(value: Any) -> str | None:
 
 
 def normalize_commission_state(state: Mapping[str, Any]) -> dict[str, Any]:
-    """Return the canonical Commission v1 calculation state.
-
-    This function is pure and fail-closed. Unknown calculation fields are rejected
-    so a caller cannot silently believe an omitted input is fingerprinted.
-    Display-only fields are explicitly accepted and intentionally excluded.
-    """
+    """Return canonical Commission v1 calculation state without side effects."""
     unknown_fields = set(state) - _ALLOWED_INPUT_FIELDS
     if unknown_fields:
         field = sorted(unknown_fields)[0]
@@ -387,46 +361,42 @@ def normalize_commission_state(state: Mapping[str, Any]) -> dict[str, Any]:
         if field in _RECORD_ID_FIELDS:
             normalized[field] = _normalize_record_id(value, field=field, required=False)
         elif field == "environment":
-            normalized[field] = None if value in (None, "") else _normalize_environment(value, field=field)
+            normalized[field] = None if _is_blank(value) else _normalize_environment(value, field=field)
         elif field == "source_anchor_type":
             normalized[field] = (
                 None
-                if value in (None, "")
+                if _is_blank(value)
                 else _normalize_known_token(value, field=field, allowed=_SOURCE_ANCHOR_TYPES)
             )
         elif field == "beneficiary_type":
             normalized[field] = (
                 None
-                if value in (None, "")
+                if _is_blank(value)
                 else _normalize_known_token(value, field=field, allowed=_BENEFICIARY_TYPES)
             )
         elif field == "source_event":
             normalized[field] = (
-                None
-                if value in (None, "")
-                else _normalize_known_token(value, field=field, allowed=_SOURCE_EVENTS)
+                None if _is_blank(value) else _normalize_known_token(value, field=field, allowed=_SOURCE_EVENTS)
             )
         elif field == "commission_component":
             normalized[field] = (
                 None
-                if value in (None, "")
+                if _is_blank(value)
                 else _normalize_known_token(value, field=field, allowed=_COMMISSION_COMPONENTS)
             )
         elif field in _CURRENCY_FIELDS:
             normalized[field] = _normalize_decimal(value, field=field, places=2)
         elif field in _RATE_FIELDS:
             normalized[field] = _normalize_decimal(value, field=field, places=6)
-        elif field in _INTEGER_FIELDS:
-            normalized[field] = _normalize_integer(value, field=field)
         elif field in _DATE_FIELDS:
             normalized[field] = _normalize_date(value, field=field)
         elif field in _BOOLEAN_FIELDS:
             normalized[field] = _normalize_boolean(value, field=field)
-        elif field in _ENUM_FIELDS:
+        elif field in _GENERIC_ENUM_FIELDS:
             normalized[field] = _normalize_generic_enum(value, field=field)
         elif field in _TEXT_FIELDS:
             normalized[field] = _normalize_text(value)
-        else:  # pragma: no cover - contract field map must remain exhaustive
+        else:  # pragma: no cover - contract map must remain exhaustive
             raise AssertionError(f"Unhandled fingerprint field: {field}")
 
     return normalized
@@ -443,11 +413,14 @@ def stable_json(value: Mapping[str, Any]) -> str:
     )
 
 
-def build_input_fingerprint(state: Mapping[str, Any]) -> str:
-    normalized_state = normalize_commission_state(state)
+def _fingerprint_normalized_state(normalized_state: Mapping[str, Any]) -> str:
     payload = stable_json(normalized_state).encode("utf-8")
     digest = hashlib.sha256(payload).hexdigest()
     return f"sha256:{digest}"
+
+
+def build_input_fingerprint(state: Mapping[str, Any]) -> str:
+    return _fingerprint_normalized_state(normalize_commission_state(state))
 
 
 def _normalize_identity(identity: CommissionIdentityInput) -> CommissionIdentityInput:
@@ -489,31 +462,68 @@ def _normalize_identity(identity: CommissionIdentityInput) -> CommissionIdentity
     )
 
 
-def build_commission_idempotency_key(identity: CommissionIdentityInput) -> str:
-    normalized = _normalize_identity(identity)
+def _build_key_from_normalized(identity: CommissionIdentityInput) -> str:
     return "|".join(
         [
             f"{NAMESPACE}:{KEY_SCHEMA_VERSION}",
-            f"tenant={normalized.tenant_id}",
-            f"env={normalized.environment}",
-            f"sourceType={normalized.source_anchor_type}",
-            f"sourceId={normalized.source_anchor_id}",
-            f"beneficiaryType={normalized.beneficiary_type}",
-            f"beneficiaryId={normalized.beneficiary_id}",
-            f"component={normalized.commission_component}",
-            f"event={normalized.source_event}",
+            f"tenant={identity.tenant_id}",
+            f"env={identity.environment}",
+            f"sourceType={identity.source_anchor_type}",
+            f"sourceId={identity.source_anchor_id}",
+            f"beneficiaryType={identity.beneficiary_type}",
+            f"beneficiaryId={identity.beneficiary_id}",
+            f"component={identity.commission_component}",
+            f"event={identity.source_event}",
         ]
     )
+
+
+def build_commission_idempotency_key(identity: CommissionIdentityInput) -> str:
+    return _build_key_from_normalized(_normalize_identity(identity))
+
+
+def _validate_identity_state_coherence(
+    identity: CommissionIdentityInput,
+    normalized_state: Mapping[str, Any],
+) -> None:
+    expected = {
+        "tenant_id": identity.tenant_id,
+        "environment": identity.environment,
+        "source_anchor_type": identity.source_anchor_type,
+        "source_anchor_id": identity.source_anchor_id,
+        "beneficiary_type": identity.beneficiary_type,
+        "beneficiary_id": identity.beneficiary_id,
+        "commission_component": identity.commission_component,
+        "source_event": identity.source_event,
+    }
+
+    for field in _IDENTITY_STATE_FIELDS:
+        observed = normalized_state.get(field)
+        if observed is None:
+            raise _fail(
+                "IDEMPOTENCY_STATE_IDENTITY_INCOMPLETE",
+                field,
+                "calculation state must carry the same identity context used by the key",
+            )
+        if observed != expected[field]:
+            raise _fail(
+                "IDEMPOTENCY_STATE_IDENTITY_MISMATCH",
+                field,
+                f"key identity and calculation state disagree: expected {expected[field]!r}, observed {observed!r}",
+            )
 
 
 def build_commission_dry_run(
     identity: CommissionIdentityInput,
     calculation_state: Mapping[str, Any],
 ) -> CommissionBuildResult:
-    """Build key and fingerprint without comparing, claiming, or mutating anything."""
+    """Build key/fingerprint only; no comparator, claim, network, or mutation."""
     try:
-        key = build_commission_idempotency_key(identity)
-        fingerprint = build_input_fingerprint(calculation_state)
+        normalized_identity = _normalize_identity(identity)
+        normalized_state = normalize_commission_state(calculation_state)
+        _validate_identity_state_coherence(normalized_identity, normalized_state)
+        key = _build_key_from_normalized(normalized_identity)
+        fingerprint = _fingerprint_normalized_state(normalized_state)
     except CommissionIdentityError as exc:
         return CommissionBuildResult(
             namespace=NAMESPACE,
