@@ -278,7 +278,7 @@ def _preflight(payload: CanonicalBookingCreateRequest) -> tuple[dict[str, Any], 
         raise HTTPException(status_code=409, detail=f"Branch config environment is not creatable: {environment or 'EMPTY'}.")
 
     therapist = _airtable_get_record(THERAPISTS_TABLE_ID, therapist_id, THERAPIST_FIELDS)
-    room = _airtable_get_record(ROOMS_TABLE_ID, room_id, ROOMS_FIELDS)
+    room = _airtable_get_record(ROOMS_TABLE_ID, room_id, ROOM_FIELDS)
     service = _airtable_get_record(SERVICES_TABLE_ID, service_id, SERVICE_FIELDS)
     client = _airtable_get_record(CLIENTS_TABLE_ID, client_id, CLIENT_FIELDS)
 
@@ -287,16 +287,17 @@ def _preflight(payload: CanonicalBookingCreateRequest) -> tuple[dict[str, Any], 
     service_fields = service.get("fields", {})
     client_fields = client.get("fields", {})
 
+    # Independent Branch Guard: exact tenant/environment and branch membership.
     _require_expected_tenant(therapist_fields, tenant_id, "Therapist")
     _require_expected_location(therapist_fields, location_id, "Therapist")
     _require_environment(therapist_fields, environment, "Therapist")
-    if not bool(therapist_fields.get("Active")):
-        raise HTTPException(status_code=409, detail="Therapist is not Active.")
-    _require_not_blocked_status(therapist_fields, "Therapist", "Status")
-
     _require_expected_tenant(room_fields, tenant_id, "Room")
     _require_expected_location(room_fields, location_id, "Room")
     _require_environment(room_fields, environment, "Room")
+
+    if not bool(therapist_fields.get("Active")):
+        raise HTTPException(status_code=409, detail="Therapist is not Active.")
+    _require_not_blocked_status(therapist_fields, "Therapist", "Status")
     _require_not_blocked_status(room_fields, "Room", "Room_Status", "Status")
 
     _require_expected_tenant(service_fields, tenant_id, "Service")
@@ -307,6 +308,12 @@ def _preflight(payload: CanonicalBookingCreateRequest) -> tuple[dict[str, Any], 
     _require_expected_tenant(client_fields, tenant_id, "Client")
     _require_environment(client_fields, environment, "Client")
     _require_not_blocked_status(client_fields, "Client", "Status")
+
+    branch_guard_checked_at = _utc_now_iso()
+    branch_guard_reason = (
+        "PASS - Canonical tenant/location/environment validated from Branch_Board_Config; "
+        "therapist and room match the resolved branch context."
+    )
 
     booking_fields: dict[str, Any] = {
         "Tenant_Link": [tenant_id],
@@ -320,6 +327,9 @@ def _preflight(payload: CanonicalBookingCreateRequest) -> tuple[dict[str, Any], 
         "Status_New": payload.status,
         "Branch_Config_Link": [config_id],
         "Booking_Create_State": "Submitted",
+        "Branch_Guard_Status": "PASS",
+        "Branch_Guard_Reason": branch_guard_reason,
+        "Guard_Checked_At": branch_guard_checked_at,
     }
     if payload.receptionNotes:
         booking_fields["Reception_Notes"] = payload.receptionNotes.strip()
@@ -334,7 +344,7 @@ def _preflight(payload: CanonicalBookingCreateRequest) -> tuple[dict[str, Any], 
         "boardStatus": board_status,
         "qaStatus": qa_status,
         "bookingCreateEnabled": booking_create_enabled,
-        "validatedAt": _utc_now_iso(),
+        "validatedAt": branch_guard_checked_at,
         "canonicalCardinality": {
             "tenant": 1,
             "location": 1,
@@ -343,9 +353,13 @@ def _preflight(payload: CanonicalBookingCreateRequest) -> tuple[dict[str, Any], 
             "service": 1,
             "client": 1,
         },
+        "branchGuard": {
+            "status": "PASS",
+            "reason": branch_guard_reason,
+            "checkedAt": branch_guard_checked_at,
+        },
         "legacySelectorFieldsWritten": [],
         "independentGuardsNotForged": [
-            "Branch_Guard_Status",
             "Booking_Conflict_Status",
             "Therapist_Capability_Status",
             "Room_Capability_Status",
@@ -403,6 +417,9 @@ def create_canonical_booking(payload: CanonicalBookingCreateRequest) -> dict[str
     Tenant, location and environment are resolved from config and never trusted from
     client input. Legacy branch-specific selector fields are never written.
 
+    The endpoint owns only the canonical Branch Guard result. Conflict, capability,
+    shift, quarantine, authorization and Final Gate remain independent authorities.
+
     dryRun defaults to True. Real writes require explicit environment gates; Live
     writes additionally require forceLive and a separate Live enable flag.
     """
@@ -417,7 +434,7 @@ def create_canonical_booking(payload: CanonicalBookingCreateRequest) -> dict[str
             "contract": "LOCK-59-CANONICAL-CREATE-V1",
             "evidence": evidence,
             "wouldCreateFields": booking_fields,
-            "message": "Canonical preflight passed. No Airtable record was created.",
+            "message": "Canonical preflight and Branch Guard passed. No Airtable record was created.",
         }
 
     _assert_write_gate(payload, evidence)
@@ -436,6 +453,7 @@ def create_canonical_booking(payload: CanonicalBookingCreateRequest) -> dict[str
         "branchConfigId": evidence["branchConfigId"],
         "tenantId": evidence["tenantId"],
         "locationId": evidence["locationId"],
+        "branchGuard": evidence["branchGuard"],
         "legacySelectorFieldsWritten": [],
-        "message": "Canonical booking created. Independent guards must still evaluate before Live Board readiness.",
+        "message": "Canonical booking created with Branch Guard PASS. Remaining independent guards must still evaluate before Live Board readiness.",
     }
