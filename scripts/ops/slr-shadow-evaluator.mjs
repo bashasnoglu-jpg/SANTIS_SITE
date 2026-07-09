@@ -166,6 +166,10 @@ function nowIso() {
   return new Date().toISOString();
 }
 
+function escapeFormulaString(value) {
+  return String(value).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
+
 async function airtableRequest({ baseId, token, table, path = '', method = 'GET', body = null }) {
   const url = `${AIRTABLE_API_URL}/${baseId}/${encodeURIComponent(table)}${path}`;
   const response = await fetch(url, {
@@ -197,26 +201,44 @@ async function readBooking({ baseId, token, bookingId }) {
   });
 }
 
-async function upsertByDedupeKey({ baseId, token, table, dedupeField, fields }) {
+async function findUniqueByDedupeKey({ baseId, token, table, dedupeField, dedupeKey }) {
+  const formula = `{${dedupeField}}='${escapeFormulaString(dedupeKey)}'`;
+  const query = new URLSearchParams({
+    filterByFormula: formula,
+    maxRecords: '2',
+    pageSize: '2',
+  });
   const payload = await airtableRequest({
     baseId,
     token,
     table,
-    method: 'PATCH',
-    body: {
-      performUpsert: {
-        fieldsToMergeOn: [dedupeField],
-      },
-      records: [{ fields }],
-      typecast: false,
-    },
+    path: `?${query.toString()}`,
   });
-
-  const record = payload.records?.[0];
-  if (!record?.id) {
-    throw new Error(`Airtable upsert returned no record for ${table}.`);
+  const records = Array.isArray(payload.records) ? payload.records : [];
+  if (records.length > 1) {
+    throw new Error(`Duplicate idempotency key detected in ${table}: ${dedupeKey}`);
   }
+  return records[0] || null;
+}
+
+async function createRecord({ baseId, token, table, fields }) {
+  const payload = await airtableRequest({
+    baseId,
+    token,
+    table,
+    method: 'POST',
+    body: { records: [{ fields }], typecast: false },
+  });
+  const record = payload.records?.[0];
+  if (!record?.id) throw new Error(`Airtable create returned no record for ${table}.`);
   return record;
+}
+
+async function ensureSingleRecord({ baseId, token, table, dedupeField, dedupeKey, fields }) {
+  const existing = await findUniqueByDedupeKey({ baseId, token, table, dedupeField, dedupeKey });
+  if (existing) return { record: existing, created: false };
+  const created = await createRecord({ baseId, token, table, fields });
+  return { record: created, created: true };
 }
 
 async function updateBookingCache({ baseId, token, bookingId, fields }) {
@@ -225,10 +247,7 @@ async function updateBookingCache({ baseId, token, bookingId, fields }) {
     token,
     table: TABLES.bookings,
     method: 'PATCH',
-    body: {
-      records: [{ id: bookingId, fields }],
-      typecast: false,
-    },
+    body: { records: [{ id: bookingId, fields }], typecast: false },
   });
 }
 
@@ -273,11 +292,11 @@ async function evaluateOne({ baseId, token, bookingId, eventType, write }) {
   const cacheWriteRequired = cachedInputKey !== inputKey;
   const nextVersion = cacheWriteRequired ? currentVersion + 1 : currentVersion;
   const timestamp = nowIso();
-
   const evidence = buildEvidence(fields, state, reason, divergence, finalGate);
 
   const planned = {
     bookingId,
+    environment,
     state,
     reason,
     divergence,
@@ -297,85 +316,126 @@ async function evaluateOne({ baseId, token, bookingId, eventType, write }) {
     return planned;
   }
 
-  const eventRecord = await upsertByDedupeKey({
+  if (environment !== 'Test') {
+    throw new Error(`SLR-EVAL-0.1.0 write mode is Test-only. Booking environment is ${environment}.`);
+  }
+
+  if (!cacheWriteRequired) {
+    const existingEvent = await findUniqueByDedupeKey({
+      baseId,
+      token,
+      table: TABLES.events,
+      dedupeField: EVENT_FIELDS.dedupeKey,
+      dedupeKey: eventDedupeKey,
+    });
+    const existingEvaluation = await findUniqueByDedupeKey({
+      baseId,
+      token,
+      table: TABLES.evaluations,
+      dedupeField: EVALUATION_FIELDS.dedupeKey,
+      dedupeKey: evaluationDedupeKey,
+    });
+
+    const result = {
+      mode: 'SHADOW_WRITE',
+      ...planned,
+      eventRecordId: existingEvent?.id || null,
+      evaluationRecordId: existingEvaluation?.id || null,
+      eventCreated: false,
+      evaluationCreated: false,
+      cacheMutated: false,
+      noOpProtected: true,
+    };
+    console.log(JSON.stringify(result, null, 2));
+    return result;
+  }
+
+  const eventFields = {
+    [EVENT_FIELDS.id]: deterministicId('EVT-SLR', fingerprint),
+    [EVENT_FIELDS.type]: eventType,
+    [EVENT_FIELDS.status]: 'IMPACT_RESOLVED',
+    [EVENT_FIELDS.sourceTable]: 'Bookings',
+    [EVENT_FIELDS.sourceRecordId]: bookingId,
+    [EVENT_FIELDS.subjectType]: 'BOOKING',
+    [EVENT_FIELDS.subjectRecordId]: bookingId,
+    [EVENT_FIELDS.bookingLink]: [bookingId],
+    ...(tenantLinks.length > 0 ? { [EVENT_FIELDS.tenantLink]: tenantLinks } : {}),
+    ...(locationLinks.length > 0 ? { [EVENT_FIELDS.locationLink]: locationLinks } : {}),
+    [EVENT_FIELDS.environment]: environment,
+    [EVENT_FIELDS.occurredAt]: timestamp,
+    [EVENT_FIELDS.correlationId]: `CORR-SLR-${fingerprint.slice(0, 20)}`,
+    [EVENT_FIELDS.inputFingerprint]: fingerprintLabel,
+    [EVENT_FIELDS.processorVersion]: EVENT_PROCESSOR_VERSION,
+    [EVENT_FIELDS.impactCount]: 1,
+    [EVENT_FIELDS.processedAt]: timestamp,
+    [EVENT_FIELDS.payloadSummary]: `SLR shadow event; state=${state}; reason=${reason}; divergence=${divergence}; no PII.`,
+    [EVENT_FIELDS.shadowOnly]: true,
+    [EVENT_FIELDS.dedupeKey]: eventDedupeKey,
+  };
+
+  const eventResult = await ensureSingleRecord({
     baseId,
     token,
     table: TABLES.events,
     dedupeField: EVENT_FIELDS.dedupeKey,
-    fields: {
-      [EVENT_FIELDS.id]: deterministicId('EVT-SLR', fingerprint),
-      [EVENT_FIELDS.type]: eventType,
-      [EVENT_FIELDS.status]: 'IMPACT_RESOLVED',
-      [EVENT_FIELDS.sourceTable]: 'Bookings',
-      [EVENT_FIELDS.sourceRecordId]: bookingId,
-      [EVENT_FIELDS.subjectType]: 'BOOKING',
-      [EVENT_FIELDS.subjectRecordId]: bookingId,
-      [EVENT_FIELDS.bookingLink]: [bookingId],
-      ...(tenantLinks.length > 0 ? { [EVENT_FIELDS.tenantLink]: tenantLinks } : {}),
-      ...(locationLinks.length > 0 ? { [EVENT_FIELDS.locationLink]: locationLinks } : {}),
-      [EVENT_FIELDS.environment]: environment,
-      [EVENT_FIELDS.occurredAt]: timestamp,
-      [EVENT_FIELDS.correlationId]: `CORR-SLR-${fingerprint.slice(0, 20)}`,
-      [EVENT_FIELDS.inputFingerprint]: fingerprintLabel,
-      [EVENT_FIELDS.processorVersion]: EVENT_PROCESSOR_VERSION,
-      [EVENT_FIELDS.impactCount]: 1,
-      [EVENT_FIELDS.processedAt]: timestamp,
-      [EVENT_FIELDS.payloadSummary]: `SLR shadow event; state=${state}; reason=${reason}; divergence=${divergence}; no PII.`,
-      [EVENT_FIELDS.shadowOnly]: true,
-      [EVENT_FIELDS.dedupeKey]: eventDedupeKey,
-    },
+    dedupeKey: eventDedupeKey,
+    fields: eventFields,
   });
 
-  const evaluationRecord = await upsertByDedupeKey({
+  const evaluationFields = {
+    [EVALUATION_FIELDS.id]: deterministicId('RDE-SLR', fingerprint),
+    [EVALUATION_FIELDS.bookingLink]: [bookingId],
+    [EVALUATION_FIELDS.triggerEventLink]: [eventResult.record.id],
+    ...(tenantLinks.length > 0 ? { [EVALUATION_FIELDS.tenantLink]: tenantLinks } : {}),
+    ...(locationLinks.length > 0 ? { [EVALUATION_FIELDS.locationLink]: locationLinks } : {}),
+    [EVALUATION_FIELDS.environment]: environment,
+    [EVALUATION_FIELDS.previousState]: previousState,
+    [EVALUATION_FIELDS.state]: state,
+    [EVALUATION_FIELDS.reason]: reason,
+    [EVALUATION_FIELDS.reasonSummary]: `${EVALUATOR_VERSION} => ${state}; reason=${reason}; divergence=${divergence}.`,
+    [EVALUATION_FIELDS.finalGateSnapshot]: finalGate,
+    [EVALUATION_FIELDS.divergence]: divergence,
+    [EVALUATION_FIELDS.evaluatorVersion]: EVALUATOR_VERSION,
+    [EVALUATION_FIELDS.readinessVersion]: nextVersion,
+    [EVALUATION_FIELDS.evaluatedAt]: timestamp,
+    [EVALUATION_FIELDS.inputFingerprint]: fingerprintLabel,
+    [EVALUATION_FIELDS.evidenceSnapshot]: JSON.stringify(evidence),
+    [EVALUATION_FIELDS.evaluationStatus]: evaluationStatus(divergence),
+    [EVALUATION_FIELDS.shadowOnly]: true,
+    [EVALUATION_FIELDS.dedupeKey]: evaluationDedupeKey,
+  };
+
+  const evaluationResult = await ensureSingleRecord({
     baseId,
     token,
     table: TABLES.evaluations,
     dedupeField: EVALUATION_FIELDS.dedupeKey,
-    fields: {
-      [EVALUATION_FIELDS.id]: deterministicId('RDE-SLR', fingerprint),
-      [EVALUATION_FIELDS.bookingLink]: [bookingId],
-      [EVALUATION_FIELDS.triggerEventLink]: [eventRecord.id],
-      ...(tenantLinks.length > 0 ? { [EVALUATION_FIELDS.tenantLink]: tenantLinks } : {}),
-      ...(locationLinks.length > 0 ? { [EVALUATION_FIELDS.locationLink]: locationLinks } : {}),
-      [EVALUATION_FIELDS.environment]: environment,
-      [EVALUATION_FIELDS.previousState]: previousState,
-      [EVALUATION_FIELDS.state]: state,
-      [EVALUATION_FIELDS.reason]: reason,
-      [EVALUATION_FIELDS.reasonSummary]: `${EVALUATOR_VERSION} => ${state}; reason=${reason}; divergence=${divergence}.`,
-      [EVALUATION_FIELDS.finalGateSnapshot]: finalGate,
-      [EVALUATION_FIELDS.divergence]: divergence,
-      [EVALUATION_FIELDS.evaluatorVersion]: EVALUATOR_VERSION,
-      [EVALUATION_FIELDS.readinessVersion]: nextVersion,
-      [EVALUATION_FIELDS.evaluatedAt]: timestamp,
-      [EVALUATION_FIELDS.inputFingerprint]: fingerprintLabel,
-      [EVALUATION_FIELDS.evidenceSnapshot]: JSON.stringify(evidence),
-      [EVALUATION_FIELDS.evaluationStatus]: evaluationStatus(divergence),
-      [EVALUATION_FIELDS.shadowOnly]: true,
-      [EVALUATION_FIELDS.dedupeKey]: evaluationDedupeKey,
-    },
+    dedupeKey: evaluationDedupeKey,
+    fields: evaluationFields,
   });
 
-  if (cacheWriteRequired) {
-    await updateBookingCache({
-      baseId,
-      token,
-      bookingId,
-      fields: {
-        [BOOKING_FIELDS.cachedState]: state,
-        [BOOKING_FIELDS.cachedVersion]: nextVersion,
-        [BOOKING_FIELDS.cachedEvaluatedAt]: timestamp,
-        [BOOKING_FIELDS.cachedTriggerEventLink]: [eventRecord.id],
-        [BOOKING_FIELDS.cachedInputKey]: inputKey,
-      },
-    });
-  }
+  await updateBookingCache({
+    baseId,
+    token,
+    bookingId,
+    fields: {
+      [BOOKING_FIELDS.cachedState]: state,
+      [BOOKING_FIELDS.cachedVersion]: nextVersion,
+      [BOOKING_FIELDS.cachedEvaluatedAt]: timestamp,
+      [BOOKING_FIELDS.cachedTriggerEventLink]: [eventResult.record.id],
+      [BOOKING_FIELDS.cachedInputKey]: inputKey,
+    },
+  });
 
   const result = {
     mode: 'SHADOW_WRITE',
     ...planned,
-    eventRecordId: eventRecord.id,
-    evaluationRecordId: evaluationRecord.id,
-    cacheMutated: cacheWriteRequired,
+    eventRecordId: eventResult.record.id,
+    evaluationRecordId: evaluationResult.record.id,
+    eventCreated: eventResult.created,
+    evaluationCreated: evaluationResult.created,
+    cacheMutated: true,
+    noOpProtected: false,
   };
 
   console.log(JSON.stringify(result, null, 2));
@@ -390,12 +450,8 @@ async function main() {
   const eventType = args['event-type'] || DEFAULT_EVENT_TYPE;
   const write = args.write === true || args.write === 'true';
 
-  if (!baseId) {
-    throw new Error('Missing Airtable base ID. Set AIRTABLE_BASE_ID or AIRTABLE_SANTIS_BASE_ID.');
-  }
-  if (!token) {
-    throw new Error('Missing Airtable token. Set AIRTABLE_PAT or AIRTABLE_API_KEY.');
-  }
+  if (!baseId) throw new Error('Missing Airtable base ID. Set AIRTABLE_BASE_ID or AIRTABLE_SANTIS_BASE_ID.');
+  if (!token) throw new Error('Missing Airtable token. Set AIRTABLE_PAT or AIRTABLE_API_KEY.');
   if (!bookingId || !String(bookingId).startsWith('rec')) {
     throw new Error('Missing or invalid --booking-id=<rec...>.');
   }
