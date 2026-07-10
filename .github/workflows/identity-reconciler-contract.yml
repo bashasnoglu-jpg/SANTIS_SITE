@@ -77,43 +77,8 @@ jobs:
         run: python -c "from app.api.v1.endpoints import identity_boundary; print(identity_boundary.router.tags)"
 
       - name: Register identity boundary in isolated FastAPI runtime
-        id: route-registration
-        continue-on-error: true
-        run: |
-          python - <<'PY'
-          import traceback
-          from pathlib import Path
-          from fastapi import FastAPI
-          from app.api.v1.endpoints.identity_boundary import router
-
-          app = FastAPI()
-          try:
-              app.include_router(router, prefix="/api/v1")
-              paths = sorted(route.path for route in app.routes)
-              Path("identity-route-paths.txt").write_text("\n".join(paths), encoding="utf-8")
-              expected = "/api/v1/reception/identity/shift-owner/write-through"
-              assert expected in paths, (expected, paths)
-              print(expected)
-          except Exception:
-              Path("identity-route-paths.txt").write_text(
-                  "\n".join(sorted(route.path for route in app.routes)),
-                  encoding="utf-8",
-              )
-              with open("identity-route-error.txt", "w", encoding="utf-8") as handle:
-                  traceback.print_exc(file=handle)
-              raise
-          PY
-
-      - name: Upload route registration diagnostics
-        if: steps.route-registration.outcome == 'failure'
-        uses: actions/upload-artifact@v4
-        with:
-          name: identity-route-diagnostics
-          path: |
-            identity-route-paths.txt
-            identity-route-error.txt
-          if-no-files-found: warn
-          retention-days: 7
+        run: >-
+          python -c "from fastapi import FastAPI; from app.api.v1.endpoints.identity_boundary import router; app=FastAPI(); app.include_router(router,prefix='/api/v1'); paths=[r.path for r in app.routes]; expected='/api/v1/reception/identity/shift-owner/write-through'; print(paths); assert expected in paths"
 
       - name: Verify local and production router wiring
         run: |
@@ -172,7 +137,3 @@ jobs:
           path: identity-import-error.txt
           if-no-files-found: error
           retention-days: 7
-
-      - name: Enforce boundary route registration gate
-        if: always()
-        run: test "${{ steps.route-registration.outcome }}" = "success"
