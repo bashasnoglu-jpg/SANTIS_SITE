@@ -9,6 +9,7 @@ from app.domain.identity_write_through import (
     compute_shift_evidence,
     deterministic_boundary_key,
     find_impacted_booking_ids,
+    reverse_impacted_booking_ids,
     shift_cache_patch,
     stable_record_ids,
 )
@@ -34,7 +35,25 @@ class IdentityWriteThroughCoreTests(unittest.TestCase):
             sorted([self.THERAPIST1, self.THERAPIST2]),
         )
 
-    def test_exact_three_booking_fanout_fixture(self) -> None:
+    def test_exact_three_booking_fanout_fixture_from_reverse_shift_links(self) -> None:
+        shift = {
+            "id": self.SHIFT1,
+            "fields": {
+                "Bookings": [
+                    {"id": self.BOOKING267, "name": "267"},
+                    self.BOOKING175,
+                    {"id": self.BOOKING266, "name": "266"},
+                    self.BOOKING267,
+                    {"name": "missing id"},
+                ]
+            },
+        }
+        self.assertEqual(
+            reverse_impacted_booking_ids(shift),
+            sorted([self.BOOKING175, self.BOOKING266, self.BOOKING267]),
+        )
+
+    def test_legacy_explicit_booking_collection_helper_stays_exact_by_record_id(self) -> None:
         bookings = [
             {
                 "id": self.BOOKING175,
