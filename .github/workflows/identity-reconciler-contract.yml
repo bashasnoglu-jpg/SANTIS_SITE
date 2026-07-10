@@ -76,12 +76,59 @@ jobs:
       - name: Import identity boundary module
         run: python -c "from app.api.v1.endpoints import identity_boundary; print(identity_boundary.router.tags)"
 
-      - name: Import production FastAPI runtime
+      - name: Register identity boundary in isolated FastAPI runtime
+        run: |
+          python - <<'PY'
+          from fastapi import FastAPI
+          from app.api.v1.endpoints.identity_boundary import router
+
+          app = FastAPI()
+          app.include_router(router, prefix="/api/v1")
+          paths = {route.path for route in app.routes}
+          expected = "/api/v1/reception/identity/shift-owner/write-through"
+          assert expected in paths, (expected, sorted(paths))
+          print(expected)
+          PY
+
+      - name: Verify local and production router wiring
+        run: |
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+
+          def verify(path: str) -> None:
+              tree = ast.parse(Path(path).read_text(encoding="utf-8"), filename=path)
+              imported = any(
+                  isinstance(node, ast.ImportFrom)
+                  and any(alias.name == "identity_boundary" for alias in node.names)
+                  for node in ast.walk(tree)
+              )
+              included = any(
+                  isinstance(node, ast.Call)
+                  and isinstance(node.func, ast.Attribute)
+                  and node.func.attr == "include_router"
+                  and node.args
+                  and isinstance(node.args[0], ast.Attribute)
+                  and node.args[0].attr == "router"
+                  and isinstance(node.args[0].value, ast.Name)
+                  and node.args[0].value.id == "identity_boundary"
+                  for node in ast.walk(tree)
+              )
+              assert imported, f"identity_boundary import missing in {path}"
+              assert included, f"identity_boundary router registration missing in {path}"
+              print(f"{path}: identity boundary wiring OK")
+
+          verify("app/main.py")
+          verify("api/index.py")
+          PY
+
+      - name: Import production FastAPI runtime (baseline diagnostic)
         id: production-import
+        continue-on-error: true
         run: python -c "from api.index import app; print(app.title)"
 
       - name: Capture production import traceback
-        if: failure()
+        if: steps.production-import.outcome == 'failure'
         run: |
           python - <<'PY'
           import traceback
@@ -93,7 +140,7 @@ jobs:
           PY
 
       - name: Upload production import traceback
-        if: failure()
+        if: steps.production-import.outcome == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: identity-import-error
