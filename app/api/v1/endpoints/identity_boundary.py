@@ -4,7 +4,7 @@ import asyncio
 import os
 import secrets
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Awaitable, Callable, TypeVar
 
 import httpx
 from fastapi import APIRouter, Header, HTTPException
@@ -24,11 +24,6 @@ from app.domain.identity_write_through import (
 router = APIRouter(tags=["identity-boundary"])
 
 AIRTABLE_API_URL = "https://api.airtable.com/v0"
-BASE_ID = os.getenv("AIRTABLE_BASE_ID") or os.getenv("AIRTABLE_SANTIS_BASE_ID")
-AIRTABLE_TOKEN = os.getenv("AIRTABLE_PAT") or os.getenv("AIRTABLE_API_KEY")
-BOUNDARY_SECRET = os.getenv("IDENTITY_BOUNDARY_SHARED_SECRET")
-CONTROL_RECORD_ID = os.getenv("IDENTITY_RECON_CONTROL_RECORD_ID")
-
 TABLE_BOOKINGS = os.getenv("IDENTITY_RECON_BOOKINGS_TABLE", "tblocCFVgSNfaLAH6")
 TABLE_SHIFTS = os.getenv("IDENTITY_RECON_SHIFTS_TABLE", "tblQjvfz4ljnvCl1R")
 TABLE_RUNS = os.getenv("IDENTITY_RECON_RUNS_TABLE", "tblZfL6UuOfxz3On1")
@@ -43,6 +38,8 @@ SHIFT_BOOKINGS_REVERSE_LINK = "Bookings"
 
 _lock_guard = asyncio.Lock()
 _shift_locks: dict[str, asyncio.Lock] = {}
+_T = TypeVar("_T")
+_R = TypeVar("_R")
 
 
 class ShiftOwnerWriteThroughRequest(BaseModel):
@@ -173,16 +170,43 @@ def escape_airtable_formula_string(value: str) -> str:
     return str(value).replace("\\", "\\\\").replace("'", "\\'")
 
 
+def read_concurrency_limit() -> int:
+    raw = os.getenv("IDENTITY_BOUNDARY_READ_CONCURRENCY", "3")
+    try:
+        parsed = int(raw)
+    except ValueError:
+        parsed = 3
+    return max(1, min(parsed, 5))
+
+
+async def bounded_map(
+    items: list[_T],
+    worker: Callable[[_T], Awaitable[_R]],
+) -> list[_R]:
+    semaphore = asyncio.Semaphore(read_concurrency_limit())
+
+    async def run(item: _T) -> _R:
+        async with semaphore:
+            return await worker(item)
+
+    return list(await asyncio.gather(*(run(item) for item in items)))
+
+
 def require_runtime_config() -> tuple[str, str, str, str]:
-    if not BASE_ID:
+    base_id = os.getenv("AIRTABLE_BASE_ID") or os.getenv("AIRTABLE_SANTIS_BASE_ID")
+    airtable_token = os.getenv("AIRTABLE_PAT") or os.getenv("AIRTABLE_API_KEY")
+    boundary_secret = os.getenv("IDENTITY_BOUNDARY_SHARED_SECRET")
+    control_record_id = os.getenv("IDENTITY_RECON_CONTROL_RECORD_ID")
+
+    if not base_id:
         raise HTTPException(status_code=503, detail="AIRTABLE_BASE_ID is not configured")
-    if not AIRTABLE_TOKEN:
+    if not airtable_token:
         raise HTTPException(status_code=503, detail="AIRTABLE_PAT is not configured")
-    if not BOUNDARY_SECRET:
+    if not boundary_secret:
         raise HTTPException(status_code=503, detail="IDENTITY_BOUNDARY_SHARED_SECRET is not configured")
-    if not CONTROL_RECORD_ID or not CONTROL_RECORD_ID.startswith("rec"):
+    if not control_record_id or not control_record_id.startswith("rec"):
         raise HTTPException(status_code=503, detail="IDENTITY_RECON_CONTROL_RECORD_ID is not configured")
-    return BASE_ID, AIRTABLE_TOKEN, BOUNDARY_SECRET, CONTROL_RECORD_ID
+    return base_id, airtable_token, boundary_secret, control_record_id
 
 
 def authenticate(provided_secret: str | None, configured_secret: str) -> None:
@@ -276,8 +300,7 @@ async def discover_impacted_bookings(
         reverse_field_name=SHIFT_BOOKINGS_REVERSE_LINK,
     )
 
-    impacted: list[dict[str, Any]] = []
-    for booking_id in impacted_ids:
+    async def read_and_verify(booking_id: str) -> dict[str, Any]:
         booking = await client.read_record(TABLE_BOOKINGS, booking_id)
         assert_test_record(booking, f"Impacted booking {booking_id}")
         current_shift_ids = stable_record_ids((booking.get("fields") or {}).get(BOOKING_SHIFT_LINK))
@@ -289,7 +312,9 @@ async def discover_impacted_bookings(
                     f"shift {shift_record_id} absent from current Staff Shift Link"
                 ),
             )
-        impacted.append(booking)
+        return booking
+
+    impacted = await bounded_map(impacted_ids, read_and_verify)
     return sorted(impacted, key=lambda record: str(record.get("id")))
 
 
@@ -306,10 +331,12 @@ async def invalidate_and_verify(
             ],
         )
 
-    for booking_id in impacted_booking_ids:
+    async def verify(booking_id: str) -> None:
         current = await client.read_record(TABLE_BOOKINGS, booking_id)
         if (current.get("fields") or {}).get(BOOKING_FRESHNESS) == "FRESH - SOURCE_MATCH":
             raise HTTPException(status_code=409, detail=f"invalidation verification failed for {booking_id}")
+
+    await bounded_map(impacted_booking_ids, verify)
 
 
 async def stabilize_and_invalidate_impacted_set(
@@ -343,6 +370,7 @@ async def reconcile_shift(client: AirtableClient, shift_record_id: str) -> dict[
     assert_test_record(shift, f"Shift {shift_record_id}")
     evidence = compute_shift_evidence(shift)
     await client.patch_records(TABLE_SHIFTS, [{"id": shift_record_id, "fields": shift_cache_patch(evidence)}])
+    # Reread is deliberate: computed freshness is security evidence, not just write acknowledgement.
     return await client.read_record(TABLE_SHIFTS, shift_record_id)
 
 
@@ -357,6 +385,7 @@ async def reconcile_booking(client: AirtableClient, booking_id: str) -> dict[str
         shifts_by_id[shift_id] = shift
     evidence = compute_booking_evidence(booking, shifts_by_id)
     await client.patch_records(TABLE_BOOKINGS, [{"id": booking_id, "fields": booking_cache_patch(evidence)}])
+    # Reread is deliberate: formula-derived freshness/guard outputs are acceptance evidence.
     return await client.read_record(TABLE_BOOKINGS, booking_id)
 
 
@@ -441,6 +470,8 @@ async def shift_owner_write_through(
             shift_mutated_at = now_iso()
 
             shift_after = await reconcile_shift(client, request.shift_record_id)
+            # Deliberately sequential: bookings are already fail-closed here, while bounded
+            # Airtable request pressure is safer than an unbounded post-mutation burst.
             reconciled_bookings = [
                 await reconcile_booking(client, booking_id)
                 for booking_id in impacted_ids
