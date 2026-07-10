@@ -77,19 +77,8 @@ jobs:
         run: python -c "from app.api.v1.endpoints import identity_boundary; print(identity_boundary.router.tags)"
 
       - name: Register identity boundary in isolated FastAPI runtime
-        id: route-registration
-        continue-on-error: true
         run: >-
-          python -c "from fastapi import FastAPI; from app.api.v1.endpoints.identity_boundary import router; app=FastAPI(); app.include_router(router,prefix='/api/v1'); paths=[r.path for r in app.routes]; expected='/api/v1/reception/identity/shift-owner/write-through'; print(paths); assert expected in paths" > identity-route-output.txt 2>&1
-
-      - name: Upload route registration output
-        if: steps.route-registration.outcome == 'failure'
-        uses: actions/upload-artifact@v4
-        with:
-          name: identity-route-output
-          path: identity-route-output.txt
-          if-no-files-found: error
-          retention-days: 7
+          python -c "from fastapi import FastAPI; from app.api.v1.endpoints.identity_boundary import router; app=FastAPI(); app.include_router(router,prefix='/api/v1'); paths=set(app.openapi()['paths']); expected='/api/v1/reception/identity/shift-owner/write-through'; print(sorted(paths)); assert expected in paths"
 
       - name: Verify local and production router wiring
         run: |
@@ -148,7 +137,3 @@ jobs:
           path: identity-import-error.txt
           if-no-files-found: error
           retention-days: 7
-
-      - name: Enforce boundary route registration gate
-        if: always()
-        run: test "${{ steps.route-registration.outcome }}" = "success"
