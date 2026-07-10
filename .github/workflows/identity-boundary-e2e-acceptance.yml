@@ -1,0 +1,58 @@
+name: Identity Boundary E2E Acceptance
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'p0/identity-sync-boundary'
+    paths:
+      - 'scripts/ops/identity-boundary-e2e.py'
+      - '.github/workflows/identity-boundary-e2e-acceptance.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: identity-boundary-a3g-test-acceptance
+  cancel-in-progress: false
+
+jobs:
+  pat-e2e:
+    name: P0 A3G Test PAT write-through acceptance
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      AIRTABLE_BASE_ID: app7VPfdgji5FzLHg
+      AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
+      AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+      IDENTITY_BOUNDARY_SHARED_SECRET: A3G-ACCEPTANCE-${{ github.run_id }}-${{ github.run_attempt }}
+      IDENTITY_RECON_CONTROL_RECORD_ID: recTu7e7ohiBKOzeX
+      IDENTITY_RECON_BOOKINGS_TABLE: tblocCFVgSNfaLAH6
+      IDENTITY_RECON_SHIFTS_TABLE: tblQjvfz4ljnvCl1R
+      IDENTITY_RECON_RUNS_TABLE: tblZfL6UuOfxz3On1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate Airtable write credential presence
+        shell: bash
+        run: |
+          if [ -z "${AIRTABLE_PAT}${AIRTABLE_API_KEY}" ]; then
+            echo "::error::Neither AIRTABLE_PAT nor AIRTABLE_API_KEY repository secret is configured."
+            exit 1
+          fi
+          echo "Airtable write credential is configured; value will not be printed."
+
+      - name: Install boundary runtime dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Execute real Test PAT boundary cycle
+        run: python scripts/ops/identity-boundary-e2e.py
