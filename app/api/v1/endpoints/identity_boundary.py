@@ -16,7 +16,7 @@ from app.domain.identity_write_through import (
     compute_booking_evidence,
     compute_shift_evidence,
     deterministic_boundary_key,
-    find_impacted_booking_ids,
+    reverse_impacted_booking_ids,
     shift_cache_patch,
     stable_record_ids,
 )
@@ -39,6 +39,7 @@ BOOKING_IDENTITY_GUARD = "Therapist_Shift_Identity_Guard"
 BOOKING_SHIFT_LINK = "Staff Shift Link"
 BOOKING_ENVIRONMENT = "Environment"
 SHIFT_STAFF_LINK = "Staff_Link"
+SHIFT_BOOKINGS_REVERSE_LINK = "Bookings"
 
 _lock_guard = asyncio.Lock()
 _shift_locks: dict[str, asyncio.Lock] = {}
@@ -104,16 +105,30 @@ class AirtableClient:
     async def read_record(self, table: str, record_id: str) -> dict[str, Any]:
         return await self.request("GET", table, f"/{record_id}")
 
-    async def list_records(self, table: str, fields: list[str]) -> list[dict[str, Any]]:
+    async def list_records(
+        self,
+        table: str,
+        fields: list[str],
+        *,
+        filter_by_formula: str | None = None,
+        max_records: int | None = None,
+    ) -> list[dict[str, Any]]:
         records: list[dict[str, Any]] = []
         offset: str | None = None
         while True:
-            params: list[tuple[str, str]] = [("pageSize", "100")]
+            page_size = min(100, max_records) if max_records else 100
+            params: list[tuple[str, str]] = [("pageSize", str(page_size))]
             params.extend(("fields[]", field) for field in fields)
+            if filter_by_formula:
+                params.append(("filterByFormula", filter_by_formula))
+            if max_records:
+                params.append(("maxRecords", str(max_records)))
             if offset:
                 params.append(("offset", offset))
             payload = await self.request("GET", table, params=params)
             records.extend(payload.get("records") or [])
+            if max_records and len(records) >= max_records:
+                return records[:max_records]
             offset = payload.get("offset")
             if not offset:
                 return records
@@ -154,6 +169,10 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+def escape_airtable_formula_string(value: str) -> str:
+    return str(value).replace("\\", "\\\\").replace("'", "\\'")
+
+
 def require_runtime_config() -> tuple[str, str, str, str]:
     if not BASE_ID:
         raise HTTPException(status_code=503, detail="AIRTABLE_BASE_ID is not configured")
@@ -178,15 +197,14 @@ def assert_test_record(record: dict[str, Any], label: str) -> None:
 
 
 async def find_runs_by_key(client: AirtableClient, idempotency_key: str) -> list[dict[str, Any]]:
-    records = await client.list_records(
+    escaped = escape_airtable_formula_string(idempotency_key)
+    formula = f"{{Idempotency_Key}}='{escaped}'"
+    return await client.list_records(
         TABLE_RUNS,
         ["Idempotency_Key", "Run_Status", "Claim_Status", "Result_Message"],
+        filter_by_formula=formula,
+        max_records=2,
     )
-    return [
-        record
-        for record in records
-        if (record.get("fields") or {}).get("Idempotency_Key") == idempotency_key
-    ]
 
 
 async def log_run_start(
@@ -251,12 +269,27 @@ async def discover_impacted_bookings(
     client: AirtableClient,
     shift_record_id: str,
 ) -> list[dict[str, Any]]:
-    bookings = await client.list_records(TABLE_BOOKINGS, [BOOKING_SHIFT_LINK, BOOKING_ENVIRONMENT])
-    impacted_ids = find_impacted_booking_ids(bookings, shift_record_id)
-    id_set = set(impacted_ids)
-    impacted = [record for record in bookings if record.get("id") in id_set]
-    for booking in impacted:
-        assert_test_record(booking, f"Impacted booking {booking.get('id')}")
+    shift = await client.read_record(TABLE_SHIFTS, shift_record_id)
+    assert_test_record(shift, f"Shift {shift_record_id}")
+    impacted_ids = reverse_impacted_booking_ids(
+        shift,
+        reverse_field_name=SHIFT_BOOKINGS_REVERSE_LINK,
+    )
+
+    impacted: list[dict[str, Any]] = []
+    for booking_id in impacted_ids:
+        booking = await client.read_record(TABLE_BOOKINGS, booking_id)
+        assert_test_record(booking, f"Impacted booking {booking_id}")
+        current_shift_ids = stable_record_ids((booking.get("fields") or {}).get(BOOKING_SHIFT_LINK))
+        if shift_record_id not in current_shift_ids:
+            raise HTTPException(
+                status_code=409,
+                detail=(
+                    f"reverse-link drift for booking {booking_id}: "
+                    f"shift {shift_record_id} absent from current Staff Shift Link"
+                ),
+            )
+        impacted.append(booking)
     return sorted(impacted, key=lambda record: str(record.get("id")))
 
 
@@ -285,7 +318,7 @@ async def stabilize_and_invalidate_impacted_set(
     *,
     max_rounds: int = 3,
 ) -> list[str]:
-    """Invalidate the exact impacted set and verify it remains stable across rereads.
+    """Invalidate the exact reverse-linked set and verify it remains stable across rereads.
 
     This narrows but does not eliminate races from external writers. Direct Airtable edits
     can still bypass this process; the API response discloses that limitation.
