@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderFeed(events) {
         const feedContainer = document.getElementById('live-feed');
-        feedContainer.innerHTML = ''; // Full flush
+        feedContainer.replaceChildren(); // Full flush without HTML parsing
         
         events.forEach(event => {
             const li = document.createElement('li');
@@ -113,10 +113,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 else desc += "Zerk Edildi.";
             } catch(e) { desc += "Payload verisi..."; }
 
-            li.innerHTML = `
-                <span class="feed-time">${timeString}</span>
-                <span class="feed-desc ${textClass}">${desc}</span>
-            `;
+            const timeEl = document.createElement('span');
+            timeEl.className = 'feed-time';
+            timeEl.textContent = timeString;
+
+            const descEl = document.createElement('span');
+            descEl.className = `feed-desc ${textClass}`;
+            descEl.textContent = desc;
+
+            li.append(timeEl, descEl);
             feedContainer.appendChild(li);
         });
         
@@ -179,7 +184,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await res.json();
             
             if (data.avg !== null && data.avg !== undefined) {
-                document.getElementById('metric-latency').innerHTML = `${data.avg} <span style="font-size: 1rem; color: var(--santis-muted)">ms</span>`;
+                const latencyEl = document.getElementById('metric-latency');
+                latencyEl.replaceChildren();
+
+                const latencyValue = document.createTextNode(`${String(data.avg)} `);
+                const latencyUnit = document.createElement('span');
+                latencyUnit.style.fontSize = '1rem';
+                latencyUnit.style.color = 'var(--santis-muted)';
+                latencyUnit.textContent = 'ms';
+
+                latencyEl.append(latencyValue, latencyUnit);
             }
             
             // Update Chart.js safely without re-init
