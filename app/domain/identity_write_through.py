@@ -59,6 +59,11 @@ def deterministic_boundary_key(
 
 
 def find_impacted_booking_ids(bookings: list[dict[str, Any]], shift_record_id: str) -> list[str]:
+    """Legacy/pure helper for explicit booking collections.
+
+    The A.3G runtime does not use this for discovery; it uses the shift's native
+    reverse `Bookings` linked-record field to avoid scanning the Bookings table.
+    """
     require_record_id(shift_record_id, "shift_record_id")
     impacted: list[str] = []
     for booking in bookings:
@@ -67,6 +72,17 @@ def find_impacted_booking_ids(bookings: list[dict[str, Any]], shift_record_id: s
             if isinstance(booking_id, str) and booking_id.startswith("rec"):
                 impacted.append(booking_id)
     return sorted(set(impacted))
+
+
+def reverse_impacted_booking_ids(
+    shift: dict[str, Any],
+    *,
+    reverse_field_name: str = "Bookings",
+) -> list[str]:
+    """Read exact impacted booking IDs from a shift's native reverse link field."""
+    require_record_id(str(shift.get("id", "")), "shift.id")
+    fields = shift.get("fields") or {}
+    return stable_record_ids(fields.get(reverse_field_name))
 
 
 @dataclass(frozen=True)
