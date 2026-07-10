@@ -73,5 +73,30 @@ jobs:
       - name: Run synchronous boundary core tests
         run: python -m unittest discover -s tests -p 'test_identity_write_through.py' -v
 
+      - name: Import identity boundary module
+        run: python -c "from app.api.v1.endpoints import identity_boundary; print(identity_boundary.router.tags)"
+
       - name: Import production FastAPI runtime
+        id: production-import
         run: python -c "from api.index import app; print(app.title)"
+
+      - name: Capture production import traceback
+        if: failure()
+        run: |
+          python - <<'PY'
+          import traceback
+          try:
+              from api.index import app
+          except Exception:
+              with open('identity-import-error.txt', 'w', encoding='utf-8') as handle:
+                  traceback.print_exc(file=handle)
+          PY
+
+      - name: Upload production import traceback
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: identity-import-error
+          path: identity-import-error.txt
+          if-no-files-found: error
+          retention-days: 7
