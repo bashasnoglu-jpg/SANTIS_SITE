@@ -35,21 +35,27 @@ export const OracleFeed = {
         `;
         suggestionElement.id = `advisory-${suggestion.id}`;
         
+        const riskColor = riskLevel === 'high' ? 'var(--color-sovereign-danger, #ff4d4d)' : 'var(--color-sovereign-success, #88cc88)';
         suggestionElement.innerHTML = `
             <div class="advisory-header" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #222; padding-bottom:15px; margin-bottom:15px;">
                 <span class="advisory-label" style="color:var(--color-sovereign-muted, #888); font-weight:600; font-size:0.75rem; letter-spacing:2px;">[ ORACLE FISILTISI ]</span>
-                <span class="advisory-risk" style="color:${riskLevel === 'high' ? 'var(--color-sovereign-danger, #ff4d4d)' : 'var(--color-sovereign-success, #88cc88)'}; font-weight:600; font-size:0.8rem; letter-spacing:1px;">RİSK: %${Math.round(suggestion.riskScore * 100)}</span>
+                <span class="advisory-risk" style="color:${riskColor}; font-weight:600; font-size:0.8rem; letter-spacing:1px;">RİSK: %${Math.round(suggestion.riskScore * 100)}</span>
             </div>
-            <p class="advisory-text" style="font-size:1.1rem; line-height:1.6; color:var(--color-sovereign-neutral-200, #f0f0f0); margin-bottom:25px;">${suggestion.recommendation}</p>
+            <p class="advisory-text" style="font-size:1.1rem; line-height:1.6; color:var(--color-sovereign-neutral-200, #f0f0f0); margin-bottom:25px;"></p>
             <div class="advisory-actions" style="display:flex; gap:15px;">
-                <button class="btn-approve" data-id="${suggestion.id}" style="background:var(--color-sovereign-coal, #1a1a1a); border:1px solid var(--color-sovereign-gold, #d4af37); color:var(--color-sovereign-gold, #d4af37); padding:10px 25px; cursor:pointer; flex:1; font-weight:600; letter-spacing:1px; transition:all 0.3s ease;">ONAYLA (EXECUTE)</button>
-                <button class="btn-reject" data-id="${suggestion.id}" style="background:transparent; border:1px solid var(--color-sovereign-line-soft, #444); color:var(--color-sovereign-muted, #777); padding:10px 25px; cursor:pointer; flex:1; font-weight:600; letter-spacing:1px; transition:all 0.3s ease;">YOK SAY (DISMISS)</button>
+                <button class="btn-approve" style="background:var(--color-sovereign-coal, #1a1a1a); border:1px solid var(--color-sovereign-gold, #d4af37); color:var(--color-sovereign-gold, #d4af37); padding:10px 25px; cursor:pointer; flex:1; font-weight:600; letter-spacing:1px; transition:all 0.3s ease;">ONAYLA (EXECUTE)</button>
+                <button class="btn-reject" style="background:transparent; border:1px solid var(--color-sovereign-line-soft, #444); color:var(--color-sovereign-muted, #777); padding:10px 25px; cursor:pointer; flex:1; font-weight:600; letter-spacing:1px; transition:all 0.3s ease;">YOK SAY (DISMISS)</button>
             </div>
         `;
 
         // Event listener bağlama
         const approveBtn = suggestionElement.querySelector('.btn-approve');
         const rejectBtn = suggestionElement.querySelector('.btn-reject');
+        
+        // Güvenli yerleştirme (XSS engelleme)
+        suggestionElement.querySelector('.advisory-text').textContent = suggestion.recommendation;
+        approveBtn.dataset.id = suggestion.id;
+        rejectBtn.dataset.id = suggestion.id;
 
         approveBtn.addEventListener('click', () => this.approve(suggestion.id, suggestionElement, suggestion.executePayload));
         rejectBtn.addEventListener('click', () => this.reject(suggestion.id, suggestionElement));
