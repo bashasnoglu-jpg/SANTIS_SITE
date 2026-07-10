@@ -34,16 +34,11 @@ TABLE_SHIFTS = os.getenv("IDENTITY_RECON_SHIFTS_TABLE", "tblQjvfz4ljnvCl1R")
 TABLE_RUNS = os.getenv("IDENTITY_RECON_RUNS_TABLE", "tblZfL6UuOfxz3On1")
 
 BOOKING_RECONCILED_SIGNATURE = "Identity_Reconciled_Source_Signature_v0_1"
-BOOKING_SOURCE_SIGNATURE = "Identity_Source_Signature_v0_1"
 BOOKING_FRESHNESS = "Identity_Evidence_Freshness_Status_v0_1"
 BOOKING_IDENTITY_GUARD = "Therapist_Shift_Identity_Guard"
 BOOKING_SHIFT_LINK = "Staff Shift Link"
-BOOKING_THERAPIST_LINK = "Therapist_Link"
 BOOKING_ENVIRONMENT = "Environment"
-
 SHIFT_STAFF_LINK = "Staff_Link"
-SHIFT_ENVIRONMENT = "Environment"
-SHIFT_SOURCE_SIGNATURE = "Shift_Identity_Source_Signature_v0_1"
 
 _lock_guard = asyncio.Lock()
 _shift_locks: dict[str, asyncio.Lock] = {}
@@ -76,7 +71,6 @@ class ShiftOwnerWriteThroughRequest(BaseModel):
 class AirtableClient:
     def __init__(self, base_id: str, token: str):
         self.base_id = base_id
-        self.token = token
         self.client = httpx.AsyncClient(
             timeout=30.0,
             headers={
@@ -101,8 +95,10 @@ class AirtableClient:
         url = f"{AIRTABLE_API_URL}/{self.base_id}/{table}{path}"
         response = await self.client.request(method, url, params=params, json=json_body)
         if response.status_code >= 400:
-            detail = response.text[:1200]
-            raise RuntimeError(f"Airtable {method} {table}{path} failed: {response.status_code} {detail}")
+            raise RuntimeError(
+                f"Airtable {method} {table}{path} failed: "
+                f"{response.status_code} {response.text[:1200]}"
+            )
         return response.json()
 
     async def read_record(self, table: str, record_id: str) -> dict[str, Any]:
@@ -125,11 +121,10 @@ class AirtableClient:
     async def patch_records(self, table: str, records: list[dict[str, Any]]) -> list[dict[str, Any]]:
         updated: list[dict[str, Any]] = []
         for index in range(0, len(records), 10):
-            batch = records[index : index + 10]
             payload = await self.request(
                 "PATCH",
                 table,
-                json_body={"records": batch, "typecast": False},
+                json_body={"records": records[index : index + 10], "typecast": False},
             )
             updated.extend(payload.get("records") or [])
         return updated
@@ -179,25 +174,19 @@ def authenticate(provided_secret: str | None, configured_secret: str) -> None:
 def assert_test_record(record: dict[str, Any], label: str) -> None:
     environment = (record.get("fields") or {}).get("Environment")
     if environment != "Test":
-        raise HTTPException(
-            status_code=409,
-            detail=f"{label} is not Test; Environment={environment!r}",
-        )
+        raise HTTPException(status_code=409, detail=f"{label} is not Test; Environment={environment!r}")
 
 
-async def find_existing_run(client: AirtableClient, idempotency_key: str) -> dict[str, Any] | None:
+async def find_runs_by_key(client: AirtableClient, idempotency_key: str) -> list[dict[str, Any]]:
     records = await client.list_records(
         TABLE_RUNS,
-        ["Idempotency_Key", "Run_Status", "Result_Message"],
+        ["Idempotency_Key", "Run_Status", "Claim_Status", "Result_Message"],
     )
-    matches = [
+    return [
         record
         for record in records
         if (record.get("fields") or {}).get("Idempotency_Key") == idempotency_key
     ]
-    if len(matches) > 1:
-        raise HTTPException(status_code=409, detail="duplicate idempotency key rows detected")
-    return matches[0] if matches else None
 
 
 async def log_run_start(
@@ -214,20 +203,25 @@ async def log_run_start(
             "Automation_Control_Link": [control_record_id],
             "Run_Status": "Running",
             "Environment": "Test",
-            "Trigger_Type": "API/Webhook",
+            "Trigger_Type": "Webhook",
             "Source_Record_ID": request.shift_record_id,
             "Target_Record_ID": request.shift_record_id,
-            "Result_Message": "Synchronous identity boundary started; no shift mutation performed yet.",
+            "Result_Message": "Synchronous boundary started; shift mutation not yet performed.",
             "Run_By": "Santis OS Identity Write-Through Boundary",
             "Idempotency_Key": idempotency_key,
             "Input_Fingerprint": idempotency_key.rsplit("H=", 1)[-1],
             "Idempotency_Namespace": "SHIFT_MATCH",
             "Contract_Version": CONTRACT_VERSION,
+            "Claim_Status": "CLAIM REQUESTED",
             "Attempt_Number": 1,
             "Mutation_Type": "RECONCILE",
             "Run_Started_At": now_iso(),
         },
     )
+
+
+async def patch_run(client: AirtableClient, run_id: str, fields: dict[str, Any]) -> None:
+    await client.patch_records(TABLE_RUNS, [{"id": run_id, "fields": fields}])
 
 
 async def finish_run(
@@ -237,30 +231,30 @@ async def finish_run(
     status: str,
     message: str,
     error_log: str = "",
+    claim_status: str | None = None,
+    mutation_type: str | None = None,
 ) -> None:
-    await client.patch_records(
-        TABLE_RUNS,
-        [
-            {
-                "id": run_id,
-                "fields": {
-                    "Run_Status": status,
-                    "Run_Finished_At": now_iso(),
-                    "Result_Message": message,
-                    "Error_Log": error_log[:5000],
-                },
-            }
-        ],
-    )
+    fields: dict[str, Any] = {
+        "Run_Status": status,
+        "Run_Finished_At": now_iso(),
+        "Result_Message": message,
+        "Error_Log": error_log[:5000],
+    }
+    if claim_status:
+        fields["Claim_Status"] = claim_status
+    if mutation_type:
+        fields["Mutation_Type"] = mutation_type
+    await patch_run(client, run_id, fields)
 
 
-async def read_impacted_bookings(client: AirtableClient, shift_record_id: str) -> list[dict[str, Any]]:
-    bookings = await client.list_records(
-        TABLE_BOOKINGS,
-        [BOOKING_SHIFT_LINK, BOOKING_ENVIRONMENT],
-    )
+async def discover_impacted_bookings(
+    client: AirtableClient,
+    shift_record_id: str,
+) -> list[dict[str, Any]]:
+    bookings = await client.list_records(TABLE_BOOKINGS, [BOOKING_SHIFT_LINK, BOOKING_ENVIRONMENT])
     impacted_ids = find_impacted_booking_ids(bookings, shift_record_id)
-    impacted = [record for record in bookings if record.get("id") in set(impacted_ids)]
+    id_set = set(impacted_ids)
+    impacted = [record for record in bookings if record.get("id") in id_set]
     for booking in impacted:
         assert_test_record(booking, f"Impacted booking {booking.get('id')}")
     return sorted(impacted, key=lambda record: str(record.get("id")))
@@ -269,40 +263,53 @@ async def read_impacted_bookings(client: AirtableClient, shift_record_id: str) -
 async def invalidate_and_verify(
     client: AirtableClient,
     impacted_booking_ids: list[str],
-) -> list[dict[str, Any]]:
+) -> None:
     if impacted_booking_ids:
         await client.patch_records(
             TABLE_BOOKINGS,
             [
-                {
-                    "id": booking_id,
-                    "fields": {BOOKING_RECONCILED_SIGNATURE: None},
-                }
+                {"id": booking_id, "fields": {BOOKING_RECONCILED_SIGNATURE: None}}
                 for booking_id in impacted_booking_ids
             ],
         )
 
-    verified: list[dict[str, Any]] = []
     for booking_id in impacted_booking_ids:
         current = await client.read_record(TABLE_BOOKINGS, booking_id)
-        freshness = (current.get("fields") or {}).get(BOOKING_FRESHNESS)
-        if freshness == "FRESH - SOURCE_MATCH":
-            raise HTTPException(
-                status_code=409,
-                detail=f"invalidation verification failed for {booking_id}",
-            )
-        verified.append(current)
-    return verified
+        if (current.get("fields") or {}).get(BOOKING_FRESHNESS) == "FRESH - SOURCE_MATCH":
+            raise HTTPException(status_code=409, detail=f"invalidation verification failed for {booking_id}")
+
+
+async def stabilize_and_invalidate_impacted_set(
+    client: AirtableClient,
+    shift_record_id: str,
+    *,
+    max_rounds: int = 3,
+) -> list[str]:
+    """Invalidate the exact impacted set and verify it remains stable across rereads.
+
+    This narrows but does not eliminate races from external writers. Direct Airtable edits
+    can still bypass this process; the API response discloses that limitation.
+    """
+    known_ids: set[str] = set()
+    for _ in range(max_rounds):
+        impacted = await discover_impacted_bookings(client, shift_record_id)
+        current_ids = {str(record["id"]) for record in impacted}
+        union_ids = sorted(known_ids | current_ids)
+        await invalidate_and_verify(client, union_ids)
+        reread = await discover_impacted_bookings(client, shift_record_id)
+        reread_ids = {str(record["id"]) for record in reread}
+        known_ids |= current_ids | reread_ids
+        if reread_ids == current_ids:
+            await invalidate_and_verify(client, sorted(known_ids))
+            return sorted(known_ids)
+    raise HTTPException(status_code=409, detail="impacted booking set did not stabilize")
 
 
 async def reconcile_shift(client: AirtableClient, shift_record_id: str) -> dict[str, Any]:
     shift = await client.read_record(TABLE_SHIFTS, shift_record_id)
     assert_test_record(shift, f"Shift {shift_record_id}")
     evidence = compute_shift_evidence(shift)
-    await client.patch_records(
-        TABLE_SHIFTS,
-        [{"id": shift_record_id, "fields": shift_cache_patch(evidence)}],
-    )
+    await client.patch_records(TABLE_SHIFTS, [{"id": shift_record_id, "fields": shift_cache_patch(evidence)}])
     return await client.read_record(TABLE_SHIFTS, shift_record_id)
 
 
@@ -315,12 +322,8 @@ async def reconcile_booking(client: AirtableClient, booking_id: str) -> dict[str
         shift = await client.read_record(TABLE_SHIFTS, shift_id)
         assert_test_record(shift, f"Linked shift {shift_id}")
         shifts_by_id[shift_id] = shift
-
     evidence = compute_booking_evidence(booking, shifts_by_id)
-    await client.patch_records(
-        TABLE_BOOKINGS,
-        [{"id": booking_id, "fields": booking_cache_patch(evidence)}],
-    )
+    await client.patch_records(TABLE_BOOKINGS, [{"id": booking_id, "fields": booking_cache_patch(evidence)}])
     return await client.read_record(TABLE_BOOKINGS, booking_id)
 
 
@@ -346,7 +349,10 @@ async def shift_owner_write_through(
         client = AirtableClient(base_id, token)
         run_record: dict[str, Any] | None = None
         try:
-            existing = await find_existing_run(client, idempotency_key)
+            existing_runs = await find_runs_by_key(client, idempotency_key)
+            if len(existing_runs) > 1:
+                raise HTTPException(status_code=409, detail="duplicate idempotency key rows detected")
+            existing = existing_runs[0] if existing_runs else None
             if existing and (existing.get("fields") or {}).get("Run_Status") == "Success":
                 return {
                     "status": "NOOP",
@@ -361,66 +367,81 @@ async def shift_owner_write_through(
             shift_before = await client.read_record(TABLE_SHIFTS, request.shift_record_id)
             assert_test_record(shift_before, f"Shift {request.shift_record_id}")
 
-            impacted = await read_impacted_bookings(client, request.shift_record_id)
-            impacted_ids = [str(record["id"]) for record in impacted]
-
             run_record = await log_run_start(
                 client,
                 control_record_id=control_record_id,
                 request=request,
                 idempotency_key=idempotency_key,
             )
+            await patch_run(
+                client,
+                str(run_record["id"]),
+                {"Claim_Status": "CLAIMED", "Claimed_At": now_iso()},
+            )
 
             invalidation_started_at = now_iso()
-            await invalidate_and_verify(client, impacted_ids)
+            impacted_ids = await stabilize_and_invalidate_impacted_set(client, request.shift_record_id)
             invalidated_at = now_iso()
 
-            # Re-read immediately before mutation. If another writer changed Staff_Link,
-            # abort while impacted bookings remain fail-closed.
+            # Optimistic expected-state guard. A competing writer changes Staff_Link ->
+            # abort after invalidation, leaving impacted bookings fail-closed.
             shift_pre_mutation = await client.read_record(TABLE_SHIFTS, request.shift_record_id)
-            current_staff_ids = stable_record_ids(
-                (shift_pre_mutation.get("fields") or {}).get(SHIFT_STAFF_LINK)
-            )
+            current_staff_ids = stable_record_ids((shift_pre_mutation.get("fields") or {}).get(SHIFT_STAFF_LINK))
             if current_staff_ids != expected_staff_ids:
                 message = (
                     "Expected shift owner changed before mutation; impacted bookings remain stale. "
                     f"expected={expected_staff_ids} current={current_staff_ids}"
                 )
-                await finish_run(client, str(run_record["id"]), status="Failed", message=message)
+                await finish_run(
+                    client,
+                    str(run_record["id"]),
+                    status="Failed",
+                    message=message,
+                    claim_status="CONFLICT",
+                )
                 raise HTTPException(status_code=409, detail=message)
 
             await client.patch_records(
                 TABLE_SHIFTS,
-                [
-                    {
-                        "id": request.shift_record_id,
-                        "fields": {SHIFT_STAFF_LINK: new_staff_ids},
-                    }
-                ],
+                [{"id": request.shift_record_id, "fields": {SHIFT_STAFF_LINK: new_staff_ids}}],
             )
             shift_mutated_at = now_iso()
 
             shift_after = await reconcile_shift(client, request.shift_record_id)
-            reconciled_bookings: list[dict[str, Any]] = []
-            for booking_id in impacted_ids:
-                reconciled_bookings.append(await reconcile_booking(client, booking_id))
+            reconciled_bookings = [
+                await reconcile_booking(client, booking_id)
+                for booking_id in impacted_ids
+            ]
             reconciled_at = now_iso()
 
             stale_after_reconcile = [
-                booking.get("id")
+                str(booking.get("id"))
                 for booking in reconciled_bookings
                 if (booking.get("fields") or {}).get(BOOKING_FRESHNESS) != "FRESH - SOURCE_MATCH"
             ]
             if stale_after_reconcile:
                 message = f"Reconciliation incomplete; stale bookings remain: {stale_after_reconcile}"
-                await finish_run(client, str(run_record["id"]), status="Failed", message=message)
+                await finish_run(
+                    client,
+                    str(run_record["id"]),
+                    status="Failed",
+                    message=message,
+                    claim_status="REJECTED",
+                )
                 raise HTTPException(status_code=409, detail=message)
 
             message = (
                 f"Write-through complete; impacted={len(impacted_ids)}; "
-                "all impacted bookings were verified non-FRESH before shift mutation."
+                "all impacted bookings verified non-FRESH before shift mutation."
             )
-            await finish_run(client, str(run_record["id"]), status="Success", message=message)
+            await finish_run(
+                client,
+                str(run_record["id"]),
+                status="Success",
+                message=message,
+                claim_status="RELEASED",
+                mutation_type="RECONCILE",
+            )
 
             return {
                 "status": "SUCCESS",
@@ -451,6 +472,7 @@ async def shift_owner_write_through(
                 "honesty_boundary": {
                     "direct_airtable_edits_can_bypass_boundary": True,
                     "process_local_lock_is_not_distributed_lock": True,
+                    "external_writer_can_race_after_last_impacted_set_read": True,
                     "native_airtable_trigger_deployed": False,
                 },
             }
@@ -464,8 +486,12 @@ async def shift_owner_write_through(
                         client,
                         str(run_record["id"]),
                         status="Failed",
-                        message="Write-through boundary failed; prior invalidation remains fail-closed if completed.",
+                        message=(
+                            "Write-through boundary failed; prior invalidation remains fail-closed "
+                            "if completed."
+                        ),
                         error_log=str(exc),
+                        claim_status="REJECTED",
                     )
                 except Exception:
                     pass
