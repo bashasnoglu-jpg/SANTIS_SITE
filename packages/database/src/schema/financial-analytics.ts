@@ -13,6 +13,7 @@ import {
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
 
 export const syncRunModeEnum = pgEnum('fi_sync_run_mode', ['NORMAL', 'FORCED_REPLAY']);
 export const syncRunStatusEnum = pgEnum('fi_sync_run_status', ['RUNNING', 'SUCCESS', 'PARTIAL_SUCCESS', 'FAILED', 'ABORTED']);
@@ -111,6 +112,9 @@ export const syncQuarantineLog = pgTable('fi_sync_quarantine_log', {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 }, (table) => ({
   sourceIdx: index('fi_quarantine_source_idx').on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
+  openDedupIdx: uniqueIndex('fi_quarantine_open_dedup_uq')
+    .on(table.sourceSystem, table.sourceTable, table.sourceRecordId, table.rawPayloadHash)
+    .where(sql`${table.status} = 'OPEN'`),
 }));
 
 export const factPayments = pgTable('fact_payments', {
