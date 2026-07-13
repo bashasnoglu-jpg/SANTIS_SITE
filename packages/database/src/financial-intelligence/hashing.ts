@@ -23,6 +23,7 @@ function normalizeValue(value: unknown): unknown {
   if (typeof value === 'object') {
     return Object.fromEntries(
       Object.entries(value as Record<string, unknown>)
+        .filter(([, nested]) => nested !== undefined)
         .sort(([left], [right]) => left.localeCompare(right))
         .map(([key, nested]) => [key, normalizeValue(nested)]),
     );
@@ -31,10 +32,16 @@ function normalizeValue(value: unknown): unknown {
 }
 
 export function canonicalSerialize(fields: Record<string, unknown>, includeFields?: readonly string[]): string {
-  const keys = (includeFields ?? Object.keys(fields))
-    .filter((key) => Object.prototype.hasOwnProperty.call(fields, key))
-    .sort();
-  const canonical = Object.fromEntries(keys.map((key) => [key, normalizeValue(fields[key])]));
+  const keys = includeFields
+    ? [...includeFields].sort()
+    : Object.keys(fields)
+        .filter((key) => fields[key] !== undefined)
+        .sort();
+
+  const canonical = Object.fromEntries(
+    keys.map((key) => [key, normalizeValue(fields[key])]),
+  );
+
   return JSON.stringify(canonical);
 }
 
