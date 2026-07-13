@@ -9,3 +9,4 @@ export * from "./audit-log.events.js";
 export * from "./ritual-graph.js";
 export * from "./ritual-graph.fixtures.js";
 export * from "./telemetry/booking-telemetry.schema.js";
+export * from "./booking/index.js";
