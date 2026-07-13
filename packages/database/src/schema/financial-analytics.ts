@@ -117,62 +117,146 @@ export const syncQuarantineLog = pgTable('fi_sync_quarantine_log', {
     .where(sql`${table.status} = 'OPEN'`),
 }));
 
-export const factPayments = pgTable('fact_payments', {
+export const paymentFacts = pgTable('payment_facts', {
   ...provenanceColumns(),
   factType: varchar('fact_type', { length: 50 }).notNull(),
-  amountEur: numeric('amount_eur', { precision: 12, scale: 2 }),
+  amount: numeric('amount', { precision: 12, scale: 2 }),
   amountOriginal: numeric('amount_original', { precision: 12, scale: 2 }),
   currency: varchar('currency', { length: 3 }),
-  exchangeRate: numeric('exchange_rate', { precision: 10, scale: 6 }),
+  exchangeRateApplied: numeric('exchange_rate_applied', { precision: 10, scale: 6 }),
+  refundAmount: numeric('refund_amount', { precision: 12, scale: 2 }),
+  discountAmount: numeric('discount_amount', { precision: 12, scale: 2 }),
   direction: varchar('direction', { length: 20 }),
-  paymentStatus: varchar('payment_status', { length: 50 }),
+  externalReference: text('external_reference'),
   parentFactReference: varchar('parent_fact_reference', { length: 100 }),
 }, factIndexes);
 
-export const factCashMovements = pgTable('fact_cash_movements', {
-  ...provenanceColumns(), amountEur: numeric('amount_eur', { precision: 12, scale: 2 }), currency: varchar('currency', { length: 3 }), movementType: varchar('movement_type', { length: 50 }), direction: varchar('direction', { length: 20 }),
+export const cashMovementFacts = pgTable('cash_movement_facts', {
+  ...provenanceColumns(),
+  amount: numeric('amount', { precision: 12, scale: 2 }),
+  currency: varchar('currency', { length: 3 }),
+  factType: varchar('fact_type', { length: 64 }),
+  direction: varchar('direction', { length: 20 }),
 }, factIndexes);
 
-export const factDailyCashClosings = pgTable('fact_daily_cash_closings', {
-  ...provenanceColumns(), openingCash: numeric('opening_cash', { precision: 12, scale: 2 }), expectedCash: numeric('expected_cash', { precision: 12, scale: 2 }), cashCounted: numeric('cash_counted', { precision: 12, scale: 2 }), cashDifference: numeric('cash_difference', { precision: 12, scale: 2 }), closingStatus: varchar('closing_status', { length: 50 }),
+export const dailyCashClosings = pgTable('daily_cash_closings', {
+  ...provenanceColumns(),
+  businessDate: timestamp('business_date', { withTimezone: true }),
+  openingCash: numeric('opening_cash', { precision: 12, scale: 2 }),
+  expectedCash: numeric('expected_cash', { precision: 12, scale: 2 }),
+  cashCounted: numeric('cash_counted', { precision: 12, scale: 2 }),
+  cashDifference: numeric('cash_difference', { precision: 12, scale: 2 }),
+  cashIncome: numeric('cash_income', { precision: 12, scale: 2 }),
+  cardIncome: numeric('card_income', { precision: 12, scale: 2 }),
+  bankIncome: numeric('bank_income', { precision: 12, scale: 2 }),
+  closingStatus: varchar('closing_status', { length: 32 }),
+  approvalStatus: varchar('approval_status', { length: 32 }),
+  approvedAt: timestamp('approved_at', { withTimezone: true }),
 }, factIndexes);
 
-export const factBookings = pgTable('fact_bookings', {
-  ...provenanceColumns(), factType: varchar('fact_type', { length: 50 }), listPrice: numeric('list_price', { precision: 12, scale: 2 }), appliedPrice: numeric('applied_price', { precision: 12, scale: 2 }), currency: varchar('currency', { length: 3 }), bookingStatus: varchar('booking_status', { length: 50 }), serviceId: varchar('service_id', { length: 100 }), therapistId: varchar('therapist_id', { length: 100 }), roomId: varchar('room_id', { length: 100 }), clientId: varchar('client_id', { length: 100 }),
+export const bookingFacts = pgTable('booking_facts', {
+  ...provenanceColumns(),
+  factType: varchar('fact_type', { length: 64 }),
+  listAmount: numeric('list_amount', { precision: 12, scale: 2 }),
+  appliedAmount: numeric('applied_amount', { precision: 12, scale: 2 }),
+  discountAmount: numeric('discount_amount', { precision: 12, scale: 2 }),
+  currency: varchar('currency', { length: 3 }),
+  serviceId: varchar('service_id', { length: 100 }),
+  therapistId: varchar('therapist_id', { length: 100 }),
+  roomId: varchar('room_id', { length: 100 }),
+  clientId: varchar('client_id', { length: 100 }),
 }, factIndexes);
 
-export const factCommissions = pgTable('fact_commissions', {
-  ...provenanceColumns(), grossSourceAmount: numeric('gross_source_amount', { precision: 12, scale: 2 }), commissionAmount: numeric('commission_amount', { precision: 12, scale: 2 }), commissionRate: numeric('commission_rate', { precision: 5, scale: 2 }), currency: varchar('currency', { length: 3 }), bookingReference: varchar('booking_reference', { length: 100 }), ruleVersion: varchar('rule_version', { length: 50 }),
+export const commissionFacts = pgTable('commission_facts', {
+  ...provenanceColumns(),
+  sourceAmount: numeric('source_amount', { precision: 12, scale: 2 }),
+  amount: numeric('amount', { precision: 12, scale: 2 }),
+  commissionRate: numeric('commission_rate', { precision: 5, scale: 2 }),
+  currency: varchar('currency', { length: 3 }),
+  sourceBookingId: varchar('source_booking_id', { length: 100 }),
+  ruleVersionId: varchar('rule_version_id', { length: 100 }),
 }, factIndexes);
 
-export const factPackageUsage = pgTable('fact_package_usage', {
-  ...provenanceColumns(), sessionsDeducted: integer('sessions_deducted'), realizedSessionValueEur: numeric('realized_session_value_eur', { precision: 12, scale: 2 }), discountAllocatedEur: numeric('discount_allocated_eur', { precision: 12, scale: 2 }), status: varchar('status', { length: 50 }),
+export const packageUsageFacts = pgTable('package_usage_facts', {
+  ...provenanceColumns(),
+  factType: varchar('fact_type', { length: 64 }),
+  sessionsDeducted: numeric('sessions_deducted', { precision: 10, scale: 2 }),
+  amount: numeric('amount', { precision: 12, scale: 2 }),
+  realizedValue: numeric('realized_value', { precision: 12, scale: 2 }),
+  commissionBase: numeric('commission_base', { precision: 12, scale: 2 }),
+  discountAllocated: numeric('discount_allocated', { precision: 12, scale: 2 }),
 }, factIndexes);
 
-export const factClientPackages = pgTable('fact_client_packages', {
-  ...provenanceColumns(), purchaseAmountEur: numeric('purchase_amount_eur', { precision: 12, scale: 2 }), paidAmountEur: numeric('paid_amount_eur', { precision: 12, scale: 2 }), currency: varchar('currency', { length: 3 }), totalSessions: integer('total_sessions'), remainingSessions: integer('remaining_sessions'), packageStatus: varchar('package_status', { length: 50 }), clientId: varchar('client_id', { length: 100 }),
+export const clientPackageFacts = pgTable('client_package_facts', {
+  ...provenanceColumns(),
+  listAmount: numeric('list_amount', { precision: 12, scale: 2 }),
+  paidAmount: numeric('paid_amount', { precision: 12, scale: 2 }),
+  currency: varchar('currency', { length: 3 }),
+  totalSessions: integer('total_sessions'),
+  remainingSessions: integer('remaining_sessions'),
+  packageStatus: varchar('package_status', { length: 50 }),
+  clientId: varchar('client_id', { length: 100 }),
 }, factIndexes);
 
-export const factCancellations = pgTable('fact_cancellations', {
-  ...provenanceColumns(), bookingReference: varchar('booking_reference', { length: 100 }), cancellationReason: text('cancellation_reason'), cancellationType: varchar('cancellation_type', { length: 50 }), refundAmountEur: numeric('refund_amount_eur', { precision: 12, scale: 2 }), cancellationFeeEur: numeric('cancellation_fee_eur', { precision: 12, scale: 2 }), auditStatus: varchar('audit_status', { length: 50 }),
+export const cancellationFacts = pgTable('cancellation_facts', {
+  ...provenanceColumns(),
+  sourceBookingId: varchar('source_booking_id', { length: 100 }),
+  cancellationReason: text('cancellation_reason'),
+  cancellationType: varchar('cancellation_type', { length: 50 }),
+  refundAmount: numeric('refund_amount', { precision: 12, scale: 2 }),
+  cancellationFee: numeric('cancellation_fee', { precision: 12, scale: 2 }),
+  auditStatus: varchar('audit_status', { length: 50 }),
 }, factIndexes);
 
-export const factInventoryTransactions = pgTable('fact_inventory_transactions', {
-  ...provenanceColumns(), inventoryReference: varchar('inventory_reference', { length: 100 }), quantityChange: numeric('quantity_change', { precision: 12, scale: 3 }), unitCostSnapshot: numeric('unit_cost_snapshot', { precision: 12, scale: 2 }), amountEur: numeric('amount_eur', { precision: 12, scale: 2 }), currency: varchar('currency', { length: 3 }), transactionType: varchar('transaction_type', { length: 50 }), transactionStatus: varchar('transaction_status', { length: 50 }), evidenceLevel: varchar('evidence_level', { length: 10 }), e0Warning: text('e0_warning'),
+export const inventoryCostFacts = pgTable('inventory_cost_facts', {
+  ...provenanceColumns(),
+  inventoryReference: varchar('inventory_reference', { length: 100 }),
+  quantityChange: numeric('quantity_change', { precision: 12, scale: 3 }),
+  unitCostSnapshot: numeric('unit_cost_snapshot', { precision: 12, scale: 2 }),
+  amount: numeric('amount', { precision: 12, scale: 2 }),
+  currency: varchar('currency', { length: 3 }),
+  transactionType: varchar('transaction_type', { length: 50 }),
+  transactionStatus: varchar('transaction_status', { length: 50 }),
+  evidenceLevel: varchar('evidence_level', { length: 10 }),
+  e0Warning: text('e0_warning'),
 }, factIndexes);
 
 export const reconciliationSnapshots = pgTable('reconciliation_snapshots', {
-  ...provenanceColumns(), businessDate: timestamp('business_date', { withTimezone: true }), dailyRevenue: numeric('daily_revenue', { precision: 12, scale: 2 }), cashTotal: numeric('cash_total', { precision: 12, scale: 2 }), cardTotal: numeric('card_total', { precision: 12, scale: 2 }), expectedCash: numeric('expected_cash', { precision: 12, scale: 2 }), cashCounted: numeric('cash_counted', { precision: 12, scale: 2 }), closingStatus: varchar('closing_status', { length: 50 }),
+  ...provenanceColumns(),
+  businessDate: timestamp('business_date', { withTimezone: true }),
+  reportedRevenue: numeric('reported_revenue', { precision: 12, scale: 2 }),
+  cashTotal: numeric('cash_total', { precision: 12, scale: 2 }),
+  cardTotal: numeric('card_total', { precision: 12, scale: 2 }),
+  cashDifference: numeric('cash_difference', { precision: 12, scale: 2 }),
+  closedAt: timestamp('closed_at', { withTimezone: true }),
 }, factIndexes);
 
 export const dimTenants = pgTable('dim_tenants', {
-  ...provenanceColumns(), tenantCode: varchar('tenant_code', { length: 100 }), tenantName: varchar('tenant_name', { length: 255 }), status: varchar('status', { length: 50 }), defaultCurrency: varchar('default_currency', { length: 3 }),
+  ...provenanceColumns(),
+  tenantCode: varchar('tenant_code', { length: 100 }),
+  tenantName: varchar('tenant_name', { length: 255 }),
+  status: varchar('status', { length: 50 }),
+  defaultCurrency: varchar('default_currency', { length: 3 }),
 }, factIndexes);
 
 export const dimLocations = pgTable('dim_locations', {
-  ...provenanceColumns(), locationCode: varchar('location_code', { length: 100 }), locationName: varchar('location_name', { length: 255 }), status: varchar('status', { length: 50 }), timezone: varchar('timezone', { length: 100 }), country: varchar('country', { length: 100 }), city: varchar('city', { length: 100 }), displayCurrency: varchar('display_currency', { length: 3 }),
+  ...provenanceColumns(),
+  locationCode: varchar('location_code', { length: 100 }),
+  locationName: varchar('location_name', { length: 255 }),
+  status: varchar('status', { length: 50 }),
+  timezone: varchar('timezone', { length: 100 }),
+  country: varchar('country', { length: 100 }),
+  city: varchar('city', { length: 100 }),
+  displayCurrency: varchar('display_currency', { length: 3 }),
+  accountingCurrency: varchar('accounting_currency', { length: 3 }),
 }, factIndexes);
 
 export const commissionRuleVersions = pgTable('commission_rule_versions', {
-  ...provenanceColumns(), ruleName: varchar('rule_name', { length: 255 }), calculationType: varchar('calculation_type', { length: 100 }), commissionRate: numeric('commission_rate', { precision: 5, scale: 2 }), ruleVersion: varchar('rule_version', { length: 50 }), effectiveFrom: timestamp('effective_from', { withTimezone: true }), effectiveTo: timestamp('effective_to', { withTimezone: true }),
+  ...provenanceColumns(),
+  ruleName: varchar('rule_name', { length: 255 }),
+  calculationType: varchar('calculation_type', { length: 100 }),
+  commissionRate: numeric('commission_rate', { precision: 5, scale: 2 }),
+  ruleVersion: varchar('rule_version', { length: 50 }),
+  effectiveFrom: timestamp('effective_from', { withTimezone: true }),
+  effectiveTo: timestamp('effective_to', { withTimezone: true }),
 }, factIndexes);
