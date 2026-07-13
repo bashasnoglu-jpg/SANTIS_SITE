@@ -3,6 +3,7 @@ packages:
   - "packages/sovereign-bus"
   - "packages/openr"
   - "packages/domain-schema"
+  - "packages/domain"
   - "packages/design-system"
   - "packages/ui-tokens"
   - "packages/gravity-ux-engine"
