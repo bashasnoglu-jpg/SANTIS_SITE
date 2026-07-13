@@ -1,6 +1,10 @@
 -- Santis OS — FI-DI-P0.4 financial analytics foundation
 -- Artifact only. DO NOT APPLY during P0.4 E2 static evidence phase.
 
+-- Prerequisite for gen_random_uuid(). Managed PostgreSQL platforms may require
+-- an authorized operator to enable this extension before migration apply.
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
 CREATE TYPE fi_sync_run_mode AS ENUM ('NORMAL', 'FORCED_REPLAY');
 CREATE TYPE fi_sync_run_status AS ENUM ('RUNNING', 'SUCCESS', 'PARTIAL_SUCCESS', 'FAILED', 'ABORTED');
 CREATE TYPE fi_quarantine_status AS ENUM ('OPEN', 'CLOSED');
