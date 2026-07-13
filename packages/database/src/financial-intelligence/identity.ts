@@ -45,7 +45,18 @@ export function generateSyncIdempotencyKey(params: {
   windowStart: string;
   windowEnd: string;
   runMode: SyncRunMode;
+  replayAttemptId?: string;
 }): string {
+  const replayAttemptId = params.replayAttemptId?.trim();
+
+  if (params.runMode === 'FORCED_REPLAY' && !replayAttemptId) {
+    throw new Error('replayAttemptId is required for FORCED_REPLAY');
+  }
+
+  if (params.runMode === 'NORMAL' && replayAttemptId) {
+    throw new Error('replayAttemptId must not be provided for NORMAL runs');
+  }
+
   const input = [
     params.contractId ?? FI_SYNC_CONTRACT_ID,
     params.contractVersion ?? FI_SYNC_CONTRACT_VERSION,
@@ -56,8 +67,14 @@ export function generateSyncIdempotencyKey(params: {
     new Date(params.windowEnd).toISOString(),
     params.runMode,
   ];
+
+  if (params.runMode === 'FORCED_REPLAY') {
+    input.push(replayAttemptId as string);
+  }
+
   if (input.some((value) => value.trim().length === 0)) {
     throw new Error('All sync idempotency inputs are required');
   }
+
   return uuidV5(input.join('|'));
 }
