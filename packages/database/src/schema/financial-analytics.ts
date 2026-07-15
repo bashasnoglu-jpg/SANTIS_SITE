@@ -44,12 +44,6 @@ const provenanceColumns = () => ({
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 });
 
-const factIndexes = (table: ReturnType<typeof provenanceColumns>) => ({
-  sourceIdentity: uniqueIndex().on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
-  sourceCursor: index().on(table.sourceLastModifiedAt, table.sourceRecordId),
-  isolation: index().on(table.tenantId, table.locationId, table.environment),
-});
-
 export const syncRun = pgTable('fi_sync_run', {
   syncRunId: uuid('sync_run_id').defaultRandom().primaryKey(),
   idempotencyKey: uuid('idempotency_key').notNull(),
@@ -129,7 +123,11 @@ export const paymentFacts = pgTable('payment_facts', {
   direction: varchar('direction', { length: 20 }),
   externalReference: text('external_reference'),
   parentFactReference: varchar('parent_fact_reference', { length: 100 }),
-}, factIndexes);
+}, (table) => ({
+  sourceIdentity: uniqueIndex('payment_facts_source_identity_uq').on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
+  sourceCursor: index('payment_facts_source_cursor_idx').on(table.sourceLastModifiedAt, table.sourceRecordId),
+  isolation: index('payment_facts_isolation_idx').on(table.tenantId, table.locationId, table.environment),
+}));
 
 export const cashMovementFacts = pgTable('cash_movement_facts', {
   ...provenanceColumns(),
@@ -137,7 +135,11 @@ export const cashMovementFacts = pgTable('cash_movement_facts', {
   currency: varchar('currency', { length: 3 }),
   factType: varchar('fact_type', { length: 64 }),
   direction: varchar('direction', { length: 20 }),
-}, factIndexes);
+}, (table) => ({
+  sourceIdentity: uniqueIndex('cash_movement_facts_source_identity_uq').on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
+  sourceCursor: index('cash_movement_facts_source_cursor_idx').on(table.sourceLastModifiedAt, table.sourceRecordId),
+  isolation: index('cash_movement_facts_isolation_idx').on(table.tenantId, table.locationId, table.environment),
+}));
 
 export const dailyCashClosings = pgTable('daily_cash_closings', {
   ...provenanceColumns(),
@@ -152,7 +154,11 @@ export const dailyCashClosings = pgTable('daily_cash_closings', {
   closingStatus: varchar('closing_status', { length: 32 }),
   approvalStatus: varchar('approval_status', { length: 32 }),
   approvedAt: timestamp('approved_at', { withTimezone: true }),
-}, factIndexes);
+}, (table) => ({
+  sourceIdentity: uniqueIndex('daily_cash_closings_source_identity_uq').on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
+  sourceCursor: index('daily_cash_closings_source_cursor_idx').on(table.sourceLastModifiedAt, table.sourceRecordId),
+  isolation: index('daily_cash_closings_isolation_idx').on(table.tenantId, table.locationId, table.environment),
+}));
 
 export const bookingFacts = pgTable('booking_facts', {
   ...provenanceColumns(),
@@ -165,7 +171,11 @@ export const bookingFacts = pgTable('booking_facts', {
   therapistId: varchar('therapist_id', { length: 100 }),
   roomId: varchar('room_id', { length: 100 }),
   clientId: varchar('client_id', { length: 100 }),
-}, factIndexes);
+}, (table) => ({
+  sourceIdentity: uniqueIndex('booking_facts_source_identity_uq').on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
+  sourceCursor: index('booking_facts_source_cursor_idx').on(table.sourceLastModifiedAt, table.sourceRecordId),
+  isolation: index('booking_facts_isolation_idx').on(table.tenantId, table.locationId, table.environment),
+}));
 
 export const commissionFacts = pgTable('commission_facts', {
   ...provenanceColumns(),
@@ -175,7 +185,11 @@ export const commissionFacts = pgTable('commission_facts', {
   currency: varchar('currency', { length: 3 }),
   sourceBookingId: varchar('source_booking_id', { length: 100 }),
   ruleVersionId: varchar('rule_version_id', { length: 100 }),
-}, factIndexes);
+}, (table) => ({
+  sourceIdentity: uniqueIndex('commission_facts_source_identity_uq').on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
+  sourceCursor: index('commission_facts_source_cursor_idx').on(table.sourceLastModifiedAt, table.sourceRecordId),
+  isolation: index('commission_facts_isolation_idx').on(table.tenantId, table.locationId, table.environment),
+}));
 
 export const packageUsageFacts = pgTable('package_usage_facts', {
   ...provenanceColumns(),
@@ -185,7 +199,11 @@ export const packageUsageFacts = pgTable('package_usage_facts', {
   realizedValue: numeric('realized_value', { precision: 12, scale: 2 }),
   commissionBase: numeric('commission_base', { precision: 12, scale: 2 }),
   discountAllocated: numeric('discount_allocated', { precision: 12, scale: 2 }),
-}, factIndexes);
+}, (table) => ({
+  sourceIdentity: uniqueIndex('package_usage_facts_source_identity_uq').on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
+  sourceCursor: index('package_usage_facts_source_cursor_idx').on(table.sourceLastModifiedAt, table.sourceRecordId),
+  isolation: index('package_usage_facts_isolation_idx').on(table.tenantId, table.locationId, table.environment),
+}));
 
 export const clientPackageFacts = pgTable('client_package_facts', {
   ...provenanceColumns(),
@@ -196,7 +214,11 @@ export const clientPackageFacts = pgTable('client_package_facts', {
   remainingSessions: integer('remaining_sessions'),
   packageStatus: varchar('package_status', { length: 50 }),
   clientId: varchar('client_id', { length: 100 }),
-}, factIndexes);
+}, (table) => ({
+  sourceIdentity: uniqueIndex('client_package_facts_source_identity_uq').on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
+  sourceCursor: index('client_package_facts_source_cursor_idx').on(table.sourceLastModifiedAt, table.sourceRecordId),
+  isolation: index('client_package_facts_isolation_idx').on(table.tenantId, table.locationId, table.environment),
+}));
 
 export const cancellationFacts = pgTable('cancellation_facts', {
   ...provenanceColumns(),
@@ -206,7 +228,11 @@ export const cancellationFacts = pgTable('cancellation_facts', {
   refundAmount: numeric('refund_amount', { precision: 12, scale: 2 }),
   cancellationFee: numeric('cancellation_fee', { precision: 12, scale: 2 }),
   auditStatus: varchar('audit_status', { length: 50 }),
-}, factIndexes);
+}, (table) => ({
+  sourceIdentity: uniqueIndex('cancellation_facts_source_identity_uq').on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
+  sourceCursor: index('cancellation_facts_source_cursor_idx').on(table.sourceLastModifiedAt, table.sourceRecordId),
+  isolation: index('cancellation_facts_isolation_idx').on(table.tenantId, table.locationId, table.environment),
+}));
 
 export const inventoryCostFacts = pgTable('inventory_cost_facts', {
   ...provenanceColumns(),
@@ -219,7 +245,11 @@ export const inventoryCostFacts = pgTable('inventory_cost_facts', {
   transactionStatus: varchar('transaction_status', { length: 50 }),
   evidenceLevel: varchar('evidence_level', { length: 10 }),
   e0Warning: text('e0_warning'),
-}, factIndexes);
+}, (table) => ({
+  sourceIdentity: uniqueIndex('inventory_cost_facts_source_identity_uq').on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
+  sourceCursor: index('inventory_cost_facts_source_cursor_idx').on(table.sourceLastModifiedAt, table.sourceRecordId),
+  isolation: index('inventory_cost_facts_isolation_idx').on(table.tenantId, table.locationId, table.environment),
+}));
 
 export const reconciliationSnapshots = pgTable('reconciliation_snapshots', {
   ...provenanceColumns(),
@@ -229,7 +259,11 @@ export const reconciliationSnapshots = pgTable('reconciliation_snapshots', {
   cardTotal: numeric('card_total', { precision: 12, scale: 2 }),
   cashDifference: numeric('cash_difference', { precision: 12, scale: 2 }),
   closedAt: timestamp('closed_at', { withTimezone: true }),
-}, factIndexes);
+}, (table) => ({
+  sourceIdentity: uniqueIndex('reconciliation_snapshots_source_identity_uq').on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
+  sourceCursor: index('reconciliation_snapshots_source_cursor_idx').on(table.sourceLastModifiedAt, table.sourceRecordId),
+  isolation: index('reconciliation_snapshots_isolation_idx').on(table.tenantId, table.locationId, table.environment),
+}));
 
 export const dimTenants = pgTable('dim_tenants', {
   ...provenanceColumns(),
@@ -237,7 +271,11 @@ export const dimTenants = pgTable('dim_tenants', {
   tenantName: varchar('tenant_name', { length: 255 }),
   status: varchar('status', { length: 50 }),
   defaultCurrency: varchar('default_currency', { length: 3 }),
-}, factIndexes);
+}, (table) => ({
+  sourceIdentity: uniqueIndex('dim_tenants_source_identity_uq').on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
+  sourceCursor: index('dim_tenants_source_cursor_idx').on(table.sourceLastModifiedAt, table.sourceRecordId),
+  isolation: index('dim_tenants_isolation_idx').on(table.tenantId, table.locationId, table.environment),
+}));
 
 export const dimLocations = pgTable('dim_locations', {
   ...provenanceColumns(),
@@ -249,7 +287,11 @@ export const dimLocations = pgTable('dim_locations', {
   city: varchar('city', { length: 100 }),
   displayCurrency: varchar('display_currency', { length: 3 }),
   accountingCurrency: varchar('accounting_currency', { length: 3 }),
-}, factIndexes);
+}, (table) => ({
+  sourceIdentity: uniqueIndex('dim_locations_source_identity_uq').on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
+  sourceCursor: index('dim_locations_source_cursor_idx').on(table.sourceLastModifiedAt, table.sourceRecordId),
+  isolation: index('dim_locations_isolation_idx').on(table.tenantId, table.locationId, table.environment),
+}));
 
 export const commissionRuleVersions = pgTable('commission_rule_versions', {
   ...provenanceColumns(),
@@ -259,4 +301,8 @@ export const commissionRuleVersions = pgTable('commission_rule_versions', {
   ruleVersion: varchar('rule_version', { length: 50 }),
   effectiveFrom: timestamp('effective_from', { withTimezone: true }),
   effectiveTo: timestamp('effective_to', { withTimezone: true }),
-}, factIndexes);
+}, (table) => ({
+  sourceIdentity: uniqueIndex('commission_rule_versions_source_identity_uq').on(table.sourceSystem, table.sourceTable, table.sourceRecordId),
+  sourceCursor: index('commission_rule_versions_source_cursor_idx').on(table.sourceLastModifiedAt, table.sourceRecordId),
+  isolation: index('commission_rule_versions_isolation_idx').on(table.tenantId, table.locationId, table.environment),
+}));
