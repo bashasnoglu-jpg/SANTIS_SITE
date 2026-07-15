@@ -22,7 +22,10 @@ export function resolveBadges(
   guards: readonly GuardResult[],
 ): GuardBadge[] {
   return guards
-    .filter((guard) => guard.state === "WARNING" || guard.state === "FAIL")
+    .filter(
+      (guard): guard is GuardResult & { state: "WARNING" | "FAIL" } =>
+        guard.state === "WARNING" || guard.state === "FAIL"
+    )
     .map((guard) => ({
       type: guard.type,
       severity: guard.state,
