@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 
 from app.api.v1.endpoints import (
     billing,
@@ -11,7 +11,20 @@ from app.api.v1.endpoints import (
 app = FastAPI(title="Santis OS API Runtime")
 
 
+@app.middleware("http")
+async def restore_vercel_api_path(request: Request, call_next):
+    forwarded_path = request.query_params.get("path")
+
+    if request.scope.get("path") == "/api" and forwarded_path:
+        restored_path = f"/api/{forwarded_path.lstrip('/')}"
+        request.scope["path"] = restored_path
+        request.scope["raw_path"] = restored_path.encode("utf-8")
+
+    return await call_next(request)
+
+
 @app.get("/health")
+@app.get("/api/health")
 def health_check():
     return {"status": "ok"}
 
