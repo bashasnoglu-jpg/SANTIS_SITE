@@ -3,7 +3,15 @@ from __future__ import annotations
 import json
 import os
 import sys
+from pathlib import Path
 from typing import Any
+
+# GitHub Actions executes this file by path, so Python places scripts/ops—not the
+# repository root—at sys.path[0]. Add the checked-out repository root explicitly
+# before importing the application package.
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+if str(REPOSITORY_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY_ROOT))
 
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
