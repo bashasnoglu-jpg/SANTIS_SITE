@@ -4,12 +4,25 @@ on:
   pull_request:
     paths:
       - 'scripts/ops/identity-evidence-reconciler*.mjs'
+      - 'app/domain/identity_write_through.py'
+      - 'app/api/v1/endpoints/identity_boundary.py'
+      - 'app/main.py'
+      - 'api/index.py'
+      - 'tests/test_identity_write_through.py'
+      - 'requirements.txt'
       - '.github/workflows/identity-reconciler-contract.yml'
   push:
     branches:
       - 'p0/identity-event-reconciler'
+      - 'p0/identity-sync-boundary'
     paths:
       - 'scripts/ops/identity-evidence-reconciler*.mjs'
+      - 'app/domain/identity_write_through.py'
+      - 'app/api/v1/endpoints/identity_boundary.py'
+      - 'app/main.py'
+      - 'api/index.py'
+      - 'tests/test_identity_write_through.py'
+      - 'requirements.txt'
       - '.github/workflows/identity-reconciler-contract.yml'
 
 permissions:
@@ -19,7 +32,7 @@ jobs:
   contract:
     name: P0 identity reconciliation contract
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - name: Checkout
@@ -30,11 +43,97 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Syntax check core
+      - name: Syntax check reconciler core
         run: node --check scripts/ops/identity-evidence-reconciler-core.mjs
 
-      - name: Syntax check runtime
+      - name: Syntax check reconciler runtime
         run: node --check scripts/ops/identity-evidence-reconciler.mjs
 
-      - name: Run deterministic contract tests
+      - name: Run deterministic reconciler tests
         run: node --test scripts/ops/identity-evidence-reconciler.test.mjs
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python runtime dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Compile synchronous boundary
+        run: |
+          python -m compileall -q \
+            app/domain/identity_write_through.py \
+            app/api/v1/endpoints/identity_boundary.py \
+            app/main.py \
+            api/index.py
+
+      - name: Run synchronous boundary core tests
+        run: python -m unittest discover -s tests -p 'test_identity_write_through.py' -v
+
+      - name: Import identity boundary module
+        run: python -c "from app.api.v1.endpoints import identity_boundary; print(identity_boundary.router.tags)"
+
+      - name: Register identity boundary in isolated FastAPI runtime
+        run: >-
+          python -c "from fastapi import FastAPI; from app.api.v1.endpoints.identity_boundary import router; app=FastAPI(); app.include_router(router,prefix='/api/v1'); paths=set(app.openapi()['paths']); expected='/api/v1/reception/identity/shift-owner/write-through'; print(sorted(paths)); assert expected in paths"
+
+      - name: Verify local and production router wiring
+        run: |
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+
+          def verify(path: str) -> None:
+              tree = ast.parse(Path(path).read_text(encoding="utf-8"), filename=path)
+              imported = any(
+                  isinstance(node, ast.ImportFrom)
+                  and any(alias.name == "identity_boundary" for alias in node.names)
+                  for node in ast.walk(tree)
+              )
+              included = any(
+                  isinstance(node, ast.Call)
+                  and isinstance(node.func, ast.Attribute)
+                  and node.func.attr == "include_router"
+                  and node.args
+                  and isinstance(node.args[0], ast.Attribute)
+                  and node.args[0].attr == "router"
+                  and isinstance(node.args[0].value, ast.Name)
+                  and node.args[0].value.id == "identity_boundary"
+                  for node in ast.walk(tree)
+              )
+              assert imported, f"identity_boundary import missing in {path}"
+              assert included, f"identity_boundary router registration missing in {path}"
+              print(f"{path}: identity boundary wiring OK")
+
+          verify("app/main.py")
+          verify("api/index.py")
+          PY
+
+      - name: Import production FastAPI runtime (baseline diagnostic)
+        id: production-import
+        continue-on-error: true
+        run: python -c "from api.index import app; print(app.title)"
+
+      - name: Capture production import traceback
+        if: steps.production-import.outcome == 'failure'
+        run: |
+          python - <<'PY'
+          import traceback
+          try:
+              from api.index import app
+          except Exception:
+              with open('identity-import-error.txt', 'w', encoding='utf-8') as handle:
+                  traceback.print_exc(file=handle)
+          PY
+
+      - name: Upload production import traceback
+        if: steps.production-import.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: identity-import-error
+          path: identity-import-error.txt
+          if-no-files-found: error
+          retention-days: 7

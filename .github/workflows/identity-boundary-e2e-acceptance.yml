@@ -1,0 +1,94 @@
+name: Identity Boundary E2E Acceptance
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'p0/identity-sync-boundary'
+    paths:
+      - 'scripts/ops/identity-boundary-e2e.py'
+      - '.github/workflows/identity-boundary-e2e-acceptance.yml'
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: identity-boundary-a3g-test-acceptance
+  cancel-in-progress: false
+
+jobs:
+  pat-e2e:
+    name: P0 A3G Test PAT write-through acceptance
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      AIRTABLE_BASE_ID: app7VPfdgji5FzLHg
+      AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
+      AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+      IDENTITY_BOUNDARY_SHARED_SECRET: A3G-ACCEPTANCE-${{ github.run_id }}-${{ github.run_attempt }}
+      IDENTITY_RECON_CONTROL_RECORD_ID: recTu7e7ohiBKOzeX
+      IDENTITY_RECON_BOOKINGS_TABLE: tblocCFVgSNfaLAH6
+      IDENTITY_RECON_SHIFTS_TABLE: tblQjvfz4ljnvCl1R
+      IDENTITY_RECON_RUNS_TABLE: tblZfL6UuOfxz3On1
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate Airtable write credential presence
+        id: credential
+        continue-on-error: true
+        shell: bash
+        run: |
+          if [ -z "${AIRTABLE_PAT}${AIRTABLE_API_KEY}" ]; then
+            echo "::error::Neither AIRTABLE_PAT nor AIRTABLE_API_KEY repository secret is configured."
+            exit 1
+          fi
+          echo "Airtable write credential is configured; value will not be printed."
+
+      - name: Install boundary runtime dependencies
+        if: steps.credential.outcome == 'success'
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Execute real Test PAT boundary cycle
+        id: e2e
+        if: steps.credential.outcome == 'success'
+        continue-on-error: true
+        run: python scripts/ops/identity-boundary-e2e.py
+
+      - name: Report acceptance outcome to PR 351
+        if: always()
+        shell: bash
+        run: |
+          BODY=$(cat <<EOF
+          ## P0.2-A.3G PAT E2E workflow result
+
+          - GitHub run ID: \`${GITHUB_RUN_ID}\`
+          - Head SHA: \`${GITHUB_SHA}\`
+          - Credential presence check: \`${{ steps.credential.outcome }}\`
+          - Test PAT E2E step: \`${{ steps.e2e.outcome }}\`
+
+          No credential value is included in this report.
+          EOF
+          )
+          gh api \
+            --method POST \
+            repos/${GITHUB_REPOSITORY}/issues/351/comments \
+            -f body="$BODY"
+
+      - name: Enforce PAT E2E acceptance
+        if: always()
+        shell: bash
+        run: |
+          test "${{ steps.credential.outcome }}" = "success"
+          test "${{ steps.e2e.outcome }}" = "success"
