@@ -11,11 +11,6 @@ on:
         description: Operator rollback reason
         required: true
         type: string
-      operator:
-        description: Boardroom operator id
-        required: true
-        default: SOVEREIGN_ADMIN
-        type: string
 
 permissions:
   contents: read
@@ -29,6 +24,7 @@ env:
 jobs:
   rollback:
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - name: Normalize rollback image contract
@@ -52,7 +48,7 @@ jobs:
             "runUrl":"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
             "sha":"${{ inputs.target_sha }}",
             "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ inputs.target_sha }}",
-            "operator":"${{ inputs.operator }}",
+            "operator":"${{ github.actor }}",
             "reason":"${{ inputs.reason }}",
             "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
           }'
@@ -86,7 +82,7 @@ jobs:
             "runUrl":"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
             "sha":"${{ inputs.target_sha }}",
             "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest",
-            "operator":"${{ inputs.operator }}",
+            "operator":"${{ github.actor }}",
             "reason":"${{ inputs.reason }}",
             "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
           }'
@@ -105,7 +101,7 @@ jobs:
             "runUrl":"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
             "sha":"${{ inputs.target_sha }}",
             "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ inputs.target_sha }}",
-            "operator":"${{ inputs.operator }}",
+            "operator":"${{ github.actor }}",
             "reason":"${{ inputs.reason }}",
             "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
           }'
