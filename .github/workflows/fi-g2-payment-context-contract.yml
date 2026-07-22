@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt pytest
+          python -m pip install -r requirements.txt pytest httpx
 
       - name: Run FI-G2 contract tests
         run: python -m pytest -q tests/test_payment_context_contract.py
