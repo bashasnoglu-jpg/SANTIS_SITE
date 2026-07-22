@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from app.api.v1.endpoints import payment_context as endpoint
-from app.main import app
 from app.payment_context_contract import (
     BLOCKED_RESULT,
     LOCATION_MISMATCH,
@@ -16,7 +16,9 @@ from app.payment_context_contract import (
     evaluate_payment_context,
 )
 
-client = TestClient(app)
+contract_app = FastAPI()
+contract_app.include_router(endpoint.router, prefix="/api/v1")
+client = TestClient(contract_app)
 
 QA240_PAYMENT_ID = "recMyLfFWt5QmNb2Q"
 QA241_PAYMENT_ID = "recxjEKYMQDio6cb9"
