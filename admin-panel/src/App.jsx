@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import SantisBoardroom from './components/dashboard/SantisBoardroom';
+import AutomationControlCenter from './components/boardroom/AutomationControlCenter';
 import Login from './pages/Login';
 import useAuthStore from './store/useAuthStore';
 import ClinicScanner from './components/dashboard/ClinicScanner';
@@ -23,6 +24,16 @@ const PrivateRoute = ({ children }) => {
   const token = useAuthStore((state) => state.token);
   return token ? children : <Navigate to="/login" />;
 };
+
+function AutomationControlRoute() {
+  return (
+    <div className="min-h-screen bg-sovereign-void text-sovereign-ink font-sans p-4 md:p-8">
+      <div className="max-w-7xl mx-auto">
+        <AutomationControlCenter />
+      </div>
+    </div>
+  );
+}
 
 function App() {
   return (
@@ -48,6 +59,14 @@ function App() {
             element={
               <PrivateRoute>
                 <SantisBoardroom />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/automation-control"
+            element={
+              <PrivateRoute>
+                <AutomationControlRoute />
               </PrivateRoute>
             }
           />
