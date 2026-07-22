@@ -7,6 +7,7 @@ from app.api.v1.endpoints import (
     sovereign_memory,
     scheduling,
     reception,
+    reception_booking_create,
     telemetry,
 )
 
@@ -22,4 +23,5 @@ app.include_router(aurelia_whisper.router, prefix="/api/v1")
 app.include_router(sovereign_memory.router, prefix="/api/v1")
 app.include_router(scheduling.router, prefix="/api/v1")
 app.include_router(reception.router, prefix="/api/v1")
+app.include_router(reception_booking_create.router, prefix="/api/v1")
 app.include_router(telemetry.router, prefix="/api/v1/telemetry")
