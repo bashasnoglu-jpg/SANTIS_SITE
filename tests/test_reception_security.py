@@ -3,6 +3,7 @@ from __future__ import annotations
 from unittest.mock import Mock
 
 import pytest
+from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
 from app.api.v1.endpoints import reception
@@ -109,6 +110,33 @@ def test_complete_booking_rejects_unpaid_override_without_permission(monkeypatch
 
     assert response.status_code == 403
     get_record.assert_not_called()
+    complete.assert_not_called()
+
+
+def test_complete_booking_returns_404_and_audits_missing_booking(
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+):
+    get_record = Mock(
+        side_effect=HTTPException(
+            status_code=502,
+            detail='Airtable read failed: {"error":{"type":"NOT_FOUND"}}',
+        )
+    )
+    complete = Mock()
+    monkeypatch.setattr(reception, "_airtable_get_record", get_record)
+    monkeypatch.setattr(reception, "complete_booking_with_commission", complete)
+    caplog.set_level("INFO", logger="santis.reception.security")
+
+    response = client.post(
+        f"{BASE_URL}/{BOOKING_ID}/complete-with-commission",
+        headers=_auth_header(),
+        json={},
+    )
+
+    assert response.status_code == 404
+    assert response.json()["detail"] == "Booking not found"
+    assert '"reason":"booking_not_found"' in caplog.text
     complete.assert_not_called()
 
 
