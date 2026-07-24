@@ -108,11 +108,22 @@ def complete_booking_with_commission_secure(
             detail="Unpaid override permission required.",
         )
 
-    booking = reception._airtable_get_record(
-        reception.BOOKINGS_TABLE_ID,
-        booking_record_id,
-        reception.COMMISSION_BOOKING_FIELDS,
-    )
+    try:
+        booking = reception._airtable_get_record(
+            reception.BOOKINGS_TABLE_ID,
+            booking_record_id,
+            reception.COMMISSION_BOOKING_FIELDS,
+        )
+    except HTTPException as exc:
+        if exc.status_code == 502 and "NOT_FOUND" in str(exc.detail):
+            _not_found(
+                actor=actor,
+                booking_record_id=booking_record_id,
+                request_id=request_id,
+                requested_overrides=requested_overrides,
+                reason="booking_not_found",
+            )
+        raise
     fields = booking.get("fields", {})
     booking_tenant_ids = reception._link_ids(fields.get("Tenant_Link"))
     booking_location_ids = reception._link_ids(fields.get("Location_Link"))
