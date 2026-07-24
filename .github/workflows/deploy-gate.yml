@@ -11,7 +11,6 @@ on:
     branches: [main]
 
 env:
-  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   PYTHON_VERSION: "3.11"
 
 jobs:
