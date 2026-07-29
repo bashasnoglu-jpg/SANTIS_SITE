@@ -5,7 +5,6 @@ import os
 import re
 from typing import Any
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 from fastapi import APIRouter, HTTPException
@@ -24,24 +23,6 @@ AIRTABLE_TOKEN_ENV_KEYS = ("AIRTABLE_PAT", "AIRTABLE_API_KEY")
 PAYMENTS_TABLE_ID = os.getenv("AIRTABLE_PAYMENTS_TABLE_ID", "tblcUltjoMusYcQob")
 BOOKINGS_TABLE_ID = os.getenv("AIRTABLE_BOOKINGS_TABLE_ID", "tblocCFVgSNfaLAH6")
 AIRTABLE_RECORD_ID_PATTERN = re.compile(r"^rec[A-Za-z0-9]{14}$")
-
-PAYMENT_FIELDS = [
-    "Booking_Link",
-    "Tenant_Link",
-    "Location_Link",
-    "Environment",
-    "Payment Currency",
-    "Amount_EUR",
-    "Payment_Status_New",
-    "Payment Context Current Source Signature",
-    "Payment Context Reconciled Source Signature",
-]
-
-BOOKING_FIELDS = [
-    "Tenant_Link",
-    "Location_Link",
-    "Environment",
-]
 
 
 def _first_env(keys: tuple[str, ...]) -> str | None:
@@ -75,13 +56,11 @@ def _airtable_base_id() -> str:
 def _airtable_get_record_or_none(
     table_id: str,
     record_id: str,
-    fields: list[str],
 ) -> dict[str, Any] | None:
-    params = [("fields[]", field_name) for field_name in fields]
-    url = (
-        f"{AIRTABLE_API_URL}/{_airtable_base_id()}/{table_id}/{record_id}"
-        f"?{urlencode(params)}"
-    )
+    # Airtable's retrieve-record endpoint does not accept the fields[] list
+    # parameter supported by list-records. Fetch the single record as-is and
+    # read only the canonical fields used by this validator below.
+    url = f"{AIRTABLE_API_URL}/{_airtable_base_id()}/{table_id}/{record_id}"
     request = Request(url, headers={"Authorization": f"Bearer {_airtable_token()}"})
 
     try:
@@ -170,7 +149,6 @@ def validate_payment_context(payment_record_id: str) -> dict[str, Any]:
     payment_record = _airtable_get_record_or_none(
         PAYMENTS_TABLE_ID,
         payment_record_id,
-        PAYMENT_FIELDS,
     )
     if payment_record is None:
         raise HTTPException(
@@ -188,7 +166,6 @@ def validate_payment_context(payment_record_id: str) -> dict[str, Any]:
         booking_record = _airtable_get_record_or_none(
             BOOKINGS_TABLE_ID,
             payment.booking_ids[0],
-            BOOKING_FIELDS,
         )
         if booking_record is not None:
             booking = _booking_source(booking_record)
