@@ -8,6 +8,7 @@ from app.api.v1.endpoints import (
     scheduling,
     reception,
     telemetry,
+    payment_context,
 )
 
 app = FastAPI(title="Santis OS API Runtime")
@@ -22,4 +23,5 @@ app.include_router(aurelia_whisper.router, prefix="/api/v1")
 app.include_router(sovereign_memory.router, prefix="/api/v1")
 app.include_router(scheduling.router, prefix="/api/v1")
 app.include_router(reception.router, prefix="/api/v1")
+app.include_router(payment_context.router, prefix="/api/v1")
 app.include_router(telemetry.router, prefix="/api/v1/telemetry")
