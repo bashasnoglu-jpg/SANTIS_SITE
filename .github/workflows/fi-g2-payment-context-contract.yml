@@ -7,6 +7,7 @@ on:
       - "app/payment_context_contract.py"
       - "app/api/v1/endpoints/payment_context.py"
       - "app/main.py"
+      - "api/index.py"
       - "tests/test_payment_context_contract.py"
       - ".github/workflows/fi-g2-payment-context-contract.yml"
 
