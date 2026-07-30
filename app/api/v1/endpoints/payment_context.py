@@ -3,11 +3,13 @@ from __future__ import annotations
 import json
 import os
 import re
+import hashlib
 from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 from fastapi import APIRouter, HTTPException
+from fastapi.responses import JSONResponse
 
 from app.payment_context_contract import (
     BookingContextSource,
@@ -177,3 +179,37 @@ def validate_payment_context(payment_record_id: str) -> dict[str, Any]:
         raise HTTPException(status_code=409, detail=payload)
 
     return payload
+
+
+@router.get("/runtime-fingerprint")
+def get_runtime_fingerprint() -> JSONResponse:
+    env = os.getenv("VERCEL_ENV")
+    if env != "preview":
+        raise HTTPException(status_code=404, detail="Not found")
+
+    def _fingerprint(value: str | None) -> str | None:
+        if not value:
+            return None
+        return hashlib.sha256(value.encode("utf-8")).hexdigest()[:12]
+
+    base_id = _first_env(AIRTABLE_BASE_ID_ENV_KEYS)
+    payments_table_id = os.getenv("AIRTABLE_PAYMENTS_TABLE_ID", "tblcUltjoMusYcQob")
+    pat = _first_env(AIRTABLE_TOKEN_ENV_KEYS)
+
+    payload = {
+        "vercel_env": env,
+        "vercel_branch": os.getenv("VERCEL_GIT_COMMIT_REF"),
+        "airtable_base_fingerprint": _fingerprint(base_id),
+        "payments_table_fingerprint": _fingerprint(payments_table_id),
+        "config_present": {
+            "base_id": bool(base_id),
+            "payments_table_id": bool(payments_table_id),
+            "pat": bool(pat)
+        },
+        "write_enabled": False
+    }
+
+    return JSONResponse(
+        content=payload,
+        headers={"Cache-Control": "no-store"}
+    )
