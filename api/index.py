@@ -13,11 +13,9 @@ from app.api.v1.endpoints import (
 
 app = FastAPI(title="Santis OS API Runtime")
 
-
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
-
 
 app.include_router(booking_engine.router, prefix="/api/v1")
 app.include_router(billing.router, prefix="/api/v1")
