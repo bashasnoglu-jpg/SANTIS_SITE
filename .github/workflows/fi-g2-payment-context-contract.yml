@@ -9,6 +9,7 @@ on:
       - "app/main.py"
       - "api/index.py"
       - "tests/test_payment_context_contract.py"
+      - "tests/test_vercel_runtime_entrypoint.py"
       - ".github/workflows/fi-g2-payment-context-contract.yml"
 
 permissions:
@@ -34,5 +35,8 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt pytest httpx
 
-      - name: Run FI-G2 contract tests
-        run: python -m pytest -q tests/test_payment_context_contract.py
+      - name: Run FI-G2 contract and Vercel entrypoint tests
+        run: |
+          python -m pytest -q \
+            tests/test_payment_context_contract.py \
+            tests/test_vercel_runtime_entrypoint.py
