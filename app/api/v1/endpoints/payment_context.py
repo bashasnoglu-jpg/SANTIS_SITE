@@ -27,6 +27,14 @@ AIRTABLE_RECORD_ID_PATTERN = re.compile(r"^rec[A-Za-z0-9]{14}$")
 NO_STORE_HEADERS = {"Cache-Control": "no-store"}
 
 
+def _raise_no_store(status_code: int, detail: str | dict[str, Any]) -> None:
+    raise HTTPException(
+        status_code=status_code,
+        detail=detail,
+        headers=NO_STORE_HEADERS,
+    )
+
+
 def _first_env(keys: tuple[str, ...]) -> str | None:
     for key in keys:
         value = os.getenv(key)
@@ -38,20 +46,14 @@ def _first_env(keys: tuple[str, ...]) -> str | None:
 def _airtable_token() -> str:
     token = _first_env(AIRTABLE_TOKEN_ENV_KEYS)
     if not token:
-        raise HTTPException(
-            status_code=503,
-            detail="Airtable token is not configured. Set AIRTABLE_PAT or AIRTABLE_API_KEY on the backend.",
-        )
+        _raise_no_store(503, {"code": "AIRTABLE_TOKEN_NOT_CONFIGURED"})
     return token
 
 
 def _airtable_base_id() -> str:
     base_id = _first_env(AIRTABLE_BASE_ID_ENV_KEYS)
     if not base_id:
-        raise HTTPException(
-            status_code=503,
-            detail="Airtable base is not configured. Set AIRTABLE_BASE_ID on the backend.",
-        )
+        _raise_no_store(503, {"code": "AIRTABLE_BASE_NOT_CONFIGURED"})
     return base_id
 
 
@@ -71,12 +73,11 @@ def _airtable_get_record_or_none(
     except HTTPError as exc:
         if exc.code == 404:
             return None
-        body = exc.read().decode("utf-8", errors="replace")
-        raise HTTPException(status_code=502, detail=f"Airtable read failed: {body[:500]}") from exc
-    except URLError as exc:
-        raise HTTPException(status_code=502, detail=f"Airtable network error: {exc.reason}") from exc
-    except json.JSONDecodeError as exc:
-        raise HTTPException(status_code=502, detail="Airtable returned invalid JSON") from exc
+        _raise_no_store(502, {"code": "AIRTABLE_READ_FAILED"})
+    except URLError:
+        _raise_no_store(502, {"code": "AIRTABLE_NETWORK_ERROR"})
+    except json.JSONDecodeError:
+        _raise_no_store(502, {"code": "AIRTABLE_INVALID_RESPONSE"})
 
 
 def _text(value: Any) -> str:
@@ -140,9 +141,9 @@ def validate_payment_context(payment_record_id: str) -> JSONResponse:
     """
 
     if not AIRTABLE_RECORD_ID_PATTERN.fullmatch(payment_record_id):
-        raise HTTPException(
-            status_code=422,
-            detail={
+        _raise_no_store(
+            422,
+            {
                 "code": "INVALID_PAYMENT_RECORD_ID",
                 "paymentRecordId": payment_record_id,
             },
@@ -153,9 +154,9 @@ def validate_payment_context(payment_record_id: str) -> JSONResponse:
         payment_record_id,
     )
     if payment_record is None:
-        raise HTTPException(
-            status_code=404,
-            detail={
+        _raise_no_store(
+            404,
+            {
                 "code": "PAYMENT_NOT_FOUND",
                 "paymentRecordId": payment_record_id,
             },
