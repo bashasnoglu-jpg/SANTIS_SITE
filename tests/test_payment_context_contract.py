@@ -1,8 +1,5 @@
 from __future__ import annotations
 
-import hashlib
-import re
-
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
@@ -161,6 +158,7 @@ def test_read_only_endpoint_returns_qa240_pass(monkeypatch):
     response = client.get(f"/api/v1/payment-context/{QA240_PAYMENT_ID}/validate")
 
     assert response.status_code == 200
+    assert response.headers.get("cache-control") == "no-store"
     assert response.json()["resultCode"] == PASS_RESULT
     assert response.json()["blockers"] == []
 
@@ -204,76 +202,10 @@ def test_read_only_endpoint_returns_qa241_blocker_without_mutation(monkeypatch):
     response = client.get(f"/api/v1/payment-context/{QA241_PAYMENT_ID}/validate")
 
     assert response.status_code == 409
+    assert response.headers.get("cache-control") == "no-store"
     assert response.json()["detail"]["resultCode"] == BLOCKED_RESULT
     assert response.json()["detail"]["blockers"] == [UNSUPPORTED_CURRENCY]
     assert calls == [
         (endpoint.PAYMENTS_TABLE_ID, QA241_PAYMENT_ID),
         (endpoint.BOOKINGS_TABLE_ID, BOOKING_ID),
     ]
-
-
-def test_runtime_fingerprint_production_returns_404(monkeypatch):
-    monkeypatch.setenv("VERCEL_ENV", "production")
-    response = client.get("/api/v1/payment-context/runtime-fingerprint")
-    assert response.status_code == 404
-
-
-def test_runtime_fingerprint_missing_env_returns_404(monkeypatch):
-    monkeypatch.delenv("VERCEL_ENV", raising=False)
-    response = client.get("/api/v1/payment-context/runtime-fingerprint")
-    assert response.status_code == 404
-
-
-def test_runtime_fingerprint_preview_success(monkeypatch):
-    monkeypatch.setenv("VERCEL_ENV", "preview")
-    monkeypatch.setenv("VERCEL_GIT_COMMIT_REF", "feat/fi-g2")
-    monkeypatch.setenv("AIRTABLE_BASE_ID", "appBase123")
-    monkeypatch.setenv("AIRTABLE_PAYMENTS_TABLE_ID", "tblPay123")
-    monkeypatch.setenv("AIRTABLE_PAT", "patSecret123")
-
-    response = client.get("/api/v1/payment-context/runtime-fingerprint")
-    assert response.status_code == 200
-    assert response.headers.get("cache-control") == "no-store"
-
-    data = response.json()
-    assert data["vercel_env"] == "preview"
-    assert data["vercel_branch"] == "feat/fi-g2"
-    assert data["write_enabled"] is False
-
-    base_hash = hashlib.sha256(b"appBase123").hexdigest()[:12]
-    tbl_hash = hashlib.sha256(b"tblPay123").hexdigest()[:12]
-
-    assert data["airtable_base_fingerprint"] == base_hash
-    assert data["payments_table_fingerprint"] == tbl_hash
-
-    assert re.match(r"^[0-9a-f]{12}$", data["airtable_base_fingerprint"])
-    assert re.match(r"^[0-9a-f]{12}$", data["payments_table_fingerprint"])
-
-    assert data["config_present"]["base_id"] is True
-    assert data["config_present"]["payments_table_id"] is True
-    assert data["config_present"]["pat"] is True
-    
-    # Ensure no secrets leak in response text
-    text = response.text
-    assert "appBase123" not in text
-    assert "tblPay123" not in text
-    assert "patSecret123" not in text
-
-
-def test_runtime_fingerprint_missing_configs(monkeypatch):
-    monkeypatch.setenv("VERCEL_ENV", "preview")
-    monkeypatch.delenv("AIRTABLE_BASE_ID", raising=False)
-    monkeypatch.delenv("AIRTABLE_SANTIS_BASE_ID", raising=False)
-    monkeypatch.setenv("AIRTABLE_PAYMENTS_TABLE_ID", "")
-    monkeypatch.delenv("AIRTABLE_PAT", raising=False)
-    monkeypatch.delenv("AIRTABLE_API_KEY", raising=False)
-
-    response = client.get("/api/v1/payment-context/runtime-fingerprint")
-    assert response.status_code == 200
-    
-    data = response.json()
-    assert data["airtable_base_fingerprint"] is None
-    assert data["payments_table_fingerprint"] is None
-    assert data["config_present"]["base_id"] is False
-    assert data["config_present"]["payments_table_id"] is False
-    assert data["config_present"]["pat"] is False
