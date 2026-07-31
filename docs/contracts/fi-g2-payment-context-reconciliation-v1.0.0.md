@@ -44,6 +44,22 @@ The endpoint reads the Payment and its single linked Booking from Airtable. It p
 - Missing Payment: HTTP `404`
 - Airtable configuration/network failure: HTTP `502` or `503`
 
+## Response security policy
+
+All explicit endpoint responses (`200`, `409`, `422`, `404`, `502`, and `503`) return:
+
+```text
+Cache-Control: no-store
+```
+
+Airtable response bodies, network reasons, credentials, and raw upstream diagnostics are never returned to callers. Upstream and configuration failures use stable error codes:
+
+- `AIRTABLE_BASE_NOT_CONFIGURED`
+- `AIRTABLE_TOKEN_NOT_CONFIGURED`
+- `AIRTABLE_READ_FAILED`
+- `AIRTABLE_NETWORK_ERROR`
+- `AIRTABLE_INVALID_RESPONSE`
+
 ## Stable blocker order
 
 Structural and exact-context blockers are evaluated before freshness blockers:
