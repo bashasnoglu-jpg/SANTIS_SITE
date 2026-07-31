@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from io import BytesIO
+from urllib.error import HTTPError, URLError
+
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
@@ -68,6 +71,13 @@ def _booking(
         location_ids=location_ids,
         environment="Test",
     )
+
+
+def _set_airtable_env(monkeypatch):
+    monkeypatch.setenv("AIRTABLE_BASE_ID", "appTestBase")
+    monkeypatch.delenv("AIRTABLE_SANTIS_BASE_ID", raising=False)
+    monkeypatch.setenv("AIRTABLE_PAT", "patTestReadOnly")
+    monkeypatch.delenv("AIRTABLE_API_KEY", raising=False)
 
 
 def test_qa240_pass_is_deterministic_and_idempotent():
@@ -209,3 +219,108 @@ def test_read_only_endpoint_returns_qa241_blocker_without_mutation(monkeypatch):
         (endpoint.PAYMENTS_TABLE_ID, QA241_PAYMENT_ID),
         (endpoint.BOOKINGS_TABLE_ID, BOOKING_ID),
     ]
+
+
+def test_invalid_record_id_is_no_store():
+    response = client.get("/api/v1/payment-context/not-a-record/validate")
+
+    assert response.status_code == 422
+    assert response.headers.get("cache-control") == "no-store"
+    assert response.json()["detail"]["code"] == "INVALID_PAYMENT_RECORD_ID"
+
+
+def test_payment_not_found_is_no_store(monkeypatch):
+    monkeypatch.setattr(endpoint, "_airtable_get_record_or_none", lambda *_: None)
+
+    response = client.get(f"/api/v1/payment-context/{QA240_PAYMENT_ID}/validate")
+
+    assert response.status_code == 404
+    assert response.headers.get("cache-control") == "no-store"
+    assert response.json()["detail"]["code"] == "PAYMENT_NOT_FOUND"
+
+
+def test_missing_base_configuration_is_no_store(monkeypatch):
+    monkeypatch.delenv("AIRTABLE_BASE_ID", raising=False)
+    monkeypatch.delenv("AIRTABLE_SANTIS_BASE_ID", raising=False)
+    monkeypatch.setenv("AIRTABLE_PAT", "patTestReadOnly")
+
+    response = client.get(f"/api/v1/payment-context/{QA240_PAYMENT_ID}/validate")
+
+    assert response.status_code == 503
+    assert response.headers.get("cache-control") == "no-store"
+    assert response.json()["detail"] == {"code": "AIRTABLE_BASE_NOT_CONFIGURED"}
+
+
+def test_missing_token_configuration_is_no_store(monkeypatch):
+    monkeypatch.setenv("AIRTABLE_BASE_ID", "appTestBase")
+    monkeypatch.delenv("AIRTABLE_SANTIS_BASE_ID", raising=False)
+    monkeypatch.delenv("AIRTABLE_PAT", raising=False)
+    monkeypatch.delenv("AIRTABLE_API_KEY", raising=False)
+
+    response = client.get(f"/api/v1/payment-context/{QA240_PAYMENT_ID}/validate")
+
+    assert response.status_code == 503
+    assert response.headers.get("cache-control") == "no-store"
+    assert response.json()["detail"] == {"code": "AIRTABLE_TOKEN_NOT_CONFIGURED"}
+
+
+def test_upstream_http_error_is_sanitized_and_no_store(monkeypatch):
+    _set_airtable_env(monkeypatch)
+    secret_body = b'{"error":"sensitive upstream details"}'
+
+    def raise_http_error(*_args, **_kwargs):
+        raise HTTPError(
+            url="https://api.airtable.com/test",
+            code=500,
+            msg="upstream failure",
+            hdrs=None,
+            fp=BytesIO(secret_body),
+        )
+
+    monkeypatch.setattr(endpoint, "urlopen", raise_http_error)
+
+    response = client.get(f"/api/v1/payment-context/{QA240_PAYMENT_ID}/validate")
+
+    assert response.status_code == 502
+    assert response.headers.get("cache-control") == "no-store"
+    assert response.json()["detail"] == {"code": "AIRTABLE_READ_FAILED"}
+    assert "sensitive upstream details" not in response.text
+
+
+def test_upstream_network_error_is_sanitized_and_no_store(monkeypatch):
+    _set_airtable_env(monkeypatch)
+
+    def raise_network_error(*_args, **_kwargs):
+        raise URLError("private network details")
+
+    monkeypatch.setattr(endpoint, "urlopen", raise_network_error)
+
+    response = client.get(f"/api/v1/payment-context/{QA240_PAYMENT_ID}/validate")
+
+    assert response.status_code == 502
+    assert response.headers.get("cache-control") == "no-store"
+    assert response.json()["detail"] == {"code": "AIRTABLE_NETWORK_ERROR"}
+    assert "private network details" not in response.text
+
+
+def test_invalid_upstream_json_is_sanitized_and_no_store(monkeypatch):
+    _set_airtable_env(monkeypatch)
+
+    class InvalidJsonResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def read(self):
+            return b"not-json"
+
+    monkeypatch.setattr(endpoint, "urlopen", lambda *_args, **_kwargs: InvalidJsonResponse())
+
+    response = client.get(f"/api/v1/payment-context/{QA240_PAYMENT_ID}/validate")
+
+    assert response.status_code == 502
+    assert response.headers.get("cache-control") == "no-store"
+    assert response.json()["detail"] == {"code": "AIRTABLE_INVALID_RESPONSE"}
+    assert "not-json" not in response.text
