@@ -3,7 +3,6 @@ from __future__ import annotations
 import json
 import os
 import re
-import hashlib
 from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -25,6 +24,7 @@ AIRTABLE_TOKEN_ENV_KEYS = ("AIRTABLE_PAT", "AIRTABLE_API_KEY")
 PAYMENTS_TABLE_ID = os.getenv("AIRTABLE_PAYMENTS_TABLE_ID", "tblcUltjoMusYcQob")
 BOOKINGS_TABLE_ID = os.getenv("AIRTABLE_BOOKINGS_TABLE_ID", "tblocCFVgSNfaLAH6")
 AIRTABLE_RECORD_ID_PATTERN = re.compile(r"^rec[A-Za-z0-9]{14}$")
+NO_STORE_HEADERS = {"Cache-Control": "no-store"}
 
 
 def _first_env(keys: tuple[str, ...]) -> str | None:
@@ -132,7 +132,7 @@ def _booking_source(record: dict[str, Any]) -> BookingContextSource:
 
 
 @router.get("/{payment_record_id}/validate")
-def validate_payment_context(payment_record_id: str) -> dict[str, Any]:
+def validate_payment_context(payment_record_id: str) -> JSONResponse:
     """Read Airtable sources and mirror the accepted FI-G2 fail-closed guard.
 
     This endpoint performs no Airtable writes and creates no financial records.
@@ -176,40 +176,10 @@ def validate_payment_context(payment_record_id: str) -> dict[str, Any]:
     payload = decision.as_dict()
 
     if not decision.allowed:
-        raise HTTPException(status_code=409, detail=payload)
+        return JSONResponse(
+            status_code=409,
+            content={"detail": payload},
+            headers=NO_STORE_HEADERS,
+        )
 
-    return payload
-
-
-@router.get("/runtime-fingerprint")
-def get_runtime_fingerprint() -> JSONResponse:
-    env = os.getenv("VERCEL_ENV")
-    if env != "preview":
-        raise HTTPException(status_code=404, detail="Not found")
-
-    def _fingerprint(value: str | None) -> str | None:
-        if not value:
-            return None
-        return hashlib.sha256(value.encode("utf-8")).hexdigest()[:12]
-
-    base_id = _first_env(AIRTABLE_BASE_ID_ENV_KEYS)
-    payments_table_id = os.getenv("AIRTABLE_PAYMENTS_TABLE_ID", "tblcUltjoMusYcQob")
-    pat = _first_env(AIRTABLE_TOKEN_ENV_KEYS)
-
-    payload = {
-        "vercel_env": env,
-        "vercel_branch": os.getenv("VERCEL_GIT_COMMIT_REF"),
-        "airtable_base_fingerprint": _fingerprint(base_id),
-        "payments_table_fingerprint": _fingerprint(payments_table_id),
-        "config_present": {
-            "base_id": bool(base_id),
-            "payments_table_id": bool(payments_table_id),
-            "pat": bool(pat)
-        },
-        "write_enabled": False
-    }
-
-    return JSONResponse(
-        content=payload,
-        headers={"Cache-Control": "no-store"}
-    )
+    return JSONResponse(content=payload, headers=NO_STORE_HEADERS)
