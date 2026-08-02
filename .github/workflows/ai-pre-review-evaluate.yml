@@ -1,0 +1,113 @@
+name: AI Pre-Review Evaluate
+
+on:
+  workflow_run:
+    workflows: ["AI Pre-Review Prepare"]
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  preflight:
+    name: Validate artifact provenance
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      eligible: ${{ steps.preflight.outputs.eligible }}
+
+    steps:
+      - name: Checkout trusted default branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+
+      - name: Download prepared artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p ai-pre-review-input
+          gh run download "${{ github.event.workflow_run.id }}" \
+            --repo "${{ github.repository }}" \
+            --dir ai-pre-review-input
+          find ai-pre-review-input -name review-input.json -type f -print -quit \
+            | grep -q review-input.json
+
+      - name: Validate repository and fork boundary
+        id: preflight
+        run: |
+          INPUT_PATH="$(find ai-pre-review-input -name review-input.json -type f -print -quit)"
+          node services/ai-review-evidence/scripts/workflow-preflight.mjs "$INPUT_PATH"
+
+  not-deployed:
+    name: Shadow endpoint not deployed
+    needs: preflight
+    if: ${{ needs.preflight.outputs.eligible == 'true' && vars.GCP_EVIDENCE_API_URL == '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Record non-deployment state
+        run: |
+          {
+            echo "## AI pre-review evaluation"
+            echo
+            echo "Skipped: GCP_EVIDENCE_API_URL is unset and deployment is not authorized."
+            echo "No model call or governance mutation occurred."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  evaluate:
+    name: Generate signed non-binding evidence
+    needs: preflight
+    if: ${{ needs.preflight.outputs.eligible == 'true' && vars.GCP_EVIDENCE_API_URL != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+      id-token: write
+
+    steps:
+      - name: Download prepared artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p ai-pre-review-input
+          gh run download "${{ github.event.workflow_run.id }}" \
+            --repo "${{ github.repository }}" \
+            --dir ai-pre-review-input
+
+      - name: Authenticate through Workload Identity Federation
+        id: auth
+        uses: google-github-actions/auth@c200f3691d83b41bf9bbd8638997a462592937ed
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SERVICE_ACCOUNT }}
+          token_format: id_token
+          id_token_audience: ${{ vars.GCP_EVIDENCE_API_URL }}
+          create_credentials_file: false
+
+      - name: Request signed shadow evidence
+        env:
+          EVIDENCE_API_URL: ${{ vars.GCP_EVIDENCE_API_URL }}
+          EVIDENCE_ID_TOKEN: ${{ steps.auth.outputs.id_token }}
+        run: |
+          INPUT_PATH="$(find ai-pre-review-input -name review-input.json -type f -print -quit)"
+          HTTP_STATUS="$(curl --silent --show-error \
+            --output signed-evidence.json \
+            --write-out '%{http_code}' \
+            --request POST \
+            --header "Authorization: Bearer ${EVIDENCE_ID_TOKEN}" \
+            --header "Content-Type: application/json" \
+            --data-binary "@${INPUT_PATH}" \
+            "${EVIDENCE_API_URL}/v1/reviews/evaluate")"
+          test "${HTTP_STATUS}" = "200"
+
+      - name: Upload signed evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ai-pre-review-evidence-${{ github.event.workflow_run.id }}
+          path: signed-evidence.json
+          if-no-files-found: error
+          retention-days: 30
