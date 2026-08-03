@@ -43,10 +43,9 @@ export const ReviewRequestSchema = z
         ignoredFileCount: z.number().int().nonnegative(),
         includedFileCount: z.number().int().positive().max(200),
         redactionCount: z.number().int().nonnegative(),
-        truncated: z.boolean()
+        truncated: z.literal(false)
       })
       .strict()
-      .optional()
   })
   .strict();
 

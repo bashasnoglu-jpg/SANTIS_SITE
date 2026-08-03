@@ -51,6 +51,12 @@ export async function evaluateRequest(raw: unknown, config: AppConfig): Promise<
     ) {
       return { status: 403, body: { error: "REPOSITORY_IDENTITY_MISMATCH" } };
     }
+    if (request.preparation.truncated) {
+      return { status: 422, body: { error: "INCOMPLETE_REVIEW_INPUT" } };
+    }
+    if (request.preparation.includedFileCount !== request.diff.files.length) {
+      return { status: 422, body: { error: "FILE_COUNT_MISMATCH" } };
+    }
     if (request.diff.files.some(({ path }) => isForbiddenPath(path))) {
       return { status: 422, body: { error: "FORBIDDEN_PATH_IN_DIFF" } };
     }

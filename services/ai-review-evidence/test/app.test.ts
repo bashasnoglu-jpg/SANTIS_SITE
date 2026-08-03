@@ -46,6 +46,12 @@ function rawRequest(overrides: Record<string, unknown> = {}) {
         }
       ]
     },
+    preparation: {
+      ignoredFileCount: 0,
+      includedFileCount: 1,
+      redactionCount: 0,
+      truncated: false
+    },
     ...overrides
   };
 }
@@ -79,4 +85,20 @@ test("rejects ignored sensitive paths", async () => {
   const result = await evaluateRequest(request, config);
   assert.equal(result.status, 422);
   assert.equal(result.body.error, "FORBIDDEN_PATH_IN_DIFF");
+});
+
+test("rejects truncated preparation before any model call", async () => {
+  const request = rawRequest();
+  request.preparation.truncated = true;
+  const result = await evaluateRequest(request, config);
+  assert.equal(result.status, 400);
+  assert.equal(result.body.error, "INVALID_REVIEW_REQUEST");
+});
+
+test("rejects a preparation file-count mismatch before any model call", async () => {
+  const request = rawRequest();
+  request.preparation.includedFileCount = 2;
+  const result = await evaluateRequest(request, config);
+  assert.equal(result.status, 422);
+  assert.equal(result.body.error, "FILE_COUNT_MISMATCH");
 });

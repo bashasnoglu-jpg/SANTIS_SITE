@@ -38,6 +38,13 @@ jobs:
 
       - name: Validate repository and fork boundary
         id: preflight
+        env:
+          EXPECTED_REPOSITORY_ID: ${{ github.event.repository.id }}
+          EXPECTED_OWNER_ID: ${{ github.event.repository.owner.id }}
+          EXPECTED_WORKFLOW_RUN_ID: ${{ github.event.workflow_run.id }}
+          EXPECTED_PULL_REQUEST_NUMBER: ${{ github.event.workflow_run.pull_requests[0].number }}
+          EXPECTED_BASE_SHA: ${{ github.event.workflow_run.pull_requests[0].base.sha }}
+          EXPECTED_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           INPUT_PATH="$(find ai-pre-review-input -name review-input.json -type f -print -quit)"
           node services/ai-review-evidence/scripts/workflow-preflight.mjs "$INPUT_PATH"
@@ -53,14 +60,36 @@ jobs:
           {
             echo "## AI pre-review evaluation"
             echo
-            echo "Skipped: GCP_EVIDENCE_API_URL is unset and deployment is not authorized."
+            echo "Skipped: GCP_EVIDENCE_API_URL is unset and activation is not authorized."
             echo "No model call or governance mutation occurred."
           } >> "$GITHUB_STEP_SUMMARY"
+
+  caller-not-configured:
+    name: Dedicated evidence caller not configured
+    needs: preflight
+    if: >-
+      ${{ needs.preflight.outputs.eligible == 'true' &&
+          vars.GCP_EVIDENCE_API_URL != '' &&
+          vars.GCP_EVIDENCE_CALLER_SERVICE_ACCOUNT == '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Record least-privilege configuration block
+        run: |
+          {
+            echo "## AI pre-review evaluation"
+            echo
+            echo "Blocked: GCP_EVIDENCE_CALLER_SERVICE_ACCOUNT is unset."
+            echo "The deployment service account is never used as a fallback."
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit 1
 
   evaluate:
     name: Generate signed non-binding evidence
     needs: preflight
-    if: ${{ needs.preflight.outputs.eligible == 'true' && vars.GCP_EVIDENCE_API_URL != '' }}
+    if: >-
+      ${{ needs.preflight.outputs.eligible == 'true' &&
+          vars.GCP_EVIDENCE_API_URL != '' &&
+          vars.GCP_EVIDENCE_CALLER_SERVICE_ACCOUNT != '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -69,6 +98,12 @@ jobs:
       id-token: write
 
     steps:
+      - name: Checkout trusted default branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+
       - name: Download prepared artifact
         env:
           GH_TOKEN: ${{ github.token }}
@@ -78,12 +113,26 @@ jobs:
             --repo "${{ github.repository }}" \
             --dir ai-pre-review-input
 
+      - name: Revalidate artifact before Google authentication
+        env:
+          EXPECTED_REPOSITORY_ID: ${{ github.event.repository.id }}
+          EXPECTED_OWNER_ID: ${{ github.event.repository.owner.id }}
+          EXPECTED_WORKFLOW_RUN_ID: ${{ github.event.workflow_run.id }}
+          EXPECTED_PULL_REQUEST_NUMBER: ${{ github.event.workflow_run.pull_requests[0].number }}
+          EXPECTED_BASE_SHA: ${{ github.event.workflow_run.pull_requests[0].base.sha }}
+          EXPECTED_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          FAIL_ON_INELIGIBLE: "true"
+        run: |
+          INPUT_PATH="$(find ai-pre-review-input -name review-input.json -type f -print -quit)"
+          test -n "${INPUT_PATH}"
+          node services/ai-review-evidence/scripts/workflow-preflight.mjs "$INPUT_PATH"
+
       - name: Authenticate through Workload Identity Federation
         id: auth
         uses: google-github-actions/auth@c200f3691d83b41bf9bbd8638997a462592937ed
         with:
           workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
-          service_account: ${{ vars.GCP_DEPLOY_SERVICE_ACCOUNT }}
+          service_account: ${{ vars.GCP_EVIDENCE_CALLER_SERVICE_ACCOUNT }}
           token_format: id_token
           id_token_audience: ${{ vars.GCP_EVIDENCE_API_URL }}
           create_credentials_file: false
@@ -103,6 +152,13 @@ jobs:
             --data-binary "@${INPUT_PATH}" \
             "${EVIDENCE_API_URL}/v1/reviews/evaluate")"
           test "${HTTP_STATUS}" = "200"
+
+      - name: Validate signed non-binding response contract
+        run: |
+          INPUT_PATH="$(find ai-pre-review-input -name review-input.json -type f -print -quit)"
+          node services/ai-review-evidence/scripts/validate-evidence-response.mjs \
+            "${INPUT_PATH}" \
+            signed-evidence.json
 
       - name: Upload signed evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

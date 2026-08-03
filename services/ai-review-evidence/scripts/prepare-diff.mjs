@@ -90,6 +90,9 @@ async function listPullRequestFiles(apiUrl, repository, pullNumber, token) {
     }
     files.push(...batch);
     if (batch.length < 100) break;
+    if (page === 10) {
+      throw new Error("Pull request file listing exceeded the review boundary");
+    }
   }
   return files;
 }
@@ -108,19 +111,23 @@ export async function prepareDiff({
 
   const matchers = parseIgnoreFile(ignoreContent);
   const rawFiles = await listPullRequestFiles(apiUrl, event.repository.full_name, pull.number, token);
-  const included = rawFiles
+  const reviewable = rawFiles
     .filter((file) => typeof file.filename === "string" && typeof file.patch === "string")
-    .filter((file) => !isIgnored(file.filename, matchers))
-    .slice(0, MAX_FILES);
+    .filter((file) => !isIgnored(file.filename, matchers));
 
-  if (included.length === 0) {
+  if (reviewable.length === 0) {
     throw new Error("No reviewable text diff remained after .aiignore filtering");
   }
+  if (reviewable.length > MAX_FILES) {
+    throw new Error(`Review input exceeds the ${MAX_FILES}-file boundary`);
+  }
 
-  const joined = included
+  const joined = reviewable
     .map((file) => `### ${file.filename}\n${file.patch}`)
-    .join("\n\n")
-    .slice(0, MAX_DIFF_CHARS);
+    .join("\n\n");
+  if (joined.length > MAX_DIFF_CHARS) {
+    throw new Error(`Review input exceeds the ${MAX_DIFF_CHARS}-character boundary`);
+  }
   const sanitized = redact(joined);
 
   return {
@@ -145,7 +152,7 @@ export async function prepareDiff({
     diff: {
       sha256: createHash("sha256").update(sanitized.content).digest("hex"),
       content: sanitized.content,
-      files: included.map((file) => ({
+      files: reviewable.map((file) => ({
         path: file.filename,
         status: file.status,
         additions: file.additions,
@@ -153,11 +160,10 @@ export async function prepareDiff({
       }))
     },
     preparation: {
-      ignoredFileCount: rawFiles.length - included.length,
-      includedFileCount: included.length,
+      ignoredFileCount: rawFiles.length - reviewable.length,
+      includedFileCount: reviewable.length,
       redactionCount: sanitized.redactions,
-      truncated: included.length < rawFiles.filter((file) => typeof file.patch === "string").length ||
-        joined.length >= MAX_DIFF_CHARS
+      truncated: false
     }
   };
 }

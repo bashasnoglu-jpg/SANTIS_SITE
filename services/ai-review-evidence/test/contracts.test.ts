@@ -38,12 +38,28 @@ function requestFixture() {
           deletions: 0
         }
       ]
+    },
+    preparation: {
+      ignoredFileCount: 0,
+      includedFileCount: 1,
+      redactionCount: 0,
+      truncated: false
     }
   });
 }
 
 test("request contract rejects unknown boundary fields", () => {
   assert.throws(() => ReviewRequestSchema.parse({ ...requestFixture(), verdict: "PASS" }));
+});
+
+test("request contract rejects truncated preparation", () => {
+  const request = requestFixture();
+  assert.throws(() =>
+    ReviewRequestSchema.parse({
+      ...request,
+      preparation: { ...request.preparation, truncated: true }
+    })
+  );
 });
 
 test("sensitive paths fail the deny-first path policy", () => {
