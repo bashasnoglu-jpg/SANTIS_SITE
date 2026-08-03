@@ -33,6 +33,8 @@ merge, or production use.
 
 - No `pull_request_target` trigger.
 - Prepare workflow checks out the trusted base SHA, not pull-request code.
+- If the preparation script is absent from that trusted base, Prepare records a
+  bootstrap skip and emits no review-input artifact; pull-request code is not executed.
 - Fork identity is recorded and denied before Google authentication.
 - Workload Identity Federation is the only Google authentication path.
 - GitHub Actions are pinned to full commit SHAs.
@@ -62,8 +64,11 @@ merge, or production use.
 | Scaling | min 0 / max 1 / concurrency 1 |
 | Public access | None |
 | Activation URL variable | Unset |
-| Dedicated evidence caller | Not yet provisioned/configured |
-| GitHub WIF end-to-end | Not verified |
+| Dedicated evidence caller | `santis-ai-evidence-caller@santis-ai-review.iam.gserviceaccount.com` |
+| Cloud Run invoker | Dedicated caller only; deployment identity removed |
+| Caller project-level roles | None |
+| Caller WIF scope | `workflow_run` for `ai-pre-review-evaluate.yml@refs/heads/develop` in repository/owner ID boundary |
+| GitHub WIF end-to-end | Configured; controlled acceptance not executed |
 | Gemini Shadow call | Not executed |
 
 The second-pass remediation changes repository code, tests, workflows, and these
@@ -78,8 +83,6 @@ remote verification.
 ## Remaining gates
 
 1. CI on the corrected feature-branch head using repository-pinned Node 20 and pnpm 10.24.
-2. Independent review of the second-pass corrections.
-3. Dedicated evidence caller service account with only `roles/run.invoker`.
-4. WIF trust binding for that caller without deployment or artifact-write authority.
-5. Separate activation approval before setting `GCP_EVIDENCE_API_URL`.
-6. Separately approved controlled end-to-end Shadow Mode evidence run.
+2. Independent review of the second-pass corrections and bootstrap behavior.
+3. Separate activation approval before setting `GCP_EVIDENCE_API_URL`.
+4. Separately approved controlled end-to-end WIF and Shadow Mode evidence run.

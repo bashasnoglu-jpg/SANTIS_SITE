@@ -1,6 +1,6 @@
 # Santis AI Review — Shadow Evidence Plan
 
-Status: DRAFT — SECOND-PASS REMEDIATION IN PROGRESS
+Status: DRAFT — FINAL REVIEW REMEDIATION IN PROGRESS
 Target branch: `develop`
 Feature branch: `feature/ai-review-shadow-evidence`
 Deployment authorization: PRIVATE SHADOW INFRASTRUCTURE ONLY — COMPLETED
@@ -51,6 +51,8 @@ GitHub PR diff
    it must not use the deployment service account.
 10. The deployed private Cloud Run service remains activation-disabled until independent review,
     dedicated caller IAM, and controlled end-to-end approval are complete.
+11. Preparation executes only the trusted-base script. If that script is absent during initial
+    bootstrap, the workflow succeeds with an explicit skip and emits no input artifact.
 
 ## Validation gates
 
@@ -72,14 +74,21 @@ GitHub PR diff
 - Access: private; no unauthenticated invoker
 - Activation: `GCP_EVIDENCE_API_URL` unset
 - Gemini Shadow execution: not performed
+- Dedicated caller: `santis-ai-evidence-caller@santis-ai-review.iam.gserviceaccount.com`
+- Caller authority: `roles/run.invoker` on this Cloud Run service only; no project-level roles
+- WIF scope: repository/owner-bound `workflow_run` for
+  `ai-pre-review-evaluate.yml@refs/heads/develop`
 
 This deployed infrastructure predates the second-pass remediation commit and is not changed by it.
 
-## Remaining infrastructure gate
+## Remaining activation gates
 
-Before activation, provision a dedicated evidence caller service account, grant it only
-`roles/run.invoker` on the private service, bind the approved GitHub WIF principal to that
-caller, and set `GCP_EVIDENCE_CALLER_SERVICE_ACCOUNT`. Do not expose the deployment service
+The dedicated caller, Cloud Run invoker binding, workflow-specific WIF binding, and
+`GCP_EVIDENCE_CALLER_SERVICE_ACCOUNT` variable are configured. The former deployment identity
+is not a Cloud Run invoker. Activation remains disabled because `GCP_EVIDENCE_API_URL` is unset.
+
+Before activation, complete independent review and obtain separate approval to set the endpoint
+URL and run a controlled WIF end-to-end Shadow acceptance. Do not expose the deployment service
 account to the evaluation workflow.
 
 ## Deferred work
