@@ -1,4 +1,9 @@
-import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
+import {
+  constants,
+  createHash,
+  randomUUID,
+  verify as verifySignature
+} from "node:crypto";
 import {
   EvidenceSchema,
   SignedEvidenceSchema,
@@ -7,7 +12,10 @@ import {
   type SignedEvidence
 } from "./contracts.js";
 
-function canonicalJson(value: unknown): string {
+const METADATA_TOKEN_URL =
+  "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token";
+
+export function canonicalJson(value: unknown): string {
   if (Array.isArray(value)) {
     return `[${value.map(canonicalJson).join(",")}]`;
   }
@@ -20,11 +28,56 @@ function canonicalJson(value: unknown): string {
   return JSON.stringify(value);
 }
 
-export function createSignedEvidence(
+async function getAccessToken(): Promise<string> {
+  const response = await fetch(METADATA_TOKEN_URL, {
+    headers: { "Metadata-Flavor": "Google" },
+    signal: AbortSignal.timeout(5_000)
+  });
+  if (!response.ok) {
+    throw new Error(`KMS metadata token request failed: ${response.status}`);
+  }
+  const payload = (await response.json()) as { access_token?: unknown };
+  if (typeof payload.access_token !== "string" || payload.access_token.length < 20) {
+    throw new Error("KMS metadata token response was invalid");
+  }
+  return payload.access_token;
+}
+
+async function signDigestWithKms(keyVersion: string, digest: Buffer): Promise<string> {
+  const accessToken = await getAccessToken();
+  const response = await fetch(
+    `https://cloudkms.googleapis.com/v1/${keyVersion}:asymmetricSign`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ digest: { sha256: digest.toString("base64") } }),
+      signal: AbortSignal.timeout(30_000)
+    }
+  );
+  if (!response.ok) {
+    throw new Error(`KMS asymmetric sign failed: ${response.status}`);
+  }
+  const payload = (await response.json()) as { signature?: unknown };
+  if (typeof payload.signature !== "string" || payload.signature.length < 64) {
+    throw new Error("KMS asymmetric sign response was invalid");
+  }
+  return payload.signature;
+}
+
+export async function createSignedEvidence(
   request: ReviewRequest,
   review: ModelReview,
-  config: { model: string; region: string; signingKey: string; now?: Date }
-): SignedEvidence {
+  config: {
+    model: string;
+    region: string;
+    kmsKeyVersion: string;
+    now?: Date;
+    signDigest?: (digest: Buffer) => Promise<string>;
+  }
+): Promise<SignedEvidence> {
   const evidence = EvidenceSchema.parse({
     schema_version: "1.0",
     evidence_id: randomUUID(),
@@ -48,24 +101,32 @@ export function createSignedEvidence(
     review
   });
 
-  const signature = createHmac("sha256", config.signingKey)
-    .update(canonicalJson(evidence))
-    .digest("hex");
+  const digest = createHash("sha256").update(canonicalJson(evidence)).digest();
+  const signature = await (config.signDigest ?? ((value) => signDigestWithKms(config.kmsKeyVersion, value)))(digest);
 
   return SignedEvidenceSchema.parse({
     evidence,
-    signature: { algorithm: "HMAC-SHA256", value: signature }
+    signature: {
+      algorithm: "GOOGLE_CLOUD_KMS_RSA_PSS_SHA256",
+      key_version: config.kmsKeyVersion,
+      value: signature
+    }
   });
 }
 
-export function verifyEvidenceSignature(envelope: SignedEvidence, signingKey: string): boolean {
-  const expected = createHmac("sha256", signingKey)
-    .update(canonicalJson(envelope.evidence))
-    .digest("hex");
-  const actualBuffer = Buffer.from(envelope.signature.value, "hex");
-  const expectedBuffer = Buffer.from(expected, "hex");
-  return (
-    actualBuffer.length === expectedBuffer.length &&
-    timingSafeEqual(actualBuffer, expectedBuffer)
+export function verifyEvidenceSignature(
+  envelope: SignedEvidence,
+  publicKeyPem: string
+): boolean {
+  const digest = createHash("sha256").update(canonicalJson(envelope.evidence)).digest();
+  return verifySignature(
+    null,
+    digest,
+    {
+      key: publicKeyPem,
+      padding: constants.RSA_PKCS1_PSS_PADDING,
+      saltLength: 32
+    },
+    Buffer.from(envelope.signature.value, "base64")
   );
 }
