@@ -1,11 +1,18 @@
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
+import {
+  constants,
+  createHash,
+  generateKeyPairSync,
+  sign
+} from "node:crypto";
 import test from "node:test";
 import { ReviewRequestSchema } from "../src/contracts.js";
 import { createSignedEvidence, verifyEvidenceSignature } from "../src/evidence.js";
 import { isForbiddenPath, redactSecrets } from "../src/sanitize.js";
 
 const diffContent = "diff --git a/src/a.ts b/src/a.ts\n+const safe = true;\n";
+const kmsKeyVersion =
+  "projects/santis-ai-review/locations/europe-west1/keyRings/evidence/cryptoKeys/shadow/cryptoKeyVersions/1";
 
 function requestFixture() {
   return ReviewRequestSchema.parse({
@@ -84,8 +91,11 @@ test("entire private key blocks are removed", () => {
   assert.doesNotMatch(result.content, /sensitive-body/);
 });
 
-test("evidence is fixed to non-binding and not-evaluated", () => {
-  const envelope = createSignedEvidence(
+test("KMS-style asymmetric evidence rejects tampering and the wrong key", async () => {
+  const signer = generateKeyPairSync("rsa", { modulusLength: 2048 });
+  const wrongSigner = generateKeyPairSync("rsa", { modulusLength: 2048 });
+
+  const envelope = await createSignedEvidence(
     requestFixture(),
     {
       summary: "A bounded shadow review was generated.",
@@ -95,16 +105,33 @@ test("evidence is fixed to non-binding and not-evaluated", () => {
     {
       model: "gemini-2.5-flash",
       region: "europe-west1",
-      signingKey: "test-only-signing-key-with-32-bytes-minimum",
-      now: new Date("2026-08-02T21:00:00.000Z")
+      kmsKeyVersion,
+      now: new Date("2026-08-02T21:00:00.000Z"),
+      signDigest: async (digest) =>
+        sign(
+          null,
+          digest,
+          {
+            key: signer.privateKey,
+            padding: constants.RSA_PKCS1_PSS_PADDING,
+            saltLength: 32
+          }
+        ).toString("base64")
     }
   );
 
+  const publicKeyPem = signer.publicKey.export({ type: "spki", format: "pem" }).toString();
+  const wrongPublicKeyPem = wrongSigner.publicKey
+    .export({ type: "spki", format: "pem" })
+    .toString();
+
   assert.equal(envelope.evidence.binding_status, "NON_BINDING");
   assert.equal(envelope.evidence.human_review_status, "NOT_EVALUATED");
-  assert.equal(
-    verifyEvidenceSignature(envelope, "test-only-signing-key-with-32-bytes-minimum"),
-    true
-  );
-  assert.equal(verifyEvidenceSignature(envelope, "wrong-signing-key-with-32-bytes-minimum"), false);
+  assert.equal(envelope.signature.key_version, kmsKeyVersion);
+  assert.equal(verifyEvidenceSignature(envelope, publicKeyPem), true);
+  assert.equal(verifyEvidenceSignature(envelope, wrongPublicKeyPem), false);
+
+  const tampered = structuredClone(envelope);
+  tampered.evidence.review.summary = "Tampered after signing";
+  assert.equal(verifyEvidenceSignature(tampered, publicKeyPem), false);
 });
