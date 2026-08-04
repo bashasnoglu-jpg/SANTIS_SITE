@@ -9,4 +9,5 @@ packages:
   - "packages/gravity-ux-engine"
   - "packages/event-dictionary"
   - "packages/database"
+  - "services/ai-review-evidence"
   - "admin-panel"
