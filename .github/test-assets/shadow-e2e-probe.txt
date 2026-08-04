@@ -1,0 +1,4 @@
+Santis OS Shadow E2E probe.
+Purpose: trigger trusted-base Prepare -> WIF -> Cloud Run -> Vertex -> KMS verification.
+Safety: no production, Airtable, schema, automation, dependency, or runtime configuration changes.
+Timestamp: 2026-08-04T13:47:00+02:00
