@@ -1,5 +1,6 @@
 import { constants, createHash, verify } from "node:crypto";
 import { readFile } from "node:fs/promises";
+import { SIGNATURE_ALGORITHM } from "../constants.mjs";
 
 function fail(message) {
   throw new Error(`Evidence response validation failed: ${message}`);
@@ -53,7 +54,7 @@ async function main() {
   if (typeof evidence?.review?.summary !== "string" || evidence.review.summary.length === 0) fail("summary mismatch");
   if (!Array.isArray(evidence?.review?.findings) || evidence.review.findings.length > 50) fail("findings mismatch");
   if (!Array.isArray(evidence?.review?.limitations)) fail("limitations must be an array");
-  if (envelope?.signature?.algorithm !== "GOOGLE_CLOUD_KMS_RSA_PSS_SHA256") fail("signature algorithm mismatch");
+  if (envelope?.signature?.algorithm !== SIGNATURE_ALGORITHM) fail("signature algorithm mismatch");
   if (envelope?.signature?.key_version !== expectedKeyVersion) fail("KMS key version mismatch");
   if (typeof envelope?.signature?.value !== "string") fail("signature missing");
 

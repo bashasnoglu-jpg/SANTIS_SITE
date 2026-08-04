@@ -6,9 +6,10 @@ import {
   sign
 } from "node:crypto";
 import test from "node:test";
-import { ReviewRequestSchema } from "../src/contracts.js";
+import { SignedEvidenceSchema, ReviewRequestSchema } from "../src/contracts.js";
 import { createSignedEvidence, verifyEvidenceSignature } from "../src/evidence.js";
 import { isForbiddenPath, redactSecrets } from "../src/sanitize.js";
+import { SIGNATURE_ALGORITHM } from "../constants.mjs";
 
 const diffContent = "diff --git a/src/a.ts b/src/a.ts\n+const safe = true;\n";
 const kmsKeyVersion =
@@ -134,4 +135,78 @@ test("KMS-style asymmetric evidence rejects tampering and the wrong key", async 
   const tampered = structuredClone(envelope);
   tampered.evidence.review.summary = "Tampered after signing";
   assert.equal(verifyEvidenceSignature(tampered, publicKeyPem), false);
+});
+
+test("SignedEvidenceSchema accepts canonical algorithm metadata", async () => {
+  const baseEnvelope = {
+    evidence: {
+      schema_version: "1.0",
+      evidence_id: "8d7d96ba-342f-4e8d-aa5e-2a60b36d575d",
+      request_id: "8d7d96ba-342f-4e8d-aa5e-2a60b36d575e",
+      generated_at: "2026-08-02T21:00:00.000Z",
+      mode: "shadow",
+      binding_status: "NON_BINDING",
+      human_review_status: "NOT_EVALUATED",
+      ai_disclosure: "AI-generated pre-review evidence. A human reviewer must independently verify every finding.",
+      content_provenance: {
+        provider: "google-vertex-ai",
+        model: "gemini-2.5-flash",
+        region: "europe-west1",
+        repository_id: "1146035054",
+        pull_request_number: 371,
+        base_sha: "a".repeat(40),
+        head_sha: "b".repeat(40),
+        diff_sha256: "c".repeat(64)
+      },
+      review: {
+        summary: "test",
+        findings: [],
+        limitations: ["test"]
+      }
+    },
+    signature: {
+      algorithm: SIGNATURE_ALGORITHM,
+      key_version: kmsKeyVersion,
+      value: "YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY="
+    }
+  };
+
+  assert.doesNotThrow(() => SignedEvidenceSchema.parse(baseEnvelope));
+});
+
+test("SignedEvidenceSchema rejects non-canonical algorithm metadata", async () => {
+  const baseEnvelope = {
+    evidence: {
+      schema_version: "1.0",
+      evidence_id: "8d7d96ba-342f-4e8d-aa5e-2a60b36d575d",
+      request_id: "8d7d96ba-342f-4e8d-aa5e-2a60b36d575e",
+      generated_at: "2026-08-02T21:00:00.000Z",
+      mode: "shadow",
+      binding_status: "NON_BINDING",
+      human_review_status: "NOT_EVALUATED",
+      ai_disclosure: "AI-generated pre-review evidence. A human reviewer must independently verify every finding.",
+      content_provenance: {
+        provider: "google-vertex-ai",
+        model: "gemini-2.5-flash",
+        region: "europe-west1",
+        repository_id: "1146035054",
+        pull_request_number: 371,
+        base_sha: "a".repeat(40),
+        head_sha: "b".repeat(40),
+        diff_sha256: "c".repeat(64)
+      },
+      review: {
+        summary: "test",
+        findings: [],
+        limitations: ["test"]
+      }
+    },
+    signature: {
+      algorithm: "RSA_SIGN_PSS_2048_SHA256",
+      key_version: kmsKeyVersion,
+      value: "YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY="
+    }
+  };
+
+  assert.throws(() => SignedEvidenceSchema.parse(baseEnvelope));
 });

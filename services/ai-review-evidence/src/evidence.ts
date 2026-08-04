@@ -11,6 +11,7 @@ import {
   type ReviewRequest,
   type SignedEvidence
 } from "./contracts.js";
+import { SIGNATURE_ALGORITHM } from "../constants.mjs";
 
 const METADATA_TOKEN_URL =
   "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token";
@@ -107,7 +108,7 @@ export async function createSignedEvidence(
   return SignedEvidenceSchema.parse({
     evidence,
     signature: {
-      algorithm: "GOOGLE_CLOUD_KMS_RSA_PSS_SHA256",
+      algorithm: SIGNATURE_ALGORITHM,
       key_version: config.kmsKeyVersion,
       value: signature
     }
