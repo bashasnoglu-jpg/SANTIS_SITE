@@ -9,7 +9,7 @@ function loadConfig(): AppConfig {
     projectId: process.env.GCP_PROJECT_ID ?? "",
     region: process.env.GCP_REGION ?? "",
     model: process.env.GEMINI_MODEL ?? "gemini-2.5-flash",
-    signingKey: process.env.EVIDENCE_SIGNING_KEY ?? "",
+    kmsKeyVersion: process.env.EVIDENCE_KMS_KEY_VERSION ?? "",
     repositoryId: process.env.GITHUB_REPOSITORY_ID ?? "",
     ownerId: process.env.GITHUB_REPOSITORY_OWNER_ID ?? ""
   };
