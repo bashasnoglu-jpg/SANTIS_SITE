@@ -2,6 +2,10 @@ import { z } from "zod";
 
 const sha40 = z.string().regex(/^[a-f0-9]{40}$/i);
 const sha256 = z.string().regex(/^[a-f0-9]{64}$/i);
+const base64Signature = z.string().regex(/^[A-Za-z0-9+/]+={0,2}$/);
+const kmsKeyVersion = z.string().regex(
+  /^projects\/[A-Za-z0-9_.-]+\/locations\/[A-Za-z0-9_-]+\/keyRings\/[A-Za-z0-9_-]+\/cryptoKeys\/[A-Za-z0-9_-]+\/cryptoKeyVersions\/\d+$/
+);
 
 export const ReviewRequestSchema = z
   .object({
@@ -104,10 +108,13 @@ export const EvidenceSchema = z
 export const SignedEvidenceSchema = z
   .object({
     evidence: EvidenceSchema,
-    signature: z.object({
-      algorithm: z.literal("HMAC-SHA256"),
-      value: sha256
-    })
+    signature: z
+      .object({
+        algorithm: z.literal("GOOGLE_CLOUD_KMS_RSA_PSS_SHA256"),
+        key_version: kmsKeyVersion,
+        value: base64Signature
+      })
+      .strict()
   })
   .strict();
 
