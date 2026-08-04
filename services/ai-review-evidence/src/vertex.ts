@@ -3,10 +3,21 @@ import { ModelReviewSchema, type ModelReview, type ReviewRequest } from "./contr
 const METADATA_TOKEN_URL =
   "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token";
 
-async function getAccessToken(): Promise<string> {
-  const response = await fetch(METADATA_TOKEN_URL, {
+type FetchLike = typeof fetch;
+
+type VertexDependencies = {
+  fetchImpl?: FetchLike;
+  metadataTimeoutMs?: number;
+  vertexTimeoutMs?: number;
+};
+
+async function getAccessToken(
+  fetchImpl: FetchLike,
+  timeoutMs: number
+): Promise<string> {
+  const response = await fetchImpl(METADATA_TOKEN_URL, {
     headers: { "Metadata-Flavor": "Google" },
-    signal: AbortSignal.timeout(5_000)
+    signal: AbortSignal.timeout(timeoutMs)
   });
   if (!response.ok) {
     throw new Error(`Metadata token request failed: ${response.status}`);
@@ -33,14 +44,19 @@ function extractModelJson(payload: unknown): unknown {
 
 export async function evaluateWithVertex(
   request: ReviewRequest,
-  config: { projectId: string; region: string; model: string }
+  config: { projectId: string; region: string; model: string },
+  dependencies: VertexDependencies = {}
 ): Promise<ModelReview> {
-  const accessToken = await getAccessToken();
+  const fetchImpl = dependencies.fetchImpl ?? fetch;
+  const accessToken = await getAccessToken(
+    fetchImpl,
+    dependencies.metadataTimeoutMs ?? 5_000
+  );
   const endpoint =
     `https://${config.region}-aiplatform.googleapis.com/v1/projects/${config.projectId}` +
     `/locations/${config.region}/publishers/google/models/${config.model}:generateContent`;
 
-  const response = await fetch(endpoint, {
+  const response = await fetchImpl(endpoint, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -110,12 +126,11 @@ export async function evaluateWithVertex(
         }
       }
     }),
-    signal: AbortSignal.timeout(90_000)
+    signal: AbortSignal.timeout(dependencies.vertexTimeoutMs ?? 90_000)
   });
 
   if (!response.ok) {
-    const errorBody = (await response.text()).slice(0, 2_000);
-    throw new Error(`Vertex request failed: ${response.status} ${errorBody}`);
+    throw new Error(`Vertex request failed: ${response.status}`);
   }
 
   return ModelReviewSchema.parse(extractModelJson(await response.json()));
