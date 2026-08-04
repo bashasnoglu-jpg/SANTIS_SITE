@@ -10,9 +10,10 @@ export type AppConfig = {
   projectId: string;
   region: string;
   model: string;
-  signingKey: string;
+  kmsKeyVersion: string;
   repositoryId: string;
   ownerId: string;
+  signDigest?: (digest: Buffer) => Promise<string>;
 };
 
 export type AppResponse = {
@@ -24,8 +25,8 @@ export async function evaluateRequest(raw: unknown, config: AppConfig): Promise<
   if (config.mode !== "shadow") {
     return { status: 503, body: { error: "AI_REVIEW_MODE_MUST_BE_SHADOW" } };
   }
-  if (config.signingKey.length < 32) {
-    return { status: 503, body: { error: "EVIDENCE_SIGNING_KEY_INVALID" } };
+  if (!/^projects\/.+\/cryptoKeyVersions\/\d+$/.test(config.kmsKeyVersion)) {
+    return { status: 503, body: { error: "EVIDENCE_KMS_KEY_VERSION_INVALID" } };
   }
 
   let request;
@@ -73,7 +74,7 @@ export async function evaluateRequest(raw: unknown, config: AppConfig): Promise<
     }
 
     const review = await evaluateWithVertex(request, config);
-    const signedEvidence = createSignedEvidence(request, review, config);
+    const signedEvidence = await createSignedEvidence(request, review, config);
     return { status: 200, body: signedEvidence };
   } catch (error) {
     console.error(
