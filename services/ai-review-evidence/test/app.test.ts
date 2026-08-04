@@ -9,7 +9,8 @@ const config: AppConfig = {
   projectId: "santis-ai-review",
   region: "europe-west1",
   model: "gemini-2.5-flash",
-  signingKey: "test-only-signing-key-with-32-bytes-minimum",
+  kmsKeyVersion:
+    "projects/santis-ai-review/locations/europe-west1/keyRings/evidence/cryptoKeys/shadow/cryptoKeyVersions/1",
   repositoryId: "1146035054",
   ownerId: "241850015"
 };
@@ -60,6 +61,12 @@ test("fails closed outside shadow mode", async () => {
   const result = await evaluateRequest(rawRequest(), { ...config, mode: "production" });
   assert.equal(result.status, 503);
   assert.equal(result.body.error, "AI_REVIEW_MODE_MUST_BE_SHADOW");
+});
+
+test("fails closed without a valid KMS key version", async () => {
+  const result = await evaluateRequest(rawRequest(), { ...config, kmsKeyVersion: "invalid" });
+  assert.equal(result.status, 503);
+  assert.equal(result.body.error, "EVIDENCE_KMS_KEY_VERSION_INVALID");
 });
 
 test("denies fork payloads before any model call", async () => {
