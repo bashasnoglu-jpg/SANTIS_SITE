@@ -65,12 +65,14 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
   caller-not-configured:
-    name: Dedicated evidence caller not configured
+    name: Dedicated evidence caller or KMS verification not configured
     needs: preflight
     if: >-
       ${{ needs.preflight.outputs.eligible == 'true' &&
           vars.GCP_EVIDENCE_API_URL != '' &&
-          vars.GCP_EVIDENCE_CALLER_SERVICE_ACCOUNT == '' }}
+          (vars.GCP_EVIDENCE_CALLER_SERVICE_ACCOUNT == '' ||
+           vars.GCP_EVIDENCE_KMS_KEY_VERSION == '' ||
+           vars.GCP_EVIDENCE_KMS_PUBLIC_KEY_PEM == '') }}
     runs-on: ubuntu-latest
     steps:
       - name: Record least-privilege configuration block
@@ -78,18 +80,20 @@ jobs:
           {
             echo "## AI pre-review evaluation"
             echo
-            echo "Blocked: GCP_EVIDENCE_CALLER_SERVICE_ACCOUNT is unset."
-            echo "The deployment service account is never used as a fallback."
+            echo "Blocked: dedicated caller or trusted KMS verification material is unset."
+            echo "The deployment identity and unverified signatures are never accepted as fallbacks."
           } >> "$GITHUB_STEP_SUMMARY"
           exit 1
 
   evaluate:
-    name: Generate signed non-binding evidence
+    name: Generate and verify signed non-binding evidence
     needs: preflight
     if: >-
       ${{ needs.preflight.outputs.eligible == 'true' &&
           vars.GCP_EVIDENCE_API_URL != '' &&
-          vars.GCP_EVIDENCE_CALLER_SERVICE_ACCOUNT != '' }}
+          vars.GCP_EVIDENCE_CALLER_SERVICE_ACCOUNT != '' &&
+          vars.GCP_EVIDENCE_KMS_KEY_VERSION != '' &&
+          vars.GCP_EVIDENCE_KMS_PUBLIC_KEY_PEM != '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -153,7 +157,10 @@ jobs:
             "${EVIDENCE_API_URL}/v1/reviews/evaluate")"
           test "${HTTP_STATUS}" = "200"
 
-      - name: Validate signed non-binding response contract
+      - name: Validate response contract and KMS signature
+        env:
+          EVIDENCE_KMS_KEY_VERSION: ${{ vars.GCP_EVIDENCE_KMS_KEY_VERSION }}
+          EVIDENCE_KMS_PUBLIC_KEY_PEM: ${{ vars.GCP_EVIDENCE_KMS_PUBLIC_KEY_PEM }}
         run: |
           INPUT_PATH="$(find ai-pre-review-input -name review-input.json -type f -print -quit)"
           node services/ai-review-evidence/scripts/validate-evidence-response.mjs \
