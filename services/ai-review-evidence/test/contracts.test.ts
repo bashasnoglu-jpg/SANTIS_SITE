@@ -81,7 +81,14 @@ test("sensitive paths fail the deny-first path policy", () => {
 });
 
 test("secret-like content is deterministically redacted", () => {
-  const result = redactSecrets("token=ghp_abcdefghijklmnopqrstuvwxyz123456");
+  const tokenFixture = [
+    "token=",
+    "gh",
+    "p_",
+    "abcdefghijklmnopqrstuvwxyz123456"
+  ].join("");
+
+  const result = redactSecrets(tokenFixture);
   assert.equal(result.redactions, 1);
   assert.match(result.content, /\[REDACTED:/);
   assert.doesNotMatch(result.content, /ghp_/);
