@@ -1,0 +1,36 @@
+name: Santis Traceability Evidence
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+
+jobs:
+  traceability:
+    name: Action, contract and evidence checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Validate traceability and scan changed files
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node scripts/governance/validate-pr-traceability.mjs
+
+      - name: Upload workflow-produced evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: traceability-evidence-${{ github.run_id }}
+          path: traceability-evidence.json
+          if-no-files-found: error
