@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { SIGNATURE_ALGORITHM } from "../constants.mjs";
 
 const sha40 = z.string().regex(/^[a-f0-9]{40}$/i);
 const sha256 = z.string().regex(/^[a-f0-9]{64}$/i);
@@ -110,7 +111,7 @@ export const SignedEvidenceSchema = z
     evidence: EvidenceSchema,
     signature: z
       .object({
-        algorithm: z.literal("GOOGLE_CLOUD_KMS_RSA_PSS_SHA256"),
+        algorithm: z.literal(SIGNATURE_ALGORITHM),
         key_version: kmsKeyVersion,
         value: base64Signature
       })
