@@ -1,0 +1,64 @@
+name: AI Pre-Review Prepare
+
+on:
+  pull_request:
+    branches: [develop]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ai-pre-review-prepare-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  prepare:
+    name: Prepare sanitized non-binding review input
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout trusted base revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+
+      - name: Check trusted-base preparation support
+        id: bootstrap
+        shell: bash
+        run: |
+          script="services/ai-review-evidence/scripts/prepare-diff.mjs"
+
+          if [[ -f "$script" ]]; then
+            echo "prepared=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "prepared=false" >> "$GITHUB_OUTPUT"
+          {
+            echo "## AI pre-review bootstrap"
+            echo
+            echo "Preparation was safely skipped because the trusted base revision does not contain \`$script\`."
+            echo "No pull-request code was executed and no review-input artifact was produced."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Create bounded and sanitized review input
+        if: steps.bootstrap.outputs.prepared == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          AI_REVIEW_OUTPUT: ai-pre-review-input/review-input.json
+        run: |
+          mkdir -p ai-pre-review-input
+          node services/ai-review-evidence/scripts/prepare-diff.mjs
+
+      - name: Upload review input
+        if: steps.bootstrap.outputs.prepared == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ai-pre-review-input-${{ github.event.pull_request.number }}
+          path: ai-pre-review-input/review-input.json
+          if-no-files-found: error
+          retention-days: 3
