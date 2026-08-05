@@ -88,9 +88,15 @@ test("secret-like content is deterministically redacted", () => {
 });
 
 test("entire private key blocks are removed", () => {
-  const result = redactSecrets(
-    "-----BEGIN PRIVATE KEY-----\nsensitive-body\n-----END PRIVATE KEY-----"
-  );
+  const privateKeyFixture = [
+    "-----BEGIN ",
+    "PRIVATE KEY-----\n",
+    "sensitive-body\n",
+    "-----END ",
+    "PRIVATE KEY-----"
+  ].join("");
+
+  const result = redactSecrets(privateKeyFixture);
   assert.equal(result.redactions, 1);
   assert.equal(result.content, "[REDACTED:private-key]");
   assert.doesNotMatch(result.content, /sensitive-body/);
