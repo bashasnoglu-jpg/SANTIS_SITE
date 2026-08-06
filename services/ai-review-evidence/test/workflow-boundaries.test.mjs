@@ -223,8 +223,10 @@ test("response validator rejects replay against a different request", async () =
 test("response validator rejects a corrupted signature", async () => {
   const input = inputFixture();
   const envelope = evidenceFixture(input);
-  // Corrupt the signature by modifying a character
-  envelope.signature.value = envelope.signature.value.replace(/[A-Za-z0-9]/, 'A');
+  // Corrupt the signature deterministically by flipping one bit
+  const sigBuffer = Buffer.from(envelope.signature.value, "base64");
+  sigBuffer[0] ^= 1;
+  envelope.signature.value = sigBuffer.toString("base64");
   const result = await runEvidenceValidation({ input, envelope });
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /cryptographic signature verification failed/);

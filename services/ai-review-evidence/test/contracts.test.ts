@@ -108,14 +108,14 @@ test("KMS-style asymmetric evidence rejects tampering and the wrong key", async 
       region: "europe-west1",
       kmsKeyVersion,
       now: new Date("2026-08-02T21:00:00.000Z"),
-      signDigest: async (digest) =>
+      signDigest: async (digest, canonicalString) =>
         sign(
-          null,
-          digest,
+          "sha256",
+          Buffer.from(canonicalString, "utf8"),
           {
             key: signer.privateKey,
             padding: constants.RSA_PKCS1_PSS_PADDING,
-            saltLength: 32
+            saltLength: constants.RSA_PSS_SALTLEN_DIGEST
           }
         ).toString("base64")
     }
