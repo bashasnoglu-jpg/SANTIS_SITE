@@ -219,3 +219,13 @@ test("response validator rejects replay against a different request", async () =
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /request ID mismatch|diff digest mismatch/);
 });
+
+test("response validator rejects a corrupted signature", async () => {
+  const input = inputFixture();
+  const envelope = evidenceFixture(input);
+  // Corrupt the signature by modifying a character
+  envelope.signature.value = envelope.signature.value.replace(/[A-Za-z0-9]/, 'A');
+  const result = await runEvidenceValidation({ input, envelope });
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /cryptographic signature verification failed/);
+});
