@@ -119,14 +119,14 @@ export function verifyEvidenceSignature(
   envelope: SignedEvidence,
   publicKeyPem: string
 ): boolean {
-  const digest = createHash("sha256").update(canonicalJson(envelope.evidence)).digest();
+  const canonicalEvidence = Buffer.from(canonicalJson(envelope.evidence), "utf8");
   return verifySignature(
-    null,
-    digest,
+    "sha256",
+    canonicalEvidence,
     {
       key: publicKeyPem,
       padding: constants.RSA_PKCS1_PSS_PADDING,
-      saltLength: 32
+      saltLength: constants.RSA_PSS_SALTLEN_DIGEST
     },
     Buffer.from(envelope.signature.value, "base64")
   );
