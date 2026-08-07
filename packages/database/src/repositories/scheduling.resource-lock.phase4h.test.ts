@@ -1,8 +1,12 @@
 import { describe, it } from "node:test";
 import * as assert from "node:assert";
-import { getBookingResourceAdvisoryLocks } from "./scheduling.repository.js";
+import {
+  getBookingResourceAdvisoryLocks,
+  resolvePhase4HCandidate,
+} from "./phase4h-booking-writer.js";
 
 const TENANT = "11111111-1111-1111-1111-111111111111";
+const SERVICE = "66666666-6666-6666-6666-666666666666";
 const ROOM_A = "22222222-2222-2222-2222-222222222222";
 const ROOM_B = "33333333-3333-3333-3333-333333333333";
 const THERAPIST_A = "44444444-4444-4444-4444-444444444444";
@@ -13,6 +17,33 @@ function key(pair: readonly [number, number]): string {
 }
 
 describe("Phase 4H PostgreSQL resource lock policy", () => {
+  it("resolves end time from canonical duration", () => {
+    const resolved = resolvePhase4HCandidate({
+      tenant_id: TENANT,
+      service_id: SERVICE,
+      room_id: ROOM_A,
+      therapist_id: THERAPIST_A,
+      service_start_time: "2026-08-07T10:00:00.000Z",
+      duration_minutes: 50,
+      cleanup_minutes: 10,
+    });
+
+    assert.ok(resolved);
+    assert.strictEqual(resolved.service_end_time, "2026-08-07T10:50:00.000Z");
+    assert.strictEqual(resolved.cleanup_end_time, "2026-08-07T11:00:00.000Z");
+  });
+
+  it("fails closed when no end or trusted duration exists", () => {
+    const resolved = resolvePhase4HCandidate({
+      tenant_id: TENANT,
+      service_id: SERVICE,
+      room_id: ROOM_A,
+      therapist_id: THERAPIST_A,
+      service_start_time: "2026-08-07T10:00:00.000Z",
+    });
+    assert.strictEqual(resolved, null);
+  });
+
   it("acquires two deterministic tenant-scoped locks", () => {
     const first = getBookingResourceAdvisoryLocks(TENANT, ROOM_A, THERAPIST_A);
     const second = getBookingResourceAdvisoryLocks(TENANT, ROOM_A, THERAPIST_A);
