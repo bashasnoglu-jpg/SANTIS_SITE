@@ -49,6 +49,12 @@ jobs:
       - name: Stitch Enforce
         run: pnpm stitch:enforce
 
+      - name: Legacy Duration Dependency Freeze Tests
+        run: pnpm test:legacy-duration-freeze
+
+      - name: Legacy Duration Dependency Freeze Audit
+        run: pnpm audit:legacy-duration-freeze
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
