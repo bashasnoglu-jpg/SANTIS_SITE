@@ -13,6 +13,7 @@ import {
 } from "./scheduling.contract.js";
 
 export type ConflictCode =
+  | 'CONFLICT_CONTEXT_INCOMPLETE'
   | 'TENANT_SCOPE_VIOLATION'
   | 'SERVICE_NOT_FOUND'
   | 'ROOM_NOT_COMPATIBLE'
@@ -21,6 +22,7 @@ export type ConflictCode =
   | 'THERAPIST_OUTSIDE_SHIFT'
   | 'ROOM_BLOCKED'
   | 'THERAPIST_BLOCKED'
+  | 'BOOKING_RESOURCE_CONFLICT'
   | 'ROOM_BOOKING_CONFLICT'
   | 'THERAPIST_BOOKING_CONFLICT'
   | 'INVALID_TIME_RANGE';
@@ -40,9 +42,9 @@ export interface ProposedBooking {
   service_id: string;
   room_id: string;
   therapist_id: string;
-  service_start_time: string; // ISO 8601
-  service_end_time: string;   // ISO 8601
-  cleanup_end_time: string;   // ISO 8601
+  service_start_time: string;
+  service_end_time: string;
+  cleanup_end_time: string;
 }
 
 export interface BookingGuardContext {
@@ -57,6 +59,10 @@ export interface BookingGuardContext {
   shifts: TherapistShift[];
   blockers: Blocker[];
   bookings: Booking[];
+}
+
+export function blocksResourceStatus(status: Booking["booking_status"] | string): boolean {
+  return status !== "cancelled" && status !== "no_show";
 }
 
 function intervalsOverlap(aStartMs: number, aEndMs: number, bStartMs: number, bEndMs: number): boolean {
@@ -74,10 +80,32 @@ function parseTimeSafe(isoString: string): number {
   return ms;
 }
 
+function hasCanonicalContext(proposed: ProposedBooking): boolean {
+  return Boolean(
+    proposed.tenant_id &&
+    proposed.service_id &&
+    proposed.room_id &&
+    proposed.therapist_id &&
+    proposed.service_start_time &&
+    proposed.service_end_time &&
+    proposed.cleanup_end_time
+  );
+}
+
 export function evaluateBooking(proposed: ProposedBooking, ctx: BookingGuardContext): BookingGuardResult {
   const trace: string[] = [];
 
-  // 1. Time range validation
+  if (!hasCanonicalContext(proposed)) {
+    return {
+      allowed: false,
+      conflictCode: 'CONFLICT_CONTEXT_INCOMPLETE',
+      reason: 'Canonical booking context is incomplete',
+      severity: 'critical',
+      affectedResource: 'time',
+      decisionTrace: trace
+    };
+  }
+
   let startMs: number, endMs: number, cleanupMs: number;
   try {
     startMs = parseTimeSafe(proposed.service_start_time);
@@ -92,7 +120,6 @@ export function evaluateBooking(proposed: ProposedBooking, ctx: BookingGuardCont
   }
   trace.push('time_range_validated');
 
-  // 2. Tenant scope and basic existence
   const service = ctx.services.find(s => s.id === proposed.service_id && s.tenant_id === proposed.tenant_id && s.is_active);
   if (!service) {
     return { allowed: false, conflictCode: 'SERVICE_NOT_FOUND', reason: 'Service not found or inactive', severity: 'critical', affectedResource: 'service', conflicting_resource_id: proposed.service_id, decisionTrace: trace };
@@ -109,7 +136,6 @@ export function evaluateBooking(proposed: ProposedBooking, ctx: BookingGuardCont
   }
   trace.push('tenant_scope_validated');
 
-  // 3. Compatibilities
   const roomComp = ctx.room_compatibilities.find(c => c.tenant_id === proposed.tenant_id && c.service_id === service.id && c.room_id === room.id);
   if (!roomComp) {
     return { allowed: false, conflictCode: 'ROOM_NOT_COMPATIBLE', reason: 'Room cannot provide this service', severity: 'critical', affectedResource: 'room', conflicting_resource_id: room.id, decisionTrace: trace };
@@ -121,14 +147,13 @@ export function evaluateBooking(proposed: ProposedBooking, ctx: BookingGuardCont
   }
   trace.push('compatibility_validated');
 
-  // 4. Operating Hours
   const spaArea = ctx.spa_areas.find(sa => sa.id === room.spa_area_id);
   if (!spaArea) throw new Error("Spa area not found for room");
   const location = ctx.locations.find(l => l.id === spaArea.location_id);
   if (!location) throw new Error("Location not found for spa area");
 
   const targetDateObj = new Date(proposed.service_start_time);
-  const dayOfWeek = targetDateObj.getUTCDay(); // Assuming UTC day matches local day for K-6 simple logic
+  const dayOfWeek = targetDateObj.getUTCDay();
   const dateStr = proposed.service_start_time.split('T')[0];
 
   const hours = ctx.operating_hours.find(oh => oh.tenant_id === proposed.tenant_id && oh.location_id === location.id && oh.day_of_week === dayOfWeek);
@@ -138,27 +163,23 @@ export function evaluateBooking(proposed: ProposedBooking, ctx: BookingGuardCont
 
   const openTimeMs = parseTimeSafe(`${dateStr}T${hours.open_time}Z`);
   const closeTimeMs = parseTimeSafe(`${dateStr}T${hours.close_time}Z`);
-  
   if (startMs < openTimeMs || cleanupMs > closeTimeMs) {
     return { allowed: false, conflictCode: 'OUTSIDE_OPERATING_HOURS', reason: 'Booking falls outside operating hours', severity: 'critical', affectedResource: 'time', decisionTrace: trace };
   }
   trace.push('operating_hours_validated');
 
-  // 5. Therapist Shift
-  const shift = ctx.shifts.find(s => 
-    s.tenant_id === proposed.tenant_id && 
+  const shift = ctx.shifts.find(s =>
+    s.tenant_id === proposed.tenant_id &&
     s.therapist_id === therapist.id &&
     parseTimeSafe(s.starts_at) <= startMs &&
-    parseTimeSafe(s.ends_at) >= endMs // Shift only needs to cover service time, not cleanup
+    parseTimeSafe(s.ends_at) >= endMs
   );
   if (!shift) {
     return { allowed: false, conflictCode: 'THERAPIST_OUTSIDE_SHIFT', reason: 'Therapist is not on shift', severity: 'warning', affectedResource: 'therapist', conflicting_resource_id: therapist.id, decisionTrace: trace };
   }
   trace.push('therapist_shift_validated');
 
-  // 6. Blockers
   const activeBlockers = ctx.blockers.filter(b => b.tenant_id === proposed.tenant_id);
-  
   const roomBlocked = activeBlockers.some(b => b.room_id === room.id && intervalsOverlap(startMs, cleanupMs, parseTimeSafe(b.starts_at), parseTimeSafe(b.ends_at)));
   if (roomBlocked) {
     return { allowed: false, conflictCode: 'ROOM_BLOCKED', reason: 'Room is blocked', severity: 'critical', affectedResource: 'blocker', conflicting_resource_id: room.id, decisionTrace: trace };
@@ -170,26 +191,31 @@ export function evaluateBooking(proposed: ProposedBooking, ctx: BookingGuardCont
   }
   trace.push('blockers_validated');
 
-  // 7. Active Bookings Overlap
-  const activeBookings = ctx.bookings.filter(b => 
-    b.tenant_id === proposed.tenant_id && 
-    // Ignore cancelled, completed, no_show
-    (b.booking_status === "confirmed" || b.booking_status === "in_progress" || b.booking_status === "checked_in")
+  const resourceBlockingBookings = ctx.bookings.filter(b =>
+    b.tenant_id === proposed.tenant_id && blocksResourceStatus(b.booking_status)
   );
 
-  const roomBooked = activeBookings.some(b => b.room_id === room.id && intervalsOverlap(startMs, cleanupMs, parseTimeSafe(b.service_start_time), parseTimeSafe(b.cleanup_end_time)));
+  const roomBooked = resourceBlockingBookings.some(b =>
+    b.room_id === room.id &&
+    intervalsOverlap(startMs, cleanupMs, parseTimeSafe(b.service_start_time), parseTimeSafe(b.cleanup_end_time))
+  );
+  const therapistBooked = resourceBlockingBookings.some(b =>
+    b.therapist_id === therapist.id &&
+    intervalsOverlap(startMs, endMs, parseTimeSafe(b.service_start_time), parseTimeSafe(b.service_end_time))
+  );
+
+  if (roomBooked && therapistBooked) {
+    return { allowed: false, conflictCode: 'BOOKING_RESOURCE_CONFLICT', reason: 'Room and therapist are already occupied during the requested interval', severity: 'critical', affectedResource: 'room', decisionTrace: trace };
+  }
   if (roomBooked) {
     return { allowed: false, conflictCode: 'ROOM_BOOKING_CONFLICT', reason: 'Room is already booked', severity: 'critical', affectedResource: 'room', conflicting_resource_id: room.id, decisionTrace: trace };
   }
-
-  const therapistBooked = activeBookings.some(b => b.therapist_id === therapist.id && intervalsOverlap(startMs, endMs, parseTimeSafe(b.service_start_time), parseTimeSafe(b.service_end_time)));
   if (therapistBooked) {
     return { allowed: false, conflictCode: 'THERAPIST_BOOKING_CONFLICT', reason: 'Therapist is already booked', severity: 'critical', affectedResource: 'therapist', conflicting_resource_id: therapist.id, decisionTrace: trace };
   }
+
   trace.push('booking_overlap_validated');
   trace.push('booking_guard_allowed');
-
-  // Allowed
   return { allowed: true, severity: 'info', conflictCode: null, reason: null, affectedResource: null, decisionTrace: trace };
 }
 
@@ -198,7 +224,6 @@ export function isHoldExpired(expiresAt: string, nowMs: number = Date.now()): bo
     const expMs = parseTimeSafe(expiresAt);
     return expMs <= nowMs;
   } catch (e) {
-    // If expiresAt is invalid or missing, it's considered expired/invalid
     return true;
   }
 }

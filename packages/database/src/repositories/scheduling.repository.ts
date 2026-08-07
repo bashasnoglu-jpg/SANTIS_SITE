@@ -1,4 +1,4 @@
-import { eq, and, gte, lte, or } from 'drizzle-orm';
+import { eq, and, gte, lt, gt, or, sql } from 'drizzle-orm';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 import {
   locations,
@@ -15,13 +15,45 @@ import {
   bookingHolds
 } from '../schema/scheduling.js';
 import { createHash } from 'crypto';
-import { sql } from 'drizzle-orm';
 
 export function hashHoldToken(rawToken: string): string {
   return createHash('sha256').update(rawToken).digest('hex');
 }
 
-// Define the shape that BookingGuardContext expects
+function advisoryInt(value: string): number {
+  return parseInt(createHash('md5').update(value).digest('hex').substring(0, 8), 16) | 0;
+}
+
+/**
+ * Phase 4H: every canonical scheduling write must serialize on both physical
+ * resources. Stable sorting prevents opposite lock order from creating a
+ * deadlock when two requests target overlapping resource sets.
+ */
+export function getBookingResourceAdvisoryLocks(
+  tenantId: string,
+  roomId: string,
+  therapistId: string,
+): Array<readonly [number, number]> {
+  const tenantKey = advisoryInt(`tenant:${tenantId}`);
+  return [
+    `room:${roomId}`,
+    `therapist:${therapistId}`,
+  ]
+    .sort()
+    .map((resource) => [tenantKey, advisoryInt(resource)] as const);
+}
+
+async function acquireBookingResourceLocks(
+  tx: any,
+  tenantId: string,
+  roomId: string,
+  therapistId: string,
+): Promise<void> {
+  for (const [tenantKey, resourceKey] of getBookingResourceAdvisoryLocks(tenantId, roomId, therapistId)) {
+    await tx.execute(sql`SELECT pg_advisory_xact_lock(${tenantKey}, ${resourceKey})`);
+  }
+}
+
 export interface HydratedBookingGuardContext {
   locations: any[];
   spa_areas: any[];
@@ -42,10 +74,10 @@ export class SchedulingRepository {
 
   async getBookingGuardContext(
     tenantId: string,
-    targetDateIso: string, // Not strictly filtering by date yet to match full hydrate, but could in future
+    targetDateIso: string,
   ): Promise<HydratedBookingGuardContext> {
+    void targetDateIso;
 
-    // Read-only operations to hydrate the context
     const [
       dbLocations,
       dbSpaAreas,
@@ -74,7 +106,6 @@ export class SchedulingRepository {
       this.db.select().from(bookingHolds).where(and(eq(bookingHolds.tenantId, tenantId), eq(bookingHolds.status, 'active')))
     ]);
 
-    // Map DB rows to Domain schema structure (snakes case and stringifying dates)
     return {
       locations: dbLocations.map(l => ({ ...l, tenant_id: l.tenantId })),
       spa_areas: dbSpaAreas.map(sa => ({ ...sa, tenant_id: sa.tenantId, location_id: sa.locationId, default_slot_interval_minutes: sa.defaultSlotIntervalMinutes })),
@@ -117,8 +148,6 @@ export class SchedulingRepository {
     cleanupTime: Date
   ) {
     const now = new Date();
-    // A hold overlaps if it uses the same room during [startTime, cleanupTime]
-    // OR uses the same therapist during [startTime, endTime]
     return this.db.select().from(bookingHolds).where(
       and(
         eq(bookingHolds.tenantId, tenantId),
@@ -127,13 +156,13 @@ export class SchedulingRepository {
         or(
           and(
             eq(bookingHolds.roomId, roomId),
-            lte(bookingHolds.serviceStartTime, cleanupTime),
-            gte(bookingHolds.cleanupEndTime, startTime)
+            lt(bookingHolds.serviceStartTime, cleanupTime),
+            gt(bookingHolds.cleanupEndTime, startTime)
           ),
           and(
             eq(bookingHolds.therapistId, therapistId),
-            lte(bookingHolds.serviceStartTime, endTime),
-            gte(bookingHolds.serviceEndTime, startTime)
+            lt(bookingHolds.serviceStartTime, endTime),
+            gt(bookingHolds.serviceEndTime, startTime)
           )
         )
       )
@@ -156,25 +185,17 @@ export class SchedulingRepository {
     return this.db.transaction(async (tx: any) => {
       const txRepo = new SchedulingRepository(tx);
 
-      // 1. Advisory Lock
-      const tenantInt = parseInt(createHash('md5').update(tenantId).digest('hex').substring(0, 8), 16) | 0;
-      const roomInt = parseInt(createHash('md5').update(roomId).digest('hex').substring(0, 8), 16) | 0;
-      await tx.execute(sql`SELECT pg_advisory_xact_lock(${tenantInt}, ${roomInt})`);
+      await acquireBookingResourceLocks(tx, tenantId, roomId, therapistId);
 
-      // 2. Re-hydrate context
       const ctx = await txRepo.getBookingGuardContext(tenantId, proposed.service_start_time);
-
-      // 3. Re-run evaluateBooking inside transaction (checks active bookings, blockers, compat)
       const validationResult = evaluateFn(proposed, ctx);
       if (!validationResult.allowed) {
         return { success: false, conflictCode: validationResult.conflictCode, validationResult };
       }
 
-      // 4. Double check active non-expired holds
       const startTime = new Date(proposed.service_start_time);
       const endTime = new Date(proposed.service_end_time);
       const cleanupTime = new Date(proposed.cleanup_end_time);
-
       const conflictingHolds = await txRepo.findActiveConflictingHolds(
         tenantId, roomId, therapistId, startTime, endTime, cleanupTime
       );
@@ -182,21 +203,19 @@ export class SchedulingRepository {
       if (conflictingHolds.length > 0) {
         return {
           success: false,
-          conflictCode: 'ROOM_BOOKING_CONFLICT', // treating hold conflict identically to booking conflict
+          conflictCode: 'BOOKING_RESOURCE_CONFLICT',
           validationResult: {
             ...validationResult,
             allowed: false,
-            conflictCode: 'ROOM_BOOKING_CONFLICT',
-            reason: 'Resource is currently held by another user',
+            conflictCode: 'BOOKING_RESOURCE_CONFLICT',
+            reason: 'Resource is currently held by another request',
             severity: 'critical'
           }
         };
       }
 
-      // 5. Hash token and Insert
       const tokenHash = hashHoldToken(rawToken);
       const holdToInsert = holdDataFn(tokenHash);
-
       const inserted = await txRepo.createHold(holdToInsert);
 
       return {
@@ -204,6 +223,57 @@ export class SchedulingRepository {
         hold: inserted[0],
         validationResult
       };
+    });
+  }
+
+  /**
+   * Phase 4H transactional writer primitive. The same room+therapist advisory
+   * locks are held across context re-read, guard evaluation, hold check and
+   * INSERT, so a second concurrent request cannot pass a stale occupancy scan.
+   */
+  async createBookingTransaction(
+    tenantId: string,
+    roomId: string,
+    therapistId: string,
+    proposed: any,
+    evaluateFn: (proposed: any, ctx: HydratedBookingGuardContext) => any,
+    bookingData: typeof bookings.$inferInsert,
+  ) {
+    return this.db.transaction(async (tx: any) => {
+      const txRepo = new SchedulingRepository(tx);
+
+      await acquireBookingResourceLocks(tx, tenantId, roomId, therapistId);
+
+      const ctx = await txRepo.getBookingGuardContext(tenantId, proposed.service_start_time);
+      const validationResult = evaluateFn(proposed, ctx);
+      if (!validationResult.allowed) {
+        return { success: false, conflictCode: validationResult.conflictCode, validationResult };
+      }
+
+      const conflictingHolds = await txRepo.findActiveConflictingHolds(
+        tenantId,
+        roomId,
+        therapistId,
+        new Date(proposed.service_start_time),
+        new Date(proposed.service_end_time),
+        new Date(proposed.cleanup_end_time),
+      );
+      if (conflictingHolds.length > 0) {
+        return {
+          success: false,
+          conflictCode: 'BOOKING_RESOURCE_CONFLICT',
+          validationResult: {
+            ...validationResult,
+            allowed: false,
+            conflictCode: 'BOOKING_RESOURCE_CONFLICT',
+            reason: 'Resource is currently held by another request',
+            severity: 'critical'
+          }
+        };
+      }
+
+      const inserted = await tx.insert(bookings).values(bookingData).returning();
+      return { success: true, booking: inserted[0], validationResult };
     });
   }
 

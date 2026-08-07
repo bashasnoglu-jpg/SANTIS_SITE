@@ -31,6 +31,9 @@ jobs:
       - name: Root Typecheck
         run: pnpm typecheck
 
+      - name: Phase 4H Resource Conflict Tests
+        run: pnpm exec tsx --test packages/domain-schema/src/scheduling.resource-conflict.phase4h.test.ts packages/database/src/repositories/scheduling.resource-lock.phase4h.test.ts
+
       - name: Root Lint
         run: pnpm lint
 
