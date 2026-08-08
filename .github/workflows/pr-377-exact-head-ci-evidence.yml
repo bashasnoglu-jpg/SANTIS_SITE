@@ -57,12 +57,10 @@ jobs:
           package-manager-cache: false
 
       - name: Enable pinned pnpm
-        shell: bash
-        run: |
-          set -euo pipefail
-          corepack enable
-          corepack prepare pnpm@10.24.0 --activate
-          pnpm --version
+        uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2
+        with:
+          version: 10.24.0
+          run_install: false
 
       - name: Install dependencies without lifecycle scripts
         shell: bash
