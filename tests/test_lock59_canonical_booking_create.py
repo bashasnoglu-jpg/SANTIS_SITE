@@ -56,6 +56,8 @@ def _records(*, environment="Test", therapist_location=LOCATION_ID, booking_crea
             "fields": {
                 "Name": "Test Service",
                 "Tenant_Link": [TENANT_ID],
+                "Location_Link": [LOCATION_ID],
+                "Environment": environment,
                 "Active": True,
                 "Status": "Active",
             },
@@ -142,6 +144,30 @@ def test_wrong_branch_room_is_blocked_before_booking_write(monkeypatch):
 
     assert exc_info.value.status_code == 409
     assert "Room location mismatch" in exc_info.value.detail
+
+
+def test_wrong_branch_service_is_blocked_before_booking_write(monkeypatch):
+    records = _records()
+    records[(lock59.SERVICES_TABLE_ID, SERVICE_ID)]["fields"]["Location_Link"] = [WRONG_LOCATION_ID]
+    _install_fake_airtable(monkeypatch, records)
+
+    with pytest.raises(HTTPException) as exc_info:
+        lock59.create_canonical_booking(_payload())
+
+    assert exc_info.value.status_code == 409
+    assert "Service location mismatch" in exc_info.value.detail
+
+
+def test_service_environment_leak_is_blocked_before_booking_write(monkeypatch):
+    records = _records()
+    records[(lock59.SERVICES_TABLE_ID, SERVICE_ID)]["fields"]["Environment"] = "Live"
+    _install_fake_airtable(monkeypatch, records)
+
+    with pytest.raises(HTTPException) as exc_info:
+        lock59.create_canonical_booking(_payload())
+
+    assert exc_info.value.status_code == 409
+    assert "Service environment mismatch" in exc_info.value.detail
 
 
 def test_wrong_tenant_resource_is_blocked(monkeypatch):
