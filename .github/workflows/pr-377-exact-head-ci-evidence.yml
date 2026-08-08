@@ -1,0 +1,117 @@
+name: PR 377 Exact-Head CI Evidence
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_sha:
+        description: Exact PR #377 commit SHA authorized for non-production CI evidence
+        required: true
+        type: string
+        default: a5fe4b1800f1a23eecbe45701bb83682ac308bba
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-377-exact-head-ci-${{ inputs.target_sha }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Verify PR #377 exact-head RSA-PSS correction
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Enforce immutable authorization scope
+        shell: bash
+        env:
+          AUTHORIZED_SHA: a5fe4b1800f1a23eecbe45701bb83682ac308bba
+          TARGET_SHA: ${{ inputs.target_sha }}
+        run: |
+          set -euo pipefail
+          [[ "${TARGET_SHA}" =~ ^[0-9a-f]{40}$ ]]
+          test "${TARGET_SHA}" = "${AUTHORIZED_SHA}"
+
+      - name: Checkout authorized target
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ inputs.target_sha }}
+          persist-credentials: false
+
+      - name: Verify checked-out commit
+        id: checkout
+        shell: bash
+        env:
+          TARGET_SHA: ${{ inputs.target_sha }}
+        run: |
+          set -euo pipefail
+          CHECKED_OUT_SHA="$(git rev-parse HEAD)"
+          test "${CHECKED_OUT_SHA}" = "${TARGET_SHA}"
+          echo "sha=${CHECKED_OUT_SHA}" >> "${GITHUB_OUTPUT}"
+
+      - name: Enable pinned pnpm
+        shell: bash
+        run: |
+          set -euo pipefail
+          corepack enable
+          corepack prepare pnpm@10.24.0 --activate
+          pnpm --version
+
+      - name: Install dependencies without lifecycle scripts
+        shell: bash
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Lint AI review evidence package
+        run: pnpm --filter @santis/ai-review-evidence lint
+
+      - name: Test AI review evidence package
+        run: pnpm --filter @santis/ai-review-evidence test
+
+      - name: Build AI review evidence package
+        run: pnpm --filter @santis/ai-review-evidence build
+
+      - name: Create non-binding CI evidence manifest
+        if: always()
+        shell: bash
+        env:
+          TARGET_SHA: ${{ inputs.target_sha }}
+          CHECKED_OUT_SHA: ${{ steps.checkout.outputs.sha }}
+          JOB_STATUS: ${{ job.status }}
+        run: |
+          set -euo pipefail
+          mkdir -p ci-evidence
+          jq -n \
+            --arg contract "ACT-P0-AI-KMS-VERIFY-001/v1" \
+            --arg repository "${GITHUB_REPOSITORY}" \
+            --arg run_id "${GITHUB_RUN_ID}" \
+            --arg run_attempt "${GITHUB_RUN_ATTEMPT}" \
+            --arg run_url "https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" \
+            --arg target_sha "${TARGET_SHA}" \
+            --arg checked_out_sha "${CHECKED_OUT_SHA}" \
+            --arg status "${JOB_STATUS}" \
+            '{
+              contract: $contract,
+              repository: $repository,
+              purpose: "non-production exact-head CI evidence only",
+              run_id: $run_id,
+              run_attempt: $run_attempt,
+              run_url: $run_url,
+              target_sha: $target_sha,
+              checked_out_sha: $checked_out_sha,
+              status: $status,
+              deployment: false,
+              kms_or_secret_mutation: false,
+              airtable_mutation: false,
+              gate_pass: false,
+              merge_authority: false
+            }' > ci-evidence/pr-377-exact-head.json
+
+      - name: Upload non-binding CI evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: pr-377-exact-head-ci-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ci-evidence/pr-377-exact-head.json
+          if-no-files-found: error
+          retention-days: 30
