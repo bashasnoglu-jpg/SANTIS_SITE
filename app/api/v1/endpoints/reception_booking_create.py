@@ -41,7 +41,7 @@ CONFIG_FIELDS = [
 ]
 THERAPIST_FIELDS = ["Name", "Tenant_Link", "Location_Link", "Environment", "Active", "Status"]
 ROOM_FIELDS = ["Name", "Tenant_Link", "Location_Link", "Environment", "Room_Status", "Status"]
-SERVICE_FIELDS = ["Name", "Tenant_Link", "Location_Link", "Environment", "Active", "Status"]
+SERVICE_FIELDS = ["Name", "Tenant_Link", "Available_Locations", "Environment", "Active", "Status"]
 CLIENT_FIELDS = ["Full Name", "Tenant_Link", "Environment", "Status"]
 
 BLOCKED_RESOURCE_STATUSES = {
@@ -207,8 +207,13 @@ def _require_expected_tenant(fields: dict[str, Any], expected_tenant_id: str, ow
         )
 
 
-def _require_expected_location(fields: dict[str, Any], expected_location_id: str, owner: str) -> None:
-    location_ids = _link_ids(fields.get("Location_Link"))
+def _require_expected_location(
+    fields: dict[str, Any],
+    expected_location_id: str,
+    owner: str,
+    location_field: str = "Location_Link",
+) -> None:
+    location_ids = _link_ids(fields.get(location_field))
     if expected_location_id not in location_ids:
         raise HTTPException(
             status_code=409,
@@ -301,7 +306,7 @@ def _preflight(payload: CanonicalBookingCreateRequest) -> tuple[dict[str, Any], 
     _require_not_blocked_status(room_fields, "Room", "Room_Status", "Status")
 
     _require_expected_tenant(service_fields, tenant_id, "Service")
-    _require_expected_location(service_fields, location_id, "Service")
+    _require_expected_location(service_fields, location_id, "Service", "Available_Locations")
     _require_environment(service_fields, environment, "Service")
     if not bool(service_fields.get("Active")):
         raise HTTPException(status_code=409, detail="Service is not Active.")
