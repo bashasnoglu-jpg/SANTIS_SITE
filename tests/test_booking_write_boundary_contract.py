@@ -131,12 +131,23 @@ def test_no_alternative_booking_airtable_write_transport() -> None:
             for node in ast.walk(tree)
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
         ):
-            calls = [node for node in ast.walk(function) if isinstance(node, ast.Call)]
+            # Decorators such as @router.post(...) describe inbound routes; they are
+            # not outbound HTTP transports and must not be classified as bypasses.
+            body_nodes = [
+                node
+                for statement in function.body
+                for node in ast.walk(statement)
+            ]
+            calls = [node for node in body_nodes if isinstance(node, ast.Call)]
             call_names = {_call_name(call) for call in calls}
-            literals = _string_literals(function)
+            literals = {
+                node.value
+                for node in body_nodes
+                if isinstance(node, ast.Constant) and isinstance(node.value, str)
+            }
             booking_relevant = (
                 "BOOKINGS_TABLE_ID" in {
-                    node.id for node in ast.walk(function) if isinstance(node, ast.Name)
+                    node.id for node in body_nodes if isinstance(node, ast.Name)
                 }
                 or "Bookings" in literals
             )
