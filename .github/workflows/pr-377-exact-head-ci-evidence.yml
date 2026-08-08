@@ -64,7 +64,7 @@ jobs:
 
       - name: Install dependencies without lifecycle scripts
         shell: bash
-        run: pnpm --filter @santis/ai-review-evidence... install --frozen-lockfile --ignore-scripts
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Lint AI review evidence package
         run: pnpm --filter @santis/ai-review-evidence lint
