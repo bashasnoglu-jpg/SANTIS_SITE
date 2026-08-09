@@ -4,5 +4,8 @@ export * from "./schema/booking-attempt.js";
 export * from "./repositories/audit-log.repository.js";
 export * from "./repositories/scheduling.repository.js";
 export * from "./booking-attempt/contracts.js";
+export * from "./booking-attempt/repository.js";
+export * from "./booking-attempt/drizzle-repository.js";
+export * from "./booking-attempt/service.js";
 export * from "./client.js";
 export * from "./schema/guest-memory.js";
