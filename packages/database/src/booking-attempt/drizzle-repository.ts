@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { and, eq } from 'drizzle-orm';
+import { and, eq, sql } from 'drizzle-orm';
 
 import {
   bookingCreateAttempts,
@@ -31,6 +31,13 @@ function isPostgresUniqueViolation(error: unknown): boolean {
       'code' in error &&
       (error as { code?: string }).code === '23505',
   );
+}
+
+function projectionJsonb(payload: ProjectionEnvelope) {
+  // Drizzle 0.30 + postgres-js can otherwise double-encode an object supplied to
+  // this JSONB column into a JSON string. Explicit SQL JSONB construction keeps
+  // the physical database value an object, which is part of the evidence contract.
+  return sql`${JSON.stringify(payload)}::jsonb`;
 }
 
 export class DrizzleBookingAttemptRepository implements BookingAttemptRepository {
@@ -116,9 +123,10 @@ export class DrizzleBookingAttemptRepository implements BookingAttemptRepository
 
       if (!row) throw new Error('BOOKING_ATTEMPT_OBSERVATION_INSERT_RETURNED_NO_ROW');
 
+      const payload = buildProjection(row.attemptId);
       await tx.insert(bookingCreateOutbox).values({
         attemptId: row.attemptId,
-        projectionPayload: buildProjection(row.attemptId),
+        projectionPayload: projectionJsonb(payload),
       });
 
       return row;
@@ -152,7 +160,7 @@ export class DrizzleBookingAttemptRepository implements BookingAttemptRepository
 
       await tx.insert(bookingCreateOutbox).values({
         attemptId: input.attemptId,
-        projectionPayload: payload,
+        projectionPayload: projectionJsonb(payload),
       });
     });
   }
