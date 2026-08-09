@@ -63,6 +63,9 @@ jobs:
       - name: Deterministic idempotency contract tests
         run: pnpm exec tsx --test packages/database/src/booking-attempt/contracts.test.ts
 
+      - name: Service-layer isolation TDD
+        run: pnpm exec tsx --test packages/database/src/booking-attempt/service.test.ts
+
       - name: Record safety boundary
         if: always()
         shell: bash
@@ -71,6 +74,7 @@ jobs:
             echo '## BOOKING-CREATE-ATTEMPT-1.0'
             echo
             echo '- PostgreSQL migration apply: NOT EXECUTED'
+            echo '- PostgreSQL runtime connection: NOT USED'
             echo '- Airtable mutation: 0'
             echo '- Airtable schema change: 0'
             echo '- Automation change: 0'
