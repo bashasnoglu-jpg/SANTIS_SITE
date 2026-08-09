@@ -85,7 +85,11 @@ test(`${INTEGRATION_GATE_NAME}: CANONICAL_WRITER_JOIN + OUTBOX_RETRY_COVENANT = 
   };
 
   const result = await service.handle(request);
-  assert.equal(result.kind, 'OWNER_SUCCESS');
+  assert.equal(
+    result.kind,
+    'OWNER_SUCCESS',
+    `unexpected service result: ${JSON.stringify(result)}`,
+  );
   assert.ok(result.attemptId);
   assert.ok(result.canonicalBookingId);
 
