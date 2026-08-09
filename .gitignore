@@ -25,6 +25,9 @@ apps/ingestion-api/.data/
 .env.*
 !.env.example
 
+# Local staging acceptance evidence (generated, contains no credentials but is run-specific)
+packages/database/acceptance-evidence.json
+
 # OS & Editor Ghost Files
 .DS_Store
 Thumbs.db
