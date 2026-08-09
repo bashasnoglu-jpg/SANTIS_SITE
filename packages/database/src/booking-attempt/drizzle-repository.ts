@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { and, eq } from 'drizzle-orm';
 
 import {
@@ -45,7 +46,7 @@ export class DrizzleBookingAttemptRepository implements BookingAttemptRepository
           requestFingerprint: input.requestFingerprint,
           writerCommitSha: input.writerCommitSha,
           runtimeTraceId: input.runtimeTraceId,
-          postgresClaimId: crypto.randomUUID(),
+          postgresClaimId: randomUUID(),
           claimOwner: true,
         })
         .returning({
