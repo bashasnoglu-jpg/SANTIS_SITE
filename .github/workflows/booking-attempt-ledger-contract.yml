@@ -1,0 +1,80 @@
+name: Booking Attempt Ledger Contract
+
+on:
+  pull_request:
+    branches: [develop]
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - 'packages/database/drizzle/0003_booking_attempt_ledger_v1.sql'
+      - 'packages/database/src/booking-attempt/**'
+      - 'packages/database/src/schema/booking-attempt.ts'
+      - 'packages/database/src/index.ts'
+      - '.github/workflows/booking-attempt-ledger-contract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: booking-attempt-ledger-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contract:
+    name: Non-production contract proof
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+
+      - name: Use repository Node version
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 20.19.0
+          package-manager-cache: false
+
+      - name: Enable pinned pnpm
+        uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2
+        with:
+          version: 10.24.0
+          run_install: false
+
+      - name: Install dependencies without lifecycle scripts
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Verify migration remains unapplied artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          migration='packages/database/drizzle/0003_booking_attempt_ledger_v1.sql'
+          grep -Fq 'DRAFT MIGRATION ARTIFACT ONLY — DO NOT APPLY' "$migration"
+          grep -Fq 'uq_booking_attempt_claim_owner' "$migration"
+          grep -Fq 'BOOKING_ATTEMPT_FINALIZED_IMMUTABLE' "$migration"
+          grep -Fq 'uq_booking_outbox_attempt' "$migration"
+
+      - name: Database package typecheck
+        run: pnpm --filter @santis/database typecheck
+
+      - name: Deterministic idempotency contract tests
+        run: pnpm exec tsx --test packages/database/src/booking-attempt/contracts.test.ts
+
+      - name: Record safety boundary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## BOOKING-CREATE-ATTEMPT-1.0'
+            echo
+            echo '- PostgreSQL migration apply: NOT EXECUTED'
+            echo '- Airtable mutation: 0'
+            echo '- Airtable schema change: 0'
+            echo '- Automation change: 0'
+            echo '- Production deployment: 0'
+            echo '- Runtime acceptance: NOT EVALUATED'
+            echo '- Merge authority: NOT GRANTED'
+          } >> "$GITHUB_STEP_SUMMARY"
