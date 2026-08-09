@@ -41,6 +41,8 @@ async function seedPendingOutbox(sql: Sql, label: string) {
   const requestId = `request-${label}-${randomUUID()}`;
   const idempotencyKey = `idem-${label}-${randomUUID()}`;
   const traceId = `trace-${label}-${randomUUID()}`;
+  const fingerprint = `sha256:${'c'.repeat(64)}`;
+  const writerCommitSha = 'dcbc9da076d43329430cbb95bf9a2bdd64b83163';
   const claimedAt = '2026-08-09T17:00:00.000Z';
   const finalizedAt = '2026-08-09T17:00:01.000Z';
 
@@ -66,10 +68,10 @@ async function seedPendingOutbox(sql: Sql, label: string) {
       ${attemptId}::uuid,
       ${requestId},
       ${idempotencyKey},
-      ${`sha256:${'c'.repeat(64)}`},
+      ${fingerprint},
       ${claimId}::uuid,
       TRUE,
-      ${'dcbc9da076d43329430cbb95bf9a2bdd64b83163'},
+      ${writerCommitSha},
       ${traceId},
       'SUCCESS',
       ${bookingId}::uuid,
@@ -83,9 +85,9 @@ async function seedPendingOutbox(sql: Sql, label: string) {
     attemptId,
     requestId,
     idempotencyKey,
-    requestFingerprint: `sha256:${'c'.repeat(64)}`,
+    requestFingerprint: fingerprint,
     postgresClaimId: claimId,
-    writerCommitSha: 'dcbc9da076d43329430cbb95bf9a2bdd64b83163',
+    writerCommitSha,
     runtimeTraceId: traceId,
     outcome: 'SUCCESS',
     canonicalBookingId: bookingId,
@@ -93,18 +95,38 @@ async function seedPendingOutbox(sql: Sql, label: string) {
     finalizedAt,
   };
 
+  // Build the fixture inside PostgreSQL as a JSONB object. Using JSON.stringify as
+  // a bind parameter can reproduce the exact JSONB-string serialization defect that
+  // the production repository boundary intentionally forbids.
   await sql`
     INSERT INTO booking_create_outbox (attempt_id, projection_payload)
-    VALUES (${attemptId}::uuid, ${JSON.stringify(payload)}::jsonb)
+    VALUES (
+      ${attemptId}::uuid,
+      jsonb_build_object(
+        'contractVersion', ${payload.contractVersion}::text,
+        'attemptId', ${payload.attemptId}::text,
+        'requestId', ${payload.requestId}::text,
+        'idempotencyKey', ${payload.idempotencyKey}::text,
+        'requestFingerprint', ${payload.requestFingerprint}::text,
+        'postgresClaimId', ${payload.postgresClaimId}::text,
+        'writerCommitSha', ${payload.writerCommitSha}::text,
+        'runtimeTraceId', ${payload.runtimeTraceId}::text,
+        'outcome', ${payload.outcome}::text,
+        'canonicalBookingId', ${payload.canonicalBookingId}::text,
+        'claimedAt', ${payload.claimedAt}::text,
+        'finalizedAt', ${payload.finalizedAt}::text
+      )
+    )
   `;
 
-  const [row] = await sql<[{ outbox_id: string }]>`
-    SELECT outbox_id
+  const [row] = await sql<[{ outbox_id: string; payload_type: string }]>`
+    SELECT outbox_id, jsonb_typeof(projection_payload) AS payload_type
     FROM booking_create_outbox
     WHERE attempt_id = ${attemptId}::uuid
   `;
 
   assert.ok(row?.outbox_id);
+  assert.equal(row?.payload_type, 'object');
   return { bookingId, attemptId, outboxId: row.outbox_id, payload };
 }
 
