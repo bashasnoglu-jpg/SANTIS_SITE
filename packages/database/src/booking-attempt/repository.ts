@@ -40,14 +40,24 @@ export interface BookingAttemptRepository {
 
   findClaimOwner(idempotencyKey: string): Promise<ExistingAuthoritativeClaim | null>;
 
-  /** Append-only evidence for replay/conflict/concurrency observations. */
-  appendObservation(input: AttemptObservationInsert): Promise<{ attemptId: string }>;
+  /**
+   * Atomically append a non-owner observation and its durable outbox intent.
+   * Delivery to Airtable remains outside the transaction and outside this boundary.
+   */
+  appendObservationWithProjection(
+    input: AttemptObservationInsert,
+    buildProjection: (attemptId: string) => ProjectionEnvelope,
+  ): Promise<{ attemptId: string }>;
 
-  /** The only allowed owner-row mutation: unfinalized -> finalized. */
-  finalizeOwner(input: AttemptFinalizeInput): Promise<void>;
-
-  /** Durable intent only. Delivery to Airtable is outside this repository boundary. */
-  enqueueProjection(attemptId: string, payload: ProjectionEnvelope): Promise<void>;
+  /**
+   * Atomically perform the only allowed owner mutation (unfinalized -> finalized)
+   * and create exactly one durable projection intent. This prevents a finalized
+   * canonical attempt from existing without a corresponding outbox work item.
+   */
+  finalizeOwnerWithProjection(
+    input: AttemptFinalizeInput,
+    payload: ProjectionEnvelope,
+  ): Promise<void>;
 }
 
 export class ClaimOwnerAlreadyExistsError extends Error {
