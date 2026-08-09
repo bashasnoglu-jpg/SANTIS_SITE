@@ -24,22 +24,19 @@ export interface BookingAttemptOutboxStore {
 
   markSuccess(outboxId: string, processedAt: Date): Promise<void>;
 
-  /**
-   * Persists delivery failure without deleting the durable work item.
-   * retryCount MUST increment exactly once per failed delivery attempt.
-   */
+  /** Retryable delivery failure; retryCount increments exactly once. */
   markFailure(
     outboxId: string,
     errorCode: string,
     nextAttemptAt: Date,
   ): Promise<void>;
+
+  /** Deterministic/non-retryable failure; automatic reclaim must stop. */
+  markTerminalFailure(outboxId: string, errorCode: string): Promise<void>;
 }
 
 export interface EvidenceProjectionTransport {
-  /**
-   * Network adapter boundary only. Tests must use a mock transport; this contract
-   * does not contain Airtable credentials or perform Airtable access itself.
-   */
+  /** Tests use a mock transport; this boundary contains no Airtable access itself. */
   deliver(payload: ProjectionEnvelope): Promise<void>;
 }
 
@@ -52,7 +49,8 @@ export interface BookingAttemptOutboxWorkerOptions {
 export type BookingAttemptOutboxWorkerResult =
   | { status: 'IDLE' }
   | { status: 'DELIVERED'; outboxId: string }
-  | { status: 'RETRY_SCHEDULED'; outboxId: string; errorCode: string };
+  | { status: 'RETRY_SCHEDULED'; outboxId: string; errorCode: string }
+  | { status: 'TERMINAL_REJECTED'; outboxId: string; errorCode: string };
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0;
@@ -124,6 +122,15 @@ function deliveryErrorCode(error: unknown): string {
   return 'EVIDENCE_PROJECTION_DELIVERY_FAILED';
 }
 
+function isNonRetryableDeliveryError(error: unknown): boolean {
+  return Boolean(
+    error &&
+      typeof error === 'object' &&
+      'retryable' in error &&
+      (error as { retryable?: unknown }).retryable === false,
+  );
+}
+
 export class BookingAttemptOutboxWorker {
   private readonly now: () => Date;
   private readonly processingLeaseMs: number;
@@ -155,6 +162,12 @@ export class BookingAttemptOutboxWorker {
       return { status: 'DELIVERED', outboxId: item.outboxId };
     } catch (error) {
       const errorCode = deliveryErrorCode(error);
+
+      if (isNonRetryableDeliveryError(error)) {
+        await this.store.markTerminalFailure(item.outboxId, errorCode);
+        return { status: 'TERMINAL_REJECTED', outboxId: item.outboxId, errorCode };
+      }
+
       const nextRetryCount = item.retryCount + 1;
       const retryAt = new Date(
         this.now().getTime() + this.retryDelayMs(nextRetryCount),
