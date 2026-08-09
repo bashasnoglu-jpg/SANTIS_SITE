@@ -39,15 +39,50 @@ function assertIsolatedConnection(connectionString: string): void {
   }
 }
 
-async function applyExactDraftMigration(sql: Sql): Promise<void> {
-  // 0003 references bookings(id). The gate intentionally creates only the minimum
-  // prerequisite needed to test the exact attempt-ledger artifact. It does not run
-  // historical application migrations or any production migration command.
+async function createTestOnlyBookingPrerequisite(sql: Sql): Promise<void> {
+  // The acceptance gate intentionally does not run historical migrations. It creates
+  // only the booking-state surface required to prove the attempt writer correlation.
   await sql.unsafe(`
+    DO $$
+    BEGIN
+      CREATE TYPE booking_source AS ENUM (
+        'manual', 'online', 'hotel_front_desk', 'concierge', 'phone', 'walk_in'
+      );
+    EXCEPTION
+      WHEN duplicate_object THEN NULL;
+    END $$;
+
+    DO $$
+    BEGIN
+      CREATE TYPE booking_status AS ENUM (
+        'draft', 'confirmed', 'checked_in', 'in_progress', 'completed',
+        'cancelled', 'no_show'
+      );
+    EXCEPTION
+      WHEN duplicate_object THEN NULL;
+    END $$;
+
     CREATE TABLE bookings (
-      id UUID PRIMARY KEY
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      tenant_id UUID NOT NULL,
+      service_id UUID NOT NULL,
+      room_id UUID NOT NULL,
+      therapist_id UUID NOT NULL,
+      service_start_time TIMESTAMPTZ NOT NULL,
+      service_end_time TIMESTAMPTZ NOT NULL,
+      cleanup_end_time TIMESTAMPTZ NOT NULL,
+      booking_source booking_source NOT NULL,
+      booking_status booking_status NOT NULL,
+      customer_info JSONB NOT NULL DEFAULT '{}'::jsonb,
+      notes TEXT,
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW()
     );
   `);
+}
+
+async function applyExactDraftMigration(sql: Sql): Promise<void> {
+  await createTestOnlyBookingPrerequisite(sql);
 
   const migrationUrl = new URL(
     '../../../drizzle/0003_booking_attempt_ledger_v1.sql',
