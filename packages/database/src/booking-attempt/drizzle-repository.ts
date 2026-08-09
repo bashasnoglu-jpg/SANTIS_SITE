@@ -38,27 +38,27 @@ async function insertProjectionIntent(
 ): Promise<void> {
   // Do not pass the full object through the Drizzle JSONB mapper. With the current
   // Drizzle/postgres-js versions that path can physically persist JSON text as a
-  // JSONB string. Build the object inside PostgreSQL from scalar parameters so the
-  // database itself guarantees jsonb_typeof(projection_payload) = 'object'.
+  // JSONB string. Build the object inside PostgreSQL from explicitly typed scalar
+  // parameters so jsonb_typeof(projection_payload) is physically 'object'.
   await tx.execute(sql`
     INSERT INTO booking_create_outbox (attempt_id, projection_payload)
     VALUES (
       ${attemptId}::uuid,
       jsonb_strip_nulls(
         jsonb_build_object(
-          'contractVersion', ${payload.contractVersion},
-          'attemptId', ${payload.attemptId},
-          'requestId', ${payload.requestId},
-          'idempotencyKey', ${payload.idempotencyKey},
-          'requestFingerprint', ${payload.requestFingerprint},
-          'postgresClaimId', ${payload.postgresClaimId},
-          'writerCommitSha', ${payload.writerCommitSha},
-          'runtimeTraceId', ${payload.runtimeTraceId},
-          'outcome', ${payload.outcome},
-          'reasonCode', ${payload.reasonCode ?? null},
-          'canonicalBookingId', ${payload.canonicalBookingId ?? null},
-          'claimedAt', ${payload.claimedAt},
-          'finalizedAt', ${payload.finalizedAt}
+          'contractVersion', ${payload.contractVersion}::text,
+          'attemptId', ${payload.attemptId}::text,
+          'requestId', ${payload.requestId}::text,
+          'idempotencyKey', ${payload.idempotencyKey}::text,
+          'requestFingerprint', ${payload.requestFingerprint}::text,
+          'postgresClaimId', ${payload.postgresClaimId}::text,
+          'writerCommitSha', ${payload.writerCommitSha}::text,
+          'runtimeTraceId', ${payload.runtimeTraceId}::text,
+          'outcome', ${payload.outcome}::text,
+          'reasonCode', ${payload.reasonCode ?? null}::text,
+          'canonicalBookingId', ${payload.canonicalBookingId ?? null}::text,
+          'claimedAt', ${payload.claimedAt}::text,
+          'finalizedAt', ${payload.finalizedAt}::text
         )
       )
     )
