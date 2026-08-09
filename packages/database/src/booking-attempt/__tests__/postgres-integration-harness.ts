@@ -109,6 +109,7 @@ export async function setupPostgresIntegrationGate(): Promise<PostgresIntegratio
     throw new Error('BOOKING_ATTEMPT_TEST_DATABASE_URL_REQUIRED');
   }
 
+  // The destructive reset below is unreachable until host/database/credential gates pass.
   assertIsolatedConnection(connectionString);
 
   const sql = postgres(connectionString, { max: 4, prepare: false });
@@ -116,6 +117,7 @@ export async function setupPostgresIntegrationGate(): Promise<PostgresIntegratio
   const clientB = postgres(connectionString, { max: 1, prepare: false });
 
   await sql`SELECT 1`;
+  await sql.unsafe('DROP SCHEMA public CASCADE; CREATE SCHEMA public;');
   await applyExactDraftMigration(sql);
 
   // Test-only business probe used to prove rollback scope separation.
