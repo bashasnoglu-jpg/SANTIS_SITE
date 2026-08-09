@@ -124,19 +124,34 @@ test(`${INTEGRATION_GATE_NAME}: CANONICAL_WRITER_JOIN + OUTBOX_RETRY_COVENANT = 
     {
       outbox_id: string;
       projection_payload: unknown;
+      payload_type: string;
+      payload_text: string;
       status: string;
       retry_count: number;
       processed_at: Date | null;
     },
   ]>`
-    SELECT outbox_id, projection_payload, status::text, retry_count, processed_at
+    SELECT
+      outbox_id,
+      projection_payload,
+      jsonb_typeof(projection_payload) AS payload_type,
+      projection_payload::text AS payload_text,
+      status::text,
+      retry_count,
+      processed_at
     FROM booking_create_outbox
     WHERE attempt_id = ${result.attemptId}::uuid
   `;
 
+  assert.equal(initialOutbox.length, 1);
   assert.equal(initialOutbox[0]?.status, 'PENDING');
   assert.equal(initialOutbox[0]?.retry_count, 0);
   assert.equal(initialOutbox[0]?.processed_at, null);
+  assert.equal(
+    initialOutbox[0]?.payload_type,
+    'object',
+    `projection JSONB must be an object; actual=${initialOutbox[0]?.payload_type}; payload=${initialOutbox[0]?.payload_text}`,
+  );
   assertProjectionEnvelope(initialOutbox[0]?.projection_payload);
 
   const store = new PostgresBookingAttemptOutboxStore(gate.sql);
