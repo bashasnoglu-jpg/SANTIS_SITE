@@ -24,8 +24,12 @@ export class PostgresBookingAttemptOutboxStore implements BookingAttemptOutboxSt
         SELECT outbox_id, attempt_id, projection_payload, retry_count
         FROM booking_create_outbox
         WHERE (
-          status IN ('PENDING', 'FAILED')
+          status = 'PENDING'
           AND (next_attempt_at IS NULL OR next_attempt_at <= ${nowIso}::timestamptz)
+        ) OR (
+          status = 'FAILED'
+          AND next_attempt_at IS NOT NULL
+          AND next_attempt_at <= ${nowIso}::timestamptz
         ) OR (
           status = 'PROCESSING'
           AND next_attempt_at IS NOT NULL
@@ -92,6 +96,24 @@ export class PostgresBookingAttemptOutboxStore implements BookingAttemptOutboxSt
 
     if (rows.length !== 1) {
       throw new Error('BOOKING_ATTEMPT_OUTBOX_FAILURE_CARDINALITY_VIOLATION');
+    }
+  }
+
+  async markTerminalFailure(outboxId: string, errorCode: string): Promise<void> {
+    const rows = await this.sql<[{ outbox_id: string }]>`
+      UPDATE booking_create_outbox
+      SET status = 'FAILED',
+          retry_count = retry_count + 1,
+          last_error_code = ${errorCode},
+          next_attempt_at = NULL,
+          processed_at = NULL
+      WHERE outbox_id = ${outboxId}::uuid
+        AND status = 'PROCESSING'
+      RETURNING outbox_id
+    `;
+
+    if (rows.length !== 1) {
+      throw new Error('BOOKING_ATTEMPT_OUTBOX_TERMINAL_CARDINALITY_VIOLATION');
     }
   }
 }
