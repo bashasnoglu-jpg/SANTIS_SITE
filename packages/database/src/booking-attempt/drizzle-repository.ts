@@ -1,10 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { and, eq, sql } from 'drizzle-orm';
 
-import {
-  bookingCreateAttempts,
-  bookingCreateOutbox,
-} from '../schema/booking-attempt.js';
+import { bookingCreateAttempts } from '../schema/booking-attempt.js';
 import {
   ClaimOwnerAlreadyExistsError,
   type AttemptFinalizeInput,
@@ -21,6 +18,7 @@ interface DrizzleLikeDb {
   insert(table: unknown): any;
   select(fields?: unknown): any;
   update(table: unknown): any;
+  execute(query: unknown): any;
   transaction<T>(callback: (tx: DrizzleLikeDb) => Promise<T>): Promise<T>;
 }
 
@@ -33,11 +31,19 @@ function isPostgresUniqueViolation(error: unknown): boolean {
   );
 }
 
-function projectionJsonb(payload: ProjectionEnvelope) {
-  // Drizzle 0.30 + postgres-js can otherwise double-encode an object supplied to
-  // this JSONB column into a JSON string. Explicit SQL JSONB construction keeps
-  // the physical database value an object, which is part of the evidence contract.
-  return sql`${JSON.stringify(payload)}::jsonb`;
+async function insertProjectionIntent(
+  tx: DrizzleLikeDb,
+  attemptId: string,
+  payload: ProjectionEnvelope,
+): Promise<void> {
+  // Drizzle 0.30's JSONB column mapper plus postgres-js double-encodes this
+  // payload when it is supplied through .values(). Use parameterized SQL inside
+  // the SAME repository transaction so PostgreSQL receives the canonical JSON
+  // text and casts it once to a JSONB object.
+  await tx.execute(sql`
+    INSERT INTO booking_create_outbox (attempt_id, projection_payload)
+    VALUES (${attemptId}::uuid, ${JSON.stringify(payload)}::jsonb)
+  `);
 }
 
 export class DrizzleBookingAttemptRepository implements BookingAttemptRepository {
@@ -123,12 +129,7 @@ export class DrizzleBookingAttemptRepository implements BookingAttemptRepository
 
       if (!row) throw new Error('BOOKING_ATTEMPT_OBSERVATION_INSERT_RETURNED_NO_ROW');
 
-      const payload = buildProjection(row.attemptId);
-      await tx.insert(bookingCreateOutbox).values({
-        attemptId: row.attemptId,
-        projectionPayload: projectionJsonb(payload),
-      });
-
+      await insertProjectionIntent(tx, row.attemptId, buildProjection(row.attemptId));
       return row;
     });
   }
@@ -158,10 +159,7 @@ export class DrizzleBookingAttemptRepository implements BookingAttemptRepository
         throw new Error('BOOKING_ATTEMPT_OWNER_FINALIZE_CARDINALITY_VIOLATION');
       }
 
-      await tx.insert(bookingCreateOutbox).values({
-        attemptId: input.attemptId,
-        projectionPayload: projectionJsonb(payload),
-      });
+      await insertProjectionIntent(tx, input.attemptId, payload);
     });
   }
 }
