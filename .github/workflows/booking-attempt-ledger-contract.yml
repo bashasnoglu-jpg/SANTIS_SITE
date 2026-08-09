@@ -155,6 +155,11 @@ jobs:
           pnpm exec tsx --test
           packages/database/src/booking-attempt/__tests__/booking-attempt.writer-outbox.postgres.integration.test.ts
 
+      - name: Outbox resiliency and concurrency physical proofs
+        run: >-
+          pnpm exec tsx --test
+          packages/database/src/booking-attempt/__tests__/booking-attempt.outbox-resiliency.postgres.integration.test.ts
+
       - name: Record ephemeral runtime boundary
         if: always()
         shell: bash
@@ -165,7 +170,8 @@ jobs:
             echo '- Database target: ephemeral GitHub Actions postgres:15-alpine service only'
             echo '- Draft 0003 migration apply: TEST CONTAINER ONLY'
             echo '- Canonical writer: EPHEMERAL DB PROOF ONLY'
-            echo '- Airtable transport: SIMULATED FAILURE/SUCCESS ONLY'
+            echo '- Outbox resiliency: CRASH/LEASE/MULTI-WORKER MOCK PROOF ONLY'
+            echo '- Airtable transport: SIMULATED FAILURE/SUCCESS/IDEMPOTENT RECEIVER ONLY'
             echo '- Production migration apply: NOT EXECUTED'
             echo '- Production database touch: 0'
             echo '- Airtable touch: 0'
