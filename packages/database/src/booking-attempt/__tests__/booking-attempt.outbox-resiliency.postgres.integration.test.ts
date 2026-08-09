@@ -16,9 +16,6 @@ import {
 } from './postgres-integration-harness.js';
 
 const RESILIENCY_GATE = 'OUTBOX-RESILIENCY-AND-CONCURRENCY-GATE';
-// Synthetic fixture provenance only; this is deliberately not an assertion about
-// the workflow checkout SHA. Exact-head truth is supplied by GitHub Actions itself.
-const SYNTHETIC_WRITER_SHA = '20f656b9858147964d466fa0bfde55a94af61db2';
 
 let gate: PostgresIntegrationGate;
 
@@ -45,7 +42,7 @@ async function seedPendingOutbox(sql: Sql, label: string) {
   const idempotencyKey = `idem-${label}-${randomUUID()}`;
   const traceId = `trace-${label}-${randomUUID()}`;
   const fingerprint = `sha256:${'c'.repeat(64)}`;
-  const writerCommitSha = SYNTHETIC_WRITER_SHA;
+  const writerCommitSha = '0'.repeat(40); // synthetic fixture value; exact HEAD comes from CI checkout
   const claimedAt = '2026-08-09T17:00:00.000Z';
   const finalizedAt = '2026-08-09T17:00:01.000Z';
 
