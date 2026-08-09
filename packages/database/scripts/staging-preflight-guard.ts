@@ -12,6 +12,7 @@ export interface AirtableStagingAcceptanceConfig {
 export interface StagingPreflightEvidence {
   explicitExecutionGate: true;
   productionEnvironmentRejected: true;
+  productionBaseRejected: true;
   genericAirtableCredentialsRejected: true;
   stagingBaseAllowlisted: true;
   credentialPresent: true;
@@ -72,6 +73,13 @@ export function loadAndValidateStagingConfig(
     'AIRTABLE_STAGING_BASE_SHA256_ALLOWLIST',
     env.AIRTABLE_STAGING_BASE_SHA256_ALLOWLIST,
   ).toLowerCase();
+  const forbiddenBaseSha256 = required(
+    'AIRTABLE_FORBIDDEN_BASE_SHA256',
+    env.AIRTABLE_FORBIDDEN_BASE_SHA256,
+  )
+    .split(',')
+    .map((item) => item.trim().toLowerCase())
+    .filter(Boolean);
 
   if (!/^app[a-zA-Z0-9]+$/.test(baseId)) {
     throw new Error('STAGING_PREFLIGHT_BASE_ID_INVALID');
@@ -82,18 +90,22 @@ export function loadAndValidateStagingConfig(
   if (!/^[a-f0-9]{64}$/.test(allowedBaseSha256)) {
     throw new Error('STAGING_PREFLIGHT_BASE_ALLOWLIST_HASH_INVALID');
   }
+  if (
+    forbiddenBaseSha256.length === 0 ||
+    forbiddenBaseSha256.some((hash) => !/^[a-f0-9]{64}$/.test(hash))
+  ) {
+    throw new Error('STAGING_PREFLIGHT_FORBIDDEN_BASE_HASH_INVALID');
+  }
 
   const actualBaseSha256 = sha256(baseId);
   if (actualBaseSha256 !== allowedBaseSha256) {
     throw new Error('STAGING_PREFLIGHT_BASE_NOT_ALLOWLISTED');
   }
-
-  const explicitForbiddenHashes = (env.AIRTABLE_FORBIDDEN_BASE_SHA256 ?? '')
-    .split(',')
-    .map((item) => item.trim().toLowerCase())
-    .filter(Boolean);
-  if (explicitForbiddenHashes.includes(actualBaseSha256)) {
+  if (forbiddenBaseSha256.includes(actualBaseSha256)) {
     throw new Error('STAGING_PREFLIGHT_BASE_EXPLICITLY_FORBIDDEN');
+  }
+  if (forbiddenBaseSha256.includes(allowedBaseSha256)) {
+    throw new Error('STAGING_PREFLIGHT_ALLOWLIST_FORBIDDEN_OVERLAP');
   }
 
   const timeoutRaw = env.AIRTABLE_STAGING_TIMEOUT_MS?.trim() || '8000';
@@ -118,6 +130,7 @@ export function loadAndValidateStagingConfig(
     evidence: {
       explicitExecutionGate: true,
       productionEnvironmentRejected: true,
+      productionBaseRejected: true,
       genericAirtableCredentialsRejected: true,
       stagingBaseAllowlisted: true,
       credentialPresent: true,
