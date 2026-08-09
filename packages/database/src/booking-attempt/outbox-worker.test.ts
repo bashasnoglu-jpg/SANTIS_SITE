@@ -36,9 +36,10 @@ class FakeOutboxStore implements BookingAttemptOutboxStore {
   processedAt: Date | null = null;
   nextAttemptAt: Date | null = null;
   lastErrorCode: string | null = null;
+  terminal = false;
 
   async claimNext(now: Date, leaseUntil: Date) {
-    if (!this.item || this.status === 'SUCCESS') return null;
+    if (!this.item || this.status === 'SUCCESS' || this.terminal) return null;
     if (this.nextAttemptAt && this.nextAttemptAt > now) return null;
     this.status = 'PROCESSING';
     this.nextAttemptAt = leaseUntil;
@@ -59,6 +60,15 @@ class FakeOutboxStore implements BookingAttemptOutboxStore {
     this.nextAttemptAt = nextAttemptAt;
     this.processedAt = null;
   }
+
+  async markTerminalFailure(_outboxId: string, errorCode: string) {
+    this.status = 'FAILED';
+    this.item = this.item ? { ...this.item, retryCount: this.item.retryCount + 1 } : null;
+    this.lastErrorCode = errorCode;
+    this.nextAttemptAt = null;
+    this.processedAt = null;
+    this.terminal = true;
+  }
 }
 
 class ScriptedTransport implements EvidenceProjectionTransport {
@@ -72,6 +82,21 @@ class ScriptedTransport implements EvidenceProjectionTransport {
       error.name = 'ServiceUnavailableError';
       throw error;
     }
+  }
+}
+
+class TerminalTransport implements EvidenceProjectionTransport {
+  calls = 0;
+
+  async deliver(_payload: ProjectionEnvelope): Promise<void> {
+    this.calls += 1;
+    const error = new Error('SIMULATED_TERMINAL_CONFLICT') as Error & {
+      code: string;
+      retryable: false;
+    };
+    error.code = 'EVIDENCE_INTEGRITY_CONFLICT';
+    error.retryable = false;
+    throw error;
   }
 }
 
@@ -135,4 +160,22 @@ test('idempotent retry succeeds later without creating another work item', async
   const third = await worker.runOnce();
   assert.equal(third.status, 'IDLE');
   assert.equal(transport.calls, 2);
+});
+
+test('non-retryable evidence conflict is terminal and never requeued', async () => {
+  const store = new FakeOutboxStore();
+  const transport = new TerminalTransport();
+  const worker = new BookingAttemptOutboxWorker(store, transport);
+
+  const result = await worker.runOnce();
+  assert.equal(result.status, 'TERMINAL_REJECTED');
+  assert.equal(store.status, 'FAILED');
+  assert.equal(store.terminal, true);
+  assert.equal(store.nextAttemptAt, null);
+  assert.equal(store.lastErrorCode, 'EVIDENCE_INTEGRITY_CONFLICT');
+  assert.equal(store.item?.retryCount, 1);
+
+  const second = await worker.runOnce();
+  assert.equal(second.status, 'IDLE');
+  assert.equal(transport.calls, 1);
 });
