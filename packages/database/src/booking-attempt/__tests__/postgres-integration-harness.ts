@@ -42,6 +42,8 @@ function assertIsolatedConnection(connectionString: string): void {
 async function createTestOnlyBookingPrerequisite(sql: Sql): Promise<void> {
   // The acceptance gate intentionally does not run historical migrations. It creates
   // only the booking-state surface required to prove the attempt writer correlation.
+  // Defaults keep the older constraint-only proofs valid while newer writer proofs
+  // still provide explicit canonical business values.
   await sql.unsafe(`
     DO $$
     BEGIN
@@ -64,15 +66,15 @@ async function createTestOnlyBookingPrerequisite(sql: Sql): Promise<void> {
 
     CREATE TABLE bookings (
       id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-      tenant_id UUID NOT NULL,
-      service_id UUID NOT NULL,
-      room_id UUID NOT NULL,
-      therapist_id UUID NOT NULL,
-      service_start_time TIMESTAMPTZ NOT NULL,
-      service_end_time TIMESTAMPTZ NOT NULL,
-      cleanup_end_time TIMESTAMPTZ NOT NULL,
-      booking_source booking_source NOT NULL,
-      booking_status booking_status NOT NULL,
+      tenant_id UUID NOT NULL DEFAULT gen_random_uuid(),
+      service_id UUID NOT NULL DEFAULT gen_random_uuid(),
+      room_id UUID NOT NULL DEFAULT gen_random_uuid(),
+      therapist_id UUID NOT NULL DEFAULT gen_random_uuid(),
+      service_start_time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      service_end_time TIMESTAMPTZ NOT NULL DEFAULT (NOW() + INTERVAL '1 hour'),
+      cleanup_end_time TIMESTAMPTZ NOT NULL DEFAULT (NOW() + INTERVAL '1 hour 15 minutes'),
+      booking_source booking_source NOT NULL DEFAULT 'manual',
+      booking_status booking_status NOT NULL DEFAULT 'draft',
       customer_info JSONB NOT NULL DEFAULT '{}'::jsonb,
       notes TEXT,
       created_at TIMESTAMPTZ DEFAULT NOW(),
