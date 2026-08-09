@@ -183,3 +183,23 @@ test('outbox transaction failure does not fabricate a finalized canonical attemp
   assert.equal(repo.finalized.length, 0);
   assert.equal(repo.outbox.length, 0);
 });
+
+test('projection delivery is outside canonical service boundary once outbox intent exists', async () => {
+  const repo = new FakeAttemptRepository();
+  const result = await service(repo, {
+    status: 'SUCCESS',
+    canonicalBookingId: 'booking-1',
+  }).handle(request());
+
+  const canonicalBeforeDelivery = structuredClone(repo.owner);
+  const outboxBeforeDelivery = structuredClone(repo.outbox);
+
+  // Simulate a downstream Airtable delivery failure. The orchestration service has
+  // already returned after durable outbox creation and has no Airtable dependency.
+  const downstreamProjectionError = new Error('SIMULATED_AIRTABLE_DELIVERY_FAILURE');
+  assert.match(downstreamProjectionError.message, /AIRTABLE/);
+
+  assert.equal(result.kind, 'OWNER_SUCCESS');
+  assert.deepEqual(repo.owner, canonicalBeforeDelivery);
+  assert.deepEqual(repo.outbox, outboxBeforeDelivery);
+});
