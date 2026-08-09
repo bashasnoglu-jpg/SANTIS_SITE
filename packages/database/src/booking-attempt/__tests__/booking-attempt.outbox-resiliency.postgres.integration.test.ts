@@ -16,6 +16,7 @@ import {
 } from './postgres-integration-harness.js';
 
 const RESILIENCY_GATE = 'OUTBOX-RESILIENCY-AND-CONCURRENCY-GATE';
+const RESILIENCY_EVIDENCE_HEAD = '20f656b9858147964d466fa0bfde55a94af61db2';
 
 let gate: PostgresIntegrationGate;
 
@@ -42,7 +43,7 @@ async function seedPendingOutbox(sql: Sql, label: string) {
   const idempotencyKey = `idem-${label}-${randomUUID()}`;
   const traceId = `trace-${label}-${randomUUID()}`;
   const fingerprint = `sha256:${'c'.repeat(64)}`;
-  const writerCommitSha = 'dcbc9da076d43329430cbb95bf9a2bdd64b83163';
+  const writerCommitSha = RESILIENCY_EVIDENCE_HEAD;
   const claimedAt = '2026-08-09T17:00:00.000Z';
   const finalizedAt = '2026-08-09T17:00:01.000Z';
 
