@@ -47,7 +47,7 @@ jobs:
       - name: Install dependencies without lifecycle scripts
         run: pnpm install --frozen-lockfile --ignore-scripts
 
-      - name: Verify migration remains unapplied artifact
+      - name: Verify migration remains production-unapplied artifact
         shell: bash
         run: |
           set -euo pipefail
@@ -66,19 +66,99 @@ jobs:
       - name: Service-layer isolation TDD
         run: pnpm exec tsx --test packages/database/src/booking-attempt/service.test.ts
 
-      - name: Record safety boundary
+      - name: Record code-only safety boundary
         if: always()
         shell: bash
         run: |
           {
-            echo '## BOOKING-CREATE-ATTEMPT-1.0'
+            echo '## BOOKING-CREATE-ATTEMPT-1.0 — code boundary'
             echo
-            echo '- PostgreSQL migration apply: NOT EXECUTED'
-            echo '- PostgreSQL runtime connection: NOT USED'
+            echo '- PostgreSQL production migration apply: NOT EXECUTED'
+            echo '- PostgreSQL runtime connection: NOT USED IN THIS JOB'
             echo '- Airtable mutation: 0'
             echo '- Airtable schema change: 0'
             echo '- Automation change: 0'
             echo '- Production deployment: 0'
-            echo '- Runtime acceptance: NOT EVALUATED'
+            echo '- Merge authority: NOT GRANTED'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  postgres-integration:
+    name: PostgreSQL integration acceptance — ephemeral only
+    needs: contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: santis_booking_attempt_gate
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d santis_booking_attempt_gate"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      BOOKING_ATTEMPT_INTEGRATION_GATE: '1'
+      BOOKING_ATTEMPT_TEST_DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/santis_booking_attempt_gate
+      NODE_ENV: test
+
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+
+      - name: Use repository Node version
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 20.19.0
+          package-manager-cache: false
+
+      - name: Enable pinned pnpm
+        uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2
+        with:
+          version: 10.24.0
+          run_install: false
+
+      - name: Install dependencies without lifecycle scripts
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Assert zero external authority credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -z "${AIRTABLE_API_KEY:-}"
+          test -z "${AIRTABLE_TOKEN:-}"
+          case "${BOOKING_ATTEMPT_TEST_DATABASE_URL}" in
+            postgres://postgres:postgres@127.0.0.1:5432/santis_booking_attempt_gate) ;;
+            *) echo 'Unexpected integration database URL' >&2; exit 1 ;;
+          esac
+
+      - name: Physical PostgreSQL acceptance proofs
+        run: >-
+          pnpm exec tsx --test
+          packages/database/src/booking-attempt/__tests__/booking-attempt.postgres.integration.test.ts
+
+      - name: Record ephemeral runtime boundary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## BOOKING-ATTEMPT-POSTGRES-INTEGRATION-ACCEPTANCE'
+            echo
+            echo '- Database target: ephemeral GitHub Actions postgres:15-alpine service only'
+            echo '- Draft 0003 migration apply: TEST CONTAINER ONLY'
+            echo '- Production migration apply: NOT EXECUTED'
+            echo '- Production database touch: 0'
+            echo '- Airtable touch: 0'
+            echo '- External credential use: 0'
+            echo '- Production deployment: 0'
             echo '- Merge authority: NOT GRANTED'
           } >> "$GITHUB_STEP_SUMMARY"
