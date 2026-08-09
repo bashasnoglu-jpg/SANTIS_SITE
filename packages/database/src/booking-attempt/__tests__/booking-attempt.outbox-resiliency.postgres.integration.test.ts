@@ -112,7 +112,7 @@ async function seedPendingOutbox(sql: Sql, label: string) {
         'writerCommitSha', ${payload.writerCommitSha}::text,
         'runtimeTraceId', ${payload.runtimeTraceId}::text,
         'outcome', ${payload.outcome}::text,
-        'canonicalBookingId', ${payload.canonicalBookingId}::text,
+        'canonicalBookingId', ${bookingId}::text,
         'claimedAt', ${payload.claimedAt}::text,
         'finalizedAt', ${payload.finalizedAt}::text
       )
