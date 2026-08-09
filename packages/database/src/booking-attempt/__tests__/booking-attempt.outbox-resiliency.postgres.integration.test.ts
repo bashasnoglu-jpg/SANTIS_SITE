@@ -95,9 +95,8 @@ async function seedPendingOutbox(sql: Sql, label: string) {
     finalizedAt,
   };
 
-  // Build the fixture inside PostgreSQL as a JSONB object. Using JSON.stringify as
-  // a bind parameter can reproduce the exact JSONB-string serialization defect that
-  // the production repository boundary intentionally forbids.
+  // The all-zero writer SHA is an explicit non-authoritative fixture sentinel.
+  // Exact-head provenance comes from the GitHub Actions checkout SHA, never this row.
   await sql`
     INSERT INTO booking_create_outbox (attempt_id, projection_payload)
     VALUES (
