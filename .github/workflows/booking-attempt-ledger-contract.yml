@@ -9,6 +9,9 @@ on:
       - 'packages/database/src/booking-attempt/**'
       - 'packages/database/src/schema/booking-attempt.ts'
       - 'packages/database/src/index.ts'
+      - 'packages/database/scripts/run-staging-acceptance.ts'
+      - 'packages/database/scripts/real-airtable-staging-adapter.ts'
+      - 'packages/database/scripts/staging-preflight-guard.ts'
       - '.github/workflows/booking-attempt-ledger-contract.yml'
   workflow_dispatch:
 
@@ -60,6 +63,20 @@ jobs:
       - name: Database package typecheck
         run: pnpm --filter @santis/database typecheck
 
+      - name: Compile-check staging acceptance package — do not execute
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -z "${AIRTABLE_STAGING_TOKEN:-}"
+          test -z "${AIRTABLE_API_KEY:-}"
+          test -z "${AIRTABLE_TOKEN:-}"
+          pnpm exec esbuild packages/database/scripts/run-staging-acceptance.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=/tmp/run-staging-acceptance.mjs
+          test -s /tmp/run-staging-acceptance.mjs
+
       - name: Deterministic idempotency contract tests
         run: pnpm exec tsx --test packages/database/src/booking-attempt/contracts.test.ts
 
@@ -86,6 +103,7 @@ jobs:
             echo '- Airtable mutation: 0'
             echo '- Airtable schema change: 0'
             echo '- Airtable network delivery: MOCK ONLY'
+            echo '- Real Airtable staging adapter: COMPILE-CHECK ONLY / NOT EXECUTED'
             echo '- Receiver idempotency contract: MOCK ONLY'
             echo '- Automation change: 0'
             echo '- Production deployment: 0'
@@ -146,6 +164,7 @@ jobs:
           set -euo pipefail
           test -z "${AIRTABLE_API_KEY:-}"
           test -z "${AIRTABLE_TOKEN:-}"
+          test -z "${AIRTABLE_STAGING_TOKEN:-}"
           case "${BOOKING_ATTEMPT_TEST_DATABASE_URL}" in
             postgres://postgres:postgres@127.0.0.1:5432/santis_booking_attempt_gate) ;;
             *) echo 'Unexpected integration database URL' >&2; exit 1 ;;
@@ -178,6 +197,7 @@ jobs:
             echo '- Canonical writer: EPHEMERAL DB PROOF ONLY'
             echo '- Outbox resiliency: CRASH/LEASE/MULTI-WORKER MOCK PROOF ONLY'
             echo '- Airtable transport: SIMULATED FAILURE/SUCCESS/IDEMPOTENT RECEIVER ONLY'
+            echo '- Real Airtable staging adapter: NOT EXECUTED'
             echo '- Production migration apply: NOT EXECUTED'
             echo '- Production database touch: 0'
             echo '- Airtable touch: 0'
