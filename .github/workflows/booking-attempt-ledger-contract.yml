@@ -66,6 +66,9 @@ jobs:
       - name: Service-layer isolation TDD
         run: pnpm exec tsx --test packages/database/src/booking-attempt/service.test.ts
 
+      - name: Outbox retry and payload integrity TDD
+        run: pnpm exec tsx --test packages/database/src/booking-attempt/outbox-worker.test.ts
+
       - name: Record code-only safety boundary
         if: always()
         shell: bash
@@ -77,6 +80,7 @@ jobs:
             echo '- PostgreSQL runtime connection: NOT USED IN THIS JOB'
             echo '- Airtable mutation: 0'
             echo '- Airtable schema change: 0'
+            echo '- Airtable network delivery: MOCK ONLY'
             echo '- Automation change: 0'
             echo '- Production deployment: 0'
             echo '- Merge authority: NOT GRANTED'
@@ -141,10 +145,15 @@ jobs:
             *) echo 'Unexpected integration database URL' >&2; exit 1 ;;
           esac
 
-      - name: Physical PostgreSQL acceptance proofs
+      - name: Physical PostgreSQL constraint proofs
         run: >-
           pnpm exec tsx --test
           packages/database/src/booking-attempt/__tests__/booking-attempt.postgres.integration.test.ts
+
+      - name: Canonical writer and outbox retry physical proofs
+        run: >-
+          pnpm exec tsx --test
+          packages/database/src/booking-attempt/__tests__/booking-attempt.writer-outbox.postgres.integration.test.ts
 
       - name: Record ephemeral runtime boundary
         if: always()
@@ -155,6 +164,8 @@ jobs:
             echo
             echo '- Database target: ephemeral GitHub Actions postgres:15-alpine service only'
             echo '- Draft 0003 migration apply: TEST CONTAINER ONLY'
+            echo '- Canonical writer: EPHEMERAL DB PROOF ONLY'
+            echo '- Airtable transport: SIMULATED FAILURE/SUCCESS ONLY'
             echo '- Production migration apply: NOT EXECUTED'
             echo '- Production database touch: 0'
             echo '- Airtable touch: 0'
