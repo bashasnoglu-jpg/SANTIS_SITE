@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import test, { after, before } from 'node:test';
+import test, { after, before, beforeEach } from 'node:test';
 
 import postgres, { type Sql } from 'postgres';
 
@@ -21,6 +21,13 @@ let gate: PostgresIntegrationGate;
 
 before(async () => {
   gate = await setupPostgresIntegrationGate();
+});
+
+beforeEach(async () => {
+  // Test-only fixture isolation. Attempts are intentionally left immutable; only
+  // ephemeral delivery work rows from the previous subtest are cleared so claimNext
+  // cannot select an older PROCESSING lease.
+  await gate.sql`DELETE FROM booking_create_outbox`;
 });
 
 after(async () => {
