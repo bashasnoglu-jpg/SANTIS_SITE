@@ -33,11 +33,16 @@ export interface CanonicalBookingCreateInput {
   notes?: string;
 }
 
-function postgresReasonCode(error: unknown): string {
+function writerReasonCode(error: unknown): string {
   if (error && typeof error === 'object' && 'code' in error) {
     const code = (error as { code?: unknown }).code;
     if (typeof code === 'string' && code.length > 0) {
-      return `POSTGRES_${code}`;
+      // PostgreSQL SQLSTATE values are five characters. Keep Node/runtime errors
+      // distinct so evidence never misclassifies a client serialization failure as
+      // a database decision.
+      return /^[0-9A-Z]{5}$/.test(code)
+        ? `POSTGRES_${code}`
+        : `CANONICAL_BOOKING_WRITER_RUNTIME_${code}`;
     }
   }
   return 'CANONICAL_BOOKING_WRITE_FAILED';
@@ -75,13 +80,13 @@ export class PostgresCanonicalBookingExecutor
           ${businessData.serviceId}::uuid,
           ${businessData.roomId}::uuid,
           ${businessData.therapistId}::uuid,
-          ${businessData.serviceStartTime},
-          ${businessData.serviceEndTime},
-          ${businessData.cleanupEndTime},
+          ${businessData.serviceStartTime.toISOString()}::timestamptz,
+          ${businessData.serviceEndTime.toISOString()}::timestamptz,
+          ${businessData.cleanupEndTime.toISOString()}::timestamptz,
           ${businessData.bookingSource}::booking_source,
           ${businessData.bookingStatus}::booking_status,
           ${JSON.stringify(businessData.customerInfo ?? {})}::jsonb,
-          ${businessData.notes ?? null}
+          ${businessData.notes ?? ''}
         )
         RETURNING id
       `;
@@ -93,7 +98,7 @@ export class PostgresCanonicalBookingExecutor
 
       return { status: 'SUCCESS', canonicalBookingId: row.id };
     } catch (error) {
-      return { status: 'FAILURE', reasonCode: postgresReasonCode(error) };
+      return { status: 'FAILURE', reasonCode: writerReasonCode(error) };
     }
   }
 }
