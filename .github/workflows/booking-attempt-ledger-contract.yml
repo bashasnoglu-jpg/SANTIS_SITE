@@ -69,6 +69,11 @@ jobs:
       - name: Outbox retry and payload integrity TDD
         run: pnpm exec tsx --test packages/database/src/booking-attempt/outbox-worker.test.ts
 
+      - name: Airtable receiver idempotency contract — mock only
+        run: >-
+          pnpm exec tsx --test
+          packages/database/src/booking-attempt/airtable-receiver-idempotency-contract.test.ts
+
       - name: Record code-only safety boundary
         if: always()
         shell: bash
@@ -81,6 +86,7 @@ jobs:
             echo '- Airtable mutation: 0'
             echo '- Airtable schema change: 0'
             echo '- Airtable network delivery: MOCK ONLY'
+            echo '- Receiver idempotency contract: MOCK ONLY'
             echo '- Automation change: 0'
             echo '- Production deployment: 0'
             echo '- Merge authority: NOT GRANTED'
