@@ -16,17 +16,20 @@ export class PostgresBookingAttemptOutboxStore implements BookingAttemptOutboxSt
   constructor(private readonly sql: Sql) {}
 
   async claimNext(now: Date, leaseUntil: Date): Promise<BookingAttemptOutboxItem | null> {
+    const nowIso = now.toISOString();
+    const leaseUntilIso = leaseUntil.toISOString();
+
     return this.sql.begin(async (tx) => {
       const rows = await tx<OutboxRow[]>`
         SELECT outbox_id, attempt_id, projection_payload, retry_count
         FROM booking_create_outbox
         WHERE (
           status IN ('PENDING', 'FAILED')
-          AND (next_attempt_at IS NULL OR next_attempt_at <= ${now})
+          AND (next_attempt_at IS NULL OR next_attempt_at <= ${nowIso}::timestamptz)
         ) OR (
           status = 'PROCESSING'
           AND next_attempt_at IS NOT NULL
-          AND next_attempt_at <= ${now}
+          AND next_attempt_at <= ${nowIso}::timestamptz
         )
         ORDER BY created_at ASC, outbox_id ASC
         FOR UPDATE SKIP LOCKED
@@ -39,7 +42,7 @@ export class PostgresBookingAttemptOutboxStore implements BookingAttemptOutboxSt
       await tx`
         UPDATE booking_create_outbox
         SET status = 'PROCESSING',
-            next_attempt_at = ${leaseUntil},
+            next_attempt_at = ${leaseUntilIso}::timestamptz,
             last_error_code = NULL
         WHERE outbox_id = ${row.outbox_id}::uuid
       `;
@@ -57,7 +60,7 @@ export class PostgresBookingAttemptOutboxStore implements BookingAttemptOutboxSt
     const rows = await this.sql<[{ outbox_id: string }]>`
       UPDATE booking_create_outbox
       SET status = 'SUCCESS',
-          processed_at = ${processedAt},
+          processed_at = ${processedAt.toISOString()}::timestamptz,
           next_attempt_at = NULL,
           last_error_code = NULL
       WHERE outbox_id = ${outboxId}::uuid
@@ -80,7 +83,7 @@ export class PostgresBookingAttemptOutboxStore implements BookingAttemptOutboxSt
       SET status = 'FAILED',
           retry_count = retry_count + 1,
           last_error_code = ${errorCode},
-          next_attempt_at = ${nextAttemptAt},
+          next_attempt_at = ${nextAttemptAt.toISOString()}::timestamptz,
           processed_at = NULL
       WHERE outbox_id = ${outboxId}::uuid
         AND status = 'PROCESSING'
