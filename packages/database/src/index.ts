@@ -7,5 +7,8 @@ export * from "./booking-attempt/contracts.js";
 export * from "./booking-attempt/repository.js";
 export * from "./booking-attempt/drizzle-repository.js";
 export * from "./booking-attempt/service.js";
+export * from "./booking-attempt/postgres-booking-executor.js";
+export * from "./booking-attempt/outbox-worker.js";
+export * from "./booking-attempt/postgres-outbox-store.js";
 export * from "./client.js";
 export * from "./schema/guest-memory.js";
