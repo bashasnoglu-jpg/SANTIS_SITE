@@ -45,7 +45,7 @@ async function applyExactDraftMigration(sql: Sql): Promise<void> {
   // historical application migrations or any production migration command.
   await sql.unsafe(`
     CREATE TABLE bookings (
-      id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+      id UUID PRIMARY KEY
     );
   `);
 
