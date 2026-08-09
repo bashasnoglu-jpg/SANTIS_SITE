@@ -62,15 +62,22 @@ export class BookingAttemptOrchestrationService<TBusinessData = unknown> {
         throw new Error('BOOKING_ATTEMPT_SUCCESS_MISSING_CANONICAL_BOOKING_ID');
       }
 
-      await this.repository.finalizeOwner({
-        attemptId: claim.attemptId,
-        outcome: 'SUCCESS',
-        canonicalBookingId: execution.canonicalBookingId,
-      });
+      const payload = this.buildProjection(
+        request,
+        claim,
+        'SUCCESS',
+        finalizedAt,
+        undefined,
+        execution.canonicalBookingId,
+      );
 
-      await this.repository.enqueueProjection(
-        claim.attemptId,
-        this.buildProjection(request, claim, 'SUCCESS', finalizedAt, undefined, execution.canonicalBookingId),
+      await this.repository.finalizeOwnerWithProjection(
+        {
+          attemptId: claim.attemptId,
+          outcome: 'SUCCESS',
+          canonicalBookingId: execution.canonicalBookingId,
+        },
+        payload,
       );
 
       return {
@@ -81,28 +88,23 @@ export class BookingAttemptOrchestrationService<TBusinessData = unknown> {
       };
     }
 
-    await this.repository.finalizeOwner({
-      attemptId: claim.attemptId,
-      outcome: 'FAILURE',
-      reasonCode: execution.reasonCode ?? 'BOOKING_EXECUTION_FAILED',
-    });
+    const reasonCode = execution.reasonCode ?? 'BOOKING_EXECUTION_FAILED';
+    const payload = this.buildProjection(request, claim, 'FAILURE', finalizedAt, reasonCode);
 
-    await this.repository.enqueueProjection(
-      claim.attemptId,
-      this.buildProjection(
-        request,
-        claim,
-        'FAILURE',
-        finalizedAt,
-        execution.reasonCode ?? 'BOOKING_EXECUTION_FAILED',
-      ),
+    await this.repository.finalizeOwnerWithProjection(
+      {
+        attemptId: claim.attemptId,
+        outcome: 'FAILURE',
+        reasonCode,
+      },
+      payload,
     );
 
     return {
       kind: 'OWNER_FAILURE',
       attemptId: claim.attemptId,
       postgresClaimId: claim.postgresClaimId,
-      reasonCode: execution.reasonCode ?? 'BOOKING_EXECUTION_FAILED',
+      reasonCode,
     };
   }
 
@@ -118,25 +120,23 @@ export class BookingAttemptOrchestrationService<TBusinessData = unknown> {
       { requestFingerprint: request.requestFingerprint },
       existing,
     );
+    const observedAt = this.now();
 
-    const observation = await this.repository.appendObservation({
-      requestId: request.requestId,
-      idempotencyKey: request.idempotencyKey,
-      requestFingerprint: request.requestFingerprint,
-      writerCommitSha: request.writerCommitSha,
-      runtimeTraceId: request.runtimeTraceId,
-      postgresClaimId: existing.postgresClaimId,
-      outcome: decision.outcome,
-      reasonCode: decision.reasonCode,
-      canonicalBookingId: decision.canonicalBookingId,
-    });
-
-    const claimedAt = this.now();
-    await this.repository.enqueueProjection(
-      observation.attemptId,
+    const observation = await this.repository.appendObservationWithProjection(
       {
+        requestId: request.requestId,
+        idempotencyKey: request.idempotencyKey,
+        requestFingerprint: request.requestFingerprint,
+        writerCommitSha: request.writerCommitSha,
+        runtimeTraceId: request.runtimeTraceId,
+        postgresClaimId: existing.postgresClaimId,
+        outcome: decision.outcome,
+        reasonCode: decision.reasonCode,
+        canonicalBookingId: decision.canonicalBookingId,
+      },
+      (attemptId) => ({
         contractVersion: BOOKING_ATTEMPT_CONTRACT_VERSION,
-        attemptId: observation.attemptId,
+        attemptId,
         requestId: request.requestId,
         idempotencyKey: request.idempotencyKey,
         requestFingerprint: request.requestFingerprint,
@@ -146,9 +146,9 @@ export class BookingAttemptOrchestrationService<TBusinessData = unknown> {
         outcome: decision.outcome,
         reasonCode: decision.reasonCode,
         canonicalBookingId: decision.canonicalBookingId,
-        claimedAt: claimedAt.toISOString(),
-        finalizedAt: claimedAt.toISOString(),
-      },
+        claimedAt: observedAt.toISOString(),
+        finalizedAt: observedAt.toISOString(),
+      }),
     );
 
     return {
