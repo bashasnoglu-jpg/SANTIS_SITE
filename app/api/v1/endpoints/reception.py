@@ -21,7 +21,7 @@ router = APIRouter(prefix="/reception", tags=["reception"])
 
 AIRTABLE_API_URL = "https://api.airtable.com/v0"
 AIRTABLE_BASE_ID_ENV_KEYS = ("AIRTABLE_BASE_ID", "AIRTABLE_SANTIS_BASE_ID")
-AIRTABLE_TOKEN_ENV_KEYS = ("AIRTABLE_PAT", "AIRTABLE_API_KEY")
+AIRTABLE_TOKEN_ENV_KEYS = ("AIRTABLE_RECEPTION_WRITE_TOKEN",)
 BOOKINGS_TABLE_ID = os.getenv("AIRTABLE_BOOKINGS_TABLE_ID", "tblocCFVgSNfaLAH6")
 COMMISSION_RULES_TABLE_ID = os.getenv("AIRTABLE_COMMISSION_RULES_TABLE_ID", "tblukYjjH5K6Ah9i2")
 COMMISSION_LEDGER_TABLE_ID = os.getenv("AIRTABLE_COMMISSION_LEDGER_TABLE_ID", "tbliz2cnvA3cyVaLd")
@@ -130,7 +130,7 @@ def _airtable_token() -> str:
     if not token:
         raise HTTPException(
             status_code=503,
-            detail="Airtable token is not configured. Set AIRTABLE_PAT or AIRTABLE_API_KEY on the backend.",
+            detail="Airtable token is not configured. Set AIRTABLE_RECEPTION_WRITE_TOKEN on the backend.",
         )
     return token
 
