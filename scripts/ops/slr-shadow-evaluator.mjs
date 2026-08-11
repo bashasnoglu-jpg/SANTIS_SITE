@@ -6,7 +6,7 @@ const EVENT_PROCESSOR_VERSION = 'SLR-EVENT-0.1.0';
 const DEFAULT_EVENT_TYPE = 'MANUAL_SHADOW_EVALUATION';
 
 const BASE_ID_ENV_KEYS = ['AIRTABLE_BASE_ID', 'AIRTABLE_SANTIS_BASE_ID'];
-const TOKEN_ENV_KEYS = ['AIRTABLE_PAT', 'AIRTABLE_API_KEY'];
+const TOKEN_ENV_KEYS = ['AIRTABLE_SLR_SHADOW_WRITE_TOKEN'];
 
 const TABLES = {
   bookings: process.env.SLR_BOOKINGS_TABLE || 'Bookings',
@@ -451,7 +451,7 @@ async function main() {
   const write = args.write === true || args.write === 'true';
 
   if (!baseId) throw new Error('Missing Airtable base ID. Set AIRTABLE_BASE_ID or AIRTABLE_SANTIS_BASE_ID.');
-  if (!token) throw new Error('Missing Airtable token. Set AIRTABLE_PAT or AIRTABLE_API_KEY.');
+  if (!token) throw new Error('Missing Airtable token. Set AIRTABLE_SLR_SHADOW_WRITE_TOKEN.');
   if (!bookingId || !String(bookingId).startsWith('rec')) {
     throw new Error('Missing or invalid --booking-id=<rec...>.');
   }
