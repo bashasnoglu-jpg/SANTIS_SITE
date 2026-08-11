@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const AIRTABLE_API_URL = 'https://api.airtable.com/v0';
 const BASE_ID_ENV_KEYS = ['AIRTABLE_BASE_ID', 'AIRTABLE_SANTIS_BASE_ID'];
-const TOKEN_ENV_KEYS = ['AIRTABLE_PAT', 'AIRTABLE_API_KEY'];
+const TOKEN_ENV_KEYS = ['AIRTABLE_OPS_READ_TOKEN'];
 const BOOKINGS_TABLE_ID = process.env.AIRTABLE_BOOKINGS_TABLE_ID || 'tblocCFVgSNfaLAH6';
 const DEFAULT_OUTPUT_ROOT = 'Santis_OS_Offline_Schedule';
 const TIME_ZONE = 'Europe/Podgorica';
@@ -404,7 +404,7 @@ async function main() {
   const token = firstEnv(TOKEN_ENV_KEYS);
 
   if (!baseId) throw new Error('Missing Airtable base ID. Set AIRTABLE_BASE_ID or AIRTABLE_SANTIS_BASE_ID.');
-  if (!token) throw new Error('Missing Airtable token. Set AIRTABLE_PAT or AIRTABLE_API_KEY in the backend/ops environment.');
+  if (!token) throw new Error('Missing Airtable token. Set AIRTABLE_OPS_READ_TOKEN in the backend/ops environment.');
 
   ensureDirectory(outputDir);
   const records = await fetchAirtableBookings({ baseId, token, date, environment });

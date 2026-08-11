@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const AIRTABLE_API_URL = 'https://api.airtable.com/v0';
 const BASE_ID_ENV_KEYS = ['AIRTABLE_BASE_ID', 'AIRTABLE_SANTIS_BASE_ID'];
-const TOKEN_ENV_KEYS = ['AIRTABLE_PAT', 'AIRTABLE_API_KEY'];
+const TOKEN_ENV_KEYS = ['AIRTABLE_OPS_READ_TOKEN'];
 const DEFAULT_OUTPUT_ROOT = 'Santis_OS_Backups';
 const TIME_ZONE = 'Europe/Podgorica';
 
@@ -342,7 +342,7 @@ async function main() {
   }
 
   if (!token) {
-    throw new Error('Missing Airtable token. Set AIRTABLE_PAT or AIRTABLE_API_KEY in the backend/ops environment.');
+    throw new Error('Missing Airtable token. Set AIRTABLE_OPS_READ_TOKEN in the backend/ops environment.');
   }
 
   ensureDirectory(outputDir);
