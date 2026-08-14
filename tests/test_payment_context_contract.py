@@ -76,7 +76,11 @@ def _booking(
 def _set_airtable_env(monkeypatch):
     monkeypatch.setenv("AIRTABLE_BASE_ID", "appTestBase")
     monkeypatch.delenv("AIRTABLE_SANTIS_BASE_ID", raising=False)
-    monkeypatch.setenv("AIRTABLE_PAT", "patTestReadOnly")
+    monkeypatch.setenv(
+        "AIRTABLE_PAYMENT_CONTEXT_READ_TOKEN",
+        "patTestReadOnly",
+    )
+    monkeypatch.delenv("AIRTABLE_PAT", raising=False)
     monkeypatch.delenv("AIRTABLE_API_KEY", raising=False)
 
 
@@ -242,7 +246,12 @@ def test_payment_not_found_is_no_store(monkeypatch):
 def test_missing_base_configuration_is_no_store(monkeypatch):
     monkeypatch.delenv("AIRTABLE_BASE_ID", raising=False)
     monkeypatch.delenv("AIRTABLE_SANTIS_BASE_ID", raising=False)
-    monkeypatch.setenv("AIRTABLE_PAT", "patTestReadOnly")
+    monkeypatch.setenv(
+        "AIRTABLE_PAYMENT_CONTEXT_READ_TOKEN",
+        "patTestReadOnly",
+    )
+    monkeypatch.delenv("AIRTABLE_PAT", raising=False)
+    monkeypatch.delenv("AIRTABLE_API_KEY", raising=False)
 
     response = client.get(f"/api/v1/payment-context/{QA240_PAYMENT_ID}/validate")
 
@@ -251,17 +260,27 @@ def test_missing_base_configuration_is_no_store(monkeypatch):
     assert response.json()["detail"] == {"code": "AIRTABLE_BASE_NOT_CONFIGURED"}
 
 
-def test_missing_token_configuration_is_no_store(monkeypatch):
+def test_missing_read_token_ignores_legacy_credentials_without_network(monkeypatch):
     monkeypatch.setenv("AIRTABLE_BASE_ID", "appTestBase")
     monkeypatch.delenv("AIRTABLE_SANTIS_BASE_ID", raising=False)
-    monkeypatch.delenv("AIRTABLE_PAT", raising=False)
-    monkeypatch.delenv("AIRTABLE_API_KEY", raising=False)
+    monkeypatch.delenv("AIRTABLE_PAYMENT_CONTEXT_READ_TOKEN", raising=False)
+    monkeypatch.setenv("AIRTABLE_PAT", "legacyPatCanary")
+    monkeypatch.setenv("AIRTABLE_API_KEY", "legacyApiKeyCanary")
+
+    network_calls: list[tuple[tuple[object, ...], dict[str, object]]] = []
+
+    def fail_if_called(*args, **kwargs):
+        network_calls.append((args, kwargs))
+        raise AssertionError("Airtable network call must not occur")
+
+    monkeypatch.setattr(endpoint, "urlopen", fail_if_called)
 
     response = client.get(f"/api/v1/payment-context/{QA240_PAYMENT_ID}/validate")
 
     assert response.status_code == 503
     assert response.headers.get("cache-control") == "no-store"
     assert response.json()["detail"] == {"code": "AIRTABLE_TOKEN_NOT_CONFIGURED"}
+    assert network_calls == []
 
 
 def test_upstream_http_error_is_sanitized_and_no_store(monkeypatch):
@@ -324,3 +343,30 @@ def test_invalid_upstream_json_is_sanitized_and_no_store(monkeypatch):
     assert response.headers.get("cache-control") == "no-store"
     assert response.json()["detail"] == {"code": "AIRTABLE_INVALID_RESPONSE"}
     assert "not-json" not in response.text
+
+
+def test_malformed_upstream_envelope_is_sanitized_and_no_store(monkeypatch):
+    _set_airtable_env(monkeypatch)
+
+    class MalformedEnvelopeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def read(self):
+            return b"null"
+
+    monkeypatch.setattr(
+        endpoint,
+        "urlopen",
+        lambda *_args, **_kwargs: MalformedEnvelopeResponse(),
+    )
+
+    response = client.get(f"/api/v1/payment-context/{QA240_PAYMENT_ID}/validate")
+
+    assert response.status_code == 502
+    assert response.headers.get("cache-control") == "no-store"
+    assert response.json()["detail"] == {"code": "AIRTABLE_INVALID_RESPONSE"}
+    assert "null" not in response.text
