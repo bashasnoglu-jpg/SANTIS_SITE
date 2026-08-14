@@ -28,6 +28,8 @@ AIRTABLE_TOKEN_ENV_KEYS = ("AIRTABLE_PAYMENT_CONTEXT_READ_TOKEN",)
 PAYMENTS_TABLE_ID = os.getenv("AIRTABLE_PAYMENTS_TABLE_ID", "tblcUltjoMusYcQob")
 BOOKINGS_TABLE_ID = os.getenv("AIRTABLE_BOOKINGS_TABLE_ID", "tblocCFVgSNfaLAH6")
 AIRTABLE_RECORD_ID_PATTERN = re.compile(r"^rec[A-Za-z0-9]{14}$")
+AIRTABLE_TOKEN_PATTERN = re.compile(r"^pat[A-Za-z0-9.]+$")
+AIRTABLE_BASE_ID_PATTERN = re.compile(r"^app[A-Za-z0-9]+$")
 NO_STORE_HEADERS = {"Cache-Control": "no-store"}
 INTERNAL_ERROR_DETAIL = {"code": "PAYMENT_CONTEXT_INTERNAL_ERROR"}
 INVALID_RESPONSE_DETAIL = {"code": "AIRTABLE_INVALID_RESPONSE"}
@@ -150,14 +152,14 @@ def _first_env(keys: tuple[str, ...]) -> str | None:
 
 def _airtable_token() -> str:
     token = _first_env(AIRTABLE_TOKEN_ENV_KEYS)
-    if not token:
+    if not token or AIRTABLE_TOKEN_PATTERN.fullmatch(token) is None:
         _raise_no_store(503, {"code": "AIRTABLE_TOKEN_NOT_CONFIGURED"})
     return token
 
 
 def _airtable_base_id() -> str:
     base_id = _first_env(AIRTABLE_BASE_ID_ENV_KEYS)
-    if not base_id:
+    if not base_id or AIRTABLE_BASE_ID_PATTERN.fullmatch(base_id) is None:
         _raise_no_store(503, {"code": "AIRTABLE_BASE_NOT_CONFIGURED"})
     return base_id
 
@@ -169,8 +171,11 @@ def _airtable_get_record_or_none(
     # Airtable's retrieve-record endpoint does not accept the fields[] list
     # parameter supported by list-records. Fetch the single record as-is and
     # read only the canonical fields used by this validator below.
-    url = f"{AIRTABLE_API_URL}/{_airtable_base_id()}/{table_id}/{record_id}"
-    request = Request(url, headers={"Authorization": f"Bearer {_airtable_token()}"})
+    base_id = _airtable_base_id()
+    token = _airtable_token()
+
+    url = f"{AIRTABLE_API_URL}/{base_id}/{table_id}/{record_id}"
+    request = Request(url, headers={"Authorization": f"Bearer {token}"})
 
     try:
         with urlopen(request, timeout=15) as response:
