@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 export const MAX_DIFF_CHARS = 120_000;
 export const MAX_FILES = 200;
 export const MAX_PARTS = 10;
+export const PREPARER_OUTPUT_CONTRACT = "multipart-directory-v2";
 
 const SECRET_PATTERNS = [
   [/-----BEGIN ([A-Z ]*PRIVATE KEY)-----[\s\S]*?-----END \1-----/g, "[REDACTED:private-key]"],

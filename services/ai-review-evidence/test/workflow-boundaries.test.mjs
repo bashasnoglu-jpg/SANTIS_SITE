@@ -400,3 +400,173 @@ test("AR-WF-003 evaluate workflow validates complete package before Google authe
   const authenticate = workflow.indexOf("Authenticate through Workload Identity Federation");
   assert.ok(revalidate >= 0 && authenticate > revalidate);
 });
+
+async function writeProbeModule(source) {
+  const directory = await mkdtemp(join(tmpdir(), "ai-review-capability-"));
+  const path = join(directory, "prepare-diff.mjs");
+  await writeFile(path, source, "utf8");
+  return path;
+}
+
+function probeModule(path) {
+  const source = `
+    import { pathToFileURL } from "node:url";
+    const module = await import(pathToFileURL(process.argv[2]).href);
+    if (!Object.hasOwn(module, "PREPARER_OUTPUT_CONTRACT")) {
+      process.stdout.write("legacy-single-v1");
+    } else if (module.PREPARER_OUTPUT_CONTRACT === "multipart-directory-v2") {
+      process.stdout.write("multipart-directory-v2");
+    } else {
+      throw new Error("Unsupported trusted-base preparer output contract");
+    }
+  `;
+  return spawnSync(process.execPath, ["--input-type=module", "-", path], {
+    input: source,
+    encoding: "utf8"
+  });
+}
+
+test("BC-001 capability absent is classified as legacy-single-v1", async () => {
+  const path = await writeProbeModule("export const safe = true;\n");
+  const result = probeModule(path);
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.stdout, "legacy-single-v1");
+});
+
+test("BC-002 exact multipart capability is classified as multipart-directory-v2", async () => {
+  const path = await writeProbeModule('export const PREPARER_OUTPUT_CONTRACT = "multipart-directory-v2";\n');
+  const result = probeModule(path);
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.stdout, "multipart-directory-v2");
+});
+
+test("BC-003 unknown capability fails closed instead of downgrading to legacy", async () => {
+  const path = await writeProbeModule('export const PREPARER_OUTPUT_CONTRACT = "future-v3";\n');
+  const result = probeModule(path);
+  assert.notEqual(result.status, 0);
+  assert.doesNotMatch(result.stdout, /legacy-single-v1/);
+});
+
+test("BC-004 wrong capability type fails closed", async () => {
+  const path = await writeProbeModule("export const PREPARER_OUTPUT_CONTRACT = 2;\n");
+  assert.notEqual(probeModule(path).status, 0);
+});
+
+test("BC-005 module import or syntax failure fails closed", async () => {
+  const path = await writeProbeModule("export const = broken;\n");
+  assert.notEqual(probeModule(path).status, 0);
+});
+
+test("BC-006 missing trusted-base preparer retains safe bootstrap skip", async () => {
+  const workflow = await readFile(prepareWorkflowPath, "utf8");
+  assert.match(workflow, /Preparation was safely skipped/);
+  assert.match(workflow, /prepared=false/);
+});
+
+async function writeLegacyFixture() {
+  return writeProbeModule(`
+    import { writeFile } from "node:fs/promises";
+    const max = 120000;
+    const chars = Number(process.env.SYNTHETIC_CHARS || "1");
+    if (chars > max) throw new Error("Review input exceeds the 120000-character boundary");
+    await writeFile(process.env.AI_REVIEW_OUTPUT, "{}", "utf8");
+  `);
+}
+
+test("BC-LEG-001 legacy mode writes a single JSON file when given a file target", async () => {
+  const script = await writeLegacyFixture();
+  const directory = await mkdtemp(join(tmpdir(), "ai-review-legacy-file-"));
+  const target = join(directory, "review-input.json");
+  const result = spawnSync(process.execPath, [script], {
+    env: { ...process.env, AI_REVIEW_OUTPUT: target, SYNTHETIC_CHARS: "100" },
+    encoding: "utf8"
+  });
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(await readFile(target, "utf8"), "{}");
+});
+
+test("BC-LEG-002 legacy mode preserves the 120K fail-closed boundary", async () => {
+  const script = await writeLegacyFixture();
+  const directory = await mkdtemp(join(tmpdir(), "ai-review-legacy-limit-"));
+  const target = join(directory, "review-input.json");
+  const result = spawnSync(process.execPath, [script], {
+    env: { ...process.env, AI_REVIEW_OUTPUT: target, SYNTHETIC_CHARS: "120001" },
+    encoding: "utf8"
+  });
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /120000-character boundary/);
+});
+
+test("BC-LEG-003 directory target reproduces EISDIR as a negative control", async () => {
+  const script = await writeLegacyFixture();
+  const directory = await mkdtemp(join(tmpdir(), "ai-review-legacy-eisdir-"));
+  const result = spawnSync(process.execPath, [script], {
+    env: { ...process.env, AI_REVIEW_OUTPUT: directory, SYNTHETIC_CHARS: "100" },
+    encoding: "utf8"
+  });
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /EISDIR/);
+});
+
+test("BC-SEC-001 capability probe imports module without executing a direct-run main guard", async () => {
+  const path = await writeProbeModule(`
+    export const PREPARER_OUTPUT_CONTRACT = "multipart-directory-v2";
+    if (process.argv[1] && process.argv[1].endsWith("prepare-diff.mjs")) throw new Error("main executed");
+  `);
+  const result = probeModule(path);
+  assert.equal(result.status, 0, result.stderr);
+});
+
+test("BC-SEC-002 capability probe itself has no network or GitHub API operation", async () => {
+  const workflow = await readFile(prepareWorkflowPath, "utf8");
+  const start = workflow.indexOf("- name: Probe trusted-base preparer output contract");
+  const end = workflow.indexOf("- name: Create bounded and sanitized review package", start);
+  const probe = workflow.slice(start, end);
+  assert.doesNotMatch(probe, /\bcurl\b|\bfetch\b|\bgh\s/);
+});
+
+test("BC-SEC-003 capability probe does not consume or print token or environment data", async () => {
+  const workflow = await readFile(prepareWorkflowPath, "utf8");
+  const start = workflow.indexOf("- name: Probe trusted-base preparer output contract");
+  const end = workflow.indexOf("- name: Create bounded and sanitized review package", start);
+  const probe = workflow.slice(start, end);
+  assert.doesNotMatch(probe, /GITHUB_TOKEN|github\.token|printenv|\benv\b/);
+});
+
+test("BC-SEC-004 unknown capability has no legacy fallback", async () => {
+  const path = await writeProbeModule('export const PREPARER_OUTPUT_CONTRACT = "unknown";\n');
+  const result = probeModule(path);
+  assert.notEqual(result.status, 0);
+});
+
+test("BC-SEC-005 trusted-base checkout remains exact pull-request base SHA", async () => {
+  const workflow = await readFile(prepareWorkflowPath, "utf8");
+  assert.match(workflow, /ref: \$\{\{ github\.event\.pull_request\.base\.sha \}\}/);
+});
+
+test("BC-WF-001 legacy mode selects review-input.json as AI_REVIEW_OUTPUT target", async () => {
+  const workflow = await readFile(prepareWorkflowPath, "utf8");
+  assert.match(workflow, /legacy-single-v1\)[\s\S]*output_target="ai-pre-review-input\/review-input\.json"/);
+});
+
+test("BC-WF-002 multipart mode selects ai-pre-review-input directory", async () => {
+  const workflow = await readFile(prepareWorkflowPath, "utf8");
+  assert.match(workflow, /multipart-directory-v2\)[\s\S]*output_target="ai-pre-review-input"/);
+});
+
+test("BC-WF-003 both output modes retain one artifact root", async () => {
+  const workflow = await readFile(prepareWorkflowPath, "utf8");
+  assert.match(workflow, /path: ai-pre-review-input\//);
+});
+
+test("BC-WF-004 workflow preserves persist-credentials false", async () => {
+  const workflow = await readFile(prepareWorkflowPath, "utf8");
+  assert.match(workflow, /persist-credentials: false/);
+});
+
+test("BC-WF-005 workflow permissions remain read-only", async () => {
+  const workflow = await readFile(prepareWorkflowPath, "utf8");
+  assert.match(workflow, /contents: read/);
+  assert.match(workflow, /pull-requests: read/);
+  assert.doesNotMatch(workflow, /contents: write|pull-requests: write/);
+});

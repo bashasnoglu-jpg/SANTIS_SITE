@@ -6,6 +6,7 @@ import test from "node:test";
 import {
   MAX_DIFF_CHARS,
   MAX_PARTS,
+  PREPARER_OUTPUT_CONTRACT,
   globToRegex,
   isIgnored,
   parseIgnoreFile,
@@ -201,4 +202,35 @@ test("AR-PREP-008 package writer emits manifest and every declared part", async 
     assert.equal(part.requestId, descriptor.requestId);
     assert.equal(part.diff.sha256, descriptor.diffSha256);
   }
+});
+
+
+test("BC-MP-001 new preparer advertises multipart contract and emits one part below 120K", async () => {
+  assert.equal(PREPARER_OUTPUT_CONTRACT, "multipart-directory-v2");
+  const output = await prepare([file("src/small.ts", "+const safe = true;")]);
+  assert.equal(output.parts.length, 1);
+  assert.ok(output.parts[0].diff.content.length <= MAX_DIFF_CHARS);
+});
+
+test("BC-MP-002 new preparer partitions aggregate above 120K into bounded parts", async () => {
+  const output = await prepare([
+    file("src/a.ts", "a".repeat(70_000)),
+    file("src/b.ts", "b".repeat(70_000))
+  ]);
+  assert.equal(output.parts.length, 2);
+  assert.ok(output.parts.every((part) => part.diff.content.length <= MAX_DIFF_CHARS));
+});
+
+test("BC-MP-003 new preparer fails closed for one sanitized file above 120K", async () => {
+  await assert.rejects(
+    prepare([file("src/oversized-compat.ts", "x".repeat(MAX_DIFF_CHARS + 1))]),
+    /per-part boundary/
+  );
+});
+
+test("BC-MP-004 new preparer fails closed when package would exceed MAX_PARTS", async () => {
+  const files = Array.from({ length: MAX_PARTS + 1 }, (_, index) =>
+    file(`src/compat-${String(index).padStart(2, "0")}.ts`, String(index % 10).repeat(70_000))
+  );
+  await assert.rejects(prepare(files), /10-part boundary/);
 });
