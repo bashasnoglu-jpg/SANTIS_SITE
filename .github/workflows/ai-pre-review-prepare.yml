@@ -45,20 +45,73 @@ jobs:
             echo "No pull-request code was executed and no review-input artifact was produced."
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Create bounded and sanitized review input
+      - name: Probe trusted-base preparer output contract
+        if: steps.bootstrap.outputs.prepared == 'true'
+        id: contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          script="services/ai-review-evidence/scripts/prepare-diff.mjs"
+          output_mode="$(node --input-type=module - "$script" <<'NODE'
+          import { pathToFileURL } from "node:url";
+
+          const script = process.argv[2];
+          const module = await import(pathToFileURL(script).href);
+          if (!Object.hasOwn(module, "PREPARER_OUTPUT_CONTRACT")) {
+            process.stdout.write("legacy-single-v1");
+          } else if (module.PREPARER_OUTPUT_CONTRACT === "multipart-directory-v2") {
+            process.stdout.write("multipart-directory-v2");
+          } else {
+            throw new Error("Unsupported trusted-base preparer output contract");
+          }
+          NODE
+          )"
+          case "$output_mode" in
+            legacy-single-v1|multipart-directory-v2) ;;
+            *) echo "Invalid trusted-base preparer output mode" >&2; exit 1 ;;
+          esac
+          echo "output_mode=$output_mode" >> "$GITHUB_OUTPUT"
+
+      - name: Create bounded and sanitized review package
         if: steps.bootstrap.outputs.prepared == 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          AI_REVIEW_OUTPUT: ai-pre-review-input/review-input.json
+          PREPARER_OUTPUT_MODE: ${{ steps.contract.outputs.output_mode }}
         run: |
+          set -euo pipefail
           mkdir -p ai-pre-review-input
-          node services/ai-review-evidence/scripts/prepare-diff.mjs
 
-      - name: Upload review input
+          case "$PREPARER_OUTPUT_MODE" in
+            legacy-single-v1)
+              output_target="ai-pre-review-input/review-input.json"
+              ;;
+            multipart-directory-v2)
+              output_target="ai-pre-review-input"
+              ;;
+            *)
+              echo "Unsupported trusted-base preparer output mode" >&2
+              exit 1
+              ;;
+          esac
+
+          AI_REVIEW_OUTPUT="$output_target" \
+            node services/ai-review-evidence/scripts/prepare-diff.mjs
+
+          case "$PREPARER_OUTPUT_MODE" in
+            legacy-single-v1)
+              test -f ai-pre-review-input/review-input.json
+              ;;
+            multipart-directory-v2)
+              test -f ai-pre-review-input/review-manifest.json
+              test -d ai-pre-review-input/parts
+              ;;
+          esac
+
+      - name: Upload review package
         if: steps.bootstrap.outputs.prepared == 'true'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: ai-pre-review-input-${{ github.event.pull_request.number }}
-          path: ai-pre-review-input/review-input.json
+          path: ai-pre-review-input/
           if-no-files-found: error
           retention-days: 3
