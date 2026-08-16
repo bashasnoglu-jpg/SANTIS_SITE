@@ -33,6 +33,20 @@ function eventFixture(action = "opened") {
   };
 }
 
+function manualEventFixture() {
+  return { repository, inputs: { pr_number: "382" } };
+}
+
+function manualPullFixture(overrides = {}) {
+  return {
+    number: 382,
+    state: "open",
+    base: { ref: "develop", sha: "a".repeat(40) },
+    head: { sha: "b".repeat(40), repo: { id: 1146035054 } },
+    ...overrides
+  };
+}
+
 async function withFiles(files, callback) {
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async (url) => {
@@ -42,6 +56,33 @@ async function withFiles(files, callback) {
       status: 200,
       headers: { "Content-Type": "application/json" }
     });
+  };
+  try {
+    return await callback();
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+}
+
+async function withManualApi(files, callback, pull = manualPullFixture()) {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url) => {
+    const parsed = new URL(url);
+    if (/\/pulls\/382$/.test(parsed.pathname)) {
+      return new Response(JSON.stringify(pull), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+    if (/\/pulls\/382\/files$/.test(parsed.pathname)) {
+      const page = Number(parsed.searchParams.get("page"));
+      const start = (page - 1) * 100;
+      return new Response(JSON.stringify(files.slice(start, start + 100)), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+    return new Response("not found", { status: 404 });
   };
   try {
     return await callback();
@@ -62,6 +103,25 @@ async function prepare(files, ignoreContent = "") {
     runId: "123456",
     ignoreContent
   }));
+}
+
+async function prepareManual(files, options = {}) {
+  const pull = options.pull ?? manualPullFixture();
+  const manualContext = {
+    prNumber: options.prNumber ?? "382",
+    expectedBaseSha: options.expectedBaseSha ?? "a".repeat(40),
+    expectedHeadSha: options.expectedHeadSha ?? "b".repeat(40),
+    trustedBaseSha: options.trustedBaseSha ?? "c".repeat(40)
+  };
+  return withManualApi(files, () => prepareReviewPackage({
+    event: manualEventFixture(),
+    token: "synthetic-token-not-a-credential",
+    apiUrl: "https://api.github.test",
+    runId: "654321",
+    ignoreContent: options.ignoreContent ?? "",
+    eventMode: options.eventMode ?? "workflow_dispatch",
+    manualContext
+  }), pull);
 }
 
 test("AR-SEC-001 aiignore glob conversion handles nested secret files", () => {
@@ -90,8 +150,6 @@ test("AR-SEC-004 preparer removes the complete private key body", () => {
   assert.equal(result.redactions, 1);
   assert.equal(result.content, "[REDACTED:private-key]");
 });
-
-
 
 test("AR-SEC-005 serialized review package contains no synthetic credential or ignored secret canaries", async () => {
   const tokenCanary = "ghp_abcdefghijklmnopqrstuvwxyz123456";
@@ -204,7 +262,6 @@ test("AR-PREP-008 package writer emits manifest and every declared part", async 
   }
 });
 
-
 test("BC-MP-001 new preparer advertises multipart contract and emits one part below 120K", async () => {
   assert.equal(PREPARER_OUTPUT_CONTRACT, "multipart-directory-v2");
   const output = await prepare([file("src/small.ts", "+const safe = true;")]);
@@ -233,4 +290,118 @@ test("BC-MP-004 new preparer fails closed when package would exceed MAX_PARTS", 
     file(`src/compat-${String(index).padStart(2, "0")}.ts`, String(index % 10).repeat(70_000))
   );
   await assert.rejects(prepare(files), /10-part boundary/);
+});
+
+test("AR-MDP-001 valid manual context preserves truthful workflow_dispatch provenance", async () => {
+  const output = await prepareManual([file("src/manual.ts", "+const manual = true;")]);
+  assert.equal(output.manifest.source.eventName, "workflow_dispatch");
+  assert.equal(output.manifest.source.trustedBaseSha, "c".repeat(40));
+  assert.equal(output.manifest.pullRequest.baseSha, "a".repeat(40));
+  assert.equal(output.manifest.pullRequest.headSha, "b".repeat(40));
+});
+
+test("AR-MDP-002 empty manual PR number fails closed", async () => {
+  await assert.rejects(prepareManual([file("src/a.ts", "+a")], { prNumber: "" }), /positive integer/);
+});
+
+test("AR-MDP-003 zero manual PR number fails closed", async () => {
+  await assert.rejects(prepareManual([file("src/a.ts", "+a")], { prNumber: "0" }), /positive integer/);
+});
+
+test("AR-MDP-004 non-numeric manual PR number fails closed", async () => {
+  await assert.rejects(prepareManual([file("src/a.ts", "+a")], { prNumber: "abc" }), /positive integer/);
+});
+
+test("AR-MDP-005 unresolved manual PR fails closed", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => new Response("not found", { status: 404 });
+  try {
+    await assert.rejects(prepareReviewPackage({
+      event: manualEventFixture(), token: "x", apiUrl: "https://api.github.test", runId: "1", ignoreContent: "",
+      eventMode: "workflow_dispatch",
+      manualContext: { prNumber: "382", expectedBaseSha: "a".repeat(40), expectedHeadSha: "b".repeat(40), trustedBaseSha: "c".repeat(40) }
+    }), /GitHub API failed: 404/);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("AR-MDP-006 closed PR fails closed", async () => {
+  await assert.rejects(
+    prepareManual([file("src/a.ts", "+a")], { pull: manualPullFixture({ state: "closed" }) }),
+    /requires an open pull request/
+  );
+});
+
+test("AR-MDP-007 non-develop PR base fails closed", async () => {
+  await assert.rejects(
+    prepareManual([file("src/a.ts", "+a")], { pull: manualPullFixture({ base: { ref: "main", sha: "a".repeat(40) } }) }),
+    /requires develop as PR base/
+  );
+});
+
+test("AR-MDP-008 forked manual PR fails closed", async () => {
+  await assert.rejects(
+    prepareManual([file("src/a.ts", "+a")], { pull: manualPullFixture({ head: { sha: "b".repeat(40), repo: { id: 999 } } }) }),
+    /rejects forked pull requests/
+  );
+});
+
+test("AR-MDP-009 changed PR base SHA fails closed", async () => {
+  await assert.rejects(
+    prepareManual([file("src/a.ts", "+a")], { expectedBaseSha: "d".repeat(40) }),
+    /base SHA changed/
+  );
+});
+
+test("AR-MDP-010 changed PR head SHA fails closed", async () => {
+  await assert.rejects(
+    prepareManual([file("src/a.ts", "+a")], { expectedHeadSha: "d".repeat(40) }),
+    /head SHA changed/
+  );
+});
+
+test("AR-MDP-011 manual aggregate above 120K becomes bounded multipart", async () => {
+  const output = await prepareManual([
+    file("src/a.ts", "a".repeat(70_000)),
+    file("src/b.ts", "b".repeat(70_000))
+  ]);
+  assert.equal(output.parts.length, 2);
+});
+
+test("AR-MDP-012 every manual part remains at or below 120K", async () => {
+  const output = await prepareManual([
+    file("src/a.ts", "a".repeat(70_000)),
+    file("src/b.ts", "b".repeat(70_000)),
+    file("src/c.ts", "c".repeat(20_000))
+  ]);
+  assert.ok(output.parts.every((part) => part.diff.content.length <= MAX_DIFF_CHARS));
+  assert.ok(output.parts.every((part) => part.preparation.truncated === false));
+});
+
+test("AR-MDP-013 manual path preserves secret redaction and ignore behavior", async () => {
+  const canary = "ghp_abcdefghijklmnopqrstuvwxyz123456";
+  const output = await prepareManual([
+    file("src/security.ts", `+token=${canary}`),
+    file(".env.production", "+PASSWORD=ignored")
+  ], { ignoreContent: ".env*\n**/.env*\n" });
+  assert.equal(JSON.stringify(output).includes(canary), false);
+  assert.equal(output.manifest.coverage.ignoredFileCount, 1);
+  assert.ok(output.manifest.coverage.redactionCount >= 1);
+});
+
+test("AR-MDP-014 manual source never masquerades as pull_request", async () => {
+  const output = await prepareManual([file("src/a.ts", "+a")]);
+  assert.notEqual(output.manifest.source.eventName, "pull_request");
+  assert.equal(output.manifest.source.eventName, "workflow_dispatch");
+});
+
+test("AR-MDP-015 unsupported event mode fails closed", async () => {
+  await assert.rejects(
+    prepareReviewPackage({
+      event: manualEventFixture(), token: "x", apiUrl: "https://api.github.test", runId: "1", ignoreContent: "",
+      eventMode: "push"
+    }),
+    /Unsupported AI review event mode/
+  );
 });

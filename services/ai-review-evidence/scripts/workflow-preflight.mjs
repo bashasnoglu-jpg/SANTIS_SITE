@@ -20,6 +20,10 @@ function isUuid(value) {
     /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
 }
 
+function isSha(value) {
+  return typeof value === "string" && /^[0-9a-f]{40}$/i.test(value);
+}
+
 function sha256(value) {
   return createHash("sha256").update(value).digest("hex");
 }
@@ -53,14 +57,33 @@ function deterministicCoverageShape(manifest) {
 }
 
 function expectedBinding() {
-  return {
+  const sourceEventName = process.env.EXPECTED_SOURCE_EVENT_NAME ?? "pull_request";
+  if (!['pull_request', 'workflow_dispatch'].includes(sourceEventName)) {
+    throw new Error("EXPECTED_SOURCE_EVENT_NAME is unsupported");
+  }
+  const expected = {
     repositoryId: requiredEnvironment("EXPECTED_REPOSITORY_ID"),
     ownerId: requiredEnvironment("EXPECTED_OWNER_ID"),
     workflowRunId: requiredEnvironment("EXPECTED_WORKFLOW_RUN_ID"),
     pullRequestNumber: Number(requiredEnvironment("EXPECTED_PULL_REQUEST_NUMBER")),
     baseSha: requiredEnvironment("EXPECTED_BASE_SHA"),
-    headSha: requiredEnvironment("EXPECTED_HEAD_SHA")
+    headSha: requiredEnvironment("EXPECTED_HEAD_SHA"),
+    sourceEventName
   };
+  if (sourceEventName === "workflow_dispatch") {
+    expected.trustedBaseSha = requiredEnvironment("EXPECTED_TRUSTED_BASE_SHA");
+  }
+  return expected;
+}
+
+function validateSource(source, expected, label = "source") {
+  if (source?.eventName !== expected.sourceEventName) fail(`${label} event mismatch`);
+  if (source?.workflowRunId !== expected.workflowRunId) fail(`${label} workflow run mismatch`);
+  if (source?.fork !== false) fail(`${label} fork boundary mismatch`);
+  if (expected.sourceEventName === "workflow_dispatch") {
+    if (!isSha(source?.trustedBaseSha)) fail(`${label} trusted base SHA missing or invalid`);
+    if (source.trustedBaseSha !== expected.trustedBaseSha) fail(`${label} trusted base SHA mismatch`);
+  }
 }
 
 export async function validateReviewPackage(manifestPath, expected = expectedBinding()) {
@@ -68,17 +91,26 @@ export async function validateReviewPackage(manifestPath, expected = expectedBin
   const root = dirname(manifestPath);
   const partsDirectory = resolve(root, "parts");
 
+  if (!['pull_request', 'workflow_dispatch'].includes(expected?.sourceEventName ?? 'pull_request')) {
+    fail("unsupported expected source event");
+  }
+  const normalizedExpected = {
+    ...expected,
+    sourceEventName: expected?.sourceEventName ?? "pull_request"
+  };
+  if (normalizedExpected.sourceEventName === "workflow_dispatch" && !isSha(normalizedExpected.trustedBaseSha)) {
+    fail("expected trusted base SHA missing or invalid");
+  }
+
   if (manifest?.schemaVersion !== "2.0") fail("manifest schema version mismatch");
   if (!isUuid(manifest?.packageId)) fail("package ID mismatch");
-  if (manifest?.repository?.id !== expected.repositoryId) fail("repository ID mismatch");
-  if (manifest?.repository?.ownerId !== expected.ownerId) fail("owner ID mismatch");
-  if (manifest?.pullRequest?.number !== expected.pullRequestNumber) fail("PR number mismatch");
-  if (manifest?.pullRequest?.baseSha !== expected.baseSha) fail("base SHA mismatch");
-  if (manifest?.pullRequest?.headSha !== expected.headSha) fail("head SHA mismatch");
-  if (manifest?.pullRequest?.headRepositoryId !== expected.repositoryId) fail("head repository mismatch");
-  if (manifest?.source?.eventName !== "pull_request") fail("event mismatch");
-  if (manifest?.source?.workflowRunId !== expected.workflowRunId) fail("workflow run mismatch");
-  if (manifest?.source?.fork !== false) fail("fork boundary mismatch");
+  if (manifest?.repository?.id !== normalizedExpected.repositoryId) fail("repository ID mismatch");
+  if (manifest?.repository?.ownerId !== normalizedExpected.ownerId) fail("owner ID mismatch");
+  if (manifest?.pullRequest?.number !== normalizedExpected.pullRequestNumber) fail("PR number mismatch");
+  if (manifest?.pullRequest?.baseSha !== normalizedExpected.baseSha) fail("base SHA mismatch");
+  if (manifest?.pullRequest?.headSha !== normalizedExpected.headSha) fail("head SHA mismatch");
+  if (manifest?.pullRequest?.headRepositoryId !== normalizedExpected.repositoryId) fail("head repository mismatch");
+  validateSource(manifest?.source, normalizedExpected);
 
   const policy = manifest?.policy;
   if (policy?.maxPartChars !== MAX_DIFF_CHARS) fail("per-part character boundary mismatch");
@@ -126,17 +158,14 @@ export async function validateReviewPackage(manifestPath, expected = expectedBin
     const content = part?.diff?.content;
     if (part?.schemaVersion !== "1.0") fail("part schema mismatch");
     if (part?.requestId !== descriptor.requestId) fail("part request ID mismatch");
-    if (part?.repository?.id !== expected.repositoryId || part?.repository?.ownerId !== expected.ownerId) {
+    if (part?.repository?.id !== normalizedExpected.repositoryId || part?.repository?.ownerId !== normalizedExpected.ownerId) {
       fail("part repository binding mismatch");
     }
-    if (part?.pullRequest?.number !== expected.pullRequestNumber || part?.pullRequest?.baseSha !== expected.baseSha ||
-        part?.pullRequest?.headSha !== expected.headSha || part?.pullRequest?.headRepositoryId !== expected.repositoryId) {
+    if (part?.pullRequest?.number !== normalizedExpected.pullRequestNumber || part?.pullRequest?.baseSha !== normalizedExpected.baseSha ||
+        part?.pullRequest?.headSha !== normalizedExpected.headSha || part?.pullRequest?.headRepositoryId !== normalizedExpected.repositoryId) {
       fail("part PR binding mismatch");
     }
-    if (part?.source?.eventName !== "pull_request" || part?.source?.workflowRunId !== expected.workflowRunId ||
-        part?.source?.fork !== false) {
-      fail("part source binding mismatch");
-    }
+    validateSource(part?.source, normalizedExpected, "part source");
     if (part?.package?.index !== index || part?.package?.totalParts !== manifest.parts.length) {
       fail("part package index mismatch");
     }

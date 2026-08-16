@@ -139,12 +139,108 @@ function deterministicCoverageShape({ repository, pullRequest, source, policy, c
   };
 }
 
-export async function prepareReviewPackage({ event, token, apiUrl, runId, ignoreContent }) {
-  const pull = event.pull_request;
-  if (!pull || event.action === undefined) throw new Error("Expected a pull_request event payload");
+function validSha(value) {
+  return typeof value === "string" && /^[0-9a-f]{40}$/i.test(value);
+}
+
+function requiredSha(value, label) {
+  if (!validSha(value)) throw new Error(`${label} must be a 40-character Git SHA`);
+  return value.toLowerCase();
+}
+
+function requiredPositiveInteger(value, label) {
+  const text = String(value ?? "");
+  if (!/^[1-9][0-9]*$/.test(text)) throw new Error(`${label} must be a positive integer`);
+  const parsed = Number(text);
+  if (!Number.isSafeInteger(parsed)) throw new Error(`${label} must be a safe integer`);
+  return parsed;
+}
+
+function repositoryContext(event) {
+  const repository = event?.repository;
+  if (!repository?.full_name || !Number.isInteger(repository?.id) || !Number.isInteger(repository?.owner?.id)) {
+    throw new Error("Expected repository metadata in GitHub event payload");
+  }
+  return {
+    fullName: repository.full_name,
+    id: String(repository.id),
+    ownerId: String(repository.owner.id)
+  };
+}
+
+export async function resolveReviewContext({ event, token, apiUrl, runId, eventMode = "pull_request", manualContext }) {
+  const repository = repositoryContext(event);
+
+  if (eventMode === "pull_request") {
+    const pull = event.pull_request;
+    if (!pull || event.action === undefined) throw new Error("Expected a pull_request event payload");
+    return {
+      repository,
+      pullRequest: {
+        number: pull.number,
+        baseSha: pull.base.sha,
+        headSha: pull.head.sha,
+        headRepositoryId: String(pull.head.repo.id)
+      },
+      source: {
+        eventName: "pull_request",
+        workflowRunId: String(runId),
+        fork: pull.head.repo.id !== event.repository.id
+      }
+    };
+  }
+
+  if (eventMode !== "workflow_dispatch") {
+    throw new Error("Unsupported AI review event mode");
+  }
+
+  const prNumber = requiredPositiveInteger(manualContext?.prNumber, "Manual PR number");
+  const expectedBaseSha = requiredSha(manualContext?.expectedBaseSha, "Expected PR base SHA");
+  const expectedHeadSha = requiredSha(manualContext?.expectedHeadSha, "Expected PR head SHA");
+  const trustedBaseSha = requiredSha(manualContext?.trustedBaseSha, "Trusted base SHA");
+
+  const pull = await githubJson(
+    `${apiUrl}/repos/${event.repository.full_name}/pulls/${prNumber}`,
+    token
+  );
+  if (pull?.number !== prNumber) throw new Error("Resolved pull request number mismatch");
+  if (pull?.state !== "open") throw new Error("Manual preparation requires an open pull request");
+  if (pull?.base?.ref !== "develop") throw new Error("Manual preparation requires develop as PR base");
+  if (pull?.head?.repo?.id !== event.repository.id) throw new Error("Manual preparation rejects forked pull requests");
+  if (pull?.base?.sha !== expectedBaseSha) throw new Error("Resolved PR base SHA changed during manual preparation");
+  if (pull?.head?.sha !== expectedHeadSha) throw new Error("Resolved PR head SHA changed during manual preparation");
+
+  return {
+    repository,
+    pullRequest: {
+      number: prNumber,
+      baseSha: expectedBaseSha,
+      headSha: expectedHeadSha,
+      headRepositoryId: String(pull.head.repo.id)
+    },
+    source: {
+      eventName: "workflow_dispatch",
+      workflowRunId: String(runId),
+      fork: false,
+      trustedBaseSha
+    }
+  };
+}
+
+export async function prepareReviewPackage({
+  event,
+  token,
+  apiUrl,
+  runId,
+  ignoreContent,
+  eventMode = "pull_request",
+  manualContext
+}) {
+  const context = await resolveReviewContext({ event, token, apiUrl, runId, eventMode, manualContext });
+  const { repository, pullRequest, source } = context;
 
   const matchers = parseIgnoreFile(ignoreContent);
-  const rawFiles = await listPullRequestFiles(apiUrl, event.repository.full_name, pull.number, token);
+  const rawFiles = await listPullRequestFiles(apiUrl, event.repository.full_name, pullRequest.number, token);
   const reviewable = rawFiles
     .filter((file) => typeof file.filename === "string" && typeof file.patch === "string")
     .filter((file) => !isIgnored(file.filename, matchers))
@@ -181,22 +277,6 @@ export async function prepareReviewPackage({ event, token, apiUrl, runId, ignore
   if (current.length > 0) groups.push(current);
   if (groups.length > MAX_PARTS) throw new Error(`Review package exceeds the ${MAX_PARTS}-part boundary`);
 
-  const repository = {
-    fullName: event.repository.full_name,
-    id: String(event.repository.id),
-    ownerId: String(event.repository.owner.id)
-  };
-  const pullRequest = {
-    number: pull.number,
-    baseSha: pull.base.sha,
-    headSha: pull.head.sha,
-    headRepositoryId: String(pull.head.repo.id)
-  };
-  const source = {
-    eventName: "pull_request",
-    workflowRunId: String(runId),
-    fork: pull.head.repo.id !== event.repository.id
-  };
   const policy = {
     maxPartChars: MAX_DIFF_CHARS,
     maxFiles: MAX_FILES,
@@ -293,21 +373,32 @@ async function main() {
   const apiUrl = process.env.GITHUB_API_URL ?? "https://api.github.com";
   const runId = process.env.GITHUB_RUN_ID;
   const outputDirectory = process.env.AI_REVIEW_OUTPUT ?? "ai-pre-review-input";
+  const eventMode = process.env.AI_REVIEW_EVENT_MODE ?? "pull_request";
   if (!eventPath || !token || !runId) throw new Error("Required GitHub Actions environment was missing");
 
   const event = JSON.parse(await readFile(eventPath, "utf8"));
   const ignorePath = resolve(dirname(fileURLToPath(import.meta.url)), "../../../.aiignore");
+  const manualContext = eventMode === "workflow_dispatch" ? {
+    prNumber: process.env.AI_REVIEW_PR_NUMBER,
+    expectedBaseSha: process.env.AI_REVIEW_EXPECTED_PR_BASE_SHA,
+    expectedHeadSha: process.env.AI_REVIEW_EXPECTED_HEAD_SHA,
+    trustedBaseSha: process.env.AI_REVIEW_TRUSTED_BASE_SHA
+  } : undefined;
   const prepared = await prepareReviewPackage({
     event,
     token,
     apiUrl,
     runId,
-    ignoreContent: await readFile(ignorePath, "utf8")
+    ignoreContent: await readFile(ignorePath, "utf8"),
+    eventMode,
+    manualContext
   });
   await writeReviewPackage(outputDirectory, prepared);
 
   console.log(JSON.stringify({
     event: "ai_pre_review_package_prepared",
+    sourceEventName: prepared.manifest.source.eventName,
+    trustedBaseSha: prepared.manifest.source.trustedBaseSha ?? null,
     packageId: prepared.manifest.packageId,
     fork: prepared.manifest.source.fork,
     includedFiles: prepared.manifest.coverage.reviewableFileCount,

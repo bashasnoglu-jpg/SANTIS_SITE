@@ -1,0 +1,163 @@
+name: AI Pre-Review Prepare Manual
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Pull request number to prepare for non-binding review"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ai-pre-review-prepare-manual-${{ inputs.pr_number }}
+  cancel-in-progress: false
+
+jobs:
+  prepare-manual:
+    name: Prepare sanitized non-binding manual review input
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Validate trusted workflow ref
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_REF}" = "refs/heads/develop"
+
+      - name: Resolve and bind pull request metadata
+        id: resolve
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REQUESTED_PR_NUMBER: ${{ inputs.pr_number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          [[ "${REQUESTED_PR_NUMBER}" =~ ^[1-9][0-9]*$ ]]
+
+          PR_JSON="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${REQUESTED_PR_NUMBER}")"
+          REPO_JSON="$(gh api "repos/${GITHUB_REPOSITORY}")"
+          TRUSTED_BASE_SHA="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/git/ref/heads/develop" \
+            --jq '.object.sha')"
+
+          PR_STATE="$(jq -r '.state' <<<"${PR_JSON}")"
+          PR_NUMBER="$(jq -r '.number' <<<"${PR_JSON}")"
+          PR_BASE_REF="$(jq -r '.base.ref' <<<"${PR_JSON}")"
+          PR_BASE_SHA="$(jq -r '.base.sha' <<<"${PR_JSON}")"
+          PR_HEAD_SHA="$(jq -r '.head.sha' <<<"${PR_JSON}")"
+          PR_HEAD_REPO_ID="$(jq -r '.head.repo.id' <<<"${PR_JSON}")"
+          REPOSITORY_ID="$(jq -r '.id' <<<"${REPO_JSON}")"
+          OWNER_ID="$(jq -r '.owner.id' <<<"${REPO_JSON}")"
+
+          test "${PR_NUMBER}" = "${REQUESTED_PR_NUMBER}"
+          test "${PR_STATE}" = "open"
+          test "${PR_BASE_REF}" = "develop"
+          test "${PR_HEAD_REPO_ID}" = "${REPOSITORY_ID}"
+          test "${TRUSTED_BASE_SHA}" = "${GITHUB_SHA}"
+          [[ "${PR_BASE_SHA}" =~ ^[0-9a-f]{40}$ ]]
+          [[ "${PR_HEAD_SHA}" =~ ^[0-9a-f]{40}$ ]]
+          [[ "${TRUSTED_BASE_SHA}" =~ ^[0-9a-f]{40}$ ]]
+
+          {
+            echo "pr_number=${PR_NUMBER}"
+            echo "pr_base_sha=${PR_BASE_SHA}"
+            echo "pr_head_sha=${PR_HEAD_SHA}"
+            echo "repository_id=${REPOSITORY_ID}"
+            echo "owner_id=${OWNER_ID}"
+            echo "trusted_base_sha=${TRUSTED_BASE_SHA}"
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Checkout exact trusted base
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ steps.resolve.outputs.trusted_base_sha }}
+          persist-credentials: false
+
+      - name: Require multipart-capable trusted preparer
+        shell: bash
+        run: |
+          set -euo pipefail
+          script="services/ai-review-evidence/scripts/prepare-diff.mjs"
+          test -f "${script}"
+
+          mode="$(node --input-type=module - "${script}" <<'NODE'
+          import { pathToFileURL } from "node:url";
+
+          const script = process.argv[2];
+          const module = await import(pathToFileURL(script).href);
+          if (module.PREPARER_OUTPUT_CONTRACT !== "multipart-directory-v2") {
+            throw new Error("Manual preparation requires multipart-directory-v2 trusted base");
+          }
+          process.stdout.write(module.PREPARER_OUTPUT_CONTRACT);
+          NODE
+          )"
+
+          test "${mode}" = "multipart-directory-v2"
+
+      - name: Create bounded sanitized manual review package
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          AI_REVIEW_EVENT_MODE: workflow_dispatch
+          AI_REVIEW_PR_NUMBER: ${{ steps.resolve.outputs.pr_number }}
+          AI_REVIEW_EXPECTED_PR_BASE_SHA: ${{ steps.resolve.outputs.pr_base_sha }}
+          AI_REVIEW_EXPECTED_HEAD_SHA: ${{ steps.resolve.outputs.pr_head_sha }}
+          AI_REVIEW_TRUSTED_BASE_SHA: ${{ steps.resolve.outputs.trusted_base_sha }}
+          AI_REVIEW_OUTPUT: ai-pre-review-manual-input
+        run: |
+          set -euo pipefail
+          mkdir -p ai-pre-review-manual-input
+          node services/ai-review-evidence/scripts/prepare-diff.mjs
+          test -f ai-pre-review-manual-input/review-manifest.json
+          test -d ai-pre-review-manual-input/parts
+
+      - name: Recheck immutable run bindings
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.resolve.outputs.pr_number }}
+          EXPECTED_PR_BASE_SHA: ${{ steps.resolve.outputs.pr_base_sha }}
+          EXPECTED_HEAD_SHA: ${{ steps.resolve.outputs.pr_head_sha }}
+          EXPECTED_TRUSTED_BASE_SHA: ${{ steps.resolve.outputs.trusted_base_sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          CURRENT_PR="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}")"
+          CURRENT_BASE_SHA="$(jq -r '.base.sha' <<<"${CURRENT_PR}")"
+          CURRENT_HEAD_SHA="$(jq -r '.head.sha' <<<"${CURRENT_PR}")"
+          CURRENT_TRUSTED_BASE_SHA="$(gh api \
+            "repos/${GITHUB_REPOSITORY}/git/ref/heads/develop" \
+            --jq '.object.sha')"
+
+          test "${CURRENT_BASE_SHA}" = "${EXPECTED_PR_BASE_SHA}"
+          test "${CURRENT_HEAD_SHA}" = "${EXPECTED_HEAD_SHA}"
+          test "${CURRENT_TRUSTED_BASE_SHA}" = "${EXPECTED_TRUSTED_BASE_SHA}"
+
+      - name: Validate manual package provenance
+        env:
+          EXPECTED_REPOSITORY_ID: ${{ steps.resolve.outputs.repository_id }}
+          EXPECTED_OWNER_ID: ${{ steps.resolve.outputs.owner_id }}
+          EXPECTED_WORKFLOW_RUN_ID: ${{ github.run_id }}
+          EXPECTED_PULL_REQUEST_NUMBER: ${{ steps.resolve.outputs.pr_number }}
+          EXPECTED_BASE_SHA: ${{ steps.resolve.outputs.pr_base_sha }}
+          EXPECTED_HEAD_SHA: ${{ steps.resolve.outputs.pr_head_sha }}
+          EXPECTED_SOURCE_EVENT_NAME: workflow_dispatch
+          EXPECTED_TRUSTED_BASE_SHA: ${{ steps.resolve.outputs.trusted_base_sha }}
+          FAIL_ON_INELIGIBLE: "true"
+        run: |
+          set -euo pipefail
+          node services/ai-review-evidence/scripts/workflow-preflight.mjs \
+            ai-pre-review-manual-input/review-manifest.json
+
+      - name: Upload manual review package
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ai-pre-review-manual-input-${{ steps.resolve.outputs.pr_number }}-${{ github.run_id }}
+          path: ai-pre-review-manual-input/
+          if-no-files-found: error
+          retention-days: 3
