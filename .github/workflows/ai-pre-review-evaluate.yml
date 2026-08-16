@@ -166,22 +166,69 @@ jobs:
           )
 
           test "${#PART_PATHS[@]}" -gt 0
+          part_count="${#PART_PATHS[@]}"
+          part_index=0
           for relative_part in "${PART_PATHS[@]}"; do
+            part_index=$((part_index + 1))
             INPUT_PATH="${PACKAGE_DIR}/${relative_part}"
             part_name="$(basename "${relative_part}" .json)"
             EVIDENCE_PATH="signed-evidence/${part_name}-evidence.json"
-            HTTP_STATUS="$(curl --silent --show-error \
+
+            echo "part ${part_index}/${part_count} request started"
+            if ! HTTP_STATUS="$(curl --silent --show-error \
               --output "${EVIDENCE_PATH}" \
               --write-out '%{http_code}' \
               --request POST \
               --header "Authorization: Bearer ${EVIDENCE_ID_TOKEN}" \
               --header "Content-Type: application/json" \
               --data-binary "@${INPUT_PATH}" \
-              "${EVIDENCE_API_URL}/v1/reviews/evaluate")"
-            test "${HTTP_STATUS}" = "200"
-            node services/ai-review-evidence/scripts/validate-evidence-response.mjs \
+              "${EVIDENCE_API_URL}/v1/reviews/evaluate")"; then
+              echo "shadow HTTP status = transport-error"
+              echo "HTTP gate = FAIL"
+              exit 1
+            fi
+
+            case "${HTTP_STATUS}" in
+              200)
+                echo "shadow HTTP status = 200"
+                echo "HTTP gate = PASS"
+                ;;
+              401)
+                echo "shadow HTTP status = 401"
+                echo "HTTP gate = FAIL"
+                exit 1
+                ;;
+              403)
+                echo "shadow HTTP status = 403"
+                echo "HTTP gate = FAIL"
+                exit 1
+                ;;
+              4??)
+                echo "shadow HTTP status = 4xx"
+                echo "HTTP gate = FAIL"
+                exit 1
+                ;;
+              5??)
+                echo "shadow HTTP status = 5xx"
+                echo "HTTP gate = FAIL"
+                exit 1
+                ;;
+              *)
+                echo "shadow HTTP status = other"
+                echo "HTTP gate = FAIL"
+                exit 1
+                ;;
+            esac
+
+            echo "response validator = STARTED"
+            if node services/ai-review-evidence/scripts/validate-evidence-response.mjs \
               "${INPUT_PATH}" \
-              "${EVIDENCE_PATH}"
+              "${EVIDENCE_PATH}" >/dev/null 2>&1; then
+              echo "response validator = PASS"
+            else
+              echo "response validator = FAIL"
+              exit 1
+            fi
           done
 
           test "$(find signed-evidence -name '*-evidence.json' -type f | wc -l)" -eq "${#PART_PATHS[@]}"
