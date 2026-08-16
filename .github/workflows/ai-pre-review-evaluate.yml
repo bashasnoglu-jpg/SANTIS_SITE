@@ -29,14 +29,15 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
           mkdir -p ai-pre-review-input
           gh run download "${{ github.event.workflow_run.id }}" \
             --repo "${{ github.repository }}" \
             --dir ai-pre-review-input
-          find ai-pre-review-input -name review-input.json -type f -print -quit \
-            | grep -q review-input.json
+          find ai-pre-review-input -name review-manifest.json -type f -print -quit \
+            | grep -q review-manifest.json
 
-      - name: Validate repository and fork boundary
+      - name: Validate repository, provenance, and complete multipart boundary
         id: preflight
         env:
           EXPECTED_REPOSITORY_ID: ${{ github.event.repository.id }}
@@ -46,8 +47,10 @@ jobs:
           EXPECTED_BASE_SHA: ${{ github.event.workflow_run.pull_requests[0].base.sha }}
           EXPECTED_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
-          INPUT_PATH="$(find ai-pre-review-input -name review-input.json -type f -print -quit)"
-          node services/ai-review-evidence/scripts/workflow-preflight.mjs "$INPUT_PATH"
+          set -euo pipefail
+          MANIFEST_PATH="$(find ai-pre-review-input -name review-manifest.json -type f -print -quit)"
+          test -n "${MANIFEST_PATH}"
+          node services/ai-review-evidence/scripts/workflow-preflight.mjs "${MANIFEST_PATH}"
 
   not-deployed:
     name: Shadow endpoint not deployed
@@ -86,7 +89,7 @@ jobs:
           exit 1
 
   evaluate:
-    name: Generate and verify signed non-binding evidence
+    name: Generate and verify signed non-binding multipart evidence
     needs: preflight
     if: >-
       ${{ needs.preflight.outputs.eligible == 'true' &&
@@ -112,12 +115,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
           mkdir -p ai-pre-review-input
           gh run download "${{ github.event.workflow_run.id }}" \
             --repo "${{ github.repository }}" \
             --dir ai-pre-review-input
 
-      - name: Revalidate artifact before Google authentication
+      - name: Revalidate complete package before Google authentication
         env:
           EXPECTED_REPOSITORY_ID: ${{ github.event.repository.id }}
           EXPECTED_OWNER_ID: ${{ github.event.repository.owner.id }}
@@ -127,9 +131,10 @@ jobs:
           EXPECTED_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
           FAIL_ON_INELIGIBLE: "true"
         run: |
-          INPUT_PATH="$(find ai-pre-review-input -name review-input.json -type f -print -quit)"
-          test -n "${INPUT_PATH}"
-          node services/ai-review-evidence/scripts/workflow-preflight.mjs "$INPUT_PATH"
+          set -euo pipefail
+          MANIFEST_PATH="$(find ai-pre-review-input -name review-manifest.json -type f -print -quit)"
+          test -n "${MANIFEST_PATH}"
+          node services/ai-review-evidence/scripts/workflow-preflight.mjs "${MANIFEST_PATH}"
 
       - name: Authenticate through Workload Identity Federation
         id: auth
@@ -141,36 +146,50 @@ jobs:
           id_token_audience: ${{ vars.GCP_EVIDENCE_API_URL }}
           create_credentials_file: false
 
-      - name: Request signed shadow evidence
+      - name: Request and validate signed shadow evidence for every part
         env:
           EVIDENCE_API_URL: ${{ vars.GCP_EVIDENCE_API_URL }}
           EVIDENCE_ID_TOKEN: ${{ steps.auth.outputs.id_token }}
-        run: |
-          INPUT_PATH="$(find ai-pre-review-input -name review-input.json -type f -print -quit)"
-          HTTP_STATUS="$(curl --silent --show-error \
-            --output signed-evidence.json \
-            --write-out '%{http_code}' \
-            --request POST \
-            --header "Authorization: Bearer ${EVIDENCE_ID_TOKEN}" \
-            --header "Content-Type: application/json" \
-            --data-binary "@${INPUT_PATH}" \
-            "${EVIDENCE_API_URL}/v1/reviews/evaluate")"
-          test "${HTTP_STATUS}" = "200"
-
-      - name: Validate response contract and KMS signature
-        env:
           EVIDENCE_KMS_KEY_VERSION: ${{ vars.GCP_EVIDENCE_KMS_KEY_VERSION }}
           EVIDENCE_KMS_PUBLIC_KEY_PEM: ${{ vars.GCP_EVIDENCE_KMS_PUBLIC_KEY_PEM }}
         run: |
-          INPUT_PATH="$(find ai-pre-review-input -name review-input.json -type f -print -quit)"
-          node services/ai-review-evidence/scripts/validate-evidence-response.mjs \
-            "${INPUT_PATH}" \
-            signed-evidence.json
+          set -euo pipefail
+          MANIFEST_PATH="$(find ai-pre-review-input -name review-manifest.json -type f -print -quit)"
+          PACKAGE_DIR="$(dirname "${MANIFEST_PATH}")"
+          mkdir -p signed-evidence
 
-      - name: Upload signed evidence
+          mapfile -t PART_PATHS < <(node - "${MANIFEST_PATH}" <<'NODE'
+          const fs = require('node:fs');
+          const manifest = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+          for (const part of manifest.parts) console.log(part.path);
+          NODE
+          )
+
+          test "${#PART_PATHS[@]}" -gt 0
+          for relative_part in "${PART_PATHS[@]}"; do
+            INPUT_PATH="${PACKAGE_DIR}/${relative_part}"
+            part_name="$(basename "${relative_part}" .json)"
+            EVIDENCE_PATH="signed-evidence/${part_name}-evidence.json"
+            HTTP_STATUS="$(curl --silent --show-error \
+              --output "${EVIDENCE_PATH}" \
+              --write-out '%{http_code}' \
+              --request POST \
+              --header "Authorization: Bearer ${EVIDENCE_ID_TOKEN}" \
+              --header "Content-Type: application/json" \
+              --data-binary "@${INPUT_PATH}" \
+              "${EVIDENCE_API_URL}/v1/reviews/evaluate")"
+            test "${HTTP_STATUS}" = "200"
+            node services/ai-review-evidence/scripts/validate-evidence-response.mjs \
+              "${INPUT_PATH}" \
+              "${EVIDENCE_PATH}"
+          done
+
+          test "$(find signed-evidence -name '*-evidence.json' -type f | wc -l)" -eq "${#PART_PATHS[@]}"
+
+      - name: Upload complete signed evidence package
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: ai-pre-review-evidence-${{ github.event.workflow_run.id }}
-          path: signed-evidence.json
+          path: signed-evidence/
           if-no-files-found: error
           retention-days: 30

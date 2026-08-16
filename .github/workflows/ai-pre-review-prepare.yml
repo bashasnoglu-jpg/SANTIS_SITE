@@ -45,20 +45,23 @@ jobs:
             echo "No pull-request code was executed and no review-input artifact was produced."
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Create bounded and sanitized review input
+      - name: Create bounded and sanitized review package
         if: steps.bootstrap.outputs.prepared == 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          AI_REVIEW_OUTPUT: ai-pre-review-input/review-input.json
+          AI_REVIEW_OUTPUT: ai-pre-review-input
         run: |
+          set -euo pipefail
           mkdir -p ai-pre-review-input
           node services/ai-review-evidence/scripts/prepare-diff.mjs
+          test -f ai-pre-review-input/review-manifest.json
+          test -d ai-pre-review-input/parts
 
-      - name: Upload review input
+      - name: Upload review package
         if: steps.bootstrap.outputs.prepared == 'true'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: ai-pre-review-input-${{ github.event.pull_request.number }}
-          path: ai-pre-review-input/review-input.json
+          path: ai-pre-review-input/
           if-no-files-found: error
           retention-days: 3
