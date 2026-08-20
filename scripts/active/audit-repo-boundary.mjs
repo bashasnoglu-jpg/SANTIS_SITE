@@ -6,8 +6,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, '../../');
 
-// packages/event-dictionary is intentionally excluded from this list.
-// Governance Decision (D2-B4-G, 2026-05-14): event-dictionary is classified
+// packages/event-contracts is intentionally excluded from this list.
+// Governance Decision (Option B, 2026-08-20): event-contracts is classified
 // PUBLIC_COUPLED — it is the shared event contract surface consumed by
 // admin-panel, sovereign-bus, openr, and application packages.
 // Archiving it would require unnecessary refactoring of public consumers.

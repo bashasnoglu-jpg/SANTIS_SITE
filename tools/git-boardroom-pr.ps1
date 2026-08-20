@@ -4,8 +4,8 @@
 $branchName = "feat/boardroom-action-rail"
 git checkout -b $branchName
 
-git add packages/event-dictionary/src/index.ts
-git add packages/domain-schema/src/sse-envelope.contract.ts
+git add packages/event-contracts/src/index.ts
+git add packages/domain-runtime/src/sse-envelope.contract.ts
 git add apps/ingestion-api/src/services/sse-manager.ts
 git add apps/ingestion-api/src/handlers/register-command-handlers.ts
 git add admin/assets/js/santis-core.js

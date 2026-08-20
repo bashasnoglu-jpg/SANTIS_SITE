@@ -1,9 +1,9 @@
-import {
-  type GuardResult,
-  GuardResultSchema,
-  type GuardState,
-  type GuardType,
-} from "@santis/domain-schema";
+import type {
+  GuardResult,
+  GuardState,
+  GuardType,
+} from "@santis/domain-contracts";
+import { GuardResultSchema } from "@santis/domain-runtime";
 
 export type RawGuardInput = {
   guard: string;

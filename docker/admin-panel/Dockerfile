@@ -10,11 +10,12 @@ COPY admin-panel/package.json ./admin-panel/package.json
 COPY packages/ui/package.json ./packages/ui/package.json
 COPY packages/sovereign-bus/package.json ./packages/sovereign-bus/package.json
 COPY packages/openr/package.json ./packages/openr/package.json
-COPY packages/domain-schema/package.json ./packages/domain-schema/package.json
+COPY packages/domain-contracts/package.json ./packages/domain-contracts/package.json
+COPY packages/domain-runtime/package.json ./packages/domain-runtime/package.json
 COPY packages/design-system/package.json ./packages/design-system/package.json
 COPY packages/ui-tokens/package.json ./packages/ui-tokens/package.json
 COPY packages/gravity-ux-engine/package.json ./packages/gravity-ux-engine/package.json
-COPY packages/event-dictionary/package.json ./packages/event-dictionary/package.json
+COPY packages/event-contracts/package.json ./packages/event-contracts/package.json
 
 RUN pnpm install --frozen-lockfile
 
@@ -33,4 +34,3 @@ RUN touch /var/run/nginx.pid \
 USER nginx
 
 EXPOSE 8080
-

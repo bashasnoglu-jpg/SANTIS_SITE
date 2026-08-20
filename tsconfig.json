@@ -12,7 +12,8 @@
         "jsx": "react-jsx",
         "baseUrl": ".",
         "paths": {
-            "@santis/domain-schema/*": ["packages/domain-schema/src/*"]
+            "@santis/domain-contracts/*": ["packages/domain-contracts/src/*"],
+            "@santis/domain-runtime/*": ["packages/domain-runtime/src/*"]
         }
     },
     "ts-node": {

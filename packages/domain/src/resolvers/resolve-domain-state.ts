@@ -1,7 +1,7 @@
 import type {
   CanonicalBooking,
   GuardResult,
-} from "@santis/domain-schema";
+} from "@santis/domain-contracts";
 import { resolveActionPriority } from "./resolve-action-priority.js";
 import { resolveBadges, resolveVisualState } from "./resolve-visual-state.js";
 import { resolveProgress } from "./resolve-progress.js";

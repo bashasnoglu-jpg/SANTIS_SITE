@@ -1,5 +1,5 @@
 {
-  "name": "@santis/domain-schema",
+  "name": "@santis/domain-runtime",
   "version": "1.0.0",
   "type": "module",
   "exports": {
@@ -21,9 +21,10 @@
     "test": "node scripts/ensure-no-db.mjs && tsc --noEmit"
   },
   "dependencies": {
-    "zod": "^3.22.0"
+    "zod": "3.25.76"
   },
   "devDependencies": {
-    "@types/node": "^20.19.41"
+    "@types/node": "20.19.41",
+    "typescript": "5.9.3"
   }
 }

@@ -1,10 +1,10 @@
-import {
-  ActionPriorityResultSchema,
-  type ActionPriority,
-  type ActionPriorityResult,
-  type GuardResult,
-  type GuardType,
-} from "@santis/domain-schema";
+import type {
+  ActionPriority,
+  ActionPriorityResult,
+  GuardResult,
+  GuardType,
+} from "@santis/domain-contracts";
+import { ActionPriorityResultSchema } from "@santis/domain-runtime";
 
 const PRIORITY_RANK: Record<ActionPriority, number> = {
   P0: 0,

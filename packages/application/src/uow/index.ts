@@ -1,4 +1,4 @@
-import type { SantisEvent } from "@santis/event-dictionary";
+import type { SantisEvent } from "@santis/event-contracts";
 
 export interface TransactionContext {
   readonly events: SantisEvent[];

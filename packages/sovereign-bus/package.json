@@ -9,6 +9,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@santis/event-dictionary": "workspace:*"
+    "@santis/event-contracts": "1.0.0"
   }
 }

@@ -1,5 +1,5 @@
 // @ts-ignore
-import type { TelemetrySignal } from '@santis/domain-schema/telemetry';
+import type { TelemetrySignal } from '@santis/domain-contracts/telemetry';
 import { z } from "zod";
 
 // Katı Override Modelleri

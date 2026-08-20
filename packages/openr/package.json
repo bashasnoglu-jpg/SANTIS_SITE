@@ -10,6 +10,6 @@
   },
   "dependencies": {
     "zod": "^3.22.4",
-    "@santis/event-dictionary": "workspace:*"
+    "@santis/event-contracts": "1.0.0"
   }
 }

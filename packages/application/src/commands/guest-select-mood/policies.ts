@@ -1,4 +1,4 @@
-import type { SantisCommand } from "@santis/event-dictionary";
+import type { SantisCommand } from "@santis/event-contracts";
 import { SelectMoodPolicyError } from "./errors.js";
 
 type SelectMoodCommand = Extract<
