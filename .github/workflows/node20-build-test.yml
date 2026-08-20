@@ -1,0 +1,56 @@
+name: PAKET IMP 1 Node 20 Build and Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: paket-imp-1-node20-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  node20-build-test:
+    name: Node 20 full monorepo verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.24.0
+          run_install: false
+
+      - name: Install Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: pnpm
+
+      - name: Verify toolchain contract
+        shell: bash
+        run: |
+          node --version
+          pnpm --version
+          node -e "if (process.versions.node.split('.')[0] !== '20') process.exit(1)"
+          test "$(pnpm --version)" = "10.24.0"
+
+      - name: Install dependencies from frozen lockfile
+        run: pnpm install --frozen-lockfile
+
+      - name: Build complete monorepo
+        run: pnpm build
+
+      - name: Test complete monorepo
+        shell: bash
+        run: |
+          if node -e "process.exit(require('./package.json').scripts?.test ? 0 : 1)"; then
+            pnpm test
+          else
+            pnpm --recursive --if-present test
+          fi
