@@ -1,4 +1,4 @@
-import {
+import type {
   Location,
   SpaArea,
   TreatmentRoom,
@@ -10,7 +10,7 @@ import {
   TherapistShift,
   Blocker,
   Booking
-} from "./scheduling.contract.js";
+} from "@santis/domain-contracts/scheduling.contract";
 
 export type ConflictCode =
   | 'TENANT_SCOPE_VIOLATION'

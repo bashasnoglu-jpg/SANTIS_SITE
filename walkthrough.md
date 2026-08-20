@@ -2,7 +2,7 @@
 
 # Phase J-S: Audit Log Route Initialization & Hardening
 
-We have successfully implemented the backend foundational work for the new Audit Log functionality across `@santis/domain-schema`, `@santis/database`, and `apps/ingestion-api`.
+We have successfully implemented the backend foundational work for the new Audit Log functionality across `@santis/domain-contracts`, `@santis/database`, and `apps/ingestion-api`.
 
 ## 1. Domain Schema Hardening (Phase J-S.1)
 - **Role Capability Matrix Update:** We added `audit-log:write` to `OperatorCapabilitySchema` to formally represent append-only log insertion privileges.
@@ -44,7 +44,7 @@ You can verify the latest commit locally on `develop`:
 ### Boardroom Action Rail (Feature)
 - **Contracts**: Created `boardroom-state.contract.ts` and extended `sse-envelope.contract.ts` for `action_rail_update` events.
 - **Ingestion API**:
-    - Updated `package.json` to include `@santis/domain-schema` for contract integrity.
+    - Updated `package.json` to include `@santis/domain-contracts` for contract integrity.
     - **boardroom-projections.ts**: Refactored projection logic to use `sseManager` for live action broadcasts.
     - **strategy.ts**: Refactored to a factory pattern for decoupled event publishing via `SovereignBus`.
 

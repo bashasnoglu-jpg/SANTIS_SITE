@@ -1,19 +1,31 @@
 {
   "name": "@santis/domain-contracts",
   "version": "1.0.0",
-  "private": true,
   "type": "module",
   "sideEffects": false,
   "exports": {
     ".": "./src/index.ts",
-    "./booking": "./src/booking.ts",
-    "./telemetry": "./src/telemetry.ts"
+    "./booking": "./src/booking/index.ts",
+    "./telemetry": "./src/telemetry/signal.schema.ts",
+    "./tenant.contract": "./src/tenant.contract.ts",
+    "./intent.contract": "./src/intent.contract.ts",
+    "./core-state.interface": "./src/core-state.interface.ts",
+    "./scheduling.api": "./src/scheduling.api.ts",
+    "./scheduling.contract": "./src/scheduling.contract.ts",
+    "./session.contract": "./src/session.contract.ts",
+    "./sse-envelope.contract": "./src/sse-envelope.contract.ts",
+    "./audit-log.contract": "./src/audit-log.contract.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "tsc --noEmit"
+    "test": "node --import tsx --test test/compatibility.test.ts && tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "3.25.76"
   },
   "devDependencies": {
+    "@types/node": "20.19.41",
+    "tsx": "4.21.0",
     "typescript": "5.9.3"
   }
 }

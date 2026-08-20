@@ -4,7 +4,7 @@ import type {
   GuardResult,
   GuardType,
 } from "@santis/domain-contracts";
-import { ActionPriorityResultSchema } from "@santis/domain-runtime";
+import { ActionPriorityResultSchema } from "@santis/domain-contracts";
 
 const PRIORITY_RANK: Record<ActionPriority, number> = {
   P0: 0,

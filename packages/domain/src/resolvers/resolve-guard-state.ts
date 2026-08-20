@@ -3,7 +3,7 @@ import type {
   GuardState,
   GuardType,
 } from "@santis/domain-contracts";
-import { GuardResultSchema } from "@santis/domain-runtime";
+import { GuardResultSchema } from "@santis/domain-contracts";
 
 export type RawGuardInput = {
   guard: string;

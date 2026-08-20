@@ -1,4 +1,4 @@
-import {
+import type {
   Location,
   SpaArea,
   TreatmentRoom,
@@ -8,7 +8,7 @@ import {
   TherapistShift,
   Blocker,
   Booking
-} from "./scheduling.contract.js";
+} from "@santis/domain-contracts/scheduling.contract";
 
 // --- TENANT ID ---
 export const MOCK_TENANT_ID = "00000000-0000-0000-0000-000000000001";

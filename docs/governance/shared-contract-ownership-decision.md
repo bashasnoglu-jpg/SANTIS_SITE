@@ -108,7 +108,19 @@ Example consumer contract:
 7. Reject remaining cross-repository `workspace:*` links.
 8. Obtain independent read-back before deprecating old package paths.
 
-No step above is authorized for execution by this draft.
+Execution is authorized only for the bounded local PAKET_IMP_1 and remediation scopes recorded by HAKAN; remote publication, push, PR, merge, deployment, production, and private-repository creation remain unauthorized.
+
+## PAKET_IMP_1 Remediation Policy Resolution
+
+```text
+DOMAIN_CONTRACT_PACKAGE_PRIVATE = FALSE
+POLICY_REASON                   = PACKAGE IS AN EXACT-VERSION PUBLISHABLE CONTRACT SURFACE
+REGISTRY_PUBLISH_AUTHORITY      = NOT GRANTED
+IMMUTABLE_REGISTRY_ARTIFACT     = NOT PROVEN
+LOCAL_LINK_RESOLUTION           = DEVELOPMENT ONLY
+```
+
+Removing the npm `private` flag makes the package structurally publishable; it does not publish an artifact or grant registry, remote, merge, or deployment authority.
 
 ## Decision Block
 
@@ -119,4 +131,3 @@ DECISION_DATE         = 2026-08-20
 CONDITIONS            = PAKET_IMP_1 LOCAL IMPLEMENTATION ONLY
 GOVERNANCE_DECISION   = APPROVED — OPTION B
 ```
-

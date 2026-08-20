@@ -51,7 +51,7 @@ The following paths should be reviewed and migrated out of the public repository
 - `apps/ingestion-api/`
 - `packages/db/`
 - `packages/decision-kernel/`
-- `packages/event-dictionary/`
+- `packages/event-contracts/`
 - `server/core/`
 - `nexus-signaling-server/`
 - `santis-os-monorepo/`

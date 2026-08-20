@@ -12,3 +12,4 @@ packages:
   - "packages/database"
   - "services/ai-review-evidence"
   - "admin-panel"
+linkWorkspacePackages: true

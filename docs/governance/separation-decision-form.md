@@ -45,7 +45,7 @@ These are proposal groups, not an exact authorized migration manifest:
 - `scripts/ops/`
 - `docker/postgres/` and `docs/db/`
 - `services/ai-review-evidence/` — ownership review required because it is CI/governance infrastructure
-- runtime portions identified inside `packages/domain-schema/`
+- runtime portions now isolated in `packages/domain-runtime/`
 
 ```text
 PROPOSED_CANDIDATE_SOURCE = 124 OS_ONLY_CANDIDATE FILES
@@ -78,10 +78,11 @@ EXACT_MIGRATION_MANIFEST    = NOT ELIGIBLE
 GOVERNANCE_DECISION              = APPROVED — OPTION B
 OPTION_B_CANONICAL_PROMOTION     = GRANTED — PAKET_IMP_1 LOCAL IMPLEMENTATION ONLY
 PRIVATE_REPO_CREATION            = NOT GRANTED
-FILE_MOVE                        = NOT GRANTED
+FILE_MOVE                        = GRANTED — VALIDATION-SAFE FILES WITHIN PAKET_IMP_1 REMEDIATION ONLY
 SECRET_MUTATION                  = NOT GRANTED
-CODE_OR_CONFIG_MUTATION          = NOT GRANTED
-COMMIT / PUSH / PR / MERGE       = NOT GRANTED
+LOCAL_CODE_MUTATION              = GRANTED — PAKET_IMP_1 + REMEDIATION ONLY
+LOCAL_COMMIT                     = GRANTED — BOUNDED PACKAGE COMMITS ONLY
+PUSH / PR / MERGE                = NOT GRANTED
 DEPLOYMENT / PRODUCTION          = NOT GRANTED
 ```
 
@@ -94,4 +95,3 @@ DECISION         = APPROVED — OPTION B
 CONDITIONS       = LOCAL IMPLEMENTATION ONLY; REMOTE AND PRODUCTION AUTHORITIES NOT GRANTED
 EVIDENCE_VERSION = PAKET_SEP_1–4
 ```
-
