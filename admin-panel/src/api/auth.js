@@ -95,13 +95,6 @@ const createSessionToken = (payload) =>
 
 export async function loginAdmin(email, password) {
   try {
-    if (email === 'admin@santis.com') {
-      return {
-        access_token: 'smoke_test_token_12345',
-        authMode: 'mock',
-      };
-    }
-
     let payload;
 
     try {
