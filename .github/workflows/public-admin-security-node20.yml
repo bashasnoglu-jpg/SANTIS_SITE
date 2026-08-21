@@ -1,0 +1,52 @@
+name: Public Admin Boundary — Node 20 Verification
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - security/public-admin-boundary-remediation
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-admin-security-node20-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Root build and public-admin security tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout exact branch commit
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.24.0
+          run_install: false
+
+      - name: Install Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Record toolchain
+        run: |
+          node --version
+          pnpm --version
+
+      - name: Install frozen dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build root artifact
+        run: pnpm build
+
+      - name: Verify public-admin boundary
+        run: pnpm test:security:public-admin
