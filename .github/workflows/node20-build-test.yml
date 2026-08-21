@@ -2,6 +2,9 @@ name: PAKET IMP 1 Node 20 Build and Test
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - implementation/shared-contract-separation
 
 permissions:
   contents: read
