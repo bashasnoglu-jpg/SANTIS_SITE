@@ -62,17 +62,17 @@ jobs:
           node --version
           pnpm --version
 
-      - name: Install frozen dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Install locked root verification toolchain only
+        run: pnpm install --frozen-lockfile --ignore-workspace
 
       - name: Typecheck session contracts
-        run: pnpm --filter @santis/session-contracts typecheck
+        run: pnpm exec tsc -p packages/session-contracts/tsconfig.json
 
       - name: Run 8-of-8 schema smoke tests
-        run: pnpm --filter @santis/session-contracts test
+        run: pnpm exec tsx --test packages/session-contracts/tests/session-contracts.test.ts
 
       - name: Build session contracts
-        run: pnpm --filter @santis/session-contracts build
+        run: pnpm exec tsc -p packages/session-contracts/tsconfig.build.json
 
       - name: Verify build artifact
         run: |
