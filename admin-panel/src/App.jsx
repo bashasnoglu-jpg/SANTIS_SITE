@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -15,13 +15,19 @@ import {
   LazyServiceManager,
 } from './routes/lazy-routes';
 
-// Create a client
 const queryClient = new QueryClient();
 
-// Protected Route Component
+// UX gate only. Authority is always re-proven by the server-side BFF/WP2 boundary.
 const PrivateRoute = ({ children }) => {
-  const token = useAuthStore((state) => state.token);
-  return token ? children : <Navigate to="/login" />;
+  const authStatus = useAuthStore((state) => state.authStatus);
+  const bootstrap = useAuthStore((state) => state.bootstrap);
+
+  useEffect(() => {
+    if (authStatus === 'unknown') void bootstrap();
+  }, [authStatus, bootstrap]);
+
+  if (authStatus === 'unknown' || authStatus === 'checking') return null;
+  return authStatus === 'authenticated' ? children : <Navigate to="/login" replace />;
 };
 
 function App() {
@@ -30,61 +36,25 @@ function App() {
       <BoardroomModeProvider>
         <SovereignSocketProvider>
           <Router basename={import.meta.env.BASE_URL}>
-          <Routes>
-          {/* KIOSK MODU (İzole Rota - Navigasyon Yok) */}
-          <Route 
-            path="/scanner" 
-            element={
-              <div style={{ width: '100vw', height: '100vh', backgroundColor: 'var(--os-karanlik-madde, var(--sovereign-black))', overflow: 'hidden' }}>
-                <ClinicScanner />
-              </div>
-            } 
-          />
-          
-          <Route path="/index.html" element={<Navigate to="/" replace />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/"
-            element={
-              <PrivateRoute>
-                <SantisBoardroom />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/operations"
-            element={
-              <PrivateRoute>
-                <AdminLazyBoundary>
-                  <LazyOperations />
-                </AdminLazyBoundary>
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/services"
-            element={
-              <PrivateRoute>
-                <AdminLazyBoundary>
-                  <LazyServiceManager />
-                </AdminLazyBoundary>
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/finance"
-            element={
-              <PrivateRoute>
-                <AdminLazyBoundary>
-                  <LazyFinance />
-                </AdminLazyBoundary>
-              </PrivateRoute>
-            }
-          />
-          </Routes>
-        </Router>
-      </SovereignSocketProvider>
-    </BoardroomModeProvider>
+            <Routes>
+              <Route
+                path="/scanner"
+                element={
+                  <div style={{ width: '100vw', height: '100vh', backgroundColor: 'var(--os-karanlik-madde, var(--sovereign-black))', overflow: 'hidden' }}>
+                    <ClinicScanner />
+                  </div>
+                }
+              />
+              <Route path="/index.html" element={<Navigate to="/" replace />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<PrivateRoute><SantisBoardroom /></PrivateRoute>} />
+              <Route path="/operations" element={<PrivateRoute><AdminLazyBoundary><LazyOperations /></AdminLazyBoundary></PrivateRoute>} />
+              <Route path="/services" element={<PrivateRoute><AdminLazyBoundary><LazyServiceManager /></AdminLazyBoundary></PrivateRoute>} />
+              <Route path="/finance" element={<PrivateRoute><AdminLazyBoundary><LazyFinance /></AdminLazyBoundary></PrivateRoute>} />
+            </Routes>
+          </Router>
+        </SovereignSocketProvider>
+      </BoardroomModeProvider>
       <SpeedInsights />
     </QueryClientProvider>
   );

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import useAuthStore from '../store/useAuthStore';
 import { useNavigate } from 'react-router-dom';
@@ -7,17 +6,21 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [submitting, setSubmitting] = useState(false);
     const login = useAuthStore((state) => state.login);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setSubmitting(true);
         try {
             await login(email, password);
-            navigate('/');
+            navigate('/', { replace: true });
         } catch {
-            setError('Invalid credentials');
+            setError('Invalid credentials or insufficient admin authority');
+        } finally {
+            setSubmitting(false);
         }
     };
 
@@ -29,29 +32,14 @@ const Login = () => {
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-400 mb-1">Email</label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full bg-sovereign-graphite border border-sovereign-line-soft rounded p-2 text-white focus:border-sovereign-gold-strong focus:outline-none"
-                            required
-                        />
+                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-sovereign-graphite border border-sovereign-line-soft rounded p-2 text-white focus:border-sovereign-gold-strong focus:outline-none" required />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-400 mb-1">Password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full bg-sovereign-graphite border border-sovereign-line-soft rounded p-2 text-white focus:border-sovereign-gold-strong focus:outline-none"
-                            required
-                        />
+                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full bg-sovereign-graphite border border-sovereign-line-soft rounded p-2 text-white focus:border-sovereign-gold-strong focus:outline-none" required />
                     </div>
-                    <button
-                        type="submit"
-                        className="w-full bg-sovereign-gold-strong text-black font-bold py-2 rounded hover:bg-sovereign-gold-pressed transition-colors"
-                    >
-                        Sign In
+                    <button type="submit" disabled={submitting} className="w-full bg-sovereign-gold-strong text-black font-bold py-2 rounded hover:bg-sovereign-gold-pressed transition-colors disabled:opacity-60">
+                        {submitting ? 'Signing In…' : 'Sign In'}
                     </button>
                 </form>
             </div>

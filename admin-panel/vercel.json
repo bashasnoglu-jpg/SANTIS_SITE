@@ -4,6 +4,12 @@
   "installCommand": "cd .. && pnpm install --frozen-lockfile",
   "buildCommand": "cd .. && pnpm --filter admin-panel build",
   "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/api/admin/:path*",
+      "destination": "/__wp3_bff_unbound__"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -12,6 +18,12 @@
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
         { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self'; object-src 'none';" }
+      ]
+    },
+    {
+      "source": "/api/admin/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" }
       ]
     }
   ]

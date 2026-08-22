@@ -11,5 +11,6 @@ packages:
   - "packages/database"
   - "packages/session-contracts"
   - "apps/ingestion-api"
+  - "apps/admin-bff"
   - "services/ai-review-evidence"
   - "admin-panel"
