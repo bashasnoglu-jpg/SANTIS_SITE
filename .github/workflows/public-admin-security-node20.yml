@@ -2,9 +2,33 @@ name: Public Admin Boundary — Node 20 Verification
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'public/admin/**'
+      - 'admin-panel/**'
+      - 'tests/security/public-admin-boundary.test.mjs'
+      - 'package.json'
+      - 'vercel.json'
+      - 'vite.config.js'
+      - 'vite.config.ts'
+      - '.github/workflows/public-admin-security-node20.yml'
   push:
     branches:
+      - main
+      - develop
       - security/public-admin-boundary-remediation
+    paths:
+      - 'public/admin/**'
+      - 'admin-panel/**'
+      - 'tests/security/public-admin-boundary.test.mjs'
+      - 'package.json'
+      - 'vercel.json'
+      - 'vite.config.js'
+      - 'vite.config.ts'
+      - '.github/workflows/public-admin-security-node20.yml'
 
 permissions:
   contents: read
@@ -41,6 +65,7 @@ jobs:
         run: |
           node --version
           pnpm --version
+          echo "GITHUB_SHA=${GITHUB_SHA}"
 
       - name: Install frozen dependencies
         run: pnpm install --frozen-lockfile
