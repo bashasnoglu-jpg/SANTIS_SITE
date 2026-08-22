@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
   statuses: write
 
 concurrency:
@@ -117,11 +118,20 @@ jobs:
           echo "WP3_MATERIALIZED_HEAD=${new_head}"
           git push origin "HEAD:${WP3_BRANCH}"
 
+      - name: Dispatch exact-head verification after materialization
+        if: steps.lock.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh workflow run admin-bff-ci.yml --repo "${GITHUB_REPOSITORY}" --ref "${WP3_BRANCH}"
+          echo "FOLLOW_UP_VERIFICATION_DISPATCHED=YES"
+
       - name: Stop verification until exact materialized head
         if: steps.lock.outputs.changed == 'true'
         run: |
           echo "LOCKFILE_COMMITTED=YES"
-          echo "FOLLOW_UP_TRIGGER=push"
+          echo "FOLLOW_UP_TRIGGER=workflow_dispatch"
           echo "TYPECHECK_BUILD_DEFERRED_TO_NEW_EXACT_HEAD=YES"
 
       - name: Register exact-head verification
