@@ -42,12 +42,22 @@ jobs:
     name: Root build and public-admin security tests
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
 
     steps:
-      - name: Checkout exact branch commit
+      - name: Checkout exact head commit
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
+
+      - name: Verify exact head checkout
+        run: |
+          actual_head="$(git rev-parse HEAD)"
+          echo "EXPECTED_HEAD_SHA=${EXPECTED_HEAD_SHA}"
+          echo "CHECKED_OUT_HEAD=${actual_head}"
+          test "${actual_head}" = "${EXPECTED_HEAD_SHA}"
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -65,7 +75,6 @@ jobs:
         run: |
           node --version
           pnpm --version
-          echo "GITHUB_SHA=${GITHUB_SHA}"
 
       - name: Install frozen dependencies
         run: pnpm install --frozen-lockfile
