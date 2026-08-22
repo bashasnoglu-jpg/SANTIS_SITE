@@ -10,5 +10,6 @@ packages:
   - "packages/event-dictionary"
   - "packages/database"
   - "packages/session-contracts"
+  - "apps/ingestion-api"
   - "services/ai-review-evidence"
   - "admin-panel"
