@@ -4,11 +4,31 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./admin-session-record.v1": "./src/admin-session-record.v1.ts",
-    "./authorization-request.v1": "./src/authorization-request.v1.ts",
-    "./authorization-decision.v1": "./src/authorization-decision.v1.ts",
-    "./validators": "./src/validators.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./admin-session-record.v1": {
+      "types": "./dist/admin-session-record.v1.d.ts",
+      "import": "./dist/admin-session-record.v1.js",
+      "default": "./dist/admin-session-record.v1.js"
+    },
+    "./authorization-request.v1": {
+      "types": "./dist/authorization-request.v1.d.ts",
+      "import": "./dist/authorization-request.v1.js",
+      "default": "./dist/authorization-request.v1.js"
+    },
+    "./authorization-decision.v1": {
+      "types": "./dist/authorization-decision.v1.d.ts",
+      "import": "./dist/authorization-decision.v1.js",
+      "default": "./dist/authorization-decision.v1.js"
+    },
+    "./validators": {
+      "types": "./dist/validators.d.ts",
+      "import": "./dist/validators.js",
+      "default": "./dist/validators.js"
+    }
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

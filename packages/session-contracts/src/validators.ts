@@ -5,16 +5,16 @@ import {
   REVOCATION_STATES,
   SESSION_STATES,
   type AdminSessionRecordV1,
-} from "./admin-session-record.v1";
+} from "./admin-session-record.v1.js";
 import {
   AUTHORIZATION_REQUEST_SCHEMA_VERSION,
   type AuthorizationRequestV1,
-} from "./authorization-request.v1";
+} from "./authorization-request.v1.js";
 import {
   AUTHORIZATION_DECISION_SCHEMA_VERSION,
   AUTHORIZATION_DENY_CODES,
   type AuthorizationDecisionV1,
-} from "./authorization-decision.v1";
+} from "./authorization-decision.v1.js";
 
 export interface ContractValidationError {
   path: string;
