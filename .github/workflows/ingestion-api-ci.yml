@@ -13,7 +13,9 @@ on:
       - '.github/workflows/ingestion-api-ci.yml'
 
 permissions:
-  contents: read
+  contents: write
+  actions: write
+  statuses: write
 
 concurrency:
   group: wp2-ingestion-api-${{ github.ref }}
@@ -26,13 +28,14 @@ jobs:
     timeout-minutes: 20
     env:
       EXPECTED_HEAD_SHA: ${{ github.sha }}
+      WP2_BRANCH: feat/admin-auth-ingestion-api-v1
 
     steps:
       - name: Checkout exact head commit
         uses: actions/checkout@v4
         with:
           ref: ${{ github.sha }}
-          persist-credentials: false
+          persist-credentials: true
 
       - name: Verify exact head checkout
         run: |
@@ -40,6 +43,7 @@ jobs:
           echo "EXPECTED_HEAD_SHA=${EXPECTED_HEAD_SHA}"
           echo "CHECKED_OUT_HEAD=${actual_head}"
           test "${actual_head}" = "${EXPECTED_HEAD_SHA}"
+          test "${GITHUB_REF_NAME}" = "${WP2_BRANCH}"
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -69,29 +73,113 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+      - name: Detect lockfile drift
+        id: lock
+        shell: bash
+        run: |
+          if git diff --quiet -- pnpm-lock.yaml; then
+            echo "changed=false" >> "${GITHUB_OUTPUT}"
+            echo "PNPM_LOCK_SYNC=PASS"
+          else
+            changed_files="$(git diff --name-only)"
+            echo "CHANGED_FILES=${changed_files}"
+            test "${changed_files}" = "pnpm-lock.yaml"
+            echo "changed=true" >> "${GITHUB_OUTPUT}"
+            echo "PNPM_LOCK_SYNC=MATERIALIZATION_REQUIRED"
+          fi
+
+      - name: Commit only pnpm materialization
+        if: steps.lock.outputs.changed == 'true'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- pnpm-lock.yaml
+          staged_files="$(git diff --cached --name-only)"
+          test "${staged_files}" = "pnpm-lock.yaml"
+          git commit -m "chore(auth): materialize WP2 lockfile"
+          new_head="$(git rev-parse HEAD)"
+          echo "WP2_MATERIALIZED_HEAD=${new_head}"
+          git push origin "HEAD:${WP2_BRANCH}"
+
+      - name: Dispatch exact-head verification after materialization
+        if: steps.lock.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh workflow run ingestion-api-ci.yml --repo "${GITHUB_REPOSITORY}" --ref "${WP2_BRANCH}"
+          echo "FOLLOW_UP_VERIFICATION_DISPATCHED=YES"
+
+      - name: Register verification run
+        if: steps.lock.outputs.changed == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            -f state='pending' \
+            -f context='WP2 Ingestion API Verification' \
+            -f description='Exact-head frozen install, typecheck, and build running' \
+            -f target_url="${run_url}" >/dev/null
+          echo "VERIFICATION_RUN_URL=${run_url}"
+
       - name: Require committed lockfile to match pnpm materialization
+        if: steps.lock.outputs.changed == 'false'
         run: |
           git diff --exit-code -- pnpm-lock.yaml
           echo "PNPM_LOCK_SYNC=PASS"
 
       - name: Install frozen dependencies
+        if: steps.lock.outputs.changed == 'false'
         run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Typecheck WP2 ingestion API
+        if: steps.lock.outputs.changed == 'false'
         run: pnpm --filter @santis/ingestion-api typecheck
 
       - name: Build WP2 ingestion API
+        if: steps.lock.outputs.changed == 'false'
         run: pnpm --filter @santis/ingestion-api build
 
       - name: Verify WP2 build artifact
+        if: steps.lock.outputs.changed == 'false'
         run: |
           test -f apps/ingestion-api/dist/server.js
           find apps/ingestion-api/dist -maxdepth 3 -type f -print | sort
 
       - name: Upload WP2 build artifact
+        if: steps.lock.outputs.changed == 'false'
         uses: actions/upload-artifact@v4
         with:
           name: wp2-ingestion-api-dist-${{ github.sha }}
           path: apps/ingestion-api/dist
           if-no-files-found: error
           retention-days: 7
+
+      - name: Mark exact-head verification success
+        if: success() && steps.lock.outputs.changed == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            -f state='success' \
+            -f context='WP2 Ingestion API Verification' \
+            -f description='Frozen install, typecheck, and build artifact PASS' \
+            -f target_url="${run_url}" >/dev/null
+
+      - name: Mark exact-head verification failure
+        if: failure() && steps.lock.outputs.changed == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            -f state='failure' \
+            -f context='WP2 Ingestion API Verification' \
+            -f description='Exact-head WP2 verification failed closed' \
+            -f target_url="${run_url}" >/dev/null
