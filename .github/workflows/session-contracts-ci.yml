@@ -1,0 +1,89 @@
+name: Session Contracts v1 Verification
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feat/admin-session-contracts-v1
+    paths:
+      - 'packages/session-contracts/**'
+      - '.github/workflows/session-contracts-ci.yml'
+  pull_request:
+    branches:
+      - develop
+      - main
+    paths:
+      - 'packages/session-contracts/**'
+      - '.github/workflows/session-contracts-ci.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: session-contracts-v1-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Typecheck, schema smoke, and build artifact
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+
+    steps:
+      - name: Checkout exact head commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+
+      - name: Verify exact head checkout
+        run: |
+          actual_head="$(git rev-parse HEAD)"
+          echo "EXPECTED_HEAD_SHA=${EXPECTED_HEAD_SHA}"
+          echo "CHECKED_OUT_HEAD=${actual_head}"
+          test "${actual_head}" = "${EXPECTED_HEAD_SHA}"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.24.0
+          run_install: false
+
+      - name: Install Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Record toolchain
+        run: |
+          node --version
+          pnpm --version
+
+      - name: Install frozen dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck session contracts
+        run: pnpm --filter @santis/session-contracts typecheck
+
+      - name: Run 8-of-8 schema smoke tests
+        run: pnpm --filter @santis/session-contracts test
+
+      - name: Build session contracts
+        run: pnpm --filter @santis/session-contracts build
+
+      - name: Verify build artifact
+        run: |
+          test -f packages/session-contracts/dist/index.js
+          test -f packages/session-contracts/dist/index.d.ts
+          find packages/session-contracts/dist -maxdepth 1 -type f -print | sort
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: session-contracts-dist-${{ github.sha }}
+          path: packages/session-contracts/dist
+          if-no-files-found: error
+          retention-days: 7
