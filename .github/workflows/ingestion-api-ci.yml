@@ -1,0 +1,97 @@
+name: WP2 Ingestion API Verification
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feat/admin-auth-ingestion-api-v1
+    paths:
+      - 'apps/ingestion-api/**'
+      - 'packages/session-contracts/**'
+      - 'pnpm-workspace.yaml'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/ingestion-api-ci.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wp2-ingestion-api-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Lockfile, typecheck, and build artifact
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      EXPECTED_HEAD_SHA: ${{ github.sha }}
+
+    steps:
+      - name: Checkout exact head commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Verify exact head checkout
+        run: |
+          actual_head="$(git rev-parse HEAD)"
+          echo "EXPECTED_HEAD_SHA=${EXPECTED_HEAD_SHA}"
+          echo "CHECKED_OUT_HEAD=${actual_head}"
+          test "${actual_head}" = "${EXPECTED_HEAD_SHA}"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.24.0
+          run_install: false
+
+      - name: Install Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Record toolchain
+        run: |
+          node --version
+          pnpm --version
+
+      - name: Materialize dependency graph with pnpm
+        run: pnpm install --lockfile-only --no-frozen-lockfile --ignore-scripts
+
+      - name: Upload materialized lockfile evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: wp2-pnpm-lock-${{ github.sha }}
+          path: pnpm-lock.yaml
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Require committed lockfile to match pnpm materialization
+        run: |
+          git diff --exit-code -- pnpm-lock.yaml
+          echo "PNPM_LOCK_SYNC=PASS"
+
+      - name: Install frozen dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Typecheck WP2 ingestion API
+        run: pnpm --filter @santis/ingestion-api typecheck
+
+      - name: Build WP2 ingestion API
+        run: pnpm --filter @santis/ingestion-api build
+
+      - name: Verify WP2 build artifact
+        run: |
+          test -f apps/ingestion-api/dist/server.js
+          find apps/ingestion-api/dist -maxdepth 3 -type f -print | sort
+
+      - name: Upload WP2 build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wp2-ingestion-api-dist-${{ github.sha }}
+          path: apps/ingestion-api/dist
+          if-no-files-found: error
+          retention-days: 7
