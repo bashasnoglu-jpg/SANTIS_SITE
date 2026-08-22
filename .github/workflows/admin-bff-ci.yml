@@ -1,0 +1,220 @@
+name: WP3 Admin BFF Verification
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feat/admin-bff-v1
+    paths:
+      - 'apps/admin-bff/**'
+      - 'admin-panel/**'
+      - 'pnpm-workspace.yaml'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/admin-bff-ci.yml'
+
+permissions:
+  contents: write
+  statuses: write
+
+concurrency:
+  group: wp3-admin-bff-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Lockfile, typecheck, build, and artifacts
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      EXPECTED_HEAD_SHA: ${{ github.sha }}
+      WP3_BRANCH: feat/admin-bff-v1
+      WP3_SOURCE_HEAD: 144cff3b726f6be772dcfe7c31b8979249c021f2
+
+    steps:
+      - name: Checkout exact head commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Verify exact head checkout
+        shell: bash
+        run: |
+          actual_head="$(git rev-parse HEAD)"
+          echo "EXPECTED_HEAD_SHA=${EXPECTED_HEAD_SHA}"
+          echo "CHECKED_OUT_HEAD=${actual_head}"
+          test "${actual_head}" = "${EXPECTED_HEAD_SHA}"
+          test "${GITHUB_REF_NAME}" = "${WP3_BRANCH}"
+
+      - name: Verify WP3 source immutability
+        shell: bash
+        run: |
+          changed="$(git diff --name-only "${WP3_SOURCE_HEAD}..HEAD" | sort)"
+          echo "HARNESS_DELTA_BEGIN"
+          printf '%s\n' "${changed}"
+          echo "HARNESS_DELTA_END"
+          unexpected="$(printf '%s\n' "${changed}" | grep -v -E '^(\.github/workflows/admin-bff-ci\.yml|pnpm-lock\.yaml)?$' || true)"
+          test -z "${unexpected}"
+          echo "WP3_SOURCE_MUTATION=0"
+
+      - name: Install pnpm 10.24.0
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.24.0
+          run_install: false
+
+      - name: Install Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Record verification toolchain
+        shell: bash
+        run: |
+          node --version
+          pnpm --version
+
+      - name: Materialize dependency graph with pnpm
+        run: pnpm install --lockfile-only --no-frozen-lockfile --ignore-scripts
+
+      - name: Upload materialized lockfile evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: wp3-pnpm-lock-${{ github.sha }}
+          path: pnpm-lock.yaml
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Detect lockfile drift
+        id: lock
+        shell: bash
+        run: |
+          if git diff --quiet -- pnpm-lock.yaml; then
+            echo "changed=false" >> "${GITHUB_OUTPUT}"
+            echo "PNPM_LOCK_SYNC=PASS"
+          else
+            changed_files="$(git diff --name-only | sort)"
+            echo "WORKTREE_CHANGED_FILES=${changed_files}"
+            test "${changed_files}" = "pnpm-lock.yaml"
+            echo "changed=true" >> "${GITHUB_OUTPUT}"
+            echo "PNPM_LOCK_SYNC=MATERIALIZATION_REQUIRED"
+          fi
+
+      - name: Commit only pnpm materialization
+        if: steps.lock.outputs.changed == 'true'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- pnpm-lock.yaml
+          staged_files="$(git diff --cached --name-only)"
+          test "${staged_files}" = "pnpm-lock.yaml"
+          git commit -m "chore(auth): materialize WP3 lockfile"
+          new_head="$(git rev-parse HEAD)"
+          echo "WP3_MATERIALIZED_HEAD=${new_head}"
+          git push origin "HEAD:${WP3_BRANCH}"
+
+      - name: Stop verification until exact materialized head
+        if: steps.lock.outputs.changed == 'true'
+        run: |
+          echo "LOCKFILE_COMMITTED=YES"
+          echo "FOLLOW_UP_TRIGGER=push"
+          echo "TYPECHECK_BUILD_DEFERRED_TO_NEW_EXACT_HEAD=YES"
+
+      - name: Register exact-head verification
+        if: steps.lock.outputs.changed == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            -f state='pending' \
+            -f context='WP3 Admin BFF Verification' \
+            -f description='Frozen install, WP3 typecheck/build, and artifacts running' \
+            -f target_url="${run_url}" >/dev/null
+          echo "VERIFICATION_RUN_URL=${run_url}"
+
+      - name: Require committed lockfile to match pnpm materialization
+        if: steps.lock.outputs.changed == 'false'
+        run: |
+          git diff --exit-code -- pnpm-lock.yaml
+          echo "PNPM_LOCK_SYNC=PASS"
+
+      - name: Install frozen dependencies
+        if: steps.lock.outputs.changed == 'false'
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Typecheck WP3 admin BFF
+        if: steps.lock.outputs.changed == 'false'
+        run: pnpm --filter @santis/admin-bff typecheck
+
+      - name: Build WP3 admin BFF
+        if: steps.lock.outputs.changed == 'false'
+        run: pnpm --filter @santis/admin-bff build
+
+      - name: Typecheck WP3 admin panel
+        if: steps.lock.outputs.changed == 'false'
+        run: pnpm --filter admin-panel typecheck
+
+      - name: Build WP3 admin panel
+        if: steps.lock.outputs.changed == 'false'
+        run: pnpm --filter admin-panel build
+
+      - name: Verify WP3 build artifacts
+        if: steps.lock.outputs.changed == 'false'
+        shell: bash
+        run: |
+          test -f apps/admin-bff/dist/server.js
+          test -f admin-panel/dist/index.html
+          echo "ADMIN_BFF_DIST_FILES"
+          find apps/admin-bff/dist -maxdepth 4 -type f -print | sort
+          echo "ADMIN_PANEL_DIST_FILES"
+          find admin-panel/dist -maxdepth 3 -type f -print | sort
+
+      - name: Upload WP3 admin BFF build artifact
+        if: steps.lock.outputs.changed == 'false'
+        uses: actions/upload-artifact@v4
+        with:
+          name: wp3-admin-bff-dist-${{ github.sha }}
+          path: apps/admin-bff/dist
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload WP3 admin panel build artifact
+        if: steps.lock.outputs.changed == 'false'
+        uses: actions/upload-artifact@v4
+        with:
+          name: wp3-admin-panel-dist-${{ github.sha }}
+          path: admin-panel/dist
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Mark exact-head verification success
+        if: success() && steps.lock.outputs.changed == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            -f state='success' \
+            -f context='WP3 Admin BFF Verification' \
+            -f description='Frozen install, BFF/panel typecheck/build, artifacts PASS' \
+            -f target_url="${run_url}" >/dev/null
+
+      - name: Mark exact-head verification failure
+        if: failure() && steps.lock.outputs.changed == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            -f state='failure' \
+            -f context='WP3 Admin BFF Verification' \
+            -f description='Exact-head WP3 verification failed closed' \
+            -f target_url="${run_url}" >/dev/null
