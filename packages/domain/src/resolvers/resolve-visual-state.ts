@@ -1,12 +1,12 @@
-import {
-  type ActionPriorityResult,
-  type CanonicalBooking,
-  type GuardBadge,
-  type GuardResult,
-  type ProgressState,
-  type VisualState,
-  VisualStateSchema,
-} from "@santis/domain-schema";
+import type {
+  ActionPriorityResult,
+  CanonicalBooking,
+  GuardBadge,
+  GuardResult,
+  ProgressState,
+  VisualState,
+} from "@santis/domain-contracts";
+import { VisualStateSchema } from "@santis/domain-contracts";
 
 const BADGE_TYPE_ORDER = {
   QUARANTINE: 0,

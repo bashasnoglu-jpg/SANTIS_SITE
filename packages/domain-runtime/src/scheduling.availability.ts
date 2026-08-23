@@ -1,4 +1,4 @@
-import {
+import type {
   Location,
   SpaArea,
   TreatmentRoom,
@@ -10,8 +10,8 @@ import {
   TherapistShift,
   Blocker,
   Booking
-} from "./scheduling.contract.js";
-import { AvailabilitySlot } from "./scheduling.api.js";
+} from "@santis/domain-contracts/scheduling.contract";
+import type { AvailabilitySlot } from "@santis/domain-contracts/scheduling.api";
 
 export interface AvailabilityEngineContext {
   tenant_id: string;

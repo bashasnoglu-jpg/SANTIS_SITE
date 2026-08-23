@@ -1,4 +1,4 @@
-import type { SantisEvent } from "@santis/event-dictionary";
+import type { SantisEvent } from "@santis/event-contracts";
 
 export interface OutboxRepository {
   savePending(event: SantisEvent): Promise<void>;

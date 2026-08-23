@@ -2,7 +2,7 @@
 
 import React from 'react';
 // Drizzle anayasamızdan türetilmiş katı tipler (İleride db'den çekilecek)
-import type { PackageEntity } from '@santis/domain-schema';
+import type { PackageEntity } from '@santis/domain-contracts';
 
 // XState'den (Decision Kernel) gelecek olan Event ve State Sözleşmesi
 // UI kendi içinde karar ALAMAZ (useState ile sepet tutmak, fiyat hesaplamak YASAKTIR).

@@ -1,5 +1,5 @@
-import type { ResolveExperienceCommand } from "@santis/event-dictionary";
-import { ResolveExperienceCommandSchema } from "@santis/event-dictionary";
+import type { ResolveExperienceCommand } from "@santis/event-contracts";
+import { ResolveExperienceCommandSchema } from "@santis/event-contracts";
 import type { ExperienceRouter } from "@santis/openr";
 
 export interface MoodHeatmapProvider {

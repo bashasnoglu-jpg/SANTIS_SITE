@@ -34,7 +34,7 @@ Retrieves a paginated list of audit logs for the authenticated tenant.
 
 ## 2. Authentication & Pre-Handler Model
 
-The route utilizes the canonical `boardroomAuthPreHandler` from `packages/domain-schema/session.contract.ts`.
+The route utilizes the canonical `boardroomAuthPreHandler` from `packages/domain-contracts/session.contract.ts`.
 
 - **Authentication:** Requires a valid Supabase JWT or a valid `santis_session` HttpOnly cookie.
 - **Authorization:** Requires the session to contain a valid `app_metadata.santis` object indicating minimum Boardroom read capabilities (`boardroom:read` or `audit-log:read`).

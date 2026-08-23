@@ -33,7 +33,7 @@ Establish the foundational data model, availability algorithm, and API architect
 10. All models and queries enforce `tenant_id` boundaries.
 
 ## Deliverables
-- **Zod Contracts**: `packages/domain-schema/src/scheduling.contract.ts`
+- **Zod Contracts**: `packages/domain-contracts/src/scheduling.contract.ts`
 - **Raw SQL Draft**: `docs/db/phase-k-1-scheduling-schema.sql`
 - **Algorithm & Risks**: Defined in this document.
 

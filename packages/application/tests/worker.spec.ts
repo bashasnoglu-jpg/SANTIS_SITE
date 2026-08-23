@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, vi } from "vitest";
 import { drainOutbox, type OutboxPublisher } from "../src/outbox/worker.js";
 import { SovereignBus } from "@santis/sovereign-bus";
 import type { OutboxAdminRepository } from "../src/outbox/repository.js";
-import type { SantisEvent } from "@santis/event-dictionary";
+import type { SantisEvent } from "@santis/event-contracts";
 
 class InMemoryOutboxRepository implements OutboxAdminRepository {
   public events: any[] = [];

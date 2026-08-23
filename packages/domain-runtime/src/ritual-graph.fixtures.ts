@@ -1,4 +1,4 @@
-import { RitualGraphNode } from "./ritual-graph.js";
+import type { RitualGraphNode } from "@santis/domain-contracts";
 
 export const ritualGraphFixtures: RitualGraphNode[] = [
   {

@@ -1,4 +1,4 @@
-import type { TelemetrySignal } from '@santis/domain-schema/telemetry';
+import type { TelemetrySignal } from '@santis/domain-contracts/telemetry';
 
 export const WellnessScannerTab = ({ selfReportedGoals, sessionActive }: { selfReportedGoals: string[], sessionActive: boolean }) => {
   return (

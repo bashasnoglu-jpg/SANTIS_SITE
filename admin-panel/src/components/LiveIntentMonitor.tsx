@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useSovereignWebSocket } from '../hooks/useSovereignWebSocket';
-import type { SovereignEventRecord } from '@santis/event-dictionary';
+import type { SovereignEventRecord } from '@santis/event-contracts';
 import { SignalBadge } from './SignalBadge';
 import { SignalType } from '../lib/signal-token-map';
 

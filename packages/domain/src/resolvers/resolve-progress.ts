@@ -1,8 +1,8 @@
-import {
-  type CanonicalBooking,
-  type ProgressState,
-  ProgressStateSchema,
-} from "@santis/domain-schema";
+import type {
+  CanonicalBooking,
+  ProgressState,
+} from "@santis/domain-contracts";
+import { ProgressStateSchema } from "@santis/domain-contracts";
 
 const MINUTE_MS = 60_000;
 

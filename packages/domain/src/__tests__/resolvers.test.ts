@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import type { CanonicalBooking } from "@santis/domain-schema";
+import type { CanonicalBooking } from "@santis/domain-contracts";
 import {
   resolveActionPriority,
   resolveBadges,

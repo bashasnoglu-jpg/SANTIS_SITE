@@ -1,5 +1,5 @@
-import type { SantisCommand } from "@santis/event-dictionary";
-import type { CommandResult } from "@santis/event-dictionary/command-result";
+import type { SantisCommand } from "@santis/event-contracts";
+import type { CommandResult } from "@santis/event-contracts/command-result";
 import type { SelectMoodApplicationService } from "./service.js";
 
 type SelectMoodCommand = Extract<

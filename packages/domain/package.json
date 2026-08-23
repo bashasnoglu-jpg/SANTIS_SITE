@@ -9,12 +9,12 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test src/__tests__/resolvers.test.ts"
+    "test": "node --import tsx --test src/__tests__/resolvers.test.ts"
   },
   "dependencies": {
-    "@santis/domain-schema": "workspace:*"
+    "@santis/domain-contracts": "1.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.19.41"
+    "@types/node": "20.19.41"
   }
 }
