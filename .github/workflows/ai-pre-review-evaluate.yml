@@ -178,7 +178,9 @@ jobs:
               --header "Content-Type: application/json" \
               --data-binary "@${INPUT_PATH}" \
               "${EVIDENCE_API_URL}/v1/reviews/evaluate")"
+            echo "shadow HTTP status = ${HTTP_STATUS}"
             test "${HTTP_STATUS}" = "200"
+            echo "response validator = STARTED"
             node services/ai-review-evidence/scripts/validate-evidence-response.mjs \
               "${INPUT_PATH}" \
               "${EVIDENCE_PATH}"
