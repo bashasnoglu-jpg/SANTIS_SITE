@@ -17,6 +17,7 @@ const preflightScript = fileURLToPath(new URL("../scripts/workflow-preflight.mjs
 const evidenceScript = fileURLToPath(new URL("../scripts/validate-evidence-response.mjs", import.meta.url));
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const prepareWorkflowPath = resolve(repositoryRoot, ".github/workflows/ai-pre-review-prepare.yml");
+const manualPrepareWorkflowPath = resolve(repositoryRoot, ".github/workflows/ai-pre-review-prepare-manual.yml");
 const evaluateWorkflowPath = resolve(repositoryRoot, ".github/workflows/ai-pre-review-evaluate.yml");
 
 const keyVersion =
@@ -44,6 +45,12 @@ const preflightEnvironment = {
   EXPECTED_BASE_SHA: expected.baseSha,
   EXPECTED_HEAD_SHA: expected.headSha,
   FAIL_ON_INELIGIBLE: "true"
+};
+
+const manualPreflightEnvironment = {
+  ...preflightEnvironment,
+  EXPECTED_SOURCE_EVENT_NAME: "workflow_dispatch",
+  EXPECTED_TRUSTED_BASE_SHA: "c".repeat(40)
 };
 
 const verificationEnvironment = {
@@ -145,22 +152,76 @@ async function preparedPackage({ multipart = true } = {}) {
   }
 }
 
+async function preparedManualPackage({ multipart = true } = {}) {
+  const files = multipart
+    ? [
+        { filename: "src/a.ts", patch: "a".repeat(70_000), status: "added", additions: 1, deletions: 0 },
+        { filename: "src/b.ts", patch: "b".repeat(70_000), status: "added", additions: 1, deletions: 0 }
+      ]
+    : [{ filename: "src/a.ts", patch: "+const safe = true;", status: "added", additions: 1, deletions: 0 }];
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url) => {
+    const parsed = new URL(url);
+    if (/\/pulls\/382$/.test(parsed.pathname)) {
+      return new Response(JSON.stringify({
+        number: 382,
+        state: "open",
+        base: { ref: "develop", sha: expected.baseSha },
+        head: { sha: expected.headSha, repo: { id: Number(expected.repositoryId) } }
+      }), { status: 200, headers: { "Content-Type": "application/json" } });
+    }
+    if (/\/pulls\/382\/files$/.test(parsed.pathname)) {
+      const page = Number(parsed.searchParams.get("page"));
+      const start = (page - 1) * 100;
+      return new Response(JSON.stringify(files.slice(start, start + 100)), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+    return new Response("not found", { status: 404 });
+  };
+  try {
+    return await prepareReviewPackage({
+      event: {
+        repository: {
+          id: Number(expected.repositoryId),
+          full_name: "bashasnoglu-jpg/SANTIS_SITE",
+          owner: { id: Number(expected.ownerId) }
+        }
+      },
+      token: "synthetic-token-not-a-credential",
+      apiUrl: "https://api.github.test",
+      runId: expected.workflowRunId,
+      ignoreContent: "",
+      eventMode: "workflow_dispatch",
+      manualContext: {
+        prNumber: "382",
+        expectedBaseSha: expected.baseSha,
+        expectedHeadSha: expected.headSha,
+        trustedBaseSha: "c".repeat(40)
+      }
+    });
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+}
+
 async function materializePackage(options) {
   const directory = await mkdtemp(join(tmpdir(), "ai-review-preflight-"));
   const prepared = await preparedPackage(options);
   await writeReviewPackage(directory, prepared);
-  return {
-    directory,
-    manifestPath: join(directory, "review-manifest.json"),
-    prepared
-  };
+  return { directory, manifestPath: join(directory, "review-manifest.json"), prepared };
+}
+
+async function materializeManualPackage(options) {
+  const directory = await mkdtemp(join(tmpdir(), "ai-review-manual-preflight-"));
+  const prepared = await preparedManualPackage(options);
+  await writeReviewPackage(directory, prepared);
+  return { directory, manifestPath: join(directory, "review-manifest.json"), prepared };
 }
 
 function runPreflight(manifestPath, env = preflightEnvironment) {
-  return spawnSync(process.execPath, [preflightScript, manifestPath], {
-    env,
-    encoding: "utf8"
-  });
+  return spawnSync(process.execPath, [preflightScript, manifestPath], { env, encoding: "utf8" });
 }
 
 async function rewriteManifest(manifestPath, mutate) {
@@ -185,10 +246,7 @@ function runEvidenceValidation(input, envelope, env = verificationEnvironment) {
     const evidencePath = join(directory, "evidence.json");
     await writeFile(inputPath, JSON.stringify(input));
     await writeFile(evidencePath, JSON.stringify(envelope));
-    return spawnSync(process.execPath, [evidenceScript, inputPath, evidencePath], {
-      env,
-      encoding: "utf8"
-    });
+    return spawnSync(process.execPath, [evidenceScript, inputPath, evidencePath], { env, encoding: "utf8" });
   })();
 }
 
@@ -219,9 +277,7 @@ test("AR-MAN-004 duplicate part index is rejected", async () => {
 
 test("AR-MAN-005 duplicate request ID is rejected", async () => {
   const { manifestPath } = await materializePackage();
-  await rewriteManifest(manifestPath, (manifest) => {
-    manifest.parts[1].requestId = manifest.parts[0].requestId;
-  });
+  await rewriteManifest(manifestPath, (manifest) => { manifest.parts[1].requestId = manifest.parts[0].requestId; });
   assert.notEqual(runPreflight(manifestPath).status, 0);
 });
 
@@ -288,9 +344,7 @@ test("AR-MAN-015 tampered coverage digest is rejected", async () => {
 test("AR-EVAL-001 all signed responses validate independently for a multipart package", async () => {
   const prepared = await preparedPackage();
   const results = [];
-  for (const part of prepared.parts) {
-    results.push(await runEvidenceValidation(part, evidenceFixture(part)));
-  }
+  for (const part of prepared.parts) results.push(await runEvidenceValidation(part, evidenceFixture(part)));
   assert.deepEqual(results.map((result) => result.status), [0, 0]);
 });
 
@@ -315,11 +369,7 @@ test("AR-EVAL-004 diff digest mismatch on one part is rejected", async () => {
   const envelope = evidenceFixture(prepared.parts[1]);
   envelope.evidence.content_provenance.diff_sha256 = "f".repeat(64);
   const digest = createHash("sha256").update(canonicalJson(envelope.evidence)).digest();
-  envelope.signature.value = sign(null, digest, {
-    key: signer.privateKey,
-    padding: constants.RSA_PKCS1_PSS_PADDING,
-    saltLength: 32
-  }).toString("base64");
+  envelope.signature.value = sign(null, digest, { key: signer.privateKey, padding: constants.RSA_PKCS1_PSS_PADDING, saltLength: 32 }).toString("base64");
   const result = await runEvidenceValidation(prepared.parts[1], envelope);
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /diff digest mismatch/);
@@ -336,11 +386,7 @@ test("AR-EVAL-005 invalid KMS signature on any part rejects that part", async ()
 
 test("AR-EVAL-006 wrong KMS key version is rejected", async () => {
   const prepared = await preparedPackage({ multipart: false });
-  const result = await runEvidenceValidation(
-    prepared.parts[0],
-    evidenceFixture(prepared.parts[0]),
-    { ...verificationEnvironment, EVIDENCE_KMS_KEY_VERSION: keyVersion.replace(/\/1$/, "/2") }
-  );
+  const result = await runEvidenceValidation(prepared.parts[0], evidenceFixture(prepared.parts[0]), { ...verificationEnvironment, EVIDENCE_KMS_KEY_VERSION: keyVersion.replace(/\/1$/, "/2") });
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /KMS key version mismatch/);
 });
@@ -356,11 +402,7 @@ test("AR-EVAL-007 workflow uploads evidence only after all parts are validated a
 
 test("AR-EVAL-008 wrong public key is rejected", async () => {
   const prepared = await preparedPackage({ multipart: false });
-  const result = await runEvidenceValidation(
-    prepared.parts[0],
-    evidenceFixture(prepared.parts[0]),
-    { ...verificationEnvironment, EVIDENCE_KMS_PUBLIC_KEY_PEM: wrongPublicKeyPem }
-  );
+  const result = await runEvidenceValidation(prepared.parts[0], evidenceFixture(prepared.parts[0]), { ...verificationEnvironment, EVIDENCE_KMS_PUBLIC_KEY_PEM: wrongPublicKeyPem });
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /cryptographic signature verification failed/);
 });
@@ -420,10 +462,7 @@ function probeModule(path) {
       throw new Error("Unsupported trusted-base preparer output contract");
     }
   `;
-  return spawnSync(process.execPath, ["--input-type=module", "-", path], {
-    input: source,
-    encoding: "utf8"
-  });
+  return spawnSync(process.execPath, ["--input-type=module", "-", path], { input: source, encoding: "utf8" });
 }
 
 test("BC-001 capability absent is classified as legacy-single-v1", async () => {
@@ -477,10 +516,7 @@ test("BC-LEG-001 legacy mode writes a single JSON file when given a file target"
   const script = await writeLegacyFixture();
   const directory = await mkdtemp(join(tmpdir(), "ai-review-legacy-file-"));
   const target = join(directory, "review-input.json");
-  const result = spawnSync(process.execPath, [script], {
-    env: { ...process.env, AI_REVIEW_OUTPUT: target, SYNTHETIC_CHARS: "100" },
-    encoding: "utf8"
-  });
+  const result = spawnSync(process.execPath, [script], { env: { ...process.env, AI_REVIEW_OUTPUT: target, SYNTHETIC_CHARS: "100" }, encoding: "utf8" });
   assert.equal(result.status, 0, result.stderr);
   assert.equal(await readFile(target, "utf8"), "{}");
 });
@@ -489,10 +525,7 @@ test("BC-LEG-002 legacy mode preserves the 120K fail-closed boundary", async () 
   const script = await writeLegacyFixture();
   const directory = await mkdtemp(join(tmpdir(), "ai-review-legacy-limit-"));
   const target = join(directory, "review-input.json");
-  const result = spawnSync(process.execPath, [script], {
-    env: { ...process.env, AI_REVIEW_OUTPUT: target, SYNTHETIC_CHARS: "120001" },
-    encoding: "utf8"
-  });
+  const result = spawnSync(process.execPath, [script], { env: { ...process.env, AI_REVIEW_OUTPUT: target, SYNTHETIC_CHARS: "120001" }, encoding: "utf8" });
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /120000-character boundary/);
 });
@@ -500,10 +533,7 @@ test("BC-LEG-002 legacy mode preserves the 120K fail-closed boundary", async () 
 test("BC-LEG-003 directory target reproduces EISDIR as a negative control", async () => {
   const script = await writeLegacyFixture();
   const directory = await mkdtemp(join(tmpdir(), "ai-review-legacy-eisdir-"));
-  const result = spawnSync(process.execPath, [script], {
-    env: { ...process.env, AI_REVIEW_OUTPUT: directory, SYNTHETIC_CHARS: "100" },
-    encoding: "utf8"
-  });
+  const result = spawnSync(process.execPath, [script], { env: { ...process.env, AI_REVIEW_OUTPUT: directory, SYNTHETIC_CHARS: "100" }, encoding: "utf8" });
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /EISDIR/);
 });
@@ -569,4 +599,69 @@ test("BC-WF-005 workflow permissions remain read-only", async () => {
   assert.match(workflow, /contents: read/);
   assert.match(workflow, /pull-requests: read/);
   assert.doesNotMatch(workflow, /contents: write|pull-requests: write/);
+});
+
+test("AR-MDP-016 strict preflight accepts truthful manual package provenance", async () => {
+  const { manifestPath } = await materializeManualPackage();
+  const result = runPreflight(manifestPath, manualPreflightEnvironment);
+  assert.equal(result.status, 0, result.stderr);
+});
+
+test("AR-MDP-017 manual package is rejected when source event expectation is pull_request", async () => {
+  const { manifestPath } = await materializeManualPackage();
+  assert.notEqual(runPreflight(manifestPath, preflightEnvironment).status, 0);
+});
+
+test("AR-MDP-018 manual package trusted-base mismatch is rejected", async () => {
+  const { manifestPath } = await materializeManualPackage();
+  const result = runPreflight(manifestPath, { ...manualPreflightEnvironment, EXPECTED_TRUSTED_BASE_SHA: "d".repeat(40) });
+  assert.notEqual(result.status, 0);
+});
+
+test("AR-MDP-019 workflow_dispatch preflight requires expected trusted-base SHA", async () => {
+  const { manifestPath } = await materializeManualPackage();
+  const env = { ...manualPreflightEnvironment };
+  delete env.EXPECTED_TRUSTED_BASE_SHA;
+  const result = runPreflight(manifestPath, env);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /EXPECTED_TRUSTED_BASE_SHA is required/);
+});
+
+test("AR-MDP-020 automatic pull_request preflight remains backward compatible", async () => {
+  const { manifestPath } = await materializePackage({ multipart: false });
+  const result = runPreflight(manifestPath, preflightEnvironment);
+  assert.equal(result.status, 0, result.stderr);
+});
+
+test("AR-MDP-021 manual workflow has distinct name and workflow_dispatch trigger", async () => {
+  const manual = await readFile(manualPrepareWorkflowPath, "utf8");
+  assert.match(manual, /^name: AI Pre-Review Prepare Manual/m);
+  assert.match(manual, /workflow_dispatch:/);
+  assert.doesNotMatch(manual, /^name: AI Pre-Review Prepare$/m);
+});
+
+test("AR-MDP-022 manual workflow exposes only pr_number as dispatch input", async () => {
+  const manual = await readFile(manualPrepareWorkflowPath, "utf8");
+  const inputBlock = manual.slice(manual.indexOf("inputs:"), manual.indexOf("permissions:"));
+  assert.match(inputBlock, /pr_number:/);
+  assert.doesNotMatch(inputBlock, /base_sha:|head_sha:|repository:|trusted_base_sha:/);
+});
+
+test("AR-MDP-023 manual workflow binds execution to current develop ref and SHA", async () => {
+  const manual = await readFile(manualPrepareWorkflowPath, "utf8");
+  assert.match(manual, /test "\$\{GITHUB_REF\}" = "refs\/heads\/develop"/);
+  assert.match(manual, /test "\$\{TRUSTED_BASE_SHA\}" = "\$\{GITHUB_SHA\}"/);
+  assert.match(manual, /ref: \$\{\{ steps\.resolve\.outputs\.trusted_base_sha \}\}/);
+});
+
+test("AR-MDP-024 manual workflow requires multipart-directory-v2 and has no legacy fallback", async () => {
+  const manual = await readFile(manualPrepareWorkflowPath, "utf8");
+  assert.match(manual, /PREPARER_OUTPUT_CONTRACT !== "multipart-directory-v2"/);
+  assert.doesNotMatch(manual, /legacy-single-v1/);
+});
+
+test("AR-MDP-025 evaluate listens only to automatic prepare workflow name", async () => {
+  const evaluate = await readFile(evaluateWorkflowPath, "utf8");
+  assert.match(evaluate, /workflows: \["AI Pre-Review Prepare"\]/);
+  assert.doesNotMatch(evaluate, /AI Pre-Review Prepare Manual/);
 });
