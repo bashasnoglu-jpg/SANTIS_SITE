@@ -4,27 +4,33 @@
   "installCommand": "cd .. && pnpm install --frozen-lockfile",
   "buildCommand": "cd .. && pnpm --filter admin-panel build",
   "outputDirectory": "dist",
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/admin/:path*",
-      "destination": "/__wp3_bff_unbound__"
-    }
-  ],
-  "headers": [
+      "src": "/(.*)",
+      "headers": {
+        "X-Frame-Options": "DENY",
+        "X-Content-Type-Options": "nosniff",
+        "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+        "Content-Security-Policy": "default-src 'self'; script-src 'self'; object-src 'none';"
+      },
+      "continue": true
+    },
     {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self'; object-src 'none';" }
+      "src": "/api/admin/(.*)",
+      "headers": {
+        "Cache-Control": "no-store"
+      },
+      "continue": true
+    },
+    {
+      "src": "/api/admin/(.*)",
+      "dest": "${ADMIN_BFF_SERVICE_ORIGIN}/api/admin/$1",
+      "env": [
+        "ADMIN_BFF_SERVICE_ORIGIN"
       ]
     },
     {
-      "source": "/api/admin/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-store" }
-      ]
+      "handle": "filesystem"
     }
   ]
 }

@@ -1,0 +1,101 @@
+name: Production Gates Hardening Validation
+
+on:
+  push:
+    branches:
+      - hardening/production-gates
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  production-gates-hardening:
+    name: Production Gates Hardening Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Verify hardening invariants
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+
+          const rootPackage = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          const adminPackage = JSON.parse(fs.readFileSync('admin-panel/package.json', 'utf8'));
+          const bffPackage = JSON.parse(fs.readFileSync('apps/admin-bff/package.json', 'utf8'));
+          const adminVercel = JSON.parse(fs.readFileSync('admin-panel/vercel.json', 'utf8'));
+          const rollback = fs.readFileSync('.github/workflows/deployment-rollback.yml', 'utf8');
+          const deployGate = fs.readFileSync('.github/workflows/deploy-gate.yml', 'utf8');
+
+          function fail(message) {
+            console.error(message);
+            process.exit(1);
+          }
+
+          if (!String(rootPackage.engines?.node || '').includes('20')) fail('Root Node runtime is not pinned to Node 20.');
+          if (adminPackage.engines?.node !== '20.x') fail('Admin Panel Node runtime is not pinned to 20.x.');
+          if (bffPackage.engines?.node !== '20.x') fail('Admin BFF Node runtime is not pinned to 20.x.');
+
+          if (rollback.includes('http://localhost:3030')) fail('Rollback workflow still depends on localhost telemetry.');
+          if (!rollback.includes('vars.TELEMETRY_ENDPOINT')) fail('Rollback telemetry is not variable-injected.');
+          if (!rollback.includes('continue-on-error: true')) fail('Rollback telemetry is not best-effort.');
+
+          if (!deployGate.includes('set -o pipefail')) fail('Deploy gate does not enable pipefail.');
+          if (!deployGate.includes('PIPESTATUS[@]')) fail('Deploy gate does not capture pipeline statuses.');
+
+          const routes = Array.isArray(adminVercel.routes) ? adminVercel.routes : [];
+          const binding = routes.find((route) =>
+            route.src === '/api/admin/(.*)' &&
+            route.dest === '${ADMIN_BFF_SERVICE_ORIGIN}/api/admin/$1' &&
+            Array.isArray(route.env) &&
+            route.env.includes('ADMIN_BFF_SERVICE_ORIGIN')
+          );
+          if (!binding) fail('Admin BFF production route binding contract is missing.');
+          if (JSON.stringify(adminVercel).includes('__wp3_bff_unbound__')) fail('Legacy unbound Admin BFF sentinel remains.');
+
+          console.log('PRODUCTION_GATE_HARDENING_INVARIANTS=PASS');
+          NODE
+
+      - name: Verify pipe failure propagation mechanically
+        shell: bash
+        run: |
+          set +e
+          set -o pipefail
+          (exit 17) | tee /tmp/pipefail-proof.txt >/dev/null
+          statuses=("${PIPESTATUS[@]}")
+          set -e
+          test "${statuses[0]}" -eq 17
+          test "${statuses[1]}" -eq 0
+          echo "PIPEFAIL_MECHANICAL_PROOF=PASS"
+
+      - name: Install workspace
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Admin BFF
+        run: pnpm --filter @santis/admin-bff build
+
+      - name: Build Admin Panel
+        run: pnpm --filter admin-panel build
+
+      - name: Validate Docker production configuration
+        env:
+          DATABASE_URL: postgresql://santis:example@postgres:5432/santis
+          POSTGRES_PASSWORD: example
+        run: |
+          cp .env.example .env
+          docker compose -f compose.yml config >/dev/null
+          docker compose -f compose.yml -f compose.prod.yml config --format json > /tmp/santis-compose-prod.json
+          node scripts/active/audit-docker-prod-compose.mjs

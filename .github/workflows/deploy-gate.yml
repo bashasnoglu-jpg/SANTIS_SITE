@@ -29,9 +29,30 @@ jobs:
 
       - name: Run Deploy Gate
         id: gate
+        shell: bash
         run: |
+          # GitHub's runner may use `-e`; temporarily disable it so we can
+          # capture both sides of the pipeline deterministically.
+          set +e
+          set -o pipefail
           python deploy_gate.py --skip-sync 2>&1 | tee deploy_gate_output.txt
-          echo "exit_code=$?" >> $GITHUB_OUTPUT
+          pipeline_status=("${PIPESTATUS[@]}")
+          set -e
+
+          python_exit="${pipeline_status[0]}"
+          tee_exit="${pipeline_status[1]}"
+
+          if [ "$python_exit" -ne 0 ]; then
+            exit_code="$python_exit"
+          elif [ "$tee_exit" -ne 0 ]; then
+            exit_code="$tee_exit"
+          else
+            exit_code=0
+          fi
+
+          echo "python_exit=$python_exit"
+          echo "tee_exit=$tee_exit"
+          echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
 
       - name: Upload Reports
         if: always()

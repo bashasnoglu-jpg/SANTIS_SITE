@@ -19,7 +19,9 @@ permissions:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: bashasnoglu-jpg/santis-sovereign-os
-  TELEMETRY_ENDPOINT: http://localhost:3030/api/v1/telemetry/beacon
+  # Optional best-effort telemetry sink. Never block emergency rollback.
+  # Configure as an HTTPS GitHub Actions repository/environment variable.
+  TELEMETRY_ENDPOINT: ${{ vars.TELEMETRY_ENDPOINT || '' }}
 
 jobs:
   rollback:
@@ -28,6 +30,7 @@ jobs:
 
     steps:
       - name: Normalize rollback image contract
+        shell: bash
         run: |
           echo "IMAGE_NAME=${IMAGE_NAME,,}" >> "$GITHUB_ENV"
           if [[ "${IMAGE_NAME,,}" =~ [A-Z] ]]; then
@@ -36,22 +39,33 @@ jobs:
           fi
 
       - name: Emit ROLLBACK_REQUESTED
+        continue-on-error: true
+        shell: bash
         run: |
-          curl -X POST $TELEMETRY_ENDPOINT \
-          -H "Content-Type: application/json" \
-          -d '{
-            "event":"ROLLBACK_REQUESTED",
-            "status":"requested",
-            "repository":"${{ github.repository }}",
-            "workflow":"deployment-rollback",
-            "runId":"${{ github.run_id }}",
-            "runUrl":"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-            "sha":"${{ inputs.target_sha }}",
-            "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ inputs.target_sha }}",
-            "operator":"${{ github.actor }}",
-            "reason":"${{ inputs.reason }}",
-            "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
-          }'
+          if [[ -z "$TELEMETRY_ENDPOINT" ]]; then
+            echo "Rollback telemetry not configured; continuing without telemetry."
+            exit 0
+          fi
+          if [[ "$TELEMETRY_ENDPOINT" != https://* ]]; then
+            echo "Rollback telemetry endpoint must use HTTPS; continuing without telemetry."
+            exit 1
+          fi
+          curl --fail-with-body --show-error --connect-timeout 5 --max-time 10 \
+            -X POST "$TELEMETRY_ENDPOINT" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "event":"ROLLBACK_REQUESTED",
+              "status":"requested",
+              "repository":"${{ github.repository }}",
+              "workflow":"deployment-rollback",
+              "runId":"${{ github.run_id }}",
+              "runUrl":"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+              "sha":"${{ inputs.target_sha }}",
+              "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ inputs.target_sha }}",
+              "operator":"${{ github.actor }}",
+              "reason":"${{ inputs.reason }}",
+              "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
+            }'
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
@@ -61,47 +75,70 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pull target rollback image
-        run: docker pull $REGISTRY/$IMAGE_NAME:sha-${{ inputs.target_sha }}
+        run: docker pull "$REGISTRY/$IMAGE_NAME:sha-${{ inputs.target_sha }}"
 
       - name: Re-tag target image as latest
+        shell: bash
         run: |
-          docker tag $REGISTRY/$IMAGE_NAME:sha-${{ inputs.target_sha }} $REGISTRY/$IMAGE_NAME:latest
-          docker push $REGISTRY/$IMAGE_NAME:latest
+          docker tag "$REGISTRY/$IMAGE_NAME:sha-${{ inputs.target_sha }}" "$REGISTRY/$IMAGE_NAME:latest"
+          docker push "$REGISTRY/$IMAGE_NAME:latest"
 
       - name: Emit ROLLBACK_COMPLETED
         if: success()
+        continue-on-error: true
+        shell: bash
         run: |
-          curl -X POST $TELEMETRY_ENDPOINT \
-          -H "Content-Type: application/json" \
-          -d '{
-            "event":"ROLLBACK_COMPLETED",
-            "status":"completed",
-            "repository":"${{ github.repository }}",
-            "workflow":"deployment-rollback",
-            "runId":"${{ github.run_id }}",
-            "runUrl":"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-            "sha":"${{ inputs.target_sha }}",
-            "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest",
-            "operator":"${{ github.actor }}",
-            "reason":"${{ inputs.reason }}",
-            "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
-          }'
+          if [[ -z "$TELEMETRY_ENDPOINT" ]]; then
+            echo "Rollback telemetry not configured; completion event skipped."
+            exit 0
+          fi
+          if [[ "$TELEMETRY_ENDPOINT" != https://* ]]; then
+            echo "Rollback telemetry endpoint must use HTTPS; completion event skipped."
+            exit 1
+          fi
+          curl --fail-with-body --show-error --connect-timeout 5 --max-time 10 \
+            -X POST "$TELEMETRY_ENDPOINT" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "event":"ROLLBACK_COMPLETED",
+              "status":"completed",
+              "repository":"${{ github.repository }}",
+              "workflow":"deployment-rollback",
+              "runId":"${{ github.run_id }}",
+              "runUrl":"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+              "sha":"${{ inputs.target_sha }}",
+              "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest",
+              "operator":"${{ github.actor }}",
+              "reason":"${{ inputs.reason }}",
+              "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
+            }'
 
       - name: Emit ROLLBACK_FAILED
         if: failure()
+        continue-on-error: true
+        shell: bash
         run: |
-          curl -X POST $TELEMETRY_ENDPOINT \
-          -H "Content-Type: application/json" \
-          -d '{
-            "event":"ROLLBACK_FAILED",
-            "status":"failed",
-            "repository":"${{ github.repository }}",
-            "workflow":"deployment-rollback",
-            "runId":"${{ github.run_id }}",
-            "runUrl":"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-            "sha":"${{ inputs.target_sha }}",
-            "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ inputs.target_sha }}",
-            "operator":"${{ github.actor }}",
-            "reason":"${{ inputs.reason }}",
-            "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
-          }'
+          if [[ -z "$TELEMETRY_ENDPOINT" ]]; then
+            echo "Rollback telemetry not configured; failure event skipped."
+            exit 0
+          fi
+          if [[ "$TELEMETRY_ENDPOINT" != https://* ]]; then
+            echo "Rollback telemetry endpoint must use HTTPS; failure event skipped."
+            exit 1
+          fi
+          curl --fail-with-body --show-error --connect-timeout 5 --max-time 10 \
+            -X POST "$TELEMETRY_ENDPOINT" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "event":"ROLLBACK_FAILED",
+              "status":"failed",
+              "repository":"${{ github.repository }}",
+              "workflow":"deployment-rollback",
+              "runId":"${{ github.run_id }}",
+              "runUrl":"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+              "sha":"${{ inputs.target_sha }}",
+              "image":"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ inputs.target_sha }}",
+              "operator":"${{ github.actor }}",
+              "reason":"${{ inputs.reason }}",
+              "timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
+            }'
