@@ -19,13 +19,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node 20
+      - name: Setup Node 24
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
 
       - name: Enable pnpm
         run: corepack enable
+
+      - name: Verify Node 24 runtime
+        shell: bash
+        run: |
+          node --version
+          node --version | grep -Eq '^v24\.'
+          echo "NODE_24_RUNTIME=PASS"
 
       - name: Verify hardening invariants
         shell: bash
@@ -36,6 +43,8 @@ jobs:
           const rootPackage = JSON.parse(fs.readFileSync('package.json', 'utf8'));
           const adminPackage = JSON.parse(fs.readFileSync('admin-panel/package.json', 'utf8'));
           const bffPackage = JSON.parse(fs.readFileSync('apps/admin-bff/package.json', 'utf8'));
+          const rootDockerfile = fs.readFileSync('Dockerfile', 'utf8');
+          const adminDockerfile = fs.readFileSync('docker/admin-panel/Dockerfile', 'utf8');
           const adminVercel = JSON.parse(fs.readFileSync('admin-panel/vercel.json', 'utf8'));
           const rollback = fs.readFileSync('.github/workflows/deployment-rollback.yml', 'utf8');
           const deployGate = fs.readFileSync('.github/workflows/deploy-gate.yml', 'utf8');
@@ -45,9 +54,14 @@ jobs:
             process.exit(1);
           }
 
-          if (!String(rootPackage.engines?.node || '').includes('20')) fail('Root Node runtime is not pinned to Node 20.');
-          if (adminPackage.engines?.node !== '20.x') fail('Admin Panel Node runtime is not pinned to 20.x.');
-          if (bffPackage.engines?.node !== '20.x') fail('Admin BFF Node runtime is not pinned to 20.x.');
+          if (rootPackage.engines?.node !== '24.x') fail('Root Node runtime is not pinned to 24.x.');
+          if (adminPackage.engines?.node !== '24.x') fail('Admin Panel Node runtime is not pinned to 24.x.');
+          if (bffPackage.engines?.node !== '24.x') fail('Admin BFF Node runtime is not pinned to 24.x.');
+          if (!rootDockerfile.includes('FROM node:24-alpine AS builder')) fail('Root Docker builder is not Node 24.');
+          if (!rootDockerfile.includes('FROM node:24-alpine AS runner')) fail('Root Docker runner is not Node 24.');
+          if (rootDockerfile.includes('node:20')) fail('Root Dockerfile still references Node 20.');
+          if (!adminDockerfile.includes('FROM node:24-alpine AS builder')) fail('Admin Docker builder is not Node 24.');
+          if (adminDockerfile.includes('node:20')) fail('Admin Dockerfile still references Node 20.');
 
           if (rollback.includes('http://localhost:3030')) fail('Rollback workflow still depends on localhost telemetry.');
           if (!rollback.includes('vars.TELEMETRY_ENDPOINT')) fail('Rollback telemetry is not variable-injected.');

@@ -17,7 +17,7 @@ jobs:
       - name: "Initialize Node"
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: "Enable Corepack"
         run: corepack enable
@@ -28,7 +28,7 @@ jobs:
       - name: "Setup pnpm cache"
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: 'pnpm'
 
       - name: "Sovereign Dependency Fetch"
