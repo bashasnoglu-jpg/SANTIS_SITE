@@ -81,3 +81,7 @@ same-origin `/api/admin/session` smoke request reaches the Admin BFF.
 The branch CI may verify repository configuration, buildability, and mechanical pipeline
 semantics. It MUST NOT perform a production deployment, production rollback, `main`
 mutation, or production image promotion.
+
+The dedicated validation workflow is intentionally triggered by a follow-up push on this
+branch after the workflow file exists, so the CI result can be bound to an exact hardening
+HEAD without creating a pull request.
