@@ -12,6 +12,8 @@ from urllib.request import Request, urlopen
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
 
+from app.api.v1.endpoints.booking_write_guard import assert_no_legacy_booking_write_payload
+
 try:
     from zoneinfo import ZoneInfo
 except ImportError:  # pragma: no cover - Python < 3.9 fallback
@@ -181,6 +183,9 @@ def _airtable_json_request(
     record_id: str | None = None,
     params: list[tuple[str, str]] | None = None,
 ) -> dict[str, Any]:
+    if table_id == BOOKINGS_TABLE_ID and method.upper() in {"POST", "PATCH", "PUT"}:
+        assert_no_legacy_booking_write_payload(payload)
+
     base_id = _airtable_base_id()
     token = _airtable_token()
     suffix = f"/{record_id}" if record_id else ""
