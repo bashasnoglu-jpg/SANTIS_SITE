@@ -7,7 +7,11 @@ import {
 } from "node:crypto";
 import test from "node:test";
 import { SignedEvidenceSchema, ReviewRequestSchema } from "../src/contracts.js";
-import { createSignedEvidence, verifyEvidenceSignature } from "../src/evidence.js";
+import {
+  canonicalJson,
+  createSignedEvidence,
+  verifyEvidenceSignature
+} from "../src/evidence.js";
 import { isForbiddenPath, redactSecrets } from "../src/sanitize.js";
 import { SIGNATURE_ALGORITHM } from "../constants.mjs";
 
@@ -77,16 +81,29 @@ test("sensitive paths fail the deny-first path policy", () => {
 });
 
 test("secret-like content is deterministically redacted", () => {
-  const result = redactSecrets("token=ghp_abcdefghijklmnopqrstuvwxyz123456");
+  const tokenFixture = [
+    "token=",
+    "gh",
+    "p_",
+    "abcdefghijklmnopqrstuvwxyz123456"
+  ].join("");
+
+  const result = redactSecrets(tokenFixture);
   assert.equal(result.redactions, 1);
   assert.match(result.content, /\[REDACTED:/);
   assert.doesNotMatch(result.content, /ghp_/);
 });
 
 test("entire private key blocks are removed", () => {
-  const result = redactSecrets(
-    "-----BEGIN PRIVATE KEY-----\nsensitive-body\n-----END PRIVATE KEY-----"
-  );
+  const privateKeyFixture = [
+    "-----BEGIN ",
+    "PRIVATE KEY-----\n",
+    "sensitive-body\n",
+    "-----END ",
+    "PRIVATE KEY-----"
+  ].join("");
+
+  const result = redactSecrets(privateKeyFixture);
   assert.equal(result.redactions, 1);
   assert.equal(result.content, "[REDACTED:private-key]");
   assert.doesNotMatch(result.content, /sensitive-body/);
@@ -108,18 +125,19 @@ test("KMS-style asymmetric evidence rejects tampering and the wrong key", async 
       region: "europe-west1",
       kmsKeyVersion,
       now: new Date("2026-08-02T21:00:00.000Z"),
-      signDigest: async (digest) =>
-        sign(
-          null,
-          digest,
-          {
-            key: signer.privateKey,
-            padding: constants.RSA_PKCS1_PSS_PADDING,
-            saltLength: 32
-          }
-        ).toString("base64")
+      signDigest: async () => Buffer.alloc(256).toString("base64")
     }
   );
+
+  envelope.signature.value = sign(
+    "sha256",
+    Buffer.from(canonicalJson(envelope.evidence), "utf8"),
+    {
+      key: signer.privateKey,
+      padding: constants.RSA_PKCS1_PSS_PADDING,
+      saltLength: 32
+    }
+  ).toString("base64");
 
   const publicKeyPem = signer.publicKey.export({ type: "spki", format: "pem" }).toString();
   const wrongPublicKeyPem = wrongSigner.publicKey

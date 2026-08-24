@@ -86,12 +86,15 @@ function evidenceFixture(input) {
     },
     review: { summary: "Non-binding test evidence.", findings: [], limitations: [] }
   };
-  const digest = createHash("sha256").update(canonicalJson(evidence)).digest();
-  const signature = sign(null, digest, {
-    key: signer.privateKey,
-    padding: constants.RSA_PKCS1_PSS_PADDING,
-    saltLength: 32
-  }).toString("base64");
+  const signature = sign(
+    "sha256",
+    Buffer.from(canonicalJson(evidence), "utf8"),
+    {
+      key: signer.privateKey,
+      padding: constants.RSA_PKCS1_PSS_PADDING,
+      saltLength: 32
+    }
+  ).toString("base64");
   return {
     evidence,
     signature: {

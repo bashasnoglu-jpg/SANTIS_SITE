@@ -119,10 +119,10 @@ export function verifyEvidenceSignature(
   envelope: SignedEvidence,
   publicKeyPem: string
 ): boolean {
-  const digest = createHash("sha256").update(canonicalJson(envelope.evidence)).digest();
+  const message = Buffer.from(canonicalJson(envelope.evidence), "utf8");
   return verifySignature(
-    null,
-    digest,
+    "sha256",
+    message,
     {
       key: publicKeyPem,
       padding: constants.RSA_PKCS1_PSS_PADDING,
