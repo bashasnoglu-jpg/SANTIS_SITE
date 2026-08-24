@@ -86,11 +86,11 @@ function evidenceFixture(input) {
     },
     review: { summary: "Non-binding test evidence.", findings: [], limitations: [] }
   };
-  const digest = createHash("sha256").update(canonicalJson(evidence)).digest();
-  const signature = sign(null, digest, {
+  const canonicalEvidence = Buffer.from(canonicalJson(evidence), "utf8");
+  const signature = sign("sha256", canonicalEvidence, {
     key: signer.privateKey,
     padding: constants.RSA_PKCS1_PSS_PADDING,
-    saltLength: 32
+    saltLength: constants.RSA_PSS_SALTLEN_DIGEST
   }).toString("base64");
   return {
     evidence,
@@ -569,4 +569,16 @@ test("BC-WF-005 workflow permissions remain read-only", async () => {
   assert.match(workflow, /contents: read/);
   assert.match(workflow, /pull-requests: read/);
   assert.doesNotMatch(workflow, /contents: write|pull-requests: write/);
+});
+
+test("response validator rejects a corrupted signature", async () => {
+  const input = inputFixture();
+  const envelope = evidenceFixture(input);
+  // Corrupt the signature deterministically by flipping one bit
+  const sigBuffer = Buffer.from(envelope.signature.value, "base64");
+  sigBuffer[0] ^= 1;
+  envelope.signature.value = sigBuffer.toString("base64");
+  const result = await runEvidenceValidation({ input, envelope });
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /cryptographic signature verification failed/);
 });

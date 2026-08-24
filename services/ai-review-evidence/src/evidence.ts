@@ -76,7 +76,7 @@ export async function createSignedEvidence(
     region: string;
     kmsKeyVersion: string;
     now?: Date;
-    signDigest?: (digest: Buffer) => Promise<string>;
+    signDigest?: (digest: Buffer, canonicalString: string) => Promise<string>;
   }
 ): Promise<SignedEvidence> {
   const evidence = EvidenceSchema.parse({
@@ -102,8 +102,9 @@ export async function createSignedEvidence(
     review
   });
 
-  const digest = createHash("sha256").update(canonicalJson(evidence)).digest();
-  const signature = await (config.signDigest ?? ((value) => signDigestWithKms(config.kmsKeyVersion, value)))(digest);
+  const canonicalString = canonicalJson(evidence);
+  const digest = createHash("sha256").update(canonicalString).digest();
+  const signature = await (config.signDigest ?? ((value) => signDigestWithKms(config.kmsKeyVersion, value)))(digest, canonicalString);
 
   return SignedEvidenceSchema.parse({
     evidence,
@@ -119,14 +120,14 @@ export function verifyEvidenceSignature(
   envelope: SignedEvidence,
   publicKeyPem: string
 ): boolean {
-  const digest = createHash("sha256").update(canonicalJson(envelope.evidence)).digest();
+  const canonicalEvidence = Buffer.from(canonicalJson(envelope.evidence), "utf8");
   return verifySignature(
-    null,
-    digest,
+    "sha256",
+    canonicalEvidence,
     {
       key: publicKeyPem,
       padding: constants.RSA_PKCS1_PSS_PADDING,
-      saltLength: 32
+      saltLength: constants.RSA_PSS_SALTLEN_DIGEST
     },
     Buffer.from(envelope.signature.value, "base64")
   );

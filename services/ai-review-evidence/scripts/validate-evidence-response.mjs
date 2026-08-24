@@ -58,11 +58,11 @@ async function main() {
   if (envelope?.signature?.key_version !== expectedKeyVersion) fail("KMS key version mismatch");
   if (typeof envelope?.signature?.value !== "string") fail("signature missing");
 
-  const digest = createHash("sha256").update(canonicalJson(evidence)).digest();
+  const canonicalEvidence = Buffer.from(canonicalJson(evidence), "utf8");
   const valid = verify(
-    null,
-    digest,
-    { key: publicKeyPem, padding: constants.RSA_PKCS1_PSS_PADDING, saltLength: 32 },
+    "sha256",
+    canonicalEvidence,
+    { key: publicKeyPem, padding: constants.RSA_PKCS1_PSS_PADDING, saltLength: constants.RSA_PSS_SALTLEN_DIGEST },
     Buffer.from(envelope.signature.value, "base64")
   );
   if (!valid) fail("cryptographic signature verification failed");
