@@ -1,4 +1,4 @@
-import { constants, createHash, verify } from "node:crypto";
+import { constants, verify } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { SIGNATURE_ALGORITHM } from "../constants.mjs";
 
@@ -58,10 +58,10 @@ async function main() {
   if (envelope?.signature?.key_version !== expectedKeyVersion) fail("KMS key version mismatch");
   if (typeof envelope?.signature?.value !== "string") fail("signature missing");
 
-  const digest = createHash("sha256").update(canonicalJson(evidence)).digest();
+  const canonicalPayload = Buffer.from(canonicalJson(evidence), "utf8");
   const valid = verify(
-    null,
-    digest,
+    "sha256",
+    canonicalPayload,
     { key: publicKeyPem, padding: constants.RSA_PKCS1_PSS_PADDING, saltLength: 32 },
     Buffer.from(envelope.signature.value, "base64")
   );

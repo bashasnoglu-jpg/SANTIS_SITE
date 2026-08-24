@@ -92,7 +92,7 @@ test("entire private key blocks are removed", () => {
   assert.doesNotMatch(result.content, /sensitive-body/);
 });
 
-test("KMS-style asymmetric evidence rejects tampering and the wrong key", async () => {
+test("KMS-style RSA-PSS evidence verifies canonical payload and rejects tampering", async () => {
   const signer = generateKeyPairSync("rsa", { modulusLength: 2048 });
   const wrongSigner = generateKeyPairSync("rsa", { modulusLength: 2048 });
 
@@ -108,10 +108,10 @@ test("KMS-style asymmetric evidence rejects tampering and the wrong key", async 
       region: "europe-west1",
       kmsKeyVersion,
       now: new Date("2026-08-02T21:00:00.000Z"),
-      signDigest: async (digest) =>
+      signDigest: async (_digest, canonicalPayload) =>
         sign(
-          null,
-          digest,
+          "sha256",
+          canonicalPayload,
           {
             key: signer.privateKey,
             padding: constants.RSA_PKCS1_PSS_PADDING,
@@ -132,9 +132,15 @@ test("KMS-style asymmetric evidence rejects tampering and the wrong key", async 
   assert.equal(verifyEvidenceSignature(envelope, publicKeyPem), true);
   assert.equal(verifyEvidenceSignature(envelope, wrongPublicKeyPem), false);
 
-  const tampered = structuredClone(envelope);
-  tampered.evidence.review.summary = "Tampered after signing";
-  assert.equal(verifyEvidenceSignature(tampered, publicKeyPem), false);
+  const tamperedPayload = structuredClone(envelope);
+  tamperedPayload.evidence.review.summary = "Tampered after signing";
+  assert.equal(verifyEvidenceSignature(tamperedPayload, publicKeyPem), false);
+
+  const tamperedSignature = structuredClone(envelope);
+  const signatureBytes = Buffer.from(tamperedSignature.signature.value, "base64");
+  signatureBytes[0] ^= 0x01;
+  tamperedSignature.signature.value = signatureBytes.toString("base64");
+  assert.equal(verifyEvidenceSignature(tamperedSignature, publicKeyPem), false);
 });
 
 test("SignedEvidenceSchema accepts canonical algorithm metadata", async () => {
