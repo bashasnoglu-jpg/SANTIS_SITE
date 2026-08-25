@@ -1,25 +1,76 @@
 {
-  "name": "@santis/domain-contracts",
+  "name": "@santis-core/domain-contracts",
   "version": "1.0.0",
   "type": "module",
   "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./booking": "./src/booking/index.ts",
-    "./telemetry": "./src/telemetry/signal.schema.ts",
-    "./tenant.contract": "./src/tenant.contract.ts",
-    "./intent.contract": "./src/intent.contract.ts",
-    "./core-state.interface": "./src/core-state.interface.ts",
-    "./scheduling.api": "./src/scheduling.api.ts",
-    "./scheduling.contract": "./src/scheduling.contract.ts",
-    "./session.contract": "./src/session.contract.ts",
-    "./sse-envelope.contract": "./src/sse-envelope.contract.ts",
-    "./audit-log.contract": "./src/audit-log.contract.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./booking": {
+      "types": "./dist/booking/index.d.ts",
+      "import": "./dist/booking/index.js"
+    },
+    "./telemetry": {
+      "types": "./dist/telemetry/signal.schema.d.ts",
+      "import": "./dist/telemetry/signal.schema.js"
+    },
+    "./tenant.contract": {
+      "types": "./dist/tenant.contract.d.ts",
+      "import": "./dist/tenant.contract.js"
+    },
+    "./intent.contract": {
+      "types": "./dist/intent.contract.d.ts",
+      "import": "./dist/intent.contract.js"
+    },
+    "./core-state.interface": {
+      "types": "./dist/core-state.interface.d.ts",
+      "import": "./dist/core-state.interface.js"
+    },
+    "./scheduling.api": {
+      "types": "./dist/scheduling.api.d.ts",
+      "import": "./dist/scheduling.api.js"
+    },
+    "./scheduling.contract": {
+      "types": "./dist/scheduling.contract.d.ts",
+      "import": "./dist/scheduling.contract.js"
+    },
+    "./session.contract": {
+      "types": "./dist/session.contract.d.ts",
+      "import": "./dist/session.contract.js"
+    },
+    "./sse-envelope.contract": {
+      "types": "./dist/sse-envelope.contract.d.ts",
+      "import": "./dist/sse-envelope.contract.js"
+    },
+    "./audit-log.contract": {
+      "types": "./dist/audit-log.contract.d.ts",
+      "import": "./dist/audit-log.contract.js"
+    }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "tsc -p tsconfig.build.json",
+    "prepack": "pnpm run clean && pnpm run build",
     "typecheck": "tsc --noEmit",
     "test": "node --import tsx --test test/compatibility.test.ts && tsc --noEmit"
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bashasnoglu-jpg/SANTIS_SITE.git",
+    "directory": "packages/domain-contracts"
+  },
+  "license": "UNLICENSED",
   "dependencies": {
     "zod": "3.25.76"
   },

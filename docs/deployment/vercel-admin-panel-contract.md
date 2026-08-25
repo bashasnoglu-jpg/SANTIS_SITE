@@ -7,7 +7,7 @@ This document establishes the constitutional deployment topology for the Santis 
 The `admin-panel` must be built from the **pnpm workspace root**. This ensures deterministic resolution of workspace dependencies, including:
 
 - `@santis/ui`
-- `@santis/event-contracts`
+- `@santis-core/event-contracts`
 
 Building directly inside the child directory can isolate the package from the repository single source of truth. That creates silent failures, missing workspace packages, and deployment topology drift.
 
@@ -41,7 +41,7 @@ If the projection surface drifts from the topology, these signatures may appear 
 ```txt
 ERR_PNPM_WORKSPACE_PKG_NOT_FOUND
 Cannot find module '@santis/ui'
-Cannot find module '@santis/event-contracts'
+Cannot find module '@santis-core/event-contracts'
 cp: cannot stat 'admin-panel/dist/*'
 No Output Directory named "dist" found
 Command "pnpm build" exited with 1

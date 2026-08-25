@@ -1,4 +1,4 @@
-import type { CoreState, SovereignContext } from "@santis/domain-contracts/core-state.interface";
+import type { CoreState, SovereignContext } from "@santis-core/domain-contracts/core-state.interface";
 
 export const createCoreState = (): CoreState => {
   const activeTenants = new Map<string, SovereignContext>();

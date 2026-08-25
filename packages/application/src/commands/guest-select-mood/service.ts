@@ -1,7 +1,7 @@
 import type {
   CommandResult,
   SantisCommand,
-} from "@santis/event-contracts";
+} from "@santis-core/event-contracts";
 import type { SovereignBus } from "@santis/sovereign-bus";
 import type { UnitOfWork } from "../../uow/index.js";
 import type { GuestSessionRepository } from "../../repositories/guest-session-repository.js";

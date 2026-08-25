@@ -21,7 +21,7 @@
     "test": "node scripts/ensure-no-db.mjs && tsc --noEmit"
   },
   "dependencies": {
-    "@santis/domain-contracts": "1.0.0"
+    "@santis-core/domain-contracts": "1.0.0"
   },
   "devDependencies": {
     "@types/node": "20.19.41",

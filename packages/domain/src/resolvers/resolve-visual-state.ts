@@ -5,8 +5,8 @@ import type {
   GuardResult,
   ProgressState,
   VisualState,
-} from "@santis/domain-contracts";
-import { VisualStateSchema } from "@santis/domain-contracts";
+} from "@santis-core/domain-contracts";
+import { VisualStateSchema } from "@santis-core/domain-contracts";
 
 const BADGE_TYPE_ORDER = {
   QUARANTINE: 0,

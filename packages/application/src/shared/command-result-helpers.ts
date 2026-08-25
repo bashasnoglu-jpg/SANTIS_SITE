@@ -1,7 +1,7 @@
 import type {
   CommandAck,
   CommandNack,
-} from "@santis/event-contracts/command-result";
+} from "@santis-core/event-contracts/command-result";
 
 export function ack(params: {
   commandId: string;

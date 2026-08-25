@@ -66,7 +66,7 @@ importers:
 
   admin-panel:
     dependencies:
-      '@santis/event-contracts':
+      '@santis-core/event-contracts':
         specifier: 1.0.0
         version: link:../packages/event-contracts
       '@santis/ui':
@@ -179,7 +179,7 @@ importers:
 
   packages/domain:
     dependencies:
-      '@santis/domain-contracts':
+      '@santis-core/domain-contracts':
         specifier: 1.0.0
         version: link:../domain-contracts
     devDependencies:
@@ -205,7 +205,7 @@ importers:
 
   packages/domain-runtime:
     dependencies:
-      '@santis/domain-contracts':
+      '@santis-core/domain-contracts':
         specifier: 1.0.0
         version: link:../domain-contracts
     devDependencies:
@@ -218,7 +218,7 @@ importers:
 
   packages/event-contracts:
     dependencies:
-      '@santis/domain-contracts':
+      '@santis-core/domain-contracts':
         specifier: 1.0.0
         version: link:../domain-contracts
       zod:
@@ -239,7 +239,7 @@ importers:
 
   packages/openr:
     dependencies:
-      '@santis/event-contracts':
+      '@santis-core/event-contracts':
         specifier: 1.0.0
         version: link:../event-contracts
       zod:
@@ -248,7 +248,7 @@ importers:
 
   packages/sovereign-bus:
     dependencies:
-      '@santis/event-contracts':
+      '@santis-core/event-contracts':
         specifier: 1.0.0
         version: link:../event-contracts
 

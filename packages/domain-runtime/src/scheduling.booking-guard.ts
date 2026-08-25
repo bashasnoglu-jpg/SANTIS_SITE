@@ -10,7 +10,7 @@ import type {
   TherapistShift,
   Blocker,
   Booking
-} from "@santis/domain-contracts/scheduling.contract";
+} from "@santis-core/domain-contracts/scheduling.contract";
 
 export type ConflictCode =
   | 'TENANT_SCOPE_VIOLATION'

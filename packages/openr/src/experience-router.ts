@@ -1,10 +1,10 @@
 import type {
   ResolveExperienceCommand,
   RoutingPolicyAppliedEvent,
-} from "@santis/event-contracts";
+} from "@santis-core/event-contracts";
 import {
   RoutingPolicyAppliedEventSchema,
-} from "@santis/event-contracts";
+} from "@santis-core/event-contracts";
 export interface SovereignBus {
   events: {
     publish(event: any): Promise<void> | void;

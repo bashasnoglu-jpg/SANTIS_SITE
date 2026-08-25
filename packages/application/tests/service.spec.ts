@@ -6,7 +6,7 @@ import type { IntentSnapshotRepository } from "../src/repositories/intent-snapsh
 import type { OutboxRepository, OutboxAdminRepository } from "../src/outbox/repository.js";
 import { SovereignBus } from "@santis/sovereign-bus";
 import { z } from "zod";
-import type { SantisCommand, SantisEvent } from "@santis/event-contracts";
+import type { SantisCommand, SantisEvent } from "@santis-core/event-contracts";
 
 type SelectMoodCommand = Extract<SantisCommand, { commandType: "guest.select_mood" }>;
 

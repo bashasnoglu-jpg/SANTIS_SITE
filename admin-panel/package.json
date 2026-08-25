@@ -14,7 +14,7 @@
     "test:quality:runtime": "node -e \"console.error('[Sovereign Guard] E2E testler root dizininden playwright ile çalıştırılır: pnpm exec playwright test'); process.exit(1)\""
   },
   "dependencies": {
-    "@santis/event-contracts": "1.0.0",
+    "@santis-core/event-contracts": "1.0.0",
     "@santis/ui": "1.0.0",
     "@tanstack/react-query": "^5.90.21",
     "@vercel/speed-insights": "^2.0.0",

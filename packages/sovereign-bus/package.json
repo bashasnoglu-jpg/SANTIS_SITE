@@ -9,6 +9,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@santis/event-contracts": "1.0.0"
+    "@santis-core/event-contracts": "1.0.0"
   }
 }

@@ -5,14 +5,14 @@ import type {
   Locale,
   Mood,
   TenantContext,
-} from "@santis/event-contracts";
+} from "@santis-core/event-contracts";
 import {
   AnimationModeSchema,
   ExperienceFlowSchema,
   GuestSegmentSchema,
   LocaleSchema,
   MoodSchema,
-} from "@santis/event-contracts";
+} from "@santis-core/event-contracts";
 
 export const DeviceTierSchema = z.enum(["low", "mid", "high"]);
 export type DeviceTier = z.infer<typeof DeviceTierSchema>;

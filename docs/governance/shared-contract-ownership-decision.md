@@ -28,31 +28,31 @@ How should SANTIS_WEB consume domain and event contracts without owning or direc
 | `tsconfig.json` | TOOLING | New contract package build config |
 | `scripts/active/audit-contract.mjs` | TOOLING | Contract-package audit tooling |
 | `scripts/ensure-no-db.mjs` | TOOLING | Contract-package boundary guard |
-| `src/audit-log.contract.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/domain-contracts` |
-| `src/audit-log.events.ts` | CONTRACT_CONSTANT | `@santis/event-contracts` or domain contracts after naming decision |
-| `src/boardroom-state.contract.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/domain-contracts` |
-| `src/booking/booking-action.schema.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/domain-contracts` |
-| `src/booking/booking-guard.schema.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/domain-contracts` |
-| `src/booking/booking-progress.schema.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/domain-contracts` |
-| `src/booking/booking-visual.schema.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/domain-contracts` |
-| `src/booking/booking.schema.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/domain-contracts` |
+| `src/audit-log.contract.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/domain-contracts` |
+| `src/audit-log.events.ts` | CONTRACT_CONSTANT | `@santis-core/event-contracts` or domain contracts after naming decision |
+| `src/boardroom-state.contract.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/domain-contracts` |
+| `src/booking/booking-action.schema.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/domain-contracts` |
+| `src/booking/booking-guard.schema.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/domain-contracts` |
+| `src/booking/booking-progress.schema.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/domain-contracts` |
+| `src/booking/booking-visual.schema.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/domain-contracts` |
+| `src/booking/booking.schema.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/domain-contracts` |
 | `src/booking/index.ts` | TOOLING/BARREL | Rebuilt contract-only barrel |
 | `src/core-state.interface.ts` | MIXED — CONTRACT + DOMAIN_RUNTIME | Types to contracts; `createCoreState` to SANTIS_OS runtime |
 | `src/index.ts` | MIXED BARREL | Replace with explicit contract-only exports |
 | `src/intent.contract.ts` | MIXED — CONTRACT + DEFAULT_RUNTIME | Schemas/types to contracts; defaults reviewed separately |
-| `src/ritual-graph.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/domain-contracts` |
+| `src/ritual-graph.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/domain-contracts` |
 | `src/ritual-graph.fixtures.ts` | FIXTURE/TEST | SANTIS_OS test fixtures |
-| `src/scheduling.api.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/domain-contracts` |
-| `src/scheduling.contract.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/domain-contracts` |
+| `src/scheduling.api.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/domain-contracts` |
+| `src/scheduling.contract.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/domain-contracts` |
 | `src/scheduling.availability.ts` | DOMAIN_RUNTIME | SANTIS_OS scheduling runtime |
 | `src/scheduling.availability.test.ts` | FIXTURE/TEST | SANTIS_OS runtime tests |
 | `src/scheduling.booking-guard.ts` | DOMAIN_RUNTIME | SANTIS_OS booking runtime |
 | `src/scheduling.booking-guard.test.ts` | FIXTURE/TEST | SANTIS_OS runtime tests |
 | `src/scheduling.fixtures.ts` | FIXTURE/TEST | SANTIS_OS test fixtures |
-| `src/session.contract.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/domain-contracts` |
-| `src/sse-envelope.contract.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/domain-contracts` |
-| `src/telemetry/booking-telemetry.schema.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/domain-contracts` |
-| `src/telemetry/signal.schema.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/domain-contracts` |
+| `src/session.contract.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/domain-contracts` |
+| `src/sse-envelope.contract.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/domain-contracts` |
+| `src/telemetry/booking-telemetry.schema.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/domain-contracts` |
+| `src/telemetry/signal.schema.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/domain-contracts` |
 | `src/tenant.contract.ts` | MIXED — CONTRACT + DEFAULT_RUNTIME | Schema/types to contracts; default instance reviewed separately |
 
 ```text
@@ -66,12 +66,12 @@ DOMAIN_SCHEMA_FILE_COVERAGE = 30 / 30
 | `package.json` | TOOLING | New event-contract package metadata |
 | `tsconfig.json` | TOOLING | New event-contract build config |
 | `scripts/active/audit-contract.mjs` | TOOLING | Contract-package audit tooling |
-| `src/canonical.types.ts` | CONTRACT_CONSTANT + TYPES | `@santis/event-contracts` |
-| `src/command-result.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/event-contracts` |
-| `src/event.types.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/event-contracts` |
-| `src/pricing.schemas.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/event-contracts` |
-| `src/scp.schemas.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis/event-contracts` |
-| `src/index.ts` | CONTRACT REGISTRY + PARSE RUNTIME | `@santis/event-contracts`; retain parse/safeParse as contract validation |
+| `src/canonical.types.ts` | CONTRACT_CONSTANT + TYPES | `@santis-core/event-contracts` |
+| `src/command-result.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/event-contracts` |
+| `src/event.types.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/event-contracts` |
+| `src/pricing.schemas.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/event-contracts` |
+| `src/scp.schemas.ts` | CONTRACT + VALIDATION_RUNTIME | `@santis-core/event-contracts` |
+| `src/index.ts` | CONTRACT REGISTRY + PARSE RUNTIME | `@santis-core/event-contracts`; retain parse/safeParse as contract validation |
 
 ```text
 EVENT_DICTIONARY_FILE_COVERAGE = 9 / 9
@@ -92,8 +92,8 @@ Example consumer contract:
 
 ```json
 {
-  "@santis/domain-contracts": "1.0.0",
-  "@santis/event-contracts": "1.0.0"
+  "@santis-core/domain-contracts": "1.0.0",
+  "@santis-core/event-contracts": "1.0.0"
 }
 ```
 
