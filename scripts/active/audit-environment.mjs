@@ -78,7 +78,7 @@ console.log('🛡️  [Sovereign Guard] Auditing execution environment...');
 const pkg = readJson(PACKAGE_PATH);
 
 if (pkg) {
-  const expectedNode = pkg.engines?.node ?? '>=20.0.0';
+  const expectedNode = pkg.engines?.node ?? '24.x';
   const expectedPnpm = pkg.engines?.pnpm ?? '>=9.0.0';
   const packageManager = pkg.packageManager ?? '';
 
@@ -97,7 +97,7 @@ if (pkg) {
       console.warn(`\n⚠️  [Sovereign Guard] NODE_VERSION_DRIFT (lokal uyarı — CI'da hard fail)`);
       console.warn(`   expected: ${expectedNode}`);
       console.warn(`   actual:   ${process.version}`);
-      console.warn(`   fix:      fnm use 20 veya nvm use 20 ile Node 20.x kullan.\n`);
+      console.warn(`   fix:      fnm use 24.19.0 veya nvm use 24.19.0 kullan.\n`);
     }
   }
 

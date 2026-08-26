@@ -1,5 +1,5 @@
 ﻿# --- STAGE 1: BUILDER ---
-FROM node:20-alpine AS builder
+FROM node:24.19.0-alpine AS builder
 WORKDIR /app
 
 # Paket tanımlarını kopyala ve tüm bağımlılıkları yükle (dev dahil)
@@ -15,7 +15,7 @@ RUN npm run build
 RUN node -e "const fs=require('fs'); const p=JSON.parse(fs.readFileSync('package.json')); if(p.imports){ p.imports['#database/*']='./dist/database/*'; p.imports['#domain-schema/*']='./dist/domain-schema/*'; fs.writeFileSync('package.json', JSON.stringify(p, null, 2)); }"
 
 # --- STAGE 2: PRODUCTION RUNNER ---
-FROM node:20-alpine AS runner
+FROM node:24.19.0-alpine AS runner
 WORKDIR /app
 
 # Güvenlik: Non-root user kullanımı ve Production ortamı

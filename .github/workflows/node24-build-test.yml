@@ -1,0 +1,87 @@
+name: PAKET IMP 1 Node 24 Build and Test
+
+on:
+  push:
+    branches:
+      - chore/node24-vercel-runtime-compatibility
+
+permissions:
+  contents: read
+
+concurrency:
+  group: paket-imp-1-node24-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  node24-build-test:
+    name: Node 24 full monorepo verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.24.0
+          run_install: false
+
+      - name: Install Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.19.0'
+          cache: pnpm
+
+      - name: Verify toolchain contract
+        shell: bash
+        run: |
+          node --version
+          pnpm --version
+          node -e "if (process.versions.node !== '24.19.0') process.exit(1)"
+          test "$(pnpm --version)" = "10.24.0"
+
+      - name: Install dependencies from frozen lockfile
+        run: pnpm install --frozen-lockfile
+
+      - name: Build complete monorepo
+        run: pnpm build
+
+      - name: Lint complete monorepo
+        run: pnpm lint
+
+      - name: Typecheck complete monorepo
+        run: pnpm typecheck
+
+      - name: Install Playwright browser engines
+        run: pnpm exec playwright install --with-deps chromium firefox webkit
+
+      - name: Run root Playwright E2E suite
+        run: pnpm run test:e2e
+
+      - name: Record exact-head evidence manifest
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "GITHUB_SHA=${GITHUB_SHA}"
+            echo "GITHUB_REF=${GITHUB_REF}"
+            echo "GITHUB_REF_NAME=${GITHUB_REF_NAME}"
+            echo "NODE_VERSION=$(node --version)"
+            echo "PNPM_VERSION=$(pnpm --version)"
+            echo "RUN_ID=${GITHUB_RUN_ID}"
+            echo "RUN_ATTEMPT=${GITHUB_RUN_ATTEMPT}"
+          } > "${RUNNER_TEMP}/node24-validation-manifest.txt"
+
+      - name: Upload Node 24 E2E evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: node24-e2e-evidence-${{ github.sha }}
+          if-no-files-found: warn
+          retention-days: 14
+          path: |
+            ${{ runner.temp }}/node24-validation-manifest.txt
+            tests/artifacts/
+            tests/reports/

@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node + pnpm cache
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24.19.0"
           cache: "pnpm"
 
       - name: Regenerate pnpm-lock.yaml (non-frozen)

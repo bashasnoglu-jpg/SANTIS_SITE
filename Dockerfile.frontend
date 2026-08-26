@@ -1,11 +1,11 @@
 # ╔══════════════════════════════════════════════════════╗
 # ║  SANTIS OS v3 — Frontend Dockerfile                 ║
-# ║  Stage 1: Vite Build (Node 20 LTS)                  ║
+# ║  Stage 1: Vite Build (Node 24)                      ║
 # ║  Stage 2: Nginx Serve (Alpine)                      ║
 # ╚══════════════════════════════════════════════════════╝
 
 # ── Stage 1: Vite Builder ─────────────────────────────────────────────────────
-FROM node:20-alpine AS builder
+FROM node:24.19.0-alpine AS builder
 
 WORKDIR /app
 

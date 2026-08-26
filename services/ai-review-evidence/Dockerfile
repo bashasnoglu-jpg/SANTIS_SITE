@@ -1,4 +1,4 @@
-FROM node:20-alpine AS build
+FROM node:24.19.0-alpine AS build
 WORKDIR /app
 RUN corepack enable
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
@@ -7,7 +7,7 @@ RUN pnpm install --frozen-lockfile --ignore-scripts
 COPY services/ai-review-evidence services/ai-review-evidence
 RUN pnpm --filter @santis/ai-review-evidence build
 
-FROM node:20-alpine AS runtime
+FROM node:24.19.0-alpine AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
 RUN corepack enable
