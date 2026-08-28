@@ -1,0 +1,70 @@
+name: Phase 111-C.1C Python 3.12 Seal
+
+on:
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - "app/idempotency/**"
+      - "tests/test_commission_idempotency_builder.py"
+      - "tests/test_commission_idempotency_builder_coherence.py"
+      - ".github/workflows/phase-111c1c-python312-seal.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python312-exact-seal:
+    name: Python 3.12 exact 26-test seal
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout PR source
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Verify Python runtime
+        run: |
+          python --version
+          python - <<'PY'
+          import sys
+          assert sys.version_info[:2] == (3, 12), sys.version
+          print(f"PYTHON_312_RUNTIME_OK={sys.version.split()[0]}")
+          PY
+
+      - name: Install pytest only
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "pytest>=8,<9"
+
+      - name: Enforce exact 26-test collection
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pytest --collect-only -q \
+            tests/test_commission_idempotency_builder.py \
+            tests/test_commission_idempotency_builder_coherence.py \
+            | tee /tmp/phase111c1c-collect.txt
+
+          COLLECTED="$(grep -c '::test_' /tmp/phase111c1c-collect.txt || true)"
+          echo "COLLECTED_TESTS=${COLLECTED}"
+          test "${COLLECTED}" -eq 26
+
+      - name: Run exact 26 tests and require all passed
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pytest -q \
+            tests/test_commission_idempotency_builder.py \
+            tests/test_commission_idempotency_builder_coherence.py \
+            | tee /tmp/phase111c1c-test.txt
+
+          grep -Eq '(^|[[:space:]])26 passed in ' /tmp/phase111c1c-test.txt
+          echo "PHASE_111_C_1C_EXACT_RESULT=26_PASSED"
