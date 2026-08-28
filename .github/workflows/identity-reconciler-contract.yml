@@ -1,0 +1,40 @@
+name: Identity Reconciler Contract
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/ops/identity-evidence-reconciler*.mjs'
+      - '.github/workflows/identity-reconciler-contract.yml'
+  push:
+    branches:
+      - 'p0/identity-event-reconciler'
+    paths:
+      - 'scripts/ops/identity-evidence-reconciler*.mjs'
+      - '.github/workflows/identity-reconciler-contract.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    name: P0 identity reconciliation contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Syntax check core
+        run: node --check scripts/ops/identity-evidence-reconciler-core.mjs
+
+      - name: Syntax check runtime
+        run: node --check scripts/ops/identity-evidence-reconciler.mjs
+
+      - name: Run deterministic contract tests
+        run: node --test scripts/ops/identity-evidence-reconciler.test.mjs
