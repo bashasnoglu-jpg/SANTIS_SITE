@@ -1,5 +1,5 @@
 // @ts-ignore
-import type { TelemetrySignal } from '@santis/domain-contracts/telemetry';
+import type { TelemetrySignal } from '@santis-core/domain-contracts/telemetry';
 import { z } from "zod";
 
 // Katı Override Modelleri
@@ -248,7 +248,7 @@ export const TelemetryEventCapturedEventSchema = BaseEventSchema.extend({
   }),
 });
 
-import { PricingRecommendationSchema } from "./pricing.schemas";
+import { PricingRecommendationSchema } from "./pricing.schemas.js";
 
 export const PricingRecommendationCreatedEventSchema = BaseEventSchema.extend({
   eventType: z.literal("pricing.recommendation.created"),
@@ -282,7 +282,7 @@ export const ActionApprovalSimulatedEventSchema = BaseEventSchema.extend({
 
 export type ActionApprovalSimulatedEvent = z.infer<typeof ActionApprovalSimulatedEventSchema>;
 
-import { PricingOverrideAppliedSchema } from "./pricing.schemas";
+import { PricingOverrideAppliedSchema } from "./pricing.schemas.js";
 
 export const PricingOverrideAppliedEventSchema = BaseEventSchema.extend({
   eventType: z.literal("pricing.override.applied"),
@@ -448,7 +448,7 @@ export const TriggerRiskSignalCommandSchema = BaseCommandSchema.extend({
   }),
 });
 
-import { PricingOverrideCommandSchema } from "./pricing.schemas";
+import { PricingOverrideCommandSchema } from "./pricing.schemas.js";
 
 export const BoardroomOracleExecutePayloadSchema = z.object({
   actionId: z.string(),
@@ -545,7 +545,7 @@ export function safeParseSantisCommand(input: unknown) {
   return SantisCommandSchema.safeParse(input);
 }
 
-export * from './event.types';
-export * from './command-result';
-export * from './scp.schemas';
-export * from './pricing.schemas';
+export * from './event.types.js';
+export * from './command-result.js';
+export * from './scp.schemas.js';
+export * from './pricing.schemas.js';

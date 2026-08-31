@@ -1,4 +1,4 @@
-import type { RitualGraphNode } from "@santis/domain-contracts";
+import type { RitualGraphNode } from "@santis-core/domain-contracts";
 
 export const ritualGraphFixtures: RitualGraphNode[] = [
   {

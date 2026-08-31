@@ -3,7 +3,7 @@
 **Status:** J-Q1 CONTRACT HARDENED / PERSISTENCE DECOUPLED
 
 ## Goal
-Refactor the Phase J-Q audit log contract to ensure that `@santis/domain-contracts` remains a pure Zod schema contract, while moving Drizzle ORM persistence definitions to `@santis/database`. This architecture strictly isolates the domain schema from persistence mechanics.
+Refactor the Phase J-Q audit log contract to ensure that `@santis-core/domain-contracts` remains a pure Zod schema contract, while moving Drizzle ORM persistence definitions to `@santis/database`. This architecture strictly isolates the domain schema from persistence mechanics.
 
 ## DB-Level Immutability Plan
 The Audit Log is an append-only repository. Updates and deletions of audit events are explicitly forbidden by design.

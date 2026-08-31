@@ -1,5 +1,5 @@
-import type { SantisCommand, SantisEvent } from "@santis/event-contracts";
-import type { CommandResult } from "@santis/event-contracts/command-result";
+import type { SantisCommand, SantisEvent } from "@santis-core/event-contracts";
+import type { CommandResult } from "@santis-core/event-contracts/command-result";
 
 /**
  * ============================================================================

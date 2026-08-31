@@ -1,18 +1,42 @@
 {
-  "name": "@santis/event-contracts",
+  "name": "@santis-core/event-contracts",
   "version": "1.0.0",
-  "main": "./src/index.ts",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./command-result": "./src/command-result.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./command-result": {
+      "types": "./dist/command-result.d.ts",
+      "import": "./dist/command-result.js"
+    }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "tsc -p tsconfig.build.json",
+    "prepack": "pnpm run clean && pnpm run build",
     "typecheck": "tsc --noEmit",
     "test": "node --import tsx --test test/import-export.test.ts",
     "audit:contract": "node ../../scripts/active/audit-contract.mjs"
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bashasnoglu-jpg/SANTIS_SITE.git",
+    "directory": "packages/event-contracts"
+  },
+  "license": "UNLICENSED",
   "dependencies": {
-    "@santis/domain-contracts": "1.0.0",
+    "@santis-core/domain-contracts": "1.0.0",
     "zod": "3.25.76"
   },
   "devDependencies": {

@@ -10,8 +10,8 @@ import type {
   TherapistShift,
   Blocker,
   Booking
-} from "@santis/domain-contracts/scheduling.contract";
-import type { AvailabilitySlot } from "@santis/domain-contracts/scheduling.api";
+} from "@santis-core/domain-contracts/scheduling.contract";
+import type { AvailabilitySlot } from "@santis-core/domain-contracts/scheduling.api";
 
 export interface AvailabilityEngineContext {
   tenant_id: string;

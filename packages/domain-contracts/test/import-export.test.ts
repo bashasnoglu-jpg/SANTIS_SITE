@@ -4,7 +4,7 @@ import type {
   PackageEntity,
   ProgressState,
   TelemetrySignal,
-} from "@santis/domain-contracts";
+} from "@santis-core/domain-contracts";
 
 declare const booking: CanonicalBooking;
 declare const guard: GuardResult;

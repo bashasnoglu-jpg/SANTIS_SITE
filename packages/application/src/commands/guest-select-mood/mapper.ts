@@ -1,4 +1,4 @@
-import type { SantisCommand, SantisEvent } from "@santis/event-contracts";
+import type { SantisCommand, SantisEvent } from "@santis-core/event-contracts";
 
 type SelectMoodCommand = Extract<
   SantisCommand,

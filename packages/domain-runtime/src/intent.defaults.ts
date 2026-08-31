@@ -1,4 +1,4 @@
-import type { IntentType, IntentVector } from "@santis/domain-contracts/intent.contract";
+import type { IntentType, IntentVector } from "@santis-core/domain-contracts/intent.contract";
 
 export const DefaultIntentVectors: Record<IntentType, IntentVector> = {
   RESET: { intent: "RESET", weight: 1, biologicalTargets: { cortisolReductionTarget: 0.9, muscularRecoveryTarget: 0.35, cellularTurnoverTarget: 0.15, energyOptimizationTarget: 0.25, socialSynchronizationTarget: 0.1 } },

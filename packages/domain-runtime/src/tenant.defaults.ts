@@ -1,4 +1,4 @@
-import { TenantSchema } from "@santis/domain-contracts/tenant.contract";
+import { TenantSchema } from "@santis-core/domain-contracts/tenant.contract";
 
 export const DefaultSantisTenant = TenantSchema.parse({
   tenantId: "00000000-0000-4000-8000-000000000001",
