@@ -1,4 +1,7 @@
 export const BOOKING_ATTEMPT_CONTRACT_VERSION = 'BOOKING-CREATE-ATTEMPT-1.0' as const;
+export const CANONICAL_REQUEST_TYPE = 'STANDARD_BOOKING' as const;
+
+export type CanonicalEnvironment = 'Live' | 'Test' | 'Archive';
 
 export type AttemptOutcome =
   | 'SUCCESS'
@@ -6,6 +9,61 @@ export type AttemptOutcome =
   | 'REPLAYED'
   | 'IDEMPOTENCY_CONFLICT'
   | 'CONCURRENCY_REJECTED';
+
+/**
+ * R1.4 canonical authority input state.
+ *
+ * This is the exact state frozen at authorization time. It intentionally includes
+ * graph identity, environment, capability-edge identity, operational/quarantine
+ * evidence, and the economic contract. A missing required value is never authority.
+ *
+ * There is no persisted Request_Type discriminator in the current Airtable request
+ * contract, so R4.1 seals this create path to STANDARD_BOOKING rather than inventing
+ * an upstream field value.
+ */
+export interface CanonicalAuthorityState {
+  // 1. Identity & contract
+  requestExactId: string;
+  requestType: typeof CANONICAL_REQUEST_TYPE;
+  contractVersion: typeof BOOKING_ATTEMPT_CONTRACT_VERSION;
+  policyVersion: string;
+  gateVersion: string;
+
+  // 2. Exact node IDs
+  tenantExactId: string;
+  locationExactId: string;
+  clientExactId: string;
+  serviceExactId: string;
+  therapistExactId: string;
+  roomExactId: string;
+  shiftExactId: string;
+  recStaffExactId?: string | null;
+
+  // 3. Environments
+  requestEnv: CanonicalEnvironment;
+  tenantEnv: CanonicalEnvironment;
+  locationEnv: CanonicalEnvironment;
+  clientEnv: CanonicalEnvironment;
+  serviceEnv: CanonicalEnvironment;
+  therapistEnv: CanonicalEnvironment;
+  roomEnv: CanonicalEnvironment;
+  shiftEnv: CanonicalEnvironment;
+  recStaffEnv?: CanonicalEnvironment | null;
+
+  // 4. Graph/capability parity
+  locationParentTenantExactId: string;
+  therapistServiceAuthorityRecordId: string;
+  roomServiceAuthorityRecordId: string;
+
+  // 5. Unordered evidence sets. Serializer sorts these deterministically.
+  quarantineStates: readonly string[];
+  operationalEligibilityStates: readonly string[];
+
+  // 6. Economic immutability
+  priceMinorUnits: number;
+  currencyIsoCode: string;
+  durationMinutes: number;
+}
 
 export interface BookingRequestPayload<TBusinessData = unknown> {
   requestId: string;
